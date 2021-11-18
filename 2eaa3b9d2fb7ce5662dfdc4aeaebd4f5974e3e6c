@@ -1,0 +1,159 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "9ad4d86d_fec70e33",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2021-11-18T11:10:14Z",
+      "side": 1,
+      "message": "Looks generally good. A couple of comments, the ones I think need some attention for this cl are left as unresolved.",
+      "revId": "2eaa3b9d2fb7ce5662dfdc4aeaebd4f5974e3e6c",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "d301c61a_f4fb7950",
+        "filename": "video/video_send_stream.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 110,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2021-11-18T11:10:14Z",
+      "side": 1,
+      "message": "This used to be an api function.",
+      "range": {
+        "startLine": 110,
+        "startChar": 36,
+        "endLine": 110,
+        "endChar": 60
+      },
+      "revId": "2eaa3b9d2fb7ce5662dfdc4aeaebd4f5974e3e6c",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "21327aa5_b239e953",
+        "filename": "video/video_send_stream.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 125,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2021-11-18T11:10:14Z",
+      "side": 1,
+      "message": "Side note: We used to have more interfaces with a static Create method, but we have tried to move away from that pattern, since it implies a direct dependency from interface to implementation.",
+      "range": {
+        "startLine": 125,
+        "startChar": 6,
+        "endLine": 125,
+        "endChar": 42
+      },
+      "revId": "2eaa3b9d2fb7ce5662dfdc4aeaebd4f5974e3e6c",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "2c3d5069_eaafe2f8",
+        "filename": "video/video_stream_encoder.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 735,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2021-11-18T11:10:14Z",
+      "side": 1,
+      "message": "Since we own the encoder_queue, it would be nice if we could make shutdown work without an explicit event. But that\u0027s not for this cl; it seems simply destroying the encoder_queue isn\u0027t quite the right answer here.",
+      "range": {
+        "startLine": 735,
+        "startChar": 0,
+        "endLine": 735,
+        "endChar": 44
+      },
+      "revId": "2eaa3b9d2fb7ce5662dfdc4aeaebd4f5974e3e6c",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "e6014c33_4b4921c1",
+        "filename": "video/video_stream_encoder.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 824,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2021-11-18T11:10:14Z",
+      "side": 1,
+      "message": "Can we completely delete `worker_queue_`?",
+      "range": {
+        "startLine": 824,
+        "startChar": 0,
+        "endLine": 824,
+        "endChar": 35
+      },
+      "revId": "2eaa3b9d2fb7ce5662dfdc4aeaebd4f5974e3e6c",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "aa19956d_0d67098d",
+        "filename": "video/video_stream_encoder.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 1320,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2021-11-18T11:10:14Z",
+      "side": 1,
+      "message": "Not new in this cl, but I think this logic deserves a comment.",
+      "range": {
+        "startLine": 1320,
+        "startChar": 6,
+        "endLine": 1320,
+        "endChar": 42
+      },
+      "revId": "2eaa3b9d2fb7ce5662dfdc4aeaebd4f5974e3e6c",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "1c20520e_ddca16ad",
+        "filename": "video/video_stream_encoder.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 269,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2021-11-18T11:10:14Z",
+      "side": 1,
+      "message": "Why can pointer no longer be const? If it\u0027s not const, it should probably be both RTC_GUARDED_BY and RTC_PT_GUARDED_BY.",
+      "range": {
+        "startLine": 269,
+        "startChar": 6,
+        "endLine": 269,
+        "endChar": 41
+      },
+      "revId": "2eaa3b9d2fb7ce5662dfdc4aeaebd4f5974e3e6c",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

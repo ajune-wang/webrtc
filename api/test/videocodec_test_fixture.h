@@ -128,6 +128,13 @@ class VideoCodecTestFixture {
     // Name of the codec being tested.
     std::string codec_name;
 
+    // Encoder and decoder format and parameters. If both are provided, they are
+    // passed directly to `CreateVideoEncoder` and `CreateVideoDecoder` calls
+    // respectively. Otherwise, if either or both are not provided, the test
+    // creates and uses the default `SdpVideoFormat` based on `codec_name`.
+    absl::optional<SdpVideoFormat> encoder_format;
+    absl::optional<SdpVideoFormat> decoder_format;
+
     // H.264 specific settings.
     struct H264CodecSettings {
       H264Profile profile = H264Profile::kProfileConstrainedBaseline;

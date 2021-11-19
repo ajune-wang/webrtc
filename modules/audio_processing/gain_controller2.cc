@@ -20,6 +20,7 @@
 #include "modules/audio_processing/logging/apm_data_dumper.h"
 #include "rtc_base/atomic_ops.h"
 #include "rtc_base/checks.h"
+#include "rtc_base/experiments/field_trial_parser.h"
 #include "rtc_base/logging.h"
 #include "rtc_base/strings/string_builder.h"
 #include "system_wrappers/include/field_trial.h"
@@ -50,6 +51,34 @@ AvailableCpuFeatures GetAllowedCpuFeatures() {
   return features;
 }
 
+AdaptiveDigitalGainApplier::FastAdaptationConfig GetFastAdaptationConfig() {
+  AdaptiveDigitalGainApplier::FastAdaptationConfig config;
+  if (field_trial::IsEnabled("WebRTC-Agc2FastAdaptationKillSwitch")) {
+    config.disabled = true;
+    return config;
+  }
+  config.disabled = false;
+
+  // Maybe override parameters.
+  const std::string trial_string =
+      field_trial::FindFullName("WebRTC-Agc2FastAdaptationTuningOverride");
+  FieldTrialParameter<double> param_noise_level_threshold_dbfs(
+      "noise_level_threshold_dbfs", config.noise_level_threshold_dbfs);
+  FieldTrialParameter<int> param_hold_low_noise_ms("hold_low_noise_ms",
+                                                   config.hold_low_noise_ms);
+  FieldTrialParameter<int> param_max_gain_change_multiplier(
+      "max_gain_change_multiplier", config.max_gain_change_multiplier);
+  ParseFieldTrial({&param_noise_level_threshold_dbfs, &param_hold_low_noise_ms,
+                   &param_max_gain_change_multiplier},
+                  trial_string);
+  config.noise_level_threshold_dbfs =
+      static_cast<float>(param_noise_level_threshold_dbfs.Get());
+  config.hold_low_noise_ms = param_hold_low_noise_ms.Get();
+  config.max_gain_change_multiplier = param_max_gain_change_multiplier.Get();
+
+  return config;
+}
+
 // Creates an adaptive digital gain controller if enabled.
 std::unique_ptr<AdaptiveDigitalGainController> CreateAdaptiveDigitalController(
     const Agc2Config::AdaptiveDigital& config,
@@ -62,8 +91,8 @@ std::unique_ptr<AdaptiveDigitalGainController> CreateAdaptiveDigitalController(
   }
   if (config.enabled) {
     return std::make_unique<AdaptiveDigitalGainController>(
-        data_dumper, config, sample_rate_hz, num_channels,
-        use_rfc7874_level_estimator);
+        data_dumper, config, GetFastAdaptationConfig(), sample_rate_hz,
+        num_channels, use_rfc7874_level_estimator);
   }
   return nullptr;
 }
@@ -75,8 +104,7 @@ int GainController2::instance_count_ = 0;
 GainController2::GainController2(const Agc2Config& config,
                                  int sample_rate_hz,
                                  int num_channels)
-    : cpu_features_(GetAllowedCpuFeatures()),
-      data_dumper_(rtc::AtomicOps::Increment(&instance_count_)),
+    : data_dumper_(rtc::AtomicOps::Increment(&instance_count_)),
       fixed_gain_applier_(
           /*hard_clip_samples=*/false,
           /*initial_gain_factor=*/DbToRatio(config.fixed_digital.gain_db)),
@@ -95,8 +123,8 @@ GainController2::GainController2(const Agc2Config& config,
     // TODO(bugs.webrtc.org/7494): Move `vad_reset_period_ms` from adaptive
     // digital to gain controller 2 config.
     vad_ = std::make_unique<VoiceActivityDetectorWrapper>(
-        config.adaptive_digital.vad_reset_period_ms, cpu_features_,
-        sample_rate_hz);
+        config.adaptive_digital.vad_reset_period_ms,
+        /*cpu_features=*/GetAllowedCpuFeatures(), sample_rate_hz);
   }
 }
 

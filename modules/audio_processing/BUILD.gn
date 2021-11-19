@@ -130,6 +130,7 @@ rtc_library("gain_controller2") {
     "../../rtc_base:checks",
     "../../rtc_base:logging",
     "../../rtc_base:stringutils",
+    "../../rtc_base/experiments:field_trial_parser",
     "../../system_wrappers:field_trial",
     "agc2:adaptive_digital",
     "agc2:cpu_features",

@@ -54,13 +54,19 @@ AudioLevels ToAudioLevels(Rfc7874AudioLevelEstimator::Levels levels,
 AdaptiveDigitalGainController::AdaptiveDigitalGainController(
     ApmDataDumper* apm_data_dumper,
     const AudioProcessing::Config::GainController2::AdaptiveDigital& config,
+    const AdaptiveDigitalGainApplier::FastAdaptationConfig&
+        fast_adaptation_config,
     int sample_rate_hz,
     int num_channels,
     bool use_rfc7874_level_estimator)
     : use_rfc7874_level_estimator_(use_rfc7874_level_estimator),
       rfc7874_level_estimator_(sample_rate_hz, apm_data_dumper),
       speech_level_estimator_(apm_data_dumper, config),
-      gain_controller_(apm_data_dumper, config, sample_rate_hz, num_channels),
+      gain_controller_(apm_data_dumper,
+                       config,
+                       fast_adaptation_config,
+                       sample_rate_hz,
+                       num_channels),
       apm_data_dumper_(apm_data_dumper),
       noise_level_estimator_(CreateNoiseFloorEstimator(apm_data_dumper)),
       saturation_protector_(

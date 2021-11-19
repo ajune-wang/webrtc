@@ -16,6 +16,23 @@
       "message": "Not familiar with this code. Ivo, could you please take a look?",
       "revId": "53d59aca3cf38f0c1de4c421215d1fe14e110c49",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "304e5498_82a9f50d",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 3
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 18579
+      },
+      "writtenOn": "2021-11-19T12:28:52Z",
+      "side": 1,
+      "message": "Hi Xavier,\nCould you please take a look?\n",
+      "revId": "53d59aca3cf38f0c1de4c421215d1fe14e110c49",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

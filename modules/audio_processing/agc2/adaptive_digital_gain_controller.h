@@ -16,6 +16,7 @@
 #include "modules/audio_processing/agc2/adaptive_digital_gain_applier.h"
 #include "modules/audio_processing/agc2/adaptive_mode_level_estimator.h"
 #include "modules/audio_processing/agc2/noise_level_estimator.h"
+#include "modules/audio_processing/agc2/rfc7874_level_estimator.h"
 #include "modules/audio_processing/agc2/saturation_protector.h"
 #include "modules/audio_processing/include/audio_frame_view.h"
 #include "modules/audio_processing/include/audio_processing.h"
@@ -31,7 +32,8 @@ class AdaptiveDigitalGainController {
       ApmDataDumper* apm_data_dumper,
       const AudioProcessing::Config::GainController2::AdaptiveDigital& config,
       int sample_rate_hz,
-      int num_channels);
+      int num_channels,
+      bool use_rfc7874_level_estimator);
   AdaptiveDigitalGainController(const AdaptiveDigitalGainController&) = delete;
   AdaptiveDigitalGainController& operator=(
       const AdaptiveDigitalGainController&) = delete;
@@ -51,6 +53,8 @@ class AdaptiveDigitalGainController {
   void HandleInputGainChange();
 
  private:
+  const bool use_rfc7874_level_estimator_;
+  Rfc7874AudioLevelEstimator rfc7874_level_estimator_;
   AdaptiveModeLevelEstimator speech_level_estimator_;
   AdaptiveDigitalGainApplier gain_controller_;
   ApmDataDumper* const apm_data_dumper_;

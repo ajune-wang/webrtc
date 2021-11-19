@@ -596,8 +596,7 @@ VideoStreamEncoder::VideoStreamEncoder(
     std::unique_ptr<webrtc::TaskQueueBase, webrtc::TaskQueueDeleter>
         encoder_queue,
     BitrateAllocationCallbackType allocation_cb_type)
-    : worker_queue_(TaskQueueBase::Current()),
-      number_of_cores_(number_of_cores),
+    : number_of_cores_(number_of_cores),
       sink_(nullptr),
       settings_(settings),
       allocation_cb_type_(allocation_cb_type),
@@ -658,15 +657,15 @@ VideoStreamEncoder::VideoStreamEncoder(
                                settings_.experiment_cpu_load_estimator,
                                std::move(overuse_detector),
                                degradation_preference_manager_.get()),
-      video_source_sink_controller_(/*sink=*/frame_cadence_adapter_.get(),
-                                    /*source=*/nullptr),
+      video_source_sink_controller_(sink_wants_calculator_,
+                                    /*sink=*/frame_cadence_adapter_.get()),
       default_limits_allowed_(
           !field_trial::IsEnabled("WebRTC-DefaultBitrateLimitsKillSwitch")),
       qp_parsing_allowed_(
           !field_trial::IsEnabled("WebRTC-QpParsingKillSwitch")),
       encoder_queue_(std::move(encoder_queue)) {
   TRACE_EVENT0("webrtc", "VideoStreamEncoder::VideoStreamEncoder");
-  RTC_DCHECK_RUN_ON(worker_queue_);
+  RTC_DCHECK_RUN_ON(&worker_checker_);
   RTC_DCHECK(encoder_stats_observer);
   RTC_DCHECK_GE(number_of_cores, 1);
 
@@ -696,17 +695,15 @@ VideoStreamEncoder::VideoStreamEncoder(
 }
 
 VideoStreamEncoder::~VideoStreamEncoder() {
-  RTC_DCHECK_RUN_ON(worker_queue_);
-  RTC_DCHECK(!video_source_sink_controller_.HasSource())
-      << "Must call ::Stop() before destruction.";
+  RTC_DCHECK_RUN_ON(&worker_checker_);
+  RTC_DCHECK(has_stopped_) << "Must call ::Stop() before destruction.";
 }
 
 void VideoStreamEncoder::Stop() {
-  RTC_DCHECK_RUN_ON(worker_queue_);
-  video_source_sink_controller_.SetSource(nullptr);
-
+  RTC_DCHECK_RUN_ON(&worker_checker_);
+  has_stopped_ = true;
+  video_source_sink_controller_.ClearSource();
   rtc::Event shutdown_event;
-
   encoder_queue_.PostTask([this, &shutdown_event] {
     RTC_DCHECK_RUN_ON(&encoder_queue_);
     if (resource_adaptation_processor_) {
@@ -749,7 +746,7 @@ void VideoStreamEncoder::SetFecControllerOverride(
 
 void VideoStreamEncoder::AddAdaptationResource(
     rtc::scoped_refptr<Resource> resource) {
-  RTC_DCHECK_RUN_ON(worker_queue_);
+  RTC_DCHECK_RUN_ON(&worker_checker_);
   TRACE_EVENT0("webrtc", "VideoStreamEncoder::AddAdaptationResource");
   // Map any externally added resources as kCpu for the sake of stats reporting.
   // TODO(hbos): Make the manager map any unknown resources to kCpu and get rid
@@ -770,20 +767,26 @@ void VideoStreamEncoder::AddAdaptationResource(
 
 std::vector<rtc::scoped_refptr<Resource>>
 VideoStreamEncoder::GetAdaptationResources() {
-  RTC_DCHECK_RUN_ON(worker_queue_);
+  RTC_DCHECK_RUN_ON(&worker_checker_);
   return resource_adaptation_processor_->GetResources();
 }
 
 void VideoStreamEncoder::SetSource(
     rtc::VideoSourceInterface<VideoFrame>* source,
     const DegradationPreference& degradation_preference) {
-  RTC_DCHECK_RUN_ON(worker_queue_);
-  video_source_sink_controller_.SetSource(source);
+  RTC_DCHECK_RUN_ON(&worker_checker_);
+  absl::optional<VideoSourceSinkController::Completion> completion;
+  if (source)
+    completion.emplace(video_source_sink_controller_.BeginSetSource(source));
+  else
+    video_source_sink_controller_.ClearSource();
   input_state_provider_.OnHasInputChanged(source);
 
   // This may trigger reconfiguring the QualityScaler on the encoder queue.
-  encoder_queue_.PostTask([this, degradation_preference] {
+  encoder_queue_.PostTask([this, degradation_preference, completion] {
     RTC_DCHECK_RUN_ON(&encoder_queue_);
+    if (completion.has_value())
+      video_source_sink_controller_.CompleteSetSource(*completion);
     degradation_preference_manager_->SetDegradationPreference(
         degradation_preference);
     stream_resource_manager_.SetDegradationPreferences(degradation_preference);
@@ -797,12 +800,11 @@ void VideoStreamEncoder::SetSource(
 }
 
 void VideoStreamEncoder::SetSink(EncoderSink* sink, bool rotation_applied) {
-  RTC_DCHECK_RUN_ON(worker_queue_);
-  video_source_sink_controller_.SetRotationApplied(rotation_applied);
-  video_source_sink_controller_.PushSourceSinkSettings();
-
-  encoder_queue_.PostTask([this, sink] {
+  RTC_DCHECK_RUN_ON(&worker_checker_);
+  encoder_queue_.PostTask([this, sink, rotation_applied] {
     RTC_DCHECK_RUN_ON(&encoder_queue_);
+    sink_wants_calculator_.SetRotationApplied(rotation_applied);
+    video_source_sink_controller_.CommitSinkWants();
     sink_ = sink;
   });
 }
@@ -821,7 +823,7 @@ void VideoStreamEncoder::SetStartBitrate(int start_bitrate_bps) {
 
 void VideoStreamEncoder::ConfigureEncoder(VideoEncoderConfig config,
                                           size_t max_data_payload_length) {
-  RTC_DCHECK_RUN_ON(worker_queue_);
+  RTC_DCHECK_RUN_ON(&worker_checker_);
   encoder_queue_.PostTask(
       [this, config = std::move(config), max_data_payload_length]() mutable {
         RTC_DCHECK_RUN_ON(&encoder_queue_);
@@ -1091,22 +1093,15 @@ void VideoStreamEncoder::ReconfigureEncoder() {
     encoder_resolutions.emplace_back(simulcastStream.width,
                                      simulcastStream.height);
   }
-  worker_queue_->PostTask(ToQueuedTask(
-      task_safety_, [this, max_framerate, alignment,
-                     encoder_resolutions = std::move(encoder_resolutions)]() {
-        RTC_DCHECK_RUN_ON(worker_queue_);
-        if (max_framerate !=
-                video_source_sink_controller_.frame_rate_upper_limit() ||
-            alignment != video_source_sink_controller_.resolution_alignment() ||
-            encoder_resolutions !=
-                video_source_sink_controller_.resolutions()) {
-          video_source_sink_controller_.SetFrameRateUpperLimit(max_framerate);
-          video_source_sink_controller_.SetResolutionAlignment(alignment);
-          video_source_sink_controller_.SetResolutions(
-              std::move(encoder_resolutions));
-          video_source_sink_controller_.PushSourceSinkSettings();
-        }
-      }));
+
+  if (max_framerate != sink_wants_calculator_.frame_rate_upper_limit() ||
+      alignment != sink_wants_calculator_.resolution_alignment() ||
+      encoder_resolutions != sink_wants_calculator_.resolutions()) {
+    sink_wants_calculator_.SetFrameRateUpperLimit(max_framerate);
+    sink_wants_calculator_.SetResolutionAlignment(alignment);
+    sink_wants_calculator_.SetResolutions(std::move(encoder_resolutions));
+    video_source_sink_controller_.CommitSinkWants();
+  }
 
   rate_allocator_ =
       settings_.bitrate_allocator_factory->CreateVideoBitrateAllocator(codec);
@@ -2109,12 +2104,8 @@ void VideoStreamEncoder::OnVideoSourceRestrictionsUpdated(
   RTC_LOG(LS_INFO) << "Updating sink restrictions from "
                    << (reason ? reason->Name() : std::string("<null>"))
                    << " to " << restrictions.ToString();
-  worker_queue_->PostTask(ToQueuedTask(
-      task_safety_, [this, restrictions = std::move(restrictions)]() {
-        RTC_DCHECK_RUN_ON(worker_queue_);
-        video_source_sink_controller_.SetRestrictions(std::move(restrictions));
-        video_source_sink_controller_.PushSourceSinkSettings();
-      }));
+  sink_wants_calculator_.SetRestrictions(std::move(restrictions));
+  video_source_sink_controller_.CommitSinkWants();
 }
 
 void VideoStreamEncoder::RunPostEncode(const EncodedImage& encoded_image,
@@ -2251,15 +2242,10 @@ void VideoStreamEncoder::CheckForAnimatedContent(
       RTC_LOG(LS_INFO) << "Removing resolution cap due to no consistent "
                           "animation detection.";
     }
-    worker_queue_->PostTask(
-        ToQueuedTask(task_safety_, [this, should_cap_resolution]() {
-          RTC_DCHECK_RUN_ON(worker_queue_);
-          video_source_sink_controller_.SetPixelsPerFrameUpperLimit(
-              should_cap_resolution
-                  ? absl::optional<size_t>(kMaxAnimationPixels)
-                  : absl::nullopt);
-          video_source_sink_controller_.PushSourceSinkSettings();
-        }));
+    sink_wants_calculator_.SetPixelsPerFrameUpperLimit(
+        should_cap_resolution ? absl::optional<size_t>(kMaxAnimationPixels)
+                              : absl::nullopt);
+    video_source_sink_controller_.CommitSinkWants();
   }
 }
 

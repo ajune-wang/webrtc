@@ -39,6 +39,30 @@
       },
       "revId": "222bbe39d043e942a18a2ebcbdd3790222043abc",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "be9b19e2_f49c4e09",
+        "filename": "modules/video_coding/codecs/test/videocodec_test_fixture_impl.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 617,
+      "author": {
+        "id": 5825
+      },
+      "writtenOn": "2021-11-19T08:59:53Z",
+      "side": 1,
+      "message": "I removed this condition and updated the code. Encoder and decoder formats are processed independently now.",
+      "parentUuid": "d9e0fe19_14e88112",
+      "range": {
+        "startLine": 617,
+        "startChar": 2,
+        "endLine": 617,
+        "endChar": 55
+      },
+      "revId": "222bbe39d043e942a18a2ebcbdd3790222043abc",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

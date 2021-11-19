@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "d1d9f346_6985ac4d",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 6305
+      },
+      "writtenOn": "2021-11-19T12:21:25Z",
+      "side": 1,
+      "message": "Hello Mirko!\n\nCould you please review this CL which fixes generation of CFBundleVersion in WebRTC.framework/Info.plist.\nBefore this change when script was launched by Python 3 it read byte string from stdout, which was transformed to something like b\u0027content\u0027 when converted to string. It caused bad value for CFBundleVersion generated, something like \"b1.0.0\".\n\nThanks a lot in advance,\nYury.",
+      "revId": "1e4d67d23f5672f5ba7f00f486e9ccda0e024458",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

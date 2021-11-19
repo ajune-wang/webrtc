@@ -11,6 +11,7 @@
 #include "modules/audio_processing/agc2/adaptive_digital_gain_applier.h"
 
 #include <algorithm>
+#include <string>
 
 #include "common_audio/include/audio_util.h"
 #include "modules/audio_processing/agc2/agc2_common.h"
@@ -119,6 +120,7 @@ void CopyAudio(AudioFrameView<const float> src,
 AdaptiveDigitalGainApplier::AdaptiveDigitalGainApplier(
     ApmDataDumper* apm_data_dumper,
     const AudioProcessing::Config::GainController2::AdaptiveDigital& config,
+    const FastAdaptationConfig& fast_adaptation_config,
     int sample_rate_hz,
     int num_channels)
     : apm_data_dumper_(apm_data_dumper),
@@ -126,13 +128,20 @@ AdaptiveDigitalGainApplier::AdaptiveDigitalGainApplier(
           /*hard_clip_samples=*/false,
           /*initial_gain_factor=*/DbToRatio(config.initial_gain_db)),
       config_(config),
+      fast_adaptation_config_(fast_adaptation_config),
       max_gain_change_db_per_10ms_(config_.max_gain_change_db_per_second *
                                    kFrameDurationMs / 1000.0f),
+      hold_low_noise_num_frames_(fast_adaptation_config_.hold_low_noise_ms /
+                                 kFrameDurationMs),
       calls_since_last_gain_log_(0),
       frames_to_gain_increase_allowed_(
           config_.adjacent_speech_frames_threshold),
-      last_gain_db_(config_.initial_gain_db) {
+      last_gain_db_(config_.initial_gain_db),
+      frames_to_low_noise_(hold_low_noise_num_frames_) {
   RTC_DCHECK_GT(max_gain_change_db_per_10ms_, 0.0f);
+  RTC_DCHECK_LT(fast_adaptation_config_.noise_level_threshold_dbfs, 0.0f);
+  RTC_DCHECK_GT(fast_adaptation_config_.max_gain_change_multiplier, 0);
+  RTC_DCHECK_GT(hold_low_noise_num_frames_, 0);
   RTC_DCHECK_GE(frames_to_gain_increase_allowed_, 1);
   RTC_DCHECK_GE(config_.max_output_noise_level_dbfs, -90.0f);
   RTC_DCHECK_LE(config_.max_output_noise_level_dbfs, 0.0f);
@@ -199,17 +208,21 @@ void AdaptiveDigitalGainApplier::Process(const FrameInfo& info,
   const bool gain_increase_allowed = frames_to_gain_increase_allowed_ == 0;
 
   float max_gain_increase_db = max_gain_change_db_per_10ms_;
+  float max_gain_decrease_db = max_gain_change_db_per_10ms_;
   if (first_confident_speech_frame) {
     // No gain increase happened while waiting for a long enough speech
     // sequence. Therefore, temporarily allow a faster gain increase.
     RTC_DCHECK(gain_increase_allowed);
     max_gain_increase_db *= config_.adjacent_speech_frames_threshold;
   }
+  if (FastAdaptationAllowed(info.noise_rms_dbfs)) {
+    max_gain_increase_db *= fast_adaptation_config_.max_gain_change_multiplier;
+    max_gain_decrease_db *= fast_adaptation_config_.max_gain_change_multiplier;
+  }
 
   const float gain_change_this_frame_db = ComputeGainChangeThisFrameDb(
       target_gain_db, last_gain_db_, gain_increase_allowed,
-      /*max_gain_decrease_db=*/max_gain_change_db_per_10ms_,
-      max_gain_increase_db);
+      max_gain_decrease_db, max_gain_increase_db);
 
   apm_data_dumper_->DumpRaw("agc2_adaptive_gain_applier_want_to_change_by_db",
                             target_gain_db - last_gain_db_);
@@ -262,6 +275,24 @@ void AdaptiveDigitalGainApplier::Process(const FrameInfo& info,
                      << " | headroom_db: " << info.headroom_db
                      << " | gain_db: " << last_gain_db_;
   }
+}
+
+bool AdaptiveDigitalGainApplier::FastAdaptationAllowed(float noise_rms_dbfs) {
+  if (fast_adaptation_config_.disabled) {
+    return false;
+  }
+  // Keep track of whether the noise level remained under a threshold for long
+  // enough.
+  if (noise_rms_dbfs > fast_adaptation_config_.noise_level_threshold_dbfs) {
+    frames_to_low_noise_ = hold_low_noise_num_frames_;
+  } else if (frames_to_low_noise_ > 0) {
+    frames_to_low_noise_--;
+  }
+  apm_data_dumper_->DumpRaw("agc2_adaptive_gain_applier_frames_to_low_noise",
+                            frames_to_low_noise_);
+  // Allow fast adaptation if the noise level has been below the threshold for
+  // long enough and if enough adjacent speech frames have been observed.
+  return frames_to_low_noise_ == 0 && frames_to_gain_increase_allowed_ == 0;
 }
 
 }  // namespace webrtc

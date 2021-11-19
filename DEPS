@@ -29,7 +29,7 @@ deps = {
     'condition': 'checkout_ios',
   },
   'src/testing':
-    'https://chromium.googlesource.com/chromium/src/testing@7dee089ce564d1249d3354ebad15bfc8648e02c0',
+    'https://chromium.googlesource.com/chromium/src/testing@c5c1faae7ca2835e3952c95fbbc7b6cb865b8b84',
   'src/third_party':
     'https://chromium.googlesource.com/chromium/src/third_party@d15b5c89b3542b35d4749d461e68872ec7e3003b',
 

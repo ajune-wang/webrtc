@@ -422,6 +422,7 @@ rtc_source_set("peer_connection_quality_test_fixture_api") {
     ":function_view",
     ":libjingle_peerconnection_api",
     ":media_stream_interface",
+    ":network_emulation_manager_api",
     ":network_state_predictor_api",
     ":packet_socket_factory",
     ":rtp_parameters",

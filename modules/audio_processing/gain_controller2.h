@@ -53,7 +53,6 @@ class GainController2 {
 
  private:
   static int instance_count_;
-  const AvailableCpuFeatures cpu_features_;
   ApmDataDumper data_dumper_;
   GainApplier fixed_gain_applier_;
   std::unique_ptr<VoiceActivityDetectorWrapper> vad_;

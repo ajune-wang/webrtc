@@ -31,6 +31,8 @@ class AdaptiveDigitalGainController {
   AdaptiveDigitalGainController(
       ApmDataDumper* apm_data_dumper,
       const AudioProcessing::Config::GainController2::AdaptiveDigital& config,
+      const AdaptiveDigitalGainApplier::FastAdaptationConfig&
+          fast_adaptation_config,
       int sample_rate_hz,
       int num_channels,
       bool use_rfc7874_level_estimator);

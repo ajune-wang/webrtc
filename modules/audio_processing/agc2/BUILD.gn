@@ -41,6 +41,7 @@ rtc_library("adaptive_digital") {
     ":cpu_features",
     ":gain_applier",
     ":noise_level_estimator",
+    ":rfc7874_level_estimator",
     ":vad_wrapper",
     "..:api",
     "..:apm_logging",
@@ -56,6 +57,23 @@ rtc_library("adaptive_digital") {
   ]
 
   absl_deps = [ "//third_party/abseil-cpp/absl/types:optional" ]
+}
+
+rtc_library("rfc7874_level_estimator") {
+  visibility = [ "./*" ]
+  sources = [
+    "rfc7874_level_estimator.cc",
+    "rfc7874_level_estimator.h",
+  ]
+
+  configs += [ "..:apm_debug_dump" ]
+
+  deps = [
+    ":biquad_filter",
+    "..:apm_logging",
+    "../../../api:array_view",
+    "../../../rtc_base:checks",
+  ]
 }
 
 rtc_library("biquad_filter") {

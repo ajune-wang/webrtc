@@ -290,7 +290,7 @@ TEST(GainController2, CheckFinalGainWithAdaptiveDigitalController) {
   const float applied_gain_db =
       20.0f * std::log10(audio_buffer.channels_const()[0][0]);
 
-  constexpr float kExpectedGainDb = 5.6f;
+  constexpr float kExpectedGainDb = 9.8f;
   constexpr float kToleranceDb = 0.3f;
   EXPECT_NEAR(applied_gain_db, kExpectedGainDb, kToleranceDb);
 }

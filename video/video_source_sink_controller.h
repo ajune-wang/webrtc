@@ -24,23 +24,14 @@
 
 namespace webrtc {
 
-// Responsible for configuring source/sink settings, i.e. performing
-// rtc::VideoSourceInterface<VideoFrame>::AddOrUpdateSink(). It does this by
-// storing settings internally which are converted to rtc::VideoSinkWants when
-// PushSourceSinkSettings() is performed.
-class VideoSourceSinkController {
+// Class for accumulating and calculating sink wants.
+// With the exception of the ctor, this class need to be used entirely from the
+// same sequence.
+class SinkWantsCalculator {
  public:
-  VideoSourceSinkController(rtc::VideoSinkInterface<VideoFrame>* sink,
-                            rtc::VideoSourceInterface<VideoFrame>* source);
+  SinkWantsCalculator();
 
-  ~VideoSourceSinkController();
-
-  void SetSource(rtc::VideoSourceInterface<VideoFrame>* source);
-  bool HasSource() const;
-
-  // Must be called in order for changes to settings to have an effect. This
-  // allows you to modify multiple properties in a single push to the sink.
-  void PushSourceSinkSettings();
+  rtc::VideoSinkWants ComputeWants() const;
 
   VideoSourceRestrictions restrictions() const;
   absl::optional<size_t> pixels_per_frame_upper_limit() const;
@@ -60,17 +51,7 @@ class VideoSourceSinkController {
   void SetResolutions(std::vector<rtc::VideoSinkWants::FrameSize> resolutions);
 
  private:
-  rtc::VideoSinkWants CurrentSettingsToSinkWants() const
-      RTC_EXCLUSIVE_LOCKS_REQUIRED(sequence_checker_);
-
-  // Used to ensure that this class is called on threads/sequences that it and
-  // downstream implementations were designed for.
-  // In practice, this represent's libjingle's worker thread.
   RTC_NO_UNIQUE_ADDRESS SequenceChecker sequence_checker_;
-
-  rtc::VideoSinkInterface<VideoFrame>* const sink_;
-  rtc::VideoSourceInterface<VideoFrame>* source_
-      RTC_GUARDED_BY(&sequence_checker_);
   // Pixel and frame rate restrictions.
   VideoSourceRestrictions restrictions_ RTC_GUARDED_BY(&sequence_checker_);
   // Ensures that even if we are not restricted, the sink is never configured
@@ -84,6 +65,40 @@ class VideoSourceSinkController {
   int resolution_alignment_ RTC_GUARDED_BY(&sequence_checker_) = 1;
   std::vector<rtc::VideoSinkWants::FrameSize> resolutions_
       RTC_GUARDED_BY(&sequence_checker_);
+};
+
+// Responsible for configuring source/sink settings, i.e. performing
+// rtc::VideoSourceInterface<VideoFrame>::AddOrUpdateSink(). It does this by
+// quering the referenced SinkWantsCalculator when switching sources (with
+// SetSource/UpdateSinkAndWants) or when comitting new sink wants (with
+// only UpdateSinkAndWants).
+//
+// This class is thread safe, except UpdateSinkAndWants needs to be called on
+// the same sequence as operates on the SinkWantsCalculator.
+class VideoSourceSinkController {
+ public:
+  VideoSourceSinkController(const SinkWantsCalculator& calculator,
+                            rtc::VideoSinkInterface<VideoFrame>* sink);
+
+  // Begins setting a new source. If the old source was already set and
+  // different from |source|, |sink| is de-registered from it prior to clearing.
+  void SetSource(rtc::VideoSourceInterface<VideoFrame>* source);
+
+  // Completes a SetSource operation and updates sink wants of the current
+  // source. It's fine to call this method without prior SetSource operation, to
+  // commit changes in the registered SinkWantsCalculator. The AddOrUpdateSink
+  // method of the source set from SetSource is called with the
+  // calculator's current sink wants.
+  // The method is expected to be called on the same sequence that the
+  // SinkWantsCalculator is used on.
+  void UpdateSinkAndWants();
+
+ private:
+  Mutex mutex_;
+  const SinkWantsCalculator& calculator_;
+  rtc::VideoSinkInterface<VideoFrame>* const sink_;
+  rtc::VideoSourceInterface<VideoFrame>* source_ RTC_GUARDED_BY(&mutex_) =
+      nullptr;
 };
 
 }  // namespace webrtc

@@ -17,6 +17,7 @@
 #include "rtc_base/logging.h"
 #include "rtc_base/numerics/safe_conversions.h"
 #include "rtc_base/strings/string_builder.h"
+#include "rtc_base/synchronization/mutex.h"
 
 namespace webrtc {
 
@@ -43,119 +44,12 @@ std::string WantsToString(const rtc::VideoSinkWants& wants) {
 
 }  // namespace
 
-VideoSourceSinkController::VideoSourceSinkController(
-    rtc::VideoSinkInterface<VideoFrame>* sink,
-    rtc::VideoSourceInterface<VideoFrame>* source)
-    : sink_(sink), source_(source) {
-  RTC_DCHECK(sink_);
+SinkWantsCalculator::SinkWantsCalculator() {
+  sequence_checker_.Detach();
 }
 
-VideoSourceSinkController::~VideoSourceSinkController() {
+rtc::VideoSinkWants SinkWantsCalculator::ComputeWants() const {
   RTC_DCHECK_RUN_ON(&sequence_checker_);
-}
-
-void VideoSourceSinkController::SetSource(
-    rtc::VideoSourceInterface<VideoFrame>* source) {
-  RTC_DCHECK_RUN_ON(&sequence_checker_);
-
-  rtc::VideoSourceInterface<VideoFrame>* old_source = source_;
-  source_ = source;
-
-  if (old_source != source && old_source)
-    old_source->RemoveSink(sink_);
-
-  if (!source)
-    return;
-
-  source->AddOrUpdateSink(sink_, CurrentSettingsToSinkWants());
-}
-
-bool VideoSourceSinkController::HasSource() const {
-  RTC_DCHECK_RUN_ON(&sequence_checker_);
-  return source_ != nullptr;
-}
-
-void VideoSourceSinkController::PushSourceSinkSettings() {
-  RTC_DCHECK_RUN_ON(&sequence_checker_);
-  if (!source_)
-    return;
-  rtc::VideoSinkWants wants = CurrentSettingsToSinkWants();
-  RTC_LOG(LS_INFO) << "Pushing SourceSink restrictions: "
-                   << WantsToString(wants);
-  source_->AddOrUpdateSink(sink_, wants);
-}
-
-VideoSourceRestrictions VideoSourceSinkController::restrictions() const {
-  RTC_DCHECK_RUN_ON(&sequence_checker_);
-  return restrictions_;
-}
-
-absl::optional<size_t> VideoSourceSinkController::pixels_per_frame_upper_limit()
-    const {
-  RTC_DCHECK_RUN_ON(&sequence_checker_);
-  return pixels_per_frame_upper_limit_;
-}
-
-absl::optional<double> VideoSourceSinkController::frame_rate_upper_limit()
-    const {
-  RTC_DCHECK_RUN_ON(&sequence_checker_);
-  return frame_rate_upper_limit_;
-}
-
-bool VideoSourceSinkController::rotation_applied() const {
-  RTC_DCHECK_RUN_ON(&sequence_checker_);
-  return rotation_applied_;
-}
-
-int VideoSourceSinkController::resolution_alignment() const {
-  RTC_DCHECK_RUN_ON(&sequence_checker_);
-  return resolution_alignment_;
-}
-
-const std::vector<rtc::VideoSinkWants::FrameSize>&
-VideoSourceSinkController::resolutions() const {
-  RTC_DCHECK_RUN_ON(&sequence_checker_);
-  return resolutions_;
-}
-
-void VideoSourceSinkController::SetRestrictions(
-    VideoSourceRestrictions restrictions) {
-  RTC_DCHECK_RUN_ON(&sequence_checker_);
-  restrictions_ = std::move(restrictions);
-}
-
-void VideoSourceSinkController::SetPixelsPerFrameUpperLimit(
-    absl::optional<size_t> pixels_per_frame_upper_limit) {
-  RTC_DCHECK_RUN_ON(&sequence_checker_);
-  pixels_per_frame_upper_limit_ = std::move(pixels_per_frame_upper_limit);
-}
-
-void VideoSourceSinkController::SetFrameRateUpperLimit(
-    absl::optional<double> frame_rate_upper_limit) {
-  RTC_DCHECK_RUN_ON(&sequence_checker_);
-  frame_rate_upper_limit_ = std::move(frame_rate_upper_limit);
-}
-
-void VideoSourceSinkController::SetRotationApplied(bool rotation_applied) {
-  RTC_DCHECK_RUN_ON(&sequence_checker_);
-  rotation_applied_ = rotation_applied;
-}
-
-void VideoSourceSinkController::SetResolutionAlignment(
-    int resolution_alignment) {
-  RTC_DCHECK_RUN_ON(&sequence_checker_);
-  resolution_alignment_ = resolution_alignment;
-}
-
-void VideoSourceSinkController::SetResolutions(
-    std::vector<rtc::VideoSinkWants::FrameSize> resolutions) {
-  RTC_DCHECK_RUN_ON(&sequence_checker_);
-  resolutions_ = std::move(resolutions);
-}
-
-// RTC_EXCLUSIVE_LOCKS_REQUIRED(sequence_checker_)
-rtc::VideoSinkWants VideoSourceSinkController::CurrentSettingsToSinkWants()
-    const {
   rtc::VideoSinkWants wants;
   wants.rotation_applied = rotation_applied_;
   // `wants.black_frames` is not used, it always has its default value false.
@@ -183,6 +77,99 @@ rtc::VideoSinkWants VideoSourceSinkController::CurrentSettingsToSinkWants()
                    : std::numeric_limits<int>::max());
   wants.resolutions = resolutions_;
   return wants;
+}
+
+VideoSourceRestrictions SinkWantsCalculator::restrictions() const {
+  RTC_DCHECK_RUN_ON(&sequence_checker_);
+  return restrictions_;
+}
+
+absl::optional<size_t> SinkWantsCalculator::pixels_per_frame_upper_limit()
+    const {
+  RTC_DCHECK_RUN_ON(&sequence_checker_);
+  return pixels_per_frame_upper_limit_;
+}
+
+absl::optional<double> SinkWantsCalculator::frame_rate_upper_limit() const {
+  RTC_DCHECK_RUN_ON(&sequence_checker_);
+  return frame_rate_upper_limit_;
+}
+
+bool SinkWantsCalculator::rotation_applied() const {
+  RTC_DCHECK_RUN_ON(&sequence_checker_);
+  return rotation_applied_;
+}
+
+int SinkWantsCalculator::resolution_alignment() const {
+  RTC_DCHECK_RUN_ON(&sequence_checker_);
+  return resolution_alignment_;
+}
+
+const std::vector<rtc::VideoSinkWants::FrameSize>&
+SinkWantsCalculator::resolutions() const {
+  RTC_DCHECK_RUN_ON(&sequence_checker_);
+  return resolutions_;
+}
+
+void SinkWantsCalculator::SetRestrictions(
+    VideoSourceRestrictions restrictions) {
+  RTC_DCHECK_RUN_ON(&sequence_checker_);
+  restrictions_ = std::move(restrictions);
+}
+
+void SinkWantsCalculator::SetPixelsPerFrameUpperLimit(
+    absl::optional<size_t> pixels_per_frame_upper_limit) {
+  RTC_DCHECK_RUN_ON(&sequence_checker_);
+  pixels_per_frame_upper_limit_ = std::move(pixels_per_frame_upper_limit);
+}
+
+void SinkWantsCalculator::SetFrameRateUpperLimit(
+    absl::optional<double> frame_rate_upper_limit) {
+  RTC_DCHECK_RUN_ON(&sequence_checker_);
+  frame_rate_upper_limit_ = std::move(frame_rate_upper_limit);
+}
+
+void SinkWantsCalculator::SetRotationApplied(bool rotation_applied) {
+  RTC_DCHECK_RUN_ON(&sequence_checker_);
+  rotation_applied_ = rotation_applied;
+}
+
+void SinkWantsCalculator::SetResolutionAlignment(int resolution_alignment) {
+  RTC_DCHECK_RUN_ON(&sequence_checker_);
+  resolution_alignment_ = resolution_alignment;
+}
+
+void SinkWantsCalculator::SetResolutions(
+    std::vector<rtc::VideoSinkWants::FrameSize> resolutions) {
+  RTC_DCHECK_RUN_ON(&sequence_checker_);
+  resolutions_ = std::move(resolutions);
+}
+
+VideoSourceSinkController::VideoSourceSinkController(
+    const SinkWantsCalculator& calculator,
+    rtc::VideoSinkInterface<VideoFrame>* sink)
+    : calculator_(calculator), sink_(sink) {
+  RTC_DCHECK(sink_);
+}
+
+void VideoSourceSinkController::SetSource(
+    rtc::VideoSourceInterface<VideoFrame>* source) {
+  MutexLock lock(&mutex_);
+  if (source_ && source_ != source) {
+    source_->RemoveSink(sink_);
+  }
+  source_ = source;
+}
+
+void VideoSourceSinkController::UpdateSinkAndWants() {
+  rtc::VideoSinkWants wants = calculator_.ComputeWants();
+  MutexLock lock(&mutex_);
+  // An intermediate ClearSource might have happened. Return in such case.
+  if (!source_)
+    return;
+  RTC_LOG(LS_INFO) << "Pushing SourceSink restrictions: "
+                   << WantsToString(wants);
+  source_->AddOrUpdateSink(sink_, wants);
 }
 
 }  // namespace webrtc

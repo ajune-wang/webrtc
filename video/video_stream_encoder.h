@@ -39,6 +39,7 @@
 #include "rtc_base/numerics/exp_filter.h"
 #include "rtc_base/race_checker.h"
 #include "rtc_base/rate_statistics.h"
+#include "rtc_base/system/no_unique_address.h"
 #include "rtc_base/task_queue.h"
 #include "rtc_base/task_utils/pending_task_safety_flag.h"
 #include "rtc_base/thread_annotations.h"
@@ -241,8 +242,6 @@ class VideoStreamEncoder : public VideoStreamEncoderInterface,
                                int64_t time_when_posted_in_ms)
       RTC_RUN_ON(&encoder_queue_);
 
-  TaskQueueBase* const worker_queue_;
-
   const uint32_t number_of_cores_;
 
   EncoderSink* sink_;
@@ -253,6 +252,8 @@ class VideoStreamEncoder : public VideoStreamEncoderInterface,
   std::unique_ptr<VideoEncoderFactory::EncoderSelectorInterface> const
       encoder_selector_;
   VideoStreamEncoderObserver* const encoder_stats_observer_;
+
+  RTC_NO_UNIQUE_ADDRESS SequenceChecker worker_checker_;
   // Adapter that avoids public inheritance of the cadence adapter's callback
   // interface.
   CadenceCallback cadence_callback_;
@@ -411,12 +412,15 @@ class VideoStreamEncoder : public VideoStreamEncoderInterface,
       RTC_GUARDED_BY(&encoder_queue_);
   std::vector<rtc::scoped_refptr<Resource>> additional_resources_
       RTC_GUARDED_BY(&encoder_queue_);
+  // Does the bulk of VideoSinkWants computations needed to operate the
+  // |video_source_sink_controller_| below.
+  SinkWantsCalculator sink_wants_calculator_ RTC_GUARDED_BY(&encoder_queue_);
   // Carries out the VideoSourceRestrictions provided by the
   // ResourceAdaptationProcessor, i.e. reconfigures the source of video frames
   // to provide us with different resolution or frame rate.
-  // This class is thread-safe.
-  VideoSourceSinkController video_source_sink_controller_
-      RTC_GUARDED_BY(worker_queue_);
+  // The class is thread-safe.
+  VideoSourceSinkController video_source_sink_controller_;
+  bool has_stopped_ RTC_GUARDED_BY(worker_checker_) = false;
 
   // Default bitrate limits in EncoderInfoSettings allowed.
   const bool default_limits_allowed_;

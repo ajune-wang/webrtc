@@ -376,6 +376,12 @@ class VideoStreamEncoderUnderTest : public VideoStreamEncoder {
     InjectAdaptationConstraint(&fake_adaptation_constraint_);
   }
 
+  void SetSource(rtc::VideoSourceInterface<VideoFrame>* source,
+                 const DegradationPreference& degradation_preference) override {
+    VideoStreamEncoder::SetSource(source, degradation_preference);
+    WaitUntilTaskQueueIsIdle();
+  }
+
   void SetSourceAndWaitForRestrictionsUpdated(
       rtc::VideoSourceInterface<VideoFrame>* source,
       const DegradationPreference& degradation_preference) {
@@ -2338,6 +2344,7 @@ TEST_F(VideoStreamEncoderTest, SwitchSourceDeregisterEncoderAsSink) {
 TEST_F(VideoStreamEncoderTest, SinkWantsRotationApplied) {
   EXPECT_FALSE(video_source_.sink_wants().rotation_applied);
   video_stream_encoder_->SetSink(&sink_, true /*rotation_applied*/);
+  video_stream_encoder_->WaitUntilTaskQueueIsIdle();
   EXPECT_TRUE(video_source_.sink_wants().rotation_applied);
   video_stream_encoder_->Stop();
 }
@@ -6127,7 +6134,7 @@ TEST_F(VideoStreamEncoderTest,
   video_stream_encoder_->ConfigureEncoder(video_encoder_config_.Copy(),
                                           kMaxPayloadLength);
   video_stream_encoder_->WaitUntilTaskQueueIsIdle();
-  AdvanceTime(TimeDelta::Zero());
+
   // Since we turned off the quality scaler, the adaptations made by it are
   // removed.
   EXPECT_THAT(source.sink_wants(), ResolutionMax());
@@ -8734,7 +8741,7 @@ TEST(VideoStreamEncoderFrameCadenceTest,
   auto video_stream_encoder = factory.Create(std::move(adapter));
   video_stream_encoder->SetSource(
       &video_source, webrtc::DegradationPreference::MAINTAIN_FRAMERATE);
-
+  factory.DepleteTaskQueues();
   EXPECT_CALL(*adapter_ptr, OnFrame);
   auto buffer = rtc::make_ref_counted<NV12Buffer>(/*width=*/16, /*height=*/16);
   video_source.IncomingCapturedFrame(

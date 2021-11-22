@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "c00f994d_6a247c0e",
+        "filename": "api/test/network_emulation_manager.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 134,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2021-11-22T14:49:38Z",
+      "side": 1,
+      "message": "Non-virtual utility method, based on the three virtual getters.",
+      "range": {
+        "startLine": 134,
+        "startChar": 0,
+        "endLine": 134,
+        "endChar": 48
+      },
+      "revId": "5e11548856096891029f87966f6c32518b40fe06",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

@@ -93,10 +93,11 @@ void AudioRtpReceiver::OnSetVolume(double volume) {
   RTC_DCHECK_RUN_ON(&signaling_thread_checker_);
   RTC_DCHECK_GE(volume, 0);
   RTC_DCHECK_LE(volume, 10);
-  if (stopped_)
-    return;
 
   cached_volume_ = volume;
+
+  if (stopped_)
+    return;
 
   // When the track is disabled, the volume of the source, which is the
   // corresponding WebRtc Voice Engine channel will be 0. So we do not allow

@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "5a81fa8d_cda2b303",
+        "filename": "test/pc/e2e/test_peer_factory.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 264,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2021-11-22T09:43:32Z",
+      "side": 1,
+      "message": "This is the main part of the change, the rest is wiring to get the right factory here.",
+      "range": {
+        "startLine": 264,
+        "startChar": 1,
+        "endLine": 264,
+        "endChar": 80
+      },
+      "revId": "a185ee8c64de78c3108c2e6f42b247346c70803b",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

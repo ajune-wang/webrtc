@@ -1,0 +1,73 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "692997ee_5c5e2141",
+        "filename": "media/engine/internal_decoder_factory.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 46,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2021-11-22T17:34:23Z",
+      "side": 1,
+      "message": "nit.\nmay be\nbool av1_support \u003d kIsLibaomAv1DecoderSupported;",
+      "range": {
+        "startLine": 46,
+        "startChar": 2,
+        "endLine": 46,
+        "endChar": 29
+      },
+      "revId": "cd68dd37c418974559a7f3e566d7a73b782acf54",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "48337488_eb9a5a93",
+        "filename": "media/engine/internal_decoder_factory.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 50,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2021-11-22T17:34:23Z",
+      "side": 1,
+      "message": "personally I prefer boolean constant over macro (that\u0027s why libaom is guarded with a constant rather than macro)",
+      "range": {
+        "startLine": 50,
+        "startChar": 19,
+        "endLine": 50,
+        "endChar": 47
+      },
+      "revId": "cd68dd37c418974559a7f3e566d7a73b782acf54",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "4efd841f_76dcf7da",
+        "filename": "webrtc.gni",
+        "patchSetId": 5
+      },
+      "lineNbr": 229,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2021-11-22T17:34:23Z",
+      "side": 1,
+      "message": "should probably be false by default.\n\nOtherwise this CL adds as much binary size as the original one that was reverted for this very reason.",
+      "range": {
+        "startLine": 229,
+        "startChar": 50,
+        "endLine": 229,
+        "endChar": 54
+      },
+      "revId": "cd68dd37c418974559a7f3e566d7a73b782acf54",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

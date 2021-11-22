@@ -24,6 +24,30 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "709b10dd_bf5da095",
+        "filename": "test/pc/e2e/analyzer/video/default_video_quality_analyzer_shared_objects.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 98,
+      "author": {
+        "id": 6337
+      },
+      "writtenOn": "2021-11-22T11:49:34Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "0a4e2dc2_4a5231e5",
+      "range": {
+        "startLine": 98,
+        "startChar": 11,
+        "endLine": 98,
+        "endChar": 34
+      },
+      "revId": "3278ab018f7b39e486357e85f9c607656191ff24",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "29dd5cea_7b6ccb1d",
@@ -47,6 +71,30 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "94c6766e_dbf368a5",
+        "filename": "test/pc/e2e/analyzer/video/default_video_quality_analyzer_shared_objects.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 116,
+      "author": {
+        "id": 6337
+      },
+      "writtenOn": "2021-11-22T11:49:34Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "29dd5cea_7b6ccb1d",
+      "range": {
+        "startLine": 116,
+        "startChar": 11,
+        "endLine": 116,
+        "endChar": 34
+      },
+      "revId": "3278ab018f7b39e486357e85f9c607656191ff24",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "b4567b7f_7ad176e0",
@@ -60,6 +108,30 @@
       "writtenOn": "2021-11-21T20:34:29Z",
       "side": 1,
       "message": "EXPECT_THAT(...GetStatsKey(), UnorderedElementsAre(kAliceBobStats kAlice)).\nNo need to check the size.",
+      "range": {
+        "startLine": 882,
+        "startChar": 39,
+        "endLine": 882,
+        "endChar": 51
+      },
+      "revId": "3278ab018f7b39e486357e85f9c607656191ff24",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "efcdd6f0_568ea9a8",
+        "filename": "test/pc/e2e/analyzer/video/default_video_quality_analyzer_test.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 882,
+      "author": {
+        "id": 6337
+      },
+      "writtenOn": "2021-11-22T11:49:34Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "b4567b7f_7ad176e0",
       "range": {
         "startLine": 882,
         "startChar": 39,

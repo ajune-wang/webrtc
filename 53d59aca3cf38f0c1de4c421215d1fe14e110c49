@@ -58,6 +58,30 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "f4918788_891a3c29",
+        "filename": "sdk/android/api/org/webrtc/audio/JavaAudioDeviceModule.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 276,
+      "author": {
+        "id": 18579
+      },
+      "writtenOn": "2021-11-22T15:40:00Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "e9ee68a0_2c8c394f",
+      "range": {
+        "startLine": 275,
+        "startChar": 0,
+        "endLine": 276,
+        "endChar": 32
+      },
+      "revId": "53d59aca3cf38f0c1de4c421215d1fe14e110c49",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "c96a9a15_372f854c",
@@ -71,6 +95,30 @@
       "writtenOn": "2021-11-22T14:25:12Z",
       "side": 1,
       "message": "Could you also update this method?",
+      "range": {
+        "startLine": 720,
+        "startChar": 0,
+        "endLine": 729,
+        "endChar": 3
+      },
+      "revId": "53d59aca3cf38f0c1de4c421215d1fe14e110c49",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "51558a11_2e0a2766",
+        "filename": "sdk/android/src/java/org/webrtc/audio/WebRtcAudioRecord.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 729,
+      "author": {
+        "id": 18579
+      },
+      "writtenOn": "2021-11-22T15:40:00Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "c96a9a15_372f854c",
       "range": {
         "startLine": 720,
         "startChar": 0,

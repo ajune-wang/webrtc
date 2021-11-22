@@ -272,6 +272,8 @@ public class JavaAudioDeviceModule implements AudioDeviceModule {
   public static interface AudioRecordStateCallback {
     void onWebRtcAudioRecordStart();
     void onWebRtcAudioRecordStop();
+    default void onAudioRecordPostInit(){};
+    default void onAudioRecordPreInit(){};
   }
 
   /**

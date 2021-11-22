@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "b3bcb89c_948e9dca",
+        "filename": "api/test/peer_network_dependencies.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 26,
+      "author": {
+        "id": 6337
+      },
+      "writtenOn": "2021-11-22T14:57:29Z",
+      "side": 1,
+      "message": "Maybe document that they should be non-null and also describe what for they will be used?",
+      "range": {
+        "startLine": 24,
+        "startChar": 2,
+        "endLine": 26,
+        "endChar": 50
+      },
+      "revId": "0a967759e79d34ee7bf80a866c064321710167cb",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

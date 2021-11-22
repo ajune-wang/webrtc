@@ -224,6 +224,9 @@ declare_args() {
   # Windows.Graphics.Capture APIs will be available for use. This introduces a
   # dependency on the Win 10 SDK v10.0.17763.0.
   rtc_enable_win_wgc = is_win
+
+  # Includes the dav1d decoder when set to true.
+  rtc_enable_dav1d = true
 }
 
 if (!build_with_mozilla) {

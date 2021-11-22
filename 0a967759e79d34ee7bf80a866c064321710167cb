@@ -22,6 +22,30 @@
       },
       "revId": "0a967759e79d34ee7bf80a866c064321710167cb",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "7bf4edf8_3290de99",
+        "filename": "api/test/peer_network_dependencies.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 26,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2021-11-22T15:08:47Z",
+      "side": 1,
+      "message": "Comment on the AddPeer method now says\n\n  // `network_dependencies` are used to provide networking for peer\u0027s peer \n  // connection. Members must be non-null.\n  \nDo you think any more details are needed?",
+      "parentUuid": "b3bcb89c_948e9dca",
+      "range": {
+        "startLine": 24,
+        "startChar": 2,
+        "endLine": 26,
+        "endChar": 50
+      },
+      "revId": "0a967759e79d34ee7bf80a866c064321710167cb",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

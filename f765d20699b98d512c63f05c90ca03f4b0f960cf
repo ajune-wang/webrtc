@@ -1,0 +1,182 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "d933af05_8596c125",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 6
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5125
+      },
+      "writtenOn": "2021-11-22T23:07:38Z",
+      "side": 1,
+      "message": "Thanks for this CL!",
+      "revId": "f765d20699b98d512c63f05c90ca03f4b0f960cf",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "933d12e3_ae0c1fe5",
+        "filename": "modules/audio_processing/agc2/adaptive_digital_gain_controller.cc",
+        "patchSetId": 6
+      },
+      "lineNbr": 40,
+      "author": {
+        "id": 5125
+      },
+      "writtenOn": "2021-11-22T23:07:38Z",
+      "side": 1,
+      "message": "A comment on this is that it is if possible much more preferred to work with the squared RMS rather than with the actual RMS.\nWorking with the RMS requires the sometimes quite expensive square root to be computed so that should be avoided if there is no explicit need to use the RMS",
+      "range": {
+        "startLine": 40,
+        "startChar": 30,
+        "endLine": 40,
+        "endChar": 34
+      },
+      "revId": "f765d20699b98d512c63f05c90ca03f4b0f960cf",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "e4e0c5d3_41dc27b2",
+        "filename": "modules/audio_processing/agc2/adaptive_digital_gain_controller.cc",
+        "patchSetId": 6
+      },
+      "lineNbr": 49,
+      "author": {
+        "id": 5125
+      },
+      "writtenOn": "2021-11-22T23:07:38Z",
+      "side": 1,
+      "message": "Why is kMinDbfs added? That introduces a bias.\n\nI would have expected either to always use a bias to avoid taking log(0) or to use an if-statement to avoid taking log(0). But here both of those approaches seem to be used together.",
+      "range": {
+        "startLine": 49,
+        "startChar": 66,
+        "endLine": 49,
+        "endChar": 74
+      },
+      "revId": "f765d20699b98d512c63f05c90ca03f4b0f960cf",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "f61a7d0c_48b258bb",
+        "filename": "modules/audio_processing/agc2/rfc7874_level_estimator.cc",
+        "patchSetId": 6
+      },
+      "lineNbr": 22,
+      "author": {
+        "id": 5125
+      },
+      "writtenOn": "2021-11-22T23:07:38Z",
+      "side": 1,
+      "message": "Is there a low-pass filter added below? I can only see a high-pass filter",
+      "range": {
+        "startLine": 22,
+        "startChar": 33,
+        "endLine": 22,
+        "endChar": 36
+      },
+      "revId": "f765d20699b98d512c63f05c90ca03f4b0f960cf",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "ee64ce01_b8130b8b",
+        "filename": "modules/audio_processing/agc2/rfc7874_level_estimator.cc",
+        "patchSetId": 6
+      },
+      "lineNbr": 92,
+      "author": {
+        "id": 5125
+      },
+      "writtenOn": "2021-11-22T23:07:38Z",
+      "side": 1,
+      "message": "What about computing the power instead? From what I can see, the value in energy is only used in one place where it is immediately changed to a power estimate.",
+      "range": {
+        "startLine": 92,
+        "startChar": 8,
+        "endLine": 92,
+        "endChar": 14
+      },
+      "revId": "f765d20699b98d512c63f05c90ca03f4b0f960cf",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "a63f019d_8aec69f5",
+        "filename": "modules/audio_processing/gain_controller2.cc",
+        "patchSetId": 6
+      },
+      "lineNbr": 62,
+      "author": {
+        "id": 5125
+      },
+      "writtenOn": "2021-11-22T23:07:38Z",
+      "side": 1,
+      "message": "What about instead\n const bool use_rfc7874_level_estimator \u003d !field_trial::IsEnabled(\"WebRTC-Agc2Rfc7874LevelEstimatorKillSwitch\");",
+      "range": {
+        "startLine": 59,
+        "startChar": 1,
+        "endLine": 62,
+        "endChar": 3
+      },
+      "revId": "f765d20699b98d512c63f05c90ca03f4b0f960cf",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "34982d9a_9e85c595",
+        "filename": "modules/audio_processing/gain_controller2.cc",
+        "patchSetId": 6
+      },
+      "lineNbr": 66,
+      "author": {
+        "id": 5125
+      },
+      "writtenOn": "2021-11-22T23:07:38Z",
+      "side": 1,
+      "message": "Since the use_rfc7874_level_estimator is not used in the gain_controller2.cc file but rather inside AdaptiveDigitalGainController I would suggest to put the field-trial in that file instead.\nThen you don\u0027t need to add the boiler plate code to pass the flag for its activation all there way to where it is used.",
+      "range": {
+        "startLine": 66,
+        "startChar": 8,
+        "endLine": 66,
+        "endChar": 35
+      },
+      "revId": "f765d20699b98d512c63f05c90ca03f4b0f960cf",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "165d2550_4c959593",
+        "filename": "modules/audio_processing/gain_controller2_unittest.cc",
+        "patchSetId": 6
+      },
+      "lineNbr": 293,
+      "author": {
+        "id": 5125
+      },
+      "writtenOn": "2021-11-22T23:07:38Z",
+      "side": 1,
+      "message": "This is quite a gain change. What is it in the CL that causes that? Is it sufficient to add such a change only with a killswitch?",
+      "range": {
+        "startLine": 293,
+        "startChar": 36,
+        "endLine": 293,
+        "endChar": 40
+      },
+      "revId": "f765d20699b98d512c63f05c90ca03f4b0f960cf",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

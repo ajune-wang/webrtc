@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "d78284c1_05fdb16d",
+        "filename": "BUILD.gn",
+        "patchSetId": 4
+      },
+      "lineNbr": 268,
+      "author": {
+        "id": 7654
+      },
+      "writtenOn": "2021-11-22T14:28:03Z",
+      "side": 1,
+      "message": "Won\u0027t just RTC_DAV1D work? Codec can technically be created directly, not via a factory.",
+      "range": {
+        "startLine": 268,
+        "startChar": 18,
+        "endLine": 268,
+        "endChar": 55
+      },
+      "revId": "5540dd63e17a927f1b560fd26d8fb61a630fd2a7",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

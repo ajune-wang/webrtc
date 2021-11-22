@@ -33,6 +33,52 @@
       "message": "Hi Xavier,\nCould you please take a look?\n",
       "revId": "53d59aca3cf38f0c1de4c421215d1fe14e110c49",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "e9ee68a0_2c8c394f",
+        "filename": "sdk/android/api/org/webrtc/audio/JavaAudioDeviceModule.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 276,
+      "author": {
+        "id": 14994
+      },
+      "writtenOn": "2021-11-22T14:25:12Z",
+      "side": 1,
+      "message": "Adding these interface methods as is would break all classes implementing this interface. Please add them as empty default methods.",
+      "range": {
+        "startLine": 275,
+        "startChar": 0,
+        "endLine": 276,
+        "endChar": 32
+      },
+      "revId": "53d59aca3cf38f0c1de4c421215d1fe14e110c49",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "c96a9a15_372f854c",
+        "filename": "sdk/android/src/java/org/webrtc/audio/WebRtcAudioRecord.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 729,
+      "author": {
+        "id": 14994
+      },
+      "writtenOn": "2021-11-22T14:25:12Z",
+      "side": 1,
+      "message": "Could you also update this method?",
+      "range": {
+        "startLine": 720,
+        "startChar": 0,
+        "endLine": 729,
+        "endChar": 3
+      },
+      "revId": "53d59aca3cf38f0c1de4c421215d1fe14e110c49",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

@@ -20,6 +20,29 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "108564d4_fca48d7b",
+        "filename": "modules/video_coding/BUILD.gn",
+        "patchSetId": 2
+      },
+      "lineNbr": 927,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2021-11-22T12:49:01Z",
+      "side": 1,
+      "message": "is ios check still needed?",
+      "range": {
+        "startLine": 927,
+        "startChar": 9,
+        "endLine": 927,
+        "endChar": 15
+      },
+      "revId": "0463220233608ebc9f2cf5caedacaa70f782baf1",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "51db5611_62eec124",
         "filename": "modules/video_coding/codecs/av1/BUILD.gn",
         "patchSetId": 2

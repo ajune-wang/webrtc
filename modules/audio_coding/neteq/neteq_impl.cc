@@ -802,13 +802,7 @@ int NetEqImpl::GetAudioInternal(AudioFrame* audio_frame,
     size_t num_output_samples_per_channel = output_size_samples_;
     size_t num_output_samples = output_size_samples_ * sync_buffer_->Channels();
     if (num_output_samples > AudioFrame::kMaxDataSizeSamples) {
-      RTC_LOG(LS_WARNING) << "Output array is too short. "
-                          << AudioFrame::kMaxDataSizeSamples << " < "
-                          << output_size_samples_ << " * "
-                          << sync_buffer_->Channels();
-      num_output_samples = AudioFrame::kMaxDataSizeSamples;
-      num_output_samples_per_channel =
-          AudioFrame::kMaxDataSizeSamples / sync_buffer_->Channels();
+      return kSampleUnderrun;
     }
     audio_frame->samples_per_channel_ = num_output_samples_per_channel;
     audio_frame->timestamp_ =

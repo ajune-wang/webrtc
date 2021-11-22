@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "fec3aa0f_b5b8bf33",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 7
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 9515
+      },
+      "writtenOn": "2021-11-22T12:22:48Z",
+      "side": 1,
+      "message": "Unfortunately, I think the strategy of updating sink wants from the encoder thread won\u0027t work ..... !€€#€!\n\nAll/UnsignaledStreamTest.ReplacesUnsignaledStreamOnCompletedSignaling/MidNotNegotiated: Found out that VideoTrackProxyWithInternal is syncinvoked from encoder to secondary (which I presume is the worker thread). Since we also have syncinvoke from worker-\u003eencoder when the VSE is created, it can deadlock (which it does locally here).",
+      "revId": "7a42e3cb148cf5a22bca64cca70d5e694bde09e2",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

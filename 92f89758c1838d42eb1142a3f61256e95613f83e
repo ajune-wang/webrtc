@@ -22,6 +22,30 @@
       },
       "revId": "92f89758c1838d42eb1142a3f61256e95613f83e",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "b630fb45_c5982cca",
+        "filename": "video/video_source_sink_controller.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 64,
+      "author": {
+        "id": 9515
+      },
+      "writtenOn": "2021-11-22T12:22:48Z",
+      "side": 1,
+      "message": "PS6 finally breaks out the sinkwants calculations out of VSSC, and is fully compatible with single-sequence operation. The VSSC is thread-safe which enables splitting SetSource between the worker thread and the encoder queue.",
+      "parentUuid": "98da4213_301b4344",
+      "range": {
+        "startLine": 64,
+        "startChar": 10,
+        "endLine": 64,
+        "endChar": 15
+      },
+      "revId": "92f89758c1838d42eb1142a3f61256e95613f83e",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

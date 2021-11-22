@@ -1,0 +1,38 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "b131f6a9_981934f6",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 3
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5508
+      },
+      "writtenOn": "2021-11-22T17:39:03Z",
+      "side": 1,
+      "message": "Thanks for tracking this down!",
+      "revId": "47adb95958f4db77378a7ad3de8c8be273f1ca28",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "fdc8b3cd_4c519e93",
+        "filename": "pc/audio_rtp_receiver.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 97,
+      "author": {
+        "id": 5508
+      },
+      "writtenOn": "2021-11-22T17:39:03Z",
+      "side": 1,
+      "message": "do you mind adding a comment here and maybe a link to the bug to help avoid this regressing again?\n\nAdding a test would be super nice too 😄",
+      "revId": "47adb95958f4db77378a7ad3de8c8be273f1ca28",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

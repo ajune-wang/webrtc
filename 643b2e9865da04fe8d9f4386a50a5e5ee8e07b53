@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "06564b5f_c4fde464",
+        "filename": "call/rtp_transport_controller_send.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 423,
+      "author": {
+        "id": 5525
+      },
+      "writtenOn": "2021-11-23T11:41:28Z",
+      "side": 1,
+      "message": "If I read the code correctly, this means we\u0027ll only update the outstanding data in the pacer if this packet had already received an ack and was previously unacked. Correct? Maybe worth a comment",
+      "range": {
+        "startLine": 423,
+        "startChar": 0,
+        "endLine": 423,
+        "endChar": 21
+      },
+      "revId": "643b2e9865da04fe8d9f4386a50a5e5ee8e07b53",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "7796f80d_a0d10641",
+        "filename": "call/rtp_transport_controller_send.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 579,
+      "author": {
+        "id": 5525
+      },
+      "writtenOn": "2021-11-23T11:41:28Z",
+      "side": 1,
+      "message": "Here too, add a comment: this is the first time this packet was acked (and it\u0027s later than any previously acked packets), and therefore we will update the pacer outstanding data",
+      "range": {
+        "startLine": 579,
+        "startChar": 0,
+        "endLine": 579,
+        "endChar": 23
+      },
+      "revId": "643b2e9865da04fe8d9f4386a50a5e5ee8e07b53",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

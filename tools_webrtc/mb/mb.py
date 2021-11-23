@@ -990,6 +990,8 @@ class MetaBuildWrapper(object):
             ])
 
         cmdline += isolate_map[target].get('args', [])
+        if self.platform == 'win32' and cmdline[0].endswith('.py'):
+            cmdline.insert(0, "python.exe")
 
         return cmdline, extra_files
 

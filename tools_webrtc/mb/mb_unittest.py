@@ -633,7 +633,7 @@ class UnitTest(unittest.TestCase):
         'some_dependency',
         'unittests.exe',
     ])
-    self.assertEqual(command, [
+    self.assertEqual(command[1:], [
         '../../testing/test_env.py',
         '../../tools_webrtc/gtest-parallel-wrapper.py',
         '--output_dir=${ISOLATED_OUTDIR}\\test_logs',

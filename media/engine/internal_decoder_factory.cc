@@ -21,8 +21,18 @@
 #include "modules/video_coding/codecs/vp9/include/vp9.h"
 #include "rtc_base/checks.h"
 #include "rtc_base/logging.h"
+#include "system_wrappers/include/field_trial.h"
+
+#if defined(RTC_DAV1D_IN_INTERNAL_DECODER_FACTORY)
+#include "modules/video_coding/codecs/av1/dav1d_decoder.h"
+#endif
 
 namespace webrtc {
+namespace {
+#if defined(RTC_DAV1D_IN_INTERNAL_DECODER_FACTORY)
+constexpr char kDav1dFieldTrial[] = "WebRTC-Dav1dDecoder";
+#endif
+}  // namespace
 
 std::vector<SdpVideoFormat> InternalDecoderFactory::GetSupportedFormats()
     const {
@@ -32,8 +42,15 @@ std::vector<SdpVideoFormat> InternalDecoderFactory::GetSupportedFormats()
     formats.push_back(format);
   for (const SdpVideoFormat& h264_format : SupportedH264Codecs())
     formats.push_back(h264_format);
-  if (kIsLibaomAv1DecoderSupported)
+
+  bool av1_supported = kIsLibaomAv1DecoderSupported;
+#if defined(RTC_DAV1D_IN_INTERNAL_DECODER_FACTORY)
+  av1_supported |= field_trial::IsEnabled(kDav1dFieldTrial);
+#endif
+  if (av1_supported) {
     formats.push_back(SdpVideoFormat(cricket::kAv1CodecName));
+  }
+
   return formats;
 }
 
@@ -69,9 +86,18 @@ std::unique_ptr<VideoDecoder> InternalDecoderFactory::CreateVideoDecoder(
     return VP9Decoder::Create();
   if (absl::EqualsIgnoreCase(format.name, cricket::kH264CodecName))
     return H264Decoder::Create();
-  if (kIsLibaomAv1DecoderSupported &&
-      absl::EqualsIgnoreCase(format.name, cricket::kAv1CodecName))
+
+#if defined(RTC_DAV1D_IN_INTERNAL_DECODER_FACTORY)
+  if (absl::EqualsIgnoreCase(format.name, cricket::kAv1CodecName) &&
+      field_trial::IsEnabled(kDav1dFieldTrial)) {
+    return CreateDav1dDecoder();
+  }
+#endif
+
+  if (absl::EqualsIgnoreCase(format.name, cricket::kAv1CodecName) &&
+      kIsLibaomAv1DecoderSupported) {
     return CreateLibaomAv1Decoder();
+  }
 
   RTC_DCHECK_NOTREACHED();
   return nullptr;

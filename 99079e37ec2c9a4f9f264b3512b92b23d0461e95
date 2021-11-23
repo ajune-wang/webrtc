@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "ba75409b_8cb4d46c",
+        "filename": "tools_webrtc/mb/mb.py",
+        "patchSetId": 6
+      },
+      "lineNbr": 938,
+      "author": {
+        "id": 6192
+      },
+      "writtenOn": "2021-11-23T13:16:22Z",
+      "side": 1,
+      "message": "Use append instead of +\u003d",
+      "range": {
+        "startLine": 938,
+        "startChar": 24,
+        "endLine": 938,
+        "endChar": 26
+      },
+      "revId": "99079e37ec2c9a4f9f264b3512b92b23d0461e95",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "9fbc9a3f_cf84aa10",
+        "filename": "tools_webrtc/mb/mb.py",
+        "patchSetId": 6
+      },
+      "lineNbr": 941,
+      "author": {
+        "id": 6192
+      },
+      "writtenOn": "2021-11-23T13:16:22Z",
+      "side": 1,
+      "message": "Use append instead of +\u003d",
+      "range": {
+        "startLine": 941,
+        "startChar": 24,
+        "endLine": 941,
+        "endChar": 27
+      },
+      "revId": "99079e37ec2c9a4f9f264b3512b92b23d0461e95",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

@@ -95,6 +95,30 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "8d5fa78e_489681d6",
+        "filename": "media/engine/internal_decoder_factory.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 50,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2021-11-23T10:03:11Z",
+      "side": 1,
+      "message": "That problem is solvable same way as it is done for libaom.\ndav1d_decoder.h doesn\u0027t pull any dav1d specific symbols.",
+      "parentUuid": "379bd34c_93f706cd",
+      "range": {
+        "startLine": 50,
+        "startChar": 19,
+        "endLine": 50,
+        "endChar": 47
+      },
+      "revId": "cd68dd37c418974559a7f3e566d7a73b782acf54",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "4efd841f_76dcf7da",
@@ -132,6 +156,30 @@
       "side": 1,
       "message": "Internally we configure this to false, so it won\u0027t be included in those builds",
       "parentUuid": "4efd841f_76dcf7da",
+      "range": {
+        "startLine": 229,
+        "startChar": 50,
+        "endLine": 229,
+        "endChar": 54
+      },
+      "revId": "cd68dd37c418974559a7f3e566d7a73b782acf54",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "1852a600_b668078a",
+        "filename": "webrtc.gni",
+        "patchSetId": 5
+      },
+      "lineNbr": 229,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2021-11-23T10:03:11Z",
+      "side": 1,
+      "message": "Ack, leaving this to the binary size experts.",
+      "parentUuid": "f9bcd944_7a7240a4",
       "range": {
         "startLine": 229,
         "startChar": 50,

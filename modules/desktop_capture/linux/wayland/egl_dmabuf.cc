@@ -370,7 +370,7 @@ EglDmaBuf::EglDmaBuf() {
             "eglQueryDmaBufModifiersEXT");
   }
 
-  RTC_LOG(LS_INFO) << "Egl initialization succeeded";
+  RTC_LOG(LS_ERROR) << "Egl initialization succeeded";
   egl_initialized_ = true;
 }
 

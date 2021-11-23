@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "03479ef6_92eeee0f",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 7
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5609
+      },
+      "writtenOn": "2021-11-23T10:16:55Z",
+      "side": 1,
+      "message": "LGTM, with the open questions from Danil to be addressed.",
+      "revId": "44ff84ac7b57bb6f8b89803d2934139f08a17f8c",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

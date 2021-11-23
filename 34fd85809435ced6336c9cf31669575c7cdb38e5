@@ -39,6 +39,30 @@
       },
       "revId": "34fd85809435ced6336c9cf31669575c7cdb38e5",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "d489e4a9_f9510087",
+        "filename": "modules/audio_coding/neteq/neteq_impl.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 802,
+      "author": {
+        "id": 8038
+      },
+      "writtenOn": "2021-11-23T15:18:47Z",
+      "side": 1,
+      "message": "Or I don\u0027t know if it matters, but at least we wouldn\u0027t get merge conflicts later on when merging to earlier branches.",
+      "parentUuid": "830b7e26_10dcc795",
+      "range": {
+        "startLine": 802,
+        "startChar": 0,
+        "endLine": 802,
+        "endChar": 57
+      },
+      "revId": "34fd85809435ced6336c9cf31669575c7cdb38e5",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

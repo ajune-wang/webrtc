@@ -907,6 +907,7 @@ class MetaBuildWrapper(object):
             '../../.vpython',
             '../../testing/test_env.py',
         ]
+        vpython_exe = 'vpython'
 
         must_retry = False
         if test_type == 'script':
@@ -924,8 +925,8 @@ class MetaBuildWrapper(object):
                 extra_files.append('../../tools_webrtc/flags_compatibility.py')
 
             if isolate_map[target].get('use_webcam', False):
-                cmdline.append(
-                    '../../tools_webrtc/ensure_webcam_is_running.py')
+                cmdline += [vpython_exe,
+                            '../../tools_webrtc/ensure_webcam_is_running.py']
                 extra_files.append(
                     '../../tools_webrtc/ensure_webcam_is_running.py')
 
@@ -934,10 +935,10 @@ class MetaBuildWrapper(object):
 
             xvfb = use_x11 and test_type == 'windowed_test_launcher'
             if xvfb:
-                cmdline.append('../../testing/xvfb.py')
+                cmdline += [vpython_exe, '../../testing/xvfb.py']
                 extra_files.append('../../testing/xvfb.py')
             else:
-                cmdline.append('../../testing/test_env.py')
+                cmdline += [vpython_exe, '../../testing/test_env.py']
 
             if test_type != 'raw':
                 extra_files += [

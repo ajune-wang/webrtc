@@ -933,11 +933,13 @@ class MetaBuildWrapper(object):
             use_x11 = is_linux
 
             xvfb = use_x11 and test_type == 'windowed_test_launcher'
+            sep = '\\' if self.platform == 'win32' else '/'
             if xvfb:
                 cmdline.append('../../testing/xvfb.py')
                 extra_files.append('../../testing/xvfb.py')
             else:
-                cmdline.append('../../testing/test_env.py')
+                cmdline.append('..' + sep + '..' + sep + 'testing' + sep +
+                               'test_env.py')
 
             if test_type != 'raw':
                 extra_files += [
@@ -945,7 +947,6 @@ class MetaBuildWrapper(object):
                     '../../third_party/gtest-parallel/gtest_parallel.py',
                     '../../tools_webrtc/gtest-parallel-wrapper.py',
                 ]
-                sep = '\\' if self.platform == 'win32' else '/'
                 output_dir = '${ISOLATED_OUTDIR}' + sep + 'test_logs'
                 test_results = '${ISOLATED_OUTDIR}' + sep + 'gtest_output.json'
                 timeout = isolate_map[target].get('timeout', 900)

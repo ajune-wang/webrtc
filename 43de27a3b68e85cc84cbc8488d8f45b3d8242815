@@ -1,0 +1,38 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "84402f98_bd0da9d2",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 4
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5142
+      },
+      "writtenOn": "2021-11-23T13:05:02Z",
+      "side": 1,
+      "message": "Drive-by comment we might want to change when we do this",
+      "revId": "43de27a3b68e85cc84cbc8488d8f45b3d8242815",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "0e62d364_1691757c",
+        "filename": "api/peer_connection_interface.h",
+        "patchSetId": 4
+      },
+      "lineNbr": 624,
+      "author": {
+        "id": 5142
+      },
+      "writtenOn": "2021-11-23T13:05:02Z",
+      "side": 1,
+      "message": "I don\u0027t like this encouragement to use kPlanB to stay interoperable, we should always discourage it",
+      "revId": "43de27a3b68e85cc84cbc8488d8f45b3d8242815",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

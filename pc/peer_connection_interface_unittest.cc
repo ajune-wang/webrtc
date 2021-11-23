@@ -677,6 +677,7 @@ class PeerConnectionInterfaceBaseTest : public ::testing::Test {
   explicit PeerConnectionInterfaceBaseTest(SdpSemantics sdp_semantics)
       : vss_(new rtc::VirtualSocketServer()),
         main_(vss_.get()),
+        socket_factory_(vss_.get()),
         sdp_semantics_(sdp_semantics) {
 #ifdef WEBRTC_ANDROID
     webrtc::InitializeAndroidObjects();
@@ -746,8 +747,8 @@ class PeerConnectionInterfaceBaseTest : public ::testing::Test {
       pc_->Close();
       pc_ = nullptr;
     }
-    std::unique_ptr<cricket::FakePortAllocator> port_allocator(
-        new cricket::FakePortAllocator(rtc::Thread::Current(), nullptr));
+    auto port_allocator = std::make_unique<cricket::FakePortAllocator>(
+        rtc::Thread::Current(), &socket_factory_);
     port_allocator_ = port_allocator.get();
 
     // Create certificate generator unless DTLS constraint is explicitly set to
@@ -1263,6 +1264,7 @@ class PeerConnectionInterfaceBaseTest : public ::testing::Test {
 
   std::unique_ptr<rtc::VirtualSocketServer> vss_;
   rtc::AutoSocketServerThread main_;
+  rtc::BasicPacketSocketFactory socket_factory_;
   rtc::scoped_refptr<FakeAudioCaptureModule> fake_audio_capture_module_;
   cricket::FakePortAllocator* port_allocator_ = nullptr;
   FakeRTCCertificateGenerator* fake_certificate_generator_ = nullptr;
@@ -1368,8 +1370,8 @@ TEST_P(PeerConnectionInterfaceTest, CreatePeerConnectionWithPooledCandidates) {
 TEST_P(PeerConnectionInterfaceTest,
        CreatePeerConnectionAppliesNetworkConfigToPortAllocator) {
   // Create fake port allocator.
-  std::unique_ptr<cricket::FakePortAllocator> port_allocator(
-      new cricket::FakePortAllocator(rtc::Thread::Current(), nullptr));
+  auto port_allocator = std::make_unique<cricket::FakePortAllocator>(
+      rtc::Thread::Current(), &socket_factory_);
   cricket::FakePortAllocator* raw_port_allocator = port_allocator.get();
 
   // Create RTCConfiguration with some network-related fields relevant to

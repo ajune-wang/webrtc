@@ -112,7 +112,7 @@ SdpSemantics JavaToNativeSdpSemantics(JNIEnv* jni,
   std::string enum_name = GetJavaEnumName(jni, j_sdp_semantics);
 
   if (enum_name == "PLAN_B")
-    return SdpSemantics::kPlanB;
+    return SdpSemantics::kPlanB_DEPRECATED;
 
   if (enum_name == "UNIFIED_PLAN")
     return SdpSemantics::kUnifiedPlan;

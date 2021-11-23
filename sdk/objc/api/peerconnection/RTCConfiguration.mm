@@ -520,7 +520,7 @@
 + (webrtc::SdpSemantics)nativeSdpSemanticsForSdpSemantics:(RTCSdpSemantics)sdpSemantics {
   switch (sdpSemantics) {
     case RTCSdpSemanticsPlanB:
-      return webrtc::SdpSemantics::kPlanB;
+      return webrtc::SdpSemantics::kPlanB_DEPRECATED;
     case RTCSdpSemanticsUnifiedPlan:
       return webrtc::SdpSemantics::kUnifiedPlan;
   }

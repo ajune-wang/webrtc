@@ -420,10 +420,12 @@ void RtpTransportControllerSend::OnSentPacket(
     RTC_DCHECK_RUN_ON(&task_queue_);
     absl::optional<SentPacket> packet_msg =
         transport_feedback_adapter_.ProcessSentPacket(sent_packet);
-    pacer()->UpdateOutstandingData(
-        transport_feedback_adapter_.GetOutstandingData());
-    if (packet_msg && controller_)
-      PostUpdates(controller_->OnSentPacket(*packet_msg));
+    if (packet_msg) {
+      pacer()->UpdateOutstandingData(
+          transport_feedback_adapter_.GetOutstandingData());
+      if (controller_)
+        PostUpdates(controller_->OnSentPacket(*packet_msg));
+    }
   });
 }
 
@@ -574,11 +576,12 @@ void RtpTransportControllerSend::OnTransportFeedback(
     absl::optional<TransportPacketsFeedback> feedback_msg =
         transport_feedback_adapter_.ProcessTransportFeedback(feedback,
                                                              feedback_time);
-    if (feedback_msg && controller_) {
-      PostUpdates(controller_->OnTransportPacketsFeedback(*feedback_msg));
+    if (feedback_msg) {
+      if (controller_)
+        PostUpdates(controller_->OnTransportPacketsFeedback(*feedback_msg));
+      pacer()->UpdateOutstandingData(
+          transport_feedback_adapter_.GetOutstandingData());
     }
-    pacer()->UpdateOutstandingData(
-        transport_feedback_adapter_.GetOutstandingData());
   });
 }
 

@@ -26,6 +26,30 @@
     {
       "unresolved": false,
       "key": {
+        "uuid": "c55b2001_9ad5be5f",
+        "filename": "media/engine/internal_decoder_factory.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 46,
+      "author": {
+        "id": 5527
+      },
+      "writtenOn": "2021-11-23T09:05:33Z",
+      "side": 1,
+      "message": "Done.",
+      "parentUuid": "692997ee_5c5e2141",
+      "range": {
+        "startLine": 46,
+        "startChar": 2,
+        "endLine": 46,
+        "endChar": 29
+      },
+      "revId": "cd68dd37c418974559a7f3e566d7a73b782acf54",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
         "uuid": "48337488_eb9a5a93",
         "filename": "media/engine/internal_decoder_factory.cc",
         "patchSetId": 5
@@ -37,6 +61,30 @@
       "writtenOn": "2021-11-22T17:34:23Z",
       "side": 1,
       "message": "personally I prefer boolean constant over macro (that\u0027s why libaom is guarded with a constant rather than macro)",
+      "range": {
+        "startLine": 50,
+        "startChar": 19,
+        "endLine": 50,
+        "endChar": 47
+      },
+      "revId": "cd68dd37c418974559a7f3e566d7a73b782acf54",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "379bd34c_93f706cd",
+        "filename": "media/engine/internal_decoder_factory.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 50,
+      "author": {
+        "id": 5527
+      },
+      "writtenOn": "2021-11-23T09:05:33Z",
+      "side": 1,
+      "message": "The problem is that we conditionally depend on dav1d, so we have to conditionally include dav1d_decoder.h, which we need a preprocessor check to do.",
+      "parentUuid": "48337488_eb9a5a93",
       "range": {
         "startLine": 50,
         "startChar": 19,
@@ -60,6 +108,30 @@
       "writtenOn": "2021-11-22T17:34:23Z",
       "side": 1,
       "message": "should probably be false by default.\n\nOtherwise this CL adds as much binary size as the original one that was reverted for this very reason.",
+      "range": {
+        "startLine": 229,
+        "startChar": 50,
+        "endLine": 229,
+        "endChar": 54
+      },
+      "revId": "cd68dd37c418974559a7f3e566d7a73b782acf54",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "f9bcd944_7a7240a4",
+        "filename": "webrtc.gni",
+        "patchSetId": 5
+      },
+      "lineNbr": 229,
+      "author": {
+        "id": 5527
+      },
+      "writtenOn": "2021-11-23T09:05:33Z",
+      "side": 1,
+      "message": "Internally we configure this to false, so it won\u0027t be included in those builds",
+      "parentUuid": "4efd841f_76dcf7da",
       "range": {
         "startLine": 229,
         "startChar": 50,

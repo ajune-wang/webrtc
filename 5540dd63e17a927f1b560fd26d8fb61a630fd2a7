@@ -22,6 +22,30 @@
       },
       "revId": "5540dd63e17a927f1b560fd26d8fb61a630fd2a7",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "3f923965_91013bae",
+        "filename": "BUILD.gn",
+        "patchSetId": 4
+      },
+      "lineNbr": 268,
+      "author": {
+        "id": 5527
+      },
+      "writtenOn": "2021-11-23T09:05:33Z",
+      "side": 1,
+      "message": "I think RTC_DAV1D might sound like we conditionally have access to dav1d, but that dependency is always available if we want to. Maybe there is something in between, but for now I think this is better.",
+      "parentUuid": "d78284c1_05fdb16d",
+      "range": {
+        "startLine": 268,
+        "startChar": 18,
+        "endLine": 268,
+        "endChar": 55
+      },
+      "revId": "5540dd63e17a927f1b560fd26d8fb61a630fd2a7",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

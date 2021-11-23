@@ -168,7 +168,11 @@ class StatsObserver : public rtc::RefCountInterface {
   ~StatsObserver() override = default;
 };
 
-enum class SdpSemantics { kPlanB, kUnifiedPlan };
+enum class SdpSemantics {
+  kPlanB_DEPRECATED,
+  kPlanB [[deprecated]] = kPlanB_DEPRECATED,
+  kUnifiedPlan
+};
 
 class RTC_EXPORT PeerConnectionInterface : public rtc::RefCountInterface {
  public:
@@ -614,7 +618,7 @@ class RTC_EXPORT PeerConnectionInterface : public rtc::RefCountInterface {
     // specify kPlanB.
     //
     // For all other users, specify kUnifiedPlan.
-    SdpSemantics sdp_semantics = SdpSemantics::kPlanB;
+    SdpSemantics sdp_semantics = SdpSemantics::kPlanB_DEPRECATED;
 
     // TODO(bugs.webrtc.org/9891) - Move to crypto_options or remove.
     // Actively reset the SRTP parameters whenever the DTLS transports

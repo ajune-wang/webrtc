@@ -24,6 +24,30 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "9f219dc2_aa45f9d1",
+        "filename": "tools_webrtc/mb/mb.py",
+        "patchSetId": 6
+      },
+      "lineNbr": 938,
+      "author": {
+        "id": 6192
+      },
+      "writtenOn": "2021-11-23T13:18:57Z",
+      "side": 1,
+      "message": "Aha I see, it might be preferred to use +\u003d since you are adding multiple items. Nvm then.",
+      "parentUuid": "ba75409b_8cb4d46c",
+      "range": {
+        "startLine": 938,
+        "startChar": 24,
+        "endLine": 938,
+        "endChar": 26
+      },
+      "revId": "99079e37ec2c9a4f9f264b3512b92b23d0461e95",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "9fbc9a3f_cf84aa10",

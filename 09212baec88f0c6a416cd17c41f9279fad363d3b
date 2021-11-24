@@ -52,6 +52,24 @@
       "parentUuid": "23bdef2b_73078e8f",
       "revId": "09212baec88f0c6a416cd17c41f9279fad363d3b",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "926dc348_a2ba9ed5",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 4
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 14994
+      },
+      "writtenOn": "2021-11-24T10:23:12Z",
+      "side": 1,
+      "message": "But how would you stop things from the callback you’re adding?\n\nAll the other ways initRecording() is returning early are explicitly handled, with resource release happening if things were already allocated.\n\nThe only way I can see of stopping and releasing from the callbacks you’re adding would be by throwing an exception, which isn’t a good way of controlling flow (especially since this method is called from native code).\n\nAlso, since you have no guarantee you’ll be called at the right time, you still need other mechanisms to interrupt recording after initialisation, right? Given that it’s just an optimisation, do you have a sense of how decreased the delay would be?",
+      "parentUuid": "128308a7_fcd930b2",
+      "revId": "09212baec88f0c6a416cd17c41f9279fad363d3b",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "aeebc82c_4fbbe217",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 4
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 14994
+      },
+      "writtenOn": "2021-11-24T07:53:29Z",
+      "side": 1,
+      "message": "I’m trying to understand the use case for these callbacks. When you say you need to \"kill android AudioRecord before creating from webrtc\", what would you do from these callbacks to do that? throw an exception?\nAnd in which case would you want to do that?",
+      "revId": "09212baec88f0c6a416cd17c41f9279fad363d3b",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

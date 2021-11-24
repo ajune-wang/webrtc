@@ -179,6 +179,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "9d8f90cc_39147ea2",
+        "filename": "BUILD.gn",
+        "patchSetId": 1
+      },
+      "lineNbr": 736,
+      "author": {
+        "id": 5087
+      },
+      "writtenOn": "2021-11-24T08:01:32Z",
+      "side": 1,
+      "message": "Interesting.\n\nSo, for api/ we don\u0027t need it in DEPS because all WebRTC can use api/ (https://source.chromium.org/chromium/chromium/src/+/main:third_party/webrtc/DEPS;l\u003d2665;drc\u003d6c3c3db184940371384b5c1b85a29a1b8cb1cc2f).\n\nBut about the headers, I wonder why we need threading related headers. Is this because of some testes?",
+      "parentUuid": "3cf1ea3f_f6453a24",
+      "range": {
+        "startLine": 736,
+        "startChar": 0,
+        "endLine": 736,
+        "endChar": 18
+      },
+      "revId": "6b1d9fc9188370ab75fc77643036116581b6614f",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "7605fe4f_96d65089",
         "filename": "BUILD.gn",
         "patchSetId": 1

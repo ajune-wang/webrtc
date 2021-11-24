@@ -155,6 +155,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "3cf1ea3f_f6453a24",
+        "filename": "BUILD.gn",
+        "patchSetId": 1
+      },
+      "lineNbr": 736,
+      "author": {
+        "id": 14874
+      },
+      "writtenOn": "2021-11-24T07:35:39Z",
+      "side": 1,
+      "message": "I did go down the \"what headers need to be copied\" path to make it compile.\nApart from net/ (which I just copied and then deleted every non-header) the following headers are required (output of `find .`):\n./rtc_base\n./rtc_base/containers\n./rtc_base/containers/void_t.h\n./rtc_base/containers/flat_set.h\n./rtc_base/containers/as_const.h\n./rtc_base/containers/identity.h\n./rtc_base/containers/flat_tree.h\n./rtc_base/containers/invoke.h\n./rtc_base/containers/not_fn.h\n./rtc_base/ref_counter.h\n./rtc_base/checks.h\n./rtc_base/thread_annotations.h\n./rtc_base/string_to_number.h\n./rtc_base/numerics\n./rtc_base/numerics/safe_compare.h\n./rtc_base/strong_alias.h\n./rtc_base/platform_thread_types.h\n./rtc_base/type_traits.h\n./rtc_base/constructor_magic.h\n./rtc_base/ref_counted_object.h\n./rtc_base/strings\n./rtc_base/strings/string_builder.h\n./rtc_base/system\n./rtc_base/system/inline.h\n./rtc_base/system/rtc_export.h\n./rtc_base/system/no_unique_address.h\n./rtc_base/synchronization\n./rtc_base/synchronization/sequence_checker_internal.h\n./rtc_base/synchronization/mutex_pthread.h\n./rtc_base/synchronization/mutex.h\n./rtc_base/string_encode.h\n./rtc_base/ref_count.h\n./api/\n./api/array_view.h\n./api/task_queue\n./api/task_queue/queued_task.h\n./api/task_queue/task_queue_base.h\n./api/scoped_refptr.h\n./api/sequence_checker.h\n./api/ref_counted_base.h\n\nFairly small. I wonder if some of the things in api/ ought to be in rtc_base but then things like array_view probably ought to be absl::span.\nDoes having include files from api/ mean those should be in the deps?",
+      "parentUuid": "fddf72a2_0542d32e",
+      "range": {
+        "startLine": 736,
+        "startChar": 0,
+        "endLine": 736,
+        "endChar": 18
+      },
+      "revId": "6b1d9fc9188370ab75fc77643036116581b6614f",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "7605fe4f_96d65089",
         "filename": "BUILD.gn",
         "patchSetId": 1
@@ -190,6 +214,30 @@
       "side": 1,
       "message": "oops, copy-paste leftover from a link test, will remove.",
       "parentUuid": "7605fe4f_96d65089",
+      "range": {
+        "startLine": 737,
+        "startChar": 29,
+        "endLine": 737,
+        "endChar": 37
+      },
+      "revId": "6b1d9fc9188370ab75fc77643036116581b6614f",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "6a9005aa_b33e747d",
+        "filename": "BUILD.gn",
+        "patchSetId": 1
+      },
+      "lineNbr": 737,
+      "author": {
+        "id": 14874
+      },
+      "writtenOn": "2021-11-24T07:35:39Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "9ea908e6_799d2bc7",
       "range": {
         "startLine": 737,
         "startChar": 29,

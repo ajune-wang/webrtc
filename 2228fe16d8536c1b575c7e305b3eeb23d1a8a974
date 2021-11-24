@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "777a5a03_e4a28169",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5087
+      },
+      "writtenOn": "2021-11-24T07:34:24Z",
+      "side": 1,
+      "message": "Added \"No-Try: True\" to skip the failing unrelated tests.",
+      "revId": "2228fe16d8536c1b575c7e305b3eeb23d1a8a974",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

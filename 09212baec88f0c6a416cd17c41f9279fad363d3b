@@ -16,6 +16,24 @@
       "message": "I’m trying to understand the use case for these callbacks. When you say you need to \"kill android AudioRecord before creating from webrtc\", what would you do from these callbacks to do that? throw an exception?\nAnd in which case would you want to do that?",
       "revId": "09212baec88f0c6a416cd17c41f9279fad363d3b",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "23bdef2b_73078e8f",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 4
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 18579
+      },
+      "writtenOn": "2021-11-24T08:57:44Z",
+      "side": 1,
+      "message": "for example, if you record sound at this moment you can stop and release current active android audioRecord in preInitCallback and after that you can use SamplesReadyCallback for reading samples from new audioRecord, it provides way to decrease dalay for switching AudioRecords and this solution adds flexibility for complex cases.",
+      "parentUuid": "aeebc82c_4fbbe217",
+      "revId": "09212baec88f0c6a416cd17c41f9279fad363d3b",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

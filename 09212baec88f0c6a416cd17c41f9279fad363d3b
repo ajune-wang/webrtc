@@ -70,6 +70,24 @@
       "parentUuid": "128308a7_fcd930b2",
       "revId": "09212baec88f0c6a416cd17c41f9279fad363d3b",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "bd9bb1bb_f444a20d",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 4
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 18579
+      },
+      "writtenOn": "2021-11-24T10:44:57Z",
+      "side": 1,
+      "message": "In my app I use rtmp for live streaming which use audioRecord, and also I can have webrtc call at same time. And also I have issue on android 8 and android 9, when webrtc create audioRecord instance mobile phone loses audio recording for rtmp, so I use this callback for stoping and releasing audioRecord for RTMP and switch my pipeline to wrtc audioRecord.",
+      "parentUuid": "926dc348_a2ba9ed5",
+      "revId": "09212baec88f0c6a416cd17c41f9279fad363d3b",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

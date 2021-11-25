@@ -950,7 +950,7 @@ class MetaBuildWrapper(object):
                 ]
                 sep = '\\' if self.platform == 'win32' else '/'
                 output_dir = '${ISOLATED_OUTDIR}' + sep + 'test_logs'
-                test_results = '${ISOLATED_OUTDIR}' + sep + 'gtest_output.json'
+                test_results = '${ISOLATED_OUTDIR}' + sep + 'output.json'
                 timeout = isolate_map[target].get('timeout', 900)
                 cmdline += [
                     '../../tools_webrtc/gtest-parallel-wrapper.py',

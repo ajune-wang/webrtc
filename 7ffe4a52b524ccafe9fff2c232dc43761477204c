@@ -46,6 +46,30 @@
       },
       "revId": "7ffe4a52b524ccafe9fff2c232dc43761477204c",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "869aec53_da6efee0",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 5
+      },
+      "lineNbr": 7,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2021-11-25T12:47:58Z",
+      "side": 1,
+      "message": "If surfaced in that way, maybe \"L1T1\" would be better than \"NONE\"?",
+      "parentUuid": "0ac83a72_4161ecae",
+      "range": {
+        "startLine": 7,
+        "startChar": 0,
+        "endLine": 7,
+        "endChar": 8
+      },
+      "revId": "7ffe4a52b524ccafe9fff2c232dc43761477204c",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

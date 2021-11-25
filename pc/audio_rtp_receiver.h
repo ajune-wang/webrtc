@@ -67,6 +67,7 @@ class AudioRtpReceiver : public ObserverInterface,
 
   // RtpReceiverInterface implementation
   rtc::scoped_refptr<MediaStreamTrackInterface> track() const override {
+    RTC_LOG(LS_ERROR) << "track() \n";
     return track_;
   }
   rtc::scoped_refptr<DtlsTransportInterface> dtls_transport() const override;

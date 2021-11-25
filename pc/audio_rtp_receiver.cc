@@ -76,6 +76,7 @@ void AudioRtpReceiver::OnChanged() {
         worker_thread_safety_,
         [this, enabled = cached_track_enabled_, volume = cached_volume_]() {
           RTC_DCHECK_RUN_ON(worker_thread_);
+          RTC_LOG(LS_ERROR) << "OnChanged \n";
           Reconfigure(enabled, volume);
         }));
   }
@@ -83,6 +84,7 @@ void AudioRtpReceiver::OnChanged() {
 
 // RTC_RUN_ON(worker_thread_)
 void AudioRtpReceiver::SetOutputVolume_w(double volume) {
+  RTC_LOG(LS_ERROR) << "SetOutputVolume_w \n";
   RTC_DCHECK_GE(volume, 0.0);
   RTC_DCHECK_LE(volume, 10.0);
   ssrc_ ? media_channel_->SetOutputVolume(*ssrc_, volume)
@@ -93,10 +95,14 @@ void AudioRtpReceiver::OnSetVolume(double volume) {
   RTC_DCHECK_RUN_ON(&signaling_thread_checker_);
   RTC_DCHECK_GE(volume, 0);
   RTC_DCHECK_LE(volume, 10);
+
+  // Update the cached_volume_ even when stopped_, to allow clients to set the
+  // volume before starting/restarting, eg see crbug.com/1272566.
+  cached_volume_ = volume;
+  RTC_LOG(LS_ERROR) << "OnSetVolume stopped_: " << stopped_ << ", track_->enabled(): " << track_->enabled() << "\n";
+
   if (stopped_)
     return;
-
-  cached_volume_ = volume;
 
   // When the track is disabled, the volume of the source, which is the
   // corresponding WebRtc Voice Engine channel will be 0. So we do not allow
@@ -105,6 +111,7 @@ void AudioRtpReceiver::OnSetVolume(double volume) {
     worker_thread_->PostTask(
         ToQueuedTask(worker_thread_safety_, [this, volume = cached_volume_]() {
           RTC_DCHECK_RUN_ON(worker_thread_);
+          RTC_LOG(LS_ERROR) << "OnSetVolume \n";
           SetOutputVolume_w(volume);
         }));
   }
@@ -164,8 +171,12 @@ void AudioRtpReceiver::Stop() {
 
   worker_thread_->Invoke<void>(RTC_FROM_HERE, [&]() {
     RTC_DCHECK_RUN_ON(worker_thread_);
-    if (media_channel_)
+    
+    if (media_channel_) {
+      RTC_LOG(LS_ERROR) << "Stop \n";
+
       SetOutputVolume_w(0.0);
+    }
     SetMediaChannel_w(nullptr);
   });
 }
@@ -203,6 +214,8 @@ void AudioRtpReceiver::RestartMediaChannel(absl::optional<uint32_t> ssrc) {
           media_channel_->SetBaseMinimumPlayoutDelayMs(*ssrc_, delay_.GetMs());
         }
 
+
+        RTC_LOG(LS_ERROR) << "OnChanged \n";
         Reconfigure(enabled, volume);
         return true;
       });

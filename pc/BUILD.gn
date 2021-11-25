@@ -874,6 +874,7 @@ if (rtc_include_tests && !build_with_chromium) {
     testonly = true
 
     sources = [
+      "audio_rtp_receiver_unittest.cc",
       "channel_manager_unittest.cc",
       "channel_unittest.cc",
       "dtls_srtp_transport_unittest.cc",
@@ -941,6 +942,7 @@ if (rtc_include_tests && !build_with_chromium) {
       "../test:field_trial",
       "../test:test_main",
       "../test:test_support",
+      "../test:test_common",
       "//third_party/abseil-cpp/absl/algorithm:container",
       "//third_party/abseil-cpp/absl/memory",
       "//third_party/abseil-cpp/absl/strings",

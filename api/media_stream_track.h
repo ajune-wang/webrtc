@@ -15,6 +15,7 @@
 
 #include "api/media_stream_interface.h"
 #include "api/notifier.h"
+#include "rtc_base/logging.h"
 
 namespace webrtc {
 
@@ -33,9 +34,11 @@ class MediaStreamTrack : public Notifier<T> {
   bool set_enabled(bool enable) override {
     bool fire_on_change = (enable != enabled_);
     enabled_ = enable;
+    RTC_LOG(LS_ERROR) << "set_enabled 1 \n";
     if (fire_on_change) {
       Notifier<T>::FireOnChanged();
     }
+    RTC_LOG(LS_ERROR) << "set_enabled 2 \n";
     return fire_on_change;
   }
   void set_ended() { set_state(MediaStreamTrackInterface::TrackState::kEnded); }

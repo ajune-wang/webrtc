@@ -16,6 +16,29 @@
       "message": "Sorry Niels. PTAL again.",
       "revId": "9df056ee192b6440cb784820b8e4cb6a1e528ea8",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "620cb131_2c234f7e",
+        "filename": "media/engine/webrtc_video_engine.cc",
+        "patchSetId": 7
+      },
+      "lineNbr": 68,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2021-11-25T14:48:09Z",
+      "side": 1,
+      "message": "I think this deserves a comment. What was the problem? Would it make sense to round by adding 0.5 instead? The code you\u0027re replacing does\u0027t have this, as far as I see.",
+      "range": {
+        "startLine": 68,
+        "startChar": 61,
+        "endLine": 68,
+        "endChar": 68
+      },
+      "revId": "9df056ee192b6440cb784820b8e4cb6a1e528ea8",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

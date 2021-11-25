@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "6528ba32_1909f137",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 5
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5117
+      },
+      "writtenOn": "2021-11-25T13:38:41Z",
+      "side": 1,
+      "message": "Niels, could you please +1 again? IIRC some new policy will require in complaints if the CL is merged with a PS after the last +1 is set.",
+      "revId": "e1e8da609f3e61132a04090dea7de1f8f0407854",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

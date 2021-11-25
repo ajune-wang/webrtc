@@ -39,6 +39,30 @@
       },
       "revId": "9df056ee192b6440cb784820b8e4cb6a1e528ea8",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "05b2bfa8_8500d6a1",
+        "filename": "media/engine/webrtc_video_engine.cc",
+        "patchSetId": 7
+      },
+      "lineNbr": 68,
+      "author": {
+        "id": 5117
+      },
+      "writtenOn": "2021-11-25T15:00:55Z",
+      "side": 1,
+      "message": "This is a drive-by fix. All tests passed even without 1e-9 once the type was changed to double. But that\u0027s still doesn\u0027t guarantee that for high resolution/big scaling factors there might not be any issues in the future.\n\nThe factors are supposed to be calculated in such a way that the resolution/scale_down_by is integer. So adding an epsilon is a standard way to deal with precision errors in that case.\n\nI\u0027ve added a comment on it.",
+      "parentUuid": "620cb131_2c234f7e",
+      "range": {
+        "startLine": 68,
+        "startChar": 61,
+        "endLine": 68,
+        "endChar": 68
+      },
+      "revId": "9df056ee192b6440cb784820b8e4cb6a1e528ea8",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

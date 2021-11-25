@@ -74,7 +74,8 @@ VideoCodec::VideoCodec()
       expect_encode_from_texture(false),
       timing_frame_thresholds({0, 0}),
       legacy_conference_mode(false),
-      codec_specific_() {}
+      codec_specific_(),
+      scalability_mode_("NONE") {}
 
 VideoCodecVP8* VideoCodec::VP8() {
   RTC_DCHECK_EQ(codecType, kVideoCodecVP8);

@@ -51,6 +51,7 @@
 #include "rtc_base/task_utils/pending_task_safety_flag.h"
 #include "rtc_base/task_utils/to_queued_task.h"
 #include "rtc_base/time_utils.h"
+#include "system_wrappers/include/field_trial.h"
 #include "system_wrappers/include/metrics.h"
 
 namespace webrtc {
@@ -310,6 +311,8 @@ class ChannelReceive : public ChannelReceiveInterface,
   mutable Mutex rtcp_counter_mutex_;
   RtcpPacketTypeCounter rtcp_packet_type_counter_
       RTC_GUARDED_BY(rtcp_counter_mutex_);
+
+  const bool require_rtt_to_nack_;
 };
 
 void ChannelReceive::OnReceivedPayloadData(
@@ -345,6 +348,9 @@ void ChannelReceive::OnReceivedPayloadData(
 
   int64_t round_trip_time = 0;
   rtp_rtcp_->RTT(remote_ssrc_, &round_trip_time, NULL, NULL, NULL);
+  if (require_rtt_to_nack_ && round_trip_time == 0) {
+    return;
+  }
 
   std::vector<uint16_t> nack_list = acm_receiver_.GetNackList(round_trip_time);
   if (!nack_list.empty()) {
@@ -554,7 +560,9 @@ ChannelReceive::ChannelReceive(
       associated_send_channel_(nullptr),
       frame_decryptor_(frame_decryptor),
       crypto_options_(crypto_options),
-      absolute_capture_time_interpolator_(clock) {
+      absolute_capture_time_interpolator_(clock),
+      require_rtt_to_nack_(
+          field_trial::IsEnabled("WebRTC-Audio-NackRequireRtt")) {
   RTC_DCHECK(audio_device_module);
 
   network_thread_checker_.Detach();

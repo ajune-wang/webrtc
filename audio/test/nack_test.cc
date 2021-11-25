@@ -10,6 +10,7 @@
 
 #include "audio/test/audio_end_to_end_test.h"
 #include "system_wrappers/include/sleep.h"
+#include "test/field_trial.h"
 #include "test/gtest.h"
 
 namespace webrtc {
@@ -18,11 +19,13 @@ namespace test {
 using NackTest = CallTest;
 
 TEST_F(NackTest, ShouldNackInLossyNetwork) {
+  ScopedFieldTrials field_trials("WebRTC-Audio-NackRequireRtt/Enabled/");
+
   class NackTest : public AudioEndToEndTest {
    public:
-    const int kTestDurationMs = 2000;
+    const int kTestDurationMs = 20000;
     const int64_t kRttMs = 30;
-    const int64_t kLossPercent = 30;
+    const int64_t kLossPercent = 10;
     const int kNackHistoryMs = 1000;
 
     BuiltInNetworkBehaviorConfig GetNetworkPipeConfig() const override {
@@ -37,6 +40,7 @@ TEST_F(NackTest, ShouldNackInLossyNetwork) {
         std::vector<AudioReceiveStream::Config>* receive_configs) override {
       ASSERT_EQ(receive_configs->size(), 1U);
       (*receive_configs)[0].rtp.nack.rtp_history_ms = kNackHistoryMs;
+      (*receive_configs)[0].enable_non_sender_rtt = true;
       AudioEndToEndTest::ModifyAudioConfigs(send_config, receive_configs);
     }
 

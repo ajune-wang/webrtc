@@ -63,6 +63,30 @@
       },
       "revId": "9df056ee192b6440cb784820b8e4cb6a1e528ea8",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "3c853917_d0ea65c2",
+        "filename": "media/engine/webrtc_video_engine.cc",
+        "patchSetId": 7
+      },
+      "lineNbr": 68,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2021-11-25T15:06:30Z",
+      "side": 1,
+      "message": "If result is supposed to be an integer, I would really prefer to add 0.5 to round to nearest integer, rather than an arbitrary looking small number.",
+      "parentUuid": "05b2bfa8_8500d6a1",
+      "range": {
+        "startLine": 68,
+        "startChar": 61,
+        "endLine": 68,
+        "endChar": 68
+      },
+      "revId": "9df056ee192b6440cb784820b8e4cb6a1e528ea8",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

@@ -251,6 +251,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "7b062b93_43a7ba72",
+        "filename": "BUILD.gn",
+        "patchSetId": 1
+      },
+      "lineNbr": 736,
+      "author": {
+        "id": 14874
+      },
+      "writtenOn": "2021-11-25T10:36:38Z",
+      "side": 1,
+      "message": "that gets included by the sequence checker (first internal, then api/) which is used both by the socket and the task_queue_timeout. No way around that unless one makes the assumption that thread and puts those checks on the dcsctp_transport.",
+      "parentUuid": "016e6146_6d6b1ed8",
+      "range": {
+        "startLine": 736,
+        "startChar": 0,
+        "endLine": 736,
+        "endChar": 18
+      },
+      "revId": "6b1d9fc9188370ab75fc77643036116581b6614f",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "7605fe4f_96d65089",
         "filename": "BUILD.gn",
         "patchSetId": 1

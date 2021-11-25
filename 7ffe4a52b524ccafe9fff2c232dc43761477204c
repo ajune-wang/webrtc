@@ -22,6 +22,30 @@
       },
       "revId": "7ffe4a52b524ccafe9fff2c232dc43761477204c",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "0ac83a72_4161ecae",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 5
+      },
+      "lineNbr": 7,
+      "author": {
+        "id": 5527
+      },
+      "writtenOn": "2021-11-25T12:38:13Z",
+      "side": 1,
+      "message": "It is a special value defined in WebRTC: https://source.chromium.org/chromium/chromium/src/+/main:third_party/webrtc/modules/video_coding/svc/create_scalability_structure.cc;l\u003d117;drc\u003d5d3bf6ae2aea1c6c72f995ba6d29220e6605b323\n\nTypically this would be a scalability mode string (L1T3, S2T2, etc..) which can be set through the (not yet shipped) WebRTC SVC API in javascript land: https://www.w3.org/TR/webrtc-svc/#scalabilitymodes*",
+      "parentUuid": "8e4c6493_314b5602",
+      "range": {
+        "startLine": 7,
+        "startChar": 0,
+        "endLine": 7,
+        "endChar": 8
+      },
+      "revId": "7ffe4a52b524ccafe9fff2c232dc43761477204c",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

@@ -772,6 +772,7 @@ void RtpVideoStreamReceiver2::OnInsertedPacket(
           last_packet.video_header.color_space,              //
           RtpPacketInfos(std::move(packet_infos)),           //
           std::move(bitstream)));
+      break;
     }
   }
   RTC_DCHECK(frame_boundary);

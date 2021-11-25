@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "0284b924_6471f082",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 7
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5117
+      },
+      "writtenOn": "2021-11-25T14:31:42Z",
+      "side": 1,
+      "message": "Sorry Niels. PTAL again.",
+      "revId": "9df056ee192b6440cb784820b8e4cb6a1e528ea8",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

@@ -273,6 +273,30 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "d22a0ba9_f5ff69b6",
+        "filename": "BUILD.gn",
+        "patchSetId": 1
+      },
+      "lineNbr": 736,
+      "author": {
+        "id": 5087
+      },
+      "writtenOn": "2021-11-26T06:36:58Z",
+      "side": 1,
+      "message": "Ah ok. That makes sense. \n\nWell, I think that is the set of headers you will have to bundle in such case, maybe there is a way to reduce them but that might require some non trivial work.",
+      "parentUuid": "7b062b93_43a7ba72",
+      "range": {
+        "startLine": 736,
+        "startChar": 0,
+        "endLine": 736,
+        "endChar": 18
+      },
+      "revId": "6b1d9fc9188370ab75fc77643036116581b6614f",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "7605fe4f_96d65089",

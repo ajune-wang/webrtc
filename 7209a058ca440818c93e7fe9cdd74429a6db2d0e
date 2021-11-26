@@ -34,6 +34,23 @@
       "parentUuid": "cb12bba4_d8e69f49",
       "revId": "7209a058ca440818c93e7fe9cdd74429a6db2d0e",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "9f8ba342_be4eda25",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 3
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2021-11-26T10:59:09Z",
+      "side": 1,
+      "message": "Hi, this example program was reportedly broken (on windows) back in August, and is likely still broken. Reportedly working in June, see comments https://webrtc-review.googlesource.com/c/src/+/223540\n\nCan we land this cl, despite program being in a poor state?\n\nSince PhysicalSocketServer is used for other integration tests on windows, in particular, peer_connection_end_to_end_unittest.cc, it ought to be good enough also for the example program.",
+      "revId": "7209a058ca440818c93e7fe9cdd74429a6db2d0e",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

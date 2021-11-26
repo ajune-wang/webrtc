@@ -1,0 +1,130 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "7ca20ced_4f9f9b28",
+        "filename": "video/frame_cadence_adapter.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 34,
+      "author": {
+        "id": 5117
+      },
+      "writtenOn": "2021-11-26T15:24:30Z",
+      "side": 1,
+      "message": "This name is too abstract. FramerateTrackerAdapter/FramerateTracker are clearer IMHO.\n\nOr do you have any other ideas?",
+      "range": {
+        "startLine": 34,
+        "startChar": 6,
+        "endLine": 34,
+        "endChar": 14
+      },
+      "revId": "97d63c80a86ee4cdbf65cac9b145b8bc8f4a3276",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "1c89d9a5_c42054c0",
+        "filename": "video/frame_cadence_adapter.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 39,
+      "author": {
+        "id": 5117
+      },
+      "writtenOn": "2021-11-26T15:24:30Z",
+      "side": 1,
+      "message": "OnFrame is currently identical between two Adaters. Do you plan to have a third mode or add some different logic in here?\n\nIf not, it would be best to remove this method. Then Adapter could get a better name, e.g. FramerateTracker.",
+      "revId": "97d63c80a86ee4cdbf65cac9b145b8bc8f4a3276",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "dbe10fc3_7bca28b9",
+        "filename": "video/frame_cadence_adapter.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 132,
+      "author": {
+        "id": 5117
+      },
+      "writtenOn": "2021-11-26T15:24:30Z",
+      "side": 1,
+      "message": "nit: please rephrase. I understand what it means, but it\u0027s not easy to read.\n\nE.g. \n  suitable constraints are set (min fps is 0, max fps is \u003e 0)",
+      "range": {
+        "startLine": 132,
+        "startChar": 21,
+        "endLine": 132,
+        "endChar": 57
+      },
+      "revId": "97d63c80a86ee4cdbf65cac9b145b8bc8f4a3276",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "0f344a79_87360aa4",
+        "filename": "video/frame_cadence_adapter.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 151,
+      "author": {
+        "id": 5117
+      },
+      "writtenOn": "2021-11-26T15:24:30Z",
+      "side": 1,
+      "message": "Introducing class hierarchy with overloaded virtual methods implies that you will store pointers to a parent class.\n\nStoring them both here is a little counter intuitive.\n\nI suggest you to store one pointer to a parent class instead.\n\nI see |current_adapter_| doing exaclty that. Plus there\u0027s some kind of caching.\nYet, the some adapters are recreated every time.\n\nHow often can zero mode be toggled on or off? Maybe all this caching is not really needed?",
+      "range": {
+        "startLine": 150,
+        "startChar": 2,
+        "endLine": 151,
+        "endChar": 55
+      },
+      "revId": "97d63c80a86ee4cdbf65cac9b145b8bc8f4a3276",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "8ac0ba8b_daf13dd7",
+        "filename": "video/frame_cadence_adapter_unittest.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 103,
+      "author": {
+        "id": 5117
+      },
+      "writtenOn": "2021-11-26T15:24:30Z",
+      "side": 1,
+      "message": "This test is hard to understand. It looks like it tries to enable the zero-hertz mode at the second run, but it doesn\u0027t because there\u0027s no constraints.\n\nPlease simplify it. Only one iteration will be enough. If you want to check that not providing constraints result in a disabled zero-rate experience, make it a separate test. It should have field trial explicitly enabled.",
+      "range": {
+        "startLine": 103,
+        "startChar": 30,
+        "endLine": 103,
+        "endChar": 75
+      },
+      "revId": "97d63c80a86ee4cdbf65cac9b145b8bc8f4a3276",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "158db03b_87b30448",
+        "filename": "video/frame_cadence_adapter_unittest.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 161,
+      "author": {
+        "id": 5117
+      },
+      "writtenOn": "2021-11-26T15:24:30Z",
+      "side": 1,
+      "message": "It would be clearer if you unroll the last iteration (or rather add one more after the loop). You\u0027ll have to add 3 broilerplate lines, but will remove 2 lines for condition, so it won\u0027t even be that longer.",
+      "revId": "97d63c80a86ee4cdbf65cac9b145b8bc8f4a3276",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

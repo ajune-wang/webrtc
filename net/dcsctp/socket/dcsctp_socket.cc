@@ -248,6 +248,8 @@ constexpr absl::string_view DcSctpSocket::ToString(DcSctpSocket::State state) {
     case DcSctpSocket::State::kShutdownAckSent:
       return "SHUTDOWN_ACK_SENT";
   }
+  RTC_NOTREACHED();
+  return "";
 }
 
 void DcSctpSocket::SetState(State state, absl::string_view reason) {

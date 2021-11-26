@@ -100,6 +100,8 @@ inline constexpr absl::string_view ToString(ErrorKind error) {
     case ErrorKind::kUnsupportedOperation:
       return "UNSUPPORTED_OPERATION";
   }
+  RTC_NOTREACHED();
+  return "";
 }
 
 enum class SendStatus {
@@ -133,6 +135,8 @@ inline constexpr absl::string_view ToString(SendStatus error) {
     case SendStatus::kErrorShuttingDown:
       return "ERROR_SHUTTING_DOWN";
   }
+  RTC_NOTREACHED();
+  return "";
 }
 
 // Return value of ResetStreams.
@@ -154,6 +158,8 @@ inline constexpr absl::string_view ToString(ResetStreamsStatus error) {
     case ResetStreamsStatus::kNotSupported:
       return "NOT_SUPPORTED";
   }
+  RTC_NOTREACHED();
+  return "";
 }
 
 // Return value of DcSctpSocketCallbacks::SendPacketWithStatus.
@@ -229,6 +235,8 @@ inline constexpr absl::string_view ToString(SctpImplementation implementation) {
     case SctpImplementation::kOther:
       return "other";
   }
+  RTC_NOTREACHED();
+  return "";
 }
 
 // Callbacks that the DcSctpSocket will call synchronously to the owning

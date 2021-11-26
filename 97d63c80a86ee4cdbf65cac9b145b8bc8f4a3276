@@ -129,6 +129,30 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "ee6f4fbd_7740c874",
+        "filename": "video/frame_cadence_adapter.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 151,
+      "author": {
+        "id": 5117
+      },
+      "writtenOn": "2021-11-26T16:47:25Z",
+      "side": 1,
+      "message": "L288-289. When zero mode is enabled from disabled, |zero_hertz_adapter_| is recreated. passthrough_adapter_ however isn\u0027t.\n\nIf you have it all the time it may be better instead of adapters to have If statement in FrameCadenceAdapterImpl::GetInputFramerateFps, which either returns max_fps or an internal rate estimator value.\n\nBut I won\u0027t push that.",
+      "parentUuid": "506ee053_2c8fe819",
+      "range": {
+        "startLine": 150,
+        "startChar": 2,
+        "endLine": 151,
+        "endChar": 55
+      },
+      "revId": "97d63c80a86ee4cdbf65cac9b145b8bc8f4a3276",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "8ac0ba8b_daf13dd7",
@@ -166,6 +190,30 @@
       "side": 1,
       "message": "Read closer :) I need to verify that the rate stats work both when feature is disabled, and also when no field trial is present. Do you still want me to separate it?",
       "parentUuid": "8ac0ba8b_daf13dd7",
+      "range": {
+        "startLine": 103,
+        "startChar": 30,
+        "endLine": 103,
+        "endChar": 75
+      },
+      "revId": "97d63c80a86ee4cdbf65cac9b145b8bc8f4a3276",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "416f53c5_534ac928",
+        "filename": "video/frame_cadence_adapter_unittest.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 103,
+      "author": {
+        "id": 5117
+      },
+      "writtenOn": "2021-11-26T16:47:25Z",
+      "side": 1,
+      "message": "Two tests with different names would be clearer.",
+      "parentUuid": "b7e22609_5f5aff93",
       "range": {
         "startLine": 103,
         "startChar": 30,

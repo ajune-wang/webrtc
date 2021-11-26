@@ -46,6 +46,30 @@
       },
       "revId": "b7140bb6f45639003f48be237f99ceb4d6ecfc54",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "9c8d7a0c_8032db68",
+        "filename": "video/rtp_video_stream_receiver2.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 775,
+      "author": {
+        "id": 5527
+      },
+      "writtenOn": "2021-11-26T14:11:24Z",
+      "side": 1,
+      "message": "I think this change will regress perf metrics where packetloss/reordering occurs. \n\nWhen receiving a stream where no information other than the RTP seq num is available to determine frame boundaries/continuity we can often have one late packet complete one or more frames. By breaking here you will basically throw away the later frame(s) which breaks continuity, which leads to a keyframe request.",
+      "parentUuid": "fabccd83_6fe6e22b",
+      "range": {
+        "startLine": 775,
+        "startChar": 6,
+        "endLine": 775,
+        "endChar": 11
+      },
+      "revId": "b7140bb6f45639003f48be237f99ceb4d6ecfc54",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

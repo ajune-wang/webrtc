@@ -331,6 +331,14 @@ Thread* ThreadManager::WrapCurrentThread() {
   return result;
 }
 
+Thread* ThreadManager::WrapCurrentThread(
+    std::unique_ptr<SocketServer> socket_server) {
+  RTC_CHECK(CurrentThread() == nullptr);
+  rtc::Thread* result = new Thread(std::move(socket_server));
+  result->WrapCurrentWithThreadManager(this, true);
+  return result;
+}
+
 void ThreadManager::UnwrapCurrentThread() {
   Thread* t = CurrentThread();
   if (t && !(t->IsOwned())) {

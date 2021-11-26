@@ -148,6 +148,7 @@ class PeerConnectionRampUpTest : public ::testing::Test {
         virtual_socket_server_(new rtc::VirtualSocketServer()),
         firewall_socket_server_(
             new rtc::FirewallSocketServer(virtual_socket_server_.get())),
+        packet_socket_factory_(firewall_socket_server_.get()),
         network_thread_(new rtc::Thread(firewall_socket_server_.get())),
         worker_thread_(rtc::Thread::Create()) {
     network_thread_->SetName("PCNetworkThread", this);
@@ -185,7 +186,8 @@ class PeerConnectionRampUpTest : public ::testing::Test {
     auto observer = std::make_unique<MockPeerConnectionObserver>();
     webrtc::PeerConnectionDependencies dependencies(observer.get());
     cricket::BasicPortAllocator* port_allocator =
-        new cricket::BasicPortAllocator(fake_network_manager);
+        new cricket::BasicPortAllocator(fake_network_manager,
+                                        &packet_socket_factory_);
     port_allocator->set_step_delay(cricket::kDefaultStepDelay);
     dependencies.allocator =
         std::unique_ptr<cricket::BasicPortAllocator>(port_allocator);
@@ -233,15 +235,16 @@ class PeerConnectionRampUpTest : public ::testing::Test {
   void CreateTurnServer(cricket::ProtocolType type,
                         const std::string& common_name = "test turn server") {
     rtc::Thread* thread = network_thread();
+    rtc::SocketFactory* factory = firewall_socket_server_.get();
     std::unique_ptr<cricket::TestTurnServer> turn_server =
         network_thread_->Invoke<std::unique_ptr<cricket::TestTurnServer>>(
-            RTC_FROM_HERE, [thread, type, common_name] {
+            RTC_FROM_HERE, [thread, factory, type, common_name] {
               static const rtc::SocketAddress turn_server_internal_address{
                   kTurnInternalAddress, kTurnInternalPort};
               static const rtc::SocketAddress turn_server_external_address{
                   kTurnExternalAddress, kTurnExternalPort};
               return std::make_unique<cricket::TestTurnServer>(
-                  thread, turn_server_internal_address,
+                  thread, factory, turn_server_internal_address,
                   turn_server_external_address, type,
                   true /*ignore_bad_certs=*/, common_name);
             });
@@ -323,6 +326,7 @@ class PeerConnectionRampUpTest : public ::testing::Test {
   // up queue.
   std::unique_ptr<rtc::VirtualSocketServer> virtual_socket_server_;
   std::unique_ptr<rtc::FirewallSocketServer> firewall_socket_server_;
+  rtc::BasicPacketSocketFactory packet_socket_factory_;
   std::unique_ptr<rtc::Thread> network_thread_;
   std::unique_ptr<rtc::Thread> worker_thread_;
   // The `pc_factory` uses `network_thread_` & `worker_thread_`, so it must be

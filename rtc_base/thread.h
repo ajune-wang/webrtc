@@ -137,6 +137,10 @@ class RTC_EXPORT ThreadManager {
   // be able to get synchronization privileges, in which case the result
   // will have a null handle.
   Thread* WrapCurrentThread();
+  // Like WrapCurrentThread, but uses the provided socket server when creating
+  // the thread. Requires that there isn't a Thread object associated with the
+  // thread already.
+  Thread* WrapCurrentThread(std::unique_ptr<SocketServer> socket_server);
   void UnwrapCurrentThread();
 
   bool IsMainThread();

@@ -70,6 +70,30 @@
       },
       "revId": "b7140bb6f45639003f48be237f99ceb4d6ecfc54",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "5602c447_09c15564",
+        "filename": "video/rtp_video_stream_receiver2.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 775,
+      "author": {
+        "id": 13704
+      },
+      "writtenOn": "2021-11-26T14:55:12Z",
+      "side": 1,
+      "message": "Right, I think I misunderstood what the vector actually contains. In that case the fix is to re-initialize packet_infos instead of breaking.",
+      "parentUuid": "9c8d7a0c_8032db68",
+      "range": {
+        "startLine": 775,
+        "startChar": 6,
+        "endLine": 775,
+        "endChar": 11
+      },
+      "revId": "b7140bb6f45639003f48be237f99ceb4d6ecfc54",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

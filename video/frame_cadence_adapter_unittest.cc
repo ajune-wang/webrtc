@@ -16,6 +16,7 @@
 #include "api/task_queue/task_queue_base.h"
 #include "api/video/nv12_buffer.h"
 #include "api/video/video_frame.h"
+#include "rtc_base/rate_statistics.h"
 #include "rtc_base/ref_counted_object.h"
 #include "system_wrappers/include/metrics.h"
 #include "test/field_trial.h"
@@ -56,6 +57,12 @@ class ZeroHertzFieldTrialDisabler : public test::ScopedFieldTrials {
       : test::ScopedFieldTrials("WebRTC-ZeroHertzScreenshare/Disabled/") {}
 };
 
+class ZeroHertzFieldTrialEnabler : public test::ScopedFieldTrials {
+ public:
+  ZeroHertzFieldTrialEnabler()
+      : test::ScopedFieldTrials("WebRTC-ZeroHertzScreenshare/Enabled/") {}
+};
+
 TEST(FrameCadenceAdapterTest,
      ForwardsFramesOnConstructionAndUnderDisabledFieldTrial) {
   GlobalSimulatedTimeController time_controller(Timestamp::Millis(1));
@@ -91,6 +98,73 @@ TEST(FrameCadenceAdapterTest, CountsOutstandingFramesToProcess) {
   EXPECT_CALL(callback, OnFrame(_, 1, _)).Times(1);
   adapter->OnFrame(frame);
   time_controller.AdvanceTime(TimeDelta::Zero());
+}
+
+TEST(FrameCadenceAdapterTest, FrameRateFollowsRateStatisticsWhenInactivated) {
+  auto disabler = std::make_unique<ZeroHertzFieldTrialDisabler>();
+  for (int i = 0; i != 2; i++) {
+    GlobalSimulatedTimeController time_controller(Timestamp::Millis(0));
+    auto adapter = CreateAdapter(time_controller.GetClock());
+    adapter->Initialize(nullptr);
+
+    // Create an "oracle" rate statistics which should be followed on a sequence
+    // of frames.
+    RateStatistics rate(
+        FrameCadenceAdapterInterface::kFrameRateAvergingWindowSizeMs, 1000);
+
+    for (int frame = 0; frame != 10; frame++) {
+      time_controller.AdvanceTime(TimeDelta::Millis(10));
+      rate.Update(1, time_controller.GetClock()->TimeInMilliseconds());
+      adapter->UpdateFrameRate();
+      EXPECT_EQ(rate.Rate(time_controller.GetClock()->TimeInMilliseconds()),
+                adapter->GetInputFramerateFps())
+          << " failed for frame " << frame;
+    }
+    disabler = nullptr;
+  }
+}
+
+TEST(FrameCadenceAdapterTest, FrameRateFollowsMaxFpsWhenZeroHertzActivated) {
+  ZeroHertzFieldTrialEnabler enabler;
+  MockCallback callback;
+  GlobalSimulatedTimeController time_controller(Timestamp::Millis(0));
+  auto adapter = CreateAdapter(time_controller.GetClock());
+  adapter->Initialize(nullptr);
+  adapter->SetZeroHertzModeEnabled(true);
+  adapter->OnConstraintsChanged(VideoTrackSourceConstraints{0, 1});
+  for (int frame = 0; frame != 10; frame++) {
+    time_controller.AdvanceTime(TimeDelta::Millis(10));
+    adapter->UpdateFrameRate();
+    EXPECT_EQ(adapter->GetInputFramerateFps(), 1u);
+  }
+}
+
+TEST(FrameCadenceAdapterTest,
+     FrameRateFollowsRateStatisticsAfterZeroHertzDeactivated) {
+  ZeroHertzFieldTrialEnabler enabler;
+  MockCallback callback;
+  GlobalSimulatedTimeController time_controller(Timestamp::Millis(0));
+  auto adapter = CreateAdapter(time_controller.GetClock());
+  adapter->Initialize(nullptr);
+  adapter->SetZeroHertzModeEnabled(true);
+  adapter->OnConstraintsChanged(VideoTrackSourceConstraints{0, 1});
+  RateStatistics rate(
+      FrameCadenceAdapterInterface::kFrameRateAvergingWindowSizeMs, 1000);
+  constexpr int MAX = 10;
+  for (int frame = 0; frame != MAX; frame++) {
+    time_controller.AdvanceTime(TimeDelta::Millis(10));
+    rate.Update(1, time_controller.GetClock()->TimeInMilliseconds());
+    adapter->UpdateFrameRate();
+
+    // Turn off zero hertz on the next-last frame; after the last frame we
+    // should see a value that tracks the rate oracle.
+    if (frame == MAX - 2) {
+      adapter->SetZeroHertzModeEnabled(false);
+    } else if (frame == MAX - 1) {
+      EXPECT_EQ(rate.Rate(time_controller.GetClock()->TimeInMilliseconds()),
+                adapter->GetInputFramerateFps());
+    }
+  }
 }
 
 class FrameCadenceAdapterMetricsTest : public ::testing::Test {

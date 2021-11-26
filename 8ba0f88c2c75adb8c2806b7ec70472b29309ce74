@@ -16,6 +16,24 @@
       "message": "this is a bit more than just moving files around - can we move it into a separate CL and link to a bug? (fix looks good btw with perhaps a question if we should check the value of n_planes first).",
       "revId": "8ba0f88c2c75adb8c2806b7ec70472b29309ce74",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "574a591b_681054ef",
+        "filename": "modules/desktop_capture/linux/wayland/base_capturer_pipewire.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 558,
+      "author": {
+        "id": 8046
+      },
+      "writtenOn": "2021-11-26T15:10:18Z",
+      "side": 1,
+      "message": "I fixed this just because this was reported to me by pre-submit check and I was afraid it will cause this change to fail when submitting (I think it already happened to me once). I will try to submit this separately.",
+      "parentUuid": "c337fef8_c850e857",
+      "revId": "8ba0f88c2c75adb8c2806b7ec70472b29309ce74",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

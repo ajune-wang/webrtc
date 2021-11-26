@@ -43,6 +43,24 @@
     {
       "unresolved": false,
       "key": {
+        "uuid": "e12738ae_bf75e7ff",
+        "filename": "video/frame_cadence_adapter.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 39,
+      "author": {
+        "id": 9515
+      },
+      "writtenOn": "2021-11-26T16:15:00Z",
+      "side": 1,
+      "message": "As I wrote in the zero-hertz implementation, there\u0027s a todo to fill with details.",
+      "parentUuid": "1c89d9a5_c42054c0",
+      "revId": "97d63c80a86ee4cdbf65cac9b145b8bc8f4a3276",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
         "uuid": "dbe10fc3_7bca28b9",
         "filename": "video/frame_cadence_adapter.cc",
         "patchSetId": 3
@@ -89,6 +107,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "506ee053_2c8fe819",
+        "filename": "video/frame_cadence_adapter.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 151,
+      "author": {
+        "id": 9515
+      },
+      "writtenOn": "2021-11-26T16:15:00Z",
+      "side": 1,
+      "message": "I need to store the two adapters somewhere. I can\u0027t feed them in since the |callback_| is fed first at initialization time. I can\u0027t change this because VideoSendStream creates the FCA (this is for mocking in the VSE unit tests), but the VideoStreamEncoder must be able to set itself as receptor (in the initialize call).\n\nWithout storing them optionally or dynamically, I have to support two modes in each adapter: needs-initialize and initialized and will have to remove constness of Callback. I think the design is better this way and I can have nice RAII objects with \n\nAs for the cache: 0Hz mode is activated by 7 conditions being true (see added method below), so I figure I don\u0027t want to check that every time I do a call to one of the adapters.\n\nI create the 0Hz adapter first when needed (in MaybeReconfigureAdapters, which can happen in two spots below), and the passthrough as soon as I can.\n\nWhere do you see the adapters getting recreated all the time?",
+      "parentUuid": "0f344a79_87360aa4",
+      "range": {
+        "startLine": 150,
+        "startChar": 2,
+        "endLine": 151,
+        "endChar": 55
+      },
+      "revId": "97d63c80a86ee4cdbf65cac9b145b8bc8f4a3276",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "8ac0ba8b_daf13dd7",
         "filename": "video/frame_cadence_adapter_unittest.cc",
         "patchSetId": 3
@@ -100,6 +142,30 @@
       "writtenOn": "2021-11-26T15:24:30Z",
       "side": 1,
       "message": "This test is hard to understand. It looks like it tries to enable the zero-hertz mode at the second run, but it doesn\u0027t because there\u0027s no constraints.\n\nPlease simplify it. Only one iteration will be enough. If you want to check that not providing constraints result in a disabled zero-rate experience, make it a separate test. It should have field trial explicitly enabled.",
+      "range": {
+        "startLine": 103,
+        "startChar": 30,
+        "endLine": 103,
+        "endChar": 75
+      },
+      "revId": "97d63c80a86ee4cdbf65cac9b145b8bc8f4a3276",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "b7e22609_5f5aff93",
+        "filename": "video/frame_cadence_adapter_unittest.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 103,
+      "author": {
+        "id": 9515
+      },
+      "writtenOn": "2021-11-26T16:15:00Z",
+      "side": 1,
+      "message": "Read closer :) I need to verify that the rate stats work both when feature is disabled, and also when no field trial is present. Do you still want me to separate it?",
+      "parentUuid": "8ac0ba8b_daf13dd7",
       "range": {
         "startLine": 103,
         "startChar": 30,

@@ -1079,10 +1079,6 @@ void Call::DestroyVideoSendStream(webrtc::VideoSendStream* send_stream) {
 
   VideoSendStream* send_stream_impl =
       static_cast<VideoSendStream*>(send_stream);
-  VideoSendStream::RtpStateMap rtp_states;
-  VideoSendStream::RtpPayloadStateMap rtp_payload_states;
-  send_stream_impl->StopPermanentlyAndGetRtpStates(&rtp_states,
-                                                   &rtp_payload_states);
 
   auto it = video_send_ssrcs_.begin();
   while (it != video_send_ssrcs_.end()) {
@@ -1102,6 +1098,10 @@ void Call::DestroyVideoSendStream(webrtc::VideoSendStream* send_stream) {
   if (video_send_streams_.empty())
     video_send_streams_empty_.store(true, std::memory_order_relaxed);
 
+  VideoSendStream::RtpStateMap rtp_states;
+  VideoSendStream::RtpPayloadStateMap rtp_payload_states;
+  send_stream_impl->StopPermanentlyAndGetRtpStates(&rtp_states,
+                                                   &rtp_payload_states);
   for (const auto& kv : rtp_states) {
     suspended_video_send_ssrcs_[kv.first] = kv.second;
   }

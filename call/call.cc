@@ -1081,8 +1081,6 @@ void Call::DestroyVideoSendStream(webrtc::VideoSendStream* send_stream) {
       static_cast<VideoSendStream*>(send_stream);
   VideoSendStream::RtpStateMap rtp_states;
   VideoSendStream::RtpPayloadStateMap rtp_payload_states;
-  send_stream_impl->StopPermanentlyAndGetRtpStates(&rtp_states,
-                                                   &rtp_payload_states);
 
   auto it = video_send_ssrcs_.begin();
   while (it != video_send_ssrcs_.end()) {
@@ -1093,6 +1091,9 @@ void Call::DestroyVideoSendStream(webrtc::VideoSendStream* send_stream) {
       ++it;
     }
   }
+
+  send_stream_impl->StopPermanentlyAndGetRtpStates(&rtp_states,
+                                                   &rtp_payload_states);
 
   // Stop forwarding resources to the stream being destroyed.
   for (const auto& resource_forwarder : adaptation_resource_forwarders_) {

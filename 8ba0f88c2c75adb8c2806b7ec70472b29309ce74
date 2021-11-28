@@ -34,6 +34,24 @@
       "parentUuid": "c337fef8_c850e857",
       "revId": "8ba0f88c2c75adb8c2806b7ec70472b29309ce74",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "6faa5d19_3637ecbc",
+        "filename": "modules/desktop_capture/linux/wayland/base_capturer_pipewire.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 558,
+      "author": {
+        "id": 8046
+      },
+      "writtenOn": "2021-11-28T12:26:12Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "574a591b_681054ef",
+      "revId": "8ba0f88c2c75adb8c2806b7ec70472b29309ce74",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

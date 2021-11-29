@@ -24,6 +24,30 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "39775bef_ef00cf13",
+        "filename": "video/frame_cadence_adapter.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 34,
+      "author": {
+        "id": 9515
+      },
+      "writtenOn": "2021-11-29T09:30:21Z",
+      "side": 1,
+      "message": "Yeah agree. I went for AdapterMode abstracting concrete modes of the cadence adapter. Hope it\u0027s good enough.",
+      "parentUuid": "7ca20ced_4f9f9b28",
+      "range": {
+        "startLine": 34,
+        "startChar": 6,
+        "endLine": 34,
+        "endChar": 14
+      },
+      "revId": "97d63c80a86ee4cdbf65cac9b145b8bc8f4a3276",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "1c89d9a5_c42054c0",
@@ -72,6 +96,30 @@
       "writtenOn": "2021-11-26T15:24:30Z",
       "side": 1,
       "message": "nit: please rephrase. I understand what it means, but it\u0027s not easy to read.\n\nE.g. \n  suitable constraints are set (min fps is 0, max fps is \u003e 0)",
+      "range": {
+        "startLine": 132,
+        "startChar": 21,
+        "endLine": 132,
+        "endChar": 57
+      },
+      "revId": "97d63c80a86ee4cdbf65cac9b145b8bc8f4a3276",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "009c4ed4_5ebbae96",
+        "filename": "video/frame_cadence_adapter.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 132,
+      "author": {
+        "id": 9515
+      },
+      "writtenOn": "2021-11-29T09:30:21Z",
+      "side": 1,
+      "message": "Did an attempt.",
+      "parentUuid": "dbe10fc3_7bca28b9",
       "range": {
         "startLine": 132,
         "startChar": 21,
@@ -224,6 +272,30 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "21cab6a0_31a75794",
+        "filename": "video/frame_cadence_adapter_unittest.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 103,
+      "author": {
+        "id": 9515
+      },
+      "writtenOn": "2021-11-29T09:30:21Z",
+      "side": 1,
+      "message": "Done, separated.",
+      "parentUuid": "416f53c5_534ac928",
+      "range": {
+        "startLine": 103,
+        "startChar": 30,
+        "endLine": 103,
+        "endChar": 75
+      },
+      "revId": "97d63c80a86ee4cdbf65cac9b145b8bc8f4a3276",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "158db03b_87b30448",
@@ -237,6 +309,24 @@
       "writtenOn": "2021-11-26T15:24:30Z",
       "side": 1,
       "message": "It would be clearer if you unroll the last iteration (or rather add one more after the loop). You\u0027ll have to add 3 broilerplate lines, but will remove 2 lines for condition, so it won\u0027t even be that longer.",
+      "revId": "97d63c80a86ee4cdbf65cac9b145b8bc8f4a3276",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "895d4e34_9b42ad1e",
+        "filename": "video/frame_cadence_adapter_unittest.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 161,
+      "author": {
+        "id": 9515
+      },
+      "writtenOn": "2021-11-29T09:30:21Z",
+      "side": 1,
+      "message": "That\u0027s a really good suggestion, done!",
+      "parentUuid": "158db03b_87b30448",
       "revId": "97d63c80a86ee4cdbf65cac9b145b8bc8f4a3276",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }

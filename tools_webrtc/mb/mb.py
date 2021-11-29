@@ -919,7 +919,8 @@ class MetaBuildWrapper(object):
                         '--target', target,
                         '--logdog-bin-cmd', '../../bin/logdog_butler',
                         '--logcat-output-file', '${ISOLATED_OUTDIR}/logcats',
-                        '--store-tombstones']
+                        '--store-tombstones',
+                        '--test-launcher-summary-output', '${ISOLATED_OUTDIR}/gtest_output.json']
         else:
             if test_type == 'raw':
                 cmdline += [vpython_exe,
@@ -950,7 +951,7 @@ class MetaBuildWrapper(object):
                 ]
                 sep = '\\' if self.platform == 'win32' else '/'
                 output_dir = '${ISOLATED_OUTDIR}' + sep + 'test_logs'
-                test_results = '${ISOLATED_OUTDIR}' + sep + 'gtest_output.json'
+                test_results = '${ISOLATED_OUTDIR}' + sep + 'output.json'
                 timeout = isolate_map[target].get('timeout', 900)
                 cmdline += [
                     '../../tools_webrtc/gtest-parallel-wrapper.py',

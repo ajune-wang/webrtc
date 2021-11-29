@@ -53,7 +53,7 @@ class CaptureInputPin : public IMemInputPin, public IPin {
   HRESULT CheckDirection(IPin* pin) const;
 
   // IUnknown
-  STDMETHOD(QueryInterface)(REFIID riid, void** ppv) override;
+  STDMETHOD(QueryInterface)(REFIID riid, void** ppv) noexcept override;
 
   // clang-format off
   // clang isn't sure what to do with the longer STDMETHOD() function
@@ -61,28 +61,28 @@ class CaptureInputPin : public IMemInputPin, public IPin {
 
   // IPin
   STDMETHOD(Connect)(IPin* receive_pin,
-                     const AM_MEDIA_TYPE* media_type) override;
+                     const AM_MEDIA_TYPE* media_type) noexcept override;
   STDMETHOD(ReceiveConnection)(IPin* connector,
-                               const AM_MEDIA_TYPE* media_type) override;
-  STDMETHOD(Disconnect)() override;
-  STDMETHOD(ConnectedTo)(IPin** pin) override;
-  STDMETHOD(ConnectionMediaType)(AM_MEDIA_TYPE* media_type) override;
-  STDMETHOD(QueryPinInfo)(PIN_INFO* info) override;
-  STDMETHOD(QueryDirection)(PIN_DIRECTION* pin_dir) override;
-  STDMETHOD(QueryId)(LPWSTR* id) override;
-  STDMETHOD(QueryAccept)(const AM_MEDIA_TYPE* media_type) override;
-  STDMETHOD(EnumMediaTypes)(IEnumMediaTypes** types) override;
-  STDMETHOD(QueryInternalConnections)(IPin** pins, ULONG* count) override;
-  STDMETHOD(EndOfStream)() override;
-  STDMETHOD(BeginFlush)() override;
-  STDMETHOD(EndFlush)() override;
+                               const AM_MEDIA_TYPE* media_type) noexcept  override;
+  STDMETHOD(Disconnect)() noexcept override;
+  STDMETHOD(ConnectedTo)(IPin** pin) noexcept override;
+  STDMETHOD(ConnectionMediaType)(AM_MEDIA_TYPE* media_type) noexcept override;
+  STDMETHOD(QueryPinInfo)(PIN_INFO* info) noexcept override;
+  STDMETHOD(QueryDirection)(PIN_DIRECTION* pin_dir) noexcept override;
+  STDMETHOD(QueryId)(LPWSTR* id) noexcept override;
+  STDMETHOD(QueryAccept)(const AM_MEDIA_TYPE* media_type) noexcept override;
+  STDMETHOD(EnumMediaTypes)(IEnumMediaTypes** types) noexcept override;
+  STDMETHOD(QueryInternalConnections)(IPin** pins, ULONG* count) noexcept override;
+  STDMETHOD(EndOfStream)() noexcept override;
+  STDMETHOD(BeginFlush)() noexcept override;
+  STDMETHOD(EndFlush)() noexcept override;
   STDMETHOD(NewSegment)(REFERENCE_TIME start, REFERENCE_TIME stop,
-                        double rate) override;
+                        double rate) noexcept override;
 
   // IMemInputPin
-  STDMETHOD(GetAllocator)(IMemAllocator** allocator) override;
-  STDMETHOD(NotifyAllocator)(IMemAllocator* allocator, BOOL read_only) override;
-  STDMETHOD(GetAllocatorRequirements)(ALLOCATOR_PROPERTIES* props) override;
+  STDMETHOD(GetAllocator)(IMemAllocator** allocator) noexcept override;
+  STDMETHOD(NotifyAllocator)(IMemAllocator* allocator, BOOL read_only) noexcept override;
+  STDMETHOD(GetAllocatorRequirements)(ALLOCATOR_PROPERTIES* props) noexcept override;
   STDMETHOD(Receive)(IMediaSample* sample) override;
   STDMETHOD(ReceiveMultiple)(IMediaSample** samples, long count,
                              long* processed) override;

@@ -703,7 +703,7 @@ int SocketDispatcher::next_id_ = 0;
 
 #elif defined(WEBRTC_POSIX)
 
-int SocketDispatcher::GetDescriptor() {
+int SocketDispatcher::GetSocket() {
   return s_;
 }
 
@@ -980,7 +980,7 @@ class Signaler : public Dispatcher {
     flag_to_clear_ = false;
   }
 
-  int GetDescriptor() override { return afd_[0]; }
+  int GetSocket() override { return afd_[0]; }
 
   bool IsDescriptorClosed() override { return false; }
 
@@ -1197,7 +1197,7 @@ static void ProcessEvents(Dispatcher* dispatcher,
   int errcode = 0;
   if (check_error) {
     socklen_t len = sizeof(errcode);
-    int res = ::getsockopt(dispatcher->GetDescriptor(), SOL_SOCKET, SO_ERROR,
+    int res = ::getsockopt(dispatcher->GetSocket(), SOL_SOCKET, SO_ERROR,
                            &errcode, &len);
     if (res < 0) {
       // If we are sure an error has occurred, or if getsockopt failed for a
@@ -1296,7 +1296,7 @@ bool PhysicalSocketServer::WaitSelect(int cmsWait, bool process_io) {
         if (!process_io && (pdispatcher != signal_wakeup_))
           continue;
         current_dispatcher_keys_.push_back(key);
-        int fd = pdispatcher->GetDescriptor();
+        int fd = pdispatcher->GetSocket();
         // "select"ing a file descriptor that is equal to or larger than
         // FD_SETSIZE will result in undefined behavior.
         RTC_DCHECK_LT(fd, FD_SETSIZE);
@@ -1341,7 +1341,7 @@ bool PhysicalSocketServer::WaitSelect(int cmsWait, bool process_io) {
           continue;
         Dispatcher* pdispatcher = dispatcher_by_key_.at(key);
 
-        int fd = pdispatcher->GetDescriptor();
+        int fd = pdispatcher->GetSocket();
 
         bool readable = FD_ISSET(fd, &fdsRead);
         if (readable) {
@@ -1379,7 +1379,7 @@ bool PhysicalSocketServer::WaitSelect(int cmsWait, bool process_io) {
 
 void PhysicalSocketServer::AddEpoll(Dispatcher* pdispatcher, uint64_t key) {
   RTC_DCHECK(epoll_fd_ != INVALID_SOCKET);
-  int fd = pdispatcher->GetDescriptor();
+  int fd = pdispatcher->GetSocket();
   RTC_DCHECK(fd != INVALID_SOCKET);
   if (fd == INVALID_SOCKET) {
     return;
@@ -1402,7 +1402,7 @@ void PhysicalSocketServer::AddEpoll(Dispatcher* pdispatcher, uint64_t key) {
 
 void PhysicalSocketServer::RemoveEpoll(Dispatcher* pdispatcher) {
   RTC_DCHECK(epoll_fd_ != INVALID_SOCKET);
-  int fd = pdispatcher->GetDescriptor();
+  int fd = pdispatcher->GetSocket();
   RTC_DCHECK(fd != INVALID_SOCKET);
   if (fd == INVALID_SOCKET) {
     return;
@@ -1420,7 +1420,7 @@ void PhysicalSocketServer::RemoveEpoll(Dispatcher* pdispatcher) {
 
 void PhysicalSocketServer::UpdateEpoll(Dispatcher* pdispatcher, uint64_t key) {
   RTC_DCHECK(epoll_fd_ != INVALID_SOCKET);
-  int fd = pdispatcher->GetDescriptor();
+  int fd = pdispatcher->GetSocket();
   RTC_DCHECK(fd != INVALID_SOCKET);
   if (fd == INVALID_SOCKET) {
     return;
@@ -1523,7 +1523,7 @@ bool PhysicalSocketServer::WaitPoll(int cmsWait, Dispatcher* dispatcher) {
   fWait_ = true;
 
   struct pollfd fds = {0};
-  int fd = dispatcher->GetDescriptor();
+  int fd = dispatcher->GetSocket();
   fds.fd = fd;
 
   while (fWait_) {

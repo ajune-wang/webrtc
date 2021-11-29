@@ -51,12 +51,11 @@ class Dispatcher {
   virtual ~Dispatcher() {}
   virtual uint32_t GetRequestedEvents() = 0;
   virtual void OnEvent(uint32_t ff, int err) = 0;
+  virtual SOCKET GetSocket() = 0;
 #if defined(WEBRTC_WIN)
   virtual WSAEVENT GetWSAEvent() = 0;
-  virtual SOCKET GetSocket() = 0;
   virtual bool CheckSignalClose() = 0;
 #elif defined(WEBRTC_POSIX)
-  virtual int GetDescriptor() = 0;
   virtual bool IsDescriptorClosed() = 0;
 #endif
 };
@@ -226,12 +225,11 @@ class SocketDispatcher : public Dispatcher, public PhysicalSocket {
   virtual bool Create(int type);
   bool Create(int family, int type) override;
 
+  SOCKET GetSocket() override;
 #if defined(WEBRTC_WIN)
   WSAEVENT GetWSAEvent() override;
-  SOCKET GetSocket() override;
   bool CheckSignalClose() override;
 #elif defined(WEBRTC_POSIX)
-  int GetDescriptor() override;
   bool IsDescriptorClosed() override;
 #endif
 

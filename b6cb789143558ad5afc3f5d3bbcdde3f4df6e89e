@@ -16,6 +16,23 @@
       "message": "+alcooper@ as an FYI.\n\nwez@: Do you still want to be looped into WebRTC desktop capture reviews?  Alex and I have assumed ownership of this code.",
       "revId": "b6cb789143558ad5afc3f5d3bbcdde3f4df6e89e",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "b4b800ce_0be04c33",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 4
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 14134
+      },
+      "writtenOn": "2021-11-29T21:19:33Z",
+      "side": 1,
+      "message": "Thank you for doing this, this will help the code be more legible to future maintainers.\n\nSince the Wayland code here is specifically interfacing with the Pipewire library, would it make more sense to move it to modules/desktop_capture/pipewire instead of .../wayland?  WDYT?\n\n\n",
+      "revId": "b6cb789143558ad5afc3f5d3bbcdde3f4df6e89e",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

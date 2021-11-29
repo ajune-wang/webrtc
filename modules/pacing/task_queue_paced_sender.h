@@ -130,7 +130,9 @@ class TaskQueuePacedSender : public RtpPacketPacer, public RtpPacketSender {
   // method again with desired (finite) scheduled process time.
   void MaybeProcessPackets(Timestamp scheduled_process_time);
 
-  void MaybeUpdateStats(bool is_scheduled_call) RTC_RUN_ON(task_queue_);
+  void MaybeUpdateStats(bool is_scheduled_call,
+                        Timestamp scheduled_process_time)
+      RTC_RUN_ON(task_queue_);
   Stats GetStats() const;
 
   Clock* const clock_;

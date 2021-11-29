@@ -144,7 +144,7 @@ class PacingController {
 
   // Check queue of pending packets and send them or padding packets, if budget
   // is available.
-  void ProcessPackets();
+  void ProcessPackets(Timestamp processing_time = Timestamp::MinusInfinity());
 
   bool Congested() const;
 
@@ -159,6 +159,7 @@ class PacingController {
   // Updates the number of bytes that can be sent for the next time interval.
   void UpdateBudgetWithElapsedTime(TimeDelta delta);
   void UpdateBudgetWithSentData(DataSize size);
+  void UpdateBudgetWithMissedTime(TimeDelta delta);
 
   DataSize PaddingToAdd(DataSize recommended_probe_size,
                         DataSize data_sent) const;

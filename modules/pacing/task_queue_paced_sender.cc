@@ -229,7 +229,7 @@ void TaskQueuePacedSender::MaybeProcessPackets(
   if (is_scheduled_call ||
       (now >= next_process_time && (next_process_time_.IsInfinite() ||
                                     next_process_time < next_process_time_))) {
-    pacing_controller_.ProcessPackets();
+    pacing_controller_.ProcessPackets(scheduled_process_time);
     next_process_time = pacing_controller_.NextSendTime();
   }
 
@@ -274,10 +274,11 @@ void TaskQueuePacedSender::MaybeProcessPackets(
         time_to_next_process->ms<uint32_t>());
   }
 
-  MaybeUpdateStats(false);
+  MaybeUpdateStats(false, Timestamp::MinusInfinity());
 }
 
-void TaskQueuePacedSender::MaybeUpdateStats(bool is_scheduled_call) {
+void TaskQueuePacedSender::MaybeUpdateStats(bool is_scheduled_call,
+                                            Timestamp scheduled_process_time) {
   if (is_shutdown_) {
     if (is_scheduled_call) {
       stats_update_scheduled_ = false;
@@ -289,7 +290,7 @@ void TaskQueuePacedSender::MaybeUpdateStats(bool is_scheduled_call) {
   if (is_scheduled_call) {
     // Allow scheduled task to process packets to clear up an remaining debt
     // level in an otherwise empty queue.
-    pacing_controller_.ProcessPackets();
+    pacing_controller_.ProcessPackets(scheduled_process_time);
   } else {
     if (now - last_stats_time_ < kMinTimeBetweenStatsUpdates) {
       // Too frequent unscheduled stats update, return early.
@@ -325,9 +326,9 @@ void TaskQueuePacedSender::MaybeUpdateStats(bool is_scheduled_call) {
     // task.
     if (is_scheduled_call) {
       task_queue_.PostDelayedTask(
-          [this]() {
+          [this, now]() {
             RTC_DCHECK_RUN_ON(&task_queue_);
-            MaybeUpdateStats(true);
+            MaybeUpdateStats(true, now);
           },
           kMaxTimeBetweenStatsUpdates.ms<uint32_t>());
     }

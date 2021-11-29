@@ -43,6 +43,7 @@ constexpr TimeDelta kMaxProcessingInterval = TimeDelta::Millis(30);
 // set to 1ms as this is intended to allow times be rounded down to the nearest
 // millisecond.
 constexpr TimeDelta kMaxEarlyProbeProcessing = TimeDelta::Millis(1);
+constexpr TimeDelta kMaxDynamicProcessingDelay = TimeDelta::Millis(2);
 
 constexpr int kFirstPriority = 0;
 
@@ -408,14 +409,21 @@ Timestamp PacingController::NextSendTime() const {
   return last_process_time_ + kPausedProcessInterval;
 }
 
-void PacingController::ProcessPackets() {
+void PacingController::ProcessPackets(Timestamp processing_time) {
   Timestamp now = CurrentTime();
   Timestamp target_send_time = now;
+  bool compensate_budget = false;
+
   if (mode_ == ProcessMode::kDynamic) {
     target_send_time = NextSendTime();
     TimeDelta early_execute_margin =
         prober_.is_probing() ? kMaxEarlyProbeProcessing : TimeDelta::Zero();
-    if (target_send_time.IsMinusInfinity()) {
+    // Task scheduler delay (caused by metronome task runner)
+    if (processing_time.IsFinite() &&
+        now - processing_time > kMaxDynamicProcessingDelay) {
+      compensate_budget = true;
+      UpdateBudgetWithMissedTime(now - processing_time);
+    } else if (target_send_time.IsMinusInfinity()) {
       target_send_time = now;
     } else if (now < target_send_time - early_execute_margin) {
       // We are too early, but if queue is empty still allow draining some debt.
@@ -546,7 +554,8 @@ void PacingController::ProcessPackets() {
       // process and target send time for the next packet.
       // If the process call is late, that may be the time between the optimal
       // send times for two packets we should already have sent.
-      UpdateBudgetWithElapsedTime(target_send_time - previous_process_time);
+      if (!compensate_budget)
+        UpdateBudgetWithElapsedTime(target_send_time - previous_process_time);
       previous_process_time = target_send_time;
     }
 
@@ -746,6 +755,14 @@ void PacingController::UpdateBudgetWithSentData(DataSize size) {
     padding_debt_ += size;
     padding_debt_ = std::min(padding_debt_, padding_rate_ * kMaxDebtInTime);
   }
+}
+
+void PacingController::UpdateBudgetWithMissedTime(TimeDelta delta) {
+  if (mode_ != ProcessMode::kDynamic)
+    return;
+  delta = std::min(kMaxProcessingInterval, delta);
+  media_budget_.IncreaseBudget(delta.ms());
+  padding_budget_.IncreaseBudget(delta.ms());
 }
 
 void PacingController::SetQueueTimeLimit(TimeDelta limit) {

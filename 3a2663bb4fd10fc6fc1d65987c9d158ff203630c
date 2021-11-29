@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "68b34e68_965a411b",
+        "filename": "call/rtp_video_sender.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 350,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2021-11-29T08:09:49Z",
+      "side": 1,
+      "message": "Does caller need to hold on to the map, or could we use call-by-value + move?",
+      "range": {
+        "startLine": 350,
+        "startChar": 40,
+        "endLine": 350,
+        "endChar": 56
+      },
+      "revId": "3a2663bb4fd10fc6fc1d65987c9d158ff203630c",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

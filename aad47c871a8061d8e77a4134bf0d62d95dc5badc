@@ -41,6 +41,30 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "a0d0f7b5_48a1df20",
+        "filename": "video/frame_cadence_adapter.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 44,
+      "author": {
+        "id": 9515
+      },
+      "writtenOn": "2021-11-29T11:35:44Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "4a6d1757_945173b3",
+      "range": {
+        "startLine": 44,
+        "startChar": 35,
+        "endLine": 44,
+        "endChar": 55
+      },
+      "revId": "aad47c871a8061d8e77a4134bf0d62d95dc5badc",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "c58ab966_ad0b3d80",
@@ -54,6 +78,30 @@
       "writtenOn": "2021-11-29T10:41:02Z",
       "side": 1,
       "message": "Possibly use value_or() instead of has_value() here to make it more condensed? Not sure if the style guide would recommend that or not...",
+      "range": {
+        "startLine": 275,
+        "startChar": 0,
+        "endLine": 275,
+        "endChar": 78
+      },
+      "revId": "aad47c871a8061d8e77a4134bf0d62d95dc5badc",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "b4abecc7_a184bddf",
+        "filename": "video/frame_cadence_adapter.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 275,
+      "author": {
+        "id": 9515
+      },
+      "writtenOn": "2021-11-29T11:35:44Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "c58ab966_ad0b3d80",
       "range": {
         "startLine": 275,
         "startChar": 0,
@@ -87,6 +135,30 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "bdb1d27f_4ec35189",
+        "filename": "video/frame_cadence_adapter_unittest.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 153,
+      "author": {
+        "id": 9515
+      },
+      "writtenOn": "2021-11-29T11:35:44Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "68bd7150_a946de04",
+      "range": {
+        "startLine": 153,
+        "startChar": 40,
+        "endLine": 153,
+        "endChar": 41
+      },
+      "revId": "aad47c871a8061d8e77a4134bf0d62d95dc5badc",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "d4663915_d4487c95",
@@ -100,6 +172,30 @@
       "writtenOn": "2021-11-29T10:41:02Z",
       "side": 1,
       "message": "++frame",
+      "range": {
+        "startLine": 172,
+        "startChar": 41,
+        "endLine": 172,
+        "endChar": 42
+      },
+      "revId": "aad47c871a8061d8e77a4134bf0d62d95dc5badc",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "286780d9_ffa58a03",
+        "filename": "video/frame_cadence_adapter_unittest.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 172,
+      "author": {
+        "id": 9515
+      },
+      "writtenOn": "2021-11-29T11:35:44Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "d4663915_d4487c95",
       "range": {
         "startLine": 172,
         "startChar": 41,

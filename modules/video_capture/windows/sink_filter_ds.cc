@@ -513,7 +513,7 @@ HRESULT CaptureInputPin::CheckDirection(IPin* pin) const {
   return pd == info_.dir ? VFW_E_INVALID_DIRECTION : S_OK;
 }
 
-STDMETHODIMP CaptureInputPin::QueryInterface(REFIID riid, void** ppv) {
+STDMETHODIMP CaptureInputPin::QueryInterface(REFIID riid, void** ppv) noexcept {
   (*ppv) = nullptr;
   if (riid == IID_IUnknown || riid == IID_IMemInputPin) {
     *ppv = static_cast<IMemInputPin*>(this);
@@ -528,8 +528,9 @@ STDMETHODIMP CaptureInputPin::QueryInterface(REFIID riid, void** ppv) {
   return S_OK;
 }
 
-STDMETHODIMP CaptureInputPin::Connect(IPin* receive_pin,
-                                      const AM_MEDIA_TYPE* media_type) {
+STDMETHODIMP CaptureInputPin::Connect(
+    IPin* receive_pin,
+    const AM_MEDIA_TYPE* media_type) noexcept {
   RTC_DCHECK_RUN_ON(&main_checker_);
   if (!media_type || !receive_pin)
     return E_POINTER;
@@ -559,7 +560,7 @@ STDMETHODIMP CaptureInputPin::Connect(IPin* receive_pin,
 
 STDMETHODIMP CaptureInputPin::ReceiveConnection(
     IPin* connector,
-    const AM_MEDIA_TYPE* media_type) {
+    const AM_MEDIA_TYPE* media_type) noexcept {
   RTC_DCHECK_RUN_ON(&main_checker_);
   RTC_DCHECK(Filter()->IsStopped());
 
@@ -585,7 +586,7 @@ STDMETHODIMP CaptureInputPin::ReceiveConnection(
   return S_OK;
 }
 
-STDMETHODIMP CaptureInputPin::Disconnect() {
+STDMETHODIMP CaptureInputPin::Disconnect() noexcept {
   RTC_DCHECK_RUN_ON(&main_checker_);
   if (!Filter()->IsStopped())
     return VFW_E_NOT_STOPPED;
@@ -599,7 +600,7 @@ STDMETHODIMP CaptureInputPin::Disconnect() {
   return S_OK;
 }
 
-STDMETHODIMP CaptureInputPin::ConnectedTo(IPin** pin) {
+STDMETHODIMP CaptureInputPin::ConnectedTo(IPin** pin) noexcept {
   RTC_DCHECK_RUN_ON(&main_checker_);
 
   if (!receive_pin_)
@@ -611,7 +612,8 @@ STDMETHODIMP CaptureInputPin::ConnectedTo(IPin** pin) {
   return S_OK;
 }
 
-STDMETHODIMP CaptureInputPin::ConnectionMediaType(AM_MEDIA_TYPE* media_type) {
+STDMETHODIMP CaptureInputPin::ConnectionMediaType(
+    AM_MEDIA_TYPE* media_type) noexcept {
   RTC_DCHECK_RUN_ON(&main_checker_);
 
   if (!receive_pin_)
@@ -622,7 +624,7 @@ STDMETHODIMP CaptureInputPin::ConnectionMediaType(AM_MEDIA_TYPE* media_type) {
   return S_OK;
 }
 
-STDMETHODIMP CaptureInputPin::QueryPinInfo(PIN_INFO* info) {
+STDMETHODIMP CaptureInputPin::QueryPinInfo(PIN_INFO* info) noexcept {
   RTC_DCHECK_RUN_ON(&main_checker_);
   *info = info_;
   if (info_.pFilter)
@@ -630,13 +632,13 @@ STDMETHODIMP CaptureInputPin::QueryPinInfo(PIN_INFO* info) {
   return S_OK;
 }
 
-STDMETHODIMP CaptureInputPin::QueryDirection(PIN_DIRECTION* pin_dir) {
+STDMETHODIMP CaptureInputPin::QueryDirection(PIN_DIRECTION* pin_dir) noexcept {
   RTC_DCHECK_RUN_ON(&main_checker_);
   *pin_dir = info_.dir;
   return S_OK;
 }
 
-STDMETHODIMP CaptureInputPin::QueryId(LPWSTR* id) {
+STDMETHODIMP CaptureInputPin::QueryId(LPWSTR* id) noexcept {
   RTC_DCHECK_RUN_ON(&main_checker_);
   size_t len = lstrlenW(info_.achName);
   *id = reinterpret_cast<LPWSTR>(CoTaskMemAlloc((len + 1) * sizeof(wchar_t)));
@@ -644,7 +646,8 @@ STDMETHODIMP CaptureInputPin::QueryId(LPWSTR* id) {
   return S_OK;
 }
 
-STDMETHODIMP CaptureInputPin::QueryAccept(const AM_MEDIA_TYPE* media_type) {
+STDMETHODIMP CaptureInputPin::QueryAccept(
+    const AM_MEDIA_TYPE* media_type) noexcept {
   RTC_DCHECK_RUN_ON(&main_checker_);
   RTC_DCHECK(Filter()->IsStopped());
   VideoCaptureCapability capability(resulting_capability_);
@@ -653,7 +656,7 @@ STDMETHODIMP CaptureInputPin::QueryAccept(const AM_MEDIA_TYPE* media_type) {
              : S_OK;
 }
 
-STDMETHODIMP CaptureInputPin::EnumMediaTypes(IEnumMediaTypes** types) {
+STDMETHODIMP CaptureInputPin::EnumMediaTypes(IEnumMediaTypes** types) noexcept {
   RTC_DCHECK_RUN_ON(&main_checker_);
   *types = new ComRefCount<MediaTypesEnum>(requested_capability_);
   (*types)->AddRef();
@@ -661,21 +664,21 @@ STDMETHODIMP CaptureInputPin::EnumMediaTypes(IEnumMediaTypes** types) {
 }
 
 STDMETHODIMP CaptureInputPin::QueryInternalConnections(IPin** pins,
-                                                       ULONG* count) {
+                                                       ULONG* count) noexcept {
   return E_NOTIMPL;
 }
 
-STDMETHODIMP CaptureInputPin::EndOfStream() {
+STDMETHODIMP CaptureInputPin::EndOfStream() noexcept {
   return S_OK;
 }
 
-STDMETHODIMP CaptureInputPin::BeginFlush() {
+STDMETHODIMP CaptureInputPin::BeginFlush() noexcept {
   RTC_DCHECK_RUN_ON(&main_checker_);
   flushing_ = true;
   return S_OK;
 }
 
-STDMETHODIMP CaptureInputPin::EndFlush() {
+STDMETHODIMP CaptureInputPin::EndFlush() noexcept {
   RTC_DCHECK_RUN_ON(&main_checker_);
   flushing_ = false;
   runtime_error_ = false;
@@ -684,12 +687,12 @@ STDMETHODIMP CaptureInputPin::EndFlush() {
 
 STDMETHODIMP CaptureInputPin::NewSegment(REFERENCE_TIME start,
                                          REFERENCE_TIME stop,
-                                         double rate) {
+                                         double rate) noexcept {
   RTC_DCHECK_RUN_ON(&main_checker_);
   return S_OK;
 }
 
-STDMETHODIMP CaptureInputPin::GetAllocator(IMemAllocator** allocator) {
+STDMETHODIMP CaptureInputPin::GetAllocator(IMemAllocator** allocator) noexcept {
   RTC_DCHECK_RUN_ON(&main_checker_);
   if (allocator_ == nullptr) {
     HRESULT hr = CoCreateInstance(CLSID_MemoryAllocator, 0,
@@ -705,7 +708,7 @@ STDMETHODIMP CaptureInputPin::GetAllocator(IMemAllocator** allocator) {
 }
 
 STDMETHODIMP CaptureInputPin::NotifyAllocator(IMemAllocator* allocator,
-                                              BOOL read_only) {
+                                              BOOL read_only) noexcept {
   RTC_DCHECK_RUN_ON(&main_checker_);
   allocator_.swap(&allocator);
   if (allocator_)
@@ -716,11 +719,11 @@ STDMETHODIMP CaptureInputPin::NotifyAllocator(IMemAllocator* allocator,
 }
 
 STDMETHODIMP CaptureInputPin::GetAllocatorRequirements(
-    ALLOCATOR_PROPERTIES* props) {
+    ALLOCATOR_PROPERTIES* props) noexcept {
   return E_NOTIMPL;
 }
 
-STDMETHODIMP CaptureInputPin::Receive(IMediaSample* media_sample) {
+STDMETHODIMP CaptureInputPin::Receive(IMediaSample* media_sample) noexcept {
   RTC_DCHECK_RUN_ON(&capture_checker_);
 
   CaptureSinkFilter* const filter = static_cast<CaptureSinkFilter*>(Filter());
@@ -767,7 +770,7 @@ STDMETHODIMP CaptureInputPin::Receive(IMediaSample* media_sample) {
 
 STDMETHODIMP CaptureInputPin::ReceiveMultiple(IMediaSample** samples,
                                               long count,
-                                              long* processed) {
+                                              long* processed) noexcept {
   HRESULT hr = S_OK;
   *processed = 0;
   while (count-- > 0) {
@@ -779,7 +782,7 @@ STDMETHODIMP CaptureInputPin::ReceiveMultiple(IMediaSample** samples,
   return hr;
 }
 
-STDMETHODIMP CaptureInputPin::ReceiveCanBlock() {
+STDMETHODIMP CaptureInputPin::ReceiveCanBlock() noexcept {
   return S_FALSE;
 }
 
@@ -800,29 +803,31 @@ HRESULT CaptureSinkFilter::SetRequestedCapability(
   return input_pin_->SetRequestedCapability(capability);
 }
 
-STDMETHODIMP CaptureSinkFilter::GetState(DWORD msecs, FILTER_STATE* state) {
+STDMETHODIMP CaptureSinkFilter::GetState(DWORD msecs,
+                                         FILTER_STATE* state) noexcept {
   RTC_DCHECK_RUN_ON(&main_checker_);
   *state = state_;
   return S_OK;
 }
 
-STDMETHODIMP CaptureSinkFilter::SetSyncSource(IReferenceClock* clock) {
+STDMETHODIMP CaptureSinkFilter::SetSyncSource(IReferenceClock* clock) noexcept {
   RTC_DCHECK_RUN_ON(&main_checker_);
   return S_OK;
 }
 
-STDMETHODIMP CaptureSinkFilter::GetSyncSource(IReferenceClock** clock) {
+STDMETHODIMP CaptureSinkFilter::GetSyncSource(
+    IReferenceClock** clock) noexcept {
   RTC_DCHECK_RUN_ON(&main_checker_);
   return E_NOTIMPL;
 }
 
-STDMETHODIMP CaptureSinkFilter::Pause() {
+STDMETHODIMP CaptureSinkFilter::Pause() noexcept {
   RTC_DCHECK_RUN_ON(&main_checker_);
   state_ = State_Paused;
   return S_OK;
 }
 
-STDMETHODIMP CaptureSinkFilter::Run(REFERENCE_TIME tStart) {
+STDMETHODIMP CaptureSinkFilter::Run(REFERENCE_TIME tStart) noexcept {
   RTC_DCHECK_RUN_ON(&main_checker_);
   if (state_ == State_Stopped)
     Pause();
@@ -833,7 +838,7 @@ STDMETHODIMP CaptureSinkFilter::Run(REFERENCE_TIME tStart) {
   return S_OK;
 }
 
-STDMETHODIMP CaptureSinkFilter::Stop() {
+STDMETHODIMP CaptureSinkFilter::Stop() noexcept {
   RTC_DCHECK_RUN_ON(&main_checker_);
   if (state_ == State_Stopped)
     return S_OK;
@@ -844,21 +849,21 @@ STDMETHODIMP CaptureSinkFilter::Stop() {
   return S_OK;
 }
 
-STDMETHODIMP CaptureSinkFilter::EnumPins(IEnumPins** pins) {
+STDMETHODIMP CaptureSinkFilter::EnumPins(IEnumPins** pins) noexcept {
   RTC_DCHECK_RUN_ON(&main_checker_);
   *pins = new ComRefCount<class EnumPins>(input_pin_.get());
   (*pins)->AddRef();
   return S_OK;
 }
 
-STDMETHODIMP CaptureSinkFilter::FindPin(LPCWSTR id, IPin** pin) {
+STDMETHODIMP CaptureSinkFilter::FindPin(LPCWSTR id, IPin** pin) noexcept {
   RTC_DCHECK_RUN_ON(&main_checker_);
   // There's no ID assigned to our input pin, so looking it up based on one
   // is pointless (and in practice, this method isn't being used).
   return VFW_E_NOT_FOUND;
 }
 
-STDMETHODIMP CaptureSinkFilter::QueryFilterInfo(FILTER_INFO* info) {
+STDMETHODIMP CaptureSinkFilter::QueryFilterInfo(FILTER_INFO* info) noexcept {
   RTC_DCHECK_RUN_ON(&main_checker_);
   *info = info_;
   if (info->pGraph)
@@ -867,7 +872,7 @@ STDMETHODIMP CaptureSinkFilter::QueryFilterInfo(FILTER_INFO* info) {
 }
 
 STDMETHODIMP CaptureSinkFilter::JoinFilterGraph(IFilterGraph* graph,
-                                                LPCWSTR name) {
+                                                LPCWSTR name) noexcept {
   RTC_DCHECK_RUN_ON(&main_checker_);
   RTC_DCHECK(IsStopped());
 
@@ -893,7 +898,7 @@ STDMETHODIMP CaptureSinkFilter::JoinFilterGraph(IFilterGraph* graph,
   return S_OK;
 }
 
-STDMETHODIMP CaptureSinkFilter::QueryVendorInfo(LPWSTR* vendor_info) {
+STDMETHODIMP CaptureSinkFilter::QueryVendorInfo(LPWSTR* vendor_info) noexcept {
   return E_NOTIMPL;
 }
 
@@ -922,7 +927,8 @@ bool CaptureSinkFilter::IsStopped() const {
   return state_ == State_Stopped;
 }
 
-STDMETHODIMP CaptureSinkFilter::QueryInterface(REFIID riid, void** ppv) {
+STDMETHODIMP CaptureSinkFilter::QueryInterface(REFIID riid,
+                                               void** ppv) noexcept {
   if (riid == IID_IUnknown || riid == IID_IPersist || riid == IID_IBaseFilter) {
     *ppv = static_cast<IBaseFilter*>(this);
     AddRef();
@@ -931,7 +937,7 @@ STDMETHODIMP CaptureSinkFilter::QueryInterface(REFIID riid, void** ppv) {
   return E_NOINTERFACE;
 }
 
-STDMETHODIMP CaptureSinkFilter::GetClassID(CLSID* clsid) {
+STDMETHODIMP CaptureSinkFilter::GetClassID(CLSID* clsid) noexcept {
   *clsid = CLSID_SINKFILTER;
   return S_OK;
 }

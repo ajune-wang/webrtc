@@ -16,6 +16,24 @@
       "message": "do you want it to go all the way to being committed?\ndo you need another +1 to complete the test?\n",
       "revId": "91fd2ec87539822258f797fd8d57be36cc9d9c15",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "48917c29_1c7b38a3",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5150
+      },
+      "writtenOn": "2021-11-29T09:34:35Z",
+      "side": 1,
+      "message": "No need to +1. Thanks",
+      "parentUuid": "0725cd28_81bc9f68",
+      "revId": "91fd2ec87539822258f797fd8d57be36cc9d9c15",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

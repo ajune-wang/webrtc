@@ -513,7 +513,7 @@ HRESULT CaptureInputPin::CheckDirection(IPin* pin) const {
   return pd == info_.dir ? VFW_E_INVALID_DIRECTION : S_OK;
 }
 
-STDMETHODIMP CaptureInputPin::QueryInterface(REFIID riid, void** ppv) {
+STDMETHODIMP CaptureInputPin::QueryInterface(REFIID riid, void** ppv) noexcept {
   (*ppv) = nullptr;
   if (riid == IID_IUnknown || riid == IID_IMemInputPin) {
     *ppv = static_cast<IMemInputPin*>(this);

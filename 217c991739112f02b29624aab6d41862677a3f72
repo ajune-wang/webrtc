@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "65985ba5_b6317e4b",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 7755
+      },
+      "writtenOn": "2021-11-29T12:04:51Z",
+      "side": 1,
+      "message": "does that name look good? Then i\u0027ll prepare the chromium metrics CL.\nI *think* we can use the existing setRemoteDescription metric as baseline even so will know how many rejections we have.",
+      "revId": "217c991739112f02b29624aab6d41862677a3f72",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

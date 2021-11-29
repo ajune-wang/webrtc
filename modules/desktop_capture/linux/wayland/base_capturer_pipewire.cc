@@ -10,7 +10,6 @@
 
 #include "modules/desktop_capture/linux/wayland/base_capturer_pipewire.h"
 
-#include "absl/types/optional.h"
 #include "modules/desktop_capture/desktop_capture_options.h"
 #include "modules/desktop_capture/desktop_capturer.h"
 #include "rtc_base/checks.h"
@@ -59,10 +58,10 @@ void BaseCapturerPipeWire::CaptureFrame() {
     return;
   }
 
-  absl::optional<std::unique_ptr<BasicDesktopFrame>> frame =
+  std::unique_ptr<DesktopFrame> frame =
       options_.screencast_stream()->CaptureFrame();
 
-  if (!frame) {
+  if (!frame || !frame->data()) {
     callback_->OnCaptureResult(Result::ERROR_TEMPORARY, nullptr);
     return;
   }
@@ -70,7 +69,7 @@ void BaseCapturerPipeWire::CaptureFrame() {
   // TODO(julien.isorce): http://crbug.com/945468. Set the icc profile on
   // the frame, see ScreenCapturerX11::CaptureFrame.
 
-  callback_->OnCaptureResult(Result::SUCCESS, std::move(frame.value()));
+  callback_->OnCaptureResult(Result::SUCCESS, std::move(frame));
 }
 
 bool BaseCapturerPipeWire::GetSourceList(SourceList* sources) {

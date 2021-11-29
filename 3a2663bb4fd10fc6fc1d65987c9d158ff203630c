@@ -22,6 +22,30 @@
       },
       "revId": "3a2663bb4fd10fc6fc1d65987c9d158ff203630c",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "5c12a528_f2514be2",
+        "filename": "call/rtp_video_sender.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 350,
+      "author": {
+        "id": 5508
+      },
+      "writtenOn": "2021-11-29T09:40:29Z",
+      "side": 1,
+      "message": "The caller holds on to the map. This was previously always creating a copy\nof the Call class\u0027 `suspended_video_send_ssrcs_` variable:\n\nhttps://source.chromium.org/chromium/chromium/src/+/main:third_party/webrtc/call/call.cc;drc\u003d1e0c2a218eb71bef788fd87b0e7a4e9e93ecfe1d;l\u003d1040\n\nI looked at the call stack again btw and realized that CreateRtpSender() still had the pass-by-value step, so in the latest patch set I\u0027ve changed that too.",
+      "parentUuid": "68b34e68_965a411b",
+      "range": {
+        "startLine": 350,
+        "startChar": 40,
+        "endLine": 350,
+        "endChar": 56
+      },
+      "revId": "3a2663bb4fd10fc6fc1d65987c9d158ff203630c",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

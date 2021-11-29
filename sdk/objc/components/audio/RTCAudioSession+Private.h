@@ -76,8 +76,11 @@ NS_ASSUME_NONNULL_BEGIN
 /** Notifies the reciever that a playout glitch was detected. */
 - (void)notifyDidDetectPlayoutGlitch:(int64_t)totalNumberOfGlitches;
 
-/** Notifies the reciever that there was an error when starting an audio unit. */
-- (void)notifyAudioUnitStartFailedWithError:(OSStatus)error;
+/** Notifies the reciever that there was an error when starting an audio input unit. */
+- (void)notifyAudioInputUnitStartFailedWithError:(OSStatus)error;
+
+/** Notifies the reciever that there was an error when starting an audio output unit. */
+- (void)notifyAudioOutputUnitStartFailedWithError:(OSStatus)error;
 
 // Properties and methods for tests.
 - (void)notifyDidBeginInterruption;

@@ -1,0 +1,157 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "2906fd98_75d4b292",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 11
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 14134
+      },
+      "writtenOn": "2021-11-29T21:52:43Z",
+      "side": 1,
+      "message": "I made some initial comments on the modified files.  There is a lot of new/moved code here so I will need to take on this review in chunks, and familiarize myself with some of the existing code.\n",
+      "revId": "779de735b10bfdb5b739b317d076ccd1b1c1312b",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "407bf36f_d523f861",
+        "filename": "modules/desktop_capture/BUILD.gn",
+        "patchSetId": 11
+      },
+      "lineNbr": 568,
+      "author": {
+        "id": 14134
+      },
+      "writtenOn": "2021-11-29T21:52:43Z",
+      "side": 1,
+      "message": "C++ files in this repository use the .cc extension.",
+      "revId": "779de735b10bfdb5b739b317d076ccd1b1c1312b",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "ebde7712_0e9a1a09",
+        "filename": "modules/desktop_capture/desktop_capture_options.h",
+        "patchSetId": 11
+      },
+      "lineNbr": 169,
+      "author": {
+        "id": 14134
+      },
+      "writtenOn": "2021-11-29T21:52:43Z",
+      "side": 1,
+      "message": "It is always safer to return a reference counted object by the reference wrapper (in this case, rtc::scoped_refptr).",
+      "revId": "779de735b10bfdb5b739b317d076ccd1b1c1312b",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "8b162342_3b353df4",
+        "filename": "modules/desktop_capture/linux/wayland/base_capturer_pipewire.cc",
+        "patchSetId": 11
+      },
+      "lineNbr": 23,
+      "author": {
+        "id": 14134
+      },
+      "writtenOn": "2021-11-29T21:52:43Z",
+      "side": 1,
+      "message": "Can you use options_(options) here?",
+      "revId": "779de735b10bfdb5b739b317d076ccd1b1c1312b",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "3425ff31_e7f5a82c",
+        "filename": "modules/desktop_capture/linux/wayland/base_capturer_pipewire.cc",
+        "patchSetId": 11
+      },
+      "lineNbr": 25,
+      "author": {
+        "id": 14134
+      },
+      "writtenOn": "2021-11-29T21:52:43Z",
+      "side": 1,
+      "message": "Is screencast_portal_ ever nullptr?  If not, then it doesn\u0027t need to be a std::unique_ptr.",
+      "revId": "779de735b10bfdb5b739b317d076ccd1b1c1312b",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "ebc5b9ab_7752a9c3",
+        "filename": "modules/desktop_capture/linux/wayland/base_capturer_pipewire.cc",
+        "patchSetId": 11
+      },
+      "lineNbr": 36,
+      "author": {
+        "id": 14134
+      },
+      "writtenOn": "2021-11-29T21:52:43Z",
+      "side": 1,
+      "message": "This doesn\u0027t look right.  The options are passed in from the WebRTC client and should be an immutable set of parameters that tell WebRTC how to initiate the capture stream.  Is there a different object that can keep track of the stream object?",
+      "revId": "779de735b10bfdb5b739b317d076ccd1b1c1312b",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "9529cb65_f364781d",
+        "filename": "modules/desktop_capture/linux/wayland/base_capturer_pipewire.cc",
+        "patchSetId": 11
+      },
+      "lineNbr": 43,
+      "author": {
+        "id": 14134
+      },
+      "writtenOn": "2021-11-29T21:52:43Z",
+      "side": 1,
+      "message": "Please include the result code in the logging string.",
+      "revId": "779de735b10bfdb5b739b317d076ccd1b1c1312b",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "6c208061_e36fb18a",
+        "filename": "modules/desktop_capture/linux/wayland/base_capturer_pipewire.cc",
+        "patchSetId": 11
+      },
+      "lineNbr": 62,
+      "author": {
+        "id": 14134
+      },
+      "writtenOn": "2021-11-29T21:52:43Z",
+      "side": 1,
+      "message": "It\u0027s unusual to have a unique_ptr be wrapped in absl::optional, since a unique_ptr can have a nullptr value.",
+      "revId": "779de735b10bfdb5b739b317d076ccd1b1c1312b",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "5380ae22_d983cd5a",
+        "filename": "modules/desktop_capture/linux/wayland/egl_dmabuf.cc",
+        "patchSetId": 11
+      },
+      "lineNbr": 373,
+      "author": {
+        "id": 14134
+      },
+      "writtenOn": "2021-11-29T21:52:43Z",
+      "side": 1,
+      "message": "Is this an error condition?",
+      "revId": "779de735b10bfdb5b739b317d076ccd1b1c1312b",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

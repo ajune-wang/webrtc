@@ -430,7 +430,10 @@ void RenderDelayBufferImpl::InsertBlock(
   render_decimator_.Decimate(downmixed_render, ds);
   data_dumper_->DumpWav("aec3_render_decimator_output", ds.size(), ds.data(),
                         16000 / down_sampling_factor_, 1);
-  std::copy(ds.rbegin(), ds.rend(), lr.buffer.begin() + lr.write);
+  if (std::distance(lr.buffer.begin() + lr.write, lr.buffer.end()) >=
+      static_cast<long>(ds.size())) {
+    std::copy(ds.rbegin(), ds.rend(), lr.buffer.begin() + lr.write);
+  }
   for (size_t channel = 0; channel < b.buffer[b.write][0].size(); ++channel) {
     fft_.PaddedFft(b.buffer[b.write][0][channel],
                    b.buffer[previous_write][0][channel],

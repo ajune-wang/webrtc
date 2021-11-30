@@ -66,6 +66,7 @@ AlignmentMixer::AlignmentMixer(size_t num_channels,
 void AlignmentMixer::ProduceOutput(rtc::ArrayView<const std::vector<float>> x,
                                    rtc::ArrayView<float, kBlockSize> y) {
   RTC_DCHECK_EQ(x.size(), num_channels_);
+  RTC_DCHECK_EQ(x[0].size(), y.size());
   if (selection_variant_ == MixingVariant::kDownmix) {
     Downmix(x, y);
     return;
@@ -74,6 +75,7 @@ void AlignmentMixer::ProduceOutput(rtc::ArrayView<const std::vector<float>> x,
   int ch = selection_variant_ == MixingVariant::kFixed ? 0 : SelectChannel(x);
 
   RTC_DCHECK_GE(x.size(), ch);
+  RTC_DCHECK_EQ(x[ch].size(), y.size());
   std::copy(x[ch].begin(), x[ch].end(), y.begin());
 }
 

@@ -166,6 +166,30 @@
       },
       "revId": "b7140bb6f45639003f48be237f99ceb4d6ecfc54",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "4bfbc57b_94d0330f",
+        "filename": "video/rtp_video_stream_receiver2.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 775,
+      "author": {
+        "id": 5527
+      },
+      "writtenOn": "2021-11-30T09:55:16Z",
+      "side": 1,
+      "message": "Seems reasonable to me, WDYT Danil?",
+      "parentUuid": "b1c5355f_be6acbc1",
+      "range": {
+        "startLine": 775,
+        "startChar": 6,
+        "endLine": 775,
+        "endChar": 11
+      },
+      "revId": "b7140bb6f45639003f48be237f99ceb4d6ecfc54",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

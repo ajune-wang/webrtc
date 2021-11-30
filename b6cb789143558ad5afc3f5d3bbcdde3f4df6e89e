@@ -33,6 +33,24 @@
       "message": "Thank you for doing this, this will help the code be more legible to future maintainers.\n\nSince the Wayland code here is specifically interfacing with the Pipewire library, would it make more sense to move it to modules/desktop_capture/pipewire instead of .../wayland?  WDYT?\n\n\n",
       "revId": "b6cb789143558ad5afc3f5d3bbcdde3f4df6e89e",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "9043a904_cdf9cc79",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 4
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 8046
+      },
+      "writtenOn": "2021-11-30T07:22:21Z",
+      "side": 1,
+      "message": "I think it should be \"Wayland\" because it\u0027s what replaces X11 as the next thing on Linux desktop. PipeWire is just a technology/tool we use, together with xdg-desktop-portal, to implement screen sharing. Both are used because Wayland is supposed to be secure and for that reason no app can access any screen content and you have to ask for a permission using xdg-desktop-portal and have the screen content delivered through PipeWire stream.\n\nMaybe the name of the capturer itself is misleading?",
+      "parentUuid": "b4b800ce_0be04c33",
+      "revId": "b6cb789143558ad5afc3f5d3bbcdde3f4df6e89e",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

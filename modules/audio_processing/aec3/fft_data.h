@@ -95,8 +95,8 @@ struct FftData {
     }
   }
 
-  std::array<float, kFftLengthBy2Plus1> re;
-  std::array<float, kFftLengthBy2Plus1> im;
+  alignas(32) std::array<float, kFftLengthBy2Plus1> re;
+  alignas(32) std::array<float, kFftLengthBy2Plus1> im;
 };
 
 }  // namespace webrtc

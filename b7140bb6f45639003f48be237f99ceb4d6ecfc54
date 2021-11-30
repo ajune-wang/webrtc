@@ -142,6 +142,30 @@
       },
       "revId": "b7140bb6f45639003f48be237f99ceb4d6ecfc54",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "b1c5355f_be6acbc1",
+        "filename": "video/rtp_video_stream_receiver2.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 775,
+      "author": {
+        "id": 13704
+      },
+      "writtenOn": "2021-11-30T09:38:37Z",
+      "side": 1,
+      "message": "That of course assumes packet-\u003eis_last_packet_in_frame() is always followed by a packet-\u003eis_first_packet_in_frame(). This assumption is already documented.\n\nHowever, if `packet_infos` (and `payloads`) were cleared immediately after the frame is assembled it wouldn\u0027t leave room for any use after move. WDYT about moving the clears instead?\n\nIf you don\u0027t think that\u0027s necessary I\u0027ll just abandon the CL.",
+      "parentUuid": "753b54db_1ffba1b1",
+      "range": {
+        "startLine": 775,
+        "startChar": 6,
+        "endLine": 775,
+        "endChar": 11
+      },
+      "revId": "b7140bb6f45639003f48be237f99ceb4d6ecfc54",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

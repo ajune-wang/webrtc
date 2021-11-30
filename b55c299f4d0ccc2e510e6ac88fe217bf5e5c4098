@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "cd2e3d85_1061a263",
+        "filename": "modules/video_coding/codecs/av1/libaom_av1_encoder.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 287,
+      "author": {
+        "id": 5527
+      },
+      "writtenOn": "2021-11-30T11:34:08Z",
+      "side": 0,
+      "message": "This is called when SetRates are called, so at that point we will update all `svc_params_` at the same time, instead of configuring layering first and per layer bitrate later.",
+      "range": {
+        "startLine": 287,
+        "startChar": 35,
+        "endLine": 287,
+        "endChar": 54
+      },
+      "revId": "b55c299f4d0ccc2e510e6ac88fe217bf5e5c4098",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

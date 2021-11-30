@@ -190,6 +190,30 @@
       },
       "revId": "b7140bb6f45639003f48be237f99ceb4d6ecfc54",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "171419b8_95c2aedf",
+        "filename": "video/rtp_video_stream_receiver2.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 775,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2021-11-30T10:00:27Z",
+      "side": 1,
+      "message": "I like new version better: easier to read and safer: relies on less assumptions.",
+      "parentUuid": "4bfbc57b_94d0330f",
+      "range": {
+        "startLine": 775,
+        "startChar": 6,
+        "endLine": 775,
+        "endChar": 11
+      },
+      "revId": "b7140bb6f45639003f48be237f99ceb4d6ecfc54",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

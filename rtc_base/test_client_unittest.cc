@@ -17,8 +17,8 @@
 #include "rtc_base/async_udp_socket.h"
 #include "rtc_base/logging.h"
 #include "rtc_base/net_helpers.h"
+#include "rtc_base/physical_socket_server.h"
 #include "rtc_base/socket.h"
-#include "rtc_base/socket_server.h"
 #include "rtc_base/test_echo_server.h"
 #include "rtc_base/thread.h"
 #include "test/gtest.h"
@@ -38,10 +38,8 @@ namespace {
     return;                                    \
   }
 
-void TestUdpInternal(const SocketAddress& loopback) {
-  Thread* main = Thread::Current();
-  Socket* socket =
-      main->socketserver()->CreateSocket(loopback.family(), SOCK_DGRAM);
+void TestUdpInternal(SocketFactory* factory, const SocketAddress& loopback) {
+  Socket* socket = factory->CreateSocket(loopback.family(), SOCK_DGRAM);
   socket->Bind(loopback);
 
   TestClient client(std::make_unique<AsyncUDPSocket>(socket));
@@ -52,12 +50,10 @@ void TestUdpInternal(const SocketAddress& loopback) {
   EXPECT_TRUE(client.CheckNoPacket());
 }
 
-void TestTcpInternal(const SocketAddress& loopback) {
-  Thread* main = Thread::Current();
-  TestEchoServer server(main, loopback);
+void TestTcpInternal(SocketFactory* factory, const SocketAddress& loopback) {
+  TestEchoServer server(factory, loopback);
 
-  Socket* socket =
-      main->socketserver()->CreateSocket(loopback.family(), SOCK_STREAM);
+  Socket* socket = factory->CreateSocket(loopback.family(), SOCK_STREAM);
   std::unique_ptr<AsyncTCPSocket> tcp_socket = absl::WrapUnique(
       AsyncTCPSocket::Create(socket, loopback, server.address()));
   ASSERT_TRUE(tcp_socket != nullptr);
@@ -74,7 +70,9 @@ void TestTcpInternal(const SocketAddress& loopback) {
 // Tests whether the TestClient can send UDP to itself.
 TEST(TestClientTest, TestUdpIPv4) {
   MAYBE_SKIP_IPV4;
-  TestUdpInternal(SocketAddress("127.0.0.1", 0));
+  PhysicalSocketServer socket_server;
+  AutoSocketServerThread thread(&socket_server);
+  TestUdpInternal(&socket_server, SocketAddress("127.0.0.1", 0));
 }
 
 #if defined(WEBRTC_LINUX)
@@ -84,13 +82,17 @@ TEST(TestClientTest, TestUdpIPv4) {
 #endif
 TEST(TestClientTest, MAYBE_TestUdpIPv6) {
   MAYBE_SKIP_IPV6;
-  TestUdpInternal(SocketAddress("::1", 0));
+  PhysicalSocketServer socket_server;
+  AutoSocketServerThread thread(&socket_server);
+  TestUdpInternal(&socket_server, SocketAddress("::1", 0));
 }
 
 // Tests whether the TestClient can connect to a server and exchange data.
 TEST(TestClientTest, TestTcpIPv4) {
   MAYBE_SKIP_IPV4;
-  TestTcpInternal(SocketAddress("127.0.0.1", 0));
+  PhysicalSocketServer socket_server;
+  AutoSocketServerThread thread(&socket_server);
+  TestTcpInternal(&socket_server, SocketAddress("127.0.0.1", 0));
 }
 
 #if defined(WEBRTC_LINUX)
@@ -100,7 +102,9 @@ TEST(TestClientTest, TestTcpIPv4) {
 #endif
 TEST(TestClientTest, MAYBE_TestTcpIPv6) {
   MAYBE_SKIP_IPV6;
-  TestTcpInternal(SocketAddress("::1", 0));
+  PhysicalSocketServer socket_server;
+  AutoSocketServerThread thread(&socket_server);
+  TestTcpInternal(&socket_server, SocketAddress("::1", 0));
 }
 
 }  // namespace

@@ -14,11 +14,13 @@
 #include "api/rtc_event_log/rtc_event_log_factory.h"
 #include "api/task_queue/default_task_queue_factory.h"
 #include "media/base/fake_media_engine.h"
+#include "p2p/base/basic_packet_socket_factory.h"
 #include "p2p/base/fake_port_allocator.h"
 #include "pc/media_session.h"
 #include "pc/peer_connection_wrapper.h"
 #include "rtc_base/gunit.h"
 #include "rtc_base/strings/string_builder.h"
+#include "rtc_base/virtual_socket_server.h"
 #include "test/gmock.h"
 
 namespace webrtc {
@@ -34,7 +36,9 @@ class PeerConnectionHeaderExtensionTest
           std::tuple<cricket::MediaType, SdpSemantics>> {
  protected:
   PeerConnectionHeaderExtensionTest()
-      : extensions_(
+      : socket_factory_(&vss_),
+        main_(&vss_),
+        extensions_(
             {RtpHeaderExtensionCapability("uri1",
                                           1,
                                           RtpTransceiverDirection::kStopped),
@@ -75,7 +79,7 @@ class PeerConnectionHeaderExtensionTest
         CreateModularPeerConnectionFactory(std::move(factory_dependencies));
 
     auto fake_port_allocator = std::make_unique<cricket::FakePortAllocator>(
-        rtc::Thread::Current(), nullptr);
+        rtc::Thread::Current(), &socket_factory_);
     auto observer = std::make_unique<MockPeerConnectionObserver>();
     PeerConnectionInterface::RTCConfiguration config;
     if (semantics)
@@ -87,6 +91,9 @@ class PeerConnectionHeaderExtensionTest
                                                    std::move(observer));
   }
 
+  rtc::VirtualSocketServer vss_;
+  rtc::BasicPacketSocketFactory socket_factory_;
+  rtc::AutoSocketServerThread main_;
   std::vector<RtpHeaderExtensionCapability> extensions_;
 };
 

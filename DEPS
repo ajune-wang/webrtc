@@ -10,7 +10,7 @@ vars = {
   # chromium waterfalls. More info at: crbug.com/570091.
   'checkout_configuration': 'default',
   'checkout_instrumented_libraries': 'checkout_linux and checkout_configuration == "default"',
-  'chromium_revision': 'a3e750c9b07060d3719b1d4279341cbcc3ee0c04',
+  'chromium_revision': '7f9a9d757e14db365c30d8b30636fdaf0a760253',
 
   # Keep the Chromium default of generating location tags.
   'generate_location_tags': True,
@@ -23,9 +23,9 @@ deps = {
   # TODO(kjellander): Move this to be Android-only once the libevent dependency
   # in base/third_party/libevent is solved.
   'src/base':
-    'https://chromium.googlesource.com/chromium/src/base@e6e0ee5baed436f5ba14310a4fd359de414fdac0',
+    'https://chromium.googlesource.com/chromium/src/base@367fe9d7c8fd1fa4170975a2dc89eff5c7dc37ea',
   'src/build':
-    'https://chromium.googlesource.com/chromium/src/build@e0d5dbffaac1f322dad9f9776e811d78154d053f',
+    'https://chromium.googlesource.com/chromium/src/build@b6006fa9fd952832a3df916696dad371347bba29',
   'src/buildtools':
     'https://chromium.googlesource.com/chromium/src/buildtools@075dd7e22837a69189003e4fa84499acf63188cf',
   # Gradle 6.6.1. Used for testing Android Studio project generation for WebRTC.
@@ -40,7 +40,7 @@ deps = {
   'src/testing':
     'https://chromium.googlesource.com/chromium/src/testing@69383604c0c25bc10e0baf7288bbd842a7542725',
   'src/third_party':
-    'https://chromium.googlesource.com/chromium/src/third_party@92767b0febe711998b436ba8f2e3a3898fb15a32',
+    'https://chromium.googlesource.com/chromium/src/third_party@9f2261c6712c4b648ec6d9b169eebb7c0b0b55e7',
 
   'src/buildtools/linux64': {
     'packages': [
@@ -285,7 +285,7 @@ deps = {
     'condition': 'checkout_win',
   },
   'src/tools':
-    'https://chromium.googlesource.com/chromium/src/tools@0e7a87dbf5da4d4195d751ef856c7400e05304a5',
+    'https://chromium.googlesource.com/chromium/src/tools@e0d52da182311e9e0e2c2313b44b2c50ad47f996',
 
   'src/third_party/accessibility_test_framework': {
       'packages': [

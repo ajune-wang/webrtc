@@ -490,19 +490,24 @@ void SharedScreenCastStreamPrivate::ProcessBuffer(pw_buffer* buffer) {
     src = SPA_MEMBER(map.get(), spa_buffer->datas[0].mapoffset, uint8_t);
   } else if (spa_buffer->datas[0].type == SPA_DATA_DmaBuf) {
     const uint n_planes = spa_buffer->n_datas;
-    int fds[n_planes];
-    uint32_t offsets[n_planes];
-    uint32_t strides[n_planes];
+
+    if (!n_planes) {
+      return;
+    }
+
+    auto fds = std::make_unique<int[]>(n_planes);
+    auto offsets = std::make_unique<uint32_t[]>(n_planes);
+    auto strides = std::make_unique<uint32_t[]>(n_planes);
 
     for (uint32_t i = 0; i < n_planes; ++i) {
-      fds[i] = spa_buffer->datas[i].fd;
-      offsets[i] = spa_buffer->datas[i].chunk->offset;
-      strides[i] = spa_buffer->datas[i].chunk->stride;
+      fds.get()[i] = spa_buffer->datas[i].fd;
+      offsets.get()[i] = spa_buffer->datas[i].chunk->offset;
+      strides.get()[i] = spa_buffer->datas[i].chunk->stride;
     }
 
     src_unique_ptr = egl_dmabuf_->ImageFromDmaBuf(
-        desktop_size_, spa_video_format_.format, n_planes, fds, strides,
-        offsets, modifier_);
+        desktop_size_, spa_video_format_.format, n_planes, fds.get(),
+        strides.get(), offsets.get(), modifier_);
     src = src_unique_ptr.get();
   } else if (spa_buffer->datas[0].type == SPA_DATA_MemPtr) {
     src = static_cast<uint8_t*>(spa_buffer->datas[0].data);

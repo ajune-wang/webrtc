@@ -1,0 +1,72 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "1854b56c_376b8718",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 14134
+      },
+      "writtenOn": "2021-11-30T21:07:40Z",
+      "side": 1,
+      "message": "Do you mind linking to the presubmit check that failed?  I didn\u0027t see anything obviously wrong with the current code.",
+      "revId": "a1121a796cd699f0730e00b86891266358019926",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "84181e6d_4ba356bf",
+        "filename": "modules/desktop_capture/linux/wayland/shared_screencast_stream.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 498,
+      "author": {
+        "id": 14134
+      },
+      "writtenOn": "2021-11-30T21:07:40Z",
+      "side": 1,
+      "message": "The declaration of ImageFromDmaBuf uses int32_t here.",
+      "revId": "a1121a796cd699f0730e00b86891266358019926",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "d6f2f056_31e4acb1",
+        "filename": "modules/desktop_capture/linux/wayland/shared_screencast_stream.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 500,
+      "author": {
+        "id": 14134
+      },
+      "writtenOn": "2021-11-30T21:07:40Z",
+      "side": 1,
+      "message": "It\u0027s preferred to use std::vector for variable-length data, instead of passing around pointer-and-length.",
+      "revId": "a1121a796cd699f0730e00b86891266358019926",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "2447fb97_0630a1a6",
+        "filename": "modules/desktop_capture/linux/wayland/shared_screencast_stream.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 510,
+      "author": {
+        "id": 14134
+      },
+      "writtenOn": "2021-11-30T21:07:40Z",
+      "side": 1,
+      "message": "Since you have three arrays of the same length, consider declaring a PlaneData struct for them, then you can write this as ImageFromDmaBuf(..., const std::vector\u003cPlaneData\u003e\u0026 plane_datas, ...)\n\nFeel free to pick a more suitable name than PlaneData.",
+      "revId": "a1121a796cd699f0730e00b86891266358019926",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

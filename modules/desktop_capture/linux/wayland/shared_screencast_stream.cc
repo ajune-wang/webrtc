@@ -26,6 +26,7 @@
 #include <vector>
 
 #include "absl/memory/memory.h"
+#include "modules/desktop_capture/screen_capture_frame_queue.h"
 #include "rtc_base/checks.h"
 #include "rtc_base/logging.h"
 #include "rtc_base/string_encode.h"
@@ -163,7 +164,7 @@ class SharedScreenCastStreamPrivate {
   ~SharedScreenCastStreamPrivate();
 
   bool StartScreenCastStream(uint32_t stream_node_id, int32_t fd);
-  absl::optional<std::unique_ptr<BasicDesktopFrame>> CaptureFrame();
+  std::unique_ptr<DesktopFrame> CaptureFrame();
 
  private:
   uint32_t pw_stream_node_id_ = 0;
@@ -172,8 +173,8 @@ class SharedScreenCastStreamPrivate {
   DesktopSize desktop_size_ = {};
   DesktopSize video_size_;
 
-  webrtc::Mutex current_frame_lock_;
-  std::unique_ptr<BasicDesktopFrame> current_frame_;
+  webrtc::Mutex proccess_frame_lock_;
+  ScreenCaptureFrameQueue<SharedDesktopFrame> queue_;
 
   int64_t modifier_;
   std::unique_ptr<EglDmaBuf> egl_dmabuf_;
@@ -450,15 +451,15 @@ bool SharedScreenCastStreamPrivate::StartScreenCastStream(
   return true;
 }
 
-absl::optional<std::unique_ptr<BasicDesktopFrame>>
-SharedScreenCastStreamPrivate::CaptureFrame() {
-  webrtc::MutexLock lock(&current_frame_lock_);
+std::unique_ptr<DesktopFrame> SharedScreenCastStreamPrivate::CaptureFrame() {
+  webrtc::MutexLock lock(&proccess_frame_lock_);
 
-  if (!current_frame_ || !current_frame_->data()) {
-    return absl::nullopt;
+  if (!queue_.current_frame()) {
+    return std::unique_ptr<DesktopFrame>{};
   }
 
-  return std::move(current_frame_);
+  std::unique_ptr<SharedDesktopFrame> frame = queue_.current_frame()->Share();
+  return std::move(frame);
 }
 
 void SharedScreenCastStreamPrivate::ProcessBuffer(pw_buffer* buffer) {
@@ -564,25 +565,39 @@ void SharedScreenCastStreamPrivate::ProcessBuffer(pw_buffer* buffer) {
                           ? video_metadata->region.position.x
                           : 0;
 
-  webrtc::MutexLock lock(&current_frame_lock_);
+  webrtc::MutexLock lock(&proccess_frame_lock_);
 
   uint8_t* updated_src = src + (spa_buffer->datas[0].chunk->stride * y_offset) +
                          (kBytesPerPixel * x_offset);
-  current_frame_ = std::make_unique<BasicDesktopFrame>(
-      DesktopSize(video_size_.width(), video_size_.height()));
-  current_frame_->CopyPixelsFrom(
+
+  // Move to the next frame if the current one is being used and shared
+  if (queue_.current_frame() && queue_.current_frame()->IsShared()) {
+    queue_.MoveToNextFrame();
+    if (queue_.current_frame() && queue_.current_frame()->IsShared()) {
+      RTC_LOG(LS_WARNING) << "Overwriting frame that is still shared.";
+    }
+  }
+
+  if (!queue_.current_frame() ||
+      !queue_.current_frame()->size().equals(video_size_)) {
+    std::unique_ptr<DesktopFrame> frame(new BasicDesktopFrame(
+        DesktopSize(video_size_.width(), video_size_.height())));
+    queue_.ReplaceCurrentFrame(SharedDesktopFrame::Wrap(std::move(frame)));
+  }
+
+  queue_.current_frame()->CopyPixelsFrom(
       updated_src,
       (spa_buffer->datas[0].chunk->stride - (kBytesPerPixel * x_offset)),
       DesktopRect::MakeWH(video_size_.width(), video_size_.height()));
 
   if (spa_video_format_.format == SPA_VIDEO_FORMAT_RGBx ||
       spa_video_format_.format == SPA_VIDEO_FORMAT_RGBA) {
-    uint8_t* tmp_src = current_frame_->data();
+    uint8_t* tmp_src = queue_.current_frame()->data();
     for (int i = 0; i < video_size_.height(); ++i) {
       // If both sides decided to go with the RGBx format we need to convert it
       // to BGRx to match color format expected by WebRTC.
-      ConvertRGBxToBGRx(tmp_src, current_frame_->stride());
-      tmp_src += current_frame_->stride();
+      ConvertRGBxToBGRx(tmp_src, queue_.current_frame()->stride());
+      tmp_src += queue_.current_frame()->stride();
     }
   }
 }
@@ -612,8 +627,7 @@ bool SharedScreenCastStream::StartScreenCastStream(uint32_t stream_node_id,
   return d->StartScreenCastStream(stream_node_id, fd);
 }
 
-absl::optional<std::unique_ptr<BasicDesktopFrame>>
-SharedScreenCastStream::CaptureFrame() {
+std::unique_ptr<DesktopFrame> SharedScreenCastStream::CaptureFrame() {
   return d->CaptureFrame();
 }
 

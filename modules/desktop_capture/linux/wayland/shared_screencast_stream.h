@@ -14,7 +14,6 @@
 #include <memory>
 #include <vector>
 
-#include "absl/types/optional.h"
 #include "api/ref_counted_base.h"
 #include "api/scoped_refptr.h"
 #include "modules/desktop_capture/desktop_frame.h"
@@ -33,7 +32,7 @@ class RTC_EXPORT SharedScreenCastStream
   static rtc::scoped_refptr<SharedScreenCastStream> CreateDefault();
 
   bool StartScreenCastStream(uint32_t stream_node_id, int32_t fd);
-  absl::optional<std::unique_ptr<BasicDesktopFrame>> CaptureFrame();
+  std::unique_ptr<DesktopFrame> CaptureFrame();
 
   ~SharedScreenCastStream();
 

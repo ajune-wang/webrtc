@@ -18,6 +18,24 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "9f064fe8_7ce8b6d4",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 3
+      },
+      "lineNbr": 8,
+      "author": {
+        "id": 5527
+      },
+      "writtenOn": "2021-12-01T13:47:13Z",
+      "side": 1,
+      "message": "No, just an email",
+      "parentUuid": "f9b169c7_c3cb45ed",
+      "revId": "f4c08de5467a23b20e7b5da1524890c1e263eccb",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "cf88ff67_994c74ac",

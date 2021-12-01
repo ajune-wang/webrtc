@@ -46,6 +46,30 @@
       },
       "revId": "9b55ae8cc7ba733e1a677bc69f1111707f27851e",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "ae72f103_07dc73d5",
+        "filename": "modules/video_coding/codecs/av1/libaom_av1_encoder.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 561,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2021-12-01T14:40:24Z",
+      "side": 1,
+      "message": "SetRates configures bitrate per layer.\nThat is not needed when there is no layering.\n\nBut I don\u0027t insist.",
+      "parentUuid": "a59eb2d6_0680f7d6",
+      "range": {
+        "startLine": 561,
+        "startChar": 56,
+        "endLine": 561,
+        "endChar": 74
+      },
+      "revId": "9b55ae8cc7ba733e1a677bc69f1111707f27851e",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

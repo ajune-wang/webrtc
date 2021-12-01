@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "72c6e5fb_ac87de39",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 3
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 18554
+      },
+      "writtenOn": "2021-12-01T11:26:38Z",
+      "side": 1,
+      "message": "Thank for the comment. Rework the patch to avoid nesting if statements.",
+      "revId": "5cabcf1298f6568494c5335383afcf4a41a8281d",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

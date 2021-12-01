@@ -90,6 +90,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "bae9e446_925f2bb5",
+        "filename": "modules/desktop_capture/desktop_capture_options.h",
+        "patchSetId": 11
+      },
+      "lineNbr": 169,
+      "author": {
+        "id": 18474
+      },
+      "writtenOn": "2021-12-01T00:26:05Z",
+      "side": 1,
+      "message": "Per the style guide: https://chromium.googlesource.com/chromium/src/+/HEAD/styleguide/c++/c++.md#object-ownership-and-calling-conventions and I\u0027m not seeing anything contradictory in the webrtc styleguide, I *believe* that a most of these should probably be const refptr\u0026, especially since I found at least one instance that is making a new scoped_refptr out of a raw ptr (which I believe is not a good idea), this at least ensures we don\u0027t pay the cost of bumping/dropping the ref count while giving code the *option* to share ownership.",
+      "parentUuid": "fc809c68_9ffe11a3",
+      "revId": "779de735b10bfdb5b739b317d076ccd1b1c1312b",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "8b162342_3b353df4",
         "filename": "modules/desktop_capture/linux/wayland/base_capturer_pipewire.cc",
         "patchSetId": 11
@@ -259,6 +277,24 @@
       "side": 1,
       "message": "Yes, I realized that and fixed it in the following PR:\nhttps://webrtc-review.googlesource.com/c/src/+/239362\n\nCan I keep it there? Or do you want me to fix it here and rebase the other change?",
       "parentUuid": "6c208061_e36fb18a",
+      "revId": "779de735b10bfdb5b739b317d076ccd1b1c1312b",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "11ee7268_1741ae8c",
+        "filename": "modules/desktop_capture/linux/wayland/base_capturer_pipewire.cc",
+        "patchSetId": 11
+      },
+      "lineNbr": 62,
+      "author": {
+        "id": 18474
+      },
+      "writtenOn": "2021-12-01T00:26:05Z",
+      "side": 1,
+      "message": "Personally I\u0027d prefer to fix it here rather than introduce the pattern in case the other PR gets held up.",
+      "parentUuid": "46068ef6_02eb59d0",
       "revId": "779de735b10bfdb5b739b317d076ccd1b1c1312b",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },

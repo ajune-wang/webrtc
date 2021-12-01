@@ -1,0 +1,136 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "f99c54d4_85f2c196",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 12
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 18474
+      },
+      "writtenOn": "2021-12-01T00:26:05Z",
+      "side": 1,
+      "message": "I may look more closely at the new/moved code later, some thoughts after seeing a few of Mark\u0027s comments.",
+      "revId": "973b193298a4b80047426d4a4b236721dbc48c52",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "39d73b2f_6b2f9b5e",
+        "filename": "modules/desktop_capture/linux/wayland/base_capturer_pipewire.cc",
+        "patchSetId": 12
+      },
+      "lineNbr": 39,
+      "author": {
+        "id": 18474
+      },
+      "writtenOn": "2021-12-01T00:26:05Z",
+      "side": 1,
+      "message": "Technically the start call could\u0027ve failed here?\n\nConsider collapsing into something like:\nif (result !\u003d SUCCESS || !options_-\u003e...StartScreenCastStream(...))) {\n  RTC_LOG(LS_ERROR) \u003c\u003c \"Failed\"\n  capturer_failed_ \u003d true\n}\n\n?",
+      "range": {
+        "startLine": 39,
+        "startChar": 4,
+        "endLine": 39,
+        "endChar": 71
+      },
+      "revId": "973b193298a4b80047426d4a4b236721dbc48c52",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "c520b5b6_a43296db",
+        "filename": "modules/desktop_capture/linux/wayland/base_capturer_pipewire.h",
+        "patchSetId": 12
+      },
+      "lineNbr": 49,
+      "author": {
+        "id": 18474
+      },
+      "writtenOn": "2021-12-01T00:26:05Z",
+      "side": 1,
+      "message": "I believe this should be a unique_ptr, with the bonus that then we don\u0027t have to delete it.",
+      "range": {
+        "startLine": 49,
+        "startChar": 2,
+        "endLine": 49,
+        "endChar": 18
+      },
+      "revId": "973b193298a4b80047426d4a4b236721dbc48c52",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "a6ef2472_45d7f916",
+        "filename": "modules/desktop_capture/linux/wayland/screencast_portal.cc",
+        "patchSetId": 12
+      },
+      "lineNbr": 35,
+      "author": {
+        "id": 18474
+      },
+      "writtenOn": "2021-12-01T00:26:05Z",
+      "side": 1,
+      "message": "I\u0027m not sure of the process for \"downstreaming\" things from Chromium, but this looks a lot like ScopedGeneric: https://source.chromium.org/chromium/chromium/src/+/main:base/scoped_generic.h\n\nI think also if you put this and the specializations into it\u0027s own header file that we could probably remove some of the raw pointers that this class owns with these.",
+      "range": {
+        "startLine": 35,
+        "startChar": 0,
+        "endLine": 35,
+        "endChar": 14
+      },
+      "revId": "973b193298a4b80047426d4a4b236721dbc48c52",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "5700d2a0_dc45830c",
+        "filename": "modules/desktop_capture/linux/wayland/screencast_portal.h",
+        "patchSetId": 12
+      },
+      "lineNbr": 75,
+      "author": {
+        "id": 18474
+      },
+      "writtenOn": "2021-12-01T00:26:05Z",
+      "side": 1,
+      "message": "I\u0027m not sure how much of this is existing, but it feels like this isn\u0027t a callback so much as it as an Observer that should probably be passed in by WeakPtr rather than a raw ptr ?",
+      "range": {
+        "startLine": 75,
+        "startChar": 13,
+        "endLine": 75,
+        "endChar": 27
+      },
+      "revId": "973b193298a4b80047426d4a4b236721dbc48c52",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "44d523de_0b2ac235",
+        "filename": "modules/desktop_capture/linux/wayland/screencast_portal.h",
+        "patchSetId": 12
+      },
+      "lineNbr": 94,
+      "author": {
+        "id": 18474
+      },
+      "writtenOn": "2021-12-01T00:26:05Z",
+      "side": 1,
+      "message": "Existing, I\u0027m going to guess though that these are return values from library functions and the deleters don\u0027t play nicely with being wrapped into a unique_ptr ?",
+      "range": {
+        "startLine": 87,
+        "startChar": 0,
+        "endLine": 94,
+        "endChar": 32
+      },
+      "revId": "973b193298a4b80047426d4a4b236721dbc48c52",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

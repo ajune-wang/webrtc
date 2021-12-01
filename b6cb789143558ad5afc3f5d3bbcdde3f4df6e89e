@@ -51,6 +51,24 @@
       "parentUuid": "b4b800ce_0be04c33",
       "revId": "b6cb789143558ad5afc3f5d3bbcdde3f4df6e89e",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "1edf611e_fab6246f",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 4
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5064
+      },
+      "writtenOn": "2021-12-01T00:49:32Z",
+      "side": 1,
+      "message": "Happy to let you two take over - will remove myself. Thanks!",
+      "parentUuid": "2e8bdfb2_40276d96",
+      "revId": "b6cb789143558ad5afc3f5d3bbcdde3f4df6e89e",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

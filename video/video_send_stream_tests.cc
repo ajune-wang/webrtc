@@ -3720,6 +3720,7 @@ class ContentSwitchTest : public test::SendTest {
     kBeforeSwitch = 0,
     kInScreenshare = 1,
     kAfterSwitchBack = 2,
+    kFinished = 3
   };
   static const uint32_t kMinPacketsToSend = 50;
 
@@ -3766,8 +3767,9 @@ class ContentSwitchTest : public test::SendTest {
   Action OnSendRtp(const uint8_t* packet, size_t length) override {
     task_queue_->PostTask(ToQueuedTask([this]() {
       MutexLock lock(&mutex_);
-      if (done_)
+      if (state_ == StreamState::kFinished) {
         return;
+      }
 
       auto internal_send_peer = test::VideoSendStreamPeer(send_stream_);
       float pacing_factor =
@@ -3785,7 +3787,8 @@ class ContentSwitchTest : public test::SendTest {
       if (++packets_sent_ < kMinPacketsToSend)
         return;
 
-      if (state_ != StreamState::kAfterSwitchBack) {
+      if (state_ == StreamState::kBeforeSwitch ||
+          state_ == StreamState::kInScreenshare) {
         // We've sent kMinPacketsToSend packets, switch the content type and
         // move move to the next state. Note that we need to recreate the stream
         // if changing content type.
@@ -3798,20 +3801,16 @@ class ContentSwitchTest : public test::SendTest {
           encoder_config_.content_type =
               VideoEncoderConfig::ContentType::kRealtimeVideo;
         }
-        switch (state_) {
-          case StreamState::kBeforeSwitch:
-            state_ = StreamState::kInScreenshare;
-            break;
-          case StreamState::kInScreenshare:
-            state_ = StreamState::kAfterSwitchBack;
-            break;
-          case StreamState::kAfterSwitchBack:
-            RTC_DCHECK_NOTREACHED();
-            break;
+        if (state_ == StreamState::kBeforeSwitch) {
+          state_ = StreamState::kInScreenshare;
+        } else {
+          state_ = StreamState::kAfterSwitchBack;
         }
         content_switch_event_.Set();
         return;
       }
+
+      state_ = StreamState::kFinished;
       observation_complete_.Set();
     }));
 

@@ -22,6 +22,30 @@
       },
       "revId": "9b55ae8cc7ba733e1a677bc69f1111707f27851e",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "a59eb2d6_0680f7d6",
+        "filename": "modules/video_coding/codecs/av1/libaom_av1_encoder.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 561,
+      "author": {
+        "id": 5527
+      },
+      "writtenOn": "2021-12-01T14:38:08Z",
+      "side": 1,
+      "message": "It seems inconsistent if you have to call SetRates only for some scalability modes, no?",
+      "parentUuid": "c2c91511_9cac6f59",
+      "range": {
+        "startLine": 561,
+        "startChar": 56,
+        "endLine": 561,
+        "endChar": 74
+      },
+      "revId": "9b55ae8cc7ba733e1a677bc69f1111707f27851e",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

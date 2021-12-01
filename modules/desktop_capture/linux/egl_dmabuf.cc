@@ -384,13 +384,12 @@ EglDmaBuf::~EglDmaBuf() {
 }
 
 RTC_NO_SANITIZE("cfi-icall")
-std::unique_ptr<uint8_t[]> EglDmaBuf::ImageFromDmaBuf(const DesktopSize& size,
-                                                      uint32_t format,
-                                                      uint32_t n_planes,
-                                                      const int32_t* fds,
-                                                      const uint32_t* strides,
-                                                      const uint32_t* offsets,
-                                                      uint64_t modifier) {
+std::unique_ptr<uint8_t[]> EglDmaBuf::ImageFromDmaBuf(
+    const DesktopSize& size,
+    uint32_t format,
+    uint32_t n_planes,
+    const std::vector<PlaneData>& plane_datas,
+    uint64_t modifier) {
   std::unique_ptr<uint8_t[]> src;
 
   if (!egl_initialized_) {
@@ -404,10 +403,10 @@ std::unique_ptr<uint8_t[]> EglDmaBuf::ImageFromDmaBuf(const DesktopSize& size,
 
   gbm_bo* imported;
   if (modifier == DRM_FORMAT_MOD_INVALID) {
-    gbm_import_fd_data import_info = {fds[0],
-                                      static_cast<uint32_t>(size.width()),
-                                      static_cast<uint32_t>(size.height()),
-                                      strides[0], GBM_BO_FORMAT_ARGB8888};
+    gbm_import_fd_data import_info = {
+        plane_datas[0].fd, static_cast<uint32_t>(size.width()),
+        static_cast<uint32_t>(size.height()), plane_datas[0].stride,
+        GBM_BO_FORMAT_ARGB8888};
 
     imported = gbm_bo_import(gbm_device_, GBM_BO_IMPORT_FD, &import_info, 0);
   } else {
@@ -418,9 +417,9 @@ std::unique_ptr<uint8_t[]> EglDmaBuf::ImageFromDmaBuf(const DesktopSize& size,
     import_info.num_fds = n_planes;
     import_info.modifier = modifier;
     for (uint32_t i = 0; i < n_planes; i++) {
-      import_info.fds[i] = fds[i];
-      import_info.offsets[i] = offsets[i];
-      import_info.strides[i] = strides[i];
+      import_info.fds[i] = plane_datas[i].fd;
+      import_info.offsets[i] = plane_datas[i].offset;
+      import_info.strides[i] = plane_datas[i].stride;
     }
 
     imported =
@@ -458,7 +457,7 @@ std::unique_ptr<uint8_t[]> EglDmaBuf::ImageFromDmaBuf(const DesktopSize& size,
   GlBindTexture(GL_TEXTURE_2D, texture);
   GlEGLImageTargetTexture2DOES(GL_TEXTURE_2D, image);
 
-  src = std::make_unique<uint8_t[]>(strides[0] * size.height());
+  src = std::make_unique<uint8_t[]>(plane_datas[0].stride * size.height());
 
   GLenum gl_format = GL_BGRA;
   switch (format) {

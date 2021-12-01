@@ -16,6 +16,23 @@
       "message": "do you have a Bug: ?",
       "revId": "f4c08de5467a23b20e7b5da1524890c1e263eccb",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "cf88ff67_994c74ac",
+        "filename": "modules/video_coding/codecs/av1/libaom_av1_encoder.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 561,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2021-12-01T13:42:35Z",
+      "side": 1,
+      "message": "can you add a simple check that SetRates is called before Encode when svc is enabled? (similar to how inited_ is checked)",
+      "revId": "f4c08de5467a23b20e7b5da1524890c1e263eccb",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

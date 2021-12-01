@@ -460,6 +460,7 @@ class UnitTest(unittest.TestCase):
     self.assertEqual(command, [
         'vpython',
         '../../base/base_unittests_script.py',
+        '--dump_json_test_results=${ISOLATED_OUTDIR}/gtest_output.json',
     ])
 
   def test_gen_raw(self):
@@ -489,7 +490,10 @@ class UnitTest(unittest.TestCase):
     self.assertEqual(files, [
         '../../.vpython',
         '../../testing/test_env.py',
+        '../../third_party/gtest-parallel/gtest-parallel',
+        '../../third_party/gtest-parallel/gtest_parallel.py',
         '../../tools_webrtc/flags_compatibility.py',
+        '../../tools_webrtc/gtest-parallel-wrapper.py',
         'base_unittests',
     ])
     self.assertEqual(command, [
@@ -497,6 +501,12 @@ class UnitTest(unittest.TestCase):
         '../../tools_webrtc/flags_compatibility.py',
         'vpython',
         '../../testing/test_env.py',
+        '../../tools_webrtc/gtest-parallel-wrapper.py',
+        '--output_dir=${ISOLATED_OUTDIR}/test_logs',
+        '--dump_json_test_results=${ISOLATED_OUTDIR}/gtest_output.json',
+        '--gtest_color=no',
+        '--workers=1',
+        '--retry_failed=3',
         './base_unittests',
         '--asan=0',
         '--lsan=0',

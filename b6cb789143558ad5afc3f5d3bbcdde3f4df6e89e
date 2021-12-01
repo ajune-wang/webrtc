@@ -86,6 +86,29 @@
       "message": "Pre-submit check will be fixed with the other PR, I will make that one to be first, but I don\u0027t know what to do about:\n\n/b/s/w/ir/cache/builder/presubmit/src/modules/desktop_capture/linux/x11/mouse_cursor_monitor_x11.cc:211:  Use int16/int64/etc, rather than the C type long  [runtime/int] [4]\n\nIt was already fixed once by us and reverted again https://webrtc-review.googlesource.com/c/src/+/134541. ",
       "revId": "b6cb789143558ad5afc3f5d3bbcdde3f4df6e89e",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "c5e0665e_afae4177",
+        "filename": "modules/desktop_capture/linux/x11/mouse_cursor_monitor_x11.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 210,
+      "author": {
+        "id": 18474
+      },
+      "writtenOn": "2021-12-01T17:46:04Z",
+      "side": 1,
+      "message": "Adding:\n//NOLINTNEXTLINE(runtime/int)\n\nbelow this\n\n(Or if it\u0027s short enough, just //NOLINT(runtime/int) at the end of the offending line)\n\nShould suppress the pylint warning. Given that there\u0027s a linked bug history and a comment for why we keep this, I think supressing the warning is fine.",
+      "range": {
+        "startLine": 210,
+        "startChar": 2,
+        "endLine": 210,
+        "endChar": 70
+      },
+      "revId": "b6cb789143558ad5afc3f5d3bbcdde3f4df6e89e",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

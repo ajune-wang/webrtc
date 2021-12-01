@@ -69,6 +69,23 @@
       "parentUuid": "2e8bdfb2_40276d96",
       "revId": "b6cb789143558ad5afc3f5d3bbcdde3f4df6e89e",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "c88578e9_2e65df2d",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 4
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 8046
+      },
+      "writtenOn": "2021-12-01T07:32:33Z",
+      "side": 1,
+      "message": "Pre-submit check will be fixed with the other PR, I will make that one to be first, but I don\u0027t know what to do about:\n\n/b/s/w/ir/cache/builder/presubmit/src/modules/desktop_capture/linux/x11/mouse_cursor_monitor_x11.cc:211:  Use int16/int64/etc, rather than the C type long  [runtime/int] [4]\n\nIt was already fixed once by us and reverted again https://webrtc-review.googlesource.com/c/src/+/134541. ",
+      "revId": "b6cb789143558ad5afc3f5d3bbcdde3f4df6e89e",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

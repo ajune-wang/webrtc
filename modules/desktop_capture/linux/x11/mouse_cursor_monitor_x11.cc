@@ -8,7 +8,7 @@
  *  be found in the AUTHORS file in the root of the source tree.
  */
 
-#include "modules/desktop_capture/linux/mouse_cursor_monitor_x11.h"
+#include "modules/desktop_capture/linux/x11/mouse_cursor_monitor_x11.h"
 
 #include <X11/Xlib.h>
 #include <X11/extensions/Xfixes.h>
@@ -23,7 +23,7 @@
 #include "modules/desktop_capture/desktop_capture_types.h"
 #include "modules/desktop_capture/desktop_frame.h"
 #include "modules/desktop_capture/desktop_geometry.h"
-#include "modules/desktop_capture/linux/x_error_trap.h"
+#include "modules/desktop_capture/linux/x11/x_error_trap.h"
 #include "modules/desktop_capture/mouse_cursor.h"
 #include "modules/desktop_capture/mouse_cursor_monitor.h"
 #include "rtc_base/checks.h"

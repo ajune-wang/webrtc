@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "c2c91511_9cac6f59",
+        "filename": "modules/video_coding/codecs/av1/libaom_av1_encoder.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 561,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2021-12-01T14:31:11Z",
+      "side": 1,
+      "message": "probably should be checked in svc mode only.\n  if (SvcEnabled() \u0026\u0026 !rates_configured_) {\n    return WEBRTC_VIDEO_CODEC_UNINITIALIZED;\n  }\n\n(in non-svc mode rc_target_bitrate is set during Init function)",
+      "range": {
+        "startLine": 561,
+        "startChar": 56,
+        "endLine": 561,
+        "endChar": 74
+      },
+      "revId": "9b55ae8cc7ba733e1a677bc69f1111707f27851e",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

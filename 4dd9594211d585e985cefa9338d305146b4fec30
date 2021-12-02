@@ -1,0 +1,38 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "745e60ee_a832f790",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 13,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2021-12-02T10:00:38Z",
+      "side": 1,
+      "message": "Are there clients (that we care about) still using *only* the old stats API?\n\nIf not, leaving the difference is an incentive to convert.",
+      "revId": "4dd9594211d585e985cefa9338d305146b4fec30",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "cee9b3fe_5e8f3d12",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 15,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2021-12-02T10:00:38Z",
+      "side": 1,
+      "message": "Best to file a bug. If not - \"Bug: none\" is acceptable.",
+      "revId": "4dd9594211d585e985cefa9338d305146b4fec30",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

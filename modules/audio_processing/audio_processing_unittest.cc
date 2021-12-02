@@ -206,6 +206,7 @@ void EnableAllAPComponents(AudioProcessing* ap) {
 
   apm_config.high_pass_filter.enabled = true;
   apm_config.voice_detection.enabled = true;
+  apm_config.residual_echo_detector.enabled = true;
   apm_config.pipeline.maximum_internal_processing_rate = 48000;
   ap->ApplyConfig(apm_config);
 }
@@ -415,8 +416,8 @@ class ApmTest : public ::testing::Test {
   rtc::scoped_refptr<AudioProcessing> apm_;
   Int16FrameData frame_;
   Int16FrameData revframe_;
-  std::unique_ptr<ChannelBuffer<float> > float_cb_;
-  std::unique_ptr<ChannelBuffer<float> > revfloat_cb_;
+  std::unique_ptr<ChannelBuffer<float>> float_cb_;
+  std::unique_ptr<ChannelBuffer<float>> revfloat_cb_;
   int output_sample_rate_hz_;
   size_t num_output_channels_;
   FILE* far_file_;
@@ -2649,6 +2650,155 @@ TEST(ApmConfiguration, EchoControlInjection) {
                      audio.data.data());
 }
 
+// Sets up an APM instance with an injected mock echo detector. Also contains
+// basic structures to make processing calls to APM.
+class EchoDetectorConfigurationTestX : public ::testing::Test {
+ protected:
+  void SetUp() override {
+    mock_echo_detector_ =
+        rtc::make_ref_counted<::testing::StrictMock<test::MockEchoDetector>>();
+    ON_CALL(*mock_echo_detector_,
+            Initialize(::testing::_, ::testing::_, ::testing::_, ::testing::_))
+        .WillByDefault([]() {});
+    EXPECT_CALL(*mock_echo_detector_, Initialize(::testing::_, ::testing::_,
+                                                 ::testing::_, ::testing::_))
+        .Times(1);
+    apm_ = AudioProcessingBuilderForTesting()
+               .SetEchoDetector(mock_echo_detector_)
+               .Create();
+    ASSERT_TRUE(apm_->GetConfig().residual_echo_detector.enabled);
+    frame_.num_channels = 1;
+    SetFrameSampleRate(&frame_, AudioProcessing::NativeRate::kSampleRate32kHz);
+  }
+
+  rtc::scoped_refptr<test::MockEchoDetector> mock_echo_detector_;
+  rtc::scoped_refptr<AudioProcessing> apm_;
+  Int16FrameData frame_;
+  int detector_capture_sample_rate_hz_;
+  int detector_render_sample_rate_hz_;
+};
+
+TEST(EchoDetectorConfigurationTest, EchoDetectorIsUsedByDefault) {
+  rtc::scoped_refptr<test::MockEchoDetector> mock_echo_detector =
+      rtc::make_ref_counted<::testing::StrictMock<test::MockEchoDetector>>();
+  // APM initializes and used the echo detector by default.
+  ASSERT_TRUE(AudioProcessing::Config().residual_echo_detector.enabled);
+  EXPECT_CALL(*mock_echo_detector,
+              Initialize(/*capture_sample_rate_hz=*/16000, ::testing::_,
+                         /*render_sample_rate_hz=*/16000, ::testing::_))
+      .Times(1);
+  rtc::scoped_refptr<AudioProcessing> apm =
+      AudioProcessingBuilderForTesting()
+          .SetEchoDetector(mock_echo_detector)
+          .Create();
+
+  // The echo detector is included in processing when enabled.
+  EXPECT_CALL(*mock_echo_detector, AnalyzeRenderAudio(::testing::_))
+      .WillOnce([](rtc::ArrayView<const float> render_audio) {
+        EXPECT_EQ(render_audio.size(), 160u);
+      });
+  EXPECT_CALL(*mock_echo_detector, AnalyzeCaptureAudio(::testing::_))
+      .WillOnce([](rtc::ArrayView<const float> capture_audio) {
+        EXPECT_EQ(capture_audio.size(), 160u);
+      });
+  EXPECT_CALL(*mock_echo_detector, GetMetrics()).Times(1);
+
+  Int16FrameData frame;
+  frame.num_channels = 1;
+  SetFrameSampleRate(&frame, 16000);
+
+  apm->ProcessReverseStream(frame.data.data(), StreamConfig(16000, 1),
+                            StreamConfig(16000, 1), frame.data.data());
+  apm->ProcessStream(frame.data.data(), StreamConfig(16000, 1),
+                     StreamConfig(16000, 1), frame.data.data());
+
+  // When processing rates change, the echo detector is also reinitialized to
+  // match those.
+  EXPECT_CALL(*mock_echo_detector,
+              Initialize(/*capture_sample_rate_hz=*/48000, ::testing::_,
+                         /*render_sample_rate_hz=*/16000, ::testing::_))
+      .Times(1);
+  EXPECT_CALL(*mock_echo_detector,
+              Initialize(/*capture_sample_rate_hz=*/48000, ::testing::_,
+                         /*render_sample_rate_hz=*/48000, ::testing::_))
+      .Times(1);
+  EXPECT_CALL(*mock_echo_detector, AnalyzeRenderAudio(::testing::_))
+      .WillOnce([](rtc::ArrayView<const float> render_audio) {
+        EXPECT_EQ(render_audio.size(), 480u);
+      });
+  EXPECT_CALL(*mock_echo_detector, AnalyzeCaptureAudio(::testing::_))
+      .Times(2)
+      .WillRepeatedly([](rtc::ArrayView<const float> capture_audio) {
+        EXPECT_EQ(capture_audio.size(), 480u);
+      });
+  EXPECT_CALL(*mock_echo_detector, GetMetrics()).Times(2);
+
+  SetFrameSampleRate(&frame, 48000);
+  apm->ProcessStream(frame.data.data(), StreamConfig(48000, 1),
+                     StreamConfig(48000, 1), frame.data.data());
+  apm->ProcessReverseStream(frame.data.data(), StreamConfig(48000, 1),
+                            StreamConfig(48000, 1), frame.data.data());
+  apm->ProcessStream(frame.data.data(), StreamConfig(48000, 1),
+                     StreamConfig(48000, 1), frame.data.data());
+}
+
+TEST(EchoDetectorConfigurationTest, EchoDetectorIsNotUsedWhenDisabled) {
+  auto mock_echo_detector =
+      rtc::make_ref_counted<::testing::NiceMock<test::MockEchoDetector>>();
+  auto apm = AudioProcessingBuilderForTesting()
+                 .SetEchoDetector(mock_echo_detector)
+                 .Create();
+
+  // The echo detector is excluded from both reinitialization and processing
+  // when disabled.
+  EXPECT_CALL(*mock_echo_detector, Initialize(::testing::_, ::testing::_,
+                                              ::testing::_, ::testing::_))
+      .Times(0);
+  EXPECT_CALL(*mock_echo_detector, AnalyzeRenderAudio(::testing::_)).Times(0);
+  EXPECT_CALL(*mock_echo_detector, AnalyzeCaptureAudio(::testing::_)).Times(0);
+  EXPECT_CALL(*mock_echo_detector, GetMetrics()).Times(0);
+
+  auto config = apm->GetConfig();
+  config.residual_echo_detector.enabled = false;
+  apm->ApplyConfig(config);
+
+  Int16FrameData frame;
+  frame.num_channels = 1;
+  SetFrameSampleRate(&frame, 32000);
+  apm->ProcessReverseStream(frame.data.data(), StreamConfig(32000, 1),
+                            StreamConfig(32000, 1), frame.data.data());
+  apm->ProcessStream(frame.data.data(), StreamConfig(32000, 1),
+                     StreamConfig(32000, 1), frame.data.data());
+}
+
+TEST(EchoDetectorConfigurationTest, EchoDetectorIsReinitializedWhenReenabled) {
+  auto mock_echo_detector =
+      rtc::make_ref_counted<::testing::NiceMock<test::MockEchoDetector>>();
+  auto apm = AudioProcessingBuilderForTesting()
+                 .SetEchoDetector(mock_echo_detector)
+                 .Create();
+  Int16FrameData frame;
+  frame.num_channels = 1;
+  // The test case is set up by disabling the echo detector.
+  auto config = apm->GetConfig();
+  config.residual_echo_detector.enabled = false;
+  apm->ApplyConfig(config);
+  SetFrameSampleRate(&frame, 32000);
+  apm->ProcessReverseStream(frame.data.data(), StreamConfig(32000, 1),
+                            StreamConfig(32000, 1), frame.data.data());
+  apm->ProcessStream(frame.data.data(), StreamConfig(32000, 1),
+                     StreamConfig(32000, 1), frame.data.data());
+
+  // Reenable the echo detector: It should be reinitialized immediately to the
+  // current processing rates.
+  EXPECT_CALL(*mock_echo_detector,
+              Initialize(/*capture_sample_rate_hz=*/32000, ::testing::_,
+                         /*render_sample_rate_hz=*/32000, ::testing::_))
+      .Times(1);
+  config.residual_echo_detector.enabled = true;
+  apm->ApplyConfig(config);
+}
+
 rtc::scoped_refptr<AudioProcessing> CreateApm(bool mobile_aec) {
   rtc::scoped_refptr<AudioProcessing> apm =
       AudioProcessingBuilderForTesting().Create();
@@ -2722,15 +2872,15 @@ TEST(MAYBE_ApmStatistics, AECEnabledTest) {
   // Test statistics interface.
   AudioProcessingStats stats = apm->GetStatistics();
   // We expect all statistics to be set and have a sensible value.
-  ASSERT_TRUE(stats.residual_echo_likelihood);
+  ASSERT_TRUE(stats.residual_echo_likelihood.has_value());
   EXPECT_GE(*stats.residual_echo_likelihood, 0.0);
   EXPECT_LE(*stats.residual_echo_likelihood, 1.0);
-  ASSERT_TRUE(stats.residual_echo_likelihood_recent_max);
+  ASSERT_TRUE(stats.residual_echo_likelihood_recent_max.has_value());
   EXPECT_GE(*stats.residual_echo_likelihood_recent_max, 0.0);
   EXPECT_LE(*stats.residual_echo_likelihood_recent_max, 1.0);
-  ASSERT_TRUE(stats.echo_return_loss);
+  ASSERT_TRUE(stats.echo_return_loss.has_value());
   EXPECT_NE(*stats.echo_return_loss, -100.0);
-  ASSERT_TRUE(stats.echo_return_loss_enhancement);
+  ASSERT_TRUE(stats.echo_return_loss_enhancement.has_value());
   EXPECT_NE(*stats.echo_return_loss_enhancement, -100.0);
 }
 
@@ -2771,21 +2921,17 @@ TEST(MAYBE_ApmStatistics, AECMEnabledTest) {
   AudioProcessingStats stats = apm->GetStatistics();
   // We expect only the residual echo detector statistics to be set and have a
   // sensible value.
-  EXPECT_TRUE(stats.residual_echo_likelihood);
-  if (stats.residual_echo_likelihood) {
-    EXPECT_GE(*stats.residual_echo_likelihood, 0.0);
-    EXPECT_LE(*stats.residual_echo_likelihood, 1.0);
-  }
-  EXPECT_TRUE(stats.residual_echo_likelihood_recent_max);
-  if (stats.residual_echo_likelihood_recent_max) {
-    EXPECT_GE(*stats.residual_echo_likelihood_recent_max, 0.0);
-    EXPECT_LE(*stats.residual_echo_likelihood_recent_max, 1.0);
-  }
-  EXPECT_FALSE(stats.echo_return_loss);
-  EXPECT_FALSE(stats.echo_return_loss_enhancement);
+  ASSERT_TRUE(stats.residual_echo_likelihood.has_value());
+  EXPECT_GE(*stats.residual_echo_likelihood, 0.0);
+  EXPECT_LE(*stats.residual_echo_likelihood, 1.0);
+  ASSERT_TRUE(stats.residual_echo_likelihood_recent_max.has_value());
+  EXPECT_GE(*stats.residual_echo_likelihood_recent_max, 0.0);
+  EXPECT_LE(*stats.residual_echo_likelihood_recent_max, 1.0);
+  EXPECT_FALSE(stats.echo_return_loss.has_value());
+  EXPECT_FALSE(stats.echo_return_loss_enhancement.has_value());
 }
 
-TEST(ApmStatistics, ReportHasVoice) {
+TEST(ApmStatistics, GetStatisticsReportsVoiceStatsWhenVoiceDetectionIsEnabled) {
   ProcessingConfig processing_config = {
       {{32000, 1}, {32000, 1}, {32000, 1}, {32000, 1}}};
   AudioProcessing::Config config;
@@ -2806,36 +2952,95 @@ TEST(ApmStatistics, ReportHasVoice) {
   apm->Initialize(processing_config);
 
   // If not enabled, no metric should be reported.
-  EXPECT_EQ(
+  ASSERT_EQ(
       apm->ProcessStream(frame.data.data(),
                          StreamConfig(frame.sample_rate_hz, frame.num_channels),
                          StreamConfig(frame.sample_rate_hz, frame.num_channels),
                          frame.data.data()),
       0);
-  EXPECT_FALSE(apm->GetStatistics().voice_detected);
+  EXPECT_FALSE(apm->GetStatistics().voice_detected.has_value());
 
   // If enabled, metrics should be reported.
   config.voice_detection.enabled = true;
   apm->ApplyConfig(config);
-  EXPECT_EQ(
+  ASSERT_EQ(
       apm->ProcessStream(frame.data.data(),
                          StreamConfig(frame.sample_rate_hz, frame.num_channels),
                          StreamConfig(frame.sample_rate_hz, frame.num_channels),
                          frame.data.data()),
       0);
   auto stats = apm->GetStatistics();
-  EXPECT_TRUE(stats.voice_detected);
+  EXPECT_TRUE(stats.voice_detected.has_value());
 
   // If re-disabled, the value is again not reported.
   config.voice_detection.enabled = false;
   apm->ApplyConfig(config);
-  EXPECT_EQ(
+  ASSERT_EQ(
       apm->ProcessStream(frame.data.data(),
                          StreamConfig(frame.sample_rate_hz, frame.num_channels),
                          StreamConfig(frame.sample_rate_hz, frame.num_channels),
                          frame.data.data()),
       0);
-  EXPECT_FALSE(apm->GetStatistics().voice_detected);
+  EXPECT_FALSE(apm->GetStatistics().voice_detected.has_value());
+}
+
+TEST(ApmStatistics,
+     GetStatisticsReportsEchoStatsWhenResidualEchoDetectorIsEnabled) {
+  ProcessingConfig processing_config = {
+      {{32000, 1}, {32000, 1}, {32000, 1}, {32000, 1}}};
+  AudioProcessing::Config config;
+
+  // Set up an audioframe.
+  Int16FrameData frame;
+  frame.num_channels = 1;
+  SetFrameSampleRate(&frame, AudioProcessing::NativeRate::kSampleRate32kHz);
+
+  // Fill the audio frame with a sawtooth pattern.
+  int16_t* ptr = frame.data.data();
+  for (size_t i = 0; i < frame.kMaxDataSizeSamples; i++) {
+    ptr[i] = 10000 * ((i % 3) - 1);
+  }
+
+  rtc::scoped_refptr<AudioProcessing> apm =
+      AudioProcessingBuilderForTesting().Create();
+  apm->Initialize(processing_config);
+
+  // Enabled by default, echo metrics are reported.
+  ASSERT_EQ(
+      apm->ProcessStream(frame.data.data(),
+                         StreamConfig(frame.sample_rate_hz, frame.num_channels),
+                         StreamConfig(frame.sample_rate_hz, frame.num_channels),
+                         frame.data.data()),
+      0);
+  AudioProcessingStats stats = apm->GetStatistics();
+  EXPECT_TRUE(stats.residual_echo_likelihood.has_value());
+  EXPECT_TRUE(stats.residual_echo_likelihood_recent_max.has_value());
+
+  // If disabled, the metrics are not reported.
+  config.residual_echo_detector.enabled = false;
+  apm->ApplyConfig(config);
+  ASSERT_EQ(
+      apm->ProcessStream(frame.data.data(),
+                         StreamConfig(frame.sample_rate_hz, frame.num_channels),
+                         StreamConfig(frame.sample_rate_hz, frame.num_channels),
+                         frame.data.data()),
+      0);
+  stats = apm->GetStatistics();
+  EXPECT_FALSE(stats.residual_echo_likelihood.has_value());
+  EXPECT_FALSE(stats.residual_echo_likelihood_recent_max.has_value());
+
+  // If re-enabled, metrics are reported.
+  config.residual_echo_detector.enabled = true;
+  apm->ApplyConfig(config);
+  ASSERT_EQ(
+      apm->ProcessStream(frame.data.data(),
+                         StreamConfig(frame.sample_rate_hz, frame.num_channels),
+                         StreamConfig(frame.sample_rate_hz, frame.num_channels),
+                         frame.data.data()),
+      0);
+  stats = apm->GetStatistics();
+  EXPECT_TRUE(stats.residual_echo_likelihood.has_value());
+  EXPECT_TRUE(stats.residual_echo_likelihood_recent_max.has_value());
 }
 
 TEST(ApmConfiguration, HandlingOfRateAndChannelCombinations) {

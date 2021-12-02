@@ -547,6 +547,10 @@ void AudioProcessingImpl::ApplyConfig(const AudioProcessing::Config& config) {
   const bool voice_detection_config_changed =
       config_.voice_detection.enabled != config.voice_detection.enabled;
 
+  const bool echo_detector_config_changed =
+      config_.residual_echo_detector.enabled !=
+      config.residual_echo_detector.enabled;
+
   const bool ns_config_changed =
       config_.noise_suppression.enabled != config.noise_suppression.enabled ||
       config_.noise_suppression.level != config.noise_suppression.level;
@@ -597,6 +601,10 @@ void AudioProcessingImpl::ApplyConfig(const AudioProcessing::Config& config) {
 
   if (voice_detection_config_changed) {
     InitializeVoiceDetector();
+  }
+
+  if (echo_detector_config_changed) {
+    InitializeResidualEchoDetector();
   }
 
   // Reinitialization must happen after all submodule configuration to avoid
@@ -969,16 +977,18 @@ void AudioProcessingImpl::QueueBandedRenderAudio(AudioBuffer* audio) {
 }
 
 void AudioProcessingImpl::QueueNonbandedRenderAudio(AudioBuffer* audio) {
-  ResidualEchoDetector::PackRenderAudioBuffer(audio, &red_render_queue_buffer_);
+  if (config_.residual_echo_detector.enabled) {
+    RTC_DCHECK(red_render_signal_queue_);
+    EchoDetector::PackRenderAudioBuffer(audio, &red_render_queue_buffer_);
+    // Insert the samples into the queue.
+    if (!red_render_signal_queue_->Insert(&red_render_queue_buffer_)) {
+      // The data queue is full and needs to be emptied.
+      EmptyQueuedRenderAudio();
 
-  // Insert the samples into the queue.
-  if (!red_render_signal_queue_->Insert(&red_render_queue_buffer_)) {
-    // The data queue is full and needs to be emptied.
-    EmptyQueuedRenderAudio();
-
-    // Retry the insert (should always work).
-    bool result = red_render_signal_queue_->Insert(&red_render_queue_buffer_);
-    RTC_DCHECK(result);
+      // Retry the insert (should always work).
+      bool result = red_render_signal_queue_->Insert(&red_render_queue_buffer_);
+      RTC_DCHECK(result);
+    }
   }
 }
 
@@ -1050,10 +1060,12 @@ void AudioProcessingImpl::EmptyQueuedRenderAudioLocked() {
       submodules_.gain_control->ProcessRenderAudio(agc_capture_queue_buffer_);
     }
   }
-
-  while (red_render_signal_queue_->Remove(&red_capture_queue_buffer_)) {
+  if (config_.residual_echo_detector.enabled) {
     RTC_DCHECK(submodules_.echo_detector);
-    submodules_.echo_detector->AnalyzeRenderAudio(red_capture_queue_buffer_);
+    RTC_DCHECK(red_render_signal_queue_);
+    while (red_render_signal_queue_->Remove(&red_capture_queue_buffer_)) {
+      submodules_.echo_detector->AnalyzeRenderAudio(red_capture_queue_buffer_);
+    }
   }
 }
 
@@ -1354,6 +1366,9 @@ int AudioProcessingImpl::ProcessCaptureStreamLocked() {
       capture_.stats.residual_echo_likelihood = ed_metrics.echo_likelihood;
       capture_.stats.residual_echo_likelihood_recent_max =
           ed_metrics.echo_likelihood_recent_max;
+    } else {
+      capture_.stats.residual_echo_likelihood = absl::nullopt;
+      capture_.stats.residual_echo_likelihood_recent_max = absl::nullopt;
     }
   }
 
@@ -1992,9 +2007,11 @@ void AudioProcessingImpl::InitializeCaptureLevelsAdjuster() {
 
 void AudioProcessingImpl::InitializeResidualEchoDetector() {
   RTC_DCHECK(submodules_.echo_detector);
-  submodules_.echo_detector->Initialize(
-      proc_fullband_sample_rate_hz(), 1,
-      formats_.render_processing_format.sample_rate_hz(), 1);
+  if (config_.residual_echo_detector.enabled) {
+    submodules_.echo_detector->Initialize(
+        proc_fullband_sample_rate_hz(), 1,
+        formats_.render_processing_format.sample_rate_hz(), 1);
+  }
 }
 
 void AudioProcessingImpl::InitializeAnalyzer() {

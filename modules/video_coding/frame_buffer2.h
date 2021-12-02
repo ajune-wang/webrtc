@@ -45,8 +45,6 @@ namespace video_coding {
 
 class FrameBuffer {
  public:
-  enum ReturnReason { kFrameFound, kTimeout, kStopped };
-
   FrameBuffer(Clock* clock,
               VCMTiming* timing,
               VCMReceiveStatisticsCallback* stats_callback);
@@ -63,11 +61,11 @@ class FrameBuffer {
 
   // Get the next frame for decoding. Will return at latest after
   // `max_wait_time_ms`.
-  void NextFrame(
-      int64_t max_wait_time_ms,
-      bool keyframe_required,
-      rtc::TaskQueue* callback_queue,
-      std::function<void(std::unique_ptr<EncodedFrame>, ReturnReason)> handler);
+  using NextFrameCallback = std::function<void(std::unique_ptr<EncodedFrame>)>;
+  void NextFrame(int64_t max_wait_time_ms,
+                 bool keyframe_required,
+                 rtc::TaskQueue* callback_queue,
+                 NextFrameCallback handler);
 
   // Tells the FrameBuffer which protection mode that is in use. Affects
   // the frame timing.
@@ -171,8 +169,7 @@ class FrameBuffer {
 
   rtc::TaskQueue* callback_queue_ RTC_GUARDED_BY(mutex_);
   RepeatingTaskHandle callback_task_ RTC_GUARDED_BY(mutex_);
-  std::function<void(std::unique_ptr<EncodedFrame>, ReturnReason)>
-      frame_handler_ RTC_GUARDED_BY(mutex_);
+  NextFrameCallback frame_handler_ RTC_GUARDED_BY(mutex_);
   int64_t latest_return_time_ms_ RTC_GUARDED_BY(mutex_);
   bool keyframe_required_ RTC_GUARDED_BY(mutex_);
 

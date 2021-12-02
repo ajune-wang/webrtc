@@ -505,7 +505,7 @@ std::vector<uint64_t> EglDmaBuf::QueryDmaBufModifiers(uint32_t format) {
   // use modifier-less DMA-BUFs
   if (EglQueryDmaBufFormatsEXT == nullptr ||
       EglQueryDmaBufModifiersEXT == nullptr) {
-    return {DRM_FORMAT_MOD_INVALID};
+    return {};
   }
 
   uint32_t drm_format = SpaPixelFormatToDrmFormat(format);

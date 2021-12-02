@@ -22,6 +22,30 @@
       },
       "revId": "4b1399b0abb02628851cc0c3f9e58df971cebe92",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "2967f334_f458db11",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 7,
+      "author": {
+        "id": 12234
+      },
+      "writtenOn": "2021-12-02T10:08:39Z",
+      "side": 1,
+      "message": "Currently we are using gtest and not gtest_parallel.\nThe goal is to keep the same behavior by using only 1 worker.\nUsing gtest_parallel allows to have a json output compatible with resultdb.",
+      "parentUuid": "8f363045_afca01f8",
+      "range": {
+        "startLine": 7,
+        "startChar": 0,
+        "endLine": 7,
+        "endChar": 54
+      },
+      "revId": "4b1399b0abb02628851cc0c3f9e58df971cebe92",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

@@ -57,7 +57,6 @@ void AudioOptions::SetAll(const AudioOptions& change) {
   SetFrom(&typing_detection, change.typing_detection);
   SetFrom(&experimental_agc, change.experimental_agc);
   SetFrom(&experimental_ns, change.experimental_ns);
-  SetFrom(&residual_echo_detector, change.residual_echo_detector);
   SetFrom(&tx_agc_target_dbov, change.tx_agc_target_dbov);
   SetFrom(&tx_agc_digital_compression_gain,
           change.tx_agc_digital_compression_gain);
@@ -86,7 +85,6 @@ bool AudioOptions::operator==(const AudioOptions& o) const {
          typing_detection == o.typing_detection &&
          experimental_agc == o.experimental_agc &&
          experimental_ns == o.experimental_ns &&
-         residual_echo_detector == o.residual_echo_detector &&
          tx_agc_target_dbov == o.tx_agc_target_dbov &&
          tx_agc_digital_compression_gain == o.tx_agc_digital_compression_gain &&
          tx_agc_limiter == o.tx_agc_limiter &&
@@ -119,7 +117,6 @@ std::string AudioOptions::ToString() const {
   ToStringIfSet(&result, "typing", typing_detection);
   ToStringIfSet(&result, "experimental_agc", experimental_agc);
   ToStringIfSet(&result, "experimental_ns", experimental_ns);
-  ToStringIfSet(&result, "residual_echo_detector", residual_echo_detector);
   ToStringIfSet(&result, "tx_agc_target_dbov", tx_agc_target_dbov);
   ToStringIfSet(&result, "tx_agc_digital_compression_gain",
                 tx_agc_digital_compression_gain);

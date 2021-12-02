@@ -71,10 +71,10 @@ bool BufferQueue::WriteBack(const void* buffer,
     packet = free_list_.back();
     free_list_.pop_back();
   } else {
-    packet = new Buffer(bytes, default_size_);
+    packet = new Buffer(default_size_);
   }
-
   packet->SetData(static_cast<const uint8_t*>(buffer), bytes);
+
   if (bytes_written)
     *bytes_written = bytes;
 

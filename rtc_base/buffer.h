@@ -84,15 +84,8 @@ class BufferT {
     buf.OnMovedFrom();
   }
 
-  // Construct a buffer with the specified number of uninitialized elements.
-  explicit BufferT(size_t size) : BufferT(size, size) {}
-
-  BufferT(size_t size, size_t capacity)
-      : size_(size),
-        capacity_(std::max(size, capacity)),
-        data_(capacity_ > 0 ? new T[capacity_] : nullptr) {
-    RTC_DCHECK(IsConsistent());
-  }
+  // Construct an empty buffer of the given capacity.
+  explicit BufferT(size_t capacity) : BufferT(0, capacity) {}
 
   // Construct a buffer and copy the specified number of elements into it.
   template <typename U,
@@ -355,6 +348,21 @@ class BufferT {
   }
 
  private:
+  // These two constructors are internal, since they create elements
+  // that can be read, but are not initialized.
+
+  // Construct a buffer with the specified number of uninitialized elements.
+  // explicit BufferT(size_t size) : BufferT(size, size) {}
+
+  // Construct a buffer with the specified capacity, and the specified
+  // number of uninitialized elements.
+  BufferT(size_t size, size_t capacity)
+      : size_(size),
+        capacity_(std::max(size, capacity)),
+        data_(capacity_ > 0 ? new T[capacity_] : nullptr) {
+    RTC_DCHECK(IsConsistent());
+  }
+
   void EnsureCapacityWithHeadroom(size_t capacity, bool extra_headroom) {
     RTC_DCHECK(IsConsistent());
     if (capacity <= capacity_)

@@ -31,18 +31,16 @@ CopyOnWriteBuffer::CopyOnWriteBuffer(CopyOnWriteBuffer&& buf)
 CopyOnWriteBuffer::CopyOnWriteBuffer(const std::string& s)
     : CopyOnWriteBuffer(s.data(), s.length()) {}
 
-CopyOnWriteBuffer::CopyOnWriteBuffer(size_t size)
-    : buffer_(size > 0 ? new RefCountedBuffer(size) : nullptr),
-      offset_(0),
-      size_(size) {
-  RTC_DCHECK(IsConsistent());
-}
-
 CopyOnWriteBuffer::CopyOnWriteBuffer(size_t size, size_t capacity)
-    : buffer_(size > 0 || capacity > 0 ? new RefCountedBuffer(size, capacity)
-                                       : nullptr),
+    : buffer_(size > 0 || capacity > 0
+                  ? new RefCountedBuffer(std::max(size, capacity))
+                  : nullptr),
       offset_(0),
       size_(size) {
+  // Permits access to uninitialized data
+  if (buffer_) {
+    buffer_->SetSize(size);
+  }
   RTC_DCHECK(IsConsistent());
 }
 
@@ -83,7 +81,7 @@ void CopyOnWriteBuffer::EnsureCapacity(size_t new_capacity) {
   RTC_DCHECK(IsConsistent());
   if (!buffer_) {
     if (new_capacity > 0) {
-      buffer_ = new RefCountedBuffer(0, new_capacity);
+      buffer_ = new RefCountedBuffer(new_capacity);
       offset_ = 0;
       size_ = 0;
     }
@@ -104,7 +102,7 @@ void CopyOnWriteBuffer::Clear() {
   if (buffer_->HasOneRef()) {
     buffer_->Clear();
   } else {
-    buffer_ = new RefCountedBuffer(0, capacity());
+    buffer_ = new RefCountedBuffer(capacity());
   }
   offset_ = 0;
   size_ = 0;

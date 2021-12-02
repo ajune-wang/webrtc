@@ -40,10 +40,6 @@ class RTC_EXPORT CopyOnWriteBuffer {
   // Construct a buffer from a string, convenient for unittests.
   CopyOnWriteBuffer(const std::string& s);
 
-  // Construct a buffer with the specified number of uninitialized bytes.
-  explicit CopyOnWriteBuffer(size_t size);
-  CopyOnWriteBuffer(size_t size, size_t capacity);
-
   // Construct a buffer and copy the specified number of bytes into it. The
   // source array may be (const) uint8_t*, int8_t*, or char*.
   template <typename T,
@@ -51,6 +47,9 @@ class RTC_EXPORT CopyOnWriteBuffer {
                 internal::BufferCompat<uint8_t, T>::value>::type* = nullptr>
   CopyOnWriteBuffer(const T* data, size_t size)
       : CopyOnWriteBuffer(data, size, size) {}
+  // Construct a buffer of the given capacity
+  CopyOnWriteBuffer(size_t capacity) : CopyOnWriteBuffer(0, capacity) {}
+
   template <typename T,
             typename std::enable_if<
                 internal::BufferCompat<uint8_t, T>::value>::type* = nullptr>
@@ -275,6 +274,11 @@ class RTC_EXPORT CopyOnWriteBuffer {
   }
 
  private:
+  // Construct a buffer with the specified number of uninitialized bytes.
+  // This constructor creates accessible uninitialized memory, and should
+  // therefore only be used as an internal helper.
+  CopyOnWriteBuffer(size_t size, size_t capacity);
+
   using RefCountedBuffer = FinalRefCountedObject<Buffer>;
   // Create a copy of the underlying data if it is referenced from other Buffer
   // objects or there is not enough capacity.

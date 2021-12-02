@@ -643,6 +643,7 @@ class FakePacketRoute : public EmulatedNetworkReceiverInterface {
     RTC_CHECK_GE(size, sizeof(int));
     sent_.emplace(next_packet_id_, packet);
     rtc::CopyOnWriteBuffer buf(size);
+    buf.SetSize(size);  // Creates uninitalized data
     reinterpret_cast<int*>(buf.MutableData())[0] = next_packet_id_++;
     route_->from->SendPacket(send_addr_, recv_addr_, buf);
   }

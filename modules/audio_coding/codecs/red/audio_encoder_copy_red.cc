@@ -53,7 +53,7 @@ size_t GetMaxRedundancyFromFieldTrial() {
 
 AudioEncoderCopyRed::AudioEncoderCopyRed(Config&& config)
     : speech_encoder_(std::move(config.speech_encoder)),
-      primary_encoded_(0, kAudioMaxRtpPacketLen),
+      primary_encoded_(kAudioMaxRtpPacketLen),
       max_packet_length_(kAudioMaxRtpPacketLen),
       red_payload_type_(config.payload_type) {
   RTC_CHECK(speech_encoder_) << "Speech encoder not provided.";

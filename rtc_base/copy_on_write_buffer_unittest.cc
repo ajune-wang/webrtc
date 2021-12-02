@@ -128,7 +128,8 @@ TEST(CopyOnWriteBufferTest, SetEmptyData) {
 }
 
 TEST(CopyOnWriteBufferTest, SetDataNoMoreThanCapacityDoesntCauseReallocation) {
-  CopyOnWriteBuffer buf1(3, 10);
+  CopyOnWriteBuffer buf1(10);
+  buf1.SetSize(3);
   const uint8_t* const original_allocation = buf1.cdata();
 
   buf1.SetData(kTestData, 10);

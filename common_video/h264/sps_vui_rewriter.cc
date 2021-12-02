@@ -231,8 +231,8 @@ rtc::Buffer SpsVuiRewriter::ParseOutgoingBitstreamAndRewrite(
       H264::FindNaluIndices(buffer.data(), buffer.size());
 
   // Allocate some extra space for potentially adding a missing VUI.
-  rtc::Buffer output_buffer(/*size=*/0, /*capacity=*/buffer.size() +
-                                            nalus.size() * kMaxVuiSpsIncrease);
+  rtc::Buffer output_buffer(/*capacity=*/buffer.size() +
+                            nalus.size() * kMaxVuiSpsIncrease);
 
   for (const H264::NaluIndex& nalu : nalus) {
     // Copy NAL unit start code.

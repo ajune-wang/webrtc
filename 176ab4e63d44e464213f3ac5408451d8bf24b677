@@ -33,6 +33,24 @@
       "message": "I believe plane_datas.size() \u003d\u003d n_planes, so no need to pass n_planes separately any more?",
       "revId": "176ab4e63d44e464213f3ac5408451d8bf24b677",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "506a889d_0e6b425d",
+        "filename": "modules/desktop_capture/linux/base_capturer_pipewire.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 574,
+      "author": {
+        "id": 8046
+      },
+      "writtenOn": "2021-12-02T06:45:12Z",
+      "side": 1,
+      "message": "Correct, didn\u0027t realize that.",
+      "parentUuid": "0bd48841_dddec355",
+      "revId": "176ab4e63d44e464213f3ac5408451d8bf24b677",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

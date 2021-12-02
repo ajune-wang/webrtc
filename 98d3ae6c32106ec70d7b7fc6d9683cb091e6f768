@@ -1,0 +1,38 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "92ebe3fb_e94cea50",
+        "filename": "rtc_base/buffer.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 361,
+      "author": {
+        "id": 5508
+      },
+      "writtenOn": "2021-12-02T18:31:28Z",
+      "side": 1,
+      "message": "We don\u0027t want size ever to be greater than capacity, right?\ninstead of max(), wdyt about adding RTC_DCHECK_GE(capacity, size) and use only capacity for initializing capacity_?",
+      "revId": "98d3ae6c32106ec70d7b7fc6d9683cb091e6f768",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "61999164_0defc3de",
+        "filename": "rtc_base/copy_on_write_buffer.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 36,
+      "author": {
+        "id": 5508
+      },
+      "writtenOn": "2021-12-02T18:31:28Z",
+      "side": 1,
+      "message": "same question about size \u003e capacity",
+      "revId": "98d3ae6c32106ec70d7b7fc6d9683cb091e6f768",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

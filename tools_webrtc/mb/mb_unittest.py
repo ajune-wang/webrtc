@@ -11,7 +11,10 @@
 
 import ast
 import json
-import StringIO
+try:
+  import StringIO # for Python2
+except ImportError:
+  from io import StringIO # for Python3
 import os
 import re
 import sys
@@ -76,7 +79,7 @@ class FakeMBW(mb.MetaBuildWrapper):
     abpath = self._AbsPath(path)
     self.files[abpath] = contents
 
-  def Call(self, cmd, env=None, buffer_output=True):
+  def Call(self, cmd):
     self.calls.append(cmd)
     if self.cmds:
       return self.cmds.pop(0)
@@ -96,7 +99,7 @@ class FakeMBW(mb.MetaBuildWrapper):
     self.dirs.add(tmp_dir)
     return tmp_dir
 
-  def TempFile(self, mode='w'):
+  def TempFile(self):
     return FakeFile(self.files)
 
   def RemoveFile(self, path):
@@ -116,11 +119,10 @@ class FakeMBW(mb.MetaBuildWrapper):
       path = self.PathJoin(self.cwd, path)
     if self.sep == '\\':
       return re.sub(r'\\+', r'\\', path)
-    else:
-      return re.sub('/+', '/', path)
+    return re.sub('/+', '/', path)
 
 
-class FakeFile(object):
+class FakeFile():
   def __init__(self, files):
     self.name = '/tmp/file'
     self.buf = ''
@@ -233,7 +235,7 @@ class UnitTest(unittest.TestCase):
              }'''}
 
     mbw = self.fake_mbw(files)
-    mbw.Call = lambda cmd, env=None, buffer_output=True: (0, '', '')
+    mbw.Call = lambda cmd: (0, '', '')
 
     self.check(['analyze', '-c', 'debug_goma', '//out/Default',
                 '/tmp/in.json', '/tmp/out.json'], mbw=mbw, ret=0)
@@ -279,7 +281,7 @@ class UnitTest(unittest.TestCase):
 
   def test_gen_fails(self):
     mbw = self.fake_mbw()
-    mbw.Call = lambda cmd, env=None, buffer_output=True: (1, '', '')
+    mbw.Call = lambda cmd: (1, '', '')
     self.check(['gen', '-c', 'debug_goma', '//out/Default'], mbw=mbw, ret=1)
 
   def test_gen_swarming(self):

@@ -49,6 +49,30 @@
     {
       "unresolved": false,
       "key": {
+        "uuid": "894bc405_172b8efa",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 8
+      },
+      "lineNbr": 7,
+      "author": {
+        "id": 5527
+      },
+      "writtenOn": "2021-12-03T13:55:03Z",
+      "side": 1,
+      "message": "Yeah, I agree, that\u0027s a lot of FrameBuffers!\n\nJust a short recap:\nFB is (IMO) badly named.\nFB2 has a sensible name, but is really not related to FB1 in functionality\nFB3 also has a sensible name, and is related to FB2 in functionality.\n\nThe idea is to create two schedulers on top of FB3, one replicating the behavior of FB2, and the other implementing this new decode scheduling strategy. If the new behavior is not useful then we will at least have a cleaned up version of the current behavior, so FB2 should be going away either way.",
+      "parentUuid": "0669ff4c_52b543d4",
+      "range": {
+        "startLine": 7,
+        "startChar": 4,
+        "endLine": 7,
+        "endChar": 16
+      },
+      "revId": "debfad4f4adb2996d13d9a958544ddae300a721c",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
         "uuid": "710cb4ce_7b8e904e",
         "filename": "/COMMIT_MSG",
         "patchSetId": 8
@@ -110,6 +134,30 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "eabe627e_92b77e32",
+        "filename": "modules/video_coding/frame_buffer3.cc",
+        "patchSetId": 8
+      },
+      "lineNbr": 57,
+      "author": {
+        "id": 5527
+      },
+      "writtenOn": "2021-12-03T13:55:03Z",
+      "side": 1,
+      "message": "The problem is that FrameInfo is a private, so I can\u0027t have a std::map\u003cint64_t, FrameInfo\u003e::iterator outside of the class. Maybe I should mark them as static in the header?",
+      "parentUuid": "3c996a4c_2e59417c",
+      "range": {
+        "startLine": 40,
+        "startChar": 0,
+        "endLine": 57,
+        "endChar": 1
+      },
+      "revId": "debfad4f4adb2996d13d9a958544ddae300a721c",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "e86cce05_a33c1cf4",
@@ -123,6 +171,30 @@
       "writtenOn": "2021-12-03T12:12:04Z",
       "side": 1,
       "message": "The FrameBuffer2 was pretty verbose and i\u0027m glad that some log messages (like this one) were removed.\n\nHowever, some logging is necessary. \nImagine some user is complaining that they see no video in a conference call and we just see that decode_fps is 0, while network_fps is OK in the logs adn there\u0027s no decode errors. Currently we would have no idea, why the frames are not even passed to the decoder.\n\nLogging is especially needed when the frame buffer is out of capacity. Also probably when the frame has invalid references etc. Or maybe I\u0027m even missing some other important cases.",
+      "range": {
+        "startLine": 76,
+        "startChar": 6,
+        "endLine": 76,
+        "endChar": 41
+      },
+      "revId": "debfad4f4adb2996d13d9a958544ddae300a721c",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "16894141_f99b5353",
+        "filename": "modules/video_coding/frame_buffer3.cc",
+        "patchSetId": 8
+      },
+      "lineNbr": 76,
+      "author": {
+        "id": 5527
+      },
+      "writtenOn": "2021-12-03T13:55:03Z",
+      "side": 1,
+      "message": "Good point, added logging.",
+      "parentUuid": "e86cce05_a33c1cf4",
       "range": {
         "startLine": 76,
         "startChar": 6,
@@ -156,6 +228,30 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "90ae6e0b_a16ef36b",
+        "filename": "modules/video_coding/frame_buffer3.cc",
+        "patchSetId": 8
+      },
+      "lineNbr": 134,
+      "author": {
+        "id": 5527
+      },
+      "writtenOn": "2021-12-03T13:55:03Z",
+      "side": 1,
+      "message": "Yes, it will be called externally. The reason it\u0027s public is so that temporal units can be removed from the frame buffer without the framebuffer marking them as decoded. This is necessary when fast-forwarding (dropping higher temporal layers).",
+      "parentUuid": "a7cfcf69_9804c487",
+      "range": {
+        "startLine": 134,
+        "startChar": 2,
+        "endLine": 134,
+        "endChar": 25
+      },
+      "revId": "debfad4f4adb2996d13d9a958544ddae300a721c",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "5b4694a9_8a695414",
@@ -179,6 +275,30 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "65617db8_beec2673",
+        "filename": "modules/video_coding/frame_buffer3.cc",
+        "patchSetId": 8
+      },
+      "lineNbr": 178,
+      "author": {
+        "id": 5527
+      },
+      "writtenOn": "2021-12-03T13:55:03Z",
+      "side": 1,
+      "message": "Up until PS3 I used reverse references to only update the necessary frames when frames were inserted/decoded. I believe this is overengineering it though, and for a typical stream (vast, vast, majority of frames are received in order) then iterating from the inserted frame to the end basically means it will only loop once.",
+      "parentUuid": "5b4694a9_8a695414",
+      "range": {
+        "startLine": 178,
+        "startChar": 2,
+        "endLine": 178,
+        "endChar": 55
+      },
+      "revId": "debfad4f4adb2996d13d9a958544ddae300a721c",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "53e71923_9c32ed26",
@@ -192,6 +312,24 @@
       "writtenOn": "2021-12-03T12:12:04Z",
       "side": 1,
       "message": "This also can be speed up by maintaining a decodability flag in the same way as a continuity and updating it with a same BFS-like algorithm.",
+      "revId": "debfad4f4adb2996d13d9a958544ddae300a721c",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "17f87df8_c036b560",
+        "filename": "modules/video_coding/frame_buffer3.cc",
+        "patchSetId": 8
+      },
+      "lineNbr": 207,
+      "author": {
+        "id": 5527
+      },
+      "writtenOn": "2021-12-03T13:55:03Z",
+      "side": 1,
+      "message": "Yes, but even when the buffer is large (lets say 500 ms), then at 60 fps you would only have ~30 frames in the buffer. I suspect a better speedup would be to use  a vector instead of a map, because iterating over \u003c100 elements is quicker than inserting/removing/traversing just a few elements in a map.",
+      "parentUuid": "53e71923_9c32ed26",
       "revId": "debfad4f4adb2996d13d9a958544ddae300a721c",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
@@ -316,6 +454,24 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "a1f7e16d_64fd48b7",
+        "filename": "modules/video_coding/frame_buffer3.h",
+        "patchSetId": 8
+      },
+      "lineNbr": 36,
+      "author": {
+        "id": 5527
+      },
+      "writtenOn": "2021-12-03T13:55:03Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "61c390bc_dc2c598a",
+      "revId": "debfad4f4adb2996d13d9a958544ddae300a721c",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "673879ff_47ccea21",
@@ -329,6 +485,30 @@
       "writtenOn": "2021-12-03T12:12:04Z",
       "side": 1,
       "message": "This should be TemporalUnitInMap or something else.\nOtherwise it\u0027s a little confusing because the |ExtractNextTemporalUnit| doesn\u0027t use this struct but rather returns a frameVector.",
+      "range": {
+        "startLine": 55,
+        "startChar": 9,
+        "endLine": 55,
+        "endChar": 21
+      },
+      "revId": "debfad4f4adb2996d13d9a958544ddae300a721c",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "f29fe161_491879c6",
+        "filename": "modules/video_coding/frame_buffer3.h",
+        "patchSetId": 8
+      },
+      "lineNbr": 55,
+      "author": {
+        "id": 5527
+      },
+      "writtenOn": "2021-12-03T13:55:03Z",
+      "side": 1,
+      "message": "It\u0027s just a better alternative to std::pair. I don\u0027t think it\u0027s confusing since it\u0027s a private struct, so it wouldn\u0027t be used in the public API.",
+      "parentUuid": "673879ff_47ccea21",
       "range": {
         "startLine": 55,
         "startChar": 9,

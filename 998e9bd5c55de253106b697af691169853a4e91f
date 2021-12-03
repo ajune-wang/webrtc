@@ -70,6 +70,24 @@
       "parentUuid": "92da9906_eed43b4e",
       "revId": "998e9bd5c55de253106b697af691169853a4e91f",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "0c0d2317_ae7c8318",
+        "filename": "modules/desktop_capture/linux/x11/shared_x_display.h",
+        "patchSetId": 9
+      },
+      "lineNbr": 1,
+      "author": {
+        "id": 8046
+      },
+      "writtenOn": "2021-12-03T21:33:32Z",
+      "side": 1,
+      "message": "I will try clean build locally and try to reland it on Monday.",
+      "parentUuid": "be9c53c7_c2ea69a6",
+      "revId": "998e9bd5c55de253106b697af691169853a4e91f",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

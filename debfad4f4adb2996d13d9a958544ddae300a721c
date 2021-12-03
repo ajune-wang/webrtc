@@ -1,0 +1,176 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "0669ff4c_52b543d4",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 8
+      },
+      "lineNbr": 7,
+      "author": {
+        "id": 5117
+      },
+      "writtenOn": "2021-12-03T12:12:04Z",
+      "side": 1,
+      "message": "That\u0027s a lot of framebuffers! \nAm I understanding correctly, that in the end, after experiments prove its viability, FrameBuffer3 will replace the FrameBuffer2 completely? I know we can\u0027t delete FrameBuffer1 because it\u0027s there for legacy reasons to not update some external projects, which are using it. I just hope that this won\u0027t happen to FrameBuffer2 also.",
+      "range": {
+        "startLine": 7,
+        "startChar": 4,
+        "endLine": 7,
+        "endChar": 16
+      },
+      "revId": "debfad4f4adb2996d13d9a958544ddae300a721c",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "3c996a4c_2e59417c",
+        "filename": "modules/video_coding/frame_buffer3.cc",
+        "patchSetId": 8
+      },
+      "lineNbr": 57,
+      "author": {
+        "id": 5117
+      },
+      "writtenOn": "2021-12-03T12:12:04Z",
+      "side": 1,
+      "message": "nit: These 4 can be just functions in the anonymous namespace. They do nothing with the FrameBuffer3 object itself. \n\nMoving them out of the class would simplify it, so I suggest doing so.",
+      "range": {
+        "startLine": 40,
+        "startChar": 0,
+        "endLine": 57,
+        "endChar": 1
+      },
+      "revId": "debfad4f4adb2996d13d9a958544ddae300a721c",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "e86cce05_a33c1cf4",
+        "filename": "modules/video_coding/frame_buffer3.cc",
+        "patchSetId": 8
+      },
+      "lineNbr": 76,
+      "author": {
+        "id": 5117
+      },
+      "writtenOn": "2021-12-03T12:12:04Z",
+      "side": 1,
+      "message": "The FrameBuffer2 was pretty verbose and i\u0027m glad that some log messages (like this one) were removed.\n\nHowever, some logging is necessary. \nImagine some user is complaining that they see no video in a conference call and we just see that decode_fps is 0, while network_fps is OK in the logs adn there\u0027s no decode errors. Currently we would have no idea, why the frames are not even passed to the decoder.\n\nLogging is especially needed when the frame buffer is out of capacity. Also probably when the frame has invalid references etc. Or maybe I\u0027m even missing some other important cases.",
+      "range": {
+        "startLine": 76,
+        "startChar": 6,
+        "endLine": 76,
+        "endChar": 41
+      },
+      "revId": "debfad4f4adb2996d13d9a958544ddae300a721c",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "a7cfcf69_9804c487",
+        "filename": "modules/video_coding/frame_buffer3.cc",
+        "patchSetId": 8
+      },
+      "lineNbr": 134,
+      "author": {
+        "id": 5117
+      },
+      "writtenOn": "2021-12-03T12:12:04Z",
+      "side": 1,
+      "message": "Will this be called externally? It\u0027s a public method right now, but I can\u0027t figure out why would it be needed like that.\n\nIf not, it would make sense to inline it here.",
+      "range": {
+        "startLine": 134,
+        "startChar": 2,
+        "endLine": 134,
+        "endChar": 25
+      },
+      "revId": "debfad4f4adb2996d13d9a958544ddae300a721c",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "5b4694a9_8a695414",
+        "filename": "modules/video_coding/frame_buffer3.cc",
+        "patchSetId": 8
+      },
+      "lineNbr": 178,
+      "author": {
+        "id": 5117
+      },
+      "writtenOn": "2021-12-03T12:12:04Z",
+      "side": 1,
+      "message": "The performance degradation comparing to the Frame_buffer2 makes me very concerned.\n\nThe previous method was optimal - each frame maintained a counter of missing dependencies which was updated when something became continuous. Then continuity was propagated with a simple BFS.\n\nCurrent solution scans all the frames dependencies of all the frames each time something is decoded.\n\nI know it will never be a bottleneck, but I still believe we should speed this code up a 100 times with a slightly more complicated algorithm.",
+      "range": {
+        "startLine": 178,
+        "startChar": 2,
+        "endLine": 178,
+        "endChar": 55
+      },
+      "revId": "debfad4f4adb2996d13d9a958544ddae300a721c",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "53e71923_9c32ed26",
+        "filename": "modules/video_coding/frame_buffer3.cc",
+        "patchSetId": 8
+      },
+      "lineNbr": 207,
+      "author": {
+        "id": 5117
+      },
+      "writtenOn": "2021-12-03T12:12:04Z",
+      "side": 1,
+      "message": "This also can be speed up by maintaining a decodability flag in the same way as a continuity and updating it with a same BFS-like algorithm.",
+      "revId": "debfad4f4adb2996d13d9a958544ddae300a721c",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "61c390bc_dc2c598a",
+        "filename": "modules/video_coding/frame_buffer3.h",
+        "patchSetId": 8
+      },
+      "lineNbr": 36,
+      "author": {
+        "id": 5117
+      },
+      "writtenOn": "2021-12-03T12:12:04Z",
+      "side": 1,
+      "message": "nit: some comments about these methods would be great. At least specify, what the \"Temporal Unit\" is.\n\nAlso a definition of \"Countinous\" for frames and temporal units would be great here.",
+      "revId": "debfad4f4adb2996d13d9a958544ddae300a721c",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "673879ff_47ccea21",
+        "filename": "modules/video_coding/frame_buffer3.h",
+        "patchSetId": 8
+      },
+      "lineNbr": 55,
+      "author": {
+        "id": 5117
+      },
+      "writtenOn": "2021-12-03T12:12:04Z",
+      "side": 1,
+      "message": "This should be TemporalUnitInMap or something else.\nOtherwise it\u0027s a little confusing because the |ExtractNextTemporalUnit| doesn\u0027t use this struct but rather returns a frameVector.",
+      "range": {
+        "startLine": 55,
+        "startChar": 9,
+        "endLine": 55,
+        "endChar": 21
+      },
+      "revId": "debfad4f4adb2996d13d9a958544ddae300a721c",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "556f253c_b372742a",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5087
+      },
+      "writtenOn": "2021-12-03T15:20:20Z",
+      "side": 1,
+      "message": "To bring CQ back we need to cherry pick https://webrtc-review.googlesource.com/c/src/+/239461 as well (if you ask on the merge bug I can do that).\n\nThe alternative is to use No-Try: True.",
+      "revId": "a10bcbdfb906e96cff6db3d9c0944f2b8fc027b4",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

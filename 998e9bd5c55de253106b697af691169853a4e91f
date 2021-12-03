@@ -52,6 +52,24 @@
       "parentUuid": "92855855_2517b69c",
       "revId": "998e9bd5c55de253106b697af691169853a4e91f",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "be9c53c7_c2ea69a6",
+        "filename": "modules/desktop_capture/linux/x11/shared_x_display.h",
+        "patchSetId": 9
+      },
+      "lineNbr": 1,
+      "author": {
+        "id": 8046
+      },
+      "writtenOn": "2021-12-03T21:31:41Z",
+      "side": 1,
+      "message": "I hit this breakage in my other change.\n\nI think the reason is:\ndiff --git a/modules/desktop_capture/BUILD.gn b/modules/desktop_capture/BUILD.gn\nindex 072fd55df2..9471fa3b9e 100644\n--- a/modules/desktop_capture/BUILD.gn\n+++ b/modules/desktop_capture/BUILD.gn\n@@ -253,7 +253,7 @@ if (is_linux || is_chromeos) {\n         logging_function \u003d \"RTC_LOG(LS_VERBOSE)\"\n         logging_include \u003d \"rtc_base/logging.h\"\n         output_name \u003d \"linux/wayland/pipewire_stubs\"\n-        path_from_source \u003d \"modules/desktop_capture/linux\"\n+        path_from_source \u003d \"modules/desktop_capture/linux/wayland\"\n         sigs \u003d [\n           \"linux/wayland/pipewire.sigs\",\n           \"linux/wayland/drm.sigs\",\n\nIt\u0027s weird the build passed in the original review but not in my other one with this one merged.",
+      "parentUuid": "92da9906_eed43b4e",
+      "revId": "998e9bd5c55de253106b697af691169853a4e91f",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

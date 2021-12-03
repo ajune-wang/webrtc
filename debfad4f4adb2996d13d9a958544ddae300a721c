@@ -24,6 +24,69 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": true,
+      "key": {
+        "uuid": "1fc2dfac_24d48bdb",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 8
+      },
+      "lineNbr": 7,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2021-12-03T12:50:45Z",
+      "side": 1,
+      "message": "what are deprecation plans for FrameBuffer1 and FrameBuffer2?",
+      "range": {
+        "startLine": 7,
+        "startChar": 4,
+        "endLine": 7,
+        "endChar": 16
+      },
+      "revId": "debfad4f4adb2996d13d9a958544ddae300a721c",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "710cb4ce_7b8e904e",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 8
+      },
+      "lineNbr": 9,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2021-12-03T12:50:45Z",
+      "side": 1,
+      "message": "do you plan to re-implement FrameBuffer2 using FrameBuffer3?\nIn such case might be beneficial to think about distinct names for them.",
+      "range": {
+        "startLine": 9,
+        "startChar": 98,
+        "endLine": 9,
+        "endChar": 110
+      },
+      "revId": "debfad4f4adb2996d13d9a958544ddae300a721c",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "1798f16d_2a370ca3",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 8
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2021-12-03T12:50:45Z",
+      "side": 1,
+      "message": "I haven\u0027t check implementation.\n(would like first to see comments what this class suppose to do, preferably both as class comment and as test names)",
+      "revId": "debfad4f4adb2996d13d9a958544ddae300a721c",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": false,
       "key": {
         "uuid": "3c996a4c_2e59417c",
@@ -135,6 +198,86 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "7c2cffea_502d0a0f",
+        "filename": "modules/video_coding/frame_buffer3.h",
+        "patchSetId": 8
+      },
+      "lineNbr": 25,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2021-12-03T12:50:45Z",
+      "side": 1,
+      "message": "https://google.github.io/styleguide/cppguide.html#Class_Comments\n\n“Every non-obvious class or struct declaration should have an accompanying comment that describes what it is for and how it should be used.”\n\n(I guess the fact that frame_buffer1, frame_buffer2 and frame_buffer3 Do three different things is a very strong signal it is not obvious what this class does)",
+      "revId": "debfad4f4adb2996d13d9a958544ddae300a721c",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "ebc630bc_102d7449",
+        "filename": "modules/video_coding/frame_buffer3.h",
+        "patchSetId": 8
+      },
+      "lineNbr": 26,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2021-12-03T12:50:45Z",
+      "side": 1,
+      "message": "interesting that it still doesn\u0027t collider with frame_buffer1 (that is webrtc::VCMFrameBuffer), not with frame_buffer2 (that is webrtc::video_coding::FrameBuffer)",
+      "range": {
+        "startLine": 26,
+        "startChar": 6,
+        "endLine": 26,
+        "endChar": 17
+      },
+      "revId": "debfad4f4adb2996d13d9a958544ddae300a721c",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "bec7826d_982258c3",
+        "filename": "modules/video_coding/frame_buffer3.h",
+        "patchSetId": 8
+      },
+      "lineNbr": 28,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2021-12-03T12:50:45Z",
+      "side": 1,
+      "message": "https://google.github.io/styleguide/cppguide.html#Aliases\n\n“Public aliases are for the benefit of an API\u0027s user, and should be clearly documented.”",
+      "range": {
+        "startLine": 28,
+        "startChar": 8,
+        "endLine": 28,
+        "endChar": 19
+      },
+      "revId": "debfad4f4adb2996d13d9a958544ddae300a721c",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "8f8901be_833ff25d",
+        "filename": "modules/video_coding/frame_buffer3.h",
+        "patchSetId": 8
+      },
+      "lineNbr": 33,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2021-12-03T12:50:45Z",
+      "side": 1,
+      "message": "personally I prefer to mention destructor explicetly, even when it is just\n  ~FrameBuffer() \u003d default;\n  \nIn this case it would gives the reader information that destructor is public and non virtual.",
+      "revId": "debfad4f4adb2996d13d9a958544ddae300a721c",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "61c390bc_dc2c598a",
         "filename": "modules/video_coding/frame_buffer3.h",
         "patchSetId": 8
@@ -146,6 +289,29 @@
       "writtenOn": "2021-12-03T12:12:04Z",
       "side": 1,
       "message": "nit: some comments about these methods would be great. At least specify, what the \"Temporal Unit\" is.\n\nAlso a definition of \"Countinous\" for frames and temporal units would be great here.",
+      "revId": "debfad4f4adb2996d13d9a958544ddae300a721c",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "8ea2bcb2_909b7567",
+        "filename": "modules/video_coding/frame_buffer3.h",
+        "patchSetId": 8
+      },
+      "lineNbr": 36,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2021-12-03T12:50:45Z",
+      "side": 1,
+      "message": "what is \u0027temporal unit frame id\u0027?\nthere can be multiple frames in a temporal unit and thus multiple frame ids.\n\n(side note: it might be good idea to use class comment to describe what is temporal unit, and what is frame in the context of this class)",
+      "range": {
+        "startLine": 36,
+        "startChar": 40,
+        "endLine": 36,
+        "endChar": 59
+      },
       "revId": "debfad4f4adb2996d13d9a958544ddae300a721c",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
@@ -168,6 +334,207 @@
         "startChar": 9,
         "endLine": 55,
         "endChar": 21
+      },
+      "revId": "debfad4f4adb2996d13d9a958544ddae300a721c",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "6acd99fb_a6d0bbd8",
+        "filename": "modules/video_coding/frame_buffer3_unittest.cc",
+        "patchSetId": 8
+      },
+      "lineNbr": 34,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2021-12-03T12:50:45Z",
+      "side": 1,
+      "message": "what is the point of this matcher when you can either:\n  EXPECT_THAT(FunctionThatReturnsOptional(), Eq(absl::nullopt));\n  EXPECT_EQ(FunctionThatReturnsOptional(), absl::nullopt);",
+      "range": {
+        "startLine": 32,
+        "startChar": 0,
+        "endLine": 34,
+        "endChar": 1
+      },
+      "revId": "debfad4f4adb2996d13d9a958544ddae300a721c",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "9dfc5dc8_b7e4b731",
+        "filename": "modules/video_coding/frame_buffer3_unittest.cc",
+        "patchSetId": 8
+      },
+      "lineNbr": 42,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2021-12-03T12:50:45Z",
+      "side": 1,
+      "message": "may be would be easier to read if this would be called FrameBuilder.",
+      "range": {
+        "startLine": 42,
+        "startChar": 6,
+        "endLine": 42,
+        "endChar": 13
+      },
+      "revId": "debfad4f4adb2996d13d9a958544ddae300a721c",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "1441af6a_1fd69a97",
+        "filename": "modules/video_coding/frame_buffer3_unittest.cc",
+        "patchSetId": 8
+      },
+      "lineNbr": 52,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2021-12-03T12:50:45Z",
+      "side": 1,
+      "message": "reading individual tests I wasn\u0027t sure what this property mean.\nMay be named it\n \u0027EndOfTemporalUnit\u0027 or \n \u0027EndOfPicture(bool value \u003d true)\u0027 or\n \u0027MarkerBit()\u0027 [general sure confusing, but a widely known concept] or\n \u0027TopSpatialLayer\u0027",
+      "range": {
+        "startLine": 52,
+        "startChar": 11,
+        "endLine": 52,
+        "endChar": 17
+      },
+      "revId": "debfad4f4adb2996d13d9a958544ddae300a721c",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "5ad6ae3d_0ac34874",
+        "filename": "modules/video_coding/frame_buffer3_unittest.cc",
+        "patchSetId": 8
+      },
+      "lineNbr": 63,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2021-12-03T12:50:45Z",
+      "side": 1,
+      "message": "prefer explicit RTC_CHECK(rtp_timestamp_.has_value());\n\n(otherwise my first reaction as reader was: why 0 timestamp is not allowed?)",
+      "revId": "debfad4f4adb2996d13d9a958544ddae300a721c",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "0e66d0a9_efb55a6a",
+        "filename": "modules/video_coding/frame_buffer3_unittest.cc",
+        "patchSetId": 8
+      },
+      "lineNbr": 95,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2021-12-03T12:50:45Z",
+      "side": 1,
+      "message": "Optional matcher works, but you may compare it directly to actual value (because optional\u003cT\u003e \u003d\u003d T is well defined):\n  EXPECT_THAT(buffer.LastContinuousFrameId(), Eq(1));\n  EXPECT_EQ(buffer.LastContinuousFrameId(), 1);",
+      "range": {
+        "startLine": 95,
+        "startChar": 2,
+        "endLine": 95,
+        "endChar": 59
+      },
+      "revId": "debfad4f4adb2996d13d9a958544ddae300a721c",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "783c3d91_19fd2f2b",
+        "filename": "modules/video_coding/frame_buffer3_unittest.cc",
+        "patchSetId": 8
+      },
+      "lineNbr": 98,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2021-12-03T12:50:45Z",
+      "side": 1,
+      "message": "https://testing.googleblog.com/2014/10/testing-on-toilet-writing-descriptive.html\n\n“Make sure test names contain both the scenario being tested and the expected outcome.”",
+      "range": {
+        "startLine": 98,
+        "startChar": 23,
+        "endLine": 98,
+        "endChar": 37
+      },
+      "revId": "debfad4f4adb2996d13d9a958544ddae300a721c",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "4fffb91f_012fa2a9",
+        "filename": "modules/video_coding/frame_buffer3_unittest.cc",
+        "patchSetId": 8
+      },
+      "lineNbr": 239,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2021-12-03T12:50:45Z",
+      "side": 1,
+      "message": "have you check the error message when this expectation fails?\n\nIn cases like this I often do other way around, instead of introducing custom matcher, I add helper.\nstd::vector\u003cint64_t\u003e FrameIds(??? frames);\n\nand then write\nEXPECT_THAT(FrameIds(buffer.ExtractNextTemporalUnit()), ElementsAre(1, 2, 3));",
+      "range": {
+        "startLine": 237,
+        "startChar": 0,
+        "endLine": 239,
+        "endChar": 0
+      },
+      "revId": "debfad4f4adb2996d13d9a958544ddae300a721c",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "cc835361_7c353e37",
+        "filename": "test/fuzzers/frame_buffer3_fuzzer.cc",
+        "patchSetId": 8
+      },
+      "lineNbr": 30,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2021-12-03T12:50:45Z",
+      "side": 1,
+      "message": "prefer explicit\nrtc::MakeArrayView(data, size)",
+      "range": {
+        "startLine": 30,
+        "startChar": 30,
+        "endLine": 30,
+        "endChar": 42
+      },
+      "revId": "debfad4f4adb2996d13d9a958544ddae300a721c",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "b6dfc241_5a1fa26d",
+        "filename": "test/fuzzers/frame_buffer3_fuzzer.cc",
+        "patchSetId": 8
+      },
+      "lineNbr": 32,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2021-12-03T12:50:45Z",
+      "side": 1,
+      "message": "prefer explicit conversion:\nwhile (helper.BytesLeft() \u003e 0) {\n\nhttps://abseil.io/tips/141 “Beware Implicit Conversions to bool”",
+      "range": {
+        "startLine": 32,
+        "startChar": 9,
+        "endLine": 32,
+        "endChar": 27
       },
       "revId": "debfad4f4adb2996d13d9a958544ddae300a721c",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"

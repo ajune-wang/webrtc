@@ -16,6 +16,24 @@
       "message": "LGTM, but why refactor FB2?",
       "revId": "d970dfa412d9c74ccbd724870e74b5ef68c596be",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "443b6495_b06badc9",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 3
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 18444
+      },
+      "writtenOn": "2021-12-03T10:11:53Z",
+      "side": 1,
+      "message": "The adapter will also need the return reason for compatibility. Easier to ignore that altogether so there is less detail to carry over.",
+      "parentUuid": "c54afe26_c6acbc6d",
+      "revId": "d970dfa412d9c74ccbd724870e74b5ef68c596be",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

@@ -206,6 +206,30 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "417b3e1e_4d2870bd",
+        "filename": "modules/video_coding/frame_buffer3.cc",
+        "patchSetId": 8
+      },
+      "lineNbr": 57,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2021-12-03T17:32:17Z",
+      "side": 1,
+      "message": "yes, mark them static in such case,\nor... cheat using templates:\n\nnamespace {\n\ntemplate\u003ctypename FrameIterator\u003e\nint64_t FrameId(const FrameIterator\u0026 it) { return it-\u003efirst; }\n\n}",
+      "parentUuid": "eabe627e_92b77e32",
+      "range": {
+        "startLine": 40,
+        "startChar": 0,
+        "endLine": 57,
+        "endChar": 1
+      },
+      "revId": "debfad4f4adb2996d13d9a958544ddae300a721c",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "e86cce05_a33c1cf4",
@@ -413,6 +437,24 @@
       "side": 1,
       "message": "FB1 is separate from FB2 and FB3 in terms of functionality.",
       "parentUuid": "7c2cffea_502d0a0f",
+      "revId": "debfad4f4adb2996d13d9a958544ddae300a721c",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "3e53f81b_875bca51",
+        "filename": "modules/video_coding/frame_buffer3.h",
+        "patchSetId": 8
+      },
+      "lineNbr": 25,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2021-12-03T17:32:17Z",
+      "side": 1,
+      "message": "My point is that class purpose is far from obvious, so should be documented.\n\n(I\u0027m just using the fact that FB1, FB2, and FB3 are named similarly, but have separate functionality. That imply functionality can\u0027t be guessed from the name)",
+      "parentUuid": "334b4f3c_8f273644",
       "revId": "debfad4f4adb2996d13d9a958544ddae300a721c",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },

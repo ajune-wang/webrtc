@@ -16,6 +16,23 @@
       "message": "PTAL",
       "revId": "cebaa1aae35731d70e10a75f7d5da73c46efe748",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "fe1d2076_3236e40e",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2021-12-03T09:45:17Z",
+      "side": 1,
+      "message": "After discussing offline, the alternative of making it possible to merge information about candidates from the old and the new APIs is strictly more disgusting than allowing this extension.\n\nApproving.\n",
+      "revId": "cebaa1aae35731d70e10a75f7d5da73c46efe748",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

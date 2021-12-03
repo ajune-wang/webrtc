@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "a807d998_309e6c92",
+        "filename": "tools_webrtc/mb/mb.py",
+        "patchSetId": 4
+      },
+      "lineNbr": 912,
+      "author": {
+        "id": 6192
+      },
+      "writtenOn": "2021-12-03T12:29:01Z",
+      "side": 1,
+      "message": "Can you use the os.path module instead?",
+      "revId": "51527c8db4468bc1d425f3a8e82353f179088976",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

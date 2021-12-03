@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "c54afe26_c6acbc6d",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 3
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5527
+      },
+      "writtenOn": "2021-12-03T10:10:44Z",
+      "side": 1,
+      "message": "LGTM, but why refactor FB2?",
+      "revId": "d970dfa412d9c74ccbd724870e74b5ef68c596be",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

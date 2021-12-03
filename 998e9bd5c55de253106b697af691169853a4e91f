@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "3970048e_9139e33a",
+        "filename": "modules/desktop_capture/linux/x11/shared_x_display.h",
+        "patchSetId": 9
+      },
+      "lineNbr": 1,
+      "author": {
+        "id": 5087
+      },
+      "writtenOn": "2021-12-03T21:13:17Z",
+      "side": 1,
+      "message": "I am getting reports of breakages from downstream projects.\n\nIs it possible to create a CL with forward headers to allow to switch them and then land a CL that removes them after a while?",
+      "revId": "998e9bd5c55de253106b697af691169853a4e91f",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

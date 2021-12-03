@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "e816e310_7399660f",
+        "filename": "modules/video_coding/frame_buffer3.h",
+        "patchSetId": 11
+      },
+      "lineNbr": 30,
+      "author": {
+        "id": 5117
+      },
+      "writtenOn": "2021-12-03T16:28:01Z",
+      "side": 1,
+      "message": "nit: Maybe rephrase like:\n\n  a collection of frames encoded at the same time (usually for spatial scalability)\n  \nIt\u0027s not literally a point in time, afterall.",
+      "range": {
+        "startLine": 28,
+        "startChar": 24,
+        "endLine": 30,
+        "endChar": 36
+      },
+      "revId": "cd24d8b804b39b6cdbfeb5752a39d99f1d81fd8d",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

@@ -35,6 +35,24 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "0fc78b4a_ab38f78e",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 12
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 8046
+      },
+      "writtenOn": "2021-12-03T21:32:45Z",
+      "side": 1,
+      "message": "I will. But I want to first re-land the change that has been reverted and then I opened a new one https://webrtc-review.googlesource.com/c/src/+/239649 which is more important to land so I didn\u0027t fix your review comments yet.",
+      "parentUuid": "03156524_29fbae13",
+      "revId": "973b193298a4b80047426d4a4b236721dbc48c52",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "39d73b2f_6b2f9b5e",

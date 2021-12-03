@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "35fc314b_fc2f181b",
+        "filename": "tools_webrtc/mb/mb.py",
+        "patchSetId": 5
+      },
+      "lineNbr": 907,
+      "author": {
+        "id": 6192
+      },
+      "writtenOn": "2021-12-03T14:28:18Z",
+      "side": 1,
+      "message": "So you do not need os.path throughout the file?",
+      "revId": "bef226986cacdc16f75248b92aaba9526d822115",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

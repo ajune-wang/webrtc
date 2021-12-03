@@ -88,6 +88,24 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "19d5d753_4246747b",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 4
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 14134
+      },
+      "writtenOn": "2021-12-03T01:01:24Z",
+      "side": 1,
+      "message": "That makes sense to me, as pipewire is the only supported way to screenshare on Wayland (as far as I understand).  If we ever get around to adding a README.md for desktop capture, the relationship can be noted there.",
+      "parentUuid": "9043a904_cdf9cc79",
+      "revId": "b6cb789143558ad5afc3f5d3bbcdde3f4df6e89e",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "c5e0665e_afae4177",

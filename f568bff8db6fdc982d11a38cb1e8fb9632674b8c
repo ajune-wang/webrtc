@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "9706f551_a81cc3c3",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 14
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5119
+      },
+      "writtenOn": "2021-12-03T20:37:34Z",
+      "side": 1,
+      "message": "The bug notes that \"Ideally it should also be possible to exclude it from the build, to reduce the binary size of WebRTC.\" Looking at the actual excluded code, and the binary size bot results (-4 kB), it looks like a negligible effect. Given that, I think adding a `poisonous` attribute is overkill. Please let me know if you have any thoughts on it.",
+      "revId": "f568bff8db6fdc982d11a38cb1e8fb9632674b8c",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

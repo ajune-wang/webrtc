@@ -10,7 +10,7 @@ vars = {
   # chromium waterfalls. More info at: crbug.com/570091.
   'checkout_configuration': 'default',
   'checkout_instrumented_libraries': 'checkout_linux and checkout_configuration == "default"',
-  'chromium_revision': '170ab8e137adda2e1a060965d4af3d5c23a531b6',
+  'chromium_revision': 'aa26fcec277642c166f35642622f8e373714303e',
 
   # Keep the Chromium default of generating location tags.
   'generate_location_tags': True,
@@ -23,9 +23,9 @@ deps = {
   # TODO(kjellander): Move this to be Android-only once the libevent dependency
   # in base/third_party/libevent is solved.
   'src/base':
-    'https://chromium.googlesource.com/chromium/src/base@7c4f75f108f39b04f4c15d87248c8d54071e0f0b',
+    'https://chromium.googlesource.com/chromium/src/base@76cbc5a2c698e3d1fbf3b83aff9f31aa0d687801',
   'src/build':
-    'https://chromium.googlesource.com/chromium/src/build@b0031ae7bf38ebea2f42947096e191481c3e4093',
+    'https://chromium.googlesource.com/chromium/src/build@136c711f7be3dbdbef077e597c0de80c5fe8c90d',
   'src/buildtools':
     'https://chromium.googlesource.com/chromium/src/buildtools@075dd7e22837a69189003e4fa84499acf63188cf',
   # Gradle 6.6.1. Used for testing Android Studio project generation for WebRTC.
@@ -34,13 +34,13 @@ deps = {
     'condition': 'checkout_android',
   },
   'src/ios': {
-    'url': 'https://chromium.googlesource.com/chromium/src/ios@b22b6075c9ef624912acbb8256872310cbb0475d',
+    'url': 'https://chromium.googlesource.com/chromium/src/ios@b1c9242b57260eb81235be2f5ea7c7f6b1d4fc04',
     'condition': 'checkout_ios',
   },
   'src/testing':
     'https://chromium.googlesource.com/chromium/src/testing@6e378d06a3e29d74063185df93e3a617c6a6f560',
   'src/third_party':
-    'https://chromium.googlesource.com/chromium/src/third_party@43bd2945ebfd5fbb5532d63df003f1f6321a45c6',
+    'https://chromium.googlesource.com/chromium/src/third_party@b23341048346158430bcefe4817fb98e59f1ee71',
 
   'src/buildtools/linux64': {
     'packages': [
@@ -384,7 +384,7 @@ deps = {
     'packages': [
       {
           'package': 'chromium/third_party/androidx',
-          'version': 'BiHIWI3ORdbZw8B_2h7gImobPywyLwGqroTTr6TfGfoC',
+          'version': 'EbzW51u6th7WfrgkEzgcWtsF88-z4Q5g_3so8Od-xkQC',
       },
     ],
     'condition': 'checkout_android',

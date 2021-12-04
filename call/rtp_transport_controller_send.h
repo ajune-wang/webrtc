@@ -166,6 +166,7 @@ class RtpTransportControllerSend final
       RTC_GUARDED_BY(&main_thread_);
   RtpBitrateConfigurator bitrate_configurator_;
   std::map<std::string, rtc::NetworkRoute> network_routes_;
+  RtpStateMap suspended_video_send_ssrcs_ RTC_GUARDED_BY(task_queue_);
   bool pacer_started_;
   const std::unique_ptr<ProcessThread> process_thread_;
   const PacerSettings pacer_settings_;

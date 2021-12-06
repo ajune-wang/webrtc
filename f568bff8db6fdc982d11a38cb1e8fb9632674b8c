@@ -16,6 +16,64 @@
       "message": "The bug notes that \"Ideally it should also be possible to exclude it from the build, to reduce the binary size of WebRTC.\" Looking at the actual excluded code, and the binary size bot results (-4 kB), it looks like a negligible effect. Given that, I think adding a `poisonous` attribute is overkill. Please let me know if you have any thoughts on it.",
       "revId": "f568bff8db6fdc982d11a38cb1e8fb9632674b8c",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "39612176_f1404944",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 14
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5607
+      },
+      "writtenOn": "2021-12-06T13:54:41Z",
+      "side": 1,
+      "message": "I don\u0027t have a strong opinion on this, but I think it was mentioned in the past as a part of binary size reduction efforts (which is why I mentioned it on the bug). You\u0027re right that 4 kB is not that much (although it does add up if everyone thinks like that).",
+      "parentUuid": "9706f551_a81cc3c3",
+      "revId": "f568bff8db6fdc982d11a38cb1e8fb9632674b8c",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "f49076bb_92d07190",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 14
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5607
+      },
+      "writtenOn": "2021-12-06T13:54:41Z",
+      "side": 1,
+      "message": "Really nice work, Sam!",
+      "revId": "f568bff8db6fdc982d11a38cb1e8fb9632674b8c",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "754c04ec_051e9272",
+        "filename": "modules/audio_processing/audio_processing_unittest.cc",
+        "patchSetId": 14
+      },
+      "lineNbr": 2659,
+      "author": {
+        "id": 5607
+      },
+      "writtenOn": "2021-12-06T13:54:41Z",
+      "side": 1,
+      "message": "Since you\u0027re using this quite a few times you can consider adding a \"using ::testing::_;\" at the top of the test.",
+      "range": {
+        "startLine": 2659,
+        "startChar": 59,
+        "endLine": 2659,
+        "endChar": 71
+      },
+      "revId": "f568bff8db6fdc982d11a38cb1e8fb9632674b8c",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

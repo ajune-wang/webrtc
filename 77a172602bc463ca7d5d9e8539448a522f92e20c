@@ -51,6 +51,24 @@
       "parentUuid": "ea6a7ab7_90d45b31",
       "revId": "77a172602bc463ca7d5d9e8539448a522f92e20c",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "f5b1f265_e9c2bb73",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 19
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5091
+      },
+      "writtenOn": "2021-12-06T15:58:28Z",
+      "side": 1,
+      "message": "\"Currently replacing ADM is only possible by patching WebRTC code, there is no build in means in public API of SDK to replace ADM.\"\n\nThat is simply not true and I am aware of several clients which injects their own ADM today. Even the WebRTC Mobile sample injects an external ADM and that ADM can be replaced by your version as an example.\n\nsee https://bugs.chromium.org/p/webrtc/issues/detail?id\u003d7452 for details.\n\nI am not saying that you CL does not add value but my point is that it is better if each client with special requirements maintain their ADM locally and injects since there is risk of breaking millions of existing clients otherwise.\n\nTo land a large CL like this should preferable be done in several small steps using experiments where each step must be carefully monitored for regressions. And to launch such an activity, the owners of this code path must see a need for said changes.",
+      "parentUuid": "b3b53beb_3007f9cf",
+      "revId": "77a172602bc463ca7d5d9e8539448a522f92e20c",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

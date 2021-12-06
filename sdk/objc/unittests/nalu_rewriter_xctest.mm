@@ -275,7 +275,7 @@ static const uint8_t SPS_PPS_BUFFER[] = {
     0xAA, 0xFF}; // second chunk, 2 bytes
   // clang-format on
 
-  rtc::Buffer annexb_buffer(arraysize(cmsample_data));
+  rtc::Buffer annexb_buffer = rtc::Buffer::CreateUninitializedWithSize(arraysize(cmsample_data));
   CMSampleBufferRef sample_buffer =
       [self createCMSampleBufferRef:(void*)cmsample_data cmsampleSize:arraysize(cmsample_data)];
 
@@ -308,7 +308,7 @@ static const uint8_t SPS_PPS_BUFFER[] = {
     0xAA, 0xFF}; // second chunk, 2 bytes
   // clang-format on
 
-  rtc::Buffer annexb_buffer(arraysize(cmsample_data));
+  rtc::Buffer annexb_buffer = rtc::Buffer::CreateUninitializedWithSize(arraysize(cmsample_data));
   CMSampleBufferRef sample_buffer =
       [self createCMSampleBufferRef:(void*)cmsample_data cmsampleSize:arraysize(cmsample_data)];
 

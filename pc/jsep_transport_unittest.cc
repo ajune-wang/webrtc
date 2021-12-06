@@ -1132,9 +1132,8 @@ class JsepTransport2HeaderExtensionTest
       JsepTransport* sender_transport) {
     size_t rtp_len = sizeof(kPcmuFrameWithExtensions);
     size_t packet_size = rtp_len + GetRtpAuthLen();
-    rtc::Buffer rtp_packet_buffer(packet_size);
+    rtc::Buffer rtp_packet_buffer(kPcmuFrameWithExtensions, rtp_len);
     char* rtp_packet_data = rtp_packet_buffer.data<char>();
-    memcpy(rtp_packet_data, kPcmuFrameWithExtensions, rtp_len);
     // In order to be able to run this test function multiple times we can not
     // use the same sequence number twice. Increase the sequence number by one.
     rtc::SetBE16(reinterpret_cast<uint8_t*>(rtp_packet_data) + 2,

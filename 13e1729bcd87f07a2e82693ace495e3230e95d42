@@ -33,6 +33,29 @@
       "message": "You could consider to go one step further, and add a constructor/static method with signature\n\n(size_t size, rtc::FunctionView\u003cvoid(rtc::ArrayView\u003cuint8_t\u003e)\u003e initializer)\n\nwhere the given initializer function is supposed to initialize the data. (If useful, could also return a size_t, in case it turns out the buffer should be shrunk before use).",
       "revId": "13e1729bcd87f07a2e82693ace495e3230e95d42",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "f83e5d45_5b8d830e",
+        "filename": "rtc_base/buffer.h",
+        "patchSetId": 5
+      },
+      "lineNbr": 49,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2021-12-06T13:10:07Z",
+      "side": 1,
+      "message": "The main point of rtc::Buffer is to work with uninitialized data.\nMay be it would be more helpful to rename rtc::Buffer to something that communicates that (instead of just renaming the constructor).\nAnd change rtc::Buffer to std::vector in the code where safety is more important than this optimization.\n\nOn the other hand, the main point of rtc::CopyOnWriteBuffer is different, so there dedicated constructor to note it works with uninitialized bytes might be more helpful.",
+      "range": {
+        "startLine": 49,
+        "startChar": 0,
+        "endLine": 49,
+        "endChar": 76
+      },
+      "revId": "13e1729bcd87f07a2e82693ace495e3230e95d42",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

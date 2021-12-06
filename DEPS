@@ -485,7 +485,7 @@ deps = {
       'dep_type': 'cipd',
   },
 
-  'src/tools/luci-go': {
+  'src/tools/luci': {
       'packages': [
         {
           'package': 'infra/tools/luci/isolate/${{platform}}',

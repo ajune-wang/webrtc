@@ -97,6 +97,30 @@
     {
       "unresolved": false,
       "key": {
+        "uuid": "0b79004a_6289d317",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 8
+      },
+      "lineNbr": 7,
+      "author": {
+        "id": 18444
+      },
+      "writtenOn": "2021-12-06T08:48:49Z",
+      "side": 1,
+      "message": "Exactly, I am working on a scheduler that is compatible with Frame buffer 2 behaviour at this time. The idea then will be to roll out this new scheduler in the frame buffer 2 interface with intention of removing frame buffer 2 once it is confirmed that this is working as expected.",
+      "parentUuid": "894bc405_172b8efa",
+      "range": {
+        "startLine": 7,
+        "startChar": 4,
+        "endLine": 7,
+        "endChar": 16
+      },
+      "revId": "debfad4f4adb2996d13d9a958544ddae300a721c",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
         "uuid": "710cb4ce_7b8e904e",
         "filename": "/COMMIT_MSG",
         "patchSetId": 8

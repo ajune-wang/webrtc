@@ -33,6 +33,24 @@
       "message": "Thanks for your contributions. It looks very impressive and I am sure it is good stuff but I am currently unable to invest time into reviewing this complex change since I have not actively been working on iOS for a long time. Hence, there is a big risk that I miss some detail that might break existing clients using the iOS implementation in sdk/objc.\n\nHave you verified that all existing unittests work and that the WebRTC Mobile test client can be build based on these changes?\n\nI have seen other changes in this area where users who needs separate control of Playout and Recording instead injects their own ADM implementation into PeerConnection. That way, you can work on an independent ADM implementation without any risk of breaking existing clients. ",
       "revId": "77a172602bc463ca7d5d9e8539448a522f92e20c",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "b3b53beb_3007f9cf",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 19
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 6305
+      },
+      "writtenOn": "2021-12-06T15:10:46Z",
+      "side": 1,
+      "message": "\u003e Have you verified that all existing unittests work and that the WebRTC Mobile test client can be build based on these changes?\n\nNot sure which exact tests do you mean, but this CL is passing dry run, which I suppose execute all the unit tests presented in code base.\nI\u0027ve also manually checked AppRTCMobile still works fine.\nIn addition to that I\u0027ve tested WebRTC.xcframework with these changes in context of another large proprietary application which has CallKit based 1-on-1 calls, group calls and kind of streaming over WebRTC. I\u0027ve checked how WebRTC in app works in background/foreground, when different BT devices connected/disconneced, when speaker is on/off. Everything seems to work fine.\n\n\u003e I have seen other changes in this area where users who needs separate control of Playout and Recording instead injects their own ADM implementation into PeerConnection. That way, you can work on an independent ADM implementation without any risk of breaking existing clients.\n\nYeah, I also considered this option. But the problem is that I\u0027m trying to avoid having custom WebRTC builds and I rely heavily on public API of WebRTC SDK. Currently replacing ADM is only possible by patching WebRTC code, there is no build in means in public API of SDK to replace ADM.\nIn near future I consider working on CL which will allow injecting custom ADM represented by newly added ADM protocol. So any user of SDK could replace default ADM with custom implementation.\n\nBut I believe that this CL still has value, because for most of the users it will fix the playout/recording separation out of the box of SDK, so they will not need to be bothered with complicated ways to implement and substitute their own ADM.",
+      "parentUuid": "ea6a7ab7_90d45b31",
+      "revId": "77a172602bc463ca7d5d9e8539448a522f92e20c",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

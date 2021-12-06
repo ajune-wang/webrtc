@@ -63,7 +63,8 @@ RTCError SrtpTransport::SetSrtpSendKey(const cricket::CryptoParams& params) {
                     " send cipher_suite ");
   }
 
-  send_key_ = rtc::ZeroOnFreeBuffer<uint8_t>(send_key_len + send_salt_len);
+  send_key_ = rtc::ZeroOnFreeBuffer<uint8_t>::CreateUninitializedWithSize(
+      send_key_len + send_salt_len);
   if (!ParseKeyParams(params.key_params, send_key_.data(), send_key_.size())) {
     return RTCError(RTCErrorType::INVALID_PARAMETER,
                     "Failed to parse the crypto key params");
@@ -103,7 +104,8 @@ RTCError SrtpTransport::SetSrtpReceiveKey(const cricket::CryptoParams& params) {
                     " recv cipher_suite ");
   }
 
-  recv_key_ = rtc::ZeroOnFreeBuffer<uint8_t>(recv_key_len + recv_salt_len);
+  recv_key_ = rtc::ZeroOnFreeBuffer<uint8_t>::CreateUninitializedWithSize(
+      recv_key_len + recv_salt_len);
   if (!ParseKeyParams(params.key_params, recv_key_.data(), recv_key_.size())) {
     return RTCError(RTCErrorType::INVALID_PARAMETER,
                     "Failed to parse the crypto key params");

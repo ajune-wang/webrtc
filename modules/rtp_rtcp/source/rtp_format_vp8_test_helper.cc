@@ -47,7 +47,8 @@ int Bit(uint8_t byte, int position) {
 
 RtpFormatVp8TestHelper::RtpFormatVp8TestHelper(const RTPVideoHeaderVP8* hdr,
                                                size_t payload_len)
-    : hdr_info_(hdr), payload_(payload_len) {
+    : hdr_info_(hdr),
+      payload_(rtc::Buffer::CreateUninitializedWithSize(payload_len)) {
   for (size_t i = 0; i < payload_.size(); ++i) {
     payload_[i] = i;
   }

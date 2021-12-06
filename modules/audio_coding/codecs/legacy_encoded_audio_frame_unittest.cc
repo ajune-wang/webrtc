@@ -122,7 +122,7 @@ TEST_P(SplitBySamplesTest, PayloadSizes) {
     // resulting frames can be checked and we can be reasonably certain no
     // sample was missed or repeated.
     const auto generate_payload = [](size_t num_bytes) {
-      rtc::Buffer payload(num_bytes);
+      rtc::Buffer payload = rtc::Buffer::CreateUninitializedWithSize(num_bytes);
       uint8_t value = 0;
       // Allow wrap-around of value in counter below.
       for (size_t i = 0; i != payload.size(); ++i, ++value) {

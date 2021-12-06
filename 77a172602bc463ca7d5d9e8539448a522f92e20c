@@ -87,6 +87,24 @@
       "parentUuid": "f5b1f265_e9c2bb73",
       "revId": "77a172602bc463ca7d5d9e8539448a522f92e20c",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "8a5f51af_7835ef8e",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 19
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 6305
+      },
+      "writtenOn": "2021-12-06T18:45:02Z",
+      "side": 1,
+      "message": "\u003e That is simply not true and I am aware of several clients which injects their own ADM today.\n\nSorry, I was not clear enough in my statement. I mean the following scenario: I have libwebrtc.aar or WebRTC.xcframework artifacts pre-built in advance with build_ios_libs.py [1] and build_aar.py [2]. The host application is pure Java/ObjC/Swift application which references WebRTC as binary pre-built artifact: WebRTC.xcframework or libwebrtc.aar.\nIs there a way to replace ADM in this case? I might be wrong, but from what I\u0027ve seen, it is only possible, if you have an access to WebRTC C++ headers and write custom ADM in C++ and compile it with the rest of WebRTC code, which isn\u0027t the case when you use pre-built SDK compiled from unmodified WebRTC source code. \n\nIdeally, in my opinion, SDK should provide real interface to implement custom ADM in pure Java/Objective-C where it\u0027s possible to pull \u0026 push audio samples from/to WebRTC. Not something which just return pointer to C++ object which implements webrtc::AudioDeviceModule [3]. But maybe I didn\u0027t get the concept behind then ADM injection currently implemented. As I see currently exposed ADM interface from SDK does not solve this problem, because it seems like it\u0027s mandatory to implement somehow webrtc::AudioDeviceModule, which is impossible when you don\u0027t have access to C++ headers.\n\n\u003e To land a large CL like this should preferable be done in several small steps using experiments where each step must be carefully monitored for regressions. \n\nI could try doing this, but seems like anyway the CL with second audio unit added will be relatively large CL. Right now I see that at least extraction of BaseAudioUnit could be done as completely separate CL, which should be medium size, but mostly consist of re-arranging existing code and don\u0027t require much experiments and tests.\nAlternatively, maybe it\u0027s possible to have parallel implementation of audio_device_ios.mm (audio_device_ios_two_units.mm) which is based on 2 audio units? By default old audio_device_ios will be instantiated, but SDK will provide some flag to trigger instantiation 2 audio units ADM? Android has something similar in a sense, that there are multiple ADM implementations based on different Android APIs.\n\n\u003e And to launch such an activity, the owners of this code path must see a need for said changes.\n\nCould you please clarify, which person or persons do you mean here by owners? Maybe some additional persons should be CC\u0027ed...\nWill the need for the change grow if issue in bug tracker will receive more votes?\n\n[1] https://source.chromium.org/chromium/chromium/src/+/main:third_party/webrtc/tools_webrtc/ios/build_ios_libs.py;l\u003d1;drc\u003d9c4e89d302131f0d7cc45e5717a3df3fe359fe09\n[2] https://source.chromium.org/chromium/chromium/src/+/main:third_party/webrtc/tools_webrtc/android/build_aar.py;l\u003d13;drc\u003d686ad4ff064471d1d80292a43bbd3796ec199446\n[3] https://source.chromium.org/chromium/chromium/src/+/main:third_party/webrtc/sdk/android/api/org/webrtc/audio/AudioDeviceModule.java;l\u003d22;drc\u003df9e502d935fa9ca8d9cc7540680021b93d285f28",
+      "parentUuid": "ef4a2f7c_cbcb096a",
+      "revId": "77a172602bc463ca7d5d9e8539448a522f92e20c",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

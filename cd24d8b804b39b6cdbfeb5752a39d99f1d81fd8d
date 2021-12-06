@@ -47,6 +47,54 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "2cb0f707_5a9666de",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 11
+      },
+      "lineNbr": 9,
+      "author": {
+        "id": 5527
+      },
+      "writtenOn": "2021-12-06T11:15:59Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "0ae5feb8_252985da",
+      "range": {
+        "startLine": 9,
+        "startChar": 210,
+        "endLine": 9,
+        "endChar": 231
+      },
+      "revId": "cd24d8b804b39b6cdbfeb5752a39d99f1d81fd8d",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "78b71229_85206a36",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 11
+      },
+      "lineNbr": 9,
+      "author": {
+        "id": 5527
+      },
+      "writtenOn": "2021-12-06T11:15:59Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "54c1a76e_59c915ef",
+      "range": {
+        "startLine": 9,
+        "startChar": 0,
+        "endLine": 9,
+        "endChar": 85
+      },
+      "revId": "cd24d8b804b39b6cdbfeb5752a39d99f1d81fd8d",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "ec593a9d_57a1c868",
@@ -60,6 +108,30 @@
       "writtenOn": "2021-12-03T17:32:17Z",
       "side": 1,
       "message": "please be explicit:\nreturn rtc::MakeArrayView(..., ...);",
+      "range": {
+        "startLine": 43,
+        "startChar": 9,
+        "endLine": 43,
+        "endChar": 10
+      },
+      "revId": "cd24d8b804b39b6cdbfeb5752a39d99f1d81fd8d",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "ec3e124e_71b0e853",
+        "filename": "modules/video_coding/frame_buffer3.cc",
+        "patchSetId": 11
+      },
+      "lineNbr": 43,
+      "author": {
+        "id": 5527
+      },
+      "writtenOn": "2021-12-06T11:15:59Z",
+      "side": 1,
+      "message": "Even when the function is so small and the return type is easy to read? I wouldn\u0027t want to do that for functions returning optionals.",
+      "parentUuid": "ec593a9d_57a1c868",
       "range": {
         "startLine": 43,
         "startChar": 9,
@@ -93,6 +165,30 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "15b7638a_ffc97a24",
+        "filename": "modules/video_coding/frame_buffer3.cc",
+        "patchSetId": 11
+      },
+      "lineNbr": 58,
+      "author": {
+        "id": 5527
+      },
+      "writtenOn": "2021-12-06T11:15:59Z",
+      "side": 1,
+      "message": "I will wait with implementing the fuzzy marker bit. It\u0027s also a bit trickier than that since frame IDs are not continuous.",
+      "parentUuid": "17a18224_a9514780",
+      "range": {
+        "startLine": 56,
+        "startChar": 0,
+        "endLine": 58,
+        "endChar": 1
+      },
+      "revId": "cd24d8b804b39b6cdbfeb5752a39d99f1d81fd8d",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "7480d92c_7d1ee27f",
@@ -106,6 +202,30 @@
       "writtenOn": "2021-12-03T17:32:17Z",
       "side": 1,
       "message": "DLOG it is dropped because of no space?\n(or, may be DLOG later\nif (insert_res.second \u0026\u0026 frames_.size() \u003d\u003d max_frames_)\nso that such log is produced only \"once\")",
+      "range": {
+        "startLine": 93,
+        "startChar": 6,
+        "endLine": 93,
+        "endChar": 33
+      },
+      "revId": "cd24d8b804b39b6cdbfeb5752a39d99f1d81fd8d",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "a76cf12e_abaee5b7",
+        "filename": "modules/video_coding/frame_buffer3.cc",
+        "patchSetId": 11
+      },
+      "lineNbr": 93,
+      "author": {
+        "id": 5527
+      },
+      "writtenOn": "2021-12-06T11:15:59Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "7480d92c_7d1ee27f",
       "range": {
         "startLine": 93,
         "startChar": 6,
@@ -141,6 +261,30 @@
     {
       "unresolved": false,
       "key": {
+        "uuid": "aa53aa99_2ea9b3ce",
+        "filename": "modules/video_coding/frame_buffer3.cc",
+        "patchSetId": 11
+      },
+      "lineNbr": 135,
+      "author": {
+        "id": 5527
+      },
+      "writtenOn": "2021-12-06T11:15:59Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "e2304191_dfd9b59a",
+      "range": {
+        "startLine": 135,
+        "startChar": 16,
+        "endLine": 135,
+        "endChar": 25
+      },
+      "revId": "cd24d8b804b39b6cdbfeb5752a39d99f1d81fd8d",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
         "uuid": "08d3e025_e0378983",
         "filename": "modules/video_coding/frame_buffer3.cc",
         "patchSetId": 11
@@ -152,6 +296,30 @@
       "writtenOn": "2021-12-03T17:32:17Z",
       "side": 1,
       "message": "may be call it \nIsContinous\n\n(word \u0027Test\u0027 may incorrectly suggest it is a test-only function)",
+      "range": {
+        "startLine": 167,
+        "startChar": 18,
+        "endLine": 167,
+        "endChar": 34
+      },
+      "revId": "cd24d8b804b39b6cdbfeb5752a39d99f1d81fd8d",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "34c90338_47ca2ac2",
+        "filename": "modules/video_coding/frame_buffer3.cc",
+        "patchSetId": 11
+      },
+      "lineNbr": 167,
+      "author": {
+        "id": 5527
+      },
+      "writtenOn": "2021-12-06T11:15:59Z",
+      "side": 1,
+      "message": "IsContinuous is better, changed.",
+      "parentUuid": "08d3e025_e0378983",
       "range": {
         "startLine": 167,
         "startChar": 18,
@@ -175,6 +343,30 @@
       "writtenOn": "2021-12-03T17:32:17Z",
       "side": 1,
       "message": "comment describe what a temporal unit is, while alias is called FrameVector.\nany hint how the\u0027re related would be nice 😊\n\nAlso,\nhttps://google.github.io/styleguide/cppguide.html#Aliases\n“When defining a public alias, document the intent of the new name, including whether it is guaranteed to always be the same as the type it\u0027s currently aliased to, or whether a more limited compatibility is intended.”",
+      "range": {
+        "startLine": 28,
+        "startChar": 5,
+        "endLine": 28,
+        "endChar": 20
+      },
+      "revId": "cd24d8b804b39b6cdbfeb5752a39d99f1d81fd8d",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "884dbf54_6399fa83",
+        "filename": "modules/video_coding/frame_buffer3.h",
+        "patchSetId": 11
+      },
+      "lineNbr": 28,
+      "author": {
+        "id": 5527
+      },
+      "writtenOn": "2021-12-06T11:15:59Z",
+      "side": 1,
+      "message": "Removed the alias.",
+      "parentUuid": "4ece6d37_18f7472d",
       "range": {
         "startLine": 28,
         "startChar": 5,
@@ -231,6 +423,30 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "9644456e_16af5acc",
+        "filename": "modules/video_coding/frame_buffer3.h",
+        "patchSetId": 11
+      },
+      "lineNbr": 34,
+      "author": {
+        "id": 5527
+      },
+      "writtenOn": "2021-12-06T11:15:59Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "445e2ab6_148fd930",
+      "range": {
+        "startLine": 34,
+        "startChar": 14,
+        "endLine": 34,
+        "endChar": 57
+      },
+      "revId": "cd24d8b804b39b6cdbfeb5752a39d99f1d81fd8d",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "26283a82_d4247ba0",
@@ -254,6 +470,30 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "c2e743de_35ade0a4",
+        "filename": "modules/video_coding/frame_buffer3.h",
+        "patchSetId": 11
+      },
+      "lineNbr": 40,
+      "author": {
+        "id": 5527
+      },
+      "writtenOn": "2021-12-06T11:15:59Z",
+      "side": 1,
+      "message": "Comment was put in the wrong location, wasn\u0027t meant to document InsertFrame, removed.",
+      "parentUuid": "26283a82_d4247ba0",
+      "range": {
+        "startLine": 39,
+        "startChar": 0,
+        "endLine": 40,
+        "endChar": 71
+      },
+      "revId": "cd24d8b804b39b6cdbfeb5752a39d99f1d81fd8d",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "824640fd_4542437e",
@@ -267,6 +507,30 @@
       "writtenOn": "2021-12-03T17:32:17Z",
       "side": 1,
       "message": "This comment just repeats function name, can you please instead describe what \u0027continuous\u0027 frame id means. [btw, is it \"(continuous frame) id, or is it \"continuous (frame id)\"?]",
+      "range": {
+        "startLine": 42,
+        "startChar": 17,
+        "endLine": 42,
+        "endChar": 27
+      },
+      "revId": "cd24d8b804b39b6cdbfeb5752a39d99f1d81fd8d",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "57c9c2bf_947c86a4",
+        "filename": "modules/video_coding/frame_buffer3.h",
+        "patchSetId": 11
+      },
+      "lineNbr": 42,
+      "author": {
+        "id": 5527
+      },
+      "writtenOn": "2021-12-06T11:15:59Z",
+      "side": 1,
+      "message": "Added class level documentation.",
+      "parentUuid": "824640fd_4542437e",
       "range": {
         "startLine": 42,
         "startChar": 17,
@@ -319,6 +583,24 @@
     {
       "unresolved": false,
       "key": {
+        "uuid": "eac0886a_43ae2fb9",
+        "filename": "modules/video_coding/frame_buffer3.h",
+        "patchSetId": 11
+      },
+      "lineNbr": 55,
+      "author": {
+        "id": 5527
+      },
+      "writtenOn": "2021-12-06T11:15:59Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "220754cc_33b2e1d8",
+      "revId": "cd24d8b804b39b6cdbfeb5752a39d99f1d81fd8d",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
         "uuid": "d3431211_0c197a3c",
         "filename": "modules/video_coding/frame_buffer3.h",
         "patchSetId": 11
@@ -330,6 +612,30 @@
       "writtenOn": "2021-12-03T17:32:17Z",
       "side": 1,
       "message": "I suspect circular buffer can give much better performance, but let\u0027s worry about it later, if current performance isn\u0027t good enough.",
+      "range": {
+        "startLine": 56,
+        "startChar": 2,
+        "endLine": 56,
+        "endChar": 48
+      },
+      "revId": "cd24d8b804b39b6cdbfeb5752a39d99f1d81fd8d",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "3d88a599_43c34025",
+        "filename": "modules/video_coding/frame_buffer3.h",
+        "patchSetId": 11
+      },
+      "lineNbr": 56,
+      "author": {
+        "id": 5527
+      },
+      "writtenOn": "2021-12-06T11:15:59Z",
+      "side": 1,
+      "message": "Yes, I think so too, and yes, that would be a later improvement.",
+      "parentUuid": "d3431211_0c197a3c",
       "range": {
         "startLine": 56,
         "startChar": 2,
@@ -376,6 +682,24 @@
       "writtenOn": "2021-12-03T17:32:17Z",
       "side": 1,
       "message": "personally I prefer put all const members before mutable members\n(i.e. suggesting to move this flag next to max_frames_)",
+      "revId": "cd24d8b804b39b6cdbfeb5752a39d99f1d81fd8d",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "ea4d15ff_69ddc179",
+        "filename": "modules/video_coding/frame_buffer3.h",
+        "patchSetId": 11
+      },
+      "lineNbr": 87,
+      "author": {
+        "id": 5527
+      },
+      "writtenOn": "2021-12-06T11:15:59Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "fbb1a1de_cc420670",
       "revId": "cd24d8b804b39b6cdbfeb5752a39d99f1d81fd8d",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }

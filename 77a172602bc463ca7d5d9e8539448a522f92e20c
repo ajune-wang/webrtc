@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "cfa77b3f_1cc2d608",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 19
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 6305
+      },
+      "writtenOn": "2021-12-06T13:24:26Z",
+      "side": 1,
+      "message": "Hello Henrik and Kári.\n\nCould you please review this CL? In this CL I\u0027m trying to fix microphone recording indicator on iOS 13+ in scenarios, where microphone recording is not required by host application, or required only on demand (more details can be found in bug description). I\u0027m sorry this CL is big and will require time for review, but I hope with your help and feedback it will be possible to make this CL accepted.\n\nThanks a lot in advance,\nYury.",
+      "revId": "77a172602bc463ca7d5d9e8539448a522f92e20c",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

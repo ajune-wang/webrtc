@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "cfa7a9bc_3cb80590",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 3
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 8046
+      },
+      "writtenOn": "2021-12-06T10:31:22Z",
+      "side": 1,
+      "message": "Hi Mark,\n\nthis is the same change you already approved. This time I did complete build of Chromium and found the reason why this was reverted (see Patchset 3).\n\n",
+      "revId": "75c3077ce470eae9596b2a2ec35b97e8d3329dba",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

@@ -70,6 +70,29 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": true,
+      "key": {
+        "uuid": "631aaf96_0176c192",
+        "filename": "pc/dtls_srtp_transport.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 231,
+      "author": {
+        "id": 5852
+      },
+      "writtenOn": "2021-12-06T15:38:52Z",
+      "side": 1,
+      "message": "Very minor drive-by nit: I\u0027d use auto here, because the repeated long type name takes more mental effort for me to parse. (Assuming webrtc has the same coding style rules around auto as Chrome does, that is.)",
+      "range": {
+        "startLine": 231,
+        "startChar": 2,
+        "endLine": 231,
+        "endChar": 38
+      },
+      "revId": "13e1729bcd87f07a2e82693ace495e3230e95d42",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": false,
       "key": {
         "uuid": "f83e5d45_5b8d830e",

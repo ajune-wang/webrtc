@@ -76,6 +76,30 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "ccc8541a_3aa234b8",
+        "filename": "modules/video_coding/frame_buffer2.h",
+        "patchSetId": 3
+      },
+      "lineNbr": 63,
+      "author": {
+        "id": 18444
+      },
+      "writtenOn": "2021-12-06T08:57:35Z",
+      "side": 1,
+      "message": "I updated the comment to make things clearer.",
+      "parentUuid": "f2186975_fae9a861",
+      "range": {
+        "startLine": 62,
+        "startChar": 38,
+        "endLine": 63,
+        "endChar": 24
+      },
+      "revId": "d970dfa412d9c74ccbd724870e74b5ef68c596be",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "c09a7c22_64f84a95",
@@ -89,6 +113,30 @@
       "writtenOn": "2021-12-03T10:35:45Z",
       "side": 1,
       "message": "Is this a good time to change this to a TimeDelta?",
+      "range": {
+        "startLine": 65,
+        "startChar": 17,
+        "endLine": 65,
+        "endChar": 41
+      },
+      "revId": "d970dfa412d9c74ccbd724870e74b5ef68c596be",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "e84e6983_809f93a9",
+        "filename": "modules/video_coding/frame_buffer2.h",
+        "patchSetId": 3
+      },
+      "lineNbr": 65,
+      "author": {
+        "id": 18444
+      },
+      "writtenOn": "2021-12-06T08:57:35Z",
+      "side": 1,
+      "message": "FrameBuffer2 is being separated into a separate buffer and frame scheduler coming up so I don\u0027t think the change to TimeDelta is warranted now.",
+      "parentUuid": "c09a7c22_64f84a95",
       "range": {
         "startLine": 65,
         "startChar": 17,

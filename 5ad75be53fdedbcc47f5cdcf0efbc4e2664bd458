@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "dd32cbcf_3a9acf97",
+        "filename": "modules/video_coding/frame_buffer3.cc",
+        "patchSetId": 13
+      },
+      "lineNbr": 250,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2021-12-06T11:59:42Z",
+      "side": 1,
+      "message": "or (to use less negations)\nabsl::c_none_of(...)\nor (because lambda is simple compare)\n!absl::c_linear_search(frames_in_temporal_unit, frame_id)",
+      "range": {
+        "startLine": 247,
+        "startChar": 14,
+        "endLine": 250,
+        "endChar": 32
+      },
+      "revId": "5ad75be53fdedbcc47f5cdcf0efbc4e2664bd458",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

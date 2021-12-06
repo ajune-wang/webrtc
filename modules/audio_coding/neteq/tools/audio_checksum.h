@@ -28,7 +28,8 @@ class AudioChecksum : public AudioSink {
  public:
   AudioChecksum()
       : checksum_(rtc::MessageDigestFactory::Create(rtc::DIGEST_MD5)),
-        checksum_result_(checksum_->Size()),
+        checksum_result_(
+            rtc::Buffer::CreateUninitializedWithSize(checksum_->Size())),
         finished_(false) {}
 
   bool WriteArray(const int16_t* audio, size_t num_samples) override {

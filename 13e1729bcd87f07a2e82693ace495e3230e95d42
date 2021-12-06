@@ -16,6 +16,23 @@
       "message": "WDYT?",
       "revId": "13e1729bcd87f07a2e82693ace495e3230e95d42",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "516a49c7_ee10933c",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 5
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2021-12-06T12:04:09Z",
+      "side": 1,
+      "message": "You could consider to go one step further, and add a constructor/static method with signature\n\n(size_t size, rtc::FunctionView\u003cvoid(rtc::ArrayView\u003cuint8_t\u003e)\u003e initializer)\n\nwhere the given initializer function is supposed to initialize the data. (If useful, could also return a size_t, in case it turns out the buffer should be shrunk before use).",
+      "revId": "13e1729bcd87f07a2e82693ace495e3230e95d42",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

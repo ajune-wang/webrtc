@@ -34,6 +34,24 @@
       "parentUuid": "35fc314b_fc2f181b",
       "revId": "bef226986cacdc16f75248b92aaba9526d822115",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "08b58b2a_9a149fef",
+        "filename": "tools_webrtc/mb/mb.py",
+        "patchSetId": 5
+      },
+      "lineNbr": 907,
+      "author": {
+        "id": 6192
+      },
+      "writtenOn": "2021-12-06T07:38:47Z",
+      "side": 1,
+      "message": "I would wager not all things are executed on all platforms, I would still prefer if we used os.path throughout the entire file but maybe that\u0027s too much refactoring for this CL. Could you create a TODO bug for it?",
+      "parentUuid": "6cc06536_90835416",
+      "revId": "bef226986cacdc16f75248b92aaba9526d822115",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

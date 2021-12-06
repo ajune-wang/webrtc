@@ -16,6 +16,52 @@
       "message": "Mirko and Per, PTAL at the remaining un-OWNER-approved changes.\nMirko: the poison stuff, as OWNER of top-level build files (BUILD.gn, webrtc.gni)\nPer: the changes to api/",
       "revId": "d3acddac791e01b5595493282e76396bfe28fc2c",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "96205a1f_f82d9cf5",
+        "filename": "api/audio/BUILD.gn",
+        "patchSetId": 15
+      },
+      "lineNbr": 109,
+      "author": {
+        "id": 5087
+      },
+      "writtenOn": "2021-12-06T17:01:08Z",
+      "side": 1,
+      "message": "This CL LGTM.\n\nTo add an extra layer of safety (and avoid to accidentally link the residual echo detector) I wonder if we can make the assumption that:\n\n#include \"api/audio/echo_detector_creator.h\"\n\n\nCan only be done in testing code or outside of WebRTC code.\n\nIs this true?",
+      "range": {
+        "startLine": 96,
+        "startChar": 0,
+        "endLine": 109,
+        "endChar": 1
+      },
+      "revId": "d3acddac791e01b5595493282e76396bfe28fc2c",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "08f2dbc1_4ffc54a1",
+        "filename": "api/audio_options.h",
+        "patchSetId": 15
+      },
+      "lineNbr": 70,
+      "author": {
+        "id": 5087
+      },
+      "writtenOn": "2021-12-06T17:01:08Z",
+      "side": 1,
+      "message": "Should this be marked with ABSL_DEPRECATED?",
+      "range": {
+        "startLine": 70,
+        "startChar": 2,
+        "endLine": 70,
+        "endChar": 46
+      },
+      "revId": "d3acddac791e01b5595493282e76396bfe28fc2c",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

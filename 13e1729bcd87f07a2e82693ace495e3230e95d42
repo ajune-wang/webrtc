@@ -139,6 +139,30 @@
       },
       "revId": "13e1729bcd87f07a2e82693ace495e3230e95d42",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "a799f74a_a84099b0",
+        "filename": "rtc_base/buffer.h",
+        "patchSetId": 5
+      },
+      "lineNbr": 49,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2021-12-06T14:40:25Z",
+      "side": 1,
+      "message": "I think rtc::Buffer may actually be older than the general acceptance of std::vector ... we could think about whether we should limit the use of rtc::Buffer to \"special usages\" and switch all APIs that don\u0027t need the \"special stuff\" to std::vector....",
+      "parentUuid": "5154237c_55092913",
+      "range": {
+        "startLine": 49,
+        "startChar": 0,
+        "endLine": 49,
+        "endChar": 76
+      },
+      "revId": "13e1729bcd87f07a2e82693ace495e3230e95d42",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

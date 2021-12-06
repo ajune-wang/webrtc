@@ -117,6 +117,24 @@
       "parentUuid": "e8aab6a1_f73d6e9b",
       "revId": "51527c8db4468bc1d425f3a8e82353f179088976",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "ba590696_e861bd77",
+        "filename": "tools_webrtc/mb/mb.py",
+        "patchSetId": 4
+      },
+      "lineNbr": 912,
+      "author": {
+        "id": 12234
+      },
+      "writtenOn": "2021-12-06T09:21:02Z",
+      "side": 1,
+      "message": "SG, I reverted to the first version and added a TODO.",
+      "parentUuid": "3abb4820_c6cbdcdf",
+      "revId": "51527c8db4468bc1d425f3a8e82353f179088976",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

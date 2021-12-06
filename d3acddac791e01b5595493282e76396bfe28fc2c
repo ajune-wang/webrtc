@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "73dbe021_8ff3d586",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 15
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5119
+      },
+      "writtenOn": "2021-12-06T14:50:32Z",
+      "side": 1,
+      "message": "Mirko and Per, PTAL at the remaining un-OWNER-approved changes.\nMirko: the poison stuff, as OWNER of top-level build files (BUILD.gn, webrtc.gni)\nPer: the changes to api/",
+      "revId": "d3acddac791e01b5595493282e76396bfe28fc2c",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

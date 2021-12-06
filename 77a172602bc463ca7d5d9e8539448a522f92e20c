@@ -16,6 +16,23 @@
       "message": "Hello Henrik and Kári.\n\nCould you please review this CL? In this CL I\u0027m trying to fix microphone recording indicator on iOS 13+ in scenarios, where microphone recording is not required by host application, or required only on demand (more details can be found in bug description). I\u0027m sorry this CL is big and will require time for review, but I hope with your help and feedback it will be possible to make this CL accepted.\n\nThanks a lot in advance,\nYury.",
       "revId": "77a172602bc463ca7d5d9e8539448a522f92e20c",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "ea6a7ab7_90d45b31",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 19
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5091
+      },
+      "writtenOn": "2021-12-06T13:43:13Z",
+      "side": 1,
+      "message": "Thanks for your contributions. It looks very impressive and I am sure it is good stuff but I am currently unable to invest time into reviewing this complex change since I have not actively been working on iOS for a long time. Hence, there is a big risk that I miss some detail that might break existing clients using the iOS implementation in sdk/objc.\n\nHave you verified that all existing unittests work and that the WebRTC Mobile test client can be build based on these changes?\n\nI have seen other changes in this area where users who needs separate control of Playout and Recording instead injects their own ADM implementation into PeerConnection. That way, you can work on an independent ADM implementation without any risk of breaking existing clients. ",
+      "revId": "77a172602bc463ca7d5d9e8539448a522f92e20c",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

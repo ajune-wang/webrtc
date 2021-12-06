@@ -99,6 +99,24 @@
       "parentUuid": "cc4cc179_b03940e0",
       "revId": "51527c8db4468bc1d425f3a8e82353f179088976",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "3abb4820_c6cbdcdf",
+        "filename": "tools_webrtc/mb/mb.py",
+        "patchSetId": 4
+      },
+      "lineNbr": 912,
+      "author": {
+        "id": 5087
+      },
+      "writtenOn": "2021-12-06T09:01:33Z",
+      "side": 1,
+      "message": "This is unclear to me as well but I think we should open a bug and move to os.path() and also make some cleanups in general.\n\nBut I agree this is too much for this CL. We can split the work.",
+      "parentUuid": "e8aab6a1_f73d6e9b",
+      "revId": "51527c8db4468bc1d425f3a8e82353f179088976",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

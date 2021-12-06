@@ -115,6 +115,30 @@
       },
       "revId": "13e1729bcd87f07a2e82693ace495e3230e95d42",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "5154237c_55092913",
+        "filename": "rtc_base/buffer.h",
+        "patchSetId": 5
+      },
+      "lineNbr": 49,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2021-12-06T13:31:14Z",
+      "side": 1,
+      "message": "how rtc::Buffer is better than std::vector for that usage?\n\nstd::vector\u003cuint8_t\u003e buffer;\nbuffer.reserve(expected_capacity);\nbuffer.insert(buffer.end(), data_to_append.begin(), data_to_append.end());",
+      "parentUuid": "e3d0dfeb_b43db19b",
+      "range": {
+        "startLine": 49,
+        "startChar": 0,
+        "endLine": 49,
+        "endChar": 76
+      },
+      "revId": "13e1729bcd87f07a2e82693ace495e3230e95d42",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

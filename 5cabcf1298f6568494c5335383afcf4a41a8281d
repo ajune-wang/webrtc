@@ -16,6 +16,23 @@
       "message": "Thank for the comment. Rework the patch to avoid nesting if statements.",
       "revId": "5cabcf1298f6568494c5335383afcf4a41a8281d",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "58a0144a_593037f9",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 3
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 18554
+      },
+      "writtenOn": "2021-12-06T08:25:22Z",
+      "side": 1,
+      "message": "Ping reviewers to help merging this CL.",
+      "revId": "5cabcf1298f6568494c5335383afcf4a41a8281d",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

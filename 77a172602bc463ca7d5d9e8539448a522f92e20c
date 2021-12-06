@@ -69,6 +69,24 @@
       "parentUuid": "b3b53beb_3007f9cf",
       "revId": "77a172602bc463ca7d5d9e8539448a522f92e20c",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "ef4a2f7c_cbcb096a",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 19
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5091
+      },
+      "writtenOn": "2021-12-06T16:17:36Z",
+      "side": 1,
+      "message": "Today, the external ADM is injected here [1] in the test client and any new ADM which implements the interface can be injected the same way. This is for Java but same goes for iOS (I am less familiar with that code path).\n\nTo summarize my standpoint:\n\n- Lot\u0027s of work has been done to break out the ADM and to make it injectable for Android and iOS clients.\n- Each client has their own unique requirements and to avoid breaking clients that uses the default ADM, I recommend maintaining these changes locally instead.\n\n[1] https://source.chromium.org/chromium/chromium/src/+/main:third_party/webrtc/examples/androidapp/src/org/appspot/apprtc/PeerConnectionClient.java;l\u003d451;drc\u003df9e502d935fa9ca8d9cc7540680021b93d285f28",
+      "parentUuid": "f5b1f265_e9c2bb73",
+      "revId": "77a172602bc463ca7d5d9e8539448a522f92e20c",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

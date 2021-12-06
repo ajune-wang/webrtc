@@ -216,7 +216,8 @@ bool SrtpFilter::ApplySendParams(const CryptoParams& send_params) {
     return false;
   }
 
-  send_key_ = rtc::ZeroOnFreeBuffer<uint8_t>(send_key_len + send_salt_len);
+  send_key_ = rtc::ZeroOnFreeBuffer<uint8_t>::CreateUninitializedWithSize(
+      send_key_len + send_salt_len);
   return ParseKeyParams(send_params.key_params, send_key_.data(),
                         send_key_.size());
 }
@@ -247,7 +248,8 @@ bool SrtpFilter::ApplyRecvParams(const CryptoParams& recv_params) {
     return false;
   }
 
-  recv_key_ = rtc::ZeroOnFreeBuffer<uint8_t>(recv_key_len + recv_salt_len);
+  recv_key_ = rtc::ZeroOnFreeBuffer<uint8_t>::CreateUninitializedWithSize(
+      recv_key_len + recv_salt_len);
   return ParseKeyParams(recv_params.key_params, recv_key_.data(),
                         recv_key_.size());
 }

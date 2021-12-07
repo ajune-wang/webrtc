@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "d4724c44_6401bd5b",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 14874
+      },
+      "writtenOn": "2021-12-07T11:04:26Z",
+      "side": 1,
+      "message": "mirko: you\u0027ll know if no-try is required...",
+      "revId": "579ed682ce665fca361e68d7af2befd5052aed5c",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

@@ -654,8 +654,6 @@ const char* StatsReport::Value::display_name() const {
       return "googWritable";
     case kStatsValueNameAudioDeviceUnderrunCounter:
       return "googAudioDeviceUnderrunCounter";
-    case kStatsValueNameLocalCandidateRelayProtocol:
-      return "googLocalCandidateRelayProtocol";
   }
 
   return nullptr;

@@ -239,7 +239,6 @@ class RTC_EXPORT StatsReport {
     kStatsValueNameTypingNoiseState,
     kStatsValueNameWritable,
     kStatsValueNameAudioDeviceUnderrunCounter,
-    kStatsValueNameLocalCandidateRelayProtocol,
   };
 
   class RTC_EXPORT IdBase : public rtc::RefCountInterface {

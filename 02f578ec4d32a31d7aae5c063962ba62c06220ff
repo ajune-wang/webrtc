@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "e2765f43_e0f63f90",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 19
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 12234
+      },
+      "writtenOn": "2021-12-07T16:10:28Z",
+      "side": 1,
+      "message": "Is this looks like what we want in terms of indent ?",
+      "revId": "02f578ec4d32a31d7aae5c063962ba62c06220ff",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "c9175b15_01a4f1cc",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 3
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5508
+      },
+      "writtenOn": "2021-12-07T13:46:31Z",
+      "side": 1,
+      "message": "wohoo!!! fantastic 😄\nhoping we can lose the interface too?",
+      "revId": "cb64ec9a57d945d1c2d7dd7285321a16b244d594",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

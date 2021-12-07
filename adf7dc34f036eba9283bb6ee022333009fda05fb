@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "ea01d902_eba01e11",
+        "filename": "video/video_receive_stream.h",
+        "patchSetId": 3
+      },
+      "lineNbr": 49,
+      "author": {
+        "id": 5508
+      },
+      "writtenOn": "2021-12-07T13:46:31Z",
+      "side": 0,
+      "message": "Can we get rid of this interface too?",
+      "revId": "adf7dc34f036eba9283bb6ee022333009fda05fb",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

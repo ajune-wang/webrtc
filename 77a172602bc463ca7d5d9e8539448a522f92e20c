@@ -105,6 +105,24 @@
       "parentUuid": "ef4a2f7c_cbcb096a",
       "revId": "77a172602bc463ca7d5d9e8539448a522f92e20c",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "3cdf3749_d9eccf16",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 19
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5091
+      },
+      "writtenOn": "2021-12-07T10:19:19Z",
+      "side": 1,
+      "message": "I will not be able to comment on all details above but will summarize my standpoint instead.\n\n* This CL contains many great ideas and it is of high quality. You seem to know this area well but that is not the issue here. We simply can\u0027t support all possible ideas and proposals of how to implement the native ADMs. That is the main reason why we have invested time on making it injectable.\n* The fact that a change *can* be implemented does not necessarily mean that it is the worth the risk to actually *land* the implementation.  \n* I don\u0027t know the latest status of how well the frameworks are supported for iOS or Android and can\u0027t comment on details related to how to build or use them.\n* There might be ways to improve exactly how the ADM is injected; all I know is that several different clients are using the existing solution and are injecting unique ADM implementations in their applications. I assume they are not using any prebuilt framework.\n* To launch extensive changes like these requires a detailed plan and knowhow of metrics for all clients that are using the default ADM today. This is hard to manage for external users and to avoid issues, we have added the possibility to inject the ADM instead so that each client can implement their own unique support.\n* Feel free to continue the discussion in the issue you have created. I can\u0027t see any other way forward than for you to use the existing pattern and inject your own ADM even if it might either exclude you from using the prebuild or lead to more changes in how the framework is generated.",
+      "parentUuid": "8a5f51af_7835ef8e",
+      "revId": "77a172602bc463ca7d5d9e8539448a522f92e20c",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

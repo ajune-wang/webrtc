@@ -153,7 +153,8 @@ TEST(WavFileReaderTest, RepeatedTrueWithSingleFrameFileReadTwice) {
   {
     std::unique_ptr<TestAudioDeviceModule::Capturer> reader =
         TestAudioDeviceModule::CreateWavFileReader(output_filename, true);
-    rtc::BufferT<int16_t> buffer(kExpectedSamples.size());
+    rtc::BufferT<int16_t> buffer =
+        rtc::BufferT<int16_t>::CreateWithCapacity(kExpectedSamples.size());
     EXPECT_TRUE(reader->Capture(&buffer));
     EXPECT_EQ(kExpectedSamples, buffer);
     EXPECT_TRUE(reader->Capture(&buffer));

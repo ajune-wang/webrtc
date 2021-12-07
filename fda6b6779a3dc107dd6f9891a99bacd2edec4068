@@ -16,6 +16,24 @@
       "message": "still needed it seems, added to the description.",
       "revId": "fda6b6779a3dc107dd6f9891a99bacd2edec4068",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "77582b04_0946e644",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5087
+      },
+      "writtenOn": "2021-12-07T13:40:05Z",
+      "side": 1,
+      "message": "Ok.",
+      "parentUuid": "abc39504_8a5bc204",
+      "revId": "fda6b6779a3dc107dd6f9891a99bacd2edec4068",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

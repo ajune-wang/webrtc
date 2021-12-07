@@ -16,6 +16,23 @@
       "message": "See https://source.chromium.org/chromium/chromium/src/+/main:chrome/test/data/webrtc/peerconnection.js;l\u003d647?q\u003dverifyLegacyStatsGenerated\u0026originalUrl\u003dhttps:%2F%2Fcs.chromium.org%2F",
       "revId": "101c74a946e98b8d5412ec1c5777024b069e848c",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "e8476d9e_caa1cd46",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5142
+      },
+      "writtenOn": "2021-12-07T12:54:26Z",
+      "side": 1,
+      "message": "Or perhaps we should just update the list, but I don\u0027t see chrome/test/data/webrtc/peerconnection.js in my checkout - confused",
+      "revId": "101c74a946e98b8d5412ec1c5777024b069e848c",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

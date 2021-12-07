@@ -29,11 +29,9 @@ import subprocess
 import tempfile
 import traceback
 try:
-  from urllib2 import urlopen # for Python2
+    from urllib2 import urlopen # for Python2
 except ImportError:
-  from urllib.request import urlopen # for Python3
-
-from collections import OrderedDict
+    from urllib.request import urlopen # for Python3
 
 SCRIPT_DIR = os.path.dirname(os.path.realpath(__file__))
 SRC_DIR = os.path.dirname(os.path.dirname(SCRIPT_DIR))
@@ -510,7 +508,7 @@ class MetaBuildWrapper(object):
     def GetConfig(self):
         build_dir = self.args.path[0]
 
-        vals = self.DefaultVals()
+        vals = MetaBuildWrapper.DefaultVals()
         if self.args.builder or self.args.builder_group or self.args.config:
             vals = self.Lookup()
             # Re-run gn gen in order to ensure the config is consistent with
@@ -549,7 +547,7 @@ class MetaBuildWrapper(object):
         if config.startswith('//'):
             if not self.Exists(self.ToAbsPath(config)):
                 raise MBErr('args file "%s" not found' % config)
-            vals = self.DefaultVals()
+            vals = MetaBuildWrapper.DefaultVals()
             vals['args_file'] = config
         else:
             if not config in self.configs:
@@ -626,13 +624,14 @@ class MetaBuildWrapper(object):
 
     def FlattenConfig(self, config):
         mixins = self.configs[config]
-        vals = self.DefaultVals()
+        vals = MetaBuildWrapper.DefaultVals()
 
         visited = []
         self.FlattenMixins(mixins, vals, visited)
         return vals
 
-    def DefaultVals(self):
+    @staticmethod
+    def DefaultVals():
         return {
             'args_file': '',
             'cros_passthrough': False,
@@ -780,7 +779,7 @@ class MetaBuildWrapper(object):
             'check',
             '-i',
             self.ToSrcRelPath('%s/%s.isolate' % (build_dir, target))],
-            buffer_output=False)
+                             buffer_output=False)
 
         return ret
 
@@ -807,7 +806,8 @@ class MetaBuildWrapper(object):
             isolate_path + 'd.gen.json',
         )
 
-    def MapTargetsToLabels(self, isolate_map, targets):
+    @staticmethod
+    def MapTargetsToLabels(isolate_map, targets):
         labels = []
         err = ''
 
@@ -1155,11 +1155,9 @@ class MetaBuildWrapper(object):
             env_quoter = pipes.quote
             shell_quoter = pipes.quote
 
-        def print_env(var):
-            if env and var in env:
-                self.Print('%s%s=%s' % (env_prefix, var, env_quoter(env[var])))
-
-        print_env('LLVM_FORCE_HEAD_REVISION')
+        var = 'LLVM_FORCE_HEAD_REVISION'
+        if env and var in env:
+            self.Print('%s%s=%s' % (env_prefix, var, env_quoter(env[var])))
 
         if cmd[0] == self.executable:
             cmd = ['python'] + cmd[1:]
@@ -1209,48 +1207,57 @@ class MetaBuildWrapper(object):
             out = err = ''
         return p.returncode, out, err
 
-    def ExpandUser(self, path):
+    @staticmethod
+    def ExpandUser(path):
         # This function largely exists so it can be overridden for testing.
         return os.path.expanduser(path)
 
-    def Exists(self, path):
+    @staticmethod
+    def Exists(path):
         # This function largely exists so it can be overridden for testing.
         return os.path.exists(path)
 
-    def Fetch(self, url):
+    @staticmethod
+    def Fetch(url):
         # This function largely exists so it can be overridden for testing.
         f = urlopen(url)
         contents = f.read()
         f.close()
         return contents
 
-    def MaybeMakeDirectory(self, path):
+    @staticmethod
+    def MaybeMakeDirectory(path):
         try:
             os.makedirs(path)
         except OSError as e:
             if e.errno != errno.EEXIST:
                 raise
 
-    def PathJoin(self, *comps):
+    @staticmethod
+    def PathJoin(*comps):
         # This function largely exists so it can be overriden for testing.
         return os.path.join(*comps)
 
-    def Print(self, *args, **kwargs):
+    @staticmethod
+    def Print(*args, **kwargs):
         # This function largely exists so it can be overridden for testing.
         print(*args, **kwargs)
         if kwargs.get('stream', sys.stdout) == sys.stdout:
             sys.stdout.flush()
 
-    def ReadFile(self, path):
+    @staticmethod
+    def ReadFile(path):
         # This function largely exists so it can be overriden for testing.
         with open(path) as fp:
             return fp.read()
 
-    def RelPath(self, path, start='.'):
+    @staticmethod
+    def RelPath(path, start='.'):
         # This function largely exists so it can be overriden for testing.
         return os.path.relpath(path, start)
 
-    def RemoveFile(self, path):
+    @staticmethod
+    def RemoveFile(path):
         # This function largely exists so it can be overriden for testing.
         os.remove(path)
 
@@ -1265,11 +1272,13 @@ class MetaBuildWrapper(object):
         else:
             shutil.rmtree(abs_path, ignore_errors=True)
 
-    def TempDir(self):
+    @staticmethod
+    def TempDir():
         # This function largely exists so it can be overriden for testing.
         return tempfile.mkdtemp(prefix='mb_')
 
-    def TempFile(self, mode='w'):
+    @staticmethod
+    def TempFile(mode='w'):
         # This function largely exists so it can be overriden for testing.
         return tempfile.NamedTemporaryFile(mode=mode, delete=False)
 

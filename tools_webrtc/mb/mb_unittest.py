@@ -61,7 +61,7 @@ class FakeMBW(mb.MetaBuildWrapper):
 
   def Exists(self, path):
     abs_path = self._AbsPath(path)
-    return (self.files.get(abs_path) is not None or abs_path in self.dirs)
+    return self.files.get(abs_path) is not None or abs_path in self.dirs
 
   def MaybeMakeDirectory(self, path):
     abpath = self._AbsPath(path)

@@ -228,7 +228,9 @@ bool DtlsSrtpTransport::ExtractParams(
   }
 
   // OK, we're now doing DTLS (RFC 5764)
-  rtc::ZeroOnFreeBuffer<unsigned char> dtls_buffer(key_len * 2 + salt_len * 2);
+  auto dtls_buffer =
+      rtc::ZeroOnFreeBuffer<unsigned char>::CreateUninitializedWithSize(
+          key_len * 2 + salt_len * 2);
 
   // RFC 5705 exporter using the RFC 5764 parameters
   if (!dtls_transport->ExportKeyingMaterial(kDtlsSrtpExporterLabel, NULL, 0,
@@ -240,8 +242,12 @@ bool DtlsSrtpTransport::ExtractParams(
   }
 
   // Sync up the keys with the DTLS-SRTP interface
-  rtc::ZeroOnFreeBuffer<unsigned char> client_write_key(key_len + salt_len);
-  rtc::ZeroOnFreeBuffer<unsigned char> server_write_key(key_len + salt_len);
+  auto client_write_key =
+      rtc::ZeroOnFreeBuffer<unsigned char>::CreateUninitializedWithSize(
+          key_len + salt_len);
+  auto server_write_key =
+      rtc::ZeroOnFreeBuffer<unsigned char>::CreateUninitializedWithSize(
+          key_len + salt_len);
   size_t offset = 0;
   memcpy(&client_write_key[0], &dtls_buffer[offset], key_len);
   offset += key_len;

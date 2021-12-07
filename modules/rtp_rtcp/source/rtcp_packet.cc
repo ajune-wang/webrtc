@@ -18,7 +18,7 @@ namespace rtcp {
 constexpr size_t RtcpPacket::kHeaderLength;
 
 rtc::Buffer RtcpPacket::Build() const {
-  rtc::Buffer packet(BlockLength());
+  rtc::Buffer packet = rtc::Buffer::CreateUninitializedWithSize(BlockLength());
 
   size_t length = 0;
   bool created = Create(packet.data(), &length, packet.capacity(), nullptr);

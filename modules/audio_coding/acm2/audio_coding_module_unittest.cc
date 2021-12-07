@@ -1179,7 +1179,8 @@ class AcmSenderBitExactnessOldApi : public ::testing::Test,
     ExpectChecksumEq(audio_checksum_ref, checksum_string);
 
     // Extract and verify the payload checksum.
-    rtc::Buffer checksum_result(payload_checksum_->Size());
+    rtc::Buffer checksum_result =
+        rtc::Buffer::CreateUninitializedWithSize(payload_checksum_->Size());
     payload_checksum_->Finish(checksum_result.data(), checksum_result.size());
     checksum_string =
         rtc::hex_encode(checksum_result.data<char>(), checksum_result.size());

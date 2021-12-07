@@ -770,7 +770,7 @@ TEST_P(AudioEncoderOpusTest, OpusFlagDtxAsNonSpeech) {
 
   // Encode.
   AudioEncoder::EncodedInfo info;
-  rtc::Buffer encoded(500);
+  rtc::Buffer encoded = rtc::Buffer::CreateWithCapacity(500);
   int nonspeech_frames = 0;
   int max_nonspeech_frames = 0;
   int dtx_frames = 0;
@@ -826,7 +826,7 @@ TEST(AudioEncoderOpusTest, OpusDtxFilteringHighEnergyRefreshPackets) {
   EXPECT_TRUE(audio_loop.Init(kInputFileName, kMaxLoopLengthSaples,
                               kInputBlockSizeSamples));
   AudioEncoder::EncodedInfo info;
-  rtc::Buffer encoded(500);
+  rtc::Buffer encoded = rtc::Buffer::CreateWithCapacity(500);
   // Encode the audio file and store the last part that corresponds to silence.
   constexpr size_t kSilenceDurationSamples = kSampleRateHz * 0.2f;
   std::array<int16_t, kSilenceDurationSamples> silence;

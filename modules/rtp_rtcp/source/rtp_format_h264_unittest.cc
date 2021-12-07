@@ -59,7 +59,7 @@ enum FuDefs { kSBit = 0x80, kEBit = 0x40, kRBit = 0x20 };
 // Creates Buffer that looks like nal unit of given size.
 rtc::Buffer GenerateNalUnit(size_t size) {
   RTC_CHECK_GT(size, 0);
-  rtc::Buffer buffer(size);
+  rtc::Buffer buffer = rtc::Buffer::CreateUninitializedWithSize(size);
   // Set some valid header.
   buffer[0] = kSlice;
   for (size_t i = 1; i < size; ++i) {
@@ -68,14 +68,15 @@ rtc::Buffer GenerateNalUnit(size_t size) {
   // Last byte shouldn't be 0, or it may be counted as part of next 4-byte start
   // sequence.
   buffer[size - 1] |= 0x10;
+  buffer.SetSize(size);
   return buffer;
 }
 
 // Create frame consisting of nalus of given size.
 rtc::Buffer CreateFrame(std::initializer_list<size_t> nalu_sizes) {
   static constexpr int kStartCodeSize = 3;
-  rtc::Buffer frame(absl::c_accumulate(nalu_sizes, 0) +
-                    kStartCodeSize * nalu_sizes.size());
+  rtc::Buffer frame = rtc::Buffer::CreateUninitializedWithSize(
+      absl::c_accumulate(nalu_sizes, 0) + kStartCodeSize * nalu_sizes.size());
   size_t offset = 0;
   for (size_t nalu_size : nalu_sizes) {
     EXPECT_GE(nalu_size, 1u);
@@ -91,6 +92,7 @@ rtc::Buffer CreateFrame(std::initializer_list<size_t> nalu_sizes) {
     }
     offset += (kStartCodeSize + nalu_size);
   }
+  EXPECT_EQ(offset, frame.size());  // verify size calculation up front
   return frame;
 }
 
@@ -101,7 +103,7 @@ rtc::Buffer CreateFrame(rtc::ArrayView<const rtc::Buffer> nalus) {
   for (const rtc::Buffer& nalu : nalus) {
     frame_size += (kStartCodeSize + nalu.size());
   }
-  rtc::Buffer frame(frame_size);
+  rtc::Buffer frame = rtc::Buffer::CreateUninitializedWithSize(frame_size);
   size_t offset = 0;
   for (const rtc::Buffer& nalu : nalus) {
     // Insert nalu start code

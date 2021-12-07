@@ -43,6 +43,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "94be9094_fefb824d",
+        "filename": "api/audio/BUILD.gn",
+        "patchSetId": 15
+      },
+      "lineNbr": 109,
+      "author": {
+        "id": 5119
+      },
+      "writtenOn": "2021-12-07T08:14:14Z",
+      "side": 1,
+      "message": "Yes, that is true. Do you have some mechanism in mind? Would it replace the poison construction, or supplement?",
+      "parentUuid": "96205a1f_f82d9cf5",
+      "range": {
+        "startLine": 96,
+        "startChar": 0,
+        "endLine": 109,
+        "endChar": 1
+      },
+      "revId": "d3acddac791e01b5595493282e76396bfe28fc2c",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "08f2dbc1_4ffc54a1",
         "filename": "api/audio_options.h",
         "patchSetId": 15
@@ -54,6 +78,30 @@
       "writtenOn": "2021-12-06T17:01:08Z",
       "side": 1,
       "message": "Should this be marked with ABSL_DEPRECATED?",
+      "range": {
+        "startLine": 70,
+        "startChar": 2,
+        "endLine": 70,
+        "endChar": 46
+      },
+      "revId": "d3acddac791e01b5595493282e76396bfe28fc2c",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "f1c528f3_034e62ae",
+        "filename": "api/audio_options.h",
+        "patchSetId": 15
+      },
+      "lineNbr": 70,
+      "author": {
+        "id": 5119
+      },
+      "writtenOn": "2021-12-07T08:14:14Z",
+      "side": 1,
+      "message": "In theory yes, but I can\u0027t get it to work. Same thing for the field in webrtc::AudioProcessing::Config. WebRTC is enforcing it aggressively and even fails to compile cricket::AudioOptions itself because the implicit copy constructor uses the variable.\n\n  In file included from ../../pc/local_audio_source.cc:11:\n  In file included from ../../pc/local_audio_source.h:14:\n  ../../api/audio_options.h:27:19: error: \u0027residual_echo_detector\u0027 is deprecated: UNUSED [-Werror,-Wdeprecated-declarations]\n  struct RTC_EXPORT AudioOptions {\n                  ^\n  ../../pc/local_audio_source.h:33:65: note: in implicit copy constructor for \u0027cricket::AudioOptions\u0027 first required here\n    const cricket::AudioOptions options() const override { return options_; }\n                                                                ^\n  ../../api/audio_options.h:70:24: note: \u0027residual_echo_detector\u0027 has been explicitly marked deprecated here\n    absl::optional\u003cbool\u003e ABSL_DEPRECATED(\"UNUSED\") residual_echo_detector;\n                       ^\n  ../../third_party/abseil-cpp/absl/base/attributes.h:659:49: note: expanded from macro \u0027ABSL_DEPRECATED\u0027\n  #define ABSL_DEPRECATED(message) __attribute__((deprecated(message)))\n\n\n\nI will remove the flags once downstream clients have had a chance to migrate and this CL has landed.",
+      "parentUuid": "08f2dbc1_4ffc54a1",
       "range": {
         "startLine": 70,
         "startChar": 2,

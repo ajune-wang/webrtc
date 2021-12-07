@@ -16,6 +16,24 @@
       "message": "Hi,\n\ncan you give me list of headers which need to still be present? Or do we want all of them (at least for X11 part)? ",
       "revId": "e9ab88570b9e293bd98b689d802a8b9dd0e29fd2",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "3fdfecb5_d13761ce",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5087
+      },
+      "writtenOn": "2021-12-07T12:19:53Z",
+      "side": 1,
+      "message": "If I understand correctly it is only //modules/desktop_capture/linux/shared_x_display.h.",
+      "parentUuid": "b842bda5_2e59968f",
+      "revId": "e9ab88570b9e293bd98b689d802a8b9dd0e29fd2",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

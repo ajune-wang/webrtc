@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "ea7588a6_45a78448",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5142
+      },
+      "writtenOn": "2021-12-07T12:47:31Z",
+      "side": 1,
+      "message": "See https://source.chromium.org/chromium/chromium/src/+/main:chrome/test/data/webrtc/peerconnection.js;l\u003d647?q\u003dverifyLegacyStatsGenerated\u0026originalUrl\u003dhttps:%2F%2Fcs.chromium.org%2F",
+      "revId": "101c74a946e98b8d5412ec1c5777024b069e848c",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "2762e936_f2189643",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 8046
+      },
+      "writtenOn": "2021-12-07T13:21:54Z",
+      "side": 1,
+      "message": "Same review as before.\n\nAdded forward header for compatibility with downstream projects (patset 2).",
+      "revId": "5234c62bd71b83940881bba8facb083a32a5c9d9",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

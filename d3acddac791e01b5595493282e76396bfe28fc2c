@@ -67,6 +67,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "05604df5_1246abaf",
+        "filename": "api/audio/BUILD.gn",
+        "patchSetId": 15
+      },
+      "lineNbr": 109,
+      "author": {
+        "id": 5087
+      },
+      "writtenOn": "2021-12-07T10:36:51Z",
+      "side": 1,
+      "message": "The only trick I can think of is the checkdeps tool.\n\nAdd \"-api/audio/echo_detector_creator.h\" here https://source.chromium.org/chromium/chromium/src/+/main:third_party/webrtc/DEPS;l\u003d2653;drc\u003dadf7dc34f036eba9283bb6ee022333009fda05fb.\n\nSee what breaks (I think at presubmit time).\n\nThen add the exception to the test/ folder in the https://source.chromium.org/chromium/chromium/src/+/main:third_party/webrtc/test/DEPS.",
+      "parentUuid": "94be9094_fefb824d",
+      "range": {
+        "startLine": 96,
+        "startChar": 0,
+        "endLine": 109,
+        "endChar": 1
+      },
+      "revId": "d3acddac791e01b5595493282e76396bfe28fc2c",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "08f2dbc1_4ffc54a1",
         "filename": "api/audio_options.h",
         "patchSetId": 15

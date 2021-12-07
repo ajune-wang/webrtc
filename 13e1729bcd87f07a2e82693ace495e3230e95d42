@@ -186,6 +186,30 @@
       },
       "revId": "13e1729bcd87f07a2e82693ace495e3230e95d42",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "4850a392_ed4abbbb",
+        "filename": "rtc_base/buffer.h",
+        "patchSetId": 5
+      },
+      "lineNbr": 49,
+      "author": {
+        "id": 5852
+      },
+      "writtenOn": "2021-12-07T15:36:10Z",
+      "side": 1,
+      "message": "From a security point of view, the important part of this patch is to make it easier to use the buffer class correctly, since it deals with uninitialized bytes by design so is more dangerous than a more hardened class. There\u0027s 2 parts to that:\n\n1. Put \"Uninitialized\" somewhere in the name of the creation function or the class. And/or name the getter function `uninitialized_data()`.\n\n(This is also important for performance to document that it uses uninitialized data by design.)\n\n2. Make the meaning of the constructor parameters clear.\n\nIt\u0027s easy to see call sites with just the values and not bother to look up parameter names to see what the code is really doing, and assume that rtc::Buffer\u003cchar\u003e(10) is creating a buffer with capacity 10 and size 0, or 1-element buffer with a single ascii LF character. (An example of that is `checksum_result_` in audio_checksum.h which is easy to mistake for a single integer storing the checksum size if you only read the code that initializes it.)\n\nThe named constructor idiom that specifies Size or Capacity in the name of the Create method accomplishes the second. I don\u0027t think renaming the class would do that.\n\n(In fact I would go further and provide CreateUninitializedWithSizeAndCapacity, CreateFromArray, CreateFromCopiedDataWithSize, CreateFromCopiedDataWithSizeAndCapacity for the other constructors.)\n\nI also support moving code that doesn\u0027t need rtc::Buffer special capabilities to a more standard class, especially code that doesn\u0027t need to use uninitialized data. But it\u0027s better for security to commit an immediate simple cleanup like this one than to delay for a bigger refactoring.",
+      "parentUuid": "a799f74a_a84099b0",
+      "range": {
+        "startLine": 49,
+        "startChar": 0,
+        "endLine": 49,
+        "endChar": 76
+      },
+      "revId": "13e1729bcd87f07a2e82693ace495e3230e95d42",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

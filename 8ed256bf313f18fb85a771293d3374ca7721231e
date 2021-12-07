@@ -33,6 +33,23 @@
       "message": "LGTM but I\u0027m lacking context in this area so I\u0027d like someone else to also take a look",
       "revId": "8ed256bf313f18fb85a771293d3374ca7721231e",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "939234a5_34218098",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 7
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5524
+      },
+      "writtenOn": "2021-12-07T10:04:32Z",
+      "side": 1,
+      "message": "lgtm\n\nas an aside, is it worth looking into not posting to UpdateOutstandingData() unless the last call to pacer()-\u003eSetCongestionWindow(*update.congestion_window); was with a non-zero parameter?",
+      "revId": "8ed256bf313f18fb85a771293d3374ca7721231e",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

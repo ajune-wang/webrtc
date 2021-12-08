@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "e6541bdf_1912e8b1",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 3
+      },
+      "lineNbr": 13,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2021-12-08T05:14:29Z",
+      "side": 1,
+      "message": "Remember that *all* CLs must have a \"Bug: \" line in them. For any kind of complexity, we prefer that you file a bug explaining why it\u0027s an issue; for extremely simple stuff, just write \"Bug: none\".",
+      "revId": "85bfc78caa7f2f121019ce6f4e2dc1fa017ec121",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

@@ -15,7 +15,9 @@
 #include <utility>
 
 #include "api/video/encoded_frame.h"
+#include "modules/video_coding/timing.h"
 #include "rtc_base/task_queue.h"
+#include "system_wrappers/include/clock.h"
 
 namespace webrtc {
 
@@ -61,6 +63,12 @@ class FrameBuffer2Interface {
 
   virtual int Size() = 0;
 };
+
+std::unique_ptr<FrameBuffer2Interface> CreateFrameBuffer2FromFieldTrial(
+    DecodeStreamTimeouts timeouts,
+    Clock* clock,
+    VCMTiming* timing,
+    VCMReceiveStatisticsCallback* stats_callback);
 
 }  // namespace webrtc
 

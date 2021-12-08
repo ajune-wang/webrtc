@@ -197,6 +197,7 @@ rtc_library("video_coding") {
     "frame_buffer2.h",
     "frame_buffer2_adapter.cc",
     "frame_buffer2_adapter.h",
+    "frame_buffer2_interface.cc",
     "frame_buffer2_interface.h",
     "frame_object.cc",
     "frame_object.h",

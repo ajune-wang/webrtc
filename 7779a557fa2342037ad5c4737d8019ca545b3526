@@ -140,6 +140,30 @@
       },
       "revId": "7779a557fa2342037ad5c4737d8019ca545b3526",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "3373e9a5_ff720a4d",
+        "filename": "modules/rtp_rtcp/source/rtcp_receiver.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 665,
+      "author": {
+        "id": 8231
+      },
+      "writtenOn": "2021-12-08T22:05:47Z",
+      "side": 1,
+      "message": "The same question came up in the Mozilla review, but this comment was copy-pasted from channel_receive.cc, and we decided to keep it consistent.\n\nOn HEAD it appears to have been copy-pasted again.\n\nhttps://source.chromium.org/chromium/chromium/src/+/main:third_party/webrtc/modules/rtp_rtcp/source/receive_statistics_impl.cc;l\u003d34;drc\u003d913cfa76ece2ebd91179fb149af857ee7df1614c\n\nhttps://source.chromium.org/chromium/chromium/src/+/main:third_party/webrtc/audio/channel_receive.cc;l\u003d852;drc\u003dd3251968d1b3dbe7e1353a3f15970b47173103e9\n\nI am happy to make the change in all three places. See comments: https://phabricator.services.mozilla.com/D127709\n\nWould `kNtpBaseToJan1970Milliseconds` work for the constexpr work?\nWould the following work for the comment: `Elapsed milliseconds between NTP base, 1900 January 1 00:00 GMT (see https://tools.ietf.org/html/rfc868), and January 1 00:00 GMT 1970 epoch`?\n\nIf there is a better, unified place this constant should reside, please let me know.",
+      "parentUuid": "d55e4319_6be02b13",
+      "range": {
+        "startLine": 665,
+        "startChar": 31,
+        "endLine": 665,
+        "endChar": 33
+      },
+      "revId": "7779a557fa2342037ad5c4737d8019ca545b3526",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

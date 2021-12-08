@@ -16,6 +16,24 @@
       "message": "Mark, do you know what\u0027s going on here? This change doesn\u0027t touch the code at all. The only thing it does is it moves files into separated directories and doesn\u0027t seem to be related to the chromium breakage.",
       "revId": "5477961acf9168ab576774cc54f2af43735d1bb3",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "cafe6808_b15f7f48",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 14134
+      },
+      "writtenOn": "2021-12-08T16:53:18Z",
+      "side": 1,
+      "message": "Sigh.  The X11 code has a CFI violation at x_server_pixel_buffer.cc:156.  This means Chromium\u0027s control flow integrity checker believes that a function pointer is not used correctly.  I looked at the code and couldn\u0027t tell exactly what the problem was, so it could be a false positive.\n\nChromium has an exception to allow this code to be used but the exception needs to be updated since you are moving the file location.\n\nhttps://source.chromium.org/chromium/chromium/src/+/main:tools/cfi/ignores.txt;drc\u003d8d1463d7693bbf0cc3f8933eb0462165aca8ea75;l\u003d189\n\nSo try the following:\n\n1. Add an exception for the new file location (or change to use a wildcard)\n2. Reland this patch\n3. Remove the exception for the old file location (if needed)",
+      "parentUuid": "d1114e7f_8816fd59",
+      "revId": "5477961acf9168ab576774cc54f2af43735d1bb3",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

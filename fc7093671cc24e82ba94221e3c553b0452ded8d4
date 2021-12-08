@@ -16,6 +16,40 @@
       "message": "There are no unit tests that call the new method.\nCan you add them?\n\nStefan, can you assign an appropriate reviewer?\n",
       "revId": "fc7093671cc24e82ba94221e3c553b0452ded8d4",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "6f0133c0_ac778db9",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2021-12-08T05:55:18Z",
+      "side": 1,
+      "message": "Realized why this breaks tests (I think).\n",
+      "revId": "fc7093671cc24e82ba94221e3c553b0452ded8d4",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "209a398d_702146ab",
+        "filename": "call/video_receive_stream.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 196,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2021-12-08T05:55:18Z",
+      "side": 1,
+      "message": "Declared like this, the keyframe request method will be kNone if the struct is zeroed, and undefined if it is not.\nPlease use an \u003d initializer to set a value that preserves previous behavior.",
+      "revId": "fc7093671cc24e82ba94221e3c553b0452ded8d4",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

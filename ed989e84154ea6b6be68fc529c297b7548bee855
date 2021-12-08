@@ -16,6 +16,24 @@
       "message": "Please rebase to fix merge conflicts and upload a new patchset, then I can take a look.",
       "revId": "ed989e84154ea6b6be68fc529c297b7548bee855",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "1f91657a_d2d0fabd",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 4
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 8046
+      },
+      "writtenOn": "2021-12-08T12:24:06Z",
+      "side": 1,
+      "message": "\u003e Please rebase to fix merge conflicts and upload a new patchset, then I can take a look.\n\nDone. Hopefully I don\u0027t have to reland the other change again so you can take a look at this one. Thank you.",
+      "parentUuid": "77463565_d20b1ba8",
+      "revId": "ed989e84154ea6b6be68fc529c297b7548bee855",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

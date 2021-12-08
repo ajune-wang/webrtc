@@ -36,6 +36,41 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "dfe9b8a1_2f1457ec",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2021-12-08T20:13:45Z",
+      "side": 1,
+      "message": "Checking if hbos@ or holmer@ understands this part .... danlichap@ is listed as OOO.\n",
+      "revId": "7779a557fa2342037ad5c4737d8019ca545b3526",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "7ed878b8_e37d781c",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2021-12-08T20:13:45Z",
+      "side": 1,
+      "message": "This is RTCP, not stats. Still he might know - we use it to extract stats info.",
+      "parentUuid": "0adecbf2_fd1760b1",
+      "revId": "7779a557fa2342037ad5c4737d8019ca545b3526",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "13bb2fc0_fd04ee79",
@@ -49,6 +84,30 @@
       "writtenOn": "2021-12-08T17:28:00Z",
       "side": 1,
       "message": "70?",
+      "range": {
+        "startLine": 665,
+        "startChar": 31,
+        "endLine": 665,
+        "endChar": 33
+      },
+      "revId": "7779a557fa2342037ad5c4737d8019ca545b3526",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "f6fe42e5_eebcbf39",
+        "filename": "modules/rtp_rtcp/source/rtcp_receiver.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 665,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2021-12-08T20:13:45Z",
+      "side": 1,
+      "message": "NTP time is in fact 1900-based, not 1970-based.",
+      "parentUuid": "13bb2fc0_fd04ee79",
       "range": {
         "startLine": 665,
         "startChar": 31,

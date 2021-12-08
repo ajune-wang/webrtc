@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "7a99c40a_5a4f7c04",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 6
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2021-12-08T14:34:41Z",
+      "side": 1,
+      "message": "WDYT, should we just submit it?\n",
+      "revId": "500e941db84a5ce046f442c678aeaa673c761d0e",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

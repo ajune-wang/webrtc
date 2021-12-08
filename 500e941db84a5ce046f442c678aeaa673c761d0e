@@ -16,6 +16,41 @@
       "message": "WDYT, should we just submit it?\n",
       "revId": "500e941db84a5ce046f442c678aeaa673c761d0e",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "f0074347_24380629",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 6
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5142
+      },
+      "writtenOn": "2021-12-08T15:22:58Z",
+      "side": 1,
+      "message": "That depends, does it cause compile errors or just warnings?\n\nHaving a kNotSpecified crash would also get the job done",
+      "parentUuid": "7a99c40a_5a4f7c04",
+      "revId": "500e941db84a5ce046f442c678aeaa673c761d0e",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "48b05e2d_8ee8879c",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 6
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5142
+      },
+      "writtenOn": "2021-12-08T15:22:58Z",
+      "side": 1,
+      "message": "+1 but can we land this without compile breakage (versus just warning)?\nOtherwise we might need to land it without [[deprecated]], replace internal usage, and then add [[deprecated]] in a follow-up",
+      "revId": "500e941db84a5ce046f442c678aeaa673c761d0e",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

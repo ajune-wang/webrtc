@@ -250,7 +250,7 @@ VideoReceiveStream2::VideoReceiveStream2(
 
   timing_->set_render_delay(config_.render_delay_ms);
 
-  frame_buffer_ = std::make_unique<video_coding::FrameBuffer>(
+  frame_buffer_ = CreateFrameBuffer2FromFieldTrial(
       timeouts_, clock_, timing_.get(), &stats_proxy_);
 
   if (config_.rtp.rtx_ssrc) {

@@ -247,7 +247,7 @@ class VideoReceiveStream2
   std::vector<std::unique_ptr<VideoDecoder>> video_decoders_;
 
   // Members for the new jitter buffer experiment.
-  std::unique_ptr<video_coding::FrameBuffer> frame_buffer_;
+  std::unique_ptr<FrameBuffer2Interface> frame_buffer_;
 
   std::unique_ptr<RtpStreamReceiverInterface> media_receiver_
       RTC_GUARDED_BY(packet_sequence_checker_);

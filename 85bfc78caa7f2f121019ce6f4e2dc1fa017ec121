@@ -33,6 +33,46 @@
       "message": "Kari, can you take this one on?",
       "revId": "85bfc78caa7f2f121019ce6f4e2dc1fa017ec121",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "54b52c45_4e66f9fe",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 3
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5520
+      },
+      "writtenOn": "2021-12-08T10:14:10Z",
+      "side": 1,
+      "message": "I guess this is one of the Obj-C++ gotchas, that member objects aren\u0027t automatically initialised in C++ classes.",
+      "revId": "85bfc78caa7f2f121019ce6f4e2dc1fa017ec121",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "b1a3e2cb_71648b33",
+        "filename": "modules/desktop_capture/mouse_cursor_monitor_mac.mm",
+        "patchSetId": 3
+      },
+      "lineNbr": 80,
+      "author": {
+        "id": 5520
+      },
+      "writtenOn": "2021-12-08T10:14:10Z",
+      "side": 1,
+      "message": "Can you initialise Callback to NULL here as well, or alternatively do both in the ctor?",
+      "range": {
+        "startLine": 80,
+        "startChar": 35,
+        "endLine": 80,
+        "endChar": 39
+      },
+      "revId": "85bfc78caa7f2f121019ce6f4e2dc1fa017ec121",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

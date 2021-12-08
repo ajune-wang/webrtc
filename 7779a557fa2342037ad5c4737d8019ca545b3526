@@ -116,6 +116,30 @@
       },
       "revId": "7779a557fa2342037ad5c4737d8019ca545b3526",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "d55e4319_6be02b13",
+        "filename": "modules/rtp_rtcp/source/rtcp_receiver.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 665,
+      "author": {
+        "id": 6337
+      },
+      "writtenOn": "2021-12-08T20:16:10Z",
+      "side": 1,
+      "message": "I see. Should it be then kNtpJan1900Millisecs? I just confused that in comment there is 1900 and in const name there is a 1970",
+      "parentUuid": "f6fe42e5_eebcbf39",
+      "range": {
+        "startLine": 665,
+        "startChar": 31,
+        "endLine": 665,
+        "endChar": 33
+      },
+      "revId": "7779a557fa2342037ad5c4737d8019ca545b3526",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

@@ -703,5 +703,22 @@ TEST_F(TestFrameBuffer2, StopWhileWaitingForFrame) {
   EXPECT_THAT(frames_, IsEmpty());
 }
 
+TEST_F(TestFrameBuffer2, Restart) {
+  uint16_t pid = Rand();
+  uint32_t ts = Rand();
+
+  InsertFrame(pid, 0, ts, true, kFrameSize);
+  ExtractFrame();
+  EXPECT_THAT(frames_, SizeIs(1));
+
+  buffer_->Stop();
+  ExtractFrame();
+  EXPECT_THAT(frames_, SizeIs(1));
+
+  buffer_->Start();
+  ExtractFrame();
+  EXPECT_THAT(frames_, SizeIs(2));
+}
+
 }  // namespace video_coding
 }  // namespace webrtc

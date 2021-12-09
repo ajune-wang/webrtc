@@ -35,6 +35,23 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "66697d48_557f5cb1",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 15
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5119
+      },
+      "writtenOn": "2021-12-09T14:37:35Z",
+      "side": 1,
+      "message": "Thank you all for the reviews. Today, I sent out a PSA about the API changes. I will land this late next week.",
+      "revId": "d3acddac791e01b5595493282e76396bfe28fc2c",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "96205a1f_f82d9cf5",

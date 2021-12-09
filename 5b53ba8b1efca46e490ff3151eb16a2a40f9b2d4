@@ -50,6 +50,23 @@
       "message": "Kári: ping ;-)",
       "revId": "5b53ba8b1efca46e490ff3151eb16a2a40f9b2d4",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "14934dd0_9b9c9bfd",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5520
+      },
+      "writtenOn": "2021-12-09T14:30:09Z",
+      "side": 1,
+      "message": "Apologies for the delay! LGTM",
+      "revId": "5b53ba8b1efca46e490ff3151eb16a2a40f9b2d4",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

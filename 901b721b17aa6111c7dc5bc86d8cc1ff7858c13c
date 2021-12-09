@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "18113ca6_fed0ddf2",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 8046
+      },
+      "writtenOn": "2021-12-09T09:01:04Z",
+      "side": 1,
+      "message": "This is the same version as landed before, which was reverted for CFI violation (in x_server_pixel_buffer.cc), even though the code has not changed. Chromium has an exception for that file and when we moved it into a sub-folder, it no longer applied for the exception and failed. \n\nFor that reason following Chromium change needs to land first:\n1) https://chromium-review.googlesource.com/c/chromium/src/+/3325462",
+      "revId": "901b721b17aa6111c7dc5bc86d8cc1ff7858c13c",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

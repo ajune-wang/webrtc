@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "84f001bd_a358dd7b",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 7
+      },
+      "lineNbr": 13,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2021-12-09T12:50:58Z",
+      "side": 1,
+      "message": "Note: You can\u0027t have a blank line between Bug: and Change-Id:",
+      "revId": "8c302fe6bc728146a1b4af24bf9bbeb7a6e62093",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

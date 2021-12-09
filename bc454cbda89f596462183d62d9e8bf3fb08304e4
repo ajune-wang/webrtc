@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "fc78de6a_f7deb45f",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 3
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 8231
+      },
+      "writtenOn": "2021-12-09T08:13:17Z",
+      "side": 1,
+      "message": "Is there a way I can run the checks?",
+      "revId": "bc454cbda89f596462183d62d9e8bf3fb08304e4",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

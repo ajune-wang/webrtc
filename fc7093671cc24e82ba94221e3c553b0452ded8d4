@@ -35,6 +35,24 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "550f4cc7_f757b1a5",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 8231
+      },
+      "writtenOn": "2021-12-09T08:13:17Z",
+      "side": 1,
+      "message": "There are no new methods in this patch. I am not finding where the surrounding code is unit tested, but perhaps I am looking in the wrong places.",
+      "parentUuid": "112f2f54_6629d7f1",
+      "revId": "fc7093671cc24e82ba94221e3c553b0452ded8d4",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "209a398d_702146ab",

@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "8f22a055_5abf5f74",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2021-12-09T10:42:14Z",
+      "side": 1,
+      "message": "PTAL. Deleting the constructors needs more downstream fixes.",
+      "revId": "ed540ea9ec054eb608e5b1f65f4f73cf12376a28",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

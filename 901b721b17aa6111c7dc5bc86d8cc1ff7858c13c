@@ -33,6 +33,24 @@
       "message": "mbonadei@, oprypin@, what does this failure mean?  It doesn\u0027t seem to have anything to do with this patch.\n\n\nvpython /b/s/w/ir/cache/builder/presubmit/src/tools_webrtc/presubmit_checks_lib/build_helpers_test.py --verbose (0.29s) failed\ntestCircularDependencyError (__main__.GnCheckTest) ... FAIL\n\n\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\nFAIL: testCircularDependencyError (__main__.GnCheckTest)\n----------------------------------------------------------------------\nTraceback (most recent call last):\n  File \"/b/s/w/ir/cache/builder/presubmit/src/tools_webrtc/presubmit_checks_lib/build_helpers_test.py\", line 29, in testCircularDependencyError\n    build_helpers.RunGnCheck(test_dir))\nAssertionError: Lists differ: [\u0027ERROR Dependency cycle:\\n  /... !\u003d [\u0027ERROR Dependency cycle:\\n  /...\n\nFirst differing element 0:\n\u0027ERROR Dependency cycle:\\n  //:bar -\u003e\\n  //:foo -\u003e\\n  //:bar\u0027\n\u0027ERROR Dependency cycle:\\n  //:foo -\u003e\\n  //:bar -\u003e\\n  //:foo\u0027\n\n- [\u0027ERROR Dependency cycle:\\n  //:bar -\u003e\\n  //:foo -\u003e\\n  //:bar\u0027]\n?                                                 -------------\n\n+ [\u0027ERROR Dependency cycle:\\n  //:foo -\u003e\\n  //:bar -\u003e\\n  //:foo\u0027]\n?                              +++++++++++++\n\n\n----------------------------------------------------------------------\nRan 1 test in 0.116s\n",
       "revId": "901b721b17aa6111c7dc5bc86d8cc1ff7858c13c",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "38e9e0a3_3c7f570e",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5087
+      },
+      "writtenOn": "2021-12-09T19:14:49Z",
+      "side": 1,
+      "message": "Yes, this is indeed unrelated.\n\nI don\u0027t know why it triggers on this CL but I will take a look and get back to you.",
+      "parentUuid": "9616f0fd_8f6c63b3",
+      "revId": "901b721b17aa6111c7dc5bc86d8cc1ff7858c13c",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

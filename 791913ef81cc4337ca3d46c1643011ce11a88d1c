@@ -1,6 +1,23 @@
 {
   "comments": [
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "e23eed6f_3cf54c55",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2021-12-09T16:52:35Z",
+      "side": 1,
+      "message": "This CL requires rebasing all the tests that involve timestamps.\nExample error message:\n\nExpected equality of these values:\n  kUtcNowUs\n    Which is: 42\n  report_block_data.report_block_timestamp_utc_us()\n    Which is: 1335900000\n\nPlease holler if you need help finding the output from the bot runs!\n",
+      "revId": "791913ef81cc4337ca3d46c1643011ce11a88d1c",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "3b6ae3ac_cb461146",

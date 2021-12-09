@@ -16,6 +16,23 @@
       "message": "This is the same version as landed before, which was reverted for CFI violation (in x_server_pixel_buffer.cc), even though the code has not changed. Chromium has an exception for that file and when we moved it into a sub-folder, it no longer applied for the exception and failed. \n\nFor that reason following Chromium change needs to land first:\n1) https://chromium-review.googlesource.com/c/chromium/src/+/3325462",
       "revId": "901b721b17aa6111c7dc5bc86d8cc1ff7858c13c",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "9616f0fd_8f6c63b3",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 14134
+      },
+      "writtenOn": "2021-12-09T18:34:51Z",
+      "side": 1,
+      "message": "mbonadei@, oprypin@, what does this failure mean?  It doesn\u0027t seem to have anything to do with this patch.\n\n\nvpython /b/s/w/ir/cache/builder/presubmit/src/tools_webrtc/presubmit_checks_lib/build_helpers_test.py --verbose (0.29s) failed\ntestCircularDependencyError (__main__.GnCheckTest) ... FAIL\n\n\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\nFAIL: testCircularDependencyError (__main__.GnCheckTest)\n----------------------------------------------------------------------\nTraceback (most recent call last):\n  File \"/b/s/w/ir/cache/builder/presubmit/src/tools_webrtc/presubmit_checks_lib/build_helpers_test.py\", line 29, in testCircularDependencyError\n    build_helpers.RunGnCheck(test_dir))\nAssertionError: Lists differ: [\u0027ERROR Dependency cycle:\\n  /... !\u003d [\u0027ERROR Dependency cycle:\\n  /...\n\nFirst differing element 0:\n\u0027ERROR Dependency cycle:\\n  //:bar -\u003e\\n  //:foo -\u003e\\n  //:bar\u0027\n\u0027ERROR Dependency cycle:\\n  //:foo -\u003e\\n  //:bar -\u003e\\n  //:foo\u0027\n\n- [\u0027ERROR Dependency cycle:\\n  //:bar -\u003e\\n  //:foo -\u003e\\n  //:bar\u0027]\n?                                                 -------------\n\n+ [\u0027ERROR Dependency cycle:\\n  //:foo -\u003e\\n  //:bar -\u003e\\n  //:foo\u0027]\n?                              +++++++++++++\n\n\n----------------------------------------------------------------------\nRan 1 test in 0.116s\n",
+      "revId": "901b721b17aa6111c7dc5bc86d8cc1ff7858c13c",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

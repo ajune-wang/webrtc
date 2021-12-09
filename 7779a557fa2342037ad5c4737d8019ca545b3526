@@ -164,6 +164,30 @@
       },
       "revId": "7779a557fa2342037ad5c4737d8019ca545b3526",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "99e62cb3_5badfdb7",
+        "filename": "modules/rtp_rtcp/source/rtcp_receiver.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 665,
+      "author": {
+        "id": 5142
+      },
+      "writtenOn": "2021-12-09T12:33:35Z",
+      "side": 1,
+      "message": "I think the name of the constant kNtpJan1970Millisecs makes sense, it is the timestamp for 1970 expressed in NTP milliseconds?\n\nThe confusing part to me is the comment here saying \"Number of seconds since 1900 January 1 00:00 GMT\" because the expression evaluates to milliseconds, not seconds, and \"since 1900\" sounds like timespan between 1900 and now, but it is between 1900 and 1970.\n\nSuggested rephrasing of comment:\n\n// The NTP timestamp representing January 1 00:00 GMT, 1970. This is the number of\n// milliseconds between January 1, 1900 and January 1, 1970. See\n// https://tools.ietf.org/html/rfc868.",
+      "parentUuid": "3373e9a5_ff720a4d",
+      "range": {
+        "startLine": 665,
+        "startChar": 31,
+        "endLine": 665,
+        "endChar": 33
+      },
+      "revId": "7779a557fa2342037ad5c4737d8019ca545b3526",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

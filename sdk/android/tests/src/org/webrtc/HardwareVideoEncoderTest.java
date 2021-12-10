@@ -110,7 +110,8 @@ public class HardwareVideoEncoderTest {
     }
 
     @Override
-    protected void fillInputBuffer(ByteBuffer buffer, Buffer videoFrameBuffer) {
+    protected void fillInputBuffer(
+        ByteBuffer buffer, Buffer videoFrameBuffer, int dstStrideY, int dstHeightY) {
       I420Buffer i420Buffer = videoFrameBuffer.toI420();
       buffer.put(i420Buffer.getDataY());
       buffer.put(i420Buffer.getDataU());
@@ -161,9 +162,10 @@ public class HardwareVideoEncoderTest {
   @Before
   public void setUp() {
     MockitoAnnotations.initMocks(this);
+    MediaFormat inputFormat = new MediaFormat();
     MediaFormat outputFormat = new MediaFormat();
     // TODO(sakal): Add more details to output format as needed.
-    fakeMediaCodecWrapper = spy(new FakeMediaCodecWrapper(outputFormat));
+    fakeMediaCodecWrapper = spy(new FakeMediaCodecWrapper(inputFormat, outputFormat));
   }
 
   @Test

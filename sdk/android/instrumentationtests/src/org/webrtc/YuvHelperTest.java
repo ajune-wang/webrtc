@@ -53,6 +53,10 @@ public class YuvHelperTest {
     return testV;
   }
 
+  private static void memsetZero(ByteBuffer byteBuffer) {
+    nativeMemsetZero(byteBuffer);
+  }
+
   @Before
   public void setUp() {
     NativeLibrary.initialize(new NativeLibrary.DefaultLoader(), TestConstants.NATIVE_LIBRARY);
@@ -103,6 +107,23 @@ public class YuvHelperTest {
 
   @SmallTest
   @Test
+  public void testI420CopyStride() {
+    final int dstStrideY = 4;
+    final int dstHeightY = 4;
+    final int dstSize = dstStrideY * dstStrideY * 3 / 2;
+
+    final ByteBuffer dst = ByteBuffer.allocateDirect(dstSize);
+    memsetZero(dst);
+    YuvHelper.I420Copy(TEST_I420_Y, TEST_I420_STRIDE_Y, TEST_I420_U, TEST_I420_STRIDE_V,
+        TEST_I420_V, TEST_I420_STRIDE_U, dst, TEST_WIDTH, TEST_HEIGHT, dstStrideY, dstHeightY);
+
+    assertByteBufferContentEquals(new byte[] {1, 2, 3, 0, 4, 5, 6, 0, 7, 8, 9, 0, 0, 0, 0, 0, 51,
+                                      52, 53, 54, 101, 102, 105, 106},
+        dst);
+  }
+
+  @SmallTest
+  @Test
   public void testI420ToNV12() {
     final int dstStrideY = TEST_WIDTH;
     final int dstStrideUV = TEST_CHROMA_WIDTH * 2;
@@ -130,6 +151,23 @@ public class YuvHelperTest {
 
     assertByteBufferContentEquals(
         new byte[] {1, 2, 3, 4, 5, 6, 7, 8, 9, 51, 101, 52, 102, 53, 105, 54, 106}, dst);
+  }
+
+  @SmallTest
+  @Test
+  public void testI420ToNV12Stride() {
+    final int dstStrideY = 4;
+    final int dstHeightY = 4;
+    final int dstSize = dstStrideY * dstStrideY * 3 / 2;
+
+    final ByteBuffer dst = ByteBuffer.allocateDirect(dstSize);
+    memsetZero(dst);
+    YuvHelper.I420ToNV12(TEST_I420_Y, TEST_I420_STRIDE_Y, TEST_I420_U, TEST_I420_STRIDE_V,
+        TEST_I420_V, TEST_I420_STRIDE_U, dst, TEST_WIDTH, TEST_HEIGHT, dstStrideY, dstHeightY);
+
+    assertByteBufferContentEquals(new byte[] {1, 2, 3, 0, 4, 5, 6, 0, 7, 8, 9, 0, 0, 0, 0, 0, 51,
+                                      101, 52, 102, 53, 105, 54, 106},
+        dst);
   }
 
   private static void assertByteBufferContentEquals(byte[] expected, ByteBuffer test) {
@@ -172,4 +210,6 @@ public class YuvHelperTest {
     assertByteBufferContentEquals(
         new byte[] {7, 4, 1, 8, 5, 2, 9, 6, 3, 53, 51, 54, 52, 105, 101, 106, 102}, dst);
   }
+
+  private static native void nativeMemsetZero(ByteBuffer byteBuffer);
 }

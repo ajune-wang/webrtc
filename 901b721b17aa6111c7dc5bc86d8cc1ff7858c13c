@@ -51,6 +51,24 @@
       "parentUuid": "9616f0fd_8f6c63b3",
       "revId": "901b721b17aa6111c7dc5bc86d8cc1ff7858c13c",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "f73ecf78_e538646f",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5087
+      },
+      "writtenOn": "2021-12-10T08:53:27Z",
+      "side": 1,
+      "message": "The new GN made that test flaky. See https://webrtc-review.googlesource.com/c/src/+/240522 for the fix and more explanation.\n\nOnce that is landed you can proceed.",
+      "parentUuid": "38e9e0a3_3c7f570e",
+      "revId": "901b721b17aa6111c7dc5bc86d8cc1ff7858c13c",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

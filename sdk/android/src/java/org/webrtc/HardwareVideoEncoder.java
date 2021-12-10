@@ -15,6 +15,7 @@ import android.media.MediaCodec;
 import android.media.MediaCodecInfo;
 import android.media.MediaFormat;
 import android.opengl.GLES20;
+import android.os.Build;
 import android.os.Bundle;
 import android.view.Surface;
 import androidx.annotation.Nullable;
@@ -33,7 +34,7 @@ import org.webrtc.ThreadUtils.ThreadChecker;
  */
 @TargetApi(19)
 @SuppressWarnings("deprecation") // Cannot support API level 19 without using deprecated methods.
-class HardwareVideoEncoder implements VideoEncoder {
+public class HardwareVideoEncoder implements VideoEncoder {
   private static final String TAG = "HardwareVideoEncoder";
 
   // Bitrate modes - should be in sync with OMX_VIDEO_CONTROLRATETYPE defined
@@ -149,6 +150,10 @@ class HardwareVideoEncoder implements VideoEncoder {
 
   private int width;
   private int height;
+  // Y-plane strides in the encoder's input
+  private int inputBufferStride;
+  // Y-plane height in the encoder's input
+  private int inputBufferYPlaneHeight;
   private boolean useSurfaceMode;
 
   // --- Only accessed from the encoding thread.
@@ -279,6 +284,22 @@ class HardwareVideoEncoder implements VideoEncoder {
         textureEglBase.createSurface(textureInputSurface);
         textureEglBase.makeCurrent();
       }
+
+      MediaFormat inputFormat = codec.getInputFormat();
+      Integer stride = null;
+      Integer yPlaneHeight = null;
+      if (inputFormat != null) {
+        stride = getInputFormatStride(inputFormat);
+        yPlaneHeight = getInputFormatYPlaneHeight(inputFormat);
+      }
+      if (stride == null) {
+        stride = width;
+      }
+      if (yPlaneHeight == null) {
+        yPlaneHeight = height;
+      }
+      this.inputBufferStride = stride;
+      this.inputBufferYPlaneHeight = yPlaneHeight;
 
       codec.start();
       outputBuffers = codec.getOutputBuffers();
@@ -455,7 +476,7 @@ class HardwareVideoEncoder implements VideoEncoder {
       Logging.e(TAG, "getInputBuffers failed", e);
       return VideoCodecStatus.ERROR;
     }
-    fillInputBuffer(buffer, videoFrameBuffer);
+    fillInputBuffer(buffer, videoFrameBuffer, inputBufferStride, inputBufferYPlaneHeight);
 
     try {
       codec.queueInputBuffer(
@@ -686,9 +707,28 @@ class HardwareVideoEncoder implements VideoEncoder {
     return sharedContext != null && surfaceColorFormat != null;
   }
 
+  private Integer getInputFormatStride(MediaFormat inputFormat) {
+    if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+      if (inputFormat.containsKey(MediaFormat.KEY_STRIDE)) {
+        return inputFormat.getInteger(MediaFormat.KEY_STRIDE);
+      }
+    }
+    return null;
+  }
+
+  private Integer getInputFormatYPlaneHeight(MediaFormat inputFormat) {
+    if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+      if (inputFormat.containsKey(MediaFormat.KEY_SLICE_HEIGHT)) {
+        return inputFormat.getInteger(MediaFormat.KEY_SLICE_HEIGHT);
+      }
+    }
+    return null;
+  }
+
   // Visible for testing.
-  protected void fillInputBuffer(ByteBuffer buffer, VideoFrame.Buffer videoFrameBuffer) {
-    yuvFormat.fillBuffer(buffer, videoFrameBuffer);
+  protected void fillInputBuffer(
+      ByteBuffer buffer, VideoFrame.Buffer videoFrameBuffer, int dstStrideY, int dstHeightY) {
+    yuvFormat.fillBuffer(buffer, videoFrameBuffer, dstStrideY, dstHeightY);
   }
 
   /**
@@ -697,24 +737,29 @@ class HardwareVideoEncoder implements VideoEncoder {
   private enum YuvFormat {
     I420 {
       @Override
-      void fillBuffer(ByteBuffer dstBuffer, VideoFrame.Buffer srcBuffer) {
+      void fillBuffer(
+          ByteBuffer dstBuffer, VideoFrame.Buffer srcBuffer, int dstStrideY, int dstHeightY) {
         VideoFrame.I420Buffer i420 = srcBuffer.toI420();
         YuvHelper.I420Copy(i420.getDataY(), i420.getStrideY(), i420.getDataU(), i420.getStrideU(),
-            i420.getDataV(), i420.getStrideV(), dstBuffer, i420.getWidth(), i420.getHeight());
+            i420.getDataV(), i420.getStrideV(), dstBuffer, i420.getWidth(), i420.getHeight(),
+            dstStrideY, dstHeightY);
         i420.release();
       }
     },
     NV12 {
       @Override
-      void fillBuffer(ByteBuffer dstBuffer, VideoFrame.Buffer srcBuffer) {
+      void fillBuffer(
+          ByteBuffer dstBuffer, VideoFrame.Buffer srcBuffer, int dstStrideY, int dstHeightY) {
         VideoFrame.I420Buffer i420 = srcBuffer.toI420();
         YuvHelper.I420ToNV12(i420.getDataY(), i420.getStrideY(), i420.getDataU(), i420.getStrideU(),
-            i420.getDataV(), i420.getStrideV(), dstBuffer, i420.getWidth(), i420.getHeight());
+            i420.getDataV(), i420.getStrideV(), dstBuffer, i420.getWidth(), i420.getHeight(),
+            dstStrideY, dstHeightY);
         i420.release();
       }
     };
 
-    abstract void fillBuffer(ByteBuffer dstBuffer, VideoFrame.Buffer srcBuffer);
+    abstract void fillBuffer(
+        ByteBuffer dstBuffer, VideoFrame.Buffer srcBuffer, int dstStrideY, int dstHeightY);
 
     static YuvFormat valueOf(int colorFormat) {
       switch (colorFormat) {

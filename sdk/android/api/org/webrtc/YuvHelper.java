@@ -16,19 +16,27 @@ import java.nio.ByteBuffer;
 public class YuvHelper {
   /** Helper method for copying I420 to tightly packed destination buffer. */
   public static void I420Copy(ByteBuffer srcY, int srcStrideY, ByteBuffer srcU, int srcStrideU,
-      ByteBuffer srcV, int srcStrideV, ByteBuffer dst, int width, int height) {
-    final int chromaHeight = (height + 1) / 2;
-    final int chromaWidth = (width + 1) / 2;
+      ByteBuffer srcV, int srcStrideV, ByteBuffer dst, int dstWidth, int dstHeight, int dstStrideY,
+      int dstHeightY) {
+    final int chromaHeight = (dstHeight + 1) / 2;
+    final int chromaWidth = (dstWidth + 1) / 2;
+    final int dstStrideU = (dstStrideY + 1) / 2;
+    final int dstHeightU = (dstHeightY + 1) / 2;
 
-    final int minSize = width * height + chromaWidth * chromaHeight * 2;
+    final int startY = 0;
+    final int startU = dstStrideY * dstHeightY;
+    final int startV = startU + dstStrideU * dstHeightU;
+    final int minSize =
+        // size of Y-plane and U plane plus padding till V-plane
+        startV +
+        // size of all V-plane lines but the last one
+        (chromaHeight - 1) * dstStrideU +
+        // size of the very last line in V-plane (it's not padded to full stride)
+        chromaWidth;
     if (dst.capacity() < minSize) {
       throw new IllegalArgumentException("Expected destination buffer capacity to be at least "
           + minSize + " was " + dst.capacity());
     }
-
-    final int startY = 0;
-    final int startU = height * width;
-    final int startV = startU + chromaHeight * chromaWidth;
 
     dst.position(startY);
     final ByteBuffer dstY = dst.slice();
@@ -37,32 +45,51 @@ public class YuvHelper {
     dst.position(startV);
     final ByteBuffer dstV = dst.slice();
 
-    nativeI420Copy(srcY, srcStrideY, srcU, srcStrideU, srcV, srcStrideV, dstY, width, dstU,
-        chromaWidth, dstV, chromaWidth, width, height);
+    nativeI420Copy(srcY, srcStrideY, srcU, srcStrideU, srcV, srcStrideV, dstY, dstStrideY, dstU,
+        dstStrideU, dstV, dstStrideU, dstWidth, dstHeight);
+  }
+
+  public static void I420Copy(ByteBuffer srcY, int srcStrideY, ByteBuffer srcU, int srcStrideU,
+      ByteBuffer srcV, int srcStrideV, ByteBuffer dst, int dstWidth, int dstHeight) {
+    I420Copy(srcY, srcStrideY, srcU, srcStrideU, srcV, srcStrideV, dst, dstWidth, dstHeight,
+        dstWidth, dstHeight);
   }
 
   /** Helper method for copying I420 to tightly packed NV12 destination buffer. */
   public static void I420ToNV12(ByteBuffer srcY, int srcStrideY, ByteBuffer srcU, int srcStrideU,
-      ByteBuffer srcV, int srcStrideV, ByteBuffer dst, int width, int height) {
-    final int chromaWidth = (width + 1) / 2;
-    final int chromaHeight = (height + 1) / 2;
+      ByteBuffer srcV, int srcStrideV, ByteBuffer dst, int dstWidth, int dstHeight, int dstStrideY,
+      int dstHeightY) {
+    final int chromaHeight = (dstHeight + 1) / 2;
+    final int chromaWidth = (dstWidth + 1) / 2;
+    final int dstStrideUV = ((dstStrideY + 1) / 2) * 2;
 
-    final int minSize = width * height + chromaWidth * chromaHeight * 2;
+    final int startY = 0;
+    final int startUV = dstStrideY * dstHeightY;
+    final int minSize =
+        // size of Y-plane plus padding till UV-plane
+        startUV +
+        // size of all UV-plane lines but the last one
+        (chromaHeight - 1) * dstStrideUV +
+        // size of the very last line in UV-plane (it's not padded to full stride)
+        chromaWidth * 2;
     if (dst.capacity() < minSize) {
       throw new IllegalArgumentException("Expected destination buffer capacity to be at least "
           + minSize + " was " + dst.capacity());
     }
-
-    final int startY = 0;
-    final int startUV = height * width;
 
     dst.position(startY);
     final ByteBuffer dstY = dst.slice();
     dst.position(startUV);
     final ByteBuffer dstUV = dst.slice();
 
-    nativeI420ToNV12(srcY, srcStrideY, srcU, srcStrideU, srcV, srcStrideV, dstY, width, dstUV,
-        chromaWidth * 2, width, height);
+    nativeI420ToNV12(srcY, srcStrideY, srcU, srcStrideU, srcV, srcStrideV, dstY, dstStrideY, dstUV,
+        dstStrideUV, dstWidth, dstHeight);
+  }
+
+  public static void I420ToNV12(ByteBuffer srcY, int srcStrideY, ByteBuffer srcU, int srcStrideU,
+      ByteBuffer srcV, int srcStrideV, ByteBuffer dst, int dstWidth, int dstHeight) {
+    I420ToNV12(srcY, srcStrideY, srcU, srcStrideU, srcV, srcStrideV, dst, dstWidth, dstHeight,
+        dstWidth, dstHeight);
   }
 
   /** Helper method for rotating I420 to tightly packed destination buffer. */

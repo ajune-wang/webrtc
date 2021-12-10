@@ -110,7 +110,8 @@ public class HardwareVideoEncoderTest {
     }
 
     @Override
-    protected void fillInputBuffer(ByteBuffer buffer, Buffer videoFrameBuffer) {
+    protected void fillInputBuffer(
+        ByteBuffer buffer, Buffer videoFrameBuffer, int dstStrideY, int dstHeightY) {
       I420Buffer i420Buffer = videoFrameBuffer.toI420();
       buffer.put(i420Buffer.getDataY());
       buffer.put(i420Buffer.getDataU());

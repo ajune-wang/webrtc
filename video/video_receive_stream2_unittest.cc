@@ -685,7 +685,7 @@ TEST_P(VideoReceiveStream2TestWithSimulatedClock,
 INSTANTIATE_TEST_SUITE_P(
     RtxTime,
     VideoReceiveStream2TestWithSimulatedClock,
-    ::testing::Values(internal::VideoReceiveStream2::kMaxWaitForKeyFrameMs,
+    ::testing::Values(internal::VideoReceiveStream2::kMaxWaitForKeyFrame,
                       50 /*ms*/));
 
 class VideoReceiveStream2TestWithLazyDecoderCreation : public ::testing::Test {

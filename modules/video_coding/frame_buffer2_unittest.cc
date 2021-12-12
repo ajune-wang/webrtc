@@ -140,6 +140,8 @@ class TestFrameBuffer2 : public ::testing::Test {
   static constexpr int kFps10 = kFps1 / 10;
   static constexpr int kFps20 = kFps1 / 20;
   static constexpr size_t kFrameSize = 10;
+  static constexpr TimeDelta kMaxWait = TimeDelta::Millis(50);
+  static constexpr DecodeStreamTimeouts kTimeouts{kMaxWait, kMaxWait};
 
   TestFrameBuffer2()
       : time_controller_(Timestamp::Seconds(0)),
@@ -148,7 +150,8 @@ class TestFrameBuffer2 : public ::testing::Test {
                 "extract queue",
                 TaskQueueFactory::Priority::NORMAL)),
         timing_(time_controller_.GetClock()),
-        buffer_(new FrameBuffer(time_controller_.GetClock(),
+        buffer_(new FrameBuffer(kTimeouts,
+                                time_controller_.GetClock(),
                                 &timing_,
                                 &stats_callback_)),
         rand_(0x34678213) {}
@@ -197,16 +200,18 @@ class TestFrameBuffer2 : public ::testing::Test {
     return buffer_->InsertFrame(std::move(frame));
   }
 
-  void ExtractFrame(int64_t max_wait_time = 0, bool keyframe_required = false) {
-    time_task_queue_.PostTask([this, max_wait_time, keyframe_required]() {
-      buffer_->NextFrame(max_wait_time, keyframe_required, &time_task_queue_,
+  void PostExtractFrame(bool keyframe_required = false) {
+    time_task_queue_.PostTask([this, keyframe_required]() {
+      buffer_->NextFrame(keyframe_required, &time_task_queue_,
                          [this](std::unique_ptr<EncodedFrame> frame) {
                            frames_.emplace_back(std::move(frame));
                          });
     });
-    if (max_wait_time == 0) {
-      time_controller_.AdvanceTime(TimeDelta::Millis(0));
-    }
+  }
+
+  void ExtractFrame(bool keyframe_required = false) {
+    PostExtractFrame(keyframe_required);
+    time_controller_.AdvanceTime(kTimeouts.MaxWait(keyframe_required));
   }
 
   void CheckFrame(size_t index, int picture_id, int spatial_layer) {
@@ -251,9 +256,9 @@ TEST_F(TestFrameBuffer2, WaitForFrame) {
   uint16_t pid = Rand();
   uint32_t ts = Rand();
 
-  ExtractFrame(50);
+  PostExtractFrame();
   InsertFrame(pid, 0, ts, true, kFrameSize);
-  time_controller_.AdvanceTime(TimeDelta::Millis(50));
+  time_controller_.AdvanceTime(kMaxWait);
   CheckFrame(0, pid, 0);
 }
 
@@ -262,7 +267,7 @@ TEST_F(TestFrameBuffer2, ClearWhileWaitingForFrame) {
 
   // Insert a frame and wait for it for max 100ms.
   InsertFrame(pid, 0, 25, true, kFrameSize);
-  ExtractFrame(100);
+  PostExtractFrame();
   // After 10ms, clear the buffer.
   time_controller_.AdvanceTime(TimeDelta::Millis(10));
   buffer_->Clear();
@@ -270,9 +275,9 @@ TEST_F(TestFrameBuffer2, ClearWhileWaitingForFrame) {
   time_controller_.AdvanceTime(TimeDelta::Millis(15));
   EXPECT_THAT(frames_, IsEmpty());
 
-  // We are still waiting for a frame, since 100ms has not passed. Insert a new
-  // frame. This new frame should be the one that is returned as the old frame
-  // was cleared.
+  // We are still waiting for a frame, since the timeout has not passed. Insert
+  // a new frame. This new frame should be the one that is returned as the old
+  // frame was cleared.
   const uint16_t new_pid = pid + 1;
   InsertFrame(new_pid, 0, 50, true, kFrameSize);
   time_controller_.AdvanceTime(TimeDelta::Millis(25));
@@ -293,14 +298,14 @@ TEST_F(TestFrameBuffer2, OneSuperFrame) {
 
 TEST_F(TestFrameBuffer2, ZeroPlayoutDelay) {
   VCMTiming timing(time_controller_.GetClock());
-  buffer_.reset(
-      new FrameBuffer(time_controller_.GetClock(), &timing, &stats_callback_));
+  buffer_ = std::make_unique<FrameBuffer>(
+      kTimeouts, time_controller_.GetClock(), &timing, &stats_callback_);
   const VideoPlayoutDelay kPlayoutDelayMs = {0, 0};
   std::unique_ptr<FrameObjectFake> test_frame(new FrameObjectFake());
   test_frame->SetId(0);
   test_frame->SetPlayoutDelay(kPlayoutDelayMs);
   buffer_->InsertFrame(std::move(test_frame));
-  ExtractFrame(0, false);
+  ExtractFrame(false);
   CheckFrame(0, 0, 0);
   EXPECT_EQ(0, frames_[0]->RenderTimeMs());
 }
@@ -310,7 +315,7 @@ TEST_F(TestFrameBuffer2, DISABLED_OneUnorderedSuperFrame) {
   uint16_t pid = Rand();
   uint32_t ts = Rand();
 
-  ExtractFrame(50);
+  PostExtractFrame();
   InsertFrame(pid, 1, ts, true, kFrameSize);
   InsertFrame(pid, 0, ts, false, kFrameSize);
   time_controller_.AdvanceTime(TimeDelta::Millis(0));
@@ -327,7 +332,7 @@ TEST_F(TestFrameBuffer2, DISABLED_OneLayerStreamReordered) {
   ExtractFrame();
   CheckFrame(0, pid, 0);
   for (int i = 1; i < 10; i += 2) {
-    ExtractFrame(50);
+    PostExtractFrame();
     InsertFrame(pid + i + 1, 0, ts + (i + 1) * kFps10, true, kFrameSize,
                 pid + i);
     time_controller_.AdvanceTime(TimeDelta::Millis(kFps10));
@@ -392,7 +397,7 @@ TEST_F(TestFrameBuffer2, DropTemporalLayerSlowDecoder) {
 
   for (int i = 0; i < 10; ++i) {
     ExtractFrame();
-    time_controller_.AdvanceTime(TimeDelta::Millis(70));
+    time_controller_.AdvanceTime(TimeDelta::Millis(70) - kMaxWait);
   }
 
   CheckFrame(0, pid, 0);
@@ -590,7 +595,7 @@ TEST_F(TestFrameBuffer2, KeyframeRequired) {
   EXPECT_EQ(2, InsertFrame(2, 0, 2000, true, kFrameSize, 1));
   EXPECT_EQ(3, InsertFrame(3, 0, 3000, true, kFrameSize));
   ExtractFrame();
-  ExtractFrame(0, true);
+  ExtractFrame(true);
   ExtractFrame();
 
   CheckFrame(0, 1, 0);
@@ -615,28 +620,28 @@ TEST_F(TestFrameBuffer2, KeyframeClearsFullBuffer) {
 
 TEST_F(TestFrameBuffer2, DontUpdateOnUndecodableFrame) {
   InsertFrame(1, 0, 0, true, kFrameSize);
-  ExtractFrame(0, true);
+  ExtractFrame(true);
   InsertFrame(3, 0, 0, true, kFrameSize, 2, 0);
   InsertFrame(3, 0, 0, true, kFrameSize, 0);
   InsertFrame(2, 0, 0, true, kFrameSize);
-  ExtractFrame(0, true);
-  ExtractFrame(0, true);
+  ExtractFrame(true);
+  ExtractFrame(true);
 }
 
 TEST_F(TestFrameBuffer2, DontDecodeOlderTimestamp) {
-  InsertFrame(2, 0, 1, true, kFrameSize);
-  InsertFrame(1, 0, 2, true,
+  InsertFrame(2, 0, 0, true, kFrameSize);
+  InsertFrame(1, 0, kFps20, true,
               kFrameSize);  // Older picture id but newer timestamp.
-  ExtractFrame(0);
-  ExtractFrame(0);
+  ExtractFrame();
+  ExtractFrame();
   CheckFrame(0, 1, 0);
   CheckNoFrame(1);
 
-  InsertFrame(3, 0, 4, true, kFrameSize);
-  InsertFrame(4, 0, 3, true,
+  InsertFrame(3, 0, 3 * kFps20, true, kFrameSize);
+  InsertFrame(4, 0, 2 * kFps20, true,
               kFrameSize);  // Newer picture id but older timestamp.
-  ExtractFrame(0);
-  ExtractFrame(0);
+  ExtractFrame();
+  ExtractFrame();
   CheckFrame(2, 3, 0);
   CheckNoFrame(3);
 }
@@ -647,8 +652,8 @@ TEST_F(TestFrameBuffer2, CombineFramesToSuperframe) {
 
   InsertFrame(pid, 0, ts, false, kFrameSize);
   InsertFrame(pid + 1, 1, ts, true, 2 * kFrameSize, pid);
-  ExtractFrame(0);
-  ExtractFrame(0);
+  ExtractFrame();
+  ExtractFrame();
   CheckFrame(0, pid, 1);
   CheckNoFrame(1);
   // Two frames should be combined and returned together.
@@ -666,7 +671,7 @@ TEST_F(TestFrameBuffer2, HigherSpatialLayerNonDecodable) {
   InsertFrame(pid, 0, ts, false, kFrameSize);
   InsertFrame(pid + 1, 1, ts, true, kFrameSize, pid);
 
-  ExtractFrame(0);
+  ExtractFrame();
   CheckFrame(0, pid, 1);
 
   InsertFrame(pid + 3, 1, ts + kFps20, true, kFrameSize, pid);
@@ -689,13 +694,13 @@ TEST_F(TestFrameBuffer2, StopWhileWaitingForFrame) {
   uint32_t ts = Rand();
 
   InsertFrame(pid, 0, ts, true, kFrameSize);
-  ExtractFrame(10);
+  PostExtractFrame();
   buffer_->Stop();
-  time_controller_.AdvanceTime(TimeDelta::Millis(10));
+  time_controller_.AdvanceTime(kTimeouts.max_wait_for_frame);
   EXPECT_THAT(frames_, IsEmpty());
 
   // A new frame request should exit immediately and return no new frame.
-  ExtractFrame(0);
+  ExtractFrame();
   EXPECT_THAT(frames_, IsEmpty());
 }
 

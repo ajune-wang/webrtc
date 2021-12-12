@@ -20,6 +20,7 @@
 #include "absl/container/inlined_vector.h"
 #include "api/sequence_checker.h"
 #include "api/video/encoded_frame.h"
+#include "modules/video_coding/frame_buffer2_interface.h"
 #include "modules/video_coding/include/video_coding_defines.h"
 #include "modules/video_coding/inter_frame_delay.h"
 #include "modules/video_coding/jitter_estimator.h"
@@ -41,18 +42,9 @@ class VCMReceiveStatisticsCallback;
 class VCMJitterEstimator;
 class VCMTiming;
 
-struct DecodeStreamTimeouts {
-  TimeDelta max_wait_for_keyframe;
-  TimeDelta max_wait_for_frame;
-
-  TimeDelta MaxWait(bool keyframe) const {
-    return keyframe ? max_wait_for_keyframe : max_wait_for_frame;
-  }
-};
-
 namespace video_coding {
 
-class FrameBuffer {
+class FrameBuffer : public FrameBuffer2Interface {
  public:
   FrameBuffer(DecodeStreamTimeouts timeouts,
               Clock* clock,
@@ -63,36 +55,36 @@ class FrameBuffer {
   FrameBuffer(const FrameBuffer&) = delete;
   FrameBuffer& operator=(const FrameBuffer&) = delete;
 
-  virtual ~FrameBuffer();
+  ~FrameBuffer() override;
 
   // Insert a frame into the frame buffer. Returns the picture id
   // of the last continuous frame or -1 if there is no continuous frame.
-  int64_t InsertFrame(std::unique_ptr<EncodedFrame> frame);
+  int64_t InsertFrame(std::unique_ptr<EncodedFrame> frame) override;
 
   using NextFrameCallback = std::function<void(std::unique_ptr<EncodedFrame>)>;
   // Get the next frame for decoding. `handler` is invoked with the next frame
   // or with nullptr if no frame is ready for decoding after `max_wait_time_ms`.
   void NextFrame(bool keyframe_required,
                  rtc::TaskQueue* callback_queue,
-                 NextFrameCallback handler);
+                 FrameBuffer2Interface::NextFrameCallback handler) override;
 
   // Tells the FrameBuffer which protection mode that is in use. Affects
   // the frame timing.
   // TODO(philipel): Remove this when new timing calculations has been
   //                 implemented.
-  void SetProtectionMode(VCMVideoProtection mode);
+  void SetProtectionMode(VCMVideoProtection mode) override;
 
   // Stop the frame buffer, causing any sleeping thread in NextFrame to
   // return immediately.
-  void Stop();
+  void Stop() override;
 
   // Updates the RTT for jitter buffer estimation.
-  void UpdateRtt(int64_t rtt_ms);
+  void UpdateRtt(int64_t rtt_ms) override;
 
   // Clears the FrameBuffer, removing all the buffered frames.
-  void Clear();
+  void Clear() override;
 
-  int Size();
+  int Size() override;
 
  private:
   struct FrameInfo {
@@ -166,7 +158,6 @@ class FrameBuffer {
   std::unique_ptr<EncodedFrame> CombineAndDeleteFrames(
       std::vector<std::unique_ptr<EncodedFrame>> frames) const;
 
-  RTC_NO_UNIQUE_ADDRESS SequenceChecker construction_checker_;
   RTC_NO_UNIQUE_ADDRESS SequenceChecker callback_checker_;
 
   // Stores only undecoded frames.

@@ -69,6 +69,24 @@
       "parentUuid": "38e9e0a3_3c7f570e",
       "revId": "901b721b17aa6111c7dc5bc86d8cc1ff7858c13c",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "f73153d2_168543e5",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 8046
+      },
+      "writtenOn": "2021-12-12T08:05:12Z",
+      "side": 1,
+      "message": "Can be landed now.",
+      "parentUuid": "f73ecf78_e538646f",
+      "revId": "901b721b17aa6111c7dc5bc86d8cc1ff7858c13c",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

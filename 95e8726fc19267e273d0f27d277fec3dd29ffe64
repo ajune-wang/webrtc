@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "11e8a7b3_f56a47b0",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 3
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 7755
+      },
+      "writtenOn": "2021-12-13T07:21:41Z",
+      "side": 1,
+      "message": "approved in https://bugs.chromium.org/p/chromium/issues/detail?id\u003d1271135 looks like it needs no-try too.",
+      "revId": "95e8726fc19267e273d0f27d277fec3dd29ffe64",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

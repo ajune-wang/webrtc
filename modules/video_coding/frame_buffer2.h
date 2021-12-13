@@ -41,11 +41,21 @@ class VCMReceiveStatisticsCallback;
 class VCMJitterEstimator;
 class VCMTiming;
 
+struct DecodeStreamTimeouts {
+  TimeDelta max_wait_for_keyframe;
+  TimeDelta max_wait_for_frame;
+
+  TimeDelta MaxWait(bool keyframe) const {
+    return keyframe ? max_wait_for_keyframe : max_wait_for_frame;
+  }
+};
+
 namespace video_coding {
 
 class FrameBuffer {
  public:
-  FrameBuffer(Clock* clock,
+  FrameBuffer(DecodeStreamTimeouts timeouts,
+              Clock* clock,
               VCMTiming* timing,
               VCMReceiveStatisticsCallback* stats_callback);
 
@@ -62,8 +72,7 @@ class FrameBuffer {
   using NextFrameCallback = std::function<void(std::unique_ptr<EncodedFrame>)>;
   // Get the next frame for decoding. `handler` is invoked with the next frame
   // or with nullptr if no frame is ready for decoding after `max_wait_time_ms`.
-  void NextFrame(int64_t max_wait_time_ms,
-                 bool keyframe_required,
+  void NextFrame(bool keyframe_required,
                  rtc::TaskQueue* callback_queue,
                  NextFrameCallback handler);
 
@@ -161,6 +170,7 @@ class FrameBuffer {
   RTC_NO_UNIQUE_ADDRESS SequenceChecker callback_checker_;
 
   // Stores only undecoded frames.
+  const DecodeStreamTimeouts timeouts_;
   FrameMap frames_ RTC_GUARDED_BY(mutex_);
   DecodedFramesHistory decoded_frames_history_ RTC_GUARDED_BY(mutex_);
 

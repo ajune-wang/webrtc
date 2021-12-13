@@ -87,7 +87,7 @@ class VideoReceiveStream2
  public:
   // The default number of milliseconds to pass before re-requesting a key frame
   // to be sent.
-  static constexpr int kMaxWaitForKeyFrameMs = 200;
+  static constexpr TimeDelta kMaxWaitForKeyFrame = TimeDelta::Millis(200);
   // The maximum number of buffered encoded frames when encoded output is
   // configured.
   static constexpr size_t kBufferedEncodedFramesMaxSize = 60;
@@ -185,7 +185,6 @@ class VideoReceiveStream2
 
  private:
   void CreateAndRegisterExternalDecoder(const Decoder& decoder);
-  int64_t GetMaxWaitMs() const RTC_RUN_ON(decode_queue_);
   void StartNextDecode() RTC_RUN_ON(decode_queue_);
   void HandleEncodedFrame(std::unique_ptr<EncodedFrame> frame)
       RTC_RUN_ON(decode_queue_);
@@ -269,8 +268,7 @@ class VideoReceiveStream2
       RTC_GUARDED_BY(worker_sequence_checker_) = 0;
 
   // Keyframe request intervals are configurable through field trials.
-  const int max_wait_for_keyframe_ms_;
-  const int max_wait_for_frame_ms_;
+  const DecodeStreamTimeouts timeouts_;
 
   // All of them tries to change current min_playout_delay on `timing_` but
   // source of the change request is different in each case. Among them the

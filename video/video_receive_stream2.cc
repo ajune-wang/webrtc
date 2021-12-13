@@ -54,14 +54,14 @@
 namespace webrtc {
 
 namespace internal {
-constexpr int VideoReceiveStream2::kMaxWaitForKeyFrameMs;
+constexpr TimeDelta VideoReceiveStream2::kMaxWaitForKeyFrame;
 
 namespace {
 
 constexpr int kMinBaseMinimumDelayMs = 0;
 constexpr int kMaxBaseMinimumDelayMs = 10000;
 
-constexpr int kMaxWaitForFrameMs = 3000;
+constexpr TimeDelta kMaxWaitForFrame = TimeDelta::Millis(3000);
 
 // Create a decoder for the preferred codec before the stream starts and any
 // other decoder lazily on demand.
@@ -167,21 +167,21 @@ constexpr int kInactiveStreamThresholdMs = 600000;  //  10 minutes.
 
 }  // namespace
 
-int DetermineMaxWaitForFrame(const VideoReceiveStream::Config& config,
-                             bool is_keyframe) {
+DecodeStreamTimeouts DetermineMaxWaitForFrame(
+    const VideoReceiveStream::Config& config) {
   // A (arbitrary) conversion factor between the remotely signalled NACK buffer
   // time (if not present defaults to 1000ms) and the maximum time we wait for a
   // remote frame. Chosen to not change existing defaults when using not
   // rtx-time.
   const int conversion_factor = 3;
 
-  if (config.rtp.nack.rtp_history_ms > 0 &&
-      conversion_factor * config.rtp.nack.rtp_history_ms < kMaxWaitForFrameMs) {
-    return is_keyframe ? config.rtp.nack.rtp_history_ms
-                       : conversion_factor * config.rtp.nack.rtp_history_ms;
+  TimeDelta rtp_history = TimeDelta::Millis(config.rtp.nack.rtp_history_ms);
+
+  if (rtp_history > TimeDelta::Zero() &&
+      conversion_factor * rtp_history < kMaxWaitForFrame) {
+    return {rtp_history, conversion_factor * rtp_history};
   }
-  return is_keyframe ? VideoReceiveStream2::kMaxWaitForKeyFrameMs
-                     : kMaxWaitForFrameMs;
+  return {VideoReceiveStream2::kMaxWaitForKeyFrame, kMaxWaitForFrame};
 }
 
 VideoReceiveStream2::VideoReceiveStream2(
@@ -222,8 +222,7 @@ VideoReceiveStream2::VideoReceiveStream2(
                                  std::move(config_.frame_decryptor),
                                  std::move(config_.frame_transformer)),
       rtp_stream_sync_(call->worker_thread(), this),
-      max_wait_for_keyframe_ms_(DetermineMaxWaitForFrame(config, true)),
-      max_wait_for_frame_ms_(DetermineMaxWaitForFrame(config, false)),
+      timeouts_(DetermineMaxWaitForFrame(config)),
       low_latency_renderer_enabled_("enabled", true),
       low_latency_renderer_include_predecode_buffer_("include_predecode_buffer",
                                                      true),
@@ -251,8 +250,8 @@ VideoReceiveStream2::VideoReceiveStream2(
 
   timing_->set_render_delay(config_.render_delay_ms);
 
-  frame_buffer_.reset(
-      new video_coding::FrameBuffer(clock_, timing_.get(), &stats_proxy_));
+  frame_buffer_ = std::make_unique<video_coding::FrameBuffer>(
+      timeouts_, clock_, timing_.get(), &stats_proxy_);
 
   if (config_.rtp.rtx_ssrc) {
     rtx_receive_stream_ = std::make_unique<RtxReceiveStream>(
@@ -710,16 +709,11 @@ bool VideoReceiveStream2::SetMinimumPlayoutDelay(int delay_ms) {
   return true;
 }
 
-int64_t VideoReceiveStream2::GetMaxWaitMs() const {
-  return keyframe_required_ ? max_wait_for_keyframe_ms_
-                            : max_wait_for_frame_ms_;
-}
-
 void VideoReceiveStream2::StartNextDecode() {
   // Running on the decode thread.
   TRACE_EVENT0("webrtc", "VideoReceiveStream2::StartNextDecode");
   frame_buffer_->NextFrame(
-      GetMaxWaitMs(), keyframe_required_, &decode_queue_,
+      keyframe_required_, &decode_queue_,
       /* encoded frame handler */
       [this](std::unique_ptr<EncodedFrame> frame) {
         RTC_DCHECK_RUN_ON(&decode_queue_);
@@ -731,9 +725,10 @@ void VideoReceiveStream2::StartNextDecode() {
           int64_t now_ms = clock_->TimeInMilliseconds();
           // TODO(bugs.webrtc.org/11993): PostTask to the network thread.
           call_->worker_thread()->PostTask(ToQueuedTask(
-              task_safety_, [this, now_ms, wait_ms = GetMaxWaitMs()]() {
+              task_safety_,
+              [this, now_ms, wait = timeouts_.MaxWait(keyframe_required_)]() {
                 RTC_DCHECK_RUN_ON(&packet_sequence_checker_);
-                HandleFrameBufferTimeout(now_ms, wait_ms);
+                HandleFrameBufferTimeout(now_ms, wait.ms());
               }));
         }
         StartNextDecode();
@@ -758,7 +753,8 @@ void VideoReceiveStream2::HandleEncodedFrame(
   int64_t decoded_frame_picture_id = -1;
 
   const bool keyframe_request_is_due =
-      now_ms >= (last_keyframe_request_ms_ + max_wait_for_keyframe_ms_);
+      now_ms >=
+      (last_keyframe_request_ms_ + timeouts_.max_wait_for_keyframe.ms());
 
   if (!video_receiver_.IsExternalDecoderRegistered(frame->PayloadType())) {
     // Look for the decoder with this payload type.
@@ -928,8 +924,8 @@ bool VideoReceiveStream2::IsReceivingKeyFrame(int64_t timestamp_ms) const {
   // If we recently have been receiving packets belonging to a keyframe then
   // we assume a keyframe is currently being received.
   bool receiving_keyframe =
-      last_keyframe_packet_ms &&
-      timestamp_ms - *last_keyframe_packet_ms < max_wait_for_keyframe_ms_;
+      last_keyframe_packet_ms && timestamp_ms - *last_keyframe_packet_ms <
+                                     timeouts_.max_wait_for_keyframe.ms();
   return receiving_keyframe;
 }
 

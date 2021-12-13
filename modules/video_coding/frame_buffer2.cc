@@ -52,10 +52,12 @@ constexpr int kMaxAllowedFrameDelayMs = 5;
 constexpr int64_t kLogNonDecodedIntervalMs = 5000;
 }  // namespace
 
-FrameBuffer::FrameBuffer(Clock* clock,
+FrameBuffer::FrameBuffer(DecodeStreamTimeouts timeouts,
+                         Clock* clock,
                          VCMTiming* timing,
                          VCMReceiveStatisticsCallback* stats_callback)
-    : decoded_frames_history_(kMaxFramesHistory),
+    : timeouts_(timeouts),
+      decoded_frames_history_(kMaxFramesHistory),
       clock_(clock),
       callback_queue_(nullptr),
       jitter_estimator_(clock),
@@ -78,21 +80,20 @@ FrameBuffer::~FrameBuffer() {
   RTC_DCHECK_RUN_ON(&construction_checker_);
 }
 
-void FrameBuffer::NextFrame(int64_t max_wait_time_ms,
-                            bool keyframe_required,
+void FrameBuffer::NextFrame(bool keyframe_required,
                             rtc::TaskQueue* callback_queue,
                             NextFrameCallback handler) {
   RTC_DCHECK_RUN_ON(&callback_checker_);
   RTC_DCHECK(callback_queue->IsCurrent());
   TRACE_EVENT0("webrtc", "FrameBuffer::NextFrame");
-  int64_t latest_return_time_ms =
-      clock_->TimeInMilliseconds() + max_wait_time_ms;
+  Timestamp latest_return_time_ms =
+      clock_->CurrentTime() + timeouts_.MaxWait(keyframe_required);
 
   MutexLock lock(&mutex_);
   if (stopped_) {
     return;
   }
-  latest_return_time_ms_ = latest_return_time_ms;
+  latest_return_time_ms_ = latest_return_time_ms.ms();
   keyframe_required_ = keyframe_required;
   frame_handler_ = handler;
   callback_queue_ = callback_queue;

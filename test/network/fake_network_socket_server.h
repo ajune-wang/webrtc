@@ -35,6 +35,9 @@ class FakeNetworkSocketServer : public rtc::SocketServer {
 
   // rtc::SocketFactory methods:
   rtc::Socket* CreateSocket(int family, int type) override;
+  std::unique_ptr<rtc::ListenSocket> CreateListenSocket(int family) override {
+    return nullptr;
+  }
 
   // rtc::SocketServer methods:
   // Called by the network thread when this server is installed, kicking off the

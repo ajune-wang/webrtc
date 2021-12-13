@@ -102,11 +102,6 @@ class SSLAdapter : public AsyncSocketAdapter {
   // and deletes `socket`. Otherwise, the returned SSLAdapter takes ownership
   // of `socket`.
   static SSLAdapter* Create(Socket* socket);
-
- private:
-  // Not supported.
-  int Listen(int backlog) override { RTC_CHECK(false); }
-  Socket* Accept(SocketAddress* paddr) override { RTC_CHECK(false); }
 };
 
 ///////////////////////////////////////////////////////////////////////////////

@@ -62,14 +62,6 @@ int AsyncSocketAdapter::RecvFrom(void* pv,
   return socket_->RecvFrom(pv, cb, paddr, timestamp);
 }
 
-int AsyncSocketAdapter::Listen(int backlog) {
-  return socket_->Listen(backlog);
-}
-
-Socket* AsyncSocketAdapter::Accept(SocketAddress* paddr) {
-  return socket_->Accept(paddr);
-}
-
 int AsyncSocketAdapter::Close() {
   return socket_->Close();
 }

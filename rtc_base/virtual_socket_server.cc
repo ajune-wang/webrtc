@@ -22,7 +22,6 @@
 #include "rtc_base/fake_clock.h"
 #include "rtc_base/logging.h"
 #include "rtc_base/physical_socket_server.h"
-#include "rtc_base/socket_address_pair.h"
 #include "rtc_base/thread.h"
 #include "rtc_base/time_utils.h"
 
@@ -97,7 +96,6 @@ VirtualSocket::VirtualSocket(VirtualSocketServer* server, int family, int type)
       type_(type),
       state_(CS_CLOSED),
       error_(0),
-      listen_queue_(nullptr),
       network_size_(0),
       recv_buffer_size_(0),
       bound_(false),
@@ -159,17 +157,6 @@ int VirtualSocket::Close() {
   if (SOCK_STREAM == type_) {
     webrtc::MutexLock lock(&mutex_);
 
-    // Cancel pending sockets
-    if (listen_queue_) {
-      while (!listen_queue_->empty()) {
-        SocketAddress addr = listen_queue_->front();
-
-        // Disconnect listening socket.
-        server_->Disconnect(addr);
-        listen_queue_->pop_front();
-      }
-      listen_queue_ = nullptr;
-    }
     // Disconnect stream sockets
     if (CS_CONNECTED == state_) {
       server_->Disconnect(local_addr_, remote_addr_);
@@ -263,50 +250,6 @@ int VirtualSocket::RecvFrom(void* pv,
   return static_cast<int>(data_read);
 }
 
-int VirtualSocket::Listen(int backlog) {
-  webrtc::MutexLock lock(&mutex_);
-  RTC_DCHECK(SOCK_STREAM == type_);
-  RTC_DCHECK(CS_CLOSED == state_);
-  if (local_addr_.IsNil()) {
-    error_ = EINVAL;
-    return -1;
-  }
-  RTC_DCHECK(nullptr == listen_queue_);
-  listen_queue_ = std::make_unique<ListenQueue>();
-  state_ = CS_CONNECTING;
-  return 0;
-}
-
-VirtualSocket* VirtualSocket::Accept(SocketAddress* paddr) {
-  webrtc::MutexLock lock(&mutex_);
-  if (nullptr == listen_queue_) {
-    error_ = EINVAL;
-    return nullptr;
-  }
-  while (!listen_queue_->empty()) {
-    VirtualSocket* socket = new VirtualSocket(server_, AF_INET, type_);
-
-    // Set the new local address to the same as this server socket.
-    socket->SetLocalAddress(local_addr_);
-    // Sockets made from a socket that 'was Any' need to inherit that.
-    socket->set_was_any(was_any_);
-    SocketAddress remote_addr(listen_queue_->front());
-    int result = socket->InitiateConnect(remote_addr, false);
-    listen_queue_->pop_front();
-    if (result != 0) {
-      delete socket;
-      continue;
-    }
-    socket->CompleteConnect(remote_addr);
-    if (paddr) {
-      *paddr = remote_addr;
-    }
-    return socket;
-  }
-  error_ = EWOULDBLOCK;
-  return nullptr;
-}
-
 int VirtualSocket::GetError() const {
   return error_;
 }
@@ -349,10 +292,7 @@ void VirtualSocket::OnMessage(Message* pmsg) {
     } else if (pmsg->message_id == MSG_ID_CONNECT) {
       RTC_DCHECK(nullptr != pmsg->pdata);
       MessageAddress* data = static_cast<MessageAddress*>(pmsg->pdata);
-      if (listen_queue_ != nullptr) {
-        listen_queue_->push_back(data->addr);
-        signal_read_event = true;
-      } else if ((SOCK_STREAM == type_) && (CS_CONNECTING == state_)) {
+      if ((SOCK_STREAM == type_) && (CS_CONNECTING == state_)) {
         CompleteConnect(data->addr);
         signal_connect_event = true;
       } else {
@@ -536,6 +476,90 @@ size_t VirtualSocket::PurgeNetworkPackets(int64_t cur_time) {
   return network_size_;
 }
 
+VirtualListenSocket::VirtualListenSocket(VirtualSocketServer* server,
+                                         int /* family */)
+    : server_(server) {}
+VirtualListenSocket::~VirtualListenSocket() {}
+
+int VirtualListenSocket::Bind(const SocketAddress& addr) {
+  webrtc::MutexLock lock(&mutex_);
+  if (!local_addr_.IsNil()) {
+    return -1;
+  }
+  local_addr_ = server_->AssignBindAddress(addr);
+  int result = server_->Bind(this, local_addr_);
+  if (result != 0) {
+    RTC_LOG(LS_INFO) << "Bind failed for address " << local_addr_.ToString();
+    local_addr_.Clear();
+  } else {
+#if 0
+    was_any_ = addr.IsAnyIP();
+#endif
+  }
+  return result;
+}
+
+int VirtualListenSocket::Listen(
+    int backlog,
+    std::function<void(const SocketAddress&, std::unique_ptr<Socket>)>
+        callback) {
+  webrtc::MutexLock lock(&mutex_);
+
+  RTC_DCHECK(callback);
+  RTC_DCHECK(!callback_);
+  if (local_addr_.IsNil()) {
+    RTC_LOG(LS_INFO) << "Listen without Bind";
+    return -1;
+  }
+  callback_ = callback;
+  return 0;
+}
+
+SocketAddress VirtualListenSocket::GetLocalAddress() const {
+  webrtc::MutexLock lock(&mutex_);
+  return local_addr_;
+}
+
+void VirtualListenSocket::OnMessage(Message* pmsg) {
+  RTC_CHECK(pmsg->message_id == MSG_ID_CONNECT);
+  RTC_DCHECK(nullptr != pmsg->pdata);
+  MessageAddress* data = static_cast<MessageAddress*>(pmsg->pdata);
+
+  std::function<void(const SocketAddress&, std::unique_ptr<Socket>)> callback;
+  SocketAddress local_addr;
+
+  {
+    webrtc::MutexLock lock(&mutex_);
+    if (!callback_) {
+      RTC_LOG(LS_VERBOSE) << "Socket at " << local_addr_.ToString()
+                          << " is not listening";
+      server_->Disconnect(data->addr);
+      delete data;
+      return;
+    } else {
+      callback = callback_;
+      local_addr = local_addr_;
+    }
+  }
+  // Release lock before invoking the callback.
+  auto socket = std::make_unique<VirtualSocket>(server_, AF_INET, SOCK_STREAM);
+
+  // Set the new local address to the same as this server socket.
+  socket->SetLocalAddress(local_addr);
+
+#if 0
+  // Sockets made from a socket that 'was Any' need to inherit that.
+  socket->set_was_any(was_any_);
+#endif
+  int result = socket->InitiateConnect(data->addr, false);
+  if (result == 0) {
+    socket->CompleteConnect(data->addr);
+    callback(data->addr, std::move(socket));
+  }
+
+  delete data;
+}
+
 VirtualSocketServer::VirtualSocketServer() : VirtualSocketServer(nullptr) {}
 
 VirtualSocketServer::VirtualSocketServer(ThreadProcessingFakeClock* fake_clock)
@@ -545,8 +569,6 @@ VirtualSocketServer::VirtualSocketServer(ThreadProcessingFakeClock* fake_clock)
       next_ipv4_(kInitialNextIPv4),
       next_ipv6_(kInitialNextIPv6),
       next_port_(kFirstEphemeralPort),
-      bindings_(new AddressMap()),
-      connections_(new ConnectionMap()),
       bandwidth_(0),
       network_capacity_(kDefaultNetworkCapacity),
       send_buffer_capacity_(kDefaultTcpBufferSize),
@@ -556,11 +578,6 @@ VirtualSocketServer::VirtualSocketServer(ThreadProcessingFakeClock* fake_clock)
       delay_samples_(NUM_SAMPLES),
       drop_prob_(0.0) {
   UpdateDelayDistribution();
-}
-
-VirtualSocketServer::~VirtualSocketServer() {
-  delete bindings_;
-  delete connections_;
 }
 
 IPAddress VirtualSocketServer::GetNextIP(int family) {
@@ -605,6 +622,11 @@ void VirtualSocketServer::SetSendingBlocked(bool blocked) {
 
 VirtualSocket* VirtualSocketServer::CreateSocket(int family, int type) {
   return new VirtualSocket(this, family, type);
+}
+
+std::unique_ptr<ListenSocket> VirtualSocketServer::CreateListenSocket(
+    int family) {
+  return std::make_unique<VirtualListenSocket>(this, family);
 }
 
 void VirtualSocketServer::SetMessageQueue(Thread* msg_queue) {
@@ -677,6 +699,7 @@ bool VirtualSocketServer::CloseTcpConnections(
 int VirtualSocketServer::Bind(VirtualSocket* socket,
                               const SocketAddress& addr) {
   RTC_DCHECK(nullptr != socket);
+
   // Address must be completely specified at this point
   RTC_DCHECK(!IPIsUnspec(addr.ipaddr()));
   RTC_DCHECK(addr.port() != 0);
@@ -684,8 +707,20 @@ int VirtualSocketServer::Bind(VirtualSocket* socket,
   // Normalize the address (turns v6-mapped addresses into v4-addresses).
   SocketAddress normalized(addr.ipaddr().Normalized(), addr.port());
 
-  AddressMap::value_type entry(normalized, socket);
-  return bindings_->insert(entry).second ? 0 : -1;
+  return bindings_.emplace(normalized, socket).second ? 0 : -1;
+}
+
+int VirtualSocketServer::Bind(VirtualListenSocket* socket,
+                              const SocketAddress& addr) {
+  RTC_DCHECK(nullptr != socket);
+
+  // Address must be completely specified at this point
+  RTC_DCHECK(!IPIsUnspec(addr.ipaddr()));
+  RTC_DCHECK(addr.port() != 0);
+
+  // Normalize the address (turns v6-mapped addresses into v4-addresses).
+  SocketAddress normalized(addr.ipaddr().Normalized(), addr.port());
+  return listen_bindings_.emplace(normalized, socket).second ? 0 : -1;
 }
 
 SocketAddress VirtualSocketServer::AssignBindAddress(
@@ -710,7 +745,7 @@ SocketAddress VirtualSocketServer::AssignBindAddress(
     // Assign a port.
     for (int i = 0; i < kEphemeralPortCount; ++i) {
       addr.SetPort(GetNextPort());
-      if (bindings_->find(addr) == bindings_->end()) {
+      if (bindings_.find(addr) == bindings_.end()) {
         break;
       }
     }
@@ -721,8 +756,8 @@ SocketAddress VirtualSocketServer::AssignBindAddress(
 
 VirtualSocket* VirtualSocketServer::LookupBinding(const SocketAddress& addr) {
   SocketAddress normalized(addr.ipaddr().Normalized(), addr.port());
-  AddressMap::iterator it = bindings_->find(normalized);
-  if (it != bindings_->end()) {
+  AddressMap::iterator it = bindings_.find(normalized);
+  if (it != bindings_.end()) {
     return it->second;
   }
 
@@ -743,8 +778,8 @@ VirtualSocket* VirtualSocketServer::LookupBinding(const SocketAddress& addr) {
 int VirtualSocketServer::Unbind(const SocketAddress& addr,
                                 VirtualSocket* socket) {
   SocketAddress normalized(addr.ipaddr().Normalized(), addr.port());
-  RTC_DCHECK((*bindings_)[normalized] == socket);
-  bindings_->erase(bindings_->find(normalized));
+  RTC_DCHECK((bindings_)[normalized] == socket);
+  bindings_.erase(bindings_.find(normalized));
   return 0;
 }
 
@@ -756,7 +791,7 @@ void VirtualSocketServer::AddConnection(const SocketAddress& local,
   SocketAddress local_normalized(local.ipaddr().Normalized(), local.port());
   SocketAddress remote_normalized(remote.ipaddr().Normalized(), remote.port());
   SocketAddressPair address_pair(local_normalized, remote_normalized);
-  connections_->insert(std::pair<SocketAddressPair, VirtualSocket*>(
+  connections_.insert(std::pair<SocketAddressPair, VirtualSocket*>(
       address_pair, remote_socket));
 }
 
@@ -766,8 +801,8 @@ VirtualSocket* VirtualSocketServer::LookupConnection(
   SocketAddress local_normalized(local.ipaddr().Normalized(), local.port());
   SocketAddress remote_normalized(remote.ipaddr().Normalized(), remote.port());
   SocketAddressPair address_pair(local_normalized, remote_normalized);
-  ConnectionMap::iterator it = connections_->find(address_pair);
-  return (connections_->end() != it) ? it->second : nullptr;
+  ConnectionMap::iterator it = connections_.find(address_pair);
+  return (connections_.end() != it) ? it->second : nullptr;
 }
 
 void VirtualSocketServer::RemoveConnection(const SocketAddress& local,
@@ -775,7 +810,7 @@ void VirtualSocketServer::RemoveConnection(const SocketAddress& local,
   SocketAddress local_normalized(local.ipaddr().Normalized(), local.port());
   SocketAddress remote_normalized(remote.ipaddr().Normalized(), remote.port());
   SocketAddressPair address_pair(local_normalized, remote_normalized);
-  connections_->erase(address_pair);
+  connections_.erase(address_pair);
 }
 
 static double Random() {
@@ -786,6 +821,15 @@ int VirtualSocketServer::Connect(VirtualSocket* socket,
                                  const SocketAddress& remote_addr,
                                  bool use_delay) {
   uint32_t delay = use_delay ? GetTransitDelay(socket) : 0;
+  const auto& it = listen_bindings_.find(remote_addr);
+  if (it != listen_bindings_.end()) {
+    // TODO(nisse): XXX CanInteractWith logic
+    SocketAddress addr = socket->GetLocalAddress();
+    msg_queue_->PostDelayed(RTC_FROM_HERE, delay, it->second, MSG_ID_CONNECT,
+                            new MessageAddress(addr));
+    return 0;
+  }
+
   VirtualSocket* remote = LookupBinding(remote_addr);
   if (!CanInteractWith(socket, remote)) {
     RTC_LOG(LS_INFO) << "Address family mismatch between "
@@ -904,6 +948,20 @@ int VirtualSocketServer::SendUdp(VirtualSocket* socket,
   }
 
   VirtualSocket* recipient = LookupBinding(remote_addr);
+  if (!recipient) {
+    // If we can't find a binding for the packet which is sent to the interface
+    // corresponding to the default source address, it should match a binding
+    // with the correct port to the any address.
+    IPAddress default_ip =
+        GetDefaultSourceAddress(remote_addr.ipaddr().family());
+    if (!IPIsUnspec(default_ip) && remote_addr.ipaddr() == default_ip) {
+      SocketAddress sock_addr =
+          EmptySocketAddressWithFamily(remote_addr.ipaddr().family());
+      sock_addr.SetPort(remote_addr.port());
+      recipient = LookupBinding(sock_addr);
+    }
+  }
+
   if (!recipient) {
     // Make a fake recipient for address family checking.
     std::unique_ptr<VirtualSocket> dummy_socket(

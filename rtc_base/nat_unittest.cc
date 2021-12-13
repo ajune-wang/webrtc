@@ -346,14 +346,9 @@ class NatTcpTest : public ::testing::Test, public sigslot::has_slots<> {
 
   void OnConnectEvent(Socket* socket) { connected_ = true; }
 
-  void OnAcceptEvent(Socket* socket) {
-    accepted_.reset(server_->Accept(nullptr));
-  }
-
   void OnCloseEvent(Socket* socket, int error) {}
 
   void ConnectEvents() {
-    server_->SignalReadEvent.connect(this, &NatTcpTest::OnAcceptEvent);
     client_->SignalConnectEvent.connect(this, &NatTcpTest::OnConnectEvent);
   }
 
@@ -367,14 +362,17 @@ class NatTcpTest : public ::testing::Test, public sigslot::has_slots<> {
   std::unique_ptr<NATServer> nat_;
   std::unique_ptr<NATSocketFactory> natsf_;
   std::unique_ptr<Socket> client_;
-  std::unique_ptr<Socket> server_;
+  std::unique_ptr<ListenSocket> server_;
   std::unique_ptr<Socket> accepted_;
 };
 
 TEST_F(NatTcpTest, DISABLED_TestConnectOut) {
-  server_.reset(ext_vss_->CreateSocket(AF_INET, SOCK_STREAM));
+  server_ = ext_vss_->CreateListenSocket(AF_INET);
   server_->Bind(ext_addr_);
-  server_->Listen(5);
+  server_->Listen(5,
+                  [this](const SocketAddress&, std::unique_ptr<Socket> socket) {
+                    accepted_ = std::move(socket);
+                  });
 
   client_.reset(natsf_->CreateSocket(AF_INET, SOCK_STREAM));
   EXPECT_GE(0, client_->Bind(int_addr_));

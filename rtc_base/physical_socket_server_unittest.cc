@@ -195,6 +195,7 @@ TEST_F(PhysicalSocketTest, TestConnectFailIPv4) {
   SocketTest::TestConnectFailIPv4();
 }
 
+#if 0
 void PhysicalSocketTest::ConnectInternalAcceptError(const IPAddress& loopback) {
   webrtc::testing::StreamSink sink;
   SocketAddress accept_addr;
@@ -268,7 +269,6 @@ void PhysicalSocketTest::ConnectInternalAcceptError(const IPAddress& loopback) {
   EXPECT_FALSE(accept_addr.IsNil());
   EXPECT_EQ(accepted2->GetRemoteAddress(), accept_addr);
 }
-
 TEST_F(PhysicalSocketTest, TestConnectAcceptErrorIPv4) {
   MAYBE_SKIP_IPV4;
   ConnectInternalAcceptError(kIPv4Loopback);
@@ -278,6 +278,7 @@ TEST_F(PhysicalSocketTest, TestConnectAcceptErrorIPv6) {
   MAYBE_SKIP_IPV6;
   ConnectInternalAcceptError(kIPv6Loopback);
 }
+#endif
 
 void PhysicalSocketTest::WritableAfterPartialWrite(const IPAddress& loopback) {
   // Simulate a really small maximum send size.

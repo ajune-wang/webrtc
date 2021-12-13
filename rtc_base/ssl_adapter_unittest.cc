@@ -8,6 +8,8 @@
  *  be found in the AUTHORS file in the root of the source tree.
  */
 
+#include "rtc_base/ssl_adapter.h"
+
 #include <memory>
 #include <string>
 #include <utility>
@@ -16,8 +18,8 @@
 #include "rtc_base/gunit.h"
 #include "rtc_base/ip_address.h"
 #include "rtc_base/message_digest.h"
+#include "rtc_base/socket.h"
 #include "rtc_base/socket_stream.h"
-#include "rtc_base/ssl_adapter.h"
 #include "rtc_base/ssl_identity.h"
 #include "rtc_base/ssl_stream_adapter.h"
 #include "rtc_base/stream.h"
@@ -155,36 +157,11 @@ class SSLAdapterTestDummyClient : public sigslot::has_slots<> {
   std::string data_;
 };
 
-class SSLAdapterTestDummyServer : public sigslot::has_slots<> {
+class SSLAdapterTestServer : public sigslot::has_slots<> {
  public:
-  explicit SSLAdapterTestDummyServer(const rtc::SSLMode& ssl_mode,
-                                     const rtc::KeyParams& key_params)
-      : ssl_mode_(ssl_mode) {
+  explicit SSLAdapterTestServer(const rtc::KeyParams& key_params) {
     // Generate a key pair and a certificate for this host.
     ssl_identity_ = rtc::SSLIdentity::Create(GetHostname(), key_params);
-
-    server_socket_.reset(CreateSocket(ssl_mode_));
-
-    if (ssl_mode_ == rtc::SSL_MODE_TLS) {
-      server_socket_->SignalReadEvent.connect(
-          this, &SSLAdapterTestDummyServer::OnServerSocketReadEvent);
-
-      server_socket_->Listen(1);
-    }
-
-    RTC_LOG(LS_INFO) << ((ssl_mode_ == rtc::SSL_MODE_DTLS) ? "UDP" : "TCP")
-                     << " server listening on "
-                     << server_socket_->GetLocalAddress().ToString();
-  }
-
-  rtc::SocketAddress GetAddress() const {
-    return server_socket_->GetLocalAddress();
-  }
-
-  std::string GetHostname() const {
-    // Since we don't have a real certificate anyway, the value here doesn't
-    // really matter.
-    return "example.com";
   }
 
   const std::string& GetReceivedData() const { return data_; }
@@ -210,52 +187,25 @@ class SSLAdapterTestDummyServer : public sigslot::has_slots<> {
     }
   }
 
-  void AcceptConnection(const rtc::SocketAddress& address) {
+  virtual rtc::SocketAddress GetAddress() const = 0;
+
+  std::string GetHostname() const {
+    // Since we don't have a real certificate anyway, the value here doesn't
+    // really matter.
+    return "example.com";
+  }
+
+  virtual void AcceptConnection(const rtc::SocketAddress& address) {
+    ASSERT_TRUE(false);
+  }
+
+  void DoHandshake(std::unique_ptr<rtc::Socket> socket, rtc::SSLMode ssl_mode) {
     // Only a single connection is supported.
     ASSERT_TRUE(ssl_stream_adapter_ == nullptr);
-
-    // This is only for DTLS.
-    ASSERT_EQ(rtc::SSL_MODE_DTLS, ssl_mode_);
-
-    // Transfer ownership of the socket to the SSLStreamAdapter object.
-    rtc::Socket* socket = server_socket_.release();
-
-    socket->Connect(address);
-
-    DoHandshake(socket);
-  }
-
-  void OnServerSocketReadEvent(rtc::Socket* socket) {
-    // Only a single connection is supported.
-    ASSERT_TRUE(ssl_stream_adapter_ == nullptr);
-
-    DoHandshake(server_socket_->Accept(nullptr));
-  }
-
-  void OnSSLStreamAdapterEvent(rtc::StreamInterface* stream, int sig, int err) {
-    if (sig & rtc::SE_READ) {
-      char buffer[4096] = "";
-      size_t read;
-      int error;
-
-      // Read data received from the client and store it in our internal
-      // buffer.
-      rtc::StreamResult r =
-          stream->Read(buffer, sizeof(buffer) - 1, &read, &error);
-      if (r == rtc::SR_SUCCESS) {
-        buffer[read] = '\0';
-        RTC_LOG(LS_INFO) << "Server received '" << buffer << "'";
-        data_ += buffer;
-      }
-    }
-  }
-
- private:
-  void DoHandshake(rtc::Socket* socket) {
     ssl_stream_adapter_ = rtc::SSLStreamAdapter::Create(
-        std::make_unique<rtc::SocketStream>(socket));
+        std::make_unique<rtc::SocketStream>(socket.release()));
 
-    ssl_stream_adapter_->SetMode(ssl_mode_);
+    ssl_stream_adapter_->SetMode(ssl_mode);
     ssl_stream_adapter_->SetServerRole();
 
     // SSLStreamAdapter is normally used for peer-to-peer communication, but
@@ -276,18 +226,94 @@ class SSLAdapterTestDummyServer : public sigslot::has_slots<> {
     ssl_stream_adapter_->StartSSL();
 
     ssl_stream_adapter_->SignalEvent.connect(
-        this, &SSLAdapterTestDummyServer::OnSSLStreamAdapterEvent);
+        this, &SSLAdapterTestServer::OnSSLStreamAdapterEvent);
   }
 
-  const rtc::SSLMode ssl_mode_;
+ private:
+  void OnSSLStreamAdapterEvent(rtc::StreamInterface* stream, int sig, int err) {
+    if (sig & rtc::SE_READ) {
+      char buffer[4096] = "";
+      size_t read;
+      int error;
 
-  std::unique_ptr<rtc::Socket> server_socket_;
+      // Read data received from the client and store it in our internal
+      // buffer.
+      rtc::StreamResult r =
+          stream->Read(buffer, sizeof(buffer) - 1, &read, &error);
+      if (r == rtc::SR_SUCCESS) {
+        buffer[read] = '\0';
+        RTC_LOG(LS_INFO) << "Server received '" << buffer << "'";
+        data_ += buffer;
+      }
+    }
+  }
+
   std::unique_ptr<rtc::SSLStreamAdapter> ssl_stream_adapter_;
-
   std::unique_ptr<rtc::SSLIdentity> ssl_identity_;
-
   std::string data_;
 };
+
+class SSLAdapterTestTLSServer : public SSLAdapterTestServer {
+ public:
+  explicit SSLAdapterTestTLSServer(const rtc::KeyParams& key_params)
+      : SSLAdapterTestServer(key_params) {
+    rtc::SocketAddress address(rtc::IPAddress(INADDR_ANY), 0);
+    server_socket_ = rtc::Thread::Current()->socketserver()->CreateListenSocket(
+        address.family());
+    server_socket_->Bind(address);
+
+    server_socket_->Listen(1, [this](const rtc::SocketAddress&,
+                                     std::unique_ptr<rtc::Socket> socket) {
+      DoHandshake(std::move(socket), rtc::SSL_MODE_TLS);
+    });
+
+    RTC_LOG(LS_INFO) << "TCP server listening on "
+                     << server_socket_->GetLocalAddress().ToString();
+  }
+
+  rtc::SocketAddress GetAddress() const override {
+    return server_socket_->GetLocalAddress();
+  }
+
+  std::unique_ptr<rtc::ListenSocket> server_socket_;
+};
+
+class SSLAdapterTestDTLSServer : public SSLAdapterTestServer {
+ public:
+  explicit SSLAdapterTestDTLSServer(const rtc::KeyParams& key_params)
+      : SSLAdapterTestServer(key_params) {
+    server_socket_.reset(CreateSocket(rtc::SSL_MODE_DTLS));
+
+    RTC_LOG(LS_INFO) << "UDP server listening on "
+                     << server_socket_->GetLocalAddress().ToString();
+  }
+
+  rtc::SocketAddress GetAddress() const override {
+    return server_socket_->GetLocalAddress();
+  }
+
+  void AcceptConnection(const rtc::SocketAddress& address) override {
+    server_socket_->Connect(address);
+
+    // Transfer ownership of the socket to the SSLStreamAdapter object.
+    DoHandshake(std::move(server_socket_), rtc::SSL_MODE_DTLS);
+  }
+
+ private:
+  std::unique_ptr<rtc::Socket> server_socket_;
+};
+
+std::unique_ptr<SSLAdapterTestServer> CreateTestServer(
+    rtc::SSLMode ssl_mode,
+    const rtc::KeyParams& key_params) {
+  if (ssl_mode == rtc::SSL_MODE_TLS) {
+    return std::make_unique<SSLAdapterTestTLSServer>(key_params);
+  } else if (ssl_mode == rtc::SSL_MODE_DTLS) {
+    return std::make_unique<SSLAdapterTestDTLSServer>(key_params);
+  } else {
+    return nullptr;
+  }
+}
 
 class SSLAdapterTestBase : public ::testing::Test, public sigslot::has_slots<> {
  public:
@@ -296,7 +322,7 @@ class SSLAdapterTestBase : public ::testing::Test, public sigslot::has_slots<> {
       : ssl_mode_(ssl_mode),
         vss_(new rtc::VirtualSocketServer()),
         thread_(vss_.get()),
-        server_(new SSLAdapterTestDummyServer(ssl_mode_, key_params)),
+        server_(CreateTestServer(ssl_mode_, key_params)),
         client_(new SSLAdapterTestDummyClient(ssl_mode_)),
         handshake_wait_(kTimeout) {}
 
@@ -386,7 +412,7 @@ class SSLAdapterTestBase : public ::testing::Test, public sigslot::has_slots<> {
 
   std::unique_ptr<rtc::VirtualSocketServer> vss_;
   rtc::AutoSocketServerThread thread_;
-  std::unique_ptr<SSLAdapterTestDummyServer> server_;
+  std::unique_ptr<SSLAdapterTestServer> server_;
   std::unique_ptr<SSLAdapterTestDummyClient> client_;
   std::unique_ptr<rtc::SSLCertificateVerifier> cert_verifier_;
 

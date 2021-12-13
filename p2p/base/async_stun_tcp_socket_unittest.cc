@@ -62,7 +62,7 @@ static const rtc::SocketAddress kServerAddr("22.22.22.22", 0);
 
 class AsyncStunServerTCPSocket : public rtc::AsyncTcpListenSocket {
  public:
-  explicit AsyncStunServerTCPSocket(std::unique_ptr<rtc::Socket> socket)
+  explicit AsyncStunServerTCPSocket(std::unique_ptr<rtc::ListenSocket> socket)
       : AsyncTcpListenSocket(std::move(socket)) {}
   void HandleIncomingConnection(rtc::Socket* socket) override {
     SignalNewConnection(this, new AsyncStunTCPSocket(socket));
@@ -78,8 +78,8 @@ class AsyncStunTCPSocketTest : public ::testing::Test,
   virtual void SetUp() { CreateSockets(); }
 
   void CreateSockets() {
-    std::unique_ptr<rtc::Socket> server =
-        absl::WrapUnique(vss_->CreateSocket(kServerAddr.family(), SOCK_STREAM));
+    std::unique_ptr<rtc::ListenSocket> server =
+        vss_->CreateListenSocket(kServerAddr.family());
     server->Bind(kServerAddr);
     listen_socket_ =
         std::make_unique<AsyncStunServerTCPSocket>(std::move(server));

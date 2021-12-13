@@ -139,7 +139,7 @@ TurnServer::~TurnServer() {
 
   for (ServerSocketMap::iterator it = server_listen_sockets_.begin();
        it != server_listen_sockets_.end(); ++it) {
-    rtc::Socket* socket = it->first;
+    rtc::ListenSocket* socket = it->first;
     delete socket;
   }
 }
@@ -153,15 +153,27 @@ void TurnServer::AddInternalSocket(rtc::AsyncPacketSocket* socket,
 }
 
 void TurnServer::AddInternalServerSocket(
-    rtc::Socket* socket,
+    std::unique_ptr<rtc::ListenSocket> socket,
     ProtocolType proto,
     std::unique_ptr<rtc::SSLAdapterFactory> ssl_adapter_factory) {
   RTC_DCHECK_RUN_ON(thread_);
 
-  RTC_DCHECK(server_listen_sockets_.end() ==
-             server_listen_sockets_.find(socket));
-  server_listen_sockets_[socket] = {proto, std::move(ssl_adapter_factory)};
-  socket->SignalReadEvent.connect(this, &TurnServer::OnNewInternalConnection);
+  // Since ownership can't be passed with Listen's std::function, keep ownership
+  // in the `server_listen_sockets_` map, and capture raw pointer.
+  rtc::SSLAdapterFactory* factory_ptr = ssl_adapter_factory.get();
+  if (socket->Listen(
+          5, [this, proto, factory_ptr](const rtc::SocketAddress&,
+                                        std::unique_ptr<rtc::Socket> socket) {
+            RTC_DCHECK_RUN_ON(thread_);
+            RTC_LOG(LS_ERROR) << "XXX Accepted a connection";
+            AcceptConnection(proto, factory_ptr, std::move(socket));
+          }) != 0) {
+    RTC_LOG(LS_ERROR) << "Listening on TURN port failed: error "
+                      << socket->GetError();
+    return;
+  }
+  server_listen_sockets_[socket.release()] = {proto,
+                                              std::move(ssl_adapter_factory)};
 }
 
 void TurnServer::SetExternalSocketFactory(
@@ -172,32 +184,21 @@ void TurnServer::SetExternalSocketFactory(
   external_addr_ = external_addr;
 }
 
-void TurnServer::OnNewInternalConnection(rtc::Socket* socket) {
-  RTC_DCHECK_RUN_ON(thread_);
-  RTC_DCHECK(server_listen_sockets_.find(socket) !=
-             server_listen_sockets_.end());
-  AcceptConnection(socket);
-}
-
-void TurnServer::AcceptConnection(rtc::Socket* server_socket) {
-  // Check if someone is trying to connect to us.
-  rtc::SocketAddress accept_addr;
-  rtc::Socket* accepted_socket = server_socket->Accept(&accept_addr);
-  if (accepted_socket != NULL) {
-    const ServerSocketInfo& info = server_listen_sockets_[server_socket];
-    if (info.ssl_adapter_factory) {
-      rtc::SSLAdapter* ssl_adapter =
-          info.ssl_adapter_factory->CreateAdapter(accepted_socket);
-      ssl_adapter->StartSSL("");
-      accepted_socket = ssl_adapter;
-    }
-    cricket::AsyncStunTCPSocket* tcp_socket =
-        new cricket::AsyncStunTCPSocket(accepted_socket);
-
-    tcp_socket->SignalClose.connect(this, &TurnServer::OnInternalSocketClose);
-    // Finally add the socket so it can start communicating with the client.
-    AddInternalSocket(tcp_socket, info.proto);
+void TurnServer::AcceptConnection(ProtocolType proto,
+                                  rtc::SSLAdapterFactory* ssl_adapter_factory,
+                                  std::unique_ptr<rtc::Socket> socket) {
+  if (ssl_adapter_factory) {
+    rtc::SSLAdapter* ssl_adapter =
+        ssl_adapter_factory->CreateAdapter(socket.release());
+    ssl_adapter->StartSSL("");
+    socket = absl::WrapUnique(ssl_adapter);
   }
+  cricket::AsyncStunTCPSocket* tcp_socket =
+      new cricket::AsyncStunTCPSocket(socket.release());
+
+  tcp_socket->SignalClose.connect(this, &TurnServer::OnInternalSocketClose);
+  // Finally add the socket so it can start communicating with the client.
+  AddInternalSocket(tcp_socket, proto);
 }
 
 void TurnServer::OnInternalSocketClose(rtc::AsyncPacketSocket* socket,

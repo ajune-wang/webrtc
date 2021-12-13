@@ -11,6 +11,8 @@
 #ifndef RTC_BASE_SOCKET_FACTORY_H_
 #define RTC_BASE_SOCKET_FACTORY_H_
 
+#include <memory>
+
 #include "rtc_base/socket.h"
 
 namespace rtc {
@@ -21,6 +23,8 @@ class SocketFactory {
 
   // Returns a new socket.  The type can be SOCK_DGRAM and SOCK_STREAM.
   virtual Socket* CreateSocket(int family, int type) = 0;
+  // The socket type is implicitly SOCK_STREAM
+  virtual std::unique_ptr<ListenSocket> CreateListenSocket(int family) = 0;
 };
 
 }  // namespace rtc

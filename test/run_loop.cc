@@ -60,6 +60,10 @@ void RunLoop::FakeSocketServer::WakeUp() {}
 rtc::Socket* RunLoop::FakeSocketServer::CreateSocket(int family, int type) {
   return nullptr;
 }
+std::unique_ptr<rtc::ListenSocket>
+RunLoop::FakeSocketServer::CreateListenSocket(int family) {
+  return nullptr;
+}
 
 RunLoop::WorkerThread::WorkerThread(rtc::SocketServer* ss)
     : rtc::Thread(ss), tq_setter_(this) {}

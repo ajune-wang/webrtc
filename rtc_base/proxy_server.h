@@ -80,7 +80,7 @@ class ProxyServer : public sigslot::has_slots<> {
  private:
   SocketFactory* ext_factory_;
   SocketAddress ext_ip_;
-  std::unique_ptr<Socket> server_socket_;
+  std::unique_ptr<ListenSocket> server_socket_;
   std::vector<std::unique_ptr<ProxyBinding>> bindings_;
   RTC_DISALLOW_COPY_AND_ASSIGN(ProxyServer);
 };

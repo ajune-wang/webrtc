@@ -25,7 +25,6 @@ namespace {
 class MockAsyncSocket : public Socket {
  public:
   virtual ~MockAsyncSocket() = default;
-  MOCK_METHOD(Socket*, Accept, (SocketAddress*), (override));
   MOCK_METHOD(SocketAddress, GetLocalAddress, (), (const, override));
   MOCK_METHOD(SocketAddress, GetRemoteAddress, (), (const, override));
   MOCK_METHOD(int, Bind, (const SocketAddress&), (override));
@@ -40,7 +39,6 @@ class MockAsyncSocket : public Socket {
               RecvFrom,
               (void*, size_t, SocketAddress*, int64_t*),
               (override));
-  MOCK_METHOD(int, Listen, (int), (override));
   MOCK_METHOD(int, Close, (), (override));
   MOCK_METHOD(int, GetError, (), (const, override));
   MOCK_METHOD(void, SetError, (int), (override));

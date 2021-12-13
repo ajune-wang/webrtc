@@ -212,10 +212,6 @@ class NATSocket : public Socket, public sigslot::has_slots<> {
     return result;
   }
 
-  int Listen(int backlog) override { return socket_->Listen(backlog); }
-  Socket* Accept(SocketAddress* paddr) override {
-    return socket_->Accept(paddr);
-  }
   int GetError() const override {
     return socket_ ? socket_->GetError() : error_;
   }
@@ -327,6 +323,51 @@ class NATSocket : public Socket, public sigslot::has_slots<> {
   size_t size_;
 };
 
+class NATListenSocket : public ListenSocket {
+ public:
+  NATListenSocket(NATInternalSocketFactory* sf, int family)
+      : sf_(sf), family_(family) {}
+
+  int Bind(const SocketAddress& addr) override {
+    if (listen_socket_) {  // already bound, bubble up error
+      return -1;
+    }
+
+    return BindInternal(addr);
+  }
+
+  int Listen(int backlog,
+             std::function<void(const SocketAddress&, std::unique_ptr<Socket>)>
+                 callback) override {
+    return listen_socket_->Listen(backlog, callback);
+  }
+  int GetError() const override {
+    return listen_socket_ ? listen_socket_->GetError() : 0;
+  }
+  SocketAddress GetLocalAddress() const override {
+    return (listen_socket_) ? listen_socket_->GetLocalAddress()
+                            : SocketAddress();
+  }
+
+ private:
+  int BindInternal(const SocketAddress& addr) {
+    RTC_DCHECK(!listen_socket_);
+
+    int result;
+    listen_socket_ = sf_->CreateInternalListenSocket(family_, addr);
+    result = (listen_socket_) ? listen_socket_->Bind(addr) : -1;
+    if (result < 0) {
+      listen_socket_ = nullptr;
+    }
+
+    return result;
+  }
+
+  NATInternalSocketFactory* sf_;
+  int family_;
+  std::unique_ptr<ListenSocket> listen_socket_;
+};
+
 // NATSocketFactory
 NATSocketFactory::NATSocketFactory(SocketFactory* factory,
                                    const SocketAddress& nat_udp_addr,
@@ -339,6 +380,10 @@ Socket* NATSocketFactory::CreateSocket(int family, int type) {
   return new NATSocket(this, family, type);
 }
 
+std::unique_ptr<ListenSocket> NATSocketFactory::CreateListenSocket(int family) {
+  return std::make_unique<NATListenSocket>(this, family);
+}
+
 Socket* NATSocketFactory::CreateInternalSocket(int family,
                                                int type,
                                                const SocketAddress& local_addr,
@@ -349,6 +394,12 @@ Socket* NATSocketFactory::CreateInternalSocket(int family,
     *nat_addr = nat_udp_addr_;
   }
   return factory_->CreateSocket(family, type);
+}
+
+std::unique_ptr<ListenSocket> NATSocketFactory::CreateInternalListenSocket(
+    int family,
+    const SocketAddress& local_addr) {
+  return factory_->CreateListenSocket(family);
 }
 
 // NATSocketServer
@@ -379,6 +430,10 @@ Socket* NATSocketServer::CreateSocket(int family, int type) {
   return new NATSocket(this, family, type);
 }
 
+std::unique_ptr<ListenSocket> NATSocketServer::CreateListenSocket(int family) {
+  return std::make_unique<NATListenSocket>(this, family);
+}
+
 void NATSocketServer::SetMessageQueue(Thread* queue) {
   msg_queue_ = queue;
   server_->SetMessageQueue(queue);
@@ -406,6 +461,19 @@ Socket* NATSocketServer::CreateInternalSocket(int family,
     socket = server_->CreateSocket(family, type);
   }
   return socket;
+}
+
+std::unique_ptr<ListenSocket> NATSocketServer::CreateInternalListenSocket(
+    int family,
+    const SocketAddress& local_addr) {
+  std::unique_ptr<ListenSocket> listen_socket;
+  Translator* nat = nats_.FindClient(local_addr);
+  if (nat) {
+    listen_socket = nat->internal_factory()->CreateListenSocket(family);
+  } else {
+    listen_socket = server_->CreateListenSocket(family);
+  }
+  return listen_socket;
 }
 
 // NATSocketServer::Translator

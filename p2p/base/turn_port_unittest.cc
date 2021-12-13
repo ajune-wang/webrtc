@@ -16,6 +16,7 @@
 #include <utility>
 #include <vector>
 
+#include "absl/memory/memory.h"
 #include "absl/types/optional.h"
 #include "api/units/time_delta.h"
 #include "p2p/base/basic_packet_socket_factory.h"
@@ -240,13 +241,6 @@ class TurnPortTest : public ::testing::Test,
   }
   void OnTurnPortClosed(TurnPort* port) { turn_port_closed_ = true; }
   void OnTurnPortDestroyed(PortInterface* port) { turn_port_destroyed_ = true; }
-
-  rtc::Socket* CreateServerSocket(const SocketAddress addr) {
-    rtc::Socket* socket = ss_->CreateSocket(AF_INET, SOCK_STREAM);
-    EXPECT_GE(socket->Bind(addr), 0);
-    EXPECT_GE(socket->Listen(5), 0);
-    return socket;
-  }
 
   rtc::Network* MakeNetwork(const SocketAddress& addr) {
     networks_.emplace_back("unittest", "unittest", addr.ipaddr(), 32);
@@ -540,16 +534,28 @@ class TurnPortTest : public ::testing::Test,
                                    TURN_SERVER_PORT);
     redirect_addresses.push_back(loopback_address);
 
+    std::unique_ptr<rtc::Socket> loopback_udp_socket;
+    std::unique_ptr<rtc::ListenSocket> loopback_tcp_socket;
+    std::atomic<int> connect_attempts(0);
+
     // Make a socket and bind it to the local port, to make extra sure no
     // packet is sent to this address.
-    std::unique_ptr<rtc::Socket> loopback_socket(ss_->CreateSocket(
-        AF_INET, protocol_type == PROTO_UDP ? SOCK_DGRAM : SOCK_STREAM));
-    ASSERT_NE(nullptr, loopback_socket.get());
-    ASSERT_EQ(0, loopback_socket->Bind(loopback_address));
-    if (protocol_type == PROTO_TCP) {
-      ASSERT_EQ(0, loopback_socket->Listen(1));
+    if (protocol_type == PROTO_TCP || protocol_type == PROTO_TLS) {
+      loopback_tcp_socket = ss_->CreateListenSocket(AF_INET);
+      ASSERT_NE(nullptr, loopback_tcp_socket.get());
+      ASSERT_EQ(0, loopback_tcp_socket->Bind(loopback_address));
+      ASSERT_EQ(0, loopback_tcp_socket->Listen(
+                       1, [&connect_attempts](const SocketAddress&,
+                                              std::unique_ptr<rtc::Socket>) {
+                         connect_attempts.fetch_add(1);
+                       }));
+    } else {
+      ASSERT_EQ(protocol_type, PROTO_UDP);
+      loopback_udp_socket =
+          absl::WrapUnique(ss_->CreateSocket(AF_INET, SOCK_DGRAM));
+      ASSERT_NE(nullptr, loopback_udp_socket.get());
+      ASSERT_EQ(0, loopback_udp_socket->Bind(loopback_address));
     }
-
     TestTurnRedirector redirector(redirect_addresses);
 
     turn_server_.AddInternalSocket(server_address, protocol_type);
@@ -567,12 +573,9 @@ class TurnPortTest : public ::testing::Test,
     SIMULATED_WAIT(false, kSimulatedRtt, fake_clock_);
     if (protocol_type == PROTO_UDP) {
       char buf[1];
-      EXPECT_EQ(-1, loopback_socket->Recv(&buf, 1, nullptr));
-    } else {
-      std::unique_ptr<rtc::Socket> accepted_socket(
-          loopback_socket->Accept(nullptr));
-      EXPECT_EQ(nullptr, accepted_socket.get());
+      EXPECT_EQ(-1, loopback_udp_socket->Recv(&buf, 1, nullptr));
     }
+    EXPECT_EQ(0, connect_attempts.load());
   }
 
   void TestTurnConnection(ProtocolType protocol_type) {

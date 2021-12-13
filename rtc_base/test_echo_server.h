@@ -38,14 +38,11 @@ class TestEchoServer : public sigslot::has_slots<> {
   SocketAddress address() const { return server_socket_->GetLocalAddress(); }
 
  private:
-  void OnAccept(Socket* socket) {
-    Socket* raw_socket = socket->Accept(nullptr);
-    if (raw_socket) {
-      AsyncTCPSocket* packet_socket = new AsyncTCPSocket(raw_socket);
-      packet_socket->SignalReadPacket.connect(this, &TestEchoServer::OnPacket);
-      packet_socket->SignalClose.connect(this, &TestEchoServer::OnClose);
-      client_sockets_.push_back(packet_socket);
-    }
+  void OnAccept(std::unique_ptr<Socket> socket) {
+    AsyncTCPSocket* packet_socket = new AsyncTCPSocket(socket.release());
+    packet_socket->SignalReadPacket.connect(this, &TestEchoServer::OnPacket);
+    packet_socket->SignalClose.connect(this, &TestEchoServer::OnClose);
+    client_sockets_.push_back(packet_socket);
   }
   void OnPacket(AsyncPacketSocket* socket,
                 const char* buf,
@@ -62,7 +59,7 @@ class TestEchoServer : public sigslot::has_slots<> {
   }
 
   typedef std::list<AsyncTCPSocket*> ClientList;
-  std::unique_ptr<Socket> server_socket_;
+  std::unique_ptr<ListenSocket> server_socket_;
   ClientList client_sockets_;
   RTC_DISALLOW_COPY_AND_ASSIGN(TestEchoServer);
 };

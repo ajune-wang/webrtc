@@ -88,34 +88,76 @@ class FirewallSocket : public AsyncSocketAdapter {
     return AsyncSocketAdapter::RecvFrom(pv, cb, paddr, timestamp);
   }
 
-  int Listen(int backlog) override {
-    if (!server_->tcp_listen_enabled()) {
-      RTC_LOG(LS_VERBOSE) << "FirewallSocket listen attempt denied";
-      return -1;
-    }
-
-    return AsyncSocketAdapter::Listen(backlog);
-  }
-  Socket* Accept(SocketAddress* paddr) override {
-    SocketAddress addr;
-    while (Socket* sock = AsyncSocketAdapter::Accept(&addr)) {
-      if (server_->Check(FP_TCP, addr, GetLocalAddress())) {
-        if (paddr)
-          *paddr = addr;
-        return sock;
-      }
-      sock->Close();
-      delete sock;
-      RTC_LOG(LS_VERBOSE) << "FirewallSocket inbound TCP connection from "
-                          << addr.ToSensitiveString() << " to "
-                          << GetLocalAddress().ToSensitiveString() << " denied";
-    }
-    return 0;
-  }
-
  private:
   FirewallSocketServer* server_;
   int type_;
+};
+
+class FirewallListenSocket : public ListenSocket {
+ public:
+  FirewallListenSocket(FirewallSocketServer* server,
+                       std::unique_ptr<ListenSocket> listen_socket)
+      : server_(server), listen_socket_(std::move(listen_socket)) {}
+
+  SocketAddress GetLocalAddress() const override {
+    return listen_socket_->GetLocalAddress();
+  }
+
+  int Bind(const SocketAddress& addr) override {
+    if (!server_->IsBindableIp(addr.ipaddr())) {
+      SetError(EINVAL);
+      return SOCKET_ERROR;
+    }
+    int ret = listen_socket_->Bind(addr);
+    if (ret != 0) {
+      SetError(listen_socket_->GetError());
+    }
+    return ret;
+  }
+
+  int Listen(
+      int backlog,
+      std::function<void(const SocketAddress& addr,
+                         std::unique_ptr<Socket> socket)> callback) override {
+    if (!server_->tcp_listen_enabled()) {
+      RTC_LOG(LS_VERBOSE) << "FirewallSocket listen attempt denied";
+      SetError(EINVAL);
+      return -1;
+    }
+    int ret = listen_socket_->Listen(
+        backlog, [this, callback](const SocketAddress& addr,
+                                  std::unique_ptr<Socket> socket) {
+          if (!server_->Check(FP_TCP, addr, GetLocalAddress())) {
+            RTC_LOG(LS_VERBOSE)
+                << "FirewallSocket inbound TCP connection from "
+                << addr.ToSensitiveString() << " to "
+                << GetLocalAddress().ToSensitiveString() << " denied";
+            socket->Close();
+            return;
+          }
+          // The accepted socket is not wrapped.
+          callback(addr, std::move(socket));
+        });
+    if (ret != 0) {
+      SetError(listen_socket_->GetError());
+    }
+    return ret;
+  }
+  int GetError() const override {
+    webrtc::MutexLock lock(&mutex_);
+    return error_;
+  }
+
+ private:
+  void SetError(int error) {
+    webrtc::MutexLock lock(&mutex_);
+    error_ = error;
+  }
+
+  FirewallSocketServer* const server_;
+  const std::unique_ptr<ListenSocket> listen_socket_;
+  mutable webrtc::Mutex mutex_;
+  int error_ RTC_GUARDED_BY(&mutex_) = 0;
 };
 
 FirewallSocketServer::FirewallSocketServer(SocketServer* server,
@@ -206,6 +248,11 @@ Socket* FirewallSocketServer::CreateSocket(int family, int type) {
   return WrapSocket(server_->CreateSocket(family, type), type);
 }
 
+std::unique_ptr<ListenSocket> FirewallSocketServer::CreateListenSocket(
+    int family) {
+  return WrapListenSocket(server_->CreateListenSocket(family));
+}
+
 void FirewallSocketServer::SetMessageQueue(Thread* queue) {
   server_->SetMessageQueue(queue);
 }
@@ -226,6 +273,14 @@ Socket* FirewallSocketServer::WrapSocket(Socket* sock, int type) {
     return nullptr;
   }
   return new FirewallSocket(this, sock, type);
+}
+
+std::unique_ptr<ListenSocket> FirewallSocketServer::WrapListenSocket(
+    std::unique_ptr<ListenSocket> sock) {
+  if (!sock || !tcp_sockets_enabled_) {
+    return nullptr;
+  }
+  return std::make_unique<FirewallListenSocket>(this, std::move(sock));
 }
 
 FirewallManager::FirewallManager() {}

@@ -26,13 +26,14 @@ ProxyServer::ProxyServer(SocketFactory* int_factory,
                          const SocketAddress& ext_ip)
     : ext_factory_(ext_factory),
       ext_ip_(ext_ip.ipaddr(), 0),  // strip off port
-      server_socket_(
-          int_factory->CreateSocket(int_addr.family(), SOCK_STREAM)) {
+      server_socket_(int_factory->CreateListenSocket(int_addr.family())) {
   RTC_DCHECK(server_socket_.get() != nullptr);
   RTC_DCHECK(int_addr.family() == AF_INET || int_addr.family() == AF_INET6);
   server_socket_->Bind(int_addr);
-  server_socket_->Listen(5);
-  server_socket_->SignalReadEvent.connect(this, &ProxyServer::OnAcceptEvent);
+  server_socket_->Listen(
+      5, [this](const SocketAddress&, std::unique_ptr<Socket> socket) {
+        OnAcceptEvent(socket.release());
+      });
 }
 
 ProxyServer::~ProxyServer() = default;
@@ -41,10 +42,8 @@ SocketAddress ProxyServer::GetServerAddress() {
   return server_socket_->GetLocalAddress();
 }
 
-void ProxyServer::OnAcceptEvent(Socket* socket) {
-  RTC_DCHECK(socket);
-  RTC_DCHECK_EQ(socket, server_socket_.get());
-  Socket* int_socket = socket->Accept(nullptr);
+void ProxyServer::OnAcceptEvent(Socket* int_socket) {
+  RTC_DCHECK(int_socket);
   AsyncProxyServerSocket* wrapped_socket = WrapSocket(int_socket);
   Socket* ext_socket =
       ext_factory_->CreateSocket(ext_ip_.family(), SOCK_STREAM);

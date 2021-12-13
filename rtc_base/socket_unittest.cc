@@ -231,7 +231,7 @@ bool IsUnspecOrEmptyIP(const IPAddress& address) {
   return address.family() == AF_UNSPEC;
 #endif
 }
-
+#if 0
 void SocketTest::ConnectInternal(const IPAddress& loopback) {
   StreamSink sink;
   SocketAddress accept_addr;
@@ -244,11 +244,11 @@ void SocketTest::ConnectInternal(const IPAddress& loopback) {
   EXPECT_TRUE(IsUnspecOrEmptyIP(client->GetLocalAddress().ipaddr()));
 
   // Create server and listen.
-  std::unique_ptr<Socket> server(
-      socket_factory_->CreateSocket(loopback.family(), SOCK_STREAM));
+  std::unique_ptr<ListenSocket> server =
+      socket_factory_->CreateListenSocket(loopback.family());
   sink.Monitor(server.get());
   EXPECT_EQ(0, server->Bind(SocketAddress(loopback, 0)));
-  EXPECT_EQ(0, server->Listen(5));
+  EXPECT_EQ(0, server->Listen(5, xxx));
   EXPECT_EQ(Socket::CS_CONNECTING, server->GetState());
 
   // Ensure no pending server connections, since we haven't done anything yet.
@@ -653,7 +653,7 @@ void SocketTest::CloseInClosedCallbackInternal(const IPAddress& loopback) {
   EXPECT_TRUE(sink.Check(client.get(), SSE_CLOSE));
   EXPECT_TRUE(Socket::CS_CLOSED == client->GetState());
 }
-
+#endif
 // Helper class specifically for the test below.
 class SocketDeleter : public sigslot::has_slots<> {
  public:
@@ -695,6 +695,7 @@ class Sleeper : public MessageHandlerAutoCleanup {
   void OnMessage(Message* msg) override { Thread::Current()->SleepMs(500); }
 };
 
+#if 0
 void SocketTest::SocketServerWaitInternal(const IPAddress& loopback) {
   StreamSink sink;
   SocketAddress accept_addr;
@@ -941,6 +942,7 @@ void SocketTest::SingleFlowControlCallbackInternal(const IPAddress& loopback) {
   accepted->Close();
   client->Close();
 }
+#endif
 
 void SocketTest::UdpInternal(const IPAddress& loopback) {
   SocketAddress empty = EmptySocketAddressWithFamily(loopback.family());

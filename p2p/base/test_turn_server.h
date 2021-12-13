@@ -101,9 +101,9 @@ class TestTurnServer : public TurnAuthInterface {
     } else if (proto == cricket::PROTO_TCP || proto == cricket::PROTO_TLS) {
       // For TCP we need to create a server socket which can listen for incoming
       // new connections.
-      rtc::Socket* socket = socket_factory_->CreateSocket(AF_INET, SOCK_STREAM);
+      std::unique_ptr<rtc::ListenSocket> socket =
+          socket_factory_->CreateListenSocket(AF_INET);
       socket->Bind(int_addr);
-      socket->Listen(5);
       if (proto == cricket::PROTO_TLS) {
         // For TLS, wrap the TCP socket with an SSL adapter. The adapter must
         // be configured with a self-signed certificate for testing.
@@ -115,10 +115,10 @@ class TestTurnServer : public TurnAuthInterface {
         ssl_adapter_factory->SetIdentity(
             rtc::SSLIdentity::Create(common_name, rtc::KeyParams()));
         ssl_adapter_factory->SetIgnoreBadCert(ignore_bad_cert);
-        server_.AddInternalServerSocket(socket, proto,
+        server_.AddInternalServerSocket(std::move(socket), proto,
                                         std::move(ssl_adapter_factory));
       } else {
-        server_.AddInternalServerSocket(socket, proto);
+        server_.AddInternalServerSocket(std::move(socket), proto);
       }
     } else {
       RTC_DCHECK_NOTREACHED() << "Unknown protocol type: " << proto;

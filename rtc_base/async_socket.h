@@ -39,8 +39,6 @@ class AsyncSocketAdapter : public Socket, public sigslot::has_slots<> {
                size_t cb,
                SocketAddress* paddr,
                int64_t* timestamp) override;
-  int Listen(int backlog) override;
-  Socket* Accept(SocketAddress* paddr) override;
   int Close() override;
   int GetError() const override;
   void SetError(int error) override;

@@ -26,6 +26,10 @@ class DummySocketServer : public rtc::SocketServer {
     RTC_DCHECK_NOTREACHED();
     return nullptr;
   }
+  std::unique_ptr<rtc::ListenSocket> CreateListenSocket(int family) override {
+    RTC_DCHECK_NOTREACHED();
+    return nullptr;
+  }
   bool Wait(int cms, bool process_io) override {
     RTC_CHECK_EQ(cms, 0);
     return true;

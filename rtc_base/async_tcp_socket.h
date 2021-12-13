@@ -104,18 +104,14 @@ class AsyncTCPSocket : public AsyncTCPSocketBase {
 
 class AsyncTcpListenSocket : public AsyncListenSocket {
  public:
-  explicit AsyncTcpListenSocket(std::unique_ptr<Socket> socket);
+  explicit AsyncTcpListenSocket(std::unique_ptr<ListenSocket> socket);
 
-  State GetState() const override;
   SocketAddress GetLocalAddress() const override;
 
   virtual void HandleIncomingConnection(rtc::Socket* socket);
 
  private:
-  // Called by the underlying socket
-  void OnReadEvent(Socket* socket);
-
-  std::unique_ptr<Socket> socket_;
+  std::unique_ptr<ListenSocket> socket_;
 };
 
 }  // namespace rtc

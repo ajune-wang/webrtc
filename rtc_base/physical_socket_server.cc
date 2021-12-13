@@ -42,6 +42,7 @@
 #include <algorithm>
 #include <map>
 
+#include "absl/memory/memory.h"
 #include "rtc_base/arraysize.h"
 #include "rtc_base/byte_order.h"
 #include "rtc_base/checks.h"
@@ -104,6 +105,8 @@ typedef char* SockOptArg;
 #endif
 #endif
 
+namespace rtc {
+
 namespace {
 class ScopedSetTrue {
  public:
@@ -116,9 +119,170 @@ class ScopedSetTrue {
  private:
   bool* value_;
 };
-}  // namespace
 
-namespace rtc {
+void SetNonBlocking(SOCKET s) {
+#if defined(WEBRTC_WIN)
+  u_long argp = 1;
+  ioctlsocket(s, FIONBIO, &argp);
+#elif defined(WEBRTC_POSIX)
+  fcntl(s, F_SETFL, fcntl(s, F_GETFL, 0) | O_NONBLOCK);
+#endif
+}
+
+class ListenSocketDispatcher : public Dispatcher, public ListenSocket {
+ public:
+  explicit ListenSocketDispatcher(PhysicalSocketServer* ss) : ss_(ss) {}
+  ~ListenSocketDispatcher();
+
+  bool Create(int family);
+  int Bind(const SocketAddress& addr) override;
+  int Listen(int backlog,
+             std::function<void(const SocketAddress&, std::unique_ptr<Socket>)>
+                 callback) override;
+  SocketAddress GetLocalAddress() const override;
+  int GetError() const override;
+
+  uint32_t GetRequestedEvents() override;
+  void OnEvent(uint32_t ff, int err) override;
+#if defined(WEBRTC_WIN)
+  WSAEVENT GetWSAEvent() override { return WSA_INVALID_EVENT; }
+  SOCKET GetSocket() override {
+    webrtc::MutexLock lock(&mutex_);
+    return s_;
+  }
+  bool CheckSignalClose() override {
+    webrtc::MutexLock lock(&mutex_);
+    return is_closed_;
+  }
+#elif defined(WEBRTC_POSIX)
+  int GetDescriptor() override {
+    webrtc::MutexLock lock(&mutex_);
+    return s_;
+  }
+  bool IsDescriptorClosed() override {
+    webrtc::MutexLock lock(&mutex_);
+    return is_closed_;
+  }
+#endif
+
+ private:
+  PhysicalSocketServer* const ss_;
+  mutable webrtc::Mutex mutex_;
+  int error_ RTC_GUARDED_BY(mutex_) = 0;
+  bool is_closed_ RTC_GUARDED_BY(mutex_) = false;
+  std::function<void(const SocketAddress&, std::unique_ptr<Socket>)> callback_
+      RTC_GUARDED_BY(mutex_);
+  SOCKET s_ RTC_GUARDED_BY(mutex_) = INVALID_SOCKET;
+};
+
+ListenSocketDispatcher::~ListenSocketDispatcher() {
+  if (s_ != INVALID_SOCKET) {
+    ss_->Remove(this);
+    ::closesocket(s_);
+  }
+}
+
+int ListenSocketDispatcher::GetError() const {
+  webrtc::MutexLock lock(&mutex_);
+  return error_;
+}
+
+uint32_t ListenSocketDispatcher::GetRequestedEvents() {
+  // Return DE_ACCEPT, even if Listen has not been called yet.
+  webrtc::MutexLock lock(&mutex_);
+  return is_closed_ ? 0 : DE_ACCEPT;
+}
+
+void ListenSocketDispatcher::OnEvent(uint32_t ff, int err) {
+  webrtc::MutexLock lock(&mutex_);
+  if (ff & DE_CLOSE) {
+    is_closed_ = true;
+    return;
+  }
+  if (is_closed_)
+    return;
+
+  RTC_DCHECK_EQ(ff, DE_ACCEPT);
+  RTC_DCHECK_EQ(err, 0);  // No errors with DE_ACCEPT.
+  RTC_DCHECK_NE(s_, INVALID_SOCKET);
+  RTC_DCHECK(callback_);
+  sockaddr_storage addr_storage;
+  socklen_t addr_len = sizeof(addr_storage);
+  sockaddr* addr = reinterpret_cast<sockaddr*>(&addr_storage);
+  SOCKET accepted_socket = ::accept(s_, addr, &addr_len);
+  if (accepted_socket == INVALID_SOCKET) {
+    return;
+  }
+  SocketAddress socket_address;
+  SocketAddressFromSockAddrStorage(addr_storage, &socket_address);
+  callback_(socket_address, absl::WrapUnique(ss_->WrapSocket(accepted_socket)));
+}
+
+bool ListenSocketDispatcher::Create(int family) {
+  {
+    webrtc::MutexLock lock(&mutex_);
+    RTC_DCHECK_EQ(s_, INVALID_SOCKET);
+    s_ = ::socket(family, SOCK_STREAM, 0);
+    if (s_ == INVALID_SOCKET) {
+      return false;
+    }
+    SetNonBlocking(s_);
+  }
+  ss_->Add(this);
+  return true;
+}
+
+int ListenSocketDispatcher::Bind(const SocketAddress& socket_address) {
+  webrtc::MutexLock lock(&mutex_);
+  if (s_ == INVALID_SOCKET || is_closed_) {
+    error_ = EINVAL;
+    return -1;
+  }
+  int res = ss_->BindSocket(s_, socket_address);
+  error_ = (res == 0) ? 0 : errno;
+  return res;
+}
+
+int ListenSocketDispatcher::Listen(
+    int backlog,
+    std::function<void(const SocketAddress&, std::unique_ptr<Socket>)>
+        callback) {
+  RTC_DCHECK(callback);
+  webrtc::MutexLock lock(&mutex_);
+  if (s_ == INVALID_SOCKET || is_closed_) {
+    error_ = EINVAL;
+    return -1;
+  }
+  int err = ::listen(s_, backlog);
+  if (err != 0) {
+    error_ = errno;
+    return err;
+  }
+  callback_ = callback;
+  error_ = 0;
+  return 0;
+}
+
+SocketAddress ListenSocketDispatcher::GetLocalAddress() const {
+  sockaddr_storage addr_storage = {};
+  socklen_t addrlen = sizeof(addr_storage);
+  sockaddr* addr = reinterpret_cast<sockaddr*>(&addr_storage);
+  SocketAddress address;
+  int result;
+  {
+    webrtc::MutexLock lock(&mutex_);
+    RTC_DCHECK(s_ != INVALID_SOCKET);
+    result = ::getsockname(s_, addr, &addrlen);
+  }
+  if (result >= 0) {
+    SocketAddressFromSockAddrStorage(addr_storage, &address);
+  } else {
+    RTC_LOG(LS_WARNING) << "GetLocalAddress: unable to get local addr";
+  }
+  return address;
+}
+
+}  // namespace
 
 PhysicalSocket::PhysicalSocket(PhysicalSocketServer* ss, SOCKET s)
     : ss_(ss),
@@ -185,42 +349,7 @@ SocketAddress PhysicalSocket::GetRemoteAddress() const {
 }
 
 int PhysicalSocket::Bind(const SocketAddress& bind_addr) {
-  SocketAddress copied_bind_addr = bind_addr;
-  // If a network binder is available, use it to bind a socket to an interface
-  // instead of bind(), since this is more reliable on an OS with a weak host
-  // model.
-  if (ss_->network_binder() && !bind_addr.IsAnyIP()) {
-    NetworkBindingResult result =
-        ss_->network_binder()->BindSocketToNetwork(s_, bind_addr.ipaddr());
-    if (result == NetworkBindingResult::SUCCESS) {
-      // Since the network binder handled binding the socket to the desired
-      // network interface, we don't need to (and shouldn't) include an IP in
-      // the bind() call; bind() just needs to assign a port.
-      copied_bind_addr.SetIP(GetAnyIP(copied_bind_addr.ipaddr().family()));
-    } else if (result == NetworkBindingResult::NOT_IMPLEMENTED) {
-      RTC_LOG(LS_INFO) << "Can't bind socket to network because "
-                          "network binding is not implemented for this OS.";
-    } else {
-      if (bind_addr.IsLoopbackIP()) {
-        // If we couldn't bind to a loopback IP (which should only happen in
-        // test scenarios), continue on. This may be expected behavior.
-        RTC_LOG(LS_VERBOSE) << "Binding socket to loopback address"
-                            << " failed; result: " << static_cast<int>(result);
-      } else {
-        RTC_LOG(LS_WARNING) << "Binding socket to network address"
-                            << " failed; result: " << static_cast<int>(result);
-        // If a network binding was attempted and failed, we should stop here
-        // and not try to use the socket. Otherwise, we may end up sending
-        // packets with an invalid source address.
-        // See: https://bugs.chromium.org/p/webrtc/issues/detail?id=7026
-        return -1;
-      }
-    }
-  }
-  sockaddr_storage addr_storage;
-  size_t len = copied_bind_addr.ToSockAddrStorage(&addr_storage);
-  sockaddr* addr = reinterpret_cast<sockaddr*>(&addr_storage);
-  int err = ::bind(s_, addr, static_cast<int>(len));
+  int err = ss_->BindSocket(s_, bind_addr);
   UpdateLastError();
 #if !defined(NDEBUG)
   if (0 == err) {
@@ -446,36 +575,6 @@ int PhysicalSocket::RecvFrom(void* buffer,
   return received;
 }
 
-int PhysicalSocket::Listen(int backlog) {
-  int err = ::listen(s_, backlog);
-  UpdateLastError();
-  if (err == 0) {
-    state_ = CS_CONNECTING;
-    EnableEvents(DE_ACCEPT);
-#if !defined(NDEBUG)
-    dbg_addr_ = "Listening @ ";
-    dbg_addr_.append(GetLocalAddress().ToString());
-#endif
-  }
-  return err;
-}
-
-Socket* PhysicalSocket::Accept(SocketAddress* out_addr) {
-  // Always re-subscribe DE_ACCEPT to make sure new incoming connections will
-  // trigger an event even if DoAccept returns an error here.
-  EnableEvents(DE_ACCEPT);
-  sockaddr_storage addr_storage;
-  socklen_t addr_len = sizeof(addr_storage);
-  sockaddr* addr = reinterpret_cast<sockaddr*>(&addr_storage);
-  SOCKET s = DoAccept(s_, addr, &addr_len);
-  UpdateLastError();
-  if (s == INVALID_SOCKET)
-    return nullptr;
-  if (out_addr != nullptr)
-    SocketAddressFromSockAddrStorage(addr_storage, out_addr);
-  return ss_->WrapSocket(s);
-}
-
 int PhysicalSocket::Close() {
   if (s_ == INVALID_SOCKET)
     return 0;
@@ -489,12 +588,6 @@ int PhysicalSocket::Close() {
     resolver_ = nullptr;
   }
   return err;
-}
-
-SOCKET PhysicalSocket::DoAccept(SOCKET socket,
-                                sockaddr* addr,
-                                socklen_t* addrlen) {
-  return ::accept(socket, addr, addrlen);
 }
 
 int PhysicalSocket::DoSend(SOCKET socket, const char* buf, int len, int flags) {
@@ -635,13 +728,8 @@ SocketDispatcher::~SocketDispatcher() {
 
 bool SocketDispatcher::Initialize() {
   RTC_DCHECK(s_ != INVALID_SOCKET);
-// Must be a non-blocking
-#if defined(WEBRTC_WIN)
-  u_long argp = 1;
-  ioctlsocket(s_, FIONBIO, &argp);
-#elif defined(WEBRTC_POSIX)
-  fcntl(s_, F_SETFL, fcntl(s_, F_GETFL, 0) | O_NONBLOCK);
-#endif
+  // Must be a non-blocking
+  SetNonBlocking(s_);
 #if defined(WEBRTC_IOS)
   // iOS may kill sockets when the app is moved to the background
   // (specifically, if the app doesn't use the "voip" UIBackgroundMode). When
@@ -1103,6 +1191,16 @@ Socket* PhysicalSocketServer::CreateSocket(int family, int type) {
   }
 }
 
+std::unique_ptr<ListenSocket> PhysicalSocketServer::CreateListenSocket(
+    int family) {
+  auto dispatcher = std::make_unique<ListenSocketDispatcher>(this);
+  if (dispatcher->Create(family)) {
+    return dispatcher;
+  } else {
+    return nullptr;
+  }
+}
+
 Socket* PhysicalSocketServer::WrapSocket(SOCKET s) {
   SocketDispatcher* dispatcher = new SocketDispatcher(s, this);
   if (dispatcher->Initialize()) {
@@ -1114,7 +1212,7 @@ Socket* PhysicalSocketServer::WrapSocket(SOCKET s) {
 }
 
 void PhysicalSocketServer::Add(Dispatcher* pdispatcher) {
-  CritScope cs(&crit_);
+  webrtc::MutexLock lock(&mutex_);
   if (key_by_dispatcher_.count(pdispatcher)) {
     RTC_LOG(LS_WARNING)
         << "PhysicalSocketServer asked to add a duplicate dispatcher.";
@@ -1131,7 +1229,7 @@ void PhysicalSocketServer::Add(Dispatcher* pdispatcher) {
 }
 
 void PhysicalSocketServer::Remove(Dispatcher* pdispatcher) {
-  CritScope cs(&crit_);
+  webrtc::MutexLock lock(&mutex_);
   if (!key_by_dispatcher_.count(pdispatcher)) {
     RTC_LOG(LS_WARNING)
         << "PhysicalSocketServer asked to remove a unknown "
@@ -1155,13 +1253,48 @@ void PhysicalSocketServer::Update(Dispatcher* pdispatcher) {
   }
 
   // Don't update dispatchers that haven't yet been added.
-  CritScope cs(&crit_);
+  webrtc::MutexLock lock(&mutex_);
   if (!key_by_dispatcher_.count(pdispatcher)) {
     return;
   }
 
   UpdateEpoll(pdispatcher, key_by_dispatcher_.at(pdispatcher));
 #endif
+}
+
+int PhysicalSocketServer::BindSocket(SOCKET s, SocketAddress bind_addr) {
+  if (network_binder() && !bind_addr.IsAnyIP()) {
+    NetworkBindingResult result =
+        network_binder()->BindSocketToNetwork(s, bind_addr.ipaddr());
+    if (result == NetworkBindingResult::SUCCESS) {
+      // Since the network binder handled binding the socket to the desired
+      // network interface, we don't need to (and shouldn't) include an IP in
+      // the bind() call; bind() just needs to assign a port.
+      bind_addr.SetIP(GetAnyIP(bind_addr.ipaddr().family()));
+    } else if (result == NetworkBindingResult::NOT_IMPLEMENTED) {
+      RTC_LOG(LS_INFO) << "Can't bind socket to network because "
+                          "network binding is not implemented for this OS.";
+    } else {
+      if (bind_addr.IsLoopbackIP()) {
+        // If we couldn't bind to a loopback IP (which should only happen in
+        // test scenarios), continue on. This may be expected behavior.
+        RTC_LOG(LS_VERBOSE) << "Binding socket to loopback address"
+                            << " failed; result: " << static_cast<int>(result);
+      } else {
+        RTC_LOG(LS_WARNING) << "Binding socket to network address"
+                            << " failed; result: " << static_cast<int>(result);
+        // If a network binding was attempted and failed, we should stop here
+        // and not try to use the socket. Otherwise, we may end up sending
+        // packets with an invalid source address.
+        // See: https://bugs.chromium.org/p/webrtc/issues/detail?id=7026
+        return -1;
+      }
+    }
+  }
+  sockaddr_storage addr_storage;
+  size_t len = bind_addr.ToSockAddrStorage(&addr_storage);
+  sockaddr* addr = reinterpret_cast<sockaddr*>(&addr_storage);
+  return ::bind(s, addr, static_cast<int>(len));
 }
 
 #if defined(WEBRTC_POSIX)
@@ -1287,7 +1420,7 @@ bool PhysicalSocketServer::WaitSelect(int cmsWait, bool process_io) {
     FD_ZERO(&fdsWrite);
     int fdmax = -1;
     {
-      CritScope cr(&crit_);
+      webrtc::MutexLock lock(&mutex_);
       current_dispatcher_keys_.clear();
       for (auto const& kv : dispatcher_by_key_) {
         uint64_t key = kv.first;
@@ -1332,7 +1465,7 @@ bool PhysicalSocketServer::WaitSelect(int cmsWait, bool process_io) {
       return true;
     } else {
       // We have signaled descriptors
-      CritScope cr(&crit_);
+      webrtc::MutexLock lock(&mutex_);
       // Iterate only on the dispatchers whose sockets were passed into
       // WSAEventSelect; this avoids the ABA problem (a socket being
       // destroyed and a new one created with the same file descriptor).
@@ -1481,7 +1614,7 @@ bool PhysicalSocketServer::WaitEpoll(int cmsWait) {
       return true;
     } else {
       // We have signaled descriptors
-      CritScope cr(&crit_);
+      webrtc::MutexLock lock(&mutex_);
       for (int i = 0; i < n; ++i) {
         const epoll_event& event = epoll_events_[i];
         uint64_t key = event.data.u64;
@@ -1600,7 +1733,7 @@ bool PhysicalSocketServer::Wait(int cmsWait, bool process_io) {
     events.push_back(socket_ev_);
 
     {
-      CritScope cr(&crit_);
+      webrtc::MutexLock lock(&mutex_);
       // Get a snapshot of all current dispatchers; this is used to avoid the
       // ABA problem (see later comment) and avoids the dispatcher_by_key_
       // iterator being invalidated by calling CheckSignalClose, which may
@@ -1656,7 +1789,7 @@ bool PhysicalSocketServer::Wait(int cmsWait, bool process_io) {
       return true;
     } else {
       // Figure out which one it is and call it
-      CritScope cr(&crit_);
+      webrtc::MutexLock lock(&mutex_);
       int index = dw - WSA_WAIT_EVENT_0;
       if (index > 0) {
         --index;  // The first event is the socket event

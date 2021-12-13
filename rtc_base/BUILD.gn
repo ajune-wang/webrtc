@@ -791,7 +791,10 @@ rtc_library("threading") {
     "thread.h",
     "thread_message.h",
   ]
-  absl_deps = [ "//third_party/abseil-cpp/absl/algorithm:container" ]
+  absl_deps = [
+    "//third_party/abseil-cpp/absl/algorithm:container",
+    "//third_party/abseil-cpp/absl/memory:memory",
+  ]
   deps = [
     ":async_resolver_interface",
     ":atomicops",
@@ -857,6 +860,7 @@ rtc_library("socket") {
     "socket.h",
   ]
   deps = [
+    ":checks",
     ":macromagic",
     ":socket_address",
     "third_party/sigslot",
@@ -864,6 +868,7 @@ rtc_library("socket") {
   if (is_win) {
     deps += [ ":win32" ]
   }
+  absl_deps = [ "//third_party/abseil-cpp/absl/base:core_headers" ]
 }
 
 rtc_source_set("network_constants") {
@@ -1296,10 +1301,12 @@ if (rtc_include_tests) {
         "cpu_time_unittest.cc",
         "file_rotating_stream_unittest.cc",
         "null_socket_server_unittest.cc",
-        "physical_socket_server_unittest.cc",
+
+        # "physical_socket_server_unittest.cc",
         "socket_address_unittest.cc",
-        "socket_unittest.cc",
-        "socket_unittest.h",
+
+        # "socket_unittest.cc",
+        # "socket_unittest.h",
       ]
       deps = [
         ":checks",

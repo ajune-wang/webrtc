@@ -13,6 +13,7 @@
 #include <stddef.h>
 
 #include <string>
+#include <utility>
 
 #include "absl/memory/memory.h"
 #include "api/async_dns_resolver.h"
@@ -66,21 +67,20 @@ AsyncListenSocket* BasicPacketSocketFactory::CreateServerTcpSocket(
     RTC_LOG(LS_ERROR) << "Fake TLS not supported.";
     return NULL;
   }
-  Socket* socket =
-      socket_factory_->CreateSocket(local_address.family(), SOCK_STREAM);
+  std::unique_ptr<ListenSocket> socket =
+      socket_factory_->CreateListenSocket(local_address.family());
   if (!socket) {
     return NULL;
   }
 
-  if (BindSocket(socket, local_address, min_port, max_port) < 0) {
+  if (BindSocket(socket.get(), local_address, min_port, max_port) < 0) {
     RTC_LOG(LS_ERROR) << "TCP bind failed with error " << socket->GetError();
-    delete socket;
     return NULL;
   }
 
   RTC_CHECK(!(opts & PacketSocketFactory::OPT_STUN));
 
-  return new AsyncTcpListenSocket(absl::WrapUnique(socket));
+  return new AsyncTcpListenSocket(std::move(socket));
 }
 
 AsyncPacketSocket* BasicPacketSocketFactory::CreateClientTcpSocket(
@@ -191,6 +191,23 @@ BasicPacketSocketFactory::CreateAsyncDnsResolver() {
 }
 
 int BasicPacketSocketFactory::BindSocket(Socket* socket,
+                                         const SocketAddress& local_address,
+                                         uint16_t min_port,
+                                         uint16_t max_port) {
+  int ret = -1;
+  if (min_port == 0 && max_port == 0) {
+    // If there's no port range, let the OS pick a port for us.
+    ret = socket->Bind(local_address);
+  } else {
+    // Otherwise, try to find a port in the provided range.
+    for (int port = min_port; ret < 0 && port <= max_port; ++port) {
+      ret = socket->Bind(SocketAddress(local_address.ipaddr(), port));
+    }
+  }
+  return ret;
+}
+
+int BasicPacketSocketFactory::BindSocket(ListenSocket* socket,
                                          const SocketAddress& local_address,
                                          uint16_t min_port,
                                          uint16_t max_port) {

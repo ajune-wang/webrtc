@@ -170,10 +170,6 @@ Connection* TCPPort::CreateConnection(const Candidate& address,
 
 void TCPPort::PrepareAddress() {
   if (listen_socket_) {
-    // Socket may be in the CLOSED state if Listen()
-    // failed, we still want to add the socket address.
-    RTC_LOG(LS_VERBOSE) << "Preparing TCP address, current state: "
-                        << static_cast<int>(listen_socket_->GetState());
     AddAddress(listen_socket_->GetLocalAddress(),
                listen_socket_->GetLocalAddress(), rtc::SocketAddress(),
                TCP_PROTOCOL_NAME, "", TCPTYPE_PASSIVE_STR, LOCAL_PORT_TYPE,

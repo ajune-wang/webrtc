@@ -10,4 +10,6 @@
 
 #include "rtc_base/socket.h"
 
+#include "rtc_base/checks.h"
+
 namespace rtc {}  // namespace rtc

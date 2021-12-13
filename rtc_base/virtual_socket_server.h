@@ -20,6 +20,7 @@
 #include "rtc_base/event.h"
 #include "rtc_base/fake_clock.h"
 #include "rtc_base/message_handler.h"
+#include "rtc_base/socket_address_pair.h"
 #include "rtc_base/socket_server.h"
 #include "rtc_base/synchronization/mutex.h"
 
@@ -27,7 +28,6 @@ namespace rtc {
 
 class Packet;
 class VirtualSocketServer;
-class SocketAddressPair;
 
 // Implements the socket interface using the virtual network.  Packets are
 // passed as messages using the message queue of the socket server.
@@ -51,8 +51,6 @@ class VirtualSocket : public Socket,
                size_t cb,
                SocketAddress* paddr,
                int64_t* timestamp) override;
-  int Listen(int backlog) override;
-  VirtualSocket* Accept(SocketAddress* paddr) override;
 
   int GetError() const override;
   void SetError(int error) override;
@@ -86,6 +84,10 @@ class VirtualSocket : public Socket,
   // Removes stale packets from the network. Returns current size.
   size_t PurgeNetworkPackets(int64_t cur_time);
 
+  // Public, only for use with VirtualListenSocket.
+  int InitiateConnect(const SocketAddress& addr, bool use_delay);
+  void CompleteConnect(const SocketAddress& addr);
+
  private:
   struct NetworkEntry {
     size_t size;
@@ -98,8 +100,6 @@ class VirtualSocket : public Socket,
   typedef std::list<Packet*> RecvBuffer;
   typedef std::map<Option, int> OptionsMap;
 
-  int InitiateConnect(const SocketAddress& addr, bool use_delay);
-  void CompleteConnect(const SocketAddress& addr);
   int SendUdp(const void* pv, size_t cb, const SocketAddress& addr);
   int SendTcp(const void* pv, size_t cb);
 
@@ -111,10 +111,6 @@ class VirtualSocket : public Socket,
   int error_;
   SocketAddress local_addr_;
   SocketAddress remote_addr_;
-
-  // Pending sockets which can be Accepted
-  std::unique_ptr<ListenQueue> listen_queue_ RTC_GUARDED_BY(mutex_)
-      RTC_PT_GUARDED_BY(mutex_);
 
   // Data which tcp has buffered for sending
   SendBuffer send_buffer_;
@@ -150,6 +146,33 @@ class VirtualSocket : public Socket,
   OptionsMap options_map_;
 };
 
+// Implements the socket interface using the virtual network.  Packets are
+// passed as messages using the message queue of the socket server.
+class VirtualListenSocket : public ListenSocket,
+                            public MessageHandler,
+                            public sigslot::has_slots<> {
+ public:
+  VirtualListenSocket(VirtualSocketServer* server, int family);
+  ~VirtualListenSocket() override;
+
+  int Bind(const SocketAddress& addr) override;
+  int Listen(int backlog,
+             std::function<void(const SocketAddress&, std::unique_ptr<Socket>)>
+                 callback) override;
+  SocketAddress GetLocalAddress() const override;
+
+  int GetError() const override { return 0; }
+  void OnMessage(Message* pmsg) override;
+
+ private:
+  VirtualSocketServer* const server_;
+
+  mutable webrtc::Mutex mutex_;
+  SocketAddress local_addr_ RTC_GUARDED_BY(&mutex_);
+  std::function<void(const SocketAddress&, std::unique_ptr<Socket>)> callback_
+      RTC_GUARDED_BY(&mutex_);
+};
+
 // Simulates a network in the same manner as a loopback interface.  The
 // interface can create as many addresses as you want.  All of the sockets
 // created by this network will be able to communicate with one another, unless
@@ -161,7 +184,7 @@ class VirtualSocketServer : public SocketServer {
   // ProcessMessagesUntilIdle, since ProcessMessagesUntilIdle needs a way of
   // advancing time.
   explicit VirtualSocketServer(ThreadProcessingFakeClock* fake_clock);
-  ~VirtualSocketServer() override;
+  ~VirtualSocketServer() override {}
 
   // The default source address specifies which local address to use when a
   // socket is bound to the 'any' address, e.g. 0.0.0.0. (If not set, the 'any'
@@ -218,6 +241,7 @@ class VirtualSocketServer : public SocketServer {
 
   // SocketFactory:
   VirtualSocket* CreateSocket(int family, int type) override;
+  std::unique_ptr<ListenSocket> CreateListenSocket(int family) override;
 
   // SocketServer:
   void SetMessageQueue(Thread* queue) override;
@@ -268,6 +292,7 @@ class VirtualSocketServer : public SocketServer {
 
   // Binds the given socket to the given (fully-defined) address.
   int Bind(VirtualSocket* socket, const SocketAddress& addr);
+  int Bind(VirtualListenSocket* socket, const SocketAddress& addr);
 
   int Unbind(const SocketAddress& addr, VirtualSocket* socket);
 
@@ -389,8 +414,10 @@ class VirtualSocketServer : public SocketServer {
   in_addr next_ipv4_;
   in6_addr next_ipv6_;
   uint16_t next_port_;
-  AddressMap* bindings_;
-  ConnectionMap* connections_;
+  // UDP sockets and TCP listen sockets, not using the ListenSocket class.
+  std::map<SocketAddress, VirtualSocket*> bindings_;
+  std::map<SocketAddress, VirtualListenSocket*> listen_bindings_;
+  std::map<SocketAddressPair, VirtualSocket*> connections_;
 
   IPAddress default_source_address_v4_;
   IPAddress default_source_address_v6_;

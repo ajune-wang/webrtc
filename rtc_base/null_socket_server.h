@@ -27,6 +27,7 @@ class RTC_EXPORT NullSocketServer : public SocketServer {
   void WakeUp() override;
 
   Socket* CreateSocket(int family, int type) override;
+  std::unique_ptr<ListenSocket> CreateListenSocket(int family) override;
 
  private:
   Event event_;

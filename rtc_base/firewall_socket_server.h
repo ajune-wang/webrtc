@@ -77,12 +77,15 @@ class FirewallSocketServer : public SocketServer {
   bool IsBindableIp(const rtc::IPAddress& ip);
 
   Socket* CreateSocket(int family, int type) override;
+  std::unique_ptr<ListenSocket> CreateListenSocket(int family) override;
 
   void SetMessageQueue(Thread* queue) override;
   bool Wait(int cms, bool process_io) override;
   void WakeUp() override;
 
   Socket* WrapSocket(Socket* sock, int type);
+  std::unique_ptr<ListenSocket> WrapListenSocket(
+      std::unique_ptr<ListenSocket> sock);
 
  private:
   SocketServer* server_;

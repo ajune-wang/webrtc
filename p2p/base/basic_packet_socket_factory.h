@@ -60,6 +60,11 @@ class BasicPacketSocketFactory : public PacketSocketFactory {
                  uint16_t min_port,
                  uint16_t max_port);
 
+  int BindSocket(ListenSocket* socket,
+                 const SocketAddress& local_address,
+                 uint16_t min_port,
+                 uint16_t max_port);
+
   SocketFactory* socket_factory_;
 };
 

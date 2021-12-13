@@ -1062,18 +1062,11 @@ class FakeAsyncListenSocket : public AsyncListenSocket {
  public:
   // Returns current local address. Address may be set to NULL if the
   // socket is not bound yet (GetState() returns STATE_BINDING).
-  virtual SocketAddress GetLocalAddress() const { return local_address_; }
-  void Bind(const SocketAddress& address) {
-    local_address_ = address;
-    state_ = State::kBound;
-  }
-  virtual int GetOption(Socket::Option opt, int* value) { return 0; }
-  virtual int SetOption(Socket::Option opt, int value) { return 0; }
-  virtual State GetState() const { return state_; }
+  SocketAddress GetLocalAddress() const override { return local_address_; }
+  void Bind(const SocketAddress& address) { local_address_ = address; }
 
  private:
   SocketAddress local_address_;
-  State state_ = State::kClosed;
 };
 
 // Local -> XXXX

@@ -307,47 +307,30 @@ void AsyncTCPSocket::ProcessInput(char* data, size_t* len) {
   }
 }
 
-AsyncTcpListenSocket::AsyncTcpListenSocket(std::unique_ptr<Socket> socket)
+AsyncTcpListenSocket::AsyncTcpListenSocket(std::unique_ptr<ListenSocket> socket)
     : socket_(std::move(socket)) {
   RTC_DCHECK(socket_.get() != nullptr);
-  socket_->SignalReadEvent.connect(this, &AsyncTcpListenSocket::OnReadEvent);
-  if (socket_->Listen(kListenBacklog) < 0) {
-    RTC_LOG(LS_ERROR) << "Listen() failed with error " << socket_->GetError();
-  }
-}
+  if (socket_->Listen(kListenBacklog, [this](const SocketAddress&,
+                                             std::unique_ptr<Socket> socket) {
+        // Set TCP_NODELAY (via OPT_NODELAY) for improved performance; this
+        // causes small media packets to be sent immediately rather than being
+        // buffered up, reducing latency.
+        if (socket->SetOption(Socket::OPT_NODELAY, 1) != 0) {
+          RTC_LOG(LS_ERROR) << "Setting TCP_NODELAY option failed with error "
+                            << socket->GetError();
+        }
 
-AsyncTcpListenSocket::State AsyncTcpListenSocket::GetState() const {
-  switch (socket_->GetState()) {
-    case Socket::CS_CLOSED:
-      return State::kClosed;
-    case Socket::CS_CONNECTING:
-      return State::kBound;
-    default:
-      RTC_DCHECK_NOTREACHED();
-      return State::kClosed;
+        Socket* socket_ptr = socket.release();
+        HandleIncomingConnection(socket_ptr);
+        // Prime a read event in case data is waiting.
+        socket_ptr->SignalReadEvent(socket_ptr);
+      }) < 0) {
+    RTC_LOG(LS_ERROR) << "Listen() failed with error " << socket_->GetError();
   }
 }
 
 SocketAddress AsyncTcpListenSocket::GetLocalAddress() const {
   return socket_->GetLocalAddress();
-}
-
-void AsyncTcpListenSocket::OnReadEvent(Socket* socket) {
-  RTC_DCHECK(socket_.get() == socket);
-
-  rtc::SocketAddress address;
-  rtc::Socket* new_socket = socket->Accept(&address);
-  if (!new_socket) {
-    // TODO(stefan): Do something better like forwarding the error
-    // to the user.
-    RTC_LOG(LS_ERROR) << "TCP accept failed with error " << socket_->GetError();
-    return;
-  }
-
-  HandleIncomingConnection(new_socket);
-
-  // Prime a read event in case data is waiting.
-  new_socket->SignalReadEvent(new_socket);
 }
 
 void AsyncTcpListenSocket::HandleIncomingConnection(Socket* socket) {

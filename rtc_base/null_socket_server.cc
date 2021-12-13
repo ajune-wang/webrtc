@@ -33,5 +33,10 @@ rtc::Socket* NullSocketServer::CreateSocket(int /* family */, int /* type */) {
   RTC_DCHECK_NOTREACHED();
   return nullptr;
 }
+std::unique_ptr<ListenSocket> NullSocketServer::CreateListenSocket(
+    int /* family */) {
+  RTC_DCHECK_NOTREACHED();
+  return nullptr;
+}
 
 }  // namespace rtc

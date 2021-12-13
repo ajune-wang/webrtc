@@ -16,10 +16,12 @@ namespace rtc {
 
 TestEchoServer::TestEchoServer(Thread* thread, const SocketAddress& addr)
     : server_socket_(
-          thread->socketserver()->CreateSocket(addr.family(), SOCK_STREAM)) {
+          thread->socketserver()->CreateListenSocket(addr.family())) {
   server_socket_->Bind(addr);
-  server_socket_->Listen(5);
-  server_socket_->SignalReadEvent.connect(this, &TestEchoServer::OnAccept);
+  server_socket_->Listen(
+      5, [this](const SocketAddress&, std::unique_ptr<Socket> socket) {
+        OnAccept(std::move(socket));
+      });
 }
 
 TestEchoServer::~TestEchoServer() {

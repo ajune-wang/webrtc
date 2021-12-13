@@ -57,8 +57,6 @@ class FakeNetworkSocket : public rtc::Socket,
                size_t cb,
                rtc::SocketAddress* paddr,
                int64_t* timestamp) override;
-  int Listen(int backlog) override;
-  rtc::Socket* Accept(rtc::SocketAddress* paddr) override;
   int GetError() const override;
   void SetError(int error) override;
   ConnState GetState() const override;
@@ -217,14 +215,6 @@ int FakeNetworkSocket::RecvFrom(void* pv,
   // real socket will return message length, not data read. In our case it is
   // actually the same value.
   return static_cast<int>(data_read);
-}
-
-int FakeNetworkSocket::Listen(int backlog) {
-  RTC_CHECK(false) << "Listen() isn't valid for SOCK_DGRAM";
-}
-
-rtc::Socket* FakeNetworkSocket::Accept(rtc::SocketAddress* /*paddr*/) {
-  RTC_CHECK(false) << "Accept() isn't valid for SOCK_DGRAM";
 }
 
 int FakeNetworkSocket::Close() {

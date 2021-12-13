@@ -8,8 +8,8 @@
  *  be found in the AUTHORS file in the root of the source tree.
  */
 
-#ifndef MODULES_DESKTOP_CAPTURE_LINUX_EGL_DMABUF_H_
-#define MODULES_DESKTOP_CAPTURE_LINUX_EGL_DMABUF_H_
+#ifndef MODULES_DESKTOP_CAPTURE_LINUX_WAYLAND_EGL_DMABUF_H_
+#define MODULES_DESKTOP_CAPTURE_LINUX_WAYLAND_EGL_DMABUF_H_
 
 #include <epoxy/egl.h>
 #include <epoxy/gl.h>
@@ -52,6 +52,7 @@ class EglDmaBuf {
 
  private:
   bool egl_initialized_ = false;
+  bool has_image_dma_buf_import_ext_ = false;
   int32_t drm_fd_ = -1;               // for GBM buffer mmap
   gbm_device* gbm_device_ = nullptr;  // for passed GBM buffer retrieval
 
@@ -62,4 +63,4 @@ class EglDmaBuf {
 
 }  // namespace webrtc
 
-#endif  // MODULES_DESKTOP_CAPTURE_LINUX_EGL_DMABUF_H_
+#endif  // MODULES_DESKTOP_CAPTURE_LINUX_WAYLAND_EGL_DMABUF_H_

@@ -8,10 +8,11 @@
  *  be found in the AUTHORS file in the root of the source tree.
  */
 
-#include "modules/desktop_capture/linux/base_capturer_pipewire.h"
+#include "modules/desktop_capture/linux/wayland/base_capturer_pipewire.h"
 
 #include <gio/gunixfdlist.h>
 #include <glib-object.h>
+#include <libdrm/drm_fourcc.h>
 #include <spa/param/format-utils.h>
 #include <spa/param/props.h>
 #include <sys/ioctl.h>
@@ -19,9 +20,9 @@
 #include <sys/syscall.h>
 #include <unistd.h>
 
-#include <memory>
 #include <string>
 #include <utility>
+#include <vector>
 
 #include "absl/memory/memory.h"
 #include "modules/desktop_capture/desktop_capture_options.h"
@@ -31,11 +32,11 @@
 #include "rtc_base/string_encode.h"
 
 #if defined(WEBRTC_DLOPEN_PIPEWIRE)
-#include "modules/desktop_capture/linux/pipewire_stubs.h"
-using modules_desktop_capture_linux::InitializeStubs;
-using modules_desktop_capture_linux::kModuleDrm;
-using modules_desktop_capture_linux::kModulePipewire;
-using modules_desktop_capture_linux::StubPathMap;
+#include "modules/desktop_capture/linux/wayland/pipewire_stubs.h"
+using modules_desktop_capture_linux_wayland::InitializeStubs;
+using modules_desktop_capture_linux_wayland::kModuleDrm;
+using modules_desktop_capture_linux_wayland::kModulePipewire;
+using modules_desktop_capture_linux_wayland::StubPathMap;
 #endif  // defined(WEBRTC_DLOPEN_PIPEWIRE)
 
 namespace webrtc {
@@ -62,25 +63,21 @@ const char kDrmLib[] = "libdrm.so.2";
 #define SPA_POD_PROP_FLAG_DONT_FIXATE (1u << 4)
 #endif
 
-struct pw_version {
-  int major = 0;
-  int minor = 0;
-  int micro = 0;
-};
-
-bool CheckPipeWireVersion(pw_version required_version) {
+BaseCapturerPipeWire::pw_version ParsePipeWireVersion(const char* version) {
   std::vector<std::string> parsed_version;
-  std::string version_string = pw_get_library_version();
+  std::string version_string = version;
   rtc::split(version_string, '.', &parsed_version);
 
   if (parsed_version.size() != 3) {
-    return false;
+    return {};
   }
 
-  pw_version current_version = {std::stoi(parsed_version.at(0)),
-                                std::stoi(parsed_version.at(1)),
-                                std::stoi(parsed_version.at(2))};
+  return {std::stoi(parsed_version.at(0)), std::stoi(parsed_version.at(1)),
+          std::stoi(parsed_version.at(2))};
+}
 
+bool CheckPipeWireVersion(BaseCapturerPipeWire::pw_version current_version,
+                          BaseCapturerPipeWire::pw_version required_version) {
   return (current_version.major > required_version.major) ||
          (current_version.major == required_version.major &&
           current_version.minor > required_version.minor) ||
@@ -106,15 +103,9 @@ spa_pod* BuildFormat(spa_pod_builder* builder,
   spa_pod_builder_add(builder, SPA_FORMAT_VIDEO_format, SPA_POD_Id(format), 0);
 
   if (modifiers.size()) {
-    // SPA_POD_PROP_FLAG_DONT_FIXATE can be used with PipeWire >= 0.3.33
-    if (CheckPipeWireVersion(pw_version{0, 3, 33})) {
-      spa_pod_builder_prop(
-          builder, SPA_FORMAT_VIDEO_modifier,
-          SPA_POD_PROP_FLAG_MANDATORY | SPA_POD_PROP_FLAG_DONT_FIXATE);
-    } else {
-      spa_pod_builder_prop(builder, SPA_FORMAT_VIDEO_modifier,
-                           SPA_POD_PROP_FLAG_MANDATORY);
-    }
+    spa_pod_builder_prop(
+        builder, SPA_FORMAT_VIDEO_modifier,
+        SPA_POD_PROP_FLAG_MANDATORY | SPA_POD_PROP_FLAG_DONT_FIXATE);
     spa_pod_builder_push_choice(builder, &frames[1], SPA_CHOICE_Enum, 0);
     // modifiers from the array
     for (int64_t val : modifiers) {
@@ -245,6 +236,22 @@ void BaseCapturerPipeWire::OnCoreError(void* data,
   RTC_LOG(LS_ERROR) << "PipeWire remote error: " << message;
 }
 
+void BaseCapturerPipeWire::OnCoreInfo(void* data, const pw_core_info* info) {
+  BaseCapturerPipeWire* that = static_cast<BaseCapturerPipeWire*>(data);
+  RTC_DCHECK(that);
+
+  that->pw_server_version_ = ParsePipeWireVersion(info->version);
+}
+
+void BaseCapturerPipeWire::OnCoreDone(void* data, uint32_t id, int seq) {
+  BaseCapturerPipeWire* that = static_cast<BaseCapturerPipeWire*>(data);
+  RTC_DCHECK(that);
+
+  if (id == PW_ID_CORE && that->server_version_sync_ == seq) {
+    pw_thread_loop_signal(that->pw_main_loop_, false);
+  }
+}
+
 // static
 void BaseCapturerPipeWire::OnStreamStateChanged(void* data,
                                                 pw_stream_state old_state,
@@ -286,20 +293,24 @@ void BaseCapturerPipeWire::OnStreamParamChanged(void* data,
   auto size = height * stride;
 
   that->desktop_size_ = DesktopSize(width, height);
-#if PW_CHECK_VERSION(0, 3, 0)
-  that->modifier_ = that->spa_video_format_.modifier;
-#endif
 
   uint8_t buffer[1024] = {};
   auto builder = spa_pod_builder{buffer, sizeof(buffer)};
 
   // Setup buffers and meta header for new format.
+  const bool has_modifier =
+      spa_pod_find_prop(format, nullptr, SPA_FORMAT_VIDEO_modifier);
+  that->modifier_ =
+      has_modifier ? that->spa_video_format_.modifier : DRM_FORMAT_MOD_INVALID;
+
   const struct spa_pod* params[3];
   const int buffer_types =
-      spa_pod_find_prop(format, nullptr, SPA_FORMAT_VIDEO_modifier)
+      has_modifier || CheckPipeWireVersion(that->pw_server_version_,
+                                           pw_version{0, 3, 24})
           ? (1 << SPA_DATA_DmaBuf) | (1 << SPA_DATA_MemFd) |
                 (1 << SPA_DATA_MemPtr)
           : (1 << SPA_DATA_MemFd) | (1 << SPA_DATA_MemPtr);
+
   params[0] = reinterpret_cast<spa_pod*>(spa_pod_builder_add_object(
       &builder, SPA_TYPE_OBJECT_ParamBuffers, SPA_PARAM_Buffers,
       SPA_PARAM_BUFFERS_size, SPA_POD_Int(size), SPA_PARAM_BUFFERS_stride,
@@ -420,8 +431,8 @@ void BaseCapturerPipeWire::InitPortal() {
   g_dbus_proxy_new_for_bus(
       G_BUS_TYPE_SESSION, G_DBUS_PROXY_FLAGS_NONE, /*info=*/nullptr,
       kDesktopBusName, kDesktopObjectPath, kScreenCastInterfaceName,
-      cancellable_,
-      reinterpret_cast<GAsyncReadyCallback>(OnProxyRequested), this);
+      cancellable_, reinterpret_cast<GAsyncReadyCallback>(OnProxyRequested),
+      this);
 }
 
 void BaseCapturerPipeWire::Init() {
@@ -444,14 +455,19 @@ void BaseCapturerPipeWire::Init() {
 
   pw_main_loop_ = pw_thread_loop_new("pipewire-main-loop", nullptr);
 
-  pw_thread_loop_lock(pw_main_loop_);
-
   pw_context_ =
       pw_context_new(pw_thread_loop_get_loop(pw_main_loop_), nullptr, 0);
   if (!pw_context_) {
     RTC_LOG(LS_ERROR) << "Failed to create PipeWire context";
     return;
   }
+
+  if (pw_thread_loop_start(pw_main_loop_) < 0) {
+    RTC_LOG(LS_ERROR) << "Failed to start main PipeWire loop";
+    portal_init_failed_ = true;
+  }
+
+  pw_thread_loop_lock(pw_main_loop_);
 
   pw_core_ = pw_context_connect_fd(pw_context_, pw_fd_, nullptr, 0);
   if (!pw_core_) {
@@ -461,6 +477,8 @@ void BaseCapturerPipeWire::Init() {
 
   // Initialize event handlers, remote end and stream-related.
   pw_core_events_.version = PW_VERSION_CORE_EVENTS;
+  pw_core_events_.info = &OnCoreInfo;
+  pw_core_events_.done = &OnCoreDone;
   pw_core_events_.error = &OnCoreError;
 
   pw_stream_events_.version = PW_VERSION_STREAM_EVENTS;
@@ -470,15 +488,16 @@ void BaseCapturerPipeWire::Init() {
 
   pw_core_add_listener(pw_core_, &spa_core_listener_, &pw_core_events_, this);
 
+  server_version_sync_ =
+      pw_core_sync(pw_core_, PW_ID_CORE, server_version_sync_);
+  pw_client_version_ = ParsePipeWireVersion(pw_get_library_version());
+
+  pw_thread_loop_wait(pw_main_loop_);
+
   pw_stream_ = CreateReceivingStream();
   if (!pw_stream_) {
     RTC_LOG(LS_ERROR) << "Failed to create PipeWire stream";
     return;
-  }
-
-  if (pw_thread_loop_start(pw_main_loop_) < 0) {
-    RTC_LOG(LS_ERROR) << "Failed to start main PipeWire loop";
-    portal_init_failed_ = true;
   }
 
   pw_thread_loop_unlock(pw_main_loop_);
@@ -497,12 +516,14 @@ pw_stream* BaseCapturerPipeWire::CreateReceivingStream() {
   spa_pod_builder builder = spa_pod_builder{buffer, sizeof(buffer)};
 
   std::vector<const spa_pod*> params;
-  const bool has_required_pw_version =
-      CheckPipeWireVersion(pw_version{0, 3, 29});
+  const bool has_required_pw_client_version =
+      CheckPipeWireVersion(pw_client_version_, pw_version{0, 3, 33});
+  const bool has_required_pw_server_version =
+      CheckPipeWireVersion(pw_server_version_, pw_version{0, 3, 33});
   for (uint32_t format : {SPA_VIDEO_FORMAT_BGRA, SPA_VIDEO_FORMAT_RGBA,
                           SPA_VIDEO_FORMAT_BGRx, SPA_VIDEO_FORMAT_RGBx}) {
-    // Modifiers can be used with PipeWire >= 0.3.29
-    if (has_required_pw_version) {
+    // Modifiers can be used with PipeWire >= 0.3.33
+    if (has_required_pw_client_version && has_required_pw_server_version) {
       modifiers = egl_dmabuf_->QueryDmaBufModifiers(format);
 
       if (!modifiers.empty()) {
@@ -569,9 +590,8 @@ void BaseCapturerPipeWire::HandleBuffer(pw_buffer* buffer) {
       plane_datas.push_back(data);
     }
 
-    src_unique_ptr =
-        egl_dmabuf_->ImageFromDmaBuf(desktop_size_, spa_video_format_.format,
-                                     plane_datas, modifier_);
+    src_unique_ptr = egl_dmabuf_->ImageFromDmaBuf(
+        desktop_size_, spa_video_format_.format, plane_datas, modifier_);
     src = src_unique_ptr.get();
   } else if (spa_buffer->datas[0].type == SPA_DATA_MemPtr) {
     src = static_cast<uint8_t*>(spa_buffer->datas[0].data);
@@ -728,14 +748,14 @@ void BaseCapturerPipeWire::SessionRequest() {
       portal_handle_, OnSessionRequestResponseSignal);
 
   RTC_LOG(LS_INFO) << "Screen cast session requested.";
-  g_dbus_proxy_call(
-      proxy_, "CreateSession", g_variant_new("(a{sv})", &builder),
-      G_DBUS_CALL_FLAGS_NONE, /*timeout=*/-1, cancellable_,
-      reinterpret_cast<GAsyncReadyCallback>(OnSessionRequested), this);
+  g_dbus_proxy_call(proxy_, "CreateSession", g_variant_new("(a{sv})", &builder),
+                    G_DBUS_CALL_FLAGS_NONE, /*timeout=*/-1, cancellable_,
+                    reinterpret_cast<GAsyncReadyCallback>(OnSessionRequested),
+                    this);
 }
 
 // static
-void BaseCapturerPipeWire::OnSessionRequested(GDBusProxy *proxy,
+void BaseCapturerPipeWire::OnSessionRequested(GDBusProxy* proxy,
                                               GAsyncResult* result,
                                               gpointer user_data) {
   BaseCapturerPipeWire* that = static_cast<BaseCapturerPipeWire*>(user_data);
@@ -841,15 +861,15 @@ void BaseCapturerPipeWire::SourcesRequest() {
       sources_handle_, OnSourcesRequestResponseSignal);
 
   RTC_LOG(LS_INFO) << "Requesting sources from the screen cast session.";
-  g_dbus_proxy_call(
-      proxy_, "SelectSources",
-      g_variant_new("(oa{sv})", session_handle_, &builder),
-      G_DBUS_CALL_FLAGS_NONE, /*timeout=*/-1, cancellable_,
-      reinterpret_cast<GAsyncReadyCallback>(OnSourcesRequested), this);
+  g_dbus_proxy_call(proxy_, "SelectSources",
+                    g_variant_new("(oa{sv})", session_handle_, &builder),
+                    G_DBUS_CALL_FLAGS_NONE, /*timeout=*/-1, cancellable_,
+                    reinterpret_cast<GAsyncReadyCallback>(OnSourcesRequested),
+                    this);
 }
 
 // static
-void BaseCapturerPipeWire::OnSourcesRequested(GDBusProxy *proxy,
+void BaseCapturerPipeWire::OnSourcesRequested(GDBusProxy* proxy,
                                               GAsyncResult* result,
                                               gpointer user_data) {
   BaseCapturerPipeWire* that = static_cast<BaseCapturerPipeWire*>(user_data);
@@ -935,7 +955,7 @@ void BaseCapturerPipeWire::StartRequest() {
 }
 
 // static
-void BaseCapturerPipeWire::OnStartRequested(GDBusProxy *proxy,
+void BaseCapturerPipeWire::OnStartRequested(GDBusProxy* proxy,
                                             GAsyncResult* result,
                                             gpointer user_data) {
   BaseCapturerPipeWire* that = static_cast<BaseCapturerPipeWire*>(user_data);
@@ -1034,17 +1054,15 @@ void BaseCapturerPipeWire::OpenPipeWireRemote() {
   g_dbus_proxy_call_with_unix_fd_list(
       proxy_, "OpenPipeWireRemote",
       g_variant_new("(oa{sv})", session_handle_, &builder),
-      G_DBUS_CALL_FLAGS_NONE, /*timeout=*/-1, /*fd_list=*/nullptr,
-      cancellable_,
+      G_DBUS_CALL_FLAGS_NONE, /*timeout=*/-1, /*fd_list=*/nullptr, cancellable_,
       reinterpret_cast<GAsyncReadyCallback>(OnOpenPipeWireRemoteRequested),
       this);
 }
 
 // static
-void BaseCapturerPipeWire::OnOpenPipeWireRemoteRequested(
-    GDBusProxy *proxy,
-    GAsyncResult* result,
-    gpointer user_data) {
+void BaseCapturerPipeWire::OnOpenPipeWireRemoteRequested(GDBusProxy* proxy,
+                                                         GAsyncResult* result,
+                                                         gpointer user_data) {
   BaseCapturerPipeWire* that = static_cast<BaseCapturerPipeWire*>(user_data);
   RTC_DCHECK(that);
 

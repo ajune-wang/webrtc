@@ -8,18 +8,20 @@
  *  be found in the AUTHORS file in the root of the source tree.
  */
 
-#ifndef MODULES_DESKTOP_CAPTURE_LINUX_BASE_CAPTURER_PIPEWIRE_H_
-#define MODULES_DESKTOP_CAPTURE_LINUX_BASE_CAPTURER_PIPEWIRE_H_
+#ifndef MODULES_DESKTOP_CAPTURE_LINUX_WAYLAND_BASE_CAPTURER_PIPEWIRE_H_
+#define MODULES_DESKTOP_CAPTURE_LINUX_WAYLAND_BASE_CAPTURER_PIPEWIRE_H_
 #include <gio/gio.h>
 #define typeof __typeof__
 #include <pipewire/pipewire.h>
 #include <spa/param/video/format-utils.h>
 #include <spa/utils/result.h>
 
+#include <memory>
+
 #include "absl/types/optional.h"
 #include "modules/desktop_capture/desktop_capture_options.h"
 #include "modules/desktop_capture/desktop_capturer.h"
-#include "modules/desktop_capture/linux/egl_dmabuf.h"
+#include "modules/desktop_capture/linux/wayland/egl_dmabuf.h"
 #include "rtc_base/constructor_magic.h"
 #include "rtc_base/synchronization/mutex.h"
 
@@ -40,6 +42,12 @@ class BaseCapturerPipeWire : public DesktopCapturer {
     kHidden = 0b01,
     kEmbedded = 0b10,
     kMetadata = 0b100
+  };
+
+  struct pw_version {
+    int major = 0;
+    int minor = 0;
+    int micro = 0;
   };
 
   explicit BaseCapturerPipeWire(CaptureSourceType source_type);
@@ -64,6 +72,10 @@ class BaseCapturerPipeWire : public DesktopCapturer {
   spa_hook spa_core_listener_;
   spa_hook spa_stream_listener_;
 
+  int server_version_sync_;
+  pw_version pw_server_version_;
+  pw_version pw_client_version_;
+
   // event handlers
   pw_core_events pw_core_events_ = {};
   pw_stream_events pw_stream_events_ = {};
@@ -80,7 +92,7 @@ class BaseCapturerPipeWire : public DesktopCapturer {
 
   GDBusConnection* connection_ = nullptr;
   GDBusProxy* proxy_ = nullptr;
-  GCancellable *cancellable_ = nullptr;
+  GCancellable* cancellable_ = nullptr;
   gchar* portal_handle_ = nullptr;
   gchar* session_handle_ = nullptr;
   gchar* sources_handle_ = nullptr;
@@ -116,6 +128,8 @@ class BaseCapturerPipeWire : public DesktopCapturer {
                           int seq,
                           int res,
                           const char* message);
+  static void OnCoreDone(void* user_data, uint32_t id, int seq);
+  static void OnCoreInfo(void* user_data, const pw_core_info* info);
   static void OnStreamParamChanged(void* data,
                                    uint32_t id,
                                    const struct spa_pod* format);
@@ -138,7 +152,7 @@ class BaseCapturerPipeWire : public DesktopCapturer {
                                     const gchar* token);
 
   void SessionRequest();
-  static void OnSessionRequested(GDBusProxy *proxy,
+  static void OnSessionRequested(GDBusProxy* proxy,
                                  GAsyncResult* result,
                                  gpointer user_data);
   static void OnSessionRequestResponseSignal(GDBusConnection* connection,
@@ -150,7 +164,7 @@ class BaseCapturerPipeWire : public DesktopCapturer {
                                              gpointer user_data);
 
   void SourcesRequest();
-  static void OnSourcesRequested(GDBusProxy *proxy,
+  static void OnSourcesRequested(GDBusProxy* proxy,
                                  GAsyncResult* result,
                                  gpointer user_data);
   static void OnSourcesRequestResponseSignal(GDBusConnection* connection,
@@ -162,7 +176,7 @@ class BaseCapturerPipeWire : public DesktopCapturer {
                                              gpointer user_data);
 
   void StartRequest();
-  static void OnStartRequested(GDBusProxy *proxy,
+  static void OnStartRequested(GDBusProxy* proxy,
                                GAsyncResult* result,
                                gpointer user_data);
   static void OnStartRequestResponseSignal(GDBusConnection* connection,
@@ -174,7 +188,7 @@ class BaseCapturerPipeWire : public DesktopCapturer {
                                            gpointer user_data);
 
   void OpenPipeWireRemote();
-  static void OnOpenPipeWireRemoteRequested(GDBusProxy *proxy,
+  static void OnOpenPipeWireRemoteRequested(GDBusProxy* proxy,
                                             GAsyncResult* result,
                                             gpointer user_data);
 
@@ -183,4 +197,4 @@ class BaseCapturerPipeWire : public DesktopCapturer {
 
 }  // namespace webrtc
 
-#endif  // MODULES_DESKTOP_CAPTURE_LINUX_BASE_CAPTURER_PIPEWIRE_H_
+#endif  // MODULES_DESKTOP_CAPTURE_LINUX_WAYLAND_BASE_CAPTURER_PIPEWIRE_H_

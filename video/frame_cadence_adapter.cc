@@ -11,11 +11,14 @@
 #include "video/frame_cadence_adapter.h"
 
 #include <atomic>
+#include <deque>
 #include <memory>
 #include <utility>
 
 #include "api/sequence_checker.h"
 #include "api/task_queue/task_queue_base.h"
+#include "api/units/time_delta.h"
+#include "api/video/video_frame.h"
 #include "rtc_base/logging.h"
 #include "rtc_base/race_checker.h"
 #include "rtc_base/rate_statistics.h"
@@ -23,12 +26,17 @@
 #include "rtc_base/system/no_unique_address.h"
 #include "rtc_base/task_utils/pending_task_safety_flag.h"
 #include "rtc_base/task_utils/to_queued_task.h"
+#include "rtc_base/thread_annotations.h"
+#include "rtc_base/time_utils.h"
 #include "system_wrappers/include/clock.h"
 #include "system_wrappers/include/field_trial.h"
 #include "system_wrappers/include/metrics.h"
 
 namespace webrtc {
 namespace {
+
+// Assumes a 90 kHz clock.
+constexpr int32_t kRtpTicksPerMillisec = 90;
 
 // Abstracts concrete modes of the cadence adapter.
 class AdapterMode {
@@ -86,7 +94,9 @@ class PassthroughAdapterMode : public AdapterMode {
 // Implements a frame cadence adapter supporting zero-hertz input.
 class ZeroHertzAdapterMode : public AdapterMode {
  public:
-  ZeroHertzAdapterMode(FrameCadenceAdapterInterface::Callback* callback,
+  ZeroHertzAdapterMode(TaskQueueBase* queue,
+                       Clock* clock,
+                       FrameCadenceAdapterInterface::Callback* callback,
                        double max_fps);
 
   // Adapter overrides.
@@ -97,11 +107,37 @@ class ZeroHertzAdapterMode : public AdapterMode {
   void UpdateFrameRate() override {}
 
  private:
+  // Processes incoming frames on a delayed cadence.
+  void ProcessOnDelayedCadence() RTC_RUN_ON(sequence_checker_);
+  // Repeats a frame in the abscence of incoming frames. Slows down when QP
+  // convergence is attained, and stops the cadence terminally when new frames
+  // have arrived. |rtp_timestamp_offset| specifies the offset by which to
+  // modify the repeate frame's RTP timestamp when it's sent.
+  void ProcessRepeatedFrameOnDelayedCadence(int frame_id,
+                                            int32_t rtp_timestamp_offset)
+      RTC_RUN_ON(sequence_checker_);
+  // Sends a frame, updating the timestamp to the current time.
+  void SendFrameNow(VideoFrame frame);
+
+  TaskQueueBase* const queue_;
+  Clock* const clock_;
   FrameCadenceAdapterInterface::Callback* const callback_;
   // The configured max_fps.
   // TODO(crbug.com/1255737): support max_fps updates.
   const double max_fps_;
+  // How much the incoming frame sequence is delayed by.
+  const TimeDelta frame_delay_ = TimeDelta::Seconds(1) / max_fps_;
+
   RTC_NO_UNIQUE_ADDRESS SequenceChecker sequence_checker_;
+  // A queue of incoming frames and repeated frames.
+  std::deque<VideoFrame> queued_frames_ RTC_GUARDED_BY(sequence_checker_);
+  // The current frame ID to use when starting to repeat frames. This is used
+  // for cancelling deferred repeated frame processing happening.
+  int current_frame_id_ RTC_GUARDED_BY(sequence_checker_) = 0;
+  // True when we are repeating frames.
+  bool is_repeating_ RTC_GUARDED_BY(sequence_checker_) = false;
+
+  ScopedTaskSafety safety_;
 };
 
 class FrameCadenceAdapterImpl : public FrameCadenceAdapterInterface {
@@ -175,9 +211,11 @@ class FrameCadenceAdapterImpl : public FrameCadenceAdapterInterface {
 };
 
 ZeroHertzAdapterMode::ZeroHertzAdapterMode(
+    TaskQueueBase* queue,
+    Clock* clock,
     FrameCadenceAdapterInterface::Callback* callback,
     double max_fps)
-    : callback_(callback), max_fps_(max_fps) {
+    : queue_(queue), clock_(clock), callback_(callback), max_fps_(max_fps) {
   sequence_checker_.Detach();
 }
 
@@ -185,13 +223,106 @@ void ZeroHertzAdapterMode::OnFrame(Timestamp post_time,
                                    int frames_scheduled_for_processing,
                                    const VideoFrame& frame) {
   RTC_DCHECK_RUN_ON(&sequence_checker_);
-  // TODO(crbug.com/1255737): fill with meaningful implementation.
-  callback_->OnFrame(post_time, frames_scheduled_for_processing, frame);
+
+  // Remove stored repeating frame if needed.
+  if (is_repeating_) {
+    RTC_DCHECK(queued_frames_.size() != 0);
+    RTC_LOG(LS_VERBOSE) << __func__ << " this " << this
+                        << " cancel repeat and restart with original";
+    queued_frames_.pop_front();
+  }
+
+  // Store the frame in the queue and schedule deferred processing.
+  queued_frames_.push_back(frame);
+  current_frame_id_++;
+  is_repeating_ = false;
+  queue_->PostDelayedTask(ToQueuedTask(safety_,
+                                       [this] {
+                                         RTC_DCHECK_RUN_ON(&sequence_checker_);
+                                         ProcessOnDelayedCadence();
+                                       }),
+                          frame_delay_.ms());
 }
 
 absl::optional<uint32_t> ZeroHertzAdapterMode::GetInputFrameRateFps() {
   RTC_DCHECK_RUN_ON(&sequence_checker_);
   return max_fps_;
+}
+
+// RTC_RUN_ON(&sequence_checker_)
+void ZeroHertzAdapterMode::ProcessOnDelayedCadence() {
+  RTC_DCHECK(!queued_frames_.empty());
+
+  SendFrameNow(queued_frames_.front());
+
+  // If there were two or more frames stored, we do not have to schedule repeats
+  // of the front frame.
+  if (queued_frames_.size() > 1) {
+    queued_frames_.pop_front();
+    return;
+  }
+
+  // There's only one frame to send. Schedule a repeat sequence, which is
+  // cancelled by |current_frame_id_| getting incremented should new frames
+  // arrive.
+  is_repeating_ = true;
+  int frame_id = current_frame_id_;
+  queue_->PostDelayedTask(
+      ToQueuedTask(safety_,
+                   [this, frame_id] {
+                     RTC_DCHECK_RUN_ON(&sequence_checker_);
+                     ProcessRepeatedFrameOnDelayedCadence(
+                         frame_id, frame_delay_.ms() * kRtpTicksPerMillisec);
+                   }),
+      frame_delay_.ms());
+}
+
+// RTC_RUN_ON(&sequence_checker_)
+void ZeroHertzAdapterMode::ProcessRepeatedFrameOnDelayedCadence(
+    int frame_id,
+    int32_t rtp_timestamp_offset) {
+  RTC_DCHECK(!queued_frames_.empty());
+
+  // Cancel this invocation if new frames turned up.
+  if (frame_id != current_frame_id_)
+    return;
+
+  VideoFrame& frame = queued_frames_.front();
+
+  // Since this is a repeated frame, nothing changed compared to before.
+  VideoFrame::UpdateRect empty_update_rect;
+  empty_update_rect.MakeEmptyUpdate();
+  frame.set_update_rect(empty_update_rect);
+
+  // Adjust the RTP timestamp of the repeat, accounting for the delay here.
+  frame.set_timestamp(frame.timestamp() + rtp_timestamp_offset);
+  SendFrameNow(frame);
+
+  // TODO(crbug.com/1255737): Wire in a QP convergence signal here and adjust
+  // the delay on QP convergence to some lowest rate being a compromise between
+  // RTP receiver keyframe-requesting timeout (3s) and some worst case RTT.
+  int delay_ms = frame_delay_.ms();
+
+  // Schedule another repeat depending on if QP converged.
+  queue_->PostDelayedTask(ToQueuedTask(safety_,
+                                       [this, frame_id, delay_ms] {
+                                         RTC_DCHECK_RUN_ON(&sequence_checker_);
+                                         ProcessRepeatedFrameOnDelayedCadence(
+                                             frame_id,
+                                             delay_ms * kRtpTicksPerMillisec);
+                                       }),
+                          delay_ms);
+}
+
+void ZeroHertzAdapterMode::SendFrameNow(VideoFrame frame) {
+  Timestamp now = clock_->CurrentTime();
+  NtpTime now_ntp = clock_->CurrentNtpTime();
+  frame.set_ntp_time_ms(now_ntp.ToMs());
+  frame.set_timestamp_us(now.us());
+  // TODO(crbug.com/1255737): figure out if frames_scheduled_for_processing
+  // makes sense to compute in this implementation.
+  callback_->OnFrame(/*post_time=*/now,
+                     /*frames_scheduled_for_processing=*/1, frame);
 }
 
 FrameCadenceAdapterImpl::FrameCadenceAdapterImpl(Clock* clock,
@@ -284,7 +415,7 @@ void FrameCadenceAdapterImpl::MaybeReconfigureAdapters(
   bool is_zero_hertz_enabled = IsZeroHertzScreenshareEnabled();
   if (is_zero_hertz_enabled) {
     if (!was_zero_hertz_enabled) {
-      zero_hertz_adapter_.emplace(callback_,
+      zero_hertz_adapter_.emplace(queue_, clock_, callback_,
                                   source_constraints_->max_fps.value());
     }
     current_adapter_mode_ = &zero_hertz_adapter_.value();

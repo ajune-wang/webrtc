@@ -168,11 +168,54 @@ rtc_library("frame_buffer") {
   ]
 }
 
-rtc_library("video_coding") {
-  visibility = [ "*" ]
+rtc_library("timing") {
   sources = [
     "codec_timer.cc",
     "codec_timer.h",
+    "timing.cc",
+    "timing.h",
+  ]
+  deps = [
+    "../../api/units:time_delta",
+    "../../api/video:video_rtp_headers",
+    "../../rtc_base:macromagic",
+    "../../rtc_base:rtc_numerics",
+    "../../rtc_base/experiments:field_trial_parser",
+    "../../rtc_base/synchronization:mutex",
+    "../../rtc_base/time:timestamp_extrapolator",
+    "../../system_wrappers",
+    "../../system_wrappers:field_trial",
+  ]
+  absl_deps = [ "//third_party/abseil-cpp/absl/types:optional" ]
+}
+
+rtc_library("frame_scheduler") {
+  sources = [
+    "frame_scheduler.cc",
+    "frame_scheduler.h",
+  ]
+  deps = [
+    ":frame_buffer",
+    ":timing",
+    ":video_coding_utility",
+    "../../api/task_queue",
+    "../../api/units:time_delta",
+    "../../api/units:timestamp",
+    "../../rtc_base:logging",
+    "../../rtc_base:rtc_numerics",
+    "../../rtc_base/task_utils:repeating_task",
+    "../../rtc_base/task_utils:to_queued_task",
+  ]
+  absl_deps = [
+    "//third_party/abseil-cpp/absl/container:inlined_vector",
+    "//third_party/abseil-cpp/absl/functional:bind_front",
+    "//third_party/abseil-cpp/absl/types:optional",
+  ]
+}
+
+rtc_library("video_coding") {
+  visibility = [ "*" ]
+  sources = [
     "decoder_database.cc",
     "decoder_database.h",
     "fec_controller_default.cc",
@@ -214,8 +257,6 @@ rtc_library("video_coding") {
     "rtt_filter.h",
     "timestamp_map.cc",
     "timestamp_map.h",
-    "timing.cc",
-    "timing.h",
     "unique_timestamp_counter.cc",
     "unique_timestamp_counter.h",
     "video_codec_initializer.cc",
@@ -227,7 +268,9 @@ rtc_library("video_coding") {
     ":codec_globals_headers",
     ":encoded_frame",
     ":frame_buffer",
+    ":frame_scheduler",
     ":packet_buffer",
+    ":timing",
     ":video_codec_interface",
     ":video_coding_utility",
     ":webrtc_vp9_helpers",
@@ -337,6 +380,7 @@ rtc_library("video_coding_legacy") {
   deps = [
     ":codec_globals_headers",
     ":encoded_frame",
+    ":timing",
     ":video_codec_interface",
     ":video_coding",
     "..:module_api",
@@ -1034,6 +1078,7 @@ if (rtc_include_tests) {
       "frame_buffer2_unittest.cc",
       "frame_buffer3_unittest.cc",
       "frame_dependencies_calculator_unittest.cc",
+      "frame_scheduler_unittest.cc",
       "generic_decoder_unittest.cc",
       "h264_packet_buffer_unittest.cc",
       "h264_sprop_parameter_sets_unittest.cc",
@@ -1081,10 +1126,12 @@ if (rtc_include_tests) {
       ":encoded_frame",
       ":frame_buffer",
       ":frame_dependencies_calculator",
+      ":frame_scheduler",
       ":h264_packet_buffer",
       ":nack_requester",
       ":packet_buffer",
       ":simulcast_test_fixture_impl",
+      ":timing",
       ":video_codec_interface",
       ":video_codecs_test_framework",
       ":video_coding",
@@ -1155,6 +1202,7 @@ if (rtc_include_tests) {
       "svc:svc_rate_allocator_tests",
     ]
     absl_deps = [
+      "//third_party/abseil-cpp/absl/functional:bind_front",
       "//third_party/abseil-cpp/absl/memory",
       "//third_party/abseil-cpp/absl/types:optional",
       "//third_party/abseil-cpp/absl/types:variant",

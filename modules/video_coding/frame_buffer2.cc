@@ -76,9 +76,7 @@ FrameBuffer::FrameBuffer(DecodeStreamTimeouts timeouts,
   callback_checker_.Detach();
 }
 
-FrameBuffer::~FrameBuffer() {
-  RTC_DCHECK_RUN_ON(&construction_checker_);
-}
+FrameBuffer::~FrameBuffer() = default;
 
 void FrameBuffer::NextFrame(bool keyframe_required,
                             rtc::TaskQueue* callback_queue,

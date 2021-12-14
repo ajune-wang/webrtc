@@ -10,7 +10,7 @@ vars = {
   # chromium waterfalls. More info at: crbug.com/570091.
   'checkout_configuration': 'default',
   'checkout_instrumented_libraries': 'checkout_linux and checkout_configuration == "default"',
-  'chromium_revision': '34c6b2349464425bfd295515ccb16fc0949b3fc1',
+  'chromium_revision': 'eb540966564a88e37ba2e89a8ac63e058a2ee8a1',
 
   # Keep the Chromium default of generating location tags.
   'generate_location_tags': True,
@@ -23,7 +23,7 @@ deps = {
   # TODO(kjellander): Move this to be Android-only once the libevent dependency
   # in base/third_party/libevent is solved.
   'src/base':
-    'https://chromium.googlesource.com/chromium/src/base@1797e19c4defc4f38d8f2ac6c55cdab265cdb063',
+    'https://chromium.googlesource.com/chromium/src/base@a52da72003da3b676bb30adec8bee8c23817dd4c',
   'src/build':
     'https://chromium.googlesource.com/chromium/src/build@020ee76ccfbd9e25eecc3a6aaeb60b2f5601f1e0',
   'src/buildtools':
@@ -34,13 +34,13 @@ deps = {
     'condition': 'checkout_android',
   },
   'src/ios': {
-    'url': 'https://chromium.googlesource.com/chromium/src/ios@79f53d12fb07b43a4da79ad6cffd8ca932b6d905',
+    'url': 'https://chromium.googlesource.com/chromium/src/ios@7a0c9284c65dabc30d42e47fef540b2be7d38c73',
     'condition': 'checkout_ios',
   },
   'src/testing':
-    'https://chromium.googlesource.com/chromium/src/testing@119c28535aaeca9bdc095fd4d40555477cdb18f3',
+    'https://chromium.googlesource.com/chromium/src/testing@8e38c184f4c7d819357cef9bbe4ba61ca6508087',
   'src/third_party':
-    'https://chromium.googlesource.com/chromium/src/third_party@56a455765ca72cce4820f9dcc3e88333e8195e1f',
+    'https://chromium.googlesource.com/chromium/src/third_party@dcdc74cdee19b2d7542ccbbd69ec9a63190c4a19',
 
   'src/buildtools/linux64': {
     'packages': [
@@ -285,7 +285,7 @@ deps = {
     'condition': 'checkout_win',
   },
   'src/tools':
-    'https://chromium.googlesource.com/chromium/src/tools@e212d3273ce1607e594a16d869be76f6aa2a9501',
+    'https://chromium.googlesource.com/chromium/src/tools@8937f53396e9fd15e211ee9ad30ba8f17190bb76',
 
   'src/third_party/accessibility_test_framework': {
       'packages': [

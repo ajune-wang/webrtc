@@ -24,6 +24,30 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "a713128a_bfbd93b1",
+        "filename": "video/frame_cadence_adapter.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 114,
+      "author": {
+        "id": 9515
+      },
+      "writtenOn": "2021-12-14T18:31:37Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "a829257a_248165d6",
+      "range": {
+        "startLine": 114,
+        "startChar": 19,
+        "endLine": 114,
+        "endChar": 41
+      },
+      "revId": "2d9824120be11ccb2e44cfd1e05c5de5405e69f8",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "c373b2c3_5c647ecf",
@@ -37,6 +61,30 @@
       "writtenOn": "2021-12-14T13:53:45Z",
       "side": 1,
       "message": "nit: RTC_DCHECK(!queued_frames_.empty());\n\nFor consistency, or check that size is exactly 1 if that is what we expect in the repeating case?",
+      "range": {
+        "startLine": 229,
+        "startChar": 4,
+        "endLine": 229,
+        "endChar": 43
+      },
+      "revId": "2d9824120be11ccb2e44cfd1e05c5de5405e69f8",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "3cd36e1b_99df5b9c",
+        "filename": "video/frame_cadence_adapter.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 229,
+      "author": {
+        "id": 9515
+      },
+      "writtenOn": "2021-12-14T18:31:37Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "c373b2c3_5c647ecf",
       "range": {
         "startLine": 229,
         "startChar": 4,
@@ -70,6 +118,30 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "d39bfdd2_10e46c14",
+        "filename": "video/frame_cadence_adapter.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 317,
+      "author": {
+        "id": 9515
+      },
+      "writtenOn": "2021-12-14T18:31:37Z",
+      "side": 1,
+      "message": "After some careful review I changed to reference.",
+      "parentUuid": "034b80b1_18d48351",
+      "range": {
+        "startLine": 317,
+        "startChar": 40,
+        "endLine": 317,
+        "endChar": 50
+      },
+      "revId": "2d9824120be11ccb2e44cfd1e05c5de5405e69f8",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "7e098f19_d707a0c3",
@@ -83,6 +155,30 @@
       "writtenOn": "2021-12-14T13:53:45Z",
       "side": 1,
       "message": "Do I read it wrong, or do normal non-repeated frames go through here too?\nIn that case we don\u0027t want to overwrite the display timestamp, right?",
+      "range": {
+        "startLine": 321,
+        "startChar": 8,
+        "endLine": 321,
+        "endChar": 24
+      },
+      "revId": "2d9824120be11ccb2e44cfd1e05c5de5405e69f8",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "8d882589_5aac60b5",
+        "filename": "video/frame_cadence_adapter.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 321,
+      "author": {
+        "id": 9515
+      },
+      "writtenOn": "2021-12-14T18:31:37Z",
+      "side": 1,
+      "message": "Good point. I re-made and moved the timestamp handling to ProcessRepeatedFrameOnDelayedCadence including some test updates, PTAL and see if you like it.",
+      "parentUuid": "7e098f19_d707a0c3",
       "range": {
         "startLine": 321,
         "startChar": 8,
@@ -116,6 +212,30 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "f36bec0a_8a219f5e",
+        "filename": "video/frame_cadence_adapter_unittest.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 212,
+      "author": {
+        "id": 9515
+      },
+      "writtenOn": "2021-12-14T18:31:37Z",
+      "side": 1,
+      "message": "Fixed!",
+      "parentUuid": "49031342_f26753a3",
+      "range": {
+        "startLine": 212,
+        "startChar": 16,
+        "endLine": 212,
+        "endChar": 19
+      },
+      "revId": "2d9824120be11ccb2e44cfd1e05c5de5405e69f8",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "0803ec56_252762fe",
@@ -129,6 +249,30 @@
       "writtenOn": "2021-12-14T13:53:45Z",
       "side": 1,
       "message": "that\u0027s implicit",
+      "range": {
+        "startLine": 227,
+        "startChar": 8,
+        "endLine": 227,
+        "endChar": 18
+      },
+      "revId": "2d9824120be11ccb2e44cfd1e05c5de5405e69f8",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "4f8ec82e_6f7d7663",
+        "filename": "video/frame_cadence_adapter_unittest.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 227,
+      "author": {
+        "id": 9515
+      },
+      "writtenOn": "2021-12-14T18:31:37Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "0803ec56_252762fe",
       "range": {
         "startLine": 227,
         "startChar": 8,

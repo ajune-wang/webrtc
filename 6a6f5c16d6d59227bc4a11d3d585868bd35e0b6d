@@ -50,6 +50,23 @@
       "message": "Does this patch need additional reviews from other reviewers? (e.g., iOS owner and Android owner respectively)",
       "revId": "6a6f5c16d6d59227bc4a11d3d585868bd35e0b6d",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "2210802d_8e520002",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 17729
+      },
+      "writtenOn": "2021-12-14T10:39:55Z",
+      "side": 1,
+      "message": "Friendly ping. :)",
+      "revId": "6a6f5c16d6d59227bc4a11d3d585868bd35e0b6d",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

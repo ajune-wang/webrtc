@@ -69,7 +69,9 @@ void FuzzOneInput(const uint8_t* data, size_t size) {
       time_controller.GetTaskQueueFactory()->CreateTaskQueue(
           "time_tq", TaskQueueFactory::Priority::NORMAL));
   VCMTiming timing(time_controller.GetClock());
-  video_coding::FrameBuffer frame_buffer(time_controller.GetClock(), &timing,
+  TimeDelta max_wait_time = TimeDelta::Millis(reader.GetNum<uint8_t>());
+  video_coding::FrameBuffer frame_buffer({max_wait_time, max_wait_time},
+                                         time_controller.GetClock(), &timing,
                                          nullptr);
 
   bool next_frame_task_running = false;
@@ -91,12 +93,10 @@ void FuzzOneInput(const uint8_t* data, size_t size) {
       if (!next_frame_task_running) {
         next_frame_task_running = true;
         bool keyframe_required = reader.GetNum<uint8_t>() % 2;
-        int max_wait_time_ms = reader.GetNum<uint8_t>();
         task_queue.PostTask([&task_queue, &frame_buffer,
-                             &next_frame_task_running, keyframe_required,
-                             max_wait_time_ms] {
+                             &next_frame_task_running, keyframe_required] {
           frame_buffer.NextFrame(
-              max_wait_time_ms, keyframe_required, &task_queue,
+              keyframe_required, &task_queue,
               [&next_frame_task_running](std::unique_ptr<EncodedFrame> frame) {
                 next_frame_task_running = false;
               });

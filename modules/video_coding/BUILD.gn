@@ -213,6 +213,15 @@ rtc_library("frame_scheduler") {
   ]
 }
 
+rtc_library("frame_helpers") {
+  sources = [
+    "frame_helpers.cc",
+    "frame_helpers.h",
+  ]
+  deps = [ "../../api/video:encoded_frame" ]
+  absl_deps = [ "//third_party/abseil-cpp/absl/container:inlined_vector" ]
+}
+
 rtc_library("video_coding") {
   visibility = [ "*" ]
   sources = [

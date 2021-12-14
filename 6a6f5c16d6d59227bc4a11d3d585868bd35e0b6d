@@ -67,6 +67,24 @@
       "message": "Friendly ping. :)",
       "revId": "6a6f5c16d6d59227bc4a11d3d585868bd35e0b6d",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "c1e85f49_b5c5db79",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5091
+      },
+      "writtenOn": "2021-12-14T10:48:18Z",
+      "side": 1,
+      "message": "I think we are fine since the change does not add any new design patterns and afaik does not alter the behavior of existing clients.",
+      "parentUuid": "c7791b8d_bfa21e92",
+      "revId": "6a6f5c16d6d59227bc4a11d3d585868bd35e0b6d",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

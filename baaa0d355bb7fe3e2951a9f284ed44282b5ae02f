@@ -16,6 +16,23 @@
       "message": "Hi, please take a look. Should I make a PSA for this?",
       "revId": "baaa0d355bb7fe3e2951a9f284ed44282b5ae02f",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "f4fbd084_cfeee19e",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 9405
+      },
+      "writtenOn": "2021-12-14T23:20:12Z",
+      "side": 1,
+      "message": "The iOS error is due to the infra, so in my opinion it\u0027s not an issue.",
+      "revId": "baaa0d355bb7fe3e2951a9f284ed44282b5ae02f",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

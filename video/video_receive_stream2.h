@@ -26,6 +26,10 @@
 #include "modules/rtp_rtcp/include/flexfec_receiver.h"
 #include "modules/rtp_rtcp/source/source_tracker.h"
 #include "modules/video_coding/frame_buffer2.h"
+#include "modules/video_coding/frame_buffer3.h"
+#include "modules/video_coding/frame_scheduler.h"
+#include "modules/video_coding/include/video_coding_defines.h"
+#include "modules/video_coding/jitter_estimator.h"
 #include "modules/video_coding/nack_requester.h"
 #include "modules/video_coding/video_receiver2.h"
 #include "rtc_base/system/no_unique_address.h"
@@ -185,8 +189,12 @@ class VideoReceiveStream2
 
  private:
   void CreateAndRegisterExternalDecoder(const Decoder& decoder);
-  int64_t GetMaxWaitMs() const RTC_RUN_ON(decode_queue_);
+  int64_t GetMaxWaitMs() const RTC_RUN_ON(worker_sequence_checker_);
   void StartNextDecode() RTC_RUN_ON(decode_queue_);
+  void OnFramesReady(
+      absl::InlinedVector<std::unique_ptr<EncodedFrame>, 4> frames)
+      RTC_RUN_ON(worker_sequence_checker_);
+  bool HasBadRenderTiming(int64_t render_time_ms, int64_t now_ms) const;
   void HandleEncodedFrame(std::unique_ptr<EncodedFrame> frame)
       RTC_RUN_ON(decode_queue_);
   void HandleFrameBufferTimeout(int64_t now_ms, int64_t wait_ms)
@@ -228,7 +236,6 @@ class VideoReceiveStream2
   CallStats* const call_stats_;
 
   bool decoder_running_ RTC_GUARDED_BY(worker_sequence_checker_) = false;
-  bool decoder_stopped_ RTC_GUARDED_BY(decode_queue_) = true;
 
   SourceTracker source_tracker_;
   ReceiveStatisticsProxy stats_proxy_;
@@ -247,8 +254,18 @@ class VideoReceiveStream2
   // moved to the new VideoStreamDecoder.
   std::vector<std::unique_ptr<VideoDecoder>> video_decoders_;
 
-  // Members for the new jitter buffer experiment.
-  std::unique_ptr<video_coding::FrameBuffer> frame_buffer_;
+  // Keyframe request intervals are configurable through field trials.
+  const int max_wait_for_keyframe_ms_;
+  const int max_wait_for_frame_ms_;
+
+  // New jitter buffer + scheduler.
+  VCMJitterEstimator jitter_estimator_ RTC_GUARDED_BY(worker_sequence_checker_);
+  FrameBuffer new_frame_buffer_ RTC_GUARDED_BY(worker_sequence_checker_);
+  FrameScheduler frame_scheduler_ RTC_GUARDED_BY(worker_sequence_checker_);
+
+  VCMInterFrameDelay inter_frame_delay_;
+  VCMVideoProtection protection_mode_ = kProtectionNack;
+  const absl::optional<RttMultExperiment::Settings> rtt_mult_settings_;
 
   std::unique_ptr<RtpStreamReceiverInterface> media_receiver_
       RTC_GUARDED_BY(packet_sequence_checker_);
@@ -259,7 +276,7 @@ class VideoReceiveStream2
 
   // Whenever we are in an undecodable state (stream has just started or due to
   // a decoding error) we require a keyframe to restart the stream.
-  bool keyframe_required_ RTC_GUARDED_BY(decode_queue_) = true;
+  bool keyframe_required_ = true;
 
   // If we have successfully decoded any frame.
   bool frame_decoded_ RTC_GUARDED_BY(decode_queue_) = false;
@@ -267,10 +284,6 @@ class VideoReceiveStream2
   int64_t last_keyframe_request_ms_ RTC_GUARDED_BY(decode_queue_) = 0;
   int64_t last_complete_frame_time_ms_
       RTC_GUARDED_BY(worker_sequence_checker_) = 0;
-
-  // Keyframe request intervals are configurable through field trials.
-  const int max_wait_for_keyframe_ms_;
-  const int max_wait_for_frame_ms_;
 
   // All of them tries to change current min_playout_delay on `timing_` but
   // source of the change request is different in each case. Among them the
@@ -324,6 +337,10 @@ class VideoReceiveStream2
 
   // Defined last so they are destroyed before all other members.
   rtc::TaskQueue decode_queue_;
+
+  const rtc::scoped_refptr<PendingTaskSafetyFlag> decode_safety_
+      RTC_PT_GUARDED_BY(decode_queue_) =
+          PendingTaskSafetyFlag::CreateDetachedInactive();
 
   // Used to signal destruction to potentially pending tasks.
   ScopedTaskSafety task_safety_;

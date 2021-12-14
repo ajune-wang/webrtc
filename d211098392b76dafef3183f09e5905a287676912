@@ -118,6 +118,30 @@
       },
       "revId": "d211098392b76dafef3183f09e5905a287676912",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "3b83140c_45fff929",
+        "filename": "tools_webrtc/mb/gn_isolate_map.pyl",
+        "patchSetId": 1
+      },
+      "lineNbr": 63,
+      "author": {
+        "id": 12234
+      },
+      "writtenOn": "2021-12-14T15:49:05Z",
+      "side": 0,
+      "message": "Done, I\u0027ll wait for https://crrev.com/c/3338677 to land in order to have a green CQ here.",
+      "parentUuid": "8cda2f2e_87081247",
+      "range": {
+        "startLine": 63,
+        "startChar": 7,
+        "endLine": 63,
+        "endChar": 30
+      },
+      "revId": "d211098392b76dafef3183f09e5905a287676912",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

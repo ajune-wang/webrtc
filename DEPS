@@ -10,7 +10,7 @@ vars = {
   # chromium waterfalls. More info at: crbug.com/570091.
   'checkout_configuration': 'default',
   'checkout_instrumented_libraries': 'checkout_linux and checkout_configuration == "default"',
-  'chromium_revision': '637713d5ab98c864488a56e0fc097f6661279bcc',
+  'chromium_revision': '772a33d375731d8c9f54c48dacee0fff120cf120',
 
   # Keep the Chromium default of generating location tags.
   'generate_location_tags': True,
@@ -23,9 +23,9 @@ deps = {
   # TODO(kjellander): Move this to be Android-only once the libevent dependency
   # in base/third_party/libevent is solved.
   'src/base':
-    'https://chromium.googlesource.com/chromium/src/base@1ba2b38b512a20eb8bc0d1b701d0863d242ed4e3',
+    'https://chromium.googlesource.com/chromium/src/base@abd3635ba93e3e80d91dc8e40ba19aeae989a848',
   'src/build':
-    'https://chromium.googlesource.com/chromium/src/build@62e20e81100b4331cf69c16bdbcd6d98765ec3b9',
+    'https://chromium.googlesource.com/chromium/src/build@4ba87d46915ef2e2e77e3a5c3be4bd15d4818e40',
   'src/buildtools':
     'https://chromium.googlesource.com/chromium/src/buildtools@075dd7e22837a69189003e4fa84499acf63188cf',
   # Gradle 6.6.1. Used for testing Android Studio project generation for WebRTC.
@@ -40,7 +40,7 @@ deps = {
   'src/testing':
     'https://chromium.googlesource.com/chromium/src/testing@ce77949bc0599487ec744683455ef24442797b2c',
   'src/third_party':
-    'https://chromium.googlesource.com/chromium/src/third_party@addafc6544333ad14fcd6b76c093369c22c54269',
+    'https://chromium.googlesource.com/chromium/src/third_party@1ac6690334db627990b3357b8171b43c6319c537',
 
   'src/buildtools/linux64': {
     'packages': [

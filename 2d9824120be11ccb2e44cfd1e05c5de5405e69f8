@@ -1,0 +1,142 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "a829257a_248165d6",
+        "filename": "video/frame_cadence_adapter.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 114,
+      "author": {
+        "id": 5524
+      },
+      "writtenOn": "2021-12-14T13:53:45Z",
+      "side": 1,
+      "message": "nit: `rtp_timestamp_offset`",
+      "range": {
+        "startLine": 114,
+        "startChar": 19,
+        "endLine": 114,
+        "endChar": 41
+      },
+      "revId": "2d9824120be11ccb2e44cfd1e05c5de5405e69f8",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "c373b2c3_5c647ecf",
+        "filename": "video/frame_cadence_adapter.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 229,
+      "author": {
+        "id": 5524
+      },
+      "writtenOn": "2021-12-14T13:53:45Z",
+      "side": 1,
+      "message": "nit: RTC_DCHECK(!queued_frames_.empty());\n\nFor consistency, or check that size is exactly 1 if that is what we expect in the repeating case?",
+      "range": {
+        "startLine": 229,
+        "startChar": 4,
+        "endLine": 229,
+        "endChar": 43
+      },
+      "revId": "2d9824120be11ccb2e44cfd1e05c5de5405e69f8",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "034b80b1_18d48351",
+        "filename": "video/frame_cadence_adapter.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 317,
+      "author": {
+        "id": 5524
+      },
+      "writtenOn": "2021-12-14T13:53:45Z",
+      "side": 1,
+      "message": "Does this need to be a copy, or pass a VideoFrame\u0026 instead?",
+      "range": {
+        "startLine": 317,
+        "startChar": 40,
+        "endLine": 317,
+        "endChar": 50
+      },
+      "revId": "2d9824120be11ccb2e44cfd1e05c5de5405e69f8",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "7e098f19_d707a0c3",
+        "filename": "video/frame_cadence_adapter.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 321,
+      "author": {
+        "id": 5524
+      },
+      "writtenOn": "2021-12-14T13:53:45Z",
+      "side": 1,
+      "message": "Do I read it wrong, or do normal non-repeated frames go through here too?\nIn that case we don\u0027t want to overwrite the display timestamp, right?",
+      "range": {
+        "startLine": 321,
+        "startChar": 8,
+        "endLine": 321,
+        "endChar": 24
+      },
+      "revId": "2d9824120be11ccb2e44cfd1e05c5de5405e69f8",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "49031342_f26753a3",
+        "filename": "video/frame_cadence_adapter_unittest.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 212,
+      "author": {
+        "id": 5524
+      },
+      "writtenOn": "2021-12-14T13:53:45Z",
+      "side": 1,
+      "message": "MAX what?",
+      "range": {
+        "startLine": 212,
+        "startChar": 16,
+        "endLine": 212,
+        "endChar": 19
+      },
+      "revId": "2d9824120be11ccb2e44cfd1e05c5de5405e69f8",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "0803ec56_252762fe",
+        "filename": "video/frame_cadence_adapter_unittest.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 227,
+      "author": {
+        "id": 5524
+      },
+      "writtenOn": "2021-12-14T13:53:45Z",
+      "side": 1,
+      "message": "that\u0027s implicit",
+      "range": {
+        "startLine": 227,
+        "startChar": 8,
+        "endLine": 227,
+        "endChar": 18
+      },
+      "revId": "2d9824120be11ccb2e44cfd1e05c5de5405e69f8",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

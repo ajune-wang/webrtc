@@ -20,6 +20,167 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "46dcb116_7e1b5a8f",
+        "filename": "sdk/android/api/org/webrtc/YuvHelper.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 17,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2021-12-15T14:22:06Z",
+      "side": 1,
+      "message": "Move comment to the method below that uses a tightly packed destiantion buffer.",
+      "range": {
+        "startLine": 17,
+        "startChar": 2,
+        "endLine": 17,
+        "endChar": 77
+      },
+      "revId": "61f86742d6f6d2d4143d9baa212f1c9df1260f2c",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "0f31aea5_04a3d4b5",
+        "filename": "sdk/android/api/org/webrtc/YuvHelper.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 23,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2021-12-15T14:22:06Z",
+      "side": 1,
+      "message": "Would it make sense to make this one an additional input argument?",
+      "range": {
+        "startLine": 23,
+        "startChar": 14,
+        "endLine": 23,
+        "endChar": 24
+      },
+      "revId": "61f86742d6f6d2d4143d9baa212f1c9df1260f2c",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "baf7a350_4c23bd81",
+        "filename": "sdk/android/api/org/webrtc/YuvHelper.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 34,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2021-12-15T14:22:06Z",
+      "side": 1,
+      "message": "Have you checked that nativeI420Copy doesn\u0027t access those final bytes?",
+      "range": {
+        "startLine": 34,
+        "startChar": 49,
+        "endLine": 34,
+        "endChar": 81
+      },
+      "revId": "61f86742d6f6d2d4143d9baa212f1c9df1260f2c",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "9f2c2c49_459de595",
+        "filename": "sdk/android/api/org/webrtc/YuvHelper.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 58,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2021-12-15T14:22:06Z",
+      "side": 1,
+      "message": "Similarly, move comment.",
+      "range": {
+        "startLine": 58,
+        "startChar": 0,
+        "endLine": 58,
+        "endChar": 82
+      },
+      "revId": "61f86742d6f6d2d4143d9baa212f1c9df1260f2c",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "017e4a4e_2c5a60d6",
+        "filename": "sdk/android/api/org/webrtc/YuvHelper.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 85,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2021-12-15T14:22:06Z",
+      "side": 1,
+      "message": "Not sure where validation of input arguments is supposed to happen, but I think the java or jni code needs to take responsibility so that invalid width, height or stride can\u0027t crash the native code.\n\nIn particular, negative dstStrideY can sometimes make some sense (to mirror the image), but will break the size calculation.",
+      "range": {
+        "startLine": 85,
+        "startChar": 4,
+        "endLine": 85,
+        "endChar": 20
+      },
+      "revId": "61f86742d6f6d2d4143d9baa212f1c9df1260f2c",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "71775219_171c2585",
+        "filename": "sdk/android/instrumentationtests/src/org/webrtc/YuvHelperTest.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 58,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2021-12-15T14:22:06Z",
+      "side": 1,
+      "message": "Using native memset seems like overkill. Please do a plain java method to zero the buffer (I\u0027m not familiar enough with java to know or recommend appropriate std library tools).",
+      "range": {
+        "startLine": 56,
+        "startChar": 0,
+        "endLine": 58,
+        "endChar": 3
+      },
+      "revId": "61f86742d6f6d2d4143d9baa212f1c9df1260f2c",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "5b8cc45f_19e71c51",
+        "filename": "sdk/android/src/java/org/webrtc/HardwareVideoEncoder.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 37,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2021-12-15T14:22:06Z",
+      "side": 1,
+      "message": "Why this change to public?",
+      "range": {
+        "startLine": 37,
+        "startChar": 0,
+        "endLine": 37,
+        "endChar": 6
+      },
+      "revId": "61f86742d6f6d2d4143d9baa212f1c9df1260f2c",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "9fa95529_9b8a8ce4",
         "filename": "sdk/android/src/java/org/webrtc/HardwareVideoEncoder.java",
         "patchSetId": 2

@@ -16,6 +16,52 @@
       "message": "Hi, Xavier. Could you please take a look this CL? Thanks.",
       "revId": "61f86742d6f6d2d4143d9baa212f1c9df1260f2c",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "9fa95529_9b8a8ce4",
+        "filename": "sdk/android/src/java/org/webrtc/HardwareVideoEncoder.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 303,
+      "author": {
+        "id": 14994
+      },
+      "writtenOn": "2021-12-15T13:59:27Z",
+      "side": 1,
+      "message": "Could you move all this logic to the getInputFormatXxx methods? This method is already large, and that would remove the need for these intermediate local variables. You could have something like:\n\n  int getStride(MediaFormat inputFormat) {\n    if (Build.VERSION.SDK_INT \u003e\u003d Build.VERSION_CODES.M\n        \u0026\u0026 inputFormat !\u003d null\n        \u0026\u0026 inputFormat.containsKey(MediaFormat.KEY_STRIDE)) {\n      return inputFormat.getInteger(MediaFormat.KEY_STRIDE);\n    }\n    return width;\n  }",
+      "range": {
+        "startLine": 289,
+        "startChar": 0,
+        "endLine": 303,
+        "endChar": 0
+      },
+      "revId": "61f86742d6f6d2d4143d9baa212f1c9df1260f2c",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "41bae9b8_89abaabd",
+        "filename": "sdk/android/src/java/org/webrtc/HardwareVideoEncoder.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 730,
+      "author": {
+        "id": 14994
+      },
+      "writtenOn": "2021-12-15T13:59:27Z",
+      "side": 1,
+      "message": "These aren’t used by the tests, so you keep the same signature as before and use the instance variables in the implementation.",
+      "range": {
+        "startLine": 730,
+        "startChar": 60,
+        "endLine": 730,
+        "endChar": 91
+      },
+      "revId": "61f86742d6f6d2d4143d9baa212f1c9df1260f2c",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

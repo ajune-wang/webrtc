@@ -20,6 +20,23 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "992abed0_ead905e9",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5112
+      },
+      "writtenOn": "2021-12-15T16:15:22Z",
+      "side": 1,
+      "message": "This CL looks to round all U/V-lane slice heights up. Android at least sometimes rounds these down. WebRTC always rounds up.\n\nSee for example here we are copying that last row:\nhttps://source.corp.google.com/piper///depot/google3/third_party/webrtc/files/stable/webrtc/sdk/android/src/java/org/webrtc/AndroidVideoDecoder.java;l\u003d517\n\nMight make sense to do some on-device testing regarding this.",
+      "revId": "61f86742d6f6d2d4143d9baa212f1c9df1260f2c",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "46dcb116_7e1b5a8f",
         "filename": "sdk/android/api/org/webrtc/YuvHelper.java",
         "patchSetId": 2
@@ -43,6 +60,29 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "92c47166_b4a63c66",
+        "filename": "sdk/android/api/org/webrtc/YuvHelper.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 20,
+      "author": {
+        "id": 5112
+      },
+      "writtenOn": "2021-12-15T16:15:22Z",
+      "side": 1,
+      "message": "nit: I think dstSliceHeight would be a bit clearer (or just add documentation)\n\nSince right now it is not entirely clear what is happening because having a different height for input and output could also mean e.g. scaling.",
+      "range": {
+        "startLine": 20,
+        "startChar": 10,
+        "endLine": 20,
+        "endChar": 20
+      },
+      "revId": "61f86742d6f6d2d4143d9baa212f1c9df1260f2c",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "0f31aea5_04a3d4b5",
         "filename": "sdk/android/api/org/webrtc/YuvHelper.java",
         "patchSetId": 2
@@ -59,6 +99,53 @@
         "startChar": 14,
         "endLine": 23,
         "endChar": 24
+      },
+      "revId": "61f86742d6f6d2d4143d9baa212f1c9df1260f2c",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "f667f4b2_860a4696",
+        "filename": "sdk/android/api/org/webrtc/YuvHelper.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 23,
+      "author": {
+        "id": 5112
+      },
+      "writtenOn": "2021-12-15T16:15:22Z",
+      "side": 1,
+      "message": "+1",
+      "parentUuid": "0f31aea5_04a3d4b5",
+      "range": {
+        "startLine": 23,
+        "startChar": 14,
+        "endLine": 23,
+        "endChar": 24
+      },
+      "revId": "61f86742d6f6d2d4143d9baa212f1c9df1260f2c",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "ec5d5464_c2106605",
+        "filename": "sdk/android/api/org/webrtc/YuvHelper.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 26,
+      "author": {
+        "id": 5112
+      },
+      "writtenOn": "2021-12-15T16:15:22Z",
+      "side": 1,
+      "message": "nit: dstStartY and so on.",
+      "range": {
+        "startLine": 26,
+        "startChar": 14,
+        "endLine": 26,
+        "endChar": 20
       },
       "revId": "61f86742d6f6d2d4143d9baa212f1c9df1260f2c",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
@@ -135,6 +222,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "f5d1deff_7577335c",
+        "filename": "sdk/android/api/org/webrtc/YuvHelper.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 85,
+      "author": {
+        "id": 5112
+      },
+      "writtenOn": "2021-12-15T16:15:22Z",
+      "side": 1,
+      "message": "The general preference is to crash in Java because that is cleaner from the API user perspective.",
+      "parentUuid": "017e4a4e_2c5a60d6",
+      "range": {
+        "startLine": 85,
+        "startChar": 4,
+        "endLine": 85,
+        "endChar": 20
+      },
+      "revId": "61f86742d6f6d2d4143d9baa212f1c9df1260f2c",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "71775219_171c2585",
         "filename": "sdk/android/instrumentationtests/src/org/webrtc/YuvHelperTest.java",
         "patchSetId": 2
@@ -146,6 +257,30 @@
       "writtenOn": "2021-12-15T14:22:06Z",
       "side": 1,
       "message": "Using native memset seems like overkill. Please do a plain java method to zero the buffer (I\u0027m not familiar enough with java to know or recommend appropriate std library tools).",
+      "range": {
+        "startLine": 56,
+        "startChar": 0,
+        "endLine": 58,
+        "endChar": 3
+      },
+      "revId": "61f86742d6f6d2d4143d9baa212f1c9df1260f2c",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "5f6d800c_878c69c0",
+        "filename": "sdk/android/instrumentationtests/src/org/webrtc/YuvHelperTest.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 58,
+      "author": {
+        "id": 5112
+      },
+      "writtenOn": "2021-12-15T16:15:22Z",
+      "side": 1,
+      "message": "+1 We should only use native code when performance matters (which it does not for this test)\n\nAlso this should be unnecessary. Java docs say:\nThe new buffer\u0027s position will be zero, its limit will be its capacity, its mark will be undefined, and each of its elements will be initialized to zero. Whether or not it has a backing array is unspecified.\n\nSo it should already be initialized to 0.",
+      "parentUuid": "71775219_171c2585",
       "range": {
         "startLine": 56,
         "startChar": 0,
@@ -192,6 +327,30 @@
       "writtenOn": "2021-12-15T13:59:27Z",
       "side": 1,
       "message": "Could you move all this logic to the getInputFormatXxx methods? This method is already large, and that would remove the need for these intermediate local variables. You could have something like:\n\n  int getStride(MediaFormat inputFormat) {\n    if (Build.VERSION.SDK_INT \u003e\u003d Build.VERSION_CODES.M\n        \u0026\u0026 inputFormat !\u003d null\n        \u0026\u0026 inputFormat.containsKey(MediaFormat.KEY_STRIDE)) {\n      return inputFormat.getInteger(MediaFormat.KEY_STRIDE);\n    }\n    return width;\n  }",
+      "range": {
+        "startLine": 289,
+        "startChar": 0,
+        "endLine": 303,
+        "endChar": 0
+      },
+      "revId": "61f86742d6f6d2d4143d9baa212f1c9df1260f2c",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "76d56b80_3bb48655",
+        "filename": "sdk/android/src/java/org/webrtc/HardwareVideoEncoder.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 303,
+      "author": {
+        "id": 5112
+      },
+      "writtenOn": "2021-12-15T16:15:22Z",
+      "side": 1,
+      "message": "+1 but as a nit I would also make the method static and pass the width as a parameter.",
+      "parentUuid": "9fa95529_9b8a8ce4",
       "range": {
         "startLine": 289,
         "startChar": 0,

@@ -41,6 +41,30 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "5c054693_eca98ba2",
+        "filename": "video/frame_cadence_adapter_unittest.cc",
+        "patchSetId": 7
+      },
+      "lineNbr": 52,
+      "author": {
+        "id": 9515
+      },
+      "writtenOn": "2021-12-15T11:19:48Z",
+      "side": 1,
+      "message": "The whole test is running in simulated time so it should not be an issue.",
+      "parentUuid": "e717c4a1_08a78c8e",
+      "range": {
+        "startLine": 51,
+        "startChar": 6,
+        "endLine": 52,
+        "endChar": 72
+      },
+      "revId": "9baf4096e2a6497ede72d1d142d8657681489389",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "5fa5037f_532c2556",
@@ -54,6 +78,30 @@
       "writtenOn": "2021-12-15T10:49:27Z",
       "side": 1,
       "message": "ok, then I\u0027m gonna nit again and say kNumFrame :P",
+      "range": {
+        "startLine": 209,
+        "startChar": 16,
+        "endLine": 209,
+        "endChar": 26
+      },
+      "revId": "9baf4096e2a6497ede72d1d142d8657681489389",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "758daf82_92f2c60c",
+        "filename": "video/frame_cadence_adapter_unittest.cc",
+        "patchSetId": 7
+      },
+      "lineNbr": 209,
+      "author": {
+        "id": 9515
+      },
+      "writtenOn": "2021-12-15T11:19:48Z",
+      "side": 1,
+      "message": "Your wish is my command!",
+      "parentUuid": "5fa5037f_532c2556",
       "range": {
         "startLine": 209,
         "startChar": 16,
@@ -87,6 +135,30 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "0a7e2cca_8fdad45c",
+        "filename": "video/frame_cadence_adapter_unittest.cc",
+        "patchSetId": 7
+      },
+      "lineNbr": 214,
+      "author": {
+        "id": 9515
+      },
+      "writtenOn": "2021-12-15T11:19:48Z",
+      "side": 1,
+      "message": "Indeed.",
+      "parentUuid": "500489da_2ceae03e",
+      "range": {
+        "startLine": 214,
+        "startChar": 4,
+        "endLine": 214,
+        "endChar": 49
+      },
+      "revId": "9baf4096e2a6497ede72d1d142d8657681489389",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "68fafc6e_8bcc9e84",
@@ -100,6 +172,30 @@
       "writtenOn": "2021-12-15T10:49:27Z",
       "side": 1,
       "message": "Maybe comment on why you need a strange magic number here?",
+      "range": {
+        "startLine": 234,
+        "startChar": 66,
+        "endLine": 234,
+        "endChar": 74
+      },
+      "revId": "9baf4096e2a6497ede72d1d142d8657681489389",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "8ba52974_01abc4e0",
+        "filename": "video/frame_cadence_adapter_unittest.cc",
+        "patchSetId": 7
+      },
+      "lineNbr": 234,
+      "author": {
+        "id": 9515
+      },
+      "writtenOn": "2021-12-15T11:19:48Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "68fafc6e_8bcc9e84",
       "range": {
         "startLine": 234,
         "startChar": 66,

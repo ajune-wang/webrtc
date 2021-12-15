@@ -1,0 +1,259 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "35d67d5e_ebd93248",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 8
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 14134
+      },
+      "writtenOn": "2021-12-15T01:34:17Z",
+      "side": 1,
+      "message": "Starting to learn my way around the PipeWire library so please be patient if I am misunderstanding things :-)",
+      "revId": "9ea32ec9ff2dcddc307ec1ecf87c218dd8415b2c",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "dc5e841e_5c8438bf",
+        "filename": "modules/desktop_capture/linux/wayland/base_capturer_pipewire.cc",
+        "patchSetId": 8
+      },
+      "lineNbr": 72,
+      "author": {
+        "id": 14134
+      },
+      "writtenOn": "2021-12-15T01:34:17Z",
+      "side": 1,
+      "message": "Prefer returning an absl::optional here, because an all zeros required_version would pass the check below by accident.",
+      "revId": "9ea32ec9ff2dcddc307ec1ecf87c218dd8415b2c",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "3d45976d_a52e1799",
+        "filename": "modules/desktop_capture/linux/wayland/base_capturer_pipewire.cc",
+        "patchSetId": 8
+      },
+      "lineNbr": 79,
+      "author": {
+        "id": 14134
+      },
+      "writtenOn": "2021-12-15T01:34:17Z",
+      "side": 1,
+      "message": "Can this be named PipeWireVersionIsAtLeast?",
+      "revId": "9ea32ec9ff2dcddc307ec1ecf87c218dd8415b2c",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "0322f71b_35bc0d46",
+        "filename": "modules/desktop_capture/linux/wayland/base_capturer_pipewire.cc",
+        "patchSetId": 8
+      },
+      "lineNbr": 240,
+      "author": {
+        "id": 14134
+      },
+      "writtenOn": "2021-12-15T01:34:17Z",
+      "side": 1,
+      "message": "s/that/capturer/ here and below.  Also, can you declare it const?",
+      "revId": "9ea32ec9ff2dcddc307ec1ecf87c218dd8415b2c",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "71895963_3f2e2395",
+        "filename": "modules/desktop_capture/linux/wayland/base_capturer_pipewire.cc",
+        "patchSetId": 8
+      },
+      "lineNbr": 251,
+      "author": {
+        "id": 14134
+      },
+      "writtenOn": "2021-12-15T01:34:17Z",
+      "side": 1,
+      "message": "So the only way to break out of the wait below is for this signal to be sent.  Does the API guarantee to always invoke OnCoreDone() with the matching id and seq?",
+      "revId": "9ea32ec9ff2dcddc307ec1ecf87c218dd8415b2c",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "8f25bcd6_2fc1322c",
+        "filename": "modules/desktop_capture/linux/wayland/base_capturer_pipewire.cc",
+        "patchSetId": 8
+      },
+      "lineNbr": 301,
+      "author": {
+        "id": 14134
+      },
+      "writtenOn": "2021-12-15T01:34:17Z",
+      "side": 1,
+      "message": "Does the presence of any \"modifier\" flag mean that DMA-BUF is supported?  Can you add a comment explaining what is being checked here?",
+      "revId": "9ea32ec9ff2dcddc307ec1ecf87c218dd8415b2c",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "efd0b23d_3a978fd8",
+        "filename": "modules/desktop_capture/linux/wayland/base_capturer_pipewire.cc",
+        "patchSetId": 8
+      },
+      "lineNbr": 303,
+      "author": {
+        "id": 14134
+      },
+      "writtenOn": "2021-12-15T01:34:17Z",
+      "side": 1,
+      "message": "It seems like if the pipewire library has populated this field, then DMA-BUF must be supported and we don\u0027t need the version check in that case?",
+      "revId": "9ea32ec9ff2dcddc307ec1ecf87c218dd8415b2c",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "6741d555_893a2b89",
+        "filename": "modules/desktop_capture/linux/wayland/base_capturer_pipewire.cc",
+        "patchSetId": 8
+      },
+      "lineNbr": 309,
+      "author": {
+        "id": 14134
+      },
+      "writtenOn": "2021-12-15T01:34:17Z",
+      "side": 1,
+      "message": "Can you add a constexpr kDmaBufMinServerVersion for this?",
+      "revId": "9ea32ec9ff2dcddc307ec1ecf87c218dd8415b2c",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "e1365096_9edaf247",
+        "filename": "modules/desktop_capture/linux/wayland/base_capturer_pipewire.cc",
+        "patchSetId": 8
+      },
+      "lineNbr": 452,
+      "author": {
+        "id": 14134
+      },
+      "writtenOn": "2021-12-15T01:34:17Z",
+      "side": 1,
+      "message": "Should this be instantiated even if it\u0027s not used because the server version is  not sufficient?",
+      "revId": "9ea32ec9ff2dcddc307ec1ecf87c218dd8415b2c",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "380a89c2_c8640fe7",
+        "filename": "modules/desktop_capture/linux/wayland/base_capturer_pipewire.cc",
+        "patchSetId": 8
+      },
+      "lineNbr": 470,
+      "author": {
+        "id": 14134
+      },
+      "writtenOn": "2021-12-15T01:34:17Z",
+      "side": 1,
+      "message": "In Chromium and related code, mutex / condition variable primitives are wrapped in an object to prevent coding errors like the possible error at L475.  See, e.g., webrtc::MutexLock and base::WaitableEvent in Chromium. \n\nIt would be a good idea to implement something similar for PipeWire if this is a common coding pattern.",
+      "revId": "9ea32ec9ff2dcddc307ec1ecf87c218dd8415b2c",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "3dfd2067_3fdbf483",
+        "filename": "modules/desktop_capture/linux/wayland/base_capturer_pipewire.cc",
+        "patchSetId": 8
+      },
+      "lineNbr": 475,
+      "author": {
+        "id": 14134
+      },
+      "writtenOn": "2021-12-15T01:34:17Z",
+      "side": 1,
+      "message": "1. Do you need to pw_thread_loop_unlock here?\n\n2. How is the caller supposed to find out that initialization failed?   Should Init() have a return value?",
+      "revId": "9ea32ec9ff2dcddc307ec1ecf87c218dd8415b2c",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "80e67603_8a617c8d",
+        "filename": "modules/desktop_capture/linux/wayland/base_capturer_pipewire.cc",
+        "patchSetId": 8
+      },
+      "lineNbr": 500,
+      "author": {
+        "id": 14134
+      },
+      "writtenOn": "2021-12-15T01:34:17Z",
+      "side": 1,
+      "message": "1. Do you need to unlock pw_main_loop here before returning?\n2. Same question as above regarding return values.",
+      "revId": "9ea32ec9ff2dcddc307ec1ecf87c218dd8415b2c",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "9d2f7b3f_d51efb0f",
+        "filename": "modules/desktop_capture/linux/wayland/base_capturer_pipewire.cc",
+        "patchSetId": 8
+      },
+      "lineNbr": 503,
+      "author": {
+        "id": 14134
+      },
+      "writtenOn": "2021-12-15T01:34:17Z",
+      "side": 1,
+      "message": "Does pw_thread_loop_wait reacquire the lock on pw_main_loop before it exits?",
+      "revId": "9ea32ec9ff2dcddc307ec1ecf87c218dd8415b2c",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "dbd409bd_703e959b",
+        "filename": "modules/desktop_capture/linux/wayland/base_capturer_pipewire.cc",
+        "patchSetId": 8
+      },
+      "lineNbr": 520,
+      "author": {
+        "id": 14134
+      },
+      "writtenOn": "2021-12-15T01:34:17Z",
+      "side": 1,
+      "message": "Can you declare a constexpr kDmaBufClientMinVersion for the required version for DMA-BUF?",
+      "revId": "9ea32ec9ff2dcddc307ec1ecf87c218dd8415b2c",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "cf5dcab7_54a6bbc5",
+        "filename": "modules/desktop_capture/linux/wayland/base_capturer_pipewire.cc",
+        "patchSetId": 8
+      },
+      "lineNbr": 534,
+      "author": {
+        "id": 14134
+      },
+      "writtenOn": "2021-12-15T01:34:17Z",
+      "side": 1,
+      "message": "Should this be in an else?  Do you want to support formats both with and without the DMA-BUF modifiers as the same time?",
+      "revId": "9ea32ec9ff2dcddc307ec1ecf87c218dd8415b2c",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

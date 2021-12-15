@@ -35,6 +35,24 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "bfa282a4_c1b23153",
+        "filename": "modules/desktop_capture/linux/wayland/base_capturer_pipewire.cc",
+        "patchSetId": 8
+      },
+      "lineNbr": 72,
+      "author": {
+        "id": 8046
+      },
+      "writtenOn": "2021-12-15T09:42:32Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "dc5e841e_5c8438bf",
+      "revId": "9ea32ec9ff2dcddc307ec1ecf87c218dd8415b2c",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "3d45976d_a52e1799",
@@ -48,6 +66,24 @@
       "writtenOn": "2021-12-15T01:34:17Z",
       "side": 1,
       "message": "Can this be named PipeWireVersionIsAtLeast?",
+      "revId": "9ea32ec9ff2dcddc307ec1ecf87c218dd8415b2c",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "11da2cc8_63b5a78c",
+        "filename": "modules/desktop_capture/linux/wayland/base_capturer_pipewire.cc",
+        "patchSetId": 8
+      },
+      "lineNbr": 79,
+      "author": {
+        "id": 8046
+      },
+      "writtenOn": "2021-12-15T09:42:32Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "3d45976d_a52e1799",
       "revId": "9ea32ec9ff2dcddc307ec1ecf87c218dd8415b2c",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
@@ -69,6 +105,24 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "32eb9aa8_1c5d3c3b",
+        "filename": "modules/desktop_capture/linux/wayland/base_capturer_pipewire.cc",
+        "patchSetId": 8
+      },
+      "lineNbr": 240,
+      "author": {
+        "id": 8046
+      },
+      "writtenOn": "2021-12-15T09:42:32Z",
+      "side": 1,
+      "message": "Renamed, but it cannot be const here since we are assigning a new value to its member variable.",
+      "parentUuid": "0322f71b_35bc0d46",
+      "revId": "9ea32ec9ff2dcddc307ec1ecf87c218dd8415b2c",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "71895963_3f2e2395",
@@ -82,6 +136,24 @@
       "writtenOn": "2021-12-15T01:34:17Z",
       "side": 1,
       "message": "So the only way to break out of the wait below is for this signal to be sent.  Does the API guarantee to always invoke OnCoreDone() with the matching id and seq?",
+      "revId": "9ea32ec9ff2dcddc307ec1ecf87c218dd8415b2c",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "3e060425_2ca47905",
+        "filename": "modules/desktop_capture/linux/wayland/base_capturer_pipewire.cc",
+        "patchSetId": 8
+      },
+      "lineNbr": 251,
+      "author": {
+        "id": 8046
+      },
+      "writtenOn": "2021-12-15T09:42:32Z",
+      "side": 1,
+      "message": "Yes, see the documentation:\n\u003e The done event is emitted as a result of a sync method with the same seq number. \n\nThe reason why we do it this way is that we need to get the server version before we create the stream.",
+      "parentUuid": "71895963_3f2e2395",
       "revId": "9ea32ec9ff2dcddc307ec1ecf87c218dd8415b2c",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
@@ -103,6 +175,24 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "b1e93055_cf3d8e83",
+        "filename": "modules/desktop_capture/linux/wayland/base_capturer_pipewire.cc",
+        "patchSetId": 8
+      },
+      "lineNbr": 301,
+      "author": {
+        "id": 8046
+      },
+      "writtenOn": "2021-12-15T09:42:32Z",
+      "side": 1,
+      "message": "Yes, it\u0027s basically what the server gives us as an option. If the server doesn\u0027t announce DMA-BUF modifier, then we cannot use DMA-BUFs at all.\n\nThis is all described here: https://github.com/PipeWire/pipewire/blob/master/doc/dma-buf.dox",
+      "parentUuid": "8f25bcd6_2fc1322c",
+      "revId": "9ea32ec9ff2dcddc307ec1ecf87c218dd8415b2c",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "efd0b23d_3a978fd8",
@@ -116,6 +206,24 @@
       "writtenOn": "2021-12-15T01:34:17Z",
       "side": 1,
       "message": "It seems like if the pipewire library has populated this field, then DMA-BUF must be supported and we don\u0027t need the version check in that case?",
+      "revId": "9ea32ec9ff2dcddc307ec1ecf87c218dd8415b2c",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "d6c90a17_e3660692",
+        "filename": "modules/desktop_capture/linux/wayland/base_capturer_pipewire.cc",
+        "patchSetId": 8
+      },
+      "lineNbr": 303,
+      "author": {
+        "id": 8046
+      },
+      "writtenOn": "2021-12-15T09:42:32Z",
+      "side": 1,
+      "message": "Before https://github.com/PipeWire/pipewire/blob/master/doc/dma-buf.dox was specified, some servers used DMA-BUFs by default, without asking the client (us) and set implicit modifier, however, the implicit modifier cannot be used with older versions of PipeWire. It worked with the original DMA-BUF implementation, where we mmapped it, but that worked correctly on integrated graphic cards.\n\nAnd there is also possibility that the server doesn\u0027t announce a modifier, but still uses DMA-BUFs and has PW 0.3.24, in that case we set the modifier to be DRM_FORMAT_MOD_INVALID (modifier-less DMA-BUF) and can work with it the new way.",
+      "parentUuid": "efd0b23d_3a978fd8",
       "revId": "9ea32ec9ff2dcddc307ec1ecf87c218dd8415b2c",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
@@ -137,6 +245,42 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "a4bb3271_30425701",
+        "filename": "modules/desktop_capture/linux/wayland/base_capturer_pipewire.cc",
+        "patchSetId": 8
+      },
+      "lineNbr": 309,
+      "author": {
+        "id": 8046
+      },
+      "writtenOn": "2021-12-15T09:42:32Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "6741d555_893a2b89",
+      "revId": "9ea32ec9ff2dcddc307ec1ecf87c218dd8415b2c",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "0c45a204_064bac78",
+        "filename": "modules/desktop_capture/linux/wayland/base_capturer_pipewire.cc",
+        "patchSetId": 8
+      },
+      "lineNbr": 309,
+      "author": {
+        "id": 8046
+      },
+      "writtenOn": "2021-12-15T09:42:32Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "6741d555_893a2b89",
+      "revId": "9ea32ec9ff2dcddc307ec1ecf87c218dd8415b2c",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "e1365096_9edaf247",
@@ -150,6 +294,24 @@
       "writtenOn": "2021-12-15T01:34:17Z",
       "side": 1,
       "message": "Should this be instantiated even if it\u0027s not used because the server version is  not sufficient?",
+      "revId": "9ea32ec9ff2dcddc307ec1ecf87c218dd8415b2c",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "644b5092_ec3929d2",
+        "filename": "modules/desktop_capture/linux/wayland/base_capturer_pipewire.cc",
+        "patchSetId": 8
+      },
+      "lineNbr": 452,
+      "author": {
+        "id": 8046
+      },
+      "writtenOn": "2021-12-15T09:42:32Z",
+      "side": 1,
+      "message": "There is still a chance this will get used even when the server version is not sufficient. As I said before, there are older versions of servers where they use DMA-BUFs by default, ignoring whether client support it or not and they will be sending DMA-BUF PipeWire buffer types. All the checks we do is to announce whether we support it or not, but it doesn\u0027t unfortunately mean that older (existing) servers will follow it.",
+      "parentUuid": "e1365096_9edaf247",
       "revId": "9ea32ec9ff2dcddc307ec1ecf87c218dd8415b2c",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
@@ -171,6 +333,24 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "1a6653e2_ab6d70c5",
+        "filename": "modules/desktop_capture/linux/wayland/base_capturer_pipewire.cc",
+        "patchSetId": 8
+      },
+      "lineNbr": 470,
+      "author": {
+        "id": 8046
+      },
+      "writtenOn": "2021-12-15T09:42:32Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "380a89c2_c8640fe7",
+      "revId": "9ea32ec9ff2dcddc307ec1ecf87c218dd8415b2c",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "3dfd2067_3fdbf483",
@@ -184,6 +364,24 @@
       "writtenOn": "2021-12-15T01:34:17Z",
       "side": 1,
       "message": "1. Do you need to pw_thread_loop_unlock here?\n\n2. How is the caller supposed to find out that initialization failed?   Should Init() have a return value?",
+      "revId": "9ea32ec9ff2dcddc307ec1ecf87c218dd8415b2c",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "f6969b85_3fcf6b39",
+        "filename": "modules/desktop_capture/linux/wayland/base_capturer_pipewire.cc",
+        "patchSetId": 8
+      },
+      "lineNbr": 475,
+      "author": {
+        "id": 8046
+      },
+      "writtenOn": "2021-12-15T09:42:32Z",
+      "side": 1,
+      "message": "1) Answered above\n\n2) The caller is us and in case initialization fails, I set portal_init_failed_ and this is used in CaptureFrame() to set a permanent error. I can see how to make it simple by returning a value from here and just assign portal_init_failed_ on one place, but I do that in one of my other merge requests.",
+      "parentUuid": "3dfd2067_3fdbf483",
       "revId": "9ea32ec9ff2dcddc307ec1ecf87c218dd8415b2c",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
@@ -205,6 +403,24 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "e3084c7a_105815e1",
+        "filename": "modules/desktop_capture/linux/wayland/base_capturer_pipewire.cc",
+        "patchSetId": 8
+      },
+      "lineNbr": 500,
+      "author": {
+        "id": 8046
+      },
+      "writtenOn": "2021-12-15T09:42:32Z",
+      "side": 1,
+      "message": "Done.",
+      "parentUuid": "80e67603_8a617c8d",
+      "revId": "9ea32ec9ff2dcddc307ec1ecf87c218dd8415b2c",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "9d2f7b3f_d51efb0f",
@@ -218,6 +434,24 @@
       "writtenOn": "2021-12-15T01:34:17Z",
       "side": 1,
       "message": "Does pw_thread_loop_wait reacquire the lock on pw_main_loop before it exits?",
+      "revId": "9ea32ec9ff2dcddc307ec1ecf87c218dd8415b2c",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "becb3cff_0bf6b0a0",
+        "filename": "modules/desktop_capture/linux/wayland/base_capturer_pipewire.cc",
+        "patchSetId": 8
+      },
+      "lineNbr": 503,
+      "author": {
+        "id": 8046
+      },
+      "writtenOn": "2021-12-15T09:42:32Z",
+      "side": 1,
+      "message": "The locking mechanism is recursive so it creates its own lock/unlock for the wait/signal calls.",
+      "parentUuid": "9d2f7b3f_d51efb0f",
       "revId": "9ea32ec9ff2dcddc307ec1ecf87c218dd8415b2c",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
@@ -239,6 +473,24 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "0d845e69_edf19f30",
+        "filename": "modules/desktop_capture/linux/wayland/base_capturer_pipewire.cc",
+        "patchSetId": 8
+      },
+      "lineNbr": 520,
+      "author": {
+        "id": 8046
+      },
+      "writtenOn": "2021-12-15T09:42:32Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "dbd409bd_703e959b",
+      "revId": "9ea32ec9ff2dcddc307ec1ecf87c218dd8415b2c",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "cf5dcab7_54a6bbc5",
@@ -252,6 +504,24 @@
       "writtenOn": "2021-12-15T01:34:17Z",
       "side": 1,
       "message": "Should this be in an else?  Do you want to support formats both with and without the DMA-BUF modifiers as the same time?",
+      "revId": "9ea32ec9ff2dcddc307ec1ecf87c218dd8415b2c",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "35a89a42_42f9ef11",
+        "filename": "modules/desktop_capture/linux/wayland/base_capturer_pipewire.cc",
+        "patchSetId": 8
+      },
+      "lineNbr": 534,
+      "author": {
+        "id": 8046
+      },
+      "writtenOn": "2021-12-15T09:42:32Z",
+      "side": 1,
+      "message": "We need it to be advertised twice, once with modifiers, once without modifiers.\n\nThis is also documented here: https://github.com/PipeWire/pipewire/blob/master/doc/dma-buf.dox",
+      "parentUuid": "cf5dcab7_54a6bbc5",
       "revId": "9ea32ec9ff2dcddc307ec1ecf87c218dd8415b2c",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }

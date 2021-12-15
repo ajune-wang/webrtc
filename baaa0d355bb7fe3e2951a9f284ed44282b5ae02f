@@ -50,6 +50,23 @@
       "message": "I can\u0027t find any internal usages either. Approving.\n\n(Note: Normal procedure is to add ABSL_DEPRECATED to the function and wait for a bit before removing. In this case, we seem to be all clear.)",
       "revId": "baaa0d355bb7fe3e2951a9f284ed44282b5ae02f",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "6814c217_4376ab21",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 9405
+      },
+      "writtenOn": "2021-12-15T09:51:42Z",
+      "side": 1,
+      "message": "Thanks for the review. I will land this CL after 24 hours unless other comments are given.",
+      "revId": "baaa0d355bb7fe3e2951a9f284ed44282b5ae02f",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

@@ -14,15 +14,30 @@
 #include <memory>
 #include <utility>
 
+#include "absl/types/variant.h"
 #include "modules/video_coding/frame_buffer2.h"
 #include "modules/video_coding/frame_buffer3.h"
 #include "modules/video_coding/frame_helpers.h"
 #include "modules/video_coding/frame_scheduler.h"
 #include "modules/video_coding/include/video_coding_defines.h"
+#include "rtc_base/checks.h"
+#include "rtc_base/experiments/field_trial_parser.h"
 #include "rtc_base/logging.h"
 #include "system_wrappers/include/field_trial.h"
 
 namespace webrtc {
+
+namespace {
+// From https://en.cppreference.com/w/cpp/utility/variant/visit
+// helper type for the visitor #4
+template <class... Ts>
+struct overloaded : Ts... {
+  using Ts::operator()...;
+};
+// explicit deduction guide (not needed as of C++20)
+template <class... Ts>
+overloaded(Ts...) -> overloaded<Ts...>;
+}  // namespace
 
 class FrameBuffer2Proxy : public FrameBufferProxy {
  public:
@@ -137,7 +152,8 @@ class FrameBuffer3Proxy : public FrameBufferProxy,
                     rtc::TaskQueue* decode_queue,
                     FrameSchedulingReceiver* receiver,
                     TimeDelta max_wait_for_keyframe,
-                    TimeDelta max_wait_for_frame)
+                    TimeDelta max_wait_for_frame,
+                    MetronomeFrameScheduler* metronome_scheduler)
       : max_wait_for_keyframe_(max_wait_for_keyframe),
         max_wait_for_frame_(max_wait_for_frame),
         clock_(clock),
@@ -149,25 +165,35 @@ class FrameBuffer3Proxy : public FrameBufferProxy,
         jitter_estimator_(clock_),
         inter_frame_delay_(clock_->TimeInMilliseconds()),
         buffer_(kMaxFramesBuffered, kMaxFramesHistory),
-        scheduler_(clock_,
-                   worker_queue,
-                   timing,
-                   &buffer_,
-                   {max_wait_for_keyframe, max_wait_for_frame},
-                   this) {
+        scheduler_(metronome_scheduler) {
     RTC_DCHECK(decode_queue_);
     RTC_DCHECK(stats_proxy_);
     RTC_DCHECK(receiver_);
     RTC_DCHECK(timing_);
     RTC_DCHECK(worker_queue_);
     RTC_DCHECK(clock_);
-    RTC_LOG(LS_WARNING) << "Using FrameBuffer3";
+
+    if (metronome_scheduler) {
+      RTC_LOG(LS_WARNING) << "Using Metronome";
+      scheduler_.emplace<MetronomeFrameScheduler*>(metronome_scheduler);
+    } else {
+      RTC_LOG(LS_WARNING) << "Using FrameBuffer3";
+      scheduler_.emplace<FrameScheduler>(
+          clock_, worker_queue, timing, &buffer_,
+          FrameScheduler::Timeouts{max_wait_for_keyframe_, max_wait_for_frame_},
+          this);
+    }
   }
 
   // FrameBufferProxy implementation.
   void StopOnWorker() override {
     RTC_DCHECK_RUN_ON(&worker_sequence_checker_);
-    scheduler_.Stop();
+    absl::visit(overloaded{[](FrameScheduler& s) { s.Stop(); },
+                           [this](MetronomeFrameScheduler* m) {
+                             m->StopSchedulingFrames(&buffer_);
+                           }},
+                scheduler_);
+    started_ = false;
   }
 
   void SetProtectionMode(VCMVideoProtection protection_mode) override {
@@ -179,7 +205,9 @@ class FrameBuffer3Proxy : public FrameBufferProxy,
     RTC_DCHECK_RUN_ON(&worker_sequence_checker_);
     stats_proxy_->OnDroppedFrames(buffer_.CurrentSize());
     buffer_.Clear();
-    scheduler_.OnFrameBufferUpdated();
+    if (absl::holds_alternative<FrameScheduler>(scheduler_)) {
+      absl::get<FrameScheduler>(scheduler_).OnFrameBufferUpdated();
+    }
   }
 
   absl::optional<int64_t> InsertFrame(
@@ -192,7 +220,9 @@ class FrameBuffer3Proxy : public FrameBufferProxy,
       timing_->IncomingTimestamp(frame->Timestamp(), frame->ReceivedTime());
 
     buffer_.InsertFrame(std::move(frame));
-    scheduler_.OnFrameBufferUpdated();
+    if (absl::holds_alternative<FrameScheduler>(scheduler_)) {
+      absl::get<FrameScheduler>(scheduler_).OnFrameBufferUpdated();
+    }
     return buffer_.LastContinuousFrameId();
   }
 
@@ -210,11 +240,30 @@ class FrameBuffer3Proxy : public FrameBufferProxy,
     }
 
     RTC_DCHECK_RUN_ON(&worker_sequence_checker_);
+    if (!started_) {
+      started_ = true;
+      if (absl::holds_alternative<MetronomeFrameScheduler*>(scheduler_)) {
+        absl::get<MetronomeFrameScheduler*>(scheduler_)
+            ->StartSchedulingFrames(
+                &buffer_,
+                FrameScheduler::Timeouts{max_wait_for_keyframe_,
+                                         max_wait_for_frame_},
+                timing_, this);
+      }
+    }
     keyframe_required_ = keyframe_required;
     if (keyframe_required) {
-      scheduler_.ForceKeyFrame();
+      absl::visit(overloaded{[](FrameScheduler& s) { s.ForceKeyFrame(); },
+                             [this](MetronomeFrameScheduler* m) {
+                               m->ForceKeyFrame(&buffer_);
+                             }},
+                  scheduler_);
     }
-    scheduler_.OnReadyForNextFrame();
+    absl::visit(overloaded{[](FrameScheduler& s) { s.OnReadyForNextFrame(); },
+                           [this](MetronomeFrameScheduler* m) {
+                             m->OnReceiverReady(&buffer_);
+                           }},
+                scheduler_);
   }
 
   int Size() override {
@@ -342,9 +391,11 @@ class FrameBuffer3Proxy : public FrameBufferProxy,
   VCMTiming* const timing_;
   VCMJitterEstimator jitter_estimator_;
   VCMInterFrameDelay inter_frame_delay_;
+  bool started_ RTC_GUARDED_BY(&worker_sequence_checker_) = false;
   bool keyframe_required_ RTC_GUARDED_BY(&worker_sequence_checker_) = false;
   FrameBuffer buffer_ RTC_GUARDED_BY(&worker_sequence_checker_);
-  FrameScheduler scheduler_ RTC_GUARDED_BY(&worker_sequence_checker_);
+  absl::variant<FrameScheduler, MetronomeFrameScheduler*> scheduler_
+      RTC_GUARDED_BY(&worker_sequence_checker_);
   int frames_dropped_before_last_new_frame_
       RTC_GUARDED_BY(&worker_sequence_checker_) = 0;
   VCMVideoProtection protection_mode_ = kProtectionNack;
@@ -354,7 +405,29 @@ class FrameBuffer3Proxy : public FrameBufferProxy,
   ScopedTaskSafety worker_safety_;
 };
 
-std::unique_ptr<FrameBufferProxy> FrameBufferProxy::CreateFromFieldTrial(
+std::unique_ptr<FrameBufferProxyFactory>
+FrameBufferProxyFactory::CreateFromFieldTrial(Clock* clock,
+                                              TaskQueueBase* worker_queue) {
+  FieldTrialEnum<FrameSchedulerType> type(
+      "impl", FrameSchedulerType::kFrameBuffer2,
+      {{"FrameBuffer2", FrameSchedulerType::kFrameBuffer2},
+       {"FrameBuffer3", FrameSchedulerType::kFrameBuffer3},
+       {"Metronome", FrameSchedulerType::kMetronome}});
+  ParseFieldTrial({&type}, field_trial::FindFullName("WebRTC-FrameBuffer3"));
+  return std::make_unique<FrameBufferProxyFactory>(type.Get(), clock,
+                                                   worker_queue);
+}
+
+FrameBufferProxyFactory::FrameBufferProxyFactory(FrameSchedulerType arm,
+                                                 Clock* clock,
+                                                 TaskQueueBase* worker_queue)
+    : arm_(arm),
+      metronome_scheduler_(
+          arm == FrameSchedulerType::kMetronome
+              ? std::make_unique<MetronomeFrameScheduler>(clock, worker_queue)
+              : nullptr) {}
+
+std::unique_ptr<FrameBufferProxy> FrameBufferProxyFactory::CreateProxy(
     Clock* clock,
     TaskQueueBase* worker_queue,
     VCMTiming* timing,
@@ -363,15 +436,23 @@ std::unique_ptr<FrameBufferProxy> FrameBufferProxy::CreateFromFieldTrial(
     FrameSchedulingReceiver* receiver,
     TimeDelta max_wait_for_keyframe,
     TimeDelta max_wait_for_frame) {
-  if (field_trial::IsEnabled("WebRTC-FrameBuffer3")) {
-    return std::make_unique<FrameBuffer3Proxy>(
-        clock, worker_queue, timing, stats_proxy, decode_queue, receiver,
-        max_wait_for_keyframe, max_wait_for_frame);
-  } else {
-    return std::make_unique<FrameBuffer2Proxy>(
-        clock, timing, stats_proxy, decode_queue, receiver,
-        max_wait_for_keyframe, max_wait_for_frame);
+  switch (arm_) {
+    case FrameSchedulerType::kFrameBuffer2:
+      return std::make_unique<FrameBuffer2Proxy>(
+          clock, timing, stats_proxy, decode_queue, receiver,
+          max_wait_for_keyframe, max_wait_for_frame);
+    case FrameSchedulerType::kFrameBuffer3:
+      return std::make_unique<FrameBuffer3Proxy>(
+          clock, worker_queue, timing, stats_proxy, decode_queue, receiver,
+          max_wait_for_keyframe, max_wait_for_frame, nullptr);
+    case FrameSchedulerType::kMetronome:
+      return std::make_unique<FrameBuffer3Proxy>(
+          clock, worker_queue, timing, stats_proxy, decode_queue, receiver,
+          max_wait_for_keyframe, max_wait_for_frame,
+          metronome_scheduler_.get());
   }
+  RTC_CHECK_NOTREACHED();
+  return nullptr;
 }
 
 }  // namespace webrtc

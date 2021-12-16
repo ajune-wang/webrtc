@@ -768,8 +768,12 @@ INSTANTIATE_TEST_SUITE_P(
     DataChannelIntegrationTest,
     DataChannelIntegrationTest,
     Combine(Values(SdpSemantics::kPlanB, SdpSemantics::kUnifiedPlan),
+#if !defined(THREAD_SANITIZER)
             Values("WebRTC-DataChannel-Dcsctp/Enabled/",
                    "WebRTC-DataChannel-Dcsctp/Disabled/")));
+#else
+            Values("WebRTC-DataChannel-Dcsctp/Enabled/")));
+#endif
 
 TEST_F(DataChannelIntegrationTestUnifiedPlan,
        EndToEndCallWithBundledSctpDataChannel) {

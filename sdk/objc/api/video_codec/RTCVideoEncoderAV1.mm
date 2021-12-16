@@ -28,8 +28,4 @@
       initWithNativeEncoder:std::move(nativeEncoder)];
 }
 
-+ (bool)isSupported {
-  return webrtc::kIsLibaomAv1EncoderSupported;
-}
-
 @end

@@ -18,8 +18,6 @@
 
 namespace webrtc {
 
-ABSL_CONST_INIT extern const bool kIsLibaomAv1EncoderSupported;
-
 std::unique_ptr<VideoEncoder> CreateLibaomAv1Encoder();
 bool LibaomAv1EncoderSupportsScalabilityMode(
     absl::string_view scalability_mode);

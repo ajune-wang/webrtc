@@ -466,6 +466,8 @@ class Call final : public webrtc::Call,
 
   bool is_started_ RTC_GUARDED_BY(worker_thread_) = false;
 
+  const std::unique_ptr<FrameBufferProxyFactory> frame_buffer_factory_;
+
   RTC_NO_UNIQUE_ADDRESS SequenceChecker sent_packet_sequence_checker_;
   absl::optional<rtc::SentPacket> last_sent_packet_
       RTC_GUARDED_BY(sent_packet_sequence_checker_);
@@ -812,7 +814,10 @@ Call::Call(Clock* clock,
       video_send_delay_stats_(new SendDelayStats(clock_)),
       start_of_call_(clock_->CurrentTime()),
       transport_send_ptr_(transport_send.get()),
-      transport_send_(std::move(transport_send)) {
+      transport_send_(std::move(transport_send)),
+      frame_buffer_factory_(
+          FrameBufferProxyFactory::CreateFromFieldTrial(clock_,
+                                                        worker_thread_)) {
   RTC_DCHECK(config.event_log != nullptr);
   RTC_DCHECK(config.trials != nullptr);
   RTC_DCHECK(network_thread_);
@@ -1137,7 +1142,7 @@ webrtc::VideoReceiveStream* Call::CreateVideoReceiveStream(
       task_queue_factory_, this, num_cpu_cores_,
       transport_send_->packet_router(), std::move(configuration),
       call_stats_.get(), clock_, new VCMTiming(clock_),
-      &nack_periodic_processor_);
+      &nack_periodic_processor_, frame_buffer_factory_.get());
   // TODO(bugs.webrtc.org/11993): Set this up asynchronously on the network
   // thread.
   receive_stream->RegisterWithTransport(&video_receiver_controller_);

@@ -102,7 +102,8 @@ class VideoReceiveStream2
                       CallStats* call_stats,
                       Clock* clock,
                       VCMTiming* timing,
-                      NackPeriodicProcessor* nack_periodic_processor);
+                      NackPeriodicProcessor* nack_periodic_processor,
+                      FrameBufferProxyFactory* scheduler_factory);
   // Destruction happens on the worker thread. Prior to destruction the caller
   // must ensure that a registration with the transport has been cleared. See
   // `RegisterWithTransport` for details.

@@ -209,7 +209,8 @@ VideoReceiveStream2::VideoReceiveStream2(
     CallStats* call_stats,
     Clock* clock,
     VCMTiming* timing,
-    NackPeriodicProcessor* nack_periodic_processor)
+    NackPeriodicProcessor* nack_periodic_processor,
+    FrameBufferProxyFactory* scheduler_factory)
     : task_queue_factory_(task_queue_factory),
       transport_adapter_(config.rtcp_send_transport),
       config_(std::move(config)),
@@ -252,6 +253,7 @@ VideoReceiveStream2::VideoReceiveStream2(
   RTC_DCHECK(call_->worker_thread());
   RTC_DCHECK(config_.renderer);
   RTC_DCHECK(call_stats_);
+  RTC_DCHECK(scheduler_factory);
   packet_sequence_checker_.Detach();
 
   RTC_DCHECK(!config_.decoders.empty());
@@ -267,7 +269,7 @@ VideoReceiveStream2::VideoReceiveStream2(
 
   timing_->set_render_delay(config_.render_delay_ms);
 
-  frame_buffer_ = FrameBufferProxy::CreateFromFieldTrial(
+  frame_buffer_ = scheduler_factory->CreateProxy(
       clock_, call_->worker_thread(), timing_.get(), &stats_proxy_,
       &decode_queue_, this, TimeDelta::Millis(max_wait_for_keyframe_ms_),
       TimeDelta::Millis(max_wait_for_frame_ms_));

@@ -13,9 +13,11 @@
 
 #include <memory>
 
+#include "absl/types/optional.h"
 #include "api/task_queue/task_queue_base.h"
 #include "api/video/encoded_frame.h"
 #include "modules/video_coding/include/video_coding_defines.h"
+#include "modules/video_coding/metronome_frame_scheduler.h"
 #include "modules/video_coding/timing.h"
 #include "rtc_base/task_queue.h"
 #include "system_wrappers/include/clock.h"
@@ -32,15 +34,6 @@ class FrameSchedulingReceiver {
 
 class FrameBufferProxy {
  public:
-  static std::unique_ptr<FrameBufferProxy> CreateFromFieldTrial(
-      Clock* clock,
-      TaskQueueBase* worker_queue,
-      VCMTiming* timing,
-      VCMReceiveStatisticsCallback* stats_proxy,
-      rtc::TaskQueue* decode_queue,
-      FrameSchedulingReceiver* receiver,
-      TimeDelta max_wait_for_keyframe,
-      TimeDelta max_wait_for_frame);
   virtual ~FrameBufferProxy() = default;
 
   // Run on the worker thread.
@@ -54,6 +47,36 @@ class FrameBufferProxy {
 
   // Run on either the worker thread or the decode thread.
   virtual void StartNextDecode(bool keyframe_required) = 0;
+};
+
+class FrameBufferProxyFactory {
+ public:
+  static std::unique_ptr<FrameBufferProxyFactory> CreateFromFieldTrial(
+      Clock* clock,
+      TaskQueueBase* worker_queue);
+
+  std::unique_ptr<FrameBufferProxy> CreateProxy(
+      Clock* clock,
+      TaskQueueBase* worker_queue,
+      VCMTiming* timing,
+      VCMReceiveStatisticsCallback* stats_proxy,
+      rtc::TaskQueue* decode_queue,
+      FrameSchedulingReceiver* receiver,
+      TimeDelta max_wait_for_keyframe,
+      TimeDelta max_wait_for_frame);
+
+  enum class FrameSchedulerType {
+    kFrameBuffer2,
+    kFrameBuffer3,
+    kMetronome,
+  };
+  FrameBufferProxyFactory(FrameSchedulerType arm,
+                          Clock* clock,
+                          TaskQueueBase* worker_queue);
+
+ private:
+  const FrameSchedulerType arm_;
+  const std::unique_ptr<MetronomeFrameScheduler> metronome_scheduler_;
 };
 
 }  // namespace webrtc

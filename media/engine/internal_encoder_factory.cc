@@ -16,13 +16,30 @@
 #include "api/video_codecs/sdp_video_format.h"
 #include "media/base/codec.h"
 #include "media/base/media_constants.h"
-#include "modules/video_coding/codecs/av1/libaom_av1_encoder.h"
 #include "modules/video_coding/codecs/h264/include/h264.h"
 #include "modules/video_coding/codecs/vp8/include/vp8.h"
 #include "modules/video_coding/codecs/vp9/include/vp9.h"
 #include "rtc_base/logging.h"
 
+#if defined(RTC_LIBAOM_AV1_IN_INTERNAL_ENCODER_FACTORY)
+#include "modules/video_coding/codecs/av1/libaom_av1_encoder.h"
+#endif
+
 namespace webrtc {
+namespace {
+#if defined(RTC_LIBAOM_AV1_IN_INTERNAL_ENCODER_FACTORY)
+constexpr bool kLibaomAv1IsIncluded = true;
+#else
+constexpr bool kLibaomAv1IsIncluded = false;
+std::unique_ptr<VideoEncoder> CreateLibaomAv1Encoder() {
+  return nullptr;
+}
+bool LibaomAv1EncoderSupportsScalabilityMode(
+    absl::string_view scalability_mode) {
+  return false;
+}
+#endif
+}  // namespace
 
 std::vector<SdpVideoFormat> InternalEncoderFactory::SupportedFormats() {
   std::vector<SdpVideoFormat> supported_codecs;
@@ -31,8 +48,9 @@ std::vector<SdpVideoFormat> InternalEncoderFactory::SupportedFormats() {
     supported_codecs.push_back(format);
   for (const webrtc::SdpVideoFormat& format : webrtc::SupportedH264Codecs())
     supported_codecs.push_back(format);
-  if (kIsLibaomAv1EncoderSupported)
+  if (kLibaomAv1IsIncluded) {
     supported_codecs.push_back(SdpVideoFormat(cricket::kAv1CodecName));
+  }
   return supported_codecs;
 }
 
@@ -49,9 +67,10 @@ std::unique_ptr<VideoEncoder> InternalEncoderFactory::CreateVideoEncoder(
     return VP9Encoder::Create(cricket::VideoCodec(format));
   if (absl::EqualsIgnoreCase(format.name, cricket::kH264CodecName))
     return H264Encoder::Create(cricket::VideoCodec(format));
-  if (kIsLibaomAv1EncoderSupported &&
-      absl::EqualsIgnoreCase(format.name, cricket::kAv1CodecName))
+  if (kLibaomAv1IsIncluded &&
+      absl::EqualsIgnoreCase(format.name, cricket::kAv1CodecName)) {
     return CreateLibaomAv1Encoder();
+  }
   RTC_LOG(LS_ERROR) << "Trying to created encoder of unsupported format "
                     << format.name;
   return nullptr;
@@ -73,7 +92,7 @@ VideoEncoderFactory::CodecSupport InternalEncoderFactory::QueryCodecSupport(
     } else if (absl::EqualsIgnoreCase(format.name, cricket::kH264CodecName)) {
       scalability_mode_supported =
           H264Encoder::SupportsScalabilityMode(*scalability_mode);
-    } else if (kIsLibaomAv1EncoderSupported &&
+    } else if (kLibaomAv1IsIncluded &&
                absl::EqualsIgnoreCase(format.name, cricket::kAv1CodecName)) {
       scalability_mode_supported =
           LibaomAv1EncoderSupportsScalabilityMode(*scalability_mode);

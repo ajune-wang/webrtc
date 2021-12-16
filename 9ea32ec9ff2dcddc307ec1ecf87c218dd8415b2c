@@ -18,6 +18,24 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "7331256c_0c3e8d3e",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 8
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 8046
+      },
+      "writtenOn": "2021-12-16T10:37:26Z",
+      "side": 1,
+      "message": "You can also check PipeWire examples:\n\nHere for example you can see a similar usage of pw_thread_loop_lock/unlock and pw_thread_loop_wait with comments: https://gitlab.freedesktop.org/pipewire/pipewire/-/blob/master/src/examples/video-src-fixate.c",
+      "parentUuid": "35d67d5e_ebd93248",
+      "revId": "9ea32ec9ff2dcddc307ec1ecf87c218dd8415b2c",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "dc5e841e_5c8438bf",

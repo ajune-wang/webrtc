@@ -54,6 +54,24 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "fb5bccd1_801e85dd",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5119
+      },
+      "writtenOn": "2021-12-16T12:54:06Z",
+      "side": 1,
+      "message": "Super!",
+      "parentUuid": "d5819ee8_f152d292",
+      "revId": "aeb427f5281bdf84faddfcd78cc98ebc3114ffe7",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "1a419ed9_5849fc75",
@@ -91,6 +109,30 @@
       "side": 1,
       "message": "Changing that doesn\u0027t give any difference in produced compiler output (clang on x86). I\u0027d guess that this is because it is a local 1D array and the size is known at compile time. From my experience, the issues with pointer following typically arise with std::vector, multidimensional arrays/vectors and/or when the sizes aren\u0027t known at compile time and when accessing class member variables directly.",
       "parentUuid": "1a419ed9_5849fc75",
+      "range": {
+        "startLine": 216,
+        "startChar": 25,
+        "endLine": 216,
+        "endChar": 45
+      },
+      "revId": "aeb427f5281bdf84faddfcd78cc98ebc3114ffe7",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "d8659f62_6d80796c",
+        "filename": "modules/audio_processing/three_band_filter_bank.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 216,
+      "author": {
+        "id": 5119
+      },
+      "writtenOn": "2021-12-16T12:54:06Z",
+      "side": 1,
+      "message": "I see, that makes sense. Thank you for explaining.",
+      "parentUuid": "c4eff438_439d1e3c",
       "range": {
         "startLine": 216,
         "startChar": 25,

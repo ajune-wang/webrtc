@@ -227,6 +227,10 @@ declare_args() {
 
   # Includes the dav1d decoder in the internal decoder factory when set to true.
   rtc_include_dav1d_in_internal_decoder_factory = true
+
+  # Includes the libaom av1 encoder in the internal encoder factory when set to
+  # true.
+  rtc_include_libaom_av1_in_internal_encoder_factory = true
 }
 
 if (!build_with_mozilla) {

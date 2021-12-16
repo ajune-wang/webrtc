@@ -23,10 +23,6 @@ static jlong JNI_LibaomAv1Encoder_CreateEncoder(JNIEnv* jni) {
   return jlongFromPointer(webrtc::CreateLibaomAv1Encoder().release());
 }
 
-static jboolean JNI_LibaomAv1Encoder_IsSupported(JNIEnv* jni) {
-  return webrtc::kIsLibaomAv1EncoderSupported;
-}
-
 static jlong JNI_LibaomAv1Decoder_CreateDecoder(JNIEnv* jni) {
   return jlongFromPointer(webrtc::CreateLibaomAv1Decoder().release());
 }

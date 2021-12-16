@@ -820,8 +820,6 @@ VideoEncoder::EncoderInfo LibaomAv1Encoder::GetEncoderInfo() const {
 
 }  // namespace
 
-const bool kIsLibaomAv1EncoderSupported = true;
-
 std::unique_ptr<VideoEncoder> CreateLibaomAv1Encoder() {
   return std::make_unique<LibaomAv1Encoder>();
 }

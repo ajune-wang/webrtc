@@ -228,6 +228,28 @@ rtc_library("frame_scheduler") {
   ]
 }
 
+rtc_library("metronome_frame_scheduler") {
+  sources = [
+    "metronome_frame_scheduler.cc",
+    "metronome_frame_scheduler.h",
+  ]
+  deps = [
+    ":frame_buffer",
+    ":frame_scheduler",
+    ":timing",
+    "../../api:sequence_checker",
+    "../../api/task_queue",
+    "../../api/units:time_delta",
+    "../../api/units:timestamp",
+    "../../rtc_base:checks",
+    "../../rtc_base:logging",
+    "../../rtc_base/task_utils:pending_task_safety_flag",
+    "../../rtc_base/task_utils:repeating_task",
+    "../../system_wrappers",
+  ]
+  absl_deps = [ "//third_party/abseil-cpp/absl/container:inlined_vector" ]
+}
+
 rtc_library("video_coding") {
   visibility = [ "*" ]
   sources = [
@@ -287,6 +309,7 @@ rtc_library("video_coding") {
     ":frame_buffer",
     ":frame_helpers",
     ":frame_scheduler",
+    ":metronome_frame_scheduler",
     ":packet_buffer",
     ":timing",
     ":video_codec_interface",

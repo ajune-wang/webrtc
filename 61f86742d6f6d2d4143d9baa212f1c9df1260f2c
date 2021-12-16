@@ -246,6 +246,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "fbe5dc2f_5089bbff",
+        "filename": "sdk/android/api/org/webrtc/YuvHelper.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 85,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2021-12-16T08:04:22Z",
+      "side": 1,
+      "message": "\u003e The general preference is to crash in Java because that is cleaner from the API user perspective.\n\nI agree: calling a java method with invalid arguments should result in a java exception, not a native crash. What\u0027s unclear to me is what convention we have for argument validation, should we do that in the jni glue code, or in the java method directly invoking a native method? \n\nIn this particular case, if the new I420Copy or I420ToNV12 are called with bogus value (say, negative values, or stride \u003c width, ...), will that be detected before crashing, and if so, where?",
+      "parentUuid": "f5d1deff_7577335c",
+      "range": {
+        "startLine": 85,
+        "startChar": 4,
+        "endLine": 85,
+        "endChar": 20
+      },
+      "revId": "61f86742d6f6d2d4143d9baa212f1c9df1260f2c",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "71775219_171c2585",
         "filename": "sdk/android/instrumentationtests/src/org/webrtc/YuvHelperTest.java",
         "patchSetId": 2

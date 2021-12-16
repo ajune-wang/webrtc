@@ -10,7 +10,7 @@ vars = {
   # chromium waterfalls. More info at: crbug.com/570091.
   'checkout_configuration': 'default',
   'checkout_instrumented_libraries': 'checkout_linux and checkout_configuration == "default"',
-  'chromium_revision': 'e4f201bf1cbbc3f3b5c567ba942cb3d9542b1e04',
+  'chromium_revision': 'f22ef6b7809adc4c66ad98905e082cc236595b65',
 
   # Keep the Chromium default of generating location tags.
   'generate_location_tags': True,
@@ -34,19 +34,19 @@ deps = {
     'condition': 'checkout_android',
   },
   'src/ios': {
-    'url': 'https://chromium.googlesource.com/chromium/src/ios@cfbe5aff545d9e28fc54fca66d77ae305d57af3d',
+    'url': 'https://chromium.googlesource.com/chromium/src/ios@9598dbeeb408fd342f98bac2dc5bb4318930549d',
     'condition': 'checkout_ios',
   },
   'src/testing':
-    'https://chromium.googlesource.com/chromium/src/testing@642a606471cb919cad91955e514d96b1b2301757',
+    'https://chromium.googlesource.com/chromium/src/testing@43b83d3c09af61dc50d1dc3932797712ec158f54',
   'src/third_party':
-    'https://chromium.googlesource.com/chromium/src/third_party@6cf90b0d9c36c5c2afbabb51f2412fd899fbfabd',
+    'https://chromium.googlesource.com/chromium/src/third_party@f9a29c78926671455d82fd9281b07826e38ef11a',
 
   'src/buildtools/linux64': {
     'packages': [
       {
         'package': 'gn/gn/linux-amd64',
-        'version': 'git_revision:2e56c317bd8e2bf152cfa2ead6ac5fa476fe28b4',
+        'version': 'git_revision:18df6af86191edab1e47c84d56e608da414d446b',
       }
     ],
     'dep_type': 'cipd',
@@ -56,7 +56,7 @@ deps = {
     'packages': [
       {
         'package': 'gn/gn/mac-${{arch}}',
-        'version': 'git_revision:2e56c317bd8e2bf152cfa2ead6ac5fa476fe28b4',
+        'version': 'git_revision:18df6af86191edab1e47c84d56e608da414d446b',
       }
     ],
     'dep_type': 'cipd',
@@ -66,7 +66,7 @@ deps = {
     'packages': [
       {
         'package': 'gn/gn/windows-amd64',
-        'version': 'git_revision:2e56c317bd8e2bf152cfa2ead6ac5fa476fe28b4',
+        'version': 'git_revision:18df6af86191edab1e47c84d56e608da414d446b',
       }
     ],
     'dep_type': 'cipd',
@@ -140,7 +140,7 @@ deps = {
   'src/third_party/breakpad/breakpad':
     'https://chromium.googlesource.com/breakpad/breakpad.git@3846f6d297339c17663d7a797ba481b3411f13ad',
   'src/third_party/catapult':
-    'https://chromium.googlesource.com/catapult.git@8f3d60691b27c6868c3b719b63d76667eef36366',
+    'https://chromium.googlesource.com/catapult.git@2c2d76537b02cca4c0df364f14ee6e9b28afaf8b',
   'src/third_party/ced/src': {
     'url': 'https://chromium.googlesource.com/external/github.com/google/compact_enc_det.git@ba412eaaacd3186085babcd901679a48863c7dd5',
   },
@@ -285,7 +285,7 @@ deps = {
     'condition': 'checkout_win',
   },
   'src/tools':
-    'https://chromium.googlesource.com/chromium/src/tools@414f0f481f517377930e8326b5c68d771ff79265',
+    'https://chromium.googlesource.com/chromium/src/tools@74b0b17d43c771c4512b1b067148d81101d5a385',
 
   'src/third_party/accessibility_test_framework': {
       'packages': [
@@ -2126,7 +2126,7 @@ deps = {
       'packages': [
           {
               'package': 'chromium/third_party/android_deps/libs/org_jetbrains_kotlin_kotlin_stdlib',
-              'version': 'version:2@1.6.0.cr0',
+              'version': 'version:2@1.6.10.cr0',
           },
       ],
       'condition': 'checkout_android',
@@ -2137,7 +2137,7 @@ deps = {
       'packages': [
           {
               'package': 'chromium/third_party/android_deps/libs/org_jetbrains_kotlin_kotlin_stdlib_common',
-              'version': 'version:2@1.6.0.cr0',
+              'version': 'version:2@1.6.10.cr0',
           },
       ],
       'condition': 'checkout_android',

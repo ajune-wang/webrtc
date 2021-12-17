@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "7163264f_d5a0705b",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 4
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 18414
+      },
+      "writtenOn": "2021-12-17T15:10:27Z",
+      "side": 1,
+      "message": "Problem with payload type collision should be fixed now. Could someone please do a try run to make sure everything is working? Thank you!",
+      "revId": "ce9ed1423795d1e45d9b2226c9d3b20571843867",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

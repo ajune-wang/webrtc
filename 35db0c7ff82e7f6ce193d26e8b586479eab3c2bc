@@ -248,6 +248,42 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "0348ae4d_d8a4a97f",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 18414
+      },
+      "writtenOn": "2021-12-17T15:10:27Z",
+      "side": 1,
+      "message": "I think I solved the issue in CL 3.",
+      "parentUuid": "3f728d09_d37a52a7",
+      "revId": "35db0c7ff82e7f6ce193d26e8b586479eab3c2bc",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "2fb25dd4_05b60d20",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 18414
+      },
+      "writtenOn": "2021-12-17T15:10:27Z",
+      "side": 1,
+      "message": "I think I fixed the issue in CL 3, all the relevant tests are passing on my build machine. Could you please trigger a try run so we can be sure? Thanks!",
+      "parentUuid": "81a8133e_63b18031",
+      "revId": "35db0c7ff82e7f6ce193d26e8b586479eab3c2bc",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "9ee7d76d_d8163b9a",
         "filename": "api/video/i444_buffer.h",
         "patchSetId": 2
@@ -259,6 +295,24 @@
       "writtenOn": "2021-10-17T15:54:14Z",
       "side": 1,
       "message": "it looks like all added files have the dos/crlf line encoding. Surprising that the presubmit does not complain about this.\nAnyway, running `git cl format` should fix that.",
+      "revId": "35db0c7ff82e7f6ce193d26e8b586479eab3c2bc",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "0ffca3df_a5e30144",
+        "filename": "api/video/i444_buffer.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 1,
+      "author": {
+        "id": 18414
+      },
+      "writtenOn": "2021-12-17T15:10:27Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "9ee7d76d_d8163b9a",
       "revId": "35db0c7ff82e7f6ce193d26e8b586479eab3c2bc",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
@@ -300,6 +354,30 @@
       "side": 1,
       "message": "Ack, will be reverted with the next PS.",
       "parentUuid": "0a9d02af_863a7b46",
+      "range": {
+        "startLine": 70,
+        "startChar": 28,
+        "endLine": 70,
+        "endChar": 54
+      },
+      "revId": "35db0c7ff82e7f6ce193d26e8b586479eab3c2bc",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "0860c8b3_b690e894",
+        "filename": "modules/video_coding/codecs/h264/h264.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 70,
+      "author": {
+        "id": 18414
+      },
+      "writtenOn": "2021-12-17T15:10:27Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "0dbb8a9c_faa1561a",
       "range": {
         "startLine": 70,
         "startChar": 28,

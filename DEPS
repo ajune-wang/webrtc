@@ -10,7 +10,7 @@ vars = {
   # chromium waterfalls. More info at: crbug.com/570091.
   'checkout_configuration': 'default',
   'checkout_instrumented_libraries': 'checkout_linux and checkout_configuration == "default"',
-  'chromium_revision': '20c081e08bd5d52b1409c2892ec9bbf489f5f715',
+  'chromium_revision': '72d28d0016a104640f7e96c36518323969426e9f',
 
   # Keep the Chromium default of generating location tags.
   'generate_location_tags': True,
@@ -25,7 +25,7 @@ deps = {
   'src/base':
     'https://chromium.googlesource.com/chromium/src/base@e78cd0d665a27be2b28e0de7dd2db9cc84d2fced',
   'src/build':
-    'https://chromium.googlesource.com/chromium/src/build@f123ce2d5338a9cb97c4145a811338b8bfc7f6e5',
+    'https://chromium.googlesource.com/chromium/src/build@19ab46bfb8cece86512264aa0de454871e4ceb1e',
   'src/buildtools':
     'https://chromium.googlesource.com/chromium/src/buildtools@d7bdd6f0386aaf20cd00a01d499e8ce1cbf6063e',
   # Gradle 6.6.1. Used for testing Android Studio project generation for WebRTC.
@@ -34,7 +34,7 @@ deps = {
     'condition': 'checkout_android',
   },
   'src/ios': {
-    'url': 'https://chromium.googlesource.com/chromium/src/ios@028f09c6bff66e05e9863bad243ed1c96e4e49f1',
+    'url': 'https://chromium.googlesource.com/chromium/src/ios@eaf3085fb9a2baef2caf37475620cf1197014b42',
     'condition': 'checkout_ios',
   },
   'src/testing':
@@ -285,7 +285,7 @@ deps = {
     'condition': 'checkout_win',
   },
   'src/tools':
-    'https://chromium.googlesource.com/chromium/src/tools@e66d6b1da5d0b2b3ae0bde23ac78d6fe3500713c',
+    'https://chromium.googlesource.com/chromium/src/tools@5f182a5f43c81c6b4b647200625c0769a2fa706d',
 
   'src/third_party/accessibility_test_framework': {
       'packages': [
@@ -384,7 +384,7 @@ deps = {
     'packages': [
       {
           'package': 'chromium/third_party/androidx',
-          'version': 'xkgx7AMF4DNVvZHw7WxcsMH6nWaWr-bT2ygkaaCUsp8C',
+          'version': 'Loj-39yxboIJMNylNA3x-K4G2agoenzNFDkRBrW7dvAC',
       },
     ],
     'condition': 'checkout_android',

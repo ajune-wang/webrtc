@@ -16,6 +16,98 @@
       "message": "Hi, @nisse PTAL re the VideoSourceInterface addition. Adding the method that chromium tracks already have to WebRTC.",
       "revId": "d9e25fafed0e8c83a521cf6b0a9b6b28670f50f1",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "9ce40ba3_40549cbc",
+        "filename": "video/frame_cadence_adapter.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 387,
+      "author": {
+        "id": 5524
+      },
+      "writtenOn": "2021-12-20T19:13:14Z",
+      "side": 1,
+      "message": "nit: tracker.qualty_converged.value_or(true)",
+      "range": {
+        "startLine": 386,
+        "startChar": 15,
+        "endLine": 387,
+        "endChar": 49
+      },
+      "revId": "d9e25fafed0e8c83a521cf6b0a9b6b28670f50f1",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "6ac17e88_b6459278",
+        "filename": "video/frame_cadence_adapter.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 417,
+      "author": {
+        "id": 5524
+      },
+      "writtenOn": "2021-12-20T19:13:14Z",
+      "side": 1,
+      "message": "nit: consider adding a parameterized constructor to ScheduledRepeat so you can drop this and avoid a move",
+      "range": {
+        "startLine": 417,
+        "startChar": 6,
+        "endLine": 417,
+        "endChar": 22
+      },
+      "revId": "d9e25fafed0e8c83a521cf6b0a9b6b28670f50f1",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "7587e476_80ce122a",
+        "filename": "video/frame_cadence_adapter_unittest.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 400,
+      "author": {
+        "id": 5524
+      },
+      "writtenOn": "2021-12-20T19:13:14Z",
+      "side": 1,
+      "message": "nit: comment where is the 100ms per frame coming from? or named constant",
+      "range": {
+        "startLine": 400,
+        "startChar": 48,
+        "endLine": 400,
+        "endChar": 51
+      },
+      "revId": "d9e25fafed0e8c83a521cf6b0a9b6b28670f50f1",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "36a820ac_dfea804d",
+        "filename": "video/frame_cadence_adapter_unittest.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 414,
+      "author": {
+        "id": 5524
+      },
+      "writtenOn": "2021-12-20T19:13:14Z",
+      "side": 1,
+      "message": "nit: based on kZeroHertzIdleRepeatRatePeriod?",
+      "range": {
+        "startLine": 414,
+        "startChar": 48,
+        "endLine": 414,
+        "endChar": 52
+      },
+      "revId": "d9e25fafed0e8c83a521cf6b0a9b6b28670f50f1",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

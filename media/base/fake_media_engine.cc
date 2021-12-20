@@ -248,6 +248,22 @@ bool FakeVoiceMediaChannel::SetLocalSource(uint32_t ssrc, AudioSource* source) {
   return true;
 }
 
+void FakeVoiceMediaChannel::SetInterface(NetworkInterface* iface) {
+  // TODO(tommi): This is a workaround for tests that own media channel objects
+  // that outlive the BaseChannel instances and transceivers. Ownership of the
+  // MediaChannel instances should be scoped within the lifetime of a
+  // transceiver, so this workaround uses that SetInterface(nullptr) call made
+  // by the BaseChannel instance to unregister from the channel before it gets
+  // deleted (and set the engine_ pointer to nullptr to avoid dereferencing it
+  // in the dtor).
+  bool alive = network_safety()->alive();
+  RtpHelper<VoiceMediaChannel>::SetInterface(iface);
+  if (alive && !iface && engine_) {
+    engine_->UnregisterChannel(this);
+    engine_ = nullptr;
+  }
+}
+
 bool CompareDtmfInfo(const FakeVoiceMediaChannel::DtmfInfo& info,
                      uint32_t ssrc,
                      int event_code,

@@ -20,7 +20,7 @@
 @implementation RTC_OBJC_TYPE (RTCVideoEncoderAV1)
 
 + (id<RTC_OBJC_TYPE(RTCVideoEncoder)>)av1Encoder {
-  std::unique_ptr<webrtc::VideoEncoder> nativeEncoder(webrtc::CreateLibaomAv1Encoder());
+  std::unique_ptr<webrtc::VideoEncoder> nativeEncoder(webrtc::CreateLibaomAv1EncoderIfSupported());
   if (nativeEncoder == nullptr) {
     return nil;
   }

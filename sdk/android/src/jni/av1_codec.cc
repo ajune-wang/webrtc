@@ -20,7 +20,8 @@ namespace webrtc {
 namespace jni {
 
 static jlong JNI_LibaomAv1Encoder_CreateEncoder(JNIEnv* jni) {
-  return jlongFromPointer(webrtc::CreateLibaomAv1Encoder().release());
+  return jlongFromPointer(
+      webrtc::CreateLibaomAv1EncoderIfSupported().release());
 }
 
 static jboolean JNI_LibaomAv1Encoder_IsSupported(JNIEnv* jni) {

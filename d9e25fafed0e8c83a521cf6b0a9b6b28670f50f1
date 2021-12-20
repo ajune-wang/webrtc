@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "d28f940f_be8b9d12",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 9515
+      },
+      "writtenOn": "2021-12-20T16:01:21Z",
+      "side": 1,
+      "message": "Hi, @nisse PTAL re the VideoSourceInterface addition. Adding the method that chromium tracks already have to WebRTC.",
+      "revId": "d9e25fafed0e8c83a521cf6b0a9b6b28670f50f1",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

@@ -1,0 +1,73 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "e3100f7f_fae69a8e",
+        "filename": "video/frame_cadence_adapter.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 157,
+      "author": {
+        "id": 9515
+      },
+      "writtenOn": "2021-12-20T16:01:21Z",
+      "side": 0,
+      "message": "\u003d scheduled_repeat.has_value()",
+      "range": {
+        "startLine": 156,
+        "startChar": 2,
+        "endLine": 157,
+        "endChar": 20
+      },
+      "revId": "9754a43403e0b955546aff0e7d07d6f70def4043",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "a419cc19_67a426ca",
+        "filename": "video/frame_cadence_adapter.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 351,
+      "author": {
+        "id": 9515
+      },
+      "writtenOn": "2021-12-20T16:01:21Z",
+      "side": 0,
+      "message": "-\u003eZeroHertzAdapterMode::HasQualityConverged()",
+      "range": {
+        "startLine": 347,
+        "startChar": 6,
+        "endLine": 351,
+        "endChar": 9
+      },
+      "revId": "9754a43403e0b955546aff0e7d07d6f70def4043",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "e84c3907_cd0dd21b",
+        "filename": "video/frame_cadence_adapter.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 368,
+      "author": {
+        "id": 9515
+      },
+      "writtenOn": "2021-12-20T16:01:21Z",
+      "side": 0,
+      "message": "Stored indirectly in `scheduled_repeat_` instead, for use in ProcessKeyFrameRequest",
+      "range": {
+        "startLine": 368,
+        "startChar": 4,
+        "endLine": 368,
+        "endChar": 29
+      },
+      "revId": "9754a43403e0b955546aff0e7d07d6f70def4043",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

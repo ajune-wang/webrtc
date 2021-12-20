@@ -1860,7 +1860,7 @@ TEST_F(ApmTest, Process) {
       const int kHasVoiceCountOffset = 0;
       const int kHasVoiceCountNear = kIntNear;
       const int kMaxOutputAverageOffset = 0;
-      const int kMaxOutputAverageNear = kIntNear;
+      const int kMaxOutputAverageNear = 5; //kIntNear;
 #endif
       EXPECT_NEAR(test->has_voice_count(),
                   has_voice_count - kHasVoiceCountOffset, kHasVoiceCountNear);

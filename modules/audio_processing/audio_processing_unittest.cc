@@ -433,6 +433,24 @@ ApmTest::ApmTest()
       far_file_(NULL),
       near_file_(NULL),
       out_file_(NULL) {
+  if (GetCPUInfo(kAVX2) != 0) {
+    std::cout << "JVP AVX2 capable" << std::endl;
+  } else {
+    std::cout << "JVP AVX2 NOT capable" << std::endl;
+  }
+
+  if (GetCPUInfo(kSSE2) != 0) {
+    std::cout << "JVP SSE2 capable" << std::endl;
+  } else {
+    std::cout << "JVP SSE2 NOT capable" << std::endl;
+  }
+
+  if (GetCPUInfo(kSSE3) != 0) {
+    std::cout << "JVP SSE3 capable" << std::endl;
+  } else {
+    std::cout << "JVP SSE3 NOT capable" << std::endl;
+  }
+
   apm_ = AudioProcessingBuilderForTesting().Create();
   AudioProcessing::Config apm_config = apm_->GetConfig();
   apm_config.gain_controller1.analog_gain_controller.enabled = false;

@@ -110,6 +110,30 @@
       },
       "revId": "e9fa3aaa0fc723cb058b6b10a98eb53d262418bc",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "be373d5e_d20e1ffc",
+        "filename": "video/video_stream_encoder.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 1825,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2021-12-21T12:44:55Z",
+      "side": 1,
+      "message": "\u003e If the shared content is in fact animating media, then the refresh frame will unconditionally be inserted in a stream of 30 Hz content, leading to local frame spacings being lower than 1/30. That will cause the encoder to use too much BW for the frames and lead to bitrate debt.\n\nBut a source that is producing frames with a reasonably high fps could just ignore the RequestRefreshFrame call. If we think of it as not \"please give me an extra frame\" but \"please make sure I get some frame real soon\".",
+      "parentUuid": "1032640a_f4ddea2e",
+      "range": {
+        "startLine": 1825,
+        "startChar": 0,
+        "endLine": 1825,
+        "endChar": 58
+      },
+      "revId": "e9fa3aaa0fc723cb058b6b10a98eb53d262418bc",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

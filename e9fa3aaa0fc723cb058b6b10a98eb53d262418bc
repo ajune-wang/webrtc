@@ -1,6 +1,23 @@
 {
   "comments": [
     {
+      "unresolved": true,
+      "key": {
+        "uuid": "4ab9f599_ebce0f52",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 4
+      },
+      "lineNbr": 26,
+      "author": {
+        "id": 5142
+      },
+      "writtenOn": "2021-12-21T14:31:28Z",
+      "side": 1,
+      "message": "How often are key frames requested by the receiver when 0 Hz mode is used by the sender?\n\nIs there anything about 0 Hz that would trigger key frames more or less often than in non-0 Hz mode? For example, is the receiver surprised by not receiving high fps? Do we quickly reach a stable 1 fps or will key frames repeatedly happen causing \u003e1 fps?",
+      "revId": "e9fa3aaa0fc723cb058b6b10a98eb53d262418bc",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": false,
       "key": {
         "uuid": "e0f98ed0_e48adb38",
@@ -14,6 +31,23 @@
       "writtenOn": "2021-12-21T12:19:23Z",
       "side": 1,
       "message": "api/ lgtm",
+      "revId": "e9fa3aaa0fc723cb058b6b10a98eb53d262418bc",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "cc884be2_38e1a86a",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 4
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5142
+      },
+      "writtenOn": "2021-12-21T14:31:28Z",
+      "side": 1,
+      "message": "Just comments on comments, so +1 % those",
       "revId": "e9fa3aaa0fc723cb058b6b10a98eb53d262418bc",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
@@ -61,6 +95,40 @@
         "endLine": 103,
         "endChar": 39
       },
+      "revId": "e9fa3aaa0fc723cb058b6b10a98eb53d262418bc",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "32d02673_93885ad2",
+        "filename": "video/frame_cadence_adapter.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 141,
+      "author": {
+        "id": 5142
+      },
+      "writtenOn": "2021-12-21T14:31:28Z",
+      "side": 1,
+      "message": "Is \"quality converged\" a well-understood concept or should you add some more context? I\u0027d like a comment to capture what quality converging means and how that changes the behavior of the adapter, e.g. going into 1 Hz idle repeat mode. When is non-SVC converged?",
+      "revId": "e9fa3aaa0fc723cb058b6b10a98eb53d262418bc",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "6efbbfc9_99370dec",
+        "filename": "video/frame_cadence_adapter.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 388,
+      "author": {
+        "id": 5142
+      },
+      "writtenOn": "2021-12-21T14:31:28Z",
+      "side": 1,
+      "message": "How do we know if quality has converged? If I read the code correctly it looks like this happens based on encoder feedback, not based on RTCP information.\n\nWhat happens if SVC layers don\u0027t reach the receiver? I guess we\u0027ll consider quality converged until we receive a key frame request, which should restore things (unless those frames goes missing too)?\n\n(Not asking you to change anything, just wondering how it works)",
       "revId": "e9fa3aaa0fc723cb058b6b10a98eb53d262418bc",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },

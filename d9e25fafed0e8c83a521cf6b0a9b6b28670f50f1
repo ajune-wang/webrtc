@@ -50,6 +50,30 @@
     {
       "unresolved": false,
       "key": {
+        "uuid": "57aa7898_800abc4f",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 21,
+      "author": {
+        "id": 9515
+      },
+      "writtenOn": "2021-12-21T18:16:26Z",
+      "side": 1,
+      "message": "Resolving for now.",
+      "parentUuid": "bc209414_0d8341ff",
+      "range": {
+        "startLine": 19,
+        "startChar": 0,
+        "endLine": 21,
+        "endChar": 18
+      },
+      "revId": "d9e25fafed0e8c83a521cf6b0a9b6b28670f50f1",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
         "uuid": "d28f940f_be8b9d12",
         "filename": "/PATCHSET_LEVEL",
         "patchSetId": 1

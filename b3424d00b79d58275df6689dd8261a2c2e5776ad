@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "4d6da687_ba4dbeb7",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 6
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2021-12-21T12:20:35Z",
+      "side": 1,
+      "message": "PTAL, the test appears to not use the object in any way.",
+      "revId": "b3424d00b79d58275df6689dd8261a2c2e5776ad",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

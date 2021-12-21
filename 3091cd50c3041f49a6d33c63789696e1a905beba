@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "c315e29f_99c19e95",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 18704
+      },
+      "writtenOn": "2021-12-21T14:53:18Z",
+      "side": 1,
+      "message": "Upstreaming an internal FB fix to avoid merge conflicts; the problem started surfacing for us with the upgrade to Xcode 13.",
+      "revId": "3091cd50c3041f49a6d33c63789696e1a905beba",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

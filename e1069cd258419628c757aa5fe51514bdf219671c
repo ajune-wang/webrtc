@@ -1,0 +1,38 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "98ad4fb4_9233023e",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5508
+      },
+      "writtenOn": "2021-12-21T15:05:58Z",
+      "side": 1,
+      "message": "since there are still some build issues, do you want to break this up into smaller CLs?",
+      "revId": "e1069cd258419628c757aa5fe51514bdf219671c",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "4e4fd973_5e437cdf",
+        "filename": "api/rtp_packet_infos.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 90,
+      "author": {
+        "id": 5508
+      },
+      "writtenOn": "2021-12-21T15:05:58Z",
+      "side": 1,
+      "message": "since the class itself is private, maybe it\u0027s fine to make the ctor pulic?",
+      "revId": "e1069cd258419628c757aa5fe51514bdf219671c",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

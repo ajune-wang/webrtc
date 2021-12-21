@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "049fae7d_f4bb66eb",
+        "filename": "video/video_stream_encoder.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 1825,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2021-12-21T12:13:03Z",
+      "side": 1,
+      "message": "Call this unconditionally on stream startup?\n\n(Or arrange so that some other method at startup (maybe AddTrack, AddOrUpdateSink, ...) ensures that the VideoSource produces a new frame shortly).",
+      "range": {
+        "startLine": 1825,
+        "startChar": 0,
+        "endLine": 1825,
+        "endChar": 58
+      },
+      "revId": "e9fa3aaa0fc723cb058b6b10a98eb53d262418bc",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

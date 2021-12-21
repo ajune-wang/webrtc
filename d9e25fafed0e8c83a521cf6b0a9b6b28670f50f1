@@ -1,6 +1,29 @@
 {
   "comments": [
     {
+      "unresolved": true,
+      "key": {
+        "uuid": "416578c8_74c79dcc",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 21,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2021-12-21T08:20:47Z",
+      "side": 1,
+      "message": "There seems to be no implementation of RequestRefreshFrame in this cl. It\u0027s a bit unclear to me (i) where most recent frame is repeated to produce a new key frame, and (ii) when repeating locally in VSE or nearby code isn\u0027t sufficient, and we have to ask camera/capturer to produce a new frame?",
+      "range": {
+        "startLine": 19,
+        "startChar": 0,
+        "endLine": 21,
+        "endChar": 18
+      },
+      "revId": "d9e25fafed0e8c83a521cf6b0a9b6b28670f50f1",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": false,
       "key": {
         "uuid": "d28f940f_be8b9d12",

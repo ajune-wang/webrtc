@@ -1,6 +1,46 @@
 {
   "comments": [
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "e0f98ed0_e48adb38",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 4
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2021-12-21T12:19:23Z",
+      "side": 1,
+      "message": "api/ lgtm",
+      "revId": "e9fa3aaa0fc723cb058b6b10a98eb53d262418bc",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "df028e0e_5d0089b2",
+        "filename": "api/video/video_source_interface.h",
+        "patchSetId": 4
+      },
+      "lineNbr": 103,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2021-12-21T12:19:23Z",
+      "side": 1,
+      "message": "Makes sense to me.\n\nIf the main use of this method is to ask for a new frame when starting to send a new stream, consider if there\u0027s some way to have that happen automatically, e.g., as a result of AddOrUpdateSink that adds a new source, or at higher level closer to corresponding PeerConnection methods.",
+      "range": {
+        "startLine": 101,
+        "startChar": 0,
+        "endLine": 103,
+        "endChar": 39
+      },
+      "revId": "e9fa3aaa0fc723cb058b6b10a98eb53d262418bc",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "049fae7d_f4bb66eb",

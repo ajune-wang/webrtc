@@ -188,15 +188,16 @@ std::vector<size_t> FindMatchingFrameIndices(
   // order to match frames, and we should limit file access and not read the
   // same memory tens of times.
   const float kScaleFactor = 0.25f;
-  const rtc::scoped_refptr<Video> cached_downscaled_reference_video =
+  const rtc::scoped_refptr<Video> cached_downscaled_reference_video(
       new CachedVideo(kNumberOfFramesLookAhead,
-                      new DownscaledVideo(kScaleFactor, reference_video));
-  const rtc::scoped_refptr<Video> downscaled_test_video =
-      new DownscaledVideo(kScaleFactor, test_video);
+                      rtc::scoped_refptr<Video>(
+                          new DownscaledVideo(kScaleFactor, reference_video))));
+  const rtc::scoped_refptr<Video> downscaled_test_video(
+      new DownscaledVideo(kScaleFactor, test_video));
 
   // Assume the video is looping around.
-  const rtc::scoped_refptr<Video> looping_reference_video =
-      new LoopingVideo(cached_downscaled_reference_video);
+  const rtc::scoped_refptr<Video> looping_reference_video(
+      new LoopingVideo(cached_downscaled_reference_video));
 
   std::vector<size_t> match_indices;
   for (const rtc::scoped_refptr<I420BufferInterface>& test_frame :
@@ -216,7 +217,10 @@ std::vector<size_t> FindMatchingFrameIndices(
 
 rtc::scoped_refptr<Video> ReorderVideo(const rtc::scoped_refptr<Video>& video,
                                        const std::vector<size_t>& indices) {
-  return new ReorderedVideo(new LoopingVideo(video), indices);
+  return rtc::scoped_refptr<Video>(new ReorderedVideo(
+      rtc::scoped_refptr<Video>(
+          rtc::scoped_refptr<Video>(new LoopingVideo(video))),
+      indices));
 }
 
 rtc::scoped_refptr<Video> GenerateAlignedReferenceVideo(

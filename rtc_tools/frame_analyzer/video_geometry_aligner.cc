@@ -171,7 +171,8 @@ rtc::scoped_refptr<Video> AdjustCropping(
     mutable std::map<size_t, CropRegion> crop_regions_;
   };
 
-  return new CroppedVideo(reference_video, test_video);
+  return rtc::scoped_refptr<Video>(
+      new CroppedVideo(reference_video, test_video));
 }
 
 }  // namespace test

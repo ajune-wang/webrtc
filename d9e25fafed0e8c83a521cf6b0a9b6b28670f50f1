@@ -24,6 +24,30 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": true,
+      "key": {
+        "uuid": "bc209414_0d8341ff",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 21,
+      "author": {
+        "id": 9515
+      },
+      "writtenOn": "2021-12-21T10:57:54Z",
+      "side": 1,
+      "message": "The answer to (i) and (ii) lies in ZeroHertzAdapterMode::ProcessKeyFrameRequest. If that method returns true, the FrameCadenceAdapter caller should generate a refresh frame (which it does in the VSE). It only does that if a frame was never received from the source.\n\n\u003e There seems to be no implementation of RequestRefreshFrame in this cl\n\nI was hoping to get away with Chromium WebRtcVideoTrackSource overriding it when authoring the Chromium piece of this, but I\u0027ve realized I need to eventually add a proxy implementation.\n\nI\u0027ve updated the CL description.",
+      "parentUuid": "416578c8_74c79dcc",
+      "range": {
+        "startLine": 19,
+        "startChar": 0,
+        "endLine": 21,
+        "endChar": 18
+      },
+      "revId": "d9e25fafed0e8c83a521cf6b0a9b6b28670f50f1",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": false,
       "key": {
         "uuid": "d28f940f_be8b9d12",
@@ -64,6 +88,30 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "6647110c_22d45a57",
+        "filename": "video/frame_cadence_adapter.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 387,
+      "author": {
+        "id": 9515
+      },
+      "writtenOn": "2021-12-21T10:57:54Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "9ce40ba3_40549cbc",
+      "range": {
+        "startLine": 386,
+        "startChar": 15,
+        "endLine": 387,
+        "endChar": 49
+      },
+      "revId": "d9e25fafed0e8c83a521cf6b0a9b6b28670f50f1",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "6ac17e88_b6459278",
@@ -77,6 +125,30 @@
       "writtenOn": "2021-12-20T19:13:14Z",
       "side": 1,
       "message": "nit: consider adding a parameterized constructor to ScheduledRepeat so you can drop this and avoid a move",
+      "range": {
+        "startLine": 417,
+        "startChar": 6,
+        "endLine": 417,
+        "endChar": 22
+      },
+      "revId": "d9e25fafed0e8c83a521cf6b0a9b6b28670f50f1",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "dbdb8dba_02f5e32e",
+        "filename": "video/frame_cadence_adapter.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 417,
+      "author": {
+        "id": 9515
+      },
+      "writtenOn": "2021-12-21T10:57:54Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "6ac17e88_b6459278",
       "range": {
         "startLine": 417,
         "startChar": 6,
@@ -110,6 +182,30 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "519bac76_a0662626",
+        "filename": "video/frame_cadence_adapter_unittest.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 400,
+      "author": {
+        "id": 9515
+      },
+      "writtenOn": "2021-12-21T10:57:54Z",
+      "side": 1,
+      "message": "Fixed. Too trigger happy this round.",
+      "parentUuid": "7587e476_80ce122a",
+      "range": {
+        "startLine": 400,
+        "startChar": 48,
+        "endLine": 400,
+        "endChar": 51
+      },
+      "revId": "d9e25fafed0e8c83a521cf6b0a9b6b28670f50f1",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "36a820ac_dfea804d",
@@ -123,6 +219,30 @@
       "writtenOn": "2021-12-20T19:13:14Z",
       "side": 1,
       "message": "nit: based on kZeroHertzIdleRepeatRatePeriod?",
+      "range": {
+        "startLine": 414,
+        "startChar": 48,
+        "endLine": 414,
+        "endChar": 52
+      },
+      "revId": "d9e25fafed0e8c83a521cf6b0a9b6b28670f50f1",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "a5926475_25da4a09",
+        "filename": "video/frame_cadence_adapter_unittest.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 414,
+      "author": {
+        "id": 9515
+      },
+      "writtenOn": "2021-12-21T10:57:54Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "36a820ac_dfea804d",
       "range": {
         "startLine": 414,
         "startChar": 48,

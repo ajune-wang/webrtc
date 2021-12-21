@@ -20,7 +20,6 @@
 #include "call/test/mock_bitrate_allocator.h"
 #include "call/test/mock_rtp_transport_controller_send.h"
 #include "modules/rtp_rtcp/source/rtp_sequence_number_map.h"
-#include "modules/utility/include/process_thread.h"
 #include "modules/video_coding/fec_controller_default.h"
 #include "rtc_base/experiments/alr_experiment.h"
 #include "rtc_base/fake_clock.h"
@@ -29,7 +28,7 @@
 #include "test/gmock.h"
 #include "test/gtest.h"
 #include "test/mock_transport.h"
-#include "video/call_stats.h"
+#include "video/call_stats2.h"
 #include "video/test/mock_video_stream_encoder.h"
 #include "video/video_send_stream.h"
 
@@ -119,8 +118,6 @@ class VideoSendStreamImplTest : public ::testing::Test {
         config_(&transport_),
         send_delay_stats_(&clock_),
         test_queue_("test_queue"),
-        process_thread_(ProcessThread::Create("test_thread")),
-        call_stats_(&clock_, process_thread_.get()),
         stats_proxy_(&clock_,
                      config_,
                      VideoEncoderConfig::ContentType::kRealtimeVideo) {
@@ -137,8 +134,16 @@ class VideoSendStreamImplTest : public ::testing::Test {
     EXPECT_CALL(rtp_video_sender_, IsActive())
         .WillRepeatedly(
             ::testing::Invoke([&]() { return rtp_video_sender_active_; }));
+    test_queue_.SendTask(
+        [&] {
+          call_stats_ = std::make_unique<CallStats>(&clock_, test_queue_.Get());
+        },
+        RTC_FROM_HERE);
   }
-  ~VideoSendStreamImplTest() {}
+
+  ~VideoSendStreamImplTest() {
+    test_queue_.SendTask([&] { call_stats_ = nullptr; }, RTC_FROM_HERE);
+  }
 
   std::unique_ptr<VideoSendStreamImpl> CreateVideoSendStreamImpl(
       int initial_encoder_max_bitrate,
@@ -177,9 +182,7 @@ class VideoSendStreamImplTest : public ::testing::Test {
   VideoSendStream::Config config_;
   SendDelayStats send_delay_stats_;
   TaskQueueForTest test_queue_;
-  std::unique_ptr<ProcessThread> process_thread_;
-  // TODO(tommi): Use internal::CallStats
-  CallStats call_stats_;
+  std::unique_ptr<CallStats> call_stats_;
   SendStatisticsProxy stats_proxy_;
   PacketRouter packet_router_;
 };

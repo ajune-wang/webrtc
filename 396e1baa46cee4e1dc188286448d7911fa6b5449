@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "fcee7da1_3a261f94",
+        "filename": "modules/video_coding/codecs/vp8/test/vp8_impl_unittest.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 81,
+      "author": {
+        "id": 5825
+      },
+      "writtenOn": "2021-12-22T11:32:45Z",
+      "side": 0,
+      "message": "Use default settings set in https://source.chromium.org/chromium/chromium/src/+/main:third_party/webrtc/api/video_codecs/video_encoder.cc;drc\u003d5add3c3f90d578d55ca28dd06bd296654d96c3b8;l\u003d22",
+      "range": {
+        "startLine": 79,
+        "startChar": 4,
+        "endLine": 81,
+        "endChar": 53
+      },
+      "revId": "396e1baa46cee4e1dc188286448d7911fa6b5449",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

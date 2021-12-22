@@ -170,6 +170,10 @@ class RtpVideoSender : public RtpVideoSenderInterface,
   const bool has_packet_feedback_;
   const bool simulate_generic_structure_;
 
+  // Semantically equivalent to checking for `transport_->GetWorkerQueue()`
+  // but some tests need to be updated to call from the correct context.
+  RTC_NO_UNIQUE_ADDRESS SequenceChecker transport_checker_;
+
   // TODO(holmer): Remove mutex_ once RtpVideoSender runs on the
   // transport task queue.
   mutable Mutex mutex_;

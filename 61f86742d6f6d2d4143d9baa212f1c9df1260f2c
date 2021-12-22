@@ -37,6 +37,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "0696b11b_ab71d59f",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 9405
+      },
+      "writtenOn": "2021-12-22T17:08:08Z",
+      "side": 1,
+      "message": "I think encoders and decoders have different criteria for handling pixels of arbitrary size.\nIn the case of a decoder, I think it should be able to decode regardless of the multiple of the width and height of the input stream. However, I think it is okay to to put some restrictions on the encoder.\n\nI\u0027ve tested several devices, but none of them seem to handle odd widths/heights properly.\nTwo Qualcomm devices (Galaxy S20, Pixel 2) reject encoder initialization if either width or height is odd.\nI\u0027ve also tested it with an Exynos device (Galaxy S8), apparently the encoder initializes but produces an encoding output to smaller even width/height.\nWe should also consider that the minimum alignment for the source is 2. [1]\nThere is also a CL that initializes the Hardware Video Encoder only in multiples of 16x16. [2]\n\nSo, it is still worth to care about odd width / height?\n\n[1] https://source.chromium.org/chromium/chromium/src/+/dbef2bd276ad196cc45047dcc4957e33d6fcb734:third_party/webrtc/sdk/android/src/jni/android_video_track_source.cc;l\u003d24\n[2] https://webrtc-review.googlesource.com/c/src/+/229460",
+      "parentUuid": "992abed0_ead905e9",
+      "revId": "61f86742d6f6d2d4143d9baa212f1c9df1260f2c",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "46dcb116_7e1b5a8f",
         "filename": "sdk/android/api/org/webrtc/YuvHelper.java",
         "patchSetId": 2
@@ -48,6 +66,30 @@
       "writtenOn": "2021-12-15T14:22:06Z",
       "side": 1,
       "message": "Move comment to the method below that uses a tightly packed destiantion buffer.",
+      "range": {
+        "startLine": 17,
+        "startChar": 2,
+        "endLine": 17,
+        "endChar": 77
+      },
+      "revId": "61f86742d6f6d2d4143d9baa212f1c9df1260f2c",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "aa550d4b_1241125e",
+        "filename": "sdk/android/api/org/webrtc/YuvHelper.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 17,
+      "author": {
+        "id": 9405
+      },
+      "writtenOn": "2021-12-22T17:08:08Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "46dcb116_7e1b5a8f",
       "range": {
         "startLine": 17,
         "startChar": 2,
@@ -71,6 +113,30 @@
       "writtenOn": "2021-12-15T16:15:22Z",
       "side": 1,
       "message": "nit: I think dstSliceHeight would be a bit clearer (or just add documentation)\n\nSince right now it is not entirely clear what is happening because having a different height for input and output could also mean e.g. scaling.",
+      "range": {
+        "startLine": 20,
+        "startChar": 10,
+        "endLine": 20,
+        "endChar": 20
+      },
+      "revId": "61f86742d6f6d2d4143d9baa212f1c9df1260f2c",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "d773fe44_e0ff50ca",
+        "filename": "sdk/android/api/org/webrtc/YuvHelper.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 20,
+      "author": {
+        "id": 9405
+      },
+      "writtenOn": "2021-12-22T17:08:08Z",
+      "side": 1,
+      "message": "Done.\nNote that this function and `libyuv::I420Copy` have nothing to do with scaling.",
+      "parentUuid": "92c47166_b4a63c66",
       "range": {
         "startLine": 20,
         "startChar": 10,
@@ -128,6 +194,30 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "8dd9b931_8d1031e3",
+        "filename": "sdk/android/api/org/webrtc/YuvHelper.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 23,
+      "author": {
+        "id": 9405
+      },
+      "writtenOn": "2021-12-22T17:08:08Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "f667f4b2_860a4696",
+      "range": {
+        "startLine": 23,
+        "startChar": 14,
+        "endLine": 23,
+        "endChar": 24
+      },
+      "revId": "61f86742d6f6d2d4143d9baa212f1c9df1260f2c",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "ec5d5464_c2106605",
@@ -141,6 +231,30 @@
       "writtenOn": "2021-12-15T16:15:22Z",
       "side": 1,
       "message": "nit: dstStartY and so on.",
+      "range": {
+        "startLine": 26,
+        "startChar": 14,
+        "endLine": 26,
+        "endChar": 20
+      },
+      "revId": "61f86742d6f6d2d4143d9baa212f1c9df1260f2c",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "3af4cb56_a6321401",
+        "filename": "sdk/android/api/org/webrtc/YuvHelper.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 26,
+      "author": {
+        "id": 9405
+      },
+      "writtenOn": "2021-12-22T17:08:08Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "ec5d5464_c2106605",
       "range": {
         "startLine": 26,
         "startChar": 14,
@@ -174,6 +288,30 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "3b866e08_d8c9885f",
+        "filename": "sdk/android/api/org/webrtc/YuvHelper.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 34,
+      "author": {
+        "id": 9405
+      },
+      "writtenOn": "2021-12-22T17:08:08Z",
+      "side": 1,
+      "message": "Basically, `nativeI420Copy` is a thin wrapper of `libyuv::I420Copy`. From what I understand they honor the stride and don\u0027t have out-of-bound accesss. For example, CopyRow_C of libyuv is a plain memcpy and only copies as needed.",
+      "parentUuid": "baf7a350_4c23bd81",
+      "range": {
+        "startLine": 34,
+        "startChar": 49,
+        "endLine": 34,
+        "endChar": 81
+      },
+      "revId": "61f86742d6f6d2d4143d9baa212f1c9df1260f2c",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "9f2c2c49_459de595",
@@ -187,6 +325,30 @@
       "writtenOn": "2021-12-15T14:22:06Z",
       "side": 1,
       "message": "Similarly, move comment.",
+      "range": {
+        "startLine": 58,
+        "startChar": 0,
+        "endLine": 58,
+        "endChar": 82
+      },
+      "revId": "61f86742d6f6d2d4143d9baa212f1c9df1260f2c",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "9bdeff08_d01faac7",
+        "filename": "sdk/android/api/org/webrtc/YuvHelper.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 58,
+      "author": {
+        "id": 9405
+      },
+      "writtenOn": "2021-12-22T17:08:08Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "9f2c2c49_459de595",
       "range": {
         "startLine": 58,
         "startChar": 0,
@@ -270,6 +432,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "e49735fd_85d63323",
+        "filename": "sdk/android/api/org/webrtc/YuvHelper.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 85,
+      "author": {
+        "id": 9405
+      },
+      "writtenOn": "2021-12-22T17:08:08Z",
+      "side": 1,
+      "message": "On the Java side, I added more code that checks the condition and throws an exception. Based on the uses of these functions, it looks like we don\u0027t need to consider things like flipping (i.e. height \u003c 0) for now.",
+      "parentUuid": "fbe5dc2f_5089bbff",
+      "range": {
+        "startLine": 85,
+        "startChar": 4,
+        "endLine": 85,
+        "endChar": 20
+      },
+      "revId": "61f86742d6f6d2d4143d9baa212f1c9df1260f2c",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "71775219_171c2585",
         "filename": "sdk/android/instrumentationtests/src/org/webrtc/YuvHelperTest.java",
         "patchSetId": 2
@@ -315,6 +501,30 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "7a2f44d3_aeee1b65",
+        "filename": "sdk/android/instrumentationtests/src/org/webrtc/YuvHelperTest.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 58,
+      "author": {
+        "id": 9405
+      },
+      "writtenOn": "2021-12-22T17:08:08Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "5f6d800c_878c69c0",
+      "range": {
+        "startLine": 56,
+        "startChar": 0,
+        "endLine": 58,
+        "endChar": 3
+      },
+      "revId": "61f86742d6f6d2d4143d9baa212f1c9df1260f2c",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "5b8cc45f_19e71c51",
@@ -328,6 +538,30 @@
       "writtenOn": "2021-12-15T14:22:06Z",
       "side": 1,
       "message": "Why this change to public?",
+      "range": {
+        "startLine": 37,
+        "startChar": 0,
+        "endLine": 37,
+        "endChar": 6
+      },
+      "revId": "61f86742d6f6d2d4143d9baa212f1c9df1260f2c",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "d5676362_c41b1f5e",
+        "filename": "sdk/android/src/java/org/webrtc/HardwareVideoEncoder.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 37,
+      "author": {
+        "id": 9405
+      },
+      "writtenOn": "2021-12-22T17:08:08Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "5b8cc45f_19e71c51",
       "range": {
         "startLine": 37,
         "startChar": 0,
@@ -385,6 +619,30 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "0ed83326_c166210a",
+        "filename": "sdk/android/src/java/org/webrtc/HardwareVideoEncoder.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 303,
+      "author": {
+        "id": 9405
+      },
+      "writtenOn": "2021-12-22T17:08:08Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "76d56b80_3bb48655",
+      "range": {
+        "startLine": 289,
+        "startChar": 0,
+        "endLine": 303,
+        "endChar": 0
+      },
+      "revId": "61f86742d6f6d2d4143d9baa212f1c9df1260f2c",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "41bae9b8_89abaabd",
@@ -398,6 +656,30 @@
       "writtenOn": "2021-12-15T13:59:27Z",
       "side": 1,
       "message": "These aren’t used by the tests, so you keep the same signature as before and use the instance variables in the implementation.",
+      "range": {
+        "startLine": 730,
+        "startChar": 60,
+        "endLine": 730,
+        "endChar": 91
+      },
+      "revId": "61f86742d6f6d2d4143d9baa212f1c9df1260f2c",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "4c51dbbe_bc59ccfd",
+        "filename": "sdk/android/src/java/org/webrtc/HardwareVideoEncoder.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 730,
+      "author": {
+        "id": 9405
+      },
+      "writtenOn": "2021-12-22T17:08:08Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "41bae9b8_89abaabd",
       "range": {
         "startLine": 730,
         "startChar": 60,

@@ -394,6 +394,7 @@ RtpVideoSender::RtpVideoSender(
       encoder_target_rate_bps_(0),
       frame_counts_(rtp_config.ssrcs.size()),
       frame_count_observer_(observers.frame_count_observer) {
+  transport_checker_.Detach();
   RTC_DCHECK_EQ(rtp_config_.ssrcs.size(), rtp_streams_.size());
   if (send_side_bwe_with_overhead_ && has_packet_feedback_)
     transport_->IncludeOverheadInPacedSender();
@@ -467,6 +468,7 @@ RtpVideoSender::~RtpVideoSender() {
 }
 
 void RtpVideoSender::SetActive(bool active) {
+  RTC_DCHECK_RUN_ON(&transport_checker_);
   MutexLock lock(&mutex_);
   if (active_ == active)
     return;
@@ -475,6 +477,7 @@ void RtpVideoSender::SetActive(bool active) {
 }
 
 void RtpVideoSender::SetActiveModules(const std::vector<bool> active_modules) {
+  RTC_DCHECK_RUN_ON(&transport_checker_);
   MutexLock lock(&mutex_);
   return SetActiveModulesLocked(active_modules);
 }

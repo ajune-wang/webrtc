@@ -467,6 +467,7 @@ RtpVideoSender::~RtpVideoSender() {
 }
 
 void RtpVideoSender::SetActive(bool active) {
+  RTC_DCHECK_RUN_ON(transport_->GetWorkerQueue());
   MutexLock lock(&mutex_);
   if (active_ == active)
     return;

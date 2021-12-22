@@ -752,7 +752,7 @@ class MockFrameCadenceAdapter : public FrameCadenceAdapterInterface {
               UpdateLayerStatus,
               (int spatial_index, bool enabled),
               (override));
-  MOCK_METHOD(bool, ProcessKeyFrameRequest, (), (override));
+  MOCK_METHOD(void, ProcessKeyFrameRequest, (), (override));
 };
 
 class MockEncoderSelector
@@ -8990,14 +8990,17 @@ TEST(VideoStreamEncoderFrameCadenceTest,
   // Ensure the encoder is set up.
   factory.DepleteTaskQueues();
 
-  EXPECT_CALL(*adapter_ptr, ProcessKeyFrameRequest).WillOnce(Return(true));
+  EXPECT_CALL(*adapter_ptr, ProcessKeyFrameRequest)
+      .WillOnce(Invoke([video_stream_encoder_callback] {
+        video_stream_encoder_callback->RequestRefreshFrame();
+      }));
   EXPECT_CALL(mock_source, RequestRefreshFrame);
   video_stream_encoder->SendKeyFrame();
   factory.DepleteTaskQueues();
   Mock::VerifyAndClearExpectations(adapter_ptr);
   Mock::VerifyAndClearExpectations(&mock_source);
 
-  EXPECT_CALL(*adapter_ptr, ProcessKeyFrameRequest).WillOnce(Return(false));
+  EXPECT_CALL(*adapter_ptr, ProcessKeyFrameRequest);
   EXPECT_CALL(mock_source, RequestRefreshFrame).Times(0);
   video_stream_encoder->SendKeyFrame();
   factory.DepleteTaskQueues();

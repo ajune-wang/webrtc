@@ -68,6 +68,10 @@ class FrameCadenceAdapterInterface
 
     // Called when the source has discarded a frame.
     virtual void OnDiscardedFrame() = 0;
+
+    // Called when the cadence adapter has determined a refresh frame is needed
+    // from the source.
+    virtual void RequestRefreshFrame() = 0;
   };
 
   // Factory function creating a production instance. Deletion of the returned
@@ -82,8 +86,11 @@ class FrameCadenceAdapterInterface
   virtual void Initialize(Callback* callback) = 0;
 
   // Pass zero hertz parameters in |params| as a prerequisite to enable
-  // zero-hertz operation. If absl:::nullopt is passed, the cadence adapter will
+  // zero-hertz operation. If absl::nullopt is passed, the cadence adapter will
   // switch to passthrough mode.
+  // The cadence adapter may request a refresh frame via the Callback interface
+  // if ProcessKeyFrameRequest was called before, and no frames have arrived
+  // since then.
   virtual void SetZeroHertzModeEnabled(
       absl::optional<ZeroHertzModeParams> params) = 0;
 
@@ -104,9 +111,9 @@ class FrameCadenceAdapterInterface
   // Updates spatial layer enabled status.
   virtual void UpdateLayerStatus(int spatial_index, bool enabled) = 0;
 
-  // Returns true if a key frame request should cause generation of a new frame
-  // from the source.
-  virtual ABSL_MUST_USE_RESULT bool ProcessKeyFrameRequest() = 0;
+  // Call to inform the cadence adapter about a key frame request. The adapter
+  // might request a refresh frame if no frame has been received by the adapter.
+  virtual void ProcessKeyFrameRequest() = 0;
 };
 
 }  // namespace webrtc

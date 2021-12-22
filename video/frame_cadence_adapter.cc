@@ -116,8 +116,9 @@ class ZeroHertzAdapterMode : public AdapterMode {
   absl::optional<uint32_t> GetInputFrameRateFps() override;
   void UpdateFrameRate() override {}
 
-  // Returns true if a refresh frame should be requested from the video source.
-  ABSL_MUST_USE_RESULT bool ProcessKeyFrameRequest();
+  // Call to inform the cadence adapter about a key frame request. The adapter
+  // might request a refresh frame if no frame has been received by the adapter.
+  void ProcessKeyFrameRequest();
 
  private:
   // The tracking state of each spatial layer. Used for determining when to
@@ -201,7 +202,7 @@ class FrameCadenceAdapterImpl : public FrameCadenceAdapterInterface {
   void UpdateLayerQualityConvergence(int spatial_index,
                                      bool quality_converged) override;
   void UpdateLayerStatus(int spatial_index, bool enabled) override;
-  ABSL_MUST_USE_RESULT bool ProcessKeyFrameRequest() override;
+  void ProcessKeyFrameRequest() override;
 
   // VideoFrameSink overrides.
   void OnFrame(const VideoFrame& frame) override;
@@ -258,6 +259,16 @@ class FrameCadenceAdapterImpl : public FrameCadenceAdapterInterface {
   // Number of frames that are currently scheduled for processing on the
   // `queue_`.
   std::atomic<int> frames_scheduled_for_processing_{0};
+
+  // True if frames were ever received before switching to zero hertz mode.
+  // Switches back to false if not.
+  // TODO(crbug.com/1255737): support switching out of zero-hertz mode.
+  std::atomic<bool> frames_received_before_zero_hertz_mode_{false};
+
+  // True if a ProcessKeyFrame was received before zero hertz mode was
+  // activated.
+  // TODO(crbug.com/1255737): support switching out of zero-hertz mode.
+  bool maybe_pending_request_refresh_frame_ RTC_GUARDED_BY(queue_) = false;
 
   ScopedTaskSafetyDetached safety_;
 };
@@ -344,15 +355,16 @@ absl::optional<uint32_t> ZeroHertzAdapterMode::GetInputFrameRateFps() {
   return max_fps_;
 }
 
-bool ZeroHertzAdapterMode::ProcessKeyFrameRequest() {
+void ZeroHertzAdapterMode::ProcessKeyFrameRequest() {
   RTC_DCHECK_RUN_ON(&sequence_checker_);
 
   // If no frame was ever passed to us, request a refresh frame from the source.
   if (current_frame_id_ == 0) {
     RTC_LOG(LS_INFO) << __func__ << " this " << this
-                     << " recommending requesting refresh frame due to no "
+                     << " requesting requesting refresh frame due to no "
                         "frames received yet.";
-    return true;
+    callback_->RequestRefreshFrame();
+    return;
   }
 
   // If we're not repeating, or we're repeating with non-idle duration, we will
@@ -361,7 +373,7 @@ bool ZeroHertzAdapterMode::ProcessKeyFrameRequest() {
     RTC_LOG(LS_INFO) << __func__ << " this " << this
                      << " ignoring key frame request because of recently "
                         "incoming frame or short repeating.";
-    return false;
+    return;
   }
 
   // If the repeat is scheduled within a short (i.e. frame_delay_) interval, we
@@ -373,7 +385,7 @@ bool ZeroHertzAdapterMode::ProcessKeyFrameRequest() {
     RTC_LOG(LS_INFO)
         << __func__ << " this " << this
         << " ignoring key frame request because of soon happening idle repeat";
-    return false;
+    return;
   }
 
   // Cancel the current repeat and reschedule a short repeat now. No need for a
@@ -381,7 +393,6 @@ bool ZeroHertzAdapterMode::ProcessKeyFrameRequest() {
   RTC_LOG(LS_INFO) << __func__ << " this " << this
                    << " scheduling a short repeat due to key frame request";
   ScheduleRepeat(++current_frame_id_, /*idle_repeat=*/false);
-  return false;
 }
 
 // RTC_RUN_ON(&sequence_checker_)
@@ -485,6 +496,7 @@ FrameCadenceAdapterImpl::FrameCadenceAdapterImpl(Clock* clock,
           field_trial::IsEnabled("WebRTC-ZeroHertzScreenshare")) {}
 
 void FrameCadenceAdapterImpl::Initialize(Callback* callback) {
+  RTC_DCHECK_RUN_ON(queue_);
   callback_ = callback;
   passthrough_adapter_.emplace(clock_, callback);
   current_adapter_mode_ = &passthrough_adapter_.value();
@@ -527,18 +539,21 @@ void FrameCadenceAdapterImpl::UpdateLayerStatus(int spatial_index,
     zero_hertz_adapter_->UpdateLayerStatus(spatial_index, enabled);
 }
 
-bool FrameCadenceAdapterImpl::ProcessKeyFrameRequest() {
+void FrameCadenceAdapterImpl::ProcessKeyFrameRequest() {
   RTC_DCHECK_RUN_ON(queue_);
   if (zero_hertz_adapter_)
-    return zero_hertz_adapter_->ProcessKeyFrameRequest();
-  // We depend on min_fps not being zero for passthrough.
-  return false;
+    zero_hertz_adapter_->ProcessKeyFrameRequest();
+  else
+    maybe_pending_request_refresh_frame_ = true;
 }
 
 void FrameCadenceAdapterImpl::OnFrame(const VideoFrame& frame) {
   // This method is called on the network thread under Chromium, or other
   // various contexts in test.
   RTC_DCHECK_RUNS_SERIALIZED(&incoming_frame_race_checker_);
+
+  frames_received_before_zero_hertz_mode_.store(true,
+                                                std::memory_order_relaxed);
 
   // Local time in webrtc time base.
   Timestamp post_time = clock_->CurrentTime();
@@ -594,6 +609,14 @@ void FrameCadenceAdapterImpl::MaybeReconfigureAdapters(
                                   source_constraints_->max_fps.value(),
                                   zero_hertz_params_.value());
       RTC_LOG(LS_INFO) << "FrameCadenceAdapterImpl: Zero hertz mode activated.";
+      if (frames_received_before_zero_hertz_mode_.load(
+              std::memory_order_relaxed) == false &&
+          maybe_pending_request_refresh_frame_) {
+        RTC_LOG(LS_INFO)
+            << "FrameCadenceAdapterImpl: requesting pending refresh frame.";
+        callback_->RequestRefreshFrame();
+        maybe_pending_request_refresh_frame_ = false;
+      }
     }
     current_adapter_mode_ = &zero_hertz_adapter_.value();
   } else {

@@ -63,6 +63,7 @@ class MockCallback : public FrameCadenceAdapterInterface::Callback {
  public:
   MOCK_METHOD(void, OnFrame, (Timestamp, int, const VideoFrame&), (override));
   MOCK_METHOD(void, OnDiscardedFrame, (), (override));
+  MOCK_METHOD(void, RequestRefreshFrame, (), (override));
 };
 
 class ZeroHertzFieldTrialDisabler : public test::ScopedFieldTrials {
@@ -117,7 +118,8 @@ TEST(FrameCadenceAdapterTest, CountsOutstandingFramesToProcess) {
 TEST(FrameCadenceAdapterTest, FrameRateFollowsRateStatisticsByDefault) {
   GlobalSimulatedTimeController time_controller(Timestamp::Millis(0));
   auto adapter = CreateAdapter(time_controller.GetClock());
-  adapter->Initialize(nullptr);
+  MockCallback callback;
+  adapter->Initialize(&callback);
 
   // Create an "oracle" rate statistics which should be followed on a sequence
   // of frames.
@@ -139,7 +141,8 @@ TEST(FrameCadenceAdapterTest,
   ZeroHertzFieldTrialDisabler feature_disabler;
   GlobalSimulatedTimeController time_controller(Timestamp::Millis(0));
   auto adapter = CreateAdapter(time_controller.GetClock());
-  adapter->Initialize(nullptr);
+  MockCallback callback;
+  adapter->Initialize(&callback);
 
   // Create an "oracle" rate statistics which should be followed on a sequence
   // of frames.
@@ -161,7 +164,7 @@ TEST(FrameCadenceAdapterTest, FrameRateFollowsMaxFpsWhenZeroHertzActivated) {
   MockCallback callback;
   GlobalSimulatedTimeController time_controller(Timestamp::Millis(0));
   auto adapter = CreateAdapter(time_controller.GetClock());
-  adapter->Initialize(nullptr);
+  adapter->Initialize(&callback);
   adapter->SetZeroHertzModeEnabled(
       FrameCadenceAdapterInterface::ZeroHertzModeParams{});
   adapter->OnConstraintsChanged(VideoTrackSourceConstraints{0, 1});
@@ -178,7 +181,7 @@ TEST(FrameCadenceAdapterTest,
   MockCallback callback;
   GlobalSimulatedTimeController time_controller(Timestamp::Millis(0));
   auto adapter = CreateAdapter(time_controller.GetClock());
-  adapter->Initialize(nullptr);
+  adapter->Initialize(&callback);
   adapter->SetZeroHertzModeEnabled(
       FrameCadenceAdapterInterface::ZeroHertzModeParams{});
   adapter->OnConstraintsChanged(VideoTrackSourceConstraints{0, 1});
@@ -362,7 +365,8 @@ TEST(FrameCadenceAdapterTest, RequestsRefreshFrameOnKeyFrameRequestWhenNew) {
       FrameCadenceAdapterInterface::ZeroHertzModeParams{});
   adapter->OnConstraintsChanged(VideoTrackSourceConstraints{0, 10});
   time_controller.AdvanceTime(TimeDelta::Zero());
-  EXPECT_TRUE(adapter->ProcessKeyFrameRequest());
+  EXPECT_CALL(callback, RequestRefreshFrame);
+  adapter->ProcessKeyFrameRequest();
 }
 
 TEST(FrameCadenceAdapterTest, IgnoresKeyFrameRequestShortlyAfterFrame) {
@@ -376,7 +380,8 @@ TEST(FrameCadenceAdapterTest, IgnoresKeyFrameRequestShortlyAfterFrame) {
   adapter->OnConstraintsChanged(VideoTrackSourceConstraints{0, 10});
   adapter->OnFrame(CreateFrame());
   time_controller.AdvanceTime(TimeDelta::Zero());
-  EXPECT_FALSE(adapter->ProcessKeyFrameRequest());
+  EXPECT_CALL(callback, RequestRefreshFrame).Times(0);
+  adapter->ProcessKeyFrameRequest();
 }
 
 TEST(FrameCadenceAdapterTest, IgnoresKeyFrameRequestWhileShortRepeating) {
@@ -395,7 +400,8 @@ TEST(FrameCadenceAdapterTest, IgnoresKeyFrameRequestWhileShortRepeating) {
   adapter->UpdateLayerStatus(0, true);
   adapter->OnFrame(CreateFrame());
   time_controller.AdvanceTime(2 * kMinFrameDelay);
-  EXPECT_FALSE(adapter->ProcessKeyFrameRequest());
+  EXPECT_CALL(callback, RequestRefreshFrame).Times(0);
+  adapter->ProcessKeyFrameRequest();
 
   // Expect repeating as ususal.
   EXPECT_CALL(callback, OnFrame).Times(8);
@@ -422,7 +428,8 @@ TEST(FrameCadenceAdapterTest, IgnoresKeyFrameRequestJustBeforeIdleRepeating) {
   // We process the key frame request kMinFrameDelay before the first idle
   // repeat should happen. The repeat should happen at T = kMinFrameDelay +
   // kIdleFrameDelay as originally expected.
-  EXPECT_FALSE(adapter->ProcessKeyFrameRequest());
+  EXPECT_CALL(callback, RequestRefreshFrame).Times(0);
+  adapter->ProcessKeyFrameRequest();
   EXPECT_CALL(callback, OnFrame);
   time_controller.AdvanceTime(kMinFrameDelay);
   EXPECT_CALL(callback, OnFrame);
@@ -450,11 +457,72 @@ TEST(FrameCadenceAdapterTest,
   // We process the key frame request 9 * kMinFrameDelay before the first idle
   // repeat should happen. We should get a short repeat in kMinFrameDelay and an
   // idle repeat after that.
-  EXPECT_FALSE(adapter->ProcessKeyFrameRequest());
+  EXPECT_CALL(callback, RequestRefreshFrame).Times(0);
+  adapter->ProcessKeyFrameRequest();
   EXPECT_CALL(callback, OnFrame);
   time_controller.AdvanceTime(kMinFrameDelay);
   EXPECT_CALL(callback, OnFrame);
   time_controller.AdvanceTime(kIdleFrameDelay);
+}
+
+TEST(FrameCadenceAdapterTest,
+     RequestsRefreshFrameOnPendingKeyFrameRequestWithoutFrameEntry) {
+  ZeroHertzFieldTrialEnabler enabler;
+  MockCallback callback;
+  GlobalSimulatedTimeController time_controller(Timestamp::Millis(0));
+  auto adapter = CreateAdapter(time_controller.GetClock());
+  adapter->Initialize(&callback);
+  adapter->OnConstraintsChanged(VideoTrackSourceConstraints{0, 1});
+  time_controller.AdvanceTime(TimeDelta::Zero());
+
+  EXPECT_CALL(callback, RequestRefreshFrame).Times(0);
+  adapter->ProcessKeyFrameRequest();
+  Mock::VerifyAndClearExpectations(&callback);
+
+  // Expect that a pending refresh frame request is now sent since we never
+  // received a frame.
+  EXPECT_CALL(callback, RequestRefreshFrame);
+  adapter->SetZeroHertzModeEnabled(
+      FrameCadenceAdapterInterface::ZeroHertzModeParams{});
+}
+
+TEST(FrameCadenceAdapterTest,
+     RequestsRefreshFrameOnPendingKeyFrameRequestWithFrameEntry) {
+  ZeroHertzFieldTrialEnabler enabler;
+  MockCallback callback;
+  GlobalSimulatedTimeController time_controller(Timestamp::Millis(0));
+  auto adapter = CreateAdapter(time_controller.GetClock());
+  adapter->Initialize(&callback);
+  adapter->OnConstraintsChanged(VideoTrackSourceConstraints{0, 1});
+  time_controller.AdvanceTime(TimeDelta::Zero());
+
+  EXPECT_CALL(callback, RequestRefreshFrame).Times(0);
+  adapter->ProcessKeyFrameRequest();
+  adapter->OnFrame(CreateFrame());
+  Mock::VerifyAndClearExpectations(&callback);
+
+  // Expect that a pending refresh frame request is not sent since we received a
+  // frame.
+  EXPECT_CALL(callback, RequestRefreshFrame).Times(0);
+  adapter->SetZeroHertzModeEnabled(
+      FrameCadenceAdapterInterface::ZeroHertzModeParams{});
+}
+
+TEST(FrameCadenceAdapterTest,
+     OmitsRequestsRefreshFrameWithoutPendingKeyFrameRequest) {
+  ZeroHertzFieldTrialEnabler enabler;
+  MockCallback callback;
+  GlobalSimulatedTimeController time_controller(Timestamp::Millis(0));
+  auto adapter = CreateAdapter(time_controller.GetClock());
+  adapter->Initialize(&callback);
+  adapter->OnConstraintsChanged(VideoTrackSourceConstraints{0, 1});
+  time_controller.AdvanceTime(TimeDelta::Zero());
+
+  // We shouldn't request refresh frames since no key frame request was
+  // received.
+  EXPECT_CALL(callback, RequestRefreshFrame).Times(0);
+  adapter->SetZeroHertzModeEnabled(
+      FrameCadenceAdapterInterface::ZeroHertzModeParams{});
 }
 
 class ZeroHertzLayerQualityConvergenceTest : public ::testing::Test {

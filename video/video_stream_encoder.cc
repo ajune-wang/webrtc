@@ -1357,6 +1357,14 @@ void VideoStreamEncoder::OnDiscardedFrame() {
       VideoStreamEncoderObserver::DropReason::kSource);
 }
 
+void VideoStreamEncoder::RequestRefreshFrame() {
+  RTC_DCHECK_RUN_ON(&encoder_queue_);
+  worker_queue_->PostTask(ToQueuedTask(task_safety_, [this] {
+    RTC_DCHECK_RUN_ON(worker_queue_);
+    video_source_sink_controller_.RequestRefreshFrame();
+  }));
+}
+
 bool VideoStreamEncoder::EncoderPaused() const {
   RTC_DCHECK_RUN_ON(&encoder_queue_);
   // Pause video if paused by caller or as long as the network is down or the
@@ -1818,13 +1826,8 @@ void VideoStreamEncoder::SendKeyFrame() {
   if (!encoder_)
     return;  // Shutting down.
 
-  if (frame_cadence_adapter_ &&
-      frame_cadence_adapter_->ProcessKeyFrameRequest()) {
-    worker_queue_->PostTask(ToQueuedTask(task_safety_, [this] {
-      RTC_DCHECK_RUN_ON(worker_queue_);
-      video_source_sink_controller_.RequestRefreshFrame();
-    }));
-  }
+  if (frame_cadence_adapter_)
+    frame_cadence_adapter_->ProcessKeyFrameRequest();
 
   // TODO(webrtc:10615): Map keyframe request to spatial layer.
   std::fill(next_frame_types_.begin(), next_frame_types_.end(),

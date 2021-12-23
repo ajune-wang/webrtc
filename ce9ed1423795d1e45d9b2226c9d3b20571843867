@@ -16,6 +16,23 @@
       "message": "Problem with payload type collision should be fixed now. Could someone please do a try run to make sure everything is working? Thank you!",
       "revId": "ce9ed1423795d1e45d9b2226c9d3b20571843867",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "247aa57c_2df5085b",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 4
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 18414
+      },
+      "writtenOn": "2021-12-23T12:34:50Z",
+      "side": 1,
+      "message": "Hi everyone,\nCould you please consider reviewing the changes so we can get this merged?\n\nThank you very much for your hard work!\n\nBest regards,\nStefan",
+      "revId": "ce9ed1423795d1e45d9b2226c9d3b20571843867",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

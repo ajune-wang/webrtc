@@ -9,6 +9,7 @@
  */
 #include "call/rtp_transport_controller_send.h"
 
+#include <algorithm>
 #include <memory>
 #include <utility>
 #include <vector>
@@ -181,15 +182,14 @@ RtpVideoSenderInterface* RtpTransportControllerSend::CreateRtpVideoSender(
 void RtpTransportControllerSend::DestroyRtpVideoSender(
     RtpVideoSenderInterface* rtp_video_sender) {
   RTC_DCHECK_RUN_ON(&main_thread_);
-  std::vector<std::unique_ptr<RtpVideoSenderInterface>>::iterator it =
-      video_rtp_senders_.end();
-  for (it = video_rtp_senders_.begin(); it != video_rtp_senders_.end(); ++it) {
-    if (it->get() == rtp_video_sender) {
-      break;
-    }
-  }
+  auto it = std::find_if(video_rtp_senders_.begin(), video_rtp_senders_.end(),
+                         [&](std::unique_ptr<RtpVideoSenderInterface>& sender) {
+                           return sender.get() == rtp_video_sender;
+                         });
   RTC_DCHECK(it != video_rtp_senders_.end());
+  it->release();  // The object will be deleted on the transport queue.
   video_rtp_senders_.erase(it);
+  task_queue_.PostTask([rtp_video_sender] { delete rtp_video_sender; });
 }
 
 void RtpTransportControllerSend::UpdateControlState() {

@@ -461,10 +461,7 @@ RtpVideoSender::RtpVideoSender(
 }
 
 RtpVideoSender::~RtpVideoSender() {
-  // TODO(bugs.webrtc.org/13517): Remove once RtpVideoSender gets deleted on the
-  // transport task queue.
-  transport_checker_.Detach();
-
+  RTC_DCHECK_RUN_ON(&transport_checker_);
   SetActiveModulesLocked(
       std::vector<bool>(rtp_streams_.size(), /*active=*/false));
   transport_->GetStreamFeedbackProvider()->DeRegisterStreamFeedbackObserver(

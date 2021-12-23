@@ -10,7 +10,7 @@ vars = {
   # chromium waterfalls. More info at: crbug.com/570091.
   'checkout_configuration': 'default',
   'checkout_instrumented_libraries': 'checkout_linux and checkout_configuration == "default"',
-  'chromium_revision': '69d8fd684376f3f078adaca34ff8b471754d1884',
+  'chromium_revision': '5d2422a68123f8337eff78fac489260b68260899',
 
   # Keep the Chromium default of generating location tags.
   'generate_location_tags': True,
@@ -25,7 +25,7 @@ deps = {
   'src/base':
     'https://chromium.googlesource.com/chromium/src/base@032c89c99191676da54eef59dd0a7b88790c5587',
   'src/build':
-    'https://chromium.googlesource.com/chromium/src/build@46c8d3e96f208ddf73a4cfe6617249e14b322b1f',
+    'https://chromium.googlesource.com/chromium/src/build@6c6a973c3445ffa683a3c21d346ce06de69e0d79',
   'src/buildtools':
     'https://chromium.googlesource.com/chromium/src/buildtools@d7bdd6f0386aaf20cd00a01d499e8ce1cbf6063e',
   # Gradle 6.6.1. Used for testing Android Studio project generation for WebRTC.
@@ -38,9 +38,9 @@ deps = {
     'condition': 'checkout_ios',
   },
   'src/testing':
-    'https://chromium.googlesource.com/chromium/src/testing@d02a594ff5c1d5064042bad3ae91b5beb2662e2c',
+    'https://chromium.googlesource.com/chromium/src/testing@7fb1cbd071707492e9f98a086a4baaa6496baa4a',
   'src/third_party':
-    'https://chromium.googlesource.com/chromium/src/third_party@194405a50b2b8c55deaaee4d52572d3dfa648822',
+    'https://chromium.googlesource.com/chromium/src/third_party@bdf293c7a6e3d342b8f18c58424a116fb87e1e92',
 
   'src/buildtools/linux64': {
     'packages': [
@@ -285,7 +285,7 @@ deps = {
     'condition': 'checkout_win',
   },
   'src/tools':
-    'https://chromium.googlesource.com/chromium/src/tools@085978a894b77e27e65c340a76dea1301f4172a8',
+    'https://chromium.googlesource.com/chromium/src/tools@3d4ed52a67869b7e840b3b6576c269da5f4f8664',
 
   'src/third_party/accessibility_test_framework': {
       'packages': [
@@ -384,7 +384,7 @@ deps = {
     'packages': [
       {
           'package': 'chromium/third_party/androidx',
-          'version': 'HODW6m8VayryUJucacS9PY8PR4FM7dBYoYjG6f3eKukC',
+          'version': 'Mlwj56XGVyOHl-oIxCdajwpJ2cqsUTJF4ezKx6DPO6IC',
       },
     ],
     'condition': 'checkout_android',

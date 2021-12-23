@@ -822,8 +822,22 @@ void VideoStreamEncoder::ConfigureEncoder(VideoEncoderConfig config,
       [this, config = std::move(config), max_data_payload_length]() mutable {
         RTC_DCHECK_RUN_ON(&encoder_queue_);
         RTC_DCHECK(sink_);
-        RTC_LOG(LS_ERROR) << "ConfigureEncoder requested. simulcast_layers = "
-                          << config.simulcast_layers.size();
+        RTC_LOG(LS_INFO) << "ConfigureEncoder requested.";
+
+        // Set up the frame cadence adapter according to if we're going to do
+        // screencast. Note that we don't know the number of spatial layers
+        // until the first frame has arrived, which results in encoder
+        // reconfiguration which sets the correct number based on computed info
+        // in `send_codec_`.
+        //
+        // Note: zero-hertz mode isn't enabled by this alone. Constraints also
+        // has to be set up with min_fps = 0 and max_fps > 0.
+        if (config.content_type == VideoEncoderConfig::ContentType::kScreen) {
+          frame_cadence_adapter_->SetZeroHertzModeEnabled(
+              FrameCadenceAdapterInterface::ZeroHertzModeParams{});
+        } else {
+          frame_cadence_adapter_->SetZeroHertzModeEnabled(absl::nullopt);
+        }
 
         pending_encoder_creation_ =
             (!encoder_ || encoder_config_.video_format != config.video_format ||
@@ -1256,8 +1270,6 @@ void VideoStreamEncoder::OnEncoderSettingsChanged() {
     frame_cadence_adapter_->SetZeroHertzModeEnabled(
         FrameCadenceAdapterInterface::ZeroHertzModeParams{
             send_codec_.numberOfSimulcastStreams});
-  } else {
-    frame_cadence_adapter_->SetZeroHertzModeEnabled(absl::nullopt);
   }
 }
 
@@ -1815,15 +1827,20 @@ void VideoStreamEncoder::SendKeyFrame() {
   TRACE_EVENT0("webrtc", "OnKeyFrameRequest");
   RTC_DCHECK(!next_frame_types_.empty());
 
-  if (!encoder_)
+  if (frame_cadence_adapter_) {
+    if (frame_cadence_adapter_->ProcessKeyFrameRequest()) {
+      RTC_DLOG(LS_INFO) << __func__ << " RequestRefreshFrame().";
+      worker_queue_->PostTask(ToQueuedTask(task_safety_, [this] {
+        RTC_DCHECK_RUN_ON(worker_queue_);
+        video_source_sink_controller_.RequestRefreshFrame();
+      }));
+    } else {
+      RTC_DLOG(LS_INFO) << __func__ << " No RequestRefreshFrame().";
+    }
+  }
+  if (!encoder_) {
+    RTC_DLOG(LS_INFO) << __func__ << " no encoder.";
     return;  // Shutting down.
-
-  if (frame_cadence_adapter_ &&
-      frame_cadence_adapter_->ProcessKeyFrameRequest()) {
-    worker_queue_->PostTask(ToQueuedTask(task_safety_, [this] {
-      RTC_DCHECK_RUN_ON(worker_queue_);
-      video_source_sink_controller_.RequestRefreshFrame();
-    }));
   }
 
   // TODO(webrtc:10615): Map keyframe request to spatial layer.

@@ -142,6 +142,7 @@ void RtcEventLogImpl::StopLogging(std::function<void()> callback) {
 void RtcEventLogImpl::Log(std::unique_ptr<RtcEvent> event) {
   RTC_CHECK(event);
 
+#if 0
   // Binding to `this` is safe because `this` outlives the `task_queue_`.
   task_queue_->PostTask([this, event = std::move(event)]() mutable {
     RTC_DCHECK_RUN_ON(task_queue_.get());
@@ -149,6 +150,7 @@ void RtcEventLogImpl::Log(std::unique_ptr<RtcEvent> event) {
     if (event_output_)
       ScheduleOutput();
   });
+#endif
 }
 
 void RtcEventLogImpl::ScheduleOutput() {

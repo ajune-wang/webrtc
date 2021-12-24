@@ -48,11 +48,11 @@ std::vector<SamplesStatsCounter::StatsSample> GetSortedSamples(
   rtc::ArrayView<const SamplesStatsCounter::StatsSample> view =
       counter.GetTimedSamples();
   std::vector<SamplesStatsCounter::StatsSample> out(view.begin(), view.end());
-  std::sort(out.begin(), out.end(),
-            [](const SamplesStatsCounter::StatsSample& a,
-               const SamplesStatsCounter::StatsSample& b) {
-              return a.time < b.time;
-            });
+  std::stable_sort(out.begin(), out.end(),
+                   [](const SamplesStatsCounter::StatsSample& a,
+                      const SamplesStatsCounter::StatsSample& b) {
+                     return a.time < b.time;
+                   });
   return out;
 }
 

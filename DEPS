@@ -10,7 +10,7 @@ vars = {
   # chromium waterfalls. More info at: crbug.com/570091.
   'checkout_configuration': 'default',
   'checkout_instrumented_libraries': 'checkout_linux and checkout_configuration == "default"',
-  'chromium_revision': 'f6bf4a6d25b2ead66a6e0c4b73874c0f2ba7fa87',
+  'chromium_revision': '53a7547988636ab3b017d8f48db0d8c55181debf',
 
   # Keep the Chromium default of generating location tags.
   'generate_location_tags': True,
@@ -40,7 +40,7 @@ deps = {
   'src/testing':
     'https://chromium.googlesource.com/chromium/src/testing@8b481a24d8cc96894e00ac02bc0fe55eeba229eb',
   'src/third_party':
-    'https://chromium.googlesource.com/chromium/src/third_party@e451ecd41890ad82b8fa20e1b2eb08c80ce79dce',
+    'https://chromium.googlesource.com/chromium/src/third_party@ac0157b36c952056d27c1f0c73a61d67e077475c',
 
   'src/buildtools/linux64': {
     'packages': [

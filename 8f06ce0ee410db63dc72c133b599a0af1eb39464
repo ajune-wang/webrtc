@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "5ad661ca_402c0813",
+        "filename": "test/testsupport/perf_test.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 56,
+      "author": {
+        "id": 5087
+      },
+      "writtenOn": "2021-12-24T10:33:09Z",
+      "side": 1,
+      "message": "In theory, we might not need stability here (samples added at the same time can appear in any order without altering anything important) but on the other hand, this code is not on critical path (it is just used at the end of tests) so using stable_sort might be fine and easier to understand in case things gets printed out.",
+      "range": {
+        "startLine": 52,
+        "startChar": 0,
+        "endLine": 56,
+        "endChar": 22
+      },
+      "revId": "8f06ce0ee410db63dc72c133b599a0af1eb39464",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

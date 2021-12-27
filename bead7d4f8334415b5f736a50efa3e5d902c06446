@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "4a69b77e_e4f8a0f6",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 18554
+      },
+      "writtenOn": "2021-12-27T05:07:58Z",
+      "side": 1,
+      "message": "@sprang could you help to trigger a `CQ DRY RUN`?",
+      "revId": "bead7d4f8334415b5f736a50efa3e5d902c06446",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

@@ -16,6 +16,24 @@
       "message": "lgtm\nFeels like we\u0027re starting to get kind of a lot of logging. Do you plan on cleaning some up at some point?",
       "revId": "3f36cfc1ac384f39bbb88391d2ba7352adad2d59",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "1d07b6c7_acfa7c79",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 3
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 9515
+      },
+      "writtenOn": "2021-12-29T15:05:30Z",
+      "side": 1,
+      "message": "Yeah, for now they don\u0027t pose a problem though as the RTC_LOG messages are infrequent. (The RTC_DLOG ones are compiled out in the release binary).",
+      "parentUuid": "0fd06e07_c8ebebc8",
+      "revId": "3f36cfc1ac384f39bbb88391d2ba7352adad2d59",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

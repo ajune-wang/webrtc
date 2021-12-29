@@ -1332,7 +1332,7 @@ WebRtcVoiceMediaChannel::WebRtcVoiceMediaChannel(
     const AudioOptions& options,
     const webrtc::CryptoOptions& crypto_options,
     webrtc::Call* call)
-    : VoiceMediaChannel(config, call->network_thread()),
+    : VoiceMediaChannel(config.enable_dscp, call->network_thread()),
       worker_thread_(call->worker_thread()),
       engine_(engine),
       call_(call),

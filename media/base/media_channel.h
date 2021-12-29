@@ -38,7 +38,6 @@
 #include "common_video/include/quality_limitation_reason.h"
 #include "media/base/codec.h"
 #include "media/base/delayable.h"
-#include "media/base/media_config.h"
 #include "media/base/media_constants.h"
 #include "media/base/stream_params.h"
 #include "modules/audio_processing/include/audio_processing_statistics.h"
@@ -170,8 +169,7 @@ class MediaChannel {
     virtual ~NetworkInterface() {}
   };
 
-  MediaChannel(const MediaConfig& config,
-               webrtc::TaskQueueBase* network_thread);
+  MediaChannel(bool enable_dscp, webrtc::TaskQueueBase* network_thread);
   explicit MediaChannel(webrtc::TaskQueueBase* network_thread);
   virtual ~MediaChannel();
 
@@ -776,9 +774,8 @@ class VoiceMediaChannel : public MediaChannel, public Delayable {
  public:
   explicit VoiceMediaChannel(webrtc::TaskQueueBase* network_thread)
       : MediaChannel(network_thread) {}
-  VoiceMediaChannel(const MediaConfig& config,
-                    webrtc::TaskQueueBase* network_thread)
-      : MediaChannel(config, network_thread) {}
+  VoiceMediaChannel(bool enable_dscp, webrtc::TaskQueueBase* network_thread)
+      : MediaChannel(enable_dscp, network_thread) {}
   ~VoiceMediaChannel() override {}
 
   cricket::MediaType media_type() const override;
@@ -848,9 +845,8 @@ class VideoMediaChannel : public MediaChannel, public Delayable {
  public:
   explicit VideoMediaChannel(webrtc::TaskQueueBase* network_thread)
       : MediaChannel(network_thread) {}
-  VideoMediaChannel(const MediaConfig& config,
-                    webrtc::TaskQueueBase* network_thread)
-      : MediaChannel(config, network_thread) {}
+  VideoMediaChannel(bool enable_dscp, webrtc::TaskQueueBase* network_thread)
+      : MediaChannel(enable_dscp, network_thread) {}
   ~VideoMediaChannel() override {}
 
   cricket::MediaType media_type() const override;

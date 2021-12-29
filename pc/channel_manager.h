@@ -79,17 +79,16 @@ class ChannelManager final {
   // call the appropriate Destroy*Channel method when done.
 
   // Creates a voice channel, to be associated with the specified session.
-  VoiceChannel* CreateVoiceChannel(webrtc::Call* call,
-                                   const MediaConfig& media_config,
-                                   webrtc::RtpTransportInternal* rtp_transport,
-                                   rtc::Thread* signaling_thread,
-                                   const std::string& content_name,
-                                   bool srtp_required,
-                                   const webrtc::CryptoOptions& crypto_options,
-                                   rtc::UniqueRandomIdGenerator* ssrc_generator,
-                                   const AudioOptions& options);
-  // Destroys a voice channel created by CreateVoiceChannel.
-  void DestroyVoiceChannel(VoiceChannel* voice_channel);
+  std::unique_ptr<VoiceChannel> CreateVoiceChannel(
+      webrtc::Call* call,
+      const MediaConfig& media_config,
+      webrtc::RtpTransportInternal* rtp_transport,
+      rtc::Thread* signaling_thread,
+      const std::string& content_name,
+      bool srtp_required,
+      const webrtc::CryptoOptions& crypto_options,
+      rtc::UniqueRandomIdGenerator* ssrc_generator,
+      const AudioOptions& options);
 
   // Creates a video channel, synced with the specified voice channel, and
   // associated with the specified session.
@@ -127,8 +126,6 @@ class ChannelManager final {
   rtc::Thread* const network_thread_;
 
   // Vector contents are non-null.
-  std::vector<std::unique_ptr<VoiceChannel>> voice_channels_
-      RTC_GUARDED_BY(worker_thread_);
   std::vector<std::unique_ptr<VideoChannel>> video_channels_
       RTC_GUARDED_BY(worker_thread_);
 

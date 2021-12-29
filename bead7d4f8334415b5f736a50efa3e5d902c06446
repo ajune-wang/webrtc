@@ -56,6 +56,47 @@
       },
       "revId": "bead7d4f8334415b5f736a50efa3e5d902c06446",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "94c2c257_6a430f62",
+        "filename": "modules/pacing/task_queue_paced_sender.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 228,
+      "author": {
+        "id": 5142
+      },
+      "writtenOn": "2021-12-29T15:14:48Z",
+      "side": 1,
+      "message": "You can use crbug links like so TODO(https://crbug.com/webrtc/13417):\n(or other issue number)",
+      "parentUuid": "ae47a07c_6550d96d",
+      "range": {
+        "startLine": 228,
+        "startChar": 2,
+        "endLine": 228,
+        "endChar": 45
+      },
+      "revId": "bead7d4f8334415b5f736a50efa3e5d902c06446",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "72fb869e_3fdf9f6f",
+        "filename": "modules/pacing/task_queue_paced_sender.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 241,
+      "author": {
+        "id": 5142
+      },
+      "writtenOn": "2021-12-29T15:14:48Z",
+      "side": 1,
+      "message": "The bots shows failures like so:\n\n12-29 14:13:49.530 12898 12898 I field_trial.cc: (line 140): Setting field trial string:\n12-29 14:13:49.540 12898 12898 I test_main_lib.cc: (line 139): No thread auto wrap for death test.\n12-29 14:13:49.546 12913 12913 E rtc     : \n12-29 14:13:49.546 12913 12913 E rtc     : \n12-29 14:13:49.546 12913 12913 E rtc     : #\n12-29 14:13:49.546 12913 12913 E rtc     : # Fatal error in: ../../test/testsupport/perf_test.cc, line 272\n12-29 14:13:49.546 12913 12913 E rtc     : # last system error: 2\n12-29 14:13:49.546 12913 12913 E rtc     : # Check failed: std::isfinite(value)\n12-29 14:13:49.546 12913 12913 E rtc     : # Expected finite value for graph ab, trace name c, units d, got nan\n12-29 14:13:49.560 12915 12915 E rtc     : \n12-29 14:13:49.560 12915 12915 E rtc     : \n12-29 14:13:49.560 12915 12915 E rtc     : #\n12-29 14:13:49.560 12915 12915 E rtc     : # Fatal error in: ../../test/testsupport/perf_test.cc, line 272\n12-29 14:13:49.560 12915 12915 E rtc     : # last system error: 2\n12-29 14:13:49.560 12915 12915 E rtc     : # Check failed: std::isfinite(value)\n12-29 14:13:49.560 12915 12915 E rtc     : # Expected finite value for graph ab, trace name c, units d, got inf\n12-29 14:13:49.573 12917 12917 E rtc     : \n12-29 14:13:49.573 12917 12917 E rtc     : \n12-29 14:13:49.573 12917 12917 E rtc     : #\n12-29 14:13:49.573 12917 12917 E rtc     : # Fatal error in: ../../test/testsupport/perf_test.cc, line 322\n12-29 14:13:49.573 12917 12917 E rtc     : # last system error: 2\n12-29 14:13:49.573 12917 12917 E rtc     : # Check failed: std::isfinite(mean)\n12-29 14:13:49.573 12917 12917 E rtc     : # \n12-29 14:13:49.589 12919 12919 E rtc     : \n12-29 14:13:49.589 12919 12919 E rtc     : \n12-29 14:13:49.589 12919 12919 E rtc     : #\n12-29 14:13:49.589 12919 12919 E rtc     : # Fatal error in: ../../test/testsupport/perf_test.cc, line 323\n12-29 14:13:49.589 12919 12919 E rtc     : # last system error: 2\n12-29 14:13:49.589 12919 12919 E rtc     : # Check failed: std::isfinite(error)\n12-29 14:13:49.589 12919 12919 E rtc     : # \n12-29 14:13:49.602 12920 12920 E rtc     : \n12-29 14:13:49.602 12920 12920 E rtc     : \n12-29 14:13:49.602 12920 12920 E rtc     : #\n12-29 14:13:49.602 12920 12920 E rtc     : # Fatal error in: ../../test/testsupport/perf_test.cc, line 342\n12-29 14:13:49.602 12920 12920 E rtc     : # last system error: 2\n12-29 14:13:49.602 12920 12920 E rtc     : # Check failed: std::isfinite(v)\n12-29 14:13:49.602 12920 12920 E rtc     : # \n12-29 14:13:49.617 12921 12921 E rtc     : \n12-29 14:13:49.617 12921 12921 E rtc     : \n12-29 14:13:49.617 12921 12921 E rtc     : #\n12-29 14:13:49.617 12921 12921 E rtc     : # Fatal error in: ../../test/testsupport/perf_test.cc, line 342\n12-29 14:13:49.617 12921 12921 E rtc     : # last system error: 2\n12-29 14:13:49.617 12921 12921 E rtc     : # Check failed: std::isfinite(v)\n12-29 14:13:49.617 12921 12921 E rtc     : # \n\nI don\u0027t know why, but maybe it has something to do with having moved the UpdateStats() call?",
+      "revId": "bead7d4f8334415b5f736a50efa3e5d902c06446",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

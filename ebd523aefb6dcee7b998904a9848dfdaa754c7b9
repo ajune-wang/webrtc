@@ -39,6 +39,30 @@
       },
       "revId": "ebd523aefb6dcee7b998904a9848dfdaa754c7b9",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "84f9fb59_aaccaa3e",
+        "filename": "g3doc/style-guide.md",
+        "patchSetId": 1
+      },
+      "lineNbr": 32,
+      "author": {
+        "id": 5087
+      },
+      "writtenOn": "2021-12-29T07:52:12Z",
+      "side": 1,
+      "message": "Not yet, I agree we need some kind of CI to hold this statement true.\n\nI checked and it is not easy to turn it on nowadays because there is no switch in Chromium\u0027s GN configs but this might be something we can do at some point.\n\nhttps://bugs.chromium.org/p/webrtc/issues/detail?id\u003d13523",
+      "parentUuid": "1da7c8bf_b9ada76b",
+      "range": {
+        "startLine": 32,
+        "startChar": 49,
+        "endLine": 32,
+        "endChar": 60
+      },
+      "revId": "ebd523aefb6dcee7b998904a9848dfdaa754c7b9",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

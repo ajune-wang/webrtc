@@ -170,7 +170,7 @@ class MediaChannel {
     virtual ~NetworkInterface() {}
   };
 
-  MediaChannel(const MediaConfig& config,
+  MediaChannel(bool enable_dscp,
                webrtc::TaskQueueBase* network_thread);
   explicit MediaChannel(webrtc::TaskQueueBase* network_thread);
   virtual ~MediaChannel();
@@ -778,7 +778,7 @@ class VoiceMediaChannel : public MediaChannel, public Delayable {
       : MediaChannel(network_thread) {}
   VoiceMediaChannel(const MediaConfig& config,
                     webrtc::TaskQueueBase* network_thread)
-      : MediaChannel(config, network_thread) {}
+      : MediaChannel(config.enable_dscp, network_thread) {}
   ~VoiceMediaChannel() override {}
 
   cricket::MediaType media_type() const override;
@@ -850,7 +850,7 @@ class VideoMediaChannel : public MediaChannel, public Delayable {
       : MediaChannel(network_thread) {}
   VideoMediaChannel(const MediaConfig& config,
                     webrtc::TaskQueueBase* network_thread)
-      : MediaChannel(config, network_thread) {}
+      : MediaChannel(config.enable_dscp, network_thread) {}
   ~VideoMediaChannel() override {}
 
   cricket::MediaType media_type() const override;

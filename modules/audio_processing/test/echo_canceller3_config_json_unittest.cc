@@ -8,7 +8,7 @@
  *  be found in the AUTHORS file in the root of the source tree.
  */
 
-#include "api/audio/echo_canceller3_config_json.h"
+#include "modules/audio_processing/test/echo_canceller3_config_json.h"
 
 #include "api/audio/echo_canceller3_config.h"
 #include "test/gtest.h"
@@ -76,4 +76,27 @@ TEST(EchoCanceller3JsonHelpers, ToStringAndParseJson) {
   EXPECT_EQ(cfg.suppressor.subband_nearend_detection.snr_threshold,
             cfg_transformed.suppressor.subband_nearend_detection.snr_threshold);
 }
+
+TEST(EchoCanceller3Config, ValidConfigIsNotModified) {
+  EchoCanceller3Config config;
+  EXPECT_TRUE(EchoCanceller3Config::Validate(&config));
+  EchoCanceller3Config default_config;
+  EXPECT_EQ(Aec3ConfigToJsonString(config),
+            Aec3ConfigToJsonString(default_config));
+}
+
+TEST(EchoCanceller3Config, InvalidConfigIsCorrected) {
+  // Change a parameter and validate.
+  EchoCanceller3Config config;
+  config.echo_model.min_noise_floor_power = -1600000.f;
+  EXPECT_FALSE(EchoCanceller3Config::Validate(&config));
+  EXPECT_GE(config.echo_model.min_noise_floor_power, 0.f);
+  // Verify remaining parameters are unchanged.
+  EchoCanceller3Config default_config;
+  config.echo_model.min_noise_floor_power =
+      default_config.echo_model.min_noise_floor_power;
+  EXPECT_EQ(Aec3ConfigToJsonString(config),
+            Aec3ConfigToJsonString(default_config));
+}
+
 }  // namespace webrtc

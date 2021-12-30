@@ -323,6 +323,22 @@ rtc_library("apm_logging") {
   defines = []
 }
 
+rtc_library("aec3_config_json") {
+  allow_poison = [ "rtc_json" ]
+  sources = [
+    "test/echo_canceller3_config_json.cc",
+    "test/echo_canceller3_config_json.h",
+  ]
+  deps = [
+    "../../api/audio:aec3_config",
+    "../../rtc_base:checks",
+    "../../rtc_base:rtc_base_approved",
+    "../../rtc_base:rtc_json",
+    "../../rtc_base/system:rtc_export",
+  ]
+  absl_deps = [ "//third_party/abseil-cpp/absl/strings" ]
+}
+
 if (rtc_include_tests) {
   rtc_source_set("mocks") {
     testonly = true
@@ -533,6 +549,7 @@ if (rtc_include_tests) {
       ]
 
       deps = [
+        ":aec3_config_json",
         ":analog_mic_simulation",
         ":api",
         ":apm_logging",
@@ -541,7 +558,6 @@ if (rtc_include_tests) {
         ":audioproc_protobuf_utils",
         ":audioproc_test_utils",
         ":runtime_settings_protobuf_utils",
-        "../../api/audio:aec3_config_json",
         "../../api/audio:aec3_factory",
         "../../api/audio:echo_detector_creator",
         "../../common_audio",
@@ -617,6 +633,7 @@ rtc_library("audioproc_test_utils") {
     "test/audio_processing_builder_for_testing.h",
     "test/bitexactness_tools.cc",
     "test/bitexactness_tools.h",
+    "test/echo_canceller3_config_json_unittest.cc",
     "test/performance_timer.cc",
     "test/performance_timer.h",
     "test/simulator_buffers.cc",
@@ -628,10 +645,12 @@ rtc_library("audioproc_test_utils") {
   configs += [ ":apm_debug_dump" ]
 
   deps = [
+    ":aec3_config_json",
     ":api",
     ":audio_buffer",
     ":audio_processing",
     "../../api:array_view",
+    "../../api/audio:aec3_config",
     "../../api/audio:audio_frame_api",
     "../../common_audio",
     "../../rtc_base:checks",

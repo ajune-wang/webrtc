@@ -8,8 +8,8 @@
  *  be found in the AUTHORS file in the root of the source tree.
  */
 
-#ifndef API_AUDIO_ECHO_CANCELLER3_CONFIG_JSON_H_
-#define API_AUDIO_ECHO_CANCELLER3_CONFIG_JSON_H_
+#ifndef MODULES_AUDIO_PROCESSING_TEST__ECHO_CANCELLER3_CONFIG_JSON_H_
+#define MODULES_AUDIO_PROCESSING_TEST__ECHO_CANCELLER3_CONFIG_JSON_H_
 
 #include <string>
 
@@ -42,4 +42,4 @@ RTC_EXPORT std::string Aec3ConfigToJsonString(
 
 }  // namespace webrtc
 
-#endif  // API_AUDIO_ECHO_CANCELLER3_CONFIG_JSON_H_
+#endif  // MODULES_AUDIO_PROCESSING_TEST__ECHO_CANCELLER3_CONFIG_JSON_H_

@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "bd53e5a4_7c0440d2",
+        "filename": "api/audio/BUILD.gn",
+        "patchSetId": 4
+      },
+      "lineNbr": 56,
+      "author": {
+        "id": 5087
+      },
+      "writtenOn": "2021-12-30T09:38:21Z",
+      "side": 0,
+      "message": "It looks like this is used in Chromium here: https://source.chromium.org/chromium/chromium/src/+/main:third_party/webrtc_overrides/BUILD.gn;l\u003d32;drc\u003db7093202924b24d2c9378f27839dd8331c2b1b76.\n\nCan you keep a forwarding target (and header?) while we update Chromium?",
+      "range": {
+        "startLine": 56,
+        "startChar": 13,
+        "endLine": 56,
+        "endChar": 29
+      },
+      "revId": "1dc8ce669e345fc3b288b64fda3b15ebb291ad3f",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

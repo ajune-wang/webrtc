@@ -7,7 +7,7 @@
  *  in the file PATENTS.  All contributing project authors may
  *  be found in the AUTHORS file in the root of the source tree.
  */
-#include "api/audio/echo_canceller3_config_json.h"
+#include "modules/audio_processing/test/echo_canceller3_config_json.h"
 
 #include <stddef.h>
 
@@ -574,7 +574,8 @@ std::string Aec3ConfigToJsonString(const EchoCanceller3Config& config) {
   ost << "\"erle_onset_compensation_in_dominant_nearend\": "
       << (config.ep_strength.erle_onset_compensation_in_dominant_nearend
               ? "true"
-              : "false") << ",";
+              : "false")
+      << ",";
   ost << "\"use_conservative_tail_frequency_response\": "
       << (config.ep_strength.use_conservative_tail_frequency_response
               ? "true"

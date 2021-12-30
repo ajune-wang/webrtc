@@ -10,32 +10,9 @@
 
 #include "api/audio/echo_canceller3_config.h"
 
-#include "api/audio/echo_canceller3_config_json.h"
 #include "test/gtest.h"
 
 namespace webrtc {
-
-TEST(EchoCanceller3Config, ValidConfigIsNotModified) {
-  EchoCanceller3Config config;
-  EXPECT_TRUE(EchoCanceller3Config::Validate(&config));
-  EchoCanceller3Config default_config;
-  EXPECT_EQ(Aec3ConfigToJsonString(config),
-            Aec3ConfigToJsonString(default_config));
-}
-
-TEST(EchoCanceller3Config, InvalidConfigIsCorrected) {
-  // Change a parameter and validate.
-  EchoCanceller3Config config;
-  config.echo_model.min_noise_floor_power = -1600000.f;
-  EXPECT_FALSE(EchoCanceller3Config::Validate(&config));
-  EXPECT_GE(config.echo_model.min_noise_floor_power, 0.f);
-  // Verify remaining parameters are unchanged.
-  EchoCanceller3Config default_config;
-  config.echo_model.min_noise_floor_power =
-      default_config.echo_model.min_noise_floor_power;
-  EXPECT_EQ(Aec3ConfigToJsonString(config),
-            Aec3ConfigToJsonString(default_config));
-}
 
 TEST(EchoCanceller3Config, ValidatedConfigsAreValid) {
   EchoCanceller3Config config;
@@ -43,4 +20,5 @@ TEST(EchoCanceller3Config, ValidatedConfigsAreValid) {
   EXPECT_FALSE(EchoCanceller3Config::Validate(&config));
   EXPECT_TRUE(EchoCanceller3Config::Validate(&config));
 }
+
 }  // namespace webrtc

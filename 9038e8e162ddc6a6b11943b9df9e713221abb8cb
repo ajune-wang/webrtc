@@ -1,0 +1,90 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "9b247981_e5e4896b",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 4
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5524
+      },
+      "writtenOn": "2021-12-30T10:24:28Z",
+      "side": 1,
+      "message": "I like this structure better!",
+      "revId": "9038e8e162ddc6a6b11943b9df9e713221abb8cb",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "c89d9fb9_bc1a9cfd",
+        "filename": "video/frame_cadence_adapter.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 123,
+      "author": {
+        "id": 5524
+      },
+      "writtenOn": "2021-12-30T10:24:28Z",
+      "side": 1,
+      "message": "dito",
+      "range": {
+        "startLine": 122,
+        "startChar": 0,
+        "endLine": 123,
+        "endChar": 35
+      },
+      "revId": "9038e8e162ddc6a6b11943b9df9e713221abb8cb",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "13d5d143_89f43b2e",
+        "filename": "video/frame_cadence_adapter.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 603,
+      "author": {
+        "id": 5524
+      },
+      "writtenOn": "2021-12-30T10:24:28Z",
+      "side": 1,
+      "message": "nit: use {} on if/else",
+      "range": {
+        "startLine": 600,
+        "startChar": 0,
+        "endLine": 603,
+        "endChar": 41
+      },
+      "revId": "9038e8e162ddc6a6b11943b9df9e713221abb8cb",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "e19db833_b5c62095",
+        "filename": "video/frame_cadence_adapter.h",
+        "patchSetId": 4
+      },
+      "lineNbr": 110,
+      "author": {
+        "id": 5524
+      },
+      "writtenOn": "2021-12-30T10:24:28Z",
+      "side": 1,
+      "message": "nit: double \"request\", I assume you mean something like\nConditionally requests a refresh frame via Callback::RequestRefreshFrame.",
+      "range": {
+        "startLine": 110,
+        "startChar": 44,
+        "endLine": 110,
+        "endChar": 59
+      },
+      "revId": "9038e8e162ddc6a6b11943b9df9e713221abb8cb",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

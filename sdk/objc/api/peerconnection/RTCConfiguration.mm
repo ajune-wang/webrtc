@@ -531,6 +531,7 @@
     case webrtc::SdpSemantics::kPlanB_DEPRECATED:
       return RTCSdpSemanticsPlanB;
     case webrtc::SdpSemantics::kUnifiedPlan:
+    case webrtc::SdpSemantics::kNotSpecified:
       return RTCSdpSemanticsUnifiedPlan;
   }
 }

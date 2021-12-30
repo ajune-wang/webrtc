@@ -46,6 +46,30 @@
       },
       "revId": "1dc8ce669e345fc3b288b64fda3b15ebb291ad3f",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "a84bcef2_240f4fcf",
+        "filename": "api/audio/BUILD.gn",
+        "patchSetId": 4
+      },
+      "lineNbr": 56,
+      "author": {
+        "id": 5087
+      },
+      "writtenOn": "2021-12-30T12:35:32Z",
+      "side": 0,
+      "message": "\u003e Could we instead update Chromium first? \n\u003e It seems we cannot use the forwarding header since API cannot include things from the modules folder.\n\nOk, it is fine also to add an empty target (where the target will be moved by this CL). Add a dependency to that in Chromium, then land this one by keeping //api/audio:aec3_config_json as empty target without \"sources\" and then remove it from Chromium and from here.\n\nI am an owner of both paths so we can move quickly. :)\n\nOption 2: Does Chromium even need it (https://source.chromium.org/search?q\u003d%22echo_canceller3_config_json.h%22%20-f:third_party%2Fwebrtc\u0026sq\u003d\u0026ss\u003dchromium)? Can we remove it from https://source.chromium.org/chromium/chromium/src/+/main:third_party/webrtc_overrides/BUILD.gn;l\u003d32;drc\u003db7093202924b24d2c9378f27839dd8331c2b1b76 directly?",
+      "parentUuid": "3cdf23ed_67dda7b6",
+      "range": {
+        "startLine": 56,
+        "startChar": 13,
+        "endLine": 56,
+        "endChar": 29
+      },
+      "revId": "1dc8ce669e345fc3b288b64fda3b15ebb291ad3f",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

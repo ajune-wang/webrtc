@@ -1172,7 +1172,8 @@ void JsepTransportController::OnTransportCandidateGathered_n(
   }
 
   signal_ice_candidates_gathered_.Send(
-      transport->transport_name(), std::vector<cricket::Candidate>{candidate});
+      std::string(transport->transport_name()),
+      std::vector<cricket::Candidate>{candidate});
 }
 
 void JsepTransportController::OnTransportCandidateError_n(

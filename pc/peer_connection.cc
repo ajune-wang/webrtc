@@ -2413,12 +2413,12 @@ bool PeerConnection::SetupDataChannelTransport_n(const std::string& mid) {
   cricket::DtlsTransportInternal* dtls_transport =
       transport_controller_->GetDtlsTransport(mid);
   if (dtls_transport) {
-    signaling_thread()->PostTask(
-        ToQueuedTask(signaling_thread_safety_.flag(),
-                     [this, name = dtls_transport->transport_name()] {
-                       RTC_DCHECK_RUN_ON(signaling_thread());
-                       sctp_transport_name_s_ = std::move(name);
-                     }));
+    signaling_thread()->PostTask(ToQueuedTask(
+        signaling_thread_safety_.flag(),
+        [this, name = std::string(dtls_transport->transport_name())] {
+          RTC_DCHECK_RUN_ON(signaling_thread());
+          sctp_transport_name_s_ = std::move(name);
+        }));
   }
 
   // Note: setting the data sink and checking initial state must be done last,
@@ -2666,8 +2666,8 @@ void PeerConnection::ReportTransportStats() {
       media_types_by_transport_name;
   for (const auto& transceiver : rtp_manager()->transceivers()->UnsafeList()) {
     if (transceiver->internal()->channel()) {
-      const std::string& transport_name =
-          transceiver->internal()->channel()->transport_name();
+      std::string transport_name(
+          transceiver->internal()->channel()->transport_name());
       media_types_by_transport_name[transport_name].insert(
           transceiver->media_type());
     }
@@ -2677,13 +2677,14 @@ void PeerConnection::ReportTransportStats() {
     cricket::DtlsTransportInternal* dtls_transport =
         transport_controller_->GetDtlsTransport(*sctp_mid_n_);
     if (dtls_transport) {
-      media_types_by_transport_name[dtls_transport->transport_name()].insert(
-          cricket::MEDIA_TYPE_DATA);
+      media_types_by_transport_name[std::string(
+                                        dtls_transport->transport_name())]
+          .insert(cricket::MEDIA_TYPE_DATA);
     }
   }
 
   for (const auto& entry : media_types_by_transport_name) {
-    const std::string& transport_name = entry.first;
+    const auto& transport_name = entry.first;
     const std::set<cricket::MediaType> media_types = entry.second;
     cricket::TransportStats stats;
     if (transport_controller_->GetStats(transport_name, &stats)) {
@@ -2827,7 +2828,8 @@ bool PeerConnection::OnTransportChanged(
     if (dtls_transport) {
       signaling_thread()->PostTask(ToQueuedTask(
           signaling_thread_safety_.flag(),
-          [this, name = dtls_transport->internal()->transport_name()] {
+          [this,
+           name = std::string(dtls_transport->internal()->transport_name())] {
             RTC_DCHECK_RUN_ON(signaling_thread());
             sctp_transport_name_s_ = std::move(name);
           }));

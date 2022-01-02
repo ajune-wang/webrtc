@@ -31,7 +31,7 @@ void RtpTransport::SetRtcpMuxEnabled(bool enable) {
   MaybeSignalReadyToSend();
 }
 
-const std::string& RtpTransport::transport_name() const {
+const absl::string_view RtpTransport::transport_name() const {
   return rtp_packet_transport_->transport_name();
 }
 

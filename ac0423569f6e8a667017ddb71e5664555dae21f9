@@ -1,0 +1,55 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "fe472f65_dd28e0b3",
+        "filename": "pc/sdp_offer_answer.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 4978,
+      "author": {
+        "id": 5508
+      },
+      "writtenOn": "2022-01-02T20:50:44Z",
+      "side": 1,
+      "message": "The change to this type is to not store the direction in the vector but instead store the bool flag that needs to be passed to SetPayloadTypeDemuxingEnabled. Calculating the value of that flag was most of the complexity of the loop was about.",
+      "revId": "ac0423569f6e8a667017ddb71e5664555dae21f9",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "504fb3c1_836d9f3f",
+        "filename": "pc/sdp_offer_answer.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 4988,
+      "author": {
+        "id": 5508
+      },
+      "writtenOn": "2022-01-02T20:50:44Z",
+      "side": 1,
+      "message": "This check is new. It\u0027s basically to make it explicit that an Invoke to the worker thread will only happen when we have audio/video channels (i.e. channels_to_update will be non-empty).",
+      "revId": "ac0423569f6e8a667017ddb71e5664555dae21f9",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "899de895_b322473f",
+        "filename": "pc/sdp_offer_answer.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 4999,
+      "author": {
+        "id": 5508
+      },
+      "writtenOn": "2022-01-02T20:50:44Z",
+      "side": 1,
+      "message": "This part and from here to the end of this loop, is what previously was in the loop that ran on the worker thread.",
+      "revId": "ac0423569f6e8a667017ddb71e5664555dae21f9",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

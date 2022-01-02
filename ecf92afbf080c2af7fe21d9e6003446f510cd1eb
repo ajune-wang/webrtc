@@ -1,0 +1,38 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "1425af11_baa955dd",
+        "filename": "pc/sdp_offer_answer.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 4954,
+      "author": {
+        "id": 5508
+      },
+      "writtenOn": "2022-01-02T20:50:44Z",
+      "side": 0,
+      "message": "The diff is a bit misleading. The loop is below.",
+      "revId": "ecf92afbf080c2af7fe21d9e6003446f510cd1eb",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "ea32248c_5a926239",
+        "filename": "pc/sdp_offer_answer.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 4969,
+      "author": {
+        "id": 5508
+      },
+      "writtenOn": "2022-01-02T20:50:44Z",
+      "side": 0,
+      "message": "this check still exists. It\u0027s just below.",
+      "revId": "ecf92afbf080c2af7fe21d9e6003446f510cd1eb",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

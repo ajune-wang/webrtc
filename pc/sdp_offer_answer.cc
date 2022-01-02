@@ -4204,6 +4204,7 @@ void SdpOfferAnswerHandler::UpdateRemoteSendersList(
 void SdpOfferAnswerHandler::EnableSending() {
   TRACE_EVENT0("webrtc", "SdpOfferAnswerHandler::EnableSending");
   RTC_DCHECK_RUN_ON(signaling_thread());
+  // TODO(tommi): Accessing |channe()| should happen on the network thread.
   for (const auto& transceiver : transceivers()->ListInternal()) {
     cricket::ChannelInterface* channel = transceiver->channel();
     if (channel) {
@@ -4996,7 +4997,7 @@ bool SdpOfferAnswerHandler::UpdatePayloadTypeDemuxingState(
     bundled_pt_demux_allowed_video = true;
   }
 
-  return pc_->worker_thread()->Invoke<bool>(
+  return pc_->network_thread()->Invoke<bool>(
       RTC_FROM_HERE,
       [&channels_to_update, &bundle_groups_by_mid, &payload_types_by_bundle,
        bundled_pt_demux_allowed_audio, bundled_pt_demux_allowed_video,
@@ -5006,13 +5007,15 @@ bool SdpOfferAnswerHandler::UpdatePayloadTypeDemuxingState(
           RtpTransceiverDirection local_direction = it.first;
           cricket::ChannelInterface* channel = it.second;
           cricket::MediaType media_type = channel->media_type();
+          bool direction_has_recv =
+              RtpTransceiverDirectionHasRecv(local_direction);
           auto bundle_it = bundle_groups_by_mid.find(channel->content_name());
           const cricket::ContentGroup* bundle_group =
               bundle_it != bundle_groups_by_mid.end() ? bundle_it->second
                                                       : nullptr;
           if (media_type == cricket::MediaType::MEDIA_TYPE_AUDIO) {
             bool pt_demux_enabled =
-                RtpTransceiverDirectionHasRecv(local_direction) &&
+                direction_has_recv &&
                 (!bundle_group || (bundled_pt_demux_allowed_audio &&
                                    payload_types_by_bundle[bundle_group]
                                        .pt_demuxing_possible_audio));
@@ -5024,7 +5027,7 @@ bool SdpOfferAnswerHandler::UpdatePayloadTypeDemuxingState(
             }
           } else if (media_type == cricket::MediaType::MEDIA_TYPE_VIDEO) {
             bool pt_demux_enabled =
-                RtpTransceiverDirectionHasRecv(local_direction) &&
+                direction_has_recv &&
                 (!bundle_group || (bundled_pt_demux_allowed_video &&
                                    payload_types_by_bundle[bundle_group]
                                        .pt_demuxing_possible_video));

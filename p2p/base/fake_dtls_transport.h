@@ -135,7 +135,9 @@ class FakeDtlsTransport : public DtlsTransportInternal {
 
   // Fake DtlsTransportInternal implementation.
   webrtc::DtlsTransportState dtls_state() const override { return dtls_state_; }
-  const std::string& transport_name() const override { return transport_name_; }
+  const absl::string_view transport_name() const override {
+    return transport_name_;
+  }
   int component() const override { return component_; }
   const rtc::SSLFingerprint& dtls_fingerprint() const {
     return dtls_fingerprint_;

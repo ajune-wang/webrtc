@@ -137,7 +137,7 @@ class FakeIceTransport : public IceTransportInternal {
   }
 
   // Fake IceTransportInternal implementation.
-  const std::string& transport_name() const override { return name_; }
+  const absl::string_view transport_name() const override { return name_; }
   int component() const override { return component_; }
   uint64_t IceTiebreaker() const {
     RTC_DCHECK_RUN_ON(network_thread_);

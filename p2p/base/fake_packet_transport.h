@@ -53,7 +53,9 @@ class FakePacketTransport : public PacketTransportInternal {
   }
 
   // Fake PacketTransportInternal implementation.
-  const std::string& transport_name() const override { return transport_name_; }
+  const absl::string_view transport_name() const override {
+    return transport_name_;
+  }
   bool writable() const override { return writable_; }
   bool receiving() const override { return receiving_; }
   int SendPacket(const char* data,

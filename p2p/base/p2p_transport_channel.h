@@ -128,7 +128,7 @@ class RTC_EXPORT P2PTransportChannel : public IceTransportInternal {
   IceTransportState GetState() const override;
   webrtc::IceTransportState GetIceTransportState() const override;
 
-  const std::string& transport_name() const override;
+  const absl::string_view transport_name() const override;
   int component() const override;
   bool writable() const override;
   bool receiving() const override;

@@ -315,7 +315,8 @@ RTCError JsepTransportController::RemoveRemoteCandidates(
   std::map<std::string, cricket::Candidates> candidates_by_transport_name;
   for (const cricket::Candidate& cand : candidates) {
     if (!cand.transport_name().empty()) {
-      candidates_by_transport_name[cand.transport_name()].push_back(cand);
+      candidates_by_transport_name[std::string(cand.transport_name())]
+          .push_back(cand);
     } else {
       RTC_LOG(LS_ERROR) << "Not removing candidate because it does not have a "
                            "transport name set: "
@@ -1172,7 +1173,8 @@ void JsepTransportController::OnTransportCandidateGathered_n(
   }
 
   signal_ice_candidates_gathered_.Send(
-      transport->transport_name(), std::vector<cricket::Candidate>{candidate});
+      std::string(transport->transport_name()),
+      std::vector<cricket::Candidate>{candidate});
 }
 
 void JsepTransportController::OnTransportCandidateError_n(

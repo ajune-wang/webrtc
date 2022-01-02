@@ -111,7 +111,7 @@ class DtlsTransport : public DtlsTransportInternal {
   ~DtlsTransport() override;
 
   webrtc::DtlsTransportState dtls_state() const override;
-  const std::string& transport_name() const override;
+  const absl::string_view transport_name() const override;
   int component() const override;
 
   // DTLS is active if a local certificate was set. Otherwise this acts in a

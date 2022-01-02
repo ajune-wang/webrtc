@@ -54,7 +54,9 @@ class MockIceTransport : public IceTransportInternal {
     return webrtc::IceTransportState::kNew;
   }
 
-  const std::string& transport_name() const override { return transport_name_; }
+  const absl::string_view transport_name() const override {
+    return transport_name_;
+  }
   int component() const override { return 0; }
   void SetIceRole(IceRole role) override {}
   void SetIceTiebreaker(uint64_t tiebreaker) override {}

@@ -13,6 +13,7 @@
 
 #include <string>
 
+#include "absl/strings/string_view.h"
 #include "call/rtp_demuxer.h"
 #include "p2p/base/ice_transport_internal.h"
 #include "pc/session_description.h"
@@ -37,7 +38,7 @@ class RtpTransportInternal : public sigslot::has_slots<> {
 
   virtual void SetRtcpMuxEnabled(bool enable) = 0;
 
-  virtual const std::string& transport_name() const = 0;
+  virtual const absl::string_view transport_name() const = 0;
 
   // Sets socket options on the underlying RTP or RTCP transports.
   virtual int SetRtpOption(rtc::Socket::Option opt, int value) = 0;

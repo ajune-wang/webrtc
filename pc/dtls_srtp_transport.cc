@@ -49,7 +49,7 @@ void DtlsSrtpTransport::SetDtlsTransports(
     ResetParams();
   }
 
-  const std::string transport_name =
+  const absl::string_view transport_name =
       rtp_dtls_transport ? rtp_dtls_transport->transport_name() : "null";
 
   if (rtcp_dtls_transport && rtcp_dtls_transport != rtcp_dtls_transport_) {

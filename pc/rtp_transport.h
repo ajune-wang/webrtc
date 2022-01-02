@@ -50,7 +50,7 @@ class RtpTransport : public RtpTransportInternal {
   bool rtcp_mux_enabled() const override { return rtcp_mux_enabled_; }
   void SetRtcpMuxEnabled(bool enable) override;
 
-  const std::string& transport_name() const override;
+  const absl::string_view transport_name() const override;
 
   int SetRtpOption(rtc::Socket::Option opt, int value) override;
   int SetRtcpOption(rtc::Socket::Option opt, int value) override;

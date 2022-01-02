@@ -153,7 +153,7 @@ webrtc::DtlsTransportState DtlsTransport::dtls_state() const {
   return dtls_state_;
 }
 
-const std::string& DtlsTransport::transport_name() const {
+const absl::string_view DtlsTransport::transport_name() const {
   return ice_transport_->transport_name();
 }
 

@@ -14,6 +14,7 @@
 #include <string>
 #include <vector>
 
+#include "absl/strings/string_view.h"
 #include "api/jsep.h"
 #include "api/media_types.h"
 #include "media/base/media_channel.h"
@@ -33,7 +34,7 @@ class ChannelInterface {
   virtual MediaChannel* media_channel() const = 0;
 
   // TODO(deadbeef): This is redundant; remove this.
-  virtual const std::string& transport_name() const = 0;
+  virtual const absl::string_view transport_name() const = 0;
 
   virtual const std::string& content_name() const = 0;
 

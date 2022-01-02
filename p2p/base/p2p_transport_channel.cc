@@ -394,7 +394,7 @@ webrtc::IceTransportState P2PTransportChannel::GetIceTransportState() const {
   return standardized_state_;
 }
 
-const std::string& P2PTransportChannel::transport_name() const {
+const absl::string_view P2PTransportChannel::transport_name() const {
   RTC_DCHECK_RUN_ON(network_thread_);
   return transport_name_;
 }
@@ -909,8 +909,8 @@ void P2PTransportChannel::MaybeStartGathering() {
 
     // Time for a new allocator.
     std::unique_ptr<PortAllocatorSession> pooled_session =
-        allocator_->TakePooledSession(transport_name(), component(),
-                                      ice_parameters_.ufrag,
+        allocator_->TakePooledSession(std::string(transport_name()),
+                                      component(), ice_parameters_.ufrag,
                                       ice_parameters_.pwd);
     if (pooled_session) {
       AddAllocatorSession(std::move(pooled_session));
@@ -927,7 +927,7 @@ void P2PTransportChannel::MaybeStartGathering() {
       }
     } else {
       AddAllocatorSession(allocator_->CreateSession(
-          transport_name(), component(), ice_parameters_.ufrag,
+          std::string(transport_name()), component(), ice_parameters_.ufrag,
           ice_parameters_.pwd));
       allocator_sessions_.back()->StartGettingPorts();
     }

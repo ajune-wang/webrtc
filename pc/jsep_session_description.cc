@@ -349,7 +349,7 @@ bool JsepSessionDescription::GetMediasectionIndex(
 int JsepSessionDescription::GetMediasectionIndex(
     const cricket::Candidate& candidate) {
   // Find the description with a matching transport name of the candidate.
-  const std::string& transport_name = candidate.transport_name();
+  const absl::string_view transport_name = candidate.transport_name();
   for (size_t i = 0; i < description_->contents().size(); ++i) {
     if (transport_name == description_->contents().at(i).name) {
       return static_cast<int>(i);

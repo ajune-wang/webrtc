@@ -124,12 +124,11 @@ class BaseChannel : public ChannelInterface,
   rtc::Thread* network_thread() const { return network_thread_; }
   const std::string& content_name() const override { return content_name_; }
   // TODO(deadbeef): This is redundant; remove this.
-  const std::string& transport_name() const override {
+  const absl::string_view transport_name() const override {
     RTC_DCHECK_RUN_ON(network_thread());
     if (rtp_transport_)
       return rtp_transport_->transport_name();
-    // TODO(tommi): Delete this variable.
-    return transport_name_;
+    return "";
   }
 
   // This function returns true if using SRTP (DTLS-based keying or SDES).

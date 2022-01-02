@@ -58,7 +58,9 @@ class SimulatedPacketTransport final : public rtc::PacketTransportInternal {
     SignalWritableState(this);
   }
 
-  const std::string& transport_name() const override { return transport_name_; }
+  const absl::string_view transport_name() const override {
+    return transport_name_;
+  }
 
   bool writable() const override { return destination_ != nullptr; }
 

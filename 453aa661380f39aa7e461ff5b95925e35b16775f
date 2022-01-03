@@ -1,0 +1,378 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "9ab0cc0f_70fc2dca",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 6
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 17594
+      },
+      "writtenOn": "2022-01-03T13:44:16Z",
+      "side": 1,
+      "message": "Looks good. I just added some minor comment",
+      "revId": "453aa661380f39aa7e461ff5b95925e35b16775f",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "5568b531_165d61ee",
+        "filename": "modules/congestion_controller/goog_cc/acknowledged_bitrate_estimator_interface.cc",
+        "patchSetId": 6
+      },
+      "lineNbr": 39,
+      "author": {
+        "id": 17594
+      },
+      "writtenOn": "2022-01-03T13:44:16Z",
+      "side": 1,
+      "message": "#include \"api/units/time_delta.h\"",
+      "revId": "453aa661380f39aa7e461ff5b95925e35b16775f",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "a8cb3a86_473e633e",
+        "filename": "modules/congestion_controller/goog_cc/acknowledged_bitrate_estimator_interface.h",
+        "patchSetId": 6
+      },
+      "lineNbr": 27,
+      "author": {
+        "id": 17594
+      },
+      "writtenOn": "2022-01-03T13:44:16Z",
+      "side": 1,
+      "message": "Have you thought about having this configurable via a field trial as well?",
+      "revId": "453aa661380f39aa7e461ff5b95925e35b16775f",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "1310c059_17483af7",
+        "filename": "modules/congestion_controller/goog_cc/acknowledged_bitrate_estimator_interface.h",
+        "patchSetId": 6
+      },
+      "lineNbr": 35,
+      "author": {
+        "id": 17594
+      },
+      "writtenOn": "2022-01-03T13:44:16Z",
+      "side": 1,
+      "message": "`min_packets` -\u003e `window_packets`",
+      "revId": "453aa661380f39aa7e461ff5b95925e35b16775f",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "bc9ed698_207b4dcb",
+        "filename": "modules/congestion_controller/goog_cc/acknowledged_bitrate_estimator_interface.h",
+        "patchSetId": 6
+      },
+      "lineNbr": 37,
+      "author": {
+        "id": 17594
+      },
+      "writtenOn": "2022-01-03T13:44:16Z",
+      "side": 1,
+      "message": "`min_packets` -\u003e `window_packets`",
+      "revId": "453aa661380f39aa7e461ff5b95925e35b16775f",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "2d7b7dab_4a8055a3",
+        "filename": "modules/congestion_controller/goog_cc/acknowledged_bitrate_estimator_interface.h",
+        "patchSetId": 6
+      },
+      "lineNbr": 43,
+      "author": {
+        "id": 17594
+      },
+      "writtenOn": "2022-01-03T13:44:16Z",
+      "side": 1,
+      "message": "#include \"api/units/time_delta.h\"",
+      "revId": "453aa661380f39aa7e461ff5b95925e35b16775f",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "af6788a4_8e0e7c02",
+        "filename": "modules/congestion_controller/goog_cc/acknowledged_bitrate_estimator_interface.h",
+        "patchSetId": 6
+      },
+      "lineNbr": 50,
+      "author": {
+        "id": 17594
+      },
+      "writtenOn": "2022-01-03T13:44:16Z",
+      "side": 1,
+      "message": "Nit: including -\u003e included",
+      "revId": "453aa661380f39aa7e461ff5b95925e35b16775f",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "a8594bbf_d44bb4f7",
+        "filename": "modules/congestion_controller/goog_cc/acknowledged_bitrate_estimator_interface.h",
+        "patchSetId": 6
+      },
+      "lineNbr": 52,
+      "author": {
+        "id": 17594
+      },
+      "writtenOn": "2022-01-03T13:44:16Z",
+      "side": 1,
+      "message": "Nit: unacked_weight -\u003e `unacked_weight`",
+      "revId": "453aa661380f39aa7e461ff5b95925e35b16775f",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "4599c78d_7c7015e4",
+        "filename": "modules/congestion_controller/goog_cc/acknowledged_bitrate_estimator_interface.h",
+        "patchSetId": 6
+      },
+      "lineNbr": 56,
+      "author": {
+        "id": 17594
+      },
+      "writtenOn": "2022-01-03T13:44:16Z",
+      "side": 1,
+      "message": "Nit: unacked_weight -\u003e `unacked_weight`",
+      "revId": "453aa661380f39aa7e461ff5b95925e35b16775f",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "e9de9bec_cdc19adc",
+        "filename": "modules/congestion_controller/goog_cc/acknowledged_bitrate_estimator_interface.h",
+        "patchSetId": 6
+      },
+      "lineNbr": 58,
+      "author": {
+        "id": 17594
+      },
+      "writtenOn": "2022-01-03T13:44:16Z",
+      "side": 1,
+      "message": "It is not clear from the comment if this could be represented as a bool instead",
+      "revId": "453aa661380f39aa7e461ff5b95925e35b16775f",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "00c35c08_598eecdf",
+        "filename": "modules/congestion_controller/goog_cc/acknowledged_bitrate_estimator_interface.h",
+        "patchSetId": 6
+      },
+      "lineNbr": 58,
+      "author": {
+        "id": 17594
+      },
+      "writtenOn": "2022-01-03T13:44:16Z",
+      "side": 1,
+      "message": "Nit: unacked_weight -\u003e `unacked_weight`",
+      "revId": "453aa661380f39aa7e461ff5b95925e35b16775f",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "4fcda2f5_b8adcfb6",
+        "filename": "modules/congestion_controller/goog_cc/robust_throughput_estimator.cc",
+        "patchSetId": 6
+      },
+      "lineNbr": 61,
+      "author": {
+        "id": 17594
+      },
+      "writtenOn": "2022-01-03T13:44:16Z",
+      "side": 1,
+      "message": "#include \"api/units/timestamp.h\"",
+      "revId": "453aa661380f39aa7e461ff5b95925e35b16775f",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "74042445_671a5c3a",
+        "filename": "modules/congestion_controller/goog_cc/robust_throughput_estimator.cc",
+        "patchSetId": 6
+      },
+      "lineNbr": 65,
+      "author": {
+        "id": 17594
+      },
+      "writtenOn": "2022-01-03T13:44:16Z",
+      "side": 1,
+      "message": "Could you please add this (that the estimator keeps the window as small as possible) to the documentation in acknowledged_bitrate_estimator_interface.h?",
+      "revId": "453aa661380f39aa7e461ff5b95925e35b16775f",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "955bf8e6_9217199b",
+        "filename": "modules/congestion_controller/goog_cc/robust_throughput_estimator.cc",
+        "patchSetId": 6
+      },
+      "lineNbr": 96,
+      "author": {
+        "id": 17594
+      },
+      "writtenOn": "2022-01-03T13:44:16Z",
+      "side": 1,
+      "message": "#include \"api/units/data_size.h\"",
+      "revId": "453aa661380f39aa7e461ff5b95925e35b16775f",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "75873d39_e6178851",
+        "filename": "modules/congestion_controller/goog_cc/robust_throughput_estimator.cc",
+        "patchSetId": 6
+      },
+      "lineNbr": 150,
+      "author": {
+        "id": 17594
+      },
+      "writtenOn": "2022-01-03T13:44:16Z",
+      "side": 1,
+      "message": "Could you add that we do this to be more robust to delay spikes?",
+      "revId": "453aa661380f39aa7e461ff5b95925e35b16775f",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "29748792_11dd735b",
+        "filename": "modules/congestion_controller/goog_cc/robust_throughput_estimator.h",
+        "patchSetId": 6
+      },
+      "lineNbr": 44,
+      "author": {
+        "id": 17594
+      },
+      "writtenOn": "2022-01-03T13:44:16Z",
+      "side": 1,
+      "message": "Since this doesn\u0027t have a default constructor, could you initialize it here as well?",
+      "revId": "453aa661380f39aa7e461ff5b95925e35b16775f",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "ad4ff199_6e36a2a2",
+        "filename": "modules/congestion_controller/goog_cc/robust_throughput_estimator.h",
+        "patchSetId": 6
+      },
+      "lineNbr": 44,
+      "author": {
+        "id": 17594
+      },
+      "writtenOn": "2022-01-03T13:44:16Z",
+      "side": 1,
+      "message": "#include \"api/units/timestamp.h\"",
+      "revId": "453aa661380f39aa7e461ff5b95925e35b16775f",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "238fed7e_41ff4a2f",
+        "filename": "modules/congestion_controller/goog_cc/robust_throughput_estimator_unittest.cc",
+        "patchSetId": 6
+      },
+      "lineNbr": 188,
+      "author": {
+        "id": 17594
+      },
+      "writtenOn": "2022-01-03T13:44:16Z",
+      "side": 1,
+      "message": "#include \"api/units/data_size.h\"",
+      "revId": "453aa661380f39aa7e461ff5b95925e35b16775f",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "7bde6d21_bc3a91cf",
+        "filename": "modules/congestion_controller/goog_cc/robust_throughput_estimator_unittest.cc",
+        "patchSetId": 6
+      },
+      "lineNbr": 189,
+      "author": {
+        "id": 17594
+      },
+      "writtenOn": "2022-01-03T13:44:16Z",
+      "side": 1,
+      "message": "#include \"api/units/timestamp.h\"",
+      "revId": "453aa661380f39aa7e461ff5b95925e35b16775f",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "0daf3ce3_2cfc87bb",
+        "filename": "modules/congestion_controller/goog_cc/robust_throughput_estimator_unittest.cc",
+        "patchSetId": 6
+      },
+      "lineNbr": 191,
+      "author": {
+        "id": 17594
+      },
+      "writtenOn": "2022-01-03T13:44:16Z",
+      "side": 1,
+      "message": "#include \"api/units/time_delta.h\"",
+      "revId": "453aa661380f39aa7e461ff5b95925e35b16775f",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "66662a3d_f303a0d3",
+        "filename": "modules/congestion_controller/goog_cc/robust_throughput_estimator_unittest.cc",
+        "patchSetId": 6
+      },
+      "lineNbr": 195,
+      "author": {
+        "id": 17594
+      },
+      "writtenOn": "2022-01-03T13:44:16Z",
+      "side": 1,
+      "message": "Maybe add a comment that we\u0027re adding a 50% packet loss here",
+      "revId": "453aa661380f39aa7e461ff5b95925e35b16775f",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "01d3b80e_3f309e06",
+        "filename": "modules/congestion_controller/goog_cc/robust_throughput_estimator_unittest.cc",
+        "patchSetId": 6
+      },
+      "lineNbr": 236,
+      "author": {
+        "id": 17594
+      },
+      "writtenOn": "2022-01-03T13:44:16Z",
+      "side": 1,
+      "message": "You are not using this, you\u0027re creating a new variable for each iteration of the loop below instead",
+      "revId": "453aa661380f39aa7e461ff5b95925e35b16775f",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

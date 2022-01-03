@@ -73,7 +73,7 @@ bool MediaStream::AddTrack(TrackVector* tracks, Track* track) {
   typename TrackVector::iterator it = FindTrack(tracks, track->id());
   if (it != tracks->end())
     return false;
-  tracks->push_back(track);
+  tracks->push_back(rtc::scoped_refptr<Track>(track));
   FireOnChanged();
   return true;
 }

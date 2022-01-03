@@ -1,0 +1,72 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "eaf64c93_b9fb2281",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 4
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2022-01-03T06:36:35Z",
+      "side": 1,
+      "message": "Surprised that the objc compiles.\n\nA few comments, otherwise looks fine. Looking forward to seeing how much reaction we get!",
+      "revId": "c018a7b17c2b280a9561a0ef821cc4aba67d9dbb",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "af9c6d32_709f8bb3",
+        "filename": "api/peer_connection_interface.h",
+        "patchSetId": 4
+      },
+      "lineNbr": 652,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2022-01-03T06:36:35Z",
+      "side": 1,
+      "message": "Add comment with TODO here too?",
+      "revId": "c018a7b17c2b280a9561a0ef821cc4aba67d9dbb",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "b1591e15_8e0ce40c",
+        "filename": "sdk/objc/api/peerconnection/RTCConfiguration.mm",
+        "patchSetId": 4
+      },
+      "lineNbr": 535,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2022-01-03T06:36:35Z",
+      "side": 1,
+      "message": "Should there be a NOTREACHED here?",
+      "revId": "c018a7b17c2b280a9561a0ef821cc4aba67d9dbb",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "248004cf_5cf3737d",
+        "filename": "sdk/objc/api/peerconnection/RTCConfiguration.mm",
+        "patchSetId": 4
+      },
+      "lineNbr": 545,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2022-01-03T06:36:35Z",
+      "side": 1,
+      "message": "Unless MM specifies that switch() has an implicit default, this won\u0027t compile?",
+      "revId": "c018a7b17c2b280a9561a0ef821cc4aba67d9dbb",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

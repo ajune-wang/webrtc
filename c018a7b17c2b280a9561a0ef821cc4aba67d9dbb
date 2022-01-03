@@ -139,6 +139,24 @@
       "parentUuid": "4843eb40_f0a991d7",
       "revId": "c018a7b17c2b280a9561a0ef821cc4aba67d9dbb",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "0207e6f6_7ec4b913",
+        "filename": "sdk/objc/api/peerconnection/RTCConfiguration.mm",
+        "patchSetId": 4
+      },
+      "lineNbr": 545,
+      "author": {
+        "id": 5142
+      },
+      "writtenOn": "2022-01-03T10:26:19Z",
+      "side": 1,
+      "message": "OK. Sounds good to land that separately in case of a revert.",
+      "parentUuid": "05c6a8b6_d85508b8",
+      "revId": "c018a7b17c2b280a9561a0ef821cc4aba67d9dbb",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

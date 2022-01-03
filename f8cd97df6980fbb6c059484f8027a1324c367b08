@@ -36,6 +36,24 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "56dd6943_195736cb",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 5
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2022-01-03T11:04:08Z",
+      "side": 1,
+      "message": "we could still have mid const if we define a copy constructor for this case, I suppose? (this is well into C++ arcana for me)",
+      "parentUuid": "2756bce3_f71b9e20",
+      "revId": "f8cd97df6980fbb6c059484f8027a1324c367b08",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "c645f19d_dc84cff4",
@@ -102,6 +120,24 @@
       "side": 1,
       "message": "Yes we could do that. It\u0027s MidMustNotExceedMaximumLength:\nhttps://source.chromium.org/chromium/chromium/src/+/main:third_party/webrtc/call/rtp_demuxer_unittest.cc;drc\u003dea24027e832503815d7bb76852a8afe9c651543b;l\u003d1281\n\nOne thing we could do instead would be to change it to not be a death test and instead test that AddSink works without crashing, but that the mid gets truncated. Wdyt?",
       "parentUuid": "666f743e_a4fa7045",
+      "revId": "f8cd97df6980fbb6c059484f8027a1324c367b08",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "c466c24a_aa08133e",
+        "filename": "call/rtp_demuxer_unittest.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 75,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2022-01-03T11:04:08Z",
+      "side": 1,
+      "message": "I think that\u0027s a reasonable course. Since we made this patch to avoid the crash, it seems logical to change the test to check that we don\u0027t crash :-)",
+      "parentUuid": "bc0b6a6c_25926827",
       "revId": "f8cd97df6980fbb6c059484f8027a1324c367b08",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }

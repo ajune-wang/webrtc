@@ -126,11 +126,13 @@ class PeerConnectionEndToEndBaseTest : public sigslot::has_slots<>,
   }
 
   void OnCallerAddedDataChanel(DataChannelInterface* dc) {
-    caller_signaled_data_channels_.push_back(dc);
+    caller_signaled_data_channels_.push_back(
+        rtc::scoped_refptr<DataChannelInterface>(dc));
   }
 
   void OnCalleeAddedDataChannel(DataChannelInterface* dc) {
-    callee_signaled_data_channels_.push_back(dc);
+    callee_signaled_data_channels_.push_back(
+        rtc::scoped_refptr<DataChannelInterface>(dc));
   }
 
   // Tests that `dc1` and `dc2` can send to and receive from each other.
@@ -257,8 +259,8 @@ std::unique_ptr<webrtc::AudioDecoder> CreateForwardingMockDecoder(
 rtc::scoped_refptr<webrtc::AudioDecoderFactory>
 CreateForwardingMockDecoderFactory(
     webrtc::AudioDecoderFactory* real_decoder_factory) {
-  rtc::scoped_refptr<webrtc::MockAudioDecoderFactory> mock_decoder_factory =
-      new rtc::RefCountedObject<StrictMock<webrtc::MockAudioDecoderFactory>>;
+  rtc::scoped_refptr<webrtc::MockAudioDecoderFactory> mock_decoder_factory(
+      new rtc::RefCountedObject<StrictMock<webrtc::MockAudioDecoderFactory>>);
   EXPECT_CALL(*mock_decoder_factory, GetSupportedDecoders())
       .Times(AtLeast(1))
       .WillRepeatedly(Invoke([real_decoder_factory] {

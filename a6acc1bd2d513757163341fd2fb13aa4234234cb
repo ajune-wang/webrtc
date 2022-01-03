@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "0ae88c6a_1f7fb250",
+        "filename": "pc/channel.cc",
+        "patchSetId": 11
+      },
+      "lineNbr": 608,
+      "author": {
+        "id": 5508
+      },
+      "writtenOn": "2022-01-03T12:38:43Z",
+      "side": 1,
+      "message": "@hta - wdyt about this observation?\nSeems to me like there was a missing call to demuxer_criteria_.payload_types().clear() and that we should overwrite instead of insert. I\u0027m also not sure if that \u0027empty()\u0027 check is strictly correct actually.",
+      "range": {
+        "startLine": 608,
+        "startChar": 12,
+        "endLine": 608,
+        "endChar": 17
+      },
+      "revId": "a6acc1bd2d513757163341fd2fb13aa4234234cb",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

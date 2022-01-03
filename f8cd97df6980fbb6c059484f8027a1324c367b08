@@ -18,6 +18,24 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "2756bce3_f71b9e20",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 5
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5508
+      },
+      "writtenOn": "2022-01-03T10:53:04Z",
+      "side": 1,
+      "message": "One benefit as is would be that you could have a const RtpDemuxerCriteria that has a valid `mid` value. But I did want to make mid const. I hit a problem with e.g. `previous_demuxer_criteria_ \u003d demuxer_criteria_;` in channel.cc and a few other places, but removing that variable will happen down the line and then mid can be const.",
+      "parentUuid": "7c7e0e93_efcffc1d",
+      "revId": "f8cd97df6980fbb6c059484f8027a1324c367b08",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "c645f19d_dc84cff4",
@@ -37,6 +55,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "5a29237f_2b2681cf",
+        "filename": "call/rtp_demuxer.h",
+        "patchSetId": 5
+      },
+      "lineNbr": 39,
+      "author": {
+        "id": 5508
+      },
+      "writtenOn": "2022-01-03T10:53:04Z",
+      "side": 1,
+      "message": "Added TODO",
+      "parentUuid": "c645f19d_dc84cff4",
+      "revId": "f8cd97df6980fbb6c059484f8027a1324c367b08",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "666f743e_a4fa7045",
         "filename": "call/rtp_demuxer_unittest.cc",
         "patchSetId": 5
@@ -48,6 +84,24 @@
       "writtenOn": "2022-01-03T06:29:41Z",
       "side": 1,
       "message": "This seems disconcerting to me. Should we rather refine the death test? (which one is it?)",
+      "revId": "f8cd97df6980fbb6c059484f8027a1324c367b08",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "bc0b6a6c_25926827",
+        "filename": "call/rtp_demuxer_unittest.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 75,
+      "author": {
+        "id": 5508
+      },
+      "writtenOn": "2022-01-03T10:53:04Z",
+      "side": 1,
+      "message": "Yes we could do that. It\u0027s MidMustNotExceedMaximumLength:\nhttps://source.chromium.org/chromium/chromium/src/+/main:third_party/webrtc/call/rtp_demuxer_unittest.cc;drc\u003dea24027e832503815d7bb76852a8afe9c651543b;l\u003d1281\n\nOne thing we could do instead would be to change it to not be a death test and instead test that AddSink works without crashing, but that the mid gets truncated. Wdyt?",
+      "parentUuid": "666f743e_a4fa7045",
       "revId": "f8cd97df6980fbb6c059484f8027a1324c367b08",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }

@@ -39,7 +39,23 @@ size_t RemoveFromMapByValue(Map* map, const Value& value) {
   return EraseIf(*map, [&](const auto& elem) { return elem.second == value; });
 }
 
+// Temp fix: MID in SDP is allowed to be slightly longer than what's allowed
+// in the RTP demuxer. Truncate if needed; this won't match, but it only
+// makes sense in places that wouldn't use this for matching anyway.
+// TODO(bugs.webrtc.org/12517): remove when length 16 is policed by parser.
+std::string CheckMidLength(absl::string_view mid) {
+  std::string new_mid(mid);
+  if (new_mid.length() > BaseRtpStringExtension::kMaxValueSizeBytes) {
+    RTC_LOG(LS_WARNING) << "`mid` attribute too long. Truncating.";
+    new_mid.resize(BaseRtpStringExtension::kMaxValueSizeBytes);
+  }
+  return new_mid;
+}
+
 }  // namespace
+
+RtpDemuxerCriteria::RtpDemuxerCriteria(absl::string_view mid)
+    : mid(CheckMidLength(mid)) {}
 
 RtpDemuxerCriteria::RtpDemuxerCriteria() = default;
 RtpDemuxerCriteria::~RtpDemuxerCriteria() = default;
@@ -114,8 +130,8 @@ bool RtpDemuxer::AddSink(const RtpDemuxerCriteria& criteria,
   // criteria because new sinks are created according to user-specified SDP and
   // we do not want to crash due to a data validation error.
   if (CriteriaWouldConflict(criteria)) {
-    RTC_LOG(LS_ERROR) << "Unable to add sink = " << sink
-                      << " due conflicting criteria " << criteria.ToString();
+    RTC_LOG(LS_ERROR) << "Unable to add sink=" << sink
+                      << " due to conflicting criteria " << criteria.ToString();
     return false;
   }
 
@@ -142,8 +158,8 @@ bool RtpDemuxer::AddSink(const RtpDemuxerCriteria& criteria,
 
   RefreshKnownMids();
 
-  RTC_LOG(LS_INFO) << "Added sink = " << sink << " for criteria "
-                   << criteria.ToString();
+  RTC_DLOG(LS_INFO) << "Added sink = " << sink << " for criteria "
+                    << criteria.ToString();
 
   return true;
 }
@@ -236,11 +252,7 @@ bool RtpDemuxer::RemoveSink(const RtpPacketSinkInterface* sink) {
                        RemoveFromMapByValue(&sink_by_mid_and_rsid_, sink) +
                        RemoveFromMapByValue(&sink_by_rsid_, sink);
   RefreshKnownMids();
-  bool removed = num_removed > 0;
-  if (removed) {
-    RTC_LOG(LS_INFO) << "Removed sink = " << sink << " bindings";
-  }
-  return removed;
+  return num_removed > 0;
 }
 
 bool RtpDemuxer::OnRtpPacket(const RtpPacketReceived& packet) {
@@ -415,11 +427,11 @@ void RtpDemuxer::AddSsrcSinkBinding(uint32_t ssrc,
   auto it = result.first;
   bool inserted = result.second;
   if (inserted) {
-    RTC_LOG(LS_INFO) << "Added sink = " << sink
-                     << " binding with SSRC=" << ssrc;
+    RTC_DLOG(LS_INFO) << "Added sink = " << sink
+                      << " binding with SSRC=" << ssrc;
   } else if (it->second != sink) {
-    RTC_LOG(LS_INFO) << "Updated sink = " << sink
-                     << " binding with SSRC=" << ssrc;
+    RTC_DLOG(LS_INFO) << "Updated sink = " << sink
+                      << " binding with SSRC=" << ssrc;
     it->second = sink;
   }
 }

@@ -106,6 +106,24 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "46d3ceb9_c17dccb5",
+        "filename": "modules/desktop_capture/desktop_capture_options.h",
+        "patchSetId": 11
+      },
+      "lineNbr": 169,
+      "author": {
+        "id": 8046
+      },
+      "writtenOn": "2022-01-03T13:27:55Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "bae9e446_925f2bb5",
+      "revId": "779de735b10bfdb5b739b317d076ccd1b1c1312b",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "8b162342_3b353df4",
@@ -211,6 +229,24 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "99c6e4ae_9122bb0c",
+        "filename": "modules/desktop_capture/linux/wayland/base_capturer_pipewire.cc",
+        "patchSetId": 11
+      },
+      "lineNbr": 36,
+      "author": {
+        "id": 8046
+      },
+      "writtenOn": "2022-01-03T13:27:55Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "892f52f3_540353e5",
+      "revId": "779de735b10bfdb5b739b317d076ccd1b1c1312b",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "9529cb65_f364781d",
@@ -295,6 +331,24 @@
       "side": 1,
       "message": "Personally I\u0027d prefer to fix it here rather than introduce the pattern in case the other PR gets held up.",
       "parentUuid": "46068ef6_02eb59d0",
+      "revId": "779de735b10bfdb5b739b317d076ccd1b1c1312b",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "e719bca5_8804b001",
+        "filename": "modules/desktop_capture/linux/wayland/base_capturer_pipewire.cc",
+        "patchSetId": 11
+      },
+      "lineNbr": 62,
+      "author": {
+        "id": 8046
+      },
+      "writtenOn": "2022-01-03T13:27:55Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "11ee7268_1741ae8c",
       "revId": "779de735b10bfdb5b739b317d076ccd1b1c1312b",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },

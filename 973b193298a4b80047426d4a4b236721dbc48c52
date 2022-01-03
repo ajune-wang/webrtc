@@ -76,6 +76,30 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "d0cb186f_15245e6d",
+        "filename": "modules/desktop_capture/linux/wayland/base_capturer_pipewire.cc",
+        "patchSetId": 12
+      },
+      "lineNbr": 39,
+      "author": {
+        "id": 8046
+      },
+      "writtenOn": "2022-01-03T13:27:55Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "39d73b2f_6b2f9b5e",
+      "range": {
+        "startLine": 39,
+        "startChar": 4,
+        "endLine": 39,
+        "endChar": 71
+      },
+      "revId": "973b193298a4b80047426d4a4b236721dbc48c52",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "c520b5b6_a43296db",
@@ -89,6 +113,30 @@
       "writtenOn": "2021-12-01T00:26:05Z",
       "side": 1,
       "message": "I believe this should be a unique_ptr, with the bonus that then we don\u0027t have to delete it.",
+      "range": {
+        "startLine": 49,
+        "startChar": 2,
+        "endLine": 49,
+        "endChar": 18
+      },
+      "revId": "973b193298a4b80047426d4a4b236721dbc48c52",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "ecfb60d8_8f0c0cc2",
+        "filename": "modules/desktop_capture/linux/wayland/base_capturer_pipewire.h",
+        "patchSetId": 12
+      },
+      "lineNbr": 49,
+      "author": {
+        "id": 8046
+      },
+      "writtenOn": "2022-01-03T13:27:55Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "c520b5b6_a43296db",
       "range": {
         "startLine": 49,
         "startChar": 2,
@@ -122,6 +170,30 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "b89592ea_0fcf93a6",
+        "filename": "modules/desktop_capture/linux/wayland/screencast_portal.cc",
+        "patchSetId": 12
+      },
+      "lineNbr": 35,
+      "author": {
+        "id": 8046
+      },
+      "writtenOn": "2022-01-03T13:27:55Z",
+      "side": 1,
+      "message": "I\u0027m not sure about that, because I think we need to follow some order when destroying PipeWire stuff and this would be unpredictable.\n\nYou can for example see that we first stop the loop, then we destroy the objects and then we destroy the loop itself.",
+      "parentUuid": "a6ef2472_45d7f916",
+      "range": {
+        "startLine": 35,
+        "startChar": 0,
+        "endLine": 35,
+        "endChar": 14
+      },
+      "revId": "973b193298a4b80047426d4a4b236721dbc48c52",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "5700d2a0_dc45830c",
@@ -145,6 +217,30 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "8079bdd9_0cab278b",
+        "filename": "modules/desktop_capture/linux/wayland/screencast_portal.h",
+        "patchSetId": 12
+      },
+      "lineNbr": 75,
+      "author": {
+        "id": 8046
+      },
+      "writtenOn": "2022-01-03T13:27:55Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "5700d2a0_dc45830c",
+      "range": {
+        "startLine": 75,
+        "startChar": 13,
+        "endLine": 75,
+        "endChar": 27
+      },
+      "revId": "973b193298a4b80047426d4a4b236721dbc48c52",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "44d523de_0b2ac235",
@@ -158,6 +254,30 @@
       "writtenOn": "2021-12-01T00:26:05Z",
       "side": 1,
       "message": "Existing, I\u0027m going to guess though that these are return values from library functions and the deleters don\u0027t play nicely with being wrapped into a unique_ptr ?",
+      "range": {
+        "startLine": 87,
+        "startChar": 0,
+        "endLine": 94,
+        "endChar": 32
+      },
+      "revId": "973b193298a4b80047426d4a4b236721dbc48c52",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "8f79f1b1_eab1af86",
+        "filename": "modules/desktop_capture/linux/wayland/screencast_portal.h",
+        "patchSetId": 12
+      },
+      "lineNbr": 94,
+      "author": {
+        "id": 8046
+      },
+      "writtenOn": "2022-01-03T13:27:55Z",
+      "side": 1,
+      "message": "GDBusConnection,GDBusProxy and GCancellable need special handling, rest can be turned into something else → fixed.",
+      "parentUuid": "44d523de_0b2ac235",
       "range": {
         "startLine": 87,
         "startChar": 0,

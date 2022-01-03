@@ -41,6 +41,30 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "3c18d683_359bc241",
+        "filename": "media/engine/webrtc_video_engine.cc",
+        "patchSetId": 7
+      },
+      "lineNbr": 1870,
+      "author": {
+        "id": 5508
+      },
+      "writtenOn": "2022-01-03T09:29:04Z",
+      "side": 1,
+      "message": "doh, fixed.",
+      "parentUuid": "eeb0a73e_ff9caaa5",
+      "range": {
+        "startLine": 1870,
+        "startChar": 4,
+        "endLine": 1870,
+        "endChar": 9
+      },
+      "revId": "3ecf0acc2398cd05c7c844e79462852495eb5d58",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "9fd13948_8eb54af7",
@@ -54,6 +78,30 @@
       "writtenOn": "2022-01-03T08:44:47Z",
       "side": 1,
       "message": "No need for const here, since string_view always means read-only access, right?\n\nAlso deserves a comment on the lifetime of the pointed-to data.",
+      "range": {
+        "startLine": 37,
+        "startChar": 10,
+        "endLine": 37,
+        "endChar": 15
+      },
+      "revId": "3ecf0acc2398cd05c7c844e79462852495eb5d58",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "ec41a2f3_271f2e69",
+        "filename": "pc/channel_interface.h",
+        "patchSetId": 7
+      },
+      "lineNbr": 37,
+      "author": {
+        "id": 5508
+      },
+      "writtenOn": "2022-01-03T09:29:04Z",
+      "side": 1,
+      "message": "Done. Also added a note about the calling thread.",
+      "parentUuid": "9fd13948_8eb54af7",
       "range": {
         "startLine": 37,
         "startChar": 10,

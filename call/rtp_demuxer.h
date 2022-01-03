@@ -16,6 +16,7 @@
 #include <utility>
 #include <vector>
 
+#include "absl/strings/string_view.h"
 #include "rtc_base/containers/flat_map.h"
 #include "rtc_base/containers/flat_set.h"
 
@@ -26,7 +27,10 @@ class RtpPacketSinkInterface;
 
 // This struct describes the criteria that will be used to match packets to a
 // specific sink.
-struct RtpDemuxerCriteria {
+class RtpDemuxerCriteria {
+ public:
+  explicit RtpDemuxerCriteria(absl::string_view mid,
+                              absl::string_view rsid = absl::string_view());
   RtpDemuxerCriteria();
   ~RtpDemuxerCriteria();
 
@@ -34,14 +38,17 @@ struct RtpDemuxerCriteria {
   bool operator!=(const RtpDemuxerCriteria& other) const;
 
   // If not the empty string, will match packets with this MID.
-  std::string mid;
+  const std::string& mid() const { return mid_; }
+
+  // Return string representation of demux criteria to facilitate logging
+  std::string ToString() const;
 
   // If not the empty string, will match packets with this as their RTP stream
   // ID or repaired RTP stream ID.
   // Note that if both MID and RSID are specified, this will only match packets
   // that have both specified (either through RTP header extensions, SSRC
   // latching or RTCP).
-  std::string rsid;
+  const std::string& rsid() const { return rsid_; }
 
   // Will match packets with any of these SSRCs.
   flat_set<uint32_t> ssrcs;
@@ -49,8 +56,14 @@ struct RtpDemuxerCriteria {
   // Will match packets with any of these payload types.
   flat_set<uint8_t> payload_types;
 
-  // Return string representation of demux criteria to facilitate logging
-  std::string ToString() const;
+ private:
+  // Intentionally private member variables to encourage specifying them via the
+  // constructor. Post construction, reading the values needs to be done via
+  // accessors and if changing the value is required, that can still be done
+  // via the implicit assignment operator (which also reassigns all other
+  // member variables).
+  std::string mid_;
+  std::string rsid_;
 };
 
 // This class represents the RTP demuxing, for a single RTP session (i.e., one

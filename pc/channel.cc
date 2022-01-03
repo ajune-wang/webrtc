@@ -130,19 +130,10 @@ BaseChannel::BaseChannel(rtc::Thread* worker_thread,
       srtp_required_(srtp_required),
       crypto_options_(crypto_options),
       media_channel_(std::move(media_channel)),
+      demuxer_criteria_(content_name),
       ssrc_generator_(ssrc_generator) {
   RTC_DCHECK_RUN_ON(worker_thread_);
   RTC_DCHECK(ssrc_generator_);
-  // Temp fix: MID in SDP is allowed to be slightly longer than what's allowed
-  // in the RTP demuxer. Truncate if needed; this won't match, but it only
-  // makes sense in places that wouldn't use this for matching anyway.
-  // TODO(bugs.webrtc.org/12517): remove when length 16 is policed by parser.
-  if (content_name.size() > 16) {
-    RTC_LOG(LS_ERROR) << "Overlong mid attribute, truncating for matching";
-    demuxer_criteria_.mid = content_name.substr(0, 16);
-  } else {
-    demuxer_criteria_.mid = content_name;
-  }
   RTC_LOG(LS_INFO) << "Created channel: " << ToString();
 }
 
@@ -499,6 +490,8 @@ void BaseChannel::UpdateRtpHeaderExtensionMap(
 }
 
 bool BaseChannel::RegisterRtpDemuxerSink_w() {
+  // TODO(bugs.webrtc.org/11993): `previous_demuxer_criteria_` should only be
+  // accessed on the network thread.
   if (demuxer_criteria_ == previous_demuxer_criteria_) {
     return true;
   }

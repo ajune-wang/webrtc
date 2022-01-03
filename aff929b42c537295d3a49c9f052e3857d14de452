@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "f9e540ba_18e0c50c",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2022-01-03T08:52:49Z",
+      "side": 1,
+      "message": "Looks good. Still a bit confused regarding was_ever_writable_ / was_ever_writable_n_ (they may be temporarily different, what does that mean?), but that\u0027s independent of this change.",
+      "revId": "aff929b42c537295d3a49c9f052e3857d14de452",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

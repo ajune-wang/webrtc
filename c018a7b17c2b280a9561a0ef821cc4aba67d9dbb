@@ -121,6 +121,24 @@
       "parentUuid": "248004cf_5cf3737d",
       "revId": "c018a7b17c2b280a9561a0ef821cc4aba67d9dbb",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "05c6a8b6_d85508b8",
+        "filename": "sdk/objc/api/peerconnection/RTCConfiguration.mm",
+        "patchSetId": 4
+      },
+      "lineNbr": 545,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2022-01-03T09:24:12Z",
+      "side": 1,
+      "message": "Seems to me we should add kNotSpecified and the break to Java and ObjC as well - Java probably accounts for a large fraction of internal usage.\nBut since these *can* be added as a separate CL, they probably should be, on the principle of \"break one thing at a time\".",
+      "parentUuid": "4843eb40_f0a991d7",
+      "revId": "c018a7b17c2b280a9561a0ef821cc4aba67d9dbb",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

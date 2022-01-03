@@ -35,6 +35,24 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "cd1851e5_dc079588",
+        "filename": "call/rtp_demuxer.h",
+        "patchSetId": 11
+      },
+      "lineNbr": 72,
+      "author": {
+        "id": 5508
+      },
+      "writtenOn": "2022-01-03T14:25:59Z",
+      "side": 1,
+      "message": "They still need to be mutable unfortunately. Not needing an explicit setter, is a step in the right direction though.",
+      "parentUuid": "235bd650_083d8946",
+      "revId": "a6acc1bd2d513757163341fd2fb13aa4234234cb",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "0ae88c6a_1f7fb250",
@@ -72,6 +90,30 @@
       "side": 1,
       "message": "If this is called mulitple times (I don\u0027t know if it is), it may be from multiple m-sections, each adding its own PTs that have to be demultiplexed - for instance one call for audio, one call for video. The demuxer needs do accumulate the PTs in this case.\n\nI would leave it as-is for this CL, at least, and reinspect when you (or someone) can trace the call stacks to see if my suspcion is right.",
       "parentUuid": "0ae88c6a_1f7fb250",
+      "range": {
+        "startLine": 608,
+        "startChar": 12,
+        "endLine": 608,
+        "endChar": 17
+      },
+      "revId": "a6acc1bd2d513757163341fd2fb13aa4234234cb",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "2581993e_f18f9148",
+        "filename": "pc/channel.cc",
+        "patchSetId": 11
+      },
+      "lineNbr": 608,
+      "author": {
+        "id": 5508
+      },
+      "writtenOn": "2022-01-03T14:25:59Z",
+      "side": 1,
+      "message": "sounds good.",
+      "parentUuid": "959647ca_6c1d554a",
       "range": {
         "startLine": 608,
         "startChar": 12,

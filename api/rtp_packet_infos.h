@@ -87,7 +87,8 @@ class RTC_EXPORT RtpPacketInfos {
         return nullptr;
       }
 
-      return new Data(entries);
+      // Explicit new, to access private constructor.
+      return rtc::scoped_refptr<Data>(new Data(entries));
     }
 
     static rtc::scoped_refptr<Data> Create(vector_type&& entries) {
@@ -96,7 +97,8 @@ class RTC_EXPORT RtpPacketInfos {
         return nullptr;
       }
 
-      return new Data(std::move(entries));
+      // Explicit new, to access private constructor.
+      return rtc::scoped_refptr<Data>(new Data(std::move(entries)));
     }
 
     const vector_type& entries() const { return entries_; }

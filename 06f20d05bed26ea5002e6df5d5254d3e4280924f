@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "f79d60b6_5d8cb772",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 5
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5142
+      },
+      "writtenOn": "2022-01-03T09:04:45Z",
+      "side": 1,
+      "message": "+Peter. I\u0027m adding a kNotSpecified to SdpSemantics to make sure you have to set it explicitly in order to be able to update it to kUnifiedPlan as per this PSA: https://groups.google.com/u/1/g/discuss-webrtc/c/SdoVP02eUIk. Should I also add kNotSpecified equivalents to Java and ObjC layers?",
+      "revId": "06f20d05bed26ea5002e6df5d5254d3e4280924f",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

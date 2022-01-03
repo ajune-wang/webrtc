@@ -35,6 +35,24 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "1408d131_47ca66b8",
+        "filename": "api/peer_connection_interface.h",
+        "patchSetId": 4
+      },
+      "lineNbr": 652,
+      "author": {
+        "id": 5142
+      },
+      "writtenOn": "2022-01-03T09:04:45Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "af9c6d32_709f8bb3",
+      "revId": "c018a7b17c2b280a9561a0ef821cc4aba67d9dbb",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "b1591e15_8e0ce40c",
@@ -52,6 +70,24 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "89d0f55a_53e5bd47",
+        "filename": "sdk/objc/api/peerconnection/RTCConfiguration.mm",
+        "patchSetId": 4
+      },
+      "lineNbr": 535,
+      "author": {
+        "id": 5142
+      },
+      "writtenOn": "2022-01-03T09:04:45Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "b1591e15_8e0ce40c",
+      "revId": "c018a7b17c2b280a9561a0ef821cc4aba67d9dbb",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "248004cf_5cf3737d",
@@ -65,6 +101,24 @@
       "writtenOn": "2022-01-03T06:36:35Z",
       "side": 1,
       "message": "Unless MM specifies that switch() has an implicit default, this won\u0027t compile?",
+      "revId": "c018a7b17c2b280a9561a0ef821cc4aba67d9dbb",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "4843eb40_f0a991d7",
+        "filename": "sdk/objc/api/peerconnection/RTCConfiguration.mm",
+        "patchSetId": 4
+      },
+      "lineNbr": 545,
+      "author": {
+        "id": 5142
+      },
+      "writtenOn": "2022-01-03T09:04:45Z",
+      "side": 1,
+      "message": "This usage refers to the ObjC version of the enum, RTCSdpSemantics, which only has PlanB and UnifiedPlan.\n\nLooks like ObjC and Java both have their own enums with defaults set here[1][2].\nFor now I made ObjC set it to kPlanB explicitly, which is what Java does, so that kNotSpecified is never applicable in ObjC/Java.\n\nBut perhaps we should add kNotSpecified to ObjC/Java as well?\n\n|1] https://source.chromium.org/chromium/chromium/src/+/main:third_party/webrtc/sdk/objc/api/peerconnection/RTCConfiguration.mm;l\u003d69\n[2] https://source.chromium.org/chromium/chromium/src/+/main:third_party/webrtc/sdk/android/api/org/webrtc/PeerConnection.java;l\u003d614?q\u003dRTCConfiguration%20f:java",
+      "parentUuid": "248004cf_5cf3737d",
       "revId": "c018a7b17c2b280a9561a0ef821cc4aba67d9dbb",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }

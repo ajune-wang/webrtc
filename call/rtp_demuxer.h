@@ -16,6 +16,7 @@
 #include <utility>
 #include <vector>
 
+#include "absl/strings/string_view.h"
 #include "rtc_base/containers/flat_map.h"
 #include "rtc_base/containers/flat_set.h"
 
@@ -26,7 +27,9 @@ class RtpPacketSinkInterface;
 
 // This struct describes the criteria that will be used to match packets to a
 // specific sink.
-struct RtpDemuxerCriteria {
+class RtpDemuxerCriteria {
+ public:
+  explicit RtpDemuxerCriteria(absl::string_view mid);
   RtpDemuxerCriteria();
   ~RtpDemuxerCriteria();
 
@@ -34,7 +37,10 @@ struct RtpDemuxerCriteria {
   bool operator!=(const RtpDemuxerCriteria& other) const;
 
   // If not the empty string, will match packets with this MID.
-  std::string mid;
+  const std::string& mid() const { return mid_; }
+
+  // Return string representation of demux criteria to facilitate logging
+  std::string ToString() const;
 
   // If not the empty string, will match packets with this as their RTP stream
   // ID or repaired RTP stream ID.
@@ -49,8 +55,13 @@ struct RtpDemuxerCriteria {
   // Will match packets with any of these payload types.
   flat_set<uint8_t> payload_types;
 
-  // Return string representation of demux criteria to facilitate logging
-  std::string ToString() const;
+ private:
+  // Intentionally private to encourage specifying the mid via the constructor.
+  // From there on out, reading the value needs to be done via the `mid()`
+  // accessor and if changing the value is required, that can still be done
+  // via the implicit assignment operator (which also reassigns all other
+  // member variables).
+  std::string mid_;
 };
 
 // This class represents the RTP demuxing, for a single RTP session (i.e., one

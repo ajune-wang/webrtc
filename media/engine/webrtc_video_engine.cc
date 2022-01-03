@@ -1587,17 +1587,16 @@ void WebRtcVideoChannel::ResetUnsignaledRecvStream() {
   }
 }
 
+// TODO(tommi): Remove
+// OnDemuxerCriteriaUpdatePending/OnDemuxerCriteriaUpdateComplete.
 void WebRtcVideoChannel::OnDemuxerCriteriaUpdatePending() {
-  RTC_DCHECK_RUN_ON(&thread_checker_);
+  RTC_DCHECK_RUN_ON(&network_thread_checker_);
   ++demuxer_criteria_id_;
 }
 
 void WebRtcVideoChannel::OnDemuxerCriteriaUpdateComplete() {
   RTC_DCHECK_RUN_ON(&network_thread_checker_);
-  worker_thread_->PostTask(ToQueuedTask(task_safety_, [this] {
-    RTC_DCHECK_RUN_ON(&thread_checker_);
-    ++demuxer_criteria_completed_id_;
-  }));
+  ++demuxer_criteria_completed_id_;
 }
 
 bool WebRtcVideoChannel::SetSink(
@@ -1711,13 +1710,21 @@ void WebRtcVideoChannel::FillSendAndReceiveCodecStats(
 void WebRtcVideoChannel::OnPacketReceived(rtc::CopyOnWriteBuffer packet,
                                           int64_t packet_time_us) {
   RTC_DCHECK_RUN_ON(&network_thread_checker_);
+
+  // TODO(tommi): This shouldn't be an issue. Remove.
+  const bool demuxer_update_pending =
+      (demuxer_criteria_id_ != demuxer_criteria_completed_id_);
+
+  // There are still some tests that make this happen (artificially).
+  // RTC_DCHECK(!demuxer_update_pending);
+
   // TODO(bugs.webrtc.org/11993): This code is very similar to what
   // WebRtcVoiceMediaChannel::OnPacketReceived does. For maintainability and
   // consistency it would be good to move the interaction with call_->Receiver()
   // to a common implementation and provide a callback on the worker thread
   // for the exception case (DELIVERY_UNKNOWN_SSRC) and how retry is attempted.
-  worker_thread_->PostTask(
-      ToQueuedTask(task_safety_, [this, packet, packet_time_us] {
+  worker_thread_->PostTask(ToQueuedTask(
+      task_safety_, [this, packet, packet_time_us, demuxer_update_pending] {
         RTC_DCHECK_RUN_ON(&thread_checker_);
         const webrtc::PacketReceiver::DeliveryStatus delivery_result =
             call_->Receiver()->DeliverPacket(webrtc::MediaType::VIDEO, packet,
@@ -1764,7 +1771,7 @@ void WebRtcVideoChannel::OnPacketReceived(rtc::CopyOnWriteBuffer packet,
         // During a demuxer update we may receive ssrcs that were recently
         // removed or we may receve ssrcs that were recently configured for a
         // different video channel.
-        if (demuxer_criteria_id_ != demuxer_criteria_completed_id_) {
+        if (demuxer_update_pending) {
           return;
         }
         // Ignore unknown ssrcs if we recently created an unsignalled receive

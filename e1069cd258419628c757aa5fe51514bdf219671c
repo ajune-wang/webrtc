@@ -18,6 +18,24 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "fdb244f1_7e2d749f",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2022-01-03T15:28:00Z",
+      "side": 1,
+      "message": "I\u0027ve fixed some of the issues, but there are also test failures. So makes sense to me to break up and land incrementally. (And continue to rebase this as pieces are landed).",
+      "parentUuid": "98ad4fb4_9233023e",
+      "revId": "e1069cd258419628c757aa5fe51514bdf219671c",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "4e4fd973_5e437cdf",
@@ -31,6 +49,24 @@
       "writtenOn": "2021-12-21T15:05:58Z",
       "side": 1,
       "message": "since the class itself is private, maybe it\u0027s fine to make the ctor pulic?",
+      "revId": "e1069cd258419628c757aa5fe51514bdf219671c",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "a593c7d1_46f191a5",
+        "filename": "api/rtp_packet_infos.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 90,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2022-01-03T15:28:00Z",
+      "side": 1,
+      "message": "Seems to work, nice! Which surprises me: the class being private, it\u0027s not visible from the implementation of make_ref_counted. And I\u0027ve had some other case recently where I couldn\u0027t use std::map with a private class as key or value type.",
+      "parentUuid": "4e4fd973_5e437cdf",
       "revId": "e1069cd258419628c757aa5fe51514bdf219671c",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }

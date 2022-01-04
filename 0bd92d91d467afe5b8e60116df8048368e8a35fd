@@ -39,6 +39,30 @@
       },
       "revId": "0bd92d91d467afe5b8e60116df8048368e8a35fd",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "efd4239b_ea39c0b9",
+        "filename": "pc/channel.h",
+        "patchSetId": 4
+      },
+      "lineNbr": 125,
+      "author": {
+        "id": 5508
+      },
+      "writtenOn": "2022-01-04T14:02:54Z",
+      "side": 1,
+      "message": "It\u0027s used for stats, debugging (logging, checking for correctness) and mid. Originally I think that the purpose was mostly for the purposes of stats, but more recently the mid use has become important because the value is being used as a lookup key in maps where the key name is \u0027mid\u0027 while content_name() is what\u0027s used to populate it.",
+      "parentUuid": "e189df09_29607d71",
+      "range": {
+        "startLine": 125,
+        "startChar": 21,
+        "endLine": 125,
+        "endChar": 35
+      },
+      "revId": "0bd92d91d467afe5b8e60116df8048368e8a35fd",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

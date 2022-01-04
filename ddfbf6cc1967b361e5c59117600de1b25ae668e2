@@ -22,6 +22,30 @@
       },
       "revId": "ddfbf6cc1967b361e5c59117600de1b25ae668e2",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "e1a53671_26ca2668",
+        "filename": "pc/channel.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 600,
+      "author": {
+        "id": 5508
+      },
+      "writtenOn": "2022-01-04T14:02:54Z",
+      "side": 0,
+      "message": "Yes, an error is already logged inside of RtpDemuxer::AddSink.",
+      "parentUuid": "04cc8072_0bb64860",
+      "range": {
+        "startLine": 599,
+        "startChar": 0,
+        "endLine": 600,
+        "endChar": 38
+      },
+      "revId": "ddfbf6cc1967b361e5c59117600de1b25ae668e2",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

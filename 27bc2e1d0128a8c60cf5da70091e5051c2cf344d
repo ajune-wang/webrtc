@@ -33,6 +33,23 @@
       "message": "driving by 😊",
       "revId": "27bc2e1d0128a8c60cf5da70091e5051c2cf344d",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "caf7b636_89ca0964",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5508
+      },
+      "writtenOn": "2022-01-04T11:33:29Z",
+      "side": 1,
+      "message": "feel free to land of the CL assuming there aren\u0027t any concerns with what I was wondering about.",
+      "revId": "27bc2e1d0128a8c60cf5da70091e5051c2cf344d",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

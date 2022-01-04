@@ -1,0 +1,44 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "ca47cd7d_5b500883",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 4
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2022-01-04T13:46:06Z",
+      "side": 1,
+      "message": "Code change looks good, just a few questions.",
+      "revId": "0bd92d91d467afe5b8e60116df8048368e8a35fd",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "e189df09_29607d71",
+        "filename": "pc/channel.h",
+        "patchSetId": 4
+      },
+      "lineNbr": 125,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2022-01-04T13:46:06Z",
+      "side": 1,
+      "message": "It\u0027s unclear to me what \"content_name\" means. What is it used for (besides as an alias to the more recent \"mid\" thing)? The method is defined on ChannelInterface, with no docs at all.",
+      "range": {
+        "startLine": 125,
+        "startChar": 21,
+        "endLine": 125,
+        "endChar": 35
+      },
+      "revId": "0bd92d91d467afe5b8e60116df8048368e8a35fd",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

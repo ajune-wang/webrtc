@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "04cc8072_0bb64860",
+        "filename": "pc/channel.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 600,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2022-01-04T13:46:06Z",
+      "side": 0,
+      "message": "Do we log anything for this (supposedly rare) error condition somewhere else?",
+      "range": {
+        "startLine": 599,
+        "startChar": 0,
+        "endLine": 600,
+        "endChar": 38
+      },
+      "revId": "ddfbf6cc1967b361e5c59117600de1b25ae668e2",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

@@ -1,0 +1,72 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "0a03f66f_b55b1024",
+        "filename": "pc/channel.cc",
+        "patchSetId": 7
+      },
+      "lineNbr": 604,
+      "author": {
+        "id": 5508
+      },
+      "writtenOn": "2022-01-04T21:17:23Z",
+      "side": 1,
+      "message": "Any thoughts on why we shouldn\u0027t just return at this point? From what I can tell, if UpdateLocalStreams_w fails, the whole SetLocalContent operation is considered to have failed. Same for the rest of this function.",
+      "revId": "c9acfe44ea220493b26bccd4fe58c20e59147f10",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "6178614e_6c81d296",
+        "filename": "pc/channel.cc",
+        "patchSetId": 7
+      },
+      "lineNbr": 822,
+      "author": {
+        "id": 5508
+      },
+      "writtenOn": "2022-01-04T21:17:23Z",
+      "side": 1,
+      "message": "this is new",
+      "revId": "c9acfe44ea220493b26bccd4fe58c20e59147f10",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "2a01c302_888a2369",
+        "filename": "pc/channel.cc",
+        "patchSetId": 7
+      },
+      "lineNbr": 835,
+      "author": {
+        "id": 5508
+      },
+      "writtenOn": "2022-01-04T21:17:23Z",
+      "side": 1,
+      "message": "previously we overwrote the error as set by UpdateLocalStreams_w().",
+      "revId": "c9acfe44ea220493b26bccd4fe58c20e59147f10",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "325e95a0_0fe397fc",
+        "filename": "pc/channel.cc",
+        "patchSetId": 7
+      },
+      "lineNbr": 996,
+      "author": {
+        "id": 5508
+      },
+      "writtenOn": "2022-01-04T21:17:23Z",
+      "side": 1,
+      "message": "new",
+      "revId": "c9acfe44ea220493b26bccd4fe58c20e59147f10",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

@@ -1,0 +1,44 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "a9648aed_6e8182bf",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2022-01-04T15:50:35Z",
+      "side": 1,
+      "message": "I think tests pass now, but I\u0027m not entirely satisfied with the typing of the ref counted pointers. I think it needs another round of design.\n\n",
+      "revId": "be8b0a2f3d0c443dd35425669c764dbc9d1cbe2e",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "28766b36_833ed0e2",
+        "filename": "api/rtp_packet_infos.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 124,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2022-01-04T15:50:35Z",
+      "side": 1,
+      "message": "Using rtc::scoped_refptr\u003cData\u003e fails, because the implementation of scoped_refptr doesn\u0027t see any AddRef and Release methods. rtc::Ref\u003cData\u003e::Ptr seems to be the solution to that problem. Alternatively, rtc::scoped_refptr\u003crtc::FinalRefCountedObject\u003cData\u003e\u003e.\n\nI find this a bit unergonomic, though. I\u0027d prefer if one could use rtc::scoped_refptr and rtc::make_ref_counted without ever explicitly mentioning the ref counting classes used by the implementation of make_ref_counted.",
+      "range": {
+        "startLine": 124,
+        "startChar": 2,
+        "endLine": 124,
+        "endChar": 21
+      },
+      "revId": "be8b0a2f3d0c443dd35425669c764dbc9d1cbe2e",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

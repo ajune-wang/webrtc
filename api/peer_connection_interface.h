@@ -807,8 +807,12 @@ class RTC_EXPORT PeerConnectionInterface : public rtc::RefCountInterface {
 
   // Remove an RtpSender from this PeerConnection.
   // Returns true on success.
-  // TODO(steveanton): Replace with signature that returns RTCError.
-  virtual bool RemoveTrack(RtpSenderInterface* sender) = 0;
+  // TODO(bugs.webrtc.org/9534): Replace with signature that returns RTCError.
+  ABSL_DEPRECATED("Use RemoveTrackOrError")
+  virtual bool RemoveTrack(RtpSenderInterface* sender) {
+    return RemoveTrackOrError(rtc::scoped_refptr<RtpSenderInterface>(sender))
+        .ok();
+  }
 
   // Plan B semantics: Removes the RtpSender from this PeerConnection.
   // Unified Plan semantics: Stop sending on the RtpSender and mark the
@@ -820,8 +824,8 @@ class RTC_EXPORT PeerConnectionInterface : public rtc::RefCountInterface {
   // - INVALID_STATE: PeerConnection is closed.
   // TODO(bugs.webrtc.org/9534): Rename to RemoveTrack once the other signature
   // is removed.
-  virtual RTCError RemoveTrackNew(
-      rtc::scoped_refptr<RtpSenderInterface> sender);
+  virtual RTCError RemoveTrackOrError(
+      rtc::scoped_refptr<RtpSenderInterface> sender) = 0;
 
   // AddTransceiver creates a new RtpTransceiver and adds it to the set of
   // transceivers. Adding a transceiver will cause future calls to CreateOffer

@@ -35,6 +35,57 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "c1391ad2_eea5f9ab",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 3
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5142
+      },
+      "writtenOn": "2022-01-04T15:57:58Z",
+      "side": 1,
+      "message": "Nice. Care to update the code comments while you\u0027re at it? And will you hunt down internal usage?",
+      "revId": "1913c8871765d9110cde89cd89f682ac2fefe701",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "373de6a5_f54ab76c",
+        "filename": "api/peer_connection_interface.h",
+        "patchSetId": 3
+      },
+      "lineNbr": 809,
+      "author": {
+        "id": 5142
+      },
+      "writtenOn": "2022-01-04T15:57:58Z",
+      "side": 1,
+      "message": "This doc comment only mentions the Plan B behavior, reference the doc of the modern version of the API instead",
+      "revId": "1913c8871765d9110cde89cd89f682ac2fefe701",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "ed9a933f_0b9c1837",
+        "filename": "api/peer_connection_interface.h",
+        "patchSetId": 3
+      },
+      "lineNbr": 819,
+      "author": {
+        "id": 5142
+      },
+      "writtenOn": "2022-01-04T15:57:58Z",
+      "side": 1,
+      "message": "I think the documentation should describe how it works in Unified Plan first, and only mention the Plan B way as a legacy note at the end.\n\nAlso nit: \"stop sending\" sounds a little bit like stopping. Can you check the spec, is it that we stop sending completely or do we send silence? There may be a subtle difference between null track and muted track, but if we do stop sending it might be worth saying that we \"sets the sender\u0027s track to null, resulting in not sending\" to distinguish between that and stopping",
+      "revId": "1913c8871765d9110cde89cd89f682ac2fefe701",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "6887fa0a_eb937448",
@@ -72,6 +123,30 @@
       "side": 1,
       "message": "Harald, does this fix the problem?",
       "parentUuid": "6887fa0a_eb937448",
+      "range": {
+        "startLine": 37,
+        "startChar": 61,
+        "endLine": 37,
+        "endChar": 72
+      },
+      "revId": "1913c8871765d9110cde89cd89f682ac2fefe701",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "798624d8_4a2b9bed",
+        "filename": "tools_webrtc/iwyu/apply-iwyu",
+        "patchSetId": 3
+      },
+      "lineNbr": 37,
+      "author": {
+        "id": 5142
+      },
+      "writtenOn": "2022-01-04T15:57:58Z",
+      "side": 1,
+      "message": "I\u0027m also wondering about this line change",
+      "parentUuid": "a28490c9_2c67376c",
       "range": {
         "startLine": 37,
         "startChar": 61,

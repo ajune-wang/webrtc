@@ -70,6 +70,24 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "9c0e0b3d_4b405dc4",
+        "filename": "pc/connection_context.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 79,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2022-01-04T11:30:48Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "abbbd6e6_cf108883",
+      "revId": "1a0bfb1cbecdc7fad4e0eacd065c9a1293c1d187",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "34f5b427_33e62150",
@@ -101,6 +119,24 @@
       "side": 1,
       "message": "Adding a comment and TODO in api/media_stream_interface.h, where the corresponding public methods are declared. I guess this private helper method could be changed right away to take a scoped_refptr, what do you think?",
       "parentUuid": "34f5b427_33e62150",
+      "revId": "1a0bfb1cbecdc7fad4e0eacd065c9a1293c1d187",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "546d263d_d13b34ca",
+        "filename": "pc/media_stream.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 76,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2022-01-04T11:30:48Z",
+      "side": 1,
+      "message": "getting this done for internal usage ASAP sounds good to me.",
+      "parentUuid": "33b56b05_c877d89f",
       "revId": "1a0bfb1cbecdc7fad4e0eacd065c9a1293c1d187",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
@@ -261,6 +297,24 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "b437ea70_882c1f76",
+        "filename": "pc/rtc_stats_collector.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 1227,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2022-01-04T11:30:48Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "2c745905_a8d48b5f",
+      "revId": "1a0bfb1cbecdc7fad4e0eacd065c9a1293c1d187",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "4f4a4344_579b94f6",
@@ -292,6 +346,24 @@
       "side": 1,
       "message": "No idea, I haven\u0027t grokked the use of \"...Internal\" classes in this code.",
       "parentUuid": "4f4a4344_579b94f6",
+      "revId": "1a0bfb1cbecdc7fad4e0eacd065c9a1293c1d187",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "2e88d85b_19333559",
+        "filename": "pc/rtc_stats_collector.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 1665,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2022-01-04T11:30:48Z",
+      "side": 1,
+      "message": "The non-internal classes have proxies, so methods may be dispatched to other threads. We use -\u003einternal() to get at the inner object that doesn\u0027t have a proxy.\n\nThe internal() function is (I think) declared in api/proxy.h.\n\nAnyway, for a later CL.",
+      "parentUuid": "427b3423_18c63d17",
       "revId": "1a0bfb1cbecdc7fad4e0eacd065c9a1293c1d187",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }

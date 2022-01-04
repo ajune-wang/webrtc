@@ -15,9 +15,9 @@
 #include <utility>
 #include <vector>
 
-#include "api/ref_counted_base.h"
 #include "api/rtp_packet_info.h"
 #include "api/scoped_refptr.h"
+#include "rtc_base/ref_counted_object.h"
 #include "rtc_base/system/rtc_export.h"
 
 namespace webrtc {
@@ -79,33 +79,32 @@ class RTC_EXPORT RtpPacketInfos {
   size_type size() const { return entries().size(); }
 
  private:
-  class Data : public rtc::RefCountedBase {
+  class Data {
    public:
-    static rtc::scoped_refptr<Data> Create(const vector_type& entries) {
+    static rtc::Ref<Data>::Ptr Create(const vector_type& entries) {
+      // Performance optimization for the empty case.
+      if (entries.empty()) {
+        return nullptr;
+      }
+      return rtc::make_ref_counted<Data>(entries);
+    }
+
+    static rtc::Ref<Data>::Ptr Create(vector_type&& entries) {
       // Performance optimization for the empty case.
       if (entries.empty()) {
         return nullptr;
       }
 
-      return new Data(entries);
+      return rtc::make_ref_counted<Data>(std::move(entries));
     }
 
-    static rtc::scoped_refptr<Data> Create(vector_type&& entries) {
-      // Performance optimization for the empty case.
-      if (entries.empty()) {
-        return nullptr;
-      }
-
-      return new Data(std::move(entries));
-    }
+    explicit Data(const vector_type& entries) : entries_(entries) {}
+    explicit Data(vector_type&& entries) : entries_(std::move(entries)) {}
+    ~Data() {}
 
     const vector_type& entries() const { return entries_; }
 
    private:
-    explicit Data(const vector_type& entries) : entries_(entries) {}
-    explicit Data(vector_type&& entries) : entries_(std::move(entries)) {}
-    ~Data() override {}
-
     const vector_type entries_;
   };
 
@@ -122,7 +121,7 @@ class RTC_EXPORT RtpPacketInfos {
     }
   }
 
-  rtc::scoped_refptr<Data> data_;
+  rtc::Ref<Data>::Ptr data_;
 };
 
 }  // namespace webrtc

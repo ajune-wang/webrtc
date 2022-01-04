@@ -143,6 +143,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "e97f6c43_02d88be6",
+        "filename": "pc/media_stream.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 76,
+      "author": {
+        "id": 5508
+      },
+      "writtenOn": "2022-01-04T11:31:56Z",
+      "side": 1,
+      "message": "Just checking if the semantics are still the same... both before and after will add one ref count, not take ownership of a refcount passed to AddTrack, correct?",
+      "parentUuid": "33b56b05_c877d89f",
+      "revId": "1a0bfb1cbecdc7fad4e0eacd065c9a1293c1d187",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "ac8c3600_3d1f596f",
         "filename": "pc/peer_connection.cc",
         "patchSetId": 1
@@ -154,6 +172,24 @@
       "writtenOn": "2022-01-04T09:00:16Z",
       "side": 1,
       "message": "This is an API change that was work-in-progress, but without a tracking bug, it seems.",
+      "revId": "1a0bfb1cbecdc7fad4e0eacd065c9a1293c1d187",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "010cb252_b44805a2",
+        "filename": "pc/peer_connection.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 852,
+      "author": {
+        "id": 5508
+      },
+      "writtenOn": "2022-01-04T11:31:56Z",
+      "side": 1,
+      "message": "how many AddRef/Release calls happen now vs before?",
+      "parentUuid": "ac8c3600_3d1f596f",
       "revId": "1a0bfb1cbecdc7fad4e0eacd065c9a1293c1d187",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
@@ -247,6 +283,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "58ee5048_e5268fd3",
+        "filename": "pc/peer_connection_factory.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 288,
+      "author": {
+        "id": 5508
+      },
+      "writtenOn": "2022-01-04T11:31:56Z",
+      "side": 1,
+      "message": "These are tricky changes. If the refcount of the returned object from Create(), is 0, then scoped_refptr increments it to 1. If the `source` object has the same reference count, then this temporary variable could cause the object to be deleted (if in some situation Create() wouldn\u0027t also increment the refcount).\n\nCan we separate these changes from the make_ref_counted changes?",
+      "parentUuid": "5a3f8ee0_47360c24",
+      "revId": "1a0bfb1cbecdc7fad4e0eacd065c9a1293c1d187",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "168d77f6_de39e52b",
         "filename": "pc/peer_connection_interface_unittest.cc",
         "patchSetId": 1
@@ -258,6 +312,24 @@
       "writtenOn": "2022-01-04T09:00:16Z",
       "side": 1,
       "message": "The StreamCollection interface has scoped_refptr for internal storage, but vends raw pointers. Another misdesign.",
+      "revId": "1a0bfb1cbecdc7fad4e0eacd065c9a1293c1d187",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "50a382fd_6a705cba",
+        "filename": "pc/peer_connection_interface_unittest.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 2460,
+      "author": {
+        "id": 5508
+      },
+      "writtenOn": "2022-01-04T11:31:56Z",
+      "side": 1,
+      "message": "It was the style back in the day 😊 \nclasses such as scoped_refptr were considered implementation utility classes, not meant to be a part of an interface. Having the convention being based on raw interface pointers was also a better fit for exposing objects across binary boundaries (WebRTC in Chrome was split across a couple of binaries some years ago).",
+      "parentUuid": "168d77f6_de39e52b",
       "revId": "1a0bfb1cbecdc7fad4e0eacd065c9a1293c1d187",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
@@ -363,6 +435,24 @@
       "writtenOn": "2022-01-04T11:30:48Z",
       "side": 1,
       "message": "The non-internal classes have proxies, so methods may be dispatched to other threads. We use -\u003einternal() to get at the inner object that doesn\u0027t have a proxy.\n\nThe internal() function is (I think) declared in api/proxy.h.\n\nAnyway, for a later CL.",
+      "parentUuid": "427b3423_18c63d17",
+      "revId": "1a0bfb1cbecdc7fad4e0eacd065c9a1293c1d187",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "98dede79_d312947d",
+        "filename": "pc/rtc_stats_collector.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 1665,
+      "author": {
+        "id": 5508
+      },
+      "writtenOn": "2022-01-04T11:31:56Z",
+      "side": 1,
+      "message": "The `internal()` concept seems fragile to me for two reasons.\n* It often seems to be used to bypass threading rules.\n* It seems to have come about because of mixing public interfaces with internal code.\n\nBefore adding more to it, I think we could consider whether this is something we want continue with or if an alternate approach would be preferable.",
       "parentUuid": "427b3423_18c63d17",
       "revId": "1a0bfb1cbecdc7fad4e0eacd065c9a1293c1d187",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"

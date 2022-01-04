@@ -1,0 +1,90 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "0172e533_e891c7fa",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 3
+      },
+      "lineNbr": 14,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2022-01-04T15:19:27Z",
+      "side": 1,
+      "message": "Could also mention removal of redundant(?) logging.",
+      "range": {
+        "startLine": 13,
+        "startChar": 0,
+        "endLine": 14,
+        "endChar": 28
+      },
+      "revId": "4ad6582e4bc20a5cf73c2368dc64a1a8a8af5539",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "f8e2ff50_ecb4671c",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 3
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2022-01-04T15:19:27Z",
+      "side": 1,
+      "message": "lgtm % nits",
+      "revId": "4ad6582e4bc20a5cf73c2368dc64a1a8a8af5539",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "e47b1438_d76e9cb8",
+        "filename": "pc/channel.h",
+        "patchSetId": 3
+      },
+      "lineNbr": 307,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2022-01-04T15:19:27Z",
+      "side": 1,
+      "message": "Add _n suffix, for consistency?",
+      "range": {
+        "startLine": 307,
+        "startChar": 7,
+        "endLine": 307,
+        "endChar": 33
+      },
+      "revId": "4ad6582e4bc20a5cf73c2368dc64a1a8a8af5539",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "5d4c5766_57304282",
+        "filename": "pc/channel.h",
+        "patchSetId": 3
+      },
+      "lineNbr": 442,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2022-01-04T15:19:27Z",
+      "side": 1,
+      "message": "Unrelated move?",
+      "range": {
+        "startLine": 442,
+        "startChar": 0,
+        "endLine": 442,
+        "endChar": 58
+      },
+      "revId": "4ad6582e4bc20a5cf73c2368dc64a1a8a8af5539",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

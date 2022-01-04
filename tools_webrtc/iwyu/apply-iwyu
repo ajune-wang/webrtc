@@ -34,7 +34,7 @@ else
 fi
 
 # IWYU has a confusing set of exit codes. Discard it.
-iwyu -Xiwyu --no_fwd_decls -D__X86_64__  -DWEBRTC_POSIX -I . \
+iwyu -Xiwyu --no_fwd_decls -D__X86_64__  -DWEBRTC_POSIX -I . -std=c++17 \
   -I third_party/abseil-cpp \
   -I third_party/googletest/src/googlemock/include \
   -I third_party/googletest/src/googletest/include \

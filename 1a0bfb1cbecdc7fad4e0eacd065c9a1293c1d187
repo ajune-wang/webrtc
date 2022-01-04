@@ -54,6 +54,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "abbbd6e6_cf108883",
+        "filename": "pc/connection_context.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 79,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2022-01-04T09:48:10Z",
+      "side": 1,
+      "message": "Not without fixes to rtc::make_ref_counted; it can\u0027t deal with this type, that is declared as \n\nclass ConnectionContext final : public rtc::RefCountedNonVirtual\u003cConnectionContext\u003e",
+      "parentUuid": "2fad7246_6697d84d",
+      "revId": "1a0bfb1cbecdc7fad4e0eacd065c9a1293c1d187",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "34f5b427_33e62150",
         "filename": "pc/media_stream.cc",
         "patchSetId": 1
@@ -65,6 +83,24 @@
       "writtenOn": "2022-01-04T09:00:16Z",
       "side": 1,
       "message": "Ouch. Taking ownership of a raw pointer. can you add a TODO here to change the API?",
+      "revId": "1a0bfb1cbecdc7fad4e0eacd065c9a1293c1d187",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "33b56b05_c877d89f",
+        "filename": "pc/media_stream.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 76,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2022-01-04T09:48:10Z",
+      "side": 1,
+      "message": "Adding a comment and TODO in api/media_stream_interface.h, where the corresponding public methods are declared. I guess this private helper method could be changed right away to take a scoped_refptr, what do you think?",
+      "parentUuid": "34f5b427_33e62150",
       "revId": "1a0bfb1cbecdc7fad4e0eacd065c9a1293c1d187",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
@@ -103,6 +139,24 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "e0e778ec_95a2ebea",
+        "filename": "pc/peer_connection.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 1185,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2022-01-04T09:48:10Z",
+      "side": 1,
+      "message": "At least there\u0027s a TODO (assigned hbos) where this is declared on PeerConnectionInterface.",
+      "parentUuid": "be4509c7_f04d70d0",
+      "revId": "1a0bfb1cbecdc7fad4e0eacd065c9a1293c1d187",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "41f77b70_947cc6bb",
@@ -116,6 +170,24 @@
       "writtenOn": "2022-01-04T09:00:16Z",
       "side": 1,
       "message": "Can this be done with make_refptr?",
+      "revId": "1a0bfb1cbecdc7fad4e0eacd065c9a1293c1d187",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "a659e43f_a61c563b",
+        "filename": "pc/peer_connection_end_to_end_unittest.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 263,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2022-01-04T09:48:10Z",
+      "side": 1,
+      "message": "Seems to work. I\u0027ll try to do that consistently in this file.",
+      "parentUuid": "41f77b70_947cc6bb",
       "revId": "1a0bfb1cbecdc7fad4e0eacd065c9a1293c1d187",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
@@ -173,6 +245,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "2c745905_a8d48b5f",
+        "filename": "pc/rtc_stats_collector.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 1227,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2022-01-04T09:48:10Z",
+      "side": 1,
+      "message": "In the standard library, there\u0027s shared_from_this, and to use it, you have to inherit std::enable_shared_from_this. I don\u0027t know the details on how that works, but I guess it somehow places the refcount at a known place. So it seems to be a known usecase.",
+      "parentUuid": "1b0b7a5f_454af07e",
+      "revId": "1a0bfb1cbecdc7fad4e0eacd065c9a1293c1d187",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "4f4a4344_579b94f6",
         "filename": "pc/rtc_stats_collector.cc",
         "patchSetId": 1
@@ -184,6 +274,24 @@
       "writtenOn": "2022-01-04T09:00:16Z",
       "side": 1,
       "message": "Do these indicate a need for an \"internalRefptr\" function in addition to \"internal\"?",
+      "revId": "1a0bfb1cbecdc7fad4e0eacd065c9a1293c1d187",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "427b3423_18c63d17",
+        "filename": "pc/rtc_stats_collector.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 1665,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2022-01-04T09:48:10Z",
+      "side": 1,
+      "message": "No idea, I haven\u0027t grokked the use of \"...Internal\" classes in this code.",
+      "parentUuid": "4f4a4344_579b94f6",
       "revId": "1a0bfb1cbecdc7fad4e0eacd065c9a1293c1d187",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }

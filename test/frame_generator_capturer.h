@@ -162,7 +162,6 @@ class FrameGeneratorCapturer : public TestVideoCapturer {
 
   int source_fps_ RTC_GUARDED_BY(&lock_);
   int target_capture_fps_ RTC_GUARDED_BY(&lock_);
-  absl::optional<int> wanted_fps_ RTC_GUARDED_BY(&lock_);
   VideoRotation fake_rotation_ = kVideoRotation_0;
   absl::optional<ColorSpace> fake_color_space_ RTC_GUARDED_BY(&lock_);
 

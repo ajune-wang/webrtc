@@ -44,7 +44,6 @@ class TestVideoCapturer : public rtc::VideoSourceInterface<VideoFrame> {
 
  protected:
   void OnFrame(const VideoFrame& frame);
-  rtc::VideoSinkWants GetSinkWants();
 
  private:
   void UpdateVideoAdapter();

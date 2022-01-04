@@ -26,6 +26,7 @@ class MockVideoSinkInterfaceVideoFrame
   MOCK_METHOD(void, OnDiscardedFrame, (), (override));
 };
 }  // namespace
+
 TEST(FrameGeneratorCapturerTest, CreateFromConfig) {
   GlobalSimulatedTimeController time(Timestamp::Seconds(1000));
   FrameGeneratorCapturerConfig config;
@@ -41,5 +42,24 @@ TEST(FrameGeneratorCapturerTest, CreateFromConfig) {
       .Times(21);
   time.AdvanceTime(TimeDelta::Seconds(1));
 }
+
+TEST(FrameGeneratorCapturerTest, TestSinkWantsWithRestrictedFramerate) {
+  GlobalSimulatedTimeController time(Timestamp::Seconds(1000));
+  FrameGeneratorCapturerConfig config;
+  config.squares_video->width = 300;
+  config.squares_video->height = 200;
+  config.squares_video->framerate = 20;
+  auto capturer = FrameGeneratorCapturer::Create(
+      time.GetClock(), *time.GetTaskQueueFactory(), config);
+  testing::StrictMock<MockVideoSinkInterfaceVideoFrame> mock_sink;
+  rtc::VideoSinkWants wants;
+  wants.max_framerate_fps = 10;
+  capturer->AddOrUpdateSink(&mock_sink, wants);
+  capturer->Start();
+  EXPECT_CALL(mock_sink, OnFrame(Property(&VideoFrame::width, Eq(300))))
+      .Times(11);
+  time.AdvanceTime(TimeDelta::Seconds(1));
+}
+
 }  // namespace test
 }  // namespace webrtc

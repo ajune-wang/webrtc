@@ -63,10 +63,6 @@ void TestVideoCapturer::OnFrame(const VideoFrame& original_frame) {
   }
 }
 
-rtc::VideoSinkWants TestVideoCapturer::GetSinkWants() {
-  return broadcaster_.wants();
-}
-
 void TestVideoCapturer::AddOrUpdateSink(
     rtc::VideoSinkInterface<VideoFrame>* sink,
     const rtc::VideoSinkWants& wants) {

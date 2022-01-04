@@ -161,6 +161,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "61525569_275a6f95",
+        "filename": "pc/media_stream.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 76,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2022-01-04T14:20:54Z",
+      "side": 1,
+      "message": "On the previous ps, semantics were intended to be exactly the same, just explicit rather than implicit invocation of the same rtc::scoped_refptr constructor.\n\nUpdated to do that in the two callers instead, and use std::move + emplace_back in an attempt to minimize refcount updates.",
+      "parentUuid": "e97f6c43_02d88be6",
+      "revId": "1a0bfb1cbecdc7fad4e0eacd065c9a1293c1d187",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "ac8c3600_3d1f596f",
         "filename": "pc/peer_connection.cc",
         "patchSetId": 1
@@ -190,6 +208,24 @@
       "side": 1,
       "message": "how many AddRef/Release calls happen now vs before?",
       "parentUuid": "ac8c3600_3d1f596f",
+      "revId": "1a0bfb1cbecdc7fad4e0eacd065c9a1293c1d187",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "edf02a4d_55b55fa2",
+        "filename": "pc/peer_connection.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 852,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2022-01-04T14:20:54Z",
+      "side": 1,
+      "message": "No intended change in this cl, it\u0027s just invoking the constructor more explicitly.",
+      "parentUuid": "010cb252_b44805a2",
       "revId": "1a0bfb1cbecdc7fad4e0eacd065c9a1293c1d187",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
@@ -264,6 +300,24 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "975d1b10_cd957a4e",
+        "filename": "pc/peer_connection_end_to_end_unittest.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 263,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2022-01-04T14:20:54Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "a659e43f_a61c563b",
+      "revId": "1a0bfb1cbecdc7fad4e0eacd065c9a1293c1d187",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "5a3f8ee0_47360c24",
@@ -301,6 +355,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "c89f7e8c_8ef34859",
+        "filename": "pc/peer_connection_factory.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 288,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2022-01-04T14:20:54Z",
+      "side": 1,
+      "message": "Note that this cl changes only the way the argument source argument is passed. And only appearance, unless I\u0027m missing something. Argument type is \n\n  const rtc::scoped_refptr\u003cAudioSourceInterface\u003e\u0026 source\n  \nIt should arguably be just rtc::scoped_refptr\u003cAudioSourceInterface\u003e, to enable std::move all the way to where it is ultimately assigned.\n\nAnd the return value from AudioTrack::Create already is a refptr, so one could use track \u003d ... instead.",
+      "parentUuid": "58ee5048_e5268fd3",
+      "revId": "1a0bfb1cbecdc7fad4e0eacd065c9a1293c1d187",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "168d77f6_de39e52b",
         "filename": "pc/peer_connection_interface_unittest.cc",
         "patchSetId": 1
@@ -330,6 +402,24 @@
       "side": 1,
       "message": "It was the style back in the day 😊 \nclasses such as scoped_refptr were considered implementation utility classes, not meant to be a part of an interface. Having the convention being based on raw interface pointers was also a better fit for exposing objects across binary boundaries (WebRTC in Chrome was split across a couple of binaries some years ago).",
       "parentUuid": "168d77f6_de39e52b",
+      "revId": "1a0bfb1cbecdc7fad4e0eacd065c9a1293c1d187",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "750a8e74_dbb8a106",
+        "filename": "pc/peer_connection_interface_unittest.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 2460,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2022-01-04T14:20:54Z",
+      "side": 1,
+      "message": "Makes sense in it\u0027s own old-fashioned way...",
+      "parentUuid": "50a382fd_6a705cba",
       "revId": "1a0bfb1cbecdc7fad4e0eacd065c9a1293c1d187",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
@@ -454,6 +544,24 @@
       "side": 1,
       "message": "The `internal()` concept seems fragile to me for two reasons.\n* It often seems to be used to bypass threading rules.\n* It seems to have come about because of mixing public interfaces with internal code.\n\nBefore adding more to it, I think we could consider whether this is something we want continue with or if an alternate approach would be preferable.",
       "parentUuid": "427b3423_18c63d17",
+      "revId": "1a0bfb1cbecdc7fad4e0eacd065c9a1293c1d187",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "f56efae5_192839b1",
+        "filename": "pc/rtc_stats_collector.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 1665,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2022-01-04T14:20:54Z",
+      "side": 1,
+      "message": "What I\u0027m still a bit confused by is the distinction between RtpSenderInterface and the interface of RtpSenderInternal. But unrelated to this cl.",
+      "parentUuid": "98dede79_d312947d",
       "revId": "1a0bfb1cbecdc7fad4e0eacd065c9a1293c1d187",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }

@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "12a77191_fe4f3368",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2022-01-04T07:59:43Z",
+      "side": 1,
+      "message": "PTAL, broken out from the wip cl https://webrtc-review.googlesource.com/c/src/+/242363",
+      "revId": "1a0bfb1cbecdc7fad4e0eacd065c9a1293c1d187",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

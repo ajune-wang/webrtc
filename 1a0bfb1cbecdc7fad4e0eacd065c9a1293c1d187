@@ -16,6 +16,176 @@
       "message": "PTAL, broken out from the wip cl https://webrtc-review.googlesource.com/c/src/+/242363",
       "revId": "1a0bfb1cbecdc7fad4e0eacd065c9a1293c1d187",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "10ce3053_f0f5538e",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2022-01-04T09:00:16Z",
+      "side": 1,
+      "message": "This demonstrates very nicely why implicit conversion leads to sloppy API design. Nice working!\n\nLots of comments, but mostly about whether we should add TODOs to do something about these APIs later (and, in some cases, what we should do about them).",
+      "revId": "1a0bfb1cbecdc7fad4e0eacd065c9a1293c1d187",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "2fad7246_6697d84d",
+        "filename": "pc/connection_context.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 79,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2022-01-04T09:00:16Z",
+      "side": 1,
+      "message": "Can this be done with make_refptr?",
+      "revId": "1a0bfb1cbecdc7fad4e0eacd065c9a1293c1d187",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "34f5b427_33e62150",
+        "filename": "pc/media_stream.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 76,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2022-01-04T09:00:16Z",
+      "side": 1,
+      "message": "Ouch. Taking ownership of a raw pointer. can you add a TODO here to change the API?",
+      "revId": "1a0bfb1cbecdc7fad4e0eacd065c9a1293c1d187",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "ac8c3600_3d1f596f",
+        "filename": "pc/peer_connection.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 852,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2022-01-04T09:00:16Z",
+      "side": 1,
+      "message": "This is an API change that was work-in-progress, but without a tracking bug, it seems.",
+      "revId": "1a0bfb1cbecdc7fad4e0eacd065c9a1293c1d187",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "be4509c7_f04d70d0",
+        "filename": "pc/peer_connection.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 1185,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2022-01-04T09:00:16Z",
+      "side": 1,
+      "message": "Ouch here too.",
+      "revId": "1a0bfb1cbecdc7fad4e0eacd065c9a1293c1d187",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "41f77b70_947cc6bb",
+        "filename": "pc/peer_connection_end_to_end_unittest.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 263,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2022-01-04T09:00:16Z",
+      "side": 1,
+      "message": "Can this be done with make_refptr?",
+      "revId": "1a0bfb1cbecdc7fad4e0eacd065c9a1293c1d187",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "5a3f8ee0_47360c24",
+        "filename": "pc/peer_connection_factory.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 288,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2022-01-04T09:00:16Z",
+      "side": 1,
+      "message": "AudioTrack::Create should have returned a refptr, of course. Sigh.",
+      "revId": "1a0bfb1cbecdc7fad4e0eacd065c9a1293c1d187",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "168d77f6_de39e52b",
+        "filename": "pc/peer_connection_interface_unittest.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 2460,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2022-01-04T09:00:16Z",
+      "side": 1,
+      "message": "The StreamCollection interface has scoped_refptr for internal storage, but vends raw pointers. Another misdesign.",
+      "revId": "1a0bfb1cbecdc7fad4e0eacd065c9a1293c1d187",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "1b0b7a5f_454af07e",
+        "filename": "pc/rtc_stats_collector.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 1227,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2022-01-04T09:00:16Z",
+      "side": 1,
+      "message": "Is it an OK design pattern to take a scoped_refptr(this)?\nSeems to me the class knows it\u0027s refcounted, so it \"should be OK\", in some sense, but it \"feels weird\" to me.\n\nFor ease of conversion, it\u0027s what we should do anyway, but I wonder if it is an OK pattern or something to be avoided.",
+      "revId": "1a0bfb1cbecdc7fad4e0eacd065c9a1293c1d187",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "4f4a4344_579b94f6",
+        "filename": "pc/rtc_stats_collector.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 1665,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2022-01-04T09:00:16Z",
+      "side": 1,
+      "message": "Do these indicate a need for an \"internalRefptr\" function in addition to \"internal\"?",
+      "revId": "1a0bfb1cbecdc7fad4e0eacd065c9a1293c1d187",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

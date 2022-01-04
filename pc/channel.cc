@@ -268,18 +268,18 @@ void BaseChannel::Enable(bool enable) {
 
 bool BaseChannel::SetLocalContent(const MediaContentDescription* content,
                                   SdpType type,
-                                  std::string* error_desc) {
+                                  std::string& error_desc) {
   RTC_DCHECK_RUN_ON(worker_thread());
   TRACE_EVENT0("webrtc", "BaseChannel::SetLocalContent");
-  return SetLocalContent_w(content, type, error_desc);
+  return SetLocalContent_w(content, type, &error_desc);
 }
 
 bool BaseChannel::SetRemoteContent(const MediaContentDescription* content,
                                    SdpType type,
-                                   std::string* error_desc) {
+                                   std::string& error_desc) {
   RTC_DCHECK_RUN_ON(worker_thread());
   TRACE_EVENT0("webrtc", "BaseChannel::SetRemoteContent");
-  return SetRemoteContent_w(content, type, error_desc);
+  return SetRemoteContent_w(content, type, &error_desc);
 }
 
 bool BaseChannel::SetPayloadTypeDemuxingEnabled(bool enabled) {

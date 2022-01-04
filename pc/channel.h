@@ -153,10 +153,10 @@ class BaseChannel : public ChannelInterface,
   // Channel control
   bool SetLocalContent(const MediaContentDescription* content,
                        webrtc::SdpType type,
-                       std::string* error_desc) override;
+                       std::string& error_desc) override;
   bool SetRemoteContent(const MediaContentDescription* content,
                         webrtc::SdpType type,
-                        std::string* error_desc) override;
+                        std::string& error_desc) override;
   // Controls whether this channel will receive packets on the basis of
   // matching payload type alone. This is needed for legacy endpoints that
   // don't signal SSRCs or use MID/RID, but doesn't make sense if there is

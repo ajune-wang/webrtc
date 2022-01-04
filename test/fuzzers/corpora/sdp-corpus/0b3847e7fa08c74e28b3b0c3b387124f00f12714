@@ -1,0 +1,16 @@
+v=0
+o=mozilv=0
+o=- 1656229333038673902 2 IN IP4 127.0.0.1
+s=-
+t=0 0
+a=group:BUNDLE audio video data
+a=msid-semantic: WMS Ppsa09YmDLBombOh5e8HqfqxEIPF69a46Hd4
+m=audio 9 UDP/TLS/RTP/SAVPF 111 103 104 9 0 8 106 105 13 126
+c=IN IP4 0.0.0.0
+a=rtcp:9 IN IP4 0.0.0.0
+a=ice-ufrag:1Jyk4q3nLIL5NiM?
+a=ice-pwd:GL8/iarMqPIhImfnsG2dyXlH
+a=fingerprint:sha-256 5A:16:96:94:B2:AC:60:27:64:C5:FE:46:6C:02:C0:CD:49:E3:E2:0B:5B:C9:
+a=''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''group:BUNDLE audio video data
+a=msid-semantic: M SaWpsP09YmDLBombOh5e8HqfqxEIPFÂÆžË6Hd4
+m=audio 9 UDP/TLS/RTP/SAngerprint:sha-256 AD:87:B3:11:E4:Eice-lite2:BA:EF8D2:3F:2E:AC:24:57:8Ep:aISACDC:%1ass

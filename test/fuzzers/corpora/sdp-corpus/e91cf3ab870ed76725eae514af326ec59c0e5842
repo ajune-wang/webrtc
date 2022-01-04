@@ -1,0 +1,4 @@
+v=0
+o=alice 2890=44526 28video526 IN IP4 host.atlantc.example.com
+s=hosamest.atvideo 51372 RTP/AVP 31
+a=rtpmap:10 H261/90000

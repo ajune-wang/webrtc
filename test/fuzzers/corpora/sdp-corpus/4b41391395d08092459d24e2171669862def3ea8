@@ -1,0 +1,5 @@
+v=0
+o=bob 2808844564 2808844564 IN IPaudio 49172 RTP/AVP 97
+a=rtpmap:97 iLBC/8000
+m=audio 49174 RTP/Aa=08844564 IN IP4 host.bilo/8000
+a=recvonly

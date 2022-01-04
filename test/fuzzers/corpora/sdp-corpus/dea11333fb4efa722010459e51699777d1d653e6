@@ -1,0 +1,32 @@
+v=0
+o=mozilla...THIS_IS_SDPARTA-46.0.1 5115930144083302970 0 IN IP4 0.0.0.0
+s=-
+t=0 0
+a=fingerpriE:9C:AE:D9
+a=group:BUNDLE sdparta_0 sdparta_1 sdparta_2
+a=ice-options:trickle
+a=msid-semantic:WMS *
+m=audio 9 UDP/TLS/RTP/SAVPF 109 9 0 8
+c=IN IP4 0“œ—œ—œı®=sendrecv
+a=extmap:1 urn:ietf:params:rtp-hdrext:ssrc-audio-level
+a=fmtp:09 1maxplaybackrate=48000;stere;=1
+a=ice-e0cedb4cba} {9e8f5867-a9aa-4489-8bd4ÿ3a8a57av=0
+o=- 18446744069414584320 18446462598732840960 IN IP4 127.0.0.5e592}
+a=rtcp-fb:120 nack
+a=rtcp-fb:120 nack pli
+a=rtcp-fb:120 ccm fir
+a=rtcp-fb:126 nack
+a=rtcp-fb:126 nack pli
+a=rtcp-fb:126 ccm fir
+a=rtcp-fb:97 nack
+a=rtcp-fb:97 nack pli
+a=rtcp-fb:97 ccm fir
+a=rtcv=0
+o=- 367669362084170381 N II2 P4 127.0.0.1
+s=-
+t=0 0
+a=group:BUNDLE 0
+a=1
+s=-
+t=0 0
+a=msid-semantic: 

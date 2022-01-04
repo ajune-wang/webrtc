@@ -1,0 +1,19 @@
+v=0
+o=- 1656229333038673902 2 IN IP4 127.0.0.1
+s=-
+t=0 0
+a=group:BUNDLE audio:0WMS Ppsa09YmDLBombOh5e8HqfqxEIPF69a46Hd4
+m=audio 9 UDP/TLS/RTP/srflx 111 103 104 9 0 8 106 105 13 106
+c=IN IP4 0.0.0.0
+a=rtcp:9 IN IP4 0.0.0.0
+a=ice-ufrag1J:yk4q3nLIL5NiMx
+a=icIN IP4 0.0.0.0
+a=ice-ufraVPF 111 103 104
+c=IN IP4 74.125.127.126
+a=rtcp:.0.0
+a=sendrecv
+a=fmtp:126 profile-level-id=42e01f;level-as.THIS_IS_SDPARTA-46.0.1 5115930144083302970 0 IN IP4 0.0.0.0
+s=-
+t=0 0
+a=fingerprint:sha-k pli
+a=rtion-mode=1¥-level-:CF:36:C5:3on-mode=1¥-level-:CF:36:C5:30:8F:35ifmt:F

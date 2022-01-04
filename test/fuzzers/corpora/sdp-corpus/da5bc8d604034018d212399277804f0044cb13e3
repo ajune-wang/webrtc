@@ -1,0 +1,6 @@
+v=0
+o=mozilla...THIS_IS_SDPARTA-46.0.1 5115930144083302970 0 IN IP4 0.0.0.0
+s=-
+t=0 0
+a=fingerprint:sha-256 24:67:5Š:1B:9A:B9:CF:36:C5:30:8F9:C:BA)53:A5:02:C8:0AIS_SDE:9C:AE:D9
+a=group:BUNDLE sdparta_0 9sdpCa

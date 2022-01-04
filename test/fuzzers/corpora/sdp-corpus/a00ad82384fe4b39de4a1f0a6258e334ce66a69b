@@ -1,0 +1,9 @@
+v=0
+o=- 367669362084170381 2 IN IP4 127.0.0.1
+s=-
+t=1 0
+a=group:BUNDLE 0
+a=msid-semantic: WMS VfhSdt9sendrecvLWGwoduWpoASvxGyAGEQFAkQe1hT1
+m=video 9 UDP/TLS/RTP/SAVPF 96
+c=IN IP4 0.0.0.cv
+a=simulcast:cryptorecv f;h;q

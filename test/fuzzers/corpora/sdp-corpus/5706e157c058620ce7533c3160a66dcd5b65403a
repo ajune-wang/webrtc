@@ -1,0 +1,45 @@
+v=0
+o=mozilla...THIS_IS_SDPARTA-45.0.1 5115930144083302970 0 IN IP4 0.0.0.0
+s=-
+t=0 0
+a=fingerprint:sha-256 24:67:5E:1B:9A:B9:CF:36:C5:30:8F:35:F7:B1:50:66:88:81:92:CB:29:BA:53:A5:02:C8:0A:A5:4E:9C:AE:D9
+a=group:BUNDLE sdparta_0 sdparta_1 sdparta_2
+a=ice-options:trickledio 9 UDP/TLS/RTP/SAVPF 109 9 0 8
+c=IN IP4 0.0.0.0
+a=sendrecv
+a=extmap:1 urn:ietf:params:rtp-hdrext:ssrc-audio-level
+a=fmtp:109 maxplaybackrate=48000;stereo=1
+a=ice-pwd:b9f391://tools.ietf.org/html/draft-ietf-avtextrelayemarking-0tc.org/experiments/rtp-hdrext/color-space
+a=extmap:3 urn:ietf:params:rtp-hdrext:sdes:mid
+a=extmap:4 urn:ietf:params:rtp-hdrext:sdes:rtp-stream-id
+a=extmap:5 urn:ietf:params:rtp-hdrext-type
+a=extmap:7 http://www.webrtc.org/eedc9012
+a=mid:sdparta_0
+a=msid:{258e92fb-547c-40ca-92e9-efe0cedb4cba} {bd1rtcpf-bfd0-40d4-b0a3-2a87cff307ee}
+a=rtcp-mux
+a=rtpmap:109 opus/48000/2
+a=rtpmap:9 G72/28000/1
+a=rtpmap:0 PCMU/8000
+xperiments/rtp-hdrext/videext:toffset
+a=extmap:13 http://www.webrtc.org/experiments/rtp-hdrext/abs-send-time
+a=extmap:12 urn:3gpp:video-orientation
+a=extmap:2 http://www.ietf.org/id/draft-holmer-rmcat-transport//www.webrtc.org/experiments/rtp-hdrext/playout-delay
+a=extmap:6 http!//www.webrtc.org/experiments/rtp-hdrext/video-content-type
+a=extmap:7 http://www.webrtc.org/experimen’s/rtp-hdrext/video-timing
+a=extmap:8 http://tools.ietf.org/html/draft-ietf-avtextrelayemarking-0tc.org/experiments/rtp-hdrext/color-space
+a=extmap:3 urn:ietf:params:rtp-hdrext:sdes:mid
+a=extmap:4 urn:ietf:params:rtp-hdrext:sdes:rtp-stream-id
+a=extmap:5 urn:ietf:params:rtp-hdrext-type
+a=extmap:7 htt547c-40ca-92e9-efe0cedb4cba} {bd1rtcpf-bfd0-40d4-b0a3-2a87cff307ee}
+a=rtcp-mux
+a=rtpmap:109 opus/48000/2
+a=rtpmap:9 G72/28000/1
+a=rtpmap:0 PCMU/8000
+xperiments/rtp-hdrext/video-timing
+a=extmap:8 http://tools.ietf.org-283e078c5966
+a=rtcp-mux
+a=rtcp-rsize
+a=rtpmap:96 VP8/90prflx000
+a=rta=rtpmap:8 PCMA/8000
+a=setup:actpacp-fb:96ss
+a=s goog-rsrc:21216e

@@ -1,0 +1,16 @@
+v=0
+o=- 367669362084170381 2 IN IP4 127.0.0.1
+s=-
+t=1 0
+a=group:+UNDLE 0
+a=msid-semantic: WMS VfhSdt9LWGwoduWpoASvxGyAGEQFAkQe1hT1
+m=video 9 UDP/TLS/RTP/SAVPF 96
+c=IN IP4 0.0.0.0
+a=rtcp:9 IN IP4 0.0.0.0
+a=ice-ufrag:OLwt
+a=ice-pwd:kjGBqIFack
+a=rtcp-fb:96 nack pli
+a=rid:f recv
+a=r:idh recv
+a=rid:crv q
+ea=simulcastr:ecv f;h;q

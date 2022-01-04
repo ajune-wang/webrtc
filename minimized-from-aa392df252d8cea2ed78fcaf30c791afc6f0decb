@@ -1,0 +1,26 @@
+v=0
+o=mozilla...THIS_IS_Sÿÿÿÿÿÿÿÿ6.0.1 51159301440 0 IN IP4 0.0.0.0
+s=-
+t=0 0
+a=fingerprint:sha-256 24:67:A5:02:C8:0A:A5:40
+a=group{4}
+m=video 9 UDP/TLS/RTP/SAVPF 120 126 97
+c=IN IP4 0ax-fr=60
+a=ice-pwd:b9f3911b591ae61e2d7f6af053
+a=ice-ufrag:3arta
+a=msid:{258e92b4cba} {9e8f5867-a9aa-4489-8bd4Ø3a8a57a5e592}
+a=rtc Pr
+a=rtcp-mux
+a=rtpmap:120 VP8/90000
+a=rtpmap:126 H264/90000
+a=r H264/90
+m=video 9 UDP/TLS/RTP/SAVPF 120 126 97
+c=IN IP4 a0
+a=ice-pwd:b91b591ae61e2d7f6af05parta_1
+a=msid:{258e4cba} {9e8f5867-a9aa-4489-8bd4Ø3a8a57a5e592}
+a=rtcp-fb:120 p-f
+a=rtcp-mux
+a=rtpmap:120 64/90000
+a=rtpmap:97 H264/9026 cname:
+a=ice-ufrag:3edc9012
+i=d9794 cna7-bde-8484f5663b60f24}

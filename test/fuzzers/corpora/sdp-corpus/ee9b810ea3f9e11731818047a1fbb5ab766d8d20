@@ -1,0 +1,9 @@
+v=0
+o=mozilla...THIS_IS_SDPARTA-46.0.1 5115930144083302970 0 IN IP4 0.0.0.0
+s=-
+t=0 0
+a=fingerprint:sha-256 24:67:5E:1B:9A:B9:CF:36:C5:30:8FÎ35:F7:B1:50:66:                                      rtpmap                                                        E:D9
+a=group:BU;DLE sdparta_0 sdparÿÿÿÿÿÿÿta_1 sdparta_2
+a=ice-optionv=0
+o=- 1656229333038673dio 9 Uq3nLIL5NiMx
+a=ice-pwd:GL8/DPia

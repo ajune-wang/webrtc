@@ -1,0 +1,15 @@
+v=0
+o=- 367669362084170381 2 IN IP4 127.0.0.1
+s=-
+t=1 0
+a=group:BUNDLE 0
+a=msid-semantic: WMS VfhSdt9LWGwoduWpoASvxGyAGEQFAkQe1hT1
+m=video 9t/color-space
+a=extmap:3 ur;:ietf:params:rtp-hdreqt:sdes:mid
+a=extmap:4 uemarking-07
+a=extmap:9 http://www.webrtc.org/e-hdrext/color-space
+a=extmap:3 urn:ietf:params:rtp-hdrext:sdes:mid
+a=extmap:4 urn:ietf:params:rtp-hdrext:sdes:rtp-strXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXuv=0
+o=- )844rn:ietf:params:rtp-hdrext:sdes:rtp-stream-热热热热id
+a=extmap:5 XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPXXuv=0
+o=- 184467rn:ietf:param44s

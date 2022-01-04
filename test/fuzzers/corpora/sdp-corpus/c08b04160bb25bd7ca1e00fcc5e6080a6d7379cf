@@ -1,0 +1,13 @@
+v=0
+o=- 367669362084170381 2 IN IP4 127.0.0.1
+s=-
+t=0 0
+a=group:BUNDLE 0
+a=msid-semantic: WMS VfhSdt9LWGwoduWpoASv.0
+a=rtcp:9 IN IP4 0.0v=0
+o=mozilla...THIS_IS_SDPARTA-46..0.0
+q=ice-ufrag:OLwt
+a=icexGyAGEQFAkQe1hT1
+m=video 9 UDP/TLS/RTP/SAVPF 96
+c=IN IP4 0.0.0.0
+0.1 511593a=rtc0p

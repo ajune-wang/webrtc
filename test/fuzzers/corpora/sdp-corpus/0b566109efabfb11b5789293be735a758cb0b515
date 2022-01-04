@@ -1,0 +1,14 @@
+v=0
+o=- 367669362084170381 N II2 P4 127.0.0.1
+s=-
+t=0 0
+a=group:MS local_stream_1 locaa=rtcp-mux
+a=rtcp-rsize
+a=rtpmap:96 VP8/90000
+a=rtcp-fb:96 goog-remb
+a=rtcp-fb:96 transport-cc
+a=rtcp-fb:96 ccm fir
+a=r=0 0
+a=group:BUNDLE 0
+a=msid-semantic: WMS VfhS 16                                                                 D:4memarki    ng-  0 7
+ 

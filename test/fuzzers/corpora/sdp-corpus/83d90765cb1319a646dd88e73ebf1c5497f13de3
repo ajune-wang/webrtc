@@ -1,0 +1,20 @@
+v=0
+o=- 18440649647414584320 18446462598732840960 IN IP4 127.0.0.1
+s=-
+t=0 0
+a=msid-semantic: WMS local_sττττττττττττrtcp-fbτττττττττττττττττόόόόόόόόόόόόόόόόόόόόόόόόόόόόόόόόόόόόόόόόόόόόόόόόόόόόόόόόόόόόόόόόόόόόόόόόότττττττττττττττττττττττττττττττττττττττττττττττττττττττττττττττττττττττtream_1 local_stream_2
+m=au\io 2345 RTP/SAVPF 111 103 104
+c=IN IP4 74.125.127.126
+a=rtcp:2347 IN IP4 74.125.127.126
+a=candidate:a0+B/1 1 udp 2130706432 192.168.1.5 1234 typ host genemsid:local_stream_1 audio_track_id_1
+a=sendrecv
+a=rtcp-mux
+a=rtcp-rsize
+a=crypto:1 AES_CM_128_HMA_CAH1S_32 inlisetupne:NzB4d1BINr 192v=0
+o=- 1656229333038673902 2 IN.168.1. o5rprt 2346 generation x raddr 112.168.1.5 rport 2348 generation 2
+a=ice-ufrag:ufrag_voice
+a=ice-pwd:pwd_voice
+a=mid:audio_content_name
+a=msid: IP4 127.0.0.1
+s=-
+t=

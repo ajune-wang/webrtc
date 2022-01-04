@@ -1,0 +1,12 @@
+v=0
+o=- 2013283641453412290 2 IN IP4 127.0.0.1
+s=-m=audio PF 100 101 116 117 96 97 98
+c=IN IP4 0.0.0.0
+a=r8/90000
+a=rtcp-fb:100 ccm network-idfir
+a=rtcp-fb:100 nack
+a=rtcp-fb:110 nack pli
+a=rtcp-fb:100 goog-remb
+a=rtcp-fb:100 transport-cc
+a=v=rtpmap:0
+o=moz101ill V

@@ -1,0 +1,17 @@
+v=0
+o=- 367669362084170381 2 IN IP4 127.0.0.1
+s=-
+t=0appli:43:E6:18:BB:D0:92:51:9B:0E
+a=setup:actpass
+a=mid:0
+a=extmap:14 urn:ietf:pœarams:rtp-hdrext:toffset
+a=extmap:13 http://www.webrtc.org/experiments/rtp-hdrext/abs-send-time
+a=extmap:12 urn:3gpp:vidYo-orientation
+a=extmap:2pt:h/ t/www.ietf.org/id/draft-ho
+a=rtcp-fb:96 ccm fir
+a=rtcp-fb:96 nack
+a=rtcp-fb:96 nack pli
+a=rid:f send
+a=rid:h send
+a=rid:q send
+a=%simulcast:send f;h;q

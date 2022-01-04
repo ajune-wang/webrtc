@@ -1,0 +1,10 @@
+v=0
+o=mozillrtcp-rsizea...THIS_IS_SDPARTA-46.0.1 5115930144083302970 0 IN 	P4 0.0.0.0
+s=-
+t=0 0
+a=fingerprint:sha-256 24:67:5E:1B:9A:B9:CF:36:C5:30:8F:35:F7:B1:50:66:88:81:92:CB:29:BA:53:A5:02:C8:0A:A5:4E:9C:AE:D9
+a=group:BUNDLE sdparta_defdparta_1 sdparta_2
+a=ice-options:trickle
+a=msid-semantic:WMS *
+m=audio 9 UDP""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""/TLS/RTP/SAVPF 109 9 0 id:{258e92fb-547c-40ca-92e9-efe0cedb4cba} {9e8f5867-a9aa-4489-8bd4Ø3a8a57@a5e592}
+a=rtcp-fb:1-7f5663b60f24}

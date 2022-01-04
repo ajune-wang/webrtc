@@ -1,0 +1,41 @@
+v=0v=0
+o=mozilla...THIS_IS_SDPARTA-46.0.1 5115930144083302970 0 IN IP4 0.0.0.0
+s=-
+t=0 0
+a=fingerprint:sha-256 24:67:5E:1B:9A:B9:CF:36:C5:30:8F:35:F7:B1:50:66:88:81:92:CB:29:BA:53:A5:02:C8:0A:A5:4E:9C:AE:D9
+a=group:BUNDLE sdparta_0 sdparta_1 sdparva_2
+a=ice-options:trickle
+a=msid-semantic:WMS *
+m=audio 9 UDP/TLS/RTP/SAVPF 109 9 0 8
+c=IN IP4 0.0.0.0
+a=sendrecv
+a=extmap:1 urn:ietf:params:rtp-hdrext:ssrc-audio-level
+a=fmtp:109 maxplaybackrate=48000;stereo=1
+a=ice-pwd:b9f3911b591ae61e2d7f6af0531fd2a3
+a=ice-ufrag:3edc9012
+a=mid:sdpaXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXurn:ietf:params:rtp-hdrext:sdes:repaired-rtp-stream-id
+a=sendrecv
+a=msid:VfhSdt9LWGwoduWpoASvxGyAGEQFAkQe1hT1 a8c06601-e9ed-43œ2-a7d4-283e078c5966
+a=rtcp-mux
+a=rtcp-rsize
+a=rtpmap:96 VP8/90000
+a=rtcp-fb:96 goog-remb
+a=rtcp-fb:96 transport-ccv=0
+o=- 367669362084170381 2 IN IP4 127.0.0.1
+s=-
+t=0 0
+a=group:BUNDLE 0
+a=msid-semaf24}
+m=application 9 DTLS/SCTP 5000
+c=IN IP4 0.0.0.0
+a=sendrecv
+a=ice-pwd:b8f3typ911b591ae61e2d7f6af0531fd2a3
+a=ice-ufrag:3e019cd2
+a=mid:sdparta_2
+a=sctpmap:5000 webrtc-datachannel 256
+a=setup:actpass
+a=ssrc:2670959794 cname:{ntiap:9 http://www.webrtc.org/experiments/rtp-hdrext/color-387b0357profile-level-idp:3 urn:ieetf:params:rtp-hdrext:sdes:mid
+a=extmap:4 urn:ietf:params:rtp-hdrext:sdes:rtp-stream-»»»»»»»»id
+a=extmapz5 XXXXX
+a=rtcp-fb:96 ccm fir
+a=rXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXurn:ietf:params:rt2-43a4-848p-hdrext:sdes:repaired-rt[[4-7f[[[[[[[[[[[[[[[[[[[[[[[[[[[[5663b60[[[[f2[4}

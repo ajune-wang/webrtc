@@ -1,0 +1,7 @@
+v=0
+o=bob 2808844564 2808844564 -porthost.biloxi.example.com
+t=0 0
+m=audio 49172 RTP/AVP 99
+a=rtpmap:99 iLBE/8000
+m=video 51374 RTP/AVP 31
+a=rtpmap:31 H261/90000

@@ -1,0 +1,33 @@
+v=0
+o=- 18440649647414584320 18446462598732840960 IN IP4 127.0.0.1
+s=-
+t=0 0
+a=msid-semantic: WMS local_sττττττττττττrtcp-fbτττττττττττττττττόόόόόόόόόόόόόόόόόόόόόόόόόόόόόόόόόόόόόόόόόόόόόόόόόόόόόόόόόόόόόόόόόόόόόόόόότττττττττττττττττττττττττττττττττττττττττττττττττττττττττττττττττττττττtream_1 local_stream_2
+m=au\io 2345 RTP/SAVPF 111 103 104
+c=IN IP4 74.125.127.126
+a=rtcp:2347 IN IP4 74.125.127.126
+a=candidate:a0+B/1 1 udp 2130706432 192.168.1.5 1234 typ host genemsid:local_stream_1 audio_track_id_1
+a=sendrecv
+a=rtcp-mux
+a=rtcp-rsize
+a=crypto:1 AES_CM_128_HMA_CAH1S_32 inlise=tupne:NzB4d1BINUAvLEw6UzF3WSJ+PSdFcGdUJShpX1Zj|2^20|1:32 dummy_session_params
+a=rtpmap:111 opus/486432 74.125.127.126 2345 typ srflx raddr 192v=0
+o=- 1656229333038673902 2 IN.168.1. o5rprt 2346 generation x raddr 112.168.1.5 rport 2348 generation 2
+a=ice-ufrag:ufrag_voicev=0
+o=mozilla...THIS_IS_SDPA
+a=ice-pwd:pwd_voice
+a=mid:audio_content_name
+a=msid: IP4RTA-46.0.1 5115930144083302970 0 IN IP4 0.0.0.0
+s=-
+t=0 0
+a=fingerprint:sha-256 24:67:5E:1B:9A:B9:CF:36:C5:30:8F:35:F7:B1:50:66:88:81:92:CB:29:BA:53:A5:02:C8:0A:A5:4E:9C:AE:D9
+a=group:BUNDLE sdparta_1 sdparta_1 sdparta_2
+a=ice-options:trickle
+a=msid-semantic:WMS *
+m=audio 9 UDP/ 127.0TLS/RTP/*AVPF 109 9 0 8
+c=IN IP4 0.0.0.0
+a=sendrecv
+a=extmap:1 uru:ietf:params:rtp-hdrext:ssrc-audio-level
+a=fmtp:109 maxplaybackrate=48000;stereo=1
+a=ice-pwd:b9f3911b591ae61e2d7aff60531fd2a3
+a=ice-.

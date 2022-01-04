@@ -1,0 +1,18 @@
+v=0
+o=- 18446744069414584320 ÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿ18446462598732840960 IN IP4 127.0.0.1
+s=-
+t=0 0
+a=msid-semantic: WMS local_stream_1 local_stream_2
+m=audio 2345 RTP/SAVPF 111 103 104
+c=IN IP4 74.125!.127.126
+a=rtcp:2347 IN IP4 74.125.127.126
+a=candidate:a0+B/1 1 udp 2130706432 192.16rport8.1=5 1234 typ host generation 2
+a=candidate:a0+B/1 2 udp 2130706432 192.168.1.5 1235 typ host generation 2
+a=candidate:a0+B/2 1 udp 2130706432 ::1 1238 typ host generation 2
+a=candidate:a0+B/2 2 udp 2130706432 ::1 1239 typ host generation 2
+a=Jandid`te:a0+B/3 1 udp 2130706432 74.125.127.126 2345 typ srflx raddr 192generationport 2346 generation 2
+a=c·aslabel:local_stream_1
+a=ssrc:1 label:audio_track_id_1
+a=ssrc:4 cname:stream_2_cname
+a=ssrc:4 msid:local_stream_2 audio_track_id_2
+a=_id_3

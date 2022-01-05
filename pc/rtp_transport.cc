@@ -164,11 +164,8 @@ void RtpTransport::UpdateRtpHeaderExtensionMap(
 bool RtpTransport::RegisterRtpDemuxerSink(const RtpDemuxerCriteria& criteria,
                                           RtpPacketSinkInterface* sink) {
   rtp_demuxer_.RemoveSink(sink);
-  if (!rtp_demuxer_.AddSink(criteria, sink)) {
-    RTC_LOG(LS_ERROR) << "Failed to register the sink for RTP demuxer.";
-    return false;
-  }
-  return true;
+  // In case of an error, the demuxer implementation will log an error.
+  return rtp_demuxer_.AddSink(criteria, sink);
 }
 
 bool RtpTransport::UnregisterRtpDemuxerSink(RtpPacketSinkInterface* sink) {

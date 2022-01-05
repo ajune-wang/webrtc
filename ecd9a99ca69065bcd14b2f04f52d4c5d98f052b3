@@ -35,6 +35,23 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "8b7e0e1a_07bd19c2",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 4
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2022-01-05T12:02:32Z",
+      "side": 1,
+      "message": "+1 on general review and tests passing, but please fix hbos\u0027 comment before asking for submission.\n",
+      "revId": "ecd9a99ca69065bcd14b2f04f52d4c5d98f052b3",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "45ffcd0a_950781dc",

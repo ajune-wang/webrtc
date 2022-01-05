@@ -1,6 +1,23 @@
 {
   "comments": [
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "d3b50de4_cc88be51",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 7
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2022-01-05T09:07:30Z",
+      "side": 1,
+      "message": "LGTM in general, wonder if we should have even more RTC_DCHECKs.\n",
+      "revId": "c9acfe44ea220493b26bccd4fe58c20e59147f10",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "0a03f66f_b55b1024",
@@ -18,6 +35,24 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "30855897_2b4b62df",
+        "filename": "pc/channel.cc",
+        "patchSetId": 7
+      },
+      "lineNbr": 604,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2022-01-05T09:07:30Z",
+      "side": 1,
+      "message": "This is called once per media section.\nIn plan B, there may be multiple streams per media section - so some streams might get removed even though some removals fail. In Unified Plan, there\u0027s only one (unless simulcast?), so there can\u0027t be a halfway application.\n\nWe really ought to roll back all change when UpdateLocalStreams_w fails halfway through, but I don\u0027t think we do.\n\nAnyway, I\u0027d do this as a separate CL (and separate bug?), for clarity.",
+      "parentUuid": "0a03f66f_b55b1024",
+      "revId": "c9acfe44ea220493b26bccd4fe58c20e59147f10",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "6178614e_6c81d296",
@@ -31,6 +66,24 @@
       "writtenOn": "2022-01-04T21:17:23Z",
       "side": 1,
       "message": "this is new",
+      "revId": "c9acfe44ea220493b26bccd4fe58c20e59147f10",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "6c515453_a9362844",
+        "filename": "pc/channel.cc",
+        "patchSetId": 7
+      },
+      "lineNbr": 822,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2022-01-05T09:07:30Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "6178614e_6c81d296",
       "revId": "c9acfe44ea220493b26bccd4fe58c20e59147f10",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
@@ -54,6 +107,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "5262fa41_a711a24c",
+        "filename": "pc/channel.cc",
+        "patchSetId": 7
+      },
+      "lineNbr": 835,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2022-01-05T09:07:30Z",
+      "side": 1,
+      "message": "so the error message now loses the info that it was an audio description that failed, but since we retain the MID, that shouldn\u0027t be a big issue when debugging.\n\nI think this is OK.\n\nShould we have the RTC_DCHECK on all calls to the functions that return error message in this fashion?",
+      "parentUuid": "2a01c302_888a2369",
+      "revId": "c9acfe44ea220493b26bccd4fe58c20e59147f10",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "325e95a0_0fe397fc",
         "filename": "pc/channel.cc",
         "patchSetId": 7
@@ -65,6 +136,24 @@
       "writtenOn": "2022-01-04T21:17:23Z",
       "side": 1,
       "message": "new",
+      "revId": "c9acfe44ea220493b26bccd4fe58c20e59147f10",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "08bde779_8881b657",
+        "filename": "pc/channel.cc",
+        "patchSetId": 7
+      },
+      "lineNbr": 996,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2022-01-05T09:07:30Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "325e95a0_0fe397fc",
       "revId": "c9acfe44ea220493b26bccd4fe58c20e59147f10",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }

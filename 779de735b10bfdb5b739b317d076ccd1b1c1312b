@@ -247,6 +247,24 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "e034efb8_2d35f61a",
+        "filename": "modules/desktop_capture/linux/wayland/base_capturer_pipewire.cc",
+        "patchSetId": 11
+      },
+      "lineNbr": 36,
+      "author": {
+        "id": 8046
+      },
+      "writtenOn": "2022-01-05T13:45:36Z",
+      "side": 1,
+      "message": "You can see here why I did it this way: https://webrtc-review.googlesource.com/c/src/+/244507. I can now access screencast_stream() from the options in mouse cursor monitor implementation. There it feels natural, same as in the X11 implementation. I agree that this call might appear to be weird, but don\u0027t really know how to make it more reasonable.",
+      "parentUuid": "99c6e4ae_9122bb0c",
+      "revId": "779de735b10bfdb5b739b317d076ccd1b1c1312b",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "9529cb65_f364781d",

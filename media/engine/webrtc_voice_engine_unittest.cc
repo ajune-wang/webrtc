@@ -3894,7 +3894,7 @@ TEST(WebRtcVoiceEngineTest, CollectRecvCodecs) {
         webrtc::CreateDefaultTaskQueueFactory();
     rtc::scoped_refptr<webrtc::MockAudioEncoderFactory> unused_encoder_factory =
         webrtc::MockAudioEncoderFactory::CreateUnusedFactory();
-    rtc::scoped_refptr<webrtc::MockAudioDecoderFactory> mock_decoder_factory =
+    auto mock_decoder_factory =
         rtc::make_ref_counted<webrtc::MockAudioDecoderFactory>();
     EXPECT_CALL(*mock_decoder_factory.get(), GetSupportedDecoders())
         .WillOnce(Return(specs));

@@ -259,7 +259,7 @@ std::unique_ptr<webrtc::AudioDecoder> CreateForwardingMockDecoder(
 rtc::scoped_refptr<webrtc::AudioDecoderFactory>
 CreateForwardingMockDecoderFactory(
     webrtc::AudioDecoderFactory* real_decoder_factory) {
-  rtc::scoped_refptr<webrtc::MockAudioDecoderFactory> mock_decoder_factory =
+  auto mock_decoder_factory =
       rtc::make_ref_counted<StrictMock<webrtc::MockAudioDecoderFactory>>();
   EXPECT_CALL(*mock_decoder_factory, GetSupportedDecoders())
       .Times(AtLeast(1))

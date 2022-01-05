@@ -18,6 +18,23 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "4a688332_e18d7277",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 4
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2022-01-05T08:49:37Z",
+      "side": 1,
+      "message": "I think this looks good now, awaiting resolution of hbos\u0027 comments before submission.\n",
+      "revId": "ecd9a99ca69065bcd14b2f04f52d4c5d98f052b3",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "45ffcd0a_950781dc",
@@ -31,6 +48,23 @@
       "writtenOn": "2022-01-05T07:35:23Z",
       "side": 1,
       "message": "You should be able to delete this local constant and its old comment in favor of the one you added in time_utils.h",
+      "revId": "ecd9a99ca69065bcd14b2f04f52d4c5d98f052b3",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "76703a20_7e5ed3d4",
+        "filename": "rtc_base/time_utils.h",
+        "patchSetId": 4
+      },
+      "lineNbr": 36,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2022-01-05T08:49:37Z",
+      "side": 1,
+      "message": "Micro-nit: Comma is ungrammatical and should be deleted.",
       "revId": "ecd9a99ca69065bcd14b2f04f52d4c5d98f052b3",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }

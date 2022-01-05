@@ -54,6 +54,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "44da7b56_2b4bad98",
+        "filename": "api/rtp_packet_infos.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 98,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2022-01-05T09:01:02Z",
+      "side": 1,
+      "message": "I think I explained that below. The Data class doesn\u0027t declare or define the AddRef and Release methods, and therefore can\u0027t be used directly with scoped_refptr.\n\nI guess we should decide what\u0027s the right way for classes like this. Two options:\n\n1. Have it explicitly inherit RefCountedNonVirtual\u003cData\u003e, and update make_ref_counted to work correctly with types that include a refcount implementation.\n\n2. Let make_ref_counted\u003cData\u003e add the refcount itself by instantiating FinalRefcountedObject\u003cData\u003e, and update scoped_refptr so that scoped_refptr\u003cData\u003e works and can hold the returned pointer.\n\nI\u0027m leaning towards 1, since that makes it a bit more explicit that the type is designed to be refcounted. Which is in line with current webrtc design. In contrast, (2) would move us closer to the std::shared_ptr design.",
+      "parentUuid": "b5020a8b_c4cee063",
+      "revId": "be8b0a2f3d0c443dd35425669c764dbc9d1cbe2e",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "afa7f30b_b52a41aa",
         "filename": "api/rtp_packet_infos.h",
         "patchSetId": 2
@@ -65,6 +83,24 @@
       "writtenOn": "2022-01-05T08:44:13Z",
       "side": 1,
       "message": "Why are these two moved from private to public?",
+      "revId": "be8b0a2f3d0c443dd35425669c764dbc9d1cbe2e",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "65ae2b63_31b7e7ca",
+        "filename": "api/rtp_packet_infos.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 102,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2022-01-05T09:01:02Z",
+      "side": 1,
+      "message": "To make them accessible from rtc::make_ref_counted.",
+      "parentUuid": "afa7f30b_b52a41aa",
       "revId": "be8b0a2f3d0c443dd35425669c764dbc9d1cbe2e",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
@@ -106,6 +142,30 @@
       "side": 1,
       "message": "If it\u0027s in \"private\", I\u0027m not too worried, because it\u0027s an implementation detail; if it is exposed on a public API, I am worried.\n\nAs it is, the whole Data class is private, so it\u0027s less harmful than it would otherwise be. Is it possible to move the details of the Data class to the C++ file?",
       "parentUuid": "28766b36_833ed0e2",
+      "range": {
+        "startLine": 124,
+        "startChar": 2,
+        "endLine": 124,
+        "endChar": 21
+      },
+      "revId": "be8b0a2f3d0c443dd35425669c764dbc9d1cbe2e",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "7f190477_caf3e501",
+        "filename": "api/rtp_packet_infos.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 124,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2022-01-05T09:01:02Z",
+      "side": 1,
+      "message": "There currently is no .cc file, but I could give that a try.",
+      "parentUuid": "ce546a89_1471b67d",
       "range": {
         "startLine": 124,
         "startChar": 2,

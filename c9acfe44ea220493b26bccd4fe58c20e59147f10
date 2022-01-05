@@ -125,6 +125,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "5289ca43_1b5f4472",
+        "filename": "pc/channel.cc",
+        "patchSetId": 7
+      },
+      "lineNbr": 835,
+      "author": {
+        "id": 5508
+      },
+      "writtenOn": "2022-01-05T11:25:17Z",
+      "side": 1,
+      "message": "I think that would be a good thing since the error description is a part of the api. Perhaps there could be a better way to do that though than with a combination of a bool return value and a std::string\u0026 param, so we could think that through some more.\n\nAnother thing to consider is that methods such as SetLocalDescription, are designed to be asynchronous, yet in places our implementation is synchronous in ways that forces us to block and wait on threads. For example ApplyLocalDescription in SdpOfferAnswerHandler is called during the async operation, but it has a return value rather than a callback, so when things that need to happen on the worker or network threads are done as part of ApplyLocalDescription, the function is forced to block. As an alternative, we could break those steps up a bit more as well as aggregate work items per thread (to avoid too many Post operations) and take more advantage of the async design that\u0027s already in place, for more efficiency in the implementation.\n\nI guess that\u0027s a long way of saying that the current way of returning a bool+string in this function, isn\u0027t ideal for this function because it does hop to another thread and block. What makes it worse is that upstream, it\u0027s called in a loop, which multiplies the number of hops. Further still that loop is being waited upon by yet another thread (which is how we get to the Set*Description API level).",
+      "parentUuid": "5262fa41_a711a24c",
+      "revId": "c9acfe44ea220493b26bccd4fe58c20e59147f10",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "325e95a0_0fe397fc",
         "filename": "pc/channel.cc",
         "patchSetId": 7

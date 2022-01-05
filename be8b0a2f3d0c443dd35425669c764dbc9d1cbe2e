@@ -18,6 +18,57 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "571a82f7_80ab67ae",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2022-01-05T08:44:13Z",
+      "side": 1,
+      "message": "Agree that the workaround seems unergonomic, but not sure it matters enough, since this is in very implementation-ish things (private class).\n",
+      "revId": "be8b0a2f3d0c443dd35425669c764dbc9d1cbe2e",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "b5020a8b_c4cee063",
+        "filename": "api/rtp_packet_infos.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 98,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2022-01-05T08:44:13Z",
+      "side": 1,
+      "message": "This seems unnatural - if the reason for using Ref\u003cData\u003e rather than scoped_refptr\u003cData\u003e is that make_ref_counted doesn\u0027t work, that seems odd. Should the return type here remain scoped_refptr\u003cData\u003e?",
+      "revId": "be8b0a2f3d0c443dd35425669c764dbc9d1cbe2e",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "afa7f30b_b52a41aa",
+        "filename": "api/rtp_packet_infos.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 102,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2022-01-05T08:44:13Z",
+      "side": 1,
+      "message": "Why are these two moved from private to public?",
+      "revId": "be8b0a2f3d0c443dd35425669c764dbc9d1cbe2e",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "28766b36_833ed0e2",
@@ -31,6 +82,30 @@
       "writtenOn": "2022-01-04T15:50:35Z",
       "side": 1,
       "message": "Using rtc::scoped_refptr\u003cData\u003e fails, because the implementation of scoped_refptr doesn\u0027t see any AddRef and Release methods. rtc::Ref\u003cData\u003e::Ptr seems to be the solution to that problem. Alternatively, rtc::scoped_refptr\u003crtc::FinalRefCountedObject\u003cData\u003e\u003e.\n\nI find this a bit unergonomic, though. I\u0027d prefer if one could use rtc::scoped_refptr and rtc::make_ref_counted without ever explicitly mentioning the ref counting classes used by the implementation of make_ref_counted.",
+      "range": {
+        "startLine": 124,
+        "startChar": 2,
+        "endLine": 124,
+        "endChar": 21
+      },
+      "revId": "be8b0a2f3d0c443dd35425669c764dbc9d1cbe2e",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "ce546a89_1471b67d",
+        "filename": "api/rtp_packet_infos.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 124,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2022-01-05T08:44:13Z",
+      "side": 1,
+      "message": "If it\u0027s in \"private\", I\u0027m not too worried, because it\u0027s an implementation detail; if it is exposed on a public API, I am worried.\n\nAs it is, the whole Data class is private, so it\u0027s less harmful than it would otherwise be. Is it possible to move the details of the Data class to the C++ file?",
+      "parentUuid": "28766b36_833ed0e2",
       "range": {
         "startLine": 124,
         "startChar": 2,

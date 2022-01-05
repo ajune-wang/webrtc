@@ -1,0 +1,38 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "333a64c2_946f2f6e",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 8
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2022-01-05T23:13:01Z",
+      "side": 1,
+      "message": "Only a long gap is worrying me (I think). Otherwise, this is an improvement.\n",
+      "revId": "fc0f8cc99818598952efac9dc281262b9e73f17c",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "f1b0ccde_99420dff",
+        "filename": "pc/channel.cc",
+        "patchSetId": 8
+      },
+      "lineNbr": 659,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2022-01-05T23:13:01Z",
+      "side": 1,
+      "message": "With this code, it\u0027s a rather long stretch of code between the handled payload types being cleared (here) and being re-registered (line 725).\nAre we safe against packets arriving for demulitplexing inbetween these 2 points?\n\n(If there are no thread jumping functions, and demux happens on the worker thread, we should be.)",
+      "revId": "fc0f8cc99818598952efac9dc281262b9e73f17c",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

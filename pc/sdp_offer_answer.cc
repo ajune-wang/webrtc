@@ -4206,6 +4206,7 @@ void SdpOfferAnswerHandler::UpdateRemoteSendersList(
 void SdpOfferAnswerHandler::EnableSending() {
   TRACE_EVENT0("webrtc", "SdpOfferAnswerHandler::EnableSending");
   RTC_DCHECK_RUN_ON(signaling_thread());
+  // TODO(tommi): Accessing |channe()| should happen on the network thread.
   for (const auto& transceiver : transceivers()->ListInternal()) {
     cricket::ChannelInterface* channel = transceiver->channel();
     if (channel) {
@@ -5034,7 +5035,8 @@ bool SdpOfferAnswerHandler::UpdatePayloadTypeDemuxingState(
   // needs to be fully (and only) managed on the network thread and once that's
   // the case, there's no need to stop by on the worker. Ideally we could also
   // do this without blocking.
-  return pc_->worker_thread()->Invoke<bool>(
+  // TODO(tommi): Update this ^^^ comment.
+  return pc_->network_thread()->Invoke<bool>(
       RTC_FROM_HERE, [&channels_to_update]() {
         for (const auto& it : channels_to_update) {
           if (!it.second->SetPayloadTypeDemuxingEnabled(it.first)) {

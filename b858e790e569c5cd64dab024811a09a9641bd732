@@ -62,6 +62,29 @@
       },
       "revId": "b858e790e569c5cd64dab024811a09a9641bd732",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "5a96f167_c75e2f30",
+        "filename": "modules/desktop_capture/linux/wayland/base_capturer_pipewire.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 852,
+      "author": {
+        "id": 18474
+      },
+      "writtenOn": "2022-01-06T22:12:39Z",
+      "side": 1,
+      "message": "Also documenting/confirming that g_free is just a safe no-op if the ptr is null, since this looks to be unconditionally freed in the destructor as well?",
+      "range": {
+        "startLine": 852,
+        "startChar": 2,
+        "endLine": 852,
+        "endChar": 8
+      },
+      "revId": "b858e790e569c5cd64dab024811a09a9641bd732",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

@@ -1502,13 +1502,8 @@ void SdpOfferAnswerHandler::SetRemoteDescription(
         this_weak_ptr->DoSetRemoteDescription(
             std::move(desc),
             rtc::make_ref_counted<SetSessionDescriptionObserverAdapter>(
-                this_weak_ptr, observer_refptr));
-        // For backwards-compatability reasons, we declare the operation as
-        // completed here (rather than in a post), so that the operation chain
-        // is not blocked by this operation when the observer is invoked. This
-        // allows the observer to trigger subsequent offer/answer operations
-        // synchronously if the operation chain is now empty.
-        operations_chain_callback();
+                this_weak_ptr, observer_refptr),
+            std::move(operations_chain_callback));
       });
 }
 
@@ -1523,6 +1518,12 @@ void SdpOfferAnswerHandler::SetRemoteDescription(
       [this_weak_ptr = weak_ptr_factory_.GetWeakPtr(), observer,
        desc = std::move(desc)](
           std::function<void()> operations_chain_callback) mutable {
+        if (!observer) {
+          RTC_DLOG(LS_ERROR) << "SetRemoteDescription - observer is NULL.";
+          operations_chain_callback();
+          return;
+        }
+
         // Abort early if `this_weak_ptr` is no longer valid.
         if (!this_weak_ptr) {
           observer->OnSetRemoteDescriptionComplete(RTCError(
@@ -1531,12 +1532,10 @@ void SdpOfferAnswerHandler::SetRemoteDescription(
           operations_chain_callback();
           return;
         }
-        this_weak_ptr->DoSetRemoteDescription(std::move(desc),
-                                              std::move(observer));
-        // DoSetRemoteDescription() is implemented as a synchronous operation.
-        // The `observer` will already have been informed that it completed, and
-        // we can mark this operation as complete without any loose ends.
-        operations_chain_callback();
+
+        this_weak_ptr->DoSetRemoteDescription(
+            std::move(desc), std::move(observer),
+            std::move(operations_chain_callback));
       });
 }
 
@@ -2115,16 +2114,14 @@ void SdpOfferAnswerHandler::DoCreateAnswer(
 
 void SdpOfferAnswerHandler::DoSetRemoteDescription(
     std::unique_ptr<SessionDescriptionInterface> desc,
-    rtc::scoped_refptr<SetRemoteDescriptionObserverInterface> observer) {
+    rtc::scoped_refptr<SetRemoteDescriptionObserverInterface> observer,
+    std::function<void()> operations_chain_callback) {
   RTC_DCHECK_RUN_ON(signaling_thread());
+  RTC_DCHECK(observer);
   TRACE_EVENT0("webrtc", "SdpOfferAnswerHandler::DoSetRemoteDescription");
 
-  if (!observer) {
-    RTC_LOG(LS_ERROR) << "SetRemoteDescription - observer is NULL.";
-    return;
-  }
-
   if (!desc) {
+    operations_chain_callback();
     observer->OnSetRemoteDescriptionComplete(RTCError(
         RTCErrorType::INVALID_PARAMETER, "SessionDescription is NULL."));
     return;
@@ -2133,12 +2130,14 @@ void SdpOfferAnswerHandler::DoSetRemoteDescription(
   // If a session error has occurred the PeerConnection is in a possibly
   // inconsistent state so fail right away.
   if (session_error() != SessionError::kNone) {
+    operations_chain_callback();
     std::string error_message = GetSessionErrorMsg();
     RTC_LOG(LS_ERROR) << "SetRemoteDescription: " << error_message;
     observer->OnSetRemoteDescriptionComplete(
         RTCError(RTCErrorType::INTERNAL_ERROR, std::move(error_message)));
     return;
   }
+
   if (IsUnifiedPlan()) {
     if (pc_->configuration()->enable_implicit_rollback) {
       if (desc->GetType() == SdpType::kOffer &&
@@ -2148,15 +2147,18 @@ void SdpOfferAnswerHandler::DoSetRemoteDescription(
     }
     // Explicit rollback.
     if (desc->GetType() == SdpType::kRollback) {
+      operations_chain_callback();
       observer->OnSetRemoteDescriptionComplete(Rollback(desc->GetType()));
       return;
     }
   } else if (desc->GetType() == SdpType::kRollback) {
+    operations_chain_callback();
     observer->OnSetRemoteDescriptionComplete(
         RTCError(RTCErrorType::UNSUPPORTED_OPERATION,
                  "Rollback not supported in Plan B"));
     return;
   }
+
   if (desc->GetType() == SdpType::kOffer ||
       desc->GetType() == SdpType::kAnswer) {
     // Report to UMA the format of the received offer or answer.
@@ -2173,6 +2175,7 @@ void SdpOfferAnswerHandler::DoSetRemoteDescription(
   RTCError error = ValidateSessionDescription(desc.get(), cricket::CS_REMOTE,
                                               bundle_groups_by_mid);
   if (!error.ok()) {
+    operations_chain_callback();
     std::string error_message = GetSetDescriptionErrorMessage(
         cricket::CS_REMOTE, desc->GetType(), error);
     RTC_LOG(LS_ERROR) << error_message;
@@ -2189,6 +2192,7 @@ void SdpOfferAnswerHandler::DoSetRemoteDescription(
   // `desc` may be destroyed at this point.
 
   if (!error.ok()) {
+    operations_chain_callback();
     // If ApplyRemoteDescription fails, the PeerConnection could be in an
     // inconsistent state, so act conservatively here and set the session error
     // so that future calls to SetLocalDescription/SetRemoteDescription fail.
@@ -2200,6 +2204,7 @@ void SdpOfferAnswerHandler::DoSetRemoteDescription(
         RTCError(error.type(), std::move(error_message)));
     return;
   }
+
   RTC_DCHECK(remote_description());
 
   if (type == SdpType::kAnswer) {
@@ -2229,6 +2234,8 @@ void SdpOfferAnswerHandler::DoSetRemoteDescription(
       GenerateNegotiationNeededEvent();
     }
   }
+
+  operations_chain_callback();
 }
 
 void SdpOfferAnswerHandler::SetAssociatedRemoteStreams(

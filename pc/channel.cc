@@ -125,6 +125,7 @@ BaseChannel::BaseChannel(rtc::Thread* worker_thread,
       network_thread_(network_thread),
       signaling_thread_(signaling_thread),
       alive_(PendingTaskSafetyFlag::Create()),
+      network_alive_(PendingTaskSafetyFlag::CreateDetachedInactive()),
       srtp_required_(srtp_required),
       extensions_filter_(
           crypto_options.srtp.enable_encrypted_rtp_header_extensions
@@ -189,6 +190,7 @@ void BaseChannel::Init_w(webrtc::RtpTransportInternal* rtp_transport) {
   RTC_DCHECK_RUN_ON(worker_thread());
 
   network_thread_->Invoke<void>(RTC_FROM_HERE, [this, rtp_transport] {
+    network_alive_->SetAlive();
     SetRtpTransport(rtp_transport);
     // Both RTP and RTCP channels should be set, we can call SetInterface on
     // the media channel and it can set network options.
@@ -203,6 +205,7 @@ void BaseChannel::Deinit() {
   // derived classes destructor.
   network_thread_->Invoke<void>(RTC_FROM_HERE, [&] {
     RTC_DCHECK_RUN_ON(network_thread());
+    network_alive_->SetNotAlive();
     media_channel_->SetInterface(/*iface=*/nullptr);
 
     if (rtp_transport_) {
@@ -482,19 +485,28 @@ void BaseChannel::MaybeUpdateTransport_w(
   if (update_demuxer)
     media_channel()->OnDemuxerCriteriaUpdatePending();
 
-  network_thread()->Invoke<void>(RTC_FROM_HERE, [&]() mutable {
-    RTC_DCHECK_RUN_ON(network_thread());
-    // NOTE: This doesn't take the BUNDLE case in account meaning the RTP header
-    // extension maps are not merged when BUNDLE is enabled. This is fine
-    // because the ID for MID should be consistent among all the RTP transports.
-    if (extensions)
-      rtp_transport_->UpdateRtpHeaderExtensionMap(*extensions);
-    if (update_demuxer)
-      rtp_transport_->RegisterRtpDemuxerSink(demuxer_criteria_, this);
-  });
-
-  if (update_demuxer)
-    media_channel()->OnDemuxerCriteriaUpdateComplete();
+  network_thread_->PostTask(ToQueuedTask(
+      network_alive_, [this, update_demuxer, extensions = std::move(extensions),
+                       demuxer_criteria = demuxer_criteria_]() {
+        RTC_DCHECK_RUN_ON(network_thread());
+        // NOTE: This doesn't take the BUNDLE case in account meaning the RTP
+        // header extension maps are not merged when BUNDLE is enabled. This is
+        // fine because the ID for MID should be consistent among all the RTP
+        // transports.
+        if (extensions) {
+          RTC_LOG(LS_ERROR) << "Async transport update: ext";
+          rtp_transport_->UpdateRtpHeaderExtensionMap(*extensions);
+        }
+        if (update_demuxer) {
+          RTC_LOG(LS_ERROR) << "Async transport update: demuxer";
+          rtp_transport_->RegisterRtpDemuxerSink(demuxer_criteria, this);
+          worker_thread_->PostTask(ToQueuedTask(alive_, [this] {
+            RTC_LOG(LS_ERROR)
+                << "Async transport update: OnDemuxerCriteriaUpdateComplete";
+            media_channel()->OnDemuxerCriteriaUpdateComplete();
+          }));
+        }
+      }));
 }
 
 bool BaseChannel::RegisterRtpDemuxerSink_w() {
@@ -884,15 +896,13 @@ bool VoiceChannel::SetLocalContent_w(const MediaContentDescription* content,
   set_local_content_direction(content->direction());
   UpdateMediaSendRecvState_w();
 
-  RTC_DCHECK_BLOCK_COUNT_NO_MORE_THAN(0);
-
   MaybeUpdateTransport_w(
       criteria_modified,
       update_header_extensions
           ? absl::optional<RtpHeaderExtensions>(std::move(header_extensions))
           : absl::optional<RtpHeaderExtensions>());
 
-  RTC_DCHECK_BLOCK_COUNT_NO_MORE_THAN(1);
+  RTC_DCHECK_BLOCK_COUNT_NO_MORE_THAN(0);
 
   return true;
 }
@@ -1037,15 +1047,13 @@ bool VideoChannel::SetLocalContent_w(const MediaContentDescription* content,
   set_local_content_direction(content->direction());
   UpdateMediaSendRecvState_w();
 
-  RTC_DCHECK_BLOCK_COUNT_NO_MORE_THAN(0);
-
   MaybeUpdateTransport_w(
       criteria_modified,
       update_header_extensions
           ? absl::optional<RtpHeaderExtensions>(std::move(header_extensions))
           : absl::optional<RtpHeaderExtensions>());
 
-  RTC_DCHECK_BLOCK_COUNT_NO_MORE_THAN(1);
+  RTC_DCHECK_BLOCK_COUNT_NO_MORE_THAN(0);
 
   return true;
 }

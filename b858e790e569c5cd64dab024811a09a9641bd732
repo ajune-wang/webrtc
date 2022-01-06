@@ -1,0 +1,67 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "79d8face_e705a268",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 18474
+      },
+      "writtenOn": "2022-01-06T22:11:40Z",
+      "side": 1,
+      "message": "LGTM, assuming the current disconnect/unsubscribe calls leave us in a good/clean state.",
+      "revId": "b858e790e569c5cd64dab024811a09a9641bd732",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "cba6b098_e1d324e6",
+        "filename": "modules/desktop_capture/linux/wayland/base_capturer_pipewire.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 845,
+      "author": {
+        "id": 18474
+      },
+      "writtenOn": "2022-01-06T22:11:40Z",
+      "side": 1,
+      "message": "Just checking, does pw_stream_disconnect clear the passed in ptr? If not, should we?",
+      "range": {
+        "startLine": 845,
+        "startChar": 4,
+        "endLine": 845,
+        "endChar": 24
+      },
+      "revId": "b858e790e569c5cd64dab024811a09a9641bd732",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "e5e982f8_e0d47ed1",
+        "filename": "modules/desktop_capture/linux/wayland/base_capturer_pipewire.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 851,
+      "author": {
+        "id": 18474
+      },
+      "writtenOn": "2022-01-06T22:11:40Z",
+      "side": 1,
+      "message": "Same question: Does unsubscribe clear this (the signal id)/should we?",
+      "range": {
+        "startLine": 851,
+        "startChar": 45,
+        "endLine": 851,
+        "endChar": 70
+      },
+      "revId": "b858e790e569c5cd64dab024811a09a9641bd732",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

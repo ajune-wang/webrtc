@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "78b7f348_03539e74",
+        "filename": "pc/sdp_offer_answer.cc",
+        "patchSetId": 8
+      },
+      "lineNbr": 764,
+      "author": {
+        "id": 5508
+      },
+      "writtenOn": "2022-01-06T21:59:32Z",
+      "side": 1,
+      "message": "the order of these checks and member methods, is currently the same order in which they were as part of DoSetRemoteDescription. So it could be helpful to simply look at this class side by side with DoSetRemoteDescription.",
+      "revId": "9b9e2207b93a8cc20c2d44fe11346313993066b7",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

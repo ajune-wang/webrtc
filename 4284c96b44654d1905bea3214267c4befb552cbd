@@ -46,6 +46,30 @@
       },
       "revId": "4284c96b44654d1905bea3214267c4befb552cbd",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "b1fec583_45e7f019",
+        "filename": "call/rampup_tests.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 401,
+      "author": {
+        "id": 5087
+      },
+      "writtenOn": "2022-01-06T16:24:23Z",
+      "side": 1,
+      "message": "Ok, that makes sense. I was worrying about the scenario where \"ramp-up-rtx-media-sent\" increases (a regression compared to sending nothing) and the system will consider this an improvement.\n\nOn the other hand, if that happens we are probably going to see \"ramp-up-media-sent\" decrease (since we have to retransmit more) and the the system will flag the regression anyway.\n\nDoes it make sense or there could be situations where \"ramp-up-media-sent\" is unchanged and we just retransmit more?",
+      "parentUuid": "dcc06646_a6a3658c",
+      "range": {
+        "startLine": 400,
+        "startChar": 4,
+        "endLine": 401,
+        "endChar": 58
+      },
+      "revId": "4284c96b44654d1905bea3214267c4befb552cbd",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

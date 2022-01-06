@@ -250,7 +250,8 @@ class SdpOfferAnswerHandler : public SdpStateProvider,
       rtc::scoped_refptr<SetLocalDescriptionObserverInterface> observer);
   void DoSetRemoteDescription(
       std::unique_ptr<SessionDescriptionInterface> desc,
-      rtc::scoped_refptr<SetRemoteDescriptionObserverInterface> observer);
+      rtc::scoped_refptr<SetRemoteDescriptionObserverInterface> observer,
+      std::function<void()> operations_chain_callback);
 
   // Update the state, signaling if necessary.
   void ChangeSignalingState(
@@ -580,6 +581,8 @@ class SdpOfferAnswerHandler : public SdpStateProvider,
   // ===================================================================
   const cricket::AudioOptions& audio_options() { return audio_options_; }
   const cricket::VideoOptions& video_options() { return video_options_; }
+
+  class ApplyingRemoteDescription;
 
   PeerConnection* const pc_;
 

@@ -256,8 +256,16 @@ class BaseChannel : public ChannelInterface,
   void ChannelWritable_n() RTC_RUN_ON(network_thread());
   void ChannelNotWritable_n() RTC_RUN_ON(network_thread());
 
+<<<<<<< HEAD
   bool SetPayloadTypeDemuxingEnabled_w(bool enabled)
       RTC_RUN_ON(worker_thread());
+=======
+  bool AddRecvStream_w(const StreamParams& sp) RTC_RUN_ON(worker_thread());
+  bool RemoveRecvStream_w(uint32_t ssrc) RTC_RUN_ON(worker_thread());
+  void ResetUnsignaledRecvStream_w() RTC_RUN_ON(worker_thread());
+  bool AddSendStream_w(const StreamParams& sp) RTC_RUN_ON(worker_thread());
+  bool RemoveSendStream_w(uint32_t ssrc) RTC_RUN_ON(worker_thread());
+>>>>>>> 61dc9b14c1 (Some more incremental changes)
 
   // Should be called whenever the conditions for
   // IsReadyToReceiveMedia/IsReadyToSendMedia are satisfied (or unsatisfied).
@@ -289,16 +297,25 @@ class BaseChannel : public ChannelInterface,
 
   // Add `payload_type` to `demuxer_criteria_` if payload type demuxing is
   // enabled.
-  void MaybeAddHandledPayloadType(int payload_type) RTC_RUN_ON(worker_thread());
+  void MaybeAddHandledPayloadType_n(int payload_type)
+      RTC_RUN_ON(network_thread());
 
+<<<<<<< HEAD
+<<<<<<< HEAD
   // Returns true iff the demuxer payload type criteria was non-empty before
   // clearing.
   bool ClearHandledPayloadTypes() RTC_RUN_ON(worker_thread());
 
+=======
+>>>>>>> ac7fd60595 (ClearHandledPayloadTypes)
+=======
+  void ClearHandledPayloadTypes() RTC_RUN_ON(worker_thread());
+
+>>>>>>> 663d8fa152 (Revert "ClearHandledPayloadTypes")
   void UpdateRtpHeaderExtensionMap(
       const RtpHeaderExtensions& header_extensions);
 
-  bool RegisterRtpDemuxerSink_w() RTC_RUN_ON(worker_thread());
+  bool RegisterRtpDemuxerSink_n() RTC_RUN_ON(network_thread());
 
   // Return description of media channel to facilitate logging
   std::string ToString() const;
@@ -340,7 +357,7 @@ class BaseChannel : public ChannelInterface,
   // call to the worker thread, so it should be safe.
   bool enabled_ RTC_GUARDED_BY(worker_thread()) = false;
   bool enabled_s_ RTC_GUARDED_BY(signaling_thread()) = false;
-  bool payload_type_demuxing_enabled_ RTC_GUARDED_BY(worker_thread()) = true;
+  bool payload_type_demuxing_enabled_ RTC_GUARDED_BY(network_thread()) = true;
   std::vector<StreamParams> local_streams_ RTC_GUARDED_BY(worker_thread());
   std::vector<StreamParams> remote_streams_ RTC_GUARDED_BY(worker_thread());
   webrtc::RtpTransceiverDirection local_content_direction_ RTC_GUARDED_BY(
@@ -349,7 +366,7 @@ class BaseChannel : public ChannelInterface,
       worker_thread()) = webrtc::RtpTransceiverDirection::kInactive;
 
   // Cached list of payload types, used if payload type demuxing is re-enabled.
-  std::set<uint8_t> payload_types_ RTC_GUARDED_BY(worker_thread());
+  std::set<uint8_t> payload_types_ RTC_GUARDED_BY(network_thread());
   // TODO(bugs.webrtc.org/12239): Modified on worker thread, accessed
   // on network thread in RegisterRtpDemuxerSink_n (called from Init_w)
   webrtc::RtpDemuxerCriteria demuxer_criteria_;
@@ -385,7 +402,8 @@ class VoiceChannel : public BaseChannel {
 
  private:
   // overrides from BaseChannel
-  void UpdateMediaSendRecvState_w() RTC_RUN_ON(worker_thread()) override;
+  void UpdateMediaSendRecvState_w(bool enabled)
+      RTC_RUN_ON(worker_thread()) override;
   bool SetLocalContent_w(const MediaContentDescription* content,
                          webrtc::SdpType type,
                          std::string& error_desc)
@@ -429,7 +447,8 @@ class VideoChannel : public BaseChannel {
 
  private:
   // overrides from BaseChannel
-  void UpdateMediaSendRecvState_w() RTC_RUN_ON(worker_thread()) override;
+  void UpdateMediaSendRecvState_w(bool enabled)
+      RTC_RUN_ON(worker_thread()) override;
   bool SetLocalContent_w(const MediaContentDescription* content,
                          webrtc::SdpType type,
                          std::string& error_desc)

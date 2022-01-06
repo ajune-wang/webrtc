@@ -26,11 +26,11 @@ namespace webrtc {
 // Windows.Graphics.Capture API.
 class WgcDesktopFrame final : public DesktopFrame {
  public:
-  // WgcDesktopFrame receives an rvalue reference to the `image_data` vector
+  // WgcDesktopFrame receives an rvalue reference to the `image_data` array
   // so that it can take ownership of it (and avoid a copy).
   WgcDesktopFrame(DesktopSize size,
                   int stride,
-                  std::vector<uint8_t>&& image_data);
+                  std::unique_ptr<uint8_t[]>&& image_data);
 
   WgcDesktopFrame(const WgcDesktopFrame&) = delete;
   WgcDesktopFrame& operator=(const WgcDesktopFrame&) = delete;
@@ -38,7 +38,7 @@ class WgcDesktopFrame final : public DesktopFrame {
   ~WgcDesktopFrame() override;
 
  private:
-  std::vector<uint8_t> image_data_;
+  std::unique_ptr<uint8_t[]> image_data_;
 };
 
 }  // namespace webrtc

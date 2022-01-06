@@ -22,6 +22,30 @@
       },
       "revId": "4284c96b44654d1905bea3214267c4befb552cbd",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "dcc06646_a6a3658c",
+        "filename": "call/rampup_tests.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 401,
+      "author": {
+        "id": 5525
+      },
+      "writtenOn": "2022-01-06T15:53:46Z",
+      "side": 1,
+      "message": "No, not always. Most of these aren\u0027t a clear indication of good or bad in isolation unfortunately.\n\nMy thinking here is:\n- higher media bitrate, generally good\n- less padding used, generally good\n- rtx used to improve media, better than sending padding, if one has to choose one (sending nothing is best though)\n- rtx padding, same reasoning as regular padding\n\nI could definitely go with SmallerIsBetter for media rtx too.",
+      "parentUuid": "7d0e7b8a_066cd3ad",
+      "range": {
+        "startLine": 400,
+        "startChar": 4,
+        "endLine": 401,
+        "endChar": 58
+      },
+      "revId": "4284c96b44654d1905bea3214267c4befb552cbd",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

@@ -289,9 +289,8 @@ HRESULT WgcCaptureSession::GetFrame(
   // Make a copy of the data pointed to by `map_info.pData` so we are free to
   // unmap our texture.
   uint8_t* src_data = static_cast<uint8_t*>(map_info.pData);
-  std::vector<uint8_t> image_data;
-  image_data.reserve(image_height * row_data_length);
-  uint8_t* image_data_ptr = image_data.data();
+  auto image_data = std::make_unique<uint8_t[]>(image_height * row_data_length);
+  uint8_t* image_data_ptr = image_data.get();
   for (int i = 0; i < image_height; i++) {
     memcpy(image_data_ptr, src_data, row_data_length);
     image_data_ptr += row_data_length;

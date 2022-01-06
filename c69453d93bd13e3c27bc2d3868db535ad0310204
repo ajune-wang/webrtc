@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "027a7f52_4990c3c0",
+        "filename": "modules/desktop_capture/win/wgc_capture_session.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 293,
+      "author": {
+        "id": 18474
+      },
+      "writtenOn": "2022-01-06T23:34:33Z",
+      "side": 0,
+      "message": "I think just using:\n```\nimage_data.resize(image_height * row_data_length)\n```\n\nhere should do it, as it should append default-inserted values: https://en.cppreference.com/w/cpp/container/vector/resize (which reserve does not do)",
+      "range": {
+        "startLine": 293,
+        "startChar": 13,
+        "endLine": 293,
+        "endChar": 20
+      },
+      "revId": "c69453d93bd13e3c27bc2d3868db535ad0310204",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

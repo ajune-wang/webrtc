@@ -867,9 +867,11 @@ class SdpOfferAnswerHandler::SetSessionDescriptionObserverAdapter
  public:
   SetSessionDescriptionObserverAdapter(
       rtc::WeakPtr<SdpOfferAnswerHandler> handler,
-      rtc::scoped_refptr<SetSessionDescriptionObserver> inner_observer)
+      rtc::scoped_refptr<SetSessionDescriptionObserver> inner_observer,
+      std::function<void()> operations_chain_callback)
       : handler_(std::move(handler)),
-        inner_observer_(std::move(inner_observer)) {}
+        inner_observer_(std::move(inner_observer)),
+        operations_chain_callback_(std::move(operations_chain_callback)) {}
 
   // SetLocalDescriptionObserverInterface implementation.
   void OnSetLocalDescriptionComplete(RTCError error) override {
@@ -882,6 +884,7 @@ class SdpOfferAnswerHandler::SetSessionDescriptionObserverAdapter
 
  private:
   void OnSetDescriptionComplete(RTCError error) {
+    operations_chain_callback_();
     if (!handler_)
       return;
     if (error.ok()) {
@@ -895,6 +898,7 @@ class SdpOfferAnswerHandler::SetSessionDescriptionObserverAdapter
 
   rtc::WeakPtr<SdpOfferAnswerHandler> handler_;
   rtc::scoped_refptr<SetSessionDescriptionObserver> inner_observer_;
+  std::function<void()> operations_chain_callback_;
 };
 
 class SdpOfferAnswerHandler::LocalIceCredentialsToReplace {
@@ -1150,13 +1154,8 @@ void SdpOfferAnswerHandler::SetLocalDescription(
         this_weak_ptr->DoSetLocalDescription(
             std::move(desc),
             rtc::make_ref_counted<SetSessionDescriptionObserverAdapter>(
-                this_weak_ptr, observer_refptr));
-        // For backwards-compatability reasons, we declare the operation as
-        // completed here (rather than in a post), so that the operation chain
-        // is not blocked by this operation when the observer is invoked. This
-        // allows the observer to trigger subsequent offer/answer operations
-        // synchronously if the operation chain is now empty.
-        operations_chain_callback();
+                this_weak_ptr, observer_refptr,
+                std::move(operations_chain_callback)));
       });
 }
 
@@ -1187,13 +1186,16 @@ void SdpOfferAnswerHandler::SetLocalDescription(
       });
 }
 
+// TODO(https://crbug.com/webrtc/11798): Delete this deprecated method.
 void SdpOfferAnswerHandler::SetLocalDescription(
     SetSessionDescriptionObserver* observer) {
   RTC_DCHECK_RUN_ON(signaling_thread());
+  RTC_DLOG(LS_ERROR) << "This method has been deprecated.";
   SetLocalDescription(
       rtc::make_ref_counted<SetSessionDescriptionObserverAdapter>(
           weak_ptr_factory_.GetWeakPtr(),
-          rtc::scoped_refptr<SetSessionDescriptionObserver>(observer)));
+          rtc::scoped_refptr<SetSessionDescriptionObserver>(observer),
+          nullptr));
 }
 
 void SdpOfferAnswerHandler::SetLocalDescription(
@@ -1502,13 +1504,8 @@ void SdpOfferAnswerHandler::SetRemoteDescription(
         this_weak_ptr->DoSetRemoteDescription(
             std::move(desc),
             rtc::make_ref_counted<SetSessionDescriptionObserverAdapter>(
-                this_weak_ptr, observer_refptr));
-        // For backwards-compatability reasons, we declare the operation as
-        // completed here (rather than in a post), so that the operation chain
-        // is not blocked by this operation when the observer is invoked. This
-        // allows the observer to trigger subsequent offer/answer operations
-        // synchronously if the operation chain is now empty.
-        operations_chain_callback();
+                this_weak_ptr, observer_refptr,
+                std::move(operations_chain_callback)));
       });
 }
 

@@ -145,6 +145,8 @@ class SdpOfferAnswerHandler : public SdpStateProvider,
       rtc::scoped_refptr<SetLocalDescriptionObserverInterface> observer);
   void SetLocalDescription(
       rtc::scoped_refptr<SetLocalDescriptionObserverInterface> observer);
+
+  // TODO(https://crbug.com/webrtc/11798): Delete these deprecated methods.
   void SetLocalDescription(SetSessionDescriptionObserver* observer,
                            SessionDescriptionInterface* desc);
   void SetLocalDescription(SetSessionDescriptionObserver* observer);

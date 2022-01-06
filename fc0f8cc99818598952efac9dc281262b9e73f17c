@@ -33,6 +33,24 @@
       "message": "With this code, it\u0027s a rather long stretch of code between the handled payload types being cleared (here) and being re-registered (line 725).\nAre we safe against packets arriving for demulitplexing inbetween these 2 points?\n\n(If there are no thread jumping functions, and demux happens on the worker thread, we should be.)",
       "revId": "fc0f8cc99818598952efac9dc281262b9e73f17c",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "e0d11be2_7d92acf6",
+        "filename": "pc/channel.cc",
+        "patchSetId": 8
+      },
+      "lineNbr": 659,
+      "author": {
+        "id": 5508
+      },
+      "writtenOn": "2022-01-06T10:16:59Z",
+      "side": 1,
+      "message": "This call clears the cached copy of the demuxer configuration, so from here to line 725, the transport still has the previous config, so I guess we\u0027re about as safe as before.\n\nI added DCHECKs for this scope to catch any hidden/unintentional Invoke()s in the scope in case they pop up.",
+      "parentUuid": "f1b0ccde_99420dff",
+      "revId": "fc0f8cc99818598952efac9dc281262b9e73f17c",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

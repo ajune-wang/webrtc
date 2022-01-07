@@ -1,6 +1,40 @@
 {
   "comments": [
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "db35d85b_19b6240c",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 8
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2022-01-07T09:26:01Z",
+      "side": 1,
+      "message": "Adding hbos@ to the reviewer list - he designed the operations chain, which is the core of the apply-description operation sequencing; there may be dragons.\n\nI\u0027d like to find a model of what\u0027s happening that\u0027s easier to explain than this version before committing (and before diving into the nitty-gritty). Suggestions in comment.\n\nObFrust: Something appears to have reformatted many of the otherwise untouched multiline comments, making the diff hard to read. Is this a formatter bug?",
+      "revId": "9b9e2207b93a8cc20c2d44fe11346313993066b7",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "da49ed80_10bc82f8",
+        "filename": "pc/sdp_offer_answer.cc",
+        "patchSetId": 8
+      },
+      "lineNbr": 753,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2022-01-07T09:26:01Z",
+      "side": 1,
+      "message": "Hm.\nI do worry about the naming / modeling. \"ApplyingRemoteDescription\" looks like a verb, it\u0027s not clear what object, state or task it is supposed to represent.\n\nWhat we actually do here is to create an object to contain the data relevant to an operation, and chain the call to DoSetRemoteDescription on the operations chain. I wonder if we should make the conceptual model simpler by renaming this class to RemoteDescriptionOperation, put all of DoSetRemoteDescription inside the object\u0027s Apply method, and replace all of DoSetRemoteDescription with a lambda invoking RemoteDescriptionOperation::Apply that is put on the operations chain.",
+      "revId": "9b9e2207b93a8cc20c2d44fe11346313993066b7",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "78b7f348_03539e74",

@@ -41,6 +41,30 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "cc57871a_d08b9c62",
+        "filename": "modules/desktop_capture/linux/wayland/base_capturer_pipewire.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 845,
+      "author": {
+        "id": 8046
+      },
+      "writtenOn": "2022-01-07T07:01:46Z",
+      "side": 1,
+      "message": "It doesn\u0027t, it just disconnects. It will all be properly destroyed (in correct order) in the destructor.",
+      "parentUuid": "cba6b098_e1d324e6",
+      "range": {
+        "startLine": 845,
+        "startChar": 4,
+        "endLine": 845,
+        "endChar": 24
+      },
+      "revId": "b858e790e569c5cd64dab024811a09a9641bd732",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "e5e982f8_e0d47ed1",
@@ -54,6 +78,30 @@
       "writtenOn": "2022-01-06T22:11:40Z",
       "side": 1,
       "message": "Same question: Does unsubscribe clear this (the signal id)/should we?",
+      "range": {
+        "startLine": 851,
+        "startChar": 45,
+        "endLine": 851,
+        "endChar": 70
+      },
+      "revId": "b858e790e569c5cd64dab024811a09a9641bd732",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "d56052a7_7af7fb23",
+        "filename": "modules/desktop_capture/linux/wayland/base_capturer_pipewire.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 851,
+      "author": {
+        "id": 8046
+      },
+      "writtenOn": "2022-01-07T07:01:46Z",
+      "side": 1,
+      "message": "It doesn\u0027t, it will again be done in the destructor. Since there is no way it can be used again, it is safe to do it there. I just clear the session_handle_ to be sure we don\u0027t disconnect twice. In one of the following PRs you requested me to avoid using \"char *\" for signal IDs so it will be turned into \"std::string\" and we won\u0027t need to manually destroy them.",
+      "parentUuid": "e5e982f8_e0d47ed1",
       "range": {
         "startLine": 851,
         "startChar": 45,

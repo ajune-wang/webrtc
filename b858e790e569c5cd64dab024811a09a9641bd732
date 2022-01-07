@@ -18,6 +18,23 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "62816ef7_6444c2b4",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 18474
+      },
+      "writtenOn": "2022-01-07T17:43:24Z",
+      "side": 1,
+      "message": "LGTM",
+      "revId": "b858e790e569c5cd64dab024811a09a9641bd732",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "cba6b098_e1d324e6",
@@ -149,6 +166,30 @@
       "side": 1,
       "message": "It is. \n\nFrom the documentation:\nrees the memory pointed to by mem. If mem is NULL it simply returns.\n\nDoes it need to be documented if it\u0027s going to be removed anyway in the next PR where I split xdg-desktop-portal and PipeWire code?",
       "parentUuid": "5a96f167_c75e2f30",
+      "range": {
+        "startLine": 852,
+        "startChar": 2,
+        "endLine": 852,
+        "endChar": 8
+      },
+      "revId": "b858e790e569c5cd64dab024811a09a9641bd732",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "a6d32525_97382602",
+        "filename": "modules/desktop_capture/linux/wayland/base_capturer_pipewire.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 852,
+      "author": {
+        "id": 18474
+      },
+      "writtenOn": "2022-01-07T17:43:24Z",
+      "side": 1,
+      "message": "Documenting in the CL/confirming for myself. No need to add a comment, just wanted to make sure I\u0027d found the right documentation for it.",
+      "parentUuid": "be2eb005_daed0c5b",
       "range": {
         "startLine": 852,
         "startChar": 2,

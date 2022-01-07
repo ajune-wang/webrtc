@@ -133,6 +133,30 @@
       },
       "revId": "b858e790e569c5cd64dab024811a09a9641bd732",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "be2eb005_daed0c5b",
+        "filename": "modules/desktop_capture/linux/wayland/base_capturer_pipewire.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 852,
+      "author": {
+        "id": 8046
+      },
+      "writtenOn": "2022-01-07T07:04:40Z",
+      "side": 1,
+      "message": "It is. \n\nFrom the documentation:\nrees the memory pointed to by mem. If mem is NULL it simply returns.\n\nDoes it need to be documented if it\u0027s going to be removed anyway in the next PR where I split xdg-desktop-portal and PipeWire code?",
+      "parentUuid": "5a96f167_c75e2f30",
+      "range": {
+        "startLine": 852,
+        "startChar": 2,
+        "endLine": 852,
+        "endChar": 8
+      },
+      "revId": "b858e790e569c5cd64dab024811a09a9641bd732",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

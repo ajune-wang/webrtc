@@ -35,6 +35,23 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "12bbafe7_4fc51fd3",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 8
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2022-01-07T14:25:44Z",
+      "side": 1,
+      "message": "Continuing the dialog.\n",
+      "revId": "9b9e2207b93a8cc20c2d44fe11346313993066b7",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "da49ed80_10bc82f8",
@@ -66,6 +83,24 @@
       "side": 1,
       "message": "Yes suggestions for a better name are welcome of course. What I was thinking about when I came up with this one was that I didn\u0027t want it to be confused with SetRemoteDescription/DoSetRemoteDescription/ApplyRemoteDescription.\n\nThe goal of the class is to hold the state and offer methods to process it, during the operation. The object\u0027s lifetime is bound to the operation itself, only exists while the description is being applied, hence the verb. But that was clearly not obvious, so RemoteDescriptionOperation sounds good to me.\n\nA key thing that I want to get away from is having 100+ line functions (in some cases several hundreds of LOC) that aren\u0027t focused on solving a particular part of the algorithm but rather do everything. That has resulted in copy/pasted code because it\u0027s hard to take a look at the function at a glance and understand what corner cases apply and set and meet preconditions for a particular part in isolation.\n\nI in particular want to avoid having a function that does everything and returns an error value based on how everything went. That puts us back into the position of not being able to complete the work asynchronously.\n\nI think that the operations chain class is a cool concept and initially I was wondering if the right thing would be to set up a few items in the chain for applying the description, but that could potentially conflict with other operations that might get added in between steps. I.e. I think that the way we\u0027re using the chain now, is the right level.",
       "parentUuid": "da49ed80_10bc82f8",
+      "revId": "9b9e2207b93a8cc20c2d44fe11346313993066b7",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "1a3a4ed3_6fbc9003",
+        "filename": "pc/sdp_offer_answer.cc",
+        "patchSetId": 8
+      },
+      "lineNbr": 753,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2022-01-07T14:25:44Z",
+      "side": 1,
+      "message": "The operations chain was firstly an exposition tool for the spec - so that we could say \"the operations have to be performed in the order they\u0027re requested\" in a reasonable manner. Then it got retrofitted in Chrome as an implementation device - easier to implement exactly what the spec said to do than to find some other way of achieving the same effect.\n\nI\u0027d like to make it so that the RemoteDescriptionOperation takes full responsibility for either doing the complete apply-description steps or failing (returning an error) and ensuring that no change happens. So it has to guarantee some kind of atomicity - but it could be in the form of Promise.all(....) (spin off a bunch of tasks and wait for them all to succeed).\n\nAgree on the need to break up long functions - even if a function is only called once, it\u0027s an improvement if we can break out a set of related actions into a named operation. Needs to be done with taste.... and takes time to (re)write.",
+      "parentUuid": "7fa7069f_59d72c49",
       "revId": "9b9e2207b93a8cc20c2d44fe11346313993066b7",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },

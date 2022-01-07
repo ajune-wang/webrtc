@@ -107,6 +107,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "0d6e6742_0054c500",
+        "filename": "pc/sdp_offer_answer.cc",
+        "patchSetId": 8
+      },
+      "lineNbr": 753,
+      "author": {
+        "id": 5508
+      },
+      "writtenOn": "2022-01-07T14:57:07Z",
+      "side": 1,
+      "message": "Yes, agree and that sounds like what I\u0027m aiming for. As you say, it takes time and this CL is a step in that direction. I\u0027m starting by taking the state off the stack and into a class, but keeping the existing behavior to not rock the boat too much. Subsequent CLs hopefully will be possible to do incrementally. As the steps that make up the algorithm get broken down into smaller functions, we can tackle each one that represents a thread block of some sort, in isolation from the others.",
+      "parentUuid": "1a3a4ed3_6fbc9003",
+      "revId": "9b9e2207b93a8cc20c2d44fe11346313993066b7",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "78b7f348_03539e74",
         "filename": "pc/sdp_offer_answer.cc",
         "patchSetId": 8

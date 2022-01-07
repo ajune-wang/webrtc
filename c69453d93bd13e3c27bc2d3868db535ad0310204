@@ -22,6 +22,30 @@
       },
       "revId": "c69453d93bd13e3c27bc2d3868db535ad0310204",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "d59fd56d_f298a439",
+        "filename": "modules/desktop_capture/win/wgc_capture_session.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 293,
+      "author": {
+        "id": 12416
+      },
+      "writtenOn": "2022-01-07T23:06:10Z",
+      "side": 0,
+      "message": "Done",
+      "parentUuid": "027a7f52_4990c3c0",
+      "range": {
+        "startLine": 293,
+        "startChar": 13,
+        "endLine": 293,
+        "endChar": 20
+      },
+      "revId": "c69453d93bd13e3c27bc2d3868db535ad0310204",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

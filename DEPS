@@ -10,7 +10,7 @@ vars = {
   # chromium waterfalls. More info at: crbug.com/570091.
   'checkout_configuration': 'default',
   'checkout_instrumented_libraries': 'checkout_linux and checkout_configuration == "default"',
-  'chromium_revision': '3aef64d99293edba29e725a2b5ca0c83846c3ebe',
+  'chromium_revision': 'b5d2c233d1c584027312d3b887fa3c133922859d',
 
   # Keep the Chromium default of generating location tags.
   'generate_location_tags': True,
@@ -23,9 +23,9 @@ deps = {
   # TODO(kjellander): Move this to be Android-only once the libevent dependency
   # in base/third_party/libevent is solved.
   'src/base':
-    'https://chromium.googlesource.com/chromium/src/base@6c873591bbd86eefb2e870c6087cc74d6fc93356',
+    'https://chromium.googlesource.com/chromium/src/base@8a001e0e3e4b3f172833c71f6b62702a345f8d53',
   'src/build':
-    'https://chromium.googlesource.com/chromium/src/build@3fd1fd51c312a2edc84e722311e56c46b9130d3a',
+    'https://chromium.googlesource.com/chromium/src/build@84de7992b053fd2926a36fbdc1bc8632773e6e01',
   'src/buildtools':
     'https://chromium.googlesource.com/chromium/src/buildtools@f78b4b9f33bd8ef9944d5ce643daff1c31880189',
   # Gradle 6.6.1. Used for testing Android Studio project generation for WebRTC.
@@ -34,19 +34,19 @@ deps = {
     'condition': 'checkout_android',
   },
   'src/ios': {
-    'url': 'https://chromium.googlesource.com/chromium/src/ios@33c85bc0a706976eeab568c3e1f7957bac395ce9',
+    'url': 'https://chromium.googlesource.com/chromium/src/ios@5f525a71db1e5631aec42020dc3bf56e041dc409',
     'condition': 'checkout_ios',
   },
   'src/testing':
     'https://chromium.googlesource.com/chromium/src/testing@b1bf58701e1f3804b7149f8400e956988a8e24a1',
   'src/third_party':
-    'https://chromium.googlesource.com/chromium/src/third_party@4492f8d8529519ea8db6b058ea5481af487ea196',
+    'https://chromium.googlesource.com/chromium/src/third_party@6f20f8b8ec2ff41aeb52857bd30b4d4fa99700ab',
 
   'src/buildtools/linux64': {
     'packages': [
       {
         'package': 'gn/gn/linux-amd64',
-        'version': 'git_revision:387b368dfe63fec317f8e609d90c634807f2764e',
+        'version': 'git_revision:54284c12607e2818293157cd76d29d03a36bfd68',
       }
     ],
     'dep_type': 'cipd',
@@ -56,7 +56,7 @@ deps = {
     'packages': [
       {
         'package': 'gn/gn/mac-${{arch}}',
-        'version': 'git_revision:387b368dfe63fec317f8e609d90c634807f2764e',
+        'version': 'git_revision:54284c12607e2818293157cd76d29d03a36bfd68',
       }
     ],
     'dep_type': 'cipd',
@@ -66,7 +66,7 @@ deps = {
     'packages': [
       {
         'package': 'gn/gn/windows-amd64',
-        'version': 'git_revision:387b368dfe63fec317f8e609d90c634807f2764e',
+        'version': 'git_revision:54284c12607e2818293157cd76d29d03a36bfd68',
       }
     ],
     'dep_type': 'cipd',
@@ -285,7 +285,7 @@ deps = {
     'condition': 'checkout_win',
   },
   'src/tools':
-    'https://chromium.googlesource.com/chromium/src/tools@0cfc61deadb8f086e890cc7dee4bec5e5616197c',
+    'https://chromium.googlesource.com/chromium/src/tools@f91dd2f819858aa2e134cd11d64ff5f0bb7ecb0e',
 
   'src/third_party/accessibility_test_framework': {
       'packages': [

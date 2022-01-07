@@ -18,6 +18,23 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "93482a59_738cc380",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 8
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5508
+      },
+      "writtenOn": "2022-01-07T14:00:07Z",
+      "side": 1,
+      "message": "thanks for taking a look",
+      "revId": "9b9e2207b93a8cc20c2d44fe11346313993066b7",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "da49ed80_10bc82f8",
@@ -31,6 +48,24 @@
       "writtenOn": "2022-01-07T09:26:01Z",
       "side": 1,
       "message": "Hm.\nI do worry about the naming / modeling. \"ApplyingRemoteDescription\" looks like a verb, it\u0027s not clear what object, state or task it is supposed to represent.\n\nWhat we actually do here is to create an object to contain the data relevant to an operation, and chain the call to DoSetRemoteDescription on the operations chain. I wonder if we should make the conceptual model simpler by renaming this class to RemoteDescriptionOperation, put all of DoSetRemoteDescription inside the object\u0027s Apply method, and replace all of DoSetRemoteDescription with a lambda invoking RemoteDescriptionOperation::Apply that is put on the operations chain.",
+      "revId": "9b9e2207b93a8cc20c2d44fe11346313993066b7",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "7fa7069f_59d72c49",
+        "filename": "pc/sdp_offer_answer.cc",
+        "patchSetId": 8
+      },
+      "lineNbr": 753,
+      "author": {
+        "id": 5508
+      },
+      "writtenOn": "2022-01-07T14:00:07Z",
+      "side": 1,
+      "message": "Yes suggestions for a better name are welcome of course. What I was thinking about when I came up with this one was that I didn\u0027t want it to be confused with SetRemoteDescription/DoSetRemoteDescription/ApplyRemoteDescription.\n\nThe goal of the class is to hold the state and offer methods to process it, during the operation. The object\u0027s lifetime is bound to the operation itself, only exists while the description is being applied, hence the verb. But that was clearly not obvious, so RemoteDescriptionOperation sounds good to me.\n\nA key thing that I want to get away from is having 100+ line functions (in some cases several hundreds of LOC) that aren\u0027t focused on solving a particular part of the algorithm but rather do everything. That has resulted in copy/pasted code because it\u0027s hard to take a look at the function at a glance and understand what corner cases apply and set and meet preconditions for a particular part in isolation.\n\nI in particular want to avoid having a function that does everything and returns an error value based on how everything went. That puts us back into the position of not being able to complete the work asynchronously.\n\nI think that the operations chain class is a cool concept and initially I was wondering if the right thing would be to set up a few items in the chain for applying the description, but that could potentially conflict with other operations that might get added in between steps. I.e. I think that the way we\u0027re using the chain now, is the right level.",
+      "parentUuid": "da49ed80_10bc82f8",
       "revId": "9b9e2207b93a8cc20c2d44fe11346313993066b7",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },

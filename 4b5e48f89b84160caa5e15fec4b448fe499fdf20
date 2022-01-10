@@ -56,6 +56,30 @@
       },
       "revId": "4b5e48f89b84160caa5e15fec4b448fe499fdf20",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "d5b07f79_d8de535e",
+        "filename": "modules/pacing/paced_sender.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 150,
+      "author": {
+        "id": 5524
+      },
+      "writtenOn": "2022-01-10T13:11:44Z",
+      "side": 1,
+      "message": "The refactoring needed is to entirely remove this class 😊\n(a few internal apps need to be migrated before deletion)\nI would not spend time on small fixes here...",
+      "parentUuid": "3edbafce_9dd1ae47",
+      "range": {
+        "startLine": 150,
+        "startChar": 2,
+        "endLine": 150,
+        "endChar": 39
+      },
+      "revId": "4b5e48f89b84160caa5e15fec4b448fe499fdf20",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

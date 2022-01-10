@@ -13,6 +13,7 @@
 #include <limits>
 #include <memory>
 #include <string>
+#include <tuple>
 #include <utility>
 
 #include "media/sctp/sctp_transport_internal.h"
@@ -22,7 +23,6 @@
 #include "rtc_base/location.h"
 #include "rtc_base/logging.h"
 #include "rtc_base/ref_counted_object.h"
-#include "rtc_base/system/unused.h"
 #include "rtc_base/task_utils/to_queued_task.h"
 #include "rtc_base/thread.h"
 
@@ -178,7 +178,7 @@ SctpDataChannel::SctpDataChannel(const InternalDataChannelInit& config,
       observer_(nullptr),
       provider_(provider) {
   RTC_DCHECK_RUN_ON(signaling_thread_);
-  RTC_UNUSED(network_thread_);
+  std::ignore = network_thread_;
 }
 
 bool SctpDataChannel::Init() {

@@ -27,8 +27,8 @@ extern "C" {
 #include "modules/audio_device/include/audio_device.h"
 #include "modules/audio_processing/include/audio_processing.h"
 
+#include <tuple>
 #include "rtc_base/gunit.h"
-#include "rtc_base/system/unused.h"
 
 @interface RTCPeerConnectionFactoryBuilderTest : NSObject
 - (void)testBuilder;
@@ -41,15 +41,15 @@ extern "C" {
   id factoryMock = OCMStrictClassMock([RTC_OBJC_TYPE(RTCPeerConnectionFactory) class]);
   OCMExpect([factoryMock alloc]).andReturn(factoryMock);
 #ifdef HAVE_NO_MEDIA
-  RTC_UNUSED([[[factoryMock expect] andReturn:factoryMock] initWithNoMedia]);
+  std::ignore = [[[factoryMock expect] andReturn:factoryMock] initWithNoMedia];
 #else
-  RTC_UNUSED([[[[factoryMock expect] andReturn:factoryMock] ignoringNonObjectArgs]
+  std::ignore = [[[[factoryMock expect] andReturn:factoryMock] ignoringNonObjectArgs]
       initWithNativeAudioEncoderFactory:nullptr
               nativeAudioDecoderFactory:nullptr
               nativeVideoEncoderFactory:nullptr
               nativeVideoDecoderFactory:nullptr
                       audioDeviceModule:nullptr
-                  audioProcessingModule:nullptr]);
+                  audioProcessingModule:nullptr];
 #endif
   RTCPeerConnectionFactoryBuilder* builder = [[RTCPeerConnectionFactoryBuilder alloc] init];
   RTC_OBJC_TYPE(RTCPeerConnectionFactory)* peerConnectionFactory =
@@ -62,15 +62,15 @@ extern "C" {
   id factoryMock = OCMStrictClassMock([RTC_OBJC_TYPE(RTCPeerConnectionFactory) class]);
   OCMExpect([factoryMock alloc]).andReturn(factoryMock);
 #ifdef HAVE_NO_MEDIA
-  RTC_UNUSED([[[factoryMock expect] andReturn:factoryMock] initWithNoMedia]);
+  std::ignore = [[[factoryMock expect] andReturn:factoryMock] initWithNoMedia];
 #else
-  RTC_UNUSED([[[[factoryMock expect] andReturn:factoryMock] ignoringNonObjectArgs]
+  std::ignore = [[[[factoryMock expect] andReturn:factoryMock] ignoringNonObjectArgs]
       initWithNativeAudioEncoderFactory:nullptr
               nativeAudioDecoderFactory:nullptr
               nativeVideoEncoderFactory:nullptr
               nativeVideoDecoderFactory:nullptr
                       audioDeviceModule:nullptr
-                  audioProcessingModule:nullptr]);
+                  audioProcessingModule:nullptr];
 #endif
   RTCPeerConnectionFactoryBuilder* builder = [RTCPeerConnectionFactoryBuilder defaultBuilder];
   RTC_OBJC_TYPE(RTCPeerConnectionFactory)* peerConnectionFactory =

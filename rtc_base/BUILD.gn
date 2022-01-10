@@ -233,7 +233,6 @@ rtc_library("criticalsection") {
     ":macromagic",
     ":platform_thread_types",
     "synchronization:yield",
-    "system:unused",
   ]
 }
 

@@ -455,7 +455,6 @@ rtc_library("rtc_data_sctp_transport_factory") {
     "../api/transport:sctp_transport_factory_interface",
     "../rtc_base:threading",
     "../rtc_base/experiments:field_trial_parser",
-    "../rtc_base/system:unused",
   ]
 
   if (rtc_enable_sctp) {

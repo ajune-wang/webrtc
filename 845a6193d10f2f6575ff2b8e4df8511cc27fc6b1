@@ -1,0 +1,259 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "1e3628b1_1fef0342",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 10
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 14134
+      },
+      "writtenOn": "2022-01-10T19:01:49Z",
+      "side": 1,
+      "message": "Thanks for your patience, I\u0027ve been spending more time getting up to speed on Pipewire.",
+      "revId": "845a6193d10f2f6575ff2b8e4df8511cc27fc6b1",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "7d81d41c_f99db72e",
+        "filename": "modules/desktop_capture/linux/wayland/base_capturer_pipewire.cc",
+        "patchSetId": 10
+      },
+      "lineNbr": 72,
+      "author": {
+        "id": 14134
+      },
+      "writtenOn": "2022-01-10T19:01:49Z",
+      "side": 1,
+      "message": "rtc::split accepts an absl::string_view, so there is no need to allocate a std::string here.",
+      "revId": "845a6193d10f2f6575ff2b8e4df8511cc27fc6b1",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "eece42d8_74afff54",
+        "filename": "modules/desktop_capture/linux/wayland/base_capturer_pipewire.cc",
+        "patchSetId": 10
+      },
+      "lineNbr": 78,
+      "author": {
+        "id": 14134
+      },
+      "writtenOn": "2022-01-10T19:01:49Z",
+      "side": 1,
+      "message": "std::stoi throws exceptions which are not allowed in WebRTC.  Please use rtc::StringToNumber from rtc_base/, which will also require you to check the return values.",
+      "revId": "845a6193d10f2f6575ff2b8e4df8511cc27fc6b1",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "c578af85_08ead948",
+        "filename": "modules/desktop_capture/linux/wayland/base_capturer_pipewire.cc",
+        "patchSetId": 10
+      },
+      "lineNbr": 82,
+      "author": {
+        "id": 14134
+      },
+      "writtenOn": "2022-01-10T19:01:49Z",
+      "side": 1,
+      "message": "You could also implement \u003c\u003d, \u003e\u003d on the PipewireVersion struct ...   I don\u0027t feel strongly about this though.",
+      "revId": "845a6193d10f2f6575ff2b8e4df8511cc27fc6b1",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "b09fdb41_2c8ff4fc",
+        "filename": "modules/desktop_capture/linux/wayland/base_capturer_pipewire.cc",
+        "patchSetId": 10
+      },
+      "lineNbr": 168,
+      "author": {
+        "id": 14134
+      },
+      "writtenOn": "2022-01-10T19:01:49Z",
+      "side": 1,
+      "message": "Nice :-)",
+      "revId": "845a6193d10f2f6575ff2b8e4df8511cc27fc6b1",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "3a954e6c_65a8559b",
+        "filename": "modules/desktop_capture/linux/wayland/base_capturer_pipewire.cc",
+        "patchSetId": 10
+      },
+      "lineNbr": 333,
+      "author": {
+        "id": 14134
+      },
+      "writtenOn": "2022-01-10T19:01:49Z",
+      "side": 1,
+      "message": "It looks like the SPA_FORMAT_VIDEO_modifier is sent by a server event.  Would an a server that does not support DMA-BUF ever send that event?  (I\u0027m wondering if the server version check is for extra safety, or is redundant here.)",
+      "revId": "845a6193d10f2f6575ff2b8e4df8511cc27fc6b1",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "17cdcb9f_5c1f94f1",
+        "filename": "modules/desktop_capture/linux/wayland/base_capturer_pipewire.cc",
+        "patchSetId": 10
+      },
+      "lineNbr": 490,
+      "author": {
+        "id": 14134
+      },
+      "writtenOn": "2022-01-10T19:01:49Z",
+      "side": 1,
+      "message": "Does pw_thread_loop_start create a new system thread?  I started digging into the PipeWire code and couldn\u0027t tell.",
+      "revId": "845a6193d10f2f6575ff2b8e4df8511cc27fc6b1",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "32e77017_d3a8239c",
+        "filename": "modules/desktop_capture/linux/wayland/base_capturer_pipewire.cc",
+        "patchSetId": 10
+      },
+      "lineNbr": 496,
+      "author": {
+        "id": 14134
+      },
+      "writtenOn": "2022-01-10T19:01:49Z",
+      "side": 1,
+      "message": "Style-wise it\u0027s a good idea to hold a lock inside a braced-statement, i.e.\n\n{ \n  PipeWireThreadLoopLock ...\n  \u003cdo stuff\u003e\n}\n\nso it\u0027s super clear what code is running while the lock is held.",
+      "revId": "845a6193d10f2f6575ff2b8e4df8511cc27fc6b1",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "96fc7126_c09bf768",
+        "filename": "modules/desktop_capture/linux/wayland/base_capturer_pipewire.cc",
+        "patchSetId": 10
+      },
+      "lineNbr": 498,
+      "author": {
+        "id": 14134
+      },
+      "writtenOn": "2022-01-10T19:01:49Z",
+      "side": 1,
+      "message": "Does pw_context_connect_fd require thread_loop_lock to be held?  The tutorial code seems to suggest not.",
+      "revId": "845a6193d10f2f6575ff2b8e4df8511cc27fc6b1",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "c45996ac_f2ecb760",
+        "filename": "modules/desktop_capture/linux/wayland/base_capturer_pipewire.cc",
+        "patchSetId": 10
+      },
+      "lineNbr": 505,
+      "author": {
+        "id": 14134
+      },
+      "writtenOn": "2022-01-10T19:01:49Z",
+      "side": 1,
+      "message": "It looks like initialization of pw_core_events_ and pw_stream_events_ can be done without holding thread_loop_lock.",
+      "revId": "845a6193d10f2f6575ff2b8e4df8511cc27fc6b1",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "0525eb6f_bbc146dc",
+        "filename": "modules/desktop_capture/linux/wayland/base_capturer_pipewire.cc",
+        "patchSetId": 10
+      },
+      "lineNbr": 520,
+      "author": {
+        "id": 14134
+      },
+      "writtenOn": "2022-01-10T19:01:49Z",
+      "side": 1,
+      "message": "Can this be done outside thread_loop_lock?",
+      "revId": "845a6193d10f2f6575ff2b8e4df8511cc27fc6b1",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "5fe87253_794f1d71",
+        "filename": "modules/desktop_capture/linux/wayland/base_capturer_pipewire.cc",
+        "patchSetId": 10
+      },
+      "lineNbr": 522,
+      "author": {
+        "id": 14134
+      },
+      "writtenOn": "2022-01-10T19:01:49Z",
+      "side": 1,
+      "message": "Is the pipewire capturer running in its own process, or is it running inside the Chrome browser process?  We don\u0027t want to block a Chrome browser thread that is used for other tasks on a response from the Pipewire server.\n\nI started looking through the flow to start the pipewire capturer, and it looks like dbus is involved, but I didn\u0027t trace the code further.\n\n\nMaybe there\u0027s a doc/diagram explaining the process for setting up the pipewire capturer in Chrome?",
+      "revId": "845a6193d10f2f6575ff2b8e4df8511cc27fc6b1",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "80e1980f_509a144b",
+        "filename": "modules/desktop_capture/linux/wayland/base_capturer_pipewire.h",
+        "patchSetId": 10
+      },
+      "lineNbr": 47,
+      "author": {
+        "id": 14134
+      },
+      "writtenOn": "2022-01-10T19:01:49Z",
+      "side": 1,
+      "message": "Style: Use CamelCase for class/struct names, e.g. PipeWireVersion.",
+      "revId": "845a6193d10f2f6575ff2b8e4df8511cc27fc6b1",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "68e095d6_f2debb2d",
+        "filename": "modules/desktop_capture/linux/wayland/base_capturer_pipewire.h",
+        "patchSetId": 10
+      },
+      "lineNbr": 75,
+      "author": {
+        "id": 14134
+      },
+      "writtenOn": "2022-01-10T19:01:49Z",
+      "side": 1,
+      "message": "Please add comments explaining the new fields.",
+      "revId": "845a6193d10f2f6575ff2b8e4df8511cc27fc6b1",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "a347233b_ea30ad74",
+        "filename": "modules/desktop_capture/linux/wayland/base_capturer_pipewire.h",
+        "patchSetId": 10
+      },
+      "lineNbr": 75,
+      "author": {
+        "id": 14134
+      },
+      "writtenOn": "2022-01-10T19:01:49Z",
+      "side": 1,
+      "message": "Can you add an initializer for this field, consistent with the other fields in this class?",
+      "revId": "845a6193d10f2f6575ff2b8e4df8511cc27fc6b1",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

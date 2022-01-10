@@ -267,6 +267,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "d5ec64a4_ae7b0b5f",
+        "filename": "modules/desktop_capture/linux/wayland/base_capturer_pipewire.cc",
+        "patchSetId": 11
+      },
+      "lineNbr": 36,
+      "author": {
+        "id": 14134
+      },
+      "writtenOn": "2022-01-10T19:11:27Z",
+      "side": 1,
+      "message": "Un-resolving until I figure out why the X11 capturer does things this way and look at the MouseCursorMonitor changes.",
+      "parentUuid": "e034efb8_2d35f61a",
+      "revId": "779de735b10bfdb5b739b317d076ccd1b1c1312b",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "9529cb65_f364781d",
         "filename": "modules/desktop_capture/linux/wayland/base_capturer_pipewire.cc",
         "patchSetId": 11

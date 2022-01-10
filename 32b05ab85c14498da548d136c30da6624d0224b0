@@ -1,0 +1,89 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "84a21db4_b6e8a737",
+        "filename": "pc/sdp_offer_answer.cc",
+        "patchSetId": 12
+      },
+      "lineNbr": 774,
+      "author": {
+        "id": 5142
+      },
+      "writtenOn": "2022-01-10T11:34:59Z",
+      "side": 1,
+      "message": "OnSetRemoteDescriptionComplete() should be called before operations_chain_callback_() (see https://webrtc-review.googlesource.com/c/src/+/244980/12/pc/sdp_offer_answer.cc#b1534).\n\nBy calling operations_chain_callback_() you are unblocking the operations chain from running the next operation, so if this happens prior to OnSetRemoteDescriptionComplete() then by the time OnSetRemoteDescriptionComplete() is called other operations may already have executed that were also queued on the chain. E.g. if you call SLD and SRD without waiting for operations to complete in-between.\n\nIt\u0027s an edge-case but matters to Chrome. For example, when OnSetRemoteDescriptionComplete() happens Chrome will copy various peer connection states and expose that information to JavaScript by updating JS objects. E.g. signalingState and transceiver states. If OnSetRemoteDescriptionComplete() is called first, then we always copy the correct states, but if OnSetRemoteDescriptionComplete() is called second then we could end up copying the result of multiple queued operations rather than the one for which the promise resolved.\n\nThis WPT should over the issue I think:\nhttps://source.chromium.org/chromium/chromium/src/+/main:third_party/blink/web_tests/external/wpt/webrtc/RTCPeerConnection-SLD-SRD-timing.https.html",
+      "revId": "32b05ab85c14498da548d136c30da6624d0224b0",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "4c335df8_5a3ed2ac",
+        "filename": "pc/sdp_offer_answer.cc",
+        "patchSetId": 12
+      },
+      "lineNbr": 850,
+      "author": {
+        "id": 5142
+      },
+      "writtenOn": "2022-01-10T11:34:59Z",
+      "side": 1,
+      "message": "Awesome! But see chat, I think there may be an internal dependency that needs to be updated before async stuff can happen (e.g. a CHECK that the operation is immediately complete).",
+      "revId": "32b05ab85c14498da548d136c30da6624d0224b0",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "45b30565_86e750c4",
+        "filename": "pc/sdp_offer_answer.cc",
+        "patchSetId": 12
+      },
+      "lineNbr": 2299,
+      "author": {
+        "id": 5142
+      },
+      "writtenOn": "2022-01-10T11:34:59Z",
+      "side": 1,
+      "message": "nit/optional: We are calling various sub-steps here. Would it make sense to move this into a RemoteDescriptionOperation function for all steps and make the sub-steps private?",
+      "revId": "32b05ab85c14498da548d136c30da6624d0224b0",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "f15b49f3_581c30a3",
+        "filename": "pc/sdp_offer_answer.cc",
+        "patchSetId": 12
+      },
+      "lineNbr": 2326,
+      "author": {
+        "id": 5142
+      },
+      "writtenOn": "2022-01-10T11:34:59Z",
+      "side": 1,
+      "message": "operation.reset() implicitly invokes both operations_chain_callback_() and OnSetRemoteDescriptionComplete() earlier than what happened previously, I think this will cause problems (see other comment).",
+      "revId": "32b05ab85c14498da548d136c30da6624d0224b0",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "9c0c2401_d472aa2f",
+        "filename": "pc/sdp_offer_answer.cc",
+        "patchSetId": 12
+      },
+      "lineNbr": 2334,
+      "author": {
+        "id": 5142
+      },
+      "writtenOn": "2022-01-10T11:34:59Z",
+      "side": 1,
+      "message": "Removing stopped transceivers also need to be considered part of the SRD operation, otherwise Chrome might surface transceiver states prematurely resulting in stopped transceivers not disappearing in JavaScript. It might cause this WPT to fail? https://source.chromium.org/chromium/chromium/src/+/main:third_party/blink/web_tests/external/wpt/webrtc/RTCRtpTransceiver-stop.html;l\u003d136",
+      "revId": "32b05ab85c14498da548d136c30da6624d0224b0",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

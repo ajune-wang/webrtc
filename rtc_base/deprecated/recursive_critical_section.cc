@@ -12,11 +12,12 @@
 
 #include <time.h>
 
+#include <tuple>
+
 #include "rtc_base/atomic_ops.h"
 #include "rtc_base/checks.h"
 #include "rtc_base/platform_thread_types.h"
 #include "rtc_base/synchronization/yield.h"
-#include "rtc_base/system/unused.h"
 
 #if RTC_DCHECK_IS_ON
 #define RTC_CS_DEBUG_CODE(x) x
@@ -48,8 +49,8 @@ RecursiveCriticalSection::RecursiveCriticalSection() {
 #endif
   RTC_CS_DEBUG_CODE(thread_ = 0);
   RTC_CS_DEBUG_CODE(recursion_count_ = 0);
-  RTC_UNUSED(thread_);
-  RTC_UNUSED(recursion_count_);
+  std::ignore = thread_;
+  std::ignore = recursion_count_;
 #else
 #error Unsupported platform.
 #endif

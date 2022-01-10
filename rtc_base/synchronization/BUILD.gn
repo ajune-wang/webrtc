@@ -101,7 +101,6 @@ if (rtc_include_tests) {
       sources = [ "mutex_benchmark.cc" ]
       deps = [
         ":mutex",
-        "../system:unused",
         "//third_party/google_benchmark",
       ]
     }

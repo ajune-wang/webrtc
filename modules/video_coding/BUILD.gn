@@ -1136,7 +1136,6 @@ if (rtc_include_tests) {
       "../../rtc_base/experiments:encoder_info_settings",
       "../../rtc_base/experiments:jitter_upper_bound_experiment",
       "../../rtc_base/synchronization:mutex",
-      "../../rtc_base/system:unused",
       "../../system_wrappers",
       "../../system_wrappers:field_trial",
       "../../system_wrappers:metrics",

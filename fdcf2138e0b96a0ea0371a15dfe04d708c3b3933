@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "32e21289_071d0d93",
+        "filename": "modules/desktop_capture/desktop_capture_options.h",
+        "patchSetId": 15
+      },
+      "lineNbr": 173,
+      "author": {
+        "id": 14134
+      },
+      "writtenOn": "2022-01-10T19:09:20Z",
+      "side": 1,
+      "message": "Can you explain the goal of this change?  This API exposes internal implementation details of the Pipewire capturer to the client (e.g. Chrome).\n\nIf there is some state or settings that needs to be exposed to Chrome can you \ncome up with a more narrowly scoped API?\n\nMoreover, ongoing capture state and frames are intended to be communicated through webrtc::DesktopCapturer; the Options are supposed to be \"one-time\" configuration for each capture session, although various state variables have been added to it over the years.",
+      "revId": "fdcf2138e0b96a0ea0371a15dfe04d708c3b3933",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

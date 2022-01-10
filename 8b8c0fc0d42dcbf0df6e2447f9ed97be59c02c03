@@ -16,6 +16,40 @@
       "message": "might be worth asking around \"downstream projects\" if they rely on the wrong value.\nWill send out a PSA, should I also wait for M100 to branch before landing to maximize time-in-flight?",
       "revId": "8b8c0fc0d42dcbf0df6e2447f9ed97be59c02c03",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "57b9904a_9b2a586f",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 4
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5142
+      },
+      "writtenOn": "2022-01-10T14:52:35Z",
+      "side": 1,
+      "message": "Just a nit, but we should always use constants",
+      "revId": "8b8c0fc0d42dcbf0df6e2447f9ed97be59c02c03",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "634dacfd_62fc39b1",
+        "filename": "pc/rtc_stats_collector.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 277,
+      "author": {
+        "id": 5142
+      },
+      "writtenOn": "2022-01-10T14:52:35Z",
+      "side": 1,
+      "message": "Divide by rtc::kNumMillisecsPerSec instead, don\u0027t forget to static_cast\u003cdouble\u003e",
+      "revId": "8b8c0fc0d42dcbf0df6e2447f9ed97be59c02c03",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

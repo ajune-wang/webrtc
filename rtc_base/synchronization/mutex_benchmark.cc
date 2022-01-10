@@ -8,9 +8,10 @@
  *  be found in the AUTHORS file in the root of the source tree.
  */
 
+#include <tuple>
+
 #include "benchmark/benchmark.h"
 #include "rtc_base/synchronization/mutex.h"
-#include "rtc_base/system/unused.h"
 
 namespace webrtc {
 
@@ -37,7 +38,7 @@ class PerfTestData {
 void BM_LockWithMutex(benchmark::State& state) {
   static PerfTestData test_data;
   for (auto s : state) {
-    RTC_UNUSED(s);
+    std::ignore = s;
     benchmark::DoNotOptimize(test_data.AddToCounter(2));
   }
 }

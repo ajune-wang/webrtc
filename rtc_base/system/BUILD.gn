@@ -53,10 +53,6 @@ rtc_source_set("inline") {
   sources = [ "inline.h" ]
 }
 
-rtc_source_set("unused") {
-  sources = [ "unused.h" ]
-}
-
 rtc_source_set("assume") {
   sources = [ "assume.h" ]
 }

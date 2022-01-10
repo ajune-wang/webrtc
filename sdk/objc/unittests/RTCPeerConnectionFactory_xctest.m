@@ -21,9 +21,9 @@
 #import "api/peerconnection/RTCRtpTransceiver.h"
 #import "api/peerconnection/RTCSessionDescription.h"
 #import "api/peerconnection/RTCVideoSource.h"
-#import "rtc_base/system/unused.h"
 
 #import <XCTest/XCTest.h>
+#import <tuple>
 
 @interface RTCPeerConnectionFactoryTests : XCTestCase
 @end
@@ -65,7 +65,7 @@
       factory = nil;
     }
     mediaStream = nil;
-    RTC_UNUSED(mediaStream);
+    std::ignore = mediaStream;
   }
 
   XCTAssertTrue(true, "Expect test does not crash");

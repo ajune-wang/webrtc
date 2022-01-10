@@ -13,12 +13,12 @@
 #include <limits>
 #include <ostream>
 #include <string>
+#include <tuple>
 #include <utility>
 
 #include "api/array_view.h"
 #include "api/video/render_resolution.h"
 #include "common_video/h264/h264_common.h"
-#include "rtc_base/system/unused.h"
 #include "test/gmock.h"
 #include "test/gtest.h"
 
@@ -297,10 +297,10 @@ TEST(H264PacketBufferTest, IdrIsKeyframeFuaRequiresFirstFragmet) {
 TEST(H264PacketBufferTest, SpsPpsIdrIsKeyframeSingleNalus) {
   H264PacketBuffer packet_buffer(/*allow_idr_only_keyframes=*/false);
 
-  RTC_UNUSED(packet_buffer.InsertPacket(
-      Packet(kH264SingleNalu).Sps().SeqNum(0).Time(0).Build()));
-  RTC_UNUSED(packet_buffer.InsertPacket(
-      Packet(kH264SingleNalu).Pps().SeqNum(1).Time(0).Build()));
+  std::ignore = packet_buffer.InsertPacket(
+      Packet(kH264SingleNalu).Sps().SeqNum(0).Time(0).Build());
+  std::ignore = packet_buffer.InsertPacket(
+      Packet(kH264SingleNalu).Pps().SeqNum(1).Time(0).Build());
   EXPECT_THAT(
       packet_buffer
           .InsertPacket(
@@ -312,8 +312,8 @@ TEST(H264PacketBufferTest, SpsPpsIdrIsKeyframeSingleNalus) {
 TEST(H264PacketBufferTest, PpsIdrIsNotKeyframeSingleNalus) {
   H264PacketBuffer packet_buffer(/*allow_idr_only_keyframes=*/false);
 
-  RTC_UNUSED(packet_buffer.InsertPacket(
-      Packet(kH264SingleNalu).Pps().SeqNum(0).Time(0).Build()));
+  std::ignore = packet_buffer.InsertPacket(
+      Packet(kH264SingleNalu).Pps().SeqNum(0).Time(0).Build());
   EXPECT_THAT(
       packet_buffer
           .InsertPacket(
@@ -325,8 +325,8 @@ TEST(H264PacketBufferTest, PpsIdrIsNotKeyframeSingleNalus) {
 TEST(H264PacketBufferTest, SpsIdrIsNotKeyframeSingleNalus) {
   H264PacketBuffer packet_buffer(/*allow_idr_only_keyframes=*/false);
 
-  RTC_UNUSED(packet_buffer.InsertPacket(
-      Packet(kH264SingleNalu).Sps().SeqNum(0).Time(0).Build()));
+  std::ignore = packet_buffer.InsertPacket(
+      Packet(kH264SingleNalu).Sps().SeqNum(0).Time(0).Build());
   EXPECT_THAT(
       packet_buffer
           .InsertPacket(
@@ -388,8 +388,8 @@ TEST(H264PacketBufferTest, SpsIdrIsNotKeyframeStapA) {
 TEST(H264PacketBufferTest, InsertingSpsPpsLastCompletesKeyframe) {
   H264PacketBuffer packet_buffer(/*allow_idr_only_keyframes=*/false);
 
-  RTC_UNUSED(packet_buffer.InsertPacket(
-      Packet(kH264SingleNalu).Idr().SeqNum(2).Time(1).Marker().Build()));
+  std::ignore = packet_buffer.InsertPacket(
+      Packet(kH264SingleNalu).Idr().SeqNum(2).Time(1).Marker().Build());
 
   EXPECT_THAT(packet_buffer
                   .InsertPacket(
@@ -413,10 +413,10 @@ TEST(H264PacketBufferTest, InsertingMidFuaCompletesFrame) {
                   .packets,
               SizeIs(1));
 
-  RTC_UNUSED(packet_buffer.InsertPacket(
-      Packet(kH264FuA).Slice().SeqNum(1).Time(1).AsFirstFragment().Build()));
-  RTC_UNUSED(packet_buffer.InsertPacket(
-      Packet(kH264FuA).Slice().SeqNum(3).Time(1).Marker().Build()));
+  std::ignore = packet_buffer.InsertPacket(
+      Packet(kH264FuA).Slice().SeqNum(1).Time(1).AsFirstFragment().Build());
+  std::ignore = packet_buffer.InsertPacket(
+      Packet(kH264FuA).Slice().SeqNum(3).Time(1).Marker().Build());
   EXPECT_THAT(
       packet_buffer
           .InsertPacket(Packet(kH264FuA).Slice().SeqNum(2).Time(1).Build())
@@ -499,19 +499,19 @@ TEST(H264PacketBufferTest, OldPacketsDontBlockNewPackets) {
                   .packets,
               SizeIs(1));
 
-  RTC_UNUSED(packet_buffer.InsertPacket(Packet(kH264FuA)
-                                            .Slice()
-                                            .SeqNum(kBufferSize + 1)
-                                            .Time(kBufferSize + 1)
-                                            .AsFirstFragment()
-                                            .Build()));
+  std::ignore = packet_buffer.InsertPacket(Packet(kH264FuA)
+                                               .Slice()
+                                               .SeqNum(kBufferSize + 1)
+                                               .Time(kBufferSize + 1)
+                                               .AsFirstFragment()
+                                               .Build());
 
-  RTC_UNUSED(packet_buffer.InsertPacket(Packet(kH264FuA)
-                                            .Slice()
-                                            .SeqNum(kBufferSize + 3)
-                                            .Time(kBufferSize + 1)
-                                            .Marker()
-                                            .Build()));
+  std::ignore = packet_buffer.InsertPacket(Packet(kH264FuA)
+                                               .Slice()
+                                               .SeqNum(kBufferSize + 3)
+                                               .Time(kBufferSize + 1)
+                                               .Marker()
+                                               .Build());
   EXPECT_THAT(
       packet_buffer
           .InsertPacket(Packet(kH264FuA).Slice().SeqNum(2).Time(2).Build())
@@ -581,10 +581,10 @@ TEST(H264PacketBufferTest, FrameBoundariesAreSet) {
   EXPECT_TRUE(key.packets[0]->video_header.is_first_packet_in_frame);
   EXPECT_TRUE(key.packets[0]->video_header.is_last_packet_in_frame);
 
-  RTC_UNUSED(packet_buffer.InsertPacket(
-      Packet(kH264FuA).Slice().SeqNum(2).Time(2).Build()));
-  RTC_UNUSED(packet_buffer.InsertPacket(
-      Packet(kH264FuA).Slice().SeqNum(3).Time(2).Build()));
+  std::ignore = packet_buffer.InsertPacket(
+      Packet(kH264FuA).Slice().SeqNum(2).Time(2).Build());
+  std::ignore = packet_buffer.InsertPacket(
+      Packet(kH264FuA).Slice().SeqNum(3).Time(2).Build());
   auto delta = packet_buffer.InsertPacket(
       Packet(kH264FuA).Slice().SeqNum(4).Time(2).Marker().Build());
 
@@ -602,8 +602,8 @@ TEST(H264PacketBufferTest, FrameBoundariesAreSet) {
 TEST(H264PacketBufferTest, ResolutionSetOnFirstPacket) {
   H264PacketBuffer packet_buffer(/*allow_idr_only_keyframes=*/false);
 
-  RTC_UNUSED(packet_buffer.InsertPacket(
-      Packet(kH264SingleNalu).Aud().SeqNum(1).Time(1).Build()));
+  std::ignore = packet_buffer.InsertPacket(
+      Packet(kH264SingleNalu).Aud().SeqNum(1).Time(1).Build());
   auto res = packet_buffer.InsertPacket(Packet(kH264StapA)
                                             .SpsWithResolution({320, 240})
                                             .Pps()
@@ -621,8 +621,8 @@ TEST(H264PacketBufferTest, ResolutionSetOnFirstPacket) {
 TEST(H264PacketBufferTest, KeyframeAndDeltaFrameSetOnFirstPacket) {
   H264PacketBuffer packet_buffer(/*allow_idr_only_keyframes=*/false);
 
-  RTC_UNUSED(packet_buffer.InsertPacket(
-      Packet(kH264SingleNalu).Aud().SeqNum(1).Time(1).Build()));
+  std::ignore = packet_buffer.InsertPacket(
+      Packet(kH264SingleNalu).Aud().SeqNum(1).Time(1).Build());
   auto key = packet_buffer.InsertPacket(
       Packet(kH264StapA).Sps().Pps().Idr().SeqNum(2).Time(1).Marker().Build());
 
@@ -640,11 +640,11 @@ TEST(H264PacketBufferTest, KeyframeAndDeltaFrameSetOnFirstPacket) {
 TEST(H264PacketBufferTest, RtpSeqNumWrap) {
   H264PacketBuffer packet_buffer(/*allow_idr_only_keyframes=*/false);
 
-  RTC_UNUSED(packet_buffer.InsertPacket(
-      Packet(kH264StapA).Sps().Pps().SeqNum(0xffff).Time(0).Build()));
+  std::ignore = packet_buffer.InsertPacket(
+      Packet(kH264StapA).Sps().Pps().SeqNum(0xffff).Time(0).Build());
 
-  RTC_UNUSED(packet_buffer.InsertPacket(
-      Packet(kH264FuA).Idr().SeqNum(0).Time(0).Build()));
+  std::ignore = packet_buffer.InsertPacket(
+      Packet(kH264FuA).Idr().SeqNum(0).Time(0).Build());
   EXPECT_THAT(packet_buffer
                   .InsertPacket(
                       Packet(kH264FuA).Idr().SeqNum(1).Time(0).Marker().Build())
@@ -679,10 +679,10 @@ TEST(H264PacketBufferTest, StapAFixedBitstream) {
 TEST(H264PacketBufferTest, SingleNaluFixedBitstream) {
   H264PacketBuffer packet_buffer(/*allow_idr_only_keyframes=*/false);
 
-  RTC_UNUSED(packet_buffer.InsertPacket(
-      Packet(kH264SingleNalu).Sps({1, 2, 3}).SeqNum(0).Time(0).Build()));
-  RTC_UNUSED(packet_buffer.InsertPacket(
-      Packet(kH264SingleNalu).Pps({4, 5, 6}).SeqNum(1).Time(0).Build()));
+  std::ignore = packet_buffer.InsertPacket(
+      Packet(kH264SingleNalu).Sps({1, 2, 3}).SeqNum(0).Time(0).Build());
+  std::ignore = packet_buffer.InsertPacket(
+      Packet(kH264SingleNalu).Pps({4, 5, 6}).SeqNum(1).Time(0).Build());
   auto packets = packet_buffer
                      .InsertPacket(Packet(kH264SingleNalu)
                                        .Idr({7, 8, 9})
@@ -704,18 +704,18 @@ TEST(H264PacketBufferTest, SingleNaluFixedBitstream) {
 TEST(H264PacketBufferTest, StapaAndFuaFixedBitstream) {
   H264PacketBuffer packet_buffer(/*allow_idr_only_keyframes=*/false);
 
-  RTC_UNUSED(packet_buffer.InsertPacket(Packet(kH264StapA)
-                                            .Sps({1, 2, 3})
-                                            .Pps({4, 5, 6})
-                                            .SeqNum(0)
-                                            .Time(0)
-                                            .Build()));
-  RTC_UNUSED(packet_buffer.InsertPacket(Packet(kH264FuA)
-                                            .Idr({8, 8, 8})
-                                            .SeqNum(1)
-                                            .Time(0)
-                                            .AsFirstFragment()
-                                            .Build()));
+  std::ignore = packet_buffer.InsertPacket(Packet(kH264StapA)
+                                               .Sps({1, 2, 3})
+                                               .Pps({4, 5, 6})
+                                               .SeqNum(0)
+                                               .Time(0)
+                                               .Build());
+  std::ignore = packet_buffer.InsertPacket(Packet(kH264FuA)
+                                               .Idr({8, 8, 8})
+                                               .SeqNum(1)
+                                               .Time(0)
+                                               .AsFirstFragment()
+                                               .Build());
   auto packets = packet_buffer
                      .InsertPacket(Packet(kH264FuA)
                                        .Idr({9, 9, 9})

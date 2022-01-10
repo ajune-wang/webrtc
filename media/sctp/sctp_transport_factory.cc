@@ -10,7 +10,7 @@
 
 #include "media/sctp/sctp_transport_factory.h"
 
-#include "rtc_base/system/unused.h"
+#include <tuple>
 
 #ifdef WEBRTC_HAVE_DCSCTP
 #include "media/sctp/dcsctp_transport.h"          // nogncheck
@@ -26,7 +26,7 @@ namespace cricket {
 
 SctpTransportFactory::SctpTransportFactory(rtc::Thread* network_thread)
     : network_thread_(network_thread), use_dcsctp_("Enabled", false) {
-  RTC_UNUSED(network_thread_);
+  std::ignore = network_thread_;
 #ifdef WEBRTC_HAVE_DCSCTP
   webrtc::ParseFieldTrial({&use_dcsctp_}, webrtc::field_trial::FindFullName(
                                               "WebRTC-DataChannel-Dcsctp"));

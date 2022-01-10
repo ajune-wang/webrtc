@@ -35,6 +35,24 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "94e7948e_22192d12",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2022-01-10T13:17:51Z",
+      "side": 1,
+      "message": "If non-null ProcessThread is passed to the constructor, it calls \n\nprocess_thread_-\u003eRegisterModule(\u0026module_proxy_, RTC_FROM_HERE);\n\nI think that means that ModuleProxy::Process calls PacedSender::Process, on the process thread.",
+      "parentUuid": "2dae086d_146b98d2",
+      "revId": "4b5e48f89b84160caa5e15fec4b448fe499fdf20",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "3edbafce_9dd1ae47",
@@ -72,6 +90,30 @@
       "side": 1,
       "message": "The refactoring needed is to entirely remove this class 😊\n(a few internal apps need to be migrated before deletion)\nI would not spend time on small fixes here...",
       "parentUuid": "3edbafce_9dd1ae47",
+      "range": {
+        "startLine": 150,
+        "startChar": 2,
+        "endLine": 150,
+        "endChar": 39
+      },
+      "revId": "4b5e48f89b84160caa5e15fec4b448fe499fdf20",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "f02df988_ecebd7ad",
+        "filename": "modules/pacing/paced_sender.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 150,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2022-01-10T13:17:51Z",
+      "side": 1,
+      "message": "Ok, can you update bug to say that? I was looking for obsolete uses of ProcessThread and Module, and then stumbled on this TODO item.",
+      "parentUuid": "d5b07f79_d8de535e",
       "range": {
         "startLine": 150,
         "startChar": 2,

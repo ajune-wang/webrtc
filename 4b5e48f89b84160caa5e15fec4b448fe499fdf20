@@ -16,6 +16,29 @@
       "message": "PTAL. Appears to pass tests, have downstream problems been solved by now?",
       "revId": "4b5e48f89b84160caa5e15fec4b448fe499fdf20",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "3edbafce_9dd1ae47",
+        "filename": "modules/pacing/paced_sender.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 150,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2022-01-10T13:09:47Z",
+      "side": 1,
+      "message": "Might make sense to move this member variable to the ModuleProxy class (and move corresponding methods), but perhaps better done as part of later refactoring.",
+      "range": {
+        "startLine": 150,
+        "startChar": 2,
+        "endLine": 150,
+        "endChar": 39
+      },
+      "revId": "4b5e48f89b84160caa5e15fec4b448fe499fdf20",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

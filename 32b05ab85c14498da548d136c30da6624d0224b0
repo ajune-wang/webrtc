@@ -228,6 +228,24 @@
       "parentUuid": "a59413aa_9709e11f",
       "revId": "32b05ab85c14498da548d136c30da6624d0224b0",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "5a6ea86d_72c5dd8a",
+        "filename": "pc/sdp_offer_answer.cc",
+        "patchSetId": 12
+      },
+      "lineNbr": 2334,
+      "author": {
+        "id": 5508
+      },
+      "writtenOn": "2022-01-11T19:00:03Z",
+      "side": 1,
+      "message": "Ah I see. I\u0027ve moved the call to RemoveStoppedTransceivers() up to before the completion notification now.",
+      "parentUuid": "8ae00eae_5cf346bb",
+      "revId": "32b05ab85c14498da548d136c30da6624d0224b0",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

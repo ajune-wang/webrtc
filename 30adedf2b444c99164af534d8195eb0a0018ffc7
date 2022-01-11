@@ -16,6 +16,24 @@
       "message": "Prior to your changes this is the point in the code where we performed \"SignalCompletion\". I still think this is where it needs to happen because then it happens after all state changes (such as RemoveStoppedTransceivers()) while still happening before UpdateNegotiationNeeded(). This ensures that if onnegotiationneeded needs to happen, it is happening after the SRD promise is resolved (after SignalCompletion).",
       "revId": "30adedf2b444c99164af534d8195eb0a0018ffc7",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "70e75056_d2175767",
+        "filename": "pc/sdp_offer_answer.cc",
+        "patchSetId": 13
+      },
+      "lineNbr": 2351,
+      "author": {
+        "id": 5508
+      },
+      "writtenOn": "2022-01-11T19:00:03Z",
+      "side": 1,
+      "message": "Ack, thanks for catching.",
+      "parentUuid": "14d4416d_f1c2199b",
+      "revId": "30adedf2b444c99164af534d8195eb0a0018ffc7",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

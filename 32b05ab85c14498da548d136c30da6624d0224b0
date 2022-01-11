@@ -18,6 +18,24 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "f3585353_84fe7264",
+        "filename": "pc/sdp_offer_answer.cc",
+        "patchSetId": 12
+      },
+      "lineNbr": 774,
+      "author": {
+        "id": 5508
+      },
+      "writtenOn": "2022-01-11T10:17:46Z",
+      "side": 1,
+      "message": "Done. Thanks for catching.",
+      "parentUuid": "84a21db4_b6e8a737",
+      "revId": "32b05ab85c14498da548d136c30da6624d0224b0",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "4c335df8_5a3ed2ac",
@@ -31,6 +49,24 @@
       "writtenOn": "2022-01-10T11:34:59Z",
       "side": 1,
       "message": "Awesome! But see chat, I think there may be an internal dependency that needs to be updated before async stuff can happen (e.g. a CHECK that the operation is immediately complete).",
+      "revId": "32b05ab85c14498da548d136c30da6624d0224b0",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "62663b93_46162809",
+        "filename": "pc/sdp_offer_answer.cc",
+        "patchSetId": 12
+      },
+      "lineNbr": 850,
+      "author": {
+        "id": 5508
+      },
+      "writtenOn": "2022-01-11T10:17:46Z",
+      "side": 1,
+      "message": "Thanks, looking into it. I think that even before we can make DoSetRemoteDescription fully async, breaking things up into smaller chunks, will allow us to group together operations that need to run on the same threads and do at most one Invoke() per thread instead of several as we do today.",
+      "parentUuid": "4c335df8_5a3ed2ac",
       "revId": "32b05ab85c14498da548d136c30da6624d0224b0",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
@@ -54,6 +90,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "d70f3a84_8f26d21f",
+        "filename": "pc/sdp_offer_answer.cc",
+        "patchSetId": 12
+      },
+      "lineNbr": 2299,
+      "author": {
+        "id": 5508
+      },
+      "writtenOn": "2022-01-11T10:17:46Z",
+      "side": 1,
+      "message": "Eventually yes. In order to reduce chances of running into long debug sessions and series of reverts, I\u0027m choosing to keep the \"recipe\" in the same place it used to be and just move the individual sub steps into their own functions. Down the line I hope to make this more clearly laid out and separate from the SdpOfferAnswerHandler class.",
+      "parentUuid": "45b30565_86e750c4",
+      "revId": "32b05ab85c14498da548d136c30da6624d0224b0",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "f15b49f3_581c30a3",
         "filename": "pc/sdp_offer_answer.cc",
         "patchSetId": 12
@@ -71,6 +125,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "c1688b6a_83144705",
+        "filename": "pc/sdp_offer_answer.cc",
+        "patchSetId": 12
+      },
+      "lineNbr": 2326,
+      "author": {
+        "id": 5508
+      },
+      "writtenOn": "2022-01-11T10:17:46Z",
+      "side": 1,
+      "message": "Thanks. Addressed the order issue above and changed this to explicitly notify the observer here.",
+      "parentUuid": "f15b49f3_581c30a3",
+      "revId": "32b05ab85c14498da548d136c30da6624d0224b0",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "9c0c2401_d472aa2f",
         "filename": "pc/sdp_offer_answer.cc",
         "patchSetId": 12
@@ -82,6 +154,24 @@
       "writtenOn": "2022-01-10T11:34:59Z",
       "side": 1,
       "message": "Removing stopped transceivers also need to be considered part of the SRD operation, otherwise Chrome might surface transceiver states prematurely resulting in stopped transceivers not disappearing in JavaScript. It might cause this WPT to fail? https://source.chromium.org/chromium/chromium/src/+/main:third_party/blink/web_tests/external/wpt/webrtc/RTCRtpTransceiver-stop.html;l\u003d136",
+      "revId": "32b05ab85c14498da548d136c30da6624d0224b0",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "a59413aa_9709e11f",
+        "filename": "pc/sdp_offer_answer.cc",
+        "patchSetId": 12
+      },
+      "lineNbr": 2334,
+      "author": {
+        "id": 5508
+      },
+      "writtenOn": "2022-01-11T10:17:46Z",
+      "side": 1,
+      "message": "it is still a part of SRD (see function call above) - or am I missing your point?",
+      "parentUuid": "9c0c2401_d472aa2f",
       "revId": "32b05ab85c14498da548d136c30da6624d0224b0",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }

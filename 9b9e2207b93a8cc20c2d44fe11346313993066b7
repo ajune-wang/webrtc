@@ -52,6 +52,24 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "3337a6f1_2dfb03cb",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 8
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5508
+      },
+      "writtenOn": "2022-01-11T10:17:46Z",
+      "side": 1,
+      "message": "Yes `git cl format` seems to have formatted much more than I expected. Not sure how that happened.",
+      "parentUuid": "db35d85b_19b6240c",
+      "revId": "9b9e2207b93a8cc20c2d44fe11346313993066b7",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "da49ed80_10bc82f8",

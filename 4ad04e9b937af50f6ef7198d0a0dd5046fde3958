@@ -16,6 +16,23 @@
       "message": "This is caused by a recent libvpx roll.\n\nI\u0027ll update with a fix asap.",
       "revId": "4ad04e9b937af50f6ef7198d0a0dd5046fde3958",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "d1234e69_ca0233c1",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5366
+      },
+      "writtenOn": "2022-01-11T20:07:05Z",
+      "side": 1,
+      "message": "New roll here\nhttps://chromium-review.googlesource.com/c/chromium/src/+/3381298\n\nwith problematic CLs reverted",
+      "revId": "4ad04e9b937af50f6ef7198d0a0dd5046fde3958",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

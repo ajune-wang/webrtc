@@ -71,6 +71,24 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "bcc4d8f9_99a35e6c",
+        "filename": "pc/sdp_offer_answer.cc",
+        "patchSetId": 12
+      },
+      "lineNbr": 850,
+      "author": {
+        "id": 5142
+      },
+      "writtenOn": "2022-01-11T11:04:07Z",
+      "side": 1,
+      "message": "Totally agree, just a heads up. I think we should start landing these changes.\n\nAnother heads up is to also test on https://webrtc.github.io/samples/src/content/peerconnection/negotiate-timing/ when making significant changes to number of invokes to make sure we don\u0027t block packet delivery for too long causing glitches. Hopefully we\u0027re not as sensitive to that anymore but regressions to that is something that tests don\u0027t catch at the moment.",
+      "parentUuid": "62663b93_46162809",
+      "revId": "32b05ab85c14498da548d136c30da6624d0224b0",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "45b30565_86e750c4",
@@ -102,6 +120,24 @@
       "side": 1,
       "message": "Eventually yes. In order to reduce chances of running into long debug sessions and series of reverts, I\u0027m choosing to keep the \"recipe\" in the same place it used to be and just move the individual sub steps into their own functions. Down the line I hope to make this more clearly laid out and separate from the SdpOfferAnswerHandler class.",
       "parentUuid": "45b30565_86e750c4",
+      "revId": "32b05ab85c14498da548d136c30da6624d0224b0",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "f6f219db_b6bac4b2",
+        "filename": "pc/sdp_offer_answer.cc",
+        "patchSetId": 12
+      },
+      "lineNbr": 2299,
+      "author": {
+        "id": 5142
+      },
+      "writtenOn": "2022-01-11T11:04:07Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "d70f3a84_8f26d21f",
       "revId": "32b05ab85c14498da548d136c30da6624d0224b0",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
@@ -172,6 +208,24 @@
       "side": 1,
       "message": "it is still a part of SRD (see function call above) - or am I missing your point?",
       "parentUuid": "9c0c2401_d472aa2f",
+      "revId": "32b05ab85c14498da548d136c30da6624d0224b0",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "8ae00eae_5cf346bb",
+        "filename": "pc/sdp_offer_answer.cc",
+        "patchSetId": 12
+      },
+      "lineNbr": 2334,
+      "author": {
+        "id": 5142
+      },
+      "writtenOn": "2022-01-11T11:04:07Z",
+      "side": 1,
+      "message": "I am referring to the fact that SetRemoteDescriptionPostProcess() is changing states (e.g. removing transceivers) after SignalCompletion() has already happened. Remember that that peer connection states (such as which transceivers exists) are copied on SignalCompletion(). So the observer won\u0027t have access to the final states when it is invoked.\n\nAnother concern I had in the previous PS was if the operation chain callback was invoked prior to SetRemoteDescriptionPostProcess() having executed, but this has now been addressed and is not a concern anymore.",
+      "parentUuid": "a59413aa_9709e11f",
       "revId": "32b05ab85c14498da548d136c30da6624d0224b0",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }

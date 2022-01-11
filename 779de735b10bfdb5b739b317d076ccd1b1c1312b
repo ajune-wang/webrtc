@@ -285,6 +285,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "da5a15a4_4f3edbb2",
+        "filename": "modules/desktop_capture/linux/wayland/base_capturer_pipewire.cc",
+        "patchSetId": 11
+      },
+      "lineNbr": 36,
+      "author": {
+        "id": 8046
+      },
+      "writtenOn": "2022-01-11T09:18:49Z",
+      "side": 1,
+      "message": "The X11 capturer does exactly same thing. They share XDisplay between their capturer and mouse cursor monitor. The only difference is that with X11 you have access to everything, with Wayland/PipeWire we can connect to a certain socket and stream ID, which will be provided to us by xdg-desktop-portal and that\u0027s why I call StartScreenCastStream() as it cannot be initialized earlier.",
+      "parentUuid": "d5ec64a4_ae7b0b5f",
+      "revId": "779de735b10bfdb5b739b317d076ccd1b1c1312b",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "9529cb65_f364781d",
         "filename": "modules/desktop_capture/linux/wayland/base_capturer_pipewire.cc",
         "patchSetId": 11

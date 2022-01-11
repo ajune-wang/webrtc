@@ -16,6 +16,23 @@
       "message": "Hi, this is a CL for removing `RTC_DISALLALL_COPY_AND_ASSIGN`. Please take a look.\nFor reference, the code changed here was automatically written by the tool I created. The usage of `RTC_DISALLOW_COPY_AND_ASSIGN` in several cases may not be replaced in this CL.",
       "revId": "701f7ab6065d3867d507799bf5a0951481199b9e",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "a79c9092_d6c656fe",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2022-01-11T14:43:24Z",
+      "side": 1,
+      "message": "Good cleanup!\n",
+      "revId": "701f7ab6065d3867d507799bf5a0951481199b9e",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

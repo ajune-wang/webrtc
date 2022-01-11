@@ -35,6 +35,24 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "53db9b23_e9d02c62",
+        "filename": "modules/desktop_capture/linux/wayland/base_capturer_pipewire.cc",
+        "patchSetId": 10
+      },
+      "lineNbr": 72,
+      "author": {
+        "id": 8046
+      },
+      "writtenOn": "2022-01-11T09:07:37Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "7d81d41c_f99db72e",
+      "revId": "845a6193d10f2f6575ff2b8e4df8511cc27fc6b1",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "eece42d8_74afff54",
@@ -52,6 +70,24 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "17be541f_2e241bfe",
+        "filename": "modules/desktop_capture/linux/wayland/base_capturer_pipewire.cc",
+        "patchSetId": 10
+      },
+      "lineNbr": 78,
+      "author": {
+        "id": 8046
+      },
+      "writtenOn": "2022-01-11T09:07:37Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "eece42d8_74afff54",
+      "revId": "845a6193d10f2f6575ff2b8e4df8511cc27fc6b1",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "c578af85_08ead948",
@@ -65,6 +101,24 @@
       "writtenOn": "2022-01-10T19:01:49Z",
       "side": 1,
       "message": "You could also implement \u003c\u003d, \u003e\u003d on the PipewireVersion struct ...   I don\u0027t feel strongly about this though.",
+      "revId": "845a6193d10f2f6575ff2b8e4df8511cc27fc6b1",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "6282bf25_32ff8165",
+        "filename": "modules/desktop_capture/linux/wayland/base_capturer_pipewire.cc",
+        "patchSetId": 10
+      },
+      "lineNbr": 82,
+      "author": {
+        "id": 8046
+      },
+      "writtenOn": "2022-01-11T09:07:37Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "c578af85_08ead948",
       "revId": "845a6193d10f2f6575ff2b8e4df8511cc27fc6b1",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
@@ -103,6 +157,24 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "591a24c5_918a0612",
+        "filename": "modules/desktop_capture/linux/wayland/base_capturer_pipewire.cc",
+        "patchSetId": 10
+      },
+      "lineNbr": 333,
+      "author": {
+        "id": 8046
+      },
+      "writtenOn": "2022-01-11T09:07:37Z",
+      "side": 1,
+      "message": "Yes, before the new way of how DMA-BUF support should be communicated, there were servers (e.g. older version of Mutter in RHEL 8) who sends SPA_FORMAT_VIDEO_modifier even when we don\u0027t announce it so adding the server version check is just to make sure we don\u0027t end up using them.",
+      "parentUuid": "3a954e6c_65a8559b",
+      "revId": "845a6193d10f2f6575ff2b8e4df8511cc27fc6b1",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "17cdcb9f_5c1f94f1",
@@ -116,6 +188,24 @@
       "writtenOn": "2022-01-10T19:01:49Z",
       "side": 1,
       "message": "Does pw_thread_loop_start create a new system thread?  I started digging into the PipeWire code and couldn\u0027t tell.",
+      "revId": "845a6193d10f2f6575ff2b8e4df8511cc27fc6b1",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "e7f6dc9b_c541b604",
+        "filename": "modules/desktop_capture/linux/wayland/base_capturer_pipewire.cc",
+        "patchSetId": 10
+      },
+      "lineNbr": 490,
+      "author": {
+        "id": 8046
+      },
+      "writtenOn": "2022-01-11T09:07:37Z",
+      "side": 1,
+      "message": "Yes, it does create a new thread for PipeWire.\n\nFrom documentation:\nThe added feature in the threaded loop is that it spawns a new thread that runs the wrapped loop.",
+      "parentUuid": "17cdcb9f_5c1f94f1",
       "revId": "845a6193d10f2f6575ff2b8e4df8511cc27fc6b1",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
@@ -137,6 +227,24 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "4a997cda_cd18e0a6",
+        "filename": "modules/desktop_capture/linux/wayland/base_capturer_pipewire.cc",
+        "patchSetId": 10
+      },
+      "lineNbr": 496,
+      "author": {
+        "id": 8046
+      },
+      "writtenOn": "2022-01-11T09:07:37Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "32e77017_d3a8239c",
+      "revId": "845a6193d10f2f6575ff2b8e4df8511cc27fc6b1",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "96fc7126_c09bf768",
@@ -150,6 +258,24 @@
       "writtenOn": "2022-01-10T19:01:49Z",
       "side": 1,
       "message": "Does pw_context_connect_fd require thread_loop_lock to be held?  The tutorial code seems to suggest not.",
+      "revId": "845a6193d10f2f6575ff2b8e4df8511cc27fc6b1",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "8be65cd4_62f87818",
+        "filename": "modules/desktop_capture/linux/wayland/base_capturer_pipewire.cc",
+        "patchSetId": 10
+      },
+      "lineNbr": 498,
+      "author": {
+        "id": 8046
+      },
+      "writtenOn": "2022-01-11T09:07:37Z",
+      "side": 1,
+      "message": "Everything that works with an object associated with the loop needs the lock to be held. In this case it\u0027s pw_context object.",
+      "parentUuid": "96fc7126_c09bf768",
       "revId": "845a6193d10f2f6575ff2b8e4df8511cc27fc6b1",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
@@ -171,6 +297,24 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "fb028d25_9c8a2c44",
+        "filename": "modules/desktop_capture/linux/wayland/base_capturer_pipewire.cc",
+        "patchSetId": 10
+      },
+      "lineNbr": 505,
+      "author": {
+        "id": 8046
+      },
+      "writtenOn": "2022-01-11T09:07:37Z",
+      "side": 1,
+      "message": "Yes, but it doesn\u0027t make a difference and I just wanted to keep together relevant code.",
+      "parentUuid": "c45996ac_f2ecb760",
+      "revId": "845a6193d10f2f6575ff2b8e4df8511cc27fc6b1",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "0525eb6f_bbc146dc",
@@ -184,6 +328,24 @@
       "writtenOn": "2022-01-10T19:01:49Z",
       "side": 1,
       "message": "Can this be done outside thread_loop_lock?",
+      "revId": "845a6193d10f2f6575ff2b8e4df8511cc27fc6b1",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "ff14a9c3_a874bf36",
+        "filename": "modules/desktop_capture/linux/wayland/base_capturer_pipewire.cc",
+        "patchSetId": 10
+      },
+      "lineNbr": 520,
+      "author": {
+        "id": 8046
+      },
+      "writtenOn": "2022-01-11T09:07:37Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "0525eb6f_bbc146dc",
       "revId": "845a6193d10f2f6575ff2b8e4df8511cc27fc6b1",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
@@ -205,6 +367,24 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "a0295771_701c7321",
+        "filename": "modules/desktop_capture/linux/wayland/base_capturer_pipewire.cc",
+        "patchSetId": 10
+      },
+      "lineNbr": 522,
+      "author": {
+        "id": 8046
+      },
+      "writtenOn": "2022-01-11T09:07:37Z",
+      "side": 1,
+      "message": "It doesn\u0027t, but it shouldn\u0027t block anything, because PipeWire loop runs in a separate thread and the DBus code is asynchronous.\n\nI will explain everything how it works during our meeting on Thursday.",
+      "parentUuid": "5fe87253_794f1d71",
+      "revId": "845a6193d10f2f6575ff2b8e4df8511cc27fc6b1",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "80e1980f_509a144b",
@@ -218,6 +398,24 @@
       "writtenOn": "2022-01-10T19:01:49Z",
       "side": 1,
       "message": "Style: Use CamelCase for class/struct names, e.g. PipeWireVersion.",
+      "revId": "845a6193d10f2f6575ff2b8e4df8511cc27fc6b1",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "e6077380_97e00cc3",
+        "filename": "modules/desktop_capture/linux/wayland/base_capturer_pipewire.h",
+        "patchSetId": 10
+      },
+      "lineNbr": 47,
+      "author": {
+        "id": 8046
+      },
+      "writtenOn": "2022-01-11T09:07:37Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "80e1980f_509a144b",
       "revId": "845a6193d10f2f6575ff2b8e4df8511cc27fc6b1",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
@@ -252,6 +450,42 @@
       "writtenOn": "2022-01-10T19:01:49Z",
       "side": 1,
       "message": "Can you add an initializer for this field, consistent with the other fields in this class?",
+      "revId": "845a6193d10f2f6575ff2b8e4df8511cc27fc6b1",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "2a3fcb86_cb78fdfc",
+        "filename": "modules/desktop_capture/linux/wayland/base_capturer_pipewire.h",
+        "patchSetId": 10
+      },
+      "lineNbr": 75,
+      "author": {
+        "id": 8046
+      },
+      "writtenOn": "2022-01-11T09:07:37Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "68e095d6_f2debb2d",
+      "revId": "845a6193d10f2f6575ff2b8e4df8511cc27fc6b1",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "8b21eedc_bcd1507c",
+        "filename": "modules/desktop_capture/linux/wayland/base_capturer_pipewire.h",
+        "patchSetId": 10
+      },
+      "lineNbr": 75,
+      "author": {
+        "id": 8046
+      },
+      "writtenOn": "2022-01-11T09:07:37Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "a347233b_ea30ad74",
       "revId": "845a6193d10f2f6575ff2b8e4df8511cc27fc6b1",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }

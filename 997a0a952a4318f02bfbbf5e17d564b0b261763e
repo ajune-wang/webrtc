@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "2635cb91_bd8f3625",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 3
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2022-01-11T16:03:54Z",
+      "side": 1,
+      "message": "Will be exciting to see the result (and if anyone notices a change in behavior)!\nInvalidating the new-stats cache can be done in a later CL.\n",
+      "revId": "997a0a952a4318f02bfbbf5e17d564b0b261763e",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

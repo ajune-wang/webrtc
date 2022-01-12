@@ -63,8 +63,15 @@ typedef NS_ENUM(NSInteger, RTCEncryptionKeyType) {
 
 /** Represents the chosen SDP semantics for the RTCPeerConnection. */
 typedef NS_ENUM(NSInteger, RTCSdpSemantics) {
+  // TODO(https://crbug.com/webrtc/13528): Remove support for Plan B.
   RTCSdpSemanticsPlanB,
   RTCSdpSemanticsUnifiedPlan,
+  // The default sdpSemantics value is about to change to Unified Plan. During
+  // a short transition period, NotSpecified is used to ensure clients that
+  // don't set sdpSemantics are aware of the change by CHECK-crashing.
+  // TODO(https://crbug.com/webrtc/11121): When the default has changed to
+  // kUnifiedPlan, delete kNotSpecified.
+  RTCSdpSemanticsNotSpecified,
 };
 
 NS_ASSUME_NONNULL_BEGIN

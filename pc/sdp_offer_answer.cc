@@ -20,6 +20,7 @@
 
 #include "absl/algorithm/container.h"
 #include "absl/memory/memory.h"
+#include "absl/strings/match.h"
 #include "absl/strings/string_view.h"
 #include "api/array_view.h"
 #include "api/crypto/crypto_options.h"
@@ -225,7 +226,9 @@ std::string GetSetDescriptionErrorMessage(cricket::ContentSource source,
                                           const RTCError& error) {
   rtc::StringBuilder oss;
   oss << "Failed to set " << (source == cricket::CS_LOCAL ? "local" : "remote")
-      << " " << SdpTypeToString(type) << " sdp: " << error.message();
+      << " " << SdpTypeToString(type) << " sdp: ";
+  RTC_DCHECK(!absl::StartsWith(error.message(), oss.str())) << error.message();
+  oss << error.message();
   return oss.Release();
 }
 
@@ -760,8 +763,10 @@ class SdpOfferAnswerHandler::RemoteDescriptionOperation {
       : handler_(handler),
         desc_(std::move(desc)),
         observer_(std::move(observer)),
-        operations_chain_callback_(std::move(operations_chain_callback)) {
+        operations_chain_callback_(std::move(operations_chain_callback)),
+        unified_plan_(handler_->IsUnifiedPlan()) {
     if (!desc_) {
+      type_ = static_cast<SdpType>(-1);
       InvalidParam("SessionDescription is NULL.");
     } else {
       type_ = desc_->GetType();
@@ -779,20 +784,28 @@ class SdpOfferAnswerHandler::RemoteDescriptionOperation {
   // Notifies the observer that the operation is complete and releases the
   // reference to the observer.
   void SignalCompletion() {
-    if (observer_) {
-      observer_->OnSetRemoteDescriptionComplete(error_);
-      observer_ = nullptr;  // Only fire the notification once.
+    if (!observer_)
+      return;
+
+    if (!error_.ok() && type_ != static_cast<SdpType>(-1)) {
+      RTC_LOG(LS_ERROR) << "type_ == " << type_;
+      std::string error_message =
+          GetSetDescriptionErrorMessage(cricket::CS_REMOTE, type_, error_);
+      RTC_LOG(LS_ERROR) << error_message;
+      error_.set_message(std::move(error_message));
     }
+
+    observer_->OnSetRemoteDescriptionComplete(error_);
+    observer_ = nullptr;  // Only fire the notification once.
   }
 
   // If a session error has occurred the PeerConnection is in a possibly
   // inconsistent state so fail right away.
   bool HaveSessionError() {
     RTC_DCHECK(ok());
-    if (handler_->session_error() == SessionError::kNone)
-      return false;
-    SetError(RTCErrorType::INTERNAL_ERROR, handler_->GetSessionErrorMsg());
-    return true;
+    if (handler_->session_error() != SessionError::kNone)
+      InternalError(handler_->GetSessionErrorMsg());
+    return !ok();
   }
 
   // Returns true if the operation was a rollback operation. If this function
@@ -803,7 +816,7 @@ class SdpOfferAnswerHandler::RemoteDescriptionOperation {
     RTC_DCHECK(ok());
     if (type_ != SdpType::kRollback) {
       // Check if we can do an implicit rollback.
-      if (type_ == SdpType::kOffer && handler_->IsUnifiedPlan() &&
+      if (type_ == SdpType::kOffer && unified_plan_ &&
           handler_->pc_->configuration()->enable_implicit_rollback &&
           handler_->signaling_state() ==
               PeerConnectionInterface::kHaveLocalOffer) {
@@ -840,50 +853,98 @@ class SdpOfferAnswerHandler::RemoteDescriptionOperation {
     bundle_groups_by_mid_ = GetBundleGroupsByMid(description());
     error_ = handler_->ValidateSessionDescription(
         desc_.get(), cricket::CS_REMOTE, bundle_groups_by_mid_);
-    if (!error_.ok()) {
-      std::string error_message =
-          GetSetDescriptionErrorMessage(cricket::CS_REMOTE, type_, error_);
-      RTC_LOG(LS_ERROR) << error_message;
-      error_.set_message(std::move(error_message));
-      return false;
-    }
-
-    return true;
+    return ok();
   }
 
-  // TODO(tommi): Instead of calling `handler_->ApplyRemoteDescription` here,
-  // pass the ownership of `this` to that method and break down the steps
-  // currently implemented in that function into smaller methods implemented
-  // by this class. Once we have all of this broken down, we can start avoiding
-  // the embedded calls to Invoke() and apply the description asynchronously.
-  bool ApplyRemoteDescription() {
+  // Transfers ownership of the session description object over to `handler_`.
+  bool ReplaceRemoteDescription() {
     RTC_DCHECK_RUN_ON(handler_->signaling_thread());
     RTC_DCHECK(ok());
-    // TODO(tommi): It's not ideal to move desc_ ownership.
-    error_ = handler_->ApplyRemoteDescription(std::move(desc_),
-                                              bundle_groups_by_mid());
-    // `desc` may be destroyed at this point.
+    RTC_DCHECK(desc_);
+    RTC_DCHECK(!replaced_remote_description_);
+#if RTC_DCHECK_IS_ON
+    const auto* existing_remote_description = handler_->remote_description();
+#endif
 
-    if (!error_.ok()) {
-      // If ApplyRemoteDescription fails, the PeerConnection could be in an
-      // inconsistent state, so act conservatively here and set the session
-      // error so that future calls to SetLocalDescription/SetRemoteDescription
-      // fail.
-      handler_->SetSessionError(SessionError::kContent, error_.message());
-      std::string error_message =
-          GetSetDescriptionErrorMessage(cricket::CS_REMOTE, type_, error_);
-      RTC_LOG(LS_ERROR) << error_message;
-      error_.set_message(std::move(error_message));
-      return false;
+    error_ = handler_->ReplaceRemoteDescription(std::move(desc_), type_,
+                                                &replaced_remote_description_);
+
+#if RTC_DCHECK_IS_ON
+    if (ok()) {
+      RTC_DCHECK_EQ(existing_remote_description, old_remote_description())
+          << "type:" << type_
+          << " is_answer: " << ((type_ == SdpType::kAnswer));
+    }
+#endif
+
+    if (!ok())
+      SetAsSessionError();
+
+    return ok();
+  }
+
+  bool UpdateChannels() {
+    RTC_DCHECK(ok());
+    RTC_DCHECK(!desc_) << "ReplaceRemoteDescription hasn't been called";
+
+    const auto* remote_description = handler_->remote_description();
+
+    const cricket::SessionDescription* session_desc =
+        remote_description->description();
+
+    // Transport and Media channels will be created only when offer is set.
+    if (unified_plan_) {
+      error_ = handler_->UpdateTransceiversAndDataChannels(
+          cricket::CS_REMOTE, *remote_description,
+          handler_->local_description(), old_remote_description(),
+          bundle_groups_by_mid_);
+    } else {
+      // Media channels will be created only when offer is set. These may use
+      // new transports just created by PushdownTransportDescription.
+      if (type_ == SdpType::kOffer) {
+        // TODO(mallinath) - Handle CreateChannel failure, as new local
+        // description is applied. Restore back to old description.
+        error_ = handler_->CreateChannels(*session_desc);
+      }
+      // Remove unused channels if MediaContentDescription is rejected.
+      handler_->RemoveUnusedChannels(session_desc);
     }
 
-    return true;
+    return ok();
+  }
+
+  bool UpdateSessionState() {
+    RTC_DCHECK(ok());
+    error_ = handler_->UpdateSessionState(
+        type_, cricket::CS_REMOTE,
+        handler_->remote_description()->description(), bundle_groups_by_mid_);
+    if (!ok())
+      SetAsSessionError();
+    return ok();
+  }
+
+  bool UseCandidatesInRemoteDescription() {
+    RTC_DCHECK(ok());
+    if (handler_->local_description() &&
+        !handler_->UseCandidatesInRemoteDescription()) {
+      InvalidParam(kInvalidCandidates);
+    }
+    return ok();
   }
 
   // Convenience getter for desc_->GetType().
   SdpType type() const { return type_; }
-
+  bool unified_plan() const { return unified_plan_; }
   cricket::SessionDescription* description() { return desc_->description(); }
+
+  const SessionDescriptionInterface* old_remote_description() const {
+    RTC_DCHECK(!desc_) << "Called before replacing the remote description";
+    if (type_ == SdpType::kAnswer)
+      return replaced_remote_description_.get();
+    return replaced_remote_description_
+               ? replaced_remote_description_.get()
+               : handler_->current_remote_description();
+  }
 
   // Returns a reference to a cached map of bundle groups ordered by mid.
   // Note that this will only be valid after a successful call to
@@ -904,18 +965,35 @@ class SdpOfferAnswerHandler::RemoteDescriptionOperation {
     SetError(RTCErrorType::INVALID_PARAMETER, std::move(message));
   }
 
+  void InternalError(std::string message) {
+    SetError(RTCErrorType::INTERNAL_ERROR, std::move(message));
+  }
+
   void SetError(RTCErrorType type, std::string message) {
     RTC_DCHECK(ok()) << "Overwriting an existing error?";
     error_ = RTCError(type, std::move(message));
   }
 
+  // Called when the PeerConnection could be in an inconsistent state and we set
+  // the session error so that future calls to
+  // SetLocalDescription/SetRemoteDescription fail.
+  void SetAsSessionError() {
+    RTC_DCHECK(!ok());
+    handler_->SetSessionError(SessionError::kContent, error_.message());
+  }
+
   SdpOfferAnswerHandler* const handler_;
   std::unique_ptr<SessionDescriptionInterface> desc_;
+  // Keeps the replaced session description object alive while the operation
+  // is taking place since methods that depend on `old_remote_description()`
+  // for updating the state, need it.
+  std::unique_ptr<SessionDescriptionInterface> replaced_remote_description_;
   rtc::scoped_refptr<SetRemoteDescriptionObserverInterface> observer_;
   std::function<void()> operations_chain_callback_;
   RTCError error_ = RTCError::OK();
   std::map<std::string, const cricket::ContentGroup*> bundle_groups_by_mid_;
   SdpType type_;
+  const bool unified_plan_;
 };
 // Used by parameterless SetLocalDescription() to create an offer or answer.
 // Upon completion of creating the session description, SetLocalDescription() is
@@ -1556,10 +1634,8 @@ RTCError SdpOfferAnswerHandler::ApplyLocalDescription(
     return error;
   }
 
-  if (remote_description()) {
-    // Now that we have a local description, we can push down remote candidates.
-    UseCandidatesInSessionDescription(remote_description());
-  }
+  // Now that we have a local description, we can push down remote candidates.
+  UseCandidatesInRemoteDescription();
 
   pending_ice_restarts_.clear();
   if (session_error() != SessionError::kNone) {
@@ -1712,102 +1788,72 @@ void SdpOfferAnswerHandler::SetRemoteDescription(
       });
 }
 
-RTCError SdpOfferAnswerHandler::ApplyRemoteDescription(
+RTCError SdpOfferAnswerHandler::ReplaceRemoteDescription(
     std::unique_ptr<SessionDescriptionInterface> desc,
-    const std::map<std::string, const cricket::ContentGroup*>&
-        bundle_groups_by_mid) {
+    SdpType sdp_type,
+    std::unique_ptr<SessionDescriptionInterface>* replaced_description) {
+  RTC_DCHECK(replaced_description);
+  if (sdp_type == SdpType::kAnswer) {
+    *replaced_description = pending_remote_description_
+                                ? std::move(pending_remote_description_)
+                                : std::move(current_remote_description_);
+    current_remote_description_ = std::move(desc);
+    pending_remote_description_ = nullptr;
+    current_local_description_ = std::move(pending_local_description_);
+  } else {
+    *replaced_description = std::move(pending_remote_description_);
+    pending_remote_description_ = std::move(desc);
+  }
+
+  // The session description to apply now must be accessed by
+  // `remote_description()`.
+  const cricket::SessionDescription* session_desc =
+      remote_description()->description();
+
+  // Report statistics about any use of simulcast.
+  ReportSimulcastApiVersion(kSimulcastVersionApplyRemoteDescription,
+                            *session_desc);
+
+  // NOTE: This will perform an Invoke() to the network thread.
+  return transport_controller()->SetRemoteDescription(sdp_type, session_desc);
+}
+
+void SdpOfferAnswerHandler::ApplyRemoteDescription(
+    std::unique_ptr<RemoteDescriptionOperation> operation) {
   TRACE_EVENT0("webrtc", "SdpOfferAnswerHandler::ApplyRemoteDescription");
   RTC_DCHECK_RUN_ON(signaling_thread());
-  RTC_DCHECK(desc);
+  RTC_DCHECK(operation->description());
 
   // Invalidate the [legacy] stats cache to make sure that it gets updated next
   // time getStats() gets called, as updating the session description affects
   // the stats.
   pc_->stats()->InvalidateCache();
 
-  // Take a reference to the old remote description since it's used below to
-  // compare against the new remote description. When setting the new remote
-  // description, grab ownership of the replaced session description in case it
-  // is the same as `old_remote_description`, to keep it alive for the duration
-  // of the method.
-  const SessionDescriptionInterface* old_remote_description =
-      remote_description();
-  std::unique_ptr<SessionDescriptionInterface> replaced_remote_description;
-  SdpType type = desc->GetType();
-  if (type == SdpType::kAnswer) {
-    replaced_remote_description = pending_remote_description_
-                                      ? std::move(pending_remote_description_)
-                                      : std::move(current_remote_description_);
-    current_remote_description_ = std::move(desc);
-    pending_remote_description_ = nullptr;
-    current_local_description_ = std::move(pending_local_description_);
-  } else {
-    replaced_remote_description = std::move(pending_remote_description_);
-    pending_remote_description_ = std::move(desc);
-  }
-  // The session description to apply now must be accessed by
-  // `remote_description()`.
-  RTC_DCHECK(remote_description());
+  if (!operation->ReplaceRemoteDescription())
+    return;
 
-  // Report statistics about any use of simulcast.
-  ReportSimulcastApiVersion(kSimulcastVersionApplyRemoteDescription,
-                            *remote_description()->description());
-
-  RTCError error = PushdownTransportDescription(cricket::CS_REMOTE, type);
-  if (!error.ok()) {
-    return error;
-  }
-
-  const bool is_unified_plan = IsUnifiedPlan();
-
-  // Transport and Media channels will be created only when offer is set.
-  if (is_unified_plan) {
-    RTCError error = UpdateTransceiversAndDataChannels(
-        cricket::CS_REMOTE, *remote_description(), local_description(),
-        old_remote_description, bundle_groups_by_mid);
-    if (!error.ok()) {
-      return error;
-    }
-  } else {
-    // Media channels will be created only when offer is set. These may use new
-    // transports just created by PushdownTransportDescription.
-    if (type == SdpType::kOffer) {
-      // TODO(mallinath) - Handle CreateChannel failure, as new local
-      // description is applied. Restore back to old description.
-      RTCError error = CreateChannels(*remote_description()->description());
-      if (!error.ok()) {
-        return error;
-      }
-    }
-    // Remove unused channels if MediaContentDescription is rejected.
-    RemoveUnusedChannels(remote_description()->description());
-  }
+  if (!operation->UpdateChannels())
+    return;
 
   // NOTE: Candidates allocation will be initiated only when
   // SetLocalDescription is called.
-  error = UpdateSessionState(type, cricket::CS_REMOTE,
-                             remote_description()->description(),
-                             bundle_groups_by_mid);
-  if (!error.ok()) {
-    return error;
-  }
+  if (!operation->UpdateSessionState())
+    return;
 
-  if (local_description() &&
-      !UseCandidatesInSessionDescription(remote_description())) {
-    LOG_AND_RETURN_ERROR(RTCErrorType::INVALID_PARAMETER, kInvalidCandidates);
-  }
+  if (!operation->UseCandidatesInRemoteDescription())
+    return;
 
-  if (old_remote_description) {
+  if (operation->old_remote_description()) {
     for (const cricket::ContentInfo& content :
-         old_remote_description->description()->contents()) {
+         operation->old_remote_description()->description()->contents()) {
       // Check if this new SessionDescription contains new ICE ufrag and
       // password that indicates the remote peer requests an ICE restart.
       // TODO(deadbeef): When we start storing both the current and pending
       // remote description, this should reset pending_ice_restarts and compare
       // against the current description.
-      if (CheckForRemoteIceRestart(old_remote_description, remote_description(),
-                                   content.name)) {
-        if (type == SdpType::kOffer) {
+      if (CheckForRemoteIceRestart(operation->old_remote_description(),
+                                   remote_description(), content.name)) {
+        if (operation->type() == SdpType::kOffer) {
           pending_ice_restarts_.insert(content.name);
         }
       } else {
@@ -1819,14 +1865,14 @@ RTCError SdpOfferAnswerHandler::ApplyRemoteDescription(
         // description plus any candidates added since then. We should remove
         // this once we're sure it won't break anything.
         WebRtcSessionDescriptionFactory::CopyCandidatesFromSessionDescription(
-            old_remote_description, content.name, mutable_remote_description());
+            operation->old_remote_description(), content.name,
+            mutable_remote_description());
       }
     }
   }
 
-  if (session_error() != SessionError::kNone) {
-    LOG_AND_RETURN_ERROR(RTCErrorType::INTERNAL_ERROR, GetSessionErrorMsg());
-  }
+  if (operation->HaveSessionError())
+    return;
 
   // Set the the ICE connection state to connecting since the connection may
   // become writable with peer reflexive candidates before any remote candidate
@@ -1850,8 +1896,8 @@ RTCError SdpOfferAnswerHandler::ApplyRemoteDescription(
     data_channel_controller()->AllocateSctpSids(role);
   }
 
-  if (is_unified_plan) {
-    ApplyRemoteDescriptionUpdateTransceiverState(type);
+  if (operation->unified_plan()) {
+    ApplyRemoteDescriptionUpdateTransceiverState(operation->type());
   }
 
   const cricket::AudioContentDescription* audio_desc =
@@ -1867,13 +1913,13 @@ RTCError SdpOfferAnswerHandler::ApplyRemoteDescription(
     remote_peer_supports_msid_ = true;
   }
 
-  if (!is_unified_plan) {
+  if (!operation->unified_plan()) {
     PlanBUpdateSendersAndReceivers(
         GetFirstAudioContent(remote_description()->description()), audio_desc,
         GetFirstVideoContent(remote_description()->description()), video_desc);
   }
 
-  if (type == SdpType::kAnswer) {
+  if (operation->type() == SdpType::kAnswer) {
     if (local_ice_credentials_to_replace_->SatisfiesIceRestart(
             *current_local_description_)) {
       local_ice_credentials_to_replace_->ClearIceCredentials();
@@ -1882,7 +1928,10 @@ RTCError SdpOfferAnswerHandler::ApplyRemoteDescription(
     RemoveStoppedTransceivers();
   }
 
-  return RTCError::OK();
+  // Consider the operation complete at this point.
+  operation->SignalCompletion();
+
+  SetRemoteDescriptionPostProcess(operation->type() == SdpType::kAnswer);
 }
 
 void SdpOfferAnswerHandler::ApplyRemoteDescriptionUpdateTransceiverState(
@@ -2326,13 +2375,7 @@ void SdpOfferAnswerHandler::DoSetRemoteDescription(
   if (!operation->IsDescriptionValid())
     return;
 
-  if (!operation->ApplyRemoteDescription())
-    return;
-
-  // Consider the operation complete at this point.
-  operation->SignalCompletion();
-
-  SetRemoteDescriptionPostProcess(operation->type() == SdpType::kAnswer);
+  ApplyRemoteDescription(std::move(operation));
 }
 
 // Called after a DoSetRemoteDescription operation completes.
@@ -4575,9 +4618,9 @@ void SdpOfferAnswerHandler::UpdateEndedRemoteMediaStreams() {
   }
 }
 
-bool SdpOfferAnswerHandler::UseCandidatesInSessionDescription(
-    const SessionDescriptionInterface* remote_desc) {
+bool SdpOfferAnswerHandler::UseCandidatesInRemoteDescription() {
   RTC_DCHECK_RUN_ON(signaling_thread());
+  auto* remote_desc = remote_description();
   if (!remote_desc) {
     return true;
   }
@@ -4591,7 +4634,7 @@ bool SdpOfferAnswerHandler::UseCandidatesInSessionDescription(
       if (!ReadyToUseRemoteCandidate(candidate, remote_desc, &valid)) {
         if (valid) {
           RTC_LOG(LS_INFO)
-              << "UseCandidatesInSessionDescription: Not ready to use "
+              << "UseCandidatesInRemoteDescription: Not ready to use "
                  "candidate.";
         }
         continue;

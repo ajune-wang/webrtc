@@ -1,0 +1,38 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "4c15df02_51d818fe",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 15
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5142
+      },
+      "writtenOn": "2022-01-12T08:30:52Z",
+      "side": 1,
+      "message": "I\u0027m happy with the order of operations now! LGTM % one last suggestion",
+      "revId": "fbaffd018249bea9ce9e4de53c53dc4bfb474a88",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "ed023e11_e928f62d",
+        "filename": "pc/sdp_offer_answer.cc",
+        "patchSetId": 15
+      },
+      "lineNbr": 2332,
+      "author": {
+        "id": 5142
+      },
+      "writtenOn": "2022-01-12T08:30:52Z",
+      "side": 1,
+      "message": "Can we move this \"if (...) { RemoveStoppedTransceivers(); }\" block to inside operation-\u003eApplyRemoteDescription()? I consider it part of applying the description just like any other transceiver modification, but it is currently listed as a separate step.",
+      "revId": "fbaffd018249bea9ce9e4de53c53dc4bfb474a88",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

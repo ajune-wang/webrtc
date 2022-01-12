@@ -177,6 +177,24 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "7609e66d_cb82527a",
+        "filename": "pc/sdp_offer_answer.cc",
+        "patchSetId": 12
+      },
+      "lineNbr": 2326,
+      "author": {
+        "id": 5142
+      },
+      "writtenOn": "2022-01-12T08:30:52Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "c1688b6a_83144705",
+      "revId": "32b05ab85c14498da548d136c30da6624d0224b0",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "9c0c2401_d472aa2f",

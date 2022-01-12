@@ -16,6 +16,23 @@
       "message": "LGTM for me, passing to hta@.",
       "revId": "e652605d4d620358c7efdc4d4c25f1c768689e2e",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "66996578_7af41408",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2022-01-12T22:39:29Z",
+      "side": 1,
+      "message": "Very nice!\n\nI wonder if we could include generating compile_commands.json in the script when it\u0027s not passed - it seems to be very fast - but that would require knowing the outdir, which isn\u0027t obviously easy to get. I can add this to my private scripts.\n",
+      "revId": "e652605d4d620358c7efdc4d4c25f1c768689e2e",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

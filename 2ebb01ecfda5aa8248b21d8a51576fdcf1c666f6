@@ -16,6 +16,24 @@
       "message": "Thanks for the CL!\n\nCan you also add a few lines about how to generate a compilation DB (e.g. maybe using https://source.chromium.org/chromium/chromium/src/+/main:tools/clang/scripts/generate_compdb.py)?",
       "revId": "2ebb01ecfda5aa8248b21d8a51576fdcf1c666f6",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "71ec51b7_e6cd51df",
+        "filename": "tools_webrtc/iwyu/apply-iwyu",
+        "patchSetId": 1
+      },
+      "lineNbr": 1,
+      "author": {
+        "id": 9405
+      },
+      "writtenOn": "2022-01-12T15:52:19Z",
+      "side": 1,
+      "message": "I\u0027ve never used tools/clang/scripts/generate_compdb.py.\n\ngn gen --export-compile-commands path/to/out always works fine, at least in my use case (WebRTC/Chromium + CLion/clang related tools).\n\nAnyway, I\u0027ll add a little comment on this.",
+      "parentUuid": "cffe1950_9d8d6dbc",
+      "revId": "2ebb01ecfda5aa8248b21d8a51576fdcf1c666f6",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

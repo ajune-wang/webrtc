@@ -18,6 +18,57 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "fc613a85_5ae0e1b2",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 15
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2022-01-12T09:17:21Z",
+      "side": 1,
+      "message": "Found one thing that I want renamed, but otherwise looks good.",
+      "revId": "fbaffd018249bea9ce9e4de53c53dc4bfb474a88",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "f0e3e294_f45f9b07",
+        "filename": "pc/sdp_offer_answer.cc",
+        "patchSetId": 15
+      },
+      "lineNbr": 799,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2022-01-12T09:17:21Z",
+      "side": 1,
+      "message": "This function is misnamed, since it actually performs the rollback.\nSuggest calling it ExecuteRollbackIfIndicated.",
+      "revId": "fbaffd018249bea9ce9e4de53c53dc4bfb474a88",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "a74d23a5_614acb1a",
+        "filename": "pc/sdp_offer_answer.cc",
+        "patchSetId": 15
+      },
+      "lineNbr": 809,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2022-01-12T09:17:21Z",
+      "side": 1,
+      "message": "I think the result of taking this branch will always be \"return false\" (the next if can never trigger). But since it\u0027s a deeply nested branch, an explicit \"return false\" is more readable.",
+      "revId": "fbaffd018249bea9ce9e4de53c53dc4bfb474a88",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "ed023e11_e928f62d",

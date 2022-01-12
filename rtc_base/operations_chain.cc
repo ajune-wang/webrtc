@@ -37,7 +37,7 @@ void OperationsChain::CallbackHandle::OnOperationComplete() {
 
 // static
 scoped_refptr<OperationsChain> OperationsChain::Create() {
-  return new OperationsChain();
+  return rtc::scoped_refptr<OperationsChain>(new OperationsChain());
 }
 
 OperationsChain::OperationsChain() : RefCountedObject() {
@@ -63,8 +63,10 @@ bool OperationsChain::IsEmpty() const {
 }
 
 std::function<void()> OperationsChain::CreateOperationsChainCallback() {
-  return [handle = rtc::scoped_refptr<CallbackHandle>(
-              new CallbackHandle(this))]() { handle->OnOperationComplete(); };
+  return [handle = rtc::scoped_refptr<CallbackHandle>(new CallbackHandle(
+              rtc::scoped_refptr<OperationsChain>(this)))]() {
+    handle->OnOperationComplete();
+  };
 }
 
 void OperationsChain::OnOperationComplete() {

@@ -14,7 +14,8 @@ namespace webrtc {
 
 // static
 rtc::scoped_refptr<PendingTaskSafetyFlag> PendingTaskSafetyFlag::Create() {
-  return new PendingTaskSafetyFlag(true);
+  return rtc::scoped_refptr<PendingTaskSafetyFlag>(
+      new PendingTaskSafetyFlag(true));
 }
 
 rtc::scoped_refptr<PendingTaskSafetyFlag>

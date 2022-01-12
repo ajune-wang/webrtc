@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "cffe1950_9d8d6dbc",
+        "filename": "tools_webrtc/iwyu/apply-iwyu",
+        "patchSetId": 1
+      },
+      "lineNbr": 1,
+      "author": {
+        "id": 5087
+      },
+      "writtenOn": "2022-01-12T15:38:03Z",
+      "side": 1,
+      "message": "Thanks for the CL!\n\nCan you also add a few lines about how to generate a compilation DB (e.g. maybe using https://source.chromium.org/chromium/chromium/src/+/main:tools/clang/scripts/generate_compdb.py)?",
+      "revId": "2ebb01ecfda5aa8248b21d8a51576fdcf1c666f6",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

@@ -10,7 +10,7 @@ vars = {
   # chromium waterfalls. More info at: crbug.com/570091.
   'checkout_configuration': 'default',
   'checkout_instrumented_libraries': 'checkout_linux and checkout_configuration == "default"',
-  'chromium_revision': '10ad737e1a38f8e639d6a0ed7e7ab778f8e547e4',
+  'chromium_revision': 'b3d3da9a2a23dde1a7288dbfa4a498a4c35b0ca0',
 
   # Keep the Chromium default of generating location tags.
   'generate_location_tags': True,
@@ -23,7 +23,7 @@ deps = {
   # TODO(kjellander): Move this to be Android-only once the libevent dependency
   # in base/third_party/libevent is solved.
   'src/base':
-    'https://chromium.googlesource.com/chromium/src/base@988da7eca71bc4db1754ccb05e761398f528b63f',
+    'https://chromium.googlesource.com/chromium/src/base@78f2e2150b782d6b60fab1f7ddc4979ba60098a0',
   'src/build':
     'https://chromium.googlesource.com/chromium/src/build@609d71d15f4ee27e29618f7e1e7ca46289650365',
   'src/buildtools':
@@ -34,13 +34,13 @@ deps = {
     'condition': 'checkout_android',
   },
   'src/ios': {
-    'url': 'https://chromium.googlesource.com/chromium/src/ios@0925956b8bda2419fd4fe0cb7d92daf92da96e4f',
+    'url': 'https://chromium.googlesource.com/chromium/src/ios@abba3625555d303c0e82c4ab4c897dc4d2034e02',
     'condition': 'checkout_ios',
   },
   'src/testing':
     'https://chromium.googlesource.com/chromium/src/testing@e6176d3f66e31ef08c172fa67351d6d6cebbc161',
   'src/third_party':
-    'https://chromium.googlesource.com/chromium/src/third_party@db1c99c09d545f420e3a1ee77898b72a640656c2',
+    'https://chromium.googlesource.com/chromium/src/third_party@0793643da3303340253dea6599277069bc8cc53a',
 
   'src/buildtools/linux64': {
     'packages': [
@@ -162,7 +162,7 @@ deps = {
       'condition': 'checkout_linux',
   },
   'src/third_party/freetype/src':
-    'https://chromium.googlesource.com/chromium/src/third_party/freetype2.git@e838c37c2c1575eb12116ce6303ffacc72521ce8',
+    'https://chromium.googlesource.com/chromium/src/third_party/freetype2.git@b647dbdeb8d5389a7e05ca5284842b4b757ee723',
   'src/third_party/harfbuzz-ng/src':
     'https://chromium.googlesource.com/external/github.com/harfbuzz/harfbuzz.git@77507a1d8d872d8cd4f62b807e933cd3e2cdb110',
   'src/third_party/google_benchmark/src': {

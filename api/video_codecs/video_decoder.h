@@ -105,6 +105,9 @@ class RTC_EXPORT VideoDecoder {
   virtual int32_t RegisterDecodeCompleteCallback(
       DecodedImageCallback* callback) = 0;
 
+  // Called to free up the resources used by the decoder. There must be no
+  // outstanding calls to the callback provided by
+  // RegisterDecodeCompleteCallback() after Release() returns.
   virtual int32_t Release() = 0;
 
   virtual DecoderInfo GetDecoderInfo() const;

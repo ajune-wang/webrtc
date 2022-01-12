@@ -70,6 +70,24 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "d4bbb99c_efdaccca",
+        "filename": "api/rtp_packet_infos.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 98,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2022-01-12T09:47:48Z",
+      "side": 1,
+      "message": "I think this is resolved now.",
+      "parentUuid": "44da7b56_2b4bad98",
+      "revId": "be8b0a2f3d0c443dd35425669c764dbc9d1cbe2e",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "afa7f30b_b52a41aa",
@@ -118,6 +136,24 @@
       "writtenOn": "2022-01-12T09:19:07Z",
       "side": 1,
       "message": "No longer any changes to rtp_packet_infos.h, after rebase on top of https://webrtc-review.googlesource.com/c/src/+/244505",
+      "parentUuid": "65ae2b63_31b7e7ca",
+      "revId": "be8b0a2f3d0c443dd35425669c764dbc9d1cbe2e",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "c6c5d03a_ea1e5520",
+        "filename": "api/rtp_packet_infos.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 102,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2022-01-12T09:47:48Z",
+      "side": 1,
+      "message": "Ack",
       "parentUuid": "65ae2b63_31b7e7ca",
       "revId": "be8b0a2f3d0c443dd35425669c764dbc9d1cbe2e",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
@@ -184,6 +220,30 @@
       "side": 1,
       "message": "There currently is no .cc file, but I could give that a try.",
       "parentUuid": "ce546a89_1471b67d",
+      "range": {
+        "startLine": 124,
+        "startChar": 2,
+        "endLine": 124,
+        "endChar": 21
+      },
+      "revId": "be8b0a2f3d0c443dd35425669c764dbc9d1cbe2e",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "047a9604_f34ddf00",
+        "filename": "api/rtp_packet_infos.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 124,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2022-01-12T09:47:48Z",
+      "side": 1,
+      "message": "Now that we can use scoped_refptr all over the place, doesn\u0027t seem to matter that much.",
+      "parentUuid": "7f190477_caf3e501",
       "range": {
         "startLine": 124,
         "startChar": 2,

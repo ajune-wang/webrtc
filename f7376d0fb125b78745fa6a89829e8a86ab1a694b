@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "baf1912e_71f86c10",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 3
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2022-01-12T09:47:48Z",
+      "side": 1,
+      "message": "Now there are just straightforward changes left here. Approving.\n",
+      "revId": "f7376d0fb125b78745fa6a89829e8a86ab1a694b",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

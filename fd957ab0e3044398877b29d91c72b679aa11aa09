@@ -51,6 +51,24 @@
       "parentUuid": "9d8f2b72_dcf1ff7a",
       "revId": "fd957ab0e3044398877b29d91c72b679aa11aa09",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "817dd2f2_45e03ed9",
+        "filename": "modules/desktop_capture/linux/wayland/base_capturer_pipewire.cc",
+        "patchSetId": 11
+      },
+      "lineNbr": 512,
+      "author": {
+        "id": 14134
+      },
+      "writtenOn": "2022-01-13T16:53:20Z",
+      "side": 1,
+      "message": "Makes sense, but that lock isn\u0027t used for the PW callbacks I mentioned above.",
+      "parentUuid": "86deb763_c91ec803",
+      "revId": "fd957ab0e3044398877b29d91c72b679aa11aa09",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

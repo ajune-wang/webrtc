@@ -1,0 +1,38 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "f52a6922_34e0622f",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 11
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 14134
+      },
+      "writtenOn": "2022-01-13T00:17:52Z",
+      "side": 1,
+      "message": "Looks good with one open question about concurrency in the capturer.  Looking forward to chatting more tomorrow!",
+      "revId": "fd957ab0e3044398877b29d91c72b679aa11aa09",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "9d8f2b72_dcf1ff7a",
+        "filename": "modules/desktop_capture/linux/wayland/base_capturer_pipewire.cc",
+        "patchSetId": 11
+      },
+      "lineNbr": 512,
+      "author": {
+        "id": 14134
+      },
+      "writtenOn": "2022-01-13T00:17:52Z",
+      "side": 1,
+      "message": "So it looks like the functions registered via pw_core_events_ and pw_stream_events_ are going to be invoked on the thread created by pw_thread_loop_start, when then call back on |this| and modify its state.\n\nThe documentation here [*] suggests that these callbacks are called with the thread loop lock held, but does there also need to be protection from concurrent access to the capturer state by the Chrome thread that created the capturer?\n\n[*] https://docs.pipewire.org/page_thread_loop.html",
+      "revId": "fd957ab0e3044398877b29d91c72b679aa11aa09",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

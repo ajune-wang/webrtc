@@ -33,6 +33,24 @@
       "message": "So it looks like the functions registered via pw_core_events_ and pw_stream_events_ are going to be invoked on the thread created by pw_thread_loop_start, when then call back on |this| and modify its state.\n\nThe documentation here [*] suggests that these callbacks are called with the thread loop lock held, but does there also need to be protection from concurrent access to the capturer state by the Chrome thread that created the capturer?\n\n[*] https://docs.pipewire.org/page_thread_loop.html",
       "revId": "fd957ab0e3044398877b29d91c72b679aa11aa09",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "86deb763_c91ec803",
+        "filename": "modules/desktop_capture/linux/wayland/base_capturer_pipewire.cc",
+        "patchSetId": 11
+      },
+      "lineNbr": 512,
+      "author": {
+        "id": 8046
+      },
+      "writtenOn": "2022-01-13T07:08:03Z",
+      "side": 1,
+      "message": "There is a lock for the current frame. We lock it when processing a new PipeWire buffer and we lock it again when Chrome asks this capturer to give us one.\n\n1) https://source.chromium.org/chromium/chromium/src/+/main:third_party/webrtc/modules/desktop_capture/linux/wayland/base_capturer_pipewire.cc;l\u003d630?q\u003dbase_capturer_p\u0026ss\u003dchromium\n\n2) https://source.chromium.org/chromium/chromium/src/+/main:third_party/webrtc/modules/desktop_capture/linux/wayland/base_capturer_pipewire.cc;l\u003d1090?q\u003dbase_capturer_p\u0026ss\u003dchromium",
+      "parentUuid": "9d8f2b72_dcf1ff7a",
+      "revId": "fd957ab0e3044398877b29d91c72b679aa11aa09",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

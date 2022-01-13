@@ -10,7 +10,7 @@ vars = {
   # chromium waterfalls. More info at: crbug.com/570091.
   'checkout_configuration': 'default',
   'checkout_instrumented_libraries': 'checkout_linux and checkout_configuration == "default"',
-  'chromium_revision': 'd4e29009ed259e0d5c825ac8a5f3747f34665162',
+  'chromium_revision': '5d56809be7efe307be8f2e3d88ac6d4bb63b8598',
 
   # Keep the Chromium default of generating location tags.
   'generate_location_tags': True,
@@ -23,9 +23,9 @@ deps = {
   # TODO(kjellander): Move this to be Android-only once the libevent dependency
   # in base/third_party/libevent is solved.
   'src/base':
-    'https://chromium.googlesource.com/chromium/src/base@6326d1418d062c9e203c76c80f1a82ec7754e1d5',
+    'https://chromium.googlesource.com/chromium/src/base@1312d2316ea07890b8c5d7be8f792bd32a370eec',
   'src/build':
-    'https://chromium.googlesource.com/chromium/src/build@923a9e5984beb8c72a0f67acbf0b5661a04fbe64',
+    'https://chromium.googlesource.com/chromium/src/build@6e117603bc6a4e852df909757e2afc843c35f991',
   'src/buildtools':
     'https://chromium.googlesource.com/chromium/src/buildtools@f78b4b9f33bd8ef9944d5ce643daff1c31880189',
   # Gradle 6.6.1. Used for testing Android Studio project generation for WebRTC.
@@ -34,13 +34,13 @@ deps = {
     'condition': 'checkout_android',
   },
   'src/ios': {
-    'url': 'https://chromium.googlesource.com/chromium/src/ios@37ff980b65b3c4972133e794e4b8a0670fd17fbd',
+    'url': 'https://chromium.googlesource.com/chromium/src/ios@282a06ed4f7be8ca0ef64f426ec3959e9a5c9832',
     'condition': 'checkout_ios',
   },
   'src/testing':
     'https://chromium.googlesource.com/chromium/src/testing@305f9af1e77a132eef5075e733a26c6470f1fdc7',
   'src/third_party':
-    'https://chromium.googlesource.com/chromium/src/third_party@5fe63ad360873ef0fc8a1a237e455ca93690f358',
+    'https://chromium.googlesource.com/chromium/src/third_party@54bce94a853cc2e4b3c9174ebdb67b6b566cbd9d',
 
   'src/buildtools/linux64': {
     'packages': [

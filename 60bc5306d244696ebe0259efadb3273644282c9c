@@ -34,6 +34,24 @@
       "parentUuid": "4568537d_eec2d56c",
       "revId": "60bc5306d244696ebe0259efadb3273644282c9c",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "d00718a1_9e42f87e",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 3
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 6337
+      },
+      "writtenOn": "2022-01-13T12:39:21Z",
+      "side": 1,
+      "message": "I\u0027ll say do it for CL\u0027s that you want to include into getting commiter rights process. So for CLs with meaningful C++ changes, or for any CL also will be fine.",
+      "parentUuid": "982c485b_251bfbc1",
+      "revId": "60bc5306d244696ebe0259efadb3273644282c9c",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

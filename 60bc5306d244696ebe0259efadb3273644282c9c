@@ -16,6 +16,24 @@
       "message": "Also please add webrtc:13082 to the bugs list",
       "revId": "60bc5306d244696ebe0259efadb3273644282c9c",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "982c485b_251bfbc1",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 3
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 9405
+      },
+      "writtenOn": "2022-01-13T12:37:24Z",
+      "side": 1,
+      "message": "About this CL? Or do I supposed to do that for every CL I make?",
+      "parentUuid": "4568537d_eec2d56c",
+      "revId": "60bc5306d244696ebe0259efadb3273644282c9c",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

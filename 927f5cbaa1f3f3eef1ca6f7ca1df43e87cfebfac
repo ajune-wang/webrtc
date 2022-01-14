@@ -35,6 +35,23 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "b65ae3df_0a7ae09f",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 7
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 18474
+      },
+      "writtenOn": "2022-01-14T21:20:11Z",
+      "side": 1,
+      "message": "+erikchen as FYI",
+      "revId": "927f5cbaa1f3f3eef1ca6f7ca1df43e87cfebfac",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "a93f1d06_6c4d8b3b",
@@ -66,6 +83,24 @@
       "side": 1,
       "message": "This change was requested by Jeroen from the ChromeOS team.  IIUC they engaged with some other CrOS folks about the display ID type and the owners did not want to change the type.  It is unfortunate that some areas of our codebase use the ptr size and others use a consistent size for IDs like this.\n\nJeroen verified they were able to build ChromeOS-Chromium locally with this change but that was likely targeting a 64-bit CPU Arch. I\u0027m inclined to land this and then we can rollback if there is a problem during the DEPS roll.\n\nWDYT?",
       "parentUuid": "a93f1d06_6c4d8b3b",
+      "revId": "927f5cbaa1f3f3eef1ca6f7ca1df43e87cfebfac",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "5da4e27a_922d4fb9",
+        "filename": "modules/desktop_capture/desktop_capture_types.h",
+        "patchSetId": 7
+      },
+      "lineNbr": 36,
+      "author": {
+        "id": 18474
+      },
+      "writtenOn": "2022-01-14T21:20:11Z",
+      "side": 1,
+      "message": "SGTM",
+      "parentUuid": "452635a0_dd364a32",
       "revId": "927f5cbaa1f3f3eef1ca6f7ca1df43e87cfebfac",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }

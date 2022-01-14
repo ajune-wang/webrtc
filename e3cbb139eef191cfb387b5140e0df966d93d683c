@@ -65,6 +65,30 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "dd0bc374_e85f2144",
+        "filename": "logging/rtc_event_log/events/rtc_event_begin_log.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 32,
+      "author": {
+        "id": 5150
+      },
+      "writtenOn": "2022-01-14T16:48:02Z",
+      "side": 1,
+      "message": "Removed comment. A declarative API to encode events is introduced in https://webrtc-review.googlesource.com/c/src/+/234520, as discussed offline.",
+      "parentUuid": "a0d3959b_1f00c102",
+      "range": {
+        "startLine": 32,
+        "startChar": 0,
+        "endLine": 32,
+        "endChar": 52
+      },
+      "revId": "e3cbb139eef191cfb387b5140e0df966d93d683c",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "4627c258_d1607134",
@@ -78,6 +102,30 @@
       "writtenOn": "2021-10-06T07:27:37Z",
       "side": 1,
       "message": "same as above",
+      "range": {
+        "startLine": 61,
+        "startChar": 2,
+        "endLine": 61,
+        "endChar": 51
+      },
+      "revId": "e3cbb139eef191cfb387b5140e0df966d93d683c",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "39306d46_61c5d620",
+        "filename": "logging/rtc_event_log/events/rtc_event_begin_log.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 61,
+      "author": {
+        "id": 5150
+      },
+      "writtenOn": "2022-01-14T16:48:02Z",
+      "side": 1,
+      "message": "Removed",
+      "parentUuid": "4627c258_d1607134",
       "range": {
         "startLine": 61,
         "startChar": 2,
@@ -111,6 +159,30 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "f9baa75b_2d040504",
+        "filename": "logging/rtc_event_log/events/rtc_event_end_log.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 30,
+      "author": {
+        "id": 5150
+      },
+      "writtenOn": "2022-01-14T16:48:02Z",
+      "side": 1,
+      "message": "Removed",
+      "parentUuid": "07b26c57_8a03ff54",
+      "range": {
+        "startLine": 29,
+        "startChar": 0,
+        "endLine": 30,
+        "endChar": 52
+      },
+      "revId": "e3cbb139eef191cfb387b5140e0df966d93d683c",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "615ea6f6_caf37bd4",
@@ -124,6 +196,30 @@
       "writtenOn": "2021-10-06T07:27:37Z",
       "side": 1,
       "message": "same as above",
+      "range": {
+        "startLine": 56,
+        "startChar": 0,
+        "endLine": 56,
+        "endChar": 51
+      },
+      "revId": "e3cbb139eef191cfb387b5140e0df966d93d683c",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "98515b68_339a4787",
+        "filename": "logging/rtc_event_log/events/rtc_event_end_log.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 56,
+      "author": {
+        "id": 5150
+      },
+      "writtenOn": "2022-01-14T16:48:02Z",
+      "side": 1,
+      "message": "Removed",
+      "parentUuid": "615ea6f6_caf37bd4",
       "range": {
         "startLine": 56,
         "startChar": 0,

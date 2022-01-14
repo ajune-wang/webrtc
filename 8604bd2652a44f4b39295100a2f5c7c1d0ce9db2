@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "4bb6fb62_c2f0c25c",
+        "filename": "net/dcsctp/rx/traditional_reassembly_streams.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 315,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2022-01-14T16:56:04Z",
+      "side": 1,
+      "message": "http://go/totw/169\n\n“C++ lacks a placeholder for indicating that we don\u0027t need a binding. Don\u0027t use an underscore (\"_\") for this purpose; prefer unused as the binding name or as a prefix of it.”",
+      "range": {
+        "startLine": 315,
+        "startChar": 20,
+        "endLine": 315,
+        "endChar": 21
+      },
+      "revId": "8604bd2652a44f4b39295100a2f5c7c1d0ce9db2",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

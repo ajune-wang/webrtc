@@ -50,6 +50,24 @@
       "message": "Will this cause issues with the DesktopId used in chrome: https://source.chromium.org/chromium/chromium/src/+/main:content/public/browser/desktop_media_id.h;drc\u003d7a6b3e61d8a857b0b2745d936123ef77a2cb15e2;l\u003d24\n\nChromeOS Ash appears to not use the id at all, so it\u0027s only potentially an issue on LaCrOS, which has, for example, this comparison: int64_t \u003c-\u003e intptr_t: https://source.chromium.org/chromium/chromium/src/+/main:chrome/browser/media/webrtc/native_desktop_media_list.cc;drc\u003d7a6b3e61d8a857b0b2745d936123ef77a2cb15e2;l\u003d210\n\nThough I guess that already gets converted from a uint64 here to the intptr_t here: https://source.chromium.org/chromium/chromium/src/+/main:content/browser/media/capture/desktop_capturer_lacros.cc;drc\u003d7a6b3e61d8a857b0b2745d936123ef77a2cb15e2;l\u003d62\n\nI\u0027m told LaCrOS does build cleanly for 32 bit right now, so I guess probably not. But worth calling out/asking if we should maybe update the type elsewhere?",
       "revId": "927f5cbaa1f3f3eef1ca6f7ca1df43e87cfebfac",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "452635a0_dd364a32",
+        "filename": "modules/desktop_capture/desktop_capture_types.h",
+        "patchSetId": 7
+      },
+      "lineNbr": 36,
+      "author": {
+        "id": 13849
+      },
+      "writtenOn": "2022-01-14T21:14:57Z",
+      "side": 1,
+      "message": "This change was requested by Jeroen from the ChromeOS team.  IIUC they engaged with some other CrOS folks about the display ID type and the owners did not want to change the type.  It is unfortunate that some areas of our codebase use the ptr size and others use a consistent size for IDs like this.\n\nJeroen verified they were able to build ChromeOS-Chromium locally with this change but that was likely targeting a 64-bit CPU Arch. I\u0027m inclined to land this and then we can rollback if there is a problem during the DEPS roll.\n\nWDYT?",
+      "parentUuid": "a93f1d06_6c4d8b3b",
+      "revId": "927f5cbaa1f3f3eef1ca6f7ca1df43e87cfebfac",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

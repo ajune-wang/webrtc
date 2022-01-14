@@ -228,6 +228,24 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "d0830a80_f62b7258",
+        "filename": "modules/desktop_capture/linux/wayland/egl_dmabuf.cc",
+        "patchSetId": 11
+      },
+      "lineNbr": 509,
+      "author": {
+        "id": 6720
+      },
+      "writtenOn": "2022-01-14T15:03:59Z",
+      "side": 1,
+      "message": "ah, you\u0027d have to construct a std::vector explicitly. That shouldn\u0027t be a problem though (and is what happens anyway).",
+      "parentUuid": "d6d180c1_31d34453",
+      "revId": "fd957ab0e3044398877b29d91c72b679aa11aa09",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "a134c7b8_21b698e1",

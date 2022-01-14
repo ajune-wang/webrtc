@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "c978531e_268b0270",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2022-01-14T13:35:50Z",
+      "side": 1,
+      "message": "PTAL. Is there any way to see in the code review ui that the line ends are changed?",
+      "revId": "e906f0854206762c3e80fb4fb9ebb580734e5fa0",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

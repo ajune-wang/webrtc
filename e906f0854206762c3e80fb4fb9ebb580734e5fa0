@@ -34,6 +34,23 @@
       "parentUuid": "c978531e_268b0270",
       "revId": "e906f0854206762c3e80fb4fb9ebb580734e5fa0",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "77765517_79885482",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2022-01-14T14:33:58Z",
+      "side": 1,
+      "message": "In my opinion git cl format should fix line endings.\n",
+      "revId": "e906f0854206762c3e80fb4fb9ebb580734e5fa0",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

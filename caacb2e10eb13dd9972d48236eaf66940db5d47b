@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "cc0bfe39_684dac25",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 8046
+      },
+      "writtenOn": "2022-01-14T13:26:15Z",
+      "side": 1,
+      "message": "I accidentally merged the original change and it was reverted.",
+      "revId": "caacb2e10eb13dd9972d48236eaf66940db5d47b",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

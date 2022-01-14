@@ -1,0 +1,44 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "c8b9e973_57b6bc0c",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 5
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 18779
+      },
+      "writtenOn": "2022-01-14T08:41:10Z",
+      "side": 1,
+      "message": "Thanks for making this change!\n\nI applied this patch locally, compiled both a 32 and 64 bit image and verified in both cases webrtc::ScreenId is 64 bit, so this will fix my issue.\n\nThanks!\n",
+      "revId": "91a197aa6dd34a3eaaa7249be40b7d177afff5f1",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "5ba93384_22c93620",
+        "filename": "modules/desktop_capture/desktop_capture_types.h",
+        "patchSetId": 5
+      },
+      "lineNbr": 30,
+      "author": {
+        "id": 18779
+      },
+      "writtenOn": "2022-01-14T08:41:10Z",
+      "side": 1,
+      "message": "Nit: Maybe add something like `because display::Display::id() is always 64 bit`?",
+      "range": {
+        "startLine": 30,
+        "startChar": 36,
+        "endLine": 30,
+        "endChar": 44
+      },
+      "revId": "91a197aa6dd34a3eaaa7249be40b7d177afff5f1",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

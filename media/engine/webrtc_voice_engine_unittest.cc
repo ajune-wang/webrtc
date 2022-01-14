@@ -790,7 +790,11 @@ class WebRtcVoiceEngineTestFake : public ::testing::TestWithParam<bool> {
   }
 
   bool IsTypingDetectionEnabled() {
+#if defined(WEBRTC_ANDROID)
+    return false;
+#else
     return apm_config_.voice_detection.enabled;
+#endif
   }
 
  protected:

@@ -591,8 +591,8 @@ SharedModuleThread::~SharedModuleThread() = default;
 rtc::scoped_refptr<SharedModuleThread> SharedModuleThread::Create(
     std::unique_ptr<ProcessThread> process_thread,
     std::function<void()> on_one_ref_remaining) {
-  return new SharedModuleThread(std::move(process_thread),
-                                std::move(on_one_ref_remaining));
+  return rtc::make_ref_counted<SharedModuleThread>(
+      std::move(process_thread), std::move(on_one_ref_remaining));
 }
 
 void SharedModuleThread::EnsureStarted() {

@@ -103,6 +103,24 @@
       "parentUuid": "452635a0_dd364a32",
       "revId": "927f5cbaa1f3f3eef1ca6f7ca1df43e87cfebfac",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "aa8bdc81_23f2669c",
+        "filename": "modules/desktop_capture/desktop_capture_types.h",
+        "patchSetId": 7
+      },
+      "lineNbr": 36,
+      "author": {
+        "id": 13849
+      },
+      "writtenOn": "2022-01-14T22:31:19Z",
+      "side": 1,
+      "message": "Great, I\u0027ll wait until after the long weekend in case there are any problems (or case Erik has any concerns).\n\nThanks!",
+      "parentUuid": "5da4e27a_922d4fb9",
+      "revId": "927f5cbaa1f3f3eef1ca6f7ca1df43e87cfebfac",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

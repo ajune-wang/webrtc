@@ -52,6 +52,24 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "44e44b2d_b43e6f7b",
+        "filename": "modules/desktop_capture/linux/wayland/base_capturer_pipewire.cc",
+        "patchSetId": 11
+      },
+      "lineNbr": 60,
+      "author": {
+        "id": 8046
+      },
+      "writtenOn": "2022-01-14T09:36:39Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "acd6fb7d_fa01e295",
+      "revId": "fd957ab0e3044398877b29d91c72b679aa11aa09",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "6dd7ec96_82cdcb85",
@@ -65,6 +83,24 @@
       "writtenOn": "2022-01-13T20:38:15Z",
       "side": 1,
       "message": "pw_thread_loop* const loop_;\n\n(to make it clear that the value of this pointer will never change)",
+      "revId": "fd957ab0e3044398877b29d91c72b679aa11aa09",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "a9cfc2a7_e9e12e6d",
+        "filename": "modules/desktop_capture/linux/wayland/base_capturer_pipewire.cc",
+        "patchSetId": 11
+      },
+      "lineNbr": 170,
+      "author": {
+        "id": 8046
+      },
+      "writtenOn": "2022-01-14T09:36:39Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "6dd7ec96_82cdcb85",
       "revId": "fd957ab0e3044398877b29d91c72b679aa11aa09",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
@@ -139,6 +175,24 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "6064253b_bbaa9820",
+        "filename": "modules/desktop_capture/linux/wayland/base_capturer_pipewire.h",
+        "patchSetId": 11
+      },
+      "lineNbr": 57,
+      "author": {
+        "id": 8046
+      },
+      "writtenOn": "2022-01-14T09:36:39Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "cdedc125_4e7dc13d",
+      "revId": "fd957ab0e3044398877b29d91c72b679aa11aa09",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "07ba1c4e_737fdbc1",
@@ -156,6 +210,24 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "d6d180c1_31d34453",
+        "filename": "modules/desktop_capture/linux/wayland/egl_dmabuf.cc",
+        "patchSetId": 11
+      },
+      "lineNbr": 509,
+      "author": {
+        "id": 8046
+      },
+      "writtenOn": "2022-01-14T09:36:39Z",
+      "side": 1,
+      "message": "error: initializer list cannot be used on the right hand side of operator \u0027?\u0027",
+      "parentUuid": "07ba1c4e_737fdbc1",
+      "revId": "fd957ab0e3044398877b29d91c72b679aa11aa09",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "a134c7b8_21b698e1",
@@ -169,6 +241,24 @@
       "writtenOn": "2022-01-13T20:38:15Z",
       "side": 1,
       "message": "nit: these should be `pw_thread_loop* loop`",
+      "revId": "fd957ab0e3044398877b29d91c72b679aa11aa09",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "92101ef0_f7b33ac1",
+        "filename": "modules/desktop_capture/linux/wayland/pipewire.sigs",
+        "patchSetId": 11
+      },
+      "lineNbr": 42,
+      "author": {
+        "id": 8046
+      },
+      "writtenOn": "2022-01-14T09:36:39Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "a134c7b8_21b698e1",
       "revId": "fd957ab0e3044398877b29d91c72b679aa11aa09",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }

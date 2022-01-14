@@ -246,6 +246,24 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "a9daa4c8_04ddb977",
+        "filename": "modules/desktop_capture/linux/wayland/egl_dmabuf.cc",
+        "patchSetId": 11
+      },
+      "lineNbr": 509,
+      "author": {
+        "id": 8046
+      },
+      "writtenOn": "2022-01-14T15:14:21Z",
+      "side": 1,
+      "message": "Looks it builds, I didn\u0027t expect this makes a difference. Updated in https://webrtc-review.googlesource.com/c/src/+/246440.",
+      "parentUuid": "d0830a80_f62b7258",
+      "revId": "fd957ab0e3044398877b29d91c72b679aa11aa09",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "a134c7b8_21b698e1",

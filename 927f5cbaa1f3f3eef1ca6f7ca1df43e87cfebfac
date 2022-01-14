@@ -16,6 +16,40 @@
       "message": "PTAL!",
       "revId": "927f5cbaa1f3f3eef1ca6f7ca1df43e87cfebfac",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "6c35f2fb_cd0ab8b0",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 7
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 18474
+      },
+      "writtenOn": "2022-01-14T18:18:17Z",
+      "side": 1,
+      "message": "LGTM as long as no issues expected from my question.",
+      "revId": "927f5cbaa1f3f3eef1ca6f7ca1df43e87cfebfac",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "a93f1d06_6c4d8b3b",
+        "filename": "modules/desktop_capture/desktop_capture_types.h",
+        "patchSetId": 7
+      },
+      "lineNbr": 36,
+      "author": {
+        "id": 18474
+      },
+      "writtenOn": "2022-01-14T18:18:17Z",
+      "side": 1,
+      "message": "Will this cause issues with the DesktopId used in chrome: https://source.chromium.org/chromium/chromium/src/+/main:content/public/browser/desktop_media_id.h;drc\u003d7a6b3e61d8a857b0b2745d936123ef77a2cb15e2;l\u003d24\n\nChromeOS Ash appears to not use the id at all, so it\u0027s only potentially an issue on LaCrOS, which has, for example, this comparison: int64_t \u003c-\u003e intptr_t: https://source.chromium.org/chromium/chromium/src/+/main:chrome/browser/media/webrtc/native_desktop_media_list.cc;drc\u003d7a6b3e61d8a857b0b2745d936123ef77a2cb15e2;l\u003d210\n\nThough I guess that already gets converted from a uint64 here to the intptr_t here: https://source.chromium.org/chromium/chromium/src/+/main:content/browser/media/capture/desktop_capturer_lacros.cc;drc\u003d7a6b3e61d8a857b0b2745d936123ef77a2cb15e2;l\u003d62\n\nI\u0027m told LaCrOS does build cleanly for 32 bit right now, so I guess probably not. But worth calling out/asking if we should maybe update the type elsewhere?",
+      "revId": "927f5cbaa1f3f3eef1ca6f7ca1df43e87cfebfac",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

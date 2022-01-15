@@ -143,7 +143,6 @@ ChannelManager::GetSupportedVideoRtpHeaderExtensions() const {
 VoiceChannel* ChannelManager::CreateVoiceChannel(
     webrtc::Call* call,
     const MediaConfig& media_config,
-    webrtc::RtpTransportInternal* rtp_transport,
     rtc::Thread* signaling_thread,
     const std::string& content_name,
     bool srtp_required,
@@ -157,9 +156,9 @@ VoiceChannel* ChannelManager::CreateVoiceChannel(
   // thread.
   if (!worker_thread_->IsCurrent()) {
     return worker_thread_->Invoke<VoiceChannel*>(RTC_FROM_HERE, [&] {
-      return CreateVoiceChannel(call, media_config, rtp_transport,
-                                signaling_thread, content_name, srtp_required,
-                                crypto_options, ssrc_generator, options);
+      return CreateVoiceChannel(call, media_config, signaling_thread,
+                                content_name, srtp_required, crypto_options,
+                                ssrc_generator, options);
     });
   }
 
@@ -176,11 +175,6 @@ VoiceChannel* ChannelManager::CreateVoiceChannel(
       absl::WrapUnique(media_channel), content_name, srtp_required,
       crypto_options, ssrc_generator);
 
-  network_thread_->Invoke<void>(RTC_FROM_HERE, [&] {
-    RTC_DCHECK_RUN_ON(voice_channel->network_thread());
-    voice_channel->Init_n(rtp_transport);
-  });
-
   VoiceChannel* voice_channel_ptr = voice_channel.get();
   voice_channels_.push_back(std::move(voice_channel));
   return voice_channel_ptr;
@@ -189,11 +183,6 @@ VoiceChannel* ChannelManager::CreateVoiceChannel(
 void ChannelManager::DestroyVoiceChannel(VoiceChannel* voice_channel) {
   TRACE_EVENT0("webrtc", "ChannelManager::DestroyVoiceChannel");
   RTC_DCHECK(voice_channel);
-
-  network_thread_->Invoke<void>(RTC_FROM_HERE, [&] {
-    RTC_DCHECK_RUN_ON(voice_channel->network_thread());
-    voice_channel->Deinit_n();
-  });
 
   if (!worker_thread_->IsCurrent()) {
     worker_thread_->Invoke<void>(RTC_FROM_HERE,
@@ -250,7 +239,7 @@ VideoChannel* ChannelManager::CreateVideoChannel(
 
   network_thread_->Invoke<void>(RTC_FROM_HERE, [&] {
     RTC_DCHECK_RUN_ON(video_channel->network_thread());
-    video_channel->Init_n(rtp_transport);
+    video_channel->SetRtpTransport(rtp_transport);
   });
 
   VideoChannel* video_channel_ptr = video_channel.get();
@@ -264,7 +253,7 @@ void ChannelManager::DestroyVideoChannel(VideoChannel* video_channel) {
 
   network_thread_->Invoke<void>(RTC_FROM_HERE, [&] {
     RTC_DCHECK_RUN_ON(video_channel->network_thread());
-    video_channel->Deinit_n();
+    video_channel->SetRtpTransport(nullptr);
   });
 
   if (!worker_thread_->IsCurrent()) {

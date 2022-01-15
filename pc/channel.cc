@@ -184,27 +184,17 @@ void BaseChannel::DisconnectFromRtpTransport_n() {
   rtp_transport_->SignalWritableState.disconnect(this);
   rtp_transport_->SignalSentPacket.disconnect(this);
   rtp_transport_ = nullptr;
+  media_channel_->SetInterface(nullptr);
 }
 
 void BaseChannel::Init_n(webrtc::RtpTransportInternal* rtp_transport) {
   // Set the transport before we call SetInterface() since setting the interface
   // pointer will call us back to set transport options.
   SetRtpTransport(rtp_transport);
-
-  // Both RTP and RTCP channels should be set, we can call SetInterface on
-  // the media channel and it can set network options.
-  RTC_DCHECK(!media_channel_->HasNetworkInterface());
-  media_channel_->SetInterface(this);
 }
 
 void BaseChannel::Deinit_n() {
-  // Packets arrive on the network thread, processing packets calls virtual
-  // functions, so need to stop this process in Deinit that is called in
-  // derived classes destructor.
-  media_channel_->SetInterface(/*iface=*/nullptr);
-  if (rtp_transport_) {
-    DisconnectFromRtpTransport_n();
-  }
+  SetRtpTransport(nullptr);
   RTC_DCHECK(!network_initialized());
 }
 
@@ -229,6 +219,10 @@ bool BaseChannel::SetRtpTransport(webrtc::RtpTransportInternal* rtp_transport) {
     if (!ConnectToRtpTransport_n()) {
       return false;
     }
+
+    RTC_DCHECK(!media_channel_->HasNetworkInterface());
+    media_channel_->SetInterface(this);
+
     media_channel_->OnReadyToSend(rtp_transport_->IsReadyToSend());
     UpdateWritableState_n();
 
@@ -242,6 +236,7 @@ bool BaseChannel::SetRtpTransport(webrtc::RtpTransportInternal* rtp_transport) {
       }
     }
   }
+
   return true;
 }
 

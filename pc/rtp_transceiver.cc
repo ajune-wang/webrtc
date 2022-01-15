@@ -170,6 +170,8 @@ void RtpTransceiver::SetChannel(
 
   RTC_LOG_THREAD_BLOCK_COUNT();
 
+  cricket::ChannelInterface* channel_to_delete = nullptr;
+
   if (channel_) {
     signaling_thread_safety_->SetNotAlive();
     signaling_thread_safety_ = nullptr;
@@ -193,6 +195,7 @@ void RtpTransceiver::SetChannel(
     if (channel_) {
       channel_->SetFirstPacketReceivedCallback(nullptr);
       channel_->SetRtpTransport(nullptr);
+      channel_to_delete = channel_;
     }
 
     channel_ = channel;
@@ -214,12 +217,35 @@ void RtpTransceiver::SetChannel(
 
   RTC_DCHECK_BLOCK_COUNT_NO_MORE_THAN(1);
 
+  int pending_worker_operations = 0;
+  const bool async = true;
+
   for (const auto& receiver : receivers_) {
     if (!channel_) {
-      receiver->internal()->Stop();
+      if (!receiver->internal()->Stop(async))
+        ++pending_worker_operations;
     } else {
-      receiver->internal()->SetMediaChannel(channel_->media_channel());
+      if (!receiver->internal()->SetMediaChannel(channel_->media_channel(),
+                                                 async)) {
+        ++pending_worker_operations;
+      }
     }
+  }
+
+  RTC_DCHECK_BLOCK_COUNT_NO_MORE_THAN(1);
+
+  if (channel_to_delete || pending_worker_operations) {
+    channel_manager_->worker_thread()->Invoke<void>(RTC_FROM_HERE, [&]() {
+      if (channel_to_delete) {
+        RTC_DCHECK_NE(cricket::MEDIA_TYPE_DATA,
+                      channel_to_delete->media_type());
+        channel_to_delete->media_type() == cricket::MEDIA_TYPE_AUDIO
+            ? channel_manager_->DestroyVoiceChannel(
+                  static_cast<cricket::VoiceChannel*>(channel_to_delete))
+            : channel_manager_->DestroyVideoChannel(
+                  static_cast<cricket::VideoChannel*>(channel_to_delete));
+      }
+    });
   }
 }
 

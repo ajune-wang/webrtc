@@ -3481,7 +3481,7 @@ RTCError SdpOfferAnswerHandler::UpdateTransceiverChannel(
   if (content.rejected) {
     if (channel) {
       transceiver->internal()->SetChannel(nullptr, nullptr);
-      DestroyChannelInterface(channel);
+      // DestroyChannelInterface(channel);
     }
   } else {
     if (!channel) {
@@ -4792,7 +4792,7 @@ void SdpOfferAnswerHandler::DestroyTransceiverChannel(
     // worker thread (ideally should be on the network thread but the
     // MediaChannel objects are tied to the worker. Can the teardown be done
     // asynchronously across the threads rather than blocking?
-    DestroyChannelInterface(channel);
+    // DestroyChannelInterface(channel);
   }
 }
 

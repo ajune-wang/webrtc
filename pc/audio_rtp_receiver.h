@@ -89,7 +89,7 @@ class AudioRtpReceiver : public ObserverInterface,
       const override;
 
   // RtpReceiverInternal implementation.
-  void Stop() override;
+  bool Stop(bool async = false) override;
   void StopAndEndTrack() override;
   void SetupMediaChannel(uint32_t ssrc) override;
   void SetupUnsignaledMediaChannel() override;
@@ -105,7 +105,8 @@ class AudioRtpReceiver : public ObserverInterface,
   void SetJitterBufferMinimumDelay(
       absl::optional<double> delay_seconds) override;
 
-  void SetMediaChannel(cricket::MediaChannel* media_channel) override;
+  bool SetMediaChannel(cricket::MediaChannel* media_channel,
+                       bool async = false) override;
 
   std::vector<RtpSource> GetSources() const override;
   int AttachmentId() const override { return attachment_id_; }

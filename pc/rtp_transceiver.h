@@ -101,7 +101,9 @@ class RtpTransceiver final
 
   // Sets the Voice/VideoChannel. The caller must pass in the correct channel
   // implementation based on the type of the transceiver.
-  void SetChannel(cricket::ChannelInterface* channel);
+  void SetChannel(cricket::ChannelInterface* channel,
+                  std::function<RtpTransportInternal*(const std::string&)>
+                      transport_lookup);
 
   // Adds an RtpSender of the appropriate type to be owned by this transceiver.
   // Must not be null.

@@ -3480,7 +3480,7 @@ RTCError SdpOfferAnswerHandler::UpdateTransceiverChannel(
   cricket::ChannelInterface* channel = transceiver->internal()->channel();
   if (content.rejected) {
     if (channel) {
-      transceiver->internal()->SetChannel(nullptr);
+      transceiver->internal()->SetChannel(nullptr, nullptr);
       DestroyChannelInterface(channel);
     }
   } else {
@@ -3496,7 +3496,9 @@ RTCError SdpOfferAnswerHandler::UpdateTransceiverChannel(
             RTCErrorType::INTERNAL_ERROR,
             "Failed to create channel for mid=" + content.name);
       }
-      transceiver->internal()->SetChannel(channel);
+      transceiver->internal()->SetChannel(channel, [&](const std::string& mid) {
+        return transport_controller()->GetRtpTransport(mid);
+      });
     }
   }
   return RTCError::OK();
@@ -4677,7 +4679,10 @@ RTCError SdpOfferAnswerHandler::CreateChannels(const SessionDescription& desc) {
       LOG_AND_RETURN_ERROR(RTCErrorType::INTERNAL_ERROR,
                            "Failed to create voice channel.");
     }
-    rtp_manager()->GetAudioTransceiver()->internal()->SetChannel(voice_channel);
+    rtp_manager()->GetAudioTransceiver()->internal()->SetChannel(
+        voice_channel, [&](const std::string& mid) {
+          return transport_controller()->GetRtpTransport(mid);
+        });
   }
 
   const cricket::ContentInfo* video = cricket::GetFirstVideoContent(&desc);
@@ -4688,7 +4693,10 @@ RTCError SdpOfferAnswerHandler::CreateChannels(const SessionDescription& desc) {
       LOG_AND_RETURN_ERROR(RTCErrorType::INTERNAL_ERROR,
                            "Failed to create video channel.");
     }
-    rtp_manager()->GetVideoTransceiver()->internal()->SetChannel(video_channel);
+    rtp_manager()->GetVideoTransceiver()->internal()->SetChannel(
+        video_channel, [&](const std::string& mid) {
+          return transport_controller()->GetRtpTransport(mid);
+        });
   }
 
   const cricket::ContentInfo* data = cricket::GetFirstDataContent(&desc);
@@ -4788,7 +4796,7 @@ void SdpOfferAnswerHandler::DestroyTransceiverChannel(
     // so if ownership of the channel object lies with the transceiver, we could
     // un-set the channel pointer and uninitialize/destruct the channel object
     // at the same time, rather than in separate steps.
-    transceiver->internal()->SetChannel(nullptr);
+    transceiver->internal()->SetChannel(nullptr, nullptr);
     // TODO(tommi): All channel objects end up getting deleted on the
     // worker thread (ideally should be on the network thread but the
     // MediaChannel objects are tied to the worker. Can the teardown be done

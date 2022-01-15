@@ -178,7 +178,7 @@ VoiceChannel* ChannelManager::CreateVoiceChannel(
 
   network_thread_->Invoke<void>(RTC_FROM_HERE, [&] {
     RTC_DCHECK_RUN_ON(voice_channel->network_thread());
-    voice_channel->Init_n(rtp_transport);
+    voice_channel->SetRtpTransport(rtp_transport);
   });
 
   VoiceChannel* voice_channel_ptr = voice_channel.get();
@@ -192,7 +192,7 @@ void ChannelManager::DestroyVoiceChannel(VoiceChannel* voice_channel) {
 
   network_thread_->Invoke<void>(RTC_FROM_HERE, [&] {
     RTC_DCHECK_RUN_ON(voice_channel->network_thread());
-    voice_channel->Deinit_n();
+    voice_channel->SetRtpTransport(nullptr);
   });
 
   if (!worker_thread_->IsCurrent()) {
@@ -250,7 +250,7 @@ VideoChannel* ChannelManager::CreateVideoChannel(
 
   network_thread_->Invoke<void>(RTC_FROM_HERE, [&] {
     RTC_DCHECK_RUN_ON(video_channel->network_thread());
-    video_channel->Init_n(rtp_transport);
+    video_channel->SetRtpTransport(rtp_transport);
   });
 
   VideoChannel* video_channel_ptr = video_channel.get();
@@ -264,7 +264,7 @@ void ChannelManager::DestroyVideoChannel(VideoChannel* video_channel) {
 
   network_thread_->Invoke<void>(RTC_FROM_HERE, [&] {
     RTC_DCHECK_RUN_ON(video_channel->network_thread());
-    video_channel->Deinit_n();
+    video_channel->SetRtpTransport(nullptr);
   });
 
   if (!worker_thread_->IsCurrent()) {

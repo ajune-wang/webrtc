@@ -23,19 +23,14 @@ class EncoderSwitchRequestCallback {
  public:
   virtual ~EncoderSwitchRequestCallback() {}
 
-  struct Config {
-    std::string codec_name;
-    absl::optional<std::string> param;
-    absl::optional<std::string> value;
-  };
-
-  // Requests that encoder fallback is performed.
+  // Requests fallback to next negotiated encoder.
   virtual void RequestEncoderFallback() = 0;
 
-  // Requests that a switch to a specific encoder is performed.
-  virtual void RequestEncoderSwitch(const Config& conf) = 0;
-
-  virtual void RequestEncoderSwitch(const SdpVideoFormat& format) = 0;
+  // Requests switch to a specific encoder. If the specified encoder is not
+  // availbale and `allow_default_fallback` is `true` then the default encoder
+  // fallback logic is invoked.
+  virtual void RequestEncoderSwitch(const SdpVideoFormat& format,
+                                    bool allow_default_fallback) = 0;
 };
 
 struct VideoStreamEncoderSettings {

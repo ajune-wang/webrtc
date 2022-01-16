@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "419b75d9_8b0e8579",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2022-01-16T14:50:20Z",
+      "side": 1,
+      "message": "Nice to enforce consistent cleanup.\n\nShould there be a comment on the ChannelManager class (in the .h file) that all created channels must be destroyed before destroying the ChannelManager?\n",
+      "revId": "cbdceb250dcd6306e9b755f66a97f963e6af92f3",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

@@ -224,11 +224,8 @@ class WebRtcVideoChannel : public VideoMediaChannel,
 
   // Implements webrtc::EncoderSwitchRequestCallback.
   void RequestEncoderFallback() override;
-
-  // TODO(bugs.webrtc.org/11341) : Remove this version of RequestEncoderSwitch.
-  void RequestEncoderSwitch(
-      const EncoderSwitchRequestCallback::Config& conf) override;
-  void RequestEncoderSwitch(const webrtc::SdpVideoFormat& format) override;
+  void RequestEncoderSwitch(const webrtc::SdpVideoFormat& format,
+                            bool allow_default_fallback) override;
 
   void SetRecordableEncodedFrameCallback(
       uint32_t ssrc,
@@ -639,8 +636,6 @@ class WebRtcVideoChannel : public VideoMediaChannel,
       RTC_GUARDED_BY(thread_checker_);
 
   bool allow_codec_switching_ = false;
-  absl::optional<EncoderSwitchRequestCallback::Config>
-      requested_encoder_switch_;
 };
 
 class EncoderStreamFactory

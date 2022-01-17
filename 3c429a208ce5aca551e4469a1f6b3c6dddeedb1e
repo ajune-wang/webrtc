@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "0f7de940_f7400cf7",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2022-01-17T16:18:34Z",
+      "side": 1,
+      "message": "PTAL. I\u0027ve attempted to replace rtc::split with absl::StrSplit some time ago, but binary cost was rather high, 175 bytes per call site. Maybe this is a better migration path.\n\nDid you have a tracking bug for adoption of absl::string_view?",
+      "revId": "3c429a208ce5aca551e4469a1f6b3c6dddeedb1e",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

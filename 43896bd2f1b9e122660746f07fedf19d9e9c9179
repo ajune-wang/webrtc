@@ -46,6 +46,30 @@
       },
       "revId": "43896bd2f1b9e122660746f07fedf19d9e9c9179",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "834b6b24_604956d7",
+        "filename": "media/engine/webrtc_voice_engine_unittest.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 795,
+      "author": {
+        "id": 5119
+      },
+      "writtenOn": "2022-01-17T16:06:55Z",
+      "side": 1,
+      "message": "It cannot be activated at all on Android. (The feature is intentionally not available.)\n\nWebRtcVoiceEngine::ApplyOptions overrides any provided value for it on Android:\n\nhttps://source.chromium.org/chromium/chromium/src/+/main:third_party/webrtc/media/engine/webrtc_voice_engine.cc;l\u003d463-467;drc\u003d94f0194d5a24c31ea80aeff7c8ff0c05668418e9\n\n\nThe default settings seem to enable it by default on Android, but (by the above) the setting is still overridden to `false` upon application.\n\nhttps://source.chromium.org/chromium/chromium/src/+/main:third_party/webrtc/media/engine/webrtc_voice_engine.cc;l\u003d393-416;drc\u003d94f0194d5a24c31ea80aeff7c8ff0c05668418e9\n\n\n\n..so apm_config_.voice_detection.enabled will always end up `false` on Android. Since the tests currently expect it to sometimes be `true` on all platforms, either\n1. - this function needs to start lying (void VerifyTypingDetection(bool) #ifdef to always succeed on Android), or\n2. - the tests need to change their expectations to always EXPECT_FALSE(IsTypingDetectionEnabled()) on Android, or\n3. - the voice engine itself must apply exactly the settings requested by the tests, and remove support for Android typing detection in some other way.\n\n#1 is what I mentioned in my comment above.",
+      "parentUuid": "33dd795a_05887738",
+      "range": {
+        "startLine": 793,
+        "startChar": 0,
+        "endLine": 795,
+        "endChar": 5
+      },
+      "revId": "43896bd2f1b9e122660746f07fedf19d9e9c9179",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

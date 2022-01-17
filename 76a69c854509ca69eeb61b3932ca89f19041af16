@@ -1,0 +1,55 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "fb826753_5bd4ea31",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5508
+      },
+      "writtenOn": "2022-01-17T12:26:50Z",
+      "side": 1,
+      "message": "lgtm % unless there\u0027s a reason (consistency?) for using PlusInfinity over MinusInfinity - I have a slight preference for the latter since negative values are often used for errors (i.e. don\u0027t proceed).",
+      "revId": "76a69c854509ca69eeb61b3932ca89f19041af16",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "593f67c0_14b08753",
+        "filename": "rtc_base/task_utils/repeating_task.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 46,
+      "author": {
+        "id": 5508
+      },
+      "writtenOn": "2022-01-17T12:26:50Z",
+      "side": 1,
+      "message": "any reason for plus rather than negative?\n\nAlso, should we check for negative delay values in general?",
+      "revId": "76a69c854509ca69eeb61b3932ca89f19041af16",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "b44e633b_0a930d98",
+        "filename": "rtc_base/task_utils/repeating_task_unittest.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 263,
+      "author": {
+        "id": 5508
+      },
+      "writtenOn": "2022-01-17T12:26:50Z",
+      "side": 1,
+      "message": "much better 😊",
+      "revId": "76a69c854509ca69eeb61b3932ca89f19041af16",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

@@ -46,6 +46,30 @@
       },
       "revId": "d868ca0fc0ecd51a5889ea9dcd5181bb35a0cc0d",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "76b24fc8_322950f6",
+        "filename": "media/base/media_channel.h",
+        "patchSetId": 3
+      },
+      "lineNbr": 314,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2022-01-17T10:22:57Z",
+      "side": 1,
+      "message": "Ok. I had kind-of expected NetworkInterface to hold single-threaded state owned by the network thread, but didn\u0027t investigate.",
+      "parentUuid": "6c9d5e7e_71466043",
+      "range": {
+        "startLine": 314,
+        "startChar": 39,
+        "endLine": 314,
+        "endChar": 53
+      },
+      "revId": "d868ca0fc0ecd51a5889ea9dcd5181bb35a0cc0d",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

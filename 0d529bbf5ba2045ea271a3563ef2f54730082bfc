@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "eaf002fd_1ecbeb73",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 24
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2022-01-17T10:07:10Z",
+      "side": 1,
+      "message": "Seems to pass all webrtc tests now, but with some downstream breakage that needs fixing.\n\nMaybe makes sense to split out the sdk/objc/ and sdk/android/ changes to their own cls?",
+      "revId": "0d529bbf5ba2045ea271a3563ef2f54730082bfc",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

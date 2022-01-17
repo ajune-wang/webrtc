@@ -22,6 +22,30 @@
       },
       "revId": "d868ca0fc0ecd51a5889ea9dcd5181bb35a0cc0d",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "6c9d5e7e_71466043",
+        "filename": "media/base/media_channel.h",
+        "patchSetId": 3
+      },
+      "lineNbr": 314,
+      "author": {
+        "id": 5508
+      },
+      "writtenOn": "2022-01-17T10:16:37Z",
+      "side": 1,
+      "message": "it\u0027s the pointer itself whose value needs to be guarded (see MediaChannel::SetInterface) so I think this is OK as is. As for methods, it\u0027s a virtual interface that\u0027s being pointed to and implementations have internal thread checks.",
+      "parentUuid": "8751442f_4fa1df94",
+      "range": {
+        "startLine": 314,
+        "startChar": 39,
+        "endLine": 314,
+        "endChar": 53
+      },
+      "revId": "d868ca0fc0ecd51a5889ea9dcd5181bb35a0cc0d",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

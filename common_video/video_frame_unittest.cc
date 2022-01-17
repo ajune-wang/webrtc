@@ -493,10 +493,14 @@ INSTANTIATE_TEST_SUITE_P(
                                          VideoFrameBuffer::Type::kI010)));
 
 TEST(TestUpdateRect, CanCompare) {
-  VideoFrame::UpdateRect a = {0, 0, 100, 200};
-  VideoFrame::UpdateRect b = {0, 0, 100, 200};
-  VideoFrame::UpdateRect c = {1, 0, 100, 200};
-  VideoFrame::UpdateRect d = {0, 1, 100, 200};
+  VideoFrame::UpdateRect a = {
+      .offset_x = 0, .offset_y = 0, .width = 100, .height = 200};
+  VideoFrame::UpdateRect b = {
+      .offset_x = 0, .offset_y = 0, .width = 100, .height = 200};
+  VideoFrame::UpdateRect c = {
+      .offset_x = 1, .offset_y = 0, .width = 100, .height = 200};
+  VideoFrame::UpdateRect d = {
+      .offset_x = 0, .offset_y = 1, .width = 100, .height = 200};
   EXPECT_TRUE(a == b);
   EXPECT_FALSE(a == c);
   EXPECT_FALSE(a == d);

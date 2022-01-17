@@ -789,8 +789,12 @@ class WebRtcVoiceEngineTestFake : public ::testing::TestWithParam<bool> {
     return apm_config_.high_pass_filter.enabled;
   }
 
-  bool IsTypingDetectionEnabled() {
+  void VerifyTypingDetectionEnabled(bool enabled) {
+#if defined(WEBRTC_ANDROID)
+    return false;
+#else
     return apm_config_.voice_detection.enabled;
+#endif
   }
 
  protected:

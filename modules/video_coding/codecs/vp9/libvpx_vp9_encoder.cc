@@ -1635,7 +1635,8 @@ void LibvpxVp9Encoder::GetEncodedLayerFrame(const vpx_codec_cx_pkt* pkt) {
       static_cast<const uint8_t*>(pkt->data.frame.buf), pkt->data.frame.sz));
 
   const bool is_key_frame =
-      (pkt->data.frame.flags & VPX_FRAME_IS_KEY) ? true : false;
+      ((pkt->data.frame.flags & VPX_FRAME_IS_KEY) ? true : false) &&
+      layer_id.spatial_layer_id == first_active_layer_;
   // Ensure encoder issued key frame on request.
   RTC_DCHECK(is_key_frame || !force_key_frame_);
 

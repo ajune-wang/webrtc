@@ -61,6 +61,7 @@ RtcEventLogImpl::RtcEventLogImpl(RtcEventLog::EncodingType encoding_type,
       last_output_ms_(rtc::TimeMillis()),
       output_scheduled_(false),
       logging_state_started_(false),
+      normal_log_task_queue_(nullptr),
       task_queue_(
           std::make_unique<rtc::TaskQueue>(task_queue_factory->CreateTaskQueue(
               "rtc_event_log",
@@ -75,6 +76,7 @@ RtcEventLogImpl::~RtcEventLogImpl() {
 
   // We want to block on any executing task by invoking ~TaskQueue() before
   // we set unique_ptr's internal pointer to null.
+  normal_log_task_queue_ = nullptr;
   rtc::TaskQueue* tq = task_queue_.get();
   delete tq;
   task_queue_.release();
@@ -97,6 +99,7 @@ bool RtcEventLogImpl::StartLogging(std::unique_ptr<RtcEventLogOutput> output,
                    << timestamp_us << ", " << utc_time_us << ").";
 
   RTC_DCHECK_RUN_ON(&logging_state_checker_);
+  normal_log_task_queue_ = task_queue_.get();
   logging_state_started_ = true;
   // Binding to `this` is safe because `this` outlives the `task_queue_`.
   task_queue_->PostTask([this, output_period_ms, timestamp_us, utc_time_us,
@@ -127,6 +130,7 @@ void RtcEventLogImpl::StopLogging() {
 
 void RtcEventLogImpl::StopLogging(std::function<void()> callback) {
   RTC_DCHECK_RUN_ON(&logging_state_checker_);
+  normal_log_task_queue_ = nullptr;
   logging_state_started_ = false;
   task_queue_->PostTask([this, callback] {
     RTC_DCHECK_RUN_ON(task_queue_.get());
@@ -142,8 +146,14 @@ void RtcEventLogImpl::StopLogging(std::function<void()> callback) {
 void RtcEventLogImpl::Log(std::unique_ptr<RtcEvent> event) {
   RTC_CHECK(event);
 
+  // Always log the event if it's a config event.
+  rtc::TaskQueue* task_queue =
+      event->IsConfigEvent() ? task_queue_.get() : normal_log_task_queue_;
+  if (!task_queue)
+    return;
+
   // Binding to `this` is safe because `this` outlives the `task_queue_`.
-  task_queue_->PostTask([this, event = std::move(event)]() mutable {
+  task_queue->PostTask([this, event = std::move(event)]() mutable {
     RTC_DCHECK_RUN_ON(task_queue_.get());
     LogToMemory(std::move(event));
     if (event_output_)

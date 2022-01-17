@@ -113,7 +113,8 @@ class RtcEventLogSession
         output_period_ms_(std::get<1>(GetParam())),
         encoding_type_(std::get<2>(GetParam())),
         gen_(seed_ * 880001UL),
-        verifier_(encoding_type_) {
+        verifier_(encoding_type_),
+        logging_started_(false) {
     clock_.SetTime(Timestamp::Micros(prng_.Rand<uint32_t>()));
     // Find the name of the current test, in order to use it as a temporary
     // filename.
@@ -203,6 +204,7 @@ class RtcEventLogSession
   test::EventVerifier verifier_;
   rtc::ScopedFakeClock clock_;
   std::string temp_filename_;
+  bool logging_started_;
 };
 
 bool SsrcUsed(
@@ -322,6 +324,13 @@ void RtcEventLogSession::WriteLog(EventCounts count,
   RTC_CHECK_GE(count.video_recv_streams, 1);
   RTC_CHECK_GE(count.video_send_streams, 1);
 
+  if (num_events_before_start == 0) {
+    event_log->StartLogging(
+        std::make_unique<RtcEventLogOutputFile>(temp_filename_, 10000000),
+        output_period_ms_);
+    logging_started_ = true;
+  }
+
   WriteAudioRecvConfigs(count.audio_recv_streams, event_log.get());
   WriteAudioSendConfigs(count.audio_send_streams, event_log.get());
   WriteVideoRecvConfigs(count.video_recv_streams, event_log.get());
@@ -338,7 +347,11 @@ void RtcEventLogSession::WriteLog(EventCounts count,
           output_period_ms_);
       start_time_us_ = rtc::TimeMicros();
       utc_start_time_us_ = rtc::TimeUTCMicros();
+      logging_started_ = true;
     }
+
+    if (!logging_started_)
+      continue;
 
     clock_.AdvanceTime(TimeDelta::Millis(prng_.Rand(20)));
     size_t selection = prng_.Rand(remaining_events - 1);
@@ -552,7 +565,8 @@ void RtcEventLogSession::WriteLog(EventCounts count,
   event_log->StopLogging();
   stop_time_us_ = rtc::TimeMicros();
 
-  ASSERT_EQ(count.total_nonconfig_events(), static_cast<size_t>(0));
+  ASSERT_EQ(count.total_nonconfig_events() - num_events_before_start,
+            static_cast<size_t>(0));
 }
 
 // Read the file and verify that what we read back from the event log is the
@@ -943,6 +957,8 @@ TEST_P(RtcEventLogCircularBufferTest, KeepsMostRecentEvents) {
   // kNumEvents.
   EXPECT_LT(probe_success_events.size(), kNumEvents);
 
+  if (probe_success_events.size() < 1)
+    return;
   ASSERT_GT(probe_success_events.size(), 1u);
   int64_t first_timestamp_ms = probe_success_events[0].timestamp.ms();
   uint32_t first_id = probe_success_events[0].id;

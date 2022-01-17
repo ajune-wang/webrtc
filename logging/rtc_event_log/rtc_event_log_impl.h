@@ -82,6 +82,10 @@ class RtcEventLogImpl final : public RtcEventLog {
   RTC_NO_UNIQUE_ADDRESS SequenceChecker logging_state_checker_;
   bool logging_state_started_ RTC_GUARDED_BY(logging_state_checker_);
 
+  // `normal_log_task_queue_` should be `task_queue_.get()` based on if the
+  // logging is started. Otherwise, it equals to nullptr.
+  rtc::TaskQueue* normal_log_task_queue_;
+
   // Since we are posting tasks bound to `this`,  it is critical that the event
   // log and its members outlive `task_queue_`. Keep the `task_queue_`
   // last to ensure it destructs first, or else tasks living on the queue might

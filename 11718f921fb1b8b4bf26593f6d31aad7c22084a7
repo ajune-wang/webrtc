@@ -1,0 +1,55 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "2861de30_08abc4d1",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 11
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2022-01-17T09:17:17Z",
+      "side": 1,
+      "message": "Hm. I\u0027m not sure I\u0027m happy with getting transport through a lookup function. It means that we need to ensure that the transport is fetched before it can possibly change to something else. And that needs to be documented somehow.\n\nOTOH, fewer hops yay!\n",
+      "revId": "11718f921fb1b8b4bf26593f6d31aad7c22084a7",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "f8919210_b1c2cd38",
+        "filename": "pc/rtp_transceiver.h",
+        "patchSetId": 11
+      },
+      "lineNbr": 103,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2022-01-17T09:17:17Z",
+      "side": 1,
+      "message": "Add a function comment explaining the transport_lookup parameter, and which thread will be invoking it?",
+      "revId": "11718f921fb1b8b4bf26593f6d31aad7c22084a7",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "4a3e7d0f_32054be1",
+        "filename": "pc/sdp_offer_answer.cc",
+        "patchSetId": 11
+      },
+      "lineNbr": 3499,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2022-01-17T09:17:17Z",
+      "side": 1,
+      "message": "Capturing the world by reference creates a lot of reference.\nWhat about capturing the output of transport_controller() instead? (it is const after initialization) Or just capture this?\n\nhttps://google.github.io/styleguide/cppguide.html#Lambda_expressions\n\n(repeat for subsequent lambdas)",
+      "revId": "11718f921fb1b8b4bf26593f6d31aad7c22084a7",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

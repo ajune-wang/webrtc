@@ -239,6 +239,20 @@ TEST(RepeatingTaskTest, TaskCanStopItself) {
   EXPECT_EQ(counter.load(), 1);
 }
 
+TEST(RepeatingTaskTest, TaskCanStopItselfByReturningInfinity) {
+  std::atomic_int counter(0);
+  SimulatedClock clock(Timestamp::Zero());
+  FakeTaskQueue task_queue(&clock);
+  RepeatingTaskHandle handle = RepeatingTaskHandle::Start(&task_queue, [&] {
+    ++counter;
+    return TimeDelta::PlusInfinity();
+  });
+  EXPECT_EQ(task_queue.last_delay(), 0u);
+  // Task cancelled itself so wants to be released.
+  EXPECT_TRUE(task_queue.AdvanceTimeAndRunLastTask());
+  EXPECT_EQ(counter.load(), 1);
+}
+
 TEST(RepeatingTaskTest, ZeroReturnValueRepostsTheTask) {
   NiceMock<MockClosure> closure;
   rtc::Event done;

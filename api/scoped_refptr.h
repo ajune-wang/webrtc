@@ -74,7 +74,9 @@ class scoped_refptr {
   typedef T element_type;
 
   scoped_refptr() : ptr_(nullptr) {}
+  scoped_refptr(std::nullptr_t) : ptr_(nullptr) {}  // NOLINT(runtime/explicit)
 
+  // TODO(bugs.webrtc.org/13464): Implicit construction is deprecated.
   scoped_refptr(T* p) : ptr_(p) {  // NOLINT(runtime/explicit)
     if (ptr_)
       ptr_->AddRef();

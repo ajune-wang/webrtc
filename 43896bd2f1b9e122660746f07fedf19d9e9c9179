@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "6e5861e4_85c7cefa",
+        "filename": "media/engine/webrtc_voice_engine_unittest.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 795,
+      "author": {
+        "id": 5119
+      },
+      "writtenOn": "2022-01-17T07:18:31Z",
+      "side": 1,
+      "message": "Have you found a way to verify that this works? The tests check that IsTypingDetectionEnabled() is true or false in different cases.\n\nOne solution is to rename:\nbool IsTypingDetectionEnabled()\n--\u003e void VerifyTypingDetectionEnabled(bool enabled)\n.. and then `#ifdef return false` should work for Android.\n\nI recognize that getting rtc_media_unittests running on Android is more important than having this one particular test on Android.\nFeel free to make the failing things in here _DISABLED on Android, and I or Per will have to sort out the bug when we can prioritize it.",
+      "range": {
+        "startLine": 793,
+        "startChar": 0,
+        "endLine": 795,
+        "endChar": 5
+      },
+      "revId": "43896bd2f1b9e122660746f07fedf19d9e9c9179",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

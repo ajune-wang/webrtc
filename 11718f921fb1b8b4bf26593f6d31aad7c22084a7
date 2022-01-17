@@ -37,6 +37,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "6825de03_5bc3ec79",
+        "filename": "pc/rtp_transceiver.h",
+        "patchSetId": 11
+      },
+      "lineNbr": 103,
+      "author": {
+        "id": 5508
+      },
+      "writtenOn": "2022-01-17T16:45:28Z",
+      "side": 1,
+      "message": "Added documentation. Also added notes about the channel parameter and potential future changes to avoid ownership sitting in more than one place.",
+      "parentUuid": "f8919210_b1c2cd38",
+      "revId": "11718f921fb1b8b4bf26593f6d31aad7c22084a7",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "4a3e7d0f_32054be1",
         "filename": "pc/sdp_offer_answer.cc",
         "patchSetId": 11
@@ -48,6 +66,24 @@
       "writtenOn": "2022-01-17T09:17:17Z",
       "side": 1,
       "message": "Capturing the world by reference creates a lot of reference.\nWhat about capturing the output of transport_controller() instead? (it is const after initialization) Or just capture this?\n\nhttps://google.github.io/styleguide/cppguide.html#Lambda_expressions\n\n(repeat for subsequent lambdas)",
+      "revId": "11718f921fb1b8b4bf26593f6d31aad7c22084a7",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "37aab22e_f0627ea9",
+        "filename": "pc/sdp_offer_answer.cc",
+        "patchSetId": 11
+      },
+      "lineNbr": 3499,
+      "author": {
+        "id": 5508
+      },
+      "writtenOn": "2022-01-17T16:45:28Z",
+      "side": 1,
+      "message": "I asked around to confirm that my intentions/expectations match with what happens in this case and for intentionally synchronous lambdas, this seems to be the way to go. Here are the benefits:\n\n* forcing by-ref capture, makes the lambda smaller and avoids creating copies.\n* [\u0026] includes `this` as well as access to the entire scope - however, only actually referenced variables within the lambda affect code generation.\n* Not doing explicit captures in cases like this reduces code clutter and \"warning fatigue\" (according to one article that I read on this) and makes subsequent updates to the code, smaller in terms of diffing.",
+      "parentUuid": "4a3e7d0f_32054be1",
       "revId": "11718f921fb1b8b4bf26593f6d31aad7c22084a7",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }

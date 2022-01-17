@@ -33,6 +33,24 @@
       "message": "SdpOfferAnswerHandler::ApplyRemoteDescription calls RemoteDescriptionOperation::ReplaceRemoteDescription which calls SdpOfferAnswerHandler::ReplaceRemoteDescription.\n\nSomeone reading this might wonder which method is the helper for which other method. Would it be less confusing if we didn\u0027t have multiple methods called ReplaceRemoteDescription? How about renaming RemoteDescriptionOperation::ReplaceRemoteDescription to ReplaceRemoteDescriptionAndCheckEror? That would make the other one sound like a substep at least. Other suggestions welcome.",
       "revId": "86f6532b9b553b25311940f7bfb8aec0bda0faa4",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "de3e7762_3dcae2a3",
+        "filename": "pc/sdp_offer_answer.cc",
+        "patchSetId": 21
+      },
+      "lineNbr": 1805,
+      "author": {
+        "id": 5508
+      },
+      "writtenOn": "2022-01-17T18:21:36Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "4235354d_bedd41cb",
+      "revId": "86f6532b9b553b25311940f7bfb8aec0bda0faa4",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

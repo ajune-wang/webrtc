@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "8751442f_4fa1df94",
+        "filename": "media/base/media_channel.h",
+        "patchSetId": 3
+      },
+      "lineNbr": 314,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2022-01-17T08:51:59Z",
+      "side": 1,
+      "message": "Should this also be RTC_PT_GUARDED_BY ?",
+      "range": {
+        "startLine": 314,
+        "startChar": 39,
+        "endLine": 314,
+        "endChar": 53
+      },
+      "revId": "d868ca0fc0ecd51a5889ea9dcd5181bb35a0cc0d",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

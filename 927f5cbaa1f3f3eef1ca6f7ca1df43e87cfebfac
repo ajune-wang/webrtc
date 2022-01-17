@@ -121,6 +121,24 @@
       "parentUuid": "5da4e27a_922d4fb9",
       "revId": "927f5cbaa1f3f3eef1ca6f7ca1df43e87cfebfac",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "853eb4a6_a592a0d2",
+        "filename": "modules/desktop_capture/desktop_capture_types.h",
+        "patchSetId": 7
+      },
+      "lineNbr": 36,
+      "author": {
+        "id": 18779
+      },
+      "writtenOn": "2022-01-17T08:26:25Z",
+      "side": 1,
+      "message": "FYI I actually built ChromeOS-Chromium both 32 and 64 bit, and it compiled fine with both.",
+      "parentUuid": "aa8bdc81_23f2669c",
+      "revId": "927f5cbaa1f3f3eef1ca6f7ca1df43e87cfebfac",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

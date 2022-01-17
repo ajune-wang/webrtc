@@ -1,0 +1,44 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "d42c3192_6cb9e087",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 6
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5531
+      },
+      "writtenOn": "2022-01-17T08:37:25Z",
+      "side": 1,
+      "message": "LGTM",
+      "revId": "20d30544e1e04c2ae089b8c17338171be5b62c9f",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "08a2f75a_6cc4ba64",
+        "filename": "logging/rtc_event_log/events/rtc_event_begin_log.cc",
+        "patchSetId": 6
+      },
+      "lineNbr": 40,
+      "author": {
+        "id": 5531
+      },
+      "writtenOn": "2022-01-17T08:37:25Z",
+      "side": 1,
+      "message": "nit: could we afford to expand this, encoded_bytes, maybe?",
+      "range": {
+        "startLine": 40,
+        "startChar": 22,
+        "endLine": 40,
+        "endChar": 23
+      },
+      "revId": "20d30544e1e04c2ae089b8c17338171be5b62c9f",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

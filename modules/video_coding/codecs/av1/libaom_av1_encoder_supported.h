@@ -7,23 +7,23 @@
  *  in the file PATENTS.  All contributing project authors may
  *  be found in the AUTHORS file in the root of the source tree.
  */
-#include "modules/video_coding/codecs/av1/libaom_av1_encoder.h"
+#ifndef MODULES_VIDEO_CODING_CODECS_AV1_LIBAOM_AV1_ENCODER_SUPPORTED_H_
+#define MODULES_VIDEO_CODING_CODECS_AV1_LIBAOM_AV1_ENCODER_SUPPORTED_H_
 
 #include <memory>
 
+#include "absl/base/attributes.h"
+#include "absl/strings/string_view.h"
 #include "api/video_codecs/video_encoder.h"
 
 namespace webrtc {
 
-const bool kIsLibaomAv1EncoderSupported = false;
+ABSL_CONST_INIT extern const bool kIsLibaomAv1EncoderSupported;
 
-std::unique_ptr<VideoEncoder> CreateLibaomAv1Encoder() {
-  return nullptr;
-}
-
+std::unique_ptr<VideoEncoder> CreateLibaomAv1EncoderIfSupported();
 bool LibaomAv1EncoderSupportsScalabilityMode(
-    absl::string_view scalability_mode) {
-  return false;
-}
+    absl::string_view scalability_mode);
 
 }  // namespace webrtc
+
+#endif  // MODULES_VIDEO_CODING_CODECS_AV1_LIBAOM_AV1_ENCODER_SUPPORTED_H_

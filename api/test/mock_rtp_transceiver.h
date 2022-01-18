@@ -19,7 +19,7 @@
 
 namespace webrtc {
 
-class MockRtpTransceiver final
+class MockRtpTransceiver
     : public rtc::RefCountedObject<RtpTransceiverInterface> {
  public:
   static rtc::scoped_refptr<MockRtpTransceiver> Create() {

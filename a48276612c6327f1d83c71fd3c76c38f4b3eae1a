@@ -41,6 +41,30 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "7a39fe69_857a87aa",
+        "filename": "media/engine/webrtc_video_engine.cc",
+        "patchSetId": 7
+      },
+      "lineNbr": 940,
+      "author": {
+        "id": 5825
+      },
+      "writtenOn": "2022-01-18T16:21:27Z",
+      "side": 1,
+      "message": "I would like to log a message if switch to requested encoder failed no matter if default fallback is allowed or not. Such that we know what kind of switch was actually performed.",
+      "parentUuid": "84912085_bb07841a",
+      "range": {
+        "startLine": 934,
+        "startChar": 0,
+        "endLine": 940,
+        "endChar": 3
+      },
+      "revId": "a48276612c6327f1d83c71fd3c76c38f4b3eae1a",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "2561b60f_89f5fb91",
@@ -64,6 +88,30 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "e90c1e25_040f4f5a",
+        "filename": "media/engine/webrtc_video_engine_unittest.cc",
+        "patchSetId": 7
+      },
+      "lineNbr": 2424,
+      "author": {
+        "id": 5825
+      },
+      "writtenOn": "2022-01-18T16:21:27Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "2561b60f_89f5fb91",
+      "range": {
+        "startLine": 2424,
+        "startChar": 5,
+        "endLine": 2424,
+        "endChar": 12
+      },
+      "revId": "a48276612c6327f1d83c71fd3c76c38f4b3eae1a",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "1dd8bf9c_130ecfe1",
@@ -77,6 +125,30 @@
       "writtenOn": "2022-01-18T13:44:29Z",
       "side": 1,
       "message": "RequestEncoderSwitchIfSupported",
+      "range": {
+        "startLine": 1276,
+        "startChar": 25,
+        "endLine": 1276,
+        "endChar": 38
+      },
+      "revId": "a48276612c6327f1d83c71fd3c76c38f4b3eae1a",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "7912878f_605f5c49",
+        "filename": "video/video_stream_encoder.cc",
+        "patchSetId": 7
+      },
+      "lineNbr": 1276,
+      "author": {
+        "id": 5825
+      },
+      "writtenOn": "2022-01-18T16:21:27Z",
+      "side": 1,
+      "message": "just RequestEncoderSwitch? IfSupported can probably be omitted (or, otherwise, should be added to every other function; for example EncodeVideoFrame below).",
+      "parentUuid": "1dd8bf9c_130ecfe1",
       "range": {
         "startLine": 1276,
         "startChar": 25,

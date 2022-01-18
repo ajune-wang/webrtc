@@ -1,0 +1,107 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "b780de6e_8d75003d",
+        "filename": "modules/video_coding/codecs/vp9/include/vp9_globals.h",
+        "patchSetId": 3
+      },
+      "lineNbr": 87,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2022-01-18T11:24:58Z",
+      "side": 1,
+      "message": "none of the T1 frames have upswitch flag set to true.\nwhich is technically correct, but... how would SFM would know it is possible to switch to T2?\n(upswitch flag on T0 allows to switch just to T1\nupswitch flag on T2 in theory doesn\u0027t hold any information)",
+      "range": {
+        "startLine": 87,
+        "startChar": 11,
+        "endLine": 87,
+        "endChar": 34
+      },
+      "revId": "0997ffd3369d499d510ab17bfdbc590d4717f402",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "e8fffb85_2816cd74",
+        "filename": "modules/video_coding/codecs/vp9/include/vp9_globals.h",
+        "patchSetId": 3
+      },
+      "lineNbr": 95,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2022-01-18T11:24:58Z",
+      "side": 1,
+      "message": "upswitch flag is unimportant for the highest temporal layer, might as well left it to \u0027true\u0027.\n(locally it is true that \"subsequent higher temporal layer pictures will not depend on ...\"\nbecause there are no higher temporal layers)",
+      "range": {
+        "startLine": 95,
+        "startChar": 32,
+        "endLine": 95,
+        "endChar": 37
+      },
+      "revId": "0997ffd3369d499d510ab17bfdbc590d4717f402",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "2fc15f50_55b7cb06",
+        "filename": "modules/video_coding/codecs/vp9/libvpx_vp9_encoder.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 1394,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2022-01-18T11:24:58Z",
+      "side": 1,
+      "message": "why?\nI think the logic is simpler: you can switch to higher temporal layer, if dtis for the higher temporal layers are all Switch:\n\n  vp9_info-\u003etemporal_up_switch \u003d true;\n  for (int i \u003d layer_id.temporal_layer_id + 1; i \u003c num_temporal_layers_;\n       ++i) {\n    // assumes decode targets are always ordered like that.\n    size_t dti_index \u003d (layer_id.spatial_layer_id * num_temporal_layers_) + i;\n    vp9_info-\u003etemporal_up_switch \u0026\u003d \n       (codec_specific-\u003egeneric_frame_info\n                      -\u003edecode_target_indications[dti_index] \u003d\u003d kSwitch)\n  }\n\nWith that logic there is no need to keep temporal_upswitch_ state.",
+      "range": {
+        "startLine": 1392,
+        "startChar": 6,
+        "endLine": 1394,
+        "endChar": 44
+      },
+      "revId": "0997ffd3369d499d510ab17bfdbc590d4717f402",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "4171d87d_d5cdee14",
+        "filename": "video/video_send_stream_tests.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 3099,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2022-01-18T11:24:58Z",
+      "side": 1,
+      "message": "may be remove this expectation (upswitch is irrelevant for Structure1)",
+      "revId": "0997ffd3369d499d510ab17bfdbc590d4717f402",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "25b94376_5a275713",
+        "filename": "video/video_send_stream_tests.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 3123,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2022-01-18T11:24:58Z",
+      "side": 1,
+      "message": "may be move outside the switch now that it is the same for all branches",
+      "revId": "0997ffd3369d499d510ab17bfdbc590d4717f402",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

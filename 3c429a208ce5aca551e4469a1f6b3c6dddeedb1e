@@ -52,6 +52,24 @@
       "parentUuid": "51c8474a_7ec8190c",
       "revId": "3c429a208ce5aca551e4469a1f6b3c6dddeedb1e",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "1e1fccec_ac1b1c56",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 10107
+      },
+      "writtenOn": "2022-01-18T09:55:51Z",
+      "side": 1,
+      "message": "Bug for absl::string_view adoption created here: https://webrtc-review.googlesource.com/c/src/+/151646",
+      "parentUuid": "3d0496e2_bd1112f6",
+      "revId": "3c429a208ce5aca551e4469a1f6b3c6dddeedb1e",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

@@ -33,6 +33,46 @@
       "message": "perkj@, could you take a look at api/ ?",
       "revId": "63fc22db67e55981505621e8c1e79a7ba28bb7da",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "7536ef1f_a5a2a8e6",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 7
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5578
+      },
+      "writtenOn": "2022-01-18T13:22:48Z",
+      "side": 1,
+      "message": "LGTM % documentation request.",
+      "revId": "63fc22db67e55981505621e8c1e79a7ba28bb7da",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "f3211e78_09ba0e6d",
+        "filename": "api/rtc_event_log/rtc_event.h",
+        "patchSetId": 7
+      },
+      "lineNbr": 68,
+      "author": {
+        "id": 5578
+      },
+      "writtenOn": "2022-01-18T13:22:48Z",
+      "side": 1,
+      "message": "Since this is the public API and group key is not obvious- please document what thi s is.",
+      "range": {
+        "startLine": 68,
+        "startChar": 19,
+        "endLine": 68,
+        "endChar": 30
+      },
+      "revId": "63fc22db67e55981505621e8c1e79a7ba28bb7da",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

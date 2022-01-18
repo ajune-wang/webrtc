@@ -16,6 +16,24 @@
       "message": "PTAL. I\u0027ve attempted to replace rtc::split with absl::StrSplit some time ago, but binary cost was rather high, 175 bytes per call site. Maybe this is a better migration path.\n\nDid you have a tracking bug for adoption of absl::string_view?",
       "revId": "3c429a208ce5aca551e4469a1f6b3c6dddeedb1e",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "51c8474a_7ec8190c",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 10107
+      },
+      "writtenOn": "2022-01-18T09:42:41Z",
+      "side": 1,
+      "message": "I\u0027ll open a bug for it now and get back to you. In the mean time, I\u0027m curious to know how you calculate the binary size increase? Do you look at the assembly? And why would absl\u0027s version of StrSplit() cause a larger binary increase than a hand-crafted version?",
+      "parentUuid": "0f7de940_f7400cf7",
+      "revId": "3c429a208ce5aca551e4469a1f6b3c6dddeedb1e",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

@@ -16,6 +16,24 @@
       "message": "Hi Mark, what about this one? Is this good to go?",
       "revId": "073077db53b618b9cc7accd2e23f4726ba9b2dd4",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "fbe1a47c_031c4ede",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 3
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 18474
+      },
+      "writtenOn": "2022-01-18T18:39:02Z",
+      "side": 1,
+      "message": "IIRC, Mark was delegating this one to me.",
+      "parentUuid": "df502489_defb2549",
+      "revId": "073077db53b618b9cc7accd2e23f4726ba9b2dd4",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

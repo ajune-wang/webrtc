@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "51674660_9fe7db5b",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 18809
+      },
+      "writtenOn": "2022-01-18T20:17:18Z",
+      "side": 1,
+      "message": "QC Dry Run build failures look unrelated.",
+      "revId": "48420a6c38620369a0249185ca73ec0c9ab76ca0",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

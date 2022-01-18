@@ -20,6 +20,24 @@
     {
       "unresolved": false,
       "key": {
+        "uuid": "a5a6502a_6e6d89a2",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 9,
+      "author": {
+        "id": 18809
+      },
+      "writtenOn": "2022-01-18T22:36:49Z",
+      "side": 1,
+      "message": "Filed https://bugs.chromium.org/p/webrtc/issues/detail?id\u003d13585 and updated description.",
+      "parentUuid": "1b10b0eb_91ef3f2d",
+      "revId": "48420a6c38620369a0249185ca73ec0c9ab76ca0",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
         "uuid": "51674660_9fe7db5b",
         "filename": "/PATCHSET_LEVEL",
         "patchSetId": 1
@@ -48,6 +66,24 @@
       "writtenOn": "2022-01-18T22:25:25Z",
       "side": 1,
       "message": "Adding Mirko who knows more about when we should or should not export symbols.\n\nI\u0027m a bit worried about exposing stuff from namespace rtc::tracing given our efforts to make sure all dependencies go through //api and use the webrtc:: namespace.\n\nAny appropriate design doc references?",
+      "revId": "48420a6c38620369a0249185ca73ec0c9ab76ca0",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "7a6dfd3a_8b23535a",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 18809
+      },
+      "writtenOn": "2022-01-18T22:36:49Z",
+      "side": 1,
+      "message": "https://chromium-review.googlesource.com/c/chromium/src/+/3399049 is the CRD change to make use of this functionality. I have a much broader internal design doc, but I put the relevant details into https://bugs.chromium.org/p/webrtc/issues/detail?id\u003d13585.",
+      "parentUuid": "fe293787_e9a9f9ea",
       "revId": "48420a6c38620369a0249185ca73ec0c9ab76ca0",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }

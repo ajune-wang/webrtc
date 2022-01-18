@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "4c237ab4_b0ced3d2",
+        "filename": "rtc_base/string_encode.h",
+        "patchSetId": 3
+      },
+      "lineNbr": 65,
+      "author": {
+        "id": 10107
+      },
+      "writtenOn": "2022-01-18T11:09:27Z",
+      "side": 1,
+      "message": "Could you add a sentence describing what happens if source is the empty string?",
+      "range": {
+        "startLine": 64,
+        "startChar": 0,
+        "endLine": 65,
+        "endChar": 54
+      },
+      "revId": "7fb072d81ff1110b81479b62885221573c2bc1e5",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

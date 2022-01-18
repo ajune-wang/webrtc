@@ -1,6 +1,23 @@
 {
   "comments": [
     {
+      "unresolved": true,
+      "key": {
+        "uuid": "1b10b0eb_91ef3f2d",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 9,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2022-01-18T22:25:25Z",
+      "side": 1,
+      "message": "The WebRTC convention is \"Bug: \" and either webrtc:number or chromium:number. Can you file a tracking bug in one of those trackers?",
+      "revId": "48420a6c38620369a0249185ca73ec0c9ab76ca0",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": false,
       "key": {
         "uuid": "51674660_9fe7db5b",
@@ -14,6 +31,23 @@
       "writtenOn": "2022-01-18T20:17:18Z",
       "side": 1,
       "message": "QC Dry Run build failures look unrelated.",
+      "revId": "48420a6c38620369a0249185ca73ec0c9ab76ca0",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "fe293787_e9a9f9ea",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2022-01-18T22:25:25Z",
+      "side": 1,
+      "message": "Adding Mirko who knows more about when we should or should not export symbols.\n\nI\u0027m a bit worried about exposing stuff from namespace rtc::tracing given our efforts to make sure all dependencies go through //api and use the webrtc:: namespace.\n\nAny appropriate design doc references?",
       "revId": "48420a6c38620369a0249185ca73ec0c9ab76ca0",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }

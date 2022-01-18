@@ -12,6 +12,7 @@
 
 #include <cstdio>
 
+#include "absl/strings/str_split.h"
 #include "rtc_base/arraysize.h"
 #include "rtc_base/checks.h"
 
@@ -219,14 +220,9 @@ size_t split(absl::string_view source,
              std::vector<std::string>* fields) {
   RTC_DCHECK(fields);
   fields->clear();
-  size_t last = 0;
-  for (size_t i = 0; i < source.length(); ++i) {
-    if (source[i] == delimiter) {
-      fields->emplace_back(source.substr(last, i - last));
-      last = i + 1;
-    }
+  for (const absl::string_view field_view : absl::StrSplit(source, delimiter)) {
+    fields->emplace_back(field_view);
   }
-  fields->emplace_back(source.substr(last));
   return fields->size();
 }
 

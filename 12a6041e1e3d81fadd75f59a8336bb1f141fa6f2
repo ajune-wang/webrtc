@@ -1,0 +1,73 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "9a8dd3dd_33b9fb6f",
+        "filename": "modules/video_coding/codecs/av1/libaom_av1_encoder.h",
+        "patchSetId": 7
+      },
+      "lineNbr": 19,
+      "author": {
+        "id": 5087
+      },
+      "writtenOn": "2022-01-18T16:54:48Z",
+      "side": 1,
+      "message": "I wonder if we can simplify this and remove this one (moving its definition into the CreateLibaomAv1EncoderIfSupported\u0027s one)?\n\nAs of now, we get access to both CreateLibaomAv1EncoderIfSupported and this one in the code, shouldn\u0027t we instead only be able to call CreateLibaomAv1EncoderIfSupported?",
+      "range": {
+        "startLine": 19,
+        "startChar": 0,
+        "endLine": 19,
+        "endChar": 55
+      },
+      "revId": "12a6041e1e3d81fadd75f59a8336bb1f141fa6f2",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "f9e9a487_843af092",
+        "filename": "modules/video_coding/codecs/av1/libaom_av1_encoder_supported.cc",
+        "patchSetId": 7
+      },
+      "lineNbr": 20,
+      "author": {
+        "id": 5087
+      },
+      "writtenOn": "2022-01-18T16:54:48Z",
+      "side": 1,
+      "message": "Do we need this constant or can we get away only with the CreateLibaomAv1EncoderIfSupported() factory function?",
+      "range": {
+        "startLine": 20,
+        "startChar": 0,
+        "endLine": 20,
+        "endChar": 47
+      },
+      "revId": "12a6041e1e3d81fadd75f59a8336bb1f141fa6f2",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "0d1b5c78_e3f30ad7",
+        "filename": "modules/video_coding/codecs/av1/libaom_av1_encoder_supported.h",
+        "patchSetId": 7
+      },
+      "lineNbr": 2,
+      "author": {
+        "id": 5087
+      },
+      "writtenOn": "2022-01-18T16:54:48Z",
+      "side": 1,
+      "message": "Nit: 2022",
+      "range": {
+        "startLine": 2,
+        "startChar": 18,
+        "endLine": 2,
+        "endChar": 22
+      },
+      "revId": "12a6041e1e3d81fadd75f59a8336bb1f141fa6f2",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "0692edd0_50d122e8",
+        "filename": "api/test/fake_frame_decryptor.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 31,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2022-01-18T08:46:14Z",
+      "side": 1,
+      "message": "I don\u0027t think this is quite right, and I suspect make_ref_counted will cause double inheritance of RefCountedObject. I\u0027m not sure I really like this pattern but since it is rather wide spread, and consistent with usage of RefCountedNonVirtual, I think it\u0027s better to adapt make_ref_counted to support this case.",
+      "range": {
+        "startLine": 30,
+        "startChar": 0,
+        "endLine": 31,
+        "endChar": 61
+      },
+      "revId": "fcc9a1b987cb06ea1d2fe9b31869bc1a6a42ff9f",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

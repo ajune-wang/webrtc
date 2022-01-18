@@ -521,7 +521,7 @@ std::unique_ptr<FrameBufferProxy> FrameBufferProxy::CreateFromFieldTrial(
     FrameSchedulingReceiver* receiver,
     TimeDelta max_wait_for_keyframe,
     TimeDelta max_wait_for_frame) {
-  if (field_trial::IsEnabled("WebRTC-FrameBuffer3")) {
+  if (!field_trial::IsDisabled("WebRTC-FrameBuffer3")) {
     return std::make_unique<FrameBuffer3Proxy>(
         clock, worker_queue, timing, stats_proxy, decode_queue, receiver,
         max_wait_for_keyframe, max_wait_for_frame);

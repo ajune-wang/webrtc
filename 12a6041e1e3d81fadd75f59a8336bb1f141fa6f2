@@ -26,6 +26,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "4dfbc298_0f511323",
+        "filename": "modules/video_coding/codecs/av1/libaom_av1_encoder.h",
+        "patchSetId": 7
+      },
+      "lineNbr": 19,
+      "author": {
+        "id": 5527
+      },
+      "writtenOn": "2022-01-18T17:48:17Z",
+      "side": 1,
+      "message": "The long term idea is to only have CreateLibaomAv1Encoder and keep CreateLibaomAv1EncoderIfSupported until BuiltinVideoEncoder/DecoderFactory has been removed (and users of WebRTC implement their own VideoEncoder/DecoderFactories).",
+      "parentUuid": "9a8dd3dd_33b9fb6f",
+      "range": {
+        "startLine": 19,
+        "startChar": 0,
+        "endLine": 19,
+        "endChar": 55
+      },
+      "revId": "12a6041e1e3d81fadd75f59a8336bb1f141fa6f2",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "f9e9a487_843af092",
         "filename": "modules/video_coding/codecs/av1/libaom_av1_encoder_supported.cc",
         "patchSetId": 7
@@ -49,6 +73,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "bde7753b_37ddc53f",
+        "filename": "modules/video_coding/codecs/av1/libaom_av1_encoder_supported.cc",
+        "patchSetId": 7
+      },
+      "lineNbr": 20,
+      "author": {
+        "id": 5527
+      },
+      "writtenOn": "2022-01-18T17:48:17Z",
+      "side": 1,
+      "message": "For now kIsLibaomAv1EncoderSupported is still used in other places, I kept it for now to minimize changes. It can be removed in a followup CL.",
+      "parentUuid": "f9e9a487_843af092",
+      "range": {
+        "startLine": 20,
+        "startChar": 0,
+        "endLine": 20,
+        "endChar": 47
+      },
+      "revId": "12a6041e1e3d81fadd75f59a8336bb1f141fa6f2",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "0d1b5c78_e3f30ad7",
         "filename": "modules/video_coding/codecs/av1/libaom_av1_encoder_supported.h",
         "patchSetId": 7
@@ -60,6 +108,30 @@
       "writtenOn": "2022-01-18T16:54:48Z",
       "side": 1,
       "message": "Nit: 2022",
+      "range": {
+        "startLine": 2,
+        "startChar": 18,
+        "endLine": 2,
+        "endChar": 22
+      },
+      "revId": "12a6041e1e3d81fadd75f59a8336bb1f141fa6f2",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "67cbfd26_eaff1280",
+        "filename": "modules/video_coding/codecs/av1/libaom_av1_encoder_supported.h",
+        "patchSetId": 7
+      },
+      "lineNbr": 2,
+      "author": {
+        "id": 5527
+      },
+      "writtenOn": "2022-01-18T17:48:17Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "0d1b5c78_e3f30ad7",
       "range": {
         "startLine": 2,
         "startChar": 18,

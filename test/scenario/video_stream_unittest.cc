@@ -11,6 +11,7 @@
 
 #include "api/test/network_emulation/create_cross_traffic.h"
 #include "api/test/network_emulation/cross_traffic.h"
+#include "system_wrappers/include/field_trial.h"
 #include "test/field_trial.h"
 #include "test/gtest.h"
 #include "test/scenario/scenario.h"
@@ -177,7 +178,12 @@ TEST(VideoStreamTest, SendsFecWithFlexFec) {
   EXPECT_GT(video_stats.substreams.begin()->second.rtp_stats.fec.packets, 0u);
 }
 
+// NOTE: When FrameBuffer3 is enable this test fails with
+// WebRTC-LegacyFrameIdJumpBehavior.
 TEST(VideoStreamTest, ResolutionAdaptsToAvailableBandwidth) {
+  test::ScopedFieldTrials scoped_trials(
+      "WebRTC-LegacyFrameIdJumpBehavior/Enabled/"
+      "WebRTC-FrameBuffer3/Enabled/");
   // Declared before scenario to avoid use after free.
   std::atomic<size_t> num_qvga_frames_(0);
   std::atomic<size_t> num_vga_frames_(0);

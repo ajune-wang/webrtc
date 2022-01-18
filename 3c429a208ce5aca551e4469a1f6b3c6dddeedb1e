@@ -34,6 +34,24 @@
       "parentUuid": "0f7de940_f7400cf7",
       "revId": "3c429a208ce5aca551e4469a1f6b3c6dddeedb1e",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "3d0496e2_bd1112f6",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2022-01-18T09:49:31Z",
+      "side": 1,
+      "message": "If you run the bots, e.g., cq try run, you get an \"info\" results under the Checks tab in gerrit, with binary size changes from the cl. See this old wip cl for context: https://webrtc-review.googlesource.com/c/src/+/151646",
+      "parentUuid": "51c8474a_7ec8190c",
+      "revId": "3c429a208ce5aca551e4469a1f6b3c6dddeedb1e",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

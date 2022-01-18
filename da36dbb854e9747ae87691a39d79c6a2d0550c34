@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "ec393f84_82851df9",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 5
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5119
+      },
+      "writtenOn": "2022-01-18T13:18:26Z",
+      "side": 1,
+      "message": "Looks great, thank you for keeping our tests honest.\n\nThe CL description may need to be updated, I view this more as updating the test expectations (we indeed do not expect typing detection on Android) rather than disabling the test expectations.",
+      "revId": "da36dbb854e9747ae87691a39d79c6a2d0550c34",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

@@ -16,6 +16,24 @@
       "message": "Thanks for this CL! The log line really annoys me as well.\n\nIn my defense I think it was a warning even before my CL :)\nbut it\u0027s possible that I caused it to appear more often.",
       "revId": "5453ee0efca60822ce7227a29871fecfea4eaa6b",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "d7d591aa_728cd914",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 3
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5508
+      },
+      "writtenOn": "2022-01-18T12:22:24Z",
+      "side": 1,
+      "message": "Thanks 😊 yeah, I chose a reviewer that would be likely to know some context at least.",
+      "parentUuid": "873abe4c_735d8c52",
+      "revId": "5453ee0efca60822ce7227a29871fecfea4eaa6b",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

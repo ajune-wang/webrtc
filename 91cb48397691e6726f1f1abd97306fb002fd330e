@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "4332b7b4_094ed1ce",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 15
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2022-01-18T22:30:51Z",
+      "side": 1,
+      "message": "It seems to me that the relationship between channels and transceivers is 1:1, and it would be nice to make it an iron rule... perhaps even merging the classes?\n\nBidirectional media channels are a dumb idea inherited from SDP, so the further out towards the SDP-driven edge we can push that abstraction, the better.",
+      "revId": "91cb48397691e6726f1f1abd97306fb002fd330e",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

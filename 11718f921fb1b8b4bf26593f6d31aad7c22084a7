@@ -53,6 +53,24 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "cba58ae0_6d369c87",
+        "filename": "pc/rtp_transceiver.h",
+        "patchSetId": 11
+      },
+      "lineNbr": 103,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2022-01-18T22:30:51Z",
+      "side": 1,
+      "message": "great doc. The lambda we use accesses a function that accesses a variable marked as \"accessed on both network and signaling thread\" - this may move us significantly closer to having it only accessed on the network thread.",
+      "parentUuid": "6825de03_5bc3ec79",
+      "revId": "11718f921fb1b8b4bf26593f6d31aad7c22084a7",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "4a3e7d0f_32054be1",

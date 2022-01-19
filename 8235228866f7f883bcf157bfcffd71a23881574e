@@ -16,6 +16,52 @@
       "message": "PTAL Markus",
       "revId": "8235228866f7f883bcf157bfcffd71a23881574e",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "726aee28_6c26f467",
+        "filename": "api/task_queue/task_queue_base.h",
+        "patchSetId": 3
+      },
+      "lineNbr": 100,
+      "author": {
+        "id": 9515
+      },
+      "writtenOn": "2022-01-19T09:04:00Z",
+      "side": 1,
+      "message": "This can be rounding down right? In that case there might be code that assumes the tasks expire _at or after_ the specified delay that no longer functions because the timeout happened before the scheduled time.\nTo ensure this default implementation works in all cases, make sure to round up.",
+      "range": {
+        "startLine": 100,
+        "startChar": 59,
+        "endLine": 100,
+        "endChar": 67
+      },
+      "revId": "8235228866f7f883bcf157bfcffd71a23881574e",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "e2e358c6_fdf92f24",
+        "filename": "rtc_base/thread.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 1123,
+      "author": {
+        "id": 9515
+      },
+      "writtenOn": "2022-01-19T09:04:00Z",
+      "side": 1,
+      "message": "Dito.",
+      "range": {
+        "startLine": 1123,
+        "startChar": 38,
+        "endLine": 1123,
+        "endChar": 46
+      },
+      "revId": "8235228866f7f883bcf157bfcffd71a23881574e",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

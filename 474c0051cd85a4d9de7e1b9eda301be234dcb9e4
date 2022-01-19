@@ -22,6 +22,30 @@
       },
       "revId": "474c0051cd85a4d9de7e1b9eda301be234dcb9e4",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "b892c698_5f188563",
+        "filename": "modules/video_coding/codecs/vp9/libvpx_vp9_encoder.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 1380,
+      "author": {
+        "id": 5524
+      },
+      "writtenOn": "2022-01-19T10:11:10Z",
+      "side": 1,
+      "message": "Personally prefer not to have the break. Just my mild opinion, it makes it slightly harder to visualize to flow with an extra possible jump. In practice I don\u0027t see us saving more than one iteration.",
+      "parentUuid": "2e4a7973_a9f13036",
+      "range": {
+        "startLine": 1377,
+        "startChar": 8,
+        "endLine": 1380,
+        "endChar": 46
+      },
+      "revId": "474c0051cd85a4d9de7e1b9eda301be234dcb9e4",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

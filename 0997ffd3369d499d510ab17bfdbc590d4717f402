@@ -72,6 +72,30 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "3d4d9520_edbfb6ad",
+        "filename": "modules/video_coding/codecs/vp9/include/vp9_globals.h",
+        "patchSetId": 3
+      },
+      "lineNbr": 87,
+      "author": {
+        "id": 5524
+      },
+      "writtenOn": "2022-01-19T10:11:10Z",
+      "side": 1,
+      "message": "Hm, is it even possible to depend on earlier frame in a given decode target?\nI\u0027m always confused if text stating \"greater than\" mean \u003e or \u003e\u003d. I read it as strictly greater than in this case. Using symbols would have helped...",
+      "parentUuid": "2ec7b5a6_200c0c9c",
+      "range": {
+        "startLine": 87,
+        "startChar": 11,
+        "endLine": 87,
+        "endChar": 34
+      },
+      "revId": "0997ffd3369d499d510ab17bfdbc590d4717f402",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "e8fffb85_2816cd74",

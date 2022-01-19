@@ -1,0 +1,38 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "fe45d1a8_d8d6a47c",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 7
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5142
+      },
+      "writtenOn": "2022-01-19T15:18:57Z",
+      "side": 1,
+      "message": "Tommi can you take a look?",
+      "revId": "93af14e0d4f2a1873b68c4f02e2165c96cd482f5",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "5467aada_cdad580f",
+        "filename": "api/task_queue/task_queue_base.h",
+        "patchSetId": 7
+      },
+      "lineNbr": 96,
+      "author": {
+        "id": 5142
+      },
+      "writtenOn": "2022-01-19T15:18:57Z",
+      "side": 1,
+      "message": "The group chat has been going back and forth about whether this should be uint32_t or webrtc::TimeDelta. I don\u0027t have a strong preference whether to have the new API use webrtc::TimeDelta or to fix both the old and new API at the same time as a separate effort.",
+      "revId": "93af14e0d4f2a1873b68c4f02e2165c96cd482f5",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

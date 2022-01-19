@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "12d43853_766852fa",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 9
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5508
+      },
+      "writtenOn": "2022-01-19T17:14:09Z",
+      "side": 1,
+      "message": "looking at how many places we need to use ToQueuedTask explicitly now, it makes me wonder if we should do what TaskQueue does (but the TaskQueueBase interface doesn\u0027t), which is to have:\n\n  template \u003cclass Closure,\n            typename std::enable_if\u003c!std::is_convertible\u003c\n                Closure,\n                std::unique_ptr\u003cwebrtc::QueuedTask\u003e\u003e::value\u003e::type* \u003d nullptr\u003e\n  void PostTask(Closure\u0026\u0026 closure) {\n    PostTask(webrtc::ToQueuedTask(std::forward\u003cClosure\u003e(closure)));\n  }\n\nThis would make the call sites a lot cleaner and PostTask easier to use (basically equivalent to the old method except no RTC_FROM_HERE).\n\nThis used to be the TaskQueue interface in fact, before the introduction of a separate pure virtual interface.\n\nWdyt?",
+      "revId": "0148e236127d116fdf149460bdcb65b9d0974e55",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

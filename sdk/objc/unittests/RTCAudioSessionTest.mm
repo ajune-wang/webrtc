@@ -15,6 +15,7 @@
 
 #include "rtc_base/event.h"
 #include "rtc_base/gunit.h"
+#include "rtc_base/task_utils/to_queued_task.h"
 
 #import "components/audio/RTCAudioSession+Private.h"
 
@@ -288,12 +289,12 @@ OCMLocation *OCMMakeLocation(id testCase, const char *fileCString, int line){
   rtc::Event waitLock;
   rtc::Event waitCleanup;
   constexpr int timeoutMs = 5000;
-  thread->PostTask(RTC_FROM_HERE, [audioSession, &waitLock, &waitCleanup] {
+  thread->PostTask(webrtc::ToQueuedTask([audioSession, &waitLock, &waitCleanup] {
     [audioSession lockForConfiguration];
     waitLock.Set();
     waitCleanup.Wait(timeoutMs);
     [audioSession unlockForConfiguration];
-  });
+  }));
 
   waitLock.Wait(timeoutMs);
   [audioSession setCategory:AVAudioSessionCategoryPlayAndRecord withOptions:0 error:&error];

@@ -49,6 +49,7 @@ if (rtc_include_tests) {
       "../../rtc_base",
       "../../rtc_base:null_socket_server",
       "../../rtc_base:stringutils",
+      "../../rtc_base/task_utils:to_queued_task",
       "../logging:log_writer",
       "../network:emulated_network",
       "../scenario",

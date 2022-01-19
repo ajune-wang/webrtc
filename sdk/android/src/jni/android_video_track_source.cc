@@ -13,6 +13,7 @@
 #include <utility>
 
 #include "rtc_base/logging.h"
+#include "rtc_base/task_utils/to_queued_task.h"
 #include "sdk/android/generated_video_jni/NativeAndroidVideoTrackSource_jni.h"
 #include "sdk/android/src/jni/video_frame.h"
 
@@ -67,7 +68,7 @@ void AndroidVideoTrackSource::SetState(JNIEnv* env,
     } else {
       // TODO(sakal): Is this even necessary, does FireOnChanged have to be
       // called from signaling thread?
-      signaling_thread_->PostTask(RTC_FROM_HERE, [this] { FireOnChanged(); });
+      signaling_thread_->PostTask(ToQueuedTask([this] { FireOnChanged(); }));
     }
   }
 }

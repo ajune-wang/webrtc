@@ -1207,7 +1207,10 @@ if (is_ios || is_mac) {
 
         if (is_ios) {
           sources += [ "objc/unittests/RTCAudioSessionTest.mm" ]
-          deps += [ ":audio_session_objc" ]
+          deps += [
+            ":audio_session_objc",
+            "../rtc_base/task_utils:to_queued_task",
+          ]
         }
       }
     }

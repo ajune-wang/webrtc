@@ -185,17 +185,26 @@ void ChannelManager::DestroyVoiceChannel(VoiceChannel* voice_channel) {
   RTC_DCHECK(voice_channel);
 
   if (!worker_thread_->IsCurrent()) {
+#if 1
+    worker_thread_->PostTask(RTC_FROM_HERE, [this, voice_channel] {
+      DestroyVoiceChannel(voice_channel);
+    });
+#else
     worker_thread_->Invoke<void>(RTC_FROM_HERE,
                                  [&] { DestroyVoiceChannel(voice_channel); });
+#endif
     return;
   }
 
   RTC_DCHECK_RUN_ON(worker_thread_);
+  RTC_LOG_THREAD_BLOCK_COUNT();
 
   voice_channels_.erase(absl::c_find_if(
       voice_channels_, [&](const std::unique_ptr<VoiceChannel>& p) {
         return p.get() == voice_channel;
       }));
+
+  RTC_DCHECK_BLOCK_COUNT_NO_MORE_THAN(0);
 }
 
 VideoChannel* ChannelManager::CreateVideoChannel(
@@ -246,16 +255,27 @@ void ChannelManager::DestroyVideoChannel(VideoChannel* video_channel) {
   RTC_DCHECK(video_channel);
 
   if (!worker_thread_->IsCurrent()) {
+#if 1
+    worker_thread_->PostTask(RTC_FROM_HERE, [this, video_channel] {
+      DestroyVideoChannel(video_channel);
+    });
+#else
     worker_thread_->Invoke<void>(RTC_FROM_HERE,
                                  [&] { DestroyVideoChannel(video_channel); });
+#endif
     return;
   }
+
   RTC_DCHECK_RUN_ON(worker_thread_);
+
+  RTC_LOG_THREAD_BLOCK_COUNT();
 
   video_channels_.erase(absl::c_find_if(
       video_channels_, [&](const std::unique_ptr<VideoChannel>& p) {
         return p.get() == video_channel;
       }));
+
+  RTC_DCHECK_BLOCK_COUNT_NO_MORE_THAN(0);
 }
 
 bool ChannelManager::StartAecDump(webrtc::FileWrapper file,

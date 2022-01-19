@@ -18,6 +18,24 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "a7230710_10034965",
+        "filename": "logging/rtc_event_log/rtc_event_log_impl.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 65,
+      "author": {
+        "id": 14069
+      },
+      "writtenOn": "2022-01-19T05:42:15Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "7967c9d2_06e79e84",
+      "revId": "36e41b2987178a0d5c2a7108b5e66a573f721fa6",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "e6b9935e_92602b41",
@@ -31,6 +49,24 @@
       "writtenOn": "2021-12-16T02:57:10Z",
       "side": 1,
       "message": "`!task_queue_.get()` is equal to `!task_queue_`\nhttps://en.cppreference.com/w/cpp/memory/unique_ptr/operator_cmp\n\nDo not need these 2 lines. Just `DCHECK`",
+      "revId": "36e41b2987178a0d5c2a7108b5e66a573f721fa6",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "266d2483_d6b3055e",
+        "filename": "logging/rtc_event_log/rtc_event_log_impl.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 97,
+      "author": {
+        "id": 14069
+      },
+      "writtenOn": "2022-01-19T05:42:15Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "e6b9935e_92602b41",
       "revId": "36e41b2987178a0d5c2a7108b5e66a573f721fa6",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
@@ -52,6 +88,24 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "88878967_120d3079",
+        "filename": "logging/rtc_event_log/rtc_event_log_impl.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 123,
+      "author": {
+        "id": 14069
+      },
+      "writtenOn": "2022-01-19T05:42:15Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "2f0b2aed_c211645d",
+      "revId": "36e41b2987178a0d5c2a7108b5e66a573f721fa6",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "bdcec68b_5ee865ff",
@@ -65,6 +119,24 @@
       "writtenOn": "2021-12-16T02:57:10Z",
       "side": 1,
       "message": "`task_queue_.reset(nullptr);` is equal to `task_queue_.reset();`\n\nhttps://en.cppreference.com/w/cpp/memory/unique_ptr/reset",
+      "revId": "36e41b2987178a0d5c2a7108b5e66a573f721fa6",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "2792dcd7_d4fdf2cb",
+        "filename": "logging/rtc_event_log/rtc_event_log_impl.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 133,
+      "author": {
+        "id": 14069
+      },
+      "writtenOn": "2022-01-19T05:42:15Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "bdcec68b_5ee865ff",
       "revId": "36e41b2987178a0d5c2a7108b5e66a573f721fa6",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
@@ -86,6 +158,24 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "0bb2efb5_87dad810",
+        "filename": "logging/rtc_event_log/rtc_event_log_impl.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 153,
+      "author": {
+        "id": 14069
+      },
+      "writtenOn": "2022-01-19T05:42:15Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "5d233135_3383e09c",
+      "revId": "36e41b2987178a0d5c2a7108b5e66a573f721fa6",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "c7d03022_2d04a008",
@@ -99,6 +189,30 @@
       "writtenOn": "2021-12-16T02:57:10Z",
       "side": 1,
       "message": "Positive statement may be easier to understand.\n\n\u003e `task_queue_` is valid",
+      "range": {
+        "startLine": 91,
+        "startChar": 22,
+        "endLine": 91,
+        "endChar": 33
+      },
+      "revId": "36e41b2987178a0d5c2a7108b5e66a573f721fa6",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "664e1f08_10f35e47",
+        "filename": "logging/rtc_event_log/rtc_event_log_impl.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 91,
+      "author": {
+        "id": 14069
+      },
+      "writtenOn": "2022-01-19T05:42:15Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "c7d03022_2d04a008",
       "range": {
         "startLine": 91,
         "startChar": 22,

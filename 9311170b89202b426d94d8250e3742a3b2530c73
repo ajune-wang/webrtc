@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "7aad8970_67769b4a",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 7755
+      },
+      "writtenOn": "2022-01-19T16:40:23Z",
+      "side": 1,
+      "message": "Found an obsolete copy of adapter.js along with more probably obsolete stuff.\nThe graphs are nice though and we might use them in the samples.",
+      "revId": "9311170b89202b426d94d8250e3742a3b2530c73",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

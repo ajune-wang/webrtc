@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "c7f18cfa_1636a01f",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 3
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 14069
+      },
+      "writtenOn": "2022-01-19T05:57:12Z",
+      "side": 1,
+      "message": "Hi Henrik, would you PTAL at this CL? This is expected to reduce log tasks which is less useful for normal users. Thanks!",
+      "revId": "8f7d5ad494f3a54db5239c4627c2bd212efb9711",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

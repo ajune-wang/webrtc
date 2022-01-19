@@ -157,22 +157,38 @@ AudioRtpReceiver::GetFrameDecryptor() const {
   return frame_decryptor_;
 }
 
-void AudioRtpReceiver::Stop() {
+bool AudioRtpReceiver::Stop(bool async) {
   RTC_DCHECK_RUN_ON(&signaling_thread_checker_);
   // TODO(deadbeef): Need to do more here to fully stop receiving packets.
+
+  RTC_LOG_THREAD_BLOCK_COUNT();
+
   if (!stopped_) {
     source_->SetState(MediaSourceInterface::kEnded);
     stopped_ = true;
   }
 
-  worker_thread_->Invoke<void>(RTC_FROM_HERE, [&]() {
+  std::function<void()> work = [this]() {
     RTC_DCHECK_RUN_ON(worker_thread_);
-
     if (media_channel_)
       SetOutputVolume_w(0.0);
-
     SetMediaChannel_w(nullptr);
-  });
+  };
+
+  bool ret = true;
+  if (async) {
+    if (worker_thread_->IsCurrent()) {
+      work();
+    } else {
+      worker_thread_->PostTask(
+          ToQueuedTask(worker_thread_safety_, std::move(work)));
+      ret = false;
+    }
+    RTC_DCHECK_BLOCK_COUNT_NO_MORE_THAN(0);
+  } else {
+    worker_thread_->Invoke<void>(RTC_FROM_HERE, std::move(work));
+  }
+  return ret;
 }
 
 void AudioRtpReceiver::StopAndEndTrack() {
@@ -330,18 +346,37 @@ void AudioRtpReceiver::SetJitterBufferMinimumDelay(
     media_channel_->SetBaseMinimumPlayoutDelayMs(*ssrc_, delay_.GetMs());
 }
 
-void AudioRtpReceiver::SetMediaChannel(cricket::MediaChannel* media_channel) {
+bool AudioRtpReceiver::SetMediaChannel(cricket::MediaChannel* media_channel,
+                                       bool async) {
   RTC_DCHECK_RUN_ON(&signaling_thread_checker_);
   RTC_DCHECK(media_channel == nullptr ||
              media_channel->media_type() == media_type());
 
-  if (stopped_ && !media_channel)
-    return;
+  RTC_LOG_THREAD_BLOCK_COUNT();
 
-  worker_thread_->Invoke<void>(RTC_FROM_HERE, [&] {
+  if (stopped_ && !media_channel)
+    return true;
+
+  std::function<void()> work = [this, media_channel]() {
     RTC_DCHECK_RUN_ON(worker_thread_);
     SetMediaChannel_w(media_channel);
-  });
+  };
+
+  bool ret = true;
+  if (async) {
+    if (worker_thread_->IsCurrent()) {
+      work();
+    } else {
+      worker_thread_->PostTask(
+          ToQueuedTask(worker_thread_safety_, std::move(work)));
+      ret = false;
+    }
+    RTC_DCHECK_BLOCK_COUNT_NO_MORE_THAN(0);
+  } else {
+    worker_thread_->Invoke<void>(RTC_FROM_HERE, std::move(work));
+  }
+
+  return ret;
 }
 
 // RTC_RUN_ON(worker_thread_)

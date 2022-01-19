@@ -20,6 +20,52 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "326c7a2a_d999e478",
+        "filename": "api/task_queue/task_queue_base.h",
+        "patchSetId": 3
+      },
+      "lineNbr": 61,
+      "author": {
+        "id": 9515
+      },
+      "writtenOn": "2022-01-19T09:30:07Z",
+      "side": 1,
+      "message": "Hmm I suggest erasing this, 1ms isn\u0027t typical, and default leeway on mac seems to be about 10% of the sleep interval by default, which is dependent on runtime conditions (how far out the next alarm is) on the thread implementing the wakeups. Modulo kqueue NOTE_LEEWAY/NOTE_CRITICAL/NOTE_BACKGROUND.\nI\u0027ve also found implementations that undercut the scheduled wakeup time by 1ms, see https://bugs.chromium.org/p/webrtc/issues/detail?id\u003d12889.\nBut I don\u0027t know how to best state it. Maybe that the expiry can happen [-1 \u003c\u003d expiry_time \u003c 17ms + OS induced leeway]?",
+      "range": {
+        "startLine": 60,
+        "startChar": 41,
+        "endLine": 61,
+        "endChar": 10
+      },
+      "revId": "8235228866f7f883bcf157bfcffd71a23881574e",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "9d89027b_ca9ee4f1",
+        "filename": "api/task_queue/task_queue_base.h",
+        "patchSetId": 3
+      },
+      "lineNbr": 97,
+      "author": {
+        "id": 9515
+      },
+      "writtenOn": "2022-01-19T09:30:07Z",
+      "side": 1,
+      "message": "I\u0027d be much happier if this is a uint32_t, because otherwise sites using the new API will have to also be migrated to TimeDelta which can be dangerous.",
+      "range": {
+        "startLine": 97,
+        "startChar": 6,
+        "endLine": 97,
+        "endChar": 21
+      },
+      "revId": "8235228866f7f883bcf157bfcffd71a23881574e",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "726aee28_6c26f467",
         "filename": "api/task_queue/task_queue_base.h",
         "patchSetId": 3

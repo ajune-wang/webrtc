@@ -48,6 +48,30 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "2ec7b5a6_200c0c9c",
+        "filename": "modules/video_coding/codecs/vp9/include/vp9_globals.h",
+        "patchSetId": 3
+      },
+      "lineNbr": 87,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2022-01-19T09:58:12Z",
+      "side": 1,
+      "message": "I guess you right, I misread. it say \"subsequent higher temporal layer pictures will not depend on any picture before the current picture (in coding order) with temporal layer ID greater than TID.\"\nthat imply switch to any higher temporal layer is possible.\n\nI read \".... with temporal layer ID equal to TID\", \nthough to catch all corner cases it probably should be \"... with temporal layer ID greater or equal to TID.\nOtherwise there is odd (likely unpractical) corner case:\n        .-------T1\nT0----T0   T0 \n  \\------/\n1st frame (T0) is key frame\n2nd frame (T0) depends on 1st frame\n3rd frame (T0) depends on 1st frame\n4th frame (T1) depends on 2nd frame\n  \nfor the 3rd T0 frame the condition for upswitch is true, but upswitch is not possible if 2nd frame was lost.",
+      "parentUuid": "27f885a0_d8dba4d2",
+      "range": {
+        "startLine": 87,
+        "startChar": 11,
+        "endLine": 87,
+        "endChar": 34
+      },
+      "revId": "0997ffd3369d499d510ab17bfdbc590d4717f402",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "e8fffb85_2816cd74",

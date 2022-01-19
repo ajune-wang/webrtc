@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "2e4a7973_a9f13036",
+        "filename": "modules/video_coding/codecs/vp9/libvpx_vp9_encoder.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 1380,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2022-01-19T09:58:12Z",
+      "side": 1,
+      "message": "or\n  if (codec_specific-\u003egeneric_frame_info\n                 -\u003edecode_target_indications[dti_index] !\u003d\n             DecodeTargetIndication::kSwitch)) {\n    vp9_info-\u003etemporal_up_switch \u003d false;\n    break;\n  }\n\n(not too sure which version is clearer)",
+      "range": {
+        "startLine": 1377,
+        "startChar": 8,
+        "endLine": 1380,
+        "endChar": 46
+      },
+      "revId": "474c0051cd85a4d9de7e1b9eda301be234dcb9e4",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

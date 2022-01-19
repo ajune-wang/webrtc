@@ -25,6 +25,7 @@
 #include "media/engine/webrtc_media_engine.h"
 #include "modules/audio_device/include/test_audio_device.h"
 #include "p2p/client/basic_port_allocator.h"
+#include "rtc_base/task_utils/to_queued_task.h"
 #include "test/fake_decoder.h"
 #include "test/fake_vp8_encoder.h"
 #include "test/frame_generator_capturer.h"
@@ -364,9 +365,8 @@ void PeerScenarioClient::SetSdpOfferAndGetAnswer(
     std::string remote_offer,
     std::function<void(std::string)> answer_handler) {
   if (!signaling_thread_->IsCurrent()) {
-    signaling_thread_->PostTask(RTC_FROM_HERE, [=] {
-      SetSdpOfferAndGetAnswer(remote_offer, answer_handler);
-    });
+    signaling_thread_->PostTask(ToQueuedTask(
+        [=] { SetSdpOfferAndGetAnswer(remote_offer, answer_handler); }));
     return;
   }
   RTC_DCHECK_RUN_ON(signaling_thread_);
@@ -397,7 +397,7 @@ void PeerScenarioClient::SetSdpAnswer(
     std::function<void(const SessionDescriptionInterface&)> done_handler) {
   if (!signaling_thread_->IsCurrent()) {
     signaling_thread_->PostTask(
-        RTC_FROM_HERE, [=] { SetSdpAnswer(remote_answer, done_handler); });
+        ToQueuedTask([=] { SetSdpAnswer(remote_answer, done_handler); }));
     return;
   }
   RTC_DCHECK_RUN_ON(signaling_thread_);

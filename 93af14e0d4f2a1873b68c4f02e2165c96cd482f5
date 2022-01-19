@@ -33,6 +33,24 @@
       "message": "The group chat has been going back and forth about whether this should be uint32_t or webrtc::TimeDelta. I don\u0027t have a strong preference whether to have the new API use webrtc::TimeDelta or to fix both the old and new API at the same time as a separate effort.",
       "revId": "93af14e0d4f2a1873b68c4f02e2165c96cd482f5",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "52413291_c73a2e89",
+        "filename": "api/task_queue/task_queue_base.h",
+        "patchSetId": 7
+      },
+      "lineNbr": 96,
+      "author": {
+        "id": 9515
+      },
+      "writtenOn": "2022-01-19T15:38:27Z",
+      "side": 1,
+      "message": "I\u0027m 50/50 and could go with either, I\u0027ll leave the decision to the Creator.",
+      "parentUuid": "5467aada_cdad580f",
+      "revId": "93af14e0d4f2a1873b68c4f02e2165c96cd482f5",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

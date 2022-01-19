@@ -98,6 +98,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "1cf56f80_fe87b308",
+        "filename": "modules/video_coding/codecs/av1/libaom_av1_encoder.h",
+        "patchSetId": 7
+      },
+      "lineNbr": 19,
+      "author": {
+        "id": 5087
+      },
+      "writtenOn": "2022-01-19T09:53:02Z",
+      "side": 1,
+      "message": "Thanks, the CL looks good.\n\nTwo more questions 😊\n\n1- We have similar patters with other codecs (e.g. https://source.chromium.org/chromium/chromium/src/+/main:third_party/webrtc/modules/video_coding/codecs/vp9/vp9.cc;l\u003d74-83;drc\u003dd3251968d1b3dbe7e1353a3f15970b47173103e9), are we going to change them as well?\n\n2- We need to reply to https://bugs.chromium.org/p/webrtc/issues/detail?id\u003d13573#c2, I guess users will no longer have to worry about build flags but they will have to provide their own factory (but from Java/Obj-C that might mean that they might have to change how they build WebRTC)?",
+      "parentUuid": "20a26896_38c2f9f8",
+      "range": {
+        "startLine": 19,
+        "startChar": 0,
+        "endLine": 19,
+        "endChar": 55
+      },
+      "revId": "12a6041e1e3d81fadd75f59a8336bb1f141fa6f2",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "f9e9a487_843af092",
         "filename": "modules/video_coding/codecs/av1/libaom_av1_encoder_supported.cc",
         "patchSetId": 7

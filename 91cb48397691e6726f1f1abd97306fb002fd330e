@@ -16,6 +16,24 @@
       "message": "It seems to me that the relationship between channels and transceivers is 1:1, and it would be nice to make it an iron rule... perhaps even merging the classes?\n\nBidirectional media channels are a dumb idea inherited from SDP, so the further out towards the SDP-driven edge we can push that abstraction, the better.",
       "revId": "91cb48397691e6726f1f1abd97306fb002fd330e",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "f81870ab_fbb69743",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 15
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5508
+      },
+      "writtenOn": "2022-01-19T10:54:39Z",
+      "side": 1,
+      "message": "Yes, I was hoping to change SetChannel to be able to accept a std::unique_ptr soon. It\u0027s a bit complicated by the fact that there are some tests that pass in a pointer to a stack variable. But once we\u0027re there, there\u0027s no need to keep the vector of channel objects in the ChannelManager and we can delete the channel objects asynchronously, perhaps even on the network thread right after disconnecting from the transport (without having to go to the worker thread that is).",
+      "parentUuid": "4332b7b4_094ed1ce",
+      "revId": "91cb48397691e6726f1f1abd97306fb002fd330e",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

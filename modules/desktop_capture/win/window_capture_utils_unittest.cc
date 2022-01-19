@@ -18,6 +18,7 @@
 
 #include "modules/desktop_capture/desktop_capturer.h"
 #include "modules/desktop_capture/win/test_support/test_window.h"
+#include "rtc_base/task_utils/to_queued_task.h"
 #include "rtc_base/thread.h"
 #include "test/gtest.h"
 
@@ -39,10 +40,10 @@ std::unique_ptr<rtc::Thread> SetUpUnresponsiveWindow(std::mutex& mtx,
 
   // Intentionally create a deadlock to cause the window to become unresponsive.
   mtx.lock();
-  window_thread->PostTask(RTC_FROM_HERE, [&mtx]() {
+  window_thread->PostTask(ToQueuedTask([&mtx]() {
     mtx.lock();
     mtx.unlock();
-  });
+  }));
 
   return window_thread;
 }

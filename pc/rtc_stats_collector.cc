@@ -57,6 +57,7 @@
 #include "rtc_base/ssl_stream_adapter.h"
 #include "rtc_base/string_encode.h"
 #include "rtc_base/strings/string_builder.h"
+#include "rtc_base/task_utils/to_queued_task.h"
 #include "rtc_base/time_utils.h"
 #include "rtc_base/trace_event.h"
 
@@ -1251,13 +1252,12 @@ void RTCStatsCollector::GetStatsReportInternal(
     // `network_report_event_`.
     network_report_event_.Reset();
     rtc::scoped_refptr<RTCStatsCollector> collector(this);
-    network_thread_->PostTask(
-        RTC_FROM_HERE,
+    network_thread_->PostTask(ToQueuedTask(
         [collector, sctp_transport_name = pc_->sctp_transport_name(),
          timestamp_us]() mutable {
           collector->ProducePartialResultsOnNetworkThread(
               timestamp_us, std::move(sctp_transport_name));
-        });
+        }));
     ProducePartialResultsOnSignalingThread(timestamp_us);
   }
 }
@@ -1341,7 +1341,7 @@ void RTCStatsCollector::ProducePartialResultsOnNetworkThread(
   network_report_event_.Set();
   rtc::scoped_refptr<RTCStatsCollector> collector(this);
   signaling_thread_->PostTask(
-      RTC_FROM_HERE, [collector] { collector->MergeNetworkReport_s(); });
+      ToQueuedTask([collector] { collector->MergeNetworkReport_s(); }));
 }
 
 void RTCStatsCollector::ProducePartialResultsOnNetworkThreadImpl(

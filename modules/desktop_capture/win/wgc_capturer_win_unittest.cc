@@ -21,6 +21,7 @@
 #include "modules/desktop_capture/win/window_capture_utils.h"
 #include "rtc_base/checks.h"
 #include "rtc_base/logging.h"
+#include "rtc_base/task_utils/to_queued_task.h"
 #include "rtc_base/thread.h"
 #include "rtc_base/time_utils.h"
 #include "rtc_base/win/scoped_com_initializer.h"
@@ -138,7 +139,7 @@ class WgcCapturerWinTest : public ::testing::TestWithParam<CaptureType>,
   }
 
   void StartWindowThreadMessageLoop() {
-    window_thread_->PostTask(RTC_FROM_HERE, [this]() {
+    window_thread_->PostTask(ToQueuedTask([this]() {
       MSG msg;
       BOOL gm;
       while ((gm = ::GetMessage(&msg, NULL, 0, 0)) != 0 && gm != -1) {
@@ -150,7 +151,7 @@ class WgcCapturerWinTest : public ::testing::TestWithParam<CaptureType>,
           PostQuitMessage(0);
         }
       }
-    });
+    }));
   }
 
   void CloseTestWindow() {

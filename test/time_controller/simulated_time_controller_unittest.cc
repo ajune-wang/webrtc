@@ -13,12 +13,12 @@
 #include <atomic>
 #include <memory>
 
+#include "rtc_base/event.h"
 #include "rtc_base/task_queue.h"
 #include "rtc_base/task_utils/repeating_task.h"
+#include "rtc_base/task_utils/to_queued_task.h"
 #include "test/gmock.h"
 #include "test/gtest.h"
-
-#include "rtc_base/event.h"
 
 // NOTE: Since these tests rely on real time behavior, they will be flaky
 // if run on heavily loaded systems.
@@ -52,7 +52,7 @@ TEST(SimulatedTimeControllerTest, TaskIsStoppedOnStop) {
   EXPECT_EQ(counter.load(), kShortIntervalCount);
 
   task_queue.PostTask(
-      [handle = std::move(handle)]() mutable { handle.Stop(); });
+      ToQueuedTask([handle = std::move(handle)]() mutable { handle.Stop(); }));
 
   // Sleep long enough that the task would run at least once more if not
   // stopped.
@@ -68,13 +68,13 @@ TEST(SimulatedTimeControllerTest, TaskCanStopItself) {
           "TestQueue", TaskQueueFactory::Priority::NORMAL));
 
   RepeatingTaskHandle handle;
-  task_queue.PostTask([&] {
+  task_queue.PostTask(ToQueuedTask([&] {
     handle = RepeatingTaskHandle::Start(task_queue.Get(), [&] {
       ++counter;
       handle.Stop();
       return TimeDelta::Millis(2);
     });
-  });
+  }));
   time_simulation.AdvanceTime(TimeDelta::Millis(10));
   EXPECT_EQ(counter.load(), 1);
 }
@@ -102,10 +102,10 @@ TEST(SimulatedTimeControllerTest, Example) {
   object->StartPeriodicTask(&handle, &task_queue);
   // Restart the task
   task_queue.PostTask(
-      [handle = std::move(handle)]() mutable { handle.Stop(); });
+      ToQueuedTask([handle = std::move(handle)]() mutable { handle.Stop(); }));
   object->StartPeriodicTask(&handle, &task_queue);
   task_queue.PostTask(
-      [handle = std::move(handle)]() mutable { handle.Stop(); });
+      ToQueuedTask([handle = std::move(handle)]() mutable { handle.Stop(); }));
 
   struct Destructor {
     void operator()() { object.reset(); }
@@ -134,7 +134,7 @@ TEST(SimulatedTimeControllerTest, ThreadYeildsOnInvoke) {
   bool task_has_run = false;
   // Posting a task to the main thread, this should not run until AdvanceTime is
   // called.
-  main_thread->PostTask(RTC_FROM_HERE, [&] { task_has_run = true; });
+  main_thread->PostTask(ToQueuedTask([&] { task_has_run = true; }));
   t2->Invoke<void>(RTC_FROM_HERE, [] {
     rtc::Event yield_event;
     // Wait() triggers YieldExecution() which will runs message processing on

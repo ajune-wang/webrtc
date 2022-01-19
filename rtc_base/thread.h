@@ -25,6 +25,7 @@
 #if defined(WEBRTC_POSIX)
 #include <pthread.h>
 #endif
+#include "absl/base/attributes.h"
 #include "api/function_view.h"
 #include "api/task_queue/queued_task.h"
 #include "api/task_queue/task_queue_base.h"
@@ -454,25 +455,42 @@ class RTC_LOCKABLE RTC_EXPORT Thread : public webrtc::TaskQueueBase {
   //                  [&x, &y] { x.TrackComputations(y.Compute()); });
   //
   // TODO(https://crbug.com/webrtc/13582): Deprecate and remove in favor of the
-  // PostTask() method inherited from TaskQueueBase. Stop using it inside
-  // third_party/webrtc and add ABSL_DEPRECATED("bugs.webrtc.org/13582").
+  // PostTask() method inherited from TaskQueueBase. Migration is easy, just
+  // wrap your lambda in a ToQueuedTask() like so:
+  //
+  // Before:
+  //   thread->PostTask(RTC_FROM_HERE, []() { printfln("wow"); });
+  // After:
+  //   thread->PostTask(ToQueuedTask([]() { printfln("wow"); }));
   template <class FunctorT>
-  void PostTask(const Location& posted_from, FunctorT&& functor) {
+  void DEPRECATED_PostTask(const Location& posted_from, FunctorT&& functor) {
     Post(posted_from, GetPostTaskMessageHandler(), /*id=*/0,
          new rtc_thread_internal::MessageWithFunctor<FunctorT>(
              std::forward<FunctorT>(functor)));
   }
-  // TODO(https://crbug.com/webrtc/13582): Deprecate and remove in favor of the
-  // PostTask() method inherited from TaskQueueBase. Stop using it inside
-  // third_party/webrtc and add ABSL_DEPRECATED("bugs.webrtc.org/13582").
   template <class FunctorT>
-  void PostDelayedTask(const Location& posted_from,
-                       FunctorT&& functor,
-                       uint32_t milliseconds) {
+  ABSL_DEPRECATED("bugs.webrtc.org/13582")
+  void PostTask(const Location& posted_from, FunctorT&& functor) {
+    DEPRECATED_PostTask(posted_from, std::forward<FunctorT>(functor));
+  }
+  // TODO(https://crbug.com/webrtc/13582): Deprecate and remove in favor of the
+  // PostDelayedTask() method inherited from TaskQueueBase.
+  template <class FunctorT>
+  void DEPRECATED_PostDelayedTask(const Location& posted_from,
+                                  FunctorT&& functor,
+                                  uint32_t milliseconds) {
     PostDelayed(posted_from, milliseconds, GetPostTaskMessageHandler(),
                 /*id=*/0,
                 new rtc_thread_internal::MessageWithFunctor<FunctorT>(
                     std::forward<FunctorT>(functor)));
+  }
+  template <class FunctorT>
+  ABSL_DEPRECATED("bugs.webrtc.org/13582")
+  void PostDelayedTask(const Location& posted_from,
+                       FunctorT&& functor,
+                       uint32_t milliseconds) {
+    DEPRECATED_PostDelayedTask(posted_from, std::forward<FunctorT>(functor),
+                               milliseconds);
   }
 
   // From TaskQueueBase

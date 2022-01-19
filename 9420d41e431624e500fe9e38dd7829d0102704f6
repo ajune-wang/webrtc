@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "b4e27f2c_e4466ee7",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 10
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5524
+      },
+      "writtenOn": "2022-01-19T10:41:49Z",
+      "side": 1,
+      "message": "rs lgtm\nI\u0027ll let mirko be the main reviewer on this :)",
+      "revId": "9420d41e431624e500fe9e38dd7829d0102704f6",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

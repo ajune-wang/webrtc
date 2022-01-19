@@ -41,6 +41,30 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "bd61860e_0213ab29",
+        "filename": "api/task_queue/task_queue_base.h",
+        "patchSetId": 3
+      },
+      "lineNbr": 61,
+      "author": {
+        "id": 5142
+      },
+      "writtenOn": "2022-01-19T10:21:36Z",
+      "side": 1,
+      "message": "The closer you look the more difficult this is :) \n\nI tried to incorporate some of that without saying too much... what do you think?",
+      "parentUuid": "326c7a2a_d999e478",
+      "range": {
+        "startLine": 60,
+        "startChar": 41,
+        "endLine": 61,
+        "endChar": 10
+      },
+      "revId": "8235228866f7f883bcf157bfcffd71a23881574e",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "9d89027b_ca9ee4f1",
@@ -54,6 +78,30 @@
       "writtenOn": "2022-01-19T09:30:07Z",
       "side": 1,
       "message": "I\u0027d be much happier if this is a uint32_t, because otherwise sites using the new API will have to also be migrated to TimeDelta which can be dangerous.",
+      "range": {
+        "startLine": 97,
+        "startChar": 6,
+        "endLine": 97,
+        "endChar": 21
+      },
+      "revId": "8235228866f7f883bcf157bfcffd71a23881574e",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "1392e9ec_b053bb06",
+        "filename": "api/task_queue/task_queue_base.h",
+        "patchSetId": 3
+      },
+      "lineNbr": 97,
+      "author": {
+        "id": 5142
+      },
+      "writtenOn": "2022-01-19T10:21:36Z",
+      "side": 1,
+      "message": "While I think existing use cases would just wrap \"ms\" in \"TimeDelta:Millisecs(ms)\" and not be affected by precision differences, I agree there\u0027s no point in gambling when this change is not about that and the old API still uses uint32_t. I\u0027ll file an issue to migrate both of them from uint32_t to TimeDelta in the future as a separate issue.\n\nUsing uint32_t now.",
+      "parentUuid": "9d89027b_ca9ee4f1",
       "range": {
         "startLine": 97,
         "startChar": 6,
@@ -87,6 +135,30 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "54040b33_deb84eb9",
+        "filename": "api/task_queue/task_queue_base.h",
+        "patchSetId": 3
+      },
+      "lineNbr": 100,
+      "author": {
+        "id": 5142
+      },
+      "writtenOn": "2022-01-19T10:21:36Z",
+      "side": 1,
+      "message": "As per WebRTC Core chat and other comment I\u0027m changing it to uint32_t so this is not an issue anymore. FWIW TimeDelta rounds to closest",
+      "parentUuid": "726aee28_6c26f467",
+      "range": {
+        "startLine": 100,
+        "startChar": 59,
+        "endLine": 100,
+        "endChar": 67
+      },
+      "revId": "8235228866f7f883bcf157bfcffd71a23881574e",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "e2e358c6_fdf92f24",
@@ -100,6 +172,30 @@
       "writtenOn": "2022-01-19T09:04:00Z",
       "side": 1,
       "message": "Dito.",
+      "range": {
+        "startLine": 1123,
+        "startChar": 38,
+        "endLine": 1123,
+        "endChar": 46
+      },
+      "revId": "8235228866f7f883bcf157bfcffd71a23881574e",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "eec61d20_35d53773",
+        "filename": "rtc_base/thread.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 1123,
+      "author": {
+        "id": 5142
+      },
+      "writtenOn": "2022-01-19T10:21:36Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "e2e358c6_fdf92f24",
       "range": {
         "startLine": 1123,
         "startChar": 38,

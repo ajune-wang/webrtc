@@ -11,6 +11,7 @@
 #define API_TASK_QUEUE_TASK_QUEUE_BASE_H_
 
 #include <memory>
+#include <utility>
 
 #include "api/task_queue/queued_task.h"
 #include "rtc_base/system/rtc_export.h"
@@ -48,13 +49,55 @@ class RTC_LOCKABLE RTC_EXPORT TaskQueueBase {
   // May be called on any thread or task queue, including this task queue.
   virtual void PostTask(std::unique_ptr<QueuedTask> task) = 0;
 
+  // Prefer PostDelayedTask() over PostDelayedTaskWithHighPrecision() whenever
+  // possible.
+  //
   // Schedules a task to execute a specified number of milliseconds from when
-  // the call is made. The precision should be considered as "best effort"
-  // and in some cases, such as on Windows when all high precision timers have
-  // been used up, can be off by as much as 15 millseconds.
+  // the call is made, using "low" precision. Unlike "high" precision which is
+  // "best effort", the TaskQueueBase implementation is allowed to schedule with
+  // leeway of up to 17 ms later than what the caller specified. This leeway is
+  // in addition to OS timer limitations which typically have a precision of
+  // ~1 ms, but there are notable exceptions when the OS timer can be off by as
+  // much as 15 ms (e.g. Windows on battery).
+  //
+  // The leeway allows coalescing multiple delayed tasks to the same wake up
+  // time, increasing the likelihood that the CPU can become idle in-between
+  // tasks. This is the preferred method for scheduling delayed tasks, but
+  // high precision use cases can schedule tasks without this leeway using
+  // PostDelayedTaskWithHighPrecision() instead.
+  //
+  // If low precision is not supported by the implementation, PostDelayedTask()
+  // has the same precision as PostDelayedTaskWithHighPrecision(). See Chromium
+  // implementation status (https://crbug.com/1253787). WebRTC implementations
+  // currently do not support low precision.
+  //
   // May be called on any thread or task queue, including this task queue.
   virtual void PostDelayedTask(std::unique_ptr<QueuedTask> task,
                                uint32_t milliseconds) = 0;
+
+  // Prefer PostDelayedTask() over PostDelayedTaskWithHighPrecision() whenever
+  // possible.
+  //
+  // Schedules a task to execute a specified number of milliseconds from when
+  // the call is made, using "high" precision. The precision should still be
+  // considered as "best effort" and in some cases, such as on Windows when all
+  // high precision timers have been used up (e.g. when running on battery),
+  // can be off by as much as 15 millseconds. In most cases though, the OS timer
+  // precision is ~1 ms.
+  //
+  // Using PostDelayedTaskWithHighPrecision() will cause the CPU to wake up if
+  // it is idle. Doing this frequently prevents CPUs from reaching lower power
+  // consuming C-states and even infrequent scheduling can add up when there are
+  // multiple sources. This is why PostDelayedTask() is preferred in most cases.
+  //
+  // May be called on any thread or task queue, including this task queue.
+  virtual void PostDelayedTaskWithHighPrecision(
+      std::unique_ptr<QueuedTask> task,
+      uint32_t milliseconds) {
+    // Remove default implementation when dependencies have implemented this
+    // method.
+    PostDelayedTask(std::move(task), milliseconds);
+  }
 
   // Returns the task queue that is running the current thread.
   // Returns nullptr if this thread is not associated with any task queue.

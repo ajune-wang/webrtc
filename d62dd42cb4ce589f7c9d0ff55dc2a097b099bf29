@@ -16,6 +16,23 @@
       "message": "Adding tommi@ to double check it is fine to expose these APIs to api/.",
       "revId": "d62dd42cb4ce589f7c9d0ff55dc2a097b099bf29",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "83166a53_64d78c3b",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2022-01-19T09:00:47Z",
+      "side": 1,
+      "message": "Agree that this should be api/ accessible, but ...",
+      "revId": "d62dd42cb4ce589f7c9d0ff55dc2a097b099bf29",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

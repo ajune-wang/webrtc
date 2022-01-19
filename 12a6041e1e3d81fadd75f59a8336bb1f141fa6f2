@@ -146,6 +146,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "367f94cf_b4a0c9da",
+        "filename": "modules/video_coding/codecs/av1/libaom_av1_encoder.h",
+        "patchSetId": 7
+      },
+      "lineNbr": 19,
+      "author": {
+        "id": 5087
+      },
+      "writtenOn": "2022-01-19T19:07:36Z",
+      "side": 1,
+      "message": "Ok, one last concern I have about this is that maybe we are making WebRTC too hard to use for \"random users\" or someone approaching the library for the first time.\n\nI think kwiberg@ idea was to let experienced users override the factories while letting default users picking the \"default\". \n\nThat said, defaults change over time, especially with codecs, so maybe we are doing the right thing by making it mandatory/explicit. But do you think we can keep the \"BuiltinFactories\" around (not linked by default, though) and let default users just use and evolve them (without them being a problem for anyone concerned with binary size, etc..)?",
+      "parentUuid": "f9b4c813_c8f384b7",
+      "range": {
+        "startLine": 19,
+        "startChar": 0,
+        "endLine": 19,
+        "endChar": 55
+      },
+      "revId": "12a6041e1e3d81fadd75f59a8336bb1f141fa6f2",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "f9e9a487_843af092",
         "filename": "modules/video_coding/codecs/av1/libaom_av1_encoder_supported.cc",
         "patchSetId": 7

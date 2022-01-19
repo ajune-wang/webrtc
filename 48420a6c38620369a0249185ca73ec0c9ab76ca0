@@ -122,6 +122,24 @@
       "parentUuid": "175bd095_93128d2f",
       "revId": "48420a6c38620369a0249185ca73ec0c9ab76ca0",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "f9c20d48_303648a5",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5087
+      },
+      "writtenOn": "2022-01-19T09:05:26Z",
+      "side": 1,
+      "message": "\u003e Looking at the names and the structure, would it make sense to make a class in API called InternalTracer, with static methods Setup, StartCapture, StartCaptureToFile, StopCapture and Shutdown? Or even expose the global object that these things manipulate? (at the moment these are 2 global-scope function pointers)\n\nI think the api/ class should be called something like EventTracerSystem or something like that (without the Internal word in it).\n\n\u003e Given that this interface doesn\u0027t look well-designed to me, perhaps we should just approve this CL and redesign the interface while we\u0027re moving it to api/, so that we don\u0027t block Nicolas?\n\nYes, this is also an option. We can approve this one, design a better API and migrate them.\n\nCan we open a bug and add a TODO in such case?",
+      "parentUuid": "43a41430_71dd3213",
+      "revId": "48420a6c38620369a0249185ca73ec0c9ab76ca0",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

@@ -15,6 +15,7 @@
 
 #include "absl/memory/memory.h"
 #include "p2p/base/basic_packet_socket_factory.h"
+#include "rtc_base/task_utils/to_queued_task.h"
 #include "test/network/fake_network_socket_server.h"
 
 namespace webrtc {
@@ -41,19 +42,19 @@ EmulatedNetworkManager::EmulatedNetworkManager(
 void EmulatedNetworkManager::EnableEndpoint(EmulatedEndpointImpl* endpoint) {
   RTC_CHECK(endpoints_container_->HasEndpoint(endpoint))
       << "No such interface: " << endpoint->GetPeerLocalAddress().ToString();
-  network_thread_->PostTask(RTC_FROM_HERE, [this, endpoint]() {
+  network_thread_->PostTask(ToQueuedTask([this, endpoint]() {
     endpoint->Enable();
     UpdateNetworksOnce();
-  });
+  }));
 }
 
 void EmulatedNetworkManager::DisableEndpoint(EmulatedEndpointImpl* endpoint) {
   RTC_CHECK(endpoints_container_->HasEndpoint(endpoint))
       << "No such interface: " << endpoint->GetPeerLocalAddress().ToString();
-  network_thread_->PostTask(RTC_FROM_HERE, [this, endpoint]() {
+  network_thread_->PostTask(ToQueuedTask([this, endpoint]() {
     endpoint->Disable();
     UpdateNetworksOnce();
-  });
+  }));
 }
 
 // Network manager interface. All these methods are supposed to be called from
@@ -66,11 +67,10 @@ void EmulatedNetworkManager::StartUpdating() {
     // we should trigger network signal immediately for the new clients
     // to start allocating ports.
     if (sent_first_update_)
-      network_thread_->PostTask(RTC_FROM_HERE,
-                                [this]() { MaybeSignalNetworksChanged(); });
+      network_thread_->PostTask(
+          ToQueuedTask([this]() { MaybeSignalNetworksChanged(); }));
   } else {
-    network_thread_->PostTask(RTC_FROM_HERE,
-                              [this]() { UpdateNetworksOnce(); });
+    network_thread_->PostTask(ToQueuedTask([this]() { UpdateNetworksOnce(); }));
   }
   ++start_count_;
 }
@@ -89,9 +89,9 @@ void EmulatedNetworkManager::StopUpdating() {
 void EmulatedNetworkManager::GetStats(
     std::function<void(std::unique_ptr<EmulatedNetworkStats>)> stats_callback)
     const {
-  task_queue_->PostTask([stats_callback, this]() {
+  task_queue_->PostTask(ToQueuedTask([stats_callback, this]() {
     stats_callback(endpoints_container_->GetStats());
-  });
+  }));
 }
 
 void EmulatedNetworkManager::UpdateNetworksOnce() {

@@ -20,6 +20,7 @@
 #include "rtc_base/event.h"
 #include "rtc_base/gunit.h"
 #include "rtc_base/synchronization/mutex.h"
+#include "rtc_base/task_utils/to_queued_task.h"
 #include "test/gmock.h"
 #include "test/gtest.h"
 #include "test/network/network_emulation_manager.h"
@@ -235,10 +236,8 @@ TEST(NetworkEmulationManagerTest, Run) {
     t2->Invoke<void>(RTC_FROM_HERE, [&] { s2->Connect(a1); });
 
     for (uint64_t i = 0; i < 1000; i++) {
-      t1->PostTask(RTC_FROM_HERE,
-                   [&]() { s1->Send(data.data(), data.size()); });
-      t2->PostTask(RTC_FROM_HERE,
-                   [&]() { s2->Send(data.data(), data.size()); });
+      t1->PostTask(ToQueuedTask([&]() { s1->Send(data.data(), data.size()); }));
+      t2->PostTask(ToQueuedTask([&]() { s2->Send(data.data(), data.size()); }));
     }
 
     network_manager.time_controller()->AdvanceTime(TimeDelta::Seconds(1));
@@ -391,10 +390,8 @@ TEST(NetworkEmulationManagerTest, DebugStatsCollectedInDebugMode) {
     t2->Invoke<void>(RTC_FROM_HERE, [&] { s2->Connect(a1); });
 
     for (uint64_t i = 0; i < 1000; i++) {
-      t1->PostTask(RTC_FROM_HERE,
-                   [&]() { s1->Send(data.data(), data.size()); });
-      t2->PostTask(RTC_FROM_HERE,
-                   [&]() { s2->Send(data.data(), data.size()); });
+      t1->PostTask(ToQueuedTask([&]() { s1->Send(data.data(), data.size()); }));
+      t2->PostTask(ToQueuedTask([&]() { s2->Send(data.data(), data.size()); }));
     }
 
     network_manager.time_controller()->AdvanceTime(TimeDelta::Seconds(1));
@@ -498,8 +495,8 @@ TEST(NetworkEmulationManagerTest, ThroughputStats) {
   const int kNumPacketsSent = 11;
   const TimeDelta kDelay = TimeDelta::Millis(100);
   for (int i = 0; i < kNumPacketsSent; i++) {
-    t1->PostTask(RTC_FROM_HERE, [&]() { s1->Send(data.data(), data.size()); });
-    t2->PostTask(RTC_FROM_HERE, [&]() { s2->Send(data.data(), data.size()); });
+    t1->PostTask(ToQueuedTask([&]() { s1->Send(data.data(), data.size()); }));
+    t2->PostTask(ToQueuedTask([&]() { s2->Send(data.data(), data.size()); }));
     network_manager.time_controller()->AdvanceTime(kDelay);
   }
 

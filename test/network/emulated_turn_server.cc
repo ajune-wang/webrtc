@@ -15,6 +15,7 @@
 
 #include "api/packet_socket_factory.h"
 #include "rtc_base/strings/string_builder.h"
+#include "rtc_base/task_utils/to_queued_task.h"
 
 namespace {
 
@@ -165,7 +166,7 @@ rtc::AsyncPacketSocket* EmulatedTURNServer::Wrap(EmulatedEndpoint* endpoint) {
 
 void EmulatedTURNServer::OnPacketReceived(webrtc::EmulatedIpPacket packet) {
   // Copy from EmulatedEndpoint to rtc::AsyncPacketSocket.
-  thread_->PostTask(RTC_FROM_HERE, [this, packet(std::move(packet))]() {
+  thread_->PostTask(ToQueuedTask([this, packet(std::move(packet))]() {
     RTC_DCHECK_RUN_ON(thread_.get());
     auto it = sockets_.find(packet.to);
     if (it != sockets_.end()) {
@@ -173,7 +174,7 @@ void EmulatedTURNServer::OnPacketReceived(webrtc::EmulatedIpPacket packet) {
           it->second, reinterpret_cast<const char*>(packet.cdata()),
           packet.size(), packet.from, packet.arrival_time.ms());
     }
-  });
+  }));
 }
 
 void EmulatedTURNServer::Unbind(rtc::SocketAddress address) {

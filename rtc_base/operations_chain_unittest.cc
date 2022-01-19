@@ -18,6 +18,7 @@
 
 #include "rtc_base/event.h"
 #include "rtc_base/gunit.h"
+#include "rtc_base/task_utils/to_queued_task.h"
 #include "rtc_base/thread.h"
 #include "test/gmock.h"
 #include "test/gtest.h"
@@ -88,16 +89,16 @@ class OperationTracker {
                                   std::function<void()> callback) {
     Thread* current_thread = Thread::Current();
     background_thread_->PostTask(
-        RTC_FROM_HERE, [this, current_thread, unblock_operation_event,
-                        operation_complete_event, callback]() {
+        webrtc::ToQueuedTask([this, current_thread, unblock_operation_event,
+                              operation_complete_event, callback]() {
           unblock_operation_event->Wait(Event::kForever);
-          current_thread->PostTask(
-              RTC_FROM_HERE, [this, operation_complete_event, callback]() {
+          current_thread->PostTask(webrtc::ToQueuedTask(
+              [this, operation_complete_event, callback]() {
                 completed_operation_events_.push_back(operation_complete_event);
                 operation_complete_event->Set();
                 callback();
-              });
-        });
+              }));
+        }));
   }
 
   std::unique_ptr<Thread> background_thread_;
@@ -119,24 +120,23 @@ class OperationTrackerProxy {
   std::unique_ptr<Event> Initialize() {
     std::unique_ptr<Event> event = std::make_unique<Event>();
     operations_chain_thread_->PostTask(
-        RTC_FROM_HERE, [this, event_ptr = event.get()]() {
+        webrtc::ToQueuedTask([this, event_ptr = event.get()]() {
           operation_tracker_ = std::make_unique<OperationTracker>();
           operations_chain_ = OperationsChain::Create();
           event_ptr->Set();
-        });
+        }));
     return event;
   }
 
   void SetOnChainEmptyCallback(std::function<void()> on_chain_empty_callback) {
     Event event;
-    operations_chain_thread_->PostTask(
-        RTC_FROM_HERE,
+    operations_chain_thread_->PostTask(webrtc::ToQueuedTask(
         [this, &event,
          on_chain_empty_callback = std::move(on_chain_empty_callback)]() {
           operations_chain_->SetOnChainEmptyCallback(
               std::move(on_chain_empty_callback));
           event.Set();
-        });
+        }));
     event.Wait(Event::kForever);
   }
 
@@ -144,21 +144,21 @@ class OperationTrackerProxy {
     Event event;
     bool is_empty = false;
     operations_chain_thread_->PostTask(
-        RTC_FROM_HERE, [this, &event, &is_empty]() {
+        webrtc::ToQueuedTask([this, &event, &is_empty]() {
           is_empty = operations_chain_->IsEmpty();
           event.Set();
-        });
+        }));
     event.Wait(Event::kForever);
     return is_empty;
   }
 
   std::unique_ptr<Event> ReleaseOperationChain() {
     std::unique_ptr<Event> event = std::make_unique<Event>();
-    operations_chain_thread_->PostTask(RTC_FROM_HERE,
-                                       [this, event_ptr = event.get()]() {
-                                         operations_chain_ = nullptr;
-                                         event_ptr->Set();
-                                       });
+    operations_chain_thread_->PostTask(
+        webrtc::ToQueuedTask([this, event_ptr = event.get()]() {
+          operations_chain_ = nullptr;
+          event_ptr->Set();
+        }));
     return event;
   }
 
@@ -166,12 +166,12 @@ class OperationTrackerProxy {
   std::unique_ptr<Event> PostSynchronousOperation() {
     std::unique_ptr<Event> operation_complete_event = std::make_unique<Event>();
     operations_chain_thread_->PostTask(
-        RTC_FROM_HERE, [this, operation_complete_event_ptr =
-                                  operation_complete_event.get()]() {
+        webrtc::ToQueuedTask([this, operation_complete_event_ptr =
+                                        operation_complete_event.get()]() {
           operations_chain_->ChainOperation(
               operation_tracker_->BindSynchronousOperation(
                   operation_complete_event_ptr));
-        });
+        }));
     return operation_complete_event;
   }
 
@@ -180,14 +180,13 @@ class OperationTrackerProxy {
   std::unique_ptr<Event> PostAsynchronousOperation(
       Event* unblock_operation_event) {
     std::unique_ptr<Event> operation_complete_event = std::make_unique<Event>();
-    operations_chain_thread_->PostTask(
-        RTC_FROM_HERE,
+    operations_chain_thread_->PostTask(webrtc::ToQueuedTask(
         [this, unblock_operation_event,
          operation_complete_event_ptr = operation_complete_event.get()]() {
           operations_chain_->ChainOperation(
               operation_tracker_->BindAsynchronousOperation(
                   unblock_operation_event, operation_complete_event_ptr));
-        });
+        }));
     return operation_complete_event;
   }
 

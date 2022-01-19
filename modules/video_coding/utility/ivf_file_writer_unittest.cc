@@ -178,7 +178,7 @@ TEST_F(IvfFileWriterTest, ClosesWhenReachesLimit) {
   const int kHeight = 240;
   const int kNumFramesToWrite = 2;
   const int kNumFramesToFit = 1;
-
+  // test
   file_writer_ = IvfFileWriter::Wrap(
       FileWrapper::OpenWriteOnly(file_name_),
       kHeaderSize +

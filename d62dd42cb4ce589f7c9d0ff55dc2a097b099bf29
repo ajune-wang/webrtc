@@ -33,6 +33,23 @@
       "message": "Agree that this should be api/ accessible, but ...",
       "revId": "d62dd42cb4ce589f7c9d0ff55dc2a097b099bf29",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "f124a9e1_2b39ca32",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2022-01-19T10:10:50Z",
+      "side": 1,
+      "message": "I filed https://crbug.com/webrtc/13586 for the redesign.\nHitting +1 on this CL now.\n",
+      "revId": "d62dd42cb4ce589f7c9d0ff55dc2a097b099bf29",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

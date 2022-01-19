@@ -65,6 +65,30 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "69c5ac14_370f2ca6",
+        "filename": "media/engine/webrtc_video_engine.cc",
+        "patchSetId": 7
+      },
+      "lineNbr": 940,
+      "author": {
+        "id": 5527
+      },
+      "writtenOn": "2022-01-19T13:27:32Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "7a39fe69_857a87aa",
+      "range": {
+        "startLine": 934,
+        "startChar": 0,
+        "endLine": 940,
+        "endChar": 3
+      },
+      "revId": "a48276612c6327f1d83c71fd3c76c38f4b3eae1a",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "2561b60f_89f5fb91",
@@ -149,6 +173,30 @@
       "side": 1,
       "message": "just RequestEncoderSwitch? IfSupported can probably be omitted (or, otherwise, should be added to every other function; for example EncodeVideoFrame below).",
       "parentUuid": "1dd8bf9c_130ecfe1",
+      "range": {
+        "startLine": 1276,
+        "startChar": 25,
+        "endLine": 1276,
+        "endChar": 38
+      },
+      "revId": "a48276612c6327f1d83c71fd3c76c38f4b3eae1a",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "5c8cd3f0_836c8785",
+        "filename": "video/video_stream_encoder.cc",
+        "patchSetId": 7
+      },
+      "lineNbr": 1276,
+      "author": {
+        "id": 5527
+      },
+      "writtenOn": "2022-01-19T13:27:32Z",
+      "side": 1,
+      "message": "I prefer RequestEncoderSwitchIfSupported, but RequestEncoderSwitch is fine.",
+      "parentUuid": "7912878f_605f5c49",
       "range": {
         "startLine": 1276,
         "startChar": 25,

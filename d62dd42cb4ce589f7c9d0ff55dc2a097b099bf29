@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "49732be1_c40cc15e",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5087
+      },
+      "writtenOn": "2022-01-19T08:27:14Z",
+      "side": 1,
+      "message": "Adding tommi@ to double check it is fine to expose these APIs to api/.",
+      "revId": "d62dd42cb4ce589f7c9d0ff55dc2a097b099bf29",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

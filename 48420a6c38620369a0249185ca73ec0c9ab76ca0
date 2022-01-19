@@ -86,6 +86,24 @@
       "parentUuid": "fe293787_e9a9f9ea",
       "revId": "48420a6c38620369a0249185ca73ec0c9ab76ca0",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "175bd095_93128d2f",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5087
+      },
+      "writtenOn": "2022-01-19T08:27:14Z",
+      "side": 1,
+      "message": "It is interesting to note how this API is exposed by the Obj-C layer (https://source.chromium.org/chromium/chromium/src/+/main:third_party/webrtc/sdk/objc/api/peerconnection/RTCTracing.h;l\u003d19-21;drc\u003d7bca8ca4e2d7833da719c22bc0e1368a1d81ddc9) and by the Java layer (https://source.chromium.org/chromium/chromium/src/+/main:third_party/webrtc/sdk/android/src/jni/pc/peer_connection_factory.cc;l\u003d225-237;drc\u003dac0d18341d3bcc13e15dd89170d04aa09f987cfe) so I wonder if this should be moved to api/ in order to let users of the C++ WebRTC API to control trace events more directly.\n\ntommi@, does that make sense?\n\nIf yes, we can move them to api/ before starting to use the APIs in Chromium. Would that work for you Nicolas?",
+      "parentUuid": "7a6dfd3a_8b23535a",
+      "revId": "48420a6c38620369a0249185ca73ec0c9ab76ca0",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

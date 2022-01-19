@@ -122,6 +122,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "f9b4c813_c8f384b7",
+        "filename": "modules/video_coding/codecs/av1/libaom_av1_encoder.h",
+        "patchSetId": 7
+      },
+      "lineNbr": 19,
+      "author": {
+        "id": 5527
+      },
+      "writtenOn": "2022-01-19T12:23:44Z",
+      "side": 1,
+      "message": "1 - Yes, the plan is to move towards webrtc providing encoder/decoder implementations (non-conditional build targets) so that others can easily implement the encoder/decoder factories they need.\n\n2 - I\u0027m not familiar with those buildscripts, but I would suggest they also implement their own factories.",
+      "parentUuid": "1cf56f80_fe87b308",
+      "range": {
+        "startLine": 19,
+        "startChar": 0,
+        "endLine": 19,
+        "endChar": 55
+      },
+      "revId": "12a6041e1e3d81fadd75f59a8336bb1f141fa6f2",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "f9e9a487_843af092",
         "filename": "modules/video_coding/codecs/av1/libaom_av1_encoder_supported.cc",
         "patchSetId": 7

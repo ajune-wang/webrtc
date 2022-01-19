@@ -24,6 +24,30 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "27f885a0_d8dba4d2",
+        "filename": "modules/video_coding/codecs/vp9/include/vp9_globals.h",
+        "patchSetId": 3
+      },
+      "lineNbr": 87,
+      "author": {
+        "id": 5524
+      },
+      "writtenOn": "2022-01-19T09:40:13Z",
+      "side": 1,
+      "message": "They way I read the spec, the upswitch flag on the first TL0 frame means it\u0027s possible to switch to any temporal layer above the marked frame - so either TL1 or TL2.\nBut yeah, I think the way the spec been written is very suboptimal - we can no longer explicitly express the ability to jump to TL1 if a TL2 switch is not also possible at that time.",
+      "parentUuid": "b780de6e_8d75003d",
+      "range": {
+        "startLine": 87,
+        "startChar": 11,
+        "endLine": 87,
+        "endChar": 34
+      },
+      "revId": "0997ffd3369d499d510ab17bfdbc590d4717f402",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "e8fffb85_2816cd74",
@@ -37,6 +61,30 @@
       "writtenOn": "2022-01-18T11:24:58Z",
       "side": 1,
       "message": "upswitch flag is unimportant for the highest temporal layer, might as well left it to \u0027true\u0027.\n(locally it is true that \"subsequent higher temporal layer pictures will not depend on ...\"\nbecause there are no higher temporal layers)",
+      "range": {
+        "startLine": 95,
+        "startChar": 32,
+        "endLine": 95,
+        "endChar": 37
+      },
+      "revId": "0997ffd3369d499d510ab17bfdbc590d4717f402",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "ae64c36d_7bac1430",
+        "filename": "modules/video_coding/codecs/vp9/include/vp9_globals.h",
+        "patchSetId": 3
+      },
+      "lineNbr": 95,
+      "author": {
+        "id": 5524
+      },
+      "writtenOn": "2022-01-19T09:40:13Z",
+      "side": 1,
+      "message": "Agreed, this one place was a mistake. Fixed.",
+      "parentUuid": "e8fffb85_2816cd74",
       "range": {
         "startLine": 95,
         "startChar": 32,
@@ -70,6 +118,30 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "4255705a_0d8b99a7",
+        "filename": "modules/video_coding/codecs/vp9/libvpx_vp9_encoder.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 1394,
+      "author": {
+        "id": 5524
+      },
+      "writtenOn": "2022-01-19T09:40:13Z",
+      "side": 1,
+      "message": "Yes, you\u0027re right. I thought I had a counter example but looking back at my notes I was wrong. Not used to working with these :)",
+      "parentUuid": "2fc15f50_55b7cb06",
+      "range": {
+        "startLine": 1392,
+        "startChar": 6,
+        "endLine": 1394,
+        "endChar": 44
+      },
+      "revId": "0997ffd3369d499d510ab17bfdbc590d4717f402",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "4171d87d_d5cdee14",
@@ -83,6 +155,24 @@
       "writtenOn": "2022-01-18T11:24:58Z",
       "side": 1,
       "message": "may be remove this expectation (upswitch is irrelevant for Structure1)",
+      "revId": "0997ffd3369d499d510ab17bfdbc590d4717f402",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "a787f56c_22900ab5",
+        "filename": "video/video_send_stream_tests.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 3099,
+      "author": {
+        "id": 5524
+      },
+      "writtenOn": "2022-01-19T09:40:13Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "4171d87d_d5cdee14",
       "revId": "0997ffd3369d499d510ab17bfdbc590d4717f402",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },

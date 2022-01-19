@@ -140,6 +140,24 @@
       "parentUuid": "43a41430_71dd3213",
       "revId": "48420a6c38620369a0249185ca73ec0c9ab76ca0",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "c2a6918b_655d5469",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 18809
+      },
+      "writtenOn": "2022-01-19T17:12:21Z",
+      "side": 1,
+      "message": "I filed https://bugs.chromium.org/p/webrtc/issues/detail?id\u003d13590.",
+      "parentUuid": "f9c20d48_303648a5",
+      "revId": "48420a6c38620369a0249185ca73ec0c9ab76ca0",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

@@ -11,6 +11,7 @@
 
 #include <memory>
 
+#include "rtc_base/task_utils/to_queued_task.h"
 #include "test/network/network_emulation_manager.h"
 
 namespace webrtc {
@@ -46,9 +47,8 @@ void StartIceSignalingForRoute(PeerScenarioClient* caller,
       [=](const IceCandidateInterface* candidate) {
         IceMessage msg(candidate);
         send_route->NetworkDelayedAction(kIcePacketSize, [callee, msg]() {
-          callee->thread()->PostTask(RTC_FROM_HERE, [callee, msg]() {
-            callee->AddIceCandidate(msg.AsCandidate());
-          });
+          callee->thread()->PostTask(ToQueuedTask(
+              [callee, msg]() { callee->AddIceCandidate(msg.AsCandidate()); }));
         });
       });
 }

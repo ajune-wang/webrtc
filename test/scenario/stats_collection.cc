@@ -12,6 +12,7 @@
 
 #include "common_video/libyuv/include/webrtc_libyuv.h"
 #include "rtc_base/memory_usage.h"
+#include "rtc_base/task_utils/to_queued_task.h"
 #include "rtc_base/thread.h"
 
 namespace webrtc {
@@ -50,9 +51,8 @@ void VideoQualityAnalyzer::HandleFramePair(VideoFramePair sample) {
     psnr = I420PSNR(*sample.captured->ToI420(), *sample.decoded->ToI420());
 
   if (config_.thread) {
-    config_.thread->PostTask(RTC_FROM_HERE, [this, sample, psnr] {
-      HandleFramePair(std::move(sample), psnr);
-    });
+    config_.thread->PostTask(ToQueuedTask(
+        [this, sample, psnr] { HandleFramePair(std::move(sample), psnr); }));
   } else {
     HandleFramePair(std::move(sample), psnr);
   }

@@ -50,6 +50,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "00af26d8_9d068663",
+        "filename": "modules/video_coding/codecs/av1/libaom_av1_encoder.h",
+        "patchSetId": 7
+      },
+      "lineNbr": 19,
+      "author": {
+        "id": 5087
+      },
+      "writtenOn": "2022-01-19T08:43:06Z",
+      "side": 1,
+      "message": "I am not sure I get the whole picture. Don\u0027t we have already:\n\n  if (kIsLibaomAv1EncoderSupported \u0026\u0026 absl::EqualsIgnoreCase(format.name, cricket::kAv1CodecName))\n      return CreateLibaomAv1Encoder();\n    \nSo kIsLibaomAv1EncoderSupported is used by the BuiltinVideoEncoder/DecoderFactory, correct?\n\nNow we have two checks (the constant and the function), can you tell me more about the plan?",
+      "parentUuid": "4dfbc298_0f511323",
+      "range": {
+        "startLine": 19,
+        "startChar": 0,
+        "endLine": 19,
+        "endChar": 55
+      },
+      "revId": "12a6041e1e3d81fadd75f59a8336bb1f141fa6f2",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "f9e9a487_843af092",
         "filename": "modules/video_coding/codecs/av1/libaom_av1_encoder_supported.cc",
         "patchSetId": 7

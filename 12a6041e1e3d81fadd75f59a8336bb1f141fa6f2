@@ -170,6 +170,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "10982ab0_e9e9e662",
+        "filename": "modules/video_coding/codecs/av1/libaom_av1_encoder.h",
+        "patchSetId": 7
+      },
+      "lineNbr": 19,
+      "author": {
+        "id": 5527
+      },
+      "writtenOn": "2022-01-20T10:40:22Z",
+      "side": 1,
+      "message": "I believe we could implement something similar to https://source.chromium.org/chromium/chromium/src/+/main:third_party/webrtc/api/audio_codecs/audio_encoder_factory_template.h;l\u003d137;drc\u003ddf82805c12767c673b4293d7605753909c10a7eb\n\nThis is still technically a user implemented factory, but it\u0027s literally a single template instantiation. The good thing is that it requires no build time flags.",
+      "parentUuid": "367f94cf_b4a0c9da",
+      "range": {
+        "startLine": 19,
+        "startChar": 0,
+        "endLine": 19,
+        "endChar": 55
+      },
+      "revId": "12a6041e1e3d81fadd75f59a8336bb1f141fa6f2",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "f9e9a487_843af092",
         "filename": "modules/video_coding/codecs/av1/libaom_av1_encoder_supported.cc",
         "patchSetId": 7

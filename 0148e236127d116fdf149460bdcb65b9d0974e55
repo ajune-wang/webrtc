@@ -98,6 +98,30 @@
       },
       "revId": "0148e236127d116fdf149460bdcb65b9d0974e55",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "dc6425ff_b2f5902d",
+        "filename": "rtc_base/thread.h",
+        "patchSetId": 9
+      },
+      "lineNbr": 462,
+      "author": {
+        "id": 5087
+      },
+      "writtenOn": "2022-01-20T10:55:01Z",
+      "side": 1,
+      "message": "Thanks for looking into this. It makes sense to me, but let\u0027s ask tommi@ for an opinion.\n\ntommi@, what is your opinion on this? (I don\u0027t really have context on RTC_FROM_HERE).",
+      "parentUuid": "f5ed73b1_d72f0a23",
+      "range": {
+        "startLine": 462,
+        "startChar": 24,
+        "endLine": 462,
+        "endChar": 37
+      },
+      "revId": "0148e236127d116fdf149460bdcb65b9d0974e55",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

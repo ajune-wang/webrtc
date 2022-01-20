@@ -41,6 +41,30 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "00980fe1_70a12d9a",
+        "filename": "video/video_stream_encoder_unittest.cc",
+        "patchSetId": 8
+      },
+      "lineNbr": 7518,
+      "author": {
+        "id": 5825
+      },
+      "writtenOn": "2022-01-20T13:58:18Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "273be5f4_0279897c",
+      "range": {
+        "startLine": 7518,
+        "startChar": 10,
+        "endLine": 7518,
+        "endChar": 40
+      },
+      "revId": "9f3b8f00587e7341d8551be54e56f11eda181ee0",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "d9c4e1c5_1e49ca4d",
@@ -64,6 +88,30 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "0a0a6fe5_b0c63b81",
+        "filename": "video/video_stream_encoder_unittest.cc",
+        "patchSetId": 8
+      },
+      "lineNbr": 7569,
+      "author": {
+        "id": 5825
+      },
+      "writtenOn": "2022-01-20T13:58:18Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "d9c4e1c5_1e49ca4d",
+      "range": {
+        "startLine": 7568,
+        "startChar": 35,
+        "endLine": 7569,
+        "endChar": 78
+      },
+      "revId": "9f3b8f00587e7341d8551be54e56f11eda181ee0",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "a9ffb568_ca8e1adb",
@@ -77,6 +125,30 @@
       "writtenOn": "2022-01-20T10:56:16Z",
       "side": 1,
       "message": "can omit this too",
+      "range": {
+        "startLine": 7610,
+        "startChar": 35,
+        "endLine": 7610,
+        "endChar": 41
+      },
+      "revId": "9f3b8f00587e7341d8551be54e56f11eda181ee0",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "9d89b15d_38bde98a",
+        "filename": "video/video_stream_encoder_unittest.cc",
+        "patchSetId": 8
+      },
+      "lineNbr": 7610,
+      "author": {
+        "id": 5825
+      },
+      "writtenOn": "2022-01-20T13:58:18Z",
+      "side": 1,
+      "message": "not in this case because there are two implementations on InitEncode:\nhttps://source.chromium.org/chromium/chromium/src/+/main:third_party/webrtc/api/test/mock_video_encoder.h;l\u003d36-43?q\u003dapi%2Ftest%2Fmock_video_encoder.h\u0026ss\u003dchromium\n\nbut i removed (_,..) in other places in encoder selector tests.",
+      "parentUuid": "a9ffb568_ca8e1adb",
       "range": {
         "startLine": 7610,
         "startChar": 35,

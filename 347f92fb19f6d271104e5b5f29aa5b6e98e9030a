@@ -1,0 +1,89 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "53cd4632_00dba195",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 19
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 14134
+      },
+      "writtenOn": "2022-01-20T18:07:09Z",
+      "side": 1,
+      "message": "LGTM with remaining minor comments addressed.",
+      "revId": "347f92fb19f6d271104e5b5f29aa5b6e98e9030a",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "a2efd2be_7af977e1",
+        "filename": "modules/desktop_capture/linux/wayland/shared_screencast_stream.cc",
+        "patchSetId": 19
+      },
+      "lineNbr": 171,
+      "author": {
+        "id": 14134
+      },
+      "writtenOn": "2022-01-20T18:07:09Z",
+      "side": 1,
+      "message": "s/int32_t/int/ for fds",
+      "revId": "347f92fb19f6d271104e5b5f29aa5b6e98e9030a",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "8a4c4f9a_e60eb9fc",
+        "filename": "modules/desktop_capture/linux/wayland/shared_screencast_stream.cc",
+        "patchSetId": 19
+      },
+      "lineNbr": 177,
+      "author": {
+        "id": 14134
+      },
+      "writtenOn": "2022-01-20T18:07:09Z",
+      "side": 1,
+      "message": "Ditto",
+      "revId": "347f92fb19f6d271104e5b5f29aa5b6e98e9030a",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "47d29f47_6e1819b7",
+        "filename": "modules/desktop_capture/linux/wayland/shared_screencast_stream.h",
+        "patchSetId": 19
+      },
+      "lineNbr": 19,
+      "author": {
+        "id": 14134
+      },
+      "writtenOn": "2022-01-20T18:07:09Z",
+      "side": 1,
+      "message": "This #include can be removed",
+      "revId": "347f92fb19f6d271104e5b5f29aa5b6e98e9030a",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "05161dc1_fd63ba92",
+        "filename": "modules/desktop_capture/linux/wayland/shared_screencast_stream.h",
+        "patchSetId": 19
+      },
+      "lineNbr": 31,
+      "author": {
+        "id": 14134
+      },
+      "writtenOn": "2022-01-20T18:07:09Z",
+      "side": 1,
+      "message": "s/int32_t/int/ for fd\u0027s",
+      "revId": "347f92fb19f6d271104e5b5f29aa5b6e98e9030a",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

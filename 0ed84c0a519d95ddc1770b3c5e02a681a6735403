@@ -55,6 +55,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "fe53f40d_4c845eed",
+        "filename": "modules/desktop_capture/BUILD.gn",
+        "patchSetId": 18
+      },
+      "lineNbr": 588,
+      "author": {
+        "id": 14134
+      },
+      "writtenOn": "2022-01-20T18:07:09Z",
+      "side": 1,
+      "message": "Makes sense.  You can remove :pipewire_config from the configs list above",
+      "parentUuid": "0783a2df_b2c127fb",
+      "revId": "0ed84c0a519d95ddc1770b3c5e02a681a6735403",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "91f7853e_13e497ca",
         "filename": "modules/desktop_capture/desktop_capture_options.h",
         "patchSetId": 18

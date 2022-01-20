@@ -1,0 +1,412 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "c9eb9795_83466709",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 18
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 14134
+      },
+      "writtenOn": "2022-01-20T00:55:06Z",
+      "side": 1,
+      "message": "Went ahead and took a look at this, overall looks good with a few style things and cleanups.",
+      "revId": "0ed84c0a519d95ddc1770b3c5e02a681a6735403",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "c64eed04_0173a5d3",
+        "filename": "modules/desktop_capture/BUILD.gn",
+        "patchSetId": 18
+      },
+      "lineNbr": 588,
+      "author": {
+        "id": 14134
+      },
+      "writtenOn": "2022-01-20T00:55:06Z",
+      "side": 1,
+      "message": "This should only be necessary if there are new inbound dependencies that require this config, and I didn\u0027t see any in this patch.  Did I miss something?",
+      "revId": "0ed84c0a519d95ddc1770b3c5e02a681a6735403",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "91f7853e_13e497ca",
+        "filename": "modules/desktop_capture/desktop_capture_options.h",
+        "patchSetId": 18
+      },
+      "lineNbr": 176,
+      "author": {
+        "id": 14134
+      },
+      "writtenOn": "2022-01-20T00:55:06Z",
+      "side": 1,
+      "message": "Is it legal to pass nullptr here?",
+      "revId": "0ed84c0a519d95ddc1770b3c5e02a681a6735403",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "0394d02c_76c635be",
+        "filename": "modules/desktop_capture/desktop_capture_options.h",
+        "patchSetId": 18
+      },
+      "lineNbr": 188,
+      "author": {
+        "id": 14134
+      },
+      "writtenOn": "2022-01-20T00:55:06Z",
+      "side": 1,
+      "message": "Please document this field.",
+      "revId": "0ed84c0a519d95ddc1770b3c5e02a681a6735403",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "e1549d82_3ca29e26",
+        "filename": "modules/desktop_capture/linux/wayland/base_capturer_pipewire.cc",
+        "patchSetId": 18
+      },
+      "lineNbr": 22,
+      "author": {
+        "id": 14134
+      },
+      "writtenOn": "2022-01-20T00:55:06Z",
+      "side": 1,
+      "message": "Is there any difference in behavior for the ScreenCastPortal for window vs. desktop capture?  If the ScreenCastPortal can handle any capture type, maybe it does not need a source parameter to be passed in the ctor?",
+      "revId": "0ed84c0a519d95ddc1770b3c5e02a681a6735403",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "0d9504c1_c3e6c4b4",
+        "filename": "modules/desktop_capture/linux/wayland/base_capturer_pipewire.cc",
+        "patchSetId": 18
+      },
+      "lineNbr": 36,
+      "author": {
+        "id": 14134
+      },
+      "writtenOn": "2022-01-20T00:55:06Z",
+      "side": 1,
+      "message": "Is there any way for the capturer\u0027s client to know that initialization failed right away, or does it have to call CaptureFrame() first and look at the value passed in the Callback?",
+      "revId": "0ed84c0a519d95ddc1770b3c5e02a681a6735403",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "ec77d914_4fdba49e",
+        "filename": "modules/desktop_capture/linux/wayland/base_capturer_pipewire.cc",
+        "patchSetId": 18
+      },
+      "lineNbr": 42,
+      "author": {
+        "id": 14134
+      },
+      "writtenOn": "2022-01-20T00:55:06Z",
+      "side": 1,
+      "message": "If capturer_failed_ \u003d\u003d true, should you still try to stop the stream?",
+      "revId": "0ed84c0a519d95ddc1770b3c5e02a681a6735403",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "4a1f83bd_90e5031b",
+        "filename": "modules/desktop_capture/linux/wayland/base_capturer_pipewire.cc",
+        "patchSetId": 18
+      },
+      "lineNbr": 90,
+      "author": {
+        "id": 14134
+      },
+      "writtenOn": "2022-01-20T00:55:06Z",
+      "side": 1,
+      "message": "Also see my earlier comment.  If we don\u0027t allow a null screencast_stream, then you can probably get rid of CreateRawCapturer() and leave public ctor.",
+      "revId": "0ed84c0a519d95ddc1770b3c5e02a681a6735403",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "34483324_ea32c9e3",
+        "filename": "modules/desktop_capture/linux/wayland/base_capturer_pipewire.h",
+        "patchSetId": 18
+      },
+      "lineNbr": 30,
+      "author": {
+        "id": 14134
+      },
+      "writtenOn": "2022-01-20T00:55:06Z",
+      "side": 1,
+      "message": "Does the BaseCapturerPipewire ctor need to be public, if this is the way to create a new one?",
+      "revId": "0ed84c0a519d95ddc1770b3c5e02a681a6735403",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "e61677b2_1d1f726c",
+        "filename": "modules/desktop_capture/linux/wayland/screencast_portal.cc",
+        "patchSetId": 18
+      },
+      "lineNbr": 24,
+      "author": {
+        "id": 14134
+      },
+      "writtenOn": "2022-01-20T00:55:06Z",
+      "side": 1,
+      "message": "I\u0027ll assume this is just a straightforward code move and not look at the rest of the file too closely.",
+      "revId": "0ed84c0a519d95ddc1770b3c5e02a681a6735403",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "72cbe38c_c3de4544",
+        "filename": "modules/desktop_capture/linux/wayland/screencast_portal.h",
+        "patchSetId": 18
+      },
+      "lineNbr": 2,
+      "author": {
+        "id": 14134
+      },
+      "writtenOn": "2022-01-20T00:55:06Z",
+      "side": 1,
+      "message": "Update year on copyright (here and elsewhere)",
+      "revId": "0ed84c0a519d95ddc1770b3c5e02a681a6735403",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "06a22083_a6dfcf24",
+        "filename": "modules/desktop_capture/linux/wayland/screencast_portal.h",
+        "patchSetId": 18
+      },
+      "lineNbr": 38,
+      "author": {
+        "id": 14134
+      },
+      "writtenOn": "2022-01-20T00:55:06Z",
+      "side": 1,
+      "message": "It might be helpful to add a // comment for each of these explaining the meanings of the values.  The XML link doesn\u0027t explain what the values mean.",
+      "revId": "0ed84c0a519d95ddc1770b3c5e02a681a6735403",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "dccc779d_1efae3ad",
+        "filename": "modules/desktop_capture/linux/wayland/screencast_portal.h",
+        "patchSetId": 18
+      },
+      "lineNbr": 46,
+      "author": {
+        "id": 14134
+      },
+      "writtenOn": "2022-01-20T00:55:06Z",
+      "side": 1,
+      "message": "Style: enum values should use kCamelCase.",
+      "revId": "0ed84c0a519d95ddc1770b3c5e02a681a6735403",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "fde09367_cda18b3d",
+        "filename": "modules/desktop_capture/linux/wayland/screencast_portal.h",
+        "patchSetId": 18
+      },
+      "lineNbr": 79,
+      "author": {
+        "id": 14134
+      },
+      "writtenOn": "2022-01-20T00:55:06Z",
+      "side": 1,
+      "message": "Would you ever call Start() on the same ScreenCastPortal with two different notifiers?  If not, it looks like it should be okay to pass the notifier by reference in the ScreenCastPortal ctor.",
+      "revId": "0ed84c0a519d95ddc1770b3c5e02a681a6735403",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "15c120da_7c3ad27b",
+        "filename": "modules/desktop_capture/linux/wayland/screencast_portal.h",
+        "patchSetId": 18
+      },
+      "lineNbr": 84,
+      "author": {
+        "id": 14134
+      },
+      "writtenOn": "2022-01-20T00:55:06Z",
+      "side": 1,
+      "message": "Please document these two fields.",
+      "revId": "0ed84c0a519d95ddc1770b3c5e02a681a6735403",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "52f7d635_a5d739d1",
+        "filename": "modules/desktop_capture/linux/wayland/screencast_portal.h",
+        "patchSetId": 18
+      },
+      "lineNbr": 85,
+      "author": {
+        "id": 14134
+      },
+      "writtenOn": "2022-01-20T00:55:06Z",
+      "side": 1,
+      "message": "It looks like the file descriptor is passed by uint32_t above.  Please be consistent if these values are interchangeable.\n\nDoes the pipewire library have type definitions for file descriptors and nodes?\n\nIn Linux, file descriptors are always represented as just \"int\" so unless int32 is required by the pipewire library, prefer to just use \"int\" inside WebRTC.",
+      "revId": "0ed84c0a519d95ddc1770b3c5e02a681a6735403",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "1c655b68_35cd522e",
+        "filename": "modules/desktop_capture/linux/wayland/screencast_portal.h",
+        "patchSetId": 18
+      },
+      "lineNbr": 99,
+      "author": {
+        "id": 14134
+      },
+      "writtenOn": "2022-01-20T00:55:06Z",
+      "side": 1,
+      "message": "It looks like the dbus APIs pass these in/out as \"guint\" types.  \n\nI don\u0027t mind using the more readable uint_32t types for these values but I don\u0027t see any guarantees that a guint is in fact 32 bits wide.  Can you add a static_assert to that effect?",
+      "revId": "0ed84c0a519d95ddc1770b3c5e02a681a6735403",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "afad8aa3_9cfe2494",
+        "filename": "modules/desktop_capture/linux/wayland/shared_screencast_stream.cc",
+        "patchSetId": 18
+      },
+      "lineNbr": 12,
+      "author": {
+        "id": 14134
+      },
+      "writtenOn": "2022-01-20T00:55:06Z",
+      "side": 1,
+      "message": "I\u0027l assume this is a straightforward code move and not review everything in detail, but please double check the #include list to add/remove anything as needed.",
+      "revId": "0ed84c0a519d95ddc1770b3c5e02a681a6735403",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "53e02201_e6e27808",
+        "filename": "modules/desktop_capture/linux/wayland/shared_screencast_stream.cc",
+        "patchSetId": 18
+      },
+      "lineNbr": 20,
+      "author": {
+        "id": 14134
+      },
+      "writtenOn": "2022-01-20T00:55:06Z",
+      "side": 1,
+      "message": "For example I didn\u0027t see any code that needs ioctl.h or syscall.h but I could have missed something.",
+      "revId": "0ed84c0a519d95ddc1770b3c5e02a681a6735403",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "74ec9b58_551562bd",
+        "filename": "modules/desktop_capture/linux/wayland/shared_screencast_stream.h",
+        "patchSetId": 18
+      },
+      "lineNbr": 19,
+      "author": {
+        "id": 14134
+      },
+      "writtenOn": "2022-01-20T00:55:06Z",
+      "side": 1,
+      "message": "DesktopFrame can be forward declared",
+      "revId": "0ed84c0a519d95ddc1770b3c5e02a681a6735403",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "e6df6f1e_1e047353",
+        "filename": "modules/desktop_capture/linux/wayland/shared_screencast_stream.h",
+        "patchSetId": 18
+      },
+      "lineNbr": 21,
+      "author": {
+        "id": 14134
+      },
+      "writtenOn": "2022-01-20T00:55:06Z",
+      "side": 1,
+      "message": "Is this #include necessary?",
+      "revId": "0ed84c0a519d95ddc1770b3c5e02a681a6735403",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "ae61980a_7bda220d",
+        "filename": "modules/desktop_capture/linux/wayland/shared_screencast_stream.h",
+        "patchSetId": 18
+      },
+      "lineNbr": 22,
+      "author": {
+        "id": 14134
+      },
+      "writtenOn": "2022-01-20T00:55:06Z",
+      "side": 1,
+      "message": "Ditto",
+      "revId": "0ed84c0a519d95ddc1770b3c5e02a681a6735403",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "7f05b0d1_aea227ca",
+        "filename": "modules/desktop_capture/linux/wayland/shared_screencast_stream.h",
+        "patchSetId": 18
+      },
+      "lineNbr": 44,
+      "author": {
+        "id": 14134
+      },
+      "writtenOn": "2022-01-20T00:55:06Z",
+      "side": 1,
+      "message": "Can you use a more descriptive field name?  Maybe impl_ or private_?",
+      "revId": "0ed84c0a519d95ddc1770b3c5e02a681a6735403",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "96820be4_41d1626b",
+        "filename": "modules/desktop_capture/linux/wayland/shared_screencast_stream.h",
+        "patchSetId": 18
+      },
+      "lineNbr": 46,
+      "author": {
+        "id": 14134
+      },
+      "writtenOn": "2022-01-20T00:55:06Z",
+      "side": 1,
+      "message": "Chromium discourages use of these macros, preferring to declare the copy/move operations as deleted.  Not sure if WebRTC is following that style yet.",
+      "revId": "0ed84c0a519d95ddc1770b3c5e02a681a6735403",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

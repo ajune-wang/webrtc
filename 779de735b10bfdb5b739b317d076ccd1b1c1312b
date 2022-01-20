@@ -301,6 +301,24 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "93d3cd72_1d08b736",
+        "filename": "modules/desktop_capture/linux/wayland/base_capturer_pipewire.cc",
+        "patchSetId": 11
+      },
+      "lineNbr": 36,
+      "author": {
+        "id": 14134
+      },
+      "writtenOn": "2022-01-20T00:55:06Z",
+      "side": 1,
+      "message": "Ok.  For now let\u0027s keep the pattern followed by the X11 capturer until we can find a better way to pass X11/Pipewire streams to the MouseCursorMonitor.",
+      "parentUuid": "da5a15a4_4f3edbb2",
+      "revId": "779de735b10bfdb5b739b317d076ccd1b1c1312b",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "9529cb65_f364781d",

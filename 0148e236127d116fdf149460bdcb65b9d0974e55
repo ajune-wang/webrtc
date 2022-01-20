@@ -37,6 +37,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "b5af776a_715fe576",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 9
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5142
+      },
+      "writtenOn": "2022-01-20T10:40:00Z",
+      "side": 1,
+      "message": "I love this idea! It will make updating all the external uses even easier.\n\nNote that for \"template reasons\" the methods have to be added to rtc::Thread rather than in parent class TaskQueueBase in order for them to be easily accessible by callers using rtc::Thread. But adding them to rtc::Thread rather than TaskQueueBase is similar to how the equivalent versions of this were added to TaskQueue rather than TaskQueueBase already.\n\nAdded template versions to rtc::Thread and updated all the calling places.",
+      "parentUuid": "12d43853_766852fa",
+      "revId": "0148e236127d116fdf149460bdcb65b9d0974e55",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "78edd28c_02132417",
         "filename": "rtc_base/thread.h",
         "patchSetId": 9
@@ -48,6 +66,30 @@
       "writtenOn": "2022-01-19T17:56:29Z",
       "side": 1,
       "message": "Not really related to this CL (since it is more about the TQ API) but I see we are removing a lot of places where we use Location.\n\nIs this a concern from a debuggability point of view or is this something we don\u0027t care and Location will be removed soon?",
+      "range": {
+        "startLine": 462,
+        "startChar": 24,
+        "endLine": 462,
+        "endChar": 37
+      },
+      "revId": "0148e236127d116fdf149460bdcb65b9d0974e55",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "f5ed73b1_d72f0a23",
+        "filename": "rtc_base/thread.h",
+        "patchSetId": 9
+      },
+      "lineNbr": 462,
+      "author": {
+        "id": 5142
+      },
+      "writtenOn": "2022-01-20T10:40:00Z",
+      "side": 1,
+      "message": "As you say this is an existing problem with TaskQueueBase, if it even is a problem - I don\u0027t know if the fact that RTC_FROM_HERE isn\u0027t used by TQB was on purpose or an oversight. But the purpose of RTC_FROM_HERE seems to mainly be for RTC_TRACE macros, which I find is a lot more valuable for rtc::Thread\u0027s Invoke() rather than asynchronous PostTasks().\n\nChrome tracing is useful for figuring out dependencies between operations when threads are blocking on each other. Invoke() has RTC_FROM_HERE.\n\nAsync operations don\u0027t have that same dependency issue, and can be profiled with other tools like pprof. So this might get spammy if they\u0027re all traced?",
+      "parentUuid": "78edd28c_02132417",
       "range": {
         "startLine": 462,
         "startChar": 24,

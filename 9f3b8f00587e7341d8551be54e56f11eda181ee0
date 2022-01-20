@@ -1,0 +1,90 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "66486d3d_cd3fb9ae",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 8
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5524
+      },
+      "writtenOn": "2022-01-20T10:56:16Z",
+      "side": 1,
+      "message": "just some test nits\nI\u0027ll mostly trust philip\u0027s review as he knows this func better.",
+      "revId": "9f3b8f00587e7341d8551be54e56f11eda181ee0",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "273be5f4_0279897c",
+        "filename": "video/video_stream_encoder_unittest.cc",
+        "patchSetId": 8
+      },
+      "lineNbr": 7518,
+      "author": {
+        "id": 5524
+      },
+      "writtenOn": "2022-01-20T10:56:16Z",
+      "side": 1,
+      "message": "Why explicitly create Matcher objects? There don\u0027t appear to be signature collisions in the mock..?",
+      "range": {
+        "startLine": 7518,
+        "startChar": 10,
+        "endLine": 7518,
+        "endChar": 40
+      },
+      "revId": "9f3b8f00587e7341d8551be54e56f11eda181ee0",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "d9c4e1c5_1e49ca4d",
+        "filename": "video/video_stream_encoder_unittest.cc",
+        "patchSetId": 8
+      },
+      "lineNbr": 7569,
+      "author": {
+        "id": 5524
+      },
+      "writtenOn": "2022-01-20T10:56:16Z",
+      "side": 1,
+      "message": "Couldn\u0027t you check the fields here? E.g.\nRequestEncoderSwitch(Field(\u0026SdpVideoFormat::name, \"AV2\"),\n                     /*allow_default_fallback\u003d*/true)\n                     \nif you\u0027d rather check everything in the callback you can omit the parameters entirely:\n\nEXPECT_CALL(switch_callback, RequestEncoderSwitch)\n      .WillOnce([\u0026encode_attempted](const SdpVideoFormat\u0026 format,\n                                    bool allow_default_fallback) { ...\n                                    \n                                    \n(same in a few places below)",
+      "range": {
+        "startLine": 7568,
+        "startChar": 35,
+        "endLine": 7569,
+        "endChar": 78
+      },
+      "revId": "9f3b8f00587e7341d8551be54e56f11eda181ee0",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "a9ffb568_ca8e1adb",
+        "filename": "video/video_stream_encoder_unittest.cc",
+        "patchSetId": 8
+      },
+      "lineNbr": 7610,
+      "author": {
+        "id": 5524
+      },
+      "writtenOn": "2022-01-20T10:56:16Z",
+      "side": 1,
+      "message": "can omit this too",
+      "range": {
+        "startLine": 7610,
+        "startChar": 35,
+        "endLine": 7610,
+        "endChar": 41
+      },
+      "revId": "9f3b8f00587e7341d8551be54e56f11eda181ee0",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

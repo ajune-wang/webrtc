@@ -15,6 +15,7 @@
 #include <dispatch/dispatch.h>
 #endif
 
+#include "api/task_queue/task_queue_base.h"
 #include "rtc_base/checks.h"
 #include "rtc_base/strings/string_builder.h"
 

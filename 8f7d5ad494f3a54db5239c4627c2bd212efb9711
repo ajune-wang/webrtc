@@ -43,6 +43,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "d33d5b21_3efcf36b",
+        "filename": "logging/rtc_event_log/rtc_event_log_impl.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 152,
+      "author": {
+        "id": 14069
+      },
+      "writtenOn": "2022-01-20T10:21:54Z",
+      "side": 1,
+      "message": "Thanks for the info! I\u0027ll also study this issue further to see if any better solutions.\n\nA question here:\nDo you mean, even if the case you said will not be supported, we still need to make the buffer not dropping events since PeerConnection creation?\n\nIt makes me a little confused here because, if I read the code right, the buffer will still drop some events when it\u0027s full without a valid output (L207). And the time before that happening in my test case (1:1 calls) should be less than 30s. That means we\u0027re keeping a very short period of logs but keeps waking up all the time. Am I understanding thing correct?",
+      "parentUuid": "60391068_d0064678",
+      "range": {
+        "startLine": 152,
+        "startChar": 0,
+        "endLine": 152,
+        "endChar": 18
+      },
+      "revId": "8f7d5ad494f3a54db5239c4627c2bd212efb9711",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "590ba4df_cea18216",
         "filename": "logging/rtc_event_log/rtc_event_log_impl.h",
         "patchSetId": 3
@@ -54,6 +78,30 @@
       "writtenOn": "2022-01-19T10:02:19Z",
       "side": 1,
       "message": "It seems like this would need to be protected by a lock.",
+      "range": {
+        "startLine": 88,
+        "startChar": 18,
+        "endLine": 88,
+        "endChar": 40
+      },
+      "revId": "8f7d5ad494f3a54db5239c4627c2bd212efb9711",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "cb196c97_5ef4dd62",
+        "filename": "logging/rtc_event_log/rtc_event_log_impl.h",
+        "patchSetId": 3
+      },
+      "lineNbr": 88,
+      "author": {
+        "id": 14069
+      },
+      "writtenOn": "2022-01-20T10:21:54Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "590ba4df_cea18216",
       "range": {
         "startLine": 88,
         "startChar": 18,

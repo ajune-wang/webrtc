@@ -218,6 +218,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "b0a38290_5b045a73",
+        "filename": "modules/video_coding/codecs/av1/libaom_av1_encoder.h",
+        "patchSetId": 7
+      },
+      "lineNbr": 19,
+      "author": {
+        "id": 5527
+      },
+      "writtenOn": "2022-01-20T11:09:30Z",
+      "side": 1,
+      "message": "My idea is to get rid of BuiltinVideoEncoder/DecoderFactory altogether, so I guess the way to do that is to:\n1. Implement CreateVideoEncoderFactory/CreateVideoDecoderFactory templates.\n2. Replace all instances of the builtin codec factories (just instantiate them with the same codecs that are already being used).\n3. Remove builtin codec factories.\n\nI just want to point out that this CL does not change the way build flags affect the BuiltinVideoEncoderFactory, I just added the intermediate build target libaom_av1_encoder_if_supported that will conditionally include the libaom av1 encoder instead of having that behavior for the libaom_av1_encoder build target.",
+      "parentUuid": "70d5d071_d3f294e5",
+      "range": {
+        "startLine": 19,
+        "startChar": 0,
+        "endLine": 19,
+        "endChar": 55
+      },
+      "revId": "12a6041e1e3d81fadd75f59a8336bb1f141fa6f2",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "f9e9a487_843af092",
         "filename": "modules/video_coding/codecs/av1/libaom_av1_encoder_supported.cc",
         "patchSetId": 7

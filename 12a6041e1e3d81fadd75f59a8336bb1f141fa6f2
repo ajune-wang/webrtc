@@ -194,6 +194,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "70d5d071_d3f294e5",
+        "filename": "modules/video_coding/codecs/av1/libaom_av1_encoder.h",
+        "patchSetId": 7
+      },
+      "lineNbr": 19,
+      "author": {
+        "id": 5087
+      },
+      "writtenOn": "2022-01-20T11:00:59Z",
+      "side": 1,
+      "message": "I like this idea.\n\nSo, if we remove the internal factories, do we risk a linker error of just hitting CHECKS() at runtime (with nice error messages to redirect users towards this pattern)?",
+      "parentUuid": "10982ab0_e9e9e662",
+      "range": {
+        "startLine": 19,
+        "startChar": 0,
+        "endLine": 19,
+        "endChar": 55
+      },
+      "revId": "12a6041e1e3d81fadd75f59a8336bb1f141fa6f2",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "f9e9a487_843af092",
         "filename": "modules/video_coding/codecs/av1/libaom_av1_encoder_supported.cc",
         "patchSetId": 7

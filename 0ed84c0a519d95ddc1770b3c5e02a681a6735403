@@ -35,6 +35,24 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "0783a2df_b2c127fb",
+        "filename": "modules/desktop_capture/BUILD.gn",
+        "patchSetId": 18
+      },
+      "lineNbr": 588,
+      "author": {
+        "id": 8046
+      },
+      "writtenOn": "2022-01-20T13:16:38Z",
+      "side": 1,
+      "message": "Took me a while to remember why I did that and getting crashes with \"smash stack detected\" helped me to realize. Without this, some parts of Chromium using DesktopCapturerOptions will not have WEBRTC_USE_PIPEWIRE defined, while some will have it defined, which results into mixing DesktopCapturerOptions with different set of functions (namely set_screencast_stream()/screencast_stream()).",
+      "parentUuid": "c64eed04_0173a5d3",
+      "revId": "0ed84c0a519d95ddc1770b3c5e02a681a6735403",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "91f7853e_13e497ca",
@@ -48,6 +66,24 @@
       "writtenOn": "2022-01-20T00:55:06Z",
       "side": 1,
       "message": "Is it legal to pass nullptr here?",
+      "revId": "0ed84c0a519d95ddc1770b3c5e02a681a6735403",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "ae52d576_902700bf",
+        "filename": "modules/desktop_capture/desktop_capture_options.h",
+        "patchSetId": 18
+      },
+      "lineNbr": 176,
+      "author": {
+        "id": 8046
+      },
+      "writtenOn": "2022-01-20T13:16:38Z",
+      "side": 1,
+      "message": "I don\u0027t see how that could happen, this is only being called with a new SharedScreenCastStream from DesktopCaptureOptions::CreateDefault(). In case screencast_stream_ is nullptr, then the capturer will fail to be initialized.",
+      "parentUuid": "91f7853e_13e497ca",
       "revId": "0ed84c0a519d95ddc1770b3c5e02a681a6735403",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
@@ -69,6 +105,24 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "0a18f9ed_7fc5d17c",
+        "filename": "modules/desktop_capture/desktop_capture_options.h",
+        "patchSetId": 18
+      },
+      "lineNbr": 188,
+      "author": {
+        "id": 8046
+      },
+      "writtenOn": "2022-01-20T13:16:38Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "0394d02c_76c635be",
+      "revId": "0ed84c0a519d95ddc1770b3c5e02a681a6735403",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "e1549d82_3ca29e26",
@@ -82,6 +136,24 @@
       "writtenOn": "2022-01-20T00:55:06Z",
       "side": 1,
       "message": "Is there any difference in behavior for the ScreenCastPortal for window vs. desktop capture?  If the ScreenCastPortal can handle any capture type, maybe it does not need a source parameter to be passed in the ctor?",
+      "revId": "0ed84c0a519d95ddc1770b3c5e02a681a6735403",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "dc4667c7_7b4b69e0",
+        "filename": "modules/desktop_capture/linux/wayland/base_capturer_pipewire.cc",
+        "patchSetId": 18
+      },
+      "lineNbr": 22,
+      "author": {
+        "id": 8046
+      },
+      "writtenOn": "2022-01-20T13:16:38Z",
+      "side": 1,
+      "message": "It\u0027s just about what value is sent in one of DBus calls. In the future I plan to extend this with option to request access to webcams.",
+      "parentUuid": "e1549d82_3ca29e26",
       "revId": "0ed84c0a519d95ddc1770b3c5e02a681a6735403",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
@@ -103,6 +175,24 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "cabe4643_b1d2ae62",
+        "filename": "modules/desktop_capture/linux/wayland/base_capturer_pipewire.cc",
+        "patchSetId": 18
+      },
+      "lineNbr": 36,
+      "author": {
+        "id": 8046
+      },
+      "writtenOn": "2022-01-20T13:16:38Z",
+      "side": 1,
+      "message": "Unfortunately no, because this is all asynchronous. It can for example fail when a user rejects the portal dialog and by that time the capturer is initialized already and probably asked few times for a frame.",
+      "parentUuid": "0d9504c1_c3e6c4b4",
+      "revId": "0ed84c0a519d95ddc1770b3c5e02a681a6735403",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "ec77d914_4fdba49e",
@@ -116,6 +206,24 @@
       "writtenOn": "2022-01-20T00:55:06Z",
       "side": 1,
       "message": "If capturer_failed_ \u003d\u003d true, should you still try to stop the stream?",
+      "revId": "0ed84c0a519d95ddc1770b3c5e02a681a6735403",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "e5178697_839ffdbc",
+        "filename": "modules/desktop_capture/linux/wayland/base_capturer_pipewire.cc",
+        "patchSetId": 18
+      },
+      "lineNbr": 42,
+      "author": {
+        "id": 8046
+      },
+      "writtenOn": "2022-01-20T13:16:38Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "ec77d914_4fdba49e",
       "revId": "0ed84c0a519d95ddc1770b3c5e02a681a6735403",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
@@ -137,6 +245,24 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "c4037ba8_fc66ef31",
+        "filename": "modules/desktop_capture/linux/wayland/base_capturer_pipewire.cc",
+        "patchSetId": 18
+      },
+      "lineNbr": 90,
+      "author": {
+        "id": 8046
+      },
+      "writtenOn": "2022-01-20T13:16:38Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "4a1f83bd_90e5031b",
+      "revId": "0ed84c0a519d95ddc1770b3c5e02a681a6735403",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "34483324_ea32c9e3",
@@ -150,6 +276,24 @@
       "writtenOn": "2022-01-20T00:55:06Z",
       "side": 1,
       "message": "Does the BaseCapturerPipewire ctor need to be public, if this is the way to create a new one?",
+      "revId": "0ed84c0a519d95ddc1770b3c5e02a681a6735403",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "94347fa6_8321b173",
+        "filename": "modules/desktop_capture/linux/wayland/base_capturer_pipewire.h",
+        "patchSetId": 18
+      },
+      "lineNbr": 30,
+      "author": {
+        "id": 8046
+      },
+      "writtenOn": "2022-01-20T13:16:38Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "34483324_ea32c9e3",
       "revId": "0ed84c0a519d95ddc1770b3c5e02a681a6735403",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
@@ -171,6 +315,24 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "81d1325e_d776ec9b",
+        "filename": "modules/desktop_capture/linux/wayland/screencast_portal.cc",
+        "patchSetId": 18
+      },
+      "lineNbr": 24,
+      "author": {
+        "id": 8046
+      },
+      "writtenOn": "2022-01-20T13:16:38Z",
+      "side": 1,
+      "message": "Yes.",
+      "parentUuid": "e61677b2_1d1f726c",
+      "revId": "0ed84c0a519d95ddc1770b3c5e02a681a6735403",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "72cbe38c_c3de4544",
@@ -184,6 +346,24 @@
       "writtenOn": "2022-01-20T00:55:06Z",
       "side": 1,
       "message": "Update year on copyright (here and elsewhere)",
+      "revId": "0ed84c0a519d95ddc1770b3c5e02a681a6735403",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "3c5e6f2d_f63d19d1",
+        "filename": "modules/desktop_capture/linux/wayland/screencast_portal.h",
+        "patchSetId": 18
+      },
+      "lineNbr": 2,
+      "author": {
+        "id": 8046
+      },
+      "writtenOn": "2022-01-20T13:16:38Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "72cbe38c_c3de4544",
       "revId": "0ed84c0a519d95ddc1770b3c5e02a681a6735403",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
@@ -205,6 +385,24 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "37bda1d3_c61bb871",
+        "filename": "modules/desktop_capture/linux/wayland/screencast_portal.h",
+        "patchSetId": 18
+      },
+      "lineNbr": 38,
+      "author": {
+        "id": 8046
+      },
+      "writtenOn": "2022-01-20T13:16:38Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "06a22083_a6dfcf24",
+      "revId": "0ed84c0a519d95ddc1770b3c5e02a681a6735403",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "dccc779d_1efae3ad",
@@ -218,6 +416,24 @@
       "writtenOn": "2022-01-20T00:55:06Z",
       "side": 1,
       "message": "Style: enum values should use kCamelCase.",
+      "revId": "0ed84c0a519d95ddc1770b3c5e02a681a6735403",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "7d037ad9_0f7cb43b",
+        "filename": "modules/desktop_capture/linux/wayland/screencast_portal.h",
+        "patchSetId": 18
+      },
+      "lineNbr": 46,
+      "author": {
+        "id": 8046
+      },
+      "writtenOn": "2022-01-20T13:16:38Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "dccc779d_1efae3ad",
       "revId": "0ed84c0a519d95ddc1770b3c5e02a681a6735403",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
@@ -239,6 +455,24 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "f169e870_45d50372",
+        "filename": "modules/desktop_capture/linux/wayland/screencast_portal.h",
+        "patchSetId": 18
+      },
+      "lineNbr": 79,
+      "author": {
+        "id": 8046
+      },
+      "writtenOn": "2022-01-20T13:16:38Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "fde09367_cda18b3d",
+      "revId": "0ed84c0a519d95ddc1770b3c5e02a681a6735403",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "15c120da_7c3ad27b",
@@ -252,6 +486,24 @@
       "writtenOn": "2022-01-20T00:55:06Z",
       "side": 1,
       "message": "Please document these two fields.",
+      "revId": "0ed84c0a519d95ddc1770b3c5e02a681a6735403",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "ff8273db_8917e0fc",
+        "filename": "modules/desktop_capture/linux/wayland/screencast_portal.h",
+        "patchSetId": 18
+      },
+      "lineNbr": 84,
+      "author": {
+        "id": 8046
+      },
+      "writtenOn": "2022-01-20T13:16:38Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "15c120da_7c3ad27b",
       "revId": "0ed84c0a519d95ddc1770b3c5e02a681a6735403",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
@@ -273,6 +525,24 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "bad26f30_ba0e1733",
+        "filename": "modules/desktop_capture/linux/wayland/screencast_portal.h",
+        "patchSetId": 18
+      },
+      "lineNbr": 85,
+      "author": {
+        "id": 8046
+      },
+      "writtenOn": "2022-01-20T13:16:38Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "52f7d635_a5d739d1",
+      "revId": "0ed84c0a519d95ddc1770b3c5e02a681a6735403",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "1c655b68_35cd522e",
@@ -286,6 +556,24 @@
       "writtenOn": "2022-01-20T00:55:06Z",
       "side": 1,
       "message": "It looks like the dbus APIs pass these in/out as \"guint\" types.  \n\nI don\u0027t mind using the more readable uint_32t types for these values but I don\u0027t see any guarantees that a guint is in fact 32 bits wide.  Can you add a static_assert to that effect?",
+      "revId": "0ed84c0a519d95ddc1770b3c5e02a681a6735403",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "2cd7dc60_e30cd231",
+        "filename": "modules/desktop_capture/linux/wayland/screencast_portal.h",
+        "patchSetId": 18
+      },
+      "lineNbr": 99,
+      "author": {
+        "id": 8046
+      },
+      "writtenOn": "2022-01-20T13:16:38Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "1c655b68_35cd522e",
       "revId": "0ed84c0a519d95ddc1770b3c5e02a681a6735403",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
@@ -307,6 +595,24 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "e0a2618b_370ae747",
+        "filename": "modules/desktop_capture/linux/wayland/shared_screencast_stream.cc",
+        "patchSetId": 18
+      },
+      "lineNbr": 12,
+      "author": {
+        "id": 8046
+      },
+      "writtenOn": "2022-01-20T13:16:38Z",
+      "side": 1,
+      "message": "Yes and I did check all includes. Thank you.",
+      "parentUuid": "afad8aa3_9cfe2494",
+      "revId": "0ed84c0a519d95ddc1770b3c5e02a681a6735403",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "53e02201_e6e27808",
@@ -320,6 +626,24 @@
       "writtenOn": "2022-01-20T00:55:06Z",
       "side": 1,
       "message": "For example I didn\u0027t see any code that needs ioctl.h or syscall.h but I could have missed something.",
+      "revId": "0ed84c0a519d95ddc1770b3c5e02a681a6735403",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "03fdf6fa_d917f040",
+        "filename": "modules/desktop_capture/linux/wayland/shared_screencast_stream.cc",
+        "patchSetId": 18
+      },
+      "lineNbr": 20,
+      "author": {
+        "id": 8046
+      },
+      "writtenOn": "2022-01-20T13:16:38Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "53e02201_e6e27808",
       "revId": "0ed84c0a519d95ddc1770b3c5e02a681a6735403",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
@@ -341,6 +665,24 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "bab01142_fb39ae24",
+        "filename": "modules/desktop_capture/linux/wayland/shared_screencast_stream.h",
+        "patchSetId": 18
+      },
+      "lineNbr": 19,
+      "author": {
+        "id": 8046
+      },
+      "writtenOn": "2022-01-20T13:16:38Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "74ec9b58_551562bd",
+      "revId": "0ed84c0a519d95ddc1770b3c5e02a681a6735403",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "e6df6f1e_1e047353",
@@ -354,6 +696,24 @@
       "writtenOn": "2022-01-20T00:55:06Z",
       "side": 1,
       "message": "Is this #include necessary?",
+      "revId": "0ed84c0a519d95ddc1770b3c5e02a681a6735403",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "5adaffcd_15acdce1",
+        "filename": "modules/desktop_capture/linux/wayland/shared_screencast_stream.h",
+        "patchSetId": 18
+      },
+      "lineNbr": 21,
+      "author": {
+        "id": 8046
+      },
+      "writtenOn": "2022-01-20T13:16:38Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "e6df6f1e_1e047353",
       "revId": "0ed84c0a519d95ddc1770b3c5e02a681a6735403",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
@@ -375,6 +735,24 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "a99feeb8_fe94a067",
+        "filename": "modules/desktop_capture/linux/wayland/shared_screencast_stream.h",
+        "patchSetId": 18
+      },
+      "lineNbr": 22,
+      "author": {
+        "id": 8046
+      },
+      "writtenOn": "2022-01-20T13:16:38Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "ae61980a_7bda220d",
+      "revId": "0ed84c0a519d95ddc1770b3c5e02a681a6735403",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "7f05b0d1_aea227ca",
@@ -392,6 +770,24 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "d9b1fc1d_50f128e8",
+        "filename": "modules/desktop_capture/linux/wayland/shared_screencast_stream.h",
+        "patchSetId": 18
+      },
+      "lineNbr": 44,
+      "author": {
+        "id": 8046
+      },
+      "writtenOn": "2022-01-20T13:16:38Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "7f05b0d1_aea227ca",
+      "revId": "0ed84c0a519d95ddc1770b3c5e02a681a6735403",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "96820be4_41d1626b",
@@ -405,6 +801,24 @@
       "writtenOn": "2022-01-20T00:55:06Z",
       "side": 1,
       "message": "Chromium discourages use of these macros, preferring to declare the copy/move operations as deleted.  Not sure if WebRTC is following that style yet.",
+      "revId": "0ed84c0a519d95ddc1770b3c5e02a681a6735403",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "206e0a59_1d4bdfb3",
+        "filename": "modules/desktop_capture/linux/wayland/shared_screencast_stream.h",
+        "patchSetId": 18
+      },
+      "lineNbr": 46,
+      "author": {
+        "id": 8046
+      },
+      "writtenOn": "2022-01-20T13:16:38Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "96820be4_41d1626b",
       "revId": "0ed84c0a519d95ddc1770b3c5e02a681a6735403",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }

@@ -67,6 +67,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "6a5333de_dab783dd",
+        "filename": "logging/rtc_event_log/rtc_event_log_impl.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 152,
+      "author": {
+        "id": 5150
+      },
+      "writtenOn": "2022-01-20T12:48:02Z",
+      "side": 1,
+      "message": "Yes, the log will drop events once the buffer is full, but it will drop the oldest event (and insert the newest).\n\nOne possibility would be to keep the cyclic buffer, but move it out of the task queue. The disadvantage is that it requires additional locks on the buffer. (Potentially also moving some work onto the real-time threads).\n\nAnother possibility might be to deprecate the current behavior of always keeping the most recent events. However, this creates a different problem where events start to come in when the PeerConnection is created, but starting logging requires an additional function call after PeerConnection has been created.\n\nOut of curiosity, could you explain how you measured the impact of the posted tasks?",
+      "parentUuid": "d33d5b21_3efcf36b",
+      "range": {
+        "startLine": 152,
+        "startChar": 0,
+        "endLine": 152,
+        "endChar": 18
+      },
+      "revId": "8f7d5ad494f3a54db5239c4627c2bd212efb9711",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "590ba4df_cea18216",
         "filename": "logging/rtc_event_log/rtc_event_log_impl.h",
         "patchSetId": 3

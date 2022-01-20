@@ -122,6 +122,30 @@
       },
       "revId": "0148e236127d116fdf149460bdcb65b9d0974e55",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "e374db63_6a8e55ab",
+        "filename": "rtc_base/thread.h",
+        "patchSetId": 9
+      },
+      "lineNbr": 462,
+      "author": {
+        "id": 5508
+      },
+      "writtenOn": "2022-01-20T10:59:26Z",
+      "side": 1,
+      "message": "I think that it\u0027s fine to lose RTC_FROM_HERE. Tracing async tasks across threads in Chrome was one of the key reason for having it in the first place, but we haven\u0027t really taken advantage of it in WebRTC (and in my experience, the value in Chrome has been lower than I initially expected). So lgtm from my perspective.",
+      "parentUuid": "dc6425ff_b2f5902d",
+      "range": {
+        "startLine": 462,
+        "startChar": 24,
+        "endLine": 462,
+        "endChar": 37
+      },
+      "revId": "0148e236127d116fdf149460bdcb65b9d0974e55",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

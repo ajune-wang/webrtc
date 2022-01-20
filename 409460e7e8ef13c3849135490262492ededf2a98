@@ -16,6 +16,23 @@
       "message": "lgtm by driveby!",
       "revId": "409460e7e8ef13c3849135490262492ededf2a98",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "3abe9df9_8f0021d0",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 14
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2022-01-20T11:12:30Z",
+      "side": 1,
+      "message": "Commentary on RTC_FROM_HERE: It is a great tool for debugging (and should probably be compiled out on non-debug builds), but is currently not that useful because there are a few very general purpose functions that set RTC_FROM_HERE to the function, not the place that it is called from, and don\u0027t offer a variant that allow the caller to pass RTC_FROM_HERE.\n\nI would like to see RTC_FROM_HERE move up the stack.",
+      "revId": "409460e7e8ef13c3849135490262492ededf2a98",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

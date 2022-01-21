@@ -14,6 +14,7 @@
 #include <memory>
 #include <utility>
 
+#include "absl/strings/string_view.h"
 #include "api/task_queue/default_task_queue_factory.h"
 #include "api/test/create_frame_generator.h"
 #include "api/video_codecs/builtin_video_decoder_factory.h"
@@ -40,14 +41,14 @@ constexpr int kDefaultSsrc = 1337;
 constexpr int kMaxConfigBufferSize = 8192;
 
 // Utility function to validate a correct codec type has been passed in.
-bool IsValidCodecType(const std::string& codec_name) {
+bool IsValidCodecType(absl::string_view codec_name) {
   return cricket::kVp8CodecName == codec_name ||
          cricket::kVp9CodecName == codec_name ||
          cricket::kH264CodecName == codec_name;
 }
 
 // Utility function to return some base payload type for a codec_name.
-int GetDefaultTypeForPayloadName(const std::string& codec_name) {
+int GetDefaultTypeForPayloadName(absl::string_view codec_name) {
   if (cricket::kVp8CodecName == codec_name) {
     return kPayloadTypeVp8;
   }

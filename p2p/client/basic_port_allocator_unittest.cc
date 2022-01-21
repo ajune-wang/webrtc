@@ -14,6 +14,7 @@
 #include <ostream>  // no-presubmit-check TODO(webrtc:8982)
 
 #include "absl/algorithm/container.h"
+#include "absl/strings/string_view.h"
 #include "p2p/base/basic_packet_socket_factory.h"
 #include "p2p/base/p2p_constants.h"
 #include "p2p/base/stun_port.h"
@@ -268,7 +269,7 @@ class BasicPortAllocatorTestBase : public ::testing::Test,
   }
 
   std::unique_ptr<PortAllocatorSession> CreateSession(
-      const std::string& sid,
+      absl::string_view sid,
       const std::string& content_name,
       int component,
       const std::string& ice_ufrag,
@@ -303,22 +304,24 @@ class BasicPortAllocatorTestBase : public ::testing::Test,
   // Returns the number of ports that have matching type, protocol and
   // address.
   static int CountPorts(const std::vector<PortInterface*>& ports,
-                        const std::string& type,
+                        absl::string_view type,
                         ProtocolType protocol,
                         const SocketAddress& client_addr) {
     return absl::c_count_if(
-        ports, [type, protocol, client_addr](PortInterface* port) {
+        ports,
+        [type = std::string(type), protocol, client_addr](PortInterface* port) {
           return port->Type() == type && port->GetProtocol() == protocol &&
                  port->Network()->GetBestIP() == client_addr.ipaddr();
         });
   }
 
   static int CountCandidates(const std::vector<Candidate>& candidates,
-                             const std::string& type,
-                             const std::string& proto,
+                             absl::string_view type,
+                             absl::string_view proto,
                              const SocketAddress& addr) {
     return absl::c_count_if(
-        candidates, [type, proto, addr](const Candidate& c) {
+        candidates, [type = std::string(type), proto = std::string(proto),
+                     addr](const Candidate& c) {
           return c.type() == type && c.protocol() == proto &&
                  AddressMatch(c.address(), addr);
         });
@@ -326,12 +329,13 @@ class BasicPortAllocatorTestBase : public ::testing::Test,
 
   // Find a candidate and return it.
   static bool FindCandidate(const std::vector<Candidate>& candidates,
-                            const std::string& type,
-                            const std::string& proto,
+                            absl::string_view type,
+                            absl::string_view proto,
                             const SocketAddress& addr,
                             Candidate* found) {
-    auto it =
-        absl::c_find_if(candidates, [type, proto, addr](const Candidate& c) {
+    auto it = absl::c_find_if(
+        candidates, [type = std::string(type), proto = std::string(proto),
+                     addr](const Candidate& c) {
           return c.type() == type && c.protocol() == proto &&
                  AddressMatch(c.address(), addr);
         });
@@ -352,12 +356,13 @@ class BasicPortAllocatorTestBase : public ::testing::Test,
   // Version of HasCandidate that also takes a related address.
   static bool HasCandidateWithRelatedAddr(
       const std::vector<Candidate>& candidates,
-      const std::string& type,
-      const std::string& proto,
+      absl::string_view type,
+      absl::string_view proto,
       const SocketAddress& addr,
       const SocketAddress& related_addr) {
     return absl::c_any_of(
-        candidates, [type, proto, addr, related_addr](const Candidate& c) {
+        candidates, [type = std::string(type), proto = std::string(proto), addr,
+                     related_addr](const Candidate& c) {
           return c.type() == type && c.protocol() == proto &&
                  AddressMatch(c.address(), addr) &&
                  AddressMatch(c.related_address(), related_addr);

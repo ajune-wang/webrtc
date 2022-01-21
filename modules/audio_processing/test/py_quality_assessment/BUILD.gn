@@ -106,6 +106,7 @@ if (!build_with_chromium) {
     deps = [
       "../../../../rtc_base:checks",
       "../../../../rtc_base:rtc_base_approved",
+      "//third_party/abseil-cpp/absl/strings",
     ]
   }
 

@@ -10,6 +10,7 @@
 
 #include <memory>
 
+#include "absl/strings/string_view.h"
 #include "api/test/simulated_network.h"
 #include "api/test/video/function_video_encoder_factory.h"
 #include "call/fake_network_pipe.h"
@@ -34,7 +35,7 @@ constexpr int kHeight = 720;
 constexpr int kFps = 30;
 constexpr int kFramesToObserve = 10;
 
-uint8_t PayloadNameToPayloadType(const std::string& payload_name) {
+uint8_t PayloadNameToPayloadType(absl::string_view payload_name) {
   if (payload_name == "VP8") {
     return test::CallTest::kPayloadTypeVP8;
   } else if (payload_name == "VP9") {

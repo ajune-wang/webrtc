@@ -16,6 +16,7 @@
 #include <vector>
 
 #include "absl/algorithm/container.h"
+#include "absl/strings/string_view.h"
 #include "api/audio_options.h"
 #include "api/media_stream_interface.h"
 #include "api/priority.h"
@@ -367,7 +368,7 @@ RTCError RtpSenderBase::DisableEncodingLayers(
     // Remain active if not in the disable list.
     encoding.active &= absl::c_none_of(
         rids,
-        [&encoding](const std::string& rid) { return encoding.rid == rid; });
+        [&encoding](absl::string_view rid) { return encoding.rid == rid; });
   }
 
   RTCError result = SetParametersInternal(parameters);

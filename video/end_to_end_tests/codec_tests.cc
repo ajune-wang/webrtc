@@ -9,6 +9,8 @@
  */
 
 #include <memory>
+
+#include "absl/strings/string_view.h"
 #include "absl/types/optional.h"
 #include "api/test/video/function_video_encoder_factory.h"
 #include "api/video/color_space.h"
@@ -50,7 +52,7 @@ class CodecObserver : public test::EndToEndTest,
   CodecObserver(int no_frames_to_wait_for,
                 VideoRotation rotation_to_test,
                 absl::optional<ColorSpace> color_space_to_test,
-                const std::string& payload_name,
+                absl::string_view payload_name,
                 VideoEncoderFactory* encoder_factory,
                 VideoDecoderFactory* decoder_factory)
       : EndToEndTest(4 * CodecEndToEndTest::kDefaultTimeoutMs),

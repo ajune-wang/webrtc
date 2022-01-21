@@ -18,6 +18,7 @@
 #include <utility>
 #include <vector>
 
+#include "absl/strings/string_view.h"
 #include "api/audio/echo_canceller3_config_json.h"
 #include "api/audio/echo_canceller3_factory.h"
 #include "api/audio/echo_detector_creator.h"
@@ -60,7 +61,7 @@ EchoCanceller3Config ReadAec3ConfigFromJsonFile(const std::string& filename) {
   return cfg;
 }
 
-std::string GetIndexedOutputWavFilename(const std::string& wav_name,
+std::string GetIndexedOutputWavFilename(absl::string_view wav_name,
                                         int counter) {
   rtc::StringBuilder ss;
   ss << wav_name.substr(0, wav_name.size() - 4) << "_" << counter

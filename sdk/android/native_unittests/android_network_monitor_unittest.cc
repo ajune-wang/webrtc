@@ -10,6 +10,7 @@
 
 #include "sdk/android/src/jni/android_network_monitor.h"
 
+#include "absl/strings/string_view.h"
 #include "rtc_base/ip_address.h"
 #include "sdk/android/native_unittests/application_context_provider.h"
 #include "sdk/android/src/jni/jni_helpers.h"
@@ -25,7 +26,7 @@ static const char kTestIpv6Address1[] = "2a00:8a00:a000:1190:0000:0001:000:252";
 static const char kTestIpv6Address2[] = "2a00:8a00:a000:1190:0000:0002:000:253";
 
 jni::NetworkInformation CreateNetworkInformation(
-    const std::string& interface_name,
+    absl::string_view interface_name,
     jni::NetworkHandle network_handle,
     const rtc::IPAddress& ip_address) {
   jni::NetworkInformation net_info;

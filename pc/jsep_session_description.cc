@@ -12,6 +12,7 @@
 
 #include <memory>
 
+#include "absl/strings/string_view.h"
 #include "p2p/base/port.h"
 #include "pc/media_session.h"
 #include "pc/webrtc_sdp.h"
@@ -34,7 +35,7 @@ constexpr int kPreferenceRelayed = 3;
 constexpr char kDummyAddress[] = "0.0.0.0";
 constexpr int kDummyPort = 9;
 
-int GetCandidatePreferenceFromType(const std::string& type) {
+int GetCandidatePreferenceFromType(absl::string_view type) {
   int preference = kPreferenceUnknown;
   if (type == cricket::LOCAL_PORT_TYPE) {
     preference = kPreferenceHost;

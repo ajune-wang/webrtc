@@ -20,6 +20,7 @@
 #include <vector>
 
 #include "absl/strings/str_replace.h"
+#include "absl/strings/string_view.h"
 #include "absl/types/optional.h"
 #include "api/audio/audio_mixer.h"
 #include "api/audio_codecs/audio_decoder_factory.h"
@@ -506,8 +507,8 @@ void SetSsrcToZero(std::string* sdp) {
 
 // Check if `streams` contains the specified track.
 bool ContainsTrack(const std::vector<cricket::StreamParams>& streams,
-                   const std::string& stream_id,
-                   const std::string& track_id) {
+                   absl::string_view stream_id,
+                   absl::string_view track_id) {
   for (const cricket::StreamParams& params : streams) {
     if (params.first_stream_id() == stream_id && params.id == track_id) {
       return true;
@@ -519,7 +520,7 @@ bool ContainsTrack(const std::vector<cricket::StreamParams>& streams,
 // Check if `senders` contains the specified sender, by id.
 bool ContainsSender(
     const std::vector<rtc::scoped_refptr<RtpSenderInterface>>& senders,
-    const std::string& id) {
+    absl::string_view id) {
   for (const auto& sender : senders) {
     if (sender->id() == id) {
       return true;
@@ -531,8 +532,8 @@ bool ContainsSender(
 // Check if `senders` contains the specified sender, by id and stream id.
 bool ContainsSender(
     const std::vector<rtc::scoped_refptr<RtpSenderInterface>>& senders,
-    const std::string& id,
-    const std::string& stream_id) {
+    absl::string_view id,
+    absl::string_view stream_id) {
   for (const auto& sender : senders) {
     if (sender->id() == id && sender->stream_ids()[0] == stream_id) {
       return true;
@@ -729,14 +730,14 @@ class PeerConnectionInterfaceBaseTest : public ::testing::Test {
     return CreatePeerConnection(config);
   }
 
-  void CreatePeerConnectionWithIceServer(const std::string& uri,
-                                         const std::string& username,
-                                         const std::string& password) {
+  void CreatePeerConnectionWithIceServer(absl::string_view uri,
+                                         absl::string_view username,
+                                         absl::string_view password) {
     PeerConnectionInterface::RTCConfiguration config;
     PeerConnectionInterface::IceServer server;
-    server.uri = uri;
-    server.username = username;
-    server.password = password;
+    server.uri = std::string{uri};
+    server.username = std::string{username};
+    server.password = std::string{password};
     config.servers.push_back(server);
     CreatePeerConnection(config);
   }
@@ -768,10 +769,10 @@ class PeerConnectionInterfaceBaseTest : public ::testing::Test {
     EXPECT_EQ(PeerConnectionInterface::kStable, observer_.state_);
   }
 
-  void CreatePeerConnectionExpectFail(const std::string& uri) {
+  void CreatePeerConnectionExpectFail(absl::string_view uri) {
     PeerConnectionInterface::RTCConfiguration config;
     PeerConnectionInterface::IceServer server;
-    server.uri = uri;
+    server.uri = std::string{uri};
     config.servers.push_back(server);
     config.sdp_semantics = sdp_semantics_;
     rtc::scoped_refptr<PeerConnectionInterface> pc =

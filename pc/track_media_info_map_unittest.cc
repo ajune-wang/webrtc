@@ -16,6 +16,7 @@
 #include <utility>
 #include <vector>
 
+#include "absl/strings/string_view.h"
 #include "api/rtp_sender_interface.h"
 #include "api/test/mock_video_track.h"
 #include "api/transport/rtp/rtp_source.h"
@@ -87,7 +88,7 @@ rtc::scoped_refptr<VideoTrackInterface> CreateVideoTrack(
 }
 
 rtc::scoped_refptr<VideoTrackInterface> CreateMockVideoTrack(
-    const std::string& id) {
+    absl::string_view id) {
   auto track = MockVideoTrack::Create();
   EXPECT_CALL(*track, kind())
       .WillRepeatedly(::testing::Return(VideoTrack::kVideoKind));

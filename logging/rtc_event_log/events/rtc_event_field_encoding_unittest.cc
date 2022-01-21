@@ -12,6 +12,7 @@
 #include <memory>
 #include <string>
 
+#include "absl/strings/string_view.h"
 #include "api/rtc_event_log/rtc_event.h"
 #include "logging/rtc_event_log/encoder/var_int.h"
 #include "logging/rtc_event_log/events/rtc_event_field_encoding_parser.h"
@@ -255,7 +256,7 @@ class RtcEventFieldTest : public ::testing::Test {
     }
   }
 
-  void PrintBytes(const std::string& s) {
+  void PrintBytes(absl::string_view s) {
     for (auto c : s) {
       fprintf(stderr, "%d ", static_cast<uint8_t>(c));
     }

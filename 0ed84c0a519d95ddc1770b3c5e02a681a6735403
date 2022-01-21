@@ -71,6 +71,24 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "b99b8803_5612b939",
+        "filename": "modules/desktop_capture/BUILD.gn",
+        "patchSetId": 18
+      },
+      "lineNbr": 588,
+      "author": {
+        "id": 8046
+      },
+      "writtenOn": "2022-01-21T07:57:48Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "fe53f40d_4c845eed",
+      "revId": "0ed84c0a519d95ddc1770b3c5e02a681a6735403",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "91f7853e_13e497ca",

@@ -56,6 +56,30 @@
       },
       "revId": "356c066507ebd895fe1ad7dfade49536ce972969",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "ff985fb2_5f7b9c58",
+        "filename": "api/video/video_stream_encoder_settings.h",
+        "patchSetId": 9
+      },
+      "lineNbr": 29,
+      "author": {
+        "id": 5825
+      },
+      "writtenOn": "2022-01-21T10:36:02Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "d95192f0_a8bd9e9b",
+      "range": {
+        "startLine": 29,
+        "startChar": 66,
+        "endLine": 29,
+        "endChar": 75
+      },
+      "revId": "356c066507ebd895fe1ad7dfade49536ce972969",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

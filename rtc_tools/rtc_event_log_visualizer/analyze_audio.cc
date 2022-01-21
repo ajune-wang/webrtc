@@ -15,6 +15,7 @@
 #include <utility>
 #include <vector>
 
+#include "absl/strings/string_view.h"
 #include "modules/audio_coding/neteq/tools/audio_sink.h"
 #include "modules/audio_coding/neteq/tools/fake_decode_from_file.h"
 #include "modules/audio_coding/neteq/tools/neteq_delay_analyzer.h"
@@ -296,7 +297,7 @@ std::unique_ptr<test::NetEqStatsGetter> CreateNetEqTestAndRun(
     const std::vector<LoggedRtpPacketIncoming>* packet_stream,
     const std::vector<LoggedAudioPlayoutEvent>* output_events,
     absl::optional<int64_t> end_time_ms,
-    const std::string& replacement_file_name,
+    absl::string_view replacement_file_name,
     int file_sample_rate_hz) {
   std::unique_ptr<test::NetEqInput> input(
       new NetEqStreamInput(packet_stream, output_events, end_time_ms));

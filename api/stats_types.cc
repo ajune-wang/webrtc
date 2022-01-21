@@ -13,6 +13,7 @@
 #include <string.h>
 
 #include "absl/algorithm/container.h"
+#include "absl/strings/string_view.h"
 #include "rtc_base/checks.h"
 #include "rtc_base/ref_counted_object.h"
 #include "rtc_base/string_encode.h"
@@ -71,7 +72,7 @@ class BandwidthEstimationId : public StatsReport::IdBase {
 
 class TypedId : public StatsReport::IdBase {
  public:
-  TypedId(StatsReport::StatsType type, const std::string& id)
+  TypedId(StatsReport::StatsType type, absl::string_view id)
       : StatsReport::IdBase(type), id_(id) {}
 
   bool Equals(const IdBase& other) const override {
@@ -109,7 +110,7 @@ class TypedIntId : public StatsReport::IdBase {
 class IdWithDirection : public TypedId {
  public:
   IdWithDirection(StatsReport::StatsType type,
-                  const std::string& id,
+                  absl::string_view id,
                   StatsReport::Direction direction)
       : TypedId(type, id), direction_(direction) {}
 
@@ -131,7 +132,7 @@ class IdWithDirection : public TypedId {
 
 class CandidateId : public TypedId {
  public:
-  CandidateId(bool local, const std::string& id)
+  CandidateId(bool local, absl::string_view id)
       : TypedId(local ? StatsReport::kStatsReportTypeIceLocalCandidate
                       : StatsReport::kStatsReportTypeIceRemoteCandidate,
                 id) {}
@@ -141,7 +142,7 @@ class CandidateId : public TypedId {
 
 class ComponentId : public StatsReport::IdBase {
  public:
-  ComponentId(const std::string& content_name, int component)
+  ComponentId(absl::string_view content_name, int component)
       : ComponentId(StatsReport::kStatsReportTypeComponent,
                     content_name,
                     component) {}
@@ -157,7 +158,7 @@ class ComponentId : public StatsReport::IdBase {
 
  protected:
   ComponentId(StatsReport::StatsType type,
-              const std::string& content_name,
+              absl::string_view content_name,
               int component)
       : IdBase(type), content_name_(content_name), component_(component) {}
 
@@ -176,7 +177,7 @@ class ComponentId : public StatsReport::IdBase {
 
 class CandidatePairId : public ComponentId {
  public:
-  CandidatePairId(const std::string& content_name, int component, int index)
+  CandidatePairId(absl::string_view content_name, int component, int index)
       : ComponentId(StatsReport::kStatsReportTypeCandidatePair,
                     content_name,
                     component),

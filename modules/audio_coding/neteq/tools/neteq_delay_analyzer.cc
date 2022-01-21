@@ -68,7 +68,7 @@ void PrintDelays(const NetEqDelayAnalyzer::Delays& delays,
                  absl::string_view var_name_x,
                  absl::string_view var_name_y,
                  std::ofstream& output,
-                 const std::string& terminator = "") {
+                 absl::string_view terminator = "") {
   output << var_name_x << " = [ ";
   for (const std::pair<int64_t, float>& delay : delays) {
     output << (delay.first - ref_time_ms) / 1000.f << ", ";

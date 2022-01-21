@@ -10,6 +10,8 @@
 
 #include <time.h>
 
+#include "absl/strings/string_view.h"
+
 #if defined(WEBRTC_WIN)
 #include <windows.h>
 #include <winsock2.h>
@@ -185,7 +187,7 @@ void HttpParseAttributes(const char* data,
 }
 
 bool HttpHasAttribute(const HttpAttributeList& attributes,
-                      const std::string& name,
+                      absl::string_view name,
                       std::string* value) {
   for (HttpAttributeList::const_iterator it = attributes.begin();
        it != attributes.end(); ++it) {
@@ -213,7 +215,7 @@ bool HttpHasNthAttribute(HttpAttributeList& attributes,
   return true;
 }
 
-std::string quote(const std::string& str) {
+std::string quote(absl::string_view str) {
   std::string result;
   result.push_back('"');
   for (size_t i = 0; i < str.size(); ++i) {

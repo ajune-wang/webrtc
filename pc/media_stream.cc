@@ -15,13 +15,14 @@
 #include <utility>
 #include <vector>
 
+#include "absl/strings/string_view.h"
 #include "rtc_base/checks.h"
 #include "rtc_base/ref_counted_object.h"
 
 namespace webrtc {
 
 template <class V>
-static typename V::iterator FindTrack(V* vector, const std::string& track_id) {
+static typename V::iterator FindTrack(V* vector, absl::string_view track_id) {
   typename V::iterator it = vector->begin();
   for (; it != vector->end(); ++it) {
     if ((*it)->id() == track_id) {
@@ -59,7 +60,7 @@ rtc::scoped_refptr<AudioTrackInterface> MediaStream::FindAudioTrack(
     const std::string& track_id) {
   AudioTrackVector::iterator it = FindTrack(&audio_tracks_, track_id);
   if (it == audio_tracks_.end())
-    return nullptr;
+    return NULL;
   return *it;
 }
 
@@ -67,7 +68,7 @@ rtc::scoped_refptr<VideoTrackInterface> MediaStream::FindVideoTrack(
     const std::string& track_id) {
   VideoTrackVector::iterator it = FindTrack(&video_tracks_, track_id);
   if (it == video_tracks_.end())
-    return nullptr;
+    return NULL;
   return *it;
 }
 

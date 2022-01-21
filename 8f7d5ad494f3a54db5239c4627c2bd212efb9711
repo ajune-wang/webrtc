@@ -132,6 +132,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "eb49b281_82922387",
+        "filename": "logging/rtc_event_log/rtc_event_log_impl.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 152,
+      "author": {
+        "id": 5150
+      },
+      "writtenOn": "2022-01-21T12:57:47Z",
+      "side": 1,
+      "message": "Yeah, the second option is better from a performance point of view, but will also require more work. New PeerConnection API, wire up a new JS API in chromium, call new API from Meet, etc.\n\nA third possibility might be to introduce a PostBackgroundTask() which (like PostDelayedTask) doesn\u0027t wake up the thread immediately, but when the thread actually does wave up, it processes all BackgroundTasks.",
+      "parentUuid": "f392edc9_50fa5fc9",
+      "range": {
+        "startLine": 152,
+        "startChar": 0,
+        "endLine": 152,
+        "endChar": 18
+      },
+      "revId": "8f7d5ad494f3a54db5239c4627c2bd212efb9711",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "590ba4df_cea18216",
         "filename": "logging/rtc_event_log/rtc_event_log_impl.h",
         "patchSetId": 3

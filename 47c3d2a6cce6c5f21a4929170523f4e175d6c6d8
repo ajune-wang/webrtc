@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "c6b1f78d_baf3748c",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 9405
+      },
+      "writtenOn": "2022-01-21T00:59:03Z",
+      "side": 1,
+      "message": "Hello, this is another batch with bulk changes. Please let me know if this CL needs to be approved the owner of each subdirectories.",
+      "revId": "47c3d2a6cce6c5f21a4929170523f4e175d6c6d8",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

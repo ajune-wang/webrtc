@@ -16,6 +16,23 @@
       "message": "PTAL Harald",
       "revId": "a95e6d4bc89f424829c2637682c1051487ee4c54",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "2af3250e_f2497586",
+        "filename": "pc/sdp_offer_answer.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 2520,
+      "author": {
+        "id": 7755
+      },
+      "writtenOn": "2022-01-21T16:36:40Z",
+      "side": 1,
+      "message": "chromium currently ignores that and never calls addIceCandidate with the null candidate.",
+      "revId": "a95e6d4bc89f424829c2637682c1051487ee4c54",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

@@ -240,6 +240,30 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "0e94bd88_ba129936",
+        "filename": "modules/video_coding/codecs/av1/libaom_av1_encoder.h",
+        "patchSetId": 7
+      },
+      "lineNbr": 19,
+      "author": {
+        "id": 5087
+      },
+      "writtenOn": "2022-01-21T10:12:33Z",
+      "side": 1,
+      "message": "Thanks.\n\nOk, let\u0027s go.",
+      "parentUuid": "b0a38290_5b045a73",
+      "range": {
+        "startLine": 19,
+        "startChar": 0,
+        "endLine": 19,
+        "endChar": 55
+      },
+      "revId": "12a6041e1e3d81fadd75f59a8336bb1f141fa6f2",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "f9e9a487_843af092",
@@ -277,6 +301,30 @@
       "side": 1,
       "message": "For now kIsLibaomAv1EncoderSupported is still used in other places, I kept it for now to minimize changes. It can be removed in a followup CL.",
       "parentUuid": "f9e9a487_843af092",
+      "range": {
+        "startLine": 20,
+        "startChar": 0,
+        "endLine": 20,
+        "endChar": 47
+      },
+      "revId": "12a6041e1e3d81fadd75f59a8336bb1f141fa6f2",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "820b89ea_89f66fea",
+        "filename": "modules/video_coding/codecs/av1/libaom_av1_encoder_supported.cc",
+        "patchSetId": 7
+      },
+      "lineNbr": 20,
+      "author": {
+        "id": 5087
+      },
+      "writtenOn": "2022-01-21T10:12:33Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "bde7753b_37ddc53f",
       "range": {
         "startLine": 20,
         "startChar": 0,

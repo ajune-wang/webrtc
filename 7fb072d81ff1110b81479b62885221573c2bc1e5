@@ -22,6 +22,30 @@
       },
       "revId": "7fb072d81ff1110b81479b62885221573c2bc1e5",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "4f738f69_08c45903",
+        "filename": "rtc_base/string_encode.h",
+        "patchSetId": 3
+      },
+      "lineNbr": 65,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2022-01-21T10:11:43Z",
+      "side": 1,
+      "message": "Done. There\u0027s a test case for this. The logic seems to b that k occurrences of the delimiter implies k+1 fields, and that\u0027s true also for k \u003d 0.",
+      "parentUuid": "4c237ab4_b0ced3d2",
+      "range": {
+        "startLine": 64,
+        "startChar": 0,
+        "endLine": 65,
+        "endChar": 54
+      },
+      "revId": "7fb072d81ff1110b81479b62885221573c2bc1e5",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

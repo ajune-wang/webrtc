@@ -12,6 +12,7 @@
 
 #include "absl/algorithm/container.h"
 #include "absl/strings/match.h"
+#include "absl/strings/string_view.h"
 #include "api/video_codecs/h264_profile_level_id.h"
 #include "api/video_codecs/vp9_profile.h"
 #include "rtc_base/checks.h"
@@ -41,12 +42,12 @@ bool IsSameH264PacketizationMode(const CodecParameterMap& left,
 
 // Some (video) codecs are actually families of codecs and rely on parameters
 // to distinguish different incompatible family members.
-bool IsSameCodecSpecific(const std::string& name1,
+bool IsSameCodecSpecific(absl::string_view name1,
                          const CodecParameterMap& params1,
-                         const std::string& name2,
+                         absl::string_view name2,
                          const CodecParameterMap& params2) {
   // The names might not necessarily match, so check both.
-  auto either_name_matches = [&](const std::string name) {
+  auto either_name_matches = [&, name1, name2](const std::string name) {
     return absl::EqualsIgnoreCase(name, name1) ||
            absl::EqualsIgnoreCase(name, name2);
   };

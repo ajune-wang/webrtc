@@ -14,6 +14,7 @@
 #include <memory>
 #include <utility>
 
+#include "absl/strings/string_view.h"
 #include "api/array_view.h"
 #include "api/numerics/samples_stats_counter.h"
 #include "api/units/time_delta.h"
@@ -38,7 +39,7 @@ constexpr absl::string_view kSkipRenderedFrameReasonRendered = "rendered";
 constexpr absl::string_view kSkipRenderedFrameReasonDropped =
     "considered dropped";
 
-void LogFrameCounters(const std::string& name, const FrameCounters& counters) {
+void LogFrameCounters(absl::string_view name, const FrameCounters& counters) {
   RTC_LOG(LS_INFO) << "[" << name << "] Captured    : " << counters.captured;
   RTC_LOG(LS_INFO) << "[" << name << "] Pre encoded : " << counters.pre_encoded;
   RTC_LOG(LS_INFO) << "[" << name << "] Encoded     : " << counters.encoded;
@@ -63,7 +64,7 @@ absl::string_view ToString(FrameDropPhase phase) {
   }
 }
 
-void LogStreamInternalStats(const std::string& name,
+void LogStreamInternalStats(absl::string_view name,
                             const StreamStats& stats,
                             Timestamp start_time) {
   for (const auto& entry : stats.dropped_by_phase) {

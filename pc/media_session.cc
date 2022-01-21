@@ -300,7 +300,7 @@ static StreamParamsVec GetCurrentStreamParams(
 
 static StreamParams CreateStreamParamsForNewSenderWithSsrcs(
     const SenderOptions& sender,
-    const std::string& rtcp_cname,
+    absl::string_view rtcp_cname,
     bool include_rtx_streams,
     bool include_flexfec_stream,
     UniqueRandomIdGenerator* ssrc_generator) {
@@ -325,7 +325,7 @@ static StreamParams CreateStreamParamsForNewSenderWithSsrcs(
   result.GenerateSsrcs(sender.num_sim_layers, include_rtx_streams,
                        include_flexfec_stream, ssrc_generator);
 
-  result.cname = rtcp_cname;
+  result.cname = std::string{rtcp_cname};
   result.set_stream_ids(sender.stream_ids);
 
   return result;
@@ -344,14 +344,14 @@ static bool ValidateSimulcastLayers(
 
 static StreamParams CreateStreamParamsForNewSenderWithRids(
     const SenderOptions& sender,
-    const std::string& rtcp_cname) {
+    absl::string_view rtcp_cname) {
   RTC_DCHECK(!sender.rids.empty());
   RTC_DCHECK_EQ(sender.num_sim_layers, 0)
       << "RIDs are the compliant way to indicate simulcast.";
   RTC_DCHECK(ValidateSimulcastLayers(sender.rids, sender.simulcast_layers));
   StreamParams result;
   result.id = sender.track_id;
-  result.cname = rtcp_cname;
+  result.cname = std::string{rtcp_cname};
   result.set_stream_ids(sender.stream_ids);
 
   // More than one rid should be signaled.
@@ -1409,7 +1409,7 @@ static bool CreateMediaContentAnswer(
 }
 
 static bool IsMediaProtocolSupported(MediaType type,
-                                     const std::string& protocol,
+                                     absl::string_view protocol,
                                      bool secure_transport) {
   // Since not all applications serialize and deserialize the media protocol,
   // we will have to accept `protocol` to be empty.

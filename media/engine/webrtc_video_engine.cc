@@ -19,6 +19,7 @@
 
 #include "absl/algorithm/container.h"
 #include "absl/strings/match.h"
+#include "absl/strings/string_view.h"
 #include "api/media_stream_interface.h"
 #include "api/units/data_rate.h"
 #include "api/video/video_codec_constants.h"
@@ -251,7 +252,7 @@ std::vector<VideoCodec> GetPayloadTypesAndDefaultCodecs(
   return output_codecs;
 }
 
-bool IsTemporalLayersSupported(const std::string& codec_name) {
+bool IsTemporalLayersSupported(absl::string_view codec_name) {
   return absl::EqualsIgnoreCase(codec_name, kVp8CodecName) ||
          absl::EqualsIgnoreCase(codec_name, kVp9CodecName);
 }
@@ -323,7 +324,7 @@ static bool ValidateStreamParams(const StreamParams& sp) {
 }
 
 // Returns true if the given codec is disallowed from doing simulcast.
-bool IsCodecDisabledForSimulcast(const std::string& codec_name,
+bool IsCodecDisabledForSimulcast(absl::string_view codec_name,
                                  const webrtc::WebRtcKeyValueConfig& trials) {
   if (absl::EqualsIgnoreCase(codec_name, kVp9CodecName) ||
       absl::EqualsIgnoreCase(codec_name, kAv1CodecName)) {
@@ -1069,16 +1070,8 @@ webrtc::RtpParameters WebRtcVideoChannel::GetRtpSendParameters(
   // Need to add the common list of codecs to the send stream-specific
   // RTP parameters.
   for (const VideoCodec& codec : send_params_.codecs) {
-    if (send_codec_ && send_codec_->codec.id == codec.id) {
-      // Put the current send codec to the front of the codecs list.
-      RTC_DCHECK_EQ(codec.name, send_codec_->codec.name);
-      rtp_params.codecs.insert(rtp_params.codecs.begin(),
-                               codec.ToCodecParameters());
-    } else {
-      rtp_params.codecs.push_back(codec.ToCodecParameters());
-    }
+    rtp_params.codecs.push_back(codec.ToCodecParameters());
   }
-
   return rtp_params;
 }
 

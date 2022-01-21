@@ -12,6 +12,7 @@
 
 #include <stdint.h>
 
+#include "absl/strings/string_view.h"
 #include "rtc_base/byte_buffer.h"
 #include "rtc_base/copy_on_write_buffer.h"
 #include "test/gtest.h"
@@ -19,7 +20,7 @@
 class SctpUtilsTest : public ::testing::Test {
  public:
   void VerifyOpenMessageFormat(const rtc::CopyOnWriteBuffer& packet,
-                               const std::string& label,
+                               absl::string_view label,
                                const webrtc::DataChannelInit& config) {
     uint8_t message_type;
     uint8_t channel_type;

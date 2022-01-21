@@ -19,6 +19,7 @@
 #include <fstream>
 #include <string>
 
+#include "absl/strings/string_view.h"
 #include "test/gtest.h"
 #include "test/testsupport/file_utils.h"
 
@@ -27,9 +28,9 @@ namespace test {
 
 namespace {
 
-void VerifyLogOutput(const std::string& log_filename,
+void VerifyLogOutput(absl::string_view log_filename,
                      const std::vector<std::string>& expected_out) {
-  std::ifstream logf(log_filename);
+  std::ifstream logf(std::string{log_filename});
   std::string line;
 
   std::size_t i;

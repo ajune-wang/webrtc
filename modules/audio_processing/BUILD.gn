@@ -496,6 +496,7 @@ if (rtc_include_tests) {
       "../../test:perf_test",
       "../../test:test_support",
     ]
+    absl_deps = [ "//third_party/abseil-cpp/absl/strings" ]
   }
 
   rtc_library("analog_mic_simulation") {

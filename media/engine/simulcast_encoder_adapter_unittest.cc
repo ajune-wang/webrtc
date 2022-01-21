@@ -14,6 +14,7 @@
 #include <memory>
 #include <vector>
 
+#include "absl/strings/string_view.h"
 #include "api/test/create_simulcast_test_fixture.h"
 #include "api/test/simulcast_test_fixture.h"
 #include "api/test/video/function_video_decoder_factory.h"
@@ -266,8 +267,8 @@ class MockVideoEncoder : public VideoEncoder {
     supports_native_handle_ = enabled;
   }
 
-  void set_implementation_name(const std::string& name) {
-    implementation_name_ = name;
+  void set_implementation_name(absl::string_view name) {
+    implementation_name_ = std::string{name};
   }
 
   void set_init_encode_return_value(int32_t value) {

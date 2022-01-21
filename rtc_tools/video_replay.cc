@@ -16,6 +16,7 @@
 
 #include "absl/flags/flag.h"
 #include "absl/flags/parse.h"
+#include "absl/strings/string_view.h"
 #include "api/rtc_event_log/rtc_event_log.h"
 #include "api/task_queue/default_task_queue_factory.h"
 #include "api/test/video/function_video_decoder_factory.h"
@@ -144,7 +145,7 @@ static bool ValidateRtpHeaderExtensionId(int32_t extension_id) {
   return extension_id >= -1 && extension_id < 15;
 }
 
-bool ValidateInputFilenameNotEmpty(const std::string& string) {
+bool ValidateInputFilenameNotEmpty(absl::string_view string) {
   return !string.empty();
 }
 
@@ -224,7 +225,7 @@ static const uint32_t kReceiverLocalSsrc = 0x123456;
 
 class FileRenderPassthrough : public rtc::VideoSinkInterface<VideoFrame> {
  public:
-  FileRenderPassthrough(const std::string& basename,
+  FileRenderPassthrough(absl::string_view basename,
                         rtc::VideoSinkInterface<VideoFrame>* renderer)
       : basename_(basename), renderer_(renderer), file_(nullptr), count_(0) {}
 
@@ -280,7 +281,7 @@ class DecoderBitstreamFileWriter : public test::FakeDecoder {
 
 class DecoderIvfFileWriter : public test::FakeDecoder {
  public:
-  explicit DecoderIvfFileWriter(const char* filename, const std::string& codec)
+  explicit DecoderIvfFileWriter(const char* filename, absl::string_view codec)
       : file_writer_(
             IvfFileWriter::Wrap(FileWrapper::OpenWriteOnly(filename), 0)) {
     RTC_DCHECK(file_writer_.get());
@@ -394,11 +395,11 @@ class RtpReplayer final {
 
   // Loads multiple configurations from the provided configuration file.
   static std::unique_ptr<StreamState> ConfigureFromFile(
-      const std::string& config_path,
+      absl::string_view config_path,
       Call* call) {
     auto stream_state = std::make_unique<StreamState>();
     // Parse the configuration file.
-    std::ifstream config_file(config_path);
+    std::ifstream config_file(std::string{config_path});
     std::stringstream raw_json_buffer;
     raw_json_buffer << config_file.rdbuf();
     std::string raw_json = raw_json_buffer.str();
@@ -440,7 +441,7 @@ class RtpReplayer final {
 
   // Loads the base configuration from flags passed in on the commandline.
   static std::unique_ptr<StreamState> ConfigureFromFlags(
-      const std::string& rtp_dump_path,
+      absl::string_view rtp_dump_path,
       Call* call) {
     auto stream_state = std::make_unique<StreamState>();
     // Create the video renderers. We must add both to the stream state to keep

@@ -19,6 +19,7 @@
 #include <vector>
 
 #include "absl/algorithm/container.h"
+#include "absl/strings/string_view.h"
 #include "media/sctp/sctp_transport_internal.h"
 #include "p2p/base/fake_dtls_transport.h"
 #include "rtc_base/copy_on_write_buffer.h"
@@ -182,7 +183,7 @@ class SctpTransportTest : public ::testing::Test, public sigslot::has_slots<> {
 
   bool SendData(UsrsctpTransport* chan,
                 int sid,
-                const std::string& msg,
+                absl::string_view msg,
                 SendDataResult* result,
                 bool ordered = false) {
     webrtc::SendDataParams params;
@@ -194,7 +195,7 @@ class SctpTransportTest : public ::testing::Test, public sigslot::has_slots<> {
 
   bool ReceivedData(const SctpFakeDataReceiver* recv,
                     int sid,
-                    const std::string& msg) {
+                    absl::string_view msg) {
     return (recv->received() && recv->last_params().sid == sid &&
             recv->last_data() == msg);
   }

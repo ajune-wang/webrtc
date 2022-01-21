@@ -10,6 +10,7 @@
 
 #include <memory>
 
+#include "absl/strings/string_view.h"
 #include "p2p/base/fake_port_allocator.h"
 #include "p2p/base/test_stun_server.h"
 #include "p2p/client/basic_port_allocator.h"
@@ -174,13 +175,13 @@ class PeerConnectionIceBaseTest : public ::testing::Test {
 
   // Sets all ICE ufrag/pwds on the given session description.
   void SetIceUfragPwd(SessionDescriptionInterface* sdesc,
-                      const std::string& ufrag,
-                      const std::string& pwd) {
+                      absl::string_view ufrag,
+                      absl::string_view pwd) {
     auto* desc = sdesc->description();
     for (const auto& content : desc->contents()) {
       auto* transport_info = desc->GetTransportInfoByName(content.name);
-      transport_info->description.ice_ufrag = ufrag;
-      transport_info->description.ice_pwd = pwd;
+      transport_info->description.ice_ufrag = std::string{ufrag};
+      transport_info->description.ice_pwd = std::string{pwd};
     }
   }
 

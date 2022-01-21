@@ -14,13 +14,14 @@
 
 #include "absl/algorithm/container.h"
 #include "absl/memory/memory.h"
+#include "absl/strings/string_view.h"
 #include "rtc_base/checks.h"
 
 namespace cricket {
 namespace {
 
 ContentInfo* FindContentInfoByName(ContentInfos* contents,
-                                   const std::string& name) {
+                                   absl::string_view name) {
   RTC_DCHECK(contents);
   for (ContentInfo& content : *contents) {
     if (content.name == name) {

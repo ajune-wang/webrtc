@@ -20,6 +20,7 @@
 
 #include "absl/algorithm/container.h"
 #include "absl/strings/match.h"
+#include "absl/strings/string_view.h"
 #include "api/jsep_ice_candidate.h"
 #include "api/rtp_parameters.h"
 #include "api/rtp_transceiver_direction.h"
@@ -418,11 +419,16 @@ RTCErrorOr<rtc::scoped_refptr<PeerConnection>> PeerConnection::Create(
     std::unique_ptr<Call> call,
     const PeerConnectionInterface::RTCConfiguration& configuration,
     PeerConnectionDependencies dependencies) {
+  // Prior to adding this CHECK, the default value was kPlanB. Because kPlanB is
+  // about to be deprecated in favor of the spec-compliant kUnifiedPlan, the
+  // default will soon change to kUnifiedPlan. This CHECK ensures that anybody
+  // implicitly relying on the default being kPlanB is made aware of the change.
+  // To avoid crashing, you can overwrite sdp_semantics to kPlanB for the old
+  // behavior, but you will need to migrate to kUnifiedPlan before kPlanB is
+  // removed.
+  // TODO(https://crbug.com/webrtc/11121): When the default is kUnifiedPlan,
+  // delete kNotSpecified.
   // TODO(https://crbug.com/webrtc/13528): Remove support for kPlanB.
-  if (configuration.sdp_semantics == SdpSemantics::kPlanB_DEPRECATED) {
-    RTC_LOG(LS_WARNING)
-        << "PeerConnection constructed with legacy SDP semantics!";
-  }
 
   RTCError config_error = cricket::P2PTransportChannel::ValidateIceConfig(
       ParseIceConfig(configuration));
@@ -748,12 +754,12 @@ void PeerConnection::InitializeTransportController_n(
             }));
       });
   transport_controller_->SubscribeIceCandidateGathered(
-      [this](const std::string& transport,
+      [this](absl::string_view transport,
              const std::vector<cricket::Candidate>& candidates) {
         RTC_DCHECK_RUN_ON(network_thread());
         signaling_thread()->PostTask(
             ToQueuedTask(signaling_thread_safety_.flag(),
-                         [this, t = transport, c = candidates]() {
+                         [this, t = std::string(transport), c = candidates]() {
                            RTC_DCHECK_RUN_ON(signaling_thread());
                            OnTransportControllerCandidatesGathered(t, c);
                          }));

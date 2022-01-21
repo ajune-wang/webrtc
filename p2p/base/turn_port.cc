@@ -17,6 +17,7 @@
 
 #include "absl/algorithm/container.h"
 #include "absl/strings/match.h"
+#include "absl/strings/string_view.h"
 #include "absl/types/optional.h"
 #include "api/transport/stun.h"
 #include "p2p/base/connection.h"
@@ -110,7 +111,7 @@ class TurnCreatePermissionRequest : public StunRequest,
   TurnCreatePermissionRequest(TurnPort* port,
                               TurnEntry* entry,
                               const rtc::SocketAddress& ext_addr,
-                              const std::string& remote_ufrag);
+                              absl::string_view remote_ufrag);
   void Prepare(StunMessage* request) override;
   void OnSent() override;
   void OnResponse(StunMessage* response) override;
@@ -196,8 +197,8 @@ class TurnEntry : public sigslot::has_slots<> {
   sigslot::signal1<TurnEntry*> SignalDestroyed;
 
   const std::string& get_remote_ufrag() const { return remote_ufrag_; }
-  void set_remote_ufrag(const std::string& remote_ufrag) {
-    remote_ufrag_ = remote_ufrag;
+  void set_remote_ufrag(absl::string_view remote_ufrag) {
+    remote_ufrag_ = std::string{remote_ufrag};
   }
 
  private:
@@ -1622,7 +1623,7 @@ TurnCreatePermissionRequest::TurnCreatePermissionRequest(
     TurnPort* port,
     TurnEntry* entry,
     const rtc::SocketAddress& ext_addr,
-    const std::string& remote_ufrag)
+    absl::string_view remote_ufrag)
     : StunRequest(new TurnMessage()),
       port_(port),
       entry_(entry),

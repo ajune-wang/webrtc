@@ -13,6 +13,7 @@
 #include <string>
 #include <utility>
 
+#include "absl/strings/string_view.h"
 #include "rtc_base/arraysize.h"
 #include "rtc_base/checks.h"
 #include "rtc_base/format_macros.h"
@@ -33,7 +34,7 @@ namespace {
 // a histogram which measures the time it takes for a method/scope to execute.
 class ScopedHistogramTimer {
  public:
-  explicit ScopedHistogramTimer(const std::string& name)
+  explicit ScopedHistogramTimer(absl::string_view name)
       : histogram_name_(name), start_time_ms_(rtc::TimeMillis()) {}
   ~ScopedHistogramTimer() {
     const int64_t life_time_ms = rtc::TimeSince(start_time_ms_);

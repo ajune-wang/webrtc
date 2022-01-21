@@ -14,6 +14,7 @@
 
 #include <string>
 
+#include "absl/strings/string_view.h"
 #include "media/base/fake_rtp.h"
 #include "pc/test/srtp_test_util.h"
 #include "rtc_base/byte_order.h"
@@ -57,13 +58,13 @@ class SrtpSessionTest : public ::testing::Test {
     EXPECT_NE(0, memcmp(rtcp_packet_, kRtcpReport, rtcp_len_));
     rtcp_len_ = out_len;
   }
-  void TestUnprotectRtp(const std::string& cs) {
+  void TestUnprotectRtp(absl::string_view cs) {
     int out_len = 0, expected_len = sizeof(kPcmuFrame);
     EXPECT_TRUE(s2_.UnprotectRtp(rtp_packet_, rtp_len_, &out_len));
     EXPECT_EQ(expected_len, out_len);
     EXPECT_EQ(0, memcmp(rtp_packet_, kPcmuFrame, out_len));
   }
-  void TestUnprotectRtcp(const std::string& cs) {
+  void TestUnprotectRtcp(absl::string_view cs) {
     int out_len = 0, expected_len = sizeof(kRtcpReport);
     EXPECT_TRUE(s2_.UnprotectRtcp(rtcp_packet_, rtcp_len_, &out_len));
     EXPECT_EQ(expected_len, out_len);

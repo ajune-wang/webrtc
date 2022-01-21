@@ -20,6 +20,7 @@
 
 #include "absl/algorithm/container.h"
 #include "absl/strings/match.h"
+#include "absl/strings/string_view.h"
 #include "api/audio/audio_frame_processor.h"
 #include "api/audio_codecs/audio_codec_pair_id.h"
 #include "api/call/audio_sink.h"
@@ -794,8 +795,8 @@ class WebRtcVoiceMediaChannel::WebRtcAudioSendStream
  public:
   WebRtcAudioSendStream(
       uint32_t ssrc,
-      const std::string& mid,
-      const std::string& c_name,
+      absl::string_view mid,
+      absl::string_view c_name,
       const std::string track_id,
       const absl::optional<webrtc::AudioSendStream::Config::SendCodecSpec>&
           send_codec_spec,
@@ -818,8 +819,8 @@ class WebRtcVoiceMediaChannel::WebRtcAudioSendStream
     RTC_DCHECK(call);
     RTC_DCHECK(encoder_factory);
     config_.rtp.ssrc = ssrc;
-    config_.rtp.mid = mid;
-    config_.rtp.c_name = c_name;
+    config_.rtp.mid = std::string{mid};
+    config_.rtp.c_name = std::string{c_name};
     config_.rtp.extmap_allow_mixed = extmap_allow_mixed;
     config_.rtp.extensions = extensions;
     config_.has_dscp =
@@ -831,7 +832,7 @@ class WebRtcVoiceMediaChannel::WebRtcAudioSendStream
     config_.crypto_options = crypto_options;
     config_.rtcp_report_interval_ms = rtcp_report_interval_ms;
     rtp_parameters_.encodings[0].ssrc = ssrc;
-    rtp_parameters_.rtcp.cname = c_name;
+    rtp_parameters_.rtcp.cname = std::string{c_name};
     rtp_parameters_.header_extensions = extensions;
 
     audio_network_adaptor_config_from_options_ = audio_network_adaptor_config;
@@ -872,12 +873,12 @@ class WebRtcVoiceMediaChannel::WebRtcAudioSendStream
     ReconfigureAudioSendStream();
   }
 
-  void SetMid(const std::string& mid) {
+  void SetMid(absl::string_view mid) {
     RTC_DCHECK_RUN_ON(&worker_thread_checker_);
     if (config_.rtp.mid == mid) {
       return;
     }
-    config_.rtp.mid = mid;
+    config_.rtp.mid = std::string{mid};
     ReconfigureAudioSendStream();
   }
 

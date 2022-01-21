@@ -21,6 +21,7 @@
 #include <vector>
 
 #include "absl/strings/str_replace.h"
+#include "absl/strings/string_view.h"
 #include "absl/types/optional.h"
 #include "api/array_view.h"
 #include "api/transport/field_trial_based_config.h"
@@ -525,9 +526,9 @@ void VideoCodecTestFixtureImpl::AnalyzeAllFrames(
       rtc::SimpleStringBuilder modifier(modifier_buf);
       modifier << "_r" << rate_profile_idx << "_sl" << layer_stat.spatial_idx;
 
-      auto PrintResultHelper = [&modifier, this](const std::string& measurement,
+      auto PrintResultHelper = [&modifier, this](absl::string_view measurement,
                                                  double value,
-                                                 const std::string& units) {
+                                                 absl::string_view units) {
         PrintResult(measurement, modifier.str(), config_.test_name, value,
                     units, /*important=*/false);
       };

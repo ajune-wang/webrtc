@@ -14,6 +14,8 @@
 #include <string>
 #include <utility>
 
+#include "absl/strings/string_view.h"
+
 #if defined(WEBRTC_WIN)
 #include <windows.h>
 
@@ -44,7 +46,7 @@ std::string AddTrailingPathDelimiterIfNeeded(std::string directory);
 // `dir` must have a trailing delimiter. `prefix` must not include wild card
 // characters.
 std::vector<std::string> GetFilesWithPrefix(const std::string& directory,
-                                            const std::string& prefix);
+                                            absl::string_view prefix);
 bool DeleteFile(const std::string& file);
 bool MoveFile(const std::string& old_file, const std::string& new_file);
 bool IsFile(const std::string& file);
@@ -121,7 +123,7 @@ std::string AddTrailingPathDelimiterIfNeeded(std::string directory) {
 }
 
 std::vector<std::string> GetFilesWithPrefix(const std::string& directory,
-                                            const std::string& prefix) {
+                                            absl::string_view prefix) {
   RTC_DCHECK(absl::EndsWith(directory, "/"));
   DIR* dir = ::opendir(directory.c_str());
   if (dir == nullptr)
@@ -129,9 +131,9 @@ std::vector<std::string> GetFilesWithPrefix(const std::string& directory,
   std::vector<std::string> file_list;
   for (struct dirent* dirent = ::readdir(dir); dirent;
        dirent = ::readdir(dir)) {
-    std::string name = dirent->d_name;
+    absl::string_view name = dirent->d_name;
     if (name.compare(0, prefix.size(), prefix) == 0) {
-      file_list.emplace_back(directory + name);
+      file_list.emplace_back(directory + std::string{name});
     }
   }
   ::closedir(dir);

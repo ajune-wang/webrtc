@@ -430,6 +430,7 @@ if (is_android) {
       ":audio_api_java",
       ":base_java",
       "//rtc_base:base_java",
+      "//third_party/abseil-cpp/absl/strings",
       "//third_party/androidx:androidx_annotation_annotation_java",
     ]
   }
@@ -1179,7 +1180,10 @@ if (current_os == "linux" || is_android) {
       "../../system_wrappers:field_trial",
       "../../system_wrappers:metrics",
     ]
-    absl_deps = [ "//third_party/abseil-cpp/absl/types:optional" ]
+    absl_deps = [
+      "//third_party/abseil-cpp/absl/strings",
+      "//third_party/abseil-cpp/absl/types:optional",
+    ]
   }
 
   if (rtc_enable_android_aaudio) {
@@ -1609,7 +1613,10 @@ if (is_android) {
       "../../test:test_support",
       "../../testing/gtest",
     ]
-    absl_deps = [ "//third_party/abseil-cpp/absl/memory" ]
+    absl_deps = [
+      "//third_party/abseil-cpp/absl/memory",
+      "//third_party/abseil-cpp/absl/strings",
+    ]
   }
 
   rtc_android_library("native_unittests_java") {

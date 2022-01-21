@@ -661,7 +661,10 @@ if (!build_with_chromium) {
       "../../../rtc_tools:video_quality_analysis",
       "../../../system_wrappers",
     ]
-    absl_deps = [ "//third_party/abseil-cpp/absl/types:optional" ]
+    absl_deps = [
+      "//third_party/abseil-cpp/absl/strings",
+      "//third_party/abseil-cpp/absl/types:optional",
+    ]
   }
 
   # This target contains implementation details of DefaultVideoQualityAnalyzer,

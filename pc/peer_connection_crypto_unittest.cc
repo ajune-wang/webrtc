@@ -10,6 +10,7 @@
 
 #include <memory>
 
+#include "absl/strings/string_view.h"
 #include "api/audio_codecs/builtin_audio_decoder_factory.h"
 #include "api/audio_codecs/builtin_audio_encoder_factory.h"
 #include "api/create_peerconnection_factory.h"
@@ -135,9 +136,10 @@ SdpContentPredicate HaveSdesCryptos() {
   };
 }
 
-SdpContentPredicate HaveProtocol(const std::string& protocol) {
-  return [protocol](const cricket::ContentInfo* content,
-                    const cricket::TransportInfo* transport) {
+SdpContentPredicate HaveProtocol(absl::string_view protocol) {
+  return [protocol = std::string(protocol)](
+             const cricket::ContentInfo* content,
+             const cricket::TransportInfo* transport) {
     return content->media_description()->protocol() == protocol;
   };
 }

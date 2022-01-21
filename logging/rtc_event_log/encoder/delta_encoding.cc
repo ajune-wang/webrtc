@@ -16,11 +16,13 @@
 #include <utility>
 
 #include "absl/memory/memory.h"
+#include "absl/strings/string_view.h"
 #include "logging/rtc_event_log/encoder/bit_writer.h"
 #include "logging/rtc_event_log/encoder/var_int.h"
 #include "rtc_base/bit_buffer.h"
 #include "rtc_base/bitstream_reader.h"
 #include "rtc_base/checks.h"
+#include "rtc_base/constructor_magic.h"
 #include "rtc_base/logging.h"
 #include "rtc_base/numerics/safe_conversions.h"
 
@@ -186,9 +188,6 @@ class FixedLengthDeltaEncoder final {
       absl::optional<uint64_t> base,
       const std::vector<absl::optional<uint64_t>>& values);
 
-  FixedLengthDeltaEncoder(const FixedLengthDeltaEncoder&) = delete;
-  FixedLengthDeltaEncoder& operator=(const FixedLengthDeltaEncoder&) = delete;
-
  private:
   // Calculate min/max values of unsigned/signed deltas, given the bit width
   // of all the values in the series.
@@ -251,6 +250,8 @@ class FixedLengthDeltaEncoder final {
   // ctor has finished running when this is constructed, so that the lower
   // bound on the buffer size would be guaranteed correct.
   std::unique_ptr<BitWriter> writer_;
+
+  RTC_DISALLOW_COPY_AND_ASSIGN(FixedLengthDeltaEncoder);
 };
 
 // TODO(eladalon): Reduce the number of passes.
@@ -554,7 +555,7 @@ class FixedLengthDeltaDecoder final {
   // bitstream. Note that this does NOT imply that stream is valid, and will
   // be decoded successfully. It DOES imply that all other decoder classes
   // will fail to decode this input, though.
-  static bool IsSuitableDecoderFor(const std::string& input);
+  static bool IsSuitableDecoderFor(absl::string_view input);
 
   // Assuming that `input` is the result of fixed-size delta-encoding
   // that took place with the same value to `base` and over `num_of_deltas`
@@ -566,9 +567,6 @@ class FixedLengthDeltaDecoder final {
       absl::optional<uint64_t> base,
       size_t num_of_deltas);
 
-  FixedLengthDeltaDecoder(const FixedLengthDeltaDecoder&) = delete;
-  FixedLengthDeltaDecoder& operator=(const FixedLengthDeltaDecoder&) = delete;
-
  private:
   // Reads the encoding header in `input` and returns a FixedLengthDeltaDecoder
   // with the corresponding configuration, that can be used to decode the
@@ -579,7 +577,7 @@ class FixedLengthDeltaDecoder final {
   // the entire stream is free of error. Rather, only the encoding header is
   // examined and guaranteed.
   static std::unique_ptr<FixedLengthDeltaDecoder> Create(
-      const std::string& input,
+      absl::string_view input,
       absl::optional<uint64_t> base,
       size_t num_of_deltas);
 
@@ -622,9 +620,11 @@ class FixedLengthDeltaDecoder final {
 
   // The number of values to be known to be decoded.
   const size_t num_of_deltas_;
+
+  RTC_DISALLOW_COPY_AND_ASSIGN(FixedLengthDeltaDecoder);
 };
 
-bool FixedLengthDeltaDecoder::IsSuitableDecoderFor(const std::string& input) {
+bool FixedLengthDeltaDecoder::IsSuitableDecoderFor(absl::string_view input) {
   BitstreamReader reader(input);
   uint64_t encoding_type_bits = reader.ReadBits(kBitsInHeaderForEncodingType);
   if (!reader.Ok()) {
@@ -651,7 +651,7 @@ std::vector<absl::optional<uint64_t>> FixedLengthDeltaDecoder::DecodeDeltas(
 }
 
 std::unique_ptr<FixedLengthDeltaDecoder> FixedLengthDeltaDecoder::Create(
-    const std::string& input,
+    absl::string_view input,
     absl::optional<uint64_t> base,
     size_t num_of_deltas) {
   BitstreamReader reader(input);

@@ -10,6 +10,7 @@
 
 #include <string>
 
+#include "absl/strings/string_view.h"
 #include "api/test/video/function_video_encoder_factory.h"
 #include "media/engine/internal_encoder_factory.h"
 #include "modules/video_coding/codecs/h264/include/h264.h"
@@ -68,7 +69,7 @@ class QualityScalingTest : public test::CallTest {
 
 class ScalingObserver : public test::SendTest {
  protected:
-  ScalingObserver(const std::string& payload_name,
+  ScalingObserver(absl::string_view payload_name,
                   const std::vector<bool>& streams_active,
                   int start_bps,
                   bool automatic_resize,
@@ -151,7 +152,7 @@ class DownscalingObserver
     : public ScalingObserver,
       public test::FrameGeneratorCapturer::SinkWantsObserver {
  public:
-  DownscalingObserver(const std::string& payload_name,
+  DownscalingObserver(absl::string_view payload_name,
                       const std::vector<bool>& streams_active,
                       int start_bps,
                       bool automatic_resize,
@@ -180,7 +181,7 @@ class UpscalingObserver
     : public ScalingObserver,
       public test::FrameGeneratorCapturer::SinkWantsObserver {
  public:
-  UpscalingObserver(const std::string& payload_name,
+  UpscalingObserver(absl::string_view payload_name,
                     const std::vector<bool>& streams_active,
                     int start_bps,
                     bool automatic_resize,

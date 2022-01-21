@@ -248,11 +248,10 @@ void ChannelManager::DestroyVideoChannel(VideoChannel* channel) {
 void ChannelManager::DestroyChannel(ChannelInterface* channel) {
   RTC_DCHECK(channel);
 
-  // TODO(bugs.webrtc.org/11992): Change to either be called on the worker
-  // thread, or do this asynchronously on the worker.
   if (!worker_thread_->IsCurrent()) {
-    worker_thread_->Invoke<void>(RTC_FROM_HERE,
-                                 [&] { DestroyChannel(channel); });
+    // TODO(tommi): Use pending safety flag? Dtor currently does
+    // an invoke though, which guarantees that this runs.
+    worker_thread_->PostTask([this, channel] { DestroyChannel(channel); });
     return;
   }
 

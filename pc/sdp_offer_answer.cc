@@ -3523,7 +3523,6 @@ RTCError SdpOfferAnswerHandler::UpdateTransceiverChannel(
   if (content.rejected) {
     if (channel) {
       transceiver->internal()->SetChannel(nullptr, nullptr);
-      channel_manager()->DestroyChannel(channel);
     }
   } else {
     if (!channel) {
@@ -4802,23 +4801,15 @@ void SdpOfferAnswerHandler::DestroyTransceiverChannel(
     rtc::scoped_refptr<RtpTransceiverProxyWithInternal<RtpTransceiver>>
         transceiver) {
   TRACE_EVENT0("webrtc", "SdpOfferAnswerHandler::DestroyTransceiverChannel");
-  RTC_DCHECK(transceiver);
-  RTC_LOG_THREAD_BLOCK_COUNT();
-
-  cricket::ChannelInterface* channel = transceiver->internal()->channel();
-  RTC_DCHECK_BLOCK_COUNT_NO_MORE_THAN(0);
-  if (channel) {
-    // TODO(tommi): VideoRtpReceiver::SetMediaChannel blocks and jumps to the
-    // worker thread. When being set to nullptr, there are additional
-    // blocking calls to e.g. ClearRecordableEncodedFrameCallback which triggers
-    // another blocking call or Stop() for video channels.
-    // The channel object also needs to be de-initialized on the network thread
-    // so if ownership of the channel object lies with the transceiver, we could
-    // un-set the channel pointer and uninitialize/destruct the channel object
-    // at the same time, rather than in separate steps.
-    transceiver->internal()->SetChannel(nullptr, nullptr);
-    channel_manager()->DestroyChannel(channel);
-  }
+  // TODO(tommi): VideoRtpReceiver::SetMediaChannel blocks and jumps to the
+  // worker thread. When being set to nullptr, there are additional
+  // blocking calls to e.g. ClearRecordableEncodedFrameCallback which triggers
+  // another blocking call or Stop() for video channels.
+  // The channel object also needs to be de-initialized on the network thread
+  // so if ownership of the channel object lies with the transceiver, we could
+  // un-set the channel pointer and uninitialize/destruct the channel object
+  // at the same time, rather than in separate steps.
+  transceiver->internal()->SetChannel(nullptr, nullptr);
 }
 
 void SdpOfferAnswerHandler::DestroyDataChannelTransport(RTCError error) {

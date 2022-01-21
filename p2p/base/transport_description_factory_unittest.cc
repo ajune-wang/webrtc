@@ -16,6 +16,7 @@
 #include <string>
 #include <vector>
 
+#include "absl/strings/string_view.h"
 #include "p2p/base/p2p_constants.h"
 #include "p2p/base/transport_description.h"
 #include "rtc_base/copy_on_write_buffer.h"
@@ -43,9 +44,9 @@ class TransportDescriptionFactoryTest : public ::testing::Test {
 
   void CheckDesc(const TransportDescription* desc,
                  const std::string& opt,
-                 const std::string& ice_ufrag,
-                 const std::string& ice_pwd,
-                 const std::string& dtls_alg) {
+                 absl::string_view ice_ufrag,
+                 absl::string_view ice_pwd,
+                 absl::string_view dtls_alg) {
     ASSERT_TRUE(desc != NULL);
     EXPECT_EQ(!opt.empty(), desc->HasOption(opt));
     if (ice_ufrag.empty() && ice_pwd.empty()) {

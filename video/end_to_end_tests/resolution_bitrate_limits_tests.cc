@@ -10,6 +10,7 @@
 
 #include <algorithm>
 
+#include "absl/strings/string_view.h"
 #include "media/engine/webrtc_video_engine.h"
 #include "rtc_base/experiments/encoder_info_settings.h"
 #include "test/call_test.h"
@@ -86,7 +87,7 @@ class InitEncodeTest : public test::EndToEndTest,
     const Bitrate ne_bitrate_bps;
   };
 
-  InitEncodeTest(const std::string& payload_name,
+  InitEncodeTest(absl::string_view payload_name,
                  const std::vector<TestConfig>& configs,
                  const std::vector<Expectation>& expectations)
       : EndToEndTest(test::CallTest::kDefaultTimeoutMs),

@@ -10,6 +10,7 @@
 
 #include "rtc_base/ip_address.h"
 
+#include "absl/strings/string_view.h"
 #include "test/gtest.h"
 
 namespace rtc {
@@ -118,7 +119,7 @@ bool AreEqual(const IPAddress& addr, const IPAddress& addr2) {
   return true;
 }
 
-bool BrokenIPStringFails(const std::string& broken) {
+bool BrokenIPStringFails(absl::string_view broken) {
   IPAddress addr(0);  // Intentionally make it v4.
   if (IPFromString(kIPv4BrokenString1, &addr)) {
     return false;

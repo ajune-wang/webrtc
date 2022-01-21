@@ -20,6 +20,7 @@
 
 #include "absl/algorithm/container.h"
 #include "absl/memory/memory.h"
+#include "absl/strings/string_view.h"
 #include "p2p/base/basic_packet_socket_factory.h"
 #include "p2p/base/port.h"
 #include "p2p/base/stun_port.h"
@@ -89,7 +90,7 @@ int ComparePort(const cricket::Port* a, const cricket::Port* b) {
 
 struct NetworkFilter {
   using Predicate = std::function<bool(rtc::Network*)>;
-  NetworkFilter(Predicate pred, const std::string& description)
+  NetworkFilter(Predicate pred, absl::string_view description)
       : predRemain([pred](rtc::Network* network) { return !pred(network); }),
         description(description) {}
   Predicate predRemain;

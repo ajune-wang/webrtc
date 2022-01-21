@@ -502,6 +502,7 @@ if (rtc_include_tests) {
       absl_deps = [
         "//third_party/abseil-cpp/absl/container:inlined_vector",
         "//third_party/abseil-cpp/absl/memory",
+        "//third_party/abseil-cpp/absl/strings",
         "//third_party/abseil-cpp/absl/types:optional",
         "//third_party/abseil-cpp/absl/types:variant",
       ]
@@ -560,7 +561,10 @@ if (rtc_include_tests) {
         "../video",
         "//testing/gtest",
       ]
-      absl_deps = [ "//third_party/abseil-cpp/absl/flags:flag" ]
+      absl_deps = [
+        "//third_party/abseil-cpp/absl/flags:flag",
+        "//third_party/abseil-cpp/absl/strings:strings",
+      ]
     }
   }
 

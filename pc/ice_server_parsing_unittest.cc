@@ -13,6 +13,7 @@
 #include <string>
 #include <vector>
 
+#include "absl/strings/string_view.h"
 #include "p2p/base/port_interface.h"
 #include "rtc_base/ip_address.h"
 #include "rtc_base/socket_address.h"
@@ -47,20 +48,20 @@ class IceServerParsingTest : public ::testing::Test {
     return ParseUrl(url, username, password, tls_certificate_policy, "");
   }
 
-  bool ParseUrl(const std::string& url,
-                const std::string& username,
-                const std::string& password,
+  bool ParseUrl(absl::string_view url,
+                absl::string_view username,
+                absl::string_view password,
                 PeerConnectionInterface::TlsCertPolicy tls_certificate_policy,
-                const std::string& hostname) {
+                absl::string_view hostname) {
     stun_servers_.clear();
     turn_servers_.clear();
     PeerConnectionInterface::IceServers servers;
     PeerConnectionInterface::IceServer server;
-    server.urls.push_back(url);
-    server.username = username;
-    server.password = password;
+    server.urls.push_back(std::string(url));
+    server.username = std::string{username};
+    server.password = std::string{password};
     server.tls_cert_policy = tls_certificate_policy;
-    server.hostname = hostname;
+    server.hostname = std::string{hostname};
     servers.push_back(server);
     return webrtc::ParseIceServers(servers, &stun_servers_, &turn_servers_) ==
            webrtc::RTCErrorType::NONE;

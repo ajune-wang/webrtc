@@ -432,6 +432,8 @@ if (is_android) {
       "//rtc_base:base_java",
       "//third_party/androidx:androidx_annotation_annotation_java",
     ]
+
+    absl_deps = [ "//third_party/abseil-cpp/absl/memory" ]
   }
 
   rtc_android_library("builtin_audio_codecs_java") {
@@ -1609,7 +1611,10 @@ if (is_android) {
       "../../test:test_support",
       "../../testing/gtest",
     ]
-    absl_deps = [ "//third_party/abseil-cpp/absl/memory" ]
+    absl_deps = [
+      "//third_party/abseil-cpp/absl/memory",
+      "//third_party/abseil-cpp/absl/strings",
+    ]
   }
 
   rtc_android_library("native_unittests_java") {

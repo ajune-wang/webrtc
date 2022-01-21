@@ -15,7 +15,9 @@
 #include <type_traits>
 #include <utility>
 
+#include "absl/strings/string_view.h"
 #include "api/scoped_refptr.h"
+#include "rtc_base/constructor_magic.h"
 #include "rtc_base/ref_count.h"
 #include "test/gtest.h"
 
@@ -27,8 +29,8 @@ class A {
  public:
   A() {}
 
-  A(const A&) = delete;
-  A& operator=(const A&) = delete;
+ private:
+  RTC_DISALLOW_COPY_AND_ASSIGN(A);
 };
 
 class RefClass : public RefCountInterface {
@@ -52,7 +54,7 @@ class RefClassWithRvalue : public RefCountInterface {
 
 class RefClassWithMixedValues : public RefCountInterface {
  public:
-  RefClassWithMixedValues(std::unique_ptr<A> a, int b, const std::string& c)
+  RefClassWithMixedValues(std::unique_ptr<A> a, int b, absl::string_view c)
       : a_(std::move(a)), b_(b), c_(c) {}
 
  protected:

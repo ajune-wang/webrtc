@@ -51,6 +51,24 @@
       "parentUuid": "2af3250e_f2497586",
       "revId": "a95e6d4bc89f424829c2637682c1051487ee4c54",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "f1648c8c_bfca43a3",
+        "filename": "pc/sdp_offer_answer.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 2520,
+      "author": {
+        "id": 7755
+      },
+      "writtenOn": "2022-01-21T17:17:20Z",
+      "side": 1,
+      "message": "It is not simple.",
+      "parentUuid": "13bb8c1a_006b370d",
+      "revId": "a95e6d4bc89f424829c2637682c1051487ee4c54",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

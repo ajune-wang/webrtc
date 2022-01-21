@@ -91,6 +91,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "f392edc9_50fa5fc9",
+        "filename": "logging/rtc_event_log/rtc_event_log_impl.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 152,
+      "author": {
+        "id": 14069
+      },
+      "writtenOn": "2022-01-21T10:56:19Z",
+      "side": 1,
+      "message": "Tasks posted could cause CPU wake-ups, which is very expensive on power consumption, especially from idle states.\n\nI\u0027ve noticed the event logs here as I\u0027m working on power optimization of Chromium. I find that the rtc_eveng_log tasks are very heavy during a Meet call using Chromium but the contents it records might be used by very few users. Also, I\u0027ve noticed some other bugs reported on the busy logs (e.g. https://bugs.chromium.org/p/webrtc/issues/detail?id\u003d13408). That\u0027s why I\u0027m think about disable the logs by default and make it easy to enable anytime the user/developer wants during runtime.\n\nSo from the power aspect, the first possibility you said of using locks might be also expensive, as waiting might be needed sometimes. I prefer the second one you said but still not having a clear solution in my mind to the problem you mentioned, and will look into that. What do you think?",
+      "parentUuid": "6a5333de_dab783dd",
+      "range": {
+        "startLine": 152,
+        "startChar": 0,
+        "endLine": 152,
+        "endChar": 18
+      },
+      "revId": "8f7d5ad494f3a54db5239c4627c2bd212efb9711",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "590ba4df_cea18216",
         "filename": "logging/rtc_event_log/rtc_event_log_impl.h",
         "patchSetId": 3

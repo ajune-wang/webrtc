@@ -1506,7 +1506,7 @@ void WebRtcVideoChannel::ConfigureReceiverRtp(
 
   sp.GetFidSsrc(ssrc, &config->rtp.rtx_ssrc);
 
-  config->rtp.extensions = recv_rtp_extensions_;
+  config->rtp.set_extensions(recv_rtp_extensions_);
 
   // TODO(brandtr): Generalize when we add support for multistream protection.
   flexfec_config->payload_type = recv_flexfec_payload_type_;
@@ -1518,7 +1518,7 @@ void WebRtcVideoChannel::ConfigureReceiverRtp(
     // TODO(brandtr): We should be spec-compliant and set `transport_cc` here
     // based on the rtcp-fb for the FlexFEC codec, not the media codec.
     flexfec_config->rtp.transport_cc = config->rtp.transport_cc;
-    flexfec_config->rtp.extensions = config->rtp.extensions;
+    flexfec_config->rtp.set_extensions(config->rtp.extensions());
   }
 }
 
@@ -2827,7 +2827,7 @@ WebRtcVideoChannel::WebRtcVideoReceiveStream::GetRtpParameters() const {
     rtp_parameters.encodings.back().ssrc = ssrc;
   }
 
-  rtp_parameters.header_extensions = config_.rtp.extensions;
+  rtp_parameters.header_extensions = config_.rtp.extensions();
   rtp_parameters.rtcp.reduced_size =
       config_.rtp.rtcp_mode == webrtc::RtcpMode::kReducedSize;
 
@@ -2977,19 +2977,19 @@ void WebRtcVideoChannel::WebRtcVideoReceiveStream::SetRecvParameters(
   }
 
   if (params.rtp_header_extensions) {
-    if (config_.rtp.extensions != *params.rtp_header_extensions) {
-      config_.rtp.extensions = *params.rtp_header_extensions;
+    if (config_.rtp.extensions() != *params.rtp_header_extensions()) {
+      config_.rtp.set_extensions(*params.rtp_header_extensions);
       if (stream_) {
-        stream_->SetRtpExtensions(config_.rtp.extensions);
+        stream_->SetRtpExtensions(config_.rtp.extensions());
       } else {
         video_needs_recreation = true;
       }
     }
 
-    if (flexfec_config_.rtp.extensions != *params.rtp_header_extensions) {
-      flexfec_config_.rtp.extensions = *params.rtp_header_extensions;
+    if (flexfec_config_.rtp.extensions() != *params.rtp_header_extensions) {
+      flexfec_config_.rtp.set_extensions(*params.rtp_header_extensions);
       if (flexfec_stream_) {
-        flexfec_stream_->SetRtpExtensions(flexfec_config_.rtp.extensions);
+        flexfec_stream_->SetRtpExtensions(flexfec_config_.rtp.extensions());
       } else if (flexfec_config_.IsCompleteAndEnabled()) {
         video_needs_recreation = true;
       }

@@ -145,9 +145,10 @@ std::string VideoReceiveStream::Config::Rtp::ToString() const {
   }
   ss << '}';
   ss << ", extensions: [";
-  for (size_t i = 0; i < extensions.size(); ++i) {
-    ss << extensions[i].ToString();
-    if (i != extensions.size() - 1)
+  const auto& exts = extensions();
+  for (size_t i = 0; i < exts.size(); ++i) {
+    ss << exts[i].ToString();
+    if (i != exts.size() - 1)
       ss << ", ";
   }
   ss << ']';

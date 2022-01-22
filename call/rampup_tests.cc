@@ -216,7 +216,7 @@ void RampUpTester::ModifyVideoConfigs(
   size_t i = 0;
   for (VideoReceiveStream::Config& recv_config : *receive_configs) {
     recv_config.rtp.transport_cc = transport_cc;
-    recv_config.rtp.extensions = send_config->rtp.extensions;
+    recv_config.rtp.set_extensions(send_config->rtp.extensions);
     recv_config.decoders.reserve(1);
     recv_config.decoders[0].payload_type = send_config->rtp.payload_type;
     recv_config.decoders[0].video_format =
@@ -280,7 +280,7 @@ void RampUpTester::ModifyAudioConfigs(
 
   for (AudioReceiveStream::Config& recv_config : *receive_configs) {
     recv_config.rtp.transport_cc = transport_cc;
-    recv_config.rtp.extensions = send_config->rtp.extensions;
+    recv_config.rtp.set_extensions(send_config->rtp.extensions);
     recv_config.rtp.remote_ssrc = send_config->rtp.ssrc;
   }
 }
@@ -296,12 +296,12 @@ void RampUpTester::ModifyFlexfecConfigs(
   (*receive_configs)[0].rtp.local_ssrc = video_ssrcs_[0];
   if (extension_type_ == RtpExtension::kAbsSendTimeUri) {
     (*receive_configs)[0].rtp.transport_cc = false;
-    (*receive_configs)[0].rtp.extensions.push_back(
-        RtpExtension(extension_type_.c_str(), kAbsSendTimeExtensionId));
+    (*receive_configs)[0].rtp.set_extensions(
+        {RtpExtension(extension_type_.c_str(), kAbsSendTimeExtensionId)});
   } else if (extension_type_ == RtpExtension::kTransportSequenceNumberUri) {
     (*receive_configs)[0].rtp.transport_cc = true;
-    (*receive_configs)[0].rtp.extensions.push_back(RtpExtension(
-        extension_type_.c_str(), kTransportSequenceNumberExtensionId));
+    (*receive_configs)[0].rtp.set_extensions({RtpExtension(
+        extension_type_.c_str(), kTransportSequenceNumberExtensionId)});
   }
 }
 

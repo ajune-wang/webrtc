@@ -54,10 +54,11 @@ std::string FlexfecReceiveStream::Config::ToString() const {
   ss << "], transport_cc: " << (rtp.transport_cc ? "on" : "off");
   ss << ", rtp.extensions: [";
   i = 0;
-  for (; i + 1 < rtp.extensions.size(); ++i)
-    ss << rtp.extensions[i].ToString() << ", ";
-  if (!rtp.extensions.empty())
-    ss << rtp.extensions[i].ToString();
+  const auto& extensions = rtp.extensions();
+  for (; i + 1 < extensions.size(); ++i)
+    ss << extensions[i].ToString() << ", ";
+  if (!extensions.empty())
+    ss << extensions[i].ToString();
   ss << "]}";
   return ss.str();
 }
@@ -205,6 +206,12 @@ void FlexfecReceiveStreamImpl::SetRtpExtensions(
     std::vector<RtpExtension> extensions) {
   RTC_DCHECK_RUN_ON(&packet_sequence_checker_);
   config_.rtp.extensions = std::move(extensions);
+}
+
+const std::vector<RtpExtension>& FlexfecReceiveStreamImpl::rtp_extensions()
+    const {
+  RTC_DCHECK_RUN_ON(&packet_sequence_checker_);
+  return config_.rtp.extensions();
 }
 
 }  // namespace webrtc

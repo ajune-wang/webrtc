@@ -277,7 +277,7 @@ webrtc::AudioReceiveStream::Config BuildReceiveStreamConfig(
   if (!stream_ids.empty()) {
     config.sync_group = stream_ids[0];
   }
-  config.rtp.extensions = extensions;
+  config.rtp.set_extensions(extensions);
   config.rtcp_send_transport = rtcp_send_transport;
   config.enable_non_sender_rtt = enable_non_sender_rtt;
   config.decoder_factory = decoder_factory;
@@ -1308,7 +1308,7 @@ class WebRtcVoiceMediaChannel::WebRtcAudioReceiveStream {
     rtp_parameters.encodings.emplace_back();
     const auto& config = stream_->rtp_config();
     rtp_parameters.encodings[0].ssrc = config.remote_ssrc;
-    rtp_parameters.header_extensions = config.extensions;
+    rtp_parameters.header_extensions = config.extensions();
     return rtp_parameters;
   }
 

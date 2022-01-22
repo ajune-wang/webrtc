@@ -1151,13 +1151,13 @@ TEST(FullStackTest, MAYBE_High_Bitrate_With_Fake_Codec) {
   fixture->RunWithAnalyzer(generator);
 }
 
-#if defined(WEBRTC_ANDROID) || defined(WEBRTC_IOS)
+// #if defined(WEBRTC_ANDROID) || defined(WEBRTC_IOS)
 // Fails on mobile devices:
 // https://bugs.chromium.org/p/webrtc/issues/detail?id=7301
 #define MAYBE_Largeroom_50thumb DISABLED_Largeroom_50thumb
-#else
-#define MAYBE_Largeroom_50thumb Largeroom_50thumb
-#endif
+// #else
+// #define MAYBE_Largeroom_50thumb Largeroom_50thumb
+// #endif
 
 TEST(FullStackTest, MAYBE_Largeroom_50thumb) {
   auto fixture = CreateVideoQualityTestFixture();

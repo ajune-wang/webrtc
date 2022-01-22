@@ -180,6 +180,9 @@ void RtpTransceiver::SetChannel(
     signaling_thread_safety_ = PendingTaskSafetyFlag::Create();
   }
 
+  if (!channel && !channel_)
+    return;
+
   // An alternative to this, could be to require SetChannel to be called
   // on the network thread. The channel object operates for the most part
   // on the network thread, as part of its initialization being on the network

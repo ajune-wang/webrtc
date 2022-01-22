@@ -251,8 +251,8 @@ std::vector<RtpStreamSender> CreateRtpStreamSenders(
 
     configuration.need_rtp_packet_infos = rtp_config.lntf.enabled;
 
-    std::unique_ptr<ModuleRtpRtcpImpl2> rtp_rtcp(
-        ModuleRtpRtcpImpl2::Create(configuration));
+    std::unique_ptr<ModuleRtpRtcpImpl2> rtp_rtcp(ModuleRtpRtcpImpl2::Create(
+        configuration, transport->GetWorkerQueue()->Get()));
     rtp_rtcp->SetSendingStatus(false);
     rtp_rtcp->SetSendingMediaStatus(false);
     rtp_rtcp->SetRTCPStatus(RtcpMode::kCompound);
@@ -445,9 +445,6 @@ RtpVideoSender::RtpVideoSender(
   fec_controller_->SetProtectionMethod(fec_enabled, NackEnabled());
 
   fec_controller_->SetProtectionCallback(this);
-  // Signal congestion controller this object is ready for OnPacket* callbacks.
-  transport_->GetStreamFeedbackProvider()->RegisterStreamFeedbackObserver(
-      rtp_config_.ssrcs, this);
 
   // Construction happens on the worker thread (see Call::CreateVideoSendStream)
   // but subseqeuent calls to the RTP state will happen on one of two threads:
@@ -460,14 +457,9 @@ RtpVideoSender::RtpVideoSender(
 }
 
 RtpVideoSender::~RtpVideoSender() {
-  // TODO(bugs.webrtc.org/13517): Remove once RtpVideoSender gets deleted on the
-  // transport task queue.
-  transport_checker_.Detach();
-
+  RTC_DCHECK_RUN_ON(&transport_checker_);
   SetActiveModulesLocked(
       std::vector<bool>(rtp_streams_.size(), /*active=*/false));
-  transport_->GetStreamFeedbackProvider()->DeRegisterStreamFeedbackObserver(
-      this);
 }
 
 void RtpVideoSender::SetActive(bool active) {

@@ -15,6 +15,7 @@
 #include <utility>
 
 #include "api/array_view.h"
+#include "rtc_base/arraysize.h"
 #include "rtc_base/strings/string_builder.h"
 
 namespace webrtc {
@@ -184,6 +185,22 @@ bool RtpExtension::IsEncryptionSupported(absl::string_view uri) {
       uri != webrtc::RtpExtension::kEncryptHeaderExtensionsUri;
 }
 
+RTPExtensionType RtpExtension::TypeFromUri(absl::string_view uri) {
+  for (const auto& i : UriToTypeMap()) {
+    if (uri == i.uri)
+      return i.type;
+  }
+  return kRtpExtensionNone;
+}
+
+absl::string_view RtpExtension::UriFromType(RTPExtensionType type) {
+  for (const auto& i : UriToTypeMap()) {
+    if (type == i.type)
+      return i.uri;
+  }
+  return absl::string_view();
+}
+
 // Returns whether a header extension with the given URI exists.
 // Note: This does not differentiate between encrypted and non-encrypted
 // extensions, so use with care!
@@ -291,4 +308,38 @@ const std::vector<RtpExtension> RtpExtension::DeduplicateHeaderExtensions(
 
   return filtered;
 }
+
+rtc::ArrayView<const RtpExtension::UriToType> RtpExtension::UriToTypeMap() {
+  static const UriToType uri_to_type[] = {
+      {kTimestampOffsetUri, kRtpExtensionTransmissionTimeOffset},
+      {kAudioLevelUri, kRtpExtensionAudioLevel},
+      {kCsrcAudioLevelsUri, kRtpExtensionCsrcAudioLevel},
+      {"http://www.webrtc.org/experiments/rtp-hdrext/inband-cn",
+       kRtpExtensionInbandComfortNoise},
+      {kAbsSendTimeUri, kRtpExtensionAbsoluteSendTime},
+      {kAbsoluteCaptureTimeUri, kRtpExtensionAbsoluteCaptureTime},
+      {kVideoRotationUri, kRtpExtensionVideoRotation},
+      {kTransportSequenceNumberUri, kRtpExtensionTransportSequenceNumber},
+      {kTransportSequenceNumberV2Uri, kRtpExtensionTransportSequenceNumber02},
+      {kPlayoutDelayUri, kRtpExtensionPlayoutDelay},
+      {kVideoContentTypeUri, kRtpExtensionVideoContentType},
+      {kVideoLayersAllocationUri, kRtpExtensionVideoLayersAllocation},
+      {kVideoTimingUri, kRtpExtensionVideoTiming},
+      {kRidUri, kRtpExtensionRtpStreamId},
+      {kRepairedRidUri, kRtpExtensionRepairedRtpStreamId},
+      {kMidUri, kRtpExtensionMid},
+      // kRtpExtensionGenericFrameDescriptor ==
+      // kRtpExtensionGenericFrameDescriptor00
+      {kGenericFrameDescriptorUri00, kRtpExtensionGenericFrameDescriptor00},
+      {kDependencyDescriptorUri, kRtpExtensionGenericFrameDescriptor02},
+      {kColorSpaceUri, kRtpExtensionColorSpace},
+      {kVideoFrameTrackingIdUri, kRtpExtensionVideoFrameTrackingId},
+  };
+  // Static check to make sure that the map includes all the extension types
+  // (except for kRtpExtensionNone).
+  static_assert(arraysize(uri_to_type) == (kRtpExtensionNumberOfExtensions - 1),
+                "Missing items in map");
+  return rtc::ArrayView<const UriToType>(uri_to_type);
+}
+
 }  // namespace webrtc

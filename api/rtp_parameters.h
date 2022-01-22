@@ -19,6 +19,7 @@
 
 #include "absl/strings/string_view.h"
 #include "absl/types/optional.h"
+#include "api/array_view.h"
 #include "api/media_types.h"
 #include "api/priority.h"
 #include "api/rtp_transceiver_direction.h"
@@ -274,7 +275,8 @@ enum RTPExtensionType : int {
 };
 
 // RTP header extension, see RFC8285.
-struct RTC_EXPORT RtpExtension {
+class RTC_EXPORT RtpExtension {
+ public:
   enum Filter {
     // Encrypted extensions will be ignored and only non-encrypted extensions
     // will be considered.
@@ -300,6 +302,8 @@ struct RTC_EXPORT RtpExtension {
   static bool IsSupportedForVideo(absl::string_view uri);
   // Return "true" if the given RTP header extension URI may be encrypted.
   static bool IsEncryptionSupported(absl::string_view uri);
+  static RTPExtensionType TypeFromUri(absl::string_view uri);
+  static absl::string_view UriFromType(RTPExtensionType type);
 
   // Returns the header extension with the given URI or nullptr if not found.
   static const RtpExtension* FindHeaderExtensionByUri(
@@ -423,6 +427,14 @@ struct RTC_EXPORT RtpExtension {
   std::string uri;
   int id = 0;
   bool encrypt = false;
+
+ private:
+  struct UriToType {
+    const absl::string_view uri;
+    const RTPExtensionType type;
+  };
+
+  static rtc::ArrayView<const UriToType> UriToTypeMap();
 };
 
 struct RTC_EXPORT RtpFecParameters {

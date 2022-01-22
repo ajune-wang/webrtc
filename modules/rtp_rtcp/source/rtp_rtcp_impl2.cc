@@ -74,8 +74,9 @@ ModuleRtpRtcpImpl2::RtpSenderContext::RtpSenderContext(
           &packet_history,
           config.paced_sender ? config.paced_sender : &non_paced_sender) {}
 
-ModuleRtpRtcpImpl2::ModuleRtpRtcpImpl2(const Configuration& configuration)
-    : worker_queue_(TaskQueueBase::Current()),
+ModuleRtpRtcpImpl2::ModuleRtpRtcpImpl2(const Configuration& configuration,
+                                       TaskQueueBase* worker_queue)
+    : worker_queue_(worker_queue),
       rtcp_sender_(AddRtcpSendEvaluationCallback(
           RTCPSender::Configuration::FromRtpRtcpConfiguration(configuration),
           [this](TimeDelta duration) {
@@ -118,10 +119,11 @@ ModuleRtpRtcpImpl2::~ModuleRtpRtcpImpl2() {
 
 // static
 std::unique_ptr<ModuleRtpRtcpImpl2> ModuleRtpRtcpImpl2::Create(
-    const Configuration& configuration) {
+    const Configuration& configuration,
+    TaskQueueBase* worker_queue) {
   RTC_DCHECK(configuration.clock);
   RTC_DCHECK(TaskQueueBase::Current());
-  return std::make_unique<ModuleRtpRtcpImpl2>(configuration);
+  return std::make_unique<ModuleRtpRtcpImpl2>(configuration, worker_queue);
 }
 
 void ModuleRtpRtcpImpl2::SetRtxSendStatus(int mode) {

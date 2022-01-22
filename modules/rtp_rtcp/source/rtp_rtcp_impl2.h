@@ -53,8 +53,8 @@ struct RTPVideoHeader;
 class ModuleRtpRtcpImpl2 final : public RtpRtcpInterface,
                                  public RTCPReceiver::ModuleRtpRtcp {
  public:
-  explicit ModuleRtpRtcpImpl2(
-      const RtpRtcpInterface::Configuration& configuration);
+  ModuleRtpRtcpImpl2(const RtpRtcpInterface::Configuration& configuration,
+                     TaskQueueBase* worker_queue = TaskQueueBase::Current());
   ~ModuleRtpRtcpImpl2() override;
 
   // This method is provided to easy with migrating away from the
@@ -62,7 +62,8 @@ class ModuleRtpRtcpImpl2 final : public RtpRtcpInterface,
   // detail though, creating an instance of ModuleRtpRtcpImpl2 directly should
   // be fine.
   static std::unique_ptr<ModuleRtpRtcpImpl2> Create(
-      const Configuration& configuration);
+      const Configuration& configuration,
+      TaskQueueBase* worker_queue = TaskQueueBase::Current());
 
   // Receiver part.
 

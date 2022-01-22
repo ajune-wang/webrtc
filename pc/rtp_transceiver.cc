@@ -165,6 +165,9 @@ void RtpTransceiver::SetChannel(
     return;
   }
 
+  if (!channel && !channel_)
+    return;
+
   RTC_DCHECK(channel || channel_);
   RTC_DCHECK(!channel || transport_lookup) << "lookup function not supplied";
 

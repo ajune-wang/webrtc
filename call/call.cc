@@ -424,6 +424,8 @@ class Call final : public webrtc::Call,
 
   using RtpStateMap = std::map<uint32_t, RtpState>;
   RtpStateMap suspended_audio_send_ssrcs_ RTC_GUARDED_BY(worker_thread_);
+  // suspended_video_send_ssrcs_ should be
+  // RTC_GUARDED_BY(send_transport_sequence_checker_);
   RtpStateMap suspended_video_send_ssrcs_ RTC_GUARDED_BY(worker_thread_);
 
   using RtpPayloadStateMap = std::map<uint32_t, RtpPayloadState>;

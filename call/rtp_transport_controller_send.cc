@@ -9,6 +9,7 @@
  */
 #include "call/rtp_transport_controller_send.h"
 
+#include <algorithm>
 #include <memory>
 #include <utility>
 #include <vector>
@@ -167,29 +168,38 @@ RtpVideoSenderInterface* RtpTransportControllerSend::CreateRtpVideoSender(
     const RtpSenderFrameEncryptionConfig& frame_encryption_config,
     rtc::scoped_refptr<FrameTransformerInterface> frame_transformer) {
   RTC_DCHECK_RUN_ON(&main_thread_);
-  video_rtp_senders_.push_back(std::make_unique<RtpVideoSender>(
+  auto sender = std::make_unique<RtpVideoSender>(
       clock_, suspended_ssrcs, states, rtp_config, rtcp_report_interval_ms,
       send_transport, observers,
       // TODO(holmer): Remove this circular dependency by injecting
       // the parts of RtpTransportControllerSendInterface that are really used.
       this, event_log, &retransmission_rate_limiter_, std::move(fec_controller),
       frame_encryption_config.frame_encryptor,
-      frame_encryption_config.crypto_options, std::move(frame_transformer)));
+      frame_encryption_config.crypto_options, std::move(frame_transformer));
+  // Signal congestion controller this object is ready for OnPacket* callbacks.
+  feedback_demuxer_.RegisterStreamFeedbackObserver(rtp_config.ssrcs,
+                                                   sender.get());
+  video_rtp_senders_.push_back(std::move(sender));
   return video_rtp_senders_.back().get();
 }
 
 void RtpTransportControllerSend::DestroyRtpVideoSender(
     RtpVideoSenderInterface* rtp_video_sender) {
   RTC_DCHECK_RUN_ON(&main_thread_);
-  std::vector<std::unique_ptr<RtpVideoSenderInterface>>::iterator it =
-      video_rtp_senders_.end();
-  for (it = video_rtp_senders_.begin(); it != video_rtp_senders_.end(); ++it) {
-    if (it->get() == rtp_video_sender) {
-      break;
-    }
-  }
+  // RTC_DCHECK(false);
+  auto it = std::find_if(
+      video_rtp_senders_.begin(), video_rtp_senders_.end(),
+      [&](auto& sender) { return sender.get() == rtp_video_sender; });
   RTC_DCHECK(it != video_rtp_senders_.end());
+  feedback_demuxer_.DeRegisterStreamFeedbackObserver(
+      static_cast<RtpVideoSender*>(rtp_video_sender));
+  std::unique_ptr<RtpVideoSenderInterface> sender = std::move(*it);
+  // it->release();  // The object will be deleted on the transport queue.
   video_rtp_senders_.erase(it);
+  // task_queue_.PostTask([rtp_video_sender] { delete rtp_video_sender; });
+  // task_queue_.PostTask([s = std::move(sender)] { });
+  // testing deleting from StopPermanently.
+  sender.release();
 }
 
 void RtpTransportControllerSend::UpdateControlState() {

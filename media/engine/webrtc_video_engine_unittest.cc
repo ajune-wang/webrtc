@@ -444,6 +444,10 @@ TEST_F(WebRtcVideoEngineTest, CVOSetHeaderExtensionBeforeCapturer) {
       AddOrUpdateSink(_, Field(&rtc::VideoSinkWants::rotation_applied, true)));
 
   EXPECT_TRUE(channel->SetSendParameters(parameters));
+
+  // Allow cleanup tasks on the transport queue to complete.
+  channel.reset();
+  time_controller_.AdvanceTime(webrtc::TimeDelta::Zero());
 }
 
 TEST_F(WebRtcVideoEngineTest, CVOSetHeaderExtensionBeforeAddSendStream) {
@@ -469,6 +473,10 @@ TEST_F(WebRtcVideoEngineTest, CVOSetHeaderExtensionBeforeAddSendStream) {
       video_source,
       AddOrUpdateSink(_, Field(&rtc::VideoSinkWants::rotation_applied, false)));
   EXPECT_TRUE(channel->SetVideoSend(kSsrc, nullptr, &video_source));
+
+  // Allow cleanup tasks on the transport queue to complete.
+  channel.reset();
+  time_controller_.AdvanceTime(webrtc::TimeDelta::Zero());
 }
 
 TEST_F(WebRtcVideoEngineTest, CVOSetHeaderExtensionAfterCapturer) {
@@ -513,6 +521,10 @@ TEST_F(WebRtcVideoEngineTest, CVOSetHeaderExtensionAfterCapturer) {
       video_source,
       AddOrUpdateSink(_, Field(&rtc::VideoSinkWants::rotation_applied, true)));
   EXPECT_TRUE(channel->SetSendParameters(parameters));
+
+  // Allow cleanup tasks on the transport queue to complete.
+  channel.reset();
+  time_controller_.AdvanceTime(webrtc::TimeDelta::Zero());
 }
 
 TEST_F(WebRtcVideoEngineTest, SetSendFailsBeforeSettingCodecs) {

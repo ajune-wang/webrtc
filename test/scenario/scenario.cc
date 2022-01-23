@@ -77,7 +77,8 @@ Scenario::~Scenario() {
   if (start_time_.IsFinite())
     Stop();
   for (auto& call_client : clients_) {
-    call_client->transport_->Disconnect();
+    call_client->SendTaskToNetworkThread(
+        [&]() { call_client->transport_->Disconnect(); });
     call_client->UnBind();
   }
 }
@@ -160,7 +161,9 @@ void Scenario::ChangeRoute(std::pair<CallClient*, CallClient*> clients,
   EmulatedRoute* route = network_manager_.CreateRoute(over_nodes);
   uint16_t port = clients.second->Bind(route->to);
   auto addr = rtc::SocketAddress(route->to->GetPeerLocalAddress(), port);
-  clients.first->transport_->Connect(route->from, addr, overhead);
+  clients.first->SendTaskToNetworkThread([&]() {
+    clients.first->transport_->Connect(route->from, addr, overhead);
+  });
 }
 
 EmulatedNetworkNode* Scenario::CreateSimulationNode(

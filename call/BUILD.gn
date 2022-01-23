@@ -207,7 +207,9 @@ rtc_library("rtp_sender") {
     "../rtc_base:rate_limiter",
     "../rtc_base:rtc_base_approved",
     "../rtc_base:rtc_task_queue",
+    "../rtc_base:threading",
     "../rtc_base/synchronization:mutex",
+    "../rtc_base/task_utils:pending_task_safety_flag",
     "../rtc_base/task_utils:repeating_task",
   ]
   absl_deps = [

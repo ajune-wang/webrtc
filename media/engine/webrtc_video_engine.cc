@@ -1839,15 +1839,12 @@ void WebRtcVideoChannel::OnNetworkRouteChanged(
     absl::string_view transport_name,
     const rtc::NetworkRoute& network_route) {
   RTC_DCHECK_RUN_ON(&network_thread_checker_);
-  worker_thread_->PostTask(ToQueuedTask(
-      task_safety_,
-      [this, name = std::string(transport_name), route = network_route] {
-        RTC_DCHECK_RUN_ON(&thread_checker_);
-        webrtc::RtpTransportControllerSendInterface* transport =
-            call_->GetTransportControllerSend();
-        transport->OnNetworkRouteChanged(name, route);
-        transport->OnTransportOverheadChanged(route.packet_overhead);
-      }));
+  // Call the transport directly from here, it will post to the transport queue
+  // internally as needed.
+  webrtc::RtpTransportControllerSendInterface* transport =
+      call_->GetTransportControllerSend();
+  transport->OnNetworkRouteChanged(transport_name, network_route);
+  transport->OnTransportOverheadChanged(network_route.packet_overhead);
 }
 
 void WebRtcVideoChannel::SetInterface(NetworkInterface* iface) {

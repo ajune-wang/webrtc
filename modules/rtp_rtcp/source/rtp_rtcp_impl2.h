@@ -53,8 +53,8 @@ struct RTPVideoHeader;
 class ModuleRtpRtcpImpl2 final : public RtpRtcpInterface,
                                  public RTCPReceiver::ModuleRtpRtcp {
  public:
-  explicit ModuleRtpRtcpImpl2(
-      const RtpRtcpInterface::Configuration& configuration);
+  ModuleRtpRtcpImpl2(const RtpRtcpInterface::Configuration& configuration,
+                     TaskQueueBase* worker_queue = TaskQueueBase::Current());
   ~ModuleRtpRtcpImpl2() override;
 
   // This method is provided to easy with migrating away from the
@@ -62,7 +62,8 @@ class ModuleRtpRtcpImpl2 final : public RtpRtcpInterface,
   // detail though, creating an instance of ModuleRtpRtcpImpl2 directly should
   // be fine.
   static std::unique_ptr<ModuleRtpRtcpImpl2> Create(
-      const Configuration& configuration);
+      const Configuration& configuration,
+      TaskQueueBase* worker_queue = TaskQueueBase::Current());
 
   // Receiver part.
 
@@ -264,10 +265,11 @@ class ModuleRtpRtcpImpl2 final : public RtpRtcpInterface,
   FRIEND_TEST_ALL_PREFIXES(RtpRtcpImpl2Test, RttForReceiverOnly);
 
   struct RtpSenderContext {
-    explicit RtpSenderContext(const RtpRtcpInterface::Configuration& config);
+    explicit RtpSenderContext(const RtpRtcpInterface::Configuration& config,
+                              TaskQueueBase* worker_queue);
     // Storage of packets, for retransmissions and padding, if applicable.
     RtpPacketHistory packet_history;
-    SequenceChecker sequencing_checker;
+    RTC_NO_UNIQUE_ADDRESS SequenceChecker sequencing_checker;
     // Handles sequence number assignment and padding timestamp generation.
     PacketSequencer sequencer RTC_GUARDED_BY(sequencing_checker);
     // Handles final time timestamping/stats/etc and handover to Transport.
@@ -332,7 +334,8 @@ class ModuleRtpRtcpImpl2 final : public RtpRtcpInterface,
   mutable Mutex mutex_rtt_;
   int64_t rtt_ms_ RTC_GUARDED_BY(mutex_rtt_);
 
-  RTC_NO_UNIQUE_ADDRESS ScopedTaskSafety task_safety_;
+  rtc::scoped_refptr<PendingTaskSafetyFlag> task_safety_ =
+      PendingTaskSafetyFlag::CreateDetached();
 };
 
 }  // namespace webrtc

@@ -58,7 +58,8 @@ class RtpSenderEgress {
   };
 
   RtpSenderEgress(const RtpRtcpInterface::Configuration& config,
-                  RtpPacketHistory* packet_history);
+                  RtpPacketHistory* packet_history,
+                  TaskQueueBase* worker_queue = TaskQueueBase::Current());
   ~RtpSenderEgress();
 
   void SendPacket(RtpPacketToSend* packet, const PacedPacketInfo& pacing_info)
@@ -176,7 +177,8 @@ class RtpSenderEgress {
   const std::unique_ptr<RtpSequenceNumberMap> rtp_sequence_number_map_
       RTC_GUARDED_BY(worker_queue_);
   RepeatingTaskHandle update_task_ RTC_GUARDED_BY(worker_queue_);
-  ScopedTaskSafety task_safety_;
+  rtc::scoped_refptr<PendingTaskSafetyFlag> task_safety_ =
+      PendingTaskSafetyFlag::CreateDetached();
 };
 
 }  // namespace webrtc

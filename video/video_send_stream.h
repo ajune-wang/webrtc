@@ -110,7 +110,7 @@ class VideoSendStream : public webrtc::VideoSendStream {
   const VideoEncoderConfig::ContentType content_type_;
   std::unique_ptr<VideoStreamEncoderInterface> video_stream_encoder_;
   EncoderRtcpFeedback encoder_feedback_;
-  RtpVideoSenderInterface* const rtp_video_sender_;
+  RtpVideoSenderInterface* rtp_video_sender_;
   VideoSendStreamImpl send_stream_;
   bool running_ RTC_GUARDED_BY(thread_checker_) = false;
 };

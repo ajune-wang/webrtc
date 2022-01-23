@@ -36,6 +36,19 @@ namespace webrtc {
 
 namespace webrtc_internal_rtp_video_sender {
 
+void ConfigureRids(const std::vector<std::string>& rids,
+                   const std::vector<RtpStreamSender>& rtp_streams) {
+  if (rids.empty())
+    return;
+
+  // Some streams could have been disabled, but the rids are still there.
+  // This will occur when simulcast has been disabled for a codec (e.g. VP9)
+  RTC_DCHECK(rids.size() >= rtp_streams.size());
+  for (size_t i = 0; i < rtp_streams.size(); ++i) {
+    rtp_streams[i].rtp_rtcp->SetRid(rids[i]);
+  }
+}
+
 RtpStreamSender::RtpStreamSender(
     std::unique_ptr<ModuleRtpRtcpImpl2> rtp_rtcp,
     std::unique_ptr<RTPSenderVideo> sender_video,
@@ -251,8 +264,8 @@ std::vector<RtpStreamSender> CreateRtpStreamSenders(
 
     configuration.need_rtp_packet_infos = rtp_config.lntf.enabled;
 
-    std::unique_ptr<ModuleRtpRtcpImpl2> rtp_rtcp(
-        ModuleRtpRtcpImpl2::Create(configuration));
+    std::unique_ptr<ModuleRtpRtcpImpl2> rtp_rtcp(ModuleRtpRtcpImpl2::Create(
+        configuration, transport->GetWorkerQueue()->Get()));
     rtp_rtcp->SetSendingStatus(false);
     rtp_rtcp->SetSendingMediaStatus(false);
     rtp_rtcp->SetRTCPStatus(RtcpMode::kCompound);
@@ -421,7 +434,8 @@ RtpVideoSender::RtpVideoSender(
   }
 
   ConfigureSsrcs(suspended_ssrcs);
-  ConfigureRids();
+  webrtc_internal_rtp_video_sender::ConfigureRids(rtp_config_.rids,
+                                                  rtp_streams_);
 
   if (!rtp_config_.mid.empty()) {
     for (const RtpStreamSender& stream : rtp_streams_) {
@@ -445,9 +459,6 @@ RtpVideoSender::RtpVideoSender(
   fec_controller_->SetProtectionMethod(fec_enabled, NackEnabled());
 
   fec_controller_->SetProtectionCallback(this);
-  // Signal congestion controller this object is ready for OnPacket* callbacks.
-  transport_->GetStreamFeedbackProvider()->RegisterStreamFeedbackObserver(
-      rtp_config_.ssrcs, this);
 
   // Construction happens on the worker thread (see Call::CreateVideoSendStream)
   // but subseqeuent calls to the RTP state will happen on one of two threads:
@@ -460,17 +471,14 @@ RtpVideoSender::RtpVideoSender(
 }
 
 RtpVideoSender::~RtpVideoSender() {
-  // TODO(bugs.webrtc.org/13517): Remove once RtpVideoSender gets deleted on the
-  // transport task queue.
-  transport_checker_.Detach();
-
+  { RTC_DCHECK_RUN_ON(transport_->GetWorkerQueue()->Get()); }
+  RTC_DCHECK_RUN_ON(&transport_checker_);
   SetActiveModulesLocked(
       std::vector<bool>(rtp_streams_.size(), /*active=*/false));
-  transport_->GetStreamFeedbackProvider()->DeRegisterStreamFeedbackObserver(
-      this);
 }
 
 void RtpVideoSender::SetActive(bool active) {
+  { RTC_DCHECK_RUN_ON(transport_->GetWorkerQueue()->Get()); }
   RTC_DCHECK_RUN_ON(&transport_checker_);
   MutexLock lock(&mutex_);
   if (active_ == active)
@@ -480,14 +488,16 @@ void RtpVideoSender::SetActive(bool active) {
 }
 
 void RtpVideoSender::SetActiveModules(const std::vector<bool> active_modules) {
+  { RTC_DCHECK_RUN_ON(transport_->GetWorkerQueue()->Get()); }
   RTC_DCHECK_RUN_ON(&transport_checker_);
+  // TODO(tommi): Check errors ^^^ in peerconnection_unittests.
   MutexLock lock(&mutex_);
   return SetActiveModulesLocked(active_modules);
 }
 
 void RtpVideoSender::SetActiveModulesLocked(
     const std::vector<bool> active_modules) {
-  RTC_DCHECK_RUN_ON(&transport_checker_);
+  RTC_DCHECK_RUN_ON(transport_->GetWorkerQueue()->Get());
   RTC_DCHECK_EQ(rtp_streams_.size(), active_modules.size());
   active_ = false;
   for (size_t i = 0; i < active_modules.size(); ++i) {
@@ -521,7 +531,10 @@ void RtpVideoSender::SetActiveModulesLocked(
 }
 
 bool RtpVideoSender::IsActive() {
-  RTC_DCHECK_RUN_ON(&transport_checker_);
+  // RTC_DCHECK_RUN_ON(&transport_checker_);
+  // TODO(tommi): Check errors ^^^ in peerconnection_unittests.
+  if (rtp_streams_.empty())
+    return false;
   MutexLock lock(&mutex_);
   return IsActiveLocked();
 }
@@ -630,6 +643,7 @@ EncodedImageCallback::Result RtpVideoSender::OnEncodedImage(
 
 void RtpVideoSender::OnBitrateAllocationUpdated(
     const VideoBitrateAllocation& bitrate) {
+  { RTC_DCHECK_RUN_ON(transport_->GetWorkerQueue()->Get()); }
   RTC_DCHECK_RUN_ON(&transport_checker_);
   MutexLock lock(&mutex_);
   if (IsActiveLocked()) {
@@ -691,6 +705,7 @@ void RtpVideoSender::DeliverRtcp(const uint8_t* packet, size_t length) {
     stream.rtp_rtcp->IncomingRtcpPacket(packet, length);
 }
 
+// TODO(tommi): Make this an anonymous function (it's only for construction).
 void RtpVideoSender::ConfigureSsrcs(
     const std::map<uint32_t, RtpState>& suspended_ssrcs) {
   // Configure regular SSRCs.
@@ -738,19 +753,9 @@ void RtpVideoSender::ConfigureSsrcs(
   }
 }
 
-void RtpVideoSender::ConfigureRids() {
-  if (rtp_config_.rids.empty())
-    return;
-
-  // Some streams could have been disabled, but the rids are still there.
-  // This will occur when simulcast has been disabled for a codec (e.g. VP9)
-  RTC_DCHECK(rtp_config_.rids.size() >= rtp_streams_.size());
-  for (size_t i = 0; i < rtp_streams_.size(); ++i) {
-    rtp_streams_[i].rtp_rtcp->SetRid(rtp_config_.rids[i]);
-  }
-}
-
 void RtpVideoSender::OnNetworkAvailability(bool network_available) {
+  // TODO(bugs.webrtc.org/11993): Currently on the worker, but should be on the
+  // network thread.
   for (const RtpStreamSender& stream : rtp_streams_) {
     stream.rtp_rtcp->SetRTCPStatus(network_available ? rtp_config_.rtcp_mode
                                                      : RtcpMode::kOff);
@@ -758,6 +763,9 @@ void RtpVideoSender::OnNetworkAvailability(bool network_available) {
 }
 
 std::map<uint32_t, RtpState> RtpVideoSender::GetRtpStates() const {
+  { RTC_DCHECK_RUN_ON(transport_->GetWorkerQueue()->Get()); }
+  RTC_DCHECK_RUN_ON(&transport_checker_);
+
   std::map<uint32_t, RtpState> rtp_states;
 
   for (size_t i = 0; i < rtp_config_.ssrcs.size(); ++i) {
@@ -787,6 +795,9 @@ std::map<uint32_t, RtpState> RtpVideoSender::GetRtpStates() const {
 
 std::map<uint32_t, RtpPayloadState> RtpVideoSender::GetRtpPayloadStates()
     const {
+  { RTC_DCHECK_RUN_ON(transport_->GetWorkerQueue()->Get()); }
+  RTC_DCHECK_RUN_ON(&transport_checker_);
+  // Called on transport queue (from video_send_stream.cc)
   MutexLock lock(&mutex_);
   std::map<uint32_t, RtpPayloadState> payload_states;
   for (const auto& param : params_) {
@@ -798,6 +809,8 @@ std::map<uint32_t, RtpPayloadState> RtpVideoSender::GetRtpPayloadStates()
 
 void RtpVideoSender::OnTransportOverheadChanged(
     size_t transport_overhead_bytes_per_packet) {
+  // Currently called on the "main thread" (transport construction thread, aka
+  // Call's worker thread).
   MutexLock lock(&mutex_);
   transport_overhead_bytes_per_packet_ = transport_overhead_bytes_per_packet;
 
@@ -811,6 +824,8 @@ void RtpVideoSender::OnTransportOverheadChanged(
 
 void RtpVideoSender::OnBitrateUpdated(BitrateAllocationUpdate update,
                                       int framerate) {
+  { RTC_DCHECK_RUN_ON(transport_->GetWorkerQueue()->Get()); }
+  RTC_DCHECK_RUN_ON(&transport_checker_);
   // Substract overhead from bitrate.
   MutexLock lock(&mutex_);
   size_t num_active_streams = 0;
@@ -933,6 +948,9 @@ void RtpVideoSender::SetFecAllowed(bool fec_allowed) {
 
 void RtpVideoSender::OnPacketFeedbackVector(
     std::vector<StreamPacketInfo> packet_feedback_vector) {
+  // TODO(bugs.webrtc.org/11993): Currently called on the worker thread via
+  // Call::DeliverRtcp.
+
   if (fec_controller_->UseLossVectorMask()) {
     MutexLock lock(&mutex_);
     for (const StreamPacketInfo& packet : packet_feedback_vector) {

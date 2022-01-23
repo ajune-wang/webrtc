@@ -340,6 +340,13 @@ void CallClient::SendTask(std::function<void()> task) {
   task_queue_.SendTask(std::move(task), RTC_FROM_HERE);
 }
 
+void CallClient::SendTaskToNetworkThread(std::function<void()> task) {
+  RTC_DCHECK_EQ(call_->network_thread(), call_->worker_thread());
+  RTC_DCHECK_EQ(task_queue_.Get(),
+                static_cast<TaskQueueBase*>(call_->worker_thread()));
+  SendTask(std::move(task));
+}
+
 int16_t CallClient::Bind(EmulatedEndpoint* endpoint) {
   uint16_t port = endpoint->BindReceiver(0, this).value();
   endpoints_.push_back({endpoint, port});

@@ -200,7 +200,8 @@ VideoSendStream::VideoSendStream(
 VideoSendStream::~VideoSendStream() {
   RTC_DCHECK_RUN_ON(&thread_checker_);
   RTC_DCHECK(!running_);
-  transport_->DestroyRtpVideoSender(rtp_video_sender_);
+  if (rtp_video_sender_)
+    transport_->DestroyRtpVideoSender(rtp_video_sender_);
 }
 
 void VideoSendStream::UpdateActiveSimulcastLayers(
@@ -323,6 +324,8 @@ void VideoSendStream::StopPermanentlyAndGetRtpStates(
   video_stream_encoder_->Stop();
 
   running_ = false;
+  transport_->DestroyRtpVideoSender(rtp_video_sender_);
+
   // Always run these cleanup steps regardless of whether running_ was set
   // or not. This will unregister callbacks before destruction.
   // See `VideoSendStreamImpl::StopVideoSendStream` for more.
@@ -331,6 +334,8 @@ void VideoSendStream::StopPermanentlyAndGetRtpStates(
     send_stream_.Stop();
     *rtp_state_map = send_stream_.GetRtpStates();
     *payload_state_map = send_stream_.GetRtpPayloadStates();
+    delete rtp_video_sender_;
+    rtp_video_sender_ = nullptr;
     thread_sync_event_.Set();
   });
   thread_sync_event_.Wait(rtc::Event::kForever);

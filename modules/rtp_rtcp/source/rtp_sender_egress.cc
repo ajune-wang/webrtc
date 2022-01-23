@@ -75,8 +75,9 @@ void RtpSenderEgress::NonPacedPacketSender::PrepareForSend(
 }
 
 RtpSenderEgress::RtpSenderEgress(const RtpRtcpInterface::Configuration& config,
-                                 RtpPacketHistory* packet_history)
-    : worker_queue_(TaskQueueBase::Current()),
+                                 RtpPacketHistory* packet_history,
+                                 TaskQueueBase* worker_queue)
+    : worker_queue_(worker_queue),
       ssrc_(config.local_media_ssrc),
       rtx_ssrc_(config.rtx_send_ssrc),
       flexfec_ssrc_(config.fec_generator ? config.fec_generator->FecSsrc()
@@ -126,6 +127,7 @@ RtpSenderEgress::RtpSenderEgress(const RtpRtcpInterface::Configuration& config,
 RtpSenderEgress::~RtpSenderEgress() {
   RTC_DCHECK_RUN_ON(worker_queue_);
   update_task_.Stop();
+  task_safety_->SetNotAlive();
 }
 
 void RtpSenderEgress::SendPacket(RtpPacketToSend* packet,

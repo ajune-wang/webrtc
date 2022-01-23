@@ -61,21 +61,23 @@ int DelayMillisForDuration(TimeDelta duration) {
 }  // namespace
 
 ModuleRtpRtcpImpl2::RtpSenderContext::RtpSenderContext(
-    const RtpRtcpInterface::Configuration& config)
+    const RtpRtcpInterface::Configuration& config,
+    TaskQueueBase* worker_queue)
     : packet_history(config.clock, config.enable_rtx_padding_prioritization),
       sequencer(config.local_media_ssrc,
                 config.rtx_send_ssrc,
                 /*require_marker_before_media_padding=*/!config.audio,
                 config.clock),
-      packet_sender(config, &packet_history),
+      packet_sender(config, &packet_history, worker_queue),
       non_paced_sender(&packet_sender, &sequencer),
       packet_generator(
           config,
           &packet_history,
           config.paced_sender ? config.paced_sender : &non_paced_sender) {}
 
-ModuleRtpRtcpImpl2::ModuleRtpRtcpImpl2(const Configuration& configuration)
-    : worker_queue_(TaskQueueBase::Current()),
+ModuleRtpRtcpImpl2::ModuleRtpRtcpImpl2(const Configuration& configuration,
+                                       TaskQueueBase* worker_queue)
+    : worker_queue_(worker_queue),
       rtcp_sender_(AddRtcpSendEvaluationCallback(
           RTCPSender::Configuration::FromRtpRtcpConfiguration(configuration),
           [this](TimeDelta duration) {
@@ -92,7 +94,8 @@ ModuleRtpRtcpImpl2::ModuleRtpRtcpImpl2(const Configuration& configuration)
   RTC_DCHECK(worker_queue_);
   rtcp_thread_checker_.Detach();
   if (!configuration.receiver_only) {
-    rtp_sender_ = std::make_unique<RtpSenderContext>(configuration);
+    rtp_sender_ =
+        std::make_unique<RtpSenderContext>(configuration, worker_queue_);
     rtp_sender_->sequencing_checker.Detach();
     // Make sure rtcp sender use same timestamp offset as rtp sender.
     rtcp_sender_.SetTimestampOffset(
@@ -114,14 +117,16 @@ ModuleRtpRtcpImpl2::ModuleRtpRtcpImpl2(const Configuration& configuration)
 ModuleRtpRtcpImpl2::~ModuleRtpRtcpImpl2() {
   RTC_DCHECK_RUN_ON(worker_queue_);
   rtt_update_task_.Stop();
+  task_safety_->SetNotAlive();
 }
 
 // static
 std::unique_ptr<ModuleRtpRtcpImpl2> ModuleRtpRtcpImpl2::Create(
-    const Configuration& configuration) {
+    const Configuration& configuration,
+    TaskQueueBase* worker_queue) {
   RTC_DCHECK(configuration.clock);
   RTC_DCHECK(TaskQueueBase::Current());
-  return std::make_unique<ModuleRtpRtcpImpl2>(configuration);
+  return std::make_unique<ModuleRtpRtcpImpl2>(configuration, worker_queue);
 }
 
 void ModuleRtpRtcpImpl2::SetRtxSendStatus(int mode) {

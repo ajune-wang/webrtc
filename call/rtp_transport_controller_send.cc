@@ -27,6 +27,7 @@
 #include "rtc_base/checks.h"
 #include "rtc_base/logging.h"
 #include "rtc_base/rate_limiter.h"
+#include "rtc_base/thread.h"
 
 namespace webrtc {
 namespace {
@@ -73,6 +74,23 @@ bool IsRelayed(const rtc::NetworkRoute& route) {
   return route.local.uses_turn() || route.remote.uses_turn();
 }
 
+#if RTC_DCHECK_IS_ON
+// Part of a workaround for a tests in the low_bandwidth_audio_test suite
+// that use `CreateTwoNetworkLinks` (e.g.
+// PCLowBandwidthAudioTest.PCGoodNetworkHighBitrate) and end up creating more
+// than one network thread yet share a single transport object across more than
+// one instance.
+bool IsTestNetworkThread() {
+  auto* thread = rtc::Thread::Current();
+  const std::string& name = thread->name();
+  if (name.compare("net_thread") == 0 || name.compare("PCNetworkThread")) {
+    return true;
+  }
+  RTC_LOG(LS_ERROR) << "Unexpectedly running on: " << name;
+  return false;
+}
+#endif
+
 }  // namespace
 
 RtpTransportControllerSend::PacerSettings::PacerSettings(
@@ -95,6 +113,7 @@ RtpTransportControllerSend::RtpTransportControllerSend(
     const WebRtcKeyValueConfig* trials)
     : clock_(clock),
       event_log_(event_log),
+      main_thread_(TaskQueueBase::Current()),
       bitrate_configurator_(bitrate_config),
       pacer_started_(false),
       process_thread_(std::move(process_thread)),
@@ -166,7 +185,9 @@ RtpVideoSenderInterface* RtpTransportControllerSend::CreateRtpVideoSender(
     std::unique_ptr<FecController> fec_controller,
     const RtpSenderFrameEncryptionConfig& frame_encryption_config,
     rtc::scoped_refptr<FrameTransformerInterface> frame_transformer) {
-  RTC_DCHECK_RUN_ON(&main_thread_);
+  RTC_DCHECK_RUN_ON(main_thread_);
+  network_thread_.Detach();
+
   video_rtp_senders_.push_back(std::make_unique<RtpVideoSender>(
       clock_, suspended_ssrcs, states, rtp_config, rtcp_report_interval_ms,
       send_transport, observers,
@@ -180,7 +201,7 @@ RtpVideoSenderInterface* RtpTransportControllerSend::CreateRtpVideoSender(
 
 void RtpTransportControllerSend::DestroyRtpVideoSender(
     RtpVideoSenderInterface* rtp_video_sender) {
-  RTC_DCHECK_RUN_ON(&main_thread_);
+  RTC_DCHECK_RUN_ON(main_thread_);
   std::vector<std::unique_ptr<RtpVideoSenderInterface>>::iterator it =
       video_rtp_senders_.end();
   for (it = video_rtp_senders_.begin(); it != video_rtp_senders_.end(); ++it) {
@@ -291,8 +312,24 @@ bool RtpTransportControllerSend::IsRelevantRouteChange(
 }
 
 void RtpTransportControllerSend::OnNetworkRouteChanged(
-    const std::string& transport_name,
+    absl::string_view transport_name,
     const rtc::NetworkRoute& network_route) {
+#if RTC_DCHECK_IS_ON
+  // This is a workaround for a tests in the low_bandwidth_audio_test suite
+  // that use `CreateTwoNetworkLinks` (e.g.
+  // PCLowBandwidthAudioTest.PCGoodNetworkHighBitrate) end up creating more than
+  // one network thread, yet share a single transport object across more than
+  // one instance.
+  if (!network_thread_.IsCurrent()) {
+    RTC_DCHECK(IsTestNetworkThread());
+    RTC_LOG(LS_ERROR) << "Network thread changed: "
+                      << network_thread_.ExpectationToString();
+    network_thread_.Detach();  // Allow attaching to the new one.
+  }
+  RTC_DCHECK_RUN_ON(&network_thread_);
+#else
+  RTC_DCHECK_RUN_ON(&network_thread_);
+#endif
   // Check if the network route is connected.
 
   if (!network_route.connected) {
@@ -366,7 +403,7 @@ void RtpTransportControllerSend::OnNetworkRouteChanged(
   }
 }
 void RtpTransportControllerSend::OnNetworkAvailability(bool network_available) {
-  RTC_DCHECK_RUN_ON(&main_thread_);
+  RTC_DCHECK_RUN_ON(main_thread_);
   RTC_LOG(LS_VERBOSE) << "SignalNetworkState "
                       << (network_available ? "Up" : "Down");
   NetworkAvailability msg;
@@ -489,7 +526,22 @@ RtpTransportControllerSend::ApplyOrLiftRelayCap(bool is_relayed) {
 
 void RtpTransportControllerSend::OnTransportOverheadChanged(
     size_t transport_overhead_bytes_per_packet) {
-  RTC_DCHECK_RUN_ON(&main_thread_);
+#if RTC_DCHECK_IS_ON
+  // This is a workaround for a tests in the low_bandwidth_audio_test suite
+  // that use `CreateTwoNetworkLinks` (e.g.
+  // PCLowBandwidthAudioTest.PCGoodNetworkHighBitrate) end up creating more than
+  // one network thread, yet share a single transport object across more than
+  // one instance.
+  if (!network_thread_.IsCurrent()) {
+    RTC_DCHECK(IsTestNetworkThread());
+    RTC_LOG(LS_ERROR) << "Network thread changed: "
+                      << network_thread_.ExpectationToString();
+    network_thread_.Detach();  // Allow attaching to the new one.
+  }
+  RTC_DCHECK_RUN_ON(&network_thread_);
+#else
+  RTC_DCHECK_RUN_ON(&network_thread_);
+#endif
   if (transport_overhead_bytes_per_packet >= kMaxOverheadBytes) {
     RTC_LOG(LS_ERROR) << "Transport overhead exceeds " << kMaxOverheadBytes;
     return;
@@ -498,11 +550,20 @@ void RtpTransportControllerSend::OnTransportOverheadChanged(
   pacer()->SetTransportOverhead(
       DataSize::Bytes(transport_overhead_bytes_per_packet));
 
-  // TODO(holmer): Call AudioRtpSenders when they have been moved to
-  // RtpTransportControllerSend.
-  for (auto& rtp_video_sender : video_rtp_senders_) {
-    rtp_video_sender->OnTransportOverheadChanged(
-        transport_overhead_bytes_per_packet);
+  {
+    // TODO(bugs.webrtc.org/13517): Post this to the transport queue when
+    // `video_rtp_senders_` instances are managed there.
+    // TODO(tommi): Scoped safety.
+    main_thread_->PostTask(
+        ToQueuedTask([this, transport_overhead_bytes_per_packet]() {
+          RTC_DCHECK_RUN_ON(main_thread_);
+          // TODO(holmer): Call AudioRtpSenders when they have been moved to
+          // RtpTransportControllerSend.
+          for (auto& rtp_video_sender : video_rtp_senders_) {
+            rtp_video_sender->OnTransportOverheadChanged(
+                transport_overhead_bytes_per_packet);
+          }
+        }));
   }
 }
 

@@ -121,6 +121,14 @@ class CallClient : public EmulatedNetworkReceiverInterface {
   // CallClient does internally for GetStats()).
   void SendTask(std::function<void()> task);
 
+  // Runs a synchronous task on the Call's configured network thread.
+  // Today this is in practice the same thread as the 'worker thread' aka
+  // where the Call instance was constructed on. If we change the tests to
+  // specifically set a dedicated network thread via `network_task_queue_`,
+  // this method needs to be updated accordingly. For now, it's here mostly
+  // for semantics.
+  void SendTaskToNetworkThread(std::function<void()> task);
+
  private:
   friend class Scenario;
   friend class CallClientPair;

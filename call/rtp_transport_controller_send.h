@@ -97,7 +97,7 @@ class RtpTransportControllerSend final
   StreamFeedbackProvider* GetStreamFeedbackProvider() override;
   void RegisterTargetTransferRateObserver(
       TargetTransferRateObserver* observer) override;
-  void OnNetworkRouteChanged(const std::string& transport_name,
+  void OnNetworkRouteChanged(absl::string_view transport_name,
                              const rtc::NetworkRoute& network_route) override;
   void OnNetworkAvailability(bool network_available) override;
   RtcpBandwidthObserver* GetBandwidthObserver() override;
@@ -163,7 +163,8 @@ class RtpTransportControllerSend final
 
   Clock* const clock_;
   RtcEventLog* const event_log_;
-  SequenceChecker main_thread_;
+  TaskQueueBase* const main_thread_;
+  RTC_NO_UNIQUE_ADDRESS SequenceChecker network_thread_;
   PacketRouter packet_router_;
   std::vector<std::unique_ptr<RtpVideoSenderInterface>> video_rtp_senders_
       RTC_GUARDED_BY(&main_thread_);

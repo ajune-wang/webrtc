@@ -445,9 +445,6 @@ RtpVideoSender::RtpVideoSender(
   fec_controller_->SetProtectionMethod(fec_enabled, NackEnabled());
 
   fec_controller_->SetProtectionCallback(this);
-  // Signal congestion controller this object is ready for OnPacket* callbacks.
-  transport_->GetStreamFeedbackProvider()->RegisterStreamFeedbackObserver(
-      rtp_config_.ssrcs, this);
 
   // Construction happens on the worker thread (see Call::CreateVideoSendStream)
   // but subseqeuent calls to the RTP state will happen on one of two threads:
@@ -466,8 +463,6 @@ RtpVideoSender::~RtpVideoSender() {
 
   SetActiveModulesLocked(
       std::vector<bool>(rtp_streams_.size(), /*active=*/false));
-  transport_->GetStreamFeedbackProvider()->DeRegisterStreamFeedbackObserver(
-      this);
 }
 
 void RtpVideoSender::SetActive(bool active) {
@@ -475,8 +470,20 @@ void RtpVideoSender::SetActive(bool active) {
   MutexLock lock(&mutex_);
   if (active_ == active)
     return;
+
   const std::vector<bool> active_modules(rtp_streams_.size(), active);
   SetActiveModulesLocked(active_modules);
+
+  const bool active_now = IsActiveLocked();
+  if (active_now == active)
+    return;  // No change in state.
+
+  auto* feedback_provider = transport_->GetStreamFeedbackProvider();
+  if (active_now) {
+    feedback_provider->RegisterStreamFeedbackObserver(rtp_config_.ssrcs, this);
+  } else {
+    feedback_provider->DeRegisterStreamFeedbackObserver(this);
+  }
 }
 
 void RtpVideoSender::SetActiveModules(const std::vector<bool> active_modules) {

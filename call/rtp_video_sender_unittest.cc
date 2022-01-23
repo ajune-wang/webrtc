@@ -496,8 +496,8 @@ TEST(RtpVideoSenderTest, DoesNotRetrasmitAckedPackets) {
 }
 
 // This tests that we utilize transport wide feedback to retransmit lost
-// packets. This is tested by dropping all ordirary packets from a "lossy"
-// stream send along with an secondary untouched stream. The transport wide
+// packets. This is tested by dropping all ordinary packets from a "lossy"
+// stream sent along with a secondary untouched stream. The transport wide
 // feedback packets from the secondary stream allows the sending side to
 // detect and retreansmit the lost packets from the lossy stream.
 TEST(RtpVideoSenderTest, RetransmitsOnTransportWideLossInfo) {

@@ -167,6 +167,8 @@ RtpVideoSenderInterface* RtpTransportControllerSend::CreateRtpVideoSender(
     const RtpSenderFrameEncryptionConfig& frame_encryption_config,
     rtc::scoped_refptr<FrameTransformerInterface> frame_transformer) {
   RTC_DCHECK_RUN_ON(&main_thread_);
+  network_thread_.Detach();
+
   video_rtp_senders_.push_back(std::make_unique<RtpVideoSender>(
       clock_, suspended_ssrcs, states, rtp_config, rtcp_report_interval_ms,
       send_transport, observers,
@@ -291,8 +293,9 @@ bool RtpTransportControllerSend::IsRelevantRouteChange(
 }
 
 void RtpTransportControllerSend::OnNetworkRouteChanged(
-    const std::string& transport_name,
+    absl::string_view transport_name,
     const rtc::NetworkRoute& network_route) {
+  RTC_DCHECK_RUN_ON(&network_thread_);
   // Check if the network route is connected.
 
   if (!network_route.connected) {

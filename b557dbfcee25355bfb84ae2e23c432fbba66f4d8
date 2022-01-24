@@ -37,6 +37,29 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "63027710_19e28591",
+        "filename": "pc/sdp_serializer.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 105,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2022-01-24T13:20:19Z",
+      "side": 1,
+      "message": "This calls the new function.",
+      "range": {
+        "startLine": 104,
+        "startChar": 0,
+        "endLine": 105,
+        "endChar": 47
+      },
+      "revId": "b557dbfcee25355bfb84ae2e23c432fbba66f4d8",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "bb4caa6f_bedb2600",
         "filename": "pc/simulcast_description.cc",
         "patchSetId": 4
@@ -48,6 +71,24 @@
       "writtenOn": "2022-01-24T06:20:51Z",
       "side": 1,
       "message": "This looks like an irrelevant change?",
+      "revId": "b557dbfcee25355bfb84ae2e23c432fbba66f4d8",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "f5841db1_a45d2c17",
+        "filename": "pc/simulcast_description.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 17,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2022-01-24T13:20:19Z",
+      "side": 1,
+      "message": "Needed for call from ParseSimulcastLayerList.",
+      "parentUuid": "bb4caa6f_bedb2600",
       "revId": "b557dbfcee25355bfb84ae2e23c432fbba66f4d8",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }

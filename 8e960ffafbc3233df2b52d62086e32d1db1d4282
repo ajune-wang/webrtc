@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "609dc4ee_bf365656",
+        "filename": "pc/sdp_serializer.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 131,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2022-01-24T13:20:19Z",
+      "side": 1,
+      "message": "And here we now pass a string_view rather than a std::string to the SimulcastLayer constructor.",
+      "range": {
+        "startLine": 131,
+        "startChar": 38,
+        "endLine": 131,
+        "endChar": 41
+      },
+      "revId": "8e960ffafbc3233df2b52d62086e32d1db1d4282",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

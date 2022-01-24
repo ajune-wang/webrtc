@@ -18,6 +18,24 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "36f6402d_4aeee9d7",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 6
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 8046
+      },
+      "writtenOn": "2022-01-24T18:03:20Z",
+      "side": 1,
+      "message": "I would like to, but haven\u0027t decided yet how to test all the PipeWire code. However, this queue handling logic is pretty trivial.\n\nIt\u0027s like having just two DesktopFrame instances we keep reusing, when one is being used (e.g. displayed by Chromium), we can keep storing new PW buffers to the other, then when someone asks for a new frame, we return the one we were using to store PW buffer and reuse the previous one and so on and so on.",
+      "parentUuid": "1c9d363c_25c168bc",
+      "revId": "b69e5929ab182f2a2f447b592c375e739461e665",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "36f77ea1_8e265667",
@@ -31,6 +49,24 @@
       "writtenOn": "2022-01-24T17:18:38Z",
       "side": 1,
       "message": "Should this be named process_frame_lock_?",
+      "revId": "b69e5929ab182f2a2f447b592c375e739461e665",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "1c6a8b93_2c9290e2",
+        "filename": "modules/desktop_capture/linux/wayland/shared_screencast_stream.cc",
+        "patchSetId": 6
+      },
+      "lineNbr": 185,
+      "author": {
+        "id": 8046
+      },
+      "writtenOn": "2022-01-24T18:03:20Z",
+      "side": 1,
+      "message": "Probably something like queue_lock_. I will fix that.",
+      "parentUuid": "36f77ea1_8e265667",
       "revId": "b69e5929ab182f2a2f447b592c375e739461e665",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
@@ -82,6 +118,24 @@
       "writtenOn": "2022-01-24T17:18:38Z",
       "side": 1,
       "message": "What does it mean when the frame is still shared?  Overwriting its contents may not be safe (especially with a frame of a different size).",
+      "revId": "b69e5929ab182f2a2f447b592c375e739461e665",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "06f34000_3f4f4ee6",
+        "filename": "modules/desktop_capture/linux/wayland/shared_screencast_stream.cc",
+        "patchSetId": 6
+      },
+      "lineNbr": 665,
+      "author": {
+        "id": 8046
+      },
+      "writtenOn": "2022-01-24T18:03:20Z",
+      "side": 1,
+      "message": "I don\u0027t think this situation can actually happen, as explained above how the ScreenCaptureFrameQueue works and I took this from the X11 capturer, but I think I can make it to drop the PW buffer in this case.",
+      "parentUuid": "21f68deb_d805d83b",
       "revId": "b69e5929ab182f2a2f447b592c375e739461e665",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }

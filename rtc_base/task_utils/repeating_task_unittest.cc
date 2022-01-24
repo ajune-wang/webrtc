@@ -70,6 +70,14 @@ class FakeTaskQueue : public TaskQueueBase {
   void PostDelayedTask(std::unique_ptr<QueuedTask> task,
                        uint32_t milliseconds) override {
     last_task_ = std::move(task);
+    last_precision_ = TaskQueueBase::Precision::kLow;
+    last_delay_ = milliseconds;
+  }
+
+  void PostDelayedHighPrecisionTask(std::unique_ptr<QueuedTask> task,
+                                    uint32_t milliseconds) override {
+    last_task_ = std::move(task);
+    last_precision_ = TaskQueueBase::Precision::kHigh;
     last_delay_ = milliseconds;
   }
 
@@ -94,11 +102,17 @@ class FakeTaskQueue : public TaskQueueBase {
     return last_delay_.value_or(-1);
   }
 
+  TaskQueueBase::Precision last_precision() const {
+    EXPECT_TRUE(last_precision_.has_value());
+    return last_precision_.value_or(TaskQueueBase::Precision::kLow);
+  }
+
  private:
   CurrentTaskQueueSetter task_queue_setter_;
   SimulatedClock* clock_;
   std::unique_ptr<QueuedTask> last_task_;
   absl::optional<uint32_t> last_delay_;
+  absl::optional<TaskQueueBase::Precision> last_precision_;
 };
 
 // NOTE: Since this utility class holds a raw pointer to a variable that likely
@@ -165,7 +179,7 @@ TEST(RepeatingTaskTest, CompensatesForLongRunTime) {
         clock.AdvanceTime(kSleepDuration);
         return kRepeatInterval;
       },
-      &clock);
+      TaskQueueBase::Precision::kLow, &clock);
 
   EXPECT_EQ(task_queue.last_delay(), 0u);
   EXPECT_FALSE(task_queue.AdvanceTimeAndRunLastTask());
@@ -188,7 +202,7 @@ TEST(RepeatingTaskTest, CompensatesForShortRunTime) {
         clock.AdvanceTime(TimeDelta::Millis(100));
         return TimeDelta::Millis(300);
       },
-      &clock);
+      TaskQueueBase::Precision::kLow, &clock);
 
   // Expect instant post task.
   EXPECT_EQ(task_queue.last_delay(), 0u);
@@ -338,7 +352,7 @@ TEST(RepeatingTaskTest, ClockIntegration) {
         clock.AdvanceTimeMilliseconds(10);
         return TimeDelta::Millis(100);
       },
-      &clock);
+      TaskQueueBase::Precision::kLow, &clock);
 
   clock.AdvanceTimeMilliseconds(100);
   QueuedTask* task_to_run = delayed_task.release();
@@ -364,6 +378,38 @@ TEST(RepeatingTaskTest, CanBeStoppedAfterTaskQueueDeletedTheRepeatingTask) {
   // shutdown task queue: delete all pending tasks and run 'regular' task.
   repeating_task = nullptr;
   handle.Stop();
+}
+
+TEST(RepeatingTaskTest, CanSpecifyToPostTasksWithLowPrecision) {
+  SimulatedClock clock(Timestamp::Zero());
+  FakeTaskQueue task_queue(&clock);
+  RepeatingTaskHandle handle = RepeatingTaskHandle::Start(
+      &task_queue, [&] { return TimeDelta::PlusInfinity(); },
+      TaskQueueBase::Precision::kLow);
+  EXPECT_EQ(task_queue.last_precision(), TaskQueueBase::Precision::kLow);
+  // Task cancelled itself so wants to be released.
+  EXPECT_TRUE(task_queue.AdvanceTimeAndRunLastTask());
+}
+
+TEST(RepeatingTaskTest, CanSpecifyToPostTasksWithHighPrecision) {
+  SimulatedClock clock(Timestamp::Zero());
+  FakeTaskQueue task_queue(&clock);
+  RepeatingTaskHandle handle = RepeatingTaskHandle::Start(
+      &task_queue, [&] { return TimeDelta::PlusInfinity(); },
+      TaskQueueBase::Precision::kHigh);
+  EXPECT_EQ(task_queue.last_precision(), TaskQueueBase::Precision::kHigh);
+  // Task cancelled itself so wants to be released.
+  EXPECT_TRUE(task_queue.AdvanceTimeAndRunLastTask());
+}
+
+TEST(RepeatingTaskTest, LowPrecisionIsUsedByDefault) {
+  SimulatedClock clock(Timestamp::Zero());
+  FakeTaskQueue task_queue(&clock);
+  RepeatingTaskHandle handle = RepeatingTaskHandle::Start(
+      &task_queue, [&] { return TimeDelta::PlusInfinity(); });
+  EXPECT_EQ(task_queue.last_precision(), TaskQueueBase::Precision::kLow);
+  // Task cancelled itself so wants to be released.
+  EXPECT_TRUE(task_queue.AdvanceTimeAndRunLastTask());
 }
 
 }  // namespace webrtc

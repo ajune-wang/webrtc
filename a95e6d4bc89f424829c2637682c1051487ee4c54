@@ -35,6 +35,23 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "2c81c8d3_fca1ea41",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5142
+      },
+      "writtenOn": "2022-01-24T08:27:18Z",
+      "side": 1,
+      "message": "The webrtc_perf_tests issue is a bot error being addressed here: https://chromium-review.googlesource.com/c/chromium/tools/build/+/3406552\n\nThe chromium WPT failures have been fixed by https://chromium-review.googlesource.com/c/chromium/src/+/3404293",
+      "revId": "a95e6d4bc89f424829c2637682c1051487ee4c54",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "2af3250e_f2497586",

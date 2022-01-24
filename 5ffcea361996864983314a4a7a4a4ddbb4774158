@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "bebc4a7f_1cfdebbc",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 3
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5142
+      },
+      "writtenOn": "2022-01-24T16:00:21Z",
+      "side": 1,
+      "message": "Please take a look Tommi (for all files) and Erik (especially for making TaskQueuePacedSender high-precision). As discussed, making uses like TaskQueuePacedSender split between high and low precision tasks would require refactoring and should be done as a separate project. This CL is all about not causing regressions when the PostDelayedTask precision is lowered.",
+      "revId": "5ffcea361996864983314a4a7a4a4ddbb4774158",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

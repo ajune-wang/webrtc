@@ -16,6 +16,24 @@
       "message": "The test failures look odd - bot says failure status, but text log indicates all tests passed. Bogus failure?",
       "revId": "36cb6a36d1a1c6dbe9135c8bca195a3a8aabceb3",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "12153002_9a3e0916",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 4
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5508
+      },
+      "writtenOn": "2022-01-24T12:38:21Z",
+      "side": 1,
+      "message": "Yes there was an issue with the bots - resolved now",
+      "parentUuid": "d2a4dabc_c7b56a2a",
+      "revId": "36cb6a36d1a1c6dbe9135c8bca195a3a8aabceb3",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

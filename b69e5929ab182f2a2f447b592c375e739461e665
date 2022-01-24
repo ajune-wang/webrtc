@@ -1,0 +1,89 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "1c9d363c_25c168bc",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 6
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 14134
+      },
+      "writtenOn": "2022-01-24T17:18:38Z",
+      "side": 1,
+      "message": "Can you add unit test cases to cover the new queue handling logic?",
+      "revId": "b69e5929ab182f2a2f447b592c375e739461e665",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "36f77ea1_8e265667",
+        "filename": "modules/desktop_capture/linux/wayland/shared_screencast_stream.cc",
+        "patchSetId": 6
+      },
+      "lineNbr": 185,
+      "author": {
+        "id": 14134
+      },
+      "writtenOn": "2022-01-24T17:18:38Z",
+      "side": 1,
+      "message": "Should this be named process_frame_lock_?",
+      "revId": "b69e5929ab182f2a2f447b592c375e739461e665",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "36d6b476_9d564c6e",
+        "filename": "modules/desktop_capture/linux/wayland/shared_screencast_stream.cc",
+        "patchSetId": 6
+      },
+      "lineNbr": 544,
+      "author": {
+        "id": 14134
+      },
+      "writtenOn": "2022-01-24T17:18:38Z",
+      "side": 1,
+      "message": "Can you use the thread annotations in rtc_base/thread_annotations.h to annotate the code using process_frame_lock?  For example, the frame queue would be declared RTC_GUARDED_BY and this method would be declared RTC_EXCLUSIVE_LOCKS_REQUIRED.",
+      "revId": "b69e5929ab182f2a2f447b592c375e739461e665",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "47fc57ef_6f4336bf",
+        "filename": "modules/desktop_capture/linux/wayland/shared_screencast_stream.cc",
+        "patchSetId": 6
+      },
+      "lineNbr": 658,
+      "author": {
+        "id": 14134
+      },
+      "writtenOn": "2022-01-24T17:18:38Z",
+      "side": 1,
+      "message": "This can be moved outside the lock.",
+      "revId": "b69e5929ab182f2a2f447b592c375e739461e665",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "21f68deb_d805d83b",
+        "filename": "modules/desktop_capture/linux/wayland/shared_screencast_stream.cc",
+        "patchSetId": 6
+      },
+      "lineNbr": 665,
+      "author": {
+        "id": 14134
+      },
+      "writtenOn": "2022-01-24T17:18:38Z",
+      "side": 1,
+      "message": "What does it mean when the frame is still shared?  Overwriting its contents may not be safe (especially with a frame of a different size).",
+      "revId": "b69e5929ab182f2a2f447b592c375e739461e665",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

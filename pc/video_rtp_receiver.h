@@ -87,7 +87,7 @@ class VideoRtpReceiver : public RtpReceiverInternal {
       rtc::scoped_refptr<FrameTransformerInterface> frame_transformer) override;
 
   // RtpReceiverInternal implementation.
-  void Stop() override;
+  bool Stop(bool async = false) override;
   void StopAndEndTrack() override;
   void SetupMediaChannel(uint32_t ssrc) override;
   void SetupUnsignaledMediaChannel() override;
@@ -104,7 +104,8 @@ class VideoRtpReceiver : public RtpReceiverInternal {
   void SetJitterBufferMinimumDelay(
       absl::optional<double> delay_seconds) override;
 
-  void SetMediaChannel(cricket::MediaChannel* media_channel) override;
+  bool SetMediaChannel(cricket::MediaChannel* media_channel,
+                       bool async = false) override;
 
   int AttachmentId() const override { return attachment_id_; }
 

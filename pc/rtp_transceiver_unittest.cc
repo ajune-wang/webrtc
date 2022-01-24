@@ -292,7 +292,7 @@ TEST_F(RtpTransceiverTestForHeaderExtensions,
 TEST_F(RtpTransceiverTestForHeaderExtensions,
        NoNegotiatedHdrExtsWithChannelWithoutNegotiation) {
   const std::string content_name("my_mid");
-  EXPECT_CALL(*receiver_.get(), SetMediaChannel(_));
+  EXPECT_CALL(*receiver_.get(), SetMediaChannel(_, _));
   EXPECT_CALL(*receiver_.get(), StopAndEndTrack());
   EXPECT_CALL(*sender_.get(), SetMediaChannel(_));
   EXPECT_CALL(*sender_.get(), SetTransceiverAsStopped());
@@ -311,7 +311,7 @@ TEST_F(RtpTransceiverTestForHeaderExtensions,
 
 TEST_F(RtpTransceiverTestForHeaderExtensions, ReturnsNegotiatedHdrExts) {
   const std::string content_name("my_mid");
-  EXPECT_CALL(*receiver_.get(), SetMediaChannel(_));
+  EXPECT_CALL(*receiver_.get(), SetMediaChannel(_, _));
   EXPECT_CALL(*receiver_.get(), StopAndEndTrack());
   EXPECT_CALL(*sender_.get(), SetMediaChannel(_));
   EXPECT_CALL(*sender_.get(), SetTransceiverAsStopped());

@@ -25,6 +25,13 @@ namespace webrtc {
 // known task queue, use IsCurrent().
 class RTC_LOCKABLE RTC_EXPORT TaskQueueBase {
  public:
+  enum class Precision {
+    // The precision of PostDelayedTask().
+    kLow,
+    // The precision of PostDelayedHighPrecisionTask().
+    kHigh,
+  };
+
   // Starts destruction of the task queue.
   // On return ensures no task are running and no new tasks are able to start
   // on the task queue.
@@ -96,6 +103,21 @@ class RTC_LOCKABLE RTC_EXPORT TaskQueueBase {
     // Remove default implementation when dependencies have implemented this
     // method.
     PostDelayedTask(std::move(task), milliseconds);
+  }
+
+  // As specified by |precision|, calls either PostDelayedTask() or
+  // PostDelayedHighPrecisionTask().
+  void PostDelayedTaskWithPrecision(Precision precision,
+                                    std::unique_ptr<QueuedTask> task,
+                                    uint32_t milliseconds) {
+    switch (precision) {
+      case Precision::kLow:
+        PostDelayedTask(std::move(task), milliseconds);
+        break;
+      case Precision::kHigh:
+        PostDelayedHighPrecisionTask(std::move(task), milliseconds);
+        break;
+    }
   }
 
   // Returns the task queue that is running the current thread.

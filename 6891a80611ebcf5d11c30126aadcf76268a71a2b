@@ -16,6 +16,23 @@
       "message": "Trying to make class notes better.\n",
       "revId": "6891a80611ebcf5d11c30126aadcf76268a71a2b",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "b1630d24_452f053a",
+        "filename": "pc/channel_interface.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 32,
+      "author": {
+        "id": 5142
+      },
+      "writtenOn": "2022-01-24T09:14:52Z",
+      "side": 1,
+      "message": "Looking forward to when we can delete the \"what if multiple...\" code paths for Plan B :)",
+      "revId": "6891a80611ebcf5d11c30126aadcf76268a71a2b",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

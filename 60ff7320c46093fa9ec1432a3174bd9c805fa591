@@ -16,6 +16,24 @@
       "message": "Code change lgtm, but please document threading requirement either on this class, or on the StreamFeedbackProvider interface (if it applies equally to all implementations?)",
       "revId": "60ff7320c46093fa9ec1432a3174bd9c805fa591",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "70aeddc3_156dde35",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 4
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5508
+      },
+      "writtenOn": "2022-01-24T11:08:08Z",
+      "side": 1,
+      "message": "There´s indeed just a single implementation of this interface and this interface isn\u0027t taken advantage of in any test.\n\nBtw, in the two follow-up CLs, I remove the other lock too and then this class is consistent in the fact that all methods need to be called from the same context (or else dchecks will be triggered).",
+      "parentUuid": "52bcf4b0_0e94e8eb",
+      "revId": "60ff7320c46093fa9ec1432a3174bd9c805fa591",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

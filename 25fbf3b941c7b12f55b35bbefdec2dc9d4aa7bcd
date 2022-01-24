@@ -35,6 +35,24 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "a4ed6de2_75726405",
+        "filename": "api/task_queue/task_queue_base.h",
+        "patchSetId": 3
+      },
+      "lineNbr": 28,
+      "author": {
+        "id": 5142
+      },
+      "writtenOn": "2022-01-24T16:13:17Z",
+      "side": 1,
+      "message": "Done, that makes sense. (Only the delayed tasks.)",
+      "parentUuid": "b70f2f88_d7270219",
+      "revId": "25fbf3b941c7b12f55b35bbefdec2dc9d4aa7bcd",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "59250c2e_5de54333",
@@ -48,6 +66,24 @@
       "writtenOn": "2022-01-24T15:58:58Z",
       "side": 1,
       "message": "As a follow-up I think that it would be good to have it spelled out in this file what precision actually means, why it exists and how it works in practice. Otherwise I can foresee lots of questions in code reviews pop up and likely incorrect usage of either of these values.",
+      "revId": "25fbf3b941c7b12f55b35bbefdec2dc9d4aa7bcd",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "36c70e78_f2d7fe69",
+        "filename": "api/task_queue/task_queue_base.h",
+        "patchSetId": 3
+      },
+      "lineNbr": 29,
+      "author": {
+        "id": 5142
+      },
+      "writtenOn": "2022-01-24T16:13:17Z",
+      "side": 1,
+      "message": "I updated these descriptions to say up-front that the additional delay is up to 17 ms but still kept the descriptions short and ending with \"See PostDelayedTask() for more information.\"\n\nLet me know if you want me to do something else, like copy the precision description to both places or rephrase them somehow.\n\nOr with regards to \"how it works in practise\" do you want me to describe how the metronome works?",
+      "parentUuid": "59250c2e_5de54333",
       "revId": "25fbf3b941c7b12f55b35bbefdec2dc9d4aa7bcd",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }

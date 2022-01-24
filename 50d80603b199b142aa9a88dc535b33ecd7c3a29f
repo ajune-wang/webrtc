@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "3ef40d04_442c7289",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 17414
+      },
+      "writtenOn": "2022-01-24T09:56:08Z",
+      "side": 1,
+      "message": "Magnus, do you know why these bots are failing? Seems to be unrelated to the change.",
+      "revId": "50d80603b199b142aa9a88dc535b33ecd7c3a29f",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

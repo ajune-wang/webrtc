@@ -167,6 +167,8 @@ RtpVideoSenderInterface* RtpTransportControllerSend::CreateRtpVideoSender(
     const RtpSenderFrameEncryptionConfig& frame_encryption_config,
     rtc::scoped_refptr<FrameTransformerInterface> frame_transformer) {
   RTC_DCHECK_RUN_ON(&main_thread_);
+  // TODO(tommi): Post a task to the transport queue to updated the suspended
+  // ssrcs?
   video_rtp_senders_.push_back(std::make_unique<RtpVideoSender>(
       clock_, suspended_ssrcs, states, rtp_config, rtcp_report_interval_ms,
       send_transport, observers,
@@ -513,6 +515,14 @@ void RtpTransportControllerSend::AccountForAudioPacketsInPacedSender(
 
 void RtpTransportControllerSend::IncludeOverheadInPacedSender() {
   pacer()->SetIncludeOverhead();
+}
+
+void RtpTransportControllerSend::UpdateRtpStates(
+    const std::map<uint32_t, RtpState>& states) {
+  RTC_DCHECK_RUN_ON(&task_queue_);
+  for (const auto& kv : states) {
+    suspended_video_send_ssrcs_[kv.first] = kv.second;
+  }
 }
 
 void RtpTransportControllerSend::EnsureStarted() {

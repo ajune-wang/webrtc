@@ -16,6 +16,24 @@
       "message": "Magnus, do you know why these bots are failing? Seems to be unrelated to the change.",
       "revId": "50d80603b199b142aa9a88dc535b33ecd7c3a29f",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "e644ef2e_3755fa82",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2022-01-24T10:05:44Z",
+      "side": 1,
+      "message": "Unrelated infra error, known. Just try again in a bit.",
+      "parentUuid": "3ef40d04_442c7289",
+      "revId": "50d80603b199b142aa9a88dc535b33ecd7c3a29f",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

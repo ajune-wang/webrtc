@@ -16,6 +16,40 @@
       "message": "Please take a look, Tommi",
       "revId": "25fbf3b941c7b12f55b35bbefdec2dc9d4aa7bcd",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "b70f2f88_d7270219",
+        "filename": "api/task_queue/task_queue_base.h",
+        "patchSetId": 3
+      },
+      "lineNbr": 28,
+      "author": {
+        "id": 5508
+      },
+      "writtenOn": "2022-01-24T15:58:58Z",
+      "side": 1,
+      "message": "Should we call this DelayPrecision? (it doesn\u0027t affect any other operation of the TQ, right?)",
+      "revId": "25fbf3b941c7b12f55b35bbefdec2dc9d4aa7bcd",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "59250c2e_5de54333",
+        "filename": "api/task_queue/task_queue_base.h",
+        "patchSetId": 3
+      },
+      "lineNbr": 29,
+      "author": {
+        "id": 5508
+      },
+      "writtenOn": "2022-01-24T15:58:58Z",
+      "side": 1,
+      "message": "As a follow-up I think that it would be good to have it spelled out in this file what precision actually means, why it exists and how it works in practice. Otherwise I can foresee lots of questions in code reviews pop up and likely incorrect usage of either of these values.",
+      "revId": "25fbf3b941c7b12f55b35bbefdec2dc9d4aa7bcd",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

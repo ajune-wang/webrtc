@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "a99e6305_84dbc3b4",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2022-01-24T08:31:16Z",
+      "side": 1,
+      "message": "Seems right to me. RTC_CHECK_NOTREACHED calls UnreachableCodeReached(), which calls WriteFatalLogAndAbort(), which seems an odd thing to do from a \"constexpr\" expression. But not necessarily illegal ... I don\u0027t know the semantics of constexpr well enough.\n\n(constexpr is needed because x \u003d AsString(constant) can be optimized to x \u003d \"string\", but only if the AsString function is constexpr\u0027ed).",
+      "revId": "3622d180cc0ba7200a6ab85aebfb9978ddb9ed9e",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

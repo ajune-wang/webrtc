@@ -58,6 +58,30 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "bd25eb35_dab8d4ee",
+        "filename": "pc/sdp_serializer.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 105,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2022-01-24T20:10:15Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "63027710_19e28591",
+      "range": {
+        "startLine": 104,
+        "startChar": 0,
+        "endLine": 105,
+        "endChar": 47
+      },
+      "revId": "b557dbfcee25355bfb84ae2e23c432fbba66f4d8",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "bb4caa6f_bedb2600",
@@ -89,6 +113,24 @@
       "side": 1,
       "message": "Needed for call from ParseSimulcastLayerList.",
       "parentUuid": "bb4caa6f_bedb2600",
+      "revId": "b557dbfcee25355bfb84ae2e23c432fbba66f4d8",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "8dc35108_751fc3d1",
+        "filename": "pc/simulcast_description.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 17,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2022-01-24T20:10:15Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "f5841db1_a45d2c17",
       "revId": "b557dbfcee25355bfb84ae2e23c432fbba66f4d8",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }

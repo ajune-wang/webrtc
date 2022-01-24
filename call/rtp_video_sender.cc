@@ -159,6 +159,8 @@ std::unique_ptr<VideoFecGenerator> MaybeCreateFecGenerator(
       return nullptr;
     }
 
+    // TODO(tommi): Update the rtp state for the flexfec sender, on the
+    // transport queue, or construct the flexfecsender on the transport queue.
     const RtpState* rtp_state = nullptr;
     auto it = suspended_ssrcs.find(rtp.flexfec.ssrc);
     if (it != suspended_ssrcs.end()) {

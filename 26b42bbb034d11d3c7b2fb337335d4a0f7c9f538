@@ -16,6 +16,23 @@
       "message": "Triggered the trybots.\n",
       "revId": "26b42bbb034d11d3c7b2fb337335d4a0f7c9f538",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "2a8ccb35_d28b3f23",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 4
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2022-01-25T23:15:25Z",
+      "side": 1,
+      "message": "The tests for keyframe sending are in https://source.chromium.org/chromium/chromium/src/+/main:third_party/webrtc/video/rtp_video_stream_receiver2_unittest.cc - it seems to me that these all test the path with the injectable keyframe sender; you\u0027ll have to figure out how to mock out the methods that you want to call in order to write an unittest for this added functionality.\n",
+      "revId": "26b42bbb034d11d3c7b2fb337335d4a0f7c9f538",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

@@ -35,16 +35,18 @@ class FakeAdmTest : public ::testing::Test, public webrtc::AudioTransport {
 
   // Callbacks inherited from webrtc::AudioTransport.
   // ADM is pushing data.
-  int32_t RecordedDataIsAvailable(const void* audioSamples,
-                                  const size_t nSamples,
-                                  const size_t nBytesPerSample,
-                                  const size_t nChannels,
-                                  const uint32_t samplesPerSec,
-                                  const uint32_t totalDelayMS,
-                                  const int32_t clockDrift,
-                                  const uint32_t currentMicLevel,
-                                  const bool keyPressed,
-                                  uint32_t& newMicLevel) override {
+  int32_t RecordedDataIsAvailable(
+      const void* audioSamples,
+      const size_t nSamples,
+      const size_t nBytesPerSample,
+      const size_t nChannels,
+      const uint32_t samplesPerSec,
+      const uint32_t totalDelayMS,
+      const int32_t clockDrift,
+      const uint32_t currentMicLevel,
+      const bool keyPressed,
+      uint32_t& newMicLevel,
+      const int64_t estimated_capture_time_ns) override {
     webrtc::MutexLock lock(&mutex_);
     rec_buffer_bytes_ = nSamples * nBytesPerSample;
     if ((rec_buffer_bytes_ == 0) ||

@@ -118,7 +118,8 @@ void FineAudioBuffer::DeliverRecordedData(
       record_channels_ * record_samples_per_channel_10ms_;
   while (record_buffer_.size() >= num_elements_10ms) {
     audio_device_buffer_->SetRecordedBuffer(record_buffer_.data(),
-                                            record_samples_per_channel_10ms_);
+                                            record_samples_per_channel_10ms_,
+                                            /* capture timestamp */ 0);
     audio_device_buffer_->SetVQEData(playout_delay_ms_, record_delay_ms);
     audio_device_buffer_->DeliverRecordedData();
     memmove(record_buffer_.data(), record_buffer_.data() + num_elements_10ms,

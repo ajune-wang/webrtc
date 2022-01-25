@@ -1949,7 +1949,8 @@ int32_t AudioDeviceLinuxPulse::ProcessRecordedData(int8_t* bufferData,
                                                    uint32_t bufferSizeInSamples,
                                                    uint32_t recDelay)
     RTC_EXCLUSIVE_LOCKS_REQUIRED(mutex_) {
-  _ptrAudioBuffer->SetRecordedBuffer(bufferData, bufferSizeInSamples);
+  _ptrAudioBuffer->SetRecordedBuffer(bufferData, bufferSizeInSamples,
+                                     /* capture timestamp */ 0);
 
   // TODO(andrew): this is a temporary hack, to avoid non-causal far- and
   // near-end signals at the AEC for PulseAudio. I think the system delay is

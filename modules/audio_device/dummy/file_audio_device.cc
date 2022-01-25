@@ -483,7 +483,8 @@ bool FileAudioDevice::RecThreadProcess() {
     if (_inputFile.is_open()) {
       if (_inputFile.Read(_recordingBuffer, kRecordingBufferSize) > 0) {
         _ptrAudioBuffer->SetRecordedBuffer(_recordingBuffer,
-                                           _recordingFramesIn10MS);
+                                           _recordingFramesIn10MS,
+                                           /* capture timestamp */ 0);
       } else {
         _inputFile.Rewind();
       }

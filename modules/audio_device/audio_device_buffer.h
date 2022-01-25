@@ -98,7 +98,8 @@ class AudioDeviceBuffer {
   size_t PlayoutChannels() const;
 
   virtual int32_t SetRecordedBuffer(const void* audio_buffer,
-                                    size_t samples_per_channel);
+                                    size_t samples_per_channel,
+                                    int64_t capture_timestamp_ns);
   virtual void SetVQEData(int play_delay_ms, int rec_delay_ms);
   virtual int32_t DeliverRecordedData();
   uint32_t NewMicLevel() const;
@@ -186,6 +187,9 @@ class AudioDeviceBuffer {
   // Delay values used by the AEC.
   int play_delay_ms_;
   int rec_delay_ms_;
+
+  // Capture timestamp, used for A/V sync measurement.
+  int64_t capture_timestamp_ns_;
 
   // Counts number of times LogStats() has been called.
   size_t num_stat_reports_ RTC_GUARDED_BY(task_queue_);

@@ -346,6 +346,10 @@ class Call final : public webrtc::Call,
   DeliveryStatus DeliverRtp(MediaType media_type,
                             rtc::CopyOnWriteBuffer packet,
                             int64_t packet_time_us) RTC_RUN_ON(worker_thread_);
+
+  void RemoveSyncGroup(AudioReceiveStream* audio_stream);
+  AudioReceiveStream* FindAudioStreamForSyncGroup(const std::string& sync_group)
+      RTC_RUN_ON(worker_thread_);
   void ConfigureSync(const std::string& sync_group) RTC_RUN_ON(worker_thread_);
 
   void NotifyBweOfReceivedPacket(const RtpPacketReceived& packet,
@@ -396,7 +400,7 @@ class Call final : public webrtc::Call,
   std::set<VideoReceiveStream2*> video_receive_streams_
       RTC_GUARDED_BY(worker_thread_);
   std::map<std::string, AudioReceiveStream*> sync_stream_mapping_
-      RTC_GUARDED_BY(worker_thread_);
+      RTC_GUARDED_BY(&receive_11993_checker_);
 
   // TODO(nisse): Should eventually be injected at creation,
   // with a single object in the bundled case.
@@ -1009,11 +1013,7 @@ void Call::DestroyAudioReceiveStream(
 
   audio_receive_streams_.erase(audio_receive_stream);
 
-  const auto it = sync_stream_mapping_.find(config.sync_group);
-  if (it != sync_stream_mapping_.end() && it->second == audio_receive_stream) {
-    sync_stream_mapping_.erase(it);
-    ConfigureSync(config.sync_group);
-  }
+  RemoveSyncGroup(audio_receive_stream);
   UnregisterReceiveStream(ssrc);
 
   UpdateAggregateNetworkState();
@@ -1458,35 +1458,52 @@ void Call::OnAllocationLimitsChanged(BitrateAllocationLimits limits) {
                                             std::memory_order_relaxed);
 }
 
-// RTC_RUN_ON(worker_thread_)
-void Call::ConfigureSync(const std::string& sync_group) {
-  // TODO(bugs.webrtc.org/11993): Expect to be called on the network thread.
-  // Set sync only if there was no previous one.
-  if (sync_group.empty())
+void Call::RemoveSyncGroup(AudioReceiveStream* audio_stream) {
+  RTC_DCHECK_RUN_ON(&receive_11993_checker_);
+  const auto& sync_group = audio_stream->config().sync_group;
+  const auto it = sync_stream_mapping_.find(sync_group);
+  if (it == sync_stream_mapping_.end() || it->second != audio_stream)
     return;
+  sync_stream_mapping_.erase(it);
+  {
+    RTC_DCHECK_RUN_ON(worker_thread_);
+    ConfigureSync(sync_group);
+  }
+}
 
-  AudioReceiveStream* sync_audio_stream = nullptr;
-  // Find existing audio stream.
+// RTC_RUN_ON(worker_thread_)
+AudioReceiveStream* Call::FindAudioStreamForSyncGroup(
+    const std::string& sync_group) {
+  RTC_DCHECK_RUN_ON(&receive_11993_checker_);
+  if (sync_group.empty())
+    return nullptr;
+
   const auto it = sync_stream_mapping_.find(sync_group);
   if (it != sync_stream_mapping_.end()) {
-    sync_audio_stream = it->second;
-  } else {
-    // No configured audio stream, see if we can find one.
-    for (AudioReceiveStream* stream : audio_receive_streams_) {
-      if (stream->config().sync_group == sync_group) {
-        if (sync_audio_stream != nullptr) {
-          RTC_LOG(LS_WARNING)
-              << "Attempting to sync more than one audio stream "
-                 "within the same sync group. This is not "
-                 "supported in the current implementation.";
-          break;
-        }
-        sync_audio_stream = stream;
-      }
+    RTC_DCHECK(it->second);
+    return it->second;
+  }
+
+  // No configured audio stream, see if we can find one.
+  for (AudioReceiveStream* stream : audio_receive_streams_) {
+    if (stream->config().sync_group == sync_group) {
+      sync_stream_mapping_.insert(std::make_pair(sync_group, stream));
+      // NOTE: Attempting to sync more than one audio stream within the same
+      // sync group is not supported in the current implementation.
+      return stream;
     }
   }
-  if (sync_audio_stream)
-    sync_stream_mapping_[sync_group] = sync_audio_stream;
+
+  return nullptr;
+}
+
+// TODO(bugs.webrtc.org/11993): Expect to be called on the network thread.
+// RTC_RUN_ON(worker_thread_)
+void Call::ConfigureSync(const std::string& sync_group) {
+  AudioReceiveStream* audio_stream = FindAudioStreamForSyncGroup(sync_group);
+  if (!audio_stream)
+    return;
+
   size_t num_synced_streams = 0;
   for (VideoReceiveStream2* video_stream : video_receive_streams_) {
     if (video_stream->sync_group() != sync_group)
@@ -1503,7 +1520,7 @@ void Call::ConfigureSync(const std::string& sync_group) {
     // Only sync the first A/V pair within this sync group.
     if (num_synced_streams == 1) {
       // sync_audio_stream may be null and that's ok.
-      video_stream->SetSync(sync_audio_stream);
+      video_stream->SetSync(audio_stream);
     } else {
       video_stream->SetSync(nullptr);
     }

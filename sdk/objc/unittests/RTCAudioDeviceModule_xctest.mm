@@ -69,7 +69,7 @@ public:
                                  ntp_time_ms);
   }
 
-  int32_t RecordedDataIsAvailable(const void* audioSamples,
+  int32_t RecordedDataIsAvailable(const void *audioSamples,
                                   const size_t nSamples,
                                   const size_t nBytesPerSample,
                                   const size_t nChannels,
@@ -78,7 +78,8 @@ public:
                                   const int32_t clockDrift,
                                   const uint32_t currentMicLevel,
                                   const bool keyPressed,
-                                  uint32_t& newMicLevel) override {
+                                  uint32_t &newMicLevel,
+                                  const int64_t captureTimestampNS) override {
     return recordedDataIsAvailableBlock(audioSamples,
                                         nSamples,
                                         nBytesPerSample,

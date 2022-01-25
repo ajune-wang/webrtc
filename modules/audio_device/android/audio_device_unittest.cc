@@ -380,22 +380,24 @@ class MockAudioTransportAndroid : public test::MockAudioTransport {
               Invoke(this, &MockAudioTransportAndroid::RealNeedMorePlayData));
     }
     if (rec_mode()) {
-      ON_CALL(*this, RecordedDataIsAvailable(_, _, _, _, _, _, _, _, _, _))
+      ON_CALL(*this, RecordedDataIsAvailable(_, _, _, _, _, _, _, _, _, _, _))
           .WillByDefault(Invoke(
               this, &MockAudioTransportAndroid::RealRecordedDataIsAvailable));
     }
   }
 
-  int32_t RealRecordedDataIsAvailable(const void* audioSamples,
-                                      const size_t nSamples,
-                                      const size_t nBytesPerSample,
-                                      const size_t nChannels,
-                                      const uint32_t samplesPerSec,
-                                      const uint32_t totalDelayMS,
-                                      const int32_t clockDrift,
-                                      const uint32_t currentMicLevel,
-                                      const bool keyPressed,
-                                      uint32_t& newMicLevel) {  // NOLINT
+  int32_t RealRecordedDataIsAvailable(
+      const void* audioSamples,
+      const size_t nSamples,
+      const size_t nBytesPerSample,
+      const size_t nChannels,
+      const uint32_t samplesPerSec,
+      const uint32_t totalDelayMS,
+      const int32_t clockDrift,
+      const uint32_t currentMicLevel,
+      const bool keyPressed,
+      uint32_t& newMicLevel,
+      const int64_t estimatedCaptureTimeNS) {  // NOLINT
     EXPECT_TRUE(rec_mode()) << "No test is expecting these callbacks.";
     rec_count_++;
     // Process the recorded audio stream if an AudioStreamInterface
@@ -892,7 +894,7 @@ TEST_F(AudioDeviceTest, StartRecordingVerifyCallbacks) {
   EXPECT_CALL(
       mock, RecordedDataIsAvailable(NotNull(), record_frames_per_10ms_buffer(),
                                     kBytesPerSample, record_channels(),
-                                    record_sample_rate(), _, 0, 0, false, _))
+                                    record_sample_rate(), _, 0, 0, false, _, _))
       .Times(AtLeast(kNumCallbacks));
 
   EXPECT_EQ(0, audio_device()->RegisterAudioCallback(&mock));
@@ -913,7 +915,7 @@ TEST_F(AudioDeviceTest, StartPlayoutAndRecordingVerifyCallbacks) {
   EXPECT_CALL(
       mock, RecordedDataIsAvailable(NotNull(), record_frames_per_10ms_buffer(),
                                     kBytesPerSample, record_channels(),
-                                    record_sample_rate(), _, 0, 0, false, _))
+                                    record_sample_rate(), _, 0, 0, false, _, _))
       .Times(AtLeast(kNumCallbacks));
   EXPECT_EQ(0, audio_device()->RegisterAudioCallback(&mock));
   StartPlayout();

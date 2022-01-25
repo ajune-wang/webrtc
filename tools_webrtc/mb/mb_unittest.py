@@ -12,7 +12,7 @@
 import ast
 import json
 try:
-  from StringIO import StringIO  # for Python2
+  from io import StringIO  # for Python2
 except ImportError:
   from io import StringIO  # for Python3
 import os
@@ -197,7 +197,7 @@ class UnitTest(unittest.TestCase):
         mbw.ToAbsPath('//build/args/bots/fake_group/fake_args_bot.gn'),
         'is_debug = false\n')
     if files:
-      for path, contents in files.items():
+      for path, contents in list(files.items()):
         mbw.files[path] = contents
     return mbw
 

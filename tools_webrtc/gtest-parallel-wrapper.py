@@ -171,7 +171,7 @@ def ParseArgs(argv=None):
   }
   args_to_pass = []
   for arg in unrecognized_args:
-    if any(arg.startswith(k) for k in webrtc_flags_to_change.keys()):
+    if any(arg.startswith(k) for k in list(webrtc_flags_to_change.keys())):
       arg_split = arg.split('=')
       args_to_pass.append(webrtc_flags_to_change[arg_split[0]] + '=' +
                           arg_split[1])
@@ -226,7 +226,7 @@ def main():
   if test_artifacts_dir and not os.path.isdir(test_artifacts_dir):
     os.makedirs(test_artifacts_dir)
 
-  print 'gtest-parallel-wrapper: Executing command %s' % ' '.join(command)
+  print('gtest-parallel-wrapper: Executing command %s' % ' '.join(command))
   sys.stdout.flush()
 
   exit_code = subprocess.call(command, env=test_env, cwd=os.getcwd())

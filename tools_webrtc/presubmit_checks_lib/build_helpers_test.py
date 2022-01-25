@@ -13,7 +13,7 @@ import os
 import unittest
 
 #pylint: disable=relative-import
-import build_helpers
+from . import build_helpers
 
 TESTDATA_DIR = os.path.join(os.path.dirname(os.path.abspath(__file__)),
                             'testdata')
@@ -26,7 +26,7 @@ class GnCheckTest(unittest.TestCase):
     expected_error = re.compile('ERROR Dependency cycle')
     gn_output = build_helpers.RunGnCheck(test_dir)
     self.assertEqual(1, len(gn_output))
-    self.assertRegexpMatches(gn_output[0], expected_error)
+    self.assertRegex(gn_output[0], expected_error)
 
 
 if __name__ == '__main__':

@@ -142,6 +142,24 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "7d23ac3d_eb63b88a",
+        "filename": "modules/desktop_capture/linux/wayland/shared_screencast_stream.cc",
+        "patchSetId": 6
+      },
+      "lineNbr": 544,
+      "author": {
+        "id": 14134
+      },
+      "writtenOn": "2022-01-25T17:39:19Z",
+      "side": 1,
+      "message": "OK, it looks like the annotation is checking that the lock is held before the function is called, which isn\u0027t the case here.",
+      "parentUuid": "1d5a2052_810fd122",
+      "revId": "b69e5929ab182f2a2f447b592c375e739461e665",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "47fc57ef_6f4336bf",

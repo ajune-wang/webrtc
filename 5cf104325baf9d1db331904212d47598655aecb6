@@ -16,6 +16,24 @@
       "message": "optional nit: would \"class_name\" be more clear than \"name\"?",
       "revId": "5cf104325baf9d1db331904212d47598655aecb6",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "790ee8c3_137962ea",
+        "filename": "pc/proxy.h",
+        "patchSetId": 3
+      },
+      "lineNbr": 205,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2022-01-25T15:20:00Z",
+      "side": 1,
+      "message": "Done. Causes a few more line breaks, but I think it\u0027s an improvement.",
+      "parentUuid": "d696a042_21d13ce0",
+      "revId": "5cf104325baf9d1db331904212d47598655aecb6",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

@@ -85,6 +85,24 @@
       "message": "Trying to exercise imagination....\n",
       "revId": "f8917d6303f1bd50f1aee6cea6a47650fc586127",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "b16de827_6863371f",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 5
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2022-01-25T15:12:10Z",
+      "side": 1,
+      "message": "Sounds very much like the \"intern\" function, as found in handling of lisp symbols, as well as \"atoms\" in the X11 protocol. One drawback is that the the \"interned representation\", more or less a pointer to an entry in a hashtable (traditionally called the \"obarray\") then won\u0027t be a compile time constant.",
+      "parentUuid": "2bdedd99_1596c946",
+      "revId": "f8917d6303f1bd50f1aee6cea6a47650fc586127",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

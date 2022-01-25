@@ -423,5 +423,35 @@ TEST_F(TimerTest, DurationStaysWithinMaxTimerBackOffDuration) {
   AdvanceTimeAndRunTimers(DurationMs(1));
 }
 
+TEST(TimerManagerTest, TimerManagerCanCreateLowPrecisionTimeouts) {
+  FakeTimeoutManager timeout_manager([&]() { return TimeMs(0); });
+  // Pass ownership of the |fake_timeout| to the timer created by CreateTimer().
+  FakeTimeout* fake_timeout = timeout_manager.CreateTimeout().release();
+  TimerManager manager(
+      [&]() { return std::unique_ptr<Timeout>(fake_timeout); });
+  std::unique_ptr<Timer> timer = manager.CreateTimer(
+      "test_timer", []() { return absl::optional<DurationMs>(); },
+      TimerOptions(DurationMs(123)),
+      webrtc::TaskQueueBase::DelayPrecision::kLow);
+  // The timer manager passes along the low precision value to the Timeout.
+  EXPECT_EQ(fake_timeout->precision(),
+            webrtc::TaskQueueBase::DelayPrecision::kLow);
+}
+
+TEST(TimerManagerTest, TimerManagerCanCreateHighPrecisionTimeouts) {
+  FakeTimeoutManager timeout_manager([&]() { return TimeMs(0); });
+  // Pass ownership of the |fake_timeout| to the timer created by CreateTimer().
+  FakeTimeout* fake_timeout = timeout_manager.CreateTimeout().release();
+  TimerManager manager(
+      [&]() { return std::unique_ptr<Timeout>(fake_timeout); });
+  std::unique_ptr<Timer> timer = manager.CreateTimer(
+      "test_timer", []() { return absl::optional<DurationMs>(); },
+      TimerOptions(DurationMs(123)),
+      webrtc::TaskQueueBase::DelayPrecision::kHigh);
+  // The timer manager passes along the high precision value to the Timeout.
+  EXPECT_EQ(fake_timeout->precision(),
+            webrtc::TaskQueueBase::DelayPrecision::kHigh);
+}
+
 }  // namespace
 }  // namespace dcsctp

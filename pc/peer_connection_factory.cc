@@ -76,8 +76,9 @@ CreateModularPeerConnectionFactory(
   // Verify that the invocation and the initialization ended up agreeing on the
   // thread.
   RTC_DCHECK_RUN_ON(pc_factory->signaling_thread());
-  return PeerConnectionFactoryProxy::Create(
-      pc_factory->signaling_thread(), pc_factory->worker_thread(), pc_factory);
+  return PeerConnectionFactoryProxy::Create(pc_factory->signaling_thread(),
+                                            pc_factory->worker_thread(),
+                                            pc_factory.get());
 }
 
 // Static
@@ -260,7 +261,7 @@ PeerConnectionFactory::CreatePeerConnectionOrError(
   // should still be clear (outside of macro expansion).
   rtc::scoped_refptr<PeerConnectionInterface> result_proxy =
       PeerConnectionProxy::Create(signaling_thread(), network_thread(),
-                                  result.MoveValue());
+                                  result.MoveValue().get());
   return result_proxy;
 }
 
@@ -268,7 +269,7 @@ rtc::scoped_refptr<MediaStreamInterface>
 PeerConnectionFactory::CreateLocalMediaStream(const std::string& stream_id) {
   RTC_DCHECK(signaling_thread()->IsCurrent());
   return MediaStreamProxy::Create(signaling_thread(),
-                                  MediaStream::Create(stream_id));
+                                  MediaStream::Create(stream_id).get());
 }
 
 rtc::scoped_refptr<VideoTrackInterface> PeerConnectionFactory::CreateVideoTrack(
@@ -277,7 +278,8 @@ rtc::scoped_refptr<VideoTrackInterface> PeerConnectionFactory::CreateVideoTrack(
   RTC_DCHECK(signaling_thread()->IsCurrent());
   rtc::scoped_refptr<VideoTrackInterface> track(
       VideoTrack::Create(id, source, worker_thread()));
-  return VideoTrackProxy::Create(signaling_thread(), worker_thread(), track);
+  return VideoTrackProxy::Create(signaling_thread(), worker_thread(),
+                                 track.get());
 }
 
 rtc::scoped_refptr<AudioTrackInterface> PeerConnectionFactory::CreateAudioTrack(
@@ -286,7 +288,7 @@ rtc::scoped_refptr<AudioTrackInterface> PeerConnectionFactory::CreateAudioTrack(
   RTC_DCHECK(signaling_thread()->IsCurrent());
   rtc::scoped_refptr<AudioTrackInterface> track(
       AudioTrack::Create(id, rtc::scoped_refptr<AudioSourceInterface>(source)));
-  return AudioTrackProxy::Create(signaling_thread(), track);
+  return AudioTrackProxy::Create(signaling_thread(), track.get());
 }
 
 cricket::ChannelManager* PeerConnectionFactory::channel_manager() {

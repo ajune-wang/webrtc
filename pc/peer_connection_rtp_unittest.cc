@@ -237,7 +237,7 @@ TEST_P(PeerConnectionRtpTest, RemoveTrackWithoutStreamFiresOnRemoveTrack) {
   ASSERT_TRUE(
       caller->SetRemoteDescription(callee->CreateAnswerAndSetAsLocal()));
 
-  EXPECT_TRUE(caller->pc()->RemoveTrack(sender));
+  EXPECT_TRUE(caller->pc()->RemoveTrack(sender.get()));
   ASSERT_TRUE(callee->SetRemoteDescription(caller->CreateOfferAndSetAsLocal()));
 
   ASSERT_EQ(callee->observer()->add_track_events_.size(), 1u);
@@ -255,7 +255,7 @@ TEST_P(PeerConnectionRtpTest, RemoveTrackWithStreamFiresOnRemoveTrack) {
   ASSERT_TRUE(
       caller->SetRemoteDescription(callee->CreateAnswerAndSetAsLocal()));
 
-  EXPECT_TRUE(caller->pc()->RemoveTrack(sender));
+  EXPECT_TRUE(caller->pc()->RemoveTrack(sender.get()));
   ASSERT_TRUE(callee->SetRemoteDescription(caller->CreateOfferAndSetAsLocal()));
 
   ASSERT_EQ(callee->observer()->add_track_events_.size(), 1u);
@@ -277,7 +277,7 @@ TEST_P(PeerConnectionRtpTest, RemoveTrackWithSharedStreamFiresOnRemoveTrack) {
       caller->SetRemoteDescription(callee->CreateAnswerAndSetAsLocal()));
 
   // Remove "audio_track1".
-  EXPECT_TRUE(caller->pc()->RemoveTrack(sender1));
+  EXPECT_TRUE(caller->pc()->RemoveTrack(sender1.get()));
   ASSERT_TRUE(callee->SetRemoteDescription(caller->CreateOfferAndSetAsLocal()));
   ASSERT_EQ(callee->observer()->add_track_events_.size(), 2u);
   EXPECT_EQ(
@@ -289,7 +289,7 @@ TEST_P(PeerConnectionRtpTest, RemoveTrackWithSharedStreamFiresOnRemoveTrack) {
       caller->SetRemoteDescription(callee->CreateAnswerAndSetAsLocal()));
 
   // Remove "audio_track2".
-  EXPECT_TRUE(caller->pc()->RemoveTrack(sender2));
+  EXPECT_TRUE(caller->pc()->RemoveTrack(sender2.get()));
   ASSERT_TRUE(callee->SetRemoteDescription(caller->CreateOfferAndSetAsLocal()));
   ASSERT_EQ(callee->observer()->add_track_events_.size(), 2u);
   EXPECT_EQ(callee->observer()->GetAddTrackReceivers(),
@@ -480,7 +480,7 @@ TEST_F(PeerConnectionRtpTestUnifiedPlan,
   ASSERT_EQ(1u, callee->observer()->add_track_events_.size());
   EXPECT_EQ(0u, callee->observer()->remove_track_events_.size());
 
-  caller->pc()->RemoveTrack(sender);
+  caller->pc()->RemoveTrack(sender.get());
 
   ASSERT_TRUE(callee->SetRemoteDescription(caller->CreateOfferAndSetAsLocal()));
   EXPECT_EQ(1u, callee->observer()->add_track_events_.size());
@@ -580,7 +580,7 @@ TEST_P(PeerConnectionRtpTest, RemoveTrackWithoutStreamRemovesReceiver) {
 
   ASSERT_EQ(callee->pc()->GetReceivers().size(), 1u);
   auto receiver = callee->pc()->GetReceivers()[0];
-  ASSERT_TRUE(caller->pc()->RemoveTrack(sender));
+  ASSERT_TRUE(caller->pc()->RemoveTrack(sender.get()));
   ASSERT_TRUE(caller->ExchangeOfferAnswerWith(callee.get()));
 
   if (sdp_semantics_ == SdpSemantics::kUnifiedPlan) {
@@ -604,7 +604,7 @@ TEST_P(PeerConnectionRtpTest, RemoveTrackWithStreamRemovesReceiver) {
   ASSERT_TRUE(caller->ExchangeOfferAnswerWith(callee.get()));
   ASSERT_EQ(callee->pc()->GetReceivers().size(), 1u);
   auto receiver = callee->pc()->GetReceivers()[0];
-  ASSERT_TRUE(caller->pc()->RemoveTrack(sender));
+  ASSERT_TRUE(caller->pc()->RemoveTrack(sender.get()));
   ASSERT_TRUE(caller->ExchangeOfferAnswerWith(callee.get()));
 
   if (sdp_semantics_ == SdpSemantics::kUnifiedPlan) {
@@ -630,7 +630,7 @@ TEST_P(PeerConnectionRtpTest, RemoveTrackWithSharedStreamRemovesReceiver) {
   ASSERT_EQ(2u, callee->pc()->GetReceivers().size());
 
   // Remove "audio_track1".
-  EXPECT_TRUE(caller->pc()->RemoveTrack(sender1));
+  EXPECT_TRUE(caller->pc()->RemoveTrack(sender1.get()));
   ASSERT_TRUE(caller->ExchangeOfferAnswerWith(callee.get()));
 
   if (sdp_semantics_ == SdpSemantics::kUnifiedPlan) {
@@ -648,7 +648,7 @@ TEST_P(PeerConnectionRtpTest, RemoveTrackWithSharedStreamRemovesReceiver) {
   }
 
   // Remove "audio_track2".
-  EXPECT_TRUE(caller->pc()->RemoveTrack(sender2));
+  EXPECT_TRUE(caller->pc()->RemoveTrack(sender2.get()));
   ASSERT_TRUE(caller->ExchangeOfferAnswerWith(callee.get()));
 
   if (sdp_semantics_ == SdpSemantics::kUnifiedPlan) {
@@ -706,7 +706,7 @@ TEST_F(PeerConnectionRtpTestPlanB,
   // first and second SetRemoteDescription() calls.
   auto sender = caller->AddAudioTrack("audio_track", {});
   auto srd1_sdp = caller->CreateOfferAndSetAsLocal();
-  EXPECT_TRUE(caller->pc()->RemoveTrack(sender));
+  EXPECT_TRUE(caller->pc()->RemoveTrack(sender.get()));
   auto srd2_sdp = caller->CreateOfferAndSetAsLocal();
 
   // In the first SetRemoteDescription() callback, check that we have a
@@ -924,7 +924,7 @@ TEST_P(PeerConnectionRtpTest,
       rtc::make_ref_counted<webrtc::MockSetSessionDescriptionObserver>();
 
   auto offer = caller->CreateOfferAndSetAsLocal();
-  callee->pc()->SetRemoteDescription(observer, offer.release());
+  callee->pc()->SetRemoteDescription(observer.get(), offer.release());
   callee = nullptr;
   rtc::Thread::Current()->ProcessMessages(0);
   EXPECT_FALSE(observer->called());
@@ -1304,7 +1304,7 @@ TEST_F(PeerConnectionRtpTestUnifiedPlan, RemoveTrackClearsSenderTrack) {
   auto caller = CreatePeerConnection();
 
   auto sender = caller->AddAudioTrack("a");
-  ASSERT_TRUE(caller->pc()->RemoveTrack(sender));
+  ASSERT_TRUE(caller->pc()->RemoveTrack(sender.get()));
 
   EXPECT_FALSE(sender->track());
 }
@@ -1327,7 +1327,7 @@ TEST_F(PeerConnectionRtpTestUnifiedPlan,
   caller->observer()->clear_legacy_renegotiation_needed();
   caller->observer()->clear_latest_negotiation_needed_event();
 
-  ASSERT_TRUE(caller->pc()->RemoveTrack(transceiver->sender()));
+  ASSERT_TRUE(caller->pc()->RemoveTrack(transceiver->sender().get()));
   EXPECT_TRUE(caller->observer()->legacy_renegotiation_needed());
   EXPECT_TRUE(caller->observer()->has_negotiation_needed_event());
 
@@ -1352,7 +1352,7 @@ TEST_F(PeerConnectionRtpTestUnifiedPlan,
   caller->observer()->clear_legacy_renegotiation_needed();
   caller->observer()->clear_latest_negotiation_needed_event();
 
-  ASSERT_TRUE(caller->pc()->RemoveTrack(transceiver->sender()));
+  ASSERT_TRUE(caller->pc()->RemoveTrack(transceiver->sender().get()));
   EXPECT_TRUE(caller->observer()->legacy_renegotiation_needed());
   EXPECT_TRUE(caller->observer()->has_negotiation_needed_event());
 
@@ -1370,7 +1370,7 @@ TEST_F(PeerConnectionRtpTestUnifiedPlan, RemoveTrackWithNullSenderTrackIsNoOp) {
 
   caller->observer()->clear_legacy_renegotiation_needed();
   caller->observer()->clear_latest_negotiation_needed_event();
-  ASSERT_TRUE(caller->pc()->RemoveTrack(sender));
+  ASSERT_TRUE(caller->pc()->RemoveTrack(sender.get()));
   EXPECT_FALSE(caller->observer()->legacy_renegotiation_needed());
   EXPECT_FALSE(caller->observer()->has_negotiation_needed_event());
 
@@ -1387,7 +1387,7 @@ TEST_F(PeerConnectionRtpTestUnifiedPlan, RemoveTrackErrorIfClosed) {
 
   caller->observer()->clear_legacy_renegotiation_needed();
   caller->observer()->clear_latest_negotiation_needed_event();
-  EXPECT_FALSE(caller->pc()->RemoveTrack(sender));
+  EXPECT_FALSE(caller->pc()->RemoveTrack(sender.get()));
   EXPECT_FALSE(caller->observer()->legacy_renegotiation_needed());
   EXPECT_FALSE(caller->observer()->has_negotiation_needed_event());
 }
@@ -1397,11 +1397,11 @@ TEST_F(PeerConnectionRtpTestUnifiedPlan,
   auto caller = CreatePeerConnection();
 
   auto sender = caller->AddAudioTrack("a");
-  ASSERT_TRUE(caller->pc()->RemoveTrack(sender));
+  ASSERT_TRUE(caller->pc()->RemoveTrack(sender.get()));
 
   caller->observer()->clear_legacy_renegotiation_needed();
   caller->observer()->clear_latest_negotiation_needed_event();
-  EXPECT_TRUE(caller->pc()->RemoveTrack(sender));
+  EXPECT_TRUE(caller->pc()->RemoveTrack(sender.get()));
   EXPECT_FALSE(caller->observer()->legacy_renegotiation_needed());
   EXPECT_FALSE(caller->observer()->has_negotiation_needed_event());
 }
@@ -1415,7 +1415,7 @@ TEST_F(PeerConnectionRtpTestUnifiedPlan, AddRemoveAddTrackOffersWorksAudio) {
   auto sender1 = caller->AddAudioTrack("audio1");
   ASSERT_TRUE(caller->SetLocalDescription(caller->CreateOffer()));
 
-  caller->pc()->RemoveTrack(sender1);
+  caller->pc()->RemoveTrack(sender1.get());
   ASSERT_TRUE(caller->SetLocalDescription(caller->CreateOffer()));
 
   // This will re-use the transceiver created by the first AddTrack.
@@ -1431,7 +1431,7 @@ TEST_F(PeerConnectionRtpTestUnifiedPlan, AddRemoveAddTrackOffersWorksVideo) {
   auto sender1 = caller->AddVideoTrack("video1");
   ASSERT_TRUE(caller->SetLocalDescription(caller->CreateOffer()));
 
-  caller->pc()->RemoveTrack(sender1);
+  caller->pc()->RemoveTrack(sender1.get());
   ASSERT_TRUE(caller->SetLocalDescription(caller->CreateOffer()));
 
   // This will re-use the transceiver created by the first AddTrack.
@@ -1488,7 +1488,7 @@ TEST_F(PeerConnectionRtpTestUnifiedPlan,
   auto sender1 = caller->AddTrack(track);
   ASSERT_TRUE(caller->ExchangeOfferAnswerWith(callee.get()));
 
-  caller->pc()->RemoveTrack(sender1);
+  caller->pc()->RemoveTrack(sender1.get());
   ASSERT_TRUE(caller->ExchangeOfferAnswerWith(callee.get()));
 
   auto sender2 = caller->AddTrack(track);
@@ -1656,11 +1656,11 @@ TEST_F(PeerConnectionRtpTestUnifiedPlan,
   caller->AddTransceiver(video_track);
   auto transceiver = caller->AddTransceiver(track);
   ASSERT_TRUE(caller->ExchangeOfferAnswerWith(callee.get()));
-  caller->pc()->RemoveTrack(transceiver->sender());
+  caller->pc()->RemoveTrack(transceiver->sender().get());
   ASSERT_TRUE(caller->ExchangeOfferAnswerWith(callee.get()));
   caller->AddTrack(track);
   ASSERT_TRUE(caller->ExchangeOfferAnswerWith(callee.get()));
-  caller->pc()->RemoveTrack(transceiver->sender());
+  caller->pc()->RemoveTrack(transceiver->sender().get());
   ASSERT_TRUE(caller->ExchangeOfferAnswerWith(callee.get()));
 }
 
@@ -1674,12 +1674,12 @@ TEST_F(PeerConnectionRtpTestUnifiedPlan,
   caller->AddTransceiver(video_track);
   auto transceiver = caller->AddTransceiver(track);
   ASSERT_TRUE(caller->ExchangeOfferAnswerWith(callee.get()));
-  caller->pc()->RemoveTrack(transceiver->sender());
+  caller->pc()->RemoveTrack(transceiver->sender().get());
   ExchangeOfferAnswerWhereRemoteStopsTransceiver(caller.get(), callee.get(), 1);
   ASSERT_TRUE(caller->ExchangeOfferAnswerWith(callee.get()));
   caller->AddTrack(track);
   ASSERT_TRUE(caller->ExchangeOfferAnswerWith(callee.get()));
-  caller->pc()->RemoveTrack(transceiver->sender());
+  caller->pc()->RemoveTrack(transceiver->sender().get());
   ASSERT_TRUE(caller->ExchangeOfferAnswerWith(callee.get()));
 }
 
@@ -1992,7 +1992,7 @@ TEST_P(PeerConnectionRtpTest, CreateTwoSendersWithSameTrack) {
   EXPECT_TRUE(sender1->SetTrack(nullptr));
   auto sender2 = caller->AddTrack(track);
   EXPECT_TRUE(sender2);
-  EXPECT_TRUE(sender1->SetTrack(track));
+  EXPECT_TRUE(sender1->SetTrack(track.get()));
 
   if (sdp_semantics_ == SdpSemantics::kPlanB) {
     // TODO(hbos): When https://crbug.com/webrtc/8734 is resolved, this should

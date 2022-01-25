@@ -691,7 +691,7 @@ SharedScreenCastStream::~SharedScreenCastStream() {}
 
 rtc::scoped_refptr<SharedScreenCastStream>
 SharedScreenCastStream::CreateDefault() {
-  return new SharedScreenCastStream();
+  return rtc::scoped_refptr<SharedScreenCastStream>();
 }
 
 bool SharedScreenCastStream::StartScreenCastStream(uint32_t stream_node_id,

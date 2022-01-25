@@ -25,6 +25,11 @@ TaskQueueTimeoutFactory::TaskQueueTimeout::~TaskQueueTimeout() {
   pending_task_safety_flag_->SetNotAlive();
 }
 
+void TaskQueueTimeoutFactory::TaskQueueTimeout::SetTimeoutPrecision(
+    webrtc::TaskQueueBase::DelayPrecision precision) {
+  precision_ = precision;
+}
+
 void TaskQueueTimeoutFactory::TaskQueueTimeout::Start(DurationMs duration_ms,
                                                       TimeoutID timeout_id) {
   RTC_DCHECK_RUN_ON(&parent_.thread_checker_);
@@ -54,7 +59,8 @@ void TaskQueueTimeoutFactory::TaskQueueTimeout::Start(DurationMs duration_ms,
   }
 
   posted_task_expiration_ = timeout_expiration_;
-  parent_.task_queue_.PostDelayedTask(
+  parent_.task_queue_.PostDelayedTaskWithPrecision(
+      precision_,
       webrtc::ToQueuedTask(
           pending_task_safety_flag_,
           [timeout_id, this]() {

@@ -16,6 +16,24 @@
       "message": "As I said on the bug, I\u0027m against exposing this.\nIt is an internal implementation detail, and shouldn\u0027t be visible on the API.\n",
       "revId": "8d2aaacf6612565c6830e99e492399bbe35278bf",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "d8bc7ae7_ce8480ca",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 7
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5508
+      },
+      "writtenOn": "2022-01-25T21:35:31Z",
+      "side": 1,
+      "message": "agreed - I thought I had abandoned this change last year, apparently I didn\u0027t.\nI see it got rebased when I rebased a batch of local branches on my mac, so that must have unintentionally sent out some emails. Marking as abandoned now.",
+      "parentUuid": "099df0dd_2eae43a8",
+      "revId": "8d2aaacf6612565c6830e99e492399bbe35278bf",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

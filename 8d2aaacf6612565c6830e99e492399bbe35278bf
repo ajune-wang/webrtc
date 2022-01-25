@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "099df0dd_2eae43a8",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 7
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2022-01-25T21:29:05Z",
+      "side": 1,
+      "message": "As I said on the bug, I\u0027m against exposing this.\nIt is an internal implementation detail, and shouldn\u0027t be visible on the API.\n",
+      "revId": "8d2aaacf6612565c6830e99e492399bbe35278bf",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

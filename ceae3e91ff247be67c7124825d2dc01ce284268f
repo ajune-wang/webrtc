@@ -16,6 +16,46 @@
       "message": "PTAL. Just a quick cleanup CL.",
       "revId": "ceae3e91ff247be67c7124825d2dc01ce284268f",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "45e2045d_71241910",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2022-01-25T13:51:42Z",
+      "side": 1,
+      "message": "Looks good to me, except cases of std::string and std::vector, which were likely intended to use \"const \u0026\".\n\nNo that I don\u0027t have much owner power, so you also need OWNER\u0027s review.",
+      "revId": "ceae3e91ff247be67c7124825d2dc01ce284268f",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "5d4e4a5a_17a43865",
+        "filename": "call/rtp_video_sender.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 156,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2022-01-25T13:51:42Z",
+      "side": 1,
+      "message": "Same question here.",
+      "range": {
+        "startLine": 156,
+        "startChar": 30,
+        "endLine": 156,
+        "endChar": 62
+      },
+      "revId": "ceae3e91ff247be67c7124825d2dc01ce284268f",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

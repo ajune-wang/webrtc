@@ -1,0 +1,188 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "c5a27e12_7f40ff89",
+        "filename": "call/rtp_video_sender.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 99,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2022-01-25T13:51:42Z",
+      "side": 0,
+      "message": "Maybe `const std::vector\u003cbool\u003e\u0026` was the intended type?",
+      "range": {
+        "startLine": 99,
+        "startChar": 24,
+        "endLine": 99,
+        "endChar": 47
+      },
+      "revId": "b428d6bad46c26fded1cf049dae68bb215edbe7a",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "dbc62ab4_fb3440da",
+        "filename": "call/rtp_video_sender_interface.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 39,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2022-01-25T13:51:42Z",
+      "side": 0,
+      "message": "And here.",
+      "range": {
+        "startLine": 39,
+        "startChar": 32,
+        "endLine": 39,
+        "endChar": 70
+      },
+      "revId": "b428d6bad46c26fded1cf049dae68bb215edbe7a",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "5fba75ab_8f4c037a",
+        "filename": "media/base/fake_rtp.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 298,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2022-01-25T13:51:42Z",
+      "side": 0,
+      "message": "`const std::vector\u003cint\u003e\u0026` ?",
+      "range": {
+        "startLine": 298,
+        "startChar": 29,
+        "endLine": 298,
+        "endChar": 51
+      },
+      "revId": "b428d6bad46c26fded1cf049dae68bb215edbe7a",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "2a75089f_e569081c",
+        "filename": "modules/audio_coding/neteq/tools/audio_loop.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 39,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2022-01-25T13:51:42Z",
+      "side": 0,
+      "message": "Intended to be `const std::string\u0026` ? Changing to string_view is tempting, but need to check if the code depends on NUL termination.",
+      "range": {
+        "startLine": 39,
+        "startChar": 12,
+        "endLine": 39,
+        "endChar": 39
+      },
+      "revId": "b428d6bad46c26fded1cf049dae68bb215edbe7a",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "fe01307f_86cfb86b",
+        "filename": "modules/audio_coding/neteq/tools/input_audio_file.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 24,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2022-01-25T13:51:42Z",
+      "side": 0,
+      "message": "Same question.",
+      "range": {
+        "startLine": 24,
+        "startChar": 26,
+        "endLine": 24,
+        "endChar": 53
+      },
+      "revId": "b428d6bad46c26fded1cf049dae68bb215edbe7a",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "e97f85ce_459fd742",
+        "filename": "modules/video_coding/utility/simulcast_test_fixture_impl.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 67,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2022-01-25T13:51:42Z",
+      "side": 0,
+      "message": "`const std::vector\u003cbool\u003e\u0026` ? (And same below).",
+      "range": {
+        "startLine": 67,
+        "startChar": 28,
+        "endLine": 67,
+        "endChar": 51
+      },
+      "revId": "b428d6bad46c26fded1cf049dae68bb215edbe7a",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "65306d8d_d1fdd263",
+        "filename": "pc/rtp_transmission_manager.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 187,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2022-01-25T13:51:42Z",
+      "side": 0,
+      "message": "`const std::string\u0026`, like `stream_id` above?",
+      "range": {
+        "startLine": 187,
+        "startChar": 38,
+        "endLine": 187,
+        "endChar": 56
+      },
+      "revId": "b428d6bad46c26fded1cf049dae68bb215edbe7a",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "ab89bdb2_94d6f464",
+        "filename": "video/video_send_stream_impl.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 80,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2022-01-25T13:51:42Z",
+      "side": 0,
+      "message": "`const std::vector\u003cbool\u003e` ?",
+      "range": {
+        "startLine": 80,
+        "startChar": 35,
+        "endLine": 80,
+        "endChar": 58
+      },
+      "revId": "b428d6bad46c26fded1cf049dae68bb215edbe7a",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

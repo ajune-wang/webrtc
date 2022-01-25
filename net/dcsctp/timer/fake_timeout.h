@@ -18,6 +18,7 @@
 #include <vector>
 
 #include "absl/types/optional.h"
+#include "api/task_queue/task_queue_base.h"
 #include "net/dcsctp/public/timeout.h"
 #include "rtc_base/checks.h"
 #include "rtc_base/containers/flat_set.h"
@@ -33,6 +34,10 @@ class FakeTimeout : public Timeout {
 
   ~FakeTimeout() override { on_delete_(this); }
 
+  void SetTimeoutPrecision(
+      webrtc::TaskQueueBase::DelayPrecision precision) override {
+    precision_ = precision;
+  }
   void Start(DurationMs duration_ms, TimeoutID timeout_id) override {
     RTC_DCHECK(expiry_ == TimeMs::InfiniteFuture());
     timeout_id_ = timeout_id;
@@ -51,12 +56,15 @@ class FakeTimeout : public Timeout {
     return false;
   }
 
+  webrtc::TaskQueueBase::DelayPrecision precision() const { return precision_; }
   TimeoutID timeout_id() const { return timeout_id_; }
 
  private:
   const std::function<TimeMs()> get_time_;
   const std::function<void(FakeTimeout*)> on_delete_;
 
+  webrtc::TaskQueueBase::DelayPrecision precision_ =
+      webrtc::TaskQueueBase::DelayPrecision::kLow;
   TimeoutID timeout_id_ = TimeoutID(0);
   TimeMs expiry_ = TimeMs::InfiniteFuture();
 };
@@ -68,7 +76,7 @@ class FakeTimeoutManager {
   explicit FakeTimeoutManager(std::function<TimeMs()> get_time)
       : get_time_(std::move(get_time)) {}
 
-  std::unique_ptr<Timeout> CreateTimeout() {
+  std::unique_ptr<FakeTimeout> CreateTimeout() {
     auto timer = std::make_unique<FakeTimeout>(
         get_time_, [this](FakeTimeout* timer) { timers_.erase(timer); });
     timers_.insert(timer.get());

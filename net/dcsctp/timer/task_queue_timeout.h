@@ -55,11 +55,15 @@ class TaskQueueTimeoutFactory {
     explicit TaskQueueTimeout(TaskQueueTimeoutFactory& parent);
     ~TaskQueueTimeout();
 
+    void SetTimeoutPrecision(
+        webrtc::TaskQueueBase::DelayPrecision precision) override;
     void Start(DurationMs duration_ms, TimeoutID timeout_id) override;
     void Stop() override;
 
    private:
     TaskQueueTimeoutFactory& parent_;
+    webrtc::TaskQueueBase::DelayPrecision precision_ =
+        webrtc::TaskQueueBase::DelayPrecision::kLow;
     // A safety flag to ensure that posted tasks to the task queue don't
     // reference these object when they go out of scope. Note that this safety
     // flag will be re-created if the scheduled-but-not-yet-expired task is not

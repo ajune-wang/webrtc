@@ -16,6 +16,7 @@
 #include <vector>
 
 #include "api/array_view.h"
+#include "api/task_queue/task_queue_base.h"
 #include "net/dcsctp/public/dcsctp_socket.h"
 
 namespace dcsctp {
@@ -27,6 +28,9 @@ class FuzzerTimeout : public Timeout {
   explicit FuzzerTimeout(std::set<TimeoutID>& active_timeouts)
       : active_timeouts_(active_timeouts) {}
 
+  // The fuzzer does not implement delay precision.
+  void SetTimeoutPrecision(
+      webrtc::TaskQueueBase::DelayPrecision precision) override {}
   void Start(DurationMs duration_ms, TimeoutID timeout_id) override {
     // Start is only allowed to be called on stopped or expired timeouts.
     if (timeout_id_.has_value()) {

@@ -114,7 +114,9 @@ int32_t AudioTransportImpl::RecordedDataIsAvailable(
     const int32_t /*clock_drift*/,
     const uint32_t /*volume*/,
     const bool key_pressed,
-    uint32_t& /*new_mic_volume*/) {  // NOLINT: to avoid changing APIs
+    uint32_t& /*new_mic_volume*/,
+    const int64_t
+        estimated_capture_time_ns) {  // NOLINT: to avoid changing APIs
   RTC_DCHECK(audio_data);
   RTC_DCHECK_GE(number_of_channels, 1);
   RTC_DCHECK_LE(number_of_channels, 2);
@@ -144,7 +146,8 @@ int32_t AudioTransportImpl::RecordedDataIsAvailable(
   ProcessCaptureFrame(audio_delay_milliseconds, key_pressed,
                       swap_stereo_channels, audio_processing_,
                       audio_frame.get());
-
+  audio_frame->set_absolute_capture_timestamp_ms(estimated_capture_time_ns /
+                                                 1000000);
   // Typing detection (utilizes the APM/VAD decision). We let the VAD determine
   // if we're using this feature or not.
   // TODO(solenberg): GetConfig() takes a lock. Work around that.

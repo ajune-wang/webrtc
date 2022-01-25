@@ -55,7 +55,8 @@ class ADMWrapper : public AudioDeviceModule, public AudioTransport {
                                   const int32_t clockDrift,
                                   const uint32_t currentMicLevel,
                                   const bool keyPressed,
-                                  uint32_t& newMicLevel) override {
+                                  uint32_t& newMicLevel,
+                                  const int64_t capture_timestamp_ns) override {
     int32_t res = 0;
     // Capture PCM data of locally captured audio.
     if (observer_) {
@@ -67,7 +68,8 @@ class ADMWrapper : public AudioDeviceModule, public AudioTransport {
     if (audio_transport_) {
       res = audio_transport_->RecordedDataIsAvailable(
           audioSamples, nSamples, nBytesPerSample, nChannels, samples_per_sec,
-          total_delay_ms, clockDrift, currentMicLevel, keyPressed, newMicLevel);
+          total_delay_ms, clockDrift, currentMicLevel, keyPressed, newMicLevel,
+          capture_timestamp_ns);
     }
 
     return res;

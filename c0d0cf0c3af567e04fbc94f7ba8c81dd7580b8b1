@@ -16,6 +16,23 @@
       "message": "A hundred migrated dependencies later... Please take a look :)",
       "revId": "c0d0cf0c3af567e04fbc94f7ba8c81dd7580b8b1",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "413a54a0_639a146e",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5142
+      },
+      "writtenOn": "2022-01-25T07:40:58Z",
+      "side": 1,
+      "message": "Will land this as soon as this Nearby change has rolled into chromium:\nhttps://chromium-review.googlesource.com/c/chromium/src/+/3407663",
+      "revId": "c0d0cf0c3af567e04fbc94f7ba8c81dd7580b8b1",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

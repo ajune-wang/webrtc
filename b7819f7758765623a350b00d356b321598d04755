@@ -86,6 +86,30 @@
       },
       "revId": "b7819f7758765623a350b00d356b321598d04755",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "d82ff1b5_65c60c76",
+        "filename": "test/peer_scenario/peer_scenario_client.h",
+        "patchSetId": 13
+      },
+      "lineNbr": 109,
+      "author": {
+        "id": 5508
+      },
+      "writtenOn": "2022-01-25T13:34:52Z",
+      "side": 1,
+      "message": "ouch. Thanks for fixing.",
+      "parentUuid": "c5709137_c1fdda20",
+      "range": {
+        "startLine": 109,
+        "startChar": 0,
+        "endLine": 109,
+        "endChar": 70
+      },
+      "revId": "b7819f7758765623a350b00d356b321598d04755",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

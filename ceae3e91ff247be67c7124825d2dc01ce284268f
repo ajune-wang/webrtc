@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "d46bbf85_2b7acf8a",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 10107
+      },
+      "writtenOn": "2022-01-25T13:33:22Z",
+      "side": 1,
+      "message": "PTAL. Just a quick cleanup CL.",
+      "revId": "ceae3e91ff247be67c7124825d2dc01ce284268f",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

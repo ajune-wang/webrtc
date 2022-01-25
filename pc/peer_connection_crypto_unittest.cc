@@ -634,10 +634,10 @@ TEST_P(PeerConnectionCryptoDtlsCertGenTest, TestCertificateGeneration) {
         rtc::make_ref_counted<MockCreateSessionDescriptionObserver>();
     observers.push_back(observer);
     if (sdp_type_ == SdpType::kOffer) {
-      pc->pc()->CreateOffer(observer,
+      pc->pc()->CreateOffer(observer.get(),
                             PeerConnectionInterface::RTCOfferAnswerOptions());
     } else {
-      pc->pc()->CreateAnswer(observer,
+      pc->pc()->CreateAnswer(observer.get(),
                              PeerConnectionInterface::RTCOfferAnswerOptions());
     }
   }

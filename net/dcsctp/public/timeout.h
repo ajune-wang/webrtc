@@ -12,6 +12,7 @@
 
 #include <cstdint>
 
+#include "api/task_queue/task_queue_base.h"
 #include "net/dcsctp/public/types.h"
 
 namespace dcsctp {
@@ -22,6 +23,9 @@ namespace dcsctp {
 class Timeout {
  public:
   virtual ~Timeout() = default;
+
+  virtual void SetTimeoutPrecision(
+      webrtc::TaskQueueBase::DelayPrecision precision) = 0;
 
   // Called to start time timeout, with the duration in milliseconds as
   // `duration` and with the timeout identifier as `timeout_id`, which - if

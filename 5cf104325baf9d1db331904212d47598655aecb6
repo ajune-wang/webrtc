@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "d696a042_21d13ce0",
+        "filename": "pc/proxy.h",
+        "patchSetId": 3
+      },
+      "lineNbr": 205,
+      "author": {
+        "id": 5142
+      },
+      "writtenOn": "2022-01-25T15:03:44Z",
+      "side": 1,
+      "message": "optional nit: would \"class_name\" be more clear than \"name\"?",
+      "revId": "5cf104325baf9d1db331904212d47598655aecb6",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

@@ -104,7 +104,7 @@ int main(int argc, char* argv[]) {
   rtc::scoped_refptr<Conductor> conductor(
       new rtc::RefCountedObject<Conductor>(&client, &wnd));
   socket_server.set_client(&client);
-  socket_server.set_conductor(conductor);
+  socket_server.set_conductor(conductor.get());
 
   thread.Run();
 

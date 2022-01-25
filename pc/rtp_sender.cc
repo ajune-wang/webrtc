@@ -436,7 +436,7 @@ AudioRtpSender::AudioRtpSender(rtc::Thread* worker_thread,
       stats_(stats),
       dtmf_sender_proxy_(DtmfSenderProxy::Create(
           rtc::Thread::Current(),
-          DtmfSender::Create(rtc::Thread::Current(), this))),
+          DtmfSender::Create(rtc::Thread::Current(), this).get())),
       sink_adapter_(new LocalAudioSinkAdapter()) {}
 
 AudioRtpSender::~AudioRtpSender() {
@@ -630,7 +630,8 @@ void VideoRtpSender::SetSend() {
       break;
   }
   bool success = worker_thread_->Invoke<bool>(RTC_FROM_HERE, [&] {
-    return video_media_channel()->SetVideoSend(ssrc_, &options, video_track());
+    return video_media_channel()->SetVideoSend(ssrc_, &options,
+                                               video_track().get());
   });
   RTC_DCHECK(success);
 }

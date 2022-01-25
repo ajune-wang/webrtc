@@ -89,6 +89,24 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "739c2831_9da04263",
+        "filename": "modules/desktop_capture/linux/wayland/shared_screencast_stream.cc",
+        "patchSetId": 6
+      },
+      "lineNbr": 185,
+      "author": {
+        "id": 8046
+      },
+      "writtenOn": "2022-01-25T11:34:57Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "1c6a8b93_2c9290e2",
+      "revId": "b69e5929ab182f2a2f447b592c375e739461e665",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "36d6b476_9d564c6e",
@@ -108,6 +126,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "1d5a2052_810fd122",
+        "filename": "modules/desktop_capture/linux/wayland/shared_screencast_stream.cc",
+        "patchSetId": 6
+      },
+      "lineNbr": 544,
+      "author": {
+        "id": 8046
+      },
+      "writtenOn": "2022-01-25T11:34:57Z",
+      "side": 1,
+      "message": "I have problem with RTC_EXCLUSIVE_LOCKS_REQUIRED. When I annotate the SharedScreenCastStreamPrivate::CaptureFrame() with it, then when calling the non-private implementation where I just call the private one I get following:\n\n../../third_party/webrtc/modules/desktop_capture/linux/wayland/shared_screencast_stream.cc:723:20: error: calling function \u0027CaptureFrame\u0027 requires holding mutex \u0027private_-\u003equeue_lock_\u0027 exclusively [-Werror,-Wthread-safety-analysis]\n  return private_-\u003eCaptureFrame();\n  \nI don\u0027t know how this can be solved with annotations.",
+      "parentUuid": "36d6b476_9d564c6e",
+      "revId": "b69e5929ab182f2a2f447b592c375e739461e665",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "47fc57ef_6f4336bf",
         "filename": "modules/desktop_capture/linux/wayland/shared_screencast_stream.cc",
         "patchSetId": 6
@@ -119,6 +155,24 @@
       "writtenOn": "2022-01-24T17:18:38Z",
       "side": 1,
       "message": "This can be moved outside the lock.",
+      "revId": "b69e5929ab182f2a2f447b592c375e739461e665",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "b0c9993a_eaf27c48",
+        "filename": "modules/desktop_capture/linux/wayland/shared_screencast_stream.cc",
+        "patchSetId": 6
+      },
+      "lineNbr": 658,
+      "author": {
+        "id": 8046
+      },
+      "writtenOn": "2022-01-25T11:34:57Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "47fc57ef_6f4336bf",
       "revId": "b69e5929ab182f2a2f447b592c375e739461e665",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
@@ -154,6 +208,24 @@
       "side": 1,
       "message": "I don\u0027t think this situation can actually happen, as explained above how the ScreenCaptureFrameQueue works and I took this from the X11 capturer, but I think I can make it to drop the PW buffer in this case.",
       "parentUuid": "21f68deb_d805d83b",
+      "revId": "b69e5929ab182f2a2f447b592c375e739461e665",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "bfaaf6d1_d3466c18",
+        "filename": "modules/desktop_capture/linux/wayland/shared_screencast_stream.cc",
+        "patchSetId": 6
+      },
+      "lineNbr": 665,
+      "author": {
+        "id": 8046
+      },
+      "writtenOn": "2022-01-25T11:34:57Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "06f34000_3f4f4ee6",
       "revId": "b69e5929ab182f2a2f447b592c375e739461e665",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }

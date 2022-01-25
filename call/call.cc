@@ -352,6 +352,9 @@ class Call final : public webrtc::Call,
                                  MediaType media_type)
       RTC_RUN_ON(worker_thread_);
 
+  bool IdentifyReceivedPacket(RtpPacketReceived& packet)
+      RTC_RUN_ON(worker_thread_);
+
   void UpdateAggregateNetworkState();
 
   // Ensure that necessary process threads are started, and any required
@@ -468,6 +471,7 @@ class Call final : public webrtc::Call,
 
   bool is_started_ RTC_GUARDED_BY(worker_thread_) = false;
 
+  // Sequence checker for network traffic.
   RTC_NO_UNIQUE_ADDRESS SequenceChecker sent_packet_sequence_checker_;
   absl::optional<rtc::SentPacket> last_sent_packet_
       RTC_GUARDED_BY(sent_packet_sequence_checker_);
@@ -1388,6 +1392,7 @@ void Call::OnUpdateSyncGroup(webrtc::AudioReceiveStream& stream,
 }
 
 void Call::OnSentPacket(const rtc::SentPacket& sent_packet) {
+  { RTC_DCHECK_RUN_ON(network_thread_); }
   RTC_DCHECK_RUN_ON(&sent_packet_sequence_checker_);
   // When bundling is in effect, multiple senders may be sharing the same
   // transport. It means every |sent_packet| will be multiply notified from
@@ -1583,8 +1588,7 @@ PacketReceiver::DeliveryStatus Call::DeliverRtp(MediaType media_type,
   RTC_DCHECK(media_type == MediaType::AUDIO || media_type == MediaType::VIDEO ||
              is_keep_alive_packet);
 
-  auto it = receive_rtp_config_.find(parsed_packet.Ssrc());
-  if (it == receive_rtp_config_.end()) {
+  if (!IdentifyReceivedPacket(parsed_packet)) {
     RTC_LOG(LS_ERROR) << "receive_rtp_config_ lookup failed for ssrc "
                       << parsed_packet.Ssrc();
     // Destruction of the receive stream, including deregistering from the
@@ -1594,9 +1598,6 @@ PacketReceiver::DeliveryStatus Call::DeliverRtp(MediaType media_type,
     // passed on via the demuxer to a receive stream which is being torned down.
     return DELIVERY_UNKNOWN_SSRC;
   }
-
-  parsed_packet.IdentifyExtensions(
-      RtpHeaderExtensionMap(it->second->rtp_config().extensions));
 
   NotifyBweOfReceivedPacket(parsed_packet, media_type);
 
@@ -1649,20 +1650,8 @@ void Call::OnRecoveredPacket(const uint8_t* packet, size_t length) {
 
   parsed_packet.set_recovered(true);
 
-  auto it = receive_rtp_config_.find(parsed_packet.Ssrc());
-  if (it == receive_rtp_config_.end()) {
-    RTC_LOG(LS_ERROR) << "receive_rtp_config_ lookup failed for ssrc "
-                      << parsed_packet.Ssrc();
-    // Destruction of the receive stream, including deregistering from the
-    // RtpDemuxer, is not protected by the `worker_thread_`.
-    // But deregistering in the `receive_rtp_config_` map is.
-    // So by not passing the packet on to demuxing in this case, we prevent
-    // incoming packets to be passed on via the demuxer to a receive stream
-    // which is being torn down.
+  if (!IdentifyReceivedPacket(parsed_packet))
     return;
-  }
-  parsed_packet.IdentifyExtensions(
-      RtpHeaderExtensionMap(it->second->rtp_config().extensions));
 
   // TODO(brandtr): Update here when we support protecting audio packets too.
   parsed_packet.set_payload_type_frequency(kVideoPayloadTypeFrequency);
@@ -1704,6 +1693,21 @@ void Call::NotifyBweOfReceivedPacket(const RtpPacketReceived& packet,
         packet.arrival_time().ms(),
         packet.payload_size() + packet.padding_size(), header);
   }
+}
+
+// RTC_RUN_ON(worker_thread_)
+// TODO(bugs.webrtc.org/11993): Expect to be called on the network thread.
+bool Call::IdentifyReceivedPacket(RtpPacketReceived& packet) {
+  auto it = receive_rtp_config_.find(packet.Ssrc());
+  if (it == receive_rtp_config_.end()) {
+    RTC_DLOG(LS_WARNING) << "receive_rtp_config_ lookup failed for ssrc "
+                         << packet.Ssrc();
+    return false;
+  }
+
+  packet.IdentifyExtensions(
+      RtpHeaderExtensionMap(it->second->rtp_config().extensions));
+  return true;
 }
 
 }  // namespace internal

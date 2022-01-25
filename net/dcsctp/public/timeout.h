@@ -12,6 +12,7 @@
 
 #include <cstdint>
 
+#include "api/task_queue/task_queue_base.h"
 #include "net/dcsctp/public/types.h"
 
 namespace dcsctp {
@@ -22,6 +23,14 @@ namespace dcsctp {
 class Timeout {
  public:
   virtual ~Timeout() = default;
+
+  // Sets the precision used for the timeout. kLow is used by default. Low
+  // precision tasks are scheduled more efficiently by using leeway to reduce
+  // Idle Wake Ups, but may fire with up to 17 ms additional delay. kHigh does
+  // not have this leeway, but is still limited by OS timer precision. See
+  // webrtc::TaskQueueBase::DelayPrecision for more information.
+  virtual void SetTimeoutPrecision(
+      webrtc::TaskQueueBase::DelayPrecision precision) = 0;
 
   // Called to start time timeout, with the duration in milliseconds as
   // `duration` and with the timeout identifier as `timeout_id`, which - if

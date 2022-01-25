@@ -228,7 +228,7 @@ TEST_P(AudioStateTest, RecordedAudioArrivesAtSingleStream) {
   uint32_t new_mic_level = 667;
   audio_state->audio_transport()->RecordedDataIsAvailable(
       &audio_data[0], kSampleRate / 100, kNumChannels * 2, kNumChannels,
-      kSampleRate, 0, 0, 0, false, new_mic_level);
+      kSampleRate, 0, 0, 0, false, new_mic_level, 0);
   EXPECT_EQ(667u, new_mic_level);
 
   audio_state->RemoveSendingStream(&stream);
@@ -287,7 +287,7 @@ TEST_P(AudioStateTest, RecordedAudioArrivesAtMultipleStreams) {
   uint32_t new_mic_level = 667;
   audio_state->audio_transport()->RecordedDataIsAvailable(
       &audio_data[0], kSampleRate / 100, kNumChannels * 2, kNumChannels,
-      kSampleRate, 5, 0, 0, true, new_mic_level);
+      kSampleRate, 5, 0, 0, true, new_mic_level, 0);
   EXPECT_EQ(667u, new_mic_level);
 
   audio_state->RemoveSendingStream(&stream_1);
@@ -327,7 +327,7 @@ TEST_P(AudioStateTest, EnableChannelSwap) {
   uint32_t new_mic_level = 667;
   audio_state->audio_transport()->RecordedDataIsAvailable(
       &audio_data[0], kSampleRate / 100, kNumChannels * 2, kNumChannels,
-      kSampleRate, 0, 0, 0, false, new_mic_level);
+      kSampleRate, 0, 0, 0, false, new_mic_level, 0);
   EXPECT_EQ(667u, new_mic_level);
 
   audio_state->RemoveSendingStream(&stream);

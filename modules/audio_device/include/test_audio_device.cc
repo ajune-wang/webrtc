@@ -165,7 +165,7 @@ class TestAudioDeviceModuleImpl
             recording_buffer_.data(),
             recording_buffer_.size() / capturer_->NumChannels(),
             2 * capturer_->NumChannels(), capturer_->NumChannels(),
-            capturer_->SamplingFrequency(), 0, 0, 0, false, new_mic_level);
+            capturer_->SamplingFrequency(), 0, 0, 0, false, new_mic_level, 0);
       }
       if (!keep_capturing) {
         capturing_ = false;

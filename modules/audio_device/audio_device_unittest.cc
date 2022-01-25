@@ -350,7 +350,7 @@ class MockAudioTransport : public test::MockAudioTransport {
               Invoke(this, &MockAudioTransport::RealNeedMorePlayData));
     }
     if (rec_mode()) {
-      ON_CALL(*this, RecordedDataIsAvailable(_, _, _, _, _, _, _, _, _, _))
+      ON_CALL(*this, RecordedDataIsAvailable(_, _, _, _, _, _, _, _, _, _, _))
           .WillByDefault(
               Invoke(this, &MockAudioTransport::RealRecordedDataIsAvailable));
     }
@@ -373,7 +373,8 @@ class MockAudioTransport : public test::MockAudioTransport {
                                       const int32_t clock_drift,
                                       const uint32_t current_mic_level,
                                       const bool typing_status,
-                                      uint32_t& new_mic_level) {
+                                      uint32_t& new_mic_level,
+                                      const int64_t estimated_capture_time_ns) {
     EXPECT_TRUE(rec_mode()) << "No test is expecting these callbacks.";
     // Store audio parameters once in the first callback. For all other
     // callbacks, verify that the provided audio parameters are maintained and
@@ -1094,7 +1095,7 @@ TEST_P(MAYBE_AudioDeviceTest, MAYBE_StartRecordingVerifyCallbacks) {
   MockAudioTransport mock(TransportType::kRecord);
   mock.HandleCallbacks(event(), nullptr, kNumCallbacks);
   EXPECT_CALL(mock, RecordedDataIsAvailable(NotNull(), _, _, _, _, Ge(0u), 0, _,
-                                            false, _))
+                                            false, _, _))
       .Times(AtLeast(kNumCallbacks));
   EXPECT_EQ(0, audio_device()->RegisterAudioCallback(&mock));
   StartRecording();
@@ -1112,7 +1113,7 @@ TEST_P(MAYBE_AudioDeviceTest, MAYBE_StartPlayoutAndRecordingVerifyCallbacks) {
   EXPECT_CALL(mock, NeedMorePlayData(_, _, _, _, NotNull(), _, _, _))
       .Times(AtLeast(kNumCallbacks));
   EXPECT_CALL(mock, RecordedDataIsAvailable(NotNull(), _, _, _, _, Ge(0u), 0, _,
-                                            false, _))
+                                            false, _, _))
       .Times(AtLeast(kNumCallbacks));
   EXPECT_EQ(0, audio_device()->RegisterAudioCallback(&mock));
   StartPlayout();

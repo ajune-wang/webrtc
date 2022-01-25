@@ -33,7 +33,8 @@ class MockAudioTransport : public AudioTransport {
                const int32_t clockDrift,
                const uint32_t currentMicLevel,
                const bool keyPressed,
-               uint32_t& newMicLevel),
+               uint32_t& newMicLevel,
+               const int64_t estimated_capture_time_ns),
               (override));
 
   MOCK_METHOD(int32_t,

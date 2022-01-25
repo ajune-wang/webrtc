@@ -531,7 +531,8 @@ void FakeAudioCaptureModule::SendFrameP() {
   if (audio_callback_->RecordedDataIsAvailable(
           send_buffer_, kNumberSamples, kNumberBytesPerSample,
           kNumberOfChannels, kSamplesPerSecond, kTotalDelayMs, kClockDriftMs,
-          current_mic_level, key_pressed, current_mic_level) != 0) {
+          current_mic_level, key_pressed, current_mic_level,
+          /* capture time */ 0) != 0) {
     RTC_DCHECK_NOTREACHED();
   }
   current_mic_level_ = current_mic_level;

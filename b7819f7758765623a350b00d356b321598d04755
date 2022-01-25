@@ -1,0 +1,44 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "84a9cfb2_22c00da9",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 13
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2022-01-25T09:52:29Z",
+      "side": 1,
+      "message": "PTAL.",
+      "revId": "b7819f7758765623a350b00d356b321598d04755",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "c5709137_c1fdda20",
+        "filename": "test/peer_scenario/peer_scenario_client.h",
+        "patchSetId": 13
+      },
+      "lineNbr": 109,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2022-01-25T09:52:29Z",
+      "side": 1,
+      "message": "This was the most subtle change. Without it, changing to make_ref_counter gives us in effect\n\n  Foo* raw_ptr \u003d rtc::make_ref_counted\u003cFoo\u003e();\n  \nwhich creates the object but immediately destroys it as the temporary scoped_refptr goes out of scope.",
+      "range": {
+        "startLine": 109,
+        "startChar": 0,
+        "endLine": 109,
+        "endChar": 70
+      },
+      "revId": "b7819f7758765623a350b00d356b321598d04755",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

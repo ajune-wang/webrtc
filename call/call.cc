@@ -346,6 +346,9 @@ class Call final : public webrtc::Call,
   DeliveryStatus DeliverRtp(MediaType media_type,
                             rtc::CopyOnWriteBuffer packet,
                             int64_t packet_time_us) RTC_RUN_ON(worker_thread_);
+
+  void RemoveSyncGroup(AudioReceiveStream* audio_stream)
+      RTC_RUN_ON(worker_thread_);
   void ConfigureSync(const std::string& sync_group) RTC_RUN_ON(worker_thread_);
 
   void NotifyBweOfReceivedPacket(const RtpPacketReceived& packet,
@@ -396,7 +399,7 @@ class Call final : public webrtc::Call,
   std::set<VideoReceiveStream2*> video_receive_streams_
       RTC_GUARDED_BY(worker_thread_);
   std::map<std::string, AudioReceiveStream*> sync_stream_mapping_
-      RTC_GUARDED_BY(worker_thread_);
+      RTC_GUARDED_BY(&receive_11993_checker_);
 
   // TODO(nisse): Should eventually be injected at creation,
   // with a single object in the bundled case.
@@ -1009,11 +1012,7 @@ void Call::DestroyAudioReceiveStream(
 
   audio_receive_streams_.erase(audio_receive_stream);
 
-  const auto it = sync_stream_mapping_.find(config.sync_group);
-  if (it != sync_stream_mapping_.end() && it->second == audio_receive_stream) {
-    sync_stream_mapping_.erase(it);
-    ConfigureSync(config.sync_group);
-  }
+  RemoveSyncGroup(audio_receive_stream);
   UnregisterReceiveStream(ssrc);
 
   UpdateAggregateNetworkState();
@@ -1459,7 +1458,20 @@ void Call::OnAllocationLimitsChanged(BitrateAllocationLimits limits) {
 }
 
 // RTC_RUN_ON(worker_thread_)
+void Call::RemoveSyncGroup(AudioReceiveStream* audio_stream) {
+  RTC_DCHECK_RUN_ON(&receive_11993_checker_);
+  const auto& sync_group = audio_stream->config().sync_group;
+  const auto it = sync_stream_mapping_.find(sync_group);
+  if (it == sync_stream_mapping_.end() || it->second != audio_stream)
+    return;
+  sync_stream_mapping_.erase(it);
+  ConfigureSync(sync_group);
+}
+
+// RTC_RUN_ON(worker_thread_)
 void Call::ConfigureSync(const std::string& sync_group) {
+  RTC_DCHECK_RUN_ON(&receive_11993_checker_);
+
   // TODO(bugs.webrtc.org/11993): Expect to be called on the network thread.
   // Set sync only if there was no previous one.
   if (sync_group.empty())

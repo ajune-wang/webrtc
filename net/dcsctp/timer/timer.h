@@ -21,6 +21,7 @@
 
 #include "absl/strings/string_view.h"
 #include "absl/types/optional.h"
+#include "api/task_queue/task_queue_base.h"
 #include "net/dcsctp/public/timeout.h"
 #include "rtc_base/strong_alias.h"
 
@@ -135,7 +136,8 @@ class Timer {
         OnExpired on_expired,
         UnregisterHandler unregister,
         std::unique_ptr<Timeout> timeout,
-        const TimerOptions& options);
+        const TimerOptions& options,
+        webrtc::TaskQueueBase::DelayPrecision precision);
 
   // Called by TimerManager. Will trigger the callback and increment
   // `expiration_count`. The timer will automatically be restarted at the
@@ -178,9 +180,12 @@ class TimerManager {
   // Creates a timer with name `name` that will expire (when started) after
   // `options.duration` and call `on_expired`. There are more `options` that
   // affects the behavior. Note that timers are created initially stopped.
-  std::unique_ptr<Timer> CreateTimer(absl::string_view name,
-                                     Timer::OnExpired on_expired,
-                                     const TimerOptions& options);
+  std::unique_ptr<Timer> CreateTimer(
+      absl::string_view name,
+      Timer::OnExpired on_expired,
+      const TimerOptions& options,
+      webrtc::TaskQueueBase::DelayPrecision precision =
+          webrtc::TaskQueueBase::DelayPrecision::kLow);
 
   void HandleTimeout(TimeoutID timeout_id);
 

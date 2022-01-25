@@ -58,7 +58,8 @@ Timer::Timer(TimerID id,
              OnExpired on_expired,
              UnregisterHandler unregister_handler,
              std::unique_ptr<Timeout> timeout,
-             const TimerOptions& options)
+             const TimerOptions& options,
+             webrtc::TaskQueueBase::DelayPrecision precision)
     : id_(id),
       name_(name),
       options_(options),
@@ -135,9 +136,11 @@ void TimerManager::HandleTimeout(TimeoutID timeout_id) {
   }
 }
 
-std::unique_ptr<Timer> TimerManager::CreateTimer(absl::string_view name,
-                                                 Timer::OnExpired on_expired,
-                                                 const TimerOptions& options) {
+std::unique_ptr<Timer> TimerManager::CreateTimer(
+    absl::string_view name,
+    Timer::OnExpired on_expired,
+    const TimerOptions& options,
+    webrtc::TaskQueueBase::DelayPrecision precision) {
   next_id_ = TimerID(*next_id_ + 1);
   TimerID id = next_id_;
   // This would overflow after 4 billion timers created, which in SCTP would be
@@ -148,7 +151,7 @@ std::unique_ptr<Timer> TimerManager::CreateTimer(absl::string_view name,
   RTC_CHECK(timeout != nullptr);
   auto timer = absl::WrapUnique(new Timer(
       id, name, std::move(on_expired), [this, id]() { timers_.erase(id); },
-      std::move(timeout), options));
+      std::move(timeout), options, precision));
   timers_[id] = timer.get();
   return timer;
 }

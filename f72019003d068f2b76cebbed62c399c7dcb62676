@@ -16,6 +16,92 @@
       "message": "Please take a look, Victor",
       "revId": "f72019003d068f2b76cebbed62c399c7dcb62676",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "cd1420f0_49944f1e",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 12
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 12215
+      },
+      "writtenOn": "2022-01-26T09:11:20Z",
+      "side": 1,
+      "message": "Generally looks good, but a few questions about the API",
+      "revId": "f72019003d068f2b76cebbed62c399c7dcb62676",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "6ce5f173_d026ea89",
+        "filename": "net/dcsctp/public/timeout.h",
+        "patchSetId": 12
+      },
+      "lineNbr": 32,
+      "author": {
+        "id": 12215
+      },
+      "writtenOn": "2022-01-26T09:11:20Z",
+      "side": 1,
+      "message": "Having it as a settable property would allow it to be changed at any time. That\u0027s probably something we don\u0027t need to do, and nothing we would need to test, so an alternative is to have it provided at the Timer\u0027s constructor. \n\nTimers are created at DcSctpSocketCallbacks::CreateTimeout, so please consider adding a new method there, CreateTimerWithPrecision, that has that additional precision argument. Make that method virtual and provide a default implementation that just \"return CreateTimeout;\", to allow clients to stay backwards compatible.",
+      "range": {
+        "startLine": 32,
+        "startChar": 15,
+        "endLine": 32,
+        "endChar": 34
+      },
+      "revId": "f72019003d068f2b76cebbed62c399c7dcb62676",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "4c1ca1fd_535231eb",
+        "filename": "net/dcsctp/timer/task_queue_timeout.h",
+        "patchSetId": 12
+      },
+      "lineNbr": 48,
+      "author": {
+        "id": 12215
+      },
+      "writtenOn": "2022-01-26T09:11:20Z",
+      "side": 1,
+      "message": "Continuing the discussion from timeout.h, if the precision was provided here instead (feel free to add a default for backwards compatibility), you would avoid the setter.",
+      "range": {
+        "startLine": 48,
+        "startChar": 41,
+        "endLine": 48,
+        "endChar": 42
+      },
+      "revId": "f72019003d068f2b76cebbed62c399c7dcb62676",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "533caa9f_80cb7320",
+        "filename": "net/dcsctp/timer/timer.h",
+        "patchSetId": 12
+      },
+      "lineNbr": 187,
+      "author": {
+        "id": 12215
+      },
+      "writtenOn": "2022-01-26T09:11:20Z",
+      "side": 1,
+      "message": "I think we would want to put this in TimerOptions. WDYT?",
+      "range": {
+        "startLine": 186,
+        "startChar": 6,
+        "endLine": 187,
+        "endChar": 53
+      },
+      "revId": "f72019003d068f2b76cebbed62c399c7dcb62676",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

@@ -35,6 +35,24 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "607689c1_e0b5c396",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 10107
+      },
+      "writtenOn": "2022-01-26T08:08:31Z",
+      "side": 1,
+      "message": "Thanks. I\u0027d like to keep this CL focused on only removing the const qualifiers without changing existing semantics. Right now, all the const qualifiers that are removed are completely ignored by the compiler, making this a simple no-op and hopefully easy to get global OWNERS approval for. If you don\u0027t mind, I will instead follow up with separate CLs for the cases where possibly the \u0027\u0026\u0027 is missing.",
+      "parentUuid": "45e2045d_71241910",
+      "revId": "ceae3e91ff247be67c7124825d2dc01ce284268f",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "5d4e4a5a_17a43865",
@@ -48,6 +66,30 @@
       "writtenOn": "2022-01-25T13:51:42Z",
       "side": 1,
       "message": "Same question here.",
+      "range": {
+        "startLine": 156,
+        "startChar": 30,
+        "endLine": 156,
+        "endChar": 62
+      },
+      "revId": "ceae3e91ff247be67c7124825d2dc01ce284268f",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "884a21b3_59d9b697",
+        "filename": "call/rtp_video_sender.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 156,
+      "author": {
+        "id": 10107
+      },
+      "writtenOn": "2022-01-26T08:08:31Z",
+      "side": 1,
+      "message": "see earlier response.",
+      "parentUuid": "5d4e4a5a_17a43865",
       "range": {
         "startLine": 156,
         "startChar": 30,

@@ -24,6 +24,30 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "2a1a4494_b5d70db6",
+        "filename": "call/rtp_video_sender.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 99,
+      "author": {
+        "id": 10107
+      },
+      "writtenOn": "2022-01-26T08:08:31Z",
+      "side": 0,
+      "message": "See earlier response. I will get back to these separately.",
+      "parentUuid": "c5a27e12_7f40ff89",
+      "range": {
+        "startLine": 99,
+        "startChar": 24,
+        "endLine": 99,
+        "endChar": 47
+      },
+      "revId": "b428d6bad46c26fded1cf049dae68bb215edbe7a",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "dbc62ab4_fb3440da",
@@ -37,6 +61,30 @@
       "writtenOn": "2022-01-25T13:51:42Z",
       "side": 0,
       "message": "And here.",
+      "range": {
+        "startLine": 39,
+        "startChar": 32,
+        "endLine": 39,
+        "endChar": 70
+      },
+      "revId": "b428d6bad46c26fded1cf049dae68bb215edbe7a",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "ea0448b9_88367ea6",
+        "filename": "call/rtp_video_sender_interface.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 39,
+      "author": {
+        "id": 10107
+      },
+      "writtenOn": "2022-01-26T08:08:31Z",
+      "side": 0,
+      "message": "see earlier response.",
+      "parentUuid": "dbc62ab4_fb3440da",
       "range": {
         "startLine": 39,
         "startChar": 32,
@@ -70,6 +118,30 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "9d217873_0e299b9f",
+        "filename": "media/base/fake_rtp.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 298,
+      "author": {
+        "id": 10107
+      },
+      "writtenOn": "2022-01-26T08:08:31Z",
+      "side": 0,
+      "message": "see earlier response.",
+      "parentUuid": "5fba75ab_8f4c037a",
+      "range": {
+        "startLine": 298,
+        "startChar": 29,
+        "endLine": 298,
+        "endChar": 51
+      },
+      "revId": "b428d6bad46c26fded1cf049dae68bb215edbe7a",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "2a75089f_e569081c",
@@ -83,6 +155,30 @@
       "writtenOn": "2022-01-25T13:51:42Z",
       "side": 0,
       "message": "Intended to be `const std::string\u0026` ? Changing to string_view is tempting, but need to check if the code depends on NUL termination.",
+      "range": {
+        "startLine": 39,
+        "startChar": 12,
+        "endLine": 39,
+        "endChar": 39
+      },
+      "revId": "b428d6bad46c26fded1cf049dae68bb215edbe7a",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "ab4be50c_641d3732",
+        "filename": "modules/audio_coding/neteq/tools/audio_loop.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 39,
+      "author": {
+        "id": 10107
+      },
+      "writtenOn": "2022-01-26T08:08:31Z",
+      "side": 0,
+      "message": "see earlier response.",
+      "parentUuid": "2a75089f_e569081c",
       "range": {
         "startLine": 39,
         "startChar": 12,
@@ -116,6 +212,30 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "0ada5fdf_2f83c606",
+        "filename": "modules/audio_coding/neteq/tools/input_audio_file.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 24,
+      "author": {
+        "id": 10107
+      },
+      "writtenOn": "2022-01-26T08:08:31Z",
+      "side": 0,
+      "message": "see earlier response.",
+      "parentUuid": "fe01307f_86cfb86b",
+      "range": {
+        "startLine": 24,
+        "startChar": 26,
+        "endLine": 24,
+        "endChar": 53
+      },
+      "revId": "b428d6bad46c26fded1cf049dae68bb215edbe7a",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "e97f85ce_459fd742",
@@ -129,6 +249,30 @@
       "writtenOn": "2022-01-25T13:51:42Z",
       "side": 0,
       "message": "`const std::vector\u003cbool\u003e\u0026` ? (And same below).",
+      "range": {
+        "startLine": 67,
+        "startChar": 28,
+        "endLine": 67,
+        "endChar": 51
+      },
+      "revId": "b428d6bad46c26fded1cf049dae68bb215edbe7a",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "eed4e743_5fa5305c",
+        "filename": "modules/video_coding/utility/simulcast_test_fixture_impl.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 67,
+      "author": {
+        "id": 10107
+      },
+      "writtenOn": "2022-01-26T08:08:31Z",
+      "side": 0,
+      "message": "see earlier response.",
+      "parentUuid": "e97f85ce_459fd742",
       "range": {
         "startLine": 67,
         "startChar": 28,
@@ -162,6 +306,30 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "1ab0ce5e_89f9fc6a",
+        "filename": "pc/rtp_transmission_manager.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 187,
+      "author": {
+        "id": 10107
+      },
+      "writtenOn": "2022-01-26T08:08:31Z",
+      "side": 0,
+      "message": "see earlier response.",
+      "parentUuid": "65306d8d_d1fdd263",
+      "range": {
+        "startLine": 187,
+        "startChar": 38,
+        "endLine": 187,
+        "endChar": 56
+      },
+      "revId": "b428d6bad46c26fded1cf049dae68bb215edbe7a",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "ab89bdb2_94d6f464",
@@ -175,6 +343,30 @@
       "writtenOn": "2022-01-25T13:51:42Z",
       "side": 0,
       "message": "`const std::vector\u003cbool\u003e` ?",
+      "range": {
+        "startLine": 80,
+        "startChar": 35,
+        "endLine": 80,
+        "endChar": 58
+      },
+      "revId": "b428d6bad46c26fded1cf049dae68bb215edbe7a",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "6342a580_0ae7a205",
+        "filename": "video/video_send_stream_impl.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 80,
+      "author": {
+        "id": 10107
+      },
+      "writtenOn": "2022-01-26T08:08:31Z",
+      "side": 0,
+      "message": "see earlier response.",
+      "parentUuid": "ab89bdb2_94d6f464",
       "range": {
         "startLine": 80,
         "startChar": 35,

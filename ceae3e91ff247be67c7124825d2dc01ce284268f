@@ -53,6 +53,24 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "c5510489_5e74be20",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2022-01-26T08:18:34Z",
+      "side": 1,
+      "message": "I\u0027d prefer opposite order, i.e., change const std::vector\u003c...\u003e --\u003e const std::vector\u003c...\u003e\u0026 in one step, rather than const std::vector\u003c...\u003e --\u003e std::vector\u003c...\u003e --\u003e const std::vector\u003c...\u003e\u0026.\n\nBut I leave that for owner\u0027s judgement.",
+      "parentUuid": "607689c1_e0b5c396",
+      "revId": "ceae3e91ff247be67c7124825d2dc01ce284268f",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "5d4e4a5a_17a43865",

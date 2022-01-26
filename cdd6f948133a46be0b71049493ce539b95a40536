@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "f4065afa_1c63c9a8",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 7
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2022-01-26T09:16:01Z",
+      "side": 1,
+      "message": "Looks good. One question receive stream destruction, which may need updated docs.",
+      "revId": "cdd6f948133a46be0b71049493ce539b95a40536",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

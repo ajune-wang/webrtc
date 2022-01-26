@@ -149,8 +149,14 @@ struct ConfigHelper {
         Clock::GetRealTimeClock(), &packet_router_, stream_config_,
         audio_state_, &event_log_,
         std::unique_ptr<voe::ChannelReceiveInterface>(channel_receive_));
-    ret->RegisterWithTransport(&rtp_stream_receiver_controller_);
+    rtp_stream_receiver_controller_.AddSink(stream_config_.rtp.remote_ssrc,
+                                            ret->packet_sink());
     return ret;
+  }
+
+  void UnregisterSink(
+      const std::unique_ptr<internal::AudioReceiveStream>& stream) {
+    rtp_stream_receiver_controller_.RemoveSink(stream->packet_sink());
   }
 
   AudioReceiveStream::Config& config() { return stream_config_; }
@@ -224,7 +230,7 @@ TEST(AudioReceiveStreamTest, ConstructDestruct) {
   for (bool use_null_audio_processing : {false, true}) {
     ConfigHelper helper(use_null_audio_processing);
     auto recv_stream = helper.CreateAudioReceiveStream();
-    recv_stream->UnregisterFromTransport();
+    helper.UnregisterSink(recv_stream);
   }
 }
 
@@ -238,7 +244,7 @@ TEST(AudioReceiveStreamTest, ReceiveRtcpPacket) {
                 ReceivedRTCPPacket(&rtcp_packet[0], rtcp_packet.size()))
         .WillOnce(Return());
     recv_stream->DeliverRtcp(&rtcp_packet[0], rtcp_packet.size());
-    recv_stream->UnregisterFromTransport();
+    helper.UnregisterSink(recv_stream);
   }
 }
 
@@ -320,7 +326,7 @@ TEST(AudioReceiveStreamTest, GetStats) {
     EXPECT_EQ(kCallStats.capture_start_ntp_time_ms_,
               stats.capture_start_ntp_time_ms);
     EXPECT_EQ(kPlayoutNtpTimestampMs, stats.estimated_playout_ntp_timestamp_ms);
-    recv_stream->UnregisterFromTransport();
+    helper.UnregisterSink(recv_stream);
   }
 }
 
@@ -331,7 +337,7 @@ TEST(AudioReceiveStreamTest, SetGain) {
     EXPECT_CALL(*helper.channel_receive(),
                 SetChannelOutputVolumeScaling(FloatEq(0.765f)));
     recv_stream->SetGain(0.765f);
-    recv_stream->UnregisterFromTransport();
+    helper.UnregisterSink(recv_stream);
   }
 }
 
@@ -364,8 +370,8 @@ TEST(AudioReceiveStreamTest, StreamsShouldBeAddedToMixerOnceOnStart) {
     // Stop stream before it is being destructed.
     recv_stream2->Stop();
 
-    recv_stream1->UnregisterFromTransport();
-    recv_stream2->UnregisterFromTransport();
+    helper1.UnregisterSink(recv_stream1);
+    helper2.UnregisterSink(recv_stream2);
   }
 }
 
@@ -400,7 +406,7 @@ TEST(AudioReceiveStreamTest, ReconfigureWithUpdatedConfig) {
     recv_stream->SetUseTransportCcAndNackHistory(new_config.rtp.transport_cc,
                                                  300 + 20);
 
-    recv_stream->UnregisterFromTransport();
+    helper.UnregisterSink(recv_stream);
   }
 }
 
@@ -427,7 +433,7 @@ TEST(AudioReceiveStreamTest, ReconfigureWithFrameDecryptor) {
     new_config_1.frame_decryptor = mock_frame_decryptor_1;
     new_config_1.crypto_options.sframe.require_frame_encryption = true;
     recv_stream->ReconfigureForTesting(new_config_1);
-    recv_stream->UnregisterFromTransport();
+    helper.UnregisterSink(recv_stream);
   }
 }
 

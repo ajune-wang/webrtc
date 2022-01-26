@@ -30,6 +30,7 @@
 namespace webrtc {
 class PacketRouter;
 class RtcEventLog;
+class RtpPacketSinkInterface;
 class RtpStreamReceiverControllerInterface;
 class RtpStreamReceiverInterface;
 
@@ -63,21 +64,7 @@ class AudioReceiveStream final : public webrtc::AudioReceiveStream,
   AudioReceiveStream(const AudioReceiveStream&) = delete;
   AudioReceiveStream& operator=(const AudioReceiveStream&) = delete;
 
-  // Destruction happens on the worker thread. Prior to destruction the caller
-  // must ensure that a registration with the transport has been cleared. See
-  // `RegisterWithTransport` for details.
-  // TODO(tommi): As a further improvement to this, performing the full
-  // destruction on the network thread could be made the default.
   ~AudioReceiveStream() override;
-
-  // Called on the network thread to register/unregister with the network
-  // transport.
-  void RegisterWithTransport(
-      RtpStreamReceiverControllerInterface* receiver_controller);
-  // If registration has previously been done (via `RegisterWithTransport`) then
-  // `UnregisterFromTransport` must be called prior to destruction, on the
-  // network thread.
-  void UnregisterFromTransport();
 
   // webrtc::AudioReceiveStream implementation.
   void Start() override;
@@ -133,6 +120,8 @@ class AudioReceiveStream final : public webrtc::AudioReceiveStream,
     return config_.rtp.remote_ssrc;
   }
 
+  webrtc::RtpPacketSinkInterface* packet_sink();
+
   const webrtc::AudioReceiveStream::Config& config() const;
   const AudioSendStream* GetAssociatedSendStreamForTesting() const;
 
@@ -159,9 +148,6 @@ class AudioReceiveStream final : public webrtc::AudioReceiveStream,
       RTC_GUARDED_BY(packet_sequence_checker_) = nullptr;
 
   bool playing_ RTC_GUARDED_BY(worker_thread_checker_) = false;
-
-  std::unique_ptr<RtpStreamReceiverInterface> rtp_stream_receiver_
-      RTC_GUARDED_BY(packet_sequence_checker_);
 };
 }  // namespace internal
 }  // namespace webrtc

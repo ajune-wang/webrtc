@@ -33,6 +33,7 @@ static const int kAdmMaxPlayoutBufferSizeMs = 250;
 
 class AudioTransport {
  public:
+  // TODO(brandstrom) Depricate
   virtual int32_t RecordedDataIsAvailable(const void* audioSamples,
                                           size_t nSamples,
                                           size_t nBytesPerSample,
@@ -43,6 +44,19 @@ class AudioTransport {
                                           uint32_t currentMicLevel,
                                           bool keyPressed,
                                           uint32_t& newMicLevel) = 0;  // NOLINT
+
+  virtual int32_t RecordedDataIsAvailable(
+      const void* audioSamples,
+      size_t nSamples,
+      size_t nBytesPerSample,
+      size_t nChannels,
+      uint32_t samplesPerSec,
+      uint32_t totalDelayMS,
+      int32_t clockDrift,
+      uint32_t currentMicLevel,
+      bool keyPressed,
+      uint32_t& newMicLevel,
+      int64_t estimated_capture_time_ns) = 0;  // NOLINT
 
   // Implementation has to setup safe values for all specified out parameters.
   virtual int32_t NeedMorePlayData(size_t nSamples,

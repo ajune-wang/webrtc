@@ -122,6 +122,7 @@
 #include "call/rtp_transport_controller_send_factory_interface.h"
 #include "media/base/media_config.h"
 #include "media/base/media_engine.h"
+#include "rtc_base/metronome/metronome.h"
 // TODO(bugs.webrtc.org/7447): We plan to provide a way to let applications
 // inject a PacketSocketFactory and/or NetworkManager, and not expose
 // PortAllocator in the PeerConnection api. This will let us remove nogncheck.
@@ -1410,6 +1411,7 @@ struct RTC_EXPORT PeerConnectionDependencies final {
   std::unique_ptr<rtc::SSLCertificateVerifier> tls_cert_verifier;
   std::unique_ptr<webrtc::VideoBitrateAllocatorFactory>
       video_bitrate_allocator_factory;
+  std::unique_ptr<webrtc::Metronome> metronome_;
 };
 
 // PeerConnectionFactoryDependencies holds all of the PeerConnectionFactory

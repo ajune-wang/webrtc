@@ -218,6 +218,7 @@ rtc_library("libjingle_peerconnection_api") {
     "../rtc_base:rtc_base_approved",
     "../rtc_base:socket_address",
     "../rtc_base:threading",
+    "../rtc_base/metronome",
     "../rtc_base/system:rtc_export",
   ]
   absl_deps = [

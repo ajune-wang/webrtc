@@ -71,6 +71,23 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "fb5d80be_7ad6ff41",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 10107
+      },
+      "writtenOn": "2022-01-26T08:19:20Z",
+      "side": 1,
+      "message": "Adding hta@ for OWNERS approval.",
+      "revId": "ceae3e91ff247be67c7124825d2dc01ce284268f",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "5d4e4a5a_17a43865",

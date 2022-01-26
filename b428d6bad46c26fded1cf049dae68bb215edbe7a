@@ -214,6 +214,30 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "d3a04986_62535804",
+        "filename": "media/base/fake_rtp.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 298,
+      "author": {
+        "id": 10107
+      },
+      "writtenOn": "2022-01-26T13:27:57Z",
+      "side": 0,
+      "message": "This one I do intend to change. My previous \"See earlier response\" was from the first round of reviews :).",
+      "parentUuid": "38309be2_b89a6dbe",
+      "range": {
+        "startLine": 298,
+        "startChar": 29,
+        "endLine": 298,
+        "endChar": 51
+      },
+      "revId": "b428d6bad46c26fded1cf049dae68bb215edbe7a",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "2a75089f_e569081c",
@@ -488,6 +512,30 @@
       "side": 0,
       "message": "Unless there\u0027s a pretty good reason (e.g., that caller will use std::move and pass ownership for one but not the other), I think stream_id and sender_id ought to use the same argument type, for consistency.",
       "parentUuid": "1ab0ce5e_89f9fc6a",
+      "range": {
+        "startLine": 187,
+        "startChar": 38,
+        "endLine": 187,
+        "endChar": 56
+      },
+      "revId": "b428d6bad46c26fded1cf049dae68bb215edbe7a",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "648de8c3_b392d440",
+        "filename": "pc/rtp_transmission_manager.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 187,
+      "author": {
+        "id": 10107
+      },
+      "writtenOn": "2022-01-26T13:27:57Z",
+      "side": 0,
+      "message": "Same here. This one I do intend to change.",
+      "parentUuid": "edad9398_f6b503c7",
       "range": {
         "startLine": 187,
         "startChar": 38,

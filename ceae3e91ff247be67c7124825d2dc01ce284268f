@@ -105,6 +105,23 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "7cc09ee3_0a18c390",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 10107
+      },
+      "writtenOn": "2022-01-26T11:03:04Z",
+      "side": 1,
+      "message": "Thanks for the reviews! I\u0027ll take care of the possibly forgotten \u0027\u0026\u0027s next.",
+      "revId": "ceae3e91ff247be67c7124825d2dc01ce284268f",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "5d4e4a5a_17a43865",

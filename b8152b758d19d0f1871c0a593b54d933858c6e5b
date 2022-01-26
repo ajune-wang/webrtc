@@ -1,0 +1,38 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "64c527da_a2fe4a7b",
+        "filename": "api/metronome/metronome.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 16,
+      "author": {
+        "id": 5142
+      },
+      "writtenOn": "2022-01-26T17:51:04Z",
+      "side": 1,
+      "message": "Move the ifndefs above the includes",
+      "revId": "b8152b758d19d0f1871c0a593b54d933858c6e5b",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "77727b53_4c09bebd",
+        "filename": "api/metronome/metronome.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 37,
+      "author": {
+        "id": 5142
+      },
+      "writtenOn": "2022-01-26T17:51:04Z",
+      "side": 1,
+      "message": "I don\u0027t think we need task_queue here? This should be the same as listener-\u003eOnTickTaskQueue(), right?",
+      "revId": "b8152b758d19d0f1871c0a593b54d933858c6e5b",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

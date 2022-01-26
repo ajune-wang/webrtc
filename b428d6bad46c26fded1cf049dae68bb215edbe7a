@@ -119,6 +119,30 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "7750ea89_81061b94",
+        "filename": "call/rtp_video_sender_interface.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 39,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2022-01-26T13:25:16Z",
+      "side": 0,
+      "message": "Maybe it\u0027s small enough (if I\u0027ve udnerstood correctly, std::vector\u003cbool\u003e is a bit magic, typically implemented as a bit mask).",
+      "parentUuid": "9cdafb24_8c3cf58e",
+      "range": {
+        "startLine": 39,
+        "startChar": 32,
+        "endLine": 39,
+        "endChar": 70
+      },
+      "revId": "b428d6bad46c26fded1cf049dae68bb215edbe7a",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "5fba75ab_8f4c037a",
@@ -156,6 +180,30 @@
       "side": 0,
       "message": "see earlier response.",
       "parentUuid": "5fba75ab_8f4c037a",
+      "range": {
+        "startLine": 298,
+        "startChar": 29,
+        "endLine": 298,
+        "endChar": 51
+      },
+      "revId": "b428d6bad46c26fded1cf049dae68bb215edbe7a",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "38309be2_b89a6dbe",
+        "filename": "media/base/fake_rtp.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 298,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2022-01-26T13:25:16Z",
+      "side": 0,
+      "message": "Copying doesn\u0027t seem right, but it depends a bit on how it is used by caller and callee. Pass by value is reasonable if callers and/or callee can use std::move on it.\n\nOtherwise, I\u0027d guess an rtc::ArrayView\u003cconst int\u003e (similar to std::span and absl::Span) would be a better argument type.",
+      "parentUuid": "9d217873_0e299b9f",
       "range": {
         "startLine": 298,
         "startChar": 29,
@@ -227,6 +275,30 @@
       "side": 0,
       "message": "filenames being passed by value should be OK, especially when the string is going to be used in IO. There are plenty of such cases in the code base already. So keeping this as is.",
       "parentUuid": "ab4be50c_641d3732",
+      "range": {
+        "startLine": 39,
+        "startChar": 12,
+        "endLine": 39,
+        "endChar": 39
+      },
+      "revId": "b428d6bad46c26fded1cf049dae68bb215edbe7a",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "e1e79c9b_1dc8eb01",
+        "filename": "modules/audio_coding/neteq/tools/audio_loop.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 39,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2022-01-26T13:25:16Z",
+      "side": 0,
+      "message": "Ok",
+      "parentUuid": "7b474a27_bed66dc2",
       "range": {
         "startLine": 39,
         "startChar": 12,
@@ -392,6 +464,30 @@
       "side": 0,
       "message": "see earlier response.",
       "parentUuid": "65306d8d_d1fdd263",
+      "range": {
+        "startLine": 187,
+        "startChar": 38,
+        "endLine": 187,
+        "endChar": 56
+      },
+      "revId": "b428d6bad46c26fded1cf049dae68bb215edbe7a",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "edad9398_f6b503c7",
+        "filename": "pc/rtp_transmission_manager.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 187,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2022-01-26T13:25:16Z",
+      "side": 0,
+      "message": "Unless there\u0027s a pretty good reason (e.g., that caller will use std::move and pass ownership for one but not the other), I think stream_id and sender_id ought to use the same argument type, for consistency.",
+      "parentUuid": "1ab0ce5e_89f9fc6a",
       "range": {
         "startLine": 187,
         "startChar": 38,

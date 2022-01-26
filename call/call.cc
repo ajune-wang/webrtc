@@ -83,7 +83,7 @@ bool SendPeriodicFeedback(const std::vector<RtpExtension>& extensions) {
 bool UseSendSideBwe(const ReceiveStream::RtpConfig& rtp) {
   if (!rtp.transport_cc)
     return false;
-  for (const auto& extension : rtp.extensions) {
+  for (const auto& extension : rtp.extensions()) {
     if (extension.uri == RtpExtension::kTransportSequenceNumberUri ||
         extension.uri == RtpExtension::kTransportSequenceNumberV2Uri)
       return true;
@@ -106,7 +106,7 @@ std::unique_ptr<rtclog::StreamConfig> CreateRtcLogStreamConfig(
   rtclog_config->local_ssrc = config.rtp.local_ssrc;
   rtclog_config->rtx_ssrc = config.rtp.rtx_ssrc;
   rtclog_config->rtcp_mode = config.rtp.rtcp_mode;
-  rtclog_config->rtp_extensions = config.rtp.extensions;
+  rtclog_config->rtp_extensions = config.rtp.extensions();
 
   for (const auto& d : config.decoders) {
     const int* search =
@@ -139,7 +139,7 @@ std::unique_ptr<rtclog::StreamConfig> CreateRtcLogStreamConfig(
   auto rtclog_config = std::make_unique<rtclog::StreamConfig>();
   rtclog_config->remote_ssrc = config.rtp.remote_ssrc;
   rtclog_config->local_ssrc = config.rtp.local_ssrc;
-  rtclog_config->rtp_extensions = config.rtp.extensions;
+  rtclog_config->rtp_extensions = config.rtp.extensions();
   return rtclog_config;
 }
 
@@ -1133,7 +1133,7 @@ webrtc::VideoReceiveStream* Call::CreateVideoReceiveStream(
   RTC_DCHECK_RUN_ON(worker_thread_);
 
   receive_side_cc_.SetSendPeriodicFeedback(
-      SendPeriodicFeedback(configuration.rtp.extensions));
+      SendPeriodicFeedback(configuration.rtp.extensions()));
 
   EnsureStarted();
 
@@ -1699,7 +1699,7 @@ bool Call::IdentifyReceivedPacket(RtpPacketReceived& packet,
   }
 
   packet.IdentifyExtensions(
-      RtpHeaderExtensionMap(it->second->rtp_config().extensions));
+      RtpHeaderExtensionMap(it->second->rtp_config().extensions()));
 
   if (use_send_side_bwe) {
     *use_send_side_bwe = UseSendSideBwe(it->second->rtp_config());

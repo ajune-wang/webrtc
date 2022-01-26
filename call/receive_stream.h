@@ -11,6 +11,7 @@
 #ifndef CALL_RECEIVE_STREAM_H_
 #define CALL_RECEIVE_STREAM_H_
 
+#include <utility>
 #include <vector>
 
 #include "api/crypto/frame_decryptor_interface.h"
@@ -27,6 +28,10 @@ class ReceiveStream {
  public:
   // Receive-stream specific RTP settings.
   struct RtpConfig {
+    RtpConfig() = default;
+    explicit RtpConfig(std::vector<RtpExtension> ext)
+        : extensions_(std::move(ext)) {}
+
     // Synchronization source (stream identifier) to be received.
     // This member will not change mid-stream and can be assumed to be const
     // post initialization.
@@ -45,10 +50,24 @@ class ReceiveStream {
     // that the value is read on (i.e. packet delivery).
     bool transport_cc = false;
 
+    const std::vector<RtpExtension>& extensions() const {
+      // TODO(tommi): assert not already moved.
+      return extensions_;
+    }
+    void set_extensions(std::vector<RtpExtension> ext) {
+      // TODO(tommi): assert not already moved. (ideally not need this at all)
+      extensions_ = std::move(ext);
+    }
+
+    std::vector<RtpExtension> move_extensions() const {
+      return std::move(extensions_);
+    }
+
+   protected:
     // RTP header extensions used for the received stream.
     // This value may change mid-stream and must be done on the same thread
     // that the value is read on (i.e. packet delivery).
-    std::vector<RtpExtension> extensions;
+    mutable std::vector<RtpExtension> extensions_;
   };
 
   // Set/change the rtp header extensions. Must be called on the packet
@@ -60,6 +79,10 @@ class ReceiveStream {
   // the packet delivery thread. Return value can be assumed to
   // only be used in the calling context (on the stack basically).
   virtual const RtpConfig& rtp_config() const = 0;
+
+  // Called on the packet delivery thread since the value may change mid-stream.
+  // Return value can be assumed to only be used in the calling context.
+  virtual const std::vector<RtpExtension>& rtp_extensions() const = 0;
 
  protected:
   virtual ~ReceiveStream() {}

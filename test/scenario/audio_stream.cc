@@ -182,8 +182,8 @@ ReceiveAudioStream::ReceiveAudioStream(
   receiver->ssrc_media_types_[recv_config.rtp.remote_ssrc] = MediaType::AUDIO;
   if (config.stream.in_bandwidth_estimation) {
     recv_config.rtp.transport_cc = true;
-    recv_config.rtp.extensions = {{RtpExtension::kTransportSequenceNumberUri,
-                                   kTransportSequenceNumberExtensionId}};
+    recv_config.rtp.set_extensions({{RtpExtension::kTransportSequenceNumberUri,
+                                     kTransportSequenceNumberExtensionId}});
   }
   recv_config.decoder_factory = decoder_factory;
   recv_config.decoder_map = {

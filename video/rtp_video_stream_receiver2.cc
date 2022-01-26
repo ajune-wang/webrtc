@@ -222,7 +222,7 @@ RtpVideoStreamReceiver2::RtpVideoStreamReceiver2(
       config_(*config),
       packet_router_(packet_router),
       ntp_estimator_(clock),
-      rtp_header_extensions_(config_.rtp.extensions),
+      rtp_header_extensions_(config_.rtp.move_extensions()),
       forced_playout_delay_max_ms_("max_ms", absl::nullopt),
       forced_playout_delay_min_ms_("min_ms", absl::nullopt),
       rtp_receive_statistics_(rtp_receive_statistics),

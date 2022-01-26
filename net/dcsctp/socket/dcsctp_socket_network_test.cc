@@ -187,8 +187,9 @@ class SctpActor : public rtc::MessageHandlerAutoCleanup,
     emulated_socket_.SendPacket(data);
   }
 
-  std::unique_ptr<Timeout> CreateTimeout() override {
-    return timeout_factory_.CreateTimeout();
+  std::unique_ptr<Timeout> CreateTimeout(
+      webrtc::TaskQueueBase::DelayPrecision precision) override {
+    return timeout_factory_.CreateTimeout(precision);
   }
 
   TimeMs TimeMillis() override { return TimeMs(rtc::TimeMillis()); }

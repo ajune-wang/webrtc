@@ -44,7 +44,9 @@ class HeartbeatHandlerTestBase : public testing::Test {
   explicit HeartbeatHandlerTestBase(DurationMs heartbeat_interval)
       : options_(MakeOptions(heartbeat_interval)),
         context_(&callbacks_),
-        timer_manager_([this]() { return callbacks_.CreateTimeout(); }),
+        timer_manager_([this](webrtc::TaskQueueBase::DelayPrecision precision) {
+          return callbacks_.CreateTimeout(precision);
+        }),
         handler_("log: ", options_, &context_, &timer_manager_) {}
 
   void AdvanceTime(DurationMs duration) {

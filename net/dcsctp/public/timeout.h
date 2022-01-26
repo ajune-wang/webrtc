@@ -12,6 +12,7 @@
 
 #include <cstdint>
 
+#include "api/task_queue/task_queue_base.h"
 #include "net/dcsctp/public/types.h"
 
 namespace dcsctp {

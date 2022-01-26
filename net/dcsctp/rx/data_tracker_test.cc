@@ -36,7 +36,9 @@ class DataTrackerTest : public testing::Test {
  protected:
   DataTrackerTest()
       : timeout_manager_([this]() { return now_; }),
-        timer_manager_([this]() { return timeout_manager_.CreateTimeout(); }),
+        timer_manager_([this](webrtc::TaskQueueBase::DelayPrecision precision) {
+          return timeout_manager_.CreateTimeout(precision);
+        }),
         timer_(timer_manager_.CreateTimer(
             "test/delayed_ack",
             []() { return absl::nullopt; },

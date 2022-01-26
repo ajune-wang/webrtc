@@ -17,6 +17,7 @@
 #include "absl/strings/string_view.h"
 #include "absl/types/optional.h"
 #include "api/array_view.h"
+#include "api/task_queue/task_queue_base.h"
 #include "net/dcsctp/public/dcsctp_handover_state.h"
 #include "net/dcsctp/public/dcsctp_message.h"
 #include "net/dcsctp/public/dcsctp_options.h"
@@ -264,9 +265,16 @@ class DcSctpSocketCallbacks {
   // Called when the library wants to create a Timeout. The callback must return
   // an object that implements that interface.
   //
+  // The timeout schedules using the specified |precision|. Low precision tasks
+  // are scheduled more efficiently by using leeway to reduce Idle Wake Ups, but
+  // may fire with up to 17 ms additional delay. kHigh does not have this
+  // leeway, but is still limited by OS timer precision. See
+  // webrtc::TaskQueueBase::DelayPrecision for more information.
+  //
   // Note that it's NOT ALLOWED to call into this library from within this
   // callback.
-  virtual std::unique_ptr<Timeout> CreateTimeout() = 0;
+  virtual std::unique_ptr<Timeout> CreateTimeout(
+      webrtc::TaskQueueBase::DelayPrecision precision) = 0;
 
   // Returns the current time in milliseconds (from any epoch).
   //

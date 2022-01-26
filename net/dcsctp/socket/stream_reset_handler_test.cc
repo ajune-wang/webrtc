@@ -87,7 +87,9 @@ class StreamResetHandlerTest : public testing::Test {
  protected:
   StreamResetHandlerTest()
       : ctx_(&callbacks_),
-        timer_manager_([this]() { return callbacks_.CreateTimeout(); }),
+        timer_manager_([this](webrtc::TaskQueueBase::DelayPrecision precision) {
+          return callbacks_.CreateTimeout(precision);
+        }),
         delayed_ack_timer_(timer_manager_.CreateTimer(
             "test/delayed_ack",
             []() { return absl::nullopt; },

@@ -10,7 +10,7 @@ vars = {
   # chromium waterfalls. More info at: crbug.com/570091.
   'checkout_configuration': 'default',
   'checkout_instrumented_libraries': 'checkout_linux and checkout_configuration == "default"',
-  'chromium_revision': 'a255778ed032b6ec1c2d82f00d56c199ddc8dbeb',
+  'chromium_revision': 'd492d88b07fad3bb51dcea0cccf9e23d606e858d',
 
   # Keep the Chromium default of generating location tags.
   'generate_location_tags': True,
@@ -34,13 +34,13 @@ deps = {
     'condition': 'checkout_android',
   },
   'src/ios': {
-    'url': 'https://chromium.googlesource.com/chromium/src/ios@fa76094d8501c80f394811b73b5be1d1e1a3b93e',
+    'url': 'https://chromium.googlesource.com/chromium/src/ios@0b81366baea282b70dc86b1156865664420dfd5c',
     'condition': 'checkout_ios',
   },
   'src/testing':
-    'https://chromium.googlesource.com/chromium/src/testing@e57e877ab9fc9cd252ae6fc21a30d3b4202550c6',
+    'https://chromium.googlesource.com/chromium/src/testing@a53609bdb80bfee69306ef530ef534aa6aca42d9',
   'src/third_party':
-    'https://chromium.googlesource.com/chromium/src/third_party@d3ab61634968706c21b3e085dcb4b97226528e6b',
+    'https://chromium.googlesource.com/chromium/src/third_party@07e38d5b5c1ae0be4be0dfc07a803fd9d27b3997',
 
   'src/buildtools/linux64': {
     'packages': [
@@ -182,7 +182,7 @@ deps = {
       'dep_type': 'cipd',
   },
   'src/third_party/googletest/src':
-    'https://chromium.googlesource.com/external/github.com/google/googletest.git@3d81736c973fbcc938267cb296918bc3266dde12',
+    'https://chromium.googlesource.com/external/github.com/google/googletest.git@f45d5865ed0b2b8912244627cdf508a24cc6ccb4',
   'src/third_party/icu': {
     'url': 'https://chromium.googlesource.com/chromium/deps/icu.git@b9f6d0a5c5375dc4643f35360d257dba37c1d3e1',
   },
@@ -285,7 +285,7 @@ deps = {
     'condition': 'checkout_win',
   },
   'src/tools':
-    'https://chromium.googlesource.com/chromium/src/tools@d859e7e2c6809da98e8c16d29954a86724f61c8d',
+    'https://chromium.googlesource.com/chromium/src/tools@12a8596d15ebe2c1269317d967ad63f46da09f16',
 
   'src/third_party/accessibility_test_framework': {
       'packages': [

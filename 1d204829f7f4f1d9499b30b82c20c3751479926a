@@ -46,6 +46,30 @@
       },
       "revId": "1d204829f7f4f1d9499b30b82c20c3751479926a",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "b1d839e0_25ad8001",
+        "filename": "call/call.cc",
+        "patchSetId": 7
+      },
+      "lineNbr": 1594,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2022-01-26T10:21:18Z",
+      "side": 0,
+      "message": "Thanks for explaining.",
+      "parentUuid": "5971157d_7aac4db8",
+      "range": {
+        "startLine": 1590,
+        "startChar": 0,
+        "endLine": 1594,
+        "endChar": 80
+      },
+      "revId": "1d204829f7f4f1d9499b30b82c20c3751479926a",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "f1f1471e_ddcdec85",
+        "filename": "api/DEPS",
+        "patchSetId": 5
+      },
+      "lineNbr": 117,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2022-01-26T06:36:27Z",
+      "side": 0,
+      "message": "Hooray for these removals!",
+      "revId": "3f06d23d2f2d21a62ea9c379be5c81e7dc6920d2",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

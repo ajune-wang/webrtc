@@ -95,6 +95,30 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "9cdafb24_8c3cf58e",
+        "filename": "call/rtp_video_sender_interface.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 39,
+      "author": {
+        "id": 10107
+      },
+      "writtenOn": "2022-01-26T13:12:32Z",
+      "side": 0,
+      "message": "std::vector\u003cbool\u003e seems to be intentional. There are multiple places in the code base where it is used, most likely because it is considered a \"small\" type. So I suggest not changing these at this point. wdyt?",
+      "parentUuid": "ea0448b9_88367ea6",
+      "range": {
+        "startLine": 39,
+        "startChar": 32,
+        "endLine": 39,
+        "endChar": 70
+      },
+      "revId": "b428d6bad46c26fded1cf049dae68bb215edbe7a",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "5fba75ab_8f4c037a",
@@ -189,6 +213,30 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "7b474a27_bed66dc2",
+        "filename": "modules/audio_coding/neteq/tools/audio_loop.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 39,
+      "author": {
+        "id": 10107
+      },
+      "writtenOn": "2022-01-26T13:12:32Z",
+      "side": 0,
+      "message": "filenames being passed by value should be OK, especially when the string is going to be used in IO. There are plenty of such cases in the code base already. So keeping this as is.",
+      "parentUuid": "ab4be50c_641d3732",
+      "range": {
+        "startLine": 39,
+        "startChar": 12,
+        "endLine": 39,
+        "endChar": 39
+      },
+      "revId": "b428d6bad46c26fded1cf049dae68bb215edbe7a",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "fe01307f_86cfb86b",
@@ -226,6 +274,30 @@
       "side": 0,
       "message": "see earlier response.",
       "parentUuid": "fe01307f_86cfb86b",
+      "range": {
+        "startLine": 24,
+        "startChar": 26,
+        "endLine": 24,
+        "endChar": 53
+      },
+      "revId": "b428d6bad46c26fded1cf049dae68bb215edbe7a",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "861a91b4_4150f669",
+        "filename": "modules/audio_coding/neteq/tools/input_audio_file.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 24,
+      "author": {
+        "id": 10107
+      },
+      "writtenOn": "2022-01-26T13:12:32Z",
+      "side": 0,
+      "message": "ditto.",
+      "parentUuid": "0ada5fdf_2f83c606",
       "range": {
         "startLine": 24,
         "startChar": 26,

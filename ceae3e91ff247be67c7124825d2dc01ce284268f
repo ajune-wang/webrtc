@@ -88,6 +88,23 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "c6fe9742_f57ddd42",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2022-01-26T08:46:13Z",
+      "side": 1,
+      "message": "This is definitely worthwhile just in terms of reducing code noise.\n\nIt would be ideal if we could figure out a way to flag the places where we\u0027re passing large objects by value (such as \"const string\" that should have been \"const string\u0026\"), but if we can find a way to detect those, I suspect that we\u0027ll find more occurences.",
+      "revId": "ceae3e91ff247be67c7124825d2dc01ce284268f",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "5d4e4a5a_17a43865",

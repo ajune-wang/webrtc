@@ -125,6 +125,7 @@ BaseChannel::BaseChannel(rtc::Thread* worker_thread,
       network_thread_(network_thread),
       signaling_thread_(signaling_thread),
       alive_(PendingTaskSafetyFlag::Create()),
+      network_alive_(PendingTaskSafetyFlag::CreateDetachedInactive()),
       srtp_required_(srtp_required),
       extensions_filter_(
           crypto_options.srtp.enable_encrypted_rtp_header_extensions
@@ -209,6 +210,8 @@ bool BaseChannel::SetRtpTransport(webrtc::RtpTransportInternal* rtp_transport) {
       return false;
     }
 
+    network_alive_->SetAlive();
+
     RTC_DCHECK(!media_channel_->HasNetworkInterface());
     media_channel_->SetInterface(this);
 
@@ -224,6 +227,8 @@ bool BaseChannel::SetRtpTransport(webrtc::RtpTransportInternal* rtp_transport) {
         rtp_transport_->SetRtcpOption(pair.first, pair.second);
       }
     }
+  } else {
+    network_alive_->SetNotAlive();
   }
 
   return true;
@@ -445,36 +450,37 @@ void BaseChannel::OnRtpPacket(const webrtc::RtpPacketReceived& parsed_packet) {
 
 void BaseChannel::MaybeUpdateDemuxerAndRtpExtensions_w(
     bool update_demuxer,
-    absl::optional<RtpHeaderExtensions> extensions) {
-  if (extensions) {
-    if (rtp_header_extensions_ == extensions) {
-      extensions.reset();  // No need to update header extensions.
-    } else {
-      rtp_header_extensions_ = *extensions;
-    }
-  }
-
-  if (!update_demuxer && !extensions)
+    const RtpHeaderExtensions& extensions) {
+  const bool update_extensions = (rtp_header_extensions_ != extensions);
+  if (!update_demuxer && !update_extensions)
     return;
-
-  // TODO(bugs.webrtc.org/13536): See if we can do this asynchronously.
 
   if (update_demuxer)
     media_channel()->OnDemuxerCriteriaUpdatePending();
 
-  network_thread()->Invoke<void>(RTC_FROM_HERE, [&]() mutable {
-    RTC_DCHECK_RUN_ON(network_thread());
-    // NOTE: This doesn't take the BUNDLE case in account meaning the RTP header
-    // extension maps are not merged when BUNDLE is enabled. This is fine
-    // because the ID for MID should be consistent among all the RTP transports.
-    if (extensions)
-      rtp_transport_->UpdateRtpHeaderExtensionMap(*extensions);
-    if (update_demuxer)
-      rtp_transport_->RegisterRtpDemuxerSink(demuxer_criteria_, this);
-  });
+  if (update_extensions)
+    rtp_header_extensions_ = extensions;
 
-  if (update_demuxer)
-    media_channel()->OnDemuxerCriteriaUpdateComplete();
+  network_thread_->PostTask(ToQueuedTask(
+      network_alive_, [this, update_demuxer, update_extensions,
+                       extensions = update_extensions ? rtp_header_extensions_
+                                                      : RtpHeaderExtensions(),
+                       demuxer_criteria = demuxer_criteria_]() {
+        RTC_DCHECK_RUN_ON(network_thread());
+        // NOTE: This doesn't take the BUNDLE case in account meaning the RTP
+        // header extension maps are not merged when BUNDLE is enabled. This is
+        // fine because the ID for MID should be consistent among all the RTP
+        // transports.
+        if (update_extensions)
+          rtp_transport_->UpdateRtpHeaderExtensionMap(extensions);
+
+        if (update_demuxer) {
+          rtp_transport_->RegisterRtpDemuxerSink(demuxer_criteria, this);
+          worker_thread_->PostTask(ToQueuedTask(alive_, [this] {
+            media_channel()->OnDemuxerCriteriaUpdateComplete();
+          }));
+        }
+      }));
 }
 
 bool BaseChannel::RegisterRtpDemuxerSink_w() {
@@ -845,7 +851,6 @@ bool VoiceChannel::SetLocalContent_w(const MediaContentDescription* content,
 
   RtpHeaderExtensions header_extensions =
       GetDeduplicatedRtpHeaderExtensions(content->rtp_header_extensions());
-  bool update_header_extensions = true;
   media_channel()->SetExtmapAllowMixed(content->extmap_allow_mixed());
 
   AudioRecvParameters recv_params = last_recv_params_;
@@ -881,15 +886,9 @@ bool VoiceChannel::SetLocalContent_w(const MediaContentDescription* content,
   set_local_content_direction(content->direction());
   UpdateMediaSendRecvState_w();
 
+  MaybeUpdateDemuxerAndRtpExtensions_w(criteria_modified, header_extensions);
+
   RTC_DCHECK_BLOCK_COUNT_NO_MORE_THAN(0);
-
-  MaybeUpdateDemuxerAndRtpExtensions_w(
-      criteria_modified,
-      update_header_extensions
-          ? absl::optional<RtpHeaderExtensions>(std::move(header_extensions))
-          : absl::nullopt);
-
-  RTC_DCHECK_BLOCK_COUNT_NO_MORE_THAN(1);
 
   return true;
 }
@@ -966,7 +965,6 @@ bool VideoChannel::SetLocalContent_w(const MediaContentDescription* content,
 
   RtpHeaderExtensions header_extensions =
       GetDeduplicatedRtpHeaderExtensions(content->rtp_header_extensions());
-  bool update_header_extensions = true;
   media_channel()->SetExtmapAllowMixed(content->extmap_allow_mixed());
 
   VideoRecvParameters recv_params = last_recv_params_;
@@ -1033,15 +1031,9 @@ bool VideoChannel::SetLocalContent_w(const MediaContentDescription* content,
   set_local_content_direction(content->direction());
   UpdateMediaSendRecvState_w();
 
+  MaybeUpdateDemuxerAndRtpExtensions_w(criteria_modified, header_extensions);
+
   RTC_DCHECK_BLOCK_COUNT_NO_MORE_THAN(0);
-
-  MaybeUpdateDemuxerAndRtpExtensions_w(
-      criteria_modified,
-      update_header_extensions
-          ? absl::optional<RtpHeaderExtensions>(std::move(header_extensions))
-          : absl::nullopt);
-
-  RTC_DCHECK_BLOCK_COUNT_NO_MORE_THAN(1);
 
   return true;
 }

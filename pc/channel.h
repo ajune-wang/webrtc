@@ -297,8 +297,7 @@ class BaseChannel : public ChannelInterface,
   // rtp header extensions.
   void MaybeUpdateDemuxerAndRtpExtensions_w(
       bool update_demuxer,
-      absl::optional<RtpHeaderExtensions> extensions)
-      RTC_RUN_ON(worker_thread());
+      const RtpHeaderExtensions& extensions) RTC_RUN_ON(worker_thread());
 
   bool RegisterRtpDemuxerSink_w() RTC_RUN_ON(worker_thread());
 
@@ -314,6 +313,7 @@ class BaseChannel : public ChannelInterface,
   rtc::Thread* const network_thread_;
   rtc::Thread* const signaling_thread_;
   rtc::scoped_refptr<webrtc::PendingTaskSafetyFlag> alive_;
+  rtc::scoped_refptr<webrtc::PendingTaskSafetyFlag> network_alive_;
 
   std::function<void()> on_first_packet_received_
       RTC_GUARDED_BY(network_thread());

@@ -1,6 +1,23 @@
 {
   "comments": [
     {
+      "unresolved": true,
+      "key": {
+        "uuid": "a6aaa327_12026963",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 3
+      },
+      "lineNbr": 14,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2022-01-26T08:43:27Z",
+      "side": 1,
+      "message": "I *think* the reason this works correctly is that there are no \"const override\" occurences outside the target places.\n\nThe parentheses are interpreted as subpattern delimiters by regex(7). They should probably be escaped.",
+      "revId": "e09d1253d8a4bfeae260b351d52f13b4489882d1",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": false,
       "key": {
         "uuid": "6613e0ed_1be6015d",
@@ -14,6 +31,23 @@
       "writtenOn": "2022-01-26T08:18:26Z",
       "side": 1,
       "message": "Adding hta@ for OWNERS approval.",
+      "revId": "e09d1253d8a4bfeae260b351d52f13b4489882d1",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "f3858d36_137332c3",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 3
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2022-01-26T08:43:27Z",
+      "side": 1,
+      "message": "+1 since the code looks right, but please fix the sed script and check that it gives the same result again.",
       "revId": "e09d1253d8a4bfeae260b351d52f13b4489882d1",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }

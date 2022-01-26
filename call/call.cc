@@ -351,10 +351,10 @@ class Call final : public webrtc::Call,
       RTC_RUN_ON(worker_thread_);
   void ConfigureSync(const std::string& sync_group) RTC_RUN_ON(worker_thread_);
 
+  // TODO(tommi): RTC_RUN_ON(network_thread_)?
   void NotifyBweOfReceivedPacket(const RtpPacketReceived& packet,
                                  MediaType media_type,
-                                 bool use_send_side_bwe)
-      RTC_RUN_ON(worker_thread_);
+                                 bool use_send_side_bwe);
 
   bool IdentifyReceivedPacket(RtpPacketReceived& packet,
                               bool* use_send_side_bwe = nullptr);
@@ -971,7 +971,8 @@ webrtc::AudioReceiveStream* Call::CreateAudioReceiveStream(
   // TODO(bugs.webrtc.org/11993): Make the registration on the network thread
   // (asynchronously). The registration and `audio_receiver_controller_` need
   // to live on the network thread.
-  receive_stream->RegisterWithTransport(&audio_receiver_controller_);
+  audio_receiver_controller_.AddSink(config.rtp.remote_ssrc,
+                                     receive_stream->packet_sink());
 
   // TODO(bugs.webrtc.org/11993): Update the below on the network thread.
   // We could possibly set up the audio_receiver_controller_ association up
@@ -1000,7 +1001,7 @@ void Call::DestroyAudioReceiveStream(
   // TODO(bugs.webrtc.org/11993): Access the map, rtp config, call ConfigureSync
   // and UpdateAggregateNetworkState on the network thread. The call to
   // `UnregisterFromTransport` should also happen on the network thread.
-  audio_receive_stream->UnregisterFromTransport();
+  audio_receiver_controller_.RemoveSink(audio_receive_stream->packet_sink());
 
   uint32_t ssrc = audio_receive_stream->remote_ssrc();
   const AudioReceiveStream::Config& config = audio_receive_stream->config();
@@ -1149,12 +1150,15 @@ webrtc::VideoReceiveStream* Call::CreateVideoReceiveStream(
       transport_send_->packet_router(), std::move(configuration),
       call_stats_.get(), clock_, new VCMTiming(clock_),
       &nack_periodic_processor_);
+  const webrtc::VideoReceiveStream::Config::Rtp& rtp = receive_stream->rtp();
+
   // TODO(bugs.webrtc.org/11993): Set this up asynchronously on the network
   // thread.
-  receive_stream->RegisterWithTransport(&video_receiver_controller_);
-
-  const webrtc::VideoReceiveStream::Config::Rtp& rtp = receive_stream->rtp();
+  video_receiver_controller_.AddSink(rtp.remote_ssrc,
+                                     receive_stream->packet_sink());
   if (rtp.rtx_ssrc) {
+    video_receiver_controller_.AddSink(rtp.rtx_ssrc,
+                                       receive_stream->rtx_packet_sink());
     // We record identical config for the rtx stream as for the main
     // stream. Since the transport_send_cc negotiation is per payload
     // type, we may get an incorrect value for the rtx stream, but
@@ -1178,18 +1182,21 @@ void Call::DestroyVideoReceiveStream(
   RTC_DCHECK(receive_stream != nullptr);
   VideoReceiveStream2* receive_stream_impl =
       static_cast<VideoReceiveStream2*>(receive_stream);
-  // TODO(bugs.webrtc.org/11993): Unregister on the network thread.
-  receive_stream_impl->UnregisterFromTransport();
-
   const webrtc::VideoReceiveStream::Config::Rtp& rtp =
       receive_stream_impl->rtp();
 
   // Remove all ssrcs pointing to a receive stream. As RTX retransmits on a
   // separate SSRC there can be either one or two.
   UnregisterReceiveStream(rtp.remote_ssrc);
+
+  // TODO(bugs.webrtc.org/11993): Unregister on the network thread.
+  video_receiver_controller_.RemoveSink(receive_stream_impl->packet_sink());
   if (rtp.rtx_ssrc) {
+    video_receiver_controller_.RemoveSink(
+        receive_stream_impl->rtx_packet_sink());
     UnregisterReceiveStream(rtp.rtx_ssrc);
   }
+
   video_receive_streams_.erase(receive_stream_impl);
   ConfigureSync(receive_stream_impl->sync_group());
 
@@ -1640,7 +1647,6 @@ void Call::OnRecoveredPacket(const uint8_t* packet, size_t length) {
   video_receiver_controller_.OnRtpPacket(parsed_packet);
 }
 
-// RTC_RUN_ON(worker_thread_)
 void Call::NotifyBweOfReceivedPacket(const RtpPacketReceived& packet,
                                      MediaType media_type,
                                      bool use_send_side_bwe) {

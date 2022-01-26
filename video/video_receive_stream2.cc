@@ -285,31 +285,7 @@ VideoReceiveStream2::VideoReceiveStream2(
 VideoReceiveStream2::~VideoReceiveStream2() {
   RTC_DCHECK_RUN_ON(&worker_sequence_checker_);
   RTC_LOG(LS_INFO) << "~VideoReceiveStream2: " << config_.ToString();
-  RTC_DCHECK(!media_receiver_);
-  RTC_DCHECK(!rtx_receiver_);
   Stop();
-}
-
-void VideoReceiveStream2::RegisterWithTransport(
-    RtpStreamReceiverControllerInterface* receiver_controller) {
-  RTC_DCHECK_RUN_ON(&packet_sequence_checker_);
-  RTC_DCHECK(!media_receiver_);
-  RTC_DCHECK(!rtx_receiver_);
-
-  // Register with RtpStreamReceiverController.
-  media_receiver_ = receiver_controller->CreateReceiver(
-      config_.rtp.remote_ssrc, &rtp_video_stream_receiver_);
-  if (config_.rtp.rtx_ssrc) {
-    RTC_DCHECK(rtx_receive_stream_);
-    rtx_receiver_ = receiver_controller->CreateReceiver(
-        config_.rtp.rtx_ssrc, rtx_receive_stream_.get());
-  }
-}
-
-void VideoReceiveStream2::UnregisterFromTransport() {
-  RTC_DCHECK_RUN_ON(&packet_sequence_checker_);
-  media_receiver_.reset();
-  rtx_receiver_.reset();
 }
 
 const VideoReceiveStream2::Config::Rtp& VideoReceiveStream2::rtp() const {
@@ -320,6 +296,18 @@ const VideoReceiveStream2::Config::Rtp& VideoReceiveStream2::rtp() const {
 const std::string& VideoReceiveStream2::sync_group() const {
   RTC_DCHECK_RUN_ON(&packet_sequence_checker_);
   return config_.sync_group;
+}
+
+webrtc::RtpPacketSinkInterface* VideoReceiveStream2::packet_sink() {
+  RTC_DCHECK_RUN_ON(&packet_sequence_checker_);
+  return &rtp_video_stream_receiver_;
+}
+
+webrtc::RtpPacketSinkInterface* VideoReceiveStream2::rtx_packet_sink() {
+  RTC_DCHECK_RUN_ON(&packet_sequence_checker_);
+  RTC_DCHECK(config_.rtp.rtx_ssrc);
+  RTC_DCHECK(rtx_receive_stream_);
+  return rtx_receive_stream_.get();
 }
 
 void VideoReceiveStream2::SignalNetworkState(NetworkState state) {

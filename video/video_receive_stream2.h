@@ -102,21 +102,7 @@ class VideoReceiveStream2
                       Clock* clock,
                       VCMTiming* timing,
                       NackPeriodicProcessor* nack_periodic_processor);
-  // Destruction happens on the worker thread. Prior to destruction the caller
-  // must ensure that a registration with the transport has been cleared. See
-  // `RegisterWithTransport` for details.
-  // TODO(tommi): As a further improvement to this, performing the full
-  // destruction on the network thread could be made the default.
   ~VideoReceiveStream2() override;
-
-  // Called on `packet_sequence_checker_` to register/unregister with the
-  // network transport.
-  void RegisterWithTransport(
-      RtpStreamReceiverControllerInterface* receiver_controller);
-  // If registration has previously been done (via `RegisterWithTransport`) then
-  // `UnregisterFromTransport` must be called prior to destruction, on the
-  // network thread.
-  void UnregisterFromTransport();
 
   // Convenience getters for parts of the receive stream's config.
   // The accessors must be called on the packet delivery thread in accordance
@@ -125,6 +111,8 @@ class VideoReceiveStream2
   // context as some values might change.
   const Config::Rtp& rtp() const;
   const std::string& sync_group() const;
+  webrtc::RtpPacketSinkInterface* packet_sink();
+  webrtc::RtpPacketSinkInterface* rtx_packet_sink();
 
   void SignalNetworkState(NetworkState state);
   bool DeliverRtcp(const uint8_t* packet, size_t length);
@@ -252,11 +240,7 @@ class VideoReceiveStream2
 
   std::unique_ptr<FrameBufferProxy> frame_buffer_;
 
-  std::unique_ptr<RtpStreamReceiverInterface> media_receiver_
-      RTC_GUARDED_BY(packet_sequence_checker_);
   std::unique_ptr<RtxReceiveStream> rtx_receive_stream_
-      RTC_GUARDED_BY(packet_sequence_checker_);
-  std::unique_ptr<RtpStreamReceiverInterface> rtx_receiver_
       RTC_GUARDED_BY(packet_sequence_checker_);
 
   // Whenever we are in an undecodable state (stream has just started or due to

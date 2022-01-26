@@ -58,6 +58,30 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "a690613f_cae8fcfb",
+        "filename": "net/dcsctp/public/timeout.h",
+        "patchSetId": 12
+      },
+      "lineNbr": 32,
+      "author": {
+        "id": 5142
+      },
+      "writtenOn": "2022-01-26T11:26:31Z",
+      "side": 1,
+      "message": "That makes a lot of sense, done. I didn\u0027t see the need to keep the old signature though, so I just added the argument and kept the old name.",
+      "parentUuid": "6ce5f173_d026ea89",
+      "range": {
+        "startLine": 32,
+        "startChar": 15,
+        "endLine": 32,
+        "endChar": 34
+      },
+      "revId": "f72019003d068f2b76cebbed62c399c7dcb62676",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "4c1ca1fd_535231eb",
@@ -81,6 +105,30 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "17ca747a_fff95105",
+        "filename": "net/dcsctp/timer/task_queue_timeout.h",
+        "patchSetId": 12
+      },
+      "lineNbr": 48,
+      "author": {
+        "id": 5142
+      },
+      "writtenOn": "2022-01-26T11:26:31Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "4c1ca1fd_535231eb",
+      "range": {
+        "startLine": 48,
+        "startChar": 41,
+        "endLine": 48,
+        "endChar": 42
+      },
+      "revId": "f72019003d068f2b76cebbed62c399c7dcb62676",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "533caa9f_80cb7320",
@@ -94,6 +142,30 @@
       "writtenOn": "2022-01-26T09:11:20Z",
       "side": 1,
       "message": "I think we would want to put this in TimerOptions. WDYT?",
+      "range": {
+        "startLine": 186,
+        "startChar": 6,
+        "endLine": 187,
+        "endChar": 53
+      },
+      "revId": "f72019003d068f2b76cebbed62c399c7dcb62676",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "a1734cec_85e72578",
+        "filename": "net/dcsctp/timer/timer.h",
+        "patchSetId": 12
+      },
+      "lineNbr": 187,
+      "author": {
+        "id": 5142
+      },
+      "writtenOn": "2022-01-26T11:26:31Z",
+      "side": 1,
+      "message": "I\u0027ll let you decide this one.\n\nI updated as suggested and moved the precision into TimerOptions. But note that the options.precision is passed into the Timeout constructor now, whereas the rest of the options are passed into the Timer constructor. The Timer never looks at options.precision. That could be considered an \"implementation detail\" and not matter, or it could ba sign of mixing of which layers the data belongs to.",
+      "parentUuid": "533caa9f_80cb7320",
       "range": {
         "startLine": 186,
         "startChar": 6,

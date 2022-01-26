@@ -22,6 +22,30 @@
       },
       "revId": "1d204829f7f4f1d9499b30b82c20c3751479926a",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "5971157d_7aac4db8",
+        "filename": "call/call.cc",
+        "patchSetId": 7
+      },
+      "lineNbr": 1594,
+      "author": {
+        "id": 5508
+      },
+      "writtenOn": "2022-01-26T10:10:36Z",
+      "side": 0,
+      "message": "Yes the comment is archaic and somehow seems to have ended here where we\u0027re not tearing down anything. But the part about the demuxer not being protected by the worker thread, is misleading. It\u0027s not explicitly protected by it, but implicitly it is. As far as Call goes, all the network traffic is on the worker thread, including the demuxing, which is the performance problem.",
+      "parentUuid": "28c4c480_8d808067",
+      "range": {
+        "startLine": 1590,
+        "startChar": 0,
+        "endLine": 1594,
+        "endChar": 80
+      },
+      "revId": "1d204829f7f4f1d9499b30b82c20c3751479926a",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

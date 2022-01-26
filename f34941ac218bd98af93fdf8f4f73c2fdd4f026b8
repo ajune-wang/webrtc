@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "a8cd0f4b_de51fcd9",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 11
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 7255
+      },
+      "writtenOn": "2022-01-26T17:39:06Z",
+      "side": 1,
+      "message": "This is a part of the prototype CL we did in google3 (cl/405365657)",
+      "revId": "f34941ac218bd98af93fdf8f4f73c2fdd4f026b8",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

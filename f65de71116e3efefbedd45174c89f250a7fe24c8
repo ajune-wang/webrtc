@@ -1,0 +1,55 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "f30c7685_37467f8f",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 3
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2022-01-26T07:01:34Z",
+      "side": 1,
+      "message": "Makes sense to me.\n\nInteresting pattern to do an empty invoke() as a guarantee that earlier-queued tasks will have completed; we might make it more obvious what it\u0027s there for, though.",
+      "revId": "f65de71116e3efefbedd45174c89f250a7fe24c8",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "d15fae93_484f264b",
+        "filename": "pc/channel_manager.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 73,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2022-01-26T07:01:34Z",
+      "side": 1,
+      "message": "Should you add an RTC_DCHECK(voice_channels.empty()) inside the invoke() to make that point runtime-checkable?\n\nSince it\u0027s an invoke(), we could just move the DCHECKs below into the lambda.",
+      "revId": "f65de71116e3efefbedd45174c89f250a7fe24c8",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "101f58ec_53116260",
+        "filename": "pc/rtp_transceiver.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 158,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2022-01-26T07:01:34Z",
+      "side": 1,
+      "message": "This comment should be \"Missing call to SetChannel(nullptr)\" if I read it right.",
+      "revId": "f65de71116e3efefbedd45174c89f250a7fe24c8",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

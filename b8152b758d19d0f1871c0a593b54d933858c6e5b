@@ -1,6 +1,40 @@
 {
   "comments": [
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "229f4339_764af72f",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2022-01-26T22:16:32Z",
+      "side": 1,
+      "message": "Commenting on comments, mostly.",
+      "revId": "b8152b758d19d0f1871c0a593b54d933858c6e5b",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "1c6859c2_99f66f2e",
+        "filename": "api/metronome/BUILD.gn",
+        "patchSetId": 1
+      },
+      "lineNbr": 12,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2022-01-26T22:16:32Z",
+      "side": 1,
+      "message": "1) Why is this in API?\n2) Who are its customers?",
+      "revId": "b8152b758d19d0f1871c0a593b54d933858c6e5b",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "64c527da_a2fe4a7b",
@@ -14,6 +48,40 @@
       "writtenOn": "2022-01-26T17:51:04Z",
       "side": 1,
       "message": "Move the ifndefs above the includes",
+      "revId": "b8152b758d19d0f1871c0a593b54d933858c6e5b",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "04f38b74_109fe799",
+        "filename": "api/metronome/metronome.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 20,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2022-01-26T22:16:32Z",
+      "side": 1,
+      "message": "... which doesn\u0027t free you from writing a proper class comment: What does this class do and why is it useful?\n\n(We\u0027re trying to make webrtc more well-documented. If we can do it when introducing new APIs, that helps.)",
+      "revId": "b8152b758d19d0f1871c0a593b54d933858c6e5b",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "fb0c9c6d_b2954346",
+        "filename": "api/metronome/metronome.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 27,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2022-01-26T22:16:32Z",
+      "side": 1,
+      "message": "Please write the full sentence: \"`OnTick` is run each time the metronome ticks\".",
       "revId": "b8152b758d19d0f1871c0a593b54d933858c6e5b",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },

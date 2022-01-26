@@ -351,10 +351,10 @@ class Call final : public webrtc::Call,
       RTC_RUN_ON(worker_thread_);
   void ConfigureSync(const std::string& sync_group) RTC_RUN_ON(worker_thread_);
 
+  // TODO(tommi): RTC_RUN_ON(network_thread_)?
   void NotifyBweOfReceivedPacket(const RtpPacketReceived& packet,
                                  MediaType media_type,
-                                 bool use_send_side_bwe)
-      RTC_RUN_ON(worker_thread_);
+                                 bool use_send_side_bwe);
 
   bool IdentifyReceivedPacket(RtpPacketReceived& packet,
                               bool* use_send_side_bwe = nullptr);
@@ -971,7 +971,12 @@ webrtc::AudioReceiveStream* Call::CreateAudioReceiveStream(
   // TODO(bugs.webrtc.org/11993): Make the registration on the network thread
   // (asynchronously). The registration and `audio_receiver_controller_` need
   // to live on the network thread.
+#if 0
   receive_stream->RegisterWithTransport(&audio_receiver_controller_);
+#else
+  audio_receiver_controller_.AddSink(config.rtp.remote_ssrc,
+                                     receive_stream->packet_sink());
+#endif
 
   // TODO(bugs.webrtc.org/11993): Update the below on the network thread.
   // We could possibly set up the audio_receiver_controller_ association up
@@ -1000,7 +1005,11 @@ void Call::DestroyAudioReceiveStream(
   // TODO(bugs.webrtc.org/11993): Access the map, rtp config, call ConfigureSync
   // and UpdateAggregateNetworkState on the network thread. The call to
   // `UnregisterFromTransport` should also happen on the network thread.
+#if 0
   audio_receive_stream->UnregisterFromTransport();
+#else
+  audio_receiver_controller_.RemoveSink(audio_receive_stream->packet_sink());
+#endif
 
   uint32_t ssrc = audio_receive_stream->remote_ssrc();
   const AudioReceiveStream::Config& config = audio_receive_stream->config();
@@ -1640,7 +1649,6 @@ void Call::OnRecoveredPacket(const uint8_t* packet, size_t length) {
   video_receiver_controller_.OnRtpPacket(parsed_packet);
 }
 
-// RTC_RUN_ON(worker_thread_)
 void Call::NotifyBweOfReceivedPacket(const RtpPacketReceived& packet,
                                      MediaType media_type,
                                      bool use_send_side_bwe) {

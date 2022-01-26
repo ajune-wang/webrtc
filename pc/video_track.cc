@@ -121,7 +121,7 @@ void VideoTrack::OnChanged() {
 
 rtc::scoped_refptr<VideoTrack> VideoTrack::Create(
     const std::string& id,
-    VideoTrackSourceInterface* source,
+    rtc::scoped_refptr<VideoTrackSourceInterface> source,
     rtc::Thread* worker_thread) {
   return rtc::make_ref_counted<VideoTrack>(id, source, worker_thread);
 }

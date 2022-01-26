@@ -323,7 +323,7 @@ PeerScenarioClient::VideoSendTrack PeerScenarioClient::CreateVideo(
   capturer->Init();
   res.source = rtc::make_ref_counted<FrameGeneratorCapturerVideoTrackSource>(
       std::move(capturer), config.screencast);
-  auto track = pc_factory_->CreateVideoTrack(track_id, res.source);
+  auto track = pc_factory_->CreateVideoTrack(res.source, track_id);
   res.track = track;
   res.sender = peer_connection_->AddTrack(track, {kCommonStreamId}).MoveValue();
   return res;

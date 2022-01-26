@@ -1,0 +1,84 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "b029be5a_45b34b82",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 16
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 12215
+      },
+      "writtenOn": "2022-01-26T12:46:25Z",
+      "side": 1,
+      "message": "Good work - thanks!",
+      "revId": "0bdeb206b56b801f89c9f722cec5bd285eae7e8e",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "458e7d39_7a1e18a3",
+        "filename": "net/dcsctp/public/dcsctp_socket.h",
+        "patchSetId": 16
+      },
+      "lineNbr": 20,
+      "author": {
+        "id": 12215
+      },
+      "writtenOn": "2022-01-26T12:46:25Z",
+      "side": 1,
+      "message": "Just adding a note \"For the record\".\n\nNow we\u0027re API-wise adding a dependency on the task queue API. Not all timeout implementations will be on the task queue, and there will be projects using dcSCTP without the Task Queue.. However, adding a new enum with the same fields doesn\u0027t add value, and dcSCTP isn\u0027t its own standalone project, so this dependency is accepted for now. And easy to change if needed.",
+      "revId": "0bdeb206b56b801f89c9f722cec5bd285eae7e8e",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "83896950_58b98f38",
+        "filename": "net/dcsctp/public/dcsctp_socket.h",
+        "patchSetId": 16
+      },
+      "lineNbr": 270,
+      "author": {
+        "id": 12215
+      },
+      "writtenOn": "2022-01-26T12:46:25Z",
+      "side": 1,
+      "message": "I think this highlighted part could easily become stale... But I don\u0027t know how to rephrase it better.\n\nMaybe \"Low precision tasks may be delayed a bit to reduce idle wake ups, while high priority tasks will be scheduled with higher precision - decided by the OS. More details can be found at `webrtc::TaskQueueBase::DelayPrecisions`\"?\n\nYour choice :)",
+      "range": {
+        "startLine": 270,
+        "startChar": 18,
+        "endLine": 270,
+        "endChar": 56
+      },
+      "revId": "0bdeb206b56b801f89c9f722cec5bd285eae7e8e",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "3a06e9fd_f2d74c17",
+        "filename": "net/dcsctp/timer/task_queue_timeout.h",
+        "patchSetId": 16
+      },
+      "lineNbr": 67,
+      "author": {
+        "id": 12215
+      },
+      "writtenOn": "2022-01-26T12:46:25Z",
+      "side": 1,
+      "message": "Please remove this default value - to have the compiler warn if one forgets to assign it.",
+      "range": {
+        "startLine": 66,
+        "startChar": 58,
+        "endLine": 67,
+        "endChar": 52
+      },
+      "revId": "0bdeb206b56b801f89c9f722cec5bd285eae7e8e",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

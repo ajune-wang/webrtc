@@ -35,6 +35,24 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "1884c8f2_cd8532c5",
+        "filename": "net/dcsctp/public/dcsctp_socket.h",
+        "patchSetId": 16
+      },
+      "lineNbr": 20,
+      "author": {
+        "id": 5142
+      },
+      "writtenOn": "2022-01-26T15:37:49Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "458e7d39_7a1e18a3",
+      "revId": "0bdeb206b56b801f89c9f722cec5bd285eae7e8e",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "83896950_58b98f38",
@@ -58,6 +76,30 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "d7bafba6_dd29cb06",
+        "filename": "net/dcsctp/public/dcsctp_socket.h",
+        "patchSetId": 16
+      },
+      "lineNbr": 270,
+      "author": {
+        "id": 5142
+      },
+      "writtenOn": "2022-01-26T15:37:49Z",
+      "side": 1,
+      "message": "While I liked your suggestion, I think it\u0027s important for the caller to know approximately (~order of magnitude) what the leeway is and saying \"a bit\" is very subjective, so I\u0027d rather say too much and risk it getting stale than saying too little and be misleading or unhelpful. But to protect against staleness I did rephrase it as \"at the time of writing\" and advising the reader to look at the definition in webrtc::TaskQueueBase::DelayPrecision. Hopefully that reduces the risk of the information becoming stale without anybody noticing it.\n\n  // Low precision tasks are scheduled more efficiently by using leeway to\n  // reduce Idle Wake Ups and is the preferred precision whenever possible. High\n  // precision timeouts do not have this leeway, but is still limited by OS\n  // timer precision. At the time of writing, kLow\u0027s additional leeway may be up\n  // to 17 ms, but please see webrtc::TaskQueueBase::DelayPrecision for\n  // up-to-date information.",
+      "parentUuid": "83896950_58b98f38",
+      "range": {
+        "startLine": 270,
+        "startChar": 18,
+        "endLine": 270,
+        "endChar": 56
+      },
+      "revId": "0bdeb206b56b801f89c9f722cec5bd285eae7e8e",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "3a06e9fd_f2d74c17",
@@ -71,6 +113,30 @@
       "writtenOn": "2022-01-26T12:46:25Z",
       "side": 1,
       "message": "Please remove this default value - to have the compiler warn if one forgets to assign it.",
+      "range": {
+        "startLine": 66,
+        "startChar": 58,
+        "endLine": 67,
+        "endChar": 52
+      },
+      "revId": "0bdeb206b56b801f89c9f722cec5bd285eae7e8e",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "4747b007_3f8495a2",
+        "filename": "net/dcsctp/timer/task_queue_timeout.h",
+        "patchSetId": 16
+      },
+      "lineNbr": 67,
+      "author": {
+        "id": 5142
+      },
+      "writtenOn": "2022-01-26T15:37:49Z",
+      "side": 1,
+      "message": "Oops. Done",
+      "parentUuid": "3a06e9fd_f2d74c17",
       "range": {
         "startLine": 66,
         "startChar": 58,

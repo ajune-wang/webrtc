@@ -37,21 +37,7 @@ class FlexfecReceiveStreamImpl : public FlexfecReceiveStream {
                            const Config& config,
                            RecoveredPacketReceiver* recovered_packet_receiver,
                            RtcpRttStats* rtt_stats);
-  // Destruction happens on the worker thread. Prior to destruction the caller
-  // must ensure that a registration with the transport has been cleared. See
-  // `RegisterWithTransport` for details.
-  // TODO(tommi): As a further improvement to this, performing the full
-  // destruction on the network thread could be made the default.
   ~FlexfecReceiveStreamImpl() override;
-
-  // Called on the network thread to register/unregister with the network
-  // transport.
-  void RegisterWithTransport(
-      RtpStreamReceiverControllerInterface* receiver_controller);
-  // If registration has previously been done (via `RegisterWithTransport`) then
-  // `UnregisterFromTransport` must be called prior to destruction, on the
-  // network thread.
-  void UnregisterFromTransport();
 
   // RtpPacketSinkInterface.
   void OnRtpPacket(const RtpPacketReceived& packet) override;
@@ -74,9 +60,6 @@ class FlexfecReceiveStreamImpl : public FlexfecReceiveStream {
   // RTCP reporting.
   const std::unique_ptr<ReceiveStatistics> rtp_receive_statistics_;
   const std::unique_ptr<ModuleRtpRtcpImpl2> rtp_rtcp_;
-
-  std::unique_ptr<RtpStreamReceiverInterface> rtp_stream_receiver_
-      RTC_GUARDED_BY(packet_sequence_checker_);
 };
 
 }  // namespace webrtc

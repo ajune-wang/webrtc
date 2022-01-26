@@ -89,11 +89,12 @@ class FlexfecReceiveStreamTest : public ::testing::Test {
     receive_stream_ = std::make_unique<FlexfecReceiveStreamImpl>(
         Clock::GetRealTimeClock(), config_, &recovered_packet_receiver_,
         &rtt_stats_);
-    receive_stream_->RegisterWithTransport(&rtp_stream_receiver_controller_);
+    rtp_stream_receiver_controller_.AddSink(config_.rtp.remote_ssrc,
+                                            receive_stream_.get());
   }
 
   ~FlexfecReceiveStreamTest() {
-    receive_stream_->UnregisterFromTransport();
+    rtp_stream_receiver_controller_.RemoveSink(receive_stream_.get());
   }
 
   MockTransport rtcp_send_transport_;
@@ -145,7 +146,8 @@ TEST_F(FlexfecReceiveStreamTest, RecoversPacket) {
   FlexfecReceiveStreamImpl receive_stream(Clock::GetRealTimeClock(), config_,
                                           &recovered_packet_receiver,
                                           &rtt_stats_);
-  receive_stream.RegisterWithTransport(&rtp_stream_receiver_controller_);
+  rtp_stream_receiver_controller_.AddSink(config_.rtp.remote_ssrc,
+                                          &receive_stream);
 
   EXPECT_CALL(recovered_packet_receiver,
               OnRecoveredPacket(_, kRtpHeaderSize + kPayloadLength[1]));
@@ -153,7 +155,7 @@ TEST_F(FlexfecReceiveStreamTest, RecoversPacket) {
   receive_stream.OnRtpPacket(ParsePacket(kFlexfecPacket));
 
   // Tear-down
-  receive_stream.UnregisterFromTransport();
+  rtp_stream_receiver_controller_.RemoveSink(&receive_stream);
 }
 
 }  // namespace webrtc

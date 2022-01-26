@@ -1557,8 +1557,15 @@ class RTC_EXPORT PeerConnectionFactoryInterface
   // Creates a new local VideoTrack. The same `source` can be used in several
   // tracks.
   virtual rtc::scoped_refptr<VideoTrackInterface> CreateVideoTrack(
+      rtc::scoped_refptr<VideoTrackSourceInterface> source,
+      const std::string& label) = 0;
+  ABSL_DEPRECATED("Use version with scoped_ref_ptr")
+  virtual rtc::scoped_refptr<VideoTrackInterface> CreateVideoTrack(
       const std::string& label,
-      VideoTrackSourceInterface* source) = 0;
+      VideoTrackSourceInterface* source) {
+    return CreateVideoTrack(
+        rtc::scoped_refptr<VideoTrackSourceInterface>(source), label);
+  }
 
   // Creates an new AudioTrack. At the moment `source` can be null.
   virtual rtc::scoped_refptr<AudioTrackInterface> CreateAudioTrack(

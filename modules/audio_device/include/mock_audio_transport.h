@@ -37,6 +37,21 @@ class MockAudioTransport : public AudioTransport {
               (override));
 
   MOCK_METHOD(int32_t,
+              RecordedDataIsAvailable,
+              (const void* audioSamples,
+               const size_t nSamples,
+               const size_t nBytesPerSample,
+               const size_t nChannels,
+               const uint32_t samplesPerSec,
+               const uint32_t totalDelayMS,
+               const int32_t clockDrift,
+               const uint32_t currentMicLevel,
+               const bool keyPressed,
+               uint32_t& newMicLevel,
+               const int64_t estimated_capture_time_ns),
+              (override));
+
+  MOCK_METHOD(int32_t,
               NeedMorePlayData,
               (const size_t nSamples,
                const size_t nBytesPerSample,

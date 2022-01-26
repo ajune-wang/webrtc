@@ -45,7 +45,6 @@ class ADMWrapper : public AudioDeviceModule, public AudioTransport {
   // Make sure we have a valid ADM before returning it to user.
   bool IsValid() { return is_valid_; }
 
-  // AudioTransport methods overrides.
   int32_t RecordedDataIsAvailable(const void* audioSamples,
                                   const size_t nSamples,
                                   const size_t nBytesPerSample,
@@ -56,6 +55,24 @@ class ADMWrapper : public AudioDeviceModule, public AudioTransport {
                                   const uint32_t currentMicLevel,
                                   const bool keyPressed,
                                   uint32_t& newMicLevel) override {
+    return RecordedDataIsAvailable(audioSamples, nSamples, nBytesPerSample,
+                                   nChannels, samples_per_sec, total_delay_ms,
+                                   clockDrift, currentMicLevel, keyPressed,
+                                   newMicLevel, /*capture_timestamp_ns*/ 0);
+  }
+
+  // AudioTransport methods overrides.
+  int32_t RecordedDataIsAvailable(const void* audioSamples,
+                                  const size_t nSamples,
+                                  const size_t nBytesPerSample,
+                                  const size_t nChannels,
+                                  const uint32_t samples_per_sec,
+                                  const uint32_t total_delay_ms,
+                                  const int32_t clockDrift,
+                                  const uint32_t currentMicLevel,
+                                  const bool keyPressed,
+                                  uint32_t& newMicLevel,
+                                  const int64_t capture_timestamp_ns) override {
     int32_t res = 0;
     // Capture PCM data of locally captured audio.
     if (observer_) {
@@ -67,7 +84,8 @@ class ADMWrapper : public AudioDeviceModule, public AudioTransport {
     if (audio_transport_) {
       res = audio_transport_->RecordedDataIsAvailable(
           audioSamples, nSamples, nBytesPerSample, nChannels, samples_per_sec,
-          total_delay_ms, clockDrift, currentMicLevel, keyPressed, newMicLevel);
+          total_delay_ms, clockDrift, currentMicLevel, keyPressed, newMicLevel,
+          capture_timestamp_ns);
     }
 
     return res;

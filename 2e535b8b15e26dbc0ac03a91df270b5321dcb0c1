@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "a7465632_150e25f3",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 5
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 9405
+      },
+      "writtenOn": "2022-01-26T00:40:04Z",
+      "side": 1,
+      "message": "Hi. Another CL to remove RTC_DISALLOW_COPY_AND_ASSIGN. This CL completely removes usages of that macro. After this CL I’ll remove constructor_magic.h. Please take a look. Thank you.",
+      "revId": "2e535b8b15e26dbc0ac03a91df270b5321dcb0c1",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

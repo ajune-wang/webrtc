@@ -18,6 +18,24 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "57c75936_54f35132",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 3
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5508
+      },
+      "writtenOn": "2022-01-26T09:22:58Z",
+      "side": 1,
+      "message": "Yes, I added the couple of \"NOTE:\" comments for that purpose. Down the line I can see the channel vectors that the ChannelManager owns, go away. What would replace them would simply be a std::unique_ptr\u003c\u003e owned by the transceiver class. Once there, the deletion can be done as part of the regular SetChannel(nullptr) flow and we can remove this \"flush\" operation in the channel manager.",
+      "parentUuid": "f30c7685_37467f8f",
+      "revId": "f65de71116e3efefbedd45174c89f250a7fe24c8",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "d15fae93_484f264b",
@@ -35,6 +53,24 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "d0148a96_6a7493d9",
+        "filename": "pc/channel_manager.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 73,
+      "author": {
+        "id": 5508
+      },
+      "writtenOn": "2022-01-26T09:22:58Z",
+      "side": 1,
+      "message": "Yes, done. That also makes thread access to those vectors consistent.",
+      "parentUuid": "d15fae93_484f264b",
+      "revId": "f65de71116e3efefbedd45174c89f250a7fe24c8",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "101f58ec_53116260",
@@ -48,6 +84,24 @@
       "writtenOn": "2022-01-26T07:01:34Z",
       "side": 1,
       "message": "This comment should be \"Missing call to SetChannel(nullptr)\" if I read it right.",
+      "revId": "f65de71116e3efefbedd45174c89f250a7fe24c8",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "b6620db3_57319d62",
+        "filename": "pc/rtp_transceiver.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 158,
+      "author": {
+        "id": 5508
+      },
+      "writtenOn": "2022-01-26T09:22:58Z",
+      "side": 1,
+      "message": "Correct. Done.",
+      "parentUuid": "101f58ec_53116260",
       "revId": "f65de71116e3efefbedd45174c89f250a7fe24c8",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }

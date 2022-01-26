@@ -1292,7 +1292,7 @@ TEST_F(PeerConnectionJsepTest,
 
   auto caller = CreatePeerConnection();
   auto transceiver = caller->AddTransceiver(cricket::MEDIA_TYPE_AUDIO);
-  transceiver->sender()->SetTrack(caller->CreateAudioTrack(kTrackId));
+  transceiver->sender()->SetTrack(caller->CreateAudioTrack(kTrackId).get());
 
   auto offer = caller->CreateOffer();
   auto contents = offer->description()->contents();

@@ -43,7 +43,21 @@ namespace webrtc {
 class RtpReceiverInternal : public RtpReceiverInterface {
  public:
   // Stops receiving. The track may be reactivated.
-  virtual void Stop() = 0;
+  //
+  // This method must be called on the signaling thread. Internally, state that
+  // lives on the worker thread will also be updated. A caller can optionally
+  // set `async` to `true` if instead of performing the worker thread tasks
+  // synchronously via a call to Invoke() the work should be scheduled by
+  // using PostTask and place the responsibility on the caller to synchronously
+  // flush the task queue on the worker thread after the call to Stop().
+  // This can be useful when batching up multiple calls to Stop() and reducing
+  // the number of times an Invoke() is performed.
+  // The return value will be `true` if the operation is complete and no
+  // outstanding pending tasks were posted to the worker thread (applies only if
+  // `async` is set to `true`). If a completion task was posted that needs to
+  // be flushed before the operation can be considered done, the return value
+  // will be `false`.
+  virtual bool Stop(bool async = false) = 0;
   // Stops the receiver permanently.
   // Causes the associated track to enter kEnded state. Cannot be reversed.
   virtual void StopAndEndTrack() = 0;
@@ -52,7 +66,22 @@ class RtpReceiverInternal : public RtpReceiverInterface {
   // A VoiceMediaChannel should be used for audio RtpSenders and
   // a VideoMediaChannel should be used for video RtpSenders.
   // Must call SetMediaChannel(nullptr) before the media channel is destroyed.
-  virtual void SetMediaChannel(cricket::MediaChannel* media_channel) = 0;
+  //
+  // This method must be called on the signaling thread. Internally, state that
+  // lives on the worker thread will also be updated. A caller can optionally
+  // set `async` to `true` if instead of performing the worker thread tasks
+  // synchronously via a call to Invoke() the work should be scheduled by
+  // using PostTask and place the responsibility on the caller to synchronously
+  // flush the task queue on the worker thread after the call to
+  // SetMediaChannel(). This can be useful when batching up multiple calls to
+  // SetMediaChannel() and reducing the number of times an Invoke() is
+  // performed. The return value will be `true` if the operation is complete and
+  // no outstanding pending tasks were posted to the worker thread (applies only
+  // if `async` is set to `true`). If a completion task was posted that needs to
+  // be flushed before the operation can be considered done, the return value
+  // will be `false`.
+  virtual bool SetMediaChannel(cricket::MediaChannel* media_channel,
+                               bool async = false) = 0;
 
   // Configures the RtpReceiver with the underlying media channel, with the
   // given SSRC as the stream identifier.

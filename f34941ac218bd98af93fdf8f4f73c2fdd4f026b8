@@ -294,6 +294,30 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "1e3e18ec_2037e875",
+        "filename": "pc/test/fake_audio_capture_module_unittest.cc",
+        "patchSetId": 11
+      },
+      "lineNbr": 36,
+      "author": {
+        "id": 7255
+      },
+      "writtenOn": "2022-01-27T13:36:27Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "34cd6f25_5ae0d1fd",
+      "range": {
+        "startLine": 36,
+        "startChar": 0,
+        "endLine": 36,
+        "endChar": 59
+      },
+      "revId": "f34941ac218bd98af93fdf8f4f73c2fdd4f026b8",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "8b733dbf_8023e9df",
@@ -331,6 +355,30 @@
       "side": 1,
       "message": "It the function is not implement, the class will be abstract and there will be build errors.",
       "parentUuid": "8b733dbf_8023e9df",
+      "range": {
+        "startLine": 72,
+        "startChar": 0,
+        "endLine": 72,
+        "endChar": 59
+      },
+      "revId": "f34941ac218bd98af93fdf8f4f73c2fdd4f026b8",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "d325f62a_aaed2cfc",
+        "filename": "sdk/objc/unittests/RTCAudioDeviceModule_xctest.mm",
+        "patchSetId": 11
+      },
+      "lineNbr": 72,
+      "author": {
+        "id": 7255
+      },
+      "writtenOn": "2022-01-27T13:36:27Z",
+      "side": 1,
+      "message": "Fixed by adding the implementation to the base class",
+      "parentUuid": "0dbb41ed_111b88c2",
       "range": {
         "startLine": 72,
         "startChar": 0,

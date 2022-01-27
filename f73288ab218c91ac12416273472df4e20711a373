@@ -50,6 +50,24 @@
       "message": "Ah - here\u0027s the part I was missing when we discussed where to place Metronome.\nTypes that are referenced from api/ should by default be in api/ - they\u0027re externally visible, and we don\u0027t want code outside of webrtc to get into the nasty habit of referencing rtc_base types (which is kind of locking the door after the horse has bolted, but we\u0027re pushing it closed anyway).\n\nCan I ask you to please reverse the previous decision and put the Metronome API back under /api/metronome?",
       "revId": "f73288ab218c91ac12416273472df4e20711a373",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "ac8bdd53_3d0a4072",
+        "filename": "api/peer_connection_interface.h",
+        "patchSetId": 3
+      },
+      "lineNbr": 1414,
+      "author": {
+        "id": 18444
+      },
+      "writtenOn": "2022-01-27T14:10:27Z",
+      "side": 1,
+      "message": "Ok will do! Sorry for the lack of context in the previous patchset.",
+      "parentUuid": "74208599_ab9016bd",
+      "revId": "f73288ab218c91ac12416273472df4e20711a373",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

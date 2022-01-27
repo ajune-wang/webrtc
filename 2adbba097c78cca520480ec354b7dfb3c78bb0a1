@@ -71,6 +71,41 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "76f43c10_92753a6a",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 8
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2022-01-27T10:42:03Z",
+      "side": 1,
+      "message": "After sleeping on this ... it is not an issue. We dispatch to the network thread, and the network thread will process this before consuming the next packet - it\u0027s the network thread, after all!",
+      "parentUuid": "1ae7853c_c0258af4",
+      "revId": "2adbba097c78cca520480ec354b7dfb3c78bb0a1",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "9581b05c_a1a17656",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 8
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2022-01-27T10:42:03Z",
+      "side": 1,
+      "message": "No, sync is not an issue.",
+      "revId": "2adbba097c78cca520480ec354b7dfb3c78bb0a1",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "b4a1df6f_eac0a96c",

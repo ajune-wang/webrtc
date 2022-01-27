@@ -37,6 +37,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "e97e3de9_2165e5a1",
+        "filename": "rtc_base/metronome/BUILD.gn",
+        "patchSetId": 2
+      },
+      "lineNbr": 12,
+      "author": {
+        "id": 18444
+      },
+      "writtenOn": "2022-01-27T09:48:16Z",
+      "side": 1,
+      "message": "I am not sure, I looked at bugs.webrtc.org/9838 which is mentioned in the rtc_base_approved target, which says that smaller targets should be used. But I don\u0027t know how this works. +mbonadei who owns that bug.",
+      "parentUuid": "ed8981e5_4687527c",
+      "revId": "1aed59fefeedc021b516b8972700bfd5836555d9",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "df7629e8_4dbd379b",
         "filename": "rtc_base/metronome/metronome.h",
         "patchSetId": 2

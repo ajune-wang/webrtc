@@ -1,0 +1,44 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "74e52eee_42d1614d",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5531
+      },
+      "writtenOn": "2022-01-27T15:48:21Z",
+      "side": 1,
+      "message": "It would be nice to have this split into multiple CLs\n* The code behavioural changes (string copy)\n* The movement of existing code\n* The addition of placeholder code",
+      "revId": "7e031b1de040bf4a2cfc1bc44654345dd00bedee",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "73b6751e_7857d59c",
+        "filename": "logging/rtc_event_log/events/logged_rtp_rtcp.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 81,
+      "author": {
+        "id": 5531
+      },
+      "writtenOn": "2022-01-27T15:48:21Z",
+      "side": 1,
+      "message": "Could you use std::copy (or absl::c_copy) here?",
+      "range": {
+        "startLine": 81,
+        "startChar": 3,
+        "endLine": 81,
+        "endChar": 58
+      },
+      "revId": "7e031b1de040bf4a2cfc1bc44654345dd00bedee",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

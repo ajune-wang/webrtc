@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "58024c95_7a804266",
+        "filename": "net/dcsctp/socket/transmission_control_block.h",
+        "patchSetId": 6
+      },
+      "lineNbr": 83,
+      "author": {
+        "id": 12215
+      },
+      "writtenOn": "2022-01-27T08:51:40Z",
+      "side": 1,
+      "message": "/*max_backoff_duration\u003d*/absl::nullopt",
+      "range": {
+        "startLine": 83,
+        "startChar": 25,
+        "endLine": 83,
+        "endChar": 38
+      },
+      "revId": "edb98647a2857904a62be7e46d447cef459b0fd2",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

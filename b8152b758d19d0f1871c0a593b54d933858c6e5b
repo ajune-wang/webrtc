@@ -18,6 +18,23 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "917a4c89_983286e2",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2022-01-27T08:06:32Z",
+      "side": 1,
+      "message": "Yes, but pointers need to be in the source code, not in the review thread.\n",
+      "revId": "b8152b758d19d0f1871c0a593b54d933858c6e5b",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "1c6859c2_99f66f2e",
@@ -49,6 +66,24 @@
       "side": 1,
       "message": "There is a metronome in Chromium:\nhttps://source.chromium.org/chromium/chromium/src/+/main:third_party/webrtc_overrides/metronome_source.h",
       "parentUuid": "1c6859c2_99f66f2e",
+      "revId": "b8152b758d19d0f1871c0a593b54d933858c6e5b",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "65220a7d_39773aac",
+        "filename": "api/metronome/BUILD.gn",
+        "patchSetId": 1
+      },
+      "lineNbr": 12,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2022-01-27T08:06:32Z",
+      "side": 1,
+      "message": "So a comment saying that \"this is an interface that allows a Metronome to be injected into WebRTC\" would be appropriate.\n\nThe documentation in webrtc_overrides is in fact excellent; if this is intended to become the interface that that other interface derives from, copying the comments over would be appropriate.\n\nBut again - is this a facility we want to expose to users, or is it a facility that is going to be used internally? If the latter, it shouldn\u0027t be in api/.",
+      "parentUuid": "14da5314_83ab9c5a",
       "revId": "b8152b758d19d0f1871c0a593b54d933858c6e5b",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },

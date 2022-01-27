@@ -16,6 +16,161 @@
       "message": "This is a part of the prototype CL we did in google3 (cl/405365657)",
       "revId": "f34941ac218bd98af93fdf8f4f73c2fdd4f026b8",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "32a6f834_ad31a136",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 11
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 7015
+      },
+      "writtenOn": "2022-01-27T09:24:35Z",
+      "side": 1,
+      "message": "good work! here are my comments",
+      "revId": "f34941ac218bd98af93fdf8f4f73c2fdd4f026b8",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "52bb473f_416da14f",
+        "filename": "audio/audio_transport_impl.h",
+        "patchSetId": 11
+      },
+      "lineNbr": 44,
+      "author": {
+        "id": 7015
+      },
+      "writtenOn": "2022-01-27T09:24:35Z",
+      "side": 1,
+      "message": "please add a TODO (and create a webrtc bug to track it) to deprecate this one.",
+      "range": {
+        "startLine": 44,
+        "startChar": 0,
+        "endLine": 44,
+        "endChar": 59
+      },
+      "revId": "f34941ac218bd98af93fdf8f4f73c2fdd4f026b8",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "0effc7bf_9e9850ad",
+        "filename": "modules/audio_device/audio_device_buffer.h",
+        "patchSetId": 11
+      },
+      "lineNbr": 100,
+      "author": {
+        "id": 7015
+      },
+      "writtenOn": "2022-01-27T09:24:35Z",
+      "side": 1,
+      "message": "create a webrtc bug to track it (and replace brandstrom)",
+      "range": {
+        "startLine": 100,
+        "startChar": 0,
+        "endLine": 100,
+        "endChar": 40
+      },
+      "revId": "f34941ac218bd98af93fdf8f4f73c2fdd4f026b8",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "1d3d4ba8_40636248",
+        "filename": "modules/audio_device/audio_device_buffer.h",
+        "patchSetId": 11
+      },
+      "lineNbr": 195,
+      "author": {
+        "id": 7015
+      },
+      "writtenOn": "2022-01-27T09:24:35Z",
+      "side": 1,
+      "message": "remove \"used for A/V sync measurement\", because it can be used in different ways.",
+      "range": {
+        "startLine": 195,
+        "startChar": 23,
+        "endLine": 195,
+        "endChar": 54
+      },
+      "revId": "f34941ac218bd98af93fdf8f4f73c2fdd4f026b8",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "97c81dfd_286ba870",
+        "filename": "modules/audio_device/include/audio_device_defines.h",
+        "patchSetId": 11
+      },
+      "lineNbr": 36,
+      "author": {
+        "id": 7015
+      },
+      "writtenOn": "2022-01-27T09:24:35Z",
+      "side": 1,
+      "message": "create a webrtc bug to track it (and replace brandstrom)",
+      "range": {
+        "startLine": 36,
+        "startChar": 0,
+        "endLine": 36,
+        "endChar": 31
+      },
+      "revId": "f34941ac218bd98af93fdf8f4f73c2fdd4f026b8",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "973e80db_2aee22e2",
+        "filename": "pc/test/fake_audio_capture_module_unittest.cc",
+        "patchSetId": 11
+      },
+      "lineNbr": 36,
+      "author": {
+        "id": 7015
+      },
+      "writtenOn": "2022-01-27T09:24:35Z",
+      "side": 1,
+      "message": "I would suggest already remove this one in this test.\n\nalso see if it makes sense to add new test around the new argument.",
+      "range": {
+        "startLine": 36,
+        "startChar": 0,
+        "endLine": 36,
+        "endChar": 59
+      },
+      "revId": "f34941ac218bd98af93fdf8f4f73c2fdd4f026b8",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "8b733dbf_8023e9df",
+        "filename": "sdk/objc/unittests/RTCAudioDeviceModule_xctest.mm",
+        "patchSetId": 11
+      },
+      "lineNbr": 72,
+      "author": {
+        "id": 7015
+      },
+      "writtenOn": "2022-01-27T09:24:35Z",
+      "side": 1,
+      "message": "also here, as a test, fine to jump on to the new API directly.",
+      "range": {
+        "startLine": 72,
+        "startChar": 0,
+        "endLine": 72,
+        "endChar": 59
+      },
+      "revId": "f34941ac218bd98af93fdf8f4f73c2fdd4f026b8",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

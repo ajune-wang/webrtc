@@ -35,6 +35,23 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "4e6bc8c3_19baff71",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2022-01-27T08:56:02Z",
+      "side": 1,
+      "message": "Yes, let\u0027s move it somewhere internal, we can always move it back if there is an external customer with a valid justification for accessing it.",
+      "revId": "b8152b758d19d0f1871c0a593b54d933858c6e5b",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "1c6859c2_99f66f2e",
@@ -102,6 +119,24 @@
       "side": 1,
       "message": "I only put this in here because TaskQueueBase was also in API. I am fine with moving this somewhere else but I am not exactly sure where would be more suitable? RTC base is an option as well. What do you think?",
       "parentUuid": "65220a7d_39773aac",
+      "revId": "b8152b758d19d0f1871c0a593b54d933858c6e5b",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "37fb037f_f675f1f0",
+        "filename": "api/metronome/BUILD.gn",
+        "patchSetId": 1
+      },
+      "lineNbr": 12,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2022-01-27T08:56:02Z",
+      "side": 1,
+      "message": "rtc_base seems like the obvious place, it is where we keep things that are used by many other modules of webrtc, but should not be visible outside it.",
+      "parentUuid": "a00fa6bf_6181f6a5",
       "revId": "b8152b758d19d0f1871c0a593b54d933858c6e5b",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },

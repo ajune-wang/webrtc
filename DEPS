@@ -10,7 +10,7 @@ vars = {
   # chromium waterfalls. More info at: crbug.com/570091.
   'checkout_configuration': 'default',
   'checkout_instrumented_libraries': 'checkout_linux and checkout_configuration == "default"',
-  'chromium_revision': '81b2df58ecf6e8424d34a2fcfa76b9e5c9cf7e4b',
+  'chromium_revision': 'df80d46d9118b46d902a63985b95520826b7735e',
 
   # Keep the Chromium default of generating location tags.
   'generate_location_tags': True,
@@ -23,9 +23,9 @@ deps = {
   # TODO(kjellander): Move this to be Android-only once the libevent dependency
   # in base/third_party/libevent is solved.
   'src/base':
-    'https://chromium.googlesource.com/chromium/src/base@6a2071e6e0ddd2dd5dd880e97b77f301d9cc07f9',
+    'https://chromium.googlesource.com/chromium/src/base@60fc4c4ba9c4f6c8096ba70ffad15e7264fce31b',
   'src/build':
-    'https://chromium.googlesource.com/chromium/src/build@45926bacc928e7e1d369533800bcb7eb21328ece',
+    'https://chromium.googlesource.com/chromium/src/build@83333f4913d984368d4657b46d96dc92b1ed7f2f',
   'src/buildtools':
     'https://chromium.googlesource.com/chromium/src/buildtools@f78b4b9f33bd8ef9944d5ce643daff1c31880189',
   # Gradle 6.6.1. Used for testing Android Studio project generation for WebRTC.
@@ -34,13 +34,13 @@ deps = {
     'condition': 'checkout_android',
   },
   'src/ios': {
-    'url': 'https://chromium.googlesource.com/chromium/src/ios@56a1520e8f9a15e281c0f675102a41e22262b1f6',
+    'url': 'https://chromium.googlesource.com/chromium/src/ios@13d744e5a4a56e78079bf0fe98281a82db13a7c9',
     'condition': 'checkout_ios',
   },
   'src/testing':
-    'https://chromium.googlesource.com/chromium/src/testing@c7a82e779ad3966d001bbbfc2a5c6fb2242d83ae',
+    'https://chromium.googlesource.com/chromium/src/testing@092853377062cf39f783594552cdb1ad57da0697',
   'src/third_party':
-    'https://chromium.googlesource.com/chromium/src/third_party@a0fb3f83f7c49e5dd5699d68d4e418638a045349',
+    'https://chromium.googlesource.com/chromium/src/third_party@f032f291b5320f8d4ba3f61e588e0dc873c53b93',
 
   'src/buildtools/linux64': {
     'packages': [
@@ -285,7 +285,7 @@ deps = {
     'condition': 'checkout_win',
   },
   'src/tools':
-    'https://chromium.googlesource.com/chromium/src/tools@a21c03b68b2eaed5a1653881c8196bf220d1f839',
+    'https://chromium.googlesource.com/chromium/src/tools@fb40ea1e1ca5435902edd707dde616d82b8796ce',
 
   'src/third_party/accessibility_test_framework': {
       'packages': [

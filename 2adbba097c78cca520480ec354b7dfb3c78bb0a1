@@ -53,6 +53,24 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "1ae7853c_c0258af4",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 8
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5142
+      },
+      "writtenOn": "2022-01-27T10:23:22Z",
+      "side": 1,
+      "message": "I don\u0027t remember this exact part of the code, but there were issues with demuxing criteria not being the same on the different threads, leading to unsignalled ssrc stream creation. +Taylor may be another good person to add here.",
+      "parentUuid": "2f66d7d2_d1cd241a",
+      "revId": "2adbba097c78cca520480ec354b7dfb3c78bb0a1",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "b4a1df6f_eac0a96c",

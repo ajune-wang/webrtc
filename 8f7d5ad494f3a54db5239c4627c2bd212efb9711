@@ -198,6 +198,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "8a21e3e1_6ff3e435",
+        "filename": "logging/rtc_event_log/rtc_event_log_impl.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 152,
+      "author": {
+        "id": 10557
+      },
+      "writtenOn": "2022-01-27T12:14:23Z",
+      "side": 1,
+      "message": "Assuming the impact of changing the logger is good enough - pitching in another solution: use per-thread thread_local queues which get stolen by the logger thread. Trigger the logger sequence by Metronome-enabled PostDelayedTask. Logger sequence sorts the lines correctly before writing.\n\nShould be very low occurrence of contended locks, zero post tasks and zero extra package idle wakes.",
+      "parentUuid": "1a6025c2_b040ff5f",
+      "range": {
+        "startLine": 152,
+        "startChar": 0,
+        "endLine": 152,
+        "endChar": 18
+      },
+      "revId": "8f7d5ad494f3a54db5239c4627c2bd212efb9711",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "590ba4df_cea18216",
         "filename": "logging/rtc_event_log/rtc_event_log_impl.h",
         "patchSetId": 3

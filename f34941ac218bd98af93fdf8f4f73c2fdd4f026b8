@@ -58,6 +58,30 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "0e0bba40_ecf428d8",
+        "filename": "audio/audio_transport_impl.h",
+        "patchSetId": 11
+      },
+      "lineNbr": 44,
+      "author": {
+        "id": 7255
+      },
+      "writtenOn": "2022-01-27T12:39:13Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "52bb473f_416da14f",
+      "range": {
+        "startLine": 44,
+        "startChar": 0,
+        "endLine": 44,
+        "endChar": 59
+      },
+      "revId": "f34941ac218bd98af93fdf8f4f73c2fdd4f026b8",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "0effc7bf_9e9850ad",
@@ -71,6 +95,30 @@
       "writtenOn": "2022-01-27T09:24:35Z",
       "side": 1,
       "message": "create a webrtc bug to track it (and replace brandstrom)",
+      "range": {
+        "startLine": 100,
+        "startChar": 0,
+        "endLine": 100,
+        "endChar": 40
+      },
+      "revId": "f34941ac218bd98af93fdf8f4f73c2fdd4f026b8",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "55b3bb06_6d6fbf97",
+        "filename": "modules/audio_device/audio_device_buffer.h",
+        "patchSetId": 11
+      },
+      "lineNbr": 100,
+      "author": {
+        "id": 7255
+      },
+      "writtenOn": "2022-01-27T12:39:13Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "0effc7bf_9e9850ad",
       "range": {
         "startLine": 100,
         "startChar": 0,
@@ -104,6 +152,30 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "decad6a6_adb32512",
+        "filename": "modules/audio_device/audio_device_buffer.h",
+        "patchSetId": 11
+      },
+      "lineNbr": 195,
+      "author": {
+        "id": 7255
+      },
+      "writtenOn": "2022-01-27T12:39:13Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "1d3d4ba8_40636248",
+      "range": {
+        "startLine": 195,
+        "startChar": 23,
+        "endLine": 195,
+        "endChar": 54
+      },
+      "revId": "f34941ac218bd98af93fdf8f4f73c2fdd4f026b8",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "97c81dfd_286ba870",
@@ -117,6 +189,30 @@
       "writtenOn": "2022-01-27T09:24:35Z",
       "side": 1,
       "message": "create a webrtc bug to track it (and replace brandstrom)",
+      "range": {
+        "startLine": 36,
+        "startChar": 0,
+        "endLine": 36,
+        "endChar": 31
+      },
+      "revId": "f34941ac218bd98af93fdf8f4f73c2fdd4f026b8",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "da6b89a7_2093728c",
+        "filename": "modules/audio_device/include/audio_device_defines.h",
+        "patchSetId": 11
+      },
+      "lineNbr": 36,
+      "author": {
+        "id": 7255
+      },
+      "writtenOn": "2022-01-27T12:39:13Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "97c81dfd_286ba870",
       "range": {
         "startLine": 36,
         "startChar": 0,
@@ -152,6 +248,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "b8c25b86_f5363ca5",
+        "filename": "pc/test/fake_audio_capture_module_unittest.cc",
+        "patchSetId": 11
+      },
+      "lineNbr": 36,
+      "author": {
+        "id": 7255
+      },
+      "writtenOn": "2022-01-27T12:39:13Z",
+      "side": 1,
+      "message": "If this does not implement this function, the class will be abstract and there will be build errors.",
+      "parentUuid": "973e80db_2aee22e2",
+      "range": {
+        "startLine": 36,
+        "startChar": 0,
+        "endLine": 36,
+        "endChar": 59
+      },
+      "revId": "f34941ac218bd98af93fdf8f4f73c2fdd4f026b8",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "8b733dbf_8023e9df",
         "filename": "sdk/objc/unittests/RTCAudioDeviceModule_xctest.mm",
         "patchSetId": 11
@@ -163,6 +283,30 @@
       "writtenOn": "2022-01-27T09:24:35Z",
       "side": 1,
       "message": "also here, as a test, fine to jump on to the new API directly.",
+      "range": {
+        "startLine": 72,
+        "startChar": 0,
+        "endLine": 72,
+        "endChar": 59
+      },
+      "revId": "f34941ac218bd98af93fdf8f4f73c2fdd4f026b8",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "0dbb41ed_111b88c2",
+        "filename": "sdk/objc/unittests/RTCAudioDeviceModule_xctest.mm",
+        "patchSetId": 11
+      },
+      "lineNbr": 72,
+      "author": {
+        "id": 7255
+      },
+      "writtenOn": "2022-01-27T12:39:13Z",
+      "side": 1,
+      "message": "It the function is not implement, the class will be abstract and there will be build errors.",
+      "parentUuid": "8b733dbf_8023e9df",
       "range": {
         "startLine": 72,
         "startChar": 0,

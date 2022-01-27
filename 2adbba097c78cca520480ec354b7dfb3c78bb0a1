@@ -35,6 +35,24 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "340502ef_ead4b28f",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 8
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5142
+      },
+      "writtenOn": "2022-01-27T10:04:34Z",
+      "side": 1,
+      "message": "I am being mistaken here. See other reply to myself.",
+      "parentUuid": "f4d3576d_f72a92e4",
+      "revId": "2adbba097c78cca520480ec354b7dfb3c78bb0a1",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "b4a1df6f_eac0a96c",
@@ -54,6 +72,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "2b96683f_cfa6feee",
+        "filename": "pc/channel.cc",
+        "patchSetId": 8
+      },
+      "lineNbr": 231,
+      "author": {
+        "id": 5142
+      },
+      "writtenOn": "2022-01-27T10:04:34Z",
+      "side": 1,
+      "message": "Hang on you do need a safety flag... see other comment.",
+      "parentUuid": "b4a1df6f_eac0a96c",
+      "revId": "2adbba097c78cca520480ec354b7dfb3c78bb0a1",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "bada45f4_3f6d213d",
         "filename": "pc/channel.cc",
         "patchSetId": 8
@@ -65,6 +101,24 @@
       "writtenOn": "2022-01-27T09:58:39Z",
       "side": 1,
       "message": "Why are we using a scoped safety flag for this rather than a boolean?\n\nIf you want to protect against use-after-free, there already exists an \"alive_\" safety flag.\n\nBecause network_alive_ is only used on the network thread I would prefer a plain old boolean and to do \"if (!network_alive_) return;\" inside the lambda.\nThe behavior would be the same, but when I see a scoped safety flag, I expect it to be used to cancel in-flight tasks, and this one doesn\u0027t add much more value than alive_ already does.",
+      "revId": "2adbba097c78cca520480ec354b7dfb3c78bb0a1",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "1abd530c_e2f528b9",
+        "filename": "pc/channel.cc",
+        "patchSetId": 8
+      },
+      "lineNbr": 465,
+      "author": {
+        "id": 5142
+      },
+      "writtenOn": "2022-01-27T10:04:34Z",
+      "side": 1,
+      "message": "On second thought, alive_ is being SetNotAlive() inside the destructor on the worker thread, so that would still be racy with a task running on the network thread.\n\nIn this case I do see the need for this safety flag!\n\nBut can you confirm if it is OK for in-flight tasks not to be invalidated? I.e. you have a criteria update for the old transport, and then you change to a new transport. Is it OK for the old criteria update gets executed on the new transport?",
+      "parentUuid": "bada45f4_3f6d213d",
       "revId": "2adbba097c78cca520480ec354b7dfb3c78bb0a1",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }

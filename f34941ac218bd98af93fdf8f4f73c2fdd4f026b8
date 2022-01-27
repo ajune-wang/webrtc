@@ -272,6 +272,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "34cd6f25_5ae0d1fd",
+        "filename": "pc/test/fake_audio_capture_module_unittest.cc",
+        "patchSetId": 11
+      },
+      "lineNbr": 36,
+      "author": {
+        "id": 7255
+      },
+      "writtenOn": "2022-01-27T13:26:17Z",
+      "side": 1,
+      "message": "I realized that I could make an implementation of the old RecordedDataIsAvailable in modules/audio_device/include/audio_device_defines.h. I didn\u0027t do that since it was an pure virtual class.\n\nI feel it is a bit ugly to add code to the previously purely virtual class, but I guess that\u0027s better then this.",
+      "parentUuid": "b8c25b86_f5363ca5",
+      "range": {
+        "startLine": 36,
+        "startChar": 0,
+        "endLine": 36,
+        "endChar": 59
+      },
+      "revId": "f34941ac218bd98af93fdf8f4f73c2fdd4f026b8",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "8b733dbf_8023e9df",
         "filename": "sdk/objc/unittests/RTCAudioDeviceModule_xctest.mm",
         "patchSetId": 11

@@ -174,6 +174,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "1a6025c2_b040ff5f",
+        "filename": "logging/rtc_event_log/rtc_event_log_impl.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 152,
+      "author": {
+        "id": 14069
+      },
+      "writtenOn": "2022-01-27T11:22:58Z",
+      "side": 1,
+      "message": "For the second option, I think we might not need to re-define the APIs. Do you think it possible to just construct this RtcEventLogImpl when StartLogging is invoked and notify the instances going to use it? (Still a lot of work to do but should be better than having new APIs :-)\n\nAnd for the third option you mentioned, it sounds like something similar to the Metronome mechanism (hbos@ did that) in Chromium. Although it only overrides the PostDelayedTask while PostTask is used here, I think it\u0027s possible to set a dedicated policy for rtc_event_log task queue to make it handle batch of events in 1 wake-up (e.g. maybe 10 wake-up per second?).\n\nI will be OOO till Feb 9 for CNY holiday and I can start on a POC implementation on which option you think more reasonable after that.",
+      "parentUuid": "eb49b281_82922387",
+      "range": {
+        "startLine": 152,
+        "startChar": 0,
+        "endLine": 152,
+        "endChar": 18
+      },
+      "revId": "8f7d5ad494f3a54db5239c4627c2bd212efb9711",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "590ba4df_cea18216",
         "filename": "logging/rtc_event_log/rtc_event_log_impl.h",
         "patchSetId": 3

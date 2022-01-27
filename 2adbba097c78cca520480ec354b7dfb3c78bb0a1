@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "2f66d7d2_d1cd241a",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 8
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2022-01-27T05:39:21Z",
+      "side": 1,
+      "message": "Adding hbos@ as reviewer because I\u0027m not sure why this was synchronoous in the first place.\n\nThe thing that can happen when it\u0027s not is that arriving packets get demuxed according to the old instructions after the reconfiguration has finished on the signaling thread but before the new instructions are installed on the network thread. I\u0027m not sure that can really hurt, but needs to be considered.\n",
+      "revId": "2adbba097c78cca520480ec354b7dfb3c78bb0a1",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

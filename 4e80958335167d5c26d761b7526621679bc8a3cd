@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "a1c7dabc_b317c096",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 9405
+      },
+      "writtenOn": "2022-01-27T13:18:09Z",
+      "side": 1,
+      "message": "Hi, last CL for cleanup :). Please take a look. Thank you.",
+      "revId": "4e80958335167d5c26d761b7526621679bc8a3cd",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

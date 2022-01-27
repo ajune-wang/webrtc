@@ -16,6 +16,57 @@
       "message": "Adding hbos@ as reviewer because I\u0027m not sure why this was synchronoous in the first place.\n\nThe thing that can happen when it\u0027s not is that arriving packets get demuxed according to the old instructions after the reconfiguration has finished on the signaling thread but before the new instructions are installed on the network thread. I\u0027m not sure that can really hurt, but needs to be considered.\n",
       "revId": "2adbba097c78cca520480ec354b7dfb3c78bb0a1",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "f4d3576d_f72a92e4",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 8
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5142
+      },
+      "writtenOn": "2022-01-27T09:58:39Z",
+      "side": 1,
+      "message": "If the intent was to invaldiate any in-flight tasks, I think the flag needs to be set to a new instance of the object when it toggles. But if the intent was simply to keep track of whether or not the transport is alive, I would prefer to see a mix of the existing alive_ flag and a plain old boolean",
+      "revId": "2adbba097c78cca520480ec354b7dfb3c78bb0a1",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "b4a1df6f_eac0a96c",
+        "filename": "pc/channel.cc",
+        "patchSetId": 8
+      },
+      "lineNbr": 231,
+      "author": {
+        "id": 5142
+      },
+      "writtenOn": "2022-01-27T09:58:39Z",
+      "side": 1,
+      "message": "Because this flag is toggled on and off you are not necessarily cancelling in-flight tasks. If SetRtpTransport() is called again and SetAlive() happens, those in-flight tasks would still run.\n\nBecause of this, I think this flag behaves more like a plain old boolean, so I would prefer to see a boolean that is RTC_GUARDED_BY(network_thread()).\n\nAlternatively if the intent was to cancel in-flight tasks, a scoped safety flag can still be used, but then we need to set network_alive_ to a new instance of the safety flag object.",
+      "revId": "2adbba097c78cca520480ec354b7dfb3c78bb0a1",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "bada45f4_3f6d213d",
+        "filename": "pc/channel.cc",
+        "patchSetId": 8
+      },
+      "lineNbr": 465,
+      "author": {
+        "id": 5142
+      },
+      "writtenOn": "2022-01-27T09:58:39Z",
+      "side": 1,
+      "message": "Why are we using a scoped safety flag for this rather than a boolean?\n\nIf you want to protect against use-after-free, there already exists an \"alive_\" safety flag.\n\nBecause network_alive_ is only used on the network thread I would prefer a plain old boolean and to do \"if (!network_alive_) return;\" inside the lambda.\nThe behavior would be the same, but when I see a scoped safety flag, I expect it to be used to cancel in-flight tasks, and this one doesn\u0027t add much more value than alive_ already does.",
+      "revId": "2adbba097c78cca520480ec354b7dfb3c78bb0a1",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

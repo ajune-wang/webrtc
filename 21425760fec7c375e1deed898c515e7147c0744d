@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "ecef8789_571115f0",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 9405
+      },
+      "writtenOn": "2022-01-27T04:03:47Z",
+      "side": 1,
+      "message": "Kari, is this CL abandoned? If so, I would like to continue this CL.\n\nAccording to [1], VP9 decoding is well supported on iOS devices, not only for MacOS. So I think it\u0027s worth supporting in WebRTC.\n\n[1] https://bugs.webkit.org/show_bug.cgi?id\u003d230604#c11",
+      "revId": "21425760fec7c375e1deed898c515e7147c0744d",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

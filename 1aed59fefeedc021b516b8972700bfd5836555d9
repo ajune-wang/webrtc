@@ -1,0 +1,55 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "1482353c_340cd8cd",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5142
+      },
+      "writtenOn": "2022-01-27T09:41:02Z",
+      "side": 1,
+      "message": "LGTM % nit",
+      "revId": "1aed59fefeedc021b516b8972700bfd5836555d9",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "ed8981e5_4687527c",
+        "filename": "rtc_base/metronome/BUILD.gn",
+        "patchSetId": 2
+      },
+      "lineNbr": 12,
+      "author": {
+        "id": 5142
+      },
+      "writtenOn": "2022-01-27T09:41:02Z",
+      "side": 1,
+      "message": "Speaking of rtc_base... I know we have both \"rtc_base_approved\" and just \"rtc_base\". Does it need to be \"approved\" to be usable in chrome or not? (I don\u0027t know the answer I am just asking)",
+      "revId": "1aed59fefeedc021b516b8972700bfd5836555d9",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "df7629e8_4dbd379b",
+        "filename": "rtc_base/metronome/metronome.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 22,
+      "author": {
+        "id": 5142
+      },
+      "writtenOn": "2022-01-27T09:41:02Z",
+      "side": 1,
+      "message": "nit: Be consistent with methods references in comments, I see different versions:\nMethod()\n|Method|\n|Method()|\nMethod\n\nI would use Method() and |variable| but no strong preference as long as its consistent.",
+      "revId": "1aed59fefeedc021b516b8972700bfd5836555d9",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

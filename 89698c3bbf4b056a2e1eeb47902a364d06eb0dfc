@@ -121,6 +121,24 @@
       "parentUuid": "62901d95_5f0a0ff6",
       "revId": "89698c3bbf4b056a2e1eeb47902a364d06eb0dfc",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "a863aac8_327605ef",
+        "filename": "pc/channel_manager.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 254,
+      "author": {
+        "id": 5508
+      },
+      "writtenOn": "2022-01-28T08:44:57Z",
+      "side": 1,
+      "message": "That could be one way to do it. Then context could ensure that call teardown and channel manager is aligned.\n\nThe issue now is\n* The _potential_ lifetime scope of the channels that the channel manager manages, is technically larger than Call.\n* However, Call implements Create/Destroy methods for stream objects. Those objects are referenced by Call for purposes of demuxing etc. Call really wants these objects gone when Call goes out of scope.\n* The deletion of the streams is dependent on the deletion of the Channels.\n  \nIn practice, the Channels are now owned by the transceiver objects (but deletion is still triggered via the channel manager since it owns the channel vectors). There\u0027s some work still to be done there, but ideally the channels should be fully owned by transceiver and bound by their lifetime. There are few CLs on the way that accomplish that.",
+      "parentUuid": "0d86dc29_e8020fd6",
+      "revId": "89698c3bbf4b056a2e1eeb47902a364d06eb0dfc",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

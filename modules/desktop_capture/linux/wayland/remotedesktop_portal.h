@@ -31,6 +31,11 @@ class RemoteDesktopPortal {
   uint32_t pipewire_stream_node_id();
   int pipewire_socket_fd();
 
+  // Methods for controlling devices.
+  void MouseButton(unsigned int code, bool pressed);
+  void MovePointerTo(unsigned int x, unsigned int y);
+  void KeyPress(unsigned int code, bool pressed);
+
  private:
   std::unique_ptr<ScreenCastPortal> screencast_portal_;
   ScreenCastPortal::PortalNotifier* notifier_;

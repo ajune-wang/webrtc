@@ -484,4 +484,52 @@ void RemoteDesktopPortal::OnStartRequestResponseSignal(
   that->screencast_portal_->OpenPipeWireRemote();
 }
 
+void RemoteDesktopPortal::MouseButton(unsigned int code, bool pressed) {
+  GVariantBuilder builder;
+  g_variant_builder_init(&builder, G_VARIANT_TYPE_VARDICT);
+  Scoped<GError> error;
+  g_dbus_proxy_call_sync(proxy_, "NotifyPointerButton",
+                         g_variant_new("(oa{sv}iu)", session_handle_.c_str(),
+                                       &builder, code, pressed),
+                         G_DBUS_CALL_FLAGS_NONE, /*timeout=*/-1, cancellable_,
+                         error.receive());
+  if (error.get()) {
+    RTC_LOG(LS_ERROR) << "Failed to " << (pressed ? "press" : "release")
+                      << " the mouse button, button code: " << code
+                      << ", error: " << error->message;
+  }
+}
+
+void RemoteDesktopPortal::MovePointerTo(unsigned int x, unsigned int y) {
+  GVariantBuilder builder;
+  g_variant_builder_init(&builder, G_VARIANT_TYPE_VARDICT);
+  Scoped<GError> error;
+  g_dbus_proxy_call_sync(
+      proxy_, "NotifyPointerMotionAbsolute",
+      g_variant_new("(oa{sv}udd)", session_handle_.c_str(), &builder,
+                    pipewire_stream_node_id(), static_cast<double>(x),
+                    static_cast<double>(y)),
+      G_DBUS_CALL_FLAGS_NONE, /*timeout=*/-1, cancellable_, error.receive());
+  if (error.get()) {
+    RTC_LOG(LS_ERROR) << "Failed to move pointer to x: " << x << ", y: " << y
+                      << ", error: " << error->message;
+  }
+}
+
+void RemoteDesktopPortal::KeyPress(unsigned int code, bool pressed) {
+  GVariantBuilder builder;
+  g_variant_builder_init(&builder, G_VARIANT_TYPE_VARDICT);
+  Scoped<GError> error;
+  g_dbus_proxy_call_sync(proxy_, "NotifyKeyboardKeycode",
+                         g_variant_new("(oa{sv}iu)", session_handle_.c_str(),
+                                       &builder, code, pressed),
+                         G_DBUS_CALL_FLAGS_NONE, /*timeout=*/-1, cancellable_,
+                         error.receive());
+  if (error.get()) {
+    RTC_LOG(LS_ERROR) << "Failed to " << (pressed ? "press" : "release")
+                      << " the keyboard key, key code: " << code
+                      << ", error: " << error->message;
+  }
+}
+
 }  // namespace webrtc

@@ -13,6 +13,7 @@
 #include <gio/gunixfdlist.h>
 #include <glib-object.h>
 
+#include "absl/functional/bind_front.h"
 #include "modules/desktop_capture/linux/wayland/constants.h"
 #include "modules/desktop_capture/linux/wayland/glib_utils.h"
 #include "modules/desktop_capture/linux/wayland/scoped_glib.h"
@@ -23,7 +24,23 @@ namespace webrtc {
 
 ScreenCastPortal::ScreenCastPortal(CaptureSourceType source_type,
                                    PortalNotifier* notifier)
-    : notifier_(notifier), capture_source_type_(source_type) {}
+    : notifier_(notifier),
+      capture_source_type_(source_type),
+      proxy_request_response_handler_(OnProxyRequested),
+      sources_request_response_signal_handler_(OnSourcesRequestResponseSignal) {
+}
+
+ScreenCastPortal::ScreenCastPortal(
+    CaptureSourceType source_type,
+    PortalNotifier* notifier,
+    ProxyRequestResponseHandler proxy_request_response_handler,
+    SourcesRequestResponseSignalHandler sources_request_response_signal_handler)
+    : notifier_(notifier),
+      capture_source_type_(source_type),
+      proxy_request_response_handler_(
+          std::move(proxy_request_response_handler)),
+      sources_request_response_signal_handler_(
+          std::move(sources_request_response_signal_handler)) {}
 
 ScreenCastPortal::~ScreenCastPortal() {
   if (start_request_signal_id_) {
@@ -74,7 +91,8 @@ void ScreenCastPortal::Start() {
   g_dbus_proxy_new_for_bus(
       G_BUS_TYPE_SESSION, G_DBUS_PROXY_FLAGS_NONE, /*info=*/nullptr,
       kDesktopBusName, kDesktopObjectPath, kScreenCastInterfaceName,
-      cancellable_, reinterpret_cast<GAsyncReadyCallback>(OnProxyRequested),
+      cancellable_,
+      reinterpret_cast<GAsyncReadyCallback>(&proxy_request_response_handler_),
       this);
 }
 
@@ -261,7 +279,9 @@ void ScreenCastPortal::SourcesRequest() {
   sources_handle_ = PrepareSignalHandle(connection_, variant_string.get());
   sources_request_signal_id_ =
       SetupRequestResponseSignal(connection_, sources_handle_.c_str(),
-                                 OnSourcesRequestResponseSignal, this);
+                                 reinterpret_cast<GDBusSignalCallback>(
+                                     &sources_request_response_signal_handler_),
+                                 this);
 
   RTC_LOG(LS_INFO) << "Requesting sources from the screen cast session.";
   g_dbus_proxy_call(
@@ -445,6 +465,27 @@ void ScreenCastPortal::OnStartRequestResponseSignal(GDBusConnection* connection,
   }
 
   that->OpenPipeWireRemote();
+}
+
+void ScreenCastPortal::SetSessionHandle(std::string session_handle) {
+  session_handle_ = std::move(session_handle);
+}
+
+void ScreenCastPortal::SetProxyConnection(GDBusProxy* proxy) {
+  proxy_ = proxy;
+  connection_ = g_dbus_proxy_get_connection(proxy_);
+}
+
+void ScreenCastPortal::SetPipewireStreamNodeId(uint32_t pw_stream_node_id) {
+  pw_stream_node_id_ = pw_stream_node_id;
+}
+
+uint32_t ScreenCastPortal::pipewire_stream_node_id() {
+  return pw_stream_node_id_;
+}
+
+int ScreenCastPortal::pipewire_socket_fd() {
+  return pw_fd_;
 }
 
 void ScreenCastPortal::OpenPipeWireRemote() {

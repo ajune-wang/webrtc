@@ -16,6 +16,23 @@
       "message": "Tests, including downstream, seem to pass now.\n\nBy sent out PSA, intend to land February 3.",
       "revId": "beeac1803fb7faeed74d5ec659f6da2756da488f",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "7ced9dba_29f3584d",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5087
+      },
+      "writtenOn": "2022-01-28T10:37:55Z",
+      "side": 1,
+      "message": "LGTM, the presubmit issue is getting fixed.",
+      "revId": "beeac1803fb7faeed74d5ec659f6da2756da488f",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

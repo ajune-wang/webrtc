@@ -1,0 +1,96 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "de96f02d_1c28cbb5",
+        "filename": "audio/audio_transport_impl.cc",
+        "patchSetId": 15
+      },
+      "lineNbr": 167,
+      "author": {
+        "id": 7015
+      },
+      "writtenOn": "2022-01-28T13:42:18Z",
+      "side": 1,
+      "message": "I don\u0027t think this line is well covered by any test, but maybe we lack an audio_transport_impl_unittest all together.",
+      "range": {
+        "startLine": 166,
+        "startChar": 0,
+        "endLine": 167,
+        "endChar": 58
+      },
+      "revId": "7b73bcc04588aef51cab7f4aaf6d5b89fcc63297",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "a006bf39_7fcc537a",
+        "filename": "modules/audio_device/audio_device_buffer.cc",
+        "patchSetId": 15
+      },
+      "lineNbr": 283,
+      "author": {
+        "id": 7015
+      },
+      "writtenOn": "2022-01-28T13:42:18Z",
+      "side": 1,
+      "message": "jut a note: this is not well tested, but also seemingly lacking an audio_device_buffer_unittest.",
+      "range": {
+        "startLine": 283,
+        "startChar": 0,
+        "endLine": 283,
+        "endChar": 50
+      },
+      "revId": "7b73bcc04588aef51cab7f4aaf6d5b89fcc63297",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "4d176ec9_4e9e9881",
+        "filename": "modules/audio_device/audio_device_buffer.h",
+        "patchSetId": 15
+      },
+      "lineNbr": 100,
+      "author": {
+        "id": 7015
+      },
+      "writtenOn": "2022-01-28T13:42:18Z",
+      "side": 1,
+      "message": "I think the preferred notation is bugs.webrtc.org/13621\n\nsimilar rule applies to other TODOs",
+      "range": {
+        "startLine": 100,
+        "startChar": 10,
+        "endLine": 100,
+        "endChar": 22
+      },
+      "revId": "7b73bcc04588aef51cab7f4aaf6d5b89fcc63297",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "8c7e34ca_f9e4041a",
+        "filename": "modules/audio_device/include/audio_device_defines.h",
+        "patchSetId": 15
+      },
+      "lineNbr": 61,
+      "author": {
+        "id": 7015
+      },
+      "writtenOn": "2022-01-28T13:42:18Z",
+      "side": 1,
+      "message": "I think it should be worded as \"this should be pure virtual\"",
+      "range": {
+        "startLine": 61,
+        "startChar": 20,
+        "endLine": 61,
+        "endChar": 39
+      },
+      "revId": "7b73bcc04588aef51cab7f4aaf6d5b89fcc63297",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

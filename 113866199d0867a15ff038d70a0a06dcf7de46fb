@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "7e3bf8d2_99d08aa0",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 3
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2022-01-28T13:13:37Z",
+      "side": 1,
+      "message": "PTAL.\nOff net for an hour or two, will read comments afterwards.\n",
+      "revId": "113866199d0867a15ff038d70a0a06dcf7de46fb",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

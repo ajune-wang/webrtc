@@ -72,6 +72,30 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": true,
+      "key": {
+        "uuid": "6ad8688b_0a646078",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 2
+      },
+      "lineNbr": 12,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2022-01-28T13:13:37Z",
+      "side": 1,
+      "message": "Changed to just cover what SdpOfferAnswer needs.",
+      "parentUuid": "505eebb7_01add9d1",
+      "range": {
+        "startLine": 11,
+        "startChar": 0,
+        "endLine": 12,
+        "endChar": 24
+      },
+      "revId": "79091b089556436571b694ba97558a0034c5b5c6",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": false,
       "key": {
         "uuid": "aea6ff9f_bc598d17",
@@ -114,6 +138,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "2ee5649d_cf3fc245",
+        "filename": "pc/peer_connection_internal.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 34,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2022-01-28T13:13:37Z",
+      "side": 1,
+      "message": "Yeah, it\u0027s really a name for a bunch of functions, not a real class. I renamed it to PeerConnectionSdpMethods, but doesn\u0027t really make me happy.",
+      "parentUuid": "242639dc_e57cac03",
+      "range": {
+        "startLine": 34,
+        "startChar": 7,
+        "endLine": 34,
+        "endChar": 36
+      },
+      "revId": "79091b089556436571b694ba97558a0034c5b5c6",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "d250913d_ad200d5a",
         "filename": "pc/peer_connection_internal.h",
         "patchSetId": 2
@@ -125,6 +173,30 @@
       "writtenOn": "2022-01-28T12:48:27Z",
       "side": 1,
       "message": "I wonder if it could work to use the same name, and add a using declaration in the inheriting class to make compiler happy.",
+      "range": {
+        "startLine": 41,
+        "startChar": 23,
+        "endLine": 41,
+        "endChar": 51
+      },
+      "revId": "79091b089556436571b694ba97558a0034c5b5c6",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "7b2df1cb_0f6e5a2c",
+        "filename": "pc/peer_connection_internal.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 41,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2022-01-28T13:13:37Z",
+      "side": 1,
+      "message": "Don\u0027t know - what would that syntax look like? Such a change would make me happy.\nTried googling and found a stackoverflow thread, and it did not mention \"using\".",
+      "parentUuid": "d250913d_ad200d5a",
       "range": {
         "startLine": 41,
         "startChar": 23,

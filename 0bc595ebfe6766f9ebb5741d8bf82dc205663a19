@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "8a83cafc_f514aca2",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 8046
+      },
+      "writtenOn": "2022-01-28T20:30:05Z",
+      "side": 1,
+      "message": "I\u0027ll keep this as WIP for now and try to do a testing build in Flathub for Chromium so someone else confirms it works. With this change and the other avoiding to use dlclose() I can properly share a screen using the official NVidia driver.",
+      "revId": "0bc595ebfe6766f9ebb5741d8bf82dc205663a19",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

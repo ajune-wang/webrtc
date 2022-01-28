@@ -1,0 +1,38 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "a78fa7e4_fb077d44",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 3
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2022-01-28T07:39:15Z",
+      "side": 1,
+      "message": "Need a guardian Invoke in the Call destructor too?\n",
+      "revId": "89698c3bbf4b056a2e1eeb47902a364d06eb0dfc",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "32bf2d49_4fd0a107",
+        "filename": "pc/channel_manager.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 254,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2022-01-28T07:39:15Z",
+      "side": 1,
+      "message": "Hm. Still confused as to why this can happen, or why it helps to Invoke rather than PostTask - the difference is only that the signaling thread waits a bit. But I believe you.",
+      "revId": "89698c3bbf4b056a2e1eeb47902a364d06eb0dfc",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

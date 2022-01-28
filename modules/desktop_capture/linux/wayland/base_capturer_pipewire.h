@@ -32,7 +32,7 @@ class BaseCapturerPipeWire : public DesktopCapturer,
   bool SelectSource(SourceId id) override;
 
   // ScreenCastPortal::PortalNotifier interface.
-  void OnScreenCastRequestResult(ScreenCastPortal::RequestResponse result,
+  void OnScreenCastRequestResult(RequestResponse result,
                                  uint32_t stream_node_id,
                                  int fd) override;
   void OnScreenCastSessionClosed() override;

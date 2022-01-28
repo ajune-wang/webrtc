@@ -48,6 +48,30 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": true,
+      "key": {
+        "uuid": "505eebb7_01add9d1",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 2
+      },
+      "lineNbr": 12,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2022-01-28T12:48:27Z",
+      "side": 1,
+      "message": "\u003e That\u0027s the goal of the interface. I think PeerConnection (the implementation) confuses several roles, and separating the various required functions into separate interfaces (which can later be backed by separate objects - encapsulation not inheritance) is a good step towards that.\n\u003e \n\u003e There are more places that take a PeerConnection (not PeerConnectionInterface) argument. I want to see if these can depend on the same API only.\n\nI\u0027m not sure it\u0027s a good idea to have one monolithic interface for all peerconnection internals. (It may be a good way but that\u0027s not clear now).\n\n\u003e I think this change makes the next step towards isolating the state that SdpOfferAnswerHandler depends on easier. It isn\u0027t of much value in itself.\n\nNow it looks like you\u0027re moving *all* of PeerConnection internal methods into the new interface. Could you try just moving the things that SdpOfferAnswerHandler actually uses, and then it will be easier to discuss if it makes sense that SdpOfferAnswerHandler accesses them this way, or if not, how to change that?",
+      "parentUuid": "b332cb86_aa0c35cd",
+      "range": {
+        "startLine": 11,
+        "startChar": 0,
+        "endLine": 12,
+        "endChar": 24
+      },
+      "revId": "79091b089556436571b694ba97558a0034c5b5c6",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": false,
       "key": {
         "uuid": "aea6ff9f_bc598d17",
@@ -61,6 +85,52 @@
       "writtenOn": "2022-01-28T12:32:35Z",
       "side": 1,
       "message": "I think we\u0027re pointing in the same direction, the question is what the first step on the way should be.",
+      "revId": "79091b089556436571b694ba97558a0034c5b5c6",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "242639dc_e57cac03",
+        "filename": "pc/peer_connection_internal.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 34,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2022-01-28T12:48:27Z",
+      "side": 1,
+      "message": "Naming nit: Prefer either something more specific on what the interface represents (maybe from point of view of SdpOfferAnswerHandler), or PeerConnectionInternalInterface. \"Methods\" in a class name sounds odd.",
+      "range": {
+        "startLine": 34,
+        "startChar": 7,
+        "endLine": 34,
+        "endChar": 36
+      },
+      "revId": "79091b089556436571b694ba97558a0034c5b5c6",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "d250913d_ad200d5a",
+        "filename": "pc/peer_connection_internal.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 41,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2022-01-28T12:48:27Z",
+      "side": 1,
+      "message": "I wonder if it could work to use the same name, and add a using declaration in the inheriting class to make compiler happy.",
+      "range": {
+        "startLine": 41,
+        "startChar": 23,
+        "endLine": 41,
+        "endChar": 51
+      },
       "revId": "79091b089556436571b694ba97558a0034c5b5c6",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },

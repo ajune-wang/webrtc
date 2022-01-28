@@ -12,6 +12,8 @@
 
 #include <gio/gio.h>
 
+#include "modules/desktop_capture/linux/wayland/constants.h"
+
 namespace webrtc {
 
 template <>

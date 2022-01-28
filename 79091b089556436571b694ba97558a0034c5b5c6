@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "2224cd6d_a4185b08",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 2
+      },
+      "lineNbr": 12,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2022-01-28T12:23:15Z",
+      "side": 1,
+      "message": "Not sure it\u0027s the right way to introduce one more rather huge interface in between here. What would an interface look like that is restricted to precisely what SdpOfferAnswerHandler needs to know about the peer connection?\n\nFrom a quick look at sdp_offer_answer.cc, it looks like some of the things it uses pc_ member to access could instead be passed as method arguments. E.g., could pass session_id and options as arguments to SdpOfferAnswerHandler::Initialize.\n\nThe docs for SdpOfferAnswerHandler says that it\u0027s responsible for \"Generating offers and answers based on the current state.\", I suspect it would help clarity to define what that state is, and maybe pass a reference to needed state from PeerConnection to the SdpOfferAnswerHandler methods that need it.",
+      "range": {
+        "startLine": 11,
+        "startChar": 0,
+        "endLine": 12,
+        "endChar": 24
+      },
+      "revId": "79091b089556436571b694ba97558a0034c5b5c6",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

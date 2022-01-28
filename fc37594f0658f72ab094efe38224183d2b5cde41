@@ -1,0 +1,67 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "2db85705_bfe58b3c",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 8038
+      },
+      "writtenOn": "2022-01-28T15:50:39Z",
+      "side": 1,
+      "message": "Nice, this is definitely a step in the right direction.\n\nI still think there are way too many of these tests, but we can get rid of them later :)",
+      "revId": "fc37594f0658f72ab094efe38224183d2b5cde41",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "f2a5b407_6c259dae",
+        "filename": "modules/audio_coding/acm2/audio_coding_module_unittest.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 897,
+      "author": {
+        "id": 8038
+      },
+      "writtenOn": "2022-01-28T15:50:39Z",
+      "side": 1,
+      "message": "Can we get rid of the AVX2 (or the non-AVX2) option as well?",
+      "range": {
+        "startLine": 897,
+        "startChar": 35,
+        "endLine": 897,
+        "endChar": 45
+      },
+      "revId": "fc37594f0658f72ab094efe38224183d2b5cde41",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "c814829e_f04365a5",
+        "filename": "modules/audio_coding/neteq/neteq_unittest.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 102,
+      "author": {
+        "id": 8038
+      },
+      "writtenOn": "2022-01-28T15:50:39Z",
+      "side": 1,
+      "message": "Could we get rid of the SSE (or the non-SSE) option as well?",
+      "range": {
+        "startLine": 102,
+        "startChar": 8,
+        "endLine": 102,
+        "endChar": 48
+      },
+      "revId": "fc37594f0658f72ab094efe38224183d2b5cde41",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

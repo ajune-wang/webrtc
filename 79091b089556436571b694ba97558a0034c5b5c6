@@ -26,6 +26,47 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "b332cb86_aa0c35cd",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 2
+      },
+      "lineNbr": 12,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2022-01-28T12:32:35Z",
+      "side": 1,
+      "message": "That\u0027s the goal of the interface. I think PeerConnection (the implementation) confuses several roles, and separating the various required functions into separate interfaces (which can later be backed by separate objects - encapsulation not inheritance) is a good step towards that.\n\nThere are more places that take a PeerConnection (not PeerConnectionInterface) argument. I want to see if these can depend on the same API only.\n\nI was reasonably happy to see that there were only 2 methods from the public PeerConnectionInterface (the two that now have _internal aliases) that were called by SdpOfferAnswer.\n\nSdpOfferAnswer started out as a split of PeerConnection, and it ended up leaving most of its state inside PeerConnection, because other parts of the system also depended on that state. This is a sorting refactoring more than a greenfield design.\n\nI think this change makes the next step towards isolating the state that SdpOfferAnswerHandler depends on easier. It isn\u0027t of much value in itself.",
+      "parentUuid": "2224cd6d_a4185b08",
+      "range": {
+        "startLine": 11,
+        "startChar": 0,
+        "endLine": 12,
+        "endChar": 24
+      },
+      "revId": "79091b089556436571b694ba97558a0034c5b5c6",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "aea6ff9f_bc598d17",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2022-01-28T12:32:35Z",
+      "side": 1,
+      "message": "I think we\u0027re pointing in the same direction, the question is what the first step on the way should be.",
+      "revId": "79091b089556436571b694ba97558a0034c5b5c6",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "80a64ad1_b7787b0a",
         "filename": "pc/peer_connection_internal.h",
         "patchSetId": 2

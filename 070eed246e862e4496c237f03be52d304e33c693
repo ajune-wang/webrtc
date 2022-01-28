@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "95e06ba9_d2c22b11",
+        "filename": "call/rtp_transport_controller_send.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 578,
+      "author": {
+        "id": 6720
+      },
+      "writtenOn": "2022-01-28T12:26:51Z",
+      "side": 1,
+      "message": "We could possibly split this part of the change into a separate CL, but I\u0027m leaning towards this being an overall improvement even though many metrics move.",
+      "revId": "070eed246e862e4496c237f03be52d304e33c693",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

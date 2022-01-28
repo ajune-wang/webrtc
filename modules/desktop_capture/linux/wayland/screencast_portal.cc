@@ -13,6 +13,7 @@
 #include <gio/gunixfdlist.h>
 #include <glib-object.h>
 
+#include "absl/functional/bind_front.h"
 #include "modules/desktop_capture/linux/wayland/constants.h"
 #include "modules/desktop_capture/linux/wayland/glib_utils.h"
 #include "modules/desktop_capture/linux/wayland/scoped_glib.h"

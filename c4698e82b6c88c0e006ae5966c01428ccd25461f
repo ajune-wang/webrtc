@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "8373ad42_bcd548f2",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2022-01-28T22:17:34Z",
+      "side": 1,
+      "message": "A little tidying on a Friday evening.\n\n",
+      "revId": "c4698e82b6c88c0e006ae5966c01428ccd25461f",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

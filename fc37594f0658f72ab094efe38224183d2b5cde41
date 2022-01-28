@@ -41,6 +41,30 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "e9de0d9b_91ecfe88",
+        "filename": "modules/audio_coding/acm2/audio_coding_module_unittest.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 897,
+      "author": {
+        "id": 5607
+      },
+      "writtenOn": "2022-01-28T16:08:05Z",
+      "side": 1,
+      "message": "There are still CPUs out there that don\u0027t support AVX2 (such as my workstation). AVX2 support is determined at runtime depending on if your CPU supports it. So depending on your CPU the result of the test is different. I\u0027m not sure how we can avoid having both options. If there is a way to do it then I think we should do it in another CL.",
+      "parentUuid": "f2a5b407_6c259dae",
+      "range": {
+        "startLine": 897,
+        "startChar": 35,
+        "endLine": 897,
+        "endChar": 45
+      },
+      "revId": "fc37594f0658f72ab094efe38224183d2b5cde41",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "c814829e_f04365a5",
@@ -54,6 +78,30 @@
       "writtenOn": "2022-01-28T15:50:39Z",
       "side": 1,
       "message": "Could we get rid of the SSE (or the non-SSE) option as well?",
+      "range": {
+        "startLine": 102,
+        "startChar": 8,
+        "endLine": 102,
+        "endChar": 48
+      },
+      "revId": "fc37594f0658f72ab094efe38224183d2b5cde41",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "550f5df5_0ed2c5c7",
+        "filename": "modules/audio_coding/neteq/neteq_unittest.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 102,
+      "author": {
+        "id": 5607
+      },
+      "writtenOn": "2022-01-28T16:08:05Z",
+      "side": 1,
+      "message": "I think we probably can, since there does not seem to be a way to build WebRTC without SSE support, and I don\u0027t think we support non-SSE builds.\n\nI\u0027ll remove it and see if anything breaks.",
+      "parentUuid": "c814829e_f04365a5",
       "range": {
         "startLine": 102,
         "startChar": 8,

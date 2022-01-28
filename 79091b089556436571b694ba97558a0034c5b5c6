@@ -209,6 +209,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "313ba17c_ebe45dac",
+        "filename": "pc/peer_connection_internal.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 41,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2022-01-28T13:45:26Z",
+      "side": 1,
+      "message": "Not sure, this is a rather obscure corner of C++. One potential way: Move implementation of the method (and corresponding member variable) to this class, and add \n\nusing PeerConnectionSdpMethods::signaling_thread();\n\nto the inheriting class, \n\nunder the theory that it might qualify as an implementation also of the PeerConnectionInterface method of the same name.\n\nI see no obvious way to do that and keep the implementation in the PeerConnection class. Or leave as is, at least that makes it rathe clear what\u0027s going on.",
+      "parentUuid": "7b2df1cb_0f6e5a2c",
+      "range": {
+        "startLine": 41,
+        "startChar": 23,
+        "endLine": 41,
+        "endChar": 51
+      },
+      "revId": "79091b089556436571b694ba97558a0034c5b5c6",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "80a64ad1_b7787b0a",
         "filename": "pc/peer_connection_internal.h",
         "patchSetId": 2

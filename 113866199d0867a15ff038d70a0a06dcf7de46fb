@@ -16,6 +16,46 @@
       "message": "PTAL.\nOff net for an hour or two, will read comments afterwards.\n",
       "revId": "113866199d0867a15ff038d70a0a06dcf7de46fb",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "f11ef150_f2f7a5ae",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 3
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2022-01-28T13:45:26Z",
+      "side": 1,
+      "message": "I\u0027d like to see the surface area between PeerConnection and SdpOfferAnswerHandler be trimmed down, but no strong opinion on whether that should happen before or after splittign out this itnerface. ",
+      "revId": "113866199d0867a15ff038d70a0a06dcf7de46fb",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "f817ae70_03096fec",
+        "filename": "pc/peer_connection_internal.h",
+        "patchSetId": 3
+      },
+      "lineNbr": 81,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2022-01-28T13:45:26Z",
+      "side": 1,
+      "message": "This sounds like something that SdpOfferAnswerHandler (by its documented responsibilities) should not need to know. Seems a bit strange to have a method like SdpOfferAnswerHandler::CreateVoiceChannel. \n\nFrom a quick look, the only local state needed in CreateVoiceChannel is SdpOfferAnswerHandler::audio_options_, which in turn appears initialized from PeerConnectionDependencies and not accessed for anything else.\n\nIf CreateFooChannel() are moved out of this class (not sure where, but pack to PeerConnection for lack of a better place?) the interface between PeerConnection andSdpOfferAnswerHandler would become leaner, I think.",
+      "range": {
+        "startLine": 81,
+        "startChar": 0,
+        "endLine": 81,
+        "endChar": 52
+      },
+      "revId": "113866199d0867a15ff038d70a0a06dcf7de46fb",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

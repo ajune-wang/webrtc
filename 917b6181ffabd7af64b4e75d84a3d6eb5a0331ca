@@ -1,6 +1,23 @@
 {
   "comments": [
     {
+      "unresolved": true,
+      "key": {
+        "uuid": "5c463cf5_816b1838",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 4
+      },
+      "lineNbr": 11,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2022-01-28T14:54:41Z",
+      "side": 1,
+      "message": "Add: \"This tag value will be used for all packets on the PeerConnection, whether they are audio, video, data or ICE\".",
+      "revId": "917b6181ffabd7af64b4e75d84a3d6eb5a0331ca",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": false,
       "key": {
         "uuid": "398206be_0de91309",
@@ -14,6 +31,23 @@
       "writtenOn": "2022-01-28T13:50:08Z",
       "side": 1,
       "message": "thanks and PTAL",
+      "revId": "917b6181ffabd7af64b4e75d84a3d6eb5a0331ca",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "6684581c_52cc9b90",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 4
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2022-01-28T14:54:41Z",
+      "side": 1,
+      "message": "Looks good, at least says on the packet what it is.\nUseless for experimenting with different prios for video, audio and data, but useful for getting an answer to \"does setting dscp matter\".\n\nWould not want to roll an experiment based on this in production. Too many weird environments out there - we need fallback strategies.",
       "revId": "917b6181ffabd7af64b4e75d84a3d6eb5a0331ca",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }

@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "8b181af4_aba3d5dd",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5607
+      },
+      "writtenOn": "2022-01-28T19:06:25Z",
+      "side": 1,
+      "message": "Hi Artem, here\u0027s a small follow-up CL to address your comment from the previous CL (I had already pressed submit before I saw your comment). I also found a few more SSE-specific checksums that I missed in the previous CL.",
+      "revId": "0c16667b8f6b1153bbdaf5a516e58f436b56e61f",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

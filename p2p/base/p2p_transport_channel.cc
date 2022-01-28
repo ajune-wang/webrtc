@@ -762,7 +762,9 @@ void P2PTransportChannel::SetIceConfig(const IceConfig& config) {
       "dead_connection_timeout_ms", &field_trials_.dead_connection_timeout_ms,
       // Stop gathering on strongly connected.
       "stop_gather_on_strongly_connected",
-      &field_trials_.stop_gather_on_strongly_connected)
+      &field_trials_.stop_gather_on_strongly_connected,
+      // DSCP override
+      "override_dscp", &field_trials_.override_dscp)
       ->Parse(webrtc::field_trial::FindFullName("WebRTC-IceFieldTrials"));
 
   if (field_trials_.dead_connection_timeout_ms < 30000) {
@@ -800,6 +802,14 @@ void P2PTransportChannel::SetIceConfig(const IceConfig& config) {
   allocator_->SetVpnPreference(config_.vpn_preference);
 
   ice_controller_->SetIceConfig(config_);
+
+  if (webrtc::field_trial::IsEnabled("WebRTC-DSCP-Override")) {
+    field_trials_.override_dscp = rtc::DSCP_CS5;
+  }
+
+  if (field_trials_.override_dscp) {
+    SetOption(rtc::Socket::OPT_DSCP, *field_trials_.override_dscp);
+  }
 
   RTC_DCHECK(ValidateIceConfig(config_).ok());
 }
@@ -1555,6 +1565,10 @@ void P2PTransportChannel::RememberRemoteCandidate(
 // port objects.
 int P2PTransportChannel::SetOption(rtc::Socket::Option opt, int value) {
   RTC_DCHECK_RUN_ON(network_thread_);
+  if (field_trials_.override_dscp && opt == rtc::Socket::OPT_DSCP) {
+    value = *field_trials_.override_dscp;
+  }
+
   OptionMap::iterator it = options_.find(opt);
   if (it == options_.end()) {
     options_.insert(std::make_pair(opt, value));

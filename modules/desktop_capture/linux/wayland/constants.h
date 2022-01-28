@@ -20,6 +20,8 @@ const char kDesktopRequestObjectPath[] =
 const char kSessionInterfaceName[] = "org.freedesktop.portal.Session";
 const char kRequestInterfaceName[] = "org.freedesktop.portal.Request";
 const char kScreenCastInterfaceName[] = "org.freedesktop.portal.ScreenCast";
+const char kRemoteDesktopInterfaceName[] =
+    "org.freedesktop.portal.RemoteDesktop";
 
 // Defines what type of stream should be captured.
 // Values are set based on source type property in

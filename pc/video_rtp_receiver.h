@@ -88,7 +88,7 @@ class VideoRtpReceiver : public RtpReceiverInternal {
 
   // RtpReceiverInternal implementation.
   void Stop() override;
-  void StopAndEndTrack() override;
+  void StopSource(bool end_track) override;
   void SetupMediaChannel(uint32_t ssrc) override;
   void SetupUnsignaledMediaChannel() override;
   uint32_t ssrc() const override;
@@ -160,7 +160,7 @@ class VideoRtpReceiver : public RtpReceiverInternal {
   // After that, `stopped_` will remain false until `Stop()` is called.
   // Note, for checking the state of the class on the worker thread,
   // check `media_channel_` instead, as that's the main worker thread state.
-  bool stopped_ RTC_GUARDED_BY(&signaling_thread_checker_) = true;
+  bool stopped_ RTC_GUARDED_BY(worker_thread_) = true;
   RtpReceiverObserverInterface* observer_
       RTC_GUARDED_BY(&signaling_thread_checker_) = nullptr;
   bool received_first_packet_ RTC_GUARDED_BY(&signaling_thread_checker_) =

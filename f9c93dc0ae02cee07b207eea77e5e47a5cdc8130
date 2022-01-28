@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "44ecc604_d8aa4b16",
+        "filename": "modules/desktop_capture/linux/wayland/egl_dmabuf.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 434,
+      "author": {
+        "id": 14134
+      },
+      "writtenOn": "2022-01-28T19:36:53Z",
+      "side": 1,
+      "message": "If you write crbug.com/1290566, codesearch and Gerrit will auto-link it to the bug, which is convenient.",
+      "revId": "f9c93dc0ae02cee07b207eea77e5e47a5cdc8130",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

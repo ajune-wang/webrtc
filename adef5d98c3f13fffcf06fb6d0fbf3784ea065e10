@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "5d73026e_0d604b6c",
+        "filename": "config.star",
+        "patchSetId": 1
+      },
+      "lineNbr": 876,
+      "author": {
+        "id": 5087
+      },
+      "writtenOn": "2022-01-28T16:15:48Z",
+      "side": 1,
+      "message": "What is try_cat?",
+      "range": {
+        "startLine": 876,
+        "startChar": 26,
+        "endLine": 876,
+        "endChar": 40
+      },
+      "revId": "adef5d98c3f13fffcf06fb6d0fbf3784ea065e10",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

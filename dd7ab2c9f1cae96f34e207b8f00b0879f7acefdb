@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "ae627cc1_ca4da023",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 3
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5508
+      },
+      "writtenOn": "2022-01-28T07:17:10Z",
+      "side": 1,
+      "message": "Abandoning this CL. The revert that\u0027s needed, is just the channel manager change, so I\u0027ll switch to another CL for that.",
+      "revId": "dd7ab2c9f1cae96f34e207b8f00b0879f7acefdb",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

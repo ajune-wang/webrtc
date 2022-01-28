@@ -1,0 +1,38 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "49c7bb05_36f3cc60",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2022-01-28T12:06:59Z",
+      "side": 1,
+      "message": "Not clear enough what this will accomplish.\n",
+      "revId": "5726a1b1a883cd6db67fd511f0c948662403cc08",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "3ab39a6b_1a8a004b",
+        "filename": "p2p/base/p2p_transport_channel.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 766,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2022-01-28T12:06:59Z",
+      "side": 1,
+      "message": "Can you use a few more words on what this field trial is supposed to trigger?\nIE will it mark all packets as AF41, mark packets per the RFC, or mark according to some other pattern?",
+      "revId": "5726a1b1a883cd6db67fd511f0c948662403cc08",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

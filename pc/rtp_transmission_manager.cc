@@ -460,12 +460,16 @@ void RtpTransmissionManager::CreateAudioReceiver(
   // the constructor taking stream IDs instead.
   auto audio_receiver = rtc::make_ref_counted<AudioRtpReceiver>(
       worker_thread(), remote_sender_info.sender_id, streams, IsUnifiedPlan());
-  audio_receiver->SetMediaChannel(voice_media_channel());
-  if (remote_sender_info.sender_id == kDefaultAudioSenderId) {
-    audio_receiver->SetupUnsignaledMediaChannel();
-  } else {
-    audio_receiver->SetupMediaChannel(remote_sender_info.first_ssrc);
-  }
+
+  worker_thread()->Invoke<void>(
+      RTC_FROM_HERE, [&, channel = voice_media_channel()]() {
+        audio_receiver->SetMediaChannel(channel);
+        if (remote_sender_info.sender_id == kDefaultAudioSenderId) {
+          audio_receiver->SetupUnsignaledMediaChannel();
+        } else {
+          audio_receiver->SetupMediaChannel(remote_sender_info.first_ssrc);
+        }
+      });
   auto receiver = RtpReceiverProxyWithInternal<RtpReceiverInternal>::Create(
       signaling_thread(), worker_thread(), std::move(audio_receiver));
   GetAudioTransceiver()->internal()->AddReceiver(receiver);
@@ -483,12 +487,17 @@ void RtpTransmissionManager::CreateVideoReceiver(
   // the constructor taking stream IDs instead.
   auto video_receiver = rtc::make_ref_counted<VideoRtpReceiver>(
       worker_thread(), remote_sender_info.sender_id, streams);
-  video_receiver->SetMediaChannel(video_media_channel());
-  if (remote_sender_info.sender_id == kDefaultVideoSenderId) {
-    video_receiver->SetupUnsignaledMediaChannel();
-  } else {
-    video_receiver->SetupMediaChannel(remote_sender_info.first_ssrc);
-  }
+
+  worker_thread()->Invoke<void>(
+      RTC_FROM_HERE, [&, channel = video_media_channel()]() {
+        video_receiver->SetMediaChannel(channel);
+        if (remote_sender_info.sender_id == kDefaultVideoSenderId) {
+          video_receiver->SetupUnsignaledMediaChannel();
+        } else {
+          video_receiver->SetupMediaChannel(remote_sender_info.first_ssrc);
+        }
+      });
+
   auto receiver = RtpReceiverProxyWithInternal<RtpReceiverInternal>::Create(
       signaling_thread(), worker_thread(), std::move(video_receiver));
   GetVideoTransceiver()->internal()->AddReceiver(receiver);

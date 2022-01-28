@@ -389,7 +389,7 @@ rtc::scoped_refptr<MockRtpReceiverInternal> CreateMockReceiver(
     return params;
   }));
   EXPECT_CALL(*receiver, AttachmentId()).WillRepeatedly(Return(attachment_id));
-  EXPECT_CALL(*receiver, StopAndEndTrack());
+  EXPECT_CALL(*receiver, StopSource(_));
   return receiver;
 }
 

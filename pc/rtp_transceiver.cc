@@ -219,12 +219,23 @@ void RtpTransceiver::SetChannel(
 
   RTC_DCHECK_BLOCK_COUNT_NO_MORE_THAN(1);
 
+  int pending_worker_operations = 0;
+  const bool async = false;
+
   for (const auto& receiver : receivers_) {
     if (!channel_) {
-      receiver->internal()->Stop();
+      if (!receiver->internal()->Stop(async))
+        ++pending_worker_operations;
     } else {
-      receiver->internal()->SetMediaChannel(channel_->media_channel());
+      if (!receiver->internal()->SetMediaChannel(channel_->media_channel(),
+                                                 async)) {
+        ++pending_worker_operations;
+      }
     }
+  }
+
+  if (async) {
+    RTC_DCHECK_BLOCK_COUNT_NO_MORE_THAN(1);
   }
 
   // Destroy the channel, if we had one, now _after_ updating the receivers who
@@ -232,6 +243,8 @@ void RtpTransceiver::SetChannel(
   if (channel_to_delete) {
     channel_manager_->DestroyChannel(channel_to_delete);
   }
+
+  RTC_DCHECK_BLOCK_COUNT_NO_MORE_THAN(1);
 }
 
 void RtpTransceiver::AddSender(

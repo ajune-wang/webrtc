@@ -550,7 +550,7 @@ class RTCStatsCollectorWrapper {
               voice_receiver_info.local_stats[0].ssrc + 10);
       EXPECT_CALL(*rtp_receiver, streams())
           .WillRepeatedly(Return(remote_streams));
-      EXPECT_CALL(*rtp_receiver, SetMediaChannel(_));
+      EXPECT_CALL(*rtp_receiver, SetMediaChannel(_, _));
       pc_->AddReceiver(rtp_receiver);
     }
 
@@ -587,7 +587,7 @@ class RTCStatsCollectorWrapper {
               video_receiver_info.local_stats[0].ssrc + 10);
       EXPECT_CALL(*rtp_receiver, streams())
           .WillRepeatedly(Return(remote_streams));
-      EXPECT_CALL(*rtp_receiver, SetMediaChannel(_));
+      EXPECT_CALL(*rtp_receiver, SetMediaChannel(_, _));
       pc_->AddReceiver(rtp_receiver);
     }
 

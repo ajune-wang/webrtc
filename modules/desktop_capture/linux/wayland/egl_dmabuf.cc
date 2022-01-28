@@ -383,7 +383,7 @@ EglDmaBuf::~EglDmaBuf() {
 }
 
 RTC_NO_SANITIZE("cfi-icall")
-std::unique_ptr<uint8_t[]> EglDmaBuf::ImageFromDmaBuf(
+absl::optional<std::unique_ptr<uint8_t[]>> EglDmaBuf::ImageFromDmaBuf(
     const DesktopSize& size,
     uint32_t format,
     const std::vector<PlaneData>& plane_datas,
@@ -391,12 +391,12 @@ std::unique_ptr<uint8_t[]> EglDmaBuf::ImageFromDmaBuf(
   std::unique_ptr<uint8_t[]> src;
 
   if (!egl_initialized_) {
-    return src;
+    return absl::nullopt;
   }
 
   if (plane_datas.size() <= 0) {
     RTC_LOG(LS_ERROR) << "Failed to process buffer: invalid number of planes";
-    return src;
+    return absl::nullopt;
   }
 
   gbm_bo* imported;
@@ -428,7 +428,7 @@ std::unique_ptr<uint8_t[]> EglDmaBuf::ImageFromDmaBuf(
     RTC_LOG(LS_ERROR)
         << "Failed to process buffer: Cannot import passed GBM fd - "
         << strerror(errno);
-    return src;
+    return absl::nullopt;
   }
 
   // bind context to render thread
@@ -442,7 +442,7 @@ std::unique_ptr<uint8_t[]> EglDmaBuf::ImageFromDmaBuf(
     RTC_LOG(LS_ERROR) << "Failed to record frame: Error creating EGLImageKHR - "
                       << FormatGLError(GlGetError());
     gbm_bo_destroy(imported);
-    return src;
+    return absl::nullopt;
   }
 
   // create GL 2D texture for framebuffer
@@ -483,7 +483,7 @@ std::unique_ptr<uint8_t[]> EglDmaBuf::ImageFromDmaBuf(
   if (GlGetError()) {
     RTC_LOG(LS_ERROR) << "Failed to get image from DMA buffer.";
     gbm_bo_destroy(imported);
-    return src;
+    return absl::nullopt;
   }
 
   GlDeleteTextures(1, &texture);

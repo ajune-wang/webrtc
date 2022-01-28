@@ -41,7 +41,7 @@ class EglDmaBuf {
   EglDmaBuf();
   ~EglDmaBuf();
 
-  std::unique_ptr<uint8_t[]> ImageFromDmaBuf(
+  absl::optional<std::unique_ptr<uint8_t[]>> ImageFromDmaBuf(
       const DesktopSize& size,
       uint32_t format,
       const std::vector<PlaneData>& plane_datas,

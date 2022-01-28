@@ -70,6 +70,23 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "4c8f4468_5cc857a7",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 3
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2022-01-28T14:55:00Z",
+      "side": 1,
+      "message": "You could consider adding TODO comments on the methods of the new interface class that you know you want to move elsewhere.",
+      "revId": "113866199d0867a15ff038d70a0a06dcf7de46fb",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "f817ae70_03096fec",

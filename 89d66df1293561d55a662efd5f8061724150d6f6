@@ -1,0 +1,38 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "4a5e1b76_9724a9fe",
+        "filename": "modules/desktop_capture/linux/wayland/egl_dmabuf.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 173,
+      "author": {
+        "id": 14134
+      },
+      "writtenOn": "2022-01-28T19:01:38Z",
+      "side": 1,
+      "message": "Nit: I think std::to_string is the equivalent of sprintf(\"%d\"), not hex. \n\nSo maybe just \"EGL error code: \"",
+      "revId": "89d66df1293561d55a662efd5f8061724150d6f6",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "e3fe0caf_7f0dccb6",
+        "filename": "modules/desktop_capture/linux/wayland/egl_dmabuf.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 435,
+      "author": {
+        "id": 14134
+      },
+      "writtenOn": "2022-01-28T19:01:38Z",
+      "side": 1,
+      "message": "Does CloseLibrary() still crash now that you are explicitly calling EglDestroyContext and EglTerminate to dispose of the display you got through EglGetPlatformDisplayEXT?",
+      "revId": "89d66df1293561d55a662efd5f8061724150d6f6",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

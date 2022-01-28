@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "68120832_27ad7380",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2022-01-28T11:12:18Z",
+      "side": 1,
+      "message": "Adding nisse for C++, mbonadei for opinions on dependencies in BUILD (although I don\u0027t touch them in this CL).\n\nCC tommi for interest.",
+      "revId": "c949b627a75eee0ecf3d8323a7e484b070e27494",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

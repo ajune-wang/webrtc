@@ -16,6 +16,23 @@
       "message": "Abandoning this CL. The revert that\u0027s needed, is just the channel manager change, so I\u0027ll switch to another CL for that.",
       "revId": "dd7ab2c9f1cae96f34e207b8f00b0879f7acefdb",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "b59b0e6e_39624359",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 3
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5508
+      },
+      "writtenOn": "2022-01-28T07:32:32Z",
+      "side": 1,
+      "message": "Follow up here: https://webrtc-review.googlesource.com/c/src/+/249780",
+      "revId": "dd7ab2c9f1cae96f34e207b8f00b0879f7acefdb",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

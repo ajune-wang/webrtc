@@ -22,6 +22,29 @@
       },
       "revId": "79091b089556436571b694ba97558a0034c5b5c6",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "80a64ad1_b7787b0a",
+        "filename": "pc/peer_connection_internal.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 172,
+      "author": {
+        "id": 5087
+      },
+      "writtenOn": "2022-01-28T12:25:26Z",
+      "side": 1,
+      "message": "I suspect the binary size increase might be caused by the new (big) vtable that is getting introduced by this CL.\n\nMaybe by following nisse@\u0027s advice we can reduce this as well and get to the same result?\n\n(splitting the target, and reducing circular deps that are hidden by big targets is always a good thing, thanks for doing this!)",
+      "range": {
+        "startLine": 171,
+        "startChar": 0,
+        "endLine": 172,
+        "endChar": 71
+      },
+      "revId": "79091b089556436571b694ba97558a0034c5b5c6",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

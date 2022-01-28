@@ -22,6 +22,30 @@
       },
       "revId": "adef5d98c3f13fffcf06fb6d0fbf3784ea065e10",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "43ab68b1_63f3774a",
+        "filename": "config.star",
+        "patchSetId": 1
+      },
+      "lineNbr": 876,
+      "author": {
+        "id": 6192
+      },
+      "writtenOn": "2022-01-28T16:32:10Z",
+      "side": 1,
+      "message": "try_cat(egories) is used for the luci console view which we do not use for try. I think if you simply do not provide any, it\u0027s also turned off. Wanted to be explicit.\n\nAlso CQ is set to None because I want to verify that it works first.",
+      "parentUuid": "5d73026e_0d604b6c",
+      "range": {
+        "startLine": 876,
+        "startChar": 26,
+        "endLine": 876,
+        "endChar": 40
+      },
+      "revId": "adef5d98c3f13fffcf06fb6d0fbf3784ea065e10",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

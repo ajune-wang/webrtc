@@ -85,6 +85,24 @@
       "message": "Hm. Still confused as to why this can happen, or why it helps to Invoke rather than PostTask - the difference is only that the signaling thread waits a bit. But I believe you.",
       "revId": "89698c3bbf4b056a2e1eeb47902a364d06eb0dfc",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "62901d95_5f0a0ff6",
+        "filename": "pc/channel_manager.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 254,
+      "author": {
+        "id": 5508
+      },
+      "writtenOn": "2022-01-28T07:53:17Z",
+      "side": 1,
+      "message": "It\u0027s basically because the channel manager is owned by the context class, which has different lifetime scope from the call object. It might make sense to align the lifetime of the channel manager with the Call and the send transport objects.",
+      "parentUuid": "32bf2d49_4fd0a107",
+      "revId": "89698c3bbf4b056a2e1eeb47902a364d06eb0dfc",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

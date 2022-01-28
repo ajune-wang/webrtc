@@ -103,6 +103,24 @@
       "parentUuid": "32bf2d49_4fd0a107",
       "revId": "89698c3bbf4b056a2e1eeb47902a364d06eb0dfc",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "0d86dc29_e8020fd6",
+        "filename": "pc/channel_manager.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 254,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2022-01-28T08:27:33Z",
+      "side": 1,
+      "message": "Hm. From memory, the PeerConnection owns both the Call object and the Context object. Seems to me that Call should be owned by Context, so that Context can manage this dependency.",
+      "parentUuid": "62901d95_5f0a0ff6",
+      "revId": "89698c3bbf4b056a2e1eeb47902a364d06eb0dfc",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

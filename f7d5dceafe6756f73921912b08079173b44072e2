@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "00b19d3c_eca0c890",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2022-01-28T17:42:38Z",
+      "side": 1,
+      "message": "As per discussion on the previous CL - it \"feels\" like a move in a correct direction.\n",
+      "revId": "f7d5dceafe6756f73921912b08079173b44072e2",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

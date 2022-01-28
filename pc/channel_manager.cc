@@ -256,7 +256,12 @@ void ChannelManager::DestroyChannel(ChannelInterface* channel) {
     // the destructor, which acts as a 'flush' for any pending calls to
     // DestroyChannel. If that Invoke() gets removed, we'll need to make
     // adjustments here.
-    worker_thread_->PostTask([this, channel] { DestroyChannel(channel); });
+
+    // TODO(tommi): Do this asynchronously when we have a way to make sure that
+    // the call to DestroyChannel runs before ~Call() runs, which today happens
+    // inside an Invoke from the signaling thread in PeerConnectin::Close().
+    worker_thread_->Invoke<void>(RTC_FROM_HERE,
+                                 [&] { DestroyChannel(channel); });
     return;
   }
 

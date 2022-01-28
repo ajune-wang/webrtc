@@ -18,6 +18,23 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "e3e5c592_be522e48",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 3
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5087
+      },
+      "writtenOn": "2022-01-28T07:51:28Z",
+      "side": 1,
+      "message": "LGTM % comment.",
+      "revId": "89698c3bbf4b056a2e1eeb47902a364d06eb0dfc",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "3406d8bc_59ea3d7c",
@@ -31,6 +48,24 @@
       "writtenOn": "2022-01-28T07:49:28Z",
       "side": 1,
       "message": "oops, will remove this.",
+      "revId": "89698c3bbf4b056a2e1eeb47902a364d06eb0dfc",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "0c18a3cd_2e4343de",
+        "filename": "pc/channel_manager.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 73,
+      "author": {
+        "id": 5087
+      },
+      "writtenOn": "2022-01-28T07:51:28Z",
+      "side": 1,
+      "message": "Yep, this was the only thing I was going to comment on. :)",
+      "parentUuid": "3406d8bc_59ea3d7c",
       "revId": "89698c3bbf4b056a2e1eeb47902a364d06eb0dfc",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },

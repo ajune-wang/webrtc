@@ -21,6 +21,18 @@ namespace webrtc {
 
 class ScreenCastPortal {
  public:
+  using ProxyRequestResponseHandler = std::function<
+      void(GObject* object, GAsyncResult* result, gpointer user_data)>;
+
+  using SourcesRequestResponseSignalHandler =
+      std::function<void(GDBusConnection* connection,
+                         const char* sender_name,
+                         const char* object_path,
+                         const char* interface_name,
+                         const char* signal_name,
+                         GVariant* parameters,
+                         gpointer user_data)>;
+
   // Interface that must be implemented by the ScreenCastPortal consumers.
   class PortalNotifier {
    public:
@@ -36,6 +48,12 @@ class ScreenCastPortal {
 
   explicit ScreenCastPortal(CaptureSourceType source_type,
                             PortalNotifier* notifier);
+  explicit ScreenCastPortal(
+      CaptureSourceType source_type,
+      PortalNotifier* notifier,
+      ProxyRequestResponseHandler proxy_request_response_handler,
+      SourcesRequestResponseSignalHandler
+          sources_request_response_signal_handler);
   ~ScreenCastPortal();
 
   // Initialize ScreenCastPortal with series of DBus calls where we try to
@@ -47,6 +65,22 @@ class ScreenCastPortal {
   // information in order to continue working with PipeWire.
   void Start();
 
+  void SetSessionHandle(std::string session_handle);
+
+  void SetProxyConnection(GDBusProxy* proxy);
+
+  void SetPipewireStreamNodeId(uint32_t pw_stream_node_id);
+
+  uint32_t pipewire_stream_node_id();
+
+  int pipewire_socket_fd();
+
+  void OpenPipeWireRemote();
+
+  void PortalFailed(RequestResponse result);
+
+  void SourcesRequest();
+
  private:
   PortalNotifier* notifier_;
 
@@ -56,6 +90,8 @@ class ScreenCastPortal {
   int pw_fd_ = -1;
 
   CaptureSourceType capture_source_type_ = CaptureSourceType::kScreen;
+  ProxyRequestResponseHandler proxy_request_response_handler_;
+  SourcesRequestResponseSignalHandler sources_request_response_signal_handler_;
 
   CursorMode cursor_mode_ = CursorMode::kEmbedded;
 
@@ -70,8 +106,6 @@ class ScreenCastPortal {
   guint sources_request_signal_id_ = 0;
   guint start_request_signal_id_ = 0;
   guint session_closed_signal_id_ = 0;
-
-  void PortalFailed(RequestResponse result);
 
   static void OnProxyRequested(GObject* object,
                                GAsyncResult* result,
@@ -95,7 +129,6 @@ class ScreenCastPortal {
                                     const char* signal_name,
                                     GVariant* parameters,
                                     gpointer user_data);
-  void SourcesRequest();
   static void OnSourcesRequested(GDBusProxy* proxy,
                                  GAsyncResult* result,
                                  gpointer user_data);
@@ -119,7 +152,6 @@ class ScreenCastPortal {
                                            GVariant* parameters,
                                            gpointer user_data);
 
-  void OpenPipeWireRemote();
   static void OnOpenPipeWireRemoteRequested(GDBusProxy* proxy,
                                             GAsyncResult* result,
                                             gpointer user_data);

@@ -141,6 +141,23 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "1cdf6709_27675e06",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 8
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2022-01-29T11:03:53Z",
+      "side": 1,
+      "message": "Holding off on more review until the flags comments have been sorted. Just checking one point.\n",
+      "revId": "2adbba097c78cca520480ec354b7dfb3c78bb0a1",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "b4a1df6f_eac0a96c",
@@ -225,6 +242,40 @@
       "side": 1,
       "message": "\u003e alive_ is being SetNotAlive() inside the destructor on the worker thread\nWouldn\u0027t that cause an assert?",
       "parentUuid": "1abd530c_e2f528b9",
+      "revId": "2adbba097c78cca520480ec354b7dfb3c78bb0a1",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "cc98ef70_bb49a6fe",
+        "filename": "pc/channel.cc",
+        "patchSetId": 8
+      },
+      "lineNbr": 474,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2022-01-29T11:03:53Z",
+      "side": 1,
+      "message": "I think this \"if\" is why we don\u0027t need the argument to be optional any more. Want to verify that this was the intent.",
+      "revId": "2adbba097c78cca520480ec354b7dfb3c78bb0a1",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "58102966_ce3b2671",
+        "filename": "pc/channel.h",
+        "patchSetId": 8
+      },
+      "lineNbr": 300,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2022-01-29T11:03:53Z",
+      "side": 1,
+      "message": "The old use of absl::optional\u003cRtpHeaderExtensions\u003e was intended to be able to indicate the difference between \"I have no updates to give, keep the old ones\" and \"please clear all extensions\".\n\nDoes the new code render this distinction unneccessary?",
       "revId": "2adbba097c78cca520480ec354b7dfb3c78bb0a1",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }

@@ -90,7 +90,7 @@ class AudioRtpReceiver : public ObserverInterface,
 
   // RtpReceiverInternal implementation.
   void Stop() override;
-  void StopAndEndTrack() override;
+  void StopSource(bool end_track) override;
   void SetupMediaChannel(uint32_t ssrc) override;
   void SetupUnsignaledMediaChannel() override;
   uint32_t ssrc() const override;
@@ -115,11 +115,8 @@ class AudioRtpReceiver : public ObserverInterface,
 
  private:
   void RestartMediaChannel(absl::optional<uint32_t> ssrc);
-  void Reconfigure(bool track_enabled, double volume)
-      RTC_RUN_ON(worker_thread_);
+  void Reconfigure() RTC_RUN_ON(worker_thread_);
   void SetOutputVolume_w(double volume) RTC_RUN_ON(worker_thread_);
-  void SetMediaChannel_w(cricket::MediaChannel* media_channel)
-      RTC_RUN_ON(worker_thread_);
 
   RTC_NO_UNIQUE_ADDRESS SequenceChecker signaling_thread_checker_;
   rtc::Thread* const worker_thread_;
@@ -131,9 +128,7 @@ class AudioRtpReceiver : public ObserverInterface,
   absl::optional<uint32_t> ssrc_ RTC_GUARDED_BY(worker_thread_);
   std::vector<rtc::scoped_refptr<MediaStreamInterface>> streams_
       RTC_GUARDED_BY(&signaling_thread_checker_);
-  bool cached_track_enabled_ RTC_GUARDED_BY(&signaling_thread_checker_);
-  double cached_volume_ RTC_GUARDED_BY(&signaling_thread_checker_) = 1.0;
-  bool stopped_ RTC_GUARDED_BY(&signaling_thread_checker_) = true;
+  double cached_volume_ RTC_GUARDED_BY(worker_thread_) = 1.0;
   RtpReceiverObserverInterface* observer_
       RTC_GUARDED_BY(&signaling_thread_checker_) = nullptr;
   bool received_first_packet_ RTC_GUARDED_BY(&signaling_thread_checker_) =

@@ -317,6 +317,7 @@ Connection::Connection(Port* port,
 
 Connection::~Connection() {
   RTC_DCHECK_RUN_ON(network_thread_);
+  RTC_DCHECK(!check_in_dtor_);
 }
 
 webrtc::TaskQueueBase* Connection::network_thread() const {
@@ -835,15 +836,31 @@ void Connection::Prune() {
 
 void Connection::Destroy() {
   RTC_DCHECK_RUN_ON(network_thread_);
-  // TODO(deadbeef, nisse): This may leak if an application closes a
-  // PeerConnection and then quickly destroys the PeerConnectionFactory (along
-  // with the networking thread on which this message is posted). Also affects
-  // tests, with a workaround in
-  // AutoSocketServerThread::~AutoSocketServerThread.
-  RTC_LOG(LS_VERBOSE) << ToString() << ": Connection destroyed";
-  // TODO(bugs.webrtc.org/11988): Use PostTask.
-  port_->thread()->Post(RTC_FROM_HERE, this, MSG_DELETE);
+  RTC_DLOG(LS_VERBOSE) << ToString() << ": Connection destroyed";
+  check_in_dtor_ = true;
+
+  bool signaled = false;
+  if (network_thread_->IsCurrent()) {
+    SignalDestroyed(this);
+    signaled = true;
+  }
+
   LogCandidatePairConfig(webrtc::IceCandidatePairConfigType::kDestroyed);
+  network_thread_->PostTask(webrtc::ToQueuedTask([signaled, me = this]() {
+    if (!signaled)
+      me->SignalDestroyed(me);
+    me->check_in_dtor_ = false;
+    delete me;  // todo: use a unique_ptr.
+  }));
+#if 0
+  port_->thread()->PostTask(webrtc::ToQueuedTask(
+      [me = this]() {
+        RTC_LOG(LS_INFO) << "Connection deleted with number of pings sent: "
+                         << me->num_pings_sent_;
+        me->SignalDestroyed(me);
+      },
+      [to_delete = this]() { delete to_delete; }));
+#endif
 }
 
 void Connection::FailAndDestroy() {
@@ -1422,15 +1439,6 @@ void Connection::MaybeUpdatePeerReflexiveCandidate(
       remote_candidate_.generation() == new_candidate.generation()) {
     remote_candidate_ = new_candidate;
   }
-}
-
-void Connection::OnMessage(rtc::Message* pmsg) {
-  RTC_DCHECK_RUN_ON(network_thread_);
-  RTC_DCHECK(pmsg->message_id == MSG_DELETE);
-  RTC_LOG(LS_INFO) << "Connection deleted with number of pings sent: "
-                   << num_pings_sent_;
-  SignalDestroyed(this);
-  delete this;
 }
 
 int64_t Connection::last_received() const {

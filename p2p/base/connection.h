@@ -70,9 +70,7 @@ class ConnectionRequest : public StunRequest {
 
 // Represents a communication link between a port on the local client and a
 // port on the remote client.
-class Connection : public CandidatePairInterface,
-                   public rtc::MessageHandlerAutoCleanup,
-                   public sigslot::has_slots<> {
+class Connection : public CandidatePairInterface, public sigslot::has_slots<> {
  public:
   struct SentPing {
     SentPing(const std::string id, int64_t sent_time, uint32_t nomination)
@@ -323,8 +321,6 @@ class Connection : public CandidatePairInterface,
   void set_remote_nomination(uint32_t remote_nomination);
 
  protected:
-  enum { MSG_DELETE = 0, MSG_FIRST_AVAILABLE };
-
   // Constructs a new connection to the given remote port.
   Connection(Port* port, size_t index, const Candidate& candidate);
 
@@ -352,8 +348,6 @@ class Connection : public CandidatePairInterface,
   void set_connected(bool value);
 
   uint32_t nomination() const;
-
-  void OnMessage(rtc::Message* pmsg) override;
 
   // The local port where this connection sends and receives packets.
   Port* port() { return port_; }
@@ -448,6 +442,7 @@ class Connection : public CandidatePairInterface,
   absl::optional<int> receiving_timeout_ RTC_GUARDED_BY(network_thread_);
   int64_t time_created_ms_ RTC_GUARDED_BY(network_thread_);
   int num_pings_sent_ RTC_GUARDED_BY(network_thread_) = 0;
+  bool check_in_dtor_ = false;
 
   absl::optional<webrtc::IceCandidatePairDescription> log_description_
       RTC_GUARDED_BY(network_thread_);

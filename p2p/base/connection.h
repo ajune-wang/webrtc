@@ -111,15 +111,15 @@ class Connection : public CandidatePairInterface,
     STATE_WRITE_TIMEOUT = 3,     // we have had a large number of ping failures
   };
 
-  WriteState write_state() const { return write_state_; }
-  bool writable() const { return write_state_ == STATE_WRITABLE; }
-  bool receiving() const { return receiving_; }
+  WriteState write_state() const;
+  bool writable() const;
+  bool receiving() const;
 
   // Determines whether the connection has finished connecting.  This can only
   // be false for TCP connections.
-  bool connected() const { return connected_; }
-  bool weak() const { return !(writable() && receiving() && connected()); }
-  bool active() const { return write_state_ != STATE_WRITE_TIMEOUT; }
+  bool connected() const;
+  bool weak() const;
+  bool active() const;
 
   // A connection is dead if it can be safely deleted.
   bool dead(int64_t now) const;
@@ -249,19 +249,16 @@ class Connection : public CandidatePairInterface,
   std::string ToSensitiveString() const;
   // Structured description of this candidate pair.
   const webrtc::IceCandidatePairDescription& ToLogDescription();
-  void set_ice_event_log(webrtc::IceEventLog* ice_event_log) {
-    ice_event_log_ = ice_event_log;
-  }
+  void set_ice_event_log(webrtc::IceEventLog* ice_event_log);
+
   // Prints pings_since_last_response_ into a string.
   void PrintPingsSinceLastResponse(std::string* pings, size_t max);
 
   bool reported() const { return reported_; }
   void set_reported(bool reported) { reported_ = reported; }
-  // The following two methods are only used for logging in ToString above, and
-  // this flag is set true by P2PTransportChannel for its selected candidate
-  // pair.
-  bool selected() const { return selected_; }
-  void set_selected(bool selected) { selected_ = selected; }
+  // `set_selected` is only used for logging in ToString above.  The flag is
+  // set true by P2PTransportChannel for its selected candidate pair.
+  void set_selected(bool selected);
 
   // This signal will be fired if this connection is nominated by the
   // controlling side.
@@ -270,9 +267,9 @@ class Connection : public CandidatePairInterface,
   // Invoked when Connection receives STUN error response with 487 code.
   void HandleRoleConflictFromPeer();
 
-  IceCandidatePairState state() const { return state_; }
+  IceCandidatePairState state() const;
 
-  int num_pings_sent() const { return num_pings_sent_; }
+  int num_pings_sent() const;
 
   IceMode remote_ice_mode() const { return remote_ice_mode_; }
 
@@ -381,7 +378,7 @@ class Connection : public CandidatePairInterface,
   webrtc::TaskQueueBase* const network_thread_;
   const uint32_t id_;
   Port* const port_;
-  size_t local_candidate_index_;
+  size_t local_candidate_index_ RTC_GUARDED_BY(network_thread_);
   Candidate remote_candidate_;
 
   ConnectionInfo stats_;
@@ -393,21 +390,24 @@ class Connection : public CandidatePairInterface,
   // Update the local candidate based on the mapped address attribute.
   // If the local candidate changed, fires SignalStateChange.
   void MaybeUpdateLocalCandidate(ConnectionRequest* request,
-                                 StunMessage* response);
+                                 StunMessage* response)
+      RTC_RUN_ON(network_thread_);
 
-  void LogCandidatePairConfig(webrtc::IceCandidatePairConfigType type);
+  void LogCandidatePairConfig(webrtc::IceCandidatePairConfigType type)
+      RTC_RUN_ON(network_thread_);
   void LogCandidatePairEvent(webrtc::IceCandidatePairEventType type,
-                             uint32_t transaction_id);
+                             uint32_t transaction_id)
+      RTC_RUN_ON(network_thread_);
 
   // Check if this IceMessage is identical
   // to last message ack:ed STUN_BINDING_REQUEST.
   bool ShouldSendGoogPing(const StunMessage* message);
 
-  WriteState write_state_;
-  bool receiving_;
+  WriteState write_state_ RTC_GUARDED_BY(network_thread_);
+  bool receiving_ RTC_GUARDED_BY(network_thread_);
   bool connected_;
   bool pruned_;
-  bool selected_ = false;
+  bool selected_ RTC_GUARDED_BY(network_thread_) = false;
   // By default `use_candidate_attr_` flag will be true,
   // as we will be using aggressive nomination.
   // But when peer is ice-lite, this flag "must" be initialized to false and
@@ -427,7 +427,7 @@ class Connection : public CandidatePairInterface,
   uint32_t remote_nomination_ = 0;
 
   IceMode remote_ice_mode_;
-  StunRequestManager requests_;
+  StunRequestManager requests_ RTC_GUARDED_BY(network_thread_);
   int rtt_;
   int rtt_samples_ = 0;
   // https://w3c.github.io/webrtc-stats/#dom-rtcicecandidatepairstats-totalroundtriptime
@@ -440,7 +440,8 @@ class Connection : public CandidatePairInterface,
   int64_t last_data_received_;
   int64_t last_ping_response_received_;
   int64_t receiving_unchanged_since_ = 0;
-  std::vector<SentPing> pings_since_last_response_;
+  std::vector<SentPing> pings_since_last_response_
+      RTC_GUARDED_BY(network_thread_);
   // Transaction ID of the last connectivity check received. Null if having not
   // received a ping yet.
   absl::optional<std::string> last_ping_id_received_;
@@ -450,14 +451,14 @@ class Connection : public CandidatePairInterface,
   absl::optional<int> inactive_timeout_;
 
   bool reported_;
-  IceCandidatePairState state_;
+  IceCandidatePairState state_ RTC_GUARDED_BY(network_thread_);
   // Time duration to switch from receiving to not receiving.
   absl::optional<int> receiving_timeout_;
   int64_t time_created_ms_;
-  int num_pings_sent_ = 0;
+  int num_pings_sent_ RTC_GUARDED_BY(network_thread_) = 0;
 
   absl::optional<webrtc::IceCandidatePairDescription> log_description_;
-  webrtc::IceEventLog* ice_event_log_ = nullptr;
+  webrtc::IceEventLog* ice_event_log_ RTC_GUARDED_BY(network_thread_) = nullptr;
 
   // GOOG_PING_REQUEST is sent in place of STUN_BINDING_REQUEST
   // if configured via field trial, the remote peer supports it (signaled
@@ -467,7 +468,8 @@ class Connection : public CandidatePairInterface,
   std::unique_ptr<StunMessage> cached_stun_binding_;
 
   const IceFieldTrials* field_trials_;
-  rtc::EventBasedExponentialMovingAverage rtt_estimate_;
+  rtc::EventBasedExponentialMovingAverage rtt_estimate_
+      RTC_GUARDED_BY(network_thread_);
 
   friend class Port;
   friend class ConnectionRequest;

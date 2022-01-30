@@ -305,6 +305,7 @@ Connection::Connection(Port* port,
       time_created_ms_(rtc::TimeMillis()),
       field_trials_(&kDefaultFieldTrials),
       rtt_estimate_(DEFAULT_RTT_ESTIMATE_HALF_TIME_MS) {
+  RTC_DCHECK_RUN_ON(network_thread());
   // All of our connections start in WAITING state.
   // TODO(mallinath) - Start connections from STATE_FROZEN.
   // Wire up to send stun packets
@@ -312,7 +313,13 @@ Connection::Connection(Port* port,
   RTC_LOG(LS_INFO) << ToString() << ": Connection created";
 }
 
-Connection::~Connection() {}
+Connection::~Connection() {
+  RTC_DCHECK_RUN_ON(network_thread());
+}
+
+webrtc::TaskQueueBase* Connection::network_thread() const {
+  return port_->thread();
+}
 
 const Candidate& Connection::local_candidate() const {
   RTC_DCHECK(local_candidate_index_ < port_->Candidates().size());

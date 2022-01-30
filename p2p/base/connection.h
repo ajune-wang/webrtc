@@ -88,6 +88,8 @@ class Connection : public CandidatePairInterface,
   // A unique ID assigned when the connection is created.
   uint32_t id() const { return id_; }
 
+  webrtc::TaskQueueBase* network_thread() const;
+
   // Implementation of virtual methods in CandidatePairInterface.
   // Returns the description of the local port
   const Candidate& local_candidate() const override;

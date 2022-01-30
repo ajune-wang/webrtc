@@ -399,6 +399,7 @@ void Connection::UpdateReceiving(int64_t now) {
 }
 
 void Connection::set_state(IceCandidatePairState state) {
+  RTC_DCHECK_RUN_ON(network_thread());
   IceCandidatePairState old_state = state_;
   state_ = state;
   if (state != old_state) {
@@ -407,6 +408,7 @@ void Connection::set_state(IceCandidatePairState state) {
 }
 
 void Connection::set_connected(bool value) {
+  RTC_DCHECK_RUN_ON(network_thread());
   bool old_value = connected_;
   connected_ = value;
   if (value != old_value) {
@@ -416,26 +418,32 @@ void Connection::set_connected(bool value) {
 }
 
 void Connection::set_use_candidate_attr(bool enable) {
+  RTC_DCHECK_RUN_ON(network_thread());
   use_candidate_attr_ = enable;
 }
 
 int Connection::unwritable_timeout() const {
+  RTC_DCHECK_RUN_ON(network_thread());
   return unwritable_timeout_.value_or(CONNECTION_WRITE_CONNECT_TIMEOUT);
 }
 
 int Connection::unwritable_min_checks() const {
+  RTC_DCHECK_RUN_ON(network_thread());
   return unwritable_min_checks_.value_or(CONNECTION_WRITE_CONNECT_FAILURES);
 }
 
 int Connection::inactive_timeout() const {
+  RTC_DCHECK_RUN_ON(network_thread());
   return inactive_timeout_.value_or(CONNECTION_WRITE_TIMEOUT);
 }
 
 int Connection::receiving_timeout() const {
+  RTC_DCHECK_RUN_ON(network_thread());
   return receiving_timeout_.value_or(WEAK_CONNECTION_RECEIVE_TIMEOUT);
 }
 
 void Connection::SetIceFieldTrials(const IceFieldTrials* field_trials) {
+  RTC_DCHECK_RUN_ON(network_thread());
   field_trials_ = field_trials;
   rtt_estimate_.SetHalfTime(field_trials->rtt_estimate_halftime_ms);
 }
@@ -443,6 +451,7 @@ void Connection::SetIceFieldTrials(const IceFieldTrials* field_trials) {
 void Connection::OnSendStunPacket(const void* data,
                                   size_t size,
                                   StunRequest* req) {
+  RTC_DCHECK_RUN_ON(network_thread());
   rtc::PacketOptions options(port_->StunDscpValue());
   options.info_signaled_after_sent.packet_type =
       rtc::PacketType::kIceConnectivityCheck;
@@ -459,6 +468,7 @@ void Connection::OnSendStunPacket(const void* data,
 void Connection::OnReadPacket(const char* data,
                               size_t size,
                               int64_t packet_time_us) {
+  RTC_DCHECK_RUN_ON(network_thread());
   std::unique_ptr<IceMessage> msg;
   std::string remote_ufrag;
   const rtc::SocketAddress& addr(remote_candidate_.address());
@@ -542,6 +552,7 @@ void Connection::OnReadPacket(const char* data,
 }
 
 void Connection::HandleStunBindingOrGoogPingRequest(IceMessage* msg) {
+  RTC_DCHECK_RUN_ON(network_thread());
   // This connection should now be receiving.
   ReceivedPing(msg->transaction_id());
   if (webrtc::field_trial::IsEnabled("WebRTC-ExtraICEPing") &&
@@ -641,6 +652,7 @@ void Connection::HandleStunBindingOrGoogPingRequest(IceMessage* msg) {
 }
 
 void Connection::SendStunBindingResponse(const StunMessage* request) {
+  RTC_DCHECK_RUN_ON(network_thread());
   RTC_DCHECK(request->type() == STUN_BINDING_REQUEST);
 
   // Retrieve the username from the request.
@@ -697,6 +709,7 @@ void Connection::SendStunBindingResponse(const StunMessage* request) {
 }
 
 void Connection::SendGoogPingResponse(const StunMessage* request) {
+  RTC_DCHECK_RUN_ON(network_thread());
   RTC_DCHECK(request->type() == GOOG_PING_REQUEST);
 
   // Fill in the response message.
@@ -708,6 +721,7 @@ void Connection::SendGoogPingResponse(const StunMessage* request) {
 }
 
 void Connection::SendResponseMessage(const StunMessage& response) {
+  RTC_DCHECK_RUN_ON(network_thread());
   // Where I send the response.
   const rtc::SocketAddress& addr = remote_candidate_.address();
 
@@ -739,10 +753,12 @@ void Connection::SendResponseMessage(const StunMessage& response) {
 }
 
 void Connection::OnReadyToSend() {
+  RTC_DCHECK_RUN_ON(network_thread());
   SignalReadyToSend(this);
 }
 
 void Connection::Prune() {
+  RTC_DCHECK_RUN_ON(network_thread());
   if (!pruned_ || active()) {
     RTC_LOG(LS_INFO) << ToString() << ": Connection pruned";
     pruned_ = true;
@@ -752,6 +768,7 @@ void Connection::Prune() {
 }
 
 void Connection::Destroy() {
+  RTC_DCHECK_RUN_ON(network_thread());
   // TODO(deadbeef, nisse): This may leak if an application closes a
   // PeerConnection and then quickly destroys the PeerConnectionFactory (along
   // with the networking thread on which this message is posted). Also affects

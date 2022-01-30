@@ -257,11 +257,9 @@ class Connection : public CandidatePairInterface,
 
   bool reported() const { return reported_; }
   void set_reported(bool reported) { reported_ = reported; }
-  // The following two methods are only used for logging in ToString above, and
-  // this flag is set true by P2PTransportChannel for its selected candidate
-  // pair.
-  bool selected() const { return selected_; }
-  void set_selected(bool selected) { selected_ = selected; }
+  // `set_selected` is only used for logging in ToString above.  The flag is
+  // set true by P2PTransportChannel for its selected candidate pair.
+  void set_selected(bool selected);
 
   // This signal will be fired if this connection is nominated by the
   // controlling side.
@@ -270,9 +268,9 @@ class Connection : public CandidatePairInterface,
   // Invoked when Connection receives STUN error response with 487 code.
   void HandleRoleConflictFromPeer();
 
-  IceCandidatePairState state() const { return state_; }
+  IceCandidatePairState state() const;
 
-  int num_pings_sent() const { return num_pings_sent_; }
+  int num_pings_sent() const;
 
   IceMode remote_ice_mode() const { return remote_ice_mode_; }
 
@@ -407,7 +405,7 @@ class Connection : public CandidatePairInterface,
   bool receiving_;
   bool connected_;
   bool pruned_;
-  bool selected_ = false;
+  bool selected_ RTC_GUARDED_BY(network_thread_) = false;
   // By default `use_candidate_attr_` flag will be true,
   // as we will be using aggressive nomination.
   // But when peer is ice-lite, this flag "must" be initialized to false and
@@ -450,11 +448,11 @@ class Connection : public CandidatePairInterface,
   absl::optional<int> inactive_timeout_;
 
   bool reported_;
-  IceCandidatePairState state_;
+  IceCandidatePairState state_ RTC_GUARDED_BY(network_thread_);
   // Time duration to switch from receiving to not receiving.
   absl::optional<int> receiving_timeout_;
   int64_t time_created_ms_;
-  int num_pings_sent_ = 0;
+  int num_pings_sent_ RTC_GUARDED_BY(network_thread_) = 0;
 
   absl::optional<webrtc::IceCandidatePairDescription> log_description_;
   webrtc::IceEventLog* ice_event_log_ = nullptr;

@@ -194,8 +194,10 @@ Port::~Port() {
     ++iter;
   }
 
-  for (uint32_t i = 0; i < list.size(); i++)
+  for (uint32_t i = 0; i < list.size(); i++) {
+    list[i]->SignalDestroyed.disconnect(this);
     delete list[i];
+  }
 }
 
 const std::string& Port::Type() const {

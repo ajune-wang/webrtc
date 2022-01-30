@@ -228,6 +228,7 @@ P2PTransportChannel::~P2PTransportChannel() {
   RTC_DCHECK_RUN_ON(network_thread_);
   std::vector<Connection*> copy(connections().begin(), connections().end());
   for (Connection* con : copy) {
+    con->SignalDestroyed.disconnect(this);
     con->Destroy();
   }
   resolvers_.clear();
@@ -1650,7 +1651,11 @@ void P2PTransportChannel::UpdateConnectionStates() {
 
   // We need to copy the list of connections since some may delete themselves
   // when we call UpdateState.
-  for (Connection* c : connections()) {
+  // NOTE: We copy the connections() vector in case `UpdateState` triggers the
+  // Connection to be destroyed (which will cause a callback that alters
+  // the connections() vector).
+  std::vector<Connection*> copy(connections().begin(), connections().end());
+  for (Connection* c : copy) {
     c->UpdateState(now);
   }
 }
@@ -1965,6 +1970,7 @@ void P2PTransportChannel::MaybeStopPortAllocatorSessions() {
 void P2PTransportChannel::HandleAllTimedOut() {
   RTC_DCHECK_RUN_ON(network_thread_);
   for (Connection* connection : connections()) {
+    connection->SignalDestroyed.disconnect(this);
     connection->Destroy();
   }
 }

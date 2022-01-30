@@ -228,6 +228,7 @@ P2PTransportChannel::~P2PTransportChannel() {
   RTC_DCHECK_RUN_ON(network_thread_);
   std::vector<Connection*> copy(connections().begin(), connections().end());
   for (Connection* con : copy) {
+    con->SignalDestroyed.disconnect(this);
     con->Destroy();
   }
   resolvers_.clear();

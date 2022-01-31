@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "c11be1f3_b246dcc6",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5087
+      },
+      "writtenOn": "2022-01-31T14:03:39Z",
+      "side": 1,
+      "message": "Holding the LGTM until CQ is all green (I suspect a downstream project needs to add deps on the currently empty targets to allow this one to go green).",
+      "revId": "0e174df4005c8108c23b20d9411eacfdedaddc5d",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

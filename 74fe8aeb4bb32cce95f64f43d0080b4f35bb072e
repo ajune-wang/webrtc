@@ -67,6 +67,24 @@
       "message": "Comments sought on whehter this (and other weird headers added below) should be added to the exclusion file.",
       "revId": "74fe8aeb4bb32cce95f64f43d0080b4f35bb072e",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "ff9e69c5_b3e94ad8",
+        "filename": "pc/peer_connection.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 14,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2022-01-31T09:38:28Z",
+      "side": 1,
+      "message": "Added both of them to the exclusions file. Might want to add #include \u003c__.* as an exclude pattern, but let\u0027s see if this is enough.",
+      "parentUuid": "0ce1890c_f3b033b1",
+      "revId": "74fe8aeb4bb32cce95f64f43d0080b4f35bb072e",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

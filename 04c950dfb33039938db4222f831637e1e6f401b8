@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "c216373c_72469be2",
+        "filename": "p2p/base/turn_port.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 930,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2022-01-31T12:03:36Z",
+      "side": 1,
+      "message": "If this is the only use of mutable_connections(), maybe better with a method on the base class, say, DestroyConnections(), to do this?",
+      "range": {
+        "startLine": 925,
+        "startChar": 0,
+        "endLine": 930,
+        "endChar": 16
+      },
+      "revId": "04c950dfb33039938db4222f831637e1e6f401b8",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

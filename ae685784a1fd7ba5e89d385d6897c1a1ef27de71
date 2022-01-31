@@ -16,6 +16,23 @@
       "message": "PTAL",
       "revId": "ae685784a1fd7ba5e89d385d6897c1a1ef27de71",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "0c6b44da_87a0f846",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5142
+      },
+      "writtenOn": "2022-01-31T09:04:15Z",
+      "side": 1,
+      "message": "(This webrtc revert is blocked on chromium revert https://chromium-review.googlesource.com/c/chromium/src/+/3427017)",
+      "revId": "ae685784a1fd7ba5e89d385d6897c1a1ef27de71",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

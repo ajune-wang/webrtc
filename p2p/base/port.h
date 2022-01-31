@@ -444,6 +444,9 @@ class Port : public PortInterface,
     mdns_name_registration_status_ = status;
   }
 
+  // Exposed for derived classes that alter the state of the connections.
+  AddressMap& mutable_connections() { return connections_; }
+
  private:
   void Construct();
   // Called when one of our connections deletes itself.

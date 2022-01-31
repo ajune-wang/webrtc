@@ -350,8 +350,9 @@ class UnitTest(unittest.TestCase):
     files = isolate_file_contents['variables']['files']
     command = isolate_file_contents['variables']['command']
 
-    self.assertEqual(files, ['../../.vpython3', '../../testing/test_env.py',
-                             'base_unittests'])
+    self.assertEqual(
+        files,
+        ['../../.vpython3', '../../testing/test_env.py', 'base_unittests'])
     self.assertEqual(command, [
         'vpython3',
         '../../build/android/test_wrapper/logdog_wrapper.py',
@@ -389,8 +390,9 @@ class UnitTest(unittest.TestCase):
     files = isolate_file_contents['variables']['files']
     command = isolate_file_contents['variables']['command']
 
-    self.assertEqual(files, ['../../.vpython3', '../../testing/test_env.py',
-                             'base_unittests'])
+    self.assertEqual(
+        files,
+        ['../../.vpython3', '../../testing/test_env.py', 'base_unittests'])
     self.assertEqual(command, [
         'vpython3',
         '../../build/android/test_wrapper/logdog_wrapper.py',
@@ -483,8 +485,10 @@ class UnitTest(unittest.TestCase):
     command = isolate_file_contents['variables']['command']
 
     self.assertEqual(files, [
-        '../../.vpython3', '../../testing/test_env.py',
-        'base_unittests', 'base_unittests_script.py',
+        '../../.vpython3',
+        '../../testing/test_env.py',
+        'base_unittests',
+        'base_unittests_script.py',
     ])
     self.assertEqual(command, [
         'vpython3',

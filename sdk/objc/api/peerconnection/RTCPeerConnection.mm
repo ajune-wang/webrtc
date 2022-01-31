@@ -240,7 +240,7 @@ void PeerConnectionDelegateAdapter::OnIceCandidateError(const std::string &addre
                                                               errorCode:error_code
                                                               errorText:error_text];
   if ([peer_connection.delegate respondsToSelector:@selector(peerConnection:
-                                                             didFailToGatherIceCandidate:)]) {
+                                                       didFailToGatherIceCandidate:)]) {
     [peer_connection.delegate peerConnection:peer_connection didFailToGatherIceCandidate:event];
   }
 }

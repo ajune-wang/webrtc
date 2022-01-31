@@ -863,7 +863,19 @@ ABSL_CONST_INIT thread_local bool mutex_locked = false;
   }
 }
 
-- (void)notifyAudioUnitStartFailedWithError:(OSStatus)error {
+- (void)notifyAudioInputUnitStartFailedWithError:(OSStatus)error {
+  for (auto delegate : self.delegates) {
+    SEL sel = @selector(audioSession:audioUnitStartFailedWithError:);
+    if ([delegate respondsToSelector:sel]) {
+      [delegate audioSession:self
+          audioUnitStartFailedWithError:[NSError errorWithDomain:kRTCAudioSessionErrorDomain
+                                                            code:error
+                                                        userInfo:nil]];
+    }
+  }
+}
+
+- (void)notifyAudioOutputUnitStartFailedWithError:(OSStatus)error {
   for (auto delegate : self.delegates) {
     SEL sel = @selector(audioSession:audioUnitStartFailedWithError:);
     if ([delegate respondsToSelector:sel]) {

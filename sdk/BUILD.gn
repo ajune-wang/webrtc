@@ -250,10 +250,14 @@ if (is_ios || is_mac) {
           "objc/native/src/audio/audio_device_ios.mm",
           "objc/native/src/audio/audio_device_module_ios.h",
           "objc/native/src/audio/audio_device_module_ios.mm",
+          "objc/native/src/audio/audio_input_unit.h",
+          "objc/native/src/audio/audio_input_unit.mm",
+          "objc/native/src/audio/audio_output_unit.h",
+          "objc/native/src/audio/audio_output_unit.mm",
+          "objc/native/src/audio/base_audio_unit.h",
+          "objc/native/src/audio/base_audio_unit.mm",
           "objc/native/src/audio/helpers.h",
           "objc/native/src/audio/helpers.mm",
-          "objc/native/src/audio/voice_processing_audio_unit.h",
-          "objc/native/src/audio/voice_processing_audio_unit.mm",
         ]
 
         deps = [

@@ -24,6 +24,30 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "61e10edb_48fc69c6",
+        "filename": "logging/rtc_event_log/rtc_event_log_impl.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 94,
+      "author": {
+        "id": 5508
+      },
+      "writtenOn": "2022-01-31T15:54:38Z",
+      "side": 1,
+      "message": "Sounds good. Let\u0027s keep it then.",
+      "parentUuid": "eac18f41_3f35984e",
+      "range": {
+        "startLine": 94,
+        "startChar": 2,
+        "endLine": 94,
+        "endChar": 10
+      },
+      "revId": "a5cc73e5834e233feb8654fd6e3364e197388c34",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "9f4d68df_421a8303",
@@ -37,6 +61,30 @@
       "writtenOn": "2022-01-31T13:33:28Z",
       "side": 1,
       "message": "This should likely be DLOG too.",
+      "range": {
+        "startLine": 1667,
+        "startChar": 4,
+        "endLine": 1667,
+        "endChar": 11
+      },
+      "revId": "a5cc73e5834e233feb8654fd6e3364e197388c34",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "7ff82202_ae8b1c12",
+        "filename": "logging/rtc_event_log/rtc_event_log_parser.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 1667,
+      "author": {
+        "id": 5508
+      },
+      "writtenOn": "2022-01-31T15:54:38Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "9f4d68df_421a8303",
       "range": {
         "startLine": 1667,
         "startChar": 4,

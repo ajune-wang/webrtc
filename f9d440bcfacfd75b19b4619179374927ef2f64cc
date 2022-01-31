@@ -22,6 +22,30 @@
       },
       "revId": "f9d440bcfacfd75b19b4619179374927ef2f64cc",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "b496baca_04f9cbe0",
+        "filename": "p2p/base/connection.h",
+        "patchSetId": 3
+      },
+      "lineNbr": 380,
+      "author": {
+        "id": 5508
+      },
+      "writtenOn": "2022-01-31T08:12:54Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "013d9a40_98bfcf50",
+      "range": {
+        "startLine": 379,
+        "startChar": 22,
+        "endLine": 380,
+        "endChar": 75
+      },
+      "revId": "f9d440bcfacfd75b19b4619179374927ef2f64cc",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

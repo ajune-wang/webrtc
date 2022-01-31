@@ -70,6 +70,30 @@
       },
       "revId": "7c872ed7168f20efcf23978e1cdd7d82b3e9d6c1",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "faa41415_a94deaca",
+        "filename": "p2p/base/connection.h",
+        "patchSetId": 8
+      },
+      "lineNbr": 115,
+      "author": {
+        "id": 5508
+      },
+      "writtenOn": "2022-01-31T10:39:30Z",
+      "side": 0,
+      "message": "Maybe in upcoming changes we\u0027ll go back to the classic inline getter/setters.",
+      "parentUuid": "1229598c_14299a2f",
+      "range": {
+        "startLine": 115,
+        "startChar": 2,
+        "endLine": 115,
+        "endChar": 66
+      },
+      "revId": "7c872ed7168f20efcf23978e1cdd7d82b3e9d6c1",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

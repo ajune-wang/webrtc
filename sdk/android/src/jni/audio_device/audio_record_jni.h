@@ -82,6 +82,11 @@ class AudioRecordJni : public AudioInput {
                                 const JavaParamRef<jobject>& j_caller,
                                 const JavaParamRef<jobject>& byte_buffer);
 
+  // TODO() Depricate this
+  void DataIsRecorded(JNIEnv* env,
+                      const JavaParamRef<jobject>& j_caller,
+                      int length);
+
   // Called periodically by the Java based WebRtcAudioRecord object when
   // recording has started. Each call indicates that there are `length` new
   // bytes recorded in the memory area `direct_buffer_address_` and it is
@@ -90,7 +95,8 @@ class AudioRecordJni : public AudioInput {
   // the thread is 'AudioRecordThread'.
   void DataIsRecorded(JNIEnv* env,
                       const JavaParamRef<jobject>& j_caller,
-                      int length);
+                      int length,
+                      int64_t capture_timestamp_ns);
 
  private:
   // Stores thread ID in constructor.

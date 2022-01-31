@@ -97,17 +97,24 @@ class AudioRecordJni {
                                                jlong nativeAudioRecord);
   void OnCacheDirectBufferAddress(JNIEnv* env, jobject byte_buffer);
 
+  // TODO() Depricate this
+  static void JNICALL DataIsRecorded(JNIEnv* env,
+                                     jobject obj,
+                                     jint length,
+                                     jlong nativeAudioRecord);
+
   // Called periodically by the Java based WebRtcAudioRecord object when
   // recording has started. Each call indicates that there are `length` new
   // bytes recorded in the memory area `direct_buffer_address_` and it is
   // now time to send these to the consumer.
   // This method is called on a high-priority thread from Java. The name of
   // the thread is 'AudioRecordThread'.
-  static void JNICALL DataIsRecorded(JNIEnv* env,
-                                     jobject obj,
-                                     jint length,
-                                     jlong nativeAudioRecord);
-  void OnDataIsRecorded(int length);
+  static void JNICALL DataIsRecordedWithTimestamps(JNIEnv* env,
+                                                   jobject obj,
+                                                   jint length,
+                                                   jlong capture_timestamp_ns,
+                                                   jlong nativeAudioRecord);
+  void OnDataIsRecorded(int length, int64_t capture_timestamp_ns);
 
   // Stores thread ID in constructor.
   SequenceChecker thread_checker_;

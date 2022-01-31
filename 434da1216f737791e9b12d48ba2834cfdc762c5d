@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "30779ba9_ffe4e1f0",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 10107
+      },
+      "writtenOn": "2022-01-31T10:45:41Z",
+      "side": 1,
+      "message": "Adding hta@ for global OWNERS approval. This is the last batch of changes for this cleanup.",
+      "revId": "434da1216f737791e9b12d48ba2834cfdc762c5d",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

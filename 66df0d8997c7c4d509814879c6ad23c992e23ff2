@@ -16,6 +16,24 @@
       "message": "The name \"updated\" may be misleading as it may be true if there wasn\u0027t any update. Also, would be nice to set error_desc",
       "revId": "66df0d8997c7c4d509814879c6ad23c992e23ff2",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "93552a84_726fee19",
+        "filename": "pc/channel.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 1042,
+      "author": {
+        "id": 5508
+      },
+      "writtenOn": "2022-01-31T19:59:33Z",
+      "side": 1,
+      "message": "Done. Changed from \"updated\" to \"success\" - not exactly the most creative, but hopefully less misleading 😊 Also filling in error_desc now.",
+      "parentUuid": "e69f50ee_6aa01fdc",
+      "revId": "66df0d8997c7c4d509814879c6ad23c992e23ff2",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

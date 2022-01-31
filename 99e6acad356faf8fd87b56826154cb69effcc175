@@ -1,0 +1,67 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "06ac1ffe_a9182c03",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 8
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2022-01-31T08:55:44Z",
+      "side": 1,
+      "message": "lgtm, with some optional suggestions.",
+      "revId": "99e6acad356faf8fd87b56826154cb69effcc175",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "610f56b3_ad9feea9",
+        "filename": "p2p/base/connection.h",
+        "patchSetId": 8
+      },
+      "lineNbr": 351,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2022-01-31T08:55:44Z",
+      "side": 1,
+      "message": "Could this protected method have a compile time annotation, RTC_RUN_ON?",
+      "range": {
+        "startLine": 351,
+        "startChar": 0,
+        "endLine": 351,
+        "endChar": 30
+      },
+      "revId": "99e6acad356faf8fd87b56826154cb69effcc175",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "cf763abc_54dd6cec",
+        "filename": "p2p/base/connection.h",
+        "patchSetId": 8
+      },
+      "lineNbr": 458,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2022-01-31T08:55:44Z",
+      "side": 1,
+      "message": "On which thread are these accessed? Can they be annotated?",
+      "range": {
+        "startLine": 457,
+        "startChar": 0,
+        "endLine": 458,
+        "endChar": 52
+      },
+      "revId": "99e6acad356faf8fd87b56826154cb69effcc175",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

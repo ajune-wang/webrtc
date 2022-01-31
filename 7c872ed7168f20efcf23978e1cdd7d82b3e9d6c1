@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "fd610512_b9f563b1",
+        "filename": "p2p/base/connection.h",
+        "patchSetId": 8
+      },
+      "lineNbr": 115,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2022-01-31T08:55:44Z",
+      "side": 0,
+      "message": "Could consider keep inlining some of these methods, e.g.,\n\nbool writable() const { return write_state() \u003d\u003d STATE_WRITABLE; }",
+      "range": {
+        "startLine": 115,
+        "startChar": 2,
+        "endLine": 115,
+        "endChar": 66
+      },
+      "revId": "7c872ed7168f20efcf23978e1cdd7d82b3e9d6c1",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

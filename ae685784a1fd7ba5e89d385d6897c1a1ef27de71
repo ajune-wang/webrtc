@@ -50,6 +50,24 @@
       "message": "Why is this revert required?\n\nI presume the I444 H264 support would be added again quite soon, once the negotiation issues with payload types would be resolved.\n\nShouldn\u0027t we just leave this as is for now?",
       "revId": "ae685784a1fd7ba5e89d385d6897c1a1ef27de71",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "6a6e21ca_b382624a",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5142
+      },
+      "writtenOn": "2022-01-31T09:14:19Z",
+      "side": 1,
+      "message": "I though it would be better to return to a clean state, but if you think keeping this enum around is harmless, I don\u0027t mind abandoning the CL for the sake of minimizing revert CLs.",
+      "parentUuid": "b2eae1d2_82bfd37e",
+      "revId": "ae685784a1fd7ba5e89d385d6897c1a1ef27de71",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

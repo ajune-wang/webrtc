@@ -16,6 +16,40 @@
       "message": "Adding hta@ for global OWNERS approval. This is the last batch of changes for this cleanup.",
       "revId": "434da1216f737791e9b12d48ba2834cfdc762c5d",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "93ceec7f_eb8d71d4",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2022-01-31T14:10:59Z",
+      "side": 1,
+      "message": "Noted one place where const ref might have been intended, but this bitmap will usually have 0, 1, 2 or 3 bits set, so it will never be a large structure anyway.\n\nApproving.",
+      "revId": "434da1216f737791e9b12d48ba2834cfdc762c5d",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "c5612260_f296c0f9",
+        "filename": "video/video_send_stream.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 78,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2022-01-31T14:10:59Z",
+      "side": 1,
+      "message": "active layers is a small number, so this seems OK given special treatment of vector\u003cbool\u003e; otherwise it might be changed to a const reference.",
+      "revId": "434da1216f737791e9b12d48ba2834cfdc762c5d",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

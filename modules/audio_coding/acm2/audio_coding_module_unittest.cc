@@ -945,7 +945,7 @@ TEST_F(AcmReceiverBitExactnessOldApi, 16kHzOutput) {
                  /*android_arm32=*/"00d703da221363804d6fccc309a3f684",
                  /*android_arm64=*/"f2aad418af974a3b1694d5ae5cc2c3c7",
                  /*android_arm64_clang=*/"2b8525c77a6e10800bb209a83160282a",
-                 /*mac_arm64=*/"35786906e6e352ad7031e3acf1c2d1ea"));
+                 /*mac_arm64=*/"716996ff5a9d440d1107676113d1a874"));
 }
 
 TEST_F(AcmReceiverBitExactnessOldApi, 32kHzOutput) {
@@ -1332,7 +1332,7 @@ TEST_F(AcmSenderBitExactnessOldApi, MAYBE_IsacSwb30ms) {
           /*others=*/"f4cf577f28a0dcbac33358b757518e0c",
           /*win64=*/"2b3c387d06f00b7b7aad4c9be56fb83d", "android_arm32_audio",
           "android_arm64_audio", "android_arm64_clang_audio",
-          /*mac_arm64=*/"f4cf577f28a0dcbac33358b757518e0c"),
+          /*mac_arm64=*/"d74374bcb41875b6e5d53716b2b02a41"),
       AcmReceiverBitExactnessOldApi::PlatformChecksum(
           /*others=*/"ce86106a93419aefb063097108ec94ab",
           /*win64=*/"bcc2041e7744c7ebd9f701866856849c", "android_arm32_payload",

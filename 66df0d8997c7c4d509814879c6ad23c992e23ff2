@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "e69f50ee_6aa01fdc",
+        "filename": "pc/channel.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 1042,
+      "author": {
+        "id": 5686
+      },
+      "writtenOn": "2022-01-31T18:36:00Z",
+      "side": 1,
+      "message": "The name \"updated\" may be misleading as it may be true if there wasn\u0027t any update. Also, would be nice to set error_desc",
+      "revId": "66df0d8997c7c4d509814879c6ad23c992e23ff2",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

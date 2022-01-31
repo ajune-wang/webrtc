@@ -26,7 +26,7 @@
 #include "rtc_base/virtual_socket_server.h"
 #include "test/gtest.h"
 
-using cricket::Connection;
+using cricket::ConnectionInterface;
 using cricket::ICE_PWD_LENGTH;
 using cricket::ICE_UFRAG_LENGTH;
 using cricket::Port;
@@ -44,14 +44,14 @@ static const SocketAddress kRemoteIPv6Addr("2401:fa00:4:1000:be30:5bff:fee5:c4",
 
 class ConnectionObserver : public sigslot::has_slots<> {
  public:
-  explicit ConnectionObserver(Connection* conn) {
+  explicit ConnectionObserver(ConnectionInterface* conn) {
     conn->SignalDestroyed.connect(this, &ConnectionObserver::OnDestroyed);
   }
 
   bool connection_destroyed() { return connection_destroyed_; }
 
  private:
-  void OnDestroyed(Connection*) { connection_destroyed_ = true; }
+  void OnDestroyed(ConnectionInterface*) { connection_destroyed_ = true; }
 
   bool connection_destroyed_ = false;
 };
@@ -103,7 +103,7 @@ TEST_F(TCPPortTest, TestTCPPortWithLocalhostAddress) {
   auto remote_port = CreateTCPPort(kRemoteAddr);
   local_port->PrepareAddress();
   remote_port->PrepareAddress();
-  Connection* conn = local_port->CreateConnection(remote_port->Candidates()[0],
+  ConnectionInterface* conn = local_port->CreateConnection(remote_port->Candidates()[0],
                                                   Port::ORIGIN_MESSAGE);
   EXPECT_TRUE_WAIT(conn->connected(), kTimeout);
   // Verify that the socket actually used localhost, otherwise this test isn't
@@ -131,7 +131,7 @@ TEST_F(TCPPortTest, TCPPortDiscardedIfBoundAddressDoesNotMatchNetwork) {
 
   // Tell port to create a connection; it should be destroyed when it's
   // realized that it's using an unexpected address.
-  Connection* conn = local_port->CreateConnection(remote_port->Candidates()[0],
+  ConnectionInterface* conn = local_port->CreateConnection(remote_port->Candidates()[0],
                                                   Port::ORIGIN_MESSAGE);
   ConnectionObserver observer(conn);
   EXPECT_TRUE_WAIT(observer.connection_destroyed(), kTimeout);
@@ -157,7 +157,7 @@ TEST_F(TCPPortTest, TCPPortNotDiscardedIfNotBoundToBestIP) {
   remote_port->PrepareAddress();
 
   // Expect connection to succeed.
-  Connection* conn = local_port->CreateConnection(remote_port->Candidates()[0],
+  ConnectionInterface* conn = local_port->CreateConnection(remote_port->Candidates()[0],
                                                   Port::ORIGIN_MESSAGE);
   EXPECT_TRUE_WAIT(conn->connected(), kTimeout);
 
@@ -180,7 +180,7 @@ TEST_F(TCPPortTest, TCPPortNotDiscardedIfBoundToTemporaryIP) {
   remote_port->PrepareAddress();
 
   // Connection should succeed if the port isn't discarded.
-  Connection* conn = local_port->CreateConnection(remote_port->Candidates()[0],
+  ConnectionInterface* conn = local_port->CreateConnection(remote_port->Candidates()[0],
                                                   Port::ORIGIN_MESSAGE);
   ASSERT_NE(nullptr, conn);
   EXPECT_TRUE_WAIT(conn->connected(), kTimeout);
@@ -210,7 +210,7 @@ TEST_F(TCPPortTest, SignalSentPacket) {
   client->PrepareAddress();
   server->PrepareAddress();
 
-  Connection* client_conn =
+  ConnectionInterface* client_conn =
       client->CreateConnection(server->Candidates()[0], Port::ORIGIN_MESSAGE);
   ASSERT_NE(nullptr, client_conn);
   ASSERT_TRUE_WAIT(client_conn->connected(), kTimeout);
@@ -220,7 +220,7 @@ TEST_F(TCPPortTest, SignalSentPacket) {
   client_candidate.set_address(static_cast<cricket::TCPConnection*>(client_conn)
                                    ->socket()
                                    ->GetLocalAddress());
-  Connection* server_conn =
+  ConnectionInterface* server_conn =
       server->CreateConnection(client_candidate, Port::ORIGIN_THIS_PORT);
   ASSERT_NE(nullptr, server_conn);
   ASSERT_TRUE_WAIT(server_conn->connected(), kTimeout);

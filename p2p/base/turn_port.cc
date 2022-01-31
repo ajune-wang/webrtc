@@ -539,7 +539,7 @@ void TurnPort::OnAllocateMismatch() {
   ++allocate_mismatch_retries_;
 }
 
-Connection* TurnPort::CreateConnection(const Candidate& remote_candidate,
+ConnectionInterface* TurnPort::CreateConnection(const Candidate& remote_candidate,
                                        CandidateOrigin origin) {
   // TURN-UDP can only connect to UDP candidates.
   if (!SupportsProtocol(remote_candidate.protocol())) {
@@ -582,7 +582,7 @@ Connection* TurnPort::CreateConnection(const Candidate& remote_candidate,
 }
 
 bool TurnPort::FailAndPruneConnection(const rtc::SocketAddress& address) {
-  Connection* conn = GetConnection(address);
+  ConnectionInterface* conn = GetConnection(address);
   if (conn != nullptr) {
     conn->FailAndPrune();
     return true;
@@ -1080,7 +1080,7 @@ void TurnPort::DispatchPacket(const char* data,
                               const rtc::SocketAddress& remote_addr,
                               ProtocolType proto,
                               int64_t packet_time_us) {
-  if (Connection* conn = GetConnection(remote_addr)) {
+  if (ConnectionInterface* conn = GetConnection(remote_addr)) {
     conn->OnReadPacket(data, size, packet_time_us);
   } else {
     Port::OnReadPacket(data, size, remote_addr, proto);
@@ -1266,7 +1266,7 @@ void TurnPort::DestroyEntryIfNotCancelled(TurnEntry* entry, int64_t timestamp) {
   }
 }
 
-void TurnPort::HandleConnectionDestroyed(Connection* conn) {
+void TurnPort::HandleConnectionDestroyed(ConnectionInterface* conn) {
   // Schedule an event to destroy TurnEntry for the connection, which is
   // already destroyed.
   const rtc::SocketAddress& remote_address = conn->remote_candidate().address();

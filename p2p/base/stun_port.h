@@ -86,7 +86,7 @@ class UDPPort : public Port {
 
   void PrepareAddress() override;
 
-  Connection* CreateConnection(const Candidate& address,
+  ConnectionInterface* CreateConnection(const Candidate& address,
                                CandidateOrigin origin) override;
   int SetOption(rtc::Socket::Option opt, int value) override;
   int GetOption(rtc::Socket::Option opt, int* value) override;

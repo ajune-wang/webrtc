@@ -23,7 +23,7 @@ namespace cricket {
 struct IceControllerFactoryArgs {
   std::function<IceTransportState()> ice_transport_state_func;
   std::function<IceRole()> ice_role_func;
-  std::function<bool(const Connection*)> is_connection_pruned_func;
+  std::function<bool(const ConnectionInterface*)> is_connection_pruned_func;
   const IceFieldTrials* ice_field_trials;
   std::string ice_controller_field_trials;
 };

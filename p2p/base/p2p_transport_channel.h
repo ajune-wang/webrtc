@@ -168,12 +168,12 @@ class RTC_EXPORT P2PTransportChannel : public IceTransportInternal {
   int GetError() override;
   bool GetStats(IceTransportStats* ice_transport_stats) override;
   absl::optional<int> GetRttEstimate() override;
-  const Connection* selected_connection() const override;
+  const ConnectionInterface* selected_connection() const override;
   absl::optional<const CandidatePair> GetSelectedCandidatePair() const override;
 
   // TODO(honghaiz): Remove this method once the reference of it in
   // Chromoting is removed.
-  const Connection* best_connection() const {
+  const ConnectionInterface* best_connection() const {
     RTC_DCHECK_RUN_ON(network_thread_);
     return selected_connection_;
   }
@@ -207,11 +207,11 @@ class RTC_EXPORT P2PTransportChannel : public IceTransportInternal {
   rtc::DiffServCodePoint DefaultDscpValue() const;
 
   // Public for unit tests.
-  Connection* FindNextPingableConnection();
-  void MarkConnectionPinged(Connection* conn);
+  ConnectionInterface* FindNextPingableConnection();
+  void MarkConnectionPinged(ConnectionInterface* conn);
 
   // Public for unit tests.
-  rtc::ArrayView<Connection*> connections() const;
+  rtc::ArrayView<ConnectionInterface*> connections() const;
 
   // Public for unit tests.
   PortAllocatorSession* allocator_session() const {
@@ -257,8 +257,8 @@ class RTC_EXPORT P2PTransportChannel : public IceTransportInternal {
   }
 
   // Returns true if it's possible to send packets on `connection`.
-  bool ReadyToSend(Connection* connection) const;
-  bool PresumedWritable(const Connection* conn) const;
+  bool ReadyToSend(ConnectionInterface* connection) const;
+  bool PresumedWritable(const ConnectionInterface* conn) const;
   void UpdateConnectionStates();
   void RequestSortAndStateUpdate(IceControllerEvent reason_to_sort);
   // Start pinging if we haven't already started, and we now have a connection
@@ -268,7 +268,7 @@ class RTC_EXPORT P2PTransportChannel : public IceTransportInternal {
   void SortConnectionsAndUpdateState(IceControllerEvent reason_to_sort);
   void SortConnections();
   void SortConnectionsIfNeeded();
-  void SwitchSelectedConnection(Connection* conn, IceControllerEvent reason);
+  void SwitchSelectedConnection(ConnectionInterface* conn, IceControllerEvent reason);
   void UpdateState();
   void HandleAllTimedOut();
   void MaybeStopPortAllocatorSessions();
@@ -285,15 +285,15 @@ class RTC_EXPORT P2PTransportChannel : public IceTransportInternal {
   bool CreateConnection(PortInterface* port,
                         const Candidate& remote_candidate,
                         PortInterface* origin_port);
-  bool FindConnection(const Connection* connection) const;
+  bool FindConnection(const ConnectionInterface* connection) const;
 
   uint32_t GetRemoteCandidateGeneration(const Candidate& candidate);
   bool IsDuplicateRemoteCandidate(const Candidate& candidate);
   void RememberRemoteCandidate(const Candidate& remote_candidate,
                                PortInterface* origin_port);
-  void PingConnection(Connection* conn);
+  void PingConnection(ConnectionInterface* conn);
   void AddAllocatorSession(std::unique_ptr<PortAllocatorSession> session);
-  void AddConnection(Connection* connection);
+  void AddConnection(ConnectionInterface* connection);
 
   void OnPortReady(PortAllocatorSession* session, PortInterface* port);
   void OnPortsPruned(PortAllocatorSession* session,
@@ -321,27 +321,27 @@ class RTC_EXPORT P2PTransportChannel : public IceTransportInternal {
   bool PrunePort(PortInterface* port);
   void OnRoleConflict(PortInterface* port);
 
-  void OnConnectionStateChange(Connection* connection);
-  void OnReadPacket(Connection* connection,
+  void OnConnectionStateChange(ConnectionInterface* connection);
+  void OnReadPacket(ConnectionInterface* connection,
                     const char* data,
                     size_t len,
                     int64_t packet_time_us);
   void OnSentPacket(const rtc::SentPacket& sent_packet);
-  void OnReadyToSend(Connection* connection);
-  void OnConnectionDestroyed(Connection* connection);
+  void OnReadyToSend(ConnectionInterface* connection);
+  void OnConnectionDestroyed(ConnectionInterface* connection);
 
-  void OnNominated(Connection* conn);
+  void OnNominated(ConnectionInterface* conn);
 
   void CheckAndPing();
 
-  void LogCandidatePairConfig(Connection* conn,
+  void LogCandidatePairConfig(ConnectionInterface* conn,
                               webrtc::IceCandidatePairConfigType type);
 
-  uint32_t GetNominationAttr(Connection* conn) const;
-  bool GetUseCandidateAttr(Connection* conn) const;
+  uint32_t GetNominationAttr(ConnectionInterface* conn) const;
+  bool GetUseCandidateAttr(ConnectionInterface* conn) const;
 
   // Returns true if the new_connection is selected for transmission.
-  bool MaybeSwitchSelectedConnection(Connection* new_connection,
+  bool MaybeSwitchSelectedConnection(ConnectionInterface* new_connection,
                                      IceControllerEvent reason);
   bool MaybeSwitchSelectedConnection(
       IceControllerEvent reason,
@@ -391,15 +391,15 @@ class RTC_EXPORT P2PTransportChannel : public IceTransportInternal {
   // Cast a Connection returned from IceController and verify that it exists.
   // (P2P owns all Connections, and only gives const pointers to IceController,
   // see IceControllerInterface).
-  Connection* FromIceController(const Connection* conn) {
+  ConnectionInterface* FromIceController(const ConnectionInterface* conn) {
     // Verify that IceController does not return a connection
     // that we have destroyed.
     RTC_DCHECK(FindConnection(conn));
-    return const_cast<Connection*>(conn);
+    return const_cast<ConnectionInterface*>(conn);
   }
 
   int64_t ComputeEstimatedDisconnectedTimeMs(int64_t now,
-                                             Connection* old_connection);
+                                             ConnectionInterface* old_connection);
 
   webrtc::ScopedTaskSafety task_safety_;
   std::string transport_name_ RTC_GUARDED_BY(network_thread_);
@@ -423,7 +423,7 @@ class RTC_EXPORT P2PTransportChannel : public IceTransportInternal {
   // SignalUnknownAddress.
   std::vector<PortInterface*> pruned_ports_ RTC_GUARDED_BY(network_thread_);
 
-  Connection* selected_connection_ RTC_GUARDED_BY(network_thread_) = nullptr;
+  ConnectionInterface* selected_connection_ RTC_GUARDED_BY(network_thread_) = nullptr;
 
   std::vector<RemoteCandidate> remote_candidates_
       RTC_GUARDED_BY(network_thread_);

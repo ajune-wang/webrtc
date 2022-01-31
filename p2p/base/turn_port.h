@@ -183,7 +183,7 @@ class TurnPort : public Port {
   void Release();
 
   void PrepareAddress() override;
-  Connection* CreateConnection(const Candidate& c,
+  ConnectionInterface* CreateConnection(const Candidate& c,
                                PortInterface::CandidateOrigin origin) override;
   int SendTo(const void* data,
              size_t size,
@@ -252,7 +252,7 @@ class TurnPort : public Port {
   // Shuts down the turn port, usually because of some fatal errors.
   void Close();
 
-  void HandleConnectionDestroyed(Connection* conn) override;
+  void HandleConnectionDestroyed(ConnectionInterface* conn) override;
 
  protected:
   TurnPort(rtc::Thread* thread,

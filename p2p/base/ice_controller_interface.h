@@ -75,24 +75,24 @@ class IceControllerInterface {
   // This represents the result of a switch call.
   struct SwitchResult {
     // Connection that we should (optionally) switch to.
-    absl::optional<const Connection*> connection;
+    absl::optional<const ConnectionInterface*> connection;
 
     // An optional recheck event for when a Switch() should be attempted again.
     absl::optional<IceControllerEvent> recheck_event;
 
     // A vector with connection to run ForgetLearnedState on.
-    std::vector<const Connection*> connections_to_forget_state_on;
+    std::vector<const ConnectionInterface*> connections_to_forget_state_on;
   };
 
   // This represents the result of a call to SelectConnectionToPing.
   struct PingResult {
-    PingResult(const Connection* conn, int _recheck_delay_ms)
-        : connection(conn ? absl::optional<const Connection*>(conn)
+    PingResult(const ConnectionInterface* conn, int _recheck_delay_ms)
+        : connection(conn ? absl::optional<const ConnectionInterface*>(conn)
                           : absl::nullopt),
           recheck_delay_ms(_recheck_delay_ms) {}
 
     // Connection that we should (optionally) ping.
-    const absl::optional<const Connection*> connection;
+    const absl::optional<const ConnectionInterface*> connection;
 
     // The delay before P2PTransportChannel shall call SelectConnectionToPing()
     // again.
@@ -108,12 +108,12 @@ class IceControllerInterface {
 
   // These setters are called when the state of P2PTransportChannel is mutated.
   virtual void SetIceConfig(const IceConfig& config) = 0;
-  virtual void SetSelectedConnection(const Connection* selected_connection) = 0;
-  virtual void AddConnection(const Connection* connection) = 0;
-  virtual void OnConnectionDestroyed(const Connection* connection) = 0;
+  virtual void SetSelectedConnection(const ConnectionInterface* selected_connection) = 0;
+  virtual void AddConnection(const ConnectionInterface* connection) = 0;
+  virtual void OnConnectionDestroyed(const ConnectionInterface* connection) = 0;
 
   // These are all connections that has been added and not destroyed.
-  virtual rtc::ArrayView<const Connection*> connections() const = 0;
+  virtual rtc::ArrayView<const ConnectionInterface*> connections() const = 0;
 
   // Is there a pingable connection ?
   // This function is used to boot-strap pinging, after this returns true
@@ -124,26 +124,26 @@ class IceControllerInterface {
   virtual PingResult SelectConnectionToPing(int64_t last_ping_sent_ms) = 0;
 
   // Compute the "STUN_ATTR_USE_CANDIDATE" for `conn`.
-  virtual bool GetUseCandidateAttr(const Connection* conn,
+  virtual bool GetUseCandidateAttr(const ConnectionInterface* conn,
                                    NominationMode mode,
                                    IceMode remote_ice_mode) const = 0;
 
   // These methods is only added to not have to change all unit tests
   // that simulate pinging by marking a connection pinged.
-  virtual const Connection* FindNextPingableConnection() = 0;
-  virtual void MarkConnectionPinged(const Connection* con) = 0;
+  virtual const ConnectionInterface* FindNextPingableConnection() = 0;
+  virtual void MarkConnectionPinged(const ConnectionInterface* con) = 0;
 
   // Check if we should switch to `connection`.
   // This method is called for IceControllerEvent's that can switch directly
   // i.e without resorting.
   virtual SwitchResult ShouldSwitchConnection(IceControllerEvent reason,
-                                              const Connection* connection) = 0;
+                                              const ConnectionInterface* connection) = 0;
 
   // Sort connections and check if we should switch.
   virtual SwitchResult SortAndSwitchConnection(IceControllerEvent reason) = 0;
 
   // Prune connections.
-  virtual std::vector<const Connection*> PruneConnections() = 0;
+  virtual std::vector<const ConnectionInterface*> PruneConnections() = 0;
 };
 
 }  // namespace cricket

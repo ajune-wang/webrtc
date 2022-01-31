@@ -282,14 +282,14 @@ class Port : public PortInterface,
   void SendPortDestroyed(Port* port);
   // Returns a map containing all of the connections of this port, keyed by the
   // remote address.
-  typedef std::map<rtc::SocketAddress, Connection*> AddressMap;
+  typedef std::map<rtc::SocketAddress, ConnectionInterface*> AddressMap;
   const AddressMap& connections() { return connections_; }
 
   // Returns the connection to the given address or NULL if none exists.
-  Connection* GetConnection(const rtc::SocketAddress& remote_addr) override;
+  ConnectionInterface* GetConnection(const rtc::SocketAddress& remote_addr) override;
 
   // Called each time a connection is created.
-  sigslot::signal2<Port*, Connection*> SignalConnectionCreated;
+  sigslot::signal2<Port*, ConnectionInterface*> SignalConnectionCreated;
 
   // In a shared socket mode each port which shares the socket will decide
   // to accept the packet based on the `remote_addr`. Currently only UDP
@@ -405,7 +405,7 @@ class Port : public PortInterface,
   // Adds the given connection to the map keyed by the remote candidate address.
   // If an existing connection has the same address, the existing one will be
   // replaced and destroyed.
-  void AddOrReplaceConnection(Connection* conn);
+  void AddOrReplaceConnection(ConnectionInterface* conn);
 
   // Called when a packet is received from an unknown address that is not
   // currently a connection.  If this is an authenticated STUN binding request,
@@ -433,7 +433,7 @@ class Port : public PortInterface,
   virtual rtc::DiffServCodePoint StunDscpValue() const;
 
   // Extra work to be done in subclasses when a connection is destroyed.
-  virtual void HandleConnectionDestroyed(Connection* conn) {}
+  virtual void HandleConnectionDestroyed(ConnectionInterface* conn) {}
 
   void CopyPortInformationToPacketInfo(rtc::PacketInfo* info) const;
 
@@ -447,7 +447,7 @@ class Port : public PortInterface,
  private:
   void Construct();
   // Called when one of our connections deletes itself.
-  void OnConnectionDestroyed(Connection* conn);
+  void OnConnectionDestroyed(ConnectionInterface* conn);
 
   void OnNetworkTypeChanged(const rtc::Network* network);
 

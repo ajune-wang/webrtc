@@ -28,7 +28,7 @@ struct PacketOptions;
 }  // namespace rtc
 
 namespace cricket {
-class Connection;
+class ConnectionInterface;
 class IceMessage;
 class StunMessage;
 class StunStats;
@@ -70,11 +70,11 @@ class PortInterface {
   virtual void PrepareAddress() = 0;
 
   // Returns the connection to the given address or NULL if none exists.
-  virtual Connection* GetConnection(const rtc::SocketAddress& remote_addr) = 0;
+  virtual ConnectionInterface* GetConnection(const rtc::SocketAddress& remote_addr) = 0;
 
   // Creates a new connection to the given address.
   enum CandidateOrigin { ORIGIN_THIS_PORT, ORIGIN_OTHER_PORT, ORIGIN_MESSAGE };
-  virtual Connection* CreateConnection(const Candidate& remote_candidate,
+  virtual ConnectionInterface* CreateConnection(const Candidate& remote_candidate,
                                        CandidateOrigin origin) = 0;
 
   // Functions on the underlying socket(s).

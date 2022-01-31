@@ -19,15 +19,12 @@
 #include "api/candidate.h"
 #include "api/transport/stun.h"
 #include "logging/rtc_event_log/ice_logger.h"
-#include "p2p/base/candidate_pair_interface.h"
 #include "p2p/base/connection_info.h"
-#include "p2p/base/p2p_transport_channel_ice_field_trials.h"
+#include "p2p/base/connection_interface.h"
 #include "p2p/base/stun_request.h"
-#include "p2p/base/transport_description.h"
 #include "rtc_base/async_packet_socket.h"
 #include "rtc_base/message_handler.h"
 #include "rtc_base/network.h"
-#include "rtc_base/numerics/event_based_exponential_moving_average.h"
 #include "rtc_base/rate_tracker.h"
 
 namespace cricket {
@@ -35,10 +32,6 @@ namespace cricket {
 // Version number for GOOG_PING, this is added to have the option of
 // adding other flavors in the future.
 constexpr int kGoogPingVersion = 1;
-
-// Connection and Port has circular dependencies.
-// So we use forward declaration rather than include.
-class Port;
 
 // Forward declaration so that a ConnectionRequest can contain a Connection.
 class Connection;
@@ -70,23 +63,13 @@ class ConnectionRequest : public StunRequest {
 
 // Represents a communication link between a port on the local client and a
 // port on the remote client.
-class Connection : public CandidatePairInterface,
+class Connection : public ConnectionInterface,
                    public rtc::MessageHandlerAutoCleanup,
                    public sigslot::has_slots<> {
  public:
-  struct SentPing {
-    SentPing(const std::string id, int64_t sent_time, uint32_t nomination)
-        : id(id), sent_time(sent_time), nomination(nomination) {}
+  ~Connection() override = default;
 
-    std::string id;
-    int64_t sent_time;
-    uint32_t nomination;
-  };
-
-  ~Connection() override;
-
-  // A unique ID assigned when the connection is created.
-  uint32_t id() const { return id_; }
+  uint32_t id() const override { return id_; }
 
   // Implementation of virtual methods in CandidatePairInterface.
   // Returns the description of the local port
@@ -94,244 +77,116 @@ class Connection : public CandidatePairInterface,
   // Returns the description of the remote port to which we communicate.
   const Candidate& remote_candidate() const override;
 
-  // Return local network for this connection.
-  virtual const rtc::Network* network() const;
-  // Return generation for this connection.
-  virtual int generation() const;
-
-  // Returns the pair priority.
-  virtual uint64_t priority() const;
-
-  enum WriteState {
-    STATE_WRITABLE = 0,          // we have received ping responses recently
-    STATE_WRITE_UNRELIABLE = 1,  // we have had a few ping failures
-    STATE_WRITE_INIT = 2,        // we have yet to receive a ping response
-    STATE_WRITE_TIMEOUT = 3,     // we have had a large number of ping failures
-  };
-
-  WriteState write_state() const { return write_state_; }
-  bool writable() const { return write_state_ == STATE_WRITABLE; }
-  bool receiving() const { return receiving_; }
-
-  // Determines whether the connection has finished connecting.  This can only
-  // be false for TCP connections.
-  bool connected() const { return connected_; }
-  bool weak() const { return !(writable() && receiving() && connected()); }
-  bool active() const { return write_state_ != STATE_WRITE_TIMEOUT; }
-
-  // A connection is dead if it can be safely deleted.
-  bool dead(int64_t now) const;
+  virtual const rtc::Network* network() const override;
+  virtual int generation() const override;
+  virtual uint64_t priority() const override;
+  WriteState write_state() const override { return write_state_; }
+  bool writable() const override { return write_state_ == STATE_WRITABLE; }
+  bool receiving() const override { return receiving_; }
+  bool connected() const override { return connected_; }
+  bool weak() const override { return !(writable() && receiving() && connected()); }
+  bool active() const override { return write_state_ != STATE_WRITE_TIMEOUT; }
+  bool dead(int64_t now) const override;
 
   // Estimate of the round-trip time over this connection.
-  int rtt() const { return rtt_; }
+  int rtt() const override { return rtt_; }
 
-  int unwritable_timeout() const;
-  void set_unwritable_timeout(const absl::optional<int>& value_ms) {
+  int unwritable_timeout() const override;
+  void set_unwritable_timeout(const absl::optional<int>& value_ms) override {
     unwritable_timeout_ = value_ms;
   }
-  int unwritable_min_checks() const;
-  void set_unwritable_min_checks(const absl::optional<int>& value) {
+  int unwritable_min_checks() const override;
+  void set_unwritable_min_checks(const absl::optional<int>& value) override {
     unwritable_min_checks_ = value;
   }
-  int inactive_timeout() const;
-  void set_inactive_timeout(const absl::optional<int>& value) {
+  int inactive_timeout() const override;
+  void set_inactive_timeout(const absl::optional<int>& value) override {
     inactive_timeout_ = value;
   }
 
-  // Gets the `ConnectionInfo` stats, where `best_connection` has not been
-  // populated (default value false).
-  ConnectionInfo stats();
-
-  sigslot::signal1<Connection*> SignalStateChange;
-
-  // Sent when the connection has decided that it is no longer of value.  It
-  // will delete itself immediately after this call.
-  sigslot::signal1<Connection*> SignalDestroyed;
-
-  // The connection can send and receive packets asynchronously.  This matches
-  // the interface of AsyncPacketSocket, which may use UDP or TCP under the
-  // covers.
+  ConnectionInfo stats() override;
   virtual int Send(const void* data,
                    size_t size,
-                   const rtc::PacketOptions& options) = 0;
-
-  // Error if Send() returns < 0
-  virtual int GetError() = 0;
-
-  sigslot::signal4<Connection*, const char*, size_t, int64_t> SignalReadPacket;
-
-  sigslot::signal1<Connection*> SignalReadyToSend;
-
-  // Called when a packet is received on this connection.
-  void OnReadPacket(const char* data, size_t size, int64_t packet_time_us);
-
-  // Called when the socket is currently able to send.
-  void OnReadyToSend();
-
-  // Called when a connection is determined to be no longer useful to us.  We
-  // still keep it around in case the other side wants to use it.  But we can
-  // safely stop pinging on it and we can allow it to time out if the other
-  // side stops using it as well.
-  bool pruned() const { return pruned_; }
-  void Prune();
-
-  bool use_candidate_attr() const { return use_candidate_attr_; }
-  void set_use_candidate_attr(bool enable);
-
-  void set_nomination(uint32_t value) { nomination_ = value; }
-
-  uint32_t remote_nomination() const { return remote_nomination_; }
-  // One or several pairs may be nominated based on if Regular or Aggressive
-  // Nomination is used. https://tools.ietf.org/html/rfc5245#section-8
-  // `nominated` is defined both for the controlling or controlled agent based
-  // on if a nomination has been pinged or acknowledged. The controlled agent
-  // gets its `remote_nomination_` set when pinged by the controlling agent with
-  // a nomination value. The controlling agent gets its `acked_nomination_` set
-  // when receiving a response to a nominating ping.
-  bool nominated() const { return acked_nomination_ || remote_nomination_; }
-  void set_remote_ice_mode(IceMode mode) { remote_ice_mode_ = mode; }
-
-  int receiving_timeout() const;
-  void set_receiving_timeout(absl::optional<int> receiving_timeout_ms) {
+                   const rtc::PacketOptions& options) override = 0;
+  virtual int GetError() override = 0;
+  void OnReadPacket(const char* data, size_t size, int64_t packet_time_us) override;
+  void OnReadyToSend() override;
+  bool pruned() const override { return pruned_; }
+  void Prune() override;
+  bool use_candidate_attr() const override { return use_candidate_attr_; }
+  void set_use_candidate_attr(bool enable) override;
+  void set_nomination(uint32_t value) override { nomination_ = value; }
+  uint32_t remote_nomination() const override { return remote_nomination_; }
+  bool nominated() const override { return acked_nomination_ || remote_nomination_; }
+  void set_remote_ice_mode(IceMode mode) override { remote_ice_mode_ = mode; }
+  int receiving_timeout() const override;
+  void set_receiving_timeout(absl::optional<int> receiving_timeout_ms) override {
     receiving_timeout_ = receiving_timeout_ms;
   }
+  void Destroy() override;
+  void FailAndDestroy() override;
+  void FailAndPrune() override;
+  void UpdateState(int64_t now) override;
 
-  // Makes the connection go away.
-  void Destroy();
-
-  // Makes the connection go away, in a failed state.
-  void FailAndDestroy();
-
-  // Prunes the connection and sets its state to STATE_FAILED,
-  // It will not be used or send pings although it can still receive packets.
-  void FailAndPrune();
-
-  // Checks that the state of this connection is up-to-date.  The argument is
-  // the current time, which is compared against various timeouts.
-  void UpdateState(int64_t now);
-
-  // Called when this connection should try checking writability again.
-  int64_t last_ping_sent() const { return last_ping_sent_; }
-  void Ping(int64_t now);
+  int64_t last_ping_sent() const override { return last_ping_sent_; }
+  void Ping(int64_t now) override;
   void ReceivedPingResponse(
       int rtt,
       const std::string& request_id,
-      const absl::optional<uint32_t>& nomination = absl::nullopt);
-  int64_t last_ping_response_received() const {
+      const absl::optional<uint32_t>& nomination = absl::nullopt) override;
+  int64_t last_ping_response_received() const override {
     return last_ping_response_received_;
   }
-  const absl::optional<std::string>& last_ping_id_received() const {
+  const absl::optional<std::string>& last_ping_id_received() const override {
     return last_ping_id_received_;
   }
-  // Used to check if any STUN ping response has been received.
-  int rtt_samples() const { return rtt_samples_; }
-
-  // Called whenever a valid ping is received on this connection.  This is
-  // public because the connection intercepts the first ping for us.
-  int64_t last_ping_received() const { return last_ping_received_; }
+  int rtt_samples() const override { return rtt_samples_; }
+  int64_t last_ping_received() const override { return last_ping_received_; }
   void ReceivedPing(
-      const absl::optional<std::string>& request_id = absl::nullopt);
-  // Handles the binding request; sends a response if this is a valid request.
-  void HandleStunBindingOrGoogPingRequest(IceMessage* msg);
-  // Handles the piggyback acknowledgement of the lastest connectivity check
-  // that the remote peer has received, if it is indicated in the incoming
-  // connectivity check from the peer.
-  void HandlePiggybackCheckAcknowledgementIfAny(StunMessage* msg);
-  // Timestamp when data was last sent (or attempted to be sent).
-  int64_t last_send_data() const { return last_send_data_; }
-  int64_t last_data_received() const { return last_data_received_; }
+      const absl::optional<std::string>& request_id = absl::nullopt) override;
+  void HandleStunBindingOrGoogPingRequest(IceMessage* msg) override;
+  void HandlePiggybackCheckAcknowledgementIfAny(StunMessage* msg) override;
+  int64_t last_send_data() const override { return last_send_data_; }
+  int64_t last_data_received() const override { return last_data_received_; }
 
-  // Debugging description of this connection
-  std::string ToDebugId() const;
-  std::string ToString() const;
-  std::string ToSensitiveString() const;
-  // Structured description of this candidate pair.
-  const webrtc::IceCandidatePairDescription& ToLogDescription();
-  void set_ice_event_log(webrtc::IceEventLog* ice_event_log) {
+  std::string ToDebugId() const override;
+  std::string ToString() const override;
+  std::string ToSensitiveString() const override;
+  const webrtc::IceCandidatePairDescription& ToLogDescription() override;
+  void set_ice_event_log(webrtc::IceEventLog* ice_event_log) override {
     ice_event_log_ = ice_event_log;
   }
-  // Prints pings_since_last_response_ into a string.
-  void PrintPingsSinceLastResponse(std::string* pings, size_t max);
-
-  bool reported() const { return reported_; }
-  void set_reported(bool reported) { reported_ = reported; }
-  // The following two methods are only used for logging in ToString above, and
-  // this flag is set true by P2PTransportChannel for its selected candidate
-  // pair.
-  bool selected() const { return selected_; }
-  void set_selected(bool selected) { selected_ = selected; }
-
-  // This signal will be fired if this connection is nominated by the
-  // controlling side.
-  sigslot::signal1<Connection*> SignalNominated;
-
-  // Invoked when Connection receives STUN error response with 487 code.
-  void HandleRoleConflictFromPeer();
-
-  IceCandidatePairState state() const { return state_; }
-
-  int num_pings_sent() const { return num_pings_sent_; }
-
-  IceMode remote_ice_mode() const { return remote_ice_mode_; }
-
-  uint32_t ComputeNetworkCost() const;
-
-  // Update the ICE password and/or generation of the remote candidate if the
-  // ufrag in `params` matches the candidate's ufrag, and the
-  // candidate's password and/or ufrag has not been set.
+  void PrintPingsSinceLastResponse(std::string* pings, size_t max) override;
+  bool reported() const override { return reported_; }
+  void set_reported(bool reported) override { reported_ = reported; }
+  bool selected() const override { return selected_; }
+  void set_selected(bool selected) override { selected_ = selected; }
+  void HandleRoleConflictFromPeer() override;
+  IceCandidatePairState state() const override { return state_; }
+  int num_pings_sent() const override { return num_pings_sent_; }
+  IceMode remote_ice_mode() const override { return remote_ice_mode_; }
+  uint32_t ComputeNetworkCost() const override;
   void MaybeSetRemoteIceParametersAndGeneration(const IceParameters& params,
-                                                int generation);
-
-  // If `remote_candidate_` is peer reflexive and is equivalent to
-  // `new_candidate` except the type, update `remote_candidate_` to
-  // `new_candidate`.
-  void MaybeUpdatePeerReflexiveCandidate(const Candidate& new_candidate);
-
-  // Returns the last received time of any data, stun request, or stun
-  // response in milliseconds
-  int64_t last_received() const;
-  // Returns the last time when the connection changed its receiving state.
-  int64_t receiving_unchanged_since() const {
+                                                int generation) override;
+  void MaybeUpdatePeerReflexiveCandidate(const Candidate& new_candidate) override;
+  int64_t last_received() const override;
+  int64_t receiving_unchanged_since() const override{
     return receiving_unchanged_since_;
   }
-
-  bool stable(int64_t now) const;
-
-  // Check if we sent `val` pings without receving a response.
-  bool TooManyOutstandingPings(const absl::optional<int>& val) const;
-
-  void SetIceFieldTrials(const IceFieldTrials* field_trials);
-  const rtc::EventBasedExponentialMovingAverage& GetRttEstimate() const {
+  bool stable(int64_t now) const override;
+  bool TooManyOutstandingPings(const absl::optional<int>& val) const override;
+  void SetIceFieldTrials(const IceFieldTrials* field_trials) override;
+  const rtc::EventBasedExponentialMovingAverage& GetRttEstimate() const override {
     return rtt_estimate_;
   }
-
-  // Reset the connection to a state of a newly connected.
-  // - STATE_WRITE_INIT
-  // - receving = false
-  // - throw away all pending request
-  // - reset RttEstimate
-  //
-  // Keep the following unchanged:
-  // - connected
-  // - remote_candidate
-  // - statistics
-  //
-  // Does not trigger SignalStateChange
-  void ForgetLearnedState();
-
-  void SendStunBindingResponse(const StunMessage* request);
-  void SendGoogPingResponse(const StunMessage* request);
-  void SendResponseMessage(const StunMessage& response);
-
-  // An accessor for unit tests.
-  Port* PortForTest() { return port_; }
-  const Port* PortForTest() const { return port_; }
-
-  // Public for unit tests.
-  uint32_t acked_nomination() const { return acked_nomination_; }
-
-  // Public for unit tests.
-  void set_remote_nomination(uint32_t remote_nomination) {
+  void ForgetLearnedState() override;
+  void SendStunBindingResponse(const StunMessage* request) override;
+  void SendGoogPingResponse(const StunMessage* request) override;
+  void SendResponseMessage(const StunMessage& response) override;
+  Port* PortForTest() override { return port_; }
+  const Port* PortForTest() const override { return port_; }
+  uint32_t acked_nomination() const override { return acked_nomination_; }
+  void set_remote_nomination(uint32_t remote_nomination) override {
     remote_nomination_ = remote_nomination;
   }
 
@@ -368,9 +223,8 @@ class Connection : public CandidatePairInterface,
 
   void OnMessage(rtc::Message* pmsg) override;
 
-  // The local port where this connection sends and receives packets.
-  Port* port() { return port_; }
-  const Port* port() const { return port_; }
+  Port* port() override { return port_; }
+  const Port* port() const override { return port_; }
 
   uint32_t id_;
   Port* port_;
@@ -462,9 +316,7 @@ class Connection : public CandidatePairInterface,
   const IceFieldTrials* field_trials_;
   rtc::EventBasedExponentialMovingAverage rtt_estimate_;
 
-  friend class Port;
   friend class ConnectionRequest;
-  friend class P2PTransportChannel;
 };
 
 // ProxyConnection defers all the interesting work to the port.

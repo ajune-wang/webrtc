@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "66906a21_5d3e2bae",
+        "filename": "pc/BUILD.gn",
+        "patchSetId": 1
+      },
+      "lineNbr": 456,
+      "author": {
+        "id": 5087
+      },
+      "writtenOn": "2022-01-31T10:40:42Z",
+      "side": 1,
+      "message": "Oh, we have an lld issue here.\n\nCan you change all these to rtc_source_set (so lld doesn\u0027t fail because of a missing library while we don\u0027t have sources)?",
+      "range": {
+        "startLine": 430,
+        "startChar": 0,
+        "endLine": 456,
+        "endChar": 1
+      },
+      "revId": "b15759229eaa4cfe0d134d1869547be622900d62",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

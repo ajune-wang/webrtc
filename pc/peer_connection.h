@@ -11,9 +11,11 @@
 #ifndef PC_PEER_CONNECTION_H_
 #define PC_PEER_CONNECTION_H_
 
+#include <__memory/unique_ptr.h>
 #include <stdint.h>
 
 #include <functional>
+#include <iosfwd>
 #include <map>
 #include <memory>
 #include <set>

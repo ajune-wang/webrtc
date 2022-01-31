@@ -12,6 +12,7 @@
 
 #include "rtc_base/checks.h"
 #include "rtc_base/synchronization/sequence_checker_internal.h"
+#include "rtc_base/system/no_unique_address.h"
 #include "rtc_base/thread_annotations.h"
 
 namespace webrtc {
@@ -108,6 +109,7 @@ class RTC_LOCKABLE SequenceChecker
   RTC_THREAD_ANNOTATION_ATTRIBUTE__(exclusive_locks_required(x))
 
 #define RTC_DCHECK_RUN_ON(x)                                     \
+  RTC_NO_UNIQUE_ADDRESS                                          \
   webrtc::webrtc_sequence_checker_internal::SequenceCheckerScope \
       seq_check_scope(x);                                        \
   RTC_DCHECK((x)->IsCurrent())                                   \

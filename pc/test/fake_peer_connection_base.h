@@ -233,7 +233,7 @@ class FakePeerConnectionBase : public PeerConnectionInternal {
 
   void Close() override {}
 
-  // PeerConnectionInternal implementation.
+  // PeerConnectionSdpMethods implementation.
 
   rtc::Thread* network_thread() const override { return nullptr; }
   rtc::Thread* worker_thread() const override { return nullptr; }
@@ -360,6 +360,10 @@ class FakePeerConnectionBase : public PeerConnectionInternal {
   void TeardownDataChannelTransport_n() override {}
   void SetSctpDataMid(const std::string& mid) override {}
   void ResetSctpDataMid() override {}
+
+  // PeerConnectionInternal implementation
+  void NoteDataAddedEvent() override {}
+  void OnSctpDataChannelClosed(DataChannelInterface* channel) {}
 
  protected:
   sigslot::signal1<SctpDataChannel*> SignalSctpDataChannelCreated_;

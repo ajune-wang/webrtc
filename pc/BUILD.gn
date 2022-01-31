@@ -234,10 +234,6 @@ rtc_library("peerconnection") {
   visibility = [ "*" ]
   cflags = []
   sources = [
-    "data_channel_controller.cc",
-    "data_channel_controller.h",
-    "data_channel_utils.cc",
-    "data_channel_utils.h",
     "ice_server_parsing.cc",
     "ice_server_parsing.h",
     "jsep_ice_candidate.cc",
@@ -250,13 +246,10 @@ rtc_library("peerconnection") {
     "peer_connection.h",
     "peer_connection_factory.cc",
     "peer_connection_factory.h",
-    "peer_connection_internal.h",
     "rtc_stats_collector.cc",
     "rtc_stats_collector.h",
     "rtc_stats_traversal.cc",
     "rtc_stats_traversal.h",
-    "sctp_data_channel.cc",
-    "sctp_data_channel.h",
     "sdp_offer_answer.cc",  # TODO: Make separate target when not circular
     "sdp_offer_answer.h",  # dependent on peerconnection.h
     "sdp_serializer.cc",
@@ -278,10 +271,13 @@ rtc_library("peerconnection") {
     ":audio_rtp_receiver",
     ":audio_track",
     ":connection_context",
+    ":data_channel_controller",
+    ":data_channel_utils",
     ":dtmf_sender",
     ":jitter_buffer_delay",
     ":media_protocol_names",
     ":media_stream",
+    ":peer_connection_internal",
     ":peer_connection_message_handler",
     ":proxy",
     ":remote_audio_source",
@@ -291,6 +287,7 @@ rtc_library("peerconnection") {
     ":rtp_sender",
     ":rtp_transceiver",
     ":rtp_transmission_manager",
+    ":sctp_data_channel",
     ":sdp_state_provider",
     ":session_description",
     ":simulcast_description",
@@ -384,6 +381,100 @@ rtc_library("peerconnection") {
     "//third_party/abseil-cpp/absl/algorithm:container",
     "//third_party/abseil-cpp/absl/strings",
     "//third_party/abseil-cpp/absl/types:optional",
+  ]
+}
+
+rtc_source_set("peer_connection_internal") {
+  sources = [ "peer_connection_internal.h" ]
+  deps = [
+    ":peer_connection_message_handler",
+    ":rtc_pc_base",
+    ":rtp_transceiver",
+    ":rtp_transmission_manager",
+    ":sctp_data_channel",
+    "../api:libjingle_peerconnection_api",
+    "../call:call_interfaces",
+  ]
+}
+
+rtc_library("data_channel_controller") {
+  sources = [
+    "data_channel_controller.cc",
+    "data_channel_controller.h",
+  ]
+  deps = [
+    ":data_channel_utils",
+    ":peer_connection_internal",
+    ":rtc_pc_base",
+    ":rtc_pc_base",
+    ":sctp_data_channel",
+    "../api:libjingle_peerconnection_api",
+    "../api:libjingle_peerconnection_api",
+    "../api:rtc_error",
+    "../api:scoped_refptr",
+    "../api:sequence_checker",
+    "../api/transport:datagram_transport_interface",
+    "../media:rtc_media_base",
+    "../media:rtc_media_base",
+    "../media:rtc_media_base",
+    "../rtc_base:checks",
+    "../rtc_base:logging",
+    "../rtc_base:macromagic",
+    "../rtc_base:rtc_base",
+    "../rtc_base:rtc_base_approved",
+    "../rtc_base:rtc_base_approved",
+    "../rtc_base:threading",
+    "../rtc_base:weak_ptr",
+    "../rtc_base/task_utils:to_queued_task",
+    "../rtc_base/third_party/sigslot:sigslot",
+  ]
+  absl_deps = [
+    "../third_party/abseil-cpp/absl/algorithm:container",
+    "../third_party/abseil-cpp/absl/types:optional",
+  ]
+}
+
+rtc_library("sctp_data_channel") {
+  sources = [
+    "sctp_data_channel.cc",
+    "sctp_data_channel.h",
+  ]
+  deps = [
+    ":data_channel_utils",
+    ":proxy",
+    ":rtc_pc_base",
+    "../api:libjingle_peerconnection_api",
+    "../api:priority",
+    "../api:rtc_error",
+    "../api:scoped_refptr",
+    "../api/transport:datagram_transport_interface",
+    "../media:rtc_data_sctp_transport_internal",
+    "../media:rtc_media_base",
+    "../rtc_base:checks",
+    "../rtc_base:logging",
+    "../rtc_base:macromagic",
+    "../rtc_base:refcount",
+    "../rtc_base:rtc_base",
+    "../rtc_base:rtc_base_approved",
+    "../rtc_base:rtc_base_approved",
+    "../rtc_base:threading",
+    "../rtc_base:threading",
+    "../rtc_base/system:unused",
+    "../rtc_base/task_utils:to_queued_task",
+    "../rtc_base/third_party/sigslot:sigslot",
+  ]
+  absl_deps = [ "//third_party/abseil-cpp/absl/types:optional" ]
+}
+
+rtc_library("data_channel_utils") {
+  sources = [
+    "data_channel_utils.cc",
+    "data_channel_utils.h",
+  ]
+  deps = [
+    "../api:libjingle_peerconnection_api",
+    "../media:rtc_media_base",
+    "../rtc_base:checks",
   ]
 }
 
@@ -964,6 +1055,7 @@ if (rtc_include_tests && !build_with_chromium) {
     sources = [ "peer_connection_rampup_tests.cc" ]
     deps = [
       ":pc_test_utils",
+      ":peerconnection",
       ":peerconnection_wrapper",
       "../api:audio_options_api",
       "../api:create_peerconnection_factory",
@@ -983,7 +1075,6 @@ if (rtc_include_tests && !build_with_chromium) {
       "../modules/audio_processing:api",
       "../p2p:p2p_test_utils",
       "../p2p:rtc_p2p",
-      "../pc:peerconnection",
       "../rtc_base",
       "../rtc_base:checks",
       "../rtc_base:gunit_helpers",
@@ -1005,6 +1096,7 @@ if (rtc_include_tests && !build_with_chromium) {
     ]
     deps = [
       ":pc_test_utils",
+      ":peerconnection",
       "../api:function_view",
       "../api:libjingle_peerconnection_api",
       "../api:media_stream_interface",
@@ -1012,7 +1104,6 @@ if (rtc_include_tests && !build_with_chromium) {
       "../api:rtc_stats_api",
       "../api:rtp_parameters",
       "../api:scoped_refptr",
-      "../pc:peerconnection",
       "../rtc_base:checks",
       "../rtc_base:gunit_helpers",
       "../rtc_base:rtc_base_approved",
@@ -1084,6 +1175,7 @@ if (rtc_include_tests && !build_with_chromium) {
       ":rtp_receiver",
       ":rtp_sender",
       ":rtp_transceiver",
+      ":sctp_data_channel",
       ":session_description",
       ":usage_pattern",
       ":video_rtp_receiver",
@@ -1161,6 +1253,7 @@ if (rtc_include_tests && !build_with_chromium) {
     deps += [
       ":libjingle_peerconnection",
       ":pc_test_utils",
+      ":rtc_pc",
       "../api:callfactory_api",
       "../api:rtc_event_log_output_file",
       "../api:rtc_stats_api",
@@ -1184,7 +1277,6 @@ if (rtc_include_tests && !build_with_chromium) {
       "../modules/utility",
       "../p2p:p2p_test_utils",
       "../p2p:rtc_p2p",
-      "../pc:rtc_pc",
       "../rtc_base",
       "../rtc_base:rtc_base_approved",
       "../rtc_base:rtc_task_queue",
@@ -1359,10 +1451,12 @@ if (rtc_include_tests && !build_with_chromium) {
     deps = [
       ":jitter_buffer_delay",
       ":libjingle_peerconnection",
+      ":peer_connection_internal",
       ":peerconnection",
       ":rtc_pc_base",
       ":rtp_receiver",
       ":rtp_sender",
+      ":sctp_data_channel",
       ":video_track_source",
       "../api:audio_options_api",
       "../api:create_frame_generator",

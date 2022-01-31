@@ -18,6 +18,24 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "9a68072e_b8b8f6d5",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 4
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5508
+      },
+      "writtenOn": "2022-01-31T10:09:25Z",
+      "side": 1,
+      "message": "In a follow up. It requires some refactoring and possibly a change in strategy to guard against those sort of things. I\u0027m not sure how easy it will be to restructure the code.",
+      "parentUuid": "d5052f35_0bff54d4",
+      "revId": "848edd3f5b0873ac8830dd1dddce934a01c76b60",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "202cda1c_3036f619",
@@ -31,6 +49,30 @@
       "writtenOn": "2022-01-31T08:25:00Z",
       "side": 1,
       "message": "Prefer explicit type (it looks like it should be an ArrayView).\n\nOr does it work to just write\n\nstd::vector\u003cConnection*\u003e connections(channel-\u003econnections())?",
+      "range": {
+        "startLine": 2468,
+        "startChar": 0,
+        "endLine": 2469,
+        "endChar": 69
+      },
+      "revId": "848edd3f5b0873ac8830dd1dddce934a01c76b60",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "0a2916d8_14d7af5e",
+        "filename": "p2p/base/p2p_transport_channel_unittest.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 2469,
+      "author": {
+        "id": 5508
+      },
+      "writtenOn": "2022-01-31T10:09:25Z",
+      "side": 1,
+      "message": "unfortunately ArrayView doesn\u0027t support converting to vector:\n\nerror: no viable conversion from \u0027rtc::ArrayView\u003cConnection *\u003e\u0027 to \u0027std::vector\u003cConnection *\u003e\u0027\n    std::vector\u003cConnection*\u003e connections \u003d channel-\u003econnections();\n    \nSame for calling the ctor explicitly:\n\nerror: no matching constructor for initialization of \u0027std::vector\u003cConnection *\u003e\u0027\n    std::vector\u003cConnection*\u003e connections(channel-\u003econnections());",
+      "parentUuid": "202cda1c_3036f619",
       "range": {
         "startLine": 2468,
         "startChar": 0,

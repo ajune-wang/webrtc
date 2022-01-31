@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "6401faa3_28c6516b",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2022-01-31T09:06:12Z",
+      "side": 1,
+      "message": "IWYU seems to have magically healed on my cloudtop, but it seems that the --no_fwd_decls argument was lost from IWYU in the meantime. Adding it back.\n\n",
+      "revId": "74fe8aeb4bb32cce95f64f43d0080b4f35bb072e",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

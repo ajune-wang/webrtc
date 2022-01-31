@@ -22,6 +22,30 @@
       },
       "revId": "7c872ed7168f20efcf23978e1cdd7d82b3e9d6c1",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "c568383a_7d1ad291",
+        "filename": "p2p/base/connection.h",
+        "patchSetId": 8
+      },
+      "lineNbr": 115,
+      "author": {
+        "id": 5508
+      },
+      "writtenOn": "2022-01-31T09:50:34Z",
+      "side": 0,
+      "message": "That brings the thread checker dependency into the header. At the moment I\u0027d prefer to move this to the .cc file, at least for now, since there are several things in the implementation that are tricky and there have been cases where I\u0027ve missed a problem because access to state was granted via a getter/setter in the header.",
+      "parentUuid": "fd610512_b9f563b1",
+      "range": {
+        "startLine": 115,
+        "startChar": 2,
+        "endLine": 115,
+        "endChar": 66
+      },
+      "revId": "7c872ed7168f20efcf23978e1cdd7d82b3e9d6c1",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

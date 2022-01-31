@@ -41,6 +41,30 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "6f7d50ac_09eff9f0",
+        "filename": "p2p/base/connection.h",
+        "patchSetId": 8
+      },
+      "lineNbr": 351,
+      "author": {
+        "id": 5508
+      },
+      "writtenOn": "2022-01-31T09:50:34Z",
+      "side": 1,
+      "message": "Done - removed the getter since it\u0027s not needed.",
+      "parentUuid": "610f56b3_ad9feea9",
+      "range": {
+        "startLine": 351,
+        "startChar": 0,
+        "endLine": 351,
+        "endChar": 30
+      },
+      "revId": "99e6acad356faf8fd87b56826154cb69effcc175",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "cf763abc_54dd6cec",
@@ -54,6 +78,30 @@
       "writtenOn": "2022-01-31T08:55:44Z",
       "side": 1,
       "message": "On which thread are these accessed? Can they be annotated?",
+      "range": {
+        "startLine": 457,
+        "startChar": 0,
+        "endLine": 458,
+        "endChar": 52
+      },
+      "revId": "99e6acad356faf8fd87b56826154cb69effcc175",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "4cf63aba_76639286",
+        "filename": "p2p/base/connection.h",
+        "patchSetId": 8
+      },
+      "lineNbr": 458,
+      "author": {
+        "id": 5508
+      },
+      "writtenOn": "2022-01-31T09:50:34Z",
+      "side": 1,
+      "message": "Yes - annotated now and updated a few related methods with RTC_RUN_ON.",
+      "parentUuid": "cf763abc_54dd6cec",
       "range": {
         "startLine": 457,
         "startChar": 0,

@@ -8,8 +8,8 @@
  *  be found in the AUTHORS file in the root of the source tree.
  */
 
-#ifndef P2P_CLIENT_RELAY_PORT_FACTORY_INTERFACE_H_
-#define P2P_CLIENT_RELAY_PORT_FACTORY_INTERFACE_H_
+#ifndef P2P_CLIENT_PORT_FACTORY_INTERFACE_H_
+#define P2P_CLIENT_PORT_FACTORY_INTERFACE_H_
 
 #include <memory>
 #include <string>
@@ -29,7 +29,7 @@ class TurnCustomizer;
 }  // namespace webrtc
 
 namespace cricket {
-class Port;
+
 struct ProtocolAddress;
 struct RelayServerConfig;
 
@@ -49,21 +49,21 @@ struct CreateRelayPortArgs {
 inline CreateRelayPortArgs::CreateRelayPortArgs() {}
 
 // A factory for creating RelayPort's.
-class RelayPortFactoryInterface {
+class PortFactoryInterface {
  public:
-  virtual ~RelayPortFactoryInterface() {}
+  virtual ~PortFactoryInterface() {}
 
   // This variant is used for UDP connection to the relay server
   // using a already existing shared socket.
-  virtual std::unique_ptr<Port> Create(const CreateRelayPortArgs& args,
+  virtual std::unique_ptr<PortInterface> CreateRelayPort(const CreateRelayPortArgs& args,
                                        rtc::AsyncPacketSocket* udp_socket) = 0;
 
   // This variant is used for the other cases.
-  virtual std::unique_ptr<Port> Create(const CreateRelayPortArgs& args,
+  virtual std::unique_ptr<PortInterface> CreateRelayPort(const CreateRelayPortArgs& args,
                                        int min_port,
                                        int max_port) = 0;
 };
 
 }  // namespace cricket
 
-#endif  // P2P_CLIENT_RELAY_PORT_FACTORY_INTERFACE_H_
+#endif  // API_PORT_FACTORY_INTERFACE_H_

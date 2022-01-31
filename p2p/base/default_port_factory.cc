@@ -8,7 +8,7 @@
  *  be found in the AUTHORS file in the root of the source tree.
  */
 
-#include "p2p/client/turn_port_factory.h"
+#include "p2p/base/default_port_factory.h"
 
 #include <memory>
 #include <utility>
@@ -18,9 +18,7 @@
 
 namespace cricket {
 
-TurnPortFactory::~TurnPortFactory() {}
-
-std::unique_ptr<Port> TurnPortFactory::Create(
+std::unique_ptr<PortInterface> DefaultPortFactory::CreateRelayPort(
     const CreateRelayPortArgs& args,
     rtc::AsyncPacketSocket* udp_socket) {
   auto port = TurnPort::CreateUnique(
@@ -34,7 +32,7 @@ std::unique_ptr<Port> TurnPortFactory::Create(
   return std::move(port);
 }
 
-std::unique_ptr<Port> TurnPortFactory::Create(const CreateRelayPortArgs& args,
+std::unique_ptr<PortInterface> DefaultPortFactory::CreateRelayPort(const CreateRelayPortArgs& args,
                                               int min_port,
                                               int max_port) {
   auto port = TurnPort::CreateUnique(

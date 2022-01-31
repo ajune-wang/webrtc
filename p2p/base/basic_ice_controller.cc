@@ -15,12 +15,12 @@ namespace {
 // The minimum improvement in RTT that justifies a switch.
 const int kMinImprovement = 10;
 
-bool IsRelayRelay(const cricket::Connection* conn) {
+bool IsRelayRelay(const cricket::ConnectionInterface* conn) {
   return conn->local_candidate().type() == cricket::RELAY_PORT_TYPE &&
          conn->remote_candidate().type() == cricket::RELAY_PORT_TYPE;
 }
 
-bool IsUdp(const cricket::Connection* conn) {
+bool IsUdp(const cricket::ConnectionInterface* conn) {
   return conn->local_candidate().relay_protocol() == cricket::UDP_PROTOCOL_NAME;
 }
 
@@ -31,15 +31,15 @@ static constexpr int b_is_better = -1;
 static constexpr int a_and_b_equal = 0;
 
 bool LocalCandidateUsesPreferredNetwork(
-    const cricket::Connection* conn,
+    const cricket::ConnectionInterface* conn,
     absl::optional<rtc::AdapterType> network_preference) {
   rtc::AdapterType network_type = conn->network()->type();
   return network_preference.has_value() && (network_type == network_preference);
 }
 
 int CompareCandidatePairsByNetworkPreference(
-    const cricket::Connection* a,
-    const cricket::Connection* b,
+    const cricket::ConnectionInterface* a,
+    const cricket::ConnectionInterface* b,
     absl::optional<rtc::AdapterType> network_preference) {
   bool a_uses_preferred_network =
       LocalCandidateUsesPreferredNetwork(a, network_preference);
@@ -70,16 +70,16 @@ void BasicIceController::SetIceConfig(const IceConfig& config) {
 }
 
 void BasicIceController::SetSelectedConnection(
-    const Connection* selected_connection) {
+    const ConnectionInterface* selected_connection) {
   selected_connection_ = selected_connection;
 }
 
-void BasicIceController::AddConnection(const Connection* connection) {
+void BasicIceController::AddConnection(const ConnectionInterface* connection) {
   connections_.push_back(connection);
   unpinged_connections_.insert(connection);
 }
 
-void BasicIceController::OnConnectionDestroyed(const Connection* connection) {
+void BasicIceController::OnConnectionDestroyed(const ConnectionInterface* connection) {
   pinged_connections_.erase(connection);
   unpinged_connections_.erase(connection);
   connections_.erase(absl::c_find(connections_, connection));
@@ -87,7 +87,7 @@ void BasicIceController::OnConnectionDestroyed(const Connection* connection) {
 
 bool BasicIceController::HasPingableConnection() const {
   int64_t now = rtc::TimeMillis();
-  return absl::c_any_of(connections_, [this, now](const Connection* c) {
+  return absl::c_any_of(connections_, [this, now](const ConnectionInterface* c) {
     return IsPingable(c, now);
   });
 }
@@ -98,7 +98,7 @@ IceControllerInterface::PingResult BasicIceController::SelectConnectionToPing(
   // active connection has not been pinged enough times, use the weak ping
   // interval.
   bool need_more_pings_at_weak_interval =
-      absl::c_any_of(connections_, [](const Connection* conn) {
+      absl::c_any_of(connections_, [](const ConnectionInterface* conn) {
         return conn->active() &&
                conn->num_pings_sent() < MIN_PINGS_AT_WEAK_PING_INTERVAL;
       });
@@ -106,7 +106,7 @@ IceControllerInterface::PingResult BasicIceController::SelectConnectionToPing(
                           ? weak_ping_interval()
                           : strong_ping_interval();
 
-  const Connection* conn = nullptr;
+  const ConnectionInterface* conn = nullptr;
   if (rtc::TimeMillis() >= last_ping_sent_ms + ping_interval) {
     conn = FindNextPingableConnection();
   }
@@ -114,14 +114,14 @@ IceControllerInterface::PingResult BasicIceController::SelectConnectionToPing(
   return res;
 }
 
-void BasicIceController::MarkConnectionPinged(const Connection* conn) {
+void BasicIceController::MarkConnectionPinged(const ConnectionInterface* conn) {
   if (conn && pinged_connections_.insert(conn).second) {
     unpinged_connections_.erase(conn);
   }
 }
 
 // Returns the next pingable connection to ping.
-const Connection* BasicIceController::FindNextPingableConnection() {
+const ConnectionInterface* BasicIceController::FindNextPingableConnection() {
   int64_t now = rtc::TimeMillis();
 
   // Rule 1: Selected connection takes priority over non-selected ones.
@@ -142,15 +142,15 @@ const Connection* BasicIceController::FindNextPingableConnection() {
   // Rule 2.1: Among such connections, pick the one with the earliest
   // last-ping-sent time.
   if (weak()) {
-    std::vector<const Connection*> pingable_selectable_connections;
+    std::vector<const ConnectionInterface*> pingable_selectable_connections;
     absl::c_copy_if(GetBestWritableConnectionPerNetwork(),
                     std::back_inserter(pingable_selectable_connections),
-                    [this, now](const Connection* conn) {
+                    [this, now](const ConnectionInterface* conn) {
                       return WritableConnectionPastPingInterval(conn, now);
                     });
     auto iter = absl::c_min_element(
         pingable_selectable_connections,
-        [](const Connection* conn1, const Connection* conn2) {
+        [](const ConnectionInterface* conn1, const ConnectionInterface* conn2) {
           return conn1->last_ping_sent() < conn2->last_ping_sent();
         });
     if (iter != pingable_selectable_connections.end()) {
@@ -160,7 +160,7 @@ const Connection* BasicIceController::FindNextPingableConnection() {
 
   // Rule 3: Triggered checks have priority over non-triggered connections.
   // Rule 3.1: Among triggered checks, oldest takes precedence.
-  const Connection* oldest_triggered_check =
+  const ConnectionInterface* oldest_triggered_check =
       FindOldestConnectionNeedingTriggeredCheck(now);
   if (oldest_triggered_check) {
     return oldest_triggered_check;
@@ -174,7 +174,7 @@ const Connection* BasicIceController::FindNextPingableConnection() {
   // TODO(honghaiz): Instead of adding two separate vectors, we can add a state
   // "pinged" to filter out unpinged connections.
   if (absl::c_none_of(unpinged_connections_,
-                      [this, now](const Connection* conn) {
+                      [this, now](const ConnectionInterface* conn) {
                         return this->IsPingable(conn, now);
                       })) {
     unpinged_connections_.insert(pinged_connections_.begin(),
@@ -183,13 +183,13 @@ const Connection* BasicIceController::FindNextPingableConnection() {
   }
 
   // Among un-pinged pingable connections, "more pingable" takes precedence.
-  std::vector<const Connection*> pingable_connections;
+  std::vector<const ConnectionInterface*> pingable_connections;
   absl::c_copy_if(
       unpinged_connections_, std::back_inserter(pingable_connections),
-      [this, now](const Connection* conn) { return IsPingable(conn, now); });
+      [this, now](const ConnectionInterface* conn) { return IsPingable(conn, now); });
   auto iter = absl::c_max_element(
       pingable_connections,
-      [this](const Connection* conn1, const Connection* conn2) {
+      [this](const ConnectionInterface* conn1, const ConnectionInterface* conn2) {
         // Some implementations of max_element
         // compare an element with itself.
         if (conn1 == conn2) {
@@ -207,9 +207,9 @@ const Connection* BasicIceController::FindNextPingableConnection() {
 // received a ping but have not sent a ping since receiving it
 // (last_ping_received > last_ping_sent).  But we shouldn't do
 // triggered checks if the connection is already writable.
-const Connection* BasicIceController::FindOldestConnectionNeedingTriggeredCheck(
+const ConnectionInterface* BasicIceController::FindOldestConnectionNeedingTriggeredCheck(
     int64_t now) {
-  const Connection* oldest_needing_triggered_check = nullptr;
+  const ConnectionInterface* oldest_needing_triggered_check = nullptr;
   for (auto* conn : connections_) {
     if (!IsPingable(conn, now)) {
       continue;
@@ -233,14 +233,14 @@ const Connection* BasicIceController::FindOldestConnectionNeedingTriggeredCheck(
 }
 
 bool BasicIceController::WritableConnectionPastPingInterval(
-    const Connection* conn,
+    const ConnectionInterface* conn,
     int64_t now) const {
   int interval = CalculateActiveWritablePingInterval(conn, now);
   return conn->last_ping_sent() + interval <= now;
 }
 
 int BasicIceController::CalculateActiveWritablePingInterval(
-    const Connection* conn,
+    const ConnectionInterface* conn,
     int64_t now) const {
   // Ping each connection at a higher rate at least
   // MIN_PINGS_AT_WEAK_PING_INTERVAL times.
@@ -261,7 +261,7 @@ int BasicIceController::CalculateActiveWritablePingInterval(
 // Is the connection in a state for us to even consider pinging the other side?
 // We consider a connection pingable even if it's not connected because that's
 // how a TCP connection is kicked into reconnecting on the active side.
-bool BasicIceController::IsPingable(const Connection* conn, int64_t now) const {
+bool BasicIceController::IsPingable(const ConnectionInterface* conn, int64_t now) const {
   const Candidate& remote = conn->remote_candidate();
   // We should never get this far with an empty remote ufrag.
   RTC_DCHECK(!remote.username().empty());
@@ -317,22 +317,22 @@ bool BasicIceController::IsPingable(const Connection* conn, int64_t now) const {
 
 // A connection is considered a backup connection if the channel state
 // is completed, the connection is not the selected connection and it is active.
-bool BasicIceController::IsBackupConnection(const Connection* conn) const {
+bool BasicIceController::IsBackupConnection(const ConnectionInterface* conn) const {
   return ice_transport_state_func_() == IceTransportState::STATE_COMPLETED &&
          conn != selected_connection_ && conn->active();
 }
 
-const Connection* BasicIceController::MorePingable(const Connection* conn1,
-                                                   const Connection* conn2) {
+const ConnectionInterface* BasicIceController::MorePingable(const ConnectionInterface* conn1,
+                                                   const ConnectionInterface* conn2) {
   RTC_DCHECK(conn1 != conn2);
   if (config_.prioritize_most_likely_candidate_pairs) {
-    const Connection* most_likely_to_work_conn = MostLikelyToWork(conn1, conn2);
+    const ConnectionInterface* most_likely_to_work_conn = MostLikelyToWork(conn1, conn2);
     if (most_likely_to_work_conn) {
       return most_likely_to_work_conn;
     }
   }
 
-  const Connection* least_recently_pinged_conn =
+  const ConnectionInterface* least_recently_pinged_conn =
       LeastRecentlyPinged(conn1, conn2);
   if (least_recently_pinged_conn) {
     return least_recently_pinged_conn;
@@ -342,14 +342,14 @@ const Connection* BasicIceController::MorePingable(const Connection* conn1,
   // one in the ordered `connections_`.
   auto connections = connections_;
   return *(std::find_if(connections.begin(), connections.end(),
-                        [conn1, conn2](const Connection* conn) {
+                        [conn1, conn2](const ConnectionInterface* conn) {
                           return conn == conn1 || conn == conn2;
                         }));
 }
 
-const Connection* BasicIceController::MostLikelyToWork(
-    const Connection* conn1,
-    const Connection* conn2) {
+const ConnectionInterface* BasicIceController::MostLikelyToWork(
+    const ConnectionInterface* conn1,
+    const ConnectionInterface* conn2) {
   bool rr1 = IsRelayRelay(conn1);
   bool rr2 = IsRelayRelay(conn2);
   if (rr1 && !rr2) {
@@ -368,9 +368,9 @@ const Connection* BasicIceController::MostLikelyToWork(
   return nullptr;
 }
 
-const Connection* BasicIceController::LeastRecentlyPinged(
-    const Connection* conn1,
-    const Connection* conn2) {
+const ConnectionInterface* BasicIceController::LeastRecentlyPinged(
+    const ConnectionInterface* conn1,
+    const ConnectionInterface* conn2) {
   if (conn1->last_ping_sent() < conn2->last_ping_sent()) {
     return conn1;
   }
@@ -380,18 +380,18 @@ const Connection* BasicIceController::LeastRecentlyPinged(
   return nullptr;
 }
 
-std::map<const rtc::Network*, const Connection*>
+std::map<const rtc::Network*, const ConnectionInterface*>
 BasicIceController::GetBestConnectionByNetwork() const {
   // `connections_` has been sorted, so the first one in the list on a given
   // network is the best connection on the network, except that the selected
   // connection is always the best connection on the network.
-  std::map<const rtc::Network*, const Connection*> best_connection_by_network;
+  std::map<const rtc::Network*, const ConnectionInterface*> best_connection_by_network;
   if (selected_connection_) {
     best_connection_by_network[selected_connection_->network()] =
         selected_connection_;
   }
   // TODO(honghaiz): Need to update this if `connections_` are not sorted.
-  for (const Connection* conn : connections_) {
+  for (const ConnectionInterface* conn : connections_) {
     const rtc::Network* network = conn->network();
     // This only inserts when the network does not exist in the map.
     best_connection_by_network.insert(std::make_pair(network, conn));
@@ -399,11 +399,11 @@ BasicIceController::GetBestConnectionByNetwork() const {
   return best_connection_by_network;
 }
 
-std::vector<const Connection*>
+std::vector<const ConnectionInterface*>
 BasicIceController::GetBestWritableConnectionPerNetwork() const {
-  std::vector<const Connection*> connections;
+  std::vector<const ConnectionInterface*> connections;
   for (auto kv : GetBestConnectionByNetwork()) {
-    const Connection* conn = kv.second;
+    const ConnectionInterface* conn = kv.second;
     if (conn->writable() && conn->connected()) {
       connections.push_back(conn);
     }
@@ -414,7 +414,7 @@ BasicIceController::GetBestWritableConnectionPerNetwork() const {
 IceControllerInterface::SwitchResult
 BasicIceController::HandleInitialSelectDampening(
     IceControllerEvent reason,
-    const Connection* new_connection) {
+    const ConnectionInterface* new_connection) {
   if (!field_trials_->initial_select_dampening.has_value() &&
       !field_trials_->initial_select_dampening_ping_received.has_value()) {
     // experiment not enabled => select connection.
@@ -469,7 +469,7 @@ BasicIceController::HandleInitialSelectDampening(
 
 IceControllerInterface::SwitchResult BasicIceController::ShouldSwitchConnection(
     IceControllerEvent reason,
-    const Connection* new_connection) {
+    const ConnectionInterface* new_connection) {
   if (!ReadyToSend(new_connection) || selected_connection_ == new_connection) {
     return {absl::nullopt, absl::nullopt};
   }
@@ -529,7 +529,7 @@ BasicIceController::SortAndSwitchConnection(IceControllerEvent reason) {
   // need to consider switching to.
   // TODO(honghaiz): Don't sort;  Just use std::max_element in the right places.
   absl::c_stable_sort(
-      connections_, [this](const Connection* a, const Connection* b) {
+      connections_, [this](const ConnectionInterface* a, const ConnectionInterface* b) {
         int cmp = CompareConnections(a, b, absl::nullopt, nullptr);
         if (cmp != 0) {
           return cmp > 0;
@@ -544,24 +544,24 @@ BasicIceController::SortAndSwitchConnection(IceControllerEvent reason) {
     RTC_LOG(LS_VERBOSE) << connections_[i]->ToString();
   }
 
-  const Connection* top_connection =
+  const ConnectionInterface* top_connection =
       (!connections_.empty()) ? connections_[0] : nullptr;
 
   return ShouldSwitchConnection(reason, top_connection);
 }
 
-bool BasicIceController::ReadyToSend(const Connection* connection) const {
+bool BasicIceController::ReadyToSend(const ConnectionInterface* connection) const {
   // Note that we allow sending on an unreliable connection, because it's
   // possible that it became unreliable simply due to bad chance.
   // So this shouldn't prevent attempting to send media.
   return connection != nullptr &&
          (connection->writable() ||
-          connection->write_state() == Connection::STATE_WRITE_UNRELIABLE ||
+          connection->write_state() == ConnectionInterface::STATE_WRITE_UNRELIABLE ||
           PresumedWritable(connection));
 }
 
-bool BasicIceController::PresumedWritable(const Connection* conn) const {
-  return (conn->write_state() == Connection::STATE_WRITE_INIT &&
+bool BasicIceController::PresumedWritable(const ConnectionInterface* conn) const {
+  return (conn->write_state() == ConnectionInterface::STATE_WRITE_INIT &&
           config_.presume_writable_when_fully_relayed &&
           conn->local_candidate().type() == RELAY_PORT_TYPE &&
           (conn->remote_candidate().type() == RELAY_PORT_TYPE ||
@@ -571,8 +571,8 @@ bool BasicIceController::PresumedWritable(const Connection* conn) const {
 // Compare two connections based on their writing, receiving, and connected
 // states.
 int BasicIceController::CompareConnectionStates(
-    const Connection* a,
-    const Connection* b,
+    const ConnectionInterface* a,
+    const ConnectionInterface* b,
     absl::optional<int64_t> receiving_unchanged_threshold,
     bool* missed_receiving_unchanged_threshold) const {
   // First, prefer a connection that's writable or presumed writable over
@@ -631,8 +631,8 @@ int BasicIceController::CompareConnectionStates(
   // In the case where we reconnect TCP connections, the original best
   // connection is disconnected without changing to WRITE_TIMEOUT. In this case,
   // the new connection, when it becomes writable, should have higher priority.
-  if (a->write_state() == Connection::STATE_WRITABLE &&
-      b->write_state() == Connection::STATE_WRITABLE) {
+  if (a->write_state() == ConnectionInterface::STATE_WRITABLE &&
+      b->write_state() == ConnectionInterface::STATE_WRITABLE) {
     if (a->connected() && !b->connected()) {
       return a_is_better;
     }
@@ -646,8 +646,8 @@ int BasicIceController::CompareConnectionStates(
 
 // Compares two connections based only on the candidate and network information.
 // Returns positive if `a` is better than `b`.
-int BasicIceController::CompareConnectionCandidates(const Connection* a,
-                                                    const Connection* b) const {
+int BasicIceController::CompareConnectionCandidates(const ConnectionInterface* a,
+                                                    const ConnectionInterface* b) const {
   int compare_a_b_by_networks =
       CompareCandidatePairNetworks(a, b, config_.network_preference);
   if (compare_a_b_by_networks != a_and_b_equal) {
@@ -689,8 +689,8 @@ int BasicIceController::CompareConnectionCandidates(const Connection* a,
 }
 
 int BasicIceController::CompareConnections(
-    const Connection* a,
-    const Connection* b,
+    const ConnectionInterface* a,
+    const ConnectionInterface* b,
     absl::optional<int64_t> receiving_unchanged_threshold,
     bool* missed_receiving_unchanged_threshold) const {
   RTC_CHECK(a != nullptr);
@@ -728,8 +728,8 @@ int BasicIceController::CompareConnections(
 }
 
 int BasicIceController::CompareCandidatePairNetworks(
-    const Connection* a,
-    const Connection* b,
+    const ConnectionInterface* a,
+    const ConnectionInterface* b,
     absl::optional<rtc::AdapterType> network_preference) const {
   int compare_a_b_by_network_preference =
       CompareCandidatePairsByNetworkPreference(a, b,
@@ -776,7 +776,7 @@ int BasicIceController::CompareCandidatePairNetworks(
   return a_and_b_equal;
 }
 
-std::vector<const Connection*> BasicIceController::PruneConnections() {
+std::vector<const ConnectionInterface*> BasicIceController::PruneConnections() {
   // We can prune any connection for which there is a connected, writable
   // connection on the same network with better or equal priority.  We leave
   // those with better priority just in case they become writable later (at
@@ -791,10 +791,10 @@ std::vector<const Connection*> BasicIceController::PruneConnections() {
   // not bound to any specific network interface. We don't want to keep one of
   // these alive as a backup, since it could be using the same network
   // interface as the higher-priority, selected candidate pair.
-  std::vector<const Connection*> connections_to_prune;
+  std::vector<const ConnectionInterface*> connections_to_prune;
   auto best_connection_by_network = GetBestConnectionByNetwork();
-  for (const Connection* conn : connections_) {
-    const Connection* best_conn = selected_connection_;
+  for (const ConnectionInterface* conn : connections_) {
+    const ConnectionInterface* best_conn = selected_connection_;
     if (!rtc::IPIsAny(conn->network()->ip())) {
       // If the connection is bound to a specific network interface (not an
       // "any address" network), compare it against the best connection for
@@ -813,7 +813,7 @@ std::vector<const Connection*> BasicIceController::PruneConnections() {
   return connections_to_prune;
 }
 
-bool BasicIceController::GetUseCandidateAttr(const Connection* conn,
+bool BasicIceController::GetUseCandidateAttr(const ConnectionInterface* conn,
                                              NominationMode mode,
                                              IceMode remote_ice_mode) const {
   switch (mode) {

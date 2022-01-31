@@ -146,20 +146,20 @@ class TurnPortTestVirtualSocketServer : public rtc::VirtualSocketServer {
 
 class TestConnectionWrapper : public sigslot::has_slots<> {
  public:
-  explicit TestConnectionWrapper(Connection* conn) : connection_(conn) {
+  explicit TestConnectionWrapper(ConnectionInterface* conn) : connection_(conn) {
     conn->SignalDestroyed.connect(
         this, &TestConnectionWrapper::OnConnectionDestroyed);
   }
 
-  Connection* connection() { return connection_; }
+  ConnectionInterface* connection() { return connection_; }
 
  private:
-  void OnConnectionDestroyed(Connection* conn) {
+  void OnConnectionDestroyed(ConnectionInterface* conn) {
     ASSERT_TRUE(conn == connection_);
     connection_ = nullptr;
   }
 
-  Connection* connection_;
+  ConnectionInterface* connection_;
 };
 
 // Note: This test uses a fake clock with a simulated network round trip
@@ -193,9 +193,9 @@ class TurnPortTest : public ::testing::Test,
       test_finish_ = true;
   }
 
-  void OnTurnPortComplete(Port* port) { turn_ready_ = true; }
-  void OnTurnPortError(Port* port) { turn_error_ = true; }
-  void OnCandidateError(Port* port,
+  void OnTurnPortComplete(PortInterface* port) { turn_ready_ = true; }
+  void OnTurnPortError(PortInterface* port) { turn_error_ = true; }
+  void OnCandidateError(PortInterface* port,
                         const cricket::IceCandidateErrorEvent& event) {
     error_event_ = event;
   }
@@ -217,14 +217,14 @@ class TurnPortTest : public ::testing::Test,
   void OnTurnRefreshResult(TurnPort* port, int code) {
     turn_refresh_success_ = (code == 0);
   }
-  void OnTurnReadPacket(Connection* conn,
+  void OnTurnReadPacket(ConnectionInterface* conn,
                         const char* data,
                         size_t size,
                         int64_t packet_time_us) {
     turn_packets_.push_back(rtc::Buffer(data, size));
   }
-  void OnUdpPortComplete(Port* port) { udp_ready_ = true; }
-  void OnUdpReadPacket(Connection* conn,
+  void OnUdpPortComplete(PortInterface* port) { udp_ready_ = true; }
+  void OnUdpReadPacket(ConnectionInterface* conn,
                        const char* data,
                        size_t size,
                        int64_t packet_time_us) {
@@ -406,7 +406,7 @@ class TurnPortTest : public ::testing::Test,
     return 3 * kSimulatedRtt + 2 * TimeToConnect(protocol_type);
   }
 
-  bool CheckConnectionFailedAndPruned(Connection* conn) {
+  bool CheckConnectionFailedAndPruned(ConnectionInterface* conn) {
     return conn && !conn->active() &&
            conn->state() == IceCandidatePairState::FAILED;
   }
@@ -581,17 +581,17 @@ class TurnPortTest : public ::testing::Test,
 
     // Send ping from UDP to TURN.
     ASSERT_GE(turn_port_->Candidates().size(), 1U);
-    Connection* conn1 = udp_port_->CreateConnection(turn_port_->Candidates()[0],
+    ConnectionInterface* conn1 = udp_port_->CreateConnection(turn_port_->Candidates()[0],
                                                     Port::ORIGIN_MESSAGE);
     ASSERT_TRUE(conn1 != NULL);
     conn1->Ping(0);
     SIMULATED_WAIT(!turn_unknown_address_, kSimulatedRtt * 2, fake_clock_);
     EXPECT_FALSE(turn_unknown_address_);
     EXPECT_FALSE(conn1->receiving());
-    EXPECT_EQ(Connection::STATE_WRITE_INIT, conn1->write_state());
+    EXPECT_EQ(ConnectionInterface::STATE_WRITE_INIT, conn1->write_state());
 
     // Send ping from TURN to UDP.
-    Connection* conn2 = turn_port_->CreateConnection(udp_port_->Candidates()[0],
+    ConnectionInterface* conn2 = turn_port_->CreateConnection(udp_port_->Candidates()[0],
                                                      Port::ORIGIN_MESSAGE);
     ASSERT_TRUE(conn2 != NULL);
     ASSERT_TRUE_SIMULATED_WAIT(turn_create_permission_success_, kSimulatedRtt,
@@ -599,15 +599,15 @@ class TurnPortTest : public ::testing::Test,
     conn2->Ping(0);
 
     // Two hops from TURN port to UDP port through TURN server, thus two RTTs.
-    EXPECT_EQ_SIMULATED_WAIT(Connection::STATE_WRITABLE, conn2->write_state(),
+    EXPECT_EQ_SIMULATED_WAIT(ConnectionInterface::STATE_WRITABLE, conn2->write_state(),
                              kSimulatedRtt * 2, fake_clock_);
     EXPECT_TRUE(conn1->receiving());
     EXPECT_TRUE(conn2->receiving());
-    EXPECT_EQ(Connection::STATE_WRITE_INIT, conn1->write_state());
+    EXPECT_EQ(ConnectionInterface::STATE_WRITE_INIT, conn1->write_state());
 
     // Send another ping from UDP to TURN.
     conn1->Ping(0);
-    EXPECT_EQ_SIMULATED_WAIT(Connection::STATE_WRITABLE, conn1->write_state(),
+    EXPECT_EQ_SIMULATED_WAIT(ConnectionInterface::STATE_WRITABLE, conn1->write_state(),
                              kSimulatedRtt * 2, fake_clock_);
     EXPECT_TRUE(conn2->receiving());
   }
@@ -616,9 +616,9 @@ class TurnPortTest : public ::testing::Test,
     PrepareTurnAndUdpPorts(PROTO_UDP);
 
     // Create connections on both ends.
-    Connection* conn1 = udp_port_->CreateConnection(turn_port_->Candidates()[0],
+    ConnectionInterface* conn1 = udp_port_->CreateConnection(turn_port_->Candidates()[0],
                                                     Port::ORIGIN_MESSAGE);
-    Connection* conn2 = turn_port_->CreateConnection(udp_port_->Candidates()[0],
+    ConnectionInterface* conn2 = turn_port_->CreateConnection(udp_port_->Candidates()[0],
                                                      Port::ORIGIN_MESSAGE);
 
     // Increased to 10 minutes, to ensure that the TurnEntry times out before
@@ -630,7 +630,7 @@ class TurnPortTest : public ::testing::Test,
                                fake_clock_);
     // Make sure turn connection can receive.
     conn1->Ping(0);
-    EXPECT_EQ_SIMULATED_WAIT(Connection::STATE_WRITABLE, conn1->write_state(),
+    EXPECT_EQ_SIMULATED_WAIT(ConnectionInterface::STATE_WRITABLE, conn1->write_state(),
                              kSimulatedRtt * 2, fake_clock_);
     EXPECT_FALSE(turn_unknown_address_);
 
@@ -661,9 +661,9 @@ class TurnPortTest : public ::testing::Test,
     PrepareTurnAndUdpPorts(protocol_type);
 
     // Create connections and send pings.
-    Connection* conn1 = turn_port_->CreateConnection(udp_port_->Candidates()[0],
+    ConnectionInterface* conn1 = turn_port_->CreateConnection(udp_port_->Candidates()[0],
                                                      Port::ORIGIN_MESSAGE);
-    Connection* conn2 = udp_port_->CreateConnection(turn_port_->Candidates()[0],
+    ConnectionInterface* conn2 = udp_port_->CreateConnection(turn_port_->Candidates()[0],
                                                     Port::ORIGIN_MESSAGE);
     ASSERT_TRUE(conn1 != NULL);
     ASSERT_TRUE(conn2 != NULL);
@@ -672,10 +672,10 @@ class TurnPortTest : public ::testing::Test,
     conn2->SignalReadPacket.connect(static_cast<TurnPortTest*>(this),
                                     &TurnPortTest::OnUdpReadPacket);
     conn1->Ping(0);
-    EXPECT_EQ_SIMULATED_WAIT(Connection::STATE_WRITABLE, conn1->write_state(),
+    EXPECT_EQ_SIMULATED_WAIT(ConnectionInterface::STATE_WRITABLE, conn1->write_state(),
                              kSimulatedRtt * 2, fake_clock_);
     conn2->Ping(0);
-    EXPECT_EQ_SIMULATED_WAIT(Connection::STATE_WRITABLE, conn2->write_state(),
+    EXPECT_EQ_SIMULATED_WAIT(ConnectionInterface::STATE_WRITABLE, conn2->write_state(),
                              kSimulatedRtt * 2, fake_clock_);
 
     // Send some data.
@@ -714,9 +714,9 @@ class TurnPortTest : public ::testing::Test,
     PrepareTurnAndUdpPorts(protocol_type);
 
     // Create connections and send pings.
-    Connection* conn1 = turn_port_->CreateConnection(udp_port_->Candidates()[0],
+    ConnectionInterface* conn1 = turn_port_->CreateConnection(udp_port_->Candidates()[0],
                                                      Port::ORIGIN_MESSAGE);
-    Connection* conn2 = udp_port_->CreateConnection(turn_port_->Candidates()[0],
+    ConnectionInterface* conn2 = udp_port_->CreateConnection(turn_port_->Candidates()[0],
                                                     Port::ORIGIN_MESSAGE);
     ASSERT_TRUE(conn1 != NULL);
     ASSERT_TRUE(conn2 != NULL);
@@ -725,10 +725,10 @@ class TurnPortTest : public ::testing::Test,
     conn2->SignalReadPacket.connect(static_cast<TurnPortTest*>(this),
                                     &TurnPortTest::OnUdpReadPacket);
     conn1->Ping(0);
-    EXPECT_EQ_SIMULATED_WAIT(Connection::STATE_WRITABLE, conn1->write_state(),
+    EXPECT_EQ_SIMULATED_WAIT(ConnectionInterface::STATE_WRITABLE, conn1->write_state(),
                              kSimulatedRtt * 2, fake_clock_);
     conn2->Ping(0);
-    EXPECT_EQ_SIMULATED_WAIT(Connection::STATE_WRITABLE, conn2->write_state(),
+    EXPECT_EQ_SIMULATED_WAIT(ConnectionInterface::STATE_WRITABLE, conn2->write_state(),
                              kSimulatedRtt * 2, fake_clock_);
 
     // Send some data from Udp to TurnPort.
@@ -1216,15 +1216,15 @@ TEST_F(TurnPortTest, TestRefreshRequestGetsErrorResponse) {
 TEST_F(TurnPortTest, TestStopProcessingPacketsAfterClosed) {
   CreateTurnPort(kTurnUsername, kTurnPassword, kTurnUdpProtoAddr);
   PrepareTurnAndUdpPorts(PROTO_UDP);
-  Connection* conn1 = turn_port_->CreateConnection(udp_port_->Candidates()[0],
+  ConnectionInterface* conn1 = turn_port_->CreateConnection(udp_port_->Candidates()[0],
                                                    Port::ORIGIN_MESSAGE);
-  Connection* conn2 = udp_port_->CreateConnection(turn_port_->Candidates()[0],
+  ConnectionInterface* conn2 = udp_port_->CreateConnection(turn_port_->Candidates()[0],
                                                   Port::ORIGIN_MESSAGE);
   ASSERT_TRUE(conn1 != NULL);
   ASSERT_TRUE(conn2 != NULL);
   // Make sure conn2 is writable.
   conn2->Ping(0);
-  EXPECT_EQ_SIMULATED_WAIT(Connection::STATE_WRITABLE, conn2->write_state(),
+  EXPECT_EQ_SIMULATED_WAIT(ConnectionInterface::STATE_WRITABLE, conn2->write_state(),
                            kSimulatedRtt * 2, fake_clock_);
 
   turn_port_->Close();
@@ -1243,7 +1243,7 @@ TEST_F(TurnPortTest, TestCreateConnectionWhenSocketClosed) {
   CreateTurnPort(kTurnUsername, kTurnPassword, kTurnTcpProtoAddr);
   PrepareTurnAndUdpPorts(PROTO_TCP);
   // Create a connection.
-  Connection* conn1 = turn_port_->CreateConnection(udp_port_->Candidates()[0],
+  ConnectionInterface* conn1 = turn_port_->CreateConnection(udp_port_->Candidates()[0],
                                                    Port::ORIGIN_MESSAGE);
   ASSERT_TRUE(conn1 != NULL);
 
@@ -1260,7 +1260,7 @@ TEST_F(TurnPortTest, TestSocketCloseWillDestroyConnection) {
   turn_server_.AddInternalSocket(kTurnTcpIntAddr, PROTO_TCP);
   CreateTurnPort(kTurnUsername, kTurnPassword, kTurnTcpProtoAddr);
   PrepareTurnAndUdpPorts(PROTO_TCP);
-  Connection* conn = turn_port_->CreateConnection(udp_port_->Candidates()[0],
+  ConnectionInterface* conn = turn_port_->CreateConnection(udp_port_->Candidates()[0],
                                                   Port::ORIGIN_MESSAGE);
   EXPECT_NE(nullptr, conn);
   EXPECT_TRUE(!turn_port_->connections().empty());
@@ -1406,7 +1406,7 @@ TEST_F(TurnPortTest, TestRefreshCreatePermissionRequest) {
   CreateTurnPort(kTurnUsername, kTurnPassword, kTurnUdpProtoAddr);
   PrepareTurnAndUdpPorts(PROTO_UDP);
 
-  Connection* conn = turn_port_->CreateConnection(udp_port_->Candidates()[0],
+  ConnectionInterface* conn = turn_port_->CreateConnection(udp_port_->Candidates()[0],
                                                   Port::ORIGIN_MESSAGE);
   ASSERT_TRUE(conn != NULL);
   EXPECT_TRUE_SIMULATED_WAIT(turn_create_permission_success_, kSimulatedRtt,
@@ -1430,10 +1430,10 @@ TEST_F(TurnPortTest, TestRefreshCreatePermissionRequest) {
 TEST_F(TurnPortTest, TestChannelBindGetErrorResponse) {
   CreateTurnPort(kTurnUsername, kTurnPassword, kTurnUdpProtoAddr);
   PrepareTurnAndUdpPorts(PROTO_UDP);
-  Connection* conn1 = turn_port_->CreateConnection(udp_port_->Candidates()[0],
+  ConnectionInterface* conn1 = turn_port_->CreateConnection(udp_port_->Candidates()[0],
                                                    Port::ORIGIN_MESSAGE);
   ASSERT_TRUE(conn1 != nullptr);
-  Connection* conn2 = udp_port_->CreateConnection(turn_port_->Candidates()[0],
+  ConnectionInterface* conn2 = udp_port_->CreateConnection(turn_port_->Candidates()[0],
                                                   Port::ORIGIN_MESSAGE);
 
   ASSERT_TRUE(conn2 != nullptr);
@@ -1526,7 +1526,7 @@ TEST_F(TurnPortTest, TestCandidateAddressFamilyMatch) {
   Candidate remote_candidate(ICE_CANDIDATE_COMPONENT_RTP, "udp", kLocalAddr2, 0,
                              "", "", "local", 0, kCandidateFoundation);
   remote_candidate.set_address(kLocalAddr2);
-  Connection* conn =
+  ConnectionInterface* conn =
       turn_port_->CreateConnection(remote_candidate, Port::ORIGIN_MESSAGE);
   EXPECT_NE(nullptr, conn);
 
@@ -1609,9 +1609,9 @@ TEST_F(TurnPortTest, TestTurnTLSGracefulReleaseAllocation) {
 TEST_F(TurnPortTest, CanCreateTwoConnectionsToSameAddress) {
   CreateTurnPort(kTurnUsername, kTurnPassword, kTurnUdpProtoAddr);
   PrepareTurnAndUdpPorts(PROTO_UDP);
-  Connection* conn1 = turn_port_->CreateConnection(udp_port_->Candidates()[0],
+  ConnectionInterface* conn1 = turn_port_->CreateConnection(udp_port_->Candidates()[0],
                                                    Port::ORIGIN_MESSAGE);
-  Connection* conn2 = turn_port_->CreateConnection(udp_port_->Candidates()[0],
+  ConnectionInterface* conn2 = turn_port_->CreateConnection(udp_port_->Candidates()[0],
                                                    Port::ORIGIN_MESSAGE);
   EXPECT_NE(conn1, conn2);
 }

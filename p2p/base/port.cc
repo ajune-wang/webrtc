@@ -186,7 +186,7 @@ Port::~Port() {
   // Delete all of the remaining connections.  We copy the list up front
   // because each deletion will cause it to be modified.
 
-  std::vector<Connection*> list;
+  std::vector<ConnectionInterface*> list;
 
   AddressMap::iterator iter = connections_.begin();
   while (iter != connections_.end()) {
@@ -241,7 +241,7 @@ const std::vector<Candidate>& Port::Candidates() const {
   return candidates_;
 }
 
-Connection* Port::GetConnection(const rtc::SocketAddress& remote_addr) {
+ConnectionInterface* Port::GetConnection(const rtc::SocketAddress& remote_addr) {
   AddressMap::const_iterator iter = connections_.find(remote_addr);
   if (iter != connections_.end())
     return iter->second;
@@ -334,7 +334,7 @@ void Port::PostAddAddress(bool is_final) {
   }
 }
 
-void Port::AddOrReplaceConnection(Connection* conn) {
+void Port::AddOrReplaceConnection(ConnectionInterface* conn) {
   auto ret = connections_.insert(
       std::make_pair(conn->remote_candidate().address(), conn));
   // If there is a different connection on the same remote address, replace
@@ -885,7 +885,7 @@ void Port::UpdateNetworkCost() {
   // Signal the connection state change on each connection to force a
   // re-sort in P2PTransportChannel.
   for (const auto& kv : connections_) {
-    Connection* conn = kv.second;
+    ConnectionInterface* conn = kv.second;
     conn->SignalStateChange(conn);
   }
 }
@@ -894,7 +894,7 @@ void Port::EnablePortPackets() {
   enable_port_packets_ = true;
 }
 
-void Port::OnConnectionDestroyed(Connection* conn) {
+void Port::OnConnectionDestroyed(ConnectionInterface* conn) {
   AddressMap::iterator iter =
       connections_.find(conn->remote_candidate().address());
   RTC_DCHECK(iter != connections_.end());

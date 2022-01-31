@@ -120,7 +120,7 @@ TCPPort::~TCPPort() {
   incoming_.clear();
 }
 
-Connection* TCPPort::CreateConnection(const Candidate& address,
+ConnectionInterface* TCPPort::CreateConnection(const Candidate& address,
                                       CandidateOrigin origin) {
   if (!SupportsProtocol(address.protocol())) {
     return NULL;
@@ -160,7 +160,7 @@ Connection* TCPPort::CreateConnection(const Candidate& address,
     // need to connect SignalReadyToSend and SignalSentPacket.
     conn = new TCPConnection(this, address);
     if (conn->socket()) {
-      conn->socket()->SignalReadyToSend.connect(this, &TCPPort::OnReadyToSend);
+      conn->socket()->SignalReadyToSend.connect(this, &TCPPort::OnReadyToSend2);
       conn->socket()->SignalSentPacket.connect(this, &TCPPort::OnSentPacket);
     }
   }
@@ -282,8 +282,8 @@ void TCPPort::OnNewConnection(rtc::AsyncListenSocket* socket,
   Incoming incoming;
   incoming.addr = new_socket->GetRemoteAddress();
   incoming.socket = new_socket;
-  incoming.socket->SignalReadPacket.connect(this, &TCPPort::OnReadPacket);
-  incoming.socket->SignalReadyToSend.connect(this, &TCPPort::OnReadyToSend);
+  incoming.socket->SignalReadPacket.connect(this, &TCPPort::OnReadPacket2);
+  incoming.socket->SignalReadyToSend.connect(this, &TCPPort::OnReadyToSend2);
   incoming.socket->SignalSentPacket.connect(this, &TCPPort::OnSentPacket);
 
   RTC_LOG(LS_VERBOSE) << ToString() << ": Accepted connection from "
@@ -319,7 +319,7 @@ rtc::AsyncPacketSocket* TCPPort::GetIncoming(const rtc::SocketAddress& addr,
   return socket;
 }
 
-void TCPPort::OnReadPacket(rtc::AsyncPacketSocket* socket,
+void TCPPort::OnReadPacket2(rtc::AsyncPacketSocket* socket,
                            const char* data,
                            size_t size,
                            const rtc::SocketAddress& remote_addr,
@@ -332,7 +332,7 @@ void TCPPort::OnSentPacket(rtc::AsyncPacketSocket* socket,
   PortInterface::SignalSentPacket(sent_packet);
 }
 
-void TCPPort::OnReadyToSend(rtc::AsyncPacketSocket* socket) {
+void TCPPort::OnReadyToSend2(rtc::AsyncPacketSocket* socket) {
   Port::OnReadyToSend();
 }
 
@@ -540,7 +540,7 @@ void TCPConnection::MaybeReconnect() {
   error_ = EPIPE;
 }
 
-void TCPConnection::OnReadPacket(rtc::AsyncPacketSocket* socket,
+void TCPConnection::OnReadPacket2(rtc::AsyncPacketSocket* socket,
                                  const char* data,
                                  size_t size,
                                  const rtc::SocketAddress& remote_addr,
@@ -549,7 +549,7 @@ void TCPConnection::OnReadPacket(rtc::AsyncPacketSocket* socket,
   Connection::OnReadPacket(data, size, packet_time_us);
 }
 
-void TCPConnection::OnReadyToSend(rtc::AsyncPacketSocket* socket) {
+void TCPConnection::OnReadyToSend2(rtc::AsyncPacketSocket* socket) {
   RTC_DCHECK(socket == socket_.get());
   Connection::OnReadyToSend();
 }
@@ -590,8 +590,8 @@ void TCPConnection::ConnectSocketSignals(rtc::AsyncPacketSocket* socket) {
   if (outgoing_) {
     socket->SignalConnect.connect(this, &TCPConnection::OnConnect);
   }
-  socket->SignalReadPacket.connect(this, &TCPConnection::OnReadPacket);
-  socket->SignalReadyToSend.connect(this, &TCPConnection::OnReadyToSend);
+  socket->SignalReadPacket.connect(this, &TCPConnection::OnReadPacket2);
+  socket->SignalReadyToSend.connect(this, &TCPConnection::OnReadyToSend2);
   socket->SignalClose.connect(this, &TCPConnection::OnClose);
 }
 

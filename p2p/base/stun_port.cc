@@ -204,7 +204,7 @@ bool UDPPort::Init() {
     socket_->SignalReadPacket.connect(this, &UDPPort::OnReadPacket);
   }
   socket_->SignalSentPacket.connect(this, &UDPPort::OnSentPacket);
-  socket_->SignalReadyToSend.connect(this, &UDPPort::OnReadyToSend);
+  socket_->SignalReadyToSend.connect(this, &UDPPort::OnReadyToSend2);
   socket_->SignalAddressReady.connect(this, &UDPPort::OnLocalAddressReady);
   requests_.SignalSendPacket.connect(this, &UDPPort::OnSendPacket);
   return true;
@@ -233,7 +233,7 @@ void UDPPort::MaybePrepareStunCandidate() {
   }
 }
 
-Connection* UDPPort::CreateConnection(const Candidate& address,
+ConnectionInterface* UDPPort::CreateConnection(const Candidate& address,
                                       CandidateOrigin origin) {
   if (!SupportsProtocol(address.protocol())) {
     return nullptr;
@@ -266,7 +266,7 @@ Connection* UDPPort::CreateConnection(const Candidate& address,
              mdns_name_registration_status() !=
                  MdnsNameRegistrationStatus::kNotStarted);
 
-  Connection* conn = new ProxyConnection(this, 0, address);
+  ConnectionInterface* conn = new ProxyConnection(this, 0, address);
   AddOrReplaceConnection(conn);
   return conn;
 }
@@ -385,7 +385,7 @@ void UDPPort::OnReadPacket(rtc::AsyncPacketSocket* socket,
     return;
   }
 
-  if (Connection* conn = GetConnection(remote_addr)) {
+  if (ConnectionInterface* conn = GetConnection(remote_addr)) {
     conn->OnReadPacket(data, size, packet_time_us);
   } else {
     Port::OnReadPacket(data, size, remote_addr, PROTO_UDP);
@@ -397,7 +397,7 @@ void UDPPort::OnSentPacket(rtc::AsyncPacketSocket* socket,
   PortInterface::SignalSentPacket(sent_packet);
 }
 
-void UDPPort::OnReadyToSend(rtc::AsyncPacketSocket* socket) {
+void UDPPort::OnReadyToSend2(rtc::AsyncPacketSocket* socket) {
   Port::OnReadyToSend();
 }
 

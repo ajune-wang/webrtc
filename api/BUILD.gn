@@ -773,6 +773,7 @@ rtc_source_set("sequence_checker") {
     "../rtc_base:checks",
     "../rtc_base:macromagic",
     "../rtc_base/synchronization:sequence_checker_internal",
+    "../rtc_base/system:no_unique_address",
   ]
 }
 

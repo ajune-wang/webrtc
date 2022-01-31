@@ -106,8 +106,9 @@ class AudioRecordJni {
   static void JNICALL DataIsRecorded(JNIEnv* env,
                                      jobject obj,
                                      jint length,
-                                     jlong nativeAudioRecord);
-  void OnDataIsRecorded(int length);
+                                     jlong nativeAudioRecord,
+                                     int64_t capture_timestamp_ns);
+  void OnDataIsRecorded(int length, int64_t capture_timestamp_ns);
 
   // Stores thread ID in constructor.
   SequenceChecker thread_checker_;

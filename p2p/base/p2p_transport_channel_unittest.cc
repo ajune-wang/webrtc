@@ -2466,6 +2466,8 @@ class P2PTransportChannelMultihomedTest : public P2PTransportChannelTestBase {
     const Connection* selected_connection = channel->selected_connection();
     for (Connection* conn : channel->connections()) {
       if (conn != selected_connection) {
+        // TODO(tommi): Add a method to P2PTransportChannel for this.
+        conn->SignalDestroyed.disconnect(channel);
         conn->Destroy();
       }
     }
@@ -3829,6 +3831,8 @@ TEST_F(P2PTransportChannelPingTest, ConnectionResurrection) {
   // Wait for conn2 to be selected.
   EXPECT_EQ_WAIT(conn2, ch.selected_connection(), kMediumTimeout);
   // Destroy the connection to test SignalUnknownAddress.
+  // TODO(tommi): Add a method to P2PTransportChannel for this.
+  conn1->SignalDestroyed.disconnect(&ch);
   conn1->Destroy();
   EXPECT_TRUE_WAIT(GetConnectionTo(&ch, "1.1.1.1", 1) == nullptr,
                    kMediumTimeout);

@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "4c81e7b6_a46d80d0",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2022-01-31T08:02:09Z",
+      "side": 1,
+      "message": "Removing the old signature.\nPSA was sent quite some time ago; no reactions.\n",
+      "revId": "4d0eddfe754e1a6c0f986f4a13087b48da5c7a6e",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

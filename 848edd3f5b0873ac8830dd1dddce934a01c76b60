@@ -1,0 +1,44 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "d5052f35_0bff54d4",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 4
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2022-01-31T08:25:00Z",
+      "side": 1,
+      "message": "lgtm % nit\n\nDo you intend to resolve the TODO from https://webrtc-review.googlesource.com/c/src/+/249942 in this cl, or as a followup?",
+      "revId": "848edd3f5b0873ac8830dd1dddce934a01c76b60",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "202cda1c_3036f619",
+        "filename": "p2p/base/p2p_transport_channel_unittest.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 2469,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2022-01-31T08:25:00Z",
+      "side": 1,
+      "message": "Prefer explicit type (it looks like it should be an ArrayView).\n\nOr does it work to just write\n\nstd::vector\u003cConnection*\u003e connections(channel-\u003econnections())?",
+      "range": {
+        "startLine": 2468,
+        "startChar": 0,
+        "endLine": 2469,
+        "endChar": 69
+      },
+      "revId": "848edd3f5b0873ac8830dd1dddce934a01c76b60",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

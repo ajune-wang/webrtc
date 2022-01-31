@@ -16,6 +16,23 @@
       "message": "IWYU seems to have magically healed on my cloudtop, but it seems that the --no_fwd_decls argument was lost from IWYU in the meantime. Adding it back.\n\n",
       "revId": "74fe8aeb4bb32cce95f64f43d0080b4f35bb072e",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "0ce1890c_f3b033b1",
+        "filename": "pc/peer_connection.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 14,
+      "author": {
+        "id": 5087
+      },
+      "writtenOn": "2022-01-31T09:08:29Z",
+      "side": 1,
+      "message": "Hmm, this seems strange (memory should cover this below).\n\nNames with __ are considered private, we should not include them directly (same for __tree in the other file).",
+      "revId": "74fe8aeb4bb32cce95f64f43d0080b4f35bb072e",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

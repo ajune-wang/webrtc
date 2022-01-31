@@ -19,7 +19,6 @@
 
 #include "api/peer_connection_interface.h"
 #include "call/call.h"
-#include "pc/data_channel_controller.h"
 #include "pc/jsep_transport_controller.h"
 #include "pc/peer_connection_message_handler.h"
 #include "pc/rtp_transceiver.h"
@@ -29,6 +28,7 @@
 namespace webrtc {
 
 class StatsCollector;
+class DataChannelController;
 
 // This interface defines the functions that are needed for
 // SdpOfferAnswerHandler to access PeerConnection internal state.
@@ -135,7 +135,8 @@ class PeerConnectionSdpMethods {
 // Functions defined in this class are called by other objects,
 // but not by SdpOfferAnswerHandler.
 class PeerConnectionInternal : public PeerConnectionInterface,
-                               public PeerConnectionSdpMethods {
+                               public PeerConnectionSdpMethods,
+                               public sigslot::has_slots<> {
  public:
   // Returns true if we were the initial offerer.
   virtual bool initial_offerer() const = 0;
@@ -177,6 +178,11 @@ class PeerConnectionInternal : public PeerConnectionInterface,
   // Get SSL role for an arbitrary m= section (handles bundling correctly).
   virtual bool GetSslRole(const std::string& content_name,
                           rtc::SSLRole* role) = 0;
+
+  // Functions needed by DataChannelController
+  virtual void NoteDataAddedEvent() = 0;
+  // Handler for the "channel closed" signal
+  virtual void OnSctpDataChannelClosed(DataChannelInterface* channel) = 0;
 };
 
 }  // namespace webrtc

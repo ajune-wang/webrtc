@@ -25,8 +25,6 @@ enum class H264Profile {
   kProfileMain,
   kProfileConstrainedHigh,
   kProfileHigh,
-  // TODO(https://crbug.com/1251096): Implement support for this profile.
-  kProfilePredictiveHigh444,
 };
 
 // All values are equal to ten times the level number, except level 1b which is

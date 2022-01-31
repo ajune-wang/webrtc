@@ -162,7 +162,7 @@ class FakePortAllocatorSession : public PortAllocatorSession {
   }
 
  private:
-  void AddPort(cricket::Port* port) {
+  void AddPort(cricket::PortInterface* port) {
     port->set_component(component());
     port->set_generation(generation());
     port->SignalPortComplete.connect(this,
@@ -172,7 +172,7 @@ class FakePortAllocatorSession : public PortAllocatorSession {
     SignalPortReady(this, port);
     port->KeepAliveUntilPruned();
   }
-  void OnPortComplete(cricket::Port* port) {
+  void OnPortComplete(cricket::PortInterface* port) {
     const std::vector<Candidate>& candidates = port->Candidates();
     candidates_.insert(candidates_.end(), candidates.begin(), candidates.end());
     SignalCandidatesReady(this, candidates);

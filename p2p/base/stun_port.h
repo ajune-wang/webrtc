@@ -86,7 +86,7 @@ class UDPPort : public Port {
 
   void PrepareAddress() override;
 
-  Connection* CreateConnection(const Candidate& address,
+  ConnectionInterface* CreateConnection(const Candidate& address,
                                CandidateOrigin origin) override;
   int SetOption(rtc::Socket::Option opt, int value) override;
   int GetOption(rtc::Socket::Option opt, int* value) override;
@@ -160,7 +160,7 @@ class UDPPort : public Port {
   void OnSentPacket(rtc::AsyncPacketSocket* socket,
                     const rtc::SentPacket& sent_packet) override;
 
-  void OnReadyToSend(rtc::AsyncPacketSocket* socket);
+  void OnReadyToSend2(rtc::AsyncPacketSocket* socket);
 
   // This method will send STUN binding request if STUN server address is set.
   void MaybePrepareStunCandidate();

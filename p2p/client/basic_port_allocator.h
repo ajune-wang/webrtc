@@ -175,10 +175,10 @@ class RTC_EXPORT BasicPortAllocatorSession : public PortAllocatorSession {
     };
 
     PortData() {}
-    PortData(Port* port, AllocationSequence* seq)
+    PortData(PortInterface* port, AllocationSequence* seq)
         : port_(port), sequence_(seq) {}
 
-    Port* port() const { return port_; }
+    PortInterface* port() const { return port_; }
     AllocationSequence* sequence() const { return sequence_; }
     bool has_pairable_candidate() const { return has_pairable_candidate_; }
     State state() const { return state_; }
@@ -210,7 +210,7 @@ class RTC_EXPORT BasicPortAllocatorSession : public PortAllocatorSession {
     }
 
    private:
-    Port* port_ = nullptr;
+    PortInterface* port_ = nullptr;
     AllocationSequence* sequence_ = nullptr;
     bool has_pairable_candidate_ = false;
     State state_ = STATE_INPROGRESS;
@@ -226,16 +226,16 @@ class RTC_EXPORT BasicPortAllocatorSession : public PortAllocatorSession {
   void DisableEquivalentPhases(rtc::Network* network,
                                PortConfiguration* config,
                                uint32_t* flags);
-  void AddAllocatedPort(Port* port, AllocationSequence* seq);
-  void OnCandidateReady(Port* port, const Candidate& c);
-  void OnCandidateError(Port* port, const IceCandidateErrorEvent& event);
-  void OnPortComplete(Port* port);
-  void OnPortError(Port* port);
+  void AddAllocatedPort(PortInterface* port, AllocationSequence* seq);
+  void OnCandidateReady(PortInterface* port, const Candidate& c);
+  void OnCandidateError(PortInterface* port, const IceCandidateErrorEvent& event);
+  void OnPortComplete(PortInterface* port);
+  void OnPortError(PortInterface* port);
   void OnProtocolEnabled(AllocationSequence* seq, ProtocolType proto);
   void OnPortDestroyed(PortInterface* port);
   void MaybeSignalCandidatesAllocationDone();
   void OnPortAllocationComplete();
-  PortData* FindPort(Port* port);
+  PortData* FindPort(PortInterface* port);
   std::vector<rtc::Network*> GetNetworks();
   std::vector<rtc::Network*> GetFailedNetworks();
   void Regather(const std::vector<rtc::Network*>& networks,
@@ -243,7 +243,7 @@ class RTC_EXPORT BasicPortAllocatorSession : public PortAllocatorSession {
                 IceRegatheringReason reason);
 
   bool CheckCandidateFilter(const Candidate& c) const;
-  bool CandidatePairable(const Candidate& c, const Port* port) const;
+  bool CandidatePairable(const Candidate& c, const PortInterface* port) const;
 
   std::vector<PortData*> GetUnprunedPorts(
       const std::vector<rtc::Network*>& networks);
@@ -255,9 +255,9 @@ class RTC_EXPORT BasicPortAllocatorSession : public PortAllocatorSession {
   // append to `candidates`.
   void GetCandidatesFromPort(const PortData& data,
                              std::vector<Candidate>* candidates) const;
-  Port* GetBestTurnPortForNetwork(const std::string& network_name) const;
+  PortInterface* GetBestTurnPortForNetwork(const std::string& network_name) const;
   // Returns true if at least one TURN port is pruned.
-  bool PruneTurnPorts(Port* newly_pairable_turn_port);
+  bool PruneTurnPorts(PortInterface* newly_pairable_turn_port);
   bool PruneNewlyPairableTurnPort(PortData* newly_pairable_turn_port);
 
   BasicPortAllocator* allocator_;
@@ -402,7 +402,7 @@ class AllocationSequence : public sigslot::has_slots<> {
   std::unique_ptr<rtc::AsyncPacketSocket> udp_socket_;
   // There will be only one udp port per AllocationSequence.
   UDPPort* udp_port_;
-  std::vector<Port*> relay_ports_;
+  std::vector<PortInterface*> relay_ports_;
   int phase_;
   std::function<void()> port_allocation_complete_callback_;
   // This counter is sampled and passed together with tasks when tasks are

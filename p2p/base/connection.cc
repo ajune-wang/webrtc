@@ -279,7 +279,7 @@ int ConnectionRequest::resend_delay() {
   return CONNECTION_RESPONSE_TIMEOUT;
 }
 
-Connection::Connection(Port* port,
+Connection::Connection(PortInterface* port,
                        size_t index,
                        const Candidate& remote_candidate)
     : id_(rtc::CreateRandomId()),
@@ -311,8 +311,6 @@ Connection::Connection(Port* port,
   requests_.SignalSendPacket.connect(this, &Connection::OnSendStunPacket);
   RTC_LOG(LS_INFO) << ToString() << ": Connection created";
 }
-
-Connection::~Connection() {}
 
 const Candidate& Connection::local_candidate() const {
   RTC_DCHECK(local_candidate_index_ < port_->Candidates().size());
@@ -1358,7 +1356,7 @@ void Connection::ForgetLearnedState() {
   pings_since_last_response_.clear();
 }
 
-ProxyConnection::ProxyConnection(Port* port,
+ProxyConnection::ProxyConnection(PortInterface* port,
                                  size_t index,
                                  const Candidate& remote_candidate)
     : Connection(port, index, remote_candidate) {}

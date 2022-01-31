@@ -74,7 +74,7 @@ int GetAddressFamilyPriority(int ip_family) {
 }
 
 // Returns positive if a is better, negative if b is better, and 0 otherwise.
-int ComparePort(const cricket::Port* a, const cricket::Port* b) {
+int ComparePort(const cricket::PortInterface* a, const cricket::PortInterface* b) {
   int a_protocol = GetProtocolPriority(a->GetProtocol());
   int b_protocol = GetProtocolPriority(b->GetProtocol());
   int cmp_protocol = a_protocol - b_protocol;
@@ -327,7 +327,7 @@ void BasicPortAllocatorSession::SetCandidateFilter(uint32_t filter) {
     PortData::State cur_state = port_data.state();
     bool found_signalable_candidate = false;
     bool found_pairable_candidate = false;
-    cricket::Port* port = port_data.port();
+    cricket::PortInterface* port = port_data.port();
     for (const auto& c : port->Candidates()) {
       if (!IsStopped() && !IsAllowedByCandidateFilter(c, prev_filter) &&
           IsAllowedByCandidateFilter(c, filter)) {
@@ -433,7 +433,7 @@ std::vector<rtc::Network*> BasicPortAllocatorSession::GetFailedNetworks() {
   // is considered failed and need to be regathered on.
   std::set<std::string> networks_with_connection;
   for (const PortData& data : ports_) {
-    Port* port = data.port();
+    PortInterface* port = data.port();
     if (!port->connections().empty()) {
       networks_with_connection.insert(port->Network()->name());
     }
@@ -888,7 +888,7 @@ void BasicPortAllocatorSession::DisableEquivalentPhases(
   }
 }
 
-void BasicPortAllocatorSession::AddAllocatedPort(Port* port,
+void BasicPortAllocatorSession::AddAllocatedPort(PortInterface* port,
                                                  AllocationSequence* seq) {
   RTC_DCHECK_RUN_ON(network_thread_);
   if (!port)
@@ -928,7 +928,7 @@ void BasicPortAllocatorSession::OnAllocationSequenceObjectsCreated() {
   MaybeSignalCandidatesAllocationDone();
 }
 
-void BasicPortAllocatorSession::OnCandidateReady(Port* port,
+void BasicPortAllocatorSession::OnCandidateReady(PortInterface* port,
                                                  const Candidate& c) {
   RTC_DCHECK_RUN_ON(network_thread_);
   PortData* data = FindPort(port);
@@ -987,7 +987,7 @@ void BasicPortAllocatorSession::OnCandidateReady(Port* port,
 }
 
 void BasicPortAllocatorSession::OnCandidateError(
-    Port* port,
+    PortInterface* port,
     const IceCandidateErrorEvent& event) {
   RTC_DCHECK_RUN_ON(network_thread_);
   RTC_DCHECK(FindPort(port));
@@ -998,10 +998,10 @@ void BasicPortAllocatorSession::OnCandidateError(
   }
 }
 
-Port* BasicPortAllocatorSession::GetBestTurnPortForNetwork(
+PortInterface* BasicPortAllocatorSession::GetBestTurnPortForNetwork(
     const std::string& network_name) const {
   RTC_DCHECK_RUN_ON(network_thread_);
-  Port* best_turn_port = nullptr;
+  PortInterface* best_turn_port = nullptr;
   for (const PortData& data : ports_) {
     if (data.port()->Network()->name() == network_name &&
         data.port()->Type() == RELAY_PORT_TYPE && data.ready() &&
@@ -1034,13 +1034,13 @@ bool BasicPortAllocatorSession::PruneNewlyPairableTurnPort(
   return false;
 }
 
-bool BasicPortAllocatorSession::PruneTurnPorts(Port* newly_pairable_turn_port) {
+bool BasicPortAllocatorSession::PruneTurnPorts(PortInterface* newly_pairable_turn_port) {
   RTC_DCHECK_RUN_ON(network_thread_);
   // Note: We determine the same network based only on their network names. So
   // if an IPv4 address and an IPv6 address have the same network name, they
   // are considered the same network here.
   const std::string& network_name = newly_pairable_turn_port->Network()->name();
-  Port* best_turn_port = GetBestTurnPortForNetwork(network_name);
+  PortInterface* best_turn_port = GetBestTurnPortForNetwork(network_name);
   // `port` is already in the list of ports, so the best port cannot be nullptr.
   RTC_CHECK(best_turn_port != nullptr);
 
@@ -1075,7 +1075,7 @@ void BasicPortAllocatorSession::PruneAllPorts() {
   }
 }
 
-void BasicPortAllocatorSession::OnPortComplete(Port* port) {
+void BasicPortAllocatorSession::OnPortComplete(PortInterface* port) {
   RTC_DCHECK_RUN_ON(network_thread_);
   RTC_LOG(LS_INFO) << port->ToString()
                    << ": Port completed gathering candidates.";
@@ -1093,7 +1093,7 @@ void BasicPortAllocatorSession::OnPortComplete(Port* port) {
   MaybeSignalCandidatesAllocationDone();
 }
 
-void BasicPortAllocatorSession::OnPortError(Port* port) {
+void BasicPortAllocatorSession::OnPortError(PortInterface* port) {
   RTC_DCHECK_RUN_ON(network_thread_);
   RTC_LOG(LS_INFO) << port->ToString()
                    << ": Port encountered error while gathering candidates.";
@@ -1118,7 +1118,7 @@ bool BasicPortAllocatorSession::CheckCandidateFilter(const Candidate& c) const {
 }
 
 bool BasicPortAllocatorSession::CandidatePairable(const Candidate& c,
-                                                  const Port* port) const {
+                                                  const PortInterface* port) const {
   RTC_DCHECK_RUN_ON(network_thread_);
 
   bool candidate_signalable = CheckCandidateFilter(c);
@@ -1177,7 +1177,7 @@ void BasicPortAllocatorSession::OnPortDestroyed(PortInterface* port) {
 }
 
 BasicPortAllocatorSession::PortData* BasicPortAllocatorSession::FindPort(
-    Port* port) {
+    PortInterface* port) {
   RTC_DCHECK_RUN_ON(network_thread_);
   for (std::vector<PortData>::iterator it = ports_.begin(); it != ports_.end();
        ++it) {

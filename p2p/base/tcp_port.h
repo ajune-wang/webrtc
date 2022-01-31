@@ -48,7 +48,7 @@ class TCPPort : public Port {
   }
   ~TCPPort() override;
 
-  Connection* CreateConnection(const Candidate& address,
+  ConnectionInterface* CreateConnection(const Candidate& address,
                                CandidateOrigin origin) override;
 
   void PrepareAddress() override;
@@ -95,7 +95,7 @@ class TCPPort : public Port {
                                       bool remove = false);
 
   // Receives packet signal from the local TCP Socket.
-  void OnReadPacket(rtc::AsyncPacketSocket* socket,
+  void OnReadPacket2(rtc::AsyncPacketSocket* socket,
                     const char* data,
                     size_t size,
                     const rtc::SocketAddress& remote_addr,
@@ -104,7 +104,7 @@ class TCPPort : public Port {
   void OnSentPacket(rtc::AsyncPacketSocket* socket,
                     const rtc::SentPacket& sent_packet) override;
 
-  void OnReadyToSend(rtc::AsyncPacketSocket* socket);
+  void OnReadyToSend2(rtc::AsyncPacketSocket* socket);
 
   bool allow_listen_;
   std::unique_ptr<rtc::AsyncListenSocket> listen_socket_;
@@ -165,12 +165,12 @@ class TCPConnection : public Connection {
 
   void OnConnect(rtc::AsyncPacketSocket* socket);
   void OnClose(rtc::AsyncPacketSocket* socket, int error);
-  void OnReadPacket(rtc::AsyncPacketSocket* socket,
+  void OnReadPacket2(rtc::AsyncPacketSocket* socket,
                     const char* data,
                     size_t size,
                     const rtc::SocketAddress& remote_addr,
                     const int64_t& packet_time_us);
-  void OnReadyToSend(rtc::AsyncPacketSocket* socket);
+  void OnReadyToSend2(rtc::AsyncPacketSocket* socket);
 
   std::unique_ptr<rtc::AsyncPacketSocket> socket_;
   int error_;

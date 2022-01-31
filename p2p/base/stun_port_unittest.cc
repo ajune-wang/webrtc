@@ -137,16 +137,16 @@ class StunPortTestBase : public ::testing::Test, public sigslot::has_slots<> {
     rtc::InitRandom(NULL, 0);
   }
 
-  void OnPortComplete(cricket::Port* port) {
+  void OnPortComplete(cricket::PortInterface* port) {
     ASSERT_FALSE(done_);
     done_ = true;
     error_ = false;
   }
-  void OnPortError(cricket::Port* port) {
+  void OnPortError(cricket::PortInterface* port) {
     done_ = true;
     error_ = true;
   }
-  void OnCandidateError(cricket::Port* port,
+  void OnCandidateError(cricket::PortInterface* port,
                         const cricket::IceCandidateErrorEvent& event) {
     error_event_ = event;
   }

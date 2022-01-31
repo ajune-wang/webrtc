@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "013d9a40_98bfcf50",
+        "filename": "p2p/base/connection.h",
+        "patchSetId": 3
+      },
+      "lineNbr": 380,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2022-01-31T08:05:44Z",
+      "side": 1,
+      "message": "Formulate as a TODO? Sounds like an issue that ought to be fixed.",
+      "range": {
+        "startLine": 379,
+        "startChar": 22,
+        "endLine": 380,
+        "endChar": 75
+      },
+      "revId": "f9d440bcfacfd75b19b4619179374927ef2f64cc",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

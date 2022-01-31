@@ -46,6 +46,30 @@
       },
       "revId": "7c872ed7168f20efcf23978e1cdd7d82b3e9d6c1",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "1229598c_14299a2f",
+        "filename": "p2p/base/connection.h",
+        "patchSetId": 8
+      },
+      "lineNbr": 115,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2022-01-31T10:27:57Z",
+      "side": 0,
+      "message": "I was thinking that methods like this could be inlined, with thread checker only in the (non-inlined) write_state() method it calls.\n\nBut not very important, and perhaps clearer to define all the methods in the .cc file.",
+      "parentUuid": "c568383a_7d1ad291",
+      "range": {
+        "startLine": 115,
+        "startChar": 2,
+        "endLine": 115,
+        "endChar": 66
+      },
+      "revId": "7c872ed7168f20efcf23978e1cdd7d82b3e9d6c1",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

@@ -16,6 +16,24 @@
       "message": "Would it make sense to offer access to the ConnectionContext instead of the thread accessors?\nConnectionContext has accessors for the threads and it also owns the channel manager (so you wouldn\u0027t need the channel_manager() accessor below).",
       "revId": "5b661302097ba03e1055357556c35f6e5d37b550",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "a0ef9878_21efa6a7",
+        "filename": "pc/peer_connection_internal.h",
+        "patchSetId": 4
+      },
+      "lineNbr": 42,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2022-01-31T07:58:27Z",
+      "side": 1,
+      "message": "When I added ConnectionContext, I thought that there would be numerous places that would need the stuff it wrapped; that hasn\u0027t been true so far. But here it fits. New CL incoming.",
+      "parentUuid": "849fc1b0_7b64da53",
+      "revId": "5b661302097ba03e1055357556c35f6e5d37b550",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

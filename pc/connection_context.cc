@@ -120,14 +120,10 @@ ConnectionContext::ConnectionContext(
   // If network_monitor_factory_ is non-null, it will be used to create a
   // network monitor while on the network thread.
   default_network_manager_ = std::make_unique<rtc::BasicNetworkManager>(
-      network_monitor_factory_.get(), network_thread()->socketserver());
+      network_monitor_factory_.get(), dependencies->socket_factory);
 
-  // TODO(bugs.webrtc.org/13145): Either require that a PacketSocketFactory
-  // always is injected (with no need to construct this default factory), or get
-  // the appropriate underlying SocketFactory without going through the
-  // rtc::Thread::socketserver() accessor.
   default_socket_factory_ = std::make_unique<rtc::BasicPacketSocketFactory>(
-      network_thread()->socketserver());
+      dependencies->socket_factory);
 
   channel_manager_ = cricket::ChannelManager::Create(
       std::move(dependencies->media_engine),

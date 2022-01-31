@@ -31,9 +31,9 @@ const WindowId kNullWindowId = 0;
 // On Windows, ScreenId is implementation dependent: sending a ScreenId from one
 // implementation to another usually won't work correctly.
 #if defined(CHROMEOS)
-  typedef int64_t ScreenId;
+typedef int64_t ScreenId;
 #else
-  typedef intptr_t ScreenId;
+typedef intptr_t ScreenId;
 #endif
 
 // The screen id corresponds to all screen combined together.

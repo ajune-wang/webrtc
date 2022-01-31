@@ -16,6 +16,41 @@
       "message": "Holding the LGTM until CQ is all green (I suspect a downstream project needs to add deps on the currently empty targets to allow this one to go green).",
       "revId": "0e174df4005c8108c23b20d9411eacfdedaddc5d",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "32ab44da_577e7459",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2022-01-31T14:12:32Z",
+      "side": 1,
+      "message": "Yep, one purpose of running the CQ on it was to verify that the internal project breaks on the internal_compile_lite bot, but so far, that bot breaks because the importer hasn\u0027t caught up yet.",
+      "parentUuid": "c11be1f3_b246dcc6",
+      "revId": "0e174df4005c8108c23b20d9411eacfdedaddc5d",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "df2e9ac4_de29e26b",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2022-01-31T14:12:32Z",
+      "side": 1,
+      "message": "Yes, I\u0027m waiting too.\n",
+      "revId": "0e174df4005c8108c23b20d9411eacfdedaddc5d",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

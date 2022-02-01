@@ -88,6 +88,24 @@
       "parentUuid": "5b81b25b_e83beb8d",
       "revId": "977cf7ec25893414cb77b6062fb1bae231ebe241",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "795ffec7_56589f7e",
+        "filename": "sdk/android/src/java/org/webrtc/audio/WebRtcAudioRecord.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 148,
+      "author": {
+        "id": 5091
+      },
+      "writtenOn": "2022-02-01T13:12:39Z",
+      "side": 1,
+      "message": "Basic ideas can be seen in https://developer.android.com/ndk/guides/audio/opensl/opensl-prog-notes. This is for OpenSL-ES but same goes for other APIs.\n\nCallback handlers are called from internal non-application threads that are not attached to the Android runtime, so they are ineligible to use JNI. Because these internal threads are critical to the integrity of the OpenSL ES implementation, a callback handler should also not block or perform excessive work.\n\nIf your callback handler needs to use JNI or execute work that is not proportional to the callback, the handler should instead post an event for another thread to process. Examples of acceptable callback workload include rendering and enqueuing the next output buffer (for an AudioPlayer), processing the just-filled input buffer and enqueueing the next empty buffer (for an AudioRecorder), or simple APIs such as most of the Get family. See the Performance section below regarding the workload.",
+      "parentUuid": "729824f9_f247ff87",
+      "revId": "977cf7ec25893414cb77b6062fb1bae231ebe241",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

@@ -16,6 +16,57 @@
       "message": "PTAL. Makes existing injection more explicit, although it\u0027s still somewhat confusing with injection of either network_thread (and associated rtc:SocketServer), and PacketSocketFactory, which also ought to use an rtc::SocketServer associated with the network thread.",
       "revId": "61920d73574c6f1fbea811f1962791f52ee8ac2f",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "de41f7b3_46f2887f",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 3
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2022-02-01T20:14:20Z",
+      "side": 1,
+      "message": "I feel like this doesn\u0027t filter out the SocketFactory from the Thread at the right level.\n",
+      "revId": "61920d73574c6f1fbea811f1962791f52ee8ac2f",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "4bfab19e_c0b8903b",
+        "filename": "pc/connection_context.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 31,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2022-02-01T20:14:20Z",
+      "side": 1,
+      "message": "This feels unclean. It takes the badness of with_socket_server and makes it worse.\n\nAnd once the two concepts of SocketFactory and Thread are separated, it will need refactoring.\n\nI\u0027d rather have the MaybeStartThread just start the thread, and the surrounding code take care of extracting the SocketFactory. It\u0027s closer to the end state.",
+      "revId": "61920d73574c6f1fbea811f1962791f52ee8ac2f",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "d7a9523b_0bf40df1",
+        "filename": "pc/connection_context.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 135,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2022-02-01T20:14:20Z",
+      "side": 1,
+      "message": "This line illustrates why I dislike the duality of factory vs server.",
+      "revId": "61920d73574c6f1fbea811f1962791f52ee8ac2f",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

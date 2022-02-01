@@ -35,6 +35,24 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "4c353380_25a79c16",
+        "filename": "audio/test/low_bandwidth_audio_test.py",
+        "patchSetId": 1
+      },
+      "lineNbr": 180,
+      "author": {
+        "id": 5087
+      },
+      "writtenOn": "2022-02-01T08:57:37Z",
+      "side": 1,
+      "message": "Thanks!\n\n\"\"\"\nBy default, this function will return the data as encoded bytes. The actual encoding of the output data may depend on the command being invoked, so the decoding to text will often need to be handled at the application level.\n\"\"\"",
+      "parentUuid": "26e13cac_2823ba8e",
+      "revId": "372e2c1e6d38033d69593fb143e5a7e21c9de94e",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "29b47e71_607b4dc7",
@@ -48,6 +66,30 @@
       "writtenOn": "2022-02-01T08:29:48Z",
       "side": 1,
       "message": "might need to decode into string as mentioned above?",
+      "range": {
+        "startLine": 186,
+        "startChar": 69,
+        "endLine": 186,
+        "endChar": 72
+      },
+      "revId": "372e2c1e6d38033d69593fb143e5a7e21c9de94e",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "31b9fd55_acc86005",
+        "filename": "audio/test/low_bandwidth_audio_test.py",
+        "patchSetId": 1
+      },
+      "lineNbr": 186,
+      "author": {
+        "id": 5087
+      },
+      "writtenOn": "2022-02-01T08:57:37Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "29b47e71_607b4dc7",
       "range": {
         "startLine": 186,
         "startChar": 69,

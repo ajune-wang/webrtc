@@ -52,6 +52,24 @@
       "parentUuid": "ba80700a_ab8e7ac0",
       "revId": "977cf7ec25893414cb77b6062fb1bae231ebe241",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "5b81b25b_e83beb8d",
+        "filename": "sdk/android/src/java/org/webrtc/audio/WebRtcAudioRecord.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 148,
+      "author": {
+        "id": 7255
+      },
+      "writtenOn": "2022-02-01T12:48:23Z",
+      "side": 1,
+      "message": "The aligner do \n* a JNI call\n* an integer division with a constant divider\n* an integer division between two variables\n* three if-statements\n* dozens of add and subtract \nI don\u0027t know what is too much.\n\nI was told to use the aligner. I will ask why it\u0027s needed.",
+      "parentUuid": "b17faa5d_1a9a7153",
+      "revId": "977cf7ec25893414cb77b6062fb1bae231ebe241",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

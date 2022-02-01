@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "fda12154_d3871de3",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 8
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 7755
+      },
+      "writtenOn": "2022-02-01T15:48:51Z",
+      "side": 1,
+      "message": "on Windows (which is where we get most hardware encoders/decoders and hence more H264):\n  const pc \u003d new RTCPeerConnection();\n  pc.addTransceiver(\u0027audio\u0027);\n  const t \u003d pc.addTransceiver(\u0027video\u0027);\n  t.direction \u003d \u0027recvonly\u0027;\n  const offer \u003d await pc.createOffer();\n\nmoves two codecs (video/red and its rtx) into the lower range. However, this CL increases the number of codecs from 39 in stable to 42 with this patch and i\u0027ve long been suspecting that we are indeed missing some codecs.\nWith this patch we get\n- a rtx codec for vp9 profile 1 (which is a receive-only codec)\n- H264 4d001f in packetization mode 0 and its rtx codec (which we do get for a sendrecv offer)\n\nBut we run out of payload types in the 96-127 range (see issue 12194) and are putting video/red and its rtx codec at 62 and 61 which is starting at the top of the lower range (I would prefer them at the bottom but can take a look at improving the collision logic later) with limited backward compability towards older versions of libwebrtc. But when dealing with a version that does not support the lower range that will just break ulpfec (which depends on red).\nBut from what I can see this happens with sendrecv offers also which is a bit concerning.",
+      "revId": "a4ca96dac41631b9fc41980ea927eb141740c003",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

@@ -671,7 +671,8 @@ class StatsCollectorTest : public ::testing::Test {
     auto pc = CreatePeerConnection();
     auto stats = CreateStatsCollector(pc);
 
-    pc->AddVoiceChannel("audio", kTransportName);
+    auto* voice = pc->AddVoiceChannel("audio", kTransportName);
+    voice->SetStats(VoiceMediaInfo());
 
     // Fake stats to process.
     TransportChannelStats channel_stats;
@@ -765,8 +766,8 @@ static rtc::scoped_refptr<MockRtpReceiverInternal> CreateMockReceiver(
                      ? cricket::MEDIA_TYPE_AUDIO
                      : cricket::MEDIA_TYPE_VIDEO));
   EXPECT_CALL(*receiver, SetMediaChannel(_)).Times(AtMost(1));
-  EXPECT_CALL(*receiver, Stop());
-  EXPECT_CALL(*receiver, StopAndEndTrack());
+  EXPECT_CALL(*receiver, Stop()).WillRepeatedly(Return());
+  EXPECT_CALL(*receiver, StopSource(_)).WillRepeatedly(Return());
   return receiver;
 }
 
@@ -1191,7 +1192,8 @@ TEST_P(StatsCollectorTrackTest, RemoteSsrcInfoIsAbsent) {
   auto pc = CreatePeerConnection();
   auto stats = CreateStatsCollector(pc);
 
-  pc->AddVideoChannel("video", "transport");
+  auto* video = pc->AddVideoChannel("video", "transport");
+  video->SetStats(VideoMediaInfo());
   AddOutgoingVideoTrack(pc, stats.get());
 
   stats->UpdateStats(PeerConnectionInterface::kStatsOutputLevelStandard);
@@ -1313,7 +1315,8 @@ TEST_F(StatsCollectorTest, IceCandidateReport) {
   TransportChannelStats channel_stats;
   channel_stats.ice_transport_stats.connection_infos.push_back(connection_info);
 
-  pc->AddVoiceChannel("audio", kTransportName);
+  auto* voice = pc->AddVoiceChannel("audio", kTransportName);
+  voice->SetStats(VoiceMediaInfo());
   pc->SetTransportStats(kTransportName, channel_stats);
 
   stats->UpdateStats(PeerConnectionInterface::kStatsOutputLevelStandard);
@@ -1429,7 +1432,8 @@ TEST_F(StatsCollectorTest, NoTransport) {
 
   // This will cause the fake PeerConnection to generate a TransportStats entry
   // but with only a single dummy TransportChannelStats.
-  pc->AddVoiceChannel("audio", "transport");
+  auto* voice = pc->AddVoiceChannel("audio", "transport");
+  voice->SetStats(VoiceMediaInfo());
 
   stats->UpdateStats(PeerConnectionInterface::kStatsOutputLevelStandard);
   StatsReports reports;
@@ -1816,7 +1820,6 @@ TEST_P(StatsCollectorTrackTest, TwoLocalSendersWithSameTrack) {
 
   StatsReports reports;
   stats->GetStats(local_track.get(), &reports);
-  RTC_LOG(LS_INFO) << reports.size();
 
   // Both SSRC reports have the same track ID.
   EXPECT_EQ(kLocalTrackId, GetValueInNthReportByType(

@@ -16,6 +16,24 @@
       "message": "You are doing this on a real-time audio thread. Is it required to update at 100Hz? If so, have you checked if the API can cause any regression in terms of added latency or complexity?\n\nIdeally, the audio thread should be as thin as possible and doing heap allocations in each callback is not desirable.",
       "revId": "977cf7ec25893414cb77b6062fb1bae231ebe241",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "ba80700a_ab8e7ac0",
+        "filename": "sdk/android/src/java/org/webrtc/audio/WebRtcAudioRecord.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 148,
+      "author": {
+        "id": 7255
+      },
+      "writtenOn": "2022-02-01T11:21:04Z",
+      "side": 1,
+      "message": "I made the timestamp object a member of the class and reuse the memory. That way we no longer make a heap allocation here.",
+      "parentUuid": "7026c234_ddcb584f",
+      "revId": "977cf7ec25893414cb77b6062fb1bae231ebe241",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

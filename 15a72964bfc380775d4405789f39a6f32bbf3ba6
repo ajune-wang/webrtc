@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "0e4a18c8_f92d0041",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2022-02-01T07:55:40Z",
+      "side": 1,
+      "message": "I may have found a target that can be broken out without downstream patches.\n(The g3 thing is waiting for Lunar New Year to be over)\n",
+      "revId": "15a72964bfc380775d4405789f39a6f32bbf3ba6",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

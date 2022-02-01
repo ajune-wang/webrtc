@@ -130,7 +130,7 @@ def ExtractTestRuns(lines, echo=False):
     test_re = r'^' + android_prefix_re + (r'TEST (\w+) ([^ ]+?) ([^\s]+)'
                                           r' ?([^\s]+)?\s*$')
 
-    match = re.search(test_re, line)
+    match = re.search(test_re, line.decode('utf-8'))
     if match:
       yield match.groups()
 

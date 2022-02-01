@@ -70,6 +70,24 @@
       "parentUuid": "b17faa5d_1a9a7153",
       "revId": "977cf7ec25893414cb77b6062fb1bae231ebe241",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "729824f9_f247ff87",
+        "filename": "sdk/android/src/java/org/webrtc/audio/WebRtcAudioRecord.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 148,
+      "author": {
+        "id": 5091
+      },
+      "writtenOn": "2022-02-01T12:51:01Z",
+      "side": 1,
+      "message": "We should NOT do JNI in this callback. Sorry but you can\u0027t land this. The audio path must be super clean. A getter on AudioRecord is fine.",
+      "parentUuid": "5b81b25b_e83beb8d",
+      "revId": "977cf7ec25893414cb77b6062fb1bae231ebe241",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

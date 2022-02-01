@@ -429,6 +429,7 @@ if (is_android) {
     deps = [
       ":audio_api_java",
       ":base_java",
+      ":video_java",
       "//rtc_base:base_java",
       "//third_party/androidx:androidx_annotation_annotation_java",
     ]

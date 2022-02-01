@@ -10,7 +10,7 @@ vars = {
   # chromium waterfalls. More info at: crbug.com/570091.
   'checkout_configuration': 'default',
   'checkout_instrumented_libraries': 'checkout_linux and checkout_configuration == "default"',
-  'chromium_revision': '2da73dff1a950f9e403b3b3eccb58d5d5044f994',
+  'chromium_revision': 'ec35e9b9e07a46bd73bf63c6a4fd4a4e7bbf58d8',
 
   # Keep the Chromium default of generating location tags.
   'generate_location_tags': True,
@@ -25,7 +25,7 @@ deps = {
   'src/base':
     'https://chromium.googlesource.com/chromium/src/base@22e8efc6e8dc24bb3d333fba85bade848d252e3f',
   'src/build':
-    'https://chromium.googlesource.com/chromium/src/build@6b20164497b7adf69746437a0925ad11805d3524',
+    'https://chromium.googlesource.com/chromium/src/build@5093014eb20e26177441e184763646266b286a86',
   'src/buildtools':
     'https://chromium.googlesource.com/chromium/src/buildtools@f78b4b9f33bd8ef9944d5ce643daff1c31880189',
   # Gradle 6.6.1. Used for testing Android Studio project generation for WebRTC.
@@ -34,13 +34,13 @@ deps = {
     'condition': 'checkout_android',
   },
   'src/ios': {
-    'url': 'https://chromium.googlesource.com/chromium/src/ios@ae0c81e45a1baac79c0ca409faa69a769da1d4d3',
+    'url': 'https://chromium.googlesource.com/chromium/src/ios@88a4d061b76c5b8cb674beb72cdaff5c310440e3',
     'condition': 'checkout_ios',
   },
   'src/testing':
-    'https://chromium.googlesource.com/chromium/src/testing@b17e15aa1a9d2c9dfa31f456e7a32a732c9bdd5d',
+    'https://chromium.googlesource.com/chromium/src/testing@f6233b71e769776d50e4ac8866966ced68453386',
   'src/third_party':
-    'https://chromium.googlesource.com/chromium/src/third_party@af4ad38443628a33b7b5052a76f2b7c17f8ae644',
+    'https://chromium.googlesource.com/chromium/src/third_party@812ea06eaa3246975eaf647c0447454438e28c26',
 
   'src/buildtools/linux64': {
     'packages': [
@@ -149,7 +149,7 @@ deps = {
   'src/third_party/crc32c/src':
     'https://chromium.googlesource.com/external/github.com/google/crc32c.git@fa5ade41ee480003d9c5af6f43567ba22e4e17e6',
   'src/third_party/depot_tools':
-    'https://chromium.googlesource.com/chromium/tools/depot_tools.git@98cf932814ca64260b9c1d36d9ae20b4286256ec',
+    'https://chromium.googlesource.com/chromium/tools/depot_tools.git@8a6d00f116d6de9d5c4e92acb519fd0859c6449a',
   'src/third_party/ffmpeg':
     'https://chromium.googlesource.com/chromium/third_party/ffmpeg.git@1edb3eb4914e0545e9775939ead4a5795746f993',
   'src/third_party/findbugs': {
@@ -285,7 +285,7 @@ deps = {
     'condition': 'checkout_win',
   },
   'src/tools':
-    'https://chromium.googlesource.com/chromium/src/tools@9400dbb63a45a97b0bfd35ff1d0c502cc0573743',
+    'https://chromium.googlesource.com/chromium/src/tools@66958435f8450fafaab998809b20fb0d2c911fa9',
 
   'src/third_party/accessibility_test_framework': {
       'packages': [

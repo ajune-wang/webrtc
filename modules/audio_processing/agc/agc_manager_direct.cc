@@ -62,28 +62,27 @@ bool UseMaxAnalogChannelLevel() {
   return field_trial::IsEnabled("WebRTC-UseMaxAnalogAgcChannelLevel");
 }
 
-// Returns kMinMicLevel if no field trial exists or if it has been disabled.
-// Returns a value between 0 and 255 depending on the field-trial string.
-// Example: 'WebRTC-Audio-AgcMinMicLevelExperiment/Enabled-80' => returns 80.
-int GetMinMicLevel() {
-  RTC_LOG(LS_INFO) << "[agc] GetMinMicLevel";
+// If the "WebRTC-Audio-AgcMinMicLevelExperiment" field trial is specified,
+// parses it and returns a value between 0 and 255 depending on the field-trial
+// string. Returns an unspecified value if the field trial is not specified, if
+// disabled or if it cannot be parsed. Example:
+// 'WebRTC-Audio-AgcMinMicLevelExperiment/Enabled-80' => returns 80.
+absl::optional<int> GetMinMicLevelOverride() {
   constexpr char kMinMicLevelFieldTrial[] =
       "WebRTC-Audio-AgcMinMicLevelExperiment";
   if (!webrtc::field_trial::IsEnabled(kMinMicLevelFieldTrial)) {
-    RTC_LOG(LS_INFO) << "[agc] Using default min mic level: " << kMinMicLevel;
-    return kMinMicLevel;
+    return absl::nullopt;
   }
   const auto field_trial_string =
       webrtc::field_trial::FindFullName(kMinMicLevelFieldTrial);
   int min_mic_level = -1;
   sscanf(field_trial_string.c_str(), "Enabled-%d", &min_mic_level);
   if (min_mic_level >= 0 && min_mic_level <= 255) {
-    RTC_LOG(LS_INFO) << "[agc] Experimental min mic level: " << min_mic_level;
     return min_mic_level;
   } else {
     RTC_LOG(LS_WARNING) << "[agc] Invalid parameter for "
                         << kMinMicLevelFieldTrial << ", ignored.";
-    return kMinMicLevel;
+    return absl::nullopt;
   }
 }
 
@@ -476,7 +475,8 @@ AgcManagerDirect::AgcManagerDirect(
     float clipped_ratio_threshold,
     int clipped_wait_frames,
     const ClippingPredictorConfig& clipping_config)
-    : data_dumper_(
+    : min_mic_level_override_(GetMinMicLevelOverride()),
+      data_dumper_(
           new ApmDataDumper(rtc::AtomicOps::Increment(&instance_counter_))),
       use_min_channel_level_(!UseMaxAnalogChannelLevel()),
       sample_rate_hz_(sample_rate_hz),
@@ -497,7 +497,11 @@ AgcManagerDirect::AgcManagerDirect(
       clipping_predictor_log_counter_(0),
       clipping_rate_log_(0.0f),
       clipping_rate_log_counter_(0) {
-  const int min_mic_level = GetMinMicLevel();
+  const int min_mic_level = min_mic_level_override_.value_or(kMinMicLevel);
+  RTC_LOG(LS_INFO) << "[agc] Min mic level: " << min_mic_level
+                   << " (overridden: "
+                   << (min_mic_level_override_.has_value() ? "yes" : "no")
+                   << ")";
   for (size_t ch = 0; ch < channel_agcs_.size(); ++ch) {
     ApmDataDumper* data_dumper_ch = ch == 0 ? data_dumper_.get() : nullptr;
 
@@ -726,6 +730,10 @@ void AgcManagerDirect::AggregateChannelLevels() {
         channel_controlling_gain_ = static_cast<int>(ch);
       }
     }
+  }
+  if (min_mic_level_override_.has_value()) {
+    stream_analog_level_ =
+        std::max(stream_analog_level_, *min_mic_level_override_);
   }
 }
 

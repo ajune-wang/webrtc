@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "fff5de93_8ede3c8e",
+        "filename": "p2p/base/tcp_port.cc",
+        "patchSetId": 15
+      },
+      "lineNbr": 516,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2022-02-01T13:37:07Z",
+      "side": 0,
+      "message": "Keep this comment, to above PostDelayedTask.",
+      "range": {
+        "startLine": 513,
+        "startChar": 0,
+        "endLine": 516,
+        "endChar": 0
+      },
+      "revId": "af2930a69882e2e29307d4ffae42504965bc328a",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

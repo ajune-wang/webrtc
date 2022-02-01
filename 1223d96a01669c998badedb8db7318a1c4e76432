@@ -1,0 +1,90 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "3c6ed48b_f6bba495",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 15
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2022-02-01T13:37:07Z",
+      "side": 1,
+      "message": "Looks pretty good, a few questions.",
+      "revId": "1223d96a01669c998badedb8db7318a1c4e76432",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "ee6eaeba_725610ef",
+        "filename": "p2p/base/connection.cc",
+        "patchSetId": 15
+      },
+      "lineNbr": 840,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2022-02-01T13:37:07Z",
+      "side": 1,
+      "message": "This moves SignalDestroyed so that it is called before, rather than after, this method returns. Intentional?",
+      "range": {
+        "startLine": 838,
+        "startChar": 0,
+        "endLine": 840,
+        "endChar": 0
+      },
+      "revId": "1223d96a01669c998badedb8db7318a1c4e76432",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "6bdbcdd5_1980fcd0",
+        "filename": "p2p/base/connection.cc",
+        "patchSetId": 15
+      },
+      "lineNbr": 844,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2022-02-01T13:37:07Z",
+      "side": 1,
+      "message": "Prefer absl::WrapUnique.\n\nAlso, reason for destroying the object as its own task (post to the same thread) is unclear. Can it be explained in a comment?",
+      "range": {
+        "startLine": 844,
+        "startChar": 33,
+        "endLine": 844,
+        "endChar": 48
+      },
+      "revId": "1223d96a01669c998badedb8db7318a1c4e76432",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "e47f163d_3d89c9ec",
+        "filename": "p2p/base/tcp_port.cc",
+        "patchSetId": 15
+      },
+      "lineNbr": 372,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2022-02-01T13:37:07Z",
+      "side": 1,
+      "message": "Are there ordering subtleties that make it necessary to use SetNotAlive explicitly, rather than using ScopedTaskSafety? If so, worthy of a comment.",
+      "range": {
+        "startLine": 371,
+        "startChar": 0,
+        "endLine": 372,
+        "endChar": 33
+      },
+      "revId": "1223d96a01669c998badedb8db7318a1c4e76432",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

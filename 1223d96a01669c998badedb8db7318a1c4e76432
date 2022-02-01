@@ -41,6 +41,30 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "db27fe85_a71f9775",
+        "filename": "p2p/base/connection.cc",
+        "patchSetId": 15
+      },
+      "lineNbr": 840,
+      "author": {
+        "id": 5508
+      },
+      "writtenOn": "2022-02-01T14:54:13Z",
+      "side": 1,
+      "message": "Yes, intentional. This was helpful in tracking down many places where  Connection objects were being destroyed via the Destroy() method along with deleting other objects. The problem was that the signal was not disconnected from the deleted subscribers. Subsequently there were pending uaf tasks in the thread\u0027s message queue. The tests passed because the pending tasks were leaked.\n\nAdded a comment.",
+      "parentUuid": "ee6eaeba_725610ef",
+      "range": {
+        "startLine": 838,
+        "startChar": 0,
+        "endLine": 840,
+        "endChar": 0
+      },
+      "revId": "1223d96a01669c998badedb8db7318a1c4e76432",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "6bdbcdd5_1980fcd0",
@@ -64,6 +88,30 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "9f54e61e_8c101ade",
+        "filename": "p2p/base/connection.cc",
+        "patchSetId": 15
+      },
+      "lineNbr": 844,
+      "author": {
+        "id": 5508
+      },
+      "writtenOn": "2022-02-01T14:54:13Z",
+      "side": 1,
+      "message": "Done.\n\nPosting to the same thread, preserves the previous behavior.\n\nFrom gleaning at the code I think it\u0027s to guard against callers up stack that still hold a pointer to a Connection object, still refer to its state after the call to Destroy() and the stack needs to be be unwound. However, there are quite a few raw pointers flying around in these classes and for example a mismatch of lifetimes between the Connection and Port classes. Some of the code seems to have grown \u0027organically\u0027 with band-aid fixes for what could be said is a design problem. That could be the reason for why Destroy() is done this way. Another example where I saw something similar is in TCPConnection::CreateOutgoingTcpSocket() when FailAndPrune() needs to be called.\n\nBtw another thing that\u0027s different here is that if PostTask() fails, then the task will be deleted. That\u0027s why I move the ownership into the capture section rather than delete the object within the body of the function. This guarantees that the object is always deleted, but in the case of PostTask failure, it means that the object will be deleted from within Destroy().",
+      "parentUuid": "6bdbcdd5_1980fcd0",
+      "range": {
+        "startLine": 844,
+        "startChar": 33,
+        "endLine": 844,
+        "endChar": 48
+      },
+      "revId": "1223d96a01669c998badedb8db7318a1c4e76432",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "e47f163d_3d89c9ec",
@@ -77,6 +125,30 @@
       "writtenOn": "2022-02-01T13:37:07Z",
       "side": 1,
       "message": "Are there ordering subtleties that make it necessary to use SetNotAlive explicitly, rather than using ScopedTaskSafety? If so, worthy of a comment.",
+      "range": {
+        "startLine": 371,
+        "startChar": 0,
+        "endLine": 372,
+        "endChar": 33
+      },
+      "revId": "1223d96a01669c998badedb8db7318a1c4e76432",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "baabbe06_40a37a1c",
+        "filename": "p2p/base/tcp_port.cc",
+        "patchSetId": 15
+      },
+      "lineNbr": 372,
+      "author": {
+        "id": 5508
+      },
+      "writtenOn": "2022-02-01T14:54:13Z",
+      "side": 1,
+      "message": "Nope, switching to ScopedTaskSafety.",
+      "parentUuid": "e47f163d_3d89c9ec",
       "range": {
         "startLine": 371,
         "startChar": 0,

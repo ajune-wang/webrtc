@@ -26,10 +26,10 @@ If any command line arguments are passed to the script, it is executed as a
 command in a subprocess.
 """
 
-# psutil is not installed on non-Linux machines by default.
-import psutil  # pylint: disable=F0401
 import subprocess
 import sys
+# psutil is not installed on non-Linux machines by default.
+import psutil  # pylint: disable=F0401
 
 WEBCAM_WIN = ('schtasks', '/run', '/tn', 'ManyCam')
 WEBCAM_MAC = ('open', '/Applications/ManyCam/ManyCam.app')
@@ -81,7 +81,7 @@ def StartWebCam():
 def _ForcePythonInterpreter(cmd):
   """Returns the fixed command line to call the right python executable."""
   out = cmd[:]
-  if out[0] == 'python':
+  if out[0] == 'vpython3':
     out[0] = sys.executable
   elif out[0].endswith('.py'):
     out.insert(0, sys.executable)
@@ -95,8 +95,7 @@ def Main(argv):
 
   if argv:
     return subprocess.call(_ForcePythonInterpreter(argv))
-  else:
-    return 0
+  return 0
 
 
 if __name__ == '__main__':

@@ -17,6 +17,7 @@ import android.media.AudioFormat;
 import android.media.AudioManager;
 import android.media.AudioRecord;
 import android.media.AudioRecordingConfiguration;
+import android.media.AudioTimestamp;
 import android.media.MediaRecorder.AudioSource;
 import android.os.Build;
 import android.os.Process;
@@ -38,6 +39,7 @@ import java.util.concurrent.atomic.AtomicReference;
 import org.webrtc.CalledByNative;
 import org.webrtc.Logging;
 import org.webrtc.ThreadUtils;
+import org.webrtc.TimestampAligner;
 import org.webrtc.audio.JavaAudioDeviceModule.AudioRecordErrorCallback;
 import org.webrtc.audio.JavaAudioDeviceModule.AudioRecordStartErrorCode;
 import org.webrtc.audio.JavaAudioDeviceModule.AudioRecordStateCallback;
@@ -107,6 +109,9 @@ class WebRtcAudioRecord {
   private final boolean isAcousticEchoCancelerSupported;
   private final boolean isNoiseSuppressorSupported;
 
+  private @Nullable TimestampAligner timestampAligner;
+  private @Nullable AudioTimestamp audioTimestamp;
+
   /**
    * Audio thread which keeps calling ByteBuffer.read() waiting for audio
    * to be recorded. Feeds recorded data to the native counterpart as a
@@ -141,7 +146,13 @@ class WebRtcAudioRecord {
           // failed to join this thread. To be a bit safer, try to avoid calling any native methods
           // in case they've been unregistered after stopRecording() returned.
           if (keepAlive) {
-            nativeDataIsRecorded(nativeAudioRecord, bytesRead);
+            long captureTimeNs = 0;
+            if (Build.VERSION.SDK_INT >= 24 && timestampAligner != null) {
+              audioRecord.getTimestamp(audioTimestamp, AudioTimestamp.TIMEBASE_MONOTONIC);
+              captureTimeNs = audioTimestamp.nanoTime;
+              captureTimeNs = timestampAligner.translateTimestamp(captureTimeNs);
+            }
+            nativeDataIsRecorded(nativeAudioRecord, bytesRead, captureTimeNs);
           }
           if (audioSamplesReadyCallback != null) {
             // Copy the entire byte buffer array. The start of the byteBuffer is not necessarily
@@ -210,6 +221,10 @@ class WebRtcAudioRecord {
     this.audioSamplesReadyCallback = audioSamplesReadyCallback;
     this.isAcousticEchoCancelerSupported = isAcousticEchoCancelerSupported;
     this.isNoiseSuppressorSupported = isNoiseSuppressorSupported;
+    if (Build.VERSION.SDK_INT >= 24) {
+      this.timestampAligner = new TimestampAligner();
+      this.audioTimestamp = new AudioTimestamp();
+    }
     Logging.d(TAG, "ctor" + WebRtcAudioUtils.getThreadInfo());
   }
 
@@ -489,7 +504,8 @@ class WebRtcAudioRecord {
 
   private native void nativeCacheDirectBufferAddress(
       long nativeAudioRecordJni, ByteBuffer byteBuffer);
-  private native void nativeDataIsRecorded(long nativeAudioRecordJni, int bytes);
+  private native void nativeDataIsRecorded(
+      long nativeAudioRecordJni, int bytes, long captureTimestampNs);
 
   // Sets all recorded samples to zero if `mute` is true, i.e., ensures that
   // the microphone is muted.
@@ -506,6 +522,10 @@ class WebRtcAudioRecord {
       audioRecord = null;
     }
     audioSourceMatchesRecordingSessionRef.set(null);
+    if (timestampAligner != null) {
+      timestampAligner.dispose();
+      timestampAligner = null;
+    }
   }
 
   private void reportWebRtcAudioRecordInitError(String errorMessage) {

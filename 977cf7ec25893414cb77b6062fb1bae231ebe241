@@ -34,6 +34,24 @@
       "parentUuid": "7026c234_ddcb584f",
       "revId": "977cf7ec25893414cb77b6062fb1bae231ebe241",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "b17faa5d_1a9a7153",
+        "filename": "sdk/android/src/java/org/webrtc/audio/WebRtcAudioRecord.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 148,
+      "author": {
+        "id": 5091
+      },
+      "writtenOn": "2022-02-01T11:56:49Z",
+      "side": 1,
+      "message": "Is it possible to check if the new API comes with a cost (e.g. by measuring the time it takes to process)? The getter is most likely cheap but the aligner might not be. Is it needed? If so, why?",
+      "parentUuid": "ba80700a_ab8e7ac0",
+      "revId": "977cf7ec25893414cb77b6062fb1bae231ebe241",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

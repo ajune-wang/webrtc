@@ -16,6 +16,46 @@
       "message": "Last one, then I will take some time to properly execute locally. :/",
       "revId": "372e2c1e6d38033d69593fb143e5a7e21c9de94e",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "26e13cac_2823ba8e",
+        "filename": "audio/test/low_bandwidth_audio_test.py",
+        "patchSetId": 1
+      },
+      "lineNbr": 180,
+      "author": {
+        "id": 6192
+      },
+      "writtenOn": "2022-02-01T08:29:48Z",
+      "side": 1,
+      "message": "Does this return a string or byte-object? If it\u0027s a byte-object, you will have issues below in re.search, cannot mix types.",
+      "revId": "372e2c1e6d38033d69593fb143e5a7e21c9de94e",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "29b47e71_607b4dc7",
+        "filename": "audio/test/low_bandwidth_audio_test.py",
+        "patchSetId": 1
+      },
+      "lineNbr": 186,
+      "author": {
+        "id": 6192
+      },
+      "writtenOn": "2022-02-01T08:29:48Z",
+      "side": 1,
+      "message": "might need to decode into string as mentioned above?",
+      "range": {
+        "startLine": 186,
+        "startChar": 69,
+        "endLine": 186,
+        "endChar": 72
+      },
+      "revId": "372e2c1e6d38033d69593fb143e5a7e21c9de94e",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

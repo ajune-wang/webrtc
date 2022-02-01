@@ -10,7 +10,7 @@ vars = {
   # chromium waterfalls. More info at: crbug.com/570091.
   'checkout_configuration': 'default',
   'checkout_instrumented_libraries': 'checkout_linux and checkout_configuration == "default"',
-  'chromium_revision': '2da73dff1a950f9e403b3b3eccb58d5d5044f994',
+  'chromium_revision': 'dbc5d174cc2d28329beae5df2fea34fc850e5aa3',
 
   # Keep the Chromium default of generating location tags.
   'generate_location_tags': True,
@@ -34,13 +34,13 @@ deps = {
     'condition': 'checkout_android',
   },
   'src/ios': {
-    'url': 'https://chromium.googlesource.com/chromium/src/ios@ae0c81e45a1baac79c0ca409faa69a769da1d4d3',
+    'url': 'https://chromium.googlesource.com/chromium/src/ios@88a4d061b76c5b8cb674beb72cdaff5c310440e3',
     'condition': 'checkout_ios',
   },
   'src/testing':
     'https://chromium.googlesource.com/chromium/src/testing@b17e15aa1a9d2c9dfa31f456e7a32a732c9bdd5d',
   'src/third_party':
-    'https://chromium.googlesource.com/chromium/src/third_party@af4ad38443628a33b7b5052a76f2b7c17f8ae644',
+    'https://chromium.googlesource.com/chromium/src/third_party@53feb081952f6191d340179c96549c13752db1c5',
 
   'src/buildtools/linux64': {
     'packages': [
@@ -149,7 +149,7 @@ deps = {
   'src/third_party/crc32c/src':
     'https://chromium.googlesource.com/external/github.com/google/crc32c.git@fa5ade41ee480003d9c5af6f43567ba22e4e17e6',
   'src/third_party/depot_tools':
-    'https://chromium.googlesource.com/chromium/tools/depot_tools.git@98cf932814ca64260b9c1d36d9ae20b4286256ec',
+    'https://chromium.googlesource.com/chromium/tools/depot_tools.git@8a6d00f116d6de9d5c4e92acb519fd0859c6449a',
   'src/third_party/ffmpeg':
     'https://chromium.googlesource.com/chromium/third_party/ffmpeg.git@1edb3eb4914e0545e9775939ead4a5795746f993',
   'src/third_party/findbugs': {
@@ -285,7 +285,7 @@ deps = {
     'condition': 'checkout_win',
   },
   'src/tools':
-    'https://chromium.googlesource.com/chromium/src/tools@9400dbb63a45a97b0bfd35ff1d0c502cc0573743',
+    'https://chromium.googlesource.com/chromium/src/tools@0f02aa17f06ab40669012164a57a5bd8f2782102',
 
   'src/third_party/accessibility_test_framework': {
       'packages': [

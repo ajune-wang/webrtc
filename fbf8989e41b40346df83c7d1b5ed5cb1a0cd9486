@@ -22,6 +22,30 @@
       },
       "revId": "fbf8989e41b40346df83c7d1b5ed5cb1a0cd9486",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "2229c311_53211daa",
+        "filename": "rtc_base/task_queue.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 77,
+      "author": {
+        "id": 9515
+      },
+      "writtenOn": "2022-02-02T10:13:04Z",
+      "side": 1,
+      "message": "I felt I needed to protect against foreign PostTaskers that could overtake us when I drop |mu| on line 79, but I\u0027m not 100% sure it\u0027s needed for correctness. Do you think it could be safely dropped? The value code was added before I realized I had to add |task_mu| to protect against filed delayed tasks.",
+      "parentUuid": "73e83d50_fc04f519",
+      "range": {
+        "startLine": 77,
+        "startChar": 2,
+        "endLine": 77,
+        "endChar": 27
+      },
+      "revId": "fbf8989e41b40346df83c7d1b5ed5cb1a0cd9486",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

@@ -110,6 +110,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "3d58292a_ecd5886a",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 8
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 7755
+      },
+      "writtenOn": "2022-02-02T21:08:43Z",
+      "side": 1,
+      "message": "there are no collisions in low (yet...) so this *should* work. Can you try a local build with the two patches and the 4f00 one and share the SDP from the fiddle (both for sendonly and sendrecv)? I can try too but likely only next week.",
+      "parentUuid": "a1aabd57_cf46ff93",
+      "revId": "a4ca96dac41631b9fc41980ea927eb141740c003",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "c899951a_abf61227",
         "filename": "modules/audio_processing/aec3/echo_canceller3.cc",
         "patchSetId": 8

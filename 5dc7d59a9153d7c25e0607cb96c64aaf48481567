@@ -18,6 +18,24 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "f8b67403_4c48b7f2",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 6
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5508
+      },
+      "writtenOn": "2022-02-02T14:58:20Z",
+      "side": 1,
+      "message": "Yes this is tricky. Believe it or not, I broke this change out from an upcoming change, in order to make the review not overwhelming 😊",
+      "parentUuid": "da0f64f8_b6e24e53",
+      "revId": "5dc7d59a9153d7c25e0607cb96c64aaf48481567",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "4a2870e8_a1943e06",
@@ -31,6 +49,24 @@
       "writtenOn": "2022-02-02T11:51:45Z",
       "side": 1,
       "message": "This is a logic change; the previous code would prevent SetState(kEnded) from being called more than once.",
+      "revId": "5dc7d59a9153d7c25e0607cb96c64aaf48481567",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "d5b30df6_17fb3b7f",
+        "filename": "pc/audio_rtp_receiver.cc",
+        "patchSetId": 6
+      },
+      "lineNbr": 163,
+      "author": {
+        "id": 5508
+      },
+      "writtenOn": "2022-02-02T14:58:20Z",
+      "side": 1,
+      "message": "The check is already done in the source object itself (and an instance of AudioRtpReceiver will always use this source type):\nhttps://source.chromium.org/chromium/chromium/src/+/main:third_party/webrtc/pc/remote_audio_source.cc;drc\u003d4ccdf932e1706caee26b3faa33753d27f93d79ad;l\u003d96",
+      "parentUuid": "4a2870e8_a1943e06",
       "revId": "5dc7d59a9153d7c25e0607cb96c64aaf48481567",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
@@ -54,6 +90,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "d7568b88_dd2438fb",
+        "filename": "pc/audio_rtp_receiver.cc",
+        "patchSetId": 6
+      },
+      "lineNbr": 323,
+      "author": {
+        "id": 5508
+      },
+      "writtenOn": "2022-02-02T14:58:20Z",
+      "side": 1,
+      "message": "which is ok. Optimizing around that case, which is not a common case, is what was in place, but isn\u0027t necessary (or justification for an additional state).\n\nIn an upcoming change, SetMediaChannel will only be called on the worker thread, so SetMediaChannel and SetMediaChannel_w will merge and the Invoke will go away.",
+      "parentUuid": "08186e1b_45e11bbb",
+      "revId": "5dc7d59a9153d7c25e0607cb96c64aaf48481567",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "778fa082_128467c2",
         "filename": "pc/video_rtp_receiver.cc",
         "patchSetId": 6
@@ -71,6 +125,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "2c92e1d5_162f0f6e",
+        "filename": "pc/video_rtp_receiver.cc",
+        "patchSetId": 6
+      },
+      "lineNbr": 147,
+      "author": {
+        "id": 5508
+      },
+      "writtenOn": "2022-02-02T14:58:20Z",
+      "side": 1,
+      "message": "The sink is set up from the same source, so that\u0027s alright. If there was a way to know if a sink is already assigned for an ssrc, we could check that from the media channel.\n\nThere are \"optimizations\" in this code, that don\u0027t necessarily make sense anymore. E.g. caching an enabled() state on the same thread that the state is stored, or checking that state from a different thread (triggering an invoke) to guard against doing an invoke to that thread.\n\nSo some of these checks may give the appearance that they\u0027re speeding things up, but they don\u0027t necessarily do that. In an upcoming change I\u0027ll be changing where we construct a proxy to the video source object. As is, we go through the proxy from the worker, which causes us to have to do a few thread hops, but it\u0027s not obvious from the code that we\u0027re doing that.",
+      "parentUuid": "778fa082_128467c2",
+      "revId": "5dc7d59a9153d7c25e0607cb96c64aaf48481567",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "15bf5843_438fb5e0",
         "filename": "pc/video_rtp_receiver.cc",
         "patchSetId": 6
@@ -82,6 +154,24 @@
       "writtenOn": "2022-02-02T11:51:45Z",
       "side": 1,
       "message": "Logic change here too.",
+      "revId": "5dc7d59a9153d7c25e0607cb96c64aaf48481567",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "5ecda509_e1f11cc5",
+        "filename": "pc/video_rtp_receiver.cc",
+        "patchSetId": 6
+      },
+      "lineNbr": 266,
+      "author": {
+        "id": 5508
+      },
+      "writtenOn": "2022-02-02T14:58:20Z",
+      "side": 1,
+      "message": "not actually a logic change since media_channel_ and stopped_ represent the same thing as far as this check goes and the first check that\u0027s done inside of SetMediaChannel_w().",
+      "parentUuid": "15bf5843_438fb5e0",
       "revId": "5dc7d59a9153d7c25e0607cb96c64aaf48481567",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }

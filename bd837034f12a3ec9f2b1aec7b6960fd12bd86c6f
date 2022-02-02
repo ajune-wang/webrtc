@@ -16,6 +16,23 @@
       "message": "would like some disambiguation...\n",
       "revId": "bd837034f12a3ec9f2b1aec7b6960fd12bd86c6f",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "13a41a36_62f6b93d",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 9
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5142
+      },
+      "writtenOn": "2022-02-02T12:44:41Z",
+      "side": 1,
+      "message": "I\u0027m giving this CL a +1 from my perspective, but I would like Harald to approve before landing as well due to the ongoing discussions around payload type ranges.",
+      "revId": "bd837034f12a3ec9f2b1aec7b6960fd12bd86c6f",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

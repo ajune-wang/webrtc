@@ -74,6 +74,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "401e3aec_d67cbde5",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 8
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 7755
+      },
+      "writtenOn": "2022-02-02T17:34:34Z",
+      "side": 1,
+      "message": "moving 4d00* packetization mode 0 into the lower range puts ulpfec and red back to where they uses to be and all the mode 0 things should be used quite rarely so I\u0027d consider it a lower risk:\nhttps://webrtc-review.googlesource.com/c/src/+/250240\n-- we can either land it separately or apply the patch here.\n\nOddly doing that makes the three codecs that showed up after applying this patch disappear again...\nComparison between this patch, stable and this-patch+my-patch:\nhttps://docs.google.com/spreadsheets/d/1ir_zClyJyp9Iwq3SwS2VFfmeahGlRpIfOnFpehIhAjs/edit?usp\u003dsharing",
+      "parentUuid": "0134fed8_4f36e8b8",
+      "revId": "a4ca96dac41631b9fc41980ea927eb141740c003",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "c899951a_abf61227",
         "filename": "modules/audio_processing/aec3/echo_canceller3.cc",
         "patchSetId": 8

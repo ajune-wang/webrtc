@@ -671,7 +671,8 @@ class StatsCollectorTest : public ::testing::Test {
     auto pc = CreatePeerConnection();
     auto stats = CreateStatsCollector(pc);
 
-    pc->AddVoiceChannel("audio", kTransportName);
+    auto* voice = pc->AddVoiceChannel("audio", kTransportName);
+    voice->SetStats(VoiceMediaInfo());
 
     // Fake stats to process.
     TransportChannelStats channel_stats;
@@ -919,8 +920,7 @@ TEST_P(StatsCollectorTrackTest, BytesCounterHandles64Bits) {
   VideoMediaInfo video_info;
   video_info.aggregated_senders.push_back(video_sender_info);
 
-  auto* video_media_channel = pc->AddVideoChannel("video", "transport");
-  video_media_channel->SetStats(video_info);
+  pc->AddVideoChannel("video", "transport", video_info);
 
   AddOutgoingVideoTrack(pc, stats.get());
 
@@ -1002,8 +1002,7 @@ TEST_P(StatsCollectorTrackTest, VideoBandwidthEstimationInfoIsReported) {
   VideoMediaInfo video_info;
   video_info.aggregated_senders.push_back(video_sender_info);
 
-  auto* video_media_channel = pc->AddVideoChannel("video", "transport");
-  video_media_channel->SetStats(video_info);
+  pc->AddVideoChannel("video", "transport", video_info);
 
   AddOutgoingVideoTrack(pc, stats.get());
 
@@ -1100,8 +1099,7 @@ TEST_P(StatsCollectorTrackTest, TrackAndSsrcObjectExistAfterUpdateSsrcStats) {
   VideoMediaInfo video_info;
   video_info.aggregated_senders.push_back(video_sender_info);
 
-  auto* video_media_channel = pc->AddVideoChannel("video", "transport");
-  video_media_channel->SetStats(video_info);
+  pc->AddVideoChannel("video", "transport", video_info);
 
   AddOutgoingVideoTrack(pc, stats.get());
 
@@ -1155,8 +1153,7 @@ TEST_P(StatsCollectorTrackTest, TransportObjectLinkedFromSsrcObject) {
   VideoMediaInfo video_info;
   video_info.aggregated_senders.push_back(video_sender_info);
 
-  auto* video_media_channel = pc->AddVideoChannel("video", "transport");
-  video_media_channel->SetStats(video_info);
+  pc->AddVideoChannel("video", "transport", video_info);
 
   AddOutgoingVideoTrack(pc, stats.get());
 
@@ -1218,8 +1215,7 @@ TEST_P(StatsCollectorTrackTest, RemoteSsrcInfoIsPresent) {
   VideoMediaInfo video_info;
   video_info.aggregated_senders.push_back(video_sender_info);
 
-  auto* video_media_channel = pc->AddVideoChannel("video", "transport");
-  video_media_channel->SetStats(video_info);
+  pc->AddVideoChannel("video", "transport", video_info);
 
   AddOutgoingVideoTrack(pc, stats.get());
 
@@ -1247,8 +1243,7 @@ TEST_P(StatsCollectorTrackTest, ReportsFromRemoteTrack) {
   VideoMediaInfo video_info;
   video_info.receivers.push_back(video_receiver_info);
 
-  auto* video_media_info = pc->AddVideoChannel("video", "transport");
-  video_media_info->SetStats(video_info);
+  pc->AddVideoChannel("video", "transport", video_info);
 
   AddIncomingVideoTrack(pc, stats.get());
 
@@ -1313,7 +1308,8 @@ TEST_F(StatsCollectorTest, IceCandidateReport) {
   TransportChannelStats channel_stats;
   channel_stats.ice_transport_stats.connection_infos.push_back(connection_info);
 
-  pc->AddVoiceChannel("audio", kTransportName);
+  auto* voice = pc->AddVoiceChannel("audio", kTransportName);
+  voice->SetStats(VoiceMediaInfo());
   pc->SetTransportStats(kTransportName, channel_stats);
 
   stats->UpdateStats(PeerConnectionInterface::kStatsOutputLevelStandard);
@@ -1429,7 +1425,8 @@ TEST_F(StatsCollectorTest, NoTransport) {
 
   // This will cause the fake PeerConnection to generate a TransportStats entry
   // but with only a single dummy TransportChannelStats.
-  pc->AddVoiceChannel("audio", "transport");
+  auto* voice = pc->AddVoiceChannel("audio", "transport");
+  voice->SetStats(VoiceMediaInfo());
 
   stats->UpdateStats(PeerConnectionInterface::kStatsOutputLevelStandard);
   StatsReports reports;
@@ -1816,7 +1813,6 @@ TEST_P(StatsCollectorTrackTest, TwoLocalSendersWithSameTrack) {
 
   StatsReports reports;
   stats->GetStats(local_track.get(), &reports);
-  RTC_LOG(LS_INFO) << reports.size();
 
   // Both SSRC reports have the same track ID.
   EXPECT_EQ(kLocalTrackId, GetValueInNthReportByType(
@@ -1858,8 +1854,7 @@ TEST_P(StatsCollectorTrackTest, VerifyVideoSendSsrcStats) {
   VideoMediaInfo video_info;
   video_info.aggregated_senders.push_back(video_sender_info);
 
-  auto* video_media_channel = pc->AddVideoChannel("video", "transport");
-  video_media_channel->SetStats(video_info);
+  pc->AddVideoChannel("video", "transport", video_info);
 
   stats->UpdateStats(PeerConnectionInterface::kStatsOutputLevelStandard);
   StatsReports reports;
@@ -1886,8 +1881,7 @@ TEST_P(StatsCollectorTrackTest, VerifyVideoReceiveSsrcStatsNew) {
   VideoMediaInfo video_info;
   video_info.receivers.push_back(video_receiver_info);
 
-  auto* video_media_channel = pc->AddVideoChannel("video", "transport");
-  video_media_channel->SetStats(video_info);
+  pc->AddVideoChannel("video", "transport", video_info);
 
   stats->UpdateStats(PeerConnectionInterface::kStatsOutputLevelStandard);
   StatsReports reports;

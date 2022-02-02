@@ -20,6 +20,8 @@
 #include "api/task_queue/queued_task.h"
 #include "api/task_queue/task_queue_base.h"
 #include "api/task_queue/task_queue_factory.h"
+#include "rtc_base/ref_counted_object.h"
+#include "rtc_base/synchronization/mutex.h"
 #include "rtc_base/system/rtc_export.h"
 #include "rtc_base/task_utils/to_queued_task.h"
 #include "rtc_base/thread_annotations.h"
@@ -85,6 +87,8 @@ class RTC_LOCKABLE RTC_EXPORT TaskQueue {
   TaskQueue(const TaskQueue&) = delete;
   TaskQueue& operator=(const TaskQueue&) = delete;
 
+  void SetFastPathEnabled() { fastpath_enabled_ = true; }
+
   // Used for DCHECKing the current queue.
   bool IsCurrent() const;
 
@@ -126,7 +130,35 @@ class RTC_LOCKABLE RTC_EXPORT TaskQueue {
   }
 
  private:
+  struct SharedState {
+    webrtc::Mutex mu;
+    webrtc::Mutex task_mu;
+    int value RTC_GUARDED_BY(mu) = 0;
+  };
+  class WrapperTask : public webrtc::QueuedTask {
+   public:
+    WrapperTask(std::unique_ptr<QueuedTask> task,
+                rtc::scoped_refptr<rtc::FinalRefCountedObject<SharedState>>
+                    shared_state);
+    bool Run() override;
+
+   protected:
+    std::unique_ptr<QueuedTask> task_;
+    rtc::scoped_refptr<rtc::FinalRefCountedObject<SharedState>> shared_state_;
+  };
+  class RefDecrementingWrapperTask : public WrapperTask {
+   public:
+    RefDecrementingWrapperTask(
+        std::unique_ptr<QueuedTask> task,
+        rtc::scoped_refptr<rtc::FinalRefCountedObject<SharedState>>
+            shared_state);
+    ~RefDecrementingWrapperTask();
+  };
+
   webrtc::TaskQueueBase* const impl_;
+  bool fastpath_enabled_ = false;
+  rtc::scoped_refptr<rtc::FinalRefCountedObject<SharedState>> shared_state_ =
+      rtc::make_ref_counted<SharedState>();
 };
 
 }  // namespace rtc

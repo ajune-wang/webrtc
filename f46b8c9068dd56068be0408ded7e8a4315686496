@@ -35,6 +35,24 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "2a44d7ba_b10fc62f",
+        "filename": "pc/stats_collector_unittest.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 1311,
+      "author": {
+        "id": 5508
+      },
+      "writtenOn": "2022-02-02T10:49:24Z",
+      "side": 1,
+      "message": "Thanks!",
+      "parentUuid": "80529f7d_e39c1b26",
+      "revId": "f46b8c9068dd56068be0408ded7e8a4315686496",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "d90b2533_a390032d",
@@ -48,6 +66,24 @@
       "writtenOn": "2022-02-02T10:42:17Z",
       "side": 1,
       "message": "And this?",
+      "revId": "f46b8c9068dd56068be0408ded7e8a4315686496",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "491de2ba_2eb2ce6f",
+        "filename": "pc/stats_collector_unittest.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 1428,
+      "author": {
+        "id": 5508
+      },
+      "writtenOn": "2022-02-02T10:49:24Z",
+      "side": 1,
+      "message": "Ditto",
+      "parentUuid": "d90b2533_a390032d",
       "revId": "f46b8c9068dd56068be0408ded7e8a4315686496",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }

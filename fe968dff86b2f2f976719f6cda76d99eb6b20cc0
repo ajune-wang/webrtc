@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "b062ec8a_6ba768a3",
+        "filename": "p2p/base/connection.cc",
+        "patchSetId": 16
+      },
+      "lineNbr": 840,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2022-02-02T14:46:54Z",
+      "side": 0,
+      "message": "I take it this refers to this code: https://source.chromium.org/chromium/chromium/src/+/main:third_party/webrtc/rtc_base/thread.cc;drc\u003dc2e3bda7a11bed07dc8c8a1676ea472f00ef568d;l\u003d1243\n\nWould be nice if that could be deleted in a followup.",
+      "range": {
+        "startLine": 839,
+        "startChar": 12,
+        "endLine": 840,
+        "endChar": 53
+      },
+      "revId": "fe968dff86b2f2f976719f6cda76d99eb6b20cc0",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

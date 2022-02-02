@@ -46,6 +46,30 @@
       },
       "revId": "af2930a69882e2e29307d4ffae42504965bc328a",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "5172f80f_b26e67e0",
+        "filename": "p2p/base/tcp_port.cc",
+        "patchSetId": 15
+      },
+      "lineNbr": 516,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2022-02-02T14:46:54Z",
+      "side": 0,
+      "message": "Hmm, I don\u0027t see it moved. The main thing I find rather difficult to understand here is the use of the `pretending_to_be_writable_` flag. It would be nice with an explanation somewhere. The old comment here doesn\u0027t make it very clear either.",
+      "parentUuid": "85409ab5_a8784dcb",
+      "range": {
+        "startLine": 513,
+        "startChar": 0,
+        "endLine": 516,
+        "endChar": 0
+      },
+      "revId": "af2930a69882e2e29307d4ffae42504965bc328a",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

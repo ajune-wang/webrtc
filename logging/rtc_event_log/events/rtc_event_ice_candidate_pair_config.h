@@ -14,9 +14,13 @@
 #include <stdint.h>
 
 #include <memory>
+#include <string>
+#include <vector>
 
+#include "absl/strings/string_view.h"
 #include "api/rtc_event_log/rtc_event.h"
 #include "api/units/timestamp.h"
+#include "logging/rtc_event_log/events/rtc_event_field_encoding_parser.h"
 
 namespace webrtc {
 
@@ -68,6 +72,7 @@ enum class IceCandidateNetworkType {
 struct LoggedIceCandidatePairConfig {
   int64_t log_time_us() const { return timestamp.us(); }
   int64_t log_time_ms() const { return timestamp.ms(); }
+  Timestamp log_time() const { return timestamp; }
 
   Timestamp timestamp = Timestamp::MinusInfinity();
   IceCandidatePairConfigType type;
@@ -119,6 +124,19 @@ class RtcEventIceCandidatePairConfig final : public RtcEvent {
   uint32_t candidate_pair_id() const { return candidate_pair_id_; }
   const IceCandidatePairDescription& candidate_pair_desc() const {
     return candidate_pair_desc_;
+  }
+
+  static std::string Encode(rtc::ArrayView<const RtcEvent*> batch) {
+    // TODO(terelius): Implement
+    return "";
+  }
+
+  static RtcEventLogParseStatus Parse(
+      absl::string_view encoded_bytes,
+      bool batched,
+      std::vector<LoggedIceCandidatePairConfig>& output) {
+    // TODO(terelius): Implement
+    return RtcEventLogParseStatus::Error("Not Implemented", __FILE__, __LINE__);
   }
 
  private:

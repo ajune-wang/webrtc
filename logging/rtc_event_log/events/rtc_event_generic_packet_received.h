@@ -12,9 +12,13 @@
 #define LOGGING_RTC_EVENT_LOG_EVENTS_RTC_EVENT_GENERIC_PACKET_RECEIVED_H_
 
 #include <memory>
+#include <string>
+#include <vector>
 
+#include "absl/strings/string_view.h"
 #include "api/rtc_event_log/rtc_event.h"
 #include "api/units/timestamp.h"
+#include "logging/rtc_event_log/events/rtc_event_field_encoding_parser.h"
 
 namespace webrtc {
 
@@ -29,6 +33,7 @@ struct LoggedGenericPacketReceived {
 
   int64_t log_time_us() const { return timestamp.us(); }
   int64_t log_time_ms() const { return timestamp.ms(); }
+  Timestamp log_time() const { return timestamp; }
 
   Timestamp timestamp = Timestamp::MinusInfinity();
   int64_t packet_number;
@@ -53,6 +58,19 @@ class RtcEventGenericPacketReceived final : public RtcEvent {
   // Total packet length, including all packetization overheads, but not
   // including ICE/TURN/IP overheads.
   size_t packet_length() const { return packet_length_; }
+
+  static std::string Encode(rtc::ArrayView<const RtcEvent*> batch) {
+    // TODO(terelius): Implement
+    return "";
+  }
+
+  static RtcEventLogParseStatus Parse(
+      absl::string_view encoded_bytes,
+      bool batched,
+      std::vector<LoggedGenericPacketReceived>& output) {
+    // TODO(terelius): Implement
+    return RtcEventLogParseStatus::Error("Not Implemented", __FILE__, __LINE__);
+  }
 
  private:
   RtcEventGenericPacketReceived(const RtcEventGenericPacketReceived& packet);

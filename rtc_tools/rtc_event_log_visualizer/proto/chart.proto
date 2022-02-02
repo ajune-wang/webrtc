@@ -33,4 +33,5 @@ message Chart {
 
 message ChartCollection {
   repeated Chart charts = 1;
+  int64 calltime_to_utc_ms = 2;
 }

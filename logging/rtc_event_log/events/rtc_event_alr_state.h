@@ -15,6 +15,7 @@
 #include <string>
 #include <vector>
 
+#include "absl/strings/string_view.h"
 #include "api/rtc_event_log/rtc_event.h"
 #include "api/units/timestamp.h"
 #include "logging/rtc_event_log/events/rtc_event_definition.h"
@@ -31,6 +32,7 @@ struct LoggedAlrStateEvent {
 
   int64_t log_time_us() const { return timestamp.us(); }
   int64_t log_time_ms() const { return timestamp.ms(); }
+  Timestamp log_time() const { return timestamp; }
 
   Timestamp timestamp = Timestamp::MinusInfinity();
   bool in_alr;

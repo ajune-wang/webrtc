@@ -13,13 +13,54 @@
 
 #include <stdint.h>
 
+#include <limits>
 #include <memory>
+#include <string>
+#include <vector>
 
+#include "absl/strings/string_view.h"
 #include "api/network_state_predictor.h"
 #include "api/rtc_event_log/rtc_event.h"
 #include "api/units/timestamp.h"
+#include "logging/rtc_event_log/events/rtc_event_definition.h"
 
 namespace webrtc {
+
+template <>
+class RtcEventLogEnum<BandwidthUsage> {
+  static constexpr uint64_t kBwNormal = 0;
+  static constexpr uint64_t kBwUnderusing = 1;
+  static constexpr uint64_t kBwOverusing = 2;
+  static constexpr uint64_t kBwUnknown = std::numeric_limits<uint64_t>::max();
+
+ public:
+  static uint64_t Encode(BandwidthUsage x) {
+    switch (x) {
+      case BandwidthUsage::kBwNormal:
+        return kBwNormal;
+      case BandwidthUsage::kBwUnderusing:
+        return kBwUnderusing;
+      case BandwidthUsage::kBwOverusing:
+        return kBwOverusing;
+      case BandwidthUsage::kLast:
+        RTC_DCHECK_NOTREACHED();
+    }
+    RTC_DCHECK_NOTREACHED();
+    return kBwUnknown;
+  }
+  static RtcEventLogParseStatusOr<BandwidthUsage> Decode(uint64_t x) {
+    switch (x) {
+      case kBwNormal:
+        return BandwidthUsage::kBwNormal;
+      case kBwUnderusing:
+        return BandwidthUsage::kBwUnderusing;
+      case kBwOverusing:
+        return BandwidthUsage::kBwOverusing;
+    }
+    return RtcEventLogParseStatus::Error("Failed to decode BandwidthUsage enum",
+                                         __FILE__, __LINE__);
+  }
+};
 
 struct LoggedBweDelayBasedUpdate {
   LoggedBweDelayBasedUpdate() = default;
@@ -32,6 +73,7 @@ struct LoggedBweDelayBasedUpdate {
 
   int64_t log_time_us() const { return timestamp.us(); }
   int64_t log_time_ms() const { return timestamp.ms(); }
+  Timestamp log_time() const { return timestamp; }
 
   Timestamp timestamp = Timestamp::MinusInfinity();
   int32_t bitrate_bps;
@@ -54,11 +96,36 @@ class RtcEventBweUpdateDelayBased final : public RtcEvent {
   int32_t bitrate_bps() const { return bitrate_bps_; }
   BandwidthUsage detector_state() const { return detector_state_; }
 
+  static std::string Encode(rtc::ArrayView<const RtcEvent*> batch) {
+    return RtcEventBweUpdateDelayBased::definition_.EncodeBatch(batch);
+  }
+
+  static RtcEventLogParseStatus Parse(
+      absl::string_view encoded_bytes,
+      bool batched,
+      std::vector<LoggedBweDelayBasedUpdate>& output) {
+    return RtcEventBweUpdateDelayBased::definition_.ParseBatch(encoded_bytes,
+                                                               batched, output);
+  }
+
  private:
   RtcEventBweUpdateDelayBased(const RtcEventBweUpdateDelayBased& other);
 
   const int32_t bitrate_bps_;
   const BandwidthUsage detector_state_;
+
+  static constexpr RtcEventDefinition<RtcEventBweUpdateDelayBased,
+                                      LoggedBweDelayBasedUpdate,
+                                      int32_t,
+                                      BandwidthUsage>
+      definition_{
+          {"BweDelayBased", RtcEventBweUpdateDelayBased::kType},
+          {&RtcEventBweUpdateDelayBased::bitrate_bps_,
+           &LoggedBweDelayBasedUpdate::bitrate_bps,
+           {"bitrate_bps", /*id=*/1, FieldType::kVarInt, /*width=*/32}},
+          {&RtcEventBweUpdateDelayBased::detector_state_,
+           &LoggedBweDelayBasedUpdate::detector_state,
+           {"detector_state", /*id=*/2, FieldType::kVarInt, /*width=*/64}}};
 };
 
 }  // namespace webrtc

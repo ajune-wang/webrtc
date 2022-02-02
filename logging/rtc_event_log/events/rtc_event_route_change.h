@@ -12,9 +12,13 @@
 #define LOGGING_RTC_EVENT_LOG_EVENTS_RTC_EVENT_ROUTE_CHANGE_H_
 
 #include <memory>
+#include <string>
+#include <vector>
 
+#include "absl/strings/string_view.h"
 #include "api/rtc_event_log/rtc_event.h"
 #include "api/units/timestamp.h"
+#include "logging/rtc_event_log/events/rtc_event_field_encoding_parser.h"
 
 namespace webrtc {
 
@@ -25,6 +29,7 @@ struct LoggedRouteChangeEvent {
 
   int64_t log_time_us() const { return timestamp.us(); }
   int64_t log_time_ms() const { return timestamp.ms(); }
+  Timestamp log_time() const { return timestamp; }
 
   Timestamp timestamp = Timestamp::MinusInfinity();
   bool connected;
@@ -45,6 +50,19 @@ class RtcEventRouteChange final : public RtcEvent {
 
   bool connected() const { return connected_; }
   uint32_t overhead() const { return overhead_; }
+
+  static std::string Encode(rtc::ArrayView<const RtcEvent*> batch) {
+    // TODO(terelius): Implement
+    return "";
+  }
+
+  static RtcEventLogParseStatus Parse(
+      absl::string_view encoded_bytes,
+      bool batched,
+      std::vector<LoggedRouteChangeEvent>& output) {
+    // TODO(terelius): Implement
+    return RtcEventLogParseStatus::Error("Not Implemented", __FILE__, __LINE__);
+  }
 
  private:
   RtcEventRouteChange(const RtcEventRouteChange& other);

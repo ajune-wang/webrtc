@@ -54,6 +54,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "38386aa7_9215e36f",
+        "filename": "pc/connection_context.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 31,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2022-02-02T08:43:07Z",
+      "side": 1,
+      "message": "I think the advantage of my current way of doing it, is that in the common case that the network thread is created internally in webrtc, we don\u0027t have to call the rtc::Thread::socketserver() method at all here.\n\nBut I can change to do it differently, if that\u0027s what you prefer.",
+      "parentUuid": "4bfab19e_c0b8903b",
+      "revId": "61920d73574c6f1fbea811f1962791f52ee8ac2f",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "d7a9523b_0bf40df1",
         "filename": "pc/connection_context.cc",
         "patchSetId": 3

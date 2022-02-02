@@ -482,7 +482,9 @@ rtc_library("rtc_task_queue") {
   ]
   deps = [
     ":macromagic",
+    ":refcount",
     "../api/task_queue",
+    "synchronization:mutex",
     "system:rtc_export",
     "task_utils:to_queued_task",
   ]

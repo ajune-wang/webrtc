@@ -23,7 +23,7 @@ namespace webrtc {
 
 // TODO(deadbeef): Move this to .cc file. What threads methods are called on is
 // an implementation detail.
-BEGIN_PRIMARY_PROXY_MAP(AudioTrack)
+BEGIN_PROXY_MAP(AudioTrack)
 PROXY_PRIMARY_THREAD_DESTRUCTOR()
 BYPASS_PROXY_CONSTMETHOD0(std::string, kind)
 BYPASS_PROXY_CONSTMETHOD0(std::string, id)
@@ -43,7 +43,7 @@ BEGIN_PROXY_MAP(VideoTrack)
 PROXY_PRIMARY_THREAD_DESTRUCTOR()
 BYPASS_PROXY_CONSTMETHOD0(std::string, kind)
 BYPASS_PROXY_CONSTMETHOD0(std::string, id)
-PROXY_SECONDARY_CONSTMETHOD0(TrackState, state)
+PROXY_CONSTMETHOD0(TrackState, state)
 PROXY_SECONDARY_CONSTMETHOD0(bool, enabled)
 PROXY_SECONDARY_METHOD1(bool, set_enabled, bool)
 PROXY_SECONDARY_CONSTMETHOD0(ContentHint, content_hint)

@@ -1,0 +1,55 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "3ee5045e_b8a89df4",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 4
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2022-02-02T10:42:17Z",
+      "side": 1,
+      "message": "I think there are 2 more SetStats calls to be deleted, so not triggering autosubmit.\n",
+      "revId": "f46b8c9068dd56068be0408ded7e8a4315686496",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "80529f7d_e39c1b26",
+        "filename": "pc/stats_collector_unittest.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 1311,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2022-02-02T10:42:17Z",
+      "side": 1,
+      "message": "Missed this?",
+      "revId": "f46b8c9068dd56068be0408ded7e8a4315686496",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "d90b2533_a390032d",
+        "filename": "pc/stats_collector_unittest.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 1428,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2022-02-02T10:42:17Z",
+      "side": 1,
+      "message": "And this?",
+      "revId": "f46b8c9068dd56068be0408ded7e8a4315686496",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

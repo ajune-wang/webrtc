@@ -64,7 +64,9 @@ RtcEventLogImpl::RtcEventLogImpl(RtcEventLog::EncodingType encoding_type,
       task_queue_(
           std::make_unique<rtc::TaskQueue>(task_queue_factory->CreateTaskQueue(
               "rtc_event_log",
-              TaskQueueFactory::Priority::NORMAL))) {}
+              TaskQueueFactory::Priority::NORMAL))) {
+  task_queue_->SetFastPathEnabled();
+}
 
 RtcEventLogImpl::~RtcEventLogImpl() {
   // If we're logging to the output, this will stop that. Blocking function.

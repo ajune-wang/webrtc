@@ -961,7 +961,8 @@ TEST_F(RTCStatsCollectorTest, ToJsonProducesParseableJson) {
 TEST_F(RTCStatsCollectorTest, CollectRTCCertificateStatsSingle) {
   const char kTransportName[] = "transport";
 
-  pc_->AddVoiceChannel("audio", kTransportName);
+  auto* voice = pc_->AddVoiceChannel("audio", kTransportName);
+  voice->SetStats(cricket::VoiceMediaInfo());  // Makes GetStats not complain.
 
   std::unique_ptr<CertificateInfo> local_certinfo =
       CreateFakeCertificateAndInfoFromDers(
@@ -1092,7 +1093,9 @@ TEST_F(RTCStatsCollectorTest, CollectRTCCertificateStatsMultiple) {
   const char kAudioTransport[] = "audio";
   const char kVideoTransport[] = "video";
 
-  pc_->AddVoiceChannel("audio", kAudioTransport);
+  auto* voice = pc_->AddVoiceChannel("audio", kAudioTransport);
+  voice->SetStats(cricket::VoiceMediaInfo());  // Makes GetStats not complain.
+
   std::unique_ptr<CertificateInfo> audio_local_certinfo =
       CreateFakeCertificateAndInfoFromDers(
           std::vector<std::string>({"(local) audio"}));
@@ -1104,7 +1107,8 @@ TEST_F(RTCStatsCollectorTest, CollectRTCCertificateStatsMultiple) {
       kAudioTransport,
       audio_remote_certinfo->certificate->GetSSLCertificateChain().Clone());
 
-  pc_->AddVideoChannel("video", kVideoTransport);
+  auto* video = pc_->AddVideoChannel("video", kVideoTransport);
+  video->SetStats(cricket::VideoMediaInfo());
   std::unique_ptr<CertificateInfo> video_local_certinfo =
       CreateFakeCertificateAndInfoFromDers(
           std::vector<std::string>({"(local) video"}));
@@ -1126,7 +1130,8 @@ TEST_F(RTCStatsCollectorTest, CollectRTCCertificateStatsMultiple) {
 TEST_F(RTCStatsCollectorTest, CollectRTCCertificateStatsChain) {
   const char kTransportName[] = "transport";
 
-  pc_->AddVoiceChannel("audio", kTransportName);
+  auto* voice = pc_->AddVoiceChannel("audio", kTransportName);
+  voice->SetStats(cricket::VoiceMediaInfo());  // Makes GetStats not complain.
 
   std::unique_ptr<CertificateInfo> local_certinfo =
       CreateFakeCertificateAndInfoFromDers(
@@ -1377,7 +1382,8 @@ TEST_F(RTCStatsCollectorTest, CollectRTCIceCandidateStats) {
   a_transport_channel_stats.ice_transport_stats.connection_infos[3]
       .remote_candidate = *a_remote_relay.get();
 
-  pc_->AddVoiceChannel("audio", "a");
+  auto* voice = pc_->AddVoiceChannel("audio", "a");
+  voice->SetStats(cricket::VoiceMediaInfo());  // Makes GetStats not complain.
   pc_->SetTransportStats("a", a_transport_channel_stats);
 
   cricket::TransportChannelStats b_transport_channel_stats;
@@ -1388,7 +1394,8 @@ TEST_F(RTCStatsCollectorTest, CollectRTCIceCandidateStats) {
   b_transport_channel_stats.ice_transport_stats.connection_infos[0]
       .remote_candidate = *b_remote.get();
 
-  pc_->AddVideoChannel("video", "b");
+  auto* video = pc_->AddVideoChannel("video", "b");
+  video->SetStats(cricket::VideoMediaInfo());
   pc_->SetTransportStats("b", b_transport_channel_stats);
 
   rtc::scoped_refptr<const RTCStatsReport> report = stats_->GetStatsReport();
@@ -1462,7 +1469,8 @@ TEST_F(RTCStatsCollectorTest, CollectRTCIceCandidatePairStats) {
   transport_channel_stats.ice_transport_stats.connection_infos.push_back(
       connection_info);
 
-  pc_->AddVideoChannel("video", kTransportName);
+  auto* video = pc_->AddVideoChannel("video", kTransportName);
+  video->SetStats(cricket::VideoMediaInfo());
   pc_->SetTransportStats(kTransportName, transport_channel_stats);
 
   rtc::scoped_refptr<const RTCStatsReport> report = stats_->GetStatsReport();
@@ -2365,7 +2373,8 @@ TEST_F(RTCStatsCollectorTest, CollectRTCOutboundRTPStreamStats_Video) {
 TEST_F(RTCStatsCollectorTest, CollectRTCTransportStats) {
   const char kTransportName[] = "transport";
 
-  pc_->AddVoiceChannel("audio", kTransportName);
+  auto* voice = pc_->AddVoiceChannel("audio", kTransportName);
+  voice->SetStats(cricket::VoiceMediaInfo());  // Makes GetStats not complain.
 
   std::unique_ptr<cricket::Candidate> rtp_local_candidate =
       CreateFakeCandidate("42.42.42.42", 42, "protocol", rtc::ADAPTER_TYPE_WIFI,
@@ -2518,7 +2527,8 @@ TEST_F(RTCStatsCollectorTest, CollectRTCTransportStats) {
 TEST_F(RTCStatsCollectorTest, CollectRTCTransportStatsWithCrypto) {
   const char kTransportName[] = "transport";
 
-  pc_->AddVoiceChannel("audio", kTransportName);
+  auto* voice = pc_->AddVoiceChannel("audio", kTransportName);
+  voice->SetStats(cricket::VoiceMediaInfo());  // Makes GetStats not complain.
 
   std::unique_ptr<cricket::Candidate> rtp_local_candidate =
       CreateFakeCandidate("42.42.42.42", 42, "protocol", rtc::ADAPTER_TYPE_WIFI,

@@ -1,4 +1,4 @@
-#!/usr/bin/env python
+#!/usr/bin/env vpython3
 
 # Copyright (c) 2017 The WebRTC project authors. All Rights Reserved.
 #
@@ -8,11 +8,11 @@
 # in the file PATENTS.  All contributing project authors may
 # be found in the AUTHORS file in the root of the source tree.
 
+from __future__ import absolute_import
 import re
 import os
 import unittest
 
-#pylint: disable=relative-import
 import build_helpers
 
 TESTDATA_DIR = os.path.join(os.path.dirname(os.path.abspath(__file__)),
@@ -26,7 +26,7 @@ class GnCheckTest(unittest.TestCase):
     expected_error = re.compile('ERROR Dependency cycle')
     gn_output = build_helpers.RunGnCheck(test_dir)
     self.assertEqual(1, len(gn_output))
-    self.assertRegexpMatches(gn_output[0], expected_error)
+    self.assertRegex(gn_output[0], expected_error)
 
 
 if __name__ == '__main__':

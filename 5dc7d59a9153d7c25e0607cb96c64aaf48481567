@@ -1,0 +1,89 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "da0f64f8_b6e24e53",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 6
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2022-02-02T11:51:45Z",
+      "side": 1,
+      "message": "Too many logic changes for comfort. Usually this will cause things to happen that were previously bailing out early. If these are idempotent and fast, there is no issue; if they are not idempotent or slow, we need to be careful.\n",
+      "revId": "5dc7d59a9153d7c25e0607cb96c64aaf48481567",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "4a2870e8_a1943e06",
+        "filename": "pc/audio_rtp_receiver.cc",
+        "patchSetId": 6
+      },
+      "lineNbr": 163,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2022-02-02T11:51:45Z",
+      "side": 1,
+      "message": "This is a logic change; the previous code would prevent SetState(kEnded) from being called more than once.",
+      "revId": "5dc7d59a9153d7c25e0607cb96c64aaf48481567",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "08186e1b_45e11bbb",
+        "filename": "pc/audio_rtp_receiver.cc",
+        "patchSetId": 6
+      },
+      "lineNbr": 323,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2022-02-02T11:51:45Z",
+      "side": 1,
+      "message": "Logic change: SetMediaChannel_w will now be called twice if calling SetMediaChanne(nullptr) twice.",
+      "revId": "5dc7d59a9153d7c25e0607cb96c64aaf48481567",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "778fa082_128467c2",
+        "filename": "pc/video_rtp_receiver.cc",
+        "patchSetId": 6
+      },
+      "lineNbr": 147,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2022-02-02T11:51:45Z",
+      "side": 1,
+      "message": "Logic change: we will now disconnect from the previous sink if we get RestartMediaChannel(32); RestartMediaChannel(32). Previously, that would return true without touching anything.",
+      "revId": "5dc7d59a9153d7c25e0607cb96c64aaf48481567",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "15bf5843_438fb5e0",
+        "filename": "pc/video_rtp_receiver.cc",
+        "patchSetId": 6
+      },
+      "lineNbr": 266,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2022-02-02T11:51:45Z",
+      "side": 1,
+      "message": "Logic change here too.",
+      "revId": "5dc7d59a9153d7c25e0607cb96c64aaf48481567",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

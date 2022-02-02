@@ -286,7 +286,7 @@ rtc::scoped_refptr<AudioTrackInterface> PeerConnectionFactory::CreateAudioTrack(
   RTC_DCHECK(signaling_thread()->IsCurrent());
   rtc::scoped_refptr<AudioTrackInterface> track(
       AudioTrack::Create(id, rtc::scoped_refptr<AudioSourceInterface>(source)));
-  return AudioTrackProxy::Create(signaling_thread(), track);
+  return AudioTrackProxy::Create(signaling_thread(), worker_thread(), track);
 }
 
 cricket::ChannelManager* PeerConnectionFactory::channel_manager() {

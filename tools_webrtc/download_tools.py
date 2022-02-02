@@ -1,4 +1,5 @@
-#!/usr/bin/env python
+#!/usr/bin/env vpython3
+
 # Copyright (c) 2016 The WebRTC project authors. All Rights Reserved.
 #
 # Use of this source code is governed by a BSD-style license
@@ -13,6 +14,8 @@ subdirectories). Note that chrome-webrtc-resources is a Google-internal bucket,
 so please download and compile these tools manually if this script fails.
 """
 
+from __future__ import absolute_import
+from __future__ import print_function
 import os
 import sys
 
@@ -27,34 +30,34 @@ import subprocess2
 
 
 def main(directories):
-    if not directories:
-        directories = [SCRIPT_DIR]
+  if not directories:
+    directories = [SCRIPT_DIR]
 
-    for path in directories:
-        cmd = [
-            sys.executable,
-            os.path.join(find_depot_tools.DEPOT_TOOLS_PATH,
-                         'download_from_google_storage.py'),
-            '--directory',
-            '--num_threads=10',
-            '--bucket',
-            'chrome-webrtc-resources',
-            '--auto_platform',
-            '--recursive',
-            path,
-        ]
-        print 'Downloading precompiled tools...'
+  for path in directories:
+    cmd = [
+        sys.executable,
+        os.path.join(find_depot_tools.DEPOT_TOOLS_PATH,
+                     'download_from_google_storage.py'),
+        '--directory',
+        '--num_threads=10',
+        '--bucket',
+        'chrome-webrtc-resources',
+        '--auto_platform',
+        '--recursive',
+        path,
+    ]
+    print('Downloading precompiled tools...')
 
-        # Perform download similar to how gclient hooks execute.
-        try:
-            gclient_utils.CheckCallAndFilter(cmd,
-                                             cwd=SRC_DIR,
-                                             always_show_header=True)
-        except (gclient_utils.Error, subprocess2.CalledProcessError) as e:
-            print 'Error: %s' % str(e)
-            return 2
-        return 0
+    # Perform download similar to how gclient hooks execute.
+    try:
+      gclient_utils.CheckCallAndFilter(cmd,
+                                       cwd=SRC_DIR,
+                                       always_show_header=True)
+    except (gclient_utils.Error, subprocess2.CalledProcessError) as e:
+      print('Error: %s' % str(e))
+      return 2
+    return 0
 
 
 if __name__ == '__main__':
-    sys.exit(main(sys.argv[1:]))
+  sys.exit(main(sys.argv[1:]))

@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "160f64a7_b80adce4",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 3
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2022-02-03T06:28:08Z",
+      "side": 1,
+      "message": "If the methods were called on the signaling thread, there should be no extra thread hops (same thread), but calling the methods explicitly on the internal object is better documentation, and skips the same-thread test in the proxy.\n",
+      "revId": "5c7c0fca6e28fac2d4ac2c67dffe66e022a0b185",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

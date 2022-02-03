@@ -18,6 +18,23 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "ac8b6ea8_19a8b5c3",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2022-02-03T15:55:35Z",
+      "side": 1,
+      "message": "This isn\u0027t ready yet; there are failing tests.\n",
+      "revId": "7fcb685c3ead8554f0b79c11c3415e95f81b4ae6",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "45523af4_32e65e48",
@@ -66,6 +83,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "b28b188e_d78ab224",
+        "filename": "pc/data_channel_controller.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 115,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2022-02-03T15:55:35Z",
+      "side": 1,
+      "message": "This is copied from the CallbackList API.\nThe reason given for using a template with \u0026\u0026 there was that it allowed passing either a lambda or a function pointer; if that\u0027s good enough reason for CallbckList, it should be good for here too.",
+      "parentUuid": "3e3663d0_8c62bc7e",
+      "range": {
+        "startLine": 115,
+        "startChar": 36,
+        "endLine": 115,
+        "endChar": 38
+      },
+      "revId": "7fcb685c3ead8554f0b79c11c3415e95f81b4ae6",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "0512810c_b214538f",
         "filename": "pc/rtc_stats_collector.cc",
         "patchSetId": 1
@@ -77,6 +118,30 @@
       "writtenOn": "2022-02-03T15:16:14Z",
       "side": 1,
       "message": "Does this class always outlive the data_channel_controller(), or where is it unsubscribed?",
+      "range": {
+        "startLine": 1168,
+        "startChar": 0,
+        "endLine": 1169,
+        "endChar": 79
+      },
+      "revId": "7fcb685c3ead8554f0b79c11c3415e95f81b4ae6",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "67172dd5_33d34901",
+        "filename": "pc/rtc_stats_collector.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 1169,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2022-02-03T15:55:35Z",
+      "side": 1,
+      "message": "PC is the owner of the data channel controller and of the stats collector, so I think yes. At destruction time, we should not be creating any new datachannels, so I think order of destruction does not matter.\n\nBut need to run the tests.",
+      "parentUuid": "0512810c_b214538f",
       "range": {
         "startLine": 1168,
         "startChar": 0,

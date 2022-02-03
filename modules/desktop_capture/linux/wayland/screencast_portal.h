@@ -73,15 +73,9 @@ class ScreenCastPortal {
 
   void PortalFailed(RequestResponse result);
 
-  uint32_t SetupRequestResponseSignal(const char* object_path,
-                                      GDBusSignalCallback callback);
-
   static void OnProxyRequested(GObject* object,
                                GAsyncResult* result,
                                gpointer user_data);
-
-  static std::string PrepareSignalHandle(GDBusConnection* connection,
-                                         const char* token);
 
   void SessionRequest();
   static void OnSessionRequested(GDBusProxy* proxy,

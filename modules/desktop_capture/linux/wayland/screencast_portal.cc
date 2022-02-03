@@ -14,6 +14,7 @@
 #include <glib-object.h>
 
 #include "modules/desktop_capture/linux/wayland/constants.h"
+#include "modules/desktop_capture/linux/wayland/glib_utils.h"
 #include "modules/desktop_capture/linux/wayland/scoped_glib.h"
 #include "rtc_base/checks.h"
 #include "rtc_base/logging.h"
@@ -81,15 +82,6 @@ void ScreenCastPortal::PortalFailed(RequestResponse result) {
   notifier_->OnScreenCastRequestResult(result, pw_stream_node_id_, pw_fd_);
 }
 
-uint32_t ScreenCastPortal::SetupRequestResponseSignal(
-    const char* object_path,
-    GDBusSignalCallback callback) {
-  return g_dbus_connection_signal_subscribe(
-      connection_, kDesktopBusName, kRequestInterfaceName, "Response",
-      object_path, /*arg0=*/nullptr, G_DBUS_SIGNAL_FLAGS_NO_MATCH_RULE,
-      callback, this, /*user_data_free_func=*/nullptr);
-}
-
 // static
 void ScreenCastPortal::OnProxyRequested(GObject* /*object*/,
                                         GAsyncResult* result,
@@ -115,23 +107,6 @@ void ScreenCastPortal::OnProxyRequested(GObject* /*object*/,
   that->SessionRequest();
 }
 
-// static
-std::string ScreenCastPortal::PrepareSignalHandle(GDBusConnection* connection,
-                                                  const char* token) {
-  Scoped<char> sender(
-      g_strdup(g_dbus_connection_get_unique_name(connection) + 1));
-  for (int i = 0; sender.get()[i]; ++i) {
-    if (sender.get()[i] == '.') {
-      sender.get()[i] = '_';
-    }
-  }
-
-  const char* handle = g_strconcat(kDesktopRequestObjectPath, "/", sender.get(),
-                                   "/", token, /*end of varargs*/ nullptr);
-
-  return handle;
-}
-
 void ScreenCastPortal::SessionRequest() {
   GVariantBuilder builder;
   Scoped<char> variant_string;
@@ -146,8 +121,9 @@ void ScreenCastPortal::SessionRequest() {
                         g_variant_new_string(variant_string.get()));
 
   portal_handle_ = PrepareSignalHandle(connection_, variant_string.get());
-  session_request_signal_id_ = SetupRequestResponseSignal(
-      portal_handle_.c_str(), OnSessionRequestResponseSignal);
+  session_request_signal_id_ =
+      SetupRequestResponseSignal(connection_, portal_handle_.c_str(),
+                                 OnSessionRequestResponseSignal, this);
 
   RTC_LOG(LS_INFO) << "Screen cast session requested.";
   g_dbus_proxy_call(proxy_, "CreateSession", g_variant_new("(a{sv})", &builder),
@@ -283,8 +259,9 @@ void ScreenCastPortal::SourcesRequest() {
                         g_variant_new_string(variant_string.get()));
 
   sources_handle_ = PrepareSignalHandle(connection_, variant_string.get());
-  sources_request_signal_id_ = SetupRequestResponseSignal(
-      sources_handle_.c_str(), OnSourcesRequestResponseSignal);
+  sources_request_signal_id_ =
+      SetupRequestResponseSignal(connection_, sources_handle_.c_str(),
+                                 OnSourcesRequestResponseSignal, this);
 
   RTC_LOG(LS_INFO) << "Requesting sources from the screen cast session.";
   g_dbus_proxy_call(
@@ -367,7 +344,7 @@ void ScreenCastPortal::StartRequest() {
 
   start_handle_ = PrepareSignalHandle(connection_, variant_string.get());
   start_request_signal_id_ = SetupRequestResponseSignal(
-      start_handle_.c_str(), OnStartRequestResponseSignal);
+      connection_, start_handle_.c_str(), OnStartRequestResponseSignal, this);
 
   // "Identifier for the application window", this is Wayland, so not "x11:...".
   const char parent_window[] = "";

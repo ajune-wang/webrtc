@@ -765,8 +765,8 @@ static rtc::scoped_refptr<MockRtpReceiverInternal> CreateMockReceiver(
                      ? cricket::MEDIA_TYPE_AUDIO
                      : cricket::MEDIA_TYPE_VIDEO));
   EXPECT_CALL(*receiver, SetMediaChannel(_)).Times(AtMost(1));
-  EXPECT_CALL(*receiver, Stop());
-  EXPECT_CALL(*receiver, StopAndEndTrack());
+  EXPECT_CALL(*receiver, Stop()).WillRepeatedly(Return());
+  EXPECT_CALL(*receiver, StopSource(_)).WillRepeatedly(Return());
   return receiver;
 }
 

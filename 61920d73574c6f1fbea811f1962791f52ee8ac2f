@@ -35,6 +35,23 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "ca45e0d7_0186c50f",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 3
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2022-02-03T12:00:31Z",
+      "side": 1,
+      "message": "More comments ... trying to find a better pattern given the current constraints and not finding one easily, so I\u0027m likely to approve this with a TODO.",
+      "revId": "61920d73574c6f1fbea811f1962791f52ee8ac2f",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "4bfab19e_c0b8903b",
@@ -72,6 +89,41 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "00dcda3e_a5d40d3b",
+        "filename": "pc/connection_context.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 31,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2022-02-03T12:00:31Z",
+      "side": 1,
+      "message": "A compromise may be to annotate this line with \"TODO(this bug): Remove this argument when the socket factory is no longer part of the thread API\".",
+      "parentUuid": "38386aa7_9215e36f",
+      "revId": "61920d73574c6f1fbea811f1962791f52ee8ac2f",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "13cb8c49_d4d96a95",
+        "filename": "pc/connection_context.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 40,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2022-02-03T12:00:31Z",
+      "side": 1,
+      "message": "Different point: the current (new) C++ rules say that output arguments should be references not pointers. That will make this code slightly more obvious.",
+      "revId": "61920d73574c6f1fbea811f1962791f52ee8ac2f",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "d7a9523b_0bf40df1",
         "filename": "pc/connection_context.cc",
         "patchSetId": 3
@@ -83,6 +135,24 @@
       "writtenOn": "2022-02-01T20:14:20Z",
       "side": 1,
       "message": "This line illustrates why I dislike the duality of factory vs server.",
+      "revId": "61920d73574c6f1fbea811f1962791f52ee8ac2f",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "7064a0ca_d9a407af",
+        "filename": "pc/connection_context.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 135,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2022-02-03T12:00:31Z",
+      "side": 1,
+      "message": "Another question: do we always need the socket_factory?\nIf yes - should there be a CHECK or DCHECK that it\u0027s non-null here?\nIf no (like when we\u0027re also passed the packet socket factory?), can this be null if we\u0027re being passed a network thread that doesn\u0027t have one?",
+      "parentUuid": "d7a9523b_0bf40df1",
       "revId": "61920d73574c6f1fbea811f1962791f52ee8ac2f",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }

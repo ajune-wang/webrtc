@@ -49,6 +49,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "01b46f76_3aa5635e",
+        "filename": "rtc_base/task_queue.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 71,
+      "author": {
+        "id": 9515
+      },
+      "writtenOn": "2022-02-03T09:52:58Z",
+      "side": 1,
+      "message": "From profiling data, for the RtcEventLogImpl::Log, the fastpath was taken in almost 100% of the cases, so this is not important.",
+      "parentUuid": "cc153ceb_84fe9e20",
+      "range": {
+        "startLine": 71,
+        "startChar": 37,
+        "endLine": 71,
+        "endChar": 63
+      },
+      "revId": "50f895a5a9a94b1f9444d37c012d8d9df4d778f1",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "2240ee47_deb97d08",
         "filename": "rtc_base/task_queue.cc",
         "patchSetId": 1
@@ -60,6 +84,30 @@
       "writtenOn": "2022-02-02T10:01:23Z",
       "side": 1,
       "message": "Not happy about having to do this.",
+      "range": {
+        "startLine": 98,
+        "startChar": 11,
+        "endLine": 98,
+        "endChar": 22
+      },
+      "revId": "50f895a5a9a94b1f9444d37c012d8d9df4d778f1",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "e8ad11c6_5ef67166",
+        "filename": "rtc_base/task_queue.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 98,
+      "author": {
+        "id": 9515
+      },
+      "writtenOn": "2022-02-03T09:52:58Z",
+      "side": 1,
+      "message": "This is probably also not a problem since we\u0027re working elsewhere to reduce the frequency of these in general.",
+      "parentUuid": "2240ee47_deb97d08",
       "range": {
         "startLine": 98,
         "startChar": 11,

@@ -215,6 +215,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "0c038cef_2134fc12",
+        "filename": "pc/video_rtp_receiver.cc",
+        "patchSetId": 6
+      },
+      "lineNbr": 147,
+      "author": {
+        "id": 5508
+      },
+      "writtenOn": "2022-02-03T16:10:23Z",
+      "side": 1,
+      "message": "Turns out that the two initialization paths are quite different and pleasing them both is a bit tricky. The receiver factory method as triggered via OnRemoteSenderAdded (plan b) is rather simple, but initialization steps as part of UP are in three separate places that are rather far apart.",
+      "parentUuid": "7718d9cf_61c5395b",
+      "revId": "5dc7d59a9153d7c25e0607cb96c64aaf48481567",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "15bf5843_438fb5e0",
         "filename": "pc/video_rtp_receiver.cc",
         "patchSetId": 6

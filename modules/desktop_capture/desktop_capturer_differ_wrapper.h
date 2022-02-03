@@ -52,6 +52,7 @@ class RTC_EXPORT DesktopCapturerDifferWrapper
   bool SelectSource(SourceId id) override;
   bool FocusOnSelectedSource() override;
   bool IsOccluded(const DesktopVector& pos) override;
+  void PopulateMetadata(void* metadata) override;
 
  private:
   // DesktopCapturer::Callback interface.

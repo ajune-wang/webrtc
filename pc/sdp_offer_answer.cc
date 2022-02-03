@@ -1981,6 +1981,18 @@ void SdpOfferAnswerHandler::ApplyRemoteDescriptionUpdateTransceiverState(
       transceiver->set_current_direction(local_direction);
       // 2.2.8.1.11.[3-6]: Set the transport internal slots.
       if (transceiver->mid()) {
+        // TODO(bugs.webrtc.org/13540): `LookupDtlsTransportByMid` will hop over
+        // to the network thread and return the transport (these details could
+        // be inside of the transceiver implementation btw). We'll then get back
+        // here on the signaling thread to call `set_transport`. There, a
+        // reference to the transport will be set and held on the signaling
+        // thread. It doesn't look like there's any need to keep that reference
+        // except for the purposes of the public dtls_transport() API.
+        // Q: Could we skip caching this pointer here and instead look it up on
+        //    demand (e.g. via the transceiver rather than using `internal`
+        //    methods)?
+        // Q: Does the transport object expect to be called on the network
+        //    thread anyway?
         auto dtls_transport = LookupDtlsTransportByMid(
             context_->network_thread(), transport_controller(),
             *transceiver->mid());

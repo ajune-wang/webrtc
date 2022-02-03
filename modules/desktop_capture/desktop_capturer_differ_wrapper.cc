@@ -205,8 +205,8 @@ void DesktopCapturerDifferWrapper::OnCaptureResult(
   if (last_frame_ && (last_frame_->size().width() != frame->size().width() ||
                       last_frame_->size().height() != frame->size().height() ||
                       last_frame_->stride() != frame->stride())) {
-    last_frame_.reset();
   }
+  last_frame_.reset();
 
   if (last_frame_) {
     DesktopRegion hints;

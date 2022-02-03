@@ -52,6 +52,23 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "984fa877_fd4e84f6",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 3
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2022-02-03T13:41:25Z",
+      "side": 1,
+      "message": "Comments only, no updated patchset yet.",
+      "revId": "61920d73574c6f1fbea811f1962791f52ee8ac2f",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "4bfab19e_c0b8903b",
@@ -107,6 +124,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "281b1f37_1ea80561",
+        "filename": "pc/connection_context.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 31,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2022-02-03T13:41:25Z",
+      "side": 1,
+      "message": "Not entirely clear what the end state will be. Completely breaking relationship between rtc::Thread and rtc::SocketServer would be a rather complex refactoring, and I think I passing rtc::SocketServer to rtc::Thread on thread creation is preferable over making the association later on.\n\nMy aim now is to arrange so that code using of the rtc::Thread and the rtc::ScoketFactory should neither be aware, nor depend, on that they\u0027re hooked together. More or less all those change clutters up the code construction the objects a bit.",
+      "parentUuid": "00dcda3e_a5d40d3b",
+      "revId": "61920d73574c6f1fbea811f1962791f52ee8ac2f",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "13cb8c49_d4d96a95",
         "filename": "pc/connection_context.cc",
         "patchSetId": 3
@@ -118,6 +153,24 @@
       "writtenOn": "2022-02-03T12:00:31Z",
       "side": 1,
       "message": "Different point: the current (new) C++ rules say that output arguments should be references not pointers. That will make this code slightly more obvious.",
+      "revId": "61920d73574c6f1fbea811f1962791f52ee8ac2f",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "2d743268_92c6e155",
+        "filename": "pc/connection_context.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 40,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2022-02-03T13:41:25Z",
+      "side": 1,
+      "message": "Works for thread_holder, but for socket_factory_holder, needs nullptr as a possible value.",
+      "parentUuid": "13cb8c49_d4d96a95",
       "revId": "61920d73574c6f1fbea811f1962791f52ee8ac2f",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
@@ -153,6 +206,24 @@
       "side": 1,
       "message": "Another question: do we always need the socket_factory?\nIf yes - should there be a CHECK or DCHECK that it\u0027s non-null here?\nIf no (like when we\u0027re also passed the packet socket factory?), can this be null if we\u0027re being passed a network thread that doesn\u0027t have one?",
       "parentUuid": "d7a9523b_0bf40df1",
+      "revId": "61920d73574c6f1fbea811f1962791f52ee8ac2f",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "438a34b0_a43bec66",
+        "filename": "pc/connection_context.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 135,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2022-02-03T13:41:25Z",
+      "side": 1,
+      "message": "I think we currently always have a socket server, but it may be an instance of NullSocketServer.",
+      "parentUuid": "7064a0ca_d9a407af",
       "revId": "61920d73574c6f1fbea811f1962791f52ee8ac2f",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }

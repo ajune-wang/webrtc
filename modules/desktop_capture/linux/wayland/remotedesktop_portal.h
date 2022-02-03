@@ -21,6 +21,13 @@
 
 namespace webrtc {
 
+struct SessionDetails {
+  GDBusProxy* proxy;
+  GCancellable* cancellable;
+  std::string session_handle;
+  uint32_t pipewire_stream_node_id;
+};
+
 class RemoteDesktopPortal {
  public:
   explicit RemoteDesktopPortal(CaptureSourceType source_type,
@@ -30,6 +37,7 @@ class RemoteDesktopPortal {
   void Start();
   uint32_t pipewire_stream_node_id();
   int pipewire_socket_fd();
+  void PopulateSessionDetails(void* metadata);
 
  private:
   std::unique_ptr<ScreenCastPortal> screencast_portal_;

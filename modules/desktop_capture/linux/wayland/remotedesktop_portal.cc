@@ -484,4 +484,12 @@ void RemoteDesktopPortal::OnStartRequestResponseSignal(
   that->screencast_portal_->OpenPipeWireRemote();
 }
 
+void RemoteDesktopPortal::PopulateSessionDetails(void* metadata) {
+  SessionDetails* session_details = static_cast<SessionDetails*>(metadata);
+  session_details->proxy = proxy_;
+  session_details->cancellable = cancellable_;
+  session_details->session_handle = session_handle_;
+  session_details->pipewire_stream_node_id = pipewire_stream_node_id();
+}
+
 }  // namespace webrtc

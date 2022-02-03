@@ -143,6 +143,10 @@ class RTC_EXPORT DesktopCapturer {
   static bool IsRunningUnderWayland();
 #endif  // defined(WEBRTC_USE_PIPEWIRE) || defined(WEBRTC_USE_X11)
 
+  // Populates implementation specific metadata into the passed in pointer.
+  // Classes can choose to override it or use the default no-op implementation.
+  virtual void PopulateMetadata(void * metadata) {}
+
  protected:
   // CroppingWindowCapturer needs to create raw capturers without wrappers, so
   // the following two functions are protected.

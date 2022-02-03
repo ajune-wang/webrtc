@@ -15,45 +15,13 @@
 
 #include <string>
 
-#include "absl/types/optional.h"
+#include "modules/desktop_capture/linux/wayland/constants.h"
 
 namespace webrtc {
 
 class ScreenCastPortal {
  public:
-  // Values are set based on source type property in
-  // xdg-desktop-portal/screencast
-  // https://github.com/flatpak/xdg-desktop-portal/blob/master/data/org.freedesktop.portal.ScreenCast.xml
-  enum class CaptureSourceType : uint32_t {
-    kScreen = 0b01,
-    kWindow = 0b10,
-    kAnyScreenContent = kScreen | kWindow
-  };
-
-  // Values are set based on cursor mode property in
-  // xdg-desktop-portal/screencast
-  // https://github.com/flatpak/xdg-desktop-portal/blob/master/data/org.freedesktop.portal.ScreenCast.xml
-  enum class CursorMode : uint32_t {
-    // Mouse cursor will not be included in any form
-    kHidden = 0b01,
-    // Mouse cursor will be part of the screen content
-    kEmbedded = 0b10,
-    // Mouse cursor information will be send separately in form of metadata
-    kMetadata = 0b100
-  };
-
   // Interface that must be implemented by the ScreenCastPortal consumers.
-  enum class RequestResponse {
-    // Success, the request is carried out.
-    kSuccess,
-    // The user cancelled the interaction.
-    kUserCancelled,
-    // The user interaction was ended in some other way.
-    kError,
-
-    kMaxValue = kError
-  };
-
   class PortalNotifier {
    public:
     virtual void OnScreenCastRequestResult(RequestResponse result,
@@ -87,10 +55,9 @@ class ScreenCastPortal {
   // A file descriptor of PipeWire socket
   int pw_fd_ = -1;
 
-  CaptureSourceType capture_source_type_ =
-      ScreenCastPortal::CaptureSourceType::kScreen;
+  CaptureSourceType capture_source_type_ = CaptureSourceType::kScreen;
 
-  CursorMode cursor_mode_ = ScreenCastPortal::CursorMode::kEmbedded;
+  CursorMode cursor_mode_ = CursorMode::kEmbedded;
 
   GDBusConnection* connection_ = nullptr;
   GDBusProxy* proxy_ = nullptr;

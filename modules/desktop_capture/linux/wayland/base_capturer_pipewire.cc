@@ -20,16 +20,15 @@ namespace webrtc {
 BaseCapturerPipeWire::BaseCapturerPipeWire(const DesktopCaptureOptions& options)
     : options_(options) {
   screencast_portal_ = std::make_unique<ScreenCastPortal>(
-      ScreenCastPortal::CaptureSourceType::kAnyScreenContent, this);
+      CaptureSourceType::kAnyScreenContent, this);
 }
 
 BaseCapturerPipeWire::~BaseCapturerPipeWire() {}
 
-void BaseCapturerPipeWire::OnScreenCastRequestResult(
-    ScreenCastPortal::RequestResponse result,
-    uint32_t stream_node_id,
-    int fd) {
-  if (result != ScreenCastPortal::RequestResponse::kSuccess ||
+void BaseCapturerPipeWire::OnScreenCastRequestResult(RequestResponse result,
+                                                     uint32_t stream_node_id,
+                                                     int fd) {
+  if (result != RequestResponse::kSuccess ||
       !options_.screencast_stream()->StartScreenCastStream(stream_node_id,
                                                            fd)) {
     capturer_failed_ = true;

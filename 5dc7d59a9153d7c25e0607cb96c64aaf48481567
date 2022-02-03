@@ -71,6 +71,24 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "63010c07_b9301d18",
+        "filename": "pc/audio_rtp_receiver.cc",
+        "patchSetId": 6
+      },
+      "lineNbr": 163,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2022-02-03T10:04:54Z",
+      "side": 1,
+      "message": "OK, so SetState(kEnded) is idempotent. Ack.",
+      "parentUuid": "d5b30df6_17fb3b7f",
+      "revId": "5dc7d59a9153d7c25e0607cb96c64aaf48481567",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "08186e1b_45e11bbb",
@@ -102,6 +120,24 @@
       "side": 1,
       "message": "which is ok. Optimizing around that case, which is not a common case, is what was in place, but isn\u0027t necessary (or justification for an additional state).\n\nIn an upcoming change, SetMediaChannel will only be called on the worker thread, so SetMediaChannel and SetMediaChannel_w will merge and the Invoke will go away.",
       "parentUuid": "08186e1b_45e11bbb",
+      "revId": "5dc7d59a9153d7c25e0607cb96c64aaf48481567",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "84683592_799bad4f",
+        "filename": "pc/audio_rtp_receiver.cc",
+        "patchSetId": 6
+      },
+      "lineNbr": 323,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2022-02-03T10:04:54Z",
+      "side": 1,
+      "message": "Seems to be idempotent, so OK.",
+      "parentUuid": "d7568b88_dd2438fb",
       "revId": "5dc7d59a9153d7c25e0607cb96c64aaf48481567",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
@@ -143,6 +179,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "69429dc3_81ac01b3",
+        "filename": "pc/video_rtp_receiver.cc",
+        "patchSetId": 6
+      },
+      "lineNbr": 147,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2022-02-03T10:04:54Z",
+      "side": 1,
+      "message": "I\u0027m not so worried about speed - I assume you will catch that when you measure change results.\n\nWhat I\u0027m more worried about is things like signals being fired twice, which could damage assumptions on ordering elsewhere.\n\nI do wonder if a simple \"if (media_channel_ \u0026\u0026 ssrc_ \u003d\u003d ssrc) return\" would be worthwhile and equivalent - was_stopped is, as you say, ~equivalent to media_channel \u003d\u003d nullptr.",
+      "parentUuid": "2c92e1d5_162f0f6e",
+      "revId": "5dc7d59a9153d7c25e0607cb96c64aaf48481567",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "15bf5843_438fb5e0",
         "filename": "pc/video_rtp_receiver.cc",
         "patchSetId": 6
@@ -172,6 +226,24 @@
       "side": 1,
       "message": "not actually a logic change since media_channel_ and stopped_ represent the same thing as far as this check goes and the first check that\u0027s done inside of SetMediaChannel_w().",
       "parentUuid": "15bf5843_438fb5e0",
+      "revId": "5dc7d59a9153d7c25e0607cb96c64aaf48481567",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "0d2a3c2d_e8617506",
+        "filename": "pc/video_rtp_receiver.cc",
+        "patchSetId": 6
+      },
+      "lineNbr": 266,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2022-02-03T10:04:54Z",
+      "side": 1,
+      "message": "Since SetMediaChannel_w is idempotent for this case, this is OK, then.",
+      "parentUuid": "5ecda509_e1f11cc5",
       "revId": "5dc7d59a9153d7c25e0607cb96c64aaf48481567",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }

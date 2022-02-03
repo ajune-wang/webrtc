@@ -1,0 +1,55 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "05d4a69e_463b69fc",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2022-02-03T08:25:41Z",
+      "side": 1,
+      "message": "As far as I can tell, it\u0027s not unlikely that the answers are \"no\" and \"no\"....\n",
+      "revId": "2bd093fcb07fd16a47358a8aeb0fafe8ff7f3280",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "c641ef09_71048203",
+        "filename": "pc/sdp_offer_answer.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 1993,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2022-02-03T08:25:41Z",
+      "side": 1,
+      "message": "The model in the spec (which I\u0027d like to reflect in the implementation, for future-direction reasons) is that transceivers know about senders and receivers (they have to), but the senders and receivers shouldn\u0027t need to know that they\u0027re owned by a transceiver (when SDP is not required, transceivers shouldn\u0027t be either).\n\nAs far as I can tell, the sender and receiver DOM objects need to find the transport DOM object for returning as an attribute.",
+      "revId": "2bd093fcb07fd16a47358a8aeb0fafe8ff7f3280",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "8c4fa142_1f2cc000",
+        "filename": "pc/sdp_offer_answer.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 1995,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2022-02-03T08:25:41Z",
+      "side": 1,
+      "message": "JS: The transport DOM object (RTCDtlsTransport) does not have any modifiable attributes or control functions, so no calls are expected using that object. It\u0027s effectively an ID, used for firing events - those originate from the network thread and propagate up.\n\nNote: Future extensions may change this.",
+      "revId": "2bd093fcb07fd16a47358a8aeb0fafe8ff7f3280",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

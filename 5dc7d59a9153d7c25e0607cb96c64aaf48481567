@@ -233,6 +233,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "ee6ee826_24b0c8fd",
+        "filename": "pc/video_rtp_receiver.cc",
+        "patchSetId": 6
+      },
+      "lineNbr": 147,
+      "author": {
+        "id": 5508
+      },
+      "writtenOn": "2022-02-03T19:00:16Z",
+      "side": 1,
+      "message": "Changed things so that at least SetSink(nullptr) doesn\u0027t happen if the old and new ssrc values are the same.",
+      "parentUuid": "0c038cef_2134fc12",
+      "revId": "5dc7d59a9153d7c25e0607cb96c64aaf48481567",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "15bf5843_438fb5e0",
         "filename": "pc/video_rtp_receiver.cc",
         "patchSetId": 6

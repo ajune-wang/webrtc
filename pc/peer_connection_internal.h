@@ -139,9 +139,6 @@ class PeerConnectionInternal : public PeerConnectionInterface,
       rtc::scoped_refptr<RtpTransceiverProxyWithInternal<RtpTransceiver>>>
   GetTransceiversInternal() const = 0;
 
-  virtual sigslot::signal1<SctpDataChannel*>&
-  SignalSctpDataChannelCreated() = 0;
-
   // Call on the network thread to fetch stats for all the data channels.
   // TODO(tommi): Make pure virtual after downstream updates.
   virtual std::vector<DataChannelStats> GetDataChannelStats() const {

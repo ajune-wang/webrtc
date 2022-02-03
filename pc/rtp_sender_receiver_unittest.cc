@@ -355,6 +355,7 @@ class RtpSenderReceiverTest
   void DestroyVideoRtpReceiver() {
     if (!video_rtp_receiver_)
       return;
+    video_rtp_receiver_->StopSource(true);
     video_rtp_receiver_->Stop();
     video_rtp_receiver_ = nullptr;
     VerifyVideoChannelNoOutput();

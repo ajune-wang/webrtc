@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "78243325_5601f670",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2022-02-03T15:04:44Z",
+      "side": 1,
+      "message": "Ran into something where sigslots blocked me, so I decided to delete them.\n",
+      "revId": "7fcb685c3ead8554f0b79c11c3415e95f81b4ae6",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

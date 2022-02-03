@@ -16,6 +16,75 @@
       "message": "Ran into something where sigslots blocked me, so I decided to delete them.\n",
       "revId": "7fcb685c3ead8554f0b79c11c3415e95f81b4ae6",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "45523af4_32e65e48",
+        "filename": "pc/data_channel_controller.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 113,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2022-02-03T15:16:14Z",
+      "side": 1,
+      "message": "To delete.",
+      "range": {
+        "startLine": 108,
+        "startChar": 0,
+        "endLine": 113,
+        "endChar": 4
+      },
+      "revId": "7fcb685c3ead8554f0b79c11c3415e95f81b4ae6",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "3e3663d0_8c62bc7e",
+        "filename": "pc/data_channel_controller.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 115,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2022-02-03T15:16:14Z",
+      "side": 1,
+      "message": "Style guide discourages explicit rvalue reference types. Could it work with just\n`F callback`, and AddReceiver(std::move(callback)) below?",
+      "range": {
+        "startLine": 115,
+        "startChar": 36,
+        "endLine": 115,
+        "endChar": 38
+      },
+      "revId": "7fcb685c3ead8554f0b79c11c3415e95f81b4ae6",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "0512810c_b214538f",
+        "filename": "pc/rtc_stats_collector.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 1169,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2022-02-03T15:16:14Z",
+      "side": 1,
+      "message": "Does this class always outlive the data_channel_controller(), or where is it unsubscribed?",
+      "range": {
+        "startLine": 1168,
+        "startChar": 0,
+        "endLine": 1169,
+        "endChar": 79
+      },
+      "revId": "7fcb685c3ead8554f0b79c11c3415e95f81b4ae6",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

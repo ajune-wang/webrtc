@@ -104,7 +104,8 @@ class scoped_refptr {
   }
 
   T* get() const { return ptr_; }
-  operator T*() const { return ptr_; }
+  // operator T*() const { return ptr_; }
+  operator bool() const { return ptr_ != nullptr; }
   T& operator*() const { return *ptr_; }
   T* operator->() const { return ptr_; }
 
@@ -160,6 +161,56 @@ class scoped_refptr {
  protected:
   T* ptr_;
 };
+
+template <typename T, typename U>
+bool operator==(const rtc::scoped_refptr<T>& a,
+                const rtc::scoped_refptr<U>& b) {
+  return a.get() == b.get();
+}
+template <typename T, typename U>
+bool operator!=(const rtc::scoped_refptr<T>& a,
+                const rtc::scoped_refptr<U>& b) {
+  return !(a == b);
+}
+
+template <typename T>
+bool operator==(const rtc::scoped_refptr<T>& a, std::nullptr_t) {
+  return a.get() == nullptr;
+}
+
+template <typename T>
+bool operator!=(const rtc::scoped_refptr<T>& a, std::nullptr_t) {
+  return !(a == nullptr);
+}
+
+template <typename T>
+bool operator==(std::nullptr_t, const rtc::scoped_refptr<T>& a) {
+  return a.get() == nullptr;
+}
+
+template <typename T>
+bool operator!=(std::nullptr_t, const rtc::scoped_refptr<T>& a) {
+  return !(a == nullptr);
+}
+
+// Compare with raw pointer. Should this be supported?
+template <typename T, typename U>
+bool operator==(const rtc::scoped_refptr<T>& a, const U* b) {
+  return a.get() == b;
+}
+template <typename T, typename U>
+bool operator!=(const rtc::scoped_refptr<T>& a, const U* b) {
+  return !(a == b);
+}
+
+template <typename T, typename U>
+bool operator==(const T* a, const rtc::scoped_refptr<U>& b) {
+  return a == b.get();
+}
+template <typename T, typename U>
+bool operator!=(const T* a, const rtc::scoped_refptr<U>& b) {
+  return !(a == b);
+}
 
 }  // namespace rtc
 

@@ -636,7 +636,7 @@ RTCError PeerConnection::Initialize(
   stats_collector_ = RTCStatsCollector::Create(this);
 
   sdp_handler_ = SdpOfferAnswerHandler::Create(this, configuration,
-                                               dependencies, context_);
+                                               dependencies, context_.get());
 
   rtp_manager_ = std::make_unique<RtpTransmissionManager>(
       IsUnifiedPlan(), signaling_thread(), worker_thread(), channel_manager(),
@@ -845,7 +845,7 @@ RTCErrorOr<rtc::scoped_refptr<RtpSenderInterface>> PeerConnection::AddTrack(
     LOG_AND_RETURN_ERROR(RTCErrorType::INVALID_STATE,
                          "PeerConnection is closed.");
   }
-  if (rtp_manager()->FindSenderForTrack(track)) {
+  if (rtp_manager()->FindSenderForTrack(track.get())) {
     LOG_AND_RETURN_ERROR(
         RTCErrorType::INVALID_PARAMETER,
         "Sender already exists for track " + track->id() + ".");
@@ -853,7 +853,7 @@ RTCErrorOr<rtc::scoped_refptr<RtpSenderInterface>> PeerConnection::AddTrack(
   auto sender_or_error = rtp_manager()->AddTrack(track, stream_ids);
   if (sender_or_error.ok()) {
     sdp_handler_->UpdateNegotiationNeeded();
-    stats_->AddTrack(track);
+    stats_->AddTrack(track.get());
   }
   return sender_or_error;
 }
@@ -885,11 +885,11 @@ RTCError PeerConnection::RemoveTrackOrError(
     bool removed;
     if (sender->media_type() == cricket::MEDIA_TYPE_AUDIO) {
       removed = rtp_manager()->GetAudioTransceiver()->internal()->RemoveSender(
-          sender);
+          sender.get());
     } else {
       RTC_DCHECK_EQ(cricket::MEDIA_TYPE_VIDEO, sender->media_type());
       removed = rtp_manager()->GetVideoTransceiver()->internal()->RemoveSender(
-          sender);
+          sender.get());
     }
     if (!removed) {
       LOG_AND_RETURN_ERROR(
@@ -1106,14 +1106,14 @@ rtc::scoped_refptr<RtpSenderInterface> PeerConnection::CreateSender(
         worker_thread(), rtc::CreateRandomUuid(), stats_.get(), rtp_manager());
     audio_sender->SetMediaChannel(rtp_manager()->voice_media_channel());
     new_sender = RtpSenderProxyWithInternal<RtpSenderInternal>::Create(
-        signaling_thread(), audio_sender);
+        signaling_thread(), audio_sender.get());
     rtp_manager()->GetAudioTransceiver()->internal()->AddSender(new_sender);
   } else if (kind == MediaStreamTrackInterface::kVideoKind) {
     auto video_sender = VideoRtpSender::Create(
         worker_thread(), rtc::CreateRandomUuid(), rtp_manager());
     video_sender->SetMediaChannel(rtp_manager()->video_media_channel());
     new_sender = RtpSenderProxyWithInternal<RtpSenderInternal>::Create(
-        signaling_thread(), video_sender);
+        signaling_thread(), video_sender.get());
     rtp_manager()->GetVideoTransceiver()->internal()->AddSender(new_sender);
   } else {
     RTC_LOG(LS_ERROR) << "CreateSender called with invalid kind: " << kind;

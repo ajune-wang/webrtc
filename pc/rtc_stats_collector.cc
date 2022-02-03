@@ -1850,7 +1850,8 @@ void RTCStatsCollector::ProduceAudioRTPStreamStats_n(
       inbound_audio->track_id =
           RTCMediaStreamTrackStatsIDFromDirectionAndAttachment(
               kReceiver,
-              track_media_info_map.GetAttachmentIdByTrack(audio_track).value());
+              track_media_info_map.GetAttachmentIdByTrack(audio_track.get())
+                  .value());
     }
     inbound_audio->transport_id = transport_id;
     // Remote-outbound.
@@ -1881,7 +1882,8 @@ void RTCStatsCollector::ProduceAudioRTPStreamStats_n(
         track_media_info_map.GetAudioTrack(voice_sender_info);
     if (audio_track) {
       int attachment_id =
-          track_media_info_map.GetAttachmentIdByTrack(audio_track).value();
+          track_media_info_map.GetAttachmentIdByTrack(audio_track.get())
+              .value();
       outbound_audio->track_id =
           RTCMediaStreamTrackStatsIDFromDirectionAndAttachment(kSender,
                                                                attachment_id);
@@ -1942,7 +1944,8 @@ void RTCStatsCollector::ProduceVideoRTPStreamStats_n(
       inbound_video->track_id =
           RTCMediaStreamTrackStatsIDFromDirectionAndAttachment(
               kReceiver,
-              track_media_info_map.GetAttachmentIdByTrack(video_track).value());
+              track_media_info_map.GetAttachmentIdByTrack(video_track.get())
+                  .value());
     }
     inbound_video->transport_id = transport_id;
     report->AddStats(std::move(inbound_video));
@@ -1964,7 +1967,8 @@ void RTCStatsCollector::ProduceVideoRTPStreamStats_n(
         track_media_info_map.GetVideoTrack(video_sender_info);
     if (video_track) {
       int attachment_id =
-          track_media_info_map.GetAttachmentIdByTrack(video_track).value();
+          track_media_info_map.GetAttachmentIdByTrack(video_track.get())
+              .value();
       outbound_video->track_id =
           RTCMediaStreamTrackStatsIDFromDirectionAndAttachment(kSender,
                                                                attachment_id);

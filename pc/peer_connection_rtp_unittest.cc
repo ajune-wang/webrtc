@@ -924,7 +924,7 @@ TEST_P(PeerConnectionRtpTest,
       rtc::make_ref_counted<webrtc::MockSetSessionDescriptionObserver>();
 
   auto offer = caller->CreateOfferAndSetAsLocal();
-  callee->pc()->SetRemoteDescription(observer, offer.release());
+  callee->pc()->SetRemoteDescription(observer.get(), offer.release());
   callee = nullptr;
   rtc::Thread::Current()->ProcessMessages(0);
   EXPECT_FALSE(observer->called());
@@ -1992,7 +1992,7 @@ TEST_P(PeerConnectionRtpTest, CreateTwoSendersWithSameTrack) {
   EXPECT_TRUE(sender1->SetTrack(nullptr));
   auto sender2 = caller->AddTrack(track);
   EXPECT_TRUE(sender2);
-  EXPECT_TRUE(sender1->SetTrack(track));
+  EXPECT_TRUE(sender1->SetTrack(track.get()));
 
   if (sdp_semantics_ == SdpSemantics::kPlanB) {
     // TODO(hbos): When https://crbug.com/webrtc/8734 is resolved, this should

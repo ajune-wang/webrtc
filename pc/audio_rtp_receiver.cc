@@ -48,7 +48,7 @@ AudioRtpReceiver::AudioRtpReceiver(
               : RemoteAudioSource::OnAudioChannelGoneAction::kEnd)),
       track_(AudioTrackProxyWithInternal<AudioTrack>::Create(
           rtc::Thread::Current(),
-          AudioTrack::Create(receiver_id, source_))),
+          AudioTrack::Create(receiver_id, source_).get())),
       cached_track_enabled_(track_->enabled()),
       attachment_id_(GenerateUniqueId()),
       worker_thread_safety_(PendingTaskSafetyFlag::CreateDetachedInactive()) {
@@ -258,7 +258,7 @@ void AudioRtpReceiver::SetStreams(
       }
     }
     if (removed) {
-      existing_stream->RemoveTrack(track_);
+      existing_stream->RemoveTrack(track_.get());
     }
   }
   // Add remote track to any streams that are new.
@@ -272,7 +272,7 @@ void AudioRtpReceiver::SetStreams(
       }
     }
     if (added) {
-      stream->AddTrack(track_);
+      stream->AddTrack(track_.get());
     }
   }
   streams_ = streams;

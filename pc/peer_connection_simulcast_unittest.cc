@@ -114,7 +114,7 @@ class PeerConnectionSimulcastTests : public ::testing::Test {
     PeerConnectionDependencies pcd(observer);
     auto pc = pc_factory_->CreatePeerConnection(config, std::move(pcd));
     EXPECT_TRUE(pc);
-    observer->SetPeerConnectionInterface(pc);
+    observer->SetPeerConnectionInterface(pc.get());
     return pc;
   }
 

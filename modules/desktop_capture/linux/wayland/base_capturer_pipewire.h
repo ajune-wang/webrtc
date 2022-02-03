@@ -39,9 +39,11 @@ class BaseCapturerPipeWire : public DesktopCapturer,
                                  int fd) override;
   void OnScreenCastSessionClosed() override;
 
+ protected:
+  Callback* callback_ = nullptr;
+
  private:
   DesktopCaptureOptions options_ = {};
-  Callback* callback_ = nullptr;
   bool capturer_failed_ = false;
   std::unique_ptr<ScreenCastPortal> screencast_portal_;
 };

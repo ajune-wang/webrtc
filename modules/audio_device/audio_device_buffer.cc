@@ -247,6 +247,7 @@ int32_t AudioDeviceBuffer::SetRecordedBuffer(const void* audio_buffer,
   }
 
   capture_timestamp_ns_ = capture_timestamp_ns;
+  system_timestamp_us_ = rtc::TimeMicros();
 
   // Derive a new level value twice per second and check if it is non-zero.
   int16_t max_abs = 0;
@@ -277,10 +278,17 @@ int32_t AudioDeviceBuffer::DeliverRecordedData() {
   const size_t bytes_per_frame = rec_channels_ * sizeof(int16_t);
   uint32_t new_mic_level_dummy = 0;
   uint32_t total_delay_ms = play_delay_ms_ + rec_delay_ms_;
+  int64_t aligned_capture_timestamp_ns_ =
+      (capture_timestamp_ns_ > 0)
+          ? rtc::kNumNanosecsPerMicrosec *
+                timestamp_aligner_.TranslateTimestamp(
+                    capture_timestamp_ns_ / rtc::kNumNanosecsPerMicrosec,
+                    system_timestamp_us_)
+          : capture_timestamp_ns_;
   int32_t res = audio_transport_cb_->RecordedDataIsAvailable(
       rec_buffer_.data(), frames, bytes_per_frame, rec_channels_,
       rec_sample_rate_, total_delay_ms, 0, 0, typing_status_,
-      new_mic_level_dummy, capture_timestamp_ns_);
+      new_mic_level_dummy, aligned_capture_timestamp_ns_);
   if (res == -1) {
     RTC_LOG(LS_ERROR) << "RecordedDataIsAvailable() failed";
   }

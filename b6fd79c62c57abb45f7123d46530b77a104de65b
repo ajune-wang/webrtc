@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "cb96ba12_a7c24f70",
+        "filename": "rtc_base/task_queue.cc",
+        "patchSetId": 8
+      },
+      "lineNbr": 86,
+      "author": {
+        "id": 9515
+      },
+      "writtenOn": "2022-02-03T09:55:50Z",
+      "side": 1,
+      "message": "Probably need to release task_mu before attempting to take mu to avoid deadlock.",
+      "range": {
+        "startLine": 86,
+        "startChar": 2,
+        "endLine": 86,
+        "endChar": 15
+      },
+      "revId": "b6fd79c62c57abb45f7123d46530b77a104de65b",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

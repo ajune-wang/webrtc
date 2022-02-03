@@ -568,6 +568,8 @@ rtc_library("desktop_capture_generic") {
       "linux/wayland/egl_dmabuf.h",
       "linux/wayland/glib_utils.cc",
       "linux/wayland/glib_utils.h",
+      "linux/wayland/remotedesktop_portal.cc",
+      "linux/wayland/remotedesktop_portal.h",
       "linux/wayland/scoped_glib.cc",
       "linux/wayland/scoped_glib.h",
       "linux/wayland/screencast_portal.cc",

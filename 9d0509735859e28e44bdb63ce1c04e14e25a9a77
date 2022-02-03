@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "edc856d3_af3ee926",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 3
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5122
+      },
+      "writtenOn": "2022-02-03T15:55:38Z",
+      "side": 1,
+      "message": "Hi again Hanna,\n\nThanks for the offline comments on this CL.\n\nI have added the tests you requested and uploaded a parent CL (https://webrtc-review.googlesource.com/c/src/+/250541) which is also needed to correctly run the new tests in this agc_manager_direct_unittest.cc.\n\nCheers,\nAlessio",
+      "revId": "9d0509735859e28e44bdb63ce1c04e14e25a9a77",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

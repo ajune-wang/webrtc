@@ -247,10 +247,6 @@ class FakePeerConnectionBase : public PeerConnectionInternal {
     return {};
   }
 
-  sigslot::signal1<SctpDataChannel*>& SignalSctpDataChannelCreated() override {
-    return SignalSctpDataChannelCreated_;
-  }
-
   absl::optional<std::string> sctp_transport_name() const override {
     return absl::nullopt;
   }

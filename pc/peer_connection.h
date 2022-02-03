@@ -289,11 +289,6 @@ class PeerConnection : public PeerConnectionInternal,
     return rtp_manager()->transceivers()->List();
   }
 
-  sigslot::signal1<SctpDataChannel*>& SignalSctpDataChannelCreated() override {
-    RTC_DCHECK_RUN_ON(signaling_thread());
-    return data_channel_controller_.SignalSctpDataChannelCreated();
-  }
-
   std::vector<DataChannelStats> GetDataChannelStats() const override;
 
   absl::optional<std::string> sctp_transport_name() const override;

@@ -20,6 +20,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "62533803_aac05351",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5150
+      },
+      "writtenOn": "2022-02-03T03:27:58Z",
+      "side": 1,
+      "message": "I don\u0027t think there is any behavioral change?\n\nThe bulk of the code movement was done in https://webrtc-review.googlesource.com/c/src/+/201203 and https://webrtc-review.googlesource.com/c/src/+/246203. This covered all structs that belong to specific events. In this CL, I moved 3 remaining structs and an enum into the parser, so that it becomes more natural to include the logged_events.h from the rtp and rtcp events.",
+      "parentUuid": "74e52eee_42d1614d",
+      "revId": "7e031b1de040bf4a2cfc1bc44654345dd00bedee",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "73b6751e_7857d59c",
         "filename": "logging/rtc_event_log/events/logged_rtp_rtcp.h",
         "patchSetId": 1
@@ -31,6 +49,30 @@
       "writtenOn": "2022-01-27T15:48:21Z",
       "side": 1,
       "message": "Could you use std::copy (or absl::c_copy) here?",
+      "range": {
+        "startLine": 81,
+        "startChar": 3,
+        "endLine": 81,
+        "endChar": 58
+      },
+      "revId": "7e031b1de040bf4a2cfc1bc44654345dd00bedee",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "356326b5_f71cf26b",
+        "filename": "logging/rtc_event_log/events/logged_rtp_rtcp.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 81,
+      "author": {
+        "id": 5150
+      },
+      "writtenOn": "2022-02-03T03:27:58Z",
+      "side": 1,
+      "message": "Possibly. This is existing code though, do you want me to try changing it in the same CL?",
+      "parentUuid": "73b6751e_7857d59c",
       "range": {
         "startLine": 81,
         "startChar": 3,

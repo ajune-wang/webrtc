@@ -197,6 +197,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "7718d9cf_61c5395b",
+        "filename": "pc/video_rtp_receiver.cc",
+        "patchSetId": 6
+      },
+      "lineNbr": 147,
+      "author": {
+        "id": 5508
+      },
+      "writtenOn": "2022-02-03T11:11:10Z",
+      "side": 1,
+      "message": "Especially after recent adventures in Connection land, I\u0027m concerned about those sort of things too. Here, they\u0027ll go away soon, but I\u0027ll take another stab at the particular corner case that made stop_ \"useful\"  - which was the in-between state *after* construction (signaling thread) but *before* initialization.\n\nIn that case stop_ would be true, then SetMediaChannel would be called (goes to worker, does partial initialization by setting the media_channel_ ptr) and _then_  . However, once initialized (which happens on two threads, signaling and worker), then if media_channel_ was nullptr, *then* we get here to RestartMediaChannel, but via either of the Setup* methods. That\u0027s when we intialize the ssrc_ member variable, which has a particular meaning if unset (unsignaled) but that\u0027s the same value as it has when not initialized.\n\nSo, the only thing available as the code is constructed currently, to know if ssrc_ has not been initialized before, but media_channel_ is valid - but we should not disconnect the sink, is the `stopped_` variable.\n\nSo the crux is really construction. I\u0027m going to see if we can\u0027t make construction more atomic, avoid this in-between step and possibly get rid of one of the two invokes (SetMediaChannel, Setup*) at the same time.",
+      "parentUuid": "69429dc3_81ac01b3",
+      "revId": "5dc7d59a9153d7c25e0607cb96c64aaf48481567",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "15bf5843_438fb5e0",
         "filename": "pc/video_rtp_receiver.cc",
         "patchSetId": 6

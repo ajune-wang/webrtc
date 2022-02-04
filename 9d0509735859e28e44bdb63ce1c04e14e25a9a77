@@ -58,6 +58,30 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "184182ed_5e1f561f",
+        "filename": "modules/audio_processing/agc/agc_manager_direct_unittest.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 104,
+      "author": {
+        "id": 5122
+      },
+      "writtenOn": "2022-02-04T16:07:08Z",
+      "side": 1,
+      "message": "Good point, thanks! I left this and added a docstring for this function.",
+      "parentUuid": "57f73778_1feb9505",
+      "range": {
+        "startLine": 104,
+        "startChar": 2,
+        "endLine": 104,
+        "endChar": 52
+      },
+      "revId": "9d0509735859e28e44bdb63ce1c04e14e25a9a77",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "fc9df9c0_f7f44060",
@@ -71,6 +95,30 @@
       "writtenOn": "2022-02-04T15:05:33Z",
       "side": 1,
       "message": "Could this comment be simplified?",
+      "range": {
+        "startLine": 137,
+        "startChar": 0,
+        "endLine": 139,
+        "endChar": 77
+      },
+      "revId": "9d0509735859e28e44bdb63ce1c04e14e25a9a77",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "a5238884_fd4f67db",
+        "filename": "modules/audio_processing/agc/agc_manager_direct_unittest.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 139,
+      "author": {
+        "id": 5122
+      },
+      "writtenOn": "2022-02-04T16:07:08Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "fc9df9c0_f7f44060",
       "range": {
         "startLine": 137,
         "startChar": 0,

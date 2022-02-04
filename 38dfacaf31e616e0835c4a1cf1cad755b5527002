@@ -1,0 +1,89 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "2ab6e926_f5ea66e3",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 5
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2022-02-04T13:47:51Z",
+      "side": 1,
+      "message": "Gigantic CL! Review somewhat possible when adding \"ignore trailing and leading whitespace\". A couple of questions (I\u0027m a rusty Python user).\n\n",
+      "revId": "38dfacaf31e616e0835c4a1cf1cad755b5527002",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "2217e12c_5394b27d",
+        "filename": "PRESUBMIT.py",
+        "patchSetId": 5
+      },
+      "lineNbr": 11,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2022-02-04T13:47:51Z",
+      "side": 1,
+      "message": "I *think* what I read on the Net says that absolute import is the default with Python3, so this line should be removed, not added. But I could be wrong.",
+      "revId": "38dfacaf31e616e0835c4a1cf1cad755b5527002",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "da545efd_d7dbe557",
+        "filename": "PRESUBMIT.py",
+        "patchSetId": 5
+      },
+      "lineNbr": 41,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2022-02-04T13:47:51Z",
+      "side": 1,
+      "message": "What\u0027s the argument for letting lint skip these files?\nToo many errors? (should there be a TODO to make it lintable?)",
+      "revId": "38dfacaf31e616e0835c4a1cf1cad755b5527002",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "29468885_5145556f",
+        "filename": "tools_webrtc/get_landmines.py",
+        "patchSetId": 5
+      },
+      "lineNbr": 16,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2022-02-04T13:47:51Z",
+      "side": 1,
+      "message": "Odd new blank lines.",
+      "revId": "38dfacaf31e616e0835c4a1cf1cad755b5527002",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "efb378bd_878324f8",
+        "filename": "tools_webrtc/gn_check_autofix.py",
+        "patchSetId": 5
+      },
+      "lineNbr": 23,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2022-02-04T13:47:51Z",
+      "side": 1,
+      "message": "Not needed in python3?",
+      "revId": "38dfacaf31e616e0835c4a1cf1cad755b5527002",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

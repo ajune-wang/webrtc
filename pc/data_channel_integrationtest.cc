@@ -787,7 +787,8 @@ TEST_F(DataChannelIntegrationTestUnifiedPlan,
   callee()->AddAudioVideoTracks();
   caller()->CreateAndSetAndSignalOffer();
   ASSERT_TRUE_WAIT(SignalingStateStable(), kDefaultTimeout);
-  ASSERT_TRUE_WAIT(caller()->pc()->GetSctpTransport(), kDefaultTimeout);
+  ASSERT_TRUE_WAIT(caller()->pc()->GetSctpTransport() != nullptr,
+                   kDefaultTimeout);
   ASSERT_EQ_WAIT(SctpTransportState::kConnected,
                  caller()->pc()->GetSctpTransport()->Information().state(),
                  kDefaultTimeout);

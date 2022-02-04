@@ -143,6 +143,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "4093a7dd_55dbb8ba",
+        "filename": "tools_webrtc/get_landmines.py",
+        "patchSetId": 5
+      },
+      "lineNbr": 16,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2022-02-04T15:42:15Z",
+      "side": 1,
+      "message": "Fighting git cl format is a waste of time, so leave them be!",
+      "parentUuid": "51b1323d_c37bfbe1",
+      "revId": "38dfacaf31e616e0835c4a1cf1cad755b5527002",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "efb378bd_878324f8",
         "filename": "tools_webrtc/gn_check_autofix.py",
         "patchSetId": 5

@@ -399,19 +399,15 @@ void WebRtcVoiceEngine::Init() {
 #if defined(WEBRTC_IOS)
     // On iOS, VPIO provides built-in NS.
     options.noise_suppression = false;
-    options.typing_detection = false;
 #else
     options.noise_suppression = true;
-    options.typing_detection = true;
 #endif
-    options.experimental_ns = false;
     options.highpass_filter = true;
     options.stereo_swapping = false;
     options.audio_jitter_buffer_max_packets = 200;
     options.audio_jitter_buffer_fast_accelerate = false;
     options.audio_jitter_buffer_min_delay_ms = 0;
     options.audio_jitter_buffer_enable_rtx_handling = false;
-    options.experimental_agc = false;
     bool error = ApplyOptions(options);
     RTC_DCHECK(error);
   }
@@ -461,20 +457,12 @@ bool WebRtcVoiceEngine::ApplyOptions(const AudioOptions& options_in) {
   use_mobile_software_aec = true;
 #endif
 
-// Override noise suppression options for Android.
-#if defined(WEBRTC_ANDROID)
-  options.typing_detection = false;
-  options.experimental_ns = false;
-#endif
-
 // Set and adjust gain control options.
 #if defined(WEBRTC_IOS)
   // On iOS, VPIO provides built-in AGC.
   options.auto_gain_control = false;
-  options.experimental_agc = false;
   RTC_LOG(LS_INFO) << "Always disable AGC on iOS. Use built-in instead.";
 #elif defined(WEBRTC_ANDROID)
-  options.experimental_agc = false;
 #endif
 
 #if defined(WEBRTC_IOS) || defined(WEBRTC_ANDROID)
@@ -582,17 +570,7 @@ bool WebRtcVoiceEngine::ApplyOptions(const AudioOptions& options_in) {
     return true;
   }
 
-  if (options.experimental_ns) {
-    experimental_ns_ = options.experimental_ns;
-  }
-
   webrtc::AudioProcessing::Config apm_config = ap->GetConfig();
-
-#if !(defined(WEBRTC_ANDROID) || defined(WEBRTC_IOS))
-  if (experimental_ns_.has_value()) {
-    apm_config.transient_suppression.enabled = experimental_ns_.value();
-  }
-#endif
 
   if (options.echo_cancellation) {
     apm_config.echo_canceller.enabled = *options.echo_cancellation;
@@ -610,16 +588,6 @@ bool WebRtcVoiceEngine::ApplyOptions(const AudioOptions& options_in) {
         apm_config.gain_controller1.kAdaptiveAnalog;
 #endif
   }
-  if (options.tx_agc_target_dbov) {
-    apm_config.gain_controller1.target_level_dbfs = *options.tx_agc_target_dbov;
-  }
-  if (options.tx_agc_digital_compression_gain) {
-    apm_config.gain_controller1.compression_gain_db =
-        *options.tx_agc_digital_compression_gain;
-  }
-  if (options.tx_agc_limiter) {
-    apm_config.gain_controller1.enable_limiter = *options.tx_agc_limiter;
-  }
 
   if (options.highpass_filter) {
     apm_config.high_pass_filter.enabled = *options.highpass_filter;
@@ -631,12 +599,6 @@ bool WebRtcVoiceEngine::ApplyOptions(const AudioOptions& options_in) {
     apm_config.noise_suppression.level =
         webrtc::AudioProcessing::Config::NoiseSuppression::Level::kHigh;
     RTC_LOG(LS_INFO) << "NS set to " << enabled;
-  }
-
-  if (options.typing_detection) {
-    RTC_LOG(LS_INFO) << "Typing detection is enabled? "
-                     << *options.typing_detection;
-    apm_config.voice_detection.enabled = *options.typing_detection;
   }
 
   ap->ApplyConfig(apm_config);
@@ -2376,7 +2338,6 @@ bool WebRtcVoiceMediaChannel::GetStats(VoiceMediaInfo* info,
     sinfo.audio_level = stats.audio_level;
     sinfo.total_input_energy = stats.total_input_energy;
     sinfo.total_input_duration = stats.total_input_duration;
-    sinfo.typing_noise_detected = (send_ ? stats.typing_noise_detected : false);
     sinfo.ana_statistics = stats.ana_statistics;
     sinfo.apm_statistics = stats.apm_statistics;
     sinfo.report_block_datas = std::move(stats.report_block_datas);

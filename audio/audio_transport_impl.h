@@ -20,7 +20,6 @@
 #include "modules/async_audio_processing/async_audio_processing.h"
 #include "modules/audio_device/include/audio_device.h"
 #include "modules/audio_processing/include/audio_processing.h"
-#include "modules/audio_processing/typing_detection.h"
 #include "rtc_base/synchronization/mutex.h"
 #include "rtc_base/thread_annotations.h"
 
@@ -86,7 +85,9 @@ class AudioTransportImpl : public AudioTransport {
                           int send_sample_rate_hz,
                           size_t send_num_channels);
   void SetStereoChannelSwapping(bool enable);
-  bool typing_noise_detected() const;
+  // Deprecated.
+  // TODO(bugs.webrtc.org/11226): Remove.
+  bool typing_noise_detected() const { return false; }
 
  private:
   void SendProcessedData(std::unique_ptr<AudioFrame> audio_frame);
@@ -103,10 +104,8 @@ class AudioTransportImpl : public AudioTransport {
   std::vector<AudioSender*> audio_senders_ RTC_GUARDED_BY(capture_lock_);
   int send_sample_rate_hz_ RTC_GUARDED_BY(capture_lock_) = 8000;
   size_t send_num_channels_ RTC_GUARDED_BY(capture_lock_) = 1;
-  bool typing_noise_detected_ RTC_GUARDED_BY(capture_lock_) = false;
   bool swap_stereo_channels_ RTC_GUARDED_BY(capture_lock_) = false;
   PushResampler<int16_t> capture_resampler_;
-  TypingDetection typing_detection_;
 
   // Render side.
 

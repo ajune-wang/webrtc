@@ -6,4 +6,6 @@ extern "C" {
 #include <pipewire/pipewire.h>
 
 #include <xf86drm.h>
+
+#include <wayland-client.h>
 }

@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "4d7e2acf_38acc417",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2022-02-04T15:32:43Z",
+      "side": 1,
+      "message": "PTAL. Noticed that non-explicit conversion is a problem when I tried add bool conversion to rtc::scoped_refptr.",
+      "revId": "ee812e77b082c32b68b053851e4c9cc082debdb4",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

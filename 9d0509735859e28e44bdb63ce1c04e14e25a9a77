@@ -16,6 +16,69 @@
       "message": "Hi again Hanna,\n\nThanks for the offline comments on this CL.\n\nI have added the tests you requested and uploaded a parent CL (https://webrtc-review.googlesource.com/c/src/+/250541) which is also needed to correctly run the new tests in this agc_manager_direct_unittest.cc.\n\nCheers,\nAlessio",
       "revId": "9d0509735859e28e44bdb63ce1c04e14e25a9a77",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "e8b466aa_545a5e8f",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 3
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 17719
+      },
+      "writtenOn": "2022-02-04T15:05:33Z",
+      "side": 1,
+      "message": "Thank you Alessio! I added two small comments, otherwise LGTM.",
+      "revId": "9d0509735859e28e44bdb63ce1c04e14e25a9a77",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "57f73778_1feb9505",
+        "filename": "modules/audio_processing/agc/agc_manager_direct_unittest.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 104,
+      "author": {
+        "id": 17719
+      },
+      "writtenOn": "2022-02-04T15:05:33Z",
+      "side": 1,
+      "message": "Describing why instead of what would be helpful here. The signal segments on lines 104-111 and 116-121 are good for ClippingPredictor-related tests due to their inherently different crest factors.",
+      "range": {
+        "startLine": 104,
+        "startChar": 2,
+        "endLine": 104,
+        "endChar": 52
+      },
+      "revId": "9d0509735859e28e44bdb63ce1c04e14e25a9a77",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "fc9df9c0_f7f44060",
+        "filename": "modules/audio_processing/agc/agc_manager_direct_unittest.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 139,
+      "author": {
+        "id": 17719
+      },
+      "writtenOn": "2022-02-04T15:05:33Z",
+      "side": 1,
+      "message": "Could this comment be simplified?",
+      "range": {
+        "startLine": 137,
+        "startChar": 0,
+        "endLine": 139,
+        "endChar": 77
+      },
+      "revId": "9d0509735859e28e44bdb63ce1c04e14e25a9a77",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

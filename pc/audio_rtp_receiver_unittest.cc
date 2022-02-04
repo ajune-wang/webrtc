@@ -43,7 +43,7 @@ class AudioRtpReceiverTest : public ::testing::Test {
 
   ~AudioRtpReceiverTest() {
     receiver_->SetMediaChannel(nullptr);
-    receiver_->Stop();
+    receiver_->Stop_w();
   }
 
   rtc::Thread* worker_;

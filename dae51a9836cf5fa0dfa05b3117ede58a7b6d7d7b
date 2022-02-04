@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "5bc2d623_7dfdff4a",
+        "filename": "modules/audio_device/audio_device_buffer.cc",
+        "patchSetId": 11
+      },
+      "lineNbr": 281,
+      "author": {
+        "id": 14994
+      },
+      "writtenOn": "2022-02-04T12:24:37Z",
+      "side": 1,
+      "message": "nit: please remove the trailing underscore",
+      "range": {
+        "startLine": 281,
+        "startChar": 38,
+        "endLine": 281,
+        "endChar": 39
+      },
+      "revId": "dae51a9836cf5fa0dfa05b3117ede58a7b6d7d7b",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

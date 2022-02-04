@@ -86,6 +86,8 @@ class AudioTransportImpl : public AudioTransport {
                           int send_sample_rate_hz,
                           size_t send_num_channels);
   void SetStereoChannelSwapping(bool enable);
+  // Deprecated. Always returns false.
+  // TODO(bugs.webrtc.org/11226): Remove.
   bool typing_noise_detected() const;
 
  private:
@@ -103,7 +105,6 @@ class AudioTransportImpl : public AudioTransport {
   std::vector<AudioSender*> audio_senders_ RTC_GUARDED_BY(capture_lock_);
   int send_sample_rate_hz_ RTC_GUARDED_BY(capture_lock_) = 8000;
   size_t send_num_channels_ RTC_GUARDED_BY(capture_lock_) = 1;
-  bool typing_noise_detected_ RTC_GUARDED_BY(capture_lock_) = false;
   bool swap_stereo_channels_ RTC_GUARDED_BY(capture_lock_) = false;
   PushResampler<int16_t> capture_resampler_;
   TypingDetection typing_detection_;

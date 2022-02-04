@@ -60,7 +60,9 @@ struct RTC_EXPORT AudioOptions {
   absl::optional<int> audio_jitter_buffer_min_delay_ms;
   // Audio receiver jitter buffer (NetEq) should handle retransmitted packets.
   absl::optional<bool> audio_jitter_buffer_enable_rtx_handling;
-  // Audio processing to detect typing.
+  // Deprecated.
+  // TODO(bugs.webrtc.org/11226): Remove or reuse to enable transient
+  // suppression in APM. Audio processing to detect typing.
   absl::optional<bool> typing_detection;
   absl::optional<bool> experimental_agc;
   absl::optional<bool> experimental_ns;

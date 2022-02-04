@@ -16,6 +16,46 @@
       "message": "Xavier and Sami, friendly ping :)",
       "revId": "477c662365dbc56234b57a992319401faee3c616",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "1f25c01c_4aa5225e",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 3
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5112
+      },
+      "writtenOn": "2022-02-04T12:36:39Z",
+      "side": 1,
+      "message": "lgtm",
+      "revId": "477c662365dbc56234b57a992319401faee3c616",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "a9e5400b_ce066caf",
+        "filename": "sdk/android/api/org/webrtc/YuvHelper.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 39,
+      "author": {
+        "id": 5112
+      },
+      "writtenOn": "2022-02-04T12:36:39Z",
+      "side": 1,
+      "message": "nit: would be nice to add a comment here why this looks different from dstEndY/dstEndU. (I guess it is calculated more accurately to avoid buffer overrun.)",
+      "range": {
+        "startLine": 39,
+        "startChar": 14,
+        "endLine": 39,
+        "endChar": 21
+      },
+      "revId": "477c662365dbc56234b57a992319401faee3c616",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

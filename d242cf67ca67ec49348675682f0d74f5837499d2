@@ -1,0 +1,174 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "63f71d9e_d99a8f82",
+        "filename": "modules/desktop_capture/linux/wayland/egl_dmabuf.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 351,
+      "author": {
+        "id": 14134
+      },
+      "writtenOn": "2022-02-04T17:55:30Z",
+      "side": 1,
+      "message": "const wl_display*",
+      "revId": "d242cf67ca67ec49348675682f0d74f5837499d2",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "6376f266_e145db3a",
+        "filename": "modules/desktop_capture/linux/wayland/egl_dmabuf.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 486,
+      "author": {
+        "id": 14134
+      },
+      "writtenOn": "2022-02-04T17:55:30Z",
+      "side": 1,
+      "message": "static_cast\u003cEGLint\u003e here and below.",
+      "revId": "d242cf67ca67ec49348675682f0d74f5837499d2",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "74e39649_70abbaf9",
+        "filename": "modules/desktop_capture/linux/wayland/egl_dmabuf.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 492,
+      "author": {
+        "id": 14134
+      },
+      "writtenOn": "2022-02-04T17:55:30Z",
+      "side": 1,
+      "message": "Do we know in advance how many planes are available in the buffer?",
+      "revId": "d242cf67ca67ec49348675682f0d74f5837499d2",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "a0e4fd27_1d08a727",
+        "filename": "modules/desktop_capture/linux/wayland/egl_dmabuf.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 502,
+      "author": {
+        "id": 14134
+      },
+      "writtenOn": "2022-02-04T17:55:30Z",
+      "side": 1,
+      "message": "Is EGLint signed or unsigned?  You\u0027re assigning from the low and high halves of an unsigned uint64_t.",
+      "revId": "d242cf67ca67ec49348675682f0d74f5837499d2",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "669e1191_a426a71c",
+        "filename": "modules/desktop_capture/linux/wayland/egl_dmabuf.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 508,
+      "author": {
+        "id": 14134
+      },
+      "writtenOn": "2022-02-04T17:55:30Z",
+      "side": 1,
+      "message": "Please factor out a helper function and write this as a loop, as the per-plane code looks like copypasta.",
+      "revId": "d242cf67ca67ec49348675682f0d74f5837499d2",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "94e08f8e_ccfd5597",
+        "filename": "modules/desktop_capture/linux/wayland/egl_dmabuf.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 561,
+      "author": {
+        "id": 14134
+      },
+      "writtenOn": "2022-02-04T17:55:30Z",
+      "side": 1,
+      "message": "Update comment.",
+      "revId": "d242cf67ca67ec49348675682f0d74f5837499d2",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "b375ef41_44bdfef1",
+        "filename": "modules/desktop_capture/linux/wayland/egl_dmabuf.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 563,
+      "author": {
+        "id": 14134
+      },
+      "writtenOn": "2022-02-04T17:55:30Z",
+      "side": 1,
+      "message": "imported looks like a pointer argument.  Pass as nullptr instead of 0.\n\nWhat is the change in behavior here?  I\u0027m assuming you\u0027re replacing whatever |imported| was asking for with the pixel format asked for by |attribs|.",
+      "revId": "d242cf67ca67ec49348675682f0d74f5837499d2",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "08f7bac6_0c83e016",
+        "filename": "modules/desktop_capture/linux/wayland/shared_screencast_stream.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 49,
+      "author": {
+        "id": 14134
+      },
+      "writtenOn": "2022-02-04T17:55:30Z",
+      "side": 1,
+      "message": "What if this library is not available?\nDo we need a specific minimum version?",
+      "revId": "d242cf67ca67ec49348675682f0d74f5837499d2",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "e3e46991_946c67ca",
+        "filename": "modules/desktop_capture/linux/wayland/shared_screencast_stream.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 108,
+      "author": {
+        "id": 14134
+      },
+      "writtenOn": "2022-02-04T17:55:30Z",
+      "side": 1,
+      "message": "What is the behavior change here?  The flag names are not very helpful as it looks like you are making an INVALID modifier MANDATORY.",
+      "revId": "d242cf67ca67ec49348675682f0d74f5837499d2",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "64ec6322_24d3e5ea",
+        "filename": "modules/desktop_capture/linux/wayland/shared_screencast_stream.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 113,
+      "author": {
+        "id": 14134
+      },
+      "writtenOn": "2022-02-04T17:55:30Z",
+      "side": 1,
+      "message": "I don\u0027t see any assignments to frames[1], but it looks like you are pushing it into the POD.",
+      "revId": "d242cf67ca67ec49348675682f0d74f5837499d2",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

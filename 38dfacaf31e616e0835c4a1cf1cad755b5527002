@@ -18,6 +18,24 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "216b0414_07fe0e53",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 5
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 6193
+      },
+      "writtenOn": "2022-02-04T14:34:20Z",
+      "side": 1,
+      "message": "Yeah sorry about that, the presubmit screams about the format because we have changed the rules since most of this code was touched last.",
+      "parentUuid": "2ab6e926_f5ea66e3",
+      "revId": "38dfacaf31e616e0835c4a1cf1cad755b5527002",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "2217e12c_5394b27d",
@@ -31,6 +49,24 @@
       "writtenOn": "2022-02-04T13:47:51Z",
       "side": 1,
       "message": "I *think* what I read on the Net says that absolute import is the default with Python3, so this line should be removed, not added. But I could be wrong.",
+      "revId": "38dfacaf31e616e0835c4a1cf1cad755b5527002",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "ad5c575f_54617f47",
+        "filename": "PRESUBMIT.py",
+        "patchSetId": 5
+      },
+      "lineNbr": 11,
+      "author": {
+        "id": 6193
+      },
+      "writtenOn": "2022-02-04T14:34:20Z",
+      "side": 1,
+      "message": "Ah right, this code won\u0027t run by a py2 interpreter at all.",
+      "parentUuid": "2217e12c_5394b27d",
       "revId": "38dfacaf31e616e0835c4a1cf1cad755b5527002",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
@@ -54,6 +90,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "6c76e82b_e1270132",
+        "filename": "PRESUBMIT.py",
+        "patchSetId": 5
+      },
+      "lineNbr": 41,
+      "author": {
+        "id": 6193
+      },
+      "writtenOn": "2022-02-04T14:34:20Z",
+      "side": 1,
+      "message": "I added the .py files explicitly in order to remove the cpplint warning complaining about incompatible file extensions (linter only runs on changed code and it\u0027s been a while since PRESUBMIT has been linted I assume thus no-one notices). \n\nWhen it comes to actual c++ code, I\u0027ve got idea why this list is so big but I bet it\u0027s legacy and we have moved to a linter that complained too much :). I think a lint fixit could perhaps be in order :\u003d)",
+      "parentUuid": "da545efd_d7dbe557",
+      "revId": "38dfacaf31e616e0835c4a1cf1cad755b5527002",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "29468885_5145556f",
         "filename": "tools_webrtc/get_landmines.py",
         "patchSetId": 5
@@ -71,6 +125,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "51b1323d_c37bfbe1",
+        "filename": "tools_webrtc/get_landmines.py",
+        "patchSetId": 5
+      },
+      "lineNbr": 16,
+      "author": {
+        "id": 6193
+      },
+      "writtenOn": "2022-02-04T14:34:20Z",
+      "side": 1,
+      "message": "Hmm I wonder why git cl format put them there.",
+      "parentUuid": "29468885_5145556f",
+      "revId": "38dfacaf31e616e0835c4a1cf1cad755b5527002",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "efb378bd_878324f8",
         "filename": "tools_webrtc/gn_check_autofix.py",
         "patchSetId": 5
@@ -82,6 +154,24 @@
       "writtenOn": "2022-02-04T13:47:51Z",
       "side": 1,
       "message": "Not needed in python3?",
+      "revId": "38dfacaf31e616e0835c4a1cf1cad755b5527002",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "4abe0d6e_a195c179",
+        "filename": "tools_webrtc/gn_check_autofix.py",
+        "patchSetId": 5
+      },
+      "lineNbr": 23,
+      "author": {
+        "id": 6193
+      },
+      "writtenOn": "2022-02-04T14:34:20Z",
+      "side": 1,
+      "message": "Ah right, this code won\u0027t run by a py2 interpreter at all.",
+      "parentUuid": "efb378bd_878324f8",
       "revId": "38dfacaf31e616e0835c4a1cf1cad755b5527002",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }

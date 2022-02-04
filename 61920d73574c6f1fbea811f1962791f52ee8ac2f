@@ -193,6 +193,24 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "97e902f2_cdefc646",
+        "filename": "pc/connection_context.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 31,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2022-02-04T13:31:01Z",
+      "side": 1,
+      "message": "Quite a bit more readable. Thank you!",
+      "parentUuid": "d0ff2e89_d21cbfa2",
+      "revId": "61920d73574c6f1fbea811f1962791f52ee8ac2f",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "13cb8c49_d4d96a95",
@@ -224,6 +242,24 @@
       "side": 1,
       "message": "Works for thread_holder, but for socket_factory_holder, needs nullptr as a possible value.",
       "parentUuid": "13cb8c49_d4d96a95",
+      "revId": "61920d73574c6f1fbea811f1962791f52ee8ac2f",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "a3886ff7_999d3ff0",
+        "filename": "pc/connection_context.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 40,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2022-02-04T13:31:01Z",
+      "side": 1,
+      "message": "OBE, marking resolved.",
+      "parentUuid": "2d743268_92c6e155",
       "revId": "61920d73574c6f1fbea811f1962791f52ee8ac2f",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
@@ -277,6 +313,24 @@
       "side": 1,
       "message": "I think we currently always have a socket server, but it may be an instance of NullSocketServer.",
       "parentUuid": "7064a0ca_d9a407af",
+      "revId": "61920d73574c6f1fbea811f1962791f52ee8ac2f",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "5f83fb34_daa3e0a3",
+        "filename": "pc/connection_context.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 135,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2022-02-04T13:31:01Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "438a34b0_a43bec66",
       "revId": "61920d73574c6f1fbea811f1962791f52ee8ac2f",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }

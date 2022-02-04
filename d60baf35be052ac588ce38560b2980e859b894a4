@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "574c9be7_b3393582",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5122
+      },
+      "writtenOn": "2022-02-04T18:03:41Z",
+      "side": 1,
+      "message": "Hi everyone,\nCould you PTAL?\nAlessio",
+      "revId": "d60baf35be052ac588ce38560b2980e859b894a4",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

@@ -43,6 +43,24 @@
     {
       "unresolved": false,
       "key": {
+        "uuid": "a3c35384_632fee65",
+        "filename": "modules/rtp_rtcp/source/rtcp_transceiver_impl.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 455,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2022-02-04T15:28:31Z",
+      "side": 1,
+      "message": "it would (which is desired),\nhowever it would also push other rtcp blocks to the next packet, and those won\u0027t start with receiver report (which is not desired, there is already a TODO about it)\nThis  scenario doesn\u0027t seem practical anyway: other rtcp messages are typically too small to hit rtcp packet size boundary.\nI considering addressing this corner case some time later, as part of redesigning PacketSender to produce single packet instead of supporting multiple packets.",
+      "parentUuid": "690b3ef0_62a38d12",
+      "revId": "9b7a63360219b8e28f087bf0a67d589e59c333d1",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
         "uuid": "36074b6b_e44afa18",
         "filename": "modules/rtp_rtcp/source/rtcp_transceiver_impl.cc",
         "patchSetId": 4
@@ -54,6 +72,30 @@
       "writtenOn": "2022-02-04T14:31:51Z",
       "side": 1,
       "message": "std::optional?",
+      "range": {
+        "startLine": 512,
+        "startChar": 2,
+        "endLine": 512,
+        "endChar": 16
+      },
+      "revId": "9b7a63360219b8e28f087bf0a67d589e59c333d1",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "382a138c_60f10cb0",
+        "filename": "modules/rtp_rtcp/source/rtcp_transceiver_impl.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 512,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2022-02-04T15:28:31Z",
+      "side": 1,
+      "message": "no, WebRTC should still use absl::optional:\nwhen compiled in chromium, absl::optional !\u003d std::optional because of hardened mode (controlled crashed instead of UB on invalid optional access)",
+      "parentUuid": "36074b6b_e44afa18",
       "range": {
         "startLine": 512,
         "startChar": 2,
@@ -89,6 +131,30 @@
     {
       "unresolved": false,
       "key": {
+        "uuid": "3db4a9db_b993c7de",
+        "filename": "modules/rtp_rtcp/source/rtcp_transceiver_impl.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 517,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2022-02-04T15:28:31Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "2b1b6acc_4550bee4",
+      "range": {
+        "startLine": 516,
+        "startChar": 0,
+        "endLine": 517,
+        "endChar": 49
+      },
+      "revId": "9b7a63360219b8e28f087bf0a67d589e59c333d1",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
         "uuid": "25646c12_ed784bec",
         "filename": "modules/rtp_rtcp/source/rtcp_transceiver_impl.cc",
         "patchSetId": 4
@@ -100,6 +166,30 @@
       "writtenOn": "2022-02-04T14:31:51Z",
       "side": 1,
       "message": "Nit: RTCP",
+      "range": {
+        "startLine": 524,
+        "startChar": 26,
+        "endLine": 524,
+        "endChar": 30
+      },
+      "revId": "9b7a63360219b8e28f087bf0a67d589e59c333d1",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "bc294b8b_1aa27185",
+        "filename": "modules/rtp_rtcp/source/rtcp_transceiver_impl.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 524,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2022-02-04T15:28:31Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "25646c12_ed784bec",
       "range": {
         "startLine": 524,
         "startChar": 26,
@@ -135,6 +225,30 @@
     {
       "unresolved": false,
       "key": {
+        "uuid": "65910d3c_5e04c0a8",
+        "filename": "modules/rtp_rtcp/source/rtcp_transceiver_impl.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 525,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2022-02-04T15:28:31Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "6885c7c0_7e6b6d98",
+      "range": {
+        "startLine": 525,
+        "startChar": 22,
+        "endLine": 525,
+        "endChar": 23
+      },
+      "revId": "9b7a63360219b8e28f087bf0a67d589e59c333d1",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
         "uuid": "74b8ae0e_0be61c0b",
         "filename": "modules/rtp_rtcp/source/rtcp_transceiver_impl_unittest.cc",
         "patchSetId": 4
@@ -158,6 +272,30 @@
     {
       "unresolved": false,
       "key": {
+        "uuid": "6b779d8f_176ebd5d",
+        "filename": "modules/rtp_rtcp/source/rtcp_transceiver_impl_unittest.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 950,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2022-02-04T15:28:31Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "74b8ae0e_0be61c0b",
+      "range": {
+        "startLine": 950,
+        "startChar": 33,
+        "endLine": 950,
+        "endChar": 38
+      },
+      "revId": "9b7a63360219b8e28f087bf0a67d589e59c333d1",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
         "uuid": "ea8bfb28_0d55ac46",
         "filename": "modules/rtp_rtcp/source/rtcp_transceiver_impl_unittest.cc",
         "patchSetId": 4
@@ -169,6 +307,30 @@
       "writtenOn": "2022-02-04T14:31:51Z",
       "side": 1,
       "message": "a single RTCP",
+      "range": {
+        "startLine": 968,
+        "startChar": 12,
+        "endLine": 968,
+        "endChar": 23
+      },
+      "revId": "9b7a63360219b8e28f087bf0a67d589e59c333d1",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "2b5a240f_e3f02a77",
+        "filename": "modules/rtp_rtcp/source/rtcp_transceiver_impl_unittest.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 968,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2022-02-04T15:28:31Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "ea8bfb28_0d55ac46",
       "range": {
         "startLine": 968,
         "startChar": 12,
@@ -227,6 +389,54 @@
     {
       "unresolved": false,
       "key": {
+        "uuid": "d46e8c06_c438f778",
+        "filename": "modules/rtp_rtcp/source/rtcp_transceiver_impl_unittest.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 970,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2022-02-04T15:28:31Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "c27618e2_75dd1078",
+      "range": {
+        "startLine": 970,
+        "startChar": 49,
+        "endLine": 970,
+        "endChar": 54
+      },
+      "revId": "9b7a63360219b8e28f087bf0a67d589e59c333d1",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "66f4284b_fd21e796",
+        "filename": "modules/rtp_rtcp/source/rtcp_transceiver_impl_unittest.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 970,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2022-02-04T15:28:31Z",
+      "side": 1,
+      "message": "actually not packets (there is a single RTCP packet with 2 receiver reports).\nclarified with \u00272 reports are\u0027",
+      "parentUuid": "9014436a_c9559fa4",
+      "range": {
+        "startLine": 970,
+        "startChar": 61,
+        "endLine": 970,
+        "endChar": 65
+      },
+      "revId": "9b7a63360219b8e28f087bf0a67d589e59c333d1",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
         "uuid": "dffdce61_9bb6a171",
         "filename": "modules/rtp_rtcp/source/rtcp_transceiver_impl_unittest.cc",
         "patchSetId": 4
@@ -250,6 +460,30 @@
     {
       "unresolved": false,
       "key": {
+        "uuid": "db84768c_488bd14d",
+        "filename": "modules/rtp_rtcp/source/rtcp_transceiver_impl_unittest.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 971,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2022-02-04T15:28:31Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "dffdce61_9bb6a171",
+      "range": {
+        "startLine": 971,
+        "startChar": 42,
+        "endLine": 971,
+        "endChar": 48
+      },
+      "revId": "9b7a63360219b8e28f087bf0a67d589e59c333d1",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
         "uuid": "3d988477_d7b50028",
         "filename": "modules/rtp_rtcp/source/rtcp_transceiver_impl_unittest.cc",
         "patchSetId": 4
@@ -261,6 +495,30 @@
       "writtenOn": "2022-02-04T14:31:51Z",
       "side": 1,
       "message": "thus only check number of blocks in the latest packet.",
+      "range": {
+        "startLine": 973,
+        "startChar": 57,
+        "endLine": 974,
+        "endChar": 20
+      },
+      "revId": "9b7a63360219b8e28f087bf0a67d589e59c333d1",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "1be6895c_a505317a",
+        "filename": "modules/rtp_rtcp/source/rtcp_transceiver_impl_unittest.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 974,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2022-02-04T15:28:31Z",
+      "side": 1,
+      "message": "rewritten, but differently:\nthere is only single packet, but receiver reports.\nreceiver reports are sent in the same packet, i.e. arrive same time, so \u0027latest\u0027 looks misleading.\ntried to be positive, but then there was repetition \u0027last receiver report\u0027, so instead rewrote it as comment by first receiver report is not checked.",
+      "parentUuid": "3d988477_d7b50028",
       "range": {
         "startLine": 973,
         "startChar": 57,

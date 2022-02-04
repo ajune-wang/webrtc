@@ -16,6 +16,24 @@
       "message": "PCF deps is injected to the factory (\u003d same for all PCs) whereas PC deps is injected on a per-PC basis?\n\nThat makes sense: there should only be one metronome per context (iframe/factory). But how do you plan to inject the metronome reference to the actual peer connection?\n\nWill you pass down a raw pointer because ownership is held by the factory, or will you end up having to create a unique_ptr\u003c\u003e and thus ultimately have it inside of the PC deps anyway?",
       "revId": "e578203940a3bf3d17ea29465048dcd058518387",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "1478429e_9bff541c",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 18444
+      },
+      "writtenOn": "2022-02-04T16:04:18Z",
+      "side": 1,
+      "message": "The PC will have a pointer to the metronome, and that will be passed to the call via CallConfig.",
+      "parentUuid": "7198595c_fbc5fca7",
+      "revId": "e578203940a3bf3d17ea29465048dcd058518387",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

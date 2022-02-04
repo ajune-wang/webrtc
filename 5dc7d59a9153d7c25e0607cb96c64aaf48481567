@@ -285,6 +285,24 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "01306f28_3b4820c1",
+        "filename": "pc/video_rtp_receiver.cc",
+        "patchSetId": 6
+      },
+      "lineNbr": 147,
+      "author": {
+        "id": 5508
+      },
+      "writtenOn": "2022-02-04T13:32:58Z",
+      "side": 1,
+      "message": "The `return` is now on line 154. The `!\u003d kInitializing` check handles the case where `SetSink()` has previously been called and that\u0027s where we check if the `ssrc_` is being changed (and return if it\u0027s not). So by the time we get to `SetSink(source-\u003esink())`, the sink will always be `nullptr`.",
+      "parentUuid": "cb29dee3_4c31be8b",
+      "revId": "5dc7d59a9153d7c25e0607cb96c64aaf48481567",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "15bf5843_438fb5e0",

@@ -156,7 +156,6 @@ bool AudioProcessingImpl::SubmoduleStates::Update(
     bool gain_controller2_enabled,
     bool gain_adjustment_enabled,
     bool echo_controller_enabled,
-    bool voice_detector_enabled,
     bool transient_suppressor_enabled) {
   bool changed = false;
   changed |= (high_pass_filter_enabled != high_pass_filter_enabled_);
@@ -168,7 +167,6 @@ bool AudioProcessingImpl::SubmoduleStates::Update(
   changed |= (gain_controller2_enabled != gain_controller2_enabled_);
   changed |= (gain_adjustment_enabled != gain_adjustment_enabled_);
   changed |= (echo_controller_enabled != echo_controller_enabled_);
-  changed |= (voice_detector_enabled != voice_detector_enabled_);
   changed |= (transient_suppressor_enabled != transient_suppressor_enabled_);
   if (changed) {
     high_pass_filter_enabled_ = high_pass_filter_enabled;
@@ -178,7 +176,6 @@ bool AudioProcessingImpl::SubmoduleStates::Update(
     gain_controller2_enabled_ = gain_controller2_enabled;
     gain_adjustment_enabled_ = gain_adjustment_enabled;
     echo_controller_enabled_ = echo_controller_enabled;
-    voice_detector_enabled_ = voice_detector_enabled;
     transient_suppressor_enabled_ = transient_suppressor_enabled;
   }
 
@@ -189,7 +186,7 @@ bool AudioProcessingImpl::SubmoduleStates::Update(
 
 bool AudioProcessingImpl::SubmoduleStates::CaptureMultiBandSubModulesActive()
     const {
-  return CaptureMultiBandProcessingPresent() || voice_detector_enabled_;
+  return CaptureMultiBandProcessingPresent();
 }
 
 bool AudioProcessingImpl::SubmoduleStates::CaptureMultiBandProcessingPresent()
@@ -406,7 +403,6 @@ void AudioProcessingImpl::InitializeLocked() {
   InitializeGainController1();
   InitializeTransientSuppressor();
   InitializeHighPassFilter(true);
-  InitializeVoiceDetector();
   InitializeResidualEchoDetector();
   InitializeEchoController();
   InitializeGainController2(/*config_has_changed=*/true);
@@ -541,9 +537,6 @@ void AudioProcessingImpl::ApplyConfig(const AudioProcessing::Config& config) {
   const bool agc2_config_changed =
       config_.gain_controller2 != config.gain_controller2;
 
-  const bool voice_detection_config_changed =
-      config_.voice_detection.enabled != config.voice_detection.enabled;
-
   const bool ns_config_changed =
       config_.noise_suppression.enabled != config.noise_suppression.enabled ||
       config_.noise_suppression.level != config.noise_suppression.level;
@@ -590,10 +583,6 @@ void AudioProcessingImpl::ApplyConfig(const AudioProcessing::Config& config) {
 
   if (pre_amplifier_config_changed || gain_adjustment_config_changed) {
     InitializeCaptureLevelsAdjuster();
-  }
-
-  if (voice_detection_config_changed) {
-    InitializeVoiceDetector();
   }
 
   // Reinitialization must happen after all submodule configuration to avoid
@@ -1251,13 +1240,6 @@ int AudioProcessingImpl::ProcessCaptureStreamLocked() {
     }
   }
 
-  if (config_.voice_detection.enabled) {
-    capture_.stats.voice_detected =
-        submodules_.voice_detector->ProcessCaptureAudio(capture_buffer);
-  } else {
-    capture_.stats.voice_detected = absl::nullopt;
-  }
-
   if (submodules_.agc_manager) {
     submodules_.agc_manager->Process(capture_buffer);
 
@@ -1719,7 +1701,7 @@ bool AudioProcessingImpl::UpdateActiveSubmoduleStates() {
       !!submodules_.gain_controller2,
       config_.pre_amplifier.enabled || config_.capture_level_adjustment.enabled,
       capture_nonlocked_.echo_controller_enabled,
-      config_.voice_detection.enabled, !!submodules_.transient_suppressor);
+      !!submodules_.transient_suppressor);
 }
 
 void AudioProcessingImpl::InitializeTransientSuppressor() {
@@ -1769,14 +1751,6 @@ void AudioProcessingImpl::InitializeHighPassFilter(bool forced_reset) {
   }
 }
 
-void AudioProcessingImpl::InitializeVoiceDetector() {
-  if (config_.voice_detection.enabled) {
-    submodules_.voice_detector = std::make_unique<VoiceDetection>(
-        proc_split_sample_rate_hz(), VoiceDetection::kVeryLowLikelihood);
-  } else {
-    submodules_.voice_detector.reset();
-  }
-}
 void AudioProcessingImpl::InitializeEchoController() {
   bool use_echo_controller =
       echo_control_factory_ ||

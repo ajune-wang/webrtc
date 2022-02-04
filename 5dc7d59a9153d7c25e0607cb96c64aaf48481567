@@ -251,6 +251,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "9c8967b7_361588b5",
+        "filename": "pc/video_rtp_receiver.cc",
+        "patchSetId": 6
+      },
+      "lineNbr": 147,
+      "author": {
+        "id": 5508
+      },
+      "writtenOn": "2022-02-04T10:51:02Z",
+      "side": 1,
+      "message": "ok, it took some time but I figured out a way to preserve the previous checks and corner case that stopped_ covered.",
+      "parentUuid": "ee6ee826_24b0c8fd",
+      "revId": "5dc7d59a9153d7c25e0607cb96c64aaf48481567",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "15bf5843_438fb5e0",
         "filename": "pc/video_rtp_receiver.cc",
         "patchSetId": 6

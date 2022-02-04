@@ -17,6 +17,7 @@
 #include <linux/types.h>
 #include <spa/param/video/format-utils.h>
 #include <unistd.h>
+#include <wayland-client.h>
 #include <xf86drm.h>
 
 #include "absl/memory/memory.h"
@@ -49,6 +50,10 @@ typedef void* (*eglGetProcAddress_func)(const char*);
 typedef EGLDisplay (*eglGetPlatformDisplayEXT_func)(EGLenum platform,
                                                     void* native_display,
                                                     const EGLint* attrib_list);
+typedef EGLDisplay (*eglGetPlatformDisplay_func)(EGLenum platform,
+                                                 void* native_display,
+                                                 const EGLAttrib* attrib_list);
+
 typedef EGLBoolean (*eglInitialize_func)(EGLDisplay dpy,
                                          EGLint* major,
                                          EGLint* minor);
@@ -83,6 +88,7 @@ eglDestroyImageKHR_func EglDestroyImageKHR = nullptr;
 eglGetError_func EglGetError = nullptr;
 eglGetProcAddress_func EglGetProcAddress = nullptr;
 eglGetPlatformDisplayEXT_func EglGetPlatformDisplayEXT = nullptr;
+eglGetPlatformDisplay_func EglGetPlatformDisplay = nullptr;
 eglInitialize_func EglInitialize = nullptr;
 eglMakeCurrent_func EglMakeCurrent = nullptr;
 eglQueryDmaBufFormatsEXT_func EglQueryDmaBufFormatsEXT = nullptr;
@@ -225,6 +231,8 @@ static bool LoadEGL() {
     EglGetError = (eglGetError_func)EglGetProcAddress("eglGetError");
     EglGetPlatformDisplayEXT = (eglGetPlatformDisplayEXT_func)EglGetProcAddress(
         "eglGetPlatformDisplayEXT");
+    EglGetPlatformDisplay =
+        (eglGetPlatformDisplay_func)EglGetProcAddress("eglGetPlatformDisplay");
     EglInitialize = (eglInitialize_func)EglGetProcAddress("eglInitialize");
     EglMakeCurrent = (eglMakeCurrent_func)EglGetProcAddress("eglMakeCurrent");
     EglQueryString = (eglQueryString_func)EglGetProcAddress("eglQueryString");
@@ -234,8 +242,9 @@ static bool LoadEGL() {
 
     return EglBindAPI && EglCreateContext && EglCreateImageKHR &&
            EglTerminate && EglDestroyContext && EglDestroyImageKHR &&
-           EglGetError && EglGetPlatformDisplayEXT && EglInitialize &&
-           EglMakeCurrent && EglQueryString && GlEGLImageTargetTexture2DOES;
+           EglGetError && EglGetPlatformDisplayEXT && EglGetPlatformDisplay &&
+           EglInitialize && EglMakeCurrent && EglQueryString &&
+           GlEGLImageTargetTexture2DOES;
   }
 
   return false;
@@ -284,25 +293,6 @@ static bool LoadGL() {
 
 RTC_NO_SANITIZE("cfi-icall")
 EglDmaBuf::EglDmaBuf() {
-  absl::optional<std::string> render_node = GetRenderNode();
-  if (!render_node) {
-    return;
-  }
-
-  drm_fd_ = open(render_node->c_str(), O_RDWR);
-
-  if (drm_fd_ < 0) {
-    RTC_LOG(LS_ERROR) << "Failed to open drm render node: " << strerror(errno);
-    return;
-  }
-
-  gbm_device_ = gbm_create_device(drm_fd_);
-
-  if (!gbm_device_) {
-    RTC_LOG(LS_ERROR) << "Cannot create GBM device: " << strerror(errno);
-    return;
-  }
-
   if (!LoadEGL()) {
     RTC_LOG(LS_ERROR) << "Unable to load EGL entry functions.";
     CloseLibrary(g_lib_egl);
@@ -336,6 +326,7 @@ EglDmaBuf::EglDmaBuf() {
 
   bool has_platform_base_ext = false;
   bool has_platform_gbm_ext = false;
+  bool has_khr_platform_gbm_ext = false;
 
   for (const auto& extension : egl_.extensions) {
     if (extension == "EGL_EXT_platform_base") {
@@ -344,18 +335,49 @@ EglDmaBuf::EglDmaBuf() {
     } else if (extension == "EGL_MESA_platform_gbm") {
       has_platform_gbm_ext = true;
       continue;
+    } else if (extension == "EGL_KHR_platform_gbm") {
+      has_khr_platform_gbm_ext = true;
+      continue;
     }
   }
 
-  if (!has_platform_base_ext || !has_platform_gbm_ext) {
+  if (!has_platform_base_ext || !has_platform_gbm_ext ||
+      !has_khr_platform_gbm_ext) {
     RTC_LOG(LS_ERROR) << "One of required EGL extensions is missing";
     return;
   }
 
-  // Use eglGetPlatformDisplayEXT() to get the display pointer
-  // if the implementation supports it.
-  egl_.display =
-      EglGetPlatformDisplayEXT(EGL_PLATFORM_GBM_MESA, gbm_device_, nullptr);
+  // Get default WL_DISPLAY
+  wl_display* wayland_display = wl_display_connect(nullptr);
+  if (wayland_display) {
+    egl_.display = EglGetPlatformDisplay(EGL_PLATFORM_WAYLAND_KHR,
+                                         wayland_display, nullptr);
+  } else {
+    absl::optional<std::string> render_node = GetRenderNode();
+    if (!render_node) {
+      return;
+    }
+
+    drm_fd_ = open(render_node->c_str(), O_RDWR);
+
+    if (drm_fd_ < 0) {
+      RTC_LOG(LS_ERROR) << "Failed to open drm render node: "
+                        << strerror(errno);
+      return;
+    }
+
+    gbm_device_ = gbm_create_device(drm_fd_);
+
+    if (!gbm_device_) {
+      RTC_LOG(LS_ERROR) << "Cannot create GBM device: " << strerror(errno);
+      return;
+    }
+
+    // Use eglGetPlatformDisplayEXT() to get the display pointer
+    // if the implementation supports it.
+    egl_.display =
+        EglGetPlatformDisplayEXT(EGL_PLATFORM_GBM_KHR, gbm_device_, nullptr);
+  }
 
   if (egl_.display == EGL_NO_DISPLAY) {
     RTC_LOG(LS_ERROR) << "Error during obtaining EGL display: "
@@ -457,50 +479,92 @@ std::unique_ptr<uint8_t[]> EglDmaBuf::ImageFromDmaBuf(
     return src;
   }
 
-  gbm_bo* imported;
+  EGLint attribs[47];
+  int atti = 0;
 
-  if (modifier == DRM_FORMAT_MOD_INVALID) {
-    gbm_import_fd_data import_info = {
-        plane_datas[0].fd, static_cast<uint32_t>(size.width()),
-        static_cast<uint32_t>(size.height()), plane_datas[0].stride,
-        GBM_BO_FORMAT_ARGB8888};
+  attribs[atti++] = EGL_WIDTH;
+  attribs[atti++] = static_cast<uint32_t>(size.width());
+  attribs[atti++] = EGL_HEIGHT;
+  attribs[atti++] = static_cast<uint32_t>(size.height());
+  attribs[atti++] = EGL_LINUX_DRM_FOURCC_EXT;
+  attribs[atti++] = SpaPixelFormatToDrmFormat(format);
 
-    imported = gbm_bo_import(gbm_device_, GBM_BO_IMPORT_FD, &import_info, 0);
-  } else {
-    gbm_import_fd_modifier_data import_info = {};
-    import_info.format = GBM_BO_FORMAT_ARGB8888;
-    import_info.width = static_cast<uint32_t>(size.width());
-    import_info.height = static_cast<uint32_t>(size.height());
-    import_info.num_fds = plane_datas.size();
-    import_info.modifier = modifier;
-    for (uint32_t i = 0; i < plane_datas.size(); i++) {
-      import_info.fds[i] = plane_datas[i].fd;
-      import_info.offsets[i] = plane_datas[i].offset;
-      import_info.strides[i] = plane_datas[i].stride;
+  if (plane_datas.size() > 0) {
+    attribs[atti++] = EGL_DMA_BUF_PLANE0_FD_EXT;
+    attribs[atti++] = plane_datas[0].fd;
+    attribs[atti++] = EGL_DMA_BUF_PLANE0_OFFSET_EXT;
+    attribs[atti++] = plane_datas[0].offset;
+    attribs[atti++] = EGL_DMA_BUF_PLANE0_PITCH_EXT;
+    attribs[atti++] = plane_datas[0].stride;
+
+    if (modifier != DRM_FORMAT_MOD_INVALID) {
+      attribs[atti++] = EGL_DMA_BUF_PLANE0_MODIFIER_LO_EXT;
+      attribs[atti++] = modifier & 0xFFFFFFFF;
+      attribs[atti++] = EGL_DMA_BUF_PLANE0_MODIFIER_HI_EXT;
+      attribs[atti++] = modifier >> 32;
     }
-
-    imported =
-        gbm_bo_import(gbm_device_, GBM_BO_IMPORT_FD_MODIFIER, &import_info, 0);
   }
 
-  if (!imported) {
-    RTC_LOG(LS_ERROR)
-        << "Failed to process buffer: Cannot import passed GBM fd - "
-        << strerror(errno);
-    return src;
+  if (plane_datas.size() > 1) {
+    attribs[atti++] = EGL_DMA_BUF_PLANE1_FD_EXT;
+    attribs[atti++] = plane_datas[1].fd;
+    attribs[atti++] = EGL_DMA_BUF_PLANE1_OFFSET_EXT;
+    attribs[atti++] = plane_datas[1].offset;
+    attribs[atti++] = EGL_DMA_BUF_PLANE1_PITCH_EXT;
+    attribs[atti++] = plane_datas[1].stride;
+
+    if (modifier != DRM_FORMAT_MOD_INVALID) {
+      attribs[atti++] = EGL_DMA_BUF_PLANE1_MODIFIER_LO_EXT;
+      attribs[atti++] = modifier & 0xFFFFFFFF;
+      attribs[atti++] = EGL_DMA_BUF_PLANE1_MODIFIER_HI_EXT;
+      attribs[atti++] = modifier >> 32;
+    }
   }
+
+  if (plane_datas.size() > 2) {
+    attribs[atti++] = EGL_DMA_BUF_PLANE2_FD_EXT;
+    attribs[atti++] = plane_datas[2].fd;
+    attribs[atti++] = EGL_DMA_BUF_PLANE2_OFFSET_EXT;
+    attribs[atti++] = plane_datas[2].offset;
+    attribs[atti++] = EGL_DMA_BUF_PLANE2_PITCH_EXT;
+    attribs[atti++] = plane_datas[2].stride;
+
+    if (modifier != DRM_FORMAT_MOD_INVALID) {
+      attribs[atti++] = EGL_DMA_BUF_PLANE2_MODIFIER_LO_EXT;
+      attribs[atti++] = modifier & 0xFFFFFFFF;
+      attribs[atti++] = EGL_DMA_BUF_PLANE2_MODIFIER_HI_EXT;
+      attribs[atti++] = modifier >> 32;
+    }
+  }
+
+  if (plane_datas.size() > 3) {
+    attribs[atti++] = EGL_DMA_BUF_PLANE3_FD_EXT;
+    attribs[atti++] = plane_datas[3].fd;
+    attribs[atti++] = EGL_DMA_BUF_PLANE3_OFFSET_EXT;
+    attribs[atti++] = plane_datas[3].offset;
+    attribs[atti++] = EGL_DMA_BUF_PLANE3_PITCH_EXT;
+    attribs[atti++] = plane_datas[3].stride;
+
+    if (modifier != DRM_FORMAT_MOD_INVALID) {
+      attribs[atti++] = EGL_DMA_BUF_PLANE3_MODIFIER_LO_EXT;
+      attribs[atti++] = modifier & 0xFFFFFFFF;
+      attribs[atti++] = EGL_DMA_BUF_PLANE3_MODIFIER_HI_EXT;
+      attribs[atti++] = modifier >> 32;
+    }
+  }
+
+  attribs[atti++] = EGL_NONE;
 
   // bind context to render thread
   EglMakeCurrent(egl_.display, EGL_NO_SURFACE, EGL_NO_SURFACE, egl_.context);
 
   // create EGL image from imported BO
-  EGLImageKHR image = EglCreateImageKHR(
-      egl_.display, EGL_NO_CONTEXT, EGL_NATIVE_PIXMAP_KHR, imported, nullptr);
+  EGLImageKHR image = EglCreateImageKHR(egl_.display, EGL_NO_CONTEXT,
+                                        EGL_LINUX_DMA_BUF_EXT, 0, attribs);
 
   if (image == EGL_NO_IMAGE) {
     RTC_LOG(LS_ERROR) << "Failed to record frame: Error creating EGLImage - "
                       << FormatEGLError(EglGetError());
-    gbm_bo_destroy(imported);
     return src;
   }
 
@@ -527,12 +591,6 @@ std::unique_ptr<uint8_t[]> EglDmaBuf::ImageFromDmaBuf(
     case SPA_VIDEO_FORMAT_BGRx:
       gl_format = GL_BGRA;
       break;
-    case SPA_VIDEO_FORMAT_RGB:
-      gl_format = GL_RGB;
-      break;
-    case SPA_VIDEO_FORMAT_BGR:
-      gl_format = GL_BGR;
-      break;
     default:
       gl_format = GL_BGRA;
       break;
@@ -541,14 +599,11 @@ std::unique_ptr<uint8_t[]> EglDmaBuf::ImageFromDmaBuf(
 
   if (GlGetError()) {
     RTC_LOG(LS_ERROR) << "Failed to get image from DMA buffer.";
-    gbm_bo_destroy(imported);
     return src;
   }
 
   GlDeleteTextures(1, &texture);
   EglDestroyImageKHR(egl_.display, image);
-
-  gbm_bo_destroy(imported);
 
   return src;
 }
@@ -633,7 +688,7 @@ absl::optional<std::string> EglDmaBuf::GetRenderNode() {
 
   for (const drmDevicePtr& device : devices) {
     if (device->available_nodes & (1 << DRM_NODE_RENDER)) {
-      render_node = device->nodes[DRM_NODE_RENDER];
+      render_node = devices[1]->nodes[DRM_NODE_RENDER];
       break;
     }
   }

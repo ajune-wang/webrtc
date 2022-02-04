@@ -217,7 +217,8 @@ class FrameBufferProxyTest : public ::testing::TestWithParam<std::string>,
                                                       &decode_queue_,
                                                       this,
                                                       kMaxWaitForKeyframe,
-                                                      kMaxWaitForFrame)) {
+                                                      kMaxWaitForFrame,
+                                                      nullptr)) {
     // Avoid starting with negative render times.
     timing_.set_min_playout_delay(10);
 

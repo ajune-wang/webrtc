@@ -14,27 +14,29 @@
 #include <utility>
 
 #include "api/sequence_checker.h"
+#include "rtc_base/checks.h"
 #include "rtc_base/task_utils/to_queued_task.h"
 
 namespace webrtc {
 
-FrameDecodeScheduler::FrameDecodeScheduler(
+TaskQueueFrameDecodeScheduler::TaskQueueFrameDecodeScheduler(
     Clock* clock,
     TaskQueueBase* const bookkeeping_queue,
-    FrameReleaseCallback callback)
+    ReadyCallback* callback)
     : clock_(clock),
       bookkeeping_queue_(bookkeeping_queue),
-      callback_(std::move(callback)) {
+      callback_(callback) {
   RTC_DCHECK(clock_);
   RTC_DCHECK(bookkeeping_queue_);
+  RTC_DCHECK(callback_);
 }
 
-FrameDecodeScheduler::~FrameDecodeScheduler() {
+TaskQueueFrameDecodeScheduler::~TaskQueueFrameDecodeScheduler() {
   RTC_DCHECK(!scheduled_rtp_) << "Outstanding scheduled rtp=" << *scheduled_rtp_
                               << ". Call CancelOutstanding before destruction.";
 }
 
-void FrameDecodeScheduler::ScheduleFrame(
+void TaskQueueFrameDecodeScheduler::ScheduleFrame(
     uint32_t rtp,
     FrameDecodeTiming::FrameSchedule schedule) {
   RTC_DCHECK(!scheduled_rtp_.has_value())
@@ -52,13 +54,17 @@ void FrameDecodeScheduler::ScheduleFrame(
                      if (scheduled_rtp_ != rtp)
                        return;
                      scheduled_rtp_ = absl::nullopt;
-                     callback_(rtp, schedule.render_time);
+                     callback_->FrameReadyForDecode(rtp, schedule.render_time);
                    }),
       wait.ms());
 }
 
-void FrameDecodeScheduler::CancelOutstanding() {
+void TaskQueueFrameDecodeScheduler::CancelOutstanding() {
   scheduled_rtp_ = absl::nullopt;
 }
 
+absl::optional<uint32_t>
+TaskQueueFrameDecodeScheduler::ScheduledRtpTimestamp() {
+  return scheduled_rtp_;
+}
 }  // namespace webrtc

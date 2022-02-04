@@ -303,8 +303,10 @@ rtc_library("frame_buffer_proxy") {
   deps = [
     ":frame_decode_scheduler",
     ":frame_decode_timing",
+    ":metronome_frame_scheduler",
     ":video_receive_stream_timeout_tracker",
     "../api:sequence_checker",
+    "../api/metronome",
     "../api/task_queue",
     "../api/video:encoded_frame",
     "../modules/video_coding",
@@ -334,6 +336,7 @@ rtc_library("frame_decode_scheduler") {
     "../api:sequence_checker",
     "../api/task_queue",
     "../api/units:timestamp",
+    "../rtc_base:checks",
     "../rtc_base/task_utils:pending_task_safety_flag",
     "../rtc_base/task_utils:to_queued_task",
     "../system_wrappers",
@@ -367,6 +370,23 @@ rtc_library("video_receive_stream_timeout_tracker") {
     "../rtc_base/task_utils:repeating_task",
     "../system_wrappers",
   ]
+}
+
+rtc_library("metronome_frame_scheduler") {
+  sources = [
+    "metronome_frame_scheduler.cc",
+    "metronome_frame_scheduler.h",
+  ]
+  deps = [
+    ":frame_decode_scheduler",
+    ":frame_decode_timing",
+    "../api:sequence_checker",
+    "../api/metronome",
+    "../api/task_queue",
+    "../rtc_base:checks",
+    "../rtc_base:macromagic",
+  ]
+  absl_deps = [ "//third_party/abseil-cpp/absl/types:optional" ]
 }
 
 rtc_library("video_stream_encoder_impl") {
@@ -729,6 +749,7 @@ if (rtc_include_tests) {
       "frame_decode_scheduler_unittest.cc",
       "frame_decode_timing_unittest.cc",
       "frame_encode_metadata_writer_unittest.cc",
+      "metronome_frame_scheduler_unittest.cc",
       "picture_id_tests.cc",
       "quality_limitation_reason_tracker_unittest.cc",
       "quality_scaling_tests.cc",
@@ -754,6 +775,7 @@ if (rtc_include_tests) {
       ":frame_cadence_adapter",
       ":frame_decode_scheduler",
       ":frame_decode_timing",
+      ":metronome_frame_scheduler",
       ":video",
       ":video_mocks",
       ":video_receive_stream_timeout_tracker",
@@ -777,6 +799,7 @@ if (rtc_include_tests) {
       "../api:transport_api",
       "../api/adaptation:resource_adaptation_api",
       "../api/crypto:options",
+      "../api/metronome/test:fake_metronome",
       "../api/rtc_event_log",
       "../api/task_queue",
       "../api/task_queue:default_task_queue_factory",

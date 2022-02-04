@@ -16,6 +16,142 @@
       "message": "I\u0027ll keep this as WIP for now and try to do a testing build in Flathub for Chromium so someone else confirms it works. With this change and the other avoiding to use dlclose() I can properly share a screen using the official NVidia driver.",
       "revId": "0bc595ebfe6766f9ebb5741d8bf82dc205663a19",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "48c76a66_8c7f48b8",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 14134
+      },
+      "writtenOn": "2022-02-04T18:17:18Z",
+      "side": 1,
+      "message": "Mostly LG, and thanks for the fixes!\n\nI worry that if you go on extended vacation then no one else will understand how to interact with PipeWire, thus my desire for lots of comments :-)",
+      "revId": "0bc595ebfe6766f9ebb5741d8bf82dc205663a19",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "ef291489_2c928cb5",
+        "filename": "modules/desktop_capture/linux/wayland/egl_dmabuf.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 387,
+      "author": {
+        "id": 14134
+      },
+      "writtenOn": "2022-02-04T18:17:18Z",
+      "side": 1,
+      "message": "Instead of wrapping in a pointer in an optional, prefer to just return nullptr.",
+      "revId": "0bc595ebfe6766f9ebb5741d8bf82dc205663a19",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "011a15ec_0409e896",
+        "filename": "modules/desktop_capture/linux/wayland/shared_screencast_stream.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 189,
+      "author": {
+        "id": 14134
+      },
+      "writtenOn": "2022-02-04T18:17:18Z",
+      "side": 1,
+      "message": "Document what this contains and where the modifier values are defined.",
+      "revId": "0bc595ebfe6766f9ebb5741d8bf82dc205663a19",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "68ab5c44_f7b01476",
+        "filename": "modules/desktop_capture/linux/wayland/shared_screencast_stream.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 235,
+      "author": {
+        "id": 14134
+      },
+      "writtenOn": "2022-02-04T18:17:18Z",
+      "side": 1,
+      "message": "Document when this handler is invoked, what it does, and what |expirations| means.",
+      "revId": "0bc595ebfe6766f9ebb5741d8bf82dc205663a19",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "b823113b_cf1dd653",
+        "filename": "modules/desktop_capture/linux/wayland/shared_screencast_stream.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 407,
+      "author": {
+        "id": 14134
+      },
+      "writtenOn": "2022-02-04T18:17:18Z",
+      "side": 1,
+      "message": "|expirations| is unused.",
+      "revId": "0bc595ebfe6766f9ebb5741d8bf82dc205663a19",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "19f3849e_8957d177",
+        "filename": "modules/desktop_capture/linux/wayland/shared_screencast_stream.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 413,
+      "author": {
+        "id": 14134
+      },
+      "writtenOn": "2022-02-04T18:17:18Z",
+      "side": 1,
+      "message": "Use PipeWireThreadLoopLock?",
+      "revId": "0bc595ebfe6766f9ebb5741d8bf82dc205663a19",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "c506a12d_6160f3f2",
+        "filename": "modules/desktop_capture/linux/wayland/shared_screencast_stream.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 425,
+      "author": {
+        "id": 14134
+      },
+      "writtenOn": "2022-02-04T18:17:18Z",
+      "side": 1,
+      "message": "Nit: remove extra newline",
+      "revId": "0bc595ebfe6766f9ebb5741d8bf82dc205663a19",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "ea74bd69_30323979",
+        "filename": "modules/desktop_capture/linux/wayland/shared_screencast_stream.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 516,
+      "author": {
+        "id": 14134
+      },
+      "writtenOn": "2022-02-04T18:17:18Z",
+      "side": 1,
+      "message": "I was unable to find any concrete documentation on how pw_loop_add_event works.  Can you add comments here explaining when OnRenegotiateFormat is called? \n\nIs this adding a task to the loop to call OnRenegotiateFormat? \n\nThe PipeWire API documentation could use a lot of work...",
+      "revId": "0bc595ebfe6766f9ebb5741d8bf82dc205663a19",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

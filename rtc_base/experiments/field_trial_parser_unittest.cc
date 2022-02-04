@@ -25,6 +25,7 @@ struct DummyExperiment {
   FieldTrialParameter<int> retries = FieldTrialParameter<int>("r", 5);
   FieldTrialParameter<unsigned> size = FieldTrialParameter<unsigned>("s", 3);
   FieldTrialParameter<bool> ping = FieldTrialParameter<bool>("p", 0);
+  FieldTrialParameter<size_t> count = FieldTrialParameter<size_t>("c", 9);
   FieldTrialParameter<std::string> hash =
       FieldTrialParameter<std::string>("h", "a80");
 
@@ -48,18 +49,19 @@ enum class CustomEnum {
 }  // namespace
 
 TEST(FieldTrialParserTest, ParsesValidParameters) {
-  DummyExperiment exp("Enabled,f:-1.7,r:2,s:10,p:1,h:x7c");
+  DummyExperiment exp("Enabled,f:-1.7,r:2,s:10,p:1,c:3,h:x7c");
   EXPECT_TRUE(exp.enabled.Get());
   EXPECT_EQ(exp.factor.Get(), -1.7);
   EXPECT_EQ(exp.retries.Get(), 2);
   EXPECT_EQ(exp.size.Get(), 10u);
   EXPECT_EQ(exp.ping.Get(), true);
+  EXPECT_EQ(exp.count.Get(), 3u);
   EXPECT_EQ(exp.hash.Get(), "x7c");
 }
 TEST(FieldTrialParserTest, InitializesFromFieldTrial) {
   test::ScopedFieldTrials field_trials(
       "WebRTC-OtherExperiment/Disabled/"
-      "WebRTC-DummyExperiment/Enabled,f:-1.7,r:2,s:10,p:1,h:x7c/"
+      "WebRTC-DummyExperiment/Enabled,f:-1.7,r:2,s:10,p:1,c:3,h:x7c/"
       "WebRTC-AnotherExperiment/Enabled,f:-3.1,otherstuff:beef/");
   DummyExperiment exp;
   EXPECT_TRUE(exp.enabled.Get());
@@ -67,6 +69,7 @@ TEST(FieldTrialParserTest, InitializesFromFieldTrial) {
   EXPECT_EQ(exp.retries.Get(), 2);
   EXPECT_EQ(exp.size.Get(), 10u);
   EXPECT_EQ(exp.ping.Get(), true);
+  EXPECT_EQ(exp.count.Get(), 3u);
   EXPECT_EQ(exp.hash.Get(), "x7c");
 }
 TEST(FieldTrialParserTest, UsesDefaults) {
@@ -76,6 +79,7 @@ TEST(FieldTrialParserTest, UsesDefaults) {
   EXPECT_EQ(exp.retries.Get(), 5);
   EXPECT_EQ(exp.size.Get(), 3u);
   EXPECT_EQ(exp.ping.Get(), false);
+  EXPECT_EQ(exp.count.Get(), 9u);
   EXPECT_EQ(exp.hash.Get(), "a80");
 }
 TEST(FieldTrialParserTest, CanHandleMixedInput) {
@@ -85,6 +89,7 @@ TEST(FieldTrialParserTest, CanHandleMixedInput) {
   EXPECT_EQ(exp.retries.Get(), 5);
   EXPECT_EQ(exp.size.Get(), 3u);
   EXPECT_EQ(exp.ping.Get(), true);
+  EXPECT_EQ(exp.count.Get(), 9u);
   EXPECT_EQ(exp.hash.Get(), "");
 }
 TEST(FieldTrialParserTest, ParsesDoubleParameter) {

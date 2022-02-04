@@ -248,6 +248,8 @@ absl::optional<int> ParseTypedParameter<int>(std::string str);
 template <>
 absl::optional<unsigned> ParseTypedParameter<unsigned>(std::string str);
 template <>
+absl::optional<size_t> ParseTypedParameter<size_t>(std::string str);
+template <>
 absl::optional<std::string> ParseTypedParameter<std::string>(std::string str);
 
 template <>
@@ -260,6 +262,9 @@ template <>
 absl::optional<absl::optional<unsigned>>
 ParseTypedParameter<absl::optional<unsigned>>(std::string str);
 template <>
+absl::optional<absl::optional<size_t>>
+ParseTypedParameter<absl::optional<size_t>>(std::string str);
+template <>
 absl::optional<absl::optional<double>>
 ParseTypedParameter<absl::optional<double>>(std::string str);
 
@@ -271,16 +276,20 @@ extern template class FieldTrialParameter<double>;
 extern template class FieldTrialParameter<int>;
 // Interpreted using sscanf %u.
 extern template class FieldTrialParameter<unsigned>;
+// Interpreted using sscanf %zu.
+extern template class FieldTrialParameter<size_t>;
 // Using the given value as is.
 extern template class FieldTrialParameter<std::string>;
 
 extern template class FieldTrialConstrained<double>;
 extern template class FieldTrialConstrained<int>;
 extern template class FieldTrialConstrained<unsigned>;
+extern template class FieldTrialConstrained<size_t>;
 
 extern template class FieldTrialOptional<double>;
 extern template class FieldTrialOptional<int>;
 extern template class FieldTrialOptional<unsigned>;
+extern template class FieldTrialOptional<size_t>;
 extern template class FieldTrialOptional<bool>;
 extern template class FieldTrialOptional<std::string>;
 

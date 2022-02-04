@@ -156,6 +156,17 @@ absl::optional<unsigned> ParseTypedParameter<unsigned>(std::string str) {
 }
 
 template <>
+absl::optional<size_t> ParseTypedParameter<size_t>(std::string str) {
+  int64_t value;
+  if (sscanf(str.c_str(), "%zu", &value) == 1) {
+    if (rtc::IsValueInRangeForNumericType<size_t, int64_t>(value)) {
+      return static_cast<size_t>(value);
+    }
+  }
+  return absl::nullopt;
+}
+
+template <>
 absl::optional<std::string> ParseTypedParameter<std::string>(std::string str) {
   return std::move(str);
 }
@@ -174,6 +185,11 @@ template <>
 absl::optional<absl::optional<unsigned>>
 ParseTypedParameter<absl::optional<unsigned>>(std::string str) {
   return ParseOptionalParameter<unsigned>(str);
+}
+template <>
+absl::optional<absl::optional<size_t>>
+ParseTypedParameter<absl::optional<size_t>>(std::string str) {
+  return ParseOptionalParameter<size_t>(str);
 }
 template <>
 absl::optional<absl::optional<double>>
@@ -242,15 +258,18 @@ template class FieldTrialParameter<bool>;
 template class FieldTrialParameter<double>;
 template class FieldTrialParameter<int>;
 template class FieldTrialParameter<unsigned>;
+template class FieldTrialParameter<size_t>;
 template class FieldTrialParameter<std::string>;
 
 template class FieldTrialConstrained<double>;
 template class FieldTrialConstrained<int>;
 template class FieldTrialConstrained<unsigned>;
+template class FieldTrialConstrained<size_t>;
 
 template class FieldTrialOptional<double>;
 template class FieldTrialOptional<int>;
 template class FieldTrialOptional<unsigned>;
+template class FieldTrialOptional<size_t>;
 template class FieldTrialOptional<bool>;
 template class FieldTrialOptional<std::string>;
 

@@ -36,6 +36,9 @@ inline void StringEncode(std::string* target, int val) {
 inline void StringEncode(std::string* target, unsigned val) {
   *target += rtc::ToString(val);
 }
+inline void StringEncode(std::string* target, size_t val) {
+  *target += rtc::ToString(val);
+}
 inline void StringEncode(std::string* target, DataRate val) {
   *target += webrtc::ToString(val);
 }
@@ -68,9 +71,11 @@ template class TypedParser<bool>;
 template class TypedParser<double>;
 template class TypedParser<int>;
 template class TypedParser<unsigned>;
+template class TypedParser<size_t>;
 template class TypedParser<absl::optional<double>>;
 template class TypedParser<absl::optional<int>>;
 template class TypedParser<absl::optional<unsigned>>;
+template class TypedParser<absl::optional<size_t>>;
 
 template class TypedParser<DataRate>;
 template class TypedParser<DataSize>;

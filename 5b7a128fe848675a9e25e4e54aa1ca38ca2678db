@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "2c3bb9bb_47b34a35",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 4
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 6193
+      },
+      "writtenOn": "2022-02-04T13:24:37Z",
+      "side": 1,
+      "message": "This CL is huge due to it\u0027s refactoring nature. Also, since many of this files were created before the 2 space indent rule, there is lots of lines touched.",
+      "revId": "5b7a128fe848675a9e25e4e54aa1ca38ca2678db",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

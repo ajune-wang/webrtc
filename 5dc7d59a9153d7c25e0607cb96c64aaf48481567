@@ -267,6 +267,24 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "cb29dee3_4c31be8b",
+        "filename": "pc/video_rtp_receiver.cc",
+        "patchSetId": 6
+      },
+      "lineNbr": 147,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2022-02-04T12:06:08Z",
+      "side": 1,
+      "message": "But SetSink(source-\u003esink()) (presumably the same sink) is still done below.\nOld logic had a \"return\" here; this logic would need \"else return\".\nOr do we need the subsequent steps in the \"no change\" case?",
+      "parentUuid": "ee6ee826_24b0c8fd",
+      "revId": "5dc7d59a9153d7c25e0607cb96c64aaf48481567",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "15bf5843_438fb5e0",

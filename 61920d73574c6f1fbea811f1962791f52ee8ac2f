@@ -177,6 +177,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "d0ff2e89_d21cbfa2",
+        "filename": "pc/connection_context.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 31,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2022-02-04T13:13:51Z",
+      "side": 1,
+      "message": "Split into two functions, MaybeStartNetworkThread and MaybeStartWorkerThread.\nI think that\u0027s slightly more readable. Net +4 lines, compared to previous version.",
+      "parentUuid": "e2de1a9a_bce0de7a",
+      "revId": "61920d73574c6f1fbea811f1962791f52ee8ac2f",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "13cb8c49_d4d96a95",
         "filename": "pc/connection_context.cc",
         "patchSetId": 3

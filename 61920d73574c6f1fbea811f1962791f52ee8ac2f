@@ -69,6 +69,23 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "efd9fd3e_2a53464d",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 3
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2022-02-04T12:29:03Z",
+      "side": 1,
+      "message": "Feels like further discussion will only give marginal improvements. Approving.\n",
+      "revId": "61920d73574c6f1fbea811f1962791f52ee8ac2f",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "4bfab19e_c0b8903b",
@@ -136,6 +153,24 @@
       "side": 1,
       "message": "Not entirely clear what the end state will be. Completely breaking relationship between rtc::Thread and rtc::SocketServer would be a rather complex refactoring, and I think I passing rtc::SocketServer to rtc::Thread on thread creation is preferable over making the association later on.\n\nMy aim now is to arrange so that code using of the rtc::Thread and the rtc::ScoketFactory should neither be aware, nor depend, on that they\u0027re hooked together. More or less all those change clutters up the code construction the objects a bit.",
       "parentUuid": "00dcda3e_a5d40d3b",
+      "revId": "61920d73574c6f1fbea811f1962791f52ee8ac2f",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "e2de1a9a_bce0de7a",
+        "filename": "pc/connection_context.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 31,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2022-02-04T12:29:03Z",
+      "side": 1,
+      "message": "Still haven\u0027t found a better pattern. It\u0027s possible we can refactor this code into MaybeCreateThread() and MaybeCreateThreadWithSocketFactory (avoiding the possibly-null argument), which is somewhat more readable but duplicates a bit of code.\n\nBut it\u0027s not so much better as to block landing this.",
+      "parentUuid": "281b1f37_1ea80561",
       "revId": "61920d73574c6f1fbea811f1962791f52ee8ac2f",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },

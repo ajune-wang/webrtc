@@ -53,6 +53,23 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "2abc8ea6_c80cf3b6",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2022-02-04T12:24:52Z",
+      "side": 1,
+      "message": "More commentary...\n",
+      "revId": "2bd093fcb07fd16a47358a8aeb0fafe8ff7f3280",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "c641ef09_71048203",
@@ -191,6 +208,24 @@
       "side": 1,
       "message": "OK, great - thanks for those details. Just to recap for my understanding:\n* For for every state change on the transport, we (in Chrome at least) update the state while holding the lock...\n* post a task to the main (js) thread that notifies the external implementation that it can...\n* call the transport\u0027s Information() method, that grabs the lock and copies the state and caches it.\n* every call to state(), reads the cached value.\n\nThat\u0027s async for sure and avoids an Invoke. I\u0027m assuming it\u0027s designed that way to combine the state() accessor with the onstatechanged notification. The lock might not be needed if a copy of the new state is simply bundled with the notification and the cache is only accessed from the main thread (and Information() is then only called from that thread), but I digress...\n\nThat clears things up for me. While the transport itself is called from the network thread (i.e. as far as `RTC_DCHECK_RUN_ON(owner_thread_);` methods goes), that code is never directly triggerable from the api pov or via the dtls_transport() accessors that the sender/receiver have. Interesting that the transceiver owns them though and that there\u0027s a special receivers_[0] receiver, despite the supposed seperation.\n\nSo, another question - is it conceivable that the transport that the transceiver is associated with (via the channel), is different from the receiver/sender transports?",
       "parentUuid": "a25e6d8a_e1699f4e",
+      "revId": "2bd093fcb07fd16a47358a8aeb0fafe8ff7f3280",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "0196ddba_f5009e1e",
+        "filename": "pc/sdp_offer_answer.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 1995,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2022-02-04T12:24:52Z",
+      "side": 1,
+      "message": "Yes, a copy of the new state is bundled with the notification. Chrome calls Information() for a number of other cases (see references listed as https://source.chromium.org/chromium/chromium/src/+/main:third_party/webrtc/pc/dtls_transport.h;drc\u003d9f6808b13c79f9c64274186aa514fd5c5a64de89;l\u003d43)\n\nThe way we designed things, reflecting SDP, the transceiver\u0027s transport is by definition the same as the sender\u0027s and the receiver\u0027s transport. So as long as there is a transceiver, its sender and receiver have to have the same transport. Anything else would be a bug.\n\nThe fact that a transceiver can have multiple senders and receivers is a Plan B phenomenon. Once we can delete Plan B, we\u0027ll replace those vectors with single sender and receiver members.",
+      "parentUuid": "825c8718_9b09d809",
       "revId": "2bd093fcb07fd16a47358a8aeb0fafe8ff7f3280",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }

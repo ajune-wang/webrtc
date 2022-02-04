@@ -16,6 +16,46 @@
       "message": "Now I think it is (finally) ready for review. It looks as if the tests are passing.\n",
       "revId": "c953052c0cc2d0f253581801521c7407d5547516",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "ef97b9db_a0d941d2",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 3
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2022-02-04T15:42:38Z",
+      "side": 1,
+      "message": "I don\u0027t quite like the extra PostTask to disconnect. But I don\u0027t have a good suggestion Friday afternoon.",
+      "revId": "c953052c0cc2d0f253581801521c7407d5547516",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "86ba32d3_7b8882a0",
+        "filename": "pc/data_channel_controller.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 82,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2022-02-04T15:42:38Z",
+      "side": 1,
+      "message": "From which of these callbacks is this method called?\n\nI think we considered letting a callback have a return value, saying if it wanted to stay on the list or not. Do we have a usecase for that here? \n\nIt looks a bit surprising that a method named like this doesn\u0027t disconnect synchronously.",
+      "range": {
+        "startLine": 81,
+        "startChar": 0,
+        "endLine": 82,
+        "endChar": 45
+      },
+      "revId": "c953052c0cc2d0f253581801521c7407d5547516",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

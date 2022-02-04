@@ -105,6 +105,30 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "dbf2da1e_5ca3eb87",
+        "filename": "pc/data_channel_controller.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 115,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2022-02-04T15:42:38Z",
+      "side": 1,
+      "message": "Ok. I\u0027m not enough of a C++ guru to say if it could work without \u0026\u0026. Style guide says that \u0026\u0026 should be used only in the constructor and assignment operators used to *implement* move operations.",
+      "parentUuid": "b28b188e_d78ab224",
+      "range": {
+        "startLine": 115,
+        "startChar": 36,
+        "endLine": 115,
+        "endChar": 38
+      },
+      "revId": "7fcb685c3ead8554f0b79c11c3415e95f81b4ae6",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "0512810c_b214538f",

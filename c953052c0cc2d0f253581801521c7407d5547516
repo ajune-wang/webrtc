@@ -56,6 +56,30 @@
       },
       "revId": "c953052c0cc2d0f253581801521c7407d5547516",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "8d1c0939_0083f576",
+        "filename": "pc/data_channel_controller.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 82,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2022-02-04T21:22:09Z",
+      "side": 1,
+      "message": "Good point that the disconnect of all the other signals doesn\u0027t need to PostTask.\nI am hoping that later refactoring will replace these callback lists with something different (it seems quite strange that the SendData function calls all the channels\u0027 callbacks, and lets each callback decide whether or not the data is for them, rather than dispatching on the channel id in this module, for instance), but for the moment, this is the smallest modification to allow CallbackList to be used instead of sigslot.",
+      "parentUuid": "86ba32d3_7b8882a0",
+      "range": {
+        "startLine": 81,
+        "startChar": 0,
+        "endLine": 82,
+        "endChar": 45
+      },
+      "revId": "c953052c0cc2d0f253581801521c7407d5547516",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

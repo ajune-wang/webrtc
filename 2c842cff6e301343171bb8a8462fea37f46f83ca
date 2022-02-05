@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "a4648c4d_7e245c6a",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 8046
+      },
+      "writtenOn": "2022-02-05T16:20:23Z",
+      "side": 1,
+      "message": "Fixes a crash introduced with https://webrtc-review.googlesource.com/c/src/+/249400.",
+      "revId": "2c842cff6e301343171bb8a8462fea37f46f83ca",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

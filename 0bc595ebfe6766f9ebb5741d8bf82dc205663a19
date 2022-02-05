@@ -35,6 +35,24 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "d845b30e_2e4390f7",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 8046
+      },
+      "writtenOn": "2022-02-05T16:21:02Z",
+      "side": 1,
+      "message": "Don\u0027t worry, I don\u0027t plan any extended vacation and I will definitely stay around for a while 😊.",
+      "parentUuid": "48c76a66_8c7f48b8",
+      "revId": "0bc595ebfe6766f9ebb5741d8bf82dc205663a19",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "ef291489_2c928cb5",
@@ -48,6 +66,24 @@
       "writtenOn": "2022-02-04T18:17:18Z",
       "side": 1,
       "message": "Instead of wrapping in a pointer in an optional, prefer to just return nullptr.",
+      "revId": "0bc595ebfe6766f9ebb5741d8bf82dc205663a19",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "1870ddab_7d485cb0",
+        "filename": "modules/desktop_capture/linux/wayland/egl_dmabuf.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 387,
+      "author": {
+        "id": 8046
+      },
+      "writtenOn": "2022-02-05T16:21:02Z",
+      "side": 1,
+      "message": "Alright, I thought this makes it *nicer* API-wise, but I can change it back.",
+      "parentUuid": "ef291489_2c928cb5",
       "revId": "0bc595ebfe6766f9ebb5741d8bf82dc205663a19",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
@@ -69,6 +105,24 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "607ddd67_50052cf8",
+        "filename": "modules/desktop_capture/linux/wayland/shared_screencast_stream.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 189,
+      "author": {
+        "id": 8046
+      },
+      "writtenOn": "2022-02-05T16:21:02Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "011a15ec_0409e896",
+      "revId": "0bc595ebfe6766f9ebb5741d8bf82dc205663a19",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "68ab5c44_f7b01476",
@@ -82,6 +136,24 @@
       "writtenOn": "2022-02-04T18:17:18Z",
       "side": 1,
       "message": "Document when this handler is invoked, what it does, and what |expirations| means.",
+      "revId": "0bc595ebfe6766f9ebb5741d8bf82dc205663a19",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "9533a54a_f58b87cf",
+        "filename": "modules/desktop_capture/linux/wayland/shared_screencast_stream.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 235,
+      "author": {
+        "id": 8046
+      },
+      "writtenOn": "2022-02-05T16:21:02Z",
+      "side": 1,
+      "message": "Done. Unfortunately I don\u0027t know what |expirations| means, this is not documented anywhere, there is just an example of usage.",
+      "parentUuid": "68ab5c44_f7b01476",
       "revId": "0bc595ebfe6766f9ebb5741d8bf82dc205663a19",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
@@ -103,6 +175,24 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "3f5742b9_a02822fe",
+        "filename": "modules/desktop_capture/linux/wayland/shared_screencast_stream.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 407,
+      "author": {
+        "id": 8046
+      },
+      "writtenOn": "2022-02-05T16:21:02Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "b823113b_cf1dd653",
+      "revId": "0bc595ebfe6766f9ebb5741d8bf82dc205663a19",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "19f3849e_8957d177",
@@ -116,6 +206,24 @@
       "writtenOn": "2022-02-04T18:17:18Z",
       "side": 1,
       "message": "Use PipeWireThreadLoopLock?",
+      "revId": "0bc595ebfe6766f9ebb5741d8bf82dc205663a19",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "5193ed6d_c0b1b4f4",
+        "filename": "modules/desktop_capture/linux/wayland/shared_screencast_stream.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 413,
+      "author": {
+        "id": 8046
+      },
+      "writtenOn": "2022-02-05T16:21:02Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "19f3849e_8957d177",
       "revId": "0bc595ebfe6766f9ebb5741d8bf82dc205663a19",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
@@ -137,6 +245,24 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "becc8807_d31e2e80",
+        "filename": "modules/desktop_capture/linux/wayland/shared_screencast_stream.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 425,
+      "author": {
+        "id": 8046
+      },
+      "writtenOn": "2022-02-05T16:21:02Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "c506a12d_6160f3f2",
+      "revId": "0bc595ebfe6766f9ebb5741d8bf82dc205663a19",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "ea74bd69_30323979",
@@ -150,6 +276,24 @@
       "writtenOn": "2022-02-04T18:17:18Z",
       "side": 1,
       "message": "I was unable to find any concrete documentation on how pw_loop_add_event works.  Can you add comments here explaining when OnRenegotiateFormat is called? \n\nIs this adding a task to the loop to call OnRenegotiateFormat? \n\nThe PipeWire API documentation could use a lot of work...",
+      "revId": "0bc595ebfe6766f9ebb5741d8bf82dc205663a19",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "c7f2bda6_9d9bece6",
+        "filename": "modules/desktop_capture/linux/wayland/shared_screencast_stream.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 516,
+      "author": {
+        "id": 8046
+      },
+      "writtenOn": "2022-02-05T16:21:02Z",
+      "side": 1,
+      "message": "The only documentation is an example how this is used in practice → https://docs.pipewire.org/video-play-fixate_8c-example.html#a92.\n\nI think this just adds an event that can be later invoked by a pw_loop_signal_event().",
+      "parentUuid": "ea74bd69_30323979",
       "revId": "0bc595ebfe6766f9ebb5741d8bf82dc205663a19",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }

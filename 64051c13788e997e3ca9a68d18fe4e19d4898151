@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "a745f53a_61703000",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 8046
+      },
+      "writtenOn": "2022-02-05T17:58:49Z",
+      "side": 1,
+      "message": "I know this is marked as *do not merge*, but I just want to say that your remote desktop_capturer should not replace current captured for screensharing, this would result into a different DBus calls and portal dialogs. ",
+      "revId": "64051c13788e997e3ca9a68d18fe4e19d4898151",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

@@ -270,12 +270,40 @@ const WebRtcKeyValueConfig& DegradedCall::trials() const {
   return call_->trials();
 }
 
+Clock* DegradedCall::clock() const {
+  return call_->clock();
+}
+
 TaskQueueBase* DegradedCall::network_thread() const {
   return call_->network_thread();
 }
 
 TaskQueueBase* DegradedCall::worker_thread() const {
   return call_->worker_thread();
+}
+
+TaskQueueFactory* DegradedCall::task_queue_factory() const {
+  return call_->task_queue_factory();
+}
+
+RtcEventLog* DegradedCall::event_log() const {
+  return call_->event_log();
+}
+
+RtcpRttStats* DegradedCall::rtcp_rtt_stats() const {
+  return call_->rtcp_rtt_stats();
+}
+
+SendDelayStats* DegradedCall::send_delay_stats() const {
+  return call_->send_delay_stats();
+}
+
+BitrateAllocatorInterface* DegradedCall::bitrate_allocator() const {
+  return call_->bitrate_allocator();
+}
+
+int DegradedCall::num_cpu_cores() const {
+  return call_->num_cpu_cores();
 }
 
 void DegradedCall::SignalChannelNetworkState(MediaType media,

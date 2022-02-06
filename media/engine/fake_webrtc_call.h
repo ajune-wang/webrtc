@@ -315,7 +315,8 @@ class FakeCall final : public webrtc::Call, public webrtc::PacketReceiver {
  public:
   FakeCall();
   FakeCall(webrtc::TaskQueueBase* worker_thread,
-           webrtc::TaskQueueBase* network_thread);
+           webrtc::TaskQueueBase* network_thread,
+           webrtc::TaskQueueFactory* task_queue_factory);
   ~FakeCall() override;
 
   webrtc::MockRtpTransportControllerSend* GetMockTransportControllerSend() {
@@ -400,6 +401,10 @@ class FakeCall final : public webrtc::Call, public webrtc::PacketReceiver {
 
   webrtc::TaskQueueBase* network_thread() const override;
   webrtc::TaskQueueBase* worker_thread() const override;
+  webrtc::TaskQueueFactory* task_queue_factory() const override;
+  webrtc::RtcEventLog* event_log() const override;
+  webrtc::RtcpRttStats* rtcp_rtt_stats() const override;
+  int num_cpu_cores() const override;
 
   void SignalChannelNetworkState(webrtc::MediaType media,
                                  webrtc::NetworkState state) override;
@@ -413,6 +418,7 @@ class FakeCall final : public webrtc::Call, public webrtc::PacketReceiver {
 
   webrtc::TaskQueueBase* const network_thread_;
   webrtc::TaskQueueBase* const worker_thread_;
+  webrtc::TaskQueueFactory* const task_queue_factory_;
 
   ::testing::NiceMock<webrtc::MockRtpTransportControllerSend>
       transport_controller_send_;

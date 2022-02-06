@@ -278,6 +278,22 @@ TaskQueueBase* DegradedCall::worker_thread() const {
   return call_->worker_thread();
 }
 
+TaskQueueFactory* DegradedCall::task_queue_factory() const {
+  return call_->task_queue_factory();
+}
+
+RtcEventLog* DegradedCall::event_log() const {
+  return call_->event_log();
+}
+
+RtcpRttStats* DegradedCall::rtcp_rtt_stats() const {
+  return call_->rtcp_rtt_stats();
+}
+
+int DegradedCall::num_cpu_cores() const {
+  return call_->num_cpu_cores();
+}
+
 void DegradedCall::SignalChannelNetworkState(MediaType media,
                                              NetworkState state) {
   call_->SignalChannelNetworkState(media, state);

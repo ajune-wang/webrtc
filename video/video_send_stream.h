@@ -35,6 +35,7 @@ namespace test {
 class VideoSendStreamPeer;
 }  // namespace test
 
+class Call;
 class CallStats;
 class IvfFileWriter;
 class RateLimiter;
@@ -56,14 +57,9 @@ class VideoSendStream : public webrtc::VideoSendStream {
 
   VideoSendStream(
       Clock* clock,
-      int num_cpu_cores,
-      TaskQueueFactory* task_queue_factory,
-      TaskQueueBase* network_queue,
-      RtcpRttStats* call_stats,
-      RtpTransportControllerSendInterface* transport,
+      Call* call,
       BitrateAllocatorInterface* bitrate_allocator,
       SendDelayStats* send_delay_stats,
-      RtcEventLog* event_log,
       VideoSendStream::Config config,
       VideoEncoderConfig encoder_config,
       const std::map<uint32_t, RtpState>& suspended_ssrcs,
@@ -98,8 +94,8 @@ class VideoSendStream : public webrtc::VideoSendStream {
   absl::optional<float> GetPacingFactorOverride() const;
 
   RTC_NO_UNIQUE_ADDRESS SequenceChecker thread_checker_;
-  rtc::TaskQueue* const rtp_transport_queue_;
   RtpTransportControllerSendInterface* const transport_;
+  rtc::TaskQueue* const rtp_transport_queue_;
   rtc::Event thread_sync_event_;
   rtc::scoped_refptr<PendingTaskSafetyFlag> transport_queue_safety_ =
       PendingTaskSafetyFlag::CreateDetached();

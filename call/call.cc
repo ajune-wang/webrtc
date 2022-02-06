@@ -252,6 +252,10 @@ class Call final : public webrtc::Call,
 
   TaskQueueBase* network_thread() const override;
   TaskQueueBase* worker_thread() const override;
+  TaskQueueFactory* task_queue_factory() const override;
+  RtcEventLog* event_log() const override;
+  RtcpRttStats* rtcp_rtt_stats() const override;
+  int num_cpu_cores() const override;
 
   // Implements PacketReceiver.
   DeliveryStatus DeliverPacket(MediaType media_type,
@@ -1046,9 +1050,7 @@ webrtc::VideoSendStream* Call::CreateVideoSendStream(
   std::vector<uint32_t> ssrcs = config.rtp.ssrcs;
 
   VideoSendStream* send_stream = new VideoSendStream(
-      clock_, num_cpu_cores_, task_queue_factory_, network_thread_,
-      call_stats_->AsRtcpRttStats(), transport_send_.get(),
-      bitrate_allocator_.get(), video_send_delay_stats_.get(), event_log_,
+      clock_, this, bitrate_allocator_.get(), video_send_delay_stats_.get(),
       std::move(config), std::move(encoder_config), suspended_video_send_ssrcs_,
       suspended_video_payload_states_, std::move(fec_controller));
 
@@ -1298,6 +1300,22 @@ TaskQueueBase* Call::network_thread() const {
 
 TaskQueueBase* Call::worker_thread() const {
   return worker_thread_;
+}
+
+TaskQueueFactory* Call::task_queue_factory() const {
+  return task_queue_factory_;
+}
+
+RtcEventLog* Call::event_log() const {
+  return event_log_;
+}
+
+RtcpRttStats* Call::rtcp_rtt_stats() const {
+  return call_stats_->AsRtcpRttStats();
+}
+
+int Call::num_cpu_cores() const {
+  return num_cpu_cores_;
 }
 
 void Call::SignalChannelNetworkState(MediaType media, NetworkState state) {

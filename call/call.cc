@@ -250,8 +250,15 @@ class Call final : public webrtc::Call,
 
   const WebRtcKeyValueConfig& trials() const override;
 
+  Clock* clock() const override;
   TaskQueueBase* network_thread() const override;
   TaskQueueBase* worker_thread() const override;
+  TaskQueueFactory* task_queue_factory() const override;
+  RtcEventLog* event_log() const override;
+  RtcpRttStats* rtcp_rtt_stats() const override;
+  SendDelayStats* send_delay_stats() const override;
+  BitrateAllocatorInterface* bitrate_allocator() const override;
+  int num_cpu_cores() const override;
 
   // Implements PacketReceiver.
   DeliveryStatus DeliverPacket(MediaType media_type,
@@ -1046,11 +1053,9 @@ webrtc::VideoSendStream* Call::CreateVideoSendStream(
   std::vector<uint32_t> ssrcs = config.rtp.ssrcs;
 
   VideoSendStream* send_stream = new VideoSendStream(
-      clock_, num_cpu_cores_, task_queue_factory_, network_thread_,
-      call_stats_->AsRtcpRttStats(), transport_send_.get(),
-      bitrate_allocator_.get(), video_send_delay_stats_.get(), event_log_,
-      std::move(config), std::move(encoder_config), suspended_video_send_ssrcs_,
-      suspended_video_payload_states_, std::move(fec_controller));
+      this, std::move(config), std::move(encoder_config),
+      suspended_video_send_ssrcs_, suspended_video_payload_states_,
+      std::move(fec_controller));
 
   for (uint32_t ssrc : ssrcs) {
     RTC_DCHECK(video_send_ssrcs_.find(ssrc) == video_send_ssrcs_.end());
@@ -1292,12 +1297,40 @@ const WebRtcKeyValueConfig& Call::trials() const {
   return trials_;
 }
 
+Clock* Call::clock() const {
+  return clock_;
+}
+
 TaskQueueBase* Call::network_thread() const {
   return network_thread_;
 }
 
 TaskQueueBase* Call::worker_thread() const {
   return worker_thread_;
+}
+
+TaskQueueFactory* Call::task_queue_factory() const {
+  return task_queue_factory_;
+}
+
+RtcEventLog* Call::event_log() const {
+  return event_log_;
+}
+
+RtcpRttStats* Call::rtcp_rtt_stats() const {
+  return call_stats_->AsRtcpRttStats();
+}
+
+SendDelayStats* Call::send_delay_stats() const {
+  return video_send_delay_stats_.get();
+}
+
+BitrateAllocatorInterface* Call::bitrate_allocator() const {
+  return bitrate_allocator_.get();
+}
+
+int Call::num_cpu_cores() const {
+  return num_cpu_cores_;
 }
 
 void Call::SignalChannelNetworkState(MediaType media, NetworkState state) {

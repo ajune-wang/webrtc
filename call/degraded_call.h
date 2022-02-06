@@ -87,8 +87,15 @@ class DegradedCall : public Call, private PacketReceiver {
 
   const WebRtcKeyValueConfig& trials() const override;
 
+  Clock* clock() const override;
   TaskQueueBase* network_thread() const override;
   TaskQueueBase* worker_thread() const override;
+  TaskQueueFactory* task_queue_factory() const override;
+  RtcEventLog* event_log() const override;
+  RtcpRttStats* rtcp_rtt_stats() const override;
+  SendDelayStats* send_delay_stats() const override;
+  BitrateAllocatorInterface* bitrate_allocator() const override;
+  int num_cpu_cores() const override;
 
   void SignalChannelNetworkState(MediaType media, NetworkState state) override;
   void OnAudioTransportOverheadChanged(

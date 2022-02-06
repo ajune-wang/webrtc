@@ -14,6 +14,7 @@
 #include "api/array_view.h"
 #include "api/task_queue/task_queue_base.h"
 #include "api/video/video_stream_encoder_settings.h"
+#include "call/call.h"
 #include "modules/rtp_rtcp/include/rtp_header_extension_map.h"
 #include "modules/rtp_rtcp/source/rtp_header_extension_size.h"
 #include "modules/rtp_rtcp/source/rtp_sender.h"
@@ -132,8 +133,7 @@ namespace internal {
 
 VideoSendStream::VideoSendStream(
     Clock* clock,
-    int num_cpu_cores,
-    TaskQueueFactory* task_queue_factory,
+    Call* call,
     TaskQueueBase* network_queue,
     RtcpRttStats* call_stats,
     RtpTransportControllerSendInterface* transport,
@@ -152,8 +152,8 @@ VideoSendStream::VideoSendStream(
       content_type_(encoder_config.content_type),
       video_stream_encoder_(
           CreateVideoStreamEncoder(clock,
-                                   num_cpu_cores,
-                                   task_queue_factory,
+                                   call->num_cpu_cores(),
+                                   call->task_queue_factory(),
                                    &stats_proxy_,
                                    config_.encoder_settings,
                                    GetBitrateAllocationCallbackType(config_))),

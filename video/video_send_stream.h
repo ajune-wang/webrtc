@@ -35,6 +35,7 @@ namespace test {
 class VideoSendStreamPeer;
 }  // namespace test
 
+class Call;
 class CallStats;
 class IvfFileWriter;
 class RateLimiter;
@@ -56,8 +57,7 @@ class VideoSendStream : public webrtc::VideoSendStream {
 
   VideoSendStream(
       Clock* clock,
-      int num_cpu_cores,
-      TaskQueueFactory* task_queue_factory,
+      Call* call,
       TaskQueueBase* network_queue,
       RtcpRttStats* call_stats,
       RtpTransportControllerSendInterface* transport,

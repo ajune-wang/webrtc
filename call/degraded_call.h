@@ -89,6 +89,8 @@ class DegradedCall : public Call, private PacketReceiver {
 
   TaskQueueBase* network_thread() const override;
   TaskQueueBase* worker_thread() const override;
+  TaskQueueFactory* task_queue_factory() const override;
+  int num_cpu_cores() const override;
 
   void SignalChannelNetworkState(MediaType media, NetworkState state) override;
   void OnAudioTransportOverheadChanged(

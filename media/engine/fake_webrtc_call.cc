@@ -417,12 +417,14 @@ void FakeFlexfecReceiveStream::OnRtpPacket(const webrtc::RtpPacketReceived&) {
 }
 
 FakeCall::FakeCall()
-    : FakeCall(rtc::Thread::Current(), rtc::Thread::Current()) {}
+    : FakeCall(rtc::Thread::Current(), rtc::Thread::Current(), nullptr) {}
 
 FakeCall::FakeCall(webrtc::TaskQueueBase* worker_thread,
-                   webrtc::TaskQueueBase* network_thread)
+                   webrtc::TaskQueueBase* network_thread,
+                   webrtc::TaskQueueFactory* task_queue_factory)
     : network_thread_(network_thread),
       worker_thread_(worker_thread),
+      task_queue_factory_(task_queue_factory),
       audio_network_state_(webrtc::kNetworkUp),
       video_network_state_(webrtc::kNetworkUp),
       num_created_send_streams_(0),
@@ -665,6 +667,16 @@ webrtc::TaskQueueBase* FakeCall::network_thread() const {
 
 webrtc::TaskQueueBase* FakeCall::worker_thread() const {
   return worker_thread_;
+}
+
+webrtc::TaskQueueFactory* FakeCall::task_queue_factory() const {
+  RTC_DCHECK(task_queue_factory_);
+  return task_queue_factory_;
+}
+
+int FakeCall::num_cpu_cores() const {
+  constexpr int kDefaultNumCpuCores = 2;
+  return kDefaultNumCpuCores;
 }
 
 void FakeCall::SignalChannelNetworkState(webrtc::MediaType media,

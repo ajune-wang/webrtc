@@ -178,6 +178,9 @@ class Call {
 
   virtual TaskQueueBase* network_thread() const = 0;
   virtual TaskQueueBase* worker_thread() const = 0;
+  virtual TaskQueueFactory* task_queue_factory() const = 0;
+
+  virtual int num_cpu_cores() const = 0;
 
   virtual ~Call() {}
 };

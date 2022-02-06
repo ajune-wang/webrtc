@@ -176,8 +176,14 @@ class Call {
 
   virtual const WebRtcKeyValueConfig& trials() const = 0;
 
+  // TODO(tommi): Consider moving these getters into a separate interface.
+  // They're mostly needed for objects that the Call instance creates.
+
   virtual TaskQueueBase* network_thread() const = 0;
   virtual TaskQueueBase* worker_thread() const = 0;
+  virtual TaskQueueFactory* task_queue_factory() const = 0;
+  virtual RtcEventLog* event_log() const;
+  virtual int num_cpu_cores() const = 0;
 
   virtual ~Call() {}
 };

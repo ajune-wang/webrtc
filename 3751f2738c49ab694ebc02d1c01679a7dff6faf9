@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "1a91ec62_1dc6ea85",
+        "filename": "pc/audio_rtp_receiver.h",
+        "patchSetId": 12
+      },
+      "lineNbr": 131,
+      "author": {
+        "id": 5508
+      },
+      "writtenOn": "2022-02-06T11:39:10Z",
+      "side": 1,
+      "message": "Same behavior in this variable as before, however it\u0027s now referenced on the worker thread, where the value is used. It\u0027s still set synchronously with the signaling thread, as before, so the functionality it serves, is intact, but now avoids thread hops for other times when the variable is needed.",
+      "revId": "3751f2738c49ab694ebc02d1c01679a7dff6faf9",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

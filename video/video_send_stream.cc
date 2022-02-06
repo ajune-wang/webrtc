@@ -331,8 +331,16 @@ void VideoSendStream::StopPermanentlyAndGetRtpStates(
     send_stream_.Stop();
     *rtp_state_map = send_stream_.GetRtpStates();
     *payload_state_map = send_stream_.GetRtpPayloadStates();
+    // TODO(tommi): Give the rtp states to the send transport instead of
+    // returning them to Call.
+    transport_->UpdateRtpStates(*rtp_state_map);
+    // Move suspended ssrcs from Call into the send transport.
+    // TODO(tommi): Remove this Set/Stop. Instead, delete 'this' here and
+    // make StopPermanentlyAndGetRtpStates complete asynchronously. Also rename
+    // the function (e.g. StopAndDelete).
     thread_sync_event_.Set();
   });
+  // TODO(tommi): This could be removed.
   thread_sync_event_.Wait(rtc::Event::kForever);
 }
 

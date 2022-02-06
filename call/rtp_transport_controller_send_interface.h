@@ -155,6 +155,9 @@ class RtpTransportControllerSendInterface {
   virtual void IncludeOverheadInPacedSender() = 0;
 
   virtual void EnsureStarted() = 0;
+
+  // Called on the transport queue after a send stream has been stopped.
+  virtual void UpdateRtpStates(const std::map<uint32_t, RtpState>& states) = 0;
 };
 
 }  // namespace webrtc

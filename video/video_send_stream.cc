@@ -14,6 +14,7 @@
 #include "api/array_view.h"
 #include "api/task_queue/task_queue_base.h"
 #include "api/video/video_stream_encoder_settings.h"
+#include "call/call.h"
 #include "modules/rtp_rtcp/include/rtp_header_extension_map.h"
 #include "modules/rtp_rtcp/source/rtp_header_extension_size.h"
 #include "modules/rtp_rtcp/source/rtp_sender.h"
@@ -131,58 +132,50 @@ std::unique_ptr<VideoStreamEncoder> CreateVideoStreamEncoder(
 namespace internal {
 
 VideoSendStream::VideoSendStream(
-    Clock* clock,
-    int num_cpu_cores,
-    TaskQueueFactory* task_queue_factory,
-    TaskQueueBase* network_queue,
-    RtcpRttStats* call_stats,
-    RtpTransportControllerSendInterface* transport,
-    BitrateAllocatorInterface* bitrate_allocator,
-    SendDelayStats* send_delay_stats,
-    RtcEventLog* event_log,
+    Call* call,
     VideoSendStream::Config config,
     VideoEncoderConfig encoder_config,
     const std::map<uint32_t, RtpState>& suspended_ssrcs,
     const std::map<uint32_t, RtpPayloadState>& suspended_payload_states,
     std::unique_ptr<FecController> fec_controller)
-    : rtp_transport_queue_(transport->GetWorkerQueue()),
-      transport_(transport),
-      stats_proxy_(clock, config, encoder_config.content_type),
+    : transport_(call->GetTransportControllerSend()),
+      rtp_transport_queue_(transport_->GetWorkerQueue()),
+      stats_proxy_(call->clock(), config, encoder_config.content_type),
       config_(std::move(config)),
       content_type_(encoder_config.content_type),
       video_stream_encoder_(
-          CreateVideoStreamEncoder(clock,
-                                   num_cpu_cores,
-                                   task_queue_factory,
+          CreateVideoStreamEncoder(call->clock(),
+                                   call->num_cpu_cores(),
+                                   call->task_queue_factory(),
                                    &stats_proxy_,
                                    config_.encoder_settings,
                                    GetBitrateAllocationCallbackType(config_))),
       encoder_feedback_(
-          clock,
+          call->clock(),
           config_.rtp.ssrcs,
           video_stream_encoder_.get(),
           [this](uint32_t ssrc, const std::vector<uint16_t>& seq_nums) {
             return rtp_video_sender_->GetSentRtpPacketInfos(ssrc, seq_nums);
           }),
-      rtp_video_sender_(
-          transport->CreateRtpVideoSender(suspended_ssrcs,
-                                          suspended_payload_states,
-                                          config_.rtp,
-                                          config_.rtcp_report_interval_ms,
-                                          config_.send_transport,
-                                          CreateObservers(call_stats,
-                                                          &encoder_feedback_,
-                                                          &stats_proxy_,
-                                                          send_delay_stats),
-                                          event_log,
-                                          std::move(fec_controller),
-                                          CreateFrameEncryptionConfig(&config_),
-                                          config_.frame_transformer)),
-      send_stream_(clock,
+      rtp_video_sender_(transport_->CreateRtpVideoSender(
+          suspended_ssrcs,
+          suspended_payload_states,
+          config_.rtp,
+          config_.rtcp_report_interval_ms,
+          config_.send_transport,
+          CreateObservers(call->rtcp_rtt_stats(),
+                          &encoder_feedback_,
+                          &stats_proxy_,
+                          call->send_delay_stats()),
+          call->event_log(),
+          std::move(fec_controller),
+          CreateFrameEncryptionConfig(&config_),
+          config_.frame_transformer)),
+      send_stream_(call->clock(),
                    &stats_proxy_,
                    rtp_transport_queue_,
-                   transport,
-                   bitrate_allocator,
+                   transport_,
+                   call->bitrate_allocator(),
                    video_stream_encoder_.get(),
                    &config_,
                    encoder_config.max_bitrate_bps,

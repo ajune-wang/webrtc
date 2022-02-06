@@ -1846,6 +1846,10 @@ void WebRtcVideoChannel::OnNetworkRouteChanged(
         webrtc::RtpTransportControllerSendInterface* transport =
             call_->GetTransportControllerSend();
         transport->OnNetworkRouteChanged(name, route);
+        // TODO(tommi): Make this call from the network thread?
+        // Implementation will post to pacer() and then update video senders.
+        // The video senders could be updated on the transport queue instead
+        // of the worker thread.
         transport->OnTransportOverheadChanged(route.packet_overhead);
       }));
 }

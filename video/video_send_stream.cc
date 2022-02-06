@@ -193,7 +193,7 @@ VideoSendStream::VideoSendStream(
 VideoSendStream::~VideoSendStream() {
   RTC_DCHECK_RUN_ON(&thread_checker_);
   RTC_DCHECK(!running_);
-  transport_->DestroyRtpVideoSender(rtp_video_sender_);
+  RTC_DCHECK(!rtp_video_sender_);
 }
 
 void VideoSendStream::UpdateActiveSimulcastLayers(
@@ -324,6 +324,8 @@ void VideoSendStream::StopPermanentlyAndGetRtpStates(
     send_stream_.Stop();
     *rtp_state_map = send_stream_.GetRtpStates();
     *payload_state_map = send_stream_.GetRtpPayloadStates();
+    transport_->DestroyRtpVideoSender(rtp_video_sender_);
+    rtp_video_sender_ = nullptr;
     thread_sync_event_.Set();
   });
   thread_sync_event_.Wait(rtc::Event::kForever);

@@ -152,6 +152,30 @@
       },
       "revId": "c953052c0cc2d0f253581801521c7407d5547516",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "a5729e27_558c244d",
+        "filename": "pc/data_channel_controller.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 82,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2022-02-07T08:54:50Z",
+      "side": 1,
+      "message": "I don\u0027t see how that computes as relevant to this instance. The removal of the callback (the stuff that\u0027s in PostTask) does not dereference the webrtc_data_channel pointer - it\u0027s the callback itself that dereferences the pointer.\nThe only thing it dereferences is the data_channel_controller object, and that is already guarded by a weakpointer.\n\nAgreed on the dispatch-on-id being on the wrong level - I have a refactoring in mind to replace the whole callback structure here with a table of id-\u003echannel mappings that will do a less convoluted dispatch. But that\u0027s for another CL.",
+      "parentUuid": "be645b4a_eedf1861",
+      "range": {
+        "startLine": 81,
+        "startChar": 0,
+        "endLine": 82,
+        "endChar": 45
+      },
+      "revId": "c953052c0cc2d0f253581801521c7407d5547516",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

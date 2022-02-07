@@ -1,0 +1,73 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "cc83ee08_1919452e",
+        "filename": "audio/audio_transport_impl.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 170,
+      "author": {
+        "id": 5119
+      },
+      "writtenOn": "2022-02-07T09:38:47Z",
+      "side": 0,
+      "message": "This CL is quite the workaround :-)",
+      "range": {
+        "startLine": 170,
+        "startChar": 48,
+        "endLine": 170,
+        "endChar": 65
+      },
+      "revId": "59427ad0d8302bd89a32cbbfbd9a3bc0eac51413",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "4c096540_807f79a8",
+        "filename": "modules/audio_processing/audio_processing_impl.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 41,
+      "author": {
+        "id": 5119
+      },
+      "writtenOn": "2022-02-07T09:38:47Z",
+      "side": 0,
+      "message": "Is there a separate CL in flight or in progress to remove the actual submodule?",
+      "range": {
+        "startLine": 41,
+        "startChar": 10,
+        "endLine": 41,
+        "endChar": 52
+      },
+      "revId": "59427ad0d8302bd89a32cbbfbd9a3bc0eac51413",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "fe2903fa_64fd59ff",
+        "filename": "modules/audio_processing/test/audio_processing_simulator.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 108,
+      "author": {
+        "id": 5119
+      },
+      "writtenOn": "2022-02-07T09:38:47Z",
+      "side": 0,
+      "message": "Is there some corresponding field that we should mark deprecated in the aecdumps proto definition?",
+      "range": {
+        "startLine": 108,
+        "startChar": 23,
+        "endLine": 108,
+        "endChar": 30
+      },
+      "revId": "59427ad0d8302bd89a32cbbfbd9a3bc0eac51413",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

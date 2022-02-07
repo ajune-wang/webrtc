@@ -1,0 +1,90 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "8d91ba53_7424ffe5",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5119
+      },
+      "writtenOn": "2022-02-07T09:38:47Z",
+      "side": 1,
+      "message": "Looks good! Some minor clarifying comments.",
+      "revId": "82c5a250d2d771b1b8b7397cde2e0875ceda9263",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "392dde09_2c6083b7",
+        "filename": "api/audio_options.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 67,
+      "author": {
+        "id": 5119
+      },
+      "writtenOn": "2022-02-07T09:38:47Z",
+      "side": 1,
+      "message": "side question - is `experimental_agc` ever used?\nSurprisingly, the flag seems unused, according to a cursory code search.\n\nhttps://source.chromium.org/search?q\u003dexperimental_agc%20f:third_party%2Fwebrtc%2F\u0026sq\u003d\u0026ss\u003dchromium%2Fchromium%2Fsrc",
+      "range": {
+        "startLine": 67,
+        "startChar": 23,
+        "endLine": 67,
+        "endChar": 39
+      },
+      "revId": "82c5a250d2d771b1b8b7397cde2e0875ceda9263",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "7ea64ffb_4944df70",
+        "filename": "api/audio_options.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 68,
+      "author": {
+        "id": 5119
+      },
+      "writtenOn": "2022-02-07T09:38:47Z",
+      "side": 1,
+      "message": "It\u0027s a bit unclear what is deprecated since two options are undocumented, could you add basic comments for `experimental_agc` and `experimental_ns`?\n\nSomething like\n\n  // Audio processing to maybe not do anything at all, see my other comment.\n  absl::optional\u003cbool\u003e experimental_agc;\n  // Audio processing to suppress transient noises.\n  absl::optional\u003cbool\u003e experimental_ns;",
+      "range": {
+        "startLine": 63,
+        "startChar": 0,
+        "endLine": 68,
+        "endChar": 39
+      },
+      "revId": "82c5a250d2d771b1b8b7397cde2e0875ceda9263",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "2d77b492_3c6e69cf",
+        "filename": "call/audio_send_stream.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 64,
+      "author": {
+        "id": 5119
+      },
+      "writtenOn": "2022-02-07T09:38:47Z",
+      "side": 1,
+      "message": "Can this be deleted in this CL?\n\nIt\u0027s not in the API folder.\nIs it anyway used by downstream code / anyway part of the API?",
+      "range": {
+        "startLine": 62,
+        "startChar": 0,
+        "endLine": 64,
+        "endChar": 39
+      },
+      "revId": "82c5a250d2d771b1b8b7397cde2e0875ceda9263",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

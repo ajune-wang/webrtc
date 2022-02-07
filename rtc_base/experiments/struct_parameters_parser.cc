@@ -33,7 +33,10 @@ inline void StringEncode(std::string* target, double val) {
 inline void StringEncode(std::string* target, int val) {
   *target += rtc::ToString(val);
 }
-inline void StringEncode(std::string* target, unsigned val) {
+inline void StringEncode(std::string* target, uint32_t val) {
+  *target += rtc::ToString(val);
+}
+inline void StringEncode(std::string* target, uint64_t val) {
   *target += rtc::ToString(val);
 }
 inline void StringEncode(std::string* target, DataRate val) {
@@ -67,10 +70,12 @@ void TypedParser<T>::Encode(const void* src, std::string* target) {
 template class TypedParser<bool>;
 template class TypedParser<double>;
 template class TypedParser<int>;
-template class TypedParser<unsigned>;
+template class TypedParser<uint32_t>;
+template class TypedParser<uint64_t>;
 template class TypedParser<absl::optional<double>>;
 template class TypedParser<absl::optional<int>>;
-template class TypedParser<absl::optional<unsigned>>;
+template class TypedParser<absl::optional<uint32_t>>;
+template class TypedParser<absl::optional<uint64_t>>;
 
 template class TypedParser<DataRate>;
 template class TypedParser<DataSize>;

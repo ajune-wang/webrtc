@@ -145,11 +145,22 @@ absl::optional<int> ParseTypedParameter<int>(std::string str) {
 }
 
 template <>
-absl::optional<unsigned> ParseTypedParameter<unsigned>(std::string str) {
+absl::optional<uint32_t> ParseTypedParameter<uint32_t>(std::string str) {
   int64_t value;
   if (sscanf(str.c_str(), "%" SCNd64, &value) == 1) {
-    if (rtc::IsValueInRangeForNumericType<unsigned, int64_t>(value)) {
-      return static_cast<unsigned>(value);
+    if (rtc::IsValueInRangeForNumericType<uint32_t, int64_t>(value)) {
+      return static_cast<uint32_t>(value);
+    }
+  }
+  return absl::nullopt;
+}
+
+template <>
+absl::optional<uint64_t> ParseTypedParameter<uint64_t>(std::string str) {
+  int64_t value;
+  if (sscanf(str.c_str(), "%" SCNu64, &value) == 1) {
+    if (rtc::IsValueInRangeForNumericType<uint64_t, int64_t>(value)) {
+      return static_cast<uint64_t>(value);
     }
   }
   return absl::nullopt;
@@ -171,9 +182,14 @@ absl::optional<absl::optional<int>> ParseTypedParameter<absl::optional<int>>(
   return ParseOptionalParameter<int>(str);
 }
 template <>
-absl::optional<absl::optional<unsigned>>
-ParseTypedParameter<absl::optional<unsigned>>(std::string str) {
-  return ParseOptionalParameter<unsigned>(str);
+absl::optional<absl::optional<uint32_t>>
+ParseTypedParameter<absl::optional<uint32_t>>(std::string str) {
+  return ParseOptionalParameter<uint32_t>(str);
+}
+template <>
+absl::optional<absl::optional<uint64_t>>
+ParseTypedParameter<absl::optional<uint64_t>>(std::string str) {
+  return ParseOptionalParameter<uint64_t>(str);
 }
 template <>
 absl::optional<absl::optional<double>>
@@ -241,16 +257,19 @@ bool AbstractFieldTrialEnum::Parse(absl::optional<std::string> str_value) {
 template class FieldTrialParameter<bool>;
 template class FieldTrialParameter<double>;
 template class FieldTrialParameter<int>;
-template class FieldTrialParameter<unsigned>;
+template class FieldTrialParameter<uint32_t>;
+template class FieldTrialParameter<uint64_t>;
 template class FieldTrialParameter<std::string>;
 
 template class FieldTrialConstrained<double>;
 template class FieldTrialConstrained<int>;
-template class FieldTrialConstrained<unsigned>;
+template class FieldTrialConstrained<uint32_t>;
+template class FieldTrialConstrained<uint64_t>;
 
 template class FieldTrialOptional<double>;
 template class FieldTrialOptional<int>;
-template class FieldTrialOptional<unsigned>;
+template class FieldTrialOptional<uint32_t>;
+template class FieldTrialOptional<uint64_t>;
 template class FieldTrialOptional<bool>;
 template class FieldTrialOptional<std::string>;
 

@@ -246,7 +246,9 @@ absl::optional<double> ParseTypedParameter<double>(std::string str);
 template <>
 absl::optional<int> ParseTypedParameter<int>(std::string str);
 template <>
-absl::optional<unsigned> ParseTypedParameter<unsigned>(std::string str);
+absl::optional<uint32_t> ParseTypedParameter<uint32_t>(std::string str);
+template <>
+absl::optional<uint64_t> ParseTypedParameter<uint64_t>(std::string str);
 template <>
 absl::optional<std::string> ParseTypedParameter<std::string>(std::string str);
 
@@ -257,8 +259,11 @@ template <>
 absl::optional<absl::optional<int>> ParseTypedParameter<absl::optional<int>>(
     std::string str);
 template <>
-absl::optional<absl::optional<unsigned>>
-ParseTypedParameter<absl::optional<unsigned>>(std::string str);
+absl::optional<absl::optional<uint32_t>>
+ParseTypedParameter<absl::optional<uint32_t>>(std::string str);
+template <>
+absl::optional<absl::optional<uint64_t>>
+ParseTypedParameter<absl::optional<uint64_t>>(std::string str);
 template <>
 absl::optional<absl::optional<double>>
 ParseTypedParameter<absl::optional<double>>(std::string str);
@@ -270,17 +275,21 @@ extern template class FieldTrialParameter<double>;
 // Interpreted using sscanf %i.
 extern template class FieldTrialParameter<int>;
 // Interpreted using sscanf %u.
-extern template class FieldTrialParameter<unsigned>;
+extern template class FieldTrialParameter<uint32_t>;
+// Interpreted using sscanf % SCNu64.
+extern template class FieldTrialParameter<uint64_t>;
 // Using the given value as is.
 extern template class FieldTrialParameter<std::string>;
 
 extern template class FieldTrialConstrained<double>;
 extern template class FieldTrialConstrained<int>;
-extern template class FieldTrialConstrained<unsigned>;
+extern template class FieldTrialConstrained<uint32_t>;
+extern template class FieldTrialConstrained<uint64_t>;
 
 extern template class FieldTrialOptional<double>;
 extern template class FieldTrialOptional<int>;
-extern template class FieldTrialOptional<unsigned>;
+extern template class FieldTrialOptional<uint32_t>;
+extern template class FieldTrialOptional<uint64_t>;
 extern template class FieldTrialOptional<bool>;
 extern template class FieldTrialOptional<std::string>;
 

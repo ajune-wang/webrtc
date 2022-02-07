@@ -22,6 +22,30 @@
       },
       "revId": "f56a23bb3b362dc75e6841c6b0fec36eefdb2e12",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "81822337_e421640f",
+        "filename": "pc/BUILD.gn",
+        "patchSetId": 1
+      },
+      "lineNbr": 573,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2022-02-07T08:17:58Z",
+      "side": 1,
+      "message": "I\u0027ll have to look at Chrome\u0027s usage to tell. Later CL.\nIt is also used in the JNI directory, so it can\u0027t be :* anyway, and in one internal place.",
+      "parentUuid": "dca306e3_43c6b9be",
+      "range": {
+        "startLine": 573,
+        "startChar": 24,
+        "endLine": 573,
+        "endChar": 40
+      },
+      "revId": "f56a23bb3b362dc75e6841c6b0fec36eefdb2e12",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

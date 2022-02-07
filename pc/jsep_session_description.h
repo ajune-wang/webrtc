@@ -8,11 +8,8 @@
  *  be found in the AUTHORS file in the root of the source tree.
  */
 
-// TODO(deadbeef): Move this out of api/; it's an implementation detail and
-// shouldn't be used externally.
-
-#ifndef API_JSEP_SESSION_DESCRIPTION_H_
-#define API_JSEP_SESSION_DESCRIPTION_H_
+#ifndef PC_JSEP_SESSION_DESCRIPTION_H_
+#define PC_JSEP_SESSION_DESCRIPTION_H_
 
 #include <memory>
 #include <string>
@@ -88,4 +85,4 @@ class JsepSessionDescription : public SessionDescriptionInterface {
 
 }  // namespace webrtc
 
-#endif  // API_JSEP_SESSION_DESCRIPTION_H_
+#endif  // PC_JSEP_SESSION_DESCRIPTION_H_

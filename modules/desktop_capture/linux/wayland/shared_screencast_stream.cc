@@ -36,6 +36,7 @@
 using modules_desktop_capture_linux_wayland::InitializeStubs;
 using modules_desktop_capture_linux_wayland::kModuleDrm;
 using modules_desktop_capture_linux_wayland::kModulePipewire;
+using modules_desktop_capture_linux_wayland::kModuleWayland_client;
 using modules_desktop_capture_linux_wayland::StubPathMap;
 #endif  // defined(WEBRTC_DLOPEN_PIPEWIRE)
 
@@ -46,6 +47,7 @@ const int kBytesPerPixel = 4;
 #if defined(WEBRTC_DLOPEN_PIPEWIRE)
 const char kPipeWireLib[] = "libpipewire-0.3.so.0";
 const char kDrmLib[] = "libdrm.so.2";
+const char kWayland_clientLib[] = "libwayland-client.so.0";
 #endif
 
 #if !PW_CHECK_VERSION(0, 3, 29)
@@ -101,21 +103,28 @@ spa_pod* BuildFormat(spa_pod_builder* builder,
   spa_pod_builder_add(builder, SPA_FORMAT_VIDEO_format, SPA_POD_Id(format), 0);
 
   if (modifiers.size()) {
-    spa_pod_builder_prop(
-        builder, SPA_FORMAT_VIDEO_modifier,
-        SPA_POD_PROP_FLAG_MANDATORY | SPA_POD_PROP_FLAG_DONT_FIXATE);
-    spa_pod_builder_push_choice(builder, &frames[1], SPA_CHOICE_Enum, 0);
-    // modifiers from the array
-    for (int64_t val : modifiers) {
-      spa_pod_builder_long(builder, val);
-      // Add the first modifier twice as the very first value is the default
-      // option
-      if (first) {
+    if (modifiers.size() == 1 && modifiers[0] == DRM_FORMAT_MOD_INVALID) {
+      spa_pod_builder_prop(builder, SPA_FORMAT_VIDEO_modifier,
+                           SPA_POD_PROP_FLAG_MANDATORY);
+      spa_pod_builder_long(builder, modifiers[0]);
+    } else {
+      spa_pod_builder_prop(
+          builder, SPA_FORMAT_VIDEO_modifier,
+          SPA_POD_PROP_FLAG_MANDATORY | SPA_POD_PROP_FLAG_DONT_FIXATE);
+      spa_pod_builder_push_choice(builder, &frames[1], SPA_CHOICE_Enum, 0);
+
+      // modifiers from the array
+      for (int64_t val : modifiers) {
         spa_pod_builder_long(builder, val);
-        first = false;
+        // Add the first modifier twice as the very first value is the default
+        // option
+        if (first) {
+          spa_pod_builder_long(builder, val);
+          first = false;
+        }
       }
+      spa_pod_builder_pop(builder, &frames[1]);
     }
-    spa_pod_builder_pop(builder, &frames[1]);
   }
 
   spa_pod_builder_add(
@@ -433,8 +442,14 @@ bool SharedScreenCastStreamPrivate::StartScreenCastStream(
   // Check if the PipeWire and DRM libraries are available.
   paths[kModulePipewire].push_back(kPipeWireLib);
   paths[kModuleDrm].push_back(kDrmLib);
+  paths[kModuleWayland_client].push_back(kWayland_clientLib);
+
   if (!InitializeStubs(paths)) {
-    RTC_LOG(LS_ERROR) << "Failed to load the PipeWire library and symbols.";
+    RTC_LOG(LS_ERROR)
+        << "One of following libraries is missing on your system:\n"
+        << " - PipeWire (libpipewire-0.3.so.0)\n"
+        << " - drm (libdrm.so.2)\n"
+        << " - wayland-client (libwayland-client.so.0)";
     return false;
   }
 #endif  // defined(WEBRTC_DLOPEN_PIPEWIRE)

@@ -228,12 +228,14 @@ if (is_linux || is_chromeos) {
     pkg_config("egl") {
       packages = [ "egl" ]
     }
-    pkg_config("epoxy") {
-      packages = [ "epoxy" ]
-      ignore_libs = true
-    }
     pkg_config("libdrm") {
       packages = [ "libdrm" ]
+      if (!rtc_link_pipewire) {
+        ignore_libs = true
+      }
+    }
+    pkg_config("wayland_client") {
+      packages = [ "wayland-client" ]
       if (!rtc_link_pipewire) {
         ignore_libs = true
       }
@@ -247,6 +249,7 @@ if (is_linux || is_chromeos) {
           "../../:common_config",
           ":pipewire",
           ":libdrm",
+          ":wayland_client",
         ]
         deps = [ "../../rtc_base" ]
         extra_header = "linux/wayland/pipewire_stub_header.fragment"
@@ -257,6 +260,7 @@ if (is_linux || is_chromeos) {
         sigs = [
           "linux/wayland/pipewire.sigs",
           "linux/wayland/drm.sigs",
+          "linux/wayland/wayland_client.sigs",
         ]
       }
     }
@@ -577,8 +581,8 @@ rtc_library("desktop_capture_generic") {
       ":pipewire",
       ":gbm",
       ":egl",
-      ":epoxy",
       ":libdrm",
+      ":wayland_client",
     ]
 
     if (!rtc_link_pipewire) {

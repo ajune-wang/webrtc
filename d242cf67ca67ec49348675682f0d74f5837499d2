@@ -18,6 +18,24 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "a39f574d_817e612f",
+        "filename": "modules/desktop_capture/linux/wayland/egl_dmabuf.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 351,
+      "author": {
+        "id": 8046
+      },
+      "writtenOn": "2022-02-07T07:48:02Z",
+      "side": 1,
+      "message": "EglGetPlatformDisplay() cannot take \"const wl_display\".",
+      "parentUuid": "63f71d9e_d99a8f82",
+      "revId": "d242cf67ca67ec49348675682f0d74f5837499d2",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "6376f266_e145db3a",
@@ -31,6 +49,24 @@
       "writtenOn": "2022-02-04T17:55:30Z",
       "side": 1,
       "message": "static_cast\u003cEGLint\u003e here and below.",
+      "revId": "d242cf67ca67ec49348675682f0d74f5837499d2",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "3af44033_4f47f6fb",
+        "filename": "modules/desktop_capture/linux/wayland/egl_dmabuf.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 486,
+      "author": {
+        "id": 8046
+      },
+      "writtenOn": "2022-02-07T07:48:02Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "6376f266_e145db3a",
       "revId": "d242cf67ca67ec49348675682f0d74f5837499d2",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
@@ -52,6 +88,24 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "052ceb3c_0c8f6219",
+        "filename": "modules/desktop_capture/linux/wayland/egl_dmabuf.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 492,
+      "author": {
+        "id": 8046
+      },
+      "writtenOn": "2022-02-07T07:48:02Z",
+      "side": 1,
+      "message": "Nope, I think this depends on graphics driver/implementation.",
+      "parentUuid": "74e39649_70abbaf9",
+      "revId": "d242cf67ca67ec49348675682f0d74f5837499d2",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "a0e4fd27_1d08a727",
@@ -65,6 +119,24 @@
       "writtenOn": "2022-02-04T17:55:30Z",
       "side": 1,
       "message": "Is EGLint signed or unsigned?  You\u0027re assigning from the low and high halves of an unsigned uint64_t.",
+      "revId": "d242cf67ca67ec49348675682f0d74f5837499d2",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "852f5e34_6e30fa01",
+        "filename": "modules/desktop_capture/linux/wayland/egl_dmabuf.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 502,
+      "author": {
+        "id": 8046
+      },
+      "writtenOn": "2022-02-07T07:48:02Z",
+      "side": 1,
+      "message": "EGLInt is guaranteed to be 32-bit integer.\n\nFrom documentation:\n* EGL_DMA_BUF_PLANE0_MODIFIER_LO_EXT: The lowest 32 bits of the 64-bit format modifier.\n\n* EGL_DMA_BUF_PLANE0_MODIFIER_HI_EXT: The highest 32 bits of the 64-bit format modifier.\n\nThese attribute values together form an unsigned 64-bit value called a format modifier.",
+      "parentUuid": "a0e4fd27_1d08a727",
       "revId": "d242cf67ca67ec49348675682f0d74f5837499d2",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
@@ -86,6 +158,24 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "9b7fca62_63b783b0",
+        "filename": "modules/desktop_capture/linux/wayland/egl_dmabuf.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 508,
+      "author": {
+        "id": 8046
+      },
+      "writtenOn": "2022-02-07T07:48:02Z",
+      "side": 1,
+      "message": "Yes, but I don\u0027t know how to make it less \"copypasty\" as each plane use different attrib names.",
+      "parentUuid": "669e1191_a426a71c",
+      "revId": "d242cf67ca67ec49348675682f0d74f5837499d2",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "94e08f8e_ccfd5597",
@@ -99,6 +189,24 @@
       "writtenOn": "2022-02-04T17:55:30Z",
       "side": 1,
       "message": "Update comment.",
+      "revId": "d242cf67ca67ec49348675682f0d74f5837499d2",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "b24dedee_e0d79bc1",
+        "filename": "modules/desktop_capture/linux/wayland/egl_dmabuf.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 561,
+      "author": {
+        "id": 8046
+      },
+      "writtenOn": "2022-02-07T07:48:02Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "94e08f8e_ccfd5597",
       "revId": "d242cf67ca67ec49348675682f0d74f5837499d2",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
@@ -120,6 +228,24 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "1351ea2b_1176547b",
+        "filename": "modules/desktop_capture/linux/wayland/egl_dmabuf.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 563,
+      "author": {
+        "id": 8046
+      },
+      "writtenOn": "2022-02-07T07:48:02Z",
+      "side": 1,
+      "message": "Yes and the EGL_LINUX_DMA_BUF_EXT format should be better suitable for this.",
+      "parentUuid": "b375ef41_44bdfef1",
+      "revId": "d242cf67ca67ec49348675682f0d74f5837499d2",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "08f7bac6_0c83e016",
@@ -133,6 +259,24 @@
       "writtenOn": "2022-02-04T17:55:30Z",
       "side": 1,
       "message": "What if this library is not available?\nDo we need a specific minimum version?",
+      "revId": "d242cf67ca67ec49348675682f0d74f5837499d2",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "7f142a52_bae428e9",
+        "filename": "modules/desktop_capture/linux/wayland/shared_screencast_stream.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 49,
+      "author": {
+        "id": 8046
+      },
+      "writtenOn": "2022-02-07T07:48:02Z",
+      "side": 1,
+      "message": "Yes, this is a wrong library name and requires the devel package installed. We don\u0027t need to worry about libwayland-client not being available, it\u0027s an essential library for all Wayland stuff.",
+      "parentUuid": "08f7bac6_0c83e016",
       "revId": "d242cf67ca67ec49348675682f0d74f5837499d2",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
@@ -154,6 +298,24 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "be0fcbd1_8d2b91ca",
+        "filename": "modules/desktop_capture/linux/wayland/shared_screencast_stream.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 108,
+      "author": {
+        "id": 8046
+      },
+      "writtenOn": "2022-02-07T07:48:02Z",
+      "side": 1,
+      "message": "Basically, when we have only 1 modifier and that is DRM_FORMAT_MOD_INVALID, which means we don\u0027t use explicit modifiers, we don\u0027t need to pass \"SPA_POD_PROP_FLAG_DONT_FIXATE\" as there is only one choice so it\u0027s either non-explicit modifiers or no DMA-BUFs at all.",
+      "parentUuid": "e3e46991_946c67ca",
+      "revId": "d242cf67ca67ec49348675682f0d74f5837499d2",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "64ec6322_24d3e5ea",
@@ -167,6 +329,24 @@
       "writtenOn": "2022-02-04T17:55:30Z",
       "side": 1,
       "message": "I don\u0027t see any assignments to frames[1], but it looks like you are pushing it into the POD.",
+      "revId": "d242cf67ca67ec49348675682f0d74f5837499d2",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "432f574d_36dd71ea",
+        "filename": "modules/desktop_capture/linux/wayland/shared_screencast_stream.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 113,
+      "author": {
+        "id": 8046
+      },
+      "writtenOn": "2022-02-07T07:48:02Z",
+      "side": 1,
+      "message": "See https://docs.pipewire.org/page_spa_pod.html\n\nWith this we open a container and all the following code after this will add values to this containter. Then we call spa_pod_builder_pop() to close it.",
+      "parentUuid": "64ec6322_24d3e5ea",
       "revId": "d242cf67ca67ec49348675682f0d74f5837499d2",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }

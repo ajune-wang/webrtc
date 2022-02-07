@@ -104,6 +104,30 @@
       },
       "revId": "c953052c0cc2d0f253581801521c7407d5547516",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "111f9df8_652f9950",
+        "filename": "pc/data_channel_controller.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 82,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2022-02-07T08:16:08Z",
+      "side": 1,
+      "message": "I think it\u0027s impossible, since transitioning to the closed state only happens once per channel, and the callback is a per-channel registration object. Different channels can close and queue more tasks, but the callback will not be triggered again for the same channel.",
+      "parentUuid": "bb6c4ffa_0b45bf6a",
+      "range": {
+        "startLine": 81,
+        "startChar": 0,
+        "endLine": 82,
+        "endChar": 45
+      },
+      "revId": "c953052c0cc2d0f253581801521c7407d5547516",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

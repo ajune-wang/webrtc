@@ -16,6 +16,23 @@
       "message": "Added more documentation and stopped waiting to disconnect the signals that don\u0027t need to wait. This is an area ripe for refactoring.\n",
       "revId": "9cdbf7ff84f39d08aacaed312788d30b54c42b85",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "dc5b0ef4_65c9315a",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 4
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2022-02-07T08:16:08Z",
+      "side": 1,
+      "message": "BTW, a subsidiary change in this CL is to make data_channel_controller depend on peer_connection_internal rather than on peer_connection; this is a needed step in the refactoring of the peerconnection build target.",
+      "revId": "9cdbf7ff84f39d08aacaed312788d30b54c42b85",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "7b7844b7_eec18257",
+        "filename": "call/call.h",
+        "patchSetId": 7
+      },
+      "lineNbr": 38,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2022-02-07T07:49:28Z",
+      "side": 1,
+      "message": "If possible, prefer actual includes over forward declarations.",
+      "range": {
+        "startLine": 37,
+        "startChar": 0,
+        "endLine": 38,
+        "endChar": 21
+      },
+      "revId": "0c267c37bdd2410d2f5a70e0c97d6cee43e40bd6",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "801899a0_bc60dd6d",
+        "filename": "video/video_send_stream.h",
+        "patchSetId": 7
+      },
+      "lineNbr": 59,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2022-02-07T07:49:28Z",
+      "side": 1,
+      "message": "I\u0027d prefer using an interface narrowed down to what\u0027s needed by the VideoSendStream (as I think you mentioned on a TODO comment). Exposing all of the Call class doesn\u0027t seem right.\n\nOne could also consider just packing needed pointers into a struct, but accessor methods may be more flexible when refactoring these things.",
+      "range": {
+        "startLine": 59,
+        "startChar": 6,
+        "endLine": 59,
+        "endChar": 16
+      },
+      "revId": "0c267c37bdd2410d2f5a70e0c97d6cee43e40bd6",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

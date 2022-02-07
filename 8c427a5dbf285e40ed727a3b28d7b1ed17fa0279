@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "4f5618a1_d6f7cbb7",
+        "filename": "PRESUBMIT.py",
+        "patchSetId": 6
+      },
+      "lineNbr": 39,
+      "author": {
+        "id": 12234
+      },
+      "writtenOn": "2022-02-07T10:54:40Z",
+      "side": 1,
+      "message": "Maybe also add audio/test/low_bandwidth_audio_test.py ?",
+      "range": {
+        "startLine": 39,
+        "startChar": 4,
+        "endLine": 39,
+        "endChar": 19
+      },
+      "revId": "8c427a5dbf285e40ed727a3b28d7b1ed17fa0279",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "a8655397_7ce7873e",
+        "filename": "PRESUBMIT.py",
+        "patchSetId": 6
+      },
+      "lineNbr": 220,
+      "author": {
+        "id": 12234
+      },
+      "writtenOn": "2022-02-07T10:54:40Z",
+      "side": 1,
+      "message": "Shouldn\u0027t you test \u0027if file:\u0027 instead of checking len ?\ngo/pystyle#truefalse-evaluations-decision",
+      "range": {
+        "startLine": 220,
+        "startChar": 5,
+        "endLine": 220,
+        "endChar": 19
+      },
+      "revId": "8c427a5dbf285e40ed727a3b28d7b1ed17fa0279",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

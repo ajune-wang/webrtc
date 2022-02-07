@@ -176,6 +176,30 @@
       },
       "revId": "c953052c0cc2d0f253581801521c7407d5547516",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "1d0d042d_614cbae4",
+        "filename": "pc/data_channel_controller.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 82,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2022-02-07T09:12:26Z",
+      "side": 1,
+      "message": "\u003e I don\u0027t see how that computes as relevant to this instance. The removal of the callback (the stuff that\u0027s in PostTask) does not dereference the webrtc_data_channel pointer - it\u0027s the callback itself that dereferences the pointer.\n\nIt\u0027s a bit subtle, but consider this order of events:\n\n1. Data channel A calls DisconnectDataChannel, posting this removal task.\n\n2. Data channel A is destroyed (how and then that could happen is unclear to me)\n\n3. Some unrelated data channel B is closing, triggering a call to data_channel_transport_channel_closed_callbacks_.Send()\n\n4. That means that SctpDataChannel::OnClosingProcedureComplete is called on both A and B, with the method consulting config_.id to see if call is relevant to this object. But in the case of object A, that access to config_ a use after free. \n\n5. The task posted in (1) gets to run, but too late.",
+      "parentUuid": "a5729e27_558c244d",
+      "range": {
+        "startLine": 81,
+        "startChar": 0,
+        "endLine": 82,
+        "endChar": 45
+      },
+      "revId": "c953052c0cc2d0f253581801521c7407d5547516",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

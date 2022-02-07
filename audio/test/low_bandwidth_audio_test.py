@@ -294,7 +294,10 @@ def main():
         '-v', '--num-retries', args.num_retries
     ]
   else:
-    test_command = [os.path.join(args.build_dir, 'low_bandwidth_audio_test')]
+    test_command = [
+        os.path.join(args.build_dir, 'low_bandwidth_audio_test'),
+        '--gtest_output=json:%s' % args.isolated_script_test_output
+    ]
 
   analyzers = [Analyzer('pesq', _RunPesq, pesq_path, 16000)]
   # Check if POLQA can run at all, or skip the 48 kHz tests entirely.
@@ -362,10 +365,6 @@ def main():
   if args.isolated_script_test_perf_output:
     with open(args.isolated_script_test_perf_output, 'wb') as f:
       f.write(histograms.AsProto().SerializeToString())
-
-  if args.isolated_script_test_output:
-    with open(args.isolated_script_test_output, 'w') as f:
-      json.dump({"version": 3}, f)
 
   return test_process.wait()
 

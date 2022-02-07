@@ -13,19 +13,12 @@
 #include <gio/gunixfdlist.h>
 #include <glib-object.h>
 
+#include "modules/desktop_capture/linux/wayland/constants.h"
 #include "modules/desktop_capture/linux/wayland/scoped_glib.h"
 #include "rtc_base/checks.h"
 #include "rtc_base/logging.h"
 
 namespace webrtc {
-
-const char kDesktopBusName[] = "org.freedesktop.portal.Desktop";
-const char kDesktopObjectPath[] = "/org/freedesktop/portal/desktop";
-const char kDesktopRequestObjectPath[] =
-    "/org/freedesktop/portal/desktop/request";
-const char kSessionInterfaceName[] = "org.freedesktop.portal.Session";
-const char kRequestInterfaceName[] = "org.freedesktop.portal.Request";
-const char kScreenCastInterfaceName[] = "org.freedesktop.portal.ScreenCast";
 
 ScreenCastPortal::ScreenCastPortal(CaptureSourceType source_type,
                                    PortalNotifier* notifier)
@@ -465,8 +458,7 @@ void ScreenCastPortal::OnStartRequestResponseSignal(GDBusConnection* connection,
       RTC_DCHECK(options.get());
 
       if (g_variant_lookup(options.get(), "source_type", "u", &type)) {
-        that->capture_source_type_ =
-            static_cast<ScreenCastPortal::CaptureSourceType>(type);
+        that->capture_source_type_ = static_cast<CaptureSourceType>(type);
       }
 
       that->pw_stream_node_id_ = stream_id;
@@ -525,8 +517,7 @@ void ScreenCastPortal::OnOpenPipeWireRemoteRequested(GDBusProxy* proxy,
   }
 
   that->notifier_->OnScreenCastRequestResult(
-      ScreenCastPortal::RequestResponse::kSuccess, that->pw_stream_node_id_,
-      that->pw_fd_);
+      RequestResponse::kSuccess, that->pw_stream_node_id_, that->pw_fd_);
 }
 
 }  // namespace webrtc

@@ -128,6 +128,30 @@
       },
       "revId": "c953052c0cc2d0f253581801521c7407d5547516",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "be645b4a_eedf1861",
+        "filename": "pc/data_channel_controller.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 82,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2022-02-07T08:41:21Z",
+      "side": 1,
+      "message": "I\u0027m a bit concerned that we might get one more call to \nhttps://source.chromium.org/chromium/chromium/src/+/main:third_party/webrtc/pc/sctp_data_channel.cc;drc\u003d01343031cd039eeb6168a60a311f697102dccda2;l\u003d355\nwhich accesses member variable `config_` to determine that call is about some other channel. If the task posted below can race with destruction of the data channel, we\u0027ll get a use-after-free in that callback. But I don\u0027t know when destruction happens.\n\nOne hack to get the dispatch to not depend on that instance being alive might be to add \n```\n  data_channel_transport_channel_closed_callbacks_.AddReceiver(\n      webrtc_data_channel, [webrtc_data_channel, id\u003dwebrtc_data_channel-\u003eid()](int num) {\n        if (num \u003d\u003d id) webrtc_data_channel-\u003eOnClosingProcedureComplete(num);\n     })\n```\n\nThen it should a bit safer, but will still break in case we destroy the data channel and reuse it\u0027s id. \n\nAnother options is to let SctpDataChannel::OnClosingProcedureComplete return a value telling the CallbackList that it should be removed and not called again (as discussed when CallbackList was designed). I think that\u0027s worth investigating. But can be done as a followup, if there\u0027s some reason the destruction race I worry about can\u0027t happen.\n\nI agree this would be generally more sane if the dispatch on id happened before invoking callbacks.",
+      "parentUuid": "111f9df8_652f9950",
+      "range": {
+        "startLine": 81,
+        "startChar": 0,
+        "endLine": 82,
+        "endChar": 45
+      },
+      "revId": "c953052c0cc2d0f253581801521c7407d5547516",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

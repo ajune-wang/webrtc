@@ -18,6 +18,23 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "cc29cf27_311fc624",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 6
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 9405
+      },
+      "writtenOn": "2022-02-07T12:31:37Z",
+      "side": 1,
+      "message": "It seems that third_party/webrtc/tools_webrtc/android/build_aar.py is running with python2. Do you need both py2 and py3 compatibility for some time?\n\n[1] https://logs.chromium.org/logs/webrtc/buildbucket/cr-buildbucket/8822892328489194769/+/u/build_android_archive/execution_details\n[2] https://source.chromium.org/chromium/chromium/tools/build/+/main:recipes/recipe_modules/webrtc/api.py;l\u003d750?q\u003dbuild_aar.py",
+      "revId": "8c427a5dbf285e40ed727a3b28d7b1ed17fa0279",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "4f5618a1_d6f7cbb7",

@@ -1,6 +1,23 @@
 {
   "comments": [
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "05d58f55_61f21a85",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2022-02-07T08:40:24Z",
+      "side": 1,
+      "message": "Seems that reducing visibility is a follow-on effort. Filed new bug.\n",
+      "revId": "f56a23bb3b362dc75e6841c6b0fec36eefdb2e12",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "dca306e3_43c6b9be",
@@ -62,6 +79,30 @@
       "side": 1,
       "message": "Ok, in such case removing the \"visibility\" will be \"webrtc internal\" (see https://source.chromium.org/chromium/chromium/src/+/main:third_party/webrtc/webrtc.gni;l\u003d394-399;drc\u003d03cb7e5a6124d7475bba4da6e5f093f1c0306c9e).\n\nMaybe let\u0027s add a TODO to remove/check Chrome?",
       "parentUuid": "81822337_e421640f",
+      "range": {
+        "startLine": 573,
+        "startChar": 24,
+        "endLine": 573,
+        "endChar": 40
+      },
+      "revId": "f56a23bb3b362dc75e6841c6b0fec36eefdb2e12",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "260762df_9673274f",
+        "filename": "pc/BUILD.gn",
+        "patchSetId": 1
+      },
+      "lineNbr": 573,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2022-02-07T08:40:24Z",
+      "side": 1,
+      "message": "Filed a new webrtc bug, and added\n# TODO(bugs.webrtc.org/13661): Reduce visibility if possible\nin a lot of appropriate places.",
+      "parentUuid": "466d868c_55d5388a",
       "range": {
         "startLine": 573,
         "startChar": 24,

@@ -52,6 +52,24 @@
       "parentUuid": "1478429e_9bff541c",
       "revId": "e578203940a3bf3d17ea29465048dcd058518387",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "de59157a_53363c2e",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5142
+      },
+      "writtenOn": "2022-02-07T12:46:35Z",
+      "side": 1,
+      "message": "Alright that makes sense. Ship it!",
+      "parentUuid": "e49ccf72_a75bc840",
+      "revId": "e578203940a3bf3d17ea29465048dcd058518387",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

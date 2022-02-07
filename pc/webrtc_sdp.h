@@ -20,6 +20,7 @@
 #ifndef PC_WEBRTC_SDP_H_
 #define PC_WEBRTC_SDP_H_
 
+#include <iosfwd>
 #include <string>
 
 #include "api/candidate.h"

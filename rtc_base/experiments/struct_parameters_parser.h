@@ -53,10 +53,12 @@ class TypedParser {
 extern template class TypedParser<bool>;
 extern template class TypedParser<double>;
 extern template class TypedParser<int>;
-extern template class TypedParser<unsigned>;
+extern template class TypedParser<uint32_t>;
+extern template class TypedParser<uint64_t>;
 extern template class TypedParser<absl::optional<double>>;
 extern template class TypedParser<absl::optional<int>>;
-extern template class TypedParser<absl::optional<unsigned>>;
+extern template class TypedParser<absl::optional<uint32_t>>;
+extern template class TypedParser<absl::optional<uint64_t>>;
 
 extern template class TypedParser<DataRate>;
 extern template class TypedParser<DataSize>;

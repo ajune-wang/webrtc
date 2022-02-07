@@ -200,6 +200,30 @@
       },
       "revId": "c953052c0cc2d0f253581801521c7407d5547516",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "eedc6c37_7735b9ba",
+        "filename": "pc/data_channel_controller.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 82,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2022-02-07T10:23:03Z",
+      "side": 1,
+      "message": "Aha. This depends on data channel A still being listed when data channel B closes, and the fact that channel_closed_callbacks_ is delivered to every listed callback. \n\nYes, the workaround in the previous comment will work for that. Coding to make it so.\n\n(We could probably achieve the same thing by using a weak pointer to the channel, but that\u0027s not worth it for this iteration - a dispatch table of id-\u003echannel would solve the problem completely differently.)",
+      "parentUuid": "1d0d042d_614cbae4",
+      "range": {
+        "startLine": 81,
+        "startChar": 0,
+        "endLine": 82,
+        "endChar": 45
+      },
+      "revId": "c953052c0cc2d0f253581801521c7407d5547516",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

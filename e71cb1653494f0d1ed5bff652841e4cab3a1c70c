@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "caa9a4c4_6c5cb9fe",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 5
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2022-02-07T10:23:03Z",
+      "side": 1,
+      "message": "The workaround did not work for all cases, because datachannels get registered before their ID gets assigned when they\u0027re created before connecting.\n\nUnhappy. File a bug and fix later, or do it now?",
+      "revId": "e71cb1653494f0d1ed5bff652841e4cab3a1c70c",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

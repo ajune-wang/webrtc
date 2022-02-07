@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "44f6efc9_2d805ce4",
+        "filename": "call/call_factory.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 88,
+      "author": {
+        "id": 5524
+      },
+      "writtenOn": "2022-02-07T16:45:58Z",
+      "side": 1,
+      "message": "Getting field trial parser to accept size_t is not trivial.\nAlternative solutions includes changing `queue_length_packets` to unsigned,\nor having a duplicate struct member just for parsing this one field.\nNot sure which is less ugly...",
+      "range": {
+        "startLine": 88,
+        "startChar": 39,
+        "endLine": 88,
+        "endChar": 55
+      },
+      "revId": "8d5fce4638fee83dbb9761d2ebd9a29c47a7f293",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

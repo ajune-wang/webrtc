@@ -18,6 +18,24 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "d556a92d_7666019d",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 2
+      },
+      "lineNbr": 9,
+      "author": {
+        "id": 5508
+      },
+      "writtenOn": "2022-02-07T07:45:36Z",
+      "side": 1,
+      "message": "Yes, I had added this note to the review request, but it was missing from the description (fixed now):\n`This reland contains the same changes as the previous CL with the exception\nof the added DCHECKs in audio_track.cc (see diff between the first and second\npatch sets).`",
+      "parentUuid": "9c14da38_edc3e8b0",
+      "revId": "74143387d0c4b1078f1c054e076b6f49f9137c96",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "e36c1c41_7dc72f5d",
@@ -31,6 +49,24 @@
       "writtenOn": "2022-02-07T04:47:46Z",
       "side": 1,
       "message": "No longer true.",
+      "revId": "74143387d0c4b1078f1c054e076b6f49f9137c96",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "f93f8d4c_2ae3b336",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 2
+      },
+      "lineNbr": 18,
+      "author": {
+        "id": 5508
+      },
+      "writtenOn": "2022-02-07T07:45:36Z",
+      "side": 1,
+      "message": "Done - the reland description now contains a note on this but the original change description is unchanged.",
+      "parentUuid": "e36c1c41_7dc72f5d",
       "revId": "74143387d0c4b1078f1c054e076b6f49f9137c96",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },

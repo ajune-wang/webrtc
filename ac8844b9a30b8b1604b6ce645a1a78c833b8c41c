@@ -33,6 +33,46 @@
       "message": "lgtm!",
       "revId": "ac8844b9a30b8b1604b6ce645a1a78c833b8c41c",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "15c2a9c3_9a8a93a1",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 3
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5150
+      },
+      "writtenOn": "2022-02-07T12:18:49Z",
+      "side": 1,
+      "message": "rs LGTM with one nit/comment",
+      "revId": "ac8844b9a30b8b1604b6ce645a1a78c833b8c41c",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "ab684aec_b3ea0cdb",
+        "filename": "call/audio_send_stream.h",
+        "patchSetId": 3
+      },
+      "lineNbr": 62,
+      "author": {
+        "id": 5150
+      },
+      "writtenOn": "2022-02-07T12:18:49Z",
+      "side": 1,
+      "message": "Since both the typing_noise_detected member and the comment is removed in another CL, maybe it should be left untouched in this CL?",
+      "range": {
+        "startLine": 62,
+        "startChar": 0,
+        "endLine": 62,
+        "endChar": 18
+      },
+      "revId": "ac8844b9a30b8b1604b6ce645a1a78c833b8c41c",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

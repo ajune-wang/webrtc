@@ -33,6 +33,24 @@
       "message": "Seems good enough now.\n\nDo you think it would be useful to add a feature to CallbackList to let a callback signal via return value if it wants to stay on the list or not?",
       "revId": "e71cb1653494f0d1ed5bff652841e4cab3a1c70c",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "f50c19aa_aa63e7b6",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 5
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2022-02-07T16:23:56Z",
+      "side": 1,
+      "message": "It would be useful for this particular \"don\u0027t call me again, I\u0027ll be dead the next time if there is one\" situation. Limited use case, but it would make life simpoler for this one.",
+      "parentUuid": "6692cf26_8bf15cce",
+      "revId": "e71cb1653494f0d1ed5bff652841e4cab3a1c70c",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

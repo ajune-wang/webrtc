@@ -46,6 +46,30 @@
       },
       "revId": "f56a23bb3b362dc75e6841c6b0fec36eefdb2e12",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "466d868c_55d5388a",
+        "filename": "pc/BUILD.gn",
+        "patchSetId": 1
+      },
+      "lineNbr": 573,
+      "author": {
+        "id": 5087
+      },
+      "writtenOn": "2022-02-07T08:22:52Z",
+      "side": 1,
+      "message": "Ok, in such case removing the \"visibility\" will be \"webrtc internal\" (see https://source.chromium.org/chromium/chromium/src/+/main:third_party/webrtc/webrtc.gni;l\u003d394-399;drc\u003d03cb7e5a6124d7475bba4da6e5f093f1c0306c9e).\n\nMaybe let\u0027s add a TODO to remove/check Chrome?",
+      "parentUuid": "81822337_e421640f",
+      "range": {
+        "startLine": 573,
+        "startChar": 24,
+        "endLine": 573,
+        "endChar": 40
+      },
+      "revId": "f56a23bb3b362dc75e6841c6b0fec36eefdb2e12",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

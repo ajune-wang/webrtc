@@ -10,7 +10,7 @@ vars = {
   # chromium waterfalls. More info at: crbug.com/570091.
   'checkout_configuration': 'default',
   'checkout_instrumented_libraries': 'checkout_linux and checkout_configuration == "default"',
-  'chromium_revision': '3e0d7b640a9686b5feba24efce5724649c5f9be8',
+  'chromium_revision': 'ace9190ac9dc26130cda3c376c52dbe05d8b0e1a',
 
   # Keep the Chromium default of generating location tags.
   'generate_location_tags': True,
@@ -23,7 +23,7 @@ deps = {
   # TODO(kjellander): Move this to be Android-only once the libevent dependency
   # in base/third_party/libevent is solved.
   'src/base':
-    'https://chromium.googlesource.com/chromium/src/base@7c808cc2b6b105717d98670fd178dc4b7e2436a5',
+    'https://chromium.googlesource.com/chromium/src/base@a459dbab29746cf25161eb7878044e4d93440dcc',
   'src/build':
     'https://chromium.googlesource.com/chromium/src/build@96a2a5744438e1669443de43839ee0e22846e191',
   'src/buildtools':
@@ -34,13 +34,13 @@ deps = {
     'condition': 'checkout_android',
   },
   'src/ios': {
-    'url': 'https://chromium.googlesource.com/chromium/src/ios@7c0e734dc0d65cb91c561e53c4bf51e4de2f49a3',
+    'url': 'https://chromium.googlesource.com/chromium/src/ios@8d015285f76f1e46660bab9c036012a289322778',
     'condition': 'checkout_ios',
   },
   'src/testing':
     'https://chromium.googlesource.com/chromium/src/testing@7832edc9807f0495e54d96242605f4abc23751e8',
   'src/third_party':
-    'https://chromium.googlesource.com/chromium/src/third_party@e632b10a1456b1e599e06d7fe7791eae0028c35f',
+    'https://chromium.googlesource.com/chromium/src/third_party@8ff073eb5d552a6a58348534d74c293b76624031',
 
   'src/buildtools/linux64': {
     'packages': [
@@ -78,7 +78,7 @@ deps = {
   'src/buildtools/third_party/libc++/trunk':
     'https://chromium.googlesource.com/external/github.com/llvm/llvm-project/libcxx.git@79a2e924d96e2fc1e4b937c42efd08898fa472d7',
   'src/buildtools/third_party/libc++abi/trunk':
-    'https://chromium.googlesource.com/external/github.com/llvm/llvm-project/libcxxabi.git@5b0a8cf88eddfb448ca5903128d3328db76e4001',
+    'https://chromium.googlesource.com/external/github.com/llvm/llvm-project/libcxxabi.git@77c52e2f68f76dbe661420d85f51521805990ae2',
   'src/buildtools/third_party/libunwind/trunk':
     'https://chromium.googlesource.com/external/github.com/llvm/llvm-project/libunwind.git@f2ef96ecb8ecba64489f0412d345698ffb38e094',
 
@@ -285,7 +285,7 @@ deps = {
     'condition': 'checkout_win',
   },
   'src/tools':
-    'https://chromium.googlesource.com/chromium/src/tools@13a42c80239294018f6bfca94b23cf25bdf86517',
+    'https://chromium.googlesource.com/chromium/src/tools@f7f87fd6c9fd24aa1e8df33d40afb6cc6661381e',
 
   'src/third_party/accessibility_test_framework': {
       'packages': [
@@ -384,7 +384,7 @@ deps = {
     'packages': [
       {
           'package': 'chromium/third_party/androidx',
-          'version': '_S6ob5k5orx8r5rKoBr0CShQ93YDTrBntP3CxBaF2oQC',
+          'version': 'fCKbgI-2wQuESFG6GNHGXoV1r_7MfjrsOaRv8F7xWa4C',
       },
     ],
     'condition': 'checkout_android',
@@ -478,7 +478,7 @@ deps = {
       'packages': [
           {
               'package': 'chromium/third_party/turbine',
-              'version': 'g7lRRNWdEQAksTvScmHd-o0PUx4ts7kioIdeDtQ-ifMC',
+              'version': 'ZweGxnankyMPNqORbYcApzrOXpyg-9XcK7_-qdjELlcC',
           },
       ],
       'condition': 'checkout_android',

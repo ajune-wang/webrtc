@@ -1,0 +1,44 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "2ee78422_4bc594ba",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2022-02-07T16:14:31Z",
+      "side": 1,
+      "message": "PTAL. Cleanup triggered by reported use-after-free crashes related to BasicNetworkManager::UpdateNetworksContinually.",
+      "revId": "58a31f4b944e162e7135b448a0dd6d6d95516149",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "72fea296_b5de4b88",
+        "filename": "rtc_base/network.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 532,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2022-02-07T16:14:31Z",
+      "side": 1,
+      "message": "Alternatively, could RTC_CHECK that task_safety_flag_ is null here, and start_count_ \u003d\u003d 0, if it is required that StopUpdating as called before the object is destroyed. That\u0027s not clearly documented, but I note that it seems StopNetworkMonitor is never called if the object is destroyed without StopUpdating.",
+      "range": {
+        "startLine": 530,
+        "startChar": 0,
+        "endLine": 532,
+        "endChar": 3
+      },
+      "revId": "58a31f4b944e162e7135b448a0dd6d6d95516149",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

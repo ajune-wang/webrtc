@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "fd2fadb6_1175902c",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5087
+      },
+      "writtenOn": "2022-02-07T12:21:29Z",
+      "side": 1,
+      "message": "Added a +1 to avoid \"Approval from non-uploader required\".",
+      "revId": "d3b1954568e0649904603f5107fff146e2ff1f58",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

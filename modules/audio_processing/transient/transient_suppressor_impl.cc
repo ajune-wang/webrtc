@@ -18,6 +18,7 @@
 #include <deque>
 #include <limits>
 #include <set>
+#include <string>
 
 #include "common_audio/include/audio_util.h"
 #include "common_audio/signal_processing/include/signal_processing_library.h"
@@ -32,7 +33,6 @@
 namespace webrtc {
 
 static const float kMeanIIRCoefficient = 0.5f;
-static const float kVoiceThreshold = 0.02f;
 
 // TODO(aluebs): Check if these values work also for 48kHz.
 static const size_t kMinVoiceBin = 3;
@@ -44,10 +44,25 @@ float ComplexMagnitude(float a, float b) {
   return std::abs(a) + std::abs(b);
 }
 
+std::string GetVadModeLabel(TransientSuppressor::VadMode vad_mode) {
+  switch (vad_mode) {
+    case TransientSuppressor::VadMode::kDefault:
+      return "default";
+    case TransientSuppressor::VadMode::kRnnVad:
+      return "RNN VAD";
+    case TransientSuppressor::VadMode::kTsVad:
+      return "TS VAD";
+    case TransientSuppressor::VadMode::kNoVad:
+      return "no VAD";
+  }
+}
+
 }  // namespace
 
-TransientSuppressorImpl::TransientSuppressorImpl()
-    : data_length_(0),
+TransientSuppressorImpl::TransientSuppressorImpl(VadMode vad_mode)
+    : vad_mode_(vad_mode),
+      analyzed_audio_is_silent_(false),
+      data_length_(0),
       detection_length_(0),
       analysis_length_(0),
       buffer_delay_(0),
@@ -62,7 +77,9 @@ TransientSuppressorImpl::TransientSuppressorImpl()
       use_hard_restoration_(false),
       chunks_since_voice_change_(0),
       seed_(182),
-      using_reference_(false) {}
+      using_reference_(false) {
+  RTC_LOG(LS_INFO) << "VAD mode: " << GetVadModeLabel(vad_mode_);
+}
 
 TransientSuppressorImpl::~TransientSuppressorImpl() {}
 
@@ -156,6 +173,31 @@ int TransientSuppressorImpl::Initialize(int sample_rate_hz,
   seed_ = 182;
   using_reference_ = false;
   return 0;
+}
+
+void TransientSuppressorImpl::Analyze(const AudioBuffer& audio) {
+  if (vad_mode_ != VadMode::kTsVad) {
+    return;
+  }
+  RTC_DCHECK_EQ(audio.num_channels(), num_channels_);
+
+  // Detect silence if all the channels contain silence.
+  analyzed_audio_is_silent_ = true;
+  const size_t frame_size = audio.num_frames_per_band();
+  for (size_t c = 0; c < audio.num_channels(); ++c) {
+    const float* data = audio.split_bands_const(/*channel=*/c)[kBand0To8kHz];
+    // Detect silence by checking if the RMS level is below a threshold.
+    float energy = 0.0f;
+    for (size_t i = 0; i < frame_size; ++i) {
+      energy += data[i] * data[i];
+    }
+    float rms_square = energy / data_length_;
+    constexpr int kSilenceRms = 5;
+    if (rms_square >= kSilenceRms * kSilenceRms) {
+      analyzed_audio_is_silent_ = false;
+      break;
+    }
+  }
 }
 
 int TransientSuppressorImpl::Suppress(float* data,
@@ -304,15 +346,38 @@ void TransientSuppressorImpl::UpdateKeypress(bool key_pressed) {
 }
 
 void TransientSuppressorImpl::UpdateRestoration(float voice_probability) {
-  const int kHardRestorationOffsetDelay = 3;
-  const int kHardRestorationOnsetDelay = 80;
-
-  bool not_voiced = voice_probability < kVoiceThreshold;
+  bool not_voiced;
+  switch (vad_mode_) {
+    case TransientSuppressor::VadMode::kDefault: {
+      constexpr float kVoiceThreshold = 0.02f;
+      not_voiced = voice_probability < kVoiceThreshold;
+      break;
+    }
+    case TransientSuppressor::VadMode::kRnnVad: {
+      constexpr float kVoiceThreshold = 0.7f;
+      not_voiced = voice_probability < kVoiceThreshold;
+      break;
+    }
+    case TransientSuppressor::VadMode::kTsVad:
+      // Treat any audible sound, including noise, as voice.
+      // This option behaves as the `kNoVad` one if the energy threshold used to
+      // detect silence is too low.
+      not_voiced = analyzed_audio_is_silent_;
+      break;
+    case TransientSuppressor::VadMode::kNoVad:
+      // Always assume that voice is detected.
+      not_voiced = false;
+      break;
+  }
 
   if (not_voiced == use_hard_restoration_) {
     chunks_since_voice_change_ = 0;
   } else {
     ++chunks_since_voice_change_;
+
+    // Number of 10 ms frame to wait to transition to and from hard restoration.
+    constexpr int kHardRestorationOffsetDelay = 3;
+    constexpr int kHardRestorationOnsetDelay = 80;
 
     if ((use_hard_restoration_ &&
          chunks_since_voice_change_ > kHardRestorationOffsetDelay) ||

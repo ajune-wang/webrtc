@@ -1,6 +1,40 @@
 {
   "comments": [
     {
+      "unresolved": true,
+      "key": {
+        "uuid": "9c14da38_edc3e8b0",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 2
+      },
+      "lineNbr": 9,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2022-02-07T04:47:46Z",
+      "side": 1,
+      "message": "Missing information on what changed to fix the earlier rollback.\nDownstream changes to tolerate this CL, or changes in this CL?\n\n(From the change between #1 and #2, I would guess that set_enabled or enabled() was called on the wrong thread downstream)",
+      "revId": "74143387d0c4b1078f1c054e076b6f49f9137c96",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "e36c1c41_7dc72f5d",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 2
+      },
+      "lineNbr": 18,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2022-02-07T04:47:46Z",
+      "side": 1,
+      "message": "No longer true.",
+      "revId": "74143387d0c4b1078f1c054e076b6f49f9137c96",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": false,
       "key": {
         "uuid": "eec049dd_22265fc9",
@@ -14,6 +48,23 @@
       "writtenOn": "2022-02-06T11:19:28Z",
       "side": 1,
       "message": "This reland contains the same changes as the previous CL with the exception of the added DCHECKs in audio_track.cc (see diff between the first and second patch sets).",
+      "revId": "74143387d0c4b1078f1c054e076b6f49f9137c96",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "f502fc7d_0b58deec",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2022-02-07T04:47:46Z",
+      "side": 1,
+      "message": "Please give more info in CL description about the reland.\n",
       "revId": "74143387d0c4b1078f1c054e076b6f49f9137c96",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }

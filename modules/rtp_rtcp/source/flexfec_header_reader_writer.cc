@@ -252,12 +252,14 @@ size_t FlexfecHeaderWriter::FecHeaderSize(size_t packet_mask_size) const {
 void FlexfecHeaderWriter::FinalizeFecHeader(
     uint32_t media_ssrc,
     uint16_t seq_num_base,
+    uint32_t timestamp,
     const uint8_t* packet_mask,
     size_t packet_mask_size,
     ForwardErrorCorrection::Packet* fec_packet) const {
   uint8_t* data = fec_packet->data.MutableData();
   data[0] &= 0x7f;  // Clear R bit.
   data[0] &= 0xbf;  // Clear F bit.
+  ByteWriter<uint32_t>::WriteBigEndian(&data[4], timestamp);
   ByteWriter<uint8_t>::WriteBigEndian(&data[8], kSsrcCount);
   ByteWriter<uint32_t, 3>::WriteBigEndian(&data[9], kReservedBits);
   ByteWriter<uint32_t>::WriteBigEndian(&data[12], media_ssrc);

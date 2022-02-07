@@ -59,6 +59,7 @@ class UlpfecHeaderWriter : public FecHeaderWriter {
   void FinalizeFecHeader(
       uint32_t media_ssrc,  // Unused by ULPFEC.
       uint16_t seq_num_base,
+      uint32_t timestamp_base,  // Unused by ULPFEC.
       const uint8_t* packet_mask,
       size_t packet_mask_size,
       ForwardErrorCorrection::Packet* fec_packet) const override;

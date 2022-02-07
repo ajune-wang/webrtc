@@ -110,6 +110,7 @@ size_t UlpfecHeaderWriter::FecHeaderSize(size_t packet_mask_size) const {
 void UlpfecHeaderWriter::FinalizeFecHeader(
     uint32_t /* media_ssrc */,
     uint16_t seq_num_base,
+    uint32_t /* timestamp */,
     const uint8_t* packet_mask,
     size_t packet_mask_size,
     ForwardErrorCorrection::Packet* fec_packet) const {

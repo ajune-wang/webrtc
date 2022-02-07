@@ -183,7 +183,9 @@ int ForwardErrorCorrection::EncodeFec(const PacketList& media_packets,
   const uint32_t media_ssrc = ParseSsrc(media_packets.front()->data.data());
   const uint16_t seq_num_base =
       ParseSequenceNumber(media_packets.front()->data.data());
-  FinalizeFecHeaders(num_fec_packets, media_ssrc, seq_num_base);
+  const uint32_t timestamp_base =
+      ParseTimestamp(media_packets.front()->data.data());
+  FinalizeFecHeaders(num_fec_packets, media_ssrc, seq_num_base, timestamp_base);
 
   return 0;
 }
@@ -343,11 +345,13 @@ int ForwardErrorCorrection::InsertZerosInPacketMasks(
 
 void ForwardErrorCorrection::FinalizeFecHeaders(size_t num_fec_packets,
                                                 uint32_t media_ssrc,
-                                                uint16_t seq_num_base) {
+                                                uint16_t seq_num_base,
+                                                uint32_t timestamp_base) {
   for (size_t i = 0; i < num_fec_packets; ++i) {
     fec_header_writer_->FinalizeFecHeader(
-        media_ssrc, seq_num_base, &packet_masks_[i * packet_mask_size_],
-        packet_mask_size_, &generated_fec_packets_[i]);
+        media_ssrc, seq_num_base, timestamp_base,
+        &packet_masks_[i * packet_mask_size_], packet_mask_size_,
+        &generated_fec_packets_[i]);
   }
 }
 
@@ -754,6 +758,10 @@ uint16_t ForwardErrorCorrection::ParseSequenceNumber(const uint8_t* packet) {
 
 uint32_t ForwardErrorCorrection::ParseSsrc(const uint8_t* packet) {
   return (packet[8] << 24) + (packet[9] << 16) + (packet[10] << 8) + packet[11];
+}
+
+uint32_t ForwardErrorCorrection::ParseTimestamp(const uint8_t* packet) {
+  return (packet[4] << 24) + (packet[5] << 16) + (packet[6] << 8) + packet[7];
 }
 
 void ForwardErrorCorrection::DecodeFec(const ReceivedPacket& received_packet,

@@ -237,6 +237,7 @@ class ForwardErrorCorrection {
   // have been refactored.
   static uint16_t ParseSequenceNumber(const uint8_t* packet);
   static uint32_t ParseSsrc(const uint8_t* packet);
+  static uint32_t ParseTimestamp(const uint8_t* packet);
 
  protected:
   ForwardErrorCorrection(std::unique_ptr<FecHeaderReader> fec_header_reader,
@@ -262,7 +263,8 @@ class ForwardErrorCorrection {
   // This includes writing the packet masks.
   void FinalizeFecHeaders(size_t num_fec_packets,
                           uint32_t media_ssrc,
-                          uint16_t seq_num_base);
+                          uint16_t seq_num_base,
+                          uint32_t timestamp_base);
 
   // Inserts the `received_packet` into the internal received FEC packet list
   // or into `recovered_packets`.
@@ -405,6 +407,7 @@ class FecHeaderWriter {
   virtual void FinalizeFecHeader(
       uint32_t media_ssrc,
       uint16_t seq_num_base,
+      uint32_t timestamp_base,
       const uint8_t* packet_mask,
       size_t packet_mask_size,
       ForwardErrorCorrection::Packet* fec_packet) const = 0;

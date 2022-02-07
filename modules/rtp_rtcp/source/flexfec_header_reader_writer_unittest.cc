@@ -34,6 +34,7 @@ using ReceivedFecPacket = ForwardErrorCorrection::ReceivedFecPacket;
 // General. Assume single-stream protection.
 constexpr uint32_t kMediaSsrc = 1254983;
 constexpr uint16_t kMediaStartSeqNum = 825;
+constexpr uint32_t kTimestamp = 1477868400;
 constexpr size_t kMediaPacketLength = 1234;
 constexpr uint32_t kFlexfecSsrc = 52142;
 
@@ -82,8 +83,8 @@ rtc::scoped_refptr<Packet> WriteHeader(const uint8_t* packet_mask,
   for (size_t i = 0; i < written_packet->data.size(); ++i) {
     data[i] = i;  // Actual content doesn't matter.
   }
-  writer.FinalizeFecHeader(kMediaSsrc, kMediaStartSeqNum, packet_mask,
-                           packet_mask_size, written_packet.get());
+  writer.FinalizeFecHeader(kMediaSsrc, kMediaStartSeqNum, kTimestamp,
+                           packet_mask, packet_mask_size, written_packet.get());
   return written_packet;
 }
 
@@ -335,8 +336,9 @@ TEST(FlexfecHeaderWriterTest, FinalizesHeaderWithKBit0Set) {
   }
 
   FlexfecHeaderWriter writer;
-  writer.FinalizeFecHeader(kMediaSsrc, kMediaStartSeqNum, kUlpfecPacketMask,
-                           sizeof(kUlpfecPacketMask), &written_packet);
+  writer.FinalizeFecHeader(kMediaSsrc, kMediaStartSeqNum, kTimestamp,
+                           kUlpfecPacketMask, sizeof(kUlpfecPacketMask),
+                           &written_packet);
 
   VerifyFinalizedHeaders(kFlexfecPacketMask, kExpectedPacketMaskSize,
                          written_packet);
@@ -354,8 +356,9 @@ TEST(FlexfecHeaderWriterTest, FinalizesHeaderWithKBit1Set) {
   }
 
   FlexfecHeaderWriter writer;
-  writer.FinalizeFecHeader(kMediaSsrc, kMediaStartSeqNum, kUlpfecPacketMask,
-                           sizeof(kUlpfecPacketMask), &written_packet);
+  writer.FinalizeFecHeader(kMediaSsrc, kMediaStartSeqNum, kTimestamp,
+                           kUlpfecPacketMask, sizeof(kUlpfecPacketMask),
+                           &written_packet);
 
   VerifyFinalizedHeaders(kFlexfecPacketMask, kExpectedPacketMaskSize,
                          written_packet);
@@ -377,8 +380,9 @@ TEST(FlexfecHeaderWriterTest, FinalizesHeaderWithKBit2Set) {
   }
 
   FlexfecHeaderWriter writer;
-  writer.FinalizeFecHeader(kMediaSsrc, kMediaStartSeqNum, kUlpfecPacketMask,
-                           sizeof(kUlpfecPacketMask), &written_packet);
+  writer.FinalizeFecHeader(kMediaSsrc, kMediaStartSeqNum, kTimestamp,
+                           kUlpfecPacketMask, sizeof(kUlpfecPacketMask),
+                           &written_packet);
 
   VerifyFinalizedHeaders(kFlexfecPacketMask, kExpectedPacketMaskSize,
                          written_packet);

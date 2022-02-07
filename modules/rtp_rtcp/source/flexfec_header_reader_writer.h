@@ -78,6 +78,7 @@ class FlexfecHeaderWriter : public FecHeaderWriter {
   void FinalizeFecHeader(
       uint32_t media_ssrc,
       uint16_t seq_num_base,
+      uint32_t timestamp_base,
       const uint8_t* packet_mask,
       size_t packet_mask_size,
       ForwardErrorCorrection::Packet* fec_packet) const override;

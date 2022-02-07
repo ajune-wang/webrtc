@@ -32,6 +32,7 @@ using ReceivedFecPacket = ForwardErrorCorrection::ReceivedFecPacket;
 
 constexpr uint32_t kMediaSsrc = 1254983;
 constexpr uint16_t kMediaStartSeqNum = 825;
+constexpr uint32_t kTimestamp = 1196463600;
 constexpr size_t kMediaPacketLength = 1234;
 
 constexpr size_t kUlpfecHeaderSizeLBitClear = 14;
@@ -57,8 +58,8 @@ std::unique_ptr<Packet> WriteHeader(const uint8_t* packet_mask,
   for (size_t i = 0; i < written_packet->data.size(); ++i) {
     data[i] = i;  // Actual content doesn't matter.
   }
-  writer.FinalizeFecHeader(kMediaSsrc, kMediaStartSeqNum, packet_mask,
-                           packet_mask_size, written_packet.get());
+  writer.FinalizeFecHeader(kMediaSsrc, kMediaStartSeqNum, kTimestamp,
+                           packet_mask, packet_mask_size, written_packet.get());
   return written_packet;
 }
 
@@ -155,8 +156,9 @@ TEST(UlpfecHeaderWriterTest, FinalizesSmallHeader) {
   }
 
   UlpfecHeaderWriter writer;
-  writer.FinalizeFecHeader(kMediaSsrc, kMediaStartSeqNum, packet_mask.get(),
-                           packet_mask_size, &written_packet);
+  writer.FinalizeFecHeader(kMediaSsrc, kMediaStartSeqNum, kTimestamp,
+                           packet_mask.get(), packet_mask_size,
+                           &written_packet);
 
   const uint8_t* packet = written_packet.data.cdata();
   EXPECT_EQ(0x00, packet[0] & 0x80);  // E bit.
@@ -180,8 +182,9 @@ TEST(UlpfecHeaderWriterTest, FinalizesLargeHeader) {
   }
 
   UlpfecHeaderWriter writer;
-  writer.FinalizeFecHeader(kMediaSsrc, kMediaStartSeqNum, packet_mask.get(),
-                           packet_mask_size, &written_packet);
+  writer.FinalizeFecHeader(kMediaSsrc, kMediaStartSeqNum, kTimestamp,
+                           packet_mask.get(), packet_mask_size,
+                           &written_packet);
 
   const uint8_t* packet = written_packet.data.cdata();
   EXPECT_EQ(0x00, packet[0] & 0x80);  // E bit.

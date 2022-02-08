@@ -16,6 +16,23 @@
       "message": "Sam, PTAL at this small CL, and consider my question in common.h.\n\nThanks!",
       "revId": "cea3abd18ba52a5f7a07dcbd49bb0ce9151bb035",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "6a5cfebb_cc2702cf",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5119
+      },
+      "writtenOn": "2022-02-08T09:03:26Z",
+      "side": 1,
+      "message": "Nice, LGTM! but feel free to remove common.h as you described, before submitting.",
+      "revId": "cea3abd18ba52a5f7a07dcbd49bb0ce9151bb035",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

@@ -22,6 +22,53 @@
       },
       "revId": "b6f3916c486795b60b810e6b738b072e5cbcdb0d",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "538999cd_689bbd9c",
+        "filename": "modules/audio_processing/common.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 19,
+      "author": {
+        "id": 5119
+      },
+      "writtenOn": "2022-02-08T09:03:26Z",
+      "side": 0,
+      "message": "SGTM, makes it clearer how it is used.",
+      "parentUuid": "c969cac6_4a6e7fdd",
+      "range": {
+        "startLine": 19,
+        "startChar": 14,
+        "endLine": 19,
+        "endChar": 37
+      },
+      "revId": "b6f3916c486795b60b810e6b738b072e5cbcdb0d",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "4987c1b7_f113c7d0",
+        "filename": "modules/audio_processing/include/audio_processing.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 388,
+      "author": {
+        "id": 5119
+      },
+      "writtenOn": "2022-02-08T09:03:26Z",
+      "side": 0,
+      "message": "A tenacious API - almost 7 years between TODO and resolution :-)",
+      "range": {
+        "startLine": 387,
+        "startChar": 0,
+        "endLine": 388,
+        "endChar": 77
+      },
+      "revId": "b6f3916c486795b60b810e6b738b072e5cbcdb0d",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

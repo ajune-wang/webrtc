@@ -30,25 +30,39 @@ class FrameDecodeScheduler {
   using FrameReleaseCallback =
       std::function<void(uint32_t rtp_timestamp, Timestamp render_time)>;
 
-  FrameDecodeScheduler(Clock* clock,
-                       TaskQueueBase* const bookkeeping_queue,
-                       FrameReleaseCallback callback);
-  ~FrameDecodeScheduler();
-  FrameDecodeScheduler(const FrameDecodeScheduler&) = delete;
-  FrameDecodeScheduler& operator=(const FrameDecodeScheduler&) = delete;
+  virtual ~FrameDecodeScheduler() = default;
+  virtual absl::optional<uint32_t> ScheduledRtpTimestamp() = 0;
+  virtual void ScheduleFrame(uint32_t rtp,
+                             FrameDecodeTiming::FrameSchedule schedule,
+                             FrameReleaseCallback cb) = 0;
+  virtual void CancelOutstanding() = 0;
+  virtual void Stop() = 0;
+};
 
-  absl::optional<uint32_t> scheduled_rtp() const { return scheduled_rtp_; }
+class TaskQueueFrameDecodeScheduler : public FrameDecodeScheduler {
+ public:
+  TaskQueueFrameDecodeScheduler(Clock* clock,
+                                TaskQueueBase* const bookkeeping_queue);
+  ~TaskQueueFrameDecodeScheduler() override;
+  TaskQueueFrameDecodeScheduler(const TaskQueueFrameDecodeScheduler&) = delete;
+  TaskQueueFrameDecodeScheduler& operator=(
+      const TaskQueueFrameDecodeScheduler&) = delete;
 
-  void ScheduleFrame(uint32_t rtp, FrameDecodeTiming::FrameSchedule schedule);
-  void CancelOutstanding();
+  absl::optional<uint32_t> ScheduledRtpTimestamp() override;
+
+  void ScheduleFrame(uint32_t rtp,
+                     FrameDecodeTiming::FrameSchedule schedule,
+                     FrameReleaseCallback cb) override;
+  void CancelOutstanding() override;
+  void Stop() override;
 
  private:
   Clock* const clock_;
   TaskQueueBase* const bookkeeping_queue_;
-  const FrameReleaseCallback callback_;
 
   absl::optional<uint32_t> scheduled_rtp_;
   ScopedTaskSafetyDetached task_safety_;
+  bool stopped_ = false;
 };
 
 }  // namespace webrtc

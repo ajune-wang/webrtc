@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "17118542_0f53b806",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 7
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 6192
+      },
+      "writtenOn": "2022-02-08T09:33:37Z",
+      "side": 1,
+      "message": "Want to land https://chromium-review.googlesource.com/c/chromium/tools/build/+/3447100 first.",
+      "revId": "d6972cbdddd53ccf43951639cafbfdfefdde272b",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

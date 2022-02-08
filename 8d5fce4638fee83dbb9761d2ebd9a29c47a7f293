@@ -22,6 +22,30 @@
       },
       "revId": "8d5fce4638fee83dbb9761d2ebd9a29c47a7f293",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "e07a1514_ba9aee12",
+        "filename": "call/call_factory.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 88,
+      "author": {
+        "id": 6549
+      },
+      "writtenOn": "2022-02-08T09:01:50Z",
+      "side": 1,
+      "message": "Perhaps add a comment about this workaround at least.",
+      "parentUuid": "44f6efc9_2d805ce4",
+      "range": {
+        "startLine": 88,
+        "startChar": 39,
+        "endLine": 88,
+        "endChar": 55
+      },
+      "revId": "8d5fce4638fee83dbb9761d2ebd9a29c47a7f293",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

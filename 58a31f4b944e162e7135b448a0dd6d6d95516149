@@ -18,6 +18,23 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "f1117412_55967bb6",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5508
+      },
+      "writtenOn": "2022-02-08T08:02:19Z",
+      "side": 1,
+      "message": "This is definitely an improvement. A couple of questions before landing. We could decide that these things are not worth it, do it as part of this CL or as a follow up.",
+      "revId": "58a31f4b944e162e7135b448a0dd6d6d95516149",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "72fea296_b5de4b88",
@@ -37,6 +54,64 @@
         "endLine": 532,
         "endChar": 3
       },
+      "revId": "58a31f4b944e162e7135b448a0dd6d6d95516149",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "8a793e90_59261c6b",
+        "filename": "rtc_base/network.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 532,
+      "author": {
+        "id": 5508
+      },
+      "writtenOn": "2022-02-08T08:02:19Z",
+      "side": 1,
+      "message": "Is using ScopedTaskSafety not an option?",
+      "parentUuid": "72fea296_b5de4b88",
+      "range": {
+        "startLine": 530,
+        "startChar": 0,
+        "endLine": 532,
+        "endChar": 3
+      },
+      "revId": "58a31f4b944e162e7135b448a0dd6d6d95516149",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "53fa2ae2_3df92c24",
+        "filename": "rtc_base/network.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 925,
+      "author": {
+        "id": 5508
+      },
+      "writtenOn": "2022-02-08T08:02:19Z",
+      "side": 1,
+      "message": "ah, I guess that if we used ScopedTaskSafety, then we\u0027d need some sort of a Reset() method that would do this (i.e. mark the current flag as not alive and create a new one)?",
+      "revId": "58a31f4b944e162e7135b448a0dd6d6d95516149",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "83569749_a29cc889",
+        "filename": "rtc_base/network.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 1029,
+      "author": {
+        "id": 5508
+      },
+      "writtenOn": "2022-02-08T08:02:19Z",
+      "side": 1,
+      "message": "Would it make sense to use RepeatingTaskHandle?",
       "revId": "58a31f4b944e162e7135b448a0dd6d6d95516149",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }

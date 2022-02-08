@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "c969cac6_4a6e7fdd",
+        "filename": "modules/audio_processing/common.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 19,
+      "author": {
+        "id": 5100
+      },
+      "writtenOn": "2022-02-08T08:49:26Z",
+      "side": 0,
+      "message": "This could be moved to audio_processing_impl.h, and this file could be removed. WDYT?",
+      "range": {
+        "startLine": 19,
+        "startChar": 14,
+        "endLine": 19,
+        "endChar": 37
+      },
+      "revId": "b6f3916c486795b60b810e6b738b072e5cbcdb0d",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

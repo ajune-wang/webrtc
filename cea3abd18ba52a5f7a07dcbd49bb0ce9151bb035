@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "a2f93ae6_d5a2f381",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5100
+      },
+      "writtenOn": "2022-02-08T08:49:26Z",
+      "side": 1,
+      "message": "Sam, PTAL at this small CL, and consider my question in common.h.\n\nThanks!",
+      "revId": "cea3abd18ba52a5f7a07dcbd49bb0ce9151bb035",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

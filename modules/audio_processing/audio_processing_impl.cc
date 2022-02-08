@@ -1305,7 +1305,13 @@ int AudioProcessingImpl::ProcessCaptureStreamLocked() {
           }
           break;
         case TransientSuppressor::VadMode::kRnnVad:
-          // TODO(bugs.webrtc.org/13663): Use RNN VAD.
+          if (submodules_.gain_controller2) {
+            absl::optional<float> speech_probability =
+                submodules_.gain_controller2->Analyze(capture_buffer);
+            if (speech_probability.has_value()) {
+              voice_probability = *speech_probability;
+            }
+          }
           break;
         case TransientSuppressor::VadMode::kTsVad:
         case TransientSuppressor::VadMode::kNoVad:

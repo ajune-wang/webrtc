@@ -14,6 +14,7 @@
 #include <memory>
 #include <string>
 
+#include "absl/types/optional.h"
 #include "modules/audio_processing/agc2/adaptive_digital_gain_controller.h"
 #include "modules/audio_processing/agc2/cpu_features.h"
 #include "modules/audio_processing/agc2/gain_applier.h"
@@ -43,7 +44,17 @@ class GainController2 {
   // Sets the fixed digital gain.
   void SetFixedGainDb(float gain_db);
 
+  // Analyzes `audio`. This method and `Process()` are kept separate so that it
+  // is possible to perform the analyses on a different tap point (e.g., before
+  // transient suppression). Returns the speech probability for `audio`, that is
+  // a value in [0, 1] - the higher, the more likelihood that speech is present.
+  // Returns an unspecified value if, due to the configuration provided at
+  // construction time, voice activity detection is disabled.
+  absl::optional<float> Analyze(const AudioBuffer* audio);
+
   // Applies fixed and adaptive digital gains to `audio` and runs a limiter.
+  // Calls `Analyze()` if it has not been called since the last call to
+  // `Process()`.
   void Process(AudioBuffer* audio);
 
   // Handles analog level changes.
@@ -59,6 +70,7 @@ class GainController2 {
   std::unique_ptr<VoiceActivityDetectorWrapper> vad_;
   std::unique_ptr<AdaptiveDigitalGainController> adaptive_digital_controller_;
   Limiter limiter_;
+  absl::optional<float> speech_probability_;
   int calls_since_last_limiter_log_;
   int analog_level_;
 };

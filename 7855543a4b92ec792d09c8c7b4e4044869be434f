@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "71f3801f_a73b9872",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2022-02-08T17:00:21Z",
+      "side": 1,
+      "message": "This is the CL that causes an empty target to happen.\nBut it depends on a lot of rtc_source_set targets.\n",
+      "revId": "7855543a4b92ec792d09c8c7b4e4044869be434f",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

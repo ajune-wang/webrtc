@@ -35,6 +35,23 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "cff9db26_0be67661",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5613
+      },
+      "writtenOn": "2022-02-08T08:07:39Z",
+      "side": 1,
+      "message": "not expert in this area (webrtc task queue details), but LGTM",
+      "revId": "58a31f4b944e162e7135b448a0dd6d6d95516149",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "72fea296_b5de4b88",

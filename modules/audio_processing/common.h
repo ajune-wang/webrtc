@@ -20,19 +20,6 @@ constexpr int RuntimeSettingQueueSize() {
   return 100;
 }
 
-static inline size_t ChannelsFromLayout(AudioProcessing::ChannelLayout layout) {
-  switch (layout) {
-    case AudioProcessing::kMono:
-    case AudioProcessing::kMonoAndKeyboard:
-      return 1;
-    case AudioProcessing::kStereo:
-    case AudioProcessing::kStereoAndKeyboard:
-      return 2;
-  }
-  RTC_DCHECK_NOTREACHED();
-  return 0;
-}
-
 }  // namespace webrtc
 
 #endif  // MODULES_AUDIO_PROCESSING_COMMON_H_

@@ -33,6 +33,24 @@
       "message": "Nit: This should go before \"visibility\".",
       "revId": "1597f7a4a29113a9841a02a81b6665d525634d59",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "a292519b_2e3d2cf0",
+        "filename": "pc/BUILD.gn",
+        "patchSetId": 3
+      },
+      "lineNbr": 588,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2022-02-08T07:43:58Z",
+      "side": 1,
+      "message": "True for all of the comments of this class. git cl format inserted the blank line before it, which makes it visually wrong. Will fix on a later CL.",
+      "parentUuid": "aa0f8801_86a5e7aa",
+      "revId": "1597f7a4a29113a9841a02a81b6665d525634d59",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

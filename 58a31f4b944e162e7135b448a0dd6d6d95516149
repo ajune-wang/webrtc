@@ -101,6 +101,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "31dec2c5_349b11af",
+        "filename": "rtc_base/network.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 532,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2022-02-08T09:03:34Z",
+      "side": 1,
+      "message": "No, since the main place where we set the flag to NotAlive is in StopUpdating, not in the destructor.",
+      "parentUuid": "8a793e90_59261c6b",
+      "range": {
+        "startLine": 530,
+        "startChar": 0,
+        "endLine": 532,
+        "endChar": 3
+      },
+      "revId": "58a31f4b944e162e7135b448a0dd6d6d95516149",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "53fa2ae2_3df92c24",
         "filename": "rtc_base/network.cc",
         "patchSetId": 2
@@ -118,6 +142,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "bbcdf5bd_6f9ce9d0",
+        "filename": "rtc_base/network.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 925,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2022-02-08T09:03:34Z",
+      "side": 1,
+      "message": "Exactly. Unclear if we really support Start/Stop/Start/Stop, but I try to support that, by creating a new flag for each Start/Stop segment.",
+      "parentUuid": "53fa2ae2_3df92c24",
+      "revId": "58a31f4b944e162e7135b448a0dd6d6d95516149",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "83569749_a29cc889",
         "filename": "rtc_base/network.cc",
         "patchSetId": 2
@@ -129,6 +171,24 @@
       "writtenOn": "2022-02-08T08:02:19Z",
       "side": 1,
       "message": "Would it make sense to use RepeatingTaskHandle?",
+      "revId": "58a31f4b944e162e7135b448a0dd6d6d95516149",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "a5327a65_b0005868",
+        "filename": "rtc_base/network.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 1029,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2022-02-08T09:03:34Z",
+      "side": 1,
+      "message": "Sounds reasonable, but I prefer to not do that in this cl.",
+      "parentUuid": "83569749_a29cc889",
       "revId": "58a31f4b944e162e7135b448a0dd6d6d95516149",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }

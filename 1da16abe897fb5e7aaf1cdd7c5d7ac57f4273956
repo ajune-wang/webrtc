@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "0a67455b_1cb3f27f",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 6192
+      },
+      "writtenOn": "2022-02-08T20:44:52Z",
+      "side": 1,
+      "message": "Reading the error a bit more careful + proto definition it wants binary, I think in py2, it defaults to binary with the syntax that was used, in py3, it defaults to text mode.",
+      "revId": "1da16abe897fb5e7aaf1cdd7c5d7ac57f4273956",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

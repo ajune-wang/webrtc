@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "fef13837_c8025031",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 5
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 8046
+      },
+      "writtenOn": "2022-02-08T07:56:03Z",
+      "side": 1,
+      "message": "I\u0027m thinking whether it would make sense to place all the portal related stuff just into one place. By that I mean:\n1) scoped_glib stuff\n2) constants\n3) functions you plan to split away in one of your following changes\n\nAll these are related to xdg-desktop-portal, they will most likely not be used anywhere else so we can make something like xdg_desktop_portal_utils.[h,cc] or just portal_utils.[h,cc]. I\u0027m for example working on screencast_stream_utils.[h,cc] so I can re-use some stuff for testing.",
+      "revId": "55e1ae6aa9e2ab2bca3800a2e6f79df747949eac",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

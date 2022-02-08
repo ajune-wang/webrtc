@@ -100,6 +100,30 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "df5230f9_42fe42b7",
+        "filename": "PRESUBMIT.py",
+        "patchSetId": 6
+      },
+      "lineNbr": 39,
+      "author": {
+        "id": 12234
+      },
+      "writtenOn": "2022-02-08T08:08:31Z",
+      "side": 1,
+      "message": "Yes the cpp linter also complains about this file because it is in a folder with .cpp files. If it\u0027s possible a wildcard seems like the way to go.",
+      "parentUuid": "35c4f8e0_68102d55",
+      "range": {
+        "startLine": 39,
+        "startChar": 4,
+        "endLine": 39,
+        "endChar": 19
+      },
+      "revId": "8c427a5dbf285e40ed727a3b28d7b1ed17fa0279",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "a8655397_7ce7873e",

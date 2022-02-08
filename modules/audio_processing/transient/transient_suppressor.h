@@ -13,7 +13,10 @@
 
 #include <stddef.h>
 #include <stdint.h>
+
 #include <memory>
+
+#include "modules/audio_processing/audio_buffer.h"
 
 namespace webrtc {
 
@@ -21,11 +24,34 @@ namespace webrtc {
 // restoration algorithm that attenuates unexpected spikes in the spectrum.
 class TransientSuppressor {
  public:
+  // Type of VAD used by the caller to compute the `voice_probability` argument
+  // `Suppress()`.
+  enum class VadMode {
+    // By default, `TransientSuppressor` assumes that `voice_probability` is
+    // computed by `AgcManagerDirect`.
+    kDefault = 0,
+    // Use this mode when `TransientSuppressor` must assume that
+    // `voice_probability` is computed by the RNN VAD.
+    kRnnVad,
+    // Use this mode when `TransientSuppressor` must ignore `voice_probability`
+    // and detect speech (in)activity independently.
+    kTsVad,
+    // Use this mode to let `TransientSuppressor::Suppressor()` ignore
+    // `voice_probability` and behave as if voice information is unavailable
+    // (regardless of the passed value).
+    kNoVad,
+  };
+
   virtual ~TransientSuppressor() {}
 
   virtual int Initialize(int sample_rate_hz,
                          int detector_rate_hz,
                          int num_channels) = 0;
+
+  // Analyzes the audio. Must be called before `Suppress()` or the transient
+  // suppression behavior will be undefined. The performed analyses are kept
+  // separate from suppression so that the audio can be analyzed
+  virtual void Analyze(const AudioBuffer& audio) = 0;
 
   // Processes a `data` chunk, and returns it with keystrokes suppressed from
   // it. The float format is assumed to be int16 ranged. If there are more than

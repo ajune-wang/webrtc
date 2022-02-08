@@ -16,6 +16,23 @@
       "message": "This version was much simpler.\n",
       "revId": "1597f7a4a29113a9841a02a81b6665d525634d59",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "aa0f8801_86a5e7aa",
+        "filename": "pc/BUILD.gn",
+        "patchSetId": 3
+      },
+      "lineNbr": 588,
+      "author": {
+        "id": 5087
+      },
+      "writtenOn": "2022-02-08T07:38:56Z",
+      "side": 1,
+      "message": "Nit: This should go before \"visibility\".",
+      "revId": "1597f7a4a29113a9841a02a81b6665d525634d59",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

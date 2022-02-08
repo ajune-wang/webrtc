@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "ef236bbb_bb06e4c2",
+        "filename": "modules/desktop_capture/linux/wayland/scoped_glib.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 51,
+      "author": {
+        "id": 18829
+      },
+      "writtenOn": "2022-02-08T01:44:31Z",
+      "side": 1,
+      "message": "Just an FYI, moving template specialization into header causes ODR violation and I am unable to reuse it in other module for remote desktop portal. Fix proposed here: https://webrtc-review.googlesource.com/c/src/+/251200",
+      "revId": "1a03757438bca03ab1e5ddca683aed198be7525d",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

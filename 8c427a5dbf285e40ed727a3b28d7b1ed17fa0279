@@ -35,6 +35,24 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "4f2af177_f5b829b3",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 6
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 6192
+      },
+      "writtenOn": "2022-02-08T07:59:02Z",
+      "side": 1,
+      "message": "I will replace all instances of m.python with m.steps calling upon the vpython3 interpreter directly, https://source.chromium.org/chromium/chromium/tools/build/+/main:recipes/recipe_modules/webrtc/api.py;l\u003d761. m.python is still running py2. There will most likely be one breakage or two between the recipe changes land and this CL lands but I think that\u0027s worth it.",
+      "parentUuid": "cc29cf27_311fc624",
+      "revId": "8c427a5dbf285e40ed727a3b28d7b1ed17fa0279",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "4f5618a1_d6f7cbb7",
@@ -58,6 +76,30 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "35c4f8e0_68102d55",
+        "filename": "PRESUBMIT.py",
+        "patchSetId": 6
+      },
+      "lineNbr": 39,
+      "author": {
+        "id": 6192
+      },
+      "writtenOn": "2022-02-08T07:59:02Z",
+      "side": 1,
+      "message": "So the cpp linter complains about it too? This is a rabbit hole and I do not want to add ALL python files here, it should be smart about it or we just add a wildcard for python. I\u0027m only adding files I modify in the CL, we can follow up.",
+      "parentUuid": "4f5618a1_d6f7cbb7",
+      "range": {
+        "startLine": 39,
+        "startChar": 4,
+        "endLine": 39,
+        "endChar": 19
+      },
+      "revId": "8c427a5dbf285e40ed727a3b28d7b1ed17fa0279",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "a8655397_7ce7873e",
@@ -71,6 +113,30 @@
       "writtenOn": "2022-02-07T10:54:40Z",
       "side": 1,
       "message": "Shouldn\u0027t you test \u0027if file:\u0027 instead of checking len ?\ngo/pystyle#truefalse-evaluations-decision",
+      "range": {
+        "startLine": 220,
+        "startChar": 5,
+        "endLine": 220,
+        "endChar": 19
+      },
+      "revId": "8c427a5dbf285e40ed727a3b28d7b1ed17fa0279",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "6114787c_c3357a8e",
+        "filename": "PRESUBMIT.py",
+        "patchSetId": 6
+      },
+      "lineNbr": 220,
+      "author": {
+        "id": 6192
+      },
+      "writtenOn": "2022-02-08T07:59:02Z",
+      "side": 1,
+      "message": "I will use if files: as suggested. I changed to an explicit number just based on the output of the linter which was \"Do not use `len(SEQUENCE)` without comparison to determine if a sequence is empty\", did not lookup a style guide here.",
+      "parentUuid": "a8655397_7ce7873e",
       "range": {
         "startLine": 220,
         "startChar": 5,

@@ -33,6 +33,24 @@
       "message": "Is there a design doc for this \"remote desktop portal implementation\"?  Are you building another xdg-desktop-portal client?",
       "revId": "bae3a00bc88fc77bd8cb1393ec7151ed363d2793",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "3104d358_41230858",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 6
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 8046
+      },
+      "writtenOn": "2022-02-08T18:14:06Z",
+      "side": 1,
+      "message": "Here: https://github.com/flatpak/xdg-desktop-portal/blob/main/data/org.freedesktop.portal.RemoteDesktop.xml\n\nEssentially the remote desktop portal combines screencast portal (the one we use for screensharing) with hooks/callbacks so you can notify the Wayland compositor with mouse/keyboard events.\n\nSo the remote desktop portal implementation is just about connecting mouse/keyboard events from WebRTC to portal calls so the wayland compositor can be notified about those events. This is used for stuff like VNC implementation on Wayland.\n\nHowever, this should not replace screensharing as we have implemented now, because the remote desktop portal involves slightly different dialog, because it asks the user for mouse/keyboard permissions.",
+      "parentUuid": "7991e642_d70a5bad",
+      "revId": "bae3a00bc88fc77bd8cb1393ec7151ed363d2793",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "1f452a4a_cbfc16a3",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 6192
+      },
+      "writtenOn": "2022-02-08T17:13:42Z",
+      "side": 1,
+      "message": "Not sure I need decode for the error message but added it just in case.",
+      "revId": "b3148ccb684e9bd17a60d6b856f29e48c608aa2b",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

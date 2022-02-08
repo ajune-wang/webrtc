@@ -24,6 +24,30 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "63be7e93_df672f37",
+        "filename": "call/call_factory.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 148,
+      "author": {
+        "id": 5524
+      },
+      "writtenOn": "2022-02-08T11:36:12Z",
+      "side": 1,
+      "message": "Indeed, thanks for catching.",
+      "parentUuid": "67b3c2fe_cbfaa4f5",
+      "range": {
+        "startLine": 148,
+        "startChar": 49,
+        "endLine": 148,
+        "endChar": 53
+      },
+      "revId": "43eb24b224762c3b7bee31200ec755100d9564b7",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "3ab39790_5c5691cb",
@@ -37,6 +61,30 @@
       "writtenOn": "2022-02-08T09:01:50Z",
       "side": 1,
       "message": "I\u0027m not sure Scoped is a good name. It makes me think it\u0027s related to the scope in the code, while I assume it\u0027s related to the duration? I\u0027d prefer something along the lines of Duration instead.",
+      "range": {
+        "startLine": 48,
+        "startChar": 9,
+        "endLine": 48,
+        "endChar": 28
+      },
+      "revId": "43eb24b224762c3b7bee31200ec755100d9564b7",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "c02bb59e_c2268c82",
+        "filename": "call/degraded_call.h",
+        "patchSetId": 4
+      },
+      "lineNbr": 48,
+      "author": {
+        "id": 5524
+      },
+      "writtenOn": "2022-02-08T11:36:12Z",
+      "side": 1,
+      "message": "Changed to TimeScopedNetworkConfig, ok? :)",
+      "parentUuid": "3ab39790_5c5691cb",
       "range": {
         "startLine": 48,
         "startChar": 9,

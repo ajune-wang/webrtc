@@ -176,6 +176,24 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "df667cb3_4076016b",
+        "filename": "modules/desktop_capture/linux/wayland/egl_dmabuf.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 508,
+      "author": {
+        "id": 14134
+      },
+      "writtenOn": "2022-02-08T19:49:34Z",
+      "side": 1,
+      "message": "It could be done by putting the attribute names into an array of structs that you then loop over.  I am not sure it is worth it though.",
+      "parentUuid": "9b7fca62_63b783b0",
+      "revId": "d242cf67ca67ec49348675682f0d74f5837499d2",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "94e08f8e_ccfd5597",

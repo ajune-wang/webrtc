@@ -362,6 +362,15 @@ absl::optional<int64_t> FakeNetworkPipe::TimeUntilNextProcess() {
   return absl::nullopt;
 }
 
+absl::optional<uint64_t> FakeNetworkPipe::NextProcessTimestamp() {
+  MutexLock lock(&process_lock_);
+  absl::optional<int64_t> delivery_us = network_behavior_->NextDeliveryTimeUs();
+  if (delivery_us) {
+    return (*delivery_us + 500) / 1000;
+  }
+  return absl::nullopt;
+}
+
 bool FakeNetworkPipe::HasReceiver() const {
   MutexLock lock(&config_lock_);
   return receiver_ != nullptr;

@@ -167,13 +167,13 @@ int DtmfSender::comma_delay() const {
 
 void DtmfSender::QueueInsertDtmf(const rtc::Location& posted_from,
                                  uint32_t delay_ms) {
-  signaling_thread_->PostDelayedHighPrecisionTask(
+  signaling_thread_->PostDelayedTaskAt(
       ToQueuedTask(safety_flag_,
                    [this] {
                      RTC_DCHECK_RUN_ON(signaling_thread_);
                      DoInsertDtmf();
                    }),
-      delay_ms);
+      rtc::TimeMillis() + delay_ms);
 }
 
 void DtmfSender::DoInsertDtmf() {

@@ -157,6 +157,7 @@ class FakeNetworkPipe : public SimulatedPacketReceiverInterface {
   // packets ready to be delivered.
   void Process() override;
   absl::optional<int64_t> TimeUntilNextProcess() override;
+  absl::optional<uint64_t> NextProcessTimestamp();
 
   // Get statistics.
   float PercentageLoss();

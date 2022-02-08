@@ -37,6 +37,9 @@ class VideoRenderFrames {
   // Returns the number of ms to next frame to render
   uint32_t TimeToNextFrameRelease();
 
+  // Returns the number of ms to next frame to render
+  uint64_t NextFrameReleaseTimestamp();
+
   bool HasPendingFrames() const;
 
  private:

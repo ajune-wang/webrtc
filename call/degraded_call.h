@@ -133,10 +133,9 @@ class DegradedCall : public Call, private PacketReceiver {
     // Returns true if call resulted in a delayed process, false if queue empty.
     bool Process();
 
-    Clock* const clock_;
     rtc::TaskQueue task_queue_;
     FakeNetworkPipe pipe_;
-    absl::optional<int64_t> next_process_ms_ RTC_GUARDED_BY(&task_queue_);
+    absl::optional<uint64_t> next_process_ms_ RTC_GUARDED_BY(&task_queue_);
   };
 
   // For audio/video send stream, a TransportAdapter instance is used to

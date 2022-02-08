@@ -48,13 +48,10 @@ bool RepeatingTaskBase::Run() {
   if (delay.IsPlusInfinity() || !alive_flag_->alive())
     return true;
 
-  TimeDelta lost_time = clock_->CurrentTime() - next_run_time_;
   next_run_time_ += delay;
-  delay -= lost_time;
-  delay = std::max(delay, TimeDelta::Zero());
 
-  task_queue_->PostDelayedTaskWithPrecision(precision_, absl::WrapUnique(this),
-                                            delay.ms());
+  task_queue_->PostDelayedTaskAt(absl::WrapUnique(this), next_run_time_.ms(),
+                                 precision_);
 
   // Return false to tell the TaskQueue to not destruct this object since we
   // have taken ownership with absl::WrapUnique.

@@ -359,13 +359,13 @@ void ZeroHertzAdapterMode::OnFrame(Timestamp post_time,
   queued_frames_.push_back(frame);
   current_frame_id_++;
   scheduled_repeat_ = absl::nullopt;
-  queue_->PostDelayedHighPrecisionTask(
+  queue_->PostDelayedTaskAt(
       ToQueuedTask(safety_,
                    [this] {
                      RTC_DCHECK_RUN_ON(&sequence_checker_);
                      ProcessOnDelayedCadence();
                    }),
-      frame_delay_.ms());
+      (clock_->CurrentTime() + frame_delay_).ms());
 }
 
 absl::optional<uint32_t> ZeroHertzAdapterMode::GetInputFrameRateFps() {
@@ -476,13 +476,13 @@ void ZeroHertzAdapterMode::ScheduleRepeat(int frame_id, bool idle_repeat) {
   scheduled_repeat_->idle = idle_repeat;
 
   TimeDelta repeat_delay = RepeatDuration(idle_repeat);
-  queue_->PostDelayedHighPrecisionTask(
+  queue_->PostDelayedTaskAt(
       ToQueuedTask(safety_,
                    [this, frame_id] {
                      RTC_DCHECK_RUN_ON(&sequence_checker_);
                      ProcessRepeatedFrameOnDelayedCadence(frame_id);
                    }),
-      repeat_delay.ms());
+      (clock_->CurrentTime() + repeat_delay).ms());
 }
 
 // RTC_RUN_ON(&sequence_checker_)

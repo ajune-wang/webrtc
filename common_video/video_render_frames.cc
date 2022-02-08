@@ -109,6 +109,15 @@ uint32_t VideoRenderFrames::TimeToNextFrameRelease() {
   return time_to_release < 0 ? 0u : static_cast<uint32_t>(time_to_release);
 }
 
+uint64_t VideoRenderFrames::NextFrameReleaseTimestamp() {
+  if (incoming_frames_.empty()) {
+    return rtc::TimeMillis() + kEventMaxWaitTimeMs;
+  }
+  const int64_t release_time =
+      incoming_frames_.front().render_time_ms() - render_delay_ms_;
+  return release_time < 0 ? 0u : static_cast<uint64_t>(release_time);
+}
+
 bool VideoRenderFrames::HasPendingFrames() const {
   return !incoming_frames_.empty();
 }

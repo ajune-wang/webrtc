@@ -76,12 +76,12 @@ class FakeTaskQueue : public TaskQueueBase {
     last_delay_ = milliseconds;
   }
 
-  void PostDelayedHighPrecisionTask(std::unique_ptr<QueuedTask> task,
+  /*void PostDelayedHighPrecisionTask(std::unique_ptr<QueuedTask> task,
                                     uint32_t milliseconds) override {
     last_task_ = std::move(task);
     last_precision_ = TaskQueueBase::DelayPrecision::kHigh;
     last_delay_ = milliseconds;
-  }
+  }*/
 
   bool AdvanceTimeAndRunLastTask() {
     EXPECT_TRUE(last_task_);

@@ -111,7 +111,9 @@ BroadcastResourceListener::GetAdapterResources() {
 void BroadcastResourceListener::OnResourceUsageStateMeasured(
     rtc::scoped_refptr<Resource> resource,
     ResourceUsageState usage_state) {
-  RTC_DCHECK_EQ(resource, source_resource_);
+  // TODO(bugs.webrtc.org/13464): Extend RTC_CHECK value printers to support
+  // RTC_CHECK_EQ with rtc::scoped_refptr.
+  RTC_DCHECK(resource == source_resource_);
   MutexLock lock(&lock_);
   for (const auto& adapter : adapters_) {
     adapter->OnResourceUsageStateMeasured(usage_state);

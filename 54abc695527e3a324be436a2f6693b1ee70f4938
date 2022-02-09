@@ -16,6 +16,23 @@
       "message": "Some cleanup.\n",
       "revId": "54abc695527e3a324be436a2f6693b1ee70f4938",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "13097b8e_bd07d850",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 9405
+      },
+      "writtenOn": "2022-02-09T13:28:49Z",
+      "side": 1,
+      "message": "tools_webrtc/ lgtm",
+      "revId": "54abc695527e3a324be436a2f6693b1ee70f4938",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

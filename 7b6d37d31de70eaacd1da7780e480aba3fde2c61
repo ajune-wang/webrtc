@@ -16,6 +16,131 @@
       "message": "This seems to help with your make-hops-explicit crusade, so passing it to you for review.\n",
       "revId": "7b6d37d31de70eaacd1da7780e480aba3fde2c61",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "1285579c_c4e099cb",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5508
+      },
+      "writtenOn": "2022-02-09T11:45:47Z",
+      "side": 1,
+      "message": "Good stuff. Lgtm-ing since some of the below can be followed up on (or included in this CL).",
+      "revId": "7b6d37d31de70eaacd1da7780e480aba3fde2c61",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "b4c186be_d65f68fd",
+        "filename": "pc/peer_connection.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 578,
+      "author": {
+        "id": 5508
+      },
+      "writtenOn": "2022-02-09T11:45:47Z",
+      "side": 1,
+      "message": "nit: should we do this before the Invoke()? Technically there\u0027s a period during which transport_controller_copy_ points to a deleted object and I\u0027m thinking that if we ever make the Invoke() async, then having the copy ptr nulled first would be a good thing.",
+      "revId": "7b6d37d31de70eaacd1da7780e480aba3fde2c61",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "31f59777_adce769a",
+        "filename": "pc/peer_connection.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 622,
+      "author": {
+        "id": 5508
+      },
+      "writtenOn": "2022-02-09T11:45:47Z",
+      "side": 1,
+      "message": "since this is an invoke, we don\u0027t need the explicit capture. [\u0026] is enough and seems to be the preferred way to go to avoid \"capture fatigue\"",
+      "range": {
+        "startLine": 622,
+        "startChar": 38,
+        "endLine": 622,
+        "endChar": 45
+      },
+      "revId": "7b6d37d31de70eaacd1da7780e480aba3fde2c61",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "e182b9cb_5313129c",
+        "filename": "pc/peer_connection.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 921,
+      "author": {
+        "id": 5508
+      },
+      "writtenOn": "2022-02-09T11:45:47Z",
+      "side": 1,
+      "message": "should we have a GetRtpTransport_s and GetRtpTransport_n as well? We might be able to migrate away from the _s calls over time.",
+      "revId": "7b6d37d31de70eaacd1da7780e480aba3fde2c61",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "9828df17_bce82d5f",
+        "filename": "pc/peer_connection.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 1538,
+      "author": {
+        "id": 5508
+      },
+      "writtenOn": "2022-02-09T11:45:47Z",
+      "side": 1,
+      "message": "thanks - good to pull these Invoke\u0027s up a level where they can be taken into account with a larger picture",
+      "revId": "7b6d37d31de70eaacd1da7780e480aba3fde2c61",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "bcafade0_9d5af36c",
+        "filename": "pc/peer_connection.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 1704,
+      "author": {
+        "id": 5508
+      },
+      "writtenOn": "2022-02-09T11:45:47Z",
+      "side": 1,
+      "message": "same _s _n question here I guess (fine if we mark that up as TODOs)",
+      "revId": "7b6d37d31de70eaacd1da7780e480aba3fde2c61",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "c3d0a10c_2bc48f48",
+        "filename": "pc/sdp_offer_answer.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 3584,
+      "author": {
+        "id": 5508
+      },
+      "writtenOn": "2022-02-09T11:45:47Z",
+      "side": 1,
+      "message": "fyi - there are a few thread hops inside of SetChannel (including loops that hide hops per iteration) - at the moment there may also be thread hops within thread hops unfortunately. An upcoming change will reduce this down to a consistent 2 and no nested thread hops.",
+      "revId": "7b6d37d31de70eaacd1da7780e480aba3fde2c61",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

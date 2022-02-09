@@ -51,6 +51,24 @@
       "parentUuid": "5675d446_c252b6c5",
       "revId": "7855543a4b92ec792d09c8c7b4e4044869be434f",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "d85b7369_a97bc4fd",
+        "filename": "pc/BUILD.gn",
+        "patchSetId": 2
+      },
+      "lineNbr": 237,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2022-02-09T06:05:15Z",
+      "side": 1,
+      "message": "Both Win and Mac bots have succeeded with rtc_source_set, so I suspect it does not matter as things stand just now.",
+      "parentUuid": "d5b159b6_192ac53c",
+      "revId": "7855543a4b92ec792d09c8c7b4e4044869be434f",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

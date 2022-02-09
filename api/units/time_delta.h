@@ -81,6 +81,12 @@ class TimeDelta final : public rtc_units_impl::RelativeUnit<TimeDelta> {
     return us() < 0 ? TimeDelta::Micros(-us()) : *this;
   }
 
+  constexpr TimeDelta operator%(TimeDelta a) const {
+    return (IsInfinite() || a.IsZero() || a.IsInfinite())
+               ? *this
+               : TimeDelta(us() % a.us());
+  }
+
  private:
   friend class rtc_units_impl::UnitBase<TimeDelta>;
   using RelativeUnit::RelativeUnit;

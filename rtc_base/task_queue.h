@@ -98,8 +98,10 @@ class RTC_LOCKABLE RTC_EXPORT TaskQueue {
   // See webrtc::TaskQueueBase for precision expectations.
   void PostDelayedTask(std::unique_ptr<webrtc::QueuedTask> task,
                        uint32_t milliseconds);
-  void PostDelayedHighPrecisionTask(std::unique_ptr<webrtc::QueuedTask> task,
-                                    uint32_t milliseconds);
+  void PostDelayedTaskAt(std::unique_ptr<webrtc::QueuedTask> task,
+                         uint64_t timestamp_milliseconds,
+                         webrtc::TaskQueueBase::DelayPrecision precision =
+                             webrtc::TaskQueueBase::DelayPrecision::kLow);
 
   // std::enable_if is used here to make sure that calls to PostTask() with
   // std::unique_ptr<SomeClassDerivedFromQueuedTask> would not end up being
@@ -123,9 +125,12 @@ class RTC_LOCKABLE RTC_EXPORT TaskQueue {
             typename std::enable_if<!std::is_convertible<
                 Closure,
                 std::unique_ptr<webrtc::QueuedTask>>::value>::type* = nullptr>
-  void PostDelayedHighPrecisionTask(Closure&& closure, uint32_t milliseconds) {
-    PostDelayedHighPrecisionTask(
-        webrtc::ToQueuedTask(std::forward<Closure>(closure)), milliseconds);
+  void PostDelayedTaskAt(Closure&& closure,
+                         uint64_t timestamp_milliseconds,
+                         webrtc::TaskQueueBase::DelayPrecision precision =
+                             webrtc::TaskQueueBase::DelayPrecision::kLow) {
+    PostDelayedTaskAt(webrtc::ToQueuedTask(std::forward<Closure>(closure)),
+                      timestamp_milliseconds, precision);
   }
 
  private:

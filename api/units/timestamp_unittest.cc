@@ -158,5 +158,52 @@ TEST(UnitConversionTest, InfinityOperations) {
   EXPECT_TRUE((finite_time + TimeDelta::PlusInfinity()).IsInfinite());
   EXPECT_TRUE((finite_time - TimeDelta::MinusInfinity()).IsInfinite());
 }
+
+TEST(TimestampTest, SnappedToNextTickBasic) {
+  Timestamp phase = Timestamp::Micros(4000);
+  TimeDelta interval = TimeDelta::Micros(1000);
+  Timestamp timestamp = Timestamp::Zero();
+
+  // Timestamp in previous interval.
+  timestamp = Timestamp::Micros(3500);
+  EXPECT_EQ(4000, timestamp.SnappedToNextTick(phase, interval).us());
+
+  // Timestamp in next interval.
+  timestamp = Timestamp::Micros(4500);
+  EXPECT_EQ(5000, timestamp.SnappedToNextTick(phase, interval).us());
+
+  // Timestamp multiple intervals before.
+  timestamp = Timestamp::Micros(2500);
+  EXPECT_EQ(3000, timestamp.SnappedToNextTick(phase, interval).us());
+
+  // Timestamp multiple intervals after.
+  timestamp = Timestamp::Micros(6500);
+  EXPECT_EQ(7000, timestamp.SnappedToNextTick(phase, interval).us());
+
+  // Timestamp on previous interval.
+  timestamp = Timestamp::Micros(3000);
+  EXPECT_EQ(3000, timestamp.SnappedToNextTick(phase, interval).us());
+
+  // Timestamp on next interval.
+  timestamp = Timestamp::Micros(5000);
+  EXPECT_EQ(5000, timestamp.SnappedToNextTick(phase, interval).us());
+
+  // Timestamp equal to phase.
+  timestamp = Timestamp::Micros(4000);
+  EXPECT_EQ(4000, timestamp.SnappedToNextTick(phase, interval).us());
+}
+
+TEST(TimestampTest, SnappedToNextTickOverflow) {
+  // int(big_timestamp / interval) < 0, so this causes a crash if the number of
+  // intervals elapsed is attempted to be stored in an int.
+  Timestamp phase = Timestamp::Zero();
+  TimeDelta interval = TimeDelta::Micros(4000);
+  Timestamp big_timestamp = Timestamp::Millis(8635916564000);
+
+  EXPECT_EQ(8635916564000,
+            big_timestamp.SnappedToNextTick(phase, interval).us());
+  EXPECT_EQ(8635916564000,
+            big_timestamp.SnappedToNextTick(big_timestamp, interval).us());
+}
 }  // namespace test
 }  // namespace webrtc

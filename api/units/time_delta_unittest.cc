@@ -202,6 +202,12 @@ TEST(TimeDeltaTest, MathOperations) {
   EXPECT_EQ(mutable_delta, TimeDelta::Millis(kValueA + kValueB));
   mutable_delta -= TimeDelta::Millis(kValueB);
   EXPECT_EQ(mutable_delta, TimeDelta::Millis(kValueA));
+
+  EXPECT_EQ(TimeDelta::Micros(2),
+            (TimeDelta::Micros(11)) % TimeDelta::Micros(3));
+  EXPECT_EQ(TimeDelta::Zero(), (TimeDelta::Micros(12)) % TimeDelta::Micros(3));
+  EXPECT_EQ(TimeDelta::Micros(1), TimeDelta::Micros(1) % TimeDelta::Zero());
+  EXPECT_EQ(-TimeDelta::Micros(1), -TimeDelta::Micros(1) % TimeDelta::Zero());
 }
 
 TEST(TimeDeltaTest, InfinityOperations) {
@@ -216,6 +222,24 @@ TEST(TimeDeltaTest, InfinityOperations) {
   EXPECT_TRUE((TimeDelta::MinusInfinity() - finite).IsMinusInfinity());
   EXPECT_TRUE((finite + TimeDelta::MinusInfinity()).IsMinusInfinity());
   EXPECT_TRUE((finite - TimeDelta::PlusInfinity()).IsMinusInfinity());
+
+  EXPECT_EQ(TimeDelta::PlusInfinity(),
+            TimeDelta::PlusInfinity() % TimeDelta::Micros(1));
+  EXPECT_EQ(TimeDelta::PlusInfinity(),
+            TimeDelta::PlusInfinity() % -TimeDelta::Micros(1));
+  EXPECT_EQ(TimeDelta::MinusInfinity(),
+            TimeDelta::MinusInfinity() % TimeDelta::Micros(1));
+  EXPECT_EQ(TimeDelta::MinusInfinity(),
+            TimeDelta::MinusInfinity() % -TimeDelta::Micros(1));
+
+  EXPECT_EQ(TimeDelta::PlusInfinity(),
+            TimeDelta::PlusInfinity() % TimeDelta::Zero());
+  EXPECT_EQ(TimeDelta::MinusInfinity(),
+            TimeDelta::MinusInfinity() % TimeDelta::Zero());
+  EXPECT_EQ(TimeDelta::Micros(1),
+            TimeDelta::Micros(1) % TimeDelta::MinusInfinity());
+  EXPECT_EQ(TimeDelta::Micros(1),
+            TimeDelta::Micros(1) % TimeDelta::PlusInfinity());
 }
 }  // namespace test
 }  // namespace webrtc

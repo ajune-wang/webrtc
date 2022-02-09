@@ -46,7 +46,8 @@ DirectTransport::DirectTransport(
     : send_call_(send_call),
       task_queue_(task_queue),
       demuxer_(payload_type_map),
-      fake_network_(std::move(pipe)) {
+      fake_network_(std::move(pipe)),
+      clock_(Clock::GetRealTimeClock()) {
   Start();
 }
 
@@ -101,16 +102,17 @@ void DirectTransport::Start() {
 }
 
 void DirectTransport::ProcessPackets() {
-  absl::optional<int64_t> initial_delay_ms =
-      fake_network_->TimeUntilNextProcess();
-  if (initial_delay_ms == absl::nullopt)
+  absl::optional<int64_t> initial_time_ms =
+      fake_network_->NextProcessTimestamp();
+  if (initial_time_ms == absl::nullopt)
     return;
 
   next_process_task_ = RepeatingTaskHandle::DelayedStart(
-      task_queue_, TimeDelta::Millis(*initial_delay_ms), [this] {
+      task_queue_, Timestamp::Millis(*initial_time_ms) - clock_->CurrentTime(),
+      [this] {
         fake_network_->Process();
-        if (auto delay_ms = fake_network_->TimeUntilNextProcess())
-          return TimeDelta::Millis(*delay_ms);
+        if (auto time_ms = fake_network_->NextProcessTimestamp())
+          return Timestamp::Millis(*time_ms) - clock_->CurrentTime();
         // Otherwise stop the task.
         MutexLock lock(&process_lock_);
         next_process_task_.Stop();

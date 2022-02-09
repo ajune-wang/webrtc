@@ -21,8 +21,7 @@ DegradedCall::FakeNetworkPipeOnTaskQueue::FakeNetworkPipeOnTaskQueue(
     TaskQueueFactory* task_queue_factory,
     Clock* clock,
     std::unique_ptr<NetworkBehaviorInterface> network_behavior)
-    : clock_(clock),
-      task_queue_(task_queue_factory->CreateTaskQueue(
+    : task_queue_(task_queue_factory->CreateTaskQueue(
           "DegradedSendQueue",
           TaskQueueFactory::Priority::NORMAL)),
       pipe_(clock, std::move(network_behavior)) {}
@@ -55,25 +54,24 @@ void DegradedCall::FakeNetworkPipeOnTaskQueue::RemoveActiveTransport(
 
 bool DegradedCall::FakeNetworkPipeOnTaskQueue::Process() {
   pipe_.Process();
-  auto time_to_next = pipe_.TimeUntilNextProcess();
-  if (!time_to_next) {
+  auto next_process_time = pipe_.NextProcessTimestamp();
+  if (!next_process_time) {
     // Packet was probably sent immediately.
     return false;
   }
 
-  task_queue_.PostTask([this, time_to_next]() {
+  task_queue_.PostTask([this, next_process_time]() {
     RTC_DCHECK_RUN_ON(&task_queue_);
-    int64_t next_process_time = *time_to_next + clock_->TimeInMilliseconds();
     if (!next_process_ms_ || next_process_time < *next_process_ms_) {
       next_process_ms_ = next_process_time;
-      task_queue_.PostDelayedHighPrecisionTask(
+      task_queue_.PostDelayedTaskAt(
           [this]() {
             RTC_DCHECK_RUN_ON(&task_queue_);
             if (!Process()) {
               next_process_ms_.reset();
             }
           },
-          *time_to_next);
+          *next_process_time, TaskQueueBase::DelayPrecision::kHigh);
     }
   });
 

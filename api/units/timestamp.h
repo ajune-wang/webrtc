@@ -114,6 +114,19 @@ class Timestamp final : public rtc_units_impl::UnitBase<Timestamp> {
     return *this;
   }
 
+  constexpr Timestamp SnappedToNextTick(Timestamp tick_phase,
+                                        TimeDelta tick_interval) {
+    // |interval_offset| is the offset from |this| to the next multiple of
+    // |tick_interval| after |tick_phase|, possibly negative if in the past.
+    TimeDelta interval_offset = (tick_phase - *this) % tick_interval;
+    // If |this| is exactly on the interval (i.e. offset==0), don't adjust.
+    // Otherwise, if |tick_phase| was in the past, adjust forward to the next
+    // tick after |this|.
+    if (!interval_offset.IsZero() && tick_phase < *this)
+      interval_offset += tick_interval;
+    return *this + interval_offset;
+  }
+
  private:
   friend class rtc_units_impl::UnitBase<Timestamp>;
   using UnitBase::UnitBase;

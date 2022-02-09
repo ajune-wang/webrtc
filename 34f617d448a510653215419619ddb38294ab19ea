@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "0cfa05dd_bf633195",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 7
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 8046
+      },
+      "writtenOn": "2022-02-09T16:26:34Z",
+      "side": 1,
+      "message": "Same change as before, I just had to drop dependency on libwayland-client, which was causing a crash when \"rtc_link_pipewire\u003dtrue\" was used.\n\nThis was because:\n1) Chromium already has a copy of libwayland-client and dlopens it\n2) This probably caused rtc_link_pipewire not to link against it since it is dlopened in Chromium\n3) Then when it was used in WebRTC, it was not linked against it and not even dlopened because of \"rtc_link_pipewire\" and for that reason generated stubs from Chromium were used, but they were not initialized because Chromium probably dlopens libwayland-client only in case wayland backend is used and therefore \"wl_display_connect\" was nullptr.\n\nAnyway, this shouldn\u0027t be a problem, because (from documentation):\nTo obtain an EGLDisplay backed by a Wayland display, call with \u003cplatform\u003e set to EGL_PLATFORM_WAYLAND_KHR.  The native_display\u003e parameter specifies the Wayland display  to use and must point to a `struct wl_display` or be EGL_DEFAULT_DISPLAY. If native_display\u003e is EGL_DEFAULT_DISPLAY, then EGL will create a new structure by connecting to the default Wayland socket.  The page wl_display_connect(3) defines the location of the default socket.\n\nSo it does the same thing, just internally so we don\u0027t have to take care of getting wl_display on our side.",
+      "revId": "34f617d448a510653215419619ddb38294ab19ea",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

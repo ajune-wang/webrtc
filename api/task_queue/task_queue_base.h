@@ -16,6 +16,7 @@
 #include "api/task_queue/queued_task.h"
 #include "rtc_base/system/rtc_export.h"
 #include "rtc_base/thread_annotations.h"
+#include "rtc_base/time_utils.h"
 
 namespace webrtc {
 
@@ -85,13 +86,12 @@ class RTC_LOCKABLE RTC_EXPORT TaskQueueBase {
   virtual void PostDelayedTask(std::unique_ptr<QueuedTask> task,
                                uint32_t milliseconds) = 0;
 
-  // Prefer PostDelayedTask() over PostDelayedHighPrecisionTask() whenever
-  // possible.
+  // Prefer PostDelayedTask() over PostDelayedTaskAt() whenever possible.
   //
-  // Schedules a task to execute a specified number of milliseconds from when
-  // the call is made, using "high" precision. All scheduling is affected by
-  // OS-specific leeway and current workloads which means that in terms of
-  // precision there are no hard guarantees.
+  // Schedules a task to execute a specified timestamp in milliseconds , using
+  // `precision`. All scheduling is affected by OS-specific leeway and current
+  // workloads which means that in terms of precision there are no hard
+  // guarantees.
   //
   // The task may execute with [-1, OS induced leeway] ms additional delay.
   //
@@ -101,26 +101,14 @@ class RTC_LOCKABLE RTC_EXPORT TaskQueueBase {
   // battery, when the timer precision can be as poor as 15 ms.
   //
   // May be called on any thread or task queue, including this task queue.
-  virtual void PostDelayedHighPrecisionTask(std::unique_ptr<QueuedTask> task,
-                                            uint32_t milliseconds) {
+  virtual void PostDelayedTaskAt(
+      std::unique_ptr<QueuedTask> task,
+      uint64_t timestamp_milliseconds,
+      DelayPrecision precision = TaskQueueBase::DelayPrecision::kLow) {
     // Remove default implementation when dependencies have implemented this
     // method.
-    PostDelayedTask(std::move(task), milliseconds);
-  }
-
-  // As specified by |precision|, calls either PostDelayedTask() or
-  // PostDelayedHighPrecisionTask().
-  void PostDelayedTaskWithPrecision(DelayPrecision precision,
-                                    std::unique_ptr<QueuedTask> task,
-                                    uint32_t milliseconds) {
-    switch (precision) {
-      case DelayPrecision::kLow:
-        PostDelayedTask(std::move(task), milliseconds);
-        break;
-      case DelayPrecision::kHigh:
-        PostDelayedHighPrecisionTask(std::move(task), milliseconds);
-        break;
-    }
+    PostDelayedTask(std::move(task),
+                    timestamp_milliseconds - rtc::TimeMillis());
   }
 
   // Returns the task queue that is running the current thread.

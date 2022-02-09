@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "5cebc221_4ae4c19d",
+        "filename": "audio/audio_send_stream.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 472,
+      "author": {
+        "id": 5119
+      },
+      "writtenOn": "2022-02-09T10:09:14Z",
+      "side": 0,
+      "message": "This metric can/should also be removed in the rest of the code.\n(here or as a followup)\n\nVoiceSenderInfo::typing_noise_detected\nhttps://source.chromium.org/chromium/chromium/src/+/main:third_party/webrtc/media/base/media_channel.h;l\u003d468;drc\u003d91318efd060e4164810264f47cd31b3fc7159d68;bpv\u003d1;bpt\u003d1\n\n.. and the typing noise metric from here (and onward):\nhttps://source.chromium.org/chromium/chromium/src/+/main:third_party/webrtc/pc/stats_collector.cc;l\u003d142-176\n\n\nThe chrome code does make a show of reporting it via  AudioProcessorInterface::AudioProcessorStatistics:\nhttps://source.chromium.org/chromium/chromium/src/+/main:third_party/webrtc/pc/stats_collector.cc;l\u003d1351;drc\u003d91318efd060e4164810264f47cd31b3fc7159d68;bpv\u003d1;bpt\u003d1\n...but the flag is in fact never populated, I removed the Chrome typing detection a while back:\nhttps://chromium-review.googlesource.com/c/chromium/src/+/2944964",
+      "range": {
+        "startLine": 472,
+        "startChar": 8,
+        "endLine": 472,
+        "endChar": 29
+      },
+      "revId": "3c48911851adc3aee2040a7d92a04969fe0b65d8",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

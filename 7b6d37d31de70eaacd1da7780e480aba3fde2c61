@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "ea2fae0d_13e99474",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2022-02-09T10:53:13Z",
+      "side": 1,
+      "message": "This seems to help with your make-hops-explicit crusade, so passing it to you for review.\n",
+      "revId": "7b6d37d31de70eaacd1da7780e480aba3fde2c61",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

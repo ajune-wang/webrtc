@@ -1,0 +1,44 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "682b2657_4ec8048c",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 40
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2022-02-09T14:17:35Z",
+      "side": 1,
+      "message": "Drive-by nit.",
+      "revId": "4030e29206550312fc13e459fc4b470e5bc25e96",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "9e234a13_d31f0c25",
+        "filename": "pc/audio_rtp_receiver.h",
+        "patchSetId": 40
+      },
+      "lineNbr": 49,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2022-02-09T14:17:35Z",
+      "side": 1,
+      "message": "Typo.",
+      "range": {
+        "startLine": 49,
+        "startChar": 17,
+        "endLine": 49,
+        "endChar": 30
+      },
+      "revId": "4030e29206550312fc13e459fc4b470e5bc25e96",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

@@ -52,6 +52,24 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "62109064_4be270ad",
+        "filename": "pc/peer_connection.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 578,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2022-02-09T12:13:13Z",
+      "side": 1,
+      "message": "Good point. Since the signaling thread is blocked on the invoke while this is happening, and the copy is guarded by the network thread, it won\u0027t matter, but it\u0027s cleaner code to null it before the Invoke (and if we ever change this Invoke to a PostTask, it *will* matter).\nDone.",
+      "parentUuid": "b4c186be_d65f68fd",
+      "revId": "7b6d37d31de70eaacd1da7780e480aba3fde2c61",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "31f59777_adce769a",
@@ -65,6 +83,30 @@
       "writtenOn": "2022-02-09T11:45:47Z",
       "side": 1,
       "message": "since this is an invoke, we don\u0027t need the explicit capture. [\u0026] is enough and seems to be the preferred way to go to avoid \"capture fatigue\"",
+      "range": {
+        "startLine": 622,
+        "startChar": 38,
+        "endLine": 622,
+        "endChar": 45
+      },
+      "revId": "7b6d37d31de70eaacd1da7780e480aba3fde2c61",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "a1146ed5_f86804c8",
+        "filename": "pc/peer_connection.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 622,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2022-02-09T12:13:13Z",
+      "side": 1,
+      "message": "Drive-by change :-) - done!",
+      "parentUuid": "31f59777_adce769a",
       "range": {
         "startLine": 622,
         "startChar": 38,
@@ -92,6 +134,24 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "48a540e2_42cad555",
+        "filename": "pc/peer_connection.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 921,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2022-02-09T12:13:13Z",
+      "side": 1,
+      "message": "This version runs only on the signaling thread, so presumably any network-layer stuff that wants it is running on the network thread already.\nA bit surprising that this does the jump here, since the transport controller is so fond of doing the thread jumps for you (not that that\u0027s a good thing).\n\nBut the caching principle *might* apply here too.\n\nAnyway, later CL. TODO added.",
+      "parentUuid": "e182b9cb_5313129c",
+      "revId": "7b6d37d31de70eaacd1da7780e480aba3fde2c61",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "9828df17_bce82d5f",
@@ -105,6 +165,24 @@
       "writtenOn": "2022-02-09T11:45:47Z",
       "side": 1,
       "message": "thanks - good to pull these Invoke\u0027s up a level where they can be taken into account with a larger picture",
+      "revId": "7b6d37d31de70eaacd1da7780e480aba3fde2c61",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "b0da98a5_b72b43ac",
+        "filename": "pc/peer_connection.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 1538,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2022-02-09T12:13:13Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "9828df17_bce82d5f",
       "revId": "7b6d37d31de70eaacd1da7780e480aba3fde2c61",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
@@ -126,6 +204,24 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "dfd5c372_5940eeb2",
+        "filename": "pc/peer_connection.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 1704,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2022-02-09T12:13:13Z",
+      "side": 1,
+      "message": "TODO added.",
+      "parentUuid": "bcafade0_9d5af36c",
+      "revId": "7b6d37d31de70eaacd1da7780e480aba3fde2c61",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "c3d0a10c_2bc48f48",
@@ -139,6 +235,24 @@
       "writtenOn": "2022-02-09T11:45:47Z",
       "side": 1,
       "message": "fyi - there are a few thread hops inside of SetChannel (including loops that hide hops per iteration) - at the moment there may also be thread hops within thread hops unfortunately. An upcoming change will reduce this down to a consistent 2 and no nested thread hops.",
+      "revId": "7b6d37d31de70eaacd1da7780e480aba3fde2c61",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "e2b3019d_7df9e98f",
+        "filename": "pc/sdp_offer_answer.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 3584,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2022-02-09T12:13:13Z",
+      "side": 1,
+      "message": "Sounds good. No action needed here.",
+      "parentUuid": "c3d0a10c_2bc48f48",
       "revId": "7b6d37d31de70eaacd1da7780e480aba3fde2c61",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }

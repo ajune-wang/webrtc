@@ -51,6 +51,24 @@
       "parentUuid": "7991e642_d70a5bad",
       "revId": "bae3a00bc88fc77bd8cb1393ec7151ed363d2793",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "025acb86_407b8fec",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 6
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 18829
+      },
+      "writtenOn": "2022-02-09T15:42:54Z",
+      "side": 1,
+      "message": "Yes, remote desktop portal implementation is another client that will leverage the xdg desktop portal APIs for both screen capture as well as input injection (needed for CRD connecting to linux/wayland host). If you think the design doc will be good to have, please let me know about what are the expected contents of the doc (class hierarchies/call flow?) as well as pointers to existing design docs in this space (e.g. for screencast portal implementation, if one exists) and I can create one following the set guidance. Thanks.",
+      "parentUuid": "3104d358_41230858",
+      "revId": "bae3a00bc88fc77bd8cb1393ec7151ed363d2793",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

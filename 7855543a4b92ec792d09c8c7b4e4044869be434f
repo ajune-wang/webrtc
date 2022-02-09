@@ -69,6 +69,24 @@
       "parentUuid": "d5b159b6_192ac53c",
       "revId": "7855543a4b92ec792d09c8c7b4e4044869be434f",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "4ce7406e_297ac84a",
+        "filename": "pc/BUILD.gn",
+        "patchSetId": 2
+      },
+      "lineNbr": 237,
+      "author": {
+        "id": 5087
+      },
+      "writtenOn": "2022-02-09T07:06:27Z",
+      "side": 1,
+      "message": "Yes, LGTM.",
+      "parentUuid": "d85b7369_a97bc4fd",
+      "revId": "7855543a4b92ec792d09c8c7b4e4044869be434f",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

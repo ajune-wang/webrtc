@@ -1492,6 +1492,10 @@ TEST_P(PacingControllerTest, SkipsProbesWhenProcessIntervalTooLarge) {
     Timestamp start_time = clock_.CurrentTime();
     clock_.AdvanceTime(TimeUntilNextProcess());
     TimeDelta time_between_probes = clock_.CurrentTime() - start_time;
+    // Add kMaxEarlyProbeProcessing in dynamic mode.
+    if (!PeriodicProcess())
+      time_between_probes += PacingController::kMaxEarlyProbeProcessing;
+
     // Advance that distance again + 1ms.
     clock_.AdvanceTime(time_between_probes);
 
@@ -1507,10 +1511,14 @@ TEST_P(PacingControllerTest, SkipsProbesWhenProcessIntervalTooLarge) {
     const Timestamp probe_time = clock_.CurrentTime();
     EXPECT_EQ(pacer_->NextSendTime(), clock_.CurrentTime());
 
-    BitrateProberConfig probing_config(&trials);
-    EXPECT_GT(probing_config.max_probe_delay.Get(), TimeDelta::Zero());
     // Advance to within max probe delay, should still return same target.
-    clock_.AdvanceTime(probing_config.max_probe_delay.Get());
+    BitrateProberConfig probing_config(&trials);
+    TimeDelta max_probe_delay = probing_config.max_probe_delay.Get();
+    EXPECT_GT(max_probe_delay, TimeDelta::Zero());
+    // Add kMaxEarlyProbeProcessing in dynamic mode.
+    if (!PeriodicProcess())
+      max_probe_delay += PacingController::kMaxEarlyProbeProcessing;
+    clock_.AdvanceTime(max_probe_delay);
     EXPECT_EQ(pacer_->NextSendTime(), probe_time);
 
     // Too high probe delay, drop it!

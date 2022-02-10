@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "5243675f_1a15d1a8",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 18554
+      },
+      "writtenOn": "2022-02-10T12:59:33Z",
+      "side": 1,
+      "message": "Dear reviewers,\n  I fixed the failures in my local test. Please re-trigger a `CQ DRY RUN` before your review, in case I missed anything.\n\nThanks",
+      "revId": "c5333a545246620087992e782a7d790ede4e6a51",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

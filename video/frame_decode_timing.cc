@@ -15,12 +15,6 @@
 
 namespace webrtc {
 
-namespace {
-
-constexpr TimeDelta kMaxAllowedFrameDelay = TimeDelta::Millis(5);
-
-}
-
 FrameDecodeTiming::FrameDecodeTiming(Clock* clock,
                                      webrtc::VCMTiming const* timing)
     : clock_(clock), timing_(timing) {

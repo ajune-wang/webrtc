@@ -90,7 +90,8 @@ int32_t VideoRenderFrames::AddFrame(VideoFrame&& new_frame) {
 absl::optional<VideoFrame> VideoRenderFrames::FrameToRender() {
   absl::optional<VideoFrame> render_frame;
   // Get the newest frame that can be released for rendering.
-  while (!incoming_frames_.empty() && TimeToNextFrameRelease() <= 0) {
+  while (!incoming_frames_.empty() &&
+         NextFrameReleaseTimestamp() <= rtc::TimeMillis()) {
     if (render_frame) {
       ++frames_dropped_;
     }
@@ -100,13 +101,13 @@ absl::optional<VideoFrame> VideoRenderFrames::FrameToRender() {
   return render_frame;
 }
 
-uint32_t VideoRenderFrames::TimeToNextFrameRelease() {
+int64_t VideoRenderFrames::NextFrameReleaseTimestamp() {
   if (incoming_frames_.empty()) {
-    return kEventMaxWaitTimeMs;
+    return rtc::TimeMillis() + kEventMaxWaitTimeMs;
   }
-  const int64_t time_to_release = incoming_frames_.front().render_time_ms() -
-                                  render_delay_ms_ - rtc::TimeMillis();
-  return time_to_release < 0 ? 0u : static_cast<uint32_t>(time_to_release);
+  const int64_t release_time =
+      incoming_frames_.front().render_time_ms() - render_delay_ms_;
+  return release_time < 0 ? 0u : static_cast<uint64_t>(release_time);
 }
 
 bool VideoRenderFrames::HasPendingFrames() const {

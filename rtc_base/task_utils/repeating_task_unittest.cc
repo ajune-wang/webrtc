@@ -51,6 +51,12 @@ class MockTaskQueue : public TaskQueueBase {
               PostDelayedTask,
               (std::unique_ptr<QueuedTask> task, uint32_t milliseconds),
               (override));
+  MOCK_METHOD(void,
+              PostDelayedTaskAt,
+              (std::unique_ptr<QueuedTask> task,
+               uint64_t timestamp_milliseconds,
+               TaskQueueBase::DelayPrecision precision),
+              (override));
 
  private:
   CurrentTaskQueueSetter task_queue_setter_;
@@ -76,11 +82,13 @@ class FakeTaskQueue : public TaskQueueBase {
     last_delay_ = milliseconds;
   }
 
-  void PostDelayedHighPrecisionTask(std::unique_ptr<QueuedTask> task,
-                                    uint32_t milliseconds) override {
+  void PostDelayedTaskAt(std::unique_ptr<QueuedTask> task,
+                         uint64_t timestamp_milliseconds,
+                         TaskQueueBase::DelayPrecision precision) override {
     last_task_ = std::move(task);
-    last_precision_ = TaskQueueBase::DelayPrecision::kHigh;
-    last_delay_ = milliseconds;
+    last_precision_ = precision;
+    last_delay_ = std::max<int64_t>(
+        timestamp_milliseconds - clock_->CurrentTime().ms<int64_t>(), 0);
   }
 
   bool AdvanceTimeAndRunLastTask() {
@@ -146,10 +154,13 @@ TEST(RepeatingTaskTest, TaskIsStoppedOnStop) {
   SimulatedClock clock(Timestamp::Zero());
   FakeTaskQueue task_queue(&clock);
   std::atomic_int counter(0);
-  auto handle = RepeatingTaskHandle::Start(&task_queue, [&] {
-    counter++;
-    return kShortInterval;
-  });
+  auto handle = RepeatingTaskHandle::Start(
+      &task_queue,
+      [&] {
+        counter++;
+        return kShortInterval;
+      },
+      TaskQueueBase::DelayPrecision::kLow, &clock);
   EXPECT_EQ(task_queue.last_delay(), 0u);
   EXPECT_FALSE(task_queue.AdvanceTimeAndRunLastTask());
   EXPECT_EQ(counter.load(), 1);
@@ -332,17 +343,18 @@ TEST(RepeatingTaskTest, Example) {
 
 TEST(RepeatingTaskTest, ClockIntegration) {
   std::unique_ptr<QueuedTask> delayed_task;
-  uint32_t expected_ms = 0;
+  uint64_t expected_ms = 0;
   SimulatedClock clock(Timestamp::Millis(0));
 
   NiceMock<MockTaskQueue> task_queue;
-  ON_CALL(task_queue, PostDelayedTask)
-      .WillByDefault(
-          Invoke([&delayed_task, &expected_ms](std::unique_ptr<QueuedTask> task,
-                                               uint32_t milliseconds) {
-            EXPECT_EQ(milliseconds, expected_ms);
-            delayed_task = std::move(task);
-          }));
+  ON_CALL(task_queue, PostDelayedTaskAt)
+      .WillByDefault(Invoke([&delayed_task, &expected_ms](
+                                std::unique_ptr<QueuedTask> task,
+                                uint64_t timestamp_milliseconds,
+                                TaskQueueBase::DelayPrecision precision) {
+        EXPECT_EQ(timestamp_milliseconds, expected_ms);
+        delayed_task = std::move(task);
+      }));
 
   expected_ms = 100;
   RepeatingTaskHandle handle = RepeatingTaskHandle::DelayedStart(
@@ -357,7 +369,7 @@ TEST(RepeatingTaskTest, ClockIntegration) {
 
   clock.AdvanceTimeMilliseconds(100);
   QueuedTask* task_to_run = delayed_task.release();
-  expected_ms = 90;
+  expected_ms = 200;
   EXPECT_FALSE(task_to_run->Run());
   EXPECT_NE(nullptr, delayed_task.get());
   handle.Stop();
@@ -367,8 +379,10 @@ TEST(RepeatingTaskTest, CanBeStoppedAfterTaskQueueDeletedTheRepeatingTask) {
   std::unique_ptr<QueuedTask> repeating_task;
 
   MockTaskQueue task_queue;
-  EXPECT_CALL(task_queue, PostDelayedTask)
-      .WillOnce([&](std::unique_ptr<QueuedTask> task, uint32_t milliseconds) {
+  EXPECT_CALL(task_queue, PostDelayedTaskAt)
+      .WillOnce([&](std::unique_ptr<QueuedTask> task,
+                    uint64_t timestamp_milliseconds,
+                    TaskQueueBase::DelayPrecision precision) {
         repeating_task = std::move(task);
       });
 

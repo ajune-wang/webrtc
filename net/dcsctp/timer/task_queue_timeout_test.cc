@@ -119,7 +119,9 @@ TEST_F(TaskQueueTimeoutTest, KilledBeforeExpired) {
 
 TEST(TaskQueueTimeoutWithMockTaskQueueTest, CanSetTimeoutPrecisionToLow) {
   NiceMock<webrtc::MockTaskQueueBase> mock_task_queue;
-  EXPECT_CALL(mock_task_queue, PostDelayedTask(_, _));
+  EXPECT_CALL(
+      mock_task_queue,
+      PostDelayedTaskAt(_, _, webrtc::TaskQueueBase::DelayPrecision::kLow));
   TaskQueueTimeoutFactory factory(
       mock_task_queue, []() { return TimeMs(1337); },
       [](TimeoutID timeout_id) {});
@@ -130,7 +132,9 @@ TEST(TaskQueueTimeoutWithMockTaskQueueTest, CanSetTimeoutPrecisionToLow) {
 
 TEST(TaskQueueTimeoutWithMockTaskQueueTest, CanSetTimeoutPrecisionToHigh) {
   NiceMock<webrtc::MockTaskQueueBase> mock_task_queue;
-  EXPECT_CALL(mock_task_queue, PostDelayedHighPrecisionTask(_, _));
+  EXPECT_CALL(
+      mock_task_queue,
+      PostDelayedTaskAt(_, _, webrtc::TaskQueueBase::DelayPrecision::kHigh));
   TaskQueueTimeoutFactory factory(
       mock_task_queue, []() { return TimeMs(1337); },
       [](TimeoutID timeout_id) {});
@@ -141,7 +145,9 @@ TEST(TaskQueueTimeoutWithMockTaskQueueTest, CanSetTimeoutPrecisionToHigh) {
 
 TEST(TaskQueueTimeoutWithMockTaskQueueTest, TimeoutPrecisionIsLowByDefault) {
   NiceMock<webrtc::MockTaskQueueBase> mock_task_queue;
-  EXPECT_CALL(mock_task_queue, PostDelayedTask(_, _));
+  EXPECT_CALL(
+      mock_task_queue,
+      PostDelayedTaskAt(_, _, webrtc::TaskQueueBase::DelayPrecision::kLow));
   TaskQueueTimeoutFactory factory(
       mock_task_queue, []() { return TimeMs(1337); },
       [](TimeoutID timeout_id) {});

@@ -69,6 +69,23 @@
       "parentUuid": "3104d358_41230858",
       "revId": "bae3a00bc88fc77bd8cb1393ec7151ed363d2793",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "5036481e_5ef0bc3a",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 6
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 8046
+      },
+      "writtenOn": "2022-02-10T17:54:47Z",
+      "side": 1,
+      "message": "Before we split portal constants, I was thinking about how to make all the portals co-exists, because to me it looks you are going to duplicate lots of stuff just because there are few differencies between both portals. Not to mention that in the near future we will have Camera portal, which also is going to use some things we already have implemented.\n\nI was thinking about a different approach. Instead of having each portal implemented separately, duplicating stuff, we can make just one portal class (modify existing one), that would accept portal_type option in the constructor. Current screensharing options can be set with new setters and the callback I have there can return some a structure/class that can have different values based on the portal_type. Currently it returns pw_fd and stream_node_id, but I know for sure I will need restore_token in the future and the Camera portal on the other doesn\u0027t need stream_node_id if I\u0027m not mistaken so this structure/class can be extended in the future. In the implementation you will know that we will be using the RemoteDesktop portal so in case you want to make different portal calls or in different order, you can just have if (portal_type \u003d\u003d kRemoteDesktopPortal) and do whatever you need to do for your specific portal. For example the Camera portal consists from two calls so we skip SelectSources() and Start() and go straight to OpenPipeWireRemote() and this is simply doable by just one if/else condition instead of creating another portal class. \n\nDo you think something like this is doable? Does this look as a better approach to you?",
+      "revId": "bae3a00bc88fc77bd8cb1393ec7151ed363d2793",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

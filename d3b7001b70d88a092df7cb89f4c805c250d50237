@@ -3,6 +3,29 @@
     {
       "unresolved": false,
       "key": {
+        "uuid": "c8b74509_d4ec816d",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 8
+      },
+      "lineNbr": 17,
+      "author": {
+        "id": 5117
+      },
+      "writtenOn": "2022-02-10T15:44:55Z",
+      "side": 1,
+      "message": "nit:\nIt\u0027s not clear from the description, that this arm isn\u0027t up and running yet and a follow up Cl is needed.\n\nPlease add a little comment on that.",
+      "range": {
+        "startLine": 17,
+        "startChar": 21,
+        "endLine": 17,
+        "endChar": 37
+      },
+      "revId": "d3b7001b70d88a092df7cb89f4c805c250d50237",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
         "uuid": "9bbb88fb_3a25eb12",
         "filename": "/PATCHSET_LEVEL",
         "patchSetId": 8
@@ -77,6 +100,23 @@
         "endLine": 96,
         "endChar": 41
       },
+      "revId": "d3b7001b70d88a092df7cb89f4c805c250d50237",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "73d12d44_16706ec3",
+        "filename": "video/decode_synchronizer.cc",
+        "patchSetId": 8
+      },
+      "lineNbr": 126,
+      "author": {
+        "id": 5117
+      },
+      "writtenOn": "2022-02-10T15:44:55Z",
+      "side": 1,
+      "message": "This looks like ScheduledFrame is effectively a callback with a bind state.\nTherefore, it should be just a callback with no parameters and rtp and render_time should be bound internally on creation.\n\nIf only something like base::BindOnce and base::OnceCallback were available in webrtc. It looks like std::bind is also prohibited in webrtc.\n\nAt least, could you make some method in SheduledFrame to call the callback with the stored parameters, so it\u0027s all hidden from the users?",
       "revId": "d3b7001b70d88a092df7cb89f4c805c250d50237",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
@@ -168,6 +208,29 @@
         "startChar": 20,
         "endLine": 91,
         "endChar": 32
+      },
+      "revId": "d3b7001b70d88a092df7cb89f4c805c250d50237",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "4c7e1838_830e64ef",
+        "filename": "video/frame_buffer_proxy.cc",
+        "patchSetId": 8
+      },
+      "lineNbr": 507,
+      "author": {
+        "id": 5117
+      },
+      "writtenOn": "2022-02-10T15:44:55Z",
+      "side": 1,
+      "message": "nit: FrameBufferExperimentArm",
+      "range": {
+        "startLine": 507,
+        "startChar": 11,
+        "endLine": 507,
+        "endChar": 26
       },
       "revId": "d3b7001b70d88a092df7cb89f4c805c250d50237",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"

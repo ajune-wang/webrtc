@@ -18,6 +18,23 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": true,
+      "key": {
+        "uuid": "797a3da7_e1ae0349",
+        "filename": "api/metronome/test/fake_metronome.cc",
+        "patchSetId": 7
+      },
+      "lineNbr": 57,
+      "author": {
+        "id": 5117
+      },
+      "writtenOn": "2022-02-10T15:44:55Z",
+      "side": 1,
+      "message": "What happens if all the listeners are removed and then new are added? All this could happen between two ticks, so that the repeating task couldn\u0027t see empty |listeners_| and terminate. We will then have to tasks, although only one handle. Will the task be terminated when the |tick_task_| is overwritten?\n\nI suggest to explicitly create a task once in e.g. consturctor. Also keep track of whether it\u0027s running or not. Then on AddListener start the task if needed and in RemoveListener stop it explicitly if needed.",
+      "revId": "abe4593b842ff8f72a690d31802921fd7e7ffa9f",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": false,
       "key": {
         "uuid": "a6ac99b0_e2d9e94a",

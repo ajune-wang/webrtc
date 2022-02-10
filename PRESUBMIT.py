@@ -1242,13 +1242,18 @@ def CheckOrphanHeaders(input_api, output_api, source_file_filter):
 
   file_filter = lambda x: input_api.FilterSourceFile(
       x, files_to_skip=exempt_paths) and source_file_filter(x)
+  print(file_filter)
   for f in input_api.AffectedSourceFiles(file_filter):
     if f.LocalPath().endswith('.h'):
       file_path = os.path.abspath(f.LocalPath())
       root_dir = os.getcwd()
+      print(file_path)
+      print(root_dir)
       gn_file_path = GetBuildGnPathFromFilePath(file_path, os.path.exists,
                                                 root_dir)
+      print(gn_file_path)
       in_build_gn = IsHeaderInBuildGn(file_path, gn_file_path)
+      print(in_build_gn)
       if not in_build_gn:
         results.append(
             output_api.PresubmitError(

@@ -75,6 +75,7 @@ class DirectTransport : public Transport {
 
   const Demuxer demuxer_;
   const std::unique_ptr<SimulatedPacketReceiverInterface> fake_network_;
+  Clock* const clock_;
 };
 }  // namespace test
 }  // namespace webrtc

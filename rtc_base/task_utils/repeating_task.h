@@ -139,13 +139,12 @@ class RepeatingTaskHandle {
       Clock* clock = Clock::GetRealTimeClock()) {
     auto alive_flag = PendingTaskSafetyFlag::CreateDetached();
     webrtc_repeating_task_impl::RepeatingTaskHandleDTraceProbeDelayedStart();
-    task_queue->PostDelayedTaskWithPrecision(
-        precision,
+    task_queue->PostDelayedTaskAt(
         std::make_unique<
             webrtc_repeating_task_impl::RepeatingTaskImpl<Closure>>(
             task_queue, precision, first_delay, std::forward<Closure>(closure),
             clock, alive_flag),
-        first_delay.ms());
+        (clock->CurrentTime() + first_delay).ms(), precision);
     return RepeatingTaskHandle(std::move(alive_flag));
   }
 

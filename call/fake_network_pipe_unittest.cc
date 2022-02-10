@@ -256,7 +256,7 @@ TEST_F(FakeNetworkPipeTest, ChangingCapacityWithEmptyPipeTest) {
 
   // Check that all the packets were sent.
   EXPECT_EQ(static_cast<size_t>(2 * kNumPackets), pipe->SentPackets());
-  EXPECT_FALSE(pipe->TimeUntilNextProcess().has_value());
+  EXPECT_FALSE(pipe->NextProcessTimestamp().has_value());
   fake_clock_.AdvanceTimeMilliseconds(1000);
   EXPECT_CALL(receiver, DeliverPacket(_, _, _)).Times(0);
   pipe->Process();
@@ -305,7 +305,7 @@ TEST_F(FakeNetworkPipeTest, ChangingCapacityWithPacketsInPipeTest) {
 
   // Check that all the packets were sent.
   EXPECT_EQ(static_cast<size_t>(kNumPackets), pipe->SentPackets());
-  EXPECT_FALSE(pipe->TimeUntilNextProcess().has_value());
+  EXPECT_FALSE(pipe->NextProcessTimestamp().has_value());
   fake_clock_.AdvanceTimeMilliseconds(1000);
   EXPECT_CALL(receiver, DeliverPacket(_, _, _)).Times(0);
   pipe->Process();

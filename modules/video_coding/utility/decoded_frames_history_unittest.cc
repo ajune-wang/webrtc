@@ -109,6 +109,14 @@ TEST(DecodedFramesHistory, NegativePictureIds) {
   EXPECT_EQ(history.WasDecoded(1), true);
 }
 
+// This test fails when UBSan is enabled. Numbers from a fuzzer.
+TEST(DecodedFramesHistory, IntegerOverflow) {
+  DecodedFramesHistory history(kHistorySize);
+  history.InsertDecoded(-6890683351703744512, 12345);
+  history.InsertDecoded(6872316419617284000, 12366);
+  EXPECT_EQ(*history.GetLastDecodedFrameId(), 6872316419617284000);
+}
+
 }  // namespace
 }  // namespace video_coding
 }  // namespace webrtc

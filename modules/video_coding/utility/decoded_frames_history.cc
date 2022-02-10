@@ -11,6 +11,7 @@
 #include "modules/video_coding/utility/decoded_frames_history.h"
 
 #include <algorithm>
+#include <limits>
 
 #include "rtc_base/checks.h"
 #include "rtc_base/logging.h"
@@ -32,10 +33,17 @@ void DecodedFramesHistory::InsertDecoded(int64_t frame_id, uint32_t timestamp) {
 
   // Clears expired values from the cyclic buffer_.
   if (last_frame_id_) {
-    int64_t id_jump = frame_id - *last_frame_id_;
     int last_index = FrameIdToIndex(*last_frame_id_);
 
-    if (id_jump >= static_cast<int64_t>(buffer_.size())) {
+    // Id jump is large if difference overflows or is larger than `buffer_`.
+    bool diff_overflows =
+        (*last_frame_id_ < 0 &&
+         (frame_id > std::numeric_limits<int64_t>::max() + *last_frame_id_));
+    bool large_id_jump =
+        diff_overflows ||
+        frame_id - *last_frame_id_ >= static_cast<int64_t>(buffer_.size());
+
+    if (large_id_jump) {
       std::fill(buffer_.begin(), buffer_.end(), false);
     } else if (new_index > last_index) {
       std::fill(buffer_.begin() + last_index + 1, buffer_.begin() + new_index,

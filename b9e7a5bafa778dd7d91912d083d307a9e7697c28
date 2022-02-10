@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "338676fa_49dfd076",
+        "filename": "modules/video_coding/utility/decoded_frames_history.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 40,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2022-02-10T09:29:35Z",
+      "side": 1,
+      "message": "How are frame ids assigned? Does it make sense to have a negative id?",
+      "range": {
+        "startLine": 40,
+        "startChar": 10,
+        "endLine": 40,
+        "endChar": 24
+      },
+      "revId": "b9e7a5bafa778dd7d91912d083d307a9e7697c28",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

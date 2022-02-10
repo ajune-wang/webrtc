@@ -124,8 +124,8 @@ class PeerConnectionWrapperForRampUpTest : public PeerConnectionWrapper {
             config, clock, /*is_screencast=*/false));
     video_track_sources_.back()->Start();
     return rtc::scoped_refptr<VideoTrackInterface>(
-        pc_factory()->CreateVideoTrack(rtc::CreateRandomUuid(),
-                                       video_track_sources_.back()));
+        pc_factory()->CreateVideoTrack(video_track_sources_.back(),
+                                       rtc::CreateRandomUuid()));
   }
 
   rtc::scoped_refptr<AudioTrackInterface> CreateLocalAudioTrack(

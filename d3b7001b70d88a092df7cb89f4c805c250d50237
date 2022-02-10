@@ -16,6 +16,161 @@
       "message": "Ilya, Stefan, PTAL",
       "revId": "d3b7001b70d88a092df7cb89f4c805c250d50237",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "827cb5fc_4408696a",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 8
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 6549
+      },
+      "writtenOn": "2022-02-10T15:14:34Z",
+      "side": 1,
+      "message": "Took a brief first pass, but I think we really need Philip to take a look at this as well",
+      "revId": "d3b7001b70d88a092df7cb89f4c805c250d50237",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "9096dd2c_345210cc",
+        "filename": "video/decode_synchronizer.cc",
+        "patchSetId": 8
+      },
+      "lineNbr": 54,
+      "author": {
+        "id": 6549
+      },
+      "writtenOn": "2022-02-10T15:14:34Z",
+      "side": 1,
+      "message": "Is decode time really a timestamp? I\u0027d expect it to be a delta",
+      "range": {
+        "startLine": 54,
+        "startChar": 0,
+        "endLine": 54,
+        "endChar": 9
+      },
+      "revId": "d3b7001b70d88a092df7cb89f4c805c250d50237",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "6ab4b517_deef8746",
+        "filename": "video/decode_synchronizer.cc",
+        "patchSetId": 8
+      },
+      "lineNbr": 96,
+      "author": {
+        "id": 6549
+      },
+      "writtenOn": "2022-02-10T15:14:34Z",
+      "side": 1,
+      "message": "I don\u0027t follow this, why do we have to check for size 1?",
+      "range": {
+        "startLine": 96,
+        "startChar": 18,
+        "endLine": 96,
+        "endChar": 41
+      },
+      "revId": "d3b7001b70d88a092df7cb89f4c805c250d50237",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "fbf7e9a0_f51adf7f",
+        "filename": "video/decode_synchronizer.cc",
+        "patchSetId": 8
+      },
+      "lineNbr": 153,
+      "author": {
+        "id": 6549
+      },
+      "writtenOn": "2022-02-10T15:14:34Z",
+      "side": 1,
+      "message": "This doesn\u0027t make sense to me, I\u0027m expecting MaxDecodeTime to be in the order of 0-100 ms, and next tick is related to the current time",
+      "range": {
+        "startLine": 153,
+        "startChar": 8,
+        "endLine": 153,
+        "endChar": 56
+      },
+      "revId": "d3b7001b70d88a092df7cb89f4c805c250d50237",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "664f30bf_e47cfec5",
+        "filename": "video/decode_synchronizer.h",
+        "patchSetId": 8
+      },
+      "lineNbr": 33,
+      "author": {
+        "id": 6549
+      },
+      "writtenOn": "2022-02-10T15:14:34Z",
+      "side": 1,
+      "message": "coalescing -- i think?",
+      "range": {
+        "startLine": 33,
+        "startChar": 59,
+        "endLine": 33,
+        "endChar": 68
+      },
+      "revId": "d3b7001b70d88a092df7cb89f4c805c250d50237",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "dd033d11_bc5c13e7",
+        "filename": "video/decode_synchronizer.h",
+        "patchSetId": 8
+      },
+      "lineNbr": 69,
+      "author": {
+        "id": 6549
+      },
+      "writtenOn": "2022-02-10T15:14:34Z",
+      "side": 1,
+      "message": "What does rtp mean here?",
+      "range": {
+        "startLine": 69,
+        "startChar": 28,
+        "endLine": 69,
+        "endChar": 31
+      },
+      "revId": "d3b7001b70d88a092df7cb89f4c805c250d50237",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "94395cfe_c1c5a257",
+        "filename": "video/decode_synchronizer.h",
+        "patchSetId": 8
+      },
+      "lineNbr": 91,
+      "author": {
+        "id": 6549
+      },
+      "writtenOn": "2022-02-10T15:14:34Z",
+      "side": 1,
+      "message": "outstanding",
+      "range": {
+        "startLine": 91,
+        "startChar": 20,
+        "endLine": 91,
+        "endChar": 32
+      },
+      "revId": "d3b7001b70d88a092df7cb89f4c805c250d50237",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

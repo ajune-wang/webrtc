@@ -83,6 +83,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "058ae1a6_c1aac63b",
+        "filename": "video/decode_synchronizer.cc",
+        "patchSetId": 8
+      },
+      "lineNbr": 54,
+      "author": {
+        "id": 18444
+      },
+      "writtenOn": "2022-02-10T16:50:55Z",
+      "side": 1,
+      "message": "It is passed as a decode time is passed around as a Timestamp, based on the VCMTiming timestamp from the time the schedule is created. It is stored as a Timestamp since it is evaluated at multiple points in time. If a TimeDelta was used, it would have to be updated with each tick.\n\nFor example, if the MaxDecodeWait is 100ms, then the MaxDecodeTime timestamp would be now+100ms. If the metronome ticks, at now+15ms, the decode synch would see that the frame would be ready in now+85ms, and is not ready yet. In 5 more ticks, the decode synch would see max decode time is now+10ms and should be decoded now.",
+      "parentUuid": "9096dd2c_345210cc",
+      "range": {
+        "startLine": 54,
+        "startChar": 0,
+        "endLine": 54,
+        "endChar": 9
+      },
+      "revId": "d3b7001b70d88a092df7cb89f4c805c250d50237",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "6ab4b517_deef8746",
         "filename": "video/decode_synchronizer.cc",
         "patchSetId": 8
@@ -94,6 +118,30 @@
       "writtenOn": "2022-02-10T15:14:34Z",
       "side": 1,
       "message": "I don\u0027t follow this, why do we have to check for size 1?",
+      "range": {
+        "startLine": 96,
+        "startChar": 18,
+        "endLine": 96,
+        "endChar": 41
+      },
+      "revId": "d3b7001b70d88a092df7cb89f4c805c250d50237",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "8e2e84f6_74e802eb",
+        "filename": "video/decode_synchronizer.cc",
+        "patchSetId": 8
+      },
+      "lineNbr": 96,
+      "author": {
+        "id": 18444
+      },
+      "writtenOn": "2022-02-10T16:50:55Z",
+      "side": 1,
+      "message": "If this is the first decode scheduler added to the synchronizer, the synchronizer will attach to the metronome. We only need to attach to the metronome once for all streams. \n\nThe alternative solution would be that each frame scheduler would attach to the metronome themselves, but this results in more PostTasks. The cost of the PostTasks may be low however, since they won\u0027t induce wakeups.",
+      "parentUuid": "6ab4b517_deef8746",
       "range": {
         "startLine": 96,
         "startChar": 18,
@@ -121,6 +169,24 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "690ac03b_8d8f3680",
+        "filename": "video/decode_synchronizer.cc",
+        "patchSetId": 8
+      },
+      "lineNbr": 126,
+      "author": {
+        "id": 18444
+      },
+      "writtenOn": "2022-02-10T16:50:55Z",
+      "side": 1,
+      "message": "I can implement something similar to base::BindOnce here such that it has to be moved.",
+      "parentUuid": "73d12d44_16706ec3",
+      "revId": "d3b7001b70d88a092df7cb89f4c805c250d50237",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "fbf7e9a0_f51adf7f",
@@ -134,6 +200,30 @@
       "writtenOn": "2022-02-10T15:14:34Z",
       "side": 1,
       "message": "This doesn\u0027t make sense to me, I\u0027m expecting MaxDecodeTime to be in the order of 0-100 ms, and next tick is related to the current time",
+      "range": {
+        "startLine": 153,
+        "startChar": 8,
+        "endLine": 153,
+        "endChar": 56
+      },
+      "revId": "d3b7001b70d88a092df7cb89f4c805c250d50237",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "84fa058a_568b7e76",
+        "filename": "video/decode_synchronizer.cc",
+        "patchSetId": 8
+      },
+      "lineNbr": 153,
+      "author": {
+        "id": 18444
+      },
+      "writtenOn": "2022-02-10T16:50:55Z",
+      "side": 1,
+      "message": "MaxDecodeTime is the Timestamp when decoding should happen rather than the max delay. It is derived from that delay.",
+      "parentUuid": "fbf7e9a0_f51adf7f",
       "range": {
         "startLine": 153,
         "startChar": 8,
@@ -167,6 +257,30 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "297c148c_1870a250",
+        "filename": "video/decode_synchronizer.h",
+        "patchSetId": 8
+      },
+      "lineNbr": 33,
+      "author": {
+        "id": 18444
+      },
+      "writtenOn": "2022-02-10T16:50:55Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "664f30bf_e47cfec5",
+      "range": {
+        "startLine": 33,
+        "startChar": 59,
+        "endLine": 33,
+        "endChar": 68
+      },
+      "revId": "d3b7001b70d88a092df7cb89f4c805c250d50237",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "dd033d11_bc5c13e7",
@@ -190,6 +304,30 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "fe98d02d_f9331621",
+        "filename": "video/decode_synchronizer.h",
+        "patchSetId": 8
+      },
+      "lineNbr": 69,
+      "author": {
+        "id": 18444
+      },
+      "writtenOn": "2022-02-10T16:50:55Z",
+      "side": 1,
+      "message": "RTP timestamp, that was lazy. I have renamed.",
+      "parentUuid": "dd033d11_bc5c13e7",
+      "range": {
+        "startLine": 69,
+        "startChar": 28,
+        "endLine": 69,
+        "endChar": 31
+      },
+      "revId": "d3b7001b70d88a092df7cb89f4c805c250d50237",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "94395cfe_c1c5a257",
@@ -203,6 +341,30 @@
       "writtenOn": "2022-02-10T15:14:34Z",
       "side": 1,
       "message": "outstanding",
+      "range": {
+        "startLine": 91,
+        "startChar": 20,
+        "endLine": 91,
+        "endChar": 32
+      },
+      "revId": "d3b7001b70d88a092df7cb89f4c805c250d50237",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "50cadb68_5fa68d5c",
+        "filename": "video/decode_synchronizer.h",
+        "patchSetId": 8
+      },
+      "lineNbr": 91,
+      "author": {
+        "id": 18444
+      },
+      "writtenOn": "2022-02-10T16:50:55Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "94395cfe_c1c5a257",
       "range": {
         "startLine": 91,
         "startChar": 20,

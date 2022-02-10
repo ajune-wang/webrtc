@@ -34,8 +34,8 @@ class VideoRenderFrames {
   // Get a frame for rendering, or false if it's not time to render.
   absl::optional<VideoFrame> FrameToRender();
 
-  // Returns the number of ms to next frame to render
-  uint32_t TimeToNextFrameRelease();
+  // Returns the next timestamp in ms for next frame to render
+  int64_t NextFrameReleaseTimestamp();
 
   bool HasPendingFrames() const;
 

@@ -246,34 +246,34 @@ void TaskQueuePacedSender::MaybeProcessPackets(
                  avg_packet_send_time * max_hold_back_window_in_packets_);
   }
 
-  absl::optional<TimeDelta> time_to_next_process;
+  absl::optional<Timestamp> process_time_to_schedule;
   if (pacing_controller_.IsProbing() &&
       next_process_time != next_process_time_) {
     // If we're probing and there isn't already a wakeup scheduled for the next
     // process time, always post a task and just round sleep time down to
     // nearest millisecond.
     if (next_process_time.IsMinusInfinity()) {
-      time_to_next_process = TimeDelta::Zero();
+      process_time_to_schedule = Timestamp::Zero();
     } else {
-      time_to_next_process =
-          std::max(TimeDelta::Zero(),
-                   (next_process_time - now).RoundDownTo(TimeDelta::Millis(1)));
+      process_time_to_schedule = next_process_time;
     }
   } else if (next_process_time_.IsMinusInfinity() ||
              next_process_time <= next_process_time_ - hold_back_window) {
     // Schedule a new task since there is none currently scheduled
     // (`next_process_time_` is infinite), or the new process time is at least
     // one holdback window earlier than whatever is currently scheduled.
-    time_to_next_process = std::max(next_process_time - now, hold_back_window);
+    process_time_to_schedule =
+        std::max(next_process_time, now + hold_back_window);
   }
 
-  if (time_to_next_process) {
+  if (process_time_to_schedule) {
     // Set a new scheduled process time and post a delayed task.
     next_process_time_ = next_process_time;
 
-    task_queue_.PostDelayedHighPrecisionTask(
+    task_queue_.PostDelayedTaskAt(
         [this, next_process_time]() { MaybeProcessPackets(next_process_time); },
-        time_to_next_process->ms<uint32_t>());
+        process_time_to_schedule->ms<uint64_t>(),
+        TaskQueueBase::DelayPrecision::kHigh);
   }
 
   UpdateStats();

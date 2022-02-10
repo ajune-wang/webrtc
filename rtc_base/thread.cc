@@ -1097,16 +1097,18 @@ void Thread::PostTask(std::unique_ptr<webrtc::QueuedTask> task) {
 void Thread::PostDelayedTask(std::unique_ptr<webrtc::QueuedTask> task,
                              uint32_t milliseconds) {
   // This implementation does not support low precision yet.
-  PostDelayedHighPrecisionTask(std::move(task), milliseconds);
-}
-
-void Thread::PostDelayedHighPrecisionTask(
-    std::unique_ptr<webrtc::QueuedTask> task,
-    uint32_t milliseconds) {
-  // Though PostDelayed takes MessageData by raw pointer (last parameter),
-  // it still takes it with ownership.
   PostDelayed(RTC_FROM_HERE, milliseconds, &queued_task_handler_, /*id=*/0,
               new ScopedMessageData<webrtc::QueuedTask>(std::move(task)));
+}
+
+void Thread::PostDelayedTaskAt(
+    std::unique_ptr<webrtc::QueuedTask> task,
+    uint64_t run_at_milliseconds,
+    webrtc::TaskQueueBase::DelayPrecision precision) {
+  // Though PostDelayed takes MessageData by raw pointer (last parameter),
+  // it still takes it with ownership.
+  PostAt(RTC_FROM_HERE, run_at_milliseconds, &queued_task_handler_, /*id=*/0,
+         new ScopedMessageData<webrtc::QueuedTask>(std::move(task)));
 }
 
 void Thread::Delete() {

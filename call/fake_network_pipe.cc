@@ -352,12 +352,11 @@ void FakeNetworkPipe::DeliverNetworkPacket(NetworkPacket* packet) {
   }
 }
 
-absl::optional<int64_t> FakeNetworkPipe::TimeUntilNextProcess() {
+absl::optional<int64_t> FakeNetworkPipe::NextProcessTimestamp() {
   MutexLock lock(&process_lock_);
   absl::optional<int64_t> delivery_us = network_behavior_->NextDeliveryTimeUs();
   if (delivery_us) {
-    int64_t delay_us = *delivery_us - clock_->TimeInMicroseconds();
-    return std::max<int64_t>((delay_us + 500) / 1000, 0);
+    return std::max<int64_t>((*delivery_us + 500) / 1000, 0);
   }
   return absl::nullopt;
 }

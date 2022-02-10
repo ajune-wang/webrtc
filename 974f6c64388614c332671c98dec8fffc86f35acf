@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "f6441bb6_3615d809",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 18910
+      },
+      "writtenOn": "2022-02-10T19:04:52Z",
+      "side": 1,
+      "message": "This is to fix a bug that causes my browser to deadlock as soon as I open a webcam!",
+      "revId": "974f6c64388614c332671c98dec8fffc86f35acf",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

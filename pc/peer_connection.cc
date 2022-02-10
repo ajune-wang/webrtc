@@ -2167,12 +2167,18 @@ bool PeerConnection::GetSctpSslRole(rtc::SSLRole* role) {
           RTC_DCHECK_RUN_ON(network_thread());
           return transport_controller_->GetDtlsRole(*sctp_mid_n_);
         });
+    /*
     if (!dtls_role && sdp_handler_->is_caller().has_value()) {
+      RTC_LOG(LS_ERROR) << "DEBUG: Shouldn't guess DTLS role";
+      RTC_CHECK_NOTREACHED();
       dtls_role =
           *sdp_handler_->is_caller() ? rtc::SSL_SERVER : rtc::SSL_CLIENT;
     }
-    *role = *dtls_role;
-    return true;
+    */
+    if (dtls_role) {
+      *role = *dtls_role;
+      return true;
+    }
   }
   return false;
 }

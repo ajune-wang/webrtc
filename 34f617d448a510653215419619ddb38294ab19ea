@@ -34,6 +34,108 @@
       "parentUuid": "0cfa05dd_bf633195",
       "revId": "34f617d448a510653215419619ddb38294ab19ea",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "35e47ad1_97f9bea2",
+        "filename": "modules/desktop_capture/linux/wayland/egl_dmabuf.cc",
+        "patchSetId": 7
+      },
+      "lineNbr": 295,
+      "author": {
+        "id": 14134
+      },
+      "writtenOn": "2022-02-10T20:03:43Z",
+      "side": 1,
+      "message": "Is it necessary to call LoadEGL() and LoadGL() each time the EglDmaBuf constructor is called (which looks to be once per desktop capture session)?",
+      "revId": "34f617d448a510653215419619ddb38294ab19ea",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "2e1e1098_70a69b21",
+        "filename": "modules/desktop_capture/linux/wayland/egl_dmabuf.cc",
+        "patchSetId": 7
+      },
+      "lineNbr": 372,
+      "author": {
+        "id": 14134
+      },
+      "writtenOn": "2022-02-10T20:03:43Z",
+      "side": 1,
+      "message": "Do you need to close drm_fd_ before returning?",
+      "revId": "34f617d448a510653215419619ddb38294ab19ea",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "848097ab_d5853304",
+        "filename": "modules/desktop_capture/linux/wayland/egl_dmabuf.cc",
+        "patchSetId": 7
+      },
+      "lineNbr": 409,
+      "author": {
+        "id": 14134
+      },
+      "writtenOn": "2022-02-10T20:03:43Z",
+      "side": 1,
+      "message": "Guaranteed not to be nullptr?",
+      "revId": "34f617d448a510653215419619ddb38294ab19ea",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "ba8c950f_25cdf031",
+        "filename": "modules/desktop_capture/linux/wayland/egl_dmabuf.cc",
+        "patchSetId": 7
+      },
+      "lineNbr": 416,
+      "author": {
+        "id": 14134
+      },
+      "writtenOn": "2022-02-10T20:03:43Z",
+      "side": 1,
+      "message": "|extension| is already a std::string.",
+      "revId": "34f617d448a510653215419619ddb38294ab19ea",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "e6fff786_632ea9b4",
+        "filename": "modules/desktop_capture/linux/wayland/egl_dmabuf.cc",
+        "patchSetId": 7
+      },
+      "lineNbr": 417,
+      "author": {
+        "id": 14134
+      },
+      "writtenOn": "2022-02-10T20:03:43Z",
+      "side": 1,
+      "message": "This code looks very similar to the code from 307-324.   Can you factor out a helper function?",
+      "revId": "34f617d448a510653215419619ddb38294ab19ea",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "7c1ea0f9_55b965a7",
+        "filename": "modules/desktop_capture/linux/wayland/egl_dmabuf.cc",
+        "patchSetId": 7
+      },
+      "lineNbr": 446,
+      "author": {
+        "id": 14134
+      },
+      "writtenOn": "2022-02-10T20:03:43Z",
+      "side": 1,
+      "message": "Does this always close drm_fd_?",
+      "revId": "34f617d448a510653215419619ddb38294ab19ea",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

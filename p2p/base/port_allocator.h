@@ -26,9 +26,13 @@
 #include "rtc_base/system/rtc_export.h"
 #include "rtc_base/third_party/sigslot/sigslot.h"
 #include "rtc_base/thread.h"
+#include "rtc_base/logging.h"
 
 namespace webrtc {
 class TurnCustomizer;
+void foo() {
+  RTC_LOG(LS_INFO) << "Foo";
+}
 }  // namespace webrtc
 
 namespace cricket {

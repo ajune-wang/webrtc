@@ -1232,23 +1232,29 @@ def CheckOrphanHeaders(input_api, output_api, source_file_filter):
   error_msg = """{} should be listed in {}."""
   results = []
   exempt_paths = [
-      os.path.join('tools_webrtc', 'ios', 'SDK'),
+      os.path.join('tools_webrtc', 'öios', 'SDK'),
   ]
   with _AddToPath(
       input_api.os_path.join(input_api.PresubmitLocalPath(), 'tools_webrtc',
                              'presubmit_checks_lib')):
     from check_orphan_headers import GetBuildGnPathFromFilePath
     from check_orphan_headers import IsHeaderInBuildGn
-
+  print('files to skip ', exempt_paths)
+  print('source_file_filter ', source_file_filter)
   file_filter = lambda x: input_api.FilterSourceFile(
       x, files_to_skip=exempt_paths) and source_file_filter(x)
   for f in input_api.AffectedSourceFiles(file_filter):
+    print('file_filter', file_filter)
     if f.LocalPath().endswith('.h'):
       file_path = os.path.abspath(f.LocalPath())
       root_dir = os.getcwd()
+      print('File path ', file_path)
+      print('root dir ', root_dir)
       gn_file_path = GetBuildGnPathFromFilePath(file_path, os.path.exists,
                                                 root_dir)
+      print('gn file path ', gn_file_path)
       in_build_gn = IsHeaderInBuildGn(file_path, gn_file_path)
+      print('in build gn ', in_build_gn)
       if not in_build_gn:
         results.append(
             output_api.PresubmitError(

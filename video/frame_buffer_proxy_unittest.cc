@@ -227,7 +227,7 @@ class FrameBufferProxyFixture
                                                       kMaxWaitForFrame,
                                                       &decode_sync_)) {
     // Avoid starting with negative render times.
-    timing_.set_min_playout_delay(10);
+    timing_.set_min_playout_delay(TimeDelta::Millis(10));
 
     ON_CALL(stats_callback_, OnDroppedFrames)
         .WillByDefault(
@@ -625,8 +625,7 @@ TEST_P(FrameBufferProxyTest, TestStatsCallback) {
   EXPECT_CALL(stats_callback_, OnFrameBufferTimingsUpdated);
 
   // Fake timing having received decoded frame.
-  timing_.StopDecodeTimer(clock_->TimeInMicroseconds() + 1,
-                          clock_->TimeInMilliseconds());
+  timing_.StopDecodeTimer(TimeDelta::Millis(1), clock_->CurrentTime());
   StartNextDecodeForceKeyframe();
   proxy_->InsertFrame(Builder().Id(0).Time(0).AsLast().Build());
   EXPECT_THAT(WaitForFrameOrTimeout(TimeDelta::Zero()), Frame(WithId(0)));
@@ -712,8 +711,8 @@ TEST_P(LowLatencyFrameBufferProxyTest,
        FramesDecodedInstantlyWithLowLatencyRendering) {
   // Initial keyframe.
   StartNextDecodeForceKeyframe();
-  timing_.set_min_playout_delay(0);
-  timing_.set_max_playout_delay(10);
+  timing_.set_min_playout_delay(TimeDelta::Zero());
+  timing_.set_max_playout_delay(TimeDelta::Millis(10));
   auto frame = Builder().Id(0).Time(0).AsLast().Build();
   // Playout delay of 0 implies low-latency rendering.
   frame->SetPlayoutDelay({0, 10});
@@ -735,8 +734,8 @@ TEST_P(LowLatencyFrameBufferProxyTest,
 TEST_P(LowLatencyFrameBufferProxyTest, ZeroPlayoutDelayFullQueue) {
   // Initial keyframe.
   StartNextDecodeForceKeyframe();
-  timing_.set_min_playout_delay(0);
-  timing_.set_max_playout_delay(10);
+  timing_.set_min_playout_delay(TimeDelta::Zero());
+  timing_.set_max_playout_delay(TimeDelta::Millis(10));
   auto frame = Builder().Id(0).Time(0).AsLast().Build();
   // Playout delay of 0 implies low-latency rendering.
   frame->SetPlayoutDelay({0, 10});

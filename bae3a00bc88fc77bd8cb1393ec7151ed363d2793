@@ -122,6 +122,24 @@
       "parentUuid": "063fe447_bec6020c",
       "revId": "bae3a00bc88fc77bd8cb1393ec7151ed363d2793",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "26103a04_909beb41",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 6
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 14134
+      },
+      "writtenOn": "2022-02-11T17:12:24Z",
+      "side": 1,
+      "message": "A design doc would be very helpful to understand the bigger picture here.\n\nI am most interested in having code specific to desktop capture remain in the desktop capture module and shared code not be duplicated between desktop capture and other other portal clients.\n\nI am also wondering why remote desktop is adding code to WebRTC since input injection is not really part of any Web API.  Can you explain the rationale/background for this project in your design doc?\n\nI am not as concerned about the specific APIs or code flow as long as they look reasonable.  Try to be practical and maximize re-use of existing code, so as not to disrupt either your work or Salman\u0027s.\n\n\u003e accept portal_type option in the constructor. \n\nIt sounds like each portal type (screen capture, input, camera) will have a distinct API.  In that case they could be separate subclasses of a shared base class so they can evolve independently.",
+      "parentUuid": "5036481e_5ef0bc3a",
+      "revId": "bae3a00bc88fc77bd8cb1393ec7151ed363d2793",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

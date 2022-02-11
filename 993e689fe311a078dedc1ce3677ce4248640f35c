@@ -72,6 +72,23 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "49294860_d1267d5e",
+        "filename": "api/task_queue/task_queue_base.h",
+        "patchSetId": 7
+      },
+      "lineNbr": 106,
+      "author": {
+        "id": 5142
+      },
+      "writtenOn": "2022-02-11T08:55:11Z",
+      "side": 1,
+      "message": "For new APIs I would also be tempted to make use of webrtc::Timestamp. We previously decided that changing the type of the delay to webrtc::TimeDelta would introduce risk of rounding errors and we kept uint32_t for delays. But if we keep the old APIs as-is, and PostDelayedTaskAt() is a completely new API, then any callers of it would necessarily be new code and not regressing existing stuff, so to me it would seem perfectly safe to use webrtc::Timestamp here.\n\nMarkus what do you think?",
+      "revId": "993e689fe311a078dedc1ce3677ce4248640f35c",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "1ea6817c_50d68f93",
         "filename": "api/task_queue/task_queue_base.h",
         "patchSetId": 7

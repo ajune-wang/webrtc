@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "6e34a1cd_7b1338b6",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 12
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 6549
+      },
+      "writtenOn": "2022-02-11T14:58:56Z",
+      "side": 1,
+      "message": "LGTM\n\nI would advice that we consider a follow-up where we add metronome support to some of the WebRTC integration level tests, ideally some of the end-to-end tests on the PC level.",
+      "revId": "2deca5b2bf92fe81fb55672a088dad2723796e7b",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

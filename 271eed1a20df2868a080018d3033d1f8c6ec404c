@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "8ec29d48_1a50d1d0",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2022-02-11T10:03:46Z",
+      "side": 1,
+      "message": "PTAL. Lots of the remaining uses depends on fields being NUL-terminated, because of rtc::FromString. ",
+      "revId": "271eed1a20df2868a080018d3033d1f8c6ec404c",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

@@ -87,6 +87,24 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "bec47681_72cc19b3",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 7
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 16458
+      },
+      "writtenOn": "2022-02-11T21:11:25Z",
+      "side": 1,
+      "message": "I drafted go/webrtc-post-task-at\nPTAL and feel free to share with interested parties. We can use it as a cheaper medium to discuss the more controversial bits (e.g. Timestamp).\n\nFrom where I stand, this doesn\u0027t block experimenting with coalescing low precision tasks in webrtc, as you mentioned overriding HighPrecision is a cheaper way to do it and can be done independently. It would be nice however if we have PostDelayedTaskAt once we\u0027re ready to experiment.\nI believe there are additional benefits in exposing PostDelayedTaskAt() (which Henrik described and I\u0027ve tried to outline in the doc), but there are also extra complexity in exposing a new API, and all the ambiguity that absolute time brings. If there\u0027s ongoing work with Timestamp (I lack context here) that would eventually make this easier, I\u0027m happy with punting. Otherwise I would like to move forward with the proposal.",
+      "parentUuid": "7a636f7c_817395ed",
+      "revId": "993e689fe311a078dedc1ce3677ce4248640f35c",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "49294860_d1267d5e",
@@ -160,6 +178,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "3b33ac63_b51b3e40",
+        "filename": "api/task_queue/task_queue_base.h",
+        "patchSetId": 7
+      },
+      "lineNbr": 106,
+      "author": {
+        "id": 16458
+      },
+      "writtenOn": "2022-02-11T21:11:25Z",
+      "side": 1,
+      "message": "Interesting discussion, I\u0027m all for Timestamp but I might be lacking some context.\nI added a section open for discussion in the doc I created\ngo/webrtc-post-task-at",
+      "parentUuid": "23195d9a_32a2077f",
+      "revId": "993e689fe311a078dedc1ce3677ce4248640f35c",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "1ea6817c_50d68f93",
         "filename": "api/task_queue/task_queue_base.h",
         "patchSetId": 7
@@ -189,6 +225,24 @@
       "side": 1,
       "message": "Can you add a link to the bug?",
       "parentUuid": "1ea6817c_50d68f93",
+      "revId": "993e689fe311a078dedc1ce3677ce4248640f35c",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "e9d14cd4_716ce979",
+        "filename": "api/task_queue/task_queue_base.h",
+        "patchSetId": 7
+      },
+      "lineNbr": 119,
+      "author": {
+        "id": 16458
+      },
+      "writtenOn": "2022-02-11T21:11:25Z",
+      "side": 1,
+      "message": "I think it makes sense to not deprecate it, and re-consider if ever there\u0027s no longer any use for it. For now, I agree it makes more sense to keep PostDelayedHighPrecisionTask() than converting everything to now + delay.\nI would keep its own implementation; and chrome embedder can use PostDelayedTaskAt internally.",
+      "parentUuid": "f2e22a5a_299ccd32",
       "revId": "993e689fe311a078dedc1ce3677ce4248640f35c",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }

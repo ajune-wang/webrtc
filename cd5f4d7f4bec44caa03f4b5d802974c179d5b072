@@ -16,6 +16,24 @@
       "message": "Seems to me there should be a comment in api/media_stream_track.h explaining that state_ is accessed from multiple tracks, with a TODO() referencing the apprpriate bug.\n\nOtherwise, looks good to me.",
       "revId": "cd5f4d7f4bec44caa03f4b5d802974c179d5b072",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "bb947a30_edfd0ea1",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 7
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5508
+      },
+      "writtenOn": "2022-02-11T15:10:50Z",
+      "side": 1,
+      "message": "I looked at the various classes that inherit from the MediaStreamTrack\u003c\u003e helper template and figured it would be simpler to just implement the interface directly in AudioTrack/VideoTrack. The alternative is to override the virtual functions in the derived classes and forward calls to the template, and at that point, there\u0027s not really a lot of value that remains by using the template class. Added a TODO for myself to follow up on.",
+      "parentUuid": "797892f4_bc5b5e8a",
+      "revId": "cd5f4d7f4bec44caa03f4b5d802974c179d5b072",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

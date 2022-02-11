@@ -42,7 +42,14 @@ int AudioDecoderPcm16B::DecodeInternal(const uint8_t* encoded,
                                        int16_t* decoded,
                                        SpeechType* speech_type) {
   RTC_DCHECK_EQ(sample_rate_hz_, sample_rate_hz);
-  size_t ret = WebRtcPcm16b_Decode(encoded, encoded_len, decoded);
+  // Adjust the encoded length down to ensure the same number of samples in each
+  // channel.
+  const size_t encoded_len_adjusted =
+      PacketDuration(encoded, encoded_len) * 2 *
+      Channels();  // 2 bytes per sample per channel
+  RTC_DCHECK_LE(encoded_len_adjusted, encoded_len);
+  RTC_DCHECK_GE(encoded_len_adjusted + Channels() * 2, encoded_len);
+  size_t ret = WebRtcPcm16b_Decode(encoded, encoded_len_adjusted, decoded);
   *speech_type = ConvertSpeechType(1);
   return static_cast<int>(ret);
 }

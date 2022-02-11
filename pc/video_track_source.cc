@@ -30,13 +30,18 @@ void VideoTrackSource::SetState(SourceState new_state) {
 void VideoTrackSource::AddOrUpdateSink(
     rtc::VideoSinkInterface<VideoFrame>* sink,
     const rtc::VideoSinkWants& wants) {
-  RTC_DCHECK(worker_thread_checker_.IsCurrent());
+  RTC_DCHECK_RUN_ON(&worker_thread_checker_);
   source()->AddOrUpdateSink(sink, wants);
+  ++trigger_tests_;
+  RTC_DCHECK(trigger_tests_ > 0);
 }
 
 void VideoTrackSource::RemoveSink(rtc::VideoSinkInterface<VideoFrame>* sink) {
-  RTC_DCHECK(worker_thread_checker_.IsCurrent());
+  // TODO(tommi): Figure out downstream issue with tests.
+  RTC_DCHECK_RUN_ON(&worker_thread_checker_);
   source()->RemoveSink(sink);
+  --trigger_tests_;
+  RTC_DCHECK(trigger_tests_ >= -100);
 }
 
 }  //  namespace webrtc

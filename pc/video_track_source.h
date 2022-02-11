@@ -64,6 +64,7 @@ class RTC_EXPORT VideoTrackSource : public Notifier<VideoTrackSourceInterface> {
   RTC_NO_UNIQUE_ADDRESS SequenceChecker signaling_thread_checker_;
   SourceState state_ RTC_GUARDED_BY(&signaling_thread_checker_);
   const bool remote_;
+  int trigger_tests_ = 0;
 };
 
 }  // namespace webrtc

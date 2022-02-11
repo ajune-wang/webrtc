@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "3e76d4d8_95c14e9d",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5100
+      },
+      "writtenOn": "2022-02-11T07:57:06Z",
+      "side": 1,
+      "message": "Minyue, please take a look at this CL. Thanks!",
+      "revId": "9f6f2e0617795899edc61c7b476e79b0f5e7c1bd",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

@@ -104,6 +104,24 @@
       "parentUuid": "5036481e_5ef0bc3a",
       "revId": "bae3a00bc88fc77bd8cb1393ec7151ed363d2793",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "6c7ad1a7_64488698",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 6
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 8046
+      },
+      "writtenOn": "2022-02-11T10:15:37Z",
+      "side": 1,
+      "message": "Ok, it\u0027s been a while since I did anything with the remote desktop portal (I implemented its support in xdg-desktop-portal-kde like ~2 years ago) and I thought there are just subtle differences. For example with the camera portal this would be doable in my opinion. I had this implemented once, where I just added \"kCamera\" enum into the list and based on that I just avoided calls that are not necessary for it. \n\nI was also thinking, since the remote desktop uses the screencast portal underneath, can we make the remote one to inherit the screencast one and just overload what you need to change? This is still me asking without looking into the remote desktop portal to refresh my memory so it\u0027s just a blind shot.",
+      "parentUuid": "063fe447_bec6020c",
+      "revId": "bae3a00bc88fc77bd8cb1393ec7151ed363d2793",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

@@ -107,6 +107,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "a4b8c8a7_fdb864df",
+        "filename": "video/decode_synchronizer.cc",
+        "patchSetId": 8
+      },
+      "lineNbr": 54,
+      "author": {
+        "id": 6549
+      },
+      "writtenOn": "2022-02-11T08:20:25Z",
+      "side": 1,
+      "message": "I see, should we rename it to something else? It\u0027s essentially the time when we want this frame to be rendered given the current max decode time, right? In that case, is it simply the preferred render time?\n\nOr is this the latest time when this frame must be decoded for it to be rendered in time?\n\n---\n\nSaw in a later comment that the latter seems to be the case, then I suggest we rename it desired decode time or something similar",
+      "parentUuid": "058ae1a6_c1aac63b",
+      "range": {
+        "startLine": 54,
+        "startChar": 0,
+        "endLine": 54,
+        "endChar": 9
+      },
+      "revId": "d3b7001b70d88a092df7cb89f4c805c250d50237",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "6ab4b517_deef8746",
         "filename": "video/decode_synchronizer.cc",
         "patchSetId": 8
@@ -142,6 +166,30 @@
       "side": 1,
       "message": "If this is the first decode scheduler added to the synchronizer, the synchronizer will attach to the metronome. We only need to attach to the metronome once for all streams. \n\nThe alternative solution would be that each frame scheduler would attach to the metronome themselves, but this results in more PostTasks. The cost of the PostTasks may be low however, since they won\u0027t induce wakeups.",
       "parentUuid": "6ab4b517_deef8746",
+      "range": {
+        "startLine": 96,
+        "startChar": 18,
+        "endLine": 96,
+        "endChar": 41
+      },
+      "revId": "d3b7001b70d88a092df7cb89f4c805c250d50237",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "9369cb42_478ca2ee",
+        "filename": "video/decode_synchronizer.cc",
+        "patchSetId": 8
+      },
+      "lineNbr": 96,
+      "author": {
+        "id": 6549
+      },
+      "writtenOn": "2022-02-11T08:20:25Z",
+      "side": 1,
+      "message": "Ack, maybe worth a comment",
+      "parentUuid": "8e2e84f6_74e802eb",
       "range": {
         "startLine": 96,
         "startChar": 18,
@@ -224,6 +272,30 @@
       "side": 1,
       "message": "MaxDecodeTime is the Timestamp when decoding should happen rather than the max delay. It is derived from that delay.",
       "parentUuid": "fbf7e9a0_f51adf7f",
+      "range": {
+        "startLine": 153,
+        "startChar": 8,
+        "endLine": 153,
+        "endChar": 56
+      },
+      "revId": "d3b7001b70d88a092df7cb89f4c805c250d50237",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "4bb23c7e_5f94f465",
+        "filename": "video/decode_synchronizer.cc",
+        "patchSetId": 8
+      },
+      "lineNbr": 153,
+      "author": {
+        "id": 6549
+      },
+      "writtenOn": "2022-02-11T08:20:25Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "84fa058a_568b7e76",
       "range": {
         "startLine": 153,
         "startChar": 8,

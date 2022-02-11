@@ -25,6 +25,10 @@ class MockTaskQueueBase : public TaskQueueBase {
   MOCK_METHOD2(PostDelayedTask, void(std::unique_ptr<QueuedTask>, uint32_t));
   MOCK_METHOD2(PostDelayedHighPrecisionTask,
                void(std::unique_ptr<QueuedTask>, uint32_t));
+  MOCK_METHOD3(PostDelayedTaskAt,
+               void(std::unique_ptr<QueuedTask>,
+                    uint64_t,
+                    TaskQueueBase::DelayPrecision));
 };
 
 }  // namespace webrtc

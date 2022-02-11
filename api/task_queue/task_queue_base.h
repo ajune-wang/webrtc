@@ -13,9 +13,11 @@
 #include <memory>
 #include <utility>
 
+#include "absl/base/attributes.h"
 #include "api/task_queue/queued_task.h"
 #include "rtc_base/system/rtc_export.h"
 #include "rtc_base/thread_annotations.h"
+#include "rtc_base/time_utils.h"
 
 namespace webrtc {
 
@@ -30,7 +32,7 @@ class RTC_LOCKABLE RTC_EXPORT TaskQueueBase {
     // See PostDelayedTask() for more information.
     kLow,
     // This does not have the additional delay that kLow has, but it is still
-    // limited by OS timer precision. See PostDelayedHighPrecisionTask() for
+    // limited by OS timer precision. See PostDelayedTaskAt() for
     // more information.
     kHigh,
   };
@@ -59,8 +61,7 @@ class RTC_LOCKABLE RTC_EXPORT TaskQueueBase {
   // May be called on any thread or task queue, including this task queue.
   virtual void PostTask(std::unique_ptr<QueuedTask> task) = 0;
 
-  // Prefer PostDelayedTask() over PostDelayedHighPrecisionTask() whenever
-  // possible.
+  // Prefer PostDelayedTask() over PostDelayedTaskAt() whenever possible.
   //
   // Schedules a task to execute a specified number of milliseconds from when
   // the call is made, using "low" precision. All scheduling is affected by
@@ -84,6 +85,19 @@ class RTC_LOCKABLE RTC_EXPORT TaskQueueBase {
   // May be called on any thread or task queue, including this task queue.
   virtual void PostDelayedTask(std::unique_ptr<QueuedTask> task,
                                uint32_t milliseconds) = 0;
+
+  // Prefer PostDelayedTask() over PostDelayedTaskAt() whenever possible.
+  virtual void PostDelayedTaskAt(
+      std::unique_ptr<QueuedTask> task,
+      uint64_t timestamp_milliseconds,
+      DelayPrecision precision = TaskQueueBase::DelayPrecision::kLow) {
+    // Remove default implementation when dependencies have implemented this
+    // method.
+    PostDelayedTaskWithPrecision(
+        precision, std::move(task),
+        static_cast<uint32_t>(
+            std::max<int64_t>(timestamp_milliseconds - rtc::TimeMillis(), 0U)));
+  }
 
   // Prefer PostDelayedTask() over PostDelayedHighPrecisionTask() whenever
   // possible.

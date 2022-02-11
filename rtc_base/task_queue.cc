@@ -44,4 +44,12 @@ void TaskQueue::PostDelayedHighPrecisionTask(
   return impl_->PostDelayedHighPrecisionTask(std::move(task), milliseconds);
 }
 
+void TaskQueue::PostDelayedTaskAt(
+    std::unique_ptr<webrtc::QueuedTask> task,
+    uint64_t timestamp_milliseconds,
+    webrtc::TaskQueueBase::DelayPrecision precision) {
+  return impl_->PostDelayedTaskAt(std::move(task), timestamp_milliseconds,
+                                  precision);
+}
+
 }  // namespace rtc

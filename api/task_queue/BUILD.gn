@@ -20,6 +20,7 @@ rtc_library("task_queue") {
   deps = [
     "../../rtc_base:checks",
     "../../rtc_base:macromagic",
+    "../../rtc_base:timeutils",
     "../../rtc_base/system:rtc_export",
   ]
   absl_deps = [

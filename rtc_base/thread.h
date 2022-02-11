@@ -421,6 +421,11 @@ class RTC_LOCKABLE RTC_EXPORT Thread : public webrtc::TaskQueueBase {
                        uint32_t milliseconds) override;
   void PostDelayedHighPrecisionTask(std::unique_ptr<webrtc::QueuedTask> task,
                                     uint32_t milliseconds) override;
+  void PostDelayedTaskAt(
+      std::unique_ptr<webrtc::QueuedTask> task,
+      uint64_t run_at_milliseconds,
+      webrtc::TaskQueueBase::DelayPrecision precision =
+          webrtc::TaskQueueBase::DelayPrecision::kLow) override;
   void Delete() override;
 
   // Helper methods to avoid having to do ToQueuedTask() at the calling places.

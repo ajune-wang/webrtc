@@ -33,6 +33,58 @@
       "message": "Color me naive, but what\u0027s the advantage of PostDelayedTaskAt() over PostDelayedHighPrecision?\nMost of the code has no reason to reach for Clock::Now() for any other reason; why do we need to read the realtime clock an extra time when all we want to do is to have a precise wakeup?\n\nI assume there\u0027s a design document discussing this somewhere; please add a pointer to the description.",
       "revId": "993e689fe311a078dedc1ce3677ce4248640f35c",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "6f959f7a_25794627",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 7
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5142
+      },
+      "writtenOn": "2022-02-11T08:49:03Z",
+      "side": 1,
+      "message": "Adding Evan and Markus for their thoughts.",
+      "revId": "993e689fe311a078dedc1ce3677ce4248640f35c",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "28e2bdb4_61f84be6",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 7
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5142
+      },
+      "writtenOn": "2022-02-11T08:49:03Z",
+      "side": 1,
+      "message": "I think we want PostDelayedTaskAt(), but I definitely see the point that the current consumers of PostDelayedHighPrecisionTask() does not care about current clock time.\n\nPostDelayedTaskAt() is a more powerful API for coalescing tasks since it allows multiple tasks to happen at the same time and is now available in Chrome. We are currently refactoring the MetronomeTaskQueue to make use of Chrome\u0027s PostDelayedTaskAt() which gets rid of a ton of complexity and a metronome thread. I think having access to it inside WebRTC could improve SyncDecoding and may be useful for future \"reduce idle wake up\" projects.\n\nBut hw about we don\u0027t remove PostDelayedHighPrecisionTask() since today\u0027s consumers don\u0027t care about clock time? I think the goal should be to make that a non-virtual helper method that calls PostDelayedTaskAt() and to make PDTA the virtual method.\n\nThis would make this CL a lot smaller too since you don\u0027t have to update all calling places, just the webrtc::TaskQueueBase interface.",
+      "parentUuid": "e779bcaa_4b565b0a",
+      "revId": "993e689fe311a078dedc1ce3677ce4248640f35c",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "1ea6817c_50d68f93",
+        "filename": "api/task_queue/task_queue_base.h",
+        "patchSetId": 7
+      },
+      "lineNbr": 119,
+      "author": {
+        "id": 5142
+      },
+      "writtenOn": "2022-02-11T08:49:03Z",
+      "side": 1,
+      "message": "If we don\u0027t deprecate this (see other comment), then I think this should be calling PostDelayedTaskAt() and have a TODO to make it non-virtual when embedders no longer override it.",
+      "revId": "993e689fe311a078dedc1ce3677ce4248640f35c",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

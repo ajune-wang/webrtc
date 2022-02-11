@@ -1232,14 +1232,13 @@ def CheckOrphanHeaders(input_api, output_api, source_file_filter):
   error_msg = """{} should be listed in {}."""
   results = []
   exempt_paths = [
-      os.path.join('tools_webrtc', 'ios', 'SDK'),
+      os.path.normpath(os.path.join('tools_webrtc', 'ios', 'SDK')),
   ]
   with _AddToPath(
       input_api.os_path.join(input_api.PresubmitLocalPath(), 'tools_webrtc',
                              'presubmit_checks_lib')):
     from check_orphan_headers import GetBuildGnPathFromFilePath
     from check_orphan_headers import IsHeaderInBuildGn
-
   file_filter = lambda x: input_api.FilterSourceFile(
       x, files_to_skip=exempt_paths) and source_file_filter(x)
   for f in input_api.AffectedSourceFiles(file_filter):

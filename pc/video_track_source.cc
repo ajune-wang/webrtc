@@ -35,6 +35,7 @@ void VideoTrackSource::AddOrUpdateSink(
 }
 
 void VideoTrackSource::RemoveSink(rtc::VideoSinkInterface<VideoFrame>* sink) {
+  // Last uncommented check:
   RTC_DCHECK(worker_thread_checker_.IsCurrent());
   source()->RemoveSink(sink);
 }

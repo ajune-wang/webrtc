@@ -70,6 +70,23 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "7a636f7c_817395ed",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 7
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 9515
+      },
+      "writtenOn": "2022-02-11T11:17:56Z",
+      "side": 1,
+      "message": "Hi Etienne, thanks for the patch!\n\nI think it might be too early for this kind of change right now and it\u0027s more dangerous than overriding HighPrecision in the wrappers since webrtc consumers are switched from reltime to abstime. Additionally I think this kind of change requires a design doc as there\u0027s a fair degree of ambiguity (abstime inception before Timestamp migration? API having the right fidelity?) and there are many interested parties in WebRTC.\n\nLet\u0027s revisit a little later, wdyt?",
+      "revId": "993e689fe311a078dedc1ce3677ce4248640f35c",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "49294860_d1267d5e",
@@ -119,6 +136,24 @@
       "side": 1,
       "message": "Using webrtc::Timestamp makes sense to me. It is cleaner than having to do `.ms()`, and the accuracy of the timestamp can be rounded in the conversion using `.ms()` in Chrome.",
       "parentUuid": "7c312527_2ae9e0c9",
+      "revId": "993e689fe311a078dedc1ce3677ce4248640f35c",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "23195d9a_32a2077f",
+        "filename": "api/task_queue/task_queue_base.h",
+        "patchSetId": 7
+      },
+      "lineNbr": 106,
+      "author": {
+        "id": 9515
+      },
+      "writtenOn": "2022-02-11T11:17:56Z",
+      "side": 1,
+      "message": "I want to keep webrtc::Timestamp out of this and treat separately, it\u0027s a dangerous switch that has caused problems in the past.",
+      "parentUuid": "5d27573a_c59d53b9",
       "revId": "993e689fe311a078dedc1ce3677ce4248640f35c",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },

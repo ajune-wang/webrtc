@@ -107,6 +107,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "5d27573a_c59d53b9",
+        "filename": "api/task_queue/task_queue_base.h",
+        "patchSetId": 7
+      },
+      "lineNbr": 106,
+      "author": {
+        "id": 18444
+      },
+      "writtenOn": "2022-02-11T09:19:50Z",
+      "side": 1,
+      "message": "Using webrtc::Timestamp makes sense to me. It is cleaner than having to do `.ms()`, and the accuracy of the timestamp can be rounded in the conversion using `.ms()` in Chrome.",
+      "parentUuid": "7c312527_2ae9e0c9",
+      "revId": "993e689fe311a078dedc1ce3677ce4248640f35c",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "1ea6817c_50d68f93",
         "filename": "api/task_queue/task_queue_base.h",
         "patchSetId": 7
@@ -118,6 +136,24 @@
       "writtenOn": "2022-02-11T08:49:03Z",
       "side": 1,
       "message": "If we don\u0027t deprecate this (see other comment), then I think this should be calling PostDelayedTaskAt() and have a TODO to make it non-virtual when embedders no longer override it.",
+      "revId": "993e689fe311a078dedc1ce3677ce4248640f35c",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "f2e22a5a_299ccd32",
+        "filename": "api/task_queue/task_queue_base.h",
+        "patchSetId": 7
+      },
+      "lineNbr": 119,
+      "author": {
+        "id": 18444
+      },
+      "writtenOn": "2022-02-11T09:19:50Z",
+      "side": 1,
+      "message": "Can you add a link to the bug?",
+      "parentUuid": "1ea6817c_50d68f93",
       "revId": "993e689fe311a078dedc1ce3677ce4248640f35c",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }

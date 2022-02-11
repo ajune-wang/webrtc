@@ -16,7 +16,7 @@ vars = {
   'generate_location_tags': True,
 
   # ResultDB version
-  'resultdb_version': 'git_revision:735a8a662d3874d8b1d795a40e46ea0f57b52758',
+  'resultdb_version': 'git_revision:7be9dc41bc64c47a1de16162cf85fbf7d9a838c5',
 }
 
 deps = {

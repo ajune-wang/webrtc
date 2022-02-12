@@ -33,6 +33,24 @@
       "message": "Thanks for updating!\nThough, since you have made a very large change to the pacing controller, I\u0027ll undo my +1 until I can have a closer look. I might not have time until next week.",
       "revId": "c5333a545246620087992e782a7d790ede4e6a51",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "050c4998_a2971574",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 18554
+      },
+      "writtenOn": "2022-02-12T01:52:06Z",
+      "side": 1,
+      "message": "No problem. Thank for the reply.\nIndeed a large change, as export `kMaxProcessingInterval` in NextSendTime.",
+      "parentUuid": "e14622c8_7763b95e",
+      "revId": "c5333a545246620087992e782a7d790ede4e6a51",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "5791057e_28c76389",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 4
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5525
+      },
+      "writtenOn": "2022-02-14T09:36:08Z",
+      "side": 1,
+      "message": "Related to the previous CL where I commented on integration testing, this is probably the level where I would expect that integration test to be added.",
+      "revId": "83a1fea8cb6278f5cdd6ff9ab69dc1034c0dcf8a",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

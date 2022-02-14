@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "037e2a02_5d4f6d4a",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5508
+      },
+      "writtenOn": "2022-02-14T11:04:10Z",
+      "side": 1,
+      "message": "This revert will need to go in following the other one.",
+      "revId": "b7fa27fb7d13e7f52d324da0991cd9c3430cb943",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

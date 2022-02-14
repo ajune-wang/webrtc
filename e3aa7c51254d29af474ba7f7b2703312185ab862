@@ -18,6 +18,24 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "59440de1_48d1e59c",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5508
+      },
+      "writtenOn": "2022-02-14T15:41:36Z",
+      "side": 1,
+      "message": "It\u0027s used in Chrome from the main thread [1]. \n\n[1] https://source.chromium.org/chromium/chromium/src/+/main:third_party/blink/renderer/modules/peerconnection/media_stream_video_webrtc_sink.cc;l\u003d223?q\u003dset_content_hint\u0026ss\u003dchromium",
+      "parentUuid": "dc2b9b10_b1eacb3b",
+      "revId": "e3aa7c51254d29af474ba7f7b2703312185ab862",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "8b0f1b28_49f39dd7",
@@ -31,6 +49,41 @@
       "writtenOn": "2022-02-14T15:32:49Z",
       "side": 1,
       "message": "I\u0027m confused by the change from \"worker_thread_\" to \"\u0026signaling_thread\" - this would indicate that signaling_thread_ is a reference (I assume it\u0027s not a value), but I can\u0027t quite see where it\u0027s defined. Not added here, so it must already be in the codebase somewhere...",
+      "revId": "e3aa7c51254d29af474ba7f7b2703312185ab862",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "c452cebf_006081de",
+        "filename": "pc/video_track.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 84,
+      "author": {
+        "id": 5508
+      },
+      "writtenOn": "2022-02-14T15:41:36Z",
+      "side": 1,
+      "message": "yes, `signaling_thread_` is actually a SequenceChecker, hence the reference.",
+      "parentUuid": "8b0f1b28_49f39dd7",
+      "revId": "e3aa7c51254d29af474ba7f7b2703312185ab862",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "9ce49dde_80ca3a67",
+        "filename": "pc/video_track.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 68,
+      "author": {
+        "id": 5508
+      },
+      "writtenOn": "2022-02-14T15:41:36Z",
+      "side": 1,
+      "message": "here\u0027s where signaling_thread_ is declared.",
       "revId": "e3aa7c51254d29af474ba7f7b2703312185ab862",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }

@@ -1,0 +1,239 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "28011162_56666b5a",
+        "filename": "modules/rtp_rtcp/source/rtcp_transceiver_config.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 67,
+      "author": {
+        "id": 13704
+      },
+      "writtenOn": "2022-02-14T11:50:53Z",
+      "side": 1,
+      "message": "Please be consistent with spellings of RTP, RTCP, SSRC etc. here and below",
+      "revId": "bf04f1c8a886286c88ed3a124865cea2f11ed387",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "9d096a32_e9c77ea7",
+        "filename": "modules/rtp_rtcp/source/rtcp_transceiver_config.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 73,
+      "author": {
+        "id": 13704
+      },
+      "writtenOn": "2022-02-14T11:50:53Z",
+      "side": 1,
+      "message": "Why can\u0027t this be a struct instead? Do you plan to expand it in the future?",
+      "range": {
+        "startLine": 73,
+        "startChar": 2,
+        "endLine": 73,
+        "endChar": 7
+      },
+      "revId": "bf04f1c8a886286c88ed3a124865cea2f11ed387",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "b6c5b73a_8001fe24",
+        "filename": "modules/rtp_rtcp/source/rtcp_transceiver_config.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 82,
+      "author": {
+        "id": 13704
+      },
+      "writtenOn": "2022-02-14T11:50:53Z",
+      "side": 1,
+      "message": "Why aren\u0027t the setters and getters grouped the same way?",
+      "revId": "bf04f1c8a886286c88ed3a124865cea2f11ed387",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "890e0f59_eb13a91a",
+        "filename": "modules/rtp_rtcp/source/rtcp_transceiver_impl.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 130,
+      "author": {
+        "id": 13704
+      },
+      "writtenOn": "2022-02-14T11:50:53Z",
+      "side": 1,
+      "message": "handler !\u003d nullptr",
+      "range": {
+        "startLine": 130,
+        "startChar": 13,
+        "endLine": 130,
+        "endChar": 20
+      },
+      "revId": "bf04f1c8a886286c88ed3a124865cea2f11ed387",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "48354efb_80406ebc",
+        "filename": "modules/rtp_rtcp/source/rtcp_transceiver_impl.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 134,
+      "author": {
+        "id": 13704
+      },
+      "writtenOn": "2022-02-14T11:50:53Z",
+      "side": 1,
+      "message": "std::move(state)",
+      "range": {
+        "startLine": 134,
+        "startChar": 27,
+        "endLine": 134,
+        "endChar": 32
+      },
+      "revId": "bf04f1c8a886286c88ed3a124865cea2f11ed387",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "da4c97f5_5fb56e81",
+        "filename": "modules/rtp_rtcp/source/rtcp_transceiver_impl.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 492,
+      "author": {
+        "id": 13704
+      },
+      "writtenOn": "2022-02-14T11:50:53Z",
+      "side": 1,
+      "message": "I\u0027d prefer if has_sender_report was explicitly initialized here instead of inside the struct. I initially thought it was accidentally left uninitialized.",
+      "revId": "bf04f1c8a886286c88ed3a124865cea2f11ed387",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "21442541_1a283ec0",
+        "filename": "modules/rtp_rtcp/source/rtcp_transceiver_impl.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 528,
+      "author": {
+        "id": 13704
+      },
+      "writtenOn": "2022-02-14T11:50:53Z",
+      "side": 1,
+      "message": "Nit: Move this check first in the loop. Alternatively move it to the end and write as\n\n```\nif (++num_sender_reports \u003e\u003d max_sender_reports) {\n  break;\n}\n```",
+      "range": {
+        "startLine": 526,
+        "startChar": 0,
+        "endLine": 528,
+        "endChar": 5
+      },
+      "revId": "bf04f1c8a886286c88ed3a124865cea2f11ed387",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "31e690fc_cdf04400",
+        "filename": "modules/rtp_rtcp/source/rtcp_transceiver_impl.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 558,
+      "author": {
+        "id": 13704
+      },
+      "writtenOn": "2022-02-14T11:50:53Z",
+      "side": 1,
+      "message": "Rotate `local_senders_`",
+      "range": {
+        "startLine": 558,
+        "startChar": 7,
+        "endLine": 558,
+        "endChar": 27
+      },
+      "revId": "bf04f1c8a886286c88ed3a124865cea2f11ed387",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "7a8f3332_650401cc",
+        "filename": "modules/rtp_rtcp/source/rtcp_transceiver_impl.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 560,
+      "author": {
+        "id": 13704
+      },
+      "writtenOn": "2022-02-14T11:50:53Z",
+      "side": 1,
+      "message": "CreateReportBlocks",
+      "range": {
+        "startLine": 560,
+        "startChar": 16,
+        "endLine": 560,
+        "endChar": 28
+      },
+      "revId": "bf04f1c8a886286c88ed3a124865cea2f11ed387",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "36b83df7_af22be68",
+        "filename": "modules/rtp_rtcp/source/rtcp_transceiver_impl.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 146,
+      "author": {
+        "id": 13704
+      },
+      "writtenOn": "2022-02-14T11:50:53Z",
+      "side": 1,
+      "message": "I was thinking if this could be replaced by a map type (like absl::btree_map) and then use extract/merge to do the splicing. This would simplify things since you don\u0027t have to juggle when adding/removing sender. But I didn\u0027t come up with anything better, especially nothing that has better time complexity :(",
+      "range": {
+        "startLine": 144,
+        "startChar": 0,
+        "endLine": 146,
+        "endChar": 29
+      },
+      "revId": "bf04f1c8a886286c88ed3a124865cea2f11ed387",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "05d0ac0c_0001e904",
+        "filename": "modules/rtp_rtcp/source/rtcp_transceiver_impl_unittest.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 1432,
+      "author": {
+        "id": 13704
+      },
+      "writtenOn": "2022-02-14T11:50:53Z",
+      "side": 1,
+      "message": "Nit:\nstatic constexpr size_t kNumSenders \u003d 6;\nstatic constexpr uint32_t kSenderSsrc[kNumSenders] \u003d {10, 20, 30, 40, 50, 60};\nstatic constexpr int kSendersPerPacket \u003d 5;",
+      "range": {
+        "startLine": 1430,
+        "startChar": 0,
+        "endLine": 1432,
+        "endChar": 38
+      },
+      "revId": "bf04f1c8a886286c88ed3a124865cea2f11ed387",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

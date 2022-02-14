@@ -64,8 +64,9 @@ bool CompareNetworks(const Network* a, const Network* b) {
     if (a->name() == b->name()) {
       return a->prefix() < b->prefix();
     }
+    return a->name() < b->name();
   }
-  return a->name() < b->name();
+  return a->prefix_length() < b->prefix_length();
 }
 
 bool SortNetworks(const Network* a, const Network* b) {

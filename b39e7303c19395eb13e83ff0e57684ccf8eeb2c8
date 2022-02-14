@@ -22,6 +22,30 @@
       },
       "revId": "b39e7303c19395eb13e83ff0e57684ccf8eeb2c8",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "a48ae042_da49c4e2",
+        "filename": "test/fuzzers/frame_buffer3_fuzzer.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 68,
+      "author": {
+        "id": 18444
+      },
+      "writtenOn": "2022-02-14T16:46:56Z",
+      "side": 1,
+      "message": "I have implemented the latter and confirmed that it generates negative numbers.",
+      "parentUuid": "38308cf4_3f1e09c1",
+      "range": {
+        "startLine": 68,
+        "startChar": 21,
+        "endLine": 68,
+        "endChar": 46
+      },
+      "revId": "b39e7303c19395eb13e83ff0e57684ccf8eeb2c8",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

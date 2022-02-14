@@ -142,6 +142,30 @@
       },
       "revId": "b9e7a5bafa778dd7d91912d083d307a9e7697c28",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "6fc74b04_18e83897",
+        "filename": "modules/video_coding/utility/decoded_frames_history.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 40,
+      "author": {
+        "id": 18444
+      },
+      "writtenOn": "2022-02-14T16:46:56Z",
+      "side": 1,
+      "message": "If overflow happens then we could end up with a distorted decode history which could corrupt the stream and confuse the frame buffer.",
+      "parentUuid": "2512b076_4f638d43",
+      "range": {
+        "startLine": 40,
+        "startChar": 10,
+        "endLine": 40,
+        "endChar": 24
+      },
+      "revId": "b9e7a5bafa778dd7d91912d083d307a9e7697c28",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

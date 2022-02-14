@@ -18,6 +18,7 @@
 #include "api/sequence_checker.h"
 #include "rtc_base/checks.h"
 #include "rtc_base/location.h"
+#include "rtc_base/logging.h"
 #include "rtc_base/ref_counted_object.h"
 
 namespace webrtc {
@@ -74,16 +75,20 @@ VideoTrackSourceInterface* VideoTrack::GetSource() const {
 }
 
 VideoTrackInterface::ContentHint VideoTrack::content_hint() const {
-  RTC_DCHECK_RUN_ON(worker_thread_);
+  RTC_DCHECK_RUN_ON(&signaling_thread_);
+  RTC_LOG(LS_ERROR) << "**** VT::content_hint";
   return content_hint_;
 }
 
 void VideoTrack::set_content_hint(ContentHint hint) {
-  RTC_DCHECK_RUN_ON(worker_thread_);
+  RTC_DCHECK_RUN_ON(&signaling_thread_);
+  RTC_LOG(LS_ERROR) << "**** VT::set_content_hint";
   if (content_hint_ == hint)
     return;
   content_hint_ = hint;
+  RTC_LOG(LS_ERROR) << "**** VT::set_content_hint - firing";
   Notifier<VideoTrackInterface>::FireOnChanged();
+  RTC_LOG(LS_ERROR) << "**** VT::set_content_hint - firing done";
 }
 
 bool VideoTrack::set_enabled(bool enable) {

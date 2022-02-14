@@ -70,6 +70,30 @@
       },
       "revId": "b9e7a5bafa778dd7d91912d083d307a9e7697c28",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "6cef9f26_a77d3dbd",
+        "filename": "modules/video_coding/utility/decoded_frames_history.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 40,
+      "author": {
+        "id": 18444
+      },
+      "writtenOn": "2022-02-14T11:04:22Z",
+      "side": 1,
+      "message": "I will look into adding a fix to the fuzzer",
+      "parentUuid": "20ec4ae2_1a97be2b",
+      "range": {
+        "startLine": 40,
+        "startChar": 10,
+        "endLine": 40,
+        "endChar": 24
+      },
+      "revId": "b9e7a5bafa778dd7d91912d083d307a9e7697c28",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

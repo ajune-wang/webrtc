@@ -71,6 +71,10 @@ static_assert(kCepstralCoeffsHistorySize > 2,
 
 constexpr int kFeatureVectorSize = 42;
 
+// Minimum and maximum voice activity probabilities.
+constexpr float kMinVadProbability = 0.0f;
+constexpr float kMaxVadProbability = 1.0f;
+
 }  // namespace rnn_vad
 }  // namespace webrtc
 

@@ -38,7 +38,8 @@ void WarmUpRnnVad(RnnVad& rnn_vad) {
 TEST(RnnVadTest, CheckZeroProbabilityWithSilence) {
   RnnVad rnn_vad(GetAvailableCpuFeatures());
   WarmUpRnnVad(rnn_vad);
-  EXPECT_EQ(rnn_vad.ComputeVadProbability(kFeatures, /*is_silence=*/true), 0.f);
+  EXPECT_EQ(rnn_vad.ComputeVadProbability(kFeatures, /*is_silence=*/true),
+            kMinVadProbability);
 }
 
 // Checks that the same output is produced after reset given the same input
@@ -63,6 +64,48 @@ TEST(RnnVadTest, CheckRnnVadSilence) {
   WarmUpRnnVad(rnn_vad);
   float post = rnn_vad.ComputeVadProbability(kFeatures, /*is_silence=*/false);
   EXPECT_EQ(pre, post);
+}
+
+// Checks that the minimum probability value is returned before the first
+// `ComputeVadProbability()` call.
+TEST(RnnVadTest, CheckGetVadProbabilityAfterInit) {
+  RnnVad rnn_vad(GetAvailableCpuFeatures());
+  EXPECT_EQ(rnn_vad.GetVadProbability(), kMinVadProbability);
+  EXPECT_EQ(rnn_vad.GetVadProbability(), kMinVadProbability);
+}
+
+// Checks that the same probability value is returned between
+// `ComputeVadProbability()` calls.
+TEST(RnnVadTest, CheckGetVadProbabilityBetweenComputeVadProbability) {
+  RnnVad rnn_vad(GetAvailableCpuFeatures());
+  WarmUpRnnVad(rnn_vad);
+  const float first_probability =
+      rnn_vad.ComputeVadProbability(kFeatures, /*is_silence=*/false);
+  EXPECT_EQ(rnn_vad.GetVadProbability(), first_probability);
+  EXPECT_EQ(rnn_vad.GetVadProbability(), first_probability);
+  const float second_probability =
+      rnn_vad.ComputeVadProbability(kFeatures, /*is_silence=*/false);
+  EXPECT_EQ(rnn_vad.GetVadProbability(), second_probability);
+  EXPECT_EQ(rnn_vad.GetVadProbability(), second_probability);
+  EXPECT_NE(first_probability, second_probability);
+}
+
+// Checks that the minimum probability value is returned after silence.
+TEST(RnnVadTest, CheckGetVadProbabilityAfterSilence) {
+  RnnVad rnn_vad(GetAvailableCpuFeatures());
+  WarmUpRnnVad(rnn_vad);
+  const float first_probability =
+      rnn_vad.ComputeVadProbability(kFeatures, /*is_silence=*/false);
+  EXPECT_EQ(rnn_vad.GetVadProbability(), first_probability);
+  EXPECT_GT(first_probability, kMinVadProbability);
+  const float second_probability =
+      rnn_vad.ComputeVadProbability(kFeatures, /*is_silence=*/true);
+  EXPECT_EQ(rnn_vad.GetVadProbability(), second_probability);
+  EXPECT_EQ(second_probability, kMinVadProbability);
+  const float third_probability =
+      rnn_vad.ComputeVadProbability(kFeatures, /*is_silence=*/false);
+  EXPECT_EQ(rnn_vad.GetVadProbability(), third_probability);
+  EXPECT_GT(third_probability, kMinVadProbability);
 }
 
 }  // namespace

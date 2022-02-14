@@ -87,8 +87,8 @@ int main(int argc, char* argv[]) {
     float vad_probability =
         rnn_vad.ComputeVadProbability(feature_vector, is_silence);
     // Write voice probability.
-    RTC_DCHECK_GE(vad_probability, 0.f);
-    RTC_DCHECK_GE(1.f, vad_probability);
+    RTC_DCHECK_GE(vad_probability, kMinVadProbability);
+    RTC_DCHECK_LE(vad_probability, kMaxVadProbability);
     fwrite(&vad_probability, sizeof(float), 1, vad_probs_file);
     // Write features.
     if (features_file) {

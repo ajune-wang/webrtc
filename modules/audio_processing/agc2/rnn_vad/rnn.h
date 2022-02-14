@@ -35,16 +35,21 @@ class RnnVad {
   RnnVad& operator=(const RnnVad&) = delete;
   ~RnnVad();
   void Reset();
-  // Observes `feature_vector` and `is_silence`, updates the RNN and returns the
-  // current voice probability.
+  // Observes `feature_vector` and `is_silence`, updates the RNN, and stores and
+  // returns the current voice probability. Resets the state if `is_silence` is
+  // true.
   float ComputeVadProbability(
       rtc::ArrayView<const float, kFeatureVectorSize> feature_vector,
       bool is_silence);
+  // Returns the last VAD probability. Can be called multiple times after each
+  // `ComputeVadProbability()` call.
+  float GetVadProbability() const;
 
  private:
   FullyConnectedLayer input_;
   GatedRecurrentLayer hidden_;
   FullyConnectedLayer output_;
+  float last_vad_probability_ = 0.0f;
 };
 
 }  // namespace rnn_vad

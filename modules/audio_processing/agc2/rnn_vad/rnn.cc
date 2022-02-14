@@ -71,6 +71,7 @@ RnnVad::~RnnVad() = default;
 
 void RnnVad::Reset() {
   hidden_.Reset();
+  last_vad_probability_ = kMinVadProbability;
 }
 
 float RnnVad::ComputeVadProbability(
@@ -78,13 +79,18 @@ float RnnVad::ComputeVadProbability(
     bool is_silence) {
   if (is_silence) {
     Reset();
-    return 0.f;
+  } else {
+    input_.ComputeOutput(feature_vector);
+    hidden_.ComputeOutput(input_);
+    output_.ComputeOutput(hidden_);
+    RTC_DCHECK_EQ(output_.size(), 1);
+    last_vad_probability_ = output_.data()[0];
   }
-  input_.ComputeOutput(feature_vector);
-  hidden_.ComputeOutput(input_);
-  output_.ComputeOutput(hidden_);
-  RTC_DCHECK_EQ(output_.size(), 1);
-  return output_.data()[0];
+  return last_vad_probability_;
+}
+
+float RnnVad::GetVadProbability() const {
+  return last_vad_probability_;
 }
 
 }  // namespace rnn_vad

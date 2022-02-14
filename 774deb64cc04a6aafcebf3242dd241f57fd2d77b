@@ -1,0 +1,44 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "46427557_56643a9d",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 6
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5527
+      },
+      "writtenOn": "2022-02-14T17:23:01Z",
+      "side": 1,
+      "message": "Thanks for fixing this",
+      "revId": "774deb64cc04a6aafcebf3242dd241f57fd2d77b",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "66d5c03d_66a30cec",
+        "filename": "test/fuzzers/frame_buffer3_fuzzer.cc",
+        "patchSetId": 6
+      },
+      "lineNbr": 70,
+      "author": {
+        "id": 5527
+      },
+      "writtenOn": "2022-02-14T17:23:01Z",
+      "side": 1,
+      "message": "We could just use uint16_t instead, then we won\u0027t \"waste\" bits.",
+      "range": {
+        "startLine": 70,
+        "startChar": 38,
+        "endLine": 70,
+        "endChar": 45
+      },
+      "revId": "774deb64cc04a6aafcebf3242dd241f57fd2d77b",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

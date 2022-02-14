@@ -94,6 +94,30 @@
       },
       "revId": "b9e7a5bafa778dd7d91912d083d307a9e7697c28",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "75c3bbbd_3cf8eedf",
+        "filename": "modules/video_coding/utility/decoded_frames_history.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 40,
+      "author": {
+        "id": 18444
+      },
+      "writtenOn": "2022-02-14T15:38:54Z",
+      "side": 1,
+      "message": "I have removed this check and fixed the fuzzer to sanitize the values as they are on the wire.",
+      "parentUuid": "6cef9f26_a77d3dbd",
+      "range": {
+        "startLine": 40,
+        "startChar": 10,
+        "endLine": 40,
+        "endChar": 24
+      },
+      "revId": "b9e7a5bafa778dd7d91912d083d307a9e7697c28",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

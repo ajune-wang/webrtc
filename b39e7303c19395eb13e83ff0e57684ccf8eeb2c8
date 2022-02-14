@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "38308cf4_3f1e09c1",
+        "filename": "test/fuzzers/frame_buffer3_fuzzer.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 68,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2022-02-14T15:45:40Z",
+      "side": 1,
+      "message": "Then we don\u0027t get negative numbers here. I would suggest to either \n\n1. Insert random ids in a large range, something like\n\n  (id \u0026 (std::numeric_limits\u003cint64_t\u003e::max() \u003e\u003e 4)) -  (std::numeric_limits\u003cint64_t\u003e::max() \u003e\u003e 3)\n\n2. Generate ids in the on-wire range, but pass them through the unwrapped to convert them to int64_t, which will then occasionally produce negative numbers. (Then the unwrapping should also be considered part of the object under test, so perhaps a larger change).",
+      "range": {
+        "startLine": 68,
+        "startChar": 21,
+        "endLine": 68,
+        "endChar": 46
+      },
+      "revId": "b39e7303c19395eb13e83ff0e57684ccf8eeb2c8",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

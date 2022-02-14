@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "bd3230e2_08ec694b",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2022-02-14T22:00:55Z",
+      "side": 1,
+      "message": "Comments sought.\nI was surprised that both internal_ bots passed without a single error.\n",
+      "revId": "49769c11ed4233b5a69d4899ff84e2cae353ce03",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

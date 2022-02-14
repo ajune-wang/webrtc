@@ -586,12 +586,24 @@ VideoRtpSender::~VideoRtpSender() {
 void VideoRtpSender::OnChanged() {
   TRACE_EVENT0("webrtc", "VideoRtpSender::OnChanged");
   RTC_DCHECK(!stopped_);
+  RTC_LOG(LS_ERROR) << "**** VRS::OnChanged - wt="
+                    << worker_thread_->IsCurrent();
+
+  if (worker_thread_->IsCurrent()) {
+    RTC_LOG(LS_ERROR)
+        << "**** VRS::OnChanged - ignoring since we're on the worker - wt="
+        << worker_thread_->IsCurrent();
+    return;
+  }
+
   if (cached_track_content_hint_ != video_track()->content_hint()) {
     cached_track_content_hint_ = video_track()->content_hint();
     if (can_send_track()) {
       SetSend();
     }
   }
+  RTC_LOG(LS_ERROR) << "**** VRS::OnChanged - done - wt="
+                    << worker_thread_->IsCurrent();
 }
 
 void VideoRtpSender::AttachTrack() {

@@ -20,6 +20,9 @@ class FuzzyFrameObject : public EncodedFrame {
   int64_t ReceivedTime() const override { return 0; }
   int64_t RenderTime() const override { return 0; }
 };
+
+constexpr int kFrameIdLength = 1 << 15;
+
 }  // namespace
 
 void FuzzOneInput(const uint8_t* data, size_t size) {
@@ -61,7 +64,8 @@ void FuzzOneInput(const uint8_t* data, size_t size) {
       case 6: {
         auto frame = std::make_unique<FuzzyFrameObject>();
         frame->SetTimestamp(helper.ReadOrDefaultValue<uint32_t>(0));
-        frame->SetId(helper.ReadOrDefaultValue<int64_t>(0));
+        int64_t id = helper.ReadOrDefaultValue<int64_t>(0);
+        frame->SetId(id & (kFrameIdLength - 1));
         frame->is_last_spatial_layer = helper.ReadOrDefaultValue<bool>(false);
 
         frame->num_references = helper.ReadOrDefaultValue<uint8_t>(0) %

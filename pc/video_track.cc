@@ -76,12 +76,12 @@ VideoTrackSourceInterface* VideoTrack::GetSource() const {
 }
 
 VideoTrackInterface::ContentHint VideoTrack::content_hint() const {
-  RTC_DCHECK_RUN_ON(worker_thread_);
+  RTC_DCHECK_RUN_ON(&signaling_thread_);
   return content_hint_;
 }
 
 void VideoTrack::set_content_hint(ContentHint hint) {
-  RTC_DCHECK_RUN_ON(worker_thread_);
+  RTC_DCHECK_RUN_ON(&signaling_thread_);
   if (content_hint_ == hint)
     return;
   content_hint_ = hint;

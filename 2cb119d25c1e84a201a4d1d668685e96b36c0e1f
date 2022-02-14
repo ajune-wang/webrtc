@@ -24,6 +24,30 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "a8462e2b_8996fa88",
+        "filename": "modules/rtp_rtcp/source/rtcp_transceiver_impl.cc",
+        "patchSetId": 6
+      },
+      "lineNbr": 559,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2022-02-14T14:45:42Z",
+      "side": 1,
+      "message": "I moved it next to \u0027AppendPacket\u0027 function because it represents number of generated sender reports.\n\nright now it is the same as number of iterations, but that is planned to change.",
+      "parentUuid": "5186158d_76803235",
+      "range": {
+        "startLine": 559,
+        "startChar": 4,
+        "endLine": 559,
+        "endChar": 24
+      },
+      "revId": "2cb119d25c1e84a201a4d1d668685e96b36c0e1f",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "d53f3669_432b476c",
@@ -37,6 +61,30 @@
       "writtenOn": "2022-02-14T14:15:12Z",
       "side": 1,
       "message": "Remove default initialization",
+      "range": {
+        "startLine": 118,
+        "startChar": 26,
+        "endLine": 118,
+        "endChar": 34
+      },
+      "revId": "2cb119d25c1e84a201a4d1d668685e96b36c0e1f",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "9fe3da06_59e6877d",
+        "filename": "modules/rtp_rtcp/source/rtcp_transceiver_impl.h",
+        "patchSetId": 6
+      },
+      "lineNbr": 118,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2022-02-14T14:45:42Z",
+      "side": 1,
+      "message": "not sure why it is harmful (it is a reasonable default value), but right now it is not used. removed.",
+      "parentUuid": "d53f3669_432b476c",
       "range": {
         "startLine": 118,
         "startChar": 26,

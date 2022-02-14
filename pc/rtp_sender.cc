@@ -589,6 +589,7 @@ void VideoRtpSender::OnChanged() {
   if (cached_track_content_hint_ != video_track()->content_hint()) {
     cached_track_content_hint_ = video_track()->content_hint();
     if (can_send_track()) {
+      RTC_DCHECK(worker_thread_->IsCurrent());
       SetSend();
     }
   }

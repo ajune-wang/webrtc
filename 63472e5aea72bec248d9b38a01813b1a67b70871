@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "f9152b3b_9a56e025",
+        "filename": "rtc_base/network.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 69,
+      "author": {
+        "id": 5087
+      },
+      "writtenOn": "2022-02-14T09:59:19Z",
+      "side": 0,
+      "message": "I think this doesn\u0027t satisfy https://en.cppreference.com/w/cpp/concepts/strict_weak_order (the transitivity) when prefixes have a different length (which should be used to make the comparison) we fallback on names.",
+      "range": {
+        "startLine": 62,
+        "startChar": 0,
+        "endLine": 69,
+        "endChar": 1
+      },
+      "revId": "63472e5aea72bec248d9b38a01813b1a67b70871",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

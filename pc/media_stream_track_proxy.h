@@ -48,8 +48,8 @@ BYPASS_PROXY_CONSTMETHOD0(std::string, id)
 BYPASS_PROXY_CONSTMETHOD0(TrackState, state)
 PROXY_SECONDARY_CONSTMETHOD0(bool, enabled)
 PROXY_SECONDARY_METHOD1(bool, set_enabled, bool)
-PROXY_SECONDARY_CONSTMETHOD0(ContentHint, content_hint)
-PROXY_SECONDARY_METHOD1(void, set_content_hint, ContentHint)
+PROXY_CONSTMETHOD0(ContentHint, content_hint)
+PROXY_METHOD1(void, set_content_hint, ContentHint)
 PROXY_SECONDARY_METHOD2(void,
                         AddOrUpdateSink,
                         rtc::VideoSinkInterface<VideoFrame>*,

@@ -140,6 +140,24 @@
       "parentUuid": "5036481e_5ef0bc3a",
       "revId": "bae3a00bc88fc77bd8cb1393ec7151ed363d2793",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "32da3464_90549cb9",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 6
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 18829
+      },
+      "writtenOn": "2022-02-14T16:37:06Z",
+      "side": 1,
+      "message": "\u003e I am also wondering why remote desktop is adding code to WebRTC since input injection is not really part of any Web API.  Can you explain the rationale/background for this project in your design doc?\n\nThat is a great question. I have jotted down my thoughts here (let me know if a different format for discussion is more appropriate and/or if we should discuss on a bug/google doc):\nhttps://webrtc-review.googlesource.com/c/src/+/251740\n\nWe can converge on the best way to organizing the implementation there.\n\n\u003e Try to be practical and maximize re-use of existing code\n\nAgreed. This is why I was sending out bits and pieces of refactoring code for reviews so that we can be as DRY as possible. Subsequent changes are not yet open for reviews since they can be further DRY-ed up. I will likely open them only when we have converged on the design.",
+      "parentUuid": "26103a04_909beb41",
+      "revId": "bae3a00bc88fc77bd8cb1393ec7151ed363d2793",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

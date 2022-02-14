@@ -144,5 +144,95 @@ TEST(VideoCodecTestMediaCodec, ForemanMixedRes100kbpsVp8H264) {
   }
 }
 
+TEST(VideoCodecTestMediaCodec, BitRateAdaptationHighLowHigh) {
+  const std::vector<webrtc::test::RateProfile> rate_profile = {
+      {/*target_kbps=*/3000, /*input_fps=*/30, /*frame_num=*/0},
+      {/*target_kbps=*/1500, /*input_fps=*/30, /*frame_num=*/300},
+      {/*target_kbps=*/750, /*input_fps=*/30, /*frame_num=*/600},
+      {/*target_kbps=*/1500, /*input_fps=*/30, /*frame_num=*/900},
+      {/*target_kbps=*/3000, /*input_fps=*/30, /*frame_num=*/1200}};
+
+  VideoCodecTestFixture::Config config;
+  config.filename = "PlantAndFan_1280x720_30";
+  config.filepath = ResourcePath(config.filename, "yuv");
+  config.num_frames = 1500;
+  config.encode_in_real_time = true;
+  config.SetCodecSettings(cricket::kH264CodecName, 1, 1, 1, false, false, false,
+                          1280, 720);
+
+  auto fixture = CreateTestFixtureWithConfig(config);
+  fixture->RunTest(rate_profile, nullptr, nullptr, nullptr);
+
+  for (size_t i = 0; i < rate_profile.size(); ++i) {
+    auto stats = fixture->GetStats().SliceAndCalcLayerVideoStatistic(
+        rate_profile[i].frame_num, rate_profile[i].frame_num + 299);
+    ASSERT_EQ(stats.size(), 1u);
+
+    // Bitrate mismatch is <= 5%.
+    EXPECT_LE(stats[0].avg_bitrate_mismatch_pct, 5);
+    EXPECT_GE(stats[0].avg_bitrate_mismatch_pct, -5);
+
+    // Max frame transmission time is <= 100ms.
+    EXPECT_LE(stats[0].max_delta_frame_delay_sec, 0.1);
+
+    // Max frame processing time is <= 100ms.
+    EXPECT_LE(stats[0].max_frame_encode_time_sec, 0.1);
+    EXPECT_LE(stats[0].max_frame_decode_time_sec, 0.1);
+
+    // Frame drops are not expected.
+    EXPECT_EQ(stats[0].num_encoded_frames, 300u);
+    EXPECT_EQ(stats[0].num_decoded_frames, 300u);
+
+    // Periodic keyframes are not expected.
+    EXPECT_EQ(stats[0].num_key_frames, i == 0 ? 1u : 0);
+  }
+}
+
+TEST(VideoCodecTestMediaCodec, FrameRateAdaptationHighLowHigh) {
+  const std::vector<webrtc::test::RateProfile> rate_profile = {
+      {/*target_kbps=*/2000, /*input_fps=*/30, /*frame_num=*/0},
+      {/*target_kbps=*/2000, /*input_fps=*/15, /*frame_num=*/300},
+      {/*target_kbps=*/2000, /*input_fps=*/7.5, /*frame_num=*/450},
+      {/*target_kbps=*/2000, /*input_fps=*/15, /*frame_num=*/525},
+      {/*target_kbps=*/2000, /*input_fps=*/30, /*frame_num=*/675}};
+
+  VideoCodecTestFixture::Config config;
+  config.filename = "PlantAndFan_1280x720_30";
+  config.filepath = ResourcePath(config.filename, "yuv");
+  config.num_frames = 975;
+  config.encode_in_real_time = true;
+  config.SetCodecSettings(cricket::kVp8CodecName, 1, 1, 1, false, false, false,
+                          1280, 720);
+
+  auto fixture = CreateTestFixtureWithConfig(config);
+  fixture->RunTest(rate_profile, nullptr, nullptr, nullptr);
+
+  for (size_t i = 0; i < rate_profile.size(); ++i) {
+    const size_t num_frames =
+        static_cast<size_t>(rate_profile[i].input_fps * 10);
+    auto stats = fixture->GetStats().SliceAndCalcLayerVideoStatistic(
+        rate_profile[i].frame_num, rate_profile[i].frame_num + num_frames - 1);
+    ASSERT_EQ(stats.size(), 1u);
+
+    // Bitrate mismatch is <= 5%.
+    EXPECT_LE(stats[0].avg_bitrate_mismatch_pct, 5);
+    EXPECT_GE(stats[0].avg_bitrate_mismatch_pct, -5);
+
+    // Max frame transmission time is <= 100ms.
+    EXPECT_LE(stats[0].max_delta_frame_delay_sec, 0.1);
+
+    // Max frame processing time is <= 100ms.
+    EXPECT_LE(stats[0].max_frame_encode_time_sec, 0.1);
+    EXPECT_LE(stats[0].max_frame_decode_time_sec, 0.1);
+
+    // Frame drops are not expected.
+    EXPECT_EQ(stats[0].num_encoded_frames, num_frames);
+    EXPECT_EQ(stats[0].num_decoded_frames, num_frames);
+
+    // Periodic keyframes are not expected.
+    EXPECT_EQ(stats[0].num_key_frames, i == 0 ? 1u : 0);
+  }
+}
+
 }  // namespace test
 }  // namespace webrtc

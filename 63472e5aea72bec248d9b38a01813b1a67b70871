@@ -46,6 +46,30 @@
       },
       "revId": "63472e5aea72bec248d9b38a01813b1a67b70871",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "53972ed0_715f037c",
+        "filename": "rtc_base/network.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 69,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2022-02-14T10:35:16Z",
+      "side": 0,
+      "message": "This isn\u0027t clearly documented. Should it just be an arbitrary well defined order (to be usable with std::map and the like), or correspond to some meaningful semantics?\n\nIf I read the first case correctly, it seems difference in |name| always takes precedence, and then I think it would be clearer to start with\n\n  if (a-\u003ename() !\u003d b-\u003ename()) { return a-\u003ename() \u003c b-\u003ename(); }\n\nand consider prefixes only when names are equal. To me it seems the logic that may break transitivity, is the special case of equal prefix_length, but I\u0027m having some difficulty understanding what\u0027s going on. Say you have three networks A, B, C all with the same name, transitivity means that we must rule out A \u003c\u003d B and B \u003c\u003d C, but A \u003e C.",
+      "parentUuid": "7444a0f7_fc882995",
+      "range": {
+        "startLine": 62,
+        "startChar": 0,
+        "endLine": 69,
+        "endChar": 1
+      },
+      "revId": "63472e5aea72bec248d9b38a01813b1a67b70871",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

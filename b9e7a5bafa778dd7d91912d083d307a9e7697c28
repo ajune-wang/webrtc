@@ -46,6 +46,30 @@
       },
       "revId": "b9e7a5bafa778dd7d91912d083d307a9e7697c28",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "20ec4ae2_1a97be2b",
+        "filename": "modules/video_coding/utility/decoded_frames_history.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 40,
+      "author": {
+        "id": 5527
+      },
+      "writtenOn": "2022-02-14T10:12:40Z",
+      "side": 1,
+      "message": "Frame IDs received on the wire are unwrapped to `int64_t`s, and the idea is for 64 bit to be \"infinite\". Even when using the DD the frame ID is only 16 bit long, so the largest possible gap in frame IDs would be 2^15, which would require the sender to send 2^49 (2.8 * 10^14) frames before and overflow would occur.\n\nThe frame ID can actually become negative, if for example the sender sends frames with ID 65535, 0, 1, ... and we receive 0 before 65535 then 0 will be unwrapped to 0 but 65535 will be unwrapped to -1 (if no reordering then 65535 --\u003e 65535, 0 --\u003e 65536). \n\nI don\u0027t think this needs a fix, is there a way for us to tell the fuzzer that this is ok?",
+      "parentUuid": "37cef99e_c47103f3",
+      "range": {
+        "startLine": 40,
+        "startChar": 10,
+        "endLine": 40,
+        "endChar": 24
+      },
+      "revId": "b9e7a5bafa778dd7d91912d083d307a9e7697c28",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

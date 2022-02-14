@@ -1,0 +1,38 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "dc2b9b10_b1eacb3b",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2022-02-14T15:32:49Z",
+      "side": 1,
+      "message": "Color me a bit confused....\n\nIf this move can be accomplished as written, the content hint is not actually used in WebRTC code anywhere. Is it used in internal code, or is it used by Chrome without WebRTC caring about it?\n",
+      "revId": "e3aa7c51254d29af474ba7f7b2703312185ab862",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "8b0f1b28_49f39dd7",
+        "filename": "pc/video_track.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 84,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2022-02-14T15:32:49Z",
+      "side": 1,
+      "message": "I\u0027m confused by the change from \"worker_thread_\" to \"\u0026signaling_thread\" - this would indicate that signaling_thread_ is a reference (I assume it\u0027s not a value), but I can\u0027t quite see where it\u0027s defined. Not added here, so it must already be in the codebase somewhere...",
+      "revId": "e3aa7c51254d29af474ba7f7b2703312185ab862",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

@@ -24,6 +24,7 @@ config("rtc_pc_config") {
 }
 
 rtc_library("proxy") {
+  visibility = [ ":*" ]
   sources = [
     "proxy.cc",
     "proxy.h",
@@ -38,7 +39,15 @@ rtc_library("proxy") {
 }
 
 rtc_library("rtc_pc_base") {
-  visibility = [ "*" ]
+  visibility = [
+    ":*",
+    "*",  # Used by Chrome
+    "../:webrtc",
+    "../test/pc/e2e:sdp_changer",
+    "../test/peer_scenario:peer_scenario",
+    "../test/peer_scenario/tests:tests",
+    "scenario_tests:pc_scenario_tests",
+  ]
   defines = []
   sources = [
     "channel.cc",
@@ -176,7 +185,14 @@ rtc_library("rtc_pc_base") {
 }
 
 rtc_source_set("session_description") {
-  visibility = [ "*" ]
+  visibility = [
+    ":*",
+    "*",  # Used by Chrome
+    "../test/pc/e2e:media_helper",
+    "../test/pc/e2e:sdp_changer",
+    "../test/peer_scenario:peer_scenario",
+    "../test/peer_scenario/tests:tests",
+  ]
 
   # TODO(bugs.webrtc.org/13661): Reduce visibility if possible
   sources = [
@@ -202,7 +218,10 @@ rtc_source_set("session_description") {
 }
 
 rtc_source_set("simulcast_description") {
-  visibility = [ "*" ]
+  visibility = [
+    ":*",
+    "../test/pc/e2e:sdp_changer",
+  ]
 
   # TODO(bugs.webrtc.org/13661): Reduce visibility if possible
   sources = [
@@ -218,7 +237,12 @@ rtc_source_set("simulcast_description") {
 }
 
 rtc_source_set("rtc_pc") {
-  visibility = [ "*" ]
+  visibility = [
+    ":*",
+    "*",  # Used by Chrome
+    "../:webrtc",
+    "../examples:*",
+  ]
   allow_poison = [ "audio_codecs" ]  # TODO(bugs.webrtc.org/8396): Remove.
   deps = [
     ":rtc_pc_base",
@@ -235,7 +259,16 @@ rtc_library("media_protocol_names") {
 }
 
 rtc_source_set("peerconnection") {
-  visibility = [ "*" ]
+  visibility = [
+    ":*",
+    "*",  # Used by Chrome
+    "../:webrtc",
+    "../api:*",
+    "../examples:peerconnection_client",
+    "../test/pc/e2e:media_helper",
+    "../test/pc/e2e:peerconnection_quality_test",
+    "../test/pc/e2e:sdp_changer",
+  ]
   cflags = []
   sources = []
 
@@ -374,6 +407,7 @@ rtc_source_set("peerconnection") {
 }
 
 rtc_library("sctp_data_channel") {
+  visibility = [ ":*" ]
   sources = [
     "sctp_data_channel.cc",
     "sctp_data_channel.h",
@@ -421,6 +455,7 @@ rtc_library("data_channel_utils") {
 }
 
 rtc_library("connection_context") {
+  visibility = [ ":*" ]
   sources = [
     "connection_context.cc",
     "connection_context.h",
@@ -982,6 +1017,7 @@ rtc_source_set("peer_connection_factory") {
 }
 
 rtc_library("peer_connection_message_handler") {
+  visibility = [ ":*" ]
   sources = [
     "peer_connection_message_handler.cc",
     "peer_connection_message_handler.h",
@@ -1000,6 +1036,7 @@ rtc_library("peer_connection_message_handler") {
 }
 
 rtc_library("usage_pattern") {
+  visibility = [ ":*" ]
   sources = [
     "usage_pattern.cc",
     "usage_pattern.h",
@@ -1012,6 +1049,7 @@ rtc_library("usage_pattern") {
 }
 
 rtc_library("rtp_transceiver") {
+  visibility = [ ":*" ]
   sources = [
     "rtp_transceiver.cc",
     "rtp_transceiver.h",
@@ -1049,6 +1087,7 @@ rtc_library("rtp_transceiver") {
 }
 
 rtc_library("rtp_transmission_manager") {
+  visibility = [ ":*" ]
   sources = [
     "rtp_transmission_manager.cc",
     "rtp_transmission_manager.h",
@@ -1085,6 +1124,7 @@ rtc_library("rtp_transmission_manager") {
 }
 
 rtc_library("transceiver_list") {
+  visibility = [ ":*" ]
   sources = [
     "transceiver_list.cc",
     "transceiver_list.h",
@@ -1104,6 +1144,7 @@ rtc_library("transceiver_list") {
 }
 
 rtc_library("rtp_receiver") {
+  visibility = [ ":*" ]
   sources = [
     "rtp_receiver.cc",
     "rtp_receiver.h",
@@ -1133,6 +1174,7 @@ rtc_library("rtp_receiver") {
 }
 
 rtc_library("audio_rtp_receiver") {
+  visibility = [ ":*" ]
   sources = [
     "audio_rtp_receiver.cc",
     "audio_rtp_receiver.h",
@@ -1169,6 +1211,7 @@ rtc_library("audio_rtp_receiver") {
 }
 
 rtc_library("video_rtp_receiver") {
+  visibility = [ ":*" ]
   sources = [
     "video_rtp_receiver.cc",
     "video_rtp_receiver.h",
@@ -1205,6 +1248,7 @@ rtc_library("video_rtp_receiver") {
 }
 
 rtc_library("video_rtp_track_source") {
+  visibility = [ ":*" ]
   sources = [
     "video_rtp_track_source.cc",
     "video_rtp_track_source.h",
@@ -1223,6 +1267,7 @@ rtc_library("video_rtp_track_source") {
 }
 
 rtc_library("audio_track") {
+  visibility = [ ":*" ]
   sources = [
     "audio_track.cc",
     "audio_track.h",
@@ -1237,6 +1282,7 @@ rtc_library("audio_track") {
 }
 
 rtc_library("video_track") {
+  visibility = [ ":*" ]
   sources = [
     "video_track.cc",
     "video_track.h",
@@ -1257,6 +1303,7 @@ rtc_library("video_track") {
 }
 
 rtc_source_set("sdp_state_provider") {
+  visibility = [ ":*" ]
   sources = [ "sdp_state_provider.h" ]
   deps = [
     ":rtc_pc_base",
@@ -1265,6 +1312,7 @@ rtc_source_set("sdp_state_provider") {
 }
 
 rtc_library("jitter_buffer_delay") {
+  visibility = [ ":*" ]
   sources = [
     "jitter_buffer_delay.cc",
     "jitter_buffer_delay.h",
@@ -1280,6 +1328,7 @@ rtc_library("jitter_buffer_delay") {
 }
 
 rtc_library("remote_audio_source") {
+  visibility = [ ":*" ]
   sources = [
     "remote_audio_source.cc",
     "remote_audio_source.h",
@@ -1308,6 +1357,7 @@ rtc_library("remote_audio_source") {
 }
 
 rtc_library("rtp_sender") {
+  visibility = [ ":*" ]
   sources = [
     "rtp_sender.cc",
     "rtp_sender.h",
@@ -1339,6 +1389,7 @@ rtc_library("rtp_sender") {
 }
 
 rtc_library("rtp_parameters_conversion") {
+  visibility = [ ":*" ]
   sources = [
     "rtp_parameters_conversion.cc",
     "rtp_parameters_conversion.h",
@@ -1362,6 +1413,7 @@ rtc_library("rtp_parameters_conversion") {
 }
 
 rtc_library("dtmf_sender") {
+  visibility = [ ":*" ]
   sources = [
     "dtmf_sender.cc",
     "dtmf_sender.h",
@@ -1385,6 +1437,7 @@ rtc_library("dtmf_sender") {
 }
 
 rtc_library("media_stream") {
+  visibility = [ ":*" ]
   sources = [
     "media_stream.cc",
     "media_stream.h",
@@ -1405,6 +1458,11 @@ rtc_library("media_stream") {
 }
 
 rtc_library("video_track_source") {
+  visibility = [
+    ":*",
+    "../examples:peerconnection_client",
+    "../test/pc/e2e:media_helper",
+  ]
   sources = [
     "video_track_source.cc",
     "video_track_source.h",
@@ -1424,6 +1482,7 @@ rtc_library("video_track_source") {
 }
 
 rtc_source_set("stats_collector_interface") {
+  visibility = [ ":*" ]
   sources = [ "stats_collector_interface.h" ]
   deps = [
     "../api:libjingle_peerconnection_api",
@@ -1432,7 +1491,12 @@ rtc_source_set("stats_collector_interface") {
 }
 
 rtc_source_set("libjingle_peerconnection") {
-  visibility = [ "*" ]
+  visibility = [
+    ":*",
+    "*",  # Used by Chrome
+    "../:webrtc",
+    "../examples:peerconnection_client",
+  ]
 
   # TODO(bugs.webrtc.org/13661): Reduce visibility if possible
   deps = [

@@ -20,6 +20,24 @@
     {
       "unresolved": false,
       "key": {
+        "uuid": "6cdc4d5b_66aea620",
+        "filename": "modules/rtp_rtcp/source/rtcp_transceiver_config.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 67,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2022-02-14T13:20:44Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "28011162_56666b5a",
+      "revId": "bf04f1c8a886286c88ed3a124865cea2f11ed387",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
         "uuid": "9d096a32_e9c77ea7",
         "filename": "modules/rtp_rtcp/source/rtcp_transceiver_config.h",
         "patchSetId": 2
@@ -31,6 +49,30 @@
       "writtenOn": "2022-02-14T11:50:53Z",
       "side": 1,
       "message": "Why can\u0027t this be a struct instead? Do you plan to expand it in the future?",
+      "range": {
+        "startLine": 73,
+        "startChar": 2,
+        "endLine": 73,
+        "endChar": 7
+      },
+      "revId": "bf04f1c8a886286c88ed3a124865cea2f11ed387",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "527023ba_a98c43d2",
+        "filename": "modules/rtp_rtcp/source/rtcp_transceiver_config.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 73,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2022-02-14T13:20:44Z",
+      "side": 1,
+      "message": "I prefer classes over structs for \u0027api\u0027 constructs: they are easier to change when needed.\nIt is unlikely this class will be expanded, but it is likely it will evolve.\ne.g. capture_time might become absl::Time in the future,\nor set_last_* setters might be joined into one setter.... or into single getter/calculator (they are needed to calculate rtp timestamp of the outgoing sender report)",
+      "parentUuid": "9d096a32_e9c77ea7",
       "range": {
         "startLine": 73,
         "startChar": 2,
@@ -60,6 +102,24 @@
     {
       "unresolved": false,
       "key": {
+        "uuid": "b3d247b9_71e41b9d",
+        "filename": "modules/rtp_rtcp/source/rtcp_transceiver_config.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 82,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2022-02-14T13:20:44Z",
+      "side": 1,
+      "message": "no reason, adjusted",
+      "parentUuid": "b6c5b73a_8001fe24",
+      "revId": "bf04f1c8a886286c88ed3a124865cea2f11ed387",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
         "uuid": "890e0f59_eb13a91a",
         "filename": "modules/rtp_rtcp/source/rtcp_transceiver_impl.cc",
         "patchSetId": 2
@@ -71,6 +131,30 @@
       "writtenOn": "2022-02-14T11:50:53Z",
       "side": 1,
       "message": "handler !\u003d nullptr",
+      "range": {
+        "startLine": 130,
+        "startChar": 13,
+        "endLine": 130,
+        "endChar": 20
+      },
+      "revId": "bf04f1c8a886286c88ed3a124865cea2f11ed387",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "40d04148_1a16353c",
+        "filename": "modules/rtp_rtcp/source/rtcp_transceiver_impl.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 130,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2022-02-14T13:20:44Z",
+      "side": 1,
+      "message": "Done.",
+      "parentUuid": "890e0f59_eb13a91a",
       "range": {
         "startLine": 130,
         "startChar": 13,
@@ -106,6 +190,30 @@
     {
       "unresolved": false,
       "key": {
+        "uuid": "787be09f_001b8dc1",
+        "filename": "modules/rtp_rtcp/source/rtcp_transceiver_impl.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 134,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2022-02-14T13:20:44Z",
+      "side": 1,
+      "message": "as it is now, move of this struct is not faster than copy.",
+      "parentUuid": "48354efb_80406ebc",
+      "range": {
+        "startLine": 134,
+        "startChar": 27,
+        "endLine": 134,
+        "endChar": 32
+      },
+      "revId": "bf04f1c8a886286c88ed3a124865cea2f11ed387",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
         "uuid": "da4c97f5_5fb56e81",
         "filename": "modules/rtp_rtcp/source/rtcp_transceiver_impl.cc",
         "patchSetId": 2
@@ -117,6 +225,24 @@
       "writtenOn": "2022-02-14T11:50:53Z",
       "side": 1,
       "message": "I\u0027d prefer if has_sender_report was explicitly initialized here instead of inside the struct. I initially thought it was accidentally left uninitialized.",
+      "revId": "bf04f1c8a886286c88ed3a124865cea2f11ed387",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "a1223ab9_913a17dd",
+        "filename": "modules/rtp_rtcp/source/rtcp_transceiver_impl.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 492,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2022-02-14T13:20:44Z",
+      "side": 1,
+      "message": "Done.",
+      "parentUuid": "da4c97f5_5fb56e81",
       "revId": "bf04f1c8a886286c88ed3a124865cea2f11ed387",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
@@ -144,6 +270,30 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "43df16c8_65148209",
+        "filename": "modules/rtp_rtcp/source/rtcp_transceiver_impl.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 528,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2022-02-14T13:20:44Z",
+      "side": 1,
+      "message": "moved it inside for condition\n\nHowever in some follow up I plan to move it back here, but then it will be \nif (\u003csame check\u003e) { continue; }",
+      "parentUuid": "21442541_1a283ec0",
+      "range": {
+        "startLine": 526,
+        "startChar": 0,
+        "endLine": 528,
+        "endChar": 5
+      },
+      "revId": "bf04f1c8a886286c88ed3a124865cea2f11ed387",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "31e690fc_cdf04400",
@@ -157,6 +307,30 @@
       "writtenOn": "2022-02-14T11:50:53Z",
       "side": 1,
       "message": "Rotate `local_senders_`",
+      "range": {
+        "startLine": 558,
+        "startChar": 7,
+        "endLine": 558,
+        "endChar": 27
+      },
+      "revId": "bf04f1c8a886286c88ed3a124865cea2f11ed387",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "3a8f623e_1408bb38",
+        "filename": "modules/rtp_rtcp/source/rtcp_transceiver_impl.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 558,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2022-02-14T13:20:44Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "31e690fc_cdf04400",
       "range": {
         "startLine": 558,
         "startChar": 7,
@@ -192,6 +366,30 @@
     {
       "unresolved": false,
       "key": {
+        "uuid": "9e546707_67953135",
+        "filename": "modules/rtp_rtcp/source/rtcp_transceiver_impl.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 560,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2022-02-14T13:20:44Z",
+      "side": 1,
+      "message": "thank you, though it should be `FillReports`. (CreateReportBlocks should rotate remote ssrcs, local_senders_ should rotate local ssrcs)",
+      "parentUuid": "7a8f3332_650401cc",
+      "range": {
+        "startLine": 560,
+        "startChar": 16,
+        "endLine": 560,
+        "endChar": 28
+      },
+      "revId": "bf04f1c8a886286c88ed3a124865cea2f11ed387",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
         "uuid": "36b83df7_af22be68",
         "filename": "modules/rtp_rtcp/source/rtcp_transceiver_impl.h",
         "patchSetId": 2
@@ -215,6 +413,30 @@
     {
       "unresolved": false,
       "key": {
+        "uuid": "b835f085_7006d4b0",
+        "filename": "modules/rtp_rtcp/source/rtcp_transceiver_impl.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 146,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2022-02-14T13:20:44Z",
+      "side": 1,
+      "message": "me neither:\nI do need a lookup by ssrc (not that useful for now, when used only to remove senders, but will be much more useful in follow up cl, when I\u0027ll add handing incoming FIR and NAcks )\n \nbut same time I do need to do a cycle rotation to ensure all senders end up in sender report eventually.\n\nIt is possible to do it with sorted map structure, (keep last iterator, carefully traverse past end, but still avoid sending sender report for the same ssrc twice withing same packet. There is something like that in the ReceiveStatisticsImpl.), but using std::list seems simpler to handle correctly and faster, in particular because there is no need to send ssrcs in their value order, it is more consistent to send SRs in the order SSRCs were added.",
+      "parentUuid": "36b83df7_af22be68",
+      "range": {
+        "startLine": 144,
+        "startChar": 0,
+        "endLine": 146,
+        "endChar": 29
+      },
+      "revId": "bf04f1c8a886286c88ed3a124865cea2f11ed387",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
         "uuid": "05d0ac0c_0001e904",
         "filename": "modules/rtp_rtcp/source/rtcp_transceiver_impl_unittest.cc",
         "patchSetId": 2
@@ -226,6 +448,30 @@
       "writtenOn": "2022-02-14T11:50:53Z",
       "side": 1,
       "message": "Nit:\nstatic constexpr size_t kNumSenders \u003d 6;\nstatic constexpr uint32_t kSenderSsrc[kNumSenders] \u003d {10, 20, 30, 40, 50, 60};\nstatic constexpr int kSendersPerPacket \u003d 5;",
+      "range": {
+        "startLine": 1430,
+        "startChar": 0,
+        "endLine": 1432,
+        "endChar": 38
+      },
+      "revId": "bf04f1c8a886286c88ed3a124865cea2f11ed387",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "178ba737_1ddf7028",
+        "filename": "modules/rtp_rtcp/source/rtcp_transceiver_impl_unittest.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 1432,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2022-02-14T13:20:44Z",
+      "side": 1,
+      "message": "Done.",
+      "parentUuid": "05d0ac0c_0001e904",
       "range": {
         "startLine": 1430,
         "startChar": 0,

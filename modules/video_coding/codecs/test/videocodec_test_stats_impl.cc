@@ -332,6 +332,11 @@ VideoStatistics VideoCodecTestStatsImpl::SliceAndCalcVideoStatistic(
                                  ? 1000000.0f / mean_decode_time_us
                                  : std::numeric_limits<float>::max();
 
+  video_stat.max_frame_encode_time_sec =
+      frame_encoding_time_us.GetMax().value_or(0) / 1000000.0f;
+  video_stat.max_frame_decode_time_sec =
+      frame_decoding_time_us.GetMax().value_or(0) / 1000000.0f;
+
   auto MaxDelaySec = [target_bitrate_kbps](
                          const webrtc_impl::RunningStatistics<size_t>& stats) {
     return 8 * stats.GetMax().value_or(0) / 1000 / target_bitrate_kbps;

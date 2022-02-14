@@ -111,7 +111,6 @@ class HardwareVideoEncoder implements VideoEncoder {
   private final Integer yuvColorFormat;
   private final YuvFormat yuvFormat;
   private final Map<String, String> params;
-  private final int keyFrameIntervalSec; // Base interval for generating key frames.
   // Interval at which to force a key frame. Used to reduce color distortions caused by some
   // Qualcomm video encoders.
   private final long forcedKeyFrameNs;
@@ -177,7 +176,6 @@ class HardwareVideoEncoder implements VideoEncoder {
    * @param codecType the type of the given video codec (eg. VP8, VP9, H264 or AV1)
    * @param surfaceColorFormat color format for surface mode or null if not available
    * @param yuvColorFormat color format for bytebuffer mode
-   * @param keyFrameIntervalSec interval in seconds between key frames; used to initialize the codec
    * @param forceKeyFrameIntervalMs interval at which to force a key frame if one is not requested;
    *     used to reduce distortion caused by some codec implementations
    * @param bitrateAdjuster algorithm used to correct codec implementations that do not produce the
@@ -186,8 +184,8 @@ class HardwareVideoEncoder implements VideoEncoder {
    */
   public HardwareVideoEncoder(MediaCodecWrapperFactory mediaCodecWrapperFactory, String codecName,
       VideoCodecMimeType codecType, Integer surfaceColorFormat, Integer yuvColorFormat,
-      Map<String, String> params, int keyFrameIntervalSec, int forceKeyFrameIntervalMs,
-      BitrateAdjuster bitrateAdjuster, EglBase14.Context sharedContext) {
+      Map<String, String> params, int forceKeyFrameIntervalMs, BitrateAdjuster bitrateAdjuster,
+      EglBase14.Context sharedContext) {
     this.mediaCodecWrapperFactory = mediaCodecWrapperFactory;
     this.codecName = codecName;
     this.codecType = codecType;
@@ -195,7 +193,6 @@ class HardwareVideoEncoder implements VideoEncoder {
     this.yuvColorFormat = yuvColorFormat;
     this.yuvFormat = YuvFormat.valueOf(yuvColorFormat);
     this.params = params;
-    this.keyFrameIntervalSec = keyFrameIntervalSec;
     this.forcedKeyFrameNs = TimeUnit.MILLISECONDS.toNanos(forceKeyFrameIntervalMs);
     this.bitrateAdjuster = bitrateAdjuster;
     this.sharedContext = sharedContext;
@@ -252,7 +249,10 @@ class HardwareVideoEncoder implements VideoEncoder {
       format.setInteger(MediaFormat.KEY_COLOR_FORMAT, colorFormat);
       format.setFloat(
           MediaFormat.KEY_FRAME_RATE, (float) bitrateAdjuster.getAdjustedFramerateFps());
-      format.setInteger(MediaFormat.KEY_I_FRAME_INTERVAL, keyFrameIntervalSec);
+      // We don't need periodic keyframes. Setting KEY_I_FRAME_INTERVAL=-1 should disable pediodic
+      // keyframes according to the spec. But initialization of some HW encoders (Exynos, in
+      // particular) fails with that value. We set it to 1 hour instead.
+      format.setInteger(MediaFormat.KEY_I_FRAME_INTERVAL, 3600); // 1hr
       if (codecType == VideoCodecMimeType.H264) {
         String profileLevelId = params.get(VideoCodecInfo.H264_FMTP_PROFILE_LEVEL_ID);
         if (profileLevelId == null) {

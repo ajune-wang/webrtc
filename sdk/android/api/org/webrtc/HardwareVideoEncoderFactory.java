@@ -123,7 +123,7 @@ public class HardwareVideoEncoderFactory implements VideoEncoderFactory {
     }
 
     return new HardwareVideoEncoder(new MediaCodecWrapperFactoryImpl(), codecName, type,
-        surfaceColorFormat, yuvColorFormat, input.params, getKeyFrameIntervalSec(type),
+        surfaceColorFormat, yuvColorFormat, input.params,
         getForcedKeyFrameIntervalMs(type, codecName), createBitrateAdjuster(type, codecName),
         sharedContext);
   }

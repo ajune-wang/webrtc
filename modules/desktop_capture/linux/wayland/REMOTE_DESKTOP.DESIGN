@@ -1,0 +1,75 @@
++=============================================================================+
+|                                                                             |
+|                REMOTE DESKTOP PORTAL SUPPORT FOR WAYLAND                    |
+|                                                                             |
++=============================================================================+
+
+----------
+Motivation
+----------
+
+Chrome Remote Desktop (CRD) is a client of WebRTC library and use it to capture
+desktop screen of a remote host and relays it to the client via WebRTC peer
+connection. CRD implements mechanism for injecting inputs to the remote host
+as well as composing the video and mouse cursor (overlaying cursor on the video)
+to provide the user with a working remote desktop solution. CRD has support for
+X-server based system on linux side but doesn't have mechanism to control the
+newer display stack on linux i.e. the ones using wayland protocol between the
+display client and display server (potentially with no XOrg/X-server installed
+on the machine). To extend CRD support for wayland based hosts, this proposal
+lays out the upcoming work intended on WebRTC side.
+
+
+------------
+Approach(es)
+------------
+
+WebRTC already has support for capturing video stream of linux/wayland hosts
+using X-development group (XDG) screencast portal APIs and pipewire (a media
+framework that makes it easy to capture audio/video). For X-server based hosts,
+CRD can leverage this implementation of the capturer to get the desktop capture
+video stream from the remote host out to the client.  However, as mentioned in
+the motivation section, this pipeline doesn't work for remoting into the remote
+host when the linux host has only wayland based display stack. Approaches
+considered to support the CRD on linux/wayland are as follows:
+
+1. Add remote desktop portal/capturer in WebRTC that supports screencapturing
+but doesn't expose an API for injecting inputs.
+
+Given that WebRTC already has usage of xdg-desktop screencast portal API and
+provides a basic framework to get desktop video stream leverage pipewire
+remote, as well as the fact that the remote desktop portal is a client of the
+screencast portal (i.e remote desktop portal uses screencast portal to select
+sources to capture the video from), this document proposes to add a wrapper
+class for remote desktop portal implementation inside desktop capture module as
+a sibling to the already existing screencast portal. This approach allows the
+reuse of code from screen cast portal. Furthermore, since remote desktop portal
+supports capturing video from host, the remote desktop portal can potentially be
+used as a drop-in replacement for existing capturer, if need be, in future. Note
+that this approach doesn't advocate exposing the remote control APIs from WebRTC
+implementation rather the clients (e.g. CRD would take care of input injection
+- given that it can get enough information about the remote desktop portal
+session that it can use to successfully inject input.)
+
+2. Add remote desktop portal/capturer in CRD
+
+a) Refactor screencast portal in WebRTC to allow better reuse
+
+In this approach, we will keep all the new remote desktop portal client
+implementation within CRD code base. However, to ensure code reuse and to allow
+this new module to leverage/reuse the screencast portal implementation in
+WebRTC, we could refactor screencast portal implementation in WebRTC to allow
+overriding the callbacks for signals of proxy object creation as well as source
+selection so that remote desktop portal client can provide its own hooks on
+how such signals need to be handled.
+
+b) Do not touch anything in WebRTC
+
+This approach is similar to 2.a except that everything will be kept local
+to CRD and hence we might potentially have some overlap between CRD and WebRTC.
+
+c) Move linux wayland desktop capturer into a separate library
+
+This new library can also incproprate the remote desktop portal implementation
+and can be depended upon by both WebRTC (for screencast portal) and by CRD
+for (for remote desktop portal).

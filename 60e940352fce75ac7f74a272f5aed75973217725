@@ -88,6 +88,24 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "f64a715e_95c5baa6",
+        "filename": "tools_webrtc/perf/catapult_uploader.py",
+        "patchSetId": 3
+      },
+      "lineNbr": 59,
+      "author": {
+        "id": 6192
+      },
+      "writtenOn": "2022-02-15T12:41:04Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "e0f42b02_56cfd908",
+      "revId": "60e940352fce75ac7f74a272f5aed75973217725",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "0a3bd03b_370151cc",
@@ -101,6 +119,24 @@
       "writtenOn": "2022-02-15T08:46:14Z",
       "side": 1,
       "message": "Will add more tests later but just want to get the in so we can unblock the perf waterfall.",
+      "revId": "60e940352fce75ac7f74a272f5aed75973217725",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "e117b2d6_50a13d0c",
+        "filename": "tools_webrtc/perf/catapult_uploader_test.py",
+        "patchSetId": 3
+      },
+      "lineNbr": 103,
+      "author": {
+        "id": 6192
+      },
+      "writtenOn": "2022-02-15T12:41:04Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "0a3bd03b_370151cc",
       "revId": "60e940352fce75ac7f74a272f5aed75973217725",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }

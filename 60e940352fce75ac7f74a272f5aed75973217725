@@ -1,0 +1,72 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "37ec5fc7_0d7a7ac3",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 3
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 6192
+      },
+      "writtenOn": "2022-02-15T08:46:14Z",
+      "side": 1,
+      "message": "The test itself and how it\u0027s setup is not pretty, nor is the main catapult_uploader.py script hence it gets a bit hacky.",
+      "revId": "60e940352fce75ac7f74a272f5aed75973217725",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "cacc31cc_1bf3172e",
+        "filename": "PRESUBMIT.py",
+        "patchSetId": 3
+      },
+      "lineNbr": 839,
+      "author": {
+        "id": 6192
+      },
+      "writtenOn": "2022-02-15T08:46:14Z",
+      "side": 1,
+      "message": "I do not want to run this on bots yet, it requires the webrtc_dashboard_upload target to be built first, do not want to require everyone to compile webrtc before testing, besides catapult changes are rare thus fine to run the tests manually then.",
+      "revId": "60e940352fce75ac7f74a272f5aed75973217725",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "e0f42b02_56cfd908",
+        "filename": "tools_webrtc/perf/catapult_uploader.py",
+        "patchSetId": 3
+      },
+      "lineNbr": 59,
+      "author": {
+        "id": 6192
+      },
+      "writtenOn": "2022-02-15T08:46:14Z",
+      "side": 1,
+      "message": "This is the current issue in the perf waterfall. This test catches that error.",
+      "revId": "60e940352fce75ac7f74a272f5aed75973217725",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "0a3bd03b_370151cc",
+        "filename": "tools_webrtc/perf/catapult_uploader_test.py",
+        "patchSetId": 3
+      },
+      "lineNbr": 103,
+      "author": {
+        "id": 6192
+      },
+      "writtenOn": "2022-02-15T08:46:14Z",
+      "side": 1,
+      "message": "Will add more tests later but just want to get the in so we can unblock the perf waterfall.",
+      "revId": "60e940352fce75ac7f74a272f5aed75973217725",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

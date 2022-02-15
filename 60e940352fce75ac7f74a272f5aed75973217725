@@ -37,6 +37,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "e660cdc2_4db839df",
+        "filename": "PRESUBMIT.py",
+        "patchSetId": 3
+      },
+      "lineNbr": 839,
+      "author": {
+        "id": 5087
+      },
+      "writtenOn": "2022-02-15T08:48:52Z",
+      "side": 1,
+      "message": "I agree.\n\nMaybe let\u0027s create a list (in a variable) and add a comment on these reasons?",
+      "parentUuid": "cacc31cc_1bf3172e",
+      "revId": "60e940352fce75ac7f74a272f5aed75973217725",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "e0f42b02_56cfd908",
         "filename": "tools_webrtc/perf/catapult_uploader.py",
         "patchSetId": 3

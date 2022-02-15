@@ -68,6 +68,29 @@
       },
       "revId": "2ec43797375d065007dfad43a3f0234a23f071e1",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "a682d7b8_e40bb65e",
+        "filename": "test/pc/e2e/peer_configurer.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 88,
+      "author": {
+        "id": 5117
+      },
+      "writtenOn": "2022-02-15T15:32:22Z",
+      "side": 1,
+      "message": "This seems to be a new code, not moved one.\n\nI see a lot of duplication with |void ValidateParams()| below.\n\nCould you use this function below to remove this duplication?\n\nThe same for |SetDefaultValuesForMissingParams| above - it has copy of SetDefaultValuesForMissingParams function in it and should be reused.",
+      "range": {
+        "startLine": 88,
+        "startChar": 5,
+        "endLine": 88,
+        "endChar": 43
+      },
+      "revId": "2ec43797375d065007dfad43a3f0234a23f071e1",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

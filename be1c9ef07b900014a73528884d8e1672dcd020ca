@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "c449f47d_da36fa8a",
+        "filename": "pc/BUILD.gn",
+        "patchSetId": 3
+      },
+      "lineNbr": 50,
+      "author": {
+        "id": 5087
+      },
+      "writtenOn": "2022-02-15T07:51:53Z",
+      "side": 1,
+      "message": "We can do something like this:\n\nif (build_with_chromium) {\n  visibility \u003d [ \"*\" ]\n} else {\n  visibility \u003d [\n    \":*\",\n    \"../:webrtc\",\n    \"../test/pc/e2e:sdp_changer\",\n    \"../test/peer_scenario:peer_scenario\",\n    \"../test/peer_scenario/tests:tests\",\n    \"scenario_tests:pc_scenario_tests\",\n  ]\n}\n\nSame to the other places.\n\nBecause adding \"*\" together with others, will just overrides them and be \"*\" every time.\n\nAlso, interesting to note that we tend to allow usage inside WebRTC (without list all the targets) because this is hard to maintain and also \"it is fine to use things inside WebRTC\".\n\nSo this might be simplified to:\n\nif (build_with_chromium) {\n  visibility \u003d [ \"*\" ]\n}\n\nWhich allows usage from WebRTC but when Chrome is built it allows it to use it. Where instead we have \":*\" let\u0027s keep it, that is good to lock down dependencies (but if something inside WebRTC already uses things, well we can probably live with that).",
+      "range": {
+        "startLine": 42,
+        "startChar": 2,
+        "endLine": 50,
+        "endChar": 3
+      },
+      "revId": "be1c9ef07b900014a73528884d8e1672dcd020ca",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

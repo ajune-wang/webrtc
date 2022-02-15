@@ -58,6 +58,30 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "41adcd02_04a17ab1",
+        "filename": "modules/audio_coding/codecs/pcm16b/audio_decoder_pcm16b.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 52,
+      "author": {
+        "id": 5100
+      },
+      "writtenOn": "2022-02-15T15:16:00Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "ca86f16f_5f3878c2",
+      "range": {
+        "startLine": 50,
+        "startChar": 1,
+        "endLine": 52,
+        "endChar": 0
+      },
+      "revId": "9f6f2e0617795899edc61c7b476e79b0f5e7c1bd",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "f77eb48c_5c327b0d",
@@ -81,6 +105,30 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "ef04d326_c440e969",
+        "filename": "test/fuzzers/audio_decoder_pcm16b_fuzzer.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 40,
+      "author": {
+        "id": 5100
+      },
+      "writtenOn": "2022-02-15T15:16:00Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "f77eb48c_5c327b0d",
+      "range": {
+        "startLine": 39,
+        "startChar": 0,
+        "endLine": 40,
+        "endChar": 34
+      },
+      "revId": "9f6f2e0617795899edc61c7b476e79b0f5e7c1bd",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "d7c0e024_4de78910",
@@ -94,6 +142,30 @@
       "writtenOn": "2022-02-15T12:22:24Z",
       "side": 1,
       "message": "not a compile time const. use normal naming, and remove static.",
+      "range": {
+        "startLine": 48,
+        "startChar": 0,
+        "endLine": 48,
+        "endChar": 50
+      },
+      "revId": "9f6f2e0617795899edc61c7b476e79b0f5e7c1bd",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "4aec43a7_54de9a6f",
+        "filename": "test/fuzzers/audio_decoder_pcm16b_fuzzer.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 48,
+      "author": {
+        "id": 5100
+      },
+      "writtenOn": "2022-02-15T15:16:00Z",
+      "side": 1,
+      "message": "Oh, boy. That was ugly.... 😮\nI changed to dynamic allocation.",
+      "parentUuid": "d7c0e024_4de78910",
       "range": {
         "startLine": 48,
         "startChar": 0,

@@ -163,6 +163,30 @@
       },
       "revId": "2ec43797375d065007dfad43a3f0234a23f071e1",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "0798f00c_910fb3b2",
+        "filename": "test/pc/e2e/peer_configurer.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 88,
+      "author": {
+        "id": 6337
+      },
+      "writtenOn": "2022-02-15T16:45:59Z",
+      "side": 1,
+      "message": "It\u0027s a bit hard to reuse those functions as is because they expect that all peers are passed together and this one expect that peers are validated one by one. They do the same things and live together just for backward compatibility during migration. Pure function will be removed in the next CL.",
+      "parentUuid": "a682d7b8_e40bb65e",
+      "range": {
+        "startLine": 88,
+        "startChar": 5,
+        "endLine": 88,
+        "endChar": 43
+      },
+      "revId": "2ec43797375d065007dfad43a3f0234a23f071e1",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

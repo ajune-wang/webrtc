@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "0bf107fb_5d8283d3",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 4
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2022-02-15T11:10:25Z",
+      "side": 1,
+      "message": "PTAL.\n\nAdded text to the top level BUILD file about what visibility *should* be, and text in the pc/ BUILD file about choices made there.\n\nThis CL builds with Chromium, we\u0027ll see if internal passes it.\nRemaining \"visibility\u003d*\" in pc/BUILD.gn can be fixed with overrides.\n",
+      "revId": "bafc002dc0dff03bef7292d29b411ae5c3ea4be8",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

@@ -187,6 +187,30 @@
       },
       "revId": "2ec43797375d065007dfad43a3f0234a23f071e1",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "e3cc70c3_5a4577c4",
+        "filename": "test/pc/e2e/peer_configurer.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 88,
+      "author": {
+        "id": 5117
+      },
+      "writtenOn": "2022-02-15T17:05:03Z",
+      "side": 1,
+      "message": "Ok, then please add a TODO to remove old functions.",
+      "parentUuid": "0798f00c_910fb3b2",
+      "range": {
+        "startLine": 88,
+        "startChar": 5,
+        "endLine": 88,
+        "endChar": 43
+      },
+      "revId": "2ec43797375d065007dfad43a3f0234a23f071e1",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

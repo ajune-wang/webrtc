@@ -1,0 +1,44 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "bd24b55b_01f64443",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 8
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5087
+      },
+      "writtenOn": "2022-02-15T12:33:52Z",
+      "side": 1,
+      "message": "Only one small comment, everything else looks great!",
+      "revId": "7872e07e17b2ececcb3713d1566b4ecb5225fbf4",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "b935de29_7783e73c",
+        "filename": "BUILD.gn",
+        "patchSetId": 8
+      },
+      "lineNbr": 26,
+      "author": {
+        "id": 5087
+      },
+      "writtenOn": "2022-02-15T12:33:52Z",
+      "side": 1,
+      "message": "I think we might remove this one.\n\nEveryone syncing WebRTC can carry a local patch and increase visibility but for the scope of the WebRTC repo I think we can remove this.",
+      "range": {
+        "startLine": 23,
+        "startChar": 0,
+        "endLine": 26,
+        "endChar": 18
+      },
+      "revId": "7872e07e17b2ececcb3713d1566b4ecb5225fbf4",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

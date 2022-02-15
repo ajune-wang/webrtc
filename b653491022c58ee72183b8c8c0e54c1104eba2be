@@ -1,6 +1,23 @@
 {
   "comments": [
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "72de41cd_605bda7f",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 8
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2022-02-15T08:30:37Z",
+      "side": 1,
+      "message": "FWIW, the use case I\u0027m most familiar with for a timeout where 17 ms extra delay would be seriously worrisome is SCTP - the ramp-up for congestion control is clocked on RTT, which can be below a millisecond in intra-DC cases; 17 ms extra delay is equivalent to adding 2500 km of distance, and jitter due to the RTT clock not aligning with the metronome will further complicate the ramp-up algorithm, with a deleterious effect on SCTP throughput.\n\n(Adding Victor to CC to ensure I\u0027m not speaking nonsense here)",
+      "revId": "b653491022c58ee72183b8c8c0e54c1104eba2be",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "925163bb_a21abe1f",
@@ -14,6 +31,24 @@
       "writtenOn": "2022-02-15T08:02:27Z",
       "side": 1,
       "message": "I think there are two use case categories for PostDelayedTaskAt() inside WebRTC, broadly speaking.\n\nCategory 1: Using PostDelayedTaskAt() in order to \"opt-out\" from \"low\" precision.\n\nAs previously discussed, PostDelayedHighPrecisionTask() already takes care of this use case, so it is not clear why any of the existing callers would change from PostDelayedHighPrecisionTask() to PostDelayedTaskAt().\n\nSo for this category, I do not think PostDelayedTaskAt() is needed.\n\nCategory 2: Using PostDelayedTaskAt() as a powerful tool for coalescing delayed tasks inside WebRTC by enabling multiple calling places to target the same wake up time.\n\nThis is what I find attractive about PostDelayedTaskAt(). But there\u0027s a \"but\"...\n\nFor this not to add additional wake ups, we need to be able to align with `blink::MetronomeSource` which uses `base::TimeTicks`. This translates into having to use `webrtc::Timestamp` inside WebRTC, otherwise if we use `timestamp_milliseconds` we\u0027re adding wake ups by being a ms off the true target.\n\nBut assuming we have `webrtc::Timestamp`, using PostDelayedTaskAt() efficiently would require explicitly depending on the metronome\u0027s ticks... This is starting to sound like a refactoring effort of the metronome. There may be good reasons to want to refactor the metronome, but that might be something to consider after the metronome has rolled out successfully or when we have more use cases in mind for PostDelayedTaskAt().\n\nDon\u0027t get me wrong, I like PostDelayedTaskAt() and the way it works in Chrome, but I am having trouble coming up with concrete uses cases for WebRTC to make use of it other than a metronome refactoring. It feels like a \"nice-to-have\" and I suspect we might need it sooner or later (or maybe even PostCancelableDelayedTaskAt?), but I know that yet. I think WebRTC is still in an exploratory phase when it comes to changing its scheduling.",
+      "revId": "b653491022c58ee72183b8c8c0e54c1104eba2be",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "b18d11a7_1ff807cd",
+        "filename": "api/task_queue/task_queue_base.h",
+        "patchSetId": 8
+      },
+      "lineNbr": 92,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2022-02-15T08:30:37Z",
+      "side": 1,
+      "message": "Seems to me that in order to support \"post at wall clock time\" without interfering with metronome alignment, we need to have both PostDelayedTaskAt() and PostDelayedTaskAtHighPrecision().",
+      "parentUuid": "925163bb_a21abe1f",
       "revId": "b653491022c58ee72183b8c8c0e54c1104eba2be",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }

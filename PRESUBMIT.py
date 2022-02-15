@@ -836,6 +836,7 @@ def RunPythonTests(input_api, output_api):
             output_api,
             directory,
             files_to_check=[r'.+_test\.py$'],
+            files_to_skip=[r'catapult_uploader_test\.py$'],
             run_on_python2=False))
   return input_api.RunTests(tests, parallel=True)
 

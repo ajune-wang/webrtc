@@ -24,6 +24,30 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "777777b9_20d1a988",
+        "filename": "modules/video_coding/codecs/test/videocodec_test_mediacodec.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 197,
+      "author": {
+        "id": 5825
+      },
+      "writtenOn": "2022-02-15T14:37:12Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "aed9d1ea_ca1ad112",
+      "range": {
+        "startLine": 197,
+        "startChar": 56,
+        "endLine": 197,
+        "endChar": 58
+      },
+      "revId": "4c08375eb74377f8a2ea9288f014e2978e102882",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "e559817e_e65782d4",
@@ -47,6 +71,30 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "c9a8d2c7_8c3034f0",
+        "filename": "modules/video_coding/codecs/test/videocodec_test_mediacodec.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 220,
+      "author": {
+        "id": 5825
+      },
+      "writtenOn": "2022-02-15T14:37:12Z",
+      "side": 1,
+      "message": "We encode up to 1500 frames in this test (for example, in kBitRateHighLowHigh). 10s is duration of constant rate interval.",
+      "parentUuid": "e559817e_e65782d4",
+      "range": {
+        "startLine": 220,
+        "startChar": 0,
+        "endLine": 220,
+        "endChar": 56
+      },
+      "revId": "4c08375eb74377f8a2ea9288f014e2978e102882",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "36a003d7_140643c9",
@@ -60,6 +108,24 @@
       "writtenOn": "2022-02-15T12:18:00Z",
       "side": 1,
       "message": "Why specifically VP8 and H264? I\u0027d say we\u0027re also interested in VP9 at least",
+      "revId": "4c08375eb74377f8a2ea9288f014e2978e102882",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "01de377f_4767254a",
+        "filename": "modules/video_coding/codecs/test/videocodec_test_mediacodec.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 234,
+      "author": {
+        "id": 5825
+      },
+      "writtenOn": "2022-02-15T14:37:12Z",
+      "side": 1,
+      "message": "Added VP9",
+      "parentUuid": "36a003d7_140643c9",
       "revId": "4c08375eb74377f8a2ea9288f014e2978e102882",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }

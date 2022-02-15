@@ -63,6 +63,30 @@
       },
       "revId": "be1c9ef07b900014a73528884d8e1672dcd020ca",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "3dfcd954_a17a0136",
+        "filename": "pc/BUILD.gn",
+        "patchSetId": 3
+      },
+      "lineNbr": 50,
+      "author": {
+        "id": 5087
+      },
+      "writtenOn": "2022-02-15T08:40:52Z",
+      "side": 1,
+      "message": "The \"visible_in_chrome\" directive is to avoid code duplication?",
+      "parentUuid": "d144d28e_93019e2c",
+      "range": {
+        "startLine": 42,
+        "startChar": 2,
+        "endLine": 50,
+        "endChar": 3
+      },
+      "revId": "be1c9ef07b900014a73528884d8e1672dcd020ca",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

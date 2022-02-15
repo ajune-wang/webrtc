@@ -1,0 +1,38 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "1b5fa993_94ef0488",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 12
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2022-02-15T14:19:59Z",
+      "side": 1,
+      "message": "Still not sure about this; it seems like it\u0027s a read/write property where the webrtc layer doesn\u0027t really need to know; webrtc doesn\u0027t act on it.\n\nBut if this is true, it does indeed belong on the signaling thread.\nLet\u0027s go.",
+      "revId": "75b64e369cff01c8edae08a78da33442be637bde",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "ce1ea811_d4da93dc",
+        "filename": "pc/rtp_sender.cc",
+        "patchSetId": 12
+      },
+      "lineNbr": 486,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2022-02-15T14:19:59Z",
+      "side": 1,
+      "message": "do you want to put an RTC_DCHECK on that?",
+      "revId": "75b64e369cff01c8edae08a78da33442be637bde",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

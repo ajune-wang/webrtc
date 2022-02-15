@@ -1,0 +1,38 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "f1e18d12_6cfe7413",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 6
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2022-02-15T13:47:31Z",
+      "side": 1,
+      "message": "If Mirko likes what it does, I approve.\n",
+      "revId": "5c041ea03137d86b8d2ae1f7ceba2a898c403cd5",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "849c73ed_f3146a44",
+        "filename": "PRESUBMIT.py",
+        "patchSetId": 6
+      },
+      "lineNbr": 833,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2022-02-15T13:47:31Z",
+      "side": 1,
+      "message": "Nit: \"Run manually\" -\u003e \"This test should be run manually\"\n\nAs written, it sounds as if the manual run happens automatically, which does not compute :-)",
+      "revId": "5c041ea03137d86b8d2ae1f7ceba2a898c403cd5",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

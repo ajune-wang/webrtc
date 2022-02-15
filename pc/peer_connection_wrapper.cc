@@ -279,7 +279,7 @@ rtc::scoped_refptr<AudioTrackInterface> PeerConnectionWrapper::CreateAudioTrack(
 
 rtc::scoped_refptr<VideoTrackInterface> PeerConnectionWrapper::CreateVideoTrack(
     const std::string& label) {
-  return pc_factory()->CreateVideoTrack(label, FakeVideoTrackSource::Create());
+  return pc_factory()->CreateVideoTrack(FakeVideoTrackSource::Create(), label);
 }
 
 rtc::scoped_refptr<RtpSenderInterface> PeerConnectionWrapper::AddTrack(

@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "38f18f7f_1d361017",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 11
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5508
+      },
+      "writtenOn": "2022-02-15T07:28:18Z",
+      "side": 1,
+      "message": "I ran into another issue related to OnChanged and the state property that needs to be fixed at the same time as the content hint property. I filed a bug and included some more details here:\nhttps://bugs.chromium.org/p/webrtc/issues/detail?id\u003d13681\n\nAnother thing that hangs together with this is the use of the enabled() property, when and how it\u0027s set. I\u0027ve prepared another CL for making that change, which is now a parent CL of this one.",
+      "revId": "7ec3200886af7e8377c2ab31cbed77679cda14af",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

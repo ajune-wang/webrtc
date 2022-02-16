@@ -43,6 +43,7 @@ class MockVad : public VoiceActivityDetectorWrapper::MonoVad {
   MOCK_METHOD(int, SampleRateHz, (), (const, override));
   MOCK_METHOD(void, Reset, (), (override));
   MOCK_METHOD(float, Analyze, (rtc::ArrayView<const float> frame), (override));
+  MOCK_METHOD(float, GetVadProbability, (), (const, override));
 };
 
 // Checks that the ctor and `Initialize()` read the sample rate of the wrapped
@@ -75,6 +76,9 @@ std::unique_ptr<VoiceActivityDetectorWrapper> CreateMockVadWrapper(
   EXPECT_CALL(*vad, Analyze)
       .Times(AnyNumber())
       .WillRepeatedly(ReturnRoundRobin(speech_probabilities));
+  EXPECT_CALL(*vad, GetVadProbability)
+      .Times(AnyNumber())
+      .WillRepeatedly(ReturnRoundRobin(speech_probabilities));
   return std::make_unique<VoiceActivityDetectorWrapper>(
       vad_reset_period_ms, std::move(vad), kSampleRate8kHz);
 }
@@ -104,6 +108,8 @@ TEST(GainController2VoiceActivityDetectorWrapper, CheckSpeechProbabilities) {
   for (int i = 0; rtc::SafeLt(i, speech_probabilities.size()); ++i) {
     SCOPED_TRACE(i);
     EXPECT_EQ(speech_probabilities[i], vad_wrapper->Analyze(frame.view));
+    EXPECT_EQ(speech_probabilities[i],
+              vad_wrapper->GetVoiceActivityProbability());
   }
 }
 
@@ -116,6 +122,7 @@ TEST(GainController2VoiceActivityDetectorWrapper, VadNoPeriodicReset) {
   FrameWithView frame(kSampleRate8kHz);
   for (int i = 0; i < kNumFrames; ++i) {
     vad_wrapper->Analyze(frame.view);
+    vad_wrapper->GetVoiceActivityProbability();
   }
 }
 
@@ -137,6 +144,7 @@ TEST_P(VadPeriodResetParametrization, VadPeriodicReset) {
   FrameWithView frame(kSampleRate8kHz);
   for (int i = 0; i < num_frames(); ++i) {
     vad_wrapper->Analyze(frame.view);
+    vad_wrapper->GetVoiceActivityProbability();
   }
 }
 
@@ -165,10 +173,12 @@ TEST_P(VadResamplingParametrization, CheckResampledFrameSize) {
     return rtc::SafeEq(frame.size(), rtc::CheckedDivExact(vad_sample_rate_hz(),
                                                           kNumFramesPerSecond));
   }))).Times(1);
+  EXPECT_CALL(*vad, GetVadProbability).Times(1);
   auto vad_wrapper = std::make_unique<VoiceActivityDetectorWrapper>(
       kNoVadPeriodicReset, std::move(vad), input_sample_rate_hz());
   FrameWithView frame(input_sample_rate_hz());
   vad_wrapper->Analyze(frame.view);
+  vad_wrapper->GetVoiceActivityProbability();
 }
 
 INSTANTIATE_TEST_SUITE_P(

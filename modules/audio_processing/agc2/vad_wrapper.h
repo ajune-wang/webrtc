@@ -38,6 +38,8 @@ class VoiceActivityDetectorWrapper {
     virtual void Reset() = 0;
     // Analyzes an audio frame and returns the speech probability.
     virtual float Analyze(rtc::ArrayView<const float> frame) = 0;
+    // Returns the voice activity probability.
+    virtual float GetVadProbability() const = 0;
   };
 
   // Ctor. `vad_reset_period_ms` indicates the period in milliseconds to call
@@ -63,6 +65,9 @@ class VoiceActivityDetectorWrapper {
   // `frame` must be a 10 ms frame with the sample rate specified in the last
   // `Initialize()` call.
   float Analyze(AudioFrameView<const float> frame);
+
+  // Returns the voice activity probability.
+  float GetVoiceActivityProbability() const;
 
  private:
   const int vad_reset_period_frames_;

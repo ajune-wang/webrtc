@@ -42,7 +42,11 @@ class MonoVadImpl : public VoiceActivityDetectorWrapper::MonoVad {
     const bool is_silence = features_extractor_.CheckSilenceComputeFeatures(
         /*samples=*/{frame.data(), rnn_vad::kFrameSize10ms24kHz},
         feature_vector);
-    return rnn_vad_.ComputeVadProbability(feature_vector, is_silence);
+    rnn_vad_.ComputeVadProbability(feature_vector, is_silence);
+    return GetVadProbability();
+  }
+  float GetVadProbability() const override {
+    return rnn_vad_.GetVadProbability();
   }
 
  private:
@@ -101,6 +105,10 @@ float VoiceActivityDetectorWrapper::Analyze(AudioFrameView<const float> frame) {
                       resampled_buffer_.data(), resampled_buffer_.size());
 
   return vad_->Analyze(resampled_buffer_);
+}
+
+float VoiceActivityDetectorWrapper::GetVoiceActivityProbability() const {
+  return vad_->GetVadProbability();
 }
 
 }  // namespace webrtc

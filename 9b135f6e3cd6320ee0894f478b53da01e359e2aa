@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "d2bfb774_71ae8b76",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5100
+      },
+      "writtenOn": "2022-02-16T15:16:21Z",
+      "side": 1,
+      "message": "PTAL at this small CL. Very similar to the previous one, but now for G.722.",
+      "revId": "9b135f6e3cd6320ee0894f478b53da01e359e2aa",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

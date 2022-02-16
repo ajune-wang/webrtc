@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "d5cd8bb8_2ef0ccd1",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5100
+      },
+      "writtenOn": "2022-02-16T16:06:31Z",
+      "side": 1,
+      "message": "PTAL at this CL too. More of the same...",
+      "revId": "7a30d864f9490900e4bf46290ada5a8844c4ccf0",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

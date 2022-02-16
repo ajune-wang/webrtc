@@ -16,6 +16,69 @@
       "message": "Hi Alessio, can you please take a look? Thanks!",
       "revId": "ee86d89d827978e1d6aa4e7c060a1f561e89e745",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "d2a4d539_83aee927",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5122
+      },
+      "writtenOn": "2022-02-16T16:26:57Z",
+      "side": 1,
+      "message": "Thanks Hanna!\nLGTM % 2 nits",
+      "revId": "ee86d89d827978e1d6aa4e7c060a1f561e89e745",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "386c4988_4fa05f95",
+        "filename": "modules/audio_processing/agc2/vad_wrapper.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 41,
+      "author": {
+        "id": 5122
+      },
+      "writtenOn": "2022-02-16T16:26:57Z",
+      "side": 1,
+      "message": "I guess it returns the probability for the last call to `Analyze()`.\nIf so, specify that in the function docstring and also define what is returned when `Analyze()` hasn\u0027t been called.",
+      "range": {
+        "startLine": 41,
+        "startChar": 7,
+        "endLine": 41,
+        "endChar": 46
+      },
+      "revId": "ee86d89d827978e1d6aa4e7c060a1f561e89e745",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "48a45155_a4b24ee1",
+        "filename": "modules/audio_processing/agc2/vad_wrapper.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 69,
+      "author": {
+        "id": 5122
+      },
+      "writtenOn": "2022-02-16T16:26:57Z",
+      "side": 1,
+      "message": "same here",
+      "range": {
+        "startLine": 69,
+        "startChar": 2,
+        "endLine": 69,
+        "endChar": 44
+      },
+      "revId": "ee86d89d827978e1d6aa4e7c060a1f561e89e745",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

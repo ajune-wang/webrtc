@@ -71,6 +71,24 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "34ba7a2d_22ff0585",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 9405
+      },
+      "writtenOn": "2022-02-16T11:40:09Z",
+      "side": 1,
+      "message": "Thanks. I abandoned my CL. Could you take ownership of https://bugs.webrtc.org/13674 too?",
+      "parentUuid": "904b1ea6_c864ebd7",
+      "revId": "be095af59a3a4706a200411a568152f6e7a66c8d",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "8635fcd8_60debe8e",

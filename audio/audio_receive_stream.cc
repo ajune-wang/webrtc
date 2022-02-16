@@ -117,7 +117,7 @@ AudioReceiveStream::AudioReceiveStream(
       audio_state_(audio_state),
       source_tracker_(clock),
       channel_receive_(std::move(channel_receive)) {
-  RTC_LOG(LS_INFO) << "AudioReceiveStream: " << config.rtp.remote_ssrc;
+  RTC_DLOG(LS_INFO) << "AudioReceiveStream: " << config.rtp.remote_ssrc;
   RTC_DCHECK(config.decoder_factory);
   RTC_DCHECK(config.rtcp_send_transport);
   RTC_DCHECK(audio_state_);
@@ -146,23 +146,10 @@ AudioReceiveStream::AudioReceiveStream(
 
 AudioReceiveStream::~AudioReceiveStream() {
   RTC_DCHECK_RUN_ON(&worker_thread_checker_);
-  RTC_LOG(LS_INFO) << "~AudioReceiveStream: " << config_.rtp.remote_ssrc;
+  RTC_DLOG(LS_INFO) << "~AudioReceiveStream: " << config_.rtp.remote_ssrc;
   Stop();
   channel_receive_->SetAssociatedSendChannel(nullptr);
   channel_receive_->ResetReceiverCongestionControlObjects();
-}
-
-void AudioReceiveStream::RegisterWithTransport(
-    RtpStreamReceiverControllerInterface* receiver_controller) {
-  RTC_DCHECK_RUN_ON(&packet_sequence_checker_);
-  RTC_DCHECK(!rtp_stream_receiver_);
-  rtp_stream_receiver_ = receiver_controller->CreateReceiver(
-      config_.rtp.remote_ssrc, channel_receive_.get());
-}
-
-void AudioReceiveStream::UnregisterFromTransport() {
-  RTC_DCHECK_RUN_ON(&packet_sequence_checker_);
-  rtp_stream_receiver_.reset();
 }
 
 void AudioReceiveStream::ReconfigureForTesting(
@@ -446,6 +433,7 @@ void AudioReceiveStream::AssociateSendStream(AudioSendStream* send_stream) {
 }
 
 void AudioReceiveStream::DeliverRtcp(const uint8_t* packet, size_t length) {
+  RTC_DCHECK_RUN_ON(&packet_sequence_checker_);
   // TODO(solenberg): Tests call this function on a network thread, libjingle
   // calls on the worker thread. We should move towards always using a network
   // thread. Then this check can be enabled.
@@ -469,6 +457,11 @@ uint32_t AudioReceiveStream::local_ssrc() const {
   RTC_DCHECK_RUN_ON(&packet_sequence_checker_);
   RTC_DCHECK_EQ(config_.rtp.local_ssrc, channel_receive_->GetLocalSsrc());
   return config_.rtp.local_ssrc;
+}
+
+webrtc::RtpPacketSinkInterface* AudioReceiveStream::packet_sink() {
+  RTC_DCHECK_RUN_ON(&packet_sequence_checker_);
+  return channel_receive_.get();
 }
 
 const webrtc::AudioReceiveStream::Config& AudioReceiveStream::config() const {

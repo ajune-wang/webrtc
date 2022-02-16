@@ -161,27 +161,6 @@ FlexfecReceiveStreamImpl::~FlexfecReceiveStreamImpl() {
   RTC_LOG(LS_INFO) << "~FlexfecReceiveStreamImpl: " << config_.ToString();
 }
 
-void FlexfecReceiveStreamImpl::RegisterWithTransport(
-    RtpStreamReceiverControllerInterface* receiver_controller) {
-  RTC_DCHECK_RUN_ON(&packet_sequence_checker_);
-  RTC_DCHECK(!rtp_stream_receiver_);
-
-  if (!receiver_)
-    return;
-
-  // TODO(nisse): OnRtpPacket in this class delegates all real work to
-  // `receiver_`. So maybe we don't need to implement RtpPacketSinkInterface
-  // here at all, we'd then delete the OnRtpPacket method and instead register
-  // `receiver_` as the RtpPacketSinkInterface for this stream.
-  rtp_stream_receiver_ =
-      receiver_controller->CreateReceiver(config_.rtp.remote_ssrc, this);
-}
-
-void FlexfecReceiveStreamImpl::UnregisterFromTransport() {
-  RTC_DCHECK_RUN_ON(&packet_sequence_checker_);
-  rtp_stream_receiver_.reset();
-}
-
 void FlexfecReceiveStreamImpl::OnRtpPacket(const RtpPacketReceived& packet) {
   RTC_DCHECK_RUN_ON(&packet_sequence_checker_);
   if (!receiver_)

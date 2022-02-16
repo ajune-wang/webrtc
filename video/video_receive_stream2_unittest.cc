@@ -82,8 +82,10 @@ class VideoReceiveStream2Test : public ::testing::Test {
         call_stats_(Clock::GetRealTimeClock(), loop_.task_queue()),
         field_trials_("WebRTC-FrameBuffer3/Enabled/") {}
   ~VideoReceiveStream2Test() override {
-    if (video_receive_stream_)
-      video_receive_stream_->UnregisterFromTransport();
+    if (video_receive_stream_) {
+      rtp_stream_receiver_controller_.RemoveSink(
+          video_receive_stream_->packet_sink());
+    }
   }
 
   void SetUp() override {
@@ -107,8 +109,9 @@ class VideoReceiveStream2Test : public ::testing::Test {
             task_queue_factory_.get(), &fake_call_, kDefaultNumCpuCores,
             &packet_router_, config_.Copy(), &call_stats_, clock_, timing_,
             &nack_periodic_processor_, nullptr);
-    video_receive_stream_->RegisterWithTransport(
-        &rtp_stream_receiver_controller_);
+    rtp_stream_receiver_controller_.AddSink(
+        config_.rtp.remote_ssrc, video_receive_stream_->packet_sink());
+    RTC_DCHECK(!config_.rtp.rtx_ssrc) << "Need to register rtx sink";
   }
 
  protected:
@@ -260,8 +263,10 @@ class VideoReceiveStream2TestWithFakeDecoder : public ::testing::Test {
         config_(&mock_transport_, &fake_decoder_factory_),
         call_stats_(Clock::GetRealTimeClock(), loop_.task_queue()) {}
   ~VideoReceiveStream2TestWithFakeDecoder() override {
-    if (video_receive_stream_)
-      video_receive_stream_->UnregisterFromTransport();
+    if (video_receive_stream_) {
+      rtp_stream_receiver_controller_.RemoveSink(
+          video_receive_stream_->packet_sink());
+    }
   }
 
   void SetUp() override {
@@ -279,7 +284,8 @@ class VideoReceiveStream2TestWithFakeDecoder : public ::testing::Test {
   void ReCreateReceiveStream(VideoReceiveStream::RecordingState state) {
     constexpr int kDefaultNumCpuCores = 2;
     if (video_receive_stream_) {
-      video_receive_stream_->UnregisterFromTransport();
+      rtp_stream_receiver_controller_.RemoveSink(
+          video_receive_stream_->packet_sink());
       video_receive_stream_ = nullptr;
     }
     timing_ = new VCMTiming(clock_);
@@ -287,8 +293,9 @@ class VideoReceiveStream2TestWithFakeDecoder : public ::testing::Test {
         task_queue_factory_.get(), &fake_call_, kDefaultNumCpuCores,
         &packet_router_, config_.Copy(), &call_stats_, clock_, timing_,
         &nack_periodic_processor_, nullptr));
-    video_receive_stream_->RegisterWithTransport(
-        &rtp_stream_receiver_controller_);
+    rtp_stream_receiver_controller_.AddSink(
+        config_.rtp.remote_ssrc, video_receive_stream_->packet_sink());
+    RTC_DCHECK(!config_.rtp.rtx_ssrc) << "Need to register rtx sink";
     video_receive_stream_->SetAndGetRecordingState(std::move(state), false);
   }
 
@@ -558,13 +565,14 @@ class VideoReceiveStream2TestWithSimulatedClock
                               new VCMTiming(time_controller_.GetClock()),
                               &nack_periodic_processor_,
                               nullptr) {
-    video_receive_stream_.RegisterWithTransport(
-        &rtp_stream_receiver_controller_);
+    rtp_stream_receiver_controller_.AddSink(
+        config_.rtp.remote_ssrc, video_receive_stream_.packet_sink());
     video_receive_stream_.Start();
   }
 
   ~VideoReceiveStream2TestWithSimulatedClock() override {
-    video_receive_stream_.UnregisterFromTransport();
+    rtp_stream_receiver_controller_.RemoveSink(
+        video_receive_stream_.packet_sink());
   }
 
   void OnFrameDecoded() { event_->Set(); }
@@ -717,7 +725,8 @@ class VideoReceiveStream2TestWithLazyDecoderCreation : public ::testing::Test {
         call_stats_(Clock::GetRealTimeClock(), loop_.task_queue()) {}
 
   ~VideoReceiveStream2TestWithLazyDecoderCreation() override {
-    video_receive_stream_->UnregisterFromTransport();
+    rtp_stream_receiver_controller_.RemoveSink(
+        video_receive_stream_->packet_sink());
   }
 
   void SetUp() override {
@@ -743,8 +752,8 @@ class VideoReceiveStream2TestWithLazyDecoderCreation : public ::testing::Test {
             task_queue_factory_.get(), &fake_call_, kDefaultNumCpuCores,
             &packet_router_, config_.Copy(), &call_stats_, clock_, timing_,
             &nack_periodic_processor_, nullptr);
-    video_receive_stream_->RegisterWithTransport(
-        &rtp_stream_receiver_controller_);
+    rtp_stream_receiver_controller_.AddSink(
+        config_.rtp.remote_ssrc, video_receive_stream_->packet_sink());
   }
 
  protected:

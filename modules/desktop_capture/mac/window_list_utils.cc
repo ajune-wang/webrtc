@@ -31,6 +31,10 @@ namespace webrtc {
 
 namespace {
 
+// WindowName of the status indicator dot shown since Monterey in the taskbar.
+// Testing on 12.2.1 shows this is independent of system language setting.
+const CFStringRef kStatusIndicator = CFSTR("StatusIndicator");
+
 bool ToUtf8(const CFStringRef str16, std::string* str8) {
   size_t maxlen = CFStringGetMaximumSizeForEncoding(CFStringGetLength(str16),
                                                     kCFStringEncodingUTF8) +
@@ -127,6 +131,11 @@ bool GetWindowList(rtc::FunctionView<bool(CFDictionaryRef)> on_window,
       continue;
     }
     if (only_zero_layer && layer != 0) {
+      continue;
+    }
+
+    // Ignore the red dot status indicator shown in the stats bar. Unlike the rest of the system UI it has a window_layer of 0, so was otherwise included. See crbug.com/1297731.
+    if (CFEqual(window_title, kStatusIndicator)) {
       continue;
     }
 

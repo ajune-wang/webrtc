@@ -94,6 +94,30 @@
       },
       "revId": "e7b4c137ccde1219829bbf9331e7ad7cb46cb0ea",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "018eaf0a_effa840a",
+        "filename": "sdk/android/api/org/webrtc/HardwareVideoEncoderFactory.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 256,
+      "author": {
+        "id": 5525
+      },
+      "writtenOn": "2022-02-16T12:29:22Z",
+      "side": 0,
+      "message": "In general I agree, but I\u0027m worried that we\u0027d start causing some devices to experience more problems, and I don\u0027t know how common that would be?\n\nDo you feel like this is safe and it\u0027s a risk worth taking?",
+      "parentUuid": "87605914_3d86e3f7",
+      "range": {
+        "startLine": 254,
+        "startChar": 0,
+        "endLine": 256,
+        "endChar": 18
+      },
+      "revId": "e7b4c137ccde1219829bbf9331e7ad7cb46cb0ea",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

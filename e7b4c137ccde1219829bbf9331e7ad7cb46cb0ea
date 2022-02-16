@@ -46,6 +46,30 @@
       },
       "revId": "e7b4c137ccde1219829bbf9331e7ad7cb46cb0ea",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "64e3f3be_70bad290",
+        "filename": "sdk/android/api/org/webrtc/HardwareVideoEncoderFactory.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 256,
+      "author": {
+        "id": 5525
+      },
+      "writtenOn": "2022-02-16T10:34:44Z",
+      "side": 0,
+      "message": "I think it\u0027s possible that the numbers in the chromium encoder wrapper actually came from here initially.\n\n\u003e If there is a problematic decoder which needs periodic recovery then it should request it.\n\nBut if the receiver/decoder doesn\u0027t detect the corruption that wouldn\u0027t be possible, right?",
+      "parentUuid": "f870b9ca_5cd4cc32",
+      "range": {
+        "startLine": 254,
+        "startChar": 0,
+        "endLine": 256,
+        "endChar": 18
+      },
+      "revId": "e7b4c137ccde1219829bbf9331e7ad7cb46cb0ea",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

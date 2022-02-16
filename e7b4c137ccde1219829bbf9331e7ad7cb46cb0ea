@@ -22,6 +22,30 @@
       },
       "revId": "e7b4c137ccde1219829bbf9331e7ad7cb46cb0ea",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "f870b9ca_5cd4cc32",
+        "filename": "sdk/android/api/org/webrtc/HardwareVideoEncoderFactory.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 256,
+      "author": {
+        "id": 5825
+      },
+      "writtenOn": "2022-02-16T10:19:23Z",
+      "side": 0,
+      "message": "These numbers came from chromium encoder wrapper (together with wrapper itself); https://source.chromium.org/chromium/chromium/src/+/main:media/gpu/android/android_video_encode_accelerator.h;drc\u003dc26af9bfc075bbed0c70d2371b9021d3a3479d92;l\u003d60. There is no explanation on why values are such. Smells like a random choice.\n\nIf there is a problematic decoder which needs periodic recovery then it should request it.\n\nThere are problematic QC VP8 encoders with which we need periodic keyframes. But that is handled in a different way (direct request) and is not affected by this change.\nhttps://source.chromium.org/chromium/chromium/src/+/main:third_party/webrtc/sdk/android/api/org/webrtc/HardwareVideoEncoderFactory.java;drc\u003d6b19d8273bb718833b562def87f92b9f0becb39e;l\u003d33",
+      "parentUuid": "260e48f9_f0d4e113",
+      "range": {
+        "startLine": 254,
+        "startChar": 0,
+        "endLine": 256,
+        "endChar": 18
+      },
+      "revId": "e7b4c137ccde1219829bbf9331e7ad7cb46cb0ea",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

@@ -195,7 +195,8 @@ class RtpSenderBase : public RtpSenderInternal, public ObserverInterface {
   virtual void AddTrackToStats() {}
   virtual void RemoveTrackFromStats() {}
 
-  rtc::Thread* worker_thread_;
+  rtc::Thread* const signaling_thread_;
+  rtc::Thread* const worker_thread_;
   uint32_t ssrc_ = 0;
   bool stopped_ = false;
   bool is_transceiver_stopped_ = false;

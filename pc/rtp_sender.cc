@@ -111,7 +111,8 @@ bool UnimplementedRtpParameterHasValue(const RtpParameters& parameters) {
 RtpSenderBase::RtpSenderBase(rtc::Thread* worker_thread,
                              const std::string& id,
                              SetStreamsObserver* set_streams_observer)
-    : worker_thread_(worker_thread),
+    : signaling_thread_(rtc::Thread::Current()),
+      worker_thread_(worker_thread),
       id_(id),
       set_streams_observer_(set_streams_observer) {
   RTC_DCHECK(worker_thread);
@@ -483,7 +484,7 @@ sigslot::signal0<>* AudioRtpSender::GetOnDestroyedSignal() {
 }
 
 void AudioRtpSender::OnChanged() {
-  // Running on the signaling thread.
+  RTC_DCHECK_RUN_ON(signaling_thread_);
   TRACE_EVENT0("webrtc", "AudioRtpSender::OnChanged");
   RTC_DCHECK(!stopped_);
   if (cached_track_enabled_ != track_->enabled()) {
@@ -585,7 +586,7 @@ VideoRtpSender::~VideoRtpSender() {
 }
 
 void VideoRtpSender::OnChanged() {
-  // Running on the signaling thread.
+  RTC_DCHECK_RUN_ON(signaling_thread_);
   TRACE_EVENT0("webrtc", "VideoRtpSender::OnChanged");
   RTC_DCHECK(!stopped_);
 

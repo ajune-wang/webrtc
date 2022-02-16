@@ -53,7 +53,7 @@ class AudioTrack : public MediaStreamTrack<AudioTrackInterface>,
 
  private:
   const rtc::scoped_refptr<AudioSourceInterface> audio_source_;
-  SequenceChecker thread_checker_;
+  RTC_NO_UNIQUE_ADDRESS webrtc::SequenceChecker signaling_thread_checker_;
 };
 
 }  // namespace webrtc

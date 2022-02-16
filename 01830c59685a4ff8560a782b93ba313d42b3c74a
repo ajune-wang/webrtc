@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "0a93277a_e2003a75",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 3
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5023
+      },
+      "writtenOn": "2022-02-16T10:39:00Z",
+      "side": 1,
+      "message": "lgtm, but I don\u0027t think I\u0027m an owner in java.",
+      "revId": "01830c59685a4ff8560a782b93ba313d42b3c74a",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

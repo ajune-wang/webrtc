@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "260e48f9_f0d4e113",
+        "filename": "sdk/android/api/org/webrtc/HardwareVideoEncoderFactory.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 256,
+      "author": {
+        "id": 5525
+      },
+      "writtenOn": "2022-02-16T10:03:18Z",
+      "side": 0,
+      "message": "How sure are we that this is safe to change in all cases? 100 secs is already a lot, so perhaps OK, but 20 seconds sounds like it\u0027s being used to recover from decoder bugs?",
+      "range": {
+        "startLine": 254,
+        "startChar": 0,
+        "endLine": 256,
+        "endChar": 18
+      },
+      "revId": "e7b4c137ccde1219829bbf9331e7ad7cb46cb0ea",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

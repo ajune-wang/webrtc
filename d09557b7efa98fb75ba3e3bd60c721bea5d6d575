@@ -1,0 +1,38 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "4b20625b_11b20a01",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 9
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 18939
+      },
+      "writtenOn": "2022-02-16T20:05:40Z",
+      "side": 1,
+      "message": "lgtm with a suggestion",
+      "revId": "d09557b7efa98fb75ba3e3bd60c721bea5d6d575",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "190cce6e_dc8c2ae0",
+        "filename": "modules/desktop_capture/mac/window_list_utils.cc",
+        "patchSetId": 9
+      },
+      "lineNbr": 155,
+      "author": {
+        "id": 18939
+      },
+      "writtenOn": "2022-02-16T20:05:40Z",
+      "side": 1,
+      "message": "I\u0027d suggest checking kCGWindowOwnerName as well, just to be sure not to accidentally pick up anything you\u0027d rather not pick up.",
+      "revId": "d09557b7efa98fb75ba3e3bd60c721bea5d6d575",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

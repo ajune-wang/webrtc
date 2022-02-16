@@ -70,6 +70,30 @@
       },
       "revId": "e7b4c137ccde1219829bbf9331e7ad7cb46cb0ea",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "87605914_3d86e3f7",
+        "filename": "sdk/android/api/org/webrtc/HardwareVideoEncoderFactory.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 256,
+      "author": {
+        "id": 5825
+      },
+      "writtenOn": "2022-02-16T12:25:24Z",
+      "side": 0,
+      "message": "Right. But that is not a good reason to enable periodic keyframes for all.",
+      "parentUuid": "64e3f3be_70bad290",
+      "range": {
+        "startLine": 254,
+        "startChar": 0,
+        "endLine": 256,
+        "endChar": 18
+      },
+      "revId": "e7b4c137ccde1219829bbf9331e7ad7cb46cb0ea",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

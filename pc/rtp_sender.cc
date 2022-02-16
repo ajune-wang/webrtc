@@ -111,7 +111,8 @@ bool UnimplementedRtpParameterHasValue(const RtpParameters& parameters) {
 RtpSenderBase::RtpSenderBase(rtc::Thread* worker_thread,
                              const std::string& id,
                              SetStreamsObserver* set_streams_observer)
-    : worker_thread_(worker_thread),
+    : signaling_thread_(rtc::Thread::Current()),
+      worker_thread_(worker_thread),
       id_(id),
       set_streams_observer_(set_streams_observer) {
   RTC_DCHECK(worker_thread);
@@ -150,6 +151,7 @@ RtpParameters RtpSenderBase::GetParametersInternal() const {
 }
 
 RtpParameters RtpSenderBase::GetParameters() const {
+  RTC_DCHECK_RUN_ON(signaling_thread_);
   RtpParameters result = GetParametersInternal();
   last_transaction_id_ = rtc::CreateRandomUuid();
   result.transaction_id = last_transaction_id_.value();
@@ -186,6 +188,7 @@ RTCError RtpSenderBase::SetParametersInternal(const RtpParameters& parameters) {
 }
 
 RTCError RtpSenderBase::SetParameters(const RtpParameters& parameters) {
+  RTC_DCHECK_RUN_ON(signaling_thread_);
   TRACE_EVENT0("webrtc", "RtpSenderBase::SetParameters");
   if (is_transceiver_stopped_) {
     LOG_AND_RETURN_ERROR(
@@ -225,6 +228,7 @@ void RtpSenderBase::SetStreams(const std::vector<std::string>& stream_ids) {
 }
 
 bool RtpSenderBase::SetTrack(MediaStreamTrackInterface* track) {
+  RTC_DCHECK_RUN_ON(signaling_thread_);
   TRACE_EVENT0("webrtc", "RtpSenderBase::SetTrack");
   if (stopped_) {
     RTC_LOG(LS_ERROR) << "SetTrack can't be called on a stopped RtpSender.";
@@ -381,6 +385,7 @@ RTCError RtpSenderBase::DisableEncodingLayers(
 
 void RtpSenderBase::SetEncoderToPacketizerFrameTransformer(
     rtc::scoped_refptr<FrameTransformerInterface> frame_transformer) {
+  RTC_DCHECK_RUN_ON(signaling_thread_);
   frame_transformer_ = std::move(frame_transformer);
   if (media_channel_ && ssrc_ && !stopped_) {
     worker_thread_->Invoke<void>(RTC_FROM_HERE, [&] {
@@ -483,7 +488,7 @@ sigslot::signal0<>* AudioRtpSender::GetOnDestroyedSignal() {
 }
 
 void AudioRtpSender::OnChanged() {
-  // Running on the signaling thread.
+  RTC_DCHECK_RUN_ON(signaling_thread_);
   TRACE_EVENT0("webrtc", "AudioRtpSender::OnChanged");
   RTC_DCHECK(!stopped_);
   if (cached_track_enabled_ != track_->enabled()) {
@@ -518,6 +523,7 @@ void AudioRtpSender::RemoveTrackFromStats() {
 }
 
 rtc::scoped_refptr<DtmfSenderInterface> AudioRtpSender::GetDtmfSender() const {
+  RTC_DCHECK_RUN_ON(signaling_thread_);
   return dtmf_sender_proxy_;
 }
 
@@ -585,7 +591,7 @@ VideoRtpSender::~VideoRtpSender() {
 }
 
 void VideoRtpSender::OnChanged() {
-  // Running on the signaling thread.
+  RTC_DCHECK_RUN_ON(signaling_thread_);
   TRACE_EVENT0("webrtc", "VideoRtpSender::OnChanged");
   RTC_DCHECK(!stopped_);
 
@@ -604,7 +610,8 @@ void VideoRtpSender::AttachTrack() {
 }
 
 rtc::scoped_refptr<DtmfSenderInterface> VideoRtpSender::GetDtmfSender() const {
-  RTC_LOG(LS_ERROR) << "Tried to get DTMF sender from video sender.";
+  RTC_DCHECK_RUN_ON(signaling_thread_);
+  RTC_DLOG(LS_ERROR) << "Tried to get DTMF sender from video sender.";
   return nullptr;
 }
 

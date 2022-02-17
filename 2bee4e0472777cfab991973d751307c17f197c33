@@ -41,6 +41,23 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "48622ab8_b77b2951",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 8046
+      },
+      "writtenOn": "2022-02-17T07:27:20Z",
+      "side": 1,
+      "message": "It would be good to discuss this in a meeting, we can perhaps schedule one next week? \n\nI just answered some questions, but I will look properly later, I\u0027m off for the rest of this week.",
+      "revId": "2bee4e0472777cfab991973d751307c17f197c33",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "10c7ea62_3df5118c",
@@ -89,6 +106,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "e5364d15_7c344bb0",
+        "filename": "modules/desktop_capture/linux/wayland/REMOTE_DESKTOP.DESIGN",
+        "patchSetId": 2
+      },
+      "lineNbr": 37,
+      "author": {
+        "id": 8046
+      },
+      "writtenOn": "2022-02-17T07:27:20Z",
+      "side": 1,
+      "message": "These are not PipeWire portals, but xdg-desktop-portal portals. PipeWire is just used for audio/video delivery for some portals. There are portals to for example send a notification or open a file. The list of interfaces and their description is here: https://github.com/flatpak/xdg-desktop-portal/tree/main/data (look for non-impl ones, the impl ones are for desktop backend implementations).\n\nYou can also read something about portals here: http://who-t.blogspot.com/2021/08/flatpak-portals-how-do-they-work.html",
+      "parentUuid": "a62bb866_5cf4dcad",
+      "range": {
+        "startLine": 36,
+        "startChar": 3,
+        "endLine": 37,
+        "endChar": 47
+      },
+      "revId": "2bee4e0472777cfab991973d751307c17f197c33",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "4a0fed63_a578abe3",
         "filename": "modules/desktop_capture/linux/wayland/REMOTE_DESKTOP.DESIGN",
         "patchSetId": 2
@@ -100,6 +141,30 @@
       "writtenOn": "2022-02-17T00:59:14Z",
       "side": 1,
       "message": "Not sure I understand this. Are you saying that theoretically RemoteDesktopPortal could be used to do the basic screen/window capture if it\u0027s ignoring some of the input requirements for RemoteDesktop?",
+      "range": {
+        "startLine": 46,
+        "startChar": 39,
+        "endLine": 48,
+        "endChar": 74
+      },
+      "revId": "2bee4e0472777cfab991973d751307c17f197c33",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "bb00324a_018d5b09",
+        "filename": "modules/desktop_capture/linux/wayland/REMOTE_DESKTOP.DESIGN",
+        "patchSetId": 2
+      },
+      "lineNbr": 48,
+      "author": {
+        "id": 8046
+      },
+      "writtenOn": "2022-02-17T07:27:20Z",
+      "side": 1,
+      "message": "I don\u0027t personally think this can be used as a replacement. Calling the remote desktop portal will result into a different portal dialog on the desktop side. The screencast portal dialog asks users only to pick a screen or a window, the remote desktop portal dialog asks for the same + access to keyboard and mouse.",
+      "parentUuid": "4a0fed63_a578abe3",
       "range": {
         "startLine": 46,
         "startChar": 39,

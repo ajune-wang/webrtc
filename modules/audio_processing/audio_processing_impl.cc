@@ -1287,6 +1287,7 @@ int AudioProcessingImpl::ProcessCaptureStreamLocked() {
     if (submodules_.gain_controller2) {
       submodules_.gain_controller2->NotifyAnalogLevel(
           recommended_stream_analog_level_locked());
+      submodules_.gain_controller2->Analyze(capture_buffer);
       submodules_.gain_controller2->Process(capture_buffer);
     }
 

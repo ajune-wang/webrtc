@@ -33,6 +33,24 @@
       "message": "I\u0027d suggest checking kCGWindowOwnerName as well, just to be sure not to accidentally pick up anything you\u0027d rather not pick up.",
       "revId": "d09557b7efa98fb75ba3e3bd60c721bea5d6d575",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "04d63303_ead54aee",
+        "filename": "modules/desktop_capture/mac/window_list_utils.cc",
+        "patchSetId": 9
+      },
+      "lineNbr": 155,
+      "author": {
+        "id": 18474
+      },
+      "writtenOn": "2022-02-17T17:49:11Z",
+      "side": 1,
+      "message": "+1 if this is possible",
+      "parentUuid": "190cce6e_dc8c2ae0",
+      "revId": "d09557b7efa98fb75ba3e3bd60c721bea5d6d575",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

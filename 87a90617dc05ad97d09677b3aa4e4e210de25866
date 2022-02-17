@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "8ebbae4d_e5d3c5c7",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2022-02-17T09:59:40Z",
+      "side": 1,
+      "message": "I think I\u0027ve found all the internal usage now...\n",
+      "revId": "87a90617dc05ad97d09677b3aa4e4e210de25866",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "a0df6e57_b608688c",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 3
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2022-02-17T09:34:48Z",
+      "side": 1,
+      "message": "Looks good now!\nNot triggering autosubmit since there\u0027s a merge conflict.\n",
+      "revId": "1ea00393139ecd93b5ab10790cc5ef47a0023e64",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

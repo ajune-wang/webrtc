@@ -12,6 +12,7 @@
 #include "absl/memory/memory.h"
 #include "absl/strings/string_view.h"
 #include "rtc_base/event.h"
+#include "rtc_base/logging.h"
 #include "rtc_base/ref_counter.h"
 #include "rtc_base/task_utils/to_queued_task.h"
 #include "rtc_base/time_utils.h"
@@ -269,6 +270,67 @@ TEST_P(TaskQueueTest, PostTwoWithSharedUnprotectedState) {
     EXPECT_EQ(state.state, 0);
   }));
   EXPECT_TRUE(done.Wait(1000));
+}
+
+TEST_P(TaskQueueTest, FIFOTestPostTask) {
+  std::unique_ptr<webrtc::TaskQueueFactory> factory = GetParam()();
+
+  auto queue = CreateTaskQueue(factory, "FIFOTest");
+  std::vector<int> run_order;
+  rtc::Event done;
+  for (int i = 0; i < 10; i++) {
+    queue->PostTask(ToQueuedTask([i, &run_order, &done] {
+      run_order.push_back(i);
+      if (i == 9)
+        done.Set();
+    }));
+  }
+  EXPECT_TRUE(done.Wait(1000));
+  RTC_LOG(LS_INFO) << ">>> run_size = " << run_order.size();
+  for (size_t i = 0; i < run_order.size(); i++)
+    RTC_LOG(LS_INFO) << "run_order = " << run_order[i];
+}
+
+TEST_P(TaskQueueTest, FIFOTestPostDelayedTask) {
+  std::unique_ptr<webrtc::TaskQueueFactory> factory = GetParam()();
+
+  auto queue = CreateTaskQueue(factory, "FIFOTest");
+  std::vector<int> run_order;
+  rtc::Event done;
+  for (int i = 0; i < 10; i++) {
+    queue->PostDelayedTask(ToQueuedTask([i, &run_order, &done] {
+                             run_order.push_back(i);
+                             if (i == 9)
+                               done.Set();
+                           }),
+                           0);
+  }
+  EXPECT_TRUE(done.Wait(1000));
+  RTC_LOG(LS_INFO) << ">>> run_size = " << run_order.size();
+  for (size_t i = 0; i < run_order.size(); i++)
+    RTC_LOG(LS_INFO) << "run_order = " << run_order[i];
+}
+
+TEST_P(TaskQueueTest, FIFOTestMixed) {
+  std::unique_ptr<webrtc::TaskQueueFactory> factory = GetParam()();
+
+  auto queue = CreateTaskQueue(factory, "FIFOTest");
+  std::vector<int> run_order;
+  rtc::Event done;
+  for (int i = 0; i < 10; i++) {
+    queue->PostTask(
+        ToQueuedTask([i, &run_order] { run_order.push_back(i * 2); }));
+    queue->PostDelayedTask(ToQueuedTask([i, &run_order, &done] {
+                             run_order.push_back(i * 2 + 1);
+                             if (i == 9)
+                               done.Set();
+                           }),
+                           0);
+  }
+  EXPECT_TRUE(done.Wait(1000));
+  RTC_LOG(LS_INFO) << ">>> run_size = " << run_order.size();
+  for (size_t i = 0; i < run_order.size(); i++)
+    RTC_LOG(LS_INFO) << "run_order = " << run_order[i];
 }
 
 // TaskQueueTest is a set of tests for any implementation of the TaskQueueBase.

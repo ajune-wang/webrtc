@@ -25,6 +25,8 @@ class QueuedTask {
   // having been transferred.  Returning `false` can be useful if a task has
   // re-posted itself to a different queue or is otherwise being re-used.
   virtual bool Run() = 0;
+
+  virtual uint32_t desired_runtime() { return 0; }
 };
 
 }  // namespace webrtc

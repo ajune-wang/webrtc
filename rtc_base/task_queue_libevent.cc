@@ -41,6 +41,7 @@ namespace webrtc {
 namespace {
 constexpr char kQuit = 1;
 constexpr char kRunTasks = 2;
+constexpr char kIdle = 3;
 
 using Priority = TaskQueueFactory::Priority;
 
@@ -112,7 +113,13 @@ class TaskQueueLibevent final : public TaskQueueBase {
 
  private:
   class SetTimerTask;
+  class DelayedTask;
   struct TimerEvent;
+
+  void PostTaskInternal(std::unique_ptr<QueuedTask> task);
+  void UpdateNextWakeUpTime();
+  void UpdateTimer();
+  void RunExpiredTasks();
 
   ~TaskQueueLibevent() override = default;
 
@@ -126,10 +133,11 @@ class TaskQueueLibevent final : public TaskQueueBase {
   event wakeup_event_;
   rtc::PlatformThread thread_;
   Mutex pending_lock_;
-  absl::InlinedVector<std::unique_ptr<QueuedTask>, 4> pending_
+  std::vector<std::unique_ptr<QueuedTask>> pending_
       RTC_GUARDED_BY(pending_lock_);
   // Holds a list of events pending timers for cleanup when the loop exits.
   std::list<TimerEvent*> pending_timers_;
+  uint32_t next_wake_up_;
 };
 
 struct TaskQueueLibevent::TimerEvent {
@@ -165,6 +173,26 @@ class TaskQueueLibevent::SetTimerTask : public QueuedTask {
   const uint32_t posted_;
 };
 
+class TaskQueueLibevent::DelayedTask : public QueuedTask {
+ public:
+  DelayedTask(std::unique_ptr<QueuedTask> task, uint32_t milliseconds)
+      : task_(std::move(task)),
+        milliseconds_(rtc::Time32() + milliseconds),
+        posted_(rtc::Time32()) {}
+
+  uint32_t desired_runtime() override { return milliseconds_; }
+
+ private:
+  bool Run() override {
+    // RTC_LOG(LS_INFO) << "Run 0" << task_.get();
+    return task_->Run();
+  }
+
+  std::unique_ptr<QueuedTask> task_;
+  const uint32_t milliseconds_;  // Desired runtime!
+  const uint32_t posted_;
+};
+
 TaskQueueLibevent::TaskQueueLibevent(absl::string_view queue_name,
                                      rtc::ThreadPriority priority)
     : event_base_(event_base_new()) {
@@ -174,6 +202,8 @@ TaskQueueLibevent::TaskQueueLibevent(absl::string_view queue_name,
   SetNonBlocking(fds[1]);
   wakeup_pipe_out_ = fds[0];
   wakeup_pipe_in_ = fds[1];
+
+  next_wake_up_ = 0;
 
   EventAssign(&wakeup_event_, event_base_, wakeup_pipe_out_,
               EV_READ | EV_PERSIST, OnWakeup, this);
@@ -220,9 +250,51 @@ void TaskQueueLibevent::Delete() {
 }
 
 void TaskQueueLibevent::PostTask(std::unique_ptr<QueuedTask> task) {
+  PostDelayedTask(std::move(task), 0);
+}
+
+void TaskQueueLibevent::PostDelayedTask(std::unique_ptr<QueuedTask> task,
+                                        uint32_t milliseconds) {
+  PostTaskInternal(
+      std::make_unique<DelayedTask>(std::move(task), milliseconds));
+}
+
+void TaskQueueLibevent::UpdateTimer() {
+  TimerEvent* timer =
+      new TimerEvent(this, std::make_unique<DelayedTask>(nullptr, 0));
+  EventAssign(&timer->ev, event_base_, -1, 0, &TaskQueueLibevent::RunTimer,
+              timer);
+  pending_timers_.push_back(timer);
+  uint32_t t = std::max(next_wake_up_, rtc::Time32()) - rtc::Time32();
+  timeval tv = {rtc::dchecked_cast<int>(t / 1000),
+                rtc::dchecked_cast<int>(t % 1000) * 1000};
+  event_add(&timer->ev, &tv);
+}
+
+void TaskQueueLibevent::UpdateNextWakeUpTime() {
+  uint32_t next_wake_up;
+  {
+    MutexLock lock(&pending_lock_);
+    if (pending_.empty())
+      return;
+    next_wake_up = pending_.front()->desired_runtime();
+    for (auto& task : pending_) {
+      next_wake_up = std::min(next_wake_up, task->desired_runtime());
+    }
+  }
+
+  // next_wake_up_ = std::min(next_wake_up_, next_wake_up);
+  if (next_wake_up != next_wake_up_) {
+    next_wake_up_ = next_wake_up;
+    UpdateTimer();
+  }
+}
+
+void TaskQueueLibevent::PostTaskInternal(std::unique_ptr<QueuedTask> task) {
   {
     MutexLock lock(&pending_lock_);
     bool had_pending_tasks = !pending_.empty();
+    // bool is_later_task = task->desired_runtime() > rtc::Time32();
     pending_.push_back(std::move(task));
 
     // Only write to the pipe if there were no pending tasks before this one
@@ -230,30 +302,45 @@ void TaskQueueLibevent::PostTask(std::unique_ptr<QueuedTask> task) {
     // then we know there's either a pending write in the pipe or the thread has
     // not yet processed the pending tasks. In either case, the thread will
     // eventually wake up and process all pending tasks including this one.
+    // RTC_LOG(LS_INFO) << "PostTaskInternal 0";
     if (had_pending_tasks) {
       return;
     }
+    // RTC_LOG(LS_INFO) << "PostTaskInternal 1";
   }
+  UpdateNextWakeUpTime();
+
+  char message = kRunTasks;
+  if (next_wake_up_ > rtc::Time32())
+    message = kIdle;
 
   // Note: This behvior outlined above ensures we never fill up the pipe write
   // buffer since there will only ever be 1 byte pending.
-  char message = kRunTasks;
+  // RTC_LOG(LS_INFO) << "Write time  " << rtc::Time32();
+  // char message = kRunTasks;
   RTC_CHECK_EQ(write(wakeup_pipe_in_, &message, sizeof(message)),
                sizeof(message));
 }
 
-void TaskQueueLibevent::PostDelayedTask(std::unique_ptr<QueuedTask> task,
-                                        uint32_t milliseconds) {
-  if (IsCurrent()) {
-    TimerEvent* timer = new TimerEvent(this, std::move(task));
-    EventAssign(&timer->ev, event_base_, -1, 0, &TaskQueueLibevent::RunTimer,
-                timer);
-    pending_timers_.push_back(timer);
-    timeval tv = {rtc::dchecked_cast<int>(milliseconds / 1000),
-                  rtc::dchecked_cast<int>(milliseconds % 1000) * 1000};
-    event_add(&timer->ev, &tv);
-  } else {
-    PostTask(std::make_unique<SetTimerTask>(std::move(task), milliseconds));
+void TaskQueueLibevent::RunExpiredTasks() {
+  std::vector<std::unique_ptr<QueuedTask>> tasks = {};
+  {
+    MutexLock lock(&pending_lock_);
+    tasks.swap(pending_);
+  }
+  for (auto& task : tasks) {
+    // RTC_LOG(LS_INFO) << "OnWakeup task : " << task.get();
+    if (task->desired_runtime() <= rtc::Time32()) {
+      if (task->Run()) {
+        task.reset();
+      } else {
+        // `false` means the task should *not* be deleted.
+        task.release();
+      }
+    } else {
+      MutexLock lock(&pending_lock_);
+      pending_.push_back(std::move(task));
+    }
   }
 }
 
@@ -271,22 +358,13 @@ void TaskQueueLibevent::OnWakeup(int socket,
       event_base_loopbreak(me->event_base_);
       break;
     case kRunTasks: {
-      absl::InlinedVector<std::unique_ptr<QueuedTask>, 4> tasks;
-      {
-        MutexLock lock(&me->pending_lock_);
-        tasks.swap(me->pending_);
-      }
-      RTC_DCHECK(!tasks.empty());
-      for (auto& task : tasks) {
-        if (task->Run()) {
-          task.reset();
-        } else {
-          // `false` means the task should *not* be deleted.
-          task.release();
-        }
-      }
+      // RTC_LOG(LS_INFO) << "Wake time  " << rtc::Time32();
+      me->RunExpiredTasks();
+      me->UpdateNextWakeUpTime();
       break;
     }
+    case kIdle:
+      break;
     default:
       RTC_DCHECK_NOTREACHED();
       break;
@@ -298,8 +376,10 @@ void TaskQueueLibevent::RunTimer(int fd,
                                  short flags,  // NOLINT
                                  void* context) {
   TimerEvent* timer = static_cast<TimerEvent*>(context);
-  if (!timer->task->Run())
-    timer->task.release();
+  TaskQueueLibevent* me = timer->task_queue;
+  // RTC_LOG(LS_INFO) << "Timer time  " << rtc::Time32();
+  me->RunExpiredTasks();
+  me->UpdateNextWakeUpTime();
   timer->task_queue->pending_timers_.remove(timer);
   delete timer;
 }

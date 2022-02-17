@@ -58,6 +58,23 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "150b99d7_5b340f63",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 8046
+      },
+      "writtenOn": "2022-02-17T07:43:24Z",
+      "side": 1,
+      "message": "Actually, I have one more idea:\n\nWe can use libportal library, it supports both remote desktop and screencast portals and with that we can drop all the xdg-desktop-portal code and avoid dealing with duplicates. Problem is that it is not ABI stable yet, but that\u0027s something I can work on with the upstream as this has been already requested and I know the people around and already cobtributed there few times. Second problem is that it will not be available everywhere so I guess WebRTC/Chromium has some ways how to proceed in such cases.\n\nlibportal is here: https://github.com/flatpak/libportal\n\nBut this would really simplify things. It would also be future proof, because every portal change will be reflected there and we don\u0027t need to pick the change ourself.",
+      "revId": "2bee4e0472777cfab991973d751307c17f197c33",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "10c7ea62_3df5118c",

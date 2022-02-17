@@ -16,6 +16,161 @@
       "message": "Hi Alessio and Per, can you please take a look? Thanks!",
       "revId": "d29e5073072e589553ecd1f9609e70b87b29e234",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "83473c70_1e7eecc6",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 3
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5122
+      },
+      "writtenOn": "2022-02-17T12:36:57Z",
+      "side": 1,
+      "message": "Hi Hanna, thanks for the CL!\nI have a few comments.",
+      "revId": "d29e5073072e589553ecd1f9609e70b87b29e234",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "441a194c_9651ea90",
+        "filename": "modules/audio_processing/gain_controller2.h",
+        "patchSetId": 3
+      },
+      "lineNbr": 53,
+      "author": {
+        "id": 5122
+      },
+      "writtenOn": "2022-02-17T12:36:57Z",
+      "side": 1,
+      "message": "what about returning an unspecified value if `Analyze()` has never been called?",
+      "range": {
+        "startLine": 50,
+        "startChar": 0,
+        "endLine": 53,
+        "endChar": 60
+      },
+      "revId": "d29e5073072e589553ecd1f9609e70b87b29e234",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "6433fe70_4a93ddf2",
+        "filename": "modules/audio_processing/gain_controller2.h",
+        "patchSetId": 3
+      },
+      "lineNbr": 55,
+      "author": {
+        "id": 5122
+      },
+      "writtenOn": "2022-02-17T12:36:57Z",
+      "side": 1,
+      "message": "We need to document that `Analyze()` must be called once before each `Process()` call and that any other pattern will produced undefined behavior.",
+      "range": {
+        "startLine": 55,
+        "startChar": 2,
+        "endLine": 55,
+        "endChar": 76
+      },
+      "revId": "d29e5073072e589553ecd1f9609e70b87b29e234",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "5c22454f_ddc8d51f",
+        "filename": "modules/audio_processing/gain_controller2_unittest.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 341,
+      "author": {
+        "id": 5122
+      },
+      "writtenOn": "2022-02-17T12:36:57Z",
+      "side": 1,
+      "message": "ASSERT_TRUE so the test stops (same in the tests below)",
+      "range": {
+        "startLine": 341,
+        "startChar": 2,
+        "endLine": 341,
+        "endChar": 13
+      },
+      "revId": "d29e5073072e589553ecd1f9609e70b87b29e234",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "1a244e94_aec666a9",
+        "filename": "modules/audio_processing/gain_controller2_unittest.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 343,
+      "author": {
+        "id": 5122
+      },
+      "writtenOn": "2022-02-17T12:36:57Z",
+      "side": 1,
+      "message": "no need to use the copy ctor, so:\n\n  GainController2 controller(config, AudioProcessing::kSampleRate48kHz, kStereo);\n  \n(same below in this file)",
+      "range": {
+        "startLine": 342,
+        "startChar": 0,
+        "endLine": 343,
+        "endChar": 74
+      },
+      "revId": "d29e5073072e589553ecd1f9609e70b87b29e234",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "fb134665_ec71fe92",
+        "filename": "modules/audio_processing/gain_controller2_unittest.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 345,
+      "author": {
+        "id": 5122
+      },
+      "writtenOn": "2022-02-17T12:36:57Z",
+      "side": 1,
+      "message": "these are used several times, for readability it\u0027s better to add\n\n```\nusing ::testing::Eq;\nusing ::testing::Gt;\nusing ::testing::Optional;\n```\n\nand use `Eq`, `Gt`, `Optional` in the tests",
+      "range": {
+        "startLine": 345,
+        "startChar": 14,
+        "endLine": 345,
+        "endChar": 43
+      },
+      "revId": "d29e5073072e589553ecd1f9609e70b87b29e234",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "d0bf1d8d_f6c74327",
+        "filename": "modules/audio_processing/gain_controller2_unittest.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 377,
+      "author": {
+        "id": 5122
+      },
+      "writtenOn": "2022-02-17T12:36:57Z",
+      "side": 1,
+      "message": "this doesn\u0027t represent the usage in APM\nwe must call Analyze-Process 10 times and not 10 times Analyze and 10 times Process, right?\n\nif so, it is sufficient to use `RunAgc2WithConstantInput()` as helper and remove `RunAgc2AnalyzeWithConstantInput()` and `RunAgc2ProcessWithConstantInput()` in this file",
+      "range": {
+        "startLine": 374,
+        "startChar": 0,
+        "endLine": 377,
+        "endChar": 69
+      },
+      "revId": "d29e5073072e589553ecd1f9609e70b87b29e234",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

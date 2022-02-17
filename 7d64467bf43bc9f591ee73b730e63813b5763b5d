@@ -18,6 +18,24 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "0d3282f3_794475da",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 8
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5508
+      },
+      "writtenOn": "2022-02-17T08:47:57Z",
+      "side": 1,
+      "message": "The DCHECKs are basically to match with the proxy declaration. So it doesn\u0027t change anything as far as the api goes, it just dchecks that the proxy is doing the right thing and if internal calls are being made without going through the proxy, that those calls follow the same rules as the proxy. Up until now, those \"rules\" have been implicit and indeed as I added these checks, I discovered that the stats collector introduces a race condition.",
+      "parentUuid": "73cd1a53_a906f59a",
+      "revId": "7d64467bf43bc9f591ee73b730e63813b5763b5d",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "86d260ec_032235f4",
@@ -31,6 +49,30 @@
       "writtenOn": "2022-02-17T08:23:05Z",
       "side": 1,
       "message": "Looks like this is a private method, so could use a compile time annotation instead.",
+      "range": {
+        "startLine": 62,
+        "startChar": 5,
+        "endLine": 62,
+        "endChar": 28
+      },
+      "revId": "7d64467bf43bc9f591ee73b730e63813b5763b5d",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "89caed46_181cc681",
+        "filename": "pc/audio_track.cc",
+        "patchSetId": 8
+      },
+      "lineNbr": 62,
+      "author": {
+        "id": 5508
+      },
+      "writtenOn": "2022-02-17T08:47:57Z",
+      "side": 1,
+      "message": "it\u0027s an implementation of a virtual interface method, so that won\u0027t work. The implementation is not meant to be a part of AudioTrack\u0027s public interface however, so it\u0027s OK to have it be private.",
+      "parentUuid": "86d260ec_032235f4",
       "range": {
         "startLine": 62,
         "startChar": 5,

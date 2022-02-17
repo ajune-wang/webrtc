@@ -37,6 +37,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "9856b9fc_0623319a",
+        "filename": "pc/rtp_transceiver.cc",
+        "patchSetId": 39
+      },
+      "lineNbr": 219,
+      "author": {
+        "id": 5508
+      },
+      "writtenOn": "2022-02-17T22:41:00Z",
+      "side": 1,
+      "message": "Ended up with adding a `SetSourceEnded()` method. I figured `Pause` could imply `Resume` down the line. So hopefully that name should make it clear that this will change the state of the source to `ended`.",
+      "parentUuid": "45515b42_4423217a",
+      "revId": "0451998ed30f8fc4d2e4a4030d3f065f6c6830db",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "9de8e6cc_a9e20694",
         "filename": "pc/video_rtp_receiver_unittest.cc",
         "patchSetId": 39
@@ -48,6 +66,24 @@
       "writtenOn": "2022-02-07T04:45:05Z",
       "side": 1,
       "message": "I don\u0027t see the justification for this as a separate function; it\u0027s confusing, since it doesn\u0027t call Stop() on the RTP receiver. SetMediaChanel(nullptr) is less misleading and not much longer to type.",
+      "revId": "0451998ed30f8fc4d2e4a4030d3f065f6c6830db",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "938f16ad_740b3bc0",
+        "filename": "pc/video_rtp_receiver_unittest.cc",
+        "patchSetId": 39
+      },
+      "lineNbr": 78,
+      "author": {
+        "id": 5508
+      },
+      "writtenOn": "2022-02-17T22:41:00Z",
+      "side": 1,
+      "message": "agree - leftovers from some refactorings. Removed and comments updated.",
+      "parentUuid": "9de8e6cc_a9e20694",
       "revId": "0451998ed30f8fc4d2e4a4030d3f065f6c6830db",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }

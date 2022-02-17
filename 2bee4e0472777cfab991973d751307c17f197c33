@@ -390,6 +390,30 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "df52fdd0_7d4b5f65",
+        "filename": "modules/desktop_capture/linux/wayland/REMOTE_DESKTOP.DESIGN",
+        "patchSetId": 2
+      },
+      "lineNbr": 48,
+      "author": {
+        "id": 18829
+      },
+      "writtenOn": "2022-02-17T17:58:37Z",
+      "side": 1,
+      "message": "\u003e it might be weird to present options to share mouse/keyboard when sharing a screen\n\nAgreed.\n\n\u003e some remote desktop portal implementations offer you to share just a screen, no matter what options are selected\n...\n\u003e Verified. For example xdg-desktop-portal-kde doesn\u0027t allow to share application windows, only screens.\n\nInteresting! Thanks for checking.",
+      "parentUuid": "7bf86312_51b80c74",
+      "range": {
+        "startLine": 46,
+        "startChar": 39,
+        "endLine": 48,
+        "endChar": 74
+      },
+      "revId": "2bee4e0472777cfab991973d751307c17f197c33",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "f755c5fa_ed00aaf0",

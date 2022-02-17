@@ -1,0 +1,72 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "c1834a13_48ad8dc4",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 2
+      },
+      "lineNbr": 7,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2022-02-17T07:18:12Z",
+      "side": 1,
+      "message": "Can you change the title to \"Move VideoTrackSource proxy creation into VideoTrack\"?\n\nAs stated, I think the title is misleading.",
+      "revId": "17844e042c52ec1a6331fea366cc48e1435b2762",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "92e2093f_1d9de6d8",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2022-02-17T07:18:12Z",
+      "side": 1,
+      "message": "I\u0027m confused. I can\u0027t figure out that this CL makes sense.\n",
+      "revId": "17844e042c52ec1a6331fea366cc48e1435b2762",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "d5426219_c62c064d",
+        "filename": "pc/audio_track.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 26,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2022-02-17T07:18:12Z",
+      "side": 1,
+      "message": "re this TODO: We have to implement MediaStreamTrackInterface, because there\u0027s a ton of code that handles MediaStreamTrack* - but I wonder if it\u0027s possible to get rid of the templated inheritance; that seems to make life more difficult, not easier. (I can\u0027t find the line where AudioTrack implements MediaStreamTrackInterface - I suspect this of being subtle C++, and subtle is often a synonym for \"dangerous\").",
+      "revId": "17844e042c52ec1a6331fea366cc48e1435b2762",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "73557a61_c4e0561d",
+        "filename": "pc/video_track.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 138,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2022-02-17T07:18:12Z",
+      "side": 1,
+      "message": "I\u0027m missing something. Here we add a new \"wrap this into a proxy\" call, but where is the old \"wrap this into a proxy\" removed?\nIf the old argument to Create was a proxy, the result of this change will be that we\u0027ll be using a proxy to a proxy, which can\u0027t possibly be the intent.\n\nIf the old argument to Create wasn\u0027t a proxy, the result of this change is that all access to video_source_ now goes via the proxy, and we should add -\u003einternal()-\u003e into the call stack whenever we\u0027re on the right thread; the CL doesn\u0027t do that either.",
+      "revId": "17844e042c52ec1a6331fea366cc48e1435b2762",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

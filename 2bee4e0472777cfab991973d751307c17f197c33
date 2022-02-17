@@ -26,6 +26,30 @@
     {
       "unresolved": false,
       "key": {
+        "uuid": "1412aa7d_20ec3752",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 2
+      },
+      "lineNbr": 7,
+      "author": {
+        "id": 18829
+      },
+      "writtenOn": "2022-02-17T17:01:50Z",
+      "side": 1,
+      "message": "Good point. Intended it for discussion initially but if we happen to keep the remote desktop portal implementation here then I can change it to .md",
+      "parentUuid": "85483e08_1b7435f2",
+      "range": {
+        "startLine": 7,
+        "startChar": 0,
+        "endLine": 7,
+        "endChar": 21
+      },
+      "revId": "2bee4e0472777cfab991973d751307c17f197c33",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
         "uuid": "dc6a9862_3e02aee3",
         "filename": "/PATCHSET_LEVEL",
         "patchSetId": 2
@@ -75,6 +99,60 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "8329b38c_24950888",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 18829
+      },
+      "writtenOn": "2022-02-17T17:01:50Z",
+      "side": 1,
+      "message": "All questions were great. Thanks for taking the time to go over it.",
+      "parentUuid": "dc6a9862_3e02aee3",
+      "revId": "2bee4e0472777cfab991973d751307c17f197c33",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "f7df909a_fa88aa96",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 18829
+      },
+      "writtenOn": "2022-02-17T17:01:50Z",
+      "side": 1,
+      "message": "Sounds good to me.",
+      "parentUuid": "48622ab8_b77b2951",
+      "revId": "2bee4e0472777cfab991973d751307c17f197c33",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "fd6d7f2a_4c49411f",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 18829
+      },
+      "writtenOn": "2022-02-17T17:01:50Z",
+      "side": 1,
+      "message": "This seems promising. Thanks for the pointer Jan. If we can address the portability issue as well as devise a plan (if one doesn\u0027t already exist) for webrtc to depend on third party libraries, then we should be good.",
+      "parentUuid": "150b99d7_5b340f63",
+      "revId": "2bee4e0472777cfab991973d751307c17f197c33",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "10c7ea62_3df5118c",
@@ -88,6 +166,30 @@
       "writtenOn": "2022-02-17T00:59:14Z",
       "side": 1,
       "message": "Is there a doc/any pointers to this/the layer that this plugs in? Or does it just plug in at the existing webrtc::DesktopCapturer interface?",
+      "range": {
+        "startLine": 29,
+        "startChar": 54,
+        "endLine": 31,
+        "endChar": 51
+      },
+      "revId": "2bee4e0472777cfab991973d751307c17f197c33",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "43039c1d_533e5839",
+        "filename": "modules/desktop_capture/linux/wayland/REMOTE_DESKTOP.DESIGN",
+        "patchSetId": 2
+      },
+      "lineNbr": 31,
+      "author": {
+        "id": 18829
+      },
+      "writtenOn": "2022-02-17T17:01:50Z",
+      "side": 1,
+      "message": "The desktop capturer is instantiated here by CRD: https://source.chromium.org/chromium/chromium/src/+/main:remoting/host/desktop_capturer_proxy.cc;drc\u003dce6c3b02c5cc847a3febdef23416e1ae7feaa9f9;l\u003d85\n\nAnd then depending on this flag, the webrtc capturer might/might not use pipewire/screen cast portal to capture video stream:\n\nhttps://source.chromium.org/chromium/chromium/src/+/main:third_party/webrtc/webrtc.gni;l\u003d138;drc\u003dce6c3b02c5cc847a3febdef23416e1ae7feaa9f9;bpv\u003d1;bpt\u003d0?q\u003drtc_use_pipewire\u0026sq\u003d\u0026ss\u003dchromium%2Fchromium%2Fsrc",
+      "parentUuid": "10c7ea62_3df5118c",
       "range": {
         "startLine": 29,
         "startChar": 54,
@@ -145,6 +247,30 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "c83340fa_eeca4f6c",
+        "filename": "modules/desktop_capture/linux/wayland/REMOTE_DESKTOP.DESIGN",
+        "patchSetId": 2
+      },
+      "lineNbr": 37,
+      "author": {
+        "id": 18829
+      },
+      "writtenOn": "2022-02-17T17:01:50Z",
+      "side": 1,
+      "message": "To add to Jan\u0027s reply regarding the portal documentation. Here is a more readable version:\n\nhttps://docs.flatpak.org/en/latest/portal-api-reference.html\n\nRemote desktop portal can be thought of as a superset of screencast portal. It optionally allows keyboard/pointer/touchpad input injection as well.\n\n\u003e Is it a permissions based thing?\n\nYes, and so is the screencast portal.\n\n\u003e Presumably it needs to open/also know about some PipeWire internals and so it isn\u0027t suitable to wrap the screencapturing portal at a higher layer? \n\nYes, but it does that indirectly by relying on the screencast portal. More specifically, using this API from the screencast portal: https://docs.flatpak.org/en/latest/portal-api-reference.html#gdbus-method-org-freedesktop-portal-ScreenCast.OpenPipeWireRemote",
+      "parentUuid": "e5364d15_7c344bb0",
+      "range": {
+        "startLine": 36,
+        "startChar": 3,
+        "endLine": 37,
+        "endChar": 47
+      },
+      "revId": "2bee4e0472777cfab991973d751307c17f197c33",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "4a0fed63_a578abe3",
@@ -192,6 +318,30 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "38e867f7_8a7ced32",
+        "filename": "modules/desktop_capture/linux/wayland/REMOTE_DESKTOP.DESIGN",
+        "patchSetId": 2
+      },
+      "lineNbr": 48,
+      "author": {
+        "id": 18829
+      },
+      "writtenOn": "2022-02-17T17:01:50Z",
+      "side": 1,
+      "message": "\u003e Are you saying that theoretically RemoteDesktopPortal could be used to do the basic screen/window capture if it\u0027s ignoring some of the input requirements for RemoteDesktop?\n\nYes, user can choose not to control any device at all.\n\n\u003e the remote desktop portal dialog asks for the same + access to keyboard and mouse.\n\nSelecting keyboard/mouse etc. is optional though and if unselected the remote desktop portal session reduces to a screencast session.",
+      "parentUuid": "bb00324a_018d5b09",
+      "range": {
+        "startLine": 46,
+        "startChar": 39,
+        "endLine": 48,
+        "endChar": 74
+      },
+      "revId": "2bee4e0472777cfab991973d751307c17f197c33",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "f755c5fa_ed00aaf0",
@@ -205,6 +355,30 @@
       "writtenOn": "2022-02-17T00:59:14Z",
       "side": 1,
       "message": "I think there\u0027s a part of this discussion which is \"At what level should external projects depend on modules/desktop_capture\"; so we\u0027d definitely want to define some kind of \"public\" and more stable interface for this, rather than strictly relying on the current implementation, which could make refactors harder.",
+      "range": {
+        "startLine": 58,
+        "startChar": 0,
+        "endLine": 59,
+        "endChar": 35
+      },
+      "revId": "2bee4e0472777cfab991973d751307c17f197c33",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "9f8ee4ee_569a02ee",
+        "filename": "modules/desktop_capture/linux/wayland/REMOTE_DESKTOP.DESIGN",
+        "patchSetId": 2
+      },
+      "lineNbr": 59,
+      "author": {
+        "id": 18829
+      },
+      "writtenOn": "2022-02-17T17:01:50Z",
+      "side": 1,
+      "message": "I agree. Changing the screencast portal to support remote desktop portal/input injection does expose some of the internals of the capture portal (e.g. portal session details, pipewire stream node etc.) that will not be very useful to other clients.",
+      "parentUuid": "f755c5fa_ed00aaf0",
       "range": {
         "startLine": 58,
         "startChar": 0,
@@ -238,6 +412,30 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "99e3ce39_5b0f51e0",
+        "filename": "modules/desktop_capture/linux/wayland/REMOTE_DESKTOP.DESIGN",
+        "patchSetId": 2
+      },
+      "lineNbr": 66,
+      "author": {
+        "id": 18829
+      },
+      "writtenOn": "2022-02-17T17:01:50Z",
+      "side": 1,
+      "message": "Yes, there will be some duplication around how pipewire stream is configured and wired up to the desktop capturer.",
+      "parentUuid": "099d1c21_f16f3ea3",
+      "range": {
+        "startLine": 66,
+        "startChar": 0,
+        "endLine": 66,
+        "endChar": 34
+      },
+      "revId": "2bee4e0472777cfab991973d751307c17f197c33",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "bc285dd1_2226852c",
@@ -251,6 +449,24 @@
       "writtenOn": "2022-02-17T00:59:14Z",
       "side": 1,
       "message": "This feels somewhat reasonable to me, and (assuming I\u0027m understanding it right) actually more like a variation of #1?\n\nE.g. we\u0027d essentially have something like three directories (note that I don\u0027t have a firm grasp on what WebRTC layering rules are if the first needs to live somewhere else).\n\nmodules/pipewire (for the base code)\nmodules/desktop_capture (for the capturer code)\nmodules/remote_desktop (for the remote desktop code)\n\nThe latter two would be allowed to depend on the first, but not each other? (Or *maybe* remote_desktop could depend on both of the other two?)",
+      "revId": "2bee4e0472777cfab991973d751307c17f197c33",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "14201596_4082f7fb",
+        "filename": "modules/desktop_capture/linux/wayland/REMOTE_DESKTOP.DESIGN",
+        "patchSetId": 2
+      },
+      "lineNbr": 71,
+      "author": {
+        "id": 18829
+      },
+      "writtenOn": "2022-02-17T17:01:50Z",
+      "side": 1,
+      "message": "\u003e This feels somewhat reasonable to me\n\nBased on Jan\u0027s comment. Seems like he is also leaning towards a variation of this option.\n\n\u003e more like a variation of #1?\n\nYes, it will be similar to #1 but the xdg-desktop-portal related code would move out of webrtc. Do we have any guidance on including third party library code in webrtc. For chrome project, I do see third_party directory but it is unclear to me how to setup this dependency for webrtc (may be it is discouraged in webrtc?)\n\n\u003e remote_desktop could depend on both of the other two?\nRight, that is how I envisioned it.",
+      "parentUuid": "bc285dd1_2226852c",
       "revId": "2bee4e0472777cfab991973d751307c17f197c33",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }

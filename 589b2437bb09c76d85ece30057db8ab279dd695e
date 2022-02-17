@@ -16,6 +16,46 @@
       "message": "Hi Alessio, can you please take a look? Thanks!",
       "revId": "589b2437bb09c76d85ece30057db8ab279dd695e",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "37aa7c15_03658ecb",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5125
+      },
+      "writtenOn": "2022-02-17T14:13:28Z",
+      "side": 1,
+      "message": "Thanks for this CL!\nOne small initial comment.",
+      "revId": "589b2437bb09c76d85ece30057db8ab279dd695e",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "94c8ae07_0f161108",
+        "filename": "modules/audio_processing/agc2/rnn_vad/rnn.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 94,
+      "author": {
+        "id": 5125
+      },
+      "writtenOn": "2022-02-17T14:13:28Z",
+      "side": 1,
+      "message": "Please define this in the heaader instead to allow for inlining",
+      "range": {
+        "startLine": 92,
+        "startChar": 0,
+        "endLine": 94,
+        "endChar": 1
+      },
+      "revId": "589b2437bb09c76d85ece30057db8ab279dd695e",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

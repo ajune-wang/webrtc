@@ -366,6 +366,30 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "7bf86312_51b80c74",
+        "filename": "modules/desktop_capture/linux/wayland/REMOTE_DESKTOP.DESIGN",
+        "patchSetId": 2
+      },
+      "lineNbr": 48,
+      "author": {
+        "id": 8046
+      },
+      "writtenOn": "2022-02-17T17:52:19Z",
+      "side": 1,
+      "message": "Verified. For example xdg-desktop-portal-kde doesn\u0027t allow to share application windows, only screens.",
+      "parentUuid": "3c569131_a43d0ee5",
+      "range": {
+        "startLine": 46,
+        "startChar": 39,
+        "endLine": 48,
+        "endChar": 74
+      },
+      "revId": "2bee4e0472777cfab991973d751307c17f197c33",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "f755c5fa_ed00aaf0",

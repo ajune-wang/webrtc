@@ -1,0 +1,176 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "85483e08_1b7435f2",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 2
+      },
+      "lineNbr": 7,
+      "author": {
+        "id": 18474
+      },
+      "writtenOn": "2022-02-17T00:59:14Z",
+      "side": 1,
+      "message": "If this is intended to live long term, it should probably be a markdown file? If it\u0027s just intended to facilitate this discussion, then it obviously doesn\u0027t really matter.",
+      "range": {
+        "startLine": 7,
+        "startChar": 0,
+        "endLine": 7,
+        "endChar": 21
+      },
+      "revId": "2bee4e0472777cfab991973d751307c17f197c33",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "dc6a9862_3e02aee3",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 18474
+      },
+      "writtenOn": "2022-02-17T00:59:14Z",
+      "side": 1,
+      "message": "Ramping up/taking over a bit from Mark, sorry if any of these are repetitive",
+      "revId": "2bee4e0472777cfab991973d751307c17f197c33",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "10c7ea62_3df5118c",
+        "filename": "modules/desktop_capture/linux/wayland/REMOTE_DESKTOP.DESIGN",
+        "patchSetId": 2
+      },
+      "lineNbr": 31,
+      "author": {
+        "id": 18474
+      },
+      "writtenOn": "2022-02-17T00:59:14Z",
+      "side": 1,
+      "message": "Is there a doc/any pointers to this/the layer that this plugs in? Or does it just plug in at the existing webrtc::DesktopCapturer interface?",
+      "range": {
+        "startLine": 29,
+        "startChar": 54,
+        "endLine": 31,
+        "endChar": 51
+      },
+      "revId": "2bee4e0472777cfab991973d751307c17f197c33",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "a62bb866_5cf4dcad",
+        "filename": "modules/desktop_capture/linux/wayland/REMOTE_DESKTOP.DESIGN",
+        "patchSetId": 2
+      },
+      "lineNbr": 37,
+      "author": {
+        "id": 18474
+      },
+      "writtenOn": "2022-02-17T00:59:14Z",
+      "side": 1,
+      "message": "What does the remote desktop portal provide beyond the screencapturing portal in this case? Is it a permissions based thing?\nPresumably it needs to open/also know about some PipeWire internals and so it isn\u0027t suitable to wrap the screencapturing portal at a higher layer? (Though perhaps this is more what the second proposal is about)\n\nFor either you or Jan, is there documentation somewhere I can read on the different *types* of PipeWire portals?",
+      "range": {
+        "startLine": 36,
+        "startChar": 3,
+        "endLine": 37,
+        "endChar": 47
+      },
+      "revId": "2bee4e0472777cfab991973d751307c17f197c33",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "4a0fed63_a578abe3",
+        "filename": "modules/desktop_capture/linux/wayland/REMOTE_DESKTOP.DESIGN",
+        "patchSetId": 2
+      },
+      "lineNbr": 48,
+      "author": {
+        "id": 18474
+      },
+      "writtenOn": "2022-02-17T00:59:14Z",
+      "side": 1,
+      "message": "Not sure I understand this. Are you saying that theoretically RemoteDesktopPortal could be used to do the basic screen/window capture if it\u0027s ignoring some of the input requirements for RemoteDesktop?",
+      "range": {
+        "startLine": 46,
+        "startChar": 39,
+        "endLine": 48,
+        "endChar": 74
+      },
+      "revId": "2bee4e0472777cfab991973d751307c17f197c33",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "f755c5fa_ed00aaf0",
+        "filename": "modules/desktop_capture/linux/wayland/REMOTE_DESKTOP.DESIGN",
+        "patchSetId": 2
+      },
+      "lineNbr": 59,
+      "author": {
+        "id": 18474
+      },
+      "writtenOn": "2022-02-17T00:59:14Z",
+      "side": 1,
+      "message": "I think there\u0027s a part of this discussion which is \"At what level should external projects depend on modules/desktop_capture\"; so we\u0027d definitely want to define some kind of \"public\" and more stable interface for this, rather than strictly relying on the current implementation, which could make refactors harder.",
+      "range": {
+        "startLine": 58,
+        "startChar": 0,
+        "endLine": 59,
+        "endChar": 35
+      },
+      "revId": "2bee4e0472777cfab991973d751307c17f197c33",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "099d1c21_f16f3ea3",
+        "filename": "modules/desktop_capture/linux/wayland/REMOTE_DESKTOP.DESIGN",
+        "patchSetId": 2
+      },
+      "lineNbr": 66,
+      "author": {
+        "id": 18474
+      },
+      "writtenOn": "2022-02-17T00:59:14Z",
+      "side": 1,
+      "message": "IIUC, there\u0027s a significant amount of library opening/setup code that this would duplicate? (Or at least that\u0027s the current general feeling?)",
+      "range": {
+        "startLine": 66,
+        "startChar": 0,
+        "endLine": 66,
+        "endChar": 34
+      },
+      "revId": "2bee4e0472777cfab991973d751307c17f197c33",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "bc285dd1_2226852c",
+        "filename": "modules/desktop_capture/linux/wayland/REMOTE_DESKTOP.DESIGN",
+        "patchSetId": 2
+      },
+      "lineNbr": 71,
+      "author": {
+        "id": 18474
+      },
+      "writtenOn": "2022-02-17T00:59:14Z",
+      "side": 1,
+      "message": "This feels somewhat reasonable to me, and (assuming I\u0027m understanding it right) actually more like a variation of #1?\n\nE.g. we\u0027d essentially have something like three directories (note that I don\u0027t have a firm grasp on what WebRTC layering rules are if the first needs to live somewhere else).\n\nmodules/pipewire (for the base code)\nmodules/desktop_capture (for the capturer code)\nmodules/remote_desktop (for the remote desktop code)\n\nThe latter two would be allowed to depend on the first, but not each other? (Or *maybe* remote_desktop could depend on both of the other two?)",
+      "revId": "2bee4e0472777cfab991973d751307c17f197c33",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

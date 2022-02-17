@@ -1,0 +1,38 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "d4e808a8_b23c679a",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2022-02-17T07:23:03Z",
+      "side": 1,
+      "message": "Waiting for the previous CL to sort itself out before approving.\n",
+      "revId": "0af2547f0bad0899520eab0635a21d8715467a7a",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "f5029781_30e3515f",
+        "filename": "pc/video_track.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 74,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2022-02-17T07:23:03Z",
+      "side": 1,
+      "message": "Should we split this function into GetSourceWithProxy() and GetSourceInternal()?\n\nI suspect there are more calling sites that will otherwise get a new proxy hop involved - renaming the function would let the compiler call them out.\n\nUsing GetSourceInternal() instead of video_source_-\u003einternal() also limits the scope of the violation of the Law of Demeter (https://en.wikipedia.org/wiki/Law_of_Demeter)....",
+      "revId": "0af2547f0bad0899520eab0635a21d8715467a7a",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

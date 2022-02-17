@@ -33,6 +33,24 @@
       "message": "Should we split this function into GetSourceWithProxy() and GetSourceInternal()?\n\nI suspect there are more calling sites that will otherwise get a new proxy hop involved - renaming the function would let the compiler call them out.\n\nUsing GetSourceInternal() instead of video_source_-\u003einternal() also limits the scope of the violation of the Law of Demeter (https://en.wikipedia.org/wiki/Law_of_Demeter)....",
       "revId": "0af2547f0bad0899520eab0635a21d8715467a7a",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "8c0cae4b_cca721e4",
+        "filename": "pc/video_track.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 74,
+      "author": {
+        "id": 5508
+      },
+      "writtenOn": "2022-02-17T08:31:29Z",
+      "side": 1,
+      "message": "Yes good idea.",
+      "parentUuid": "f5029781_30e3515f",
+      "revId": "0af2547f0bad0899520eab0635a21d8715467a7a",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

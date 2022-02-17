@@ -49,6 +49,9 @@ class VideoTrack : public MediaStreamTrack<VideoTrackInterface>,
   MediaStreamTrackInterface::TrackState state() const override;
   std::string kind() const override;
 
+  // Direct access to the non-proxied source object for internal implementation.
+  VideoTrackSourceInterface* GetSourceInternal() const;
+
  protected:
   VideoTrack(const std::string& id,
              VideoTrackSourceInterface* video_source,

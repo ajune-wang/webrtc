@@ -125,14 +125,30 @@ void GainController2::SetFixedGainDb(float gain_db) {
   fixed_gain_applier_.SetGainFactor(gain_factor);
 }
 
+void GainController2::Analyze(AudioBuffer* audio) {
+  if (vad_) {
+    AudioFrameView<float> float_frame(audio->channels(), audio->num_channels(),
+                                      audio->num_frames());
+    vad_->Analyze(float_frame);
+    data_dumper_.DumpRaw("agc2_speech_probability",
+                         vad_->GetVoiceActivityProbability());
+  }
+}
+
+absl::optional<float> GainController2::GetVoiceActivityProbability() const {
+  if (vad_) {
+    return vad_->GetVoiceActivityProbability();
+  }
+  return absl::nullopt;
+}
+
 void GainController2::Process(AudioBuffer* audio) {
   data_dumper_.DumpRaw("agc2_notified_analog_level", analog_level_);
   AudioFrameView<float> float_frame(audio->channels(), audio->num_channels(),
                                     audio->num_frames());
   absl::optional<float> speech_probability;
   if (vad_) {
-    speech_probability = vad_->Analyze(float_frame);
-    data_dumper_.DumpRaw("agc2_speech_probability", speech_probability.value());
+    speech_probability = vad_->GetVoiceActivityProbability();
   }
   fixed_gain_applier_.ApplyGain(float_frame);
   if (adaptive_digital_controller_) {

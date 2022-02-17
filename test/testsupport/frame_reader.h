@@ -92,7 +92,8 @@ class YuvFrameReaderImpl : public FrameReader {
   const size_t frame_size_bytes_;
   const RepeatMode repeat_mode_;
   int number_of_frames_;
-  int current_frame_index_;
+  int next_frame_index_;
+  int prev_frame_index_;
   std::unique_ptr<DropperUtil> dropper_;
   FILE* input_file_;
 };

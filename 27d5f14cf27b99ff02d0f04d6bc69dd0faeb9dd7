@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "f0c6f815_be1cbb5c",
+        "filename": "pc/video_rtp_receiver.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 45,
+      "author": {
+        "id": 5508
+      },
+      "writtenOn": "2022-02-17T08:11:24Z",
+      "side": 0,
+      "message": "This is where the \"video track source proxy\" creation was before.",
+      "revId": "27d5f14cf27b99ff02d0f04d6bc69dd0faeb9dd7",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

@@ -18,6 +18,24 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": true,
+      "key": {
+        "uuid": "a81657cf_26566635",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 2
+      },
+      "lineNbr": 7,
+      "author": {
+        "id": 5508
+      },
+      "writtenOn": "2022-02-17T08:11:24Z",
+      "side": 1,
+      "message": "Indeed - changed to `Move VideoTrackSourceProxy creation into VideoTrack`",
+      "parentUuid": "c1834a13_48ad8dc4",
+      "revId": "17844e042c52ec1a6331fea366cc48e1435b2762",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": false,
       "key": {
         "uuid": "92e2093f_1d9de6d8",
@@ -31,6 +49,24 @@
       "writtenOn": "2022-02-17T07:18:12Z",
       "side": 1,
       "message": "I\u0027m confused. I can\u0027t figure out that this CL makes sense.\n",
+      "revId": "17844e042c52ec1a6331fea366cc48e1435b2762",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "12b4ab03_8059dd8e",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5508
+      },
+      "writtenOn": "2022-02-17T08:11:24Z",
+      "side": 1,
+      "message": "I added a comment that points out where the proxy used to be created. Without that detail, the CL wouldn\u0027t make much sense 😊",
+      "parentUuid": "92e2093f_1d9de6d8",
       "revId": "17844e042c52ec1a6331fea366cc48e1435b2762",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
@@ -54,6 +90,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "13de2d18_9dcc18ae",
+        "filename": "pc/audio_track.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 26,
+      "author": {
+        "id": 5508
+      },
+      "writtenOn": "2022-02-17T08:11:24Z",
+      "side": 1,
+      "message": "This comment is essentially that suggestion (ie. to not use the template). \n\nThe `AudioTrackInterface` line (27) is where the `MediaStreamTrackInterface` connection is. AudioTrackInterface inherits from MediaStreamTrackInterface.",
+      "parentUuid": "d5426219_c62c064d",
+      "revId": "17844e042c52ec1a6331fea366cc48e1435b2762",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "73557a61_c4e0561d",
         "filename": "pc/video_track.cc",
         "patchSetId": 2
@@ -65,6 +119,24 @@
       "writtenOn": "2022-02-17T07:18:12Z",
       "side": 1,
       "message": "I\u0027m missing something. Here we add a new \"wrap this into a proxy\" call, but where is the old \"wrap this into a proxy\" removed?\nIf the old argument to Create was a proxy, the result of this change will be that we\u0027ll be using a proxy to a proxy, which can\u0027t possibly be the intent.\n\nIf the old argument to Create wasn\u0027t a proxy, the result of this change is that all access to video_source_ now goes via the proxy, and we should add -\u003einternal()-\u003e into the call stack whenever we\u0027re on the right thread; the CL doesn\u0027t do that either.",
+      "revId": "17844e042c52ec1a6331fea366cc48e1435b2762",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "7734023f_2b615eb6",
+        "filename": "pc/video_track.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 138,
+      "author": {
+        "id": 5508
+      },
+      "writtenOn": "2022-02-17T08:11:24Z",
+      "side": 1,
+      "message": "I added a comment to highlight where the original place is (pc/video_rtp_receiver.cc).\n\nIt\u0027s basically the place where `VideoTrack::Create()` is called, so it\u0027s been moved by one layer of abstraction.\n\nThe old argument was a proxy, now it isn\u0027t - so, correct, we don\u0027t want a proxy to a proxy.\n\nThere\u0027s a follow-up CL that uses the internal() accessor. Because of the downstream issues with previous attempts at landing the change, I decided to split things up into these two steps in case there\u0027s an issue with either one of those changes.",
+      "parentUuid": "73557a61_c4e0561d",
       "revId": "17844e042c52ec1a6331fea366cc48e1435b2762",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }

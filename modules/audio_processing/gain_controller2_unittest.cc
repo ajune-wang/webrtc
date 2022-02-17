@@ -22,6 +22,7 @@
 #include "modules/audio_processing/test/audio_buffer_tools.h"
 #include "modules/audio_processing/test/bitexactness_tools.h"
 #include "rtc_base/checks.h"
+#include "test/gmock.h"
 #include "test/gtest.h"
 
 namespace webrtc {
@@ -29,6 +30,9 @@ namespace test {
 namespace {
 
 using Agc2Config = AudioProcessing::Config::GainController2;
+
+constexpr float kMinVoiceActivityProbability = 0.0f;
+constexpr float kMaxVoiceActivityProbability = 1.0f;
 
 // Sets all the samples in `ab` to `value`.
 void SetAudioBufferSamples(float value, AudioBuffer& ab) {
@@ -42,16 +46,44 @@ float RunAgc2WithConstantInput(GainController2& agc2,
                                int num_frames,
                                int sample_rate_hz) {
   const int num_samples = rtc::CheckedDivExact(sample_rate_hz, 100);
-  AudioBuffer ab(sample_rate_hz, 1, sample_rate_hz, 1, sample_rate_hz, 1);
+  AudioBuffer audio_buffer(sample_rate_hz, 1, sample_rate_hz, 1, sample_rate_hz,
+                           1);
 
   // Give time to the level estimator to converge.
   for (int i = 0; i < num_frames + 1; ++i) {
-    SetAudioBufferSamples(input_level, ab);
-    agc2.Process(&ab);
+    SetAudioBufferSamples(input_level, audio_buffer);
+    agc2.Analyze(&audio_buffer);
+    agc2.Process(&audio_buffer);
   }
 
   // Return the last sample from the last processed frame.
-  return ab.channels()[0][num_samples - 1];
+  return audio_buffer.channels()[0][num_samples - 1];
+}
+
+void RunAgc2AnalyzeWithConstantInput(GainController2& agc2,
+                                     float input_level,
+                                     int num_frames,
+                                     int num_channels,
+                                     int sample_rate_hz) {
+  AudioBuffer audio_buffer(sample_rate_hz, num_channels, sample_rate_hz,
+                           num_channels, sample_rate_hz, num_channels);
+  for (int i = 0; i < num_frames; ++i) {
+    SetAudioBufferSamples(input_level, audio_buffer);
+    agc2.Analyze(&audio_buffer);
+  }
+}
+
+void RunAgc2ProcessWithConstantInput(GainController2& agc2,
+                                     float input_level,
+                                     int num_frames,
+                                     int num_channels,
+                                     int sample_rate_hz) {
+  AudioBuffer audio_buffer(sample_rate_hz, num_channels, sample_rate_hz,
+                           num_channels, sample_rate_hz, num_channels);
+  for (int i = 0; i < num_frames; ++i) {
+    SetAudioBufferSamples(input_level, audio_buffer);
+    agc2.Process(&audio_buffer);
+  }
 }
 
 std::unique_ptr<GainController2> CreateAgc2FixedDigitalMode(
@@ -279,12 +311,14 @@ TEST(GainController2, CheckFinalGainWithAdaptiveDigitalController) {
     for (float& x : frame)
       x *= gain;
     test::CopyVectorToAudioBuffer(stream_config, frame, &audio_buffer);
-    // Process.
+    // Analyze and process.
+    agc2.Analyze(&audio_buffer);
     agc2.Process(&audio_buffer);
   }
 
   // Estimate the applied gain by processing a probing frame.
   SetAudioBufferSamples(/*value=*/1.0f, audio_buffer);
+  agc2.Analyze(&audio_buffer);
   agc2.Process(&audio_buffer);
   const float applied_gain_db =
       20.0f * std::log10(audio_buffer.channels_const()[0][0]);
@@ -292,6 +326,224 @@ TEST(GainController2, CheckFinalGainWithAdaptiveDigitalController) {
   constexpr float kExpectedGainDb = 5.6f;
   constexpr float kToleranceDb = 0.3f;
   EXPECT_NEAR(applied_gain_db, kExpectedGainDb, kToleranceDb);
+}
+
+// Checks that the minimum voice activity probability is returned until the
+// first `Analyze()` call when voice activity detection is enabled.
+TEST(GainController2, CheckVoiceActivityProbabilityBeforeAnalyze) {
+  constexpr int kStereo = 2;
+  constexpr float kInputLevel = 1000.0f;
+  constexpr int kNumFrames = 1;
+  constexpr float kGainDb = 0.0f;
+  Agc2Config config;
+  config.adaptive_digital.enabled = true;
+  config.fixed_digital.gain_db = kGainDb;
+  EXPECT_TRUE(GainController2::Validate(config));
+  auto controller =
+      GainController2(config, AudioProcessing::kSampleRate48kHz, kStereo);
+  EXPECT_THAT(controller.GetVoiceActivityProbability(),
+              testing::Optional(testing::Eq(kMinVoiceActivityProbability)));
+  RunAgc2ProcessWithConstantInput(controller, kInputLevel, kNumFrames, kStereo,
+                                  AudioProcessing::kSampleRate48kHz);
+  EXPECT_THAT(controller.GetVoiceActivityProbability(),
+              testing::Optional(testing::Eq(kMinVoiceActivityProbability)));
+  RunAgc2ProcessWithConstantInput(controller, kInputLevel, kNumFrames, kStereo,
+                                  AudioProcessing::kSampleRate48kHz);
+  EXPECT_THAT(controller.GetVoiceActivityProbability(),
+              testing::Optional(testing::Eq(kMinVoiceActivityProbability)));
+  RunAgc2AnalyzeWithConstantInput(controller, kInputLevel, kNumFrames, kStereo,
+                                  AudioProcessing::kSampleRate48kHz);
+  EXPECT_THAT(controller.GetVoiceActivityProbability(),
+              testing::Optional(testing::Gt(kMinVoiceActivityProbability)));
+}
+
+// Checks that the minimum voice activity probability is returned after
+// `Initialize()` until the first `Analyze()` call when voice activity detection
+// is enabled.
+TEST(GainController2, CheckVoiceActivityProbabilityAfterInitialize) {
+  constexpr int kStereo = 2;
+  constexpr float kInputLevel = 1000.0f;
+  constexpr int kNumFrames = 10;
+  constexpr float kGainDb = 0.0f;
+  Agc2Config config;
+  config.adaptive_digital.enabled = true;
+  config.fixed_digital.gain_db = kGainDb;
+  EXPECT_TRUE(GainController2::Validate(config));
+  auto controller =
+      GainController2(config, AudioProcessing::kSampleRate32kHz, kStereo);
+  RunAgc2AnalyzeWithConstantInput(controller, kInputLevel, kNumFrames, kStereo,
+                                  AudioProcessing::kSampleRate32kHz);
+  RunAgc2ProcessWithConstantInput(controller, kInputLevel, kNumFrames, kStereo,
+                                  AudioProcessing::kSampleRate32kHz);
+  EXPECT_THAT(controller.GetVoiceActivityProbability(),
+              testing::Optional(testing::Gt(kMinVoiceActivityProbability)));
+  controller.Initialize(AudioProcessing::kSampleRate48kHz, kStereo);
+  EXPECT_THAT(controller.GetVoiceActivityProbability(),
+              testing::Optional(testing::Eq(kMinVoiceActivityProbability)));
+  RunAgc2ProcessWithConstantInput(controller, kInputLevel, kNumFrames, kStereo,
+                                  AudioProcessing::kSampleRate48kHz);
+  EXPECT_THAT(controller.GetVoiceActivityProbability(),
+              testing::Optional(testing::Eq(kMinVoiceActivityProbability)));
+  RunAgc2AnalyzeWithConstantInput(controller, kInputLevel, kNumFrames, kStereo,
+                                  AudioProcessing::kSampleRate48kHz);
+  EXPECT_THAT(controller.GetVoiceActivityProbability(),
+              testing::Optional(testing::Gt(kMinVoiceActivityProbability)));
+}
+
+// Checks that the voice activity probability is not updated after `Process()`
+// when voice activity detection is enabled.
+TEST(GainController2, CheckVoiceActivityProbabilityAfterProcess) {
+  constexpr int kStereo = 2;
+  constexpr float kInputLevel = 1000.0f;
+  constexpr int kNumFrames = 10;
+  constexpr float kGainDb = 0.0f;
+  Agc2Config config;
+  config.adaptive_digital.enabled = true;
+  config.fixed_digital.gain_db = kGainDb;
+  EXPECT_TRUE(GainController2::Validate(config));
+  auto controller =
+      GainController2(config, AudioProcessing::kSampleRate48kHz, kStereo);
+  RunAgc2ProcessWithConstantInput(controller, kInputLevel, kNumFrames, kStereo,
+                                  AudioProcessing::kSampleRate48kHz);
+  EXPECT_THAT(controller.GetVoiceActivityProbability(),
+              testing::Optional(testing::Eq(kMinVoiceActivityProbability)));
+  RunAgc2AnalyzeWithConstantInput(controller, kInputLevel, kNumFrames, kStereo,
+                                  AudioProcessing::kSampleRate48kHz);
+  absl::optional<float> probability = controller.GetVoiceActivityProbability();
+  EXPECT_THAT(probability,
+              testing::Optional(testing::Gt(kMinVoiceActivityProbability)));
+  RunAgc2ProcessWithConstantInput(controller, kInputLevel, kNumFrames, kStereo,
+                                  AudioProcessing::kSampleRate48kHz);
+  EXPECT_THAT(controller.GetVoiceActivityProbability(), probability);
+}
+
+// Checks that the voice activity probability is updated after `Analyze()` when
+// voice activity detection is enabled.
+TEST(GainController2, CheckVoiceActivityProbabilityAfterAnalyze) {
+  constexpr int kStereo = 2;
+  constexpr float kInputLevel = 1000.0f;
+  constexpr int kNumFrames = 1;
+  constexpr float kGainDb = 0.0f;
+  Agc2Config config;
+  config.adaptive_digital.enabled = true;
+  config.fixed_digital.gain_db = kGainDb;
+  EXPECT_TRUE(GainController2::Validate(config));
+  auto controller =
+      GainController2(config, AudioProcessing::kSampleRate48kHz, kStereo);
+  RunAgc2AnalyzeWithConstantInput(controller, kInputLevel, kNumFrames, kStereo,
+                                  AudioProcessing::kSampleRate48kHz);
+  absl::optional<float> first_probability =
+      controller.GetVoiceActivityProbability();
+  EXPECT_THAT(first_probability,
+              testing::Optional(testing::Gt(kMinVoiceActivityProbability)));
+  EXPECT_THAT(first_probability,
+              testing::Optional(testing::Le(kMaxVoiceActivityProbability)));
+  RunAgc2AnalyzeWithConstantInput(controller, kInputLevel, kNumFrames, kStereo,
+                                  AudioProcessing::kSampleRate48kHz);
+  absl::optional<float> second_probability =
+      controller.GetVoiceActivityProbability();
+  EXPECT_THAT(second_probability,
+              testing::Optional(testing::Gt(kMinVoiceActivityProbability)));
+  EXPECT_THAT(second_probability,
+              testing::Optional(testing::Le(kMaxVoiceActivityProbability)));
+  EXPECT_NE(first_probability.value(), second_probability.value());
+}
+
+// Checks that the minimum voice activity probability is returned for silence
+// when voice activity detection is enabled.
+TEST(GainController2, CheckVoiceActivityProbabilityAfterSilence) {
+  constexpr int kStereo = 2;
+  constexpr float kNonSilenceInputLevel = 1000.0f;
+  constexpr float kSilenceInputLevel = 0.0f;
+  constexpr int kNumFrames = 10;
+  constexpr float kGainDb = 0.0f;
+  Agc2Config config;
+  config.adaptive_digital.enabled = true;
+  config.fixed_digital.gain_db = kGainDb;
+  EXPECT_TRUE(GainController2::Validate(config));
+  auto controller =
+      GainController2(config, AudioProcessing::kSampleRate48kHz, kStereo);
+  // Check that the probability is above the minimum before silence.
+  RunAgc2AnalyzeWithConstantInput(controller, kNonSilenceInputLevel, kNumFrames,
+                                  kStereo, AudioProcessing::kSampleRate48kHz);
+  EXPECT_THAT(controller.GetVoiceActivityProbability(),
+              testing::Optional(testing::Gt(kMinVoiceActivityProbability)));
+  // Check that the probability is at the minimum after silence.
+  RunAgc2AnalyzeWithConstantInput(controller, kSilenceInputLevel, kNumFrames,
+                                  kStereo, AudioProcessing::kSampleRate48kHz);
+  EXPECT_THAT(controller.GetVoiceActivityProbability(),
+              testing::Optional(testing::Eq(kMinVoiceActivityProbability)));
+  // Check that the probability is above the minimum after non-silence.
+  RunAgc2AnalyzeWithConstantInput(controller, kNonSilenceInputLevel, kNumFrames,
+                                  kStereo, AudioProcessing::kSampleRate48kHz);
+  EXPECT_THAT(controller.GetVoiceActivityProbability(),
+              testing::Optional(testing::Gt(kMinVoiceActivityProbability)));
+}
+
+// Checks that no voice activity probability is returned when voice activity
+// detection is not enabled.
+TEST(GainController2, CheckNoVoiceActivityProbability) {
+  constexpr int kStereo = 2;
+  constexpr float kInputLevel = 1000.0f;
+  constexpr int kNumFrames = 10;
+  constexpr float kGainDb = 0.0f;
+  Agc2Config config;
+  config.adaptive_digital.enabled = false;
+  config.fixed_digital.gain_db = kGainDb;
+  EXPECT_TRUE(GainController2::Validate(config));
+  auto controller =
+      GainController2(config, AudioProcessing::kSampleRate48kHz, kStereo);
+  // Check that no probability is returned before or after `Analyze()`.
+  EXPECT_THAT(controller.GetVoiceActivityProbability(), absl::nullopt);
+  RunAgc2AnalyzeWithConstantInput(controller, kInputLevel, kNumFrames, kStereo,
+                                  AudioProcessing::kSampleRate48kHz);
+  EXPECT_THAT(controller.GetVoiceActivityProbability(), absl::nullopt);
+  EXPECT_THAT(controller.GetVoiceActivityProbability(), absl::nullopt);
+  RunAgc2ProcessWithConstantInput(controller, kInputLevel, kNumFrames, kStereo,
+                                  AudioProcessing::kSampleRate48kHz);
+  EXPECT_THAT(controller.GetVoiceActivityProbability(), absl::nullopt);
+  EXPECT_THAT(controller.GetVoiceActivityProbability(), absl::nullopt);
+  // Check that no probability is returned after `Initialize()`.
+  controller.Initialize(AudioProcessing::kSampleRate48kHz, kStereo);
+  EXPECT_THAT(controller.GetVoiceActivityProbability(), absl::nullopt);
+  EXPECT_THAT(controller.GetVoiceActivityProbability(), absl::nullopt);
+  RunAgc2AnalyzeWithConstantInput(controller, kInputLevel, kNumFrames, kStereo,
+                                  AudioProcessing::kSampleRate48kHz);
+  EXPECT_THAT(controller.GetVoiceActivityProbability(), absl::nullopt);
+  EXPECT_THAT(controller.GetVoiceActivityProbability(), absl::nullopt);
+  // Check that no probability is returned after `Process()`.
+  RunAgc2ProcessWithConstantInput(controller, kInputLevel, kNumFrames, kStereo,
+                                  AudioProcessing::kSampleRate48kHz);
+  EXPECT_THAT(controller.GetVoiceActivityProbability(), absl::nullopt);
+  EXPECT_THAT(controller.GetVoiceActivityProbability(), absl::nullopt);
+}
+
+// Checks that no voice activity probability is returned for silence when voice
+// activity detection is not enabled.
+TEST(GainController2, CheckNoVoiceActivityProbabilityAfterSilence) {
+  constexpr int kStereo = 2;
+  constexpr float kNonSilenceInputLevel = 1000.0f;
+  constexpr float kSilenceInputLevel = 0.0f;
+  constexpr int kNumFrames = 10;
+  constexpr float kGainDb = 0.0f;
+  Agc2Config config;
+  config.adaptive_digital.enabled = false;
+  config.fixed_digital.gain_db = kGainDb;
+  EXPECT_TRUE(GainController2::Validate(config));
+  auto controller =
+      GainController2(config, AudioProcessing::kSampleRate48kHz, kStereo);
+  // Check the no probability is returned afer non-silence frames.
+  RunAgc2AnalyzeWithConstantInput(controller, kNonSilenceInputLevel, kNumFrames,
+                                  kStereo, AudioProcessing::kSampleRate48kHz);
+  EXPECT_THAT(controller.GetVoiceActivityProbability(), absl::nullopt);
+  // Check the no probability is returned after silence frames.
+  RunAgc2AnalyzeWithConstantInput(controller, kSilenceInputLevel, kNumFrames,
+                                  kStereo, AudioProcessing::kSampleRate48kHz);
+  EXPECT_THAT(controller.GetVoiceActivityProbability(), absl::nullopt);
+  // Check the no probability is returned afer non-silence frames.
+  RunAgc2AnalyzeWithConstantInput(controller, kNonSilenceInputLevel, kNumFrames,
+                                  kStereo, AudioProcessing::kSampleRate48kHz);
+  EXPECT_THAT(controller.GetVoiceActivityProbability(), absl::nullopt);
 }
 
 }  // namespace test

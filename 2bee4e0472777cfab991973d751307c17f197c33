@@ -314,6 +314,42 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "1abd7008_a6f1ed53",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 18474
+      },
+      "writtenOn": "2022-02-18T22:22:55Z",
+      "side": 1,
+      "message": "I think I got a little confused in my earlier replies. This is the one that may be unfeasible due to not being able to expand third_party includes in webrtc.",
+      "parentUuid": "acd5d7fc_3e46058a",
+      "revId": "2bee4e0472777cfab991973d751307c17f197c33",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "bf70468a_87d28859",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 18474
+      },
+      "writtenOn": "2022-02-18T22:22:55Z",
+      "side": 1,
+      "message": "I\u0027ve sent the three of us and Mark a meeting invite for that time.",
+      "parentUuid": "37cf8d26_fc0c5c67",
+      "revId": "2bee4e0472777cfab991973d751307c17f197c33",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "10c7ea62_3df5118c",
@@ -784,6 +820,24 @@
       "side": 1,
       "message": "Interesting, thanks for investigating.",
       "parentUuid": "2cf541e8_fdc99866",
+      "revId": "2bee4e0472777cfab991973d751307c17f197c33",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "6424efad_97de9073",
+        "filename": "modules/desktop_capture/linux/wayland/REMOTE_DESKTOP.DESIGN",
+        "patchSetId": 2
+      },
+      "lineNbr": 71,
+      "author": {
+        "id": 18474
+      },
+      "writtenOn": "2022-02-18T22:22:55Z",
+      "side": 1,
+      "message": "I think I got a little confused. This proposal would be about just refactoring existing code within modules to create a new \"modules\" directory; which I think doesn\u0027t have a third_party requirement.",
+      "parentUuid": "e6daf5fe_e8db98e9",
       "revId": "2bee4e0472777cfab991973d751307c17f197c33",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }

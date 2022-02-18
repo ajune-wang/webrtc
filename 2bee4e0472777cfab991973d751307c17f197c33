@@ -350,6 +350,24 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "2d02b632_bcaf4fec",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 18829
+      },
+      "writtenOn": "2022-02-18T23:00:57Z",
+      "side": 1,
+      "message": "Thanks for coordinating this.",
+      "parentUuid": "bf70468a_87d28859",
+      "revId": "2bee4e0472777cfab991973d751307c17f197c33",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "10c7ea62_3df5118c",
@@ -411,6 +429,30 @@
       "side": 1,
       "message": "Skimmed this; so it appears as though you just create a webrtc::DesktopCapturer to get the image and then have a separate class to handle/manage the input injection?\n\nHowever, one presumes that for Wayland the portal is likely required to handle the input injection?",
       "parentUuid": "43039c1d_533e5839",
+      "range": {
+        "startLine": 29,
+        "startChar": 54,
+        "endLine": 31,
+        "endChar": 51
+      },
+      "revId": "2bee4e0472777cfab991973d751307c17f197c33",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "bdc411cc_e449bdf4",
+        "filename": "modules/desktop_capture/linux/wayland/REMOTE_DESKTOP.DESIGN",
+        "patchSetId": 2
+      },
+      "lineNbr": 31,
+      "author": {
+        "id": 18829
+      },
+      "writtenOn": "2022-02-18T23:00:57Z",
+      "side": 1,
+      "message": "\u003e Skimmed this; so it appears as though you just create a webrtc::DesktopCapturer to get the image and then have a separate class to handle/manage the input injection?\n\nYes, we intend to keep the same semantics for wayland too i.e. separate module for capturing (under webrtc or third party modules) and then input injection will stay under CRD code base.\n\n\u003e However, one presumes that for Wayland the portal is likely required to handle the input injection?\n\nYes, input injection is handled via portal APIs. Also, we might have to share some session related information between the input injector and screen capturing modules.",
+      "parentUuid": "144b852b_4f5034dc",
       "range": {
         "startLine": 29,
         "startChar": 54,

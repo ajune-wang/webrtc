@@ -69,6 +69,23 @@
       "parentUuid": "0b655ce2_2dd0bd10",
       "revId": "abe108f72cef1113bf8f9ca32529c8f2ba6ef47e",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "087ce48e_73756bfc",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 4
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2022-02-18T10:02:05Z",
+      "side": 1,
+      "message": "Correction: Xavier is the reviewer who knows Java, not Sami (Sami commented, but hasn\u0027t been asked to review).\n\n",
+      "revId": "abe108f72cef1113bf8f9ca32529c8f2ba6ef47e",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

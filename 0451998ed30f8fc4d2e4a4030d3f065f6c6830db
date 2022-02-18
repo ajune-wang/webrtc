@@ -53,6 +53,24 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "38b6f1ce_6dac8c4f",
+        "filename": "pc/rtp_transceiver.cc",
+        "patchSetId": 39
+      },
+      "lineNbr": 219,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2022-02-18T08:43:18Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "9856b9fc_0623319a",
+      "revId": "0451998ed30f8fc4d2e4a4030d3f065f6c6830db",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "9de8e6cc_a9e20694",

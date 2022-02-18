@@ -206,6 +206,24 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "912a4f6c_7237750c",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 18829
+      },
+      "writtenOn": "2022-02-18T15:11:57Z",
+      "side": 1,
+      "message": "Tuesday is fine by me but can meet on Thursday (after 2 pm EST) too, if need be.",
+      "parentUuid": "ad1a5689_adb041c7",
+      "revId": "2bee4e0472777cfab991973d751307c17f197c33",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "10c7ea62_3df5118c",
@@ -491,6 +509,30 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "936b9f5f_4000e07a",
+        "filename": "modules/desktop_capture/linux/wayland/REMOTE_DESKTOP.DESIGN",
+        "patchSetId": 2
+      },
+      "lineNbr": 48,
+      "author": {
+        "id": 18829
+      },
+      "writtenOn": "2022-02-18T15:11:57Z",
+      "side": 1,
+      "message": "Yes, based on Jan\u0027s input, remote desktop portal/capture can not be a drop-in replacement for screencast.",
+      "parentUuid": "955504fa_b540ac14",
+      "range": {
+        "startLine": 46,
+        "startChar": 39,
+        "endLine": 48,
+        "endChar": 74
+      },
+      "revId": "2bee4e0472777cfab991973d751307c17f197c33",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "f755c5fa_ed00aaf0",
@@ -634,6 +676,24 @@
       "side": 1,
       "message": "It seems like third_party code should be allowable, but I\u0027ll investigate further: https://source.chromium.org/chromium/chromium/src/+/main:third_party/webrtc/modules/third_party/",
       "parentUuid": "14201596_4082f7fb",
+      "revId": "2bee4e0472777cfab991973d751307c17f197c33",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "e6daf5fe_e8db98e9",
+        "filename": "modules/desktop_capture/linux/wayland/REMOTE_DESKTOP.DESIGN",
+        "patchSetId": 2
+      },
+      "lineNbr": 71,
+      "author": {
+        "id": 18829
+      },
+      "writtenOn": "2022-02-18T15:11:57Z",
+      "side": 1,
+      "message": "Interesting, thanks for investigating.",
+      "parentUuid": "2cf541e8_fdc99866",
       "revId": "2bee4e0472777cfab991973d751307c17f197c33",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }

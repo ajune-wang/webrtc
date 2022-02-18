@@ -224,6 +224,24 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "d8491e00_f433f7c2",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 8046
+      },
+      "writtenOn": "2022-02-18T15:35:43Z",
+      "side": 1,
+      "message": "Tuesday is fine, but I would appreciate having the meeting earlier, 2pm EST is 8pm here in the Czech Republic.",
+      "parentUuid": "912a4f6c_7237750c",
+      "revId": "2bee4e0472777cfab991973d751307c17f197c33",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "10c7ea62_3df5118c",

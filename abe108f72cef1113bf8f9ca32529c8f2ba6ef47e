@@ -16,6 +16,23 @@
       "message": "Hello, Harald. Could you review sdk/android as top level owner?",
       "revId": "abe108f72cef1113bf8f9ca32529c8f2ba6ef47e",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "3a27f9fe_c4214c87",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 4
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2022-02-18T09:29:58Z",
+      "side": 1,
+      "message": "Given how rusty my Java is, I\u0027d like to have Sami sign off on this from a Java perspective. I can rubber-stamp if needed.",
+      "revId": "abe108f72cef1113bf8f9ca32529c8f2ba6ef47e",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "2a75286d_2f7c2b3d",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 4
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 9405
+      },
+      "writtenOn": "2022-02-18T00:55:33Z",
+      "side": 1,
+      "message": "Hello, Harald. Could you review sdk/android as top level owner?",
+      "revId": "abe108f72cef1113bf8f9ca32529c8f2ba6ef47e",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

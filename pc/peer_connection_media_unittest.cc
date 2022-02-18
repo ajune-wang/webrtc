@@ -65,6 +65,7 @@ class PeerConnectionMediaBaseTest : public ::testing::Test {
   explicit PeerConnectionMediaBaseTest(SdpSemantics sdp_semantics)
       : vss_(new rtc::VirtualSocketServer()),
         main_(vss_.get()),
+        socket_factory_(vss_.get()),
         sdp_semantics_(sdp_semantics) {
 #ifdef WEBRTC_ANDROID
     InitializeAndroidObjects();
@@ -106,7 +107,7 @@ class PeerConnectionMediaBaseTest : public ::testing::Test {
         CreateModularPeerConnectionFactory(std::move(factory_dependencies));
 
     auto fake_port_allocator = std::make_unique<cricket::FakePortAllocator>(
-        rtc::Thread::Current(), nullptr);
+        rtc::Thread::Current(), &socket_factory_);
     auto observer = std::make_unique<MockPeerConnectionObserver>();
     auto modified_config = config;
     modified_config.sdp_semantics = sdp_semantics_;
@@ -176,6 +177,7 @@ class PeerConnectionMediaBaseTest : public ::testing::Test {
 
   std::unique_ptr<rtc::VirtualSocketServer> vss_;
   rtc::AutoSocketServerThread main_;
+  rtc::BasicPacketSocketFactory socket_factory_;
   const SdpSemantics sdp_semantics_;
 };
 

@@ -33,12 +33,14 @@
 #include "media/base/fake_frame_source.h"
 #include "modules/audio_device/include/audio_device.h"
 #include "modules/audio_processing/include/audio_processing.h"
+#include "p2p/base/basic_packet_socket_factory.h"
 #include "p2p/base/fake_port_allocator.h"
 #include "p2p/base/port.h"
 #include "p2p/base/port_interface.h"
 #include "pc/test/fake_audio_capture_module.h"
 #include "pc/test/fake_video_track_source.h"
 #include "rtc_base/socket_address.h"
+#include "rtc_base/virtual_socket_server.h"
 #include "test/gtest.h"
 
 #ifdef WEBRTC_ANDROID
@@ -101,6 +103,9 @@ class NullPeerConnectionObserver : public PeerConnectionObserver {
 }  // namespace
 
 class PeerConnectionFactoryTest : public ::testing::Test {
+ public:
+  PeerConnectionFactoryTest() : socket_factory_(&vss_), main_(&vss_) {}
+
   void SetUp() {
 #ifdef WEBRTC_ANDROID
     webrtc::InitializeAndroidObjects();
@@ -119,8 +124,8 @@ class PeerConnectionFactoryTest : public ::testing::Test {
         nullptr /* audio_processing */);
 
     ASSERT_TRUE(factory_.get() != NULL);
-    port_allocator_.reset(
-        new cricket::FakePortAllocator(rtc::Thread::Current(), nullptr));
+    port_allocator_ = std::make_unique<cricket::FakePortAllocator>(
+        rtc::Thread::Current(), &socket_factory_);
     raw_port_allocator_ = port_allocator_.get();
   }
 
@@ -159,6 +164,9 @@ class PeerConnectionFactoryTest : public ::testing::Test {
     EXPECT_GT(codec.clock_rate, 0);
   }
 
+  rtc::VirtualSocketServer vss_;
+  rtc::BasicPacketSocketFactory socket_factory_;
+  rtc::AutoSocketServerThread main_;
   rtc::scoped_refptr<PeerConnectionFactoryInterface> factory_;
   NullPeerConnectionObserver observer_;
   std::unique_ptr<cricket::FakePortAllocator> port_allocator_;

@@ -101,7 +101,8 @@ class PeerConnectionIceBaseTest : public ::testing::Test {
   typedef std::unique_ptr<PeerConnectionWrapperForIceTest> WrapperPtr;
 
   explicit PeerConnectionIceBaseTest(SdpSemantics sdp_semantics)
-      : vss_(new rtc::VirtualSocketServer()),
+      : vss_(std::make_unique<rtc::VirtualSocketServer>()),
+        packet_socket_factory_(vss_.get()),
         main_(vss_.get()),
         sdp_semantics_(sdp_semantics) {
 #ifdef WEBRTC_ANDROID
@@ -121,8 +122,8 @@ class PeerConnectionIceBaseTest : public ::testing::Test {
 
   WrapperPtr CreatePeerConnection(const RTCConfiguration& config) {
     auto* fake_network = NewFakeNetwork();
-    auto port_allocator =
-        std::make_unique<cricket::BasicPortAllocator>(fake_network);
+    auto port_allocator = std::make_unique<cricket::BasicPortAllocator>(
+        fake_network, &packet_socket_factory_);
     port_allocator->set_flags(cricket::PORTALLOCATOR_DISABLE_TCP |
                               cricket::PORTALLOCATOR_DISABLE_RELAY);
     port_allocator->set_step_delay(cricket::kMinimumStepDelay);
@@ -275,6 +276,7 @@ class PeerConnectionIceBaseTest : public ::testing::Test {
   }
 
   std::unique_ptr<rtc::VirtualSocketServer> vss_;
+  rtc::BasicPacketSocketFactory packet_socket_factory_;
   rtc::AutoSocketServerThread main_;
   rtc::scoped_refptr<PeerConnectionFactoryInterface> pc_factory_;
   std::vector<std::unique_ptr<rtc::FakeNetworkManager>> fake_networks_;
@@ -1365,6 +1367,9 @@ INSTANTIATE_TEST_SUITE_P(PeerConnectionIceTest,
                                 SdpSemantics::kUnifiedPlan));
 
 class PeerConnectionIceConfigTest : public ::testing::Test {
+ public:
+  PeerConnectionIceConfigTest() : socket_factory_(&vss_), main_(&vss_) {}
+
  protected:
   void SetUp() override {
     pc_factory_ = CreatePeerConnectionFactory(
@@ -1375,8 +1380,8 @@ class PeerConnectionIceConfigTest : public ::testing::Test {
         nullptr /* audio_processing */);
   }
   void CreatePeerConnection(const RTCConfiguration& config) {
-    std::unique_ptr<cricket::FakePortAllocator> port_allocator(
-        new cricket::FakePortAllocator(rtc::Thread::Current(), nullptr));
+    auto port_allocator = std::make_unique<cricket::FakePortAllocator>(
+        rtc::Thread::Current(), &socket_factory_);
     port_allocator_ = port_allocator.get();
     rtc::scoped_refptr<PeerConnectionInterface> pc(
         pc_factory_->CreatePeerConnection(config, std::move(port_allocator),
@@ -1386,6 +1391,9 @@ class PeerConnectionIceConfigTest : public ::testing::Test {
     pc_ = std::move(pc);
   }
 
+  rtc::VirtualSocketServer vss_;
+  rtc::BasicPacketSocketFactory socket_factory_;
+  rtc::AutoSocketServerThread main_;
   rtc::scoped_refptr<PeerConnectionFactoryInterface> pc_factory_ = nullptr;
   rtc::scoped_refptr<PeerConnectionInterface> pc_ = nullptr;
   cricket::FakePortAllocator* port_allocator_ = nullptr;

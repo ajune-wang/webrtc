@@ -707,6 +707,7 @@ class PeerConnectionIntegrationWrapper : public webrtc::PeerConnectionObserver,
   bool Init(const PeerConnectionFactory::Options* options,
             const PeerConnectionInterface::RTCConfiguration* config,
             webrtc::PeerConnectionDependencies dependencies,
+            rtc::PacketSocketFactory* socket_factory,
             rtc::Thread* network_thread,
             rtc::Thread* worker_thread,
             std::unique_ptr<webrtc::FakeRtcEventLogFactory> event_log_factory,
@@ -720,7 +721,8 @@ class PeerConnectionIntegrationWrapper : public webrtc::PeerConnectionObserver,
     fake_network_manager_->AddInterface(kDefaultLocalAddress);
 
     std::unique_ptr<cricket::PortAllocator> port_allocator(
-        new cricket::BasicPortAllocator(fake_network_manager_.get()));
+        new cricket::BasicPortAllocator(fake_network_manager_.get(),
+                                        socket_factory));
     port_allocator_ = port_allocator.get();
     fake_audio_capture_module_ = FakeAudioCaptureModule::Create();
     if (!fake_audio_capture_module_) {
@@ -1341,6 +1343,7 @@ class PeerConnectionIntegrationBaseTest : public ::testing::Test {
       : sdp_semantics_(sdp_semantics),
         ss_(new rtc::VirtualSocketServer()),
         fss_(new rtc::FirewallSocketServer(ss_.get())),
+        packet_socket_factory_(fss_.get()),
         network_thread_(new rtc::Thread(fss_.get())),
         worker_thread_(rtc::Thread::Create()),
         field_trials_(field_trials.has_value()
@@ -1419,9 +1422,9 @@ class PeerConnectionIntegrationBaseTest : public ::testing::Test {
         new PeerConnectionIntegrationWrapper(debug_name));
 
     if (!client->Init(options, &modified_config, std::move(dependencies),
-                      network_thread_.get(), worker_thread_.get(),
-                      std::move(event_log_factory), reset_encoder_factory,
-                      reset_decoder_factory)) {
+                      &packet_socket_factory_, network_thread_.get(),
+                      worker_thread_.get(), std::move(event_log_factory),
+                      reset_encoder_factory, reset_decoder_factory)) {
       return nullptr;
     }
     return client;
@@ -1839,6 +1842,7 @@ class PeerConnectionIntegrationBaseTest : public ::testing::Test {
   // `ss_` is used by `network_thread_` so it must be destroyed later.
   std::unique_ptr<rtc::VirtualSocketServer> ss_;
   std::unique_ptr<rtc::FirewallSocketServer> fss_;
+  rtc::BasicPacketSocketFactory packet_socket_factory_;
   // `network_thread_` and `worker_thread_` are used by both
   // `caller_` and `callee_` so they must be destroyed
   // later.

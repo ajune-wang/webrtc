@@ -41,9 +41,7 @@ class PeerConnectionCryptoBaseTest : public ::testing::Test {
   typedef std::unique_ptr<PeerConnectionWrapper> WrapperPtr;
 
   explicit PeerConnectionCryptoBaseTest(SdpSemantics sdp_semantics)
-      : vss_(new rtc::VirtualSocketServer()),
-        main_(vss_.get()),
-        sdp_semantics_(sdp_semantics) {
+      : socket_factory_(&vss_), main_(&vss_), sdp_semantics_(sdp_semantics) {
 #ifdef WEBRTC_ANDROID
     InitializeAndroidObjects();
 #endif
@@ -67,7 +65,7 @@ class PeerConnectionCryptoBaseTest : public ::testing::Test {
       const RTCConfiguration& config,
       std::unique_ptr<rtc::RTCCertificateGeneratorInterface> cert_gen) {
     auto fake_port_allocator = std::make_unique<cricket::FakePortAllocator>(
-        rtc::Thread::Current(), nullptr);
+        rtc::Thread::Current(), &socket_factory_);
     auto observer = std::make_unique<MockPeerConnectionObserver>();
     RTCConfiguration modified_config = config;
     modified_config.sdp_semantics = sdp_semantics_;
@@ -115,7 +113,8 @@ class PeerConnectionCryptoBaseTest : public ::testing::Test {
     return transport_info->description.connection_role;
   }
 
-  std::unique_ptr<rtc::VirtualSocketServer> vss_;
+  rtc::VirtualSocketServer vss_;
+  rtc::BasicPacketSocketFactory socket_factory_;
   rtc::AutoSocketServerThread main_;
   rtc::scoped_refptr<PeerConnectionFactoryInterface> pc_factory_;
   const SdpSemantics sdp_semantics_;

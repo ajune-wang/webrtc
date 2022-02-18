@@ -74,6 +74,7 @@ class PeerConnectionAdaptationIntegrationTest : public ::testing::Test {
  public:
   PeerConnectionAdaptationIntegrationTest()
       : virtual_socket_server_(),
+        socket_factory_(&virtual_socket_server_),
         network_thread_(new rtc::Thread(&virtual_socket_server_)),
         worker_thread_(rtc::Thread::Create()) {
     RTC_CHECK(network_thread_->Start());
@@ -83,8 +84,9 @@ class PeerConnectionAdaptationIntegrationTest : public ::testing::Test {
   rtc::scoped_refptr<PeerConnectionTestWrapper> CreatePcWrapper(
       const char* name) {
     rtc::scoped_refptr<PeerConnectionTestWrapper> pc_wrapper =
-        rtc::make_ref_counted<PeerConnectionTestWrapper>(
-            name, network_thread_.get(), worker_thread_.get());
+        rtc::make_ref_counted<PeerConnectionTestWrapper>(name, &socket_factory_,
+                                                         network_thread_.get(),
+                                                         worker_thread_.get());
     PeerConnectionInterface::RTCConfiguration config;
     config.sdp_semantics = SdpSemantics::kUnifiedPlan;
     EXPECT_TRUE(pc_wrapper->CreatePc(config, CreateBuiltinAudioEncoderFactory(),
@@ -94,6 +96,7 @@ class PeerConnectionAdaptationIntegrationTest : public ::testing::Test {
 
  protected:
   rtc::VirtualSocketServer virtual_socket_server_;
+  rtc::BasicPacketSocketFactory socket_factory_;
   std::unique_ptr<rtc::Thread> network_thread_;
   std::unique_ptr<rtc::Thread> worker_thread_;
 };

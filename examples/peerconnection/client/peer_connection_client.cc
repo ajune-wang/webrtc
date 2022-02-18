@@ -22,16 +22,14 @@ const char kByeMessage[] = "BYE";
 // Delay between server connection retries, in milliseconds
 const int kReconnectDelay = 2000;
 
-rtc::Socket* CreateClientSocket(int family) {
-  rtc::Thread* thread = rtc::Thread::Current();
-  RTC_DCHECK(thread != NULL);
-  return thread->socketserver()->CreateSocket(family, SOCK_STREAM);
-}
-
 }  // namespace
 
-PeerConnectionClient::PeerConnectionClient()
-    : callback_(NULL), resolver_(NULL), state_(NOT_CONNECTED), my_id_(-1) {}
+PeerConnectionClient::PeerConnectionClient(rtc::SocketFactory* socket_factory)
+    : callback_(NULL),
+      socket_factory_(socket_factory),
+      resolver_(NULL),
+      state_(NOT_CONNECTED),
+      my_id_(-1) {}
 
 PeerConnectionClient::~PeerConnectionClient() {
   rtc::Thread::Current()->Clear(this);
@@ -119,8 +117,10 @@ void PeerConnectionClient::OnResolveResult(
 }
 
 void PeerConnectionClient::DoConnect() {
-  control_socket_.reset(CreateClientSocket(server_address_.ipaddr().family()));
-  hanging_get_.reset(CreateClientSocket(server_address_.ipaddr().family()));
+  control_socket_.reset(socket_factory_->CreateSocket(
+      server_address_.ipaddr().family(), SOCK_STREAM));
+  hanging_get_.reset(socket_factory_->CreateSocket(
+      server_address_.ipaddr().family(), SOCK_STREAM));
   InitSocketSignals();
   char buffer[1024];
   snprintf(buffer, sizeof(buffer), "GET /sign_in?%s HTTP/1.0\r\n\r\n",

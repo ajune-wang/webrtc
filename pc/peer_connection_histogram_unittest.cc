@@ -238,7 +238,9 @@ class PeerConnectionUsageHistogramTest : public ::testing::Test {
       WrapperPtr;
 
   PeerConnectionUsageHistogramTest()
-      : vss_(new rtc::VirtualSocketServer()), main_(vss_.get()) {
+      : vss_(std::make_unique<rtc::VirtualSocketServer>()),
+        packet_socket_factory_(vss_.get()),
+        main_(vss_.get()) {
     webrtc::metrics::Reset();
   }
 
@@ -266,7 +268,7 @@ class PeerConnectionUsageHistogramTest : public ::testing::Test {
     fake_network->AddInterface(NextLocalAddress());
 
     std::unique_ptr<cricket::BasicPortAllocator> port_allocator(
-        new cricket::BasicPortAllocator(fake_network));
+        new cricket::BasicPortAllocator(fake_network, &packet_socket_factory_));
 
     deps.async_resolver_factory = std::move(resolver_factory);
     deps.allocator = std::move(port_allocator);
@@ -288,8 +290,8 @@ class PeerConnectionUsageHistogramTest : public ::testing::Test {
     fake_network->AddInterface(NextLocalAddress());
     fake_network->AddInterface(kPrivateLocalAddress);
 
-    auto port_allocator =
-        std::make_unique<cricket::BasicPortAllocator>(fake_network);
+    auto port_allocator = std::make_unique<cricket::BasicPortAllocator>(
+        fake_network, &packet_socket_factory_);
     RTCConfiguration config;
     config.sdp_semantics = SdpSemantics::kUnifiedPlan;
     return CreatePeerConnection(config,
@@ -302,8 +304,8 @@ class PeerConnectionUsageHistogramTest : public ::testing::Test {
     fake_network->AddInterface(NextLocalAddress());
     fake_network->AddInterface(kPrivateIpv6LocalAddress);
 
-    auto port_allocator =
-        std::make_unique<cricket::BasicPortAllocator>(fake_network);
+    auto port_allocator = std::make_unique<cricket::BasicPortAllocator>(
+        fake_network, &packet_socket_factory_);
 
     RTCConfiguration config;
     config.sdp_semantics = SdpSemantics::kUnifiedPlan;
@@ -335,8 +337,8 @@ class PeerConnectionUsageHistogramTest : public ::testing::Test {
     if (!deps.allocator) {
       auto fake_network = NewFakeNetwork();
       fake_network->AddInterface(NextLocalAddress());
-      deps.allocator =
-          std::make_unique<cricket::BasicPortAllocator>(fake_network);
+      deps.allocator = std::make_unique<cricket::BasicPortAllocator>(
+          fake_network, &packet_socket_factory_);
     }
 
     auto observer = std::make_unique<ObserverForUsageHistogramTest>();
@@ -378,6 +380,7 @@ class PeerConnectionUsageHistogramTest : public ::testing::Test {
   std::vector<std::unique_ptr<rtc::FakeNetworkManager>> fake_networks_;
   int next_local_address_ = 0;
   std::unique_ptr<rtc::VirtualSocketServer> vss_;
+  rtc::BasicPacketSocketFactory packet_socket_factory_;
   rtc::AutoSocketServerThread main_;
 };
 

@@ -298,6 +298,7 @@ TEST_F(JsepSessionDescriptionTest, SerializeDeserializeWithHostnameCandidate) {
   c.set_protocol(cricket::UDP_PROTOCOL_NAME);
   c.set_address(rtc::SocketAddress("example.local", 1234));
   c.set_type(cricket::LOCAL_PORT_TYPE);
+  c.set_foundation("1");
   const size_t audio_index = 0;
   const size_t video_index = 1;
   JsepIceCandidate hostname_candidate_audio("audio", audio_index, c);

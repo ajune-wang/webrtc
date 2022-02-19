@@ -2832,6 +2832,10 @@ TEST_F(WebRtcSdpTest, DeserializeInvalidCandidiate) {
   EXPECT_FALSE(SdpDeserializeCandidate(candidate_attribute, &jcandidate));
 
   EXPECT_FALSE(SdpDeserializeCandidate(kSdpTcpInvalidCandidate, &jcandidate));
+
+  candidate_attribute = kRawCandidate;
+  Replace("a0+B/1", " ", &candidate_attribute);
+  EXPECT_FALSE(SdpDeserializeCandidate(candidate_attribute, &jcandidate));
 }
 
 TEST_F(WebRtcSdpTest, DeserializeSdpWithSctpDataChannels) {

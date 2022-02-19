@@ -61,7 +61,7 @@ class ChannelManagerTest : public ::testing::Test {
                                             false,
                                             worker_,
                                             network_.get())),
-        fake_call_(worker_, network_.get()) {
+        fake_call_(worker_, network_.get(), nullptr) {
     network_->SetName("Network", this);
     network_->Start();
   }

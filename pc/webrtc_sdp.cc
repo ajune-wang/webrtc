@@ -1107,6 +1107,9 @@ bool ParseCandidate(const std::string& message,
     return ParseFailedExpectMinFieldNum(first_line, expected_min_fields, error);
   }
   const std::string& foundation = fields[0];
+  if (foundation.empty()) {
+    return ParseFailed(first_line, "Foundation must be non-empty.", error);
+  }
 
   int component_id = 0;
   if (!GetValueFromString(first_line, fields[1], &component_id, error)) {

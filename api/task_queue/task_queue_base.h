@@ -13,6 +13,7 @@
 #include <memory>
 #include <utility>
 
+#include "absl/time/time.h"
 #include "api/task_queue/queued_task.h"
 #include "rtc_base/system/rtc_export.h"
 #include "rtc_base/thread_annotations.h"
@@ -85,6 +86,10 @@ class RTC_LOCKABLE RTC_EXPORT TaskQueueBase {
   virtual void PostDelayedTask(std::unique_ptr<QueuedTask> task,
                                uint32_t milliseconds) = 0;
 
+  void PostDelayed(std::unique_ptr<QueuedTask> task, absl::Duration delay) {
+    PostDelayedTask(std::move(task), absl::ToInt64Milliseconds(delay));
+  }
+
   // Prefer PostDelayedTask() over PostDelayedHighPrecisionTask() whenever
   // possible.
   //
@@ -115,7 +120,7 @@ class RTC_LOCKABLE RTC_EXPORT TaskQueueBase {
                                     uint32_t milliseconds) {
     switch (precision) {
       case DelayPrecision::kLow:
-        PostDelayedTask(std::move(task), milliseconds);
+        PostDelayed(std::move(task), absl::Milliseconds(milliseconds));
         break;
       case DelayPrecision::kHigh:
         PostDelayedHighPrecisionTask(std::move(task), milliseconds);

@@ -17,6 +17,8 @@ import tempfile
 import unittest
 import mock
 
+from mock import MagicMock
+
 SCRIPT_DIR = os.path.dirname(os.path.abspath(__file__))
 PARENT_DIR = os.path.join(SCRIPT_DIR, os.pardir)
 sys.path.append(PARENT_DIR)
@@ -321,6 +323,40 @@ class TestChooseCQMode(unittest.TestCase):
 
   def testSubmit(self):
     self.assertEqual(ChooseCQMode(False, 100, 500000, 500100), 2)
+
+
+class TestReadUrlContent(unittest.TestCase):
+  def setUp(self):
+    self.url = 'http://localhost+?format=TEXT'
+
+  def testReadUrlContent(self):
+    self.url_mock = mock.Mock()
+    roll_deps.urllib.request.urlopen = self.url_mock
+
+    roll_deps.ReadUrlContent(self.url)
+
+    calls = [
+        mock.call('http://localhost+?format=TEXT'),
+        mock.call().readlines(),
+        mock.call().close()
+    ]
+    self.assertEqual(self.url_mock.mock_calls, calls)
+
+  def testReadUrlContentError(self):
+    roll_deps.logging = mock.Mock()
+
+    readlines_mock = mock.Mock()
+    readlines_mock.readlines = mock.Mock(
+        side_effect=IOError('Connection error'))
+    readlines_mock.close = mock.Mock()
+
+    url_mock = mock.Mock(return_value=readlines_mock)
+    roll_deps.urllib.request.urlopen = url_mock
+
+    try:
+      roll_deps.ReadUrlContent(self.url)
+    except OSError as e:
+      self.assertTrue(roll_deps.logging.exception.called)
 
 
 def _SetupGitLsRemoteCall(cmd_fake, url, revision):

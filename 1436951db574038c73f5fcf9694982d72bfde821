@@ -34,6 +34,24 @@
       "parentUuid": "22d44333_3a078ba2",
       "revId": "1436951db574038c73f5fcf9694982d72bfde821",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "aa8bfb78_667c4b20",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5825
+      },
+      "writtenOn": "2022-02-21T11:06:05Z",
+      "side": 1,
+      "message": "Created revert: https://webrtc-review.googlesource.com/c/src/+/251981",
+      "parentUuid": "8fea8dd6_80716fcf",
+      "revId": "1436951db574038c73f5fcf9694982d72bfde821",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

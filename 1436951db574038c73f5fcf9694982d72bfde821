@@ -16,6 +16,24 @@
       "message": "There are later CLs that depend on this one, it seems.\n",
       "revId": "1436951db574038c73f5fcf9694982d72bfde821",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "8fea8dd6_80716fcf",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5825
+      },
+      "writtenOn": "2022-02-21T11:04:16Z",
+      "side": 1,
+      "message": "Right. We need to revert https://webrtc-review.googlesource.com/c/src/+/251861 first.",
+      "parentUuid": "22d44333_3a078ba2",
+      "revId": "1436951db574038c73f5fcf9694982d72bfde821",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

@@ -16,6 +16,24 @@
       "message": "This will ensure we get the version we want? Before, we would get whatever osx_sdk was?",
       "revId": "f765925f4ea3150bdb89d3280775e93d94ce83b8",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "3f5b9fe7_bfbcb052",
+        "filename": "config.star",
+        "patchSetId": 1
+      },
+      "lineNbr": 699,
+      "author": {
+        "id": 12234
+      },
+      "writtenOn": "2022-02-22T16:29:04Z",
+      "side": 1,
+      "message": "Before the xcode version was hardcoded in the recipe:\nhttps://source.chromium.org/chromium/chromium/tools/build/+/main:recipes/recipes/webrtc/ios_api_framework.py;l\u003d37;bpv\u003d1;bpt\u003d0;drc\u003d19a80ce281ffec970217554d3ca6ee86424797e1",
+      "parentUuid": "6c1be227_a3604dc3",
+      "revId": "f765925f4ea3150bdb89d3280775e93d94ce83b8",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

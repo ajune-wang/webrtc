@@ -18,6 +18,24 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "2e99da63_53344842",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 12234
+      },
+      "writtenOn": "2022-02-22T09:02:34Z",
+      "side": 1,
+      "message": "Done that, the cfg where not modified prior to the last patch.",
+      "parentUuid": "3890b244_3475f9b1",
+      "revId": "8f7d6612771bb9809cb08219ae8966a6a3cf9dc8",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "dd6d65b2_6baa4b11",
@@ -35,6 +53,24 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "ae5f9449_220a3d5d",
+        "filename": "config.star",
+        "patchSetId": 1
+      },
+      "lineNbr": 16,
+      "author": {
+        "id": 12234
+      },
+      "writtenOn": "2022-02-22T09:02:34Z",
+      "side": 1,
+      "message": "Yes we should probably move to a version 13.\nLet\u0027s do this after I migrate to standalone.",
+      "parentUuid": "dd6d65b2_6baa4b11",
+      "revId": "8f7d6612771bb9809cb08219ae8966a6a3cf9dc8",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "94747ae7_8b447608",
@@ -48,6 +84,30 @@
       "writtenOn": "2022-02-22T08:28:59Z",
       "side": 1,
       "message": "if enable_ats:\n\n(to be consistent with line 59)",
+      "range": {
+        "startLine": 57,
+        "startChar": 4,
+        "endLine": 57,
+        "endChar": 26
+      },
+      "revId": "8f7d6612771bb9809cb08219ae8966a6a3cf9dc8",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "5fe7f28b_928f559a",
+        "filename": "config.star",
+        "patchSetId": 1
+      },
+      "lineNbr": 57,
+      "author": {
+        "id": 12234
+      },
+      "writtenOn": "2022-02-22T09:02:34Z",
+      "side": 1,
+      "message": "Didn\u0027t want the cfg to be modified but I think it\u0027s good to remove these \u0027enable_ats\u0027 set to False.",
+      "parentUuid": "94747ae7_8b447608",
       "range": {
         "startLine": 57,
         "startChar": 4,

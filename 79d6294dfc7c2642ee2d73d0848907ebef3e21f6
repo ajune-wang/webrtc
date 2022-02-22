@@ -46,6 +46,30 @@
       },
       "revId": "79d6294dfc7c2642ee2d73d0848907ebef3e21f6",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "a24cfa79_de40121e",
+        "filename": "config.star",
+        "patchSetId": 1
+      },
+      "lineNbr": 684,
+      "author": {
+        "id": 12234
+      },
+      "writtenOn": "2022-02-22T12:43:29Z",
+      "side": 1,
+      "message": "Yes exactly, want to make sure the ci is green before switching the try servers.",
+      "parentUuid": "0d9c9754_b10cbe41",
+      "range": {
+        "startLine": 684,
+        "startChar": 1,
+        "endLine": 684,
+        "endChar": 4
+      },
+      "revId": "79d6294dfc7c2642ee2d73d0848907ebef3e21f6",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

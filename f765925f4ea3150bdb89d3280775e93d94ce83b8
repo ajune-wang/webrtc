@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "6c1be227_a3604dc3",
+        "filename": "config.star",
+        "patchSetId": 1
+      },
+      "lineNbr": 699,
+      "author": {
+        "id": 6192
+      },
+      "writtenOn": "2022-02-22T14:56:41Z",
+      "side": 1,
+      "message": "This will ensure we get the version we want? Before, we would get whatever osx_sdk was?",
+      "revId": "f765925f4ea3150bdb89d3280775e93d94ce83b8",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

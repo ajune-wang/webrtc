@@ -20,6 +20,23 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "dd6d65b2_6baa4b11",
+        "filename": "config.star",
+        "patchSetId": 1
+      },
+      "lineNbr": 16,
+      "author": {
+        "id": 6192
+      },
+      "writtenOn": "2022-02-22T08:40:33Z",
+      "side": 1,
+      "message": "Somewhat unrelated but are we still required to use this old version of xcode?",
+      "revId": "8f7d6612771bb9809cb08219ae8966a6a3cf9dc8",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "94747ae7_8b447608",
         "filename": "config.star",
         "patchSetId": 1

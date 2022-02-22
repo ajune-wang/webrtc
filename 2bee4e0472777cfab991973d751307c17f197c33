@@ -368,6 +368,24 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "131adc46_2434dded",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 8046
+      },
+      "writtenOn": "2022-02-22T08:02:01Z",
+      "side": 1,
+      "message": "FYI here is the discussion about making libportal API/ABI stable:\n - https://github.com/flatpak/libportal/issues/33\n \nOnce it\u0027s ABI stable, it shouldn\u0027t be a problem to dlopen it as the rest of libraries we use (pipewire/drm). I can see it is also available as a package in Debian so it can be added to sysroot to get the headers. Problem would be in case the library is not installed on the system, in that case it would fail to dlopen. \n\nIn this case I would hope there is a way to ship a library as part of Chromium and use that one as fallback. Is something like that possible? I see Chromium has lots of third_party libraries, including e.g. libwayland-client which conflicted for me before when I tried to dlopen it in screensharing code.",
+      "parentUuid": "1abd7008_a6f1ed53",
+      "revId": "2bee4e0472777cfab991973d751307c17f197c33",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "10c7ea62_3df5118c",

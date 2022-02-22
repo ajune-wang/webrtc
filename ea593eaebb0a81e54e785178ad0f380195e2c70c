@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "39c3037b_a91a9cb3",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5508
+      },
+      "writtenOn": "2022-02-22T08:32:23Z",
+      "side": 1,
+      "message": "Note that we´ll need to reland this CL once https://webrtc-review.googlesource.com/c/src/+/252041/ has landed.",
+      "revId": "ea593eaebb0a81e54e785178ad0f380195e2c70c",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

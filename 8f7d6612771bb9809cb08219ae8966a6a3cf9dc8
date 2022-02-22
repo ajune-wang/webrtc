@@ -1,0 +1,44 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "3890b244_3475f9b1",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5087
+      },
+      "writtenOn": "2022-02-22T08:28:59Z",
+      "side": 1,
+      "message": "Can you config that running the following command does\u0027t change anything?\n\n$ lucicfg generate \"config.star\"",
+      "revId": "8f7d6612771bb9809cb08219ae8966a6a3cf9dc8",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "94747ae7_8b447608",
+        "filename": "config.star",
+        "patchSetId": 1
+      },
+      "lineNbr": 57,
+      "author": {
+        "id": 5087
+      },
+      "writtenOn": "2022-02-22T08:28:59Z",
+      "side": 1,
+      "message": "if enable_ats:\n\n(to be consistent with line 59)",
+      "range": {
+        "startLine": 57,
+        "startChar": 4,
+        "endLine": 57,
+        "endChar": 26
+      },
+      "revId": "8f7d6612771bb9809cb08219ae8966a6a3cf9dc8",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

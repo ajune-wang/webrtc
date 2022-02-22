@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "eab2b680_cc121084",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5508
+      },
+      "writtenOn": "2022-02-22T08:03:28Z",
+      "side": 1,
+      "message": "Relanding as it turns out the revert wasn\u0027t necessary.",
+      "revId": "4e47a9427eb17f48c25cd6f2b4b2b9ec37cfae6e",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

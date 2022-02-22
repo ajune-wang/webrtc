@@ -34,6 +34,24 @@
       "parentUuid": "ec5b505d_1361c054",
       "revId": "2fa76e8fd5721b8217c978b01e4860bce4e52718",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "b6a29ae9_9e3b9ef9",
+        "filename": "tools_webrtc/version_updater/update_version.py",
+        "patchSetId": 1
+      },
+      "lineNbr": 33,
+      "author": {
+        "id": 6192
+      },
+      "writtenOn": "2022-02-22T10:51:50Z",
+      "side": 1,
+      "message": "Yes we do.",
+      "parentUuid": "630cd785_7ea500a0",
+      "revId": "2fa76e8fd5721b8217c978b01e4860bce4e52718",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

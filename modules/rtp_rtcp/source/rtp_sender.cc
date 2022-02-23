@@ -286,12 +286,15 @@ void RTPSender::SetRtxPayloadType(int payload_type,
 }
 
 int32_t RTPSender::ReSendPacket(uint16_t packet_id) {
+  RTC_LOG(LS_WARNING) << "Resend: " << packet_id;
+
   // Try to find packet in RTP packet history. Also verify RTT here, so that we
   // don't retransmit too often.
   absl::optional<RtpPacketHistory::PacketState> stored_packet =
       packet_history_->GetPacketState(packet_id);
   if (!stored_packet || stored_packet->pending_transmission) {
     // Packet not found or already queued for retransmission, ignore.
+    RTC_LOG(LS_WARNING) << "Not found or already queued: " << packet_id;
     return 0;
   }
 
@@ -307,6 +310,7 @@ int32_t RTPSender::ReSendPacket(uint16_t packet_id) {
             std::unique_ptr<RtpPacketToSend> retransmit_packet;
             if (retransmission_rate_limiter_ &&
                 !retransmission_rate_limiter_->TryUseRate(packet_size)) {
+              RTC_LOG(LS_WARNING) << "Rate limit!";
               return retransmit_packet;
             }
             if (rtx) {
@@ -318,10 +322,13 @@ int32_t RTPSender::ReSendPacket(uint16_t packet_id) {
             if (retransmit_packet) {
               retransmit_packet->set_retransmitted_sequence_number(
                   stored_packet.SequenceNumber());
+            } else {
+              RTC_LOG(LS_WARNING) << "waa?";
             }
             return retransmit_packet;
           });
   if (!packet) {
+    RTC_LOG(LS_WARNING) << "History rejected: " << packet_id;
     return -1;
   }
   packet->set_packet_type(RtpPacketMediaType::kRetransmission);

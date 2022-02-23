@@ -212,21 +212,25 @@ std::unique_ptr<RtpPacketToSend> RtpPacketHistory::GetPacketAndMarkAsPending(
         encapsulate) {
   MutexLock lock(&lock_);
   if (mode_ == StorageMode::kDisabled) {
+    RTC_LOG(LS_WARNING) << "storage disabled";
     return nullptr;
   }
 
   StoredPacket* packet = GetStoredPacket(sequence_number);
   if (packet == nullptr) {
+    RTC_LOG(LS_WARNING) << "packet not found";
     return nullptr;
   }
 
   if (packet->pending_transmission_) {
     // Packet already in pacer queue, ignore this request.
+    RTC_LOG(LS_WARNING) << "pending retransmission";
     return nullptr;
   }
 
   if (!VerifyRtt(*packet, clock_->TimeInMilliseconds())) {
     // Packet already resent within too short a time window, ignore.
+    RTC_LOG(LS_WARNING) << "too early";
     return nullptr;
   }
 
@@ -235,6 +239,12 @@ std::unique_ptr<RtpPacketToSend> RtpPacketHistory::GetPacketAndMarkAsPending(
       encapsulate(*packet->packet_);
   if (encapsulated_packet) {
     packet->pending_transmission_ = true;
+  }
+
+  if (!encapsulated_packet) {
+    RTC_LOG(LS_WARNING) << "Failed to encapsulate!";
+  } else {
+    RTC_LOG(LS_WARNING) << "all good!";
   }
 
   return encapsulated_packet;

@@ -281,6 +281,11 @@ void RtpSenderEgress::SendPacket(RtpPacketToSend* packet,
     packet_history_->MarkPacketAsSent(*packet->retransmitted_sequence_number());
   }
 
+  if (!is_media || !packet->allow_retransmission()) {
+    RTC_LOG(LS_WARNING) << "Non-retransmittable: ssrc = " << packet->Ssrc()
+                        << ", is media = " << (is_media ? "true" : "false");
+  }
+
   if (send_success) {
     // `media_has_been_sent_` is used by RTPSender to figure out if it can send
     // padding in the absence of transport-cc or abs-send-time.

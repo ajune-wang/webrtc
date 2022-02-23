@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "73cf2592_80ba6a74",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2022-02-23T09:35:45Z",
+      "side": 1,
+      "message": "Now I\u0027ve learned the syntax of IWYU mapping files. Not sure if it\u0027s good for the brain to know that.\n\nCan you say perfcrastination?",
+      "revId": "a78e5a90931fa637031e06d75bf647d2a6a9f268",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

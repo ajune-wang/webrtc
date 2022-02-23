@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "5e1d0301_d06cff67",
+        "filename": "sdk/android/api/org/webrtc/NetworkMonitorAutoDetect.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 175,
+      "author": {
+        "id": 18904
+      },
+      "writtenOn": "2022-02-23T23:01:58Z",
+      "side": 1,
+      "message": "I agree with your comment on the bug; we should probably always omit the NOT_VPN capability",
+      "range": {
+        "startLine": 175,
+        "startChar": 0,
+        "endLine": 175,
+        "endChar": 45
+      },
+      "revId": "0b846a9d824e99f4ea662735f5c28110fedd93d0",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "0ef7b210_34593d88",
+        "filename": "sdk/android/api/org/webrtc/NetworkMonitorAutoDetect.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 323,
+      "author": {
+        "id": 18904
+      },
+      "writtenOn": "2022-02-23T23:01:58Z",
+      "side": 1,
+      "message": "Looks like this was based on PS 1? Perhaps if we really want to prepopulate the cache, we can do:\n\n  // Always use cache if network callback is supported; this is more accurate, and will avoid\n  // triggering probe attempts on networks that are expected to fail (e.g. RESTRICTED networks)\n  if (supportNetworkCallback()) {\n    synchronized (availableNetworks) {\n      if (availableNetworks.isEmpty()) {\n        for (Network n : connectivityManager.getAllNetworks()) {\n            if (getNetworkRequest().canBeSatisfiedBy(\n                connectivityManager.getNetworkCapabilities(n)) {\n              availableNetworks.add(n);\n            }\n          }\n        }\n      }\n      return availableNetworks.toArray(new Network[0]);\n    }\n  }",
+      "range": {
+        "startLine": 319,
+        "startChar": 0,
+        "endLine": 323,
+        "endChar": 9
+      },
+      "revId": "0b846a9d824e99f4ea662735f5c28110fedd93d0",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

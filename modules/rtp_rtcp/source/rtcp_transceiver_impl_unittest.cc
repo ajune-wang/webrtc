@@ -111,11 +111,11 @@ class MockNetworkLinkRtcpObserver : public NetworkLinkRtcpObserver {
 // Since some tests will need to wait for this period, make it small to avoid
 // slowing tests too much. As long as there are test bots with high scheduler
 // granularity, small period should be ok.
-constexpr int kReportPeriodMs = 10;
+constexpr TimeDelta kReportPeriod = TimeDelta::Millis(10);
 // On some systems task queue might be slow, instead of guessing right
 // grace period, use very large timeout, 100x larger expected wait time.
 // Use finite timeout to fail tests rather than hang them.
-constexpr int kAlmostForeverMs = 1000;
+constexpr TimeDelta kAlmostForever = TimeDelta::Seconds(1);
 
 // Helper to wait for an rtcp packet produced on a different thread/task queue.
 class FakeRtcpTransport : public webrtc::Transport {
@@ -132,7 +132,7 @@ class FakeRtcpTransport : public webrtc::Transport {
   // Returns true when packet was received by the transport.
   bool WaitPacket() {
     // Normally packet should be sent fast, long before the timeout.
-    bool packet_sent = sent_rtcp_.Wait(kAlmostForeverMs);
+    bool packet_sent = sent_rtcp_.Wait(kAlmostForever.ms());
     // Disallow tests to wait almost forever for no packets.
     EXPECT_TRUE(packet_sent);
     // Return wait result even though it is expected to be true, so that
@@ -176,8 +176,8 @@ RtcpTransceiverConfig DefaultTestConfig() {
   config.clock = &null_clock;
   config.outgoing_transport = &null_transport;
   config.schedule_periodic_compound_packets = false;
-  config.initial_report_delay_ms = 10;
-  config.report_period_ms = kReportPeriodMs;
+  config.initial_report_delay = TimeDelta::Millis(10);
+  config.report_period = kReportPeriod;
   return config;
 }
 

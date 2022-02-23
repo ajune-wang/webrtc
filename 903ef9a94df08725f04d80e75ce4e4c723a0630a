@@ -67,6 +67,23 @@
       "message": "Could someone please trigger a try run and merge this CL? Thank you!",
       "revId": "903ef9a94df08725f04d80e75ce4e4c723a0630a",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "fec7134d_eec0e187",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2022-02-23T13:12:09Z",
+      "side": 1,
+      "message": "MSAN complains about uninitialized memory access.\n\nhttps://chromium-swarm.appspot.com/task?id\u003d593f11cf309d0b10 has the backtraces.\n",
+      "revId": "903ef9a94df08725f04d80e75ce4e4c723a0630a",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

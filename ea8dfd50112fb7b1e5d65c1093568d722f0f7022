@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "7bae6fc6_086c3fcb",
+        "filename": "modules/pacing/pacing_controller.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 308,
+      "author": {
+        "id": 5524
+      },
+      "writtenOn": "2022-02-23T11:05:40Z",
+      "side": 0,
+      "message": "Why remove this? The comment above doesn\u0027t make sense now.",
+      "range": {
+        "startLine": 308,
+        "startChar": 4,
+        "endLine": 308,
+        "endChar": 45
+      },
+      "revId": "ea8dfd50112fb7b1e5d65c1093568d722f0f7022",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

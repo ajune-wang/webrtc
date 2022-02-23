@@ -16,6 +16,178 @@
       "message": "Sounds good but I\u0027ll hold back on reviewing until someone more familiar (Erik) has had their say",
       "revId": "923099be4cb296442a4eaf5ee730ab9d0405413e",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "9a79634c_fb12390c",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 3
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5524
+      },
+      "writtenOn": "2022-02-23T11:05:40Z",
+      "side": 1,
+      "message": "sorry for the delay, last week was busy\n\nMostly looks good, but one concern:\n\nSo what you have done here is take all sleep scheduled tasks and round up instead of down - but then subtract 1ms from the expected processing time of probes?\nFrom what I can see, this doesn\u0027t really address what the previous early-processing did: if thread scheduling would wake a ms earlier than anticipated and we\u0027re probing, we don\u0027t want schedule a new delayed task in 1ms. This seems to happen fairly often on some platforms.\n\n...or am I missing something?",
+      "revId": "923099be4cb296442a4eaf5ee730ab9d0405413e",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "6435d61e_2e518633",
+        "filename": "modules/pacing/pacing_controller.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 351,
+      "author": {
+        "id": 5524
+      },
+      "writtenOn": "2022-02-23T11:05:40Z",
+      "side": 1,
+      "message": "Why do this subtraction here?\nalso, nit: since it\u0027s convention in the rest of the file, suggest using {} even for single-line if\u0027s",
+      "range": {
+        "startLine": 351,
+        "startChar": 8,
+        "endLine": 351,
+        "endChar": 51
+      },
+      "revId": "923099be4cb296442a4eaf5ee730ab9d0405413e",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "6eeade87_8d7eee8e",
+        "filename": "modules/pacing/pacing_controller.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 359,
+      "author": {
+        "id": 5524
+      },
+      "writtenOn": "2022-02-23T11:05:40Z",
+      "side": 1,
+      "message": "You return in the if statement above, so no need for this else {}",
+      "range": {
+        "startLine": 359,
+        "startChar": 4,
+        "endLine": 359,
+        "endChar": 10
+      },
+      "revId": "923099be4cb296442a4eaf5ee730ab9d0405413e",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "cfc8890e_09b500bc",
+        "filename": "modules/pacing/pacing_controller.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 367,
+      "author": {
+        "id": 5524
+      },
+      "writtenOn": "2022-02-23T11:05:40Z",
+      "side": 1,
+      "message": "I think this method is non-trivial enough to keep the optional as a temporary.\nYou could do e.g.\nabsl::optional\u003cTimestamp\u003e unpaced_audio_packet \u003d pace_audio_ ? packet_queue_.LeadingAudioPacketEnqueueTime() : absl::nullopt;\nif (unpaced_audio_packet) {\n  return *unpaced_audio_packet;\n}",
+      "range": {
+        "startLine": 367,
+        "startChar": 8,
+        "endLine": 367,
+        "endChar": 53
+      },
+      "revId": "923099be4cb296442a4eaf5ee730ab9d0405413e",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "c2484308_048521b2",
+        "filename": "modules/pacing/pacing_controller.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 373,
+      "author": {
+        "id": 5524
+      },
+      "writtenOn": "2022-02-23T11:05:40Z",
+      "side": 1,
+      "message": "nit: here too (and elsewhere), stick to the bracketing convention of the file",
+      "range": {
+        "startLine": 373,
+        "startChar": 6,
+        "endLine": 373,
+        "endChar": 56
+      },
+      "revId": "923099be4cb296442a4eaf5ee730ab9d0405413e",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "a1035879_b4663e54",
+        "filename": "modules/pacing/pacing_controller.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 426,
+      "author": {
+        "id": 5524
+      },
+      "writtenOn": "2022-02-23T11:05:40Z",
+      "side": 1,
+      "message": "if (mode_ \u003d\u003d ProcessMode::kDynamic) {",
+      "revId": "923099be4cb296442a4eaf5ee730ab9d0405413e",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "4f87fae6_ba3ed606",
+        "filename": "modules/pacing/pacing_controller.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 553,
+      "author": {
+        "id": 5524
+      },
+      "writtenOn": "2022-02-23T11:05:40Z",
+      "side": 1,
+      "message": "please check for what the state is, not what is not",
+      "range": {
+        "startLine": 553,
+        "startChar": 10,
+        "endLine": 553,
+        "endChar": 41
+      },
+      "revId": "923099be4cb296442a4eaf5ee730ab9d0405413e",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "150d13be_d50d0309",
+        "filename": "modules/pacing/task_queue_paced_sender.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 233,
+      "author": {
+        "id": 5524
+      },
+      "writtenOn": "2022-02-23T11:05:40Z",
+      "side": 1,
+      "message": "ProcessPackets() should loop until it has nothing more to do, so this should be fine as an if?",
+      "range": {
+        "startLine": 233,
+        "startChar": 2,
+        "endLine": 233,
+        "endChar": 7
+      },
+      "revId": "923099be4cb296442a4eaf5ee730ab9d0405413e",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

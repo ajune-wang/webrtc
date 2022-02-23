@@ -10,6 +10,7 @@
 #ifndef PC_USED_IDS_H_
 #define PC_USED_IDS_H_
 
+#include <__tree>
 #include <set>
 #include <vector>
 

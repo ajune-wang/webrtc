@@ -14,8 +14,10 @@
 #ifndef API_JSEP_ICE_CANDIDATE_H_
 #define API_JSEP_ICE_CANDIDATE_H_
 
+#include <__memory/unique_ptr.h>
 #include <stddef.h>
 
+#include <iosfwd>
 #include <memory>
 #include <string>
 #include <vector>

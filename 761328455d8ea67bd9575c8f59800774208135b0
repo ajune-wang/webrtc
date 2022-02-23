@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "f3b12c3d_88d30dbe",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 4
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 9405
+      },
+      "writtenOn": "2022-02-23T21:21:05Z",
+      "side": 1,
+      "message": "Mapping files are great! I\u0027m not the owner of these files, but it looks good to me.\n\nBy the way, I\u0027ve found that IWYU doesn\u0027t remove unused includes from header files by default;\nhttps://github.com/include-what-you-use/include-what-you-use/blob/0.17/fix_includes.py#L2383\n",
+      "revId": "761328455d8ea67bd9575c8f59800774208135b0",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

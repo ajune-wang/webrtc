@@ -545,6 +545,7 @@ if (is_android) {
       "api/org/webrtc/NetworkChangeDetectorFactory.java",
       "api/org/webrtc/NetworkMonitor.java",
       "api/org/webrtc/NetworkMonitorAutoDetect.java",
+      "api/org/webrtc/PeerConnectionFactory.java",
     ]
     deps = [
       ":base_java",

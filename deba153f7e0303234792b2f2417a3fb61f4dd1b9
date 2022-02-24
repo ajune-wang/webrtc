@@ -18,6 +18,23 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "50f69e81_b99fd0fb",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2022-02-24T14:26:10Z",
+      "side": 1,
+      "message": "Seems like a good idea. Surprised the CL was this small.\n",
+      "revId": "deba153f7e0303234792b2f2417a3fb61f4dd1b9",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "52222ac3_3ade9eee",
@@ -37,6 +54,40 @@
         "endLine": 23,
         "endChar": 46
       },
+      "revId": "deba153f7e0303234792b2f2417a3fb61f4dd1b9",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "2187fc0f_aa491608",
+        "filename": "pc/proxy.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 307,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2022-02-24T14:26:10Z",
+      "side": 1,
+      "message": "This changes the create method for all proxies. I\u0027m surprised that you were able to make all that work with this short CL.",
+      "revId": "deba153f7e0303234792b2f2417a3fb61f4dd1b9",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "a6420878_aac11245",
+        "filename": "pc/sctp_data_channel.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 164,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2022-02-24T14:26:10Z",
+      "side": 1,
+      "message": "Since you\u0027re now using a scoped_refptr argument, can you update or delete the TODO above?",
       "revId": "deba153f7e0303234792b2f2417a3fb61f4dd1b9",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }

@@ -127,6 +127,9 @@ GoogCcNetworkController::GoogCcNetworkController(NetworkControllerConfig config,
       max_total_allocated_bitrate_(DataRate::Zero()) {
   RTC_DCHECK(config.constraints.at_time.IsFinite());
   ParseFieldTrial(
+      {&estimate_bounded_probes_ratio_},
+      key_value_config_->Lookup("WebRTC-Bwe-EstimateBoundedProbes"));
+  ParseFieldTrial(
       {&safe_reset_on_route_change_, &safe_reset_acknowledged_rate_},
       key_value_config_->Lookup("WebRTC-Bwe-SafeResetOnRouteChange"));
   if (delay_based_bwe_)
@@ -517,6 +520,12 @@ NetworkControlUpdate GoogCcNetworkController::OnTransportPacketsFeedback(
   }
   absl::optional<DataRate> probe_bitrate =
       probe_bitrate_estimator_->FetchAndResetLastEstimatedBitrate();
+  if (estimate_bounded_probes_ratio_.Get() > 0.0 && probe_bitrate &&
+      estimate_ && estimate_->link_capacity_upper.IsFinite()) {
+    probe_bitrate =
+        std::min(*probe_bitrate, estimate_->link_capacity_upper *
+                                     estimate_bounded_probes_ratio_.Get());
+  }
   if (ignore_probes_lower_than_network_estimate_ && probe_bitrate &&
       estimate_ && *probe_bitrate < delay_based_bwe_->last_estimate() &&
       *probe_bitrate < estimate_->link_capacity_lower) {

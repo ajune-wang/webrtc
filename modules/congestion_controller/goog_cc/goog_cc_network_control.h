@@ -91,6 +91,7 @@ class GoogCcNetworkController : public NetworkControllerInterface {
   FieldTrialFlag safe_reset_acknowledged_rate_;
   const bool use_min_allocatable_as_lower_bound_;
   const bool ignore_probes_lower_than_network_estimate_;
+  FieldTrialParameter<double> estimate_bounded_probes_ratio_{"ratio", 0.0};
   const bool limit_probes_lower_than_throughput_estimate_;
   const RateControlSettings rate_control_settings_;
   const bool loss_based_stable_rate_;

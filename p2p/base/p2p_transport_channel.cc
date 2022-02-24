@@ -49,6 +49,10 @@
 
 namespace {
 
+// 250kb was selected by benchmark, and to allow failure to keep up with a
+// 5Mbps media stream for almost half a second.
+constexpr int kSocketReceiveBufferSize = 250 * 1024;
+
 cricket::PortInterface::CandidateOrigin GetOrigin(
     cricket::PortInterface* port,
     cricket::PortInterface* origin_port) {
@@ -784,6 +788,11 @@ void P2PTransportChannel::SetIceConfig(const IceConfig& config) {
 
   if (field_trials_.override_dscp) {
     SetOption(rtc::Socket::OPT_DSCP, *field_trials_.override_dscp);
+  }
+
+  if (webrtc::field_trial::IsEnabled("WebRTC-SetSocketReceiveBuffer")) {
+    RTC_LOG(LS_INFO) << "Set WebRTC-SetSocketReceiveBuffer: Enabled";
+    SetOption(rtc::Socket::OPT_RCVBUF, kSocketReceiveBufferSize);
   }
 
   RTC_DCHECK(ValidateIceConfig(config_).ok());

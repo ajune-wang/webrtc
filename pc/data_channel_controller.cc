@@ -363,7 +363,7 @@ SctpDataChannel* DataChannelController::FindDataChannelBySid(int sid) const {
   RTC_DCHECK_RUN_ON(signaling_thread());
   for (const auto& channel : sctp_data_channels_) {
     if (channel->id() == sid) {
-      return channel;
+      return channel.get();
     }
   }
   return nullptr;

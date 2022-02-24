@@ -177,15 +177,19 @@ void AudioReceiveStream::ReconfigureForTesting(
   RTC_DCHECK_EQ(config_.rtcp_send_transport, config.rtcp_send_transport);
   // Decoder factory cannot be changed because it is configured at
   // voe::Channel construction time.
-  RTC_DCHECK_EQ(config_.decoder_factory, config.decoder_factory);
+  // TODO(bugs.webrtc.org/13464): Extend RTC_CHECK value printers to support
+  // RTC_CHECK_EQ with rtc::scoped_refptr.
+  RTC_DCHECK(config_.decoder_factory == config.decoder_factory);
 
   // TODO(solenberg): Config NACK history window (which is a packet count),
   // using the actual packet size for the configured codec.
   RTC_DCHECK_EQ(config_.rtp.nack.rtp_history_ms, config.rtp.nack.rtp_history_ms)
       << "Use SetUseTransportCcAndNackHistory";
 
+  // TODO(bugs.webrtc.org/13464): Extend RTC_CHECK value printers to support
+  // RTC_CHECK_EQ with rtc::scoped_refptr.
   RTC_DCHECK(config_.decoder_map == config.decoder_map) << "Use SetDecoderMap";
-  RTC_DCHECK_EQ(config_.frame_transformer, config.frame_transformer)
+  RTC_DCHECK(config_.frame_transformer == config.frame_transformer)
       << "Use SetDepacketizerToDecoderFrameTransformer";
 
   config_ = config;

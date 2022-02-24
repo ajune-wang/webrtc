@@ -42,7 +42,7 @@ VideoRtpReceiver::VideoRtpReceiver(
       track_(VideoTrackProxyWithInternal<VideoTrack>::Create(
           rtc::Thread::Current(),
           worker_thread,
-          VideoTrack::Create(receiver_id, source_, worker_thread))),
+          VideoTrack::Create(receiver_id, source_.get(), worker_thread).get())),
       attachment_id_(GenerateUniqueId()) {
   RTC_DCHECK(worker_thread_);
   SetStreams(streams);
@@ -221,7 +221,7 @@ void VideoRtpReceiver::SetStreams(
       }
     }
     if (removed) {
-      existing_stream->RemoveTrack(track_);
+      existing_stream->RemoveTrack(track_.get());
     }
   }
   // Add remote track to any streams that are new.
@@ -235,7 +235,7 @@ void VideoRtpReceiver::SetStreams(
       }
     }
     if (added) {
-      stream->AddTrack(track_);
+      stream->AddTrack(track_.get());
     }
   }
   streams_ = streams;

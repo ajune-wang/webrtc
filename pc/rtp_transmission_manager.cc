@@ -177,7 +177,7 @@ RtpTransmissionManager::AddTrackUnifiedPlan(
       transceiver->internal()->set_direction(
           RtpTransceiverDirection::kSendOnly);
     }
-    transceiver->sender()->SetTrack(track);
+    transceiver->sender()->SetTrack(track.get());
     transceiver->internal()->sender_internal()->set_stream_ids(stream_ids);
     transceiver->internal()->set_reused_for_addtrack(true);
   } else {
@@ -217,17 +217,18 @@ RtpTransmissionManager::CreateSender(
                (track->kind() == MediaStreamTrackInterface::kAudioKind));
     sender = RtpSenderProxyWithInternal<RtpSenderInternal>::Create(
         signaling_thread(),
-        AudioRtpSender::Create(worker_thread(), id, stats_, this));
+        AudioRtpSender::Create(worker_thread(), id, stats_, this).get());
     NoteUsageEvent(UsageEvent::AUDIO_ADDED);
   } else {
     RTC_DCHECK_EQ(media_type, cricket::MEDIA_TYPE_VIDEO);
     RTC_DCHECK(!track ||
                (track->kind() == MediaStreamTrackInterface::kVideoKind));
     sender = RtpSenderProxyWithInternal<RtpSenderInternal>::Create(
-        signaling_thread(), VideoRtpSender::Create(worker_thread(), id, this));
+        signaling_thread(),
+        VideoRtpSender::Create(worker_thread(), id, this).get());
     NoteUsageEvent(UsageEvent::VIDEO_ADDED);
   }
-  bool set_track_succeeded = sender->SetTrack(track);
+  bool set_track_succeeded = sender->SetTrack(track.get());
   RTC_DCHECK(set_track_succeeded);
   sender->internal()->set_stream_ids(stream_ids);
   sender->internal()->set_init_send_encodings(send_encodings);
@@ -245,14 +246,16 @@ RtpTransmissionManager::CreateReceiver(cricket::MediaType media_type,
         signaling_thread(), worker_thread(),
         rtc::make_ref_counted<AudioRtpReceiver>(worker_thread(), receiver_id,
                                                 std::vector<std::string>({}),
-                                                IsUnifiedPlan()));
+                                                IsUnifiedPlan())
+            .get());
     NoteUsageEvent(UsageEvent::AUDIO_ADDED);
   } else {
     RTC_DCHECK_EQ(media_type, cricket::MEDIA_TYPE_VIDEO);
     receiver = RtpReceiverProxyWithInternal<RtpReceiverInternal>::Create(
         signaling_thread(), worker_thread(),
         rtc::make_ref_counted<VideoRtpReceiver>(worker_thread(), receiver_id,
-                                                std::vector<std::string>({})));
+                                                std::vector<std::string>({}))
+            .get());
     NoteUsageEvent(UsageEvent::VIDEO_ADDED);
   }
   return receiver;
@@ -409,7 +412,7 @@ void RtpTransmissionManager::RemoveAudioTrack(AudioTrackInterface* track,
                         << " doesn't exist.";
     return;
   }
-  GetAudioTransceiver()->internal()->RemoveSender(sender);
+  GetAudioTransceiver()->internal()->RemoveSender(sender.get());
 }
 
 void RtpTransmissionManager::AddVideoTrack(VideoTrackInterface* track,
@@ -448,7 +451,7 @@ void RtpTransmissionManager::RemoveVideoTrack(VideoTrackInterface* track,
                         << " doesn't exist.";
     return;
   }
-  GetVideoTransceiver()->internal()->RemoveSender(sender);
+  GetVideoTransceiver()->internal()->RemoveSender(sender.get());
 }
 
 void RtpTransmissionManager::CreateAudioReceiver(
@@ -469,7 +472,7 @@ void RtpTransmissionManager::CreateAudioReceiver(
   }
 
   auto receiver = RtpReceiverProxyWithInternal<RtpReceiverInternal>::Create(
-      signaling_thread(), worker_thread(), std::move(audio_receiver));
+      signaling_thread(), worker_thread(), std::move(audio_receiver).get());
   GetAudioTransceiver()->internal()->AddReceiver(receiver);
   Observer()->OnAddTrack(receiver, streams);
   NoteUsageEvent(UsageEvent::AUDIO_ADDED);
@@ -493,7 +496,7 @@ void RtpTransmissionManager::CreateVideoReceiver(
       video_media_channel());
 
   auto receiver = RtpReceiverProxyWithInternal<RtpReceiverInternal>::Create(
-      signaling_thread(), worker_thread(), std::move(video_receiver));
+      signaling_thread(), worker_thread(), std::move(video_receiver).get());
   GetVideoTransceiver()->internal()->AddReceiver(receiver);
   Observer()->OnAddTrack(receiver, streams);
   NoteUsageEvent(UsageEvent::VIDEO_ADDED);
@@ -511,9 +514,9 @@ RtpTransmissionManager::RemoveAndStopReceiver(
     return nullptr;
   }
   if (receiver->media_type() == cricket::MEDIA_TYPE_AUDIO) {
-    GetAudioTransceiver()->internal()->RemoveReceiver(receiver);
+    GetAudioTransceiver()->internal()->RemoveReceiver(receiver.get());
   } else {
-    GetVideoTransceiver()->internal()->RemoveReceiver(receiver);
+    GetVideoTransceiver()->internal()->RemoveReceiver(receiver.get());
   }
   return receiver;
 }
@@ -553,7 +556,7 @@ void RtpTransmissionManager::OnRemoteSenderRemoved(
     rtc::scoped_refptr<AudioTrackInterface> audio_track =
         stream->FindAudioTrack(sender_info.sender_id);
     if (audio_track) {
-      stream->RemoveTrack(audio_track);
+      stream->RemoveTrack(audio_track.get());
     }
   } else if (media_type == cricket::MEDIA_TYPE_VIDEO) {
     // Stopping or destroying a VideoRtpReceiver will end the
@@ -564,7 +567,7 @@ void RtpTransmissionManager::OnRemoteSenderRemoved(
     if (video_track) {
       // There's no guarantee the track is still available, e.g. the track may
       // have been removed from the stream by an application.
-      stream->RemoveTrack(video_track);
+      stream->RemoveTrack(video_track.get());
     }
   } else {
     RTC_DCHECK_NOTREACHED() << "Invalid media type";

@@ -170,7 +170,7 @@ class FakePeerConnectionForStats : public FakePeerConnectionBase {
       rtc::scoped_refptr<RtpSenderInternal> sender) {
     // TODO(steveanton): Switch tests to use RtpTransceivers directly.
     auto sender_proxy = RtpSenderProxyWithInternal<RtpSenderInternal>::Create(
-        signaling_thread_, sender);
+        signaling_thread_, sender.get());
     GetOrCreateFirstTransceiverOfType(sender->media_type())
         ->internal()
         ->AddSender(sender_proxy);
@@ -180,7 +180,7 @@ class FakePeerConnectionForStats : public FakePeerConnectionBase {
   void RemoveSender(rtc::scoped_refptr<RtpSenderInterface> sender) {
     GetOrCreateFirstTransceiverOfType(sender->media_type())
         ->internal()
-        ->RemoveSender(sender);
+        ->RemoveSender(sender.get());
   }
 
   rtc::scoped_refptr<RtpReceiverInterface> AddReceiver(
@@ -188,7 +188,7 @@ class FakePeerConnectionForStats : public FakePeerConnectionBase {
     // TODO(steveanton): Switch tests to use RtpTransceivers directly.
     auto receiver_proxy =
         RtpReceiverProxyWithInternal<RtpReceiverInternal>::Create(
-            signaling_thread_, worker_thread_, receiver);
+            signaling_thread_, worker_thread_, receiver.get());
     GetOrCreateFirstTransceiverOfType(receiver->media_type())
         ->internal()
         ->AddReceiver(receiver_proxy);
@@ -198,7 +198,7 @@ class FakePeerConnectionForStats : public FakePeerConnectionBase {
   void RemoveReceiver(rtc::scoped_refptr<RtpReceiverInterface> receiver) {
     GetOrCreateFirstTransceiverOfType(receiver->media_type())
         ->internal()
-        ->RemoveReceiver(receiver);
+        ->RemoveReceiver(receiver.get());
   }
 
   FakeVoiceMediaChannelForStats* AddVoiceChannel(

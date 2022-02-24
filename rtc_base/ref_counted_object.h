@@ -142,29 +142,31 @@ class FinalRefCountedObject final : public T {
 // Note that in some cases, using RefCountedObject directly may still be what's
 // needed.
 
-// `make_ref_counted` for classes that are convertible to RefCountInterface.
-template <typename T,
-          typename... Args,
-          typename std::enable_if<std::is_convertible_v<T*, RefCountInterface*>,
-                                  T>::type* = nullptr>
+// `make_ref_counted` for abstract classes that are convertible to
+// RefCountInterface.
+template <
+    typename T,
+    typename... Args,
+    typename std::enable_if<std::is_convertible_v<T*, RefCountInterface*> &&
+                                std::is_abstract_v<T>,
+                            T>::type* = nullptr>
 scoped_refptr<T> make_ref_counted(Args&&... args) {
   return scoped_refptr<T>(new RefCountedObject<T>(std::forward<Args>(args)...));
 }
 
-// `make_ref_counted` for complete classes that are not convertible to
-// RefCountInterface and already carry a ref count.
-template <
-    typename T,
-    typename... Args,
-    typename std::enable_if<
-        !std::is_convertible_v<T*, RefCountInterface*> &&
-            webrtc_make_ref_counted_internal::HasAddRefAndRelease<T>::value,
-        T>::type* = nullptr>
+// `make_ref_counted` for complete (non-abstract) that already carry a ref
+// count.
+template <typename T,
+          typename... Args,
+          typename std::enable_if<
+              webrtc_make_ref_counted_internal::HasAddRefAndRelease<T>::value &&
+                  !std::is_abstract_v<T>,
+              T>::type* = nullptr>
 scoped_refptr<T> make_ref_counted(Args&&... args) {
   return scoped_refptr<T>(new T(std::forward<Args>(args)...));
 }
 
-// `make_ref_counted` for complete classes that are not convertible to
+// `make_ref_counted` for classes that are not convertible to
 // RefCountInterface and have no ref count of their own.
 template <
     typename T,

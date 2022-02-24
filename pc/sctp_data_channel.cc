@@ -162,7 +162,7 @@ rtc::scoped_refptr<DataChannelInterface> SctpDataChannel::CreateProxy(
   // As is, the proxy has a raw pointer and no reference to the channel object
   // and trusting that the lifetime management aligns with the
   // sctp_data_channels_ array in SctpDataChannelController.
-  return DataChannelProxy::Create(channel->signaling_thread_, channel.get());
+  return DataChannelProxy::Create(channel->signaling_thread_, channel);
 }
 
 SctpDataChannel::SctpDataChannel(const InternalDataChannelInit& config,

@@ -369,6 +369,7 @@ TCPConnection::TCPConnection(TCPPort* port,
 
 TCPConnection::~TCPConnection() {
   RTC_DCHECK_RUN_ON(network_thread_);
+  DisconnectSocketSignals(socket_.get());
 }
 
 int TCPConnection::Send(const void* data,
@@ -555,6 +556,7 @@ void TCPConnection::CreateOutgoingTcpSocket() {
                  : 0;
   rtc::PacketSocketTcpOptions tcp_opts;
   tcp_opts.opts = opts;
+  DisconnectSocketSignals(socket_.get());
   socket_.reset(port()->socket_factory()->CreateClientTcpSocket(
       rtc::SocketAddress(port()->Network()->GetBestIP(), 0),
       remote_candidate().address(), port()->proxy(), port()->user_agent(),
@@ -587,6 +589,17 @@ void TCPConnection::ConnectSocketSignals(rtc::AsyncPacketSocket* socket) {
   socket->SignalReadPacket.connect(this, &TCPConnection::OnReadPacket);
   socket->SignalReadyToSend.connect(this, &TCPConnection::OnReadyToSend);
   socket->SignalClose.connect(this, &TCPConnection::OnClose);
+}
+
+void TCPConnection::DisconnectSocketSignals(rtc::AsyncPacketSocket* socket) {
+  if (!socket)
+    return;
+  if (outgoing_) {
+    socket->SignalConnect.disconnect(this);
+  }
+  socket->SignalReadPacket.disconnect(this);
+  socket->SignalReadyToSend.disconnect(this);
+  socket->SignalClose.disconnect(this);
 }
 
 }  // namespace cricket

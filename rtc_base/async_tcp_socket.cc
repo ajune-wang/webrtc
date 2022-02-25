@@ -68,7 +68,6 @@ AsyncTCPSocketBase::AsyncTCPSocketBase(Socket* socket,
       max_outsize_(max_packet_size) {
   inbuf_.EnsureCapacity(kMinimumRecvSize);
 
-  RTC_DCHECK(socket_.get() != nullptr);
   socket_->SignalConnectEvent.connect(this,
                                       &AsyncTCPSocketBase::OnConnectEvent);
   socket_->SignalReadEvent.connect(this, &AsyncTCPSocketBase::OnReadEvent);
@@ -76,7 +75,12 @@ AsyncTCPSocketBase::AsyncTCPSocketBase(Socket* socket,
   socket_->SignalCloseEvent.connect(this, &AsyncTCPSocketBase::OnCloseEvent);
 }
 
-AsyncTCPSocketBase::~AsyncTCPSocketBase() {}
+AsyncTCPSocketBase::~AsyncTCPSocketBase() {
+  socket_->SignalConnectEvent.disconnect(this);
+  socket_->SignalReadEvent.disconnect(this);
+  socket_->SignalWriteEvent.disconnect(this);
+  socket_->SignalCloseEvent.disconnect(this);
+}
 
 SocketAddress AsyncTCPSocketBase::GetLocalAddress() const {
   return socket_->GetLocalAddress();

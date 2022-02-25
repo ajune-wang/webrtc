@@ -836,6 +836,11 @@ void Connection::Destroy() {
   RTC_DCHECK_RUN_ON(network_thread_);
   RTC_DLOG(LS_VERBOSE) << ToString() << ": Connection destroyed";
 
+  if (pending_delete_)
+    return;
+
+  pending_delete_ = true;
+
   // Fire the 'destroyed' event before deleting the object. This is done
   // intentionally to avoid a situation whereby the signal might have dangling
   // pointers to objects that have been deleted by the time the async task

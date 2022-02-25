@@ -635,6 +635,18 @@ TEST_P(FrameBufferProxyTest, TestStatsCallback) {
   time_controller_.AdvanceTime(TimeDelta::Zero());
 }
 
+TEST_P(FrameBufferProxyTest, FrameCompleteCalledOnceForDuplicateFrame) {
+  EXPECT_CALL(stats_callback_,
+              OnCompleteFrame(true, kFrameSize, VideoContentType::UNSPECIFIED))
+      .Times(1);
+
+  StartNextDecodeForceKeyframe();
+  proxy_->InsertFrame(Builder().Id(0).Time(0).AsLast().Build());
+  proxy_->InsertFrame(Builder().Id(0).Time(0).AsLast().Build());
+  // Flush stats posted on the decode queue.
+  time_controller_.AdvanceTime(TimeDelta::Zero());
+}
+
 // Note: This test takes a long time to run if the fake metronome is active.
 // Since the test needs to wait for the timestamp to rollover, it has a fake
 // delay of around 6.5 hours. Even though time is simulated, this will be

@@ -39,8 +39,8 @@ class FrameBuffer {
   ~FrameBuffer() = default;
 
   // Inserted frames may only reference backwards, and must have no duplicate
-  // references.
-  void InsertFrame(std::unique_ptr<EncodedFrame> frame);
+  // references. Returns true if the frame was inserted successfully.
+  bool InsertFrame(std::unique_ptr<EncodedFrame> frame);
 
   // Mark all frames belonging to the next decodable temporal unit as decoded
   // and returns them.

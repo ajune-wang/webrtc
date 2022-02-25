@@ -81,12 +81,14 @@ class Builder {
 TEST(FrameBuffer3Test, RejectInvalidRefs) {
   FrameBuffer buffer(/*max_frame_slots=*/10, /*max_decode_history=*/100);
   // Ref must be less than the id of this frame.
-  buffer.InsertFrame(Builder().Time(0).Id(0).Refs({0}).AsLast().Build());
+  EXPECT_FALSE(
+      buffer.InsertFrame(Builder().Time(0).Id(0).Refs({0}).AsLast().Build()));
   EXPECT_THAT(buffer.LastContinuousFrameId(), Eq(absl::nullopt));
 
   // Duplicate ids are also invalid.
-  buffer.InsertFrame(Builder().Time(10).Id(1).AsLast().Build());
-  buffer.InsertFrame(Builder().Time(20).Id(2).Refs({1, 1}).AsLast().Build());
+  EXPECT_TRUE(buffer.InsertFrame(Builder().Time(10).Id(1).AsLast().Build()));
+  EXPECT_FALSE(buffer.InsertFrame(
+      Builder().Time(20).Id(2).Refs({1, 1}).AsLast().Build()));
   EXPECT_THAT(buffer.LastContinuousFrameId(), Eq(1));
 }
 
@@ -223,9 +225,11 @@ TEST(FrameBuffer3Test, OldFramesAreIgnored) {
   buffer.ExtractNextDecodableTemporalUnit();
   buffer.ExtractNextDecodableTemporalUnit();
 
-  buffer.InsertFrame(Builder().Time(10).Id(1).AsLast().Build());
-  buffer.InsertFrame(Builder().Time(20).Id(2).Refs({1}).AsLast().Build());
-  buffer.InsertFrame(Builder().Time(30).Id(3).Refs({1}).AsLast().Build());
+  EXPECT_FALSE(buffer.InsertFrame(Builder().Time(10).Id(1).AsLast().Build()));
+  EXPECT_FALSE(
+      buffer.InsertFrame(Builder().Time(20).Id(2).Refs({1}).AsLast().Build()));
+  EXPECT_TRUE(
+      buffer.InsertFrame(Builder().Time(30).Id(3).Refs({1}).AsLast().Build()));
 
   EXPECT_THAT(buffer.ExtractNextDecodableTemporalUnit(),
               ElementsAre(FrameWithId(3)));
@@ -287,7 +291,7 @@ TEST(FrameBuffer3Test, LegacyFrameIdJumpBehavior) {
   }
 
   {
-    // WebRTC-LegacyFrameIdJumpBehavior is disabled by default.
+    // WebRTC-LegacyFrameIdJumpBehavior is enabled by default.
     FrameBuffer buffer(/*max_frame_slots=*/10, /*max_decode_history=*/100);
 
     buffer.InsertFrame(Builder().Time(20).Id(3).AsLast().Build());

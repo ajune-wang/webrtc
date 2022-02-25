@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "ea6c7c23_0bdbebe8",
+        "filename": "p2p/base/connection.cc",
+        "patchSetId": 6
+      },
+      "lineNbr": 849,
+      "author": {
+        "id": 5053
+      },
+      "writtenOn": "2022-02-25T21:40:43Z",
+      "side": 1,
+      "message": "Can\u0027t we just do:\n\n  if (destruction_scheduled_) {\n    return;\n  }\n  destruction_scheduled_ \u003d true;\n  \nTo handle other cases where Destroy may be called multiple times?",
+      "revId": "e6d9eb1fecea7afceb3c59bdb76485c6696d9f07",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

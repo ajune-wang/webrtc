@@ -1,0 +1,73 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "624e043d_c64b1504",
+        "filename": "modules/video_coding/frame_buffer3.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 101,
+      "author": {
+        "id": 5527
+      },
+      "writtenOn": "2022-02-25T16:40:24Z",
+      "side": 1,
+      "message": "We have throttled logging on line 115 (when the buffer becomes full), and then logging on line 96 when the buffer is cleared, so this is probably not needed, you decide.",
+      "range": {
+        "startLine": 101,
+        "startChar": 0,
+        "endLine": 101,
+        "endChar": 50
+      },
+      "revId": "837dff2d12844389ce482d175784f45eab4eefdb",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "669ad368_5133c697",
+        "filename": "video/frame_buffer_proxy.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 247,
+      "author": {
+        "id": 5527
+      },
+      "writtenOn": "2022-02-25T16:40:24Z",
+      "side": 1,
+      "message": "I don\u0027t think this is (was) correct. I think the idea is to only log `OnCompleteFrame` for every complete temporal unit, not for every completed frame. You can get that info from `GetTotalNumberOfContinuousTemporalUnits`.",
+      "range": {
+        "startLine": 247,
+        "startChar": 22,
+        "endLine": 247,
+        "endChar": 37
+      },
+      "revId": "837dff2d12844389ce482d175784f45eab4eefdb",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "1fa09431_39e55fe9",
+        "filename": "video/frame_buffer_proxy_unittest.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 638,
+      "author": {
+        "id": 5527
+      },
+      "writtenOn": "2022-02-25T16:40:24Z",
+      "side": 1,
+      "message": "Also add a test with multiple frames in a temporal unit and make sure `OnCompleteFrame` is only called once.",
+      "range": {
+        "startLine": 638,
+        "startChar": 0,
+        "endLine": 638,
+        "endChar": 6
+      },
+      "revId": "837dff2d12844389ce482d175784f45eab4eefdb",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

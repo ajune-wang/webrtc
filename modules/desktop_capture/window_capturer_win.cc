@@ -12,12 +12,33 @@
 #include "modules/desktop_capture/desktop_capturer.h"
 #include "modules/desktop_capture/win/window_capturer_win_gdi.h"
 
+#if defined(RTC_ENABLE_WIN_WGC)
+#include "modules/desktop_capture/blank_detector_desktop_capturer_wrapper.h"
+#include "modules/desktop_capture/fallback_desktop_capturer_wrapper.h"
+#include "modules/desktop_capture/win/wgc_capturer_win.h"
+#include "rtc_base/win/windows_version.h"
+#endif  // defined(RTC_ENABLE_WIN_WGC)
+
 namespace webrtc {
 
 // static
 std::unique_ptr<DesktopCapturer> DesktopCapturer::CreateRawWindowCapturer(
     const DesktopCaptureOptions& options) {
-  return WindowCapturerWinGdi::CreateRawWindowCapturer(options);
+  std::unique_ptr<DesktopCapturer> capturer(
+      WindowCapturerWinGdi::CreateRawWindowCapturer(options));
+#if defined(RTC_ENABLE_WIN_WGC)
+  if (rtc::rtc_win::GetVersion() >= rtc::rtc_win::Version::VERSION_WIN10_RS5) {
+    // BlankDectector capturer will send an error when it detects a failed
+    // GDI rendering, then Fallback capturer will try to capture it again with
+    // WGC.
+    capturer.reset(new BlankDetectorDesktopCapturerWrapper(
+        std::move(capturer), RgbaColor(0, 0, 0, 0)));
+
+    capturer.reset(new FallbackDesktopCapturerWrapper(
+        std::move(capturer), WgcCapturerWin::CreateRawWindowCapturer(options)));
+  }
+#endif  // defined(RTC_ENABLE_WIN_WGC)
+  return capturer;
 }
 
 }  // namespace webrtc

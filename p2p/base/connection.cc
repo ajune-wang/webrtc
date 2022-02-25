@@ -832,8 +832,7 @@ void Connection::Prune() {
   }
 }
 
-void Connection::Destroy() {
-  RTC_DCHECK_RUN_ON(network_thread_);
+void Connection::PreDestroy() {
   RTC_DLOG(LS_VERBOSE) << ToString() << ": Connection destroyed";
 
   // Fire the 'destroyed' event before deleting the object. This is done
@@ -844,6 +843,11 @@ void Connection::Destroy() {
   SignalDestroyed.disconnect_all();
 
   LogCandidatePairConfig(webrtc::IceCandidatePairConfigType::kDestroyed);
+}
+
+void Connection::Destroy() {
+  RTC_DCHECK_RUN_ON(network_thread_);
+  PreDestroy();
 
   // Unwind the stack before deleting the object in case upstream callers
   // need to refer to the Connection's state as part of teardown.
@@ -853,6 +857,12 @@ void Connection::Destroy() {
   // to `Destroy()`.
   network_thread_->PostTask(
       webrtc::ToQueuedTask([me = absl::WrapUnique(this)]() {}));
+}
+
+void Connection::DestroySynchronously() {
+  RTC_DCHECK_RUN_ON(network_thread_);
+  PreDestroy();
+  delete this;
 }
 
 void Connection::FailAndDestroy() {

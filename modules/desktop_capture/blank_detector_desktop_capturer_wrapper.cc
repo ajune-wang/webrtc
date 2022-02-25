@@ -56,6 +56,12 @@ bool BlankDetectorDesktopCapturerWrapper::GetSourceList(SourceList* sources) {
 }
 
 bool BlankDetectorDesktopCapturerWrapper::SelectSource(SourceId id) {
+#if defined(RTC_ENABLE_WIN_WGC)
+  // It will inspect individual screen and window for every capture so that
+  // it can detect blank on random window, not a first window in frame dialog.
+  is_first_frame_ = true;
+  non_blank_frame_received_ = false;
+#endif
   return capturer_->SelectSource(id);
 }
 

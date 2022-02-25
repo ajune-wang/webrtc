@@ -16,6 +16,24 @@
       "message": "Can\u0027t we just do:\n\n  if (destruction_scheduled_) {\n    return;\n  }\n  destruction_scheduled_ \u003d true;\n  \nTo handle other cases where Destroy may be called multiple times?",
       "revId": "e6d9eb1fecea7afceb3c59bdb76485c6696d9f07",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "f4c1f230_369f07b1",
+        "filename": "p2p/base/connection.cc",
+        "patchSetId": 6
+      },
+      "lineNbr": 849,
+      "author": {
+        "id": 5508
+      },
+      "writtenOn": "2022-02-25T21:46:03Z",
+      "side": 1,
+      "message": "We could, but I doubt that this is a one off situation. I\u0027d rather move towards the direction of deletion being deterministic and eventually get to deleting the object without using PostTask.",
+      "parentUuid": "ea6c7c23_0bdbebe8",
+      "revId": "e6d9eb1fecea7afceb3c59bdb76485c6696d9f07",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

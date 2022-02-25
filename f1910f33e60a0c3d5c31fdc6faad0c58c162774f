@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "0af2fccf_f170a91f",
+        "filename": "rtc_base/ref_counted_object.h",
+        "patchSetId": 4
+      },
+      "lineNbr": 151,
+      "author": {
+        "id": 5508
+      },
+      "writtenOn": "2022-02-25T12:02:09Z",
+      "side": 1,
+      "message": "since RefCountInterface is an abstract interface, what change does this make?\n\nBtw, I don\u0027t suppose there\u0027s a way to catch if T already inherits from RefCountedObject somehow? (and report an error for such cases)",
+      "revId": "f1910f33e60a0c3d5c31fdc6faad0c58c162774f",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

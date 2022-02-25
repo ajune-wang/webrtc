@@ -1232,6 +1232,91 @@ TEST_F(PortTest, TestTcpReconnectOnPing) {
   TestTcpReconnect(true /* ping */, false /* send */);
 }
 
+TEST_F(PortTest, TestTcpReconnectNoDestroy) {
+  rtc::ScopedFakeClock clock;
+  auto port1 = CreateTcpPort(kLocalAddr1);
+  port1->SetIceRole(cricket::ICEROLE_CONTROLLING);
+  auto port2 = CreateTcpPort(kLocalAddr2);
+  port2->SetIceRole(cricket::ICEROLE_CONTROLLED);
+
+  port1->set_component(cricket::ICE_CANDIDATE_COMPONENT_DEFAULT);
+  port2->set_component(cricket::ICE_CANDIDATE_COMPONENT_DEFAULT);
+
+  // Set up channels and ensure both ports will be deleted.
+  TestChannel ch1(std::move(port1));
+  TestChannel ch2(std::move(port2));
+  EXPECT_EQ(0, ch1.complete_count());
+  EXPECT_EQ(0, ch2.complete_count());
+
+  ch1.Start();
+  ch2.Start();
+  ASSERT_EQ_WAIT(1, ch1.complete_count(), kDefaultTimeout);
+  ASSERT_EQ_WAIT(1, ch2.complete_count(), kDefaultTimeout);
+
+  // Initial connecting the channel, create connection on channel1.
+  ch1.CreateConnection(GetCandidate(ch2.port()));
+  ConnectStartedChannels(&ch1, &ch2);
+
+  auto* tcp1 = static_cast<TCPConnection*>(ch1.conn());
+  auto* tcp2 = static_cast<TCPConnection*>(ch2.conn());
+
+  // We have a fake clock, let's set a fake 10ms reconnection timeout.
+  tcp1->set_reconnection_timeout(10);
+  tcp2->set_reconnection_timeout(10);
+  EXPECT_FALSE(ch1.connection_ready_to_send());
+  EXPECT_FALSE(ch2.connection_ready_to_send());
+
+  // Since we're taking some shortcuts in this particular test, disconnect
+  // one callback that'll trigger when we call `OnReceivedResponse()` directly.
+  tcp1->SignalReadyToSend.disconnect(&ch1);
+
+  // At this point, tcp1 is actually writable (not _pretenting_ to be).
+  EXPECT_FALSE(tcp1->pretending_to_be_writable());
+  EXPECT_TRUE(tcp1->connected());
+
+  // Fake that the socket is closing. That will move tcp1 into a state of
+  // pretending to be writable - but the actual `connected()` state will be
+  // `false`.
+  tcp1->socket()->SignalClose(tcp1->socket(), -1);
+  EXPECT_TRUE(tcp1->pretending_to_be_writable());
+  EXPECT_FALSE(tcp1->connected());
+
+  // When the socket notification was delivered, TCPConnection started a timer
+  // that expires after `tcp1->reconnection_timeout()`. Once triggered, the
+  // timer will trigger a call to Connection::Destroy().
+
+  // Here we inject an identical timer that triggers immediately after.
+  // We use that to simulate receiving a connection response in between the
+  // state when a call to Destroy() has been triggered but the object has not
+  // actually been deleted.
+  tcp1->network_thread()->PostDelayedTask(
+      webrtc::ToQueuedTask([&]() {
+        // Pretend that we've received a response while there's a pending
+        // delete.
+        tcp1->OnReceivedResponse();
+        // The state will now have gone back to actually being writable, but
+        // still not connected.
+        EXPECT_FALSE(tcp1->pretending_to_be_writable());
+#if 0
+        EXPECT_FALSE(tcp1->connected());
+#endif
+        // Now simulate the socket closing again. Since we're not connected and
+        // not pretending to be writable, this will trigger another call to
+        // Connection::Destroy().
+        tcp1->socket()->SignalClose(tcp1->socket(), -1);
+      }),
+      tcp1->reconnection_timeout());
+
+  // Now let some time go by.
+  clock.AdvanceTime(webrtc::TimeDelta::Millis(10));
+
+  // Tear down and ensure that goes smoothly.
+  ch1.Stop();
+  ch2.Stop();
+  EXPECT_TRUE_WAIT(ch1.conn() == NULL, kDefaultTimeout);
+  EXPECT_TRUE_WAIT(ch2.conn() == NULL, kDefaultTimeout);
+}
+
 TEST_F(PortTest, TestTcpReconnectTimeout) {
   TestTcpReconnect(false /* ping */, false /* send */);
 }

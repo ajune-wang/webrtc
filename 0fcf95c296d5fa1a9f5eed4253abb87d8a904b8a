@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "4400ab98_0d14da1c",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5053
+      },
+      "writtenOn": "2022-02-25T02:48:53Z",
+      "side": 1,
+      "message": "Need to revert https://webrtc-review.googlesource.com/c/src/+/252542 first",
+      "revId": "0fcf95c296d5fa1a9f5eed4253abb87d8a904b8a",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

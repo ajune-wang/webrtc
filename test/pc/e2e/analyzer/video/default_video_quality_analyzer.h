@@ -49,7 +49,7 @@ class DefaultVideoQualityAnalyzer : public VideoQualityAnalyzerInterface {
              rtc::ArrayView<const std::string> peer_names,
              int max_threads_count) override;
   uint16_t OnFrameCaptured(absl::string_view peer_name,
-                           const std::string& stream_label,
+                           const absl::string_view stream_label,
                            const VideoFrame& frame) override;
   void OnFramePreEncode(absl::string_view peer_name,
                         const VideoFrame& frame) override;
@@ -305,19 +305,19 @@ class DefaultVideoQualityAnalyzer : public VideoQualityAnalyzerInterface {
 
   // Report results for all metrics for all streams.
   void ReportResults();
-  void ReportResults(const std::string& test_case_name,
+  void ReportResults(const absl::string_view test_case_name,
                      const StreamStats& stats,
                      const FrameCounters& frame_counters)
       RTC_EXCLUSIVE_LOCKS_REQUIRED(mutex_);
   // Report result for single metric for specified stream.
-  static void ReportResult(const std::string& metric_name,
-                           const std::string& test_case_name,
+  static void ReportResult(const absl::string_view metric_name,
+                           const absl::string_view test_case_name,
                            const SamplesStatsCounter& counter,
-                           const std::string& unit,
+                           const absl::string_view unit,
                            webrtc::test::ImproveDirection improve_direction =
                                webrtc::test::ImproveDirection::kNone);
   // Returns name of current test case for reporting.
-  std::string GetTestCaseName(const std::string& stream_label) const;
+  std::string GetTestCaseName(const absl::string_view stream_label) const;
   Timestamp Now();
   StatsKey ToStatsKey(const InternalStatsKey& key) const
       RTC_EXCLUSIVE_LOCKS_REQUIRED(mutex_);

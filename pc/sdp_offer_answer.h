@@ -126,10 +126,10 @@ class SdpOfferAnswerHandler : public SdpStateProvider,
   const SessionDescriptionInterface* pending_remote_description()
       const override;
 
-  bool NeedsIceRestart(const std::string& content_name) const override;
-  bool IceRestartPending(const std::string& content_name) const override;
+  bool NeedsIceRestart(const absl::string_view content_name) const override;
+  bool IceRestartPending(const absl::string_view content_name) const override;
   absl::optional<rtc::SSLRole> GetDtlsRole(
-      const std::string& mid) const override;
+      const absl::string_view mid) const override;
 
   void RestartIce();
 
@@ -540,9 +540,9 @@ class SdpOfferAnswerHandler : public SdpStateProvider,
   RTCError CreateChannels(const cricket::SessionDescription& desc);
 
   // Helper methods to create media channels.
-  cricket::VoiceChannel* CreateVoiceChannel(const std::string& mid);
-  cricket::VideoChannel* CreateVideoChannel(const std::string& mid);
-  bool CreateDataChannel(const std::string& mid);
+  cricket::VoiceChannel* CreateVoiceChannel(const absl::string_view mid);
+  cricket::VideoChannel* CreateVideoChannel(const absl::string_view mid);
+  bool CreateDataChannel(const absl::string_view mid);
 
   // Destroys the RTP data channel transport and/or the SCTP data channel
   // transport and clears it.
@@ -562,12 +562,12 @@ class SdpOfferAnswerHandler : public SdpStateProvider,
   // Generates the active MediaDescriptionOptions for the local data channel
   // given the specified MID.
   cricket::MediaDescriptionOptions GetMediaDescriptionOptionsForActiveData(
-      const std::string& mid) const;
+      const absl::string_view mid) const;
 
   // Generates the rejected MediaDescriptionOptions for the local data channel
   // given the specified MID.
   cricket::MediaDescriptionOptions GetMediaDescriptionOptionsForRejectedData(
-      const std::string& mid) const;
+      const absl::string_view mid) const;
 
   // Based on number of transceivers per media type, enabled or disable
   // payload type based demuxing in the affected channels.
@@ -577,7 +577,7 @@ class SdpOfferAnswerHandler : public SdpStateProvider,
           bundle_groups_by_mid);
 
   // Updates the error state, signaling if necessary.
-  void SetSessionError(SessionError error, const std::string& error_desc);
+  void SetSessionError(SessionError error, const absl::string_view error_desc);
 
   // Implements AddIceCandidate without reporting usage, but returns the
   // particular success/error value that should be reported (and can be utilized

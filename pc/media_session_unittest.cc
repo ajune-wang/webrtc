@@ -316,7 +316,7 @@ static std::vector<std::string> GetCodecNames(const std::vector<T>& codecs) {
 // MediaDescriptionOptions since some end points may not support MID and the SDP
 // may not contain 'mid'.
 std::vector<MediaDescriptionOptions>::iterator FindFirstMediaDescriptionByMid(
-    const std::string& mid,
+    const absl::string_view mid,
     MediaSessionOptions* opts) {
   return absl::c_find_if(
       opts->media_description_options,
@@ -324,7 +324,7 @@ std::vector<MediaDescriptionOptions>::iterator FindFirstMediaDescriptionByMid(
 }
 
 std::vector<MediaDescriptionOptions>::const_iterator
-FindFirstMediaDescriptionByMid(const std::string& mid,
+FindFirstMediaDescriptionByMid(const absl::string_view mid,
                                const MediaSessionOptions& opts) {
   return absl::c_find_if(
       opts.media_description_options,
@@ -333,7 +333,7 @@ FindFirstMediaDescriptionByMid(const std::string& mid,
 
 // Add a media section to the `session_options`.
 static void AddMediaDescriptionOptions(MediaType type,
-                                       const std::string& mid,
+                                       const absl::string_view mid,
                                        RtpTransceiverDirection direction,
                                        bool stopped,
                                        MediaSessionOptions* opts) {
@@ -355,9 +355,9 @@ static void AddDataSection(RtpTransceiverDirection direction,
 }
 
 static void AttachSenderToMediaDescriptionOptions(
-    const std::string& mid,
+    const absl::string_view mid,
     MediaType type,
-    const std::string& track_id,
+    const absl::string_view track_id,
     const std::vector<std::string>& stream_ids,
     const std::vector<RidDescription>& rids,
     const SimulcastLayerList& simulcast_layers,
@@ -378,9 +378,9 @@ static void AttachSenderToMediaDescriptionOptions(
 }
 
 static void AttachSenderToMediaDescriptionOptions(
-    const std::string& mid,
+    const absl::string_view mid,
     MediaType type,
-    const std::string& track_id,
+    const absl::string_view track_id,
     const std::vector<std::string>& stream_ids,
     int num_sim_layer,
     MediaSessionOptions* session_options) {
@@ -389,8 +389,8 @@ static void AttachSenderToMediaDescriptionOptions(
                                         session_options);
 }
 
-static void DetachSenderFromMediaSection(const std::string& mid,
-                                         const std::string& track_id,
+static void DetachSenderFromMediaSection(const absl::string_view mid,
+                                         const absl::string_view track_id,
                                          MediaSessionOptions* session_options) {
   std::vector<cricket::SenderOptions>& sender_options_list =
       FindFirstMediaDescriptionByMid(mid, session_options)->sender_options;
@@ -2441,7 +2441,7 @@ MATCHER(RidDescriptionEquals, "Verifies that two RidDescriptions are equal.") {
 
 static void CheckSimulcastInSessionDescription(
     const SessionDescription* description,
-    const std::string& content_name,
+    const absl::string_view content_name,
     const std::vector<RidDescription>& send_rids,
     const SimulcastLayerList& send_layers) {
   ASSERT_NE(description, nullptr);

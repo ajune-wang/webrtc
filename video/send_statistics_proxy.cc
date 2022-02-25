@@ -65,7 +65,7 @@ const char* GetUmaPrefix(VideoEncoderConfig::ContentType content_type) {
 }
 
 HistogramCodecType PayloadNameToHistogramCodecType(
-    const std::string& payload_name) {
+    const absl::string_view payload_name) {
   VideoCodecType codecType = PayloadStringToCodecType(payload_name);
   switch (codecType) {
     case kVideoCodecVP8:
@@ -79,7 +79,7 @@ HistogramCodecType PayloadNameToHistogramCodecType(
   }
 }
 
-void UpdateCodecTypeHistogram(const std::string& payload_name) {
+void UpdateCodecTypeHistogram(const absl::string_view payload_name) {
   RTC_HISTOGRAM_ENUMERATION("WebRTC.Video.Encoder.CodecType",
                             PayloadNameToHistogramCodecType(payload_name),
                             kVideoMax);
@@ -92,7 +92,7 @@ bool IsForcedFallbackPossible(const CodecSpecificInfo* codec_info,
           codec_info->codecSpecific.VP8.temporalIdx == kNoTemporalIdx);
 }
 
-absl::optional<int> GetFallbackMaxPixels(const std::string& group) {
+absl::optional<int> GetFallbackMaxPixels(const absl::string_view group) {
   if (group.empty())
     return absl::nullopt;
 
@@ -1048,7 +1048,7 @@ void SendStatisticsProxy::OnSendEncodedImage(
 }
 
 void SendStatisticsProxy::OnEncoderImplementationChanged(
-    const std::string& implementation_name) {
+    const absl::string_view implementation_name) {
   MutexLock lock(&mutex_);
   encoder_changed_ = EncoderChangeEvent{stats_.encoder_implementation_name,
                                         implementation_name};

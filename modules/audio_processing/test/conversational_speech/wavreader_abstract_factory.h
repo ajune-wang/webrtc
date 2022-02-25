@@ -24,7 +24,7 @@ class WavReaderAbstractFactory {
  public:
   virtual ~WavReaderAbstractFactory() = default;
   virtual std::unique_ptr<WavReaderInterface> Create(
-      const std::string& filepath) const = 0;
+      const absl::string_view filepath) const = 0;
 };
 
 }  // namespace conversational_speech

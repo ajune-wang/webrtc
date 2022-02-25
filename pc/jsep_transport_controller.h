@@ -99,7 +99,7 @@ class JsepTransportController : public sigslot::has_slots<> {
     // `data_channel_transport` or any fallback transport until
     // `negotiation_state` is final.
     virtual bool OnTransportChanged(
-        const std::string& mid,
+        const absl::string_view mid,
         RtpTransportInternal* rtp_transport,
         rtc::scoped_refptr<DtlsTransport> dtls_transport,
         DataChannelTransportInterface* data_channel_transport) = 0;
@@ -165,18 +165,18 @@ class JsepTransportController : public sigslot::has_slots<> {
 
   // Get transports to be used for the provided `mid`. If bundling is enabled,
   // calling GetRtpTransport for multiple MIDs may yield the same object.
-  RtpTransportInternal* GetRtpTransport(const std::string& mid) const;
-  cricket::DtlsTransportInternal* GetDtlsTransport(const std::string& mid);
+  RtpTransportInternal* GetRtpTransport(const absl::string_view mid) const;
+  cricket::DtlsTransportInternal* GetDtlsTransport(const absl::string_view mid);
   const cricket::DtlsTransportInternal* GetRtcpDtlsTransport(
-      const std::string& mid) const;
+      const absl::string_view mid) const;
   // Gets the externally sharable version of the DtlsTransport.
   rtc::scoped_refptr<webrtc::DtlsTransport> LookupDtlsTransportByMid(
-      const std::string& mid);
+      const absl::string_view mid);
   rtc::scoped_refptr<SctpTransport> GetSctpTransport(
-      const std::string& mid) const;
+      const absl::string_view mid) const;
 
   DataChannelTransportInterface* GetDataChannelTransport(
-      const std::string& mid) const;
+      const absl::string_view mid) const;
 
   /*********************
    * ICE-related methods
@@ -192,12 +192,12 @@ class JsepTransportController : public sigslot::has_slots<> {
   // occurred yet for this transport (by applying a local description with
   // changed ufrag/password). If the transport has been deleted as a result of
   // bundling, returns false.
-  bool NeedsIceRestart(const std::string& mid) const;
+  bool NeedsIceRestart(const absl::string_view mid) const;
   // Start gathering candidates for any new transports, or transports doing an
   // ICE restart.
   void MaybeStartGathering();
   RTCError AddRemoteCandidates(
-      const std::string& mid,
+      const absl::string_view mid,
       const std::vector<cricket::Candidate>& candidates);
   RTCError RemoveRemoteCandidates(
       const std::vector<cricket::Candidate>& candidates);
@@ -210,18 +210,18 @@ class JsepTransportController : public sigslot::has_slots<> {
   bool SetLocalCertificate(
       const rtc::scoped_refptr<rtc::RTCCertificate>& certificate);
   rtc::scoped_refptr<rtc::RTCCertificate> GetLocalCertificate(
-      const std::string& mid) const;
+      const absl::string_view mid) const;
   // Caller owns returned certificate chain. This method mainly exists for
   // stats reporting.
   std::unique_ptr<rtc::SSLCertChain> GetRemoteSSLCertChain(
-      const std::string& mid) const;
+      const absl::string_view mid) const;
   // Get negotiated role, if one has been negotiated.
-  absl::optional<rtc::SSLRole> GetDtlsRole(const std::string& mid) const;
+  absl::optional<rtc::SSLRole> GetDtlsRole(const absl::string_view mid) const;
 
   // TODO(deadbeef): GetStats isn't const because all the way down to
   // OpenSSLStreamAdapter, GetSslCipherSuite and GetDtlsSrtpCryptoSuite are not
   // const. Fix this.
-  bool GetStats(const std::string& mid, cricket::TransportStats* stats);
+  bool GetStats(const absl::string_view mid, cricket::TransportStats* stats);
 
   bool initial_offerer() const { return initial_offerer_ && *initial_offerer_; }
 
@@ -357,16 +357,16 @@ class JsepTransportController : public sigslot::has_slots<> {
   // transports are bundled on (In current implementation, it is the first
   // content in the BUNDLE group).
   const cricket::JsepTransport* GetJsepTransportForMid(
-      const std::string& mid) const RTC_RUN_ON(network_thread_);
-  cricket::JsepTransport* GetJsepTransportForMid(const std::string& mid)
+      const absl::string_view mid) const RTC_RUN_ON(network_thread_);
+  cricket::JsepTransport* GetJsepTransportForMid(const absl::string_view mid)
       RTC_RUN_ON(network_thread_);
 
   // Get the JsepTransport without considering the BUNDLE group. Return nullptr
   // if the JsepTransport is destroyed.
   const cricket::JsepTransport* GetJsepTransportByName(
-      const std::string& transport_name) const RTC_RUN_ON(network_thread_);
+      const absl::string_view transport_name) const RTC_RUN_ON(network_thread_);
   cricket::JsepTransport* GetJsepTransportByName(
-      const std::string& transport_name) RTC_RUN_ON(network_thread_);
+      const absl::string_view transport_name) RTC_RUN_ON(network_thread_);
 
   // Creates jsep transport. Noop if transport is already created.
   // Transport is created either during SetLocalDescription (`local` == true) or
@@ -392,19 +392,19 @@ class JsepTransportController : public sigslot::has_slots<> {
       const cricket::ContentInfo& content_info,
       cricket::IceTransportInternal* ice);
   rtc::scoped_refptr<webrtc::IceTransportInterface> CreateIceTransport(
-      const std::string& transport_name,
+      const absl::string_view transport_name,
       bool rtcp);
 
   std::unique_ptr<webrtc::RtpTransport> CreateUnencryptedRtpTransport(
-      const std::string& transport_name,
+      const absl::string_view transport_name,
       rtc::PacketTransportInternal* rtp_packet_transport,
       rtc::PacketTransportInternal* rtcp_packet_transport);
   std::unique_ptr<webrtc::SrtpTransport> CreateSdesTransport(
-      const std::string& transport_name,
+      const absl::string_view transport_name,
       cricket::DtlsTransportInternal* rtp_dtls_transport,
       cricket::DtlsTransportInternal* rtcp_dtls_transport);
   std::unique_ptr<webrtc::DtlsSrtpTransport> CreateDtlsSrtpTransport(
-      const std::string& transport_name,
+      const absl::string_view transport_name,
       cricket::DtlsTransportInternal* rtp_dtls_transport,
       cricket::DtlsTransportInternal* rtcp_dtls_transport);
 
@@ -448,7 +448,7 @@ class JsepTransportController : public sigslot::has_slots<> {
 
   void OnDtlsHandshakeError(rtc::SSLHandshakeError error);
 
-  bool OnTransportChanged(const std::string& mid,
+  bool OnTransportChanged(const absl::string_view mid,
                           cricket::JsepTransport* transport);
 
   rtc::Thread* const network_thread_ = nullptr;

@@ -525,9 +525,10 @@ void VideoCodecTestFixtureImpl::AnalyzeAllFrames(
       rtc::SimpleStringBuilder modifier(modifier_buf);
       modifier << "_r" << rate_profile_idx << "_sl" << layer_stat.spatial_idx;
 
-      auto PrintResultHelper = [&modifier, this](const std::string& measurement,
-                                                 double value,
-                                                 const std::string& units) {
+      auto PrintResultHelper = [&modifier, this](
+                                   const absl::string_view measurement,
+                                   double value,
+                                   const absl::string_view units) {
         PrintResult(measurement, modifier.str(), config_.test_name, value,
                     units, /*important=*/false);
       };

@@ -677,7 +677,7 @@ void CallTest::OnRtpPacket(const RtpPacketReceived& packet) {
 }
 
 absl::optional<RtpExtension> CallTest::GetRtpExtensionByUri(
-    const std::string& uri) const {
+    const absl::string_view uri) const {
   for (const auto& extension : rtp_extensions_) {
     if (extension.uri == uri) {
       return extension;
@@ -687,7 +687,7 @@ absl::optional<RtpExtension> CallTest::GetRtpExtensionByUri(
 }
 
 void CallTest::AddRtpExtensionByUri(
-    const std::string& uri,
+    const absl::string_view uri,
     std::vector<RtpExtension>* extensions) const {
   const absl::optional<RtpExtension> extension = GetRtpExtensionByUri(uri);
   if (extension) {

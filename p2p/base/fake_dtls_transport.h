@@ -56,10 +56,10 @@ class FakeDtlsTransport : public DtlsTransportInternal {
 
   // If this constructor is called, a new fake ICE transport will be created,
   // and this FakeDtlsTransport will take the ownership.
-  FakeDtlsTransport(const std::string& name, int component)
+  FakeDtlsTransport(const absl::string_view name, int component)
       : FakeDtlsTransport(std::make_unique<FakeIceTransport>(name, component)) {
   }
-  FakeDtlsTransport(const std::string& name,
+  FakeDtlsTransport(const absl::string_view name,
                     int component,
                     rtc::Thread* network_thread)
       : FakeDtlsTransport(std::make_unique<FakeIceTransport>(name,
@@ -140,7 +140,7 @@ class FakeDtlsTransport : public DtlsTransportInternal {
   const rtc::SSLFingerprint& dtls_fingerprint() const {
     return dtls_fingerprint_;
   }
-  bool SetRemoteFingerprint(const std::string& alg,
+  bool SetRemoteFingerprint(const absl::string_view alg,
                             const uint8_t* digest,
                             size_t digest_len) override {
     dtls_fingerprint_ =
@@ -203,7 +203,7 @@ class FakeDtlsTransport : public DtlsTransportInternal {
     }
     return std::make_unique<rtc::SSLCertChain>(remote_cert_->Clone());
   }
-  bool ExportKeyingMaterial(const std::string& label,
+  bool ExportKeyingMaterial(const absl::string_view label,
                             const uint8_t* context,
                             size_t context_len,
                             bool use_context,

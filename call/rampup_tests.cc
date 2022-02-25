@@ -59,7 +59,7 @@ RampUpTester::RampUpTester(size_t num_video_streams,
                            size_t num_flexfec_streams,
                            unsigned int start_bitrate_bps,
                            int64_t min_run_time_ms,
-                           const std::string& extension_type,
+                           const absl::string_view extension_type,
                            bool rtx,
                            bool red,
                            bool report_perf_stats,
@@ -330,9 +330,9 @@ void RampUpTester::PollStats() {
 }
 
 void RampUpTester::ReportResult(
-    const std::string& measurement,
+    const absl::string_view measurement,
     size_t value,
-    const std::string& units,
+    const absl::string_view units,
     test::ImproveDirection improve_direction) const {
   webrtc::test::PrintResult(
       measurement, "",
@@ -421,7 +421,7 @@ RampUpDownUpTester::RampUpDownUpTester(size_t num_video_streams,
                                        size_t num_audio_streams,
                                        size_t num_flexfec_streams,
                                        unsigned int start_bitrate_bps,
-                                       const std::string& extension_type,
+                                       const absl::string_view extension_type,
                                        bool rtx,
                                        bool red,
                                        const std::vector<int>& loss_rates,

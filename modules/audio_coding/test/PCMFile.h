@@ -27,7 +27,7 @@ class PCMFile {
   PCMFile(uint32_t timestamp);
   ~PCMFile();
 
-  void Open(const std::string& filename,
+  void Open(const absl::string_view filename,
             uint16_t frequency,
             const char* mode,
             bool auto_rewind = false);

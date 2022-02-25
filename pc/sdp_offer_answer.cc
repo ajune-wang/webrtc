@@ -160,7 +160,7 @@ std::map<std::string, const cricket::ContentGroup*> GetBundleGroupsByMid(
 // Returns true if `new_desc` requests an ICE restart (i.e., new ufrag/pwd).
 bool CheckForRemoteIceRestart(const SessionDescriptionInterface* old_desc,
                               const SessionDescriptionInterface* new_desc,
-                              const std::string& content_name) {
+                              const absl::string_view content_name) {
   if (!old_desc) {
     return false;
   }
@@ -585,7 +585,7 @@ void AddPlanBRtpSenderOptions(
 
 cricket::MediaDescriptionOptions GetMediaDescriptionOptionsForTransceiver(
     RtpTransceiver* transceiver,
-    const std::string& mid,
+    const absl::string_view mid,
     bool is_create_offer) {
   // NOTE: a stopping transceiver should be treated as a stopped one in
   // createOffer as specified in
@@ -694,7 +694,7 @@ bool CanAddLocalMediaStream(webrtc::StreamCollectionInterface* current_streams,
 rtc::scoped_refptr<webrtc::DtlsTransport> LookupDtlsTransportByMid(
     rtc::Thread* network_thread,
     JsepTransportController* controller,
-    const std::string& mid) {
+    const absl::string_view mid) {
   // TODO(tommi): Can we post this (and associated operations where this
   // function is called) to the network thread and avoid this Invoke?
   // We might be able to simplify a few things if we set the transport on
@@ -2998,19 +2998,19 @@ bool SdpOfferAnswerHandler::HasNewIceCredentials() {
 }
 
 bool SdpOfferAnswerHandler::IceRestartPending(
-    const std::string& content_name) const {
+    const absl::string_view content_name) const {
   RTC_DCHECK_RUN_ON(signaling_thread());
   return pending_ice_restarts_.find(content_name) !=
          pending_ice_restarts_.end();
 }
 
 bool SdpOfferAnswerHandler::NeedsIceRestart(
-    const std::string& content_name) const {
+    const absl::string_view content_name) const {
   return pc_->NeedsIceRestart(content_name);
 }
 
 absl::optional<rtc::SSLRole> SdpOfferAnswerHandler::GetDtlsRole(
-    const std::string& mid) const {
+    const absl::string_view mid) const {
   RTC_DCHECK_RUN_ON(signaling_thread());
   return transport_controller_s()->GetDtlsRole(mid);
 }
@@ -3584,10 +3584,11 @@ RTCError SdpOfferAnswerHandler::UpdateTransceiverChannel(
       }
       // Note: this is a thread hop; the lambda will be executed
       // on the network thread.
-      transceiver->internal()->SetChannel(channel, [&](const std::string& mid) {
-        RTC_DCHECK_RUN_ON(network_thread());
-        return transport_controller_n()->GetRtpTransport(mid);
-      });
+      transceiver->internal()->SetChannel(
+          channel, [&](const absl::string_view mid) {
+            RTC_DCHECK_RUN_ON(network_thread());
+            return transport_controller_n()->GetRtpTransport(mid);
+          });
     }
   }
   return RTCError::OK();
@@ -4129,8 +4130,9 @@ std::string SdpOfferAnswerHandler::GetSessionErrorMsg() {
   return desc.Release();
 }
 
-void SdpOfferAnswerHandler::SetSessionError(SessionError error,
-                                            const std::string& error_desc) {
+void SdpOfferAnswerHandler::SetSessionError(
+    SessionError error,
+    const absl::string_view error_desc) {
   RTC_DCHECK_RUN_ON(signaling_thread());
   if (error != session_error_) {
     session_error_ = error;
@@ -4768,7 +4770,7 @@ RTCError SdpOfferAnswerHandler::CreateChannels(const SessionDescription& desc) {
                       "Failed to create voice channel.");
     }
     rtp_manager()->GetAudioTransceiver()->internal()->SetChannel(
-        voice_channel, [&](const std::string& mid) {
+        voice_channel, [&](const absl::string_view mid) {
           RTC_DCHECK_RUN_ON(network_thread());
           return transport_controller_n()->GetRtpTransport(mid);
         });
@@ -4783,7 +4785,7 @@ RTCError SdpOfferAnswerHandler::CreateChannels(const SessionDescription& desc) {
                       "Failed to create video channel.");
     }
     rtp_manager()->GetVideoTransceiver()->internal()->SetChannel(
-        video_channel, [&](const std::string& mid) {
+        video_channel, [&](const absl::string_view mid) {
           RTC_DCHECK_RUN_ON(network_thread());
           return transport_controller_n()->GetRtpTransport(mid);
         });
@@ -4803,7 +4805,7 @@ RTCError SdpOfferAnswerHandler::CreateChannels(const SessionDescription& desc) {
 
 // TODO(steveanton): Perhaps this should be managed by the RtpTransceiver.
 cricket::VoiceChannel* SdpOfferAnswerHandler::CreateVoiceChannel(
-    const std::string& mid) {
+    const absl::string_view mid) {
   TRACE_EVENT0("webrtc", "SdpOfferAnswerHandler::CreateVoiceChannel");
   RTC_DCHECK_RUN_ON(signaling_thread());
   if (!channel_manager()->media_engine())
@@ -4819,7 +4821,7 @@ cricket::VoiceChannel* SdpOfferAnswerHandler::CreateVoiceChannel(
 
 // TODO(steveanton): Perhaps this should be managed by the RtpTransceiver.
 cricket::VideoChannel* SdpOfferAnswerHandler::CreateVideoChannel(
-    const std::string& mid) {
+    const absl::string_view mid) {
   TRACE_EVENT0("webrtc", "SdpOfferAnswerHandler::CreateVideoChannel");
   RTC_DCHECK_RUN_ON(signaling_thread());
   if (!channel_manager()->media_engine())
@@ -4834,7 +4836,7 @@ cricket::VideoChannel* SdpOfferAnswerHandler::CreateVideoChannel(
       video_bitrate_allocator_factory_.get());
 }
 
-bool SdpOfferAnswerHandler::CreateDataChannel(const std::string& mid) {
+bool SdpOfferAnswerHandler::CreateDataChannel(const absl::string_view mid) {
   RTC_DCHECK_RUN_ON(signaling_thread());
   if (!context_->network_thread()->Invoke<bool>(RTC_FROM_HERE, [this, &mid] {
         RTC_DCHECK_RUN_ON(context_->network_thread());
@@ -4962,7 +4964,7 @@ void SdpOfferAnswerHandler::GenerateMediaDescriptionOptions(
 
 cricket::MediaDescriptionOptions
 SdpOfferAnswerHandler::GetMediaDescriptionOptionsForActiveData(
-    const std::string& mid) const {
+    const absl::string_view mid) const {
   RTC_DCHECK_RUN_ON(signaling_thread());
   // Direction for data sections is meaningless, but legacy endpoints might
   // expect sendrecv.
@@ -4974,7 +4976,7 @@ SdpOfferAnswerHandler::GetMediaDescriptionOptionsForActiveData(
 
 cricket::MediaDescriptionOptions
 SdpOfferAnswerHandler::GetMediaDescriptionOptionsForRejectedData(
-    const std::string& mid) const {
+    const absl::string_view mid) const {
   RTC_DCHECK_RUN_ON(signaling_thread());
   cricket::MediaDescriptionOptions options(cricket::MEDIA_TYPE_DATA, mid,
                                            RtpTransceiverDirection::kInactive,

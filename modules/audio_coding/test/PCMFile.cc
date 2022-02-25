@@ -99,7 +99,7 @@ int16_t PCMFile::ChooseFile(std::string* file_name,
   return 0;
 }
 
-void PCMFile::Open(const std::string& file_name,
+void PCMFile::Open(const absl::string_view file_name,
                    uint16_t frequency,
                    const char* mode,
                    bool auto_rewind) {

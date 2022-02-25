@@ -69,7 +69,7 @@ class AudioProcessingImpl : public AudioProcessing {
   int Initialize() override;
   int Initialize(const ProcessingConfig& processing_config) override;
   void ApplyConfig(const AudioProcessing::Config& config) override;
-  bool CreateAndAttachAecDump(const std::string& file_name,
+  bool CreateAndAttachAecDump(const absl::string_view file_name,
                               int64_t max_log_size_bytes,
                               rtc::TaskQueue* worker_queue) override;
   bool CreateAndAttachAecDump(FILE* handle,

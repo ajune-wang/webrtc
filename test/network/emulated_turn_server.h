@@ -57,8 +57,8 @@ class EmulatedTURNServer : public EmulatedTURNServerInterface,
   EmulatedEndpoint* GetPeerEndpoint() const override { return peer_; }
 
   // cricket::TurnAuthInterface
-  bool GetKey(const std::string& username,
-              const std::string& realm,
+  bool GetKey(const absl::string_view username,
+              const absl::string_view realm,
               std::string* key) override {
     return cricket::ComputeStunCredentialHash(username, realm, username, key);
   }

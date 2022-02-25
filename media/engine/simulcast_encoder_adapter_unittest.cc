@@ -266,7 +266,7 @@ class MockVideoEncoder : public VideoEncoder {
     supports_native_handle_ = enabled;
   }
 
-  void set_implementation_name(const std::string& name) {
+  void set_implementation_name(const absl::string_view name) {
     implementation_name_ = name;
   }
 

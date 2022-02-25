@@ -47,15 +47,15 @@ class TestController : public sigslot::has_slots<> {
  public:
   TestController(int min_port,
                  int max_port,
-                 const std::string& config_file_path,
-                 const std::string& log_file_path);
+                 const absl::string_view config_file_path,
+                 const absl::string_view log_file_path);
 
   TestController(const TestController&) = delete;
   TestController& operator=(const TestController&) = delete;
 
   void Run();
 
-  void SendConnectTo(const std::string& hostname, int port);
+  void SendConnectTo(const absl::string_view hostname, int port);
 
   void SendData(const NetworkTesterPacket& packet,
                 absl::optional<size_t> data_size);

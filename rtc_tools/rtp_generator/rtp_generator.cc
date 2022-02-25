@@ -40,14 +40,14 @@ constexpr int kDefaultSsrc = 1337;
 constexpr int kMaxConfigBufferSize = 8192;
 
 // Utility function to validate a correct codec type has been passed in.
-bool IsValidCodecType(const std::string& codec_name) {
+bool IsValidCodecType(const absl::string_view codec_name) {
   return cricket::kVp8CodecName == codec_name ||
          cricket::kVp9CodecName == codec_name ||
          cricket::kH264CodecName == codec_name;
 }
 
 // Utility function to return some base payload type for a codec_name.
-int GetDefaultTypeForPayloadName(const std::string& codec_name) {
+int GetDefaultTypeForPayloadName(const absl::string_view codec_name) {
   if (cricket::kVp8CodecName == codec_name) {
     return kPayloadTypeVp8;
   }
@@ -119,7 +119,7 @@ ParseVideoSendStreamConfig(const Json::Value& json) {
 }  // namespace
 
 absl::optional<RtpGeneratorOptions> ParseRtpGeneratorOptionsFromFile(
-    const std::string& options_file) {
+    const absl::string_view options_file) {
   if (!test::FileExists(options_file)) {
     RTC_LOG(LS_ERROR) << " configuration file does not exist";
     return absl::nullopt;
@@ -255,7 +255,7 @@ RtpGenerator::~RtpGenerator() {
   }
 }
 
-void RtpGenerator::GenerateRtpDump(const std::string& rtp_dump_path) {
+void RtpGenerator::GenerateRtpDump(const absl::string_view rtp_dump_path) {
   rtp_dump_writer_.reset(test::RtpFileWriter::Create(
       test::RtpFileWriter::kRtpDump, rtp_dump_path));
 

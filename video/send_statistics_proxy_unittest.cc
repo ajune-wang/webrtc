@@ -61,7 +61,7 @@ const VideoStreamEncoderObserver::AdaptationSettings kScalingDisabled;
 class SendStatisticsProxyTest : public ::testing::Test {
  public:
   SendStatisticsProxyTest() : SendStatisticsProxyTest("") {}
-  explicit SendStatisticsProxyTest(const std::string& field_trials)
+  explicit SendStatisticsProxyTest(const absl::string_view field_trials)
       : override_field_trials_(field_trials),
         fake_clock_(1234),
         config_(GetTestConfig()) {}
@@ -2852,7 +2852,7 @@ TEST_F(SendStatisticsProxyTest, Vp9SvcLowSpatialLayerDoesNotUpdateResolution) {
 
 class ForcedFallbackTest : public SendStatisticsProxyTest {
  public:
-  explicit ForcedFallbackTest(const std::string& field_trials)
+  explicit ForcedFallbackTest(const absl::string_view field_trials)
       : SendStatisticsProxyTest(field_trials) {
     codec_info_.codecType = kVideoCodecVP8;
     codec_info_.codecSpecific.VP8.temporalIdx = 0;

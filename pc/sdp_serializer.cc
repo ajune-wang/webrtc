@@ -52,7 +52,7 @@ const char kSendDirection[] = "send";
 const char kReceiveDirection[] = "recv";
 const char kPayloadType[] = "pt";
 
-RTCError ParseError(const std::string& message) {
+RTCError ParseError(const absl::string_view message) {
   return RTCError(RTCErrorType::SYNTAX_ERROR, message);
 }
 
@@ -100,7 +100,8 @@ rtc::StringBuilder& operator<<(rtc::StringBuilder& builder,
 // sc-id-paused = "~"
 // sc-id        = [sc-id-paused] rid-id
 // rid-id       = 1*(alpha-numeric / "-" / "_") ; see: I-D.ietf-mmusic-rid
-RTCErrorOr<SimulcastLayerList> ParseSimulcastLayerList(const std::string& str) {
+RTCErrorOr<SimulcastLayerList> ParseSimulcastLayerList(
+    const absl::string_view str) {
   std::vector<absl::string_view> tokens =
       rtc::split(str, kDelimiterSemicolonChar);
   if (tokens.empty()) {
@@ -137,7 +138,7 @@ RTCErrorOr<SimulcastLayerList> ParseSimulcastLayerList(const std::string& str) {
   return std::move(result);
 }
 
-webrtc::RTCError ParseRidPayloadList(const std::string& payload_list,
+webrtc::RTCError ParseRidPayloadList(const absl::string_view payload_list,
                                      RidDescription* rid_description) {
   RTC_DCHECK(rid_description);
   std::vector<int>& payload_types = rid_description->payload_types;

@@ -49,8 +49,8 @@
 namespace webrtc {
 namespace test {
 
-std::string DirName(const std::string& path);
-bool CreateDir(const std::string& directory_name);
+std::string DirName(const absl::string_view path);
+bool CreateDir(const absl::string_view directory_name);
 
 namespace internal {
 
@@ -139,8 +139,8 @@ std::string WorkingDir() {
 #endif
 }
 
-std::string ResourcePath(const std::string& name,
-                         const std::string& extension) {
+std::string ResourcePath(const absl::string_view name,
+                         const absl::string_view extension) {
 #if defined(WEBRTC_IOS)
   return IOSResourcePath(name, extension);
 #else

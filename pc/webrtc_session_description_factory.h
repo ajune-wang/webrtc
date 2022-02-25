@@ -82,7 +82,7 @@ class WebRtcSessionDescriptionFactory : public rtc::MessageHandler,
       rtc::Thread* signaling_thread,
       cricket::ChannelManager* channel_manager,
       const SdpStateProvider* sdp_info,
-      const std::string& session_id,
+      const absl::string_view session_id,
       bool dtls_enabled,
       std::unique_ptr<rtc::RTCCertificateGeneratorInterface> cert_generator,
       const rtc::scoped_refptr<rtc::RTCCertificate>& certificate,
@@ -97,7 +97,7 @@ class WebRtcSessionDescriptionFactory : public rtc::MessageHandler,
 
   static void CopyCandidatesFromSessionDescription(
       const SessionDescriptionInterface* source_desc,
-      const std::string& content_name,
+      const absl::string_view content_name,
       SessionDescriptionInterface* dest_desc);
 
   void CreateOffer(
@@ -137,10 +137,10 @@ class WebRtcSessionDescriptionFactory : public rtc::MessageHandler,
   void InternalCreateOffer(CreateSessionDescriptionRequest request);
   void InternalCreateAnswer(CreateSessionDescriptionRequest request);
   // Posts failure notifications for all pending session description requests.
-  void FailPendingRequests(const std::string& reason);
+  void FailPendingRequests(const absl::string_view reason);
   void PostCreateSessionDescriptionFailed(
       CreateSessionDescriptionObserver* observer,
-      const std::string& error);
+      const absl::string_view error);
   void PostCreateSessionDescriptionSucceeded(
       CreateSessionDescriptionObserver* observer,
       std::unique_ptr<SessionDescriptionInterface> description);

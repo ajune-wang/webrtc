@@ -96,21 +96,21 @@ class StatsBasedNetworkQualityMetricsReporter
     NetworkEmulationManager* const network_emulation_;
   };
 
-  void ReportStats(const std::string& pc_label,
+  void ReportStats(const absl::string_view pc_label,
                    const PCStats& pc_stats,
                    const NetworkLayerStats& network_layer_stats,
                    int64_t packet_loss,
                    const Timestamp& end_time);
-  void ReportResult(const std::string& metric_name,
-                    const std::string& network_label,
+  void ReportResult(const absl::string_view metric_name,
+                    const absl::string_view network_label,
                     double value,
-                    const std::string& unit) const;
-  void ReportResult(const std::string& metric_name,
-                    const std::string& network_label,
+                    const absl::string_view unit) const;
+  void ReportResult(const absl::string_view metric_name,
+                    const absl::string_view network_label,
                     const SamplesStatsCounter& value,
-                    const std::string& unit) const;
+                    const absl::string_view unit) const;
   std::string GetTestCaseName(absl::string_view network_label) const;
-  void LogNetworkLayerStats(const std::string& peer_name,
+  void LogNetworkLayerStats(const absl::string_view peer_name,
                             const NetworkLayerStats& stats) const;
 
   NetworkLayerStatsCollector collector_;

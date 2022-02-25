@@ -18,9 +18,9 @@ namespace test {
 namespace conversational_speech {
 
 struct Config {
-  Config(const std::string& audiotracks_path,
-         const std::string& timing_filepath,
-         const std::string& output_path)
+  Config(const absl::string_view audiotracks_path,
+         const absl::string_view timing_filepath,
+         const absl::string_view output_path)
       : audiotracks_path_(audiotracks_path),
         timing_filepath_(timing_filepath),
         output_path_(output_path) {}

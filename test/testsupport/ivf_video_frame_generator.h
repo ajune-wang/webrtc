@@ -30,7 +30,7 @@ namespace test {
 // All methods except constructor must be used from the same thread.
 class IvfVideoFrameGenerator : public FrameGeneratorInterface {
  public:
-  explicit IvfVideoFrameGenerator(const std::string& file_name);
+  explicit IvfVideoFrameGenerator(const absl::string_view file_name);
   ~IvfVideoFrameGenerator() override;
 
   VideoFrameData NextFrame() override;

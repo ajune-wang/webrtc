@@ -121,7 +121,7 @@ class SctpDataChannel : public DataChannelInterface,
  public:
   static rtc::scoped_refptr<SctpDataChannel> Create(
       SctpDataChannelProviderInterface* provider,
-      const std::string& label,
+      const absl::string_view label,
       const InternalDataChannelInit& config,
       rtc::Thread* signaling_thread,
       rtc::Thread* network_thread);
@@ -176,7 +176,7 @@ class SctpDataChannel : public DataChannelInterface,
   // It is also called by the PeerConnection if SCTP ID assignment fails.
   void CloseAbruptlyWithError(RTCError error);
   // Specializations of CloseAbruptlyWithError
-  void CloseAbruptlyWithDataChannelFailure(const std::string& message);
+  void CloseAbruptlyWithDataChannelFailure(const absl::string_view message);
 
   // Slots for provider to connect signals to.
   //
@@ -224,7 +224,7 @@ class SctpDataChannel : public DataChannelInterface,
  protected:
   SctpDataChannel(const InternalDataChannelInit& config,
                   SctpDataChannelProviderInterface* client,
-                  const std::string& label,
+                  const absl::string_view label,
                   rtc::Thread* signaling_thread,
                   rtc::Thread* network_thread);
   ~SctpDataChannel() override;

@@ -31,7 +31,7 @@ static const AudioProcessing::Error kNoErr = AudioProcessing::kNoError;
 
 class RawFile final {
  public:
-  explicit RawFile(const std::string& filename);
+  explicit RawFile(const absl::string_view filename);
   ~RawFile();
 
   RawFile(const RawFile&) = delete;
@@ -138,7 +138,7 @@ void WriteFloatData(const float* const* data,
                     RawFile* raw_file);
 
 // Exits on failure; do not use in unit tests.
-FILE* OpenFile(const std::string& filename, const char* mode);
+FILE* OpenFile(const absl::string_view filename, const char* mode);
 
 size_t SamplesFromRate(int rate);
 
@@ -179,7 +179,7 @@ float ComputeSNR(const T* ref, const T* test, size_t length, float* variance) {
 // Returns a vector<T> parsed from whitespace delimited values in to_parse,
 // or an empty vector if the string could not be parsed.
 template <typename T>
-std::vector<T> ParseList(const std::string& to_parse) {
+std::vector<T> ParseList(const absl::string_view to_parse) {
   std::vector<T> values;
 
   std::istringstream str(to_parse);

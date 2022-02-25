@@ -44,10 +44,10 @@ class ChannelMember {
 
   void OnClosing(DataSocket* ds);
 
-  void QueueResponse(const std::string& status,
-                     const std::string& content_type,
-                     const std::string& extra_headers,
-                     const std::string& data);
+  void QueueResponse(const absl::string_view status,
+                     const absl::string_view content_type,
+                     const absl::string_view extra_headers,
+                     const absl::string_view data);
 
   void SetWaitingSocket(DataSocket* ds);
 

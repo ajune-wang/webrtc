@@ -109,7 +109,7 @@ class PitchTestData {
 // Writer for binary files.
 class FileWriter {
  public:
-  explicit FileWriter(const std::string& file_path)
+  explicit FileWriter(const absl::string_view file_path)
       : os_(file_path, std::ios::binary) {}
   FileWriter(const FileWriter&) = delete;
   FileWriter& operator=(const FileWriter&) = delete;

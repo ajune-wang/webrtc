@@ -1243,7 +1243,7 @@ TEST_P(PeerConnectionMediaTest,
 
 void RenameContent(cricket::SessionDescription* desc,
                    cricket::MediaType media_type,
-                   const std::string& new_name) {
+                   const absl::string_view new_name) {
   auto* content = cricket::GetFirstMediaContent(desc, media_type);
   RTC_DCHECK(content);
   std::string old_name = content->name;

@@ -105,7 +105,7 @@ bool DtmfSender::CanInsertDtmf() {
   return provider_->CanInsertDtmf();
 }
 
-bool DtmfSender::InsertDtmf(const std::string& tones,
+bool DtmfSender::InsertDtmf(const absl::string_view tones,
                             int duration,
                             int inter_tone_gap,
                             int comma_delay) {

@@ -137,11 +137,11 @@ class PeerConnectionWrapper {
 
   // Returns a new dummy audio track with the given label.
   rtc::scoped_refptr<AudioTrackInterface> CreateAudioTrack(
-      const std::string& label);
+      const absl::string_view label);
 
   // Returns a new dummy video track with the given label.
   rtc::scoped_refptr<VideoTrackInterface> CreateVideoTrack(
-      const std::string& label);
+      const absl::string_view label);
 
   // Wrapper for the underlying PeerConnection's AddTrack method. DCHECKs if
   // AddTrack fails.
@@ -152,19 +152,19 @@ class PeerConnectionWrapper {
   // Calls the underlying PeerConnection's AddTrack method with an audio media
   // stream track not bound to any source.
   rtc::scoped_refptr<RtpSenderInterface> AddAudioTrack(
-      const std::string& track_label,
+      const absl::string_view track_label,
       const std::vector<std::string>& stream_ids = {});
 
   // Calls the underlying PeerConnection's AddTrack method with a video media
   // stream track fed by a FakeVideoTrackSource.
   rtc::scoped_refptr<RtpSenderInterface> AddVideoTrack(
-      const std::string& track_label,
+      const absl::string_view track_label,
       const std::vector<std::string>& stream_ids = {});
 
   // Calls the underlying PeerConnection's CreateDataChannel method with default
   // initialization parameters.
   rtc::scoped_refptr<DataChannelInterface> CreateDataChannel(
-      const std::string& label);
+      const absl::string_view label);
 
   // Returns the signaling state of the underlying PeerConnection.
   PeerConnectionInterface::SignalingState signaling_state();

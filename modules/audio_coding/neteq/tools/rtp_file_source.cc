@@ -24,20 +24,20 @@
 namespace webrtc {
 namespace test {
 
-RtpFileSource* RtpFileSource::Create(const std::string& file_name,
+RtpFileSource* RtpFileSource::Create(const absl::string_view file_name,
                                      absl::optional<uint32_t> ssrc_filter) {
   RtpFileSource* source = new RtpFileSource(ssrc_filter);
   RTC_CHECK(source->OpenFile(file_name));
   return source;
 }
 
-bool RtpFileSource::ValidRtpDump(const std::string& file_name) {
+bool RtpFileSource::ValidRtpDump(const absl::string_view file_name) {
   std::unique_ptr<RtpFileReader> temp_file(
       RtpFileReader::Create(RtpFileReader::kRtpDump, file_name));
   return !!temp_file;
 }
 
-bool RtpFileSource::ValidPcap(const std::string& file_name) {
+bool RtpFileSource::ValidPcap(const absl::string_view file_name) {
   std::unique_ptr<RtpFileReader> temp_file(
       RtpFileReader::Create(RtpFileReader::kPcap, file_name));
   return !!temp_file;
@@ -81,7 +81,7 @@ RtpFileSource::RtpFileSource(absl::optional<uint32_t> ssrc_filter)
     : PacketSource(),
       ssrc_filter_(ssrc_filter) {}
 
-bool RtpFileSource::OpenFile(const std::string& file_name) {
+bool RtpFileSource::OpenFile(const absl::string_view file_name) {
   rtp_reader_.reset(RtpFileReader::Create(RtpFileReader::kRtpDump, file_name));
   if (rtp_reader_)
     return true;

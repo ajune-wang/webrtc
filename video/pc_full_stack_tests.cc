@@ -76,7 +76,7 @@ CreateTwoNetworkLinks(NetworkEmulationManager* emulation,
 }
 
 std::unique_ptr<webrtc_pc_e2e::PeerConnectionE2EQualityTestFixture>
-CreateTestFixture(const std::string& test_case_name,
+CreateTestFixture(const absl::string_view test_case_name,
                   TimeController& time_controller,
                   std::pair<EmulatedNetworkManagerInterface*,
                             EmulatedNetworkManagerInterface*> network_links,

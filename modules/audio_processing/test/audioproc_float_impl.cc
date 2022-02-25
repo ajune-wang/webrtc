@@ -329,7 +329,7 @@ const char kUsageDescription[] =
     "processing module, either based on wav files or "
     "protobuf debug dump recordings.\n";
 
-void SetSettingIfSpecified(const std::string& value,
+void SetSettingIfSpecified(const absl::string_view value,
                            absl::optional<std::string>* parameter) {
   if (value.compare("") != 0) {
     *parameter = value;
@@ -513,7 +513,8 @@ SimulationSettings CreateSettings() {
   return settings;
 }
 
-void ReportConditionalErrorAndExit(bool condition, const std::string& message) {
+void ReportConditionalErrorAndExit(bool condition,
+                                   const absl::string_view message) {
   if (condition) {
     std::cerr << message << std::endl;
     exit(1);
@@ -632,7 +633,7 @@ void PerformBasicParameterSanityChecks(
       "Error: --simulated_mic_kind must be specified when mic simulation is "
       "enabled\n");
 
-  auto valid_wav_name = [](const std::string& wav_file_name) {
+  auto valid_wav_name = [](const absl::string_view wav_file_name) {
     if (wav_file_name.size() < 5) {
       return false;
     }

@@ -171,11 +171,12 @@ class BasicPortAllocatorTestBase : public ::testing::Test,
   void AddInterface(const SocketAddress& addr) {
     network_manager_.AddInterface(addr);
   }
-  void AddInterface(const SocketAddress& addr, const std::string& if_name) {
+  void AddInterface(const SocketAddress& addr,
+                    const absl::string_view if_name) {
     network_manager_.AddInterface(addr, if_name);
   }
   void AddInterface(const SocketAddress& addr,
-                    const std::string& if_name,
+                    const absl::string_view if_name,
                     rtc::AdapterType type) {
     network_manager_.AddInterface(addr, if_name, type);
   }
@@ -247,7 +248,7 @@ class BasicPortAllocatorTestBase : public ::testing::Test,
     return true;
   }
 
-  bool CreateSession(int component, const std::string& content_name) {
+  bool CreateSession(int component, const absl::string_view content_name) {
     session_ = CreateSession("session", content_name, component);
     if (!session_) {
       return false;
@@ -255,24 +256,25 @@ class BasicPortAllocatorTestBase : public ::testing::Test,
     return true;
   }
 
-  std::unique_ptr<PortAllocatorSession> CreateSession(const std::string& sid,
-                                                      int component) {
+  std::unique_ptr<PortAllocatorSession> CreateSession(
+      const absl::string_view sid,
+      int component) {
     return CreateSession(sid, kContentName, component);
   }
 
   std::unique_ptr<PortAllocatorSession> CreateSession(
-      const std::string& sid,
-      const std::string& content_name,
+      const absl::string_view sid,
+      const absl::string_view content_name,
       int component) {
     return CreateSession(sid, content_name, component, kIceUfrag0, kIcePwd0);
   }
 
   std::unique_ptr<PortAllocatorSession> CreateSession(
-      const std::string& sid,
-      const std::string& content_name,
+      const absl::string_view sid,
+      const absl::string_view content_name,
       int component,
-      const std::string& ice_ufrag,
-      const std::string& ice_pwd) {
+      const absl::string_view ice_ufrag,
+      const absl::string_view ice_pwd) {
     std::unique_ptr<PortAllocatorSession> session =
         allocator_->CreateSession(content_name, component, ice_ufrag, ice_pwd);
     session->SignalPortReady.connect(this,
@@ -303,7 +305,7 @@ class BasicPortAllocatorTestBase : public ::testing::Test,
   // Returns the number of ports that have matching type, protocol and
   // address.
   static int CountPorts(const std::vector<PortInterface*>& ports,
-                        const std::string& type,
+                        const absl::string_view type,
                         ProtocolType protocol,
                         const SocketAddress& client_addr) {
     return absl::c_count_if(
@@ -314,8 +316,8 @@ class BasicPortAllocatorTestBase : public ::testing::Test,
   }
 
   static int CountCandidates(const std::vector<Candidate>& candidates,
-                             const std::string& type,
-                             const std::string& proto,
+                             const absl::string_view type,
+                             const absl::string_view proto,
                              const SocketAddress& addr) {
     return absl::c_count_if(
         candidates, [type, proto, addr](const Candidate& c) {
@@ -326,8 +328,8 @@ class BasicPortAllocatorTestBase : public ::testing::Test,
 
   // Find a candidate and return it.
   static bool FindCandidate(const std::vector<Candidate>& candidates,
-                            const std::string& type,
-                            const std::string& proto,
+                            const absl::string_view type,
+                            const absl::string_view proto,
                             const SocketAddress& addr,
                             Candidate* found) {
     auto it =
@@ -343,8 +345,8 @@ class BasicPortAllocatorTestBase : public ::testing::Test,
 
   // Convenience method to call FindCandidate with no return.
   static bool HasCandidate(const std::vector<Candidate>& candidates,
-                           const std::string& type,
-                           const std::string& proto,
+                           const absl::string_view type,
+                           const absl::string_view proto,
                            const SocketAddress& addr) {
     return FindCandidate(candidates, type, proto, addr, nullptr);
   }
@@ -352,8 +354,8 @@ class BasicPortAllocatorTestBase : public ::testing::Test,
   // Version of HasCandidate that also takes a related address.
   static bool HasCandidateWithRelatedAddr(
       const std::vector<Candidate>& candidates,
-      const std::string& type,
-      const std::string& proto,
+      const absl::string_view type,
+      const absl::string_view proto,
       const SocketAddress& addr,
       const SocketAddress& related_addr) {
     return absl::c_any_of(

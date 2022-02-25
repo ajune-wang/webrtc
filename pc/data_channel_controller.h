@@ -89,7 +89,7 @@ class DataChannelController : public SctpDataChannelProviderInterface,
   // Creates channel and adds it to the collection of DataChannels that will
   // be offered in a SessionDescription, and wraps it in a proxy object.
   rtc::scoped_refptr<DataChannelInterface> InternalCreateDataChannelWithProxy(
-      const std::string& label,
+      const absl::string_view label,
       const InternalDataChannelInit*
           config) /* RTC_RUN_ON(signaling_thread()) */;
   void AllocateSctpSids(rtc::SSLRole role);
@@ -118,7 +118,7 @@ class DataChannelController : public SctpDataChannelProviderInterface,
 
  private:
   rtc::scoped_refptr<SctpDataChannel> InternalCreateSctpDataChannel(
-      const std::string& label,
+      const absl::string_view label,
       const InternalDataChannelInit*
           config) /* RTC_RUN_ON(signaling_thread()) */;
 
@@ -128,7 +128,7 @@ class DataChannelController : public SctpDataChannelProviderInterface,
                            const rtc::CopyOnWriteBuffer& buffer)
       RTC_RUN_ON(signaling_thread());
   // Called when a valid data channel OPEN message is received.
-  void OnDataChannelOpenMessage(const std::string& label,
+  void OnDataChannelOpenMessage(const absl::string_view label,
                                 const InternalDataChannelInit& config)
       RTC_RUN_ON(signaling_thread());
 

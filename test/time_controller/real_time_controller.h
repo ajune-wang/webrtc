@@ -29,7 +29,7 @@ class RealTimeController : public TimeController {
   std::unique_ptr<ProcessThread> CreateProcessThread(
       const char* thread_name) override;
   std::unique_ptr<rtc::Thread> CreateThread(
-      const std::string& name,
+      const absl::string_view name,
       std::unique_ptr<rtc::SocketServer> socket_server) override;
   rtc::Thread* GetMainThread() override;
   void AdvanceTime(TimeDelta duration) override;

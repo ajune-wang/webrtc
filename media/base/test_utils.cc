@@ -18,7 +18,7 @@
 namespace cricket {
 
 cricket::StreamParams CreateSimStreamParams(
-    const std::string& cname,
+    const absl::string_view cname,
     const std::vector<uint32_t>& ssrcs) {
   cricket::StreamParams sp;
   cricket::SsrcGroup sg(cricket::kSimSsrcGroupSemantics, ssrcs);
@@ -30,7 +30,7 @@ cricket::StreamParams CreateSimStreamParams(
 
 // There should be an rtx_ssrc per ssrc.
 cricket::StreamParams CreateSimWithRtxStreamParams(
-    const std::string& cname,
+    const absl::string_view cname,
     const std::vector<uint32_t>& ssrcs,
     const std::vector<uint32_t>& rtx_ssrcs) {
   cricket::StreamParams sp = CreateSimStreamParams(cname, ssrcs);
@@ -46,7 +46,7 @@ cricket::StreamParams CreateSimWithRtxStreamParams(
 }
 
 cricket::StreamParams CreatePrimaryWithFecFrStreamParams(
-    const std::string& cname,
+    const absl::string_view cname,
     uint32_t primary_ssrc,
     uint32_t flexfec_ssrc) {
   cricket::StreamParams sp;

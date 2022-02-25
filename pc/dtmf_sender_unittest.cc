@@ -35,14 +35,14 @@ class FakeDtmfObserver : public DtmfSenderObserverInterface {
   FakeDtmfObserver() : completed_(false) {}
 
   // Implements DtmfSenderObserverInterface.
-  void OnToneChange(const std::string& tone) override {
+  void OnToneChange(const absl::string_view tone) override {
     tones_from_single_argument_callback_.push_back(tone);
     if (tone.empty()) {
       completed_ = true;
     }
   }
-  void OnToneChange(const std::string& tone,
-                    const std::string& tone_buffer) override {
+  void OnToneChange(const absl::string_view tone,
+                    const absl::string_view tone_buffer) override {
     tones_.push_back(tone);
     tones_remaining_ = tone_buffer;
     if (tone.empty()) {
@@ -132,7 +132,7 @@ class DtmfSenderTest : public ::testing::Test {
   // Constructs a list of DtmfInfo from `tones`, `duration` and
   // `inter_tone_gap`.
   void GetDtmfInfoFromString(
-      const std::string& tones,
+      const absl::string_view tones,
       int duration,
       int inter_tone_gap,
       std::vector<FakeDtmfProvider::DtmfInfo>* dtmfs,
@@ -156,7 +156,7 @@ class DtmfSenderTest : public ::testing::Test {
     }
   }
 
-  void VerifyExpectedState(const std::string& tones,
+  void VerifyExpectedState(const absl::string_view tones,
                            int duration,
                            int inter_tone_gap) {
     EXPECT_EQ(tones, dtmf_->tones());
@@ -166,7 +166,7 @@ class DtmfSenderTest : public ::testing::Test {
 
   // Verify the provider got all the expected calls.
   void VerifyOnProvider(
-      const std::string& tones,
+      const absl::string_view tones,
       int duration,
       int inter_tone_gap,
       int comma_delay = webrtc::DtmfSender::kDtmfDefaultCommaDelayMs) {
@@ -197,7 +197,7 @@ class DtmfSenderTest : public ::testing::Test {
   }
 
   // Verify the observer got all the expected callbacks.
-  void VerifyOnObserver(const std::string& tones_ref) {
+  void VerifyOnObserver(const absl::string_view tones_ref) {
     const std::vector<std::string>& tones = observer_->tones();
     // The observer will get an empty string at the end.
     EXPECT_EQ(tones_ref.size() + 1, tones.size());

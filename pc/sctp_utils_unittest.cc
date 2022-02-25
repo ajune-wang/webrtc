@@ -21,7 +21,7 @@
 class SctpUtilsTest : public ::testing::Test {
  public:
   void VerifyOpenMessageFormat(const rtc::CopyOnWriteBuffer& packet,
-                               const std::string& label,
+                               const absl::string_view label,
                                const webrtc::DataChannelInit& config) {
     uint8_t message_type;
     uint8_t channel_type;

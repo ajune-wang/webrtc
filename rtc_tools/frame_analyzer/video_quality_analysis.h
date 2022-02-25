@@ -69,11 +69,12 @@ double Ssim(const rtc::scoped_refptr<I420BufferInterface>& ref_buffer,
 // Prints the result from the analysis in Chromium performance
 // numbers compatible format to stdout. If the results object contains no frames
 // no output will be written.
-void PrintAnalysisResults(const std::string& label, ResultsContainer* results);
+void PrintAnalysisResults(const absl::string_view label,
+                          ResultsContainer* results);
 
 // Similar to the above, but will print to the specified file handle.
 void PrintAnalysisResults(FILE* output,
-                          const std::string& label,
+                          const absl::string_view label,
                           ResultsContainer* results);
 
 struct Cluster {

@@ -79,7 +79,7 @@ bool GetStream(const StreamParamsVec& streams,
   return found != nullptr;
 }
 
-SsrcGroup::SsrcGroup(const std::string& usage,
+SsrcGroup::SsrcGroup(const absl::string_view usage,
                      const std::vector<uint32_t>& ssrcs)
     : semantics(usage), ssrcs(ssrcs) {}
 SsrcGroup::SsrcGroup(const SsrcGroup&) = default;
@@ -89,7 +89,7 @@ SsrcGroup::~SsrcGroup() = default;
 SsrcGroup& SsrcGroup::operator=(const SsrcGroup&) = default;
 SsrcGroup& SsrcGroup::operator=(SsrcGroup&&) = default;
 
-bool SsrcGroup::has_semantics(const std::string& semantics_in) const {
+bool SsrcGroup::has_semantics(const absl::string_view semantics_in) const {
   return (semantics == semantics_in && ssrcs.size() > 0);
 }
 
@@ -193,7 +193,7 @@ void StreamParams::GetFidSsrcs(const std::vector<uint32_t>& primary_ssrcs,
   }
 }
 
-bool StreamParams::AddSecondarySsrc(const std::string& semantics,
+bool StreamParams::AddSecondarySsrc(const absl::string_view semantics,
                                     uint32_t primary_ssrc,
                                     uint32_t secondary_ssrc) {
   if (!has_ssrc(primary_ssrc)) {
@@ -205,7 +205,7 @@ bool StreamParams::AddSecondarySsrc(const std::string& semantics,
   return true;
 }
 
-bool StreamParams::GetSecondarySsrc(const std::string& semantics,
+bool StreamParams::GetSecondarySsrc(const absl::string_view semantics,
                                     uint32_t primary_ssrc,
                                     uint32_t* secondary_ssrc) const {
   for (const SsrcGroup& ssrc_group : ssrc_groups) {

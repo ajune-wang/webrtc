@@ -72,11 +72,11 @@ void Plot::SetYAxisTickLabels(
   yaxis_tick_labels_ = labels;
 }
 
-void Plot::SetTitle(const std::string& title) {
+void Plot::SetTitle(const absl::string_view title) {
   title_ = title;
 }
 
-void Plot::SetId(const std::string& id) {
+void Plot::SetId(const absl::string_view id) {
   id_ = id;
 }
 

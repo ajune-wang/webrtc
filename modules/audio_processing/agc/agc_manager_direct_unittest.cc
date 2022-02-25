@@ -130,7 +130,7 @@ void CallPreProcessAudioBuffer(int num_calls,
 
 std::string GetAgcMinMicLevelExperimentFieldTrial(
     int enabled_value,
-    const std::string& suffix = "") {
+    const absl::string_view suffix = "") {
   RTC_DCHECK_GE(enabled_value, 0);
   RTC_DCHECK_LE(enabled_value, 255);
   char field_trial_buffer[64];

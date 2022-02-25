@@ -85,7 +85,7 @@ class VoiceChannelForTesting : public cricket::VoiceChannel {
                          rtc::Thread* network_thread,
                          rtc::Thread* signaling_thread,
                          std::unique_ptr<cricket::VoiceMediaChannel> channel,
-                         const std::string& content_name,
+                         const absl::string_view content_name,
                          bool srtp_required,
                          webrtc::CryptoOptions crypto_options,
                          rtc::UniqueRandomIdGenerator* ssrc_generator,
@@ -114,7 +114,7 @@ class VideoChannelForTesting : public cricket::VideoChannel {
                          rtc::Thread* network_thread,
                          rtc::Thread* signaling_thread,
                          std::unique_ptr<cricket::VideoMediaChannel> channel,
-                         const std::string& content_name,
+                         const absl::string_view content_name,
                          bool srtp_required,
                          webrtc::CryptoOptions crypto_options,
                          rtc::UniqueRandomIdGenerator* ssrc_generator,
@@ -202,8 +202,8 @@ class FakePeerConnectionForStats : public FakePeerConnectionBase {
   }
 
   FakeVoiceMediaChannelForStats* AddVoiceChannel(
-      const std::string& mid,
-      const std::string& transport_name,
+      const absl::string_view mid,
+      const absl::string_view transport_name,
       cricket::VoiceMediaInfo initial_stats = cricket::VoiceMediaInfo()) {
     RTC_DCHECK(!voice_channel_);
     auto voice_media_channel =
@@ -217,14 +217,14 @@ class FakePeerConnectionForStats : public FakePeerConnectionBase {
     GetOrCreateFirstTransceiverOfType(cricket::MEDIA_TYPE_AUDIO)
         ->internal()
         ->SetChannel(voice_channel_.get(),
-                     [](const std::string&) { return nullptr; });
+                     [](const absl::string_view) { return nullptr; });
     voice_media_channel_ptr->SetStats(initial_stats);
     return voice_media_channel_ptr;
   }
 
   FakeVideoMediaChannelForStats* AddVideoChannel(
-      const std::string& mid,
-      const std::string& transport_name,
+      const absl::string_view mid,
+      const absl::string_view transport_name,
       cricket::VideoMediaInfo initial_stats = cricket::VideoMediaInfo()) {
     RTC_DCHECK(!video_channel_);
     auto video_media_channel =
@@ -238,16 +238,16 @@ class FakePeerConnectionForStats : public FakePeerConnectionBase {
     GetOrCreateFirstTransceiverOfType(cricket::MEDIA_TYPE_VIDEO)
         ->internal()
         ->SetChannel(video_channel_.get(),
-                     [](const std::string&) { return nullptr; });
+                     [](const absl::string_view) { return nullptr; });
     video_media_channel_ptr->SetStats(initial_stats);
     return video_media_channel_ptr;
   }
 
-  void AddSctpDataChannel(const std::string& label) {
+  void AddSctpDataChannel(const absl::string_view label) {
     AddSctpDataChannel(label, InternalDataChannelInit());
   }
 
-  void AddSctpDataChannel(const std::string& label,
+  void AddSctpDataChannel(const absl::string_view label,
                           const InternalDataChannelInit& init) {
     // TODO(bugs.webrtc.org/11547): Supply a separate network thread.
     AddSctpDataChannel(SctpDataChannel::Create(&data_channel_provider_, label,
@@ -259,7 +259,7 @@ class FakePeerConnectionForStats : public FakePeerConnectionBase {
     sctp_data_channels_.push_back(data_channel);
   }
 
-  void SetTransportStats(const std::string& transport_name,
+  void SetTransportStats(const absl::string_view transport_name,
                          const cricket::TransportChannelStats& channel_stats) {
     SetTransportStats(
         transport_name,
@@ -267,7 +267,7 @@ class FakePeerConnectionForStats : public FakePeerConnectionBase {
   }
 
   void SetTransportStats(
-      const std::string& transport_name,
+      const absl::string_view transport_name,
       const std::vector<cricket::TransportChannelStats>& channel_stats_list) {
     cricket::TransportStats transport_stats;
     transport_stats.transport_name = transport_name;
@@ -278,12 +278,12 @@ class FakePeerConnectionForStats : public FakePeerConnectionBase {
   void SetCallStats(const Call::Stats& call_stats) { call_stats_ = call_stats; }
 
   void SetLocalCertificate(
-      const std::string& transport_name,
+      const absl::string_view transport_name,
       rtc::scoped_refptr<rtc::RTCCertificate> certificate) {
     local_certificates_by_transport_[transport_name] = certificate;
   }
 
-  void SetRemoteCertChain(const std::string& transport_name,
+  void SetRemoteCertChain(const absl::string_view transport_name,
                           std::unique_ptr<rtc::SSLCertChain> chain) {
     remote_cert_chains_by_transport_[transport_name] = std::move(chain);
   }
@@ -360,7 +360,7 @@ class FakePeerConnectionForStats : public FakePeerConnectionBase {
   Call::Stats GetCallStats() override { return call_stats_; }
 
   bool GetLocalCertificate(
-      const std::string& transport_name,
+      const absl::string_view transport_name,
       rtc::scoped_refptr<rtc::RTCCertificate>* certificate) override {
     auto it = local_certificates_by_transport_.find(transport_name);
     if (it != local_certificates_by_transport_.end()) {
@@ -372,7 +372,7 @@ class FakePeerConnectionForStats : public FakePeerConnectionBase {
   }
 
   std::unique_ptr<rtc::SSLCertChain> GetRemoteSSLCertChain(
-      const std::string& transport_name) override {
+      const absl::string_view transport_name) override {
     auto it = remote_cert_chains_by_transport_.find(transport_name);
     if (it != remote_cert_chains_by_transport_.end()) {
       return it->second->Clone();
@@ -383,7 +383,7 @@ class FakePeerConnectionForStats : public FakePeerConnectionBase {
 
  private:
   cricket::TransportStats GetTransportStatsByName(
-      const std::string& transport_name) {
+      const absl::string_view transport_name) {
     auto it = transport_stats_by_name_.find(transport_name);
     if (it != transport_stats_by_name_.end()) {
       // If specific transport stats have been specified, return those.

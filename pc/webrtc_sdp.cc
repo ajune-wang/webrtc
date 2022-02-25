@@ -295,7 +295,7 @@ static void BuildCandidate(const std::vector<Candidate>& candidates,
                            std::string* message);
 static void BuildIceOptions(const std::vector<std::string>& transport_options,
                             std::string* message);
-static bool ParseSessionDescription(const std::string& message,
+static bool ParseSessionDescription(const absl::string_view message,
                                     size_t* pos,
                                     std::string* session_id,
                                     std::string* session_version,
@@ -305,7 +305,7 @@ static bool ParseSessionDescription(const std::string& message,
                                     cricket::SessionDescription* desc,
                                     SdpParseError* error);
 static bool ParseMediaDescription(
-    const std::string& message,
+    const absl::string_view message,
     const TransportDescription& session_td,
     const RtpHeaderExtensions& session_extmaps,
     size_t* pos,
@@ -314,10 +314,10 @@ static bool ParseMediaDescription(
     std::vector<std::unique_ptr<JsepIceCandidate>>* candidates,
     SdpParseError* error);
 static bool ParseContent(
-    const std::string& message,
+    const absl::string_view message,
     const cricket::MediaType media_type,
     int mline_index,
-    const std::string& protocol,
+    const absl::string_view protocol,
     const std::vector<int>& payload_types,
     size_t* pos,
     std::string* content_name,
@@ -327,54 +327,54 @@ static bool ParseContent(
     TransportDescription* transport,
     std::vector<std::unique_ptr<JsepIceCandidate>>* candidates,
     SdpParseError* error);
-static bool ParseGroupAttribute(const std::string& line,
+static bool ParseGroupAttribute(const absl::string_view line,
                                 cricket::SessionDescription* desc,
                                 SdpParseError* error);
-static bool ParseSsrcAttribute(const std::string& line,
+static bool ParseSsrcAttribute(const absl::string_view line,
                                SsrcInfoVec* ssrc_infos,
                                int* msid_signaling,
                                SdpParseError* error);
-static bool ParseSsrcGroupAttribute(const std::string& line,
+static bool ParseSsrcGroupAttribute(const absl::string_view line,
                                     SsrcGroupVec* ssrc_groups,
                                     SdpParseError* error);
-static bool ParseCryptoAttribute(const std::string& line,
+static bool ParseCryptoAttribute(const absl::string_view line,
                                  MediaContentDescription* media_desc,
                                  SdpParseError* error);
-static bool ParseRtpmapAttribute(const std::string& line,
+static bool ParseRtpmapAttribute(const absl::string_view line,
                                  const cricket::MediaType media_type,
                                  const std::vector<int>& payload_types,
                                  MediaContentDescription* media_desc,
                                  SdpParseError* error);
-static bool ParseFmtpAttributes(const std::string& line,
+static bool ParseFmtpAttributes(const absl::string_view line,
                                 const cricket::MediaType media_type,
                                 MediaContentDescription* media_desc,
                                 SdpParseError* error);
-static bool ParseFmtpParam(const std::string& line,
+static bool ParseFmtpParam(const absl::string_view line,
                            std::string* parameter,
                            std::string* value,
                            SdpParseError* error);
-static bool ParsePacketizationAttribute(const std::string& line,
+static bool ParsePacketizationAttribute(const absl::string_view line,
                                         const cricket::MediaType media_type,
                                         MediaContentDescription* media_desc,
                                         SdpParseError* error);
-static bool ParseRtcpFbAttribute(const std::string& line,
+static bool ParseRtcpFbAttribute(const absl::string_view line,
                                  const cricket::MediaType media_type,
                                  MediaContentDescription* media_desc,
                                  SdpParseError* error);
-static bool ParseIceOptions(const std::string& line,
+static bool ParseIceOptions(const absl::string_view line,
                             std::vector<std::string>* transport_options,
                             SdpParseError* error);
-static bool ParseExtmap(const std::string& line,
+static bool ParseExtmap(const absl::string_view line,
                         RtpExtension* extmap,
                         SdpParseError* error);
 static bool ParseFingerprintAttribute(
-    const std::string& line,
+    const absl::string_view line,
     std::unique_ptr<rtc::SSLFingerprint>* fingerprint,
     SdpParseError* error);
-static bool ParseDtlsSetup(const std::string& line,
+static bool ParseDtlsSetup(const absl::string_view line,
                            cricket::ConnectionRole* role,
                            SdpParseError* error);
-static bool ParseMsidAttribute(const std::string& line,
+static bool ParseMsidAttribute(const absl::string_view line,
                                std::vector<std::string>* stream_ids,
                                std::string* track_id,
                                SdpParseError* error);
@@ -465,7 +465,7 @@ static bool ParseFailedExpectMinFieldNum(absl::string_view line,
 // `line` is the failing line. The failure is due to the fact that it failed to
 // get the value of `attribute`.
 static bool ParseFailedGetValue(absl::string_view line,
-                                const std::string& attribute,
+                                const absl::string_view attribute,
                                 SdpParseError* error) {
   rtc::StringBuilder description;
   description << "Failed to get the value of attribute: " << attribute;
@@ -487,7 +487,7 @@ static bool ParseFailedExpectLine(absl::string_view message,
   return ParseFailed(message, line_start, description.Release(), error);
 }
 
-static bool AddLine(const std::string& line, std::string* message) {
+static bool AddLine(const absl::string_view line, std::string* message) {
   if (!message)
     return false;
 
@@ -496,7 +496,7 @@ static bool AddLine(const std::string& line, std::string* message) {
   return true;
 }
 
-static bool GetLine(const std::string& message,
+static bool GetLine(const absl::string_view message,
                     size_t* pos,
                     std::string* line) {
   size_t line_begin = *pos;
@@ -536,19 +536,20 @@ static bool GetLine(const std::string& message,
 
 // Init `os` to "`type`=`value`".
 static void InitLine(const char type,
-                     const std::string& value,
+                     const absl::string_view value,
                      rtc::StringBuilder* os) {
   os->Clear();
   *os << std::string(1, type) << kSdpDelimiterEqual << value;
 }
 
 // Init `os` to "a=`attribute`".
-static void InitAttrLine(const std::string& attribute, rtc::StringBuilder* os) {
+static void InitAttrLine(const absl::string_view attribute,
+                         rtc::StringBuilder* os) {
   InitLine(kLineTypeAttributes, attribute, os);
 }
 
 // Writes a SDP attribute line based on `attribute` and `value` to `message`.
-static void AddAttributeLine(const std::string& attribute,
+static void AddAttributeLine(const absl::string_view attribute,
                              int value,
                              std::string* message) {
   rtc::StringBuilder os;
@@ -557,7 +558,7 @@ static void AddAttributeLine(const std::string& attribute,
   AddLine(os.str(), message);
 }
 
-static bool IsLineType(const std::string& message,
+static bool IsLineType(const absl::string_view message,
                        const char type,
                        size_t line_start) {
   if (message.size() < line_start + kLinePrefixLength) {
@@ -568,11 +569,11 @@ static bool IsLineType(const std::string& message,
           cmessage[line_start + 1] == kSdpDelimiterEqualChar);
 }
 
-static bool IsLineType(const std::string& line, const char type) {
+static bool IsLineType(const absl::string_view line, const char type) {
   return IsLineType(line, type, 0);
 }
 
-static bool GetLineWithType(const std::string& message,
+static bool GetLineWithType(const absl::string_view message,
                             size_t* pos,
                             std::string* line,
                             const char type) {
@@ -586,8 +587,8 @@ static bool GetLineWithType(const std::string& message,
   return true;
 }
 
-static bool HasAttribute(const std::string& line,
-                         const std::string& attribute) {
+static bool HasAttribute(const absl::string_view line,
+                         const absl::string_view attribute) {
   if (line.compare(kLinePrefixLength, attribute.size(), attribute) == 0) {
     // Make sure that the match is not only a partial match. If length of
     // strings doesn't match, the next character of the line must be ':' or ' '.
@@ -604,8 +605,8 @@ static bool HasAttribute(const std::string& line,
 }
 
 static bool AddSsrcLine(uint32_t ssrc_id,
-                        const std::string& attribute,
-                        const std::string& value,
+                        const absl::string_view attribute,
+                        const absl::string_view value,
                         std::string* message) {
   // RFC 5576
   // a=ssrc:<ssrc-id> <attribute>:<value>
@@ -617,8 +618,8 @@ static bool AddSsrcLine(uint32_t ssrc_id,
 }
 
 // Get value only from <attribute>:<value>.
-static bool GetValue(const std::string& message,
-                     const std::string& attribute,
+static bool GetValue(const absl::string_view message,
+                     const absl::string_view attribute,
                      std::string* value,
                      SdpParseError* error) {
   std::string leftpart;
@@ -635,8 +636,8 @@ static bool GetValue(const std::string& message,
 }
 
 // Get a single [token] from <attribute>:<token>
-static bool GetSingleTokenValue(const std::string& message,
-                                const std::string& attribute,
+static bool GetSingleTokenValue(const absl::string_view message,
+                                const absl::string_view attribute,
                                 std::string* value,
                                 SdpParseError* error) {
   if (!GetValue(message, attribute, value, error)) {
@@ -657,8 +658,8 @@ static bool CaseInsensitiveFind(std::string str1, std::string str2) {
 }
 
 template <class T>
-static bool GetValueFromString(const std::string& line,
-                               const std::string& s,
+static bool GetValueFromString(const absl::string_view line,
+                               const absl::string_view s,
                                T* t,
                                SdpParseError* error) {
   if (!rtc::FromString(s, t)) {
@@ -669,8 +670,8 @@ static bool GetValueFromString(const std::string& line,
   return true;
 }
 
-static bool GetPayloadTypeFromString(const std::string& line,
-                                     const std::string& s,
+static bool GetPayloadTypeFromString(const absl::string_view line,
+                                     const absl::string_view s,
                                      int* payload_type,
                                      SdpParseError* error) {
   return GetValueFromString(line, s, payload_type, error) &&
@@ -681,7 +682,7 @@ static bool GetPayloadTypeFromString(const std::string& line,
 // This is a track that does not contain SSRCs and only contains
 // stream_ids/track_id if it's signaled with a=msid lines.
 void CreateTrackWithNoSsrcs(const std::vector<std::string>& msid_stream_ids,
-                            const std::string& msid_track_id,
+                            const absl::string_view msid_track_id,
                             const std::vector<RidDescription>& rids,
                             StreamParamsVec* tracks) {
   StreamParams track;
@@ -702,7 +703,7 @@ void CreateTrackWithNoSsrcs(const std::vector<std::string>& msid_stream_ids,
 // exist. We prioritize getting stream_ids/track_ids signaled in a=msid lines.
 void CreateTracksFromSsrcInfos(const SsrcInfoVec& ssrc_infos,
                                const std::vector<std::string>& msid_stream_ids,
-                               const std::string& msid_track_id,
+                               const absl::string_view msid_track_id,
                                StreamParamsVec* tracks,
                                int msid_signaling) {
   RTC_DCHECK(tracks != NULL);
@@ -777,7 +778,7 @@ static const int kPreferenceHost = 1;
 static const int kPreferenceReflexive = 2;
 static const int kPreferenceRelayed = 3;
 
-static int GetCandidatePreferenceFromType(const std::string& type) {
+static int GetCandidatePreferenceFromType(const absl::string_view type) {
   int preference = kPreferenceUnknown;
   if (type == cricket::LOCAL_PORT_TYPE) {
     preference = kPreferenceHost;
@@ -989,7 +990,7 @@ std::string SdpSerializeCandidate(const cricket::Candidate& candidate) {
   return message;
 }
 
-bool SdpDeserialize(const std::string& message,
+bool SdpDeserialize(const absl::string_view message,
                     JsepSessionDescription* jdesc,
                     SdpParseError* error) {
   std::string session_id;
@@ -1023,7 +1024,7 @@ bool SdpDeserialize(const std::string& message,
   return true;
 }
 
-bool SdpDeserializeCandidate(const std::string& message,
+bool SdpDeserializeCandidate(const absl::string_view message,
                              JsepIceCandidate* jcandidate,
                              SdpParseError* error) {
   RTC_DCHECK(jcandidate != NULL);
@@ -1035,8 +1036,8 @@ bool SdpDeserializeCandidate(const std::string& message,
   return true;
 }
 
-bool SdpDeserializeCandidate(const std::string& transport_name,
-                             const std::string& message,
+bool SdpDeserializeCandidate(const absl::string_view transport_name,
+                             const absl::string_view message,
                              cricket::Candidate* candidate,
                              SdpParseError* error) {
   RTC_DCHECK(candidate != nullptr);
@@ -1047,7 +1048,7 @@ bool SdpDeserializeCandidate(const std::string& transport_name,
   return true;
 }
 
-bool ParseCandidate(const std::string& message,
+bool ParseCandidate(const absl::string_view message,
                     Candidate* candidate,
                     SdpParseError* error,
                     bool is_raw) {
@@ -1249,7 +1250,7 @@ bool ParseCandidate(const std::string& message,
   return true;
 }
 
-bool ParseIceOptions(const std::string& line,
+bool ParseIceOptions(const absl::string_view line,
                      std::vector<std::string>* transport_options,
                      SdpParseError* error) {
   std::string ice_options;
@@ -1264,7 +1265,7 @@ bool ParseIceOptions(const std::string& line,
   return true;
 }
 
-bool ParseSctpPort(const std::string& line,
+bool ParseSctpPort(const absl::string_view line,
                    int* sctp_port,
                    SdpParseError* error) {
   // draft-ietf-mmusic-sctp-sdp-26
@@ -1285,7 +1286,7 @@ bool ParseSctpPort(const std::string& line,
   return true;
 }
 
-bool ParseSctpMaxMessageSize(const std::string& line,
+bool ParseSctpMaxMessageSize(const absl::string_view line,
                              int* max_message_size,
                              SdpParseError* error) {
   // draft-ietf-mmusic-sctp-sdp-26
@@ -1302,7 +1303,7 @@ bool ParseSctpMaxMessageSize(const std::string& line,
   return true;
 }
 
-bool ParseExtmap(const std::string& line,
+bool ParseExtmap(const absl::string_view line,
                  RtpExtension* extmap,
                  SdpParseError* error) {
   // RFC 5285
@@ -1808,8 +1809,8 @@ void WriteRtcpFbHeader(int payload_type, rtc::StringBuilder* os) {
   }
 }
 
-void WriteFmtpParameter(const std::string& parameter_name,
-                        const std::string& parameter_value,
+void WriteFmtpParameter(const absl::string_view parameter_name,
+                        const absl::string_view parameter_value,
                         rtc::StringBuilder* os) {
   if (parameter_name == "") {
     // RFC 2198 and RFC 4733 don't use key-value pairs.
@@ -1820,7 +1821,7 @@ void WriteFmtpParameter(const std::string& parameter_name,
   }
 }
 
-bool IsFmtpParam(const std::string& name) {
+bool IsFmtpParam(const absl::string_view name) {
   // RFC 4855, section 3 specifies the mapping of media format parameters to SDP
   // parameters. Only ptime, maxptime, channels and rate are placed outside of
   // the fmtp line. In WebRTC, channels and rate are already handled separately
@@ -1893,7 +1894,7 @@ bool GetMinValue(const std::vector<int>& values, int* value) {
   return true;
 }
 
-bool GetParameter(const std::string& name,
+bool GetParameter(const absl::string_view name,
                   const cricket::CodecParameterMap& params,
                   int* value) {
   std::map<std::string, std::string>::const_iterator found = params.find(name);
@@ -2061,7 +2062,7 @@ void BuildIceOptions(const std::vector<std::string>& transport_options,
   }
 }
 
-bool ParseConnectionData(const std::string& line,
+bool ParseConnectionData(const absl::string_view line,
                          rtc::SocketAddress* addr,
                          SdpParseError* error) {
   // Parse the line from left to right.
@@ -2112,7 +2113,7 @@ bool ParseConnectionData(const std::string& line,
   return true;
 }
 
-bool ParseSessionDescription(const std::string& message,
+bool ParseSessionDescription(const absl::string_view message,
                              size_t* pos,
                              std::string* session_id,
                              std::string* session_version,
@@ -2274,7 +2275,7 @@ bool ParseSessionDescription(const std::string& message,
   return true;
 }
 
-bool ParseGroupAttribute(const std::string& line,
+bool ParseGroupAttribute(const absl::string_view line,
                          cricket::SessionDescription* desc,
                          SdpParseError* error) {
   RTC_DCHECK(desc != NULL);
@@ -2296,7 +2297,7 @@ bool ParseGroupAttribute(const std::string& line,
 }
 
 static bool ParseFingerprintAttribute(
-    const std::string& line,
+    const absl::string_view line,
     std::unique_ptr<rtc::SSLFingerprint>* fingerprint,
     SdpParseError* error) {
   std::vector<std::string> fields;
@@ -2327,7 +2328,7 @@ static bool ParseFingerprintAttribute(
   return true;
 }
 
-static bool ParseDtlsSetup(const std::string& line,
+static bool ParseDtlsSetup(const absl::string_view line,
                            cricket::ConnectionRole* role,
                            SdpParseError* error) {
   // setup-attr           =  "a=setup:" role
@@ -2345,7 +2346,7 @@ static bool ParseDtlsSetup(const std::string& line,
   return true;
 }
 
-static bool ParseMsidAttribute(const std::string& line,
+static bool ParseMsidAttribute(const absl::string_view line,
                                std::vector<std::string>* stream_ids,
                                std::string* track_id,
                                SdpParseError* error) {
@@ -2583,10 +2584,10 @@ void MaybeCreateStaticPayloadAudioCodecs(const std::vector<int>& fmts,
 
 template <class C>
 static std::unique_ptr<C> ParseContentDescription(
-    const std::string& message,
+    const absl::string_view message,
     const cricket::MediaType media_type,
     int mline_index,
-    const std::string& protocol,
+    const absl::string_view protocol,
     const std::vector<int>& payload_types,
     size_t* pos,
     std::string* content_name,
@@ -2622,7 +2623,7 @@ static std::unique_ptr<C> ParseContentDescription(
 }
 
 bool ParseMediaDescription(
-    const std::string& message,
+    const absl::string_view message,
     const TransportDescription& session_td,
     const RtpHeaderExtensions& session_extmaps,
     size_t* pos,
@@ -2919,7 +2920,7 @@ void UpdateCodec(MediaContentDescription* content_desc,
 // according to `packetization`.
 void UpdateVideoCodecPacketization(VideoContentDescription* video_desc,
                                    int payload_type,
-                                   const std::string& packetization) {
+                                   const absl::string_view packetization) {
   if (packetization != cricket::kPacketizationParamRaw) {
     // Ignore unsupported packetization attribute.
     return;
@@ -2958,8 +2959,8 @@ void UpdateFromWildcardCodecs(cricket::MediaContentDescriptionImpl<T>* desc) {
   desc->set_codecs(codecs);
 }
 
-void AddAudioAttribute(const std::string& name,
-                       const std::string& value,
+void AddAudioAttribute(const absl::string_view name,
+                       const absl::string_view value,
                        AudioContentDescription* audio_desc) {
   if (value.empty()) {
     return;
@@ -2971,10 +2972,10 @@ void AddAudioAttribute(const std::string& name,
   audio_desc->set_codecs(codecs);
 }
 
-bool ParseContent(const std::string& message,
+bool ParseContent(const absl::string_view message,
                   const cricket::MediaType media_type,
                   int mline_index,
-                  const std::string& protocol,
+                  const absl::string_view protocol,
                   const std::vector<int>& payload_types,
                   size_t* pos,
                   std::string* content_name,
@@ -3400,7 +3401,7 @@ bool ParseContent(const std::string& message,
   return true;
 }
 
-bool ParseSsrcAttribute(const std::string& line,
+bool ParseSsrcAttribute(const absl::string_view line,
                         SsrcInfoVec* ssrc_infos,
                         int* msid_signaling,
                         SdpParseError* error) {
@@ -3480,7 +3481,7 @@ bool ParseSsrcAttribute(const std::string& line,
   return true;
 }
 
-bool ParseSsrcGroupAttribute(const std::string& line,
+bool ParseSsrcGroupAttribute(const absl::string_view line,
                              SsrcGroupVec* ssrc_groups,
                              SdpParseError* error) {
   RTC_DCHECK(ssrc_groups != NULL);
@@ -3508,7 +3509,7 @@ bool ParseSsrcGroupAttribute(const std::string& line,
   return true;
 }
 
-bool ParseCryptoAttribute(const std::string& line,
+bool ParseCryptoAttribute(const absl::string_view line,
                           MediaContentDescription* media_desc,
                           SdpParseError* error) {
   std::vector<std::string> fields;
@@ -3541,7 +3542,7 @@ bool ParseCryptoAttribute(const std::string& line,
 // Updates or creates a new codec entry in the audio description with according
 // to `name`, `clockrate`, `bitrate`, and `channels`.
 void UpdateCodec(int payload_type,
-                 const std::string& name,
+                 const absl::string_view name,
                  int clockrate,
                  int bitrate,
                  size_t channels,
@@ -3561,7 +3562,7 @@ void UpdateCodec(int payload_type,
 // Updates or creates a new codec entry in the video description according to
 // `name`, `width`, `height`, and `framerate`.
 void UpdateCodec(int payload_type,
-                 const std::string& name,
+                 const absl::string_view name,
                  VideoContentDescription* video_desc) {
   // Codec may already be populated with (only) optional parameters
   // (from an fmtp).
@@ -3572,7 +3573,7 @@ void UpdateCodec(int payload_type,
                                                                   codec);
 }
 
-bool ParseRtpmapAttribute(const std::string& line,
+bool ParseRtpmapAttribute(const absl::string_view line,
                           const cricket::MediaType media_type,
                           const std::vector<int>& payload_types,
                           MediaContentDescription* media_desc,
@@ -3643,7 +3644,7 @@ bool ParseRtpmapAttribute(const std::string& line,
   return true;
 }
 
-bool ParseFmtpParam(const std::string& line,
+bool ParseFmtpParam(const absl::string_view line,
                     std::string* parameter,
                     std::string* value,
                     SdpParseError* error) {
@@ -3657,7 +3658,7 @@ bool ParseFmtpParam(const std::string& line,
   return true;
 }
 
-bool ParseFmtpAttributes(const std::string& line,
+bool ParseFmtpAttributes(const absl::string_view line,
                          const cricket::MediaType media_type,
                          MediaContentDescription* media_desc,
                          SdpParseError* error) {
@@ -3720,7 +3721,7 @@ bool ParseFmtpAttributes(const std::string& line,
   return true;
 }
 
-bool ParsePacketizationAttribute(const std::string& line,
+bool ParsePacketizationAttribute(const absl::string_view line,
                                  const cricket::MediaType media_type,
                                  MediaContentDescription* media_desc,
                                  SdpParseError* error) {
@@ -3748,7 +3749,7 @@ bool ParsePacketizationAttribute(const std::string& line,
   return true;
 }
 
-bool ParseRtcpFbAttribute(const std::string& line,
+bool ParseRtcpFbAttribute(const absl::string_view line,
                           const cricket::MediaType media_type,
                           MediaContentDescription* media_desc,
                           SdpParseError* error) {

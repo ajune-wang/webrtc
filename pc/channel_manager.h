@@ -84,7 +84,7 @@ class ChannelManager : public ChannelFactoryInterface {
   // Creates a voice channel, to be associated with the specified session.
   VoiceChannel* CreateVoiceChannel(webrtc::Call* call,
                                    const MediaConfig& media_config,
-                                   const std::string& mid,
+                                   const absl::string_view mid,
                                    bool srtp_required,
                                    const webrtc::CryptoOptions& crypto_options,
                                    const AudioOptions& options) override;
@@ -95,7 +95,7 @@ class ChannelManager : public ChannelFactoryInterface {
   VideoChannel* CreateVideoChannel(
       webrtc::Call* call,
       const MediaConfig& media_config,
-      const std::string& mid,
+      const absl::string_view mid,
       bool srtp_required,
       const webrtc::CryptoOptions& crypto_options,
       const VideoOptions& options,

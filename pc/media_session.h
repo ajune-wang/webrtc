@@ -57,16 +57,16 @@ struct SenderOptions {
 // Options for an individual media description/"m=" section.
 struct MediaDescriptionOptions {
   MediaDescriptionOptions(MediaType type,
-                          const std::string& mid,
+                          const absl::string_view mid,
                           webrtc::RtpTransceiverDirection direction,
                           bool stopped)
       : type(type), mid(mid), direction(direction), stopped(stopped) {}
 
   // TODO(deadbeef): When we don't support Plan B, there will only be one
   // sender per media description and this can be simplified.
-  void AddAudioSender(const std::string& track_id,
+  void AddAudioSender(const absl::string_view track_id,
                       const std::vector<std::string>& stream_ids);
-  void AddVideoSender(const std::string& track_id,
+  void AddVideoSender(const absl::string_view track_id,
                       const std::vector<std::string>& stream_ids,
                       const std::vector<RidDescription>& rids,
                       const SimulcastLayerList& simulcast_layers,
@@ -85,7 +85,7 @@ struct MediaDescriptionOptions {
 
  private:
   // Doesn't DCHECK on `type`.
-  void AddSenderInternal(const std::string& track_id,
+  void AddSenderInternal(const absl::string_view track_id,
                          const std::vector<std::string>& stream_ids,
                          const std::vector<RidDescription>& rids,
                          const SimulcastLayerList& simulcast_layers,
@@ -204,21 +204,21 @@ class MediaSessionDescriptionFactory {
       bool extmap_allow_mixed,
       const std::vector<MediaDescriptionOptions>& media_description_options)
       const;
-  bool AddTransportOffer(const std::string& content_name,
+  bool AddTransportOffer(const absl::string_view content_name,
                          const TransportOptions& transport_options,
                          const SessionDescription* current_desc,
                          SessionDescription* offer,
                          IceCredentialsIterator* ice_credentials) const;
 
   std::unique_ptr<TransportDescription> CreateTransportAnswer(
-      const std::string& content_name,
+      const absl::string_view content_name,
       const SessionDescription* offer_desc,
       const TransportOptions& transport_options,
       const SessionDescription* current_desc,
       bool require_transport_attributes,
       IceCredentialsIterator* ice_credentials) const;
 
-  bool AddTransportAnswer(const std::string& content_name,
+  bool AddTransportAnswer(const absl::string_view content_name,
                           const TransportDescription& transport_desc,
                           SessionDescription* answer_desc) const;
 

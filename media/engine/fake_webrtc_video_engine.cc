@@ -101,7 +101,7 @@ void FakeWebRtcVideoDecoderFactory::DecoderDestroyed(
 }
 
 void FakeWebRtcVideoDecoderFactory::AddSupportedVideoCodecType(
-    const std::string& name) {
+    const absl::string_view name) {
   // This is to match the default H264 params of cricket::VideoCodec.
   cricket::VideoCodec video_codec(name);
   supported_codec_formats_.push_back(
@@ -250,7 +250,7 @@ void FakeWebRtcVideoEncoderFactory::AddSupportedVideoCodec(
 }
 
 void FakeWebRtcVideoEncoderFactory::AddSupportedVideoCodecType(
-    const std::string& name) {
+    const absl::string_view name) {
   // This is to match the default H264 params of cricket::VideoCodec.
   cricket::VideoCodec video_codec(name);
   formats_.push_back(

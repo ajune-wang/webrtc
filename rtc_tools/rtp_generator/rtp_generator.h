@@ -57,7 +57,7 @@ struct RtpGeneratorOptions {
 // Attempts to parse RtpGeneratorOptions from a JSON file. Any failures
 // will result in absl::nullopt.
 absl::optional<RtpGeneratorOptions> ParseRtpGeneratorOptionsFromFile(
-    const std::string& options_file);
+    const absl::string_view options_file);
 
 // The RtpGenerator allows generating of corpus material intended to be
 // used by fuzzers. It accepts a simple Json configuration file that allows the
@@ -86,7 +86,7 @@ class RtpGenerator final : public webrtc::Transport {
   // Cleans up the VideoSendStream.
   ~RtpGenerator() override;
   // Generates an rtp_dump that is written out to
-  void GenerateRtpDump(const std::string& rtp_dump_path);
+  void GenerateRtpDump(const absl::string_view rtp_dump_path);
 
  private:
   // webrtc::Transport implementation

@@ -27,7 +27,7 @@ namespace test {
 
 namespace {
 
-void VerifyLogOutput(const std::string& log_filename,
+void VerifyLogOutput(const absl::string_view log_filename,
                      const std::vector<std::string>& expected_out) {
   std::ifstream logf(log_filename);
   std::string line;

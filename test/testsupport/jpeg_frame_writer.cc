@@ -27,7 +27,7 @@ extern "C" {
 namespace webrtc {
 namespace test {
 
-JpegFrameWriter::JpegFrameWriter(const std::string& output_filename)
+JpegFrameWriter::JpegFrameWriter(const absl::string_view output_filename)
     : frame_written_(false),
       output_filename_(output_filename),
       output_file_(nullptr) {}

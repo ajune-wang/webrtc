@@ -23,7 +23,7 @@ class OutputWavFile : public AudioSink {
  public:
   // Creates an OutputWavFile, opening a file named `file_name` for writing.
   // The output file is a PCM encoded wav file.
-  OutputWavFile(const std::string& file_name,
+  OutputWavFile(const absl::string_view file_name,
                 int sample_rate_hz,
                 int num_channels = 1)
       : wav_writer_(file_name, sample_rate_hz, num_channels) {}

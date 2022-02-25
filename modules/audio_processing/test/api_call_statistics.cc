@@ -72,7 +72,8 @@ void ApiCallStatistics::PrintReport() const {
             << "   avg: " << avg_capture << " us" << std::endl;
 }
 
-void ApiCallStatistics::WriteReportToFile(const std::string& filename) const {
+void ApiCallStatistics::WriteReportToFile(
+    const absl::string_view filename) const {
   std::unique_ptr<std::ofstream> out =
       std::make_unique<std::ofstream>(filename);
   for (auto v : calls_) {

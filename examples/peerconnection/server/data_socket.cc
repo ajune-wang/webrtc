@@ -115,16 +115,16 @@ bool DataSocket::OnDataAvailable(bool* close_socket) {
   return ret;
 }
 
-bool DataSocket::Send(const std::string& data) const {
+bool DataSocket::Send(const absl::string_view data) const {
   return send(socket_, data.data(), static_cast<int>(data.length()), 0) !=
          SOCKET_ERROR;
 }
 
-bool DataSocket::Send(const std::string& status,
+bool DataSocket::Send(const absl::string_view status,
                       bool connection_close,
-                      const std::string& content_type,
-                      const std::string& extra_headers,
-                      const std::string& data) const {
+                      const absl::string_view content_type,
+                      const absl::string_view extra_headers,
+                      const absl::string_view data) const {
   RTC_DCHECK(valid());
   RTC_DCHECK(!status.empty());
   std::string buffer("HTTP/1.1 " + status + "\r\n");

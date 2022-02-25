@@ -22,10 +22,12 @@ namespace webrtc {
 namespace {
 const int kSample = 22;
 
-void AddSparseSample(const std::string& name, int sample) {
+void AddSparseSample(const absl::string_view name, int sample) {
   RTC_HISTOGRAM_COUNTS_SPARSE_100(name, sample);
 }
-void AddSampleWithVaryingName(int index, const std::string& name, int sample) {
+void AddSampleWithVaryingName(int index,
+                              const absl::string_view name,
+                              int sample) {
   RTC_HISTOGRAMS_COUNTS_100(index, name, sample);
 }
 }  // namespace

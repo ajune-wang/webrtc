@@ -221,7 +221,7 @@ class PictureIdTest : public test::CallTest,
   }
 
   void SetupEncoder(VideoEncoderFactory* encoder_factory,
-                    const std::string& payload_name);
+                    const absl::string_view payload_name);
   void SetVideoEncoderConfig(int num_streams);
   void TestPictureIdContinuousAfterReconfigure(
       const std::vector<int>& ssrc_counts);
@@ -238,7 +238,7 @@ INSTANTIATE_TEST_SUITE_P(TemporalLayers,
                          ::testing::ValuesIn(kNumTemporalLayers));
 
 void PictureIdTest::SetupEncoder(VideoEncoderFactory* encoder_factory,
-                                 const std::string& payload_name) {
+                                 const absl::string_view payload_name) {
   observer_.reset(
       new PictureIdObserver(PayloadStringToCodecType(payload_name)));
 

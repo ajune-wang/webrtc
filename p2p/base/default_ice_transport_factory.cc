@@ -40,7 +40,7 @@ DefaultIceTransport::~DefaultIceTransport() {
 
 rtc::scoped_refptr<IceTransportInterface>
 DefaultIceTransportFactory::CreateIceTransport(
-    const std::string& transport_name,
+    const absl::string_view transport_name,
     int component,
     IceTransportInit init) {
   BasicIceControllerFactory factory;

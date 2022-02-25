@@ -43,7 +43,7 @@ class RampUpTester : public test::EndToEndTest {
                size_t num_flexfec_streams,
                unsigned int start_bitrate_bps,
                int64_t min_run_time_ms,
-               const std::string& extension_type,
+               const absl::string_view extension_type,
                bool rtx,
                bool red,
                bool report_perf_stats,
@@ -65,9 +65,9 @@ class RampUpTester : public test::EndToEndTest {
                        size_t* padding_sent,
                        size_t* media_sent) const;
 
-  void ReportResult(const std::string& measurement,
+  void ReportResult(const absl::string_view measurement,
                     size_t value,
-                    const std::string& units,
+                    const absl::string_view units,
                     test::ImproveDirection improve_direction) const;
   void TriggerTestDone();
 
@@ -128,7 +128,7 @@ class RampUpDownUpTester : public RampUpTester {
                      size_t num_audio_streams,
                      size_t num_flexfec_streams,
                      unsigned int start_bitrate_bps,
-                     const std::string& extension_type,
+                     const absl::string_view extension_type,
                      bool rtx,
                      bool red,
                      const std::vector<int>& loss_rates,

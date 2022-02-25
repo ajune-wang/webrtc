@@ -271,12 +271,12 @@ PeerConnectionWrapper::AddTransceiver(
 }
 
 rtc::scoped_refptr<AudioTrackInterface> PeerConnectionWrapper::CreateAudioTrack(
-    const std::string& label) {
+    const absl::string_view label) {
   return pc_factory()->CreateAudioTrack(label, nullptr);
 }
 
 rtc::scoped_refptr<VideoTrackInterface> PeerConnectionWrapper::CreateVideoTrack(
-    const std::string& label) {
+    const absl::string_view label) {
   return pc_factory()->CreateVideoTrack(label, FakeVideoTrackSource::Create());
 }
 
@@ -290,19 +290,19 @@ rtc::scoped_refptr<RtpSenderInterface> PeerConnectionWrapper::AddTrack(
 }
 
 rtc::scoped_refptr<RtpSenderInterface> PeerConnectionWrapper::AddAudioTrack(
-    const std::string& track_label,
+    const absl::string_view track_label,
     const std::vector<std::string>& stream_ids) {
   return AddTrack(CreateAudioTrack(track_label), stream_ids);
 }
 
 rtc::scoped_refptr<RtpSenderInterface> PeerConnectionWrapper::AddVideoTrack(
-    const std::string& track_label,
+    const absl::string_view track_label,
     const std::vector<std::string>& stream_ids) {
   return AddTrack(CreateVideoTrack(track_label), stream_ids);
 }
 
 rtc::scoped_refptr<DataChannelInterface>
-PeerConnectionWrapper::CreateDataChannel(const std::string& label) {
+PeerConnectionWrapper::CreateDataChannel(const absl::string_view label) {
   auto result = pc()->CreateDataChannelOrError(label, nullptr);
   if (!result.ok()) {
     RTC_LOG(LS_ERROR) << "CreateDataChannel failed: "

@@ -96,9 +96,9 @@ const char TCPTYPE_ACTIVE_STR[] = "active";
 const char TCPTYPE_PASSIVE_STR[] = "passive";
 const char TCPTYPE_SIMOPEN_STR[] = "so";
 
-std::string Port::ComputeFoundation(const std::string& type,
-                                    const std::string& protocol,
-                                    const std::string& relay_protocol,
+std::string Port::ComputeFoundation(const absl::string_view type,
+                                    const absl::string_view protocol,
+                                    const absl::string_view relay_protocol,
                                     const rtc::SocketAddress& base_address) {
   rtc::StringBuilder sb;
   sb << type << base_address.ipaddr().ToString() << protocol << relay_protocol;
@@ -106,11 +106,11 @@ std::string Port::ComputeFoundation(const std::string& type,
 }
 
 Port::Port(rtc::Thread* thread,
-           const std::string& type,
+           const absl::string_view type,
            rtc::PacketSocketFactory* factory,
            rtc::Network* network,
-           const std::string& username_fragment,
-           const std::string& password)
+           const absl::string_view username_fragment,
+           const absl::string_view password)
     : thread_(thread),
       factory_(factory),
       type_(type),
@@ -133,13 +133,13 @@ Port::Port(rtc::Thread* thread,
 }
 
 Port::Port(rtc::Thread* thread,
-           const std::string& type,
+           const absl::string_view type,
            rtc::PacketSocketFactory* factory,
            rtc::Network* network,
            uint16_t min_port,
            uint16_t max_port,
-           const std::string& username_fragment,
-           const std::string& password)
+           const absl::string_view username_fragment,
+           const absl::string_view password)
     : thread_(thread),
       factory_(factory),
       type_(type),
@@ -227,8 +227,8 @@ bool Port::SharedSocket() const {
 }
 
 void Port::SetIceParameters(int component,
-                            const std::string& username_fragment,
-                            const std::string& password) {
+                            const absl::string_view username_fragment,
+                            const absl::string_view password) {
   component_ = component;
   ice_username_fragment_ = username_fragment;
   password_ = password;
@@ -254,13 +254,13 @@ Connection* Port::GetConnection(const rtc::SocketAddress& remote_addr) {
 void Port::AddAddress(const rtc::SocketAddress& address,
                       const rtc::SocketAddress& base_address,
                       const rtc::SocketAddress& related_address,
-                      const std::string& protocol,
-                      const std::string& relay_protocol,
-                      const std::string& tcptype,
-                      const std::string& type,
+                      const absl::string_view protocol,
+                      const absl::string_view relay_protocol,
+                      const absl::string_view tcptype,
+                      const absl::string_view type,
                       uint32_t type_preference,
                       uint32_t relay_preference,
-                      const std::string& url,
+                      const absl::string_view url,
                       bool is_final) {
   if (protocol == TCP_PROTOCOL_NAME && type == LOCAL_PORT_TYPE) {
     RTC_DCHECK(!tcptype.empty());
@@ -287,7 +287,7 @@ void Port::AddAddress(const rtc::SocketAddress& address,
 }
 
 bool Port::MaybeObfuscateAddress(Candidate* c,
-                                 const std::string& type,
+                                 const absl::string_view type,
                                  bool is_final) {
   // TODO(bugs.webrtc.org/9723): Use a config to control the feature of IP
   // handling with mDNS.
@@ -300,8 +300,9 @@ bool Port::MaybeObfuscateAddress(Candidate* c,
 
   auto copy = *c;
   auto weak_ptr = weak_factory_.GetWeakPtr();
-  auto callback = [weak_ptr, copy, is_final](const rtc::IPAddress& addr,
-                                             const std::string& name) mutable {
+  auto callback = [weak_ptr, copy, is_final](
+                      const rtc::IPAddress& addr,
+                      const absl::string_view name) mutable {
     RTC_DCHECK(copy.address().ipaddr() == addr);
     rtc::SocketAddress hostname_address(name, copy.address().port());
     // In Port and Connection, we need the IP address information to
@@ -654,7 +655,7 @@ bool Port::ParseStunUsername(const StunMessage* stun_msg,
 
 bool Port::MaybeIceRoleConflict(const rtc::SocketAddress& addr,
                                 IceMessage* stun_msg,
-                                const std::string& remote_ufrag) {
+                                const absl::string_view remote_ufrag) {
   // Validate ICE_CONTROLLING or ICE_CONTROLLED attributes.
   bool ret = true;
   IceRole remote_ice_role = ICEROLE_UNKNOWN;
@@ -713,7 +714,7 @@ bool Port::MaybeIceRoleConflict(const rtc::SocketAddress& addr,
   return ret;
 }
 
-void Port::CreateStunUsername(const std::string& remote_username,
+void Port::CreateStunUsername(const absl::string_view remote_username,
                               std::string* stun_username_attr_str) const {
   stun_username_attr_str->clear();
   *stun_username_attr_str = remote_username;
@@ -737,7 +738,7 @@ bool Port::CanHandleIncomingPacketsFrom(const rtc::SocketAddress&) const {
 void Port::SendBindingErrorResponse(StunMessage* request,
                                     const rtc::SocketAddress& addr,
                                     int error_code,
-                                    const std::string& reason) {
+                                    const absl::string_view reason) {
   RTC_DCHECK(request->type() == STUN_BINDING_REQUEST ||
              request->type() == GOOG_PING_REQUEST);
 

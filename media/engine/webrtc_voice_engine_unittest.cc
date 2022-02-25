@@ -501,7 +501,7 @@ class WebRtcVoiceEngineTestFake : public ::testing::TestWithParam<bool> {
     SetSendParameters(send_parameters_);
   }
 
-  void TestSetSendRtpHeaderExtensions(const std::string& ext) {
+  void TestSetSendRtpHeaderExtensions(const absl::string_view ext) {
     EXPECT_TRUE(SetupSendStream());
 
     // Ensure extensions are off by default.
@@ -543,7 +543,7 @@ class WebRtcVoiceEngineTestFake : public ::testing::TestWithParam<bool> {
     EXPECT_EQ(0u, GetSendStreamConfig(kSsrcY).rtp.extensions.size());
   }
 
-  void TestSetRecvRtpHeaderExtensions(const std::string& ext) {
+  void TestSetRecvRtpHeaderExtensions(const absl::string_view ext) {
     EXPECT_TRUE(SetupRecvStream());
 
     // Ensure extensions are off by default.

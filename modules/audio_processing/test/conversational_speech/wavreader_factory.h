@@ -26,7 +26,7 @@ class WavReaderFactory : public WavReaderAbstractFactory {
   WavReaderFactory();
   ~WavReaderFactory() override;
   std::unique_ptr<WavReaderInterface> Create(
-      const std::string& filepath) const override;
+      const absl::string_view filepath) const override;
 };
 
 }  // namespace conversational_speech

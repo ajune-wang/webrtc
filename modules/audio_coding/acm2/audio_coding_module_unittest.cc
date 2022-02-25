@@ -844,13 +844,13 @@ class AcmReceiverBitExactnessOldApi : public ::testing::Test {
     std::string name;
   };
 
-  void Run(int output_freq_hz, const std::string& checksum_ref) {
+  void Run(int output_freq_hz, const absl::string_view checksum_ref) {
     Run(output_freq_hz, checksum_ref, CreateBuiltinAudioDecoderFactory(),
         [](AudioCodingModule*) {});
   }
 
   void Run(int output_freq_hz,
-           const std::string& checksum_ref,
+           const absl::string_view checksum_ref,
            rtc::scoped_refptr<AudioDecoderFactory> decoder_factory,
            rtc::FunctionView<void(AudioCodingModule*)> decoder_reg) {
     const std::string input_file_name =
@@ -1077,8 +1077,8 @@ class AcmSenderBitExactnessOldApi : public ::testing::Test,
 
   // Runs the test. SetUpSender() and RegisterSendCodec() must have been called
   // before calling this method.
-  void Run(const std::string& audio_checksum_ref,
-           const std::string& payload_checksum_ref,
+  void Run(const absl::string_view audio_checksum_ref,
+           const absl::string_view payload_checksum_ref,
            int expected_packets,
            test::AcmReceiveTestOldApi::NumOutputChannels expected_channels,
            rtc::scoped_refptr<AudioDecoderFactory> decoder_factory = nullptr) {

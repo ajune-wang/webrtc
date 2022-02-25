@@ -37,7 +37,7 @@ class StreamCollection : public StreamCollectionInterface {
     return media_streams_.at(index);
   }
 
-  virtual MediaStreamInterface* find(const std::string& id) {
+  virtual MediaStreamInterface* find(const absl::string_view id) {
     for (StreamVector::iterator it = media_streams_.begin();
          it != media_streams_.end(); ++it) {
       if ((*it)->id().compare(id) == 0) {
@@ -47,7 +47,8 @@ class StreamCollection : public StreamCollectionInterface {
     return NULL;
   }
 
-  virtual MediaStreamTrackInterface* FindAudioTrack(const std::string& id) {
+  virtual MediaStreamTrackInterface* FindAudioTrack(
+      const absl::string_view id) {
     for (size_t i = 0; i < media_streams_.size(); ++i) {
       MediaStreamTrackInterface* track = media_streams_[i]->FindAudioTrack(id);
       if (track) {
@@ -57,7 +58,8 @@ class StreamCollection : public StreamCollectionInterface {
     return NULL;
   }
 
-  virtual MediaStreamTrackInterface* FindVideoTrack(const std::string& id) {
+  virtual MediaStreamTrackInterface* FindVideoTrack(
+      const absl::string_view id) {
     for (size_t i = 0; i < media_streams_.size(); ++i) {
       MediaStreamTrackInterface* track = media_streams_[i]->FindVideoTrack(id);
       if (track) {

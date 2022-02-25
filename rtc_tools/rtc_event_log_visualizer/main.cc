@@ -105,8 +105,8 @@ ABSL_FLAG(bool,
 using webrtc::Plot;
 
 namespace {
-std::vector<std::string> StrSplit(const std::string& s,
-                                  const std::string& delimiter) {
+std::vector<std::string> StrSplit(const absl::string_view s,
+                                  const absl::string_view delimiter) {
   std::vector<std::string> v;
   size_t pos = 0;
   while (pos < s.length()) {
@@ -118,7 +118,7 @@ std::vector<std::string> StrSplit(const std::string& s,
 }
 
 struct PlotDeclaration {
-  PlotDeclaration(const std::string& label, std::function<void(Plot*)> f)
+  PlotDeclaration(const absl::string_view label, std::function<void(Plot*)> f)
       : label(label), enabled(false), plot_func(f) {}
   const std::string label;
   bool enabled;
@@ -128,7 +128,8 @@ struct PlotDeclaration {
 
 class PlotMap {
  public:
-  void RegisterPlot(const std::string& label, std::function<void(Plot*)> f) {
+  void RegisterPlot(const absl::string_view label,
+                    std::function<void(Plot*)> f) {
     for (const auto& plot : plots_) {
       RTC_DCHECK(plot.label != label)
           << "Can't use the same label for multiple plots";
@@ -164,7 +165,7 @@ class PlotMap {
   std::vector<PlotDeclaration>::iterator end() { return plots_.end(); }
 
  private:
-  bool EnablePlotByFlag(const std::string& flag) {
+  bool EnablePlotByFlag(const absl::string_view flag) {
     for (auto& plot : plots_) {
       if (plot.label == flag) {
         plot.enabled = true;

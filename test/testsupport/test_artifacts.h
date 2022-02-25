@@ -32,7 +32,8 @@ bool WriteToTestArtifactsDir(const char* filename,
                              const uint8_t* buffer,
                              size_t length);
 
-bool WriteToTestArtifactsDir(const char* filename, const std::string& content);
+bool WriteToTestArtifactsDir(const char* filename,
+                             const absl::string_view content);
 
 }  // namespace test
 }  // namespace webrtc

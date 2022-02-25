@@ -37,17 +37,17 @@ PROXY_CONSTMETHOD1(webrtc::RtpCapabilities,
                    cricket::MediaType)
 PROXY_METHOD1(rtc::scoped_refptr<MediaStreamInterface>,
               CreateLocalMediaStream,
-              const std::string&)
+              const absl::string_view)
 PROXY_METHOD1(rtc::scoped_refptr<AudioSourceInterface>,
               CreateAudioSource,
               const cricket::AudioOptions&)
 PROXY_METHOD2(rtc::scoped_refptr<VideoTrackInterface>,
               CreateVideoTrack,
-              const std::string&,
+              const absl::string_view,
               VideoTrackSourceInterface*)
 PROXY_METHOD2(rtc::scoped_refptr<AudioTrackInterface>,
               CreateAudioTrack,
-              const std::string&,
+              const absl::string_view,
               AudioSourceInterface*)
 PROXY_SECONDARY_METHOD2(bool, StartAecDump, FILE*, int64_t)
 PROXY_SECONDARY_METHOD0(void, StopAecDump)

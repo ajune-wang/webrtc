@@ -92,7 +92,7 @@ std::vector<SimulcastLayer> CreateLayers(const std::vector<std::string>& rids,
   RTC_DCHECK_EQ(rids.size(), active.size());
   std::vector<SimulcastLayer> result;
   absl::c_transform(rids, active, std::back_inserter(result),
-                    [](const std::string& rid, bool is_active) {
+                    [](const absl::string_view rid, bool is_active) {
                       return SimulcastLayer(rid, !is_active);
                     });
   return result;

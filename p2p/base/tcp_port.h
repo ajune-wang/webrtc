@@ -39,8 +39,8 @@ class TCPPort : public Port {
                                          rtc::Network* network,
                                          uint16_t min_port,
                                          uint16_t max_port,
-                                         const std::string& username,
-                                         const std::string& password,
+                                         const absl::string_view username,
+                                         const absl::string_view password,
                                          bool allow_listen) {
     // Using `new` to access a non-public constructor.
     return absl::WrapUnique(new TCPPort(thread, factory, network, min_port,
@@ -60,7 +60,7 @@ class TCPPort : public Port {
   int GetOption(rtc::Socket::Option opt, int* value) override;
   int SetOption(rtc::Socket::Option opt, int value) override;
   int GetError() override;
-  bool SupportsProtocol(const std::string& protocol) const override;
+  bool SupportsProtocol(const absl::string_view protocol) const override;
   ProtocolType GetProtocol() const override;
 
  protected:
@@ -69,8 +69,8 @@ class TCPPort : public Port {
           rtc::Network* network,
           uint16_t min_port,
           uint16_t max_port,
-          const std::string& username,
-          const std::string& password,
+          const absl::string_view username,
+          const absl::string_view password,
           bool allow_listen);
 
   // Handles sending using the local TCP socket.

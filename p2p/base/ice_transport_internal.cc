@@ -126,13 +126,14 @@ IceTransportInternal::IceTransportInternal() = default;
 
 IceTransportInternal::~IceTransportInternal() = default;
 
-void IceTransportInternal::SetIceCredentials(const std::string& ice_ufrag,
-                                             const std::string& ice_pwd) {
+void IceTransportInternal::SetIceCredentials(const absl::string_view ice_ufrag,
+                                             const absl::string_view ice_pwd) {
   SetIceParameters(IceParameters(ice_ufrag, ice_pwd, false));
 }
 
-void IceTransportInternal::SetRemoteIceCredentials(const std::string& ice_ufrag,
-                                                   const std::string& ice_pwd) {
+void IceTransportInternal::SetRemoteIceCredentials(
+    const absl::string_view ice_ufrag,
+    const absl::string_view ice_pwd) {
   SetRemoteIceParameters(IceParameters(ice_ufrag, ice_pwd, false));
 }
 

@@ -47,7 +47,7 @@ class VideoAdapterTest : public ::testing::Test,
                          public ::testing::WithParamInterface<bool> {
  public:
   VideoAdapterTest() : VideoAdapterTest("", 1) {}
-  explicit VideoAdapterTest(const std::string& field_trials,
+  explicit VideoAdapterTest(const absl::string_view field_trials,
                             int source_resolution_alignment)
       : override_field_trials_(field_trials),
         frame_source_(std::make_unique<FakeFrameSource>(

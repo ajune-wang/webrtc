@@ -228,8 +228,9 @@ class PeerConnectionRampUpTest : public ::testing::Test {
     ASSERT_TRUE_WAIT(caller_->IsIceConnected(), kDefaultTimeoutMs);
   }
 
-  void CreateTurnServer(cricket::ProtocolType type,
-                        const std::string& common_name = "test turn server") {
+  void CreateTurnServer(
+      cricket::ProtocolType type,
+      const absl::string_view common_name = "test turn server") {
     rtc::Thread* thread = network_thread();
     rtc::SocketFactory* factory = firewall_socket_server_.get();
     std::unique_ptr<cricket::TestTurnServer> turn_server =
@@ -252,7 +253,7 @@ class PeerConnectionRampUpTest : public ::testing::Test {
   // estimation stat, every kPollIntervalTimeMs. When finished, averages the
   // bandwidth estimations and prints the bandwidth estimation result as a perf
   // metric.
-  void RunTest(const std::string& test_string) {
+  void RunTest(const absl::string_view test_string) {
     rtc::Thread::Current()->ProcessMessages(kRampUpTimeMs);
     int number_of_polls =
         (kDefaultTestTimeMs - kRampUpTimeMs) / kPollIntervalTimeMs;

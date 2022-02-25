@@ -25,7 +25,7 @@ void ExampleVideoQualityAnalyzer::Start(
 
 uint16_t ExampleVideoQualityAnalyzer::OnFrameCaptured(
     absl::string_view peer_name,
-    const std::string& stream_label,
+    const absl::string_view stream_label,
     const webrtc::VideoFrame& frame) {
   MutexLock lock(&lock_);
   uint16_t frame_id = next_frame_id_++;

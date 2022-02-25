@@ -40,7 +40,7 @@ AudioRtpReceiver::AudioRtpReceiver(
 
 AudioRtpReceiver::AudioRtpReceiver(
     rtc::Thread* worker_thread,
-    const std::string& receiver_id,
+    const absl::string_view receiver_id,
     const std::vector<rtc::scoped_refptr<MediaStreamInterface>>& streams,
     bool is_unified_plan,
     cricket::VoiceMediaChannel* voice_channel /*= nullptr*/)

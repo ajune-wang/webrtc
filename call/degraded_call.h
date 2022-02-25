@@ -101,7 +101,7 @@ class DegradedCall : public Call, private PacketReceiver {
   void OnLocalSsrcUpdated(AudioReceiveStream& stream,
                           uint32_t local_ssrc) override;
   void OnUpdateSyncGroup(AudioReceiveStream& stream,
-                         const std::string& sync_group) override;
+                         const absl::string_view sync_group) override;
   void OnSentPacket(const rtc::SentPacket& sent_packet) override;
 
  protected:

@@ -70,9 +70,9 @@ void PeerConnectionClient::RegisterObserver(
   callback_ = callback;
 }
 
-void PeerConnectionClient::Connect(const std::string& server,
+void PeerConnectionClient::Connect(const absl::string_view server,
                                    int port,
-                                   const std::string& client_name) {
+                                   const absl::string_view client_name) {
   RTC_DCHECK(!server.empty());
   RTC_DCHECK(!client_name.empty());
 
@@ -135,7 +135,8 @@ void PeerConnectionClient::DoConnect() {
   }
 }
 
-bool PeerConnectionClient::SendToPeer(int peer_id, const std::string& message) {
+bool PeerConnectionClient::SendToPeer(int peer_id,
+                                      const absl::string_view message) {
   if (state_ != CONNECTED)
     return false;
 
@@ -232,7 +233,7 @@ void PeerConnectionClient::OnHangingGetConnect(rtc::Socket* socket) {
 }
 
 void PeerConnectionClient::OnMessageFromPeer(int peer_id,
-                                             const std::string& message) {
+                                             const absl::string_view message) {
   if (message.length() == (sizeof(kByeMessage) - 1) &&
       message.compare(kByeMessage) == 0) {
     callback_->OnPeerDisconnected(peer_id);
@@ -241,7 +242,7 @@ void PeerConnectionClient::OnMessageFromPeer(int peer_id,
   }
 }
 
-bool PeerConnectionClient::GetHeaderValue(const std::string& data,
+bool PeerConnectionClient::GetHeaderValue(const absl::string_view data,
                                           size_t eoh,
                                           const char* header_pattern,
                                           size_t* value) {
@@ -254,7 +255,7 @@ bool PeerConnectionClient::GetHeaderValue(const std::string& data,
   return false;
 }
 
-bool PeerConnectionClient::GetHeaderValue(const std::string& data,
+bool PeerConnectionClient::GetHeaderValue(const absl::string_view data,
                                           size_t eoh,
                                           const char* header_pattern,
                                           std::string* value) {
@@ -404,7 +405,7 @@ void PeerConnectionClient::OnHangingGetRead(rtc::Socket* socket) {
   }
 }
 
-bool PeerConnectionClient::ParseEntry(const std::string& entry,
+bool PeerConnectionClient::ParseEntry(const absl::string_view entry,
                                       std::string* name,
                                       int* id,
                                       bool* connected) {
@@ -426,7 +427,7 @@ bool PeerConnectionClient::ParseEntry(const std::string& entry,
   return !name->empty();
 }
 
-int PeerConnectionClient::GetResponseStatus(const std::string& response) {
+int PeerConnectionClient::GetResponseStatus(const absl::string_view response) {
   int status = -1;
   size_t pos = response.find(' ');
   if (pos != std::string::npos)
@@ -434,7 +435,7 @@ int PeerConnectionClient::GetResponseStatus(const std::string& response) {
   return status;
 }
 
-bool PeerConnectionClient::ParseServerResponse(const std::string& response,
+bool PeerConnectionClient::ParseServerResponse(const absl::string_view response,
                                                size_t content_length,
                                                size_t* peer_id,
                                                size_t* eoh) {

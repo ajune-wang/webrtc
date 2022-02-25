@@ -65,10 +65,10 @@ class RTC_EXPORT BasicPortAllocator : public PortAllocator {
   }
 
   PortAllocatorSession* CreateSessionInternal(
-      const std::string& content_name,
+      const absl::string_view content_name,
       int component,
-      const std::string& ice_ufrag,
-      const std::string& ice_pwd) override;
+      const absl::string_view ice_ufrag,
+      const absl::string_view ice_pwd) override;
 
   // Convenience method that adds a TURN server to the configuration.
   void AddTurnServer(const RelayServerConfig& turn_server);
@@ -116,10 +116,10 @@ enum class SessionState {
 class RTC_EXPORT BasicPortAllocatorSession : public PortAllocatorSession {
  public:
   BasicPortAllocatorSession(BasicPortAllocator* allocator,
-                            const std::string& content_name,
+                            const absl::string_view content_name,
                             int component,
-                            const std::string& ice_ufrag,
-                            const std::string& ice_pwd);
+                            const absl::string_view ice_ufrag,
+                            const absl::string_view ice_pwd);
   ~BasicPortAllocatorSession() override;
 
   virtual BasicPortAllocator* allocator();
@@ -259,7 +259,7 @@ class RTC_EXPORT BasicPortAllocatorSession : public PortAllocatorSession {
   // append to `candidates`.
   void GetCandidatesFromPort(const PortData& data,
                              std::vector<Candidate>* candidates) const;
-  Port* GetBestTurnPortForNetwork(const std::string& network_name) const;
+  Port* GetBestTurnPortForNetwork(const absl::string_view network_name) const;
   // Returns true if at least one TURN port is pruned.
   bool PruneTurnPorts(Port* newly_pairable_turn_port);
   bool PruneNewlyPairableTurnPort(PortData* newly_pairable_turn_port);
@@ -300,12 +300,12 @@ struct RTC_EXPORT PortConfiguration {
 
   // TODO(jiayl): remove this ctor when Chrome is updated.
   PortConfiguration(const rtc::SocketAddress& stun_address,
-                    const std::string& username,
-                    const std::string& password);
+                    const absl::string_view username,
+                    const absl::string_view password);
 
   PortConfiguration(const ServerAddresses& stun_servers,
-                    const std::string& username,
-                    const std::string& password);
+                    const absl::string_view username,
+                    const absl::string_view password);
 
   // Returns addresses of both the explicitly configured STUN servers,
   // and TURN servers that should be used as STUN servers.

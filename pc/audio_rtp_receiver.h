@@ -59,7 +59,7 @@ class AudioRtpReceiver : public ObserverInterface,
   // TODO(https://crbug.com/webrtc/9480): Remove this when streams() is removed.
   AudioRtpReceiver(
       rtc::Thread* worker_thread,
-      const std::string& receiver_id,
+      const absl::string_view receiver_id,
       const std::vector<rtc::scoped_refptr<MediaStreamInterface>>& streams,
       bool is_unified_plan,
       cricket::VoiceMediaChannel* media_channel = nullptr);

@@ -41,7 +41,7 @@ struct StreamConfig {
   RtcpMode rtcp_mode = RtcpMode::kReducedSize;
 
   struct Codec {
-    Codec(const std::string& payload_name,
+    Codec(const absl::string_view payload_name,
           int payload_type,
           int rtx_payload_type);
 

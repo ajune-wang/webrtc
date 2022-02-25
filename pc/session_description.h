@@ -95,7 +95,7 @@ class MediaContentDescription {
   // `protocol` is the expected media transport protocol, such as RTP/AVPF,
   // RTP/SAVPF or SCTP/DTLS.
   virtual std::string protocol() const { return protocol_; }
-  virtual void set_protocol(const std::string& protocol) {
+  virtual void set_protocol(const absl::string_view protocol) {
     protocol_ = protocol;
   }
 
@@ -183,7 +183,7 @@ class MediaContentDescription {
   }
 
   // Sets the CNAME of all StreamParams if it have not been set.
-  virtual void SetCnameIfEmpty(const std::string& cname) {
+  virtual void SetCnameIfEmpty(const absl::string_view cname) {
     for (cricket::StreamParamsVec::iterator it = send_streams_.begin();
          it != send_streams_.end(); ++it) {
       if (it->cname.empty())
@@ -282,7 +282,7 @@ class MediaContentDescription {
 template <class C>
 class MediaContentDescriptionImpl : public MediaContentDescription {
  public:
-  void set_protocol(const std::string& protocol) override {
+  void set_protocol(const absl::string_view protocol) override {
     RTC_DCHECK(IsRtpProtocol(protocol));
     protocol_ = protocol;
   }
@@ -365,7 +365,7 @@ class SctpDataContentDescription : public MediaContentDescription {
   const SctpDataContentDescription* as_sctp() const override { return this; }
 
   bool has_codecs() const override { return false; }
-  void set_protocol(const std::string& protocol) override {
+  void set_protocol(const absl::string_view protocol) override {
     RTC_DCHECK(IsSctpProtocol(protocol));
     protocol_ = protocol;
   }
@@ -392,7 +392,7 @@ class SctpDataContentDescription : public MediaContentDescription {
 
 class UnsupportedContentDescription : public MediaContentDescription {
  public:
-  explicit UnsupportedContentDescription(const std::string& media_type)
+  explicit UnsupportedContentDescription(const absl::string_view media_type)
       : media_type_(media_type) {}
   MediaType type() const override { return MEDIA_TYPE_UNSUPPORTED; }
 
@@ -438,7 +438,7 @@ class RTC_EXPORT ContentInfo {
 
   // Alias for `name`.
   std::string mid() const { return name; }
-  void set_mid(const std::string& mid) { this->name = mid; }
+  void set_mid(const absl::string_view mid) { this->name = mid; }
 
   // Alias for `description`.
   MediaContentDescription* media_description();
@@ -467,7 +467,7 @@ typedef std::vector<std::string> ContentNames;
 // MediaDescription.
 class ContentGroup {
  public:
-  explicit ContentGroup(const std::string& semantics);
+  explicit ContentGroup(const absl::string_view semantics);
   ContentGroup(const ContentGroup&);
   ContentGroup(ContentGroup&&);
   ContentGroup& operator=(const ContentGroup&);
@@ -478,9 +478,9 @@ class ContentGroup {
   const ContentNames& content_names() const { return content_names_; }
 
   const std::string* FirstContentName() const;
-  bool HasContentName(const std::string& content_name) const;
-  void AddContentName(const std::string& content_name);
-  bool RemoveContentName(const std::string& content_name);
+  bool HasContentName(const absl::string_view content_name) const;
+  void AddContentName(const absl::string_view content_name);
+  bool RemoveContentName(const absl::string_view content_name);
   // for debugging
   std::string ToString() const;
 
@@ -493,9 +493,9 @@ typedef std::vector<ContentInfo> ContentInfos;
 typedef std::vector<ContentGroup> ContentGroups;
 
 const ContentInfo* FindContentInfoByName(const ContentInfos& contents,
-                                         const std::string& name);
+                                         const absl::string_view name);
 const ContentInfo* FindContentInfoByType(const ContentInfos& contents,
-                                         const std::string& type);
+                                         const absl::string_view type);
 
 // Determines how the MSID will be signaled in the SDP. These can be used as
 // flags to indicate both or none.
@@ -519,39 +519,41 @@ class SessionDescription {
   // Content accessors.
   const ContentInfos& contents() const { return contents_; }
   ContentInfos& contents() { return contents_; }
-  const ContentInfo* GetContentByName(const std::string& name) const;
-  ContentInfo* GetContentByName(const std::string& name);
+  const ContentInfo* GetContentByName(const absl::string_view name) const;
+  ContentInfo* GetContentByName(const absl::string_view name);
   const MediaContentDescription* GetContentDescriptionByName(
-      const std::string& name) const;
-  MediaContentDescription* GetContentDescriptionByName(const std::string& name);
+      const absl::string_view name) const;
+  MediaContentDescription* GetContentDescriptionByName(
+      const absl::string_view name);
   const ContentInfo* FirstContentByType(MediaProtocolType type) const;
   const ContentInfo* FirstContent() const;
 
   // Content mutators.
   // Adds a content to this description. Takes ownership of ContentDescription*.
-  void AddContent(const std::string& name,
+  void AddContent(const absl::string_view name,
                   MediaProtocolType type,
                   std::unique_ptr<MediaContentDescription> description);
-  void AddContent(const std::string& name,
+  void AddContent(const absl::string_view name,
                   MediaProtocolType type,
                   bool rejected,
                   std::unique_ptr<MediaContentDescription> description);
-  void AddContent(const std::string& name,
+  void AddContent(const absl::string_view name,
                   MediaProtocolType type,
                   bool rejected,
                   bool bundle_only,
                   std::unique_ptr<MediaContentDescription> description);
   void AddContent(ContentInfo&& content);
 
-  bool RemoveContentByName(const std::string& name);
+  bool RemoveContentByName(const absl::string_view name);
 
   // Transport accessors.
   const TransportInfos& transport_infos() const { return transport_infos_; }
   TransportInfos& transport_infos() { return transport_infos_; }
-  const TransportInfo* GetTransportInfoByName(const std::string& name) const;
-  TransportInfo* GetTransportInfoByName(const std::string& name);
+  const TransportInfo* GetTransportInfoByName(
+      const absl::string_view name) const;
+  TransportInfo* GetTransportInfoByName(const absl::string_view name);
   const TransportDescription* GetTransportDescriptionByName(
-      const std::string& name) const {
+      const absl::string_view name) const {
     const TransportInfo* tinfo = GetTransportInfoByName(name);
     return tinfo ? &tinfo->description : NULL;
   }
@@ -562,19 +564,19 @@ class SessionDescription {
   }
   // Adds a TransportInfo to this description.
   void AddTransportInfo(const TransportInfo& transport_info);
-  bool RemoveTransportInfoByName(const std::string& name);
+  bool RemoveTransportInfoByName(const absl::string_view name);
 
   // Group accessors.
   const ContentGroups& groups() const { return content_groups_; }
-  const ContentGroup* GetGroupByName(const std::string& name) const;
+  const ContentGroup* GetGroupByName(const absl::string_view name) const;
   std::vector<const ContentGroup*> GetGroupsByName(
-      const std::string& name) const;
-  bool HasGroup(const std::string& name) const;
+      const absl::string_view name) const;
+  bool HasGroup(const absl::string_view name) const;
 
   // Group mutators.
   void AddGroup(const ContentGroup& group) { content_groups_.push_back(group); }
   // Remove the first group with the same semantics specified by `name`.
-  void RemoveGroupByName(const std::string& name);
+  void RemoveGroupByName(const absl::string_view name);
 
   // Global attributes.
   void set_msid_supported(bool supported) { msid_supported_ = supported; }

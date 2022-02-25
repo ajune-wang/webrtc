@@ -22,7 +22,7 @@
 namespace webrtc {
 namespace test {
 
-ScopedFieldTrials::ScopedFieldTrials(const std::string& config)
+ScopedFieldTrials::ScopedFieldTrials(const absl::string_view config)
     : previous_field_trials_(webrtc::field_trial::GetFieldTrialString()) {
   RTC_CHECK(webrtc::field_trial::FieldTrialsStringIsValid(config.c_str()))
       << "Invalid field trials string: " << config;

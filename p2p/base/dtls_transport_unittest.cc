@@ -64,7 +64,7 @@ void SetRemoteFingerprintFromCert(
 
 class DtlsTestClient : public sigslot::has_slots<> {
  public:
-  explicit DtlsTestClient(const std::string& name) : name_(name) {}
+  explicit DtlsTestClient(const absl::string_view name) : name_(name) {}
   void CreateCertificate(rtc::KeyType key_type) {
     certificate_ =
         rtc::RTCCertificate::Create(rtc::SSLIdentity::Create(name_, key_type));

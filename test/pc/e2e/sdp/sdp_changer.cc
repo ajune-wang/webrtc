@@ -576,7 +576,7 @@ SignalingInterceptor::PatchAnswererIceCandidates(
 }
 
 SignalingInterceptor::SimulcastSectionInfo::SimulcastSectionInfo(
-    const std::string& mid,
+    const absl::string_view mid,
     cricket::MediaProtocolType media_protocol_type,
     const std::vector<cricket::RidDescription>& rids_desc)
     : mid(mid), media_protocol_type(media_protocol_type) {

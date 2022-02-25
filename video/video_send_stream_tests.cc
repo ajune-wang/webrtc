@@ -125,7 +125,7 @@ class VideoSendStreamTest : public test::CallTest {
   void TestRequestSourceRotateVideo(bool support_orientation_ext);
 
   void TestTemporalLayers(VideoEncoderFactory* encoder_factory,
-                          const std::string& payload_name,
+                          const absl::string_view payload_name,
                           const std::vector<int>& num_temporal_layers);
 };
 
@@ -495,7 +495,7 @@ class UlpfecObserver : public test::EndToEndTest {
                  bool use_nack,
                  bool expect_red,
                  bool expect_ulpfec,
-                 const std::string& codec,
+                 const absl::string_view codec,
                  VideoEncoderFactory* encoder_factory)
       : EndToEndTest(expect_ulpfec ? VideoSendStreamTest::kDefaultTimeoutMs
                                    : kReducedTimeoutMs),
@@ -725,7 +725,7 @@ class FlexfecObserver : public test::EndToEndTest {
  public:
   FlexfecObserver(bool header_extensions_enabled,
                   bool use_nack,
-                  const std::string& codec,
+                  const absl::string_view codec,
                   VideoEncoderFactory* encoder_factory,
                   size_t num_video_streams)
       : EndToEndTest(VideoSendStreamTest::kDefaultTimeoutMs),
@@ -3884,7 +3884,7 @@ TEST_F(VideoSendStreamTest, SwitchesToScreenshareAndBack) {
 
 void VideoSendStreamTest::TestTemporalLayers(
     VideoEncoderFactory* encoder_factory,
-    const std::string& payload_name,
+    const absl::string_view payload_name,
     const std::vector<int>& num_temporal_layers) {
   static constexpr int kMaxBitrateBps = 1000000;
   static constexpr int kMinFramesToObservePerStream = 8;
@@ -3894,7 +3894,7 @@ void VideoSendStreamTest::TestTemporalLayers(
         public test::FrameGeneratorCapturer::SinkWantsObserver {
    public:
     TemporalLayerObserver(VideoEncoderFactory* encoder_factory,
-                          const std::string& payload_name,
+                          const absl::string_view payload_name,
                           const std::vector<int>& num_temporal_layers)
         : EndToEndTest(kDefaultTimeoutMs),
           encoder_factory_(encoder_factory),

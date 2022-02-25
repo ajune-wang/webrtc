@@ -23,7 +23,7 @@ namespace webrtc {
 namespace test {
 
 std::vector<WavBasedSimulator::SimulationEventType>
-WavBasedSimulator::GetCustomEventChain(const std::string& filename) {
+WavBasedSimulator::GetCustomEventChain(const absl::string_view filename) {
   std::vector<WavBasedSimulator::SimulationEventType> call_chain;
   FileWrapper file_wrapper = FileWrapper::OpenReadOnly(filename.c_str());
 

@@ -31,7 +31,7 @@ class DebugDumpReplayer {
   ~DebugDumpReplayer();
 
   // Set dump file
-  bool SetDumpFile(const std::string& filename);
+  bool SetDumpFile(const absl::string_view filename);
 
   // Return next event.
   absl::optional<audioproc::Event> GetNextEvent() const;

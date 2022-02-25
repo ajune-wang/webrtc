@@ -83,11 +83,11 @@ class LambdaPeerConnectionObserver final : public PeerConnectionObserver {
     for (const auto& handler : handlers_->on_ice_candidate)
       handler(candidate);
   }
-  void OnIceCandidateError(const std::string& address,
+  void OnIceCandidateError(const absl::string_view address,
                            int port,
-                           const std::string& url,
+                           const absl::string_view url,
                            int error_code,
-                           const std::string& error_text) override {
+                           const absl::string_view error_text) override {
     for (const auto& handler : handlers_->on_ice_candidate_error)
       handler(address, port, url, error_code, error_text);
   }

@@ -768,8 +768,8 @@ class WebRtcVoiceMediaChannel::WebRtcAudioSendStream
  public:
   WebRtcAudioSendStream(
       uint32_t ssrc,
-      const std::string& mid,
-      const std::string& c_name,
+      const absl::string_view mid,
+      const absl::string_view c_name,
       const std::string track_id,
       const absl::optional<webrtc::AudioSendStream::Config::SendCodecSpec>&
           send_codec_spec,
@@ -846,7 +846,7 @@ class WebRtcVoiceMediaChannel::WebRtcAudioSendStream
     ReconfigureAudioSendStream();
   }
 
-  void SetMid(const std::string& mid) {
+  void SetMid(const absl::string_view mid) {
     RTC_DCHECK_RUN_ON(&worker_thread_checker_);
     if (config_.rtp.mid == mid) {
       return;

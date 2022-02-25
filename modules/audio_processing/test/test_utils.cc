@@ -17,7 +17,7 @@
 
 namespace webrtc {
 
-RawFile::RawFile(const std::string& filename)
+RawFile::RawFile(const absl::string_view filename)
     : file_handle_(fopen(filename.c_str(), "wb")) {}
 
 RawFile::~RawFile() {
@@ -120,7 +120,7 @@ void WriteFloatData(const float* const* data,
   }
 }
 
-FILE* OpenFile(const std::string& filename, const char* mode) {
+FILE* OpenFile(const absl::string_view filename, const char* mode) {
   FILE* file = fopen(filename.c_str(), mode);
   if (!file) {
     printf("Unable to open file %s\n", filename.c_str());

@@ -29,7 +29,7 @@ namespace webrtc {
 
 class PacketLogger {
  public:
-  explicit PacketLogger(const std::string& log_file_path);
+  explicit PacketLogger(const absl::string_view log_file_path);
   ~PacketLogger();
 
   PacketLogger(const PacketLogger&) = delete;

@@ -43,7 +43,7 @@ constexpr int kPreferenceRelayed = 3;
 constexpr char kDummyAddress[] = "0.0.0.0";
 constexpr int kDummyPort = 9;
 
-int GetCandidatePreferenceFromType(const std::string& type) {
+int GetCandidatePreferenceFromType(const absl::string_view type) {
   int preference = kPreferenceUnknown;
   if (type == cricket::LOCAL_PORT_TYPE) {
     preference = kPreferenceHost;
@@ -139,9 +139,10 @@ SdpType SessionDescriptionInterface::GetType() const {
   }
 }
 
-SessionDescriptionInterface* CreateSessionDescription(const std::string& type,
-                                                      const std::string& sdp,
-                                                      SdpParseError* error) {
+SessionDescriptionInterface* CreateSessionDescription(
+    const absl::string_view type,
+    const absl::string_view sdp,
+    SdpParseError* error) {
   absl::optional<SdpType> maybe_type = SdpTypeFromString(type);
   if (!maybe_type) {
     return nullptr;
@@ -152,13 +153,13 @@ SessionDescriptionInterface* CreateSessionDescription(const std::string& type,
 
 std::unique_ptr<SessionDescriptionInterface> CreateSessionDescription(
     SdpType type,
-    const std::string& sdp) {
+    const absl::string_view sdp) {
   return CreateSessionDescription(type, sdp, nullptr);
 }
 
 std::unique_ptr<SessionDescriptionInterface> CreateSessionDescription(
     SdpType type,
-    const std::string& sdp,
+    const absl::string_view sdp,
     SdpParseError* error_out) {
   auto jsep_desc = std::make_unique<JsepSessionDescription>(type);
   if (type != SdpType::kRollback) {
@@ -171,8 +172,8 @@ std::unique_ptr<SessionDescriptionInterface> CreateSessionDescription(
 
 std::unique_ptr<SessionDescriptionInterface> CreateSessionDescription(
     SdpType type,
-    const std::string& session_id,
-    const std::string& session_version,
+    const absl::string_view session_id,
+    const absl::string_view session_version,
     std::unique_ptr<cricket::SessionDescription> description) {
   auto jsep_description = std::make_unique<JsepSessionDescription>(type);
   bool initialize_success = jsep_description->Initialize(
@@ -183,7 +184,7 @@ std::unique_ptr<SessionDescriptionInterface> CreateSessionDescription(
 
 JsepSessionDescription::JsepSessionDescription(SdpType type) : type_(type) {}
 
-JsepSessionDescription::JsepSessionDescription(const std::string& type) {
+JsepSessionDescription::JsepSessionDescription(const absl::string_view type) {
   absl::optional<SdpType> maybe_type = SdpTypeFromString(type);
   if (maybe_type) {
     type_ = *maybe_type;
@@ -212,8 +213,8 @@ JsepSessionDescription::~JsepSessionDescription() {}
 
 bool JsepSessionDescription::Initialize(
     std::unique_ptr<cricket::SessionDescription> description,
-    const std::string& session_id,
-    const std::string& session_version) {
+    const absl::string_view session_id,
+    const absl::string_view session_version) {
   if (!description)
     return false;
 

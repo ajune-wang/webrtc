@@ -39,7 +39,7 @@ class ExternalTimeController : public TimeController, public TaskQueueFactory {
       const char* thread_name) override;
   void AdvanceTime(TimeDelta duration) override;
   std::unique_ptr<rtc::Thread> CreateThread(
-      const std::string& name,
+      const absl::string_view name,
       std::unique_ptr<rtc::SocketServer> socket_server) override;
   rtc::Thread* GetMainThread() override;
 

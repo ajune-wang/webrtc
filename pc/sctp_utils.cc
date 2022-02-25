@@ -162,7 +162,7 @@ bool ParseDataChannelOpenAckMessage(const rtc::CopyOnWriteBuffer& payload) {
   return true;
 }
 
-bool WriteDataChannelOpenMessage(const std::string& label,
+bool WriteDataChannelOpenMessage(const absl::string_view label,
                                  const DataChannelInit& config,
                                  rtc::CopyOnWriteBuffer* payload) {
   // Format defined at

@@ -79,7 +79,7 @@ class SrtpFilter {
 
   bool ResetParams();
 
-  static bool ParseKeyParams(const std::string& params,
+  static bool ParseKeyParams(const absl::string_view params,
                              uint8_t* key,
                              size_t len);
 

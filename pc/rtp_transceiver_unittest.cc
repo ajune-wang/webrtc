@@ -60,7 +60,7 @@ TEST(RtpTransceiverTest, CannotSetChannelOnStoppedTransceiver) {
   EXPECT_CALL(channel1, SetFirstPacketReceivedCallback(_));
   EXPECT_CALL(channel1, SetRtpTransport(_)).WillRepeatedly(Return(true));
 
-  transceiver.SetChannel(&channel1, [&](const std::string& mid) {
+  transceiver.SetChannel(&channel1, [&](const absl::string_view mid) {
     EXPECT_EQ(mid, content_name);
     return nullptr;
   });
@@ -75,7 +75,8 @@ TEST(RtpTransceiverTest, CannotSetChannelOnStoppedTransceiver) {
       .WillRepeatedly(Return(cricket::MediaType::MEDIA_TYPE_AUDIO));
 
   // Channel can no longer be set, so this call should be a no-op.
-  transceiver.SetChannel(&channel2, [](const std::string&) { return nullptr; });
+  transceiver.SetChannel(&channel2,
+                         [](const absl::string_view) { return nullptr; });
   EXPECT_EQ(&channel1, transceiver.channel());
 
   // Clear the current channel before `transceiver` goes out of scope.
@@ -98,7 +99,7 @@ TEST(RtpTransceiverTest, CanUnsetChannelOnStoppedTransceiver) {
   EXPECT_CALL(channel, SetRtpTransport(_)).WillRepeatedly(Return(true));
   EXPECT_CALL(cm, DestroyChannel(&channel)).WillRepeatedly(testing::Return());
 
-  transceiver.SetChannel(&channel, [&](const std::string& mid) {
+  transceiver.SetChannel(&channel, [&](const absl::string_view mid) {
     EXPECT_EQ(mid, content_name);
     return nullptr;
   });
@@ -330,7 +331,7 @@ TEST_F(RtpTransceiverTestForHeaderExtensions,
   EXPECT_CALL(mock_channel, mid()).WillRepeatedly(ReturnRef(content_name));
   EXPECT_CALL(mock_channel, SetRtpTransport(_)).WillRepeatedly(Return(true));
   transceiver_.SetChannel(&mock_channel,
-                          [](const std::string&) { return nullptr; });
+                          [](const absl::string_view) { return nullptr; });
   EXPECT_THAT(transceiver_.HeaderExtensionsNegotiated(), ElementsAre());
 
   ClearChannel(mock_channel);
@@ -359,7 +360,7 @@ TEST_F(RtpTransceiverTestForHeaderExtensions, ReturnsNegotiatedHdrExts) {
   transceiver_.OnNegotiationUpdate(SdpType::kAnswer, &description);
 
   transceiver_.SetChannel(&mock_channel,
-                          [](const std::string&) { return nullptr; });
+                          [](const absl::string_view) { return nullptr; });
   EXPECT_THAT(transceiver_.HeaderExtensionsNegotiated(),
               ElementsAre(RtpHeaderExtensionCapability(
                               "uri1", 1, RtpTransceiverDirection::kSendRecv),

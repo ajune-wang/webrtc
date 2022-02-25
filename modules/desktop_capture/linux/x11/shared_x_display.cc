@@ -31,7 +31,7 @@ SharedXDisplay::~SharedXDisplay() {
 
 // static
 rtc::scoped_refptr<SharedXDisplay> SharedXDisplay::Create(
-    const std::string& display_name) {
+    const absl::string_view display_name) {
   Display* display =
       XOpenDisplay(display_name.empty() ? NULL : display_name.c_str());
   if (!display) {

@@ -152,7 +152,7 @@ class MockAudioProcessing : public AudioProcessing {
   MOCK_METHOD(int, recommended_stream_analog_level, (), (const, override));
   MOCK_METHOD(bool,
               CreateAndAttachAecDump,
-              (const std::string& file_name,
+              (const absl::string_view file_name,
                int64_t max_log_size_bytes,
                rtc::TaskQueue* worker_queue),
               (override));

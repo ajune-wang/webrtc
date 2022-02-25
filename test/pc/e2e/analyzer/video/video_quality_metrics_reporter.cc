@@ -104,12 +104,12 @@ void VideoQualityMetricsReporter::StopAndReportResults() {
 }
 
 std::string VideoQualityMetricsReporter::GetTestCaseName(
-    const std::string& stream_label) const {
+    const absl::string_view stream_label) const {
   return test_case_name_ + "/" + stream_label;
 }
 
 void VideoQualityMetricsReporter::ReportVideoBweResults(
-    const std::string& test_case_name,
+    const absl::string_view test_case_name,
     const VideoBweStats& video_bwe_stats) {
   ReportResult("available_send_bandwidth", test_case_name,
                video_bwe_stats.available_send_bandwidth, "bytesPerSecond");
@@ -120,10 +120,10 @@ void VideoQualityMetricsReporter::ReportVideoBweResults(
 }
 
 void VideoQualityMetricsReporter::ReportResult(
-    const std::string& metric_name,
-    const std::string& test_case_name,
+    const absl::string_view metric_name,
+    const absl::string_view test_case_name,
     const SamplesStatsCounter& counter,
-    const std::string& unit,
+    const absl::string_view unit,
     webrtc::test::ImproveDirection improve_direction) {
   test::PrintResult(metric_name, /*modifier=*/"", test_case_name, counter, unit,
                     /*important=*/false, improve_direction);

@@ -39,7 +39,7 @@ DecoderDatabase::DecoderInfo::DecoderInfo(
     const SdpAudioFormat& audio_format,
     absl::optional<AudioCodecPairId> codec_pair_id,
     AudioDecoderFactory* factory,
-    const std::string& codec_name)
+    const absl::string_view codec_name)
     : name_(codec_name),
       audio_format_(audio_format),
       codec_pair_id_(codec_pair_id),
@@ -75,7 +75,7 @@ bool DecoderDatabase::DecoderInfo::IsType(const char* name) const {
   return absl::EqualsIgnoreCase(audio_format_.name, name);
 }
 
-bool DecoderDatabase::DecoderInfo::IsType(const std::string& name) const {
+bool DecoderDatabase::DecoderInfo::IsType(const absl::string_view name) const {
   return IsType(name.c_str());
 }
 
@@ -269,7 +269,7 @@ bool DecoderDatabase::IsType(uint8_t rtp_payload_type, const char* name) const {
 }
 
 bool DecoderDatabase::IsType(uint8_t rtp_payload_type,
-                             const std::string& name) const {
+                             const absl::string_view name) const {
   return IsType(rtp_payload_type, name.c_str());
 }
 

@@ -40,7 +40,7 @@ class LogObserver {
 
   ~LogObserver() { rtc::LogMessage::RemoveLogToStream(&callback_); }
 
-  void PushExpectedLogLine(const std::string& expected_log_line) {
+  void PushExpectedLogLine(const absl::string_view expected_log_line) {
     callback_.PushExpectedLogLine(expected_log_line);
   }
 
@@ -49,7 +49,7 @@ class LogObserver {
  private:
   class Callback : public rtc::LogSink {
    public:
-    void OnLogMessage(const std::string& message) override {
+    void OnLogMessage(const absl::string_view message) override {
       MutexLock lock(&mutex_);
       // Ignore log lines that are due to missing AST extensions, these are
       // logged when we switch back from AST to TOF until the wrapping bitrate
@@ -78,7 +78,7 @@ class LogObserver {
 
     bool Wait() { return done_.Wait(test::CallTest::kDefaultTimeoutMs); }
 
-    void PushExpectedLogLine(const std::string& expected_log_line) {
+    void PushExpectedLogLine(const absl::string_view expected_log_line) {
       MutexLock lock(&mutex_);
       expected_log_lines_.push_back(expected_log_line);
     }

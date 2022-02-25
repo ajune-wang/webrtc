@@ -13,7 +13,8 @@
 namespace cricket {
 
 RidDescription::RidDescription() = default;
-RidDescription::RidDescription(const std::string& rid, RidDirection direction)
+RidDescription::RidDescription(const absl::string_view rid,
+                               RidDirection direction)
     : rid{rid}, direction{direction} {}
 RidDescription::RidDescription(const RidDescription& other) = default;
 RidDescription::~RidDescription() = default;

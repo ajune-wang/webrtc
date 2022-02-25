@@ -1194,7 +1194,7 @@ TEST_F(PeerConnectionJsepTest, AudioTrackAddedAfterDataSectionInReoffer) {
 // Tests for MID properties.
 
 static void RenameSection(size_t mline_index,
-                          const std::string& new_mid,
+                          const absl::string_view new_mid,
                           SessionDescriptionInterface* sdesc) {
   cricket::SessionDescription* desc = sdesc->description();
   std::string old_mid = desc->contents()[mline_index].name;

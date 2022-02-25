@@ -162,7 +162,8 @@ RtpTransceiver::~RtpTransceiver() {
 
 void RtpTransceiver::SetChannel(
     cricket::ChannelInterface* channel,
-    std::function<RtpTransportInternal*(const std::string&)> transport_lookup) {
+    std::function<RtpTransportInternal*(const absl::string_view)>
+        transport_lookup) {
   RTC_DCHECK_RUN_ON(thread_);
   // Cannot set a non-null channel on a stopped transceiver.
   if ((stopped_ && channel) || channel == channel_) {

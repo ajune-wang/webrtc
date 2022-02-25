@@ -38,7 +38,8 @@ constexpr absl::string_view kSkipRenderedFrameReasonRendered = "rendered";
 constexpr absl::string_view kSkipRenderedFrameReasonDropped =
     "considered dropped";
 
-void LogFrameCounters(const std::string& name, const FrameCounters& counters) {
+void LogFrameCounters(const absl::string_view name,
+                      const FrameCounters& counters) {
   RTC_LOG(LS_INFO) << "[" << name << "] Captured    : " << counters.captured;
   RTC_LOG(LS_INFO) << "[" << name << "] Pre encoded : " << counters.pre_encoded;
   RTC_LOG(LS_INFO) << "[" << name << "] Encoded     : " << counters.encoded;
@@ -63,7 +64,7 @@ absl::string_view ToString(FrameDropPhase phase) {
   }
 }
 
-void LogStreamInternalStats(const std::string& name,
+void LogStreamInternalStats(const absl::string_view name,
                             const StreamStats& stats,
                             Timestamp start_time) {
   for (const auto& entry : stats.dropped_by_phase) {
@@ -152,7 +153,7 @@ void DefaultVideoQualityAnalyzer::Start(
 
 uint16_t DefaultVideoQualityAnalyzer::OnFrameCaptured(
     absl::string_view peer_name,
-    const std::string& stream_label,
+    const absl::string_view stream_label,
     const webrtc::VideoFrame& frame) {
   // `next_frame_id` is atomic, so we needn't lock here.
   uint16_t frame_id = next_frame_id_++;
@@ -774,7 +775,7 @@ void DefaultVideoQualityAnalyzer::ReportResults() {
 }
 
 void DefaultVideoQualityAnalyzer::ReportResults(
-    const std::string& test_case_name,
+    const absl::string_view test_case_name,
     const StreamStats& stats,
     const FrameCounters& frame_counters) {
   using ::webrtc::test::ImproveDirection;
@@ -870,17 +871,17 @@ void DefaultVideoQualityAnalyzer::ReportResults(
 }
 
 void DefaultVideoQualityAnalyzer::ReportResult(
-    const std::string& metric_name,
-    const std::string& test_case_name,
+    const absl::string_view metric_name,
+    const absl::string_view test_case_name,
     const SamplesStatsCounter& counter,
-    const std::string& unit,
+    const absl::string_view unit,
     webrtc::test::ImproveDirection improve_direction) {
   test::PrintResult(metric_name, /*modifier=*/"", test_case_name, counter, unit,
                     /*important=*/false, improve_direction);
 }
 
 std::string DefaultVideoQualityAnalyzer::GetTestCaseName(
-    const std::string& stream_label) const {
+    const absl::string_view stream_label) const {
   return test_label_ + "/" + stream_label;
 }
 

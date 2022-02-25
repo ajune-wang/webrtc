@@ -91,7 +91,7 @@ class JsepTransport {
   // Note that `local_certificate` is allowed to be null since a remote
   // description may be set before a local certificate is generated.
   JsepTransport(
-      const std::string& mid,
+      const absl::string_view mid,
       const rtc::scoped_refptr<rtc::RTCCertificate>& local_certificate,
       rtc::scoped_refptr<webrtc::IceTransportInterface> ice_transport,
       rtc::scoped_refptr<webrtc::IceTransportInterface> rtcp_ice_transport,

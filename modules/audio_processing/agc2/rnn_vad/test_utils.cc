@@ -31,7 +31,7 @@ template <typename T>
 class FloatFileReader : public FileReader {
  public:
   static_assert(std::is_arithmetic<T>::value, "");
-  FloatFileReader(const std::string& filename)
+  FloatFileReader(const absl::string_view filename)
       : is_(filename, std::ios::binary | std::ios::ate),
         size_(is_.tellg() / sizeof(T)) {
     RTC_CHECK(is_);

@@ -32,8 +32,8 @@ class TurnFileAuth : public cricket::TurnAuthInterface {
   explicit TurnFileAuth(std::map<std::string, std::string> name_to_key)
       : name_to_key_(std::move(name_to_key)) {}
 
-  virtual bool GetKey(const std::string& username,
-                      const std::string& realm,
+  virtual bool GetKey(const absl::string_view username,
+                      const absl::string_view realm,
                       std::string* key) {
     // File is stored as lines of <username>=<HA1>.
     // Generate HA1 via "echo -n "<username>:<realm>:<password>" | md5sum"

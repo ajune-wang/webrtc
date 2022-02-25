@@ -554,7 +554,7 @@ class FixedLengthDeltaDecoder final {
   // bitstream. Note that this does NOT imply that stream is valid, and will
   // be decoded successfully. It DOES imply that all other decoder classes
   // will fail to decode this input, though.
-  static bool IsSuitableDecoderFor(const std::string& input);
+  static bool IsSuitableDecoderFor(const absl::string_view input);
 
   // Assuming that `input` is the result of fixed-size delta-encoding
   // that took place with the same value to `base` and over `num_of_deltas`
@@ -562,7 +562,7 @@ class FixedLengthDeltaDecoder final {
   // If an error occurs (can happen if `input` is corrupt), an empty
   // vector will be returned.
   static std::vector<absl::optional<uint64_t>> DecodeDeltas(
-      const std::string& input,
+      const absl::string_view input,
       absl::optional<uint64_t> base,
       size_t num_of_deltas);
 
@@ -579,7 +579,7 @@ class FixedLengthDeltaDecoder final {
   // the entire stream is free of error. Rather, only the encoding header is
   // examined and guaranteed.
   static std::unique_ptr<FixedLengthDeltaDecoder> Create(
-      const std::string& input,
+      const absl::string_view input,
       absl::optional<uint64_t> base,
       size_t num_of_deltas);
 
@@ -624,7 +624,8 @@ class FixedLengthDeltaDecoder final {
   const size_t num_of_deltas_;
 };
 
-bool FixedLengthDeltaDecoder::IsSuitableDecoderFor(const std::string& input) {
+bool FixedLengthDeltaDecoder::IsSuitableDecoderFor(
+    const absl::string_view input) {
   BitstreamReader reader(input);
   uint64_t encoding_type_bits = reader.ReadBits(kBitsInHeaderForEncodingType);
   if (!reader.Ok()) {
@@ -639,7 +640,7 @@ bool FixedLengthDeltaDecoder::IsSuitableDecoderFor(const std::string& input) {
 }
 
 std::vector<absl::optional<uint64_t>> FixedLengthDeltaDecoder::DecodeDeltas(
-    const std::string& input,
+    const absl::string_view input,
     absl::optional<uint64_t> base,
     size_t num_of_deltas) {
   auto decoder = FixedLengthDeltaDecoder::Create(input, base, num_of_deltas);
@@ -651,7 +652,7 @@ std::vector<absl::optional<uint64_t>> FixedLengthDeltaDecoder::DecodeDeltas(
 }
 
 std::unique_ptr<FixedLengthDeltaDecoder> FixedLengthDeltaDecoder::Create(
-    const std::string& input,
+    const absl::string_view input,
     absl::optional<uint64_t> base,
     size_t num_of_deltas) {
   BitstreamReader reader(input);
@@ -804,7 +805,7 @@ std::string EncodeDeltas(absl::optional<uint64_t> base,
 }
 
 std::vector<absl::optional<uint64_t>> DecodeDeltas(
-    const std::string& input,
+    const absl::string_view input,
     absl::optional<uint64_t> base,
     size_t num_of_deltas) {
   RTC_DCHECK_GT(num_of_deltas, 0);  // Allows empty vector to indicate error.

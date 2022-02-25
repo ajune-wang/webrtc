@@ -66,7 +66,7 @@ const char* kPathDelimiter = "\\";
 const char* kPathDelimiter = "/";
 #endif
 
-std::string DirName(const std::string& path) {
+std::string DirName(const absl::string_view path) {
   if (path.empty())
     return "";
   if (path == kPathDelimiter)
@@ -79,12 +79,12 @@ std::string DirName(const std::string& path) {
   return result.substr(0, result.find_last_of(kPathDelimiter));
 }
 
-bool FileExists(const std::string& file_name) {
+bool FileExists(const absl::string_view file_name) {
   struct stat file_info = {0};
   return stat(file_name.c_str(), &file_info) == 0;
 }
 
-bool DirExists(const std::string& directory_name) {
+bool DirExists(const absl::string_view directory_name) {
   struct stat directory_info = {0};
   return stat(directory_name.c_str(), &directory_info) == 0 &&
          S_ISDIR(directory_info.st_mode);
@@ -100,7 +100,8 @@ std::string WorkingDir() {
 
 // Generate a temporary filename in a safe way.
 // Largely copied from talk/base/{unixfilesystem,win32filesystem}.cc.
-std::string TempFilename(const std::string& dir, const std::string& prefix) {
+std::string TempFilename(const absl::string_view dir,
+                         const absl::string_view prefix) {
 #ifdef WIN32
   wchar_t filename[MAX_PATH];
   if (::GetTempFileNameW(rtc::ToUtf16(dir).c_str(),
@@ -125,8 +126,8 @@ std::string TempFilename(const std::string& dir, const std::string& prefix) {
 #endif
 }
 
-std::string GenerateTempFilename(const std::string& dir,
-                                 const std::string& prefix) {
+std::string GenerateTempFilename(const absl::string_view dir,
+                                 const absl::string_view prefix) {
   std::string filename = TempFilename(dir, prefix);
   RemoveFile(filename);
   return filename;
@@ -183,7 +184,7 @@ absl::optional<std::vector<std::string>> ReadDirectory(std::string path) {
   return absl::optional<std::vector<std::string>>(std::move(found_entries));
 }
 
-bool CreateDir(const std::string& directory_name) {
+bool CreateDir(const absl::string_view directory_name) {
   struct stat path_info = {0};
   // Check if the path exists already:
   if (stat(directory_name.c_str(), &path_info) == 0) {
@@ -204,7 +205,7 @@ bool CreateDir(const std::string& directory_name) {
   return true;
 }
 
-bool RemoveDir(const std::string& directory_name) {
+bool RemoveDir(const absl::string_view directory_name) {
 #ifdef WIN32
   return RemoveDirectoryA(directory_name.c_str()) != FALSE;
 #else
@@ -212,7 +213,7 @@ bool RemoveDir(const std::string& directory_name) {
 #endif
 }
 
-bool RemoveFile(const std::string& file_name) {
+bool RemoveFile(const absl::string_view file_name) {
 #ifdef WIN32
   return DeleteFileA(file_name.c_str()) != FALSE;
 #else
@@ -220,17 +221,18 @@ bool RemoveFile(const std::string& file_name) {
 #endif
 }
 
-std::string ResourcePath(const std::string& name,
-                         const std::string& extension) {
+std::string ResourcePath(const absl::string_view name,
+                         const absl::string_view extension) {
   return webrtc::test::internal::ResourcePath(name, extension);
 }
 
-std::string JoinFilename(const std::string& dir, const std::string& name) {
+std::string JoinFilename(const absl::string_view dir,
+                         const absl::string_view name) {
   RTC_CHECK(!dir.empty()) << "Special cases not implemented.";
   return dir + kPathDelimiter + name;
 }
 
-size_t GetFileSize(const std::string& filename) {
+size_t GetFileSize(const absl::string_view filename) {
   FILE* f = fopen(filename.c_str(), "rb");
   size_t size = 0;
   if (f != NULL) {

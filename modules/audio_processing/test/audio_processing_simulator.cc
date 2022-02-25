@@ -35,7 +35,8 @@ namespace webrtc {
 namespace test {
 namespace {
 // Helper for reading JSON from a file and parsing it to an AEC3 configuration.
-EchoCanceller3Config ReadAec3ConfigFromJsonFile(const std::string& filename) {
+EchoCanceller3Config ReadAec3ConfigFromJsonFile(
+    const absl::string_view filename) {
   std::string json_string;
   std::string s;
   std::ifstream f(filename.c_str());
@@ -60,7 +61,7 @@ EchoCanceller3Config ReadAec3ConfigFromJsonFile(const std::string& filename) {
   return cfg;
 }
 
-std::string GetIndexedOutputWavFilename(const std::string& wav_name,
+std::string GetIndexedOutputWavFilename(const absl::string_view wav_name,
                                         int counter) {
   rtc::StringBuilder ss;
   ss << wav_name.substr(0, wav_name.size() - 4) << "_" << counter

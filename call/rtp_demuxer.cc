@@ -238,7 +238,7 @@ bool RtpDemuxer::AddSink(uint32_t ssrc, RtpPacketSinkInterface* sink) {
   return AddSink(criteria, sink);
 }
 
-void RtpDemuxer::AddSink(const std::string& rsid,
+void RtpDemuxer::AddSink(const absl::string_view rsid,
                          RtpPacketSinkInterface* sink) {
   RtpDemuxerCriteria criteria(absl::string_view() /* mid */, rsid);
   AddSink(criteria, sink);
@@ -363,8 +363,9 @@ RtpPacketSinkInterface* RtpDemuxer::ResolveSink(
   return ResolveSinkByPayloadType(packet.PayloadType(), ssrc);
 }
 
-RtpPacketSinkInterface* RtpDemuxer::ResolveSinkByMid(const std::string& mid,
-                                                     uint32_t ssrc) {
+RtpPacketSinkInterface* RtpDemuxer::ResolveSinkByMid(
+    const absl::string_view mid,
+    uint32_t ssrc) {
   const auto it = sink_by_mid_.find(mid);
   if (it != sink_by_mid_.end()) {
     RtpPacketSinkInterface* sink = it->second;
@@ -375,8 +376,8 @@ RtpPacketSinkInterface* RtpDemuxer::ResolveSinkByMid(const std::string& mid,
 }
 
 RtpPacketSinkInterface* RtpDemuxer::ResolveSinkByMidRsid(
-    const std::string& mid,
-    const std::string& rsid,
+    const absl::string_view mid,
+    const absl::string_view rsid,
     uint32_t ssrc) {
   const auto it = sink_by_mid_and_rsid_.find(std::make_pair(mid, rsid));
   if (it != sink_by_mid_and_rsid_.end()) {
@@ -387,8 +388,9 @@ RtpPacketSinkInterface* RtpDemuxer::ResolveSinkByMidRsid(
   return nullptr;
 }
 
-RtpPacketSinkInterface* RtpDemuxer::ResolveSinkByRsid(const std::string& rsid,
-                                                      uint32_t ssrc) {
+RtpPacketSinkInterface* RtpDemuxer::ResolveSinkByRsid(
+    const absl::string_view rsid,
+    uint32_t ssrc) {
   const auto it = sink_by_rsid_.find(rsid);
   if (it != sink_by_rsid_.end()) {
     RtpPacketSinkInterface* sink = it->second;

@@ -64,7 +64,7 @@ class AudioEncoderCopyRed final : public AudioEncoder {
 
   bool SetApplication(Application application) override;
   void SetMaxPlaybackRate(int frequency_hz) override;
-  bool EnableAudioNetworkAdaptor(const std::string& config_string,
+  bool EnableAudioNetworkAdaptor(const absl::string_view config_string,
                                  RtcEventLog* event_log) override;
   void DisableAudioNetworkAdaptor() override;
   void OnReceivedUplinkPacketLossFraction(

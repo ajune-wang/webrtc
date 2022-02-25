@@ -84,7 +84,7 @@ class TestPeer final {
   }
 
   rtc::scoped_refptr<DataChannelInterface> CreateDataChannel(
-      const std::string& label) {
+      const absl::string_view label) {
     RTC_CHECK(wrapper_) << "TestPeer is already closed";
     return wrapper_->CreateDataChannel(label);
   }

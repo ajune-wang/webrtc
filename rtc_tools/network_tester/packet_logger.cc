@@ -15,7 +15,7 @@
 
 namespace webrtc {
 
-PacketLogger::PacketLogger(const std::string& log_file_path)
+PacketLogger::PacketLogger(const absl::string_view log_file_path)
     : packet_logger_stream_(log_file_path,
                             std::ios_base::out | std::ios_base::binary) {
   RTC_DCHECK(packet_logger_stream_.is_open());

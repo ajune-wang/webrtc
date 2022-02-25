@@ -64,7 +64,7 @@ extern const char kFidSsrcGroupSemantics[];
 extern const char kSimSsrcGroupSemantics[];
 
 struct SsrcGroup {
-  SsrcGroup(const std::string& usage, const std::vector<uint32_t>& ssrcs);
+  SsrcGroup(const absl::string_view usage, const std::vector<uint32_t>& ssrcs);
   SsrcGroup(const SsrcGroup&);
   SsrcGroup(SsrcGroup&&);
   ~SsrcGroup();
@@ -76,7 +76,7 @@ struct SsrcGroup {
   }
   bool operator!=(const SsrcGroup& other) const { return !(*this == other); }
 
-  bool has_semantics(const std::string& semantics) const;
+  bool has_semantics(const absl::string_view semantics) const;
 
   std::string ToString() const;
 
@@ -118,10 +118,10 @@ struct StreamParams {
   }
   void add_ssrc(uint32_t ssrc) { ssrcs.push_back(ssrc); }
   bool has_ssrc_groups() const { return !ssrc_groups.empty(); }
-  bool has_ssrc_group(const std::string& semantics) const {
+  bool has_ssrc_group(const absl::string_view semantics) const {
     return (get_ssrc_group(semantics) != NULL);
   }
-  const SsrcGroup* get_ssrc_group(const std::string& semantics) const {
+  const SsrcGroup* get_ssrc_group(const absl::string_view semantics) const {
     for (const SsrcGroup& ssrc_group : ssrc_groups) {
       if (ssrc_group.has_semantics(semantics)) {
         return &ssrc_group;
@@ -203,10 +203,10 @@ struct StreamParams {
   void set_rids(const std::vector<RidDescription>& rids) { rids_ = rids; }
 
  private:
-  bool AddSecondarySsrc(const std::string& semantics,
+  bool AddSecondarySsrc(const absl::string_view semantics,
                         uint32_t primary_ssrc,
                         uint32_t secondary_ssrc);
-  bool GetSecondarySsrc(const std::string& semantics,
+  bool GetSecondarySsrc(const absl::string_view semantics,
                         uint32_t primary_ssrc,
                         uint32_t* secondary_ssrc) const;
 
@@ -222,7 +222,7 @@ struct StreamParams {
 struct StreamSelector {
   explicit StreamSelector(uint32_t ssrc) : ssrc(ssrc) {}
 
-  explicit StreamSelector(const std::string& streamid)
+  explicit StreamSelector(const absl::string_view streamid)
       : ssrc(0), streamid(streamid) {}
 
   bool Matches(const StreamParams& stream) const {
@@ -264,13 +264,13 @@ inline const StreamParams* GetStreamBySsrc(const StreamParamsVec& streams,
 }
 
 inline const StreamParams* GetStreamByIds(const StreamParamsVec& streams,
-                                          const std::string& id) {
+                                          const absl::string_view id) {
   return GetStream(streams,
                    [&id](const StreamParams& sp) { return sp.id == id; });
 }
 
 inline StreamParams* GetStreamByIds(StreamParamsVec& streams,
-                                    const std::string& id) {
+                                    const absl::string_view id) {
   return GetStream(streams,
                    [&id](const StreamParams& sp) { return sp.id == id; });
 }
@@ -304,7 +304,7 @@ inline bool RemoveStreamBySsrc(StreamParamsVec* streams, uint32_t ssrc) {
       streams, [&ssrc](const StreamParams& sp) { return sp.has_ssrc(ssrc); });
 }
 inline bool RemoveStreamByIds(StreamParamsVec* streams,
-                              const std::string& id) {
+                              const absl::string_view id) {
   return RemoveStream(streams,
                       [&id](const StreamParams& sp) { return sp.id == id; });
 }

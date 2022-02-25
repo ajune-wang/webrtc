@@ -227,13 +227,13 @@ uint32_t ModuleRtpRtcpImpl2::local_media_ssrc() const {
   return rtcp_receiver_.local_media_ssrc();
 }
 
-void ModuleRtpRtcpImpl2::SetRid(const std::string& rid) {
+void ModuleRtpRtcpImpl2::SetRid(const absl::string_view rid) {
   if (rtp_sender_) {
     rtp_sender_->packet_generator.SetRid(rid);
   }
 }
 
-void ModuleRtpRtcpImpl2::SetMid(const std::string& mid) {
+void ModuleRtpRtcpImpl2::SetMid(const absl::string_view mid) {
   if (rtp_sender_) {
     rtp_sender_->packet_generator.SetMid(mid);
   }

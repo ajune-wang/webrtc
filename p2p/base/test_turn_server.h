@@ -58,7 +58,7 @@ class TestTurnServer : public TurnAuthInterface {
                  const rtc::SocketAddress& udp_ext_addr,
                  ProtocolType int_protocol = PROTO_UDP,
                  bool ignore_bad_cert = true,
-                 const std::string& common_name = "test turn server")
+                 const absl::string_view common_name = "test turn server")
       : server_(thread), socket_factory_(socket_factory) {
     AddInternalSocket(int_addr, int_protocol, ignore_bad_cert, common_name);
     server_.SetExternalSocketFactory(
@@ -90,10 +90,11 @@ class TestTurnServer : public TurnAuthInterface {
     server_.set_enable_permission_checks(enable);
   }
 
-  void AddInternalSocket(const rtc::SocketAddress& int_addr,
-                         ProtocolType proto,
-                         bool ignore_bad_cert = true,
-                         const std::string& common_name = "test turn server") {
+  void AddInternalSocket(
+      const rtc::SocketAddress& int_addr,
+      ProtocolType proto,
+      bool ignore_bad_cert = true,
+      const absl::string_view common_name = "test turn server") {
     RTC_DCHECK(thread_checker_.IsCurrent());
     if (proto == cricket::PROTO_UDP) {
       server_.AddInternalSocket(
@@ -142,8 +143,8 @@ class TestTurnServer : public TurnAuthInterface {
  private:
   // For this test server, succeed if the password is the same as the username.
   // Obviously, do not use this in a production environment.
-  virtual bool GetKey(const std::string& username,
-                      const std::string& realm,
+  virtual bool GetKey(const absl::string_view username,
+                      const absl::string_view realm,
                       std::string* key) {
     RTC_DCHECK(thread_checker_.IsCurrent());
     return ComputeStunCredentialHash(username, realm, username, key);

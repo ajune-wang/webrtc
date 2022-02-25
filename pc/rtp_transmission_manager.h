@@ -51,8 +51,8 @@ namespace webrtc {
 // an RTPSender, used for things like looking it up by SSRC.
 struct RtpSenderInfo {
   RtpSenderInfo() : first_ssrc(0) {}
-  RtpSenderInfo(const std::string& stream_id,
-                const std::string& sender_id,
+  RtpSenderInfo(const absl::string_view stream_id,
+                const absl::string_view sender_id,
                 uint32_t ssrc)
       : stream_id(stream_id), sender_id(sender_id), first_ssrc(ssrc) {}
   bool operator==(const RtpSenderInfo& other) {
@@ -99,14 +99,15 @@ class RtpTransmissionManager : public RtpSenderBase::SetStreamsObserver {
   // Create a new RTP sender. Does not associate with a transceiver.
   rtc::scoped_refptr<RtpSenderProxyWithInternal<RtpSenderInternal>>
   CreateSender(cricket::MediaType media_type,
-               const std::string& id,
+               const absl::string_view id,
                rtc::scoped_refptr<MediaStreamTrackInterface> track,
                const std::vector<std::string>& stream_ids,
                const std::vector<RtpEncodingParameters>& send_encodings);
 
   // Create a new RTP receiver. Does not associate with a transceiver.
   rtc::scoped_refptr<RtpReceiverProxyWithInternal<RtpReceiverInternal>>
-  CreateReceiver(cricket::MediaType media_type, const std::string& receiver_id);
+  CreateReceiver(cricket::MediaType media_type,
+                 const absl::string_view receiver_id);
 
   // Create a new RtpTransceiver of the given type and add it to the list of
   // registered transceivers.
@@ -185,8 +186,8 @@ class RtpTransmissionManager : public RtpSenderBase::SetStreamsObserver {
   std::vector<RtpSenderInfo>* GetLocalSenderInfos(
       cricket::MediaType media_type);
   const RtpSenderInfo* FindSenderInfo(const std::vector<RtpSenderInfo>& infos,
-                                      const std::string& stream_id,
-                                      const std::string& sender_id) const;
+                                      const absl::string_view stream_id,
+                                      const absl::string_view sender_id) const;
 
   // Return the RtpSender with the given track attached.
   rtc::scoped_refptr<RtpSenderProxyWithInternal<RtpSenderInternal>>
@@ -194,11 +195,11 @@ class RtpTransmissionManager : public RtpSenderBase::SetStreamsObserver {
 
   // Return the RtpSender with the given id, or null if none exists.
   rtc::scoped_refptr<RtpSenderProxyWithInternal<RtpSenderInternal>>
-  FindSenderById(const std::string& sender_id) const;
+  FindSenderById(const absl::string_view sender_id) const;
 
   // Return the RtpReceiver with the given id, or null if none exists.
   rtc::scoped_refptr<RtpReceiverProxyWithInternal<RtpReceiverInternal>>
-  FindReceiverById(const std::string& receiver_id) const;
+  FindReceiverById(const absl::string_view receiver_id) const;
 
   TransceiverList* transceivers() { return &transceivers_; }
   const TransceiverList* transceivers() const { return &transceivers_; }

@@ -24,7 +24,7 @@ namespace {
 
 void TraverseAndTakeVisitedStats(RTCStatsReport* report,
                                  RTCStatsReport* visited_report,
-                                 const std::string& current_id) {
+                                 const absl::string_view current_id) {
   // Mark current stats object as visited by moving it `report` to
   // `visited_report`.
   std::unique_ptr<const RTCStats> current = report->Take(current_id);

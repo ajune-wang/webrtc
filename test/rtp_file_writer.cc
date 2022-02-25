@@ -91,7 +91,7 @@ class RtpDumpWriter : public RtpFileWriter {
 };
 
 RtpFileWriter* RtpFileWriter::Create(FileFormat format,
-                                     const std::string& filename) {
+                                     const absl::string_view filename) {
   FILE* file = fopen(filename.c_str(), "wb");
   if (file == NULL) {
     printf("ERROR: Can't open file: %s\n", filename.c_str());

@@ -24,7 +24,7 @@ using conversational_speech::WavReaderInterface;
 
 class WavReaderAdaptor final : public WavReaderInterface {
  public:
-  explicit WavReaderAdaptor(const std::string& filepath)
+  explicit WavReaderAdaptor(const absl::string_view filepath)
       : wav_reader_(filepath) {}
   ~WavReaderAdaptor() override = default;
 
@@ -55,7 +55,7 @@ WavReaderFactory::WavReaderFactory() = default;
 WavReaderFactory::~WavReaderFactory() = default;
 
 std::unique_ptr<WavReaderInterface> WavReaderFactory::Create(
-    const std::string& filepath) const {
+    const absl::string_view filepath) const {
   return std::unique_ptr<WavReaderAdaptor>(new WavReaderAdaptor(filepath));
 }
 

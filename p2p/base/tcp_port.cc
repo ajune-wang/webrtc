@@ -89,8 +89,8 @@ TCPPort::TCPPort(rtc::Thread* thread,
                  rtc::Network* network,
                  uint16_t min_port,
                  uint16_t max_port,
-                 const std::string& username,
-                 const std::string& password,
+                 const absl::string_view username,
+                 const absl::string_view password,
                  bool allow_listen)
     : Port(thread,
            LOCAL_PORT_TYPE,
@@ -265,7 +265,7 @@ int TCPPort::GetError() {
   return error_;
 }
 
-bool TCPPort::SupportsProtocol(const std::string& protocol) const {
+bool TCPPort::SupportsProtocol(const absl::string_view protocol) const {
   return protocol == TCP_PROTOCOL_NAME || protocol == SSLTCP_PROTOCOL_NAME;
 }
 

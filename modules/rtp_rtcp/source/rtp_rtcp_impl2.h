@@ -113,9 +113,9 @@ class ModuleRtpRtcpImpl2 final : public RtpRtcpInterface,
   // RtpRtcpInterface::Configuration::local_media_ssrc.
   uint32_t local_media_ssrc() const;
 
-  void SetRid(const std::string& rid) override;
+  void SetRid(const absl::string_view rid) override;
 
-  void SetMid(const std::string& mid) override;
+  void SetMid(const absl::string_view mid) override;
 
   void SetCsrcs(const std::vector<uint32_t>& csrcs) override;
 

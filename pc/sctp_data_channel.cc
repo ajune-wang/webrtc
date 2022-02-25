@@ -142,7 +142,7 @@ bool SctpSidAllocator::IsSidAvailable(int sid) const {
 
 rtc::scoped_refptr<SctpDataChannel> SctpDataChannel::Create(
     SctpDataChannelProviderInterface* provider,
-    const std::string& label,
+    const absl::string_view label,
     const InternalDataChannelInit& config,
     rtc::Thread* signaling_thread,
     rtc::Thread* network_thread) {
@@ -167,7 +167,7 @@ rtc::scoped_refptr<DataChannelInterface> SctpDataChannel::CreateProxy(
 
 SctpDataChannel::SctpDataChannel(const InternalDataChannelInit& config,
                                  SctpDataChannelProviderInterface* provider,
-                                 const std::string& label,
+                                 const absl::string_view label,
                                  rtc::Thread* signaling_thread,
                                  rtc::Thread* network_thread)
     : signaling_thread_(signaling_thread),
@@ -491,7 +491,7 @@ void SctpDataChannel::CloseAbruptlyWithError(RTCError error) {
 }
 
 void SctpDataChannel::CloseAbruptlyWithDataChannelFailure(
-    const std::string& message) {
+    const absl::string_view message) {
   RTCError error(RTCErrorType::OPERATION_ERROR_WITH_DATA, message);
   error.set_error_detail(RTCErrorDetailType::DATA_CHANNEL_FAILURE);
   CloseAbruptlyWithError(std::move(error));

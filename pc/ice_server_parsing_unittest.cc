@@ -24,34 +24,34 @@ class IceServerParsingTest : public ::testing::Test {
  public:
   // Convenience functions for parsing a single URL. Result is stored in
   // `stun_servers_` and `turn_servers_`.
-  bool ParseUrl(const std::string& url) {
+  bool ParseUrl(const absl::string_view url) {
     return ParseUrl(url, std::string(), std::string());
   }
 
-  bool ParseTurnUrl(const std::string& url) {
+  bool ParseTurnUrl(const absl::string_view url) {
     return ParseUrl(url, "username", "password");
   }
 
-  bool ParseUrl(const std::string& url,
-                const std::string& username,
-                const std::string& password) {
+  bool ParseUrl(const absl::string_view url,
+                const absl::string_view username,
+                const absl::string_view password) {
     return ParseUrl(
         url, username, password,
         PeerConnectionInterface::TlsCertPolicy::kTlsCertPolicySecure);
   }
 
-  bool ParseUrl(const std::string& url,
-                const std::string& username,
-                const std::string& password,
+  bool ParseUrl(const absl::string_view url,
+                const absl::string_view username,
+                const absl::string_view password,
                 PeerConnectionInterface::TlsCertPolicy tls_certificate_policy) {
     return ParseUrl(url, username, password, tls_certificate_policy, "");
   }
 
-  bool ParseUrl(const std::string& url,
-                const std::string& username,
-                const std::string& password,
+  bool ParseUrl(const absl::string_view url,
+                const absl::string_view username,
+                const absl::string_view password,
                 PeerConnectionInterface::TlsCertPolicy tls_certificate_policy,
-                const std::string& hostname) {
+                const absl::string_view hostname) {
     stun_servers_.clear();
     turn_servers_.clear();
     PeerConnectionInterface::IceServers servers;

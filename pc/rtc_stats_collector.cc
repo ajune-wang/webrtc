@@ -68,13 +68,15 @@ namespace webrtc {
 namespace {
 
 // TODO(https://crbug.com/webrtc/10656): Consider making IDs less predictable.
-std::string RTCCertificateIDFromFingerprint(const std::string& fingerprint) {
+std::string RTCCertificateIDFromFingerprint(
+    const absl::string_view fingerprint) {
   return "RTCCertificate_" + fingerprint;
 }
 
-std::string RTCCodecStatsIDFromMidDirectionAndPayload(const std::string& mid,
-                                                      bool inbound,
-                                                      uint32_t payload_type) {
+std::string RTCCodecStatsIDFromMidDirectionAndPayload(
+    const absl::string_view mid,
+    bool inbound,
+    uint32_t payload_type) {
   char buf[1024];
   rtc::SimpleStringBuilder sb(buf);
   sb << "RTCCodec_" << mid << (inbound ? "_Inbound_" : "_Outbound_")
@@ -104,7 +106,7 @@ std::string RTCMediaStreamTrackStatsIDFromDirectionAndAttachment(
 }
 
 std::string RTCTransportStatsIDFromTransportChannel(
-    const std::string& transport_name,
+    const absl::string_view transport_name,
     int channel_component) {
   char buf[1024];
   rtc::SimpleStringBuilder sb(buf);
@@ -164,7 +166,7 @@ std::string RTCMediaSourceStatsIDFromKindAndAttachment(
   return sb.str();
 }
 
-const char* CandidateTypeToRTCIceCandidateType(const std::string& type) {
+const char* CandidateTypeToRTCIceCandidateType(const absl::string_view type) {
   if (type == cricket::LOCAL_PORT_TYPE)
     return RTCIceCandidateType::kHost;
   if (type == cricket::STUN_PORT_TYPE)
@@ -290,8 +292,8 @@ double DoubleAudioLevelFromIntAudioLevel(int audio_level) {
 
 std::unique_ptr<RTCCodecStats> CodecStatsFromRtpCodecParameters(
     uint64_t timestamp_us,
-    const std::string& mid,
-    const std::string& transport_id,
+    const absl::string_view mid,
+    const absl::string_view transport_id,
     bool inbound,
     const RtpCodecParameters& codec_params) {
   RTC_DCHECK_GE(codec_params.payload_type, 0);
@@ -350,7 +352,7 @@ void SetInboundRTPStreamStatsFromMediaReceiverInfo(
 
 std::unique_ptr<RTCInboundRTPStreamStats> CreateInboundAudioStreamStats(
     const cricket::VoiceReceiverInfo& voice_receiver_info,
-    const std::string& mid,
+    const absl::string_view mid,
     int64_t timestamp_us) {
   auto inbound_audio = std::make_unique<RTCInboundRTPStreamStats>(
       /*id=*/RTCInboundRTPStreamStatsIDFromSSRC(cricket::MEDIA_TYPE_AUDIO,
@@ -405,9 +407,9 @@ std::unique_ptr<RTCInboundRTPStreamStats> CreateInboundAudioStreamStats(
 std::unique_ptr<RTCRemoteOutboundRtpStreamStats>
 CreateRemoteOutboundAudioStreamStats(
     const cricket::VoiceReceiverInfo& voice_receiver_info,
-    const std::string& mid,
-    const std::string& inbound_audio_id,
-    const std::string& transport_id) {
+    const absl::string_view mid,
+    const absl::string_view inbound_audio_id,
+    const absl::string_view transport_id) {
   if (!voice_receiver_info.last_sender_report_timestamp_ms.has_value()) {
     // Cannot create `RTCRemoteOutboundRtpStreamStats` when the RTCP SR arrival
     // timestamp is not available - i.e., until the first sender report is
@@ -455,7 +457,7 @@ CreateRemoteOutboundAudioStreamStats(
 }
 
 void SetInboundRTPStreamStatsFromVideoReceiverInfo(
-    const std::string& mid,
+    const absl::string_view mid,
     const cricket::VideoReceiverInfo& video_receiver_info,
     RTCInboundRTPStreamStats* inbound_video) {
   SetInboundRTPStreamStatsFromMediaReceiverInfo(video_receiver_info,
@@ -535,7 +537,7 @@ void SetOutboundRTPStreamStatsFromMediaSenderInfo(
 }
 
 void SetOutboundRTPStreamStatsFromVoiceSenderInfo(
-    const std::string& mid,
+    const absl::string_view mid,
     const cricket::VoiceSenderInfo& voice_sender_info,
     RTCOutboundRTPStreamStats* outbound_audio) {
   SetOutboundRTPStreamStatsFromMediaSenderInfo(voice_sender_info,
@@ -554,7 +556,7 @@ void SetOutboundRTPStreamStatsFromVoiceSenderInfo(
 }
 
 void SetOutboundRTPStreamStatsFromVideoSenderInfo(
-    const std::string& mid,
+    const absl::string_view mid,
     const cricket::VideoSenderInfo& video_sender_info,
     RTCOutboundRTPStreamStats* outbound_video) {
   SetOutboundRTPStreamStatsFromMediaSenderInfo(video_sender_info,
@@ -717,11 +719,12 @@ void ProduceCertificateStatsFromSSLCertificateStats(
   }
 }
 
-const std::string& ProduceIceCandidateStats(int64_t timestamp_us,
-                                            const cricket::Candidate& candidate,
-                                            bool is_local,
-                                            const std::string& transport_id,
-                                            RTCStatsReport* report) {
+const std::string& ProduceIceCandidateStats(
+    int64_t timestamp_us,
+    const cricket::Candidate& candidate,
+    bool is_local,
+    const absl::string_view transport_id,
+    RTCStatsReport* report) {
   const std::string& id = "RTCIceCandidate_" + candidate.id();
   const RTCStats* stats = report->Get(id);
   if (!stats) {
@@ -2268,7 +2271,7 @@ void RTCStatsCollector::OnDataChannelClosed(DataChannelInterface* channel) {
 }
 
 const char* CandidateTypeToRTCIceCandidateTypeForTesting(
-    const std::string& type) {
+    const absl::string_view type) {
   return CandidateTypeToRTCIceCandidateType(type);
 }
 

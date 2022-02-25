@@ -482,7 +482,7 @@ bool SrtpTransport::MaybeSetKeyParams() {
                       static_cast<int>(recv_key_.size()), std::vector<int>());
 }
 
-bool SrtpTransport::ParseKeyParams(const std::string& key_params,
+bool SrtpTransport::ParseKeyParams(const absl::string_view key_params,
                                    uint8_t* key,
                                    size_t len) {
   // example key_params: "inline:YUJDZGVmZ2hpSktMbW9QUXJzVHVWd3l6MTIzNDU2"

@@ -47,7 +47,8 @@ JsepTransportController::JsepTransportController(
       port_allocator_(port_allocator),
       async_dns_resolver_factory_(async_dns_resolver_factory),
       transports_(
-          [this](const std::string& mid, cricket::JsepTransport* transport) {
+          [this](const absl::string_view mid,
+                 cricket::JsepTransport* transport) {
             return OnTransportChanged(mid, transport);
           },
           [this]() {
@@ -106,7 +107,7 @@ RTCError JsepTransportController::SetRemoteDescription(
 }
 
 RtpTransportInternal* JsepTransportController::GetRtpTransport(
-    const std::string& mid) const {
+    const absl::string_view mid) const {
   RTC_DCHECK_RUN_ON(network_thread_);
   auto jsep_transport = GetJsepTransportForMid(mid);
   if (!jsep_transport) {
@@ -116,7 +117,7 @@ RtpTransportInternal* JsepTransportController::GetRtpTransport(
 }
 
 DataChannelTransportInterface* JsepTransportController::GetDataChannelTransport(
-    const std::string& mid) const {
+    const absl::string_view mid) const {
   RTC_DCHECK_RUN_ON(network_thread_);
   auto jsep_transport = GetJsepTransportForMid(mid);
   if (!jsep_transport) {
@@ -126,7 +127,7 @@ DataChannelTransportInterface* JsepTransportController::GetDataChannelTransport(
 }
 
 cricket::DtlsTransportInternal* JsepTransportController::GetDtlsTransport(
-    const std::string& mid) {
+    const absl::string_view mid) {
   RTC_DCHECK_RUN_ON(network_thread_);
   auto jsep_transport = GetJsepTransportForMid(mid);
   if (!jsep_transport) {
@@ -136,7 +137,8 @@ cricket::DtlsTransportInternal* JsepTransportController::GetDtlsTransport(
 }
 
 const cricket::DtlsTransportInternal*
-JsepTransportController::GetRtcpDtlsTransport(const std::string& mid) const {
+JsepTransportController::GetRtcpDtlsTransport(
+    const absl::string_view mid) const {
   RTC_DCHECK_RUN_ON(network_thread_);
   auto jsep_transport = GetJsepTransportForMid(mid);
   if (!jsep_transport) {
@@ -146,7 +148,7 @@ JsepTransportController::GetRtcpDtlsTransport(const std::string& mid) const {
 }
 
 rtc::scoped_refptr<webrtc::DtlsTransport>
-JsepTransportController::LookupDtlsTransportByMid(const std::string& mid) {
+JsepTransportController::LookupDtlsTransportByMid(const absl::string_view mid) {
   RTC_DCHECK_RUN_ON(network_thread_);
   auto jsep_transport = GetJsepTransportForMid(mid);
   if (!jsep_transport) {
@@ -156,7 +158,7 @@ JsepTransportController::LookupDtlsTransportByMid(const std::string& mid) {
 }
 
 rtc::scoped_refptr<SctpTransport> JsepTransportController::GetSctpTransport(
-    const std::string& mid) const {
+    const absl::string_view mid) const {
   RTC_DCHECK_RUN_ON(network_thread_);
   auto jsep_transport = GetJsepTransportForMid(mid);
   if (!jsep_transport) {
@@ -181,7 +183,7 @@ void JsepTransportController::SetNeedsIceRestartFlag() {
 }
 
 bool JsepTransportController::NeedsIceRestart(
-    const std::string& transport_name) const {
+    const absl::string_view transport_name) const {
   RTC_DCHECK_RUN_ON(network_thread_);
 
   const cricket::JsepTransport* transport =
@@ -193,7 +195,7 @@ bool JsepTransportController::NeedsIceRestart(
 }
 
 absl::optional<rtc::SSLRole> JsepTransportController::GetDtlsRole(
-    const std::string& mid) const {
+    const absl::string_view mid) const {
   // TODO(tommi): Remove this hop. Currently it's called from the signaling
   // thread during negotiations, potentially multiple times.
   // WebRtcSessionDescriptionFactory::InternalCreateAnswer is one example.
@@ -241,7 +243,7 @@ bool JsepTransportController::SetLocalCertificate(
 
 rtc::scoped_refptr<rtc::RTCCertificate>
 JsepTransportController::GetLocalCertificate(
-    const std::string& transport_name) const {
+    const absl::string_view transport_name) const {
   RTC_DCHECK_RUN_ON(network_thread_);
 
   const cricket::JsepTransport* t = GetJsepTransportByName(transport_name);
@@ -253,7 +255,7 @@ JsepTransportController::GetLocalCertificate(
 
 std::unique_ptr<rtc::SSLCertChain>
 JsepTransportController::GetRemoteSSLCertChain(
-    const std::string& transport_name) const {
+    const absl::string_view transport_name) const {
   RTC_DCHECK_RUN_ON(network_thread_);
 
   // Get the certificate from the RTP transport's DTLS handshake. Should be
@@ -284,7 +286,7 @@ void JsepTransportController::MaybeStartGathering() {
 }
 
 RTCError JsepTransportController::AddRemoteCandidates(
-    const std::string& transport_name,
+    const absl::string_view transport_name,
     const cricket::Candidates& candidates) {
   RTC_DCHECK_RUN_ON(network_thread_);
   RTC_DCHECK(VerifyCandidates(candidates).ok());
@@ -346,7 +348,7 @@ RTCError JsepTransportController::RemoveRemoteCandidates(
   return RTCError::OK();
 }
 
-bool JsepTransportController::GetStats(const std::string& transport_name,
+bool JsepTransportController::GetStats(const absl::string_view transport_name,
                                        cricket::TransportStats* stats) {
   RTC_DCHECK_RUN_ON(network_thread_);
 
@@ -390,8 +392,9 @@ RTCError JsepTransportController::RollbackTransports() {
 }
 
 rtc::scoped_refptr<webrtc::IceTransportInterface>
-JsepTransportController::CreateIceTransport(const std::string& transport_name,
-                                            bool rtcp) {
+JsepTransportController::CreateIceTransport(
+    const absl::string_view transport_name,
+    bool rtcp) {
   int component = rtcp ? cricket::ICE_CANDIDATE_COMPONENT_RTCP
                        : cricket::ICE_CANDIDATE_COMPONENT_RTP;
 
@@ -458,7 +461,7 @@ JsepTransportController::CreateDtlsTransport(
 
 std::unique_ptr<webrtc::RtpTransport>
 JsepTransportController::CreateUnencryptedRtpTransport(
-    const std::string& transport_name,
+    const absl::string_view transport_name,
     rtc::PacketTransportInternal* rtp_packet_transport,
     rtc::PacketTransportInternal* rtcp_packet_transport) {
   RTC_DCHECK_RUN_ON(network_thread_);
@@ -473,7 +476,7 @@ JsepTransportController::CreateUnencryptedRtpTransport(
 
 std::unique_ptr<webrtc::SrtpTransport>
 JsepTransportController::CreateSdesTransport(
-    const std::string& transport_name,
+    const absl::string_view transport_name,
     cricket::DtlsTransportInternal* rtp_dtls_transport,
     cricket::DtlsTransportInternal* rtcp_dtls_transport) {
   RTC_DCHECK_RUN_ON(network_thread_);
@@ -492,7 +495,7 @@ JsepTransportController::CreateSdesTransport(
 
 std::unique_ptr<webrtc::DtlsSrtpTransport>
 JsepTransportController::CreateDtlsSrtpTransport(
-    const std::string& transport_name,
+    const absl::string_view transport_name,
     cricket::DtlsTransportInternal* rtp_dtls_transport,
     cricket::DtlsTransportInternal* rtcp_dtls_transport) {
   RTC_DCHECK_RUN_ON(network_thread_);
@@ -990,22 +993,22 @@ int JsepTransportController::GetRtpAbsSendTimeHeaderExtensionId(
 }
 
 const cricket::JsepTransport* JsepTransportController::GetJsepTransportForMid(
-    const std::string& mid) const {
+    const absl::string_view mid) const {
   return transports_.GetTransportForMid(mid);
 }
 
 cricket::JsepTransport* JsepTransportController::GetJsepTransportForMid(
-    const std::string& mid) {
+    const absl::string_view mid) {
   return transports_.GetTransportForMid(mid);
 }
 
 const cricket::JsepTransport* JsepTransportController::GetJsepTransportByName(
-    const std::string& transport_name) const {
+    const absl::string_view transport_name) const {
   return transports_.GetTransportByName(transport_name);
 }
 
 cricket::JsepTransport* JsepTransportController::GetJsepTransportByName(
-    const std::string& transport_name) {
+    const absl::string_view transport_name) {
   return transports_.GetTransportByName(transport_name);
 }
 
@@ -1404,7 +1407,7 @@ void JsepTransportController::OnDtlsHandshakeError(
 }
 
 bool JsepTransportController::OnTransportChanged(
-    const std::string& mid,
+    const absl::string_view mid,
     cricket::JsepTransport* jsep_transport) {
   if (config_.transport_observer) {
     if (jsep_transport) {

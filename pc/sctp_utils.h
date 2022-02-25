@@ -34,7 +34,7 @@ bool ParseDataChannelOpenMessage(const rtc::CopyOnWriteBuffer& payload,
 
 bool ParseDataChannelOpenAckMessage(const rtc::CopyOnWriteBuffer& payload);
 
-bool WriteDataChannelOpenMessage(const std::string& label,
+bool WriteDataChannelOpenMessage(const absl::string_view label,
                                  const DataChannelInit& config,
                                  rtc::CopyOnWriteBuffer* payload);
 

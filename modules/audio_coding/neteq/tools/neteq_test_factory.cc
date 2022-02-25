@@ -109,7 +109,7 @@ NetEqTestFactory::Config::Config(const Config& other) = default;
 NetEqTestFactory::Config::~Config() = default;
 
 std::unique_ptr<NetEqTest> NetEqTestFactory::InitializeTestFromString(
-    const std::string& input_string,
+    const absl::string_view input_string,
     NetEqFactory* factory,
     const Config& config) {
   std::unique_ptr<NetEqInput> input(
@@ -122,7 +122,7 @@ std::unique_ptr<NetEqTest> NetEqTestFactory::InitializeTestFromString(
 }
 
 std::unique_ptr<NetEqTest> NetEqTestFactory::InitializeTestFromFile(
-    const std::string& input_file_name,
+    const absl::string_view input_file_name,
     NetEqFactory* factory,
     const Config& config) {
   // Gather RTP header extensions in a map.

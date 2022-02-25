@@ -78,8 +78,8 @@ class FakePeerConnectionBase : public PeerConnectionInternal {
   }
 
   rtc::scoped_refptr<RtpSenderInterface> CreateSender(
-      const std::string& kind,
-      const std::string& stream_id) override {
+      const absl::string_view kind,
+      const absl::string_view stream_id) override {
     return nullptr;
   }
 
@@ -119,7 +119,7 @@ class FakePeerConnectionBase : public PeerConnectionInternal {
   }
 
   RTCErrorOr<rtc::scoped_refptr<DataChannelInterface>> CreateDataChannelOrError(
-      const std::string& label,
+      const absl::string_view label,
       const DataChannelInit* config) override {
     return RTCError(RTCErrorType::UNSUPPORTED_OPERATION,
                     "Fake function called");
@@ -194,7 +194,7 @@ class FakePeerConnectionBase : public PeerConnectionInternal {
   void SetAudioRecording(bool recording) override {}
 
   rtc::scoped_refptr<DtlsTransportInterface> LookupDtlsTransportByMid(
-      const std::string& mid) {
+      const absl::string_view mid) {
     return nullptr;
   }
 
@@ -267,25 +267,25 @@ class FakePeerConnectionBase : public PeerConnectionInternal {
   Call::Stats GetCallStats() override { return Call::Stats(); }
 
   bool GetLocalCertificate(
-      const std::string& transport_name,
+      const absl::string_view transport_name,
       rtc::scoped_refptr<rtc::RTCCertificate>* certificate) override {
     return false;
   }
 
   std::unique_ptr<rtc::SSLCertChain> GetRemoteSSLCertChain(
-      const std::string& transport_name) override {
+      const absl::string_view transport_name) override {
     return nullptr;
   }
 
-  bool IceRestartPending(const std::string& content_name) const override {
+  bool IceRestartPending(const absl::string_view content_name) const override {
     return false;
   }
 
-  bool NeedsIceRestart(const std::string& content_name) const override {
+  bool NeedsIceRestart(const absl::string_view content_name) const override {
     return false;
   }
 
-  bool GetSslRole(const std::string& content_name,
+  bool GetSslRole(const absl::string_view content_name,
                   rtc::SSLRole* role) override {
     return false;
   }
@@ -346,16 +346,16 @@ class FakePeerConnectionBase : public PeerConnectionInternal {
                           int remote_port,
                           int max_message_size) override {}
 
-  void AddRemoteCandidate(const std::string& mid,
+  void AddRemoteCandidate(const absl::string_view mid,
                           const cricket::Candidate& candidate) override {}
 
   Call* call_ptr() override { return nullptr; }
   bool SrtpRequired() const override { return false; }
-  bool SetupDataChannelTransport_n(const std::string& mid) override {
+  bool SetupDataChannelTransport_n(const absl::string_view mid) override {
     return false;
   }
   void TeardownDataChannelTransport_n() override {}
-  void SetSctpDataMid(const std::string& mid) override {}
+  void SetSctpDataMid(const absl::string_view mid) override {}
   void ResetSctpDataMid() override {}
 
  protected:

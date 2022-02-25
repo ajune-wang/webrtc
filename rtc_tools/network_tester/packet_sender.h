@@ -36,7 +36,7 @@ class TestController;
 class PacketSender {
  public:
   PacketSender(TestController* test_controller,
-               const std::string& config_file_path);
+               const absl::string_view config_file_path);
   ~PacketSender();
 
   PacketSender(const PacketSender&) = delete;

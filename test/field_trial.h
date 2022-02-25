@@ -21,7 +21,7 @@ namespace test {
 // After this class goes out of scope previous field trials will be restored.
 class ScopedFieldTrials {
  public:
-  explicit ScopedFieldTrials(const std::string& config);
+  explicit ScopedFieldTrials(const absl::string_view config);
   ScopedFieldTrials(const ScopedFieldTrials&) = delete;
   ScopedFieldTrials& operator=(const ScopedFieldTrials&) = delete;
   ~ScopedFieldTrials();

@@ -60,7 +60,7 @@ class DtmfSender : public DtmfSenderInterface, public sigslot::has_slots<> {
   void RegisterObserver(DtmfSenderObserverInterface* observer) override;
   void UnregisterObserver() override;
   bool CanInsertDtmf() override;
-  bool InsertDtmf(const std::string& tones,
+  bool InsertDtmf(const absl::string_view tones,
                   int duration,
                   int inter_tone_gap,
                   int comma_delay = kDtmfDefaultCommaDelayMs) override;
@@ -109,7 +109,7 @@ PROXY_PRIMARY_THREAD_DESTRUCTOR()
 PROXY_METHOD1(void, RegisterObserver, DtmfSenderObserverInterface*)
 PROXY_METHOD0(void, UnregisterObserver)
 PROXY_METHOD0(bool, CanInsertDtmf)
-PROXY_METHOD4(bool, InsertDtmf, const std::string&, int, int, int)
+PROXY_METHOD4(bool, InsertDtmf, const absl::string_view, int, int, int)
 PROXY_CONSTMETHOD0(std::string, tones)
 PROXY_CONSTMETHOD0(int, duration)
 PROXY_CONSTMETHOD0(int, inter_tone_gap)

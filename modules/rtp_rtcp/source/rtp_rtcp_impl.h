@@ -101,9 +101,9 @@ class ModuleRtpRtcpImpl : public RtpRtcp, public RTCPReceiver::ModuleRtpRtcp {
 
   uint32_t SSRC() const override { return rtcp_sender_.SSRC(); }
 
-  void SetRid(const std::string& rid) override;
+  void SetRid(const absl::string_view rid) override;
 
-  void SetMid(const std::string& mid) override;
+  void SetMid(const absl::string_view mid) override;
 
   void SetCsrcs(const std::vector<uint32_t>& csrcs) override;
 

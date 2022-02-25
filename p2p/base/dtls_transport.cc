@@ -226,7 +226,7 @@ bool DtlsTransport::GetSslCipherSuite(int* cipher) {
   return dtls_->GetSslCipherSuite(cipher);
 }
 
-bool DtlsTransport::SetRemoteFingerprint(const std::string& digest_alg,
+bool DtlsTransport::SetRemoteFingerprint(const absl::string_view digest_alg,
                                          const uint8_t* digest,
                                          size_t digest_len) {
   rtc::Buffer remote_fingerprint_value(digest, digest_len);
@@ -312,7 +312,7 @@ std::unique_ptr<rtc::SSLCertChain> DtlsTransport::GetRemoteSSLCertChain()
   return dtls_->GetPeerSSLCertChain();
 }
 
-bool DtlsTransport::ExportKeyingMaterial(const std::string& label,
+bool DtlsTransport::ExportKeyingMaterial(const absl::string_view label,
                                          const uint8_t* context,
                                          size_t context_len,
                                          bool use_context,

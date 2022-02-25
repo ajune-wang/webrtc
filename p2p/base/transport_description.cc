@@ -108,7 +108,8 @@ RTCError IceParameters::Validate() const {
   return RTCError::OK();
 }
 
-bool StringToConnectionRole(const std::string& role_str, ConnectionRole* role) {
+bool StringToConnectionRole(const absl::string_view role_str,
+                            ConnectionRole* role) {
   const char* const roles[] = {
       CONNECTIONROLE_ACTIVE_STR, CONNECTIONROLE_PASSIVE_STR,
       CONNECTIONROLE_ACTPASS_STR, CONNECTIONROLE_HOLDCONN_STR};
@@ -147,8 +148,8 @@ TransportDescription::TransportDescription()
 
 TransportDescription::TransportDescription(
     const std::vector<std::string>& transport_options,
-    const std::string& ice_ufrag,
-    const std::string& ice_pwd,
+    const absl::string_view ice_ufrag,
+    const absl::string_view ice_pwd,
     IceMode ice_mode,
     ConnectionRole role,
     const rtc::SSLFingerprint* identity_fingerprint)
@@ -159,8 +160,8 @@ TransportDescription::TransportDescription(
       connection_role(role),
       identity_fingerprint(CopyFingerprint(identity_fingerprint)) {}
 
-TransportDescription::TransportDescription(const std::string& ice_ufrag,
-                                           const std::string& ice_pwd)
+TransportDescription::TransportDescription(const absl::string_view ice_ufrag,
+                                           const absl::string_view ice_pwd)
     : ice_ufrag(ice_ufrag),
       ice_pwd(ice_pwd),
       ice_mode(ICEMODE_FULL),

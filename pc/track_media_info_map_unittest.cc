@@ -87,13 +87,13 @@ rtc::scoped_refptr<MockRtpReceiverInternal> CreateMockRtpReceiver(
 }
 
 rtc::scoped_refptr<VideoTrackInterface> CreateVideoTrack(
-    const std::string& id) {
+    const absl::string_view id) {
   return VideoTrack::Create(id, FakeVideoTrackSource::Create(false),
                             rtc::Thread::Current());
 }
 
 rtc::scoped_refptr<VideoTrackInterface> CreateMockVideoTrack(
-    const std::string& id) {
+    const absl::string_view id) {
   auto track = MockVideoTrack::Create();
   EXPECT_CALL(*track, kind())
       .WillRepeatedly(::testing::Return(VideoTrack::kVideoKind));

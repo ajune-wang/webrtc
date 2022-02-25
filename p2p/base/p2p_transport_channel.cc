@@ -98,10 +98,10 @@ using webrtc::RTCError;
 using webrtc::RTCErrorType;
 using webrtc::ToQueuedTask;
 
-bool IceCredentialsChanged(const std::string& old_ufrag,
-                           const std::string& old_pwd,
-                           const std::string& new_ufrag,
-                           const std::string& new_pwd) {
+bool IceCredentialsChanged(const absl::string_view old_ufrag,
+                           const absl::string_view old_pwd,
+                           const absl::string_view new_ufrag,
+                           const absl::string_view new_pwd) {
   // The standard (RFC 5245 Section 9.1.1.1) says that ICE restarts MUST change
   // both the ufrag and password. However, section 9.2.1.1 says changing the
   // ufrag OR password indicates an ICE restart. So, to keep compatibility with
@@ -111,7 +111,7 @@ bool IceCredentialsChanged(const std::string& old_ufrag,
 
 // static
 std::unique_ptr<P2PTransportChannel> P2PTransportChannel::Create(
-    const std::string& transport_name,
+    const absl::string_view transport_name,
     int component,
     PortAllocator* allocator,
     webrtc::AsyncDnsResolverFactoryInterface* async_dns_resolver_factory,
@@ -123,7 +123,7 @@ std::unique_ptr<P2PTransportChannel> P2PTransportChannel::Create(
       ice_controller_factory));
 }
 
-P2PTransportChannel::P2PTransportChannel(const std::string& transport_name,
+P2PTransportChannel::P2PTransportChannel(const absl::string_view transport_name,
                                          int component,
                                          PortAllocator* allocator)
     : P2PTransportChannel(transport_name,
@@ -136,7 +136,7 @@ P2PTransportChannel::P2PTransportChannel(const std::string& transport_name,
 
 // Private constructor, called from Create()
 P2PTransportChannel::P2PTransportChannel(
-    const std::string& transport_name,
+    const absl::string_view transport_name,
     int component,
     PortAllocator* allocator,
     webrtc::AsyncDnsResolverFactoryInterface* async_dns_resolver_factory,
@@ -207,7 +207,7 @@ P2PTransportChannel::P2PTransportChannel(
 // Public constructor, exposed for backwards compatibility.
 // Deprecated.
 P2PTransportChannel::P2PTransportChannel(
-    const std::string& transport_name,
+    const absl::string_view transport_name,
     int component,
     PortAllocator* allocator,
     webrtc::AsyncResolverFactory* async_resolver_factory,
@@ -1008,12 +1008,13 @@ void P2PTransportChannel::OnCandidatesAllocationDone(
 }
 
 // Handle stun packets
-void P2PTransportChannel::OnUnknownAddress(PortInterface* port,
-                                           const rtc::SocketAddress& address,
-                                           ProtocolType proto,
-                                           IceMessage* stun_msg,
-                                           const std::string& remote_username,
-                                           bool port_muxed) {
+void P2PTransportChannel::OnUnknownAddress(
+    PortInterface* port,
+    const rtc::SocketAddress& address,
+    ProtocolType proto,
+    IceMessage* stun_msg,
+    const absl::string_view remote_username,
+    bool port_muxed) {
   RTC_DCHECK_RUN_ON(network_thread_);
 
   // Port has received a valid stun packet from an address that no Connection
@@ -1171,7 +1172,7 @@ void P2PTransportChannel::OnRoleConflict(PortInterface* port) {
 }
 
 const IceParameters* P2PTransportChannel::FindRemoteIceFromUfrag(
-    const std::string& ufrag,
+    const absl::string_view ufrag,
     uint32_t* generation) {
   RTC_DCHECK_RUN_ON(network_thread_);
   const auto& params = remote_ice_parameters_;

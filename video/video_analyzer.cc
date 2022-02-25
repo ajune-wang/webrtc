@@ -55,13 +55,13 @@ bool IsFlexfec(int payload_type) {
 }  // namespace
 
 VideoAnalyzer::VideoAnalyzer(test::LayerFilteringTransport* transport,
-                             const std::string& test_label,
+                             const absl::string_view test_label,
                              double avg_psnr_threshold,
                              double avg_ssim_threshold,
                              int duration_frames,
                              TimeDelta test_duration,
                              FILE* graph_data_output_file,
-                             const std::string& graph_title,
+                             const absl::string_view graph_title,
                              uint32_t ssrc_to_analyze,
                              uint32_t rtx_ssrc_to_analyze,
                              size_t selected_stream,

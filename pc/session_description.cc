@@ -19,7 +19,7 @@ namespace cricket {
 namespace {
 
 ContentInfo* FindContentInfoByName(ContentInfos* contents,
-                                   const std::string& name) {
+                                   const absl::string_view name) {
   RTC_DCHECK(contents);
   for (ContentInfo& content : *contents) {
     if (content.name == name) {
@@ -32,7 +32,7 @@ ContentInfo* FindContentInfoByName(ContentInfos* contents,
 }  // namespace
 
 const ContentInfo* FindContentInfoByName(const ContentInfos& contents,
-                                         const std::string& name) {
+                                         const absl::string_view name) {
   for (ContentInfos::const_iterator content = contents.begin();
        content != contents.end(); ++content) {
     if (content->name == name) {
@@ -52,7 +52,7 @@ const ContentInfo* FindContentInfoByType(const ContentInfos& contents,
   return nullptr;
 }
 
-ContentGroup::ContentGroup(const std::string& semantics)
+ContentGroup::ContentGroup(const absl::string_view semantics)
     : semantics_(semantics) {}
 
 ContentGroup::ContentGroup(const ContentGroup&) = default;
@@ -65,17 +65,17 @@ const std::string* ContentGroup::FirstContentName() const {
   return (!content_names_.empty()) ? &(*content_names_.begin()) : NULL;
 }
 
-bool ContentGroup::HasContentName(const std::string& content_name) const {
+bool ContentGroup::HasContentName(const absl::string_view content_name) const {
   return absl::c_linear_search(content_names_, content_name);
 }
 
-void ContentGroup::AddContentName(const std::string& content_name) {
+void ContentGroup::AddContentName(const absl::string_view content_name) {
   if (!HasContentName(content_name)) {
     content_names_.push_back(content_name);
   }
 }
 
-bool ContentGroup::RemoveContentName(const std::string& content_name) {
+bool ContentGroup::RemoveContentName(const absl::string_view content_name) {
   ContentNames::iterator iter = absl::c_find(content_names_, content_name);
   if (iter == content_names_.end()) {
     return false;
@@ -108,16 +108,17 @@ std::unique_ptr<SessionDescription> SessionDescription::Clone() const {
 }
 
 const ContentInfo* SessionDescription::GetContentByName(
-    const std::string& name) const {
+    const absl::string_view name) const {
   return FindContentInfoByName(contents_, name);
 }
 
-ContentInfo* SessionDescription::GetContentByName(const std::string& name) {
+ContentInfo* SessionDescription::GetContentByName(
+    const absl::string_view name) {
   return FindContentInfoByName(&contents_, name);
 }
 
 const MediaContentDescription* SessionDescription::GetContentDescriptionByName(
-    const std::string& name) const {
+    const absl::string_view name) const {
   const ContentInfo* cinfo = FindContentInfoByName(contents_, name);
   if (cinfo == NULL) {
     return NULL;
@@ -127,7 +128,7 @@ const MediaContentDescription* SessionDescription::GetContentDescriptionByName(
 }
 
 MediaContentDescription* SessionDescription::GetContentDescriptionByName(
-    const std::string& name) {
+    const absl::string_view name) {
   ContentInfo* cinfo = FindContentInfoByName(&contents_, name);
   if (cinfo == NULL) {
     return NULL;
@@ -146,7 +147,7 @@ const ContentInfo* SessionDescription::FirstContent() const {
 }
 
 void SessionDescription::AddContent(
-    const std::string& name,
+    const absl::string_view name,
     MediaProtocolType type,
     std::unique_ptr<MediaContentDescription> description) {
   ContentInfo content(type);
@@ -156,7 +157,7 @@ void SessionDescription::AddContent(
 }
 
 void SessionDescription::AddContent(
-    const std::string& name,
+    const absl::string_view name,
     MediaProtocolType type,
     bool rejected,
     std::unique_ptr<MediaContentDescription> description) {
@@ -168,7 +169,7 @@ void SessionDescription::AddContent(
 }
 
 void SessionDescription::AddContent(
-    const std::string& name,
+    const absl::string_view name,
     MediaProtocolType type,
     bool rejected,
     bool bundle_only,
@@ -190,7 +191,7 @@ void SessionDescription::AddContent(ContentInfo&& content) {
   contents_.push_back(std::move(content));
 }
 
-bool SessionDescription::RemoveContentByName(const std::string& name) {
+bool SessionDescription::RemoveContentByName(const absl::string_view name) {
   for (ContentInfos::iterator content = contents_.begin();
        content != contents_.end(); ++content) {
     if (content->name == name) {
@@ -206,7 +207,8 @@ void SessionDescription::AddTransportInfo(const TransportInfo& transport_info) {
   transport_infos_.push_back(transport_info);
 }
 
-bool SessionDescription::RemoveTransportInfoByName(const std::string& name) {
+bool SessionDescription::RemoveTransportInfoByName(
+    const absl::string_view name) {
   for (TransportInfos::iterator transport_info = transport_infos_.begin();
        transport_info != transport_infos_.end(); ++transport_info) {
     if (transport_info->content_name == name) {
@@ -218,7 +220,7 @@ bool SessionDescription::RemoveTransportInfoByName(const std::string& name) {
 }
 
 const TransportInfo* SessionDescription::GetTransportInfoByName(
-    const std::string& name) const {
+    const absl::string_view name) const {
   for (TransportInfos::const_iterator iter = transport_infos_.begin();
        iter != transport_infos_.end(); ++iter) {
     if (iter->content_name == name) {
@@ -229,7 +231,7 @@ const TransportInfo* SessionDescription::GetTransportInfoByName(
 }
 
 TransportInfo* SessionDescription::GetTransportInfoByName(
-    const std::string& name) {
+    const absl::string_view name) {
   for (TransportInfos::iterator iter = transport_infos_.begin();
        iter != transport_infos_.end(); ++iter) {
     if (iter->content_name == name) {
@@ -239,7 +241,7 @@ TransportInfo* SessionDescription::GetTransportInfoByName(
   return NULL;
 }
 
-void SessionDescription::RemoveGroupByName(const std::string& name) {
+void SessionDescription::RemoveGroupByName(const absl::string_view name) {
   for (ContentGroups::iterator iter = content_groups_.begin();
        iter != content_groups_.end(); ++iter) {
     if (iter->semantics() == name) {
@@ -249,7 +251,7 @@ void SessionDescription::RemoveGroupByName(const std::string& name) {
   }
 }
 
-bool SessionDescription::HasGroup(const std::string& name) const {
+bool SessionDescription::HasGroup(const absl::string_view name) const {
   for (ContentGroups::const_iterator iter = content_groups_.begin();
        iter != content_groups_.end(); ++iter) {
     if (iter->semantics() == name) {
@@ -260,7 +262,7 @@ bool SessionDescription::HasGroup(const std::string& name) const {
 }
 
 const ContentGroup* SessionDescription::GetGroupByName(
-    const std::string& name) const {
+    const absl::string_view name) const {
   for (ContentGroups::const_iterator iter = content_groups_.begin();
        iter != content_groups_.end(); ++iter) {
     if (iter->semantics() == name) {
@@ -271,7 +273,7 @@ const ContentGroup* SessionDescription::GetGroupByName(
 }
 
 std::vector<const ContentGroup*> SessionDescription::GetGroupsByName(
-    const std::string& name) const {
+    const absl::string_view name) const {
   std::vector<const ContentGroup*> content_groups;
   for (const ContentGroup& content_group : content_groups_) {
     if (content_group.semantics() == name) {

@@ -23,8 +23,8 @@ namespace test {
 namespace conversational_speech {
 
 struct SpeakerOutputFilePaths {
-  SpeakerOutputFilePaths(const std::string& new_near_end,
-                         const std::string& new_far_end)
+  SpeakerOutputFilePaths(const absl::string_view new_near_end,
+                         const absl::string_view new_far_end)
       : near_end(new_near_end), far_end(new_far_end) {}
   // Paths to the near-end and far-end audio track files.
   const std::string near_end;
@@ -34,7 +34,7 @@ struct SpeakerOutputFilePaths {
 // Generates the near-end and far-end audio track pairs for each speaker.
 std::unique_ptr<std::map<std::string, SpeakerOutputFilePaths>> Simulate(
     const MultiEndCall& multiend_call,
-    const std::string& output_path);
+    const absl::string_view output_path);
 
 }  // namespace conversational_speech
 }  // namespace test

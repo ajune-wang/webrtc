@@ -87,7 +87,7 @@ AsyncPacketSocket* BasicPacketSocketFactory::CreateClientTcpSocket(
     const SocketAddress& local_address,
     const SocketAddress& remote_address,
     const ProxyInfo& proxy_info,
-    const std::string& user_agent,
+    const absl::string_view user_agent,
     const PacketSocketTcpOptions& tcp_options) {
   Socket* socket =
       socket_factory_->CreateSocket(local_address.family(), SOCK_STREAM);

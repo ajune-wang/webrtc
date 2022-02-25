@@ -71,7 +71,7 @@ class MockPeerConnectionObserver : public PeerConnectionObserver {
     state_ = new_state;
   }
 
-  MediaStreamInterface* RemoteStream(const std::string& label) {
+  MediaStreamInterface* RemoteStream(const absl::string_view label) {
     return remote_streams_->find(label);
   }
   StreamCollectionInterface* remote_streams() const { return remote_streams_; }
@@ -159,7 +159,7 @@ class MockPeerConnectionObserver : public PeerConnectionObserver {
     return receivers;
   }
 
-  int CountAddTrackEventsForStream(const std::string& stream_id) {
+  int CountAddTrackEventsForStream(const absl::string_view stream_id) {
     int found_tracks = 0;
     for (const AddTrackEvent& event : add_track_events_) {
       bool has_stream_id = false;

@@ -23,7 +23,8 @@ class RtpFileWriter {
   };
 
   virtual ~RtpFileWriter() {}
-  static RtpFileWriter* Create(FileFormat format, const std::string& filename);
+  static RtpFileWriter* Create(FileFormat format,
+                               const absl::string_view filename);
 
   virtual bool WritePacket(const RtpPacket* packet) = 0;
 };

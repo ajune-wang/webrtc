@@ -146,11 +146,11 @@ class NetEqTestFactory {
   };
 
   std::unique_ptr<NetEqTest> InitializeTestFromFile(
-      const std::string& input_filename,
+      const absl::string_view input_filename,
       NetEqFactory* neteq_factory,
       const Config& config);
   std::unique_ptr<NetEqTest> InitializeTestFromString(
-      const std::string& input_string,
+      const absl::string_view input_string,
       NetEqFactory* neteq_factory,
       const Config& config);
 

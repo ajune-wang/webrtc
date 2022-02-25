@@ -19,9 +19,9 @@
 
 namespace webrtc {
 
-IceCandidateInterface* CreateIceCandidate(const std::string& sdp_mid,
+IceCandidateInterface* CreateIceCandidate(const absl::string_view sdp_mid,
                                           int sdp_mline_index,
-                                          const std::string& sdp,
+                                          const absl::string_view sdp,
                                           SdpParseError* error) {
   JsepIceCandidate* jsep_ice = new JsepIceCandidate(sdp_mid, sdp_mline_index);
   if (!jsep_ice->Initialize(sdp, error)) {
@@ -32,18 +32,18 @@ IceCandidateInterface* CreateIceCandidate(const std::string& sdp_mid,
 }
 
 std::unique_ptr<IceCandidateInterface> CreateIceCandidate(
-    const std::string& sdp_mid,
+    const absl::string_view sdp_mid,
     int sdp_mline_index,
     const cricket::Candidate& candidate) {
   return std::make_unique<JsepIceCandidate>(sdp_mid, sdp_mline_index,
                                             candidate);
 }
 
-JsepIceCandidate::JsepIceCandidate(const std::string& sdp_mid,
+JsepIceCandidate::JsepIceCandidate(const absl::string_view sdp_mid,
                                    int sdp_mline_index)
     : sdp_mid_(sdp_mid), sdp_mline_index_(sdp_mline_index) {}
 
-JsepIceCandidate::JsepIceCandidate(const std::string& sdp_mid,
+JsepIceCandidate::JsepIceCandidate(const absl::string_view sdp_mid,
                                    int sdp_mline_index,
                                    const cricket::Candidate& candidate)
     : sdp_mid_(sdp_mid),
@@ -62,7 +62,8 @@ JsepCandidateCollection JsepCandidateCollection::Clone() const {
   return new_collection;
 }
 
-bool JsepIceCandidate::Initialize(const std::string& sdp, SdpParseError* err) {
+bool JsepIceCandidate::Initialize(const absl::string_view sdp,
+                                  SdpParseError* err) {
   return SdpDeserializeCandidate(sdp, this, err);
 }
 

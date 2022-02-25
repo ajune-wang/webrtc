@@ -17,7 +17,7 @@
 namespace webrtc {
 namespace test {
 
-ExplicitKeyValueConfig::ExplicitKeyValueConfig(const std::string& s) {
+ExplicitKeyValueConfig::ExplicitKeyValueConfig(const absl::string_view s) {
   std::string::size_type field_start = 0;
   while (field_start < s.size()) {
     std::string::size_type separator_pos = s.find('/', field_start);

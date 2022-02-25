@@ -206,7 +206,7 @@ RtpTransmissionManager::AddTrackUnifiedPlan(
 rtc::scoped_refptr<RtpSenderProxyWithInternal<RtpSenderInternal>>
 RtpTransmissionManager::CreateSender(
     cricket::MediaType media_type,
-    const std::string& id,
+    const absl::string_view id,
     rtc::scoped_refptr<MediaStreamTrackInterface> track,
     const std::vector<std::string>& stream_ids,
     const std::vector<RtpEncodingParameters>& send_encodings) {
@@ -236,7 +236,7 @@ RtpTransmissionManager::CreateSender(
 
 rtc::scoped_refptr<RtpReceiverProxyWithInternal<RtpReceiverInternal>>
 RtpTransmissionManager::CreateReceiver(cricket::MediaType media_type,
-                                       const std::string& receiver_id) {
+                                       const absl::string_view receiver_id) {
   RTC_DCHECK_RUN_ON(signaling_thread());
   rtc::scoped_refptr<RtpReceiverProxyWithInternal<RtpReceiverInternal>>
       receiver;
@@ -640,8 +640,8 @@ std::vector<RtpSenderInfo>* RtpTransmissionManager::GetLocalSenderInfos(
 
 const RtpSenderInfo* RtpTransmissionManager::FindSenderInfo(
     const std::vector<RtpSenderInfo>& infos,
-    const std::string& stream_id,
-    const std::string& sender_id) const {
+    const absl::string_view stream_id,
+    const absl::string_view sender_id) const {
   for (const RtpSenderInfo& sender_info : infos) {
     if (sender_info.stream_id == stream_id &&
         sender_info.sender_id == sender_id) {
@@ -666,7 +666,8 @@ RtpTransmissionManager::FindSenderForTrack(
 }
 
 rtc::scoped_refptr<RtpSenderProxyWithInternal<RtpSenderInternal>>
-RtpTransmissionManager::FindSenderById(const std::string& sender_id) const {
+RtpTransmissionManager::FindSenderById(
+    const absl::string_view sender_id) const {
   RTC_DCHECK_RUN_ON(signaling_thread());
   for (const auto& transceiver : transceivers_.List()) {
     for (auto sender : transceiver->internal()->senders()) {
@@ -679,7 +680,8 @@ RtpTransmissionManager::FindSenderById(const std::string& sender_id) const {
 }
 
 rtc::scoped_refptr<RtpReceiverProxyWithInternal<RtpReceiverInternal>>
-RtpTransmissionManager::FindReceiverById(const std::string& receiver_id) const {
+RtpTransmissionManager::FindReceiverById(
+    const absl::string_view receiver_id) const {
   RTC_DCHECK_RUN_ON(signaling_thread());
   for (const auto& transceiver : transceivers_.List()) {
     for (auto receiver : transceiver->internal()->receivers()) {

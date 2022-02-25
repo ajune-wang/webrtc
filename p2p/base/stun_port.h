@@ -37,8 +37,8 @@ class UDPPort : public Port {
       rtc::PacketSocketFactory* factory,
       rtc::Network* network,
       rtc::AsyncPacketSocket* socket,
-      const std::string& username,
-      const std::string& password,
+      const absl::string_view username,
+      const absl::string_view password,
       bool emit_local_for_anyaddress,
       absl::optional<int> stun_keepalive_interval) {
     // Using `new` to access a non-public constructor.
@@ -58,8 +58,8 @@ class UDPPort : public Port {
       rtc::Network* network,
       uint16_t min_port,
       uint16_t max_port,
-      const std::string& username,
-      const std::string& password,
+      const absl::string_view username,
+      const absl::string_view password,
       bool emit_local_for_anyaddress,
       absl::optional<int> stun_keepalive_interval) {
     // Using `new` to access a non-public constructor.
@@ -98,7 +98,7 @@ class UDPPort : public Port {
                             const rtc::SocketAddress& remote_addr,
                             int64_t packet_time_us) override;
 
-  bool SupportsProtocol(const std::string& protocol) const override;
+  bool SupportsProtocol(const absl::string_view protocol) const override;
   ProtocolType GetProtocol() const override;
 
   void GetStunStats(absl::optional<StunStats>* stats) override;
@@ -122,16 +122,16 @@ class UDPPort : public Port {
           rtc::Network* network,
           uint16_t min_port,
           uint16_t max_port,
-          const std::string& username,
-          const std::string& password,
+          const absl::string_view username,
+          const absl::string_view password,
           bool emit_local_for_anyaddress);
 
   UDPPort(rtc::Thread* thread,
           rtc::PacketSocketFactory* factory,
           rtc::Network* network,
           rtc::AsyncPacketSocket* socket,
-          const std::string& username,
-          const std::string& password,
+          const absl::string_view username,
+          const absl::string_view password,
           bool emit_local_for_anyaddress);
 
   bool Init();
@@ -217,7 +217,7 @@ class UDPPort : public Port {
   void OnStunBindingOrResolveRequestFailed(
       const rtc::SocketAddress& stun_server_addr,
       int error_code,
-      const std::string& reason);
+      const absl::string_view reason);
 
   // Sends STUN requests to the server.
   void OnSendPacket(const void* data, size_t size, StunRequest* req);
@@ -267,8 +267,8 @@ class StunPort : public UDPPort {
       rtc::Network* network,
       uint16_t min_port,
       uint16_t max_port,
-      const std::string& username,
-      const std::string& password,
+      const absl::string_view username,
+      const absl::string_view password,
       const ServerAddresses& servers,
       absl::optional<int> stun_keepalive_interval);
 
@@ -280,8 +280,8 @@ class StunPort : public UDPPort {
            rtc::Network* network,
            uint16_t min_port,
            uint16_t max_port,
-           const std::string& username,
-           const std::string& password,
+           const absl::string_view username,
+           const absl::string_view password,
            const ServerAddresses& servers);
 };
 

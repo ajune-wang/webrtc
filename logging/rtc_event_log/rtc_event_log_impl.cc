@@ -230,8 +230,8 @@ void RtcEventLogImpl::LogEventsFromMemoryToOutput() {
 }
 
 void RtcEventLogImpl::WriteConfigsAndHistoryToOutput(
-    const std::string& encoded_configs,
-    const std::string& encoded_history) {
+    const absl::string_view encoded_configs,
+    const absl::string_view encoded_history) {
   // This function is used to merge the strings instead of calling the output
   // object twice with small strings. The function also avoids copying any
   // strings in the typical case where there are no config events.
@@ -257,7 +257,7 @@ void RtcEventLogImpl::StopLoggingInternal() {
   StopOutput();
 }
 
-void RtcEventLogImpl::WriteToOutput(const std::string& output_string) {
+void RtcEventLogImpl::WriteToOutput(const absl::string_view output_string) {
   RTC_DCHECK(event_output_ && event_output_->IsActive());
   if (!event_output_->Write(output_string)) {
     RTC_LOG(LS_ERROR) << "Failed to write RTC event to output.";

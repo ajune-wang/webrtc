@@ -23,18 +23,18 @@
 namespace webrtc {
 
 absl::optional<std::string> GetFormatParameter(const SdpAudioFormat& format,
-                                               const std::string& param);
+                                               const absl::string_view param);
 
 template <typename T>
 absl::optional<T> GetFormatParameter(const SdpAudioFormat& format,
-                                     const std::string& param) {
+                                     const absl::string_view param) {
   return rtc::StringToNumber<T>(GetFormatParameter(format, param).value_or(""));
 }
 
 template <>
 absl::optional<std::vector<unsigned char>> GetFormatParameter(
     const SdpAudioFormat& format,
-    const std::string& param);
+    const absl::string_view param);
 
 class OpusFrame : public AudioDecoder::EncodedAudioFrame {
  public:

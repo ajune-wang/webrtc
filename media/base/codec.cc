@@ -41,9 +41,9 @@ bool IsSameH264PacketizationMode(const CodecParameterMap& left,
 
 // Some (video) codecs are actually families of codecs and rely on parameters
 // to distinguish different incompatible family members.
-bool IsSameCodecSpecific(const std::string& name1,
+bool IsSameCodecSpecific(const absl::string_view name1,
                          const CodecParameterMap& params1,
-                         const std::string& name2,
+                         const absl::string_view name2,
                          const CodecParameterMap& params2) {
   // The names might not necessarily match, so check both.
   auto either_name_matches = [&](const std::string name) {
@@ -112,7 +112,7 @@ bool FeedbackParams::HasDuplicateEntries() const {
   return false;
 }
 
-Codec::Codec(int id, const std::string& name, int clockrate)
+Codec::Codec(int id, const absl::string_view name, int clockrate)
     : id(id), name(name), clockrate(clockrate) {}
 
 Codec::Codec() : id(0), clockrate(0) {}
@@ -172,7 +172,7 @@ bool Codec::MatchesCapability(
            codec_parameters.parameters == codec_capability.parameters));
 }
 
-bool Codec::GetParam(const std::string& name, std::string* out) const {
+bool Codec::GetParam(const absl::string_view name, std::string* out) const {
   CodecParameterMap::const_iterator iter = params.find(name);
   if (iter == params.end())
     return false;
@@ -180,22 +180,23 @@ bool Codec::GetParam(const std::string& name, std::string* out) const {
   return true;
 }
 
-bool Codec::GetParam(const std::string& name, int* out) const {
+bool Codec::GetParam(const absl::string_view name, int* out) const {
   CodecParameterMap::const_iterator iter = params.find(name);
   if (iter == params.end())
     return false;
   return rtc::FromString(iter->second, out);
 }
 
-void Codec::SetParam(const std::string& name, const std::string& value) {
+void Codec::SetParam(const absl::string_view name,
+                     const absl::string_view value) {
   params[name] = value;
 }
 
-void Codec::SetParam(const std::string& name, int value) {
+void Codec::SetParam(const absl::string_view name, int value) {
   params[name] = rtc::ToString(value);
 }
 
-bool Codec::RemoveParam(const std::string& name) {
+bool Codec::RemoveParam(const absl::string_view name) {
   return params.erase(name) == 1;
 }
 
@@ -221,7 +222,7 @@ webrtc::RtpCodecParameters Codec::ToCodecParameters() const {
 }
 
 AudioCodec::AudioCodec(int id,
-                       const std::string& name,
+                       const absl::string_view name,
                        int clockrate,
                        int bitrate,
                        size_t channels)
@@ -287,12 +288,13 @@ webrtc::RtpCodecParameters VideoCodec::ToCodecParameters() const {
   return codec_params;
 }
 
-VideoCodec::VideoCodec(int id, const std::string& name)
+VideoCodec::VideoCodec(int id, const absl::string_view name)
     : Codec(id, name, kVideoCodecClockrate) {
   SetDefaultParameters();
 }
 
-VideoCodec::VideoCodec(const std::string& name) : VideoCodec(0 /* id */, name) {
+VideoCodec::VideoCodec(const absl::string_view name)
+    : VideoCodec(0 /* id */, name) {
   SetDefaultParameters();
 }
 

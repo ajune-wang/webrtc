@@ -89,7 +89,7 @@ class SrtpTransportTest : public ::testing::Test, public sigslot::has_slots<> {
   // unprotect would fail. Check accessing the information about the
   // tag instead, similar to what the actual code would do that relies
   // on external auth.
-  void TestRtpAuthParams(SrtpTransport* transport, const std::string& cs) {
+  void TestRtpAuthParams(SrtpTransport* transport, const absl::string_view cs) {
     int overhead;
     EXPECT_TRUE(transport->GetSrtpOverhead(&overhead));
     switch (rtc::SrtpCryptoSuiteFromName(cs)) {
@@ -113,7 +113,7 @@ class SrtpTransportTest : public ::testing::Test, public sigslot::has_slots<> {
     EXPECT_EQ(overhead, tag_len);
   }
 
-  void TestSendRecvRtpPacket(const std::string& cipher_suite_name) {
+  void TestSendRecvRtpPacket(const absl::string_view cipher_suite_name) {
     size_t rtp_len = sizeof(kPcmuFrame);
     size_t packet_size = rtp_len + rtc::rtp_auth_tag_len(cipher_suite_name);
     rtc::Buffer rtp_packet_buffer(packet_size);
@@ -166,7 +166,7 @@ class SrtpTransportTest : public ::testing::Test, public sigslot::has_slots<> {
     }
   }
 
-  void TestSendRecvRtcpPacket(const std::string& cipher_suite_name) {
+  void TestSendRecvRtcpPacket(const absl::string_view cipher_suite_name) {
     size_t rtcp_len = sizeof(::kRtcpReport);
     size_t packet_size =
         rtcp_len + 4 + rtc::rtcp_auth_tag_len(cipher_suite_name);
@@ -212,7 +212,7 @@ class SrtpTransportTest : public ::testing::Test, public sigslot::has_slots<> {
                           int key1_len,
                           const uint8_t* key2,
                           int key2_len,
-                          const std::string& cipher_suite_name) {
+                          const absl::string_view cipher_suite_name) {
     EXPECT_EQ(key1_len, key2_len);
     EXPECT_EQ(cipher_suite_name, rtc::SrtpCryptoSuiteToName(cs));
     if (enable_external_auth) {
@@ -242,7 +242,7 @@ class SrtpTransportTest : public ::testing::Test, public sigslot::has_slots<> {
   }
 
   void TestSendRecvPacketWithEncryptedHeaderExtension(
-      const std::string& cs,
+      const absl::string_view cs,
       const std::vector<int>& encrypted_header_ids) {
     size_t rtp_len = sizeof(kPcmuFrameWithExtensions);
     size_t packet_size = rtp_len + rtc::rtp_auth_tag_len(cs);
@@ -303,7 +303,7 @@ class SrtpTransportTest : public ::testing::Test, public sigslot::has_slots<> {
                                             int key1_len,
                                             const uint8_t* key2,
                                             int key2_len,
-                                            const std::string& cs_name) {
+                                            const absl::string_view cs_name) {
     std::vector<int> encrypted_headers;
     encrypted_headers.push_back(kHeaderExtensionIDs[0]);
     // Don't encrypt header ids 2 and 3.

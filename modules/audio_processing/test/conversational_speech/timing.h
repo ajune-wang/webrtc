@@ -37,10 +37,10 @@ struct Turn {
 };
 
 // Loads a list of turns from a file.
-std::vector<Turn> LoadTiming(const std::string& timing_filepath);
+std::vector<Turn> LoadTiming(const absl::string_view timing_filepath);
 
 // Writes a list of turns into a file.
-void SaveTiming(const std::string& timing_filepath,
+void SaveTiming(const absl::string_view timing_filepath,
                 rtc::ArrayView<const Turn> timing);
 
 }  // namespace conversational_speech

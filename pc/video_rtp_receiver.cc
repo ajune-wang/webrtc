@@ -34,7 +34,7 @@ VideoRtpReceiver::VideoRtpReceiver(rtc::Thread* worker_thread,
 
 VideoRtpReceiver::VideoRtpReceiver(
     rtc::Thread* worker_thread,
-    const std::string& receiver_id,
+    const absl::string_view receiver_id,
     const std::vector<rtc::scoped_refptr<MediaStreamInterface>>& streams)
     : worker_thread_(worker_thread),
       id_(receiver_id),

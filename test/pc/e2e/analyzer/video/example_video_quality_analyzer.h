@@ -37,7 +37,7 @@ class ExampleVideoQualityAnalyzer : public VideoQualityAnalyzerInterface {
              rtc::ArrayView<const std::string> peer_names,
              int max_threads_count) override;
   uint16_t OnFrameCaptured(absl::string_view peer_name,
-                           const std::string& stream_label,
+                           const absl::string_view stream_label,
                            const VideoFrame& frame) override;
   void OnFramePreEncode(absl::string_view peer_name,
                         const VideoFrame& frame) override;

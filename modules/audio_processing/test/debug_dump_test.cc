@@ -41,13 +41,13 @@ void MaybeResetBuffer(std::unique_ptr<ChannelBuffer<float>>* buffer,
 
 class DebugDumpGenerator {
  public:
-  DebugDumpGenerator(const std::string& input_file_name,
+  DebugDumpGenerator(const absl::string_view input_file_name,
                      int input_rate_hz,
                      int input_channels,
-                     const std::string& reverse_file_name,
+                     const absl::string_view reverse_file_name,
                      int reverse_rate_hz,
                      int reverse_channels,
-                     const std::string& dump_file_name,
+                     const absl::string_view dump_file_name,
                      bool enable_pre_amplifier);
 
   // Constructor that uses default input files.
@@ -115,14 +115,15 @@ class DebugDumpGenerator {
   const std::string dump_file_name_;
 };
 
-DebugDumpGenerator::DebugDumpGenerator(const std::string& input_file_name,
-                                       int input_rate_hz,
-                                       int input_channels,
-                                       const std::string& reverse_file_name,
-                                       int reverse_rate_hz,
-                                       int reverse_channels,
-                                       const std::string& dump_file_name,
-                                       bool enable_pre_amplifier)
+DebugDumpGenerator::DebugDumpGenerator(
+    const absl::string_view input_file_name,
+    int input_rate_hz,
+    int input_channels,
+    const absl::string_view reverse_file_name,
+    int reverse_rate_hz,
+    int reverse_channels,
+    const absl::string_view dump_file_name,
+    bool enable_pre_amplifier)
     : input_config_(input_rate_hz, input_channels),
       reverse_config_(reverse_rate_hz, reverse_channels),
       output_config_(input_rate_hz, input_channels),
@@ -254,13 +255,13 @@ class DebugDumpTest : public ::testing::Test {
   // VerifyDebugDump replays a debug dump using APM and verifies that the result
   // is bit-exact-identical to the output channel in the dump. This is only
   // guaranteed if the debug dump is started on the first frame.
-  void VerifyDebugDump(const std::string& in_filename);
+  void VerifyDebugDump(const absl::string_view in_filename);
 
  private:
   DebugDumpReplayer debug_dump_replayer_;
 };
 
-void DebugDumpTest::VerifyDebugDump(const std::string& in_filename) {
+void DebugDumpTest::VerifyDebugDump(const absl::string_view in_filename) {
   ASSERT_TRUE(debug_dump_replayer_.SetDumpFile(in_filename));
 
   while (const absl::optional<audioproc::Event> event =

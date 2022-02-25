@@ -54,17 +54,18 @@ class BundleManager {
     return bundle_groups_;
   }
   // Lookup a bundle group by a member mid name.
-  const cricket::ContentGroup* LookupGroupByMid(const std::string& mid) const;
-  cricket::ContentGroup* LookupGroupByMid(const std::string& mid);
+  const cricket::ContentGroup* LookupGroupByMid(
+      const absl::string_view mid) const;
+  cricket::ContentGroup* LookupGroupByMid(const absl::string_view mid);
   // Returns true if the MID is the first item of a group, or if
   // the MID is not a member of a group.
-  bool IsFirstMidInGroup(const std::string& mid) const;
+  bool IsFirstMidInGroup(const absl::string_view mid) const;
   // Update the groups description. This completely replaces the group
   // description with the one from the SessionDescription.
   void Update(const cricket::SessionDescription* description, SdpType type);
   // Delete a MID from the group that contains it.
   void DeleteMid(const cricket::ContentGroup* bundle_group,
-                 const std::string& mid);
+                 const absl::string_view mid);
   // Delete a group.
   void DeleteGroup(const cricket::ContentGroup* bundle_group);
   // Roll back to previous stable state.
@@ -92,7 +93,7 @@ class BundleManager {
 // the managers may merge.
 class JsepTransportCollection {
  public:
-  JsepTransportCollection(std::function<bool(const std::string& mid,
+  JsepTransportCollection(std::function<bool(const absl::string_view mid,
                                              cricket::JsepTransport* transport)>
                               map_change_callback,
                           std::function<void()> state_change_callback)
@@ -102,7 +103,7 @@ class JsepTransportCollection {
     sequence_checker_.Detach();
   }
 
-  void RegisterTransport(const std::string& mid,
+  void RegisterTransport(const absl::string_view mid,
                          std::unique_ptr<cricket::JsepTransport> transport);
   // Returns all transports, including those not currently mapped to any MID
   // because they're being kept alive in case of rollback.
@@ -111,20 +112,20 @@ class JsepTransportCollection {
   std::vector<cricket::JsepTransport*> ActiveTransports();
   void DestroyAllTransports();
   // Lookup a JsepTransport by the MID that was used to register it.
-  cricket::JsepTransport* GetTransportByName(const std::string& mid);
+  cricket::JsepTransport* GetTransportByName(const absl::string_view mid);
   const cricket::JsepTransport* GetTransportByName(
-      const std::string& mid) const;
+      const absl::string_view mid) const;
   // Lookup a JsepTransport by any MID that refers to it.
-  cricket::JsepTransport* GetTransportForMid(const std::string& mid);
+  cricket::JsepTransport* GetTransportForMid(const absl::string_view mid);
   const cricket::JsepTransport* GetTransportForMid(
-      const std::string& mid) const;
+      const absl::string_view mid) const;
   // Set transport for a MID. This may destroy a transport if it is no
   // longer in use.
-  bool SetTransportForMid(const std::string& mid,
+  bool SetTransportForMid(const absl::string_view mid,
                           cricket::JsepTransport* jsep_transport);
   // Remove a transport for a MID. This may destroy a transport if it is
   // no longer in use.
-  void RemoveTransportForMid(const std::string& mid);
+  void RemoveTransportForMid(const absl::string_view mid);
   // Roll back to previous stable mid-to-transport mappings.
   bool RollbackTransports();
   // Commit pending mid-transport mappings (rollback is no longer possible),
@@ -163,7 +164,7 @@ class JsepTransportCollection {
   std::map<std::string, cricket::JsepTransport*> stable_mid_to_transport_
       RTC_GUARDED_BY(sequence_checker_);
   // Callback used to inform subscribers of altered transports.
-  const std::function<bool(const std::string& mid,
+  const std::function<bool(const absl::string_view mid,
                            cricket::JsepTransport* transport)>
       map_change_callback_;
   // Callback used to inform subscribers of possibly altered state.

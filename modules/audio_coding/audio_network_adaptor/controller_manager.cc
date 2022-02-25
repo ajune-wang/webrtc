@@ -219,7 +219,7 @@ ControllerManagerImpl::Config::Config(int min_reordering_time_ms,
 ControllerManagerImpl::Config::~Config() = default;
 
 std::unique_ptr<ControllerManager> ControllerManagerImpl::Create(
-    const std::string& config_string,
+    const absl::string_view config_string,
     size_t num_encoder_channels,
     rtc::ArrayView<const int> encoder_frame_lengths_ms,
     int min_encoder_bitrate_bps,
@@ -235,7 +235,7 @@ std::unique_ptr<ControllerManager> ControllerManagerImpl::Create(
 }
 
 std::unique_ptr<ControllerManager> ControllerManagerImpl::Create(
-    const std::string& config_string,
+    const absl::string_view config_string,
     size_t num_encoder_channels,
     rtc::ArrayView<const int> encoder_frame_lengths_ms,
     int min_encoder_bitrate_bps,

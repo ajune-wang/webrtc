@@ -97,7 +97,7 @@ class PacketSocketFactoryWrapper : public rtc::PacketSocketFactory {
       const rtc::SocketAddress& local_address,
       const rtc::SocketAddress& remote_address,
       const rtc::ProxyInfo& proxy_info,
-      const std::string& user_agent,
+      const absl::string_view user_agent,
       const rtc::PacketSocketTcpOptions& tcp_options) override {
     return nullptr;
   }

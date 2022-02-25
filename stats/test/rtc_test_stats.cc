@@ -34,7 +34,7 @@ WEBRTC_RTCSTATS_IMPL(RTCTestStats,
                      &m_map_string_uint64,
                      &m_map_string_double)
 
-RTCTestStats::RTCTestStats(const std::string& id, int64_t timestamp_us)
+RTCTestStats::RTCTestStats(const absl::string_view id, int64_t timestamp_us)
     : RTCStats(id, timestamp_us),
       m_bool("mBool"),
       m_int32("mInt32"),

@@ -310,7 +310,7 @@ class RTCStatsCollector : public rtc::RefCountInterface,
 };
 
 const char* CandidateTypeToRTCIceCandidateTypeForTesting(
-    const std::string& type);
+    const absl::string_view type);
 const char* DataStateToRTCDataChannelStateForTesting(
     DataChannelInterface::DataState state);
 

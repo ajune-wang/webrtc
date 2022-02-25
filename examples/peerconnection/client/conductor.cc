@@ -273,7 +273,7 @@ void Conductor::OnDisconnected() {
     main_wnd_->SwitchToConnectUI();
 }
 
-void Conductor::OnPeerConnected(int id, const std::string& name) {
+void Conductor::OnPeerConnected(int id, const absl::string_view name) {
   RTC_LOG(LS_INFO) << __FUNCTION__;
   // Refresh the list if we're showing it.
   if (main_wnd_->current_ui() == MainWindow::LIST_PEERS)
@@ -292,7 +292,8 @@ void Conductor::OnPeerDisconnected(int id) {
   }
 }
 
-void Conductor::OnMessageFromPeer(int peer_id, const std::string& message) {
+void Conductor::OnMessageFromPeer(int peer_id,
+                                  const absl::string_view message) {
   RTC_DCHECK(peer_id_ == peer_id || peer_id_ == -1);
   RTC_DCHECK(!message.empty());
 
@@ -410,7 +411,7 @@ void Conductor::OnServerConnectionFailure() {
 // MainWndCallback implementation.
 //
 
-void Conductor::StartLogin(const std::string& server, int port) {
+void Conductor::StartLogin(const absl::string_view server, int port) {
   if (client_->is_connected())
     return;
   server_ = server;
@@ -583,7 +584,7 @@ void Conductor::OnFailure(webrtc::RTCError error) {
   RTC_LOG(LS_ERROR) << ToString(error.type()) << ": " << error.message();
 }
 
-void Conductor::SendMessage(const std::string& json_object) {
+void Conductor::SendMessage(const absl::string_view json_object) {
   std::string* msg = new std::string(json_object);
   main_wnd_->QueueUIThreadCallback(SEND_MESSAGE_TO_PEER, msg);
 }

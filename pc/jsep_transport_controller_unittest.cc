@@ -60,7 +60,7 @@ class FakeIceTransportFactory : public webrtc::IceTransportFactory {
  public:
   ~FakeIceTransportFactory() override = default;
   rtc::scoped_refptr<IceTransportInterface> CreateIceTransport(
-      const std::string& transport_name,
+      const absl::string_view transport_name,
       int component,
       IceTransportInit init) override {
     return rtc::make_ref_counted<cricket::FakeIceTransportWrapper>(
@@ -125,7 +125,7 @@ class JsepTransportControllerTest : public JsepTransportController::Observer,
           JsepTransportControllerTest::OnGatheringState(s);
         });
     transport_controller_->SubscribeIceCandidateGathered(
-        [this](const std::string& transport,
+        [this](const absl::string_view transport,
                const std::vector<cricket::Candidate>& candidates) {
           JsepTransportControllerTest::OnCandidatesGathered(transport,
                                                             candidates);
@@ -171,9 +171,9 @@ class JsepTransportControllerTest : public JsepTransportController::Observer,
   }
 
   void AddAudioSection(cricket::SessionDescription* description,
-                       const std::string& mid,
-                       const std::string& ufrag,
-                       const std::string& pwd,
+                       const absl::string_view mid,
+                       const absl::string_view ufrag,
+                       const absl::string_view pwd,
                        cricket::IceMode ice_mode,
                        cricket::ConnectionRole conn_role,
                        rtc::scoped_refptr<rtc::RTCCertificate> cert) {
@@ -187,9 +187,9 @@ class JsepTransportControllerTest : public JsepTransportController::Observer,
   }
 
   void AddVideoSection(cricket::SessionDescription* description,
-                       const std::string& mid,
-                       const std::string& ufrag,
-                       const std::string& pwd,
+                       const absl::string_view mid,
+                       const absl::string_view ufrag,
+                       const absl::string_view pwd,
                        cricket::IceMode ice_mode,
                        cricket::ConnectionRole conn_role,
                        rtc::scoped_refptr<rtc::RTCCertificate> cert) {
@@ -203,10 +203,10 @@ class JsepTransportControllerTest : public JsepTransportController::Observer,
   }
 
   void AddDataSection(cricket::SessionDescription* description,
-                      const std::string& mid,
+                      const absl::string_view mid,
                       cricket::MediaProtocolType protocol_type,
-                      const std::string& ufrag,
-                      const std::string& pwd,
+                      const absl::string_view ufrag,
+                      const absl::string_view pwd,
                       cricket::IceMode ice_mode,
                       cricket::ConnectionRole conn_role,
                       rtc::scoped_refptr<rtc::RTCCertificate> cert) {
@@ -220,9 +220,9 @@ class JsepTransportControllerTest : public JsepTransportController::Observer,
   }
 
   void AddTransportInfo(cricket::SessionDescription* description,
-                        const std::string& mid,
-                        const std::string& ufrag,
-                        const std::string& pwd,
+                        const absl::string_view mid,
+                        const absl::string_view ufrag,
+                        const absl::string_view pwd,
                         cricket::IceMode ice_mode,
                         cricket::ConnectionRole conn_role,
                         rtc::scoped_refptr<rtc::RTCCertificate> cert) {
@@ -246,7 +246,8 @@ class JsepTransportControllerTest : public JsepTransportController::Observer,
     return config;
   }
 
-  Candidate CreateCandidate(const std::string& transport_name, int component) {
+  Candidate CreateCandidate(const absl::string_view transport_name,
+                            int component) {
     Candidate c;
     c.set_transport_name(transport_name);
     c.set_address(rtc::SocketAddress("192.168.1.1", 8000));
@@ -321,7 +322,7 @@ class JsepTransportControllerTest : public JsepTransportController::Observer,
     ++gathering_state_signal_count_;
   }
 
-  void OnCandidatesGathered(const std::string& transport_name,
+  void OnCandidatesGathered(const absl::string_view transport_name,
                             const Candidates& candidates) {
     ice_signaled_on_thread_ = rtc::Thread::Current();
     candidates_[transport_name].insert(candidates_[transport_name].end(),
@@ -331,7 +332,7 @@ class JsepTransportControllerTest : public JsepTransportController::Observer,
 
   // JsepTransportController::Observer overrides.
   bool OnTransportChanged(
-      const std::string& mid,
+      const absl::string_view mid,
       RtpTransportInternal* rtp_transport,
       rtc::scoped_refptr<DtlsTransport> dtls_transport,
       DataChannelTransportInterface* data_channel_transport) override {

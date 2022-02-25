@@ -229,9 +229,9 @@ class CallTest : public ::testing::Test, public RtpPacketSinkInterface {
 
  private:
   absl::optional<RtpExtension> GetRtpExtensionByUri(
-      const std::string& uri) const;
+      const absl::string_view uri) const;
 
-  void AddRtpExtensionByUri(const std::string& uri,
+  void AddRtpExtensionByUri(const absl::string_view uri,
                             std::vector<RtpExtension>* extensions) const;
 
   std::unique_ptr<TaskQueueBase, TaskQueueDeleter> task_queue_;

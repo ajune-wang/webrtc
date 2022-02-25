@@ -42,10 +42,10 @@ class TransportDescriptionFactoryTest : public ::testing::Test {
             new rtc::FakeSSLIdentity("User2")))) {}
 
   void CheckDesc(const TransportDescription* desc,
-                 const std::string& opt,
-                 const std::string& ice_ufrag,
-                 const std::string& ice_pwd,
-                 const std::string& dtls_alg) {
+                 const absl::string_view opt,
+                 const absl::string_view ice_ufrag,
+                 const absl::string_view ice_pwd,
+                 const absl::string_view dtls_alg) {
     ASSERT_TRUE(desc != NULL);
     EXPECT_EQ(!opt.empty(), desc->HasOption(opt));
     if (ice_ufrag.empty() && ice_pwd.empty()) {

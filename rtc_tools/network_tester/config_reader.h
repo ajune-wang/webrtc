@@ -35,7 +35,7 @@ class ConfigReader {
     int packet_size;
     int execution_time_ms;
   };
-  explicit ConfigReader(const std::string& config_file_path);
+  explicit ConfigReader(const absl::string_view config_file_path);
   ~ConfigReader();
 
   ConfigReader(const ConfigReader&) = delete;

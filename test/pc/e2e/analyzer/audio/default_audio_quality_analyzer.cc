@@ -110,7 +110,7 @@ void DefaultAudioQualityAnalyzer::OnStatsReports(
 }
 
 std::string DefaultAudioQualityAnalyzer::GetTestCaseName(
-    const std::string& stream_label) const {
+    const absl::string_view stream_label) const {
   return test_case_name_ + "/" + stream_label;
 }
 
@@ -143,10 +143,10 @@ DefaultAudioQualityAnalyzer::GetAudioStreamsStats() const {
 }
 
 void DefaultAudioQualityAnalyzer::ReportResult(
-    const std::string& metric_name,
-    const std::string& stream_label,
+    const absl::string_view metric_name,
+    const absl::string_view stream_label,
     const SamplesStatsCounter& counter,
-    const std::string& unit,
+    const absl::string_view unit,
     webrtc::test::ImproveDirection improve_direction) const {
   test::PrintResultMeanAndError(
       metric_name, /*modifier=*/"", GetTestCaseName(stream_label),

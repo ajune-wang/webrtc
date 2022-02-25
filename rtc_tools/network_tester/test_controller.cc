@@ -21,8 +21,8 @@ namespace webrtc {
 
 TestController::TestController(int min_port,
                                int max_port,
-                               const std::string& config_file_path,
-                               const std::string& log_file_path)
+                               const absl::string_view config_file_path,
+                               const absl::string_view log_file_path)
     // TODO(bugs.webrtc.org/13145): Add a SocketFactory argument.
     : socket_factory_(
           rtc::ThreadManager::Instance()->WrapCurrentThread()->socketserver()),
@@ -39,7 +39,7 @@ TestController::TestController(int min_port,
   udp_socket_->SignalReadPacket.connect(this, &TestController::OnReadPacket);
 }
 
-void TestController::SendConnectTo(const std::string& hostname, int port) {
+void TestController::SendConnectTo(const absl::string_view hostname, int port) {
   RTC_DCHECK_RUN_ON(&test_controller_thread_checker_);
   remote_address_ = rtc::SocketAddress(hostname, port);
   NetworkTesterPacket packet;

@@ -241,7 +241,7 @@ rtc::ArrayView<const uint8_t> RtpPacket::GetRawExtension() const {
 }
 
 template <typename Extension, typename... Values>
-bool RtpPacket::SetExtension(const Values&... values) {
+bool RtpPacket::SetExtension(const absl::string_view... values) {
   const size_t value_size = Extension::ValueSize(values...);
   auto buffer = AllocateExtension(Extension::kId, value_size);
   if (buffer.empty())

@@ -238,7 +238,7 @@ bool DataChannelController::HandleOpenMessage_s(
 }
 
 void DataChannelController::OnDataChannelOpenMessage(
-    const std::string& label,
+    const absl::string_view label,
     const InternalDataChannelInit& config) {
   rtc::scoped_refptr<DataChannelInterface> channel(
       InternalCreateDataChannelWithProxy(label, &config));
@@ -253,7 +253,7 @@ void DataChannelController::OnDataChannelOpenMessage(
 
 rtc::scoped_refptr<DataChannelInterface>
 DataChannelController::InternalCreateDataChannelWithProxy(
-    const std::string& label,
+    const absl::string_view label,
     const InternalDataChannelInit* config) {
   RTC_DCHECK_RUN_ON(signaling_thread());
   if (pc_->IsClosed()) {
@@ -271,7 +271,7 @@ DataChannelController::InternalCreateDataChannelWithProxy(
 
 rtc::scoped_refptr<SctpDataChannel>
 DataChannelController::InternalCreateSctpDataChannel(
-    const std::string& label,
+    const absl::string_view label,
     const InternalDataChannelInit* config) {
   RTC_DCHECK_RUN_ON(signaling_thread());
   InternalDataChannelInit new_config =

@@ -34,7 +34,7 @@ constexpr int kHeight = 720;
 constexpr int kFps = 30;
 constexpr int kFramesToObserve = 10;
 
-uint8_t PayloadNameToPayloadType(const std::string& payload_name) {
+uint8_t PayloadNameToPayloadType(const absl::string_view payload_name) {
   if (payload_name == "VP8") {
     return test::CallTest::kPayloadTypeVP8;
   } else if (payload_name == "VP9") {

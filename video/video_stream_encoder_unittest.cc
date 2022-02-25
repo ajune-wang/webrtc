@@ -862,7 +862,7 @@ class VideoStreamEncoderTest : public ::testing::Test {
     video_stream_encoder_->WaitUntilTaskQueueIsIdle();
   }
 
-  void ResetEncoder(const std::string& payload_name,
+  void ResetEncoder(const absl::string_view payload_name,
                     size_t num_streams,
                     size_t num_temporal_layers,
                     unsigned char num_spatial_layers,

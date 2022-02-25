@@ -41,12 +41,13 @@ class SdpStateProvider {
       const = 0;
 
   // Whether an ICE restart has been asked for. Used in CreateOffer.
-  virtual bool NeedsIceRestart(const std::string& content_name) const = 0;
+  virtual bool NeedsIceRestart(const absl::string_view content_name) const = 0;
   // Whether an ICE restart was indicated in the remote offer.
   // Used in CreateAnswer.
-  virtual bool IceRestartPending(const std::string& content_name) const = 0;
+  virtual bool IceRestartPending(
+      const absl::string_view content_name) const = 0;
   virtual absl::optional<rtc::SSLRole> GetDtlsRole(
-      const std::string& mid) const = 0;
+      const absl::string_view mid) const = 0;
 };
 
 }  // namespace webrtc

@@ -39,12 +39,12 @@ class NetEqDecodingTest : public ::testing::Test {
   NetEqDecodingTest();
   virtual void SetUp();
   virtual void TearDown();
-  void OpenInputFile(const std::string& rtp_file);
+  void OpenInputFile(const absl::string_view rtp_file);
   void Process();
 
-  void DecodeAndCompare(const std::string& rtp_file,
-                        const std::string& output_checksum,
-                        const std::string& network_stats_checksum,
+  void DecodeAndCompare(const absl::string_view rtp_file,
+                        const absl::string_view output_checksum,
+                        const absl::string_view network_stats_checksum,
                         bool gen_ref);
 
   static void PopulateRtpInfo(int frame_index,

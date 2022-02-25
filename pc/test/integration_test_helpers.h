@@ -168,16 +168,16 @@ void RemoveSsrcsAndMsids(cricket::SessionDescription* desc);
 void RemoveSsrcsAndKeepMsids(cricket::SessionDescription* desc);
 
 int FindFirstMediaStatsIndexByKind(
-    const std::string& kind,
+    const absl::string_view kind,
     const std::vector<const webrtc::RTCMediaStreamTrackStats*>&
         media_stats_vec);
 
 class SignalingMessageReceiver {
  public:
-  virtual void ReceiveSdpMessage(SdpType type, const std::string& msg) = 0;
-  virtual void ReceiveIceMessage(const std::string& sdp_mid,
+  virtual void ReceiveSdpMessage(SdpType type, const absl::string_view msg) = 0;
+  virtual void ReceiveIceMessage(const absl::string_view sdp_mid,
                                  int sdp_mline_index,
-                                 const std::string& msg) = 0;
+                                 const absl::string_view msg) = 0;
 
  protected:
   SignalingMessageReceiver() {}
@@ -387,7 +387,7 @@ class PeerConnectionIntegrationWrapper : public webrtc::PeerConnectionObserver,
     CreateDataChannel(kDataChannelLabel, init);
   }
 
-  void CreateDataChannel(const std::string& label,
+  void CreateDataChannel(const absl::string_view label,
                          const webrtc::DataChannelInit* init) {
     data_channels_.push_back(pc()->CreateDataChannel(label, init));
     ASSERT_TRUE(data_channels_.back().get() != nullptr);
@@ -701,7 +701,7 @@ class PeerConnectionIntegrationWrapper : public webrtc::PeerConnectionObserver,
 
  private:
   // Constructor used by friend class PeerConnectionIntegrationBaseTest.
-  explicit PeerConnectionIntegrationWrapper(const std::string& debug_name)
+  explicit PeerConnectionIntegrationWrapper(const absl::string_view debug_name)
       : debug_name_(debug_name) {}
 
   bool Init(const PeerConnectionFactory::Options* options,
@@ -835,7 +835,7 @@ class PeerConnectionIntegrationWrapper : public webrtc::PeerConnectionObserver,
     return track;
   }
 
-  void HandleIncomingOffer(const std::string& msg) {
+  void HandleIncomingOffer(const absl::string_view msg) {
     RTC_LOG(LS_INFO) << debug_name_ << ": HandleIncomingOffer";
     std::unique_ptr<SessionDescriptionInterface> desc =
         webrtc::CreateSessionDescription(SdpType::kOffer, msg);
@@ -855,7 +855,7 @@ class PeerConnectionIntegrationWrapper : public webrtc::PeerConnectionObserver,
     EXPECT_TRUE(SetLocalDescriptionAndSendSdpMessage(std::move(answer)));
   }
 
-  void HandleIncomingAnswer(const std::string& msg) {
+  void HandleIncomingAnswer(const absl::string_view msg) {
     RTC_LOG(LS_INFO) << debug_name_ << ": HandleIncomingAnswer";
     std::unique_ptr<SessionDescriptionInterface> desc =
         webrtc::CreateSessionDescription(SdpType::kAnswer, msg);
@@ -949,7 +949,7 @@ class PeerConnectionIntegrationWrapper : public webrtc::PeerConnectionObserver,
 
   // Simulate sending a blob of SDP with delay `signaling_delay_ms_` (0 by
   // default).
-  void SendSdpMessage(SdpType type, const std::string& msg) {
+  void SendSdpMessage(SdpType type, const absl::string_view msg) {
     if (signaling_delay_ms_ == 0) {
       RelaySdpMessageIfReceiverExists(type, msg);
     } else {
@@ -962,7 +962,8 @@ class PeerConnectionIntegrationWrapper : public webrtc::PeerConnectionObserver,
     }
   }
 
-  void RelaySdpMessageIfReceiverExists(SdpType type, const std::string& msg) {
+  void RelaySdpMessageIfReceiverExists(SdpType type,
+                                       const absl::string_view msg) {
     if (signaling_message_receiver_) {
       signaling_message_receiver_->ReceiveSdpMessage(type, msg);
     }
@@ -970,9 +971,9 @@ class PeerConnectionIntegrationWrapper : public webrtc::PeerConnectionObserver,
 
   // Simulate trickling an ICE candidate with delay `signaling_delay_ms_` (0 by
   // default).
-  void SendIceMessage(const std::string& sdp_mid,
+  void SendIceMessage(const absl::string_view sdp_mid,
                       int sdp_mline_index,
-                      const std::string& msg) {
+                      const absl::string_view msg) {
     if (signaling_delay_ms_ == 0) {
       RelayIceMessageIfReceiverExists(sdp_mid, sdp_mline_index, msg);
     } else {
@@ -986,9 +987,9 @@ class PeerConnectionIntegrationWrapper : public webrtc::PeerConnectionObserver,
     }
   }
 
-  void RelayIceMessageIfReceiverExists(const std::string& sdp_mid,
+  void RelayIceMessageIfReceiverExists(const absl::string_view sdp_mid,
                                        int sdp_mline_index,
-                                       const std::string& msg) {
+                                       const absl::string_view msg) {
     if (signaling_message_receiver_) {
       signaling_message_receiver_->ReceiveIceMessage(sdp_mid, sdp_mline_index,
                                                      msg);
@@ -996,7 +997,7 @@ class PeerConnectionIntegrationWrapper : public webrtc::PeerConnectionObserver,
   }
 
   // SignalingMessageReceiver callbacks.
-  void ReceiveSdpMessage(SdpType type, const std::string& msg) override {
+  void ReceiveSdpMessage(SdpType type, const absl::string_view msg) override {
     if (type == SdpType::kOffer) {
       HandleIncomingOffer(msg);
     } else {
@@ -1004,9 +1005,9 @@ class PeerConnectionIntegrationWrapper : public webrtc::PeerConnectionObserver,
     }
   }
 
-  void ReceiveIceMessage(const std::string& sdp_mid,
+  void ReceiveIceMessage(const absl::string_view sdp_mid,
                          int sdp_mline_index,
-                         const std::string& msg) override {
+                         const absl::string_view msg) override {
     RTC_LOG(LS_INFO) << debug_name_ << ": ReceiveIceMessage";
     std::unique_ptr<webrtc::IceCandidateInterface> candidate(
         webrtc::CreateIceCandidate(sdp_mid, sdp_mline_index, msg, nullptr));
@@ -1098,11 +1099,11 @@ class PeerConnectionIntegrationWrapper : public webrtc::PeerConnectionObserver,
     SendIceMessage(candidate->sdp_mid(), candidate->sdp_mline_index(), ice_sdp);
     last_candidate_gathered_ = candidate->candidate();
   }
-  void OnIceCandidateError(const std::string& address,
+  void OnIceCandidateError(const absl::string_view address,
                            int port,
-                           const std::string& url,
+                           const absl::string_view url,
                            int error_code,
-                           const std::string& error_text) override {
+                           const absl::string_view error_text) override {
     error_event_ = cricket::IceCandidateErrorEvent(address, port, url,
                                                    error_code, error_text);
   }
@@ -1194,7 +1195,7 @@ class MockRtcEventLogOutput : public webrtc::RtcEventLogOutput {
  public:
   virtual ~MockRtcEventLogOutput() = default;
   MOCK_METHOD(bool, IsActive, (), (const, override));
-  MOCK_METHOD(bool, Write, (const std::string&), (override));
+  MOCK_METHOD(bool, Write, (const absl::string_view), (override));
 };
 
 // This helper object is used for both specifying how many audio/video frames
@@ -1304,7 +1305,7 @@ class MediaExpectations {
 
 class MockIceTransport : public webrtc::IceTransportInterface {
  public:
-  MockIceTransport(const std::string& name, int component)
+  MockIceTransport(const absl::string_view name, int component)
       : internal_(std::make_unique<cricket::FakeIceTransport>(
             name,
             component,
@@ -1320,7 +1321,7 @@ class MockIceTransportFactory : public IceTransportFactory {
  public:
   ~MockIceTransportFactory() override = default;
   rtc::scoped_refptr<IceTransportInterface> CreateIceTransport(
-      const std::string& transport_name,
+      const absl::string_view transport_name,
       int component,
       IceTransportInit init) {
     RecordIceTransportCreated();
@@ -1399,7 +1400,7 @@ class PeerConnectionIntegrationBaseTest : public ::testing::Test {
   // When `event_log_factory` is null, the default implementation of the event
   // log factory will be used.
   std::unique_ptr<PeerConnectionIntegrationWrapper> CreatePeerConnectionWrapper(
-      const std::string& debug_name,
+      const absl::string_view debug_name,
       const PeerConnectionFactory::Options* options,
       const RTCConfiguration* config,
       webrtc::PeerConnectionDependencies dependencies,
@@ -1429,7 +1430,7 @@ class PeerConnectionIntegrationBaseTest : public ::testing::Test {
 
   std::unique_ptr<PeerConnectionIntegrationWrapper>
   CreatePeerConnectionWrapperWithFakeRtcEventLog(
-      const std::string& debug_name,
+      const absl::string_view debug_name,
       const PeerConnectionFactory::Options* options,
       const RTCConfiguration* config,
       webrtc::PeerConnectionDependencies dependencies) {
@@ -1564,7 +1565,7 @@ class PeerConnectionIntegrationBaseTest : public ::testing::Test {
       rtc::SocketAddress internal_address,
       rtc::SocketAddress external_address,
       cricket::ProtocolType type = cricket::ProtocolType::PROTO_UDP,
-      const std::string& common_name = "test turn server") {
+      const absl::string_view common_name = "test turn server") {
     rtc::Thread* thread = network_thread();
     rtc::SocketFactory* socket_factory = fss_.get();
     std::unique_ptr<cricket::TestTurnServer> turn_server =
@@ -1636,7 +1637,7 @@ class PeerConnectionIntegrationBaseTest : public ::testing::Test {
   // Messages may get lost on the unreliable DataChannel, so we send multiple
   // times to avoid test flakiness.
   void SendRtpDataWithRetries(webrtc::DataChannelInterface* dc,
-                              const std::string& data,
+                              const absl::string_view data,
                               int retries) {
     for (int i = 0; i < retries; ++i) {
       dc->Send(DataBuffer(data));

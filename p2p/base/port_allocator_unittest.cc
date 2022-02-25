@@ -47,10 +47,10 @@ class PortAllocatorTest : public ::testing::Test, public sigslot::has_slots<> {
   }
 
   std::unique_ptr<cricket::FakePortAllocatorSession> CreateSession(
-      const std::string& content_name,
+      const absl::string_view content_name,
       int component,
-      const std::string& ice_ufrag,
-      const std::string& ice_pwd) {
+      const absl::string_view ice_ufrag,
+      const absl::string_view ice_pwd) {
     return std::unique_ptr<cricket::FakePortAllocatorSession>(
         static_cast<cricket::FakePortAllocatorSession*>(
             allocator_

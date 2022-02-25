@@ -28,7 +28,7 @@ namespace {
 // accordance with the specification.
 template <typename T>
 bool FindConstraint(const MediaConstraints* constraints,
-                    const std::string& key,
+                    const absl::string_view key,
                     T* value,
                     size_t* mandatory_constraints) {
   std::string string_value;
@@ -41,7 +41,7 @@ bool FindConstraint(const MediaConstraints* constraints,
 // Specialization for std::string, since a string doesn't need conversion.
 template <>
 bool FindConstraint(const MediaConstraints* constraints,
-                    const std::string& key,
+                    const absl::string_view key,
                     std::string* value,
                     size_t* mandatory_constraints) {
   if (!constraints) {
@@ -60,14 +60,14 @@ bool FindConstraint(const MediaConstraints* constraints,
 }
 
 bool FindConstraint(const MediaConstraints* constraints,
-                    const std::string& key,
+                    const absl::string_view key,
                     bool* value,
                     size_t* mandatory_constraints) {
   return FindConstraint<bool>(constraints, key, value, mandatory_constraints);
 }
 
 bool FindConstraint(const MediaConstraints* constraints,
-                    const std::string& key,
+                    const absl::string_view key,
                     int* value,
                     size_t* mandatory_constraints) {
   return FindConstraint<int>(constraints, key, value, mandatory_constraints);
@@ -77,7 +77,7 @@ bool FindConstraint(const MediaConstraints* constraints,
 // absl::optional.
 template <typename T>
 void ConstraintToOptional(const MediaConstraints* constraints,
-                          const std::string& key,
+                          const absl::string_view key,
                           absl::optional<T>* value_out) {
   T value;
   bool present = FindConstraint<T>(constraints, key, &value, nullptr);
@@ -132,7 +132,7 @@ const char MediaConstraints::kNumSimulcastLayers[] = "googNumSimulcastLayers";
 
 // Set `value` to the value associated with the first appearance of `key`, or
 // return false if `key` is not found.
-bool MediaConstraints::Constraints::FindFirst(const std::string& key,
+bool MediaConstraints::Constraints::FindFirst(const absl::string_view key,
                                               std::string* value) const {
   for (Constraints::const_iterator iter = begin(); iter != end(); ++iter) {
     if (iter->key == key) {

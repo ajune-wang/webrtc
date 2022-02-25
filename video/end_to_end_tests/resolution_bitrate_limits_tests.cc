@@ -86,7 +86,7 @@ class InitEncodeTest : public test::EndToEndTest,
     const Bitrate ne_bitrate_bps;
   };
 
-  InitEncodeTest(const std::string& payload_name,
+  InitEncodeTest(const absl::string_view payload_name,
                  const std::vector<TestConfig>& configs,
                  const std::vector<Expectation>& expectations)
       : EndToEndTest(test::CallTest::kDefaultTimeoutMs),

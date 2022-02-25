@@ -243,7 +243,7 @@ namespace cricket {
 class WebRtcVideoEngineTest : public ::testing::Test {
  public:
   WebRtcVideoEngineTest() : WebRtcVideoEngineTest("") {}
-  explicit WebRtcVideoEngineTest(const std::string& field_trials)
+  explicit WebRtcVideoEngineTest(const absl::string_view field_trials)
       : time_controller_(webrtc::Timestamp::Millis(4711)),
         override_field_trials_(
             field_trials.empty()
@@ -273,12 +273,12 @@ class WebRtcVideoEngineTest : public ::testing::Test {
 
   // Find the index of the codec in the engine with the given name. The codec
   // must be present.
-  size_t GetEngineCodecIndex(const std::string& name) const;
+  size_t GetEngineCodecIndex(const absl::string_view name) const;
 
   // Find the codec in the engine with the given name. The codec must be
   // present.
-  cricket::VideoCodec GetEngineCodec(const std::string& name) const;
-  void AddSupportedVideoCodecType(const std::string& name);
+  cricket::VideoCodec GetEngineCodec(const absl::string_view name) const;
+  void AddSupportedVideoCodecType(const absl::string_view name);
   VideoMediaChannel* SetSendParamsWithAllSupportedCodecs();
 
   VideoMediaChannel* SetRecvParamsWithSupportedCodecs(
@@ -715,7 +715,7 @@ void WebRtcVideoEngineTest::AssignDefaultCodec() {
 }
 
 size_t WebRtcVideoEngineTest::GetEngineCodecIndex(
-    const std::string& name) const {
+    const absl::string_view name) const {
   const std::vector<cricket::VideoCodec> codecs = engine_.send_codecs();
   for (size_t i = 0; i < codecs.size(); ++i) {
     const cricket::VideoCodec engine_codec = codecs[i];
@@ -739,12 +739,12 @@ size_t WebRtcVideoEngineTest::GetEngineCodecIndex(
 }
 
 cricket::VideoCodec WebRtcVideoEngineTest::GetEngineCodec(
-    const std::string& name) const {
+    const absl::string_view name) const {
   return engine_.send_codecs()[GetEngineCodecIndex(name)];
 }
 
 void WebRtcVideoEngineTest::AddSupportedVideoCodecType(
-    const std::string& name) {
+    const absl::string_view name) {
   encoder_factory_->AddSupportedVideoCodecType(name);
   decoder_factory_->AddSupportedVideoCodecType(name);
 }
@@ -1723,7 +1723,7 @@ class WebRtcVideoChannelBaseTest : public ::testing::Test {
     EXPECT_EQ(1, renderer2_.num_rendered_frames());
   }
 
-  cricket::VideoCodec GetEngineCodec(const std::string& name) {
+  cricket::VideoCodec GetEngineCodec(const absl::string_view name) {
     for (const cricket::VideoCodec& engine_codec : engine_.send_codecs()) {
       if (absl::EqualsIgnoreCase(name, engine_codec.name))
         return engine_codec;
@@ -2518,7 +2518,7 @@ class WebRtcVideoChannelTest : public WebRtcVideoEngineTest {
     SetUp();
   }
 
-  cricket::VideoCodec GetEngineCodec(const std::string& name) {
+  cricket::VideoCodec GetEngineCodec(const absl::string_view name) {
     for (const cricket::VideoCodec& engine_codec : engine_.send_codecs()) {
       if (absl::EqualsIgnoreCase(name, engine_codec.name))
         return engine_codec;
@@ -2629,7 +2629,7 @@ class WebRtcVideoChannelTest : public WebRtcVideoEngineTest {
     EXPECT_EQ(extmap_allow_mixed, config.rtp.extmap_allow_mixed);
   }
 
-  void TestSetSendRtpHeaderExtensions(const std::string& ext_uri) {
+  void TestSetSendRtpHeaderExtensions(const absl::string_view ext_uri) {
     // Enable extension.
     const int id = 1;
     cricket::VideoSendParameters parameters = send_parameters_;
@@ -2665,7 +2665,7 @@ class WebRtcVideoChannelTest : public WebRtcVideoEngineTest {
     EXPECT_EQ(ext_uri, send_stream->GetConfig().rtp.extensions[0].uri);
   }
 
-  void TestSetRecvRtpHeaderExtensions(const std::string& ext_uri) {
+  void TestSetRecvRtpHeaderExtensions(const absl::string_view ext_uri) {
     // Enable extension.
     const int id = 1;
     cricket::VideoRecvParameters parameters = recv_parameters_;
@@ -2724,7 +2724,7 @@ class WebRtcVideoChannelTest : public WebRtcVideoEngineTest {
   }
 
   void TestExtensionFilter(const std::vector<std::string>& extensions,
-                           const std::string& expected_extension) {
+                           const absl::string_view expected_extension) {
     cricket::VideoSendParameters parameters = send_parameters_;
     int expected_id = -1;
     int id = 1;

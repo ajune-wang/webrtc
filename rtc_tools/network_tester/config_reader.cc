@@ -17,7 +17,7 @@
 
 namespace webrtc {
 
-ConfigReader::ConfigReader(const std::string& config_file_path)
+ConfigReader::ConfigReader(const absl::string_view config_file_path)
     : proto_config_index_(0) {
   std::ifstream config_stream(config_file_path,
                               std::ios_base::in | std::ios_base::binary);

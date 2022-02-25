@@ -44,7 +44,7 @@ enum class RidDirection { kSend, kReceive };
 // See: https://w3c.github.io/webrtc-svc/ for more details.
 struct RidDescription final {
   RidDescription();
-  RidDescription(const std::string& rid, RidDirection direction);
+  RidDescription(const absl::string_view rid, RidDirection direction);
   RidDescription(const RidDescription& other);
   ~RidDescription();
   RidDescription& operator=(const RidDescription& other);

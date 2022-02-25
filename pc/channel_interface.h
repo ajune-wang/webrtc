@@ -93,7 +93,7 @@ class ChannelFactoryInterface {
   virtual VideoChannel* CreateVideoChannel(
       webrtc::Call* call,
       const MediaConfig& media_config,
-      const std::string& mid,
+      const absl::string_view mid,
       bool srtp_required,
       const webrtc::CryptoOptions& crypto_options,
       const VideoOptions& options,
@@ -103,7 +103,7 @@ class ChannelFactoryInterface {
   virtual VoiceChannel* CreateVoiceChannel(
       webrtc::Call* call,
       const MediaConfig& media_config,
-      const std::string& mid,
+      const absl::string_view mid,
       bool srtp_required,
       const webrtc::CryptoOptions& crypto_options,
       const AudioOptions& options) = 0;

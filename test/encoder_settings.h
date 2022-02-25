@@ -55,7 +55,7 @@ void FillEncoderConfiguration(VideoCodecType codec_type,
 
 VideoReceiveStream::Decoder CreateMatchingDecoder(
     int payload_type,
-    const std::string& payload_name);
+    const absl::string_view payload_name);
 
 VideoReceiveStream::Decoder CreateMatchingDecoder(
     const VideoSendStream::Config& config);

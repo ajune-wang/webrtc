@@ -44,7 +44,7 @@ DebugDumpReplayer::~DebugDumpReplayer() {
     fclose(debug_file_);
 }
 
-bool DebugDumpReplayer::SetDumpFile(const std::string& filename) {
+bool DebugDumpReplayer::SetDumpFile(const absl::string_view filename) {
   debug_file_ = fopen(filename.c_str(), "rb");
   LoadNextMessage();
   return debug_file_;

@@ -46,7 +46,8 @@ std::string WorkingDir();
 //           If a directory path is prepended to the filename, a subdirectory
 //           hierarchy reflecting that path is assumed to be present.
 //    extension - File extension, without the dot, i.e. "bmp" or "yuv".
-std::string ResourcePath(const std::string& name, const std::string& extension);
+std::string ResourcePath(const absl::string_view name,
+                         const absl::string_view extension);
 
 }  // namespace internal
 }  // namespace test

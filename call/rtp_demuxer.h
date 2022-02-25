@@ -145,7 +145,7 @@ class RtpDemuxer {
 
   // Registers a sink's association to an RSID. Only one sink may be associated
   // with a given RSID. Null pointer is not allowed.
-  void AddSink(const std::string& rsid, RtpPacketSinkInterface* sink);
+  void AddSink(const absl::string_view rsid, RtpPacketSinkInterface* sink);
 
   // Removes a sink. Return value reports if anything was actually removed.
   // Null pointer is not allowed.
@@ -167,12 +167,12 @@ class RtpDemuxer {
   RtpPacketSinkInterface* ResolveSink(const RtpPacketReceived& packet);
 
   // Used by the ResolveSink algorithm.
-  RtpPacketSinkInterface* ResolveSinkByMid(const std::string& mid,
+  RtpPacketSinkInterface* ResolveSinkByMid(const absl::string_view mid,
                                            uint32_t ssrc);
-  RtpPacketSinkInterface* ResolveSinkByMidRsid(const std::string& mid,
-                                               const std::string& rsid,
+  RtpPacketSinkInterface* ResolveSinkByMidRsid(const absl::string_view mid,
+                                               const absl::string_view rsid,
                                                uint32_t ssrc);
-  RtpPacketSinkInterface* ResolveSinkByRsid(const std::string& rsid,
+  RtpPacketSinkInterface* ResolveSinkByRsid(const absl::string_view rsid,
                                             uint32_t ssrc);
   RtpPacketSinkInterface* ResolveSinkByPayloadType(uint8_t payload_type,
                                                    uint32_t ssrc);

@@ -24,7 +24,7 @@ namespace test {
 namespace {
 
 void WriteVideoToFile(const rtc::scoped_refptr<Video>& video,
-                      const std::string& file_name,
+                      const absl::string_view file_name,
                       int fps,
                       bool isY4m) {
   RTC_CHECK(video);
@@ -71,20 +71,20 @@ void WriteVideoToFile(const rtc::scoped_refptr<Video>& video,
 }  // Anonymous namespace
 
 void WriteVideoToFile(const rtc::scoped_refptr<Video>& video,
-                      const std::string& file_name,
+                      const absl::string_view file_name,
                       int fps) {
   WriteVideoToFile(video, file_name, fps,
                    /*isY4m=*/absl::EndsWith(file_name, ".y4m"));
 }
 
 void WriteY4mVideoToFile(const rtc::scoped_refptr<Video>& video,
-                         const std::string& file_name,
+                         const absl::string_view file_name,
                          int fps) {
   WriteVideoToFile(video, file_name, fps, /*isY4m=*/true);
 }
 
 void WriteYuvVideoToFile(const rtc::scoped_refptr<Video>& video,
-                         const std::string& file_name,
+                         const absl::string_view file_name,
                          int fps) {
   WriteVideoToFile(video, file_name, fps, /*isY4m=*/false);
 }

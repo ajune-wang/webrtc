@@ -110,18 +110,18 @@ void CrossMediaMetricsReporter::StopAndReportResults() {
 }
 
 void CrossMediaMetricsReporter::ReportResult(
-    const std::string& metric_name,
-    const std::string& test_case_name,
+    const absl::string_view metric_name,
+    const absl::string_view test_case_name,
     const SamplesStatsCounter& counter,
-    const std::string& unit,
+    const absl::string_view unit,
     webrtc::test::ImproveDirection improve_direction) {
   test::PrintResult(metric_name, /*modifier=*/"", test_case_name, counter, unit,
                     /*important=*/false, improve_direction);
 }
 
 std::string CrossMediaMetricsReporter::GetTestCaseName(
-    const std::string& stream_label,
-    const std::string& sync_group) const {
+    const absl::string_view stream_label,
+    const absl::string_view sync_group) const {
   return test_case_name_ + "/" + sync_group + "_" + stream_label;
 }
 

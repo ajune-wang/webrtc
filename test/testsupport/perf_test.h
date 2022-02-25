@@ -108,7 +108,7 @@ void PrintPlottableResults(const std::vector<std::string>& desired_graphs);
 // failed to write to the file. If you want to print the proto in human readable
 // format, use tracing/bin/proto2json from third_party/catapult in your WebRTC
 // checkout.
-bool WritePerfResults(const std::string& output_path);
+bool WritePerfResults(const absl::string_view output_path);
 
 // By default, human-readable perf results are printed to stdout. Set the FILE*
 // to where they should be printing instead. These results are not used to

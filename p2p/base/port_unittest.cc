@@ -135,13 +135,13 @@ bool WriteStunMessage(const StunMessage& msg, ByteBufferWriter* buf) {
 class TestPort : public Port {
  public:
   TestPort(rtc::Thread* thread,
-           const std::string& type,
+           const absl::string_view type,
            rtc::PacketSocketFactory* factory,
            rtc::Network* network,
            uint16_t min_port,
            uint16_t max_port,
-           const std::string& username_fragment,
-           const std::string& password)
+           const absl::string_view username_fragment,
+           const absl::string_view password)
       : Port(thread,
              type,
              factory,
@@ -178,7 +178,7 @@ class TestPort : public Port {
                ICE_TYPE_PREFERENCE_HOST, 0, "", true);
   }
 
-  virtual bool SupportsProtocol(const std::string& protocol) const {
+  virtual bool SupportsProtocol(const absl::string_view protocol) const {
     return true;
   }
 
@@ -191,7 +191,7 @@ class TestPort : public Port {
   }
   void AddCandidateAddress(const rtc::SocketAddress& addr,
                            const rtc::SocketAddress& base_address,
-                           const std::string& type,
+                           const absl::string_view type,
                            int type_preference,
                            bool final) {
     AddAddress(addr, base_address, rtc::SocketAddress(), "udp", "", "", type,
@@ -335,7 +335,7 @@ class TestChannel : public sigslot::has_slots<> {
                         const SocketAddress& addr,
                         ProtocolType proto,
                         IceMessage* msg,
-                        const std::string& rf,
+                        const absl::string_view rf,
                         bool /*port_muxed*/) {
     ASSERT_EQ(port_.get(), port);
     if (!remote_address_.IsNil()) {
@@ -751,15 +751,15 @@ class PortTest : public ::testing::Test, public sigslot::has_slots<> {
   }
   std::unique_ptr<IceMessage> CreateStunMessageWithUsername(
       int type,
-      const std::string& username) {
+      const absl::string_view username) {
     std::unique_ptr<IceMessage> msg = CreateStunMessage(type);
     msg->AddAttribute(std::make_unique<StunByteStringAttribute>(
         STUN_ATTR_USERNAME, username));
     return msg;
   }
   std::unique_ptr<TestPort> CreateTestPort(const rtc::SocketAddress& addr,
-                                           const std::string& username,
-                                           const std::string& password) {
+                                           const absl::string_view username,
+                                           const absl::string_view password) {
     auto port =
         std::make_unique<TestPort>(&main_, "test", &socket_factory_,
                                    MakeNetwork(addr), 0, 0, username, password);
@@ -767,8 +767,8 @@ class PortTest : public ::testing::Test, public sigslot::has_slots<> {
     return port;
   }
   std::unique_ptr<TestPort> CreateTestPort(const rtc::SocketAddress& addr,
-                                           const std::string& username,
-                                           const std::string& password,
+                                           const absl::string_view username,
+                                           const absl::string_view password,
                                            cricket::IceRole role,
                                            int tiebreaker) {
     auto port = CreateTestPort(addr, username, password);
@@ -778,8 +778,8 @@ class PortTest : public ::testing::Test, public sigslot::has_slots<> {
   }
   // Overload to create a test port given an rtc::Network directly.
   std::unique_ptr<TestPort> CreateTestPort(rtc::Network* network,
-                                           const std::string& username,
-                                           const std::string& password) {
+                                           const absl::string_view username,
+                                           const absl::string_view password) {
     auto port = std::make_unique<TestPort>(&main_, "test", &socket_factory_,
                                            network, 0, 0, username, password);
     port->SignalRoleConflict.connect(this, &PortTest::OnRoleConflict);
@@ -997,7 +997,7 @@ class FakePacketSocketFactory : public rtc::PacketSocketFactory {
       const SocketAddress& local_address,
       const SocketAddress& remote_address,
       const rtc::ProxyInfo& proxy_info,
-      const std::string& user_agent,
+      const absl::string_view user_agent,
       const rtc::PacketSocketTcpOptions& opts) override {
     EXPECT_TRUE(next_client_tcp_socket_.has_value());
     AsyncPacketSocket* result = *next_client_tcp_socket_;

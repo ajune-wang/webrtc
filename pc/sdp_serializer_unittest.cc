@@ -100,7 +100,7 @@ class SimulcastSdpSerializerTest : public TestWithParam<const char*> {
   // Runs a test for deserializing Simulcast.
   // `str` - The serialized Simulcast to parse.
   // `expected` - The expected output Simulcast to compare to.
-  void TestDeserialization(const std::string& str,
+  void TestDeserialization(const absl::string_view str,
                            const SimulcastDescription& expected) const {
     SdpSerializer deserializer;
     auto result = deserializer.DeserializeSimulcastDescription(str);
@@ -112,7 +112,7 @@ class SimulcastSdpSerializerTest : public TestWithParam<const char*> {
   // `simulcast` - The Simulcast to serialize.
   // `expected` - The expected output string to compare to.
   void TestSerialization(const SimulcastDescription& simulcast,
-                         const std::string& expected) const {
+                         const absl::string_view expected) const {
     SdpSerializer serializer;
     auto result = serializer.SerializeSimulcastDescription(simulcast);
     EXPECT_EQ(expected, result);
@@ -284,7 +284,7 @@ class RidDescriptionSdpSerializerTest : public TestWithParam<const char*> {
   // Runs a test for deserializing Rid Descriptions.
   // `str` - The serialized Rid Description to parse.
   // `expected` - The expected output RidDescription to compare to.
-  void TestDeserialization(const std::string& str,
+  void TestDeserialization(const absl::string_view str,
                            const RidDescription& expected) const {
     SdpSerializer deserializer;
     auto result = deserializer.DeserializeRidDescription(str);
@@ -296,7 +296,7 @@ class RidDescriptionSdpSerializerTest : public TestWithParam<const char*> {
   // `rid_description` - The RidDescription to serialize.
   // `expected` - The expected output string to compare to.
   void TestSerialization(const RidDescription& rid_description,
-                         const std::string& expected) const {
+                         const absl::string_view expected) const {
     SdpSerializer serializer;
     auto result = serializer.SerializeRidDescription(rid_description);
     EXPECT_EQ(expected, result);

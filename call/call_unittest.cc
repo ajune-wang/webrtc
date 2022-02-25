@@ -82,7 +82,7 @@ namespace {
 
 rtc::scoped_refptr<Resource> FindResourceWhoseNameContains(
     const std::vector<rtc::scoped_refptr<Resource>>& resources,
-    const std::string& name_contains) {
+    const absl::string_view name_contains) {
   for (const auto& resource : resources) {
     if (resource->Name().find(name_contains) != std::string::npos)
       return resource;

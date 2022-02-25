@@ -54,8 +54,8 @@ PROXY_METHOD2(RTCErrorOr<rtc::scoped_refptr<RtpTransceiverInterface>>,
               const RtpTransceiverInit&)
 PROXY_METHOD2(rtc::scoped_refptr<RtpSenderInterface>,
               CreateSender,
-              const std::string&,
-              const std::string&)
+              const absl::string_view,
+              const absl::string_view)
 PROXY_CONSTMETHOD0(std::vector<rtc::scoped_refptr<RtpSenderInterface>>,
                    GetSenders)
 PROXY_CONSTMETHOD0(std::vector<rtc::scoped_refptr<RtpReceiverInterface>>,
@@ -79,7 +79,7 @@ PROXY_METHOD2(void,
 PROXY_METHOD0(void, ClearStatsCache)
 PROXY_METHOD2(RTCErrorOr<rtc::scoped_refptr<DataChannelInterface>>,
               CreateDataChannelOrError,
-              const std::string&,
+              const absl::string_view,
               const DataChannelInit*)
 PROXY_CONSTMETHOD0(const SessionDescriptionInterface*, local_description)
 PROXY_CONSTMETHOD0(const SessionDescriptionInterface*, remote_description)
@@ -138,7 +138,7 @@ PROXY_METHOD1(void, SetAudioRecording, bool)
 // PeerConnectionFactory::CreatePeerConnectionOrError for more details.
 PROXY_SECONDARY_METHOD1(rtc::scoped_refptr<DtlsTransportInterface>,
                         LookupDtlsTransportByMid,
-                        const std::string&)
+                        const absl::string_view)
 // This method will be invoked on the network thread. See
 // PeerConnectionFactory::CreatePeerConnectionOrError for more details.
 PROXY_SECONDARY_CONSTMETHOD0(rtc::scoped_refptr<SctpTransportInterface>,

@@ -64,7 +64,7 @@ std::unique_ptr<ProcessThread> SimulatedTimeControllerImpl::CreateProcessThread(
 }
 
 std::unique_ptr<rtc::Thread> SimulatedTimeControllerImpl::CreateThread(
-    const std::string& name,
+    const absl::string_view name,
     std::unique_ptr<rtc::SocketServer> socket_server) {
   auto thread =
       std::make_unique<SimulatedThread>(this, name, std::move(socket_server));
@@ -198,7 +198,7 @@ GlobalSimulatedTimeController::CreateProcessThread(const char* thread_name) {
 }
 
 std::unique_ptr<rtc::Thread> GlobalSimulatedTimeController::CreateThread(
-    const std::string& name,
+    const absl::string_view name,
     std::unique_ptr<rtc::SocketServer> socket_server) {
   return impl_.CreateThread(name, std::move(socket_server));
 }

@@ -22,7 +22,7 @@ namespace webrtc {
 
 class TestRtpFileReader : public ::testing::Test {
  public:
-  void Init(const std::string& filename, bool headers_only_file) {
+  void Init(const absl::string_view filename, bool headers_only_file) {
     std::string filepath =
         test::ResourcePath("video_coding/" + filename, "rtp");
     rtp_packet_source_.reset(
@@ -63,7 +63,7 @@ typedef std::map<uint32_t, int> PacketsPerSsrc;
 
 class TestPcapFileReader : public ::testing::Test {
  public:
-  void Init(const std::string& filename) {
+  void Init(const absl::string_view filename) {
     std::string filepath =
         test::ResourcePath("video_coding/" + filename, "pcap");
     rtp_packet_source_.reset(

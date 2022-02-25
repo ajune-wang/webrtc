@@ -62,7 +62,7 @@ class VideoQualityTest : public test::CallTest,
   // Helper static methods.
   static VideoStream DefaultVideoStream(const Params& params, size_t video_idx);
   static VideoStream DefaultThumbnailStream();
-  static std::vector<int> ParseCSV(const std::string& str);
+  static std::vector<int> ParseCSV(const absl::string_view str);
 
  protected:
   std::map<uint8_t, webrtc::MediaType> payload_type_map_;

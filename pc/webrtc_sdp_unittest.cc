@@ -902,33 +902,33 @@ static SdpType kDummyType = SdpType::kOffer;
 
 // Helper functions
 
-static bool SdpDeserialize(const std::string& message,
+static bool SdpDeserialize(const absl::string_view message,
                            JsepSessionDescription* jdesc) {
   return webrtc::SdpDeserialize(message, jdesc, NULL);
 }
 
-static bool SdpDeserializeCandidate(const std::string& message,
+static bool SdpDeserializeCandidate(const absl::string_view message,
                                     JsepIceCandidate* candidate) {
   return webrtc::SdpDeserializeCandidate(message, candidate, NULL);
 }
 
 // Add some extra `newlines` to the `message` after `line`.
-static void InjectAfter(const std::string& line,
-                        const std::string& newlines,
+static void InjectAfter(const absl::string_view line,
+                        const absl::string_view newlines,
                         std::string* message) {
   absl::StrReplaceAll({{line, line + newlines}}, message);
 }
 
-static void Replace(const std::string& line,
-                    const std::string& newlines,
+static void Replace(const absl::string_view line,
+                    const absl::string_view newlines,
                     std::string* message) {
   absl::StrReplaceAll({{line, newlines}}, message);
 }
 
 // Expect a parse failure on the line containing `bad_part` when attempting to
 // parse `bad_sdp`.
-static void ExpectParseFailure(const std::string& bad_sdp,
-                               const std::string& bad_part) {
+static void ExpectParseFailure(const absl::string_view bad_sdp,
+                               const absl::string_view bad_part) {
   JsepSessionDescription desc(kDummyType);
   SdpParseError error;
   bool ret = webrtc::SdpDeserialize(bad_sdp, &desc, &error);
@@ -945,9 +945,9 @@ static void ExpectParseFailure(const char* good_part, const char* bad_part) {
 }
 
 // Expect fail to parse kSdpFullString if add `newlines` after `injectpoint`.
-static void ExpectParseFailureWithNewLines(const std::string& injectpoint,
-                                           const std::string& newlines,
-                                           const std::string& bad_part) {
+static void ExpectParseFailureWithNewLines(const absl::string_view injectpoint,
+                                           const absl::string_view newlines,
+                                           const absl::string_view bad_part) {
   std::string bad_sdp = kSdpFullString;
   InjectAfter(injectpoint, newlines, &bad_sdp);
   ExpectParseFailure(bad_sdp, bad_part);
@@ -1599,8 +1599,8 @@ class WebRtcSdpTest : public ::testing::Test {
   // Update the candidates in `jdesc` to use the given `ufrag` and `pwd`.
   bool UpdateCandidateUfragPwd(JsepSessionDescription* jdesc,
                                int mline_index,
-                               const std::string& ufrag,
-                               const std::string& pwd) {
+                               const absl::string_view ufrag,
+                               const absl::string_view pwd) {
     std::string content_name;
     if (mline_index == 0) {
       content_name = kAudioContentName;
@@ -1627,7 +1627,7 @@ class WebRtcSdpTest : public ::testing::Test {
     return true;
   }
 
-  void AddIceOptions(const std::string& content_name,
+  void AddIceOptions(const absl::string_view content_name,
                      const std::vector<std::string>& transport_options) {
     ASSERT_TRUE(desc_.GetTransportInfoByName(content_name) != NULL);
     cricket::TransportInfo transport_info =
@@ -1637,9 +1637,9 @@ class WebRtcSdpTest : public ::testing::Test {
     desc_.AddTransportInfo(transport_info);
   }
 
-  void SetIceUfragPwd(const std::string& content_name,
-                      const std::string& ice_ufrag,
-                      const std::string& ice_pwd) {
+  void SetIceUfragPwd(const absl::string_view content_name,
+                      const absl::string_view ice_ufrag,
+                      const absl::string_view ice_pwd) {
     ASSERT_TRUE(desc_.GetTransportInfoByName(content_name) != NULL);
     cricket::TransportInfo transport_info =
         *(desc_.GetTransportInfoByName(content_name));
@@ -1867,7 +1867,7 @@ class WebRtcSdpTest : public ::testing::Test {
   }
 
   void VerifyCodecParameter(const cricket::CodecParameterMap& params,
-                            const std::string& name,
+                            const absl::string_view name,
                             int expected_value) {
     cricket::CodecParameterMap::const_iterator found = params.find(name);
     ASSERT_TRUE(found != params.end());
@@ -2060,7 +2060,8 @@ class WebRtcSdpTest : public ::testing::Test {
   JsepSessionDescription jdesc_;
 };
 
-void TestMismatch(const std::string& string1, const std::string& string2) {
+void TestMismatch(const absl::string_view string1,
+                  const absl::string_view string2) {
   int position = 0;
   for (size_t i = 0; i < string1.length() && i < string2.length(); ++i) {
     if (string1.c_str()[i] != string2.c_str()[i]) {

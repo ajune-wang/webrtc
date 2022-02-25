@@ -112,7 +112,7 @@ class AudioCodingModuleImpl final : public AudioCodingModule {
   // the value has changed since the last time (and always for the first call).
   class ChangeLogger {
    public:
-    explicit ChangeLogger(const std::string& histogram_name)
+    explicit ChangeLogger(const absl::string_view histogram_name)
         : histogram_name_(histogram_name) {}
     // Logs the new value if it is different from the last logged value, or if
     // this is the first call.

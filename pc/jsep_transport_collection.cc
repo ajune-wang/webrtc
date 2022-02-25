@@ -72,11 +72,11 @@ void BundleManager::Update(const cricket::SessionDescription* description,
 }
 
 const cricket::ContentGroup* BundleManager::LookupGroupByMid(
-    const std::string& mid) const {
+    const absl::string_view mid) const {
   auto it = established_bundle_groups_by_mid_.find(mid);
   return it != established_bundle_groups_by_mid_.end() ? it->second : nullptr;
 }
-bool BundleManager::IsFirstMidInGroup(const std::string& mid) const {
+bool BundleManager::IsFirstMidInGroup(const absl::string_view mid) const {
   auto group = LookupGroupByMid(mid);
   if (!group) {
     return true;  // Unbundled MIDs are considered group leaders
@@ -84,13 +84,14 @@ bool BundleManager::IsFirstMidInGroup(const std::string& mid) const {
   return mid == *(group->FirstContentName());
 }
 
-cricket::ContentGroup* BundleManager::LookupGroupByMid(const std::string& mid) {
+cricket::ContentGroup* BundleManager::LookupGroupByMid(
+    const absl::string_view mid) {
   auto it = established_bundle_groups_by_mid_.find(mid);
   return it != established_bundle_groups_by_mid_.end() ? it->second : nullptr;
 }
 
 void BundleManager::DeleteMid(const cricket::ContentGroup* bundle_group,
-                              const std::string& mid) {
+                              const absl::string_view mid) {
   RTC_DCHECK_RUN_ON(&sequence_checker_);
   RTC_LOG(LS_VERBOSE) << "Deleting mid " << mid << " from bundle group "
                       << bundle_group->ToString();
@@ -154,7 +155,7 @@ void BundleManager::RefreshEstablishedBundleGroupsByMid() {
 }
 
 void JsepTransportCollection::RegisterTransport(
-    const std::string& mid,
+    const absl::string_view mid,
     std::unique_ptr<cricket::JsepTransport> transport) {
   RTC_DCHECK_RUN_ON(&sequence_checker_);
   SetTransportForMid(mid, transport.get());
@@ -192,35 +193,35 @@ void JsepTransportCollection::DestroyAllTransports() {
 }
 
 const cricket::JsepTransport* JsepTransportCollection::GetTransportByName(
-    const std::string& transport_name) const {
+    const absl::string_view transport_name) const {
   RTC_DCHECK_RUN_ON(&sequence_checker_);
   auto it = jsep_transports_by_name_.find(transport_name);
   return (it == jsep_transports_by_name_.end()) ? nullptr : it->second.get();
 }
 
 cricket::JsepTransport* JsepTransportCollection::GetTransportByName(
-    const std::string& transport_name) {
+    const absl::string_view transport_name) {
   RTC_DCHECK_RUN_ON(&sequence_checker_);
   auto it = jsep_transports_by_name_.find(transport_name);
   return (it == jsep_transports_by_name_.end()) ? nullptr : it->second.get();
 }
 
 cricket::JsepTransport* JsepTransportCollection::GetTransportForMid(
-    const std::string& mid) {
+    const absl::string_view mid) {
   RTC_DCHECK_RUN_ON(&sequence_checker_);
   auto it = mid_to_transport_.find(mid);
   return it == mid_to_transport_.end() ? nullptr : it->second;
 }
 
 const cricket::JsepTransport* JsepTransportCollection::GetTransportForMid(
-    const std::string& mid) const {
+    const absl::string_view mid) const {
   RTC_DCHECK_RUN_ON(&sequence_checker_);
   auto it = mid_to_transport_.find(mid);
   return it == mid_to_transport_.end() ? nullptr : it->second;
 }
 
 bool JsepTransportCollection::SetTransportForMid(
-    const std::string& mid,
+    const absl::string_view mid,
     cricket::JsepTransport* jsep_transport) {
   RTC_DCHECK_RUN_ON(&sequence_checker_);
   RTC_DCHECK(jsep_transport);
@@ -245,7 +246,8 @@ bool JsepTransportCollection::SetTransportForMid(
   return result;
 }
 
-void JsepTransportCollection::RemoveTransportForMid(const std::string& mid) {
+void JsepTransportCollection::RemoveTransportForMid(
+    const absl::string_view mid) {
   RTC_DCHECK_RUN_ON(&sequence_checker_);
   RTC_DCHECK(IsConsistent());
   bool ret = map_change_callback_(mid, nullptr);

@@ -371,32 +371,35 @@ class Histogram;
 // histogram).
 
 // Get histogram for counters.
-Histogram* HistogramFactoryGetCounts(const std::string& name,
+Histogram* HistogramFactoryGetCounts(const absl::string_view name,
                                      int min,
                                      int max,
                                      int bucket_count);
 
 // Get histogram for counters with linear bucket spacing.
-Histogram* HistogramFactoryGetCountsLinear(const std::string& name,
+Histogram* HistogramFactoryGetCountsLinear(const absl::string_view name,
                                            int min,
                                            int max,
                                            int bucket_count);
 
 // Get histogram for enumerators.
 // `boundary` should be above the max enumerator sample.
-Histogram* HistogramFactoryGetEnumeration(const std::string& name,
+Histogram* HistogramFactoryGetEnumeration(const absl::string_view name,
                                           int boundary);
 
 // Get sparse histogram for enumerators.
 // `boundary` should be above the max enumerator sample.
-Histogram* SparseHistogramFactoryGetEnumeration(const std::string& name,
+Histogram* SparseHistogramFactoryGetEnumeration(const absl::string_view name,
                                                 int boundary);
 
 // Function for adding a `sample` to a histogram.
 void HistogramAdd(Histogram* histogram_pointer, int sample);
 
 struct SampleInfo {
-  SampleInfo(const std::string& name, int min, int max, size_t bucket_count);
+  SampleInfo(const absl::string_view name,
+             int min,
+             int max,
+             size_t bucket_count);
   ~SampleInfo();
 
   const std::string name;
@@ -420,17 +423,17 @@ void GetAndReset(
 void Reset();
 
 // Returns the number of times the `sample` has been added to the histogram.
-int NumEvents(const std::string& name, int sample);
+int NumEvents(const absl::string_view name, int sample);
 
 // Returns the total number of added samples to the histogram.
-int NumSamples(const std::string& name);
+int NumSamples(const absl::string_view name);
 
 // Returns the minimum sample value (or -1 if the histogram has no samples).
-int MinSample(const std::string& name);
+int MinSample(const absl::string_view name);
 
 // Returns a map with keys the samples with at least one event and values the
 // number of events for that sample.
-std::map<int, int> Samples(const std::string& name);
+std::map<int, int> Samples(const absl::string_view name);
 
 }  // namespace metrics
 }  // namespace webrtc

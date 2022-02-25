@@ -55,7 +55,7 @@ static const size_t kPathMTU = 1500;
 
 using webrtc_internal_rtp_video_sender::RtpStreamSender;
 
-bool PayloadTypeSupportsSkippingFecPackets(const std::string& payload_name,
+bool PayloadTypeSupportsSkippingFecPackets(const absl::string_view payload_name,
                                            const WebRtcKeyValueConfig& trials) {
   const VideoCodecType codecType = PayloadStringToCodecType(payload_name);
   if (codecType == kVideoCodecVP8 || codecType == kVideoCodecVP9) {

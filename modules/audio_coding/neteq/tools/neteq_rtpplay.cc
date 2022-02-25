@@ -159,7 +159,7 @@ namespace {
 // Parses the input string for a valid SSRC (at the start of the string). If a
 // valid SSRC is found, it is written to the output variable `ssrc`, and true is
 // returned. Otherwise, false is returned.
-bool ParseSsrc(const std::string& str, uint32_t* ssrc) {
+bool ParseSsrc(const absl::string_view str, uint32_t* ssrc) {
   if (str.empty())
     return true;
   int base = 10;
@@ -196,7 +196,7 @@ bool ValidatePayloadType(int value) {
   return false;
 }
 
-bool ValidateSsrcValue(const std::string& str) {
+bool ValidateSsrcValue(const absl::string_view str) {
   uint32_t dummy_ssrc;
   if (ParseSsrc(str, &dummy_ssrc))  // Value is ok.
     return true;

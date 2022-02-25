@@ -50,7 +50,7 @@ constexpr absl::string_view kSupportedScalabilityModes[] = {"L1T2", "L1T3"};
 
 SdpVideoFormat CreateH264Format(H264Profile profile,
                                 H264Level level,
-                                const std::string& packetization_mode) {
+                                const absl::string_view packetization_mode) {
   const absl::optional<std::string> profile_string =
       H264ProfileLevelIdToString(H264ProfileLevelId(profile, level));
   RTC_CHECK(profile_string);

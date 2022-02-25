@@ -22,7 +22,7 @@ namespace test {
 
 class ExplicitKeyValueConfig : public WebRtcKeyValueConfig {
  public:
-  explicit ExplicitKeyValueConfig(const std::string& s);
+  explicit ExplicitKeyValueConfig(const absl::string_view s);
   std::string Lookup(absl::string_view key) const override;
 
  private:

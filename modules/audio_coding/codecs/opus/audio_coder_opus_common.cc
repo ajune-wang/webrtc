@@ -13,7 +13,7 @@
 namespace webrtc {
 
 absl::optional<std::string> GetFormatParameter(const SdpAudioFormat& format,
-                                               const std::string& param) {
+                                               const absl::string_view param) {
   auto it = format.parameters.find(param);
   if (it == format.parameters.end())
     return absl::nullopt;
@@ -25,7 +25,7 @@ absl::optional<std::string> GetFormatParameter(const SdpAudioFormat& format,
 template <>
 absl::optional<std::vector<unsigned char>> GetFormatParameter(
     const SdpAudioFormat& format,
-    const std::string& param) {
+    const absl::string_view param) {
   std::vector<unsigned char> result;
   const std::string comma_separated_list =
       GetFormatParameter(format, param).value_or("");

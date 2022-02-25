@@ -30,7 +30,7 @@ struct SdpVideoFormat;
 RTC_EXPORT SdpVideoFormat
 CreateH264Format(H264Profile profile,
                  H264Level level,
-                 const std::string& packetization_mode);
+                 const absl::string_view packetization_mode);
 
 // Set to disable the H.264 encoder/decoder implementations that are provided if
 // `rtc_use_h264` build flag is true (if false, this function does nothing).

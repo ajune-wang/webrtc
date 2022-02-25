@@ -104,7 +104,7 @@ template <typename R>
 class ReturnType {
  public:
   template <typename C, typename M, typename... Args>
-  void Invoke(C* c, M m, Args&&... args) {
+  void Invoke(C* c, M m, absl::string_view... args) {
     r_ = (c->*m)(std::forward<Args>(args)...);
   }
 
@@ -128,8 +128,8 @@ class ReturnType<void> {
 template <typename C, typename R, typename... Args>
 class MethodCall : public QueuedTask {
  public:
-  typedef R (C::*Method)(Args...);
-  MethodCall(C* c, Method m, Args&&... args)
+  typedef R (C::*Method)(absl::string_view...);
+  MethodCall(C* c, Method m, absl::string_view... args)
       : c_(c),
         m_(m),
         args_(std::forward_as_tuple(std::forward<Args>(args)...)) {}

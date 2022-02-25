@@ -543,7 +543,7 @@ void VideoQualityTest::CheckParamsAndInjectionComponents() {
 }
 
 // Static.
-std::vector<int> VideoQualityTest::ParseCSV(const std::string& str) {
+std::vector<int> VideoQualityTest::ParseCSV(const absl::string_view str) {
   // Parse comma separated nonnegative integers, where some elements may be
   // empty. The empty values are replaced with -1.
   // E.g. "10,-20,,30,40" --> {10, 20, -1, 30,40}

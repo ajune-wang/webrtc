@@ -42,7 +42,7 @@ class RTC_EXPORT SharedXDisplay
   // connection failed. Equivalent to CreateDefault() when `display_name` is
   // empty.
   static rtc::scoped_refptr<SharedXDisplay> Create(
-      const std::string& display_name);
+      const absl::string_view display_name);
 
   // Creates X11 Display connection for the default display (e.g. specified in
   // DISPLAY). NULL is returned if X11 connection failed.

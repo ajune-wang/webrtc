@@ -30,8 +30,8 @@ class ScenarioIceConnectionImpl : public ScenarioIceConnection,
   void SendRtpPacket(rtc::ArrayView<const uint8_t> packet_view) override;
   void SendRtcpPacket(rtc::ArrayView<const uint8_t> packet_view) override;
 
-  void SetRemoteSdp(SdpType type, const std::string& remote_sdp) override;
-  void SetLocalSdp(SdpType type, const std::string& local_sdp) override;
+  void SetRemoteSdp(SdpType type, const absl::string_view remote_sdp) override;
+  void SetLocalSdp(SdpType type, const absl::string_view local_sdp) override;
 
   EmulatedEndpoint* endpoint() override { return endpoint_; }
   const cricket::TransportDescription& transport_description() const override {
@@ -41,13 +41,13 @@ class ScenarioIceConnectionImpl : public ScenarioIceConnection,
  private:
   JsepTransportController::Config CreateJsepConfig();
   bool OnTransportChanged(
-      const std::string& mid,
+      const absl::string_view mid,
       RtpTransportInternal* rtp_transport,
       rtc::scoped_refptr<DtlsTransport> dtls_transport,
       DataChannelTransportInterface* data_channel_transport) override;
 
   void OnRtpPacket(const RtpPacketReceived& packet) override;
-  void OnCandidates(const std::string& mid,
+  void OnCandidates(const absl::string_view mid,
                     const std::vector<cricket::Candidate>& candidates);
 
   IceConnectionObserver* const observer_;
@@ -158,12 +158,13 @@ void ScenarioIceConnectionImpl::SendRtcpPacket(
                                      cricket::PF_SRTP_BYPASS);
   });
 }
-void ScenarioIceConnectionImpl::SetRemoteSdp(SdpType type,
-                                             const std::string& remote_sdp) {
+void ScenarioIceConnectionImpl::SetRemoteSdp(
+    SdpType type,
+    const absl::string_view remote_sdp) {
   RTC_DCHECK_RUN_ON(signaling_thread_);
   remote_description_ = webrtc::CreateSessionDescription(type, remote_sdp);
   jsep_controller_->SubscribeIceCandidateGathered(
-      [this](const std::string& transport,
+      [this](const absl::string_view transport,
              const std::vector<cricket::Candidate>& candidate) {
         ScenarioIceConnectionImpl::OnCandidates(transport, candidate);
       });
@@ -195,7 +196,7 @@ void ScenarioIceConnectionImpl::SetRemoteSdp(SdpType type,
 }
 
 void ScenarioIceConnectionImpl::SetLocalSdp(SdpType type,
-                                            const std::string& local_sdp) {
+                                            const absl::string_view local_sdp) {
   RTC_DCHECK_RUN_ON(signaling_thread_);
   local_description_ = webrtc::CreateSessionDescription(type, local_sdp);
   auto res = jsep_controller_->SetLocalDescription(
@@ -205,7 +206,7 @@ void ScenarioIceConnectionImpl::SetLocalSdp(SdpType type,
 }
 
 bool ScenarioIceConnectionImpl::OnTransportChanged(
-    const std::string& mid,
+    const absl::string_view mid,
     RtpTransportInternal* rtp_transport,
     rtc::scoped_refptr<DtlsTransport> dtls_transport,
     DataChannelTransportInterface* data_channel_transport) {
@@ -229,7 +230,7 @@ void ScenarioIceConnectionImpl::OnRtpPacket(const RtpPacketReceived& packet) {
 }
 
 void ScenarioIceConnectionImpl::OnCandidates(
-    const std::string& mid,
+    const absl::string_view mid,
     const std::vector<cricket::Candidate>& candidates) {
   RTC_DCHECK_RUN_ON(signaling_thread_);
   observer_->OnIceCandidates(mid, candidates);

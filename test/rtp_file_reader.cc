@@ -665,7 +665,7 @@ RtpFileReader* RtpFileReader::Create(FileFormat format,
 }
 
 RtpFileReader* RtpFileReader::Create(FileFormat format,
-                                     const std::string& filename,
+                                     const absl::string_view filename,
                                      const std::set<uint32_t>& ssrc_filter) {
   RtpFileReaderImpl* reader = CreateReaderForFormat(format);
   FILE* file = fopen(filename.c_str(), "rb");
@@ -682,7 +682,7 @@ RtpFileReader* RtpFileReader::Create(FileFormat format,
 }
 
 RtpFileReader* RtpFileReader::Create(FileFormat format,
-                                     const std::string& filename) {
+                                     const absl::string_view filename) {
   return RtpFileReader::Create(format, filename, std::set<uint32_t>());
 }
 

@@ -755,7 +755,7 @@ JsepTransportController* PeerConnection::InitializeTransportController_n(
             }));
       });
   transport_controller_->SubscribeIceCandidateGathered(
-      [this](const std::string& transport,
+      [this](const absl::string_view transport,
              const std::vector<cricket::Candidate>& candidates) {
         RTC_DCHECK_RUN_ON(network_thread());
         signaling_thread()->PostTask(
@@ -915,7 +915,8 @@ PeerConnection::AddTransceiver(
   return AddTransceiver(track, RtpTransceiverInit());
 }
 
-RtpTransportInternal* PeerConnection::GetRtpTransport(const std::string& mid) {
+RtpTransportInternal* PeerConnection::GetRtpTransport(
+    const absl::string_view mid) {
   // TODO(bugs.webrtc.org/9987): Avoid the thread jump.
   // This might be done by caching the value on the signaling thread.
   RTC_DCHECK_RUN_ON(signaling_thread());
@@ -1081,8 +1082,8 @@ void PeerConnection::OnNegotiationNeeded() {
 }
 
 rtc::scoped_refptr<RtpSenderInterface> PeerConnection::CreateSender(
-    const std::string& kind,
-    const std::string& stream_id) {
+    const absl::string_view kind,
+    const absl::string_view stream_id) {
   RTC_DCHECK_RUN_ON(signaling_thread());
   RTC_CHECK(!IsUnifiedPlan()) << "CreateSender is not available with Unified "
                                  "Plan SdpSemantics. Please use AddTransceiver "
@@ -1306,7 +1307,7 @@ absl::optional<bool> PeerConnection::can_trickle_ice_candidates() {
 }
 
 RTCErrorOr<rtc::scoped_refptr<DataChannelInterface>>
-PeerConnection::CreateDataChannelOrError(const std::string& label,
+PeerConnection::CreateDataChannelOrError(const absl::string_view label,
                                          const DataChannelInit* config) {
   RTC_DCHECK_RUN_ON(signaling_thread());
   TRACE_EVENT0("webrtc", "PeerConnection::CreateDataChannel");
@@ -1694,13 +1695,13 @@ void PeerConnection::StopRtcEventLog() {
 }
 
 rtc::scoped_refptr<DtlsTransportInterface>
-PeerConnection::LookupDtlsTransportByMid(const std::string& mid) {
+PeerConnection::LookupDtlsTransportByMid(const absl::string_view mid) {
   RTC_DCHECK_RUN_ON(network_thread());
   return transport_controller_->LookupDtlsTransportByMid(mid);
 }
 
 rtc::scoped_refptr<DtlsTransport>
-PeerConnection::LookupDtlsTransportByMidInternal(const std::string& mid) {
+PeerConnection::LookupDtlsTransportByMidInternal(const absl::string_view mid) {
   RTC_DCHECK_RUN_ON(signaling_thread());
   // TODO(bugs.webrtc.org/9987): Avoid the thread jump.
   // This might be done by caching the value on the signaling thread.
@@ -1959,11 +1960,11 @@ void PeerConnection::OnIceCandidate(
   Observer()->OnIceCandidate(candidate.get());
 }
 
-void PeerConnection::OnIceCandidateError(const std::string& address,
+void PeerConnection::OnIceCandidateError(const absl::string_view address,
                                          int port,
-                                         const std::string& url,
+                                         const absl::string_view url,
                                          int error_code,
-                                         const std::string& error_text) {
+                                         const absl::string_view error_text) {
   if (IsClosed()) {
     return;
   }
@@ -1999,7 +2000,7 @@ absl::optional<std::string> PeerConnection::GetDataMid() const {
   return sctp_mid_s_;
 }
 
-void PeerConnection::SetSctpDataMid(const std::string& mid) {
+void PeerConnection::SetSctpDataMid(const absl::string_view mid) {
   RTC_DCHECK_RUN_ON(signaling_thread());
   sctp_mid_s_ = mid;
 }
@@ -2136,7 +2137,8 @@ void PeerConnection::StopRtcEventLog_w() {
   }
 }
 
-cricket::ChannelInterface* PeerConnection::GetChannel(const std::string& mid) {
+cricket::ChannelInterface* PeerConnection::GetChannel(
+    const absl::string_view mid) {
   for (const auto& transceiver : rtp_manager()->transceivers()->UnsafeList()) {
     cricket::ChannelInterface* channel = transceiver->internal()->channel();
     if (channel && channel->mid() == mid) {
@@ -2186,7 +2188,7 @@ bool PeerConnection::GetSctpSslRole(rtc::SSLRole* role) {
   return false;
 }
 
-bool PeerConnection::GetSslRole(const std::string& content_name,
+bool PeerConnection::GetSslRole(const absl::string_view content_name,
                                 rtc::SSLRole* role) {
   RTC_DCHECK_RUN_ON(signaling_thread());
   if (!local_description() || !remote_description()) {
@@ -2210,7 +2212,7 @@ bool PeerConnection::GetSslRole(const std::string& content_name,
 
 bool PeerConnection::GetTransportDescription(
     const SessionDescription* description,
-    const std::string& content_name,
+    const absl::string_view content_name,
     cricket::TransportDescription* tdesc) {
   if (!description || !tdesc) {
     return false;
@@ -2275,7 +2277,7 @@ PeerConnection::GetTransportStatsByNames(
 }
 
 bool PeerConnection::GetLocalCertificate(
-    const std::string& transport_name,
+    const absl::string_view transport_name,
     rtc::scoped_refptr<rtc::RTCCertificate>* certificate) {
   RTC_DCHECK_RUN_ON(network_thread());
   if (!network_thread_safety_->alive() || !certificate) {
@@ -2286,17 +2288,19 @@ bool PeerConnection::GetLocalCertificate(
 }
 
 std::unique_ptr<rtc::SSLCertChain> PeerConnection::GetRemoteSSLCertChain(
-    const std::string& transport_name) {
+    const absl::string_view transport_name) {
   RTC_DCHECK_RUN_ON(network_thread());
   return transport_controller_->GetRemoteSSLCertChain(transport_name);
 }
 
-bool PeerConnection::IceRestartPending(const std::string& content_name) const {
+bool PeerConnection::IceRestartPending(
+    const absl::string_view content_name) const {
   RTC_DCHECK_RUN_ON(signaling_thread());
   return sdp_handler_->IceRestartPending(content_name);
 }
 
-bool PeerConnection::NeedsIceRestart(const std::string& content_name) const {
+bool PeerConnection::NeedsIceRestart(
+    const absl::string_view content_name) const {
   return network_thread()->Invoke<bool>(RTC_FROM_HERE, [this, &content_name] {
     RTC_DCHECK_RUN_ON(network_thread());
     return transport_controller_->NeedsIceRestart(content_name);
@@ -2349,7 +2353,7 @@ void PeerConnection::OnTransportControllerConnectionState(
 }
 
 void PeerConnection::OnTransportControllerCandidatesGathered(
-    const std::string& transport_name,
+    const absl::string_view transport_name,
     const cricket::Candidates& candidates) {
   // TODO(bugs.webrtc.org/12427): Expect this to come in on the network thread
   // (not signaling as it currently does), handle appropriately.
@@ -2406,7 +2410,7 @@ void PeerConnection::OnTransportControllerDtlsHandshakeError(
 
 // Returns the media index for a local ice candidate given the content name.
 bool PeerConnection::GetLocalCandidateMediaIndex(
-    const std::string& content_name,
+    const absl::string_view content_name,
     int* sdp_mline_index) {
   if (!local_description() || !sdp_mline_index) {
     return false;
@@ -2438,7 +2442,7 @@ Call::Stats PeerConnection::GetCallStats() {
   }
 }
 
-bool PeerConnection::SetupDataChannelTransport_n(const std::string& mid) {
+bool PeerConnection::SetupDataChannelTransport_n(const absl::string_view mid) {
   DataChannelTransportInterface* transport =
       transport_controller_->GetDataChannelTransport(mid);
   if (!transport) {
@@ -2617,7 +2621,7 @@ void PeerConnection::NoteUsageEvent(UsageEvent event) {
 }
 
 // Asynchronously adds remote candidates on the network thread.
-void PeerConnection::AddRemoteCandidate(const std::string& mid,
+void PeerConnection::AddRemoteCandidate(const absl::string_view mid,
                                         const cricket::Candidate& candidate) {
   RTC_DCHECK_RUN_ON(signaling_thread());
 
@@ -2853,7 +2857,7 @@ void PeerConnection::ReportNegotiatedCiphers(
 }
 
 bool PeerConnection::OnTransportChanged(
-    const std::string& mid,
+    const absl::string_view mid,
     RtpTransportInternal* rtp_transport,
     rtc::scoped_refptr<DtlsTransport> dtls_transport,
     DataChannelTransportInterface* data_channel_transport) {

@@ -30,7 +30,7 @@ bool StreamConfig::operator!=(const StreamConfig& other) const {
   return !(*this == other);
 }
 
-StreamConfig::Codec::Codec(const std::string& payload_name,
+StreamConfig::Codec::Codec(const absl::string_view payload_name,
                            int payload_type,
                            int rtx_payload_type)
     : payload_name(payload_name),

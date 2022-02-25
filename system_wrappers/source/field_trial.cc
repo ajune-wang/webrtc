@@ -102,7 +102,7 @@ std::string MergeFieldTrialsStrings(const char* first, const char* second) {
   return merged;
 }
 
-std::string FindFullName(const std::string& name) {
+std::string FindFullName(const absl::string_view name) {
   if (trials_init_string == NULL)
     return std::string();
 

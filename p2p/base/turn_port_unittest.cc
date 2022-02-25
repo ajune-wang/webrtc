@@ -212,7 +212,7 @@ class TurnPortTest : public ::testing::Test,
                             const SocketAddress& addr,
                             ProtocolType proto,
                             IceMessage* msg,
-                            const std::string& rf,
+                            const absl::string_view rf,
                             bool /*port_muxed*/) {
     turn_unknown_address_ = true;
   }
@@ -263,23 +263,23 @@ class TurnPortTest : public ::testing::Test,
     return &networks_.back();
   }
 
-  bool CreateTurnPort(const std::string& username,
-                      const std::string& password,
+  bool CreateTurnPort(const absl::string_view username,
+                      const absl::string_view password,
                       const ProtocolAddress& server_address) {
     return CreateTurnPortWithAllParams(MakeNetwork(kLocalAddr1), username,
                                        password, server_address);
   }
   bool CreateTurnPort(const rtc::SocketAddress& local_address,
-                      const std::string& username,
-                      const std::string& password,
+                      const absl::string_view username,
+                      const absl::string_view password,
                       const ProtocolAddress& server_address) {
     return CreateTurnPortWithAllParams(MakeNetwork(local_address), username,
                                        password, server_address);
   }
 
   bool CreateTurnPortWithNetwork(rtc::Network* network,
-                                 const std::string& username,
-                                 const std::string& password,
+                                 const absl::string_view username,
+                                 const absl::string_view password,
                                  const ProtocolAddress& server_address) {
     return CreateTurnPortWithAllParams(network, username, password,
                                        server_address);
@@ -289,8 +289,8 @@ class TurnPortTest : public ::testing::Test,
   // helper methods call this, such that "SetIceRole" and "ConnectSignals" (and
   // possibly other things in the future) only happen in one place.
   bool CreateTurnPortWithAllParams(rtc::Network* network,
-                                   const std::string& username,
-                                   const std::string& password,
+                                   const absl::string_view username,
+                                   const absl::string_view password,
                                    const ProtocolAddress& server_address) {
     RelayCredentials credentials(username, password);
     turn_port_ = TurnPort::Create(
@@ -313,8 +313,8 @@ class TurnPortTest : public ::testing::Test,
     return true;
   }
 
-  void CreateSharedTurnPort(const std::string& username,
-                            const std::string& password,
+  void CreateSharedTurnPort(const absl::string_view username,
+                            const absl::string_view password,
                             const ProtocolAddress& server_address) {
     RTC_CHECK(server_address.proto == PROTO_UDP);
 

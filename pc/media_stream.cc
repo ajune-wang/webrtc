@@ -20,7 +20,8 @@
 namespace webrtc {
 
 template <class V>
-static typename V::iterator FindTrack(V* vector, const std::string& track_id) {
+static typename V::iterator FindTrack(V* vector,
+                                      const absl::string_view track_id) {
   typename V::iterator it = vector->begin();
   for (; it != vector->end(); ++it) {
     if ((*it)->id() == track_id) {
@@ -30,11 +31,12 @@ static typename V::iterator FindTrack(V* vector, const std::string& track_id) {
   return it;
 }
 
-rtc::scoped_refptr<MediaStream> MediaStream::Create(const std::string& id) {
+rtc::scoped_refptr<MediaStream> MediaStream::Create(
+    const absl::string_view id) {
   return rtc::make_ref_counted<MediaStream>(id);
 }
 
-MediaStream::MediaStream(const std::string& id) : id_(id) {}
+MediaStream::MediaStream(const absl::string_view id) : id_(id) {}
 
 bool MediaStream::AddTrack(AudioTrackInterface* track) {
   return AddTrack<AudioTrackVector, AudioTrackInterface>(
@@ -55,7 +57,7 @@ bool MediaStream::RemoveTrack(VideoTrackInterface* track) {
 }
 
 rtc::scoped_refptr<AudioTrackInterface> MediaStream::FindAudioTrack(
-    const std::string& track_id) {
+    const absl::string_view track_id) {
   AudioTrackVector::iterator it = FindTrack(&audio_tracks_, track_id);
   if (it == audio_tracks_.end())
     return nullptr;
@@ -63,7 +65,7 @@ rtc::scoped_refptr<AudioTrackInterface> MediaStream::FindAudioTrack(
 }
 
 rtc::scoped_refptr<VideoTrackInterface> MediaStream::FindVideoTrack(
-    const std::string& track_id) {
+    const absl::string_view track_id) {
   VideoTrackVector::iterator it = FindTrack(&video_tracks_, track_id);
   if (it == video_tracks_.end())
     return nullptr;

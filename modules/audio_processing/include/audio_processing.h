@@ -626,7 +626,7 @@ class RTC_EXPORT AudioProcessing : public rtc::RefCountInterface {
   // return value of true indicates that the file has been
   // sucessfully opened, while a value of false indicates that
   // opening the file failed.
-  virtual bool CreateAndAttachAecDump(const std::string& file_name,
+  virtual bool CreateAndAttachAecDump(const absl::string_view file_name,
                                       int64_t max_log_size_bytes,
                                       rtc::TaskQueue* worker_queue) = 0;
   virtual bool CreateAndAttachAecDump(FILE* handle,

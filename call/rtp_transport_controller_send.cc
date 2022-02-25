@@ -291,7 +291,7 @@ bool RtpTransportControllerSend::IsRelevantRouteChange(
 }
 
 void RtpTransportControllerSend::OnNetworkRouteChanged(
-    const std::string& transport_name,
+    const absl::string_view transport_name,
     const rtc::NetworkRoute& network_route) {
   // Check if the network route is connected.
 

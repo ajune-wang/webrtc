@@ -43,6 +43,6 @@ void compute_metrics(const rtc::scoped_refptr<webrtc::test::Video>& video,
 
 // Compute freezing score metrics and prints the metrics
 // for a list of video files.
-int run_analysis(const std::string& video_file);
+int run_analysis(const absl::string_view video_file);
 
 #endif  // RTC_TOOLS_FRAME_ANALYZER_REFERENCE_LESS_VIDEO_ANALYSIS_LIB_H_

@@ -240,7 +240,7 @@ void PrintPlottableResults(const std::vector<std::string>& desired_graphs) {
   GetPlottableCounterPrinter().Print(desired_graphs);
 }
 
-bool WritePerfResults(const std::string& output_path) {
+bool WritePerfResults(const absl::string_view output_path) {
   std::string results = GetPerfResults();
   CreateDir(DirName(output_path));
   FILE* output = fopen(output_path.c_str(), "wb");

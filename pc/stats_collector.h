@@ -44,7 +44,7 @@ namespace webrtc {
 
 // Conversion function to convert candidate type string to the corresponding one
 // from  enum RTCStatsIceCandidateType.
-const char* IceCandidateTypeToStatsType(const std::string& candidate_type);
+const char* IceCandidateTypeToStatsType(const absl::string_view candidate_type);
 
 // Conversion function to convert adapter type to report string which are more
 // fitting to the general style of http://w3c.github.io/webrtc-stats. This is
@@ -93,14 +93,14 @@ class StatsCollector : public StatsCollectorInterface {
   // in the ExtractStatsFromList template.
   StatsReport* PrepareReport(bool local,
                              uint32_t ssrc,
-                             const std::string& track_id,
+                             const absl::string_view track_id,
                              const StatsReport::Id& transport_id,
                              StatsReport::Direction direction);
 
   StatsReport* PrepareADMReport();
 
   // A track is invalid if there is no report data for it.
-  bool IsValidTrack(const std::string& track_id);
+  bool IsValidTrack(const absl::string_view track_id);
 
   // Reset the internal cache timestamp to force an update of the stats next
   // time UpdateStats() is called. This call needs to be made on the signaling
@@ -145,7 +145,8 @@ class StatsCollector : public StatsCollectorInterface {
   // Overridden in unit tests to fake timing.
   virtual double GetTimeNow();
 
-  bool CopySelectedReports(const std::string& selector, StatsReports* reports);
+  bool CopySelectedReports(const absl::string_view selector,
+                           StatsReports* reports);
 
   // Helper method for creating IceCandidate report. `is_local` indicates
   // whether this candidate is local or remote.
@@ -158,7 +159,7 @@ class StatsCollector : public StatsCollectorInterface {
   StatsReport* AddCertificateReports(
       std::unique_ptr<rtc::SSLCertificateStats> cert_stats);
 
-  StatsReport* AddConnectionInfoReport(const std::string& content_name,
+  StatsReport* AddConnectionInfoReport(const absl::string_view content_name,
                                        int component,
                                        int connection_id,
                                        const StatsReport::Id& channel_report_id,
@@ -175,7 +176,7 @@ class StatsCollector : public StatsCollectorInterface {
       const std::map<std::string, std::string>& transport_names_by_mid);
   void ExtractSenderInfo();
   webrtc::StatsReport* GetReport(const StatsReport::StatsType& type,
-                                 const std::string& id,
+                                 const absl::string_view id,
                                  StatsReport::Direction direction);
 
   // Helper method to get stats from the local audio tracks.

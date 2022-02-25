@@ -62,7 +62,7 @@ static const VideoEncoder::Capabilities kCapabilities(false);
 
 class IvfFileWriterEncodedCallback : public EncodedImageCallback {
  public:
-  IvfFileWriterEncodedCallback(const std::string& file_name,
+  IvfFileWriterEncodedCallback(const absl::string_view file_name,
                                VideoCodecType video_codec_type,
                                int expected_frames_count)
       : file_writer_(
@@ -108,7 +108,7 @@ class Encoder {
   Encoder(int width,
           int height,
           int frames_count,
-          const std::string& output_file_name,
+          const absl::string_view output_file_name,
           VideoCodecType video_codec_type,
           std::unique_ptr<VideoEncoder> video_encoder)
       : video_encoder_(std::move(video_encoder)),

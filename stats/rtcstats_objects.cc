@@ -70,7 +70,7 @@ WEBRTC_RTCSTATS_IMPL(RTCCertificateStats, RTCStats, "certificate",
     &issuer_certificate_id)
 // clang-format on
 
-RTCCertificateStats::RTCCertificateStats(const std::string& id,
+RTCCertificateStats::RTCCertificateStats(const absl::string_view id,
                                          int64_t timestamp_us)
     : RTCCertificateStats(std::string(id), timestamp_us) {}
 
@@ -100,7 +100,7 @@ WEBRTC_RTCSTATS_IMPL(RTCCodecStats, RTCStats, "codec",
     &sdp_fmtp_line)
 // clang-format on
 
-RTCCodecStats::RTCCodecStats(const std::string& id, int64_t timestamp_us)
+RTCCodecStats::RTCCodecStats(const absl::string_view id, int64_t timestamp_us)
     : RTCCodecStats(std::string(id), timestamp_us) {}
 
 RTCCodecStats::RTCCodecStats(std::string&& id, int64_t timestamp_us)
@@ -135,7 +135,7 @@ WEBRTC_RTCSTATS_IMPL(RTCDataChannelStats, RTCStats, "data-channel",
     &bytes_received)
 // clang-format on
 
-RTCDataChannelStats::RTCDataChannelStats(const std::string& id,
+RTCDataChannelStats::RTCDataChannelStats(const absl::string_view id,
                                          int64_t timestamp_us)
     : RTCDataChannelStats(std::string(id), timestamp_us) {}
 
@@ -195,7 +195,7 @@ WEBRTC_RTCSTATS_IMPL(RTCIceCandidatePairStats, RTCStats, "candidate-pair",
     &bytes_discarded_on_send)
 // clang-format on
 
-RTCIceCandidatePairStats::RTCIceCandidatePairStats(const std::string& id,
+RTCIceCandidatePairStats::RTCIceCandidatePairStats(const absl::string_view id,
                                                    int64_t timestamp_us)
     : RTCIceCandidatePairStats(std::string(id), timestamp_us) {}
 
@@ -280,7 +280,7 @@ WEBRTC_RTCSTATS_IMPL(RTCIceCandidateStats, RTCStats, "abstract-ice-candidate",
     &url)
 // clang-format on
 
-RTCIceCandidateStats::RTCIceCandidateStats(const std::string& id,
+RTCIceCandidateStats::RTCIceCandidateStats(const absl::string_view id,
                                            int64_t timestamp_us,
                                            bool is_remote)
     : RTCIceCandidateStats(std::string(id), timestamp_us, is_remote) {}
@@ -319,7 +319,7 @@ RTCIceCandidateStats::~RTCIceCandidateStats() {}
 
 const char RTCLocalIceCandidateStats::kType[] = "local-candidate";
 
-RTCLocalIceCandidateStats::RTCLocalIceCandidateStats(const std::string& id,
+RTCLocalIceCandidateStats::RTCLocalIceCandidateStats(const absl::string_view id,
                                                      int64_t timestamp_us)
     : RTCIceCandidateStats(id, timestamp_us, false) {}
 
@@ -337,8 +337,9 @@ const char* RTCLocalIceCandidateStats::type() const {
 
 const char RTCRemoteIceCandidateStats::kType[] = "remote-candidate";
 
-RTCRemoteIceCandidateStats::RTCRemoteIceCandidateStats(const std::string& id,
-                                                       int64_t timestamp_us)
+RTCRemoteIceCandidateStats::RTCRemoteIceCandidateStats(
+    const absl::string_view id,
+    int64_t timestamp_us)
     : RTCIceCandidateStats(id, timestamp_us, true) {}
 
 RTCRemoteIceCandidateStats::RTCRemoteIceCandidateStats(std::string&& id,
@@ -359,7 +360,7 @@ WEBRTC_RTCSTATS_IMPL(RTCMediaStreamStats, RTCStats, "stream",
     &track_ids)
 // clang-format on
 
-RTCMediaStreamStats::RTCMediaStreamStats(const std::string& id,
+RTCMediaStreamStats::RTCMediaStreamStats(const absl::string_view id,
                                          int64_t timestamp_us)
     : RTCMediaStreamStats(std::string(id), timestamp_us) {}
 
@@ -421,7 +422,7 @@ WEBRTC_RTCSTATS_IMPL(RTCMediaStreamTrackStats, RTCStats, "track",
                      &sum_squared_frame_durations)
 // clang-format on
 
-RTCMediaStreamTrackStats::RTCMediaStreamTrackStats(const std::string& id,
+RTCMediaStreamTrackStats::RTCMediaStreamTrackStats(const absl::string_view id,
                                                    int64_t timestamp_us,
                                                    const char* kind)
     : RTCMediaStreamTrackStats(std::string(id), timestamp_us, kind) {}
@@ -538,7 +539,7 @@ WEBRTC_RTCSTATS_IMPL(RTCPeerConnectionStats, RTCStats, "peer-connection",
     &data_channels_closed)
 // clang-format on
 
-RTCPeerConnectionStats::RTCPeerConnectionStats(const std::string& id,
+RTCPeerConnectionStats::RTCPeerConnectionStats(const absl::string_view id,
                                                int64_t timestamp_us)
     : RTCPeerConnectionStats(std::string(id), timestamp_us) {}
 
@@ -566,7 +567,7 @@ WEBRTC_RTCSTATS_IMPL(RTCRTPStreamStats, RTCStats, "rtp",
     &media_type)
 // clang-format on
 
-RTCRTPStreamStats::RTCRTPStreamStats(const std::string& id,
+RTCRTPStreamStats::RTCRTPStreamStats(const absl::string_view id,
                                      int64_t timestamp_us)
     : RTCRTPStreamStats(std::string(id), timestamp_us) {}
 
@@ -598,7 +599,7 @@ WEBRTC_RTCSTATS_IMPL(
     &packets_discarded)
 // clang-format on
 
-RTCReceivedRtpStreamStats::RTCReceivedRtpStreamStats(const std::string&& id,
+RTCReceivedRtpStreamStats::RTCReceivedRtpStreamStats(const absl::string_view id,
                                                      int64_t timestamp_us)
     : RTCReceivedRtpStreamStats(std::string(id), timestamp_us) {}
 
@@ -625,7 +626,7 @@ WEBRTC_RTCSTATS_IMPL(
     &bytes_sent)
 // clang-format on
 
-RTCSentRtpStreamStats::RTCSentRtpStreamStats(const std::string&& id,
+RTCSentRtpStreamStats::RTCSentRtpStreamStats(const absl::string_view id,
                                              int64_t timestamp_us)
     : RTCSentRtpStreamStats(std::string(id), timestamp_us) {}
 
@@ -693,7 +694,7 @@ WEBRTC_RTCSTATS_IMPL(
     &qp_sum)
 // clang-format on
 
-RTCInboundRTPStreamStats::RTCInboundRTPStreamStats(const std::string& id,
+RTCInboundRTPStreamStats::RTCInboundRTPStreamStats(const absl::string_view id,
                                                    int64_t timestamp_us)
     : RTCInboundRTPStreamStats(std::string(id), timestamp_us) {}
 
@@ -833,7 +834,7 @@ WEBRTC_RTCSTATS_IMPL(
     &qp_sum)
 // clang-format on
 
-RTCOutboundRTPStreamStats::RTCOutboundRTPStreamStats(const std::string& id,
+RTCOutboundRTPStreamStats::RTCOutboundRTPStreamStats(const absl::string_view id,
                                                      int64_t timestamp_us)
     : RTCOutboundRTPStreamStats(std::string(id), timestamp_us) {}
 
@@ -917,7 +918,7 @@ WEBRTC_RTCSTATS_IMPL(
 // clang-format on
 
 RTCRemoteInboundRtpStreamStats::RTCRemoteInboundRtpStreamStats(
-    const std::string& id,
+    const absl::string_view id,
     int64_t timestamp_us)
     : RTCRemoteInboundRtpStreamStats(std::string(id), timestamp_us) {}
 
@@ -955,7 +956,7 @@ WEBRTC_RTCSTATS_IMPL(
 // clang-format on
 
 RTCRemoteOutboundRtpStreamStats::RTCRemoteOutboundRtpStreamStats(
-    const std::string& id,
+    const absl::string_view id,
     int64_t timestamp_us)
     : RTCRemoteOutboundRtpStreamStats(std::string(id), timestamp_us) {}
 
@@ -988,7 +989,7 @@ WEBRTC_RTCSTATS_IMPL(RTCMediaSourceStats, RTCStats, "parent-media-source",
     &kind)
 // clang-format on
 
-RTCMediaSourceStats::RTCMediaSourceStats(const std::string& id,
+RTCMediaSourceStats::RTCMediaSourceStats(const absl::string_view id,
                                          int64_t timestamp_us)
     : RTCMediaSourceStats(std::string(id), timestamp_us) {}
 
@@ -1013,7 +1014,7 @@ WEBRTC_RTCSTATS_IMPL(RTCAudioSourceStats, RTCMediaSourceStats, "media-source",
     &echo_return_loss_enhancement)
 // clang-format on
 
-RTCAudioSourceStats::RTCAudioSourceStats(const std::string& id,
+RTCAudioSourceStats::RTCAudioSourceStats(const absl::string_view id,
                                          int64_t timestamp_us)
     : RTCAudioSourceStats(std::string(id), timestamp_us) {}
 
@@ -1043,7 +1044,7 @@ WEBRTC_RTCSTATS_IMPL(RTCVideoSourceStats, RTCMediaSourceStats, "media-source",
     &frames_per_second)
 // clang-format on
 
-RTCVideoSourceStats::RTCVideoSourceStats(const std::string& id,
+RTCVideoSourceStats::RTCVideoSourceStats(const absl::string_view id,
                                          int64_t timestamp_us)
     : RTCVideoSourceStats(std::string(id), timestamp_us) {}
 
@@ -1080,7 +1081,7 @@ WEBRTC_RTCSTATS_IMPL(RTCTransportStats, RTCStats, "transport",
     &selected_candidate_pair_changes)
 // clang-format on
 
-RTCTransportStats::RTCTransportStats(const std::string& id,
+RTCTransportStats::RTCTransportStats(const absl::string_view id,
                                      int64_t timestamp_us)
     : RTCTransportStats(std::string(id), timestamp_us) {}
 

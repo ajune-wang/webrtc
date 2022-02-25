@@ -78,7 +78,7 @@ class UpdateTestSettingTask : public QueuedTask {
 }  // namespace
 
 PacketSender::PacketSender(TestController* test_controller,
-                           const std::string& config_file_path)
+                           const absl::string_view config_file_path)
     : packet_size_(0),
       send_interval_ms_(0),
       sequence_number_(0),

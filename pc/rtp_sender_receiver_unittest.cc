@@ -273,10 +273,11 @@ class RtpSenderReceiverTest
     cricket::StreamParams stream_params =
         CreateSimulcastStreamParams(rids.size());
     std::vector<cricket::RidDescription> rid_descriptions;
-    absl::c_transform(
-        rids, std::back_inserter(rid_descriptions), [](const std::string& rid) {
-          return cricket::RidDescription(rid, cricket::RidDirection::kSend);
-        });
+    absl::c_transform(rids, std::back_inserter(rid_descriptions),
+                      [](const absl::string_view rid) {
+                        return cricket::RidDescription(
+                            rid, cricket::RidDirection::kSend);
+                      });
     stream_params.set_rids(rid_descriptions);
     return CreateVideoRtpSender(stream_params);
   }
@@ -441,7 +442,7 @@ class RtpSenderReceiverTest
       VideoRtpSender* sender) {
     std::vector<std::string> expected;
     absl::c_copy_if(all_layers, std::back_inserter(expected),
-                    [&disabled_layers](const std::string& rid) {
+                    [&disabled_layers](const absl::string_view rid) {
                       return !absl::c_linear_search(disabled_layers, rid);
                     });
 

@@ -22,7 +22,7 @@ namespace conversational_speech {
 
 MultiEndCall::MultiEndCall(
     rtc::ArrayView<const Turn> timing,
-    const std::string& audiotracks_path,
+    const absl::string_view audiotracks_path,
     std::unique_ptr<WavReaderAbstractFactory> wavreader_abstract_factory)
     : timing_(timing),
       audiotracks_path_(audiotracks_path),

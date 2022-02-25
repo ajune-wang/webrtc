@@ -133,7 +133,7 @@ class RtpTransceiver final
   //     The callback allows us to combine the transport lookup with network
   //     state initialization of the channel object.
   void SetChannel(cricket::ChannelInterface* channel,
-                  std::function<RtpTransportInternal*(const std::string&)>
+                  std::function<RtpTransportInternal*(const absl::string_view)>
                       transport_lookup);
 
   // Adds an RtpSender of the appropriate type to be owned by this transceiver.

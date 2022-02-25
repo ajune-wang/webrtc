@@ -105,7 +105,7 @@ const int kInitSeed = 0x12345678;
 const int kPacketLossTimeUnitMs = 10;
 
 // Common validator for file names.
-static bool ValidateFilename(const std::string& value, bool is_output) {
+static bool ValidateFilename(const absl::string_view value, bool is_output) {
   if (!is_output) {
     RTC_CHECK_NE(value.substr(value.find_last_of('.') + 1), "wav")
         << "WAV file input is not supported";

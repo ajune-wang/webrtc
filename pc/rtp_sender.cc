@@ -110,7 +110,7 @@ bool UnimplementedRtpParameterHasValue(const RtpParameters& parameters) {
 }
 
 RtpSenderBase::RtpSenderBase(rtc::Thread* worker_thread,
-                             const std::string& id,
+                             const absl::string_view id,
                              SetStreamsObserver* set_streams_observer)
     : signaling_thread_(rtc::Thread::Current()),
       worker_thread_(worker_thread),
@@ -376,9 +376,10 @@ RTCError RtpSenderBase::DisableEncodingLayers(
 
   for (RtpEncodingParameters& encoding : parameters.encodings) {
     // Remain active if not in the disable list.
-    encoding.active &= absl::c_none_of(
-        rids,
-        [&encoding](const std::string& rid) { return encoding.rid == rid; });
+    encoding.active &=
+        absl::c_none_of(rids, [&encoding](const absl::string_view rid) {
+          return encoding.rid == rid;
+        });
   }
 
   RTCError result = SetParametersInternal(parameters);
@@ -433,7 +434,7 @@ void LocalAudioSinkAdapter::SetSink(cricket::AudioSource::Sink* sink) {
 
 rtc::scoped_refptr<AudioRtpSender> AudioRtpSender::Create(
     rtc::Thread* worker_thread,
-    const std::string& id,
+    const absl::string_view id,
     StatsCollectorInterface* stats,
     SetStreamsObserver* set_streams_observer) {
   return rtc::make_ref_counted<AudioRtpSender>(worker_thread, id, stats,
@@ -441,7 +442,7 @@ rtc::scoped_refptr<AudioRtpSender> AudioRtpSender::Create(
 }
 
 AudioRtpSender::AudioRtpSender(rtc::Thread* worker_thread,
-                               const std::string& id,
+                               const absl::string_view id,
                                StatsCollectorInterface* stats,
                                SetStreamsObserver* set_streams_observer)
     : RtpSenderBase(worker_thread, id, set_streams_observer),
@@ -584,14 +585,14 @@ void AudioRtpSender::ClearSend() {
 
 rtc::scoped_refptr<VideoRtpSender> VideoRtpSender::Create(
     rtc::Thread* worker_thread,
-    const std::string& id,
+    const absl::string_view id,
     SetStreamsObserver* set_streams_observer) {
   return rtc::make_ref_counted<VideoRtpSender>(worker_thread, id,
                                                set_streams_observer);
 }
 
 VideoRtpSender::VideoRtpSender(rtc::Thread* worker_thread,
-                               const std::string& id,
+                               const absl::string_view id,
                                SetStreamsObserver* set_streams_observer)
     : RtpSenderBase(worker_thread, id, set_streams_observer) {}
 

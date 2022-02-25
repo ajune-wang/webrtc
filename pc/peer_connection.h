@@ -155,8 +155,8 @@ class PeerConnection : public PeerConnectionInternal,
       const RtpTransceiverInit& init) override;
 
   rtc::scoped_refptr<RtpSenderInterface> CreateSender(
-      const std::string& kind,
-      const std::string& stream_id) override;
+      const absl::string_view kind,
+      const absl::string_view stream_id) override;
 
   std::vector<rtc::scoped_refptr<RtpSenderInterface>> GetSenders()
       const override;
@@ -166,7 +166,7 @@ class PeerConnection : public PeerConnectionInternal,
       const override;
 
   RTCErrorOr<rtc::scoped_refptr<DataChannelInterface>> CreateDataChannelOrError(
-      const std::string& label,
+      const absl::string_view label,
       const DataChannelInit* config) override;
   // WARNING: LEGACY. See peerconnectioninterface.h
   bool GetStats(StatsObserver* observer,
@@ -247,9 +247,9 @@ class PeerConnection : public PeerConnectionInternal,
   void SetAudioRecording(bool recording) override;
 
   rtc::scoped_refptr<DtlsTransportInterface> LookupDtlsTransportByMid(
-      const std::string& mid) override;
+      const absl::string_view mid) override;
   rtc::scoped_refptr<DtlsTransport> LookupDtlsTransportByMidInternal(
-      const std::string& mid);
+      const absl::string_view mid);
 
   rtc::scoped_refptr<SctpTransportInterface> GetSctpTransport() const override;
 
@@ -303,13 +303,14 @@ class PeerConnection : public PeerConnectionInternal,
   Call::Stats GetCallStats() override;
 
   bool GetLocalCertificate(
-      const std::string& transport_name,
+      const absl::string_view transport_name,
       rtc::scoped_refptr<rtc::RTCCertificate>* certificate) override;
   std::unique_ptr<rtc::SSLCertChain> GetRemoteSSLCertChain(
-      const std::string& transport_name) override;
-  bool IceRestartPending(const std::string& content_name) const override;
-  bool NeedsIceRestart(const std::string& content_name) const override;
-  bool GetSslRole(const std::string& content_name, rtc::SSLRole* role) override;
+      const absl::string_view transport_name) override;
+  bool IceRestartPending(const absl::string_view content_name) const override;
+  bool NeedsIceRestart(const absl::string_view content_name) const override;
+  bool GetSslRole(const absl::string_view content_name,
+                  rtc::SSLRole* role) override;
 
   // Functions needed by DataChannelController
   void NoteDataAddedEvent() override { NoteUsageEvent(UsageEvent::DATA_ADDED); }
@@ -377,7 +378,7 @@ class PeerConnection : public PeerConnectionInternal,
   void NoteUsageEvent(UsageEvent event) override;
 
   // Asynchronously adds a remote candidate on the network thread.
-  void AddRemoteCandidate(const std::string& mid,
+  void AddRemoteCandidate(const absl::string_view mid,
                           const cricket::Candidate& candidate) override;
 
   // Report the UMA metric SdpFormatReceived for the given remote description.
@@ -408,7 +409,7 @@ class PeerConnection : public PeerConnectionInternal,
   // channels are configured this will return nullopt.
   absl::optional<std::string> GetDataMid() const override;
 
-  void SetSctpDataMid(const std::string& mid) override;
+  void SetSctpDataMid(const absl::string_view mid) override;
 
   void ResetSctpDataMid() override;
 
@@ -432,16 +433,16 @@ class PeerConnection : public PeerConnectionInternal,
       bool fire_callback = true) override;
 
   // Returns rtp transport, result can not be nullptr.
-  RtpTransportInternal* GetRtpTransport(const std::string& mid);
+  RtpTransportInternal* GetRtpTransport(const absl::string_view mid);
 
   // Returns true if SRTP (either using DTLS-SRTP or SDES) is required by
   // this session.
   bool SrtpRequired() const override;
 
-  bool SetupDataChannelTransport_n(const std::string& mid) override
+  bool SetupDataChannelTransport_n(const absl::string_view mid) override
       RTC_RUN_ON(network_thread());
   void TeardownDataChannelTransport_n() override RTC_RUN_ON(network_thread());
-  cricket::ChannelInterface* GetChannel(const std::string& mid)
+  cricket::ChannelInterface* GetChannel(const absl::string_view mid)
       RTC_RUN_ON(network_thread());
 
   // Functions made public for testing.
@@ -490,11 +491,11 @@ class PeerConnection : public PeerConnectionInternal,
   void OnIceCandidate(std::unique_ptr<IceCandidateInterface> candidate)
       RTC_RUN_ON(signaling_thread());
   // Gathering of an ICE candidate failed.
-  void OnIceCandidateError(const std::string& address,
+  void OnIceCandidateError(const absl::string_view address,
                            int port,
-                           const std::string& url,
+                           const absl::string_view url,
                            int error_code,
-                           const std::string& error_text)
+                           const absl::string_view error_text)
       RTC_RUN_ON(signaling_thread());
   // Some local ICE candidates have been removed.
   void OnIceCandidatesRemoved(const std::vector<cricket::Candidate>& candidates)
@@ -544,13 +545,13 @@ class PeerConnection : public PeerConnectionInternal,
   // from `description`. Returns false if it's not available.
   static bool GetTransportDescription(
       const cricket::SessionDescription* description,
-      const std::string& content_name,
+      const absl::string_view content_name,
       cricket::TransportDescription* info);
 
   // Returns the media index for a local ice candidate given the content name.
   // Returns false if the local session description does not have a media
   // content called  `content_name`.
-  bool GetLocalCandidateMediaIndex(const std::string& content_name,
+  bool GetLocalCandidateMediaIndex(const absl::string_view content_name,
                                    int* sdp_mline_index)
       RTC_RUN_ON(signaling_thread());
 
@@ -560,7 +561,7 @@ class PeerConnection : public PeerConnectionInternal,
   void OnTransportControllerGatheringState(cricket::IceGatheringState state)
       RTC_RUN_ON(signaling_thread());
   void OnTransportControllerCandidatesGathered(
-      const std::string& transport_name,
+      const absl::string_view transport_name,
       const std::vector<cricket::Candidate>& candidates)
       RTC_RUN_ON(signaling_thread());
   void OnTransportControllerCandidateError(
@@ -599,7 +600,7 @@ class PeerConnection : public PeerConnectionInternal,
   // changed (as a result of BUNDLE negotiation, or m= sections being
   // rejected).
   bool OnTransportChanged(
-      const std::string& mid,
+      const absl::string_view mid,
       RtpTransportInternal* rtp_transport,
       rtc::scoped_refptr<DtlsTransport> dtls_transport,
       DataChannelTransportInterface* data_channel_transport) override;

@@ -445,7 +445,7 @@ static const char kDtlsSdesFallbackSdp[] =
 class RtcEventLogOutputNull final : public RtcEventLogOutput {
  public:
   bool IsActive() const override { return true; }
-  bool Write(const std::string& output) override { return true; }
+  bool Write(const absl::string_view output) override { return true; }
 };
 
 using ::cricket::StreamParams;
@@ -495,8 +495,8 @@ void SetSsrcToZero(std::string* sdp) {
 
 // Check if `streams` contains the specified track.
 bool ContainsTrack(const std::vector<cricket::StreamParams>& streams,
-                   const std::string& stream_id,
-                   const std::string& track_id) {
+                   const absl::string_view stream_id,
+                   const absl::string_view track_id) {
   for (const cricket::StreamParams& params : streams) {
     if (params.first_stream_id() == stream_id && params.id == track_id) {
       return true;
@@ -508,7 +508,7 @@ bool ContainsTrack(const std::vector<cricket::StreamParams>& streams,
 // Check if `senders` contains the specified sender, by id.
 bool ContainsSender(
     const std::vector<rtc::scoped_refptr<RtpSenderInterface>>& senders,
-    const std::string& id) {
+    const absl::string_view id) {
   for (const auto& sender : senders) {
     if (sender->id() == id) {
       return true;
@@ -520,8 +520,8 @@ bool ContainsSender(
 // Check if `senders` contains the specified sender, by id and stream id.
 bool ContainsSender(
     const std::vector<rtc::scoped_refptr<RtpSenderInterface>>& senders,
-    const std::string& id,
-    const std::string& stream_id) {
+    const absl::string_view id,
+    const absl::string_view stream_id) {
   for (const auto& sender : senders) {
     if (sender->id() == id && sender->stream_ids()[0] == stream_id) {
       return true;
@@ -718,9 +718,9 @@ class PeerConnectionInterfaceBaseTest : public ::testing::Test {
     return CreatePeerConnection(config);
   }
 
-  void CreatePeerConnectionWithIceServer(const std::string& uri,
-                                         const std::string& username,
-                                         const std::string& password) {
+  void CreatePeerConnectionWithIceServer(const absl::string_view uri,
+                                         const absl::string_view username,
+                                         const absl::string_view password) {
     PeerConnectionInterface::RTCConfiguration config;
     PeerConnectionInterface::IceServer server;
     server.uri = uri;
@@ -757,7 +757,7 @@ class PeerConnectionInterfaceBaseTest : public ::testing::Test {
     EXPECT_EQ(PeerConnectionInterface::kStable, observer_.state_);
   }
 
-  void CreatePeerConnectionExpectFail(const std::string& uri) {
+  void CreatePeerConnectionExpectFail(const absl::string_view uri) {
     PeerConnectionInterface::RTCConfiguration config;
     PeerConnectionInterface::IceServer server;
     server.uri = uri;
@@ -810,18 +810,18 @@ class PeerConnectionInterfaceBaseTest : public ::testing::Test {
   }
 
   rtc::scoped_refptr<VideoTrackInterface> CreateVideoTrack(
-      const std::string& label) {
+      const absl::string_view label) {
     return pc_factory_->CreateVideoTrack(label, FakeVideoTrackSource::Create());
   }
 
-  void AddVideoTrack(const std::string& track_label,
+  void AddVideoTrack(const absl::string_view track_label,
                      const std::vector<std::string>& stream_ids = {}) {
     auto sender_or_error =
         pc_->AddTrack(CreateVideoTrack(track_label), stream_ids);
     ASSERT_EQ(RTCErrorType::NONE, sender_or_error.error().type());
   }
 
-  void AddVideoStream(const std::string& label) {
+  void AddVideoStream(const absl::string_view label) {
     rtc::scoped_refptr<MediaStreamInterface> stream(
         pc_factory_->CreateLocalMediaStream(label));
     stream->AddTrack(CreateVideoTrack(label + "v0"));
@@ -829,27 +829,27 @@ class PeerConnectionInterfaceBaseTest : public ::testing::Test {
   }
 
   rtc::scoped_refptr<AudioTrackInterface> CreateAudioTrack(
-      const std::string& label) {
+      const absl::string_view label) {
     return pc_factory_->CreateAudioTrack(label, nullptr);
   }
 
-  void AddAudioTrack(const std::string& track_label,
+  void AddAudioTrack(const absl::string_view track_label,
                      const std::vector<std::string>& stream_ids = {}) {
     auto sender_or_error =
         pc_->AddTrack(CreateAudioTrack(track_label), stream_ids);
     ASSERT_EQ(RTCErrorType::NONE, sender_or_error.error().type());
   }
 
-  void AddAudioStream(const std::string& label) {
+  void AddAudioStream(const absl::string_view label) {
     rtc::scoped_refptr<MediaStreamInterface> stream(
         pc_factory_->CreateLocalMediaStream(label));
     stream->AddTrack(CreateAudioTrack(label + "a0"));
     ASSERT_TRUE(pc_->AddStream(stream));
   }
 
-  void AddAudioVideoStream(const std::string& stream_id,
-                           const std::string& audio_track_label,
-                           const std::string& video_track_label) {
+  void AddAudioVideoStream(const absl::string_view stream_id,
+                           const absl::string_view audio_track_label,
+                           const absl::string_view video_track_label) {
     // Create a local stream.
     rtc::scoped_refptr<MediaStreamInterface> stream(
         pc_factory_->CreateLocalMediaStream(stream_id));
@@ -978,7 +978,7 @@ class PeerConnectionInterfaceBaseTest : public ::testing::Test {
     EXPECT_EQ(PeerConnectionInterface::kHaveRemoteOffer, observer_.state_);
   }
 
-  void CreateAndSetRemoteOffer(const std::string& sdp) {
+  void CreateAndSetRemoteOffer(const absl::string_view sdp) {
     std::unique_ptr<SessionDescriptionInterface> remote_offer(
         webrtc::CreateSessionDescription(SdpType::kOffer, sdp));
     EXPECT_TRUE(DoSetRemoteDescription(std::move(remote_offer)));
@@ -1044,7 +1044,7 @@ class PeerConnectionInterfaceBaseTest : public ::testing::Test {
     EXPECT_TRUE_WAIT(observer_.ice_gathering_complete_, kTimeout);
   }
 
-  void CreateAnswerAsRemoteDescription(const std::string& sdp) {
+  void CreateAnswerAsRemoteDescription(const absl::string_view sdp) {
     std::unique_ptr<SessionDescriptionInterface> answer(
         webrtc::CreateSessionDescription(SdpType::kAnswer, sdp));
     ASSERT_TRUE(answer);
@@ -1052,7 +1052,7 @@ class PeerConnectionInterfaceBaseTest : public ::testing::Test {
     EXPECT_EQ(PeerConnectionInterface::kStable, observer_.state_);
   }
 
-  void CreatePrAnswerAndAnswerAsRemoteDescription(const std::string& sdp) {
+  void CreatePrAnswerAndAnswerAsRemoteDescription(const absl::string_view sdp) {
     std::unique_ptr<SessionDescriptionInterface> pr_answer(
         webrtc::CreateSessionDescription(SdpType::kPrAnswer, sdp));
     ASSERT_TRUE(pr_answer);
@@ -1068,7 +1068,7 @@ class PeerConnectionInterfaceBaseTest : public ::testing::Test {
   // Waits until a remote stream with the given id is signaled. This helper
   // function will verify both OnAddTrack and OnAddStream (Plan B only) are
   // called with the given stream id and expected number of tracks.
-  void WaitAndVerifyOnAddStream(const std::string& stream_id,
+  void WaitAndVerifyOnAddStream(const absl::string_view stream_id,
                                 int expected_num_tracks) {
     // Verify that both OnAddStream and OnAddTrack are called.
     EXPECT_EQ_WAIT(stream_id, observer_.GetLastAddedStreamId(), kTimeout);
@@ -1131,14 +1131,14 @@ class PeerConnectionInterfaceBaseTest : public ::testing::Test {
         webrtc::CreateSessionDescription(SdpType::kOffer, sdp_ms1));
   }
 
-  void AddAudioTrack(const std::string& track_id,
+  void AddAudioTrack(const absl::string_view track_id,
                      MediaStreamInterface* stream) {
     rtc::scoped_refptr<webrtc::AudioTrackInterface> audio_track(
         webrtc::AudioTrack::Create(track_id, nullptr));
     ASSERT_TRUE(stream->AddTrack(audio_track));
   }
 
-  void AddVideoTrack(const std::string& track_id,
+  void AddVideoTrack(const absl::string_view track_id,
                      MediaStreamInterface* stream) {
     rtc::scoped_refptr<webrtc::VideoTrackInterface> video_track(
         webrtc::VideoTrack::Create(track_id,

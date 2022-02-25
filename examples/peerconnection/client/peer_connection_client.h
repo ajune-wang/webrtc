@@ -24,9 +24,10 @@ typedef std::map<int, std::string> Peers;
 struct PeerConnectionClientObserver {
   virtual void OnSignedIn() = 0;  // Called when we're logged on.
   virtual void OnDisconnected() = 0;
-  virtual void OnPeerConnected(int id, const std::string& name) = 0;
+  virtual void OnPeerConnected(int id, const absl::string_view name) = 0;
   virtual void OnPeerDisconnected(int peer_id) = 0;
-  virtual void OnMessageFromPeer(int peer_id, const std::string& message) = 0;
+  virtual void OnMessageFromPeer(int peer_id,
+                                 const absl::string_view message) = 0;
   virtual void OnMessageSent(int err) = 0;
   virtual void OnServerConnectionFailure() = 0;
 
@@ -55,11 +56,11 @@ class PeerConnectionClient : public sigslot::has_slots<>,
 
   void RegisterObserver(PeerConnectionClientObserver* callback);
 
-  void Connect(const std::string& server,
+  void Connect(const absl::string_view server,
                int port,
-               const std::string& client_name);
+               const absl::string_view client_name);
 
-  bool SendToPeer(int peer_id, const std::string& message);
+  bool SendToPeer(int peer_id, const absl::string_view message);
   bool SendHangUp(int peer_id);
   bool IsSendingMessage();
 
@@ -75,15 +76,15 @@ class PeerConnectionClient : public sigslot::has_slots<>,
   bool ConnectControlSocket();
   void OnConnect(rtc::Socket* socket);
   void OnHangingGetConnect(rtc::Socket* socket);
-  void OnMessageFromPeer(int peer_id, const std::string& message);
+  void OnMessageFromPeer(int peer_id, const absl::string_view message);
 
   // Quick and dirty support for parsing HTTP header values.
-  bool GetHeaderValue(const std::string& data,
+  bool GetHeaderValue(const absl::string_view data,
                       size_t eoh,
                       const char* header_pattern,
                       size_t* value);
 
-  bool GetHeaderValue(const std::string& data,
+  bool GetHeaderValue(const absl::string_view data,
                       size_t eoh,
                       const char* header_pattern,
                       std::string* value);
@@ -98,14 +99,14 @@ class PeerConnectionClient : public sigslot::has_slots<>,
   void OnHangingGetRead(rtc::Socket* socket);
 
   // Parses a single line entry in the form "<name>,<id>,<connected>"
-  bool ParseEntry(const std::string& entry,
+  bool ParseEntry(const absl::string_view entry,
                   std::string* name,
                   int* id,
                   bool* connected);
 
-  int GetResponseStatus(const std::string& response);
+  int GetResponseStatus(const absl::string_view response);
 
-  bool ParseServerResponse(const std::string& response,
+  bool ParseServerResponse(const absl::string_view response,
                            size_t content_length,
                            size_t* peer_id,
                            size_t* eoh);

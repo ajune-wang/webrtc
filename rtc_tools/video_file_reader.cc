@@ -117,7 +117,7 @@ Video::Iterator Video::end() const {
   return Iterator(rtc::scoped_refptr<const Video>(this), number_of_frames());
 }
 
-rtc::scoped_refptr<Video> OpenY4mFile(const std::string& file_name) {
+rtc::scoped_refptr<Video> OpenY4mFile(const absl::string_view file_name) {
   FILE* file = fopen(file_name.c_str(), "rb");
   if (file == nullptr) {
     RTC_LOG(LS_ERROR) << "Could not open input file for reading: " << file_name;
@@ -228,7 +228,7 @@ rtc::scoped_refptr<Video> OpenY4mFile(const std::string& file_name) {
                                           file);
 }
 
-rtc::scoped_refptr<Video> OpenYuvFile(const std::string& file_name,
+rtc::scoped_refptr<Video> OpenYuvFile(const absl::string_view file_name,
                                       int width,
                                       int height) {
   FILE* file = fopen(file_name.c_str(), "rb");
@@ -269,7 +269,7 @@ rtc::scoped_refptr<Video> OpenYuvFile(const std::string& file_name,
   return rtc::make_ref_counted<VideoFile>(width, height, frame_positions, file);
 }
 
-rtc::scoped_refptr<Video> OpenYuvOrY4mFile(const std::string& file_name,
+rtc::scoped_refptr<Video> OpenYuvOrY4mFile(const absl::string_view file_name,
                                            int width,
                                            int height) {
   if (absl::EndsWith(file_name, ".yuv"))

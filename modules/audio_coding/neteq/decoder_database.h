@@ -41,7 +41,7 @@ class DecoderDatabase {
     DecoderInfo(const SdpAudioFormat& audio_format,
                 absl::optional<AudioCodecPairId> codec_pair_id,
                 AudioDecoderFactory* factory,
-                const std::string& codec_name);
+                const absl::string_view codec_name);
     explicit DecoderInfo(const SdpAudioFormat& audio_format,
                          absl::optional<AudioCodecPairId> codec_pair_id,
                          AudioDecoderFactory* factory = nullptr);
@@ -82,7 +82,7 @@ class DecoderDatabase {
     // Returns true if the decoder's format is named `name`.
     bool IsType(const char* name) const;
     // Returns true if the decoder's format is named `name`.
-    bool IsType(const std::string& name) const;
+    bool IsType(const absl::string_view name) const;
 
     const std::string& get_name() const { return name_; }
 
@@ -186,7 +186,7 @@ class DecoderDatabase {
   bool IsType(uint8_t rtp_payload_type, const char* name) const;
 
   // Returns if `rtp_payload_type` is registered with a format named `name`.
-  bool IsType(uint8_t rtp_payload_type, const std::string& name) const;
+  bool IsType(uint8_t rtp_payload_type, const absl::string_view name) const;
 
   // Returns true if `rtp_payload_type` is registered as comfort noise.
   bool IsComfortNoise(uint8_t rtp_payload_type) const;

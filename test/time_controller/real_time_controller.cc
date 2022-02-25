@@ -50,7 +50,7 @@ std::unique_ptr<ProcessThread> RealTimeController::CreateProcessThread(
 }
 
 std::unique_ptr<rtc::Thread> RealTimeController::CreateThread(
-    const std::string& name,
+    const absl::string_view name,
     std::unique_ptr<rtc::SocketServer> socket_server) {
   if (!socket_server)
     socket_server = std::make_unique<rtc::NullSocketServer>();

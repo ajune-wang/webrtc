@@ -23,7 +23,7 @@ namespace webrtc {
 
 class RtpFileWriterTest : public ::testing::Test {
  public:
-  void Init(const std::string& filename) {
+  void Init(const absl::string_view filename) {
     filename_ = test::OutputPath() + filename;
     rtp_writer_.reset(
         test::RtpFileWriter::Create(test::RtpFileWriter::kRtpDump, filename_));

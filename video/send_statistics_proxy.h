@@ -60,7 +60,7 @@ class SendStatisticsProxy : public VideoStreamEncoderObserver,
                           const CodecSpecificInfo* codec_info) override;
 
   void OnEncoderImplementationChanged(
-      const std::string& implementation_name) override;
+      const absl::string_view implementation_name) override;
 
   // Used to update incoming frame rate.
   void OnIncomingFrame(int width, int height) override;

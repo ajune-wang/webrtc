@@ -54,7 +54,7 @@ class VideoRtpReceiver : public RtpReceiverInternal {
   // https://crbug.com/webrtc/9480
   VideoRtpReceiver(
       rtc::Thread* worker_thread,
-      const std::string& receiver_id,
+      const absl::string_view receiver_id,
       const std::vector<rtc::scoped_refptr<MediaStreamInterface>>& streams);
 
   virtual ~VideoRtpReceiver();

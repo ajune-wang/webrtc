@@ -106,7 +106,7 @@ NetworkQualityMetricsReporter::PopulateStats(
 }
 
 void NetworkQualityMetricsReporter::ReportStats(
-    const std::string& network_label,
+    const absl::string_view network_label,
     std::unique_ptr<EmulatedNetworkStats> stats,
     int64_t packet_loss) {
   ReportResult("bytes_sent", network_label, stats->BytesSent().bytes(),
@@ -132,8 +132,9 @@ void NetworkQualityMetricsReporter::ReportStats(
   ReportResult("sent_packets_loss", network_label, packet_loss, "unitless");
 }
 
-void NetworkQualityMetricsReporter::ReportPCStats(const std::string& pc_label,
-                                                  const PCStats& stats) {
+void NetworkQualityMetricsReporter::ReportPCStats(
+    const absl::string_view pc_label,
+    const PCStats& stats) {
   ReportResult("payload_bytes_received", pc_label,
                stats.payload_received.bytes(), "sizeInBytes");
   ReportResult("payload_bytes_sent", pc_label, stats.payload_sent.bytes(),
@@ -141,17 +142,17 @@ void NetworkQualityMetricsReporter::ReportPCStats(const std::string& pc_label,
 }
 
 void NetworkQualityMetricsReporter::ReportResult(
-    const std::string& metric_name,
-    const std::string& network_label,
+    const absl::string_view metric_name,
+    const absl::string_view network_label,
     const double value,
-    const std::string& unit) const {
+    const absl::string_view unit) const {
   test::PrintResult(metric_name, /*modifier=*/"",
                     GetTestCaseName(network_label), value, unit,
                     /*important=*/false);
 }
 
 std::string NetworkQualityMetricsReporter::GetTestCaseName(
-    const std::string& network_label) const {
+    const absl::string_view network_label) const {
   return test_case_name_ + "/" + network_label;
 }
 

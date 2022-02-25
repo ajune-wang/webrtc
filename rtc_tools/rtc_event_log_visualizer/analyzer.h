@@ -92,7 +92,7 @@ class EventLogAnalyzer {
   template <typename IterableType>
   void CreateAccumulatedPacketsTimeSeries(Plot* plot,
                                           const IterableType& packets,
-                                          const std::string& label);
+                                          const absl::string_view label);
 
   std::string GetCandidatePairLogDescriptionFromId(uint32_t candidate_pair_id);
 

@@ -121,7 +121,7 @@ void compute_metrics(const rtc::scoped_refptr<webrtc::test::Video>& video,
   }
 }
 
-int run_analysis(const std::string& video_file) {
+int run_analysis(const absl::string_view video_file) {
   std::vector<double> psnr_per_frame;
   std::vector<double> ssim_per_frame;
   rtc::scoped_refptr<webrtc::test::Video> video =

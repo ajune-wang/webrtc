@@ -266,14 +266,15 @@ PeerConnectionFactory::CreatePeerConnectionOrError(
 }
 
 rtc::scoped_refptr<MediaStreamInterface>
-PeerConnectionFactory::CreateLocalMediaStream(const std::string& stream_id) {
+PeerConnectionFactory::CreateLocalMediaStream(
+    const absl::string_view stream_id) {
   RTC_DCHECK(signaling_thread()->IsCurrent());
   return MediaStreamProxy::Create(signaling_thread(),
                                   MediaStream::Create(stream_id));
 }
 
 rtc::scoped_refptr<VideoTrackInterface> PeerConnectionFactory::CreateVideoTrack(
-    const std::string& id,
+    const absl::string_view id,
     VideoTrackSourceInterface* source) {
   RTC_DCHECK(signaling_thread()->IsCurrent());
   rtc::scoped_refptr<VideoTrackInterface> track(
@@ -282,7 +283,7 @@ rtc::scoped_refptr<VideoTrackInterface> PeerConnectionFactory::CreateVideoTrack(
 }
 
 rtc::scoped_refptr<AudioTrackInterface> PeerConnectionFactory::CreateAudioTrack(
-    const std::string& id,
+    const absl::string_view id,
     AudioSourceInterface* source) {
   RTC_DCHECK(signaling_thread()->IsCurrent());
   rtc::scoped_refptr<AudioTrackInterface> track(

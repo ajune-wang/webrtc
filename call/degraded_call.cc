@@ -305,7 +305,7 @@ void DegradedCall::OnLocalSsrcUpdated(AudioReceiveStream& stream,
 }
 
 void DegradedCall::OnUpdateSyncGroup(AudioReceiveStream& stream,
-                                     const std::string& sync_group) {
+                                     const absl::string_view sync_group) {
   call_->OnUpdateSyncGroup(stream, sync_group);
 }
 

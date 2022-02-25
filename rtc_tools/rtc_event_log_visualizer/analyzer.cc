@@ -470,7 +470,7 @@ template <typename IterableType>
 void EventLogAnalyzer::CreateAccumulatedPacketsTimeSeries(
     Plot* plot,
     const IterableType& packets,
-    const std::string& label) {
+    const absl::string_view label) {
   TimeSeries time_series(label, LineStyle::kStep);
   for (size_t i = 0; i < packets.size(); i++) {
     float x = config_.GetCallTimeSec(packets[i].log_time());

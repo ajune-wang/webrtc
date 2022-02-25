@@ -34,8 +34,8 @@ class TestUDPPort : public UDPPort {
                              rtc::Network* network,
                              uint16_t min_port,
                              uint16_t max_port,
-                             const std::string& username,
-                             const std::string& password,
+                             const absl::string_view username,
+                             const absl::string_view password,
                              bool emit_localhost_for_anyaddress) {
     TestUDPPort* port =
         new TestUDPPort(thread, factory, network, min_port, max_port, username,
@@ -53,8 +53,8 @@ class TestUDPPort : public UDPPort {
               rtc::Network* network,
               uint16_t min_port,
               uint16_t max_port,
-              const std::string& username,
-              const std::string& password,
+              const absl::string_view username,
+              const absl::string_view password,
               bool emit_localhost_for_anyaddress)
       : UDPPort(thread,
                 factory,
@@ -74,10 +74,10 @@ class FakePortAllocatorSession : public PortAllocatorSession {
   FakePortAllocatorSession(PortAllocator* allocator,
                            rtc::Thread* network_thread,
                            rtc::PacketSocketFactory* factory,
-                           const std::string& content_name,
+                           const absl::string_view content_name,
                            int component,
-                           const std::string& ice_ufrag,
-                           const std::string& ice_pwd)
+                           const absl::string_view ice_ufrag,
+                           const absl::string_view ice_pwd)
       : PortAllocatorSession(content_name,
                              component,
                              ice_ufrag,
@@ -225,10 +225,10 @@ class FakePortAllocator : public cricket::PortAllocator {
   void SetNetworkIgnoreMask(int network_ignore_mask) override {}
 
   cricket::PortAllocatorSession* CreateSessionInternal(
-      const std::string& content_name,
+      const absl::string_view content_name,
       int component,
-      const std::string& ice_ufrag,
-      const std::string& ice_pwd) override {
+      const absl::string_view ice_ufrag,
+      const absl::string_view ice_pwd) override {
     return new FakePortAllocatorSession(this, network_thread_, factory_,
                                         content_name, component, ice_ufrag,
                                         ice_pwd);

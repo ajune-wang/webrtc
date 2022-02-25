@@ -134,7 +134,7 @@ static bool IsMediaContentOfType(const ContentInfo* content,
 }
 
 static bool CreateCryptoParams(int tag,
-                               const std::string& cipher,
+                               const absl::string_view cipher,
                                CryptoParams* crypto_out) {
   int key_len;
   int salt_len;
@@ -159,7 +159,7 @@ static bool CreateCryptoParams(int tag,
   return true;
 }
 
-static bool AddCryptoParams(const std::string& cipher_suite,
+static bool AddCryptoParams(const absl::string_view cipher_suite,
                             CryptoParamsVec* cryptos_out) {
   int size = static_cast<int>(cryptos_out->size());
 
@@ -298,7 +298,7 @@ static StreamParamsVec GetCurrentStreamParams(
 
 static StreamParams CreateStreamParamsForNewSenderWithSsrcs(
     const SenderOptions& sender,
-    const std::string& rtcp_cname,
+    const absl::string_view rtcp_cname,
     bool include_rtx_streams,
     bool include_flexfec_stream,
     UniqueRandomIdGenerator* ssrc_generator) {
@@ -342,7 +342,7 @@ static bool ValidateSimulcastLayers(
 
 static StreamParams CreateStreamParamsForNewSenderWithRids(
     const SenderOptions& sender,
-    const std::string& rtcp_cname) {
+    const absl::string_view rtcp_cname) {
   RTC_DCHECK(!sender.rids.empty());
   RTC_DCHECK_EQ(sender.num_sim_layers, 0)
       << "RIDs are the compliant way to indicate simulcast.";
@@ -398,7 +398,7 @@ static void AddSimulcastToMediaDescription(
 template <class C>
 static bool AddStreamParams(
     const std::vector<SenderOptions>& sender_options,
-    const std::string& rtcp_cname,
+    const absl::string_view rtcp_cname,
     UniqueRandomIdGenerator* ssrc_generator,
     StreamParamsVec* current_streams,
     MediaContentDescriptionImpl<C>* content_description) {
@@ -484,7 +484,7 @@ static bool UpdateTransportInfoForBundle(const ContentGroup& bundle_group,
 // Gets the CryptoParamsVec of the given `content_name` from `sdesc`, and
 // sets it to `cryptos`.
 static bool GetCryptosByName(const SessionDescription* sdesc,
-                             const std::string& content_name,
+                             const absl::string_view content_name,
                              CryptoParamsVec* cryptos) {
   if (!sdesc || !cryptos) {
     return false;
@@ -520,7 +520,7 @@ static void PruneCryptos(const CryptoParamsVec& filter,
 }
 
 static bool IsRtpContent(SessionDescription* sdesc,
-                         const std::string& content_name) {
+                         const absl::string_view content_name) {
   bool is_rtp = false;
   ContentInfo* content = sdesc->GetContentByName(content_name);
   if (content && content->media_description()) {
@@ -1426,7 +1426,7 @@ static bool CreateMediaContentAnswer(
 }
 
 static bool IsMediaProtocolSupported(MediaType type,
-                                     const std::string& protocol,
+                                     const absl::string_view protocol,
                                      bool secure_transport) {
   // Since not all applications serialize and deserialize the media protocol,
   // we will have to accept `protocol` to be empty.
@@ -1467,7 +1467,7 @@ static void SetMediaProtocol(bool secure_transport,
 // Gets the TransportInfo of the given `content_name` from the
 // `current_description`. If doesn't exist, returns a new one.
 static const TransportDescription* GetTransportDescription(
-    const std::string& content_name,
+    const absl::string_view content_name,
     const SessionDescription* current_description) {
   const TransportDescription* desc = NULL;
   if (current_description) {
@@ -1498,14 +1498,14 @@ static bool IsDtlsActive(const ContentInfo* content,
 }
 
 void MediaDescriptionOptions::AddAudioSender(
-    const std::string& track_id,
+    const absl::string_view track_id,
     const std::vector<std::string>& stream_ids) {
   RTC_DCHECK(type == MEDIA_TYPE_AUDIO);
   AddSenderInternal(track_id, stream_ids, {}, SimulcastLayerList(), 1);
 }
 
 void MediaDescriptionOptions::AddVideoSender(
-    const std::string& track_id,
+    const absl::string_view track_id,
     const std::vector<std::string>& stream_ids,
     const std::vector<RidDescription>& rids,
     const SimulcastLayerList& simulcast_layers,
@@ -1519,7 +1519,7 @@ void MediaDescriptionOptions::AddVideoSender(
 }
 
 void MediaDescriptionOptions::AddSenderInternal(
-    const std::string& track_id,
+    const absl::string_view track_id,
     const std::vector<std::string>& stream_ids,
     const std::vector<RidDescription>& rids,
     const SimulcastLayerList& simulcast_layers,
@@ -2202,7 +2202,7 @@ MediaSessionDescriptionFactory::GetOfferedRtpHeaderExtensionsWithIds(
 }
 
 bool MediaSessionDescriptionFactory::AddTransportOffer(
-    const std::string& content_name,
+    const absl::string_view content_name,
     const TransportOptions& transport_options,
     const SessionDescription* current_desc,
     SessionDescription* offer_desc,
@@ -2224,7 +2224,7 @@ bool MediaSessionDescriptionFactory::AddTransportOffer(
 
 std::unique_ptr<TransportDescription>
 MediaSessionDescriptionFactory::CreateTransportAnswer(
-    const std::string& content_name,
+    const absl::string_view content_name,
     const SessionDescription* offer_desc,
     const TransportOptions& transport_options,
     const SessionDescription* current_desc,
@@ -2242,7 +2242,7 @@ MediaSessionDescriptionFactory::CreateTransportAnswer(
 }
 
 bool MediaSessionDescriptionFactory::AddTransportAnswer(
-    const std::string& content_name,
+    const absl::string_view content_name,
     const TransportDescription& transport_desc,
     SessionDescription* answer_desc) const {
   answer_desc->AddTransportInfo(TransportInfo(content_name, transport_desc));

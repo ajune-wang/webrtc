@@ -592,7 +592,7 @@ uint32_t RTPSender::TimestampOffset() const {
   return timestamp_offset_;
 }
 
-void RTPSender::SetRid(const std::string& rid) {
+void RTPSender::SetRid(const absl::string_view rid) {
   // RID is used in simulcast scenario when multiple layers share the same mid.
   MutexLock lock(&send_mutex_);
   RTC_DCHECK_LE(rid.length(), RtpStreamId::kMaxValueSizeBytes);
@@ -600,7 +600,7 @@ void RTPSender::SetRid(const std::string& rid) {
   UpdateHeaderSizes();
 }
 
-void RTPSender::SetMid(const std::string& mid) {
+void RTPSender::SetMid(const absl::string_view mid) {
   // This is configured via the API.
   MutexLock lock(&send_mutex_);
   RTC_DCHECK_LE(mid.length(), RtpMid::kMaxValueSizeBytes);

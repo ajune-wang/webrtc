@@ -27,7 +27,7 @@ namespace cricket {
 struct TransportInfo {
   TransportInfo() {}
 
-  TransportInfo(const std::string& content_name,
+  TransportInfo(const absl::string_view content_name,
                 const TransportDescription& description)
       : content_name(content_name), description(description) {}
 

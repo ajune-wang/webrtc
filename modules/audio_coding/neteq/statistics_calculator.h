@@ -122,7 +122,7 @@ class StatisticsCalculator {
 
   class PeriodicUmaLogger {
    public:
-    PeriodicUmaLogger(const std::string& uma_name,
+    PeriodicUmaLogger(const absl::string_view uma_name,
                       int report_interval_ms,
                       int max_value);
     virtual ~PeriodicUmaLogger();
@@ -141,7 +141,7 @@ class StatisticsCalculator {
 
   class PeriodicUmaCount final : public PeriodicUmaLogger {
    public:
-    PeriodicUmaCount(const std::string& uma_name,
+    PeriodicUmaCount(const absl::string_view uma_name,
                      int report_interval_ms,
                      int max_value);
     ~PeriodicUmaCount() override;
@@ -157,7 +157,7 @@ class StatisticsCalculator {
 
   class PeriodicUmaAverage final : public PeriodicUmaLogger {
    public:
-    PeriodicUmaAverage(const std::string& uma_name,
+    PeriodicUmaAverage(const absl::string_view uma_name,
                        int report_interval_ms,
                        int max_value);
     ~PeriodicUmaAverage() override;

@@ -54,10 +54,11 @@ class RtcEventLogImpl final : public RtcEventLog {
 
   void StopOutput() RTC_RUN_ON(task_queue_);
 
-  void WriteConfigsAndHistoryToOutput(const std::string& encoded_configs,
-                                      const std::string& encoded_history)
+  void WriteConfigsAndHistoryToOutput(const absl::string_view encoded_configs,
+                                      const absl::string_view encoded_history)
       RTC_RUN_ON(task_queue_);
-  void WriteToOutput(const std::string& output_string) RTC_RUN_ON(task_queue_);
+  void WriteToOutput(const absl::string_view output_string)
+      RTC_RUN_ON(task_queue_);
 
   void StopLoggingInternal() RTC_RUN_ON(task_queue_);
 

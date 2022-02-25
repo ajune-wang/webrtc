@@ -27,7 +27,7 @@ using cricket::VideoCodec;
 
 class TestCodec : public Codec {
  public:
-  TestCodec(int id, const std::string& name, int clockrate)
+  TestCodec(int id, const absl::string_view name, int clockrate)
       : Codec(id, name, clockrate) {}
   TestCodec() : Codec() {}
   TestCodec(const TestCodec& c) = default;

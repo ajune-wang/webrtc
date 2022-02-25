@@ -49,7 +49,7 @@ struct TimeSeries {
              LineStyle line_style,
              PointStyle point_style = PointStyle::kNone)
       : label(label), line_style(line_style), point_style(point_style) {}
-  TimeSeries(const std::string& label,
+  TimeSeries(const absl::string_view label,
              LineStyle line_style,
              PointStyle point_style = PointStyle::kNone)
       : label(label), line_style(line_style), point_style(point_style) {}
@@ -84,8 +84,8 @@ struct IntervalSeries {
   enum Orientation { kHorizontal, kVertical };
 
   IntervalSeries() = default;
-  IntervalSeries(const std::string& label,
-                 const std::string& color,
+  IntervalSeries(const absl::string_view label,
+                 const absl::string_view color,
                  IntervalSeries::Orientation orientation)
       : label(label), color(color), orientation(orientation) {}
 
@@ -149,12 +149,12 @@ class Plot {
       const std::vector<std::pair<float, std::string>>& labels);
 
   // Sets the title of the plot.
-  void SetTitle(const std::string& title);
+  void SetTitle(const absl::string_view title);
 
   // Sets an unique ID for the plot. The ID is similar to the title except that
   // the title might change in future releases whereas the ID should be stable
   // over time.
-  void SetId(const std::string& id);
+  void SetId(const absl::string_view id);
 
   // Add a new TimeSeries to the plot.
   void AppendTimeSeries(TimeSeries&& time_series);

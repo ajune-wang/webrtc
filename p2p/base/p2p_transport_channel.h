@@ -80,10 +80,10 @@ enum class IceRestartState { CONNECTING, CONNECTED, DISCONNECTED, MAX_VALUE };
 
 static const int MIN_PINGS_AT_WEAK_PING_INTERVAL = 3;
 
-bool IceCredentialsChanged(const std::string& old_ufrag,
-                           const std::string& old_pwd,
-                           const std::string& new_ufrag,
-                           const std::string& new_pwd);
+bool IceCredentialsChanged(const absl::string_view old_ufrag,
+                           const absl::string_view old_pwd,
+                           const absl::string_view new_ufrag,
+                           const absl::string_view new_pwd);
 
 // Adds the port on which the candidate originated.
 class RemoteCandidate : public Candidate {
@@ -102,7 +102,7 @@ class RemoteCandidate : public Candidate {
 class RTC_EXPORT P2PTransportChannel : public IceTransportInternal {
  public:
   static std::unique_ptr<P2PTransportChannel> Create(
-      const std::string& transport_name,
+      const absl::string_view transport_name,
       int component,
       PortAllocator* allocator,
       webrtc::AsyncDnsResolverFactoryInterface* async_dns_resolver_factory,
@@ -110,12 +110,12 @@ class RTC_EXPORT P2PTransportChannel : public IceTransportInternal {
       IceControllerFactoryInterface* ice_controller_factory = nullptr);
   // For testing only.
   // TODO(zstein): Remove once AsyncDnsResolverFactory is required.
-  P2PTransportChannel(const std::string& transport_name,
+  P2PTransportChannel(const absl::string_view transport_name,
                       int component,
                       PortAllocator* allocator);
   ABSL_DEPRECATED("bugs.webrtc.org/12598")
   P2PTransportChannel(
-      const std::string& transport_name,
+      const absl::string_view transport_name,
       int component,
       PortAllocator* allocator,
       webrtc::AsyncResolverFactory* async_resolver_factory,
@@ -241,7 +241,7 @@ class RTC_EXPORT P2PTransportChannel : public IceTransportInternal {
 
  private:
   P2PTransportChannel(
-      const std::string& transport_name,
+      const absl::string_view transport_name,
       int component,
       PortAllocator* allocator,
       // DNS resolver factory
@@ -311,7 +311,7 @@ class RTC_EXPORT P2PTransportChannel : public IceTransportInternal {
                         const rtc::SocketAddress& addr,
                         ProtocolType proto,
                         IceMessage* stun_msg,
-                        const std::string& remote_username,
+                        const absl::string_view remote_username,
                         bool port_muxed);
   void OnCandidateFilterChanged(uint32_t prev_filter, uint32_t cur_filter);
 
@@ -359,7 +359,7 @@ class RTC_EXPORT P2PTransportChannel : public IceTransportInternal {
   }
   // Returns the remote IceParameters and generation that match `ufrag`
   // if found, and returns nullptr otherwise.
-  const IceParameters* FindRemoteIceFromUfrag(const std::string& ufrag,
+  const IceParameters* FindRemoteIceFromUfrag(const absl::string_view ufrag,
                                               uint32_t* generation);
   // Returns the index of the latest remote ICE parameters, or 0 if no remote
   // ICE parameters have been received.

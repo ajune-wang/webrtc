@@ -32,7 +32,7 @@ namespace test {
 
 namespace {
 
-std::string Path(const std::string& path) {
+std::string Path(const absl::string_view path) {
   std::string result = path;
   std::replace(result.begin(), result.end(), '/', *kPathDelimiter);
   return result;
@@ -40,7 +40,7 @@ std::string Path(const std::string& path) {
 
 // Remove files and directories in a directory non-recursively and writes the
 // number of deleted items in `num_deleted_entries`.
-void CleanDir(const std::string& dir, size_t* num_deleted_entries) {
+void CleanDir(const absl::string_view dir, size_t* num_deleted_entries) {
   RTC_DCHECK(num_deleted_entries);
   *num_deleted_entries = 0;
   absl::optional<std::vector<std::string>> dir_content = ReadDirectory(dir);
@@ -58,7 +58,8 @@ void CleanDir(const std::string& dir, size_t* num_deleted_entries) {
   }
 }
 
-void WriteStringInFile(const std::string& what, const std::string& file_path) {
+void WriteStringInFile(const absl::string_view what,
+                       const absl::string_view file_path) {
   std::ofstream out(file_path);
   out << what;
   out.close();

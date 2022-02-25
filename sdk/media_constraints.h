@@ -35,7 +35,7 @@ class MediaConstraints {
  public:
   struct Constraint {
     Constraint() {}
-    Constraint(const std::string& key, const std::string value)
+    Constraint(const absl::string_view key, const std::string value)
         : key(key), value(value) {}
     std::string key;
     std::string value;
@@ -47,7 +47,7 @@ class MediaConstraints {
     Constraints(std::initializer_list<Constraint> l)
         : std::vector<Constraint>(l) {}
 
-    bool FindFirst(const std::string& key, std::string* value) const;
+    bool FindFirst(const absl::string_view key, std::string* value) const;
   };
 
   MediaConstraints() = default;

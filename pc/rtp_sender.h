@@ -195,7 +195,7 @@ class RtpSenderBase : public RtpSenderInternal, public ObserverInterface {
   // is called. `set_streams_observer` is not owned by this object. If not
   // null, it must be valid at least until this sender becomes stopped.
   RtpSenderBase(rtc::Thread* worker_thread,
-                const std::string& id,
+                const absl::string_view id,
                 SetStreamsObserver* set_streams_observer);
   // TODO(nisse): Since SSRC == 0 is technically valid, figure out
   // some other way to test if we have a valid SSRC.
@@ -300,7 +300,7 @@ class AudioRtpSender : public DtmfProviderInterface, public RtpSenderBase {
   // null, it must be valid at least until this sender becomes stopped.
   static rtc::scoped_refptr<AudioRtpSender> Create(
       rtc::Thread* worker_thread,
-      const std::string& id,
+      const absl::string_view id,
       StatsCollectorInterface* stats,
       SetStreamsObserver* set_streams_observer);
   virtual ~AudioRtpSender();
@@ -324,7 +324,7 @@ class AudioRtpSender : public DtmfProviderInterface, public RtpSenderBase {
 
  protected:
   AudioRtpSender(rtc::Thread* worker_thread,
-                 const std::string& id,
+                 const absl::string_view id,
                  StatsCollectorInterface* stats,
                  SetStreamsObserver* set_streams_observer);
 
@@ -365,7 +365,7 @@ class VideoRtpSender : public RtpSenderBase {
   // null, it must be valid at least until this sender becomes stopped.
   static rtc::scoped_refptr<VideoRtpSender> Create(
       rtc::Thread* worker_thread,
-      const std::string& id,
+      const absl::string_view id,
       SetStreamsObserver* set_streams_observer);
   virtual ~VideoRtpSender();
 
@@ -383,7 +383,7 @@ class VideoRtpSender : public RtpSenderBase {
 
  protected:
   VideoRtpSender(rtc::Thread* worker_thread,
-                 const std::string& id,
+                 const absl::string_view id,
                  SetStreamsObserver* set_streams_observer);
 
   void SetSend() override;

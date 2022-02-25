@@ -43,7 +43,7 @@ class RTCChildStats : public RTCStats {
  public:
   WEBRTC_RTCSTATS_DECL();
 
-  RTCChildStats(const std::string& id, int64_t timestamp_us)
+  RTCChildStats(const absl::string_view id, int64_t timestamp_us)
       : RTCStats(id, timestamp_us), child_int("childInt") {}
 
   RTCStatsMember<int32_t> child_int;
@@ -55,7 +55,7 @@ class RTCGrandChildStats : public RTCChildStats {
  public:
   WEBRTC_RTCSTATS_DECL();
 
-  RTCGrandChildStats(const std::string& id, int64_t timestamp_us)
+  RTCGrandChildStats(const absl::string_view id, int64_t timestamp_us)
       : RTCChildStats(id, timestamp_us), grandchild_int("grandchildInt") {}
 
   RTCStatsMember<int32_t> grandchild_int;

@@ -31,7 +31,8 @@ constexpr int kMaxNextFrameWaitTemeoutMs = 1000;
 
 }  // namespace
 
-IvfVideoFrameGenerator::IvfVideoFrameGenerator(const std::string& file_name)
+IvfVideoFrameGenerator::IvfVideoFrameGenerator(
+    const absl::string_view file_name)
     : callback_(this),
       file_reader_(IvfFileReader::Create(FileWrapper::OpenReadOnly(file_name))),
       video_decoder_(CreateVideoDecoder(file_reader_->GetVideoCodecType())),

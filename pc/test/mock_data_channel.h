@@ -31,9 +31,9 @@ class MockSctpDataChannel : public rtc::RefCountedObject<SctpDataChannel> {
                             0) {}
   MockSctpDataChannel(
       int id,
-      const std::string& label,
+      const absl::string_view label,
       DataState state,
-      const std::string& protocol,
+      const absl::string_view protocol,
       uint32_t messages_sent,
       uint64_t bytes_sent,
       uint32_t messages_received,

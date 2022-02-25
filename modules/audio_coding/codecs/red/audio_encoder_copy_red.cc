@@ -211,7 +211,7 @@ void AudioEncoderCopyRed::SetMaxPlaybackRate(int frequency_hz) {
 }
 
 bool AudioEncoderCopyRed::EnableAudioNetworkAdaptor(
-    const std::string& config_string,
+    const absl::string_view config_string,
     RtcEventLog* event_log) {
   return speech_encoder_->EnableAudioNetworkAdaptor(config_string, event_log);
 }

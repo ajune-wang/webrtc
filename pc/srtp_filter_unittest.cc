@@ -90,7 +90,8 @@ class SrtpFilterTest : public ::testing::Test {
     EXPECT_EQ(0, memcmp(key1.data(), key2.data(), key1.size()));
   }
 
-  void VerifyCryptoParamsMatch(const std::string& cs1, const std::string& cs2) {
+  void VerifyCryptoParamsMatch(const absl::string_view cs1,
+                               const absl::string_view cs2) {
     EXPECT_EQ(rtc::SrtpCryptoSuiteFromName(cs1), f1_.send_cipher_suite());
     EXPECT_EQ(rtc::SrtpCryptoSuiteFromName(cs2), f2_.send_cipher_suite());
     VerifyKeysAreEqual(f1_.send_key(), f2_.recv_key());

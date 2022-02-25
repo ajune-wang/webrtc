@@ -58,11 +58,11 @@ class DefaultAudioQualityAnalyzer : public AudioQualityAnalyzerInterface {
     uint64_t jitter_buffer_emitted_count = 0;
   };
 
-  std::string GetTestCaseName(const std::string& stream_label) const;
-  void ReportResult(const std::string& metric_name,
-                    const std::string& stream_label,
+  std::string GetTestCaseName(const absl::string_view stream_label) const;
+  void ReportResult(const absl::string_view metric_name,
+                    const absl::string_view stream_label,
                     const SamplesStatsCounter& counter,
-                    const std::string& unit,
+                    const absl::string_view unit,
                     webrtc::test::ImproveDirection improve_direction) const;
 
   std::string test_case_name_;

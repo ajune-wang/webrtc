@@ -26,7 +26,7 @@
 
 class MainWndCallback {
  public:
-  virtual void StartLogin(const std::string& server, int port) = 0;
+  virtual void StartLogin(const absl::string_view server, int port) = 0;
   virtual void DisconnectFromServer() = 0;
   virtual void ConnectToPeer(int peer_id) = 0;
   virtual void DisconnectFromCurrentPeer() = 0;

@@ -50,15 +50,15 @@ class NetworkQualityMetricsReporter
 
   static std::unique_ptr<EmulatedNetworkStats> PopulateStats(
       EmulatedNetworkManagerInterface* network);
-  void ReportStats(const std::string& network_label,
+  void ReportStats(const absl::string_view network_label,
                    std::unique_ptr<EmulatedNetworkStats> stats,
                    int64_t packet_loss);
-  void ReportPCStats(const std::string& pc_label, const PCStats& stats);
-  void ReportResult(const std::string& metric_name,
-                    const std::string& network_label,
+  void ReportPCStats(const absl::string_view pc_label, const PCStats& stats);
+  void ReportResult(const absl::string_view metric_name,
+                    const absl::string_view network_label,
                     double value,
-                    const std::string& unit) const;
-  std::string GetTestCaseName(const std::string& network_label) const;
+                    const absl::string_view unit) const;
+  std::string GetTestCaseName(const absl::string_view network_label) const;
 
   std::string test_case_name_;
 

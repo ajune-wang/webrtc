@@ -54,14 +54,14 @@ class VideoQualityMetricsReporter
     Timestamp sample_time = Timestamp::Zero();
   };
 
-  std::string GetTestCaseName(const std::string& stream_label) const;
-  static void ReportVideoBweResults(const std::string& test_case_name,
+  std::string GetTestCaseName(const absl::string_view stream_label) const;
+  static void ReportVideoBweResults(const absl::string_view test_case_name,
                                     const VideoBweStats& video_bwe_stats);
   // Report result for single metric for specified stream.
-  static void ReportResult(const std::string& metric_name,
-                           const std::string& test_case_name,
+  static void ReportResult(const absl::string_view metric_name,
+                           const absl::string_view test_case_name,
                            const SamplesStatsCounter& counter,
-                           const std::string& unit,
+                           const absl::string_view unit,
                            webrtc::test::ImproveDirection improve_direction =
                                webrtc::test::ImproveDirection::kNone);
   Timestamp Now() const { return clock_->CurrentTime(); }

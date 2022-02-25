@@ -29,9 +29,9 @@ typedef std::map<std::string, std::string> CodecParameterMap;
 class FeedbackParam {
  public:
   FeedbackParam() = default;
-  FeedbackParam(const std::string& id, const std::string& param)
+  FeedbackParam(const absl::string_view id, const absl::string_view param)
       : id_(id), param_(param) {}
-  explicit FeedbackParam(const std::string& id)
+  explicit FeedbackParam(const absl::string_view id)
       : id_(id), param_(kParamValueEmpty) {}
 
   bool operator==(const FeedbackParam& other) const;
@@ -79,15 +79,15 @@ struct RTC_EXPORT Codec {
   bool MatchesCapability(const webrtc::RtpCodecCapability& capability) const;
 
   // Find the parameter for `name` and write the value to `out`.
-  bool GetParam(const std::string& name, std::string* out) const;
-  bool GetParam(const std::string& name, int* out) const;
+  bool GetParam(const absl::string_view name, std::string* out) const;
+  bool GetParam(const absl::string_view name, int* out) const;
 
-  void SetParam(const std::string& name, const std::string& value);
-  void SetParam(const std::string& name, int value);
+  void SetParam(const absl::string_view name, const absl::string_view value);
+  void SetParam(const absl::string_view name, int value);
 
   // It is safe to input a non-existent parameter.
   // Returns true if the parameter existed, false if it did not exist.
-  bool RemoveParam(const std::string& name);
+  bool RemoveParam(const absl::string_view name);
 
   bool HasFeedbackParam(const FeedbackParam& param) const;
   void AddFeedbackParam(const FeedbackParam& param);
@@ -108,7 +108,7 @@ struct RTC_EXPORT Codec {
  protected:
   // A Codec can't be created without a subclass.
   // Creates a codec with the given parameters.
-  Codec(int id, const std::string& name, int clockrate);
+  Codec(int id, const absl::string_view name, int clockrate);
   // Creates an empty codec.
   Codec();
   Codec(const Codec& c);
@@ -121,7 +121,7 @@ struct AudioCodec : public Codec {
 
   // Creates a codec with the given parameters.
   AudioCodec(int id,
-             const std::string& name,
+             const absl::string_view name,
              int clockrate,
              int bitrate,
              size_t channels);
@@ -150,9 +150,9 @@ struct RTC_EXPORT VideoCodec : public Codec {
   absl::optional<std::string> packetization;
 
   // Creates a codec with the given parameters.
-  VideoCodec(int id, const std::string& name);
+  VideoCodec(int id, const absl::string_view name);
   // Creates a codec with the given name and empty id.
-  explicit VideoCodec(const std::string& name);
+  explicit VideoCodec(const absl::string_view name);
   // Creates an empty codec.
   VideoCodec();
   VideoCodec(const VideoCodec& c);

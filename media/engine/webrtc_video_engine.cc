@@ -258,7 +258,7 @@ std::vector<VideoCodec> GetPayloadTypesAndDefaultCodecs(
   return output_codecs;
 }
 
-bool IsTemporalLayersSupported(const std::string& codec_name) {
+bool IsTemporalLayersSupported(const absl::string_view codec_name) {
   return absl::EqualsIgnoreCase(codec_name, kVp8CodecName) ||
          absl::EqualsIgnoreCase(codec_name, kVp9CodecName);
 }
@@ -330,7 +330,7 @@ static bool ValidateStreamParams(const StreamParams& sp) {
 }
 
 // Returns true if the given codec is disallowed from doing simulcast.
-bool IsCodecDisabledForSimulcast(const std::string& codec_name,
+bool IsCodecDisabledForSimulcast(const absl::string_view codec_name,
                                  const webrtc::WebRtcKeyValueConfig& trials) {
   if (absl::EqualsIgnoreCase(codec_name, kVp9CodecName) ||
       absl::EqualsIgnoreCase(codec_name, kAv1CodecName)) {

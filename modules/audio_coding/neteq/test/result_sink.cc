@@ -49,7 +49,7 @@ void Convert(const webrtc::NetEqNetworkStatistics& stats_raw,
 
 void AddMessage(FILE* file,
                 rtc::MessageDigest* digest,
-                const std::string& message) {
+                const absl::string_view message) {
   int32_t size = message.length();
   if (file)
     ASSERT_EQ(1u, fwrite(&size, sizeof(size), 1, file));
@@ -63,7 +63,7 @@ void AddMessage(FILE* file,
 
 #endif  // WEBRTC_NETEQ_UNITTEST_BITEXACT
 
-ResultSink::ResultSink(const std::string& output_file)
+ResultSink::ResultSink(const absl::string_view output_file)
     : output_fp_(nullptr),
       digest_(rtc::MessageDigestFactory::Create(rtc::DIGEST_SHA_1)) {
   if (!output_file.empty()) {
@@ -90,7 +90,7 @@ void ResultSink::AddResult(const NetEqNetworkStatistics& stats_raw) {
 #endif  // WEBRTC_NETEQ_UNITTEST_BITEXACT
 }
 
-void ResultSink::VerifyChecksum(const std::string& checksum) {
+void ResultSink::VerifyChecksum(const absl::string_view checksum) {
   std::vector<char> buffer;
   buffer.resize(digest_->Size());
   digest_->Finish(&buffer[0], buffer.size());

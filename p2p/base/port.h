@@ -181,19 +181,19 @@ class Port : public PortInterface,
   // 30 seconds.
   enum class State { INIT, KEEP_ALIVE_UNTIL_PRUNED, PRUNED };
   Port(rtc::Thread* thread,
-       const std::string& type,
+       const absl::string_view type,
        rtc::PacketSocketFactory* factory,
        rtc::Network* network,
-       const std::string& username_fragment,
-       const std::string& password);
+       const absl::string_view username_fragment,
+       const absl::string_view password);
   Port(rtc::Thread* thread,
-       const std::string& type,
+       const absl::string_view type,
        rtc::PacketSocketFactory* factory,
        rtc::Network* network,
        uint16_t min_port,
        uint16_t max_port,
-       const std::string& username_fragment,
-       const std::string& password);
+       const absl::string_view username_fragment,
+       const absl::string_view password);
   ~Port() override;
 
   // Note that the port type does NOT uniquely identify different subclasses of
@@ -231,7 +231,7 @@ class Port : public PortInterface,
 
   // For debugging purposes.
   const std::string& content_name() const { return content_name_; }
-  void set_content_name(const std::string& content_name) {
+  void set_content_name(const absl::string_view content_name) {
     content_name_ = content_name;
   }
 
@@ -256,8 +256,8 @@ class Port : public PortInterface,
   // PortAllocatorSession, and is now being assigned to an ICE transport.
   // Updates the information for candidates as well.
   void SetIceParameters(int component,
-                        const std::string& username_fragment,
-                        const std::string& password);
+                        const absl::string_view username_fragment,
+                        const absl::string_view password);
 
   // Fired when candidates are discovered by the port. When all candidates
   // are discovered that belong to port SignalAddressReady is fired.
@@ -310,13 +310,14 @@ class Port : public PortInterface,
   void SendBindingErrorResponse(StunMessage* request,
                                 const rtc::SocketAddress& addr,
                                 int error_code,
-                                const std::string& reason) override;
+                                const absl::string_view reason) override;
   void SendUnknownAttributesErrorResponse(
       StunMessage* request,
       const rtc::SocketAddress& addr,
       const std::vector<uint16_t>& unknown_types);
 
-  void set_proxy(const std::string& user_agent, const rtc::ProxyInfo& proxy) {
+  void set_proxy(const absl::string_view user_agent,
+                 const rtc::ProxyInfo& proxy) {
     user_agent_ = user_agent;
     proxy_ = proxy;
   }
@@ -343,12 +344,12 @@ class Port : public PortInterface,
   bool ParseStunUsername(const StunMessage* stun_msg,
                          std::string* local_username,
                          std::string* remote_username) const;
-  void CreateStunUsername(const std::string& remote_username,
+  void CreateStunUsername(const absl::string_view remote_username,
                           std::string* stun_username_attr_str) const;
 
   bool MaybeIceRoleConflict(const rtc::SocketAddress& addr,
                             IceMessage* stun_msg,
-                            const std::string& remote_ufrag);
+                            const absl::string_view remote_ufrag);
 
   // Called when a packet has been sent to the socket.
   // This is made pure virtual to notify subclasses of Port that they MUST
@@ -374,9 +375,9 @@ class Port : public PortInterface,
   //   then the foundation will be different.  Two candidate pairs with
   //   the same foundation pairs are likely to have similar network
   //   characteristics. Foundations are used in the frozen algorithm.
-  static std::string ComputeFoundation(const std::string& type,
-                                       const std::string& protocol,
-                                       const std::string& relay_protocol,
+  static std::string ComputeFoundation(const absl::string_view type,
+                                       const absl::string_view protocol,
+                                       const absl::string_view relay_protocol,
                                        const rtc::SocketAddress& base_address);
 
  protected:
@@ -384,18 +385,18 @@ class Port : public PortInterface,
 
   virtual void UpdateNetworkCost();
 
-  void set_type(const std::string& type) { type_ = type; }
+  void set_type(const absl::string_view type) { type_ = type; }
 
   void AddAddress(const rtc::SocketAddress& address,
                   const rtc::SocketAddress& base_address,
                   const rtc::SocketAddress& related_address,
-                  const std::string& protocol,
-                  const std::string& relay_protocol,
-                  const std::string& tcptype,
-                  const std::string& type,
+                  const absl::string_view protocol,
+                  const absl::string_view relay_protocol,
+                  const absl::string_view tcptype,
+                  const absl::string_view type,
                   uint32_t type_preference,
                   uint32_t relay_preference,
-                  const std::string& url,
+                  const absl::string_view url,
                   bool is_final);
 
   void FinishAddingAddress(const Candidate& c, bool is_final);
@@ -496,7 +497,7 @@ class Port : public PortInterface,
   rtc::WeakPtrFactory<Port> weak_factory_;
 
   bool MaybeObfuscateAddress(Candidate* c,
-                             const std::string& type,
+                             const absl::string_view type,
                              bool is_final);
 
   friend class Connection;

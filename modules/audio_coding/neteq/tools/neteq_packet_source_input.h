@@ -48,7 +48,7 @@ class NetEqPacketSourceInput : public NetEqInput {
 // Implementation of NetEqPacketSourceInput to be used with an RtpFileSource.
 class NetEqRtpDumpInput final : public NetEqPacketSourceInput {
  public:
-  NetEqRtpDumpInput(const std::string& file_name,
+  NetEqRtpDumpInput(const absl::string_view file_name,
                     const RtpHeaderExtensionMap& hdr_ext_map,
                     absl::optional<uint32_t> ssrc_filter);
 

@@ -206,7 +206,7 @@ class Connection : public CandidatePairInterface, public sigslot::has_slots<> {
   void Ping(int64_t now);
   void ReceivedPingResponse(
       int rtt,
-      const std::string& request_id,
+      const absl::string_view request_id,
       const absl::optional<uint32_t>& nomination = absl::nullopt);
 
   int64_t last_ping_response_received() const;

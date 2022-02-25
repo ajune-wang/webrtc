@@ -80,17 +80,17 @@ class PeerConnectionFactory : public PeerConnectionFactoryInterface {
       cricket::MediaType kind) const override;
 
   rtc::scoped_refptr<MediaStreamInterface> CreateLocalMediaStream(
-      const std::string& stream_id) override;
+      const absl::string_view stream_id) override;
 
   rtc::scoped_refptr<AudioSourceInterface> CreateAudioSource(
       const cricket::AudioOptions& options) override;
 
   rtc::scoped_refptr<VideoTrackInterface> CreateVideoTrack(
-      const std::string& id,
+      const absl::string_view id,
       VideoTrackSourceInterface* video_source) override;
 
   rtc::scoped_refptr<AudioTrackInterface> CreateAudioTrack(
-      const std::string& id,
+      const absl::string_view id,
       AudioSourceInterface* audio_source) override;
 
   bool StartAecDump(FILE* file, int64_t max_size_bytes) override;

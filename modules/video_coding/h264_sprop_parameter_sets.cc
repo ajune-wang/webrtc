@@ -21,7 +21,8 @@
 
 namespace {
 
-bool DecodeAndConvert(const std::string& base64, std::vector<uint8_t>* binary) {
+bool DecodeAndConvert(const absl::string_view base64,
+                      std::vector<uint8_t>* binary) {
   return rtc::Base64::DecodeFromArray(base64.data(), base64.size(),
                                       rtc::Base64::DO_STRICT, binary, nullptr);
 }
@@ -29,7 +30,7 @@ bool DecodeAndConvert(const std::string& base64, std::vector<uint8_t>* binary) {
 
 namespace webrtc {
 
-bool H264SpropParameterSets::DecodeSprop(const std::string& sprop) {
+bool H264SpropParameterSets::DecodeSprop(const absl::string_view sprop) {
   size_t separator_pos = sprop.find(',');
   RTC_LOG(LS_INFO) << "Parsing sprop \"" << sprop << "\"";
   if ((separator_pos <= 0) || (separator_pos >= sprop.length() - 1)) {

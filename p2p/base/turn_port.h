@@ -58,8 +58,8 @@ class TurnPort : public Port {
       rtc::PacketSocketFactory* factory,
       rtc::Network* network,
       rtc::AsyncPacketSocket* socket,
-      const std::string& username,  // ice username.
-      const std::string& password,  // ice password.
+      const absl::string_view username,  // ice username.
+      const absl::string_view password,  // ice password.
       const ProtocolAddress& server_address,
       const RelayCredentials& credentials,
       int server_priority,
@@ -88,8 +88,8 @@ class TurnPort : public Port {
       rtc::PacketSocketFactory* factory,
       rtc::Network* network,
       rtc::AsyncPacketSocket* socket,
-      const std::string& username,  // ice username.
-      const std::string& password,  // ice password.
+      const absl::string_view username,  // ice username.
+      const absl::string_view password,  // ice password.
       const ProtocolAddress& server_address,
       const RelayCredentials& credentials,
       int server_priority,
@@ -106,8 +106,8 @@ class TurnPort : public Port {
       rtc::Network* network,
       uint16_t min_port,
       uint16_t max_port,
-      const std::string& username,  // ice username.
-      const std::string& password,  // ice password.
+      const absl::string_view username,  // ice username.
+      const absl::string_view password,  // ice password.
       const ProtocolAddress& server_address,
       const RelayCredentials& credentials,
       int server_priority,
@@ -141,8 +141,8 @@ class TurnPort : public Port {
       rtc::Network* network,
       uint16_t min_port,
       uint16_t max_port,
-      const std::string& username,  // ice username.
-      const std::string& password,  // ice password.
+      const absl::string_view username,  // ice username.
+      const absl::string_view password,  // ice password.
       const ProtocolAddress& server_address,
       const RelayCredentials& credentials,
       int server_priority,
@@ -173,7 +173,7 @@ class TurnPort : public Port {
   virtual TlsCertPolicy GetTlsCertPolicy() const;
   virtual void SetTlsCertPolicy(TlsCertPolicy tls_cert_policy);
 
-  void SetTurnLoggingId(const std::string& turn_logging_id);
+  void SetTurnLoggingId(const absl::string_view turn_logging_id);
 
   virtual std::vector<std::string> GetTlsAlpnProtocols() const;
   virtual std::vector<std::string> GetTlsEllipticCurves() const;
@@ -210,7 +210,7 @@ class TurnPort : public Port {
   void OnSentPacket(rtc::AsyncPacketSocket* socket,
                     const rtc::SentPacket& sent_packet) override;
   virtual void OnReadyToSend(rtc::AsyncPacketSocket* socket);
-  bool SupportsProtocol(const std::string& protocol) const override;
+  bool SupportsProtocol(const absl::string_view protocol) const override;
 
   void OnSocketConnect(rtc::AsyncPacketSocket* socket);
   void OnSocketClose(rtc::AsyncPacketSocket* socket, int error);
@@ -259,8 +259,8 @@ class TurnPort : public Port {
            rtc::PacketSocketFactory* factory,
            rtc::Network* network,
            rtc::AsyncPacketSocket* socket,
-           const std::string& username,
-           const std::string& password,
+           const absl::string_view username,
+           const absl::string_view password,
            const ProtocolAddress& server_address,
            const RelayCredentials& credentials,
            int server_priority,
@@ -271,8 +271,8 @@ class TurnPort : public Port {
            rtc::Network* network,
            uint16_t min_port,
            uint16_t max_port,
-           const std::string& username,
-           const std::string& password,
+           const absl::string_view username,
+           const absl::string_view password,
            const ProtocolAddress& server_address,
            const RelayCredentials& credentials,
            int server_priority,
@@ -287,7 +287,7 @@ class TurnPort : public Port {
 
   bool CreateOrRefreshEntry(const rtc::SocketAddress& addr,
                             int channel_number,
-                            const std::string& remote_ufrag);
+                            const absl::string_view remote_ufrag);
 
   rtc::DiffServCodePoint StunDscpValue() const override;
 
@@ -309,8 +309,8 @@ class TurnPort : public Port {
 
   bool CreateTurnClientSocket();
 
-  void set_nonce(const std::string& nonce) { nonce_ = nonce; }
-  void set_realm(const std::string& realm) {
+  void set_nonce(const absl::string_view nonce) { nonce_ = nonce; }
+  void set_realm(const absl::string_view realm) {
     if (realm != realm_) {
       realm_ = realm;
       UpdateHash();
@@ -330,7 +330,7 @@ class TurnPort : public Port {
   void OnStunAddress(const rtc::SocketAddress& address);
   void OnAllocateSuccess(const rtc::SocketAddress& address,
                          const rtc::SocketAddress& stun_address);
-  void OnAllocateError(int error_code, const std::string& reason);
+  void OnAllocateError(int error_code, const absl::string_view reason);
   void OnAllocateRequestTimeout();
 
   void HandleDataIndication(const char* data,

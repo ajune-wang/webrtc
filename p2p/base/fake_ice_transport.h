@@ -31,7 +31,7 @@ namespace cricket {
 // constructor).
 class FakeIceTransport : public IceTransportInternal {
  public:
-  explicit FakeIceTransport(const std::string& name,
+  explicit FakeIceTransport(const absl::string_view name,
                             int component,
                             rtc::Thread* network_thread = nullptr)
       : name_(name),

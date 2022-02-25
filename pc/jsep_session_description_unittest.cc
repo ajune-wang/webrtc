@@ -106,7 +106,7 @@ class JsepSessionDescriptionTest : public ::testing::Test {
   }
 
   std::unique_ptr<SessionDescriptionInterface> DeSerialize(
-      const std::string& sdp) {
+      const absl::string_view sdp) {
     auto jsep_desc = std::make_unique<JsepSessionDescription>(SdpType::kOffer);
     EXPECT_TRUE(webrtc::SdpDeserialize(sdp, jsep_desc.get(), nullptr));
     return std::move(jsep_desc);

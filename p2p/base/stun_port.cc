@@ -155,8 +155,8 @@ UDPPort::UDPPort(rtc::Thread* thread,
                  rtc::PacketSocketFactory* factory,
                  rtc::Network* network,
                  rtc::AsyncPacketSocket* socket,
-                 const std::string& username,
-                 const std::string& password,
+                 const absl::string_view username,
+                 const absl::string_view password,
                  bool emit_local_for_anyaddress)
     : Port(thread, LOCAL_PORT_TYPE, factory, network, username, password),
       requests_(thread),
@@ -172,8 +172,8 @@ UDPPort::UDPPort(rtc::Thread* thread,
                  rtc::Network* network,
                  uint16_t min_port,
                  uint16_t max_port,
-                 const std::string& username,
-                 const std::string& password,
+                 const absl::string_view username,
+                 const absl::string_view password,
                  bool emit_local_for_anyaddress)
     : Port(thread,
            LOCAL_PORT_TYPE,
@@ -331,7 +331,7 @@ bool UDPPort::HandleIncomingPacket(rtc::AsyncPacketSocket* socket,
   return true;
 }
 
-bool UDPPort::SupportsProtocol(const std::string& protocol) const {
+bool UDPPort::SupportsProtocol(const absl::string_view protocol) const {
   return protocol == UDP_PROTOCOL_NAME;
 }
 
@@ -524,7 +524,7 @@ void UDPPort::OnStunBindingRequestSucceeded(
 void UDPPort::OnStunBindingOrResolveRequestFailed(
     const rtc::SocketAddress& stun_server_addr,
     int error_code,
-    const std::string& reason) {
+    const absl::string_view reason) {
   rtc::StringBuilder url;
   url << "stun:" << stun_server_addr.ToString();
   SignalCandidateError(
@@ -602,8 +602,8 @@ std::unique_ptr<StunPort> StunPort::Create(
     rtc::Network* network,
     uint16_t min_port,
     uint16_t max_port,
-    const std::string& username,
-    const std::string& password,
+    const absl::string_view username,
+    const absl::string_view password,
     const ServerAddresses& servers,
     absl::optional<int> stun_keepalive_interval) {
   // Using `new` to access a non-public constructor.
@@ -622,8 +622,8 @@ StunPort::StunPort(rtc::Thread* thread,
                    rtc::Network* network,
                    uint16_t min_port,
                    uint16_t max_port,
-                   const std::string& username,
-                   const std::string& password,
+                   const absl::string_view username,
+                   const absl::string_view password,
                    const ServerAddresses& servers)
     : UDPPort(thread,
               factory,

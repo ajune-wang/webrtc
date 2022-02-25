@@ -43,7 +43,7 @@ class PeerConnectionSdpMethods {
   // occurred yet for this transport (by applying a local description with
   // changed ufrag/password). If the transport has been deleted as a result of
   // bundling, returns false.
-  virtual bool NeedsIceRestart(const std::string& content_name) const = 0;
+  virtual bool NeedsIceRestart(const absl::string_view content_name) const = 0;
 
   virtual absl::optional<std::string> sctp_mid() const = 0;
 
@@ -112,16 +112,16 @@ class PeerConnectionSdpMethods {
                                   int max_message_size) = 0;
 
   // Asynchronously adds a remote candidate on the network thread.
-  virtual void AddRemoteCandidate(const std::string& mid,
+  virtual void AddRemoteCandidate(const absl::string_view mid,
                                   const cricket::Candidate& candidate) = 0;
 
   virtual Call* call_ptr() = 0;
   // Returns true if SRTP (either using DTLS-SRTP or SDES) is required by
   // this session.
   virtual bool SrtpRequired() const = 0;
-  virtual bool SetupDataChannelTransport_n(const std::string& mid) = 0;
+  virtual bool SetupDataChannelTransport_n(const absl::string_view mid) = 0;
   virtual void TeardownDataChannelTransport_n() = 0;
-  virtual void SetSctpDataMid(const std::string& mid) = 0;
+  virtual void SetSctpDataMid(const absl::string_view mid) = 0;
   virtual void ResetSctpDataMid() = 0;
 };
 
@@ -163,16 +163,17 @@ class PeerConnectionInternal : public PeerConnectionInterface,
   virtual Call::Stats GetCallStats() = 0;
 
   virtual bool GetLocalCertificate(
-      const std::string& transport_name,
+      const absl::string_view transport_name,
       rtc::scoped_refptr<rtc::RTCCertificate>* certificate) = 0;
   virtual std::unique_ptr<rtc::SSLCertChain> GetRemoteSSLCertChain(
-      const std::string& transport_name) = 0;
+      const absl::string_view transport_name) = 0;
 
   // Returns true if there was an ICE restart initiated by the remote offer.
-  virtual bool IceRestartPending(const std::string& content_name) const = 0;
+  virtual bool IceRestartPending(
+      const absl::string_view content_name) const = 0;
 
   // Get SSL role for an arbitrary m= section (handles bundling correctly).
-  virtual bool GetSslRole(const std::string& content_name,
+  virtual bool GetSslRole(const absl::string_view content_name,
                           rtc::SSLRole* role) = 0;
   // Functions needed by DataChannelController
   virtual void NoteDataAddedEvent() {}

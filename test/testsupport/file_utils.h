@@ -47,12 +47,13 @@ std::string OutputPath();
 // Generates an empty file with a unique name in the specified directory and
 // returns the file name and path.
 // TODO(titovartem) rename to TempFile and next method to TempFilename
-std::string TempFilename(const std::string& dir, const std::string& prefix);
+std::string TempFilename(const absl::string_view dir,
+                         const absl::string_view prefix);
 
 // Generates a unique file name that can be used for file creation. Doesn't
 // create any files.
-std::string GenerateTempFilename(const std::string& dir,
-                                 const std::string& prefix);
+std::string GenerateTempFilename(const absl::string_view dir,
+                                 const absl::string_view prefix);
 
 // Returns a path to a resource file in [project-root]/resources/ dir.
 // Returns an absolute path
@@ -63,10 +64,12 @@ std::string GenerateTempFilename(const std::string& dir,
 //           If a directory path is prepended to the filename, a subdirectory
 //           hierarchy reflecting that path is assumed to be present.
 //    extension - File extension, without the dot, i.e. "bmp" or "yuv".
-std::string ResourcePath(const std::string& name, const std::string& extension);
+std::string ResourcePath(const absl::string_view name,
+                         const absl::string_view extension);
 
 // Joins directory name and file name, separated by the path delimiter.
-std::string JoinFilename(const std::string& dir, const std::string& name);
+std::string JoinFilename(const absl::string_view dir,
+                         const absl::string_view name);
 
 // Gets the current working directory for the executing program.
 // Returns "./" if for some reason it is not possible to find the working
@@ -82,26 +85,26 @@ absl::optional<std::vector<std::string>> ReadDirectory(std::string path);
 // Creates a directory if it not already exists.
 // Returns true if successful. Will print an error message to stderr and return
 // false if a file with the same name already exists.
-bool CreateDir(const std::string& directory_name);
+bool CreateDir(const absl::string_view directory_name);
 
 // Removes a directory, which must already be empty.
-bool RemoveDir(const std::string& directory_name);
+bool RemoveDir(const absl::string_view directory_name);
 
 // Removes a file.
-bool RemoveFile(const std::string& file_name);
+bool RemoveFile(const absl::string_view file_name);
 
 // Checks if a file exists.
-bool FileExists(const std::string& file_name);
+bool FileExists(const absl::string_view file_name);
 
 // Checks if a directory exists.
-bool DirExists(const std::string& directory_name);
+bool DirExists(const absl::string_view directory_name);
 
 // Strips the rightmost path segment from a path.
-std::string DirName(const std::string& path);
+std::string DirName(const absl::string_view path);
 
 // File size of the supplied file in bytes. Will return 0 if the file is
 // empty or if the file does not exist/is readable.
-size_t GetFileSize(const std::string& filename);
+size_t GetFileSize(const absl::string_view filename);
 
 }  // namespace test
 }  // namespace webrtc

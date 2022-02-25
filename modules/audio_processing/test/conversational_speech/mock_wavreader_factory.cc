@@ -36,7 +36,7 @@ MockWavReaderFactory::MockWavReaderFactory(const Params& default_params)
 MockWavReaderFactory::~MockWavReaderFactory() = default;
 
 std::unique_ptr<WavReaderInterface> MockWavReaderFactory::CreateMock(
-    const std::string& filepath) {
+    const absl::string_view filepath) {
   // Search the parameters corresponding to filepath.
   size_t delimiter = filepath.find_last_of("/\\");  // Either windows or posix
   std::string filename =

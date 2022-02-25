@@ -63,7 +63,7 @@ static_assert(INVALID == arraysize(kValidIceServiceTypes),
 // scheme        = "stun" / "stuns" / "turn" / "turns"
 // host          = IP-literal / IPv4address / reg-name
 // port          = *DIGIT
-static bool GetServiceTypeAndHostnameFromUri(const std::string& in_str,
+static bool GetServiceTypeAndHostnameFromUri(const absl::string_view in_str,
                                              ServiceType* service_type,
                                              std::string* hostname) {
   const std::string::size_type colonpos = in_str.find(':');
@@ -89,7 +89,7 @@ static bool GetServiceTypeAndHostnameFromUri(const std::string& in_str,
   return true;
 }
 
-static bool ParsePort(const std::string& in_str, int* port) {
+static bool ParsePort(const absl::string_view in_str, int* port) {
   // Make sure port only contains digits. FromString doesn't check this.
   for (const char& c : in_str) {
     if (!std::isdigit(c)) {
@@ -104,7 +104,7 @@ static bool ParsePort(const std::string& in_str, int* port) {
 // Consider following formats as correct.
 // `hostname:port`, |[IPV6 address]:port|, |IPv4 address|:port,
 // `hostname`, |[IPv6 address]|, |IPv4 address|.
-static bool ParseHostnameAndPortFromString(const std::string& in_str,
+static bool ParseHostnameAndPortFromString(const absl::string_view in_str,
                                            std::string* host,
                                            int* port) {
   RTC_DCHECK(host->empty());
@@ -146,7 +146,7 @@ static bool ParseHostnameAndPortFromString(const std::string& in_str,
 // by parsing `url` and using the username/password in `server`.
 static RTCErrorType ParseIceServerUrl(
     const PeerConnectionInterface::IceServer& server,
-    const std::string& url,
+    const absl::string_view url,
     cricket::ServerAddresses* stun_servers,
     std::vector<cricket::RelayServerConfig>* turn_servers) {
   // RFC 7064

@@ -64,7 +64,7 @@ RtpTransceiverProxyRefPtr TransceiverList::FindBySender(
 }
 
 RtpTransceiverProxyRefPtr TransceiverList::FindByMid(
-    const std::string& mid) const {
+    const absl::string_view mid) const {
   RTC_DCHECK_RUN_ON(&sequence_checker_);
   for (auto transceiver : transceivers_) {
     if (transceiver->mid() == mid) {

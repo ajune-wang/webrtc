@@ -75,7 +75,7 @@ void PeerConnectionTestWrapper::Connect(PeerConnectionTestWrapper* caller,
 }
 
 PeerConnectionTestWrapper::PeerConnectionTestWrapper(
-    const std::string& name,
+    const absl::string_view name,
     rtc::Thread* network_thread,
     rtc::Thread* worker_thread)
     : name_(name),
@@ -138,7 +138,7 @@ bool PeerConnectionTestWrapper::CreatePc(
 
 rtc::scoped_refptr<webrtc::DataChannelInterface>
 PeerConnectionTestWrapper::CreateDataChannel(
-    const std::string& label,
+    const absl::string_view label,
     const webrtc::DataChannelInit& init) {
   auto result = peer_connection_->CreateDataChannelOrError(label, &init);
   if (!result.ok()) {
@@ -220,17 +220,18 @@ void PeerConnectionTestWrapper::CreateAnswer(
   peer_connection_->CreateAnswer(this, options);
 }
 
-void PeerConnectionTestWrapper::ReceiveOfferSdp(const std::string& sdp) {
+void PeerConnectionTestWrapper::ReceiveOfferSdp(const absl::string_view sdp) {
   SetRemoteDescription(SdpType::kOffer, sdp);
   CreateAnswer(webrtc::PeerConnectionInterface::RTCOfferAnswerOptions());
 }
 
-void PeerConnectionTestWrapper::ReceiveAnswerSdp(const std::string& sdp) {
+void PeerConnectionTestWrapper::ReceiveAnswerSdp(const absl::string_view sdp) {
   SetRemoteDescription(SdpType::kAnswer, sdp);
 }
 
-void PeerConnectionTestWrapper::SetLocalDescription(SdpType type,
-                                                    const std::string& sdp) {
+void PeerConnectionTestWrapper::SetLocalDescription(
+    SdpType type,
+    const absl::string_view sdp) {
   RTC_LOG(LS_INFO) << "PeerConnectionTestWrapper " << name_
                    << ": SetLocalDescription " << webrtc::SdpTypeToString(type)
                    << " " << sdp;
@@ -240,8 +241,9 @@ void PeerConnectionTestWrapper::SetLocalDescription(SdpType type,
       observer, webrtc::CreateSessionDescription(type, sdp).release());
 }
 
-void PeerConnectionTestWrapper::SetRemoteDescription(SdpType type,
-                                                     const std::string& sdp) {
+void PeerConnectionTestWrapper::SetRemoteDescription(
+    SdpType type,
+    const absl::string_view sdp) {
   RTC_LOG(LS_INFO) << "PeerConnectionTestWrapper " << name_
                    << ": SetRemoteDescription " << webrtc::SdpTypeToString(type)
                    << " " << sdp;
@@ -251,9 +253,10 @@ void PeerConnectionTestWrapper::SetRemoteDescription(SdpType type,
       observer, webrtc::CreateSessionDescription(type, sdp).release());
 }
 
-void PeerConnectionTestWrapper::AddIceCandidate(const std::string& sdp_mid,
-                                                int sdp_mline_index,
-                                                const std::string& candidate) {
+void PeerConnectionTestWrapper::AddIceCandidate(
+    const absl::string_view sdp_mid,
+    int sdp_mline_index,
+    const absl::string_view candidate) {
   std::unique_ptr<webrtc::IceCandidateInterface> owned_candidate(
       webrtc::CreateIceCandidate(sdp_mid, sdp_mline_index, candidate, NULL));
   EXPECT_TRUE(peer_connection_->AddIceCandidate(owned_candidate.get()));

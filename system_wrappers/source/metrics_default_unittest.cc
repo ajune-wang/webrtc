@@ -25,7 +25,7 @@ const int kSample = 22;
 const char kName[] = "Name";
 
 int NumSamples(
-    const std::string& name,
+    const absl::string_view name,
     const std::map<std::string, std::unique_ptr<metrics::SampleInfo>>&
         histograms) {
   const auto it = histograms.find(name);
@@ -39,7 +39,7 @@ int NumSamples(
   return num_samples;
 }
 
-int NumEvents(const std::string& name,
+int NumEvents(const absl::string_view name,
               int sample,
               const std::map<std::string, std::unique_ptr<metrics::SampleInfo>>&
                   histograms) {

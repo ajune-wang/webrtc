@@ -51,7 +51,7 @@ class WavBasedSimulator final : public AudioProcessingSimulator {
   void PrepareReverseProcessStreamCall();
   static std::vector<SimulationEventType> GetDefaultEventChain();
   static std::vector<SimulationEventType> GetCustomEventChain(
-      const std::string& filename);
+      const absl::string_view filename);
 
   std::vector<SimulationEventType> call_chain_;
 };

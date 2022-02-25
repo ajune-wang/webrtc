@@ -44,9 +44,8 @@ class AudioEncoderOpusImpl final : public AudioEncoder {
       const AudioEncoderOpusConfig& config,
       OpusEncInst* inst);
 
-  using AudioNetworkAdaptorCreator =
-      std::function<std::unique_ptr<AudioNetworkAdaptor>(const std::string&,
-                                                         RtcEventLog*)>;
+  using AudioNetworkAdaptorCreator = std::function<std::unique_ptr<
+      AudioNetworkAdaptor>(const absl::string_view, RtcEventLog*)>;
 
   AudioEncoderOpusImpl(const AudioEncoderOpusConfig& config, int payload_type);
 
@@ -81,7 +80,7 @@ class AudioEncoderOpusImpl final : public AudioEncoder {
 
   bool SetApplication(Application application) override;
   void SetMaxPlaybackRate(int frequency_hz) override;
-  bool EnableAudioNetworkAdaptor(const std::string& config_string,
+  bool EnableAudioNetworkAdaptor(const absl::string_view config_string,
                                  RtcEventLog* event_log) override;
   void DisableAudioNetworkAdaptor() override;
   void OnReceivedUplinkPacketLossFraction(
@@ -146,7 +145,7 @@ class AudioEncoderOpusImpl final : public AudioEncoder {
 
   void ApplyAudioNetworkAdaptor();
   std::unique_ptr<AudioNetworkAdaptor> DefaultAudioNetworkAdaptorCreator(
-      const std::string& config_string,
+      const absl::string_view config_string,
       RtcEventLog* event_log) const;
 
   void MaybeUpdateUplinkBandwidth();

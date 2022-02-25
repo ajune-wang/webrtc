@@ -23,7 +23,7 @@ static const uint8_t kTestKey1[] = "ABCDEFGHIJKLMNOPQRSTUVWXYZ1234";
 static const uint8_t kTestKey2[] = "4321ZYXWVUTSRQPONMLKJIHGFEDCBA";
 static const int kTestKeyLen = 30;
 
-static int rtp_auth_tag_len(const std::string& cs) {
+static int rtp_auth_tag_len(const absl::string_view cs) {
   if (cs == kCsAesCm128HmacSha1_32) {
     return 4;
   } else if (cs == kCsAeadAes128Gcm || cs == kCsAeadAes256Gcm) {
@@ -32,7 +32,7 @@ static int rtp_auth_tag_len(const std::string& cs) {
     return 10;
   }
 }
-static int rtcp_auth_tag_len(const std::string& cs) {
+static int rtcp_auth_tag_len(const absl::string_view cs) {
   if (cs == kCsAeadAes128Gcm || cs == kCsAeadAes256Gcm) {
     return 16;
   } else {

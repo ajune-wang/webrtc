@@ -198,7 +198,7 @@ void ExternalTimeController::AdvanceTime(TimeDelta duration) {
 }
 
 std::unique_ptr<rtc::Thread> ExternalTimeController::CreateThread(
-    const std::string& name,
+    const absl::string_view name,
     std::unique_ptr<rtc::SocketServer> socket_server) {
   RTC_DCHECK_NOTREACHED();
   return nullptr;

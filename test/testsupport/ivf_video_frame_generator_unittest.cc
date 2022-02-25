@@ -56,7 +56,7 @@ constexpr double kExpectedMinPsnr = 39;
 
 class IvfFileWriterEncodedCallback : public EncodedImageCallback {
  public:
-  IvfFileWriterEncodedCallback(const std::string& file_name,
+  IvfFileWriterEncodedCallback(const absl::string_view file_name,
                                VideoCodecType video_codec_type,
                                int expected_frames_count)
       : file_writer_(

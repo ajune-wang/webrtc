@@ -255,7 +255,7 @@ class RtcEventFieldTest : public ::testing::Test {
     }
   }
 
-  void PrintBytes(const std::string& s) {
+  void PrintBytes(const absl::string_view s) {
     for (auto c : s) {
       fprintf(stderr, "%d ", static_cast<uint8_t>(c));
     }

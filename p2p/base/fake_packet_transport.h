@@ -22,7 +22,7 @@ namespace rtc {
 // Used to simulate a packet-based transport.
 class FakePacketTransport : public PacketTransportInternal {
  public:
-  explicit FakePacketTransport(const std::string& transport_name)
+  explicit FakePacketTransport(const absl::string_view transport_name)
       : transport_name_(transport_name) {}
   ~FakePacketTransport() override {
     if (dest_ && dest_->dest_ == this) {

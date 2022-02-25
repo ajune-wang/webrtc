@@ -210,7 +210,7 @@ int16_t MaxAudioFrame(const Int16FrameData& frame) {
   return max_data;
 }
 
-void OpenFileAndWriteMessage(const std::string& filename,
+void OpenFileAndWriteMessage(const absl::string_view filename,
                              const MessageLite& msg) {
   FILE* file = fopen(filename.c_str(), "wb");
   ASSERT_TRUE(file != NULL);
@@ -226,7 +226,7 @@ void OpenFileAndWriteMessage(const std::string& filename,
   fclose(file);
 }
 
-std::string ResourceFilePath(const std::string& name, int sample_rate_hz) {
+std::string ResourceFilePath(const absl::string_view name, int sample_rate_hz) {
   rtc::StringBuilder ss;
   // Resource files are all stereo.
   ss << name << sample_rate_hz / 1000 << "_stereo";
@@ -238,7 +238,7 @@ std::string ResourceFilePath(const std::string& name, int sample_rate_hz) {
 // have competing filenames.
 std::map<std::string, std::string> temp_filenames;
 
-std::string OutputFilePath(const std::string& name,
+std::string OutputFilePath(const absl::string_view name,
                            int input_rate,
                            int output_rate,
                            int reverse_input_rate,
@@ -293,7 +293,8 @@ void ClearTempOutFiles() {
   }
 }
 
-void OpenFileAndReadMessage(const std::string& filename, MessageLite* msg) {
+void OpenFileAndReadMessage(const absl::string_view filename,
+                            MessageLite* msg) {
   FILE* file = fopen(filename.c_str(), "rb");
   ASSERT_TRUE(file != NULL);
   ReadMessageFromFile(file, msg);
@@ -388,8 +389,8 @@ class ApmTest : public ::testing::Test {
   void StreamParametersTest(Format format);
   int ProcessStreamChooser(Format format);
   int AnalyzeReverseStreamChooser(Format format);
-  void ProcessDebugDump(const std::string& in_filename,
-                        const std::string& out_filename,
+  void ProcessDebugDump(const absl::string_view in_filename,
+                        const absl::string_view out_filename,
                         Format format,
                         int max_size_bytes);
   void VerifyDebugDumpTest(Format format);
@@ -1386,8 +1387,8 @@ TEST_F(ApmTest, SplittingFilter) {
 }
 
 #ifdef WEBRTC_AUDIOPROC_DEBUG_DUMP
-void ApmTest::ProcessDebugDump(const std::string& in_filename,
-                               const std::string& out_filename,
+void ApmTest::ProcessDebugDump(const absl::string_view in_filename,
+                               const absl::string_view out_filename,
                                Format format,
                                int max_size_bytes) {
   TaskQueueForTest worker_queue("ApmTest_worker_queue");
@@ -1911,7 +1912,7 @@ class AudioProcessingTest
                             size_t num_output_channels,
                             size_t num_reverse_input_channels,
                             size_t num_reverse_output_channels,
-                            const std::string& output_file_prefix) {
+                            const absl::string_view output_file_prefix) {
     rtc::scoped_refptr<AudioProcessing> ap =
         AudioProcessingBuilderForTesting().Create();
     AudioProcessing::Config apm_config = ap->GetConfig();

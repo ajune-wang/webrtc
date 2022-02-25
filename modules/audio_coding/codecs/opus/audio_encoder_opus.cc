@@ -349,7 +349,8 @@ AudioEncoderOpusImpl::AudioEncoderOpusImpl(const AudioEncoderOpusConfig& config,
     : AudioEncoderOpusImpl(
           config,
           payload_type,
-          [this](const std::string& config_string, RtcEventLog* event_log) {
+          [this](const absl::string_view config_string,
+                 RtcEventLog* event_log) {
             return DefaultAudioNetworkAdaptorCreator(config_string, event_log);
           },
           // We choose 5sec as initial time constant due to empirical data.
@@ -465,7 +466,7 @@ void AudioEncoderOpusImpl::SetMaxPlaybackRate(int frequency_hz) {
 }
 
 bool AudioEncoderOpusImpl::EnableAudioNetworkAdaptor(
-    const std::string& config_string,
+    const absl::string_view config_string,
     RtcEventLog* event_log) {
   audio_network_adaptor_ =
       audio_network_adaptor_creator_(config_string, event_log);
@@ -777,7 +778,7 @@ void AudioEncoderOpusImpl::ApplyAudioNetworkAdaptor() {
 
 std::unique_ptr<AudioNetworkAdaptor>
 AudioEncoderOpusImpl::DefaultAudioNetworkAdaptorCreator(
-    const std::string& config_string,
+    const absl::string_view config_string,
     RtcEventLog* event_log) const {
   AudioNetworkAdaptorImpl::Config config;
   config.event_log = event_log;

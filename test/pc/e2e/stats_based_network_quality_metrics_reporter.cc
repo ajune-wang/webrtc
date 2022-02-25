@@ -232,7 +232,7 @@ void StatsBasedNetworkQualityMetricsReporter::StopAndReportResults() {
 }
 
 void StatsBasedNetworkQualityMetricsReporter::ReportStats(
-    const std::string& pc_label,
+    const absl::string_view pc_label,
     const PCStats& pc_stats,
     const NetworkLayerStats& network_layer_stats,
     int64_t packet_loss,
@@ -266,20 +266,20 @@ void StatsBasedNetworkQualityMetricsReporter::ReportStats(
 }
 
 void StatsBasedNetworkQualityMetricsReporter::ReportResult(
-    const std::string& metric_name,
-    const std::string& network_label,
+    const absl::string_view metric_name,
+    const absl::string_view network_label,
     const double value,
-    const std::string& unit) const {
+    const absl::string_view unit) const {
   test::PrintResult(metric_name, /*modifier=*/"",
                     GetTestCaseName(network_label), value, unit,
                     /*important=*/false);
 }
 
 void StatsBasedNetworkQualityMetricsReporter::ReportResult(
-    const std::string& metric_name,
-    const std::string& network_label,
+    const absl::string_view metric_name,
+    const absl::string_view network_label,
     const SamplesStatsCounter& value,
-    const std::string& unit) const {
+    const absl::string_view unit) const {
   test::PrintResult(metric_name, /*modifier=*/"",
                     GetTestCaseName(network_label), value, unit,
                     /*important=*/false);
@@ -293,7 +293,7 @@ std::string StatsBasedNetworkQualityMetricsReporter::GetTestCaseName(
 }
 
 void StatsBasedNetworkQualityMetricsReporter::LogNetworkLayerStats(
-    const std::string& peer_name,
+    const absl::string_view peer_name,
     const NetworkLayerStats& stats) const {
   DataRate average_send_rate = stats.stats->PacketsSent() >= 2
                                    ? stats.stats->AverageSendRate()

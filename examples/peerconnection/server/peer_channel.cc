@@ -124,10 +124,10 @@ void ChannelMember::OnClosing(DataSocket* ds) {
   }
 }
 
-void ChannelMember::QueueResponse(const std::string& status,
-                                  const std::string& content_type,
-                                  const std::string& extra_headers,
-                                  const std::string& data) {
+void ChannelMember::QueueResponse(const absl::string_view status,
+                                  const absl::string_view content_type,
+                                  const absl::string_view extra_headers,
+                                  const absl::string_view data) {
   if (waiting_socket_) {
     RTC_DCHECK(queue_.empty());
     RTC_DCHECK_EQ(waiting_socket_->method(), DataSocket::GET);

@@ -89,11 +89,11 @@ class Conductor : public webrtc::PeerConnectionObserver,
 
   void OnDisconnected() override;
 
-  void OnPeerConnected(int id, const std::string& name) override;
+  void OnPeerConnected(int id, const absl::string_view name) override;
 
   void OnPeerDisconnected(int id) override;
 
-  void OnMessageFromPeer(int peer_id, const std::string& message) override;
+  void OnMessageFromPeer(int peer_id, const absl::string_view message) override;
 
   void OnMessageSent(int err) override;
 
@@ -103,7 +103,7 @@ class Conductor : public webrtc::PeerConnectionObserver,
   // MainWndCallback implementation.
   //
 
-  void StartLogin(const std::string& server, int port) override;
+  void StartLogin(const absl::string_view server, int port) override;
 
   void DisconnectFromServer() override;
 
@@ -119,7 +119,7 @@ class Conductor : public webrtc::PeerConnectionObserver,
 
  protected:
   // Send a message to the remote peer.
-  void SendMessage(const std::string& json_object);
+  void SendMessage(const absl::string_view json_object);
 
   int peer_id_;
   bool loopback_;

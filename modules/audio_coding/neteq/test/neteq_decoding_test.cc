@@ -93,7 +93,7 @@ void NetEqDecodingTest::SetUp() {
 
 void NetEqDecodingTest::TearDown() {}
 
-void NetEqDecodingTest::OpenInputFile(const std::string& rtp_file) {
+void NetEqDecodingTest::OpenInputFile(const absl::string_view rtp_file) {
   rtp_source_.reset(test::RtpFileSource::Create(rtp_file));
 }
 
@@ -131,9 +131,9 @@ void NetEqDecodingTest::Process() {
 }
 
 void NetEqDecodingTest::DecodeAndCompare(
-    const std::string& rtp_file,
-    const std::string& output_checksum,
-    const std::string& network_stats_checksum,
+    const absl::string_view rtp_file,
+    const absl::string_view output_checksum,
+    const absl::string_view network_stats_checksum,
     bool gen_ref) {
   OpenInputFile(rtp_file);
 

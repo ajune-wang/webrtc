@@ -97,7 +97,7 @@ class DataSocket : public SocketBase {
   bool OnDataAvailable(bool* close_socket);
 
   // Send a raw buffer of bytes.
-  bool Send(const std::string& data) const;
+  bool Send(const absl::string_view data) const;
 
   // Send an HTTP response.  The `status` should start with a valid HTTP
   // response code, followed by a string.  E.g. "200 OK".
@@ -108,11 +108,11 @@ class DataSocket : public SocketBase {
   // header terminates with "\r\n".
   // `data` is the body of the message.  It's length will be specified via
   // a "Content-Length" header.
-  bool Send(const std::string& status,
+  bool Send(const absl::string_view status,
             bool connection_close,
-            const std::string& content_type,
-            const std::string& extra_headers,
-            const std::string& data) const;
+            const absl::string_view content_type,
+            const absl::string_view extra_headers,
+            const absl::string_view data) const;
 
   // Clears all held state and prepares the socket for receiving a new request.
   void Clear();

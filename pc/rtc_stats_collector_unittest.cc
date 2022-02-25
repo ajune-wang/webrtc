@@ -211,11 +211,11 @@ std::unique_ptr<CertificateInfo> CreateFakeCertificateAndInfoFromDers(
 }
 
 std::unique_ptr<cricket::Candidate> CreateFakeCandidate(
-    const std::string& hostname,
+    const absl::string_view hostname,
     int port,
-    const std::string& protocol,
+    const absl::string_view protocol,
     const rtc::AdapterType adapter_type,
-    const std::string& candidate_type,
+    const absl::string_view candidate_type,
     uint32_t priority) {
   std::unique_ptr<cricket::Candidate> candidate(new cricket::Candidate());
   candidate->set_address(rtc::SocketAddress(hostname, port));
@@ -244,7 +244,7 @@ class FakeAudioProcessor : public AudioProcessorInterface {
 class FakeAudioTrackForStats : public MediaStreamTrack<AudioTrackInterface> {
  public:
   static rtc::scoped_refptr<FakeAudioTrackForStats> Create(
-      const std::string& id,
+      const absl::string_view id,
       MediaStreamTrackInterface::TrackState state,
       bool create_fake_audio_processor) {
     auto audio_track_stats = rtc::make_ref_counted<FakeAudioTrackForStats>(id);
@@ -256,7 +256,7 @@ class FakeAudioTrackForStats : public MediaStreamTrack<AudioTrackInterface> {
     return audio_track_stats;
   }
 
-  explicit FakeAudioTrackForStats(const std::string& id)
+  explicit FakeAudioTrackForStats(const absl::string_view id)
       : MediaStreamTrack<AudioTrackInterface>(id) {}
 
   std::string kind() const override {
@@ -322,7 +322,7 @@ class FakeVideoTrackSourceForStats : public VideoTrackSourceInterface {
 class FakeVideoTrackForStats : public MediaStreamTrack<VideoTrackInterface> {
  public:
   static rtc::scoped_refptr<FakeVideoTrackForStats> Create(
-      const std::string& id,
+      const absl::string_view id,
       MediaStreamTrackInterface::TrackState state,
       rtc::scoped_refptr<VideoTrackSourceInterface> source) {
     auto video_track =
@@ -331,7 +331,7 @@ class FakeVideoTrackForStats : public MediaStreamTrack<VideoTrackInterface> {
     return video_track;
   }
 
-  FakeVideoTrackForStats(const std::string& id,
+  FakeVideoTrackForStats(const absl::string_view id,
                          rtc::scoped_refptr<VideoTrackSourceInterface> source)
       : MediaStreamTrack<VideoTrackInterface>(id), source_(source) {}
 
@@ -353,7 +353,7 @@ class FakeVideoTrackForStats : public MediaStreamTrack<VideoTrackInterface> {
 
 rtc::scoped_refptr<MediaStreamTrackInterface> CreateFakeTrack(
     cricket::MediaType media_type,
-    const std::string& track_id,
+    const absl::string_view track_id,
     MediaStreamTrackInterface::TrackState track_state,
     bool create_fake_audio_processor = false) {
   if (media_type == cricket::MEDIA_TYPE_AUDIO) {
@@ -458,7 +458,7 @@ class RTCStatsCollectorWrapper {
 
   rtc::scoped_refptr<MockRtpSenderInternal> SetupLocalTrackAndSender(
       cricket::MediaType media_type,
-      const std::string& track_id,
+      const absl::string_view track_id,
       uint32_t ssrc,
       bool add_stream,
       int attachment_id) {
@@ -493,8 +493,8 @@ class RTCStatsCollectorWrapper {
 
   rtc::scoped_refptr<MockRtpReceiverInternal> SetupRemoteTrackAndReceiver(
       cricket::MediaType media_type,
-      const std::string& track_id,
-      const std::string& stream_id,
+      const absl::string_view track_id,
+      const absl::string_view stream_id,
       uint32_t ssrc) {
     rtc::scoped_refptr<MediaStream> remote_stream =
         MediaStream::Create(stream_id);
@@ -3361,7 +3361,7 @@ class RTCTestStats : public RTCStats {
  public:
   WEBRTC_RTCSTATS_DECL();
 
-  RTCTestStats(const std::string& id, int64_t timestamp_us)
+  RTCTestStats(const absl::string_view id, int64_t timestamp_us)
       : RTCStats(id, timestamp_us), dummy_stat("dummyStat") {}
 
   RTCStatsMember<int32_t> dummy_stat;

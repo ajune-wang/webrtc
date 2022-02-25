@@ -693,7 +693,7 @@ void FakeCall::OnLocalSsrcUpdated(webrtc::AudioReceiveStream& stream,
 }
 
 void FakeCall::OnUpdateSyncGroup(webrtc::AudioReceiveStream& stream,
-                                 const std::string& sync_group) {
+                                 const absl::string_view sync_group) {
   auto& fake_stream = static_cast<FakeAudioReceiveStream&>(stream);
   fake_stream.SetSyncGroup(sync_group);
 }

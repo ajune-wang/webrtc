@@ -79,14 +79,15 @@ void RTCStatsReport::AddStats(std::unique_ptr<const RTCStats> stats) {
          "present in this stats report.";
 }
 
-const RTCStats* RTCStatsReport::Get(const std::string& id) const {
+const RTCStats* RTCStatsReport::Get(const absl::string_view id) const {
   StatsMap::const_iterator it = stats_.find(id);
   if (it != stats_.cend())
     return it->second.get();
   return nullptr;
 }
 
-std::unique_ptr<const RTCStats> RTCStatsReport::Take(const std::string& id) {
+std::unique_ptr<const RTCStats> RTCStatsReport::Take(
+    const absl::string_view id) {
   StatsMap::iterator it = stats_.find(id);
   if (it == stats_.end())
     return nullptr;

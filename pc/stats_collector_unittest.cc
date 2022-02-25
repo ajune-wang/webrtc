@@ -102,7 +102,7 @@ class FakeAudioProcessor : public AudioProcessorInterface {
 
 class FakeAudioTrack : public MediaStreamTrack<AudioTrackInterface> {
  public:
-  explicit FakeAudioTrack(const std::string& id)
+  explicit FakeAudioTrack(const absl::string_view id)
       : MediaStreamTrack<AudioTrackInterface>(id),
         processor_(rtc::make_ref_counted<FakeAudioProcessor>()) {}
   std::string kind() const override { return "audio"; }
@@ -140,7 +140,7 @@ class FakeAudioProcessorWithInitValue : public AudioProcessorInterface {
 class FakeAudioTrackWithInitValue
     : public MediaStreamTrack<AudioTrackInterface> {
  public:
-  explicit FakeAudioTrackWithInitValue(const std::string& id)
+  explicit FakeAudioTrackWithInitValue(const absl::string_view id)
       : MediaStreamTrack<AudioTrackInterface>(id),
         processor_(rtc::make_ref_counted<FakeAudioProcessorWithInitValue>()) {}
   std::string kind() const override { return "audio"; }
@@ -182,7 +182,7 @@ std::string ExtractStatsValue(const StatsReport::StatsType& type,
 }
 
 StatsReport::Id TypedIdFromIdString(StatsReport::StatsType type,
-                                    const std::string& value) {
+                                    const absl::string_view value) {
   EXPECT_FALSE(value.empty());
   StatsReport::Id id;
   if (value.empty())
@@ -201,7 +201,7 @@ StatsReport::Id TypedIdFromIdString(StatsReport::StatsType type,
   return id;
 }
 
-StatsReport::Id IdFromCertIdString(const std::string& cert_id) {
+StatsReport::Id IdFromCertIdString(const absl::string_view cert_id) {
   return TypedIdFromIdString(StatsReport::kStatsReportTypeCertificate, cert_id);
 }
 
@@ -271,7 +271,7 @@ std::string ExtractBweStatsValue(const StatsReports& reports,
   return ExtractStatsValue(StatsReport::kStatsReportTypeBwe, reports, name);
 }
 
-std::string DerToPem(const std::string& der) {
+std::string DerToPem(const absl::string_view der) {
   return rtc::SSLIdentity::DerToPem(
       rtc::kPemTypeCertificate,
       reinterpret_cast<const unsigned char*>(der.c_str()), der.length());

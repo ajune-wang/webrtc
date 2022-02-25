@@ -33,7 +33,7 @@ class ScenarioIceConnection {
     virtual void OnPacketReceived(rtc::CopyOnWriteBuffer packet) = 0;
     // Called on signaling thread.
     virtual void OnIceCandidates(
-        const std::string& mid,
+        const absl::string_view mid,
         const std::vector<cricket::Candidate>& candidates) = 0;
 
    protected:
@@ -50,8 +50,9 @@ class ScenarioIceConnection {
   virtual void SendRtcpPacket(rtc::ArrayView<const uint8_t> packet_view) = 0;
 
   // Used for ICE configuration, called on signaling thread.
-  virtual void SetRemoteSdp(SdpType type, const std::string& remote_sdp) = 0;
-  virtual void SetLocalSdp(SdpType type, const std::string& local_sdp) = 0;
+  virtual void SetRemoteSdp(SdpType type,
+                            const absl::string_view remote_sdp) = 0;
+  virtual void SetLocalSdp(SdpType type, const absl::string_view local_sdp) = 0;
 
   virtual EmulatedEndpoint* endpoint() = 0;
   virtual const cricket::TransportDescription& transport_description()

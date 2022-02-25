@@ -211,8 +211,8 @@ class PeerConnectionIceBaseTest : public ::testing::Test {
 
   // Sets all ICE ufrag/pwds on the given session description.
   void SetIceUfragPwd(SessionDescriptionInterface* sdesc,
-                      const std::string& ufrag,
-                      const std::string& pwd) {
+                      const absl::string_view ufrag,
+                      const absl::string_view pwd) {
     auto* desc = sdesc->description();
     for (const auto& content : desc->contents()) {
       auto* transport_info = desc->GetTransportInfoByName(content.name);

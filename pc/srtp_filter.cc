@@ -252,7 +252,7 @@ bool SrtpFilter::ApplyRecvParams(const CryptoParams& recv_params) {
                         recv_key_.size());
 }
 
-bool SrtpFilter::ParseKeyParams(const std::string& key_params,
+bool SrtpFilter::ParseKeyParams(const absl::string_view key_params,
                                 uint8_t* key,
                                 size_t len) {
   // example key_params: "inline:YUJDZGVmZ2hpSktMbW9QUXJzVHVWd3l6MTIzNDU2"

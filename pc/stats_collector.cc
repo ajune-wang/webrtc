@@ -95,7 +95,7 @@ typedef TypeForAdd<int64_t> Int64ForAdd;
 typedef TypeForAdd<int> IntForAdd;
 
 StatsReport* AddTrackReport(StatsCollection* reports,
-                            const std::string& track_id) {
+                            const absl::string_view track_id) {
   // Adds an empty track report.
   StatsReport::Id id(
       StatsReport::NewTypedId(StatsReport::kStatsReportTypeTrack, track_id));
@@ -496,7 +496,8 @@ void ExtractStatsFromList(
 
 }  // namespace
 
-const char* IceCandidateTypeToStatsType(const std::string& candidate_type) {
+const char* IceCandidateTypeToStatsType(
+    const absl::string_view candidate_type) {
   if (candidate_type == cricket::LOCAL_PORT_TYPE) {
     return STATSREPORT_LOCAL_PORT_TYPE;
   }
@@ -690,7 +691,7 @@ void StatsCollector::UpdateStats(
 
 StatsReport* StatsCollector::PrepareReport(bool local,
                                            uint32_t ssrc,
-                                           const std::string& track_id,
+                                           const absl::string_view track_id,
                                            const StatsReport::Id& transport_id,
                                            StatsReport::Direction direction) {
   RTC_DCHECK_RUN_ON(pc_->signaling_thread());
@@ -723,7 +724,7 @@ StatsReport* StatsCollector::PrepareADMReport() {
   return report;
 }
 
-bool StatsCollector::IsValidTrack(const std::string& track_id) {
+bool StatsCollector::IsValidTrack(const absl::string_view track_id) {
   return reports_.Find(StatsReport::NewTypedId(
              StatsReport::kStatsReportTypeTrack, track_id)) != nullptr;
 }
@@ -757,7 +758,7 @@ StatsReport* StatsCollector::AddCertificateReports(
 }
 
 StatsReport* StatsCollector::AddConnectionInfoReport(
-    const std::string& content_name,
+    const absl::string_view content_name,
     int component,
     int connection_id,
     const StatsReport::Id& channel_report_id,
@@ -1300,7 +1301,7 @@ void StatsCollector::ExtractDataInfo() {
 }
 
 StatsReport* StatsCollector::GetReport(const StatsReport::StatsType& type,
-                                       const std::string& id,
+                                       const absl::string_view id,
                                        StatsReport::Direction direction) {
   RTC_DCHECK_RUN_ON(pc_->signaling_thread());
   RTC_DCHECK(type == StatsReport::kStatsReportTypeSsrc ||

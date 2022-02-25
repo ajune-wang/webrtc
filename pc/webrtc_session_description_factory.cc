@@ -98,7 +98,7 @@ void WebRtcCertificateGeneratorCallback::OnSuccess(
 // static
 void WebRtcSessionDescriptionFactory::CopyCandidatesFromSessionDescription(
     const SessionDescriptionInterface* source_desc,
-    const std::string& content_name,
+    const absl::string_view content_name,
     SessionDescriptionInterface* dest_desc) {
   if (!source_desc) {
     return;
@@ -130,7 +130,7 @@ WebRtcSessionDescriptionFactory::WebRtcSessionDescriptionFactory(
     rtc::Thread* signaling_thread,
     cricket::ChannelManager* channel_manager,
     const SdpStateProvider* sdp_info,
-    const std::string& session_id,
+    const absl::string_view session_id,
     bool dtls_enabled,
     std::unique_ptr<rtc::RTCCertificateGeneratorInterface> cert_generator,
     const rtc::scoped_refptr<rtc::RTCCertificate>& certificate,
@@ -439,7 +439,7 @@ void WebRtcSessionDescriptionFactory::InternalCreateAnswer(
 }
 
 void WebRtcSessionDescriptionFactory::FailPendingRequests(
-    const std::string& reason) {
+    const absl::string_view reason) {
   RTC_DCHECK_RUN_ON(signaling_thread_);
   while (!create_session_description_requests_.empty()) {
     const CreateSessionDescriptionRequest& request =
@@ -456,7 +456,7 @@ void WebRtcSessionDescriptionFactory::FailPendingRequests(
 
 void WebRtcSessionDescriptionFactory::PostCreateSessionDescriptionFailed(
     CreateSessionDescriptionObserver* observer,
-    const std::string& error) {
+    const absl::string_view error) {
   CreateSessionDescriptionMsg* msg = new CreateSessionDescriptionMsg(
       observer, RTCError(RTCErrorType::INTERNAL_ERROR, std::string(error)));
   signaling_thread_->Post(RTC_FROM_HERE, this,

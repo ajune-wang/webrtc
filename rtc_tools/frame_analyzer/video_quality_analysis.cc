@@ -117,12 +117,13 @@ int GetTotalNumberOfSkippedFrames(const std::vector<Cluster>& clusters) {
   return static_cast<int>(number_ref_frames - clusters.size());
 }
 
-void PrintAnalysisResults(const std::string& label, ResultsContainer* results) {
+void PrintAnalysisResults(const absl::string_view label,
+                          ResultsContainer* results) {
   PrintAnalysisResults(stdout, label, results);
 }
 
 void PrintAnalysisResults(FILE* output,
-                          const std::string& label,
+                          const absl::string_view label,
                           ResultsContainer* results) {
   SetPerfResultsOutput(output);
 

@@ -108,7 +108,7 @@ namespace {
 void WriteData(const void* data,
                size_t size,
                FILE* file,
-               const std::string& filename) {
+               const absl::string_view filename) {
   if (fwrite(data, size, 1, file) != 1) {
     printf("Error when writing to %s\n", filename.c_str());
     exit(1);
@@ -117,7 +117,7 @@ void WriteData(const void* data,
 
 void WriteCallOrderData(const bool render_call,
                         FILE* file,
-                        const std::string& filename) {
+                        const absl::string_view filename) {
   const char call_type = render_call ? 'r' : 'c';
   WriteData(&call_type, sizeof(call_type), file, filename.c_str());
 }

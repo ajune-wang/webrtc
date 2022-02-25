@@ -165,7 +165,7 @@ SdpContentPredicate HaveSdesCryptos() {
   };
 }
 
-SdpContentPredicate HaveProtocol(const std::string& protocol) {
+SdpContentPredicate HaveProtocol(const absl::string_view protocol) {
   return [protocol](const cricket::ContentInfo* content,
                     const cricket::TransportInfo* transport) {
     return content->media_description()->protocol() == protocol;

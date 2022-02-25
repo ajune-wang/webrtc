@@ -296,7 +296,7 @@ std::unique_ptr<test::NetEqStatsGetter> CreateNetEqTestAndRun(
     const std::vector<LoggedRtpPacketIncoming>* packet_stream,
     const std::vector<LoggedAudioPlayoutEvent>* output_events,
     absl::optional<int64_t> end_time_ms,
-    const std::string& replacement_file_name,
+    const absl::string_view replacement_file_name,
     int file_sample_rate_hz) {
   std::unique_ptr<test::NetEqInput> input(
       new NetEqStreamInput(packet_stream, output_events, end_time_ms));
@@ -337,7 +337,7 @@ std::unique_ptr<test::NetEqStatsGetter> CreateNetEqTestAndRun(
 
 NetEqStatsGetterMap SimulateNetEq(const ParsedRtcEventLog& parsed_log,
                                   const AnalyzerConfig& config,
-                                  const std::string& replacement_file_name,
+                                  const absl::string_view replacement_file_name,
                                   int file_sample_rate_hz) {
   NetEqStatsGetterMap neteq_stats;
 
@@ -439,7 +439,7 @@ void CreateNetEqStatsGraphInternal(
     rtc::FunctionView<const std::vector<std::pair<int64_t, NetEqStatsType>>*(
         const test::NetEqStatsGetter*)> data_extractor,
     rtc::FunctionView<float(const NetEqStatsType&)> stats_extractor,
-    const std::string& plot_name,
+    const absl::string_view plot_name,
     Plot* plot) {
   std::map<uint32_t, TimeSeries> time_series;
 
@@ -472,7 +472,7 @@ void CreateNetEqNetworkStatsGraph(
     const AnalyzerConfig& config,
     const NetEqStatsGetterMap& neteq_stats,
     rtc::FunctionView<float(const NetEqNetworkStatistics&)> stats_extractor,
-    const std::string& plot_name,
+    const absl::string_view plot_name,
     Plot* plot) {
   CreateNetEqStatsGraphInternal<NetEqNetworkStatistics>(
       parsed_log, config, neteq_stats,
@@ -487,7 +487,7 @@ void CreateNetEqLifetimeStatsGraph(
     const AnalyzerConfig& config,
     const NetEqStatsGetterMap& neteq_stats,
     rtc::FunctionView<float(const NetEqLifetimeStatistics&)> stats_extractor,
-    const std::string& plot_name,
+    const absl::string_view plot_name,
     Plot* plot) {
   CreateNetEqStatsGraphInternal<NetEqLifetimeStatistics>(
       parsed_log, config, neteq_stats,

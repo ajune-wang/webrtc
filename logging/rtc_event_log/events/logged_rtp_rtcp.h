@@ -79,7 +79,7 @@ struct LoggedRtpPacketOutgoing {
 struct LoggedRtcpPacket {
   LoggedRtcpPacket(Timestamp timestamp, const std::vector<uint8_t>& packet)
       : timestamp(timestamp), raw_data(packet) {}
-  LoggedRtcpPacket(Timestamp timestamp, const std::string& packet)
+  LoggedRtcpPacket(Timestamp timestamp, const absl::string_view packet)
       : timestamp(timestamp), raw_data(packet.size()) {
     memcpy(raw_data.data(), packet.data(), packet.size());
   }
@@ -100,7 +100,7 @@ struct LoggedRtcpPacketIncoming {
   LoggedRtcpPacketIncoming(Timestamp timestamp,
                            const std::vector<uint8_t>& packet)
       : rtcp(timestamp, packet) {}
-  LoggedRtcpPacketIncoming(Timestamp timestamp, const std::string& packet)
+  LoggedRtcpPacketIncoming(Timestamp timestamp, const absl::string_view packet)
       : rtcp(timestamp, packet) {}
 
   int64_t log_time_us() const { return rtcp.timestamp.us(); }
@@ -114,7 +114,7 @@ struct LoggedRtcpPacketOutgoing {
   LoggedRtcpPacketOutgoing(Timestamp timestamp,
                            const std::vector<uint8_t>& packet)
       : rtcp(timestamp, packet) {}
-  LoggedRtcpPacketOutgoing(Timestamp timestamp, const std::string& packet)
+  LoggedRtcpPacketOutgoing(Timestamp timestamp, const absl::string_view packet)
       : rtcp(timestamp, packet) {}
 
   int64_t log_time_us() const { return rtcp.timestamp.us(); }

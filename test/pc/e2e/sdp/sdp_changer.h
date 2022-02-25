@@ -92,7 +92,7 @@ class SignalingInterceptor {
   // Contains information about simulcast section, that is required to perform
   // modified offer/answer and ice candidates exchange.
   struct SimulcastSectionInfo {
-    SimulcastSectionInfo(const std::string& mid,
+    SimulcastSectionInfo(const absl::string_view mid,
                          cricket::MediaProtocolType media_protocol_type,
                          const std::vector<cricket::RidDescription>& rids_desc);
 

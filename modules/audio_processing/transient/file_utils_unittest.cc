@@ -49,8 +49,8 @@ class TransientFileUtilsTest : public ::testing::Test {
 
   ~TransientFileUtilsTest() override { CleanupTempFiles(); }
 
-  std::string CreateTempFilename(const std::string& dir,
-                                 const std::string& prefix) {
+  std::string CreateTempFilename(const absl::string_view dir,
+                                 const absl::string_view prefix) {
     std::string filename = test::TempFilename(dir, prefix);
     temp_filenames_.push_back(filename);
     return filename;

@@ -89,7 +89,7 @@ int ComparePort(const cricket::Port* a, const cricket::Port* b) {
 
 struct NetworkFilter {
   using Predicate = std::function<bool(rtc::Network*)>;
-  NetworkFilter(Predicate pred, const std::string& description)
+  NetworkFilter(Predicate pred, const absl::string_view description)
       : predRemain([pred](rtc::Network* network) { return !pred(network); }),
         description(description) {}
   Predicate predRemain;
@@ -231,10 +231,10 @@ int BasicPortAllocator::GetNetworkIgnoreMask() const {
 }
 
 PortAllocatorSession* BasicPortAllocator::CreateSessionInternal(
-    const std::string& content_name,
+    const absl::string_view content_name,
     int component,
-    const std::string& ice_ufrag,
-    const std::string& ice_pwd) {
+    const absl::string_view ice_ufrag,
+    const absl::string_view ice_pwd) {
   CheckRunOnValidThreadAndInitialized();
   PortAllocatorSession* session = new BasicPortAllocatorSession(
       this, content_name, component, ice_ufrag, ice_pwd);
@@ -264,10 +264,10 @@ void BasicPortAllocator::InitRelayPortFactory(
 // BasicPortAllocatorSession
 BasicPortAllocatorSession::BasicPortAllocatorSession(
     BasicPortAllocator* allocator,
-    const std::string& content_name,
+    const absl::string_view content_name,
     int component,
-    const std::string& ice_ufrag,
-    const std::string& ice_pwd)
+    const absl::string_view ice_ufrag,
+    const absl::string_view ice_pwd)
     : PortAllocatorSession(content_name,
                            component,
                            ice_ufrag,
@@ -1000,7 +1000,7 @@ void BasicPortAllocatorSession::OnCandidateError(
 }
 
 Port* BasicPortAllocatorSession::GetBestTurnPortForNetwork(
-    const std::string& network_name) const {
+    const absl::string_view network_name) const {
   RTC_DCHECK_RUN_ON(network_thread_);
   Port* best_turn_port = nullptr;
   for (const PortData& data : ports_) {
@@ -1660,16 +1660,16 @@ void AllocationSequence::OnPortDestroyed(PortInterface* port) {
 
 // PortConfiguration
 PortConfiguration::PortConfiguration(const rtc::SocketAddress& stun_address,
-                                     const std::string& username,
-                                     const std::string& password)
+                                     const absl::string_view username,
+                                     const absl::string_view password)
     : stun_address(stun_address), username(username), password(password) {
   if (!stun_address.IsNil())
     stun_servers.insert(stun_address);
 }
 
 PortConfiguration::PortConfiguration(const ServerAddresses& stun_servers,
-                                     const std::string& username,
-                                     const std::string& password)
+                                     const absl::string_view username,
+                                     const absl::string_view password)
     : stun_servers(stun_servers), username(username), password(password) {
   if (!stun_servers.empty())
     stun_address = *(stun_servers.begin());

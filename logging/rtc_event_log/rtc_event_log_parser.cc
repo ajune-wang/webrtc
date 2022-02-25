@@ -1119,7 +1119,7 @@ void ParsedRtcEventLog::Clear() {
 }
 
 ParsedRtcEventLog::ParseStatus ParsedRtcEventLog::ParseFile(
-    const std::string& filename) {
+    const absl::string_view filename) {
   FileWrapper file = FileWrapper::OpenReadOnly(filename);
   if (!file.is_open()) {
     RTC_LOG(LS_WARNING) << "Could not open file " << filename
@@ -1145,12 +1145,12 @@ ParsedRtcEventLog::ParseStatus ParsedRtcEventLog::ParseFile(
 }
 
 ParsedRtcEventLog::ParseStatus ParsedRtcEventLog::ParseString(
-    const std::string& s) {
+    const absl::string_view s) {
   return ParseStream(s);
 }
 
 ParsedRtcEventLog::ParseStatus ParsedRtcEventLog::ParseStream(
-    const std::string& s) {
+    const absl::string_view s) {
   Clear();
   ParseStatus status = ParseStreamInternal(s);
 

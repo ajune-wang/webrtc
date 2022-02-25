@@ -64,15 +64,15 @@ class Video : public rtc::RefCountInterface {
       size_t index) const = 0;
 };
 
-rtc::scoped_refptr<Video> OpenY4mFile(const std::string& file_name);
+rtc::scoped_refptr<Video> OpenY4mFile(const absl::string_view file_name);
 
-rtc::scoped_refptr<Video> OpenYuvFile(const std::string& file_name,
+rtc::scoped_refptr<Video> OpenYuvFile(const absl::string_view file_name,
                                       int width,
                                       int height);
 
 // This is a helper function for the two functions above. It reads the file
 // extension to determine whether it is a .yuv or a .y4m file.
-rtc::scoped_refptr<Video> OpenYuvOrY4mFile(const std::string& file_name,
+rtc::scoped_refptr<Video> OpenYuvOrY4mFile(const absl::string_view file_name,
                                            int width,
                                            int height);
 

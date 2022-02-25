@@ -55,7 +55,7 @@ class MockAudioEncoder : public AudioEncoder {
 
   MOCK_METHOD(bool,
               EnableAudioNetworkAdaptor,
-              (const std::string& config_string, RtcEventLog*),
+              (const absl::string_view config_string, RtcEventLog*),
               (override));
 
   // Note, we explicitly chose not to create a mock for the Encode method.

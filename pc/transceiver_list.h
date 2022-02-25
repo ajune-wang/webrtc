@@ -109,7 +109,7 @@ class TransceiverList {
   }
   RtpTransceiverProxyRefPtr FindBySender(
       rtc::scoped_refptr<RtpSenderInterface> sender) const;
-  RtpTransceiverProxyRefPtr FindByMid(const std::string& mid) const;
+  RtpTransceiverProxyRefPtr FindByMid(const absl::string_view mid) const;
   RtpTransceiverProxyRefPtr FindByMLineIndex(size_t mline_index) const;
 
   // Find or create the stable state for a transceiver.

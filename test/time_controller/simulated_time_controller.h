@@ -63,7 +63,7 @@ class SimulatedTimeControllerImpl : public TaskQueueFactory,
       RTC_LOCKS_EXCLUDED(time_lock_, lock_);
   // Create thread using provided `socket_server`.
   std::unique_ptr<rtc::Thread> CreateThread(
-      const std::string& name,
+      const absl::string_view name,
       std::unique_ptr<rtc::SocketServer> socket_server)
       RTC_LOCKS_EXCLUDED(time_lock_, lock_);
 
@@ -134,7 +134,7 @@ class GlobalSimulatedTimeController : public TimeController {
   std::unique_ptr<ProcessThread> CreateProcessThread(
       const char* thread_name) override;
   std::unique_ptr<rtc::Thread> CreateThread(
-      const std::string& name,
+      const absl::string_view name,
       std::unique_ptr<rtc::SocketServer> socket_server) override;
   rtc::Thread* GetMainThread() override;
 

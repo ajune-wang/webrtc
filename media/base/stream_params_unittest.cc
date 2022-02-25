@@ -24,7 +24,7 @@ static const uint32_t kSsrcs1[] = {1};
 static const uint32_t kSsrcs2[] = {1, 2};
 
 static cricket::StreamParams CreateStreamParamsWithSsrcGroup(
-    const std::string& semantics,
+    const absl::string_view semantics,
     const uint32_t ssrcs_in[],
     size_t len) {
   cricket::StreamParams stream;

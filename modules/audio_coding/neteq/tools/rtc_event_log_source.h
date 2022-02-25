@@ -33,11 +33,11 @@ class RtcEventLogSource : public PacketSource {
   // Creates an RtcEventLogSource reading from `file_name`. If the file cannot
   // be opened, or has the wrong format, NULL will be returned.
   static std::unique_ptr<RtcEventLogSource> CreateFromFile(
-      const std::string& file_name,
+      const absl::string_view file_name,
       absl::optional<uint32_t> ssrc_filter);
   // Same as above, but uses a string with the file contents.
   static std::unique_ptr<RtcEventLogSource> CreateFromString(
-      const std::string& file_contents,
+      const absl::string_view file_contents,
       absl::optional<uint32_t> ssrc_filter);
 
   virtual ~RtcEventLogSource();

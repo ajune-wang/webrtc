@@ -61,7 +61,7 @@ namespace field_trial {
 // if the trial does not exists.
 //
 // Note: To keep things tidy append all the trial names with WebRTC.
-std::string FindFullName(const std::string& name);
+std::string FindFullName(const absl::string_view name);
 
 // Convenience method, returns true iff FindFullName(name) return a string that
 // starts with "Enabled".

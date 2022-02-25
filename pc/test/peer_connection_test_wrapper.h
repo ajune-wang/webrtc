@@ -39,7 +39,7 @@ class PeerConnectionTestWrapper
   static void Connect(PeerConnectionTestWrapper* caller,
                       PeerConnectionTestWrapper* callee);
 
-  PeerConnectionTestWrapper(const std::string& name,
+  PeerConnectionTestWrapper(const absl::string_view name,
                             rtc::Thread* network_thread,
                             rtc::Thread* worker_thread);
   virtual ~PeerConnectionTestWrapper();
@@ -56,7 +56,7 @@ class PeerConnectionTestWrapper
   webrtc::PeerConnectionInterface* pc() { return peer_connection_.get(); }
 
   rtc::scoped_refptr<webrtc::DataChannelInterface> CreateDataChannel(
-      const std::string& label,
+      const absl::string_view label,
       const webrtc::DataChannelInit& init);
 
   void WaitForNegotiation();
@@ -85,11 +85,11 @@ class PeerConnectionTestWrapper
       const webrtc::PeerConnectionInterface::RTCOfferAnswerOptions& options);
   void CreateAnswer(
       const webrtc::PeerConnectionInterface::RTCOfferAnswerOptions& options);
-  void ReceiveOfferSdp(const std::string& sdp);
-  void ReceiveAnswerSdp(const std::string& sdp);
-  void AddIceCandidate(const std::string& sdp_mid,
+  void ReceiveOfferSdp(const absl::string_view sdp);
+  void ReceiveAnswerSdp(const absl::string_view sdp);
+  void AddIceCandidate(const absl::string_view sdp_mid,
                        int sdp_mline_index,
-                       const std::string& candidate);
+                       const absl::string_view candidate);
   void WaitForCallEstablished();
   void WaitForConnection();
   void WaitForAudio();
@@ -107,8 +107,8 @@ class PeerConnectionTestWrapper
   sigslot::signal1<webrtc::DataChannelInterface*> SignalOnDataChannel;
 
  private:
-  void SetLocalDescription(webrtc::SdpType type, const std::string& sdp);
-  void SetRemoteDescription(webrtc::SdpType type, const std::string& sdp);
+  void SetLocalDescription(webrtc::SdpType type, const absl::string_view sdp);
+  void SetRemoteDescription(webrtc::SdpType type, const absl::string_view sdp);
   bool CheckForConnection();
   bool CheckForAudio();
   bool CheckForVideo();

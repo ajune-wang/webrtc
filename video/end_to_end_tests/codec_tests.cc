@@ -50,7 +50,7 @@ class CodecObserver : public test::EndToEndTest,
   CodecObserver(int no_frames_to_wait_for,
                 VideoRotation rotation_to_test,
                 absl::optional<ColorSpace> color_space_to_test,
-                const std::string& payload_name,
+                const absl::string_view payload_name,
                 VideoEncoderFactory* encoder_factory,
                 VideoDecoderFactory* decoder_factory)
       : EndToEndTest(4 * CodecEndToEndTest::kDefaultTimeoutMs),

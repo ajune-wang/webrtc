@@ -90,6 +90,24 @@
       "message": "Since you\u0027re now using a scoped_refptr argument, can you update or delete the TODO above?",
       "revId": "deba153f7e0303234792b2f2417a3fb61f4dd1b9",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "cc6ee645_68e5cf2b",
+        "filename": "pc/sctp_data_channel.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 164,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2022-02-25T08:52:48Z",
+      "side": 1,
+      "message": "Now I\u0027m getting unsure if these changes are consistent; I was under the impression that proxies always own the internal object, if some proxies in fact hold raw unowned pointers, this needs to be revisited.\n\nBut it looks like in this case, we use BEGIN_PRIMARY_PROXY_MAP, which uses a refcounted internal object. Deleted the TODO comments on ownership.",
+      "parentUuid": "a6420878_aac11245",
+      "revId": "deba153f7e0303234792b2f2417a3fb61f4dd1b9",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

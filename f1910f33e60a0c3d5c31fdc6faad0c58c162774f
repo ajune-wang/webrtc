@@ -144,6 +144,24 @@
       "parentUuid": "0af2fccf_f170a91f",
       "revId": "f1910f33e60a0c3d5c31fdc6faad0c58c162774f",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "689902c2_227024b6",
+        "filename": "rtc_base/ref_counted_object.h",
+        "patchSetId": 4
+      },
+      "lineNbr": 151,
+      "author": {
+        "id": 5508
+      },
+      "writtenOn": "2022-02-25T12:35:40Z",
+      "side": 1,
+      "message": "ah I see. Do you mind explaining that in a comment?\n\nI wonder how reliable that check is though. For `is_abstract` it says that it\u0027s true for any T that `declares or inherits at least one pure virtual function`. Seems easy to meet that criteria while still inheriting from RefCountedObject, or?",
+      "parentUuid": "f402d5ad_31924502",
+      "revId": "f1910f33e60a0c3d5c31fdc6faad0c58c162774f",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

@@ -93,6 +93,24 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": true,
+      "key": {
+        "uuid": "0e3d9477_ab706efb",
+        "filename": "pc/proxy.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 297,
+      "author": {
+        "id": 5508
+      },
+      "writtenOn": "2022-02-25T12:35:40Z",
+      "side": 1,
+      "message": "yes maybe, but also it doesn\u0027t hurt to be explicit?\n\nit\u0027s not entirely clear to me when one can rely on the compiler doing that, so it can be helpful to the reader to communicate the intent explicitly as well as to not assume that it will happen and then learn that it doesn\u0027t",
+      "parentUuid": "9986bfb8_2ef9c08a",
+      "revId": "deba153f7e0303234792b2f2417a3fb61f4dd1b9",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": false,
       "key": {
         "uuid": "2187fc0f_aa491608",

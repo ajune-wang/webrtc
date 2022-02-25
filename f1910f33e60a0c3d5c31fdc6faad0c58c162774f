@@ -1,6 +1,98 @@
 {
   "comments": [
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "87ee8750_0e51417c",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 4
+      },
+      "lineNbr": 12,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2022-02-25T12:32:52Z",
+      "side": 1,
+      "message": "generally word \u0027also\u0027 in description indicates change can be split.\nThis one doesn\u0027t look large, but it feels risky, so might be safer to do it in smaller chunks. \ne.g. changes to make_ref_counted first, changes to proxy - separately.",
+      "range": {
+        "startLine": 12,
+        "startChar": 0,
+        "endLine": 12,
+        "endChar": 4
+      },
+      "revId": "f1910f33e60a0c3d5c31fdc6faad0c58c162774f",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "480b9787_e1848642",
+        "filename": "pc/sctp_data_channel.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 161,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2022-02-25T12:32:52Z",
+      "side": 1,
+      "message": "std::move ?",
+      "range": {
+        "startLine": 161,
+        "startChar": 62,
+        "endLine": 161,
+        "endChar": 69
+      },
+      "revId": "f1910f33e60a0c3d5c31fdc6faad0c58c162774f",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "c69d80cd_15639c6b",
+        "filename": "pc/video_track.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 140,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2022-02-25T12:32:52Z",
+      "side": 1,
+      "message": "std::move ?",
+      "range": {
+        "startLine": 140,
+        "startChar": 66,
+        "endLine": 140,
+        "endChar": 72
+      },
+      "revId": "f1910f33e60a0c3d5c31fdc6faad0c58c162774f",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "1b15858e_ffa948fc",
+        "filename": "pc/video_track_source_proxy.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 26,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2022-02-25T12:32:52Z",
+      "side": 1,
+      "message": "may be it would be helpful to introduce\nrtc::WrapScopedRefptr(source)\n\nThen it would be easier to search for such usages and and move away from them later.\ne.g. here it makes more sense to accept `source` by scoped_refptr instead of by raw pointer, but that is better to address in a separate change.",
+      "range": {
+        "startLine": 26,
+        "startChar": 6,
+        "endLine": 26,
+        "endChar": 51
+      },
+      "revId": "f1910f33e60a0c3d5c31fdc6faad0c58c162774f",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "0af2fccf_f170a91f",
@@ -31,6 +123,24 @@
       "writtenOn": "2022-02-25T12:21:11Z",
       "side": 1,
       "message": "The is_abstract check is intended to detect that case.\n\nConsider RtpTranscieverInterface inheriting RefCountInterface, and implementation\n\nRtpTransciever inheriting RefCountedObject\u003cRtpTranscieverInterface\u003e. Then RtpTransciever is no longer abstract, and rtc::make_ref_counted\u003cRtpTransciever\u003e should not add another RefCountedObject into the inheritance graph.",
+      "parentUuid": "0af2fccf_f170a91f",
+      "revId": "f1910f33e60a0c3d5c31fdc6faad0c58c162774f",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "c007f093_b6939831",
+        "filename": "rtc_base/ref_counted_object.h",
+        "patchSetId": 4
+      },
+      "lineNbr": 151,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2022-02-25T12:32:52Z",
+      "side": 1,
+      "message": "This check exclude classes that implement RefCountInterface (using RefCountedObject or manually)\n\nI think it is more generic (and more accurate) than checking that class is derived from RefCountedObject",
       "parentUuid": "0af2fccf_f170a91f",
       "revId": "f1910f33e60a0c3d5c31fdc6faad0c58c162774f",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"

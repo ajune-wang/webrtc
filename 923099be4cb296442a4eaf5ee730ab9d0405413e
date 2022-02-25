@@ -55,6 +55,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "d09083a6_b7898d58",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 3
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5524
+      },
+      "writtenOn": "2022-02-25T13:28:14Z",
+      "side": 1,
+      "message": "`kMaxEarlyProbeProcessing` is not really an extra \"budget\". It\u0027s just that if we happen to wake up \u003c\u003d 1ms too early we allow sending the packets to avoid scheduling a new 1ms sleep. When the BitrateProber calculates the next probe time, that time will be adjusted for this fact.\n\nThinking about it, the same is true for other packets. Might be we should allow the same there.",
+      "parentUuid": "f9b619c8_71102b3a",
+      "revId": "923099be4cb296442a4eaf5ee730ab9d0405413e",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "6435d61e_2e518633",
         "filename": "modules/pacing/pacing_controller.cc",
         "patchSetId": 3

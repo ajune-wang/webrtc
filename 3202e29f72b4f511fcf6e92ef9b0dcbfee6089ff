@@ -20,6 +20,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "37503fcc_d1a25c52",
+        "filename": "p2p/base/connection.cc",
+        "patchSetId": 18
+      },
+      "lineNbr": 855,
+      "author": {
+        "id": 5508
+      },
+      "writtenOn": "2022-02-25T11:30:55Z",
+      "side": 1,
+      "message": "Yes that is at the very least a hypothetical problem I\u0027ve documented in webrtc:13752. I would imagine any use of TCPConnection would be affected by it.\n\nAnother thing I\u0027m wondering about is if Connection (or derived classes) could be owned outside of the potential callers of Destroy(). There are several paths that can lead to a call to Destroy() and as with Port, it\u0027s still possible to delete the object directly. Code outside of WebRTC might be doing that and could run into surprises.",
+      "parentUuid": "770c51fe_acd304f9",
+      "revId": "3202e29f72b4f511fcf6e92ef9b0dcbfee6089ff",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "fa86dfc8_9d5cb287",
         "filename": "p2p/base/p2p_transport_channel_unittest.cc",
         "patchSetId": 18
@@ -31,6 +49,24 @@
       "writtenOn": "2022-02-25T02:24:21Z",
       "side": 1,
       "message": "Why is this necessary now when it wasn\u0027t before?",
+      "revId": "3202e29f72b4f511fcf6e92ef9b0dcbfee6089ff",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "1a98cf35_a96cabbb",
+        "filename": "p2p/base/p2p_transport_channel_unittest.cc",
+        "patchSetId": 18
+      },
+      "lineNbr": 488,
+      "author": {
+        "id": 5508
+      },
+      "writtenOn": "2022-02-25T11:30:55Z",
+      "side": 1,
+      "message": "It was always necessary to let the task run (`Destroy()` has always been async). The fact that this wasn\u0027t done before, masked the issue with dangling pointers in the sigslot. Leaking the connection object caused the SignalDestroyed event to never fire and therefore we didn\u0027t see the uaf issue.",
+      "parentUuid": "fa86dfc8_9d5cb287",
       "revId": "3202e29f72b4f511fcf6e92ef9b0dcbfee6089ff",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },

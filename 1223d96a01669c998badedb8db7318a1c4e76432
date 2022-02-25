@@ -91,6 +91,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "cf77042f_f4eda9a9",
+        "filename": "p2p/base/connection.cc",
+        "patchSetId": 15
+      },
+      "lineNbr": 840,
+      "author": {
+        "id": 5508
+      },
+      "writtenOn": "2022-02-25T11:30:55Z",
+      "side": 1,
+      "message": "The sigslot has raw pointers to objects that do (or rather, did) not disconnect prior to deletion. What was happening was that the deferred deletion of Connection could happen after those objects were deleted. Tests that would trigger those problems.\n\nBtw, looks like the bots are pointing out a few examples of leaks and uafs to us as part of the revert:\nhttps://chromium-swarm.appspot.com/task?id\u003d594792bd36c35510 and here\nhttps://chromium-swarm.appspot.com/task?id\u003d594952d36b6a7810\n\nWrt `previously it didn\u0027t have to` -\nActually it does and did [1]. Making temporary copies is not something that was introduced by these changes.\n\nBut secondly, I think the core issue more an artifact of the design and basically a built-in problem that we have.\n\nThe \"Destroy() + async deletion\" is a workaround to avoid a crash in those places where there\u0027s a re-entrant dependency from the class that triggers the deletion and is also subscribed to a callback related to that deletion that in turn modifies the list being iterated over.\n\nInstead of avoiding the callback (require disconnect first), the deletion is deferred to happen later. The side effect of that though is that the time and order of destruction is no longer deterministic. As the stack unwinds it\u0027s hard to know where there might be raw pointers in use for the object that has been scheduled to be deleted as well as what objects may have been deleted at that time that the object then refers to because we\u0027re not strict about disconnecting from sigslots.\n\n\n[1]: https://source.chromium.org/chromium/chromium/src/+/main:third_party/webrtc/p2p/base/port.cc;l\u003d191?q\u003dPort\u0026ss\u003dchromium",
+      "parentUuid": "bc420b62_1c195839",
+      "range": {
+        "startLine": 838,
+        "startChar": 0,
+        "endLine": 840,
+        "endChar": 0
+      },
+      "revId": "1223d96a01669c998badedb8db7318a1c4e76432",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "6bdbcdd5_1980fcd0",
         "filename": "p2p/base/connection.cc",
         "patchSetId": 15

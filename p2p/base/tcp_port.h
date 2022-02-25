@@ -166,6 +166,10 @@ class TCPConnection : public Connection {
                     const int64_t& packet_time_us);
   void OnReadyToSend(rtc::AsyncPacketSocket* socket);
 
+  bool pretending_to_be_writable() const {
+    return pending_deletion_.get() != nullptr && pending_deletion_->alive();
+  }
+
   std::unique_ptr<rtc::AsyncPacketSocket> socket_;
   int error_;
   bool outgoing_;
@@ -173,13 +177,18 @@ class TCPConnection : public Connection {
   // Guard against multiple outgoing tcp connection during a reconnect.
   bool connection_pending_;
 
-  // Guard against data packets sent when we reconnect a TCP connection. During
-  // reconnecting, when a new tcp connection has being made, we can't send data
-  // packets out until the STUN binding is completed (i.e. the write state is
-  // set to WRITABLE again by Connection::OnConnectionRequestResponse). IPC
-  // socket, when receiving data packets before that, will trigger OnError which
-  // will terminate the newly created connection.
-  bool pretending_to_be_writable_;
+  // This flag has dual purpose. Firstly, it guards against data packets sent
+  // when we reconnect a TCP connection. During reconnecting, when a new tcp
+  // connection has being made, we can't send data packets out until the STUN
+  // binding is completed (i.e. the write state is set to WRITABLE again by
+  // Connection::OnConnectionRequestResponse). IPC socket, when receiving data
+  // packets before that, will trigger OnError which will terminate the newly
+  // created connection. In order to check for this state, we internally call
+  // `pretending_to_be_writable()`.
+  // The second purpose is to serve as a cancellation flag for a pending delete
+  // operation in case we reconnect. In such a case, we cancel the pending
+  // task and clear the pointer.
+  rtc::scoped_refptr<webrtc::PendingTaskSafetyFlag> pending_deletion_;
 
   // Allow test case to overwrite the default timeout period.
   int reconnection_timeout_;

@@ -419,7 +419,11 @@ void TCPConnection::OnConnectionRequestResponse(ConnectionRequest* req,
                                                 StunMessage* response) {
   // Process the STUN response before we inform upper layer ready to send.
   Connection::OnConnectionRequestResponse(req, response);
+  OnReceivedResponse();
+  RTC_DCHECK(write_state() == STATE_WRITABLE);
+}
 
+void TCPConnection::OnReceivedResponse() {
   // If we're in the state of pretending to be writeable, we should inform the
   // upper layer it's ready to send again as previous EWOULDLBLOCK from socket
   // would have stopped the outgoing stream.
@@ -427,7 +431,6 @@ void TCPConnection::OnConnectionRequestResponse(ConnectionRequest* req,
     Connection::OnReadyToSend();
   }
   pretending_to_be_writable_ = false;
-  RTC_DCHECK(write_state() == STATE_WRITABLE);
 }
 
 void TCPConnection::OnConnect(rtc::AsyncPacketSocket* socket) {
@@ -506,7 +509,7 @@ void TCPConnection::OnClose(rtc::AsyncPacketSocket* socket, int error) {
         webrtc::ToQueuedTask(network_safety_,
                              [this]() {
                                if (pretending_to_be_writable_) {
-                                 Destroy();
+                                 DestroySynchronously();
                                }
                              }),
         reconnection_timeout());

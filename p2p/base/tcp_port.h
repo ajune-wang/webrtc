@@ -142,6 +142,12 @@ class TCPConnection : public Connection {
     reconnection_timeout_ = timeout_in_ms;
   }
 
+  bool pretending_to_be_writable() const { return pretending_to_be_writable_; }
+
+  // Called from within `OnConnectionRequestResponse()` to update the
+  // `pretending_to_be_writable_` state. Made public for testing purposes.
+  void OnReceivedResponse();
+
  protected:
   // Set waiting_for_stun_binding_complete_ to false to allow data packets in
   // addition to what Port::OnConnectionRequestResponse does.

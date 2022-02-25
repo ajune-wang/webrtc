@@ -34,6 +34,24 @@
       "parentUuid": "ea6c7c23_0bdbebe8",
       "revId": "e6d9eb1fecea7afceb3c59bdb76485c6696d9f07",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "e5442134_92c927fd",
+        "filename": "p2p/base/connection.cc",
+        "patchSetId": 6
+      },
+      "lineNbr": 849,
+      "author": {
+        "id": 5508
+      },
+      "writtenOn": "2022-02-25T22:43:54Z",
+      "side": 1,
+      "message": "Sorry, I misunderstood the suggestion - that\u0027s a good idea. I\u0027ve prepared a different CL that does that. We can land that one and abandon this one.\nhttps://webrtc-review.googlesource.com/c/src/+/252660",
+      "parentUuid": "f4c1f230_369f07b1",
+      "revId": "e6d9eb1fecea7afceb3c59bdb76485c6696d9f07",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

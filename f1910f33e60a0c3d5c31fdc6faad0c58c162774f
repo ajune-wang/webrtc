@@ -162,6 +162,24 @@
       "parentUuid": "f402d5ad_31924502",
       "revId": "f1910f33e60a0c3d5c31fdc6faad0c58c162774f",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "22aa1ec2_0d581e00",
+        "filename": "rtc_base/ref_counted_object.h",
+        "patchSetId": 4
+      },
+      "lineNbr": 151,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2022-02-25T12:41:43Z",
+      "side": 1,
+      "message": "If the class T is abstract, and RefCountedObject\u003cT\u003e is abstract too, then we\u0027ll get a compile error when make_ref_counted attempts to construct it. I think that\u0027s the desired behavior. I agree it deserves a comment, but may not get time to work on this cl until the March 7 week.",
+      "parentUuid": "689902c2_227024b6",
+      "revId": "f1910f33e60a0c3d5c31fdc6faad0c58c162774f",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

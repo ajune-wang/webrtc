@@ -21,8 +21,8 @@
  *  - PendingTCP: `connection_pending_` indicates whether there is an
  *    outstanding TCP connection in progress.
  *
- *  - PretendWri: Tracked by `pretending_to_be_writable_`. Marking connection as
- *    WRITE_TIMEOUT will cause the connection be deleted. Instead, we're
+ *  - PretendWri: Tracked by `pretending_to_be_writable()`. Marking connection
+ * as WRITE_TIMEOUT will cause the connection be deleted. Instead, we're
  *    "pretending" we're still writable for a period of time such that reconnect
  *    could work.
  *
@@ -349,7 +349,6 @@ TCPConnection::TCPConnection(TCPPort* port,
       error_(0),
       outgoing_(socket == NULL),
       connection_pending_(false),
-      pretending_to_be_writable_(false),
       reconnection_timeout_(cricket::CONNECTION_WRITE_CONNECT_TIMEOUT) {
   if (outgoing_) {
     CreateOutgoingTcpSocket();
@@ -369,6 +368,9 @@ TCPConnection::TCPConnection(TCPPort* port,
 
 TCPConnection::~TCPConnection() {
   RTC_DCHECK_RUN_ON(network_thread_);
+  if (pending_deletion_) {
+    pending_deletion_->SetNotAlive();
+  }
 }
 
 int TCPConnection::Send(const void* data,
@@ -390,7 +392,7 @@ int TCPConnection::Send(const void* data,
 
   // Note that this is important to put this after the previous check to give
   // the connection a chance to reconnect.
-  if (pretending_to_be_writable_ || write_state() != STATE_WRITABLE) {
+  if (pretending_to_be_writable() || write_state() != STATE_WRITABLE) {
     // TODO(?): Should STATE_WRITE_TIMEOUT return a non-blocking error?
     error_ = ENOTCONN;
     return SOCKET_ERROR;
@@ -423,10 +425,12 @@ void TCPConnection::OnConnectionRequestResponse(ConnectionRequest* req,
   // If we're in the state of pretending to be writeable, we should inform the
   // upper layer it's ready to send again as previous EWOULDLBLOCK from socket
   // would have stopped the outgoing stream.
-  if (pretending_to_be_writable_) {
+  if (pretending_to_be_writable()) {
+    pending_deletion_->SetNotAlive();
+    pending_deletion_ = nullptr;
     Connection::OnReadyToSend();
   }
-  pretending_to_be_writable_ = false;
+  RTC_DCHECK(!pending_deletion_);
   RTC_DCHECK(write_state() == STATE_WRITABLE);
 }
 
@@ -494,7 +498,8 @@ void TCPConnection::OnClose(rtc::AsyncPacketSocket* socket, int error) {
 
     // Prevent the connection from being destroyed by redundant SignalClose
     // events.
-    pretending_to_be_writable_ = true;
+    RTC_DCHECK(!pending_deletion_);
+    pending_deletion_ = webrtc::PendingTaskSafetyFlag::Create();
 
     // If this connection can't become connected and writable again in 5
     // seconds, it's time to tear this down. This is the case for the original
@@ -503,16 +508,11 @@ void TCPConnection::OnClose(rtc::AsyncPacketSocket* socket, int error) {
     // shutdown is intentional and reconnect is not necessary. We only reconnect
     // when the connection is used to Send() or Ping().
     port()->thread()->PostDelayedTask(
-        webrtc::ToQueuedTask(network_safety_,
-                             [this]() {
-                               if (pretending_to_be_writable_) {
-                                 Destroy();
-                               }
-                             }),
+        webrtc::ToQueuedTask(pending_deletion_, [this]() { Destroy(); }),
         reconnection_timeout());
-  } else if (!pretending_to_be_writable_) {
+  } else if (!pretending_to_be_writable()) {
     // OnClose could be called when the underneath socket times out during the
-    // initial connect() (i.e. `pretending_to_be_writable_` is false) . We have
+    // initial connect() (i.e. `pretending_to_be_writable()` is false) . We have
     // to manually destroy here as this connection, as never connected, will not
     // be scheduled for ping to trigger destroy.
     Destroy();

@@ -1232,6 +1232,76 @@ TEST_F(PortTest, TestTcpReconnectOnPing) {
   TestTcpReconnect(true /* ping */, false /* send */);
 }
 
+// This test does mostly the same thing as `TestTcpReconnectOnPing` except that
+// once reconnected, we force close the socket, make sure that the reconnect
+// period post closing expires. That period is used to automatically close and
+// delete the connection when a reconnect attempt fails. However in this case
+// it succeeds, so the pending deletion operation must not run - which is what
+// this test is about.
+TEST_F(PortTest, TestTcpReconnectNoDestroy) {
+  auto port1 = CreateTcpPort(kLocalAddr1);
+  port1->SetIceRole(cricket::ICEROLE_CONTROLLING);
+  auto port2 = CreateTcpPort(kLocalAddr2);
+  port2->SetIceRole(cricket::ICEROLE_CONTROLLED);
+
+  port1->set_component(cricket::ICE_CANDIDATE_COMPONENT_DEFAULT);
+  port2->set_component(cricket::ICE_CANDIDATE_COMPONENT_DEFAULT);
+
+  // Set up channels and ensure both ports will be deleted.
+  TestChannel ch1(std::move(port1));
+  TestChannel ch2(std::move(port2));
+  EXPECT_EQ(0, ch1.complete_count());
+  EXPECT_EQ(0, ch2.complete_count());
+
+  ch1.Start();
+  ch2.Start();
+  ASSERT_EQ_WAIT(1, ch1.complete_count(), kDefaultTimeout);
+  ASSERT_EQ_WAIT(1, ch2.complete_count(), kDefaultTimeout);
+
+  // Initial connecting the channel, create connection on channel1.
+  ch1.CreateConnection(GetCandidate(ch2.port()));
+  ConnectStartedChannels(&ch1, &ch2);
+
+  auto* tcp1 = static_cast<TCPConnection*>(ch1.conn());
+  auto* tcp2 = static_cast<TCPConnection*>(ch2.conn());
+
+  // Shorten the timeout period.
+  const int kTcpReconnectTimeout = kShortTimeout;
+  tcp1->set_reconnection_timeout(kTcpReconnectTimeout);
+  tcp2->set_reconnection_timeout(kTcpReconnectTimeout);
+  EXPECT_FALSE(ch1.connection_ready_to_send());
+  EXPECT_FALSE(ch2.connection_ready_to_send());
+
+  // Once connected, disconnect them.
+  DisconnectTcpTestChannels(&ch1, &ch2);
+
+  // Ping to trigger reconnect.
+  ch1.Ping();
+
+  // Wait for channel's outgoing TCPConnection to get connected.
+  EXPECT_TRUE_WAIT(ch1.conn()->connected(), kDefaultTimeout);
+
+  // Verify that we could still connect channels.
+  ConnectStartedChannels(&ch1, &ch2);
+  EXPECT_TRUE_WAIT(ch1.connection_ready_to_send(), kTcpReconnectTimeout);
+  // Channel2 is the passive one so a new connection is created during
+  // reconnect. This new connection should never have issued ENOTCONN
+  // hence the connection_ready_to_send() should be false.
+  EXPECT_FALSE(ch2.connection_ready_to_send());
+
+  tcp1->socket()->Close();
+  // Process messages for slightly longer than the reconnect timeout.
+  rtc::Thread::Current()->ProcessMessages(tcp1->reconnection_timeout() + 100);
+  // We should still have a connection.
+  EXPECT_EQ(tcp1, ch1.conn());
+
+  // Tear down and ensure that goes smoothly.
+  ch1.Stop();
+  ch2.Stop();
+  EXPECT_TRUE_WAIT(ch1.conn() == NULL, kDefaultTimeout);
+  EXPECT_TRUE_WAIT(ch2.conn() == NULL, kDefaultTimeout);
+}
+
 TEST_F(PortTest, TestTcpReconnectTimeout) {
   TestTcpReconnect(false /* ping */, false /* send */);
 }

@@ -38,6 +38,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "ce8c5ef3_033a4438",
+        "filename": "p2p/base/connection.cc",
+        "patchSetId": 18
+      },
+      "lineNbr": 855,
+      "author": {
+        "id": 5053
+      },
+      "writtenOn": "2022-02-25T20:52:40Z",
+      "side": 1,
+      "message": "That\u0027s a good point. Calling Destroy followed by calling the destructor directly was also previously fine and now isn\u0027t.\n\nBut at a minimum, it would be easy to handle Destroy being called twice by setting a pending_destroy_ flag",
+      "parentUuid": "37503fcc_d1a25c52",
+      "revId": "3202e29f72b4f511fcf6e92ef9b0dcbfee6089ff",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "fa86dfc8_9d5cb287",
         "filename": "p2p/base/p2p_transport_channel_unittest.cc",
         "patchSetId": 18

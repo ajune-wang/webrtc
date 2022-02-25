@@ -115,6 +115,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "b370e45e_4dfcd51b",
+        "filename": "p2p/base/connection.cc",
+        "patchSetId": 15
+      },
+      "lineNbr": 840,
+      "author": {
+        "id": 5053
+      },
+      "writtenOn": "2022-02-25T20:52:40Z",
+      "side": 1,
+      "message": "\u003e The sigslot has raw pointers to objects that do (or rather, did) not disconnect prior to deletion. \n\nsigslot::~has_slots() calls disconnect_all(), so how is that happening?\n\n\u003e Actually it does [need to make a copy of the connection list] and did [1].\n\nNot in Port::DestroyAllConnections(). I don\u0027t know why making a copy would have been necessary, since Destroy previously didn\u0027t do anything but post a task. Maybe it previously called SignalDestroyed synchronously, further back in the code history.\n\n\u003e Instead of avoiding the callback (require disconnect first), the deletion is deferred to happen later. \n\nIn most places I do see disconnect being called first, but you can have object A delete a Connection which is observed by the object B, causing it to delete another Connection which is observed by object A, as in my example above.",
+      "parentUuid": "cf77042f_f4eda9a9",
+      "range": {
+        "startLine": 838,
+        "startChar": 0,
+        "endLine": 840,
+        "endChar": 0
+      },
+      "revId": "1223d96a01669c998badedb8db7318a1c4e76432",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "6bdbcdd5_1980fcd0",
         "filename": "p2p/base/connection.cc",
         "patchSetId": 15

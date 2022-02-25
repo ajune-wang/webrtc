@@ -76,7 +76,8 @@ YuvFrameReaderImpl::YuvFrameReaderImpl(std::string input_filename,
       frame_size_bytes_(FrameSizeBytes(input_width, input_height)),
       repeat_mode_(repeat_mode),
       number_of_frames_(-1),
-      current_frame_index_(-1),
+      next_frame_index_(0),
+      prev_frame_index_(-1),
       dropper_(clip_fps.has_value() ? new DropperUtil(*clip_fps, target_fps)
                                     : nullptr),
       input_file_(nullptr) {}
@@ -91,12 +92,14 @@ bool YuvFrameReaderImpl::Init() {
                       << input_width_ << "x" << input_height_;
     return false;
   }
+
   input_file_ = fopen(input_filename_.c_str(), "rb");
   if (input_file_ == nullptr) {
     RTC_LOG(LS_ERROR) << "Couldn't open input file: "
                       << input_filename_.c_str();
     return false;
   }
+
   // Calculate total number of frames.
   size_t source_file_size = GetFileSize(input_filename_);
   if (source_file_size <= 0u) {
@@ -104,15 +107,16 @@ bool YuvFrameReaderImpl::Init() {
                       << " is empty.";
     return false;
   }
+
   number_of_frames_ =
       static_cast<int>(source_file_size / frame_length_in_bytes_);
-
   if (number_of_frames_ == 0) {
     RTC_LOG(LS_ERROR) << "Input file " << input_filename_.c_str()
                       << " is too small.";
   }
 
-  current_frame_index_ = 0;
+  next_frame_index_ = 0;
+  prev_frame_index_ = -1;
   return true;
 }
 
@@ -125,27 +129,30 @@ rtc::scoped_refptr<I420Buffer> YuvFrameReaderImpl::ReadFrame() {
   rtc::scoped_refptr<I420Buffer> buffer;
 
   do {
-    if (current_frame_index_ >= number_of_frames_) {
+    if (next_frame_index_ == number_of_frames_) {
       switch (repeat_mode_) {
         case RepeatMode::kSingle:
           return nullptr;
         case RepeatMode::kRepeat:
-          fseek(input_file_, 0, SEEK_SET);
-          current_frame_index_ = 0;
+          next_frame_index_ = 0;
+          prev_frame_index_ = -1;
           break;
         case RepeatMode::kPingPong:
-          if (current_frame_index_ == number_of_frames_ * 2) {
-            fseek(input_file_, 0, SEEK_SET);
-            current_frame_index_ = 0;
-          } else {
-            int reverse_frame_index = current_frame_index_ - number_of_frames_;
-            int seek_frame_pos = (number_of_frames_ - reverse_frame_index - 1);
-            fseek(input_file_, seek_frame_pos * frame_size_bytes_, SEEK_SET);
-          }
+          next_frame_index_ = std::max(number_of_frames_ - 2, 0);
           break;
       }
+    } else if (next_frame_index_ == -1) {
+      RTC_DCHECK(repeat_mode_ == RepeatMode::kPingPong);
+      next_frame_index_ = std::min(number_of_frames_ - 1, 1);
     }
-    ++current_frame_index_;
+
+    if (next_frame_index_ == 0 || next_frame_index_ < prev_frame_index_) {
+      fseek(input_file_, next_frame_index_ * frame_size_bytes_, SEEK_SET);
+    }
+
+    int frame_index_incriment = prev_frame_index_ < next_frame_index_ ? 1 : -1;
+    prev_frame_index_ = next_frame_index_;
+    next_frame_index_ += frame_index_incriment;
 
     buffer = ReadI420Buffer(input_width_, input_height_, input_file_);
     if (!buffer && ferror(input_file_)) {

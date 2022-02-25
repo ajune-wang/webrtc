@@ -25,7 +25,7 @@ namespace webrtc {
 namespace test {
 
 namespace {
-const std::string kInputFileContents = "bazouk";
+const std::vector<std::string> kFrameContents = {"012345", "123456", "234567"};
 
 const size_t kFrameWidth = 2;
 const size_t kFrameHeight = 2;
@@ -41,7 +41,9 @@ class YuvFrameReaderTest : public ::testing::Test {
     temp_filename_ = webrtc::test::TempFilename(webrtc::test::OutputPath(),
                                                 "yuv_frame_reader_unittest");
     FILE* dummy = fopen(temp_filename_.c_str(), "wb");
-    fprintf(dummy, "%s", kInputFileContents.c_str());
+    for (const std::string& frame : kFrameContents) {
+      fprintf(dummy, "%s", frame.c_str());
+    }
     fclose(dummy);
 
     frame_reader_.reset(
@@ -62,25 +64,66 @@ TEST_F(YuvFrameReaderTest, FrameLength) {
 }
 
 TEST_F(YuvFrameReaderTest, NumberOfFrames) {
-  EXPECT_EQ(1, frame_reader_->NumberOfFrames());
-}
-
-TEST_F(YuvFrameReaderTest, ReadFrame) {
-  rtc::scoped_refptr<I420BufferInterface> buffer = frame_reader_->ReadFrame();
-  ASSERT_TRUE(buffer);
-  // Expect I420 packed as YUV.
-  EXPECT_EQ(kInputFileContents[0], buffer->DataY()[0]);
-  EXPECT_EQ(kInputFileContents[1], buffer->DataY()[1]);
-  EXPECT_EQ(kInputFileContents[2], buffer->DataY()[2]);
-  EXPECT_EQ(kInputFileContents[3], buffer->DataY()[3]);
-  EXPECT_EQ(kInputFileContents[4], buffer->DataU()[0]);
-  EXPECT_EQ(kInputFileContents[5], buffer->DataV()[0]);
-  EXPECT_FALSE(frame_reader_->ReadFrame());  // End of file.
+  EXPECT_EQ(static_cast<int>(kFrameContents.size()),
+            frame_reader_->NumberOfFrames());
 }
 
 TEST_F(YuvFrameReaderTest, ReadFrameUninitialized) {
   YuvFrameReaderImpl file_reader(temp_filename_, kFrameWidth, kFrameHeight);
   EXPECT_FALSE(file_reader.ReadFrame());
+}
+
+TEST_F(YuvFrameReaderTest, RepeatModeSingle) {
+  const std::vector<int> expected_frame_index = {0, 1, 2};
+  for (const int expected_index : expected_frame_index) {
+    rtc::scoped_refptr<I420BufferInterface> buffer = frame_reader_->ReadFrame();
+    ASSERT_TRUE(buffer);
+    EXPECT_EQ(kFrameContents[expected_index][0], buffer->DataY()[0]);
+    EXPECT_EQ(kFrameContents[expected_index][1], buffer->DataY()[1]);
+    EXPECT_EQ(kFrameContents[expected_index][2], buffer->DataY()[2]);
+    EXPECT_EQ(kFrameContents[expected_index][3], buffer->DataY()[3]);
+    EXPECT_EQ(kFrameContents[expected_index][4], buffer->DataU()[0]);
+    EXPECT_EQ(kFrameContents[expected_index][5], buffer->DataV()[0]);
+  }
+  EXPECT_FALSE(frame_reader_->ReadFrame());  // End of file.
+}
+
+TEST_F(YuvFrameReaderTest, RepeatModeRepeat) {
+  frame_reader_.reset(new YuvFrameReaderImpl(
+      temp_filename_, kFrameWidth, kFrameHeight, kFrameWidth, kFrameHeight,
+      YuvFrameReaderImpl::RepeatMode::kRepeat, absl::nullopt, 30));
+  ASSERT_TRUE(frame_reader_->Init());
+
+  const std::vector<int> expected_frame_index = {0, 1, 2, 0, 1, 2};
+  for (const int expected_index : expected_frame_index) {
+    rtc::scoped_refptr<I420BufferInterface> buffer = frame_reader_->ReadFrame();
+    ASSERT_TRUE(buffer);
+    EXPECT_EQ(kFrameContents[expected_index][0], buffer->DataY()[0]);
+    EXPECT_EQ(kFrameContents[expected_index][1], buffer->DataY()[1]);
+    EXPECT_EQ(kFrameContents[expected_index][2], buffer->DataY()[2]);
+    EXPECT_EQ(kFrameContents[expected_index][3], buffer->DataY()[3]);
+    EXPECT_EQ(kFrameContents[expected_index][4], buffer->DataU()[0]);
+    EXPECT_EQ(kFrameContents[expected_index][5], buffer->DataV()[0]);
+  }
+}
+
+TEST_F(YuvFrameReaderTest, RepeatModePingPong) {
+  frame_reader_.reset(new YuvFrameReaderImpl(
+      temp_filename_, kFrameWidth, kFrameHeight, kFrameWidth, kFrameHeight,
+      YuvFrameReaderImpl::RepeatMode::kPingPong, absl::nullopt, 30));
+  ASSERT_TRUE(frame_reader_->Init());
+
+  const std::vector<int> expected_frame_index = {0, 1, 2, 1, 0, 1, 2};
+  for (const int expected_index : expected_frame_index) {
+    rtc::scoped_refptr<I420BufferInterface> buffer = frame_reader_->ReadFrame();
+    ASSERT_TRUE(buffer);
+    EXPECT_EQ(kFrameContents[expected_index][0], buffer->DataY()[0]);
+    EXPECT_EQ(kFrameContents[expected_index][1], buffer->DataY()[1]);
+    EXPECT_EQ(kFrameContents[expected_index][2], buffer->DataY()[2]);
+    EXPECT_EQ(kFrameContents[expected_index][3], buffer->DataY()[3]);
+    EXPECT_EQ(kFrameContents[expected_index][4], buffer->DataU()[0]);
+    EXPECT_EQ(kFrameContents[expected_index][5], buffer->DataV()[0]);
+  }
 }
 
 }  // namespace test

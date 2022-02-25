@@ -67,6 +67,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "bc420b62_1c195839",
+        "filename": "p2p/base/connection.cc",
+        "patchSetId": 15
+      },
+      "lineNbr": 840,
+      "author": {
+        "id": 5053
+      },
+      "writtenOn": "2022-02-25T02:24:21Z",
+      "side": 1,
+      "message": "I don\u0027t quite understand; other objects hooked up to this signal should also live on the network thread, and their destructors (called on the network thread) will disconnect the signal before the task executes. Do you have an example?\n\nI wonder if calling SignalDestroyed without unwinding the stack first is causing problems? Could be something like:\n\n1. Port::DestroyAllConnections calls Destroy on all its connections_ (without making a temporary copy; previously it didn\u0027t have to)\n2. P2PTransportChannel::OnConnectionDestroyed calls UpdateState, which ends up destroying another connection due to a timeout or whatever other criteria\n3. Port::OnConnectionDestroyed removes this second connection from connections_, modifying the array while we\u0027re iterating it\n\nNot sure if this could explain the stack traces we\u0027re seeing though, as I\u0027d expect things to blow up in DestroyAllConnections and not the posted Destroy task",
+      "parentUuid": "db27fe85_a71f9775",
+      "range": {
+        "startLine": 838,
+        "startChar": 0,
+        "endLine": 840,
+        "endChar": 0
+      },
+      "revId": "1223d96a01669c998badedb8db7318a1c4e76432",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "6bdbcdd5_1980fcd0",
         "filename": "p2p/base/connection.cc",
         "patchSetId": 15

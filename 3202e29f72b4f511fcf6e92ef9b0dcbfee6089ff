@@ -1,0 +1,55 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "770c51fe_acd304f9",
+        "filename": "p2p/base/connection.cc",
+        "patchSetId": 18
+      },
+      "lineNbr": 855,
+      "author": {
+        "id": 5053
+      },
+      "writtenOn": "2022-02-25T02:24:21Z",
+      "side": 1,
+      "message": "I wonder if it\u0027s possible for Destroy to be called multiple times. This would now result in double freeing where previously it wouldn\u0027t.\n\nCould happen due to this: https://source.chromium.org/chromium/chromium/src/+/main:third_party/webrtc/p2p/base/tcp_port.cc;l\u003d505;drc\u003ddc3638e64423b1d2d5e3323b419028ab631f3923;bpv\u003d0;bpt\u003d1\n\nThough it looks like that\u0027s only possible in Chrome",
+      "revId": "3202e29f72b4f511fcf6e92ef9b0dcbfee6089ff",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "fa86dfc8_9d5cb287",
+        "filename": "p2p/base/p2p_transport_channel_unittest.cc",
+        "patchSetId": 18
+      },
+      "lineNbr": 488,
+      "author": {
+        "id": 5053
+      },
+      "writtenOn": "2022-02-25T02:24:21Z",
+      "side": 1,
+      "message": "Why is this necessary now when it wasn\u0027t before?",
+      "revId": "3202e29f72b4f511fcf6e92ef9b0dcbfee6089ff",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "10ee70db_5b8438a2",
+        "filename": "pc/scenario_tests/goog_cc_test.cc",
+        "patchSetId": 18
+      },
+      "lineNbr": 105,
+      "author": {
+        "id": 5053
+      },
+      "writtenOn": "2022-02-25T02:24:21Z",
+      "side": 1,
+      "message": "Ditto",
+      "revId": "3202e29f72b4f511fcf6e92ef9b0dcbfee6089ff",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

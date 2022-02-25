@@ -75,6 +75,24 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": true,
+      "key": {
+        "uuid": "9986bfb8_2ef9c08a",
+        "filename": "pc/proxy.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 297,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2022-02-25T12:21:11Z",
+      "side": 1,
+      "message": "Not sure what change you are suggesting. \n\nOne could probably add std::move in (some) callers, to avoid some ref count updates. And one could add std::move(c) in the line below where c is passed to the constructor, but maybe the compiler can infer move in the latter case, as part of tail-call optimization?",
+      "parentUuid": "f03139a0_48bfc818",
+      "revId": "deba153f7e0303234792b2f2417a3fb61f4dd1b9",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": false,
       "key": {
         "uuid": "2187fc0f_aa491608",

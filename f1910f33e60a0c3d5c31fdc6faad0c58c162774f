@@ -16,6 +16,24 @@
       "message": "since RefCountInterface is an abstract interface, what change does this make?\n\nBtw, I don\u0027t suppose there\u0027s a way to catch if T already inherits from RefCountedObject somehow? (and report an error for such cases)",
       "revId": "f1910f33e60a0c3d5c31fdc6faad0c58c162774f",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "f402d5ad_31924502",
+        "filename": "rtc_base/ref_counted_object.h",
+        "patchSetId": 4
+      },
+      "lineNbr": 151,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2022-02-25T12:21:11Z",
+      "side": 1,
+      "message": "The is_abstract check is intended to detect that case.\n\nConsider RtpTranscieverInterface inheriting RefCountInterface, and implementation\n\nRtpTransciever inheriting RefCountedObject\u003cRtpTranscieverInterface\u003e. Then RtpTransciever is no longer abstract, and rtc::make_ref_counted\u003cRtpTransciever\u003e should not add another RefCountedObject into the inheritance graph.",
+      "parentUuid": "0af2fccf_f170a91f",
+      "revId": "f1910f33e60a0c3d5c31fdc6faad0c58c162774f",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

@@ -22,6 +22,30 @@
       },
       "revId": "ea8dfd50112fb7b1e5d65c1093568d722f0f7022",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "6c7be30a_0995b9e3",
+        "filename": "modules/pacing/pacing_controller.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 308,
+      "author": {
+        "id": 18554
+      },
+      "writtenOn": "2022-02-25T08:49:47Z",
+      "side": 0,
+      "message": "`last_process_time_` will be updated inside of `UpdateTimeAndGetElapsed(target_process_time)` function.\n\nSo we do not need set it explicitly.",
+      "parentUuid": "7bae6fc6_086c3fcb",
+      "range": {
+        "startLine": 308,
+        "startChar": 4,
+        "endLine": 308,
+        "endChar": 45
+      },
+      "revId": "ea8dfd50112fb7b1e5d65c1093568d722f0f7022",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

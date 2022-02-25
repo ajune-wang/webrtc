@@ -37,6 +37,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "f9b619c8_71102b3a",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 3
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 18554
+      },
+      "writtenOn": "2022-02-25T08:49:47Z",
+      "side": 1,
+      "message": "Thanks Erik.\n\n`PostDelayedTask()` is millisecond precision. The `time_to_next_process` is converted to millisecond by `DivRoundPositiveToNearest`. When the nearest is to round down, the DelayedTask will wakeup 1ms earlier than expected.\n\nSo I choose explicitly round up `time_to_next_process` to keep consistent result. In that case, we can avoid the early wake up issue.\n\nBefore call `ProcessPackets()`, we will check `NextSendTime()` again, if it is the time to process packets.\n\nFor `kMaxEarlyProbeProcessing`, per my previous understanding, it is an extra budget bonus for probing. So I move it to `NextSendTime`. If we round up `time_to_next_process`, perhaps we do not need it anymore.\n\nI will fix other review comments in a new patch set.",
+      "parentUuid": "9a79634c_fb12390c",
+      "revId": "923099be4cb296442a4eaf5ee730ab9d0405413e",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "6435d61e_2e518633",
         "filename": "modules/pacing/pacing_controller.cc",
         "patchSetId": 3
@@ -48,6 +66,30 @@
       "writtenOn": "2022-02-23T11:05:40Z",
       "side": 1,
       "message": "Why do this subtraction here?\nalso, nit: since it\u0027s convention in the rest of the file, suggest using {} even for single-line if\u0027s",
+      "range": {
+        "startLine": 351,
+        "startChar": 8,
+        "endLine": 351,
+        "endChar": 51
+      },
+      "revId": "923099be4cb296442a4eaf5ee730ab9d0405413e",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "9a293a8b_557ba464",
+        "filename": "modules/pacing/pacing_controller.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 351,
+      "author": {
+        "id": 18554
+      },
+      "writtenOn": "2022-02-25T08:49:47Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "6435d61e_2e518633",
       "range": {
         "startLine": 351,
         "startChar": 8,
@@ -81,6 +123,30 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "a4356b12_e5bfbb1c",
+        "filename": "modules/pacing/pacing_controller.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 359,
+      "author": {
+        "id": 18554
+      },
+      "writtenOn": "2022-02-25T08:49:47Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "6eeade87_8d7eee8e",
+      "range": {
+        "startLine": 359,
+        "startChar": 4,
+        "endLine": 359,
+        "endChar": 10
+      },
+      "revId": "923099be4cb296442a4eaf5ee730ab9d0405413e",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "cfc8890e_09b500bc",
@@ -94,6 +160,30 @@
       "writtenOn": "2022-02-23T11:05:40Z",
       "side": 1,
       "message": "I think this method is non-trivial enough to keep the optional as a temporary.\nYou could do e.g.\nabsl::optional\u003cTimestamp\u003e unpaced_audio_packet \u003d pace_audio_ ? packet_queue_.LeadingAudioPacketEnqueueTime() : absl::nullopt;\nif (unpaced_audio_packet) {\n  return *unpaced_audio_packet;\n}",
+      "range": {
+        "startLine": 367,
+        "startChar": 8,
+        "endLine": 367,
+        "endChar": 53
+      },
+      "revId": "923099be4cb296442a4eaf5ee730ab9d0405413e",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "685bfbdf_2f52e6fa",
+        "filename": "modules/pacing/pacing_controller.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 367,
+      "author": {
+        "id": 18554
+      },
+      "writtenOn": "2022-02-25T08:49:47Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "cfc8890e_09b500bc",
       "range": {
         "startLine": 367,
         "startChar": 8,
@@ -127,6 +217,30 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "07530326_54561e9e",
+        "filename": "modules/pacing/pacing_controller.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 373,
+      "author": {
+        "id": 18554
+      },
+      "writtenOn": "2022-02-25T08:49:47Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "c2484308_048521b2",
+      "range": {
+        "startLine": 373,
+        "startChar": 6,
+        "endLine": 373,
+        "endChar": 56
+      },
+      "revId": "923099be4cb296442a4eaf5ee730ab9d0405413e",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "a1035879_b4663e54",
@@ -144,6 +258,24 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "00a23ca0_0bcee001",
+        "filename": "modules/pacing/pacing_controller.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 426,
+      "author": {
+        "id": 18554
+      },
+      "writtenOn": "2022-02-25T08:49:47Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "a1035879_b4663e54",
+      "revId": "923099be4cb296442a4eaf5ee730ab9d0405413e",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "4f87fae6_ba3ed606",
@@ -157,6 +289,30 @@
       "writtenOn": "2022-02-23T11:05:40Z",
       "side": 1,
       "message": "please check for what the state is, not what is not",
+      "range": {
+        "startLine": 553,
+        "startChar": 10,
+        "endLine": 553,
+        "endChar": 41
+      },
+      "revId": "923099be4cb296442a4eaf5ee730ab9d0405413e",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "e1067046_a68dab5e",
+        "filename": "modules/pacing/pacing_controller.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 553,
+      "author": {
+        "id": 18554
+      },
+      "writtenOn": "2022-02-25T08:49:47Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "4f87fae6_ba3ed606",
       "range": {
         "startLine": 553,
         "startChar": 10,

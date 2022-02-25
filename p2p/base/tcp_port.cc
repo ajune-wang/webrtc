@@ -506,7 +506,7 @@ void TCPConnection::OnClose(rtc::AsyncPacketSocket* socket, int error) {
         webrtc::ToQueuedTask(network_safety_,
                              [this]() {
                                if (pretending_to_be_writable_) {
-                                 Destroy();
+                                 DestroySynchronously();
                                }
                              }),
         reconnection_timeout());

@@ -321,6 +321,12 @@ class Connection : public CandidatePairInterface, public sigslot::has_slots<> {
   // Constructs a new connection to the given remote port.
   Connection(Port* port, size_t index, const Candidate& candidate);
 
+  // Allow derived classes the option of deleting `this` directly and avoid the
+  // additional async hop that `Destroy()` introduces. This is to allow for
+  // timeout operations that are already deferred and deferring deletion by
+  // calling Destroy(), could race with other potential calls to Destroy().
+  void DestroySynchronously();
+
   // Called back when StunRequestManager has a stun packet to send
   void OnSendStunPacket(const void* data, size_t size, StunRequest* req);
 
@@ -384,6 +390,8 @@ class Connection : public CandidatePairInterface, public sigslot::has_slots<> {
   // to last message ack:ed STUN_BINDING_REQUEST.
   bool ShouldSendGoogPing(const StunMessage* message)
       RTC_RUN_ON(network_thread_);
+
+  void PreDestroy() RTC_RUN_ON(network_thread_);
 
   WriteState write_state_ RTC_GUARDED_BY(network_thread_);
   bool receiving_ RTC_GUARDED_BY(network_thread_);

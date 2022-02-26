@@ -1240,6 +1240,7 @@ rtc_library("video_rtp_receiver") {
     "../rtc_base:checks",
     "../rtc_base:rtc_base_approved",
     "../rtc_base:threading",
+    "../rtc_base/synchronization:yield_policy",
     "../rtc_base/system:no_unique_address",
   ]
   absl_deps = [

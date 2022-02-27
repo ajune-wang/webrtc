@@ -706,6 +706,13 @@ void VideoStreamEncoder::Stop() {
   RTC_DCHECK_RUN_ON(worker_queue_);
   video_source_sink_controller_.SetSource(nullptr);
 
+  if (stopped_) {
+    RTC_DCHECK(false);
+    return;
+  }
+
+  stopped_ = true;
+
   rtc::Event shutdown_event;
 
   encoder_queue_.PostTask([this, &shutdown_event] {

@@ -12,6 +12,7 @@
 
 #include <thread>  // Not allowed in production per Chromium style guide.
 
+#include "rtc_base/checks.h"
 #include "rtc_base/event.h"
 #include "test/gmock.h"
 #include "test/gtest.h"
@@ -65,4 +66,17 @@ TEST(YieldPolicyTest, IsThreadLocal) {
   events[2].Wait(Event::kForever);
   other_thread.join();
 }
+
+#if RTC_DCHECK_IS_ON && GTEST_HAS_DEATH_TEST && !defined(WEBRTC_ANDROID)
+TEST(YieldPolicyDeathTest, DisallowEventWait) {
+  class DisallowYieldHandler : public YieldInterface {
+   public:
+    void YieldExecution() override { RTC_DCHECK_NOTREACHED(); }
+  } local_handler;
+  ScopedYieldPolicy policy(&local_handler);
+  Event event;
+  EXPECT_DEATH(event.Wait(Event::kForever), "");
+}
+#endif  // RTC_DCHECK_IS_ON && GTEST_HAS_DEATH_TEST && !defined(WEBRTC_ANDROID)
+
 }  // namespace rtc

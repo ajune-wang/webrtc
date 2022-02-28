@@ -1,6 +1,23 @@
 {
   "comments": [
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "b234a10d_64e4593e",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 6
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 8527
+      },
+      "writtenOn": "2022-02-28T14:15:53Z",
+      "side": 1,
+      "message": "PTAL",
+      "revId": "0b846a9d824e99f4ea662735f5c28110fedd93d0",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "5e1d0301_d06cff67",
@@ -24,6 +41,30 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "31862ab8_29d73bc5",
+        "filename": "sdk/android/api/org/webrtc/NetworkMonitorAutoDetect.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 175,
+      "author": {
+        "id": 8527
+      },
+      "writtenOn": "2022-02-28T14:15:53Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "5e1d0301_d06cff67",
+      "range": {
+        "startLine": 175,
+        "startChar": 0,
+        "endLine": 175,
+        "endChar": 45
+      },
+      "revId": "0b846a9d824e99f4ea662735f5c28110fedd93d0",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "0ef7b210_34593d88",
@@ -37,6 +78,30 @@
       "writtenOn": "2022-02-23T23:01:58Z",
       "side": 1,
       "message": "Looks like this was based on PS 1? Perhaps if we really want to prepopulate the cache, we can do:\n\n  // Always use cache if network callback is supported; this is more accurate, and will avoid\n  // triggering probe attempts on networks that are expected to fail (e.g. RESTRICTED networks)\n  if (supportNetworkCallback()) {\n    synchronized (availableNetworks) {\n      if (availableNetworks.isEmpty()) {\n        for (Network n : connectivityManager.getAllNetworks()) {\n            if (getNetworkRequest().canBeSatisfiedBy(\n                connectivityManager.getNetworkCapabilities(n)) {\n              availableNetworks.add(n);\n            }\n          }\n        }\n      }\n      return availableNetworks.toArray(new Network[0]);\n    }\n  }",
+      "range": {
+        "startLine": 319,
+        "startChar": 0,
+        "endLine": 323,
+        "endChar": 9
+      },
+      "revId": "0b846a9d824e99f4ea662735f5c28110fedd93d0",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "ef6073dc_d1a4b119",
+        "filename": "sdk/android/api/org/webrtc/NetworkMonitorAutoDetect.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 323,
+      "author": {
+        "id": 8527
+      },
+      "writtenOn": "2022-02-28T14:15:53Z",
+      "side": 1,
+      "message": "hmm...I wonder if it will be needed or not...i.e how long it takes for the cache\nto be populated.\n\nfor a scenario where e.g a Duo outgoing call is made...it probably doesn\u0027t matter\nbut maybe it does if an incoming call is started...then I guess milliseconds will\nbe on critical line for call being able to connect.\n\ni\u0027ll do some tests...\n\nSome test later...\nI takes some 10th of milli seconds for the cache to be populated,\nbut on my (rather old) pixel 1, it takes 100th of milliseconds for the app\nto request \"getAllNetworks()\"\n\nSome more tests...similar on a MOTO G.\n\n\u003d\u003e I think this is fine, let\u0027s try it!",
+      "parentUuid": "0ef7b210_34593d88",
       "range": {
         "startLine": 319,
         "startChar": 0,

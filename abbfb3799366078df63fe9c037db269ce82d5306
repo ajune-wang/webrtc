@@ -20,6 +20,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "b8023ed2_84996ebd",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 5
+      },
+      "lineNbr": 10,
+      "author": {
+        "id": 18554
+      },
+      "writtenOn": "2022-02-28T14:24:56Z",
+      "side": 1,
+      "message": "\u003e But does not having FIFO cause any issues today? Considering callers are quite limited in their ability to coordinate multiple delayed tasks, I wonder if there is any code today that is attempting to have multiple tasks with the same delay.\n\nWe are working on a POC to use PostDelayTask(0) to replace all PostTask() in RtcEventLogImpl[^1]. Thus, all logging task can be post in Metronome (64hz) to reduce wakeup. It is a parallel optimization w/ Markus[^2].\n\n[^1]: https://source.chromium.org/chromium/chromium/src/+/main:third_party/webrtc/logging/rtc_event_log/rtc_event_log_impl.cc\n[^2]: https://webrtc-review.googlesource.com/c/src/+/250165\n\n\n\u003e The caller can be sure that two tasks with the same delay would have the second task\u0027s timestamp be \u003e\u003d the first task\u0027s timestamp, so order should be ensured. But the caller does not control the exact timestamp, that is up to the clock\u0027s precision of \"now\".\n\nThe TaskQueue is millisecond precision. In RtcEventLog, the logging are quit heavy, some delayed tasks are post within 1ms window, but we still need ensure the ordering. Some RtcEventLog UnitTest failed caused by this ordering issue.\n\n\u003d\u003dDo you have any recommendations for an alternative fixing?\u003d\u003d",
+      "parentUuid": "70091a2d_4b2d7eb3",
+      "revId": "abbfb3799366078df63fe9c037db269ce82d5306",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "55dc26a8_3c788d05",
         "filename": "api/task_queue/task_queue_test.cc",
         "patchSetId": 5
@@ -37,6 +55,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "0c6ac92a_2edb0b2c",
+        "filename": "api/task_queue/task_queue_test.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 158,
+      "author": {
+        "id": 18554
+      },
+      "writtenOn": "2022-02-28T14:24:56Z",
+      "side": 1,
+      "message": "If we have 2 delayed tasks.\n1. PostDelayedTask(0) at 1.1ms\n2. PostDelayedTask(0) at 1.2ms\nWe expect 1st task is executed earlier than 2nd task. \n\nBut TaskQueue is millisecond precision. The execution ordering is random depend on the implementation.",
+      "parentUuid": "55dc26a8_3c788d05",
+      "revId": "abbfb3799366078df63fe9c037db269ce82d5306",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "a7c2f5b9_5694bbd3",
         "filename": "api/task_queue/task_queue_test.cc",
         "patchSetId": 5
@@ -48,6 +84,24 @@
       "writtenOn": "2022-02-28T08:48:46Z",
       "side": 1,
       "message": "Do you specifically want to test delay\u003d0 or do you want to test any delay (delay \u003e\u003d 0)?\n\nSome TQ implementations special case delay\u003c\u003d0 to mean PostTask rather than PostDelayedTask, so for this reason you may want to test both delay\u003d0 and delay\u003e0.",
+      "revId": "abbfb3799366078df63fe9c037db269ce82d5306",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "c0246b90_5a376f0d",
+        "filename": "api/task_queue/task_queue_test.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 163,
+      "author": {
+        "id": 18554
+      },
+      "writtenOn": "2022-02-28T14:24:56Z",
+      "side": 1,
+      "message": "The usage is only to PostDelayTaks(0) in looping, and we expect all of them are executed on the same enqueue ordering.\n\nNo (delay \u003e 0) in our usage. Perhaps we can add TestCase on (delay \u003e 0).",
+      "parentUuid": "a7c2f5b9_5694bbd3",
       "revId": "abbfb3799366078df63fe9c037db269ce82d5306",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }

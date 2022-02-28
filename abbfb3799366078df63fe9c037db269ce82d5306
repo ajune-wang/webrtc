@@ -38,6 +38,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "cec8d190_7204acc0",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 5
+      },
+      "lineNbr": 10,
+      "author": {
+        "id": 5142
+      },
+      "writtenOn": "2022-02-28T16:34:36Z",
+      "side": 1,
+      "message": "I see.\n\nThere are many implementations of the task queues, both inside the WebRTC repo and outside of it. I don\u0027t have an understanding over all the different implementations or how scheduling differs between PostTask() and PostDelayedTask(0) on some of them, but I do believe PostDelayedTask() can generally trigger other code paths than PostTask() and so I do not think it is safe to assume that it is for free to replace PostTask() with PostDelayedTask(0) for non-metronome implementations of the TQs. Not sure about this though.\n\nI also do not think that PostDelayedTask(0) should be assumed to happen any significant amount of time in the future either, since this is not what the task queue interface promises. On the other hand, I would not want to replace PostTask() with PostDelayedTask(delay) with delay \u003e 0 either since this would add more wake ups if the metronome isn\u0027t available.\n\nIf you want to listen to the next tick you could make this explicit instead, and use the webrtc::Metronome interface if it is available. It has an OnTick() method where you could flush the logs, but if the metronome isn\u0027t available you could keep doing PostTask like today.\n\nIt\u0027s not clear how this would impact performance though.",
+      "parentUuid": "b8023ed2_84996ebd",
+      "revId": "abbfb3799366078df63fe9c037db269ce82d5306",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "55dc26a8_3c788d05",
         "filename": "api/task_queue/task_queue_test.cc",
         "patchSetId": 5

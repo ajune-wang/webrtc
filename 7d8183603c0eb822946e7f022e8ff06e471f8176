@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "9c66b20c_84ce35ac",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 6192
+      },
+      "writtenOn": "2022-02-28T08:17:28Z",
+      "side": 1,
+      "message": "So it looks like more_configs sets up things like:\n\n\u0027linux_more_configs\u0027: {\n        \u0027bwe_test_logging\u0027:\n          \u0027bwe_test_logging_x64\u0027,\n        \u0027dummy_audio_file_devices_no_protobuf\u0027:\n          \u0027dummy_audio_file_devices_no_protobuf_x64\u0027,\n        \u0027rtti_no_sctp\u0027:\n          \u0027rtti_no_sctp_x64\u0027,\n          \nAre these things not needed or have you incorparated those in standalone.py (I could not find anything)?\n\nhttps://source.chromium.org/chromium/chromium/src/+/main:third_party/webrtc/tools_webrtc/mb/mb_config.pyl;l\u003d180",
+      "revId": "7d8183603c0eb822946e7f022e8ff06e471f8176",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

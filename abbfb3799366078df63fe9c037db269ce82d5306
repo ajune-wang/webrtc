@@ -1,0 +1,55 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "70091a2d_4b2d7eb3",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 5
+      },
+      "lineNbr": 10,
+      "author": {
+        "id": 5142
+      },
+      "writtenOn": "2022-02-28T08:48:46Z",
+      "side": 1,
+      "message": "The caller can be sure that two tasks with the same delay would have the second task\u0027s timestamp be \u003e\u003d the first task\u0027s timestamp, so order should be ensured. But the caller does not control the exact timestamp, that is up to the clock\u0027s precision of \"now\".\n\nI do think FIFO makes sense, and would be essential to have if we ever implemented PostDelayedTaskAt (specifying target timestamp instead of delay).\n\nBut does not having FIFO cause any issues today? Considering callers are quite limited in their ability to coordinate multiple delayed tasks, I wonder if there is any code today that is attempting to have multiple tasks with the same delay.\n\nBut happy for this to be fixed regardless.",
+      "revId": "abbfb3799366078df63fe9c037db269ce82d5306",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "55dc26a8_3c788d05",
+        "filename": "api/task_queue/task_queue_test.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 158,
+      "author": {
+        "id": 5142
+      },
+      "writtenOn": "2022-02-28T08:48:46Z",
+      "side": 1,
+      "message": "Note that this test could have false positive since time \"now\" may increase between first and second PostDelayedTask, so target timestamp may end up being different. But there\u0027s no way to mock time for TQs right now AFAIK, so I think this is the best we can do.",
+      "revId": "abbfb3799366078df63fe9c037db269ce82d5306",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "a7c2f5b9_5694bbd3",
+        "filename": "api/task_queue/task_queue_test.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 163,
+      "author": {
+        "id": 5142
+      },
+      "writtenOn": "2022-02-28T08:48:46Z",
+      "side": 1,
+      "message": "Do you specifically want to test delay\u003d0 or do you want to test any delay (delay \u003e\u003d 0)?\n\nSome TQ implementations special case delay\u003c\u003d0 to mean PostTask rather than PostDelayedTask, so for this reason you may want to test both delay\u003d0 and delay\u003e0.",
+      "revId": "abbfb3799366078df63fe9c037db269ce82d5306",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

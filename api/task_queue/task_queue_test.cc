@@ -145,6 +145,32 @@ TEST_P(TaskQueueTest, PostDelayedAfterDestruct) {
   EXPECT_FALSE(run.Wait(0));  // and should not run.
 }
 
+TEST_P(TaskQueueTest, DISABLED_PostMultipleDelayedZeroAndKeepOrdering) {
+  std::unique_ptr<webrtc::TaskQueueFactory> factory = GetParam()();
+  auto queue =
+      CreateTaskQueue(factory, "PostMultipleDelayedZeroAndKeepOrdering");
+
+  const uint32_t kNumTasks = 100;
+  std::vector<rtc::Event> events(kNumTasks);
+  std::vector<uint32_t> ordering;
+  for (uint32_t i = 0; i < kNumTasks; ++i) {
+    rtc::Event* event = &events[i];
+    queue->PostDelayedTask(ToQueuedTask([i, &ordering, event, &queue] {
+                             EXPECT_TRUE(queue->IsCurrent());
+                             ordering.push_back(i);
+                             event->Set();
+                           }),
+                           0);
+  }
+
+  for (rtc::Event& e : events)
+    EXPECT_TRUE(e.Wait(1000));
+
+  EXPECT_EQ(ordering.size(), kNumTasks);
+  for (uint32_t i = 0; i < kNumTasks; ++i)
+    EXPECT_EQ(i, ordering[i]);
+}
+
 TEST_P(TaskQueueTest, PostAndReuse) {
   std::unique_ptr<webrtc::TaskQueueFactory> factory = GetParam()();
   rtc::Event event;

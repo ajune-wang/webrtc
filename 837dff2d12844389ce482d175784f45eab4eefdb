@@ -24,6 +24,30 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "f9402fc4_c4ce93c4",
+        "filename": "modules/video_coding/frame_buffer3.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 101,
+      "author": {
+        "id": 18444
+      },
+      "writtenOn": "2022-02-28T11:59:47Z",
+      "side": 1,
+      "message": "Fair enough. Full buffer will have appeared in the log before. Removing this line.",
+      "parentUuid": "624e043d_c64b1504",
+      "range": {
+        "startLine": 101,
+        "startChar": 0,
+        "endLine": 101,
+        "endChar": 50
+      },
+      "revId": "837dff2d12844389ce482d175784f45eab4eefdb",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "669ad368_5133c697",
@@ -47,6 +71,30 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "61a251c1_bc8e6794",
+        "filename": "video/frame_buffer_proxy.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 247,
+      "author": {
+        "id": 18444
+      },
+      "writtenOn": "2022-02-28T11:59:47Z",
+      "side": 1,
+      "message": "I have changed this and added a test that skips FrameBuffer2 for this behaviour. The number of complete frames could change then in comparison of FrameBuffer3 to 2 but this is correct.",
+      "parentUuid": "669ad368_5133c697",
+      "range": {
+        "startLine": 247,
+        "startChar": 22,
+        "endLine": 247,
+        "endChar": 37
+      },
+      "revId": "837dff2d12844389ce482d175784f45eab4eefdb",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "1fa09431_39e55fe9",
@@ -60,6 +108,30 @@
       "writtenOn": "2022-02-25T16:40:24Z",
       "side": 1,
       "message": "Also add a test with multiple frames in a temporal unit and make sure `OnCompleteFrame` is only called once.",
+      "range": {
+        "startLine": 638,
+        "startChar": 0,
+        "endLine": 638,
+        "endChar": 6
+      },
+      "revId": "837dff2d12844389ce482d175784f45eab4eefdb",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "29e156ea_370eedd4",
+        "filename": "video/frame_buffer_proxy_unittest.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 638,
+      "author": {
+        "id": 18444
+      },
+      "writtenOn": "2022-02-28T11:59:47Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "1fa09431_39e55fe9",
       "range": {
         "startLine": 638,
         "startChar": 0,

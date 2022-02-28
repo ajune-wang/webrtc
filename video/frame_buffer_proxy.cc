@@ -221,8 +221,9 @@ class FrameBuffer3Proxy : public FrameBufferProxy {
     if (frame->is_last_spatial_layer)
       stats_proxy_->OnCompleteFrame(frame->is_keyframe(), frame->size(),
                                     frame->contentType());
-    if (!frame->delayed_by_retransmission())
-      timing_->IncomingTimestamp(frame->Timestamp(), frame->ReceivedTime());
+    if (!frame->delayed_by_retransmission() && frame->ReceivedTime() >= 0)
+      timing_->IncomingTimestamp(frame->Timestamp(),
+                                 Timestamp::Millis(frame->ReceivedTime()));
 
     buffer_->InsertFrame(std::move(frame));
     MaybeScheduleFrameForRelease();
@@ -267,7 +268,7 @@ class FrameBuffer3Proxy : public FrameBufferProxy {
 
     timeout_tracker_.OnEncodedFrameReleased();
 
-    int64_t now_ms = clock_->TimeInMilliseconds();
+    Timestamp now = clock_->CurrentTime();
     bool superframe_delayed_by_retransmission = false;
     size_t superframe_size = 0;
     const EncodedFrame& first_frame = *frames.front();
@@ -277,12 +278,11 @@ class FrameBuffer3Proxy : public FrameBufferProxy {
       keyframe_required_ = false;
 
     // Gracefully handle bad RTP timestamps and render time issues.
-    if (FrameHasBadRenderTiming(render_time.ms(), now_ms,
+    if (FrameHasBadRenderTiming(render_time, now,
                                 timing_->TargetVideoDelay())) {
       jitter_estimator_.Reset();
       timing_->Reset();
-      render_time = Timestamp::Millis(
-          timing_->RenderTimeMs(first_frame.Timestamp(), now_ms));
+      render_time = timing_->RenderTimeMs(first_frame.Timestamp(), now);
     }
 
     for (std::unique_ptr<EncodedFrame>& frame : frames) {
@@ -308,9 +308,9 @@ class FrameBuffer3Proxy : public FrameBufferProxy {
         rtt_mult = rtt_mult_settings_->rtt_mult_setting;
         rtt_mult_add_cap_ms = rtt_mult_settings_->rtt_mult_add_cap_ms;
       }
-      timing_->SetJitterDelay(
-          jitter_estimator_.GetJitterEstimate(rtt_mult, rtt_mult_add_cap_ms));
-      timing_->UpdateCurrentDelay(render_time.ms(), now_ms);
+      timing_->SetJitterDelay(TimeDelta::Millis(
+          jitter_estimator_.GetJitterEstimate(rtt_mult, rtt_mult_add_cap_ms)));
+      timing_->UpdateCurrentDelay(render_time, now);
     } else if (RttMultExperiment::RttMultEnabled()) {
       jitter_estimator_.FrameNacked();
     }
@@ -323,7 +323,7 @@ class FrameBuffer3Proxy : public FrameBufferProxy {
     std::unique_ptr<EncodedFrame> frame =
         CombineAndDeleteFrames(std::move(frames));
 
-    timing_->SetLastDecodeScheduledTimestamp(now_ms);
+    timing_->SetLastDecodeScheduledTimestamp(now);
 
     decoder_ready_for_new_frame_ = false;
     // VideoReceiveStream2 wants frames on the decoder thread.
@@ -373,18 +373,18 @@ class FrameBuffer3Proxy : public FrameBufferProxy {
   }
 
   void UpdateJitterDelay() {
-    int max_decode_ms;
-    int current_delay_ms;
-    int target_delay_ms;
-    int jitter_buffer_ms;
-    int min_playout_delay_ms;
-    int render_delay_ms;
-    if (timing_->GetTimings(&max_decode_ms, &current_delay_ms, &target_delay_ms,
-                            &jitter_buffer_ms, &min_playout_delay_ms,
-                            &render_delay_ms)) {
+    TimeDelta max_decode = TimeDelta::Zero();
+    TimeDelta current_delay = TimeDelta::Zero();
+    TimeDelta target_delay = TimeDelta::Zero();
+    TimeDelta jitter_buffer = TimeDelta::Zero();
+    TimeDelta min_playout_delay = TimeDelta::Zero();
+    TimeDelta render_delay = TimeDelta::Zero();
+    if (timing_->GetTimings(&max_decode, &current_delay, &target_delay,
+                            &jitter_buffer, &min_playout_delay,
+                            &render_delay)) {
       stats_proxy_->OnFrameBufferTimingsUpdated(
-          max_decode_ms, current_delay_ms, target_delay_ms, jitter_buffer_ms,
-          min_playout_delay_ms, render_delay_ms);
+          max_decode.ms(), current_delay.ms(), target_delay.ms(),
+          jitter_buffer.ms(), min_playout_delay.ms(), render_delay.ms());
     }
   }
 
@@ -411,8 +411,8 @@ class FrameBuffer3Proxy : public FrameBufferProxy {
       }
       // Found keyframe - decode right away.
       if (next_frame.front()->is_keyframe()) {
-        auto render_time = Timestamp::Millis(timing_->RenderTimeMs(
-            next_frame.front()->Timestamp(), clock_->TimeInMilliseconds()));
+        auto render_time = timing_->RenderTimeMs(
+            next_frame.front()->Timestamp(), clock_->CurrentTime());
         OnFrameReady(std::move(next_frame), render_time);
         return;
       }

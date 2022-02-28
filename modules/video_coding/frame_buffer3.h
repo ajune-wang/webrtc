@@ -30,7 +30,7 @@ namespace webrtc {
 // The FrameBuffer is thread-unsafe.
 class FrameBuffer {
  public:
-  // The `max_size` determines the maxmimum number of frames the buffer will
+  // The `max_size` determines the maximum number of frames the buffer will
   // store, and max_decode_history determines how far back (by frame ID) the
   // buffer will store if a frame was decoded or not.
   FrameBuffer(int max_size, int max_decode_history);
@@ -39,8 +39,8 @@ class FrameBuffer {
   ~FrameBuffer() = default;
 
   // Inserted frames may only reference backwards, and must have no duplicate
-  // references.
-  void InsertFrame(std::unique_ptr<EncodedFrame> frame);
+  // references. Returns true if the frame was inserted successfully.
+  bool InsertFrame(std::unique_ptr<EncodedFrame> frame);
 
   // Mark all frames belonging to the next decodable temporal unit as decoded
   // and returns them.

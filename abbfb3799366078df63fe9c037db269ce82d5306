@@ -74,6 +74,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "b3483ae3_5abceaf6",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 5
+      },
+      "lineNbr": 10,
+      "author": {
+        "id": 18554
+      },
+      "writtenOn": "2022-03-01T06:44:42Z",
+      "side": 1,
+      "message": "\u003e If you want to listen to the next tick you could make this explicit instead, and use the webrtc::Metronome interface if it is available. It has an OnTick() method where you could flush the logs, but if the metronome isn\u0027t available you could keep doing PostTask like today.\n\n\nThanks. We will look into the next webrtc::Metronome interface to experiment bundle logging.\n\n\n\u003e I\u0027m curious of why PostTask() is considered an important wakeup to remove? From a package-idleness point-of-view, it should have no impact since the caller was already executing on a core and hence keeping the package awake anyway.\n\n\nIMO, each PostTask() probably wakeup TaskRunner thread (if the runner thread is previous idle), and thus a thread context switch. I am not quite sure the exact cost of such context switch. But the less switch the better. \nWe experiment to bundle some low priority async tasks (e.g. logging) for batch processing with single context switch.",
+      "parentUuid": "68a7fe08_972eac9c",
+      "revId": "abbfb3799366078df63fe9c037db269ce82d5306",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "55dc26a8_3c788d05",
         "filename": "api/task_queue/task_queue_test.cc",
         "patchSetId": 5

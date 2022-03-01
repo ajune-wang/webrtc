@@ -10,7 +10,7 @@ vars = {
   # chromium waterfalls. More info at: crbug.com/570091.
   'checkout_configuration': 'default',
   'checkout_instrumented_libraries': 'checkout_linux and checkout_configuration == "default"',
-  'chromium_revision': '6e70e8eefd1bc0b644fab3a3e91ec99ff212cbc7',
+  'chromium_revision': '2fc2cc3ba00ef1437e19458928493db0d88b5cf3',
 
   # Keep the Chromium default of generating location tags.
   'generate_location_tags': True,
@@ -25,7 +25,7 @@ deps = {
   'src/base':
     'https://chromium.googlesource.com/chromium/src/base@2c3f10d2961fc17e6c3b45a972899628a78d859a',
   'src/build':
-    'https://chromium.googlesource.com/chromium/src/build@6b6ba00571e4db0c43fa4e3e26bfd22b93dcb8cd',
+    'https://chromium.googlesource.com/chromium/src/build@7ebbdf191ccbe89a3770a62ecfe25f807f516488',
   'src/buildtools':
     'https://chromium.googlesource.com/chromium/src/buildtools@893aa038dd17d05f3c5ff5af98daebabc294a948',
   # Gradle 6.6.1. Used for testing Android Studio project generation for WebRTC.
@@ -34,19 +34,19 @@ deps = {
     'condition': 'checkout_android',
   },
   'src/ios': {
-    'url': 'https://chromium.googlesource.com/chromium/src/ios@d487126e91540fa90232f2243bbe2a2f2383ed0d',
+    'url': 'https://chromium.googlesource.com/chromium/src/ios@86528c2619864c8f7c3d2668dfa2005b666bb2d9',
     'condition': 'checkout_ios',
   },
   'src/testing':
-    'https://chromium.googlesource.com/chromium/src/testing@9d8d8b3e7e1f9a58c3c8297a535935f41d6dbaae',
+    'https://chromium.googlesource.com/chromium/src/testing@4c64e752ed27fc1470903704c26327029d90811c',
   'src/third_party':
-    'https://chromium.googlesource.com/chromium/src/third_party@d14b82e7e2d1708f646a73be671b0a739550905b',
+    'https://chromium.googlesource.com/chromium/src/third_party@f1a2fcf5bc8017f35e3bb147df8db5ae57d6bae0',
 
   'src/buildtools/linux64': {
     'packages': [
       {
         'package': 'gn/gn/linux-amd64',
-        'version': 'git_revision:e3f114f46537152cfbdb553015518d1db1b812fd',
+        'version': 'git_revision:d7c2209cebcfe37f46dba7be4e1a7000ffc342fb',
       }
     ],
     'dep_type': 'cipd',
@@ -56,7 +56,7 @@ deps = {
     'packages': [
       {
         'package': 'gn/gn/mac-${{arch}}',
-        'version': 'git_revision:e3f114f46537152cfbdb553015518d1db1b812fd',
+        'version': 'git_revision:d7c2209cebcfe37f46dba7be4e1a7000ffc342fb',
       }
     ],
     'dep_type': 'cipd',
@@ -66,7 +66,7 @@ deps = {
     'packages': [
       {
         'package': 'gn/gn/windows-amd64',
-        'version': 'git_revision:e3f114f46537152cfbdb553015518d1db1b812fd',
+        'version': 'git_revision:d7c2209cebcfe37f46dba7be4e1a7000ffc342fb',
       }
     ],
     'dep_type': 'cipd',
@@ -285,7 +285,7 @@ deps = {
     'condition': 'checkout_win',
   },
   'src/tools':
-    'https://chromium.googlesource.com/chromium/src/tools@e18670641dd11ffaef1d8f85f78a117d5819e16d',
+    'https://chromium.googlesource.com/chromium/src/tools@b12e973ab79e50af144abb16bc077af766d2360b',
 
   'src/third_party/accessibility_test_framework': {
       'packages': [

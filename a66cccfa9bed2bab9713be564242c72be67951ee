@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "1b53362f_8aa01e82",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 8
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5508
+      },
+      "writtenOn": "2022-03-01T14:12:58Z",
+      "side": 1,
+      "message": "can you ping back after rebasing and verifying that things look good?",
+      "revId": "a66cccfa9bed2bab9713be564242c72be67951ee",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

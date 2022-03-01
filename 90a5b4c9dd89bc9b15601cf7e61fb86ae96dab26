@@ -22,6 +22,30 @@
       },
       "revId": "90a5b4c9dd89bc9b15601cf7e61fb86ae96dab26",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "e2368b72_8771151d",
+        "filename": "modules/video_coding/frame_buffer3.h",
+        "patchSetId": 6
+      },
+      "lineNbr": 43,
+      "author": {
+        "id": 18444
+      },
+      "writtenOn": "2022-03-01T09:07:52Z",
+      "side": 1,
+      "message": "Depends. The other action on an inserted frame is to update the Timestamp extrapolator with the incoming value. Current logic in FrameBuffer2 is to do that on each insertion - regardless of if it is a complete temporal layer or not. I see the argument to do this only for complete temporal layers though. If I should change that too then this bool can be removed.",
+      "parentUuid": "0fa0820f_739be3c8",
+      "range": {
+        "startLine": 43,
+        "startChar": 2,
+        "endLine": 43,
+        "endChar": 6
+      },
+      "revId": "90a5b4c9dd89bc9b15601cf7e61fb86ae96dab26",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

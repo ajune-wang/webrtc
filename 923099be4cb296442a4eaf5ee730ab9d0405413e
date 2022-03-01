@@ -73,6 +73,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "c4fac090_71ed6b13",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 3
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 18554
+      },
+      "writtenOn": "2022-03-01T11:33:17Z",
+      "side": 1,
+      "message": "IMHO, The `kMaxEarlyProbeProcessing` is not visible through `NextSendTime()` to TQPacer, thus TQPacer can not compare `now` with `NextSendTime()` to decide if it is time to `ProcessPackets()`.\n\nAnd rounding up `next_sent_time_`  can ensure no 1ms early wake up issue.\n\nIt seems we can remove the `kMaxEarlyProbeProcessing` or just change the value to 0.",
+      "parentUuid": "d09083a6_b7898d58",
+      "revId": "923099be4cb296442a4eaf5ee730ab9d0405413e",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "6435d61e_2e518633",
         "filename": "modules/pacing/pacing_controller.cc",
         "patchSetId": 3

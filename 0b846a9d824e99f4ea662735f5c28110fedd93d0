@@ -18,6 +18,23 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "b85732e3_453bf57e",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 6
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 18904
+      },
+      "writtenOn": "2022-03-01T18:01:38Z",
+      "side": 1,
+      "message": "I think we might still have a problem where the initial return from getAllNetworks() may return networks that never match the cache (and are thus never removed)",
+      "revId": "0b846a9d824e99f4ea662735f5c28110fedd93d0",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "5e1d0301_d06cff67",
@@ -60,6 +77,29 @@
         "startChar": 0,
         "endLine": 175,
         "endChar": 45
+      },
+      "revId": "0b846a9d824e99f4ea662735f5c28110fedd93d0",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "b7b2d49b_33056c88",
+        "filename": "sdk/android/api/org/webrtc/NetworkMonitorAutoDetect.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 320,
+      "author": {
+        "id": 18904
+      },
+      "writtenOn": "2022-03-01T18:01:38Z",
+      "side": 1,
+      "message": "The isEmpty() check will always fail the first time and fallthrough, so we\u0027d end up with some networks that don\u0027t fulfill the request; perhaps if getAllNetworksFromCache is enabled, we unconditionally return the cache?",
+      "range": {
+        "startLine": 320,
+        "startChar": 14,
+        "endLine": 320,
+        "endChar": 42
       },
       "revId": "0b846a9d824e99f4ea662735f5c28110fedd93d0",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"

@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "a44b043f_080b710a",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2022-03-02T09:39:21Z",
+      "side": 1,
+      "message": "Seems the JS test doesn\u0027t tolerate the new stats (which is, I suppose, good):\n\n(peer_connection.cc:1197): Blocking GetStats: total\u003d2 (actual\u003d2, could\u003d0)\n../../pc/rtc_stats_integrationtest.cc:279: Failure\nValue of: false\n  Actual: false\nExpected: true\nremote-candidate.vpn[RTCIceCandidate_VHJZrZsr] was not tested.\n../../pc/rtc_stats_integrationtest.cc:279: Failure\nValue of: false\n  Actual: false\nExpected: true\nremote-candidate.networkAdapterType[RTCIceCandidate_VHJZrZsr] was not tested.\n../../pc/rtc_stats_integrationtest.cc:279: Failure\nValue of: false\n  Actual: false\nExpected: true\nlocal-candidate.vpn[RTCIceCandidate_umzT5E9e] was not tested.\n../../pc/rtc_stats_integrationtest.cc:279: Failure\nValue of: false\n  Actual: false\nExpected: true\nlocal-candidate.networkAdapterType[RTCIceCandidate_umzT5E9e] was not tested.\n../../pc/rtc_stats_integrationtest.cc:429: Failure\nValue of: verify_successful\n  Actual: false\nExpected: true\n",
+      "revId": "57c8490c051dfa412a88e1561c8a8bac247211e3",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

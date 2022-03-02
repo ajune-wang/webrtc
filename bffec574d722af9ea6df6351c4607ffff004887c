@@ -16,6 +16,23 @@
       "message": "This is currently necessary (along with a couple other CLs by Daniel) to get a working iOS build with bitcode. PTAL when you have a chance.\n\nCheers!",
       "revId": "bffec574d722af9ea6df6351c4607ffff004887c",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "d7809713_e4cafea7",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 15079
+      },
+      "writtenOn": "2022-03-02T10:44:19Z",
+      "side": 1,
+      "message": "@Mirko, any chance you can help get this landed? Daniel confirmed it\u0027s an LLVM limitation (https://github.com/llvm/llvm-project/issues/49287), so we\u0027ll need this for the time being. Cheers!",
+      "revId": "bffec574d722af9ea6df6351c4607ffff004887c",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

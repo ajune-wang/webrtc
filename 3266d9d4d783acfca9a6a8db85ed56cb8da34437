@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "ec7870e6_a5abf603",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 4
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 18789
+      },
+      "writtenOn": "2022-03-02T05:37:08Z",
+      "side": 1,
+      "message": "Introduce \u0027allow_delayed_capturable_check\u0027 that will skip IsCapturable() call in the WgcCapturerWin::SelectSource, which is called even though it is secondary fallback and almost no chance of WgcCapturerWin::CaptureFrame call. \n\nThe change is also required of passing the unit test; the current unit test, WindowCapturerTest, uses GDI APIs for enumerating capturable windows (GetSourceList), but use WGC::IsCapturable for SelectSource that leads to failure.",
+      "revId": "3266d9d4d783acfca9a6a8db85ed56cb8da34437",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

@@ -41,6 +41,30 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "4e1bf933_709b5636",
+        "filename": "modules/desktop_capture/blank_detector_desktop_capturer_wrapper.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 59,
+      "author": {
+        "id": 18789
+      },
+      "writtenOn": "2022-03-02T05:37:08Z",
+      "side": 1,
+      "message": "If we don\u0027t check here, it will introduce unnecessary blank check for Screen capturer where BlankDetectorDesktopCapturerWrapper is used besides this new change.\n\nI think, if we have similar bug in the screen capture, then we can consider removing the check?",
+      "parentUuid": "faf7d5fd_5ef48085",
+      "range": {
+        "startLine": 59,
+        "startChar": 0,
+        "endLine": 59,
+        "endChar": 31
+      },
+      "revId": "02e9b69de557928f3a926c7d58b922b234d0552f",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "83ef5295_cd5055fd",
@@ -54,6 +78,30 @@
       "writtenOn": "2022-02-28T21:31:58Z",
       "side": 1,
       "message": "I not sure I understand this comment, do you think it would be clearer if we said something like \"If we start capturing a new source, we must reset these members so we don\u0027t short circuit the blank detection logic.\"?",
+      "range": {
+        "startLine": 60,
+        "startChar": 0,
+        "endLine": 61,
+        "endChar": 78
+      },
+      "revId": "02e9b69de557928f3a926c7d58b922b234d0552f",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "ee449c5a_50ac007a",
+        "filename": "modules/desktop_capture/blank_detector_desktop_capturer_wrapper.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 61,
+      "author": {
+        "id": 18789
+      },
+      "writtenOn": "2022-03-02T05:37:08Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "83ef5295_cd5055fd",
       "range": {
         "startLine": 60,
         "startChar": 0,

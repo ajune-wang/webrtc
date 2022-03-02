@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "ed664ba7_6c1b3102",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 7
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5122
+      },
+      "writtenOn": "2022-03-02T16:03:42Z",
+      "side": 1,
+      "message": "Thanks Hanna! I remove the `VadMode::kTsVad`, the tests offline showed too little difference compared to the `VadMode::kNoVad` and the code gets simpler. I addressed the remaining comments.",
+      "revId": "c3c84123b0f12c70e48706479b7d4ada76299a1a",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

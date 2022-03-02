@@ -1300,7 +1300,7 @@ TEST_F(RtpSenderTest, IgnoresNackAfterDisablingMedia) {
   // Disable media sending and try to retransmit the packet, it should fail.
   rtp_sender_->SetSendingMediaStatus(false);
   time_controller_.AdvanceTime(TimeDelta::Millis(kRtt));
-  EXPECT_LT(rtp_sender_->ReSendPacket(kSeqNum), 0);
+  EXPECT_LE(rtp_sender_->ReSendPacket(kSeqNum), 0);
 }
 
 TEST_F(RtpSenderTest, DoesntFecProtectRetransmissions) {

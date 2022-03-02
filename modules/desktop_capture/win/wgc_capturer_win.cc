@@ -47,9 +47,11 @@ void RecordWgcCapturerResult(WgcCapturerResult error) {
 
 WgcCapturerWin::WgcCapturerWin(
     std::unique_ptr<WgcCaptureSourceFactory> source_factory,
-    std::unique_ptr<SourceEnumerator> source_enumerator)
+    std::unique_ptr<SourceEnumerator> source_enumerator,
+    bool allow_delayed_capturable_check)
     : source_factory_(std::move(source_factory)),
-      source_enumerator_(std::move(source_enumerator)) {}
+      source_enumerator_(std::move(source_enumerator)),
+      allow_delayed_capturable_check_(allow_delayed_capturable_check) {}
 WgcCapturerWin::~WgcCapturerWin() = default;
 
 // static
@@ -58,7 +60,8 @@ std::unique_ptr<DesktopCapturer> WgcCapturerWin::CreateRawWindowCapturer(
   return std::make_unique<WgcCapturerWin>(
       std::make_unique<WgcWindowSourceFactory>(),
       std::make_unique<WindowEnumerator>(
-          options.enumerate_current_process_windows()));
+          options.enumerate_current_process_windows()),
+      options.allow_delayed_capturable_check());
 }
 
 // static
@@ -66,7 +69,8 @@ std::unique_ptr<DesktopCapturer> WgcCapturerWin::CreateRawScreenCapturer(
     const DesktopCaptureOptions& options) {
   return std::make_unique<WgcCapturerWin>(
       std::make_unique<WgcScreenSourceFactory>(),
-      std::make_unique<ScreenEnumerator>());
+      std::make_unique<ScreenEnumerator>(),
+      options.allow_delayed_capturable_check());
 }
 
 bool WgcCapturerWin::GetSourceList(SourceList* sources) {
@@ -75,6 +79,9 @@ bool WgcCapturerWin::GetSourceList(SourceList* sources) {
 
 bool WgcCapturerWin::SelectSource(DesktopCapturer::SourceId id) {
   capture_source_ = source_factory_->CreateCaptureSource(id);
+  if (allow_delayed_capturable_check_)
+    return true;
+
   return capture_source_->IsCapturable();
 }
 
@@ -132,6 +139,13 @@ void WgcCapturerWin::CaptureFrame() {
     callback_->OnCaptureResult(DesktopCapturer::Result::ERROR_PERMANENT,
                                /*frame=*/nullptr);
     RecordWgcCapturerResult(WgcCapturerResult::kNoDirect3dDevice);
+    return;
+  }
+
+  if (allow_delayed_capturable_check_ && !capture_source_->IsCapturable()) {
+    RTC_LOG(LS_ERROR) << "Source can not be capturable.";
+    callback_->OnCaptureResult(DesktopCapturer::Result::ERROR_PERMANENT,
+                               /*frame=*/nullptr);
     return;
   }
 

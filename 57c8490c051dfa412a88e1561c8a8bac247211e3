@@ -16,6 +16,57 @@
       "message": "Seems the JS test doesn\u0027t tolerate the new stats (which is, I suppose, good):\n\n(peer_connection.cc:1197): Blocking GetStats: total\u003d2 (actual\u003d2, could\u003d0)\n../../pc/rtc_stats_integrationtest.cc:279: Failure\nValue of: false\n  Actual: false\nExpected: true\nremote-candidate.vpn[RTCIceCandidate_VHJZrZsr] was not tested.\n../../pc/rtc_stats_integrationtest.cc:279: Failure\nValue of: false\n  Actual: false\nExpected: true\nremote-candidate.networkAdapterType[RTCIceCandidate_VHJZrZsr] was not tested.\n../../pc/rtc_stats_integrationtest.cc:279: Failure\nValue of: false\n  Actual: false\nExpected: true\nlocal-candidate.vpn[RTCIceCandidate_umzT5E9e] was not tested.\n../../pc/rtc_stats_integrationtest.cc:279: Failure\nValue of: false\n  Actual: false\nExpected: true\nlocal-candidate.networkAdapterType[RTCIceCandidate_umzT5E9e] was not tested.\n../../pc/rtc_stats_integrationtest.cc:429: Failure\nValue of: verify_successful\n  Actual: false\nExpected: true\n",
       "revId": "57c8490c051dfa412a88e1561c8a8bac247211e3",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "0069c23c_a71466a7",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2022-03-02T09:47:12Z",
+      "side": 1,
+      "message": "A couple of style questions. Nothing important (once Chrome stops disliking you).\n",
+      "revId": "57c8490c051dfa412a88e1561c8a8bac247211e3",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "c1b5cae7_40358276",
+        "filename": "api/stats/rtcstats_objects.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 111,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2022-03-02T09:47:12Z",
+      "side": 1,
+      "message": "I think I understood that using \"constexpr\" makes it kosher to have the actual strings defined inline in the .h file. See https://g3doc-ng.corp.google.com/piper/head/google3/third_party/webrtc/files/stable/webrtc/g3doc/implementation_basics.md#enum-to-string-functions",
+      "revId": "57c8490c051dfa412a88e1561c8a8bac247211e3",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "3606852c_93d02633",
+        "filename": "pc/rtc_stats_collector.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 256,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2022-03-02T09:47:12Z",
+      "side": 1,
+      "message": "Return an absl::string_view? char* is so 1970....",
+      "revId": "57c8490c051dfa412a88e1561c8a8bac247211e3",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

@@ -122,6 +122,30 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "53e95496_00345d4d",
+        "filename": "sdk/android/api/org/webrtc/NetworkMonitorAutoDetect.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 320,
+      "author": {
+        "id": 5613
+      },
+      "writtenOn": "2022-03-02T12:29:23Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "b7b2d49b_33056c88",
+      "range": {
+        "startLine": 320,
+        "startChar": 14,
+        "endLine": 320,
+        "endChar": 42
+      },
+      "revId": "0b846a9d824e99f4ea662735f5c28110fedd93d0",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "0ef7b210_34593d88",

@@ -35,6 +35,24 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "5a5c08ca_53cf20ef",
+        "filename": "api/video/encoded_frame.h",
+        "patchSetId": 11
+      },
+      "lineNbr": 40,
+      "author": {
+        "id": 18444
+      },
+      "writtenOn": "2022-03-02T14:13:15Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "0d2d0b1c_4de0c49d",
+      "revId": "291a74dfea9089db4626cd671ed7546cb6980b1d",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "001b76ac_2140c577",
@@ -52,6 +70,24 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "1e1839d2_c8246396",
+        "filename": "modules/video_coding/timing_unittest.cc",
+        "patchSetId": 11
+      },
+      "lineNbr": 125,
+      "author": {
+        "id": 18444
+      },
+      "writtenOn": "2022-03-02T14:13:15Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "001b76ac_2140c577",
+      "revId": "291a74dfea9089db4626cd671ed7546cb6980b1d",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "20a5c4a6_eb22dfd3",
@@ -65,6 +101,24 @@
       "writtenOn": "2022-03-02T12:37:50Z",
       "side": 1,
       "message": "don\u0027t we have RenderTimestamp()?",
+      "revId": "291a74dfea9089db4626cd671ed7546cb6980b1d",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "438a5700_6fb9e6ca",
+        "filename": "modules/video_coding/video_receiver.cc",
+        "patchSetId": 11
+      },
+      "lineNbr": 207,
+      "author": {
+        "id": 18444
+      },
+      "writtenOn": "2022-03-02T14:13:15Z",
+      "side": 1,
+      "message": "We do, but `frame` is a `VCMEncodedFrame` and not `EncodedFrame`. https://crbug.com/webrtc/9378 is the general bug to unwrap this hierarchy.",
+      "parentUuid": "20a5c4a6_eb22dfd3",
       "revId": "291a74dfea9089db4626cd671ed7546cb6980b1d",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }

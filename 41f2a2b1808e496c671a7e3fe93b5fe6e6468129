@@ -1,0 +1,280 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "b457aa9a_679975fa",
+        "filename": "sdk/android/api/org/webrtc/NetworkMonitorAutoDetect.java",
+        "patchSetId": 9
+      },
+      "lineNbr": 97,
+      "author": {
+        "id": 14994
+      },
+      "writtenOn": "2022-03-02T15:06:04Z",
+      "side": 1,
+      "message": "Can you remove this mention? WebRTC’s minSdk is Lollipop.",
+      "range": {
+        "startLine": 97,
+        "startChar": 36,
+        "endLine": 97,
+        "endChar": 87
+      },
+      "revId": "41f2a2b1808e496c671a7e3fe93b5fe6e6468129",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "afba075d_8d1bac1e",
+        "filename": "sdk/android/api/org/webrtc/NetworkMonitorAutoDetect.java",
+        "patchSetId": 9
+      },
+      "lineNbr": 171,
+      "author": {
+        "id": 14994
+      },
+      "writtenOn": "2022-03-02T15:06:04Z",
+      "side": 1,
+      "message": "Could you add a javadoc comment to this variable, explaining that this set is shared with another class and data is populated by that other class? It’s an unusual pattern that can otherwise only be deciphered by walking through all the constructors.",
+      "range": {
+        "startLine": 171,
+        "startChar": 0,
+        "endLine": 171,
+        "endChar": 90
+      },
+      "revId": "41f2a2b1808e496c671a7e3fe93b5fe6e6468129",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "123182ff_96eb500a",
+        "filename": "sdk/android/api/org/webrtc/NetworkMonitorAutoDetect.java",
+        "patchSetId": 9
+      },
+      "lineNbr": 177,
+      "author": {
+        "id": 14994
+      },
+      "writtenOn": "2022-03-02T15:06:04Z",
+      "side": 1,
+      "message": "Java instance variables shouldn’t have trailing underscores: https://google.github.io/styleguide/javaguide.html#s5.1-identifier-names",
+      "range": {
+        "startLine": 174,
+        "startChar": 0,
+        "endLine": 177,
+        "endChar": 0
+      },
+      "revId": "41f2a2b1808e496c671a7e3fe93b5fe6e6468129",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "e26235b4_bdc563d4",
+        "filename": "sdk/android/api/org/webrtc/NetworkMonitorAutoDetect.java",
+        "patchSetId": 9
+      },
+      "lineNbr": 191,
+      "author": {
+        "id": 14994
+      },
+      "writtenOn": "2022-03-02T15:06:04Z",
+      "side": 1,
+      "message": "Could you change that to comment to a @VisibleForTesting annotation while you’re here?",
+      "range": {
+        "startLine": 191,
+        "startChar": 4,
+        "endLine": 191,
+        "endChar": 19
+      },
+      "revId": "41f2a2b1808e496c671a7e3fe93b5fe6e6468129",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "8bb557c1_69da99df",
+        "filename": "sdk/android/api/org/webrtc/NetworkMonitorAutoDetect.java",
+        "patchSetId": 9
+      },
+      "lineNbr": 200,
+      "author": {
+        "id": 14994
+      },
+      "writtenOn": "2022-03-02T15:06:04Z",
+      "side": 1,
+      "message": "Instead of repeating the work of the regular constructor, I’d prefer we have a private constructor that the other two can delegate to, something like:\n\n```\nConnectivityManagerDelegate(Context context, Set\u003cNetwork\u003e availableNetworks) {\n  this(\n    (ConnectivityManager) context.getSystemService(Context.CONNECTIVITY_SERVICE),\n    availableNetworks,\n    PeerConnectionFactory.fieldTrialsFindFullName(\"WebRTC-NetworkMonitorAutoDetect\"));\n}\n\nConnectivityManagerDelegate(\n  ConnectivityManager connectivityManager,\n  Set\u003cNetwork\u003e availableNetworks,\n  String fieldTrials) {\n  // ... assign to instance variables and read field trials ...\n}\n```\n\nThis second constructor could even be the one that’s `@VisibleForTesting`",
+      "range": {
+        "startLine": 195,
+        "startChar": 0,
+        "endLine": 200,
+        "endChar": 97
+      },
+      "revId": "41f2a2b1808e496c671a7e3fe93b5fe6e6468129",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "2a206648_a8661ade",
+        "filename": "sdk/android/api/org/webrtc/NetworkMonitorAutoDetect.java",
+        "patchSetId": 9
+      },
+      "lineNbr": 203,
+      "author": {
+        "id": 14994
+      },
+      "writtenOn": "2022-03-02T15:06:04Z",
+      "side": 1,
+      "message": "Please use lowerCamelCase for method names: https://google.github.io/styleguide/javaguide.html#s5.2.3-method-names\n\nnit: you could also make this static.",
+      "range": {
+        "startLine": 203,
+        "startChar": 20,
+        "endLine": 203,
+        "endChar": 21
+      },
+      "revId": "41f2a2b1808e496c671a7e3fe93b5fe6e6468129",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "097cf7e7_9927fddb",
+        "filename": "sdk/android/api/org/webrtc/NetworkMonitorAutoDetect.java",
+        "patchSetId": 9
+      },
+      "lineNbr": 491,
+      "author": {
+        "id": 14994
+      },
+      "writtenOn": "2022-03-02T15:06:04Z",
+      "side": 1,
+      "message": "While you’re here, could you remove this condition, as it’s always true?",
+      "range": {
+        "startLine": 491,
+        "startChar": 13,
+        "endLine": 491,
+        "endChar": 66
+      },
+      "revId": "41f2a2b1808e496c671a7e3fe93b5fe6e6468129",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "14414eb1_fce1678c",
+        "filename": "sdk/android/instrumentationtests/src/org/webrtc/NetworkMonitorTest.java",
+        "patchSetId": 9
+      },
+      "lineNbr": 316,
+      "author": {
+        "id": 14994
+      },
+      "writtenOn": "2022-03-02T15:06:04Z",
+      "side": 1,
+      "message": "Could you instead use a constructor that takes a field trials string and set it that way? That would allow the instance variable to be private and final.",
+      "range": {
+        "startLine": 316,
+        "startChar": 0,
+        "endLine": 316,
+        "endChar": 45
+      },
+      "revId": "41f2a2b1808e496c671a7e3fe93b5fe6e6468129",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "c43243d2_6eff57a6",
+        "filename": "sdk/android/instrumentationtests/src/org/webrtc/NetworkMonitorTest.java",
+        "patchSetId": 9
+      },
+      "lineNbr": 318,
+      "author": {
+        "id": 14994
+      },
+      "writtenOn": "2022-03-02T15:06:04Z",
+      "side": 1,
+      "message": "You can remove this check, it is always true.",
+      "range": {
+        "startLine": 318,
+        "startChar": 0,
+        "endLine": 318,
+        "endChar": 64
+      },
+      "revId": "41f2a2b1808e496c671a7e3fe93b5fe6e6468129",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "950ce380_39674b87",
+        "filename": "sdk/android/instrumentationtests/src/org/webrtc/NetworkMonitorTest.java",
+        "patchSetId": 9
+      },
+      "lineNbr": 319,
+      "author": {
+        "id": 14994
+      },
+      "writtenOn": "2022-03-02T15:06:04Z",
+      "side": 1,
+      "message": "Instead of the current assertion on l.324 (`assertFalse(Arrays.equals(networks, delegate.getAllNetworks()))`), could you assert just below this line that the returned array is empty?",
+      "range": {
+        "startLine": 319,
+        "startChar": 0,
+        "endLine": 319,
+        "endChar": 53
+      },
+      "revId": "41f2a2b1808e496c671a7e3fe93b5fe6e6468129",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "64f8c270_baac4b29",
+        "filename": "sdk/android/instrumentationtests/src/org/webrtc/NetworkMonitorTest.java",
+        "patchSetId": 9
+      },
+      "lineNbr": 321,
+      "author": {
+        "id": 14994
+      },
+      "writtenOn": "2022-03-02T15:06:04Z",
+      "side": 1,
+      "message": "Is this required? You’re not interacting with the returned mock, just comparing its value.",
+      "range": {
+        "startLine": 321,
+        "startChar": 54,
+        "endLine": 321,
+        "endChar": 72
+      },
+      "revId": "41f2a2b1808e496c671a7e3fe93b5fe6e6468129",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "aca08680_b5c61a24",
+        "filename": "sdk/android/instrumentationtests/src/org/webrtc/NetworkMonitorTest.java",
+        "patchSetId": 9
+      },
+      "lineNbr": 340,
+      "author": {
+        "id": 14994
+      },
+      "writtenOn": "2022-03-02T15:06:04Z",
+      "side": 1,
+      "message": "Testing this parsing doesn’t achieve much. For one, you’re testing the parsing that exist in the test-only constructor, not the production one (see my other comment on de-duplicating the constructors). But also, it tells us nothing about how those instance variables are used.\n\nCould you instead extract a `createNetworkRequest()` method from the existing `registerNetworkCallback`, make it `@VisibleForTesting`, and verify the different combinations of of field trials on the state of the network request they control?",
+      "range": {
+        "startLine": 329,
+        "startChar": 0,
+        "endLine": 340,
+        "endChar": 3
+      },
+      "revId": "41f2a2b1808e496c671a7e3fe93b5fe6e6468129",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

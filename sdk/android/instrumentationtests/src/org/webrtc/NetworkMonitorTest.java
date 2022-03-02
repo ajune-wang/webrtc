@@ -278,14 +278,12 @@ public class NetworkMonitorTest {
     ConnectivityManagerDelegate delegate =
         new ConnectivityManagerDelegate(InstrumentationRegistry.getTargetContext());
     delegate.getNetworkState();
-    if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
-      Network[] networks = delegate.getAllNetworks();
-      if (networks.length >= 1) {
-        delegate.getNetworkState(networks[0]);
-        delegate.hasInternetCapability(networks[0]);
-      }
-      delegate.getDefaultNetId();
+    Network[] networks = delegate.getAllNetworks();
+    if (networks.length >= 1) {
+      delegate.getNetworkState(networks[0]);
+      delegate.hasInternetCapability(networks[0]);
     }
+    delegate.getDefaultNetId();
   }
 
   /**

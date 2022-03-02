@@ -106,6 +106,20 @@ class RTC_EXPORT RTCCertificateStats final : public RTCStats {
   RTCStatsMember<std::string> issuer_certificate_id;
 };
 
+// Non standard extension mapping to rtc::AdapterType
+struct RTCNetworkAdapterType {
+  static const char* const kUnknown;
+  static const char* const kEthernet;
+  static const char* const kWifi;
+  static const char* const kCellular;
+  static const char* const kLoopback;
+  static const char* const kAny;
+  static const char* const kCellular2g;
+  static const char* const kCellular3g;
+  static const char* const kCellular4g;
+  static const char* const kCellular5g;
+};
+
 // https://w3c.github.io/webrtc-stats/#codec-dict*
 class RTC_EXPORT RTCCodecStats final : public RTCStats {
  public:
@@ -226,6 +240,9 @@ class RTC_EXPORT RTCIceCandidateStats : public RTCStats {
   RTCStatsMember<std::string> candidate_type;
   RTCStatsMember<int32_t> priority;
   RTCStatsMember<std::string> url;
+
+  RTCStatsMember<bool> vpn;
+  RTCStatsMember<std::string> network_adapter_type;
 
  protected:
   RTCIceCandidateStats(const std::string& id,

@@ -65,6 +65,30 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "26b0c7c1_ee0830e7",
+        "filename": "modules/desktop_capture/blank_detector_desktop_capturer_wrapper.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 59,
+      "author": {
+        "id": 12416
+      },
+      "writtenOn": "2022-03-02T21:31:25Z",
+      "side": 1,
+      "message": "This buildflag is equivalent to is_win [1], so we\u0027ll be doing the blank check for screen capture anyways.\n\n[1] https://source.chromium.org/chromium/chromium/src/+/main:third_party/webrtc/webrtc.gni;l\u003d226?q\u003dRTC_ENABLE_WIN_WGC",
+      "parentUuid": "4e1bf933_709b5636",
+      "range": {
+        "startLine": 59,
+        "startChar": 0,
+        "endLine": 59,
+        "endChar": 31
+      },
+      "revId": "02e9b69de557928f3a926c7d58b922b234d0552f",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "83ef5295_cd5055fd",

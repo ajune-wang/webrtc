@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "9d251112_99f81b10",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 13
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 18904
+      },
+      "writtenOn": "2022-03-03T20:43:17Z",
+      "side": 1,
+      "message": "For tracking; confirmed this is functionally similar to fork base; abandoning fork base.",
+      "revId": "3e64739a76ca6130088817c6da189d53308a8e40",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

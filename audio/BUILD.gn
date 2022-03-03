@@ -225,6 +225,7 @@ if (rtc_include_tests) {
         "../test:test_support",
         "../test/pc/e2e:network_quality_metrics_reporter",
         "//testing/gtest",
+        "//third_party/protobuf:py_proto_runtime",
       ]
       absl_deps = [
         "//third_party/abseil-cpp/absl/flags:flag",

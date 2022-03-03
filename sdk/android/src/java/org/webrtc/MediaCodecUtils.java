@@ -59,11 +59,7 @@ class MediaCodecUtils {
   static final int[] TEXTURE_COLOR_FORMATS = getTextureColorFormats();
 
   private static int[] getTextureColorFormats() {
-    if (Build.VERSION.SDK_INT >= 18) {
-      return new int[] {MediaCodecInfo.CodecCapabilities.COLOR_FormatSurface};
-    } else {
-      return new int[] {};
-    }
+    return new int[] {MediaCodecInfo.CodecCapabilities.COLOR_FormatSurface};
   }
 
   static @Nullable Integer selectColorFormat(

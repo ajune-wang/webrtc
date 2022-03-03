@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "0d772583_21f4307e",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2022-03-03T10:31:04Z",
+      "side": 1,
+      "message": "I think it is a leftover from pacer refactoring, but I didn\u0027t manage to find the related bug, do you have a suggestion which one this change can be attached to?",
+      "revId": "91b52dca28cd0ce875f128cdd9bd319049f1ab38",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

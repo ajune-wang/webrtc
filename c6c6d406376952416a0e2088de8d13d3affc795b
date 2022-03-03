@@ -24,6 +24,30 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "3ce9d778_7186dd09",
+        "filename": "sdk/android/api/org/webrtc/NetworkMonitorAutoDetect.java",
+        "patchSetId": 11
+      },
+      "lineNbr": 177,
+      "author": {
+        "id": 5613
+      },
+      "writtenOn": "2022-03-03T13:41:38Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "aa66f5d8_a33ed146",
+      "range": {
+        "startLine": 175,
+        "startChar": 0,
+        "endLine": 177,
+        "endChar": 71
+      },
+      "revId": "c6c6d406376952416a0e2088de8d13d3affc795b",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "128ab870_5af3ae1e",
@@ -37,6 +61,30 @@
       "writtenOn": "2022-03-03T10:26:15Z",
       "side": 1,
       "message": "nit: remove the parentheses",
+      "range": {
+        "startLine": 446,
+        "startChar": 10,
+        "endLine": 446,
+        "endChar": 39
+      },
+      "revId": "c6c6d406376952416a0e2088de8d13d3affc795b",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "cb74619c_bab585be",
+        "filename": "sdk/android/api/org/webrtc/NetworkMonitorAutoDetect.java",
+        "patchSetId": 11
+      },
+      "lineNbr": 446,
+      "author": {
+        "id": 5613
+      },
+      "writtenOn": "2022-03-03T13:41:38Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "128ab870_5af3ae1e",
       "range": {
         "startLine": 446,
         "startChar": 10,
@@ -70,6 +118,30 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "2379c12c_1b10a6be",
+        "filename": "sdk/android/instrumentationtests/src/org/webrtc/NetworkMonitorTest.java",
+        "patchSetId": 11
+      },
+      "lineNbr": 312,
+      "author": {
+        "id": 5613
+      },
+      "writtenOn": "2022-03-03T13:41:38Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "9ba246d6_b39ee46e",
+      "range": {
+        "startLine": 312,
+        "startChar": 59,
+        "endLine": 312,
+        "endChar": 73
+      },
+      "revId": "c6c6d406376952416a0e2088de8d13d3affc795b",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "7acbf34b_90518796",
@@ -83,6 +155,30 @@
       "writtenOn": "2022-03-03T10:26:15Z",
       "side": 1,
       "message": "This should be separate tests, otherwise you could hardcode `true` for all options in the production code and still pass the tests:\n\n```\n@Test\n@SmallTest\npublic void testConnectivityManager_requestVPN_disabled() {\n  NetworkRequest request \u003d getNetworkRequestForFieldTrials(\"requestVPN/Disabled\");\n  assertTrue(request.hasCapability(NetworkCapabilities.NET_CAPABILITY_NOT_VPN));\n}\n\n@Test\n@SmallTest\npublic void testConnectivityManager_requestVPN_enabled() {\n  NetworkRequest request \u003d getNetworkRequestForFieldTrials(\"requestVPN/Enabled\");\n  assertFalse(request.hasCapability(NetworkCapabilities.NET_CAPABILITY_NOT_VPN));\n}\n\n// ...\n\nprivate NetworkRequest getNetworkRequestForFieldTrials(String fieldTrials) {\n  return new ConnectivityManagerDelegate(\n  null, new HashSet\u003c\u003e(),\"requestVPN/Enabled\").createNetworkRequest();\n}\n```\n\nThe capabilities are straightforward to test without building an expected `NetworkRequest` object, but I couldn’t find an easy way to check the call to `setIncludeOtherUidNetworks()` was made... so maybe creating `NetworkRequest` to check against with `assertEquals` is the way to go for this.",
+      "range": {
+        "startLine": 331,
+        "startChar": 14,
+        "endLine": 331,
+        "endChar": 54
+      },
+      "revId": "c6c6d406376952416a0e2088de8d13d3affc795b",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "73b49bc2_db4dcf79",
+        "filename": "sdk/android/instrumentationtests/src/org/webrtc/NetworkMonitorTest.java",
+        "patchSetId": 11
+      },
+      "lineNbr": 331,
+      "author": {
+        "id": 5613
+      },
+      "writtenOn": "2022-03-03T13:41:38Z",
+      "side": 1,
+      "message": "hasCapabilities was only present in \u003e\u003d 28,\nI kept compare of NetworkRequest, but modified according to suggestion otherwise.",
+      "parentUuid": "7acbf34b_90518796",
       "range": {
         "startLine": 331,
         "startChar": 14,
@@ -116,6 +212,30 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "cb0945a1_dcde0531",
+        "filename": "sdk/android/instrumentationtests/src/org/webrtc/NetworkMonitorTest.java",
+        "patchSetId": 11
+      },
+      "lineNbr": 334,
+      "author": {
+        "id": 5613
+      },
+      "writtenOn": "2022-03-03T13:41:38Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "7b15e8e8_3222aadd",
+      "range": {
+        "startLine": 334,
+        "startChar": 9,
+        "endLine": 334,
+        "endChar": 40
+      },
+      "revId": "c6c6d406376952416a0e2088de8d13d3affc795b",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "5e107242_0cef0ccb",
@@ -129,6 +249,30 @@
       "writtenOn": "2022-03-03T10:26:15Z",
       "side": 1,
       "message": "Tests are run for a single SDK by default. If you want to test different behaviours from different versions, you have to annotate your test method for it to run on several versions, something like:\n\n```\n@Config(sdk \u003d {Build.VERSION_CODES.N, Build.VERSION_CODES.S})\n```\n\n(and prefer using constants from `Build.VERSION_CODES` rather than plain integers, they are easier to grep [when doing cleanups](https://webrtc-review.googlesource.com/c/src/+/253124)).",
+      "range": {
+        "startLine": 342,
+        "startChar": 4,
+        "endLine": 342,
+        "endChar": 38
+      },
+      "revId": "c6c6d406376952416a0e2088de8d13d3affc795b",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "d876178c_ffe519d7",
+        "filename": "sdk/android/instrumentationtests/src/org/webrtc/NetworkMonitorTest.java",
+        "patchSetId": 11
+      },
+      "lineNbr": 342,
+      "author": {
+        "id": 5613
+      },
+      "writtenOn": "2022-03-03T13:41:38Z",
+      "side": 1,
+      "message": "Could not get the @Config annotitation to work\nmissing dep on robolectrics, and I don\u0027t know how to add it.\nDone",
+      "parentUuid": "5e107242_0cef0ccb",
       "range": {
         "startLine": 342,
         "startChar": 4,

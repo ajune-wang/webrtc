@@ -10,7 +10,6 @@
 
 package org.webrtc.voiceengine;
 
-import android.annotation.TargetApi;
 import android.content.Context;
 import android.media.AudioAttributes;
 import android.media.AudioFormat;
@@ -46,7 +45,7 @@ public class WebRtcAudioTrack {
 
   // By default, WebRTC creates audio tracks with a usage attribute
   // corresponding to voice communications, such as telephony or VoIP.
-  private static final int DEFAULT_USAGE = getDefaultUsageAttribute();
+  private static final int DEFAULT_USAGE = AudioAttributes.USAGE_VOICE_COMMUNICATION;
   private static int usageAttribute = DEFAULT_USAGE;
 
   // This method overrides the default usage attribute and allows the user
@@ -58,15 +57,6 @@ public class WebRtcAudioTrack {
     Logging.w(TAG, "Default usage attribute is changed from: "
         + DEFAULT_USAGE + " to " + usage);
     usageAttribute = usage;
-  }
-
-  private static int getDefaultUsageAttribute() {
-    if (Build.VERSION.SDK_INT >= 21) {
-      return AudioAttributes.USAGE_VOICE_COMMUNICATION;
-    } else {
-      // Not used on SDKs lower than 21.
-      return 0;
-    }
   }
 
   private final long nativeAudioTrack;
@@ -189,11 +179,7 @@ public class WebRtcAudioTrack {
     }
 
     private int writeBytes(AudioTrack audioTrack, ByteBuffer byteBuffer, int sizeInBytes) {
-      if (Build.VERSION.SDK_INT >= 21) {
-        return audioTrack.write(byteBuffer, sizeInBytes, AudioTrack.WRITE_BLOCKING);
-      } else {
-        return audioTrack.write(byteBuffer.array(), byteBuffer.arrayOffset(), sizeInBytes);
-      }
+      return audioTrack.write(byteBuffer, sizeInBytes, AudioTrack.WRITE_BLOCKING);
     }
 
     // Stops the inner thread loop which results in calling AudioTrack.stop().
@@ -257,19 +243,12 @@ public class WebRtcAudioTrack {
       // Create an AudioTrack object and initialize its associated audio buffer.
       // The size of this buffer determines how long an AudioTrack can play
       // before running out of data.
-      if (Build.VERSION.SDK_INT >= 21) {
-        // If we are on API level 21 or higher, it is possible to use a special AudioTrack
-        // constructor that uses AudioAttributes and AudioFormat as input. It allows us to
-        // supersede the notion of stream types for defining the behavior of audio playback,
-        // and to allow certain platforms or routing policies to use this information for more
-        // refined volume or routing decisions.
-        audioTrack = createAudioTrackOnLollipopOrHigher(
-            sampleRate, channelConfig, minBufferSizeInBytes);
-      } else {
-        // Use default constructor for API levels below 21.
-        audioTrack =
-            createAudioTrackOnLowerThanLollipop(sampleRate, channelConfig, minBufferSizeInBytes);
-      }
+      // As we are on API level 21 or higher, it is possible to use a special AudioTrack
+      // constructor that uses AudioAttributes and AudioFormat as input. It allows us to
+      // supersede the notion of stream types for defining the behavior of audio playback,
+      // and to allow certain platforms or routing policies to use this information for more
+      // refined volume or routing decisions.
+      audioTrack = createAudioTrack(sampleRate, channelConfig, minBufferSizeInBytes);
     } catch (IllegalArgumentException e) {
       reportWebRtcAudioTrackInitError(e.getMessage());
       releaseAudioResources();
@@ -353,18 +332,12 @@ public class WebRtcAudioTrack {
     threadChecker.checkIsOnValidThread();
     Logging.d(TAG, "setStreamVolume(" + volume + ")");
     assertTrue(audioManager != null);
-    if (isVolumeFixed()) {
+    if (audioManager.isVolumeFixed()) {
       Logging.e(TAG, "The device implements a fixed volume policy.");
       return false;
     }
     audioManager.setStreamVolume(AudioManager.STREAM_VOICE_CALL, volume, 0);
     return true;
-  }
-
-  private boolean isVolumeFixed() {
-    if (Build.VERSION.SDK_INT < 21)
-      return false;
-    return audioManager.isVolumeFixed();
   }
 
   /** Get current volume level for a phone call audio stream. */
@@ -387,10 +360,9 @@ public class WebRtcAudioTrack {
   // Creates and AudioTrack instance using AudioAttributes and AudioFormat as input.
   // It allows certain platforms or routing policies to use this information for more
   // refined volume or routing decisions.
-  @TargetApi(21)
-  private static AudioTrack createAudioTrackOnLollipopOrHigher(
+  private static AudioTrack createAudioTrack(
       int sampleRateInHz, int channelConfig, int bufferSizeInBytes) {
-    Logging.d(TAG, "createAudioTrackOnLollipopOrHigher");
+    Logging.d(TAG, "createAudioTrack");
     // TODO(henrika): use setPerformanceMode(int) with PERFORMANCE_MODE_LOW_LATENCY to control
     // performance when Android O is supported. Add some logging in the mean time.
     final int nativeOutputSampleRate =
@@ -416,13 +388,6 @@ public class WebRtcAudioTrack {
         bufferSizeInBytes,
         AudioTrack.MODE_STREAM,
         AudioManager.AUDIO_SESSION_ID_GENERATE);
-  }
-
-  @SuppressWarnings("deprecation") // Deprecated in API level 25.
-  private static AudioTrack createAudioTrackOnLowerThanLollipop(
-      int sampleRateInHz, int channelConfig, int bufferSizeInBytes) {
-    return new AudioTrack(AudioManager.STREAM_VOICE_CALL, sampleRateInHz, channelConfig,
-        AudioFormat.ENCODING_PCM_16BIT, bufferSizeInBytes, AudioTrack.MODE_STREAM);
   }
 
   private void logBufferSizeInFrames() {

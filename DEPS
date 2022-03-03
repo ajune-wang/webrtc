@@ -112,7 +112,6 @@ deps = {
     ],
     'dep_type': 'cipd',
   },
-
   'src/third_party/android_build_tools/aapt2': {
       'packages': [
           {

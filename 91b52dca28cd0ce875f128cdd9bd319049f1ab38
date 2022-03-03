@@ -16,6 +16,115 @@
       "message": "I think it is a leftover from pacer refactoring, but I didn\u0027t manage to find the related bug, do you have a suggestion which one this change can be attached to?",
       "revId": "91b52dca28cd0ce875f128cdd9bd319049f1ab38",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "85b8447e_2008994f",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5524
+      },
+      "writtenOn": "2022-03-03T11:53:27Z",
+      "side": 1,
+      "message": "Nice, I totally forget this cleanup was possible after changing the pacing call chain.",
+      "revId": "91b52dca28cd0ce875f128cdd9bd319049f1ab38",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "b75cd62d_18cc9cfb",
+        "filename": "modules/rtp_rtcp/source/rtp_packet_history.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 91,
+      "author": {
+        "id": 5524
+      },
+      "writtenOn": "2022-03-03T11:53:27Z",
+      "side": 1,
+      "message": "nit: Perhaps change this name to something that reflects the use better. IsEligibleForTransmission() or something like that?",
+      "range": {
+        "startLine": 91,
+        "startChar": 7,
+        "endLine": 91,
+        "endChar": 21
+      },
+      "revId": "91b52dca28cd0ce875f128cdd9bd319049f1ab38",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "0def2930_c014f39d",
+        "filename": "modules/rtp_rtcp/source/rtp_packet_history.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 154,
+      "author": {
+        "id": 5524
+      },
+      "writtenOn": "2022-03-03T11:53:27Z",
+      "side": 1,
+      "message": "nit: used",
+      "range": {
+        "startLine": 154,
+        "startChar": 19,
+        "endLine": 154,
+        "endChar": 21
+      },
+      "revId": "91b52dca28cd0ce875f128cdd9bd319049f1ab38",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "81912842_2db046fb",
+        "filename": "modules/rtp_rtcp/source/rtp_packet_history_unittest.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 142,
+      "author": {
+        "id": 5524
+      },
+      "writtenOn": "2022-03-03T11:53:27Z",
+      "side": 1,
+      "message": "nit: can drop this suffix?",
+      "range": {
+        "startLine": 142,
+        "startChar": 42,
+        "endLine": 142,
+        "endChar": 54
+      },
+      "revId": "91b52dca28cd0ce875f128cdd9bd319049f1ab38",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "5d12a816_7bd25d17",
+        "filename": "modules/rtp_rtcp/source/rtp_sender.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 317,
+      "author": {
+        "id": 5524
+      },
+      "writtenOn": "2022-03-03T11:53:27Z",
+      "side": 1,
+      "message": "You might also get here if retransmission_rate_limiter_-\u003eTryUseRate() fails. Or possible if we fail to allocate payload for rtx..?\n\nNot sure if that functionally makes much of a difference, instead of aborting the rest of nack list I guess we will try and (likely) fail the rest of the sequence numbers one by one.",
+      "range": {
+        "startLine": 317,
+        "startChar": 4,
+        "endLine": 317,
+        "endChar": 69
+      },
+      "revId": "91b52dca28cd0ce875f128cdd9bd319049f1ab38",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

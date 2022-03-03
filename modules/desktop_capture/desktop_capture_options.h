@@ -153,6 +153,16 @@ class RTC_EXPORT DesktopCaptureOptions {
     allow_cropping_window_capturer_ = allow;
   }
 
+  // If target capturer is secondary capturer in the
+  // FallbackDesktopCapturerWrapper, then capturable check can be delayed
+  // until CaptureFrame if SelectSource (capturable check) is expensive.
+  bool allow_delayed_capturable_check() const {
+    return allow_delayed_capturable_check_;
+  }
+  void set_allow_delayed_capturable_check(bool allow) {
+    allow_delayed_capturable_check_ = allow;
+  }
+
 #if defined(RTC_ENABLE_WIN_WGC)
   // This flag enables the WGC capturer for both window and screen capture.
   // This capturer should offer similar or better performance than the cropping
@@ -201,6 +211,7 @@ class RTC_EXPORT DesktopCaptureOptions {
   bool allow_use_magnification_api_ = false;
   bool allow_directx_capturer_ = false;
   bool allow_cropping_window_capturer_ = false;
+  bool allow_delayed_capturable_check_ = false;
 #if defined(RTC_ENABLE_WIN_WGC)
   bool allow_wgc_capturer_ = false;
 #endif

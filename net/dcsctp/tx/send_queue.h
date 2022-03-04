@@ -43,6 +43,12 @@ class SendQueue {
   // prioritization, which is important for any advanced stream scheduler, is
   // further clarified.
 
+  // Configures the send queue to support interleaved message sending as
+  // described in RFC8260. Every send queue starts with this value set as
+  // disabled, but can later change it when the capabilities of the connection
+  // have been negotiated. This affects the behavior of the `Produce` method.
+  virtual void EnableMessageInterleaving(bool enabled) = 0;
+
   // Produce a chunk to be sent.
   //
   // `max_size` refers to how many payload bytes that may be produced, not

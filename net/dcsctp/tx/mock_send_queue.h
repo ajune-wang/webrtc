@@ -27,6 +27,7 @@ class MockSendQueue : public SendQueue {
     });
   }
 
+  MOCK_METHOD(void, EnableMessageInterleaving, (bool enabled), (override));
   MOCK_METHOD(absl::optional<SendQueue::DataToSend>,
               Produce,
               (TimeMs now, size_t max_size),

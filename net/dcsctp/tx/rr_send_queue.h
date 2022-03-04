@@ -65,6 +65,9 @@ class RRSendQueue : public SendQueue {
            const SendOptions& send_options = {});
 
   // Implementation of `SendQueue`.
+  void EnableMessageInterleaving(bool enabled) override {
+    enable_message_interleaving_ = enabled;
+  }
   absl::optional<DataToSend> Produce(TimeMs now, size_t max_size) override;
   bool Discard(IsUnordered unordered,
                StreamID stream_id,
@@ -223,6 +226,8 @@ class RRSendQueue : public SendQueue {
   // Called when the total buffered amount is below what has been set using
   // `SetTotalBufferedAmountLowThreshold`.
   const std::function<void()> on_total_buffered_amount_low_;
+
+  bool enable_message_interleaving_ = false;
 
   // The total amount of buffer data, for all streams.
   ThresholdWatcher total_buffered_amount_;

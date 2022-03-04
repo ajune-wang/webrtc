@@ -335,6 +335,8 @@ void DcSctpSocket::RestoreFromState(const DcSctpSocketHandoverState& state) {
           [this]() { return state_ == State::kEstablished; }, &state);
       RTC_DLOG(LS_VERBOSE) << log_prefix() << "Created peer TCB from state: "
                            << tcb_->ToString();
+      send_queue_.EnableMessageInterleaving(
+          tcb_->capabilities().message_interleaving);
 
       SetState(State::kEstablished, "restored from handover state");
       callbacks_.OnConnected();
@@ -1192,6 +1194,8 @@ void DcSctpSocket::HandleInitAck(
       [this]() { return state_ == State::kEstablished; });
   RTC_DLOG(LS_VERBOSE) << log_prefix()
                        << "Created peer TCB: " << tcb_->ToString();
+  send_queue_.EnableMessageInterleaving(
+      tcb_->capabilities().message_interleaving);
 
   SetState(State::kCookieEchoed, "INIT_ACK received");
 
@@ -1254,6 +1258,8 @@ void DcSctpSocket::HandleCookieEcho(
     RTC_DLOG(LS_VERBOSE) << log_prefix()
                          << "Created peer TCB: " << tcb_->ToString();
   }
+  send_queue_.EnableMessageInterleaving(
+      tcb_->capabilities().message_interleaving);
 
   SctpPacket::Builder b = tcb_->PacketBuilder();
   b.Add(CookieAckChunk());

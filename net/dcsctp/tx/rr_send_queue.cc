@@ -330,9 +330,11 @@ absl::optional<SendQueue::DataToSend> RRSendQueue::Produce(TimeMs now,
                                                            size_t max_size) {
   std::map<StreamID, RRSendQueue::OutgoingStream>::iterator stream_it;
 
-  if (previous_message_has_ended_) {
-    // Previous message has ended. Round-robin to a different stream, if there
-    // even is one with data to send.
+  if (enable_message_interleaving_ || previous_message_has_ended_) {
+    // For non-interleaved streams: Previous message has ended. And for
+    // interleaved message sending, this is done for every I-DATA chunk sent;
+    // Round-robin to a different stream, if there even is one with data to
+    // send.
     stream_it = GetNextStream(now);
     if (stream_it == streams_.end()) {
       RTC_DLOG(LS_VERBOSE)

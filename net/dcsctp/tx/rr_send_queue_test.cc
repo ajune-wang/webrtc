@@ -779,5 +779,52 @@ TEST_F(RRSendQueueTest, WillStayInStreamWhenOnlySmallFragmentRemaining) {
 
   EXPECT_FALSE(buf_.Produce(kNow, 8).has_value());
 }
+
+TEST_F(RRSendQueueTest, WillRoundRobinInterleavedBetweenStreams) {
+  buf_.EnableMessageInterleaving(true);
+  buf_.Add(kNow, DcSctpMessage(StreamID(1), kPPID, std::vector<uint8_t>(20)));
+  buf_.Add(kNow, DcSctpMessage(StreamID(2), kPPID, std::vector<uint8_t>(20)));
+  buf_.Add(kNow, DcSctpMessage(StreamID(3), kPPID, std::vector<uint8_t>(20)));
+  buf_.Add(kNow, DcSctpMessage(StreamID(4), kPPID, std::vector<uint8_t>(20)));
+  std::vector<uint16_t> expected_streams = {1, 2, 3, 4, 1, 2, 3, 4};
+
+  for (uint16_t stream_num : expected_streams) {
+    ASSERT_HAS_VALUE_AND_ASSIGN(SendQueue::DataToSend chunk,
+                                buf_.Produce(kNow, 10));
+    EXPECT_EQ(chunk.data.stream_id, StreamID(stream_num));
+  }
+  EXPECT_FALSE(buf_.Produce(kNow, 1).has_value());
+}
+
+TEST_F(RRSendQueueTest, WillSendAllInterleavedOnSingleStream) {
+  constexpr int kNumFragments = 4;
+  constexpr int kFragmentSize = 10;
+  buf_.EnableMessageInterleaving(true);
+  buf_.Add(kNow,
+           DcSctpMessage(StreamID(1), kPPID,
+                         std::vector<uint8_t>(kNumFragments * kFragmentSize)));
+
+  for (int i = 0; i < kNumFragments; ++i) {
+    ASSERT_HAS_VALUE_AND_ASSIGN(SendQueue::DataToSend chunk,
+                                buf_.Produce(kNow, kFragmentSize));
+    EXPECT_EQ(chunk.data.stream_id, StreamID(1));
+  }
+  EXPECT_FALSE(buf_.Produce(kNow, 1).has_value());
+}
+
+TEST_F(RRSendQueueTest, WillInterleaveLargeWithSmallMessages) {
+  buf_.EnableMessageInterleaving(true);
+  buf_.Add(kNow, DcSctpMessage(StreamID(1), kPPID, std::vector<uint8_t>(40)));
+  buf_.Add(kNow, DcSctpMessage(StreamID(2), kPPID, std::vector<uint8_t>(20)));
+  buf_.Add(kNow, DcSctpMessage(StreamID(3), kPPID, std::vector<uint8_t>(10)));
+  std::vector<uint16_t> expected_streams = {1, 2, 3, 1, 2, 1, 1};
+
+  for (uint16_t stream_num : expected_streams) {
+    ASSERT_HAS_VALUE_AND_ASSIGN(SendQueue::DataToSend chunk,
+                                buf_.Produce(kNow, 10));
+    EXPECT_EQ(chunk.data.stream_id, StreamID(stream_num));
+  }
+  EXPECT_FALSE(buf_.Produce(kNow, 1).has_value());
+}
 }  // namespace
 }  // namespace dcsctp

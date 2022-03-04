@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "a76456aa_f9fd1509",
+        "filename": "modules/rtp_rtcp/source/rtp_packet_history.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 75,
+      "author": {
+        "id": 5524
+      },
+      "writtenOn": "2022-03-04T13:30:57Z",
+      "side": 1,
+      "message": "I\u0027m not sure we should keep this magical number. It looks like it was intended to capture that no rtt was set, but we don\u0027t seem to guard against it - in fact in seem possible to use at as -1...\nSeems like TimeDelta::Infinity() is better if we want a magic number but seem to me like just setting it to Zero would be better and less risky?",
+      "range": {
+        "startLine": 75,
+        "startChar": 29,
+        "endLine": 75,
+        "endChar": 31
+      },
+      "revId": "98c08601768074f56e75a8989aa04c511653550d",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "1e5327da_1b3a1b88",
+        "filename": "modules/rtp_rtcp/source/rtp_packet_history.h",
+        "patchSetId": 5
+      },
+      "lineNbr": 67,
+      "author": {
+        "id": 5524
+      },
+      "writtenOn": "2022-03-04T13:30:57Z",
+      "side": 1,
+      "message": "nit: typo",
+      "range": {
+        "startLine": 67,
+        "startChar": 23,
+        "endLine": 67,
+        "endChar": 30
+      },
+      "revId": "98c08601768074f56e75a8989aa04c511653550d",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

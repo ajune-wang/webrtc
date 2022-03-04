@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "447f65db_e213e408",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 10
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 9405
+      },
+      "writtenOn": "2022-03-04T00:35:50Z",
+      "side": 1,
+      "message": "Could you replace the use of `HandlerThread.quit()` in [1] also?\n\n[1] https://source.chromium.org/chromium/chromium/src/+/15ee87fe0ea8d25177b2e87b2530e55bd1a501e0:third_party/webrtc/sdk/android/api/org/webrtc/EglRenderer.java;l\u003d312\n",
+      "revId": "831ac052347a198ab3a6c96483e402d5d014f2c6",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

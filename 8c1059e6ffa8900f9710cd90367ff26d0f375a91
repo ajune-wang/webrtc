@@ -24,6 +24,30 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "a70bf1e7_930c519e",
+        "filename": "modules/video_coding/rtp_vp9_ref_finder.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 19,
+      "author": {
+        "id": 5527
+      },
+      "writtenOn": "2022-03-07T17:13:24Z",
+      "side": 1,
+      "message": "Was a member function because of kMaxTemporalLayers/kMaxSpatialLayers being private. Removed it now.",
+      "parentUuid": "028cddb1_9c819551",
+      "range": {
+        "startLine": 19,
+        "startChar": 5,
+        "endLine": 19,
+        "endChar": 22
+      },
+      "revId": "8c1059e6ffa8900f9710cd90367ff26d0f375a91",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "8f76d1b1_778bf847",
@@ -49,6 +73,30 @@
     {
       "unresolved": false,
       "key": {
+        "uuid": "1f6617da_3fe7eea4",
+        "filename": "modules/video_coding/rtp_vp9_ref_finder.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 38,
+      "author": {
+        "id": 5527
+      },
+      "writtenOn": "2022-03-07T17:13:24Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "8f76d1b1_778bf847",
+      "range": {
+        "startLine": 38,
+        "startChar": 59,
+        "endLine": 38,
+        "endChar": 70
+      },
+      "revId": "8c1059e6ffa8900f9710cd90367ff26d0f375a91",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
         "uuid": "3864abdd_ec73a0b9",
         "filename": "modules/video_coding/rtp_vp9_ref_finder.cc",
         "patchSetId": 3
@@ -60,6 +108,30 @@
       "writtenOn": "2022-03-07T16:58:08Z",
       "side": 1,
       "message": "may be, to make change look smaller, keep calling it codec_header",
+      "range": {
+        "startLine": 87,
+        "startChar": 29,
+        "endLine": 87,
+        "endChar": 32
+      },
+      "revId": "8c1059e6ffa8900f9710cd90367ff26d0f375a91",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "9539bebe_8454f2b2",
+        "filename": "modules/video_coding/rtp_vp9_ref_finder.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 87,
+      "author": {
+        "id": 5527
+      },
+      "writtenOn": "2022-03-07T17:13:24Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "3864abdd_ec73a0b9",
       "range": {
         "startLine": 87,
         "startChar": 29,

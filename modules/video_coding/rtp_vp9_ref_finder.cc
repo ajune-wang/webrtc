@@ -16,17 +16,43 @@
 #include "rtc_base/logging.h"
 
 namespace webrtc {
+bool RtpVp9RefFinder::BasicFrameValidation(
+    const RTPVideoHeaderVP9& vp9_header) const {
+  if (vp9_header.temporal_idx >= kMaxTemporalLayers ||
+      vp9_header.spatial_idx >= kMaxSpatialLayers) {
+    return false;
+  }
+
+  return true;
+}
 
 RtpFrameReferenceFinder::ReturnVector RtpVp9RefFinder::ManageFrame(
     std::unique_ptr<RtpFrameObject> frame) {
-  FrameDecision decision = ManageFrameInternal(frame.get());
+  const RTPVideoHeaderVP9& vp9_header = absl::get<RTPVideoHeaderVP9>(
+      frame->GetRtpVideoHeader().video_type_header);
+
+  frame->SetSpatialIndex(vp9_header.spatial_idx);
+  frame->SetId(vp9_header.picture_id & (kFrameIdLength - 1));
+
+  FrameDecision decision;
+  int64_t unwrapped_tl0 = tl0_unwrapper_.Unwrap(vp9_header.tl0_pic_idx & 0xFF);
+  if (!BasicFrameValidation(vp9_header)) {
+    decision = kDrop;
+  } else if (vp9_header.flexible_mode) {
+    decision = ManageFrameFlexible(frame.get(), vp9_header);
+  } else {
+    decision = ManageFrameGof(frame.get(), vp9_header, unwrapped_tl0);
+  }
 
   RtpFrameReferenceFinder::ReturnVector res;
   switch (decision) {
     case kStash:
-      if (stashed_frames_.size() > kMaxStashedFrames)
+      if (stashed_frames_.size() > kMaxStashedFrames) {
         stashed_frames_.pop_back();
-      stashed_frames_.push_front(std::move(frame));
+      }
+
+      stashed_frames_.push_front(
+          {.unwrapped_tl0 = unwrapped_tl0, .frame = std::move(frame)});
       return res;
     case kHandOff:
       res.push_back(std::move(frame));
@@ -39,59 +65,50 @@ RtpFrameReferenceFinder::ReturnVector RtpVp9RefFinder::ManageFrame(
   return res;
 }
 
-RtpVp9RefFinder::FrameDecision RtpVp9RefFinder::ManageFrameInternal(
-    RtpFrameObject* frame) {
-  const RTPVideoHeader& video_header = frame->GetRtpVideoHeader();
-  const RTPVideoHeaderVP9& codec_header =
-      absl::get<RTPVideoHeaderVP9>(video_header.video_type_header);
-
-  // Protect against corrupted packets with arbitrary large temporal idx.
-  if (codec_header.temporal_idx >= kMaxTemporalLayers ||
-      codec_header.spatial_idx >= kMaxSpatialLayers)
+RtpVp9RefFinder::FrameDecision RtpVp9RefFinder::ManageFrameFlexible(
+    RtpFrameObject* frame,
+    const RTPVideoHeaderVP9& vp9_header) {
+  if (vp9_header.num_ref_pics > EncodedFrame::kMaxFrameReferences) {
     return kDrop;
-
-  frame->SetSpatialIndex(codec_header.spatial_idx);
-  frame->SetId(codec_header.picture_id & (kFrameIdLength - 1));
-
-  if (codec_header.flexible_mode) {
-    if (codec_header.num_ref_pics > EncodedFrame::kMaxFrameReferences) {
-      return kDrop;
-    }
-    frame->num_references = codec_header.num_ref_pics;
-    for (size_t i = 0; i < frame->num_references; ++i) {
-      frame->references[i] =
-          Subtract<kFrameIdLength>(frame->Id(), codec_header.pid_diff[i]);
-    }
-
-    FlattenFrameIdAndRefs(frame, codec_header.inter_layer_predicted);
-    return kHandOff;
   }
 
-  if (codec_header.tl0_pic_idx == kNoTl0PicIdx) {
+  frame->num_references = vp9_header.num_ref_pics;
+  for (size_t i = 0; i < frame->num_references; ++i) {
+    frame->references[i] =
+        Subtract<kFrameIdLength>(frame->Id(), vp9_header.pid_diff[i]);
+  }
+
+  FlattenFrameIdAndRefs(frame, vp9_header.inter_layer_predicted);
+  return kHandOff;
+}
+
+RtpVp9RefFinder::FrameDecision RtpVp9RefFinder::ManageFrameGof(
+    RtpFrameObject* frame,
+    const RTPVideoHeaderVP9& vp9_header,
+    int64_t unwrapped_tl0) {
+  if (vp9_header.tl0_pic_idx == kNoTl0PicIdx) {
     RTC_LOG(LS_WARNING) << "TL0PICIDX is expected to be present in "
                            "non-flexible mode.";
     return kDrop;
   }
 
   GofInfo* info;
-  int64_t unwrapped_tl0 =
-      tl0_unwrapper_.Unwrap(codec_header.tl0_pic_idx & 0xFF);
-  if (codec_header.ss_data_available) {
-    if (codec_header.temporal_idx != 0) {
+  if (vp9_header.ss_data_available) {
+    if (vp9_header.temporal_idx != 0) {
       RTC_LOG(LS_WARNING) << "Received scalability structure on a non base "
                              "layer frame. Scalability structure ignored.";
     } else {
-      if (codec_header.gof.num_frames_in_gof > kMaxVp9FramesInGof) {
+      if (vp9_header.gof.num_frames_in_gof > kMaxVp9FramesInGof) {
         return kDrop;
       }
 
-      for (size_t i = 0; i < codec_header.gof.num_frames_in_gof; ++i) {
-        if (codec_header.gof.num_ref_pics[i] > kMaxVp9RefPics) {
+      for (size_t i = 0; i < vp9_header.gof.num_frames_in_gof; ++i) {
+        if (vp9_header.gof.num_ref_pics[i] > kMaxVp9RefPics) {
           return kDrop;
         }
       }
 
-      GofInfoVP9 gof = codec_header.gof;
+      GofInfoVP9 gof = vp9_header.gof;
       if (gof.num_frames_in_gof == 0) {
         RTC_LOG(LS_WARNING) << "Number of frames in GOF is zero. Assume "
                                "that stream has only one temporal layer.";
@@ -115,7 +132,7 @@ RtpVp9RefFinder::FrameDecision RtpVp9RefFinder::ManageFrameInternal(
     if (frame->frame_type() == VideoFrameType::kVideoFrameKey) {
       frame->num_references = 0;
       FrameReceivedVp9(frame->Id(), info);
-      FlattenFrameIdAndRefs(frame, codec_header.inter_layer_predicted);
+      FlattenFrameIdAndRefs(frame, vp9_header.inter_layer_predicted);
       return kHandOff;
     }
   } else if (frame->frame_type() == VideoFrameType::kVideoFrameKey) {
@@ -131,17 +148,17 @@ RtpVp9RefFinder::FrameDecision RtpVp9RefFinder::ManageFrameInternal(
 
     frame->num_references = 0;
     FrameReceivedVp9(frame->Id(), info);
-    FlattenFrameIdAndRefs(frame, codec_header.inter_layer_predicted);
+    FlattenFrameIdAndRefs(frame, vp9_header.inter_layer_predicted);
     return kHandOff;
   } else {
     auto gof_info_it = gof_info_.find(
-        (codec_header.temporal_idx == 0) ? unwrapped_tl0 - 1 : unwrapped_tl0);
+        (vp9_header.temporal_idx == 0) ? unwrapped_tl0 - 1 : unwrapped_tl0);
 
     // Gof info for this frame is not available yet, stash this frame.
     if (gof_info_it == gof_info_.end())
       return kStash;
 
-    if (codec_header.temporal_idx == 0) {
+    if (vp9_header.temporal_idx == 0) {
       gof_info_it = gof_info_
                         .emplace(unwrapped_tl0,
                                  GofInfo(gof_info_it->second.gof, frame->Id()))
@@ -163,8 +180,8 @@ RtpVp9RefFinder::FrameDecision RtpVp9RefFinder::ManageFrameInternal(
   if (MissingRequiredFrameVp9(frame->Id(), *info))
     return kStash;
 
-  if (codec_header.temporal_up_switch)
-    up_switch_.emplace(frame->Id(), codec_header.temporal_idx);
+  if (vp9_header.temporal_up_switch)
+    up_switch_.emplace(frame->Id(), vp9_header.temporal_idx);
 
   // Clean out old info about up switch frames.
   uint16_t old_picture_id = Subtract<kFrameIdLength>(frame->Id(), 50);
@@ -186,18 +203,18 @@ RtpVp9RefFinder::FrameDecision RtpVp9RefFinder::ManageFrameInternal(
 
     // If this is a reference to a frame earlier than the last up switch point,
     // then ignore this reference.
-    if (UpSwitchInIntervalVp9(frame->Id(), codec_header.temporal_idx,
+    if (UpSwitchInIntervalVp9(frame->Id(), vp9_header.temporal_idx,
                               frame->references[i])) {
       --frame->num_references;
     }
   }
 
   // Override GOF references.
-  if (!codec_header.inter_pic_predicted) {
+  if (!vp9_header.inter_pic_predicted) {
     frame->num_references = 0;
   }
 
-  FlattenFrameIdAndRefs(frame, codec_header.inter_layer_predicted);
+  FlattenFrameIdAndRefs(frame, vp9_header.inter_layer_predicted);
   return kHandOff;
 }
 
@@ -300,20 +317,22 @@ void RtpVp9RefFinder::RetryStashedFrames(
   bool complete_frame = false;
   do {
     complete_frame = false;
-    for (auto frame_it = stashed_frames_.begin();
-         frame_it != stashed_frames_.end();) {
-      FrameDecision decision = ManageFrameInternal(frame_it->get());
+    for (auto it = stashed_frames_.begin(); it != stashed_frames_.end();) {
+      const RTPVideoHeaderVP9& vp9_header = absl::get<RTPVideoHeaderVP9>(
+          it->frame->GetRtpVideoHeader().video_type_header);
+      FrameDecision decision =
+          ManageFrameGof(it->frame.get(), vp9_header, it->unwrapped_tl0);
 
       switch (decision) {
         case kStash:
-          ++frame_it;
+          ++it;
           break;
         case kHandOff:
           complete_frame = true;
-          res.push_back(std::move(*frame_it));
+          res.push_back(std::move(it->frame));
           [[fallthrough]];
         case kDrop:
-          frame_it = stashed_frames_.erase(frame_it);
+          it = stashed_frames_.erase(it);
       }
     }
   } while (complete_frame);
@@ -339,7 +358,7 @@ void RtpVp9RefFinder::FlattenFrameIdAndRefs(RtpFrameObject* frame,
 void RtpVp9RefFinder::ClearTo(uint16_t seq_num) {
   auto it = stashed_frames_.begin();
   while (it != stashed_frames_.end()) {
-    if (AheadOf<uint16_t>(seq_num, (*it)->first_seq_num())) {
+    if (AheadOf<uint16_t>(seq_num, it->frame->first_seq_num())) {
       it = stashed_frames_.erase(it);
     } else {
       ++it;

@@ -1,0 +1,73 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "028cddb1_9c819551",
+        "filename": "modules/video_coding/rtp_vp9_ref_finder.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 19,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2022-03-07T16:58:08Z",
+      "side": 1,
+      "message": "Do this helper function need to be a member function?\nLooks simple enough to put into anonymous namespace into .cc file.",
+      "range": {
+        "startLine": 19,
+        "startChar": 5,
+        "endLine": 19,
+        "endChar": 22
+      },
+      "revId": "8c1059e6ffa8900f9710cd90367ff26d0f375a91",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "8f76d1b1_778bf847",
+        "filename": "modules/video_coding/rtp_vp9_ref_finder.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 38,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2022-03-07T16:58:08Z",
+      "side": 1,
+      "message": "you mind want to handle kNoTl0PicIdx explicetly\n(e.g. in flexible mode tl0_pic_idx is never set)",
+      "range": {
+        "startLine": 38,
+        "startChar": 59,
+        "endLine": 38,
+        "endChar": 70
+      },
+      "revId": "8c1059e6ffa8900f9710cd90367ff26d0f375a91",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "3864abdd_ec73a0b9",
+        "filename": "modules/video_coding/rtp_vp9_ref_finder.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 87,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2022-03-07T16:58:08Z",
+      "side": 1,
+      "message": "may be, to make change look smaller, keep calling it codec_header",
+      "range": {
+        "startLine": 87,
+        "startChar": 29,
+        "endLine": 87,
+        "endChar": 32
+      },
+      "revId": "8c1059e6ffa8900f9710cd90367ff26d0f375a91",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

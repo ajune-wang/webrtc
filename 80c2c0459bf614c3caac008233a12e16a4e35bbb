@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "19622bb5_791cfdc0",
+        "filename": "modules/video_coding/rtp_vp9_ref_finder.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 324,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2022-03-07T16:58:08Z",
+      "side": 1,
+      "message": "are stashed frames always non flexible?\n(that is not trivial to conclude from the code)",
+      "range": {
+        "startLine": 324,
+        "startChar": 10,
+        "endLine": 324,
+        "endChar": 24
+      },
+      "revId": "80c2c0459bf614c3caac008233a12e16a4e35bbb",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

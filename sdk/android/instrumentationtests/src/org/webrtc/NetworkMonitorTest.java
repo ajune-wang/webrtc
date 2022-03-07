@@ -94,11 +94,7 @@ public class NetworkMonitorTest {
     private int underlyingNetworkSubtypeForVpn;
 
     MockConnectivityManagerDelegate() {
-      this(new HashSet<>(), "");
-    }
-
-    MockConnectivityManagerDelegate(Set<Network> availableNetworks, String fieldTrialsString) {
-      super(null, availableNetworks, fieldTrialsString);
+      super(InstrumentationRegistry.getTargetContext(), new HashSet<>(), "");
     }
 
     @Override
@@ -309,10 +305,9 @@ public class NetworkMonitorTest {
   @SmallTest
   public void testConnectivityManagerDelegatePreferentiallyReadsFromCache() {
     final Set<Network> availableNetworks = new HashSet<>();
-    ConnectivityManagerDelegate delegate = new ConnectivityManagerDelegate(
-        (ConnectivityManager) InstrumentationRegistry.getTargetContext().getSystemService(
-            Context.CONNECTIVITY_SERVICE),
-        availableNetworks, "getAllNetworksFromCache/Enabled/");
+    ConnectivityManagerDelegate delegate =
+        new ConnectivityManagerDelegate(InstrumentationRegistry.getTargetContext(),
+            availableNetworks, "getAllNetworksFromCache/Enabled/");
 
     Network[] networks = delegate.getAllNetworks();
     assertTrue(networks.length == 0);
@@ -366,7 +361,8 @@ public class NetworkMonitorTest {
   }
 
   private NetworkRequest getNetworkRequestForFieldTrials(String fieldTrials) {
-    return new ConnectivityManagerDelegate(null, new HashSet<>(), fieldTrials)
+    return new ConnectivityManagerDelegate(
+        InstrumentationRegistry.getTargetContext(), new HashSet<>(), fieldTrials)
         .createNetworkRequest();
   }
 

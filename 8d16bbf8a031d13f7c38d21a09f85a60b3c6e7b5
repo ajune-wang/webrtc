@@ -41,6 +41,30 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "67ae488b_10090040",
+        "filename": "modules/video_coding/inter_frame_delay.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 45,
+      "author": {
+        "id": 18444
+      },
+      "writtenOn": "2022-03-07T13:34:59Z",
+      "side": 1,
+      "message": "I have switched to using this, and it massively cleans the code here.",
+      "parentUuid": "d5f1897d_23cba90c",
+      "range": {
+        "startLine": 45,
+        "startChar": 18,
+        "endLine": 45,
+        "endChar": 53
+      },
+      "revId": "8d16bbf8a031d13f7c38d21a09f85a60b3c6e7b5",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "86d71d05_6672011e",
@@ -54,6 +78,30 @@
       "writtenOn": "2022-03-07T10:02:12Z",
       "side": 1,
       "message": "nit: maybe a named constant for this?",
+      "range": {
+        "startLine": 59,
+        "startChar": 32,
+        "endLine": 59,
+        "endChar": 63
+      },
+      "revId": "8d16bbf8a031d13f7c38d21a09f85a60b3c6e7b5",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "2641ee58_6f995cab",
+        "filename": "modules/video_coding/inter_frame_delay.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 59,
+      "author": {
+        "id": 18444
+      },
+      "writtenOn": "2022-03-07T13:34:59Z",
+      "side": 1,
+      "message": "Not relevant anymore.",
+      "parentUuid": "86d71d05_6672011e",
       "range": {
         "startLine": 59,
         "startChar": 32,
@@ -130,6 +178,30 @@
       "writtenOn": "2022-03-07T10:02:12Z",
       "side": 1,
       "message": "nit: comment on the return value, if we\u0027re keeping with this comment format?\n(implementation below too)",
+      "range": {
+        "startLine": 43,
+        "startChar": 5,
+        "endLine": 43,
+        "endChar": 11
+      },
+      "revId": "8d16bbf8a031d13f7c38d21a09f85a60b3c6e7b5",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "10fffec5_36d08ae1",
+        "filename": "modules/video_coding/inter_frame_delay.h",
+        "patchSetId": 4
+      },
+      "lineNbr": 43,
+      "author": {
+        "id": 18444
+      },
+      "writtenOn": "2022-03-07T13:34:59Z",
+      "side": 1,
+      "message": "Removed these parameter comments. I think the name is self explanatory.",
+      "parentUuid": "6c8a9ef5_f06fcc25",
       "range": {
         "startLine": 43,
         "startChar": 5,

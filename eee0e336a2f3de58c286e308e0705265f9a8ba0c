@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "ab4dd182_bb4297b2",
+        "filename": "net/dcsctp/socket/dcsctp_socket_test.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 343,
+      "author": {
+        "id": 18169
+      },
+      "writtenOn": "2022-03-07T12:56:31Z",
+      "side": 0,
+      "message": "The idea was that new dimensions could be put to the test params (that has to become a struct) and permutated with handover modes.\n\nSplitting will make it harder to generate permutations. For example, we probably want to test all 4 of [ordered/unordered] x [handover/no_handler].",
+      "range": {
+        "startLine": 343,
+        "startChar": 6,
+        "endLine": 343,
+        "endChar": 34
+      },
+      "revId": "eee0e336a2f3de58c286e308e0705265f9a8ba0c",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

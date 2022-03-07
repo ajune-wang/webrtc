@@ -34,6 +34,24 @@
       "parentUuid": "ec7870e6_a5abf603",
       "revId": "3266d9d4d783acfca9a6a8db85ed56cb8da34437",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "29f213d7_8c58b18d",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 4
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 18789
+      },
+      "writtenOn": "2022-03-07T23:38:57Z",
+      "side": 1,
+      "message": "In WindowCapturerTest test, capturer_-\u003eGetSourceList will calls WindowCapturerWinGdi::GetSourceList (only call this one) and it will enumerate windows based on GDI APIs.\n\nIn test, it calls SelectSource/CaptureFrame for these windows lists. if any of them failed, then frame_ must be nullptr, which leads to calling GetSourceList again and expect it doesn\u0027t have failed window.\n\nThe problem is that SelectSource code calls secondary capturer after the main capturer where secondary capturer is WGC. There is a case where WGC SelectSource failed with call of WgcCaptureSource::IsCapturable even though GDI window enumeration succeeded for that window; test failed. \n\nBy introducing of allow_delayed_capturable_check, we can not only fix the test failure, but ultimately prevent perf degradation by this change.",
+      "parentUuid": "de565b45_fc9c967d",
+      "revId": "3266d9d4d783acfca9a6a8db85ed56cb8da34437",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

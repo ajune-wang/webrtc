@@ -177,15 +177,15 @@ public class NetworkMonitorAutoDetect extends BroadcastReceiver implements Netwo
     private final boolean includeOtherUidNetworks;
 
     ConnectivityManagerDelegate(Context context, Set<Network> availableNetworks) {
-      this((ConnectivityManager) context.getSystemService(Context.CONNECTIVITY_SERVICE),
-          availableNetworks,
+      this(context, availableNetworks,
           PeerConnectionFactory.fieldTrialsFindFullName("WebRTC-NetworkMonitorAutoDetect"));
     }
 
     @VisibleForTesting
-    ConnectivityManagerDelegate(ConnectivityManager connectivityManager,
-        Set<Network> availableNetworks, String fieldTrials) {
-      this.connectivityManager = connectivityManager;
+    ConnectivityManagerDelegate(
+        Context context, Set<Network> availableNetworks, String fieldTrials) {
+      this.connectivityManager =
+          (ConnectivityManager) context.getSystemService(Context.CONNECTIVITY_SERVICE);
       this.availableNetworks = availableNetworks;
       this.getAllNetworksFromCache = checkFieldTrial(fieldTrials, "getAllNetworksFromCache", false);
       this.requestVPN = checkFieldTrial(fieldTrials, "requestVPN", false);
@@ -206,9 +206,6 @@ public class NetworkMonitorAutoDetect extends BroadcastReceiver implements Netwo
      * default network.
      */
     NetworkState getNetworkState() {
-      if (connectivityManager == null) {
-        return new NetworkState(false, -1, -1, -1, -1);
-      }
       return getNetworkState(connectivityManager.getActiveNetworkInfo());
     }
 
@@ -218,7 +215,7 @@ public class NetworkMonitorAutoDetect extends BroadcastReceiver implements Netwo
      */
     @SuppressLint("NewApi")
     NetworkState getNetworkState(@Nullable Network network) {
-      if (network == null || connectivityManager == null) {
+      if (network == null) {
         return new NetworkState(false, -1, -1, -1, -1);
       }
       NetworkInfo networkInfo = connectivityManager.getNetworkInfo(network);
@@ -303,11 +300,7 @@ public class NetworkMonitorAutoDetect extends BroadcastReceiver implements Netwo
      */
     @SuppressLint("NewApi")
     Network[] getAllNetworks() {
-      if (connectivityManager == null) {
-        return new Network[0];
-      }
-
-      if (supportNetworkCallback() && getAllNetworksFromCache) {
+      if (getAllNetworksFromCache) {
         synchronized (availableNetworks) {
           return availableNetworks.toArray(new Network[0]);
         }
@@ -318,9 +311,6 @@ public class NetworkMonitorAutoDetect extends BroadcastReceiver implements Netwo
 
     @Nullable
     List<NetworkInformation> getActiveNetworkList() {
-      if (!supportNetworkCallback()) {
-        return null;
-      }
       ArrayList<NetworkInformation> netInfoList = new ArrayList<NetworkInformation>();
       for (Network network : getAllNetworks()) {
         NetworkInformation info = networkToInfo(network);
@@ -338,9 +328,6 @@ public class NetworkMonitorAutoDetect extends BroadcastReceiver implements Netwo
      */
     @SuppressLint("NewApi")
     long getDefaultNetId() {
-      if (!supportNetworkCallback()) {
-        return INVALID_NET_ID;
-      }
       // Android Lollipop had no API to get the default network; only an
       // API to return the NetworkInfo for the default network. To
       // determine the default network one can find the network with
@@ -376,7 +363,7 @@ public class NetworkMonitorAutoDetect extends BroadcastReceiver implements Netwo
 
     @SuppressLint("NewApi")
     private @Nullable NetworkInformation networkToInfo(@Nullable Network network) {
-      if (network == null || connectivityManager == null) {
+      if (network == null) {
         return null;
       }
       LinkProperties linkProperties = connectivityManager.getLinkProperties(network);
@@ -425,9 +412,6 @@ public class NetworkMonitorAutoDetect extends BroadcastReceiver implements Netwo
      */
     @SuppressLint("NewApi")
     boolean hasInternetCapability(Network network) {
-      if (connectivityManager == null) {
-        return false;
-      }
       final NetworkCapabilities capabilities = connectivityManager.getNetworkCapabilities(network);
       return capabilities != null
           && capabilities.hasCapability(NetworkCapabilities.NET_CAPABILITY_INTERNET);
@@ -477,14 +461,8 @@ public class NetworkMonitorAutoDetect extends BroadcastReceiver implements Netwo
 
     @SuppressLint("NewApi")
     public void releaseCallback(NetworkCallback networkCallback) {
-      if (supportNetworkCallback()) {
-        Logging.d(TAG, "Unregister network callback");
-        connectivityManager.unregisterNetworkCallback(networkCallback);
-      }
-    }
-
-    public boolean supportNetworkCallback() {
-      return connectivityManager != null;
+      Logging.d(TAG, "Unregister network callback");
+      connectivityManager.unregisterNetworkCallback(networkCallback);
     }
   }
 
@@ -651,23 +629,18 @@ public class NetworkMonitorAutoDetect extends BroadcastReceiver implements Netwo
     }
 
     registerReceiver();
-    if (connectivityManagerDelegate.supportNetworkCallback()) {
-      // On Android 6.0.0, the WRITE_SETTINGS permission is necessary for
-      // requestNetwork, so it will fail. This was fixed in Android 6.0.1.
-      NetworkCallback tempNetworkCallback = new NetworkCallback();
-      try {
-        connectivityManagerDelegate.requestMobileNetwork(tempNetworkCallback);
-      } catch (java.lang.SecurityException e) {
-        Logging.w(TAG, "Unable to obtain permission to request a cellular network.");
-        tempNetworkCallback = null;
-      }
-      mobileNetworkCallback = tempNetworkCallback;
-      allNetworkCallback = new SimpleNetworkCallback(availableNetworks);
-      connectivityManagerDelegate.registerNetworkCallback(allNetworkCallback);
-    } else {
-      mobileNetworkCallback = null;
-      allNetworkCallback = null;
+    // On Android 6.0.0, the WRITE_SETTINGS permission is necessary for
+    // requestNetwork, so it will fail. This was fixed in Android 6.0.1.
+    NetworkCallback tempNetworkCallback = new NetworkCallback();
+    try {
+      connectivityManagerDelegate.requestMobileNetwork(tempNetworkCallback);
+    } catch (java.lang.SecurityException e) {
+      Logging.w(TAG, "Unable to obtain permission to request a cellular network.");
+      tempNetworkCallback = null;
     }
+    mobileNetworkCallback = tempNetworkCallback;
+    allNetworkCallback = new SimpleNetworkCallback(availableNetworks);
+    connectivityManagerDelegate.registerNetworkCallback(allNetworkCallback);
   }
 
   /** Enables WifiDirectManager. */
@@ -677,7 +650,7 @@ public class NetworkMonitorAutoDetect extends BroadcastReceiver implements Netwo
 
   @Override
   public boolean supportNetworkCallback() {
-    return connectivityManagerDelegate.supportNetworkCallback();
+    return true;
   }
 
   /**

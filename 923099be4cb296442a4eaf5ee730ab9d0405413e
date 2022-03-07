@@ -109,6 +109,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "460be07a_01fa3625",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 3
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 18554
+      },
+      "writtenOn": "2022-03-07T12:30:47Z",
+      "side": 1,
+      "message": "Revert my change and keep original design.",
+      "parentUuid": "9c86cfde_9ad9932b",
+      "revId": "923099be4cb296442a4eaf5ee730ab9d0405413e",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "6435d61e_2e518633",
         "filename": "modules/pacing/pacing_controller.cc",
         "patchSetId": 3
@@ -390,6 +408,30 @@
       "writtenOn": "2022-02-23T11:05:40Z",
       "side": 1,
       "message": "ProcessPackets() should loop until it has nothing more to do, so this should be fine as an if?",
+      "range": {
+        "startLine": 233,
+        "startChar": 2,
+        "endLine": 233,
+        "endChar": 7
+      },
+      "revId": "923099be4cb296442a4eaf5ee730ab9d0405413e",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "c2a73e2c_5519fb9e",
+        "filename": "modules/pacing/task_queue_paced_sender.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 233,
+      "author": {
+        "id": 18554
+      },
+      "writtenOn": "2022-03-07T12:30:47Z",
+      "side": 1,
+      "message": "If probing rate is quite high, the interval between probes is \u003c1ms. There probes can be process in one loop.\nIt was observed in Testing.",
+      "parentUuid": "150d13be_d50d0309",
       "range": {
         "startLine": 233,
         "startChar": 2,

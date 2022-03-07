@@ -1,6 +1,23 @@
 {
   "comments": [
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "efc09537_2bce596c",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 4
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2022-03-07T10:15:22Z",
+      "side": 1,
+      "message": "Questioning wisdom of assuming that no call lasts for 26 hours.\n",
+      "revId": "8d16bbf8a031d13f7c38d21a09f85a60b3c6e7b5",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "d5f1897d_23cba90c",
@@ -43,6 +60,23 @@
         "endLine": 59,
         "endChar": 63
       },
+      "revId": "8d16bbf8a031d13f7c38d21a09f85a60b3c6e7b5",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "79bda933_b103a9b5",
+        "filename": "modules/video_coding/inter_frame_delay.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 83,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2022-03-07T10:15:22Z",
+      "side": 1,
+      "message": "At 90 KHz, the 32 bit RTP clock wraps every 13 hours, so the assumption that it will only wrap once is only valid for normal-sized conferences, not for (for instance) a security camera. (If I\u0027ve done the math right.)\n\nNote: CheckForWrapArounds is duplicated in rtc_base/time/timestamp_extrapolator.h; we should have only one.",
       "revId": "8d16bbf8a031d13f7c38d21a09f85a60b3c6e7b5",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },

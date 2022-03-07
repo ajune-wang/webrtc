@@ -83,6 +83,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "8e6cf76f_f8f633de",
+        "filename": "modules/video_coding/inter_frame_delay.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 83,
+      "author": {
+        "id": 18444
+      },
+      "writtenOn": "2022-03-07T10:33:56Z",
+      "side": 1,
+      "message": "This could use a test. As far as this change, I deleted `_wrapArounds` because the use of `_wrapArounds` was just used to figure out the direction of the current wrap around. That is, the old code only supported 1 wrap around. (`_wrapArounds` was copied into a variable `prevWrapArounds` which was used to compute `wrapAroundsSincePrev`.) \n\nIn terms of usage here though, I *think* it should be ok. The purpose is to only measure time difference between the current and previous frame\u0027s decode time relative to their rtp time. Since we can only detect one wrap around at a time, the `wrapAroundsSincePrev * (static_cast\u003cint64_t\u003e(1) \u003c\u003c 32)` part in the old code will ensure the RTP time delta is compute correctly.\n\nAs for duplication, I will look into that and see if it can be moved. Otherwise, try the `webrtc::Unwrapper`.",
+      "parentUuid": "79bda933_b103a9b5",
+      "revId": "8d16bbf8a031d13f7c38d21a09f85a60b3c6e7b5",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "6c8a9ef5_f06fcc25",
         "filename": "modules/video_coding/inter_frame_delay.h",
         "patchSetId": 4

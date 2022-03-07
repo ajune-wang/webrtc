@@ -47,6 +47,30 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "730f89ac_bd7e0888",
+        "filename": "pc/sctp_data_channel.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 161,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2022-03-07T14:54:46Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "480b9787_e1848642",
+      "range": {
+        "startLine": 161,
+        "startChar": 62,
+        "endLine": 161,
+        "endChar": 69
+      },
+      "revId": "f1910f33e60a0c3d5c31fdc6faad0c58c162774f",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "c69d80cd_15639c6b",
@@ -72,6 +96,30 @@
     {
       "unresolved": false,
       "key": {
+        "uuid": "d0887b1e_05bf5c54",
+        "filename": "pc/video_track.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 140,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2022-03-07T14:54:46Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "c69d80cd_15639c6b",
+      "range": {
+        "startLine": 140,
+        "startChar": 66,
+        "endLine": 140,
+        "endChar": 72
+      },
+      "revId": "f1910f33e60a0c3d5c31fdc6faad0c58c162774f",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
         "uuid": "1b15858e_ffa948fc",
         "filename": "pc/video_track_source_proxy.cc",
         "patchSetId": 4
@@ -83,6 +131,30 @@
       "writtenOn": "2022-02-25T12:32:52Z",
       "side": 1,
       "message": "may be it would be helpful to introduce\nrtc::WrapScopedRefptr(source)\n\nThen it would be easier to search for such usages and and move away from them later.\ne.g. here it makes more sense to accept `source` by scoped_refptr instead of by raw pointer, but that is better to address in a separate change.",
+      "range": {
+        "startLine": 26,
+        "startChar": 6,
+        "endLine": 26,
+        "endChar": 51
+      },
+      "revId": "f1910f33e60a0c3d5c31fdc6faad0c58c162774f",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "c4169422_938bc330",
+        "filename": "pc/video_track_source_proxy.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 26,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2022-03-07T14:54:46Z",
+      "side": 1,
+      "message": "Maybe. But in this case, I think the proper fix is to change the type of the `source` argument. Or delete this function (I think it is called from a single place in chromium, and unclear to me why this proxy wrapping is exposed at all).",
+      "parentUuid": "1b15858e_ffa948fc",
       "range": {
         "startLine": 26,
         "startChar": 6,
@@ -196,6 +268,24 @@
       "side": 1,
       "message": "A comment for now would be great. lgtming",
       "parentUuid": "22aa1ec2_0d581e00",
+      "revId": "f1910f33e60a0c3d5c31fdc6faad0c58c162774f",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "3fc98d9a_b06aff0e",
+        "filename": "rtc_base/ref_counted_object.h",
+        "patchSetId": 4
+      },
+      "lineNbr": 151,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2022-03-07T14:54:46Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "954caff8_fe0e46a8",
       "revId": "f1910f33e60a0c3d5c31fdc6faad0c58c162774f",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }

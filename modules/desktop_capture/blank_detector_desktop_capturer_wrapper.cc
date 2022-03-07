@@ -56,6 +56,11 @@ bool BlankDetectorDesktopCapturerWrapper::GetSourceList(SourceList* sources) {
 }
 
 bool BlankDetectorDesktopCapturerWrapper::SelectSource(SourceId id) {
+  // If we start capturing a new source, we must reset these members
+  // so we don't short circuit the blank detection logic.
+  is_first_frame_ = true;
+  non_blank_frame_received_ = false;
+
   return capturer_->SelectSource(id);
 }
 

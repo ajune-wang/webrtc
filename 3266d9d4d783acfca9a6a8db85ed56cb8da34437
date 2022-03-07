@@ -16,6 +16,24 @@
       "message": "Introduce \u0027allow_delayed_capturable_check\u0027 that will skip IsCapturable() call in the WgcCapturerWin::SelectSource, which is called even though it is secondary fallback and almost no chance of WgcCapturerWin::CaptureFrame call. \n\nThe change is also required of passing the unit test; the current unit test, WindowCapturerTest, uses GDI APIs for enumerating capturable windows (GetSourceList), but use WGC::IsCapturable for SelectSource that leads to failure.",
       "revId": "3266d9d4d783acfca9a6a8db85ed56cb8da34437",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "de565b45_fc9c967d",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 4
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 12416
+      },
+      "writtenOn": "2022-03-07T19:06:02Z",
+      "side": 1,
+      "message": "Can you help me understand why the WindowCapturerTests were failing with this change? Those tests look like they are just calling the interface function GetSourceList, which is agnostic to whether the call should use the GDI or WGC APIs. \n\nSo, the WGC APIs were failing this call? Was it due to the issue described in the comment, perhaps one or more windows that just happened to be open were uncapturable. Maybe we should tackle the suggestion in the comment to create a window so the tests are more controlled. This file should make it easy (for Windows, at least, which is all I think we need right now)\nhttps://source.chromium.org/chromium/chromium/src/+/main:third_party/webrtc/modules/desktop_capture/win/test_support/test_window.h",
+      "parentUuid": "ec7870e6_a5abf603",
+      "revId": "3266d9d4d783acfca9a6a8db85ed56cb8da34437",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

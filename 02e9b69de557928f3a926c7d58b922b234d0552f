@@ -91,6 +91,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "84b15ddc_7c75f17c",
+        "filename": "modules/desktop_capture/blank_detector_desktop_capturer_wrapper.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 59,
+      "author": {
+        "id": 12416
+      },
+      "writtenOn": "2022-03-07T19:06:02Z",
+      "side": 1,
+      "message": "I meant to reactivate this comment. Since this happens for screen capture anyways, should we remove this check?",
+      "parentUuid": "26b0c7c1_ee0830e7",
+      "range": {
+        "startLine": 59,
+        "startChar": 0,
+        "endLine": 59,
+        "endChar": 31
+      },
+      "revId": "02e9b69de557928f3a926c7d58b922b234d0552f",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "83ef5295_cd5055fd",
         "filename": "modules/desktop_capture/blank_detector_desktop_capturer_wrapper.cc",
         "patchSetId": 1

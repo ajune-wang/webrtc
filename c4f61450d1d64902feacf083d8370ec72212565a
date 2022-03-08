@@ -1,6 +1,29 @@
 {
   "comments": [
     {
+      "unresolved": true,
+      "key": {
+        "uuid": "a6fe8087_7ed6f111",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 7
+      },
+      "lineNbr": 12,
+      "author": {
+        "id": 18474
+      },
+      "writtenOn": "2022-03-08T16:59:33Z",
+      "side": 1,
+      "message": "Can you elaborate a bit more on these circumstances? Is this trying to capture the PiP window from the same version of chromium? Or is it only when trying to capture e.g. a PiP pop-out from Chrome Stable in Chrome Canary?\n\nIf you go ahead and select the blank window anyway, is it still blank when capture actually starts?\n\nIf it\u0027s the same version of chromium, I\u0027d actually expect us to not be reaching this code as we do in-process capture via that compositor.",
+      "range": {
+        "startLine": 11,
+        "startChar": 32,
+        "endLine": 12,
+        "endChar": 42
+      },
+      "revId": "c4f61450d1d64902feacf083d8370ec72212565a",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": false,
       "key": {
         "uuid": "2586a9d1_13790d71",
@@ -31,6 +54,75 @@
       "writtenOn": "2022-03-04T19:54:54Z",
       "side": 1,
       "message": "Hi Alex, \n\nI\u0027m new on webrtc team in Microsoft (work with Austin), can you review this change and also run Dry run as I can\u0027t run it?\n\nThanks,\nSunggook",
+      "revId": "c4f61450d1d64902feacf083d8370ec72212565a",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "65d18f03_04afa39a",
+        "filename": "modules/desktop_capture/desktop_capture_options.h",
+        "patchSetId": 7
+      },
+      "lineNbr": 174,
+      "author": {
+        "id": 18474
+      },
+      "writtenOn": "2022-03-08T16:59:33Z",
+      "side": 1,
+      "message": "I don\u0027t love that we\u0027re essentially bypassing this flag with this fallback.\n\nCan we add a second flag like \"allow_wgc_capturer_fallback\"? This way we\u0027re not totally ignoring this knob, but give consumers a way to customize this behavior? (e.g. I don\u0027t want to use this feature as my primary capturer yet, but if there\u0027s something seriously wrong I\u0027d rather use this than nothing)",
+      "range": {
+        "startLine": 174,
+        "startChar": 7,
+        "endLine": 174,
+        "endChar": 25
+      },
+      "revId": "c4f61450d1d64902feacf083d8370ec72212565a",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "c2237355_2a623741",
+        "filename": "modules/desktop_capture/window_capturer_win.cc",
+        "patchSetId": 7
+      },
+      "lineNbr": 35,
+      "author": {
+        "id": 18474
+      },
+      "writtenOn": "2022-03-08T16:59:33Z",
+      "side": 1,
+      "message": "Is there a reason we can\u0027t use make_unique here?",
+      "range": {
+        "startLine": 34,
+        "startChar": 4,
+        "endLine": 35,
+        "endChar": 53
+      },
+      "revId": "c4f61450d1d64902feacf083d8370ec72212565a",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "858954dc_c1e7cce5",
+        "filename": "modules/desktop_capture/window_capturer_win.cc",
+        "patchSetId": 7
+      },
+      "lineNbr": 38,
+      "author": {
+        "id": 18474
+      },
+      "writtenOn": "2022-03-08T16:59:33Z",
+      "side": 1,
+      "message": "This feels like a very specific scenario to be made part of the public desktop_capture_options. I think I\u0027d prefer it if it was an (optional) bool that could be passed in to CreateRawWindowCapturer.",
+      "range": {
+        "startLine": 38,
+        "startChar": 16,
+        "endLine": 38,
+        "endChar": 50
+      },
       "revId": "c4f61450d1d64902feacf083d8370ec72212565a",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }

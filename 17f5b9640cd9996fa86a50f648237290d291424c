@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "1abd6f6b_67e87f9f",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2022-03-08T14:39:11Z",
+      "side": 1,
+      "message": "Hand-crafted cherrypick. Almost.\n",
+      "revId": "17f5b9640cd9996fa86a50f648237290d291424c",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

@@ -33,6 +33,23 @@
       "message": "This CL would also close https://bugs.chromium.org/p/webrtc/issues/detail?id\u003d13128#c4",
       "revId": "209dc9070e85aead405a4f2c659dbd7aedd90781",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "405452a5_024d3a22",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 14994
+      },
+      "writtenOn": "2022-03-08T14:15:27Z",
+      "side": 1,
+      "message": "Thanks, catching the exception seems indeed like a bad default...",
+      "revId": "209dc9070e85aead405a4f2c659dbd7aedd90781",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

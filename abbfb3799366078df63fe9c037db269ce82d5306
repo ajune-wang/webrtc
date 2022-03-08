@@ -110,6 +110,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "50c94326_858b8df6",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 5
+      },
+      "lineNbr": 10,
+      "author": {
+        "id": 18554
+      },
+      "writtenOn": "2022-03-08T01:39:24Z",
+      "side": 1,
+      "message": "Yes. I drop the idea to use PostDelayedTask in event log. As you mentioned, DelayedTask perhaps have other cost in different implementations.\n\nJust fix this order issue.",
+      "parentUuid": "5384ade9_3436260b",
+      "revId": "abbfb3799366078df63fe9c037db269ce82d5306",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "55dc26a8_3c788d05",
         "filename": "api/task_queue/task_queue_test.cc",
         "patchSetId": 5

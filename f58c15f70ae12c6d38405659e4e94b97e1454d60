@@ -35,6 +35,23 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "451372fe_5c9e71df",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 7
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 9515
+      },
+      "writtenOn": "2022-03-08T18:00:11Z",
+      "side": 1,
+      "message": "lgtm % nit",
+      "revId": "f58c15f70ae12c6d38405659e4e94b97e1454d60",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "cea5bd09_6d340903",
@@ -53,6 +70,29 @@
         "startChar": 0,
         "endLine": 75,
         "endChar": 75
+      },
+      "revId": "f58c15f70ae12c6d38405659e4e94b97e1454d60",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "665e746f_b9bff147",
+        "filename": "modules/utility/source/process_thread_impl.h",
+        "patchSetId": 7
+      },
+      "lineNbr": 111,
+      "author": {
+        "id": 9515
+      },
+      "writtenOn": "2022-03-08T18:00:11Z",
+      "side": 1,
+      "message": "Nit: avoid abbreviations, https://google.github.io/styleguide/cppguide.html#General_Naming_Rules",
+      "range": {
+        "startLine": 111,
+        "startChar": 11,
+        "endLine": 111,
+        "endChar": 18
       },
       "revId": "f58c15f70ae12c6d38405659e4e94b97e1454d60",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"

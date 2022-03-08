@@ -553,13 +553,13 @@ void Log(const LogArgType* fmt, ...) {
 
 namespace rtc {
 // Inefficient default implementation, override is recommended.
-void LogSink::OnLogMessage(const std::string& msg,
+void LogSink::OnLogMessage(absl::string_view msg,
                            LoggingSeverity severity,
                            const char* tag) {
-  OnLogMessage(tag + (": " + msg), severity);
+  OnLogMessage(tag + (": " + std::string(msg)), severity);
 }
 
-void LogSink::OnLogMessage(const std::string& msg,
+void LogSink::OnLogMessage(absl::string_view msg,
                            LoggingSeverity /* severity */) {
   OnLogMessage(msg);
 }

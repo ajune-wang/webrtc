@@ -18,16 +18,16 @@ JNILogSink::JNILogSink(JNIEnv* env, const JavaRef<jobject>& j_logging)
     : j_logging_(env, j_logging) {}
 JNILogSink::~JNILogSink() = default;
 
-void JNILogSink::OnLogMessage(const std::string& msg,
+void JNILogSink::OnLogMessage(absl::string_view msg,
                               rtc::LoggingSeverity severity,
                               const char* tag) {
   JNIEnv* env = AttachCurrentThreadIfNeeded();
-  Java_JNILogging_logToInjectable(env, j_logging_, NativeToJavaString(env, msg),
-                                  NativeToJavaInteger(env, severity),
-                                  NativeToJavaString(env, tag));
+  Java_JNILogging_logToInjectable(
+      env, j_logging_, NativeToJavaString(env, std::string(msg)),
+      NativeToJavaInteger(env, severity), NativeToJavaString(env, tag));
 }
 
-void JNILogSink::OnLogMessage(const std::string& msg) {
+void JNILogSink::OnLogMessage(absl::string_view msg) {
   RTC_DCHECK_NOTREACHED();
 }
 

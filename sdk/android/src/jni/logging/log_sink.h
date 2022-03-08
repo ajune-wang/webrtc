@@ -24,10 +24,10 @@ class JNILogSink : public rtc::LogSink {
   JNILogSink(JNIEnv* env, const JavaRef<jobject>& j_logging);
   ~JNILogSink() override;
 
-  void OnLogMessage(const std::string& msg,
+  void OnLogMessage(absl::string_view msg,
                     rtc::LoggingSeverity severity,
                     const char* tag) override;
-  void OnLogMessage(const std::string& msg) override;
+  void OnLogMessage(absl::string_view msg) override;
 
  private:
   const ScopedJavaGlobalRef<jobject> j_logging_;

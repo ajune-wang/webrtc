@@ -33,8 +33,8 @@ class LogSinkImpl : public LogSink {
   explicit LogSinkImpl(P* p) {}
 
  private:
-  void OnLogMessage(const std::string& message) override {
-    log_data_->append(message);
+  void OnLogMessage(absl::string_view message) override {
+    log_data_->append(message.begin(), message.end());
   }
   std::string* const log_data_;
 };

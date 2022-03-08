@@ -1,0 +1,38 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "48864171_b84446c6",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 2
+      },
+      "lineNbr": 7,
+      "author": {
+        "id": 5117
+      },
+      "writtenOn": "2022-03-08T10:38:02Z",
+      "side": 1,
+      "message": "Add [Merge to M100] or [M100], so that it\u0027s clear that this is a merge CL.",
+      "revId": "5bcd5428ef0f331fef4cbdadeef8e128d06667b7",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "3a098b19_05b103d6",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5117
+      },
+      "writtenOn": "2022-03-08T10:38:02Z",
+      "side": 1,
+      "message": "LGTM % 1 comment",
+      "revId": "5bcd5428ef0f331fef4cbdadeef8e128d06667b7",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

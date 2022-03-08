@@ -35,6 +35,23 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "652b7f41_d37bb7bc",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 6
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2022-03-08T08:44:07Z",
+      "side": 1,
+      "message": "I think this basically looks great, but can use some polishing.\n\nThis is a first tranche - I haven\u0027t looked at the gRPC definitions yet, for instance.\n\nAs I understand it, you create a gRPC connection between client and server, and use that connection to negotiate a WebRTC connection.\nHowever, setup of the expected transfer goes over the WebRTC datachannel, not over the gRPC connection. This seems odd.\n\nIf using this tool to measure performance, I\u0027d like to have an optional parameter to ignore the first N seconds - this will allow measuring file-transfer throughput (ignore\u003d0) separately from steady-state throughput (ignore\u003dmore-than-rampup-time).\n\n",
+      "revId": "f6135f6e0a38607644218f675c8861e148043012",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "babdb317_7c12fbdc",
@@ -54,6 +71,40 @@
         "endLine": 51,
         "endChar": 60
       },
+      "revId": "f6135f6e0a38607644218f675c8861e148043012",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "cd1dabae_d750c99c",
+        "filename": "rtc_tools/BUILD.gn",
+        "patchSetId": 6
+      },
+      "lineNbr": 51,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2022-03-08T08:44:07Z",
+      "side": 1,
+      "message": "you can write this as \"data_channel_benchmark\" (no colon), because the default target in a directory is the target with the same name as the directory.",
+      "revId": "f6135f6e0a38607644218f675c8861e148043012",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "a67cd42d_3f1679f0",
+        "filename": "rtc_tools/data_channel_benchmark/BUILD.gn",
+        "patchSetId": 6
+      },
+      "lineNbr": 1,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2022-03-08T08:44:07Z",
+      "side": 1,
+      "message": "2022? Or has this been worked on since last year?",
       "revId": "f6135f6e0a38607644218f675c8861e148043012",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
@@ -94,6 +145,227 @@
         "endLine": 2,
         "endChar": 22
       },
+      "revId": "f6135f6e0a38607644218f675c8861e148043012",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "367bcc8b_23cecb83",
+        "filename": "rtc_tools/data_channel_benchmark/data_channel_benchmark.cc",
+        "patchSetId": 6
+      },
+      "lineNbr": 136,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2022-03-08T08:44:07Z",
+      "side": 1,
+      "message": "Your subclasses use RTC_LOG(LS_INFO) to give pretty detailed tracing.\nShould you explicitly default tracing to being LS_WARN and above, and offer a parameter to set the debug level?",
+      "revId": "f6135f6e0a38607644218f675c8861e148043012",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "c21b7dc9_fbbaca93",
+        "filename": "rtc_tools/data_channel_benchmark/data_channel_benchmark.cc",
+        "patchSetId": 6
+      },
+      "lineNbr": 143,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2022-03-08T08:44:07Z",
+      "side": 1,
+      "message": "As a matter of style, I would want to avoid these long ifdefs.\n\nCreate a function called \"RunServer\" and a function called \"RunClient\", and pass the parameters needed to them (or make them globals for the extreme case).",
+      "revId": "f6135f6e0a38607644218f675c8861e148043012",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "7ca99862_762bffa3",
+        "filename": "rtc_tools/data_channel_benchmark/data_channel_benchmark.cc",
+        "patchSetId": 6
+      },
+      "lineNbr": 170,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2022-03-08T08:44:07Z",
+      "side": 1,
+      "message": "This tickles my sense of style. This message isn\u0027t special because it\u0027s first, it\u0027s special because it\u0027s a setup message. Can we call it SetupMessage and return it in a  structured format?\n\nOr perhaps the information carried in the setup message should go via the gRPC channel, not this channel?",
+      "revId": "f6135f6e0a38607644218f675c8861e148043012",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "070580e6_1b5aed66",
+        "filename": "rtc_tools/data_channel_benchmark/data_channel_benchmark.cc",
+        "patchSetId": 6
+      },
+      "lineNbr": 179,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2022-03-08T08:44:07Z",
+      "side": 1,
+      "message": "Parsing a setup message doesn\u0027t belong in a main function. Can we push this down into the data channel observer (which possibly should be called something like DataReceiver instead of DataChannelObserver)?",
+      "revId": "f6135f6e0a38607644218f675c8861e148043012",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "2f501145_8a099f57",
+        "filename": "rtc_tools/data_channel_benchmark/data_channel_benchmark.cc",
+        "patchSetId": 6
+      },
+      "lineNbr": 182,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2022-03-08T08:44:07Z",
+      "side": 1,
+      "message": "What\u0027s the definition of \"stabilize\" here?\nGiven that you\u0027re not sending data during this second, congestion control has no opportunity to ramp up the congestion window.",
+      "revId": "f6135f6e0a38607644218f675c8861e148043012",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "707737d3_d73f9296",
+        "filename": "rtc_tools/data_channel_benchmark/data_channel_benchmark.cc",
+        "patchSetId": 6
+      },
+      "lineNbr": 187,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2022-03-08T08:44:07Z",
+      "side": 1,
+      "message": "Any particular reason for preferring the absl time and not the webrtc time?",
+      "revId": "f6135f6e0a38607644218f675c8861e148043012",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "ca23a219_c58dfb51",
+        "filename": "rtc_tools/data_channel_benchmark/data_channel_benchmark.cc",
+        "patchSetId": 6
+      },
+      "lineNbr": 204,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2022-03-08T08:44:07Z",
+      "side": 1,
+      "message": "Using the PRId64 macro is not needed and should be avoided - according to https://webrtc-review.googlesource.com/c/src/+/148443 the straightforward formatting code \"zu\" should work from MSVC 2015 onwards (but https://en.cppreference.com/w/cpp/io/c/fprintf says that this is a size_t format, which means that transfer_size and remaining_data should probably be declared size_t too.",
+      "revId": "f6135f6e0a38607644218f675c8861e148043012",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "0dd3c712_ccdc0b1f",
+        "filename": "rtc_tools/data_channel_benchmark/data_channel_benchmark.cc",
+        "patchSetId": 6
+      },
+      "lineNbr": 215,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2022-03-08T08:44:07Z",
+      "side": 1,
+      "message": "Nit (pedantic): If you\u0027re using 1024/1024, this is MiB not MB. See discussion at https://en.wikipedia.org/wiki/Megabyte",
+      "revId": "f6135f6e0a38607644218f675c8861e148043012",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "31cd102e_834f7aaa",
+        "filename": "rtc_tools/data_channel_benchmark/grpc_signaling.cc",
+        "patchSetId": 6
+      },
+      "lineNbr": 99,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2022-03-08T08:44:07Z",
+      "side": 1,
+      "message": "This seems overly complex - you use this function exactly twice, and both times have the same MessageType parameter. Can you simplify (and perhaps drop the template altogether)?",
+      "revId": "f6135f6e0a38607644218f675c8861e148043012",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "80c2aa5f_a3381553",
+        "filename": "rtc_tools/data_channel_benchmark/grpc_signaling.cc",
+        "patchSetId": 6
+      },
+      "lineNbr": 138,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2022-03-08T08:44:07Z",
+      "side": 1,
+      "message": "Is there any particular reason for having the Impl suffix on these? There is no class named GrpcNegotiationServerInterface that they implement.",
+      "revId": "f6135f6e0a38607644218f675c8861e148043012",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "b7a30a9a_4cf09e2a",
+        "filename": "rtc_tools/data_channel_benchmark/grpc_signaling.cc",
+        "patchSetId": 6
+      },
+      "lineNbr": 163,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2022-03-08T08:44:07Z",
+      "side": 1,
+      "message": "Mixing printf and RTC_LOG in one .cc file seems odd.\nCan you move this notification into the caller?",
+      "revId": "f6135f6e0a38607644218f675c8861e148043012",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "21d7659d_bfafb141",
+        "filename": "rtc_tools/data_channel_benchmark/grpc_signaling.h",
+        "patchSetId": 6
+      },
+      "lineNbr": 21,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2022-03-08T08:44:07Z",
+      "side": 1,
+      "message": "Nit: The class definition doesn\u0027t create a server, it is a server.\nSuggest \"This class defines a server...\"",
+      "revId": "f6135f6e0a38607644218f675c8861e148043012",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "e2bc18a6_a415e2f4",
+        "filename": "rtc_tools/data_channel_benchmark/grpc_signaling.h",
+        "patchSetId": 6
+      },
+      "lineNbr": 48,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2022-03-08T08:44:07Z",
+      "side": 1,
+      "message": "Similarly, \"This class defines a client...\"",
       "revId": "f6135f6e0a38607644218f675c8861e148043012",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }

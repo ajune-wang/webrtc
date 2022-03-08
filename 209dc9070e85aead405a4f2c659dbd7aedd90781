@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "9885da00_63e392b0",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 15079
+      },
+      "writtenOn": "2022-03-08T13:14:22Z",
+      "side": 1,
+      "message": "We ran into this issue and the cause was that some Android devices have external storage without the executable bit set. Loading the library failed, but systems like Crashlytics don\u0027t show the error because it was swallowed.\n\nThis CL will make the code crash one step earlier, just when the error happens so developers can hopefully figure it out easier.",
+      "revId": "209dc9070e85aead405a4f2c659dbd7aedd90781",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

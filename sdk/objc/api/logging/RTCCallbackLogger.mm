@@ -21,10 +21,14 @@ class CallbackLogSink : public rtc::LogSink {
   CallbackLogSink(RTCCallbackLoggerMessageHandler callbackHandler)
       : callback_handler_(callbackHandler) {}
 
-  void OnLogMessage(const std::string &message) override {
+  void OnLogMessage(absl::string_view message) override {
     if (callback_handler_) {
-      callback_handler_([NSString stringWithUTF8String:message.c_str()]);
+      callback_handler_([NSString stringWithUTF8String:std::string(message).c_str()]);
     }
+  }
+
+  void OnLogMessage(const std::string& message) override {
+    OnLogMessage(absl::string_view(message));
   }
 
  private:
@@ -38,10 +42,11 @@ class CallbackWithSeverityLogSink : public rtc::LogSink {
 
   void OnLogMessage(const std::string& message) override { RTC_DCHECK_NOTREACHED(); }
 
-  void OnLogMessage(const std::string& message, rtc::LoggingSeverity severity) override {
+  void OnLogMessage(absl::string_view message, rtc::LoggingSeverity severity) override {
     if (callback_handler_) {
       RTCLoggingSeverity loggingSeverity = NativeSeverityToObjcSeverity(severity);
-      callback_handler_([NSString stringWithUTF8String:message.c_str()], loggingSeverity);
+      callback_handler_([NSString stringWithUTF8String:std::string(message).c_str()],
+                        loggingSeverity);
     }
   }
 

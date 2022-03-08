@@ -563,4 +563,20 @@ void LogSink::OnLogMessage(const std::string& msg,
                            LoggingSeverity /* severity */) {
   OnLogMessage(msg);
 }
+
+// Inefficient default implementation, override is recommended.
+void LogSink::OnLogMessage(absl::string_view msg,
+                           LoggingSeverity severity,
+                           const char* tag) {
+  OnLogMessage(tag + (": " + std::string(msg)), severity);
+}
+
+void LogSink::OnLogMessage(absl::string_view msg,
+                           LoggingSeverity /* severity */) {
+  OnLogMessage(msg);
+}
+
+void LogSink::OnLogMessage(absl::string_view msg) {
+  OnLogMessage(std::string(msg));
+}
 }  // namespace rtc

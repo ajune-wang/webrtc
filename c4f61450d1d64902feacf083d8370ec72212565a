@@ -125,6 +125,30 @@
       },
       "revId": "c4f61450d1d64902feacf083d8370ec72212565a",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "cd8ad538_b1d5c9e5",
+        "filename": "modules/desktop_capture/window_capturer_win.cc",
+        "patchSetId": 7
+      },
+      "lineNbr": 38,
+      "author": {
+        "id": 18474
+      },
+      "writtenOn": "2022-03-08T22:41:09Z",
+      "side": 1,
+      "message": "Sorry, to further clarify, that can be passed in to WgcCapturerWin::CreateRawWindowCapturer",
+      "parentUuid": "858954dc_c1e7cce5",
+      "range": {
+        "startLine": 38,
+        "startChar": 16,
+        "endLine": 38,
+        "endChar": 50
+      },
+      "revId": "c4f61450d1d64902feacf083d8370ec72212565a",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

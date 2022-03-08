@@ -51,7 +51,7 @@ const int kDefaultNetworkIgnoreMask = ADAPTER_TYPE_LOOPBACK;
 // Makes a string key for this network. Used in the network manager's maps.
 // Network objects are keyed on interface name, network prefix and the
 // length of that prefix.
-std::string MakeNetworkKey(const std::string& name,
+std::string MakeNetworkKey(absl::string_view name,
                            const IPAddress& prefix,
                            int prefix_length);
 
@@ -350,13 +350,13 @@ class RTC_EXPORT BasicNetworkManager : public NetworkManagerBase,
 // Represents a Unix-type network interface, with a name and single address.
 class RTC_EXPORT Network {
  public:
-  Network(const std::string& name,
-          const std::string& description,
+  Network(absl::string_view name,
+          absl::string_view description,
           const IPAddress& prefix,
           int prefix_length);
 
-  Network(const std::string& name,
-          const std::string& description,
+  Network(absl::string_view name,
+          absl::string_view description,
           const IPAddress& prefix,
           int prefix_length,
           AdapterType type);

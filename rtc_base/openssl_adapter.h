@@ -116,7 +116,7 @@ class OpenSSLAdapter final : public SSLAdapter,
   // an output parameter filled with the result of SSL_get_error.
   int DoSslWrite(const void* pv, size_t cb, int* error);
   void OnMessage(Message* msg) override;
-  bool SSLPostConnectionCheck(SSL* ssl, const std::string& host);
+  bool SSLPostConnectionCheck(SSL* ssl, absl::string_view host);
 
 #if !defined(NDEBUG)
   // In debug builds, logs info about the state of the SSL connection.

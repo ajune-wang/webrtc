@@ -80,7 +80,7 @@ class OpenSSLStreamAdapter final : public SSLStreamAdapter {
   // Default argument is for compatibility
   void SetServerRole(SSLRole role = SSL_SERVER) override;
   bool SetPeerCertificateDigest(
-      const std::string& digest_alg,
+      absl::string_view digest_alg,
       const unsigned char* digest_val,
       size_t digest_len,
       SSLPeerCertificateDigestError* error = nullptr) override;
@@ -113,7 +113,7 @@ class OpenSSLStreamAdapter final : public SSLStreamAdapter {
   SSLProtocolVersion GetSslVersion() const override;
   bool GetSslVersionBytes(int* version) const override;
   // Key Extractor interface
-  bool ExportKeyingMaterial(const std::string& label,
+  bool ExportKeyingMaterial(absl::string_view label,
                             const uint8_t* context,
                             size_t context_len,
                             bool use_context,
@@ -130,7 +130,7 @@ class OpenSSLStreamAdapter final : public SSLStreamAdapter {
   static bool IsBoringSsl();
 
   static bool IsAcceptableCipher(int cipher, KeyType key_type);
-  static bool IsAcceptableCipher(const std::string& cipher, KeyType key_type);
+  static bool IsAcceptableCipher(absl::string_view cipher, KeyType key_type);
 
   // Use our timeutils.h source of timing in BoringSSL, allowing us to test
   // using a fake clock.

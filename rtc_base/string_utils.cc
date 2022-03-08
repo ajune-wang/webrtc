@@ -32,15 +32,15 @@ size_t strcpyn(char* buffer,
 
 static const char kWhitespace[] = " \n\r\t";
 
-std::string string_trim(const std::string& s) {
-  std::string::size_type first = s.find_first_not_of(kWhitespace);
-  std::string::size_type last = s.find_last_not_of(kWhitespace);
+std::string string_trim(absl::string_view s) {
+  absl::string_view::size_type first = s.find_first_not_of(kWhitespace);
+  absl::string_view::size_type last = s.find_last_not_of(kWhitespace);
 
-  if (first == std::string::npos || last == std::string::npos) {
+  if (first == absl::string_view::npos || last == absl::string_view::npos) {
     return std::string("");
   }
 
-  return s.substr(first, last - first + 1);
+  return std::string(s.substr(first, last - first + 1));
 }
 
 std::string ToHex(const int i) {

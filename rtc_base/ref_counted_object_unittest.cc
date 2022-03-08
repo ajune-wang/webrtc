@@ -52,7 +52,7 @@ class RefClassWithRvalue : public RefCountInterface {
 
 class RefClassWithMixedValues : public RefCountInterface {
  public:
-  RefClassWithMixedValues(std::unique_ptr<A> a, int b, const std::string& c)
+  RefClassWithMixedValues(std::unique_ptr<A> a, int b, absl::string_view c)
       : a_(std::move(a)), b_(b), c_(c) {}
 
  protected:

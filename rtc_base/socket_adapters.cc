@@ -217,9 +217,9 @@ void AsyncSSLSocket::ProcessInput(char* data, size_t* len) {
 ///////////////////////////////////////////////////////////////////////////////
 
 AsyncHttpsProxySocket::AsyncHttpsProxySocket(Socket* socket,
-                                             const std::string& user_agent,
+                                             absl::string_view user_agent,
                                              const SocketAddress& proxy,
-                                             const std::string& username,
+                                             absl::string_view username,
                                              const CryptString& password)
     : BufferedReadAdapter(socket, 1024),
       proxy_(proxy),
@@ -470,7 +470,7 @@ void AsyncHttpsProxySocket::Error(int error) {
 
 AsyncSocksProxySocket::AsyncSocksProxySocket(Socket* socket,
                                              const SocketAddress& proxy,
-                                             const std::string& username,
+                                             absl::string_view username,
                                              const CryptString& password)
     : BufferedReadAdapter(socket, 1024),
       state_(SS_ERROR),

@@ -287,7 +287,7 @@ void SocketTest::ConnectInternal(const IPAddress& loopback) {
 }
 
 void SocketTest::ConnectWithDnsLookupInternal(const IPAddress& loopback,
-                                              const std::string& host) {
+                                              absl::string_view host) {
   StreamSink sink;
   SocketAddress accept_addr;
 

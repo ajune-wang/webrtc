@@ -147,7 +147,7 @@ class SSLDummyStreamBase : public rtc::StreamInterface,
                            public sigslot::has_slots<> {
  public:
   SSLDummyStreamBase(SSLStreamAdapterTestBase* test,
-                     const std::string& side,
+                     absl::string_view side,
                      rtc::StreamInterface* in,
                      rtc::StreamInterface* out)
       : test_base_(test), side_(side), in_(in), out_(out), first_packet_(true) {
@@ -235,7 +235,7 @@ class SSLDummyStreamBase : public rtc::StreamInterface,
 class SSLDummyStreamTLS : public SSLDummyStreamBase {
  public:
   SSLDummyStreamTLS(SSLStreamAdapterTestBase* test,
-                    const std::string& side,
+                    absl::string_view side,
                     rtc::FifoBuffer* in,
                     rtc::FifoBuffer* out)
       : SSLDummyStreamBase(test, side, in, out) {}
@@ -303,7 +303,7 @@ class BufferQueueStream : public rtc::StreamInterface {
 class SSLDummyStreamDTLS : public SSLDummyStreamBase {
  public:
   SSLDummyStreamDTLS(SSLStreamAdapterTestBase* test,
-                     const std::string& side,
+                     absl::string_view side,
                      BufferQueueStream* in,
                      BufferQueueStream* out)
       : SSLDummyStreamBase(test, side, in, out) {}
@@ -317,8 +317,8 @@ class SSLStreamAdapterTestBase : public ::testing::Test,
                                  public sigslot::has_slots<> {
  public:
   SSLStreamAdapterTestBase(
-      const std::string& client_cert_pem,
-      const std::string& client_private_key_pem,
+      absl::string_view client_cert_pem,
+      absl::string_view client_private_key_pem,
       bool dtls,
       rtc::KeyParams client_key_type = rtc::KeyParams(rtc::KT_DEFAULT),
       rtc::KeyParams server_key_type = rtc::KeyParams(rtc::KT_DEFAULT))
@@ -864,8 +864,8 @@ class SSLStreamAdapterTestDTLSBase : public SSLStreamAdapterTestBase {
         count_(0),
         sent_(0) {}
 
-  SSLStreamAdapterTestDTLSBase(const std::string& cert_pem,
-                               const std::string& private_key_pem)
+  SSLStreamAdapterTestDTLSBase(absl::string_view cert_pem,
+                               absl::string_view private_key_pem)
       : SSLStreamAdapterTestBase(cert_pem, private_key_pem, true),
         client_buffer_(kBufferCapacity, kDefaultBufferSize),
         server_buffer_(kBufferCapacity, kDefaultBufferSize),
@@ -983,8 +983,8 @@ class SSLStreamAdapterTestDTLS
       : SSLStreamAdapterTestDTLSBase(::testing::get<0>(GetParam()),
                                      ::testing::get<1>(GetParam())) {}
 
-  SSLStreamAdapterTestDTLS(const std::string& cert_pem,
-                           const std::string& private_key_pem)
+  SSLStreamAdapterTestDTLS(absl::string_view cert_pem,
+                           absl::string_view private_key_pem)
       : SSLStreamAdapterTestDTLSBase(cert_pem, private_key_pem) {}
 };
 
@@ -1551,8 +1551,8 @@ class SSLStreamAdapterTestDTLSLegacyProtocols
   // initialized, so we set the experiment while creationg client_ssl_
   // and server_ssl_.
 
-  void ConfigureClient(std::string experiment) {
-    webrtc::test::ScopedFieldTrials trial(experiment);
+  void ConfigureClient(absl::string_view experiment) {
+    webrtc::test::ScopedFieldTrials trial{std::string(experiment)};
     client_stream_ =
         new SSLDummyStreamDTLS(this, "c2s", &client_buffer_, &server_buffer_);
     client_ssl_ =
@@ -1564,8 +1564,8 @@ class SSLStreamAdapterTestDTLSLegacyProtocols
     client_ssl_->SetIdentity(std::move(client_identity));
   }
 
-  void ConfigureServer(std::string experiment) {
-    webrtc::test::ScopedFieldTrials trial(experiment);
+  void ConfigureServer(absl::string_view experiment) {
+    webrtc::test::ScopedFieldTrials trial{std::string(experiment)};
     server_stream_ =
         new SSLDummyStreamDTLS(this, "s2c", &server_buffer_, &client_buffer_);
     server_ssl_ =

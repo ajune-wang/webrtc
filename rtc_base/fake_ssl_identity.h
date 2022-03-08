@@ -23,7 +23,7 @@ class FakeSSLCertificate : public SSLCertificate {
  public:
   // SHA-1 is the default digest algorithm because it is available in all build
   // configurations used for unit testing.
-  explicit FakeSSLCertificate(const std::string& pem_string);
+  explicit FakeSSLCertificate(absl::string_view pem_string);
 
   FakeSSLCertificate(const FakeSSLCertificate&);
   ~FakeSSLCertificate() override;
@@ -34,14 +34,14 @@ class FakeSSLCertificate : public SSLCertificate {
   void ToDER(Buffer* der_buffer) const override;
   int64_t CertificateExpirationTime() const override;
   bool GetSignatureDigestAlgorithm(std::string* algorithm) const override;
-  bool ComputeDigest(const std::string& algorithm,
+  bool ComputeDigest(absl::string_view algorithm,
                      unsigned char* digest,
                      size_t size,
                      size_t* length) const override;
 
   void SetCertificateExpirationTime(int64_t expiration_time);
 
-  void set_digest_algorithm(const std::string& algorithm);
+  void set_digest_algorithm(absl::string_view algorithm);
 
  private:
   std::string pem_string_;
@@ -52,7 +52,7 @@ class FakeSSLCertificate : public SSLCertificate {
 
 class FakeSSLIdentity : public SSLIdentity {
  public:
-  explicit FakeSSLIdentity(const std::string& pem_string);
+  explicit FakeSSLIdentity(absl::string_view pem_string);
   // For a certificate chain.
   explicit FakeSSLIdentity(const std::vector<std::string>& pem_strings);
   explicit FakeSSLIdentity(const FakeSSLCertificate& cert);

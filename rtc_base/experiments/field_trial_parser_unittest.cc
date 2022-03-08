@@ -28,7 +28,7 @@ struct DummyExperiment {
   FieldTrialParameter<std::string> hash =
       FieldTrialParameter<std::string>("h", "a80");
 
-  explicit DummyExperiment(std::string field_trial) {
+  explicit DummyExperiment(absl::string_view field_trial) {
     ParseFieldTrial({&enabled, &factor, &retries, &size, &ping, &hash},
                     field_trial);
   }

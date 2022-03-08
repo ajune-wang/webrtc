@@ -145,10 +145,8 @@ bool CreateRandomString(size_t len, std::string* str) {
   return CreateRandomString(len, kBase64, 64, str);
 }
 
-bool CreateRandomString(size_t len,
-                        const std::string& table,
-                        std::string* str) {
-  return CreateRandomString(len, table.c_str(), static_cast<int>(table.size()),
+bool CreateRandomString(size_t len, absl::string_view table, std::string* str) {
+  return CreateRandomString(len, table.data(), static_cast<int>(table.size()),
                             str);
 }
 

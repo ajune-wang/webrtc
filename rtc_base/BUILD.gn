@@ -683,6 +683,7 @@ rtc_library("rtc_json") {
     # expected to be when building json outside of the standalone build.
     defines += [ "WEBRTC_EXTERNAL_JSON" ]
   }
+  absl_deps = [ "//third_party/abseil-cpp/absl/strings" ]
 }
 
 rtc_library("net_helpers") {
@@ -730,6 +731,7 @@ rtc_library("ip_address") {
   if (is_win) {
     deps += [ ":win32" ]
   }
+  absl_deps = [ "//third_party/abseil-cpp/absl/strings" ]
 }
 
 rtc_library("socket_address") {
@@ -795,6 +797,7 @@ rtc_library("threading") {
   absl_deps = [
     "//third_party/abseil-cpp/absl/algorithm:container",
     "//third_party/abseil-cpp/absl/base:core_headers",
+    "//third_party/abseil-cpp/absl/strings",
   ]
   deps = [
     ":async_resolver_interface",

@@ -72,8 +72,8 @@ class ByteBufferWriterT {
     char last_byte = static_cast<char>(val);
     WriteBytes(&last_byte, 1);
   }
-  void WriteString(const std::string& val) {
-    WriteBytes(val.c_str(), val.size());
+  void WriteString(absl::string_view val) {
+    WriteBytes(val.data(), val.size());
   }
   void WriteBytes(const char* val, size_t len) { buffer_.AppendData(val, len); }
 

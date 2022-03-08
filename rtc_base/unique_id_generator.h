@@ -103,7 +103,7 @@ class UniqueStringGenerator {
 
   // Adds an id that this generator should no longer generate.
   // Return value indicates whether the ID was hitherto unknown.
-  bool AddKnownId(const std::string& value);
+  bool AddKnownId(absl::string_view value);
 
  private:
   // This implementation will be simple and will generate "0", "1", ...

@@ -58,7 +58,7 @@ class EncoderInfoSettings {
           resolution_bitrate_limits);
 
  protected:
-  explicit EncoderInfoSettings(std::string name);
+  explicit EncoderInfoSettings(absl::string_view name);
 
  private:
   FieldTrialOptional<int> requested_resolution_alignment_;

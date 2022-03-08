@@ -17,7 +17,7 @@ const char TCP_PROTOCOL_NAME[] = "tcp";
 const char SSLTCP_PROTOCOL_NAME[] = "ssltcp";
 const char TLS_PROTOCOL_NAME[] = "tls";
 
-int GetProtocolOverhead(const std::string& protocol) {
+int GetProtocolOverhead(absl::string_view protocol) {
   if (protocol == TCP_PROTOCOL_NAME || protocol == SSLTCP_PROTOCOL_NAME) {
     return kTcpHeaderSize;
   } else if (protocol == UDP_PROTOCOL_NAME) {

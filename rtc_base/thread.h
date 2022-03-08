@@ -348,7 +348,7 @@ class RTC_LOCKABLE RTC_EXPORT Thread : public webrtc::TaskQueueBase {
   // Sets the thread's name, for debugging. Must be called before Start().
   // If `obj` is non-null, its value is appended to `name`.
   const std::string& name() const { return name_; }
-  bool SetName(const std::string& name, const void* obj);
+  bool SetName(absl::string_view name, const void* obj);
 
   // Sets the expected processing time in ms. The thread will write
   // log messages when Invoke() takes more time than this.

@@ -184,7 +184,7 @@ bool ParseCertificate(CRYPTO_BUFFER* cert_buffer,
 }
 #endif  // OPENSSL_IS_BORINGSSL
 
-bool VerifyPeerCertMatchesHost(SSL* ssl, const std::string& host) {
+bool VerifyPeerCertMatchesHost(SSL* ssl, absl::string_view host) {
   if (host.empty()) {
     RTC_DLOG(LS_ERROR) << "Hostname is empty. Cannot verify peer certificate.";
     return false;
@@ -211,8 +211,7 @@ bool VerifyPeerCertMatchesHost(SSL* ssl, const std::string& host) {
     return false;
   }
   LogCertificates(ssl, x509.get());
-  return X509_check_host(x509.get(), host.c_str(), host.size(), 0, nullptr) ==
-         1;
+  return X509_check_host(x509.get(), host.data(), host.size(), 0, nullptr) == 1;
 #else   // OPENSSL_IS_BORINGSSL
   X509* certificate = SSL_get_peer_certificate(ssl);
   if (certificate == nullptr) {
@@ -224,13 +223,13 @@ bool VerifyPeerCertMatchesHost(SSL* ssl, const std::string& host) {
   LogCertificates(ssl, certificate);
 
   bool is_valid_cert_name =
-      X509_check_host(certificate, host.c_str(), host.size(), 0, nullptr) == 1;
+      X509_check_host(certificate, host.data(), host.size(), 0, nullptr) == 1;
   X509_free(certificate);
   return is_valid_cert_name;
 #endif  // !defined(OPENSSL_IS_BORINGSSL)
 }
 
-void LogSSLErrors(const std::string& prefix) {
+void LogSSLErrors(absl::string_view prefix) {
   char error_buf[200];
   unsigned long err;  // NOLINT
 

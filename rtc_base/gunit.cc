@@ -30,9 +30,9 @@
 
 ::testing::AssertionResult AssertStringContains(const char* str_expr,
                                                 const char* substr_expr,
-                                                const std::string& str,
-                                                const std::string& substr) {
-  if (str.find(substr) != std::string::npos) {
+                                                absl::string_view str,
+                                                absl::string_view substr) {
+  if (str.find(substr) != absl::string_view::npos) {
     return ::testing::AssertionSuccess();
   } else {
     return ::testing::AssertionFailure()

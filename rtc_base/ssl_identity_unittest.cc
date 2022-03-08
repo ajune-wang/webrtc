@@ -236,7 +236,7 @@ class SSLIdentityTest : public ::testing::Test {
 
   void TestDigestHelper(DigestType digest,
                         const SSLIdentity* identity,
-                        const std::string& algorithm,
+                        absl::string_view algorithm,
                         size_t expected_len) {
     DigestType digest1;
     size_t digest_len;
@@ -258,7 +258,7 @@ class SSLIdentityTest : public ::testing::Test {
     EXPECT_EQ(0, memcmp(digest, digest1, expected_len));
   }
 
-  void TestDigestForGeneratedCert(const std::string& algorithm,
+  void TestDigestForGeneratedCert(absl::string_view algorithm,
                                   size_t expected_len) {
     DigestType digest[4];
 
@@ -281,7 +281,7 @@ class SSLIdentityTest : public ::testing::Test {
     }
   }
 
-  void TestDigestForFixedCert(const std::string& algorithm,
+  void TestDigestForFixedCert(absl::string_view algorithm,
                               size_t expected_len,
                               const unsigned char* expected_digest) {
     bool rv;

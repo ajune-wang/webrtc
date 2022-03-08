@@ -66,7 +66,7 @@ void PostTaskToGlobalQueue(std::unique_ptr<webrtc::QueuedTask> task) {
 }  // namespace
 #endif
 
-int ResolveHostname(const std::string& hostname,
+int ResolveHostname(absl::string_view hostname,
                     int family,
                     std::vector<IPAddress>* addresses) {
 #ifdef __native_client__
@@ -99,7 +99,8 @@ int ResolveHostname(const std::string& hostname,
   // https://android.googlesource.com/platform/bionic/+/
   // 7e0bfb511e85834d7c6cb9631206b62f82701d60/libc/netbsd/net/getaddrinfo.c#1657
   hints.ai_flags = AI_ADDRCONFIG;
-  int ret = getaddrinfo(hostname.c_str(), nullptr, &hints, &result);
+  std::string hostname_str = std::string(hostname);
+  int ret = getaddrinfo(hostname_str.c_str(), nullptr, &hints, &result);
   if (ret != 0) {
     return ret;
   }

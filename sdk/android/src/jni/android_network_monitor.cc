@@ -284,7 +284,7 @@ void AndroidNetworkMonitor::Stop() {
 rtc::NetworkBindingResult AndroidNetworkMonitor::BindSocketToNetwork(
     int socket_fd,
     const rtc::IPAddress& address,
-    const std::string& if_name) {
+    absl::string_view if_name) {
   RTC_DCHECK_RUN_ON(network_thread_);
 
   // Android prior to Lollipop didn't have support for binding sockets to
@@ -302,7 +302,7 @@ rtc::NetworkBindingResult AndroidNetworkMonitor::BindSocketToNetwork(
   }
 
   absl::optional<NetworkHandle> network_handle =
-      FindNetworkHandleFromAddressOrName(address, if_name);
+      FindNetworkHandleFromAddressOrName(address, std::string(if_name));
   if (!network_handle) {
     RTC_LOG(LS_WARNING)
         << "BindSocketToNetwork unable to find network handle for"
@@ -495,9 +495,9 @@ void AndroidNetworkMonitor::SetNetworkInfos(
 }
 
 rtc::AdapterType AndroidNetworkMonitor::GetAdapterType(
-    const std::string& if_name) {
+    absl::string_view if_name) {
   RTC_DCHECK_RUN_ON(network_thread_);
-  auto iter = adapter_type_by_name_.find(if_name);
+  auto iter = adapter_type_by_name_.find(std::string(if_name));
   rtc::AdapterType type = (iter == adapter_type_by_name_.end())
                               ? rtc::ADAPTER_TYPE_UNKNOWN
                               : iter->second;
@@ -520,7 +520,7 @@ rtc::AdapterType AndroidNetworkMonitor::GetAdapterType(
 }
 
 rtc::AdapterType AndroidNetworkMonitor::GetVpnUnderlyingAdapterType(
-    const std::string& if_name) {
+    absl::string_view if_name) {
   RTC_DCHECK_RUN_ON(network_thread_);
   auto iter = vpn_underlying_adapter_type_by_name_.find(if_name);
   rtc::AdapterType type = (iter == vpn_underlying_adapter_type_by_name_.end())
@@ -541,7 +541,7 @@ rtc::AdapterType AndroidNetworkMonitor::GetVpnUnderlyingAdapterType(
 }
 
 rtc::NetworkPreference AndroidNetworkMonitor::GetNetworkPreference(
-    const std::string& if_name) {
+    absl::string_view if_name) {
   RTC_DCHECK_RUN_ON(network_thread_);
   auto iter = adapter_type_by_name_.find(if_name);
   if (iter == adapter_type_by_name_.end()) {

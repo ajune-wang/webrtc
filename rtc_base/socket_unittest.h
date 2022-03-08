@@ -74,7 +74,7 @@ class SocketTest : public ::testing::Test {
  private:
   void ConnectInternal(const IPAddress& loopback);
   void ConnectWithDnsLookupInternal(const IPAddress& loopback,
-                                    const std::string& host);
+                                    absl::string_view host);
   void ConnectFailInternal(const IPAddress& loopback);
 
   void ConnectWithDnsLookupFailInternal(const IPAddress& loopback);

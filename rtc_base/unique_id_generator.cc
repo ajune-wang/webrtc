@@ -55,8 +55,9 @@ std::string UniqueStringGenerator::GenerateString() {
   return ToString(unique_number_generator_.GenerateNumber());
 }
 
-bool UniqueStringGenerator::AddKnownId(const std::string& value) {
-  absl::optional<uint32_t> int_value = StringToNumber<uint32_t>(value);
+bool UniqueStringGenerator::AddKnownId(absl::string_view value) {
+  absl::optional<uint32_t> int_value =
+      StringToNumber<uint32_t>(std::string(value));
   // The underlying generator works for uint32_t values, so if the provided
   // value is not a uint32_t it will never be generated anyway.
   if (int_value.has_value()) {

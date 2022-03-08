@@ -11,7 +11,7 @@
 
 namespace webrtc {
 
-FieldTrialListBase::FieldTrialListBase(std::string key)
+FieldTrialListBase::FieldTrialListBase(absl::string_view key)
     : FieldTrialParameterInterface(key),
       failed_(false),
       parse_got_called_(false) {}

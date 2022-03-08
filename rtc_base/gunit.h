@@ -162,7 +162,7 @@ testing::AssertionResult AssertStartsWith(const char* text_expr,
 // Usage: EXPECT_PRED_FORMAT2(AssertStringContains, str, "substring");
 testing::AssertionResult AssertStringContains(const char* str_expr,
                                               const char* substr_expr,
-                                              const std::string& str,
-                                              const std::string& substr);
+                                              absl::string_view str,
+                                              absl::string_view substr);
 
 #endif  // RTC_BASE_GUNIT_H_

@@ -294,7 +294,7 @@ TEST(ToString, SanityCheck) {
 }
 
 template <typename T>
-void ParsesTo(std::string s, T t) {
+void ParsesTo(const std::string& s, T t) {
   T value;
   EXPECT_TRUE(FromString(s, &value));
   EXPECT_EQ(value, t);
@@ -309,7 +309,7 @@ TEST(FromString, DecodeValid) {
 }
 
 template <typename T>
-void FailsToParse(std::string s) {
+void FailsToParse(const std::string& s) {
   T value;
   EXPECT_FALSE(FromString(s, &value)) << "[" << s << "]";
 }

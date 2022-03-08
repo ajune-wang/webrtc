@@ -25,7 +25,7 @@ struct DummyExperiment {
   FieldTrialOptional<DataSize> max_buffer =
       FieldTrialOptional<DataSize>("b", absl::nullopt);
 
-  explicit DummyExperiment(std::string field_trial) {
+  explicit DummyExperiment(absl::string_view field_trial) {
     ParseFieldTrial({&target_rate, &max_buffer, &period}, field_trial);
   }
 };

@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "763304e6_acab28d7",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2022-03-09T11:04:04Z",
+      "side": 1,
+      "message": "I was looking into refactoring RtpToNtpEstimator to use strict time classes, this classes uses it, but itself is unused - simpler to delete it.\nI haven\u0027t check what other video_legacy classes are unused (some are still used)",
+      "revId": "ba2e2f01cb3e024f6733294f194c1544d5fb21bc",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

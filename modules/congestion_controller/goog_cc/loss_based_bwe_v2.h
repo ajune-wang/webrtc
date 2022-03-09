@@ -12,10 +12,12 @@
 #define MODULES_CONGESTION_CONTROLLER_GOOG_CC_LOSS_BASED_BWE_V2_H_
 
 #include <cstddef>
+#include <deque>
 #include <vector>
 
 #include "absl/types/optional.h"
 #include "api/array_view.h"
+#include "api/network_state_predictor.h"
 #include "api/transport/network_types.h"
 #include "api/transport/webrtc_key_value_config.h"
 #include "api/units/data_rate.h"
@@ -49,7 +51,8 @@ class LossBasedBweV2 {
 
   void UpdateBandwidthEstimate(
       rtc::ArrayView<const PacketResult> packet_results,
-      DataRate delay_based_estimate);
+      DataRate delay_based_estimate,
+      BandwidthUsage delay_detector_state);
 
  private:
   struct ChannelParameters {
@@ -59,6 +62,7 @@ class LossBasedBweV2 {
 
   struct Config {
     double bandwidth_rampup_upper_bound_factor = 0.0;
+    double bandwidth_backoff_lower_bound_factor = 0.0;
     double rampup_acceleration_max_factor = 0.0;
     TimeDelta rampup_acceleration_maxout_time = TimeDelta::Zero();
     std::vector<double> candidate_factors;
@@ -124,9 +128,15 @@ class LossBasedBweV2 {
 
   void CalculateTemporalWeights();
   void NewtonsMethodUpdate(ChannelParameters& channel_parameters) const;
+  bool MightDecreaseBitrate() const;
+  bool MightIncreaseBitrate() const;
 
   // Returns false if no observation was created.
   bool PushBackObservation(rtc::ArrayView<const PacketResult> packet_results);
+  void UpdateTrendlineEstimator(
+      const std::vector<PacketResult>& packet_feedbacks,
+      Timestamp at_time);
+  void UpdateDelayDetector(BandwidthUsage delay_detector_state);
 
   absl::optional<DataRate> acknowledged_bitrate_;
   absl::optional<Config> config_;
@@ -139,6 +149,7 @@ class LossBasedBweV2 {
   absl::optional<DataRate> cached_instant_upper_bound_;
   std::vector<double> instant_upper_bound_temporal_weights_;
   std::vector<double> temporal_weights_;
+  std::deque<BandwidthUsage> delay_detector_states_;
 };
 
 }  // namespace webrtc

@@ -553,8 +553,9 @@ NetworkControlUpdate GoogCcNetworkController::OnTransportPacketsFeedback(
     }
     // Since SetSendBitrate now resets the delay-based estimate, we have to
     // call UpdateDelayBasedEstimate after SetSendBitrate.
-    bandwidth_estimation_->UpdateDelayBasedEstimate(report.feedback_time,
-                                                    result.target_bitrate);
+    bandwidth_estimation_->UpdateDelayBasedEstimate(
+        report.feedback_time, result.target_bitrate,
+        result.delay_detector_state);
     // Update the estimate in the ProbeController, in case we want to probe.
     MaybeTriggerOnNetworkChanged(&update, report.feedback_time);
   }

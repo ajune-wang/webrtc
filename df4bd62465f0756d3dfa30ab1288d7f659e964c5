@@ -16,6 +16,57 @@
       "message": "Harald, could you please take a first look?",
       "revId": "df4bd62465f0756d3dfa30ab1288d7f659e964c5",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "df976d55_752ec4f2",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 8
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2022-03-09T08:11:23Z",
+      "side": 1,
+      "message": "Still a few bots to go, but approving.\n",
+      "revId": "df4bd62465f0756d3dfa30ab1288d7f659e964c5",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "aec87793_ace36de1",
+        "filename": "rtc_base/logging.cc",
+        "patchSetId": 8
+      },
+      "lineNbr": 571,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2022-03-09T08:11:23Z",
+      "side": 1,
+      "message": "since we\u0027re string_view\u0027ing everything, should we string_view the tag too?",
+      "revId": "df4bd62465f0756d3dfa30ab1288d7f659e964c5",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "80d1fdce_d4f73a8d",
+        "filename": "sdk/objc/api/logging/RTCCallbackLogger.mm",
+        "patchSetId": 8
+      },
+      "lineNbr": 31,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2022-03-09T08:11:23Z",
+      "side": 1,
+      "message": "first converting from string_view to string and then converting to c_str (which fetches an inner pointer) seems inefficient (but probably not).\n\nhttps://stackoverflow.com/questions/48081436/how-you-convert-a-stdstring-view-to-a-const-char says that this is present in abseil but not in std::string_view, so best avoided, I guess.",
+      "revId": "df4bd62465f0756d3dfa30ab1288d7f659e964c5",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

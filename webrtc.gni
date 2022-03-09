@@ -308,6 +308,9 @@ declare_args() {
 
   # Enable the usrsctp backend for DataChannels and related unittests
   rtc_build_usrsctp = !build_with_mozilla && rtc_enable_sctp
+
+  # Enable gRPC used for negotiation in multiprocess tests
+  rtc_enable_grpc = rtc_enable_protobuf
 }
 
 # Make it possible to provide custom locations for some libraries (move these
@@ -530,6 +533,7 @@ template("rtc_test") {
             [ "//third_party/llvm-build/Release+Asserts/lib/libstdc++.so.6" ]
       }
     }
+
     # TODO(crbug.com/webrtc/13556): Adding the .app folder in the runtime_deps
     # shoulnd't be necessary. this code should be removed and the same solution
     # as Chromium should be used.

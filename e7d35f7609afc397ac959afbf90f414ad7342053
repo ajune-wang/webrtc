@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "08189e9f_96f08ee4",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5117
+      },
+      "writtenOn": "2022-03-09T15:04:27Z",
+      "side": 1,
+      "message": "Shuhai, this is the reland of your CL.\n\nI\u0027ve created it because it will be easier to test it on the downstream project first.\n\nErik, please RS LGTM.",
+      "revId": "e7d35f7609afc397ac959afbf90f414ad7342053",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

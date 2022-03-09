@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "5fa2ba05_9a982150",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 7
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2022-03-09T13:28:35Z",
+      "side": 1,
+      "message": "There\u0027s a use-after-free, apparently on windows only. From the stack traces, I see this problem:\n\nThe test (I\u0027m looking at the failure of PeerConnectionIntegrationTest/PeerConnectionIntegrationTest.IceTransportFactoryUsedForConnections/3, see https://chromium-swarm.appspot.com/task?id\u003d5987999a2fe6f410) is finished, and the network thread created for the test is destroyed.\n\nControl gets to TestMainImpl::OnTestEnd (in test/test_main_lib.cc). This class has wrapped the main thread (comments indicate that maybe that could be deleted, now that automatic thread wrapping is gone). It calls thread_-\u003eQuit() followed by thread_-\u003eRun(). The latter finds a message that needs processing, and calls  FakeRTCCertificateGenerator::OnMessage.\n\nVia some other method calls, this gets to webrtc::JsepTransportController::SetLocalCertificate, which tries to Invoke to the network thread. But the network thread no longer exists. Which results in a use-after-free.\n\n",
+      "revId": "5f06a74c8e57af89888e360f09e1720298f9e274",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

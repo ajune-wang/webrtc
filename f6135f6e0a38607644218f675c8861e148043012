@@ -206,6 +206,23 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "6aa67b62_920b57c7",
+        "filename": "rtc_tools/data_channel_benchmark/BUILD.gn",
+        "patchSetId": 6
+      },
+      "lineNbr": 36,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2022-03-09T21:48:18Z",
+      "side": 1,
+      "message": "This is odd. data_channel_benchmark.cc has a main function that doesn\u0027t run any tests. So the test framework will compile this, run it, and declare success.\nSo probably this should be an rtc_binary (is there such a thing?) instead.\n\nI\u0027d like to have a test that actually runs the code.",
+      "revId": "f6135f6e0a38607644218f675c8861e148043012",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "01df6f06_5b09e25e",
         "filename": "rtc_tools/data_channel_benchmark/data_channel_benchmark.cc",
         "patchSetId": 6

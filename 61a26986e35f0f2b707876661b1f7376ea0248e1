@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "e1d14fcb_1095173f",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 8
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2022-03-09T21:48:18Z",
+      "side": 1,
+      "message": "Looks good!\nOne oddity left over is to use the rtc_test macro to build binaries; seems I had forgotten to send that comment when I wrote it.\n\nDoing +1 now, letting Mirko advise on that.\n",
+      "revId": "61a26986e35f0f2b707876661b1f7376ea0248e1",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

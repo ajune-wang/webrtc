@@ -15,8 +15,10 @@
 #include <stdint.h>
 
 #include <functional>
+#include <map>
 #include <memory>
 #include <queue>
+#include <string>
 #include <vector>
 
 #include "absl/types/optional.h"
@@ -161,6 +163,23 @@ class TaskQueuePacedSender : public RtpPacketPacer, public RtpPacketSender {
   Stats current_stats_ RTC_GUARDED_BY(stats_mutex_);
 
   rtc::TaskQueue task_queue_;
+
+  class WakeUpCounter {
+   public:
+    void IncrementNonDelayedTaskCount(std::string name);
+    void IncrementDelayedTaskCount(std::string name);
+    void IncrementProbeCount();
+
+   private:
+    void UpdateTimestamp();
+
+    int64_t prev_log_timestamp_ns_ = -1;
+    std::map<std::string, double> non_delayed_task_count_;
+    std::map<std::string, double> delayed_task_count_;
+    double probe_count_ = 0;
+  };
+  mutable Mutex wake_up_counter_mutex_;
+  WakeUpCounter wake_up_counter_ RTC_GUARDED_BY(wake_up_counter_mutex_);
 };
 }  // namespace webrtc
 #endif  // MODULES_PACING_TASK_QUEUE_PACED_SENDER_H_

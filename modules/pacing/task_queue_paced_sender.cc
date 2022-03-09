@@ -11,15 +11,97 @@
 #include "modules/pacing/task_queue_paced_sender.h"
 
 #include <algorithm>
+#include <cmath>
 #include <utility>
+
 #include "absl/memory/memory.h"
 #include "rtc_base/checks.h"
 #include "rtc_base/event.h"
 #include "rtc_base/logging.h"
+#include "rtc_base/strings/string_builder.h"
 #include "rtc_base/task_utils/to_queued_task.h"
+#include "rtc_base/time_utils.h"
 #include "rtc_base/trace_event.h"
 
 namespace webrtc {
+
+namespace {
+
+void DivideAllEntries(std::map<std::string, double>* map, double divisor) {
+  for (auto& entry : *map) {
+    entry.second /= divisor;
+  }
+}
+
+double SumOfAllEntries(const std::map<std::string, double>& map) {
+  double total = 0;
+  for (const auto& entry : map) {
+    total += entry.second;
+  }
+  return total;
+}
+
+std::string Summary(const std::map<std::string, double>& map) {
+  rtc::StringBuilder str;
+  for (const auto& entry : map) {
+    if (str.size())
+      str << ", ";
+    str << entry.first << ": " << static_cast<int>(std::round(entry.second))
+        << "Hz";
+  }
+  return str.Release();
+}
+
+}  // namespace
+
+void TaskQueuePacedSender::WakeUpCounter::IncrementNonDelayedTaskCount(
+    std::string name) {
+  ++non_delayed_task_count_[std::move(name)];
+  UpdateTimestamp();
+}
+
+void TaskQueuePacedSender::WakeUpCounter::IncrementDelayedTaskCount(
+    std::string name) {
+  ++delayed_task_count_[std::move(name)];
+  UpdateTimestamp();
+}
+
+void TaskQueuePacedSender::WakeUpCounter::IncrementProbeCount() {
+  ++probe_count_;
+  UpdateTimestamp();
+}
+
+void TaskQueuePacedSender::WakeUpCounter::UpdateTimestamp() {
+  int64_t now_ns = rtc::TimeNanos();
+  if (prev_log_timestamp_ns_ == -1) {
+    prev_log_timestamp_ns_ = now_ns;
+  }
+  int64_t time_elapsed_ns = now_ns - prev_log_timestamp_ns_;
+  if (time_elapsed_ns < rtc::kNumNanosecsPerSec)
+    return;
+  double elapsed_time_s =
+      time_elapsed_ns / static_cast<double>(rtc::kNumNanosecsPerSec);
+  // Normalize and summate
+  DivideAllEntries(&non_delayed_task_count_, elapsed_time_s);
+  DivideAllEntries(&delayed_task_count_, elapsed_time_s);
+  probe_count_ /= elapsed_time_s;
+  int total_non_delayed_task_count =
+      static_cast<int>(std::round(SumOfAllEntries(non_delayed_task_count_)));
+  int total_delayed_task_count =
+      static_cast<int>(std::round(SumOfAllEntries(delayed_task_count_)));
+  RTC_LOG(LS_ERROR)
+      << "Summary\n"
+      << "* Non-delayed: " << total_non_delayed_task_count << "Hz ("
+      << Summary(non_delayed_task_count_) << ")\n"
+      << "* Delayed:     " << total_delayed_task_count << "Hz ("
+      << Summary(delayed_task_count_) << ")\n"
+      << "* Probes:      " << probe_count_ << "Hz";
+  // Reset counters
+  non_delayed_task_count_.clear();
+  delayed_task_count_.clear();
+  probe_count_ = 0;
+  prev_log_timestamp_ns_ = now_ns;
+}
 
 TaskQueuePacedSender::TaskQueuePacedSender(
     Clock* clock,
@@ -58,6 +140,10 @@ TaskQueuePacedSender::~TaskQueuePacedSender() {
 }
 
 void TaskQueuePacedSender::EnsureStarted() {
+  {
+    MutexLock wake_up_counter_lock(&wake_up_counter_mutex_);
+    wake_up_counter_.IncrementNonDelayedTaskCount("EnsureStarted");
+  }
   task_queue_.PostTask([this]() {
     RTC_DCHECK_RUN_ON(&task_queue_);
     is_started_ = true;
@@ -67,6 +153,10 @@ void TaskQueuePacedSender::EnsureStarted() {
 
 void TaskQueuePacedSender::CreateProbeCluster(DataRate bitrate,
                                               int cluster_id) {
+  {
+    MutexLock wake_up_counter_lock(&wake_up_counter_mutex_);
+    wake_up_counter_.IncrementNonDelayedTaskCount("CreateProbeCluster");
+  }
   task_queue_.PostTask([this, bitrate, cluster_id]() {
     RTC_DCHECK_RUN_ON(&task_queue_);
     pacing_controller_.CreateProbeCluster(bitrate, cluster_id);
@@ -82,6 +172,10 @@ void TaskQueuePacedSender::Pause() {
 }
 
 void TaskQueuePacedSender::Resume() {
+  {
+    MutexLock wake_up_counter_lock(&wake_up_counter_mutex_);
+    wake_up_counter_.IncrementNonDelayedTaskCount("Resume");
+  }
   task_queue_.PostTask([this]() {
     RTC_DCHECK_RUN_ON(&task_queue_);
     pacing_controller_.Resume();
@@ -91,6 +185,10 @@ void TaskQueuePacedSender::Resume() {
 
 void TaskQueuePacedSender::SetCongestionWindow(
     DataSize congestion_window_size) {
+  {
+    MutexLock wake_up_counter_lock(&wake_up_counter_mutex_);
+    wake_up_counter_.IncrementNonDelayedTaskCount("SetCongestionWindow");
+  }
   task_queue_.PostTask([this, congestion_window_size]() {
     RTC_DCHECK_RUN_ON(&task_queue_);
     pacing_controller_.SetCongestionWindow(congestion_window_size);
@@ -103,11 +201,21 @@ void TaskQueuePacedSender::UpdateOutstandingData(DataSize outstanding_data) {
     RTC_DCHECK_RUN_ON(&task_queue_);
     // Fast path since this can be called once per sent packet while on the
     // task queue.
+    {
+      MutexLock wake_up_counter_lock(&wake_up_counter_mutex_);
+      wake_up_counter_.IncrementNonDelayedTaskCount(
+          "CurrentTQ_UpdateOutstandingData");
+    }
     pacing_controller_.UpdateOutstandingData(outstanding_data);
     MaybeProcessPackets(Timestamp::MinusInfinity());
     return;
   }
 
+  {
+    MutexLock wake_up_counter_lock(&wake_up_counter_mutex_);
+    wake_up_counter_.IncrementNonDelayedTaskCount(
+        "PostTask_UpdateOutstandingData");
+  }
   task_queue_.PostTask([this, outstanding_data]() {
     RTC_DCHECK_RUN_ON(&task_queue_);
     pacing_controller_.UpdateOutstandingData(outstanding_data);
@@ -117,6 +225,10 @@ void TaskQueuePacedSender::UpdateOutstandingData(DataSize outstanding_data) {
 
 void TaskQueuePacedSender::SetPacingRates(DataRate pacing_rate,
                                           DataRate padding_rate) {
+  {
+    MutexLock wake_up_counter_lock(&wake_up_counter_mutex_);
+    wake_up_counter_.IncrementNonDelayedTaskCount("SetPacingRates");
+  }
   task_queue_.PostTask([this, pacing_rate, padding_rate]() {
     RTC_DCHECK_RUN_ON(&task_queue_);
     pacing_controller_.SetPacingRates(pacing_rate, padding_rate);
@@ -137,6 +249,10 @@ void TaskQueuePacedSender::EnqueuePackets(
   }
 #endif
 
+  {
+    MutexLock wake_up_counter_lock(&wake_up_counter_mutex_);
+    wake_up_counter_.IncrementNonDelayedTaskCount("EnqueuePackets");
+  }
   task_queue_.PostTask([this, packets_ = std::move(packets)]() mutable {
     RTC_DCHECK_RUN_ON(&task_queue_);
     for (auto& packet : packets_) {
@@ -149,6 +265,10 @@ void TaskQueuePacedSender::EnqueuePackets(
 }
 
 void TaskQueuePacedSender::SetAccountForAudioPackets(bool account_for_audio) {
+  {
+    MutexLock wake_up_counter_lock(&wake_up_counter_mutex_);
+    wake_up_counter_.IncrementNonDelayedTaskCount("SetAccountForAudioPackets");
+  }
   task_queue_.PostTask([this, account_for_audio]() {
     RTC_DCHECK_RUN_ON(&task_queue_);
     pacing_controller_.SetAccountForAudioPackets(account_for_audio);
@@ -157,6 +277,10 @@ void TaskQueuePacedSender::SetAccountForAudioPackets(bool account_for_audio) {
 }
 
 void TaskQueuePacedSender::SetIncludeOverhead() {
+  {
+    MutexLock wake_up_counter_lock(&wake_up_counter_mutex_);
+    wake_up_counter_.IncrementNonDelayedTaskCount("SetIncludeOverhead");
+  }
   task_queue_.PostTask([this]() {
     RTC_DCHECK_RUN_ON(&task_queue_);
     pacing_controller_.SetIncludeOverhead();
@@ -165,6 +289,10 @@ void TaskQueuePacedSender::SetIncludeOverhead() {
 }
 
 void TaskQueuePacedSender::SetTransportOverhead(DataSize overhead_per_packet) {
+  {
+    MutexLock wake_up_counter_lock(&wake_up_counter_mutex_);
+    wake_up_counter_.IncrementNonDelayedTaskCount("SetTransportOverhead");
+  }
   task_queue_.PostTask([this, overhead_per_packet]() {
     RTC_DCHECK_RUN_ON(&task_queue_);
     pacing_controller_.SetTransportOverhead(overhead_per_packet);
@@ -173,6 +301,10 @@ void TaskQueuePacedSender::SetTransportOverhead(DataSize overhead_per_packet) {
 }
 
 void TaskQueuePacedSender::SetQueueTimeLimit(TimeDelta limit) {
+  {
+    MutexLock wake_up_counter_lock(&wake_up_counter_mutex_);
+    wake_up_counter_.IncrementNonDelayedTaskCount("SetQueueTimeLimit");
+  }
   task_queue_.PostTask([this, limit]() {
     RTC_DCHECK_RUN_ON(&task_queue_);
     pacing_controller_.SetQueueTimeLimit(limit);
@@ -215,6 +347,11 @@ void TaskQueuePacedSender::MaybeProcessPackets(
 
   if (is_shutdown_ || !is_started_) {
     return;
+  }
+
+  if (pacing_controller_.IsProbing()) {
+    MutexLock wake_up_counter_lock(&wake_up_counter_mutex_);
+    wake_up_counter_.IncrementProbeCount();
   }
 
   // Normally, run ProcessPackets() only if this is the scheduled task.
@@ -271,6 +408,11 @@ void TaskQueuePacedSender::MaybeProcessPackets(
     // Set a new scheduled process time and post a delayed task.
     next_process_time_ = next_process_time;
 
+    {
+      MutexLock wake_up_counter_lock(&wake_up_counter_mutex_);
+      wake_up_counter_.IncrementDelayedTaskCount(
+          "PostDelayedHighPrecisionTask");
+    }
     task_queue_.PostDelayedHighPrecisionTask(
         [this, next_process_time]() { MaybeProcessPackets(next_process_time); },
         time_to_next_process->ms<uint32_t>());

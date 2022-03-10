@@ -80,6 +80,30 @@
       },
       "revId": "44a08185338c099f85662995b887379b72855ea6",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "0d9a8926_de9af372",
+        "filename": "sdk/android/src/jni/logging/log_sink.cc",
+        "patchSetId": 10
+      },
+      "lineNbr": 25,
+      "author": {
+        "id": 10107
+      },
+      "writtenOn": "2022-03-10T17:08:43Z",
+      "side": 1,
+      "message": "Ah, I see now. There is a default implementation of the 3-argument version of OnLogMessage that just ends up calling the default 1-argument version. So the 3-argument version for android with const std::string\u0026 is required for now.\n\nThanks a bunch for looking into this. I didn\u0027t really know how to get to those logs you referenced, but now I know. Thanks.\n\n/ali",
+      "parentUuid": "09e2c08a_5d9358a9",
+      "range": {
+        "startLine": 22,
+        "startChar": 0,
+        "endLine": 25,
+        "endChar": 0
+      },
+      "revId": "44a08185338c099f85662995b887379b72855ea6",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

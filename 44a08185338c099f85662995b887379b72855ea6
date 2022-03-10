@@ -33,6 +33,29 @@
       "message": "Adding owners for sdk/android/* and sdk/objc/*.\n\nthe android_instrumentation_test_apk test are failing on android and I can\u0027t figure out what is wrong. Could any of you take a look?",
       "revId": "44a08185338c099f85662995b887379b72855ea6",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "bfd617f9_841c929f",
+        "filename": "sdk/android/src/jni/logging/log_sink.cc",
+        "patchSetId": 10
+      },
+      "lineNbr": 25,
+      "author": {
+        "id": 14994
+      },
+      "writtenOn": "2022-03-10T16:01:58Z",
+      "side": 1,
+      "message": "Looking at the log for the failed test, this seems to be reached: https://luci-logdog.appspot.com/logs/chromium/android/swarming/logcats/598ca1a93a85de11/+/logcat_logcat_list_tests_shard0_20220310T123223-UTC_01e4c769a2bdb089\n\n```\n# Fatal error in: ../../sdk/android/src/jni/logging/log_sink.cc, line 23\n```\n\nAnd from the stack below that message in the log, it comes from this: https://source.chromium.org/chromium/chromium/src/+/main:third_party/webrtc/sdk/android/src/jni/pc/peer_connection_factory.cc;l\u003d196-211;drc\u003dac0d18341d3bcc13e15dd89170d04aa09f987cfe",
+      "range": {
+        "startLine": 22,
+        "startChar": 0,
+        "endLine": 25,
+        "endChar": 0
+      },
+      "revId": "44a08185338c099f85662995b887379b72855ea6",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

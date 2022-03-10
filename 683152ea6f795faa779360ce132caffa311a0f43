@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "ee2d1cca_00283a38",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 9
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 18789
+      },
+      "writtenOn": "2022-03-10T20:15:47Z",
+      "side": 1,
+      "message": "adds allow_wgc_capturer_fallback and replied comments.",
+      "revId": "683152ea6f795faa779360ce132caffa311a0f43",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

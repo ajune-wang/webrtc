@@ -24,6 +24,30 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": true,
+      "key": {
+        "uuid": "914ee0f2_e7dd8b52",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 7
+      },
+      "lineNbr": 12,
+      "author": {
+        "id": 18789
+      },
+      "writtenOn": "2022-03-10T20:15:47Z",
+      "side": 1,
+      "message": "We got report of PiP youtube window, but it actually repro on any tab that has playing youtube, not just PiP window on my machine and Austin\u0027s. Unfortunately, mine doesn\u0027t repro anymore when I uninstall the Canary and reinstall.\n\nyes, if I choose the black Youtube capture, its sharing is also black.",
+      "parentUuid": "a6fe8087_7ed6f111",
+      "range": {
+        "startLine": 11,
+        "startChar": 32,
+        "endLine": 12,
+        "endChar": 42
+      },
+      "revId": "c4f61450d1d64902feacf083d8370ec72212565a",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": false,
       "key": {
         "uuid": "2586a9d1_13790d71",
@@ -83,6 +107,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "b8d87708_83c11117",
+        "filename": "modules/desktop_capture/desktop_capture_options.h",
+        "patchSetId": 7
+      },
+      "lineNbr": 174,
+      "author": {
+        "id": 18789
+      },
+      "writtenOn": "2022-03-10T20:15:47Z",
+      "side": 1,
+      "message": "I\u0027ve added allow_wgc_capturer_fallback in the DesktopCaptureOptions. I realized that setting the flag needs to be made in the \u0027CreateDesktopCaptureOptions\u0027 where it sets it as a default when RTC_ENABLE_WIN_WGC is enabled.\n\nHow I can change the chromium repo code with this CL because CreateDesktopCaptureOptions is in \\content\\public\\browser\\desktop_capture.cc?",
+      "parentUuid": "65d18f03_04afa39a",
+      "range": {
+        "startLine": 174,
+        "startChar": 7,
+        "endLine": 174,
+        "endChar": 25
+      },
+      "revId": "c4f61450d1d64902feacf083d8370ec72212565a",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "c2237355_2a623741",
         "filename": "modules/desktop_capture/window_capturer_win.cc",
         "patchSetId": 7
@@ -94,6 +142,30 @@
       "writtenOn": "2022-03-08T16:59:33Z",
       "side": 1,
       "message": "Is there a reason we can\u0027t use make_unique here?",
+      "range": {
+        "startLine": 34,
+        "startChar": 4,
+        "endLine": 35,
+        "endChar": 53
+      },
+      "revId": "c4f61450d1d64902feacf083d8370ec72212565a",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "a3b66e8c_c6bd535e",
+        "filename": "modules/desktop_capture/window_capturer_win.cc",
+        "patchSetId": 7
+      },
+      "lineNbr": 35,
+      "author": {
+        "id": 18789
+      },
+      "writtenOn": "2022-03-10T20:15:47Z",
+      "side": 1,
+      "message": "capturer is already unique_ptr that accepts only raw pointer for its reset parameter. (using make_unique would make it compiler error).",
+      "parentUuid": "c2237355_2a623741",
       "range": {
         "startLine": 34,
         "startChar": 4,
@@ -141,6 +213,30 @@
       "side": 1,
       "message": "Sorry, to further clarify, that can be passed in to WgcCapturerWin::CreateRawWindowCapturer",
       "parentUuid": "858954dc_c1e7cce5",
+      "range": {
+        "startLine": 38,
+        "startChar": 16,
+        "endLine": 38,
+        "endChar": 50
+      },
+      "revId": "c4f61450d1d64902feacf083d8370ec72212565a",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "2e53f150_025ab4d9",
+        "filename": "modules/desktop_capture/window_capturer_win.cc",
+        "patchSetId": 7
+      },
+      "lineNbr": 38,
+      "author": {
+        "id": 18789
+      },
+      "writtenOn": "2022-03-10T20:15:47Z",
+      "side": 1,
+      "message": "I\u0027m fine with adding bool on the WgcCapturerWin::CreateRawWindowCapture(DesktopCaptureOptions options, bool delayed_capturable_check), but the only problem I have is that it looks like all CreateRawWindowCapturer has a same ctor of receiving only DesktopCaptureOptions.\n\nIf you still think to have bool param, I will add it.",
+      "parentUuid": "cd8ad538_b1d5c9e5",
       "range": {
         "startLine": 38,
         "startChar": 16,

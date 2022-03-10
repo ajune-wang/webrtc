@@ -16,6 +16,23 @@
       "message": "Some Android tests on some bots are not happy. Can\u0027t figure out why. I\u0027ll loop in some Android-knowledgeable folks to help me figure this out before I submit.",
       "revId": "44a08185338c099f85662995b887379b72855ea6",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "61bbbe1d_8b2eac7c",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 10
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 10107
+      },
+      "writtenOn": "2022-03-10T14:20:16Z",
+      "side": 1,
+      "message": "Adding owners for sdk/android/* and sdk/objc/*.\n\nthe android_instrumentation_test_apk test are failing on android and I can\u0027t figure out what is wrong. Could any of you take a look?",
+      "revId": "44a08185338c099f85662995b887379b72855ea6",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

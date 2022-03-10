@@ -241,6 +241,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "ebcbe624_cbdc75c0",
+        "filename": "rtc_tools/data_channel_benchmark/BUILD.gn",
+        "patchSetId": 6
+      },
+      "lineNbr": 36,
+      "author": {
+        "id": 7036
+      },
+      "writtenOn": "2022-03-10T15:33:27Z",
+      "side": 1,
+      "message": "rtc_executable does not support depending on testonly targets.\nSo, which do you prefer?\n- using rtc_test with testonly targets\n- using rtc_executable with no testonly targets\n\nAnd yes, it would be nice to run this continuously. We probably want a python wrapper script for it that starts a server, waits for the listen message with the port to show up and then starts a client.\nThe script will probably have to deal with LD_LIBRARY_PATH too as grpc is built as a shared library on Linux and we don\u0027t have the right paths to it. Possibly similar issues will happen on Windows.",
+      "parentUuid": "cad9accb_5b10c9d0",
+      "revId": "f6135f6e0a38607644218f675c8861e148043012",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "01df6f06_5b09e25e",
         "filename": "rtc_tools/data_channel_benchmark/data_channel_benchmark.cc",
         "patchSetId": 6

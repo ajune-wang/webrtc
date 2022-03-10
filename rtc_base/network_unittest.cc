@@ -309,6 +309,7 @@ class NetworkTest : public ::testing::Test, public sigslot::has_slots<> {
 #endif  // defined(WEBRTC_POSIX)
 
  protected:
+  rtc::AutoThread main_thread_;
   bool callback_called_;
 };
 

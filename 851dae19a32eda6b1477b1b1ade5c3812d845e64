@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "bee83734_c3dfb956",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 11
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 10107
+      },
+      "writtenOn": "2022-03-10T19:04:14Z",
+      "side": 1,
+      "message": "All CQ bots are now green (thanks for the pointers xavier). This is now ready for OWNERS review. Thx.",
+      "revId": "851dae19a32eda6b1477b1b1ade5c3812d845e64",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

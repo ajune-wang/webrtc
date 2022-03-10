@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "df79be01_93e59999",
+        "filename": "sdk/android/api/org/webrtc/LibaomAv1EncoderIfSupported.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 13,
+      "author": {
+        "id": 5825
+      },
+      "writtenOn": "2022-03-10T12:39:48Z",
+      "side": 1,
+      "message": "\"..IfSupported\" class with IsSupported() method (L26). Are you sure this suffix is needed?",
+      "range": {
+        "startLine": 13,
+        "startChar": 13,
+        "endLine": 13,
+        "endChar": 40
+      },
+      "revId": "bcc2dfc7ad11975d44c85b33b923ec3565189161",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

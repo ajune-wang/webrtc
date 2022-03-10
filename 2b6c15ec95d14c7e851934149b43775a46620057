@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "6bcb5999_fee15446",
+        "filename": "DEPS",
+        "patchSetId": 9
+      },
+      "lineNbr": 160,
+      "author": {
+        "id": 5087
+      },
+      "writtenOn": "2022-03-10T16:10:56Z",
+      "side": 1,
+      "message": "Can we change this to f8a909e76fcd947949502832a7ab8e2cba2b8e27?",
+      "range": {
+        "startLine": 160,
+        "startChar": 80,
+        "endLine": 160,
+        "endChar": 120
+      },
+      "revId": "2b6c15ec95d14c7e851934149b43775a46620057",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

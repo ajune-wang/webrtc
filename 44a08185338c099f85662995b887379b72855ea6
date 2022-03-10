@@ -56,6 +56,30 @@
       },
       "revId": "44a08185338c099f85662995b887379b72855ea6",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "09e2c08a_5d9358a9",
+        "filename": "sdk/android/src/jni/logging/log_sink.cc",
+        "patchSetId": 10
+      },
+      "lineNbr": 25,
+      "author": {
+        "id": 14994
+      },
+      "writtenOn": "2022-03-10T16:32:16Z",
+      "side": 1,
+      "message": "It’s probably because we call the 3-args `const std::string\u0026` overload of `OnLogMessage` [directly here](https://source.chromium.org/chromium/chromium/src/+/main:third_party/webrtc/rtc_base/logging.cc;l\u003d212;drc\u003dbe87f0a0f30d19fa6c1543e77497868222d067c5).\n\nAnd that in turns calls through the other `std::string` overloads, down to this one. \n\nSo you probably need to override both 3-arguments `OnLogMessage` versions for now.",
+      "parentUuid": "bfd617f9_841c929f",
+      "range": {
+        "startLine": 22,
+        "startChar": 0,
+        "endLine": 25,
+        "endChar": 0
+      },
+      "revId": "44a08185338c099f85662995b887379b72855ea6",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

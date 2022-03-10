@@ -52,6 +52,24 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "cf90424d_c0ad97a2",
+        "filename": "rtc_base/logging.cc",
+        "patchSetId": 8
+      },
+      "lineNbr": 571,
+      "author": {
+        "id": 10107
+      },
+      "writtenOn": "2022-03-10T13:59:02Z",
+      "side": 1,
+      "message": "Yeah, I\u0027m using clang AST matchers to generate some of these changes and I\u0027m changing const std::string\u0026s first. I\u0027ll get back to const char*s shortly.",
+      "parentUuid": "aec87793_ace36de1",
+      "revId": "df4bd62465f0756d3dfa30ab1288d7f659e964c5",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "80d1fdce_d4f73a8d",
@@ -65,6 +83,24 @@
       "writtenOn": "2022-03-09T08:11:23Z",
       "side": 1,
       "message": "first converting from string_view to string and then converting to c_str (which fetches an inner pointer) seems inefficient (but probably not).\n\nhttps://stackoverflow.com/questions/48081436/how-you-convert-a-stdstring-view-to-a-const-char says that this is present in abseil but not in std::string_view, so best avoided, I guess.",
+      "revId": "df4bd62465f0756d3dfa30ab1288d7f659e964c5",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "736d08cf_643a45ab",
+        "filename": "sdk/objc/api/logging/RTCCallbackLogger.mm",
+        "patchSetId": 8
+      },
+      "lineNbr": 31,
+      "author": {
+        "id": 10107
+      },
+      "writtenOn": "2022-03-10T13:59:02Z",
+      "side": 1,
+      "message": "I\u0027ve now introduced an objc method to deal with this conversion.",
+      "parentUuid": "80d1fdce_d4f73a8d",
       "revId": "df4bd62465f0756d3dfa30ab1288d7f659e964c5",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }

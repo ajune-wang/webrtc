@@ -22,6 +22,30 @@
       },
       "revId": "bcc2dfc7ad11975d44c85b33b923ec3565189161",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "d1ce658b_4d1c2dab",
+        "filename": "sdk/android/api/org/webrtc/LibaomAv1EncoderIfSupported.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 13,
+      "author": {
+        "id": 5527
+      },
+      "writtenOn": "2022-03-10T13:07:39Z",
+      "side": 1,
+      "message": "Yes, the reason is needed is because of the followup CL (https://webrtc-review.googlesource.com/c/src/+/254581) that introduces a class with this name.",
+      "parentUuid": "df79be01_93e59999",
+      "range": {
+        "startLine": 13,
+        "startChar": 13,
+        "endLine": 13,
+        "endChar": 40
+      },
+      "revId": "bcc2dfc7ad11975d44c85b33b923ec3565189161",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

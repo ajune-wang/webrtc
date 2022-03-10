@@ -275,6 +275,24 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "991ef93e_1eaa510a",
+        "filename": "rtc_tools/data_channel_benchmark/BUILD.gn",
+        "patchSetId": 6
+      },
+      "lineNbr": 36,
+      "author": {
+        "id": 7036
+      },
+      "writtenOn": "2022-03-10T15:56:26Z",
+      "side": 1,
+      "message": "Added testonly to rtc_executable and it works fine now. Let\u0027s discuss how to run it in CI separately!",
+      "parentUuid": "94355725_1b0fca40",
+      "revId": "f6135f6e0a38607644218f675c8861e148043012",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "01df6f06_5b09e25e",

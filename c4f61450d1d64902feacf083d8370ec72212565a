@@ -48,6 +48,30 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": true,
+      "key": {
+        "uuid": "65d027b9_bc82b0e7",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 7
+      },
+      "lineNbr": 12,
+      "author": {
+        "id": 18474
+      },
+      "writtenOn": "2022-03-10T20:39:00Z",
+      "side": 1,
+      "message": "Is this reproing when you share from the same chromium instance (e.g. Sharing a youtube tab/chromium window from Chrome Stable to a getDisplayMedia Capturer also running Chrome Stable?) Or only across versions.\n\nIf it is the former, (or specifically tab sharing) then that wouldn\u0027t be affected by this capturer.\n\nYou can check this (though you\u0027ll need to actually create the capturer, not just from the previews) via chrome://tracing and the \"disabled_by_default\" category \"video_and_image_capture\" (select \"manually enable categories\" and then \"disabled_by_default\" should appear on the right hand column).\n\nhttps://source.chromium.org/chromium/chromium/src/+/main:content/browser/renderer_host/media/in_process_video_capture_device_launcher.cc;drc\u003d9ec625abadf0c0d44137a27506e4920335abcde6;l\u003d249\n\nSorry for trying to confirm this, correct me if I\u0027m wrong, but it *sounds* like this is mostly a speculative fix as we don\u0027t know the root cause, so I\u0027m trying to make sure that it\u0027s the system-level window capturer that actually has the problem and not the window capturer that captures chromium windows from the same process (or even chromium tabs). If you have other confirmation that the gdi capturer is definitely what\u0027s running and failing then that\u0027s fine too.",
+      "parentUuid": "914ee0f2_e7dd8b52",
+      "range": {
+        "startLine": 11,
+        "startChar": 32,
+        "endLine": 12,
+        "endChar": 42
+      },
+      "revId": "c4f61450d1d64902feacf083d8370ec72212565a",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": false,
       "key": {
         "uuid": "2586a9d1_13790d71",
@@ -131,6 +155,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "273ad6b8_5906898e",
+        "filename": "modules/desktop_capture/desktop_capture_options.h",
+        "patchSetId": 7
+      },
+      "lineNbr": 174,
+      "author": {
+        "id": 18474
+      },
+      "writtenOn": "2022-03-10T20:39:00Z",
+      "side": 1,
+      "message": "I believe you\u0027ll have to make a new CL in chromium once this lands and has rolled over there (which seems to happen fairly quickly).",
+      "parentUuid": "b8d87708_83c11117",
+      "range": {
+        "startLine": 174,
+        "startChar": 7,
+        "endLine": 174,
+        "endChar": 25
+      },
+      "revId": "c4f61450d1d64902feacf083d8370ec72212565a",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "c2237355_2a623741",
         "filename": "modules/desktop_capture/window_capturer_win.cc",
         "patchSetId": 7
@@ -166,6 +214,30 @@
       "side": 1,
       "message": "capturer is already unique_ptr that accepts only raw pointer for its reset parameter. (using make_unique would make it compiler error).",
       "parentUuid": "c2237355_2a623741",
+      "range": {
+        "startLine": 34,
+        "startChar": 4,
+        "endLine": 35,
+        "endChar": 53
+      },
+      "revId": "c4f61450d1d64902feacf083d8370ec72212565a",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "7fcc7eb1_c8080f0a",
+        "filename": "modules/desktop_capture/window_capturer_win.cc",
+        "patchSetId": 7
+      },
+      "lineNbr": 35,
+      "author": {
+        "id": 18474
+      },
+      "writtenOn": "2022-03-10T20:39:00Z",
+      "side": 1,
+      "message": "Sorry, to clarify I meant we should consider:\n\n  capturer \u003d std::make_unique\u003cBlankDetectorCapturerWrapper\u003e(std::move(capturer), ...)\n\nWhich feels a bit better than the .reset that takes a std::moved\u0027d version of the main object.",
+      "parentUuid": "a3b66e8c_c6bd535e",
       "range": {
         "startLine": 34,
         "startChar": 4,
@@ -237,6 +309,30 @@
       "side": 1,
       "message": "I\u0027m fine with adding bool on the WgcCapturerWin::CreateRawWindowCapture(DesktopCaptureOptions options, bool delayed_capturable_check), but the only problem I have is that it looks like all CreateRawWindowCapturer has a same ctor of receiving only DesktopCaptureOptions.\n\nIf you still think to have bool param, I will add it.",
       "parentUuid": "cd8ad538_b1d5c9e5",
+      "range": {
+        "startLine": 38,
+        "startChar": 16,
+        "endLine": 38,
+        "endChar": 50
+      },
+      "revId": "c4f61450d1d64902feacf083d8370ec72212565a",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "2d078882_1db48736",
+        "filename": "modules/desktop_capture/window_capturer_win.cc",
+        "patchSetId": 7
+      },
+      "lineNbr": 38,
+      "author": {
+        "id": 18474
+      },
+      "writtenOn": "2022-03-10T20:39:00Z",
+      "side": 1,
+      "message": "I don\u0027t think that\u0027s a hard requirement of having the same constructor; but I do think that the bool should be optional, so that the signature becomes something like:\n```\nCreateRawWindowCapturer(const DesktopCaptureOptions\u0026 options, bool allow_delayed_capturable_check \u003d false);\n```",
+      "parentUuid": "2e53f150_025ab4d9",
       "range": {
         "startLine": 38,
         "startChar": 16,

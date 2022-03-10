@@ -16,6 +16,46 @@
       "message": "adds allow_wgc_capturer_fallback and replied comments.",
       "revId": "683152ea6f795faa779360ce132caffa311a0f43",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "86dc8e15_db0bf31d",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 9
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 18474
+      },
+      "writtenOn": "2022-03-10T20:39:00Z",
+      "side": 1,
+      "message": "This looks fine with a couple more cleanups; just trying to confirm what led to the conclusion that it *was* the system level capturer, as some of the descriptions lead me to think there\u0027s a possibility it wasn\u0027t.",
+      "revId": "683152ea6f795faa779360ce132caffa311a0f43",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "a6f71e6e_a86033cd",
+        "filename": "modules/desktop_capture/desktop_capture_options.h",
+        "patchSetId": 9
+      },
+      "lineNbr": 179,
+      "author": {
+        "id": 18474
+      },
+      "writtenOn": "2022-03-10T20:39:00Z",
+      "side": 1,
+      "message": "I assume this means unreliable at the OS level? It might be worth clarifying something like:\n\n\"where WGC is supported, but not used by default\"",
+      "range": {
+        "startLine": 179,
+        "startChar": 41,
+        "endLine": 179,
+        "endChar": 64
+      },
+      "revId": "683152ea6f795faa779360ce132caffa311a0f43",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

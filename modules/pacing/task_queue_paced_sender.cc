@@ -104,14 +104,18 @@ void TaskQueuePacedSender::UpdateOutstandingData(DataSize outstanding_data) {
     // Fast path since this can be called once per sent packet while on the
     // task queue.
     pacing_controller_.UpdateOutstandingData(outstanding_data);
-    MaybeProcessPackets(Timestamp::MinusInfinity());
+    if (pacing_controller_.Congested()) {
+      MaybeProcessPackets(Timestamp::MinusInfinity());
+    }
     return;
   }
 
   task_queue_.PostTask([this, outstanding_data]() {
     RTC_DCHECK_RUN_ON(&task_queue_);
     pacing_controller_.UpdateOutstandingData(outstanding_data);
-    MaybeProcessPackets(Timestamp::MinusInfinity());
+    if (pacing_controller_.Congested()) {
+      MaybeProcessPackets(Timestamp::MinusInfinity());
+    }
   });
 }
 

@@ -25,7 +25,7 @@ import sys
 # Even if protobuf is not used directly, this allows transitive imports
 # of the protobuf library to use the vpython wheel specified in the root
 # level .vpython (see bugs.webrtc.org/12211 for context).
-import google.protobuf  # pylint: disable=unused-import
+#import google.protobuf  # pylint: disable=unused-import
 
 
 def _CreateParser():

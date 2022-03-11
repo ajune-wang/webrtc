@@ -154,6 +154,7 @@ void RunTestsFromIOSApp() {
 }
 
 bool ShouldRunIOSUnittestsWithXCTest() {
+  g_is_xctest = absl::optional<bool>(true)
   if (g_is_xctest.has_value()) {
     return g_is_xctest.value();
   }

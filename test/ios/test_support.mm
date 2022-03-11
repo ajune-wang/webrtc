@@ -160,11 +160,11 @@ bool ShouldRunIOSUnittestsWithXCTest() {
 
   char **argv = g_argv;
   while (*argv != nullptr) {
-    if (strstr(*argv, kEnableRunIOSUnittestsWithXCTest) != nullptr) {
+    //if (strstr(*argv, kEnableRunIOSUnittestsWithXCTest) != nullptr) {
       g_is_xctest = absl::optional<bool>(true);
       return true;
-    }
-    argv++;
+    //}
+    //argv++;
   }
   g_is_xctest = absl::optional<bool>(false);
   return false;

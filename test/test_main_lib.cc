@@ -197,6 +197,11 @@ class TestMainImpl : public TestMain {
   }
 
   int Run(int argc, char* argv[]) override {
+    RTC_LOG(LS_WARNING) << "--> test";
+    for(int i=0;i<argc-1;i++)
+    {
+        RTC_LOG(LS_WARNING) << *argv[i];
+    }
     std::string trace_event_path = absl::GetFlag(FLAGS_trace_event);
     const bool capture_events = !trace_event_path.empty();
     if (capture_events) {

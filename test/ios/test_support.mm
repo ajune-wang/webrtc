@@ -32,7 +32,7 @@
 // run in a row, this provides an indication of which one is currently running.
 
 // If enabled, runs unittests using the XCTest test runner.
-const char kEnableRunIOSUnittestsWithXCTest[] = "enable-run-ios-unittests-with-xctest";
+//const char kEnableRunIOSUnittestsWithXCTest[] = "enable-run-ios-unittests-with-xctest";
 
 static int (*g_test_suite)(void) = NULL;
 static int g_argc;
@@ -160,11 +160,11 @@ bool ShouldRunIOSUnittestsWithXCTest() {
 
   char **argv = g_argv;
   while (*argv != nullptr) {
-    if (strstr(*argv, kEnableRunIOSUnittestsWithXCTest) != nullptr) {
+    //if (strstr(*argv, kEnableRunIOSUnittestsWithXCTest) != nullptr) {
       g_is_xctest = absl::optional<bool>(true);
       return true;
-    }
-    argv++;
+    //}
+    //argv++;
   }
   g_is_xctest = absl::optional<bool>(false);
   return false;

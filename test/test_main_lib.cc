@@ -49,6 +49,14 @@ ABSL_FLAG(std::string,
 
 // This is the cousin of isolated_script_test_perf_output, but we can't dictate
 // where to write on iOS so the semantics of this flag are a bit different.
+
+ABSL_FLAG(
+    bool,
+    enable-run-ios-unittests-with-xctest,
+    false,
+    "Store the perf results in Documents/perftest_result.pb in the format "
+    "described by histogram.proto in "
+    "https://chromium.googlesource.com/catapult/.");
 ABSL_FLAG(
     bool,
     write_perf_output_on_ios,
@@ -197,6 +205,7 @@ class TestMainImpl : public TestMain {
   }
 
   int Run(int argc, char* argv[]) override {
+    RTC_LOG(LS_WARNING) << "--> start";
     std::string trace_event_path = absl::GetFlag(FLAGS_trace_event);
     const bool capture_events = !trace_event_path.empty();
     if (capture_events) {
@@ -217,11 +226,14 @@ class TestMainImpl : public TestMain {
     }
 
 #if defined(WEBRTC_IOS)
+    RTC_LOG(LS_WARNING) << "--> start ios";
     rtc::test::InitTestSuite(RUN_ALL_TESTS, argc, argv,
                              absl::GetFlag(FLAGS_write_perf_output_on_ios),
                              metrics_to_plot);
+    RTC_LOG(LS_WARNING) << "--> run ios";
     rtc::test::RunTestsFromIOSApp();
     int exit_code = 0;
+    RTC_LOG(LS_WARNING) << "--> end ios";
 #else
     int exit_code = RUN_ALL_TESTS();
 
@@ -257,6 +269,7 @@ class TestMainImpl : public TestMain {
     exit_code = 0;
 #endif
 
+    RTC_LOG(LS_WARNING) << "--> end";
     return exit_code;
   }
 

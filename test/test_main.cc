@@ -18,6 +18,13 @@
 
 int main(int argc, char* argv[]) {
   // Initialize the symbolizer to get a human-readable stack trace
+  for (int i = 1; i < argc; ++i) {
+    if (std::string(argv[i]) ==
+        std::string("--enable-run-ios-unittests-with-xctest")) {
+      argv[i][0] = 0;  // Transform it in an empty string, putting null as first
+                       // character
+    }
+  }
   absl::InitializeSymbolizer(argv[0]);
   testing::InitGoogleMock(&argc, argv);
   absl::ParseCommandLine(argc, argv);

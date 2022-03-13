@@ -195,7 +195,7 @@ def _ApplyHacks(dicts):
 
 def _LoadHistogramSetFromProto(options):
   hs = histogram_set.HistogramSet()
-  with options.input_results_file as f:
+  with open(options.input_results_file, 'rb') as f:
     hs.ImportProto(f.read())
 
   return hs
@@ -233,13 +233,15 @@ def UploadToDashboard(options):
   if response.status != 200:
     print(('Upload failed with %d: %s\n\n%s' %
            (response.status, response.reason, content)))
-    return 1
+    raise RuntimeError(
+        ('Upload failed with %d: %s\n\n%s' %
+           (response.status, response.reason, content)))
 
   upload_token = json.loads(content).get('token')
   if not options.wait_for_upload or not upload_token:
     print(('Received 200 from dashboard. ',
            'Not waiting for the upload status confirmation.'))
-    return 0
+    return 3
 
   response, resp_json = _WaitForUploadConfirmation(
       options.dashboard_url, upload_token,
@@ -249,7 +251,7 @@ def UploadToDashboard(options):
   if ((resp_json and resp_json['state'] == 'COMPLETED')
       or _CheckFullUploadInfo(options.dashboard_url, upload_token)):
     print('Upload completed.')
-    return 0
+    return 3
 
   if response.status != 200:
     print(('Upload status poll failed with %d: %s' %

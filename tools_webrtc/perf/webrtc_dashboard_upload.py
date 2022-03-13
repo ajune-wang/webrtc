@@ -25,7 +25,7 @@ import sys
 # Even if protobuf is not used directly, this allows transitive imports
 # of the protobuf library to use the vpython wheel specified in the root
 # level .vpython (see bugs.webrtc.org/12211 for context).
-import google.protobuf  # pylint: disable=unused-import
+#import google.protobuf  # pylint: disable=unused-import
 
 
 def _CreateParser():
@@ -85,6 +85,7 @@ def _CreateParser():
                       help='Used only if wait-for-upload is True. Status '
                       'will be requested from the Dashboard every '
                       'wait-polling-period-sec seconds.')
+  parser.add_argument('--task-output-dir', help=argparse.SUPPRESS)
   return parser
 
 
@@ -126,6 +127,9 @@ def _ConfigurePythonPath(options):
 def main(args):
   parser = _CreateParser()
   options = parser.parse_args(args)
+
+  if args.task_output_dir:
+    os.chdir(args.task_output_dir)
 
   _ConfigurePythonPath(options)
 

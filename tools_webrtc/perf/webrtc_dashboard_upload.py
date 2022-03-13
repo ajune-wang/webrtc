@@ -19,13 +19,15 @@ there. It needs to be here source-side.
 """
 
 import argparse
+import logging
+import json
 import os
 import sys
 
 # Even if protobuf is not used directly, this allows transitive imports
 # of the protobuf library to use the vpython wheel specified in the root
 # level .vpython (see bugs.webrtc.org/12211 for context).
-import google.protobuf  # pylint: disable=unused-import
+#import google.protobuf  # pylint: disable=unused-import
 
 
 def _CreateParser():
@@ -58,7 +60,6 @@ def _CreateParser():
                       required=True,
                       help='Which dashboard to use.')
   parser.add_argument('--input-results-file',
-                      type=argparse.FileType('rb'),
                       required=True,
                       help='A HistogramSet proto file with output from '
                       'WebRTC tests.')
@@ -85,6 +86,11 @@ def _CreateParser():
                       help='Used only if wait-for-upload is True. Status '
                       'will be requested from the Dashboard every '
                       'wait-polling-period-sec seconds.')
+  parser.add_argument('--task-output-dir', help=argparse.SUPPRESS)
+  parser.add_argument('--build-properties', help=argparse.SUPPRESS)
+  parser.add_argument('--summary-json', help=argparse.SUPPRESS)
+  parser.add_argument('-o', '--output-json', help=argparse.SUPPRESS)
+  parser.add_argument('json_files', nargs='*', help=argparse.SUPPRESS)
   return parser
 
 
@@ -125,13 +131,32 @@ def _ConfigurePythonPath(options):
 
 def main(args):
   parser = _CreateParser()
+  logging.error('--> start parse')
   options = parser.parse_args(args)
 
+  logging.error('-->1 ' + str(os.getcwd()))
+  logging.error('-->1 ' + str(os.listdir(os.getcwd())))
+  task_output_dir = options.task_output_dir
+  if options.task_output_dir:
+    logging.error('--> start parse3')
+    directory_list = [
+        f for f in os.listdir(task_output_dir)
+        if not os.path.isfile(os.path.join(task_output_dir, f))
+    ]
+    os.chdir(os.path.join(options.task_output_dir, directory_list[0]))
+
+  logging.error('-->2 ' + str(os.getcwd()))
+  logging.error('-->2 ' + str(os.listdir(os.getcwd())))
   _ConfigurePythonPath(options)
 
   import catapult_uploader
 
-  return catapult_uploader.UploadToDashboard(options)
+  exit_code = catapult_uploader.UploadToDashboard(options)
+  if exit_code != 0:
+    error_results = {'global_tags': ['UNRELIABLE_RESULTS']}
+    with open(options.output_json, 'w') as f:
+      json.dump(error_results, f)
+  return exit_code
 
 
 if __name__ == '__main__':

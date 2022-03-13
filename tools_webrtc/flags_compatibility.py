@@ -18,6 +18,7 @@ def main():
   parser = argparse.ArgumentParser()
   parser.add_argument('--isolated-script-test-output')
   parser.add_argument('--isolated-script-test-perf-output')
+  parser.add_argument('--enable-run-ios-unittests-with-xctest')
   args, unrecognized_args = parser.parse_known_args()
 
   test_command = _ForcePythonInterpreter(unrecognized_args)

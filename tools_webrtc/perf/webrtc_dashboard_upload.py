@@ -19,13 +19,14 @@ there. It needs to be here source-side.
 """
 
 import argparse
+import logging
 import os
 import sys
 
 # Even if protobuf is not used directly, this allows transitive imports
 # of the protobuf library to use the vpython wheel specified in the root
 # level .vpython (see bugs.webrtc.org/12211 for context).
-import google.protobuf  # pylint: disable=unused-import
+#import google.protobuf  # pylint: disable=unused-import
 
 
 def _CreateParser():
@@ -58,7 +59,6 @@ def _CreateParser():
                       required=True,
                       help='Which dashboard to use.')
   parser.add_argument('--input-results-file',
-                      type=argparse.FileType('rb'),
                       required=True,
                       help='A HistogramSet proto file with output from '
                       'WebRTC tests.')
@@ -85,6 +85,11 @@ def _CreateParser():
                       help='Used only if wait-for-upload is True. Status '
                       'will be requested from the Dashboard every '
                       'wait-polling-period-sec seconds.')
+  parser.add_argument('--task-output-dir', help=argparse.SUPPRESS)
+  parser.add_argument('--build-properties', help=argparse.SUPPRESS)
+  parser.add_argument('--summary-json', help=argparse.SUPPRESS)
+  parser.add_argument('-o', '--output-json', help=argparse.SUPPRESS)
+  parser.add_argument('json_files', nargs='*', help=argparse.SUPPRESS)
   return parser
 
 
@@ -125,8 +130,15 @@ def _ConfigurePythonPath(options):
 
 def main(args):
   parser = _CreateParser()
+  logging.error('--> start parse')
   options = parser.parse_args(args)
 
+  logging.error('--> start parse2')
+  if options.task_output_dir:
+    logging.error('--> start parse3')
+    os.chdir(options.task_output_dir)
+
+  logging.error('-->1 ' + str(os.getcwd()))
   _ConfigurePythonPath(options)
 
   import catapult_uploader

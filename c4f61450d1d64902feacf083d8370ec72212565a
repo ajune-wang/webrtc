@@ -120,6 +120,30 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": true,
+      "key": {
+        "uuid": "5e2de460_65c52755",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 7
+      },
+      "lineNbr": 12,
+      "author": {
+        "id": 12416
+      },
+      "writtenOn": "2022-03-14T21:23:41Z",
+      "side": 1,
+      "message": "I remember we were able to repro this across versions and even across browsers (e.g. Chrome capturing PiP window from Edge) as well as within the same browser instance.",
+      "parentUuid": "65d027b9_bc82b0e7",
+      "range": {
+        "startLine": 11,
+        "startChar": 32,
+        "endLine": 12,
+        "endChar": 42
+      },
+      "revId": "c4f61450d1d64902feacf083d8370ec72212565a",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": false,
       "key": {
         "uuid": "2586a9d1_13790d71",

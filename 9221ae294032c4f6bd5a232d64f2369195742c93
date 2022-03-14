@@ -35,6 +35,23 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "820542dc_4ac976b2",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 4
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2022-03-14T10:43:16Z",
+      "side": 1,
+      "message": "I\u0027ve had a look at the places Mirko pointed out.\n\nI think it would make sense to start with landing cls for the easy cases, where no additional copies are needed. And then we can review remaining cases more carefully.",
+      "revId": "9221ae294032c4f6bd5a232d64f2369195742c93",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "5ccd7989_4b863e97",
@@ -48,6 +65,30 @@
       "writtenOn": "2022-03-14T10:21:41Z",
       "side": 1,
       "message": "I haven\u0027t thought too much about this, but I wonder if hostname.data() works here?",
+      "range": {
+        "startLine": 104,
+        "startChar": 18,
+        "endLine": 104,
+        "endChar": 47
+      },
+      "revId": "9221ae294032c4f6bd5a232d64f2369195742c93",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "a65658c0_a14cdf01",
+        "filename": "rtc_base/async_resolver.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 104,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2022-03-14T10:43:16Z",
+      "side": 1,
+      "message": "string_views are by designed not nul-terminated (that\u0027s how you can refer to a substring without copying), so .data() doesn\u0027t work.\n\nI think it\u0027s reasonable to create a copy where needed, when we have to call C api functions that require nul-termination.\n\nExcept in case we know that all callers actually have a nul-terminated string; in that case we could try to avoid the extra copy.",
+      "parentUuid": "5ccd7989_4b863e97",
       "range": {
         "startLine": 104,
         "startChar": 18,
@@ -83,6 +124,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "8a6f9525_490cc725",
+        "filename": "rtc_base/checks.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 44,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2022-03-14T10:43:16Z",
+      "side": 1,
+      "message": "Don\u0027t think it\u0027s worth much effort to optimize away the copy in this place.\n\nHowever, the fprintf(stderr, \"%s\", output_c) could be replaced with an fwrite with pointer and length. As for _android_log_print, maybe worth checking if there\u0027s some format specifier that lets you pass pointer and length (I think standard printf field width is useless, since that\u0027s essentially minimum field with, and we need amaximum field width).",
+      "parentUuid": "e10a1441_5b4bb72c",
+      "range": {
+        "startLine": 43,
+        "startChar": 2,
+        "endLine": 44,
+        "endChar": 44
+      },
+      "revId": "9221ae294032c4f6bd5a232d64f2369195742c93",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "029a446b_b2fe7835",
         "filename": "rtc_base/experiments/field_trial_parser.cc",
         "patchSetId": 4
@@ -106,6 +171,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "782dffd2_5b0c1a7d",
+        "filename": "rtc_base/experiments/field_trial_parser.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 128,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2022-03-14T10:43:16Z",
+      "side": 1,
+      "message": "We could perhaps use absl::SimpleAToF. And I wonder if we really need the unit/% feature?",
+      "parentUuid": "029a446b_b2fe7835",
+      "range": {
+        "startLine": 128,
+        "startChar": 6,
+        "endLine": 128,
+        "endChar": 37
+      },
+      "revId": "9221ae294032c4f6bd5a232d64f2369195742c93",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "c0fb1a5d_1bb191c4",
         "filename": "rtc_base/experiments/field_trial_units.cc",
         "patchSetId": 4
@@ -117,6 +206,30 @@
       "writtenOn": "2022-03-14T10:21:41Z",
       "side": 1,
       "message": "Return nullopt in case data() is nullptr and just avoid to create a std::string?",
+      "range": {
+        "startLine": 41,
+        "startChar": 15,
+        "endLine": 41,
+        "endChar": 39
+      },
+      "revId": "9221ae294032c4f6bd5a232d64f2369195742c93",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "e624385b_a49e3541",
+        "filename": "rtc_base/experiments/field_trial_units.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 41,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2022-03-14T10:43:16Z",
+      "side": 1,
+      "message": "Hmm, I don\u0027t get this comment. But since I think the input here us typicalyl a substring with no nul-termination, I think it makes sense to make any required copy at this place, and not higher up.",
+      "parentUuid": "c0fb1a5d_1bb191c4",
       "range": {
         "startLine": 41,
         "startChar": 15,

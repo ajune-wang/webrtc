@@ -35,6 +35,7 @@ rtc_library("pacing") {
     "..:module_api",
     "../../api:function_view",
     "../../api:sequence_checker",
+    "../../api:webrtc_key_value_config",
     "../../api/rtc_event_log",
     "../../api/task_queue:task_queue",
     "../../api/transport:field_trial_based_config",

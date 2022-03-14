@@ -16,6 +16,41 @@
       "message": "I\u0027m completely unable to find any doc on how to run this test on my dev environment ?",
       "revId": "4527c1308f5af450953b29f2386991590546e822",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "27e2c2bb_51c732d0",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5578
+      },
+      "writtenOn": "2022-03-14T20:10:49Z",
+      "side": 1,
+      "message": "mbonadei@ - would you happen to know what the status is with devices on bots and why this now fails? ",
+      "revId": "4527c1308f5af450953b29f2386991590546e822",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "c5e52b03_2ee3d153",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5578
+      },
+      "writtenOn": "2022-03-14T20:10:49Z",
+      "side": 1,
+      "message": "The failure has nothing to do with your cl. It seems like the bots no longer have a capture device.",
+      "parentUuid": "9776be1a_a7f868e9",
+      "revId": "4527c1308f5af450953b29f2386991590546e822",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

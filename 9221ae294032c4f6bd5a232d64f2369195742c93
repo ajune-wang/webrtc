@@ -149,6 +149,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "4cd6722b_0abeaa7f",
+        "filename": "rtc_base/async_resolver.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 104,
+      "author": {
+        "id": 10107
+      },
+      "writtenOn": "2022-03-14T11:37:02Z",
+      "side": 1,
+      "message": "I think in this case it makes sense to just use a std::string\u0026. I see now that this is an internal helper function only and that it is used in only one place further below, where the caller already has a std::string. So I\u0027ll change this back to std::string. wdyt?",
+      "parentUuid": "a65658c0_a14cdf01",
+      "range": {
+        "startLine": 104,
+        "startChar": 18,
+        "endLine": 104,
+        "endChar": 47
+      },
+      "revId": "9221ae294032c4f6bd5a232d64f2369195742c93",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "e10a1441_5b4bb72c",
         "filename": "rtc_base/checks.cc",
         "patchSetId": 4
@@ -183,6 +207,30 @@
       "writtenOn": "2022-03-14T10:43:16Z",
       "side": 1,
       "message": "Don\u0027t think it\u0027s worth much effort to optimize away the copy in this place.\n\nHowever, the fprintf(stderr, \"%s\", output_c) could be replaced with an fwrite with pointer and length. As for _android_log_print, maybe worth checking if there\u0027s some format specifier that lets you pass pointer and length (I think standard printf field width is useless, since that\u0027s essentially minimum field with, and we need amaximum field width).",
+      "parentUuid": "e10a1441_5b4bb72c",
+      "range": {
+        "startLine": 43,
+        "startChar": 2,
+        "endLine": 44,
+        "endChar": 44
+      },
+      "revId": "9221ae294032c4f6bd5a232d64f2369195742c93",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "8e075168_59a54806",
+        "filename": "rtc_base/checks.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 44,
+      "author": {
+        "id": 10107
+      },
+      "writtenOn": "2022-03-14T11:37:02Z",
+      "side": 1,
+      "message": "Done. I checked and unfortunately, android/log.h doesn\u0027t provide any functions that take the length of the string.",
       "parentUuid": "e10a1441_5b4bb72c",
       "range": {
         "startLine": 43,
@@ -230,6 +278,30 @@
       "writtenOn": "2022-03-14T10:43:16Z",
       "side": 1,
       "message": "We could perhaps use absl::SimpleAToF. And I wonder if we really need the unit/% feature?",
+      "parentUuid": "029a446b_b2fe7835",
+      "range": {
+        "startLine": 128,
+        "startChar": 6,
+        "endLine": 128,
+        "endChar": 37
+      },
+      "revId": "9221ae294032c4f6bd5a232d64f2369195742c93",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "b5b6b426_9d6d8893",
+        "filename": "rtc_base/experiments/field_trial_parser.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 128,
+      "author": {
+        "id": 10107
+      },
+      "writtenOn": "2022-03-14T11:37:02Z",
+      "side": 1,
+      "message": "absl::SimpleAToF is not allowed yet according to chromium/webrtc style guides.\n\nI\u0027ve adden an empty() check in the code for now. wdyt?",
       "parentUuid": "029a446b_b2fe7835",
       "range": {
         "startLine": 128,
@@ -302,6 +374,30 @@
       "side": 1,
       "message": "Yes, I forgot that .data() doesn\u0027t mean it is nul-terminated. So this is OK.\n\nIn general (but this was true also in the past when we tried to switch to string_view), it looks to me that `const string\u0026` has its advantages in some cases, and string_view reverts some invariants (e.g. knowing it is nul-terminated), forcing us to take copies. In some cases, it is fine (not hot paths) but in other cases it is unclear.\n\nI wonder if we should switch to string_view everywhere % some places where const string\u0026 actually makes sense?",
       "parentUuid": "e624385b_a49e3541",
+      "range": {
+        "startLine": 41,
+        "startChar": 15,
+        "endLine": 41,
+        "endChar": 39
+      },
+      "revId": "9221ae294032c4f6bd5a232d64f2369195742c93",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "b6ae151d_2733fa1e",
+        "filename": "rtc_base/experiments/field_trial_units.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 41,
+      "author": {
+        "id": 10107
+      },
+      "writtenOn": "2022-03-14T11:37:02Z",
+      "side": 1,
+      "message": "I agree that it would make sense to keep std::string\u0026 in hot paths, but I haven\u0027t really encountered any in this CL (to my knowledge).",
+      "parentUuid": "ac02d0c5_ceb15f4a",
       "range": {
         "startLine": 41,
         "startChar": 15,

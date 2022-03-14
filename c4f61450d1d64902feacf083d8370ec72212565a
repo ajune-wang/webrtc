@@ -72,6 +72,30 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": true,
+      "key": {
+        "uuid": "11d2beaf_ea249d2d",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 7
+      },
+      "lineNbr": 12,
+      "author": {
+        "id": 18789
+      },
+      "writtenOn": "2022-03-14T18:49:56Z",
+      "side": 1,
+      "message": "Afaik, it failed to capture of the same instance\u0027s view. I don\u0027t remember if I\u0027ve tested on other instance\u0027s youbute but I assume it also failed to capture it. Austin and I thought it is an issue in the GDI and Windows.",
+      "parentUuid": "65d027b9_bc82b0e7",
+      "range": {
+        "startLine": 11,
+        "startChar": 32,
+        "endLine": 12,
+        "endChar": 42
+      },
+      "revId": "c4f61450d1d64902feacf083d8370ec72212565a",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": false,
       "key": {
         "uuid": "2586a9d1_13790d71",
@@ -177,6 +201,30 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "77fad6c1_06e2ed01",
+        "filename": "modules/desktop_capture/desktop_capture_options.h",
+        "patchSetId": 7
+      },
+      "lineNbr": 174,
+      "author": {
+        "id": 18789
+      },
+      "writtenOn": "2022-03-14T18:49:56Z",
+      "side": 1,
+      "message": "will do once this one merged.",
+      "parentUuid": "273ad6b8_5906898e",
+      "range": {
+        "startLine": 174,
+        "startChar": 7,
+        "endLine": 174,
+        "endChar": 25
+      },
+      "revId": "c4f61450d1d64902feacf083d8370ec72212565a",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "c2237355_2a623741",
@@ -238,6 +286,30 @@
       "side": 1,
       "message": "Sorry, to clarify I meant we should consider:\n\n  capturer \u003d std::make_unique\u003cBlankDetectorCapturerWrapper\u003e(std::move(capturer), ...)\n\nWhich feels a bit better than the .reset that takes a std::moved\u0027d version of the main object.",
       "parentUuid": "a3b66e8c_c6bd535e",
+      "range": {
+        "startLine": 34,
+        "startChar": 4,
+        "endLine": 35,
+        "endChar": 53
+      },
+      "revId": "c4f61450d1d64902feacf083d8370ec72212565a",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "54050e78_563aaaa9",
+        "filename": "modules/desktop_capture/window_capturer_win.cc",
+        "patchSetId": 7
+      },
+      "lineNbr": 35,
+      "author": {
+        "id": 18789
+      },
+      "writtenOn": "2022-03-14T18:49:56Z",
+      "side": 1,
+      "message": "thanks for clarification, I\u0027m fine with suggestion.",
+      "parentUuid": "7fcc7eb1_c8080f0a",
       "range": {
         "startLine": 34,
         "startChar": 4,
@@ -333,6 +405,30 @@
       "side": 1,
       "message": "I don\u0027t think that\u0027s a hard requirement of having the same constructor; but I do think that the bool should be optional, so that the signature becomes something like:\n```\nCreateRawWindowCapturer(const DesktopCaptureOptions\u0026 options, bool allow_delayed_capturable_check \u003d false);\n```",
       "parentUuid": "2e53f150_025ab4d9",
+      "range": {
+        "startLine": 38,
+        "startChar": 16,
+        "endLine": 38,
+        "endChar": 50
+      },
+      "revId": "c4f61450d1d64902feacf083d8370ec72212565a",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "7a27ca29_1f22e2cf",
+        "filename": "modules/desktop_capture/window_capturer_win.cc",
+        "patchSetId": 7
+      },
+      "lineNbr": 38,
+      "author": {
+        "id": 18789
+      },
+      "writtenOn": "2022-03-14T18:49:56Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "2d078882_1db48736",
       "range": {
         "startLine": 38,
         "startChar": 16,

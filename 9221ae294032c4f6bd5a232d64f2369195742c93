@@ -101,6 +101,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "9a84faf0_4f25cda8",
+        "filename": "rtc_base/async_resolver.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 104,
+      "author": {
+        "id": 5087
+      },
+      "writtenOn": "2022-03-14T10:54:58Z",
+      "side": 1,
+      "message": "\u003e string_views are by designed not nul-terminated (that\u0027s how you can refer to a substring without copying), so .data() doesn\u0027t work.\n\nRight, thanks. I forgot that.\n\n\u003e I think it\u0027s reasonable to create a copy where needed, when we have to call C api functions that require nul-termination.\n\nIsn\u0027t const string\u0026 better in such case?\n \n\u003e Except in case we know that all callers actually have a nul-terminated string; in that case we could try to avoid the extra copy.\n\nBut we cannot know based on the type, so that would be a risk we take.",
+      "parentUuid": "a65658c0_a14cdf01",
+      "range": {
+        "startLine": 104,
+        "startChar": 18,
+        "endLine": 104,
+        "endChar": 47
+      },
+      "revId": "9221ae294032c4f6bd5a232d64f2369195742c93",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "e10a1441_5b4bb72c",
         "filename": "rtc_base/checks.cc",
         "patchSetId": 4

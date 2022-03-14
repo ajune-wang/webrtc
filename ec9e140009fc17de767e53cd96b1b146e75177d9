@@ -22,6 +22,30 @@
       },
       "revId": "ec9e140009fc17de767e53cd96b1b146e75177d9",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "a51a8238_274e7329",
+        "filename": "rtc_base/boringssl_identity.cc",
+        "patchSetId": 8
+      },
+      "lineNbr": 76,
+      "author": {
+        "id": 10107
+      },
+      "writtenOn": "2022-03-14T15:53:57Z",
+      "side": 1,
+      "message": "But this copy is necessary, even if a std::string\u0026 is passed.",
+      "parentUuid": "2c381440_8517d184",
+      "range": {
+        "startLine": 76,
+        "startChar": 0,
+        "endLine": 76,
+        "endChar": 48
+      },
+      "revId": "ec9e140009fc17de767e53cd96b1b146e75177d9",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

@@ -74,6 +74,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "82fd038c_ed2fdee0",
+        "filename": "system_wrappers/include/rtp_to_ntp_estimator.h",
+        "patchSetId": 6
+      },
+      "lineNbr": 49,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2022-03-14T10:40:08Z",
+      "side": 1,
+      "message": "NtpTime suppose to represent absolute time, not NtpTime diff (there is no type for that diff due to low usage)\nThis is [now] a private structure, why does it need so detailed documentation?\nunits indeed are not obvious, there are no types that represent them.\noffset is 1/2^32 seconds,\nslope is 1/2^32 seconds / rtp ticks [and rtp ticks is payload type specific: This class estimates rtp clock rate]\n\nI\u0027m not sure how to describe units better than with the formula.",
+      "parentUuid": "102d7bcc_5cf63bb7",
+      "range": {
+        "startLine": 49,
+        "startChar": 2,
+        "endLine": 49,
+        "endChar": 78
+      },
+      "revId": "941f6398ea92110b50e6201438d95680d6d4100f",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "479833b1_ee81ef57",
         "filename": "system_wrappers/source/rtp_to_ntp_estimator.cc",
         "patchSetId": 6

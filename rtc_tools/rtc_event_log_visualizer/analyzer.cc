@@ -1196,11 +1196,16 @@ void EventLogAnalyzer::CreateSendSideBweSimulationGraph(Plot* plot) {
   const std::vector<TransportFeedbackType>& incoming_rtcp =
       parsed_log_.transport_feedbacks(kIncomingPacket);
 
+  test::ExplicitKeyValueConfig throughput_config(
+      "WebRTC-Bwe-RobustThroughputEstimatorSettings/"
+      "enabled:true,reduce_bias:true,assume_shared_link:false,initial_packets:"
+      "10,min_packets:25,window_duration:750ms,unacked_weight:0.5/");
+
   SimulatedClock clock(0);
   BitrateObserver observer;
   RtcEventLogNull null_event_log;
   PacketRouter packet_router;
-  PacedSender pacer(&clock, &packet_router, &null_event_log);
+  PacedSender pacer(&clock, &packet_router, &null_event_log, throughput_config);
   TransportFeedbackAdapter transport_feedback;
   auto factory = GoogCcNetworkControllerFactory();
   TimeDelta process_interval = factory.GetProcessInterval();
@@ -1248,10 +1253,6 @@ void EventLogAnalyzer::CreateSendSideBweSimulationGraph(Plot* plot) {
   };
 
   RateStatistics acked_bitrate(750, 8000);
-  test::ExplicitKeyValueConfig throughput_config(
-      "WebRTC-Bwe-RobustThroughputEstimatorSettings/"
-      "enabled:true,reduce_bias:true,assume_shared_link:false,initial_packets:"
-      "10,min_packets:25,window_duration:750ms,unacked_weight:0.5/");
   std::unique_ptr<AcknowledgedBitrateEstimatorInterface>
       robust_throughput_estimator(
           AcknowledgedBitrateEstimatorInterface::Create(&throughput_config));

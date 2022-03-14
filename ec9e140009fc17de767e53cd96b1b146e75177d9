@@ -121,6 +121,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "3c6ee5f1_2e82167c",
+        "filename": "rtc_base/strings/json.cc",
+        "patchSetId": 8
+      },
+      "lineNbr": 246,
+      "author": {
+        "id": 5087
+      },
+      "writtenOn": "2022-03-14T16:51:38Z",
+      "side": 1,
+      "message": "IIUC this is not a copy (e.g. https://source.chromium.org/chromium/chromium/src/+/main:third_party/jsoncpp/source/include/json/value.h;l\u003d553;drc\u003dc8453d39d1d98ddafd15267d9d55223cdc48f2b1) because jsoncpp has APIs receiving const string\u0026.\n\nThe thing I am not happy about (but I am fine with it in the goal of uniforming the codebase, I just need to get used to it) is the temporary just because string_view introduces a problem (no jsoncpp API takes a string_view, so we are forced to workaround with an extra variable).",
+      "parentUuid": "013531d6_9e1a930c",
+      "range": {
+        "startLine": 246,
+        "startChar": 2,
+        "endLine": 246,
+        "endChar": 37
+      },
+      "revId": "ec9e140009fc17de767e53cd96b1b146e75177d9",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "82bf51fb_9f80d434",
         "filename": "rtc_base/unique_id_generator.cc",
         "patchSetId": 8
@@ -156,6 +180,30 @@
       "side": 1,
       "message": "I wanted to do the conversion from const char *s separately from const std::string\u0026. I realize now that I could have probably done both at the same time. Could we wait until I get to convert const char* as a follow-up?",
       "parentUuid": "82bf51fb_9f80d434",
+      "range": {
+        "startLine": 61,
+        "startChar": 31,
+        "endLine": 61,
+        "endChar": 49
+      },
+      "revId": "ec9e140009fc17de767e53cd96b1b146e75177d9",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "b113f5de_48bb8297",
+        "filename": "rtc_base/unique_id_generator.cc",
+        "patchSetId": 8
+      },
+      "lineNbr": 61,
+      "author": {
+        "id": 5087
+      },
+      "writtenOn": "2022-03-14T16:51:38Z",
+      "side": 1,
+      "message": "Yes, sounds good to me.\n\nShould we add a TODO here so we don\u0027t forget?",
+      "parentUuid": "836fc08c_104f1412",
       "range": {
         "startLine": 61,
         "startChar": 31,

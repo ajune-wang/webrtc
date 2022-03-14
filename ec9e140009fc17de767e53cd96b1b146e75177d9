@@ -97,6 +97,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "013531d6_9e1a930c",
+        "filename": "rtc_base/strings/json.cc",
+        "patchSetId": 8
+      },
+      "lineNbr": 246,
+      "author": {
+        "id": 10107
+      },
+      "writtenOn": "2022-03-14T16:44:13Z",
+      "side": 1,
+      "message": "Do you mind if I ask why? This seems like the same kind of temporary conversion to std::string as when we call OS APIs (since the json library is external).",
+      "parentUuid": "4d0ae1bb_13937acc",
+      "range": {
+        "startLine": 246,
+        "startChar": 2,
+        "endLine": 246,
+        "endChar": 37
+      },
+      "revId": "ec9e140009fc17de767e53cd96b1b146e75177d9",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "82bf51fb_9f80d434",
         "filename": "rtc_base/unique_id_generator.cc",
         "patchSetId": 8
@@ -108,6 +132,30 @@
       "writtenOn": "2022-03-14T16:30:24Z",
       "side": 1,
       "message": "Should we update https://source.chromium.org/chromium/chromium/src/+/main:third_party/webrtc/rtc_base/string_to_number.h;l\u003d60;drc\u003d988cc0870bb49c855b4547f929462eeb38186d12 and pass the string_view here?",
+      "range": {
+        "startLine": 61,
+        "startChar": 31,
+        "endLine": 61,
+        "endChar": 49
+      },
+      "revId": "ec9e140009fc17de767e53cd96b1b146e75177d9",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "836fc08c_104f1412",
+        "filename": "rtc_base/unique_id_generator.cc",
+        "patchSetId": 8
+      },
+      "lineNbr": 61,
+      "author": {
+        "id": 10107
+      },
+      "writtenOn": "2022-03-14T16:44:13Z",
+      "side": 1,
+      "message": "I wanted to do the conversion from const char *s separately from const std::string\u0026. I realize now that I could have probably done both at the same time. Could we wait until I get to convert const char* as a follow-up?",
+      "parentUuid": "82bf51fb_9f80d434",
       "range": {
         "startLine": 61,
         "startChar": 31,

@@ -125,6 +125,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "a47dcb2d_6c8aa97a",
+        "filename": "rtc_base/async_resolver.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 104,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2022-03-14T11:08:21Z",
+      "side": 1,
+      "message": "\u003e \u003e I think it\u0027s reasonable to create a copy where needed, when we have to call C api functions that require nul-termination.\n\u003e \n\u003e Isn\u0027t const string\u0026 better in such case?\n\nDepends. If that implies that we just move the copying to (almost) all call sites, I\u0027d prefer to keep absl::string_view in the interface, and keep the copying locally in the implementation.\n  \n\u003e \u003e Except in case we know that all callers actually have a nul-terminated string; in that case we could try to avoid the extra copy.\n\u003e \n\u003e But we cannot know based on the type, so that would be a risk we take.\n\nIn those cases, we shouldn\u0027t use string_view, but either const std::string\u0026, or maybe just const char*.\n\n(In general, I\u0027m not that fond of using .c_str(), I would prefer replacing it with some function that also checks if the given string has embedded nul characters, and fails in that case, i.e., fail whenever s.size() !\u003d strlen(s.c_str()). Such inconsistencies in interpretation have been exploited in the past, see e.g.,  https://it.slashdot.org/story/09/07/30/186228/null-character-hack-allows-ssl-spoofing).",
+      "parentUuid": "9a84faf0_4f25cda8",
+      "range": {
+        "startLine": 104,
+        "startChar": 18,
+        "endLine": 104,
+        "endChar": 47
+      },
+      "revId": "9221ae294032c4f6bd5a232d64f2369195742c93",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "e10a1441_5b4bb72c",
         "filename": "rtc_base/checks.cc",
         "patchSetId": 4

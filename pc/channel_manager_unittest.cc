@@ -83,6 +83,7 @@ class ChannelManagerTest : public ::testing::Test {
     cm_->DestroyChannel(voice_channel);
   }
 
+  rtc::AutoThread main_thread_;
   std::unique_ptr<rtc::Thread> network_;
   rtc::Thread* const worker_;
   std::unique_ptr<webrtc::VideoBitrateAllocatorFactory>

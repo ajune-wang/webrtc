@@ -5142,6 +5142,7 @@ TEST_F(P2PTransportChannelMostLikelyToWorkFirstTest, TestTcpTurn) {
 // if the channel is not destroyed.
 TEST(P2PTransportChannelResolverTest, HostnameCandidateIsResolved) {
   ResolverFactoryFixture resolver_fixture;
+  rtc::AutoThread main_thread;
   FakePortAllocator allocator(rtc::Thread::Current(), nullptr);
   auto channel =
       P2PTransportChannel::Create("tn", 0, &allocator, &resolver_fixture);

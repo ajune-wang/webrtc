@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "35873d6f_ec655170",
+        "filename": "rtc_base/async_resolver.cc",
+        "patchSetId": 6
+      },
+      "lineNbr": 17,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2022-03-14T12:47:15Z",
+      "side": 1,
+      "message": "Undo this change too?",
+      "range": {
+        "startLine": 17,
+        "startChar": 0,
+        "endLine": 17,
+        "endChar": 37
+      },
+      "revId": "f1c3d4c23437cef56969dcaaf5598d15d5614a96",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

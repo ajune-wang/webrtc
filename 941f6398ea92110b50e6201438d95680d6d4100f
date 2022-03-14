@@ -24,6 +24,30 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "7ebd3fa5_af353389",
+        "filename": "system_wrappers/include/rtp_to_ntp_estimator.h",
+        "patchSetId": 6
+      },
+      "lineNbr": 49,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2022-03-14T10:04:05Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "e1186e8d_7c933c04",
+      "range": {
+        "startLine": 49,
+        "startChar": 2,
+        "endLine": 49,
+        "endChar": 78
+      },
+      "revId": "941f6398ea92110b50e6201438d95680d6d4100f",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "479833b1_ee81ef57",
@@ -47,6 +71,30 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "ae254026_54b8b97c",
+        "filename": "system_wrappers/source/rtp_to_ntp_estimator.cc",
+        "patchSetId": 6
+      },
+      "lineNbr": 34,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2022-03-14T10:04:05Z",
+      "side": 1,
+      "message": "there is only single use of contains, and it isn\u0027t that long, so inlining is another way to avoid the hack. lg?",
+      "parentUuid": "479833b1_ee81ef57",
+      "range": {
+        "startLine": 33,
+        "startChar": 0,
+        "endLine": 34,
+        "endChar": 57
+      },
+      "revId": "941f6398ea92110b50e6201438d95680d6d4100f",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "66b5a7e9_2c14ae69",
@@ -60,6 +108,30 @@
       "writtenOn": "2022-03-14T09:49:43Z",
       "side": 1,
       "message": "I would have expected a more incremental algorithm to run the regression, but if number of measurements isn\u0027t that large, I guess it\u0027s fine as is.",
+      "range": {
+        "startLine": 77,
+        "startChar": 0,
+        "endLine": 79,
+        "endChar": 39
+      },
+      "revId": "941f6398ea92110b50e6201438d95680d6d4100f",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "247c28d4_a43f4f86",
+        "filename": "system_wrappers/source/rtp_to_ntp_estimator.cc",
+        "patchSetId": 6
+      },
+      "lineNbr": 79,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2022-03-14T10:04:05Z",
+      "side": 1,
+      "message": "algorithm is not changed in this change.\n(what did change is y axis: instead of storing/evaluating ntp time in ms, it is evaluated in own internal units, which increases precision and may reduce number of conversions)",
+      "parentUuid": "66b5a7e9_2c14ae69",
       "range": {
         "startLine": 77,
         "startChar": 0,

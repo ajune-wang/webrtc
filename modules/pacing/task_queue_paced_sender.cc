@@ -12,6 +12,7 @@
 
 #include <algorithm>
 #include <utility>
+
 #include "absl/memory/memory.h"
 #include "rtc_base/checks.h"
 #include "rtc_base/event.h"
@@ -20,6 +21,13 @@
 #include "rtc_base/trace_event.h"
 
 namespace webrtc {
+
+namespace {
+
+constexpr const char* kSlackedTaskQueuePacedSenderFieldTrial =
+    "WebRTC-SlackedTaskQueuePacedSender";
+
+}  // namespace
 
 TaskQueuePacedSender::TaskQueuePacedSender(
     Clock* clock,
@@ -32,6 +40,9 @@ TaskQueuePacedSender::TaskQueuePacedSender(
     : clock_(clock),
       max_hold_back_window_(max_hold_back_window),
       max_hold_back_window_in_packets_(max_hold_back_window_in_packets),
+      allow_low_precision_(
+          field_trials &&
+          field_trials->IsEnabled(kSlackedTaskQueuePacedSenderFieldTrial)),
       pacing_controller_(clock,
                          packet_sender,
                          event_log,
@@ -271,7 +282,14 @@ void TaskQueuePacedSender::MaybeProcessPackets(
     // Set a new scheduled process time and post a delayed task.
     next_process_time_ = next_process_time;
 
-    task_queue_.PostDelayedHighPrecisionTask(
+    TaskQueueBase::DelayPrecision precision =
+        TaskQueueBase::DelayPrecision::kHigh;
+    if (allow_low_precision_ && !pacing_controller_.IsProbing()) {
+      precision = TaskQueueBase::DelayPrecision::kLow;
+    }
+
+    task_queue_.PostDelayedTaskWithPrecision(
+        precision,
         [this, next_process_time]() { MaybeProcessPackets(next_process_time); },
         time_to_next_process->ms<uint32_t>());
   }

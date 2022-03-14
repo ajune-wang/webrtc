@@ -1,0 +1,142 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "b5ad50e8_f339b284",
+        "filename": "modules/congestion_controller/goog_cc/loss_based_bwe_v2.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 185,
+      "author": {
+        "id": 5578
+      },
+      "writtenOn": "2022-03-14T10:08:35Z",
+      "side": 1,
+      "message": "I dont understand how long this window is? \nWhy observation_window_size / 2 ? And how long time is that? what affects the time? \nPlease document this in the header file.",
+      "range": {
+        "startLine": 185,
+        "startChar": 47,
+        "endLine": 185,
+        "endChar": 71
+      },
+      "revId": "41e996880810ed3fadc703c1087658fd106e7bed",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "cef9e9c1_9fa83901",
+        "filename": "modules/congestion_controller/goog_cc/loss_based_bwe_v2.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 562,
+      "author": {
+        "id": 5578
+      },
+      "writtenOn": "2022-03-14T10:08:35Z",
+      "side": 1,
+      "message": "DelayBasedEsimateAllowBitrateIncrease something similar that describe why?",
+      "range": {
+        "startLine": 562,
+        "startChar": 24,
+        "endLine": 562,
+        "endChar": 44
+      },
+      "revId": "41e996880810ed3fadc703c1087658fd106e7bed",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "4104b2a0_6a37d98f",
+        "filename": "modules/congestion_controller/goog_cc/loss_based_bwe_v2.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 566,
+      "author": {
+        "id": 5578
+      },
+      "writtenOn": "2022-03-14T10:08:35Z",
+      "side": 1,
+      "message": "Suggest you check config_-\u003eenabled_trendline inside MightIncresebitrate",
+      "range": {
+        "startLine": 566,
+        "startChar": 17,
+        "endLine": 566,
+        "endChar": 46
+      },
+      "revId": "41e996880810ed3fadc703c1087658fd106e7bed",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "fcaf0a21_64f40a92",
+        "filename": "modules/congestion_controller/goog_cc/loss_based_bwe_v2.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 570,
+      "author": {
+        "id": 5578
+      },
+      "writtenOn": "2022-03-14T10:08:35Z",
+      "side": 1,
+      "message": "same but in MightDecrease...",
+      "range": {
+        "startLine": 570,
+        "startChar": 17,
+        "endLine": 570,
+        "endChar": 46
+      },
+      "revId": "41e996880810ed3fadc703c1087658fd106e7bed",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "fc5233c2_610cd71a",
+        "filename": "modules/congestion_controller/goog_cc/loss_based_bwe_v2.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 579,
+      "author": {
+        "id": 5578
+      },
+      "writtenOn": "2022-03-14T10:08:35Z",
+      "side": 1,
+      "message": "is this branch needed? Why not always do \nbandwidths.push_back(*acknowledged_bitrate_ *\n                           config_-\u003ebandwidth_backoff_lower_bound_factor);\nbut set default for bandwidth_backoff_lower_bound_factor to 1.0",
+      "range": {
+        "startLine": 579,
+        "startChar": 18,
+        "endLine": 579,
+        "endChar": 47
+      },
+      "revId": "41e996880810ed3fadc703c1087658fd106e7bed",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "e9fe8ecc_4391fe6f",
+        "filename": "modules/congestion_controller/goog_cc/send_side_bandwidth_estimation.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 373,
+      "author": {
+        "id": 5578
+      },
+      "writtenOn": "2022-03-14T10:08:35Z",
+      "side": 1,
+      "message": "If you look in https://source.corp.google.com/piper///depot/google3/third_party/webrtc/files/stable/webrtc/modules/congestion_controller/goog_cc/goog_cc_network_control.cc;rcl\u003d424293137;l\u003d556\nit looks like this is done in the wrong order. \n\nie,   bandwidth_estimation_-\u003eIncomingPacketFeedbackVector is called first. \nthen UpdateDelayBasedEstimate. So you will always get an detector state that is a couple of hundreds for ms late.  I wonder if that can be fixed in  goog_cc ?",
+      "range": {
+        "startLine": 373,
+        "startChar": 53,
+        "endLine": 373,
+        "endChar": 74
+      },
+      "revId": "41e996880810ed3fadc703c1087658fd106e7bed",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

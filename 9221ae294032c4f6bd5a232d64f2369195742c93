@@ -16,6 +16,115 @@
       "message": "Mirko, could you take a first look at this? vast majority of the changes from const std::string\u0026 to absl::string_view are straightforward, but in a few cases I had to make a decision about where to convert the to std::string. Let me know what you think.",
       "revId": "9221ae294032c4f6bd5a232d64f2369195742c93",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "03b972be_4bdb652f",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 4
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5087
+      },
+      "writtenOn": "2022-03-14T10:21:41Z",
+      "side": 1,
+      "message": "Adding nisse@ for a second opinion on some places where we are now forced into taking a copy that was not needed before (e.g. when we take a sting\u0026 param, call c_str() on it, while now we need to create a string and potentially heap allocate just to get a c_str().\n\nnisse@: Should we avoid string_view in such cases or change the code to avoid the copy?",
+      "revId": "9221ae294032c4f6bd5a232d64f2369195742c93",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "5ccd7989_4b863e97",
+        "filename": "rtc_base/async_resolver.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 104,
+      "author": {
+        "id": 5087
+      },
+      "writtenOn": "2022-03-14T10:21:41Z",
+      "side": 1,
+      "message": "I haven\u0027t thought too much about this, but I wonder if hostname.data() works here?",
+      "range": {
+        "startLine": 104,
+        "startChar": 18,
+        "endLine": 104,
+        "endChar": 47
+      },
+      "revId": "9221ae294032c4f6bd5a232d64f2369195742c93",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "e10a1441_5b4bb72c",
+        "filename": "rtc_base/checks.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 44,
+      "author": {
+        "id": 5087
+      },
+      "writtenOn": "2022-03-14T10:21:41Z",
+      "side": 1,
+      "message": "I wonder if we can avoid this copy here.\n\nWhat do you think about having a std::string param and move it all the way through the calls up to this point (and here just keep the temporary param and take a c_str from it, since nothing in this function will take that pointer anyway).",
+      "range": {
+        "startLine": 43,
+        "startChar": 2,
+        "endLine": 44,
+        "endChar": 44
+      },
+      "revId": "9221ae294032c4f6bd5a232d64f2369195742c93",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "029a446b_b2fe7835",
+        "filename": "rtc_base/experiments/field_trial_parser.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 128,
+      "author": {
+        "id": 5087
+      },
+      "writtenOn": "2022-03-14T10:21:41Z",
+      "side": 1,
+      "message": "Isn\u0027t it better to have a std::string as a parameter (and just move all the way through)?\n\nI think we might want to keep absl::string_view but maybe avoid the copy and adopt the code in case str.data() is nullptr?",
+      "range": {
+        "startLine": 128,
+        "startChar": 6,
+        "endLine": 128,
+        "endChar": 37
+      },
+      "revId": "9221ae294032c4f6bd5a232d64f2369195742c93",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "c0fb1a5d_1bb191c4",
+        "filename": "rtc_base/experiments/field_trial_units.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 41,
+      "author": {
+        "id": 5087
+      },
+      "writtenOn": "2022-03-14T10:21:41Z",
+      "side": 1,
+      "message": "Return nullopt in case data() is nullptr and just avoid to create a std::string?",
+      "range": {
+        "startLine": 41,
+        "startChar": 15,
+        "endLine": 41,
+        "endChar": 39
+      },
+      "revId": "9221ae294032c4f6bd5a232d64f2369195742c93",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

@@ -238,6 +238,30 @@
       },
       "revId": "9221ae294032c4f6bd5a232d64f2369195742c93",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "ac02d0c5_ceb15f4a",
+        "filename": "rtc_base/experiments/field_trial_units.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 41,
+      "author": {
+        "id": 5087
+      },
+      "writtenOn": "2022-03-14T10:52:10Z",
+      "side": 1,
+      "message": "Yes, I forgot that .data() doesn\u0027t mean it is nul-terminated. So this is OK.\n\nIn general (but this was true also in the past when we tried to switch to string_view), it looks to me that `const string\u0026` has its advantages in some cases, and string_view reverts some invariants (e.g. knowing it is nul-terminated), forcing us to take copies. In some cases, it is fine (not hot paths) but in other cases it is unclear.\n\nI wonder if we should switch to string_view everywhere % some places where const string\u0026 actually makes sense?",
+      "parentUuid": "e624385b_a49e3541",
+      "range": {
+        "startLine": 41,
+        "startChar": 15,
+        "endLine": 41,
+        "endChar": 39
+      },
+      "revId": "9221ae294032c4f6bd5a232d64f2369195742c93",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

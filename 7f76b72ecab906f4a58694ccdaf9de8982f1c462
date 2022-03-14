@@ -16,6 +16,23 @@
       "message": "thanks for review, addressed comments.",
       "revId": "7f76b72ecab906f4a58694ccdaf9de8982f1c462",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "d9636887_7faacdaf",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 10
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 18474
+      },
+      "writtenOn": "2022-03-14T19:12:02Z",
+      "side": 1,
+      "message": "+mfoltz@ for my question.\n\nIf I understand correctly, this issue seems more likely to be occurring with the AuraWindowVideoCaptureDevice in Chromium //content, and not with the OS capturer. If you recall any debugging/logs that specifically pointed at the GDI capturer (or if Mark is aware of any special casing for PiP that would circumvent these capturers), or there are other issues like this that is definitely the fault of the gdi capturer, then this change seems fine as-is; but without that, I\u0027m not convinced that this fix is necessary.",
+      "revId": "7f76b72ecab906f4a58694ccdaf9de8982f1c462",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

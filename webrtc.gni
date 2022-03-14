@@ -506,6 +506,9 @@ template("rtc_test") {
         xctest_module_target = "//base/test:google_test_runner"
       }
     }
+    if (is_ios) {
+      xctest_module_target = "//base/test:google_test_runner"
+    }
 
     # If absl_deps is [], no action is needed. If not [], then it needs to be
     # converted to //third_party/abseil-cpp:absl when build_with_chromium=true
@@ -530,6 +533,7 @@ template("rtc_test") {
             [ "//third_party/llvm-build/Release+Asserts/lib/libstdc++.so.6" ]
       }
     }
+
     # TODO(crbug.com/webrtc/13556): Adding the .app folder in the runtime_deps
     # shoulnd't be necessary. this code should be removed and the same solution
     # as Chromium should be used.

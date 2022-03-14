@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "2c362490_31305174",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5963
+      },
+      "writtenOn": "2022-03-14T16:29:14Z",
+      "side": 1,
+      "message": "Hi,\n\nI was testing with some WHIP implementations based on gstreamer supporting H264 4-2-2 encoding and just realized that only 420 and 444 is supporting on decoding.\n\nThis patch adds an I422Buffer and modifies the ffmpeg decoder to use it.\n\nMinor patch required in chrome to make it work though, will submit onces this is merged.\n\nBest regards\nSergio",
+      "revId": "de8b9c0b7530b9018ac0746d5c96dee68a656c65",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

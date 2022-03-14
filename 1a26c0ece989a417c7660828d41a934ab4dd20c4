@@ -48,6 +48,30 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "41b8f1a8_ba4b1d10",
+        "filename": "rtc_base/openssl_stream_adapter.cc",
+        "patchSetId": 7
+      },
+      "lineNbr": 456,
+      "author": {
+        "id": 10107
+      },
+      "writtenOn": "2022-03-14T15:30:07Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "4cc411e6_61ec301d",
+      "range": {
+        "startLine": 456,
+        "startChar": 59,
+        "endLine": 456,
+        "endChar": 71
+      },
+      "revId": "1a26c0ece989a417c7660828d41a934ab4dd20c4",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "c3c49df2_ff20be79",
@@ -61,6 +85,30 @@
       "writtenOn": "2022-03-14T15:14:33Z",
       "side": 1,
       "message": "BTW, from looking at the docs, I suspect this const cast is no longer needed.",
+      "range": {
+        "startLine": 457,
+        "startChar": 49,
+        "endLine": 457,
+        "endChar": 69
+      },
+      "revId": "1a26c0ece989a417c7660828d41a934ab4dd20c4",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "069b509b_e5380679",
+        "filename": "rtc_base/openssl_stream_adapter.cc",
+        "patchSetId": 7
+      },
+      "lineNbr": 457,
+      "author": {
+        "id": 10107
+      },
+      "writtenOn": "2022-03-14T15:30:07Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "c3c49df2_ff20be79",
       "range": {
         "startLine": 457,
         "startChar": 49,

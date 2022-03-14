@@ -1,0 +1,55 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "1cee65cd_073a3667",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5142
+      },
+      "writtenOn": "2022-03-14T10:11:26Z",
+      "side": 1,
+      "message": "LGTM regardless but I added some thoughts about some coupling here and some ideas for decoupling.",
+      "revId": "c99cebfef5afed15087714a0d8fa627b90966eea",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "ad3a939c_e808d1f7",
+        "filename": "modules/pacing/task_queue_paced_sender.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 108,
+      "author": {
+        "id": 5142
+      },
+      "writtenOn": "2022-03-14T10:11:26Z",
+      "side": 1,
+      "message": "There\u0027s something curious about MaybeProcessPackets() when called with -inf timestamp, and that is that `is_scheduled_call` will be true whenever we don\u0027t have any scheduled call due to next_process_time_ being -inf. I guess this is needed in order for packets to be processed when we do EnqueuePackets.\n\nGenerally though I do not think that this MaybeProcessPackets(-inf) causes any packets to be processed because if we had packets to process then we would either have already processed them (e.g. in the PostTask of EnqueuePackets) or we would have a scheduled call (next_process_time_ !\u003d -inf).\n\nSo yes, we should only need to call this method if we are able to impact the next_process_time_.",
+      "revId": "c99cebfef5afed15087714a0d8fa627b90966eea",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "1a3c5ffa_33a531be",
+        "filename": "modules/pacing/task_queue_paced_sender.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 116,
+      "author": {
+        "id": 5142
+      },
+      "writtenOn": "2022-03-14T10:11:26Z",
+      "side": 1,
+      "message": "There is some sneaky coupling going in both of these places: TaskQueuePacedSender decides whether or not it should call MaybeProcessPackets() based on if it thinks that `pacing_controller_` would have updated the timestamp for us. If `pacing_controller_` changes behavior, TaskQueuePacedSender may break in subtle ways. The same can be said for every MaybeProcessPackets(-inf) call in this file.\n\nWould it make sense if instead `pacing_controller_.UpdateOutstandingData(...)´ returned true or false to indicate whether or not this affected the processing time?\n\nAlternatively one could take the de-coupling one step further and make MaybeProcessPackets() be a NO-OP whenever no conditions have changed e.g. if all of these are true:\n1. scheduled_process_time is -inf, indicating that this was not scheduled.\n2. pacing_controller_.NextSendTime() \u003d\u003d next_process_time_, indicating that the time has not changed (for whatever reason).\n3. Packets have not been enqueued since the last process call, indicating that this is not an immediate process call in in EnqueuePackets\u0027s PostTask.\n\nNot saying we need to do any of this in this CL but what do you think?",
+      "revId": "c99cebfef5afed15087714a0d8fa627b90966eea",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

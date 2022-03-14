@@ -98,6 +98,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "afeea1ed_9ec26346",
+        "filename": "system_wrappers/include/rtp_to_ntp_estimator.h",
+        "patchSetId": 6
+      },
+      "lineNbr": 49,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2022-03-14T10:51:33Z",
+      "side": 1,
+      "message": "I think\n\nNtpTime (in units of 1s/2^32) \u003d Parameters::slope * rtp_timestamp + Parameters::offset\n\nwould be clear enough. And offset can be interpreted as an absolute time; the NtpTime corresponding to rtp_timestamp \u003d\u003d 0; in that interpretation, it\u0027s only the other term that represents a time interval.",
+      "parentUuid": "82fd038c_ed2fdee0",
+      "range": {
+        "startLine": 49,
+        "startChar": 2,
+        "endLine": 49,
+        "endChar": 78
+      },
+      "revId": "941f6398ea92110b50e6201438d95680d6d4100f",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "479833b1_ee81ef57",
         "filename": "system_wrappers/source/rtp_to_ntp_estimator.cc",
         "patchSetId": 6

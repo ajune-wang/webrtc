@@ -50,6 +50,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "102d7bcc_5cf63bb7",
+        "filename": "system_wrappers/include/rtp_to_ntp_estimator.h",
+        "patchSetId": 6
+      },
+      "lineNbr": 49,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2022-03-14T10:24:26Z",
+      "side": 1,
+      "message": "Units still unclear, though. The offset member could perhaps be of type NtpTime, but slope needs to be something like seconds per rtp_timestamp unit.",
+      "parentUuid": "7ebd3fa5_af353389",
+      "range": {
+        "startLine": 49,
+        "startChar": 2,
+        "endLine": 49,
+        "endChar": 78
+      },
+      "revId": "941f6398ea92110b50e6201438d95680d6d4100f",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "479833b1_ee81ef57",
         "filename": "system_wrappers/source/rtp_to_ntp_estimator.cc",
         "patchSetId": 6

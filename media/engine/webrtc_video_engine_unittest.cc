@@ -1275,6 +1275,7 @@ TEST(WebRtcVideoEngineNewVideoCodecFactoryTest, Vp8) {
 
 // Test behavior when decoder factory fails to create a decoder (returns null).
 TEST(WebRtcVideoEngineNewVideoCodecFactoryTest, NullDecoder) {
+  rtc::AutoThread main_thread_;
   // `engine` take ownership of the factories.
   webrtc::MockVideoEncoderFactory* encoder_factory =
       new webrtc::MockVideoEncoderFactory();
@@ -1452,6 +1453,7 @@ class WebRtcVideoChannelEncodedFrameCallbackTest : public ::testing::Test {
   }
 
   static const std::vector<webrtc::SdpVideoFormat> kSdpVideoFormats;
+  rtc::AutoThread main_thread_;
   webrtc::FieldTrialBasedConfig field_trials_;
   webrtc::RtcEventLogNull event_log_;
   std::unique_ptr<webrtc::TaskQueueFactory> task_queue_factory_;
@@ -1739,6 +1741,7 @@ class WebRtcVideoChannelBaseTest : public ::testing::Test {
     return cricket::StreamParams::CreateLegacy(kSsrc);
   }
 
+  rtc::AutoThread main_thread_;
   webrtc::RtcEventLogNull event_log_;
   webrtc::FieldTrialBasedConfig field_trials_;
   std::unique_ptr<webrtc::test::ScopedFieldTrials> override_field_trials_;

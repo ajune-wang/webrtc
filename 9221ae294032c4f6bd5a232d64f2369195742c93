@@ -173,6 +173,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "4451d9f8_2fa16f2c",
+        "filename": "rtc_base/async_resolver.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 104,
+      "author": {
+        "id": 5087
+      },
+      "writtenOn": "2022-03-14T15:05:18Z",
+      "side": 1,
+      "message": "Yes, that SGTM.",
+      "parentUuid": "4cd6722b_0abeaa7f",
+      "range": {
+        "startLine": 104,
+        "startChar": 18,
+        "endLine": 104,
+        "endChar": 47
+      },
+      "revId": "9221ae294032c4f6bd5a232d64f2369195742c93",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "e10a1441_5b4bb72c",
         "filename": "rtc_base/checks.cc",
         "patchSetId": 4

@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "361f4758_f45b3d20",
+        "filename": "rtc_base/openssl_stream_adapter.cc",
+        "patchSetId": 7
+      },
+      "lineNbr": 456,
+      "author": {
+        "id": 5087
+      },
+      "writtenOn": "2022-03-14T15:05:18Z",
+      "side": 1,
+      "message": "How do we consider SSL APIs?\n\nIn the context of https://webrtc-review.googlesource.com/c/src/+/254081/4..7/rtc_base/async_resolver.cc#b104:\n\n\"\"\"\nI think it\u0027s reasonable to create a copy where needed, when we have to call C api functions that require nul-termination.\n\"\"\"\n\nHere we need to pass (and in other SLL APIs function as well) the length() of the buffer, so this might be fine. But let\u0027s highlight this in the code review.\n\nnisse@ WDYT?",
+      "range": {
+        "startLine": 456,
+        "startChar": 59,
+        "endLine": 456,
+        "endChar": 71
+      },
+      "revId": "1a26c0ece989a417c7660828d41a934ab4dd20c4",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

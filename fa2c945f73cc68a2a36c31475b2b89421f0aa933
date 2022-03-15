@@ -22,6 +22,30 @@
       },
       "revId": "fa2c945f73cc68a2a36c31475b2b89421f0aa933",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "fa658663_8fd10a59",
+        "filename": "webrtc.gni",
+        "patchSetId": 30
+      },
+      "lineNbr": 503,
+      "author": {
+        "id": 12234
+      },
+      "writtenOn": "2022-03-15T08:18:13Z",
+      "side": 0,
+      "message": "Ok I think we\u0027re good now, I removed the fact that it\u0027s done only for simulator.",
+      "parentUuid": "90f4c8e4_0d46006d",
+      "range": {
+        "startLine": 501,
+        "startChar": 4,
+        "endLine": 503,
+        "endChar": 28
+      },
+      "revId": "fa2c945f73cc68a2a36c31475b2b89421f0aa933",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

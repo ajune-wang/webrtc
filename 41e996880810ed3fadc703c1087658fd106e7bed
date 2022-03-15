@@ -24,6 +24,30 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "1eeca97f_b94dd321",
+        "filename": "modules/congestion_controller/goog_cc/loss_based_bwe_v2.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 185,
+      "author": {
+        "id": 18864
+      },
+      "writtenOn": "2022-03-15T09:56:02Z",
+      "side": 1,
+      "message": "Done.\n\nI added a new flag trendline_window_size so that the actual value can be tuned later. The default value is 20, which is the same as observation_window_size. If goog_cc receives packet feedback each 100ms - 200ms, then the window duration is 2s - 4s.",
+      "parentUuid": "b5ad50e8_f339b284",
+      "range": {
+        "startLine": 185,
+        "startChar": 47,
+        "endLine": 185,
+        "endChar": 71
+      },
+      "revId": "41e996880810ed3fadc703c1087658fd106e7bed",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "cef9e9c1_9fa83901",
@@ -37,6 +61,30 @@
       "writtenOn": "2022-03-14T10:08:35Z",
       "side": 1,
       "message": "DelayBasedEsimateAllowBitrateIncrease something similar that describe why?",
+      "range": {
+        "startLine": 562,
+        "startChar": 24,
+        "endLine": 562,
+        "endChar": 44
+      },
+      "revId": "41e996880810ed3fadc703c1087658fd106e7bed",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "0af33d7c_118ad34a",
+        "filename": "modules/congestion_controller/goog_cc/loss_based_bwe_v2.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 562,
+      "author": {
+        "id": 18864
+      },
+      "writtenOn": "2022-03-15T09:56:02Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "cef9e9c1_9fa83901",
       "range": {
         "startLine": 562,
         "startChar": 24,
@@ -70,6 +118,30 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "7042003e_ffb8ae5b",
+        "filename": "modules/congestion_controller/goog_cc/loss_based_bwe_v2.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 566,
+      "author": {
+        "id": 18864
+      },
+      "writtenOn": "2022-03-15T09:56:02Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "4104b2a0_6a37d98f",
+      "range": {
+        "startLine": 566,
+        "startChar": 17,
+        "endLine": 566,
+        "endChar": 46
+      },
+      "revId": "41e996880810ed3fadc703c1087658fd106e7bed",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "fcaf0a21_64f40a92",
@@ -83,6 +155,30 @@
       "writtenOn": "2022-03-14T10:08:35Z",
       "side": 1,
       "message": "same but in MightDecrease...",
+      "range": {
+        "startLine": 570,
+        "startChar": 17,
+        "endLine": 570,
+        "endChar": 46
+      },
+      "revId": "41e996880810ed3fadc703c1087658fd106e7bed",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "53c85a75_d35f7e40",
+        "filename": "modules/congestion_controller/goog_cc/loss_based_bwe_v2.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 570,
+      "author": {
+        "id": 18864
+      },
+      "writtenOn": "2022-03-15T09:56:02Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "fcaf0a21_64f40a92",
       "range": {
         "startLine": 570,
         "startChar": 17,
@@ -116,6 +212,30 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "cb7a50ca_f0756835",
+        "filename": "modules/congestion_controller/goog_cc/loss_based_bwe_v2.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 579,
+      "author": {
+        "id": 18864
+      },
+      "writtenOn": "2022-03-15T09:56:02Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "fc5233c2_610cd71a",
+      "range": {
+        "startLine": 579,
+        "startChar": 18,
+        "endLine": 579,
+        "endChar": 47
+      },
+      "revId": "41e996880810ed3fadc703c1087658fd106e7bed",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "e9fe8ecc_4391fe6f",
@@ -129,6 +249,30 @@
       "writtenOn": "2022-03-14T10:08:35Z",
       "side": 1,
       "message": "If you look in https://source.corp.google.com/piper///depot/google3/third_party/webrtc/files/stable/webrtc/modules/congestion_controller/goog_cc/goog_cc_network_control.cc;rcl\u003d424293137;l\u003d556\nit looks like this is done in the wrong order. \n\nie,   bandwidth_estimation_-\u003eIncomingPacketFeedbackVector is called first. \nthen UpdateDelayBasedEstimate. So you will always get an detector state that is a couple of hundreds for ms late.  I wonder if that can be fixed in  goog_cc ?",
+      "range": {
+        "startLine": 373,
+        "startChar": 53,
+        "endLine": 373,
+        "endChar": 74
+      },
+      "revId": "41e996880810ed3fadc703c1087658fd106e7bed",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "58bc46fe_4160c341",
+        "filename": "modules/congestion_controller/goog_cc/send_side_bandwidth_estimation.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 373,
+      "author": {
+        "id": 18864
+      },
+      "writtenOn": "2022-03-15T09:56:02Z",
+      "side": 1,
+      "message": "Done.\n\nI updated goog_cc so that delay based bwe is triggered before send_side_bwe. Tested the change and it should not break anything.",
+      "parentUuid": "e9fe8ecc_4391fe6f",
       "range": {
         "startLine": 373,
         "startChar": 53,

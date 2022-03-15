@@ -62,6 +62,7 @@ class StunRequestTest : public ::testing::Test, public sigslot::has_slots<> {
     return delays[sends];
   }
 
+  rtc::AutoThread main_thread_;
   StunRequestManager manager_;
   int request_count_;
   StunMessage* response_;

@@ -11,6 +11,7 @@
 #include "sdk/android/src/jni/android_network_monitor.h"
 
 #include "rtc_base/ip_address.h"
+#include "rtc_base/thread.h"
 #include "sdk/android/native_unittests/application_context_provider.h"
 #include "sdk/android/src/jni/jni_helpers.h"
 #include "system_wrappers/include/field_trial.h"
@@ -62,6 +63,7 @@ class AndroidNetworkMonitorTest : public ::testing::Test {
   }
 
  protected:
+  rtc::AutoThread main_thread_;
   std::unique_ptr<jni::AndroidNetworkMonitor> network_monitor_;
 };
 

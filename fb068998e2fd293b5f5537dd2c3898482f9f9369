@@ -16,6 +16,29 @@
       "message": "Please take a look, Erik. Still need to get approvals before experimenting but landing behind flag before the cut makes M101 target a possibility",
       "revId": "fb068998e2fd293b5f5537dd2c3898482f9f9369",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "7e4049b2_2bc89279",
+        "filename": "modules/pacing/task_queue_paced_sender.cc",
+        "patchSetId": 7
+      },
+      "lineNbr": 42,
+      "author": {
+        "id": 5524
+      },
+      "writtenOn": "2022-03-15T09:56:41Z",
+      "side": 1,
+      "message": "I think that if allow_low_precision_ is on, that should override max_hold_back_window* and set those to 1/0. Otherwise their slack will be added on top of each other.",
+      "range": {
+        "startLine": 41,
+        "startChar": 6,
+        "endLine": 42,
+        "endChar": 72
+      },
+      "revId": "fb068998e2fd293b5f5537dd2c3898482f9f9369",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

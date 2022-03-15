@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "dd22e74c_6df93364",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 9405
+      },
+      "writtenOn": "2022-03-15T11:13:21Z",
+      "side": 1,
+      "message": "Hello, I made a small cleanup. Please take a look. Thank you.",
+      "revId": "9a53e627aeedb1c5ae6669d2467bf783554d08f0",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

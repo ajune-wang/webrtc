@@ -236,6 +236,30 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "370ebc78_63f361ff",
+        "filename": "modules/desktop_capture/linux/wayland/xdg_desktop_portal_utils.h",
+        "patchSetId": 10
+      },
+      "lineNbr": 96,
+      "author": {
+        "id": 18474
+      },
+      "writtenOn": "2022-03-15T17:55:02Z",
+      "side": 1,
+      "message": "Just wondering if some form of PortalHelper class that can take the portal (but not own it) and then do it\u0027s work on the owned portal might be cleaner? But there\u0027s potentially some lifetime issues that would make that less appealing. (On top of the naming).\n\nBut also, looking at some of the calls to these it looks like callbacks that get passed a portal anyway, so we probably want to make sure we\u0027re operating on whatever portal we were passed.",
+      "parentUuid": "65c92553_b25bbe03",
+      "range": {
+        "startLine": 94,
+        "startChar": 0,
+        "endLine": 96,
+        "endChar": 53
+      },
+      "revId": "250b4f7a64a4bf7f7628547aefb7259c2b7631b1",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "49b69272_c7b7626d",

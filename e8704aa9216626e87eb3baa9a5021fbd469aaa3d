@@ -1,0 +1,44 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "a25dbc0e_0ce2d1f3",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 12
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 18474
+      },
+      "writtenOn": "2022-03-15T17:55:02Z",
+      "side": 1,
+      "message": "LGTM w/anonymous namespace removed from screencast_portal.h",
+      "revId": "e8704aa9216626e87eb3baa9a5021fbd469aaa3d",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "82acf4f6_a877693e",
+        "filename": "modules/desktop_capture/linux/wayland/screencast_portal.h",
+        "patchSetId": 12
+      },
+      "lineNbr": 26,
+      "author": {
+        "id": 18474
+      },
+      "writtenOn": "2022-03-15T17:55:02Z",
+      "side": 1,
+      "message": "Style guide prohibts this: https://google.github.io/styleguide/cppguide.html#Internal_Linkage (Note that it\u0027s fine in the .cc file)",
+      "range": {
+        "startLine": 22,
+        "startChar": 0,
+        "endLine": 26,
+        "endChar": 15
+      },
+      "revId": "e8704aa9216626e87eb3baa9a5021fbd469aaa3d",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

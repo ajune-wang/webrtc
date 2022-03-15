@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "90f4c8e4_0d46006d",
+        "filename": "webrtc.gni",
+        "patchSetId": 30
+      },
+      "lineNbr": 503,
+      "author": {
+        "id": 5087
+      },
+      "writtenOn": "2022-03-15T07:36:25Z",
+      "side": 0,
+      "message": "It looks like this still applies.\n\nWhen I wrote this, I didn\u0027t spend too much time investigating into the issue but it was the same as we see on trybots.",
+      "range": {
+        "startLine": 501,
+        "startChar": 4,
+        "endLine": 503,
+        "endChar": 28
+      },
+      "revId": "fa2c945f73cc68a2a36c31475b2b89421f0aa933",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

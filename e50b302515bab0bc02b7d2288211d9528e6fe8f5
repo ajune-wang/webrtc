@@ -1,0 +1,251 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "25430b6c_a646f000",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 4
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5578
+      },
+      "writtenOn": "2022-03-15T13:26:23Z",
+      "side": 1,
+      "message": "I think the implementation start to make sense, but I am not sure I understand the unit tests and the behavior when there is no loss. ",
+      "revId": "e50b302515bab0bc02b7d2288211d9528e6fe8f5",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "5aca6682_8d580a4e",
+        "filename": "modules/congestion_controller/goog_cc/goog_cc_network_control.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 561,
+      "author": {
+        "id": 5578
+      },
+      "writtenOn": "2022-03-15T13:26:23Z",
+      "side": 1,
+      "message": "Should we rename this to UpdateLossBasedEstimatorFromFeedbackVector(report) ?",
+      "range": {
+        "startLine": 561,
+        "startChar": 25,
+        "endLine": 561,
+        "endChar": 53
+      },
+      "revId": "e50b302515bab0bc02b7d2288211d9528e6fe8f5",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "d0f547ab_49f713da",
+        "filename": "modules/congestion_controller/goog_cc/loss_based_bwe_v2.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 155,
+      "author": {
+        "id": 5578
+      },
+      "writtenOn": "2022-03-15T13:26:23Z",
+      "side": 1,
+      "message": "std::min({current_estimate_.loss_limited_bandwidth, GetInstantUpperBound(), delay_based_limit * config_-\u003edelay_based_limit_factor})",
+      "range": {
+        "startLine": 155,
+        "startChar": 16,
+        "endLine": 155,
+        "endChar": 19
+      },
+      "revId": "e50b302515bab0bc02b7d2288211d9528e6fe8f5",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "2c923362_f61fd6bd",
+        "filename": "modules/congestion_controller/goog_cc/loss_based_bwe_v2.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 185,
+      "author": {
+        "id": 5578
+      },
+      "writtenOn": "2022-03-15T13:26:23Z",
+      "side": 1,
+      "message": "May I suggest you move this implementation into PushBackObservation ? You provide the delay_state_detector to that method too and it seems like it do handle the packet result observation.",
+      "range": {
+        "startLine": 185,
+        "startChar": 6,
+        "endLine": 185,
+        "endChar": 28
+      },
+      "revId": "e50b302515bab0bc02b7d2288211d9528e6fe8f5",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "41dfe204_5d286ad3",
+        "filename": "modules/congestion_controller/goog_cc/loss_based_bwe_v2.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 281,
+      "author": {
+        "id": 5578
+      },
+      "writtenOn": "2022-03-15T13:26:23Z",
+      "side": 1,
+      "message": "maybe trendline_integration_enabled ?",
+      "range": {
+        "startLine": 281,
+        "startChar": 28,
+        "endLine": 281,
+        "endChar": 57
+      },
+      "revId": "e50b302515bab0bc02b7d2288211d9528e6fe8f5",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "6f65db18_de4e2207",
+        "filename": "modules/congestion_controller/goog_cc/loss_based_bwe_v2.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 282,
+      "author": {
+        "id": 5578
+      },
+      "writtenOn": "2022-03-15T13:26:23Z",
+      "side": 1,
+      "message": "maybe TrendlineIntegrationEnabled",
+      "range": {
+        "startLine": 282,
+        "startChar": 7,
+        "endLine": 282,
+        "endChar": 34
+      },
+      "revId": "e50b302515bab0bc02b7d2288211d9528e6fe8f5",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "265b6bf8_90b7a9ce",
+        "filename": "modules/congestion_controller/goog_cc/loss_based_bwe_v2.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 572,
+      "author": {
+        "id": 5578
+      },
+      "writtenOn": "2022-03-15T13:26:23Z",
+      "side": 1,
+      "message": "shouldnt you allow the estimate to not change at all? candidate_factor\u003d 1.0 even if !can_increase_bitrate  ?",
+      "range": {
+        "startLine": 572,
+        "startChar": 33,
+        "endLine": 572,
+        "endChar": 50
+      },
+      "revId": "e50b302515bab0bc02b7d2288211d9528e6fe8f5",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "13944512_1f475234",
+        "filename": "modules/congestion_controller/goog_cc/loss_based_bwe_v2.h",
+        "patchSetId": 4
+      },
+      "lineNbr": 87,
+      "author": {
+        "id": 5578
+      },
+      "writtenOn": "2022-03-15T13:26:23Z",
+      "side": 1,
+      "message": "suggest trendline_integration_enabled",
+      "range": {
+        "startLine": 87,
+        "startChar": 9,
+        "endLine": 87,
+        "endChar": 39
+      },
+      "revId": "e50b302515bab0bc02b7d2288211d9528e6fe8f5",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "1348155e_20abd9de",
+        "filename": "modules/congestion_controller/goog_cc/loss_based_bwe_v2_test.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 353,
+      "author": {
+        "id": 5578
+      },
+      "writtenOn": "2022-03-15T13:26:23Z",
+      "side": 1,
+      "message": "I am not sure if this make that much sense? \nWhy if we overuse, and there is no loss, the delay based estimate should be deciding the overall BWE. Why does the loss based estimate have to lower the estimate ? Shouldnt it be allowed to not change at all?",
+      "range": {
+        "startLine": 353,
+        "startChar": 25,
+        "endLine": 353,
+        "endChar": 64
+      },
+      "revId": "e50b302515bab0bc02b7d2288211d9528e6fe8f5",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "f5383ec0_4193f622",
+        "filename": "modules/congestion_controller/goog_cc/loss_based_bwe_v2_test.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 434,
+      "author": {
+        "id": 5578
+      },
+      "writtenOn": "2022-03-15T13:26:23Z",
+      "side": 1,
+      "message": "I guess it make sense that the loss based estimator increase the estimate if there is no loss and no overuse is detected.  But would this test make more sense if we test that the estimate is capped by the delay based estimate?",
+      "range": {
+        "startLine": 434,
+        "startChar": 12,
+        "endLine": 434,
+        "endChar": 20
+      },
+      "revId": "e50b302515bab0bc02b7d2288211d9528e6fe8f5",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "fec44c79_5de6b7c8",
+        "filename": "modules/congestion_controller/goog_cc/loss_based_bwe_v2_test.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 476,
+      "author": {
+        "id": 5578
+      },
+      "writtenOn": "2022-03-15T13:26:23Z",
+      "side": 1,
+      "message": "What should happen if not overusing and no loss? \n\nShould the delay based estimate be returned?",
+      "range": {
+        "startLine": 476,
+        "startChar": 2,
+        "endLine": 476,
+        "endChar": 11
+      },
+      "revId": "e50b302515bab0bc02b7d2288211d9528e6fe8f5",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

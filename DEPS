@@ -10,7 +10,7 @@ vars = {
   # chromium waterfalls. More info at: crbug.com/570091.
   'checkout_configuration': 'default',
   'checkout_instrumented_libraries': 'checkout_linux and checkout_configuration == "default"',
-  'chromium_revision': 'ce4e107fd5278cd673b0b9afc9345814f335e2ba',
+  'chromium_revision': '4b9f18d2018438450839c3e816543c16c3784eb7',
 
   # Keep the Chromium default of generating location tags.
   'generate_location_tags': True,
@@ -23,9 +23,9 @@ deps = {
   # TODO(kjellander): Move this to be Android-only once the libevent dependency
   # in base/third_party/libevent is solved.
   'src/base':
-    'https://chromium.googlesource.com/chromium/src/base@e5f7e680619b8637c1c4cbb4826591e7cd926eee',
+    'https://chromium.googlesource.com/chromium/src/base@8c938b573ed5cd4294ac28f9955d997387c7e7c5',
   'src/build':
-    'https://chromium.googlesource.com/chromium/src/build@7b0e5410ee10f5f31136eba2c08dbd61587c74fd',
+    'https://chromium.googlesource.com/chromium/src/build@53a1d50bead1a5c14b29b1c47a27208a33f2f532',
   'src/buildtools':
     'https://chromium.googlesource.com/chromium/src/buildtools@113dd1badbcbffea108a8c95ac7c89c22bfd25f3',
   # Gradle 6.6.1. Used for testing Android Studio project generation for WebRTC.
@@ -140,7 +140,7 @@ deps = {
   'src/third_party/breakpad/breakpad':
     'https://chromium.googlesource.com/breakpad/breakpad.git@08bd844599bf04c71707e8f59a8013a941264695',
   'src/third_party/catapult':
-    'https://chromium.googlesource.com/catapult.git@0c2e8d34dde04fedf933d3b39d803acfe01d7554',
+    'https://chromium.googlesource.com/catapult.git@dd4484760f146f0edebdc00a5986fa535f13999d',
   'src/third_party/ced/src': {
     'url': 'https://chromium.googlesource.com/external/github.com/google/compact_enc_det.git@ba412eaaacd3186085babcd901679a48863c7dd5',
   },
@@ -285,7 +285,7 @@ deps = {
     'condition': 'checkout_win',
   },
   'src/tools':
-    'https://chromium.googlesource.com/chromium/src/tools@33bdf7567c93c577cbdcf499e5c48b8b290b9cc5',
+    'https://chromium.googlesource.com/chromium/src/tools@c6efb48f4b1a1f5dca92353b8e5cc095f0ed441d',
 
   'src/third_party/accessibility_test_framework': {
       'packages': [
@@ -373,7 +373,7 @@ deps = {
     'packages': [
       {
           'package': 'chromium/third_party/androidx',
-          'version': 'GSeF5aW_033IJ7WfJr-L0ydknZykCwvytFFCrJfLMNMC',
+          'version': 'o519o3phZFQGY6K0mO0EJ-xJQUoucapeX-jwNBAal5wC',
       },
     ],
     'condition': 'checkout_android',

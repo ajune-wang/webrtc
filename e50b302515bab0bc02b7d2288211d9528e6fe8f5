@@ -41,6 +41,30 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "185e30ab_6fecd66a",
+        "filename": "modules/congestion_controller/goog_cc/goog_cc_network_control.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 561,
+      "author": {
+        "id": 18864
+      },
+      "writtenOn": "2022-03-15T15:28:46Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "5aca6682_8d580a4e",
+      "range": {
+        "startLine": 561,
+        "startChar": 25,
+        "endLine": 561,
+        "endChar": 53
+      },
+      "revId": "e50b302515bab0bc02b7d2288211d9528e6fe8f5",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "d0f547ab_49f713da",
@@ -54,6 +78,30 @@
       "writtenOn": "2022-03-15T13:26:23Z",
       "side": 1,
       "message": "std::min({current_estimate_.loss_limited_bandwidth, GetInstantUpperBound(), delay_based_limit * config_-\u003edelay_based_limit_factor})",
+      "range": {
+        "startLine": 155,
+        "startChar": 16,
+        "endLine": 155,
+        "endChar": 19
+      },
+      "revId": "e50b302515bab0bc02b7d2288211d9528e6fe8f5",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "67156c76_338b96ea",
+        "filename": "modules/congestion_controller/goog_cc/loss_based_bwe_v2.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 155,
+      "author": {
+        "id": 18864
+      },
+      "writtenOn": "2022-03-15T15:28:46Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "d0f547ab_49f713da",
       "range": {
         "startLine": 155,
         "startChar": 16,
@@ -87,6 +135,30 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "c768edeb_9fefc9c1",
+        "filename": "modules/congestion_controller/goog_cc/loss_based_bwe_v2.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 185,
+      "author": {
+        "id": 18864
+      },
+      "writtenOn": "2022-03-15T15:28:46Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "2c923362_f61fd6bd",
+      "range": {
+        "startLine": 185,
+        "startChar": 6,
+        "endLine": 185,
+        "endChar": 28
+      },
+      "revId": "e50b302515bab0bc02b7d2288211d9528e6fe8f5",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "41dfe204_5d286ad3",
@@ -100,6 +172,30 @@
       "writtenOn": "2022-03-15T13:26:23Z",
       "side": 1,
       "message": "maybe trendline_integration_enabled ?",
+      "range": {
+        "startLine": 281,
+        "startChar": 28,
+        "endLine": 281,
+        "endChar": 57
+      },
+      "revId": "e50b302515bab0bc02b7d2288211d9528e6fe8f5",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "de9ad171_610b0f60",
+        "filename": "modules/congestion_controller/goog_cc/loss_based_bwe_v2.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 281,
+      "author": {
+        "id": 18864
+      },
+      "writtenOn": "2022-03-15T15:28:46Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "41dfe204_5d286ad3",
       "range": {
         "startLine": 281,
         "startChar": 28,
@@ -133,6 +229,30 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "02e4b2c1_2316ace2",
+        "filename": "modules/congestion_controller/goog_cc/loss_based_bwe_v2.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 282,
+      "author": {
+        "id": 18864
+      },
+      "writtenOn": "2022-03-15T15:28:46Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "6f65db18_de4e2207",
+      "range": {
+        "startLine": 282,
+        "startChar": 7,
+        "endLine": 282,
+        "endChar": 34
+      },
+      "revId": "e50b302515bab0bc02b7d2288211d9528e6fe8f5",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "265b6bf8_90b7a9ce",
@@ -146,6 +266,30 @@
       "writtenOn": "2022-03-15T13:26:23Z",
       "side": 1,
       "message": "shouldnt you allow the estimate to not change at all? candidate_factor\u003d 1.0 even if !can_increase_bitrate  ?",
+      "range": {
+        "startLine": 572,
+        "startChar": 33,
+        "endLine": 572,
+        "endChar": 50
+      },
+      "revId": "e50b302515bab0bc02b7d2288211d9528e6fe8f5",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "46826c5f_d9df8c4d",
+        "filename": "modules/congestion_controller/goog_cc/loss_based_bwe_v2.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 572,
+      "author": {
+        "id": 18864
+      },
+      "writtenOn": "2022-03-15T15:28:46Z",
+      "side": 1,
+      "message": "Ack.\n\nI agree that it is a defensive action, but I prefer to keep it as it is for experimenting. The reasons are that (1) this version should be more defensive than v2, (2) it can always jump to delay based estimate once the network is not overusing, (3) It works well in hamrit tests.",
+      "parentUuid": "265b6bf8_90b7a9ce",
       "range": {
         "startLine": 572,
         "startChar": 33,
@@ -179,6 +323,30 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "08d71aef_0c18b753",
+        "filename": "modules/congestion_controller/goog_cc/loss_based_bwe_v2.h",
+        "patchSetId": 4
+      },
+      "lineNbr": 87,
+      "author": {
+        "id": 18864
+      },
+      "writtenOn": "2022-03-15T15:28:46Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "13944512_1f475234",
+      "range": {
+        "startLine": 87,
+        "startChar": 9,
+        "endLine": 87,
+        "endChar": 39
+      },
+      "revId": "e50b302515bab0bc02b7d2288211d9528e6fe8f5",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "1348155e_20abd9de",
@@ -192,6 +360,30 @@
       "writtenOn": "2022-03-15T13:26:23Z",
       "side": 1,
       "message": "I am not sure if this make that much sense? \nWhy if we overuse, and there is no loss, the delay based estimate should be deciding the overall BWE. Why does the loss based estimate have to lower the estimate ? Shouldnt it be allowed to not change at all?",
+      "range": {
+        "startLine": 353,
+        "startChar": 25,
+        "endLine": 353,
+        "endChar": 64
+      },
+      "revId": "e50b302515bab0bc02b7d2288211d9528e6fe8f5",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "16f09340_274e52ea",
+        "filename": "modules/congestion_controller/goog_cc/loss_based_bwe_v2_test.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 353,
+      "author": {
+        "id": 18864
+      },
+      "writtenOn": "2022-03-15T15:28:46Z",
+      "side": 1,
+      "message": "Ack.\n\nI agree with you, if we consider delay based estimate is the source of truth. Another opinion is that we are building a defensive loss based bwe. When it sees a signal of overusing, and the delay base might be overestimating, then loss based should start backing off since the loss might come soon. IDK if the idea is good or not, so want to try it out.",
+      "parentUuid": "1348155e_20abd9de",
       "range": {
         "startLine": 353,
         "startChar": 25,
@@ -225,6 +417,30 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "b7c53bd1_583a0f15",
+        "filename": "modules/congestion_controller/goog_cc/loss_based_bwe_v2_test.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 434,
+      "author": {
+        "id": 18864
+      },
+      "writtenOn": "2022-03-15T15:28:46Z",
+      "side": 1,
+      "message": "Ack.\n\nI added another test for checking the capped case.",
+      "parentUuid": "f5383ec0_4193f622",
+      "range": {
+        "startLine": 434,
+        "startChar": 12,
+        "endLine": 434,
+        "endChar": 20
+      },
+      "revId": "e50b302515bab0bc02b7d2288211d9528e6fe8f5",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "fec44c79_5de6b7c8",
@@ -238,6 +454,30 @@
       "writtenOn": "2022-03-15T13:26:23Z",
       "side": 1,
       "message": "What should happen if not overusing and no loss? \n\nShould the delay based estimate be returned?",
+      "range": {
+        "startLine": 476,
+        "startChar": 2,
+        "endLine": 476,
+        "endChar": 11
+      },
+      "revId": "e50b302515bab0bc02b7d2288211d9528e6fe8f5",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "d24520b6_d06c88c2",
+        "filename": "modules/congestion_controller/goog_cc/loss_based_bwe_v2_test.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 476,
+      "author": {
+        "id": 18864
+      },
+      "writtenOn": "2022-03-15T15:28:46Z",
+      "side": 1,
+      "message": "Loss based bwe would be aggressive if it used delay based estimate in that case. The loss based bwe should either stay the same, slightly increase, and should not use the acked bitrate because acked bitrate is designed to use for emergency backoff.",
+      "parentUuid": "fec44c79_5de6b7c8",
       "range": {
         "startLine": 476,
         "startChar": 2,

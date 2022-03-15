@@ -9,6 +9,7 @@
  */
 
 #include "audio/voip/audio_ingress.h"
+
 #include "api/audio_codecs/builtin_audio_decoder_factory.h"
 #include "api/audio_codecs/builtin_audio_encoder_factory.h"
 #include "api/call/transport.h"
@@ -18,6 +19,7 @@
 #include "modules/rtp_rtcp/source/rtp_rtcp_impl2.h"
 #include "rtc_base/event.h"
 #include "rtc_base/logging.h"
+#include "rtc_base/thread.h"
 #include "test/gmock.h"
 #include "test/gtest.h"
 #include "test/mock_transport.h"
@@ -91,6 +93,7 @@ class AudioIngressTest : public ::testing::Test {
     return frame;
   }
 
+  rtc::AutoThread main_thread_;
   SimulatedClock fake_clock_;
   SineWaveGenerator wave_generator_;
   NiceMock<MockTransport> transport_;

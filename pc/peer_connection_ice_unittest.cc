@@ -1423,6 +1423,7 @@ class PeerConnectionIceConfigTest : public ::testing::Test {
     pc_ = std::move(pc);
   }
 
+  rtc::AutoThread main_thread_;
   rtc::scoped_refptr<PeerConnectionFactoryInterface> pc_factory_ = nullptr;
   rtc::scoped_refptr<PeerConnectionInterface> pc_ = nullptr;
   cricket::FakePortAllocator* port_allocator_ = nullptr;

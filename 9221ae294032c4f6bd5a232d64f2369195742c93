@@ -526,6 +526,30 @@
       },
       "revId": "9221ae294032c4f6bd5a232d64f2369195742c93",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "82745b1e_c919dc58",
+        "filename": "rtc_base/experiments/field_trial_units.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 41,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2022-03-15T08:41:43Z",
+      "side": 1,
+      "message": "In this case too, optimizing for empty case seems a bit questionable. And I\u0027d expect creating an empty temporary std::string is pretty cheap, if std::string has any kind of short-string optimization.\n\nAgree with other comments.",
+      "parentUuid": "b6ae151d_2733fa1e",
+      "range": {
+        "startLine": 41,
+        "startChar": 15,
+        "endLine": 41,
+        "endChar": 39
+      },
+      "revId": "9221ae294032c4f6bd5a232d64f2369195742c93",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

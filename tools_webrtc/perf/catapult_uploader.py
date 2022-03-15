@@ -14,7 +14,6 @@ import subprocess
 import time
 import zlib
 
-import dataclasses
 import httplib2
 
 from tracing.value import histogram
@@ -23,7 +22,6 @@ from tracing.value.diagnostics import generic_set
 from tracing.value.diagnostics import reserved_infos
 
 
-@dataclasses.dataclass
 class UploaderOptions():
   """Required information to upload perf metrics.
 
@@ -45,17 +43,28 @@ class UploaderOptions():
       wait_polling_period_sec: Status will be requested from the Dashboard
         every wait_polling_period_sec seconds.
     """
-  perf_dashboard_machine_group: str
-  bot: str
-  test_suite: str
-  webrtc_git_hash: str
-  commit_position: int
-  build_page_url: str
-  dashboard_url: str
-  input_results_file: str
-  output_json_file: str
-  wait_timeout_sec: datetime.timedelta = datetime.timedelta(seconds=1200)
-  wait_polling_period_sec: datetime.timedelta = datetime.timedelta(seconds=120)
+
+  def __init__(self,
+               perf_dashboard_machine_group,
+               bot,
+               test_suite,
+               webrtc_git_hash,
+               commit_position,
+               build_page_url,
+               dashboard_url,
+               input_results_file=None,
+               output_json_file=None):
+    self.perf_dashboard_machine_group = perf_dashboard_machine_group
+    self.bot = bot
+    self.test_suite = test_suite
+    self.webrtc_git_hash = webrtc_git_hash
+    self.commit_position = commit_position
+    self.build_page_url = build_page_url
+    self.dashboard_url = dashboard_url
+    self.input_results_file = input_results_file
+    self.output_json_file = output_json_file
+    self.wait_timeout_sec = datetime.timedelta(seconds=1200)
+    self.wait_polling_period_sec = datetime.timedelta(seconds=120)
 
 
 def _GenerateOauthToken():

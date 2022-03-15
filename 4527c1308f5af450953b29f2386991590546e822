@@ -87,6 +87,24 @@
       "parentUuid": "4cc9f7cb_00914f2c",
       "revId": "4527c1308f5af450953b29f2386991590546e822",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "aee20eb1_161cb4e2",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5578
+      },
+      "writtenOn": "2022-03-15T08:20:47Z",
+      "side": 1,
+      "message": "Thanks- but from the logs (https://chromium-swarm.appspot.com/task?id\u003d59a56fc47ef4eb11) I see \n[ RUN      ] VideoCaptureTest.CreateDelete\n../../modules/video_capture/test/video_capture_unittest.cc:156: Failure\nExpected: (number_of_devices_) \u003e (0u), actual: 0 vs 0\n\nwhich indicate that there is no device. The cl change how a found device is stopped. But for that- a device must first exist. That is why I suspect something has happened to the bots.",
+      "parentUuid": "ef0b089b_036c5b6c",
+      "revId": "4527c1308f5af450953b29f2386991590546e822",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

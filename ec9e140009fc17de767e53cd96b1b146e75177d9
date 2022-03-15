@@ -20,6 +20,23 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "b6916e94_dafd53cb",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 8
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5087
+      },
+      "writtenOn": "2022-03-15T08:24:51Z",
+      "side": 1,
+      "message": "LGTM % make a decision about how to handle extra copies:\n\n1- Just make them as long as they are not in a hot path.\n2- Try to avoid and be smart about which API the function calls (e.g. if it calls an API with const string\u0026 maybe let\u0027s avoid the string_view param).\n3- Something else",
+      "revId": "ec9e140009fc17de767e53cd96b1b146e75177d9",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "2c381440_8517d184",
         "filename": "rtc_base/boringssl_identity.cc",
         "patchSetId": 8
@@ -83,6 +100,76 @@
         "startLine": 76,
         "startChar": 0,
         "endLine": 76,
+        "endChar": 48
+      },
+      "revId": "ec9e140009fc17de767e53cd96b1b146e75177d9",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "4041f356_816bb895",
+        "filename": "rtc_base/boringssl_identity.cc",
+        "patchSetId": 8
+      },
+      "lineNbr": 76,
+      "author": {
+        "id": 5087
+      },
+      "writtenOn": "2022-03-15T08:24:51Z",
+      "side": 1,
+      "message": "Yes, agreed this was already a copy.",
+      "parentUuid": "36804b3f_5611cedd",
+      "range": {
+        "startLine": 76,
+        "startChar": 0,
+        "endLine": 76,
+        "endChar": 48
+      },
+      "revId": "ec9e140009fc17de767e53cd96b1b146e75177d9",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "620ba80d_3a66a0f0",
+        "filename": "rtc_base/experiments/encoder_info_settings.cc",
+        "patchSetId": 8
+      },
+      "lineNbr": 179,
+      "author": {
+        "id": 5087
+      },
+      "writtenOn": "2022-03-15T08:24:51Z",
+      "side": 1,
+      "message": "Can we add a FindFullName(absl::string_view) API (I think we might be able to do that if we add it here https://source.chromium.org/chromium/chromium/src/+/main:third_party/webrtc/system_wrappers/include/field_trial.h;l\u003d64;drc\u003dee1e01565570b2e0a20a7f0c07e879d63aa09293 with a definition https://source.chromium.org/chromium/chromium/src/+/main:third_party/webrtc/system_wrappers/source/field_trial.cc;l\u003d105;drc\u003dd3251968d1b3dbe7e1353a3f15970b47173103e9 and  https://source.chromium.org/chromium/chromium/src/+/main:third_party/webrtc_overrides/field_trial.cc)?\n\nThat way, we avoid the copy here (and in other places I guess).",
+      "range": {
+        "startLine": 179,
+        "startChar": 6,
+        "endLine": 179,
+        "endChar": 41
+      },
+      "revId": "ec9e140009fc17de767e53cd96b1b146e75177d9",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "c66d4df6_471bab1e",
+        "filename": "rtc_base/ip_address.cc",
+        "patchSetId": 8
+      },
+      "lineNbr": 286,
+      "author": {
+        "id": 5087
+      },
+      "writtenOn": "2022-03-15T08:24:51Z",
+      "side": 1,
+      "message": "This is one of the examples to discuss with the team and get a consistent rule.",
+      "range": {
+        "startLine": 286,
+        "startChar": 2,
+        "endLine": 286,
         "endChar": 48
       },
       "revId": "ec9e140009fc17de767e53cd96b1b146e75177d9",
@@ -174,6 +261,30 @@
       "side": 1,
       "message": "Yup, I know what you mean. This specific example is not a hill I\u0027m willing to die on :) but I think we will encounter these types of cases again and again and it would be nice to have an agreement on a guiding principle on how to deal with these.\n\nthe principle I\u0027m going by right now is that we should use string_view internally as much as possible and push conversions to std::string to call sites that call external code (that don\u0027t support string_view or don\u0027t take string length as an argument). The exception would be performance critical parts of webrtc where we would retain std::string all the way. This is in line with internal recommendations. wdyt?\n\nAlso keep in mind that I\u0027m going to adopt string_view outside of rtc_base as well. So eventually code outside of rtc_base that is currently using std::string may very well be converted to string_view. So cases where we can conveniently retain std::string right now may end up being inconvenient later.",
       "parentUuid": "3c6ee5f1_2e82167c",
+      "range": {
+        "startLine": 246,
+        "startChar": 2,
+        "endLine": 246,
+        "endChar": 37
+      },
+      "revId": "ec9e140009fc17de767e53cd96b1b146e75177d9",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "544f9cf7_92cabe06",
+        "filename": "rtc_base/strings/json.cc",
+        "patchSetId": 8
+      },
+      "lineNbr": 246,
+      "author": {
+        "id": 5087
+      },
+      "writtenOn": "2022-03-15T08:24:51Z",
+      "side": 1,
+      "message": "\u003e Yup, I know what you mean. This specific example is not a hill I\u0027m willing to die on :) but I think we will encounter these types of cases again and again and it would be nice to have an agreement on a guiding principle on how to deal with these.\n\nYes, I agree.\nI suggest a discussion with the WebRTC Core team (e.g. via email) so we get wide agreement on this.\n\n\u003e the principle I\u0027m going by right now is that we should use string_view internally as much as possible and push conversions to std::string to call sites that call external code (that don\u0027t support string_view or don\u0027t take string length as an argument). The exception would be performance critical parts of webrtc where we would retain std::string all the way. This is in line with internal recommendations. wdyt?\n\nSGTM, I am not the best person to detect hot paths, maybe we should loop in other reviewers as well or did you check already?\n\n\u003e Also keep in mind that I\u0027m going to adopt string_view outside of rtc_base as well. So eventually code outside of rtc_base that is currently using std::string may very well be converted to string_view. So cases where we can conveniently retain std::string right now may end up being inconvenient later.",
+      "parentUuid": "683d552b_7c34a093",
       "range": {
         "startLine": 246,
         "startChar": 2,

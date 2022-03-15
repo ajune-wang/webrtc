@@ -69,6 +69,42 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "94194264_e4e18f97",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 8
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 10107
+      },
+      "writtenOn": "2022-03-15T11:40:30Z",
+      "side": 1,
+      "message": "Thanks. Will keep that in mind. So far there are no semantical changes wrt number parsing, but will watch out for future CLs.",
+      "parentUuid": "6c0d6e8e_a440c875",
+      "revId": "ec9e140009fc17de767e53cd96b1b146e75177d9",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "958b3c2b_35334a87",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 8
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 10107
+      },
+      "writtenOn": "2022-03-15T11:40:30Z",
+      "side": 1,
+      "message": "Thanks for the review!\n\nI\u0027ll bring up the discussion and include more folks.",
+      "parentUuid": "b6916e94_dafd53cb",
+      "revId": "ec9e140009fc17de767e53cd96b1b146e75177d9",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "2c381440_8517d184",
@@ -211,6 +247,30 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "7102fc56_9ebe1062",
+        "filename": "rtc_base/experiments/encoder_info_settings.cc",
+        "patchSetId": 8
+      },
+      "lineNbr": 179,
+      "author": {
+        "id": 10107
+      },
+      "writtenOn": "2022-03-15T11:40:30Z",
+      "side": 1,
+      "message": "Let me get back to this in a follow-up. I\u0027ll figure out how to update webrtc_overrides in chromium while also changing the function signature in webrtc.",
+      "parentUuid": "620ba80d_3a66a0f0",
+      "range": {
+        "startLine": 179,
+        "startChar": 6,
+        "endLine": 179,
+        "endChar": 41
+      },
+      "revId": "ec9e140009fc17de767e53cd96b1b146e75177d9",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "f6b2ede5_12960ff3",
@@ -234,6 +294,30 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "0d479aba_990e6a0d",
+        "filename": "rtc_base/file_rotating_stream.cc",
+        "patchSetId": 8
+      },
+      "lineNbr": 72,
+      "author": {
+        "id": 10107
+      },
+      "writtenOn": "2022-03-15T11:40:30Z",
+      "side": 1,
+      "message": "Well, since we are introducing a string_view version of StringBuilder\u0027s method, why not? :)",
+      "parentUuid": "f6b2ede5_12960ff3",
+      "range": {
+        "startLine": 70,
+        "startChar": 0,
+        "endLine": 72,
+        "endChar": 73
+      },
+      "revId": "ec9e140009fc17de767e53cd96b1b146e75177d9",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "29ceb7e6_edf10e1d",
@@ -247,6 +331,30 @@
       "writtenOn": "2022-03-15T08:41:43Z",
       "side": 1,
       "message": "This method is a candidate for conversion to string_view, later on?",
+      "range": {
+        "startLine": 99,
+        "startChar": 8,
+        "endLine": 99,
+        "endChar": 41
+      },
+      "revId": "ec9e140009fc17de767e53cd96b1b146e75177d9",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "6688845c_97577be8",
+        "filename": "rtc_base/file_rotating_stream_unittest.cc",
+        "patchSetId": 8
+      },
+      "lineNbr": 99,
+      "author": {
+        "id": 10107
+      },
+      "writtenOn": "2022-03-15T11:40:30Z",
+      "side": 1,
+      "message": "Yes. There are still some more conversions in rtc_base to come and this is one of them.",
+      "parentUuid": "29ceb7e6_edf10e1d",
       "range": {
         "startLine": 99,
         "startChar": 8,
@@ -303,6 +411,30 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "954b01b9_278c3fd0",
+        "filename": "rtc_base/socket_address.cc",
+        "patchSetId": 8
+      },
+      "lineNbr": 199,
+      "author": {
+        "id": 10107
+      },
+      "writtenOn": "2022-03-15T11:40:30Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "026c63df_f39c4f81",
+      "range": {
+        "startLine": 199,
+        "startChar": 12,
+        "endLine": 199,
+        "endChar": 19
+      },
+      "revId": "ec9e140009fc17de767e53cd96b1b146e75177d9",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "1dc29d76_c7ed1a9c",
@@ -326,6 +458,30 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "a2ed72df_2caec57c",
+        "filename": "rtc_base/string_encode.cc",
+        "patchSetId": 8
+      },
+      "lineNbr": 252,
+      "author": {
+        "id": 10107
+      },
+      "writtenOn": "2022-03-15T11:40:30Z",
+      "side": 1,
+      "message": "A couple of places in rtc_stats, e.g: crsrc.org/c/third_party/webrtc/stats/rtc_stats.cc;drc\u003d35a6eae48ee9838a2672b9a1ef7b149d3f7983b2;l\u003d73",
+      "parentUuid": "1dc29d76_c7ed1a9c",
+      "range": {
+        "startLine": 249,
+        "startChar": 0,
+        "endLine": 252,
+        "endChar": 1
+      },
+      "revId": "ec9e140009fc17de767e53cd96b1b146e75177d9",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "07a04657_be81796b",
@@ -339,6 +495,30 @@
       "writtenOn": "2022-03-15T08:41:43Z",
       "side": 1,
       "message": "There\u0027s nothing like this included in abseil?",
+      "range": {
+        "startLine": 46,
+        "startChar": 7,
+        "endLine": 46,
+        "endChar": 25
+      },
+      "revId": "ec9e140009fc17de767e53cd96b1b146e75177d9",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "7ad5e342_29e4f8b1",
+        "filename": "rtc_base/string_utils.h",
+        "patchSetId": 8
+      },
+      "lineNbr": 46,
+      "author": {
+        "id": 10107
+      },
+      "writtenOn": "2022-03-15T11:40:30Z",
+      "side": 1,
+      "message": "I searched in absl/strings/, but there isn\u0027t anything like that available (though there is one for comparing strings ignoring case:  http://google3/third_party/absl/strings/string_view_utils.h;l\u003d144;rcl\u003d387239415",
+      "parentUuid": "07a04657_be81796b",
       "range": {
         "startLine": 46,
         "startChar": 7,
@@ -468,6 +648,30 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "b63d55fb_3dc28029",
+        "filename": "rtc_base/strings/json.cc",
+        "patchSetId": 8
+      },
+      "lineNbr": 246,
+      "author": {
+        "id": 10107
+      },
+      "writtenOn": "2022-03-15T11:40:30Z",
+      "side": 1,
+      "message": "Agreed. I\u0027ll start a thread.",
+      "parentUuid": "544f9cf7_92cabe06",
+      "range": {
+        "startLine": 246,
+        "startChar": 2,
+        "endLine": 246,
+        "endChar": 37
+      },
+      "revId": "ec9e140009fc17de767e53cd96b1b146e75177d9",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "82bf51fb_9f80d434",
@@ -529,6 +733,30 @@
       "side": 1,
       "message": "Yes, sounds good to me.\n\nShould we add a TODO here so we don\u0027t forget?",
       "parentUuid": "836fc08c_104f1412",
+      "range": {
+        "startLine": 61,
+        "startChar": 31,
+        "endLine": 61,
+        "endChar": 49
+      },
+      "revId": "ec9e140009fc17de767e53cd96b1b146e75177d9",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "63c0cd05_dfee40fc",
+        "filename": "rtc_base/unique_id_generator.cc",
+        "patchSetId": 8
+      },
+      "lineNbr": 61,
+      "author": {
+        "id": 10107
+      },
+      "writtenOn": "2022-03-15T11:40:30Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "b113f5de_48bb8297",
       "range": {
         "startLine": 61,
         "startChar": 31,

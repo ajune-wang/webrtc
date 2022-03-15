@@ -24,6 +24,30 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "ffef4786_07a5202d",
+        "filename": "modules/desktop_capture/linux/wayland/screencast_portal.cc",
+        "patchSetId": 10
+      },
+      "lineNbr": 50,
+      "author": {
+        "id": 18829
+      },
+      "writtenOn": "2022-03-15T14:48:15Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "de88973b_b4def93c",
+      "range": {
+        "startLine": 41,
+        "startChar": 0,
+        "endLine": 50,
+        "endChar": 33
+      },
+      "revId": "250b4f7a64a4bf7f7628547aefb7259c2b7631b1",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "be77dbd9_76193b2a",
@@ -37,6 +61,30 @@
       "writtenOn": "2022-03-10T23:39:05Z",
       "side": 1,
       "message": "At the very least, the constant values and methods should be put in a nested namespace per:\nhttps://google.github.io/styleguide/cppguide.html#Nonmember,_Static_Member,_and_Global_Functions\n\nTo avoid polluting the \"webrtc\" namespace.",
+      "range": {
+        "startLine": 24,
+        "startChar": 10,
+        "endLine": 24,
+        "endChar": 16
+      },
+      "revId": "250b4f7a64a4bf7f7628547aefb7259c2b7631b1",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "783eb4fb_a22b2219",
+        "filename": "modules/desktop_capture/linux/wayland/xdg_desktop_portal_utils.h",
+        "patchSetId": 10
+      },
+      "lineNbr": 24,
+      "author": {
+        "id": 18829
+      },
+      "writtenOn": "2022-03-15T14:48:15Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "be77dbd9_76193b2a",
       "range": {
         "startLine": 24,
         "startChar": 10,
@@ -70,6 +118,30 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "e39eb81e_ac771297",
+        "filename": "modules/desktop_capture/linux/wayland/xdg_desktop_portal_utils.h",
+        "patchSetId": 10
+      },
+      "lineNbr": 26,
+      "author": {
+        "id": 18829
+      },
+      "writtenOn": "2022-03-15T14:48:15Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "84c38493_7b12d99c",
+      "range": {
+        "startLine": 26,
+        "startChar": 0,
+        "endLine": 26,
+        "endChar": 5
+      },
+      "revId": "250b4f7a64a4bf7f7628547aefb7259c2b7631b1",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "2f9928c3_2e7229a7",
@@ -83,6 +155,30 @@
       "writtenOn": "2022-03-10T23:39:05Z",
       "side": 1,
       "message": "NIT: Would prefer it if this had the type name.",
+      "range": {
+        "startLine": 75,
+        "startChar": 12,
+        "endLine": 75,
+        "endChar": 20
+      },
+      "revId": "250b4f7a64a4bf7f7628547aefb7259c2b7631b1",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "3475ef05_69e345cb",
+        "filename": "modules/desktop_capture/linux/wayland/xdg_desktop_portal_utils.h",
+        "patchSetId": 10
+      },
+      "lineNbr": 75,
+      "author": {
+        "id": 18829
+      },
+      "writtenOn": "2022-03-15T14:48:15Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "2f9928c3_2e7229a7",
       "range": {
         "startLine": 75,
         "startChar": 12,
@@ -116,6 +212,30 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "65c92553_b25bbe03",
+        "filename": "modules/desktop_capture/linux/wayland/xdg_desktop_portal_utils.h",
+        "patchSetId": 10
+      },
+      "lineNbr": 96,
+      "author": {
+        "id": 18829
+      },
+      "writtenOn": "2022-03-15T14:48:15Z",
+      "side": 1,
+      "message": "Portal in this case are either ScreencastPortal or DesktopPortal objects. Is the suggestion here to have a common templated class for these portals? It may be doable but I am not sure if we should do it though.",
+      "parentUuid": "0ea756b4_c5a26e89",
+      "range": {
+        "startLine": 94,
+        "startChar": 0,
+        "endLine": 96,
+        "endChar": 53
+      },
+      "revId": "250b4f7a64a4bf7f7628547aefb7259c2b7631b1",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "49b69272_c7b7626d",
@@ -129,6 +249,30 @@
       "writtenOn": "2022-03-10T23:39:05Z",
       "side": 1,
       "message": "These could probably use commenting what they are",
+      "range": {
+        "startLine": 145,
+        "startChar": 37,
+        "endLine": 145,
+        "endChar": 43
+      },
+      "revId": "250b4f7a64a4bf7f7628547aefb7259c2b7631b1",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "6d78cd30_df344d29",
+        "filename": "modules/desktop_capture/linux/wayland/xdg_desktop_portal_utils.h",
+        "patchSetId": 10
+      },
+      "lineNbr": 145,
+      "author": {
+        "id": 18829
+      },
+      "writtenOn": "2022-03-15T14:48:15Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "49b69272_c7b7626d",
       "range": {
         "startLine": 145,
         "startChar": 37,
@@ -162,6 +306,30 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "709dfbf5_b04c236b",
+        "filename": "modules/desktop_capture/linux/wayland/xdg_desktop_portal_utils.h",
+        "patchSetId": 10
+      },
+      "lineNbr": 164,
+      "author": {
+        "id": 18829
+      },
+      "writtenOn": "2022-03-15T14:48:15Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "955d45ba_2467543f",
+      "range": {
+        "startLine": 164,
+        "startChar": 28,
+        "endLine": 164,
+        "endChar": 39
+      },
+      "revId": "250b4f7a64a4bf7f7628547aefb7259c2b7631b1",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "0e3faf0a_a245d4f5",
@@ -175,6 +343,30 @@
       "writtenOn": "2022-03-10T23:39:05Z",
       "side": 1,
       "message": "Comments for session_handle and nullptrs ?",
+      "range": {
+        "startLine": 167,
+        "startChar": 50,
+        "endLine": 168,
+        "endChar": 71
+      },
+      "revId": "250b4f7a64a4bf7f7628547aefb7259c2b7631b1",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "6c19dffd_97e8965d",
+        "filename": "modules/desktop_capture/linux/wayland/xdg_desktop_portal_utils.h",
+        "patchSetId": 10
+      },
+      "lineNbr": 168,
+      "author": {
+        "id": 18829
+      },
+      "writtenOn": "2022-03-15T14:48:15Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "0e3faf0a_a245d4f5",
       "range": {
         "startLine": 167,
         "startChar": 50,
@@ -208,6 +400,30 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "8b5c5085_47aa4128",
+        "filename": "modules/desktop_capture/linux/wayland/xdg_desktop_portal_utils.h",
+        "patchSetId": 10
+      },
+      "lineNbr": 177,
+      "author": {
+        "id": 18829
+      },
+      "writtenOn": "2022-03-15T14:48:15Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "fed3aaf5_135edfcb",
+      "range": {
+        "startLine": 177,
+        "startChar": 58,
+        "endLine": 177,
+        "endChar": 67
+      },
+      "revId": "250b4f7a64a4bf7f7628547aefb7259c2b7631b1",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "8b6e71f2_68ebdb0a",
@@ -221,6 +437,24 @@
       "writtenOn": "2022-03-10T23:39:05Z",
       "side": 1,
       "message": "Rather than interspersing methods that will be defined in the .cc with the templates to keep things in alphabetical order I think I\u0027d prefer it if this file was structured:\n\nConstants/Usings\nNon-Templated methods\nTemplated methods w/definitions\n\nAs I think that will help the readability/discoverability a little bit",
+      "revId": "250b4f7a64a4bf7f7628547aefb7259c2b7631b1",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "047f39c9_33726573",
+        "filename": "modules/desktop_capture/linux/wayland/xdg_desktop_portal_utils.h",
+        "patchSetId": 10
+      },
+      "lineNbr": 182,
+      "author": {
+        "id": 18829
+      },
+      "writtenOn": "2022-03-15T14:48:15Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "8b6e71f2_68ebdb0a",
       "revId": "250b4f7a64a4bf7f7628547aefb7259c2b7631b1",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }

@@ -103,19 +103,8 @@ RtpTransportControllerSend::RtpTransportControllerSend(
                                 ? nullptr
                                 : new PacedSender(clock,
                                                   &packet_router_,
-                                                  event_log,
                                                   trials,
                                                   process_thread_.get())),
-      task_queue_pacer_(
-          pacer_settings_.use_task_queue_pacer()
-              ? new TaskQueuePacedSender(clock,
-                                         &packet_router_,
-                                         event_log,
-                                         trials,
-                                         task_queue_factory,
-                                         pacer_settings_.holdback_window.Get(),
-                                         pacer_settings_.holdback_packets.Get())
-              : nullptr),
       observer_(nullptr),
       controller_factory_override_(controller_factory),
       controller_factory_fallback_(
@@ -136,6 +125,12 @@ RtpTransportControllerSend::RtpTransportControllerSend(
           "rtp_send_controller",
           TaskQueueFactory::Priority::NORMAL)),
       field_trials_(*trials) {
+  if (pacer_settings_.use_task_queue_pacer()) {
+    task_queue_pacer_ = std::make_unique<TaskQueuePacedSender>(
+        clock, &packet_router_, trials, task_queue_.Get(),
+        pacer_settings_.holdback_window.Get(),
+        pacer_settings_.holdback_packets.Get());
+  }
   ParseFieldTrial({&relay_bandwidth_cap_},
                   trials->Lookup("WebRTC-Bwe-NetworkRouteConstraints"));
   initial_config_.constraints = ConvertConstraints(bitrate_config, clock_);

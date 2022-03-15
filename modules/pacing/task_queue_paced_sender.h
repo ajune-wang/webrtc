@@ -21,7 +21,7 @@
 
 #include "absl/types/optional.h"
 #include "api/sequence_checker.h"
-#include "api/task_queue/task_queue_factory.h"
+#include "api/task_queue/task_queue_base.h"
 #include "api/units/data_size.h"
 #include "api/units/time_delta.h"
 #include "api/units/timestamp.h"
@@ -31,19 +31,15 @@
 #include "rtc_base/numerics/exp_filter.h"
 #include "rtc_base/synchronization/mutex.h"
 #include "rtc_base/task_queue.h"
+#include "rtc_base/task_utils/pending_task_safety_flag.h"
 #include "rtc_base/thread_annotations.h"
 
 namespace webrtc {
 class Clock;
-class RtcEventLog;
 
 class TaskQueuePacedSender : public RtpPacketPacer, public RtpPacketSender {
  public:
-  // The `hold_back_window` parameter sets a lower bound on time to sleep if
-  // there is currently a pacer queue and packets can't immediately be
-  // processed. Increasing this reduces thread wakeups at the expense of higher
-  // latency.
-  // TODO(bugs.webrtc.org/10809): Remove default values.
+  // Deprecated.
   TaskQueuePacedSender(
       Clock* clock,
       PacingController::PacketSender* packet_sender,
@@ -52,6 +48,17 @@ class TaskQueuePacedSender : public RtpPacketPacer, public RtpPacketSender {
       TaskQueueFactory* task_queue_factory,
       TimeDelta max_hold_back_window = PacingController::kMinSleepTime,
       int max_hold_back_window_in_packets = -1);
+
+  // The `hold_back_window` parameter sets a lower bound on time to sleep if
+  // there is currently a pacer queue and packets can't immediately be
+  // processed. Increasing this reduces thread wakeups at the expense of higher
+  // latency.
+  TaskQueuePacedSender(Clock* clock,
+                       PacingController::PacketSender* packet_sender,
+                       const WebRtcKeyValueConfig* field_trials,
+                       TaskQueueBase* task_queue,
+                       TimeDelta max_hold_back_window,
+                       int max_hold_back_window_in_packets);
 
   ~TaskQueuePacedSender() override;
 
@@ -160,7 +167,10 @@ class TaskQueuePacedSender : public RtpPacketPacer, public RtpPacketSender {
   mutable Mutex stats_mutex_;
   Stats current_stats_ RTC_GUARDED_BY(stats_mutex_);
 
-  rtc::TaskQueue task_queue_;
+  // Only used when deprecated constructor is called.
+  std::unique_ptr<TaskQueueBase, TaskQueueDeleter> owned_task_queue_;
+  TaskQueueBase* const task_queue_;
+  rtc::scoped_refptr<PendingTaskSafetyFlag> task_safety_;
 };
 }  // namespace webrtc
 #endif  // MODULES_PACING_TASK_QUEUE_PACED_SENDER_H_

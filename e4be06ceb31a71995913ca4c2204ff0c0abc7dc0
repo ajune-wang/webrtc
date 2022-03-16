@@ -1,0 +1,44 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "eeda35cf_7cc1a442",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 6
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5578
+      },
+      "writtenOn": "2022-03-16T07:56:28Z",
+      "side": 1,
+      "message": "lgtm % comments.",
+      "revId": "e4be06ceb31a71995913ca4c2204ff0c0abc7dc0",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "b6918946_a4a34c0a",
+        "filename": "modules/congestion_controller/goog_cc/loss_based_bwe_v2.cc",
+        "patchSetId": 6
+      },
+      "lineNbr": 275,
+      "author": {
+        "id": 5578
+      },
+      "writtenOn": "2022-03-16T07:56:28Z",
+      "side": 1,
+      "message": "Maybe document what this means. ie, Something like, trendline filter state during the last 20 feedback reports.",
+      "range": {
+        "startLine": 275,
+        "startChar": 30,
+        "endLine": 275,
+        "endChar": 51
+      },
+      "revId": "e4be06ceb31a71995913ca4c2204ff0c0abc7dc0",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

@@ -302,6 +302,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "ae87b986_5087a979",
+        "filename": "modules/congestion_controller/goog_cc/loss_based_bwe_v2.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 572,
+      "author": {
+        "id": 5578
+      },
+      "writtenOn": "2022-03-16T07:56:28Z",
+      "side": 1,
+      "message": "Maybe write a comment why, and update your design doc, it says the opposite. It still feels wrong that loss based estimator is forced to back down, even though there is no loss.",
+      "parentUuid": "46826c5f_d9df8c4d",
+      "range": {
+        "startLine": 572,
+        "startChar": 33,
+        "endLine": 572,
+        "endChar": 50
+      },
+      "revId": "e50b302515bab0bc02b7d2288211d9528e6fe8f5",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "13944512_1f475234",
         "filename": "modules/congestion_controller/goog_cc/loss_based_bwe_v2.h",
         "patchSetId": 4
@@ -384,6 +408,30 @@
       "side": 1,
       "message": "Ack.\n\nI agree with you, if we consider delay based estimate is the source of truth. Another opinion is that we are building a defensive loss based bwe. When it sees a signal of overusing, and the delay base might be overestimating, then loss based should start backing off since the loss might come soon. IDK if the idea is good or not, so want to try it out.",
       "parentUuid": "1348155e_20abd9de",
+      "range": {
+        "startLine": 353,
+        "startChar": 25,
+        "endLine": 353,
+        "endChar": 64
+      },
+      "revId": "e50b302515bab0bc02b7d2288211d9528e6fe8f5",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "eb6f0778_a7f17395",
+        "filename": "modules/congestion_controller/goog_cc/loss_based_bwe_v2_test.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 353,
+      "author": {
+        "id": 5578
+      },
+      "writtenOn": "2022-03-16T07:56:28Z",
+      "side": 1,
+      "message": "Can you please add a motivation for this behavior in the test?",
+      "parentUuid": "16f09340_274e52ea",
       "range": {
         "startLine": 353,
         "startChar": 25,

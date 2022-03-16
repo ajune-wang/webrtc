@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "f1ccf303_a84169bd",
+        "filename": "system_wrappers/source/rtp_to_ntp_estimator.cc",
+        "patchSetId": 8
+      },
+      "lineNbr": 30,
+      "author": {
+        "id": 5524
+      },
+      "writtenOn": "2022-03-16T17:20:09Z",
+      "side": 1,
+      "message": "nit: This comment seems outdated?",
+      "range": {
+        "startLine": 27,
+        "startChar": 0,
+        "endLine": 30,
+        "endChar": 74
+      },
+      "revId": "dd29a9b9e88edeb5521f00edcecfb145f26bee51",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

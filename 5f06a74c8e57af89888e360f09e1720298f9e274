@@ -16,6 +16,24 @@
       "message": "There\u0027s a use-after-free, apparently on windows only. From the stack traces, I see this problem:\n\nThe test (I\u0027m looking at the failure of PeerConnectionIntegrationTest/PeerConnectionIntegrationTest.IceTransportFactoryUsedForConnections/3, see https://chromium-swarm.appspot.com/task?id\u003d5987999a2fe6f410) is finished, and the network thread created for the test is destroyed.\n\nControl gets to TestMainImpl::OnTestEnd (in test/test_main_lib.cc). This class has wrapped the main thread (comments indicate that maybe that could be deleted, now that automatic thread wrapping is gone). It calls thread_-\u003eQuit() followed by thread_-\u003eRun(). The latter finds a message that needs processing, and calls  FakeRTCCertificateGenerator::OnMessage.\n\nVia some other method calls, this gets to webrtc::JsepTransportController::SetLocalCertificate, which tries to Invoke to the network thread. But the network thread no longer exists. Which results in a use-after-free.\n\n",
       "revId": "5f06a74c8e57af89888e360f09e1720298f9e274",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "c1efa6d0_b980179a",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 7
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2022-03-16T14:13:14Z",
+      "side": 1,
+      "message": "I tried adding an rtc::AutoThread, in PeerConnectionIntegrationBaseTest, but that just made more tests fail.\n\nIt appears the problem is the test class FakeRTCCertificateGenerator; its GenerateCertificateAsync posts messages to rtc::Thread::Current(), and it seems these messages are not always handled before tests concludes. The class inherits rtc::MessageHandlerAutoCleanup though. So not sure which objects are still alive at the time of the OnMessage call. Maybe all these objects are kept alive via the scoped_refptr\u003cRTCCertificateGeneratorCallback\u003e, until we get to JsepTransportController, which holds a raw pointer to the network thread, and that thread no longer exists. \n\nUnclear why the FakeRTCCertificateGenerator is still alive, though, it\u0027s not refcounted, and not clear to me where it is owned, after being injected via  webrtc::PeerConnectionDependencies.\n\nThe callback class is refcounted, with a single implementation WebRtcCertificateGeneratorCallback. It contains some sigslots, connected like\n\n    callback-\u003eSignalCertificateReady.connect(\n        this, \u0026WebRtcSessionDescriptionFactory::SetCertificate);",
+      "parentUuid": "5fa2ba05_9a982150",
+      "revId": "5f06a74c8e57af89888e360f09e1720298f9e274",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

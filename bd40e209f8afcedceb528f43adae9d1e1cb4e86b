@@ -16,6 +16,23 @@
       "message": "Comment removed by: Mirko Bonadei; Reason: Spam",
       "revId": "bd40e209f8afcedceb528f43adae9d1e1cb4e86b",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "25180e36_b994db5b",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 18515
+      },
+      "writtenOn": "2022-03-16T05:25:40Z",
+      "side": 1,
+      "message": "Comment removed by: Mirko Bonadei; Reason: Spam",
+      "revId": "bd40e209f8afcedceb528f43adae9d1e1cb4e86b",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

@@ -324,6 +324,30 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "fea4ce05_a7833e4a",
+        "filename": "modules/congestion_controller/goog_cc/loss_based_bwe_v2.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 572,
+      "author": {
+        "id": 18864
+      },
+      "writtenOn": "2022-03-16T13:54:03Z",
+      "side": 1,
+      "message": "Done.\n\nYour point sounds reasonable. I added a flag here and will carry experiment to see how two implementations behave in reality.",
+      "parentUuid": "ae87b986_5087a979",
+      "range": {
+        "startLine": 572,
+        "startChar": 33,
+        "endLine": 572,
+        "endChar": 50
+      },
+      "revId": "e50b302515bab0bc02b7d2288211d9528e6fe8f5",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "13944512_1f475234",
@@ -432,6 +456,30 @@
       "side": 1,
       "message": "Can you please add a motivation for this behavior in the test?",
       "parentUuid": "16f09340_274e52ea",
+      "range": {
+        "startLine": 353,
+        "startChar": 25,
+        "endLine": 353,
+        "endChar": 64
+      },
+      "revId": "e50b302515bab0bc02b7d2288211d9528e6fe8f5",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "5ee5969c_bcf6f197",
+        "filename": "modules/congestion_controller/goog_cc/loss_based_bwe_v2_test.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 353,
+      "author": {
+        "id": 18864
+      },
+      "writtenOn": "2022-03-16T13:54:03Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "eb6f0778_a7f17395",
       "range": {
         "startLine": 353,
         "startChar": 25,

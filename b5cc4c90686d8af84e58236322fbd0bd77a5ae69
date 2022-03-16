@@ -72,6 +72,75 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "dc17d10a_61e98496",
+        "filename": "api/video/i422_buffer.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 39,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2022-03-16T09:49:06Z",
+      "side": 1,
+      "message": "Is this conversion really useful? If I understand it correctly, it is expected to just duplicate each row of the input U and V planes?",
+      "range": {
+        "startLine": 38,
+        "startChar": 0,
+        "endLine": 39,
+        "endChar": 80
+      },
+      "revId": "b5cc4c90686d8af84e58236322fbd0bd77a5ae69",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "7ecfcfd3_d868ebef",
+        "filename": "api/video/i422_buffer.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 57,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2022-03-16T09:49:06Z",
+      "side": 1,
+      "message": "Please don\u0027t add deprecated functinos.",
+      "range": {
+        "startLine": 53,
+        "startChar": 0,
+        "endLine": 57,
+        "endChar": 3
+      },
+      "revId": "b5cc4c90686d8af84e58236322fbd0bd77a5ae69",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "fb98884e_50ff1255",
+        "filename": "api/video/video_frame_buffer.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 183,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2022-03-16T09:49:06Z",
+      "side": 1,
+      "message": "Reference to definition of this format would be helpful. (Or brief description).",
+      "range": {
+        "startLine": 183,
+        "startChar": 6,
+        "endLine": 183,
+        "endChar": 25
+      },
+      "revId": "b5cc4c90686d8af84e58236322fbd0bd77a5ae69",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "d28179c0_8ba7b653",
         "filename": "common_video/video_frame_buffer_pool.cc",
         "patchSetId": 2

@@ -72,6 +72,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "899a3bb6_71aef60f",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5117
+      },
+      "writtenOn": "2022-03-16T10:25:35Z",
+      "side": 1,
+      "message": "There is 4:4:4 high predictive profile. https://source.chromium.org/chromium/chromium/src/+/main:third_party/webrtc/api/video_codecs/h264_profile_level_id.h;l\u003d28;drc\u003d48a3eaf6f8ae83f7c99851f0b9088365e3edf6e6\n\nSupporting 4:4:4 doesn\u0027t imply 4:2:2. Right now, before this patch is landed, all the webrtc clients can receive I444, but not I422, because there are explicit checks for AVPixelFormat in the code.\n\nIf advertising kProfilePredictiveHigh444 implies ability to decode I422, then current webrtc implementation is terribly broken. But I suppose this isn\u0027t the case, since the standard does mention 4:2:2 profiles explicitly. Also, unlike coding primitives in different profiles, where you can advertise that you support something and just not use it in the bitstream, 4:2:2 pixel format isn\u0027t a subset of 4:4:4 pixel format. You can\u0027t advertise 4:4:4 but send 4:2:2 instead.\n\nThere seems to be too many profiles planned. We need to do something about the way SDP for H264 is generated to ensure that all these decode-only profiles are not added to default SDP but aren\u0027t filtered out if the remote client advertises it. Otherwise there will be not enough payload types to fit everything.\n\nhta@ it\u0027s how the things work now with SDP, right?\n\nAnyway, it\u0027s not blocking this CL from landing. It\u0027s just that no one on the internet can figure out if their clients can decode 422 or not. In theory people can just assume that most of their users are on a recent enough version of chrome, and everyone else should suffer, but that\u0027s not a best approach to interoperability. It will effectively make 422 format unusable. \n\nPlease follow the https://webrtc-review.googlesource.com/c/src/+/251303 to add a new profile in follow-up CL.",
+      "parentUuid": "f595cf7e_05ea6ac9",
+      "revId": "b5cc4c90686d8af84e58236322fbd0bd77a5ae69",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "dc17d10a_61e98496",
         "filename": "api/video/i422_buffer.h",
         "patchSetId": 2

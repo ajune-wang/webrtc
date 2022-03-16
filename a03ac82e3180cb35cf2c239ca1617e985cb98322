@@ -1,0 +1,142 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "ac80452b_fcc89f3e",
+        "filename": "modules/pacing/pacing_controller_unittest.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 29,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2022-03-16T10:39:29Z",
+      "side": 1,
+      "message": "These days Invoke helper is rarely useful.",
+      "range": {
+        "startLine": 29,
+        "startChar": 17,
+        "endLine": 29,
+        "endChar": 23
+      },
+      "revId": "a03ac82e3180cb35cf2c239ca1617e985cb98322",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "c4fc48b9_2c8cc32b",
+        "filename": "modules/pacing/pacing_controller_unittest.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 457,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2022-03-16T10:39:29Z",
+      "side": 1,
+      "message": "Invoke is not needed: WillOnce can understand lambda directly\n\nif the reason is to avoid parameters, then it is clearer to use testing::WithoutArgs \n\nEXPECT_CALL(...).WillOnce(WithoutArgs([\u0026] { ... }));",
+      "range": {
+        "startLine": 457,
+        "startChar": 46,
+        "endLine": 457,
+        "endChar": 52
+      },
+      "revId": "a03ac82e3180cb35cf2c239ca1617e985cb98322",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "93e32c06_884e74d4",
+        "filename": "modules/pacing/task_queue_paced_sender.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 73,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2022-03-16T10:39:29Z",
+      "side": 1,
+      "message": "not needed, destructor would delete this pointer anyway\n\ndid you intent to call task_safety_-\u003eSetNotAlive() instead when owned_task_queue_ \u003d\u003d nullptr? (and thus force destructor to run on the same task_queue_ unless it uses its own)",
+      "range": {
+        "startLine": 73,
+        "startChar": 0,
+        "endLine": 73,
+        "endChar": 28
+      },
+      "revId": "a03ac82e3180cb35cf2c239ca1617e985cb98322",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "72a5a892_46400edf",
+        "filename": "modules/pacing/task_queue_paced_sender.h",
+        "patchSetId": 5
+      },
+      "lineNbr": 172,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2022-03-16T10:39:29Z",
+      "side": 1,
+      "message": "can it ever be nullptr?\nif not, may be use reference:\nTaskQueueBase\u0026 task_queue_",
+      "range": {
+        "startLine": 172,
+        "startChar": 15,
+        "endLine": 172,
+        "endChar": 22
+      },
+      "revId": "a03ac82e3180cb35cf2c239ca1617e985cb98322",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "5c5af42f_22a1d453",
+        "filename": "modules/pacing/task_queue_paced_sender.h",
+        "patchSetId": 5
+      },
+      "lineNbr": 173,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2022-03-16T10:39:29Z",
+      "side": 1,
+      "message": "I see you reference this flag, but I do not see a call to SetNotAlive function, which makes this flag useless.\nDid you intent to use ScopedTaskSafety instead? (that calls SetNotAlive on destruction)",
+      "range": {
+        "startLine": 173,
+        "startChar": 44,
+        "endLine": 173,
+        "endChar": 56
+      },
+      "revId": "a03ac82e3180cb35cf2c239ca1617e985cb98322",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "22de9f66_cf20ceb8",
+        "filename": "modules/pacing/task_queue_paced_sender_unittest.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 162,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2022-03-16T10:39:29Z",
+      "side": 1,
+      "message": "probably it is cleaner to write \nauto task_queue \u003d time_controller....;\n\n(side note: using auto instead of exact type is questionable here, but I\u0027m ok with the auto. I think exact type is too long and not that important for understanding tests)",
+      "range": {
+        "startLine": 162,
+        "startChar": 17,
+        "endLine": 162,
+        "endChar": 18
+      },
+      "revId": "a03ac82e3180cb35cf2c239ca1617e985cb98322",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

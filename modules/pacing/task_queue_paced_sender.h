@@ -22,6 +22,7 @@
 #include "absl/base/attributes.h"
 #include "absl/types/optional.h"
 #include "api/sequence_checker.h"
+#include "api/task_queue/task_queue_base.h"
 #include "api/task_queue/task_queue_factory.h"
 #include "api/units/data_size.h"
 #include "api/units/time_delta.h"
@@ -32,15 +33,16 @@
 #include "rtc_base/numerics/exp_filter.h"
 #include "rtc_base/synchronization/mutex.h"
 #include "rtc_base/task_queue.h"
+#include "rtc_base/task_utils/pending_task_safety_flag.h"
 #include "rtc_base/thread_annotations.h"
 
 namespace webrtc {
 class Clock;
-class RtcEventLog;
 
 class TaskQueuePacedSender : public RtpPacketPacer, public RtpPacketSender {
  public:
-  ABSL_DEPRECATED("Use the version with field_trials reference instead.")
+  // TODO(bugs.webrtc.org/13417): Remove when downstream usage is gone.
+  ABSL_DEPRECATED("Use the other version instead.")
   TaskQueuePacedSender(
       Clock* clock,
       PacingController::PacketSender* packet_sender,
@@ -54,15 +56,12 @@ class TaskQueuePacedSender : public RtpPacketPacer, public RtpPacketSender {
   // there is currently a pacer queue and packets can't immediately be
   // processed. Increasing this reduces thread wakeups at the expense of higher
   // latency.
-  // TODO(bugs.webrtc.org/10809): Remove default values.
-  TaskQueuePacedSender(
-      Clock* clock,
-      PacingController::PacketSender* packet_sender,
-      RtcEventLog* event_log,
-      const WebRtcKeyValueConfig& field_trials,
-      TaskQueueFactory* task_queue_factory,
-      TimeDelta max_hold_back_window = PacingController::kMinSleepTime,
-      int max_hold_back_window_in_packets = -1);
+  TaskQueuePacedSender(Clock* clock,
+                       PacingController::PacketSender* packet_sender,
+                       const WebRtcKeyValueConfig& field_trials,
+                       TaskQueueBase* task_queue,
+                       TimeDelta max_hold_back_window,
+                       int max_hold_back_window_in_packets);
 
   ~TaskQueuePacedSender() override;
 
@@ -160,18 +159,18 @@ class TaskQueuePacedSender : public RtpPacketPacer, public RtpPacketSender {
   // posting delayed tasks yet.
   bool is_started_ RTC_GUARDED_BY(task_queue_);
 
-  // Indicates if this task queue is shutting down. If so, don't allow
-  // posting any more delayed tasks as that can cause the task queue to
-  // never drain.
-  bool is_shutdown_ RTC_GUARDED_BY(task_queue_);
-
   // Filtered size of enqueued packets, in bytes.
   rtc::ExpFilter packet_size_ RTC_GUARDED_BY(task_queue_);
 
   mutable Mutex stats_mutex_;
   Stats current_stats_ RTC_GUARDED_BY(stats_mutex_);
 
-  rtc::TaskQueue task_queue_;
+  // Only used when deprecated constructor is called.
+  // TODO(bugs.webrtc.org/13417): Remove when downstream usage is gone.
+  std::unique_ptr<TaskQueueBase, TaskQueueDeleter> owned_task_queue_;
+
+  TaskQueueBase* const task_queue_;
+  rtc::scoped_refptr<PendingTaskSafetyFlag> task_safety_;
 };
 }  // namespace webrtc
 #endif  // MODULES_PACING_TASK_QUEUE_PACED_SENDER_H_

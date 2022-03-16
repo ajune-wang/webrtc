@@ -89,6 +89,7 @@
 #include "system_wrappers/include/metrics.h"
 #include "test/gmock.h"
 #include "test/gtest.h"
+#include "test/run_loop.h"
 
 namespace webrtc {
 
@@ -2827,6 +2828,7 @@ TEST_P(PeerConnectionIntegrationTest,
 // Test that the injected ICE transport factory is used to create ICE transports
 // for WebRTC connections.
 TEST_P(PeerConnectionIntegrationTest, IceTransportFactoryUsedForConnections) {
+  test::RunLoop loop;
   PeerConnectionInterface::RTCConfiguration default_config;
   PeerConnectionDependencies dependencies(nullptr);
   auto ice_transport_factory = std::make_unique<MockIceTransportFactory>();
@@ -2841,6 +2843,7 @@ TEST_P(PeerConnectionIntegrationTest, IceTransportFactoryUsedForConnections) {
   auto observer = rtc::make_ref_counted<MockSetSessionDescriptionObserver>();
   wrapper->pc()->SetLocalDescription(observer,
                                      wrapper->CreateOfferAndWait().release());
+  loop.Flush();
 }
 
 // Test that audio and video flow end-to-end when codec names don't use the

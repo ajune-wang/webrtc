@@ -33,6 +33,24 @@
       "message": "Not sure who would be the best reviewers :)",
       "revId": "de8b9c0b7530b9018ac0746d5c96dee68a656c65",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "79b5f1ce_904ec7ff",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5963
+      },
+      "writtenOn": "2022-03-16T10:19:09Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "1f8ba2c8_cc495b6e",
+      "revId": "de8b9c0b7530b9018ac0746d5c96dee68a656c65",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

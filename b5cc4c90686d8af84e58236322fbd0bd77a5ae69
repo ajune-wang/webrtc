@@ -203,6 +203,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "4965504f_22117e8f",
+        "filename": "api/video/i422_buffer.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 39,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2022-03-16T12:16:59Z",
+      "side": 1,
+      "message": "I\u0027m not familiar with those profiles. Maybe it has to be done in that way. The potential problems I see:\n\n1. I\u0027m worried we\u0027ll end up with n^2 conversion functions for n supported pixel formats.\n\n2. Copying input I420 into a format with more data per pixel sounds like a waste of memory bytes.\n\nI\u0027d still prefer to leave conversion out until the code that needs that conversion is added, but I don\u0027t have a strong opinion either way.",
+      "parentUuid": "9ae905bb_a0eb7697",
+      "range": {
+        "startLine": 38,
+        "startChar": 0,
+        "endLine": 39,
+        "endChar": 80
+      },
+      "revId": "b5cc4c90686d8af84e58236322fbd0bd77a5ae69",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "7ecfcfd3_d868ebef",
         "filename": "api/video/i422_buffer.h",
         "patchSetId": 2

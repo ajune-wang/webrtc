@@ -227,6 +227,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "64ccb3a6_68edd637",
+        "filename": "api/video/i422_buffer.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 39,
+      "author": {
+        "id": 5963
+      },
+      "writtenOn": "2022-03-16T12:23:31Z",
+      "side": 1,
+      "message": "I agree that converting back and forth the different profile does not make sense at all. However back and forth I420 makes sense IMHO, I would really prefer to keep it in as I will submit the next patches as soon as this one is merged.\n\nI also think that there would be a need of adding helper functions to avoid duplication of code, but I would prefer to do it on a different CL for making review/merge process easier",
+      "parentUuid": "4965504f_22117e8f",
+      "range": {
+        "startLine": 38,
+        "startChar": 0,
+        "endLine": 39,
+        "endChar": 80
+      },
+      "revId": "b5cc4c90686d8af84e58236322fbd0bd77a5ae69",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "7ecfcfd3_d868ebef",
         "filename": "api/video/i422_buffer.h",
         "patchSetId": 2

@@ -47,6 +47,30 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "f37d4bab_b000b800",
+        "filename": "modules/pacing/pacing_controller_unittest.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 457,
+      "author": {
+        "id": 5524
+      },
+      "writtenOn": "2022-03-16T16:41:52Z",
+      "side": 1,
+      "message": "Ah, yes that\u0027s what I wanted. Thanks!",
+      "parentUuid": "c4fc48b9_2c8cc32b",
+      "range": {
+        "startLine": 457,
+        "startChar": 46,
+        "endLine": 457,
+        "endChar": 52
+      },
+      "revId": "a03ac82e3180cb35cf2c239ca1617e985cb98322",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "93e32c06_884e74d4",
@@ -60,6 +84,30 @@
       "writtenOn": "2022-03-16T10:39:29Z",
       "side": 1,
       "message": "not needed, destructor would delete this pointer anyway\n\ndid you intent to call task_safety_-\u003eSetNotAlive() instead when owned_task_queue_ \u003d\u003d nullptr? (and thus force destructor to run on the same task_queue_ unless it uses its own)",
+      "range": {
+        "startLine": 73,
+        "startChar": 0,
+        "endLine": 73,
+        "endChar": 28
+      },
+      "revId": "a03ac82e3180cb35cf2c239ca1617e985cb98322",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "5f383329_2d3c50ad",
+        "filename": "modules/pacing/task_queue_paced_sender.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 73,
+      "author": {
+        "id": 5524
+      },
+      "writtenOn": "2022-03-16T16:41:52Z",
+      "side": 1,
+      "message": "I was thinking I wanted any pending tasks to be destroyed before we start tearing down this class for real. But I guess we don\u0027t really have any with the that member at the end...\n\nI\u0027m having problems with the task safeties in that they are constructed and used on a few different threads. I think it might be better to just document that the task queue used must be destroyed before the pacer is.",
+      "parentUuid": "93e32c06_884e74d4",
       "range": {
         "startLine": 73,
         "startChar": 0,
@@ -93,6 +141,30 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "890a4bfb_c64b186f",
+        "filename": "modules/pacing/task_queue_paced_sender.h",
+        "patchSetId": 5
+      },
+      "lineNbr": 172,
+      "author": {
+        "id": 5524
+      },
+      "writtenOn": "2022-03-16T16:41:52Z",
+      "side": 1,
+      "message": "I cannot, changed to reference.",
+      "parentUuid": "72a5a892_46400edf",
+      "range": {
+        "startLine": 172,
+        "startChar": 15,
+        "endLine": 172,
+        "endChar": 22
+      },
+      "revId": "a03ac82e3180cb35cf2c239ca1617e985cb98322",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "5c5af42f_22a1d453",
@@ -116,6 +188,30 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "d2e3d7ea_38011a3a",
+        "filename": "modules/pacing/task_queue_paced_sender.h",
+        "patchSetId": 5
+      },
+      "lineNbr": 173,
+      "author": {
+        "id": 5524
+      },
+      "writtenOn": "2022-03-16T16:41:52Z",
+      "side": 1,
+      "message": "See comment above.",
+      "parentUuid": "5c5af42f_22a1d453",
+      "range": {
+        "startLine": 173,
+        "startChar": 44,
+        "endLine": 173,
+        "endChar": 56
+      },
+      "revId": "a03ac82e3180cb35cf2c239ca1617e985cb98322",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "22de9f66_cf20ceb8",
@@ -129,6 +225,30 @@
       "writtenOn": "2022-03-16T10:39:29Z",
       "side": 1,
       "message": "probably it is cleaner to write \nauto task_queue \u003d time_controller....;\n\n(side note: using auto instead of exact type is questionable here, but I\u0027m ok with the auto. I think exact type is too long and not that important for understanding tests)",
+      "range": {
+        "startLine": 162,
+        "startChar": 17,
+        "endLine": 162,
+        "endChar": 18
+      },
+      "revId": "a03ac82e3180cb35cf2c239ca1617e985cb98322",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "df49904e_5897a47f",
+        "filename": "modules/pacing/task_queue_paced_sender_unittest.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 162,
+      "author": {
+        "id": 5524
+      },
+      "writtenOn": "2022-03-16T16:41:52Z",
+      "side": 1,
+      "message": "Done.\n\nAgree, I think this case is border-line. But the type _is_ quite verbose and it\u0027s repeated quite a lot in this test code, so felt it was ok.",
+      "parentUuid": "22de9f66_cf20ceb8",
       "range": {
         "startLine": 162,
         "startChar": 17,

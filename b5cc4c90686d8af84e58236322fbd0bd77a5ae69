@@ -90,6 +90,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "820c333f_ca80f875",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5963
+      },
+      "writtenOn": "2022-03-16T10:40:33Z",
+      "side": 1,
+      "message": "AFAIK h264 profiles are incremental:\n\nHigh 4:4:4 Predictive Profile (Hi444PP, 244)\nThis profile builds on top of the High 4:2:2 Profile, supporting up to 4:4:4 chroma sampling, up to 14 bits per sample, and additionally supporting efficient lossless region coding and the coding of each picture as three separate color planes.\n\nSo, yes, current webrtc implementation is terribly broken spec wise in this regard 😊\n\nNote that you would need to support not only 422, but also 10, 12 and 14 bits for 4:2:0, 4:2:2 and 4:4:4.\n\nI have a patch ready for adding 4:2:0 and 4:2:2 10 bits, which will make it fully compliant with Hi422P and Hi10P though.\n\nI agree about not adding all the profiles by default to the SDP, and only if they are enabled by the app.\n\nI have a patch also for vp9 profile 1 and 3 ready (both encoding and decoding) and the sdp is HUGE.",
+      "parentUuid": "899a3bb6_71aef60f",
+      "revId": "b5cc4c90686d8af84e58236322fbd0bd77a5ae69",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "dc17d10a_61e98496",
         "filename": "api/video/i422_buffer.h",
         "patchSetId": 2

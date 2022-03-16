@@ -179,6 +179,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "9ae905bb_a0eb7697",
+        "filename": "api/video/i422_buffer.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 39,
+      "author": {
+        "id": 5963
+      },
+      "writtenOn": "2022-03-16T11:02:07Z",
+      "side": 1,
+      "message": "I wouldn\u0027t argue that, but currently it is not done like that on the encoder side.\n\nFor example in vp9 encoder, the buffer is always converted to I010 if it is not already in that format when using profile 2\n\nhttps://source.chromium.org/chromium/chromium/src/+/main:third_party/webrtc/modules/video_coding/codecs/vp9/libvpx_vp9_encoder.cc;l\u003d1134\n\nSo in my patch that adds profile 1 and 3, i use the same schema and convert the buffers to I422 or I210 if they are not in that format.",
+      "parentUuid": "789e3b6c_b34c0acd",
+      "range": {
+        "startLine": 38,
+        "startChar": 0,
+        "endLine": 39,
+        "endChar": 80
+      },
+      "revId": "b5cc4c90686d8af84e58236322fbd0bd77a5ae69",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "7ecfcfd3_d868ebef",
         "filename": "api/video/i422_buffer.h",
         "patchSetId": 2

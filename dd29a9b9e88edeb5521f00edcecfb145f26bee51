@@ -22,6 +22,30 @@
       },
       "revId": "dd29a9b9e88edeb5521f00edcecfb145f26bee51",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "6ad0ec90_dd16ca4c",
+        "filename": "system_wrappers/source/rtp_to_ntp_estimator.cc",
+        "patchSetId": 8
+      },
+      "lineNbr": 30,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2022-03-16T17:32:00Z",
+      "side": 1,
+      "message": "Is it?\nlooks still valid: jump in ntp time by more than one hour still considered an invalid measurement,\nrtp timestamps still goes through unwrap process.",
+      "parentUuid": "f1ccf303_a84169bd",
+      "range": {
+        "startLine": 27,
+        "startChar": 0,
+        "endLine": 30,
+        "endChar": 74
+      },
+      "revId": "dd29a9b9e88edeb5521f00edcecfb145f26bee51",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

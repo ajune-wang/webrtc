@@ -155,6 +155,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "789e3b6c_b34c0acd",
+        "filename": "api/video/i422_buffer.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 39,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2022-03-16T10:51:53Z",
+      "side": 1,
+      "message": "I would suggest leaving it out for now, and add when it is needed.\n\nI\u0027d be a bit surprised if we have encoders that support I422, but not I420? \n\nMy mental model has been that all encoders are expected to support I420 (hence the ToI420 method), and that encoder support for other formats is useful mainly if the camera generates something different than I420, and the encoder can use that directly, without conversion to I420.",
+      "parentUuid": "61126c50_6df8e247",
+      "range": {
+        "startLine": 38,
+        "startChar": 0,
+        "endLine": 39,
+        "endChar": 80
+      },
+      "revId": "b5cc4c90686d8af84e58236322fbd0bd77a5ae69",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "7ecfcfd3_d868ebef",
         "filename": "api/video/i422_buffer.h",
         "patchSetId": 2

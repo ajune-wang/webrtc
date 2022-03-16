@@ -118,6 +118,30 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": true,
+      "key": {
+        "uuid": "d9c5e386_1aaa009e",
+        "filename": "modules/pacing/task_queue_paced_sender.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 73,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2022-03-16T17:26:50Z",
+      "side": 1,
+      "message": "Generally I do not like such kind of requirement, normally destruction order should be reverse to the construction order, but here you\u0027re forcing the opposite.\nThat makes this class less flexible (e.g. can\u0027t use long live TQ for the pacer), and less safe (need to manually check that between TQ destruction and PacedSender destruction the latter is not used and thus doesn\u0027t try to post to the destroyed TQ)\n\nIs it possible to ensure TaskQueuedPacedSender is destroyed on the same task_queue_ as passed during construction? [unless it has owned_task_queue_],\ni.e. then destructor might call\n  if (owned_task_queue_ \u003d\u003d nullptr) {\n    task_safety_-\u003eSetNotAlive();\n  }\n  \nalternative pattern is to post destruction of the pacer to the TQ:\n(similar to \nhttps://source.chromium.org/chromium/chromium/src/+/main:third_party/webrtc/modules/rtp_rtcp/source/rtcp_transceiver.cc;l\u003d33)\n\n  class TaskQueuePacedSender {\n   public:\n     // should be used instead of destructor\n     void DeleteMe() {\n       absl::Cleanup delete_me \u003d [this] { delete this; }\n       task_queue_-\u003ePostTask(ToQueuedTask([task_safety_ \u003d task_safety_, delete_me \u003d \nstd::move(delete_me)] {task_safety_-\u003eSetNotAlive();}));\n     }\n   private:\n     ~TaskQueuePacedSender() \u003d default;\n  }\n\nWith such pattern destruction should be correct if TQ destroyed right after the TaskQueuePacedSender and the posted task didn\u0027t had chance to run,\nand it also should be correct if TQ greatly outlives the TaskQueuePacedSender.\n\n(however this pattern put requirement that TQ passed in the constructor must outlive TaskQueuedPacedSender, however such requirement I find natural)\n\n[in this case it seems it would work to put reverse lifetime requirement, however it is almost the same as make TaskQueuedPacedSender own task queue, but less safe]",
+      "parentUuid": "5f383329_2d3c50ad",
+      "range": {
+        "startLine": 73,
+        "startChar": 0,
+        "endLine": 73,
+        "endChar": 28
+      },
+      "revId": "a03ac82e3180cb35cf2c239ca1617e985cb98322",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": false,
       "key": {
         "uuid": "72a5a892_46400edf",

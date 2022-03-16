@@ -16,6 +16,23 @@
       "message": "PTAL Erik. (Anyone else I should add as a reviewer?)",
       "revId": "04a0c8e78273e61bde14e93b459ee10fb6a3f61f",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "e393b1bf_b6d8f0f2",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 9
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5524
+      },
+      "writtenOn": "2022-03-16T10:34:16Z",
+      "side": 1,
+      "message": "lgtm\nthanks!",
+      "revId": "04a0c8e78273e61bde14e93b459ee10fb6a3f61f",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

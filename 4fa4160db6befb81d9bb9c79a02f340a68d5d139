@@ -51,6 +51,24 @@
       "parentUuid": "5a17ef8b_6f9d56be",
       "revId": "4fa4160db6befb81d9bb9c79a02f340a68d5d139",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "8967cc00_270324a5",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 3
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5963
+      },
+      "writtenOn": "2022-03-17T15:29:23Z",
+      "side": 1,
+      "message": "git cl presubmit was returning errors on my new checkout of libwebrtc (but still works on older ones) so that\u0027s why I haven\u0027t realized about that.\n\nRegarding changing the DEPS file, rtc_base/memory/aligned_malloc.h is included in \ni420_buffer.h \nhttps://source.chromium.org/chromium/chromium/src/+/main:third_party/webrtc/api/video/i420_buffer.h;l\u003d21\n\nin /i010_buffer.h https://source.chromium.org/chromium/chromium/src/+/main:third_party/webrtc/api/video/i010_buffer.h;l\u003d21\n\nand in i444_buffer.h\nhttps://source.chromium.org/chromium/chromium/src/+/main:third_party/webrtc/api/video/i444_buffer.h;l\u003d29?q\u003dI444B\u0026sq\u003d\u0026ss\u003dchromium%2Fchromium%2Fsrc\n\nSo I would guess there was a reason of not updating the DEPS file, would it be a good idea to do it now?",
+      "parentUuid": "60acda23_2358c495",
+      "revId": "4fa4160db6befb81d9bb9c79a02f340a68d5d139",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

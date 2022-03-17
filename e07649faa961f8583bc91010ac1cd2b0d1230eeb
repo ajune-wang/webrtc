@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "fefc2351_0c7d4a23",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 10
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 10107
+      },
+      "writtenOn": "2022-03-17T09:07:26Z",
+      "side": 1,
+      "message": "I think given the off-line discussions, I\u0027m ready to submit this CL. Thanks for the thorough reviews! Much appreciated.",
+      "revId": "e07649faa961f8583bc91010ac1cd2b0d1230eeb",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

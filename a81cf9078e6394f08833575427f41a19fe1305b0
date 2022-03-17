@@ -35,6 +35,24 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "50857cbf_cb36ace2",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 3
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2022-03-17T09:40:42Z",
+      "side": 1,
+      "message": "To me, it looks like string_trim trims space, newline, carriage return, and tab (ascii 32, 10, 13, 9). The abseil function is documented to additionally trim vertical tab and form feed (ascii 11, 12).",
+      "parentUuid": "db5f45b9_dd5d64c3",
+      "revId": "a81cf9078e6394f08833575427f41a19fe1305b0",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "ecc080ca_3696f500",
@@ -48,6 +66,30 @@
       "writtenOn": "2022-03-17T09:26:01Z",
       "side": 1,
       "message": "small add-on request: while you\u0027re here, could you rename iter to something like param or something else more descriptive? (since iter isn\u0027t actually an iterator here).",
+      "range": {
+        "startLine": 3701,
+        "startChar": 13,
+        "endLine": 3701,
+        "endChar": 17
+      },
+      "revId": "a81cf9078e6394f08833575427f41a19fe1305b0",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "95a2f74c_abc1b80f",
+        "filename": "pc/webrtc_sdp.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 3701,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2022-03-17T09:40:42Z",
+      "side": 1,
+      "message": "I can give it a try. I think the above str::split could also be changed to use the string_view variant.",
+      "parentUuid": "ecc080ca_3696f500",
       "range": {
         "startLine": 3701,
         "startChar": 13,

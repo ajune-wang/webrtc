@@ -25,6 +25,7 @@
 #include "logging/rtc_event_log/events/rtc_event_route_change.h"
 #include "modules/rtp_rtcp/source/rtcp_packet/transport_feedback.h"
 #include "rtc_base/checks.h"
+#include "rtc_base/event.h"
 #include "rtc_base/logging.h"
 #include "rtc_base/rate_limiter.h"
 
@@ -101,19 +102,8 @@ RtpTransportControllerSend::RtpTransportControllerSend(
                                 ? nullptr
                                 : new PacedSender(clock,
                                                   &packet_router_,
-                                                  event_log,
                                                   trials,
                                                   process_thread_.get())),
-      task_queue_pacer_(
-          pacer_settings_.use_task_queue_pacer()
-              ? new TaskQueuePacedSender(clock,
-                                         &packet_router_,
-                                         event_log,
-                                         trials,
-                                         task_queue_factory,
-                                         pacer_settings_.holdback_window.Get(),
-                                         pacer_settings_.holdback_packets.Get())
-              : nullptr),
       observer_(nullptr),
       controller_factory_override_(controller_factory),
       controller_factory_fallback_(
@@ -135,6 +125,15 @@ RtpTransportControllerSend::RtpTransportControllerSend(
       task_queue_(task_queue_factory->CreateTaskQueue(
           "rtp_send_controller",
           TaskQueueFactory::Priority::NORMAL)),
+      task_queue_pacer_(pacer_settings_.use_task_queue_pacer()
+                            ? std::make_unique<TaskQueuePacedSender>(
+                                  clock,
+                                  &packet_router_,
+                                  trials,
+                                  task_queue_.Get(),
+                                  pacer_settings_.holdback_window.Get(),
+                                  pacer_settings_.holdback_packets.Get())
+                            : nullptr),
       field_trials_(trials) {
   ParseFieldTrial({&relay_bandwidth_cap_},
                   trials.Lookup("WebRTC-Bwe-NetworkRouteConstraints"));
@@ -154,6 +153,13 @@ RtpTransportControllerSend::RtpTransportControllerSend(
 RtpTransportControllerSend::~RtpTransportControllerSend() {
   RTC_DCHECK(video_rtp_senders_.empty());
   process_thread_->Stop();
+  rtc::Event sync_event;
+  task_queue_.PostTask([this, &sync_event]() {
+    RTC_DCHECK_RUN_ON(&task_queue_);
+    StopPeriodicTasks();
+    sync_event.Set();
+  });
+  sync_event.Wait(rtc::Event::kForever);
 }
 
 RtpVideoSenderInterface* RtpTransportControllerSend::CreateRtpVideoSender(
@@ -671,12 +677,22 @@ void RtpTransportControllerSend::StartProcessPeriodicTasks() {
   }
 }
 
+void RtpTransportControllerSend::StopPeriodicTasks() {
+  if (controller_task_.Running()) {
+    controller_task_.Stop();
+  }
+  if (pacer_queue_update_task_.Running()) {
+    pacer_queue_update_task_.Stop();
+  }
+}
+
 void RtpTransportControllerSend::UpdateControllerWithTimeInterval() {
   RTC_DCHECK(controller_);
   ProcessInterval msg;
   msg.at_time = Timestamp::Millis(clock_->TimeInMilliseconds());
-  if (add_pacing_to_cwin_)
+  if (add_pacing_to_cwin_) {
     msg.pacer_queue = pacer()->QueueSizeData();
+  }
   PostUpdates(controller_->OnProcessInterval(msg));
 }
 

@@ -146,6 +146,7 @@ class RtpTransportControllerSend final
       RTC_RUN_ON(task_queue_);
 
   void StartProcessPeriodicTasks() RTC_RUN_ON(task_queue_);
+  void StopPeriodicTasks() RTC_RUN_ON(task_queue_);
   void UpdateControllerWithTimeInterval() RTC_RUN_ON(task_queue_);
 
   absl::optional<BitrateConstraints> ApplyOrLiftRelayCap(bool is_relayed);
@@ -174,7 +175,6 @@ class RtpTransportControllerSend final
   const std::unique_ptr<ProcessThread> process_thread_;
   const PacerSettings pacer_settings_;
   std::unique_ptr<PacedSender> process_thread_pacer_;
-  std::unique_ptr<TaskQueuePacedSender> task_queue_pacer_;
 
   TargetTransferRateObserver* observer_ RTC_GUARDED_BY(task_queue_);
   TransportFeedbackDemuxer feedback_demuxer_;
@@ -222,6 +222,7 @@ class RtpTransportControllerSend final
   // `task_queue_` is defined last to ensure all pending tasks are cancelled
   // and deleted before any other members.
   rtc::TaskQueue task_queue_;
+  std::unique_ptr<TaskQueuePacedSender> task_queue_pacer_;
 
   const WebRtcKeyValueConfig& field_trials_;
 };

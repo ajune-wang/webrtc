@@ -18,6 +18,23 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "04d66f4c_68e696db",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 5
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5613
+      },
+      "writtenOn": "2022-03-17T07:37:26Z",
+      "side": 1,
+      "message": "thanks and PTAL",
+      "revId": "6eee1f173d4199454fef3c58a5ffde9baf5bef72",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "6e22414a_f4c39fbc",
@@ -31,6 +48,24 @@
       "writtenOn": "2022-03-17T07:24:02Z",
       "side": 1,
       "message": "This confused me. The internal field is named field_trials_, which in the rest of the codebase is a WebRtcKeyValueThingy, but here it is actually an IceFieldTrials object.\n\nCan you name the member ice_field_trials_ instead?",
+      "revId": "6eee1f173d4199454fef3c58a5ffde9baf5bef72",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "95494d5f_42ccd950",
+        "filename": "p2p/base/p2p_transport_channel.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 803,
+      "author": {
+        "id": 5613
+      },
+      "writtenOn": "2022-03-17T07:37:26Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "6e22414a_f4c39fbc",
       "revId": "6eee1f173d4199454fef3c58a5ffde9baf5bef72",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
@@ -52,6 +87,24 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "9318f891_227c8899",
+        "filename": "p2p/base/p2p_transport_channel_ice_field_trials.h",
+        "patchSetId": 5
+      },
+      "lineNbr": 21,
+      "author": {
+        "id": 5613
+      },
+      "writtenOn": "2022-03-17T07:37:26Z",
+      "side": 1,
+      "message": "i like the idea...but i don\u0027t think it\u0027s feasible \"right now\",\nthe field trial parser uses addresses of variables...which works poorly with\nconst members.\nI\u0027ll add a TODO",
+      "parentUuid": "0a6bf1ae_cd0c4ce4",
+      "revId": "6eee1f173d4199454fef3c58a5ffde9baf5bef72",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "009cc23d_1d308594",
@@ -65,6 +118,24 @@
       "writtenOn": "2022-03-17T07:24:02Z",
       "side": 1,
       "message": "Why is this public and modifiable? Seems dangerous.",
+      "revId": "6eee1f173d4199454fef3c58a5ffde9baf5bef72",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "8e7bf515_0218ab16",
+        "filename": "p2p/base/p2p_transport_channel_unittest.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 1001,
+      "author": {
+        "id": 5613
+      },
+      "writtenOn": "2022-03-17T07:37:26Z",
+      "side": 1,
+      "message": "it is protected...so that subclasses (tests) can modify it before the class creates channels. WDYT ?",
+      "parentUuid": "009cc23d_1d308594",
       "revId": "6eee1f173d4199454fef3c58a5ffde9baf5bef72",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }

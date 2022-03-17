@@ -3,6 +3,23 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "6e200107_8f1f41f9",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 8
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5524
+      },
+      "writtenOn": "2022-03-17T12:20:03Z",
+      "side": 1,
+      "message": "I\u0027m starting to think the complexity of this isn\u0027t worth it at the moment.\nI might reduce the scope of this cl to just cleaning up the constructor... :/",
+      "revId": "fb18f894d4a68c76c9e9daee83656206262ec518",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "046094dd_c7ce32a7",
         "filename": "modules/pacing/task_queue_paced_sender.cc",
         "patchSetId": 8
@@ -14,6 +31,30 @@
       "writtenOn": "2022-03-17T11:25:14Z",
       "side": 1,
       "message": "for some task queue implementations such pattern may cause deadlock \n(and did in practice)",
+      "range": {
+        "startLine": 95,
+        "startChar": 0,
+        "endLine": 97,
+        "endChar": 42
+      },
+      "revId": "fb18f894d4a68c76c9e9daee83656206262ec518",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "2ce7611d_6e665dda",
+        "filename": "modules/pacing/task_queue_paced_sender.cc",
+        "patchSetId": 8
+      },
+      "lineNbr": 97,
+      "author": {
+        "id": 5524
+      },
+      "writtenOn": "2022-03-17T12:20:03Z",
+      "side": 1,
+      "message": "Yeah, tests seem to pass now - but I recall having issues with things like this in simulated time scenarios...",
+      "parentUuid": "046094dd_c7ce32a7",
       "range": {
         "startLine": 95,
         "startChar": 0,

@@ -166,6 +166,30 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": true,
+      "key": {
+        "uuid": "6065eae8_021f55db",
+        "filename": "modules/pacing/task_queue_paced_sender.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 73,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2022-03-17T11:25:14Z",
+      "side": 1,
+      "message": "it is far from trivial to properly stop multi-threadred object [since you give out control of the life time of the task queue]\n\nwhen owned_task_queue_ !\u003d nullptr, then there is no need to call task_safety_-\u003eSetNotAlive(); (destructor would delete task queue and block if any task is running.... almost, see next point, but might be ok to keep that edge case because that owned_task_queue_ should disapper soon enough).\n\nwhen destructor called not on the task queue, technically it is already too late to call SetNotAlive: at that point is is already a mistake to use TaskQueuePacedSender. some ongoing task might do that through [this] capture. (when destructor is running, virtual table is already changed, so calling virtual function can easily crash. calling non-virtual functions might work, but still an UB)\n\nwhen destructor called on the task queue, you can be sure no other tasks running same time on the same task queue and thus it is generally safer, but it seems you can\u0027t guarantee that here.\n\none idea is to avoid capturing this, ever, instead capture pointers to individual needed members. Then you can be sure they are still not destroyed while running the destructor. though that is not full solution, but it allowes to implement everything with the destructor.\n\nanother solution is to avoid stopping in destructor, use some other function instead [that\u0027s the pattern I\u0027m using in RtcpTransceiver], thus was proposoal to make destructor private and use dedicated function to delete the TaskQueuePacedSender.\ncaveat there - such destruction is a-synchronous, so after the function returns, TaskQueuePacedSender still might be alive and still may try to use classes it depends on [e.g. PacketSender]\n\n\nOne more solution is to introduce thread-safe safety flag, the one you may call from any thread/task queue (I have a draft: https://webrtc-review.googlesource.com/c/src/+/169341 ), but that one comes with extra cost per task.",
+      "parentUuid": "81ddc76a_85daf837",
+      "range": {
+        "startLine": 73,
+        "startChar": 0,
+        "endLine": 73,
+        "endChar": 28
+      },
+      "revId": "a03ac82e3180cb35cf2c239ca1617e985cb98322",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": false,
       "key": {
         "uuid": "72a5a892_46400edf",

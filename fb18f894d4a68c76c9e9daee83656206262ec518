@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "046094dd_c7ce32a7",
+        "filename": "modules/pacing/task_queue_paced_sender.cc",
+        "patchSetId": 8
+      },
+      "lineNbr": 97,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2022-03-17T11:25:14Z",
+      "side": 1,
+      "message": "for some task queue implementations such pattern may cause deadlock \n(and did in practice)",
+      "range": {
+        "startLine": 95,
+        "startChar": 0,
+        "endLine": 97,
+        "endChar": 42
+      },
+      "revId": "fb18f894d4a68c76c9e9daee83656206262ec518",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

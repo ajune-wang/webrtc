@@ -216,6 +216,30 @@
     {
       "unresolved": false,
       "key": {
+        "uuid": "a218eff2_0315ebed",
+        "filename": "modules/pacing/task_queue_paced_sender.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 73,
+      "author": {
+        "id": 5524
+      },
+      "writtenOn": "2022-03-17T12:45:30Z",
+      "side": 1,
+      "message": "I\u0027m giving up (for now) and reducing this CL to just cleaning up the constructor.\nProbably good to do separately anyway.\nWe\u0027ll see if we get back to this - the OnSentPacket() calls have been removed anyway so interaction between theses two threads isn\u0027t as intense as before.",
+      "parentUuid": "f4d7b538_8b6bf7fe",
+      "range": {
+        "startLine": 73,
+        "startChar": 0,
+        "endLine": 73,
+        "endChar": 28
+      },
+      "revId": "a03ac82e3180cb35cf2c239ca1617e985cb98322",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
         "uuid": "72a5a892_46400edf",
         "filename": "modules/pacing/task_queue_paced_sender.h",
         "patchSetId": 5

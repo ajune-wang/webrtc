@@ -52,8 +52,8 @@ class UploaderOptions():
   commit_position: int
   build_page_url: str
   dashboard_url: str
-  input_results_file: str
-  output_json_file: str
+  input_results_file: str = None
+  output_json_file: str = None
   wait_timeout_sec: datetime.timedelta = datetime.timedelta(seconds=1200)
   wait_polling_period_sec: datetime.timedelta = datetime.timedelta(seconds=120)
 

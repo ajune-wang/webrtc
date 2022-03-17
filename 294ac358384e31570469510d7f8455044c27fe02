@@ -53,6 +53,24 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "a9355035_2caf2bcc",
+        "filename": "tools_webrtc/perf/process_perf_results.py",
+        "patchSetId": 22
+      },
+      "lineNbr": 10,
+      "author": {
+        "id": 12234
+      },
+      "writtenOn": "2022-03-17T13:27:31Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "06f398e6_857bc084",
+      "revId": "294ac358384e31570469510d7f8455044c27fe02",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "6e29887b_4182f9db",
@@ -149,6 +167,24 @@
       "side": 1,
       "message": "No, I mean a log (assuming we can see this from the test logs). But yeah, maybe also a small comment. :)",
       "parentUuid": "24a42849_32a0ff15",
+      "revId": "294ac358384e31570469510d7f8455044c27fe02",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "9900be07_c2c8af32",
+        "filename": "tools_webrtc/perf/process_perf_results_py2.py",
+        "patchSetId": 22
+      },
+      "lineNbr": 19,
+      "author": {
+        "id": 12234
+      },
+      "writtenOn": "2022-03-17T13:27:31Z",
+      "side": 1,
+      "message": "Added a log, think the TODO + the log should be enough.",
+      "parentUuid": "8a875b5b_1caf7020",
       "revId": "294ac358384e31570469510d7f8455044c27fe02",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }

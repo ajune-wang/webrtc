@@ -16,6 +16,46 @@
       "message": "PTAL. Binary size essentially unchanged.",
       "revId": "a81cf9078e6394f08833575427f41a19fe1305b0",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "db5f45b9_dd5d64c3",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 3
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 10107
+      },
+      "writtenOn": "2022-03-17T09:26:01Z",
+      "side": 1,
+      "message": "Just a quick observation: absl::StripAsciiWhitespace trims more stuff than rtc::string_trim, eg space characters that were not trimmed by rtc::string_trim. I don\u0027t have enough context to know if that is significant here or not.",
+      "revId": "a81cf9078e6394f08833575427f41a19fe1305b0",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "ecc080ca_3696f500",
+        "filename": "pc/webrtc_sdp.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 3701,
+      "author": {
+        "id": 10107
+      },
+      "writtenOn": "2022-03-17T09:26:01Z",
+      "side": 1,
+      "message": "small add-on request: while you\u0027re here, could you rename iter to something like param or something else more descriptive? (since iter isn\u0027t actually an iterator here).",
+      "range": {
+        "startLine": 3701,
+        "startChar": 13,
+        "endLine": 3701,
+        "endChar": 17
+      },
+      "revId": "a81cf9078e6394f08833575427f41a19fe1305b0",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

@@ -1,0 +1,72 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "8c406b98_12991a04",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 5
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2022-03-17T07:24:02Z",
+      "side": 1,
+      "message": "A couple of things I think we should consider before submission.\n",
+      "revId": "6eee1f173d4199454fef3c58a5ffde9baf5bef72",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "6e22414a_f4c39fbc",
+        "filename": "p2p/base/p2p_transport_channel.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 803,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2022-03-17T07:24:02Z",
+      "side": 1,
+      "message": "This confused me. The internal field is named field_trials_, which in the rest of the codebase is a WebRtcKeyValueThingy, but here it is actually an IceFieldTrials object.\n\nCan you name the member ice_field_trials_ instead?",
+      "revId": "6eee1f173d4199454fef3c58a5ffde9baf5bef72",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "0a6bf1ae_cd0c4ce4",
+        "filename": "p2p/base/p2p_transport_channel_ice_field_trials.h",
+        "patchSetId": 5
+      },
+      "lineNbr": 21,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2022-03-17T07:24:02Z",
+      "side": 1,
+      "message": "Seems logical that this should be a read-only object (all members const) with a constructor that takes a WebRtcKeyValueConfig argument. Would prevent it being misused as a storage for time-varying values.\n\nBut perhaps mark it as \"TODO\" and move on?",
+      "revId": "6eee1f173d4199454fef3c58a5ffde9baf5bef72",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "009cc23d_1d308594",
+        "filename": "p2p/base/p2p_transport_channel_unittest.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 1001,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2022-03-17T07:24:02Z",
+      "side": 1,
+      "message": "Why is this public and modifiable? Seems dangerous.",
+      "revId": "6eee1f173d4199454fef3c58a5ffde9baf5bef72",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

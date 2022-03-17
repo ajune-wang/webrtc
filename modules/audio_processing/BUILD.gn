@@ -137,6 +137,7 @@ rtc_library("gain_controller2") {
     "agc2:gain_applier",
     "agc2:vad_wrapper",
   ]
+  absl_deps = [ "//third_party/abseil-cpp/absl/types:optional" ]
 }
 
 rtc_library("audio_processing") {

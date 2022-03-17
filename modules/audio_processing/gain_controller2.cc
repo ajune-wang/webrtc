@@ -125,20 +125,28 @@ void GainController2::SetFixedGainDb(float gain_db) {
   fixed_gain_applier_.SetGainFactor(gain_factor);
 }
 
-void GainController2::Process(AudioBuffer* audio) {
+absl::optional<float> GainController2::GetVoiceProbability(
+    const AudioBuffer& audio) {
+  if (vad_) {
+    AudioFrameView<const float> float_frame(
+        audio.channels_const(), audio.num_channels(), audio.num_frames());
+    return vad_->Analyze(float_frame);
+  }
+  return absl::nullopt;
+}
+
+void GainController2::Process(AudioBuffer* audio,
+                              absl::optional<float> voice_probability) {
   data_dumper_.DumpRaw("agc2_notified_analog_level", analog_level_);
+  data_dumper_.DumpRaw("agc2_speech_probability",
+                       voice_probability.value_or(-0.1f));
   AudioFrameView<float> float_frame(audio->channels(), audio->num_channels(),
                                     audio->num_frames());
-  absl::optional<float> speech_probability;
-  if (vad_) {
-    speech_probability = vad_->Analyze(float_frame);
-    data_dumper_.DumpRaw("agc2_speech_probability", speech_probability.value());
-  }
   fixed_gain_applier_.ApplyGain(float_frame);
   if (adaptive_digital_controller_) {
-    RTC_DCHECK(speech_probability.has_value());
-    adaptive_digital_controller_->Process(
-        float_frame, speech_probability.value(), limiter_.LastAudioLevel());
+    RTC_DCHECK(voice_probability.has_value());
+    adaptive_digital_controller_->Process(float_frame, *voice_probability,
+                                          limiter_.LastAudioLevel());
   }
   limiter_.Process(float_frame);
 

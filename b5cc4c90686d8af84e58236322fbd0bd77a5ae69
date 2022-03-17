@@ -124,6 +124,24 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "b8a6531c_c21758e1",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5963
+      },
+      "writtenOn": "2022-03-17T15:35:44Z",
+      "side": 1,
+      "message": "I don\u0027t think this patch should include a new profile level id (yet). The only profiles supporting 422 would either the Hi444PP (which is already included) or the Hi422P, but the later would require to also support 10 bits.\n\nI have another patch ready to be submitted as soon this one get merged for enabling it, so I will include the Hi422P profile there and it to the IsCodecValidForLowerRange as advised.",
+      "parentUuid": "f9d7e9d8_aa387140",
+      "revId": "b5cc4c90686d8af84e58236322fbd0bd77a5ae69",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "dc17d10a_61e98496",

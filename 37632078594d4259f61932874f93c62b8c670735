@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "3152b003_b96ede00",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2022-03-17T08:40:23Z",
+      "side": 1,
+      "message": "apply-iwyu -r seems to have potential for making compile times shorter.\n",
+      "revId": "37632078594d4259f61932874f93c62b8c670735",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

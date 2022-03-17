@@ -142,6 +142,30 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": true,
+      "key": {
+        "uuid": "81ddc76a_85daf837",
+        "filename": "modules/pacing/task_queue_paced_sender.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 73,
+      "author": {
+        "id": 5524
+      },
+      "writtenOn": "2022-03-17T10:44:52Z",
+      "side": 1,
+      "message": "Good points. I\u0027ve added the task safety back.\nI faced two problems:\n1. Need to make sure the teardwon task has been run before actually destroying the TaskQueuePacer, didn\u0027t see a way around a sync wait there...\n2. In RtpTransportControllerSend, we now also need a teardown task for the repeating task handles - otherwise they might try to use the pacer before the task queue is stopped. A workaround could be to always just check if pacer() is nullptr before derereferencing, but that\u0027s not very pretty either...\n\nthoughts?",
+      "parentUuid": "d9c5e386_1aaa009e",
+      "range": {
+        "startLine": 73,
+        "startChar": 0,
+        "endLine": 73,
+        "endChar": 28
+      },
+      "revId": "a03ac82e3180cb35cf2c239ca1617e985cb98322",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": false,
       "key": {
         "uuid": "72a5a892_46400edf",

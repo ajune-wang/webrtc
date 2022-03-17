@@ -39,7 +39,6 @@ TaskQueuePacedSender::TaskQueuePacedSender(
     int max_hold_back_window_in_packets)
     : TaskQueuePacedSender(clock,
                            packet_sender,
-                           event_log,
                            *field_trials,
                            task_queue_factory,
                            max_hold_back_window,
@@ -48,7 +47,6 @@ TaskQueuePacedSender::TaskQueuePacedSender(
 TaskQueuePacedSender::TaskQueuePacedSender(
     Clock* clock,
     PacingController::PacketSender* packet_sender,
-    RtcEventLog* event_log,
     const WebRtcKeyValueConfig& field_trials,
     TaskQueueFactory* task_queue_factory,
     TimeDelta max_hold_back_window,
@@ -56,14 +54,10 @@ TaskQueuePacedSender::TaskQueuePacedSender(
     : clock_(clock),
       allow_low_precision_(
           field_trials.IsEnabled(kSlackedTaskQueuePacedSenderFieldTrial)),
-      max_hold_back_window_(allow_low_precision_
-                                ? PacingController::kMinSleepTime
-                                : max_hold_back_window),
-      max_hold_back_window_in_packets_(
-          allow_low_precision_ ? 0 : max_hold_back_window_in_packets),
+      max_hold_back_window_(max_hold_back_window),
+      max_hold_back_window_in_packets_(max_hold_back_window_in_packets),
       pacing_controller_(clock,
                          packet_sender,
-                         event_log,
                          field_trials,
                          PacingController::ProcessMode::kDynamic),
       next_process_time_(Timestamp::MinusInfinity()),
@@ -89,6 +83,7 @@ TaskQueuePacedSender::~TaskQueuePacedSender() {
 void TaskQueuePacedSender::EnsureStarted() {
   task_queue_.PostTask([this]() {
     RTC_DCHECK_RUN_ON(&task_queue_);
+    RTC_DCHECK(!is_started_);
     is_started_ = true;
     MaybeProcessPackets(Timestamp::MinusInfinity());
   });

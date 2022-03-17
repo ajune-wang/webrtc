@@ -146,6 +146,7 @@ class RtpTransportControllerSend final
       RTC_RUN_ON(task_queue_);
 
   void StartProcessPeriodicTasks() RTC_RUN_ON(task_queue_);
+  void StopPeriodicTasks() RTC_RUN_ON(task_queue_);
   void UpdateControllerWithTimeInterval() RTC_RUN_ON(task_queue_);
 
   absl::optional<BitrateConstraints> ApplyOrLiftRelayCap(bool is_relayed);

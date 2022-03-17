@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "05e30d00_a9b6e8cb",
+        "filename": "rtc_base/string_utils.h",
+        "patchSetId": 12
+      },
+      "lineNbr": 45,
+      "author": {
+        "id": 5249
+      },
+      "writtenOn": "2022-03-17T14:44:24Z",
+      "side": 1,
+      "message": "nit: Should this example say `rtc::AbslStringViewCmp` ?",
+      "range": {
+        "startLine": 45,
+        "startChar": 35,
+        "endLine": 45,
+        "endChar": 48
+      },
+      "revId": "16af854d535da18aa558be2ae255728f30ff968f",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "82448760_5554622e",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 11
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 10107
+      },
+      "writtenOn": "2022-03-17T14:17:57Z",
+      "side": 1,
+      "message": "Adding andersc@ for OWNERS approval for sdk/objc/*.",
+      "revId": "87e431ee84cc022c549fccf16df92c9ec703ee77",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

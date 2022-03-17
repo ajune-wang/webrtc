@@ -105,6 +105,24 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "ca7de0af_adaba7e5",
+        "filename": "p2p/base/p2p_transport_channel_ice_field_trials.h",
+        "patchSetId": 5
+      },
+      "lineNbr": 21,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2022-03-17T07:59:53Z",
+      "side": 1,
+      "message": "Yes, C++ lacks the power to express \"write-once-never-again\" variables in ways other than adding setters and getters.... TODO seems good.\nMight want to add to comment \"This record is built by FieldTrialParser, and should not be modified by anyone\" (say in prose what c++ doesn\u0027t allow you to say in code).",
+      "parentUuid": "9318f891_227c8899",
+      "revId": "6eee1f173d4199454fef3c58a5ffde9baf5bef72",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "009cc23d_1d308594",
@@ -136,6 +154,24 @@
       "side": 1,
       "message": "it is protected...so that subclasses (tests) can modify it before the class creates channels. WDYT ?",
       "parentUuid": "009cc23d_1d308594",
+      "revId": "6eee1f173d4199454fef3c58a5ffde9baf5bef72",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "7efa9ca8_8a127076",
+        "filename": "p2p/base/p2p_transport_channel_unittest.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 1001,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2022-03-17T07:59:53Z",
+      "side": 1,
+      "message": "Aha. And this is a test fixture, too, which makes it less dangerous to expose. LGTM.",
+      "parentUuid": "8e7bf515_0218ab16",
       "revId": "6eee1f173d4199454fef3c58a5ffde9baf5bef72",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }

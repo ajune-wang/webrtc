@@ -14,6 +14,7 @@
 #include <memory>
 #include <string>
 
+#include "absl/types/optional.h"
 #include "modules/audio_processing/agc2/adaptive_digital_gain_controller.h"
 #include "modules/audio_processing/agc2/cpu_features.h"
 #include "modules/audio_processing/agc2/gain_applier.h"
@@ -43,8 +44,10 @@ class GainController2 {
   // Sets the fixed digital gain.
   void SetFixedGainDb(float gain_db);
 
+  absl::optional<float> GetVoiceProbability(const AudioBuffer& audio);
+
   // Applies fixed and adaptive digital gains to `audio` and runs a limiter.
-  void Process(AudioBuffer* audio);
+  void Process(AudioBuffer* audio, absl::optional<float> voice_probability);
 
   // Handles analog level changes.
   void NotifyAnalogLevel(int level);

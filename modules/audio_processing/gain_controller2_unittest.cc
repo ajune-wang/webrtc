@@ -47,7 +47,7 @@ float RunAgc2WithConstantInput(GainController2& agc2,
   // Give time to the level estimator to converge.
   for (int i = 0; i < num_frames + 1; ++i) {
     SetAudioBufferSamples(input_level, ab);
-    agc2.Process(&ab);
+    agc2.Process(&ab, agc2.GetVoiceProbability(ab));
   }
 
   // Return the last sample from the last processed frame.
@@ -280,12 +280,12 @@ TEST(GainController2, CheckFinalGainWithAdaptiveDigitalController) {
       x *= gain;
     test::CopyVectorToAudioBuffer(stream_config, frame, &audio_buffer);
     // Process.
-    agc2.Process(&audio_buffer);
+    agc2.Process(&audio_buffer, agc2.GetVoiceProbability(audio_buffer));
   }
 
   // Estimate the applied gain by processing a probing frame.
   SetAudioBufferSamples(/*value=*/1.0f, audio_buffer);
-  agc2.Process(&audio_buffer);
+  agc2.Process(&audio_buffer, agc2.GetVoiceProbability(audio_buffer));
   const float applied_gain_db =
       20.0f * std::log10(audio_buffer.channels_const()[0][0]);
 

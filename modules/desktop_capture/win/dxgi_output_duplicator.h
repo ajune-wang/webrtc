@@ -61,6 +61,9 @@ class DxgiOutputDuplicator {
   // function copies the content to the rectangle of (offset.x(), offset.y()) to
   // (offset.x() + desktop_rect_.width(), offset.y() + desktop_rect_.height()).
   // Returns false in case of a failure.
+  // May retain a reference to `target` so that a "captured" frame can be
+  // returned in the event that a new capture is not available because the
+  // IDXGIOutput has not been updated.
   bool Duplicate(Context* context,
                  DesktopVector offset,
                  SharedDesktopFrame* target);

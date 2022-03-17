@@ -11,6 +11,7 @@
 #include "modules/audio_processing/gain_controller2.h"
 
 #include <memory>
+#include <string>
 #include <utility>
 
 #include "common_audio/include/audio_util.h"
@@ -61,6 +62,21 @@ std::unique_ptr<AdaptiveDigitalGainController> CreateAdaptiveDigitalController(
         data_dumper, config, sample_rate_hz, num_channels);
   }
   return nullptr;
+}
+
+void DumpAudio(const std::string& name,
+               const AudioBuffer& audio,
+               std::vector<float>* buffer,
+               ApmDataDumper* data_dumper) {
+  buffer->resize(audio.num_channels() * audio.num_frames());
+  for (size_t i = 0; i < audio.num_frames(); ++i) {
+    for (size_t c = 0; c < audio.num_channels(); ++c) {
+      (*buffer)[i * audio.num_channels() + c] = audio.channels_const()[c][i];
+    }
+  }
+  const int sample_rate_hz = audio.num_frames() * 100;
+  data_dumper->DumpWav(name.c_str(), *buffer, sample_rate_hz,
+                       audio.num_channels());
 }
 
 }  // namespace
@@ -125,20 +141,31 @@ void GainController2::SetFixedGainDb(float gain_db) {
   fixed_gain_applier_.SetGainFactor(gain_factor);
 }
 
-void GainController2::Process(AudioBuffer* audio) {
+absl::optional<float> GainController2::GetVoiceProbability(
+    const AudioBuffer& audio) {
+  if (vad_) {
+    AudioFrameView<const float> float_frame(
+        audio.channels_const(), audio.num_channels(), audio.num_frames());
+    return vad_->Analyze(float_frame);
+  }
+  return absl::nullopt;
+}
+
+void GainController2::Process(AudioBuffer* audio,
+                              absl::optional<float> voice_probability) {
+  DumpAudio("agc2_input", *audio, &dumper_buffer_, &data_dumper_);
+
   data_dumper_.DumpRaw("agc2_notified_analog_level", analog_level_);
+  data_dumper_.DumpRaw("agc2_speech_probability",
+                       voice_probability.value_or(-0.1f));
   AudioFrameView<float> float_frame(audio->channels(), audio->num_channels(),
                                     audio->num_frames());
-  absl::optional<float> speech_probability;
-  if (vad_) {
-    speech_probability = vad_->Analyze(float_frame);
-    data_dumper_.DumpRaw("agc2_speech_probability", speech_probability.value());
-  }
+
   fixed_gain_applier_.ApplyGain(float_frame);
   if (adaptive_digital_controller_) {
-    RTC_DCHECK(speech_probability.has_value());
-    adaptive_digital_controller_->Process(
-        float_frame, speech_probability.value(), limiter_.LastAudioLevel());
+    RTC_DCHECK(voice_probability.has_value());
+    adaptive_digital_controller_->Process(float_frame, *voice_probability,
+                                          limiter_.LastAudioLevel());
   }
   limiter_.Process(float_frame);
 

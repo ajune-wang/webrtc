@@ -88,6 +88,24 @@
       "parentUuid": "1c15d4f6_7c02a1b8",
       "revId": "5f06a74c8e57af89888e360f09e1720298f9e274",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "5a4043ca_65a8441e",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 7
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2022-03-17T08:30:39Z",
+      "side": 1,
+      "message": "Caused *lots* of failures, similar to previous attempt with rtc::AutoThread. First failure I looked at:\n\n(thread.cc:704): Message to PCWorkerThread 0x000011EBF1821700 took 47ms to dispatch. Posted from: PostTask@../../rtc_base/thread.cc:1093\nunknown file: error: SEH exception with code 0xc0000005 thrown in the test body.\n(field_trial.cc:140): Setting field trial string:\n[  FAILED  ] PeerConnectionIntegrationTest/PeerConnectionIntegrationTest.IceTransportFactoryUsedForConnections/3, where GetParam() \u003d (4-byte object \u003c01-00 00-00\u003e, \"WebRTC-FrameBuffer3/arm:FrameBuffer2/\") (196 ms)\n[----------] 1 test from PeerConnectionIntegrationTest/PeerConnectionIntegrationTest (198 ms total)\n\n[----------] Global test environment tear-down\n[\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d] 1 test from 1 test suite ran. (199 ms total)\n[  PASSED  ] 0 tests.\n[  FAILED  ] 1 test, listed below:\n[  FAILED  ] PeerConnectionIntegrationTest/PeerConnectionIntegrationTest.IceTransportFactoryUsedForConnections/3, where GetParam() \u003d (4-byte object \u003c01-00 00-00\u003e, \"WebRTC-FrameBuffer3/arm:FrameBuffer2/\")\n\n 1 FAILED TEST\n\n../../pc/peer_connection_integrationtest.cc(2835): ERROR: this mock object (used in test PeerConnectionIntegrationTest/PeerConnectionIntegrationTest.IceTransportFactoryUsedForConnections/3) should be deleted but never is. Its address is @000011DFF1879C00.\nERROR: 1 leaked mock object found at program exit. Expectations on a mock object are verified when the object is destructed. Leaking a mock means that its expectations aren\u0027t verified, which is usually a test bug. If you really intend to leak a mock, you can suppress this error using testing::Mock::AllowLeak(mock_object), or you may use a fake or stub instead of a mock.\n\nSee https://chromium-swarm.appspot.com/task?id\u003d59ac230b54c2dc10. No backtrace. Apparently still a windows-only problem. Maybe I have to split this cl in smaller pieces, to see which one triggers this breakage.",
+      "parentUuid": "8acf0a96_a478ef8d",
+      "revId": "5f06a74c8e57af89888e360f09e1720298f9e274",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

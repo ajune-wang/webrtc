@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "0b6895fe_e9eed6a4",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 3
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2022-03-17T08:40:50Z",
+      "side": 1,
+      "message": "PTAL. Binary size essentially unchanged.",
+      "revId": "a81cf9078e6394f08833575427f41a19fe1305b0",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

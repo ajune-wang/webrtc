@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "1903f262_f5e25db8",
+        "filename": "tools_webrtc/perf/process_perf_results_test.py",
+        "patchSetId": 23
+      },
+      "lineNbr": 17,
+      "author": {
+        "id": 6337
+      },
+      "writtenOn": "2022-03-17T15:06:09Z",
+      "side": 1,
+      "message": "Maybe _CURRENT_FILE_DIR?",
+      "range": {
+        "startLine": 17,
+        "startChar": 0,
+        "endLine": 17,
+        "endChar": 9
+      },
+      "revId": "bba0617cd5d24d5ae87fc06528155b37dc597965",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

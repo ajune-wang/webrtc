@@ -1,0 +1,44 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "b91b9d19_fc886611",
+        "filename": "modules/pacing/task_queue_paced_sender.cc",
+        "patchSetId": 11
+      },
+      "lineNbr": 59,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2022-03-17T14:01:11Z",
+      "side": 1,
+      "message": "is it intended these parameters no longer depend on allow_low_precision_?",
+      "range": {
+        "startLine": 57,
+        "startChar": 0,
+        "endLine": 59,
+        "endChar": 0
+      },
+      "revId": "7dadb9e54c2d6aff542d18775296c3ceb6525f13",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "a8af9271_68a67a07",
+        "filename": "modules/pacing/task_queue_paced_sender.cc",
+        "patchSetId": 11
+      },
+      "lineNbr": 86,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2022-03-17T14:01:11Z",
+      "side": 1,
+      "message": "is it still needed?\n(function is call `Ensure...` which suggests it might be called several times)",
+      "revId": "7dadb9e54c2d6aff542d18775296c3ceb6525f13",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

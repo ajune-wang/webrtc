@@ -15,6 +15,7 @@
 
 #if defined(WEBRTC_USE_PIPEWIRE)
 #include "modules/desktop_capture/linux/wayland/base_capturer_pipewire.h"
+#include "modules/desktop_capture/linux/wayland/remotedesktop_capturer_pipewire.h"
 #endif  // defined(WEBRTC_USE_PIPEWIRE)
 
 #if defined(WEBRTC_USE_X11)
@@ -28,7 +29,7 @@ std::unique_ptr<DesktopCapturer> DesktopCapturer::CreateRawScreenCapturer(
     const DesktopCaptureOptions& options) {
 #if defined(WEBRTC_USE_PIPEWIRE)
   if (options.allow_pipewire() && DesktopCapturer::IsRunningUnderWayland()) {
-    return std::make_unique<BaseCapturerPipeWire>(options);
+    return std::make_unique<RemoteDesktopCapturer>(options);
   }
 #endif  // defined(WEBRTC_USE_PIPEWIRE)
 

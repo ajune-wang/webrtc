@@ -16,6 +16,24 @@
       "message": "Internal tests now pass. However, I would like to wait till the next week to ensure that the libaom update sticks.\n\nShuhai, is it important to land it as soon as possible, or can it wait till next week?\n\nSorry for all the delays.",
       "revId": "1f9d1eb51953b5d13ff4cf1af2c1dda9e5a758df",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "b2e66351_d4203c48",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 18134
+      },
+      "writtenOn": "2022-03-18T13:38:45Z",
+      "side": 1,
+      "message": "yes, we can land it next week. Thanks for Ilya and Erik for following this CL!",
+      "parentUuid": "4f843646_65408487",
+      "revId": "1f9d1eb51953b5d13ff4cf1af2c1dda9e5a758df",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

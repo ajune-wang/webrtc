@@ -59,6 +59,7 @@ class RTC_EXPORT DesktopAndCursorComposer
   bool SelectSource(SourceId id) override;
   bool FocusOnSelectedSource() override;
   bool IsOccluded(const DesktopVector& pos) override;
+  void PopulateMetadata(void* metadata) override;
 
   // MouseCursorMonitor::Callback interface.
   void OnMouseCursor(MouseCursor* cursor) override;

@@ -142,6 +142,24 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "10db2c02_f6054e4e",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5117
+      },
+      "writtenOn": "2022-03-18T10:03:18Z",
+      "side": 1,
+      "message": "Argh... Reading the standard again:\nhttp://www.itu.int/ITU-T/recommendations/rec.aspx?rec\u003d7825 page \n\nIt looks like Hi444pp should support Hi422p, and Hi10p. It also should support upto 14-bit 4:4:4 and 4:2:2 and 4:2:0. \n\nPage 252. Section \"A.2.7 High 4:4:4 profile\".\n\nThere\u0027s no mention of chroma_format_idc constraints (unlike other profiles), so it must support 4:2:0, 4:2:2, 4:4:4, and monochrome. The bit_depth_luma_minus8 is from 0 to 4, which is even a wider range than for Hi10p.\n\nPhilipp, Harald, do you think we should remove Hi444 profile from webrtc supported codecs meanwhile? Our support is not standard complying for now, until we add like 10 more pixel formats.\n\nOn the good note, we won\u0027t have to add any more profiles in the foreseeable future, as Hi444 should support everything.",
+      "parentUuid": "b8a6531c_c21758e1",
+      "revId": "b5cc4c90686d8af84e58236322fbd0bd77a5ae69",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "dc17d10a_61e98496",

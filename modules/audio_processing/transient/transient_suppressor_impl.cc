@@ -62,6 +62,7 @@ TransientSuppressorImpl::TransientSuppressorImpl(VadMode vad_mode,
                                                  int detector_rate_hz,
                                                  int num_channels)
     : vad_mode_(vad_mode),
+      voice_probability_delay_unit_(/*delay_num_samples=*/0, sample_rate_hz),
       analyzed_audio_is_silent_(false),
       data_length_(0),
       detection_length_(0),
@@ -125,6 +126,9 @@ void TransientSuppressorImpl::Initialize(int sample_rate_hz,
   RTC_DCHECK_LE(data_length_, analysis_length_);
   buffer_delay_ = analysis_length_ - data_length_;
 
+  voice_probability_delay_unit_.Initialize(/*delay_num_samples=*/buffer_delay_,
+                                           sample_rate_hz);
+
   complex_analysis_length_ = analysis_length_ / 2 + 1;
   RTC_DCHECK_GE(complex_analysis_length_, kMaxVoiceBin);
   num_channels_ = num_channels;
@@ -175,15 +179,15 @@ void TransientSuppressorImpl::Initialize(int sample_rate_hz,
   using_reference_ = false;
 }
 
-void TransientSuppressorImpl::Suppress(float* data,
-                                       size_t data_length,
-                                       int num_channels,
-                                       const float* detection_data,
-                                       size_t detection_length,
-                                       const float* reference_data,
-                                       size_t reference_length,
-                                       float voice_probability,
-                                       bool key_pressed) {
+float TransientSuppressorImpl::Suppress(float* data,
+                                        size_t data_length,
+                                        int num_channels,
+                                        const float* detection_data,
+                                        size_t detection_length,
+                                        const float* reference_data,
+                                        size_t reference_length,
+                                        float voice_probability,
+                                        bool key_pressed) {
   RTC_DCHECK(data);
   RTC_DCHECK_EQ(data_length, data_length_);
   RTC_DCHECK_EQ(num_channels, num_channels_);
@@ -234,6 +238,8 @@ void TransientSuppressorImpl::Suppress(float* data,
                                 : &in_buffer_[i * analysis_length_],
            data_length_ * sizeof(*data));
   }
+
+  return voice_probability_delay_unit_.Delay(voice_probability);
 }
 
 // This should only be called when detection is enabled. UpdateBuffers() must

@@ -31,6 +31,8 @@ constexpr char kDesktopRequestObjectPath[] =
 constexpr char kSessionInterfaceName[] = "org.freedesktop.portal.Session";
 constexpr char kRequestInterfaceName[] = "org.freedesktop.portal.Request";
 constexpr char kScreenCastInterfaceName[] = "org.freedesktop.portal.ScreenCast";
+constexpr char kRemoteDesktopInterfaceName[] =
+    "org.freedesktop.portal.RemoteDesktop";
 
 using ProxyRequestCallback = void (*)(GObject*, GAsyncResult*, gpointer);
 using SessionRequestCallback = void (*)(GDBusProxy*, GAsyncResult*, gpointer);

@@ -1,0 +1,96 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "c71c4b91_06dbdeca",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 6
+      },
+      "lineNbr": 9,
+      "author": {
+        "id": 18474
+      },
+      "writtenOn": "2022-03-18T21:52:24Z",
+      "side": 1,
+      "message": "NIT: Can you add hard wraps at 72? A few look to  be off by just one character.",
+      "range": {
+        "startLine": 9,
+        "startChar": 0,
+        "endLine": 9,
+        "endChar": 13
+      },
+      "revId": "62f40cf4275f1794046ccbf484968d8db18747ba",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "1e46f84c_70b76f24",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 6
+      },
+      "lineNbr": 24,
+      "author": {
+        "id": 18474
+      },
+      "writtenOn": "2022-03-18T21:52:24Z",
+      "side": 1,
+      "message": "Would it make sense to split the \"SelectSources\" code into a helper class that can trigger a passed-in callback when a source is selected?",
+      "range": {
+        "startLine": 23,
+        "startChar": 0,
+        "endLine": 24,
+        "endChar": 75
+      },
+      "revId": "62f40cf4275f1794046ccbf484968d8db18747ba",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "e252874c_dffbd8b2",
+        "filename": "modules/desktop_capture/linux/wayland/screencast_portal.cc",
+        "patchSetId": 6
+      },
+      "lineNbr": 46,
+      "author": {
+        "id": 18474
+      },
+      "writtenOn": "2022-03-18T21:52:24Z",
+      "side": 1,
+      "message": "I think you can/should call the other constructor just with these values as needed?",
+      "range": {
+        "startLine": 42,
+        "startChar": 5,
+        "endLine": 46,
+        "endChar": 25
+      },
+      "revId": "62f40cf4275f1794046ccbf484968d8db18747ba",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "28340bdf_3ff5e851",
+        "filename": "modules/desktop_capture/linux/wayland/screencast_portal.h",
+        "patchSetId": 6
+      },
+      "lineNbr": 107,
+      "author": {
+        "id": 18474
+      },
+      "writtenOn": "2022-03-18T21:52:24Z",
+      "side": 1,
+      "message": "Are these expected to all/mostly all be set together? Would it make sense to have a method named something like \"SetSessionConfiguration\" that either took all of these values or a struct containing them? (With nulls allowed where needed)?",
+      "range": {
+        "startLine": 99,
+        "startChar": 0,
+        "endLine": 107,
+        "endChar": 28
+      },
+      "revId": "62f40cf4275f1794046ccbf484968d8db18747ba",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

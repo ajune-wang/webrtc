@@ -93,6 +93,7 @@ class NoiseFloorEstimator : public NoiseLevelEstimator {
       // Ignore frames when muted or below the minimum measurable energy.
       data_dumper_->DumpRaw("agc2_noise_floor_estimator_preliminary_level",
                             noise_energy_);
+      data_dumper_->DumpRaw("agc2_noise_floor_estimator_state", 0);
       return EnergyToDbfs(noise_energy_,
                           static_cast<int>(frame.samples_per_channel()));
     }
@@ -118,15 +119,18 @@ class NoiseFloorEstimator : public NoiseLevelEstimator {
       // Reset for a new observation period.
       counter_ = kUpdatePeriodNumFrames;
       preliminary_noise_energy_set_ = false;
+      data_dumper_->DumpRaw("agc2_noise_floor_estimator_state", 1);
     } else if (first_period_) {
       // While analyzing the signal during the initial period, continuously
       // update the estimated noise energy, which is monotonic.
       noise_energy_ = preliminary_noise_energy_;
       counter_--;
+      data_dumper_->DumpRaw("agc2_noise_floor_estimator_state", 2);
     } else {
       // During the observation period it's only allowed to lower the energy.
       noise_energy_ = std::min(noise_energy_, preliminary_noise_energy_);
       counter_--;
+      data_dumper_->DumpRaw("agc2_noise_floor_estimator_state", 3);
     }
     return EnergyToDbfs(noise_energy_,
                         static_cast<int>(frame.samples_per_channel()));

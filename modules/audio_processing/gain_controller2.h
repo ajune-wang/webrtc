@@ -13,7 +13,9 @@
 
 #include <memory>
 #include <string>
+#include <vector>
 
+#include "absl/types/optional.h"
 #include "modules/audio_processing/agc2/adaptive_digital_gain_controller.h"
 #include "modules/audio_processing/agc2/cpu_features.h"
 #include "modules/audio_processing/agc2/gain_applier.h"
@@ -43,8 +45,12 @@ class GainController2 {
   // Sets the fixed digital gain.
   void SetFixedGainDb(float gain_db);
 
+  absl::optional<float> GetVoiceProbability(const AudioBuffer& audio);
+
+  void DumpKeyPressed(bool key_pressed);
+
   // Applies fixed and adaptive digital gains to `audio` and runs a limiter.
-  void Process(AudioBuffer* audio);
+  void Process(AudioBuffer* audio, absl::optional<float> voice_probability);
 
   // Handles analog level changes.
   void NotifyAnalogLevel(int level);
@@ -61,6 +67,7 @@ class GainController2 {
   Limiter limiter_;
   int calls_since_last_limiter_log_;
   int analog_level_;
+  std::vector<float> dumper_buffer_;
 };
 
 }  // namespace webrtc

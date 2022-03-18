@@ -1269,28 +1269,41 @@ int AudioProcessingImpl::ProcessCaptureStreamLocked() {
                                       capture_buffer->num_frames()));
     }
 
+    absl::optional<float> voice_probability =
+        submodules_.gain_controller2->GetVoiceProbability(*capture_buffer);
+    submodules_.gain_controller2->DumpKeyPressed(capture_.key_pressed);
+
     if (submodules_.transient_suppressor) {
-      float voice_probability = 1.0f;
+      float ts_voice_probability = 1.0f;
       switch (transient_suppressor_vad_mode_) {
         case TransientSuppressor::VadMode::kDefault:
+          RTC_CHECK_NOTREACHED();  // Force VadMode::kRnnVad for this
+                                   // simulation.
           if (submodules_.agc_manager) {
-            voice_probability = submodules_.agc_manager->voice_probability();
+            ts_voice_probability = submodules_.agc_manager->voice_probability();
           }
           break;
         case TransientSuppressor::VadMode::kRnnVad:
-          // TODO(bugs.webrtc.org/13663): Use RNN VAD.
+          RTC_DCHECK(voice_probability.has_value());
+          ts_voice_probability = *voice_probability;
           break;
         case TransientSuppressor::VadMode::kNoVad:
+          RTC_CHECK_NOTREACHED();  // Force VadMode::kRnnVad for this
+                                   // simulation.
           // The transient suppressor will ignore `voice_probability`.
           break;
       }
-      submodules_.transient_suppressor->Suppress(
-          capture_buffer->channels()[0], capture_buffer->num_frames(),
-          capture_buffer->num_channels(),
-          capture_buffer->split_bands_const(0)[kBand0To8kHz],
-          capture_buffer->num_frames_per_band(),
-          /*reference_data=*/nullptr, /*reference_length=*/0, voice_probability,
-          capture_.key_pressed);
+      float delayed_voice_probability =
+          submodules_.transient_suppressor->Suppress(
+              capture_buffer->channels()[0], capture_buffer->num_frames(),
+              capture_buffer->num_channels(),
+              capture_buffer->split_bands_const(0)[kBand0To8kHz],
+              capture_buffer->num_frames_per_band(),
+              /*reference_data=*/nullptr, /*reference_length=*/0,
+              ts_voice_probability, capture_.key_pressed);
+      if (voice_probability.has_value()) {
+        voice_probability = delayed_voice_probability;
+      }
     }
 
     // Experimental APM sub-module that analyzes `capture_buffer`.
@@ -1301,7 +1314,7 @@ int AudioProcessingImpl::ProcessCaptureStreamLocked() {
     if (submodules_.gain_controller2) {
       submodules_.gain_controller2->NotifyAnalogLevel(
           recommended_stream_analog_level_locked());
-      submodules_.gain_controller2->Process(capture_buffer);
+      submodules_.gain_controller2->Process(capture_buffer, voice_probability);
     }
 
     if (submodules_.capture_post_processor) {

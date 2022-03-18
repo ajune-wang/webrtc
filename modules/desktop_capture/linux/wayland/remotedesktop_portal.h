@@ -33,6 +33,7 @@ class RemoteDesktopPortal {
 
   void Start();
   uint32_t pipewire_stream_node_id();
+  void PopulateSessionDetails(void* metadata);
 
   // Methods related to the portal setup.
   void PortalFailed(webrtc::xdg_portal::RequestResponse result);

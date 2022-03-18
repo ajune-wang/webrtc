@@ -32,6 +32,7 @@ using xdg_portal::RequestResponse;
 using xdg_portal::RequestResponseToString;
 using xdg_portal::RequestSessionProxy;
 using xdg_portal::RequestSessionUsingProxy;
+using xdg_portal::SessionDetails;
 using xdg_portal::SessionRequestHandler;
 using xdg_portal::SessionRequestResponseSignalHelper;
 using xdg_portal::SetupRequestResponseSignal;
@@ -134,7 +135,7 @@ void RemoteDesktopPortal::OnDevicesRequested(GDBusProxy* proxy,
                                              GAsyncResult* result,
                                              gpointer user_data) {
   RemoteDesktopPortal* that = static_cast<RemoteDesktopPortal*>(user_data);
-  DCHECK(that);
+  RTC_DCHECK(that);
 
   Scoped<GError> error;
   Scoped<GVariant> variant(
@@ -172,7 +173,7 @@ void RemoteDesktopPortal::OnDevicesRequestResponseSignal(
     gpointer user_data) {
   RTC_LOG(LS_INFO) << "Received device selection signal from session.";
   RemoteDesktopPortal* that = static_cast<RemoteDesktopPortal*>(user_data);
-  DCHECK(that);
+  RTC_DCHECK(that);
 
   guint32 portal_response;
   g_variant_get(parameters, "(u@a{sv})", &portal_response, nullptr);
@@ -223,7 +224,7 @@ void RemoteDesktopPortal::OnSessionRequestResponseSignal(
     GVariant* parameters,
     gpointer user_data) {
   RemoteDesktopPortal* that = static_cast<RemoteDesktopPortal*>(user_data);
-  DCHECK(that);
+  RTC_DCHECK(that);
   SessionRequestResponseSignalHelper(
       OnSessionClosedSignal, that, that->connection_, that->session_handle_,
       parameters, that->session_closed_signal_id_);
@@ -239,7 +240,7 @@ void RemoteDesktopPortal::OnSessionClosedSignal(GDBusConnection* connection,
                                                 GVariant* parameters,
                                                 gpointer user_data) {
   RemoteDesktopPortal* that = static_cast<RemoteDesktopPortal*>(user_data);
-  DCHECK(that);
+  RTC_DCHECK(that);
 
   RTC_LOG(LS_INFO) << "Received closed signal from session.";
 
@@ -298,7 +299,7 @@ void RemoteDesktopPortal::OnStartRequestResponseSignal(
     GVariant* parameters,
     gpointer user_data) {
   RemoteDesktopPortal* that = static_cast<RemoteDesktopPortal*>(user_data);
-  DCHECK(that);
+  RTC_DCHECK(that);
 
   RTC_LOG(LS_INFO) << "Start signal received.";
   uint32_t portal_response;
@@ -320,7 +321,7 @@ void RemoteDesktopPortal::OnStartRequestResponseSignal(
       Scoped<GVariant> options;
 
       g_variant_get(variant.get(), "(u@a{sv})", &stream_id, options.receive());
-      DCHECK(options.get());
+      RTC_DCHECK(options.get());
 
       that->screencast_portal_->SetPipewireStreamNodeId(stream_id);
       break;
@@ -334,6 +335,39 @@ void RemoteDesktopPortal::OnStartRequestResponseSignal(
 void RemoteDesktopPortal::PortalFailed(RequestResponse result) {
   RTC_LOG(LS_ERROR) << "Remote desktop portal failure, reason: "
                     << RequestResponseToString(result);
+}
+
+bool RemoteDesktopPortal::WaitForPipewireSessionSucceeded() {
+  // Wait till the session is connected and we have a pipewire stream started,
+  // or timeout is reached.
+  auto t_start = std::chrono::high_resolution_clock::now();
+  while (!pipewire_stream_node_id() &&
+         (std::chrono::duration<double, std::milli>(
+              std::chrono::high_resolution_clock::now() - t_start)
+              .count()) /
+                 1000 <
+             kPipewireStreamTimeoutSeconds) {
+    RTC_LOG(LS_INFO) << "Waiting for pipewire stream connection";
+    sleep(1);
+  }
+  if (!pipewire_stream_node_id()) {
+    RTC_LOG(LS_ERROR) << "Unable to connect to pipewire stream after: "
+                      << kPipewireStreamTimeoutSeconds << " seconds";
+    return false;
+  }
+  RTC_LOG(LS_INFO) << "Successfully connected to pipewire stream";
+  return true;
+}
+
+void RemoteDesktopPortal::PopulateSessionDetails(void* metadata) {
+  if (!WaitForPipewireSessionSucceeded())
+    return;
+
+  SessionDetails* session_details = static_cast<SessionDetails*>(metadata);
+  session_details->proxy = proxy_;
+  session_details->cancellable = cancellable_;
+  session_details->session_handle = session_handle_;
+  session_details->pipewire_stream_node_id = pipewire_stream_node_id();
 }
 
 }  // namespace webrtc

@@ -203,6 +203,10 @@ bool DesktopAndCursorComposer::IsOccluded(const DesktopVector& pos) {
   return desktop_capturer_->IsOccluded(pos);
 }
 
+void DesktopAndCursorComposer::PopulateMetadata(void* metadata) {
+  desktop_capturer_->PopulateMetadata(metadata);
+}
+
 void DesktopAndCursorComposer::OnCaptureResult(
     DesktopCapturer::Result result,
     std::unique_ptr<DesktopFrame> frame) {

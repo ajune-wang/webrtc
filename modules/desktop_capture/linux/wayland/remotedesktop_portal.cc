@@ -22,6 +22,8 @@ namespace webrtc {
 
 namespace {
 
+constexpr int kPipewireStreamTimeoutSeconds = 30;
+
 using xdg_portal::kDesktopObjectPath;
 using xdg_portal::kRemoteDesktopInterfaceName;
 using xdg_portal::kSessionInterfaceName;
@@ -30,6 +32,7 @@ using xdg_portal::RequestResponse;
 using xdg_portal::RequestResponseToString;
 using xdg_portal::RequestSessionProxy;
 using xdg_portal::RequestSessionUsingProxy;
+using xdg_portal::SessionDetails;
 using xdg_portal::SessionRequestHandler;
 using xdg_portal::SessionRequestResponseSignalHelper;
 using xdg_portal::SetupRequestResponseSignal;
@@ -332,6 +335,39 @@ void RemoteDesktopPortal::OnStartRequestResponseSignal(
 void RemoteDesktopPortal::PortalFailed(RequestResponse result) {
   RTC_LOG(LS_ERROR) << "Remote desktop portal failure, reason: "
                     << RequestResponseToString(result);
+}
+
+bool RemoteDesktopPortal::WaitForPipewireSessionSucceeded() {
+  // Wait till the session is connected and we have a pipewire stream started,
+  // or timeout is reached.
+  auto t_start = std::chrono::high_resolution_clock::now();
+  while (!pipewire_stream_node_id() &&
+         (std::chrono::duration<double, std::milli>(
+              std::chrono::high_resolution_clock::now() - t_start)
+              .count()) /
+                 1000 <
+             kPipewireStreamTimeoutSeconds) {
+    RTC_LOG(LS_INFO) << "Waiting for pipewire stream connection";
+    usleep(100000);
+  }
+  if (!pipewire_stream_node_id()) {
+    RTC_LOG(LS_ERROR) << "Unable to connect to pipewire stream after: "
+                      << kPipewireStreamTimeoutSeconds << " seconds";
+    return false;
+  }
+  RTC_LOG(LS_INFO) << "Successfully connected to pipewire stream";
+  return true;
+}
+
+void RemoteDesktopPortal::PopulateSessionDetails(void* metadata) {
+  if (!WaitForPipewireSessionSucceeded())
+    return;
+
+  SessionDetails* session_details = static_cast<SessionDetails*>(metadata);
+  session_details->proxy = proxy_;
+  session_details->cancellable = cancellable_;
+  session_details->session_handle = session_handle_;
+  session_details->pipewire_stream_node_id = pipewire_stream_node_id();
 }
 
 }  // namespace webrtc

@@ -14,9 +14,7 @@
 #include <stddef.h>
 #include <stdint.h>
 
-#include <functional>
 #include <memory>
-#include <queue>
 #include <vector>
 
 #include "absl/base/attributes.h"
@@ -31,7 +29,6 @@
 #include "modules/pacing/rtp_packet_pacer.h"
 #include "modules/rtp_rtcp/source/rtp_packet_to_send.h"
 #include "rtc_base/numerics/exp_filter.h"
-#include "rtc_base/synchronization/mutex.h"
 #include "rtc_base/task_queue.h"
 #include "rtc_base/thread_annotations.h"
 
@@ -40,6 +37,8 @@ class Clock;
 
 class TaskQueuePacedSender : public RtpPacketPacer, public RtpPacketSender {
  public:
+  static const int kNoPacketHoldback;
+
   // TODO(bugs.webrtc.org/13417): Remove when downstream usage is gone.
   ABSL_DEPRECATED("Use the other version instead.")
   TaskQueuePacedSender(
@@ -49,7 +48,7 @@ class TaskQueuePacedSender : public RtpPacketPacer, public RtpPacketSender {
       const WebRtcKeyValueConfig* field_trials,
       TaskQueueFactory* task_queue_factory,
       TimeDelta max_hold_back_window = PacingController::kMinSleepTime,
-      int max_hold_back_window_in_packets = -1);
+      int max_hold_back_window_in_packets = kNoPacketHoldback);
 
   // The `hold_back_window` parameter sets a lower bound on time to sleep if
   // there is currently a pacer queue and packets can't immediately be
@@ -174,6 +173,7 @@ class TaskQueuePacedSender : public RtpPacketPacer, public RtpPacketSender {
 
   // Filtered size of enqueued packets, in bytes.
   rtc::ExpFilter packet_size_ RTC_GUARDED_BY(task_queue_);
+  bool include_overhead_ RTC_GUARDED_BY(task_queue_);
 
   mutable Mutex stats_mutex_;
   Stats current_stats_ RTC_GUARDED_BY(stats_mutex_);

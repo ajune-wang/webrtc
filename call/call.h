@@ -34,6 +34,9 @@
 
 namespace webrtc {
 
+class BitrateAllocatorInterface;
+class SendDelayStats;
+
 // A restricted way to share the module process thread across multiple instances
 // of Call that are constructed on the same worker thread (which is what the
 // peer connection factory guarantees).
@@ -176,8 +179,18 @@ class Call {
 
   virtual const WebRtcKeyValueConfig& trials() const = 0;
 
+  // TODO(tommi): Consider moving the below getters into a separate interface.
+  // They're mostly needed for objects that the Call instance creates.
+
+  virtual Clock* clock() const = 0;
   virtual TaskQueueBase* network_thread() const = 0;
   virtual TaskQueueBase* worker_thread() const = 0;
+  virtual TaskQueueFactory* task_queue_factory() const = 0;
+  virtual RtcEventLog* event_log() const = 0;
+  virtual RtcpRttStats* rtcp_rtt_stats() const = 0;
+  virtual SendDelayStats* send_delay_stats() const = 0;
+  virtual BitrateAllocatorInterface* bitrate_allocator() const = 0;
+  virtual int num_cpu_cores() const = 0;
 
   virtual ~Call() {}
 };

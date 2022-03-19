@@ -14,8 +14,6 @@
 #include <string>
 #include <utility>
 
-#include "absl/strings/string_view.h"
-
 #if defined(WEBRTC_WIN)
 #include <windows.h>
 
@@ -31,7 +29,6 @@
 #include "absl/types/optional.h"
 #include "rtc_base/checks.h"
 #include "rtc_base/logging.h"
-#include "rtc_base/strings/string_builder.h"
 
 // Note: We use fprintf for logging in the write paths of this stream to avoid
 // infinite loops when logging.
@@ -42,58 +39,54 @@ namespace {
 
 const char kCallSessionLogPrefix[] = "webrtc_log";
 
-std::string AddTrailingPathDelimiterIfNeeded(absl::string_view directory);
+std::string AddTrailingPathDelimiterIfNeeded(std::string directory);
 
 // `dir` must have a trailing delimiter. `prefix` must not include wild card
 // characters.
-std::vector<std::string> GetFilesWithPrefix(absl::string_view directory,
-                                            absl::string_view prefix);
-bool DeleteFile(absl::string_view file);
-bool MoveFile(absl::string_view old_file, absl::string_view new_file);
-bool IsFile(absl::string_view file);
-bool IsFolder(absl::string_view file);
-absl::optional<size_t> GetFileSize(absl::string_view file);
+std::vector<std::string> GetFilesWithPrefix(const std::string& directory,
+                                            const std::string& prefix);
+bool DeleteFile(const std::string& file);
+bool MoveFile(const std::string& old_file, const std::string& new_file);
+bool IsFile(const std::string& file);
+bool IsFolder(const std::string& file);
+absl::optional<size_t> GetFileSize(const std::string& file);
 
 #if defined(WEBRTC_WIN)
 
-std::string AddTrailingPathDelimiterIfNeeded(absl::string_view directory) {
+std::string AddTrailingPathDelimiterIfNeeded(std::string directory) {
   if (absl::EndsWith(directory, "\\")) {
-    return std::string(directory);
+    return directory;
   }
-  return std::string(directory) + "\\";
+  return directory + "\\";
 }
 
-std::vector<std::string> GetFilesWithPrefix(absl::string_view directory,
-                                            absl::string_view prefix) {
+std::vector<std::string> GetFilesWithPrefix(const std::string& directory,
+                                            const std::string& prefix) {
   RTC_DCHECK(absl::EndsWith(directory, "\\"));
   WIN32_FIND_DATAW data;
   HANDLE handle;
-  StringBuilder pattern_builder{directory};
-  pattern_builder << prefix << "*";
-  handle = ::FindFirstFileW(ToUtf16(pattern_builder.str()).c_str(), &data);
+  handle = ::FindFirstFileW(ToUtf16(directory + prefix + '*').c_str(), &data);
   if (handle == INVALID_HANDLE_VALUE)
     return {};
 
   std::vector<std::string> file_list;
   do {
-    StringBuilder file_builder{directory};
-    file_builder << ToUtf8(data.cFileName);
-    file_list.emplace_back(file_builder.Release());
+    file_list.emplace_back(directory + ToUtf8(data.cFileName));
   } while (::FindNextFileW(handle, &data) == TRUE);
 
   ::FindClose(handle);
   return file_list;
 }
 
-bool DeleteFile(absl::string_view file) {
+bool DeleteFile(const std::string& file) {
   return ::DeleteFileW(ToUtf16(file).c_str()) != 0;
 }
 
-bool MoveFile(absl::string_view old_file, absl::string_view new_file) {
+bool MoveFile(const std::string& old_file, const std::string& new_file) {
   return ::MoveFileW(ToUtf16(old_file).c_str(), ToUtf16(new_file).c_str()) != 0;
 }
 
-bool IsFile(absl::string_view file) {
+bool IsFile(const std::string& file) {
   WIN32_FILE_ATTRIBUTE_DATA data = {0};
   if (0 == ::GetFileAttributesExW(ToUtf16(file).c_str(), GetFileExInfoStandard,
                                   &data))
@@ -101,7 +94,7 @@ bool IsFile(absl::string_view file) {
   return (data.dwFileAttributes & FILE_ATTRIBUTE_DIRECTORY) == 0;
 }
 
-bool IsFolder(absl::string_view file) {
+bool IsFolder(const std::string& file) {
   WIN32_FILE_ATTRIBUTE_DATA data = {0};
   if (0 == ::GetFileAttributesExW(ToUtf16(file).c_str(), GetFileExInfoStandard,
                                   &data))
@@ -110,7 +103,7 @@ bool IsFolder(absl::string_view file) {
          FILE_ATTRIBUTE_DIRECTORY;
 }
 
-absl::optional<size_t> GetFileSize(absl::string_view file) {
+absl::optional<size_t> GetFileSize(const std::string& file) {
   WIN32_FILE_ATTRIBUTE_DATA data = {0};
   if (::GetFileAttributesExW(ToUtf16(file).c_str(), GetFileExInfoStandard,
                              &data) == 0)
@@ -120,57 +113,55 @@ absl::optional<size_t> GetFileSize(absl::string_view file) {
 
 #else  // defined(WEBRTC_WIN)
 
-std::string AddTrailingPathDelimiterIfNeeded(absl::string_view directory) {
+std::string AddTrailingPathDelimiterIfNeeded(std::string directory) {
   if (absl::EndsWith(directory, "/")) {
-    return std::string(directory);
+    return directory;
   }
-  return std::string(directory) + "/";
+  return directory + "/";
 }
 
-std::vector<std::string> GetFilesWithPrefix(absl::string_view directory,
-                                            absl::string_view prefix) {
+std::vector<std::string> GetFilesWithPrefix(const std::string& directory,
+                                            const std::string& prefix) {
   RTC_DCHECK(absl::EndsWith(directory, "/"));
-  std::string directory_str = std::string(directory);
-  DIR* dir = ::opendir(directory_str.c_str());
+  DIR* dir = ::opendir(directory.c_str());
   if (dir == nullptr)
     return {};
   std::vector<std::string> file_list;
   for (struct dirent* dirent = ::readdir(dir); dirent;
        dirent = ::readdir(dir)) {
     std::string name = dirent->d_name;
-    if (name.compare(0, prefix.size(), prefix.data(), prefix.size()) == 0) {
-      file_list.emplace_back(directory_str + name);
+    if (name.compare(0, prefix.size(), prefix) == 0) {
+      file_list.emplace_back(directory + name);
     }
   }
   ::closedir(dir);
   return file_list;
 }
 
-bool DeleteFile(absl::string_view file) {
-  return ::unlink(std::string(file).c_str()) == 0;
+bool DeleteFile(const std::string& file) {
+  return ::unlink(file.c_str()) == 0;
 }
 
-bool MoveFile(absl::string_view old_file, absl::string_view new_file) {
-  return ::rename(std::string(old_file).c_str(),
-                  std::string(new_file).c_str()) == 0;
+bool MoveFile(const std::string& old_file, const std::string& new_file) {
+  return ::rename(old_file.c_str(), new_file.c_str()) == 0;
 }
 
-bool IsFile(absl::string_view file) {
+bool IsFile(const std::string& file) {
   struct stat st;
-  int res = ::stat(std::string(file).c_str(), &st);
+  int res = ::stat(file.c_str(), &st);
   // Treat symlinks, named pipes, etc. all as files.
   return res == 0 && !S_ISDIR(st.st_mode);
 }
 
-bool IsFolder(absl::string_view file) {
+bool IsFolder(const std::string& file) {
   struct stat st;
-  int res = ::stat(std::string(file).c_str(), &st);
+  int res = ::stat(file.c_str(), &st);
   return res == 0 && S_ISDIR(st.st_mode);
 }
 
-absl::optional<size_t> GetFileSize(absl::string_view file) {
+absl::optional<size_t> GetFileSize(const std::string& file) {
   struct stat st;
-  if (::stat(std::string(file).c_str(), &st) != 0)
+  if (::stat(file.c_str(), &st) != 0)
     return absl::nullopt;
   return st.st_size;
 }
@@ -179,8 +170,8 @@ absl::optional<size_t> GetFileSize(absl::string_view file) {
 
 }  // namespace
 
-FileRotatingStream::FileRotatingStream(absl::string_view dir_path,
-                                       absl::string_view file_prefix,
+FileRotatingStream::FileRotatingStream(const std::string& dir_path,
+                                       const std::string& file_prefix,
                                        size_t max_file_size,
                                        size_t num_files)
     : dir_path_(AddTrailingPathDelimiterIfNeeded(dir_path)),
@@ -340,7 +331,7 @@ std::string FileRotatingStream::GetFilePath(size_t index,
 }
 
 CallSessionFileRotatingStream::CallSessionFileRotatingStream(
-    absl::string_view dir_path,
+    const std::string& dir_path,
     size_t max_total_log_size)
     : FileRotatingStream(dir_path,
                          kCallSessionLogPrefix,
@@ -385,8 +376,8 @@ size_t CallSessionFileRotatingStream::GetNumRotatingLogFiles(
 }
 
 FileRotatingStreamReader::FileRotatingStreamReader(
-    absl::string_view dir_path,
-    absl::string_view file_prefix) {
+    const std::string& dir_path,
+    const std::string& file_prefix) {
   file_names_ = GetFilesWithPrefix(AddTrailingPathDelimiterIfNeeded(dir_path),
                                    file_prefix);
 
@@ -422,7 +413,7 @@ size_t FileRotatingStreamReader::ReadAll(void* buffer, size_t size) const {
 }
 
 CallSessionFileRotatingStreamReader::CallSessionFileRotatingStreamReader(
-    absl::string_view dir_path)
+    const std::string& dir_path)
     : FileRotatingStreamReader(dir_path, kCallSessionLogPrefix) {}
 
 }  // namespace rtc

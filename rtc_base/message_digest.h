@@ -15,8 +15,6 @@
 
 #include <string>
 
-#include "absl/strings/string_view.h"
-
 namespace rtc {
 
 // Definitions for the digest algorithms.
@@ -44,12 +42,12 @@ class MessageDigest {
 // A factory class for creating digest objects.
 class MessageDigestFactory {
  public:
-  static MessageDigest* Create(absl::string_view alg);
+  static MessageDigest* Create(const std::string& alg);
 };
 
 // A check that an algorithm is in a list of approved digest algorithms
 // from RFC 4572 (FIPS 180).
-bool IsFips180DigestAlgorithm(absl::string_view alg);
+bool IsFips180DigestAlgorithm(const std::string& alg);
 
 // Functions to create hashes.
 
@@ -65,25 +63,25 @@ size_t ComputeDigest(MessageDigest* digest,
 // Like the previous function, but creates a digest implementation based on
 // the desired digest name `alg`, e.g. DIGEST_SHA_1. Returns 0 if there is no
 // digest with the given name.
-size_t ComputeDigest(absl::string_view alg,
+size_t ComputeDigest(const std::string& alg,
                      const void* input,
                      size_t in_len,
                      void* output,
                      size_t out_len);
 // Computes the hash of `input` using the `digest` hash implementation, and
 // returns it as a hex-encoded string.
-std::string ComputeDigest(MessageDigest* digest, absl::string_view input);
+std::string ComputeDigest(MessageDigest* digest, const std::string& input);
 // Like the previous function, but creates a digest implementation based on
 // the desired digest name `alg`, e.g. DIGEST_SHA_1. Returns empty string if
 // there is no digest with the given name.
-std::string ComputeDigest(absl::string_view alg, absl::string_view input);
+std::string ComputeDigest(const std::string& alg, const std::string& input);
 // Like the previous function, but returns an explicit result code.
-bool ComputeDigest(absl::string_view alg,
-                   absl::string_view input,
+bool ComputeDigest(const std::string& alg,
+                   const std::string& input,
                    std::string* output);
 
 // Shorthand way to compute a hex-encoded hash using MD5.
-inline std::string MD5(absl::string_view input) {
+inline std::string MD5(const std::string& input) {
   return ComputeDigest(DIGEST_MD5, input);
 }
 
@@ -104,7 +102,7 @@ size_t ComputeHmac(MessageDigest* digest,
 // Like the previous function, but creates a digest implementation based on
 // the desired digest name `alg`, e.g. DIGEST_SHA_1. Returns 0 if there is no
 // digest with the given name.
-size_t ComputeHmac(absl::string_view alg,
+size_t ComputeHmac(const std::string& alg,
                    const void* key,
                    size_t key_len,
                    const void* input,
@@ -114,18 +112,18 @@ size_t ComputeHmac(absl::string_view alg,
 // Computes the HMAC of `input` using the `digest` hash implementation and `key`
 // to key the HMAC, and returns it as a hex-encoded string.
 std::string ComputeHmac(MessageDigest* digest,
-                        absl::string_view key,
-                        absl::string_view input);
+                        const std::string& key,
+                        const std::string& input);
 // Like the previous function, but creates a digest implementation based on
 // the desired digest name `alg`, e.g. DIGEST_SHA_1. Returns empty string if
 // there is no digest with the given name.
-std::string ComputeHmac(absl::string_view alg,
-                        absl::string_view key,
-                        absl::string_view input);
+std::string ComputeHmac(const std::string& alg,
+                        const std::string& key,
+                        const std::string& input);
 // Like the previous function, but returns an explicit result code.
-bool ComputeHmac(absl::string_view alg,
-                 absl::string_view key,
-                 absl::string_view input,
+bool ComputeHmac(const std::string& alg,
+                 const std::string& key,
+                 const std::string& input,
                  std::string* output);
 
 }  // namespace rtc

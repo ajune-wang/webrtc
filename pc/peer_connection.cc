@@ -17,6 +17,7 @@
 #include <memory>
 #include <set>
 #include <string>
+#include <type_traits>
 #include <utility>
 
 #include "absl/algorithm/container.h"
@@ -25,6 +26,7 @@
 #include "api/jsep_ice_candidate.h"
 #include "api/rtp_parameters.h"
 #include "api/rtp_transceiver_direction.h"
+#include "api/transport/webrtc_key_value_config.h"
 #include "api/uma_metrics.h"
 #include "api/video/video_codec_constants.h"
 #include "call/audio_state.h"
@@ -649,13 +651,11 @@ RTCError PeerConnection::Initialize(
     rtp_manager()->transceivers()->Add(
         RtpTransceiverProxyWithInternal<RtpTransceiver>::Create(
             signaling_thread(),
-            rtc::make_ref_counted<RtpTransceiver>(cricket::MEDIA_TYPE_AUDIO,
-                                                  channel_manager())));
+            new RtpTransceiver(cricket::MEDIA_TYPE_AUDIO, channel_manager())));
     rtp_manager()->transceivers()->Add(
         RtpTransceiverProxyWithInternal<RtpTransceiver>::Create(
             signaling_thread(),
-            rtc::make_ref_counted<RtpTransceiver>(cricket::MEDIA_TYPE_VIDEO,
-                                                  channel_manager())));
+            new RtpTransceiver(cricket::MEDIA_TYPE_VIDEO, channel_manager())));
   }
 
   int delay_ms = configuration.report_usage_pattern_delay_ms
@@ -710,8 +710,6 @@ JsepTransportController* PeerConnection::InitializeTransportController_n(
           weak_ptr->OnTransportControllerDtlsHandshakeError(s);
         }
       };
-
-  config.field_trials = &context_->trials();
 
   transport_controller_.reset(
       new JsepTransportController(network_thread(), port_allocator_.get(),

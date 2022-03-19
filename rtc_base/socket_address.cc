@@ -10,7 +10,6 @@
 
 #include "rtc_base/socket_address.h"
 
-#include "absl/strings/string_view.h"
 #include "rtc_base/numerics/safe_conversions.h"
 
 #if defined(WEBRTC_POSIX)
@@ -44,7 +43,7 @@ SocketAddress::SocketAddress() {
   Clear();
 }
 
-SocketAddress::SocketAddress(absl::string_view hostname, int port) {
+SocketAddress::SocketAddress(const std::string& hostname, int port) {
   SetIP(hostname);
   SetPort(port);
 }
@@ -102,8 +101,8 @@ void SocketAddress::SetIP(const IPAddress& ip) {
   scope_id_ = 0;
 }
 
-void SocketAddress::SetIP(absl::string_view hostname) {
-  hostname_ = std::string(hostname);
+void SocketAddress::SetIP(const std::string& hostname) {
+  hostname_ = hostname;
   literal_ = IPFromString(hostname, &ip_);
   if (!literal_) {
     ip_ = IPAddress();
@@ -189,24 +188,23 @@ std::string SocketAddress::ToResolvedSensitiveString() const {
   return sb.str();
 }
 
-bool SocketAddress::FromString(absl::string_view str) {
+bool SocketAddress::FromString(const std::string& str) {
   if (str.at(0) == '[') {
-    absl::string_view::size_type closebracket = str.rfind(']');
-    if (closebracket != absl::string_view::npos) {
-      absl::string_view::size_type colon = str.find(':', closebracket);
-      if (colon != absl::string_view::npos && colon > closebracket) {
-        SetPort(
-            strtoul(std::string(str.substr(colon + 1)).c_str(), nullptr, 10));
+    std::string::size_type closebracket = str.rfind(']');
+    if (closebracket != std::string::npos) {
+      std::string::size_type colon = str.find(':', closebracket);
+      if (colon != std::string::npos && colon > closebracket) {
+        SetPort(strtoul(str.substr(colon + 1).c_str(), nullptr, 10));
         SetIP(str.substr(1, closebracket - 1));
       } else {
         return false;
       }
     }
   } else {
-    absl::string_view::size_type pos = str.find(':');
-    if (absl::string_view::npos == pos)
+    std::string::size_type pos = str.find(':');
+    if (std::string::npos == pos)
       return false;
-    SetPort(strtoul(std::string(str.substr(pos + 1)).c_str(), nullptr, 10));
+    SetPort(strtoul(str.substr(pos + 1).c_str(), nullptr, 10));
     SetIP(str.substr(0, pos));
   }
   return true;

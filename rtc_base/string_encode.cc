@@ -12,7 +12,6 @@
 
 #include <cstdio>
 
-#include "absl/strings/string_view.h"
 #include "rtc_base/arraysize.h"
 #include "rtc_base/checks.h"
 
@@ -78,8 +77,8 @@ void hex_encode_with_delimiter(char* buffer,
 
 }  // namespace
 
-std::string hex_encode(absl::string_view str) {
-  return hex_encode(str.data(), str.size());
+std::string hex_encode(const std::string& str) {
+  return hex_encode(str.c_str(), str.size());
 }
 
 std::string hex_encode(const char* source, size_t srclen) {
@@ -142,14 +141,14 @@ size_t hex_decode_with_delimiter(char* cbuffer,
   return bufpos;
 }
 
-size_t hex_decode(char* buffer, size_t buflen, absl::string_view source) {
+size_t hex_decode(char* buffer, size_t buflen, const std::string& source) {
   return hex_decode_with_delimiter(buffer, buflen, source, 0);
 }
 size_t hex_decode_with_delimiter(char* buffer,
                                  size_t buflen,
-                                 absl::string_view source,
+                                 const std::string& source,
                                  char delimiter) {
-  return hex_decode_with_delimiter(buffer, buflen, source.data(),
+  return hex_decode_with_delimiter(buffer, buflen, source.c_str(),
                                    source.length(), delimiter);
 }
 
@@ -178,7 +177,7 @@ bool tokenize_first(absl::string_view source,
                     std::string* rest) {
   // Find the first delimiter
   size_t left_pos = source.find(delimiter);
-  if (left_pos == absl::string_view::npos) {
+  if (left_pos == std::string::npos) {
     return false;
   }
 
@@ -246,9 +245,8 @@ std::string ToString(const bool b) {
 std::string ToString(const char* const s) {
   return std::string(s);
 }
-
-std::string ToString(absl::string_view s) {
-  return std::string(s);
+std::string ToString(const std::string s) {
+  return s;
 }
 
 std::string ToString(const short s) {

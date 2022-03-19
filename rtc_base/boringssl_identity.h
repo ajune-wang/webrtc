@@ -17,7 +17,6 @@
 #include <memory>
 #include <string>
 
-#include "absl/strings/string_view.h"
 #include "rtc_base/boringssl_certificate.h"
 #include "rtc_base/openssl_key_pair.h"
 #include "rtc_base/ssl_certificate.h"
@@ -31,17 +30,17 @@ namespace rtc {
 class BoringSSLIdentity final : public SSLIdentity {
  public:
   static std::unique_ptr<BoringSSLIdentity> CreateWithExpiration(
-      absl::string_view common_name,
+      const std::string& common_name,
       const KeyParams& key_params,
       time_t certificate_lifetime);
   static std::unique_ptr<BoringSSLIdentity> CreateForTest(
       const SSLIdentityParams& params);
   static std::unique_ptr<SSLIdentity> CreateFromPEMStrings(
-      absl::string_view private_key,
-      absl::string_view certificate);
+      const std::string& private_key,
+      const std::string& certificate);
   static std::unique_ptr<SSLIdentity> CreateFromPEMChainStrings(
-      absl::string_view private_key,
-      absl::string_view certificate_chain);
+      const std::string& private_key,
+      const std::string& certificate_chain);
   ~BoringSSLIdentity() override;
 
   BoringSSLIdentity(const BoringSSLIdentity&) = delete;

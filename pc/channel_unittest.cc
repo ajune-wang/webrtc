@@ -46,7 +46,6 @@
 #include "rtc_base/task_utils/to_queued_task.h"
 #include "test/gmock.h"
 #include "test/gtest.h"
-#include "test/scoped_key_value_config.h"
 
 using cricket::DtlsTransportInternal;
 using cricket::FakeVoiceMediaChannel;
@@ -318,7 +317,7 @@ class ChannelTest : public ::testing::Test, public sigslot::has_slots<> {
       cricket::DtlsTransportInternal* rtp_dtls_transport,
       cricket::DtlsTransportInternal* rtcp_dtls_transport) {
     auto dtls_srtp_transport = std::make_unique<webrtc::DtlsSrtpTransport>(
-        rtcp_dtls_transport == nullptr, field_trials_);
+        rtcp_dtls_transport == nullptr);
 
     network_thread_->Invoke<void>(
         RTC_FROM_HERE,
@@ -1442,7 +1441,6 @@ class ChannelTest : public ::testing::Test, public sigslot::has_slots<> {
   rtc::Buffer rtcp_packet_;
   cricket::CandidatePairInterface* last_selected_candidate_pair_;
   rtc::UniqueRandomIdGenerator ssrc_generator_;
-  webrtc::test::ScopedKeyValueConfig field_trials_;
 };
 
 template <>
@@ -2020,11 +2018,9 @@ TEST_F(VideoChannelSingleThreadTest, TestSetLocalOfferWithPacketization) {
   EXPECT_TRUE(channel1_->SetLocalContent(&video, SdpType::kOffer, err));
   EXPECT_THAT(media_channel1()->send_codecs(), testing::IsEmpty());
   ASSERT_THAT(media_channel1()->recv_codecs(), testing::SizeIs(2));
-  EXPECT_TRUE(
-      media_channel1()->recv_codecs()[0].Matches(kVp8Codec, &field_trials_));
+  EXPECT_TRUE(media_channel1()->recv_codecs()[0].Matches(kVp8Codec));
   EXPECT_EQ(media_channel1()->recv_codecs()[0].packetization, absl::nullopt);
-  EXPECT_TRUE(
-      media_channel1()->recv_codecs()[1].Matches(vp9_codec, &field_trials_));
+  EXPECT_TRUE(media_channel1()->recv_codecs()[1].Matches(vp9_codec));
   EXPECT_EQ(media_channel1()->recv_codecs()[1].packetization,
             cricket::kPacketizationParamRaw);
 }
@@ -2043,11 +2039,9 @@ TEST_F(VideoChannelSingleThreadTest, TestSetRemoteOfferWithPacketization) {
   EXPECT_TRUE(err.empty());
   EXPECT_THAT(media_channel1()->recv_codecs(), testing::IsEmpty());
   ASSERT_THAT(media_channel1()->send_codecs(), testing::SizeIs(2));
-  EXPECT_TRUE(
-      media_channel1()->send_codecs()[0].Matches(kVp8Codec, &field_trials_));
+  EXPECT_TRUE(media_channel1()->send_codecs()[0].Matches(kVp8Codec));
   EXPECT_EQ(media_channel1()->send_codecs()[0].packetization, absl::nullopt);
-  EXPECT_TRUE(
-      media_channel1()->send_codecs()[1].Matches(vp9_codec, &field_trials_));
+  EXPECT_TRUE(media_channel1()->send_codecs()[1].Matches(vp9_codec));
   EXPECT_EQ(media_channel1()->send_codecs()[1].packetization,
             cricket::kPacketizationParamRaw);
 }
@@ -2067,19 +2061,15 @@ TEST_F(VideoChannelSingleThreadTest, TestSetAnswerWithPacketization) {
   EXPECT_TRUE(channel1_->SetRemoteContent(&video, SdpType::kAnswer, err));
   EXPECT_TRUE(err.empty());
   ASSERT_THAT(media_channel1()->recv_codecs(), testing::SizeIs(2));
-  EXPECT_TRUE(
-      media_channel1()->recv_codecs()[0].Matches(kVp8Codec, &field_trials_));
+  EXPECT_TRUE(media_channel1()->recv_codecs()[0].Matches(kVp8Codec));
   EXPECT_EQ(media_channel1()->recv_codecs()[0].packetization, absl::nullopt);
-  EXPECT_TRUE(
-      media_channel1()->recv_codecs()[1].Matches(vp9_codec, &field_trials_));
+  EXPECT_TRUE(media_channel1()->recv_codecs()[1].Matches(vp9_codec));
   EXPECT_EQ(media_channel1()->recv_codecs()[1].packetization,
             cricket::kPacketizationParamRaw);
   EXPECT_THAT(media_channel1()->send_codecs(), testing::SizeIs(2));
-  EXPECT_TRUE(
-      media_channel1()->send_codecs()[0].Matches(kVp8Codec, &field_trials_));
+  EXPECT_TRUE(media_channel1()->send_codecs()[0].Matches(kVp8Codec));
   EXPECT_EQ(media_channel1()->send_codecs()[0].packetization, absl::nullopt);
-  EXPECT_TRUE(
-      media_channel1()->send_codecs()[1].Matches(vp9_codec, &field_trials_));
+  EXPECT_TRUE(media_channel1()->send_codecs()[1].Matches(vp9_codec));
   EXPECT_EQ(media_channel1()->send_codecs()[1].packetization,
             cricket::kPacketizationParamRaw);
 }

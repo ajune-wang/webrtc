@@ -64,8 +64,7 @@ AudioCodecInfo AudioEncoderG711::QueryAudioEncoder(const Config& config) {
 std::unique_ptr<AudioEncoder> AudioEncoderG711::MakeAudioEncoder(
     const Config& config,
     int payload_type,
-    absl::optional<AudioCodecPairId> /*codec_pair_id*/,
-    const WebRtcKeyValueConfig* field_trials) {
+    absl::optional<AudioCodecPairId> /*codec_pair_id*/) {
   if (!config.IsOk()) {
     RTC_DCHECK_NOTREACHED();
     return nullptr;

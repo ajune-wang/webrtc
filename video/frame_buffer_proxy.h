@@ -16,7 +16,6 @@
 #include "api/metronome/metronome.h"
 #include "api/task_queue/task_queue_base.h"
 #include "api/video/encoded_frame.h"
-#include "api/webrtc_key_value_config.h"
 #include "modules/video_coding/include/video_coding_defines.h"
 #include "modules/video_coding/timing.h"
 #include "rtc_base/task_queue.h"
@@ -48,8 +47,7 @@ class FrameBufferProxy {
       FrameSchedulingReceiver* receiver,
       TimeDelta max_wait_for_keyframe,
       TimeDelta max_wait_for_frame,
-      DecodeSynchronizer* decode_sync,
-      const WebRtcKeyValueConfig& field_trials);
+      DecodeSynchronizer* decode_sync);
   virtual ~FrameBufferProxy() = default;
 
   // Run on the worker thread.

@@ -17,7 +17,6 @@
 #include <memory>
 
 #include "absl/memory/memory.h"
-#include "absl/strings/string_view.h"
 #include "rtc_base/arraysize.h"
 #include "rtc_base/async_packet_socket.h"
 #include "rtc_base/async_udp_socket.h"
@@ -288,7 +287,7 @@ void SocketTest::ConnectInternal(const IPAddress& loopback) {
 }
 
 void SocketTest::ConnectWithDnsLookupInternal(const IPAddress& loopback,
-                                              absl::string_view host) {
+                                              const std::string& host) {
   StreamSink sink;
   SocketAddress accept_addr;
 

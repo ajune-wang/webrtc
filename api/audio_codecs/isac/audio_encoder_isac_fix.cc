@@ -56,8 +56,7 @@ AudioCodecInfo AudioEncoderIsacFix::QueryAudioEncoder(
 std::unique_ptr<AudioEncoder> AudioEncoderIsacFix::MakeAudioEncoder(
     AudioEncoderIsacFix::Config config,
     int payload_type,
-    absl::optional<AudioCodecPairId> /*codec_pair_id*/,
-    const WebRtcKeyValueConfig* field_trials) {
+    absl::optional<AudioCodecPairId> /*codec_pair_id*/) {
   AudioEncoderIsacFixImpl::Config c;
   c.frame_size_ms = config.frame_size_ms;
   c.bit_rate = config.bit_rate;

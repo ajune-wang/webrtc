@@ -43,6 +43,7 @@
 #include "rtc_base/task_queue.h"
 #include "rtc_base/time_utils.h"
 #include "system_wrappers/include/clock.h"
+#include "system_wrappers/include/field_trial.h"
 #include "system_wrappers/include/metrics.h"
 
 namespace webrtc {
@@ -77,8 +78,7 @@ class ChannelSend : public ChannelSendInterface,
               int rtcp_report_interval_ms,
               uint32_t ssrc,
               rtc::scoped_refptr<FrameTransformerInterface> frame_transformer,
-              TransportFeedbackObserver* feedback_observer,
-              const WebRtcKeyValueConfig& field_trials);
+              TransportFeedbackObserver* feedback_observer);
 
   ~ChannelSend() override;
 
@@ -458,8 +458,7 @@ ChannelSend::ChannelSend(
     int rtcp_report_interval_ms,
     uint32_t ssrc,
     rtc::scoped_refptr<FrameTransformerInterface> frame_transformer,
-    TransportFeedbackObserver* feedback_observer,
-    const WebRtcKeyValueConfig& field_trials)
+    TransportFeedbackObserver* feedback_observer)
     : ssrc_(ssrc),
       event_log_(rtc_event_log),
       _timeStamp(0),  // This is just an offset, RTP module will add it's own
@@ -478,7 +477,7 @@ ChannelSend::ChannelSend(
           "AudioEncoder",
           TaskQueueFactory::Priority::NORMAL)),
       fixing_timestamp_stall_(
-          field_trials.IsDisabled("WebRTC-Audio-FixTimestampStall")) {
+          !field_trial::IsDisabled("WebRTC-Audio-FixTimestampStall")) {
   audio_coding_.reset(AudioCodingModule::Create(AudioCodingModule::Config()));
 
   RtpRtcpInterface::Configuration configuration;
@@ -949,13 +948,12 @@ std::unique_ptr<ChannelSendInterface> CreateChannelSend(
     int rtcp_report_interval_ms,
     uint32_t ssrc,
     rtc::scoped_refptr<FrameTransformerInterface> frame_transformer,
-    TransportFeedbackObserver* feedback_observer,
-    const WebRtcKeyValueConfig& field_trials) {
+    TransportFeedbackObserver* feedback_observer) {
   return std::make_unique<ChannelSend>(
       clock, task_queue_factory, rtp_transport, rtcp_rtt_stats, rtc_event_log,
       frame_encryptor, crypto_options, extmap_allow_mixed,
       rtcp_report_interval_ms, ssrc, std::move(frame_transformer),
-      feedback_observer, field_trials);
+      feedback_observer);
 }
 
 }  // namespace voe

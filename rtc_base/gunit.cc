@@ -13,7 +13,6 @@
 #include <string>
 
 #include "absl/strings/match.h"
-#include "absl/strings/string_view.h"
 
 ::testing::AssertionResult AssertStartsWith(const char* text_expr,
                                             const char* prefix_expr,
@@ -31,9 +30,9 @@
 
 ::testing::AssertionResult AssertStringContains(const char* str_expr,
                                                 const char* substr_expr,
-                                                absl::string_view str,
-                                                absl::string_view substr) {
-  if (str.find(substr) != absl::string_view::npos) {
+                                                const std::string& str,
+                                                const std::string& substr) {
+  if (str.find(substr) != std::string::npos) {
     return ::testing::AssertionSuccess();
   } else {
     return ::testing::AssertionFailure()

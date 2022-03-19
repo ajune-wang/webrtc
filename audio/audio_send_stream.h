@@ -16,7 +16,6 @@
 #include <vector>
 
 #include "api/sequence_checker.h"
-#include "api/webrtc_key_value_config.h"
 #include "audio/audio_level.h"
 #include "audio/channel_send.h"
 #include "call/audio_send_stream.h"
@@ -47,7 +46,7 @@ struct AudioAllocationConfig {
   absl::optional<double> bitrate_priority;
 
   std::unique_ptr<StructParametersParser> Parser();
-  explicit AudioAllocationConfig(const WebRtcKeyValueConfig& field_trials);
+  AudioAllocationConfig();
 };
 namespace internal {
 class AudioState;
@@ -63,8 +62,7 @@ class AudioSendStream final : public webrtc::AudioSendStream,
                   BitrateAllocatorInterface* bitrate_allocator,
                   RtcEventLog* event_log,
                   RtcpRttStats* rtcp_rtt_stats,
-                  const absl::optional<RtpState>& suspended_rtp_state,
-                  const WebRtcKeyValueConfig& field_trials);
+                  const absl::optional<RtpState>& suspended_rtp_state);
   // For unit tests, which need to supply a mock ChannelSend.
   AudioSendStream(Clock* clock,
                   const webrtc::AudioSendStream::Config& config,
@@ -74,8 +72,7 @@ class AudioSendStream final : public webrtc::AudioSendStream,
                   BitrateAllocatorInterface* bitrate_allocator,
                   RtcEventLog* event_log,
                   const absl::optional<RtpState>& suspended_rtp_state,
-                  std::unique_ptr<voe::ChannelSendInterface> channel_send,
-                  const WebRtcKeyValueConfig& field_trials);
+                  std::unique_ptr<voe::ChannelSendInterface> channel_send);
 
   AudioSendStream() = delete;
   AudioSendStream(const AudioSendStream&) = delete;
@@ -163,7 +160,6 @@ class AudioSendStream final : public webrtc::AudioSendStream,
       RTC_RUN_ON(worker_thread_checker_);
 
   Clock* clock_;
-  const WebRtcKeyValueConfig& field_trials_;
 
   SequenceChecker worker_thread_checker_;
   SequenceChecker pacer_thread_checker_;

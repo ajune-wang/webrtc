@@ -10,13 +10,12 @@
 
 #include "rtc_base/openssl_digest.h"
 
-#include "absl/strings/string_view.h"
 #include "rtc_base/checks.h"  // RTC_DCHECK, RTC_CHECK
 #include "rtc_base/openssl.h"
 
 namespace rtc {
 
-OpenSSLDigest::OpenSSLDigest(absl::string_view algorithm) {
+OpenSSLDigest::OpenSSLDigest(const std::string& algorithm) {
   ctx_ = EVP_MD_CTX_new();
   RTC_CHECK(ctx_ != nullptr);
   EVP_MD_CTX_init(ctx_);
@@ -56,7 +55,7 @@ size_t OpenSSLDigest::Finish(void* buf, size_t len) {
   return md_len;
 }
 
-bool OpenSSLDigest::GetDigestEVP(absl::string_view algorithm,
+bool OpenSSLDigest::GetDigestEVP(const std::string& algorithm,
                                  const EVP_MD** mdp) {
   const EVP_MD* md;
   if (algorithm == DIGEST_MD5) {
@@ -106,7 +105,8 @@ bool OpenSSLDigest::GetDigestName(const EVP_MD* md, std::string* algorithm) {
   return true;
 }
 
-bool OpenSSLDigest::GetDigestSize(absl::string_view algorithm, size_t* length) {
+bool OpenSSLDigest::GetDigestSize(const std::string& algorithm,
+                                  size_t* length) {
   const EVP_MD* md;
   if (!GetDigestEVP(algorithm, &md))
     return false;

@@ -16,7 +16,6 @@
 #include <memory>
 #include <string>
 
-#include "absl/strings/string_view.h"
 #include "rtc_base/file_rotating_stream.h"
 #include "rtc_base/logging.h"
 
@@ -40,8 +39,7 @@ class FileRotatingLogSink : public LogSink {
   // Writes the message to the current file. It will spill over to the next
   // file if needed.
   void OnLogMessage(const std::string& message) override;
-  void OnLogMessage(absl::string_view message) override;
-  void OnLogMessage(absl::string_view message,
+  void OnLogMessage(const std::string& message,
                     LoggingSeverity sev,
                     const char* tag) override;
 

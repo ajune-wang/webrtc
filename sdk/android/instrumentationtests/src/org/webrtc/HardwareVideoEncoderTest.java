@@ -16,6 +16,7 @@ import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertTrue;
 import static org.junit.Assert.fail;
 
+import android.annotation.TargetApi;
 import android.graphics.Matrix;
 import android.opengl.GLES11Ext;
 import android.util.Log;
@@ -37,6 +38,7 @@ import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 
+@TargetApi(16)
 @RunWith(ParameterizedRunner.class)
 @UseRunnerDelegate(BaseJUnit4RunnerDelegate.class)
 public class HardwareVideoEncoderTest {

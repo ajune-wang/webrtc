@@ -19,7 +19,6 @@
 #include "api/audio_codecs/audio_encoder.h"
 #include "api/audio_codecs/audio_format.h"
 #include "api/audio_codecs/opus/audio_encoder_opus_config.h"
-#include "api/webrtc_key_value_config.h"
 #include "rtc_base/system/rtc_export.h"
 
 namespace webrtc {
@@ -35,8 +34,7 @@ struct RTC_EXPORT AudioEncoderOpus {
   static std::unique_ptr<AudioEncoder> MakeAudioEncoder(
       const AudioEncoderOpusConfig& config,
       int payload_type,
-      absl::optional<AudioCodecPairId> codec_pair_id = absl::nullopt,
-      const WebRtcKeyValueConfig* field_trials = nullptr);
+      absl::optional<AudioCodecPairId> codec_pair_id = absl::nullopt);
 };
 
 }  // namespace webrtc

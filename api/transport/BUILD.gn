@@ -48,10 +48,7 @@ rtc_library("network_control") {
 rtc_source_set("webrtc_key_value_config") {
   visibility = [ "*" ]
   sources = [ "webrtc_key_value_config.h" ]
-  deps = [
-    "../../api:webrtc_key_value_config",
-    "../../rtc_base/system:rtc_export",
-  ]
+  deps = [ "../../rtc_base/system:rtc_export" ]
   absl_deps = [ "//third_party/abseil-cpp/absl/strings" ]
 }
 

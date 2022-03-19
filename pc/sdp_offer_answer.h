@@ -220,8 +220,7 @@ class SdpOfferAnswerHandler : public SdpStateProvider,
   // once. Modifies dependencies.
   void Initialize(
       const PeerConnectionInterface::RTCConfiguration& configuration,
-      PeerConnectionDependencies& dependencies,
-      ConnectionContext* context);
+      PeerConnectionDependencies& dependencies);
 
   rtc::Thread* signaling_thread() const;
   rtc::Thread* network_thread() const;
@@ -386,7 +385,7 @@ class SdpOfferAnswerHandler : public SdpStateProvider,
   // to the SDP semantics.
   void FillInMissingRemoteMids(cricket::SessionDescription* remote_description);
 
-  // Returns an RtpTransceiver, if available, that can be used to receive the
+  // Returns an RtpTransciever, if available, that can be used to receive the
   // given media type according to JSEP rules.
   rtc::scoped_refptr<RtpTransceiverProxyWithInternal<RtpTransceiver>>
   FindAvailableTransceiverToReceive(cricket::MediaType media_type) const;

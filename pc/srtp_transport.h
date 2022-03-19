@@ -21,7 +21,6 @@
 #include "absl/types/optional.h"
 #include "api/crypto_params.h"
 #include "api/rtc_error.h"
-#include "api/webrtc_key_value_config.h"
 #include "p2p/base/packet_transport_internal.h"
 #include "pc/rtp_transport.h"
 #include "pc/srtp_session.h"
@@ -37,8 +36,7 @@ namespace webrtc {
 // parameters for the SrtpSession underneath.
 class SrtpTransport : public RtpTransport {
  public:
-  SrtpTransport(bool rtcp_mux_enabled,
-                const WebRtcKeyValueConfig& field_trials);
+  explicit SrtpTransport(bool rtcp_mux_enabled);
 
   virtual ~SrtpTransport() = default;
 
@@ -169,8 +167,6 @@ class SrtpTransport : public RtpTransport {
   int rtp_abs_sendtime_extn_id_ = -1;
 
   int decryption_failure_count_ = 0;
-
-  const WebRtcKeyValueConfig& field_trials_;
 };
 
 }  // namespace webrtc

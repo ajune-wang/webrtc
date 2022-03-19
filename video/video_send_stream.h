@@ -18,7 +18,6 @@
 #include "api/fec_controller.h"
 #include "api/sequence_checker.h"
 #include "api/video/video_stream_encoder_interface.h"
-#include "api/webrtc_key_value_config.h"
 #include "call/bitrate_allocator.h"
 #include "call/video_receive_stream.h"
 #include "call/video_send_stream.h"
@@ -62,8 +61,7 @@ class VideoSendStream : public webrtc::VideoSendStream {
       VideoEncoderConfig encoder_config,
       const std::map<uint32_t, RtpState>& suspended_ssrcs,
       const std::map<uint32_t, RtpPayloadState>& suspended_payload_states,
-      std::unique_ptr<FecController> fec_controller,
-      const WebRtcKeyValueConfig& field_trials);
+      std::unique_ptr<FecController> fec_controller);
 
   ~VideoSendStream() override;
 
@@ -93,6 +91,7 @@ class VideoSendStream : public webrtc::VideoSendStream {
   absl::optional<float> GetPacingFactorOverride() const;
 
   RTC_NO_UNIQUE_ADDRESS SequenceChecker thread_checker_;
+  // Call* const call_;
   RtpTransportControllerSendInterface* const transport_;
   rtc::TaskQueue* const rtp_transport_queue_;
   rtc::Event thread_sync_event_;
@@ -104,8 +103,15 @@ class VideoSendStream : public webrtc::VideoSendStream {
   const VideoEncoderConfig::ContentType content_type_;
   std::unique_ptr<VideoStreamEncoderInterface> video_stream_encoder_;
   EncoderRtcpFeedback encoder_feedback_;
-  RtpVideoSenderInterface* const rtp_video_sender_;
-  VideoSendStreamImpl send_stream_;
+  // Created/destroyed on the transport queue. During its lifetime it's also
+  // referenced from the network thread via `encoder_feedback_`, triggered by
+  // RTCPReceiver::IncomingPacket, so we can't use
+  // RTC_GUARDED_BY(rtp_transport_queue_).
+  RtpVideoSenderInterface* rtp_video_sender_ = nullptr;
+  // Created/destroyed on the transport queue. During its lifetime it's also
+  // referenced from the network thread in DeliverRtcp(), so we can't use
+  // RTC_GUARDED_BY(rtp_transport_queue_).
+  std::unique_ptr<VideoSendStreamImpl> send_stream_;
   bool running_ RTC_GUARDED_BY(thread_checker_) = false;
 };
 

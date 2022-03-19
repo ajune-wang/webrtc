@@ -12,8 +12,6 @@
 
 #include <string>
 
-#include "absl/strings/string_view.h"
-
 // This header contains helper functions and constants used by different types
 // of transports.
 namespace cricket {
@@ -27,7 +25,7 @@ constexpr int kTcpHeaderSize = 20;
 constexpr int kUdpHeaderSize = 8;
 
 // Get the transport layer overhead per packet based on the protocol.
-int GetProtocolOverhead(absl::string_view protocol);
+int GetProtocolOverhead(const std::string& protocol);
 
 }  // namespace cricket
 

@@ -13,8 +13,6 @@
 #include <errno.h>
 #include <openssl/bio.h>
 #include <openssl/err.h>
-
-#include "absl/strings/string_view.h"
 #ifdef OPENSSL_IS_BORINGSSL
 #include <openssl/pool.h>
 #endif
@@ -746,7 +744,7 @@ void OpenSSLAdapter::OnCloseEvent(Socket* socket, int err) {
   AsyncSocketAdapter::OnCloseEvent(socket, err);
 }
 
-bool OpenSSLAdapter::SSLPostConnectionCheck(SSL* ssl, absl::string_view host) {
+bool OpenSSLAdapter::SSLPostConnectionCheck(SSL* ssl, const std::string& host) {
   bool is_valid_cert_name =
       openssl::VerifyPeerCertMatchesHost(ssl, host) &&
       (SSL_get_verify_result(ssl) == X509_V_OK || custom_cert_verifier_status_);

@@ -25,8 +25,8 @@
 #include "api/video_codecs/video_encoder_config.h"
 #include "rtc_base/fake_clock.h"
 #include "system_wrappers/include/metrics.h"
+#include "test/field_trial.h"
 #include "test/gtest.h"
-#include "test/scoped_key_value_config.h"
 
 namespace webrtc {
 namespace {
@@ -70,10 +70,9 @@ class SendStatisticsProxyTest : public ::testing::Test {
  protected:
   virtual void SetUp() {
     metrics::Reset();
-    statistics_proxy_.reset(
-        new SendStatisticsProxy(&fake_clock_, GetTestConfig(),
-                                VideoEncoderConfig::ContentType::kRealtimeVideo,
-                                override_field_trials_));
+    statistics_proxy_.reset(new SendStatisticsProxy(
+        &fake_clock_, GetTestConfig(),
+        VideoEncoderConfig::ContentType::kRealtimeVideo));
     expected_ = VideoSendStream::Stats();
     for (const auto& ssrc : config_.rtp.ssrcs) {
       expected_.substreams[ssrc].type =
@@ -176,7 +175,7 @@ class SendStatisticsProxyTest : public ::testing::Test {
     }
   }
 
-  test::ScopedKeyValueConfig override_field_trials_;
+  test::ScopedFieldTrials override_field_trials_;
   SimulatedClock fake_clock_;
   std::unique_ptr<SendStatisticsProxy> statistics_proxy_;
   VideoSendStream::Config config_;
@@ -1926,12 +1925,10 @@ TEST_F(SendStatisticsProxyTest, VerifyQpHistogramStats_Vp8) {
 }
 
 TEST_F(SendStatisticsProxyTest, VerifyQpHistogramStats_Vp8OneSsrc) {
-  test::ScopedKeyValueConfig field_trials;
   VideoSendStream::Config config(nullptr);
   config.rtp.ssrcs.push_back(kFirstSsrc);
   statistics_proxy_.reset(new SendStatisticsProxy(
-      &fake_clock_, config, VideoEncoderConfig::ContentType::kRealtimeVideo,
-      field_trials));
+      &fake_clock_, config, VideoEncoderConfig::ContentType::kRealtimeVideo));
 
   EncodedImage encoded_image;
   CodecSpecificInfo codec_info;
@@ -1972,12 +1969,10 @@ TEST_F(SendStatisticsProxyTest, VerifyQpHistogramStats_Vp9) {
 }
 
 TEST_F(SendStatisticsProxyTest, VerifyQpHistogramStats_Vp9OneSpatialLayer) {
-  test::ScopedKeyValueConfig field_trials;
   VideoSendStream::Config config(nullptr);
   config.rtp.ssrcs.push_back(kFirstSsrc);
   statistics_proxy_.reset(new SendStatisticsProxy(
-      &fake_clock_, config, VideoEncoderConfig::ContentType::kRealtimeVideo,
-      field_trials));
+      &fake_clock_, config, VideoEncoderConfig::ContentType::kRealtimeVideo));
 
   EncodedImage encoded_image;
   CodecSpecificInfo codec_info;
@@ -2509,10 +2504,9 @@ TEST_F(SendStatisticsProxyTest, GetStatsReportsIsRtx) {
 }
 
 TEST_F(SendStatisticsProxyTest, GetStatsReportsIsFlexFec) {
-  test::ScopedKeyValueConfig field_trials;
-  statistics_proxy_.reset(new SendStatisticsProxy(
-      &fake_clock_, GetTestConfigWithFlexFec(),
-      VideoEncoderConfig::ContentType::kRealtimeVideo, field_trials));
+  statistics_proxy_.reset(
+      new SendStatisticsProxy(&fake_clock_, GetTestConfigWithFlexFec(),
+                              VideoEncoderConfig::ContentType::kRealtimeVideo));
 
   StreamDataCountersCallback* proxy =
       static_cast<StreamDataCountersCallback*>(statistics_proxy_.get());
@@ -2529,10 +2523,9 @@ TEST_F(SendStatisticsProxyTest, GetStatsReportsIsFlexFec) {
 }
 
 TEST_F(SendStatisticsProxyTest, SendBitratesAreReportedWithFlexFecEnabled) {
-  test::ScopedKeyValueConfig field_trials;
-  statistics_proxy_.reset(new SendStatisticsProxy(
-      &fake_clock_, GetTestConfigWithFlexFec(),
-      VideoEncoderConfig::ContentType::kRealtimeVideo, field_trials));
+  statistics_proxy_.reset(
+      new SendStatisticsProxy(&fake_clock_, GetTestConfigWithFlexFec(),
+                              VideoEncoderConfig::ContentType::kRealtimeVideo));
 
   StreamDataCountersCallback* proxy =
       static_cast<StreamDataCountersCallback*>(statistics_proxy_.get());
@@ -2737,12 +2730,10 @@ TEST_F(SendStatisticsProxyTest, RtxBitrateIsZeroWhenEnabledAndNoRtxDataIsSent) {
 }
 
 TEST_F(SendStatisticsProxyTest, RtxBitrateNotReportedWhenNotEnabled) {
-  test::ScopedKeyValueConfig field_trials;
   VideoSendStream::Config config(nullptr);
   config.rtp.ssrcs.push_back(kFirstSsrc);  // RTX not configured.
   statistics_proxy_.reset(new SendStatisticsProxy(
-      &fake_clock_, config, VideoEncoderConfig::ContentType::kRealtimeVideo,
-      field_trials));
+      &fake_clock_, config, VideoEncoderConfig::ContentType::kRealtimeVideo));
 
   StreamDataCountersCallback* proxy =
       static_cast<StreamDataCountersCallback*>(statistics_proxy_.get());
@@ -2790,12 +2781,10 @@ TEST_F(SendStatisticsProxyTest, FecBitrateIsZeroWhenEnabledAndNoFecDataIsSent) {
 }
 
 TEST_F(SendStatisticsProxyTest, FecBitrateNotReportedWhenNotEnabled) {
-  test::ScopedKeyValueConfig field_trials;
   VideoSendStream::Config config(nullptr);
   config.rtp.ssrcs.push_back(kFirstSsrc);  // FEC not configured.
   statistics_proxy_.reset(new SendStatisticsProxy(
-      &fake_clock_, config, VideoEncoderConfig::ContentType::kRealtimeVideo,
-      field_trials));
+      &fake_clock_, config, VideoEncoderConfig::ContentType::kRealtimeVideo));
 
   StreamDataCountersCallback* proxy =
       static_cast<StreamDataCountersCallback*>(statistics_proxy_.get());

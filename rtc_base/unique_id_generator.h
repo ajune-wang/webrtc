@@ -15,7 +15,6 @@
 #include <set>
 #include <string>
 
-#include "absl/strings/string_view.h"
 #include "api/array_view.h"
 #include "api/sequence_checker.h"
 #include "rtc_base/synchronization/mutex.h"
@@ -104,7 +103,7 @@ class UniqueStringGenerator {
 
   // Adds an id that this generator should no longer generate.
   // Return value indicates whether the ID was hitherto unknown.
-  bool AddKnownId(absl::string_view value);
+  bool AddKnownId(const std::string& value);
 
  private:
   // This implementation will be simple and will generate "0", "1", ...

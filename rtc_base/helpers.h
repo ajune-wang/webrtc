@@ -16,7 +16,6 @@
 
 #include <string>
 
-#include "absl/strings/string_view.h"
 #include "rtc_base/system/rtc_export.h"
 
 namespace rtc {
@@ -43,7 +42,7 @@ RTC_EXPORT bool CreateRandomString(size_t length, std::string* str);
 // For ease of implementation, the function requires that the table
 // size evenly divide 256; otherwise, it returns false.
 RTC_EXPORT bool CreateRandomString(size_t length,
-                                   absl::string_view table,
+                                   const std::string& table,
                                    std::string* str);
 
 // Generates (cryptographically) random data of the given length.

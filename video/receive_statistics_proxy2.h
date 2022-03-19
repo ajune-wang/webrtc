@@ -20,7 +20,6 @@
 #include "api/sequence_checker.h"
 #include "api/task_queue/task_queue_base.h"
 #include "api/units/timestamp.h"
-#include "api/webrtc_key_value_config.h"
 #include "call/video_receive_stream.h"
 #include "modules/include/module_common_types.h"
 #include "modules/video_coding/include/video_coding_defines.h"
@@ -51,8 +50,7 @@ class ReceiveStatisticsProxy : public VCMReceiveStatisticsCallback,
  public:
   ReceiveStatisticsProxy(uint32_t remote_ssrc,
                          Clock* clock,
-                         TaskQueueBase* worker_thread,
-                         const WebRtcKeyValueConfig& field_trials);
+                         TaskQueueBase* worker_thread);
   ~ReceiveStatisticsProxy() override;
 
   VideoReceiveStream::Stats GetStats() const;

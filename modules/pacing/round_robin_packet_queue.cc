@@ -107,7 +107,16 @@ RoundRobinPacketQueue::Stream::Stream() : size(DataSize::Zero()), ssrc(0) {}
 RoundRobinPacketQueue::Stream::Stream(const Stream& stream) = default;
 RoundRobinPacketQueue::Stream::~Stream() = default;
 
-RoundRobinPacketQueue::RoundRobinPacketQueue(Timestamp start_time)
+bool IsEnabled(const WebRtcKeyValueConfig* field_trials, const char* name) {
+  if (!field_trials) {
+    return false;
+  }
+  return absl::StartsWith(field_trials->Lookup(name), "Enabled");
+}
+
+RoundRobinPacketQueue::RoundRobinPacketQueue(
+    Timestamp start_time,
+    const WebRtcKeyValueConfig* field_trials)
     : transport_overhead_per_packet_(DataSize::Zero()),
       time_last_updated_(start_time),
       paused_(false),

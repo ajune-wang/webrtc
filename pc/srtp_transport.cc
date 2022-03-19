@@ -34,9 +34,8 @@
 
 namespace webrtc {
 
-SrtpTransport::SrtpTransport(bool rtcp_mux_enabled,
-                             const WebRtcKeyValueConfig& field_trials)
-    : RtpTransport(rtcp_mux_enabled), field_trials_(field_trials) {}
+SrtpTransport::SrtpTransport(bool rtcp_mux_enabled)
+    : RtpTransport(rtcp_mux_enabled) {}
 
 RTCError SrtpTransport::SetSrtpSendKey(const cricket::CryptoParams& params) {
   if (send_params_) {
@@ -325,13 +324,13 @@ bool SrtpTransport::SetRtcpParams(int send_cs,
     return false;
   }
 
-  send_rtcp_session_.reset(new cricket::SrtpSession(field_trials_));
+  send_rtcp_session_.reset(new cricket::SrtpSession());
   if (!send_rtcp_session_->SetSend(send_cs, send_key, send_key_len,
                                    send_extension_ids)) {
     return false;
   }
 
-  recv_rtcp_session_.reset(new cricket::SrtpSession(field_trials_));
+  recv_rtcp_session_.reset(new cricket::SrtpSession());
   if (!recv_rtcp_session_->SetRecv(recv_cs, recv_key, recv_key_len,
                                    recv_extension_ids)) {
     return false;
@@ -362,8 +361,8 @@ void SrtpTransport::ResetParams() {
 }
 
 void SrtpTransport::CreateSrtpSessions() {
-  send_session_.reset(new cricket::SrtpSession(field_trials_));
-  recv_session_.reset(new cricket::SrtpSession(field_trials_));
+  send_session_.reset(new cricket::SrtpSession());
+  recv_session_.reset(new cricket::SrtpSession());
   if (external_auth_enabled_) {
     send_session_->EnableExternalAuth();
   }

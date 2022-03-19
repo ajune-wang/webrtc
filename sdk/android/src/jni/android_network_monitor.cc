@@ -11,8 +11,6 @@
 #include "sdk/android/src/jni/android_network_monitor.h"
 
 #include <dlfcn.h>
-
-#include "absl/strings/string_view.h"
 #ifndef RTLD_NOLOAD
 // This was added in Lollipop to dlfcn.h
 #define RTLD_NOLOAD 4
@@ -286,7 +284,7 @@ void AndroidNetworkMonitor::Stop() {
 rtc::NetworkBindingResult AndroidNetworkMonitor::BindSocketToNetwork(
     int socket_fd,
     const rtc::IPAddress& address,
-    absl::string_view if_name) {
+    const std::string& if_name) {
   RTC_DCHECK_RUN_ON(network_thread_);
 
   // Android prior to Lollipop didn't have support for binding sockets to
@@ -419,7 +417,7 @@ void AndroidNetworkMonitor::OnNetworkConnected_n(
 absl::optional<NetworkHandle>
 AndroidNetworkMonitor::FindNetworkHandleFromAddressOrName(
     const rtc::IPAddress& ip_address,
-    absl::string_view if_name) const {
+    const std::string& if_name) const {
   RTC_DCHECK_RUN_ON(network_thread_);
   RTC_LOG(LS_INFO) << "Find network handle.";
   if (find_network_handle_without_ipv6_temporary_part_) {
@@ -445,11 +443,11 @@ AndroidNetworkMonitor::FindNetworkHandleFromAddressOrName(
 
 absl::optional<NetworkHandle>
 AndroidNetworkMonitor::FindNetworkHandleFromIfname(
-    absl::string_view if_name) const {
+    const std::string& if_name) const {
   RTC_DCHECK_RUN_ON(network_thread_);
   if (bind_using_ifname_) {
     for (auto const& iter : network_info_by_handle_) {
-      if (if_name.find(iter.second.interface_name) != absl::string_view::npos) {
+      if (if_name.find(iter.second.interface_name) != std::string::npos) {
         // Use partial match so that e.g if_name="v4-wlan0" is matched
         // agains iter.first="wlan0"
         return absl::make_optional(iter.first);
@@ -497,7 +495,7 @@ void AndroidNetworkMonitor::SetNetworkInfos(
 }
 
 rtc::AdapterType AndroidNetworkMonitor::GetAdapterType(
-    absl::string_view if_name) {
+    const std::string& if_name) {
   RTC_DCHECK_RUN_ON(network_thread_);
   auto iter = adapter_type_by_name_.find(if_name);
   rtc::AdapterType type = (iter == adapter_type_by_name_.end())
@@ -508,7 +506,7 @@ rtc::AdapterType AndroidNetworkMonitor::GetAdapterType(
     for (auto const& iter : adapter_type_by_name_) {
       // Use partial match so that e.g if_name="v4-wlan0" is matched
       // agains iter.first="wlan0"
-      if (if_name.find(iter.first) != absl::string_view::npos) {
+      if (if_name.find(iter.first) != std::string::npos) {
         type = iter.second;
         break;
       }
@@ -522,7 +520,7 @@ rtc::AdapterType AndroidNetworkMonitor::GetAdapterType(
 }
 
 rtc::AdapterType AndroidNetworkMonitor::GetVpnUnderlyingAdapterType(
-    absl::string_view if_name) {
+    const std::string& if_name) {
   RTC_DCHECK_RUN_ON(network_thread_);
   auto iter = vpn_underlying_adapter_type_by_name_.find(if_name);
   rtc::AdapterType type = (iter == vpn_underlying_adapter_type_by_name_.end())
@@ -532,7 +530,7 @@ rtc::AdapterType AndroidNetworkMonitor::GetVpnUnderlyingAdapterType(
     // Use partial match so that e.g if_name="v4-wlan0" is matched
     // agains iter.first="wlan0"
     for (auto const& iter : vpn_underlying_adapter_type_by_name_) {
-      if (if_name.find(iter.first) != absl::string_view::npos) {
+      if (if_name.find(iter.first) != std::string::npos) {
         type = iter.second;
         break;
       }
@@ -543,7 +541,7 @@ rtc::AdapterType AndroidNetworkMonitor::GetVpnUnderlyingAdapterType(
 }
 
 rtc::NetworkPreference AndroidNetworkMonitor::GetNetworkPreference(
-    absl::string_view if_name) {
+    const std::string& if_name) {
   RTC_DCHECK_RUN_ON(network_thread_);
   auto iter = adapter_type_by_name_.find(if_name);
   if (iter == adapter_type_by_name_.end()) {

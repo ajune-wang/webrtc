@@ -26,6 +26,7 @@
 #include "rtc_base/task_queue_for_test.h"
 #include "rtc_base/time_utils.h"
 #include "test/encoder_settings.h"
+#include "test/field_trial.h"
 #include "test/gtest.h"
 #include "test/testsupport/perf_test.h"
 

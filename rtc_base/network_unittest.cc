@@ -18,7 +18,6 @@
 
 #include "absl/algorithm/container.h"
 #include "absl/strings/match.h"
-#include "absl/strings/string_view.h"
 #include "rtc_base/checks.h"
 #include "rtc_base/net_helpers.h"
 #include "rtc_base/network_monitor.h"
@@ -46,7 +45,7 @@ namespace rtc {
 
 namespace {
 
-IPAddress IPFromString(absl::string_view str) {
+IPAddress IPFromString(const std::string& str) {
   IPAddress ip;
   RTC_CHECK(IPFromString(str, &ip));
   return ip;
@@ -57,7 +56,7 @@ class FakeNetworkMonitor : public NetworkMonitorInterface {
   void Start() override { started_ = true; }
   void Stop() override { started_ = false; }
   bool started() { return started_; }
-  AdapterType GetAdapterType(absl::string_view if_name) override {
+  AdapterType GetAdapterType(const std::string& if_name) override {
     // Note that the name matching rules are different from the
     // GetAdapterTypeFromName in NetworkManager.
     if (absl::StartsWith(if_name, "wifi")) {
@@ -68,14 +67,14 @@ class FakeNetworkMonitor : public NetworkMonitorInterface {
     }
     return ADAPTER_TYPE_UNKNOWN;
   }
-  AdapterType GetVpnUnderlyingAdapterType(absl::string_view if_name) override {
+  AdapterType GetVpnUnderlyingAdapterType(const std::string& if_name) override {
     return ADAPTER_TYPE_UNKNOWN;
   }
-  NetworkPreference GetNetworkPreference(absl::string_view if_name) override {
+  NetworkPreference GetNetworkPreference(const std::string& if_name) override {
     return NetworkPreference::NEUTRAL;
   }
 
-  bool IsAdapterAvailable(absl::string_view if_name) override {
+  bool IsAdapterAvailable(const std::string& if_name) override {
     return absl::c_count(unavailable_adapters_, if_name) == 0;
   }
 
@@ -86,15 +85,16 @@ class FakeNetworkMonitor : public NetworkMonitorInterface {
 
   bool SupportsBindSocketToNetwork() const override { return true; }
 
-  NetworkBindingResult BindSocketToNetwork(int socket_fd,
-                                           const IPAddress& address,
-                                           absl::string_view if_name) override {
+  NetworkBindingResult BindSocketToNetwork(
+      int socket_fd,
+      const IPAddress& address,
+      const std::string& if_name) override {
     if (absl::c_count(addresses_, address) > 0) {
       return NetworkBindingResult::SUCCESS;
     }
 
     for (auto const& iter : adapters_) {
-      if (if_name.find(iter) != absl::string_view::npos) {
+      if (if_name.find(iter) != std::string::npos) {
         return NetworkBindingResult::SUCCESS;
       }
     }
@@ -209,7 +209,7 @@ class NetworkTest : public ::testing::Test, public sigslot::has_slots<> {
                                    include_ignored, networks);
   }
 
-  struct sockaddr_in6* CreateIpv6Addr(absl::string_view ip_string,
+  struct sockaddr_in6* CreateIpv6Addr(const std::string& ip_string,
                                       uint32_t scope_id) {
     struct sockaddr_in6* ipv6_addr =
         static_cast<struct sockaddr_in6*>(malloc(sizeof(struct sockaddr_in6)));
@@ -225,8 +225,8 @@ class NetworkTest : public ::testing::Test, public sigslot::has_slots<> {
   // Pointers created here need to be released via ReleaseIfAddrs.
   struct ifaddrs* AddIpv6Address(struct ifaddrs* list,
                                  char* if_name,
-                                 absl::string_view ipv6_address,
-                                 absl::string_view ipv6_netmask,
+                                 const std::string& ipv6_address,
+                                 const std::string& ipv6_netmask,
                                  uint32_t scope_id) {
     struct ifaddrs* if_addr = new struct ifaddrs;
     memset(if_addr, 0, sizeof(struct ifaddrs));
@@ -241,8 +241,8 @@ class NetworkTest : public ::testing::Test, public sigslot::has_slots<> {
   }
 
   struct ifaddrs* InstallIpv6Network(char* if_name,
-                                     absl::string_view ipv6_address,
-                                     absl::string_view ipv6_mask,
+                                     const std::string& ipv6_address,
+                                     const std::string& ipv6_mask,
                                      BasicNetworkManager& network_manager) {
     ifaddrs* addr_list = nullptr;
     addr_list = AddIpv6Address(addr_list, if_name, ipv6_address, ipv6_mask, 0);
@@ -254,7 +254,7 @@ class NetworkTest : public ::testing::Test, public sigslot::has_slots<> {
     return addr_list;
   }
 
-  struct sockaddr_in* CreateIpv4Addr(absl::string_view ip_string) {
+  struct sockaddr_in* CreateIpv4Addr(const std::string& ip_string) {
     struct sockaddr_in* ipv4_addr =
         static_cast<struct sockaddr_in*>(malloc(sizeof(struct sockaddr_in)));
     memset(ipv4_addr, 0, sizeof(struct sockaddr_in));
@@ -268,8 +268,8 @@ class NetworkTest : public ::testing::Test, public sigslot::has_slots<> {
   // Pointers created here need to be released via ReleaseIfAddrs.
   struct ifaddrs* AddIpv4Address(struct ifaddrs* list,
                                  char* if_name,
-                                 absl::string_view ipv4_address,
-                                 absl::string_view ipv4_netmask) {
+                                 const std::string& ipv4_address,
+                                 const std::string& ipv4_netmask) {
     struct ifaddrs* if_addr = new struct ifaddrs;
     memset(if_addr, 0, sizeof(struct ifaddrs));
     if_addr->ifa_name = if_name;
@@ -283,8 +283,8 @@ class NetworkTest : public ::testing::Test, public sigslot::has_slots<> {
   }
 
   struct ifaddrs* InstallIpv4Network(char* if_name,
-                                     absl::string_view ipv4_address,
-                                     absl::string_view ipv4_mask,
+                                     const std::string& ipv4_address,
+                                     const std::string& ipv4_mask,
                                      BasicNetworkManager& network_manager) {
     ifaddrs* addr_list = nullptr;
     addr_list = AddIpv4Address(addr_list, if_name, ipv4_address, ipv4_mask);
@@ -638,10 +638,9 @@ TEST_F(NetworkTest, MergeWithChangedIP) {
   EXPECT_EQ(changed_ip, network_to_change->GetIPs().at(0));
 }
 
-// TODO(bugs.webrtc.org/13846): Re-enable when the ASan issue is fixed.
 // Testing a similar case to above, but checking that a network can be updated
 // with additional IPs (not just a replacement).
-TEST_F(NetworkTest, DISABLED_TestMultipleIPMergeNetworkList) {
+TEST_F(NetworkTest, TestMultipleIPMergeNetworkList) {
   PhysicalSocketServer socket_server;
   BasicNetworkManager manager(&socket_server);
   manager.SignalNetworksChanged.connect(static_cast<NetworkTest*>(this),
@@ -1059,8 +1058,8 @@ TEST_F(NetworkTest, TestMergeNetworkList) {
   // IPAddresses.
   EXPECT_EQ(list2.size(), 1uL);
   EXPECT_EQ(list2[0]->GetIPs().size(), 2uL);
-  EXPECT_THAT(list2[0]->GetIPs(), UnorderedElementsAre(InterfaceAddress(ip1),
-                                                       InterfaceAddress(ip2)));
+  EXPECT_EQ(list2[0]->GetIPs()[0], InterfaceAddress(ip1));
+  EXPECT_EQ(list2[0]->GetIPs()[1], InterfaceAddress(ip2));
 }
 
 // Test that MergeNetworkList successfully detects the change if

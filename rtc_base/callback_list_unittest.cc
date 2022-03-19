@@ -17,7 +17,7 @@
 namespace webrtc {
 namespace {
 
-TEST(CallbackList, NoReceiverSingleMessageTest) {
+TEST(CallbackList, NoRecieverSingleMessageTest) {
   CallbackList<std::string> c;
 
   c.Send("message");

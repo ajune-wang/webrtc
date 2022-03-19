@@ -20,6 +20,7 @@
 #include "rtc_base/strings/string_builder.h"
 #include "rtc_base/time_utils.h"
 #include "system_wrappers/include/clock.h"
+#include "system_wrappers/include/field_trial.h"
 #include "system_wrappers/include/metrics.h"
 
 namespace webrtc {
@@ -77,22 +78,14 @@ std::string UmaSuffixForContentType(VideoContentType content_type) {
   return ss.str();
 }
 
-bool EnableDecodeTimeHistogram(const WebRtcKeyValueConfig* field_trials) {
-  if (field_trials == nullptr) {
-    return true;
-  }
-  return !field_trials->IsEnabled("WebRTC-DecodeTimeHistogramsKillSwitch");
-}
-
 }  // namespace
 
-ReceiveStatisticsProxy::ReceiveStatisticsProxy(
-    uint32_t remote_ssrc,
-    Clock* clock,
-    const WebRtcKeyValueConfig* field_trials)
+ReceiveStatisticsProxy::ReceiveStatisticsProxy(uint32_t remote_ssrc,
+                                               Clock* clock)
     : clock_(clock),
       start_ms_(clock->TimeInMilliseconds()),
-      enable_decode_time_histograms_(EnableDecodeTimeHistogram(field_trials)),
+      enable_decode_time_histograms_(
+          !field_trial::IsEnabled("WebRTC-DecodeTimeHistogramsKillSwitch")),
       last_sample_time_(clock->TimeInMilliseconds()),
       fps_threshold_(kLowFpsThreshold,
                      kHighFpsThreshold,

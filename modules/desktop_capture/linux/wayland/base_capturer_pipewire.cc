@@ -12,17 +12,10 @@
 
 #include "modules/desktop_capture/desktop_capture_options.h"
 #include "modules/desktop_capture/desktop_capturer.h"
-#include "modules/desktop_capture/linux/wayland/xdg_desktop_portal_utils.h"
 #include "rtc_base/checks.h"
 #include "rtc_base/logging.h"
 
 namespace webrtc {
-
-namespace {
-
-using xdg_portal::RequestResponse;
-
-}  // namespace
 
 BaseCapturerPipeWire::BaseCapturerPipeWire(const DesktopCaptureOptions& options)
     : options_(options) {
@@ -32,10 +25,11 @@ BaseCapturerPipeWire::BaseCapturerPipeWire(const DesktopCaptureOptions& options)
 
 BaseCapturerPipeWire::~BaseCapturerPipeWire() {}
 
-void BaseCapturerPipeWire::OnScreenCastRequestResult(RequestResponse result,
-                                                     uint32_t stream_node_id,
-                                                     int fd) {
-  if (result != RequestResponse::kSuccess ||
+void BaseCapturerPipeWire::OnScreenCastRequestResult(
+    ScreenCastPortal::RequestResponse result,
+    uint32_t stream_node_id,
+    int fd) {
+  if (result != ScreenCastPortal::RequestResponse::kSuccess ||
       !options_.screencast_stream()->StartScreenCastStream(stream_node_id,
                                                            fd)) {
     capturer_failed_ = true;

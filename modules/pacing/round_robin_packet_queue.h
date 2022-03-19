@@ -22,6 +22,7 @@
 #include <unordered_map>
 
 #include "absl/types/optional.h"
+#include "api/transport/webrtc_key_value_config.h"
 #include "api/units/data_size.h"
 #include "api/units/time_delta.h"
 #include "api/units/timestamp.h"
@@ -33,7 +34,8 @@ namespace webrtc {
 
 class RoundRobinPacketQueue {
  public:
-  explicit RoundRobinPacketQueue(Timestamp start_time);
+  RoundRobinPacketQueue(Timestamp start_time,
+                        const WebRtcKeyValueConfig* field_trials);
   ~RoundRobinPacketQueue();
 
   void Push(int priority,

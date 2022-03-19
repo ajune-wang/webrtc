@@ -1074,7 +1074,7 @@ TEST(DefaultVideoQualityAnalyzerTest,
 }
 
 TEST(DefaultVideoQualityAnalyzerTest,
-     FrameCanBeReceivedByReceiverAfterItWasReceivedBySender) {
+     FrameCanBeReceivedByRecieverAfterItWasReceivedBySender) {
   std::unique_ptr<test::FrameGeneratorInterface> frame_generator =
       test::CreateSquareFrameGenerator(kFrameWidth, kFrameHeight,
                                        /*type=*/absl::nullopt,

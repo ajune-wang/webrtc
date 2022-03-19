@@ -22,7 +22,6 @@
 #include <vector>
 
 #include "absl/memory/memory.h"
-#include "absl/strings/string_view.h"
 #include "rtc_base/checks.h"
 #include "rtc_base/logging.h"
 #include "rtc_base/numerics/safe_conversions.h"
@@ -68,12 +67,12 @@ std::unique_ptr<BoringSSLIdentity> BoringSSLIdentity::CreateInternal(
 
 // static
 std::unique_ptr<BoringSSLIdentity> BoringSSLIdentity::CreateWithExpiration(
-    absl::string_view common_name,
+    const std::string& common_name,
     const KeyParams& key_params,
     time_t certificate_lifetime) {
   SSLIdentityParams params;
   params.key_params = key_params;
-  params.common_name = std::string(common_name);
+  params.common_name = common_name;
   time_t now = time(nullptr);
   params.not_before = now + kCertificateWindowInSeconds;
   params.not_after = now + certificate_lifetime;
@@ -88,8 +87,8 @@ std::unique_ptr<BoringSSLIdentity> BoringSSLIdentity::CreateForTest(
 }
 
 std::unique_ptr<SSLIdentity> BoringSSLIdentity::CreateFromPEMStrings(
-    absl::string_view private_key,
-    absl::string_view certificate) {
+    const std::string& private_key,
+    const std::string& certificate) {
   std::unique_ptr<BoringSSLCertificate> cert(
       BoringSSLCertificate::FromPEMString(certificate));
   if (!cert) {
@@ -109,8 +108,8 @@ std::unique_ptr<SSLIdentity> BoringSSLIdentity::CreateFromPEMStrings(
 }
 
 std::unique_ptr<SSLIdentity> BoringSSLIdentity::CreateFromPEMChainStrings(
-    absl::string_view private_key,
-    absl::string_view certificate_chain) {
+    const std::string& private_key,
+    const std::string& certificate_chain) {
   bssl::UniquePtr<BIO> bio(
       BIO_new_mem_buf(certificate_chain.data(),
                       rtc::dchecked_cast<int>(certificate_chain.size())));

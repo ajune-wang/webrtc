@@ -14,7 +14,6 @@
 #include <limits.h>
 #include <stdlib.h>
 
-#include "absl/strings/string_view.h"
 #include "rtc_base/string_encode.h"
 
 namespace rtc {
@@ -241,47 +240,46 @@ bool GetDoubleFromJsonArray(const Json::Value& in, size_t n, double* out) {
 }
 
 bool GetValueFromJsonObject(const Json::Value& in,
-                            absl::string_view k,
+                            const std::string& k,
                             Json::Value* out) {
-  std::string k_str = std::string(k);
-  if (!in.isObject() || !in.isMember(k_str)) {
+  if (!in.isObject() || !in.isMember(k)) {
     return false;
   }
 
-  *out = in[k_str];
+  *out = in[k];
   return true;
 }
 
 bool GetIntFromJsonObject(const Json::Value& in,
-                          absl::string_view k,
+                          const std::string& k,
                           int* out) {
   Json::Value x;
   return GetValueFromJsonObject(in, k, &x) && GetIntFromJson(x, out);
 }
 
 bool GetUIntFromJsonObject(const Json::Value& in,
-                           absl::string_view k,
+                           const std::string& k,
                            unsigned int* out) {
   Json::Value x;
   return GetValueFromJsonObject(in, k, &x) && GetUIntFromJson(x, out);
 }
 
 bool GetStringFromJsonObject(const Json::Value& in,
-                             absl::string_view k,
+                             const std::string& k,
                              std::string* out) {
   Json::Value x;
   return GetValueFromJsonObject(in, k, &x) && GetStringFromJson(x, out);
 }
 
 bool GetBoolFromJsonObject(const Json::Value& in,
-                           absl::string_view k,
+                           const std::string& k,
                            bool* out) {
   Json::Value x;
   return GetValueFromJsonObject(in, k, &x) && GetBoolFromJson(x, out);
 }
 
 bool GetDoubleFromJsonObject(const Json::Value& in,
-                             absl::string_view k,
+                             const std::string& k,
                              double* out) {
   Json::Value x;
   return GetValueFromJsonObject(in, k, &x) && GetDoubleFromJson(x, out);

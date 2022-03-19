@@ -34,8 +34,7 @@ void AudioDecoderIlbc::AppendSupportedDecoders(
 
 std::unique_ptr<AudioDecoder> AudioDecoderIlbc::MakeAudioDecoder(
     Config config,
-    absl::optional<AudioCodecPairId> /*codec_pair_id*/,
-    const WebRtcKeyValueConfig* field_trials) {
+    absl::optional<AudioCodecPairId> /*codec_pair_id*/) {
   return std::make_unique<AudioDecoderIlbcImpl>();
 }
 

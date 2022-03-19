@@ -10,8 +10,6 @@
 
 #include "rtc_base/boringssl_certificate.h"
 
-#include "absl/strings/string_view.h"
-
 #if defined(WEBRTC_WIN)
 // Must be included first before openssl headers.
 #include "rtc_base/win32.h"  // NOLINT
@@ -118,7 +116,7 @@ bool AddSHA256SignatureAlgorithm(CBB* cbb, KeyType key_type) {
 }
 
 // Adds an X.509 Common Name to `cbb`.
-bool AddCommonName(CBB* cbb, absl::string_view common_name) {
+bool AddCommonName(CBB* cbb, const std::string& common_name) {
   // See RFC 4519.
   static const uint8_t kCommonName[] = {0x55, 0x04, 0x03};
 
@@ -140,7 +138,7 @@ bool AddCommonName(CBB* cbb, absl::string_view common_name) {
       !CBB_add_bytes(&type, kCommonName, sizeof(kCommonName)) ||
       !CBB_add_asn1(&attr, &value, CBS_ASN1_UTF8STRING) ||
       !CBB_add_bytes(&value,
-                     reinterpret_cast<const uint8_t*>(common_name.data()),
+                     reinterpret_cast<const uint8_t*>(common_name.c_str()),
                      common_name.size()) ||
       !CBB_flush(cbb)) {
     return false;
@@ -277,7 +275,7 @@ std::unique_ptr<BoringSSLCertificate> BoringSSLCertificate::Generate(
 }
 
 std::unique_ptr<BoringSSLCertificate> BoringSSLCertificate::FromPEMString(
-    absl::string_view pem_string) {
+    const std::string& pem_string) {
   std::string der;
   if (!SSLIdentity::PemToDer(kPemTypeCertificate, pem_string, &der)) {
     return nullptr;
@@ -342,7 +340,7 @@ bool BoringSSLCertificate::GetSignatureDigestAlgorithm(
   return false;
 }
 
-bool BoringSSLCertificate::ComputeDigest(absl::string_view algorithm,
+bool BoringSSLCertificate::ComputeDigest(const std::string& algorithm,
                                          unsigned char* digest,
                                          size_t size,
                                          size_t* length) const {
@@ -350,7 +348,7 @@ bool BoringSSLCertificate::ComputeDigest(absl::string_view algorithm,
 }
 
 bool BoringSSLCertificate::ComputeDigest(const CRYPTO_BUFFER* cert_buffer,
-                                         absl::string_view algorithm,
+                                         const std::string& algorithm,
                                          unsigned char* digest,
                                          size_t size,
                                          size_t* length) {

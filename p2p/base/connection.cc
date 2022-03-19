@@ -33,6 +33,7 @@
 #include "rtc_base/string_utils.h"
 #include "rtc_base/strings/string_builder.h"
 #include "rtc_base/third_party/base64/base64.h"
+#include "system_wrappers/include/field_trial.h"
 
 namespace {
 
@@ -190,7 +191,8 @@ void ConnectionRequest::Prepare(StunMessage* request) {
   request->AddAttribute(std::make_unique<StunUInt32Attribute>(
       STUN_ATTR_GOOG_NETWORK_INFO, network_info));
 
-  if (connection_->field_trials_->piggyback_ice_check_acknowledgement &&
+  if (webrtc::field_trial::IsEnabled(
+          "WebRTC-PiggybackIceCheckAcknowledgement") &&
       connection_->last_ping_id_received()) {
     request->AddAttribute(std::make_unique<StunByteStringAttribute>(
         STUN_ATTR_GOOG_LAST_ICE_CHECK_RECEIVED,
@@ -603,7 +605,8 @@ void Connection::HandleStunBindingOrGoogPingRequest(IceMessage* msg) {
   RTC_DCHECK_RUN_ON(network_thread_);
   // This connection should now be receiving.
   ReceivedPing(msg->transaction_id());
-  if (field_trials_->extra_ice_ping && last_ping_response_received_ == 0) {
+  if (webrtc::field_trial::IsEnabled("WebRTC-ExtraICEPing") &&
+      last_ping_response_received_ == 0) {
     if (local_candidate().type() == RELAY_PORT_TYPE ||
         local_candidate().type() == PRFLX_PORT_TYPE ||
         remote_candidate().type() == RELAY_PORT_TYPE ||
@@ -692,7 +695,8 @@ void Connection::HandleStunBindingOrGoogPingRequest(IceMessage* msg) {
     }
   }
 
-  if (field_trials_->piggyback_ice_check_acknowledgement) {
+  if (webrtc::field_trial::IsEnabled(
+          "WebRTC-PiggybackIceCheckAcknowledgement")) {
     HandlePiggybackCheckAcknowledgementIfAny(msg);
   }
 }

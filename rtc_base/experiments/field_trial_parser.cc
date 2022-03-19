@@ -23,8 +23,7 @@
 
 namespace webrtc {
 
-FieldTrialParameterInterface::FieldTrialParameterInterface(
-    absl::string_view key)
+FieldTrialParameterInterface::FieldTrialParameterInterface(std::string key)
     : key_(key) {}
 FieldTrialParameterInterface::~FieldTrialParameterInterface() {
   RTC_DCHECK(used_) << "Field trial parameter with key: '" << key_
@@ -112,7 +111,7 @@ void ParseFieldTrial(
 }
 
 template <>
-absl::optional<bool> ParseTypedParameter<bool>(absl::string_view str) {
+absl::optional<bool> ParseTypedParameter<bool>(std::string str) {
   if (str == "true" || str == "1") {
     return true;
   } else if (str == "false" || str == "0") {
@@ -122,10 +121,10 @@ absl::optional<bool> ParseTypedParameter<bool>(absl::string_view str) {
 }
 
 template <>
-absl::optional<double> ParseTypedParameter<double>(absl::string_view str) {
+absl::optional<double> ParseTypedParameter<double>(std::string str) {
   double value;
   char unit[2]{0, 0};
-  if (sscanf(std::string(str).c_str(), "%lf%1s", &value, unit) >= 1) {
+  if (sscanf(str.c_str(), "%lf%1s", &value, unit) >= 1) {
     if (unit[0] == '%')
       return value / 100;
     return value;
@@ -135,9 +134,9 @@ absl::optional<double> ParseTypedParameter<double>(absl::string_view str) {
 }
 
 template <>
-absl::optional<int> ParseTypedParameter<int>(absl::string_view str) {
+absl::optional<int> ParseTypedParameter<int>(std::string str) {
   int64_t value;
-  if (sscanf(std::string(str).c_str(), "%" SCNd64, &value) == 1) {
+  if (sscanf(str.c_str(), "%" SCNd64, &value) == 1) {
     if (rtc::IsValueInRangeForNumericType<int, int64_t>(value)) {
       return static_cast<int>(value);
     }
@@ -146,9 +145,9 @@ absl::optional<int> ParseTypedParameter<int>(absl::string_view str) {
 }
 
 template <>
-absl::optional<unsigned> ParseTypedParameter<unsigned>(absl::string_view str) {
+absl::optional<unsigned> ParseTypedParameter<unsigned>(std::string str) {
   int64_t value;
-  if (sscanf(std::string(str).c_str(), "%" SCNd64, &value) == 1) {
+  if (sscanf(str.c_str(), "%" SCNd64, &value) == 1) {
     if (rtc::IsValueInRangeForNumericType<unsigned, int64_t>(value)) {
       return static_cast<unsigned>(value);
     }
@@ -157,36 +156,34 @@ absl::optional<unsigned> ParseTypedParameter<unsigned>(absl::string_view str) {
 }
 
 template <>
-absl::optional<std::string> ParseTypedParameter<std::string>(
-    absl::string_view str) {
-  return std::string(str);
+absl::optional<std::string> ParseTypedParameter<std::string>(std::string str) {
+  return std::move(str);
 }
 
 template <>
 absl::optional<absl::optional<bool>> ParseTypedParameter<absl::optional<bool>>(
-    absl::string_view str) {
+    std::string str) {
   return ParseOptionalParameter<bool>(str);
 }
 template <>
 absl::optional<absl::optional<int>> ParseTypedParameter<absl::optional<int>>(
-    absl::string_view str) {
+    std::string str) {
   return ParseOptionalParameter<int>(str);
 }
 template <>
 absl::optional<absl::optional<unsigned>>
-ParseTypedParameter<absl::optional<unsigned>>(absl::string_view str) {
+ParseTypedParameter<absl::optional<unsigned>>(std::string str) {
   return ParseOptionalParameter<unsigned>(str);
 }
 template <>
 absl::optional<absl::optional<double>>
-ParseTypedParameter<absl::optional<double>>(absl::string_view str) {
+ParseTypedParameter<absl::optional<double>>(std::string str) {
   return ParseOptionalParameter<double>(str);
 }
 
-FieldTrialFlag::FieldTrialFlag(absl::string_view key)
-    : FieldTrialFlag(key, false) {}
+FieldTrialFlag::FieldTrialFlag(std::string key) : FieldTrialFlag(key, false) {}
 
-FieldTrialFlag::FieldTrialFlag(absl::string_view key, bool default_value)
+FieldTrialFlag::FieldTrialFlag(std::string key, bool default_value)
     : FieldTrialParameterInterface(key), value_(default_value) {}
 
 bool FieldTrialFlag::Get() const {
@@ -211,7 +208,7 @@ bool FieldTrialFlag::Parse(absl::optional<std::string> str_value) {
 }
 
 AbstractFieldTrialEnum::AbstractFieldTrialEnum(
-    absl::string_view key,
+    std::string key,
     int default_value,
     std::map<std::string, int> mapping)
     : FieldTrialParameterInterface(key),

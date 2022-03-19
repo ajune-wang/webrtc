@@ -31,7 +31,6 @@
 #include "api/sequence_checker.h"
 #include "api/video/video_content_type.h"
 #include "api/video/video_timing.h"
-#include "api/webrtc_key_value_config.h"
 #include "call/call.h"
 #include "media/base/media_channel.h"
 #include "modules/audio_processing/include/audio_processing_statistics.h"
@@ -56,6 +55,7 @@
 #include "rtc_base/thread.h"
 #include "rtc_base/time_utils.h"
 #include "rtc_base/trace_event.h"
+#include "system_wrappers/include/field_trial.h"
 
 namespace webrtc {
 namespace {
@@ -543,7 +543,7 @@ StatsCollector::StatsCollector(PeerConnectionInternal* pc)
     : pc_(pc),
       stats_gathering_started_(0),
       use_standard_bytes_stats_(
-          pc->trials().IsEnabled(kUseStandardBytesStats)) {
+          webrtc::field_trial::IsEnabled(kUseStandardBytesStats)) {
   RTC_DCHECK(pc_);
 }
 

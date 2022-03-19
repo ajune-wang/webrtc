@@ -17,7 +17,6 @@
 #include <string>
 
 #include "absl/base/attributes.h"
-#include "absl/strings/string_view.h"
 #include "api/ref_counted_base.h"
 #include "api/scoped_refptr.h"
 #include "rtc_base/system/rtc_export.h"
@@ -36,8 +35,8 @@ class SSLIdentity;
 // the string representations used by OpenSSL.
 class RTCCertificatePEM {
  public:
-  RTCCertificatePEM(absl::string_view private_key,
-                    absl::string_view certificate)
+  RTCCertificatePEM(const std::string& private_key,
+                    const std::string& certificate)
       : private_key_(private_key), certificate_(certificate) {}
 
   const std::string& private_key() const { return private_key_; }

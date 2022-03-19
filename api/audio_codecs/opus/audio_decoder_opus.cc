@@ -73,8 +73,7 @@ void AudioDecoderOpus::AppendSupportedDecoders(
 
 std::unique_ptr<AudioDecoder> AudioDecoderOpus::MakeAudioDecoder(
     Config config,
-    absl::optional<AudioCodecPairId> /*codec_pair_id*/,
-    const WebRtcKeyValueConfig* field_trials) {
+    absl::optional<AudioCodecPairId> /*codec_pair_id*/) {
   if (!config.IsOk()) {
     RTC_DCHECK_NOTREACHED();
     return nullptr;

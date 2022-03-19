@@ -22,6 +22,7 @@
 #include "rtc_base/thread.h"
 #include "rtc_base/time_utils.h"
 #include "system_wrappers/include/clock.h"
+#include "system_wrappers/include/field_trial.h"
 #include "system_wrappers/include/metrics.h"
 #include "video/video_receive_stream2.h"
 
@@ -97,15 +98,13 @@ bool IsCurrentTaskQueueOrThread(TaskQueueBase* task_queue) {
 
 }  // namespace
 
-ReceiveStatisticsProxy::ReceiveStatisticsProxy(
-    uint32_t remote_ssrc,
-    Clock* clock,
-    TaskQueueBase* worker_thread,
-    const WebRtcKeyValueConfig& field_trials)
+ReceiveStatisticsProxy::ReceiveStatisticsProxy(uint32_t remote_ssrc,
+                                               Clock* clock,
+                                               TaskQueueBase* worker_thread)
     : clock_(clock),
       start_ms_(clock->TimeInMilliseconds()),
       enable_decode_time_histograms_(
-          !field_trials.IsEnabled("WebRTC-DecodeTimeHistogramsKillSwitch")),
+          !field_trial::IsEnabled("WebRTC-DecodeTimeHistogramsKillSwitch")),
       last_sample_time_(clock->TimeInMilliseconds()),
       fps_threshold_(kLowFpsThreshold,
                      kHighFpsThreshold,

@@ -15,7 +15,6 @@
 #include <cstdint>
 #include <memory>
 
-#include "absl/strings/string_view.h"
 #include "rtc_base/arraysize.h"
 #include "test/gtest.h"
 #include "test/testsupport/file_utils.h"
@@ -45,15 +44,15 @@ class MAYBE_FileRotatingStreamTest : public ::testing::Test {
   static const char* kFilePrefix;
   static const size_t kMaxFileSize;
 
-  void Init(absl::string_view dir_name,
-            absl::string_view file_prefix,
+  void Init(const std::string& dir_name,
+            const std::string& file_prefix,
             size_t max_file_size,
             size_t num_log_files,
             bool ensure_trailing_delimiter = true) {
     dir_path_ = webrtc::test::OutputPath();
 
     // Append per-test output path in order to run within gtest parallel.
-    dir_path_.append(dir_name.begin(), dir_name.end());
+    dir_path_.append(dir_name);
     if (ensure_trailing_delimiter) {
       dir_path_.append(webrtc::test::kPathDelimiter);
     }
@@ -81,7 +80,7 @@ class MAYBE_FileRotatingStreamTest : public ::testing::Test {
   // end of stream result.
   void VerifyStreamRead(const char* expected_contents,
                         const size_t expected_length,
-                        absl::string_view dir_path,
+                        const std::string& dir_path,
                         const char* file_prefix) {
     FileRotatingStreamReader reader(dir_path, file_prefix);
     EXPECT_EQ(reader.GetSize(), expected_length);
@@ -93,10 +92,9 @@ class MAYBE_FileRotatingStreamTest : public ::testing::Test {
 
   void VerifyFileContents(const char* expected_contents,
                           const size_t expected_length,
-                          absl::string_view file_path) {
+                          const std::string& file_path) {
     std::unique_ptr<uint8_t[]> buffer(new uint8_t[expected_length + 1]);
-    webrtc::FileWrapper f =
-        webrtc::FileWrapper::OpenReadOnly(std::string(file_path));
+    webrtc::FileWrapper f = webrtc::FileWrapper::OpenReadOnly(file_path);
     ASSERT_TRUE(f.is_open());
     size_t size_read = f.Read(buffer.get(), expected_length + 1);
     EXPECT_EQ(size_read, expected_length);
@@ -257,11 +255,11 @@ TEST_F(MAYBE_FileRotatingStreamTest, GetFilePath) {
 
 class MAYBE_CallSessionFileRotatingStreamTest : public ::testing::Test {
  protected:
-  void Init(absl::string_view dir_name, size_t max_total_log_size) {
+  void Init(const std::string& dir_name, size_t max_total_log_size) {
     dir_path_ = webrtc::test::OutputPath();
 
     // Append per-test output path in order to run within gtest parallel.
-    dir_path_.append(dir_name.begin(), dir_name.end());
+    dir_path_.append(dir_name);
     dir_path_.append(webrtc::test::kPathDelimiter);
     ASSERT_TRUE(webrtc::test::CreateDir(dir_path_));
     stream_.reset(
@@ -287,7 +285,7 @@ class MAYBE_CallSessionFileRotatingStreamTest : public ::testing::Test {
   // end of stream result.
   void VerifyStreamRead(const char* expected_contents,
                         const size_t expected_length,
-                        absl::string_view dir_path) {
+                        const std::string& dir_path) {
     CallSessionFileRotatingStreamReader reader(dir_path);
     EXPECT_EQ(reader.GetSize(), expected_length);
     std::unique_ptr<uint8_t[]> buffer(new uint8_t[expected_length]);

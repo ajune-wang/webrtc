@@ -17,7 +17,6 @@
 #include <string>
 #include <vector>
 
-#include "absl/strings/string_view.h"
 #include "rtc_base/system/file_wrapper.h"
 
 namespace rtc {
@@ -30,8 +29,8 @@ class FileRotatingStream {
  public:
   // Use this constructor for writing to a directory. Files in the directory
   // matching the prefix will be deleted on open.
-  FileRotatingStream(absl::string_view dir_path,
-                     absl::string_view file_prefix,
+  FileRotatingStream(const std::string& dir_path,
+                     const std::string& file_prefix,
                      size_t max_file_size,
                      size_t num_files);
 
@@ -127,7 +126,7 @@ class CallSessionFileRotatingStream : public FileRotatingStream {
   // Use this constructor for writing to a directory. Files in the directory
   // matching what's used by the stream will be deleted. `max_total_log_size`
   // must be at least 4.
-  CallSessionFileRotatingStream(absl::string_view dir_path,
+  CallSessionFileRotatingStream(const std::string& dir_path,
                                 size_t max_total_log_size);
   ~CallSessionFileRotatingStream() override {}
 
@@ -153,8 +152,8 @@ class CallSessionFileRotatingStream : public FileRotatingStream {
 // directory at construction time.
 class FileRotatingStreamReader {
  public:
-  FileRotatingStreamReader(absl::string_view dir_path,
-                           absl::string_view file_prefix);
+  FileRotatingStreamReader(const std::string& dir_path,
+                           const std::string& file_prefix);
   ~FileRotatingStreamReader();
   size_t GetSize() const;
   size_t ReadAll(void* buffer, size_t size) const;
@@ -165,7 +164,7 @@ class FileRotatingStreamReader {
 
 class CallSessionFileRotatingStreamReader : public FileRotatingStreamReader {
  public:
-  CallSessionFileRotatingStreamReader(absl::string_view dir_path);
+  CallSessionFileRotatingStreamReader(const std::string& dir_path);
 };
 
 }  // namespace rtc

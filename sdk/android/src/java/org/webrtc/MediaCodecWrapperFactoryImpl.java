@@ -10,6 +10,7 @@
 
 package org.webrtc;
 
+import android.annotation.TargetApi;
 import android.media.MediaCodec;
 import android.media.MediaCodec.BufferInfo;
 import android.media.MediaCrypto;
@@ -98,11 +99,13 @@ class MediaCodecWrapperFactoryImpl implements MediaCodecWrapperFactory {
     }
 
     @Override
+    @TargetApi(18)
     public Surface createInputSurface() {
       return mediaCodec.createInputSurface();
     }
 
     @Override
+    @TargetApi(19)
     public void setParameters(Bundle params) {
       mediaCodec.setParameters(params);
     }

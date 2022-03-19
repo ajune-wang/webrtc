@@ -11,7 +11,6 @@
 
 #include <string>
 
-#include "absl/strings/string_view.h"
 #include "absl/types/optional.h"
 #include "rtc_base/experiments/field_trial_parser.h"
 #include "test/gtest.h"
@@ -26,7 +25,7 @@ struct DummyExperiment {
   FieldTrialOptional<DataSize> max_buffer =
       FieldTrialOptional<DataSize>("b", absl::nullopt);
 
-  explicit DummyExperiment(absl::string_view field_trial) {
+  explicit DummyExperiment(std::string field_trial) {
     ParseFieldTrial({&target_rate, &max_buffer, &period}, field_trial);
   }
 };

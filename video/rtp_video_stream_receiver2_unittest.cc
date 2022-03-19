@@ -33,11 +33,12 @@
 #include "rtc_base/byte_buffer.h"
 #include "rtc_base/logging.h"
 #include "system_wrappers/include/clock.h"
+#include "system_wrappers/include/field_trial.h"
+#include "test/field_trial.h"
 #include "test/gmock.h"
 #include "test/gtest.h"
 #include "test/mock_frame_transformer.h"
 #include "test/mock_transport.h"
-#include "test/scoped_key_value_config.h"
 #include "test/time_controller/simulated_task_queue.h"
 #include "test/time_controller/simulated_time_controller.h"
 
@@ -151,7 +152,7 @@ class RtpVideoStreamReceiver2Test : public ::testing::Test,
             "RtpVideoStreamReceiver2Test",
             TaskQueueFactory::Priority::NORMAL)),
         task_queue_setter_(task_queue_.get()),
-        field_trials_(field_trials),
+        override_field_trials_(field_trials),
         config_(CreateConfig()) {
     rtp_receive_statistics_ =
         ReceiveStatistics::Create(Clock::GetRealTimeClock());
@@ -160,7 +161,7 @@ class RtpVideoStreamReceiver2Test : public ::testing::Test,
         nullptr, nullptr, &config_, rtp_receive_statistics_.get(), nullptr,
         nullptr, &nack_periodic_processor_, &mock_nack_sender_,
         &mock_key_frame_request_sender_, &mock_on_complete_frame_callback_,
-        nullptr, nullptr, field_trials_);
+        nullptr, nullptr);
     rtp_video_stream_receiver_->AddReceiveCodec(kPayloadType,
                                                 kVideoCodecGeneric, {},
                                                 /*raw_payload=*/false);
@@ -228,7 +229,7 @@ class RtpVideoStreamReceiver2Test : public ::testing::Test,
   std::unique_ptr<TaskQueueBase, TaskQueueDeleter> task_queue_;
   TokenTaskQueue::CurrentTaskQueueSetter task_queue_setter_;
 
-  webrtc::test::ScopedKeyValueConfig field_trials_;
+  const webrtc::test::ScopedFieldTrials override_field_trials_;
   VideoReceiveStream::Config config_;
   NackPeriodicProcessor nack_periodic_processor_;
   MockNackSender mock_nack_sender_;
@@ -1118,8 +1119,7 @@ TEST_F(RtpVideoStreamReceiver2Test, TransformFrame) {
       TaskQueueBase::Current(), Clock::GetRealTimeClock(), &mock_transport_,
       nullptr, nullptr, &config_, rtp_receive_statistics_.get(), nullptr,
       nullptr, &nack_periodic_processor_, &mock_nack_sender_, nullptr,
-      &mock_on_complete_frame_callback_, nullptr, mock_frame_transformer,
-      field_trials_);
+      &mock_on_complete_frame_callback_, nullptr, mock_frame_transformer);
   receiver->AddReceiveCodec(kPayloadType, kVideoCodecGeneric, {},
                             /*raw_payload=*/false);
 

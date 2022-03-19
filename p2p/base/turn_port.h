@@ -63,8 +63,7 @@ class TurnPort : public Port {
       const ProtocolAddress& server_address,
       const RelayCredentials& credentials,
       int server_priority,
-      webrtc::TurnCustomizer* customizer,
-      const webrtc::WebRtcKeyValueConfig* field_trials = nullptr) {
+      webrtc::TurnCustomizer* customizer) {
     // Do basic parameter validation.
     if (credentials.username.size() > kMaxTurnUsernameLength) {
       RTC_LOG(LS_ERROR) << "Attempt to use TURN with a too long username "
@@ -72,15 +71,15 @@ class TurnPort : public Port {
       return nullptr;
     }
     // Do not connect to low-numbered ports. The default STUN port is 3478.
-    if (!AllowedTurnPort(server_address.address.port(), field_trials)) {
+    if (!AllowedTurnPort(server_address.address.port())) {
       RTC_LOG(LS_ERROR) << "Attempt to use TURN to connect to port "
                         << server_address.address.port();
       return nullptr;
     }
     // Using `new` to access a non-public constructor.
-    return absl::WrapUnique(new TurnPort(
-        thread, factory, network, socket, username, password, server_address,
-        credentials, server_priority, customizer, field_trials));
+    return absl::WrapUnique(
+        new TurnPort(thread, factory, network, socket, username, password,
+                     server_address, credentials, server_priority, customizer));
   }
 
   // TODO(steveanton): Remove once downstream clients have moved to `Create`.
@@ -94,11 +93,9 @@ class TurnPort : public Port {
       const ProtocolAddress& server_address,
       const RelayCredentials& credentials,
       int server_priority,
-      webrtc::TurnCustomizer* customizer,
-      const webrtc::WebRtcKeyValueConfig* field_trials) {
+      webrtc::TurnCustomizer* customizer) {
     return Create(thread, factory, network, socket, username, password,
-                  server_address, credentials, server_priority, customizer,
-                  field_trials);
+                  server_address, credentials, server_priority, customizer);
   }
 
   // Create a TURN port that will use a new socket, bound to `network` and
@@ -117,8 +114,7 @@ class TurnPort : public Port {
       const std::vector<std::string>& tls_alpn_protocols,
       const std::vector<std::string>& tls_elliptic_curves,
       webrtc::TurnCustomizer* customizer,
-      rtc::SSLCertificateVerifier* tls_cert_verifier = nullptr,
-      const webrtc::WebRtcKeyValueConfig* field_trials = nullptr) {
+      rtc::SSLCertificateVerifier* tls_cert_verifier = nullptr) {
     // Do basic parameter validation.
     if (credentials.username.size() > kMaxTurnUsernameLength) {
       RTC_LOG(LS_ERROR) << "Attempt to use TURN with a too long username "
@@ -126,7 +122,7 @@ class TurnPort : public Port {
       return nullptr;
     }
     // Do not connect to low-numbered ports. The default STUN port is 3478.
-    if (!AllowedTurnPort(server_address.address.port(), field_trials)) {
+    if (!AllowedTurnPort(server_address.address.port())) {
       RTC_LOG(LS_ERROR) << "Attempt to use TURN to connect to port "
                         << server_address.address.port();
       return nullptr;
@@ -135,7 +131,7 @@ class TurnPort : public Port {
     return absl::WrapUnique(new TurnPort(
         thread, factory, network, min_port, max_port, username, password,
         server_address, credentials, server_priority, tls_alpn_protocols,
-        tls_elliptic_curves, customizer, tls_cert_verifier, field_trials));
+        tls_elliptic_curves, customizer, tls_cert_verifier));
   }
 
   // TODO(steveanton): Remove once downstream clients have moved to `Create`.
@@ -153,12 +149,11 @@ class TurnPort : public Port {
       const std::vector<std::string>& tls_alpn_protocols,
       const std::vector<std::string>& tls_elliptic_curves,
       webrtc::TurnCustomizer* customizer,
-      rtc::SSLCertificateVerifier* tls_cert_verifier = nullptr,
-      const webrtc::WebRtcKeyValueConfig* field_trials = nullptr) {
+      rtc::SSLCertificateVerifier* tls_cert_verifier = nullptr) {
     return Create(thread, factory, network, min_port, max_port, username,
                   password, server_address, credentials, server_priority,
                   tls_alpn_protocols, tls_elliptic_curves, customizer,
-                  tls_cert_verifier, field_trials);
+                  tls_cert_verifier);
   }
 
   ~TurnPort() override;
@@ -269,8 +264,7 @@ class TurnPort : public Port {
            const ProtocolAddress& server_address,
            const RelayCredentials& credentials,
            int server_priority,
-           webrtc::TurnCustomizer* customizer,
-           const webrtc::WebRtcKeyValueConfig* field_trials = nullptr);
+           webrtc::TurnCustomizer* customizer);
 
   TurnPort(rtc::Thread* thread,
            rtc::PacketSocketFactory* factory,
@@ -285,8 +279,7 @@ class TurnPort : public Port {
            const std::vector<std::string>& tls_alpn_protocols,
            const std::vector<std::string>& tls_elliptic_curves,
            webrtc::TurnCustomizer* customizer,
-           rtc::SSLCertificateVerifier* tls_cert_verifier = nullptr,
-           const webrtc::WebRtcKeyValueConfig* field_trials = nullptr);
+           rtc::SSLCertificateVerifier* tls_cert_verifier = nullptr);
 
   // NOTE: This method needs to be accessible for StunPort
   // return true if entry was created (i.e channel_number consumed).
@@ -311,8 +304,7 @@ class TurnPort : public Port {
   typedef std::map<rtc::Socket::Option, int> SocketOptionsMap;
   typedef std::set<rtc::SocketAddress> AttemptedServerSet;
 
-  static bool AllowedTurnPort(int port,
-                              const webrtc::WebRtcKeyValueConfig* field_trials);
+  static bool AllowedTurnPort(int port);
   void OnMessage(rtc::Message* pmsg) override;
 
   bool CreateTurnClientSocket();
@@ -417,8 +409,6 @@ class TurnPort : public Port {
   // Optional TurnCustomizer that can modify outgoing messages. Once set, this
   // must outlive the TurnPort's lifetime.
   webrtc::TurnCustomizer* turn_customizer_ = nullptr;
-
-  const webrtc::WebRtcKeyValueConfig* field_trials_;
 
   // Optional TurnLoggingId.
   // An identifier set by application that is added to TURN_ALLOCATE_REQUEST

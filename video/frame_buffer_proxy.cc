@@ -17,7 +17,6 @@
 #include "absl/base/attributes.h"
 #include "absl/functional/bind_front.h"
 #include "api/sequence_checker.h"
-#include "api/units/data_size.h"
 #include "api/video/encoded_frame.h"
 #include "api/video/video_content_type.h"
 #include "modules/video_coding/frame_buffer2.h"
@@ -26,6 +25,7 @@
 #include "rtc_base/checks.h"
 #include "rtc_base/logging.h"
 #include "rtc_base/thread_annotations.h"
+#include "system_wrappers/include/field_trial.h"
 #include "video/frame_decode_timing.h"
 #include "video/task_queue_frame_decode_scheduler.h"
 #include "video/video_receive_stream_timeout_tracker.h"
@@ -148,7 +148,7 @@ struct FrameMetadata {
         contentType(frame.contentType()),
         delayed_by_retransmission(frame.delayed_by_retransmission()),
         rtp_timestamp(frame.Timestamp()),
-        receive_time(frame.ReceivedTimestamp()) {}
+        receive_time_ms(frame.ReceivedTime()) {}
 
   const bool is_last_spatial_layer;
   const bool is_keyframe;
@@ -156,14 +156,8 @@ struct FrameMetadata {
   const VideoContentType contentType;
   const bool delayed_by_retransmission;
   const uint32_t rtp_timestamp;
-  const absl::optional<Timestamp> receive_time;
+  const int64_t receive_time_ms;
 };
-
-Timestamp ReceiveTime(const EncodedFrame& frame) {
-  absl::optional<Timestamp> ts = frame.ReceivedTimestamp();
-  RTC_DCHECK(ts.has_value()) << "Received frame must have a timestamp set!";
-  return *ts;
-}
 
 // Encapsulates use of the new frame buffer for use in VideoReceiveStream. This
 // behaves the same as the FrameBuffer2Proxy but uses frame_buffer3 instead.
@@ -180,8 +174,7 @@ class FrameBuffer3Proxy : public FrameBufferProxy {
       FrameSchedulingReceiver* receiver,
       TimeDelta max_wait_for_keyframe,
       TimeDelta max_wait_for_frame,
-      std::unique_ptr<FrameDecodeScheduler> frame_decode_scheduler,
-      const WebRtcKeyValueConfig& field_trials)
+      std::unique_ptr<FrameDecodeScheduler> frame_decode_scheduler)
       : max_wait_for_keyframe_(max_wait_for_keyframe),
         max_wait_for_frame_(max_wait_for_frame),
         clock_(clock),
@@ -192,6 +185,7 @@ class FrameBuffer3Proxy : public FrameBufferProxy {
         timing_(timing),
         frame_decode_scheduler_(std::move(frame_decode_scheduler)),
         jitter_estimator_(clock_),
+        inter_frame_delay_(clock_->TimeInMilliseconds()),
         buffer_(std::make_unique<FrameBuffer>(kMaxFramesBuffered,
                                               kMaxFramesHistory)),
         decode_timing_(clock_, timing_),
@@ -214,7 +208,7 @@ class FrameBuffer3Proxy : public FrameBufferProxy {
     RTC_LOG(LS_WARNING) << "Using FrameBuffer3";
 
     ParseFieldTrial({&zero_playout_delay_max_decode_queue_size_},
-                    field_trials.Lookup("WebRTC-ZeroPlayoutDelay"));
+                    field_trial::FindFullName("WebRTC-ZeroPlayoutDelay"));
   }
 
   // FrameBufferProxy implementation.
@@ -253,10 +247,12 @@ class FrameBuffer3Proxy : public FrameBufferProxy {
     if (complete_units < buffer_->GetTotalNumberOfContinuousTemporalUnits()) {
       stats_proxy_->OnCompleteFrame(metadata.is_keyframe, metadata.size,
                                     metadata.contentType);
-      RTC_DCHECK(metadata.receive_time) << "Frame receive time must be set!";
-      if (!metadata.delayed_by_retransmission && metadata.receive_time)
+      RTC_DCHECK_GE(metadata.receive_time_ms, 0)
+          << "Frame receive time must be positive for received frames, was "
+          << metadata.receive_time_ms << ".";
+      if (!metadata.delayed_by_retransmission && metadata.receive_time_ms >= 0)
         timing_->IncomingTimestamp(metadata.rtp_timestamp,
-                                   *metadata.receive_time);
+                                   Timestamp::Millis(metadata.receive_time_ms));
       MaybeScheduleFrameForRelease();
     }
 
@@ -265,7 +261,7 @@ class FrameBuffer3Proxy : public FrameBufferProxy {
 
   void UpdateRtt(int64_t max_rtt_ms) override {
     RTC_DCHECK_RUN_ON(&worker_sequence_checker_);
-    jitter_estimator_.UpdateRtt(TimeDelta::Millis(max_rtt_ms));
+    jitter_estimator_.UpdateRtt(max_rtt_ms);
   }
 
   void StartNextDecode(bool keyframe_required) override {
@@ -302,9 +298,9 @@ class FrameBuffer3Proxy : public FrameBufferProxy {
 
     Timestamp now = clock_->CurrentTime();
     bool superframe_delayed_by_retransmission = false;
-    DataSize superframe_size = DataSize::Zero();
+    size_t superframe_size = 0;
     const EncodedFrame& first_frame = *frames.front();
-    Timestamp receive_time = ReceiveTime(first_frame);
+    int64_t receive_time_ms = first_frame.ReceivedTime();
 
     if (first_frame.is_keyframe())
       keyframe_required_ = false;
@@ -322,26 +318,26 @@ class FrameBuffer3Proxy : public FrameBufferProxy {
 
       superframe_delayed_by_retransmission |=
           frame->delayed_by_retransmission();
-      receive_time = std::max(receive_time, ReceiveTime(*frame));
-      superframe_size += DataSize::Bytes(frame->size());
+      receive_time_ms = std::max(receive_time_ms, frame->ReceivedTime());
+      superframe_size += frame->size();
     }
 
     if (!superframe_delayed_by_retransmission) {
-      auto frame_delay = inter_frame_delay_.CalculateDelay(
-          first_frame.Timestamp(), receive_time);
-      if (frame_delay) {
-        jitter_estimator_.UpdateEstimate(*frame_delay, superframe_size);
+      int64_t frame_delay;
+
+      if (inter_frame_delay_.CalculateDelay(first_frame.Timestamp(),
+                                            &frame_delay, receive_time_ms)) {
+        jitter_estimator_.UpdateEstimate(frame_delay, superframe_size);
       }
 
       float rtt_mult = protection_mode_ == kProtectionNackFEC ? 0.0 : 1.0;
-      absl::optional<TimeDelta> rtt_mult_add_cap_ms = absl::nullopt;
+      absl::optional<float> rtt_mult_add_cap_ms = absl::nullopt;
       if (rtt_mult_settings_.has_value()) {
         rtt_mult = rtt_mult_settings_->rtt_mult_setting;
-        rtt_mult_add_cap_ms =
-            TimeDelta::Millis(rtt_mult_settings_->rtt_mult_add_cap_ms);
+        rtt_mult_add_cap_ms = rtt_mult_settings_->rtt_mult_add_cap_ms;
       }
-      timing_->SetJitterDelay(
-          jitter_estimator_.GetJitterEstimate(rtt_mult, rtt_mult_add_cap_ms));
+      timing_->SetJitterDelay(TimeDelta::Millis(
+          jitter_estimator_.GetJitterEstimate(rtt_mult, rtt_mult_add_cap_ms)));
       timing_->UpdateCurrentDelay(render_time, now);
     } else if (RttMultExperiment::RttMultEnabled()) {
       jitter_estimator_.FrameNacked();
@@ -546,8 +542,7 @@ enum class FrameBufferArm {
 
 constexpr const char* kFrameBufferFieldTrial = "WebRTC-FrameBuffer3";
 
-FrameBufferArm ParseFrameBufferFieldTrial(
-    const WebRtcKeyValueConfig& field_trials) {
+FrameBufferArm ParseFrameBufferFieldTrial() {
   webrtc::FieldTrialEnum<FrameBufferArm> arm(
       "arm", FrameBufferArm::kFrameBuffer2,
       {
@@ -555,7 +550,7 @@ FrameBufferArm ParseFrameBufferFieldTrial(
           {"FrameBuffer3", FrameBufferArm::kFrameBuffer3},
           {"SyncDecoding", FrameBufferArm::kSyncDecode},
       });
-  ParseFieldTrial({&arm}, field_trials.Lookup(kFrameBufferFieldTrial));
+  ParseFieldTrial({&arm}, field_trial::FindFullName(kFrameBufferFieldTrial));
   return arm.Get();
 }
 
@@ -570,16 +565,14 @@ std::unique_ptr<FrameBufferProxy> FrameBufferProxy::CreateFromFieldTrial(
     FrameSchedulingReceiver* receiver,
     TimeDelta max_wait_for_keyframe,
     TimeDelta max_wait_for_frame,
-    DecodeSynchronizer* decode_sync,
-    const WebRtcKeyValueConfig& field_trials) {
-  switch (ParseFrameBufferFieldTrial(field_trials)) {
+    DecodeSynchronizer* decode_sync) {
+  switch (ParseFrameBufferFieldTrial()) {
     case FrameBufferArm::kFrameBuffer3: {
       auto scheduler =
           std::make_unique<TaskQueueFrameDecodeScheduler>(clock, worker_queue);
       return std::make_unique<FrameBuffer3Proxy>(
           clock, worker_queue, timing, stats_proxy, decode_queue, receiver,
-          max_wait_for_keyframe, max_wait_for_frame, std::move(scheduler),
-          field_trials);
+          max_wait_for_keyframe, max_wait_for_frame, std::move(scheduler));
     }
     case FrameBufferArm::kSyncDecode: {
       std::unique_ptr<FrameDecodeScheduler> scheduler;
@@ -595,8 +588,7 @@ std::unique_ptr<FrameBufferProxy> FrameBufferProxy::CreateFromFieldTrial(
       }
       return std::make_unique<FrameBuffer3Proxy>(
           clock, worker_queue, timing, stats_proxy, decode_queue, receiver,
-          max_wait_for_keyframe, max_wait_for_frame, std::move(scheduler),
-          field_trials);
+          max_wait_for_keyframe, max_wait_for_frame, std::move(scheduler));
     }
     case FrameBufferArm::kFrameBuffer2:
       ABSL_FALLTHROUGH_INTENDED;

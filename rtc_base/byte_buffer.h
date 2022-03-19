@@ -16,7 +16,6 @@
 
 #include <string>
 
-#include "absl/strings/string_view.h"
 #include "rtc_base/buffer.h"
 #include "rtc_base/byte_order.h"
 
@@ -73,8 +72,8 @@ class ByteBufferWriterT {
     char last_byte = static_cast<char>(val);
     WriteBytes(&last_byte, 1);
   }
-  void WriteString(absl::string_view val) {
-    WriteBytes(val.data(), val.size());
+  void WriteString(const std::string& val) {
+    WriteBytes(val.c_str(), val.size());
   }
   void WriteBytes(const char* val, size_t len) { buffer_.AppendData(val, len); }
 

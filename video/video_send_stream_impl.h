@@ -25,7 +25,6 @@
 #include "api/video/video_stream_encoder_interface.h"
 #include "api/video_codecs/video_encoder.h"
 #include "api/video_codecs/video_encoder_config.h"
-#include "api/webrtc_key_value_config.h"
 #include "call/bitrate_allocator.h"
 #include "call/rtp_config.h"
 #include "call/rtp_transport_controller_send_interface.h"
@@ -46,7 +45,7 @@ namespace internal {
 
 // Pacing buffer config; overridden by ALR config if provided.
 struct PacingConfig {
-  explicit PacingConfig(const WebRtcKeyValueConfig& field_trials);
+  PacingConfig();
   PacingConfig(const PacingConfig&);
   PacingConfig& operator=(const PacingConfig&) = default;
   ~PacingConfig();
@@ -74,8 +73,7 @@ class VideoSendStreamImpl : public webrtc::BitrateAllocatorObserver,
                       int initial_encoder_max_bitrate,
                       double initial_encoder_bitrate_priority,
                       VideoEncoderConfig::ContentType content_type,
-                      RtpVideoSenderInterface* rtp_video_sender,
-                      const WebRtcKeyValueConfig& field_trials);
+                      RtpVideoSenderInterface* rtp_video_sender);
   ~VideoSendStreamImpl() override;
 
   void DeliverRtcp(const uint8_t* packet, size_t length);

@@ -25,7 +25,6 @@
 #include <vector>
 
 #include "absl/algorithm/container.h"
-#include "absl/strings/ascii.h"
 #include "api/candidate.h"
 #include "api/crypto_params.h"
 #include "api/jsep_ice_candidate.h"
@@ -350,7 +349,7 @@ static bool ParseFmtpAttributes(const std::string& line,
                                 const cricket::MediaType media_type,
                                 MediaContentDescription* media_desc,
                                 SdpParseError* error);
-static bool ParseFmtpParam(absl::string_view line,
+static bool ParseFmtpParam(const std::string& line,
                            std::string* parameter,
                            std::string* value,
                            SdpParseError* error);
@@ -3644,14 +3643,14 @@ bool ParseRtpmapAttribute(const std::string& line,
   return true;
 }
 
-bool ParseFmtpParam(absl::string_view line,
+bool ParseFmtpParam(const std::string& line,
                     std::string* parameter,
                     std::string* value,
                     SdpParseError* error) {
   if (!rtc::tokenize_first(line, kSdpDelimiterEqualChar, parameter, value)) {
     // Support for non-key-value lines like RFC 2198 or RFC 4733.
     *parameter = "";
-    *value = std::string(line);
+    *value = line;
     return true;
   }
   // a=fmtp:<payload_type> <param1>=<value1>; <param2>=<value2>; ...
@@ -3694,13 +3693,14 @@ bool ParseFmtpAttributes(const std::string& line,
   }
 
   // Parse out format specific parameters.
+  std::vector<std::string> fields;
+  rtc::split(line_params, kSdpDelimiterSemicolonChar, &fields);
+
   cricket::CodecParameterMap codec_params;
-  for (absl::string_view param :
-       rtc::split(line_params, kSdpDelimiterSemicolonChar)) {
+  for (auto& iter : fields) {
     std::string name;
     std::string value;
-    if (!ParseFmtpParam(absl::StripAsciiWhitespace(param), &name, &value,
-                        error)) {
+    if (!ParseFmtpParam(rtc::string_trim(iter), &name, &value, error)) {
       return false;
     }
     if (codec_params.find(name) != codec_params.end()) {

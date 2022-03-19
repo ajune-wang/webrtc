@@ -484,9 +484,7 @@ void RTCPSender::BuildRR(const RtcpContext& ctx, PacketSender& sender) {
   rtcp::ReceiverReport report;
   report.SetSenderSsrc(ssrc_);
   report.SetReportBlocks(CreateReportBlocks(ctx.feedback_state_));
-  if (method_ == RtcpMode::kCompound || !report.report_blocks().empty()) {
-    sender.AppendPacket(report);
-  }
+  sender.AppendPacket(report);
 }
 
 void RTCPSender::BuildPLI(const RtcpContext& ctx, PacketSender& sender) {

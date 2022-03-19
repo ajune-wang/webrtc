@@ -30,7 +30,6 @@
 #include "api/video/video_layers_allocation.h"
 #include "api/video_codecs/sdp_video_format.h"
 #include "api/video_codecs/video_encoder.h"
-#include "api/webrtc_key_value_config.h"
 #include "call/adaptation/resource_adaptation_processor.h"
 #include "call/adaptation/video_stream_adapter.h"
 #include "modules/video_coding/include/video_codec_initializer.h"
@@ -48,6 +47,7 @@
 #include "rtc_base/task_utils/to_queued_task.h"
 #include "rtc_base/thread_annotations.h"
 #include "rtc_base/trace_event.h"
+#include "system_wrappers/include/field_trial.h"
 #include "system_wrappers/include/metrics.h"
 #include "video/adaptation/video_stream_encoder_resource_manager.h"
 #include "video/alignment_adjuster.h"
@@ -597,10 +597,8 @@ VideoStreamEncoder::VideoStreamEncoder(
     std::unique_ptr<FrameCadenceAdapterInterface> frame_cadence_adapter,
     std::unique_ptr<webrtc::TaskQueueBase, webrtc::TaskQueueDeleter>
         encoder_queue,
-    BitrateAllocationCallbackType allocation_cb_type,
-    const WebRtcKeyValueConfig& field_trials)
-    : field_trials_(field_trials),
-      worker_queue_(TaskQueueBase::Current()),
+    BitrateAllocationCallbackType allocation_cb_type)
+    : worker_queue_(TaskQueueBase::Current()),
       number_of_cores_(number_of_cores),
       sink_(nullptr),
       settings_(settings),
@@ -647,8 +645,7 @@ VideoStreamEncoder::VideoStreamEncoder(
       input_state_provider_(encoder_stats_observer),
       video_stream_adapter_(
           std::make_unique<VideoStreamAdapter>(&input_state_provider_,
-                                               encoder_stats_observer,
-                                               field_trials)),
+                                               encoder_stats_observer)),
       degradation_preference_manager_(
           std::make_unique<DegradationPreferenceManager>(
               video_stream_adapter_.get())),
@@ -658,15 +655,14 @@ VideoStreamEncoder::VideoStreamEncoder(
                                clock_,
                                settings_.experiment_cpu_load_estimator,
                                std::move(overuse_detector),
-                               degradation_preference_manager_.get(),
-                               field_trials),
+                               degradation_preference_manager_.get()),
       video_source_sink_controller_(/*sink=*/frame_cadence_adapter_.get(),
                                     /*source=*/nullptr),
       default_limits_allowed_(
-          !field_trials.IsEnabled("WebRTC-DefaultBitrateLimitsKillSwitch")),
+          !field_trial::IsEnabled("WebRTC-DefaultBitrateLimitsKillSwitch")),
       qp_parsing_allowed_(
-          !field_trials.IsEnabled("WebRTC-QpParsingKillSwitch")),
-      switch_encoder_on_init_failures_(!field_trials.IsDisabled(
+          !field_trial::IsEnabled("WebRTC-QpParsingKillSwitch")),
+      switch_encoder_on_init_failures_(!field_trial::IsDisabled(
           kSwitchEncoderOnInitializationFailuresFieldTrial)),
       encoder_queue_(std::move(encoder_queue)) {
   TRACE_EVENT0("webrtc", "VideoStreamEncoder::VideoStreamEncoder");
@@ -1220,7 +1216,7 @@ void VideoStreamEncoder::ReconfigureEncoder() {
   //  * We have screensharing with layers.
   //  * "WebRTC-FrameDropper" field trial is "Disabled".
   force_disable_frame_dropper_ =
-      field_trials_.IsDisabled(kFrameDropperFieldTrial) ||
+      field_trial::IsDisabled(kFrameDropperFieldTrial) ||
       (num_layers > 1 && codec.mode == VideoCodecMode::kScreensharing);
 
   VideoEncoder::EncoderInfo info = encoder_->GetEncoderInfo();
@@ -2263,8 +2259,8 @@ VideoStreamEncoder::AutomaticAnimationDetectionExperiment
 VideoStreamEncoder::ParseAutomatincAnimationDetectionFieldTrial() const {
   AutomaticAnimationDetectionExperiment result;
 
-  result.Parser()->Parse(
-      field_trials_.Lookup("WebRTC-AutomaticAnimationDetectionScreenshare"));
+  result.Parser()->Parse(webrtc::field_trial::FindFullName(
+      "WebRTC-AutomaticAnimationDetectionScreenshare"));
 
   if (!result.enabled) {
     RTC_LOG(LS_INFO) << "Automatic animation detection experiment is disabled.";

@@ -19,7 +19,6 @@
 #include "api/audio_codecs/audio_decoder.h"
 #include "api/audio_codecs/audio_format.h"
 #include "api/audio_codecs/opus/audio_decoder_multi_channel_opus_config.h"
-#include "api/webrtc_key_value_config.h"
 #include "rtc_base/system/rtc_export.h"
 
 namespace webrtc {
@@ -33,8 +32,7 @@ struct RTC_EXPORT AudioDecoderMultiChannelOpus {
   static void AppendSupportedDecoders(std::vector<AudioCodecSpec>* specs);
   static std::unique_ptr<AudioDecoder> MakeAudioDecoder(
       AudioDecoderMultiChannelOpusConfig config,
-      absl::optional<AudioCodecPairId> codec_pair_id = absl::nullopt,
-      const WebRtcKeyValueConfig* field_trials = nullptr);
+      absl::optional<AudioCodecPairId> codec_pair_id = absl::nullopt);
 };
 
 }  // namespace webrtc

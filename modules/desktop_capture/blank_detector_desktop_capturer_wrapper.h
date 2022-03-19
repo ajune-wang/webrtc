@@ -34,8 +34,7 @@ class BlankDetectorDesktopCapturerWrapper final
   // takes ownership of `capturer`. The `blank_pixel` is the unmodified color
   // returned by the `capturer`.
   BlankDetectorDesktopCapturerWrapper(std::unique_ptr<DesktopCapturer> capturer,
-                                      RgbaColor blank_pixel,
-                                      bool check_per_capture = false);
+                                      RgbaColor blank_pixel);
   ~BlankDetectorDesktopCapturerWrapper() override;
 
   // DesktopCapturer interface.
@@ -70,10 +69,6 @@ class BlankDetectorDesktopCapturerWrapper final
 
   // Whether current frame is the first frame.
   bool is_first_frame_ = true;
-
-  // Blank inspection is made per capture instead of once for all
-  // screens or windows.
-  bool check_per_capture_ = false;
 
   DesktopCapturer::Callback* callback_ = nullptr;
 };

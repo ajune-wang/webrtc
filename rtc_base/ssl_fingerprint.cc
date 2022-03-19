@@ -11,13 +11,11 @@
 #include "rtc_base/ssl_fingerprint.h"
 
 #include <ctype.h>
-
 #include <cstdint>
 #include <memory>
 #include <string>
 
 #include "absl/algorithm/container.h"
-#include "absl/strings/string_view.h"
 #include "rtc_base/logging.h"
 #include "rtc_base/message_digest.h"
 #include "rtc_base/rtc_certificate.h"
@@ -27,19 +25,19 @@
 
 namespace rtc {
 
-SSLFingerprint* SSLFingerprint::Create(absl::string_view algorithm,
+SSLFingerprint* SSLFingerprint::Create(const std::string& algorithm,
                                        const rtc::SSLIdentity* identity) {
   return CreateUnique(algorithm, *identity).release();
 }
 
 std::unique_ptr<SSLFingerprint> SSLFingerprint::CreateUnique(
-    absl::string_view algorithm,
+    const std::string& algorithm,
     const rtc::SSLIdentity& identity) {
   return Create(algorithm, identity.certificate());
 }
 
 std::unique_ptr<SSLFingerprint> SSLFingerprint::Create(
-    absl::string_view algorithm,
+    const std::string& algorithm,
     const rtc::SSLCertificate& cert) {
   uint8_t digest_val[64];
   size_t digest_len;
@@ -53,14 +51,14 @@ std::unique_ptr<SSLFingerprint> SSLFingerprint::Create(
 }
 
 SSLFingerprint* SSLFingerprint::CreateFromRfc4572(
-    absl::string_view algorithm,
-    absl::string_view fingerprint) {
+    const std::string& algorithm,
+    const std::string& fingerprint) {
   return CreateUniqueFromRfc4572(algorithm, fingerprint).release();
 }
 
 std::unique_ptr<SSLFingerprint> SSLFingerprint::CreateUniqueFromRfc4572(
-    absl::string_view algorithm,
-    absl::string_view fingerprint) {
+    const std::string& algorithm,
+    const std::string& fingerprint) {
   if (algorithm.empty() || !rtc::IsFips180DigestAlgorithm(algorithm))
     return nullptr;
 
@@ -69,7 +67,7 @@ std::unique_ptr<SSLFingerprint> SSLFingerprint::CreateUniqueFromRfc4572(
 
   char value[rtc::MessageDigest::kMaxSize];
   size_t value_len = rtc::hex_decode_with_delimiter(
-      value, sizeof(value), fingerprint.data(), fingerprint.length(), ':');
+      value, sizeof(value), fingerprint.c_str(), fingerprint.length(), ':');
   if (!value_len)
     return nullptr;
 
@@ -96,11 +94,11 @@ std::unique_ptr<SSLFingerprint> SSLFingerprint::CreateFromCertificate(
   return fingerprint;
 }
 
-SSLFingerprint::SSLFingerprint(absl::string_view algorithm,
+SSLFingerprint::SSLFingerprint(const std::string& algorithm,
                                ArrayView<const uint8_t> digest_view)
     : algorithm(algorithm), digest(digest_view.data(), digest_view.size()) {}
 
-SSLFingerprint::SSLFingerprint(absl::string_view algorithm,
+SSLFingerprint::SSLFingerprint(const std::string& algorithm,
                                const uint8_t* digest_in,
                                size_t digest_len)
     : SSLFingerprint(algorithm, MakeArrayView(digest_in, digest_len)) {}

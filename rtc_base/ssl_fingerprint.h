@@ -13,10 +13,8 @@
 
 #include <stddef.h>
 #include <stdint.h>
-
 #include <string>
 
-#include "absl/strings/string_view.h"
 #include "rtc_base/copy_on_write_buffer.h"
 #include "rtc_base/system/rtc_export.h"
 
@@ -28,34 +26,34 @@ class SSLIdentity;
 
 struct RTC_EXPORT SSLFingerprint {
   // TODO(steveanton): Remove once downstream projects have moved off of this.
-  static SSLFingerprint* Create(absl::string_view algorithm,
+  static SSLFingerprint* Create(const std::string& algorithm,
                                 const rtc::SSLIdentity* identity);
   // TODO(steveanton): Rename to Create once projects have migrated.
   static std::unique_ptr<SSLFingerprint> CreateUnique(
-      absl::string_view algorithm,
+      const std::string& algorithm,
       const rtc::SSLIdentity& identity);
 
   static std::unique_ptr<SSLFingerprint> Create(
-      absl::string_view algorithm,
+      const std::string& algorithm,
       const rtc::SSLCertificate& cert);
 
   // TODO(steveanton): Remove once downstream projects have moved off of this.
-  static SSLFingerprint* CreateFromRfc4572(absl::string_view algorithm,
-                                           absl::string_view fingerprint);
+  static SSLFingerprint* CreateFromRfc4572(const std::string& algorithm,
+                                           const std::string& fingerprint);
   // TODO(steveanton): Rename to CreateFromRfc4572 once projects have migrated.
   static std::unique_ptr<SSLFingerprint> CreateUniqueFromRfc4572(
-      absl::string_view algorithm,
-      absl::string_view fingerprint);
+      const std::string& algorithm,
+      const std::string& fingerprint);
 
   // Creates a fingerprint from a certificate, using the same digest algorithm
   // as the certificate's signature.
   static std::unique_ptr<SSLFingerprint> CreateFromCertificate(
       const RTCCertificate& cert);
 
-  SSLFingerprint(absl::string_view algorithm,
+  SSLFingerprint(const std::string& algorithm,
                  ArrayView<const uint8_t> digest_view);
   // TODO(steveanton): Remove once downstream projects have moved off of this.
-  SSLFingerprint(absl::string_view algorithm,
+  SSLFingerprint(const std::string& algorithm,
                  const uint8_t* digest_in,
                  size_t digest_len);
 

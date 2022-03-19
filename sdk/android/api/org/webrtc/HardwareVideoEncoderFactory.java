@@ -94,6 +94,11 @@ public class HardwareVideoEncoderFactory implements VideoEncoderFactory {
   @Nullable
   @Override
   public VideoEncoder createEncoder(VideoCodecInfo input) {
+    // HW encoding is not supported below Android Kitkat.
+    if (Build.VERSION.SDK_INT < Build.VERSION_CODES.KITKAT) {
+      return null;
+    }
+
     VideoCodecMimeType type = VideoCodecMimeType.valueOf(input.getName());
     MediaCodecInfo info = findCodecForType(type);
 
@@ -130,6 +135,11 @@ public class HardwareVideoEncoderFactory implements VideoEncoderFactory {
 
   @Override
   public VideoCodecInfo[] getSupportedCodecs() {
+    // HW encoding is not supported below Android Kitkat.
+    if (Build.VERSION.SDK_INT < Build.VERSION_CODES.KITKAT) {
+      return new VideoCodecInfo[0];
+    }
+
     List<VideoCodecInfo> supportedCodecInfos = new ArrayList<VideoCodecInfo>();
     // Generate a list of supported codecs in order of preference:
     // VP8, VP9, H264 (high profile), H264 (baseline profile) and AV1.
@@ -209,12 +219,13 @@ public class HardwareVideoEncoderFactory implements VideoEncoderFactory {
 
   private boolean isHardwareSupportedInCurrentSdkVp8(MediaCodecInfo info) {
     String name = info.getName();
-    // QCOM Vp8 encoder is always supported.
-    return name.startsWith(QCOM_PREFIX)
+    // QCOM Vp8 encoder is supported in KITKAT or later.
+    return (name.startsWith(QCOM_PREFIX) && Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT)
         // Exynos VP8 encoder is supported in M or later.
         || (name.startsWith(EXYNOS_PREFIX) && Build.VERSION.SDK_INT >= Build.VERSION_CODES.M)
-        // Intel Vp8 encoder is always supported, with the intel encoder enabled.
-        || (name.startsWith(INTEL_PREFIX) && enableIntelVp8Encoder);
+        // Intel Vp8 encoder is supported in LOLLIPOP or later, with the intel encoder enabled.
+        || (name.startsWith(INTEL_PREFIX) && Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP
+               && enableIntelVp8Encoder);
   }
 
   private boolean isHardwareSupportedInCurrentSdkVp9(MediaCodecInfo info) {
@@ -230,8 +241,11 @@ public class HardwareVideoEncoderFactory implements VideoEncoderFactory {
       return false;
     }
     String name = info.getName();
-    // QCOM and Exynos H264 encoders are always supported.
-    return name.startsWith(QCOM_PREFIX) || name.startsWith(EXYNOS_PREFIX);
+    // QCOM H264 encoder is supported in KITKAT or later.
+    return (name.startsWith(QCOM_PREFIX) && Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT)
+        // Exynos H264 encoder is supported in LOLLIPOP or later.
+        || (name.startsWith(EXYNOS_PREFIX)
+               && Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP);
   }
 
   private boolean isMediaCodecAllowed(MediaCodecInfo info) {
@@ -243,13 +257,14 @@ public class HardwareVideoEncoderFactory implements VideoEncoderFactory {
 
   private int getForcedKeyFrameIntervalMs(VideoCodecMimeType type, String codecName) {
     if (type == VideoCodecMimeType.VP8 && codecName.startsWith(QCOM_PREFIX)) {
-      if (Build.VERSION.SDK_INT < Build.VERSION_CODES.M) {
+      if (Build.VERSION.SDK_INT == Build.VERSION_CODES.LOLLIPOP
+          || Build.VERSION.SDK_INT == Build.VERSION_CODES.LOLLIPOP_MR1) {
         return QCOM_VP8_KEY_FRAME_INTERVAL_ANDROID_L_MS;
-      }
-      if (Build.VERSION.SDK_INT == Build.VERSION_CODES.M) {
+      } else if (Build.VERSION.SDK_INT == Build.VERSION_CODES.M) {
         return QCOM_VP8_KEY_FRAME_INTERVAL_ANDROID_M_MS;
+      } else if (Build.VERSION.SDK_INT > Build.VERSION_CODES.M) {
+        return QCOM_VP8_KEY_FRAME_INTERVAL_ANDROID_N_MS;
       }
-      return QCOM_VP8_KEY_FRAME_INTERVAL_ANDROID_N_MS;
     }
     // Other codecs don't need key frame forcing.
     return 0;

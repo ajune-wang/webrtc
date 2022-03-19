@@ -79,7 +79,8 @@ class WebRtcSessionDescriptionFactory : public rtc::MessageHandler,
   // asynchronously. If a certificate is given, will use that for identifying
   // over DTLS. If neither is specified, DTLS is disabled.
   WebRtcSessionDescriptionFactory(
-      ConnectionContext* context,
+      rtc::Thread* signaling_thread,
+      cricket::ChannelManager* channel_manager,
       const SdpStateProvider* sdp_info,
       const std::string& session_id,
       bool dtls_enabled,

@@ -21,6 +21,7 @@
 #include "modules/pacing/packet_router.h"
 #include "system_wrappers/include/clock.h"
 #include "test/explicit_key_value_config.h"
+#include "test/field_trial.h"
 #include "test/gmock.h"
 #include "test/gtest.h"
 
@@ -29,7 +30,6 @@ using ::testing::Field;
 using ::testing::Pointee;
 using ::testing::Property;
 using ::testing::Return;
-using ::testing::WithoutArgs;
 
 namespace webrtc {
 namespace test {
@@ -209,13 +209,13 @@ class PacingControllerProbing : public PacingController::PacketSender {
 class PacingControllerTest
     : public ::testing::TestWithParam<PacingController::ProcessMode> {
  protected:
-  PacingControllerTest() : clock_(123456), trials_("") {}
+  PacingControllerTest() : clock_(123456) {}
 
   void SetUp() override {
     srand(0);
     // Need to initialize PacingController after we initialize clock.
-    pacer_ = std::make_unique<PacingController>(&clock_, &callback_, trials_,
-                                                GetParam());
+    pacer_ = std::make_unique<PacingController>(&clock_, &callback_, nullptr,
+                                                nullptr, GetParam());
     Init();
   }
 
@@ -320,7 +320,6 @@ class PacingControllerTest
 
   SimulatedClock clock_;
   ::testing::NiceMock<MockPacingControllerCallback> callback_;
-  ExplicitKeyValueConfig trials_;
   std::unique_ptr<PacingController> pacer_;
 };
 
@@ -365,8 +364,7 @@ class PacingControllerFieldTrialTest
 };
 
 TEST_P(PacingControllerFieldTrialTest, DefaultNoPaddingInSilence) {
-  const test::ExplicitKeyValueConfig trials("");
-  PacingController pacer(&clock_, &callback_, trials, GetParam());
+  PacingController pacer(&clock_, &callback_, nullptr, nullptr, GetParam());
   pacer.SetPacingRates(kTargetRate, DataRate::Zero());
   // Video packet to reset last send time and provide padding data.
   InsertPacket(&pacer, &video);
@@ -380,9 +378,8 @@ TEST_P(PacingControllerFieldTrialTest, DefaultNoPaddingInSilence) {
 }
 
 TEST_P(PacingControllerFieldTrialTest, PaddingInSilenceWithTrial) {
-  const test::ExplicitKeyValueConfig trials(
-      "WebRTC-Pacer-PadInSilence/Enabled/");
-  PacingController pacer(&clock_, &callback_, trials, GetParam());
+  ScopedFieldTrials trial("WebRTC-Pacer-PadInSilence/Enabled/");
+  PacingController pacer(&clock_, &callback_, nullptr, nullptr, GetParam());
   pacer.SetPacingRates(kTargetRate, DataRate::Zero());
   // Video packet to reset last send time and provide padding data.
   InsertPacket(&pacer, &video);
@@ -396,15 +393,16 @@ TEST_P(PacingControllerFieldTrialTest, PaddingInSilenceWithTrial) {
 }
 
 TEST_P(PacingControllerFieldTrialTest, CongestionWindowAffectsAudioInTrial) {
-  const test::ExplicitKeyValueConfig trials("WebRTC-Pacer-BlockAudio/Enabled/");
+  ScopedFieldTrials trial("WebRTC-Pacer-BlockAudio/Enabled/");
   EXPECT_CALL(callback_, SendPadding).Times(0);
-  PacingController pacer(&clock_, &callback_, trials, GetParam());
+  PacingController pacer(&clock_, &callback_, nullptr, nullptr, GetParam());
   pacer.SetPacingRates(DataRate::KilobitsPerSec(10000), DataRate::Zero());
+  pacer.SetCongestionWindow(DataSize::Bytes(video.packet_size - 100));
+  pacer.UpdateOutstandingData(DataSize::Zero());
   // Video packet fills congestion window.
   InsertPacket(&pacer, &video);
   EXPECT_CALL(callback_, SendPacket).Times(1);
   ProcessNext(&pacer);
-  pacer.SetCongested(true);
   // Audio packet blocked due to congestion.
   InsertPacket(&pacer, &audio);
   EXPECT_CALL(callback_, SendPacket).Times(0);
@@ -416,7 +414,7 @@ TEST_P(PacingControllerFieldTrialTest, CongestionWindowAffectsAudioInTrial) {
   ProcessNext(&pacer);
   // Audio packet unblocked when congestion window clear.
   ::testing::Mock::VerifyAndClearExpectations(&callback_);
-  pacer.SetCongested(false);
+  pacer.UpdateOutstandingData(DataSize::Zero());
   EXPECT_CALL(callback_, SendPacket).Times(1);
   ProcessNext(&pacer);
 }
@@ -424,14 +422,14 @@ TEST_P(PacingControllerFieldTrialTest, CongestionWindowAffectsAudioInTrial) {
 TEST_P(PacingControllerFieldTrialTest,
        DefaultCongestionWindowDoesNotAffectAudio) {
   EXPECT_CALL(callback_, SendPadding).Times(0);
-  const test::ExplicitKeyValueConfig trials("");
-  PacingController pacer(&clock_, &callback_, trials, GetParam());
+  PacingController pacer(&clock_, &callback_, nullptr, nullptr, GetParam());
   pacer.SetPacingRates(DataRate::BitsPerSec(10000000), DataRate::Zero());
+  pacer.SetCongestionWindow(DataSize::Bytes(800));
+  pacer.UpdateOutstandingData(DataSize::Zero());
   // Video packet fills congestion window.
   InsertPacket(&pacer, &video);
   EXPECT_CALL(callback_, SendPacket).Times(1);
   ProcessNext(&pacer);
-  pacer.SetCongested(true);
   // Audio not blocked due to congestion.
   InsertPacket(&pacer, &audio);
   EXPECT_CALL(callback_, SendPacket).Times(1);
@@ -439,8 +437,8 @@ TEST_P(PacingControllerFieldTrialTest,
 }
 
 TEST_P(PacingControllerFieldTrialTest, BudgetAffectsAudioInTrial) {
-  ExplicitKeyValueConfig trials("WebRTC-Pacer-BlockAudio/Enabled/");
-  PacingController pacer(&clock_, &callback_, trials, GetParam());
+  ScopedFieldTrials trial("WebRTC-Pacer-BlockAudio/Enabled/");
+  PacingController pacer(&clock_, &callback_, nullptr, nullptr, GetParam());
   DataRate pacing_rate = DataRate::BitsPerSec(video.packet_size / 3 * 8 *
                                               kProcessIntervalsPerSecond);
   pacer.SetPacingRates(pacing_rate, DataRate::Zero());
@@ -452,9 +450,10 @@ TEST_P(PacingControllerFieldTrialTest, BudgetAffectsAudioInTrial) {
   InsertPacket(&pacer, &audio);
   Timestamp wait_start_time = clock_.CurrentTime();
   Timestamp wait_end_time = Timestamp::MinusInfinity();
-  EXPECT_CALL(callback_, SendPacket).WillOnce(WithoutArgs([&]() {
-    wait_end_time = clock_.CurrentTime();
-  }));
+  EXPECT_CALL(callback_, SendPacket)
+      .WillOnce([&](uint32_t ssrc, uint16_t sequence_number,
+                    int64_t capture_timestamp, bool retransmission,
+                    bool padding) { wait_end_time = clock_.CurrentTime(); });
   while (!wait_end_time.IsFinite()) {
     ProcessNext(&pacer);
   }
@@ -469,8 +468,7 @@ TEST_P(PacingControllerFieldTrialTest, BudgetAffectsAudioInTrial) {
 
 TEST_P(PacingControllerFieldTrialTest, DefaultBudgetDoesNotAffectAudio) {
   EXPECT_CALL(callback_, SendPadding).Times(0);
-  const test::ExplicitKeyValueConfig trials("");
-  PacingController pacer(&clock_, &callback_, trials, GetParam());
+  PacingController pacer(&clock_, &callback_, nullptr, nullptr, GetParam());
   pacer.SetPacingRates(DataRate::BitsPerSec(video.packet_size / 3 * 8 *
                                             kProcessIntervalsPerSecond),
                        DataRate::Zero());
@@ -868,8 +866,8 @@ TEST_P(PacingControllerTest, VerifyAverageBitrateVaryingMediaPayload) {
   const int kTimeStep = 5;
   const TimeDelta kAveragingWindowLength = TimeDelta::Seconds(10);
   PacingControllerPadding callback;
-  pacer_ = std::make_unique<PacingController>(&clock_, &callback, trials_,
-                                              GetParam());
+  pacer_ = std::make_unique<PacingController>(&clock_, &callback, nullptr,
+                                              nullptr, GetParam());
   pacer_->SetProbingEnabled(false);
   pacer_->SetPacingRates(kTargetRate * kPaceMultiplier, kTargetRate);
 
@@ -1060,18 +1058,21 @@ TEST_P(PacingControllerTest, SendsOnlyPaddingWhenCongested) {
   uint32_t ssrc = 202020;
   uint16_t sequence_number = 1000;
   int kPacketSize = 250;
+  int kCongestionWindow = kPacketSize * 10;
 
-  // Send an initial packet so we have a last send time.
-  SendAndExpectPacket(RtpPacketMediaType::kVideo, ssrc, sequence_number++,
-                      clock_.TimeInMilliseconds(), kPacketSize);
-  AdvanceTimeAndProcess();
+  pacer_->UpdateOutstandingData(DataSize::Zero());
+  pacer_->SetCongestionWindow(DataSize::Bytes(kCongestionWindow));
+  int sent_data = 0;
+  while (sent_data < kCongestionWindow) {
+    sent_data += kPacketSize;
+    SendAndExpectPacket(RtpPacketMediaType::kVideo, ssrc, sequence_number++,
+                        clock_.TimeInMilliseconds(), kPacketSize);
+    AdvanceTimeAndProcess();
+  }
   ::testing::Mock::VerifyAndClearExpectations(&callback_);
-
-  // Set congested state, we should not send anything until the 500ms since
-  // last send time limit for keep-alives is triggered.
   EXPECT_CALL(callback_, SendPacket).Times(0);
   EXPECT_CALL(callback_, SendPadding).Times(0);
-  pacer_->SetCongested(true);
+
   size_t blocked_packets = 0;
   int64_t expected_time_until_padding = 500;
   while (expected_time_until_padding > 5) {
@@ -1082,7 +1083,6 @@ TEST_P(PacingControllerTest, SendsOnlyPaddingWhenCongested) {
     pacer_->ProcessPackets();
     expected_time_until_padding -= 5;
   }
-
   ::testing::Mock::VerifyAndClearExpectations(&callback_);
   EXPECT_CALL(callback_, SendPadding(1)).WillOnce(Return(1));
   EXPECT_CALL(callback_, SendPacket(_, _, _, _, true)).Times(1);
@@ -1101,13 +1101,15 @@ TEST_P(PacingControllerTest, DoesNotAllowOveruseAfterCongestion) {
   // to be sent in a row.
   pacer_->SetPacingRates(DataRate::BitsPerSec(400 * 8 * 1000 / 5),
                          DataRate::Zero());
+  // The congestion window is small enough to only let one packet through.
+  pacer_->SetCongestionWindow(DataSize::Bytes(800));
+  pacer_->UpdateOutstandingData(DataSize::Zero());
   // Not yet budget limited or congested, packet is sent.
   Send(RtpPacketMediaType::kVideo, ssrc, seq_num++, now_ms(), size);
   EXPECT_CALL(callback_, SendPacket).Times(1);
   clock_.AdvanceTimeMilliseconds(5);
   pacer_->ProcessPackets();
   // Packet blocked due to congestion.
-  pacer_->SetCongested(true);
   Send(RtpPacketMediaType::kVideo, ssrc, seq_num++, now_ms(), size);
   EXPECT_CALL(callback_, SendPacket).Times(0);
   clock_.AdvanceTimeMilliseconds(5);
@@ -1121,13 +1123,68 @@ TEST_P(PacingControllerTest, DoesNotAllowOveruseAfterCongestion) {
   Send(RtpPacketMediaType::kVideo, ssrc, seq_num++, now_ms(), size);
   EXPECT_CALL(callback_, SendPacket).Times(1);
   clock_.AdvanceTimeMilliseconds(5);
-  pacer_->SetCongested(false);
+  pacer_->UpdateOutstandingData(DataSize::Zero());
   pacer_->ProcessPackets();
   // Should be blocked due to budget limitation as congestion has be removed.
   Send(RtpPacketMediaType::kVideo, ssrc, seq_num++, now_ms(), size);
   EXPECT_CALL(callback_, SendPacket).Times(0);
   clock_.AdvanceTimeMilliseconds(5);
   pacer_->ProcessPackets();
+}
+
+TEST_P(PacingControllerTest, ResumesSendingWhenCongestionEnds) {
+  uint32_t ssrc = 202020;
+  uint16_t sequence_number = 1000;
+  int64_t kPacketSize = 250;
+  int64_t kCongestionCount = 10;
+  int64_t kCongestionWindow = kPacketSize * kCongestionCount;
+  int64_t kCongestionTimeMs = 1000;
+
+  pacer_->UpdateOutstandingData(DataSize::Zero());
+  pacer_->SetCongestionWindow(DataSize::Bytes(kCongestionWindow));
+  int sent_data = 0;
+  while (sent_data < kCongestionWindow) {
+    sent_data += kPacketSize;
+    SendAndExpectPacket(RtpPacketMediaType::kVideo, ssrc, sequence_number++,
+                        clock_.TimeInMilliseconds(), kPacketSize);
+    clock_.AdvanceTimeMilliseconds(5);
+    pacer_->ProcessPackets();
+  }
+  ::testing::Mock::VerifyAndClearExpectations(&callback_);
+  EXPECT_CALL(callback_, SendPacket).Times(0);
+  int unacked_packets = 0;
+  for (int duration = 0; duration < kCongestionTimeMs; duration += 5) {
+    Send(RtpPacketMediaType::kVideo, ssrc, sequence_number++,
+         clock_.TimeInMilliseconds(), kPacketSize);
+    unacked_packets++;
+    clock_.AdvanceTimeMilliseconds(5);
+    pacer_->ProcessPackets();
+  }
+  ::testing::Mock::VerifyAndClearExpectations(&callback_);
+
+  // First mark half of the congested packets as cleared and make sure that just
+  // as many are sent
+  int ack_count = kCongestionCount / 2;
+  EXPECT_CALL(callback_, SendPacket(ssrc, _, _, false, _)).Times(ack_count);
+  pacer_->UpdateOutstandingData(
+      DataSize::Bytes(kCongestionWindow - kPacketSize * ack_count));
+
+  for (int duration = 0; duration < kCongestionTimeMs; duration += 5) {
+    clock_.AdvanceTimeMilliseconds(5);
+    pacer_->ProcessPackets();
+  }
+  unacked_packets -= ack_count;
+  ::testing::Mock::VerifyAndClearExpectations(&callback_);
+
+  // Second make sure all packets are sent if sent packets are continuously
+  // marked as acked.
+  EXPECT_CALL(callback_, SendPacket(ssrc, _, _, false, _))
+      .Times(unacked_packets);
+  for (int duration = 0; duration < kCongestionTimeMs; duration += 5) {
+    pacer_->UpdateOutstandingData(DataSize::Zero());
+    clock_.AdvanceTimeMilliseconds(5);
+    pacer_->ProcessPackets();
+  }
 }
 
 TEST_P(PacingControllerTest, Pause) {
@@ -1246,8 +1303,8 @@ TEST_P(PacingControllerTest, Pause) {
 
 TEST_P(PacingControllerTest, InactiveFromStart) {
   // Recreate the pacer without the inital time forwarding.
-  pacer_ = std::make_unique<PacingController>(&clock_, &callback_, trials_,
-                                              GetParam());
+  pacer_ = std::make_unique<PacingController>(&clock_, &callback_, nullptr,
+                                              nullptr, GetParam());
   pacer_->SetProbingEnabled(false);
   pacer_->SetPacingRates(kTargetRate * kPaceMultiplier, kTargetRate);
 
@@ -1345,8 +1402,8 @@ TEST_P(PacingControllerTest, ProbingWithInsertedPackets) {
   uint16_t sequence_number = 1234;
 
   PacingControllerProbing packet_sender;
-  pacer_ = std::make_unique<PacingController>(&clock_, &packet_sender, trials_,
-                                              GetParam());
+  pacer_ = std::make_unique<PacingController>(&clock_, &packet_sender, nullptr,
+                                              nullptr, GetParam());
   pacer_->CreateProbeCluster(kFirstClusterRate,
                              /*cluster_id=*/0);
   pacer_->CreateProbeCluster(kSecondClusterRate,
@@ -1405,8 +1462,8 @@ TEST_P(PacingControllerTest, SkipsProbesWhenProcessIntervalTooLarge) {
                                "abort_delayed_probes:1,max_probe_delay:2ms/"
                              : "WebRTC-Bwe-ProbingBehavior/"
                                "abort_delayed_probes:0,max_probe_delay:2ms/");
-    pacer_ = std::make_unique<PacingController>(&clock_, &packet_sender, trials,
-                                                GetParam());
+    pacer_ = std::make_unique<PacingController>(&clock_, &packet_sender,
+                                                nullptr, &trials, GetParam());
     pacer_->SetPacingRates(
         DataRate::BitsPerSec(kInitialBitrateBps * kPaceMultiplier),
         DataRate::BitsPerSec(kInitialBitrateBps));
@@ -1512,8 +1569,8 @@ TEST_P(PacingControllerTest, ProbingWithPaddingSupport) {
   uint16_t sequence_number = 1234;
 
   PacingControllerProbing packet_sender;
-  pacer_ = std::make_unique<PacingController>(&clock_, &packet_sender, trials_,
-                                              GetParam());
+  pacer_ = std::make_unique<PacingController>(&clock_, &packet_sender, nullptr,
+                                              nullptr, GetParam());
   pacer_->CreateProbeCluster(kFirstClusterRate,
                              /*cluster_id=*/0);
   pacer_->SetPacingRates(
@@ -1578,8 +1635,8 @@ TEST_P(PacingControllerTest, PaddingOveruse) {
 TEST_P(PacingControllerTest, ProbeClusterId) {
   MockPacketSender callback;
 
-  pacer_ = std::make_unique<PacingController>(&clock_, &callback, trials_,
-                                              GetParam());
+  pacer_ = std::make_unique<PacingController>(&clock_, &callback, nullptr,
+                                              nullptr, GetParam());
   Init();
 
   uint32_t ssrc = 12346;
@@ -1635,8 +1692,8 @@ TEST_P(PacingControllerTest, ProbeClusterId) {
 
 TEST_P(PacingControllerTest, OwnedPacketPrioritizedOnType) {
   MockPacketSender callback;
-  pacer_ = std::make_unique<PacingController>(&clock_, &callback, trials_,
-                                              GetParam());
+  pacer_ = std::make_unique<PacingController>(&clock_, &callback, nullptr,
+                                              nullptr, GetParam());
   Init();
 
   // Insert a packet of each type, from low to high priority. Since priority
@@ -1682,8 +1739,8 @@ TEST_P(PacingControllerTest, OwnedPacketPrioritizedOnType) {
 
 TEST_P(PacingControllerTest, SmallFirstProbePacket) {
   MockPacketSender callback;
-  pacer_ = std::make_unique<PacingController>(&clock_, &callback, trials_,
-                                              GetParam());
+  pacer_ = std::make_unique<PacingController>(&clock_, &callback, nullptr,
+                                              nullptr, GetParam());
   pacer_->CreateProbeCluster(kFirstClusterRate, /*cluster_id=*/0);
   pacer_->SetPacingRates(kTargetRate * kPaceMultiplier, DataRate::Zero());
 
@@ -1841,8 +1898,8 @@ TEST_P(PacingControllerTest,
     uint16_t sequence_number = 1234;
     MockPacketSender callback;
     EXPECT_CALL(callback, SendPacket).Times(::testing::AnyNumber());
-    pacer_ = std::make_unique<PacingController>(&clock_, &callback, trials_,
-                                                GetParam());
+    pacer_ = std::make_unique<PacingController>(&clock_, &callback, nullptr,
+                                                nullptr, GetParam());
     pacer_->SetAccountForAudioPackets(account_for_audio);
 
     // First, saturate the padding budget.
@@ -2016,13 +2073,9 @@ TEST_P(PacingControllerTest, PaddingTargetAccountsForPaddingRate) {
 
   // Re-init pacer with an explicitly set padding target of 10ms;
   const TimeDelta kPaddingTarget = TimeDelta::Millis(10);
-  ExplicitKeyValueConfig field_trials(
+  ScopedFieldTrials field_trials(
       "WebRTC-Pacer-DynamicPaddingTarget/timedelta:10ms/");
-  srand(0);
-  // Need to initialize PacingController after we initialize clock.
-  pacer_ = std::make_unique<PacingController>(&clock_, &callback_, field_trials,
-                                              GetParam());
-  Init();
+  SetUp();
 
   const uint32_t kSsrc = 12345;
   const DataRate kPacingDataRate = DataRate::KilobitsPerSec(125);

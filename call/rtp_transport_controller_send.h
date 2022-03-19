@@ -59,7 +59,7 @@ class RtpTransportControllerSend final
       const BitrateConstraints& bitrate_config,
       std::unique_ptr<ProcessThread> process_thread,
       TaskQueueFactory* task_queue_factory,
-      const WebRtcKeyValueConfig& trials);
+      const WebRtcKeyValueConfig* trials);
   ~RtpTransportControllerSend() override;
 
   RtpTransportControllerSend(const RtpTransportControllerSend&) = delete;
@@ -132,7 +132,7 @@ class RtpTransportControllerSend final
 
  private:
   struct PacerSettings {
-    explicit PacerSettings(const WebRtcKeyValueConfig& trials);
+    explicit PacerSettings(const WebRtcKeyValueConfig* trials);
 
     bool use_task_queue_pacer() const { return !tq_disabled.Get(); }
 
@@ -158,7 +158,6 @@ class RtpTransportControllerSend final
       RTC_RUN_ON(task_queue_);
   void PostUpdates(NetworkControlUpdate update) RTC_RUN_ON(task_queue_);
   void UpdateControlState() RTC_RUN_ON(task_queue_);
-  void UpdateCongestedState() RTC_RUN_ON(task_queue_);
   RtpPacketPacer* pacer();
   const RtpPacketPacer* pacer() const;
 
@@ -167,7 +166,7 @@ class RtpTransportControllerSend final
   SequenceChecker main_thread_;
   PacketRouter packet_router_;
   std::vector<std::unique_ptr<RtpVideoSenderInterface>> video_rtp_senders_
-      RTC_GUARDED_BY(&main_thread_);
+      RTC_GUARDED_BY(task_queue_);
   RtpBitrateConfigurator bitrate_configurator_;
   std::map<std::string, rtc::NetworkRoute> network_routes_;
   bool pacer_started_;
@@ -212,9 +211,6 @@ class RtpTransportControllerSend final
   RepeatingTaskHandle pacer_queue_update_task_ RTC_GUARDED_BY(task_queue_);
   RepeatingTaskHandle controller_task_ RTC_GUARDED_BY(task_queue_);
 
-  DataSize congestion_window_size_ RTC_GUARDED_BY(task_queue_);
-  bool is_congested_ RTC_GUARDED_BY(task_queue_);
-
   // Protected by internal locks.
   RateLimiter retransmission_rate_limiter_;
 
@@ -222,8 +218,6 @@ class RtpTransportControllerSend final
   // `task_queue_` is defined last to ensure all pending tasks are cancelled
   // and deleted before any other members.
   rtc::TaskQueue task_queue_;
-
-  const WebRtcKeyValueConfig& field_trials_;
 };
 
 }  // namespace webrtc

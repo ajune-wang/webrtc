@@ -78,7 +78,7 @@ TEST_P(VideoCodecTestAv1, VeryLowBitrate) {
   std::vector<RateControlThresholds> rc_thresholds = {
       {15, 8, 75, 2, 2, 2, 2, 1}};
 
-  std::vector<QualityThresholds> quality_thresholds = {{28, 24.8, 0.70, 0.55}};
+  std::vector<QualityThresholds> quality_thresholds = {{28, 24.9, 0.70, 0.55}};
 
   fixture->RunTest(rate_profiles, &rc_thresholds, &quality_thresholds, nullptr);
 }
@@ -100,7 +100,7 @@ TEST_P(VideoCodecTestAv1, Hd) {
       {13, 3, 0, 1, 0.3, 0.1, 0, 1}};
 
   std::vector<QualityThresholds> quality_thresholds = {
-      {35.9, 31.55, 0.925, 0.865}};
+      {36, 31.55, 0.925, 0.865}};
 
   fixture->RunTest(rate_profiles, &rc_thresholds, &quality_thresholds, nullptr);
 }

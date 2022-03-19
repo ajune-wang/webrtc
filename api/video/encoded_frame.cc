@@ -14,12 +14,6 @@
 
 namespace webrtc {
 
-absl::optional<Timestamp> EncodedFrame::ReceivedTimestamp() const {
-  return ReceivedTime() >= 0
-             ? absl::make_optional(Timestamp::Millis(ReceivedTime()))
-             : absl::nullopt;
-}
-
 absl::optional<Timestamp> EncodedFrame::RenderTimestamp() const {
   return RenderTimeMs() >= 0
              ? absl::make_optional(Timestamp::Millis(RenderTimeMs()))

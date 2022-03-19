@@ -24,7 +24,6 @@
 #include "rtc_base/location.h"
 #include "rtc_base/thread.h"
 #include "test/gtest.h"
-#include "test/scoped_key_value_config.h"
 
 namespace cricket {
 namespace {
@@ -89,7 +88,6 @@ class ChannelManagerTest : public ::testing::Test {
       video_bitrate_allocator_factory_;
   std::unique_ptr<cricket::ChannelManager> cm_;
   cricket::FakeCall fake_call_;
-  webrtc::test::ScopedKeyValueConfig field_trials_;
 };
 
 TEST_F(ChannelManagerTest, SetVideoRtxEnabled) {
@@ -99,25 +97,25 @@ TEST_F(ChannelManagerTest, SetVideoRtxEnabled) {
 
   // By default RTX is disabled.
   cm_->GetSupportedVideoSendCodecs(&send_codecs);
-  EXPECT_FALSE(ContainsMatchingCodec(send_codecs, rtx_codec, &field_trials_));
+  EXPECT_FALSE(ContainsMatchingCodec(send_codecs, rtx_codec));
   cm_->GetSupportedVideoSendCodecs(&recv_codecs);
-  EXPECT_FALSE(ContainsMatchingCodec(recv_codecs, rtx_codec, &field_trials_));
+  EXPECT_FALSE(ContainsMatchingCodec(recv_codecs, rtx_codec));
 
   // Enable and check.
   cm_ = cricket::ChannelManager::Create(CreateFakeMediaEngine(),
                                         true, worker_, network_.get());
   cm_->GetSupportedVideoSendCodecs(&send_codecs);
-  EXPECT_TRUE(ContainsMatchingCodec(send_codecs, rtx_codec, &field_trials_));
+  EXPECT_TRUE(ContainsMatchingCodec(send_codecs, rtx_codec));
   cm_->GetSupportedVideoSendCodecs(&recv_codecs);
-  EXPECT_TRUE(ContainsMatchingCodec(recv_codecs, rtx_codec, &field_trials_));
+  EXPECT_TRUE(ContainsMatchingCodec(recv_codecs, rtx_codec));
 
   // Disable and check.
   cm_ = cricket::ChannelManager::Create(CreateFakeMediaEngine(),
                                         false, worker_, network_.get());
   cm_->GetSupportedVideoSendCodecs(&send_codecs);
-  EXPECT_FALSE(ContainsMatchingCodec(send_codecs, rtx_codec, &field_trials_));
+  EXPECT_FALSE(ContainsMatchingCodec(send_codecs, rtx_codec));
   cm_->GetSupportedVideoSendCodecs(&recv_codecs);
-  EXPECT_FALSE(ContainsMatchingCodec(recv_codecs, rtx_codec, &field_trials_));
+  EXPECT_FALSE(ContainsMatchingCodec(recv_codecs, rtx_codec));
 }
 
 TEST_F(ChannelManagerTest, CreateDestroyChannels) {
@@ -125,8 +123,7 @@ TEST_F(ChannelManagerTest, CreateDestroyChannels) {
       "fake_dtls_transport", cricket::ICE_CANDIDATE_COMPONENT_RTP,
       network_.get());
   auto dtls_srtp_transport = std::make_unique<webrtc::DtlsSrtpTransport>(
-      /*rtcp_mux_required=*/true, field_trials_);
-
+      /*rtcp_mux_required=*/true);
   network_->Invoke<void>(
       RTC_FROM_HERE, [&rtp_dtls_transport, &dtls_srtp_transport] {
         dtls_srtp_transport->SetDtlsTransports(rtp_dtls_transport.get(),

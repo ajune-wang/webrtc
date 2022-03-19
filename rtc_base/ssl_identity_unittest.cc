@@ -8,22 +8,19 @@
  *  be found in the AUTHORS file in the root of the source tree.
  */
 
-#include "rtc_base/ssl_identity.h"
-
 #include <string.h>
-
 #include <memory>
 #include <string>
 #include <vector>
 
 #include "absl/strings/str_replace.h"
-#include "absl/strings/string_view.h"
 #include "rtc_base/checks.h"
 #include "rtc_base/fake_ssl_identity.h"
 #include "rtc_base/helpers.h"
 #include "rtc_base/logging.h"
 #include "rtc_base/message_digest.h"
 #include "rtc_base/ssl_fingerprint.h"
+#include "rtc_base/ssl_identity.h"
 #include "test/gtest.h"
 
 using rtc::SSLIdentity;
@@ -239,7 +236,7 @@ class SSLIdentityTest : public ::testing::Test {
 
   void TestDigestHelper(DigestType digest,
                         const SSLIdentity* identity,
-                        absl::string_view algorithm,
+                        const std::string& algorithm,
                         size_t expected_len) {
     DigestType digest1;
     size_t digest_len;
@@ -261,7 +258,7 @@ class SSLIdentityTest : public ::testing::Test {
     EXPECT_EQ(0, memcmp(digest, digest1, expected_len));
   }
 
-  void TestDigestForGeneratedCert(absl::string_view algorithm,
+  void TestDigestForGeneratedCert(const std::string& algorithm,
                                   size_t expected_len) {
     DigestType digest[4];
 
@@ -284,7 +281,7 @@ class SSLIdentityTest : public ::testing::Test {
     }
   }
 
-  void TestDigestForFixedCert(absl::string_view algorithm,
+  void TestDigestForFixedCert(const std::string& algorithm,
                               size_t expected_len,
                               const unsigned char* expected_digest) {
     bool rv;

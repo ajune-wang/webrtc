@@ -21,7 +21,6 @@
 #include "system_wrappers/include/metrics.h"
 #include "test/gmock.h"
 #include "test/gtest.h"
-#include "test/scoped_key_value_config.h"
 #include "third_party/libsrtp/include/srtp.h"
 
 using ::testing::ElementsAre;
@@ -33,9 +32,7 @@ std::vector<int> kEncryptedHeaderExtensionIds;
 
 class SrtpSessionTest : public ::testing::Test {
  public:
-  SrtpSessionTest() : s1_(field_trials_), s2_(field_trials_) {
-    webrtc::metrics::Reset();
-  }
+  SrtpSessionTest() { webrtc::metrics::Reset(); }
 
  protected:
   virtual void SetUp() {
@@ -72,7 +69,6 @@ class SrtpSessionTest : public ::testing::Test {
     EXPECT_EQ(expected_len, out_len);
     EXPECT_EQ(0, memcmp(rtcp_packet_, kRtcpReport, out_len));
   }
-  webrtc::test::ScopedKeyValueConfig field_trials_;
   cricket::SrtpSession s1_;
   cricket::SrtpSession s2_;
   char rtp_packet_[sizeof(kPcmuFrame) + 10];

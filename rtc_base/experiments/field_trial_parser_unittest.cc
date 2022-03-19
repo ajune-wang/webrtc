@@ -9,7 +9,6 @@
  */
 #include "rtc_base/experiments/field_trial_parser.h"
 
-#include "absl/strings/string_view.h"
 #include "rtc_base/experiments/field_trial_list.h"
 #include "rtc_base/gunit.h"
 #include "system_wrappers/include/field_trial.h"
@@ -29,7 +28,7 @@ struct DummyExperiment {
   FieldTrialParameter<std::string> hash =
       FieldTrialParameter<std::string>("h", "a80");
 
-  explicit DummyExperiment(absl::string_view field_trial) {
+  explicit DummyExperiment(std::string field_trial) {
     ParseFieldTrial({&enabled, &factor, &retries, &size, &ping, &hash},
                     field_trial);
   }

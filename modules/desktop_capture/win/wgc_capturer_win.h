@@ -80,8 +80,7 @@ class ScreenEnumerator final : public SourceEnumerator {
 class WgcCapturerWin : public DesktopCapturer {
  public:
   WgcCapturerWin(std::unique_ptr<WgcCaptureSourceFactory> source_factory,
-                 std::unique_ptr<SourceEnumerator> source_enumerator,
-                 bool allow_delayed_capturable_check);
+                 std::unique_ptr<SourceEnumerator> source_enumerator);
 
   WgcCapturerWin(const WgcCapturerWin&) = delete;
   WgcCapturerWin& operator=(const WgcCapturerWin&) = delete;
@@ -89,8 +88,7 @@ class WgcCapturerWin : public DesktopCapturer {
   ~WgcCapturerWin() override;
 
   static std::unique_ptr<DesktopCapturer> CreateRawWindowCapturer(
-      const DesktopCaptureOptions& options,
-      bool allow_delayed_capturable_check = false);
+      const DesktopCaptureOptions& options);
 
   static std::unique_ptr<DesktopCapturer> CreateRawScreenCapturer(
       const DesktopCaptureOptions& options);
@@ -129,11 +127,6 @@ class WgcCapturerWin : public DesktopCapturer {
   // The callback that we deliver frames to, synchronously, before CaptureFrame
   // returns.
   Callback* callback_ = nullptr;
-
-  // WgcCaptureSource::IsCapturable is expensive to run. So, caller can
-  // delay capturable check till capture frame is called if the WgcCapturerWin
-  // is used as a fallback capturer.
-  bool allow_delayed_capturable_check_ = false;
 
   // A Direct3D11 device that is shared amongst the WgcCaptureSessions, who
   // require one to perform the capture.

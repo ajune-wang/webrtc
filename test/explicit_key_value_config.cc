@@ -10,8 +10,9 @@
 
 #include "test/explicit_key_value_config.h"
 
-#include "api/webrtc_key_value_config.h"
+#include "api/transport/webrtc_key_value_config.h"
 #include "rtc_base/checks.h"
+#include "system_wrappers/include/field_trial.h"
 
 namespace webrtc {
 namespace test {

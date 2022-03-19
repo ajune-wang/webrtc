@@ -1846,14 +1846,18 @@ void WebRtcVideoChannel::OnNetworkRouteChanged(
     absl::string_view transport_name,
     const rtc::NetworkRoute& network_route) {
   RTC_DCHECK_RUN_ON(&network_thread_checker_);
+  call_->GetTransportControllerSend()->OnTransportOverheadChanged(
+      network_route.packet_overhead);
+  // TODO(tommi): See if we can avoid this additional PostTask to the worker
+  // thread here since we're calling a method on the same transport object as
+  // we just made a call to OnTransportOverheadChanged. In fact there are two
+  // PostTask()s to the transport's TQ inside of OnNetworkRouteChanged, that
+  // could be joined with the one kicked off from OnTransportOverheadChanged.
   worker_thread_->PostTask(ToQueuedTask(
       task_safety_,
       [this, name = std::string(transport_name), route = network_route] {
         RTC_DCHECK_RUN_ON(&thread_checker_);
-        webrtc::RtpTransportControllerSendInterface* transport =
-            call_->GetTransportControllerSend();
-        transport->OnNetworkRouteChanged(name, route);
-        transport->OnTransportOverheadChanged(route.packet_overhead);
+        call_->GetTransportControllerSend()->OnNetworkRouteChanged(name, route);
       }));
 }
 

@@ -136,9 +136,8 @@ rtc::scoped_refptr<VideoTrack> VideoTrack::Create(
     rtc::Thread* worker_thread) {
   rtc::scoped_refptr<
       VideoTrackSourceProxyWithInternal<VideoTrackSourceInterface>>
-      source_proxy = VideoTrackSourceProxy::Create(
-          rtc::Thread::Current(), worker_thread,
-          rtc::scoped_refptr<VideoTrackSourceInterface>(source));
+      source_proxy = VideoTrackSourceProxy::Create(rtc::Thread::Current(),
+                                                   worker_thread, source);
 
   return rtc::make_ref_counted<VideoTrack>(id, std::move(source_proxy),
                                            worker_thread);

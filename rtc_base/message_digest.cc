@@ -15,7 +15,6 @@
 #include <cstdint>
 #include <memory>
 
-#include "absl/strings/string_view.h"
 #include "rtc_base/openssl_digest.h"
 #include "rtc_base/string_encode.h"
 
@@ -31,7 +30,7 @@ const char DIGEST_SHA_512[] = "sha-512";
 
 static const size_t kBlockSize = 64;  // valid for SHA-256 and down
 
-MessageDigest* MessageDigestFactory::Create(absl::string_view alg) {
+MessageDigest* MessageDigestFactory::Create(const std::string& alg) {
   MessageDigest* digest = new OpenSSLDigest(alg);
   if (digest->Size() == 0) {  // invalid algorithm
     delete digest;
@@ -40,7 +39,7 @@ MessageDigest* MessageDigestFactory::Create(absl::string_view alg) {
   return digest;
 }
 
-bool IsFips180DigestAlgorithm(absl::string_view alg) {
+bool IsFips180DigestAlgorithm(const std::string& alg) {
   // These are the FIPS 180 algorithms.  According to RFC 4572 Section 5,
   // "Self-signed certificates (for which legacy certificates are not a
   // consideration) MUST use one of the FIPS 180 algorithms (SHA-1,
@@ -60,7 +59,7 @@ size_t ComputeDigest(MessageDigest* digest,
   return digest->Finish(output, out_len);
 }
 
-size_t ComputeDigest(absl::string_view alg,
+size_t ComputeDigest(const std::string& alg,
                      const void* input,
                      size_t in_len,
                      void* output,
@@ -70,15 +69,15 @@ size_t ComputeDigest(absl::string_view alg,
                   : 0;
 }
 
-std::string ComputeDigest(MessageDigest* digest, absl::string_view input) {
+std::string ComputeDigest(MessageDigest* digest, const std::string& input) {
   std::unique_ptr<char[]> output(new char[digest->Size()]);
   ComputeDigest(digest, input.data(), input.size(), output.get(),
                 digest->Size());
   return hex_encode(output.get(), digest->Size());
 }
 
-bool ComputeDigest(absl::string_view alg,
-                   absl::string_view input,
+bool ComputeDigest(const std::string& alg,
+                   const std::string& input,
                    std::string* output) {
   std::unique_ptr<MessageDigest> digest(MessageDigestFactory::Create(alg));
   if (!digest) {
@@ -88,7 +87,7 @@ bool ComputeDigest(absl::string_view alg,
   return true;
 }
 
-std::string ComputeDigest(absl::string_view alg, absl::string_view input) {
+std::string ComputeDigest(const std::string& alg, const std::string& input) {
   std::string output;
   ComputeDigest(alg, input, &output);
   return output;
@@ -136,7 +135,7 @@ size_t ComputeHmac(MessageDigest* digest,
   return digest->Finish(output, out_len);
 }
 
-size_t ComputeHmac(absl::string_view alg,
+size_t ComputeHmac(const std::string& alg,
                    const void* key,
                    size_t key_len,
                    const void* input,
@@ -152,17 +151,17 @@ size_t ComputeHmac(absl::string_view alg,
 }
 
 std::string ComputeHmac(MessageDigest* digest,
-                        absl::string_view key,
-                        absl::string_view input) {
+                        const std::string& key,
+                        const std::string& input) {
   std::unique_ptr<char[]> output(new char[digest->Size()]);
   ComputeHmac(digest, key.data(), key.size(), input.data(), input.size(),
               output.get(), digest->Size());
   return hex_encode(output.get(), digest->Size());
 }
 
-bool ComputeHmac(absl::string_view alg,
-                 absl::string_view key,
-                 absl::string_view input,
+bool ComputeHmac(const std::string& alg,
+                 const std::string& key,
+                 const std::string& input,
                  std::string* output) {
   std::unique_ptr<MessageDigest> digest(MessageDigestFactory::Create(alg));
   if (!digest) {
@@ -172,9 +171,9 @@ bool ComputeHmac(absl::string_view alg,
   return true;
 }
 
-std::string ComputeHmac(absl::string_view alg,
-                        absl::string_view key,
-                        absl::string_view input) {
+std::string ComputeHmac(const std::string& alg,
+                        const std::string& key,
+                        const std::string& input) {
   std::string output;
   ComputeHmac(alg, key, input, &output);
   return output;

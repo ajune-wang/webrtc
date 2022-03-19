@@ -18,7 +18,6 @@
 
 #include "api/scoped_refptr.h"
 #include "api/sequence_checker.h"
-#include "api/webrtc_key_value_config.h"
 #include "rtc_base/synchronization/mutex.h"
 
 // Forward declaration to avoid pulling in libsrtp headers here
@@ -36,7 +35,6 @@ void ProhibitLibsrtpInitialization();
 class SrtpSession {
  public:
   SrtpSession();
-  explicit SrtpSession(const webrtc::WebRtcKeyValueConfig& field_trials);
   ~SrtpSession();
 
   SrtpSession(const SrtpSession&) = delete;

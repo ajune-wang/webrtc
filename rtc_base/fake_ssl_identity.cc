@@ -14,13 +14,12 @@
 #include <string>
 #include <utility>
 
-#include "absl/strings/string_view.h"
 #include "rtc_base/checks.h"
 #include "rtc_base/message_digest.h"
 
 namespace rtc {
 
-FakeSSLCertificate::FakeSSLCertificate(absl::string_view pem_string)
+FakeSSLCertificate::FakeSSLCertificate(const std::string& pem_string)
     : pem_string_(pem_string),
       digest_algorithm_(DIGEST_SHA_1),
       expiration_time_(-1) {}
@@ -52,8 +51,8 @@ void FakeSSLCertificate::SetCertificateExpirationTime(int64_t expiration_time) {
   expiration_time_ = expiration_time;
 }
 
-void FakeSSLCertificate::set_digest_algorithm(absl::string_view algorithm) {
-  digest_algorithm_ = std::string(algorithm);
+void FakeSSLCertificate::set_digest_algorithm(const std::string& algorithm) {
+  digest_algorithm_ = algorithm;
 }
 
 bool FakeSSLCertificate::GetSignatureDigestAlgorithm(
@@ -62,7 +61,7 @@ bool FakeSSLCertificate::GetSignatureDigestAlgorithm(
   return true;
 }
 
-bool FakeSSLCertificate::ComputeDigest(absl::string_view algorithm,
+bool FakeSSLCertificate::ComputeDigest(const std::string& algorithm,
                                        unsigned char* digest,
                                        size_t size,
                                        size_t* length) const {
@@ -71,7 +70,7 @@ bool FakeSSLCertificate::ComputeDigest(absl::string_view algorithm,
   return (*length != 0);
 }
 
-FakeSSLIdentity::FakeSSLIdentity(absl::string_view pem_string)
+FakeSSLIdentity::FakeSSLIdentity(const std::string& pem_string)
     : FakeSSLIdentity(FakeSSLCertificate(pem_string)) {}
 
 FakeSSLIdentity::FakeSSLIdentity(const std::vector<std::string>& pem_strings) {

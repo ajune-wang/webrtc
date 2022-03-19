@@ -27,9 +27,9 @@
 #include "modules/video_coding/codecs/vp9/include/vp9_globals.h"
 #include "modules/video_coding/include/video_codec_interface.h"
 #include "test/explicit_key_value_config.h"
+#include "test/field_trial.h"
 #include "test/gmock.h"
 #include "test/gtest.h"
-#include "test/scoped_key_value_config.h"
 
 using ::testing::Each;
 using ::testing::ElementsAre;
@@ -275,7 +275,8 @@ TEST(RtpPayloadParamsTest, Tl0PicIdxUpdatedForVp9) {
 }
 
 TEST(RtpPayloadParamsTest, PictureIdForOldGenericFormat) {
-  test::ScopedKeyValueConfig field_trials("WebRTC-GenericPictureId/Enabled/");
+  test::ScopedFieldTrials generic_picture_id(
+      "WebRTC-GenericPictureId/Enabled/");
   RtpPayloadState state{};
 
   EncodedImage encoded_image;
@@ -283,7 +284,7 @@ TEST(RtpPayloadParamsTest, PictureIdForOldGenericFormat) {
   codec_info.codecType = kVideoCodecGeneric;
   encoded_image._frameType = VideoFrameType::kVideoFrameKey;
 
-  RtpPayloadParams params(kSsrc1, &state, field_trials);
+  RtpPayloadParams params(kSsrc1, &state, FieldTrialBasedConfig());
   RTPVideoHeader header =
       params.GetRtpVideoHeader(encoded_image, &codec_info, 10);
 

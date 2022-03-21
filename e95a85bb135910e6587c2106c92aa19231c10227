@@ -35,6 +35,23 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "e8c1dc3f_790cc21d",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 18474
+      },
+      "writtenOn": "2022-03-21T17:36:38Z",
+      "side": 1,
+      "message": "Let me know what you think with regards to memory; with the new/preferred windows capturer we\u0027re trying to roll out, I\u0027m not sure that this is currently a long-term problem and may just end up adding something to the interface that will ~quickly become unused.",
+      "revId": "e95a85bb135910e6587c2106c92aa19231c10227",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "0a130056_02828b55",
@@ -48,6 +65,24 @@
       "writtenOn": "2022-03-21T16:53:24Z",
       "side": 1,
       "message": "Can you clarify the documentation of ownership?  The reference holder of the frames is actually ScreenCapturerWinDirectX (the DesktopCapturer implementation).",
+      "revId": "e95a85bb135910e6587c2106c92aa19231c10227",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "208bffc8_1084bd72",
+        "filename": "modules/desktop_capture/win/dxgi_duplicator_controller.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 45,
+      "author": {
+        "id": 18474
+      },
+      "writtenOn": "2022-03-21T17:36:38Z",
+      "side": 1,
+      "message": "It\u0027s both: https://source.chromium.org/chromium/chromium/src/+/main:third_party/webrtc/modules/desktop_capture/win/dxgi_output_duplicator.cc;drc\u003dd3251968d1b3dbe7e1353a3f15970b47173103e9;l\u003d206\n\nThe `Share()` method essentially adds a ref to the shared memory that underlies the frame (Dxgi-\u003eSharedDesktopFrame-\u003eSharedMem); so at the end of a successful CaptureFrame call there are 3 references to the underlying SharedDesktopFrame memory:\n1) ScreenCapturerWinDirectX (via the SharedFrameQueue)\n2) The frame passed to the CaptureFrame callback\n3) The DxgiOutputDuplicator last_frame_ member, linked above.\n\nI can re-work the comment to something like \"The underyling DxgiOutputDuplicator may take an additional reference on the frame passed in to the Duplicate methods so that they can...\" if you think that would be better?",
+      "parentUuid": "0a130056_02828b55",
       "revId": "e95a85bb135910e6587c2106c92aa19231c10227",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
@@ -71,6 +106,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "77610c66_19eaa303",
+        "filename": "modules/desktop_capture/win/dxgi_duplicator_controller.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 97,
+      "author": {
+        "id": 18474
+      },
+      "writtenOn": "2022-03-21T17:36:38Z",
+      "side": 1,
+      "message": "Right; there aren\u0027t any code changes because that\u0027s the current behavior. Technically It\u0027s the underlying DxgiOutputDuplicator (which is selected by the DxgiDuplicatorController) that would retain the reference. Let me know what you think if this comment should be modified?\n\nI mainly wanted to call out at the \"typical\" points that the frame may be passed in that this could result in an add-ref to ensure that this (existing) behavior was documented. (e.g. callers aren\u0027t likely directly calling DxgiOutputDuplicator, but rather are passing their frames in to here, so I\u0027m \"bubbling up\" the documentation).",
+      "parentUuid": "a55a5342_4dbbc808",
+      "revId": "e95a85bb135910e6587c2106c92aa19231c10227",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "8b226b97_8bc030e5",
         "filename": "modules/desktop_capture/win/dxgi_duplicator_controller.h",
         "patchSetId": 1
@@ -82,6 +135,24 @@
       "writtenOn": "2022-03-21T16:53:24Z",
       "side": 1,
       "message": "Result is an enum, so how can it return a reference?",
+      "revId": "e95a85bb135910e6587c2106c92aa19231c10227",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "b254a01e_d3d75ecd",
+        "filename": "modules/desktop_capture/win/dxgi_duplicator_controller.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 106,
+      "author": {
+        "id": 18474
+      },
+      "writtenOn": "2022-03-21T17:36:38Z",
+      "side": 1,
+      "message": "That was a typo; this should say \"May retain a reference...\" like the above method (and any further clarifications to the ~same string from the above method I\u0027ll port down here as well).",
+      "parentUuid": "8b226b97_8bc030e5",
       "revId": "e95a85bb135910e6587c2106c92aa19231c10227",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
@@ -103,6 +174,24 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "ede27145_1785c9b9",
+        "filename": "modules/desktop_capture/win/dxgi_output_duplicator.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 64,
+      "author": {
+        "id": 18474
+      },
+      "writtenOn": "2022-03-21T17:36:38Z",
+      "side": 1,
+      "message": "I\u0027ve tried to clarify a bit more; but mostly. It\u0027s in case the underlying method that Duplicate calls fails; which is expected if there hasn\u0027t been any updates in a short enough span of time.\n\nLet me know what you think of the new wording.",
+      "parentUuid": "00705fae_7998ec1f",
+      "revId": "e95a85bb135910e6587c2106c92aa19231c10227",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "31d73e10_b261609c",
@@ -116,6 +205,24 @@
       "writtenOn": "2022-03-21T16:53:24Z",
       "side": 1,
       "message": "Does the caller have a way to discard the capture state for a screen_id, indicating they have no interest in capturing from it for the forseeable future?\n\nWhen starting capture for the 3-monitor case, we would create three ScreenCaptureFrameQueues, populate each of them with one frame (for the picker), then the caller could tell us to discard the two queues for the monitors that weren\u0027t selected for live capture.",
+      "revId": "e95a85bb135910e6587c2106c92aa19231c10227",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "1bae5867_db23fd60",
+        "filename": "modules/desktop_capture/win/screen_capturer_win_directx.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 130,
+      "author": {
+        "id": 18474
+      },
+      "writtenOn": "2022-03-21T17:36:38Z",
+      "side": 1,
+      "message": "Not really, and such a change would need to be made to the public desktop_capturer interface to allow such plumbing to exist, (which would likely be a no-op for the other capturers). I think it would probably also be better in the context of something like \"SelectForSteadyStateCapture\" and telling the capturer it can discard all *other* source_ids.\n\nNote that the way chromium at least uses this wouldn\u0027t really matter/need to be updated since the picker and actual capture use two different capturers. I\u0027m not sure what other consumers do though. (Also note that we\u0027re trying to enable the Wgc Capturer for newer versions of windows anyways; though chrome/edge will likely ~mostly use the directx capturer for previews still for a while).\n\nAlso, each created ScreenCaptureFrameQueue causes (currently) 2 frames to be allocated as long as at least two CaptureFrame calls are made to it.\n\nLet me know if you feel strongly that the additional plumbing should be added to the top-level interface.",
+      "parentUuid": "31d73e10_b261609c",
       "revId": "e95a85bb135910e6587c2106c92aa19231c10227",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }

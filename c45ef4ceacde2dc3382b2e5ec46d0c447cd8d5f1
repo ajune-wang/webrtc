@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "7ddcad77_1986e806",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 4
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5963
+      },
+      "writtenOn": "2022-03-21T09:55:17Z",
+      "side": 1,
+      "message": "What else would be needed in order to get the CL merged?",
+      "revId": "c45ef4ceacde2dc3382b2e5ec46d0c447cd8d5f1",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "3a3a9aa8_bd3e9557",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 4
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 8046
+      },
+      "writtenOn": "2022-03-21T17:20:07Z",
+      "side": 1,
+      "message": "Mirko, do you happen to know how can I get pipewire and drm libraries into CI so they can be dlopened and this new test do not fail on that? They are already available in sysroot.",
+      "revId": "7603eb76260726815c3908f1cf429ecbb8fad004",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

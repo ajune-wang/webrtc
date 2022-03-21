@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "229b998e_ec75ad3c",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 10
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 18474
+      },
+      "writtenOn": "2022-03-21T20:02:23Z",
+      "side": 1,
+      "message": "LGTM w/constructor change",
+      "revId": "d5e51e6daf5f4188fc84bdfca22523184f17d4ec",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

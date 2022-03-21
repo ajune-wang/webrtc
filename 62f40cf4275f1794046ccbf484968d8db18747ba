@@ -144,6 +144,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "48f51786_930504ef",
+        "filename": "modules/desktop_capture/linux/wayland/screencast_portal.cc",
+        "patchSetId": 6
+      },
+      "lineNbr": 46,
+      "author": {
+        "id": 18474
+      },
+      "writtenOn": "2022-03-21T20:02:23Z",
+      "side": 1,
+      "message": "Sorry, what I meant was that I think you should modify this constructor to be:\n\n```\nScreenCastPortal::ScreenCastPortal(...) \n: ScreenCastPortal(source_type, \n                   notifier, \n                   OnProxyRequested, \n                   OnSourcesRequestResponseSignal, \n                   this) {}\n```",
+      "parentUuid": "810145ed_9a5f6d2a",
+      "range": {
+        "startLine": 42,
+        "startChar": 5,
+        "endLine": 46,
+        "endChar": 25
+      },
+      "revId": "62f40cf4275f1794046ccbf484968d8db18747ba",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "28340bdf_3ff5e851",
         "filename": "modules/desktop_capture/linux/wayland/screencast_portal.h",
         "patchSetId": 6

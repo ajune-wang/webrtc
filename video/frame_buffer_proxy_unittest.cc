@@ -760,18 +760,7 @@ TEST_P(FrameBufferProxyTest, NextFrameWithOldTimestamp) {
   }
 }
 
-INSTANTIATE_TEST_SUITE_P(
-    FrameBufferProxy,
-    FrameBufferProxyTest,
-    ::testing::Values("WebRTC-FrameBuffer3/arm:FrameBuffer2/",
-                      "WebRTC-FrameBuffer3/arm:FrameBuffer3/",
-                      "WebRTC-FrameBuffer3/arm:SyncDecoding/"));
-
-class LowLatencyFrameBufferProxyTest : public ::testing::Test,
-                                       public FrameBufferProxyFixture {};
-
-TEST_P(LowLatencyFrameBufferProxyTest,
-       FramesDecodedInstantlyWithLowLatencyRendering) {
+TEST_P(FrameBufferProxyTest, FramesDecodedInstantlyWithLowLatencyRendering) {
   // Initial keyframe.
   StartNextDecodeForceKeyframe();
   timing_.set_min_playout_delay(TimeDelta::Zero());
@@ -794,7 +783,7 @@ TEST_P(LowLatencyFrameBufferProxyTest,
   EXPECT_THAT(WaitForFrameOrTimeout(TimeDelta::Zero()), Frame(WithId(1)));
 }
 
-TEST_P(LowLatencyFrameBufferProxyTest, ZeroPlayoutDelayFullQueue) {
+TEST_P(FrameBufferProxyTest, ZeroPlayoutDelayFullQueue) {
   // Initial keyframe.
   StartNextDecodeForceKeyframe();
   timing_.set_min_playout_delay(TimeDelta::Zero());
@@ -818,7 +807,7 @@ TEST_P(LowLatencyFrameBufferProxyTest, ZeroPlayoutDelayFullQueue) {
   EXPECT_THAT(WaitForFrameOrTimeout(TimeDelta::Zero()), Frame(WithId(1)));
 }
 
-TEST_P(LowLatencyFrameBufferProxyTest, MinMaxDelayZeroLowLatencyMode) {
+TEST_P(FrameBufferProxyTest, MinMaxDelayZeroLowLatencyMode) {
   // Initial keyframe.
   StartNextDecodeForceKeyframe();
   timing_.set_min_playout_delay(TimeDelta::Zero());
@@ -842,13 +831,9 @@ TEST_P(LowLatencyFrameBufferProxyTest, MinMaxDelayZeroLowLatencyMode) {
 
 INSTANTIATE_TEST_SUITE_P(
     FrameBufferProxy,
-    LowLatencyFrameBufferProxyTest,
-    ::testing::Values(
-        "WebRTC-FrameBuffer3/arm:FrameBuffer2/"
-        "WebRTC-ZeroPlayoutDelay/min_pacing:16ms,max_decode_queue_size:5/",
-        "WebRTC-FrameBuffer3/arm:FrameBuffer3/"
-        "WebRTC-ZeroPlayoutDelay/min_pacing:16ms,max_decode_queue_size:5/",
-        "WebRTC-FrameBuffer3/arm:SyncDecoding/"
-        "WebRTC-ZeroPlayoutDelay/min_pacing:16ms,max_decode_queue_size:5/"));
+    FrameBufferProxyTest,
+    ::testing::Values("WebRTC-FrameBuffer3/arm:FrameBuffer2/",
+                      "WebRTC-FrameBuffer3/arm:FrameBuffer3/",
+                      "WebRTC-FrameBuffer3/arm:SyncDecoding/"));
 
 }  // namespace webrtc

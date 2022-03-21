@@ -182,13 +182,6 @@ class FrameBuffer {
 
   // rtt_mult experiment settings.
   const absl::optional<RttMultExperiment::Settings> rtt_mult_settings_;
-
-  // Maximum number of frames in the decode queue to allow pacing. If the
-  // queue grows beyond the max limit, pacing will be disabled and frames will
-  // be pushed to the decoder as soon as possible. This only has an effect
-  // when the low-latency rendering path is active, which is indicated by
-  // the frame's render time == 0.
-  FieldTrialParameter<unsigned> zero_playout_delay_max_decode_queue_size_;
 };
 
 }  // namespace video_coding

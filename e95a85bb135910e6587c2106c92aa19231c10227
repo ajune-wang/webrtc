@@ -52,6 +52,23 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "78e126c9_f36b3f5f",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 14134
+      },
+      "writtenOn": "2022-03-21T21:27:10Z",
+      "side": 1,
+      "message": "Did you intend to upload a new patchset?",
+      "revId": "e95a85bb135910e6587c2106c92aa19231c10227",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "0a130056_02828b55",
@@ -89,6 +106,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "f6a9b3bf_f5f9c01c",
+        "filename": "modules/desktop_capture/win/dxgi_duplicator_controller.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 45,
+      "author": {
+        "id": 14134
+      },
+      "writtenOn": "2022-03-21T21:27:10Z",
+      "side": 1,
+      "message": "Thanks for the clarification. If you can tweak the wording to indicate that DxgiDuplicatorController is holding an additional reference, that would be helpful.",
+      "parentUuid": "208bffc8_1084bd72",
+      "revId": "e95a85bb135910e6587c2106c92aa19231c10227",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "a55a5342_4dbbc808",
         "filename": "modules/desktop_capture/win/dxgi_duplicator_controller.h",
         "patchSetId": 1
@@ -118,6 +153,24 @@
       "side": 1,
       "message": "Right; there aren\u0027t any code changes because that\u0027s the current behavior. Technically It\u0027s the underlying DxgiOutputDuplicator (which is selected by the DxgiDuplicatorController) that would retain the reference. Let me know what you think if this comment should be modified?\n\nI mainly wanted to call out at the \"typical\" points that the frame may be passed in that this could result in an add-ref to ensure that this (existing) behavior was documented. (e.g. callers aren\u0027t likely directly calling DxgiOutputDuplicator, but rather are passing their frames in to here, so I\u0027m \"bubbling up\" the documentation).",
       "parentUuid": "a55a5342_4dbbc808",
+      "revId": "e95a85bb135910e6587c2106c92aa19231c10227",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "a14322e4_ddf288d2",
+        "filename": "modules/desktop_capture/win/dxgi_duplicator_controller.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 97,
+      "author": {
+        "id": 14134
+      },
+      "writtenOn": "2022-03-21T21:27:10Z",
+      "side": 1,
+      "message": "Thanks for the clarification. So this comment is clarifying the current code.",
+      "parentUuid": "77610c66_19eaa303",
       "revId": "e95a85bb135910e6587c2106c92aa19231c10227",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
@@ -159,6 +212,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "93bf6d08_7dab38e4",
+        "filename": "modules/desktop_capture/win/dxgi_duplicator_controller.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 106,
+      "author": {
+        "id": 14134
+      },
+      "writtenOn": "2022-03-21T21:27:10Z",
+      "side": 1,
+      "message": "Okay - did you mean to update this?",
+      "parentUuid": "b254a01e_d3d75ecd",
+      "revId": "e95a85bb135910e6587c2106c92aa19231c10227",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "00705fae_7998ec1f",
         "filename": "modules/desktop_capture/win/dxgi_output_duplicator.h",
         "patchSetId": 1
@@ -188,6 +259,24 @@
       "side": 1,
       "message": "I\u0027ve tried to clarify a bit more; but mostly. It\u0027s in case the underlying method that Duplicate calls fails; which is expected if there hasn\u0027t been any updates in a short enough span of time.\n\nLet me know what you think of the new wording.",
       "parentUuid": "00705fae_7998ec1f",
+      "revId": "e95a85bb135910e6587c2106c92aa19231c10227",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "773e1537_6f716748",
+        "filename": "modules/desktop_capture/win/dxgi_output_duplicator.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 64,
+      "author": {
+        "id": 14134
+      },
+      "writtenOn": "2022-03-21T21:27:10Z",
+      "side": 1,
+      "message": "I think you need to upload another patchset?",
+      "parentUuid": "ede27145_1785c9b9",
       "revId": "e95a85bb135910e6587c2106c92aa19231c10227",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
@@ -241,6 +330,24 @@
       "side": 1,
       "message": "I *could* see about either re-generating or just clearing the FrameQueue in SelectSource, so we\u0027re only holding on to one at a time. Since it\u0027s a ref, the underlying capturer would be unaffected; *but* this would probably result in a lot more allocations in the rapidly switching case.\n\nAnother option would be to spin up some timer that \"expires\" FrameQueues if they weren\u0027t captured from in the last ~10 seconds that would be internal to this class.",
       "parentUuid": "1bae5867_db23fd60",
+      "revId": "e95a85bb135910e6587c2106c92aa19231c10227",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "0a9772fe_c4845fb6",
+        "filename": "modules/desktop_capture/win/screen_capturer_win_directx.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 130,
+      "author": {
+        "id": 14134
+      },
+      "writtenOn": "2022-03-21T21:27:10Z",
+      "side": 1,
+      "message": "As long as Chrome doesn\u0027t re-use capturers between the picker and live capture, then this is fine. Just didn\u0027t want to allocate memory for frames that will never be used for live capture.\n\nI don\u0027t think it\u0027s worth implementing some garbage collection scheme.  If the client is holding onto a capturer that has been used for capture, then there\u0027s some expectation that there will be memory allocated for frames.  Hopefully the documentation for DesktopCapturer sets expectations that these objects are heavyweight and should be freed when they are no longer needed.",
+      "parentUuid": "afbee55f_1d350764",
       "revId": "e95a85bb135910e6587c2106c92aa19231c10227",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }

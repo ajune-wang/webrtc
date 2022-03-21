@@ -16,6 +16,91 @@
       "message": "Mirko, do you happen to know how can I get pipewire and drm libraries into CI so they can be dlopened and this new test do not fail on that? They are already available in sysroot.",
       "revId": "7603eb76260726815c3908f1cf429ecbb8fad004",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "ab9f8a96_4646b3b3",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 4
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 14134
+      },
+      "writtenOn": "2022-03-21T21:13:58Z",
+      "side": 1,
+      "message": "Tests look good!  Thanks for writing them.\n\nIt is possible to write this test without the timed condition variables, by invoking a lambda or functor that sets a success flag and then calls a function to start the next phase of the test (more of a \"continuation-passing\" style).   The teardown of the entire test verifies that all phases of the test case succeeded.\n\nThe slight advantage is that if the test is running on a slow machine, it won\u0027t fail accidentally if the timeouts were set just a little bit longer.  This removes one risk of the test becoming flaky.  (Of course, there is still an overall test suite timeout which is determined by the CI.)\n\nBut that only works well if the test and the callbacks are running on the same thread, and it looks like the FakeScreenCastStream is running on a pipewire callback thread; in that case, the condition variables are fine to signal test phases between the pipewire thread and the test thread.\n",
+      "revId": "7603eb76260726815c3908f1cf429ecbb8fad004",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "6a70e66b_1b77bdb2",
+        "filename": "modules/desktop_capture/BUILD.gn",
+        "patchSetId": 4
+      },
+      "lineNbr": 131,
+      "author": {
+        "id": 14134
+      },
+      "writtenOn": "2022-03-21T21:13:58Z",
+      "side": 1,
+      "message": "Is this necessary even when rtc_use_pipewire is enabled?",
+      "revId": "7603eb76260726815c3908f1cf429ecbb8fad004",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "c8f5d949_8fa9545d",
+        "filename": "modules/desktop_capture/linux/wayland/shared_screencast_stream.h",
+        "patchSetId": 4
+      },
+      "lineNbr": 81,
+      "author": {
+        "id": 14134
+      },
+      "writtenOn": "2022-03-21T21:13:58Z",
+      "side": 1,
+      "message": "Nit: single-argument ctors should be marked explicit",
+      "revId": "7603eb76260726815c3908f1cf429ecbb8fad004",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "1f369de5_6511b8a5",
+        "filename": "modules/desktop_capture/linux/wayland/shared_screencast_stream_unittest.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 51,
+      "author": {
+        "id": 14134
+      },
+      "writtenOn": "2022-03-21T21:13:58Z",
+      "side": 1,
+      "message": "Instead of delegating to a new mock method, you can also add an action to execute every time the mock is called.\n\nhttps://google.github.io/googletest/reference/actions.html\n\nI don\u0027t feel too strongly, but it does allow the mock statements below to be written against the actual StreamNotifier API.",
+      "revId": "7603eb76260726815c3908f1cf429ecbb8fad004",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "f85574b2_1190c97f",
+        "filename": "modules/desktop_capture/linux/wayland/test_support/fake_screencast_stream.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 308,
+      "author": {
+        "id": 14134
+      },
+      "writtenOn": "2022-03-21T21:13:58Z",
+      "side": 1,
+      "message": "Remove commented-out code",
+      "revId": "7603eb76260726815c3908f1cf429ecbb8fad004",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

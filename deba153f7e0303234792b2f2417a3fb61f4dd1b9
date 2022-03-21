@@ -58,6 +58,30 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "77f72e9c_47460be5",
+        "filename": "modules/desktop_capture/linux/wayland/mouse_cursor_monitor_pipewire.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 23,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2022-03-21T09:19:08Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "52222ac3_3ade9eee",
+      "range": {
+        "startLine": 23,
+        "startChar": 0,
+        "endLine": 23,
+        "endChar": 46
+      },
+      "revId": "deba153f7e0303234792b2f2417a3fb61f4dd1b9",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "f03139a0_48bfc818",

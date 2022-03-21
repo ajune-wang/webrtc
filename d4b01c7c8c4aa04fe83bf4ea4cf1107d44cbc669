@@ -34,6 +34,24 @@
       "parentUuid": "4fe76c51_697dbe91",
       "revId": "d4b01c7c8c4aa04fe83bf4ea4cf1107d44cbc669",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "062dadaf_93c3989b",
+        "filename": "pc/sctp_data_channel.cc",
+        "patchSetId": 9
+      },
+      "lineNbr": 162,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2022-03-21T09:19:08Z",
+      "side": 1,
+      "message": "Resolving.",
+      "parentUuid": "8e47cba0_20d5e0cd",
+      "revId": "d4b01c7c8c4aa04fe83bf4ea4cf1107d44cbc669",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

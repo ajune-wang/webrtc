@@ -1,0 +1,44 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "0a905ee7_8d0c564a",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 11
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2022-03-21T08:52:55Z",
+      "side": 1,
+      "message": "Rebased, after Tommi landed proxy-related parts in a different cl.",
+      "revId": "d20c2155f456c1ddc74d3887a687fc1975849527",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "f7f8f0aa_d777fef2",
+        "filename": "rtc_base/ref_counted_object.h",
+        "patchSetId": 11
+      },
+      "lineNbr": 156,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2022-03-21T08:52:55Z",
+      "side": 1,
+      "message": "I think this part of the change to make_ref_counted (but perhaps with a rephrased comment) is worth keeping, since it will prevent some cases of double inheritance of RefCountedObject. But perhaps for a separate cl.",
+      "range": {
+        "startLine": 151,
+        "startChar": 0,
+        "endLine": 156,
+        "endChar": 40
+      },
+      "revId": "d20c2155f456c1ddc74d3887a687fc1975849527",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

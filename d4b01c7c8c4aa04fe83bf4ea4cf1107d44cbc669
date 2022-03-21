@@ -16,6 +16,24 @@
       "message": "Hej nisse - seeing as several changes in this CL were also in [1], here is where the problem is that you ran into (for some reason only on the win bots).\nThe problem is this:\n\n1) std::move(channel)\n2) channel-\u003esignaling_thread_  \u003c\u003c\u003c `channel` has been moved.\n\n[1] https://webrtc-review.googlesource.com/c/src/+/256010",
       "revId": "d4b01c7c8c4aa04fe83bf4ea4cf1107d44cbc669",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "8e47cba0_20d5e0cd",
+        "filename": "pc/sctp_data_channel.cc",
+        "patchSetId": 9
+      },
+      "lineNbr": 162,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2022-03-21T08:52:55Z",
+      "side": 1,
+      "message": "Ah, thanks! I wish the compiler did warn about this. Evaluation order of arguments is implementation defined, and apparently different with the compiler used on the windows bots.",
+      "parentUuid": "4fe76c51_697dbe91",
+      "revId": "d4b01c7c8c4aa04fe83bf4ea4cf1107d44cbc669",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

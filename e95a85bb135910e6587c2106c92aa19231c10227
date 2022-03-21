@@ -225,6 +225,24 @@
       "parentUuid": "31d73e10_b261609c",
       "revId": "e95a85bb135910e6587c2106c92aa19231c10227",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "afbee55f_1d350764",
+        "filename": "modules/desktop_capture/win/screen_capturer_win_directx.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 130,
+      "author": {
+        "id": 18474
+      },
+      "writtenOn": "2022-03-21T19:01:15Z",
+      "side": 1,
+      "message": "I *could* see about either re-generating or just clearing the FrameQueue in SelectSource, so we\u0027re only holding on to one at a time. Since it\u0027s a ref, the underlying capturer would be unaffected; *but* this would probably result in a lot more allocations in the rapidly switching case.\n\nAnother option would be to spin up some timer that \"expires\" FrameQueues if they weren\u0027t captured from in the last ~10 seconds that would be internal to this class.",
+      "parentUuid": "1bae5867_db23fd60",
+      "revId": "e95a85bb135910e6587c2106c92aa19231c10227",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

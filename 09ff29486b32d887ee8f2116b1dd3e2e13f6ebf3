@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "3010bf5c_bdfea6fe",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 10107
+      },
+      "writtenOn": "2022-03-21T16:44:41Z",
+      "side": 1,
+      "message": "PTAL. The plan for how to handle the WebRTC to chromium roll is outlined in https://chromium-review.googlesource.com/c/chromium/src/+/3540183",
+      "revId": "09ff29486b32d887ee8f2116b1dd3e2e13f6ebf3",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

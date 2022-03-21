@@ -122,6 +122,24 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "d5c7b34a_71754d68",
+        "filename": "modules/desktop_capture/win/dxgi_duplicator_controller.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 45,
+      "author": {
+        "id": 18474
+      },
+      "writtenOn": "2022-03-21T21:50:11Z",
+      "side": 1,
+      "message": "The DxgiDuplicatorController does *not* hold the reference; it is the Dxgi*Output*Duplicator.\n\nI\u0027ll re-work it as I suggested (mainly changing the \"may be held onto\" wording to \"may take an additional reference\")",
+      "parentUuid": "f6a9b3bf_f5f9c01c",
+      "revId": "e95a85bb135910e6587c2106c92aa19231c10227",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "a55a5342_4dbbc808",
@@ -228,6 +246,24 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "fe82ead5_724e24c3",
+        "filename": "modules/desktop_capture/win/dxgi_duplicator_controller.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 106,
+      "author": {
+        "id": 18474
+      },
+      "writtenOn": "2022-03-21T21:50:11Z",
+      "side": 1,
+      "message": "Should be updated now.",
+      "parentUuid": "93bf6d08_7dab38e4",
+      "revId": "e95a85bb135910e6587c2106c92aa19231c10227",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "00705fae_7998ec1f",
@@ -277,6 +313,24 @@
       "side": 1,
       "message": "I think you need to upload another patchset?",
       "parentUuid": "ede27145_1785c9b9",
+      "revId": "e95a85bb135910e6587c2106c92aa19231c10227",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "4794c7bc_c8dad9e7",
+        "filename": "modules/desktop_capture/win/dxgi_output_duplicator.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 64,
+      "author": {
+        "id": 18474
+      },
+      "writtenOn": "2022-03-21T21:50:11Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "773e1537_6f716748",
       "revId": "e95a85bb135910e6587c2106c92aa19231c10227",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },

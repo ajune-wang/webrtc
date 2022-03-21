@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "ea0062c8_2f6c5e40",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 12
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 18829
+      },
+      "writtenOn": "2022-03-21T20:18:41Z",
+      "side": 1,
+      "message": "Going to remove reviewers from attention in all the CLs in this chain since I am currently looking into getting my head around how remote desktop portal can be kept inside CRD and yet be able to use screencast portal. Will add to attention again if the alternative approach doesn\u0027t work out for some reasons.",
+      "revId": "da8020c4b2c38f2d734f4fdfb1b5c0b6c15e1725",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

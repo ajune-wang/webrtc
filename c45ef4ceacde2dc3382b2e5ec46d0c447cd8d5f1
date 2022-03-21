@@ -16,6 +16,24 @@
       "message": "What else would be needed in order to get the CL merged?",
       "revId": "c45ef4ceacde2dc3382b2e5ec46d0c447cd8d5f1",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "f6d93cf8_8cea5db5",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 4
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5117
+      },
+      "writtenOn": "2022-03-21T10:04:35Z",
+      "side": 1,
+      "message": "Some more lgtms are missing. stefan@, ptal at common_video/\n\nThere\u0027s one outstanding comment from Niels, but since there\u0027s a LGTM, I assume it\u0027s not an issue. Nisse@, please resolve the comment.",
+      "parentUuid": "7ddcad77_1986e806",
+      "revId": "c45ef4ceacde2dc3382b2e5ec46d0c447cd8d5f1",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

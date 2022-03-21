@@ -23,6 +23,8 @@ namespace {
 
 // Default pacing that is used for the low-latency renderer path.
 constexpr TimeDelta kZeroPlayoutDelayDefaultMinPacing = TimeDelta::Millis(8);
+constexpr TimeDelta kLowLatencyRendererMaxPlayoutDelay = TimeDelta::Millis(500);
+
 }  // namespace
 
 VCMTiming::VCMTiming(Clock* clock)
@@ -37,12 +39,9 @@ VCMTiming::VCMTiming(Clock* clock)
       current_delay_(TimeDelta::Zero()),
       prev_frame_timestamp_(0),
       num_decoded_frames_(0),
-      low_latency_renderer_enabled_("enabled", true),
       zero_playout_delay_min_pacing_("min_pacing",
                                      kZeroPlayoutDelayDefaultMinPacing),
       last_decode_scheduled_(Timestamp::Zero()) {
-  ParseFieldTrial({&low_latency_renderer_enabled_},
-                  field_trial::FindFullName("WebRTC-LowLatencyRenderer"));
   ParseFieldTrial({&zero_playout_delay_min_pacing_},
                   field_trial::FindFullName("WebRTC-ZeroPlayoutDelay"));
 }
@@ -176,12 +175,9 @@ void VCMTiming::SetLastDecodeScheduledTimestamp(
 
 Timestamp VCMTiming::RenderTimeInternal(uint32_t frame_timestamp,
                                         Timestamp now) const {
-  constexpr TimeDelta kLowLatencyRendererMaxPlayoutDelay =
-      TimeDelta::Millis(500);
   if (min_playout_delay_.IsZero() &&
       (max_playout_delay_.IsZero() ||
-       (low_latency_renderer_enabled_ &&
-        max_playout_delay_ <= kLowLatencyRendererMaxPlayoutDelay))) {
+       max_playout_delay_ <= kLowLatencyRendererMaxPlayoutDelay)) {
     // Render as soon as possible or with low-latency renderer algorithm.
     return Timestamp::Zero();
   }

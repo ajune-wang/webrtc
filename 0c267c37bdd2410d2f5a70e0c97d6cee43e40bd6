@@ -45,6 +45,30 @@
       },
       "revId": "0c267c37bdd2410d2f5a70e0c97d6cee43e40bd6",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "429c6fb0_591db8d2",
+        "filename": "video/video_send_stream.h",
+        "patchSetId": 7
+      },
+      "lineNbr": 59,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2022-03-21T15:31:46Z",
+      "side": 1,
+      "message": "Actually, the RtpTransportControllerSendInterface was intended to represent the functionality needed by a send stream. Would some of the accessors fit there?",
+      "parentUuid": "801899a0_bc60dd6d",
+      "range": {
+        "startLine": 59,
+        "startChar": 6,
+        "endLine": 59,
+        "endChar": 16
+      },
+      "revId": "0c267c37bdd2410d2f5a70e0c97d6cee43e40bd6",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

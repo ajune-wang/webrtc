@@ -19,7 +19,6 @@
 #include "absl/memory/memory.h"
 #include "modules/desktop_capture/linux/wayland/egl_dmabuf.h"
 #include "modules/desktop_capture/linux/wayland/screencast_stream_utils.h"
-#include "modules/desktop_capture/screen_capture_frame_queue.h"
 #include "rtc_base/checks.h"
 #include "rtc_base/logging.h"
 #include "rtc_base/sanitizer.h"
@@ -82,15 +81,18 @@ class ScopedBuf {
 class SharedScreenCastStreamPrivate {
  public:
   SharedScreenCastStreamPrivate();
+  SharedScreenCastStreamPrivate(
+      SharedScreenCastStream::StreamNotifier* notifier);
   ~SharedScreenCastStreamPrivate();
 
   bool StartScreenCastStream(uint32_t stream_node_id, int fd);
   void StopScreenCastStream();
-  std::unique_ptr<DesktopFrame> CaptureFrame();
+  std::unique_ptr<SharedDesktopFrame> CaptureFrame();
   std::unique_ptr<MouseCursor> CaptureCursor();
   DesktopVector CaptureCursorPosition();
 
  private:
+  SharedScreenCastStream::StreamNotifier* notifier_ = nullptr;
   uint32_t pw_stream_node_id_ = 0;
   int pw_fd_ = -1;
 
@@ -341,6 +343,9 @@ void SharedScreenCastStreamPrivate::OnRenegotiateFormat(void* data, uint64_t) {
 }
 
 SharedScreenCastStreamPrivate::SharedScreenCastStreamPrivate() {}
+SharedScreenCastStreamPrivate::SharedScreenCastStreamPrivate(
+    SharedScreenCastStream::StreamNotifier* notifier)
+    : notifier_(notifier) {}
 
 SharedScreenCastStreamPrivate::~SharedScreenCastStreamPrivate() {
   if (pw_main_loop_) {
@@ -496,15 +501,15 @@ void SharedScreenCastStreamPrivate::StopScreenCastStream() {
   }
 }
 
-std::unique_ptr<DesktopFrame> SharedScreenCastStreamPrivate::CaptureFrame() {
+std::unique_ptr<SharedDesktopFrame>
+SharedScreenCastStreamPrivate::CaptureFrame() {
   webrtc::MutexLock lock(&queue_lock_);
 
   if (!queue_.current_frame()) {
-    return std::unique_ptr<DesktopFrame>{};
+    return std::unique_ptr<SharedDesktopFrame>{};
   }
 
-  std::unique_ptr<SharedDesktopFrame> frame = queue_.current_frame()->Share();
-  return std::move(frame);
+  return queue_.current_frame()->Share();
 }
 
 std::unique_ptr<MouseCursor> SharedScreenCastStreamPrivate::CaptureCursor() {
@@ -548,8 +553,18 @@ void SharedScreenCastStreamPrivate::ProcessBuffer(pw_buffer* buffer) {
             DesktopRect::MakeWH(bitmap->size.width, bitmap->size.height));
         mouse_cursor_ = std::make_unique<MouseCursor>(
             mouse_frame, DesktopVector(cursor->hotspot.x, cursor->hotspot.y));
+
+        // For testing purpose
+        if (notifier_) {
+          notifier_->OnCursorShapeChanged();
+        }
       }
       mouse_cursor_position_.set(cursor->position.x, cursor->position.y);
+
+      // For testing purpose
+      if (notifier_) {
+        notifier_->OnCursorPositionChanged();
+      }
     }
   }
 
@@ -614,6 +629,10 @@ void SharedScreenCastStreamPrivate::ProcessBuffer(pw_buffer* buffer) {
   }
 
   if (!src) {
+    // For testing purpose
+    if (notifier_) {
+      notifier_->OnFailedToProcessBuffer();
+    }
     return;
   }
 
@@ -629,6 +648,12 @@ void SharedScreenCastStreamPrivate::ProcessBuffer(pw_buffer* buffer) {
                          video_metadata->region.size.height >
                              static_cast<uint32_t>(desktop_size_.height()))) {
     RTC_LOG(LS_ERROR) << "Stream metadata sizes are wrong!";
+
+    // For testing purpose
+    if (notifier_) {
+      notifier_->OnFailedToProcessBuffer();
+    }
+
     return;
   }
 
@@ -675,6 +700,12 @@ void SharedScreenCastStreamPrivate::ProcessBuffer(pw_buffer* buffer) {
     if (queue_.current_frame() && queue_.current_frame()->IsShared()) {
       RTC_LOG(LS_WARNING)
           << "Failed to process PipeWire buffer: no available frame";
+
+      // For testing purpose
+      if (notifier_) {
+        notifier_->OnFailedToProcessBuffer();
+      }
+
       return;
     }
   }
@@ -701,6 +732,11 @@ void SharedScreenCastStreamPrivate::ProcessBuffer(pw_buffer* buffer) {
       tmp_src += queue_.current_frame()->stride();
     }
   }
+
+  // For testing purpose
+  if (notifier_) {
+    notifier_->OnDesktopFrameChanged();
+  }
 }
 
 void SharedScreenCastStreamPrivate::ConvertRGBxToBGRx(uint8_t* frame,
@@ -715,6 +751,9 @@ void SharedScreenCastStreamPrivate::ConvertRGBxToBGRx(uint8_t* frame,
 
 SharedScreenCastStream::SharedScreenCastStream()
     : private_(std::make_unique<SharedScreenCastStreamPrivate>()) {}
+
+SharedScreenCastStream::SharedScreenCastStream(StreamNotifier* notifier)
+    : private_(std::make_unique<SharedScreenCastStreamPrivate>(notifier)) {}
 
 SharedScreenCastStream::~SharedScreenCastStream() {}
 
@@ -737,7 +776,7 @@ void SharedScreenCastStream::StopScreenCastStream() {
   private_->StopScreenCastStream();
 }
 
-std::unique_ptr<DesktopFrame> SharedScreenCastStream::CaptureFrame() {
+std::unique_ptr<SharedDesktopFrame> SharedScreenCastStream::CaptureFrame() {
   return private_->CaptureFrame();
 }
 

@@ -321,6 +321,30 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "f43ae355_cf1fd5b1",
+        "filename": "api/video/i422_buffer.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 39,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2022-03-21T10:06:07Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "64ccb3a6_68edd637",
+      "range": {
+        "startLine": 38,
+        "startChar": 0,
+        "endLine": 39,
+        "endChar": 80
+      },
+      "revId": "b5cc4c90686d8af84e58236322fbd0bd77a5ae69",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "7ecfcfd3_d868ebef",

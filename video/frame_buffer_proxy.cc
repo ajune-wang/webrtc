@@ -138,7 +138,7 @@ static constexpr int kMaxFramesHistory = 1 << 13;
 
 // Default value for the maximum decode queue size that is used when the
 // low-latency renderer is used.
-static constexpr size_t kZeroPlayoutDelayDefaultMaxDecodeQueueSize = 8;
+static constexpr size_t kZeroPlayoutDelayMaxDecodeQueueSize = 8;
 
 struct FrameMetadata {
   explicit FrameMetadata(const EncodedFrame& frame)
@@ -195,15 +195,13 @@ class FrameBuffer3Proxy : public FrameBufferProxy {
         buffer_(std::make_unique<FrameBuffer>(kMaxFramesBuffered,
                                               kMaxFramesHistory)),
         decode_timing_(clock_, timing_),
-        timeout_tracker_(clock_,
-                         worker_queue_,
-                         VideoReceiveStreamTimeoutTracker::Timeouts{
-                             .max_wait_for_keyframe = max_wait_for_keyframe,
-                             .max_wait_for_frame = max_wait_for_frame},
-                         absl::bind_front(&FrameBuffer3Proxy::OnTimeout, this)),
-        zero_playout_delay_max_decode_queue_size_(
-            "max_decode_queue_size",
-            kZeroPlayoutDelayDefaultMaxDecodeQueueSize) {
+        timeout_tracker_(
+            clock_,
+            worker_queue_,
+            VideoReceiveStreamTimeoutTracker::Timeouts{
+                .max_wait_for_keyframe = max_wait_for_keyframe,
+                .max_wait_for_frame = max_wait_for_frame},
+            absl::bind_front(&FrameBuffer3Proxy::OnTimeout, this)) {
     RTC_DCHECK(decode_queue_);
     RTC_DCHECK(stats_proxy_);
     RTC_DCHECK(receiver_);
@@ -212,9 +210,6 @@ class FrameBuffer3Proxy : public FrameBufferProxy {
     RTC_DCHECK(clock_);
     RTC_DCHECK(frame_decode_scheduler_);
     RTC_LOG(LS_WARNING) << "Using FrameBuffer3";
-
-    ParseFieldTrial({&zero_playout_delay_max_decode_queue_size_},
-                    field_trials.Lookup("WebRTC-ZeroPlayoutDelay"));
   }
 
   // FrameBufferProxy implementation.
@@ -427,7 +422,7 @@ class FrameBuffer3Proxy : public FrameBufferProxy {
   }
 
   bool IsTooManyFramesQueued() const RTC_RUN_ON(&worker_sequence_checker_) {
-    return buffer_->CurrentSize() > zero_playout_delay_max_decode_queue_size_;
+    return buffer_->CurrentSize() > kZeroPlayoutDelayMaxDecodeQueueSize;
   }
 
   void ForceKeyFrameReleaseImmediately() RTC_RUN_ON(&worker_sequence_checker_) {
@@ -525,13 +520,6 @@ class FrameBuffer3Proxy : public FrameBufferProxy {
   // fast-forwarded when the decoder is slow or hangs.
   bool decoder_ready_for_new_frame_ RTC_GUARDED_BY(&worker_sequence_checker_) =
       false;
-
-  // Maximum number of frames in the decode queue to allow pacing. If the
-  // queue grows beyond the max limit, pacing will be disabled and frames will
-  // be pushed to the decoder as soon as possible. This only has an effect
-  // when the low-latency rendering path is active, which is indicated by
-  // the frame's render time == 0.
-  FieldTrialParameter<unsigned> zero_playout_delay_max_decode_queue_size_;
 
   rtc::scoped_refptr<PendingTaskSafetyFlag> decode_safety_ =
       PendingTaskSafetyFlag::CreateDetached();

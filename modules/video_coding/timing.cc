@@ -39,12 +39,7 @@ VCMTiming::VCMTiming(Clock* clock)
       current_delay_(TimeDelta::Zero()),
       prev_frame_timestamp_(0),
       num_decoded_frames_(0),
-      zero_playout_delay_min_pacing_("min_pacing",
-                                     kZeroPlayoutDelayDefaultMinPacing),
-      last_decode_scheduled_(Timestamp::Zero()) {
-  ParseFieldTrial({&zero_playout_delay_min_pacing_},
-                  field_trial::FindFullName("WebRTC-ZeroPlayoutDelay"));
-}
+      last_decode_scheduled_(Timestamp::Zero()) {}
 
 void VCMTiming::Reset() {
   MutexLock lock(&mutex_);
@@ -204,8 +199,8 @@ TimeDelta VCMTiming::MaxWaitingTime(Timestamp render_time,
                                     bool too_many_frames_queued) const {
   MutexLock lock(&mutex_);
 
-  if (render_time.IsZero() && zero_playout_delay_min_pacing_->us() > 0 &&
-      min_playout_delay_.IsZero() && max_playout_delay_ > TimeDelta::Zero()) {
+  if (render_time.IsZero() && min_playout_delay_.IsZero() &&
+      max_playout_delay_ > TimeDelta::Zero()) {
     // `render_time` == 0 indicates that the frame should be decoded and
     // rendered as soon as possible. However, the decoder can be choked if too
     // many frames are sent at once. Therefore, limit the interframe delay to
@@ -215,7 +210,7 @@ TimeDelta VCMTiming::MaxWaitingTime(Timestamp render_time,
       return TimeDelta::Zero();
     }
     Timestamp earliest_next_decode_start_time =
-        last_decode_scheduled_ + zero_playout_delay_min_pacing_;
+        last_decode_scheduled_ + kZeroPlayoutDelayDefaultMinPacing;
     TimeDelta max_wait_time = now >= earliest_next_decode_start_time
                                   ? TimeDelta::Zero()
                                   : earliest_next_decode_start_time - now;

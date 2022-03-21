@@ -26,6 +26,7 @@
 #include "api/units/timestamp.h"
 #include "api/video/video_content_type.h"
 #include "api/video/video_timing.h"
+#include "api/webrtc_key_value_config.h"
 #include "rtc_base/checks.h"
 #include "rtc_base/event.h"
 #include "test/gmock.h"
@@ -200,6 +201,11 @@ class VCMReceiveStatisticsCallbackMock : public VCMReceiveStatisticsCallback {
 
 bool IsFrameBuffer2Enabled(const WebRtcKeyValueConfig& field_trials) {
   return field_trials.Lookup("WebRTC-FrameBuffer3").find("arm:FrameBuffer2") !=
+         std::string::npos;
+}
+
+bool IsMetronomeEnabled(const WebRtcKeyValueConfig& field_trials) {
+  return field_trials.Lookup("WebRTC-FrameBuffer3").find("arm:SyncDecoding") !=
          std::string::npos;
 }
 
@@ -760,18 +766,7 @@ TEST_P(FrameBufferProxyTest, NextFrameWithOldTimestamp) {
   }
 }
 
-INSTANTIATE_TEST_SUITE_P(
-    FrameBufferProxy,
-    FrameBufferProxyTest,
-    ::testing::Values("WebRTC-FrameBuffer3/arm:FrameBuffer2/",
-                      "WebRTC-FrameBuffer3/arm:FrameBuffer3/",
-                      "WebRTC-FrameBuffer3/arm:SyncDecoding/"));
-
-class LowLatencyFrameBufferProxyTest : public ::testing::Test,
-                                       public FrameBufferProxyFixture {};
-
-TEST_P(LowLatencyFrameBufferProxyTest,
-       FramesDecodedInstantlyWithLowLatencyRendering) {
+TEST_P(FrameBufferProxyTest, FramesDecodedInstantlyWithLowLatencyRendering) {
   // Initial keyframe.
   StartNextDecodeForceKeyframe();
   timing_.set_min_playout_delay(TimeDelta::Zero());
@@ -788,13 +783,20 @@ TEST_P(LowLatencyFrameBufferProxyTest,
   frame = Builder().Id(1).Time(kFps30Rtp).AsLast().Build();
   frame->SetPlayoutDelay({0, 10});
   proxy_->InsertFrame(std::move(frame));
-  // Pacing is set to 16ms in the field trial so we should not decode yet.
-  EXPECT_THAT(WaitForFrameOrTimeout(TimeDelta::Zero()), Eq(absl::nullopt));
-  time_controller_.AdvanceTime(TimeDelta::Millis(16));
-  EXPECT_THAT(WaitForFrameOrTimeout(TimeDelta::Zero()), Frame(WithId(1)));
+
+  if (IsMetronomeEnabled(field_trials_)) {
+    // With metronome, the decode time will be too late for the 16ms tick so
+    // will be decoded immediately.
+    EXPECT_THAT(WaitForFrameOrTimeout(TimeDelta::Zero()), Frame(WithId(1)));
+  } else {
+    // Pacing is set to 8ms so we should not decode yet.
+    EXPECT_THAT(WaitForFrameOrTimeout(TimeDelta::Zero()), Eq(absl::nullopt));
+    time_controller_.AdvanceTime(TimeDelta::Millis(8));
+    EXPECT_THAT(WaitForFrameOrTimeout(TimeDelta::Zero()), Frame(WithId(1)));
+  }
 }
 
-TEST_P(LowLatencyFrameBufferProxyTest, ZeroPlayoutDelayFullQueue) {
+TEST_P(FrameBufferProxyTest, ZeroPlayoutDelayFullQueue) {
   // Initial keyframe.
   StartNextDecodeForceKeyframe();
   timing_.set_min_playout_delay(TimeDelta::Zero());
@@ -805,8 +807,8 @@ TEST_P(LowLatencyFrameBufferProxyTest, ZeroPlayoutDelayFullQueue) {
   proxy_->InsertFrame(std::move(frame));
   EXPECT_THAT(WaitForFrameOrTimeout(TimeDelta::Zero()), Frame(WithId(0)));
 
-  // Queue up 5 frames (configured max queue size for 0-playout delay pacing).
-  for (int id = 1; id <= 6; ++id) {
+  // Queue up 8 frames (configured max queue size for 0-playout delay pacing).
+  for (int id = 1; id <= 9; ++id) {
     frame = Builder().Id(id).Time(kFps30Rtp * id).AsLast().Build();
     frame->SetPlayoutDelay({0, 10});
     proxy_->InsertFrame(std::move(frame));
@@ -818,7 +820,7 @@ TEST_P(LowLatencyFrameBufferProxyTest, ZeroPlayoutDelayFullQueue) {
   EXPECT_THAT(WaitForFrameOrTimeout(TimeDelta::Zero()), Frame(WithId(1)));
 }
 
-TEST_P(LowLatencyFrameBufferProxyTest, MinMaxDelayZeroLowLatencyMode) {
+TEST_P(FrameBufferProxyTest, MinMaxDelayZeroLowLatencyMode) {
   // Initial keyframe.
   StartNextDecodeForceKeyframe();
   timing_.set_min_playout_delay(TimeDelta::Zero());
@@ -842,13 +844,9 @@ TEST_P(LowLatencyFrameBufferProxyTest, MinMaxDelayZeroLowLatencyMode) {
 
 INSTANTIATE_TEST_SUITE_P(
     FrameBufferProxy,
-    LowLatencyFrameBufferProxyTest,
-    ::testing::Values(
-        "WebRTC-FrameBuffer3/arm:FrameBuffer2/"
-        "WebRTC-ZeroPlayoutDelay/min_pacing:16ms,max_decode_queue_size:5/",
-        "WebRTC-FrameBuffer3/arm:FrameBuffer3/"
-        "WebRTC-ZeroPlayoutDelay/min_pacing:16ms,max_decode_queue_size:5/",
-        "WebRTC-FrameBuffer3/arm:SyncDecoding/"
-        "WebRTC-ZeroPlayoutDelay/min_pacing:16ms,max_decode_queue_size:5/"));
+    FrameBufferProxyTest,
+    ::testing::Values("WebRTC-FrameBuffer3/arm:FrameBuffer2/",
+                      "WebRTC-FrameBuffer3/arm:FrameBuffer3/",
+                      "WebRTC-FrameBuffer3/arm:SyncDecoding/"));
 
 }  // namespace webrtc

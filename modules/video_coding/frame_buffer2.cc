@@ -68,12 +68,7 @@ FrameBuffer::FrameBuffer(Clock* clock,
       protection_mode_(kProtectionNack),
       stats_callback_(stats_callback),
       last_log_non_decoded_ms_(-kLogNonDecodedIntervalMs),
-      rtt_mult_settings_(RttMultExperiment::GetRttMultValue()),
-      zero_playout_delay_max_decode_queue_size_(
-          "max_decode_queue_size",
-          kZeroPlayoutDelayDefaultMaxDecodeQueueSize) {
-  ParseFieldTrial({&zero_playout_delay_max_decode_queue_size_},
-                  field_trial::FindFullName("WebRTC-ZeroPlayoutDelay"));
+      rtt_mult_settings_(RttMultExperiment::GetRttMultValue()) {
   callback_checker_.Detach();
 }
 
@@ -223,8 +218,8 @@ int64_t FrameBuffer::FindNextFrame(Timestamp now) {
       frame->SetRenderTime(render_time->ms());
     }
     bool too_many_frames_queued =
-        frames_.size() > zero_playout_delay_max_decode_queue_size_ ? true
-                                                                   : false;
+        frames_.size() > kZeroPlayoutDelayDefaultMaxDecodeQueueSize ? true
+                                                                    : false;
     wait_ms =
         timing_->MaxWaitingTime(*render_time, now, too_many_frames_queued).ms();
 

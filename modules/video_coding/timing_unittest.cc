@@ -174,9 +174,7 @@ TEST(ReceiverTimingTest, MaxWaitingTimeIsZeroForZeroRenderTime) {
 TEST(ReceiverTimingTest, MaxWaitingTimeZeroDelayPacingExperiment) {
   // The minimum pacing is enabled by a field trial and active if the RTP
   // playout delay header extension is set to min==0.
-  constexpr TimeDelta kMinPacing = TimeDelta::Millis(3);
-  test::ScopedFieldTrials override_field_trials(
-      "WebRTC-ZeroPlayoutDelay/min_pacing:3ms/");
+  constexpr TimeDelta kMinPacing = TimeDelta::Millis(8);
   constexpr int64_t kStartTimeUs = 3.15e13;  // About one year in us.
   constexpr TimeDelta kTimeDelta = 1 / Frequency::Hertz(60);
   constexpr auto kZeroRenderTime = Timestamp::Zero();
@@ -224,8 +222,6 @@ TEST(ReceiverTimingTest, MaxWaitingTimeZeroDelayPacingExperiment) {
 TEST(ReceiverTimingTest, DefaultMaxWaitingTimeUnaffectedByPacingExperiment) {
   // The minimum pacing is enabled by a field trial but should not have any
   // effect if render_time_ms is greater than 0;
-  test::ScopedFieldTrials override_field_trials(
-      "WebRTC-ZeroPlayoutDelay/min_pacing:3ms/");
   constexpr int64_t kStartTimeUs = 3.15e13;  // About one year in us.
   const TimeDelta kTimeDelta = TimeDelta::Millis(1000.0 / 60.0);
   SimulatedClock clock(kStartTimeUs);
@@ -254,9 +250,7 @@ TEST(ReceiverTimingTest, DefaultMaxWaitingTimeUnaffectedByPacingExperiment) {
 TEST(ReceiverTimingTest, MaxWaitingTimeReturnsZeroIfTooManyFramesQueuedIsTrue) {
   // The minimum pacing is enabled by a field trial and active if the RTP
   // playout delay header extension is set to min==0.
-  constexpr TimeDelta kMinPacing = TimeDelta::Millis(3);
-  test::ScopedFieldTrials override_field_trials(
-      "WebRTC-ZeroPlayoutDelay/min_pacing:3ms/");
+  constexpr TimeDelta kMinPacing = TimeDelta::Millis(8);
   constexpr int64_t kStartTimeUs = 3.15e13;  // About one year in us.
   const TimeDelta kTimeDelta = TimeDelta::Millis(1000.0 / 60.0);
   constexpr auto kZeroRenderTime = Timestamp::Zero();

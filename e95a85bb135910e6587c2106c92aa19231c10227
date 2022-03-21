@@ -16,6 +16,108 @@
       "message": "Mark PTAL",
       "revId": "e95a85bb135910e6587c2106c92aa19231c10227",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "5e0cf67b_28f30c51",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 14134
+      },
+      "writtenOn": "2022-03-21T16:53:24Z",
+      "side": 1,
+      "message": "Nice find on this bug! One question on improving memory usage and a some comment feedback.\n\n\n",
+      "revId": "e95a85bb135910e6587c2106c92aa19231c10227",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "0a130056_02828b55",
+        "filename": "modules/desktop_capture/win/dxgi_duplicator_controller.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 45,
+      "author": {
+        "id": 14134
+      },
+      "writtenOn": "2022-03-21T16:53:24Z",
+      "side": 1,
+      "message": "Can you clarify the documentation of ownership?  The reference holder of the frames is actually ScreenCapturerWinDirectX (the DesktopCapturer implementation).",
+      "revId": "e95a85bb135910e6587c2106c92aa19231c10227",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "a55a5342_4dbbc808",
+        "filename": "modules/desktop_capture/win/dxgi_duplicator_controller.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 97,
+      "author": {
+        "id": 14134
+      },
+      "writtenOn": "2022-03-21T16:53:24Z",
+      "side": 1,
+      "message": "I found this comment confusing.  There aren\u0027t actually any code changes to the dxgi_duplicator_controller.  The additional references are held by the queues in ScreenCapturerWinDirectX.",
+      "revId": "e95a85bb135910e6587c2106c92aa19231c10227",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "8b226b97_8bc030e5",
+        "filename": "modules/desktop_capture/win/dxgi_duplicator_controller.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 106,
+      "author": {
+        "id": 14134
+      },
+      "writtenOn": "2022-03-21T16:53:24Z",
+      "side": 1,
+      "message": "Result is an enum, so how can it return a reference?",
+      "revId": "e95a85bb135910e6587c2106c92aa19231c10227",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "00705fae_7998ec1f",
+        "filename": "modules/desktop_capture/win/dxgi_output_duplicator.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 64,
+      "author": {
+        "id": 14134
+      },
+      "writtenOn": "2022-03-21T16:53:24Z",
+      "side": 1,
+      "message": "Just so I understand - the reference is retained so that the current (successful) capture can be returned in the future, in case a future call to Duplicate() does not require a new capture.\n\nMaybe clarify this a bit?",
+      "revId": "e95a85bb135910e6587c2106c92aa19231c10227",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "31d73e10_b261609c",
+        "filename": "modules/desktop_capture/win/screen_capturer_win_directx.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 130,
+      "author": {
+        "id": 14134
+      },
+      "writtenOn": "2022-03-21T16:53:24Z",
+      "side": 1,
+      "message": "Does the caller have a way to discard the capture state for a screen_id, indicating they have no interest in capturing from it for the forseeable future?\n\nWhen starting capture for the 3-monitor case, we would create three ScreenCaptureFrameQueues, populate each of them with one frame (for the picker), then the caller could tell us to discard the two queues for the monitors that weren\u0027t selected for live capture.",
+      "revId": "e95a85bb135910e6587c2106c92aa19231c10227",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

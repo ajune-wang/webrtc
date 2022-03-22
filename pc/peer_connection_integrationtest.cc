@@ -576,7 +576,8 @@ TEST_P(PeerConnectionIntegrationTest, AudioToVideoUpgrade) {
       ASSERT_EQ(2U, transceivers.size());
       ASSERT_EQ(cricket::MEDIA_TYPE_VIDEO,
                 transceivers[1]->receiver()->media_type());
-      transceivers[1]->sender()->SetTrack(caller()->CreateLocalVideoTrack());
+      transceivers[1]->sender()->SetTrack(
+          caller()->CreateLocalVideoTrack().get());
       transceivers[1]->SetDirectionWithError(
           RtpTransceiverDirection::kSendRecv);
     });
@@ -1331,8 +1332,9 @@ TEST_P(PeerConnectionIntegrationTest, GetBytesReceivedStatsWithOldStatsApi) {
   for (const auto& receiver : callee()->pc()->GetReceivers()) {
     // We received frames, so we definitely should have nonzero "received bytes"
     // stats at this point.
-    EXPECT_GT(callee()->OldGetStatsForTrack(receiver->track())->BytesReceived(),
-              0);
+    EXPECT_GT(
+        callee()->OldGetStatsForTrack(receiver->track().get())->BytesReceived(),
+        0);
   }
 }
 
@@ -1353,8 +1355,8 @@ TEST_P(PeerConnectionIntegrationTest, GetBytesSentStatsWithOldStatsApi) {
 
   // The callee received frames, so we definitely should have nonzero "sent
   // bytes" stats at this point.
-  EXPECT_GT(caller()->OldGetStatsForTrack(audio_track)->BytesSent(), 0);
-  EXPECT_GT(caller()->OldGetStatsForTrack(video_track)->BytesSent(), 0);
+  EXPECT_GT(caller()->OldGetStatsForTrack(audio_track.get())->BytesSent(), 0);
+  EXPECT_GT(caller()->OldGetStatsForTrack(video_track.get())->BytesSent(), 0);
 }
 
 // Test that we can get capture start ntp time.
@@ -1377,10 +1379,9 @@ TEST_P(PeerConnectionIntegrationTest, GetCaptureStartNtpTimeWithOldStatsApi) {
 
   // Get the audio output level stats. Note that the level is not available
   // until an RTCP packet has been received.
-  EXPECT_TRUE_WAIT(
-      callee()->OldGetStatsForTrack(remote_audio_track)->CaptureStartNtpTime() >
-          0,
-      2 * kMaxWaitForFramesMs);
+  EXPECT_TRUE_WAIT(callee()->OldGetStatsForTrack(remote_audio_track.get())
+                           ->CaptureStartNtpTime() > 0,
+                   2 * kMaxWaitForFramesMs);
 }
 
 // Test that the track ID is associated with all local and remote SSRC stats
@@ -2432,10 +2433,14 @@ TEST_F(PeerConnectionIntegrationTestPlanB,
   EXPECT_EQ_WAIT(webrtc::PeerConnectionInterface::kIceConnectionConnected,
                  callee()->ice_connection_state(), kMaxWaitForFramesMs);
   // Now set the tracks, and expect frames to immediately start flowing.
-  EXPECT_TRUE(caller_audio_sender->SetTrack(caller()->CreateLocalAudioTrack()));
-  EXPECT_TRUE(caller_video_sender->SetTrack(caller()->CreateLocalVideoTrack()));
-  EXPECT_TRUE(callee_audio_sender->SetTrack(callee()->CreateLocalAudioTrack()));
-  EXPECT_TRUE(callee_video_sender->SetTrack(callee()->CreateLocalVideoTrack()));
+  EXPECT_TRUE(
+      caller_audio_sender->SetTrack(caller()->CreateLocalAudioTrack().get()));
+  EXPECT_TRUE(
+      caller_video_sender->SetTrack(caller()->CreateLocalVideoTrack().get()));
+  EXPECT_TRUE(
+      callee_audio_sender->SetTrack(callee()->CreateLocalAudioTrack().get()));
+  EXPECT_TRUE(
+      callee_video_sender->SetTrack(callee()->CreateLocalVideoTrack().get()));
   MediaExpectations media_expectations;
   media_expectations.ExpectBidirectionalAudioAndVideo();
   ASSERT_TRUE(ExpectNewFrames(media_expectations));
@@ -2471,10 +2476,14 @@ TEST_F(PeerConnectionIntegrationTestUnifiedPlan,
   // Now set the tracks, and expect frames to immediately start flowing.
   auto callee_audio_sender = callee()->pc()->GetSenders()[0];
   auto callee_video_sender = callee()->pc()->GetSenders()[1];
-  ASSERT_TRUE(caller_audio_sender->SetTrack(caller()->CreateLocalAudioTrack()));
-  ASSERT_TRUE(caller_video_sender->SetTrack(caller()->CreateLocalVideoTrack()));
-  ASSERT_TRUE(callee_audio_sender->SetTrack(callee()->CreateLocalAudioTrack()));
-  ASSERT_TRUE(callee_video_sender->SetTrack(callee()->CreateLocalVideoTrack()));
+  ASSERT_TRUE(
+      caller_audio_sender->SetTrack(caller()->CreateLocalAudioTrack().get()));
+  ASSERT_TRUE(
+      caller_video_sender->SetTrack(caller()->CreateLocalVideoTrack().get()));
+  ASSERT_TRUE(
+      callee_audio_sender->SetTrack(callee()->CreateLocalAudioTrack().get()));
+  ASSERT_TRUE(
+      callee_video_sender->SetTrack(callee()->CreateLocalVideoTrack().get()));
   MediaExpectations media_expectations;
   media_expectations.ExpectBidirectionalAudioAndVideo();
   ASSERT_TRUE(ExpectNewFrames(media_expectations));
@@ -2839,7 +2848,7 @@ TEST_P(PeerConnectionIntegrationTest, IceTransportFactoryUsedForConnections) {
   ASSERT_TRUE(wrapper);
   wrapper->CreateDataChannel();
   auto observer = rtc::make_ref_counted<MockSetSessionDescriptionObserver>();
-  wrapper->pc()->SetLocalDescription(observer,
+  wrapper->pc()->SetLocalDescription(observer.get(),
                                      wrapper->CreateOfferAndWait().release());
 }
 
@@ -3324,7 +3333,7 @@ TEST_F(PeerConnectionIntegrationTestUnifiedPlan,
   caller()->AddVideoTrack();
   callee()->AddVideoTrack();
   auto observer = rtc::make_ref_counted<MockSetSessionDescriptionObserver>();
-  callee()->pc()->SetLocalDescription(observer,
+  callee()->pc()->SetLocalDescription(observer.get(),
                                       callee()->CreateOfferAndWait().release());
   EXPECT_TRUE_WAIT(observer->called(), kDefaultTimeout);
   caller()->CreateAndSetAndSignalOffer();  // Implicit rollback.
@@ -3342,7 +3351,7 @@ TEST_F(PeerConnectionIntegrationTestUnifiedPlan,
 
   auto sld_observer =
       rtc::make_ref_counted<MockSetSessionDescriptionObserver>();
-  callee()->pc()->SetLocalDescription(sld_observer,
+  callee()->pc()->SetLocalDescription(sld_observer.get(),
                                       callee()->CreateOfferAndWait().release());
   EXPECT_TRUE_WAIT(sld_observer->called(), kDefaultTimeout);
   EXPECT_EQ(sld_observer->error(), "");
@@ -3350,7 +3359,7 @@ TEST_F(PeerConnectionIntegrationTestUnifiedPlan,
   auto srd_observer =
       rtc::make_ref_counted<MockSetSessionDescriptionObserver>();
   callee()->pc()->SetRemoteDescription(
-      srd_observer, caller()->CreateOfferAndWait().release());
+      srd_observer.get(), caller()->CreateOfferAndWait().release());
   EXPECT_TRUE_WAIT(srd_observer->called(), kDefaultTimeout);
   EXPECT_EQ(srd_observer->error(), "");
 

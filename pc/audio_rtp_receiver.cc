@@ -246,7 +246,7 @@ void AudioRtpReceiver::SetStreams(
       }
     }
     if (removed) {
-      existing_stream->RemoveTrack(track_);
+      existing_stream->RemoveTrack(track_.get());
     }
   }
   // Add remote track to any streams that are new.
@@ -260,7 +260,7 @@ void AudioRtpReceiver::SetStreams(
       }
     }
     if (added) {
-      stream->AddTrack(track_);
+      stream->AddTrack(track_.get());
     }
   }
   streams_ = streams;

@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "2a98bcd4_2defb1bb",
+        "filename": "system_wrappers/include/field_trial.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 64,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2022-03-22T08:10:31Z",
+      "side": 0,
+      "message": "Do you plan a followup to also change return value to string_view?",
+      "range": {
+        "startLine": 64,
+        "startChar": 0,
+        "endLine": 64,
+        "endChar": 11
+      },
+      "revId": "a9fa92efdbabfdcd66d267cf5f576bfbf2b95904",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

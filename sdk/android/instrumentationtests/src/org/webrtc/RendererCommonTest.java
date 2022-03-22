@@ -19,12 +19,12 @@ import static org.webrtc.RendererCommon.getDisplaySize;
 import static org.webrtc.RendererCommon.getLayoutMatrix;
 
 import android.graphics.Point;
+import android.support.test.runner.AndroidJUnit4;
 import androidx.test.filters.SmallTest;
-import org.chromium.base.test.BaseJUnit4ClassRunner;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 
-@RunWith(BaseJUnit4ClassRunner.class)
+@RunWith(AndroidJUnit4.class)
 public class RendererCommonTest {
   @Test
   @SmallTest

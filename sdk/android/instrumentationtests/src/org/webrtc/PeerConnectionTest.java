@@ -19,17 +19,17 @@ import static org.junit.Assert.assertTrue;
 import static org.mockito.Mockito.mock;
 
 import android.support.test.InstrumentationRegistry;
+import android.support.test.runner.AndroidJUnit4;
 import androidx.test.filters.SmallTest;
 import java.util.Arrays;
 import java.util.List;
-import org.chromium.base.test.BaseJUnit4ClassRunner;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.webrtc.PeerConnection.TlsCertPolicy;
 
 /** Unit tests for {@link PeerConnection}. */
-@RunWith(BaseJUnit4ClassRunner.class)
+@RunWith(AndroidJUnit4.class)
 public class PeerConnectionTest {
   @Before
   public void setUp() {

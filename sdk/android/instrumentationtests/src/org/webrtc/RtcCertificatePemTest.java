@@ -12,8 +12,8 @@ package org.webrtc;
 
 import static com.google.common.truth.Truth.assertThat;
 
+import android.support.test.runner.AndroidJUnit4;
 import androidx.test.filters.SmallTest;
-import org.chromium.base.test.BaseJUnit4ClassRunner;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -21,7 +21,7 @@ import org.webrtc.PeerConnection;
 import org.webrtc.RtcCertificatePem;
 
 /** Tests for RtcCertificatePem.java. */
-@RunWith(BaseJUnit4ClassRunner.class)
+@RunWith(AndroidJUnit4.class)
 public class RtcCertificatePemTest {
   @Before
   public void setUp() {

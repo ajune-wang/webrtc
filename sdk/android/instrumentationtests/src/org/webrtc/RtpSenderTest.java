@@ -17,16 +17,16 @@ import static org.junit.Assert.assertTrue;
 import static org.mockito.Mockito.mock;
 
 import android.support.test.InstrumentationRegistry;
+import android.support.test.runner.AndroidJUnit4;
 import androidx.test.filters.SmallTest;
 import java.util.Arrays;
-import org.chromium.base.test.BaseJUnit4ClassRunner;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.webrtc.RtpParameters.DegradationPreference;
 
 /** Unit-tests for {@link RtpSender}. */
-@RunWith(BaseJUnit4ClassRunner.class)
+@RunWith(AndroidJUnit4.class)
 public class RtpSenderTest {
   private PeerConnectionFactory factory;
   private PeerConnection pc;

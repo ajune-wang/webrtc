@@ -12,17 +12,17 @@ package org.webrtc;
 
 import static org.junit.Assert.assertEquals;
 
+import android.support.test.runner.AndroidJUnit4;
 import androidx.annotation.Nullable;
 import androidx.test.filters.SmallTest;
 import java.util.ArrayList;
 import java.util.HashMap;
-import org.chromium.base.test.BaseJUnit4ClassRunner;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 
 /** Unit tests for {@link DefaultVideoEncoderFactory}. */
-@RunWith(BaseJUnit4ClassRunner.class)
+@RunWith(AndroidJUnit4.class)
 public class DefaultVideoEncoderFactoryTest {
   static class CustomHardwareVideoEncoderFactory implements VideoEncoderFactory {
     private ArrayList<VideoCodecInfo> codecs = new ArrayList<>();

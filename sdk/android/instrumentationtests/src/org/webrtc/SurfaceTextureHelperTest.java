@@ -16,17 +16,17 @@ import static org.junit.Assert.fail;
 
 import android.opengl.GLES20;
 import android.os.SystemClock;
+import android.support.test.runner.AndroidJUnit4;
 import androidx.annotation.Nullable;
 import androidx.test.filters.MediumTest;
 import androidx.test.filters.SmallTest;
 import java.nio.ByteBuffer;
 import java.util.concurrent.CountDownLatch;
-import org.chromium.base.test.BaseJUnit4ClassRunner;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 
-@RunWith(BaseJUnit4ClassRunner.class)
+@RunWith(AndroidJUnit4.class)
 public class SurfaceTextureHelperTest {
   /**
    * Mock texture listener with blocking wait functionality.

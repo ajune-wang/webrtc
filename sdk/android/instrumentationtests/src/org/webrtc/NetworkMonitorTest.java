@@ -30,6 +30,7 @@ import android.os.Build;
 import android.os.Handler;
 import android.os.Looper;
 import android.support.test.InstrumentationRegistry;
+import android.support.test.runner.AndroidJUnit4;
 import androidx.annotation.Nullable;
 import androidx.test.filters.MediumTest;
 import androidx.test.filters.SmallTest;
@@ -38,8 +39,6 @@ import java.util.Collections;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
-import org.chromium.base.test.BaseJUnit4ClassRunner;
-import org.chromium.base.test.UiThreadTest;
 import org.junit.Before;
 import org.junit.Rule;
 import org.junit.Test;
@@ -58,7 +57,7 @@ import org.webrtc.NetworkMonitorAutoDetect.SimpleNetworkCallback;
  * class is used in practice in WebRTC.
  */
 @SuppressLint("NewApi")
-@RunWith(BaseJUnit4ClassRunner.class)
+@RunWith(AndroidJUnit4.class)
 public class NetworkMonitorTest {
   private static final long INVALID_NET_ID = -1;
   private NetworkChangeDetector detector;
@@ -226,7 +225,6 @@ public class NetworkMonitorTest {
    * Tests that the receiver registers for connectivity intents during construction.
    */
   @Test
-  @UiThreadTest
   @SmallTest
   public void testNetworkMonitorRegistersInConstructor() throws InterruptedException {
     Context context = InstrumentationRegistry.getTargetContext();
@@ -243,7 +241,6 @@ public class NetworkMonitorTest {
    * notification to Java observers.
    */
   @Test
-  @UiThreadTest
   @MediumTest
   public void testNetworkMonitorJavaObservers() throws InterruptedException {
     // Initialize the NetworkMonitor with a connection.
@@ -290,7 +287,6 @@ public class NetworkMonitorTest {
    * that the functions don't crash.
    */
   @Test
-  @UiThreadTest
   @SmallTest
   public void testConnectivityManagerDelegateDoesNotCrash() {
     ConnectivityManagerDelegate delegate = new ConnectivityManagerDelegate(
@@ -376,7 +372,6 @@ public class NetworkMonitorTest {
    * least check that the functions don't crash.
    */
   @Test
-  @UiThreadTest
   @SmallTest
   public void testQueryableAPIsDoNotCrash() {
     NetworkMonitorAutoDetect.Observer observer = new TestNetworkMonitorAutoDetectObserver();

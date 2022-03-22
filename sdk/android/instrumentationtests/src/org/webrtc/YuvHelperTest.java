@@ -13,14 +13,14 @@ package org.webrtc;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
 
+import android.support.test.runner.AndroidJUnit4;
 import androidx.test.filters.SmallTest;
 import java.nio.ByteBuffer;
-import org.chromium.base.test.BaseJUnit4ClassRunner;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 
-@RunWith(BaseJUnit4ClassRunner.class)
+@RunWith(AndroidJUnit4.class)
 public class YuvHelperTest {
   private static final int TEST_WIDTH = 3;
   private static final int TEST_HEIGHT = 3;

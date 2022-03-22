@@ -35,6 +35,24 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "1ffe119c_eed4043b",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 4
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 8046
+      },
+      "writtenOn": "2022-03-22T14:42:26Z",
+      "side": 1,
+      "message": "Probably some parts can be done this way, but problem is that we have two streams running simultaneously, one is producing and one is consuming and actions in one make reactions in the other so I cannot do something like:\nstream1-\u003eRecordFrame();\nstream2-\u003eReceiveFrame();\n\nBecause this is driven by PipeWire and all the code is asynchronous so I don\u0027t know when PipeWire will invoke the callback letting us process a new buffer. This would require some changes in the existing code and most likely add unnecessary complexity.",
+      "parentUuid": "ab9f8a96_4646b3b3",
+      "revId": "7603eb76260726815c3908f1cf429ecbb8fad004",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "6a70e66b_1b77bdb2",
@@ -52,6 +70,24 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "fa867009_e967dcb9",
+        "filename": "modules/desktop_capture/BUILD.gn",
+        "patchSetId": 4
+      },
+      "lineNbr": 131,
+      "author": {
+        "id": 8046
+      },
+      "writtenOn": "2022-03-22T14:42:26Z",
+      "side": 1,
+      "message": "I just moved it from the bottom to top to have \"public_configs\" defined. X11 code is still needed even with PipeWire, because both backends (capturers) are being build on Linux.",
+      "parentUuid": "6a70e66b_1b77bdb2",
+      "revId": "7603eb76260726815c3908f1cf429ecbb8fad004",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "c8f5d949_8fa9545d",
@@ -65,6 +101,24 @@
       "writtenOn": "2022-03-21T21:13:58Z",
       "side": 1,
       "message": "Nit: single-argument ctors should be marked explicit",
+      "revId": "7603eb76260726815c3908f1cf429ecbb8fad004",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "66c99bd5_acea3333",
+        "filename": "modules/desktop_capture/linux/wayland/shared_screencast_stream.h",
+        "patchSetId": 4
+      },
+      "lineNbr": 81,
+      "author": {
+        "id": 8046
+      },
+      "writtenOn": "2022-03-22T14:42:26Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "c8f5d949_8fa9545d",
       "revId": "7603eb76260726815c3908f1cf429ecbb8fad004",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
@@ -88,6 +142,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "8e51911f_33a974ba",
+        "filename": "modules/desktop_capture/linux/wayland/shared_screencast_stream_unittest.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 51,
+      "author": {
+        "id": 8046
+      },
+      "writtenOn": "2022-03-22T14:42:26Z",
+      "side": 1,
+      "message": "I see, I will get back to this later.",
+      "parentUuid": "1f369de5_6511b8a5",
+      "revId": "7603eb76260726815c3908f1cf429ecbb8fad004",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "f85574b2_1190c97f",
         "filename": "modules/desktop_capture/linux/wayland/test_support/fake_screencast_stream.cc",
         "patchSetId": 4
@@ -99,6 +171,24 @@
       "writtenOn": "2022-03-21T21:13:58Z",
       "side": 1,
       "message": "Remove commented-out code",
+      "revId": "7603eb76260726815c3908f1cf429ecbb8fad004",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "b87ac865_0ad5af68",
+        "filename": "modules/desktop_capture/linux/wayland/test_support/fake_screencast_stream.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 308,
+      "author": {
+        "id": 8046
+      },
+      "writtenOn": "2022-03-22T14:42:26Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "f85574b2_1190c97f",
       "revId": "7603eb76260726815c3908f1cf429ecbb8fad004",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }

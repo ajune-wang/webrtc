@@ -116,6 +116,8 @@ void AudioBuffer::CopyFrom(const float* const* stacked_data,
   RTC_DCHECK_EQ(stream_config.num_frames(), input_num_frames_);
   RTC_DCHECK_EQ(stream_config.num_channels(), input_num_channels_);
   RestoreNumChannels();
+  is_band_split = false;
+
   const bool downmix_needed = input_num_channels_ > 1 && num_channels_ == 1;
 
   const bool resampling_needed = input_num_frames_ != buffer_num_frames_;
@@ -234,6 +236,7 @@ void AudioBuffer::CopyFrom(const int16_t* const interleaved_data,
   RTC_DCHECK_EQ(stream_config.num_channels(), input_num_channels_);
   RTC_DCHECK_EQ(stream_config.num_frames(), input_num_frames_);
   RestoreNumChannels();
+  is_band_split = false;
 
   const bool resampling_required = input_num_frames_ != buffer_num_frames_;
 
@@ -370,10 +373,12 @@ void AudioBuffer::CopyTo(const StreamConfig& stream_config,
 }
 
 void AudioBuffer::SplitIntoFrequencyBands() {
+  is_band_split = true;
   splitting_filter_->Analysis(data_.get(), split_data_.get());
 }
 
 void AudioBuffer::MergeFrequencyBands() {
+  is_band_split = false;
   splitting_filter_->Synthesis(split_data_.get(), data_.get());
 }
 

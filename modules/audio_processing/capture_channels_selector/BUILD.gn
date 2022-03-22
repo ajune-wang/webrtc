@@ -1,0 +1,61 @@
+# Copyright (c) 2021 The WebRTC project authors. All Rights Reserved.
+#
+# Use of this source code is governed by a BSD-style license
+# that can be found in the LICENSE file in the root of the source
+# tree. An additional intellectual property rights grant can be found
+# in the file PATENTS.  All contributing project authors may
+# be found in the AUTHORS file in the root of the source tree.
+
+import("../../../webrtc.gni")
+
+rtc_library("capture_channels_selector") {
+  visibility = [ "*" ]
+
+  sources = [
+    "audio_content_analyzer.cc",
+    "audio_content_analyzer.h",
+    "average_energy_estimator.cc",
+    "average_energy_estimator.h",
+    "channel_content_replacer.cc",
+    "channel_content_replacer.h",
+    "dc_levels_estimator.cc",
+    "dc_levels_estimator.h",
+    "max_abs_samples_estimator.cc",
+    "max_abs_samples_estimator.h",
+    "mono_channel_selector.cc",
+    "mono_channel_selector.h",
+    "multi_channel_content_adjuster.cc",
+    "multi_channel_content_adjuster.h",
+  ]
+
+  defines = []
+
+  deps = [
+    "..:audio_buffer",
+    "../../../api:array_view",
+    "../../../rtc_base:checks",
+  ]
+
+  absl_deps = [ "//third_party/abseil-cpp/absl/types:optional" ]
+}
+
+rtc_library("capture_channels_selector_unittests") {
+  testonly = true
+
+  sources = [
+    "audio_content_analyzer_unittest.cc",
+    "average_energy_estimator_unittest.cc",
+    "channel_content_replacer_unittest.cc",
+    "dc_levels_estimator_unittest.cc",
+    "max_abs_samples_estimator_unittest.cc",
+    "mono_channel_selector_unittest.cc",
+    "multi_channel_content_adjuster_unittest.cc",
+  ]
+  deps = [
+    ":capture_channels_selector",
+    "..:audioproc_test_utils",
+    "../../../rtc_base:gunit_helpers",
+    "../../../rtc_base:stringutils",
+    "../../../test:test_support",
+  ]
+}

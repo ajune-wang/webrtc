@@ -125,6 +125,9 @@ class AudioBuffer {
   // Recombines the frequency bands into a full-band signal.
   void MergeFrequencyBands();
 
+  // Returns whether the data is band-split. True is returned if `SplitIntoFrequencyBands` but not `MergeFrequencyBands` has been called, otherwise false is returned.  False is also returned if `CopyFrom` has been called since the last call to `SplitIntoFrequencyBands`.
+  bool IsBandSplit() const { return is_band_split;}
+
   // Copies the split bands data into the integer two-dimensional array.
   void ExportSplitChannelData(size_t channel,
                               int16_t* const* split_band_data) const;
@@ -171,6 +174,7 @@ class AudioBuffer {
   std::vector<std::unique_ptr<PushSincResampler>> output_resamplers_;
   bool downmix_by_averaging_ = true;
   size_t channel_for_downmixing_ = 0;
+  bool is_band_split = false;
 };
 
 }  // namespace webrtc

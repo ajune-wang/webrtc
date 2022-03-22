@@ -21,14 +21,7 @@
 #include "sdk/android/native_api/jni/class_loader.h"
 #include "sdk/android/native_api/jni/jvm.h"
 #include "sdk/android/native_api/jni/scoped_java_ref.h"
-
-// Note: this dependency is dangerous since it reaches into Chromium's base.
-// There's a risk of e.g. macro clashes. This file may only be used in tests.
-// Since we use Chrome's build system for creating the gtest binary, this should
-// be fine.
-RTC_PUSH_IGNORING_WUNDEF()
-#include "base/android/jni_android.h"
-RTC_POP_IGNORING_WUNDEF()
+#include "sdk/android/src/jni/jvm.h"
 
 namespace webrtc {
 namespace test {
@@ -41,8 +34,8 @@ static pthread_once_t g_initialize_once = PTHREAD_ONCE_INIT;
 // C++ runner binary, we want to initialize the same global objects we normally
 // do if this had been a Java binary.
 void EnsureInitializedOnce() {
-  RTC_CHECK(::base::android::IsVMInitialized());
-  JNIEnv* env = ::base::android::AttachCurrentThread();
+  RTC_CHECK(::webrtc::jni::GetJVM() != nullptr);
+  JNIEnv* env = ::webrtc::jni::AttachCurrentThreadIfNeeded();
   JavaVM* jvm = nullptr;
   RTC_CHECK_EQ(0, env->GetJavaVM(&jvm));
 

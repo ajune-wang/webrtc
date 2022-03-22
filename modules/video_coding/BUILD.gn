@@ -796,10 +796,10 @@ if (rtc_include_tests) {
         "../../rtc_base:checks",
         "../../rtc_base:ignore_wundef",
         "../../rtc_base:rtc_base_approved",
+        "../../sdk/android:internal_jni",
         "../../sdk/android:native_api_base",
         "../../sdk/android:native_api_codecs",
         "../../sdk/android:native_api_jni",
-        "//base",
       ]
     }
   }

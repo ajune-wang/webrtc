@@ -231,6 +231,7 @@ if (rtc_include_tests && !build_with_chromium) {
     data = modules_unittests_resources
 
     if (is_android) {
+      use_default_launcher = false
       deps += [
         "../sdk/android:libjingle_peerconnection_java",
         "//testing/android/native_test:native_test_support",

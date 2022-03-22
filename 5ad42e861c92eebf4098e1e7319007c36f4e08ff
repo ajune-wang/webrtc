@@ -18,6 +18,24 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "1c61d10f_125216ac",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 12,
+      "author": {
+        "id": 5613
+      },
+      "writtenOn": "2022-03-22T15:53:59Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "789ca08d_77589aeb",
+      "revId": "5ad42e861c92eebf4098e1e7319007c36f4e08ff",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "e9d5afe1_b069d7a2",
@@ -31,6 +49,24 @@
       "writtenOn": "2022-03-22T15:41:25Z",
       "side": 1,
       "message": "The solution is to check the global string when nothing has been explicitly added to a ScopedKeyValueConfig.",
+      "revId": "5ad42e861c92eebf4098e1e7319007c36f4e08ff",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "f6b5c55c_6bcd6e95",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 14,
+      "author": {
+        "id": 5613
+      },
+      "writtenOn": "2022-03-22T15:53:59Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "e9d5afe1_b069d7a2",
       "revId": "5ad42e861c92eebf4098e1e7319007c36f4e08ff",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
@@ -65,6 +101,24 @@
       "writtenOn": "2022-03-22T15:41:25Z",
       "side": 1,
       "message": "Ouch, this sentence hurts in so many ways....\n\n\"When at the root, check the global string so that test programs using a mix between ScopedKeyValueConfig and the global string continue to work\".",
+      "revId": "5ad42e861c92eebf4098e1e7319007c36f4e08ff",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "e0d45787_9127683b",
+        "filename": "test/scoped_key_value_config.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 118,
+      "author": {
+        "id": 5613
+      },
+      "writtenOn": "2022-03-22T15:53:59Z",
+      "side": 1,
+      "message": "😊\nDone.",
+      "parentUuid": "a20cd0e0_e8f0351a",
       "revId": "5ad42e861c92eebf4098e1e7319007c36f4e08ff",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }

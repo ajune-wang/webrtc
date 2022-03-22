@@ -92,6 +92,9 @@ GoogCcNetworkController::GoogCcNetworkController(NetworkControllerConfig config,
       pace_at_max_of_bwe_and_lower_link_capacity_(
           IsEnabled(key_value_config_,
                     "WebRTC-Bwe-PaceAtMaxOfBweAndLowerLinkCapacity")),
+      use_loss_based_bwe_for_pacing_when_having_losses_(
+          IsEnabled(key_value_config_,
+                    "WebRTC-Bwe-UseLossBasedBweForPacingWhenHavingLosses")),
       probe_controller_(
           new ProbeController(key_value_config_, config.event_log)),
       congestion_window_pushback_controller_(
@@ -700,7 +703,13 @@ PacerConfig GoogCcNetworkController::GetPacingRates(Timestamp at_time) const {
   // Pacing rate is based on target rate before congestion window pushback,
   // because we don't want to build queues in the pacer when pushback occurs.
   DataRate pacing_rate = DataRate::Zero();
-  if (pace_at_max_of_bwe_and_lower_link_capacity_ && estimate_) {
+  if (UseLossBasedBweForPacingWhenHavingLossesEnabled() && estimate_ &&
+      last_loss_based_target_rate_ >= delay_based_bwe_->last_estimate()) {
+    pacing_rate =
+        std::max({min_total_allocated_bitrate_, estimate_->link_capacity_lower,
+                  last_loss_based_target_rate_}) *
+        pacing_factor_;
+  } else if (PaceAtMaxOfBweAndLowerLinkCapacityEnabled() && estimate_) {
     pacing_rate =
         std::max({min_total_allocated_bitrate_, estimate_->link_capacity_lower,
                   last_loss_based_target_rate_}) *
@@ -718,6 +727,18 @@ PacerConfig GoogCcNetworkController::GetPacingRates(Timestamp at_time) const {
   msg.data_window = pacing_rate * msg.time_window;
   msg.pad_window = padding_rate * msg.time_window;
   return msg;
+}
+
+bool GoogCcNetworkController::PaceAtMaxOfBweAndLowerLinkCapacityEnabled()
+    const {
+  return pace_at_max_of_bwe_and_lower_link_capacity_ &&
+         !use_loss_based_bwe_for_pacing_when_having_losses_;
+}
+
+bool GoogCcNetworkController::UseLossBasedBweForPacingWhenHavingLossesEnabled()
+    const {
+  return !pace_at_max_of_bwe_and_lower_link_capacity_ &&
+         use_loss_based_bwe_for_pacing_when_having_losses_;
 }
 
 }  // namespace webrtc

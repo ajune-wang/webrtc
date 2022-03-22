@@ -51,14 +51,16 @@ public interface NetworkChangeDetector {
     public final ConnectionType underlyingTypeForVpn;
     public final long handle;
     public final IPAddress[] ipAddresses;
+    public final boolean isEnterprise;
 
     public NetworkInformation(String name, ConnectionType type, ConnectionType underlyingTypeForVpn,
-        long handle, IPAddress[] addresses) {
+        long handle, IPAddress[] addresses, boolean isEnterprise) {
       this.name = name;
       this.type = type;
       this.underlyingTypeForVpn = underlyingTypeForVpn;
       this.handle = handle;
       this.ipAddresses = addresses;
+      this.isEnterprise = isEnterprise;
     }
 
     @CalledByNative("NetworkInformation")
@@ -84,6 +86,13 @@ public interface NetworkChangeDetector {
     @CalledByNative("NetworkInformation")
     private String getName() {
       return name;
+    }
+
+    @Override
+    public String toString() {
+      return "["
+          + " name: " + name + " handle: " + handle + " type: " + type
+          + " enterprise: " + isEnterprise + " ]";
     }
   };
 

@@ -10,11 +10,14 @@
 
 package org.webrtc;
 
+import android.app.admin.DevicePolicyManager;
+import android.content.ComponentName;
 import android.content.Context;
 import android.os.Build;
 import androidx.annotation.Nullable;
 import java.util.ArrayList;
 import java.util.List;
+import org.webrtc.EnterpriseCellularNetworkMonitor;
 import org.webrtc.NetworkChangeDetector;
 
 /**
@@ -41,12 +44,32 @@ public class NetworkMonitor {
     static final NetworkMonitor instance = new NetworkMonitor();
   }
 
-  // Factory for creating NetworkChangeDetector.
-  private NetworkChangeDetectorFactory networkChangeDetectorFactory =
+  private final NetworkChangeDetectorFactory networkAutoDetectorFactory =
       new NetworkChangeDetectorFactory() {
         @Override
         public NetworkChangeDetector create(
             NetworkChangeDetector.Observer observer, Context context) {
+          return new NetworkMonitorAutoDetect(observer, context);
+        }
+      };
+
+  // Factory for creating NetworkChangeDetector.
+  private NetworkChangeDetectorFactory networkChangeDetectorFactory =
+      new NetworkChangeDetectorFactory() {
+        final boolean alwaysUseEnterpriseCellular = true;
+        final boolean alwaysWorkProfile = true;
+        @Override
+        public NetworkChangeDetector create(
+            NetworkChangeDetector.Observer observer, Context context) {
+          if (alwaysUseEnterpriseCellular
+              || PeerConnectionFactory
+                     .fieldTrialsFindFullName("WebRTC-UseEnterpriseCellularInWorkProfile")
+                     .contains("Enabled")) {
+            if (alwaysWorkProfile || isRunningInWorkProfile(context)) {
+              return new EnterpriseCellularNetworkMonitor(
+                  networkAutoDetectorFactory, observer, context);
+            }
+          }
           return new NetworkMonitorAutoDetect(observer, context);
         }
       };
@@ -345,5 +368,23 @@ public class NetworkMonitor {
         networkMonitor.createNetworkChangeDetector(context);
     networkMonitor.networkChangeDetector = networkChangeDetector;
     return (NetworkMonitorAutoDetect) networkChangeDetector;
+  }
+
+  private static boolean isRunningInWorkProfile(Context context) {
+    DevicePolicyManager devicePolicyManager = context.getSystemService(DevicePolicyManager.class);
+
+    List<ComponentName> activeAdmins = devicePolicyManager.getActiveAdmins();
+    if (activeAdmins == null) {
+      return false;
+    }
+
+    for (ComponentName admin : activeAdmins) {
+      String packageName = admin.getPackageName();
+      if (devicePolicyManager.isProfileOwnerApp(packageName)) {
+        return true;
+      }
+    }
+
+    return false;
   }
 }

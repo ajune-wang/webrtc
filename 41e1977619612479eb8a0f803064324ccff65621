@@ -1,0 +1,142 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "f14ebdfc_1d8f0e89",
+        "filename": "rtc_base/file_rotating_stream_unittest.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 58,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2022-03-22T13:24:59Z",
+      "side": 1,
+      "message": "I think it should work to append a string_view via overload (8) documented here: https://en.cppreference.com/w/cpp/string/basic_string/append. Without construction the temporary string.\n\nIf not, then maybe that\u0027s a bug in absl::string_view.",
+      "range": {
+        "startLine": 58,
+        "startChar": 23,
+        "endLine": 58,
+        "endChar": 34
+      },
+      "revId": "41e1977619612479eb8a0f803064324ccff65621",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "0bb30605_67d3b8c2",
+        "filename": "rtc_base/file_rotating_stream_unittest.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 266,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2022-03-22T13:24:59Z",
+      "side": 1,
+      "message": "Same here.",
+      "range": {
+        "startLine": 266,
+        "startChar": 21,
+        "endLine": 266,
+        "endChar": 32
+      },
+      "revId": "41e1977619612479eb8a0f803064324ccff65621",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "dd1e9dcd_903bec3b",
+        "filename": "test/testsupport/file_utils.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 71,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2022-03-22T13:24:59Z",
+      "side": 1,
+      "message": "Since it returns a substring, string_view return type would make sense.",
+      "range": {
+        "startLine": 71,
+        "startChar": 0,
+        "endLine": 71,
+        "endChar": 11
+      },
+      "revId": "41e1977619612479eb8a0f803064324ccff65621",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "ee854719_c5a0952e",
+        "filename": "test/testsupport/file_utils.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 116,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2022-03-22T13:24:59Z",
+      "side": 1,
+      "message": "Migrate to string builder?",
+      "range": {
+        "startLine": 116,
+        "startChar": 0,
+        "endLine": 116,
+        "endChar": 72
+      },
+      "revId": "41e1977619612479eb8a0f803064324ccff65621",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "cba6263b_71da784f",
+        "filename": "test/testsupport/file_utils.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 249,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2022-03-22T13:24:59Z",
+      "side": 1,
+      "message": "Unrelated, but I wonder why it\u0027s done in this way rather than calling stat.",
+      "range": {
+        "startLine": 241,
+        "startChar": 0,
+        "endLine": 249,
+        "endChar": 1
+      },
+      "revId": "41e1977619612479eb8a0f803064324ccff65621",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "6bc23a6d_7164e372",
+        "filename": "test/testsupport/file_utils.h",
+        "patchSetId": 3
+      },
+      "lineNbr": 26,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2022-03-22T13:24:59Z",
+      "side": 1,
+      "message": "No longer NUL-terminated.",
+      "range": {
+        "startLine": 26,
+        "startChar": 46,
+        "endLine": 26,
+        "endChar": 68
+      },
+      "revId": "41e1977619612479eb8a0f803064324ccff65621",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

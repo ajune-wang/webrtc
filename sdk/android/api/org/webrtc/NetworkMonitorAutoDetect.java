@@ -187,7 +187,8 @@ public class NetworkMonitorAutoDetect extends BroadcastReceiver implements Netwo
         Set<Network> availableNetworks, String fieldTrials) {
       this.connectivityManager = connectivityManager;
       this.availableNetworks = availableNetworks;
-      this.getAllNetworksFromCache = checkFieldTrial(fieldTrials, "getAllNetworksFromCache", false);
+      this.getAllNetworksFromCache =
+          checkFieldTrial(fieldTrials, "getAllNetworksFromCache", true); // false);
       this.requestVPN = checkFieldTrial(fieldTrials, "requestVPN", false);
       this.includeOtherUidNetworks = checkFieldTrial(fieldTrials, "includeOtherUidNetworks", false);
     }
@@ -413,9 +414,13 @@ public class NetworkMonitorAutoDetect extends BroadcastReceiver implements Netwo
       ConnectionType underlyingConnectionTypeForVpn =
           getUnderlyingConnectionTypeForVpn(networkState);
 
+      final NetworkCapabilities capabilities = connectivityManager.getNetworkCapabilities(network);
+      boolean isEnterprise = capabilities != null
+          && capabilities.hasCapability(NetworkCapabilities.NET_CAPABILITY_ENTERPRISE);
+
       NetworkInformation networkInformation = new NetworkInformation(
           linkProperties.getInterfaceName(), connectionType, underlyingConnectionTypeForVpn,
-          networkToNetId(network), getIPAddresses(linkProperties));
+          networkToNetId(network), getIPAddresses(linkProperties), isEnterprise);
       return networkInformation;
     }
 
@@ -593,10 +598,11 @@ public class NetworkMonitorAutoDetect extends BroadcastReceiver implements Netwo
         ipAddresses[i] = new IPAddress(interfaceAddresses.get(i).getAddress());
       }
 
+      boolean isEnterprise = false; // not implemented for wifi p2p groups.
       wifiP2pNetworkInfo = new NetworkInformation(wifiP2pGroup.getInterface(),
           NetworkChangeDetector.ConnectionType.CONNECTION_WIFI,
           NetworkChangeDetector.ConnectionType.CONNECTION_NONE, WIFI_P2P_NETWORK_HANDLE,
-          ipAddresses);
+          ipAddresses, isEnterprise);
       observer.onNetworkConnect(wifiP2pNetworkInfo);
     }
 

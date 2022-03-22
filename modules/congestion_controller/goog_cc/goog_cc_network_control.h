@@ -82,6 +82,8 @@ class GoogCcNetworkController : public NetworkControllerInterface {
                                     Timestamp at_time);
   void UpdateCongestionWindowSize();
   PacerConfig GetPacingRates(Timestamp at_time) const;
+  bool PaceAtMaxOfBweAndLowerLinkCapacityEnabled() const;
+  bool UseLossBasedBweForPacingWhenHavingLossesEnabled() const;
   const FieldTrialBasedConfig trial_based_config_;
 
   const WebRtcKeyValueConfig* const key_value_config_;
@@ -95,6 +97,7 @@ class GoogCcNetworkController : public NetworkControllerInterface {
   const RateControlSettings rate_control_settings_;
   const bool loss_based_stable_rate_;
   const bool pace_at_max_of_bwe_and_lower_link_capacity_;
+  const bool use_loss_based_bwe_for_pacing_when_having_losses_;
 
   const std::unique_ptr<ProbeController> probe_controller_;
   const std::unique_ptr<CongestionWindowPushbackController>

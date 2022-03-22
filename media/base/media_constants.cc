@@ -44,6 +44,7 @@ const char kCodecParamAssociatedCodecName[] = "acn";
 const char kCodecParamNotInNameValueFormat[] = "";
 
 const char kOpusCodecName[] = "opus";
+const char kMultiopusCodecName[] = "multiopus";
 const char kIsacCodecName[] = "ISAC";
 const char kL16CodecName[] = "L16";
 const char kG722CodecName[] = "G722";

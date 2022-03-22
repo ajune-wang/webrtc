@@ -33,6 +33,24 @@
       "message": "This will fail if the code that calls SetDefaultOutputVolume() notices that it\u0027s already at the desired value. I take it this is expected to be triggered by setting the media channel to null?\n\nThis is a bit weird in a GMock context, this will also be satisfied if the SetDefaultOutputVolume() is called twice from the destructor, .Times(2) would give exactly the same test result.",
       "revId": "50aca12d10765c7fecaabc89b5745910918bcbd1",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "1ebfddbb_380fd184",
+        "filename": "pc/audio_rtp_receiver_unittest.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 123,
+      "author": {
+        "id": 5508
+      },
+      "writtenOn": "2022-03-22T13:53:13Z",
+      "side": 1,
+      "message": "Yes, that\u0027s the correct understanding.\n\nThe reason I chose to go with the 2x Times(1) approach instead of Times(2) is to decouple the call that happens as a result of clearing the media channel object from the action that happens as a result of disabling the track. I figured that would make the goals of the tests easier to parse.",
+      "parentUuid": "b906f9f7_0ee24571",
+      "revId": "50aca12d10765c7fecaabc89b5745910918bcbd1",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

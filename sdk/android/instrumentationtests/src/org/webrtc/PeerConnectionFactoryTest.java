@@ -11,12 +11,12 @@
 package org.webrtc;
 
 import android.support.test.InstrumentationRegistry;
-import android.support.test.runner.AndroidJUnit4;
 import androidx.test.filters.SmallTest;
 import org.junit.Test;
 import org.junit.runner.RunWith;
+import org.junit.runners.JUnit4;
 
-@RunWith(AndroidJUnit4.class)
+@RunWith(JUnit4.class)
 public class PeerConnectionFactoryTest {
   @SmallTest
   @Test

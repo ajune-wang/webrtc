@@ -19,12 +19,12 @@ import java.io.IOException;
 import java.nio.ByteBuffer;
 import java.nio.charset.Charset;
 import java.util.ArrayList;
-import org.chromium.base.test.BaseJUnit4ClassRunner;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
+import org.junit.runners.JUnit4;
 
-@RunWith(BaseJUnit4ClassRunner.class)
+@RunWith(JUnit4.class)
 public class FileVideoCapturerTest {
   public static class MockCapturerObserver implements CapturerObserver {
     private final ArrayList<VideoFrame> frames = new ArrayList<VideoFrame>();

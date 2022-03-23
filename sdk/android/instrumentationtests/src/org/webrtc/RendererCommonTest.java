@@ -20,11 +20,11 @@ import static org.webrtc.RendererCommon.getLayoutMatrix;
 
 import android.graphics.Point;
 import androidx.test.filters.SmallTest;
-import org.chromium.base.test.BaseJUnit4ClassRunner;
 import org.junit.Test;
 import org.junit.runner.RunWith;
+import org.junit.runners.JUnit4;
 
-@RunWith(BaseJUnit4ClassRunner.class)
+@RunWith(JUnit4.class)
 public class RendererCommonTest {
   @Test
   @SmallTest

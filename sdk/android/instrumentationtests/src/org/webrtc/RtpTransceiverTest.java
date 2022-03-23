@@ -19,15 +19,15 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
-import org.chromium.base.test.BaseJUnit4ClassRunner;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
+import org.junit.runners.JUnit4;
 import org.webrtc.RtpParameters.Encoding;
 import org.webrtc.RtpTransceiver.RtpTransceiverInit;
 
 /** Unit-tests for {@link RtpTransceiver}. */
-@RunWith(BaseJUnit4ClassRunner.class)
+@RunWith(JUnit4.class)
 public class RtpTransceiverTest {
   private PeerConnectionFactory factory;
   private PeerConnection pc;

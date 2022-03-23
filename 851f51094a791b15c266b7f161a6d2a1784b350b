@@ -18,6 +18,24 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "8d62ae94_8c988025",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 6192
+      },
+      "writtenOn": "2022-03-23T08:57:31Z",
+      "side": 1,
+      "message": "We need to roll in this fix in dex.py: https://source.chromium.org/chromium/chromium/src/+/e07ddd662b9b35122f579d1c921d1d6008df63d1.\n\nThus I need to submit this with broken bots to unblock the roll.",
+      "parentUuid": "8fb1dd02_97be8a09",
+      "revId": "851f51094a791b15c266b7f161a6d2a1784b350b",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "4e612d57_e91c41de",
@@ -79,6 +97,30 @@
       "side": 1,
       "message": "Ah, interesting. I have\u0027t checked, but then maybe we should switch all the rest (if any) as well?",
       "parentUuid": "fa4d5d60_4a250f02",
+      "range": {
+        "startLine": 2250,
+        "startChar": 17,
+        "endLine": 2250,
+        "endChar": 45
+      },
+      "revId": "851f51094a791b15c266b7f161a6d2a1784b350b",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "75c52e34_c881f672",
+        "filename": "DEPS",
+        "patchSetId": 2
+      },
+      "lineNbr": 2250,
+      "author": {
+        "id": 6192
+      },
+      "writtenOn": "2022-03-23T08:57:31Z",
+      "side": 1,
+      "message": "Filed: https://bugs.chromium.org/p/webrtc/issues/detail?id\u003d13856",
+      "parentUuid": "e88adbf5_8659965b",
       "range": {
         "startLine": 2250,
         "startChar": 17,

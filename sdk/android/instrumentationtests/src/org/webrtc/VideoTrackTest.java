@@ -15,13 +15,13 @@ import static org.junit.Assert.fail;
 
 import android.support.test.InstrumentationRegistry;
 import androidx.test.filters.SmallTest;
-import org.chromium.base.test.BaseJUnit4ClassRunner;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
+import org.junit.runners.JUnit4;
 
 /** Unit tests for {@link VideoTrack}. */
-@RunWith(BaseJUnit4ClassRunner.class)
+@RunWith(JUnit4.class)
 public class VideoTrackTest {
   private PeerConnectionFactory factory;
   private VideoSource videoSource;

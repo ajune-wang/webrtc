@@ -16,13 +16,13 @@ import androidx.annotation.Nullable;
 import androidx.test.filters.SmallTest;
 import java.util.ArrayList;
 import java.util.HashMap;
-import org.chromium.base.test.BaseJUnit4ClassRunner;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
+import org.junit.runners.JUnit4;
 
 /** Unit tests for {@link DefaultVideoEncoderFactory}. */
-@RunWith(BaseJUnit4ClassRunner.class)
+@RunWith(JUnit4.class)
 public class DefaultVideoEncoderFactoryTest {
   static class CustomHardwareVideoEncoderFactory implements VideoEncoderFactory {
     private ArrayList<VideoCodecInfo> codecs = new ArrayList<>();

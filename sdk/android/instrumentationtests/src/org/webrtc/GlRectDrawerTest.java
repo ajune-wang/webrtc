@@ -19,11 +19,11 @@ import androidx.test.filters.MediumTest;
 import androidx.test.filters.SmallTest;
 import java.nio.ByteBuffer;
 import java.util.Random;
-import org.chromium.base.test.BaseJUnit4ClassRunner;
 import org.junit.Test;
 import org.junit.runner.RunWith;
+import org.junit.runners.JUnit4;
 
-@RunWith(BaseJUnit4ClassRunner.class)
+@RunWith(JUnit4.class)
 public class GlRectDrawerTest {
   // Resolution of the test image.
   private static final int WIDTH = 16;

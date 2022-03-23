@@ -22,6 +22,30 @@
       },
       "revId": "851f51094a791b15c266b7f161a6d2a1784b350b",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "fa4d5d60_4a250f02",
+        "filename": "DEPS",
+        "patchSetId": 2
+      },
+      "lineNbr": 2250,
+      "author": {
+        "id": 6192
+      },
+      "writtenOn": "2022-03-23T08:44:42Z",
+      "side": 1,
+      "message": "We have this convention in other places in our DEPS + the chromium only uses it, I think it\u0027s better to use the one in the repo rather than potentially the one outside of the repo which can be out of date etc.",
+      "parentUuid": "4e612d57_e91c41de",
+      "range": {
+        "startLine": 2250,
+        "startChar": 17,
+        "endLine": 2250,
+        "endChar": 45
+      },
+      "revId": "851f51094a791b15c266b7f161a6d2a1784b350b",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

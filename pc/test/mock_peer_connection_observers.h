@@ -293,48 +293,6 @@ class MockCreateSessionDescriptionObserver
   std::unique_ptr<SessionDescriptionInterface> desc_ RTC_GUARDED_BY(mutex_);
 };
 
-class MockSetSessionDescriptionObserver
-    : public webrtc::SetSessionDescriptionObserver {
- public:
-  static rtc::scoped_refptr<MockSetSessionDescriptionObserver> Create() {
-    return rtc::make_ref_counted<MockSetSessionDescriptionObserver>();
-  }
-
-  MockSetSessionDescriptionObserver()
-      : called_(false),
-        error_("MockSetSessionDescriptionObserver not called") {}
-  ~MockSetSessionDescriptionObserver() override {}
-  void OnSuccess() override {
-    MutexLock lock(&mutex_);
-
-    called_ = true;
-    error_ = "";
-  }
-  void OnFailure(webrtc::RTCError error) override {
-    MutexLock lock(&mutex_);
-    called_ = true;
-    error_ = error.message();
-  }
-
-  bool called() const {
-    MutexLock lock(&mutex_);
-    return called_;
-  }
-  bool result() const {
-    MutexLock lock(&mutex_);
-    return error_.empty();
-  }
-  const std::string& error() const {
-    MutexLock lock(&mutex_);
-    return error_;
-  }
-
- private:
-  mutable Mutex mutex_;
-  bool called_;
-  std::string error_;
-};
-
 class FakeSetLocalDescriptionObserver
     : public SetLocalDescriptionObserverInterface {
  public:

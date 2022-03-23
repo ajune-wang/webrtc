@@ -897,36 +897,6 @@ TEST_F(PeerConnectionRtpTestPlanB,
   EXPECT_EQ(kStreamId2, receivers[1]->streams()[0]->id());
 }
 
-// Tests for the legacy SetRemoteDescription() function signature.
-
-// Sanity test making sure the callback is invoked.
-TEST_P(PeerConnectionRtpTest, LegacyObserverOnSuccess) {
-  auto caller = CreatePeerConnection();
-  auto callee = CreatePeerConnection();
-
-  std::string error;
-  ASSERT_TRUE(
-      callee->SetRemoteDescription(caller->CreateOfferAndSetAsLocal(), &error));
-}
-
-// Verifies legacy behavior: The observer is not called if if the peer
-// connection is destroyed because the asynchronous callback is executed in the
-// peer connection's message handler.
-TEST_P(PeerConnectionRtpTest,
-       LegacyObserverNotCalledIfPeerConnectionDereferenced) {
-  auto caller = CreatePeerConnection();
-  auto callee = CreatePeerConnection();
-
-  rtc::scoped_refptr<webrtc::MockSetSessionDescriptionObserver> observer =
-      rtc::make_ref_counted<webrtc::MockSetSessionDescriptionObserver>();
-
-  auto offer = caller->CreateOfferAndSetAsLocal();
-  callee->pc()->SetRemoteDescription(observer, offer.release());
-  callee = nullptr;
-  rtc::Thread::Current()->ProcessMessages(0);
-  EXPECT_FALSE(observer->called());
-}
-
 // RtpTransceiver Tests.
 
 // Test that by default there are no transceivers with Unified Plan.

@@ -51,6 +51,24 @@
       "message": "Looks good in general, but I\u0027d like to see better test coverage. I422Buffer should be easily tested, and it would be good to have tests confirming the H264 decoder I422 integration too.",
       "revId": "c45ef4ceacde2dc3382b2e5ec46d0c447cd8d5f1",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "5ec9598d_802883f1",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 4
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5963
+      },
+      "writtenOn": "2022-03-23T11:34:38Z",
+      "side": 1,
+      "message": "Would adding a test similar to the I444Buffer be enough?\nhttps://source.chromium.org/chromium/chromium/src/+/main:third_party/webrtc/api/video/test/i444_buffer_unittest.cc\n\nI will prepare a CL with the test sortly.\n\nRegarding testing h264 422 integration, i think it is going to be hard to test as there is no support for h264 422 encoding.",
+      "parentUuid": "f0a1f7da_2007726c",
+      "revId": "c45ef4ceacde2dc3382b2e5ec46d0c447cd8d5f1",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "4e612d57_e91c41de",
+        "filename": "DEPS",
+        "patchSetId": 2
+      },
+      "lineNbr": 2250,
+      "author": {
+        "id": 5087
+      },
+      "writtenOn": "2022-03-23T08:40:26Z",
+      "side": 1,
+      "message": "Do we need this? Can\u0027t we assume depot_tools to be in PATH?",
+      "range": {
+        "startLine": 2250,
+        "startChar": 17,
+        "endLine": 2250,
+        "endChar": 45
+      },
+      "revId": "851f51094a791b15c266b7f161a6d2a1784b350b",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

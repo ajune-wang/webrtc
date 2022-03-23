@@ -830,6 +830,8 @@ void Connection::Prune() {
 
 void Connection::Destroy() {
   RTC_DCHECK_RUN_ON(network_thread_);
+  RTC_DCHECK(pings_since_last_response_.empty());
+
   if (pending_delete_)
     return;
 
@@ -970,6 +972,8 @@ int64_t Connection::last_ping_sent() const {
 
 void Connection::Ping(int64_t now) {
   RTC_DCHECK_RUN_ON(network_thread_);
+  RTC_DCHECK(!pending_delete_);
+
   last_ping_sent_ = now;
   ConnectionRequest* req = new ConnectionRequest(this);
   // If not using renomination, we use "1" to mean "nominated" and "0" to mean

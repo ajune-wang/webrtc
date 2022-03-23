@@ -70,6 +70,29 @@
       },
       "revId": "5edad7032c7fbd7fb2ed4a178175bccc0ae0aad8",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "ee48e7d5_d12a52c7",
+        "filename": "test/pc/e2e/analyzer/video/default_video_quality_analyzer_shared_objects.h",
+        "patchSetId": 4
+      },
+      "lineNbr": 216,
+      "author": {
+        "id": 6337
+      },
+      "writtenOn": "2022-03-23T16:26:49Z",
+      "side": 1,
+      "message": "Does it make sense to compute both weighted and regular PSNR?",
+      "range": {
+        "startLine": 213,
+        "startChar": 2,
+        "endLine": 216,
+        "endChar": 33
+      },
+      "revId": "5edad7032c7fbd7fb2ed4a178175bccc0ae0aad8",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

@@ -72,6 +72,30 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "311ad625_fe0c234d",
+        "filename": "common_video/libyuv/webrtc_libyuv.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 258,
+      "author": {
+        "id": 5023
+      },
+      "writtenOn": "2022-03-23T19:02:40Z",
+      "side": 1,
+      "message": "Done, renamed to `I420WeightedPSNR`.",
+      "parentUuid": "e5c08f40_34a9b655",
+      "range": {
+        "startLine": 258,
+        "startChar": 15,
+        "endLine": 258,
+        "endChar": 18
+      },
+      "revId": "5edad7032c7fbd7fb2ed4a178175bccc0ae0aad8",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "ee48e7d5_d12a52c7",
@@ -85,6 +109,30 @@
       "writtenOn": "2022-03-23T16:26:49Z",
       "side": 1,
       "message": "Does it make sense to compute both weighted and regular PSNR?",
+      "range": {
+        "startLine": 213,
+        "startChar": 2,
+        "endLine": 216,
+        "endChar": 33
+      },
+      "revId": "5edad7032c7fbd7fb2ed4a178175bccc0ae0aad8",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "8ec7ae5a_bde16fdb",
+        "filename": "test/pc/e2e/analyzer/video/default_video_quality_analyzer_shared_objects.h",
+        "patchSetId": 4
+      },
+      "lineNbr": 216,
+      "author": {
+        "id": 5023
+      },
+      "writtenOn": "2022-03-23T19:02:40Z",
+      "side": 1,
+      "message": "No, I don\u0027t think so: I haven\u0027t directly compared the metrics, but my guess is that they are similar enough that one of them is enough for regression tests, but different enough for opinionated test authors to pick one over the other. So it wouldn\u0027t be worth the time to compute both.\n\nBtw, I snuck in the change with `compute_ssim` in this CL, even though it has nothing to do with the added PSNR metric. The reason is that a downstream test I\u0027m writing will use PSNR, but not SSIM, and I\u0027d like to save some CPU cycles by not computing the latter.",
+      "parentUuid": "ee48e7d5_d12a52c7",
       "range": {
         "startLine": 213,
         "startChar": 2,

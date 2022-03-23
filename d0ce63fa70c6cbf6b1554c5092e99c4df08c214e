@@ -1,0 +1,73 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "8de462db_e1154d9a",
+        "filename": "modules/congestion_controller/goog_cc/goog_cc_network_control.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 95,
+      "author": {
+        "id": 5578
+      },
+      "writtenOn": "2022-03-23T08:12:40Z",
+      "side": 1,
+      "message": "suggest pace_at_loss_based_bwe_when_loss_ to use the same naming as pace_at_max_of_bwe_and_lower_link_capacity_",
+      "range": {
+        "startLine": 95,
+        "startChar": 6,
+        "endLine": 95,
+        "endChar": 55
+      },
+      "revId": "d0ce63fa70c6cbf6b1554c5092e99c4df08c214e",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "55c5e828_809874c1",
+        "filename": "modules/congestion_controller/goog_cc/goog_cc_network_control.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 709,
+      "author": {
+        "id": 5578
+      },
+      "writtenOn": "2022-03-23T08:12:40Z",
+      "side": 1,
+      "message": "Not correct is it?  If link capacity is estimated to 3mbit/s - but we think we are limited by loss, we should only pace at max(min_total_allocated_bitrate_, and loss_based estimate).\nI think we need to ignore the link capacity estimate in such cases since it can be both too high and too low.  \n\n\nif (pace_at_max_of_bwe_and_lower_link_capacity_ \u0026\u0026 estimate_ \u0026\u0026 (!pace_at_loss_based_estimate_ || last_loss_based_target_rate_ \u003e\u003d delay_based_bwe_-\u003elast_estimate())) {\n  pacing_rate \u003d\n        std::max({min_total_allocated_bitrate_, estimate_-\u003elink_capacity_lower,\n                  last_loss_based_target_rate_}) *\n        pacing_factor_;\n} else {\n pacing_rate \u003d\n        std::max(min_total_allocated_bitrate_, last_loss_based_target_rate_) *\n        pacing_factor_;\n}",
+      "range": {
+        "startLine": 709,
+        "startChar": 59,
+        "endLine": 709,
+        "endChar": 78
+      },
+      "revId": "d0ce63fa70c6cbf6b1554c5092e99c4df08c214e",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "7e279f24_3d6a0ced",
+        "filename": "modules/congestion_controller/goog_cc/goog_cc_network_control.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 740,
+      "author": {
+        "id": 5578
+      },
+      "writtenOn": "2022-03-23T08:12:40Z",
+      "side": 1,
+      "message": "I think this is wrong. \nWe want to enable field trials separately.",
+      "range": {
+        "startLine": 740,
+        "startChar": 10,
+        "endLine": 740,
+        "endChar": 54
+      },
+      "revId": "d0ce63fa70c6cbf6b1554c5092e99c4df08c214e",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

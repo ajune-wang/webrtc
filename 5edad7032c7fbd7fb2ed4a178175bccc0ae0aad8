@@ -22,6 +22,30 @@
       },
       "revId": "5edad7032c7fbd7fb2ed4a178175bccc0ae0aad8",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "2db09e1b_3d5e8027",
+        "filename": "common_video/libyuv/webrtc_libyuv.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 258,
+      "author": {
+        "id": 5023
+      },
+      "writtenOn": "2022-03-23T15:45:14Z",
+      "side": 1,
+      "message": "Yes, both PSNR metrics are calculating the distortion for Y, U, and V, but in different ways. The existing metric [bunches the squared error of all planes together](https://source.chromium.org/chromium/chromium/src/+/main:third_party/libyuv/source/compare.cc;l\u003d312;drc\u003d3624432200505d1314429803fda95e8f37a83c6a), whereas the added metric keeps the squared errors of the planes separate. The final metric is then the linearly weighted dB version of the per-plane PSNRs. TBH, I don\u0027t know why the weight for luma is 6 instead of 4, but that is how it is defined in the paper...\n\nI used the name \"PSNRYUV\" in the code since \"PSNR_{YUV}\" is the name of the metric in the original paper. The \"Video Coding: Part II of Fundamentals of Source and Video Coding\" book refers to it as \"PSNR_{YCbCr}\", which I guess is more correct.\n\nMaybe it\u0027s a bit unclear to use the literature name in the code. I could change the function name to \"I420WeightedPSNR\", wdyt? I have no strong preferences.",
+      "parentUuid": "fd4aa880_730f17bc",
+      "range": {
+        "startLine": 258,
+        "startChar": 15,
+        "endLine": 258,
+        "endChar": 18
+      },
+      "revId": "5edad7032c7fbd7fb2ed4a178175bccc0ae0aad8",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

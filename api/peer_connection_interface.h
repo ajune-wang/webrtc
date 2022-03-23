@@ -1052,8 +1052,10 @@ class RTC_EXPORT PeerConnectionInterface : public rtc::RefCountInterface {
   // for synchronizing peer connection states to the application.
   // TODO(https://crbug.com/webrtc/11798): Delete these methods in favor of the
   // ones taking SetLocalDescriptionObserverInterface as argument.
+  ABSL_DEPRECATED("bugs.webrtc.org/11798")
   virtual void SetLocalDescription(SetSessionDescriptionObserver* observer,
                                    SessionDescriptionInterface* desc) = 0;
+  ABSL_DEPRECATED("bugs.webrtc.org/11798")
   virtual void SetLocalDescription(SetSessionDescriptionObserver* observer) {}
 
   // Sets the remote session description.
@@ -1073,6 +1075,7 @@ class RTC_EXPORT PeerConnectionInterface : public rtc::RefCountInterface {
   // for synchronizing peer connection states to the application.
   // TODO(https://crbug.com/webrtc/11798): Delete this method in favor of the
   // ones taking SetRemoteDescriptionObserverInterface as argument.
+  ABSL_DEPRECATED("bugs.webrtc.org/11798")
   virtual void SetRemoteDescription(SetSessionDescriptionObserver* observer,
                                     SessionDescriptionInterface* desc) {}
 

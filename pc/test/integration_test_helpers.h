@@ -919,13 +919,13 @@ class PeerConnectionIntegrationWrapper : public webrtc::PeerConnectionObserver,
   // don't outrace the description.
   bool SetLocalDescriptionAndSendSdpMessage(
       std::unique_ptr<SessionDescriptionInterface> desc) {
-    auto observer = rtc::make_ref_counted<MockSetSessionDescriptionObserver>();
+    auto observer = rtc::make_ref_counted<FakeSetLocalDescriptionObserver>();
     RTC_LOG(LS_INFO) << debug_name_ << ": SetLocalDescriptionAndSendSdpMessage";
     SdpType type = desc->GetType();
     std::string sdp;
     EXPECT_TRUE(desc->ToString(&sdp));
     RTC_LOG(LS_INFO) << debug_name_ << ": local SDP contents=\n" << sdp;
-    pc()->SetLocalDescription(observer, desc.release());
+    pc()->SetLocalDescription(std::move(desc), observer);
     RemoveUnusedVideoRenderers();
     // As mentioned above, we need to send the message immediately after
     // SetLocalDescription.
@@ -935,12 +935,12 @@ class PeerConnectionIntegrationWrapper : public webrtc::PeerConnectionObserver,
   }
 
   bool SetRemoteDescription(std::unique_ptr<SessionDescriptionInterface> desc) {
-    auto observer = rtc::make_ref_counted<MockSetSessionDescriptionObserver>();
+    auto observer = rtc::make_ref_counted<FakeSetRemoteDescriptionObserver>();
     RTC_LOG(LS_INFO) << debug_name_ << ": SetRemoteDescription";
-    pc()->SetRemoteDescription(observer, desc.release());
+    pc()->SetRemoteDescription(std::move(desc), observer);
     RemoveUnusedVideoRenderers();
     EXPECT_TRUE_WAIT(observer->called(), kDefaultTimeout);
-    return observer->result();
+    return observer->error().ok();
   }
 
   // This is a work around to remove unused fake_video_renderers from

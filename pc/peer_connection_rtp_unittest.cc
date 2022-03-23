@@ -904,7 +904,7 @@ TEST_P(PeerConnectionRtpTest, LegacyObserverOnSuccess) {
   auto caller = CreatePeerConnection();
   auto callee = CreatePeerConnection();
 
-  std::string error;
+  RTCError error;
   ASSERT_TRUE(
       callee->SetRemoteDescription(caller->CreateOfferAndSetAsLocal(), &error));
 }
@@ -917,11 +917,11 @@ TEST_P(PeerConnectionRtpTest,
   auto caller = CreatePeerConnection();
   auto callee = CreatePeerConnection();
 
-  rtc::scoped_refptr<webrtc::MockSetSessionDescriptionObserver> observer =
-      rtc::make_ref_counted<webrtc::MockSetSessionDescriptionObserver>();
+  auto observer =
+      rtc::make_ref_counted<webrtc::FakeSetRemoteDescriptionObserver>();
 
   auto offer = caller->CreateOfferAndSetAsLocal();
-  callee->pc()->SetRemoteDescription(observer, offer.release());
+  callee->pc()->SetRemoteDescription(std::move(offer), observer);
   callee = nullptr;
   rtc::Thread::Current()->ProcessMessages(0);
   EXPECT_FALSE(observer->called());

@@ -58,13 +58,13 @@ class TestPeer final {
   }
 
   bool SetLocalDescription(std::unique_ptr<SessionDescriptionInterface> desc,
-                           std::string* error_out = nullptr) {
+                           RTCError* error_out = nullptr) {
     RTC_CHECK(wrapper_) << "TestPeer is already closed";
     return wrapper_->SetLocalDescription(std::move(desc), error_out);
   }
 
   bool SetRemoteDescription(std::unique_ptr<SessionDescriptionInterface> desc,
-                            std::string* error_out = nullptr) {
+                            RTCError* error_out = nullptr) {
     RTC_CHECK(wrapper_) << "TestPeer is already closed";
     return wrapper_->SetRemoteDescription(std::move(desc), error_out);
   }

@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "fd4aa880_730f17bc",
+        "filename": "common_video/libyuv/webrtc_libyuv.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 258,
+      "author": {
+        "id": 5525
+      },
+      "writtenOn": "2022-03-23T15:26:47Z",
+      "side": 1,
+      "message": "What does YUV mean? I420PSNR() also computes PSNR based on Y, U and V, right? Isn\u0027t it only the weights that differ?",
+      "range": {
+        "startLine": 258,
+        "startChar": 15,
+        "endLine": 258,
+        "endChar": 18
+      },
+      "revId": "5edad7032c7fbd7fb2ed4a178175bccc0ae0aad8",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

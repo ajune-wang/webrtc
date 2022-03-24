@@ -22,6 +22,7 @@
 #include "absl/strings/string_view.h"
 #include "api/array_view.h"
 #include "api/sequence_checker.h"
+#include "api/webrtc_key_value_config.h"
 #include "rtc_base/ip_address.h"
 #include "rtc_base/mdns_responder_interface.h"
 #include "rtc_base/network_monitor.h"
@@ -187,7 +188,8 @@ class RTC_EXPORT NetworkManager : public DefaultLocalAddressProvider,
 // Base class for NetworkManager implementations.
 class RTC_EXPORT NetworkManagerBase : public NetworkManager {
  public:
-  NetworkManagerBase();
+  NetworkManagerBase(
+      const webrtc::WebRtcKeyValueConfig* field_trials = nullptr);
   ~NetworkManagerBase() override;
 
   void GetNetworks(NetworkList* networks) const override;
@@ -257,13 +259,18 @@ class RTC_EXPORT BasicNetworkManager : public NetworkManagerBase,
  public:
   ABSL_DEPRECATED(
       "Use the version with socket_factory, see bugs.webrtc.org/13145")
-  BasicNetworkManager();
-  explicit BasicNetworkManager(SocketFactory* socket_factory);
+  BasicNetworkManager(const webrtc::WebRtcKeyValueConfig& field_trials);
+  explicit BasicNetworkManager(
+      SocketFactory* socket_factory,
+      const webrtc::WebRtcKeyValueConfig& field_trials);
   ABSL_DEPRECATED(
       "Use the version with socket_factory, see bugs.webrtc.org/13145")
-  explicit BasicNetworkManager(NetworkMonitorFactory* network_monitor_factory);
+  explicit BasicNetworkManager(
+      NetworkMonitorFactory* network_monitor_factory,
+      const webrtc::WebRtcKeyValueConfig& field_trials);
   BasicNetworkManager(NetworkMonitorFactory* network_monitor_factory,
-                      SocketFactory* socket_factory);
+                      SocketFactory* socket_factory,
+                      const webrtc::WebRtcKeyValueConfig& field_trials);
   ~BasicNetworkManager() override;
 
   void StartUpdating() override;
@@ -345,6 +352,7 @@ class RTC_EXPORT BasicNetworkManager : public NetworkManagerBase,
   bool bind_using_ifname_ RTC_GUARDED_BY(thread_) = false;
 
   std::vector<NetworkMask> vpn_;
+  const webrtc::WebRtcKeyValueConfig& field_trials_;
   rtc::scoped_refptr<webrtc::PendingTaskSafetyFlag> task_safety_flag_;
 };
 
@@ -354,13 +362,10 @@ class RTC_EXPORT Network {
   Network(absl::string_view name,
           absl::string_view description,
           const IPAddress& prefix,
-          int prefix_length);
-
-  Network(absl::string_view name,
-          absl::string_view description,
-          const IPAddress& prefix,
           int prefix_length,
-          AdapterType type);
+          AdapterType type,
+          const webrtc::WebRtcKeyValueConfig& field_trials);
+
   Network(const Network&);
   ~Network();
 

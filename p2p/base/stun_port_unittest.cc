@@ -20,6 +20,7 @@
 #include "rtc_base/ssl_adapter.h"
 #include "rtc_base/virtual_socket_server.h"
 #include "test/gmock.h"
+#include "test/scoped_key_value_config.h"
 
 using cricket::ServerAddresses;
 using rtc::SocketAddress;
@@ -47,7 +48,12 @@ class StunPortTestBase : public ::testing::Test, public sigslot::has_slots<> {
   StunPortTestBase()
       : ss_(new rtc::VirtualSocketServer()),
         thread_(ss_.get()),
-        network_("unittest", "unittest", kLocalAddr.ipaddr(), 32),
+        network_("unittest",
+                 "unittest",
+                 kLocalAddr.ipaddr(),
+                 32,
+                 rtc::ADAPTER_TYPE_UNKNOWN,
+                 field_trials_),
         socket_factory_(ss_.get()),
         stun_server_1_(cricket::TestStunServer::Create(ss_.get(), kStunAddr1)),
         stun_server_2_(cricket::TestStunServer::Create(ss_.get(), kStunAddr2)),
@@ -160,6 +166,7 @@ class StunPortTestBase : public ::testing::Test, public sigslot::has_slots<> {
   cricket::TestStunServer* stun_server_2() { return stun_server_2_.get(); }
 
  private:
+  webrtc::test::ScopedKeyValueConfig field_trials_;
   std::unique_ptr<rtc::VirtualSocketServer> ss_;
   rtc::AutoSocketServerThread thread_;
   rtc::Network network_;

@@ -64,6 +64,7 @@
 #include "rtc_base/time_utils.h"
 #include "rtc_base/virtual_socket_server.h"
 #include "test/gtest.h"
+#include "test/scoped_key_value_config.h"
 
 using rtc::AsyncListenSocket;
 using rtc::AsyncPacketSocket;
@@ -507,7 +508,8 @@ class PortTest : public ::testing::Test, public sigslot::has_slots<> {
   }
 
   rtc::Network* MakeNetwork(const SocketAddress& addr) {
-    networks_.emplace_back("unittest", "unittest", addr.ipaddr(), 32);
+    networks_.emplace_back("unittest", "unittest", addr.ipaddr(), 32,
+                           rtc::ADAPTER_TYPE_UNKNOWN, field_trials_);
     networks_.back().AddIP(addr.ipaddr());
     return &networks_.back();
   }
@@ -816,6 +818,7 @@ class PortTest : public ::testing::Test, public sigslot::has_slots<> {
   // When a "create port" helper method is called with an IP, we create a
   // Network with that IP and add it to this list. Using a list instead of a
   // vector so that when it grows, pointers aren't invalidated.
+  webrtc::test::ScopedKeyValueConfig field_trials_;
   std::list<rtc::Network> networks_;
   std::unique_ptr<rtc::VirtualSocketServer> ss_;
   rtc::AutoSocketServerThread main_;

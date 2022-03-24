@@ -26,7 +26,9 @@
 #include "api/test/network_emulation_manager.h"
 #include "api/test/simulated_network.h"
 #include "api/units/timestamp.h"
+#include "api/webrtc_key_value_config.h"
 #include "rtc_base/copy_on_write_buffer.h"
+#include "rtc_base/memory/always_valid_pointer.h"
 #include "rtc_base/network.h"
 #include "rtc_base/network_constants.h"
 #include "rtc_base/socket_address.h"
@@ -35,6 +37,7 @@
 #include "rtc_base/task_utils/repeating_task.h"
 #include "rtc_base/thread_annotations.h"
 #include "system_wrappers/include/clock.h"
+#include "test/scoped_key_value_config.h"
 
 namespace webrtc {
 
@@ -588,6 +591,8 @@ class EmulatedEndpointImpl : public EmulatedEndpoint {
       RTC_GUARDED_BY(receiver_lock_);
 
   EmulatedNetworkStatsBuilder stats_builder_ RTC_GUARDED_BY(task_queue_);
+  AlwaysValidPointer<const WebRtcKeyValueConfig, test::ScopedKeyValueConfig>
+      field_trials_;
 };
 
 class EmulatedRoute {

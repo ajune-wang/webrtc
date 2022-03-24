@@ -258,7 +258,8 @@ class TurnPortTest : public ::testing::Test,
   }
 
   rtc::Network* MakeNetwork(const SocketAddress& addr) {
-    networks_.emplace_back("unittest", "unittest", addr.ipaddr(), 32);
+    networks_.emplace_back("unittest", "unittest", addr.ipaddr(), 32,
+                           rtc::ADAPTER_TYPE_UNKNOWN, field_trials_);
     networks_.back().AddIP(addr.ipaddr());
     return &networks_.back();
   }
@@ -1028,7 +1029,8 @@ TEST_F(TurnPortTest, TurnTcpAllocationNotDiscardedIfNotBoundToBestIP) {
 // Regression test for crbug.com/webrtc/8972, caused by buggy comparison
 // between rtc::IPAddress and rtc::InterfaceAddress.
 TEST_F(TurnPortTest, TCPPortNotDiscardedIfBoundToTemporaryIP) {
-  networks_.emplace_back("unittest", "unittest", kLocalIPv6Addr.ipaddr(), 32);
+  networks_.emplace_back("unittest", "unittest", kLocalIPv6Addr.ipaddr(), 32,
+                         rtc::ADAPTER_TYPE_UNKNOWN, field_trials_);
   networks_.back().AddIP(rtc::InterfaceAddress(
       kLocalIPv6Addr.ipaddr(), rtc::IPV6_ADDRESS_FLAG_TEMPORARY));
 

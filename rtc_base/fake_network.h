@@ -19,11 +19,13 @@
 #include "absl/memory/memory.h"
 #include "rtc_base/checks.h"
 #include "rtc_base/mdns_responder_interface.h"
+#include "rtc_base/memory/always_valid_pointer.h"
 #include "rtc_base/message_handler.h"
 #include "rtc_base/network.h"
 #include "rtc_base/socket_address.h"
 #include "rtc_base/string_encode.h"
 #include "rtc_base/thread.h"
+#include "test/scoped_key_value_config.h"
 
 namespace rtc {
 
@@ -34,7 +36,8 @@ const int kFakeIPv6NetworkPrefixLength = 64;
 class FakeNetworkManager : public NetworkManagerBase,
                            public MessageHandlerAutoCleanup {
  public:
-  FakeNetworkManager() {}
+  FakeNetworkManager(const webrtc::WebRtcKeyValueConfig* field_trials = nullptr)
+      : field_trials_(field_trials) {}
 
   struct Iface {
     SocketAddress socket_address;
@@ -127,7 +130,7 @@ class FakeNetworkManager : public NetworkManagerBase,
       IPAddress prefix = TruncateIP(it->socket_address.ipaddr(), prefix_length);
       std::unique_ptr<Network> net(new Network(
           it->socket_address.hostname(), it->socket_address.hostname(), prefix,
-          prefix_length, it->adapter_type));
+          prefix_length, it->adapter_type, *field_trials_));
       if (it->underlying_vpn_adapter_type.has_value()) {
         net->set_underlying_type_for_vpn(*it->underlying_vpn_adapter_type);
       }
@@ -151,6 +154,9 @@ class FakeNetworkManager : public NetworkManagerBase,
   static constexpr uint32_t kUpdateNetworksMessage = 1;
   static constexpr uint32_t kSignalNetworksMessage = 2;
 
+  webrtc::AlwaysValidPointer<const webrtc::WebRtcKeyValueConfig,
+                             webrtc::test::ScopedKeyValueConfig>
+      field_trials_;
   std::unique_ptr<webrtc::MdnsResponderInterface> mdns_responder_;
 };
 

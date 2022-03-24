@@ -16,6 +16,23 @@
       "message": "Seems to me this is not the preferred way to do version updates of external dependecies.\n\nMirko, can you advise on the preferred way of doing this? (I have no idea why this is in modules/third_party and not in third_party...)\n",
       "revId": "f68b5db7548bd023a0572262e7339b6e6e1dc089",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "5a4a0153_34eddbcf",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 9405
+      },
+      "writtenOn": "2022-03-24T09:45:13Z",
+      "side": 1,
+      "message": "In fact, there are several third-party sources outside //third_party.\n$ git ls-files | grep third_party/ | sed -re \u0027s:(.*\\/third_party/\\w+)\\/.*:\\1:g\u0027 | sort | uniq\ncommon_audio/third_party/ooura\ncommon_audio/third_party/spl_sqrt_floor\nexamples/androidapp/third_party/autobanh\nexamples/androidtests/third_party/.gitignore\nexamples/androidtests/third_party/README.webrtc\nexamples/objc/AppRTCMobile/third_party/SocketRocket\nmodules/third_party/fft\nmodules/third_party/g711\nmodules/third_party/g722\nmodules/third_party/portaudio\nrtc_base/third_party/base64\nrtc_base/third_party/sigslot\n",
+      "revId": "f68b5db7548bd023a0572262e7339b6e6e1dc089",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

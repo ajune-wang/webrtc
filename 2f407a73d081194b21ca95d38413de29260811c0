@@ -16,6 +16,24 @@
       "message": "I\u0027m not sure about this. It does make sense in your code, but in general if someone uses it the way other Scoped objects are used, he will get into troubles. Both GDbusProxy and GCancellable are objects that need to survive.\n\nWouldn\u0027t a unique_ptr with a custom deleter make more sense API-wise?",
       "revId": "2f407a73d081194b21ca95d38413de29260811c0",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "74646d60_95ff3109",
+        "filename": "modules/desktop_capture/linux/wayland/scoped_glib.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 67,
+      "author": {
+        "id": 18829
+      },
+      "writtenOn": "2022-03-24T13:23:50Z",
+      "side": 1,
+      "message": "I mean if unique_ptr is also defined locally inside a function scope (i.e. the way the other Scoped objects are used) then that unique_ptr will also get deleted once it goes out of scope. I used the scoper since it seemed consistent with other objects we are managing.\n\nAt any rate, this isn\u0027t a critical change and I am ok to abandon it as well.",
+      "parentUuid": "d58b11ca_83e59c4b",
+      "revId": "2f407a73d081194b21ca95d38413de29260811c0",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

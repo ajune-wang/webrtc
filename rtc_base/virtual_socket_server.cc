@@ -805,7 +805,7 @@ int VirtualSocketServer::Connect(VirtualSocket* socket,
 }
 
 bool VirtualSocketServer::Disconnect(VirtualSocket* socket) {
-  if (socket) {
+  if (socket && msg_queue_) {
     // If we simulate packets being delayed, we should simulate the
     // equivalent of a FIN being delayed as well.
     uint32_t delay = GetTransitDelay(socket);

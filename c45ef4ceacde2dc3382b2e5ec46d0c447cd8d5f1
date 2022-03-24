@@ -87,6 +87,24 @@
       "parentUuid": "5ec9598d_802883f1",
       "revId": "c45ef4ceacde2dc3382b2e5ec46d0c447cd8d5f1",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "3c13e675_93dc250b",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 4
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5963
+      },
+      "writtenOn": "2022-03-24T11:40:24Z",
+      "side": 1,
+      "message": "I have added the test for the I422Buffer as requested.\n\nFor the video frame unittest, I still need to submit another patch for adding support on chrome for th i422 buffer conversion, so I will add the test there.\n\nCould you run the tryjobs to confirm everything is still ok?",
+      "parentUuid": "1d972997_d8632408",
+      "revId": "c45ef4ceacde2dc3382b2e5ec46d0c447cd8d5f1",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

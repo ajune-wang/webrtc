@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "d8dcb684_08a94b7f",
+        "filename": ".gn",
+        "patchSetId": 2
+      },
+      "lineNbr": 31,
+      "author": {
+        "id": 5087
+      },
+      "writtenOn": "2022-03-24T12:59:25Z",
+      "side": 1,
+      "message": "crbug.com/1151236?",
+      "range": {
+        "startLine": 31,
+        "startChar": 0,
+        "endLine": 31,
+        "endChar": 20
+      },
+      "revId": "ef87f4eafd84d442997933941b91d94ea0b4a75f",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

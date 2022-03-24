@@ -16,6 +16,24 @@
       "message": "gn format added these lines.",
       "revId": "90e6e5764fbc43df267994a4d2d7580f210e7ebb",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "d1fc1944_c879ff95",
+        "filename": ".gn",
+        "patchSetId": 1
+      },
+      "lineNbr": 29,
+      "author": {
+        "id": 6192
+      },
+      "writtenOn": "2022-03-24T13:16:18Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "18c94bc2_28a248cd",
+      "revId": "90e6e5764fbc43df267994a4d2d7580f210e7ebb",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

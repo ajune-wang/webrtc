@@ -196,7 +196,8 @@ Port::~Port() {
 
   for (uint32_t i = 0; i < list.size(); i++) {
     list[i]->SignalDestroyed.disconnect(this);
-    delete list[i];
+    // delete list[i];
+    list[i]->Destroy();
   }
 }
 

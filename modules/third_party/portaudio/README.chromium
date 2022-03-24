@@ -1,8 +1,8 @@
 Name: Portaudio library for mac
 Short Name: portaudio
-URL: https://app.assembla.com/spaces/portaudio/git/source/master/src/common
+URL: https://github.com/PortAudio/portaudio/tree/master/src/common
 Version: 0
-Date: 2018-02-01
+Date: 2021-12-02
 License: Custom license
 License File: LICENSE
 Security Critical: yes

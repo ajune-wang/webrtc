@@ -319,6 +319,7 @@ Connection::Connection(Port* port,
 
 Connection::~Connection() {
   RTC_DCHECK_RUN_ON(network_thread_);
+  RTC_DCHECK(requests_.empty());
 }
 
 webrtc::TaskQueueBase* Connection::network_thread() const {
@@ -327,6 +328,7 @@ webrtc::TaskQueueBase* Connection::network_thread() const {
 
 const Candidate& Connection::local_candidate() const {
   RTC_DCHECK_RUN_ON(network_thread_);
+  RTC_DCHECK(!pending_delete_) << "Can port_ be safely used?";
   RTC_DCHECK(local_candidate_index_ < port_->Candidates().size());
   return port_->Candidates()[local_candidate_index_];
 }
@@ -517,6 +519,9 @@ void Connection::OnReadPacket(const char* data,
                               size_t size,
                               int64_t packet_time_us) {
   RTC_DCHECK_RUN_ON(network_thread_);
+  RTC_CHECK(!pending_delete_);
+  printf("[OnReadPacket] %s\n", ToString().c_str());
+
   std::unique_ptr<IceMessage> msg;
   std::string remote_ufrag;
   const rtc::SocketAddress& addr(remote_candidate_.address());
@@ -820,6 +825,9 @@ bool Connection::pruned() const {
 
 void Connection::Prune() {
   RTC_DCHECK_RUN_ON(network_thread_);
+  if (pending_delete_)
+    return;
+
   if (!pruned_ || active()) {
     RTC_LOG(LS_INFO) << ToString() << ": Connection pruned";
     pruned_ = true;
@@ -830,12 +838,19 @@ void Connection::Prune() {
 
 void Connection::Destroy() {
   RTC_DCHECK_RUN_ON(network_thread_);
-  if (pending_delete_)
+  // RTC_DCHECK(pings_since_last_response_.empty());
+
+  if (pending_delete_) {
+    RTC_DCHECK(requests_.empty());
     return;
+  }
+
+  RTC_DLOG(LS_VERBOSE) << ToString() << ": Connection destroyed";
 
   pending_delete_ = true;
 
-  RTC_DLOG(LS_VERBOSE) << ToString() << ": Connection destroyed";
+  requests_.Clear();
+  RTC_DCHECK(requests_.empty());
 
   // Fire the 'destroyed' event before deleting the object. This is done
   // intentionally to avoid a situation whereby the signal might have dangling
@@ -970,6 +985,8 @@ int64_t Connection::last_ping_sent() const {
 
 void Connection::Ping(int64_t now) {
   RTC_DCHECK_RUN_ON(network_thread_);
+  RTC_DCHECK(!pending_delete_);
+
   last_ping_sent_ = now;
   ConnectionRequest* req = new ConnectionRequest(this);
   // If not using renomination, we use "1" to mean "nominated" and "0" to mean
@@ -1183,6 +1200,7 @@ uint32_t Connection::ComputeNetworkCost() const {
 
 std::string Connection::ToString() const {
   RTC_DCHECK_RUN_ON(network_thread_);
+
   const absl::string_view CONNECT_STATE_ABBREV[2] = {
       "-",  // not connected (false)
       "C",  // connected (true)
@@ -1207,25 +1225,35 @@ std::string Connection::ToString() const {
       "-",  // candidate pair not selected (false)
       "S",  // selected (true)
   };
-  const Candidate& local = local_candidate();
-  const Candidate& remote = remote_candidate();
+
   rtc::StringBuilder ss;
-  ss << "Conn[" << ToDebugId() << ":" << port_->content_name() << ":"
-     << port_->Network()->ToString() << ":" << local.id() << ":"
-     << local.component() << ":" << local.generation() << ":" << local.type()
-     << ":" << local.protocol() << ":" << local.address().ToSensitiveString()
-     << "->" << remote.id() << ":" << remote.component() << ":"
-     << remote.priority() << ":" << remote.type() << ":" << remote.protocol()
-     << ":" << remote.address().ToSensitiveString() << "|"
-     << CONNECT_STATE_ABBREV[connected()] << RECEIVE_STATE_ABBREV[receiving()]
-     << WRITE_STATE_ABBREV[write_state()] << ICESTATE[static_cast<int>(state())]
-     << "|" << SELECTED_STATE_ABBREV[selected_] << "|" << remote_nomination()
-     << "|" << nomination_ << "|" << priority() << "|";
-  if (rtt_ < DEFAULT_RTT) {
-    ss << rtt_ << "]";
+  // Avoid touching state, especially that depends on `port_` if deletion is in
+  // progress.
+  if (pending_delete_) {
+    RTC_DLOG(LS_ERROR) << "Conn[" << ToDebugId() << "] is being deleted.";
+    ss << "Conn[" << ToDebugId() << ":deleted]";
   } else {
-    ss << "-]";
+    const Candidate& local = local_candidate();
+    const Candidate& remote = remote_candidate();
+    ss << "Conn[" << ToDebugId() << ":" << port_->content_name() << ":"
+       << port_->Network()->ToString() << ":" << local.id() << ":"
+       << local.component() << ":" << local.generation() << ":" << local.type()
+       << ":" << local.protocol() << ":" << local.address().ToSensitiveString()
+       << "->" << remote.id() << ":" << remote.component() << ":"
+       << remote.priority() << ":" << remote.type() << ":" << remote.protocol()
+       << ":" << remote.address().ToSensitiveString() << "|"
+       << CONNECT_STATE_ABBREV[connected()] << RECEIVE_STATE_ABBREV[receiving()]
+       << WRITE_STATE_ABBREV[write_state()]
+       << ICESTATE[static_cast<int>(state())] << "|"
+       << SELECTED_STATE_ABBREV[selected_] << "|" << remote_nomination() << "|"
+       << nomination_ << "|" << priority() << "|";
+    if (rtt_ < DEFAULT_RTT) {
+      ss << rtt_ << "]";
+    } else {
+      ss << "-]";
+    }
   }
+
   return ss.Release();
 }
 

@@ -107,15 +107,21 @@ void StunRequestManager::Clear() {
     // from `requests_`.
     delete requests[i];
   }
+
+  RTC_DCHECK(requests_.empty());
 }
 
 bool StunRequestManager::CheckResponse(StunMessage* msg) {
+  printf("[CheckResponse]: begin\n");
+
   RequestMap::iterator iter = requests_.find(msg->transaction_id());
   if (iter == requests_.end()) {
     // TODO(pthatcher): Log unknown responses without being too spammy
     // in the logs.
     return false;
   }
+
+  printf("[CheckResponse]: found transaction\n");
 
   StunRequest* request = iter->second;
 
@@ -125,12 +131,17 @@ bool StunRequestManager::CheckResponse(StunMessage* msg) {
   // Complain, and then don't check.
   bool skip_integrity_checking = false;
   if (request->msg()->integrity() == StunMessage::IntegrityStatus::kNotSet) {
+    printf("[CheckResponse]: skip_integrity_checking=true\n");
     skip_integrity_checking = true;
   } else {
+    printf("[CheckResponse]: ValidateMessageIntegrity\n");
     msg->ValidateMessageIntegrity(request->msg()->password());
   }
 
+  printf("[CheckResponse]: Checking GetNonComprehendedAttributes\n");
+
   if (!msg->GetNonComprehendedAttributes().empty()) {
+    printf("[CheckResponse]: Discarding response due to\n");
     // If a response contains unknown comprehension-required attributes, it's
     // simply discarded and the transaction is considered failed. See RFC5389
     // sections 7.3.3 and 7.3.4.
@@ -139,19 +150,23 @@ bool StunRequestManager::CheckResponse(StunMessage* msg) {
     delete request;
     return false;
   } else if (msg->type() == GetStunSuccessResponseType(request->type())) {
+    printf("[CheckResponse]: Checking IntegrityOk\n");
     if (!msg->IntegrityOk() && !skip_integrity_checking) {
       return false;
     }
     request->OnResponse(msg);
   } else if (msg->type() == GetStunErrorResponseType(request->type())) {
+    printf("[CheckResponse]: calling OnErrorResponse\n");
     request->OnErrorResponse(msg);
   } else {
+    printf("[CheckResponse]: wrong type\n");
     RTC_LOG(LS_ERROR) << "Received response with wrong type: " << msg->type()
                       << " (expecting "
                       << GetStunSuccessResponseType(request->type()) << ")";
     return false;
   }
 
+  printf("[CheckResponse]: deleting request\n");
   delete request;
   return true;
 }

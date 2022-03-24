@@ -1,0 +1,44 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "42ff94fa_e02fd911",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2022-03-24T14:05:40Z",
+      "side": 1,
+      "message": "PTAL. Some followup steps:\n\n1. Delete old signatures of GetNetworks and GetAnyAddressNetworks.\n2. Use unique_ptr everywhere ownership is held or passed.\n3. Delete the NetworkList alias.",
+      "revId": "f893080002adc185bdd1bdb8382412c382b6f5fb",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "4a5848b7_573ab22e",
+        "filename": "rtc_base/network.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 386,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2022-03-24T14:05:40Z",
+      "side": 1,
+      "message": "This is connected in the Port constructor, which gets a const Network* with this cl. I\u0027m not fond of mutable, but it makes some sense to me to allow adding subscribers to a callback on a const object.",
+      "range": {
+        "startLine": 386,
+        "startChar": 2,
+        "endLine": 386,
+        "endChar": 9
+      },
+      "revId": "f893080002adc185bdd1bdb8382412c382b6f5fb",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

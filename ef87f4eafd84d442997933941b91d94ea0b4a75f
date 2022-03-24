@@ -22,6 +22,30 @@
       },
       "revId": "ef87f4eafd84d442997933941b91d94ea0b4a75f",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "847498f1_ada46def",
+        "filename": ".gn",
+        "patchSetId": 2
+      },
+      "lineNbr": 31,
+      "author": {
+        "id": 5150
+      },
+      "writtenOn": "2022-03-24T13:07:35Z",
+      "side": 1,
+      "message": "Could you also add a comment to the chromium bug that this breaks webrtc?",
+      "parentUuid": "d8dcb684_08a94b7f",
+      "range": {
+        "startLine": 31,
+        "startChar": 0,
+        "endLine": 31,
+        "endChar": 20
+      },
+      "revId": "ef87f4eafd84d442997933941b91d94ea0b4a75f",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

@@ -59,6 +59,10 @@ template <>
 Scoped<GDBusMessage>::~Scoped();
 template <>
 Scoped<GUnixFDList>::~Scoped();
+template <>
+Scoped<GDBusProxy>::~Scoped();
+template <>
+Scoped<GCancellable>::~Scoped();
 
 }  // namespace webrtc
 

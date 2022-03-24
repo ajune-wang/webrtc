@@ -60,11 +60,7 @@ ScreenCastPortal::ScreenCastPortal(
 
 ScreenCastPortal::~ScreenCastPortal() {
   UnsubscribeSignalHandlers();
-  TearDownSession(std::move(session_handle_), proxy_, cancellable_,
-                  connection_);
-  cancellable_ = nullptr;
-  proxy_ = nullptr;
-
+  TearDownSession(std::move(session_handle_), connection_);
   if (pw_fd_ != -1) {
     close(pw_fd_);
   }
@@ -93,7 +89,7 @@ void ScreenCastPortal::SetSessionDetails(
     const xdg_portal::SessionDetails& session_details) {
   if (session_details.proxy) {
     proxy_ = session_details.proxy;
-    connection_ = g_dbus_proxy_get_connection(proxy_);
+    connection_ = g_dbus_proxy_get_connection(proxy_.get());
   }
   if (session_details.cancellable) {
     cancellable_ = session_details.cancellable;
@@ -109,7 +105,7 @@ void ScreenCastPortal::SetSessionDetails(
 void ScreenCastPortal::Start() {
   cancellable_ = g_cancellable_new();
   RequestSessionProxy(kScreenCastInterfaceName, proxy_request_response_handler_,
-                      cancellable_, this);
+                      cancellable_.get(), this);
 }
 
 xdg_portal::SessionDetails ScreenCastPortal::GetSessionDetails() {
@@ -130,10 +126,11 @@ void ScreenCastPortal::OnProxyRequested(GObject* gobject,
 
 void ScreenCastPortal::SessionRequest(GDBusProxy* proxy) {
   proxy_ = proxy;
-  connection_ = g_dbus_proxy_get_connection(proxy_);
-  SetupSessionRequestHandlers(
-      "webrtc", OnSessionRequested, OnSessionRequestResponseSignal, connection_,
-      proxy_, cancellable_, portal_handle_, session_request_signal_id_, this);
+  connection_ = g_dbus_proxy_get_connection(proxy_.get());
+  SetupSessionRequestHandlers("webrtc", OnSessionRequested,
+                              OnSessionRequestResponseSignal, connection_,
+                              proxy_.get(), cancellable_.get(), portal_handle_,
+                              session_request_signal_id_, this);
 }
 
 // static
@@ -196,7 +193,7 @@ void ScreenCastPortal::SourcesRequest() {
                         g_variant_new_boolean(false));
 
   Scoped<GVariant> variant(
-      g_dbus_proxy_get_cached_property(proxy_, "AvailableCursorModes"));
+      g_dbus_proxy_get_cached_property(proxy_.get(), "AvailableCursorModes"));
   if (variant.get()) {
     uint32_t modes = 0;
     g_variant_get(variant.get(), "u", &modes);
@@ -220,9 +217,9 @@ void ScreenCastPortal::SourcesRequest() {
 
   RTC_LOG(LS_INFO) << "Requesting sources from the screen cast session.";
   g_dbus_proxy_call(
-      proxy_, "SelectSources",
+      proxy_.get(), "SelectSources",
       g_variant_new("(oa{sv})", session_handle_.c_str(), &builder),
-      G_DBUS_CALL_FLAGS_NONE, /*timeout=*/-1, cancellable_,
+      G_DBUS_CALL_FLAGS_NONE, /*timeout=*/-1, cancellable_.get(),
       reinterpret_cast<GAsyncReadyCallback>(OnSourcesRequested), this);
 }
 
@@ -290,8 +287,9 @@ void ScreenCastPortal::OnSourcesRequestResponseSignal(
 
 void ScreenCastPortal::StartRequest() {
   StartSessionRequest("webrtc", session_handle_, OnStartRequestResponseSignal,
-                      OnStartRequested, proxy_, connection_, cancellable_,
-                      start_request_signal_id_, start_handle_, this);
+                      OnStartRequested, proxy_.get(), connection_,
+                      cancellable_.get(), start_request_signal_id_,
+                      start_handle_, this);
 }
 
 // static
@@ -365,9 +363,10 @@ void ScreenCastPortal::OpenPipeWireRemote() {
   RTC_LOG(LS_INFO) << "Opening the PipeWire remote.";
 
   g_dbus_proxy_call_with_unix_fd_list(
-      proxy_, "OpenPipeWireRemote",
+      proxy_.get(), "OpenPipeWireRemote",
       g_variant_new("(oa{sv})", session_handle_.c_str(), &builder),
-      G_DBUS_CALL_FLAGS_NONE, /*timeout=*/-1, /*fd_list=*/nullptr, cancellable_,
+      G_DBUS_CALL_FLAGS_NONE, /*timeout=*/-1, /*fd_list=*/nullptr,
+      cancellable_.get(),
       reinterpret_cast<GAsyncReadyCallback>(OnOpenPipeWireRemoteRequested),
       this);
 }

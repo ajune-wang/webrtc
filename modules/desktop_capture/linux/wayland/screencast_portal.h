@@ -124,8 +124,8 @@ class ScreenCastPortal : public xdg_portal::ScreenCapturePortalInterface {
   gpointer user_data_;
 
   GDBusConnection* connection_ = nullptr;
-  GDBusProxy* proxy_ = nullptr;
-  GCancellable* cancellable_ = nullptr;
+  Scoped<GDBusProxy> proxy_;
+  Scoped<GCancellable> cancellable_;
   std::string portal_handle_;
   std::string session_handle_;
   std::string sources_handle_;

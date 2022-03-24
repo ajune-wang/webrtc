@@ -116,10 +116,7 @@ void StartSessionRequest(
     gpointer user_data);
 
 // Tears down the portal session and cleans up related objects.
-void TearDownSession(std::string session_handle,
-                     GDBusProxy* proxy,
-                     GCancellable* cancellable,
-                     GDBusConnection* connection);
+void TearDownSession(std::string session_handle, GDBusConnection* connection);
 
 template <typename T>
 void RequestSessionUsingProxy(T* portal,

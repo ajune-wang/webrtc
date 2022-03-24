@@ -54,4 +54,19 @@ Scoped<GUnixFDList>::~Scoped() {
   }
 }
 
+template <>
+Scoped<GDBusProxy>::~Scoped() {
+  if (ptr_) {
+    g_object_unref(ptr_);
+  }
+}
+
+template <>
+Scoped<GCancellable>::~Scoped() {
+  if (ptr_) {
+    g_cancellable_cancel(ptr_);
+    g_object_unref(ptr_);
+  }
+}
+
 }  // namespace webrtc

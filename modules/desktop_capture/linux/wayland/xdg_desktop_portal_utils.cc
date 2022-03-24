@@ -136,10 +136,7 @@ void StartSessionRequest(
       user_data);
 }
 
-void TearDownSession(std::string session_handle,
-                     GDBusProxy* proxy,
-                     GCancellable* cancellable,
-                     GDBusConnection* connection) {
+void TearDownSession(std::string session_handle, GDBusConnection* connection) {
   if (!session_handle.empty()) {
     Scoped<GDBusMessage> message(
         g_dbus_message_new_method_call(kDesktopBusName, session_handle.c_str(),
@@ -153,15 +150,6 @@ void TearDownSession(std::string session_handle,
         RTC_LOG(LS_ERROR) << "Failed to close the session: " << error->message;
       }
     }
-  }
-
-  if (cancellable) {
-    g_cancellable_cancel(cancellable);
-    g_object_unref(cancellable);
-  }
-
-  if (proxy) {
-    g_object_unref(proxy);
   }
 }
 

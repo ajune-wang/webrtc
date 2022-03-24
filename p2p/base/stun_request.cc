@@ -107,15 +107,21 @@ void StunRequestManager::Clear() {
     // from `requests_`.
     delete requests[i];
   }
+
+  RTC_DCHECK(requests_.empty());
 }
 
 bool StunRequestManager::CheckResponse(StunMessage* msg) {
+  RTC_LOG(LS_ERROR) << "[CheckResponse]: begin";
+
   RequestMap::iterator iter = requests_.find(msg->transaction_id());
   if (iter == requests_.end()) {
     // TODO(pthatcher): Log unknown responses without being too spammy
     // in the logs.
     return false;
   }
+
+  RTC_LOG(LS_ERROR) << "[CheckResponse]: found transaction.";
 
   StunRequest* request = iter->second;
 
@@ -125,10 +131,14 @@ bool StunRequestManager::CheckResponse(StunMessage* msg) {
   // Complain, and then don't check.
   bool skip_integrity_checking = false;
   if (request->msg()->integrity() == StunMessage::IntegrityStatus::kNotSet) {
+    RTC_LOG(LS_ERROR) << "[CheckResponse]: skip_integrity_checking=true";
     skip_integrity_checking = true;
   } else {
+    RTC_LOG(LS_ERROR) << "[CheckResponse]: ValidateMessageIntegrity";
     msg->ValidateMessageIntegrity(request->msg()->password());
   }
+
+  RTC_LOG(LS_ERROR) << "[CheckResponse]: Checking GetNonComprehendedAttributes";
 
   if (!msg->GetNonComprehendedAttributes().empty()) {
     // If a response contains unknown comprehension-required attributes, it's
@@ -139,11 +149,13 @@ bool StunRequestManager::CheckResponse(StunMessage* msg) {
     delete request;
     return false;
   } else if (msg->type() == GetStunSuccessResponseType(request->type())) {
+    RTC_LOG(LS_ERROR) << "[CheckResponse]: Checking IntegrityOk";
     if (!msg->IntegrityOk() && !skip_integrity_checking) {
       return false;
     }
     request->OnResponse(msg);
   } else if (msg->type() == GetStunErrorResponseType(request->type())) {
+    RTC_LOG(LS_ERROR) << "[CheckResponse]: calling OnErrorResponse";
     request->OnErrorResponse(msg);
   } else {
     RTC_LOG(LS_ERROR) << "Received response with wrong type: " << msg->type()
@@ -152,6 +164,7 @@ bool StunRequestManager::CheckResponse(StunMessage* msg) {
     return false;
   }
 
+  RTC_LOG(LS_ERROR) << "[CheckResponse]: deleting request";
   delete request;
   return true;
 }

@@ -105,6 +105,24 @@
       "parentUuid": "1d972997_d8632408",
       "revId": "c45ef4ceacde2dc3382b2e5ec46d0c447cd8d5f1",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "66d94ea0_cf2e17df",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 4
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2022-03-24T13:05:53Z",
+      "side": 1,
+      "message": "Running tests. I think it would be good to add tests also in common_video/video_frame_unittest.cc, to get coverage for the crop and scale methods.",
+      "parentUuid": "3c13e675_93dc250b",
+      "revId": "c45ef4ceacde2dc3382b2e5ec46d0c447cd8d5f1",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

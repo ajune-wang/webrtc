@@ -20,6 +20,7 @@
 #include "p2p/base/udp_port.h"
 #include "rtc_base/net_helpers.h"
 #include "rtc_base/thread.h"
+#include "test/scoped_key_value_config.h"
 
 namespace rtc {
 class SocketFactory;
@@ -88,11 +89,15 @@ class FakePortAllocatorSession : public PortAllocatorSession {
         ipv4_network_("network",
                       "unittest",
                       rtc::IPAddress(INADDR_LOOPBACK),
-                      32),
+                      32,
+                      rtc::ADAPTER_TYPE_UNKNOWN,
+                      field_trials_),
         ipv6_network_("network",
                       "unittest",
                       rtc::IPAddress(in6addr_loopback),
-                      64),
+                      64,
+                      rtc::ADAPTER_TYPE_UNKNOWN,
+                      field_trials_),
         port_(),
         port_config_count_(0),
         stun_servers_(allocator->stun_servers()),
@@ -185,6 +190,7 @@ class FakePortAllocatorSession : public PortAllocatorSession {
     port_.release();
   }
 
+  webrtc::test::ScopedKeyValueConfig field_trials_;
   rtc::Thread* network_thread_;
   rtc::PacketSocketFactory* factory_;
   rtc::Network ipv4_network_;

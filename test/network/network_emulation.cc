@@ -460,7 +460,8 @@ EmulatedEndpointImpl::EmulatedEndpointImpl(const Options& options,
       task_queue_(task_queue),
       router_(task_queue_),
       next_port_(kFirstEphemeralPort),
-      stats_builder_(options_.ip) {
+      stats_builder_(options_.ip),
+      field_trials_(nullptr) {
   constexpr int kIPv4NetworkPrefixLength = 24;
   constexpr int kIPv6NetworkPrefixLength = 64;
 
@@ -473,7 +474,7 @@ EmulatedEndpointImpl::EmulatedEndpointImpl(const Options& options,
   rtc::IPAddress prefix = TruncateIP(options_.ip, prefix_length);
   network_ = std::make_unique<rtc::Network>(
       options_.ip.ToString(), "Endpoint id=" + std::to_string(options_.id),
-      prefix, prefix_length, options_.type);
+      prefix, prefix_length, options_.type, *field_trials_);
   network_->AddIP(options_.ip);
 
   enabled_state_checker_.Detach();

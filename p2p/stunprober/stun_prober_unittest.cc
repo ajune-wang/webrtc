@@ -21,6 +21,7 @@
 #include "rtc_base/ssl_adapter.h"
 #include "rtc_base/virtual_socket_server.h"
 #include "test/gtest.h"
+#include "test/scoped_key_value_config.h"
 
 using stunprober::AsyncCallback;
 using stunprober::StunProber;
@@ -75,7 +76,8 @@ class StunProberTest : public ::testing::Test {
     addrs.push_back(kFailedStunAddr);
 
     rtc::Network ipv4_network1("test_eth0", "Test Network Adapter 1",
-                               rtc::IPAddress(0x12345600U), 24);
+                               rtc::IPAddress(0x12345600U), 24,
+                               rtc::ADAPTER_TYPE_UNKNOWN, field_trials_);
     ipv4_network1.AddIP(rtc::IPAddress(0x12345678));
     rtc::NetworkManager::NetworkList networks;
     networks.push_back(&ipv4_network1);
@@ -115,6 +117,7 @@ class StunProberTest : public ::testing::Test {
     stopped_ = true;
   }
 
+  webrtc::test::ScopedKeyValueConfig field_trials_;
   std::unique_ptr<rtc::VirtualSocketServer> ss_;
   rtc::AutoSocketServerThread main_;
   std::unique_ptr<StunProber> prober;

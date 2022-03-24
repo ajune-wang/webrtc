@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "a31b0abf_ead3c006",
+        "filename": "p2p/base/connection.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 883,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2022-03-24T13:02:20Z",
+      "side": 1,
+      "message": "Does it make sense to still update the state? It\u0027s not clear to me what it means if Connection methods are called after Destroy, and if any such calls should be considered bugs?\n\nFor this code path, it looks like the only access to the port_ pointer is for log messages using ToString(). Maybe it would be better to update ToString to check pending_delete_, and return a fix string, say, \"half destroyed connection\", in that case?",
+      "range": {
+        "startLine": 882,
+        "startChar": 0,
+        "endLine": 883,
+        "endChar": 10
+      },
+      "revId": "c0455e99e53f4c35f41b6f427665c7f67b24501c",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

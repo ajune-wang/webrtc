@@ -24,6 +24,30 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "cad4ee78_7321073b",
+        "filename": "rtc_base/file_rotating_stream_unittest.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 58,
+      "author": {
+        "id": 10107
+      },
+      "writtenOn": "2022-03-24T21:03:59Z",
+      "side": 1,
+      "message": "Unfortunately that doesn\u0027t work. My reading of the description in your link is that StringViewLike needs to be able to be converted to std::string_view, which absl::string_view cannot do.",
+      "parentUuid": "f14ebdfc_1d8f0e89",
+      "range": {
+        "startLine": 58,
+        "startChar": 23,
+        "endLine": 58,
+        "endChar": 34
+      },
+      "revId": "41e1977619612479eb8a0f803064324ccff65621",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "0bb30605_67d3b8c2",
@@ -37,6 +61,30 @@
       "writtenOn": "2022-03-22T13:24:59Z",
       "side": 1,
       "message": "Same here.",
+      "range": {
+        "startLine": 266,
+        "startChar": 21,
+        "endLine": 266,
+        "endChar": 32
+      },
+      "revId": "41e1977619612479eb8a0f803064324ccff65621",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "4e64ca64_e4943742",
+        "filename": "rtc_base/file_rotating_stream_unittest.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 266,
+      "author": {
+        "id": 10107
+      },
+      "writtenOn": "2022-03-24T21:03:59Z",
+      "side": 1,
+      "message": "Ditto.",
+      "parentUuid": "0bb30605_67d3b8c2",
       "range": {
         "startLine": 266,
         "startChar": 21,
@@ -72,6 +120,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "82caf9ac_9e948e3a",
+        "filename": "test/testsupport/file_utils.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 71,
+      "author": {
+        "id": 10107
+      },
+      "writtenOn": "2022-03-24T21:03:59Z",
+      "side": 1,
+      "message": "I haven\u0027t made up my mind yet as to when we should prefer returning a string_view over a string. I think the obvious case is when you return a std::string\u0026, in that case returning a string_view doesn\u0027t alter any lifetime guarantees. But for functions that return just a std::string, I\u0027m not sure it is worth the cognitive effort to return a string_view when the caller has to figure out what the lifetime guarantees are. Also, you\u0027re locking yourself into an interface with possibly overly-restrictive guarantees.\n\nSo I think for now, I would prefer to just keep returning a std::string in all simple cases, unless there is a specific performance need. I\u0027ll be happy to bring up the discussion later when I\u0027m ready to tackle return values. wdyt?",
+      "parentUuid": "dd1e9dcd_903bec3b",
+      "range": {
+        "startLine": 71,
+        "startChar": 0,
+        "endLine": 71,
+        "endChar": 11
+      },
+      "revId": "41e1977619612479eb8a0f803064324ccff65621",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "ee854719_c5a0952e",
         "filename": "test/testsupport/file_utils.cc",
         "patchSetId": 3
@@ -83,6 +155,30 @@
       "writtenOn": "2022-03-22T13:24:59Z",
       "side": 1,
       "message": "Migrate to string builder?",
+      "range": {
+        "startLine": 116,
+        "startChar": 0,
+        "endLine": 116,
+        "endChar": 72
+      },
+      "revId": "41e1977619612479eb8a0f803064324ccff65621",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "dea51b6a_c70f68e2",
+        "filename": "test/testsupport/file_utils.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 116,
+      "author": {
+        "id": 10107
+      },
+      "writtenOn": "2022-03-24T21:03:59Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "ee854719_c5a0952e",
       "range": {
         "startLine": 116,
         "startChar": 0,
@@ -116,6 +212,30 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "d4e48848_16645311",
+        "filename": "test/testsupport/file_utils.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 249,
+      "author": {
+        "id": 10107
+      },
+      "writtenOn": "2022-03-24T21:03:59Z",
+      "side": 1,
+      "message": "Hmm... no idea. Code is from 2011. But if you want me to make a change here let me know and I\u0027ll do it in a separate CL (since this change is unrelated to the current CL).",
+      "parentUuid": "cba6263b_71da784f",
+      "range": {
+        "startLine": 241,
+        "startChar": 0,
+        "endLine": 249,
+        "endChar": 1
+      },
+      "revId": "41e1977619612479eb8a0f803064324ccff65621",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "6bc23a6d_7164e372",
@@ -129,6 +249,30 @@
       "writtenOn": "2022-03-22T13:24:59Z",
       "side": 1,
       "message": "No longer NUL-terminated.",
+      "range": {
+        "startLine": 26,
+        "startChar": 46,
+        "endLine": 26,
+        "endChar": 68
+      },
+      "revId": "41e1977619612479eb8a0f803064324ccff65621",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "606d3b98_02db17a3",
+        "filename": "test/testsupport/file_utils.h",
+        "patchSetId": 3
+      },
+      "lineNbr": 26,
+      "author": {
+        "id": 10107
+      },
+      "writtenOn": "2022-03-24T21:03:59Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "6bc23a6d_7164e372",
       "range": {
         "startLine": 26,
         "startChar": 46,

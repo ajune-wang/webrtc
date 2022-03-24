@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "1c22fab0_75e7cbae",
+        "filename": "common_video/video_frame_unittest.cc",
+        "patchSetId": 6
+      },
+      "lineNbr": 115,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2022-03-24T15:00:23Z",
+      "side": 1,
+      "message": "Please take this out into a helper function, to not repeat it. E.g., something like\n\nnamespace {\nstruct SubSampling {\n  int x;\n  int y;\n};\n\nSubSampling SubSamplingForType(VideoFrameBuffer::Type type) {\n{\n  switch (type) {\n    case Foo: return {.x \u003d 1, .y \u003d 2};\n    ...\n  }\n}\n}  // namespace",
+      "range": {
+        "startLine": 90,
+        "startChar": 0,
+        "endLine": 115,
+        "endChar": 3
+      },
+      "revId": "0a2f37baed137b3ee2014984aa2b6d3cee387d76",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

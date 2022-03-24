@@ -107,15 +107,21 @@ void StunRequestManager::Clear() {
     // from `requests_`.
     delete requests[i];
   }
+
+  RTC_DCHECK(requests_.empty());
 }
 
 bool StunRequestManager::CheckResponse(StunMessage* msg) {
+  fprintf(stderr, "[CheckResponse]: begin\n");
+
   RequestMap::iterator iter = requests_.find(msg->transaction_id());
   if (iter == requests_.end()) {
     // TODO(pthatcher): Log unknown responses without being too spammy
     // in the logs.
     return false;
   }
+
+  fprintf(stderr, "[CheckResponse]: found transaction\n");
 
   StunRequest* request = iter->second;
 
@@ -125,12 +131,17 @@ bool StunRequestManager::CheckResponse(StunMessage* msg) {
   // Complain, and then don't check.
   bool skip_integrity_checking = false;
   if (request->msg()->integrity() == StunMessage::IntegrityStatus::kNotSet) {
+    fprintf(stderr, "[CheckResponse]: skip_integrity_checking=true\n");
     skip_integrity_checking = true;
   } else {
+    fprintf(stderr, "[CheckResponse]: ValidateMessageIntegrity\n");
     msg->ValidateMessageIntegrity(request->msg()->password());
   }
 
+  fprintf(stderr, "[CheckResponse]: Checking GetNonComprehendedAttributes\n");
+
   if (!msg->GetNonComprehendedAttributes().empty()) {
+    fprintf(stderr, "[CheckResponse]: Discarding response due to\n");
     // If a response contains unknown comprehension-required attributes, it's
     // simply discarded and the transaction is considered failed. See RFC5389
     // sections 7.3.3 and 7.3.4.
@@ -139,19 +150,23 @@ bool StunRequestManager::CheckResponse(StunMessage* msg) {
     delete request;
     return false;
   } else if (msg->type() == GetStunSuccessResponseType(request->type())) {
+    fprintf(stderr, "[CheckResponse]: Checking IntegrityOk\n");
     if (!msg->IntegrityOk() && !skip_integrity_checking) {
       return false;
     }
     request->OnResponse(msg);
   } else if (msg->type() == GetStunErrorResponseType(request->type())) {
+    fprintf(stderr, "[CheckResponse]: calling OnErrorResponse\n");
     request->OnErrorResponse(msg);
   } else {
+    fprintf(stderr, "[CheckResponse]: wrong type\n");
     RTC_LOG(LS_ERROR) << "Received response with wrong type: " << msg->type()
                       << " (expecting "
                       << GetStunSuccessResponseType(request->type()) << ")";
     return false;
   }
 
+  fprintf(stderr, "[CheckResponse]: deleting request\n");
   delete request;
   return true;
 }
@@ -202,11 +217,16 @@ StunRequest::StunRequest(StunMessage* request)
 
 StunRequest::~StunRequest() {
   RTC_DCHECK(manager_ != NULL);
+  fprintf(stderr, "[StunRequest]: dtor\n");
   if (manager_) {
+    fprintf(stderr, "[StunRequest]: dtor - Remove\n");
     manager_->Remove(this);
+    fprintf(stderr, "[StunRequest]: dtor - Clear\n");
     manager_->thread_->Clear(this);
   }
+  fprintf(stderr, "[StunRequest]: dtor - deleting msg_\n");
   delete msg_;
+  fprintf(stderr, "[StunRequest]: dtor - done\n");
 }
 
 void StunRequest::Construct() {

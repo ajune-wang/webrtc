@@ -144,6 +144,15 @@ class RTC_EXPORT NetworkManager : public DefaultLocalAddressProvider,
   virtual void StartUpdating() = 0;
   virtual void StopUpdating() = 0;
 
+  virtual std::vector<const Network*> GetNetworks() const {
+    std::vector<Network*> networks;
+    std::vector<const Network*> const_networks;
+    GetNetworks(&networks);
+    const_networks.insert(const_networks.begin(), networks.begin(),
+                          networks.end());
+    return const_networks;
+  }
+
   // Returns the current list of networks available on this machine.
   // StartUpdating() must be called before this method is called.
   // It makes sure that repeated calls return the same object for a
@@ -153,6 +162,15 @@ class RTC_EXPORT NetworkManager : public DefaultLocalAddressProvider,
 
   // Returns the current permission state of GetNetworks().
   virtual EnumerationPermission enumeration_permission() const;
+
+  virtual std::vector<const Network*> GetAnyAddressNetworks() {
+    std::vector<Network*> networks;
+    std::vector<const Network*> const_networks;
+    GetAnyAddressNetworks(&networks);
+    const_networks.insert(const_networks.begin(), networks.begin(),
+                          networks.end());
+    return const_networks;
+  }
 
   // "AnyAddressNetwork" is a network which only contains single "any address"
   // IP address.  (i.e. INADDR_ANY for IPv4 or in6addr_any for IPv6). This is
@@ -365,12 +383,12 @@ class RTC_EXPORT Network {
   ~Network();
 
   // This signal is fired whenever type() or underlying_type_for_vpn() changes.
-  sigslot::signal1<const Network*> SignalTypeChanged;
+  mutable sigslot::signal1<const Network*> SignalTypeChanged;
 
   // This signal is fired whenever network preference changes.
   sigslot::signal1<const Network*> SignalNetworkPreferenceChanged;
 
-  const DefaultLocalAddressProvider* default_local_address_provider() {
+  const DefaultLocalAddressProvider* default_local_address_provider() const {
     return default_local_address_provider_;
   }
   void set_default_local_address_provider(

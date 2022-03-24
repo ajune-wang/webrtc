@@ -107,6 +107,8 @@ void StunRequestManager::Clear() {
     // from `requests_`.
     delete requests[i];
   }
+
+  RTC_DCHECK(requests_.empty());
 }
 
 bool StunRequestManager::CheckResponse(StunMessage* msg) {

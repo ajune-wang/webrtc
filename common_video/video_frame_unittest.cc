@@ -15,6 +15,7 @@
 
 #include "api/video/i010_buffer.h"
 #include "api/video/i420_buffer.h"
+#include "api/video/i422_buffer.h"
 #include "api/video/i444_buffer.h"
 #include "api/video/nv12_buffer.h"
 #include "rtc_base/time_utils.h"
@@ -86,7 +87,32 @@ void CheckCrop(const T& frame,
                double rel_height) {
   int width = frame.width();
   int height = frame.height();
-  int plane_divider = frame.type() == VideoFrameBuffer::Type::kI444 ? 1 : 2;
+  int plane_divider_x = 1;
+  int plane_divider_y = 1;
+  switch (frame.type()) {
+    case VideoFrameBuffer::Type::kI420:
+      plane_divider_x = 2;
+      plane_divider_y = 2;
+      break;
+    case VideoFrameBuffer::Type::kI420A:
+      plane_divider_x = 2;
+      plane_divider_y = 2;
+      break;
+    case VideoFrameBuffer::Type::kI422:
+      plane_divider_x = 2;
+      plane_divider_y = 1;
+      break;
+    case VideoFrameBuffer::Type::kI444:
+      plane_divider_x = 1;
+      plane_divider_y = 1;
+      break;
+    case VideoFrameBuffer::Type::kI010:
+      plane_divider_x = 2;
+      plane_divider_y = 2;
+      break;
+    default:
+      FAIL();
+  }
 
   // Check that pixel values in the corners match the gradient used
   // for initialization.
@@ -102,12 +128,12 @@ void CheckCrop(const T& frame,
 
       EXPECT_NEAR(frame.DataY()[x + y * frame.StrideY()] / 256.0,
                   (orig_x + orig_y) / 2, 0.02);
-      EXPECT_NEAR(frame.DataU()[x / plane_divider +
-                                (y / plane_divider) * frame.StrideU()] /
+      EXPECT_NEAR(frame.DataU()[x / plane_divider_x +
+                                (y / plane_divider_y) * frame.StrideU()] /
                       256.0,
                   orig_x, 0.02);
-      EXPECT_NEAR(frame.DataV()[x / plane_divider +
-                                (y / plane_divider) * frame.StrideV()] /
+      EXPECT_NEAR(frame.DataV()[x / plane_divider_x +
+                                (y / plane_divider_y) * frame.StrideV()] /
                       256.0,
                   orig_y, 0.02);
     }
@@ -141,18 +167,44 @@ void CheckRotate(int width,
   } colors[] = {{0, 0, 0}, {127, 255, 0}, {255, 255, 255}, {127, 0, 255}};
   int corner_offset = static_cast<int>(rotation) / 90;
 
-  int plane_divider = rotated.type() == VideoFrameBuffer::Type::kI444 ? 1 : 2;
+  int plane_divider_x = 1;
+  int plane_divider_y = 1;
+  switch (rotated.type()) {
+    case VideoFrameBuffer::Type::kI420:
+      plane_divider_x = 2;
+      plane_divider_y = 2;
+      break;
+    case VideoFrameBuffer::Type::kI420A:
+      plane_divider_x = 2;
+      plane_divider_y = 2;
+      break;
+    case VideoFrameBuffer::Type::kI422:
+      plane_divider_x = 2;
+      plane_divider_y = 1;
+      break;
+    case VideoFrameBuffer::Type::kI444:
+      plane_divider_x = 1;
+      plane_divider_y = 1;
+      break;
+    case VideoFrameBuffer::Type::kI010:
+      plane_divider_x = 2;
+      plane_divider_y = 2;
+      break;
+    default:
+      FAIL();
+  }
+
   for (int i = 0; i < 4; i++) {
     int j = (i + corner_offset) % 4;
     int x = corners[j].x * (rotated_width - 1);
     int y = corners[j].y * (rotated_height - 1);
     EXPECT_EQ(colors[i].y, rotated.DataY()[x + y * rotated.StrideY()]);
     EXPECT_EQ(colors[i].u,
-              rotated.DataU()[(x / plane_divider) +
-                              (y / plane_divider) * rotated.StrideU()]);
+              rotated.DataU()[(x / plane_divider_x) +
+                              (y / plane_divider_y) * rotated.StrideU()]);
     EXPECT_EQ(colors[i].v,
-              rotated.DataV()[(x / plane_divider) +
-                              (y / plane_divider) * rotated.StrideV()]);
+              rotated.DataV()[(x / plane_divider_x) +
+                              (y / plane_divider_y) * rotated.StrideV()]);
   }
 }
 
@@ -262,6 +314,9 @@ rtc::scoped_refptr<T> CreateAndFillBuffer() {
   if (buf->type() == VideoFrameBuffer::Type::kI444) {
     memset(buf->MutableDataU(), 2, 200);
     memset(buf->MutableDataV(), 3, 200);
+  } else if (buf->type() == VideoFrameBuffer::Type::kI422) {
+    memset(buf->MutableDataU(), 2, 100);
+    memset(buf->MutableDataV(), 3, 100);
   } else {
     memset(buf->MutableDataU(), 2, 50);
     memset(buf->MutableDataV(), 3, 50);
@@ -340,7 +395,8 @@ REGISTER_TYPED_TEST_SUITE_P(TestPlanarYuvBuffer,
                             CropYNotCenter,
                             CropAndScale16x9);
 
-using TestTypesAll = ::testing::Types<I420Buffer, I010Buffer, I444Buffer>;
+using TestTypesAll =
+    ::testing::Types<I420Buffer, I010Buffer, I444Buffer, I422Buffer>;
 INSTANTIATE_TYPED_TEST_SUITE_P(All, TestPlanarYuvBuffer, TestTypesAll);
 
 template <class T>
@@ -382,7 +438,8 @@ TYPED_TEST_P(TestPlanarYuvBufferRotate, Rotates) {
 
 REGISTER_TYPED_TEST_SUITE_P(TestPlanarYuvBufferRotate, Rotates);
 
-using TestTypesRotate = ::testing::Types<I420Buffer, I010Buffer, I444Buffer>;
+using TestTypesRotate =
+    ::testing::Types<I420Buffer, I010Buffer, I444Buffer, I422Buffer>;
 INSTANTIATE_TYPED_TEST_SUITE_P(Rotate,
                                TestPlanarYuvBufferRotate,
                                TestTypesRotate);

@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "bbda82b4_05c2f111",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2022-03-24T09:37:56Z",
+      "side": 1,
+      "message": "Seems to me this is not the preferred way to do version updates of external dependecies.\n\nMirko, can you advise on the preferred way of doing this? (I have no idea why this is in modules/third_party and not in third_party...)\n",
+      "revId": "f68b5db7548bd023a0572262e7339b6e6e1dc089",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

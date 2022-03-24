@@ -22,6 +22,30 @@
       },
       "revId": "c0455e99e53f4c35f41b6f427665c7f67b24501c",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "e57a5db6_e98816b8",
+        "filename": "p2p/base/connection.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 883,
+      "author": {
+        "id": 5508
+      },
+      "writtenOn": "2022-03-24T14:01:20Z",
+      "side": 1,
+      "message": "Yes, I have an upcoming change for ToString() to do exactly that.\n\nAs far as updating the state, in this case, the object has been half destroyed and the state in adjacent classes has been updated in accordance with how the teardown was started. Here, it\u0027s not clear that \"failed\" is the correct state - likely it is not, but besides, changing the state could have more unwanted side effects.\n\nMore follow-ups related to this are needed such as canceling outstanding pending tasks that belong to the Connection object, e.g. the one queued in TCPConnection::CreateOutgoingTcpSocket().\n\nThe design of this part of the code, has several places where the design choices are questionable. The circular dependency between Port and Connection is one. How request objects are deleted in StunRequestManager, which is both inconsistent and surprising (a lookup in a map owned by the manager to find a request, delete the request, then from the request dtor a callback back to the manager where the request gets removed from the map - several comments in the class where it\u0027s clear that developers felt they needed to add a warning) and then CheckResponse() in StunRequestManager, called from Connection, makes a call back to a ConnectionRequest()\u0027s error handler, which calls on the Connection to delete it (the connection object that is) :-/ then as the stack unwinds, the request gets deleted, that triggers removal from the map and when we get back to the Connection object, it\u0027s been very non-obviously partially torn down and deletion has been scheduled.",
+      "parentUuid": "a31b0abf_ead3c006",
+      "range": {
+        "startLine": 882,
+        "startChar": 0,
+        "endLine": 883,
+        "endChar": 10
+      },
+      "revId": "c0455e99e53f4c35f41b6f427665c7f67b24501c",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

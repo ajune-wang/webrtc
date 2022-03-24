@@ -24,6 +24,30 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "8fadef68_5e9ea7c3",
+        "filename": "sdk/android/instrumentationtests/src/org/webrtc/HardwareVideoEncoderTest.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 47,
+      "author": {
+        "id": 14994
+      },
+      "writtenOn": "2022-03-24T14:09:45Z",
+      "side": 0,
+      "message": "It’s a bit redundant, as it repeats the naming pattern from the annotation, and the constructor argument just below. Added them back anyway as it makes for better formatting 😊",
+      "parentUuid": "e28200e9_255f4a91",
+      "range": {
+        "startLine": 47,
+        "startChar": 41,
+        "endLine": 47,
+        "endChar": 52
+      },
+      "revId": "d7fdb953468789b93c37b1a1be512f99a34639d3",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "53819e99_872b3e24",
@@ -37,6 +61,30 @@
       "writtenOn": "2022-03-24T12:12:13Z",
       "side": 0,
       "message": "What was this name used for? Test name in the output? What will the new name be?",
+      "range": {
+        "startLine": 48,
+        "startChar": 32,
+        "endLine": 48,
+        "endChar": 53
+      },
+      "revId": "d7fdb953468789b93c37b1a1be512f99a34639d3",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "ae329a31_e0e665bc",
+        "filename": "sdk/android/instrumentationtests/src/org/webrtc/HardwareVideoEncoderTest.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 48,
+      "author": {
+        "id": 14994
+      },
+      "writtenOn": "2022-03-24T14:09:45Z",
+      "side": 0,
+      "message": "Yes, it’s the test name in the output. with @Parameters, it’s replaced by the pattern specified in the annotation: `textures\u003d{0} eglContext\u003d{1}`, where the `{n}` placeholders are replaced with the values from the `Object[]`",
+      "parentUuid": "53819e99_872b3e24",
       "range": {
         "startLine": 48,
         "startChar": 32,

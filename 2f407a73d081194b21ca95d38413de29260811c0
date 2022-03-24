@@ -34,6 +34,24 @@
       "parentUuid": "d58b11ca_83e59c4b",
       "revId": "2f407a73d081194b21ca95d38413de29260811c0",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "9475c7c0_339ba554",
+        "filename": "modules/desktop_capture/linux/wayland/scoped_glib.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 67,
+      "author": {
+        "id": 8046
+      },
+      "writtenOn": "2022-03-24T13:32:34Z",
+      "side": 1,
+      "message": "I didn\u0027t want you to abandon this change.\n\nMy point is that if one sees our Scoped class API, he might tend to use it for GDBusProxy and GCancellable in the way we didn\u0027t intend to. With a unique_ptr it\u0027s different as its scope is limitless, while our Scoped object is limited to glib objects and their specific way to delete them.",
+      "parentUuid": "74646d60_95ff3109",
+      "revId": "2f407a73d081194b21ca95d38413de29260811c0",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ],
   "submitRequirementResults": [

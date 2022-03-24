@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "7768211b_c93c7cb1",
+        "filename": "sdk/android/instrumentationtests/src/org/webrtc/HardwareVideoEncoderTest.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 44,
+      "author": {
+        "id": 18224
+      },
+      "writtenOn": "2022-03-24T10:39:55Z",
+      "side": 1,
+      "message": "Nit: The original version did not have the useTextures\u003dfalse + useEglContext\u003dtrue. The context option might only be valid with textures.",
+      "range": {
+        "startLine": 42,
+        "startChar": 0,
+        "endLine": 44,
+        "endChar": 63
+      },
+      "revId": "db9ef8b78cc0b025ce2c4d935cbf9030cf383a19",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

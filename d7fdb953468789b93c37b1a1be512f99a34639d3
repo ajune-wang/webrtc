@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "e28200e9_255f4a91",
+        "filename": "sdk/android/instrumentationtests/src/org/webrtc/HardwareVideoEncoderTest.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 47,
+      "author": {
+        "id": 5150
+      },
+      "writtenOn": "2022-03-24T12:12:13Z",
+      "side": 0,
+      "message": "Not being very familiar with parametrized tests in Java, I found these comments helpful to explain what the boolean values mean. Or maybe this is obvious from @Parameters annotation?",
+      "range": {
+        "startLine": 47,
+        "startChar": 41,
+        "endLine": 47,
+        "endChar": 52
+      },
+      "revId": "d7fdb953468789b93c37b1a1be512f99a34639d3",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "53819e99_872b3e24",
+        "filename": "sdk/android/instrumentationtests/src/org/webrtc/HardwareVideoEncoderTest.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 48,
+      "author": {
+        "id": 5150
+      },
+      "writtenOn": "2022-03-24T12:12:13Z",
+      "side": 0,
+      "message": "What was this name used for? Test name in the output? What will the new name be?",
+      "range": {
+        "startLine": 48,
+        "startChar": 32,
+        "endLine": 48,
+        "endChar": 53
+      },
+      "revId": "d7fdb953468789b93c37b1a1be512f99a34639d3",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "d58b11ca_83e59c4b",
+        "filename": "modules/desktop_capture/linux/wayland/scoped_glib.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 67,
+      "author": {
+        "id": 8046
+      },
+      "writtenOn": "2022-03-24T11:36:01Z",
+      "side": 1,
+      "message": "I\u0027m not sure about this. It does make sense in your code, but in general if someone uses it the way other Scoped objects are used, he will get into troubles. Both GDbusProxy and GCancellable are objects that need to survive.\n\nWouldn\u0027t a unique_ptr with a custom deleter make more sense API-wise?",
+      "revId": "2f407a73d081194b21ca95d38413de29260811c0",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

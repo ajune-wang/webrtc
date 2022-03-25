@@ -48,6 +48,30 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "ab109c22_5f8ea1b2",
+        "filename": "rtc_base/file_rotating_stream_unittest.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 58,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2022-03-25T08:28:13Z",
+      "side": 1,
+      "message": "May be worth investigating why that is, maybe absl::string_view should be fixed to support that conversion (I think using std::string::append is a compelling use case). If it were more performance critical, constructing the std::string could be avoided by passing iterators or pointer+length, but imo not worth it in this case.\n\nSo ok for this cl.",
+      "parentUuid": "cad4ee78_7321073b",
+      "range": {
+        "startLine": 58,
+        "startChar": 23,
+        "endLine": 58,
+        "endChar": 34
+      },
+      "revId": "41e1977619612479eb8a0f803064324ccff65621",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "0bb30605_67d3b8c2",
@@ -142,6 +166,30 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "b9a3e14c_4e1f2424",
+        "filename": "test/testsupport/file_utils.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 71,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2022-03-25T08:28:13Z",
+      "side": 1,
+      "message": "Ok, can revisit later.",
+      "parentUuid": "82caf9ac_9e948e3a",
+      "range": {
+        "startLine": 71,
+        "startChar": 0,
+        "endLine": 71,
+        "endChar": 11
+      },
+      "revId": "41e1977619612479eb8a0f803064324ccff65621",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "ee854719_c5a0952e",
@@ -226,6 +274,30 @@
       "side": 1,
       "message": "Hmm... no idea. Code is from 2011. But if you want me to make a change here let me know and I\u0027ll do it in a separate CL (since this change is unrelated to the current CL).",
       "parentUuid": "cba6263b_71da784f",
+      "range": {
+        "startLine": 241,
+        "startChar": 0,
+        "endLine": 249,
+        "endChar": 1
+      },
+      "revId": "41e1977619612479eb8a0f803064324ccff65621",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "1686775c_b827d272",
+        "filename": "test/testsupport/file_utils.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 249,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2022-03-25T08:28:13Z",
+      "side": 1,
+      "message": "Could also consider deleting it, I find only a single user, FileRotatingStreamReader::GetSize. But not in this cl.",
+      "parentUuid": "d4e48848_16645311",
       "range": {
         "startLine": 241,
         "startChar": 0,

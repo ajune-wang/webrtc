@@ -16,6 +16,24 @@
       "message": "I haven\u0027t looked at this in detail, given all the other reviewers on this CL.\n\nLet me know if I should take an extra look or if we\u0027re good as is.",
       "revId": "cc39012ce7831a66c20a1bfcf4310d18d1e554d0",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "f891b622_ab3a34ac",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 7
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5117
+      },
+      "writtenOn": "2022-03-25T12:24:27Z",
+      "side": 1,
+      "message": "I think a rubber stamp would be enough here.",
+      "parentUuid": "6e8fbfdb_870e77fb",
+      "revId": "cc39012ce7831a66c20a1bfcf4310d18d1e554d0",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

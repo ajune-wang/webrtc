@@ -63,6 +63,8 @@ constexpr double kAudioSampleDurationSeconds = 0.01;
 constexpr int kVoiceEngineMinMinPlayoutDelayMs = 0;
 constexpr int kVoiceEngineMaxMinPlayoutDelayMs = 10000;
 
+constexpr int kDefaultRttMs = 100;
+
 AudioCodingModule::Config AcmConfig(
     NetEqFactory* neteq_factory,
     rtc::scoped_refptr<AudioDecoderFactory> decoder_factory,
@@ -344,6 +346,9 @@ void ChannelReceive::OnReceivedPayloadData(
 
   int64_t round_trip_time = 0;
   rtp_rtcp_->RTT(remote_ssrc_, &round_trip_time, NULL, NULL, NULL);
+  if (round_trip_time == 0) {
+    round_trip_time = kDefaultRttMs;
+  }
 
   std::vector<uint16_t> nack_list = acm_receiver_.GetNackList(round_trip_time);
   if (!nack_list.empty()) {

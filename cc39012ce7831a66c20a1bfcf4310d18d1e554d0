@@ -34,6 +34,23 @@
       "parentUuid": "6e8fbfdb_870e77fb",
       "revId": "cc39012ce7831a66c20a1bfcf4310d18d1e554d0",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "3c458158_6441310c",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 7
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5609
+      },
+      "writtenOn": "2022-03-25T12:47:06Z",
+      "side": 1,
+      "message": "High-level LGTM (without digging into all details, trusting the other reviewers there)",
+      "revId": "cc39012ce7831a66c20a1bfcf4310d18d1e554d0",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

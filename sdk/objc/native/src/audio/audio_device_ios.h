@@ -14,13 +14,14 @@
 #include <memory>
 
 #include "api/sequence_checker.h"
+#include "audio_input_unit.h"
+#include "audio_output_unit.h"
 #include "audio_session_observer.h"
 #include "modules/audio_device/audio_device_generic.h"
 #include "rtc_base/buffer.h"
 #include "rtc_base/thread.h"
 #include "rtc_base/thread_annotations.h"
 #include "sdk/objc/base/RTCMacros.h"
-#include "voice_processing_audio_unit.h"
 
 RTC_FWD_DECL_OBJC_CLASS(RTCNativeAudioSessionDelegateAdapter);
 
@@ -45,7 +46,8 @@ namespace ios_adm {
 // same thread.
 class AudioDeviceIOS : public AudioDeviceGeneric,
                        public AudioSessionObserver,
-                       public VoiceProcessingAudioUnitObserver,
+                       public AudioInputUnitObserver,
+                       public AudioOutputUnitObserver,
                        public rtc::MessageHandler {
  public:
   explicit AudioDeviceIOS(bool bypass_voice_processing);
@@ -146,12 +148,14 @@ class AudioDeviceIOS : public AudioDeviceGeneric,
   void OnCanPlayOrRecordChange(bool can_play_or_record) override;
   void OnChangedOutputVolume() override;
 
-  // VoiceProcessingAudioUnitObserver methods.
+  // AudioInputUnitObserver methods.
   OSStatus OnDeliverRecordedData(AudioUnitRenderActionFlags* flags,
                                  const AudioTimeStamp* time_stamp,
                                  UInt32 bus_number,
                                  UInt32 num_frames,
                                  AudioBufferList* io_data) override;
+
+  // AudioOutputUnitObserver methods.
   OSStatus OnGetPlayoutData(AudioUnitRenderActionFlags* flags,
                             const AudioTimeStamp* time_stamp,
                             UInt32 bus_number,
@@ -173,22 +177,32 @@ class AudioDeviceIOS : public AudioDeviceGeneric,
   void HandlePlayoutGlitchDetected();
   void HandleOutputVolumeChange();
 
-  // Uses current `playout_parameters_` and `record_parameters_` to inform the
+  enum class TargetAudioUnit {
+    kInput,
+    kOutput,
+  };
+
+  // Uses current `playout_parameters_` or `record_parameters_` to inform the
   // audio device buffer (ADB) about our internal audio parameters.
-  void UpdateAudioDeviceBuffer();
+  void UpdateAudioDeviceBuffer(TargetAudioUnit target);
 
   // Since the preferred audio parameters are only hints to the OS, the actual
   // values may be different once the AVAudioSession has been activated.
   // This method asks for the current hardware parameters and takes actions
   // if they should differ from what we have asked for initially. It also
   // defines `playout_parameters_` and `record_parameters_`.
-  void SetupAudioBuffersForActiveAudioSession();
+  void SetupAudioBuffersForActiveAudioSession(TargetAudioUnit target);
 
-  // Creates the audio unit.
-  bool CreateAudioUnit();
+  // Creates the audio unit for recording.
+  bool CreateAudioInputUnit();
+
+  // Creates the audio unit for playout.
+  bool CreateAudioOutputUnit();
 
   // Updates the audio unit state based on current state.
-  void UpdateAudioUnit(bool can_play_or_record);
+  void UpdateAudioUnit(TargetAudioUnit target, bool can_play_or_record);
+
+  bool InitializeAudioSession(bool& can_play_or_record);
 
   // Configures the audio session for WebRTC.
   bool ConfigureAudioSession();
@@ -199,15 +213,11 @@ class AudioDeviceIOS : public AudioDeviceGeneric,
   // Unconfigures the audio session.
   void UnconfigureAudioSession();
 
-  // Activates our audio session, creates and initializes the voice-processing
-  // audio unit and verifies that we got the preferred native audio parameters.
-  bool InitPlayOrRecord();
-
-  // Closes and deletes the voice-processing I/O unit.
-  void ShutdownPlayOrRecord();
+  // Uncofigures audio session, unsubscribe from all events
+  void Shutdown();
 
   // Resets thread-checkers before a call is restarted.
-  void PrepareForNewStart();
+  void PrepareForNewStart(TargetAudioUnit target);
 
   // Determines whether voice processing should be enabled or disabled.
   const bool bypass_voice_processing_;
@@ -217,7 +227,8 @@ class AudioDeviceIOS : public AudioDeviceGeneric,
   SequenceChecker thread_checker_;
 
   // Native I/O audio thread checker.
-  SequenceChecker io_thread_checker_;
+  SequenceChecker io_playout_thread_checker_;
+  SequenceChecker io_record_thread_checker_;
 
   // Thread that this object is created on.
   rtc::Thread* thread_;
@@ -239,8 +250,11 @@ class AudioDeviceIOS : public AudioDeviceGeneric,
   AudioParameters playout_parameters_;
   AudioParameters record_parameters_;
 
-  // The AudioUnit used to play and record audio.
-  std::unique_ptr<VoiceProcessingAudioUnit> audio_unit_;
+  // The AudioUnit used to record audio.
+  std::unique_ptr<AudioInputUnit> audio_input_unit_;
+
+  // The AudioUnit used to play audio.
+  std::unique_ptr<AudioOutputUnit> audio_output_unit_;
 
   // FineAudioBuffer takes an AudioDeviceBuffer which delivers audio data
   // in chunks of 10ms. It then allows for this data to be pulled in
@@ -256,7 +270,9 @@ class AudioDeviceIOS : public AudioDeviceGeneric,
   // can provide audio data frames of size 128 and these are accumulated until
   // enough data to supply one 10ms call exists. This 10ms chunk is then sent
   // to WebRTC and the remaining part is stored.
-  std::unique_ptr<FineAudioBuffer> fine_audio_buffer_;
+  std::unique_ptr<FineAudioBuffer> record_fine_audio_buffer_;
+
+  std::unique_ptr<FineAudioBuffer> playout_fine_audio_buffer_;
 
   // Temporary storage for recorded data. AudioUnitRender() renders into this
   // array as soon as a frame of the desired buffer size has been recorded.
@@ -274,12 +290,12 @@ class AudioDeviceIOS : public AudioDeviceGeneric,
   // Set to true after successful call to Init(), false otherwise.
   bool initialized_ RTC_GUARDED_BY(thread_checker_);
 
-  // Set to true after successful call to InitRecording() or InitPlayout(),
-  // false otherwise.
-  bool audio_is_initialized_;
-
   // Set to true if audio session is interrupted, false otherwise.
-  bool is_interrupted_;
+  bool is_interrupted_ RTC_GUARDED_BY(thread_checker_);
+
+  // Set to true when audio_session_observer_ is subscribed to
+  // RTCAudioSession events.
+  bool is_audio_session_subscribed_ RTC_GUARDED_BY(thread_checker_);
 
   // Audio interruption observer instance.
   RTCNativeAudioSessionDelegateAdapter* audio_session_observer_
@@ -290,10 +306,10 @@ class AudioDeviceIOS : public AudioDeviceGeneric,
 
   // Counts number of detected audio glitches on the playout side.
   int64_t num_detected_playout_glitches_ RTC_GUARDED_BY(thread_checker_);
-  int64_t last_playout_time_ RTC_GUARDED_BY(io_thread_checker_);
+  int64_t last_playout_time_ RTC_GUARDED_BY(io_playout_thread_checker_);
 
   // Counts number of playout callbacks per call.
-  // The value isupdated on the native I/O thread and later read on the
+  // The value is updated on the native I/O thread and later read on the
   // creating thread (see thread_checker_) but at this stage no audio is
   // active. Hence, it is a "thread safe" design and no lock is needed.
   int64_t num_playout_callbacks_;

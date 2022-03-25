@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "067d57af_5cf831cc",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 10
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 17470
+      },
+      "writtenOn": "2022-03-25T08:35:19Z",
+      "side": 1,
+      "message": "Sorry for the pause there! Was looking at ways to raise this with Apple and got distracted by other fires.",
+      "revId": "125e7371a325cb94c06cf0c41b3c4e48b3b33629",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

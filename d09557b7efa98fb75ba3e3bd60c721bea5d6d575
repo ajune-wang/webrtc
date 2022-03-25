@@ -51,6 +51,24 @@
       "parentUuid": "190cce6e_dc8c2ae0",
       "revId": "d09557b7efa98fb75ba3e3bd60c721bea5d6d575",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "48e827a9_7364bd10",
+        "filename": "modules/desktop_capture/mac/window_list_utils.cc",
+        "patchSetId": 9
+      },
+      "lineNbr": 155,
+      "author": {
+        "id": 17470
+      },
+      "writtenOn": "2022-03-25T08:35:19Z",
+      "side": 1,
+      "message": "Sounds good, added a check on the owner name too.",
+      "parentUuid": "04d63303_ead54aee",
+      "revId": "d09557b7efa98fb75ba3e3bd60c721bea5d6d575",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

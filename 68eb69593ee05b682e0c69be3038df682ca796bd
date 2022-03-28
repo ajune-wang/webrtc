@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "26b3383c_8279e609",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 3
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2022-03-28T12:45:53Z",
+      "side": 1,
+      "message": "Seems mac_rel try bot has infra issues. Attempting to land with No-try: true, since all other bots look green.",
+      "revId": "68eb69593ee05b682e0c69be3038df682ca796bd",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

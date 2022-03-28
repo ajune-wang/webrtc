@@ -1,0 +1,38 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "39b0a473_f97217c2",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 9
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2022-03-28T07:41:58Z",
+      "side": 1,
+      "message": "There\u0027s only one real design choice here, and that\u0027s the choice to move Network from figuring out its field trials at creation time to extracting the field trial values in the GetCost call.\n\nThis seems to me that it\u0027s moving processing into an inner loop, which is normally not a Good Idea.\n\nWhy?",
+      "revId": "5a09494fd766d6444edede49973fea5c68bd114d",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "7e37d65f_5efc1cc8",
+        "filename": "rtc_base/network.cc",
+        "patchSetId": 9
+      },
+      "lineNbr": 1140,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2022-03-28T07:41:58Z",
+      "side": 1,
+      "message": "Now this is an interesting choice ... rather than letting the Network extract the field trials at creation time, you extract the field trial on every GetCost call.\nThis seems likely to be an increased overhead. Is it the right choice? If so, why?",
+      "revId": "5a09494fd766d6444edede49973fea5c68bd114d",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

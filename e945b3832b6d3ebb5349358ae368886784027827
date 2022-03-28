@@ -24,6 +24,30 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "61fcf137_6f7882d3",
+        "filename": "modules/audio_device/android/ensure_initialized.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 13,
+      "author": {
+        "id": 5150
+      },
+      "writtenOn": "2022-03-28T14:44:43Z",
+      "side": 1,
+      "message": "Good question. It is not needed, but it was added by iwyu.\nHowever, going through pthread.h looks more correct, so I\u0027ll remove it again.",
+      "parentUuid": "c69f198a_aba5c989",
+      "range": {
+        "startLine": 13,
+        "startChar": 0,
+        "endLine": 13,
+        "endChar": 31
+      },
+      "revId": "e945b3832b6d3ebb5349358ae368886784027827",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "11907c6e_54ab098d",
@@ -37,6 +61,24 @@
       "writtenOn": "2022-03-28T14:23:24Z",
       "side": 1,
       "message": "Same here (see previous comment).",
+      "revId": "e945b3832b6d3ebb5349358ae368886784027827",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "abc66ec4_8d56caa4",
+        "filename": "modules/video_coding/codecs/test/android_codec_factory_helper.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 13,
+      "author": {
+        "id": 5150
+      },
+      "writtenOn": "2022-03-28T14:44:43Z",
+      "side": 1,
+      "message": "Same",
+      "parentUuid": "11907c6e_54ab098d",
       "revId": "e945b3832b6d3ebb5349358ae368886784027827",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }

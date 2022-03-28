@@ -1,6 +1,23 @@
 {
   "comments": [
     {
+      "unresolved": true,
+      "key": {
+        "uuid": "ea841b73_4702c91a",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 2
+      },
+      "lineNbr": 8,
+      "author": {
+        "id": 5117
+      },
+      "writtenOn": "2022-03-28T14:29:50Z",
+      "side": 1,
+      "message": "Please mention that 422 10 bit format is called I210 in the code, and 420 10-bit format is already existing I010.",
+      "revId": "9acf413cf9e391a5f87420882ab6fb5c99b7da7f",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": false,
       "key": {
         "uuid": "aca1d57d_67c139e7",
@@ -14,6 +31,143 @@
       "writtenOn": "2022-03-28T12:15:59Z",
       "side": 1,
       "message": "This CL adds the 420 and 422 10 bit supports in a similar way than the CL for the 422 support did. \n\nThere is a bit of code bloat that could benefit for some helper functions in the video frame buffer class/helpers, but I would prefer to discuss it on a separate CL.\n\nAlso, there is on DCHECK for the ffmpeg memory allocation which I have commented out for now as it may also require adding helper methods for keeping the code clean.",
+      "revId": "9acf413cf9e391a5f87420882ab6fb5c99b7da7f",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "a1dfee05_9afb077c",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5117
+      },
+      "writtenOn": "2022-03-28T14:29:50Z",
+      "side": 1,
+      "message": "FYI, If you want this all to work in chrome, you need to add missing buffer types here:\nhttps://source.chromium.org/chromium/chromium/src/+/main:third_party/blink/renderer/platform/webrtc/convert_to_webrtc_video_frame_buffer.cc;l\u003d413;drc\u003dbffb1b0f7667239a5280f764c4ac02058749e1fc\n\nIt currently misses 422 and newly added 210. It will have to be a separate CL in the chromium repository.",
+      "revId": "9acf413cf9e391a5f87420882ab6fb5c99b7da7f",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "9ff2f520_4642af78",
+        "filename": "api/video/i210_buffer.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 29,
+      "author": {
+        "id": 5117
+      },
+      "writtenOn": "2022-03-28T14:29:50Z",
+      "side": 1,
+      "message": "Could you please land these functions in libyuv [1] instead?\nThe process is pretty similar to how it\u0027s done in chromium. You just need to upload to a different repository.\n\n[1] https://chromium.googlesource.com/libyuv/libyuv/+/refs/heads/main/docs/getting_started.md",
+      "revId": "9acf413cf9e391a5f87420882ab6fb5c99b7da7f",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "e81599a0_107aff5a",
+        "filename": "api/video/i210_buffer.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 199,
+      "author": {
+        "id": 5117
+      },
+      "writtenOn": "2022-03-28T14:29:50Z",
+      "side": 1,
+      "message": "I don\u0027t like how there are two conversions here. It might not be the issue since this function is only used in tests.",
+      "revId": "9acf413cf9e391a5f87420882ab6fb5c99b7da7f",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "1e2931ee_dead8fd5",
+        "filename": "api/video/i210_buffer.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 270,
+      "author": {
+        "id": 5117
+      },
+      "writtenOn": "2022-03-28T14:29:50Z",
+      "side": 1,
+      "message": "Can it be done in a single conversion? \nUnlike in other case, ToI420 might be used in encode path for every frame depending on selected codec.\n\nPlease add a I210toI420 function and call it here.\nThis way this CL will be easier rebased when this function is added to libyuv.",
+      "revId": "9acf413cf9e391a5f87420882ab6fb5c99b7da7f",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "c00cf18f_13edcac9",
+        "filename": "common_video/video_frame_buffer.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 222,
+      "author": {
+        "id": 5117
+      },
+      "writtenOn": "2022-03-28T14:29:50Z",
+      "side": 1,
+      "message": "Is it safe to convert from 210 (i.e. 422 16 bit) to 420?\nLibyuv lacks I210ToI420. Could you land it there?",
+      "range": {
+        "startLine": 222,
+        "startChar": 10,
+        "endLine": 222,
+        "endChar": 20
+      },
+      "revId": "9acf413cf9e391a5f87420882ab6fb5c99b7da7f",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "7cf93da6_2621afb8",
+        "filename": "modules/video_coding/codecs/h264/h264_decoder_impl.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 431,
+      "author": {
+        "id": 5117
+      },
+      "writtenOn": "2022-03-28T14:29:50Z",
+      "side": 1,
+      "message": "You forgot to uncomment this.\n\nOr did you intend to remove it all? These checks seem to make sense to me if updated with planar_yuv_data-\u003eChromaWidth/Height instead of hardcoded division by 2.",
+      "range": {
+        "startLine": 431,
+        "startChar": 2,
+        "endLine": 431,
+        "endChar": 4
+      },
+      "revId": "9acf413cf9e391a5f87420882ab6fb5c99b7da7f",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "b7be2f1c_8bbb3e00",
+        "filename": "modules/video_coding/codecs/h264/h264_decoder_impl.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 562,
+      "author": {
+        "id": 5117
+      },
+      "writtenOn": "2022-03-28T14:29:50Z",
+      "side": 1,
+      "message": "Yes, it\u0027s kindof weird to downsample the 10bit format down to 8-bit. But maybe the decoder should always output something? WDYT?",
+      "range": {
+        "startLine": 562,
+        "startChar": 8,
+        "endLine": 562,
+        "endChar": 24
+      },
       "revId": "9acf413cf9e391a5f87420882ab6fb5c99b7da7f",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }

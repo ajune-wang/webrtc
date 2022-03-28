@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "39e6a6a6_50083b5e",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 6305
+      },
+      "writtenOn": "2022-03-28T11:19:14Z",
+      "side": 1,
+      "message": "Hi  Kári,\n\nCould you please review this CL which fixes assertion probably introduced in https://webrtc-review.googlesource.com/c/src/+/253980.\n\nThanks a lot in advance,\nYury. ",
+      "revId": "2a9f24093b53973aea6208b4ff62916c9f379239",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

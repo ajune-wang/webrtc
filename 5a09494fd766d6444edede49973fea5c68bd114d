@@ -33,6 +33,24 @@
       "message": "Now this is an interesting choice ... rather than letting the Network extract the field trials at creation time, you extract the field trial on every GetCost call.\nThis seems likely to be an increased overhead. Is it the right choice? If so, why?",
       "revId": "5a09494fd766d6444edede49973fea5c68bd114d",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "95c2add6_77fe7c2f",
+        "filename": "rtc_base/network.cc",
+        "patchSetId": 9
+      },
+      "lineNbr": 1140,
+      "author": {
+        "id": 5613
+      },
+      "writtenOn": "2022-03-28T09:54:11Z",
+      "side": 1,
+      "message": "Added comment (to .h file)\nThe gist is that this function is called rarely.\nAnd that the field trials of Network is only used in this function.",
+      "parentUuid": "7e37d65f_5efc1cc8",
+      "revId": "5a09494fd766d6444edede49973fea5c68bd114d",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

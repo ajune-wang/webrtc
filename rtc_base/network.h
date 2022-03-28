@@ -149,16 +149,7 @@ class RTC_EXPORT NetworkManager : public DefaultLocalAddressProvider,
   // It makes sure that repeated calls return the same object for a
   // given network, so that quality is tracked appropriately. Does not
   // include ignored networks.
-  virtual std::vector<const Network*> GetNetworks() const {
-    std::vector<Network*> networks;
-    std::vector<const Network*> const_networks;
-    GetNetworks(&networks);
-    const_networks.insert(const_networks.begin(), networks.begin(),
-                          networks.end());
-    return const_networks;
-  }
-  // TODO(bugs.webrtc.org/13869): Delete this overload.
-  virtual void GetNetworks(NetworkList* networks) const = 0;
+  virtual std::vector<const Network*> GetNetworks() const = 0;
 
   // Returns the current permission state of GetNetworks().
   virtual EnumerationPermission enumeration_permission() const;
@@ -170,18 +161,7 @@ class RTC_EXPORT NetworkManager : public DefaultLocalAddressProvider,
   //
   // This method appends the "any address" networks to the list, such that this
   // can optionally be called after GetNetworks.
-  //
-  // TODO(guoweis): remove this body when chromium implements this.
-  virtual std::vector<const Network*> GetAnyAddressNetworks() {
-    std::vector<Network*> networks;
-    std::vector<const Network*> const_networks;
-    GetAnyAddressNetworks(&networks);
-    const_networks.insert(const_networks.begin(), networks.begin(),
-                          networks.end());
-    return const_networks;
-  }
-  // TODO(bugs.webrtc.org/13869): Delete this overload.
-  virtual void GetAnyAddressNetworks(NetworkList* networks) {}
+  virtual std::vector<const Network*> GetAnyAddressNetworks() = 0;
 
   // Dumps the current list of networks in the network manager.
   virtual void DumpNetworks() {}
@@ -208,8 +188,8 @@ class RTC_EXPORT NetworkManagerBase : public NetworkManager {
   NetworkManagerBase();
   ~NetworkManagerBase() override;
 
-  void GetNetworks(NetworkList* networks) const override;
-  void GetAnyAddressNetworks(NetworkList* networks) override;
+  std::vector<const Network*> GetNetworks() const override;
+  std::vector<const Network*> GetAnyAddressNetworks() override;
 
   EnumerationPermission enumeration_permission() const override;
 

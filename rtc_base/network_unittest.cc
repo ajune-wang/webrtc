@@ -182,16 +182,12 @@ class NetworkTest : public ::testing::Test, public sigslot::has_slots<> {
         network_manager.network_monitor_.get());
   }
   void ClearNetworks(BasicNetworkManager& network_manager) {
-    for (const auto& kv : network_manager.networks_map_) {
-      delete kv.second;
-    }
     network_manager.networks_.clear();
     network_manager.networks_map_.clear();
   }
 
   AdapterType GetAdapterType(BasicNetworkManager& network_manager) {
-    BasicNetworkManager::NetworkList list;
-    network_manager.GetNetworks(&list);
+    std::vector<const Network*> list = network_manager.GetNetworks();
     RTC_CHECK_EQ(1, list.size());
     return list[0]->type();
   }
@@ -456,13 +452,12 @@ TEST_F(NetworkTest, TestBasicMergeNetworkList) {
   EXPECT_EQ(stats.ipv4_network_count, 1);
   list.clear();
 
-  manager.GetNetworks(&list);
-  EXPECT_EQ(1U, list.size());
-  EXPECT_TRUE(SameNameAndPrefix(ipv4_network1, *list[0]));
-  Network* net1 = list[0];
+  std::vector<const rtc::Network*> current = manager.GetNetworks();
+  EXPECT_EQ(1U, current.size());
+  EXPECT_TRUE(SameNameAndPrefix(ipv4_network1, *current[0]));
+  const Network* net1 = current[0];
   uint16_t net_id1 = net1->id();
   EXPECT_EQ(1, net_id1);
-  list.clear();
 
   // Replace ipv4_network1 with ipv4_network2.
   list.push_back(new Network(ipv4_network2));
@@ -472,14 +467,13 @@ TEST_F(NetworkTest, TestBasicMergeNetworkList) {
   EXPECT_EQ(stats.ipv4_network_count, 1);
   list.clear();
 
-  manager.GetNetworks(&list);
-  EXPECT_EQ(1U, list.size());
-  EXPECT_TRUE(SameNameAndPrefix(ipv4_network2, *list[0]));
-  Network* net2 = list[0];
+  current = manager.GetNetworks();
+  EXPECT_EQ(1U, current.size());
+  EXPECT_TRUE(SameNameAndPrefix(ipv4_network2, *current[0]));
+  const Network* net2 = current[0];
   uint16_t net_id2 = net2->id();
   // Network id will increase.
   EXPECT_LT(net_id1, net_id2);
-  list.clear();
 
   // Add Network2 back.
   list.push_back(new Network(ipv4_network1));
@@ -491,13 +485,12 @@ TEST_F(NetworkTest, TestBasicMergeNetworkList) {
   list.clear();
 
   // Verify that we get previous instances of Network objects.
-  manager.GetNetworks(&list);
-  EXPECT_EQ(2U, list.size());
-  EXPECT_TRUE((net1 == list[0] && net2 == list[1]) ||
-              (net1 == list[1] && net2 == list[0]));
-  EXPECT_TRUE((net_id1 == list[0]->id() && net_id2 == list[1]->id()) ||
-              (net_id1 == list[1]->id() && net_id2 == list[0]->id()));
-  list.clear();
+  current = manager.GetNetworks();
+  EXPECT_EQ(2U, current.size());
+  EXPECT_TRUE((net1 == current[0] && net2 == current[1]) ||
+              (net1 == current[1] && net2 == current[0]));
+  EXPECT_TRUE((net_id1 == current[0]->id() && net_id2 == current[1]->id()) ||
+              (net_id1 == current[1]->id() && net_id2 == current[0]->id()));
 
   // Call MergeNetworkList() again and verify that we don't get update
   // notification.
@@ -510,13 +503,12 @@ TEST_F(NetworkTest, TestBasicMergeNetworkList) {
   list.clear();
 
   // Verify that we get previous instances of Network objects.
-  manager.GetNetworks(&list);
-  EXPECT_EQ(2U, list.size());
-  EXPECT_TRUE((net1 == list[0] && net2 == list[1]) ||
-              (net1 == list[1] && net2 == list[0]));
-  EXPECT_TRUE((net_id1 == list[0]->id() && net_id2 == list[1]->id()) ||
-              (net_id1 == list[1]->id() && net_id2 == list[0]->id()));
-  list.clear();
+  current = manager.GetNetworks();
+  EXPECT_EQ(2U, current.size());
+  EXPECT_TRUE((net1 == current[0] && net2 == current[1]) ||
+              (net1 == current[1] && net2 == current[0]));
+  EXPECT_TRUE((net_id1 == current[0]->id() && net_id2 == current[1]->id()) ||
+              (net_id1 == current[1]->id() && net_id2 == current[0]->id()));
 }
 
 // Sets up some test IPv6 networks and appends them to list.
@@ -565,8 +557,7 @@ TEST_F(NetworkTest, TestIPv6MergeNetworkList) {
   EXPECT_TRUE(changed);
   EXPECT_EQ(stats.ipv6_network_count, 4);
   EXPECT_EQ(stats.ipv4_network_count, 0);
-  NetworkManager::NetworkList list;
-  manager.GetNetworks(&list);
+  std::vector<const Network*> list = manager.GetNetworks();
   // Verify that the original members are in the merged list.
   EXPECT_THAT(list, UnorderedElementsAreArray(original_list));
 }
@@ -590,8 +581,7 @@ TEST_F(NetworkTest, TestNoChangeMerge) {
   changed = false;
   MergeNetworkList(manager, second_list, &changed);
   EXPECT_FALSE(changed);
-  NetworkManager::NetworkList resulting_list;
-  manager.GetNetworks(&resulting_list);
+  std::vector<const Network*> resulting_list = manager.GetNetworks();
   // Verify that the original members are in the merged list.
   EXPECT_THAT(resulting_list, UnorderedElementsAreArray(original_list));
   // Doublecheck that the new networks aren't in the list.
@@ -630,8 +620,7 @@ TEST_F(NetworkTest, MergeWithChangedIP) {
   changed = false;
   MergeNetworkList(manager, second_list, &changed);
   EXPECT_TRUE(changed);
-  NetworkManager::NetworkList list;
-  manager.GetNetworks(&list);
+  std::vector<const Network*> list = manager.GetNetworks();
   EXPECT_EQ(original_list.size(), list.size());
   // Make sure the original network is still in the merged list.
   EXPECT_THAT(list, Contains(network_to_change));
@@ -667,25 +656,23 @@ TEST_F(NetworkTest, DISABLED_TestMultipleIPMergeNetworkList) {
   MergeNetworkList(manager, original_list, &changed);
   EXPECT_TRUE(changed);
   // There should still be four networks.
-  NetworkManager::NetworkList list;
-  manager.GetNetworks(&list);
+  std::vector<const Network*> list = manager.GetNetworks();
   EXPECT_EQ(4U, list.size());
   // Check the gathered IPs.
   int matchcount = 0;
-  for (NetworkManager::NetworkList::iterator it = list.begin();
-       it != list.end(); ++it) {
-    if (SameNameAndPrefix(**it, *original_list[2])) {
+  for (const Network* network : list) {
+    if (SameNameAndPrefix(*network, *original_list[2])) {
       ++matchcount;
       EXPECT_EQ(1, matchcount);
       // This should be the same network object as before.
-      EXPECT_EQ((*it), original_list[2]);
+      EXPECT_EQ(network, original_list[2]);
       // But with two addresses now.
-      EXPECT_THAT((*it)->GetIPs(),
+      EXPECT_THAT(network->GetIPs(),
                   UnorderedElementsAre(InterfaceAddress(check_ip),
                                        InterfaceAddress(ip)));
     } else {
       // Check the IP didn't get added anywhere it wasn't supposed to.
-      EXPECT_THAT((*it)->GetIPs(), Not(Contains(InterfaceAddress(ip))));
+      EXPECT_THAT(network->GetIPs(), Not(Contains(InterfaceAddress(ip))));
     }
   }
 }
@@ -714,20 +701,18 @@ TEST_F(NetworkTest, TestMultiplePublicNetworksOnOneInterfaceMerge) {
   MergeNetworkList(manager, original_list, &changed);
   EXPECT_TRUE(changed);
   // There should be five networks now.
-  NetworkManager::NetworkList list;
-  manager.GetNetworks(&list);
+  std::vector<const Network*> list = manager.GetNetworks();
   EXPECT_EQ(5U, list.size());
   // Check the resulting addresses.
-  for (NetworkManager::NetworkList::iterator it = list.begin();
-       it != list.end(); ++it) {
-    if ((*it)->prefix() == ipv6_eth0_publicnetwork2_ip1.prefix() &&
-        (*it)->name() == ipv6_eth0_publicnetwork2_ip1.name()) {
+  for (const Network* network : list) {
+    if (network->prefix() == ipv6_eth0_publicnetwork2_ip1.prefix() &&
+        network->name() == ipv6_eth0_publicnetwork2_ip1.name()) {
       // Check the new network has 1 IP and that it's the correct one.
-      EXPECT_EQ(1U, (*it)->GetIPs().size());
-      EXPECT_EQ(ip, (*it)->GetIPs().at(0));
+      EXPECT_EQ(1U, network->GetIPs().size());
+      EXPECT_EQ(ip, network->GetIPs().at(0));
     } else {
       // Check the IP didn't get added anywhere it wasn't supposed to.
-      EXPECT_THAT((*it)->GetIPs(), Not(Contains(InterfaceAddress(ip))));
+      EXPECT_THAT(network->GetIPs(), Not(Contains(InterfaceAddress(ip))));
     }
   }
 }
@@ -1052,8 +1037,7 @@ TEST_F(NetworkTest, TestMergeNetworkList) {
   MergeNetworkList(manager, list, &changed);
   EXPECT_TRUE(changed);
 
-  NetworkManager::NetworkList list2;
-  manager.GetNetworks(&list2);
+  std::vector<const Network*> list2 = manager.GetNetworks();
 
   // Make sure the resulted networklist has only 1 element and 2
   // IPAddresses.
@@ -1081,9 +1065,10 @@ TEST_F(NetworkTest, TestMergeNetworkListWithInactiveNetworks) {
   MergeNetworkList(manager, list, &changed);
   EXPECT_TRUE(changed);
   list.clear();
-  manager.GetNetworks(&list);
-  ASSERT_EQ(1U, list.size());
-  EXPECT_EQ(net1, list[0]);
+
+  std::vector<const Network*> current = manager.GetNetworks();
+  ASSERT_EQ(1U, current.size());
+  EXPECT_EQ(net1, current[0]);
 
   list.clear();
   Network* net2 = new Network(network2);
@@ -1091,9 +1076,10 @@ TEST_F(NetworkTest, TestMergeNetworkListWithInactiveNetworks) {
   MergeNetworkList(manager, list, &changed);
   EXPECT_TRUE(changed);
   list.clear();
-  manager.GetNetworks(&list);
-  ASSERT_EQ(1U, list.size());
-  EXPECT_EQ(net2, list[0]);
+
+  current = manager.GetNetworks();
+  ASSERT_EQ(1U, current.size());
+  EXPECT_EQ(net2, current[0]);
 
   // Now network1 is inactive. Try to merge it again.
   list.clear();
@@ -1101,10 +1087,10 @@ TEST_F(NetworkTest, TestMergeNetworkListWithInactiveNetworks) {
   MergeNetworkList(manager, list, &changed);
   EXPECT_TRUE(changed);
   list.clear();
-  manager.GetNetworks(&list);
-  ASSERT_EQ(1U, list.size());
-  EXPECT_TRUE(list[0]->active());
-  EXPECT_EQ(net1, list[0]);
+  current = manager.GetNetworks();
+  ASSERT_EQ(1U, current.size());
+  EXPECT_TRUE(current[0]->active());
+  EXPECT_EQ(net1, current[0]);
 }
 
 // Test that the filtering logic follows the defined ruleset in network.h.
@@ -1190,10 +1176,9 @@ TEST_F(NetworkTest, MAYBE_DefaultLocalAddress) {
 
   // Make sure we can query default local address when an address for such
   // address family exists.
-  std::vector<Network*> networks;
-  manager.GetNetworks(&networks);
+  std::vector<const Network*> networks = manager.GetNetworks();
   EXPECT_TRUE(!networks.empty());
-  for (const auto* network : networks) {
+  for (const Network* network : networks) {
     if (network->GetBestIP().family() == AF_INET) {
       EXPECT_TRUE(QueryDefaultLocalAddress(manager, AF_INET) != IPAddress());
     } else if (network->GetBestIP().family() == AF_INET6 &&
@@ -1261,8 +1246,7 @@ TEST_F(NetworkTest, TestWhenNetworkListChangeReturnsChangedFlag) {
     bool changed;
     MergeNetworkList(manager, list, &changed);
     EXPECT_TRUE(changed);
-    NetworkManager::NetworkList list2;
-    manager.GetNetworks(&list2);
+    std::vector<const Network*> list2 = manager.GetNetworks();
     EXPECT_EQ(list2.size(), 1uL);
     EXPECT_EQ(ADAPTER_TYPE_CELLULAR_3G, list2[0]->type());
   }
@@ -1280,8 +1264,7 @@ TEST_F(NetworkTest, TestWhenNetworkListChangeReturnsChangedFlag) {
     // Change from 3G to 4G shall not trigger OnNetworksChanged,
     // i.e changed = false.
     EXPECT_FALSE(changed);
-    NetworkManager::NetworkList list2;
-    manager.GetNetworks(&list2);
+    std::vector<const Network*> list2 = manager.GetNetworks();
     ASSERT_EQ(list2.size(), 1uL);
     EXPECT_EQ(ADAPTER_TYPE_CELLULAR_4G, list2[0]->type());
   }
@@ -1298,8 +1281,7 @@ TEST_F(NetworkTest, TestWhenNetworkListChangeReturnsChangedFlag) {
 
     // No change.
     EXPECT_FALSE(changed);
-    NetworkManager::NetworkList list2;
-    manager.GetNetworks(&list2);
+    std::vector<const Network*> list2 = manager.GetNetworks();
     ASSERT_EQ(list2.size(), 1uL);
     EXPECT_EQ(ADAPTER_TYPE_CELLULAR_4G, list2[0]->type());
   }
@@ -1318,8 +1300,7 @@ TEST_F(NetworkTest, IgnoresMACBasedIPv6Address) {
   ifaddrs* addr_list =
       InstallIpv6Network(if_name, ipv6_address, ipv6_mask, manager);
 
-  BasicNetworkManager::NetworkList list;
-  manager.GetNetworks(&list);
+  std::vector<const Network*> list = manager.GetNetworks();
   EXPECT_EQ(list.size(), 0u);
   ReleaseIfAddrs(addr_list);
 }
@@ -1338,8 +1319,7 @@ TEST_F(NetworkTest, WebRTC_AllowMACBasedIPv6Address) {
   ifaddrs* addr_list =
       InstallIpv6Network(if_name, ipv6_address, ipv6_mask, manager);
 
-  BasicNetworkManager::NetworkList list;
-  manager.GetNetworks(&list);
+  std::vector<const Network*> list = manager.GetNetworks();
   EXPECT_EQ(list.size(), 1u);
   ReleaseIfAddrs(addr_list);
 }
@@ -1496,8 +1476,7 @@ TEST_F(NetworkTest, VpnListOverrideAdapterType) {
   auto addr_list =
       InstallIpv4Network(if_name, "192.168.1.23", "255.255.255.255", manager);
 
-  BasicNetworkManager::NetworkList list;
-  manager.GetNetworks(&list);
+  std::vector<const Network*> list = manager.GetNetworks();
   ASSERT_EQ(1u, list.size());
   EXPECT_EQ(ADAPTER_TYPE_VPN, list[0]->type());
   EXPECT_EQ(ADAPTER_TYPE_ETHERNET, list[0]->underlying_type_for_vpn());

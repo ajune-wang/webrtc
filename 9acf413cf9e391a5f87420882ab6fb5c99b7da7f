@@ -52,6 +52,24 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "f43693ea_ad5cd0eb",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5963
+      },
+      "writtenOn": "2022-03-28T15:06:45Z",
+      "side": 1,
+      "message": "Yes, I have the patch prepared already, will submit it when this one gets merged",
+      "parentUuid": "a1dfee05_9afb077c",
+      "revId": "9acf413cf9e391a5f87420882ab6fb5c99b7da7f",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "9ff2f520_4642af78",
@@ -65,6 +83,24 @@
       "writtenOn": "2022-03-28T14:29:50Z",
       "side": 1,
       "message": "Could you please land these functions in libyuv [1] instead?\nThe process is pretty similar to how it\u0027s done in chromium. You just need to upload to a different repository.\n\n[1] https://chromium.googlesource.com/libyuv/libyuv/+/refs/heads/main/docs/getting_started.md",
+      "revId": "9acf413cf9e391a5f87420882ab6fb5c99b7da7f",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "5b285d0b_87955242",
+        "filename": "api/video/i210_buffer.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 29,
+      "author": {
+        "id": 5963
+      },
+      "writtenOn": "2022-03-28T15:06:45Z",
+      "side": 1,
+      "message": "Ack.",
+      "parentUuid": "9ff2f520_4642af78",
       "revId": "9acf413cf9e391a5f87420882ab6fb5c99b7da7f",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
@@ -88,6 +124,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "35e1478f_3efa0901",
+        "filename": "api/video/i210_buffer.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 199,
+      "author": {
+        "id": 5963
+      },
+      "writtenOn": "2022-03-28T15:06:45Z",
+      "side": 1,
+      "message": "I used the I010Buffer as reference which has also two conversions:\n\nhttps://source.chromium.org/chromium/chromium/src/+/main:third_party/webrtc/api/video/i010_buffer.h;l\u003d31?q\u003di010\u0026ss\u003dchromium%2Fchromium%2Fsrc",
+      "parentUuid": "e81599a0_107aff5a",
+      "revId": "9acf413cf9e391a5f87420882ab6fb5c99b7da7f",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "1e2931ee_dead8fd5",
         "filename": "api/video/i210_buffer.cc",
         "patchSetId": 2
@@ -99,6 +153,24 @@
       "writtenOn": "2022-03-28T14:29:50Z",
       "side": 1,
       "message": "Can it be done in a single conversion? \nUnlike in other case, ToI420 might be used in encode path for every frame depending on selected codec.\n\nPlease add a I210toI420 function and call it here.\nThis way this CL will be easier rebased when this function is added to libyuv.",
+      "revId": "9acf413cf9e391a5f87420882ab6fb5c99b7da7f",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "ee8c0103_58736183",
+        "filename": "api/video/i210_buffer.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 270,
+      "author": {
+        "id": 5963
+      },
+      "writtenOn": "2022-03-28T15:06:45Z",
+      "side": 1,
+      "message": "I have not found an easy way to do the conversion from I210 to I420 on a single step, that\u0027s why I have to create an intermediate buffer to do the I210 to I010 and then from I010 to I420. \n\nI will try to add the I210toI420 with current intermediate buffer.",
+      "parentUuid": "1e2931ee_dead8fd5",
       "revId": "9acf413cf9e391a5f87420882ab6fb5c99b7da7f",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
@@ -151,6 +223,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "de320aa7_3c233b96",
+        "filename": "modules/video_coding/codecs/h264/h264_decoder_impl.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 431,
+      "author": {
+        "id": 5963
+      },
+      "writtenOn": "2022-03-28T15:06:45Z",
+      "side": 1,
+      "message": "the issue is that the PlanarYuvBuffer class does not have a DataY/U/V() methods but they are defined in the PlanarYuv8Buffer and PlanarYuv16Buffer, and they return uint8_t* or uint16_t*.\n\nSo either we add temporal variables for getting pointres to the start of the y/u/v memory in the switch above (which seems ugly), or we would need to add a function similare to uint8_t* PlaneY() to the PlanarYuvBuffer and override it in PlanarYuv8Buffer and PlanarYuv16Buffer (which would be just a cast of DataY())",
+      "parentUuid": "7cf93da6_2621afb8",
+      "range": {
+        "startLine": 431,
+        "startChar": 2,
+        "endLine": 431,
+        "endChar": 4
+      },
+      "revId": "9acf413cf9e391a5f87420882ab6fb5c99b7da7f",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "b7be2f1c_8bbb3e00",
         "filename": "modules/video_coding/codecs/h264/h264_decoder_impl.cc",
         "patchSetId": 2
@@ -162,6 +258,30 @@
       "writtenOn": "2022-03-28T14:29:50Z",
       "side": 1,
       "message": "Yes, it\u0027s kindof weird to downsample the 10bit format down to 8-bit. But maybe the decoder should always output something? WDYT?",
+      "range": {
+        "startLine": 562,
+        "startChar": 8,
+        "endLine": 562,
+        "endChar": 24
+      },
+      "revId": "9acf413cf9e391a5f87420882ab6fb5c99b7da7f",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "f62b5941_c2f9c78c",
+        "filename": "modules/video_coding/codecs/h264/h264_decoder_impl.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 562,
+      "author": {
+        "id": 5963
+      },
+      "writtenOn": "2022-03-28T15:06:45Z",
+      "side": 1,
+      "message": "Note that the decoded frame is stored in cropped_buffer object and that this switch will just replace the  it with a converted nv12 format for the 8 bits ones. \n\nIn case of the 10 bits buffers, no conversion will be done and the original cropped_buffer will be used instead.",
+      "parentUuid": "b7be2f1c_8bbb3e00",
       "range": {
         "startLine": 562,
         "startChar": 8,

@@ -115,9 +115,9 @@
 #include "api/task_queue/task_queue_factory.h"
 #include "api/transport/bitrate_settings.h"
 #include "api/transport/enums.h"
+#include "api/transport/field_trials_view.h"
 #include "api/transport/network_control.h"
 #include "api/transport/sctp_transport_factory_interface.h"
-#include "api/transport/webrtc_key_value_config.h"
 #include "api/turn_customizer.h"
 #include "api/video/video_bitrate_allocator_factory.h"
 #include "call/rtp_transport_controller_send_factory_interface.h"
@@ -1435,7 +1435,7 @@ struct RTC_EXPORT PeerConnectionFactoryDependencies final {
   std::unique_ptr<rtc::NetworkMonitorFactory> network_monitor_factory;
   std::unique_ptr<NetEqFactory> neteq_factory;
   std::unique_ptr<SctpTransportFactoryInterface> sctp_factory;
-  std::unique_ptr<WebRtcKeyValueConfig> trials;
+  std::unique_ptr<FieldTrialsView> trials;
   std::unique_ptr<RtpTransportControllerSendFactoryInterface>
       transport_controller_send_factory;
   std::unique_ptr<Metronome> metronome;

@@ -23,7 +23,7 @@
 #include "api/task_queue/task_queue_factory.h"
 #include "api/transport/bitrate_settings.h"
 #include "api/transport/field_trial_based_config.h"
-#include "api/transport/webrtc_key_value_config.h"
+#include "api/transport/field_trials_view.h"
 #include "api/video_codecs/video_decoder_factory.h"
 #include "api/video_codecs/video_encoder_factory.h"
 #include "media/base/codec.h"
@@ -53,7 +53,7 @@ struct MediaEngineDependencies {
   std::unique_ptr<webrtc::VideoEncoderFactory> video_encoder_factory;
   std::unique_ptr<webrtc::VideoDecoderFactory> video_decoder_factory;
 
-  const webrtc::WebRtcKeyValueConfig* trials = nullptr;
+  const webrtc::FieldTrialsView* trials = nullptr;
 };
 
 // CreateMediaEngine may be called on any thread, though the engine is
@@ -76,7 +76,7 @@ std::vector<webrtc::RtpExtension> FilterRtpExtensions(
     const std::vector<webrtc::RtpExtension>& extensions,
     bool (*supported)(absl::string_view),
     bool filter_redundant_extensions,
-    const webrtc::WebRtcKeyValueConfig& trials);
+    const webrtc::FieldTrialsView& trials);
 
 webrtc::BitrateConstraints GetBitrateConfigForCodec(const Codec& codec);
 

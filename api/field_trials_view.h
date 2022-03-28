@@ -7,8 +7,8 @@
  *  in the file PATENTS.  All contributing project authors may
  *  be found in the AUTHORS file in the root of the source tree.
  */
-#ifndef API_WEBRTC_KEY_VALUE_CONFIG_H_
-#define API_WEBRTC_KEY_VALUE_CONFIG_H_
+#ifndef API_FIELD_TRIALS_VIEW_H_
+#define API_FIELD_TRIALS_VIEW_H_
 
 #include <string>
 
@@ -22,9 +22,9 @@ namespace webrtc {
 // particular key value mapping will be preserved over time and no announcements
 // will be made if they are changed. It's up to the library user to ensure that
 // the behavior does not break.
-class RTC_EXPORT WebRtcKeyValueConfig {
+class RTC_EXPORT FieldTrialsView {
  public:
-  virtual ~WebRtcKeyValueConfig() = default;
+  virtual ~FieldTrialsView() = default;
   // The configured value for the given key. Defaults to an empty string.
   virtual std::string Lookup(absl::string_view key) const = 0;
 
@@ -38,4 +38,4 @@ class RTC_EXPORT WebRtcKeyValueConfig {
 };
 }  // namespace webrtc
 
-#endif  // API_WEBRTC_KEY_VALUE_CONFIG_H_
+#endif  // API_FIELD_TRIALS_VIEW_H_

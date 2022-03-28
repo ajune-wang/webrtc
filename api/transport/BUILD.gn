@@ -32,7 +32,7 @@ rtc_library("network_control") {
   ]
 
   deps = [
-    ":webrtc_key_value_config",
+    ":field_trials_view",
     "../rtc_event_log",
     "../units:data_rate",
     "../units:data_size",
@@ -45,11 +45,11 @@ rtc_library("network_control") {
   ]
 }
 
-rtc_source_set("webrtc_key_value_config") {
+rtc_source_set("field_trials_view") {
   visibility = [ "*" ]
-  sources = [ "webrtc_key_value_config.h" ]
+  sources = [ "field_trials_view.h" ]
   deps = [
-    "../../api:webrtc_key_value_config",
+    "../../api:field_trials_view",
     "../../rtc_base/system:rtc_export",
   ]
   absl_deps = [ "//third_party/abseil-cpp/absl/strings" ]
@@ -62,7 +62,7 @@ rtc_library("field_trial_based_config") {
     "field_trial_based_config.h",
   ]
   deps = [
-    ":webrtc_key_value_config",
+    ":field_trials_view",
     "../../system_wrappers:field_trial",
   ]
   absl_deps = [ "//third_party/abseil-cpp/absl/strings" ]
@@ -87,8 +87,8 @@ rtc_library("goog_cc") {
     "goog_cc_factory.h",
   ]
   deps = [
+    ":field_trials_view",
     ":network_control",
-    ":webrtc_key_value_config",
     "..:network_state_predictor_api",
     "../../modules/congestion_controller/goog_cc",
   ]

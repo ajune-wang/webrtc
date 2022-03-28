@@ -52,7 +52,7 @@
 #include "api/task_queue/default_task_queue_factory.h"
 #include "api/task_queue/task_queue_factory.h"
 #include "api/transport/field_trial_based_config.h"
-#include "api/transport/webrtc_key_value_config.h"
+#include "api/transport/field_trials_view.h"
 #include "api/uma_metrics.h"
 #include "api/video/video_rotation.h"
 #include "api/video_codecs/sdp_video_format.h"
@@ -1855,7 +1855,7 @@ class PeerConnectionIntegrationBaseTest : public ::testing::Test {
                               expected_cipher_suite);
   }
 
-  const WebRtcKeyValueConfig& trials() const { return *field_trials_.get(); }
+  const FieldTrialsView& trials() const { return *field_trials_.get(); }
 
  protected:
   SdpSemantics sdp_semantics_;
@@ -1876,7 +1876,7 @@ class PeerConnectionIntegrationBaseTest : public ::testing::Test {
   std::vector<std::unique_ptr<cricket::TestTurnCustomizer>> turn_customizers_;
   std::unique_ptr<PeerConnectionIntegrationWrapper> caller_;
   std::unique_ptr<PeerConnectionIntegrationWrapper> callee_;
-  std::unique_ptr<WebRtcKeyValueConfig> field_trials_;
+  std::unique_ptr<FieldTrialsView> field_trials_;
 };
 
 }  // namespace webrtc

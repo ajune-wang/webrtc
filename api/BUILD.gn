@@ -198,9 +198,9 @@ rtc_library("libjingle_peerconnection_api") {
     "task_queue",
     "transport:bitrate_settings",
     "transport:enums",
+    "transport:field_trials_view",
     "transport:network_control",
     "transport:sctp_transport_factory_interface",
-    "transport:webrtc_key_value_config",
     "transport/rtp:rtp_source",
     "units:data_rate",
     "units:timestamp",
@@ -1224,9 +1224,9 @@ if (rtc_include_tests) {
   }
 }
 
-rtc_source_set("webrtc_key_value_config") {
+rtc_source_set("field_trials_view") {
   visibility = [ "*" ]
-  sources = [ "webrtc_key_value_config.h" ]
+  sources = [ "field_trials_view.h" ]
   deps = [ "../rtc_base/system:rtc_export" ]
   absl_deps = [ "//third_party/abseil-cpp/absl/strings" ]
 }

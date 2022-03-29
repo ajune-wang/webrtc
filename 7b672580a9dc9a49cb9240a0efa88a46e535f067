@@ -16,6 +16,29 @@
       "message": "thanks!",
       "revId": "7b672580a9dc9a49cb9240a0efa88a46e535f067",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "ddb60d5d_68f1686f",
+        "filename": "api/field_trials_view.h",
+        "patchSetId": 10
+      },
+      "lineNbr": 42,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2022-03-29T09:44:17Z",
+      "side": 1,
+      "message": "nit:\nnot important for this temporary alias, but might be good to keep in mind for other aliases:\n\nhttps://google.github.io/styleguide/cppguide.html#Aliases\n“In new code, using is preferable to typedef”\n\nIt also good idea to mark this alias deprecated:\n\ne.g.\n\n  using WebRtcKeyValueConfig [[deprecated]] \u003d FieldTrialsView;\n  \nor\n \n  using WebRtcKeyValueConfig [[deprecated(\"bugs.webrtc.org/10335\")]] \u003d FieldTrialsView;\n  \nor,\n\n  using WebRtcKeyValueConfig ABSL_DEPRECATED(\"bugs.webrtc.org/10335\") \u003d FieldTrialsView;\n\n(if version with [[deprecated]] attribute badly formats: clang-format not too friendly to attributes)",
+      "range": {
+        "startLine": 42,
+        "startChar": 0,
+        "endLine": 42,
+        "endChar": 7
+      },
+      "revId": "7b672580a9dc9a49cb9240a0efa88a46e535f067",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

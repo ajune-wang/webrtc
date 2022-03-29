@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "4ee7a505_9fefe0a6",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 6
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 8046
+      },
+      "writtenOn": "2022-03-29T17:05:49Z",
+      "side": 1,
+      "message": "I still have a question to Mirko. I would like to update CI to have pipewire and libdrm installed so they can be dlopened and my test runs on Linux. Where can I do this please?",
+      "revId": "7a122b515f2c07f60d45d7e1b6a5a31aab7d91e2",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

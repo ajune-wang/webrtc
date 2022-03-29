@@ -176,10 +176,10 @@ public class NetworkMonitorAutoDetect extends BroadcastReceiver implements Netwo
     private final boolean requestVPN;
     private final boolean includeOtherUidNetworks;
 
-    ConnectivityManagerDelegate(Context context, Set<Network> availableNetworks) {
+    ConnectivityManagerDelegate(
+        Context context, Set<Network> availableNetworks, String fieldTrials) {
       this((ConnectivityManager) context.getSystemService(Context.CONNECTIVITY_SERVICE),
-          availableNetworks,
-          PeerConnectionFactory.fieldTrialsFindFullName("WebRTC-NetworkMonitorAutoDetect"));
+          availableNetworks, fieldTrials);
     }
 
     @VisibleForTesting
@@ -635,10 +635,12 @@ public class NetworkMonitorAutoDetect extends BroadcastReceiver implements Netwo
 
   /** Constructs a NetworkMonitorAutoDetect. Should only be called on UI thread. */
   @SuppressLint("NewApi")
-  public NetworkMonitorAutoDetect(NetworkChangeDetector.Observer observer, Context context) {
+  public NetworkMonitorAutoDetect(
+      NetworkChangeDetector.Observer observer, Context context, String fieldTrials) {
     this.observer = observer;
     this.context = context;
-    connectivityManagerDelegate = new ConnectivityManagerDelegate(context, availableNetworks);
+    connectivityManagerDelegate =
+        new ConnectivityManagerDelegate(context, availableNetworks, fieldTrials);
     wifiManagerDelegate = new WifiManagerDelegate(context);
 
     final NetworkState networkState = connectivityManagerDelegate.getNetworkState();

@@ -58,6 +58,7 @@ import org.webrtc.NetworkMonitorAutoDetect.SimpleNetworkCallback;
 public class NetworkMonitorTest {
   private static final long INVALID_NET_ID = -1;
   private NetworkChangeDetector detector;
+  private String fieldTrials;
 
   /**
    * Listens for alerts fired by the NetworkMonitor when network status changes.
@@ -94,7 +95,7 @@ public class NetworkMonitorTest {
     }
 
     MockConnectivityManagerDelegate(Set<Network> availableNetworks, String fieldTrialsString) {
-      super(null, availableNetworks, fieldTrialsString);
+      super((ConnectivityManager) null, availableNetworks, fieldTrialsString);
     }
 
     @Override
@@ -189,13 +190,13 @@ public class NetworkMonitorTest {
         new NetworkChangeDetectorFactory() {
           @Override
           public NetworkChangeDetector create(
-              NetworkChangeDetector.Observer observer, Context context) {
-            detector = new NetworkMonitorAutoDetect(observer, context);
+              NetworkChangeDetector.Observer observer, Context context, String fieldTrials) {
+            detector = new NetworkMonitorAutoDetect(observer, context, fieldTrials);
             return detector;
           }
         });
 
-    receiver = NetworkMonitor.createAndSetAutoDetectForTest(context);
+    receiver = NetworkMonitor.createAndSetAutoDetectForTest(context, fieldTrials);
     assertNotNull(receiver);
 
     connectivityDelegate = new MockConnectivityManagerDelegate();
@@ -228,7 +229,8 @@ public class NetworkMonitorTest {
 
     NetworkMonitorAutoDetect.Observer observer = new TestNetworkMonitorAutoDetectObserver();
 
-    NetworkMonitorAutoDetect receiver = new NetworkMonitorAutoDetect(observer, context);
+    NetworkMonitorAutoDetect receiver =
+        new NetworkMonitorAutoDetect(observer, context, fieldTrials);
 
     assertTrue(receiver.isReceiverRegisteredForTesting());
   }
@@ -287,7 +289,7 @@ public class NetworkMonitorTest {
   @SmallTest
   public void testConnectivityManagerDelegateDoesNotCrash() {
     ConnectivityManagerDelegate delegate = new ConnectivityManagerDelegate(
-        InstrumentationRegistry.getTargetContext(), new HashSet<>());
+        InstrumentationRegistry.getTargetContext(), new HashSet<>(), fieldTrials);
     delegate.getNetworkState();
     Network[] networks = delegate.getAllNetworks();
     if (networks.length >= 1) {
@@ -360,7 +362,7 @@ public class NetworkMonitorTest {
   }
 
   private NetworkRequest getNetworkRequestForFieldTrials(String fieldTrials) {
-    return new ConnectivityManagerDelegate(null, new HashSet<>(), fieldTrials)
+    return new ConnectivityManagerDelegate((ConnectivityManager) null, new HashSet<>(), fieldTrials)
         .createNetworkRequest();
   }
 
@@ -373,8 +375,8 @@ public class NetworkMonitorTest {
   @SmallTest
   public void testQueryableAPIsDoNotCrash() {
     NetworkMonitorAutoDetect.Observer observer = new TestNetworkMonitorAutoDetectObserver();
-    NetworkMonitorAutoDetect ncn =
-        new NetworkMonitorAutoDetect(observer, InstrumentationRegistry.getTargetContext());
+    NetworkMonitorAutoDetect ncn = new NetworkMonitorAutoDetect(
+        observer, InstrumentationRegistry.getTargetContext(), fieldTrials);
     ncn.getDefaultNetId();
   }
 
@@ -386,7 +388,7 @@ public class NetworkMonitorTest {
   public void testStartStopMonitoring() {
     NetworkMonitor networkMonitor = NetworkMonitor.getInstance();
     Context context = ContextUtils.getApplicationContext();
-    networkMonitor.startMonitoring(context);
+    networkMonitor.startMonitoring(context, fieldTrials);
     assertEquals(1, networkMonitor.getNumObservers());
     assertEquals(detector, networkMonitor.getNetworkChangeDetector());
     networkMonitor.stopMonitoring();

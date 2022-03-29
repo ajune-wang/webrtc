@@ -74,6 +74,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "6ae4c65e_783705e5",
+        "filename": "modules/audio_device/android/ensure_initialized.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 13,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2022-03-29T08:02:19Z",
+      "side": 1,
+      "message": "This needs a line in tools_webrtc/iwyu/mappings.imp\n\n{include: [\u0027\u003cbits/pthread_types.h\u003e\u0027, \"private\", \u0027\u003cpthread.h\u003e\u0027, \"public\"]}\n\nThen run tools_webrtc/iwyu/apply-iwyu again.\n\n(Note: apply-iwyu has grown an \"-r\" flag that also removes unneeded includes from .h files)",
+      "parentUuid": "eba9e9d9_f99877da",
+      "range": {
+        "startLine": 13,
+        "startChar": 0,
+        "endLine": 13,
+        "endChar": 31
+      },
+      "revId": "e945b3832b6d3ebb5349358ae368886784027827",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "11907c6e_54ab098d",
         "filename": "modules/video_coding/codecs/test/android_codec_factory_helper.cc",
         "patchSetId": 2

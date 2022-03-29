@@ -178,6 +178,7 @@ class TaskQueuePacedSender : public RtpPacketPacer, public RtpPacketSender {
     void IncrementNonDelayedTaskCount(std::string name);
     void IncrementDelayedTaskCount(std::string name);
     void IncrementProbeCount();
+    void OnValueObserved(std::string name, int value);
 
    private:
     void UpdateTimestamp();
@@ -186,6 +187,7 @@ class TaskQueuePacedSender : public RtpPacketPacer, public RtpPacketSender {
     std::map<std::string, double> non_delayed_task_count_;
     std::map<std::string, double> delayed_task_count_;
     double probe_count_ = 0;
+    std::map<std::string, int> max_values_;
   };
   mutable Mutex wake_up_counter_mutex_;
   WakeUpCounter wake_up_counter_ RTC_GUARDED_BY(wake_up_counter_mutex_);

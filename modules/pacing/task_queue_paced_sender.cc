@@ -76,6 +76,11 @@ void TaskQueuePacedSender::WakeUpCounter::IncrementProbeCount() {
   UpdateTimestamp();
 }
 
+void TaskQueuePacedSender::WakeUpCounter::OnValueObserved(std::string name,
+                                                          int value) {
+  max_values_[name] = std::max(max_values_[name], value);
+}
+
 void TaskQueuePacedSender::WakeUpCounter::UpdateTimestamp() {
   int64_t now_ns = rtc::TimeNanos();
   if (prev_log_timestamp_ns_ == -1) {
@@ -94,15 +99,28 @@ void TaskQueuePacedSender::WakeUpCounter::UpdateTimestamp() {
       static_cast<int>(std::round(SumOfAllEntries(non_delayed_task_count_)));
   int total_delayed_task_count =
       static_cast<int>(std::round(SumOfAllEntries(delayed_task_count_)));
+  rtc::StringBuilder max_str;
+  for (const auto& pair : max_values_) {
+    rtc::StringBuilder str;
+    str << "- " << pair.first << ": ";
+    while (str.size() < 15)
+      str << " ";
+    str << pair.second;
+    if (max_str.size())
+      max_str << "\n";
+    max_str << str.str();
+  }
   RTC_LOG(LS_ERROR) << "Summary\n"
                     << "* Non-delayed: " << total_non_delayed_task_count
                     << "Hz (" << Summary(non_delayed_task_count_) << ")\n"
                     << "* Delayed:     " << total_delayed_task_count << "Hz ("
                     << Summary(delayed_task_count_) << ")\n"
-                    << "* Probes:      " << probe_count_ << "Hz";
+                    << "* Probes:      " << probe_count_ << "Hz\n"
+                    << max_str.str();
   // Reset counters
   non_delayed_task_count_.clear();
   delayed_task_count_.clear();
+  max_values_.clear();
   probe_count_ = 0;
   prev_log_timestamp_ns_ = now_ns;
 }
@@ -343,6 +361,17 @@ void TaskQueuePacedSender::MaybeProcessPackets(
     return;
   }
 
+  Stats stats_before;
+  stats_before.queue_size = pacing_controller_.QueueSizeData();
+  stats_before.expected_queue_time = pacing_controller_.ExpectedQueueTime();
+  {
+    MutexLock wake_up_counter_lock(&wake_up_counter_mutex_);
+    wake_up_counter_.OnValueObserved("queue_size",
+                                     stats_before.queue_size.bytes());
+    wake_up_counter_.OnValueObserved("exp_q_time",
+                                     stats_before.expected_queue_time.ms());
+  }
+
   if (pacing_controller_.IsProbing()) {
     MutexLock wake_up_counter_lock(&wake_up_counter_mutex_);
     wake_up_counter_.IncrementProbeCount();
@@ -368,6 +397,19 @@ void TaskQueuePacedSender::MaybeProcessPackets(
                                : TimeDelta::Zero();
   }
   UpdateStats();
+
+  Stats stats_after;
+  stats_after.queue_size = pacing_controller_.QueueSizeData();
+  stats_after.expected_queue_time = pacing_controller_.ExpectedQueueTime();
+  {
+    MutexLock wake_up_counter_lock(&wake_up_counter_mutex_);
+    wake_up_counter_.OnValueObserved(
+        "d queue_size",
+        stats_before.queue_size.bytes() - stats_after.queue_size.bytes());
+    wake_up_counter_.OnValueObserved("d exp_q_time",
+                                     stats_before.expected_queue_time.ms() -
+                                         stats_after.expected_queue_time.ms());
+  }
 
   // Ignore retired scheduled task, otherwise reset `next_process_time_`.
   if (scheduled_process_time.IsFinite()) {

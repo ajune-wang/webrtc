@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "e68372ef_2e1a4380",
+        "filename": "tools_webrtc/mb/gn_isolate_map.pyl",
+        "patchSetId": 2
+      },
+      "lineNbr": 71,
+      "author": {
+        "id": 5087
+      },
+      "writtenOn": "2022-03-29T09:50:46Z",
+      "side": 1,
+      "message": "Wasn\u0027t this breaking Chromium\u0027s MB?",
+      "range": {
+        "startLine": 71,
+        "startChar": 13,
+        "endLine": 71,
+        "endChar": 19
+      },
+      "revId": "07acb797953f8df2cf80c0992e00a67515b13f66",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

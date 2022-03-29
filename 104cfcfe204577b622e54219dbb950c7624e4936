@@ -35,6 +35,24 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "459fb8f0_39592dbb",
+        "filename": "api/field_trials_view.h",
+        "patchSetId": 8
+      },
+      "lineNbr": 42,
+      "author": {
+        "id": 5613
+      },
+      "writtenOn": "2022-03-29T09:06:07Z",
+      "side": 1,
+      "message": "I tried that...but downstream has code that does not include\nthe webrtc_key_value_config.h...and still depend on the type 😞",
+      "parentUuid": "4bf68cf3_d7772ede",
+      "revId": "104cfcfe204577b622e54219dbb950c7624e4936",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "ab5c95d7_d9d50b13",
@@ -48,6 +66,24 @@
       "writtenOn": "2022-03-29T08:16:40Z",
       "side": 1,
       "message": "Here\u0027s where the typedef could go.",
+      "revId": "104cfcfe204577b622e54219dbb950c7624e4936",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "1ebcb9eb_9c524539",
+        "filename": "api/webrtc_key_value_config.h",
+        "patchSetId": 8
+      },
+      "lineNbr": 15,
+      "author": {
+        "id": 5613
+      },
+      "writtenOn": "2022-03-29T09:06:07Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "ab5c95d7_d9d50b13",
       "revId": "104cfcfe204577b622e54219dbb950c7624e4936",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }

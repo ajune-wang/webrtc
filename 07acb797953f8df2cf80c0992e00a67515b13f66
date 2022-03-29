@@ -22,6 +22,30 @@
       },
       "revId": "07acb797953f8df2cf80c0992e00a67515b13f66",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "2d1f0847_39116502",
+        "filename": "tools_webrtc/mb/gn_isolate_map.pyl",
+        "patchSetId": 2
+      },
+      "lineNbr": 71,
+      "author": {
+        "id": 12234
+      },
+      "writtenOn": "2022-03-29T10:09:24Z",
+      "side": 1,
+      "message": "Yes, I removed the \u0027write_runtime_deps\u0027 in BUILD.gn and it should fix the error.\nThe previous solution I tried didn\u0027t work for android builders.",
+      "parentUuid": "e68372ef_2e1a4380",
+      "range": {
+        "startLine": 71,
+        "startChar": 13,
+        "endLine": 71,
+        "endChar": 19
+      },
+      "revId": "07acb797953f8df2cf80c0992e00a67515b13f66",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "1d0baeec_744fa1bb",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 6305
+      },
+      "writtenOn": "2022-03-29T13:56:51Z",
+      "side": 1,
+      "message": "Hi Kári,\ncould you please take a look?\n\nThanks a lot,\nYury.",
+      "revId": "1efe994293df8a4501852957884d4fe8d8a7e987",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

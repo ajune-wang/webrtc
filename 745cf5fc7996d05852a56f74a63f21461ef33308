@@ -18,6 +18,57 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "bd9b85ce_b9e4faa7",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 3
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2022-03-29T12:44:10Z",
+      "side": 1,
+      "message": "I worry about there being a footgun with multiple field trial objects.\nCan we make it blow up (RTC_DCHECK) when people try to shoot themselves in the foot?",
+      "revId": "745cf5fc7996d05852a56f74a63f21461ef33308",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "637540f9_58c34caa",
+        "filename": "api/field_trials.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 42,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2022-03-29T12:44:10Z",
+      "side": 1,
+      "message": "Nit: the general recommendation is to use emplace() or friends rather than using [] on the left side of the assignment operator. (yes, I know, old code).",
+      "revId": "745cf5fc7996d05852a56f74a63f21461ef33308",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "3762bc81_5b8cbcc0",
+        "filename": "api/field_trials.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 58,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2022-03-29T12:44:10Z",
+      "side": 1,
+      "message": "If you\u0027re doing only one FieldTrials object, ever, this works fine, but if you do\n\nFieldTrials a(\"foo\");\nFieldTrials b(\"bar\");\nFieldtrials c(\"baz\");\n\nand then destroy in order a, b, c, the result will be that the global string will have values:\n\n\u003cempty\u003e\nfoo\nbar\nbaz\n\u003cempty\u003e (after destroy a)\nfoo (after destroy b)\nbar (after destroy c)\n\nIt\u0027s worth adding a comment saying \"NOTE: Stacking contexts only works right\nwith the global string when you only ever create a single FieldTrials object\".\n\nLooking forward to it going away....",
+      "revId": "745cf5fc7996d05852a56f74a63f21461ef33308",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "72ffb3d3_10fb98ba",
@@ -66,6 +117,40 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "5ae2792e_92511ce2",
+        "filename": "api/field_trials.h",
+        "patchSetId": 3
+      },
+      "lineNbr": 28,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2022-03-29T12:44:10Z",
+      "side": 1,
+      "message": "Nit: wire APIs -\u003e wire up APIs",
+      "revId": "745cf5fc7996d05852a56f74a63f21461ef33308",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "5e9db061_850985b5",
+        "filename": "api/field_trials.h",
+        "patchSetId": 3
+      },
+      "lineNbr": 31,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2022-03-29T12:44:10Z",
+      "side": 1,
+      "message": "In the current code, they must be injected when creating a PeerConnection, right?\n\n(or by setting the global string, but We Do Not Talk About That...)",
+      "revId": "745cf5fc7996d05852a56f74a63f21461ef33308",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "e32bb242_74234a26",
         "filename": "api/field_trials.h",
         "patchSetId": 3
@@ -83,6 +168,74 @@
         "endLine": 32,
         "endChar": 37
       },
+      "revId": "745cf5fc7996d05852a56f74a63f21461ef33308",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "736b34e9_1ead05fd",
+        "filename": "api/field_trials_unittest.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 31,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2022-03-29T12:44:10Z",
+      "side": 1,
+      "message": "Suggested alternate name: SetGlobalStringAndReadFromFieldTrial",
+      "revId": "745cf5fc7996d05852a56f74a63f21461ef33308",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "b9891005_722ee77c",
+        "filename": "api/field_trials_unittest.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 34,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2022-03-29T12:44:10Z",
+      "side": 1,
+      "message": "Where\u0027s FieldTrialBasedConfig defined?\nCan you run the test without it?",
+      "revId": "745cf5fc7996d05852a56f74a63f21461ef33308",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "92fa10fe_9aab23ec",
+        "filename": "api/field_trials_unittest.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 39,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2022-03-29T12:44:10Z",
+      "side": 1,
+      "message": "Suggest alternate name: SetFieldTrialAndReadFromGlobalString",
+      "revId": "745cf5fc7996d05852a56f74a63f21461ef33308",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "d8f2d46e_bae31cc0",
+        "filename": "api/field_trials_unittest.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 43,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2022-03-29T12:44:10Z",
+      "side": 1,
+      "message": "You need a test for the \"restore when destroyed\" stuff too.",
       "revId": "745cf5fc7996d05852a56f74a63f21461ef33308",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }

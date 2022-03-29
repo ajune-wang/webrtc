@@ -59,6 +59,8 @@ luci.builder.defaults.test_presentation.set(
 lucicfg.config(
     config_dir = ".",
     tracked_files = [
+        "chops-weetbix-dev.cfg",
+        "chops-weetbix.cfg",
         "commit-queue.cfg",
         "cr-buildbucket.cfg",
         "luci-logdog.cfg",
@@ -854,3 +856,17 @@ cron_builder(
     },
     schedule = "*/10 * * * *",  # Every 10 minutes.
 )
+# Configure Weetbix (config is copied verbatim)
+################################################################################
+
+lucicfg.emit(
+    dest = "chops-weetbix-dev.cfg",
+    data = io.read_file("chops-weetbix-dev.cfg"),
+)
+
+lucicfg.emit(
+    dest = "chops-weetbix.cfg",
+    data = io.read_file("chops-weetbix.cfg"),
+)
+
+################################################################################

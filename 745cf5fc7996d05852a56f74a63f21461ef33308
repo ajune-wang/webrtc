@@ -53,6 +53,24 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "04ec1c78_4e1e89dc",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 3
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2022-03-29T13:31:44Z",
+      "side": 1,
+      "message": "You know the adage about there being nothing as permanent as a temporary fix....\n\nA suggestion not involving dcheck:\nadding a static bool to the class called \"never_been_called_\", inited to true, and copying that into a class member bool \"restore_on_exit_\" at initializiation + setting the static never_been_called_ to false.\n\nonly restore if \"restore_on_exit_\" is true.\n\nthat gives consistent behavior and covers the 1 important use case.",
+      "parentUuid": "5e02ee3f_fca707da",
+      "revId": "745cf5fc7996d05852a56f74a63f21461ef33308",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "637540f9_58c34caa",

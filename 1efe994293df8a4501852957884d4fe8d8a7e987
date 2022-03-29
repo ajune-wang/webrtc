@@ -16,6 +16,23 @@
       "message": "Hi Kári,\ncould you please take a look?\n\nThanks a lot,\nYury.",
       "revId": "1efe994293df8a4501852957884d4fe8d8a7e987",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "9a39b69e_182f9c3f",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5520
+      },
+      "writtenOn": "2022-03-29T13:59:38Z",
+      "side": 1,
+      "message": "Excellent, thanks a lot!",
+      "revId": "1efe994293df8a4501852957884d4fe8d8a7e987",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

@@ -16,6 +16,41 @@
       "message": "Confused .. is this a difference between field trial strings in Java and in C++ (:true vs /Enabled/), or are all the examples with /Enabled wrong?\n",
       "revId": "2f557ff9d3ad69934426f8e4fa876963e570d1d5",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "2d9dc7d7_976ba8a1",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 3
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5613
+      },
+      "writtenOn": "2022-03-29T13:19:18Z",
+      "side": 1,
+      "message": "it is not a difference in java/c++\na full string could be:\nWebRTC-NetworkMonitorAutoDetect/getAllNetworksFromCache:true,requestVPN:true/\n\ni.e it is one of those multi-part things...and I had forgotten how to format them! (i.e didn\u0027t realize/remember that one could not use / inside one trial)",
+      "parentUuid": "0fc772d9_b56b3cbd",
+      "revId": "2f557ff9d3ad69934426f8e4fa876963e570d1d5",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "1006159f_ed6d90f0",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 3
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5613
+      },
+      "writtenOn": "2022-03-29T13:19:18Z",
+      "side": 1,
+      "message": "thanks and PTAL",
+      "revId": "2f557ff9d3ad69934426f8e4fa876963e570d1d5",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

@@ -212,6 +212,11 @@ class RTC_EXPORT NetworkManagerBase : public NetworkManager {
       const webrtc::WebRtcKeyValueConfig* field_trials = nullptr);
   ~NetworkManagerBase() override;
 
+  // The using declarations are needed to inherit new signature variant.
+  // TODO(bugs.webrtc.org/13869): Delete using declarations when old signature
+  // is replaced.
+  using NetworkManager::GetAnyAddressNetworks;
+  using NetworkManager::GetNetworks;
   void GetNetworks(NetworkList* networks) const override;
   void GetAnyAddressNetworks(NetworkList* networks) override;
 

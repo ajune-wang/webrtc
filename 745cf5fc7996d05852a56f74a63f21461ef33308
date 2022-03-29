@@ -325,6 +325,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "b1e63ed6_0f839662",
+        "filename": "api/field_trials.h",
+        "patchSetId": 3
+      },
+      "lineNbr": 31,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2022-03-29T21:50:17Z",
+      "side": 1,
+      "message": "Suggested:\nThe field trials are injected into objects that use them at creation time.\n\nThis leaves it completely open where you need to inject them - that\u0027s not the business of this class.",
+      "parentUuid": "bb17b5b7_8765dcd8",
+      "revId": "745cf5fc7996d05852a56f74a63f21461ef33308",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "e32bb242_74234a26",
         "filename": "api/field_trials.h",
         "patchSetId": 3
@@ -436,6 +454,24 @@
       "side": 1,
       "message": "- defined in: api/transport/\n- run test w/o it: no, not today...\nI don\u0027t have any \"viewer\" that doesn\u0027t also set the global string\nexcept that thing...but that thing should move and be renamed...\n(in a future cl/)",
       "parentUuid": "b9891005_722ee77c",
+      "revId": "745cf5fc7996d05852a56f74a63f21461ef33308",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "f3b763f4_4c3fd8b7",
+        "filename": "api/field_trials_unittest.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 34,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2022-03-29T21:50:17Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "bb8d7e09_2e909465",
       "revId": "745cf5fc7996d05852a56f74a63f21461ef33308",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },

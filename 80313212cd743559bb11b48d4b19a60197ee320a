@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "56520055_c74d9461",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2022-03-29T08:50:33Z",
+      "side": 1,
+      "message": "If this lands and sticks, we can remove references in internal repos and chrome too, and then delete the target.",
+      "revId": "80313212cd743559bb11b48d4b19a60197ee320a",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "9525f0ae_7e73c309",
+        "filename": "infra/config/config.star",
+        "patchSetId": 1
+      },
+      "lineNbr": 859,
+      "author": {
+        "id": 12234
+      },
+      "writtenOn": "2022-03-29T13:38:10Z",
+      "side": 1,
+      "message": "Could you move this somewhere above the \"Recipe definitions:\".\nIt\u0027s nice to have the bots at the end cause it\u0027s usually what we are looking for.",
+      "revId": "9c76b00b562936846c1f1fafdb16106a3a9d8e3c",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

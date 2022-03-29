@@ -581,5 +581,38 @@ TEST(LossBasedBweV2Test, NotUseAckedBitrateInNormalState) {
             acked_bitrate);
 }
 
+TEST(LossBasedBweV2Test, NoUpdateIfObservationDurationUnchanged) {
+  PacketResult enough_feedback_1[2];
+  enough_feedback_1[0].sent_packet.size = DataSize::Bytes(15'000);
+  enough_feedback_1[1].sent_packet.size = DataSize::Bytes(15'000);
+  enough_feedback_1[0].sent_packet.send_time = Timestamp::Zero();
+  enough_feedback_1[1].sent_packet.send_time =
+      Timestamp::Zero() + kObservationDurationLowerBound;
+  enough_feedback_1[0].receive_time =
+      Timestamp::Zero() + kObservationDurationLowerBound;
+  enough_feedback_1[1].receive_time =
+      Timestamp::Zero() + 2 * kObservationDurationLowerBound;
+
+  ExplicitKeyValueConfig key_value_config(
+      Config(/*enabled=*/true, /*valid=*/true));
+  LossBasedBweV2 loss_based_bandwidth_estimator(&key_value_config);
+
+  loss_based_bandwidth_estimator.SetBandwidthEstimate(
+      DataRate::KilobitsPerSec(600));
+  DataRate acked_bitrate = DataRate::KilobitsPerSec(300);
+  loss_based_bandwidth_estimator.SetAcknowledgedBitrate(acked_bitrate);
+  loss_based_bandwidth_estimator.UpdateBandwidthEstimate(
+      enough_feedback_1, DataRate::PlusInfinity(), BandwidthUsage::kBwNormal);
+  DataRate current_bitrate =
+      loss_based_bandwidth_estimator.GetBandwidthEstimate(
+          /*delay_based_limit=*/DataRate::PlusInfinity());
+
+  loss_based_bandwidth_estimator.UpdateBandwidthEstimate(
+      enough_feedback_1, DataRate::PlusInfinity(), BandwidthUsage::kBwNormal);
+  DataRate new_bitrate = loss_based_bandwidth_estimator.GetBandwidthEstimate(
+      /*delay_based_limit=*/DataRate::PlusInfinity());
+  EXPECT_EQ(current_bitrate, new_bitrate);
+}
+
 }  // namespace
 }  // namespace webrtc

@@ -125,6 +125,24 @@
     {
       "unresolved": false,
       "key": {
+        "uuid": "5c501339_f901a3af",
+        "filename": "api/video/i210_buffer.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 29,
+      "author": {
+        "id": 5117
+      },
+      "writtenOn": "2022-03-30T09:35:15Z",
+      "side": 1,
+      "message": "Thank you! Then I suggest you to rebase your CL after libyuv is updated in webrtc. Then you don\u0027t need to reimplement these functions here.",
+      "parentUuid": "370c6871_ed8284b0",
+      "revId": "9acf413cf9e391a5f87420882ab6fb5c99b7da7f",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
         "uuid": "e81599a0_107aff5a",
         "filename": "api/video/i210_buffer.cc",
         "patchSetId": 2

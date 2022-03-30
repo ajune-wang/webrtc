@@ -13,6 +13,7 @@
 #include <stdint.h>
 
 #include <memory>
+#include <utility>
 
 #include "p2p/base/basic_packet_socket_factory.h"
 #include "p2p/base/test_stun_server.h"
@@ -54,12 +55,12 @@ class StunProberTest : public ::testing::Test {
 
   void StartProbing(rtc::PacketSocketFactory* socket_factory,
                     const std::vector<rtc::SocketAddress>& addrs,
-                    const rtc::NetworkManager::NetworkList& networks,
+                    std::vector<const rtc::Network*> networks,
                     bool shared_socket,
                     uint16_t interval,
                     uint16_t pings_per_ip) {
-    prober.reset(
-        new StunProber(socket_factory, rtc::Thread::Current(), networks));
+    prober.reset(new StunProber(socket_factory, rtc::Thread::Current(),
+                                std::move(networks)));
     prober->Start(addrs, shared_socket, interval, pings_per_ip,
                   100 /* timeout_ms */, [this](StunProber* prober, int result) {
                     this->StopCallback(prober, result);
@@ -77,7 +78,7 @@ class StunProberTest : public ::testing::Test {
     rtc::Network ipv4_network1("test_eth0", "Test Network Adapter 1",
                                rtc::IPAddress(0x12345600U), 24);
     ipv4_network1.AddIP(rtc::IPAddress(0x12345678));
-    rtc::NetworkManager::NetworkList networks;
+    std::vector<const rtc::Network*> networks;
     networks.push_back(&ipv4_network1);
 
     auto socket_factory =
@@ -93,8 +94,8 @@ class StunProberTest : public ::testing::Test {
     // kFailedStunAddr.
     const uint32_t total_pings_reported = total_pings_tried - pings_per_ip;
 
-    StartProbing(socket_factory.get(), addrs, networks, shared_mode, 3,
-                 pings_per_ip);
+    StartProbing(socket_factory.get(), addrs, std::move(networks), shared_mode,
+                 3, pings_per_ip);
 
     WAIT(stopped_, 1000);
 

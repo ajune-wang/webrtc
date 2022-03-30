@@ -1,0 +1,44 @@
+# Copyright (c) 2022 The WebRTC project authors. All Rights Reserved.
+#
+# Use of this source code is governed by a BSD-style license
+# that can be found in the LICENSE file in the root of the source
+# tree. An additional intellectual property rights grant can be found
+# in the file PATENTS.  All contributing project authors may
+# be found in the AUTHORS file in the root of the source tree.
+
+{
+  'basic_suites': {
+    'common_isolated_scripts_unittests': {
+      'common_audio_unittests': {},
+      'common_video_unittests': {},
+    },
+
+    'quick_perf_test': {
+      'webrtc_perf_tests': {
+        'args': [
+          '--force_fieldtrials=WebRTC-QuickPerfTest/Enabled/',
+          '--nologs',
+        ],
+        'remove_mixins': ['result_adapter'],
+        'resultdb': {
+          'result_format': 'gtest_json',
+          'result_file':'${ISOLATED_OUTDIR}/gtest_output.json',
+        },
+        'swarming': {
+          'dimension_sets': [{
+            'pool': 'WebRTC-baremetal',
+            'gpu': None,
+          }],
+        },
+      }
+    }
+  },
+
+  'compound_suites': {
+    'common_isolated_scripts': [
+      'common_isolated_scripts_unittests',
+      'quick_perf_test',
+    ],
+
+  },
+}

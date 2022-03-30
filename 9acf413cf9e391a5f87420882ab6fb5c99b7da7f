@@ -319,6 +319,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "8c88d3ac_bafe5531",
+        "filename": "modules/video_coding/codecs/h264/h264_decoder_impl.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 431,
+      "author": {
+        "id": 5117
+      },
+      "writtenOn": "2022-03-30T09:50:28Z",
+      "side": 1,
+      "message": "A switch is in order then. For 8 bit formats you would take PlanarYuv8Buffer and make checks, for other formats you would take PlanarYuv16Buffer.",
+      "parentUuid": "de320aa7_3c233b96",
+      "range": {
+        "startLine": 431,
+        "startChar": 2,
+        "endLine": 431,
+        "endChar": 4
+      },
+      "revId": "9acf413cf9e391a5f87420882ab6fb5c99b7da7f",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "b7be2f1c_8bbb3e00",
         "filename": "modules/video_coding/codecs/h264/h264_decoder_impl.cc",
         "patchSetId": 2
@@ -354,6 +378,30 @@
       "side": 1,
       "message": "Note that the decoded frame is stored in cropped_buffer object and that this switch will just replace the  it with a converted nv12 format for the 8 bits ones. \n\nIn case of the 10 bits buffers, no conversion will be done and the original cropped_buffer will be used instead.",
       "parentUuid": "b7be2f1c_8bbb3e00",
+      "range": {
+        "startLine": 562,
+        "startChar": 8,
+        "endLine": 562,
+        "endChar": 24
+      },
+      "revId": "9acf413cf9e391a5f87420882ab6fb5c99b7da7f",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "755f0d6c_72590753",
+        "filename": "modules/video_coding/codecs/h264/h264_decoder_impl.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 562,
+      "author": {
+        "id": 5117
+      },
+      "writtenOn": "2022-03-30T09:50:28Z",
+      "side": 1,
+      "message": "In that case please add a comment, that preference for NV12 output format is ignored if actual format isn\u0027t trivially convertible to it. Then remove the conversion for I422 and I444 also. Actually, remove the switch statement. The only trivially convertible format is I420.",
+      "parentUuid": "f62b5941_c2f9c78c",
       "range": {
         "startLine": 562,
         "startChar": 8,

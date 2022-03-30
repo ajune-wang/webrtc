@@ -176,6 +176,24 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "b56f3bb7_5d83f9e1",
+        "filename": "api/video/i210_buffer.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 199,
+      "author": {
+        "id": 5117
+      },
+      "writtenOn": "2022-03-30T09:46:28Z",
+      "side": 1,
+      "message": "No, I010 does use only one conversion:\nhttps://source.chromium.org/chromium/chromium/src/+/main:third_party/webrtc/api/video/i010_buffer.cc;l\u003d85;drc\u003dd3251968d1b3dbe7e1353a3f15970b47173103e9\n\nMore importantly, here in ToI420:\nhttps://source.chromium.org/chromium/chromium/src/+/main:third_party/webrtc/api/video/i010_buffer.cc;l\u003d153;drc\u003dd3251968d1b3dbe7e1353a3f15970b47173103e9\n\nWhile you use i422 or I010 as intermediary. It might not be trivial to do without it. Previously libyuv only ever had conversions which either scaled the plane or changed the bit depth. But in your case a combined operation is needed.\n\nBut as long as this intermediary buffer is in libyuv, I\u0027m fine with it. I\u0027m sure people there would help you optimize it.",
+      "parentUuid": "35e1478f_3efa0901",
+      "revId": "9acf413cf9e391a5f87420882ab6fb5c99b7da7f",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "1e2931ee_dead8fd5",
@@ -207,6 +225,24 @@
       "side": 1,
       "message": "I have not found an easy way to do the conversion from I210 to I420 on a single step, that\u0027s why I have to create an intermediate buffer to do the I210 to I010 and then from I010 to I420. \n\nI will try to add the I210toI420 with current intermediate buffer.",
       "parentUuid": "1e2931ee_dead8fd5",
+      "revId": "9acf413cf9e391a5f87420882ab6fb5c99b7da7f",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "f22d9d72_4620439e",
+        "filename": "api/video/i210_buffer.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 270,
+      "author": {
+        "id": 5117
+      },
+      "writtenOn": "2022-03-30T09:46:28Z",
+      "side": 1,
+      "message": "I\u0027m fine if that function would be in libyuv, even with an intermediary buffer at the first implementation. Then a libyuv ScalePlane8to16 function could be implemented, which would do exactly the same things as ScalePlane16 but would also change the bit depth at the last step.",
+      "parentUuid": "ee8c0103_58736183",
       "revId": "9acf413cf9e391a5f87420882ab6fb5c99b7da7f",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },

@@ -196,6 +196,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "e77342ba_3b21669c",
+        "filename": "api/video/i210_buffer.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 199,
+      "author": {
+        "id": 5963
+      },
+      "writtenOn": "2022-03-30T12:52:43Z",
+      "side": 1,
+      "message": "My bad, I thought that you were referring about the two Copy methods from converting from two different formats.",
+      "parentUuid": "b56f3bb7_5d83f9e1",
+      "revId": "9acf413cf9e391a5f87420882ab6fb5c99b7da7f",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "1e2931ee_dead8fd5",
         "filename": "api/video/i210_buffer.cc",
         "patchSetId": 2
@@ -341,6 +359,30 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "ca0cbdad_b738e3b1",
+        "filename": "modules/video_coding/codecs/h264/h264_decoder_impl.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 431,
+      "author": {
+        "id": 5963
+      },
+      "writtenOn": "2022-03-30T12:52:43Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "8c88d3ac_bafe5531",
+      "range": {
+        "startLine": 431,
+        "startChar": 2,
+        "endLine": 431,
+        "endChar": 4
+      },
+      "revId": "9acf413cf9e391a5f87420882ab6fb5c99b7da7f",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "b7be2f1c_8bbb3e00",
@@ -402,6 +444,30 @@
       "side": 1,
       "message": "In that case please add a comment, that preference for NV12 output format is ignored if actual format isn\u0027t trivially convertible to it. Then remove the conversion for I422 and I444 also. Actually, remove the switch statement. The only trivially convertible format is I420.",
       "parentUuid": "f62b5941_c2f9c78c",
+      "range": {
+        "startLine": 562,
+        "startChar": 8,
+        "endLine": 562,
+        "endChar": 24
+      },
+      "revId": "9acf413cf9e391a5f87420882ab6fb5c99b7da7f",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "2b49f2e6_7ca5e295",
+        "filename": "modules/video_coding/codecs/h264/h264_decoder_impl.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 562,
+      "author": {
+        "id": 5963
+      },
+      "writtenOn": "2022-03-30T12:52:43Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "755f0d6c_72590753",
       "range": {
         "startLine": 562,
         "startChar": 8,

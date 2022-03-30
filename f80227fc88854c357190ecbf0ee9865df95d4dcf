@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "4f4fc96c_4602eb8b",
+        "filename": "audio/channel_receive.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 353,
+      "author": {
+        "id": 7015
+      },
+      "writtenOn": "2022-03-30T11:52:22Z",
+      "side": 1,
+      "message": "I think it would read better if we merge the default RTT to GetNackList\n\n\nSomething like changing\n  if (config_.require_valid_rtt \u0026\u0026 round_trip_time_ms \u003d\u003d 0) {\n    return sequence_numbers;\n  }\n  \ninto\n\n  if (round_trip_time_ms \u003d\u003d 0) {\n    // No valid RTT available, we either just won\u0027t NACK or apply a default RTT.\n    if (config_.require_valid_rtt) {\n      return sequence_numbers;\n    } else {\n      round_trip_time \u003d kDefaultRttMs;\n    }\n  }",
+      "revId": "f80227fc88854c357190ecbf0ee9865df95d4dcf",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

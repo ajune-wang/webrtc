@@ -280,6 +280,9 @@ void ConnectionRequest::OnSent() {
 }
 
 int ConnectionRequest::resend_delay() {
+  if (dummy != 0) {
+    dummy = 1;
+  }
   return CONNECTION_RESPONSE_TIMEOUT;
 }
 

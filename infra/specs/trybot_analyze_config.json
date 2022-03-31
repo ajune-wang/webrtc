@@ -1,0 +1,8 @@
+{
+  "webrtc": {
+      "exclusions": [
+          "DEPS",
+          "tools_webrtc/buildbot/.*"
+      ]
+  }
+}

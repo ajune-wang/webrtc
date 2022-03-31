@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "5f9422c6_cc46cc71",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 8
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 12234
+      },
+      "writtenOn": "2022-03-31T14:47:43Z",
+      "side": 1,
+      "message": "Chromium config is in testing/buildbot.\nMaybe this config would be better placed in infra/specs like what is done for \u0027angle\u0027 project:\nhttps://source.chromium.org/chromium/chromium/src/+/main:third_party/angle/infra/specs/",
+      "revId": "65dfdb463b9131848a7d23ca21887d2d7a1a771d",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

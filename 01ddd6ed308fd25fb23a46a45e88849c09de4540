@@ -1,0 +1,44 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "946a860d_4e479977",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 10
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5087
+      },
+      "writtenOn": "2022-03-31T15:08:18Z",
+      "side": 1,
+      "message": "How are we going to switch this to be the source of truth for one builder?",
+      "revId": "01ddd6ed308fd25fb23a46a45e88849c09de4540",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "5fddd388_1c7d1a27",
+        "filename": "infra/specs/generate_buildbot_json.py",
+        "patchSetId": 10
+      },
+      "lineNbr": 58,
+      "author": {
+        "id": 5087
+      },
+      "writtenOn": "2022-03-31T15:08:18Z",
+      "side": 1,
+      "message": "Do we want to keep this name or do we prefer to rename?\n\n(if this was copied, maybe we should add a comment mentioning it, like e.g. https://source.chromium.org/chromium/chromium/src/+/main:third_party/webrtc/rtc_base/strong_alias.h;l\u003d19-23;drc\u003db918230640db5df3f72994fe2a2e037f078b1e95)",
+      "range": {
+        "startLine": 58,
+        "startChar": 2,
+        "endLine": 58,
+        "endChar": 17
+      },
+      "revId": "01ddd6ed308fd25fb23a46a45e88849c09de4540",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

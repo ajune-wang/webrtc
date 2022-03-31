@@ -66,6 +66,7 @@ class ConnectionRequest : public StunRequest {
 
  private:
   Connection* const connection_;
+  int dummy = 0;
 };
 
 // Represents a communication link between a port on the local client and a

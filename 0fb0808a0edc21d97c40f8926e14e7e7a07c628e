@@ -81,6 +81,30 @@
       },
       "revId": "0fb0808a0edc21d97c40f8926e14e7e7a07c628e",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "5f3d841b_a5a4f691",
+        "filename": "p2p/base/connection.h",
+        "patchSetId": 6
+      },
+      "lineNbr": 352,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2022-03-31T12:13:22Z",
+      "side": 1,
+      "message": "Ack. Do you know any particular place where you know we should add a check for an expired object? I see none in this cl.",
+      "parentUuid": "0be9fde2_d049aad4",
+      "range": {
+        "startLine": 352,
+        "startChar": 24,
+        "endLine": 352,
+        "endChar": 37
+      },
+      "revId": "0fb0808a0edc21d97c40f8926e14e7e7a07c628e",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

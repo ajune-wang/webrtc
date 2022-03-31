@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "8b15c59b_976880b3",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 11
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 12234
+      },
+      "writtenOn": "2022-03-31T16:09:22Z",
+      "side": 1,
+      "message": "I moved the OWNERS file move in another CL.\nhttps://webrtc-review.googlesource.com/c/src/+/257304",
+      "revId": "2c28f64a6b89b191be3fa614e41099511567d7d8",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

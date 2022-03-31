@@ -1,0 +1,44 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "06c9897f_91e3e7b1",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 6
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2022-03-31T07:47:26Z",
+      "side": 1,
+      "message": "I take it all the affected code lives exclusively on the network thread?",
+      "revId": "0fb0808a0edc21d97c40f8926e14e7e7a07c628e",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "1ad44e2c_8736b2be",
+        "filename": "p2p/base/connection.h",
+        "patchSetId": 6
+      },
+      "lineNbr": 352,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2022-03-31T07:47:26Z",
+      "side": 1,
+      "message": "I don\u0027t quite remember how these (single-threaded) weak pointers work. What\u0027s the behavior if the port has been destroyed, will .get() crash, or will it just return nullptr? But it looks like not all callers check for null ptr. \n\nIs the intention to handle that more gracefully, or is the point just to transform any use-after-free errors into more obvious null ptr crashes?",
+      "range": {
+        "startLine": 352,
+        "startChar": 24,
+        "endLine": 352,
+        "endChar": 37
+      },
+      "revId": "0fb0808a0edc21d97c40f8926e14e7e7a07c628e",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

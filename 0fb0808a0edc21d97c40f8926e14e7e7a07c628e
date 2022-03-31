@@ -105,6 +105,30 @@
       },
       "revId": "0fb0808a0edc21d97c40f8926e14e7e7a07c628e",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "19a875e6_3424ee66",
+        "filename": "p2p/base/connection.h",
+        "patchSetId": 6
+      },
+      "lineNbr": 352,
+      "author": {
+        "id": 5508
+      },
+      "writtenOn": "2022-03-31T12:41:15Z",
+      "side": 1,
+      "message": "I\u0027ve addressed all the ones I\u0027m aware of in separate CLs. However, they\u0027ve all pointed to the general problem of using raw pointers being the problem.\n\nAn example of how those problems manifest themselves though is how Port deletes Connection objects. In one place, the Destroy() method is used and in another place (dtor) a `delete` is used. The `delete` operation is basically the workaround that avoids obvious uaf port_ pointers from being used and why you don\u0027t see explicit checks. The use of Destroy() however, hides the lifetime problem because it asynchronously queues a deletion of a Connection object that has a pointer to the port object. While I believe we\u0027ve fixed places where a uaf potential exists, the use of a WeakPtr should help us out with finding more and a potential next step of using the weak ptr could be to replace the pending_deletion_ flag with using the weak port pointer.",
+      "parentUuid": "5f3d841b_a5a4f691",
+      "range": {
+        "startLine": 352,
+        "startChar": 24,
+        "endLine": 352,
+        "endChar": 37
+      },
+      "revId": "0fb0808a0edc21d97c40f8926e14e7e7a07c628e",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

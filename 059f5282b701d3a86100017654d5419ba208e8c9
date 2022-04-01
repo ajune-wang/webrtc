@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "15895600_85d9340d",
+        "filename": "api/video/i422_buffer.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 35,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2022-04-01T14:37:31Z",
+      "side": 1,
+      "message": "I would have chosen a name without\"libyuv\" in it, since this is explicitly not libyuv. But it\u0027s temporary and in namespace {...}, so not critical.\n\nYou can also add a TODO(bugs.webrtc.org/13826): ... explaining that these will be replaced by libyuv functions.",
+      "range": {
+        "startLine": 35,
+        "startChar": 4,
+        "endLine": 35,
+        "endChar": 20
+      },
+      "revId": "059f5282b701d3a86100017654d5419ba208e8c9",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

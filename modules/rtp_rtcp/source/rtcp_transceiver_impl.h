@@ -128,13 +128,16 @@ class RtcpTransceiverImpl {
   void SchedulePeriodicCompoundPackets(TimeDelta delay);
   // Appends RTCP sender and receiver reports to the `sender`.
   // Both sender and receiver reports may have attached report blocks.
-  // Uses up to `config_.max_packet_size - reserved_bytes`
+  // Uses up to `config_.max_packet_size - reserved_bytes.per_packet`
   struct CompoundPacketInfo {
-    uint32_t sender_ssrc;
-    bool has_sender_report;
+    std::vector<uint32_t> sender_ssrcs;
+  };
+  struct ReservedBytes {
+    size_t per_packet = 0;
+    size_t per_sender = 0;
   };
   CompoundPacketInfo FillReports(Timestamp now,
-                                 size_t reserved_bytes,
+                                 ReservedBytes reserved_bytes,
                                  PacketSender& rtcp_sender);
 
   // Creates compound RTCP packet, as defined in

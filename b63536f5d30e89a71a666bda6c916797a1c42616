@@ -52,6 +52,24 @@
       "parentUuid": "03927c43_509dcf28",
       "revId": "b63536f5d30e89a71a666bda6c916797a1c42616",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "c235f48e_97d79762",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 8
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2022-04-01T13:53:56Z",
+      "side": 1,
+      "message": "Ah, or if the compile failure blocks rolling a new libyuv. Perhaps it could work to  use full namespace qualifications to remove ambiguity.",
+      "parentUuid": "b56dad28_547f068a",
+      "revId": "b63536f5d30e89a71a666bda6c916797a1c42616",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

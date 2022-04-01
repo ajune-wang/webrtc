@@ -34,6 +34,24 @@
       "parentUuid": "03927c43_509dcf28",
       "revId": "b63536f5d30e89a71a666bda6c916797a1c42616",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "b62c2212_ac9aef54",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 8
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5117
+      },
+      "writtenOn": "2022-04-01T13:52:48Z",
+      "side": 1,
+      "message": "The libyuv CL first needs to be rolled into webrtc. Then your CL will have to be rebased. You can test it locally by git pulling in third_party/libyuv manually.\n\nPlease remove all the functions in your CL and use libyuv ones.",
+      "parentUuid": "03927c43_509dcf28",
+      "revId": "b63536f5d30e89a71a666bda6c916797a1c42616",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

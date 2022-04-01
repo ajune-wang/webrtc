@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "03927c43_509dcf28",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 8
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5963
+      },
+      "writtenOn": "2022-04-01T13:47:15Z",
+      "side": 1,
+      "message": "After adding the missing functions to libuyv, I see that libwebrtc fails to compile due to\n\n  int res \u003d I422Scale(y_plane, src.StrideY(), u_plane, src.StrideU(), v_plane,\n            ^~~~~~~~~\n../..\\third_party/libyuv/include/libyuv/scale.h(208,5): note: candidate function\nint I422Scale(const uint8_t* src_y,\n    ^\n../../api/video/i422_buffer.cc(105,5): note: candidate function\nint I422Scale(const uint8_t* src_y,\n\nHow would be the best way to proceed? do we rollback this CL so the update to the libyuv can be included and then modify the CL before merging again?\n\n",
+      "revId": "b63536f5d30e89a71a666bda6c916797a1c42616",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

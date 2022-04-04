@@ -16,6 +16,91 @@
       "message": "Adding orphis to help review the .java parts\n",
       "revId": "490f33ddff1c920343c95f2ed9503f2f6e7a24cd",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "acfd1a40_e4f75f31",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 3
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2022-04-04T07:25:21Z",
+      "side": 1,
+      "message": "I\u0027m not really competent to evaluate Java any more, but a few odd things noted.\n\nWhen naming variables, it\u0027s nice to not use the specific name \"fieldTrials\" when the argument is in string form; sometimes you use fieldTrialsString, and I think that is more readable.",
+      "revId": "490f33ddff1c920343c95f2ed9503f2f6e7a24cd",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "b63ca945_50b9b87c",
+        "filename": "sdk/android/api/org/webrtc/NetworkMonitorAutoDetect.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 639,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2022-04-04T07:25:21Z",
+      "side": 1,
+      "message": "can you use fieldTrialsString for consistency here?",
+      "revId": "490f33ddff1c920343c95f2ed9503f2f6e7a24cd",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "576c3564_54b4aea8",
+        "filename": "sdk/android/native_unittests/android_network_monitor_unittest.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 64,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2022-04-04T07:25:21Z",
+      "side": 1,
+      "message": "This object will always be empty, right?",
+      "revId": "490f33ddff1c920343c95f2ed9503f2f6e7a24cd",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "e9dc05d6_e07c791a",
+        "filename": "sdk/android/native_unittests/android_network_monitor_unittest.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 105,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2022-04-04T07:25:21Z",
+      "side": 1,
+      "message": "I can\u0027t see where this variable is used. Is it magic?",
+      "revId": "490f33ddff1c920343c95f2ed9503f2f6e7a24cd",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "611dfed0_ec09f550",
+        "filename": "sdk/android/native_unittests/android_network_monitor_unittest.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 158,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2022-04-04T07:25:21Z",
+      "side": 1,
+      "message": "Same problem here.",
+      "revId": "490f33ddff1c920343c95f2ed9503f2f6e7a24cd",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

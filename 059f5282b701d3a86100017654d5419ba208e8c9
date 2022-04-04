@@ -186,6 +186,30 @@
       },
       "revId": "059f5282b701d3a86100017654d5419ba208e8c9",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "c4ff471c_37af4d3b",
+        "filename": "api/video/i422_buffer.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 35,
+      "author": {
+        "id": 5963
+      },
+      "writtenOn": "2022-04-04T10:42:10Z",
+      "side": 1,
+      "message": "Done, I will create the CL for I422Rotate in libyuv shortly.",
+      "parentUuid": "1adb039a_ea7cec18",
+      "range": {
+        "startLine": 35,
+        "startChar": 4,
+        "endLine": 35,
+        "endChar": 20
+      },
+      "revId": "059f5282b701d3a86100017654d5419ba208e8c9",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

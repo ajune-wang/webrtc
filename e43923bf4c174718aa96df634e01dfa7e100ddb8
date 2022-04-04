@@ -43,6 +43,30 @@
     {
       "unresolved": false,
       "key": {
+        "uuid": "0ea72f14_4932e94f",
+        "filename": "modules/rtp_rtcp/source/rtcp_transceiver_config.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 178,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2022-04-04T11:29:22Z",
+      "side": 1,
+      "message": "done",
+      "parentUuid": "3ff9c76b_d2de0be5",
+      "range": {
+        "startLine": 176,
+        "startChar": 0,
+        "endLine": 178,
+        "endChar": 71
+      },
+      "revId": "e43923bf4c174718aa96df634e01dfa7e100ddb8",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
         "uuid": "3937a4cd_f6399466",
         "filename": "modules/rtp_rtcp/source/rtcp_transceiver_impl.cc",
         "patchSetId": 1
@@ -54,6 +78,30 @@
       "writtenOn": "2022-04-04T09:54:04Z",
       "side": 1,
       "message": "Consider extracting this as a local variable since it\u0027s used so many times below",
+      "range": {
+        "startLine": 751,
+        "startChar": 25,
+        "endLine": 751,
+        "endChar": 52
+      },
+      "revId": "e43923bf4c174718aa96df634e01dfa7e100ddb8",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "2565bee4_083be0a2",
+        "filename": "modules/rtp_rtcp/source/rtcp_transceiver_impl.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 751,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2022-04-04T11:29:22Z",
+      "side": 1,
+      "message": "extracted, but haven\u0027t replaced it in all the places.",
+      "parentUuid": "3937a4cd_f6399466",
       "range": {
         "startLine": 751,
         "startChar": 25,
@@ -89,6 +137,30 @@
     {
       "unresolved": false,
       "key": {
+        "uuid": "ec9c0fcd_76e178f8",
+        "filename": "modules/rtp_rtcp/source/rtcp_transceiver_impl.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 762,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2022-04-04T11:29:22Z",
+      "side": 1,
+      "message": "not sure why it needs to be consistent with code below. meaning here is not symmetric with meaning below (thus prefer not be consistent)",
+      "parentUuid": "a010e093_e16cc46d",
+      "range": {
+        "startLine": 762,
+        "startChar": 6,
+        "endLine": 762,
+        "endChar": 71
+      },
+      "revId": "e43923bf4c174718aa96df634e01dfa7e100ddb8",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
         "uuid": "0f05cffd_ba549077",
         "filename": "modules/rtp_rtcp/source/rtcp_transceiver_impl.cc",
         "patchSetId": 1
@@ -100,6 +172,30 @@
       "writtenOn": "2022-04-04T09:54:04Z",
       "side": 1,
       "message": "Nit: Reuse sender_ssrc here?",
+      "range": {
+        "startLine": 764,
+        "startChar": 31,
+        "endLine": 764,
+        "endChar": 52
+      },
+      "revId": "e43923bf4c174718aa96df634e01dfa7e100ddb8",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "4bf46fcf_5d0f4cf9",
+        "filename": "modules/rtp_rtcp/source/rtcp_transceiver_impl.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 764,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2022-04-04T11:29:22Z",
+      "side": 1,
+      "message": "prefer not to, to stress sender_ssrc is XR with RRTR can never be on of the sender report ssrcs.",
+      "parentUuid": "0f05cffd_ba549077",
       "range": {
         "startLine": 764,
         "startChar": 31,
@@ -135,6 +231,30 @@
     {
       "unresolved": false,
       "key": {
+        "uuid": "41dc71ff_1bc8f059",
+        "filename": "modules/rtp_rtcp/source/rtcp_transceiver_impl.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 780,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2022-04-04T11:29:22Z",
+      "side": 1,
+      "message": "that code ofc won\u0027t compile for multiple reasons, mostly because ternary badly works when 2nd and 3rd parameters are of different types.\n\nRewritten using the idea with the ArrayView.\nBut I have no preferences of that solution over current - looks same to me.",
+      "parentUuid": "37365e1d_403ef45e",
+      "range": {
+        "startLine": 771,
+        "startChar": 0,
+        "endLine": 780,
+        "endChar": 5
+      },
+      "revId": "e43923bf4c174718aa96df634e01dfa7e100ddb8",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
         "uuid": "d3110fca_4dc37122",
         "filename": "modules/rtp_rtcp/source/rtcp_transceiver_impl.h",
         "patchSetId": 1
@@ -158,6 +278,30 @@
     {
       "unresolved": false,
       "key": {
+        "uuid": "e3556105_64d5fb36",
+        "filename": "modules/rtp_rtcp/source/rtcp_transceiver_impl.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 134,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2022-04-04T11:29:22Z",
+      "side": 1,
+      "message": "Done, it\u0027s name doesn\u0027t add much. replaced with a more descriptive comment.",
+      "parentUuid": "d3110fca_4dc37122",
+      "range": {
+        "startLine": 132,
+        "startChar": 0,
+        "endLine": 134,
+        "endChar": 4
+      },
+      "revId": "e43923bf4c174718aa96df634e01dfa7e100ddb8",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
         "uuid": "cad2ee74_2b56fbdf",
         "filename": "modules/rtp_rtcp/source/rtcp_transceiver_impl.h",
         "patchSetId": 1
@@ -169,6 +313,30 @@
       "writtenOn": "2022-04-04T09:54:04Z",
       "side": 1,
       "message": "Nit: Shouldn\u0027t this struct be declared before any (private) member functions?",
+      "range": {
+        "startLine": 135,
+        "startChar": 0,
+        "endLine": 138,
+        "endChar": 4
+      },
+      "revId": "e43923bf4c174718aa96df634e01dfa7e100ddb8",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "4944e130_7c18aaf3",
+        "filename": "modules/rtp_rtcp/source/rtcp_transceiver_impl.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 138,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2022-04-04T11:29:22Z",
+      "side": 1,
+      "message": "generally yes, declaring structs a recommended before functions, however that rule is not strict, so structs that are tightly bound to one function (or one member) I prefer to declare just before that function (to make it easier to read its signature)",
+      "parentUuid": "cad2ee74_2b56fbdf",
       "range": {
         "startLine": 135,
         "startChar": 0,

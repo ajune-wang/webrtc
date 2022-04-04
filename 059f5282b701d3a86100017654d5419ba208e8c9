@@ -138,6 +138,30 @@
       },
       "revId": "059f5282b701d3a86100017654d5419ba208e8c9",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "1adb039a_ea7cec18",
+        "filename": "api/video/i422_buffer.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 35,
+      "author": {
+        "id": 5963
+      },
+      "writtenOn": "2022-04-04T10:20:44Z",
+      "side": 1,
+      "message": "I422Scale is already in libyuv, that is why we need to rename it here before being able to update it.\n\nThe I422Rotate is not as clean as the I422Scale, so I plan to submit a different CL to libyuv and it may take some time until it is approved/merged.",
+      "parentUuid": "81b117d3_cfabee27",
+      "range": {
+        "startLine": 35,
+        "startChar": 4,
+        "endLine": 35,
+        "endChar": 20
+      },
+      "revId": "059f5282b701d3a86100017654d5419ba208e8c9",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

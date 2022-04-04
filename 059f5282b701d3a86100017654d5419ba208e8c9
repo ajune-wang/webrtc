@@ -52,6 +52,23 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "11e6bf6a_126cb625",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2022-04-04T10:17:14Z",
+      "side": 1,
+      "message": "Still lgtm.",
+      "revId": "059f5282b701d3a86100017654d5419ba208e8c9",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "15895600_85d9340d",
@@ -89,6 +106,30 @@
       "side": 1,
       "message": "What prefix would you prefer? I would propose to commit this one as it is, and do the name change and add the TODO in the following CL when the libyuv gets updated and we can remove the I422Scale function.",
       "parentUuid": "15895600_85d9340d",
+      "range": {
+        "startLine": 35,
+        "startChar": 4,
+        "endLine": 35,
+        "endChar": 20
+      },
+      "revId": "059f5282b701d3a86100017654d5419ba208e8c9",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "81b117d3_cfabee27",
+        "filename": "api/video/i422_buffer.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 35,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2022-04-04T10:17:14Z",
+      "side": 1,
+      "message": "For prefix, maybe \"Local\" or \"Webrtc\".\n\nI had the impression both methods renamed in this cl will be deleted in a followup, after libyuv is updated?",
+      "parentUuid": "717a59f3_b5639c0b",
       "range": {
         "startLine": 35,
         "startChar": 4,

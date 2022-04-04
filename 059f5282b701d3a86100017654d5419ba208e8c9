@@ -162,6 +162,30 @@
       },
       "revId": "059f5282b701d3a86100017654d5419ba208e8c9",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "106a4774_763cbe3c",
+        "filename": "api/video/i422_buffer.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 35,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2022-04-04T10:24:45Z",
+      "side": 1,
+      "message": "\u003e The I422Rotate is not as clean as the I422Scale, so I plan to submit a different CL to libyuv and it may take some time until it is approved/merged.\n\nI see. In that case, I think it makes sense to add a TODO item explaining that plan, in this cl.",
+      "parentUuid": "1adb039a_ea7cec18",
+      "range": {
+        "startLine": 35,
+        "startChar": 4,
+        "endLine": 35,
+        "endChar": 20
+      },
+      "revId": "059f5282b701d3a86100017654d5419ba208e8c9",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

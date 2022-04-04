@@ -16,6 +16,190 @@
       "message": "for initial review (I haven\u0027t test it with RTCPReceiver to ensure this really fixes RTT calculation in RTCPReceiver when there are multiple sending streams)",
       "revId": "e43923bf4c174718aa96df634e01dfa7e100ddb8",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "3ff9c76b_d2de0be5",
+        "filename": "modules/rtp_rtcp/source/rtcp_transceiver_config.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 178,
+      "author": {
+        "id": 13704
+      },
+      "writtenOn": "2022-04-04T09:54:04Z",
+      "side": 1,
+      "message": "// Reply to incoming RRTR messages multiple times, once per sender SSRC, to\n  // support clients that calculate and process RTT per sender SSRC.",
+      "range": {
+        "startLine": 176,
+        "startChar": 0,
+        "endLine": 178,
+        "endChar": 71
+      },
+      "revId": "e43923bf4c174718aa96df634e01dfa7e100ddb8",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "3937a4cd_f6399466",
+        "filename": "modules/rtp_rtcp/source/rtcp_transceiver_impl.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 751,
+      "author": {
+        "id": 13704
+      },
+      "writtenOn": "2022-04-04T09:54:04Z",
+      "side": 1,
+      "message": "Consider extracting this as a local variable since it\u0027s used so many times below",
+      "range": {
+        "startLine": 751,
+        "startChar": 25,
+        "endLine": 751,
+        "endChar": 52
+      },
+      "revId": "e43923bf4c174718aa96df634e01dfa7e100ddb8",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "a010e093_e16cc46d",
+        "filename": "modules/rtp_rtcp/source/rtcp_transceiver_impl.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 762,
+      "author": {
+        "id": 13704
+      },
+      "writtenOn": "2022-04-04T09:54:04Z",
+      "side": 1,
+      "message": "Nit: Flip these for consistency with the code below",
+      "range": {
+        "startLine": 762,
+        "startChar": 6,
+        "endLine": 762,
+        "endChar": 71
+      },
+      "revId": "e43923bf4c174718aa96df634e01dfa7e100ddb8",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "0f05cffd_ba549077",
+        "filename": "modules/rtp_rtcp/source/rtcp_transceiver_impl.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 764,
+      "author": {
+        "id": 13704
+      },
+      "writtenOn": "2022-04-04T09:54:04Z",
+      "side": 1,
+      "message": "Nit: Reuse sender_ssrc here?",
+      "range": {
+        "startLine": 764,
+        "startChar": 31,
+        "endLine": 764,
+        "endChar": 52
+      },
+      "revId": "e43923bf4c174718aa96df634e01dfa7e100ddb8",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "37365e1d_403ef45e",
+        "filename": "modules/rtp_rtcp/source/rtcp_transceiver_impl.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 780,
+      "author": {
+        "id": 13704
+      },
+      "writtenOn": "2022-04-04T09:54:04Z",
+      "side": 1,
+      "message": "What do you think about writing it like this instead (not sure if it compiles)?\n\n  rtc::ArrayView\u003cconst uint32_t\u003e sender_ssrcs \u003d\n      (config_.reply_to_non_sender_rtt_mesaurments_on_all_ssrcs \u0026\u0026\n       !result.sender_ssrcs.empty())\n      ? result.sender_ssrcs\n      : {sender_ssrc};\n  for (uint32_t sender_ssrc : sender_ssrcs) {\n    xr_with_dlrr-\u003eSetSenderSsrc(sender_ssrc);\n    sender.AppendPacket(*xr_with_dlrr);\n  }\n\nIt\u0027s a bit more readable but assumes that the two branches always will do the same thing (with different sender SSRCs).",
+      "range": {
+        "startLine": 771,
+        "startChar": 0,
+        "endLine": 780,
+        "endChar": 5
+      },
+      "revId": "e43923bf4c174718aa96df634e01dfa7e100ddb8",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "d3110fca_4dc37122",
+        "filename": "modules/rtp_rtcp/source/rtcp_transceiver_impl.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 134,
+      "author": {
+        "id": 13704
+      },
+      "writtenOn": "2022-04-04T09:54:04Z",
+      "side": 1,
+      "message": "Remove this struct now?",
+      "range": {
+        "startLine": 132,
+        "startChar": 0,
+        "endLine": 134,
+        "endChar": 4
+      },
+      "revId": "e43923bf4c174718aa96df634e01dfa7e100ddb8",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "cad2ee74_2b56fbdf",
+        "filename": "modules/rtp_rtcp/source/rtcp_transceiver_impl.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 138,
+      "author": {
+        "id": 13704
+      },
+      "writtenOn": "2022-04-04T09:54:04Z",
+      "side": 1,
+      "message": "Nit: Shouldn\u0027t this struct be declared before any (private) member functions?",
+      "range": {
+        "startLine": 135,
+        "startChar": 0,
+        "endLine": 138,
+        "endChar": 4
+      },
+      "revId": "e43923bf4c174718aa96df634e01dfa7e100ddb8",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "f7e43402_9522a6f2",
+        "filename": "modules/rtp_rtcp/source/rtcp_transceiver_impl_unittest.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 1392,
+      "author": {
+        "id": 13704
+      },
+      "writtenOn": "2022-04-04T09:54:04Z",
+      "side": 1,
+      "message": "Nit: kLocalSsrcs",
+      "range": {
+        "startLine": 1392,
+        "startChar": 28,
+        "endLine": 1392,
+        "endChar": 38
+      },
+      "revId": "e43923bf4c174718aa96df634e01dfa7e100ddb8",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

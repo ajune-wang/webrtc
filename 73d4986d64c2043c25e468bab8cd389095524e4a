@@ -24,6 +24,30 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": true,
+      "key": {
+        "uuid": "6629ab3d_0862841d",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 9,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2022-04-05T13:07:54Z",
+      "side": 1,
+      "message": "yes, on a few files. (otherwise, the change would have been smaller)",
+      "parentUuid": "252ecb01_bf1bce13",
+      "range": {
+        "startLine": 9,
+        "startChar": 42,
+        "endLine": 9,
+        "endChar": 63
+      },
+      "revId": "73d4986d64c2043c25e468bab8cd389095524e4a",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": false,
       "key": {
         "uuid": "06aba0bd_ecb99782",

@@ -75,15 +75,15 @@ class WgcCapturerWinTest : public ::testing::TestWithParam<CaptureType>,
                            public DesktopCapturer::Callback {
  public:
   void SetUp() override {
-    if (rtc::rtc_win::GetVersion() < rtc::rtc_win::Version::VERSION_WIN10_RS5) {
-      RTC_LOG(LS_INFO)
-          << "Skipping WgcCapturerWinTests on Windows versions < RS5.";
-      GTEST_SKIP();
-    }
-
     com_initializer_ =
         std::make_unique<ScopedCOMInitializer>(ScopedCOMInitializer::kMTA);
     EXPECT_TRUE(com_initializer_->Succeeded());
+
+    if (!IsWgcSupported(/*screen_capture=*/false)) {
+      RTC_LOG(LS_INFO)
+          << "Skipping WgcCapturerWinTests on unsupported platforms.";
+      GTEST_SKIP();
+    }
   }
 
   void SetUpForWindowCapture(int window_width = kMediumWindowWidth,

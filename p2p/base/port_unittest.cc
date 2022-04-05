@@ -356,6 +356,11 @@ class TestChannel : public sigslot::has_slots<> {
   }
 
   void OnDestroyed(Connection* conn) {
+    if (!conn_) {
+      RTC_LOG(LS_WARNING) << "OnDestroy connection " << conn
+                          << " deleted but conn_ already nullptr";
+      return;
+    }
     ASSERT_EQ(conn_, conn);
     RTC_LOG(LS_INFO) << "OnDestroy connection " << conn << " deleted";
     conn_ = NULL;

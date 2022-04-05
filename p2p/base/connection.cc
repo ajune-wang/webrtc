@@ -319,6 +319,7 @@ Connection::Connection(rtc::WeakPtr<Port> port,
 
 Connection::~Connection() {
   RTC_DCHECK_RUN_ON(network_thread_);
+  RTC_DCHECK(requests_.empty());
 }
 
 webrtc::TaskQueueBase* Connection::network_thread() const {
@@ -327,6 +328,7 @@ webrtc::TaskQueueBase* Connection::network_thread() const {
 
 const Candidate& Connection::local_candidate() const {
   RTC_DCHECK_RUN_ON(network_thread_);
+  RTC_DCHECK(!pending_delete_) << "Can port_ be safely used?";
   RTC_DCHECK(local_candidate_index_ < port_->Candidates().size());
   return port_->Candidates()[local_candidate_index_];
 }
@@ -517,6 +519,9 @@ void Connection::OnReadPacket(const char* data,
                               size_t size,
                               int64_t packet_time_us) {
   RTC_DCHECK_RUN_ON(network_thread_);
+  RTC_CHECK(!pending_delete_);
+  fprintf(stderr, "[OnReadPacket] %s\n", ToString().c_str());
+
   std::unique_ptr<IceMessage> msg;
   std::string remote_ufrag;
   const rtc::SocketAddress& addr(remote_candidate_.address());
@@ -820,6 +825,8 @@ bool Connection::pruned() const {
 
 void Connection::Prune() {
   RTC_DCHECK_RUN_ON(network_thread_);
+  RTC_DCHECK(!pending_delete_);
+
   if (!pruned_ || active()) {
     RTC_LOG(LS_INFO) << ToString() << ": Connection pruned";
     pruned_ = true;
@@ -830,12 +837,37 @@ void Connection::Prune() {
 
 void Connection::Destroy() {
   RTC_DCHECK_RUN_ON(network_thread_);
-  if (pending_delete_)
+  // RTC_DCHECK(pings_since_last_response_.empty());
+
+  if (pending_delete_) {
+    RTC_DCHECK(requests_.empty());
     return;
+  }
+
+  RTC_DLOG(LS_VERBOSE) << ToString() << ": Connection destroyed";
 
   pending_delete_ = true;
 
-  RTC_DLOG(LS_VERBOSE) << ToString() << ": Connection destroyed";
+  // We can't clear the requests here because FailAndDestroy() might be called
+  // from within OnErrorResponse(), which is called on the request object.
+  // TODO(tommi): Change it so that we don't do this from within OnErrorResponse
+  // but rather trigger FailAndDestroy from within OnReadPacket() (or higher up
+  // the stack). Potential crash stack otherwise:
+  //  cricket::StunRequestManager::CheckResponse()  < ***
+  //  cricket::Connection::OnReadPacket()
+  //  rtc::AsyncUDPSocket::OnReadEvent()
+  //  rtc::SocketDispatcher::OnEvent()
+  //  rtc::PhysicalSocketServer::WaitEpoll()
+  //  rtc::PhysicalSocketServer::Wait()
+  //  rtc::Thread::Get()
+  //  rtc::Thread::ProcessMessages()
+  //
+  // *** CheckResponse() will attempt to delete a request object that has
+  // already
+  //     been deleted via `requests_.Clear()`.
+
+  requests_.Clear();
+  RTC_DCHECK(requests_.empty());
 
   // Fire the 'destroyed' event before deleting the object. This is done
   // intentionally to avoid a situation whereby the signal might have dangling
@@ -853,12 +885,17 @@ void Connection::Destroy() {
   // In such a case (only tests), deletion would happen inside of the call
   // to `Destroy()`.
   network_thread_->PostTask(
-      webrtc::ToQueuedTask([me = absl::WrapUnique(this)]() {}));
+      webrtc::ToQueuedTask([me = absl::WrapUnique(this)]() {
+        // Current workaround for not deleting pending requests above.
+        // me->requests_.Clear();
+      }));
 }
 
 void Connection::FailAndDestroy() {
   RTC_DCHECK_RUN_ON(network_thread_);
+  fprintf(stderr, "[Connection]: FailAndDestroy - set_state\n");
   set_state(IceCandidatePairState::FAILED);
+  fprintf(stderr, "[Connection]: FailAndDestroy - Destroy\n");
   Destroy();
 }
 
@@ -985,6 +1022,8 @@ int64_t Connection::last_ping_sent() const {
 
 void Connection::Ping(int64_t now) {
   RTC_DCHECK_RUN_ON(network_thread_);
+  RTC_DCHECK(!pending_delete_);
+
   last_ping_sent_ = now;
   ConnectionRequest* req = new ConnectionRequest(this);
   // If not using renomination, we use "1" to mean "nominated" and "0" to mean
@@ -1371,6 +1410,7 @@ void Connection::OnConnectionRequestResponse(ConnectionRequest* request,
 
 void Connection::OnConnectionRequestErrorResponse(ConnectionRequest* request,
                                                   StunMessage* response) {
+  fprintf(stderr, "[Connection]: OnConnectionRequestErrorResponse\n");
   int error_code = response->GetErrorCodeValue();
   RTC_LOG(LS_WARNING) << ToString() << ": Received "
                       << StunMethodToString(response->type())
@@ -1378,20 +1418,34 @@ void Connection::OnConnectionRequestErrorResponse(ConnectionRequest* request,
                       << " code=" << error_code
                       << " rtt=" << request->Elapsed();
 
+  fprintf(stderr, "[Connection]: OnConnectionRequestErrorResponse %s\n",
+          StunMethodToString(response->type()).c_str());
+
   cached_stun_binding_.reset();
   if (error_code == STUN_ERROR_UNKNOWN_ATTRIBUTE ||
       error_code == STUN_ERROR_SERVER_ERROR ||
       error_code == STUN_ERROR_UNAUTHORIZED) {
     // Recoverable error, retry
+    fprintf(
+        stderr,
+        "[Connection]: OnConnectionRequestErrorResponse - Recoverable error\n");
   } else if (error_code == STUN_ERROR_ROLE_CONFLICT) {
+    fprintf(stderr,
+            "[Connection]: OnConnectionRequestErrorResponse - "
+            "HandleRoleConflictFromPeer\n");
     HandleRoleConflictFromPeer();
   } else if (request->msg()->type() == GOOG_PING_REQUEST) {
     // Race, retry.
+    fprintf(stderr,
+            "[Connection]: OnConnectionRequestErrorResponse - race retry\n");
   } else {
     // This is not a valid connection.
     RTC_LOG(LS_ERROR) << ToString()
                       << ": Received STUN error response, code=" << error_code
                       << "; killing connection";
+    fprintf(
+        stderr,
+        "[Connection]: OnConnectionRequestErrorResponse - FailAndDestroy\n");
     FailAndDestroy();
   }
 }

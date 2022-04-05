@@ -22,6 +22,30 @@
       },
       "revId": "e0a92f9a426bb1c840200930de67ad9c10400279",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "aa8b6b1c_8ece80e5",
+        "filename": "pc/srtp_session.h",
+        "patchSetId": 3
+      },
+      "lineNbr": 145,
+      "author": {
+        "id": 5053
+      },
+      "writtenOn": "2022-04-05T19:39:38Z",
+      "side": 0,
+      "message": "I imagine the intention was to use this instead of g_libsrtp_lock",
+      "parentUuid": "9814617e_04bac03c",
+      "range": {
+        "startLine": 145,
+        "startChar": 2,
+        "endLine": 145,
+        "endChar": 35
+      },
+      "revId": "e0a92f9a426bb1c840200930de67ad9c10400279",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

@@ -46,6 +46,30 @@
       },
       "revId": "bbe876724d798e42959915487f3c76cb40700287",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "58a7bf6d_c4dc3372",
+        "filename": "infra/specs/mixins.pyl",
+        "patchSetId": 4
+      },
+      "lineNbr": 197,
+      "author": {
+        "id": 5087
+      },
+      "writtenOn": "2022-04-06T11:47:42Z",
+      "side": 1,
+      "message": "Ok, LGTM (I wonder if 3h on IO is too much).",
+      "parentUuid": "98782f11_342c7c33",
+      "range": {
+        "startLine": 197,
+        "startChar": 6,
+        "endLine": 197,
+        "endChar": 25
+      },
+      "revId": "bbe876724d798e42959915487f3c76cb40700287",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

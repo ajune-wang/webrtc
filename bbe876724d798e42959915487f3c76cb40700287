@@ -70,6 +70,30 @@
       },
       "revId": "bbe876724d798e42959915487f3c76cb40700287",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "64d1142c_273c7c78",
+        "filename": "infra/specs/mixins.pyl",
+        "patchSetId": 4
+      },
+      "lineNbr": 197,
+      "author": {
+        "id": 12234
+      },
+      "writtenOn": "2022-04-06T11:52:05Z",
+      "side": 1,
+      "message": "The bot itself has a timeout of 3 hours for all the steps.\nSo these timeouts specific to one step are never reached.\nhttps://crsrc.org/c/third_party/webrtc/infra/config/config.star;l\u003d611",
+      "parentUuid": "58a7bf6d_c4dc3372",
+      "range": {
+        "startLine": 197,
+        "startChar": 6,
+        "endLine": 197,
+        "endChar": 25
+      },
+      "revId": "bbe876724d798e42959915487f3c76cb40700287",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

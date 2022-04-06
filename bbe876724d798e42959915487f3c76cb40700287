@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "f33459be_4dfa9177",
+        "filename": "infra/specs/mixins.pyl",
+        "patchSetId": 4
+      },
+      "lineNbr": 197,
+      "author": {
+        "id": 5087
+      },
+      "writtenOn": "2022-04-06T11:25:15Z",
+      "side": 1,
+      "message": "Is this already 3h today?",
+      "range": {
+        "startLine": 197,
+        "startChar": 6,
+        "endLine": 197,
+        "endChar": 25
+      },
+      "revId": "bbe876724d798e42959915487f3c76cb40700287",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

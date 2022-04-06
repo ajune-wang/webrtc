@@ -137,10 +137,10 @@ class PeerConnectionSimulcastTests : public ::testing::Test {
     PeerConnectionInterface::RTCConfiguration config;
     config.sdp_semantics = SdpSemantics::kUnifiedPlan;
     PeerConnectionDependencies pcd(observer);
-    auto pc = pc_factory_->CreatePeerConnection(config, std::move(pcd));
-    EXPECT_TRUE(pc);
-    observer->SetPeerConnectionInterface(pc);
-    return pc;
+    auto pc = pc_factory_->CreatePeerConnectionOrError(config, std::move(pcd));
+    EXPECT_TRUE(pc.ok());
+    observer->SetPeerConnectionInterface(pc.value());
+    return pc.MoveValue();
   }
 
   std::unique_ptr<PeerConnectionWrapper> CreatePeerConnectionWrapper() {

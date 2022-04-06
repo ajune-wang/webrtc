@@ -101,10 +101,13 @@ class PeerConnectionHeaderExtensionTest
     PeerConnectionInterface::RTCConfiguration config;
     if (semantics)
       config.sdp_semantics = *semantics;
-    auto pc = pc_factory->CreatePeerConnection(
-        config, std::move(fake_port_allocator), nullptr, observer.get());
-    observer->SetPeerConnectionInterface(pc.get());
-    return std::make_unique<PeerConnectionWrapper>(pc_factory, pc,
+    PeerConnectionDependencies pc_dependencies(observer.get());
+    pc_dependencies.allocator = std::move(fake_port_allocator);
+    auto pc = pc_factory->CreatePeerConnectionOrError(
+        config, std::move(pc_dependencies));
+    EXPECT_TRUE(pc.ok());
+    observer->SetPeerConnectionInterface(pc.value());
+    return std::make_unique<PeerConnectionWrapper>(pc_factory, pc.MoveValue(),
                                                    std::move(observer));
   }
 

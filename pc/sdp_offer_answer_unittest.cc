@@ -82,11 +82,11 @@ class SdpOfferAnswerTest : public ::testing::Test {
   std::unique_ptr<PeerConnectionWrapper> CreatePeerConnection(
       const RTCConfiguration& config) {
     auto observer = std::make_unique<MockPeerConnectionObserver>();
-    auto pc = pc_factory_->CreatePeerConnection(config, nullptr, nullptr,
-                                                observer.get());
-    EXPECT_TRUE(pc.get());
-    observer->SetPeerConnectionInterface(pc.get());
-    return std::make_unique<PeerConnectionWrapper>(pc_factory_, pc,
+    auto pc = pc_factory_->CreatePeerConnectionOrError(
+        config, PeerConnectionDependencies(observer.get()));
+    EXPECT_TRUE(pc.ok());
+    observer->SetPeerConnectionInterface(pc.value());
+    return std::make_unique<PeerConnectionWrapper>(pc_factory_, pc.MoveValue(),
                                                    std::move(observer));
   }
 

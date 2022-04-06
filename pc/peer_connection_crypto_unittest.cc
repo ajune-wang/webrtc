@@ -101,15 +101,17 @@ class PeerConnectionCryptoBaseTest : public ::testing::Test {
     auto observer = std::make_unique<MockPeerConnectionObserver>();
     RTCConfiguration modified_config = config;
     modified_config.sdp_semantics = sdp_semantics_;
-    auto pc = pc_factory_->CreatePeerConnection(
-        modified_config, std::move(fake_port_allocator), std::move(cert_gen),
-        observer.get());
-    if (!pc) {
+    PeerConnectionDependencies pc_dependencies(observer.get());
+    pc_dependencies.allocator = std::move(fake_port_allocator);
+    pc_dependencies.cert_generator = std::move(cert_gen);
+    auto pc = pc_factory_->CreatePeerConnectionOrError(
+        modified_config, std::move(pc_dependencies));
+    if (!pc.ok()) {
       return nullptr;
     }
 
-    observer->SetPeerConnectionInterface(pc.get());
-    return std::make_unique<PeerConnectionWrapper>(pc_factory_, pc,
+    observer->SetPeerConnectionInterface(pc.value());
+    return std::make_unique<PeerConnectionWrapper>(pc_factory_, pc.MoveValue(),
                                                    std::move(observer));
   }
 

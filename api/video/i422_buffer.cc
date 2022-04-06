@@ -115,23 +115,23 @@ int I422Rotate(const uint8_t* src_y,
   return -1;
 }
 
-int I422Scale(const uint8_t* src_y,
-              int src_stride_y,
-              const uint8_t* src_u,
-              int src_stride_u,
-              const uint8_t* src_v,
-              int src_stride_v,
-              int src_width,
-              int src_height,
-              uint8_t* dst_y,
-              int dst_stride_y,
-              uint8_t* dst_u,
-              int dst_stride_u,
-              uint8_t* dst_v,
-              int dst_stride_v,
-              int dst_width,
-              int dst_height,
-              enum libyuv::FilterMode filtering) {
+int WebRTCI422Scale(const uint8_t* src_y,
+                    int src_stride_y,
+                    const uint8_t* src_u,
+                    int src_stride_u,
+                    const uint8_t* src_v,
+                    int src_stride_v,
+                    int src_width,
+                    int src_height,
+                    uint8_t* dst_y,
+                    int dst_stride_y,
+                    uint8_t* dst_u,
+                    int dst_stride_u,
+                    uint8_t* dst_v,
+                    int dst_stride_v,
+                    int dst_width,
+                    int dst_height,
+                    enum libyuv::FilterMode filtering) {
   if (!src_y || !src_u || !src_v || src_width <= 0 || src_height == 0 ||
       src_width > 32768 || src_height > 32768 || !dst_y || !dst_u || !dst_v ||
       dst_width <= 0 || dst_height <= 0) {
@@ -337,7 +337,8 @@ void I422Buffer::CropAndScaleFrom(const I422BufferInterface& src,
       src.DataU() + src.StrideU() * uv_offset_y + uv_offset_x;
   const uint8_t* v_plane =
       src.DataV() + src.StrideV() * uv_offset_y + uv_offset_x;
-  int res = I422Scale(y_plane, src.StrideY(), u_plane, src.StrideU(), v_plane,
+  int res =
+      WebRTCI422Scale(y_plane, src.StrideY(), u_plane, src.StrideU(), v_plane,
                       src.StrideV(), crop_width, crop_height, MutableDataY(),
                       StrideY(), MutableDataU(), StrideU(), MutableDataV(),
                       StrideV(), width(), height(), libyuv::kFilterBox);

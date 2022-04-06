@@ -16,6 +16,23 @@
       "message": "can we get this merged? ",
       "revId": "28f233018f7b95ae78e7a81d9240f3f566a0c3de",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "ca06a1dd_aceb547f",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5221
+      },
+      "writtenOn": "2022-04-06T20:18:57Z",
+      "side": 1,
+      "message": "This will work, and its not important how ugly it is, if we follow up by removing them in favor of libyuv::I22Scale etc\nBut these are in webrtc:: name space, so you could leave the functions alone and just make the call to them use webrtc::I422Scale\n\nTo transition to the libyuv::I422Scale I would suggest a version check, except Sergio didnt bump the version, so we\u0027ll need to follow up on removing these in favor of libyuv::\n",
+      "revId": "28f233018f7b95ae78e7a81d9240f3f566a0c3de",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

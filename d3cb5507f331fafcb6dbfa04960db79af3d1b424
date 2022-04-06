@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "33232745_c9a973ad",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 7036
+      },
+      "writtenOn": "2022-04-06T17:35:08Z",
+      "side": 1,
+      "message": "Note that we\u0027ll need the Chromium roll with the other CL to land first to make sure we haven\u0027t missed anything.",
+      "revId": "d3cb5507f331fafcb6dbfa04960db79af3d1b424",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

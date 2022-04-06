@@ -52,6 +52,13 @@
       'chromium-tester@chops-service-accounts.iam.gserviceaccount.com'
     }
   },
+  'cores-12': {
+    'swarming': {
+      'dimensions': {
+        'cores': '12'
+      }
+    }
+  },
   'has_native_resultdb_integration': {
     'resultdb': {
       'enable': True,
@@ -75,13 +82,31 @@
       }
     }
   },
-  'ios-simulator-14': {
+  'ios-simulator-12.4': {
     '$mixin_append': {
-      'args': ['--platform', 'iPhone X', '--version', '14.0']
+      'args': ['--platform', 'iPhone X', '--version', '12.4'],
+      'swarming': {
+        'named_caches': [{
+          'name': 'runtime_ios_12_4',
+          'path': 'Runtime-ios-12.4'
+        }]
+      }
     }
   },
-  'ios_runtime_cache_14_0': {
+  'ios-simulator-13.6': {
     '$mixin_append': {
+      'args': ['--platform', 'iPhone X', '--version', '13.6'],
+      'swarming': {
+        'named_caches': [{
+          'name': 'runtime_ios_13_6',
+          'path': 'Runtime-ios-13.6'
+        }]
+      }
+    }
+  },
+  'ios-simulator-14.0': {
+    '$mixin_append': {
+      'args': ['--platform', 'iPhone X', '--version', '14.0'],
       'swarming': {
         'named_caches': [{
           'name': 'runtime_ios_14_0',
@@ -120,6 +145,15 @@
     'swarming': {
       'dimensions': {
         'os': 'Mac'
+      }
+    }
+  },
+  'mac-m1': {
+    'swarming': {
+      'dimensions': {
+        'cpu': 'arm64-64-Apple_M1',
+        'os': 'Mac',
+        'pool': 'WebRTC-baremetal-try'
       }
     }
   },
@@ -206,6 +240,13 @@
     'swarming': {
       'dimensions': {
         'os': 'Windows'
+      }
+    }
+  },
+  'win10-1703': {
+    'swarming': {
+      'dimensions': {
+        'os': 'Windows-10-15063'
       }
     }
   },

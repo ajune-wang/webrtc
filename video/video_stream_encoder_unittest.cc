@@ -8935,6 +8935,10 @@ TEST(VideoStreamEncoderSimpleTest, CreateDestroy) {
       VideoStreamEncoder::BitrateAllocationCallbackType::
           kVideoBitrateAllocation,
       field_trials);
+
+  RTC_LOG(LS_ERROR) << "*** Before Stop()";
+  encoder->Stop();
+  RTC_LOG(LS_ERROR) << "*** After Stop()";
 }
 
 TEST(VideoStreamEncoderFrameCadenceTest, ActivatesFrameCadenceOnContentType) {

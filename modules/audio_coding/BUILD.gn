@@ -1511,7 +1511,7 @@ if (rtc_include_tests) {
       data = audio_decoder_unittests_resources
 
       if (is_android) {
-        deps += [ "//testing/android/native_test:native_test_native_code" ]
+        deps += [ "//testing/android/native_test:native_test_support" ]
         shard_timeout = 900
       }
       if (is_ios) {
@@ -1598,7 +1598,7 @@ if (rtc_include_tests) {
       data = audio_codec_speed_tests_resources
 
       if (is_android) {
-        deps += [ "//testing/android/native_test:native_test_native_code" ]
+        deps += [ "//testing/android/native_test:native_test_support" ]
         shard_timeout = 900
       }
 

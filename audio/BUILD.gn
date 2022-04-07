@@ -233,7 +233,7 @@ if (rtc_include_tests) {
         "//third_party/abseil-cpp/absl/strings",
       ]
       if (is_android) {
-        deps += [ "//testing/android/native_test:native_test_native_code" ]
+        deps += [ "//testing/android/native_test:native_test_support" ]
       }
       data = [
         "../resources/voice_engine/audio_tiny16.wav",

@@ -300,31 +300,34 @@ NetworkManagerBase::enumeration_permission() const {
   return enumeration_permission_;
 }
 
-void NetworkManagerBase::GetAnyAddressNetworks(NetworkList* networks) {
+std::vector<const Network*> NetworkManagerBase::GetAnyAddressNetworks() {
+  std::vector<const Network*> networks;
   if (!ipv4_any_address_network_) {
     const rtc::IPAddress ipv4_any_address(INADDR_ANY);
-    ipv4_any_address_network_.reset(
-        new rtc::Network("any", "any", ipv4_any_address, 0, ADAPTER_TYPE_ANY));
+    ipv4_any_address_network_ = std::make_unique<Network>(
+        "any", "any", ipv4_any_address, 0, ADAPTER_TYPE_ANY);
     ipv4_any_address_network_->set_default_local_address_provider(this);
     ipv4_any_address_network_->set_mdns_responder_provider(this);
     ipv4_any_address_network_->AddIP(ipv4_any_address);
   }
-  networks->push_back(ipv4_any_address_network_.get());
+  networks.push_back(ipv4_any_address_network_.get());
 
   if (!ipv6_any_address_network_) {
     const rtc::IPAddress ipv6_any_address(in6addr_any);
-    ipv6_any_address_network_.reset(
-        new rtc::Network("any", "any", ipv6_any_address, 0, ADAPTER_TYPE_ANY));
+    ipv6_any_address_network_ = std::make_unique<Network>(
+        "any", "any", ipv6_any_address, 0, ADAPTER_TYPE_ANY);
     ipv6_any_address_network_->set_default_local_address_provider(this);
     ipv6_any_address_network_->set_mdns_responder_provider(this);
     ipv6_any_address_network_->AddIP(ipv6_any_address);
   }
-  networks->push_back(ipv6_any_address_network_.get());
+  networks.push_back(ipv6_any_address_network_.get());
+  return networks;
 }
 
-void NetworkManagerBase::GetNetworks(NetworkList* result) const {
-  result->clear();
-  result->insert(result->begin(), networks_.begin(), networks_.end());
+std::vector<const Network*> NetworkManagerBase::GetNetworks() const {
+  std::vector<const Network*> result;
+  result.insert(result.begin(), networks_.begin(), networks_.end());
+  return result;
 }
 
 void NetworkManagerBase::MergeNetworkList(const NetworkList& new_networks,
@@ -624,9 +627,9 @@ void BasicNetworkManager::ConvertIfAddrs(struct ifaddrs* interfaces,
     auto iter = current_networks.find(key);
     if (iter == current_networks.end()) {
       // TODO(phoglund): Need to recognize other types as well.
-      std::unique_ptr<Network> network(
-          new Network(cursor->ifa_name, cursor->ifa_name, prefix, prefix_length,
-                      adapter_type));
+      auto network =
+          std::make_unique<Network>(cursor->ifa_name, cursor->ifa_name, prefix,
+                                    prefix_length, adapter_type);
       network->set_default_local_address_provider(this);
       network->set_scope_id(scope_id);
       network->AddIP(ip);
@@ -819,8 +822,8 @@ bool BasicNetworkManager::CreateNetworks(bool include_ignored,
             adapter_type = ADAPTER_TYPE_VPN;
           }
 
-          std::unique_ptr<Network> network(new Network(
-              name, description, prefix, prefix_length, adapter_type));
+          auto network = std::make_unique<Network>(name, description, prefix,
+                                                   prefix_length, adapter_type);
           network->set_underlying_type_for_vpn(vpn_underlying_adapter_type);
           network->set_default_local_address_provider(this);
           network->set_mdns_responder_provider(this);
@@ -1027,8 +1030,7 @@ void BasicNetworkManager::UpdateNetworksContinually() {
 
 void BasicNetworkManager::DumpNetworks() {
   RTC_DCHECK_RUN_ON(thread_);
-  NetworkList list;
-  GetNetworks(&list);
+  std::vector<const Network*> list = GetNetworks();
   RTC_LOG(LS_INFO) << "NetworkManager detected " << list.size() << " networks:";
   for (const Network* network : list) {
     RTC_LOG(LS_INFO) << network->ToString() << ": " << network->description()

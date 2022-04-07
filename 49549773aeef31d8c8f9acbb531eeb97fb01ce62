@@ -16,6 +16,23 @@
       "message": "Hi Ivo, Could you take a look since Minyue is OOO? :)",
       "revId": "49549773aeef31d8c8f9acbb531eeb97fb01ce62",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "b9caab3d_73818c1a",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 7
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5607
+      },
+      "writtenOn": "2022-04-07T12:10:06Z",
+      "side": 1,
+      "message": "Nice!",
+      "revId": "49549773aeef31d8c8f9acbb531eeb97fb01ce62",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

@@ -84,42 +84,42 @@
         'os_type': 'linux',
         'mixins': ['linux-bionic', 'x86-64', 'resultdb-json-format'],
         'test_suites': {
-          'isolated_scripts': 'linux_tests',
+          'isolated_scripts': 'desktop_tests',
         },
       },
       'Linux MSan': {
         'os_type': 'linux',
         'mixins': ['linux-bionic', 'x86-64', 'resultdb-json-format'],
         'test_suites': {
-          'isolated_scripts': 'linux_tests',
+          'isolated_scripts': 'desktop_tests',
         },
       },
       'Linux Tsan v2': {
         'os_type': 'linux',
         'mixins': ['linux-bionic', 'x86-64', 'resultdb-json-format'],
         'test_suites': {
-          'isolated_scripts': 'linux_tests',
+          'isolated_scripts': 'desktop_tests',
         },
       },
       'Linux UBSan': {
         'os_type': 'linux',
         'mixins': ['linux-bionic', 'x86-64', 'resultdb-json-format'],
         'test_suites': {
-          'isolated_scripts': 'linux_tests',
+          'isolated_scripts': 'desktop_tests',
         },
       },
       'Linux UBSan vptr': {
         'os_type': 'linux',
         'mixins': ['linux-bionic', 'x86-64', 'resultdb-json-format'],
         'test_suites': {
-          'isolated_scripts': 'linux_tests',
+          'isolated_scripts': 'desktop_tests',
         },
       },
       'Linux32 Debug': {
         'os_type': 'linux',
         'mixins': ['linux-bionic', 'x86-64', 'resultdb-json-format'],
         'test_suites': {
-          'isolated_scripts': 'linux_tests',
+          'isolated_scripts': 'desktop_tests',
         },
       },
       'Linux32 Debug (ARM)': {},
@@ -141,7 +141,7 @@
         'os_type': 'linux',
         'mixins': ['linux-bionic', 'x86-64', 'resultdb-json-format'],
         'test_suites': {
-          'isolated_scripts': 'linux_tests',
+          'isolated_scripts': 'desktop_tests',
         },
       },
       'Linux64 Debug (ARM)': {},
@@ -172,7 +172,7 @@
         'os_type': 'mac',
         'mixins': ['mac11', 'x86-64', 'cores-12', 'resultdb-json-format'],
         'test_suites': {
-          'isolated_scripts': 'mac_tests',
+          'isolated_scripts': 'desktop_tests',
         },
       },
       'Mac64 Release': {

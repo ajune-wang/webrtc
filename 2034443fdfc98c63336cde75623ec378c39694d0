@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "538bf90c_4392461a",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2022-04-07T09:50:36Z",
+      "side": 1,
+      "message": "PTAL. Use of GlobalMutex used to cause warnings when compiling with absl::Mutex.",
+      "revId": "2034443fdfc98c63336cde75623ec378c39694d0",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

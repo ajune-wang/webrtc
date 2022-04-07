@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "1bfb8a1e_43c83d76",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2022-04-07T14:20:16Z",
+      "side": 1,
+      "message": "PTAL, do you think the target type change solves the problem?",
+      "revId": "f217cef14a37dc695062f6bf70ca6b1e743af6b8",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

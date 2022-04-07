@@ -46,4 +46,32 @@ TEST(AlwaysValidPointerTest, NonDefaultValue) {
   EXPECT_EQ(*ptr, "keso");
 }
 
+TEST(AlwaysValidPointerTest, TakeoverOwnership) {
+  std::string str("keso");
+  std::unique_ptr<std::string> str2 = std::make_unique<std::string>("kent");
+  AlwaysValidPointer<std::string> ptr(std::move(str2), &str);
+  EXPECT_EQ(*ptr, "kent");
+  EXPECT_EQ(str2, nullptr);
+}
+
+TEST(AlwaysValidPointerTest, TakeoverOwnership2) {
+  std::string str("keso");
+  std::unique_ptr<std::string> str2;
+  AlwaysValidPointer<std::string> ptr(std::move(str2), &str);
+  EXPECT_EQ(*ptr, "keso");
+}
+
+TEST(AlwaysValidPointerTest, TakeoverOwnership3) {
+  std::unique_ptr<std::string> str;
+  std::string* str_ptr = nullptr;
+  AlwaysValidPointer<std::string> ptr(std::move(str), str_ptr);
+  EXPECT_EQ(*ptr, "");
+}
+
+TEST(AlwaysValidPointerTest, TakeoverOwnershipDefaultWithForwardedArgument) {
+  std::unique_ptr<std::string> str2;
+  AlwaysValidPointer<std::string> ptr(std::move(str2), nullptr, "keso");
+  EXPECT_EQ(*ptr, "keso");
+}
+
 }  // namespace webrtc

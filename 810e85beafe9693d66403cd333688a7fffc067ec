@@ -16,6 +16,52 @@
       "message": "Hi alcooper@, PTAL at this CL that adds a more robust way to determine if we can use WGC or not.",
       "revId": "810e85beafe9693d66403cd333688a7fffc067ec",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "83f969d2_6f884c1f",
+        "filename": "modules/desktop_capture/win/wgc_capturer_win.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 60,
+      "author": {
+        "id": 18474
+      },
+      "writtenOn": "2022-04-07T18:40:13Z",
+      "side": 1,
+      "message": "I\u0027m Assuming there\u0027s no corresponding contract change to align with this. I know previously there was a version difference for Windows/Desktop capture support; I\u0027m assuming this makes it all or nothing (e.g. other than this top-level check it just returns true if both Windows and Desktop Capture are supported?)",
+      "range": {
+        "startLine": 60,
+        "startChar": 58,
+        "endLine": 60,
+        "endChar": 62
+      },
+      "revId": "810e85beafe9693d66403cd333688a7fffc067ec",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "2d788c71_d7924c85",
+        "filename": "modules/desktop_capture/win/wgc_capturer_win.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 30,
+      "author": {
+        "id": 18474
+      },
+      "writtenOn": "2022-04-07T18:40:13Z",
+      "side": 1,
+      "message": "NIT: For Readability I\u0027d prefer if there was an enum type we could use here (either existing or create one, probably in desktop_capture_types.h, though I see there\u0027s an existing one in a UT).\nBut not a major deal/blocker.",
+      "range": {
+        "startLine": 30,
+        "startChar": 20,
+        "endLine": 30,
+        "endChar": 39
+      },
+      "revId": "810e85beafe9693d66403cd333688a7fffc067ec",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

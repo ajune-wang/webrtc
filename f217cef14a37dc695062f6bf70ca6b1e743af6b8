@@ -16,6 +16,23 @@
       "message": "PTAL, do you think the target type change solves the problem?",
       "revId": "f217cef14a37dc695062f6bf70ca6b1e743af6b8",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "9a54b757_779831f6",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5087
+      },
+      "writtenOn": "2022-04-07T14:36:16Z",
+      "side": 1,
+      "message": "Yes, I think this fixes.",
+      "revId": "f217cef14a37dc695062f6bf70ca6b1e743af6b8",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

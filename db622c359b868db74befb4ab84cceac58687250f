@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "aee46a98_259e8305",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2022-04-07T14:05:32Z",
+      "side": 1,
+      "message": "It\u0027s a link time error. Do you think it is actually referenced somewhere, or is the issue that the build target rtc_library(\"mutex\") must be changed to rtc_source_set(\"mutex\"), because it no longer includes any .cc files?",
+      "revId": "db622c359b868db74befb4ab84cceac58687250f",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

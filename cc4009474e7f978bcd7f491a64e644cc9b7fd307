@@ -16,6 +16,23 @@
       "message": "thanks and PTAL",
       "revId": "cc4009474e7f978bcd7f491a64e644cc9b7fd307",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "c72338da_c161b873",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 4
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2022-04-08T10:49:57Z",
+      "side": 1,
+      "message": "I must admit that I don\u0027t understand where the FieldTrialsView (a C++ class) gets turned into a FieldTrialsString (a Java string). But I am making the blithe assumption that this was done in existing code, so doesn\u0027t show up in this CL. Approving.\n",
+      "revId": "cc4009474e7f978bcd7f491a64e644cc9b7fd307",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

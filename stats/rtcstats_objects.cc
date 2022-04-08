@@ -751,7 +751,8 @@ RTCInboundRTPStreamStats::RTCInboundRTPStreamStats(std::string&& id,
       fir_count("firCount"),
       pli_count("pliCount"),
       nack_count("nackCount"),
-      qp_sum("qpSum") {}
+      qp_sum("qpSum"),
+      total_assembly_time("totalAssemblyTime") {}
 
 RTCInboundRTPStreamStats::RTCInboundRTPStreamStats(
     const RTCInboundRTPStreamStats& other)
@@ -802,7 +803,8 @@ RTCInboundRTPStreamStats::RTCInboundRTPStreamStats(
       fir_count(other.fir_count),
       pli_count(other.pli_count),
       nack_count(other.nack_count),
-      qp_sum(other.qp_sum) {}
+      qp_sum(other.qp_sum),
+      total_assembly_time(other.total_assembly_time) {}
 
 RTCInboundRTPStreamStats::~RTCInboundRTPStreamStats() {}
 

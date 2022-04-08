@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "26ee043c_a125acd6",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 15079
+      },
+      "writtenOn": "2022-04-08T09:51:20Z",
+      "side": 1,
+      "message": "Hey Xavier! A small Android CL fixing a crash when camera access is restricted via device management.",
+      "revId": "9e9f9e6626bc3a69fcbffada5658c2e5be8242c6",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

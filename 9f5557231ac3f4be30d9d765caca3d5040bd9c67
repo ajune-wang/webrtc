@@ -16,6 +16,23 @@
       "message": "Yup, this LGTM. Thanks!",
       "revId": "9f5557231ac3f4be30d9d765caca3d5040bd9c67",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "b1dbf2bb_5dab64bd",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 9405
+      },
+      "writtenOn": "2022-04-08T09:48:23Z",
+      "side": 1,
+      "message": "Thanks for the quick review!\nThe next CL is also ready for review.",
+      "revId": "9f5557231ac3f4be30d9d765caca3d5040bd9c67",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

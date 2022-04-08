@@ -998,7 +998,10 @@ if (is_mac || is_ios) {
           "Resources",
         ]
 
-        ldflags = [
+        if (!defined(invoker.ldflags)) {
+          ldflags = []
+        }
+        ldflags += [
           "-all_load",
           "-install_name",
           "@rpath/$output_name.framework/$output_name",

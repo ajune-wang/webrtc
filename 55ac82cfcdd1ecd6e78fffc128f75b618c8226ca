@@ -33,6 +33,24 @@
       "message": "Seems odd to skip the test for absl::string_view(nullptr) without the length.\nare the two absl::string_view versions guaranteed to be equal?\n(this is not testing absl::string_view, so if string_view guarantees that, it\u0027s OK\nto check only one form of nullness).",
       "revId": "55ac82cfcdd1ecd6e78fffc128f75b618c8226ca",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "afdbf54a_966a153c",
+        "filename": "rtc_base/string_to_number_unittest.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 107,
+      "author": {
+        "id": 5087
+      },
+      "writtenOn": "2022-04-08T06:46:21Z",
+      "side": 1,
+      "message": "The idea is to completely avoid that because according to the standard it is UB (wg21.link/p2166), here is a wider explanation https://clang.llvm.org/extra/clang-tidy/checks/bugprone-stringview-nullptr.html.",
+      "parentUuid": "bb17eacf_cf7c6c9d",
+      "revId": "55ac82cfcdd1ecd6e78fffc128f75b618c8226ca",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

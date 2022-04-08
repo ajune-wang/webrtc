@@ -16,6 +16,23 @@
       "message": "Please take a look. Thanks.",
       "revId": "c53475ff6d71c34dc79467334a5b0dd22c80e28f",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "743e1115_02149c88",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5087
+      },
+      "writtenOn": "2022-04-08T09:28:21Z",
+      "side": 1,
+      "message": "I think this is fine.\n\nLet me also loop in Kari for a second pair of eyes.",
+      "revId": "c53475ff6d71c34dc79467334a5b0dd22c80e28f",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

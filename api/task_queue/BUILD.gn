@@ -82,7 +82,7 @@ rtc_library("default_task_queue_factory") {
   sources = [ "default_task_queue_factory.h" ]
   deps = [ ":task_queue" ]
 
-  if (rtc_enable_libevent) {
+  if (rtc_enable_libevent && false) {
     sources += [ "default_task_queue_factory_libevent.cc" ]
     deps += [ "../../rtc_base:rtc_task_queue_libevent" ]
   } else if (is_mac || is_ios) {

@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "f7e6c96b_d68099ef",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2022-04-08T07:20:24Z",
+      "side": 1,
+      "message": "PTAL. Intend to land after the chromium update in cl https://chromium-review.googlesource.com/c/chromium/src/+/3576353.\n\nNext will be using unique_ptr for Network object ownership.",
+      "revId": "08305ff79d76044e340154b04cd845900e9286a5",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

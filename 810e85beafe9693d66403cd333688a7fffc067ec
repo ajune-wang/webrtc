@@ -41,6 +41,30 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "b44e3d12_41460dee",
+        "filename": "modules/desktop_capture/win/wgc_capturer_win.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 60,
+      "author": {
+        "id": 12416
+      },
+      "writtenOn": "2022-04-08T16:13:56Z",
+      "side": 1,
+      "message": "Correct. In fact, WGC is source agnostic, it just captures a GraphicsCaptureItem, and those can represent either monitors or windows.",
+      "parentUuid": "83f969d2_6f884c1f",
+      "range": {
+        "startLine": 60,
+        "startChar": 58,
+        "endLine": 60,
+        "endChar": 62
+      },
+      "revId": "810e85beafe9693d66403cd333688a7fffc067ec",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "2d788c71_d7924c85",
@@ -54,6 +78,30 @@
       "writtenOn": "2022-04-07T18:40:13Z",
       "side": 1,
       "message": "NIT: For Readability I\u0027d prefer if there was an enum type we could use here (either existing or create one, probably in desktop_capture_types.h, though I see there\u0027s an existing one in a UT).\nBut not a major deal/blocker.",
+      "range": {
+        "startLine": 30,
+        "startChar": 20,
+        "endLine": 30,
+        "endChar": 39
+      },
+      "revId": "810e85beafe9693d66403cd333688a7fffc067ec",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "4ef3b254_45604162",
+        "filename": "modules/desktop_capture/win/wgc_capturer_win.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 30,
+      "author": {
+        "id": 12416
+      },
+      "writtenOn": "2022-04-08T16:13:56Z",
+      "side": 1,
+      "message": "Good idea, done!",
+      "parentUuid": "2d788c71_d7924c85",
       "range": {
         "startLine": 30,
         "startChar": 20,

@@ -16,6 +16,23 @@
       "message": "Another CL :) PTAL.",
       "revId": "5f4f845c286d78e9d28eb15465149134fe028023",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "045c71df_60c9731c",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5520
+      },
+      "writtenOn": "2022-04-08T13:09:07Z",
+      "side": 1,
+      "message": "Mirko, I seem to recall there was a reason we didn\u0027t use `apple_framework_with_umbrella_header` originally, but I don\u0027t remember anymore what the reason was. \nIn any case, I would love it if this change is actually ok, but we should be extra careful that this doesn\u0027t break anything.",
+      "revId": "5f4f845c286d78e9d28eb15465149134fe028023",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

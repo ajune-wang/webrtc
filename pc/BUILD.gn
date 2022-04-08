@@ -2079,10 +2079,6 @@ if (rtc_include_tests && !build_with_chromium) {
     if (rtc_build_libsrtp) {
       deps += [ "//third_party/libsrtp" ]
     }
-
-    if (is_android) {
-      deps += [ "//testing/android/native_test:native_test_support" ]
-    }
   }
 
   rtc_library("peerconnection_perf_tests") {
@@ -2326,8 +2322,18 @@ if (rtc_include_tests && !build_with_chromium) {
       "//third_party/abseil-cpp/absl/strings",
       "//third_party/abseil-cpp/absl/types:optional",
     ]
+
     if (is_android) {
-      deps += [ ":android_black_magic" ]
+      use_default_launcher = false
+      deps += [
+        ":android_black_magic",
+
+        # We need to depend on this one directly, or classloads will fail for
+        # the voice engine BuildInfo, for instance.
+        "//sdk/android:libjingle_peerconnection_java",
+        "//sdk/android:native_test_jni_onload",
+      ]
+      shard_timeout = 900
     }
 
     deps += [
@@ -2365,33 +2371,23 @@ if (rtc_include_tests && !build_with_chromium) {
       "../test:test_main",
       "../test:test_support",
     ]
-
-    if (is_android) {
-      deps += [
-        "//testing/android/native_test:native_test_support",
-
-        # We need to depend on this one directly, or classloads will fail for
-        # the voice engine BuildInfo, for instance.
-        "../sdk/android:libjingle_peerconnection_java",
-      ]
-
-      shard_timeout = 900
-    }
   }
 
   if (is_android) {
     rtc_library("android_black_magic") {
-      # The android code uses hacky includes to chromium-base and the ssl code;
-      # having this in a separate target enables us to keep the peerconnection
-      # unit tests clean.
-      check_includes = false
+      # The android code uses hacky includes to ssl code. Having this in a
+      # separate target enables us to keep the peerconnection unit tests clean.
       testonly = true
       sources = [
         "test/android_test_initializer.cc",
         "test/android_test_initializer.h",
       ]
       deps = [
+        "../sdk/android:internal_jni",
         "../sdk/android:libjingle_peerconnection_jni",
+        "//modules/utility:utility",
+        "//rtc_base:checks",
+        "//rtc_base:rtc_base",
         "//testing/android/native_test:native_test_support",
       ]
     }

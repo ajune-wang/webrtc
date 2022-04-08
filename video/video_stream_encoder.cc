@@ -25,6 +25,7 @@
 #include "api/task_queue/task_queue_base.h"
 #include "api/video/encoded_image.h"
 #include "api/video/i420_buffer.h"
+#include "api/video/render_resolution.h"
 #include "api/video/video_adaptation_reason.h"
 #include "api/video/video_bitrate_allocator_factory.h"
 #include "api/video/video_codec_constants.h"
@@ -1848,6 +1849,17 @@ void VideoStreamEncoder::EncodeVideoFrame(const VideoFrame& video_frame,
                           "Encode");
 
   stream_resource_manager_.OnEncodeStarted(out_frame, time_when_posted_us);
+
+  if (RenderResolution frame_resolution(out_frame.width(), out_frame.height());
+      frame_resolution != last_frame_resolution_ &&
+      settings_.encoder_switch_request_callback && encoder_selector_) {
+    last_frame_resolution_ = frame_resolution;
+    if (auto encoder =
+            encoder_selector_->OnResolutionChange(frame_resolution)) {
+      settings_.encoder_switch_request_callback->RequestEncoderSwitch(
+          *encoder, /*allow_default_fallback=*/false);
+    }
+  }
 
   // The encoder should get the size that it expects.
   RTC_DCHECK(send_codec_.width <= out_frame.width() &&

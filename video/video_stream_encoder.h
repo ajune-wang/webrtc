@@ -21,6 +21,7 @@
 #include "api/field_trials_view.h"
 #include "api/sequence_checker.h"
 #include "api/units/data_rate.h"
+#include "api/video/render_resolution.h"
 #include "api/video/video_bitrate_allocator.h"
 #include "api/video/video_rotation.h"
 #include "api/video/video_sink_interface.h"
@@ -448,6 +449,8 @@ class VideoStreamEncoder : public VideoStreamEncoderInterface,
 
   // Used to cancel any potentially pending tasks to the worker thread.
   ScopedTaskSafety task_safety_;
+
+  absl::optional<RenderResolution> last_frame_resolution_;
 };
 
 }  // namespace webrtc

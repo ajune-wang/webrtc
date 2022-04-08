@@ -25,6 +25,15 @@ public interface VideoEncoderFactory {
     @Nullable @CalledByNative("VideoEncoderSelector") VideoCodecInfo onAvailableBitrate(int kbps);
 
     /**
+     * Called every time the render resolution change . Returns null if the
+     * encoder selector prefers to keep the current encoder or a VideoCodecInfo
+     * if a new encoder is preferred.
+     */
+    @Nullable
+    @CalledByNative("VideoEncoderSelector")
+    VideoCodecInfo onResolutionChange(int widht, int height);
+
+    /**
      * Called when the currently used encoder signal itself as broken. Returns null if the encoder
      * selector prefers to keep the current encoder or a VideoCodecInfo if a new encoder is
      * preferred.

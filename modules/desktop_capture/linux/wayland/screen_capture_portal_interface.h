@@ -11,6 +11,7 @@
 #ifndef MODULES_DESKTOP_CAPTURE_LINUX_WAYLAND_SCREEN_CAPTURE_PORTAL_INTERFACE_H_
 #define MODULES_DESKTOP_CAPTURE_LINUX_WAYLAND_SCREEN_CAPTURE_PORTAL_INTERFACE_H_
 
+#include "modules/desktop_capture/linux/wayland/xdg_desktop_portal_utils.h"
 #include "modules/desktop_capture/linux/wayland/xdg_session_details.h"
 
 namespace webrtc {
@@ -20,8 +21,12 @@ namespace xdg_portal {
 class ScreenCapturePortalInterface {
  public:
   virtual ~ScreenCapturePortalInterface() {}
+  // Gets details about the session such as session handle.
   virtual xdg_portal::SessionDetails GetSessionDetails() = 0;
+  // Starts the portal setup.
   virtual void Start() = 0;
+  // Indicates the status of portal setup.
+  virtual RequestResponse Status() = 0;
 };
 
 }  // namespace xdg_portal

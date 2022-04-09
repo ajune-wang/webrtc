@@ -92,7 +92,9 @@ class ScreenCastPortal : public xdg_portal::ScreenCapturePortalInterface {
   xdg_portal::SessionDetails GetSessionDetails() override;
 
   // Method to notify the reason for failure of a portal request.
-  void PortalFailed(xdg_portal::RequestResponse result);
+  void OnPortalDone(xdg_portal::RequestResponse result);
+
+  xdg_portal::RequestResponse Status() override;
 
   // Sends a create session request to the portal.
   void SessionRequest(GDBusProxy* proxy);
@@ -107,6 +109,7 @@ class ScreenCastPortal : public xdg_portal::ScreenCapturePortalInterface {
   void OpenPipeWireRemote();
 
  private:
+  xdg_portal::RequestResponse status_ = xdg_portal::RequestResponse::kUnknown;
   PortalNotifier* notifier_;
 
   // A PipeWire stream ID of stream we will be connecting to

@@ -17,6 +17,8 @@ namespace xdg_portal {
 
 std::string RequestResponseToString(RequestResponse request) {
   switch (request) {
+    case RequestResponse::kUnknown:
+      return "kUnknown";
     case RequestResponse::kSuccess:
       return "kSuccess";
     case RequestResponse::kUserCancelled:
@@ -62,6 +64,15 @@ void RequestSessionProxy(const char* interface_name,
       reinterpret_cast<GAsyncReadyCallback>(proxy_request_callback), user_data);
 }
 
+GDBusProxy* RequestSessionProxySync(const char* interface_name,
+                                    GCancellable* cancellable,
+                                    gpointer user_data) {
+  return g_dbus_proxy_new_for_bus_sync(
+      G_BUS_TYPE_SESSION, G_DBUS_PROXY_FLAGS_NONE, /*info=*/nullptr,
+      kDesktopBusName, kDesktopObjectPath, interface_name, cancellable,
+      nullptr);
+}
+
 void SetupSessionRequestHandlers(
     const std::string& portal_prefix,
     const SessionRequestCallback session_request_callback,
@@ -97,6 +108,40 @@ void SetupSessionRequestHandlers(
       G_DBUS_CALL_FLAGS_NONE, /*timeout=*/-1, cancellable,
       reinterpret_cast<GAsyncReadyCallback>(session_request_callback),
       user_data);
+}
+
+GVariant* SetupSessionRequestHandlersSync(
+    const std::string& portal_prefix,
+    const SessionRequestResponseSignalHandler request_response_signal_handler,
+    GDBusConnection* connection,
+    GDBusProxy* proxy,
+    GCancellable* cancellable,
+    std::string& portal_handle,
+    guint& session_request_signal_id,
+    gpointer user_data) {
+  GVariantBuilder builder;
+  Scoped<char> variant_string;
+
+  g_variant_builder_init(&builder, G_VARIANT_TYPE_VARDICT);
+  variant_string = g_strdup_printf("%s_session%d", portal_prefix.c_str(),
+                                   g_random_int_range(0, G_MAXINT));
+  g_variant_builder_add(&builder, "{sv}", "session_handle_token",
+                        g_variant_new_string(variant_string.get()));
+
+  variant_string = g_strdup_printf("%s_%d", portal_prefix.c_str(),
+                                   g_random_int_range(0, G_MAXINT));
+  g_variant_builder_add(&builder, "{sv}", "handle_token",
+                        g_variant_new_string(variant_string.get()));
+
+  portal_handle = PrepareSignalHandle(variant_string.get(), connection);
+  session_request_signal_id = SetupRequestResponseSignal(
+      portal_handle.c_str(), request_response_signal_handler, user_data,
+      connection);
+
+  RTC_LOG(LS_INFO) << "Desktop session requested.";
+  return g_dbus_proxy_call_sync(
+      proxy, "CreateSession", g_variant_new("(a{sv})", &builder),
+      G_DBUS_CALL_FLAGS_NONE, /*timeout=*/-1, cancellable, nullptr);
 }
 
 void StartSessionRequest(

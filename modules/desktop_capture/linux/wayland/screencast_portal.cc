@@ -116,8 +116,13 @@ xdg_portal::SessionDetails ScreenCastPortal::GetSessionDetails() {
   return {};  // No-op
 }
 
-void ScreenCastPortal::PortalFailed(RequestResponse result) {
+void ScreenCastPortal::OnPortalDone(RequestResponse result) {
   notifier_->OnScreenCastRequestResult(result, pw_stream_node_id_, pw_fd_);
+  status_ = result;
+}
+
+RequestResponse ScreenCastPortal::Status() {
+  return status_;
 }
 
 // static
@@ -240,7 +245,7 @@ void ScreenCastPortal::OnSourcesRequested(GDBusProxy* proxy,
     if (g_error_matches(error.get(), G_IO_ERROR, G_IO_ERROR_CANCELLED))
       return;
     RTC_LOG(LS_ERROR) << "Failed to request the sources: " << error->message;
-    that->PortalFailed(RequestResponse::kError);
+    that->OnPortalDone(RequestResponse::kError);
     return;
   }
 
@@ -255,7 +260,7 @@ void ScreenCastPortal::OnSourcesRequested(GDBusProxy* proxy,
                                            that->sources_request_signal_id_);
       that->sources_request_signal_id_ = 0;
     }
-    that->PortalFailed(RequestResponse::kError);
+    that->OnPortalDone(RequestResponse::kError);
     return;
   }
 
@@ -281,7 +286,7 @@ void ScreenCastPortal::OnSourcesRequestResponseSignal(
   if (portal_response) {
     RTC_LOG(LS_ERROR)
         << "Failed to select sources for the screen cast session.";
-    that->PortalFailed(RequestResponse::kError);
+    that->OnPortalDone(RequestResponse::kError);
     return;
   }
 
@@ -321,7 +326,7 @@ void ScreenCastPortal::OnStartRequestResponseSignal(GDBusConnection* connection,
                 response_data.receive());
   if (portal_response || !response_data) {
     RTC_LOG(LS_ERROR) << "Failed to start the screen cast session.";
-    that->PortalFailed(static_cast<RequestResponse>(portal_response));
+    that->OnPortalDone(static_cast<RequestResponse>(portal_response));
     return;
   }
 
@@ -388,7 +393,7 @@ void ScreenCastPortal::OnOpenPipeWireRemoteRequested(GDBusProxy* proxy,
       return;
     RTC_LOG(LS_ERROR) << "Failed to open the PipeWire remote: "
                       << error->message;
-    that->PortalFailed(RequestResponse::kError);
+    that->OnPortalDone(RequestResponse::kError);
     return;
   }
 
@@ -400,12 +405,11 @@ void ScreenCastPortal::OnOpenPipeWireRemoteRequested(GDBusProxy* proxy,
   if (that->pw_fd_ == -1) {
     RTC_LOG(LS_ERROR) << "Failed to get file descriptor from the list: "
                       << error->message;
-    that->PortalFailed(RequestResponse::kError);
+    that->OnPortalDone(RequestResponse::kError);
     return;
   }
 
-  that->notifier_->OnScreenCastRequestResult(
-      RequestResponse::kSuccess, that->pw_stream_node_id_, that->pw_fd_);
+  that->OnPortalDone(RequestResponse::kSuccess);
 }
 
 }  // namespace webrtc

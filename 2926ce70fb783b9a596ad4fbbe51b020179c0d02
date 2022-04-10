@@ -16,6 +16,24 @@
       "message": "I\u0027m afraid this will break BaseCapturerPipeWire, which relies and reimplements this signal.",
       "revId": "2926ce70fb783b9a596ad4fbbe51b020179c0d02",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "5ff516cd_0e9f45fc",
+        "filename": "modules/desktop_capture/linux/wayland/screencast_portal.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 412,
+      "author": {
+        "id": 8046
+      },
+      "writtenOn": "2022-04-10T06:09:48Z",
+      "side": 1,
+      "message": "Sorry, it should work. I didn\u0027t see before that OnPortalFailed() calls OnScreenCastRequestResult().",
+      "parentUuid": "9203ad10_a14b8ef4",
+      "revId": "2926ce70fb783b9a596ad4fbbe51b020179c0d02",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

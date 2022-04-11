@@ -50,6 +50,24 @@
       "message": "my only worry here is that the default is in such an obscure place that it will be hard to find. but let\u0027s do it this way for now.",
       "revId": "3c03f9841abbce521f18378413686a5ccf633f3d",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "bf5866d6_4440bd8f",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5142
+      },
+      "writtenOn": "2022-04-11T12:43:19Z",
+      "side": 1,
+      "message": "My thinking is that if this gets to stable without being killswitched, then as part of deleting the killswitch we can also clean up the plumbing of flags and find a less obscure place for this default value",
+      "parentUuid": "3a8f55d8_298962e5",
+      "revId": "3c03f9841abbce521f18378413686a5ccf633f3d",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

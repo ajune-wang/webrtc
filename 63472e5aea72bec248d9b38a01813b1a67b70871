@@ -70,6 +70,30 @@
       },
       "revId": "63472e5aea72bec248d9b38a01813b1a67b70871",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "26754cea_b15c45ca",
+        "filename": "rtc_base/network.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 69,
+      "author": {
+        "id": 5087
+      },
+      "writtenOn": "2022-04-11T08:29:49Z",
+      "side": 0,
+      "message": "It is unclear to me as well. For example it is not clear to me why the name takes the precedence over the prefix.\n\nIt also looks like there are no tests so I might have to add some.\n\nI think we can use std::tie() but first we need to understand the comparison a bit more (unless we are OK to use std::tie on name, prefix length and prefix.\n\nWDYT?",
+      "parentUuid": "53972ed0_715f037c",
+      "range": {
+        "startLine": 62,
+        "startChar": 0,
+        "endLine": 69,
+        "endChar": 1
+      },
+      "revId": "63472e5aea72bec248d9b38a01813b1a67b70871",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

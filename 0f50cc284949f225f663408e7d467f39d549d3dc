@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "6188851f_fc5ca465",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 12
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 19144
+      },
+      "writtenOn": "2022-04-11T23:35:44Z",
+      "side": 1,
+      "message": "Hello, this commit destroyed the \"WebRtc\" support on Android devices with API \u003c 21, It toke me hours to find out, that this commit caused \"runtime\" errors and more on these devices. Before this commit, the webrtc-library worked very well on devices running API level 16 and up. So I suggest that we should roll back this commit since these \"API checks\" are not dead-code and are being used in apps in production.",
+      "revId": "0f50cc284949f225f663408e7d467f39d549d3dc",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

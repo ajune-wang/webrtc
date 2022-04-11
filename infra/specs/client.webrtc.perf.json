@@ -5,6 +5,8 @@
     "gtest_tests": [
       {
         "args": [
+          ".",
+          "--remove",
           "--android",
           "--adb-path",
           "../../third_party/android_sdk/public/platform-tools/adb",
@@ -77,6 +79,8 @@
     "gtest_tests": [
       {
         "args": [
+          ".",
+          "--remove",
           "--android",
           "--adb-path",
           "../../third_party/android_sdk/public/platform-tools/adb",
@@ -149,6 +153,8 @@
     "gtest_tests": [
       {
         "args": [
+          ".",
+          "--remove",
           "--android",
           "--adb-path",
           "../../third_party/android_sdk/public/platform-tools/adb",
@@ -221,6 +227,8 @@
     "gtest_tests": [
       {
         "args": [
+          ".",
+          "--remove",
           "--android",
           "--adb-path",
           "../../third_party/android_sdk/public/platform-tools/adb",
@@ -291,6 +299,8 @@
     "isolated_scripts": [
       {
         "args": [
+          ".",
+          "--remove",
           "--gtest_output=json:${ISOLATED_OUTDIR}/gtest_output.json"
         ],
         "isolate_name": "low_bandwidth_audio_perf_test",
@@ -358,6 +368,8 @@
     "isolated_scripts": [
       {
         "args": [
+          ".",
+          "--remove",
           "--gtest_output=json:${ISOLATED_OUTDIR}/gtest_output.json"
         ],
         "isolate_name": "low_bandwidth_audio_perf_test",
@@ -425,6 +437,8 @@
     "isolated_scripts": [
       {
         "args": [
+          ".",
+          "--remove",
           "--gtest_output=json:${ISOLATED_OUTDIR}/gtest_output.json"
         ],
         "isolate_name": "low_bandwidth_audio_perf_test",
@@ -494,6 +508,8 @@
     "isolated_scripts": [
       {
         "args": [
+          ".",
+          "--remove",
           "--gtest_output=json:${ISOLATED_OUTDIR}/gtest_output.json"
         ],
         "isolate_name": "low_bandwidth_audio_perf_test",

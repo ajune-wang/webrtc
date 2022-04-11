@@ -212,6 +212,11 @@
       }
     }
   },
+  'out_dir_arg': {
+    '$mixin_append': {
+      'args': ['--out-dir', '${ISOLATED_OUTDIR}']
+    }
+  },
   'perf-low-bandwidth-audio-perf-test': {
     'merge': {
       'script': '//tools_webrtc/perf/process_perf_results_py2.py',

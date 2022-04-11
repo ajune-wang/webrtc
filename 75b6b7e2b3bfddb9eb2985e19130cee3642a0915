@@ -22,6 +22,30 @@
       },
       "revId": "75b6b7e2b3bfddb9eb2985e19130cee3642a0915",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "a571b7df_c00569aa",
+        "filename": "sdk/android/api/org/webrtc/VideoEncoderFactory.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 30,
+      "author": {
+        "id": 5527
+      },
+      "writtenOn": "2022-04-11T08:48:46Z",
+      "side": 1,
+      "message": "Oops, I formated it to 80 chars by reflex :D fixed",
+      "parentUuid": "b708232b_ceebf4fa",
+      "range": {
+        "startLine": 28,
+        "startChar": 7,
+        "endLine": 30,
+        "endChar": 52
+      },
+      "revId": "75b6b7e2b3bfddb9eb2985e19130cee3642a0915",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

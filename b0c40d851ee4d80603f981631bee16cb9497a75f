@@ -26,6 +26,30 @@
     {
       "unresolved": false,
       "key": {
+        "uuid": "c4730488_0898736f",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 4
+      },
+      "lineNbr": 7,
+      "author": {
+        "id": 18829
+      },
+      "writtenOn": "2022-04-11T22:11:14Z",
+      "side": 1,
+      "message": "This is accurate.",
+      "parentUuid": "0025c066_efa28954",
+      "range": {
+        "startLine": 6,
+        "startChar": 0,
+        "endLine": 7,
+        "endChar": 66
+      },
+      "revId": "b0c40d851ee4d80603f981631bee16cb9497a75f",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
         "uuid": "736eb1e7_9aad2364",
         "filename": "/PATCHSET_LEVEL",
         "patchSetId": 4
@@ -37,6 +61,23 @@
       "writtenOn": "2022-04-11T21:28:49Z",
       "side": 1,
       "message": "Mostly LGTM, one minor cleanup and some adjustments to the commit description.",
+      "revId": "b0c40d851ee4d80603f981631bee16cb9497a75f",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "7bdf7384_cb79185d",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 4
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 18829
+      },
+      "writtenOn": "2022-04-11T22:11:14Z",
+      "side": 1,
+      "message": "Thanks for taking another look, Alex.",
       "revId": "b0c40d851ee4d80603f981631bee16cb9497a75f",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
@@ -64,6 +105,30 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "f1cee887_17354c60",
+        "filename": "modules/desktop_capture/linux/wayland/xdg_desktop_portal_utils.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 29,
+      "author": {
+        "id": 18829
+      },
+      "writtenOn": "2022-04-11T22:11:14Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "48437c28_335a3bb8",
+      "range": {
+        "startLine": 28,
+        "startChar": 0,
+        "endLine": 29,
+        "endChar": 22
+      },
+      "revId": "b0c40d851ee4d80603f981631bee16cb9497a75f",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "6e2c9ae5_c861f681",
@@ -77,6 +142,30 @@
       "writtenOn": "2022-04-11T21:28:49Z",
       "side": 1,
       "message": "Unused now?",
+      "range": {
+        "startLine": 67,
+        "startChar": 0,
+        "endLine": 68,
+        "endChar": 11
+      },
+      "revId": "b0c40d851ee4d80603f981631bee16cb9497a75f",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "0374f85d_fea34ce6",
+        "filename": "modules/desktop_capture/linux/wayland/xdg_desktop_portal_utils.h",
+        "patchSetId": 4
+      },
+      "lineNbr": 68,
+      "author": {
+        "id": 18829
+      },
+      "writtenOn": "2022-04-11T22:11:14Z",
+      "side": 1,
+      "message": "Using it here: https://chromium-review.googlesource.com/c/chromium/src/+/3542767\n\nBasically remote desktop portal needs to differentiate between a failed/succeeded screencast call vs still in progress/unknown status.",
+      "parentUuid": "6e2c9ae5_c861f681",
       "range": {
         "startLine": 67,
         "startChar": 0,

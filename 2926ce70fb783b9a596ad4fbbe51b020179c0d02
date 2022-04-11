@@ -24,6 +24,30 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "695a4e3f_78d3e6d2",
+        "filename": "modules/desktop_capture/linux/wayland/screen_capture_portal_interface.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 29,
+      "author": {
+        "id": 18829
+      },
+      "writtenOn": "2022-04-11T21:03:29Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "c2427326_3cf3d085",
+      "range": {
+        "startLine": 29,
+        "startChar": 2,
+        "endLine": 29,
+        "endChar": 39
+      },
+      "revId": "2926ce70fb783b9a596ad4fbbe51b020179c0d02",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "199321d1_f98061d7",
@@ -37,6 +61,24 @@
       "writtenOn": "2022-04-11T18:36:01Z",
       "side": 1,
       "message": "Prefer to set status before the notifier so that if the notifier triggers something that queries the status instead of directly consuming it, it gets the correct value.",
+      "revId": "2926ce70fb783b9a596ad4fbbe51b020179c0d02",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "c8812b67_b58faada",
+        "filename": "modules/desktop_capture/linux/wayland/screencast_portal.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 121,
+      "author": {
+        "id": 18829
+      },
+      "writtenOn": "2022-04-11T21:03:29Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "199321d1_f98061d7",
       "revId": "2926ce70fb783b9a596ad4fbbe51b020179c0d02",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
@@ -135,6 +177,30 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "7187bf35_b738bbd7",
+        "filename": "modules/desktop_capture/linux/wayland/xdg_desktop_portal_utils.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 139,
+      "author": {
+        "id": 18829
+      },
+      "writtenOn": "2022-04-11T21:03:29Z",
+      "side": 1,
+      "message": "Removed these new methods.",
+      "parentUuid": "a4563d0d_75b27895",
+      "range": {
+        "startLine": 122,
+        "startChar": 0,
+        "endLine": 139,
+        "endChar": 18
+      },
+      "revId": "2926ce70fb783b9a596ad4fbbe51b020179c0d02",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "d26e3d56_f8f378a4",
@@ -148,6 +214,30 @@
       "writtenOn": "2022-04-11T18:36:01Z",
       "side": 1,
       "message": "I *think* the addition of these two Sync methods may be a separate change? I\u0027m not seeing (at least in the commit description) how this is tied to the addition of the status property?",
+      "range": {
+        "startLine": 97,
+        "startChar": 12,
+        "endLine": 97,
+        "endChar": 35
+      },
+      "revId": "2926ce70fb783b9a596ad4fbbe51b020179c0d02",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "2bc0e774_bd1f1545",
+        "filename": "modules/desktop_capture/linux/wayland/xdg_desktop_portal_utils.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 97,
+      "author": {
+        "id": 18829
+      },
+      "writtenOn": "2022-04-11T21:03:29Z",
+      "side": 1,
+      "message": "You are right. These are not supposed to be part of this change.",
+      "parentUuid": "d26e3d56_f8f378a4",
       "range": {
         "startLine": 97,
         "startChar": 12,

@@ -3,6 +3,46 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "c2427326_3cf3d085",
+        "filename": "modules/desktop_capture/linux/wayland/screen_capture_portal_interface.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 29,
+      "author": {
+        "id": 18474
+      },
+      "writtenOn": "2022-04-11T18:36:01Z",
+      "side": 1,
+      "message": "Is this actually needed? Or should the consumers be setup to receive the notification when it changes directly as an observer? Otherwise, I imagine this is just being polled?",
+      "range": {
+        "startLine": 29,
+        "startChar": 2,
+        "endLine": 29,
+        "endChar": 39
+      },
+      "revId": "2926ce70fb783b9a596ad4fbbe51b020179c0d02",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "199321d1_f98061d7",
+        "filename": "modules/desktop_capture/linux/wayland/screencast_portal.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 121,
+      "author": {
+        "id": 18474
+      },
+      "writtenOn": "2022-04-11T18:36:01Z",
+      "side": 1,
+      "message": "Prefer to set status before the notifier so that if the notifier triggers something that queries the status instead of directly consuming it, it gets the correct value.",
+      "revId": "2926ce70fb783b9a596ad4fbbe51b020179c0d02",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "9203ad10_a14b8ef4",
         "filename": "modules/desktop_capture/linux/wayland/screencast_portal.cc",
         "patchSetId": 1
@@ -68,6 +108,52 @@
       "side": 1,
       "message": "I would keep `RequestResponse` as this is from the`Response()` method on the `org.freedesktop.portal.Request` object.",
       "parentUuid": "0ae5dc06_1fc73a55",
+      "revId": "2926ce70fb783b9a596ad4fbbe51b020179c0d02",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "a4563d0d_75b27895",
+        "filename": "modules/desktop_capture/linux/wayland/xdg_desktop_portal_utils.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 139,
+      "author": {
+        "id": 18474
+      },
+      "writtenOn": "2022-04-11T18:36:01Z",
+      "side": 1,
+      "message": "Maybe there\u0027s some tricky lifetime bits here; but this appears to be duplicated from the async version? Is there anyway that we can share this?",
+      "range": {
+        "startLine": 122,
+        "startChar": 0,
+        "endLine": 139,
+        "endChar": 18
+      },
+      "revId": "2926ce70fb783b9a596ad4fbbe51b020179c0d02",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "d26e3d56_f8f378a4",
+        "filename": "modules/desktop_capture/linux/wayland/xdg_desktop_portal_utils.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 97,
+      "author": {
+        "id": 18474
+      },
+      "writtenOn": "2022-04-11T18:36:01Z",
+      "side": 1,
+      "message": "I *think* the addition of these two Sync methods may be a separate change? I\u0027m not seeing (at least in the commit description) how this is tied to the addition of the status property?",
+      "range": {
+        "startLine": 97,
+        "startChar": 12,
+        "endLine": 97,
+        "endChar": 35
+      },
       "revId": "2926ce70fb783b9a596ad4fbbe51b020179c0d02",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }

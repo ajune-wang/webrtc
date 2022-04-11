@@ -257,7 +257,7 @@
       'android_tests',
       'android_webrtc_perf_tests_tryserver',
     ],
-    'linux_tests': [
+    'linux_baremetal_tests': [
       'desktop_tests',
       'linux_video_capture_tests',
     ],

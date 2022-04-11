@@ -149,7 +149,7 @@
         'os_type': 'linux',
         'mixins': ['linux-bionic', 'x86-64', 'resultdb-json-format'],
         'test_suites': {
-          'isolated_scripts': 'linux_tests',
+          'isolated_scripts': 'linux_baremetal_tests',
         },
       },
       'Linux64 Release (ARM)': {},
@@ -451,34 +451,8 @@
       'android_compile_x64_rel': {},
       'android_compile_x86_dbg': {},
       'android_compile_x86_rel': {},
-      'ios_compile_arm64_dbg': {
-        'recipe_config': 'webrtc_ios',
-        'chromium_apply_config': ['mac_toolchain'],
-        'chromium_config_kwargs': {
-          'BUILD_CONFIG': 'Debug',
-          'TARGET_PLATFORM': 'ios',
-          'TARGET_ARCH': 'arm',
-          'TARGET_BITS': 64,
-        },
-        'bot_type': 'builder',
-        'testing': {
-          'platform': 'mac'
-        },
-      },
-      'ios_compile_arm64_rel': {
-        'recipe_config': 'webrtc_ios',
-        'chromium_apply_config': ['mac_toolchain'],
-        'chromium_config_kwargs': {
-          'BUILD_CONFIG': 'Release',
-          'TARGET_PLATFORM': 'ios',
-          'TARGET_ARCH': 'arm',
-          'TARGET_BITS': 64,
-        },
-        'bot_type': 'builder',
-        'testing': {
-          'platform': 'mac'
-        },
-      },
+      'ios_compile_arm64_dbg': {},
+      'ios_compile_arm64_rel': {},
       'ios_sim_x64_dbg_ios12': {
         'mixins': [
           'mac11', 'chromium-tester-service-account', 'ios-simulator-12.4',

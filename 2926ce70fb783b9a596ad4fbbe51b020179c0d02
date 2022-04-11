@@ -52,6 +52,24 @@
       "parentUuid": "5ff516cd_0e9f45fc",
       "revId": "2926ce70fb783b9a596ad4fbbe51b020179c0d02",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "86d48228_c28ac41d",
+        "filename": "modules/desktop_capture/linux/wayland/screencast_portal.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 412,
+      "author": {
+        "id": 8046
+      },
+      "writtenOn": "2022-04-11T11:52:26Z",
+      "side": 1,
+      "message": "I would keep `RequestResponse` as this is from the`Response()` method on the `org.freedesktop.portal.Request` object.",
+      "parentUuid": "0ae5dc06_1fc73a55",
+      "revId": "2926ce70fb783b9a596ad4fbbe51b020179c0d02",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

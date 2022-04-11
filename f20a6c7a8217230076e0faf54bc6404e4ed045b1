@@ -24,6 +24,30 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "5ae40145_96f47475",
+        "filename": "api/video_codecs/video_encoder_factory.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 51,
+      "author": {
+        "id": 5527
+      },
+      "writtenOn": "2022-04-11T08:34:12Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "25b97daf_4632fe56",
+      "range": {
+        "startLine": 51,
+        "startChar": 29,
+        "endLine": 51,
+        "endChar": 35
+      },
+      "revId": "f20a6c7a8217230076e0faf54bc6404e4ed045b1",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "ce2312ed_8730759b",
@@ -70,6 +94,54 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "fb81f7df_94783c00",
+        "filename": "sdk/android/api/org/webrtc/VideoEncoderFactory.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 28,
+      "author": {
+        "id": 5527
+      },
+      "writtenOn": "2022-04-11T08:34:12Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "ce2312ed_8730759b",
+      "range": {
+        "startLine": 28,
+        "startChar": 29,
+        "endLine": 28,
+        "endChar": 35
+      },
+      "revId": "f20a6c7a8217230076e0faf54bc6404e4ed045b1",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "65c3ad34_4c4c9065",
+        "filename": "sdk/android/api/org/webrtc/VideoEncoderFactory.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 28,
+      "author": {
+        "id": 5527
+      },
+      "writtenOn": "2022-04-11T08:34:12Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "330be81d_76338fde",
+      "range": {
+        "startLine": 28,
+        "startChar": 53,
+        "endLine": 28,
+        "endChar": 54
+      },
+      "revId": "f20a6c7a8217230076e0faf54bc6404e4ed045b1",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "06588560_e4c40d2d",
@@ -83,6 +155,30 @@
       "writtenOn": "2022-04-11T07:58:56Z",
       "side": 1,
       "message": "ReconfigureEncoder() is called on resolution change. Would it be better to notify the selector from there?",
+      "range": {
+        "startLine": 1853,
+        "startChar": 2,
+        "endLine": 1862,
+        "endChar": 3
+      },
+      "revId": "f20a6c7a8217230076e0faf54bc6404e4ed045b1",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "72bef37c_8f89ac54",
+        "filename": "video/video_stream_encoder.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 1862,
+      "author": {
+        "id": 5527
+      },
+      "writtenOn": "2022-04-11T08:34:12Z",
+      "side": 1,
+      "message": "Moved this to `MaybeEncodeVideoFrame` where we already check for a new incoming resolution.",
+      "parentUuid": "06588560_e4c40d2d",
       "range": {
         "startLine": 1853,
         "startChar": 2,

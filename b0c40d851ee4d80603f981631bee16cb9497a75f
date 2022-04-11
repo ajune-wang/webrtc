@@ -1,0 +1,90 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "0025c066_efa28954",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 4
+      },
+      "lineNbr": 7,
+      "author": {
+        "id": 18474
+      },
+      "writtenOn": "2022-04-11T21:28:49Z",
+      "side": 1,
+      "message": "I think this summary of the change is no longer accurate?",
+      "range": {
+        "startLine": 6,
+        "startChar": 0,
+        "endLine": 7,
+        "endChar": 66
+      },
+      "revId": "b0c40d851ee4d80603f981631bee16cb9497a75f",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "736eb1e7_9aad2364",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 4
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 18474
+      },
+      "writtenOn": "2022-04-11T21:28:49Z",
+      "side": 1,
+      "message": "Mostly LGTM, one minor cleanup and some adjustments to the commit description.",
+      "revId": "b0c40d851ee4d80603f981631bee16cb9497a75f",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "48437c28_335a3bb8",
+        "filename": "modules/desktop_capture/linux/wayland/xdg_desktop_portal_utils.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 29,
+      "author": {
+        "id": 18474
+      },
+      "writtenOn": "2022-04-11T21:28:49Z",
+      "side": 1,
+      "message": "NIT: I think this can be removed",
+      "range": {
+        "startLine": 28,
+        "startChar": 0,
+        "endLine": 29,
+        "endChar": 22
+      },
+      "revId": "b0c40d851ee4d80603f981631bee16cb9497a75f",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "6e2c9ae5_c861f681",
+        "filename": "modules/desktop_capture/linux/wayland/xdg_desktop_portal_utils.h",
+        "patchSetId": 4
+      },
+      "lineNbr": 68,
+      "author": {
+        "id": 18474
+      },
+      "writtenOn": "2022-04-11T21:28:49Z",
+      "side": 1,
+      "message": "Unused now?",
+      "range": {
+        "startLine": 67,
+        "startChar": 0,
+        "endLine": 68,
+        "endChar": 11
+      },
+      "revId": "b0c40d851ee4d80603f981631bee16cb9497a75f",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

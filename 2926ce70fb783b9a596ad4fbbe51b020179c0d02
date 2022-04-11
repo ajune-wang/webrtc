@@ -34,6 +34,24 @@
       "parentUuid": "9203ad10_a14b8ef4",
       "revId": "2926ce70fb783b9a596ad4fbbe51b020179c0d02",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "0ae5dc06_1fc73a55",
+        "filename": "modules/desktop_capture/linux/wayland/screencast_portal.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 412,
+      "author": {
+        "id": 18829
+      },
+      "writtenOn": "2022-04-11T11:34:37Z",
+      "side": 1,
+      "message": "Thanks for taking a look, Jan.\n\nSide question: Should we also rename the `RequestResponse` to may be `PortalStatus` since we don\u0027t proceed further with requests once one request in the callback chain fails.",
+      "parentUuid": "5ff516cd_0e9f45fc",
+      "revId": "2926ce70fb783b9a596ad4fbbe51b020179c0d02",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

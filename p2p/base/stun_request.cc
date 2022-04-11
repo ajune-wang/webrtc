@@ -12,6 +12,7 @@
 
 #include <algorithm>
 #include <memory>
+#include <utility>
 #include <vector>
 
 #include "rtc_base/checks.h"
@@ -43,13 +44,7 @@ const int STUN_MAX_RTO = 8000;  // milliseconds, or 5 doublings
 
 StunRequestManager::StunRequestManager(rtc::Thread* thread) : thread_(thread) {}
 
-StunRequestManager::~StunRequestManager() {
-  while (requests_.begin() != requests_.end()) {
-    StunRequest* request = requests_.begin()->second;
-    requests_.erase(requests_.begin());
-    delete request;
-  }
-}
+StunRequestManager::~StunRequestManager() {}
 
 void StunRequestManager::Send(StunRequest* request) {
   SendDelayed(request, 0);
@@ -60,7 +55,7 @@ void StunRequestManager::SendDelayed(StunRequest* request, int delay) {
   RTC_DCHECK_EQ(this, request->manager());
   RTC_DCHECK(requests_.find(request->id()) == requests_.end());
   request->Construct();
-  requests_[request->id()] = request;
+  requests_.insert(std::make_pair(request->id(), request));
   if (delay > 0) {
     thread_->PostDelayed(RTC_FROM_HERE, delay, request, MSG_STUN_SEND, NULL);
   } else {
@@ -71,7 +66,7 @@ void StunRequestManager::SendDelayed(StunRequest* request, int delay) {
 void StunRequestManager::FlushForTest(int msg_type) {
   RTC_DCHECK_RUN_ON(thread_);
   for (const auto& kv : requests_) {
-    StunRequest* request = kv.second;
+    StunRequest* request = kv.second.get();
     if (msg_type == kAllRequests || msg_type == request->type()) {
       thread_->Clear(request, MSG_STUN_SEND);
       thread_->Send(RTC_FROM_HERE, request, MSG_STUN_SEND, NULL);
@@ -82,36 +77,16 @@ void StunRequestManager::FlushForTest(int msg_type) {
 bool StunRequestManager::HasRequestForTest(int msg_type) {
   RTC_DCHECK_RUN_ON(thread_);
   for (const auto& kv : requests_) {
-    StunRequest* request = kv.second;
-    if (msg_type == kAllRequests || msg_type == request->type()) {
+    if (msg_type == kAllRequests || msg_type == kv.second->type()) {
       return true;
     }
   }
   return false;
 }
 
-void StunRequestManager::Remove(StunRequest* request) {
-  RTC_DCHECK_RUN_ON(thread_);
-  RTC_DCHECK(request->manager() == this);
-  RequestMap::iterator iter = requests_.find(request->id());
-  if (iter != requests_.end()) {
-    RTC_DCHECK(iter->second == request);
-    requests_.erase(iter);
-    thread_->Clear(request);
-  }
-}
-
 void StunRequestManager::Clear() {
   RTC_DCHECK_RUN_ON(thread_);
-  std::vector<StunRequest*> requests;
-  for (RequestMap::iterator i = requests_.begin(); i != requests_.end(); ++i)
-    requests.push_back(i->second);
-
-  for (uint32_t i = 0; i < requests.size(); ++i) {
-    // StunRequest destructor calls Remove() which deletes requests
-    // from `requests_`.
-    delete requests[i];
-  }
+  requests_.clear();
 }
 
 bool StunRequestManager::CheckResponse(StunMessage* msg) {
@@ -123,7 +98,7 @@ bool StunRequestManager::CheckResponse(StunMessage* msg) {
     return false;
   }
 
-  StunRequest* request = iter->second;
+  StunRequest* request = iter->second.get();
 
   // Now that we know the request, we can see if the response is
   // integrity-protected or not.
@@ -136,14 +111,15 @@ bool StunRequestManager::CheckResponse(StunMessage* msg) {
     msg->ValidateMessageIntegrity(request->msg()->password());
   }
 
+  bool success = true;
+
   if (!msg->GetNonComprehendedAttributes().empty()) {
     // If a response contains unknown comprehension-required attributes, it's
     // simply discarded and the transaction is considered failed. See RFC5389
     // sections 7.3.3 and 7.3.4.
     RTC_LOG(LS_ERROR) << ": Discarding response due to unknown "
                          "comprehension-required attribute.";
-    delete request;
-    return false;
+    success = false;
   } else if (msg->type() == GetStunSuccessResponseType(request->type())) {
     if (!msg->IntegrityOk() && !skip_integrity_checking) {
       return false;
@@ -158,8 +134,8 @@ bool StunRequestManager::CheckResponse(StunMessage* msg) {
     return false;
   }
 
-  delete request;
-  return true;
+  requests_.erase(iter);
+  return success;
 }
 
 bool StunRequestManager::empty() const {
@@ -198,6 +174,11 @@ bool StunRequestManager::CheckResponse(const char* data, size_t size) {
   return CheckResponse(response.get());
 }
 
+void StunRequestManager::OnRequestTimedOut(StunRequest* request) {
+  RTC_DCHECK_RUN_ON(thread_);
+  requests_.erase(request->id());
+}
+
 StunRequest::StunRequest(StunRequestManager* manager)
     : manager_(manager),
       msg_(new StunMessage()),
@@ -215,7 +196,6 @@ StunRequest::StunRequest(StunRequestManager* manager, StunMessage* request)
 }
 
 StunRequest::~StunRequest() {
-  manager_->Remove(this);
   manager_->network_thread()->Clear(this);
 }
 
@@ -250,7 +230,7 @@ void StunRequest::OnMessage(rtc::Message* pmsg) {
 
   if (timeout_) {
     OnTimeout();
-    delete this;
+    manager_->OnRequestTimedOut(this);
     return;
   }
 

@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "b708232b_ceebf4fa",
+        "filename": "sdk/android/api/org/webrtc/VideoEncoderFactory.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 30,
+      "author": {
+        "id": 5825
+      },
+      "writtenOn": "2022-04-11T08:45:36Z",
+      "side": 1,
+      "message": "This formatting doesn\u0027t look correct.",
+      "range": {
+        "startLine": 28,
+        "startChar": 7,
+        "endLine": 30,
+        "endChar": 52
+      },
+      "revId": "75b6b7e2b3bfddb9eb2985e19130cee3642a0915",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

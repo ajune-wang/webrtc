@@ -40,7 +40,10 @@ class StunBindingRequest : public StunRequest {
   StunBindingRequest(UDPPort* port,
                      const rtc::SocketAddress& addr,
                      int64_t start_time)
-      : port_(port), server_addr_(addr), start_time_(start_time) {}
+      : StunRequest(port->request_manager()),
+        port_(port),
+        server_addr_(addr),
+        start_time_(start_time) {}
 
   const rtc::SocketAddress& server_addr() const { return server_addr_; }
 

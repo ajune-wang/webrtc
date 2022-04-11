@@ -73,9 +73,12 @@ class StunRequestTest : public ::testing::Test, public sigslot::has_slots<> {
 // Forwards results to the test class.
 class StunRequestThunker : public StunRequest {
  public:
-  StunRequestThunker(StunMessage* msg, StunRequestTest* test)
-      : StunRequest(msg), test_(test) {}
-  explicit StunRequestThunker(StunRequestTest* test) : test_(test) {}
+  StunRequestThunker(StunRequestManager* manager,
+                     StunMessage* msg,
+                     StunRequestTest* test)
+      : StunRequest(manager, msg), test_(test) {}
+  StunRequestThunker(StunRequestManager* manager, StunRequestTest* test)
+      : StunRequest(manager), test_(test) {}
 
  private:
   virtual void OnResponse(StunMessage* res) { test_->OnResponse(res); }
@@ -95,7 +98,7 @@ class StunRequestThunker : public StunRequest {
 TEST_F(StunRequestTest, TestSuccess) {
   StunMessage* req = CreateStunMessage(STUN_BINDING_REQUEST, NULL);
 
-  manager_.Send(new StunRequestThunker(req, this));
+  manager_.Send(new StunRequestThunker(&manager_, req, this));
   StunMessage* res = CreateStunMessage(STUN_BINDING_RESPONSE, req);
   EXPECT_TRUE(manager_.CheckResponse(res));
 
@@ -110,7 +113,7 @@ TEST_F(StunRequestTest, TestSuccess) {
 TEST_F(StunRequestTest, TestError) {
   StunMessage* req = CreateStunMessage(STUN_BINDING_REQUEST, NULL);
 
-  manager_.Send(new StunRequestThunker(req, this));
+  manager_.Send(new StunRequestThunker(&manager_, req, this));
   StunMessage* res = CreateStunMessage(STUN_BINDING_ERROR_RESPONSE, req);
   EXPECT_TRUE(manager_.CheckResponse(res));
 
@@ -125,7 +128,7 @@ TEST_F(StunRequestTest, TestError) {
 TEST_F(StunRequestTest, TestUnexpected) {
   StunMessage* req = CreateStunMessage(STUN_BINDING_REQUEST, NULL);
 
-  manager_.Send(new StunRequestThunker(req, this));
+  manager_.Send(new StunRequestThunker(&manager_, req, this));
   StunMessage* res = CreateStunMessage(STUN_BINDING_RESPONSE, NULL);
   EXPECT_FALSE(manager_.CheckResponse(res));
 
@@ -142,7 +145,7 @@ TEST_F(StunRequestTest, TestBackoff) {
   StunMessage* req = CreateStunMessage(STUN_BINDING_REQUEST, NULL);
 
   int64_t start = rtc::TimeMillis();
-  manager_.Send(new StunRequestThunker(req, this));
+  manager_.Send(new StunRequestThunker(&manager_, req, this));
   StunMessage* res = CreateStunMessage(STUN_BINDING_RESPONSE, req);
   for (int i = 0; i < 9; ++i) {
     EXPECT_TRUE_SIMULATED_WAIT(request_count_ != i, STUN_TOTAL_TIMEOUT,
@@ -167,7 +170,7 @@ TEST_F(StunRequestTest, TestTimeout) {
   StunMessage* req = CreateStunMessage(STUN_BINDING_REQUEST, NULL);
   StunMessage* res = CreateStunMessage(STUN_BINDING_RESPONSE, req);
 
-  manager_.Send(new StunRequestThunker(req, this));
+  manager_.Send(new StunRequestThunker(&manager_, req, this));
   SIMULATED_WAIT(false, cricket::STUN_TOTAL_TIMEOUT, fake_clock);
 
   EXPECT_FALSE(manager_.CheckResponse(res));
@@ -181,7 +184,7 @@ TEST_F(StunRequestTest, TestTimeout) {
 // Regression test for specific crash where we receive a response with the
 // same id as a request that doesn't have an underlying StunMessage yet.
 TEST_F(StunRequestTest, TestNoEmptyRequest) {
-  StunRequestThunker* request = new StunRequestThunker(this);
+  StunRequestThunker* request = new StunRequestThunker(&manager_, this);
 
   manager_.SendDelayed(request, 100);
 
@@ -204,7 +207,7 @@ TEST_F(StunRequestTest, TestNoEmptyRequest) {
 TEST_F(StunRequestTest, TestUnrecognizedComprehensionRequiredAttribute) {
   StunMessage* req = CreateStunMessage(STUN_BINDING_REQUEST, NULL);
 
-  manager_.Send(new StunRequestThunker(req, this));
+  manager_.Send(new StunRequestThunker(&manager_, req, this));
   StunMessage* res = CreateStunMessage(STUN_BINDING_ERROR_RESPONSE, req);
   res->AddAttribute(StunAttribute::CreateUInt32(0x7777));
   EXPECT_FALSE(manager_.CheckResponse(res));

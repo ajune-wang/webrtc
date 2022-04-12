@@ -1,4 +1,3 @@
-
 /*
  *  Copyright (c) 2022 The WebRTC project authors. All Rights Reserved.
  *
@@ -14,6 +13,7 @@
 #include <cmath>
 
 #include "rtc_base/checks.h"
+#include "system_wrappers/include/metrics.h"
 
 namespace webrtc {
 
@@ -42,7 +42,59 @@ bool HasStereoContent(const std::vector<std::vector<std::vector<float>>>& frame,
   return false;
 }
 
+// Metrics are not logged unless at least five seconds of audio has been
+// observed.
+constexpr int kMinNumberOfFramesRequiredToLogMetrics = 500;
+
+// Continuous metrics are logged every 10 seconds.
+constexpr int kFramesPer10Seconds = 1000;
+
+enum class MultichannelContentType { kMono, kMultichannel, kNumTypes };
+enum class MultichannelContentDetectedEnum { kFalse, kTrue, kNumValues };
+
 }  // namespace
+
+MultiChannelContentDetector::MetricsLogger::MetricsLogger() {}
+
+MultiChannelContentDetector::MetricsLogger::~MetricsLogger() {
+  // Only log if enough content has been observed.
+  if (frame_counter_ < kMinNumberOfFramesRequiredToLogMetrics)
+    return;
+
+  MultichannelContentDetectedEnum multichannel_content_enum =
+      any_multichannel_content_detected_
+          ? MultichannelContentDetectedEnum::kTrue
+          : MultichannelContentDetectedEnum::kFalse;
+  RTC_HISTOGRAM_ENUMERATION(
+      "WebRTC.Audio.EchoCanceller.PersistentMultichannelContentEverDetected",
+      static_cast<int>(multichannel_content_enum),
+      static_cast<int>(MultichannelContentDetectedEnum::kNumValues));
+}
+
+void MultiChannelContentDetector::MetricsLogger::Update(
+    bool persistent_multichannel_content_detected) {
+  ++frame_counter_;
+  if (persistent_multichannel_content_detected) {
+    any_multichannel_content_detected_ = true;
+    ++persistent_multichannel_frame_counter_;
+  }
+
+  if (frame_counter_ < kMinNumberOfFramesRequiredToLogMetrics)
+    return;
+  if (frame_counter_ % kFramesPer10Seconds != 0)
+    return;
+
+  MultichannelContentType multichannel_content_type =
+      (persistent_multichannel_frame_counter_ < kFramesPer10Seconds / 2)
+          ? MultichannelContentType::kMono
+          : MultichannelContentType::kMultichannel;
+  RTC_HISTOGRAM_ENUMERATION(
+      "WebRTC.Audio.EchoCanceller.ProcessingPersistentMultichannelContent",
+      static_cast<int>(multichannel_content_type),
+      static_cast<int>(MultichannelContentType::kNumTypes));
+
+  persistent_multichannel_frame_counter_ = 0;
+}
 
 MultiChannelContentDetector::MultiChannelContentDetector(
     bool detect_stereo_content,
@@ -59,6 +111,9 @@ MultiChannelContentDetector::MultiChannelContentDetector(
               : absl::nullopt),
       stereo_detection_hysteresis_frames_(static_cast<int>(
           stereo_detection_hysteresis_seconds * kNumFramesPerSecond)),
+      metrics_logger_((detect_stereo_content && num_render_input_channels > 1)
+                          ? std::make_unique<MetricsLogger>()
+                          : nullptr),
       persistent_multichannel_content_detected_(
           !detect_stereo_content && num_render_input_channels > 1) {}
 
@@ -94,6 +149,9 @@ bool MultiChannelContentDetector::UpdateDetection(
   temporary_multichannel_content_detected_ =
       persistent_multichannel_content_detected_ ? false
                                                 : stereo_detected_in_frame;
+
+  if (metrics_logger_)
+    metrics_logger_->Update(persistent_multichannel_content_detected_);
 
   return previous_persistent_multichannel_content_detected !=
          persistent_multichannel_content_detected_;

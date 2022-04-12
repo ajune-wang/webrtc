@@ -75,7 +75,9 @@ class ConnectionContext final
   rtc::Thread* network_thread() { return network_thread_; }
   const rtc::Thread* network_thread() const { return network_thread_; }
 
-  const FieldTrialsView& trials() const { return *trials_.get(); }
+  // Field trials associated with PeerConnectionFactory,
+  // note that there can be different field trials for a PeerConnection.
+  const FieldTrialsView& field_trials() const { return *trials_.get(); }
 
   // Accessors only used from the PeerConnectionFactory class
   rtc::BasicNetworkManager* default_network_manager() {

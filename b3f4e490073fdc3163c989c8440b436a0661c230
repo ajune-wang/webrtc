@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "cabd4cf4_ba51dd3a",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5119
+      },
+      "writtenOn": "2022-04-12T10:11:31Z",
+      "side": 1,
+      "message": "Hi Alessio, PTAL, tiny cleanup CL",
+      "revId": "b3f4e490073fdc3163c989c8440b436a0661c230",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

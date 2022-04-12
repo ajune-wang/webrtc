@@ -22,6 +22,30 @@
       },
       "revId": "86aa03e238a449eb7672d5592e76f58884c1af2d",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "3c66415d_35d20c23",
+        "filename": "p2p/base/stun_request.cc",
+        "patchSetId": 6
+      },
+      "lineNbr": 101,
+      "author": {
+        "id": 5508
+      },
+      "writtenOn": "2022-04-12T10:52:28Z",
+      "side": 0,
+      "message": "Yes - this call was unnecessary. In future updates, I\u0027ll remove the MessageHandler/Thread dependency.",
+      "parentUuid": "9408c56e_19f0d121",
+      "range": {
+        "startLine": 101,
+        "startChar": 0,
+        "endLine": 101,
+        "endChar": 28
+      },
+      "revId": "86aa03e238a449eb7672d5592e76f58884c1af2d",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

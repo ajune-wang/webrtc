@@ -41,6 +41,30 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "e5462cbd_35836d03",
+        "filename": "p2p/base/stun_request.cc",
+        "patchSetId": 6
+      },
+      "lineNbr": 47,
+      "author": {
+        "id": 5508
+      },
+      "writtenOn": "2022-04-12T10:52:28Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "2ea6243a_87370e0e",
+      "range": {
+        "startLine": 47,
+        "startChar": 42,
+        "endLine": 47,
+        "endChar": 44
+      },
+      "revId": "4f94b38e560e4891179f15f0bd4cedfaee8165a7",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "55a5b44a_7f1be4a1",
@@ -54,6 +78,30 @@
       "writtenOn": "2022-04-12T10:01:48Z",
       "side": 1,
       "message": "may be\nrequests_[request-\u003eid()] \u003d absl::WrapUnique(request);\nto stress you\u0027re transferring ownership here.\n\nbtw, if you\u0027re chaning to .insert(std::make_pair(key, value)), or .emplace(key, value, you might as well check the result:\n\n  bool inserted \u003d requests_.emplace(request-\u003eid(), absl::WrapUnique(request)).second;\n  RTC_DCHECK(inserted); \n\nand remove line RTC_DCHECK(....find() \u003d\u003d .end()); two lines above avoiding redundant lookup in debug mode.",
+      "range": {
+        "startLine": 58,
+        "startChar": 2,
+        "endLine": 58,
+        "endChar": 59
+      },
+      "revId": "4f94b38e560e4891179f15f0bd4cedfaee8165a7",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "00896b9d_720f62f9",
+        "filename": "p2p/base/stun_request.cc",
+        "patchSetId": 6
+      },
+      "lineNbr": 58,
+      "author": {
+        "id": 5508
+      },
+      "writtenOn": "2022-04-12T10:52:28Z",
+      "side": 1,
+      "message": "Done.\n\nRemoved the call to find(), switched to .emplace() and check the return value. Moving forward we\u0027ll need the return value from emplace() anyway since Send[Delayed] will receive the request objects via std::unique_ptr\u003c\u003e.",
+      "parentUuid": "55a5b44a_7f1be4a1",
       "range": {
         "startLine": 58,
         "startChar": 2,
@@ -89,6 +137,30 @@
     {
       "unresolved": false,
       "key": {
+        "uuid": "f8606730_1b52c5ed",
+        "filename": "p2p/base/stun_request.cc",
+        "patchSetId": 6
+      },
+      "lineNbr": 80,
+      "author": {
+        "id": 5508
+      },
+      "writtenOn": "2022-04-12T10:52:28Z",
+      "side": 1,
+      "message": "ah, nice - done.",
+      "parentUuid": "9db8f30c_32dea67c",
+      "range": {
+        "startLine": 79,
+        "startChar": 2,
+        "endLine": 80,
+        "endChar": 68
+      },
+      "revId": "4f94b38e560e4891179f15f0bd4cedfaee8165a7",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
         "uuid": "4a02a988_a3acb282",
         "filename": "p2p/base/stun_request.cc",
         "patchSetId": 6
@@ -100,6 +172,24 @@
       "writtenOn": "2022-04-12T10:01:48Z",
       "side": 1,
       "message": "not sure why extra vairable is better than duplicating line\n`requests_.erase(iter)`\nlooks about same to me.",
+      "revId": "4f94b38e560e4891179f15f0bd4cedfaee8165a7",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "d06fd786_02a6c4d3",
+        "filename": "p2p/base/stun_request.cc",
+        "patchSetId": 6
+      },
+      "lineNbr": 122,
+      "author": {
+        "id": 5508
+      },
+      "writtenOn": "2022-04-12T10:52:28Z",
+      "side": 1,
+      "message": "not much of a difference really, one less call to erase() and one fewer early returns, but the main thing was that there\u0027s only one place in the function where the request is removed from the map and that\u0027s at the end of the function.\n\nThe function could be made simpler however which I think will happen once a few other things that are on the way have landed.",
+      "parentUuid": "4a02a988_a3acb282",
       "revId": "4f94b38e560e4891179f15f0bd4cedfaee8165a7",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }

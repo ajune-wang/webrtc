@@ -1,0 +1,119 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "4e6a0337_0edb0f9c",
+        "filename": "pc/peer_connection.cc",
+        "patchSetId": 6
+      },
+      "lineNbr": 1697,
+      "author": {
+        "id": 5087
+      },
+      "writtenOn": "2022-04-12T14:04:43Z",
+      "side": 1,
+      "message": "Should we use IsEnabled() here?",
+      "range": {
+        "startLine": 1696,
+        "startChar": 6,
+        "endLine": 1697,
+        "endChar": 33
+      },
+      "revId": "a540dbd91d693aa2d46badbb1216f012d2e76c8c",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "dc82f263_c29d3505",
+        "filename": "pc/peer_connection.cc",
+        "patchSetId": 6
+      },
+      "lineNbr": 2054,
+      "author": {
+        "id": 5087
+      },
+      "writtenOn": "2022-04-12T14:04:43Z",
+      "side": 1,
+      "message": "Here as well?",
+      "range": {
+        "startLine": 2053,
+        "startChar": 13,
+        "endLine": 2054,
+        "endChar": 41
+      },
+      "revId": "a540dbd91d693aa2d46badbb1216f012d2e76c8c",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "b0ea8578_96e42cec",
+        "filename": "rtc_base/memory/always_valid_pointer_unittest.cc",
+        "patchSetId": 6
+      },
+      "lineNbr": 49,
+      "author": {
+        "id": 5087
+      },
+      "writtenOn": "2022-04-12T14:04:43Z",
+      "side": 1,
+      "message": "TakeoverOwnershipOfInstance",
+      "range": {
+        "startLine": 49,
+        "startChar": 29,
+        "endLine": 49,
+        "endChar": 46
+      },
+      "revId": "a540dbd91d693aa2d46badbb1216f012d2e76c8c",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "75bd0d90_47b348f5",
+        "filename": "rtc_base/memory/always_valid_pointer_unittest.cc",
+        "patchSetId": 6
+      },
+      "lineNbr": 57,
+      "author": {
+        "id": 5087
+      },
+      "writtenOn": "2022-04-12T14:04:43Z",
+      "side": 1,
+      "message": "TakeoverOwnershipFallBackOnPointer",
+      "range": {
+        "startLine": 57,
+        "startChar": 29,
+        "endLine": 57,
+        "endChar": 47
+      },
+      "revId": "a540dbd91d693aa2d46badbb1216f012d2e76c8c",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "53dfc41c_f227390e",
+        "filename": "rtc_base/memory/always_valid_pointer_unittest.cc",
+        "patchSetId": 6
+      },
+      "lineNbr": 64,
+      "author": {
+        "id": 5087
+      },
+      "writtenOn": "2022-04-12T14:04:43Z",
+      "side": 1,
+      "message": "Nit: TakeoverOwnershipFallBackOnDefault",
+      "range": {
+        "startLine": 64,
+        "startChar": 29,
+        "endLine": 64,
+        "endChar": 47
+      },
+      "revId": "a540dbd91d693aa2d46badbb1216f012d2e76c8c",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

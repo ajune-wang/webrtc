@@ -1,0 +1,73 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "9b211bc8_4a73fcfc",
+        "filename": "p2p/base/connection.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 706,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2022-04-12T11:54:50Z",
+      "side": 1,
+      "message": "may be use quotes: `message` to make it the variable reference",
+      "range": {
+        "startLine": 706,
+        "startChar": 36,
+        "endLine": 706,
+        "endChar": 43
+      },
+      "revId": "fa94ce158ff6fd818f3e3b153733dc6e0ac939d3",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "6810afe8_a16e6ca6",
+        "filename": "p2p/base/connection.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 715,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2022-04-12T11:54:50Z",
+      "side": 1,
+      "message": "may be drop word \"message\" here.",
+      "range": {
+        "startLine": 715,
+        "startChar": 26,
+        "endLine": 715,
+        "endChar": 33
+      },
+      "revId": "fa94ce158ff6fd818f3e3b153733dc6e0ac939d3",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "e9930d6a_cf496431",
+        "filename": "p2p/base/connection.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 763,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2022-04-12T11:54:50Z",
+      "side": 1,
+      "message": "and here",
+      "range": {
+        "startLine": 763,
+        "startChar": 26,
+        "endLine": 763,
+        "endChar": 33
+      },
+      "revId": "fa94ce158ff6fd818f3e3b153733dc6e0ac939d3",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

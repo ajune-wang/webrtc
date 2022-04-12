@@ -33,6 +33,24 @@
       "message": "It looks like we are getting:\n\n```\n[132/774] CXX obj/pc/sdp_offer_answer/sdp_offer_answer.o\nFAILED: obj/pc/sdp_offer_answer/sdp_offer_answer.o\n/b/s/w/ir/cache/goma/client/gomacc ../../third_party/llvm-build/Release+Asserts/bin/clang++ -MMD -MF...(too long)\n../../pc/sdp_offer_answer.cc:1206:18: error: no member named \u0027trials\u0027 in \u0027webrtc::ConnectionContext\u0027\n!context_-\u003etrials().IsEnabled(kDefaultScreencastMinBitrateKillSwitch)) {\n```",
       "revId": "a40c9b3c0a3dc72fe305057bfd94392223942a7a",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "f9503ba1_3a07549e",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 7
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5613
+      },
+      "writtenOn": "2022-04-12T16:02:05Z",
+      "side": 1,
+      "message": "merge error, fixed!",
+      "parentUuid": "d1d4f102_2ff62bb9",
+      "revId": "a40c9b3c0a3dc72fe305057bfd94392223942a7a",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

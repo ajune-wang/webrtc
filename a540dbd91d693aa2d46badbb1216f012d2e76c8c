@@ -24,6 +24,30 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "82896a70_6f63b729",
+        "filename": "pc/peer_connection.cc",
+        "patchSetId": 6
+      },
+      "lineNbr": 1697,
+      "author": {
+        "id": 5613
+      },
+      "writtenOn": "2022-04-12T14:46:05Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "4e6a0337_0edb0f9c",
+      "range": {
+        "startLine": 1696,
+        "startChar": 6,
+        "endLine": 1697,
+        "endChar": 33
+      },
+      "revId": "a540dbd91d693aa2d46badbb1216f012d2e76c8c",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "dc82f263_c29d3505",
@@ -37,6 +61,30 @@
       "writtenOn": "2022-04-12T14:04:43Z",
       "side": 1,
       "message": "Here as well?",
+      "range": {
+        "startLine": 2053,
+        "startChar": 13,
+        "endLine": 2054,
+        "endChar": 41
+      },
+      "revId": "a540dbd91d693aa2d46badbb1216f012d2e76c8c",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "fd72d41f_15a823b2",
+        "filename": "pc/peer_connection.cc",
+        "patchSetId": 6
+      },
+      "lineNbr": 2054,
+      "author": {
+        "id": 5613
+      },
+      "writtenOn": "2022-04-12T14:46:05Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "dc82f263_c29d3505",
       "range": {
         "startLine": 2053,
         "startChar": 13,
@@ -70,6 +118,30 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "4f719108_c2e4cc48",
+        "filename": "rtc_base/memory/always_valid_pointer_unittest.cc",
+        "patchSetId": 6
+      },
+      "lineNbr": 49,
+      "author": {
+        "id": 5613
+      },
+      "writtenOn": "2022-04-12T14:46:05Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "b0ea8578_96e42cec",
+      "range": {
+        "startLine": 49,
+        "startChar": 29,
+        "endLine": 49,
+        "endChar": 46
+      },
+      "revId": "a540dbd91d693aa2d46badbb1216f012d2e76c8c",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "75bd0d90_47b348f5",
@@ -93,6 +165,30 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "160e0f55_145882be",
+        "filename": "rtc_base/memory/always_valid_pointer_unittest.cc",
+        "patchSetId": 6
+      },
+      "lineNbr": 57,
+      "author": {
+        "id": 5613
+      },
+      "writtenOn": "2022-04-12T14:46:05Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "75bd0d90_47b348f5",
+      "range": {
+        "startLine": 57,
+        "startChar": 29,
+        "endLine": 57,
+        "endChar": 47
+      },
+      "revId": "a540dbd91d693aa2d46badbb1216f012d2e76c8c",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "53dfc41c_f227390e",
@@ -106,6 +202,30 @@
       "writtenOn": "2022-04-12T14:04:43Z",
       "side": 1,
       "message": "Nit: TakeoverOwnershipFallBackOnDefault",
+      "range": {
+        "startLine": 64,
+        "startChar": 29,
+        "endLine": 64,
+        "endChar": 47
+      },
+      "revId": "a540dbd91d693aa2d46badbb1216f012d2e76c8c",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "eac37ffc_55e10d58",
+        "filename": "rtc_base/memory/always_valid_pointer_unittest.cc",
+        "patchSetId": 6
+      },
+      "lineNbr": 64,
+      "author": {
+        "id": 5613
+      },
+      "writtenOn": "2022-04-12T14:46:05Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "53dfc41c_f227390e",
       "range": {
         "startLine": 64,
         "startChar": 29,

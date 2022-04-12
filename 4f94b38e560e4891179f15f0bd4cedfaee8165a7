@@ -1,0 +1,107 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "c8744736_5d6e4c3f",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 6
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2022-04-12T10:01:48Z",
+      "side": 1,
+      "message": "less code, less map lookups, less circular codepaths\nclearly looks better.",
+      "revId": "4f94b38e560e4891179f15f0bd4cedfaee8165a7",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "2ea6243a_87370e0e",
+        "filename": "p2p/base/stun_request.cc",
+        "patchSetId": 6
+      },
+      "lineNbr": 47,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2022-04-12T10:01:48Z",
+      "side": 1,
+      "message": "https://abseil.io/tips/131\n\n“Prefer \u003ddefault over writing an equivalent implementation by hand, even if that implementation is just {}.”",
+      "range": {
+        "startLine": 47,
+        "startChar": 42,
+        "endLine": 47,
+        "endChar": 44
+      },
+      "revId": "4f94b38e560e4891179f15f0bd4cedfaee8165a7",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "55a5b44a_7f1be4a1",
+        "filename": "p2p/base/stun_request.cc",
+        "patchSetId": 6
+      },
+      "lineNbr": 58,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2022-04-12T10:01:48Z",
+      "side": 1,
+      "message": "may be\nrequests_[request-\u003eid()] \u003d absl::WrapUnique(request);\nto stress you\u0027re transferring ownership here.\n\nbtw, if you\u0027re chaning to .insert(std::make_pair(key, value)), or .emplace(key, value, you might as well check the result:\n\n  bool inserted \u003d requests_.emplace(request-\u003eid(), absl::WrapUnique(request)).second;\n  RTC_DCHECK(inserted); \n\nand remove line RTC_DCHECK(....find() \u003d\u003d .end()); two lines above avoiding redundant lookup in debug mode.",
+      "range": {
+        "startLine": 58,
+        "startChar": 2,
+        "endLine": 58,
+        "endChar": 59
+      },
+      "revId": "4f94b38e560e4891179f15f0bd4cedfaee8165a7",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "9db8f30c_32dea67c",
+        "filename": "p2p/base/stun_request.cc",
+        "patchSetId": 6
+      },
+      "lineNbr": 80,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2022-04-12T10:01:48Z",
+      "side": 1,
+      "message": "or make use of structured binding:\n  for (const auto\u0026 [unused, request] : requests_) {\n    if (.... || msg_type \u003d\u003d request-\u003etype())\n  \nhttp://go/totw/169",
+      "range": {
+        "startLine": 79,
+        "startChar": 2,
+        "endLine": 80,
+        "endChar": 68
+      },
+      "revId": "4f94b38e560e4891179f15f0bd4cedfaee8165a7",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "4a02a988_a3acb282",
+        "filename": "p2p/base/stun_request.cc",
+        "patchSetId": 6
+      },
+      "lineNbr": 122,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2022-04-12T10:01:48Z",
+      "side": 1,
+      "message": "not sure why extra vairable is better than duplicating line\n`requests_.erase(iter)`\nlooks about same to me.",
+      "revId": "4f94b38e560e4891179f15f0bd4cedfaee8165a7",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

@@ -1185,23 +1185,25 @@ std::unique_ptr<SdpOfferAnswerHandler> SdpOfferAnswerHandler::Create(
     PeerConnectionSdpMethods* pc,
     const PeerConnectionInterface::RTCConfiguration& configuration,
     PeerConnectionDependencies& dependencies,
-    ConnectionContext* context) {
+    ConnectionContext* context,
+    const FieldTrialsView& field_trials) {
   auto handler = absl::WrapUnique(new SdpOfferAnswerHandler(pc, context));
-  handler->Initialize(configuration, dependencies, context);
+  handler->Initialize(configuration, dependencies, context, field_trials);
   return handler;
 }
 
 void SdpOfferAnswerHandler::Initialize(
     const PeerConnectionInterface::RTCConfiguration& configuration,
     PeerConnectionDependencies& dependencies,
-    ConnectionContext* context) {
+    ConnectionContext* context,
+    const FieldTrialsView& field_trials) {
   RTC_DCHECK_RUN_ON(signaling_thread());
   video_options_.screencast_min_bitrate_kbps =
       configuration.screencast_min_bitrate;
   // Use 100 kbps as the default minimum screencast bitrate unless this path is
   // kill-switched.
   if (!video_options_.screencast_min_bitrate_kbps.has_value() &&
-      !context_->trials().IsEnabled(kDefaultScreencastMinBitrateKillSwitch)) {
+      field_trials.IsEnabled(kDefaultScreencastMinBitrateKillSwitch)) {
     video_options_.screencast_min_bitrate_kbps = 100;
   }
   audio_options_.combined_audio_video_bwe =
@@ -1235,7 +1237,8 @@ void SdpOfferAnswerHandler::Initialize(
           [this](const rtc::scoped_refptr<rtc::RTCCertificate>& certificate) {
             RTC_DCHECK_RUN_ON(signaling_thread());
             transport_controller_s()->SetLocalCertificate(certificate);
-          });
+          },
+          field_trials);
 
   if (pc_->options()->disable_encryption) {
     webrtc_session_desc_factory_->SetSdesPolicy(cricket::SEC_DISABLED);

@@ -41,6 +41,30 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "b2a75169_dc32b05d",
+        "filename": "test/fuzzers/utils/rtp_replayer.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 89,
+      "author": {
+        "id": 5150
+      },
+      "writtenOn": "2022-04-13T13:41:27Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "ff07d04c_83af9ae9",
+      "range": {
+        "startLine": 89,
+        "startChar": 42,
+        "endLine": 89,
+        "endChar": 43
+      },
+      "revId": "6999833ee78fb476228bd1af2084dd43883c5f59",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "19383440_82daf8ec",
@@ -64,6 +88,30 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "33c06899_4ea16cd1",
+        "filename": "test/fuzzers/utils/rtp_replayer.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 91,
+      "author": {
+        "id": 5150
+      },
+      "writtenOn": "2022-04-13T13:41:27Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "19383440_82daf8ec",
+      "range": {
+        "startLine": 91,
+        "startChar": 21,
+        "endLine": 91,
+        "endChar": 28
+      },
+      "revId": "6999833ee78fb476228bd1af2084dd43883c5f59",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "1a0ebf1a_8f3abb49",
@@ -77,6 +125,30 @@
       "writtenOn": "2022-04-13T09:46:47Z",
       "side": 1,
       "message": "jmessage?",
+      "range": {
+        "startLine": 100,
+        "startChar": 33,
+        "endLine": 100,
+        "endChar": 45
+      },
+      "revId": "6999833ee78fb476228bd1af2084dd43883c5f59",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "18a73a8e_d0d6aed3",
+        "filename": "test/fuzzers/utils/rtp_replayer.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 100,
+      "author": {
+        "id": 5150
+      },
+      "writtenOn": "2022-04-13T13:41:27Z",
+      "side": 1,
+      "message": "Sorry. Bad copy-paste. Fixed.",
+      "parentUuid": "1a0ebf1a_8f3abb49",
       "range": {
         "startLine": 100,
         "startChar": 33,

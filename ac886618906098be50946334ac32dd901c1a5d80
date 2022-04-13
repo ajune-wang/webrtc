@@ -1,0 +1,90 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "2bb5d1c3_c15de3bf",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 7
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5125
+      },
+      "writtenOn": "2022-04-13T08:07:23Z",
+      "side": 1,
+      "message": "Thanks for this CL!",
+      "revId": "ac886618906098be50946334ac32dd901c1a5d80",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "9af7a93b_e47fa3c3",
+        "filename": "modules/audio_processing/aec3/multi_channel_content_detector.cc",
+        "patchSetId": 7
+      },
+      "lineNbr": 47,
+      "author": {
+        "id": 5125
+      },
+      "writtenOn": "2022-04-13T08:07:23Z",
+      "side": 1,
+      "message": "Is this to avoid that the call-join sound triggers the metric?\n\nCan we reduce it?  The thresholds used to avoid that are lower.",
+      "range": {
+        "startLine": 47,
+        "startChar": 14,
+        "endLine": 47,
+        "endChar": 52
+      },
+      "revId": "ac886618906098be50946334ac32dd901c1a5d80",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "b263f5f6_612ea07e",
+        "filename": "modules/audio_processing/aec3/multi_channel_content_detector.cc",
+        "patchSetId": 7
+      },
+      "lineNbr": 101,
+      "author": {
+        "id": 5125
+      },
+      "writtenOn": "2022-04-13T08:07:23Z",
+      "side": 1,
+      "message": "Nit: Extra parenthesis not needed",
+      "range": {
+        "startLine": 101,
+        "startChar": 77,
+        "endLine": 101,
+        "endChar": 78
+      },
+      "revId": "ac886618906098be50946334ac32dd901c1a5d80",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "f27c9a56_dda9680f",
+        "filename": "modules/audio_processing/aec3/multi_channel_content_detector.h",
+        "patchSetId": 7
+      },
+      "lineNbr": 83,
+      "author": {
+        "id": 5125
+      },
+      "writtenOn": "2022-04-13T08:07:23Z",
+      "side": 1,
+      "message": "What is the value of this conditional creation?\nThis will only be used in Chrome, right? And there detect_stereo_content_ will always be true.\nIn addition to that, my guess is that since the majority of devices have stereo capabilities, the number of channels will be stereo,\n\n\nWhat about instead always report this? That would reduce the need for extra logic, and would also make it easier to reason about the metrics",
+      "range": {
+        "startLine": 82,
+        "startChar": 15,
+        "endLine": 83,
+        "endChar": 38
+      },
+      "revId": "ac886618906098be50946334ac32dd901c1a5d80",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

@@ -1,0 +1,44 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "919137fb_130a6a12",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 9
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2022-04-13T12:29:10Z",
+      "side": 1,
+      "message": "lgtm!",
+      "revId": "9f21222b7cb9673b8d6ebd4750eca0b28de855eb",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "f2586c66_49c31b1d",
+        "filename": "rtc_base/async_packet_socket.h",
+        "patchSetId": 9
+      },
+      "lineNbr": 108,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2022-04-13T12:29:10Z",
+      "side": 1,
+      "message": "Will we even have more than one subscriber?",
+      "range": {
+        "startLine": 106,
+        "startChar": 0,
+        "endLine": 108,
+        "endChar": 77
+      },
+      "revId": "9f21222b7cb9673b8d6ebd4750eca0b28de855eb",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

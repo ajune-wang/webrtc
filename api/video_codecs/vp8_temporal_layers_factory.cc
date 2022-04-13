@@ -27,6 +27,10 @@ std::unique_ptr<Vp8FrameBufferController> Vp8TemporalLayersFactory::Create(
     const VideoCodec& codec,
     const VideoEncoder::Settings& settings,
     FecControllerOverride* fec_controller_override) {
+  // Fail in case codec specifies a scalability mode not supported for VP8.
+  if (!SimulcastUtility::Vp8NumberOfTemporalLayers(codec)) {
+    return nullptr;
+  }
   std::vector<std::unique_ptr<Vp8FrameBufferController>> controllers;
   const int num_streams = SimulcastUtility::NumberOfSimulcastStreams(codec);
   RTC_DCHECK_GE(num_streams, 1);

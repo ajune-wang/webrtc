@@ -88,10 +88,29 @@ bool SimulcastUtility::IsConferenceModeScreenshare(const VideoCodec& codec) {
          codec.legacy_conference_mode;
 }
 
+absl::optional<int> SimulcastUtility::Vp8NumberOfTemporalLayers(
+    const VideoCodec& codec) {
+  RTC_DCHECK_EQ(codec.codecType, kVideoCodecVP8);
+
+  absl::string_view scalability_mode = codec.ScalabilityMode();
+  if (scalability_mode.empty()) {
+    // Fall back to old non-standard setting.
+    return std::max<uint8_t>(1, codec.VP8().numberOfTemporalLayers);
+  }
+  if (codec.ScalabilityMode() == "L1T1") {
+    return 1;
+  } else if (codec.ScalabilityMode() == "L1T2") {
+    return 2;
+  } else if (codec.ScalabilityMode() == "L1T3") {
+    return 3;
+  } else {
+    return absl::nullopt;
+  }
+}
+
 int SimulcastUtility::NumberOfTemporalLayers(const VideoCodec& codec,
                                              int spatial_id) {
-  uint8_t num_temporal_layers =
-      std::max<uint8_t>(1, codec.VP8().numberOfTemporalLayers);
+  uint8_t num_temporal_layers = Vp8NumberOfTemporalLayers(codec).value_or(1);
   if (codec.numberOfSimulcastStreams > 0) {
     RTC_DCHECK_LT(spatial_id, codec.numberOfSimulcastStreams);
     num_temporal_layers =

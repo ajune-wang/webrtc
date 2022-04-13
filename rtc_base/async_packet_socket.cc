@@ -34,11 +34,14 @@ void AsyncPacketSocket::SubscribeClose(
     const void* removal_tag,
     std::function<void(AsyncPacketSocket*, int)> callback) {
   RTC_DCHECK_RUN_ON(&network_checker_);
+  subscribed_++;
+  RTC_DCHECK_LT(subscribed_, 2);
   on_close_.AddReceiver(removal_tag, std::move(callback));
 }
 
 void AsyncPacketSocket::UnsubscribeClose(const void* removal_tag) {
   RTC_DCHECK_RUN_ON(&network_checker_);
+  subscribed_--;
   on_close_.RemoveReceivers(removal_tag);
 }
 

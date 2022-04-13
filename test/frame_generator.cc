@@ -13,6 +13,7 @@
 
 #include <cstdint>
 #include <cstdio>
+#include <iostream>
 #include <memory>
 
 #include "api/video/i010_buffer.h"
@@ -194,7 +195,7 @@ bool YuvFileGenerator::ReadNextFrame() {
   if (!last_read_buffer_) {
     // No more frames to read in this file, rewind and move to next file.
     rewind(files_[file_index_]);
-
+    std::cout << "Rewind" << std::endl;
     frame_index_ = 0;
     file_index_ = (file_index_ + 1) % files_.size();
     last_read_buffer_ =

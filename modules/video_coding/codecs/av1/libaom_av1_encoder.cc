@@ -12,6 +12,8 @@
 #include <stddef.h>
 #include <stdint.h>
 
+#include <chrono>
+#include <iostream>
 #include <memory>
 #include <utility>
 #include <vector>
@@ -38,6 +40,9 @@
 
 namespace webrtc {
 namespace {
+
+#define SHOW(field) \
+  fprintf(stderr, "    %-28s = %d\n", #field, field)
 
 // Encoder configuration parameters
 constexpr int kQpMin = 10;
@@ -204,8 +209,8 @@ int LibaomAv1Encoder::InitEncode(const VideoCodec* codec_settings,
   cfg_.rc_target_bitrate = encoder_settings_.maxBitrate;  // kilobits/sec.
   cfg_.g_input_bit_depth = kBitDepth;
   cfg_.kf_mode = AOM_KF_DISABLED;
-  cfg_.rc_min_quantizer = kQpMin;
-  cfg_.rc_max_quantizer = encoder_settings_.qpMax;
+  cfg_.rc_min_quantizer = 2;
+  cfg_.rc_max_quantizer = 52;
   cfg_.rc_undershoot_pct = 50;
   cfg_.rc_overshoot_pct = 50;
   cfg_.rc_buf_initial_sz = 600;
@@ -425,6 +430,45 @@ int LibaomAv1Encoder::InitEncode(const VideoCodec* codec_settings,
     return WEBRTC_VIDEO_CODEC_ERROR;
   }
 
+  SHOW(cfg_.g_usage);
+  SHOW(cfg_.g_threads);
+  SHOW(cfg_.g_profile);
+  SHOW(cfg_.g_w);
+  SHOW(cfg_.g_h);
+  SHOW(cfg_.g_bit_depth);
+  SHOW(cfg_.g_input_bit_depth);
+  SHOW(cfg_.g_timebase.num);
+  SHOW(cfg_.g_timebase.den);
+  SHOW(cfg_.g_error_resilient);
+  SHOW(cfg_.g_pass);
+  SHOW(cfg_.g_lag_in_frames);
+  SHOW(cfg_.large_scale_tile);
+  SHOW(cfg_.rc_dropframe_thresh);
+  SHOW(cfg_.rc_resize_mode);
+  SHOW(cfg_.rc_resize_denominator);
+  SHOW(cfg_.rc_resize_kf_denominator);
+  SHOW(cfg_.rc_superres_mode);
+  SHOW(cfg_.rc_superres_denominator);
+  SHOW(cfg_.rc_superres_kf_denominator);
+  SHOW(cfg_.rc_superres_qthresh);
+  SHOW(cfg_.rc_superres_kf_qthresh);
+  SHOW(cfg_.rc_end_usage);
+  SHOW(cfg_.rc_target_bitrate);
+  SHOW(cfg_.rc_min_quantizer);
+  SHOW(cfg_.rc_max_quantizer);
+  SHOW(cfg_.rc_undershoot_pct);
+  SHOW(cfg_.rc_overshoot_pct);
+  SHOW(cfg_.rc_buf_sz);
+  SHOW(cfg_.rc_buf_initial_sz);
+  SHOW(cfg_.rc_buf_optimal_sz);
+  SHOW(cfg_.rc_2pass_vbr_bias_pct);
+  SHOW(cfg_.rc_2pass_vbr_minsection_pct);
+  SHOW(cfg_.rc_2pass_vbr_maxsection_pct);
+  SHOW(cfg_.fwd_kf_enabled);
+  SHOW(cfg_.kf_mode);
+  SHOW(cfg_.kf_min_dist);
+  SHOW(cfg_.kf_max_dist);
+
   return WEBRTC_VIDEO_CODEC_OK;
 }
 
@@ -433,35 +477,36 @@ int LibaomAv1Encoder::InitEncode(const VideoCodec* codec_settings,
 int LibaomAv1Encoder::GetCpuSpeed(int width, int height) {
   // For smaller resolutions, use lower speed setting (get some coding gain at
   // the cost of increased encoding complexity).
-  switch (encoder_settings_.GetVideoEncoderComplexity()) {
-    case VideoCodecComplexity::kComplexityHigh:
-      if (width * height <= 320 * 180)
-        return 8;
-      else if (width * height <= 640 * 360)
-        return 9;
-      else
-        return 10;
-    case VideoCodecComplexity::kComplexityHigher:
-      if (width * height <= 320 * 180)
-        return 7;
-      else if (width * height <= 640 * 360)
-        return 8;
-      else if (width * height <= 1280 * 720)
-        return 9;
-      else
-        return 10;
-    case VideoCodecComplexity::kComplexityMax:
-      if (width * height <= 320 * 180)
-        return 6;
-      else if (width * height <= 640 * 360)
-        return 7;
-      else if (width * height <= 1280 * 720)
-        return 8;
-      else
-        return 9;
-    default:
-      return 10;
-  }
+  return 10;
+  // switch (encoder_settings_.GetVideoEncoderComplexity()) {
+  //   case VideoCodecComplexity::kComplexityHigh:
+  //     if (width * height <= 320 * 180)
+  //       return 8;
+  //     else if (width * height <= 640 * 360)
+  //       return 9;
+  //     else
+  //       return 10;
+  //   case VideoCodecComplexity::kComplexityHigher:
+  //     if (width * height <= 320 * 180)
+  //       return 7;
+  //     else if (width * height <= 640 * 360)
+  //       return 8;
+  //     else if (width * height <= 1280 * 720)
+  //       return 9;
+  //     else
+  //       return 10;
+  //   case VideoCodecComplexity::kComplexityMax:
+  //     if (width * height <= 320 * 180)
+  //       return 6;
+  //     else if (width * height <= 640 * 360)
+  //       return 7;
+  //     else if (width * height <= 1280 * 720)
+  //       return 8;
+  //     else
+  //       return 9;
+  //   default:
+  //     return 10;
+  // }
 }
 
 int LibaomAv1Encoder::NumberOfThreads(int width,
@@ -470,21 +515,22 @@ int LibaomAv1Encoder::NumberOfThreads(int width,
   // Keep the number of encoder threads equal to the possible number of
   // column/row tiles, which is (1, 2, 4, 8). See comments below for
   // AV1E_SET_TILE_COLUMNS/ROWS.
-  if (width * height >= 640 * 360 && number_of_cores > 4) {
-    return 4;
-  } else if (width * height >= 320 * 180 && number_of_cores > 2) {
-    return 2;
-  } else {
-// Use 2 threads for low res on ARM.
-#if defined(WEBRTC_ARCH_ARM) || defined(WEBRTC_ARCH_ARM64) || \
-    defined(WEBRTC_ANDROID)
-    if (width * height >= 320 * 180 && number_of_cores > 2) {
-      return 2;
-    }
-#endif
-    // 1 thread less than VGA.
-    return 1;
-  }
+  return 1;
+//   if (width * height >= 640 * 360 && number_of_cores > 4) {
+//     return 4;
+//   } else if (width * height >= 320 * 180 && number_of_cores > 2) {
+//     return 2;
+//   } else {
+// // Use 2 threads for low res on ARM.
+// #if defined(WEBRTC_ARCH_ARM) || defined(WEBRTC_ARCH_ARM64) || \
+//     defined(WEBRTC_ANDROID)
+//     if (width * height >= 320 * 180 && number_of_cores > 2) {
+//       return 2;
+//     }
+// #endif
+//     // 1 thread less than VGA.
+//     return 1;
+//   }
 }
 
 bool LibaomAv1Encoder::SetSvcParams(
@@ -743,9 +789,15 @@ int32_t LibaomAv1Encoder::Encode(
       }
     }
 
+    std::cout << ctx_.config.enc->g_w << " " << ctx_.config.enc->g_h << " ";
     // Encode a frame.
+    auto start = std::chrono::high_resolution_clock::now();
     aom_codec_err_t ret = aom_codec_encode(&ctx_, frame_for_encode_,
                                            frame.timestamp(), duration, flags);
+    auto elapsed = std::chrono::high_resolution_clock::now() - start;
+    long long microseconds = std::chrono::duration_cast<std::chrono::microseconds>(
+        elapsed).count();
+    std::cout << microseconds << std::endl;
     if (ret != AOM_CODEC_OK) {
       RTC_LOG(LS_WARNING) << "LibaomAv1Encoder::Encode returned " << ret
                           << " on aom_codec_encode.";
@@ -795,6 +847,7 @@ int32_t LibaomAv1Encoder::Encode(
           encoded_image._encodedWidth = cfg_.g_w;
           encoded_image._encodedHeight = cfg_.g_h;
         }
+
         encoded_image.timing_.flags = VideoSendTiming::kInvalid;
         int qp = -1;
         ret = aom_codec_control(&ctx_, AOME_GET_LAST_QUANTIZER, &qp);
@@ -857,16 +910,17 @@ void LibaomAv1Encoder::SetRates(const RateControlParameters& parameters) {
     return;
   }
 
+  // printf("SetRates\n");
   // The bitrates caluclated internally in libaom when `AV1E_SET_SVC_PARAMS` is
   // called depends on the currently configured `rc_target_bitrate`. If the
   // total target bitrate is not updated first a division by zero could happen.
   svc_controller_->OnRatesUpdated(parameters.bitrate);
-  cfg_.rc_target_bitrate = parameters.bitrate.get_sum_kbps();
-  aom_codec_err_t error_code = aom_codec_enc_config_set(&ctx_, &cfg_);
-  if (error_code != AOM_CODEC_OK) {
-    RTC_LOG(LS_WARNING) << "Error configuring encoder, error code: "
-                        << error_code;
-  }
+  // cfg_.rc_target_bitrate = parameters.bitrate.get_sum_kbps();
+  // aom_codec_err_t error_code = aom_codec_enc_config_set(&ctx_, &cfg_);
+  // if (error_code != AOM_CODEC_OK) {
+  //   RTC_LOG(LS_WARNING) << "Error configuring encoder, error code: "
+  //                       << error_code;
+  // }
 
   if (SvcEnabled()) {
     for (int sid = 0; sid < svc_params_->number_spatial_layers; ++sid) {

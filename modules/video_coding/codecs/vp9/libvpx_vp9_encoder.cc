@@ -14,6 +14,7 @@
 #include "modules/video_coding/codecs/vp9/libvpx_vp9_encoder.h"
 
 #include <algorithm>
+#include <iostream>
 #include <limits>
 #include <utility>
 #include <vector>
@@ -647,9 +648,9 @@ int LibvpxVp9Encoder::InitEncode(const VideoCodec* inst,
   } else {
     config_->rc_resize_allowed = inst->VP9().automaticResizeOn ? 1 : 0;
   }
-  // Determine number of threads based on the image size and #cores.
-  config_->g_threads =
-      NumberOfThreads(config_->g_w, config_->g_h, settings.number_of_cores);
+  // // Determine number of threads based on the image size and #cores.
+  // config_->g_threads =
+  //     NumberOfThreads(config_->g_w, config_->g_h, settings.number_of_cores);
 
   is_flexible_mode_ = inst->VP9().flexibleMode;
 
@@ -948,6 +949,8 @@ uint32_t LibvpxVp9Encoder::MaxIntraTarget(uint32_t optimal_buffer_size) {
 
 int LibvpxVp9Encoder::Encode(const VideoFrame& input_image,
                              const std::vector<VideoFrameType>* frame_types) {
+
+  std::cout << "VP9 encoding..." << std::endl;
   if (!inited_) {
     return WEBRTC_VIDEO_CODEC_UNINITIALIZED;
   }
@@ -1707,6 +1710,7 @@ void LibvpxVp9Encoder::GetEncodedLayerFrame(const vpx_codec_cx_pkt* pkt) {
       pkt->data.frame.height[layer_id.spatial_layer_id];
   encoded_image_._encodedWidth =
       pkt->data.frame.width[layer_id.spatial_layer_id];
+  std::cout << encoded_image_._encodedWidth << " " << encoded_image_._encodedHeight << std::endl;
   int qp = -1;
   libvpx_->codec_control(encoder_, VP8E_GET_LAST_QUANTIZER, &qp);
   encoded_image_.qp_ = qp;

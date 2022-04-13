@@ -18,6 +18,23 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "49f8f4d4_816899c9",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 9
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2022-04-13T14:22:34Z",
+      "side": 1,
+      "message": "Anyway, landing as is sgtm.",
+      "revId": "9f21222b7cb9673b8d6ebd4750eca0b28de855eb",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "f2586c66_49c31b1d",
@@ -55,6 +72,30 @@
       "side": 1,
       "message": "Hmm... good point. I\u0027ll go ahead and land this as is but look into changing the implementation to just use a std::function and if so, see if we can inject it at construction time and remove the Subscribe/Unsubscribe methods.",
       "parentUuid": "f2586c66_49c31b1d",
+      "range": {
+        "startLine": 106,
+        "startChar": 0,
+        "endLine": 108,
+        "endChar": 77
+      },
+      "revId": "9f21222b7cb9673b8d6ebd4750eca0b28de855eb",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "822d3686_5d739ae0",
+        "filename": "rtc_base/async_packet_socket.h",
+        "patchSetId": 9
+      },
+      "lineNbr": 108,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2022-04-13T14:22:34Z",
+      "side": 1,
+      "message": "I suspect this will depend a bit on what we want to do with the \"shared_socket_\" thing. As I understand it, when enabled, multiple udp and stun ports can share the same underlying udp socket. Not at all clear to me if that\u0027s beneficial, but it would make sense to decide to do it one way and the other and delete the code for the other option. \n\n(Hmm, but the udp ports might not use this callback at all? Perhaps not that relevant for a connection-less udp socket).",
+      "parentUuid": "027850a6_8f159d24",
       "range": {
         "startLine": 106,
         "startChar": 0,

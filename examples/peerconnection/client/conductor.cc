@@ -190,9 +190,16 @@ bool Conductor::CreatePeerConnection() {
   server.uri = GetPeerConnectionString();
   config.servers.push_back(server);
 
-  peer_connection_ = peer_connection_factory_->CreatePeerConnection(
-      config, nullptr, nullptr, this);
-  return peer_connection_ != nullptr;
+  webrtc::PeerConnectionDependencies pc_dependencies(this);
+  auto error_or_peer_connection =
+      peer_connection_factory_->CreatePeerConnectionOrError(
+          config, std::move(pc_dependencies));
+  if (!error_or_peer_connection.ok()) {
+    peer_connection_ = nullptr;
+    return false;
+  }
+  peer_connection_ = error_or_peer_connection.value();
+  return true;
 }
 
 void Conductor::DeletePeerConnection() {

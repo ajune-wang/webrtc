@@ -58,6 +58,30 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "f915c14f_8a580481",
+        "filename": "modules/audio_processing/aec3/multi_channel_content_detector.cc",
+        "patchSetId": 7
+      },
+      "lineNbr": 47,
+      "author": {
+        "id": 5119
+      },
+      "writtenOn": "2022-04-13T09:06:04Z",
+      "side": 1,
+      "message": "Discusses offline, I am worried about temporary AECs diluting the metric. It is fine for the every-10-seconds metric that is effectively weighted by call duration, but not for the once-per-lifetime metric. The five second threshold is probably a bit high, but it should suit our purposes.\n\nI\u0027ll update the comment for the constant, to communicate this better.",
+      "parentUuid": "9af7a93b_e47fa3c3",
+      "range": {
+        "startLine": 47,
+        "startChar": 14,
+        "endLine": 47,
+        "endChar": 52
+      },
+      "revId": "ac886618906098be50946334ac32dd901c1a5d80",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "b263f5f6_612ea07e",
@@ -81,6 +105,30 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "01fc1df4_2141d9d4",
+        "filename": "modules/audio_processing/aec3/multi_channel_content_detector.cc",
+        "patchSetId": 7
+      },
+      "lineNbr": 101,
+      "author": {
+        "id": 5119
+      },
+      "writtenOn": "2022-04-13T09:06:04Z",
+      "side": 1,
+      "message": "That is true, I added because I found it more readable to enclose the logic. Let me know if you disagree, and I can change it.",
+      "parentUuid": "b263f5f6_612ea07e",
+      "range": {
+        "startLine": 101,
+        "startChar": 77,
+        "endLine": 101,
+        "endChar": 78
+      },
+      "revId": "ac886618906098be50946334ac32dd901c1a5d80",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "f27c9a56_dda9680f",
@@ -94,6 +142,30 @@
       "writtenOn": "2022-04-13T08:07:23Z",
       "side": 1,
       "message": "What is the value of this conditional creation?\nThis will only be used in Chrome, right? And there detect_stereo_content_ will always be true.\nIn addition to that, my guess is that since the majority of devices have stereo capabilities, the number of channels will be stereo,\n\n\nWhat about instead always report this? That would reduce the need for extra logic, and would also make it easier to reason about the metrics",
+      "range": {
+        "startLine": 82,
+        "startChar": 15,
+        "endLine": 83,
+        "endChar": 38
+      },
+      "revId": "ac886618906098be50946334ac32dd901c1a5d80",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "8afb0c0e_d4e38cd6",
+        "filename": "modules/audio_processing/aec3/multi_channel_content_detector.h",
+        "patchSetId": 7
+      },
+      "lineNbr": 83,
+      "author": {
+        "id": 5119
+      },
+      "writtenOn": "2022-04-13T09:06:04Z",
+      "side": 1,
+      "message": "Good questions! Discussed over chat:\n\n`|num_render_input_channels| \u003e 1` avoids logging during mono playout (15-20% of Mac and Linux endpoints), which would dilute our ability to assess the effectiveness of the stereo detection code.\n\n`detect_stereo_content_` has a similar effect, but it is only theoretical since as you point out, the flag is always enabled.",
+      "parentUuid": "f27c9a56_dda9680f",
       "range": {
         "startLine": 82,
         "startChar": 15,

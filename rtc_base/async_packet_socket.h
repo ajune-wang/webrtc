@@ -153,6 +153,7 @@ class RTC_EXPORT AsyncPacketSocket : public sigslot::has_slots<> {
  private:
   webrtc::CallbackList<AsyncPacketSocket*, int> on_close_
       RTC_GUARDED_BY(&network_checker_);
+  int subscribed_ = 0;
 };
 
 // Listen socket, producing an AsyncPacketSocket when a peer connects.

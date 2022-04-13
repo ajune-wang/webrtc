@@ -39,6 +39,30 @@
       },
       "revId": "9f21222b7cb9673b8d6ebd4750eca0b28de855eb",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "027850a6_8f159d24",
+        "filename": "rtc_base/async_packet_socket.h",
+        "patchSetId": 9
+      },
+      "lineNbr": 108,
+      "author": {
+        "id": 5508
+      },
+      "writtenOn": "2022-04-13T13:59:29Z",
+      "side": 1,
+      "message": "Hmm... good point. I\u0027ll go ahead and land this as is but look into changing the implementation to just use a std::function and if so, see if we can inject it at construction time and remove the Subscribe/Unsubscribe methods.",
+      "parentUuid": "f2586c66_49c31b1d",
+      "range": {
+        "startLine": 106,
+        "startChar": 0,
+        "endLine": 108,
+        "endChar": 77
+      },
+      "revId": "9f21222b7cb9673b8d6ebd4750eca0b28de855eb",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

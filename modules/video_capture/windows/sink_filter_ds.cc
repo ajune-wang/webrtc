@@ -448,8 +448,10 @@ HRESULT CaptureInputPin::AttemptConnection(IPin* receive_pin,
     return hr;
   }
 
+  // TODO(bugs.webrtc.org/13464): Extend RTC_CHECK value printers to support
+  // RTC_CHECK_EQ with rtc::scoped_refptr.
   // Should have been set as part of the connect process.
-  RTC_DCHECK_EQ(receive_pin_, receive_pin);
+  RTC_DCHECK(receive_pin_ == receive_pin);
 
   ResetMediaType(&media_type_);
   CopyMediaType(&media_type_, media_type);
@@ -707,7 +709,7 @@ CaptureInputPin::GetAllocator(IMemAllocator** allocator) {
       return hr;
     allocator_.swap(allocator);
   }
-  *allocator = allocator_;
+  *allocator = allocator_.get();
   allocator_->AddRef();
   return S_OK;
 }

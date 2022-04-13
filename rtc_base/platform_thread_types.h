@@ -31,6 +31,8 @@
 #endif
 // clang-format on
 
+#include "absl/strings/string_view.h"
+
 namespace rtc {
 #if defined(WEBRTC_WIN)
 typedef DWORD PlatformThreadId;
@@ -55,7 +57,7 @@ PlatformThreadRef CurrentThreadRef();
 bool IsThreadRefEqual(const PlatformThreadRef& a, const PlatformThreadRef& b);
 
 // Sets the current thread name.
-void SetCurrentThreadName(const char* name);
+void SetCurrentThreadName(absl::string_view name);
 
 }  // namespace rtc
 

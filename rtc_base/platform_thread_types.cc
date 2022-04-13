@@ -10,6 +10,8 @@
 
 #include "rtc_base/platform_thread_types.h"
 
+#include "absl/strings/string_view.h"
+
 #if defined(WEBRTC_LINUX)
 #include <sys/prctl.h>
 #include <sys/syscall.h>
@@ -66,7 +68,8 @@ bool IsThreadRefEqual(const PlatformThreadRef& a, const PlatformThreadRef& b) {
 #endif
 }
 
-void SetCurrentThreadName(const char* name) {
+void SetCurrentThreadName(absl::string_view name) {
+  std::string name_str = std::string(name);
 #if defined(WEBRTC_WIN)
   // The SetThreadDescription API works even if no debugger is attached.
   // The names set with this API also show up in ETW traces. Very handy.
@@ -94,7 +97,7 @@ void SetCurrentThreadName(const char* name) {
     LPCSTR szName;
     DWORD dwThreadID;
     DWORD dwFlags;
-  } threadname_info = {0x1000, name, static_cast<DWORD>(-1), 0};
+  } threadname_info = {0x1000, name_str.c_str(), static_cast<DWORD>(-1), 0};
 #pragma pack(pop)
 
 #pragma warning(push)
@@ -106,9 +109,10 @@ void SetCurrentThreadName(const char* name) {
   }
 #pragma warning(pop)
 #elif defined(WEBRTC_LINUX) || defined(WEBRTC_ANDROID)
-  prctl(PR_SET_NAME, reinterpret_cast<unsigned long>(name));  // NOLINT
+  prctl(PR_SET_NAME,
+        reinterpret_cast<unsigned long>(name_str.c_str()));  // NOLINT
 #elif defined(WEBRTC_MAC) || defined(WEBRTC_IOS)
-  pthread_setname_np(name);
+  pthread_setname_np(name_str.c_str());
 #endif
 }
 

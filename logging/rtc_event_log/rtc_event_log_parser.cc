@@ -1637,7 +1637,9 @@ ParsedRtcEventLog::ParseStatus ParsedRtcEventLog::StoreParsedLegacyEvent(
       // Use RtpPacketReceived instead of more generic RtpPacket because former
       // has a buildin convertion to RTPHeader.
       RtpPacketReceived rtp_header;
-      RTC_PARSE_CHECK_OR_RETURN(rtp_header.Parse(rtp_packet.header()));
+      std::string header = rtp_packet.header();
+      RTC_PARSE_CHECK_OR_RETURN(rtp_header.Parse(rtc::ArrayView<uint8_t>(
+          reinterpret_cast<uint8_t*>(header.data()), header.size())));
 
       if (const RtpHeaderExtensionMap* extension_map = GetRtpHeaderExtensionMap(
               rtp_packet.incoming(), rtp_header.Ssrc())) {

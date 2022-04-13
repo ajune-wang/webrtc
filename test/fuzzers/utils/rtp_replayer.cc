@@ -85,9 +85,11 @@ void RtpReplayer::Replay(
 std::vector<VideoReceiveStream::Config> RtpReplayer::ReadConfigFromFile(
     const std::string& replay_config,
     Transport* transport) {
-  Json::Reader json_reader;
-  Json::Value json_configs;
-  if (!json_reader.parse(replay_config, json_configs)) {
+  Json::CharReaderBuilder factory;
+  std::unique_ptr<Json::CharReader> reader(factory.newCharReader());
+  Json::Value jmessage;
+  if (!reader->parse(message.data(), message.data() + message.length(),
+                     &jmessage, nullptr)) {
     RTC_LOG(LS_ERROR)
         << "Error parsing JSON replay configuration for the fuzzer"
         << json_reader.getFormatedErrorMessages();

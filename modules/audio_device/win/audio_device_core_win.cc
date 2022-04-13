@@ -2090,7 +2090,8 @@ int32_t AudioDeviceWindowsCore::InitRecordingDMO() {
         << "AudioDeviceBuffer must be attached before streaming can start";
   }
 
-  _mediaBuffer = new MediaBufferImpl(_recBlockSize * _recAudioFrameSize);
+  _mediaBuffer = rtc::make_ref_counted<MediaBufferImpl>(_recBlockSize *
+                                                        _recAudioFrameSize);
 
   // Optional, but if called, must be after media types are set.
   hr = _dmo->AllocateStreamingResources();
@@ -2996,7 +2997,7 @@ DWORD AudioDeviceWindowsCore::DoCaptureThreadPollDMO() {
       DWORD dwStatus = 0;
       {
         DMO_OUTPUT_DATA_BUFFER dmoBuffer = {0};
-        dmoBuffer.pBuffer = _mediaBuffer;
+        dmoBuffer.pBuffer = _mediaBuffer.get();
         dmoBuffer.pBuffer->AddRef();
 
         // Poll the DMO for AEC processed capture data. The DMO will

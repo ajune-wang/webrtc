@@ -1,0 +1,54 @@
+import("../../../webrtc.gni")
+
+rtc_executable("dcsctp_speed_test") {
+  testonly = true
+  sources = [
+    "app.cpp",
+    "app.h",
+    "createsessiondescriptionobserver.cpp",
+    "createsessiondescriptionobserver.h",
+    "datachannel.cpp",
+    "datachannel.h",
+    "main.cpp",
+    "peerconnection.cpp",
+    "peerconnection.h",
+    "setsessiondescriptionobserver.cpp",
+    "setsessiondescriptionobserver.h",
+    "signaling/baseprotocol.cpp",
+    "signaling/baseprotocol.h",
+    "signaling/common.cpp",
+    "signaling/common.h",
+    "signaling/iobuffer.cpp",
+    "signaling/iobuffer.h",
+    "signaling/iohandler.cpp",
+    "signaling/iohandler.h",
+    "signaling/iohandlermanager.cpp",
+    "signaling/iohandlermanager.h",
+    "signaling/iohandlermanagertoken.h",
+    "signaling/iohandlertype.h",
+    "signaling/iotimer.cpp",
+    "signaling/iotimer.h",
+    "signaling/signaling.cpp",
+    "signaling/signaling.h",
+    "signaling/socketaddress.cpp",
+    "signaling/socketaddress.h",
+    "signaling/tcpacceptor.cpp",
+    "signaling/tcpacceptor.h",
+    "signaling/tcpcarrier.cpp",
+    "signaling/tcpcarrier.h",
+    "signaling/tcpconnector.h",
+    "signaling/tcpprotocol.cpp",
+    "signaling/tcpprotocol.h",
+  ]
+  deps = [
+    "../../../api:create_peerconnection_factory",
+    "../../../rtc_base:rtc_base",
+    "../../../rtc_base:rtc_base_approved",
+    "../../../rtc_base:socket_address",
+    "../../../rtc_base:socket_server",
+    "../../../rtc_base:threading",
+    "../../../system_wrappers:field_trial",
+    "//third_party/jsoncpp:jsoncpp",
+  ]
+  include_dirs = [ "$rtc_jsoncpp_root" ]
+}

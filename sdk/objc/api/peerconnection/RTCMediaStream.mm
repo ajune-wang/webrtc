@@ -48,13 +48,13 @@
 }
 
 - (void)addAudioTrack:(RTC_OBJC_TYPE(RTCAudioTrack) *)audioTrack {
-  if (_nativeMediaStream->AddTrack(audioTrack.nativeAudioTrack)) {
+  if (_nativeMediaStream->AddTrack(audioTrack.nativeAudioTrack.get())) {
     [_audioTracks addObject:audioTrack];
   }
 }
 
 - (void)addVideoTrack:(RTC_OBJC_TYPE(RTCVideoTrack) *)videoTrack {
-  if (_nativeMediaStream->AddTrack(videoTrack.nativeVideoTrack)) {
+  if (_nativeMediaStream->AddTrack(videoTrack.nativeVideoTrack.get())) {
     [_videoTracks addObject:videoTrack];
   }
 }

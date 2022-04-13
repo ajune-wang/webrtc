@@ -1,0 +1,38 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "0b893645_d445d8ca",
+        "filename": "examples/peerconnection/client/conductor.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 198,
+      "author": {
+        "id": 5508
+      },
+      "writtenOn": "2022-04-13T07:35:55Z",
+      "side": 1,
+      "message": "nit: this is already nullptr.",
+      "revId": "695f71c6336ebec36a7d0cf9ad50e38fc027f012",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "adb9a462_6529fc5a",
+        "filename": "examples/peerconnection/client/conductor.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 201,
+      "author": {
+        "id": 5508
+      },
+      "writtenOn": "2022-04-13T07:35:55Z",
+      "side": 1,
+      "message": "nit: std::move()",
+      "revId": "695f71c6336ebec36a7d0cf9ad50e38fc027f012",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

@@ -121,8 +121,6 @@ rtc_library("rtc_base_approved") {
     "copy_on_write_buffer.h",
     "event_tracer.cc",
     "event_tracer.h",
-    "numerics/histogram_percentile_counter.cc",
-    "numerics/histogram_percentile_counter.h",
     "rate_statistics.cc",
     "rate_statistics.h",
     "rate_tracker.cc",
@@ -214,6 +212,15 @@ rtc_library("bit_buffer") {
   ]
   deps = [ ":checks" ]
   absl_deps = [ "//third_party/abseil-cpp/absl/numeric:bits" ]
+}
+
+rtc_library("histogram_percentile_counter") {
+  sources = [
+    "numerics/histogram_percentile_counter.cc",
+    "numerics/histogram_percentile_counter.h",
+  ]
+  deps = [ ":checks" ]
+  absl_deps = [ "//third_party/abseil-cpp/absl/types:optional" ]
 }
 
 rtc_library("location") {
@@ -1510,6 +1517,7 @@ if (rtc_include_tests) {
         ":criticalsection",
         ":divide_round",
         ":gunit_helpers",
+        ":histogram_percentile_counter",
         ":ip_address",
         ":location",
         ":logging",

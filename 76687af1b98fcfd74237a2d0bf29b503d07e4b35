@@ -1,0 +1,44 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "d5b080db_ca5b4d35",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 5
+      },
+      "lineNbr": 10,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2022-04-14T13:09:09Z",
+      "side": 1,
+      "message": "weak_factory_ in Port looks misused: there is no call to weak_factory_.InvalidateWeakPtrs() which means all pointers that factory returns behave as raw pointers.",
+      "range": {
+        "startLine": 10,
+        "startChar": 39,
+        "endLine": 10,
+        "endChar": 53
+      },
+      "revId": "76687af1b98fcfd74237a2d0bf29b503d07e4b35",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "535edb93_0784be1d",
+        "filename": "p2p/base/connection.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 846,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2022-04-14T13:09:09Z",
+      "side": 1,
+      "message": "why it would be safe to move port_ invalidation here?\n\nduring SignalDestroy handling port_ would still be non-null and might be accessed (as I understand it might already be bogus)",
+      "revId": "76687af1b98fcfd74237a2d0bf29b503d07e4b35",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

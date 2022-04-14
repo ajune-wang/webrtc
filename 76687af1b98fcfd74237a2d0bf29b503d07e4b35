@@ -48,6 +48,30 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "85c7ad8e_b7f26907",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 5
+      },
+      "lineNbr": 10,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2022-04-14T13:44:36Z",
+      "side": 1,
+      "message": "you\u0027re right, I missed that ~WeakPtrFactory invalidates the pointers.",
+      "parentUuid": "a56a23f5_936c1f64",
+      "range": {
+        "startLine": 10,
+        "startChar": 39,
+        "endLine": 10,
+        "endChar": 53
+      },
+      "revId": "76687af1b98fcfd74237a2d0bf29b503d07e4b35",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "535edb93_0784be1d",
@@ -79,6 +103,29 @@
       "side": 1,
       "message": "The unsafe period is between the time we call PostTask below and until the task actually runs. However, it\u0027s probably a better idea to clear the pointer where the pending_delete_ flag was set previously.",
       "parentUuid": "535edb93_0784be1d",
+      "revId": "76687af1b98fcfd74237a2d0bf29b503d07e4b35",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "faabf03e_855d4cc8",
+        "filename": "p2p/base/connection.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 877,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2022-04-14T13:44:36Z",
+      "side": 1,
+      "message": "That shouldn\u0027t be possible now that port_ is WeakPtr, right?",
+      "range": {
+        "startLine": 876,
+        "startChar": 69,
+        "endLine": 877,
+        "endChar": 71
+      },
       "revId": "76687af1b98fcfd74237a2d0bf29b503d07e4b35",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }

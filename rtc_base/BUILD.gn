@@ -127,8 +127,6 @@ rtc_library("rtc_base_approved") {
     "numerics/moving_max_counter.h",
     "numerics/sample_counter.cc",
     "numerics/sample_counter.h",
-    "race_checker.cc",
-    "race_checker.h",
     "rate_statistics.cc",
     "rate_statistics.h",
     "rate_tracker.cc",
@@ -213,6 +211,18 @@ rtc_library("location") {
     "location.h",
   ]
   deps = [ "system:rtc_export" ]
+}
+
+rtc_library("race_checker") {
+  sources = [
+    "race_checker.cc",
+    "race_checker.h",
+  ]
+  deps = [
+    ":checks",
+    ":macromagic",
+    ":platform_thread_types",
+  ]
 }
 
 rtc_library("random") {

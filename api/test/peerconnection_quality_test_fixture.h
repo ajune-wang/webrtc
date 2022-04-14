@@ -19,6 +19,7 @@
 #include "absl/memory/memory.h"
 #include "absl/strings/string_view.h"
 #include "absl/types/optional.h"
+#include "api/array_view.h"
 #include "api/async_resolver_factory.h"
 #include "api/audio/audio_mixer.h"
 #include "api/call/call_factory_interface.h"
@@ -327,6 +328,84 @@ class PeerConnectionE2EQualityTestFixture {
     std::map<std::string, std::string> required_params;
   };
 
+  // Subscription to the remote video streams. It declares which remote stream
+  // peer should receive and in which resolution (width x height x fps).
+  class VideoSubscription {
+   public:
+    struct Resolution {
+      static Resolution FromVideoConfig(const VideoConfig& video_config) {
+        return {.width = video_config.width,
+                .height = video_config.height,
+                .fps = video_config.fps};
+      }
+
+      size_t width = 0;
+      size_t height = 0;
+      int fps = 0;
+
+      bool operator==(const Resolution& other) const {
+        return width == other.width && height == other.height &&
+               fps == other.fps;
+      }
+    };
+
+    constexpr static Resolution kMaximumFromSender = {.width = 0,
+                                                      .height = 0,
+                                                      .fps = -1};
+
+    // Returns the resolution constructed as maximum from all resolution
+    // dimentions: width, height and fps.
+    static absl::optional<Resolution> GetMaximumResolution(
+        rtc::ArrayView<const VideoConfig> video_configs);
+
+    // Subscribes receiver to all streams sent by the specified peer with
+    // specified resolution. It will override any resolution that was used in
+    // `SubscribeToAll` independently from methods call order.
+    VideoSubscription& SubscribeToPeer(
+        absl::string_view peer_name,
+        Resolution resolution = kMaximumFromSender) {
+      peers_resolution_[std::string(peer_name)] = resolution;
+      return *this;
+    }
+
+    // Subscribes receiver to the all sent streams with specified resolution.
+    // If any stream was subscribed to with `SubscribeTo` method that will
+    // override resolution passed to this function independently from methods
+    // call order.
+    VideoSubscription& SubscribeToAllPeers(
+        Resolution resolution = kMaximumFromSender) {
+      default_resolution_ = resolution;
+      return *this;
+    }
+
+    // Returns resolution for specific sender. If no specific resolution was
+    // set for this sender, then will return resolution used for all streams.
+    // If subscription doesn't subscribe to all streams, `absl::nullopt` will be
+    // returned.
+    absl::optional<Resolution> GetResolutionForPeer(
+        absl::string_view peer_name) const {
+      auto it = peers_resolution_.find(std::string(peer_name));
+      if (it == peers_resolution_.end()) {
+        return default_resolution_;
+      }
+      return it->second;
+    }
+
+    // Returns a maybe empty list of senders for which peer explicitly
+    // subscribed to with specific resolution.
+    std::vector<std::string> GetSubscribedPeers() const {
+      std::vector<std::string> subscribed_streams;
+      for (const auto& entry : peers_resolution_) {
+        subscribed_streams.push_back(entry.first);
+      }
+      return subscribed_streams;
+    }
+
+   private:
+    absl::optional<Resolution> default_resolution_ = absl::nullopt;
+    std::map<std::string, Resolution> peers_resolution_;
+  };
+
   // This class is used to fully configure one peer inside the call.
   class PeerConfigurer {
    public:
@@ -396,6 +475,11 @@ class PeerConnectionE2EQualityTestFixture {
     virtual PeerConfigurer* AddVideoConfig(
         VideoConfig config,
         CapturingDeviceIndex capturing_device_index) = 0;
+    // Sets video subscription for the peer. By default subscription will
+    // include all streams with `VideoSubscription::kSameAsSendStream`
+    // resolution. To override this behavior use this method.
+    virtual PeerConfigurer* SetVideoSubscription(
+        VideoSubscription subscription) = 0;
     // Set the list of video codecs used by the peer during the test. These
     // codecs will be negotiated in SDP during offer/answer exchange. The order
     // of these codecs during negotiation will be the same as in `video_codecs`.

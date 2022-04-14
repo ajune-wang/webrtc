@@ -1,0 +1,50 @@
+/*
+ *  Copyright 2022 The WebRTC Project Authors. All rights reserved.
+ *
+ *  Use of this source code is governed by a BSD-style license
+ *  that can be found in the LICENSE file in the root of the source
+ *  tree. An additional intellectual property rights grant can be found
+ *  in the file PATENTS.  All contributing project authors may
+ *  be found in the AUTHORS file in the root of the source tree.
+ */
+
+#include "api/test/peerconnection_quality_test_fixture.h"
+
+#include <vector>
+
+#include "absl/types/optional.h"
+#include "rtc_base/gunit.h"
+#include "test/gmock.h"
+
+namespace webrtc {
+namespace webrtc_pc_e2e {
+namespace {
+
+using VideoSubscription = ::webrtc::webrtc_pc_e2e::
+    PeerConnectionE2EQualityTestFixture::VideoSubscription;
+using VideoConfig =
+    ::webrtc::webrtc_pc_e2e::PeerConnectionE2EQualityTestFixture::VideoConfig;
+
+TEST(PclfVideoSubscription, GetMaxResolutionForEmptyReturnsNullopt) {
+  absl::optional<VideoSubscription::Resolution> resolution =
+      VideoSubscription::GetMaximumResolution({});
+  ASSERT_FALSE(resolution.has_value());
+}
+
+TEST(PclfVideoSubscription, GetMaxResolutionSelectMaxForEachDimention) {
+  VideoConfig maxWidth(/*width=*/1000, /*height=*/1, /*fps=*/1);
+  VideoConfig maxHeight(/*width=*/1, /*height=*/100, /*fps=*/1);
+  VideoConfig maxFps(/*width=*/1, /*height=*/1, /*fps=*/10);
+
+  absl::optional<VideoSubscription::Resolution> resolution =
+      VideoSubscription::GetMaximumResolution(
+          std::vector<VideoConfig>{maxWidth, maxHeight, maxFps});
+  ASSERT_TRUE(resolution.has_value());
+  EXPECT_EQ(resolution->width, static_cast<size_t>(1000));
+  EXPECT_EQ(resolution->height, static_cast<size_t>(100L));
+  EXPECT_EQ(resolution->fps, 10);
+}
+
+}  // namespace
+}  // namespace webrtc_pc_e2e
+}  // namespace webrtc

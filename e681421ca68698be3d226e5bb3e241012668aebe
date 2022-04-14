@@ -16,6 +16,23 @@
       "message": "It\u0027s not quite a no-op, in that calls to SetPreferredDscp (https://source.chromium.org/chromium/chromium/src/+/main:third_party/webrtc/media/base/media_channel.cc;drc\u003d6892fa2a89a06063070bfac5dd22885f71bc5f8f;l\u003d124) will no longer be ignored under this default.\n\nBut the Chrome / WebRTC codebase doesn\u0027t seem to have a call to SetPreferredDscp, so it \"should be safe\".",
       "revId": "e681421ca68698be3d226e5bb3e241012668aebe",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "7f6cc948_3fac709a",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2022-04-14T09:30:21Z",
+      "side": 1,
+      "message": "btw, allowing networkType to control DSCP codepoint values is .... weird.\n",
+      "revId": "e681421ca68698be3d226e5bb3e241012668aebe",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

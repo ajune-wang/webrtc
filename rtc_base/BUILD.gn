@@ -87,6 +87,7 @@ rtc_library("rtc_base_approved") {
     ":macromagic",
     ":platform_thread",
     ":platform_thread_types",
+    ":random",
     ":refcount",
     ":rtc_event",
     ":safe_conversions",
@@ -131,10 +132,9 @@ rtc_library("rtc_base_approved") {
     "numerics/sample_counter.cc",
     "numerics/sample_counter.h",
     "one_time_event.h",
+    "random.h", # Transitional, use :random
     "race_checker.cc",
     "race_checker.h",
-    "random.cc",
-    "random.h",
     "rate_statistics.cc",
     "rate_statistics.h",
     "rate_tracker.cc",
@@ -187,6 +187,18 @@ rtc_source_set("macromagic") {
     "thread_annotations.h",
   ]
   deps = [ "system:arch" ]
+}
+
+rtc_library("random") {
+  visibility = [ "*" ]
+  sources = [
+    "random.cc",
+    "random.h",
+  ]
+  deps = [
+    ":checks",
+    ":safe_conversions",
+  ]
 }
 
 rtc_library("platform_thread_types") {
@@ -1413,6 +1425,7 @@ if (rtc_include_tests) {
         ":macromagic",
         ":null_socket_server",
         ":platform_thread",
+        ":random",
         ":rate_limiter",
         ":refcount",
         ":rtc_base",

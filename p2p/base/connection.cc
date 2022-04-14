@@ -844,6 +844,7 @@ void Connection::Destroy() {
   // that deletes the connection object runs.
   SignalDestroyed(this);
   SignalDestroyed.disconnect_all();
+  port_.reset();
 
   LogCandidatePairConfig(webrtc::IceCandidatePairConfigType::kDestroyed);
 

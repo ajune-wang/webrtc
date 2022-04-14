@@ -135,7 +135,6 @@ rtc_library("rtc_base_approved") {
     "rate_statistics.h",
     "rate_tracker.cc",
     "rate_tracker.h",
-    "swap_queue.h",
     "trace_event.h",
   ]
 
@@ -184,6 +183,12 @@ rtc_source_set("one_time_event") {
 
 rtc_source_set("strong_alias") {
   sources = [ "strong_alias.h" ]
+}
+
+rtc_source_set("swap_queue") {
+  sources = [ "swap_queue.h" ]
+  deps = [ ":checks" ]
+  absl_deps = [ "//third_party/abseil-cpp/absl/base:core_headers" ]
 }
 
 rtc_source_set("macromagic") {
@@ -1487,6 +1492,7 @@ if (rtc_include_tests) {
         ":socket_server",
         ":stringutils",
         ":strong_alias",
+        ":swap_queue",
         ":testclient",
         ":threading",
         ":timestamp_aligner",

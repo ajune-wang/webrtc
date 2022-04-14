@@ -48,13 +48,13 @@
 }
 
 - (void)addAudioTrack:(RTC_OBJC_TYPE(RTCAudioTrack) *)audioTrack {
-  if (_nativeMediaStream->AddTrack(audioTrack.nativeAudioTrack)) {
+  if (_nativeMediaStream->AddTrack(audioTrack.nativeAudioTrack.get())) {
     [_audioTracks addObject:audioTrack];
   }
 }
 
 - (void)addVideoTrack:(RTC_OBJC_TYPE(RTCVideoTrack) *)videoTrack {
-  if (_nativeMediaStream->AddTrack(videoTrack.nativeVideoTrack)) {
+  if (_nativeMediaStream->AddTrack(videoTrack.nativeVideoTrack.get())) {
     [_videoTracks addObject:videoTrack];
   }
 }
@@ -63,8 +63,7 @@
   NSUInteger index = [_audioTracks indexOfObjectIdenticalTo:audioTrack];
   NSAssert(index != NSNotFound,
            @"|removeAudioTrack| called on unexpected RTC_OBJC_TYPE(RTCAudioTrack)");
-  if (index != NSNotFound &&
-      _nativeMediaStream->RemoveTrack(audioTrack.nativeAudioTrack)) {
+  if (index != NSNotFound && _nativeMediaStream->RemoveTrack(audioTrack.nativeAudioTrack.get())) {
     [_audioTracks removeObjectAtIndex:index];
   }
 }
@@ -73,8 +72,7 @@
   NSUInteger index = [_videoTracks indexOfObjectIdenticalTo:videoTrack];
   NSAssert(index != NSNotFound,
            @"|removeVideoTrack| called on unexpected RTC_OBJC_TYPE(RTCVideoTrack)");
-  if (index != NSNotFound &&
-      _nativeMediaStream->RemoveTrack(videoTrack.nativeVideoTrack)) {
+  if (index != NSNotFound && _nativeMediaStream->RemoveTrack(videoTrack.nativeVideoTrack.get())) {
     [_videoTracks removeObjectAtIndex:index];
   }
 }

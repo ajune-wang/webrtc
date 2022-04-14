@@ -107,6 +107,24 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "6fcd31cb_738a8f77",
+        "filename": "p2p/base/connection.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 846,
+      "author": {
+        "id": 5508
+      },
+      "writtenOn": "2022-04-14T18:45:56Z",
+      "side": 1,
+      "message": "Actually, I moved the call to .reset() down again and below the call to LogCandidatePairConfig(). The reason is that some of the information that gets logged needs the port_ object.",
+      "parentUuid": "97c61ff7_6d4b7195",
+      "revId": "76687af1b98fcfd74237a2d0bf29b503d07e4b35",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "faabf03e_855d4cc8",

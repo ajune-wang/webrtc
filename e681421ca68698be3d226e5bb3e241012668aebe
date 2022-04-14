@@ -33,6 +33,23 @@
       "message": "btw, allowing networkType to control DSCP codepoint values is .... weird.\n",
       "revId": "e681421ca68698be3d226e5bb3e241012668aebe",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "369bf052_e805aca8",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2022-04-14T09:30:57Z",
+      "side": 1,
+      "message": "the reference is to networkPriority, not networkType. Please update CL description accordingly.",
+      "revId": "e681421ca68698be3d226e5bb3e241012668aebe",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

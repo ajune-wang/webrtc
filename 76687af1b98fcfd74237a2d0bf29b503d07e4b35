@@ -26,6 +26,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "a56a23f5_936c1f64",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 5
+      },
+      "lineNbr": 10,
+      "author": {
+        "id": 5508
+      },
+      "writtenOn": "2022-04-14T13:32:28Z",
+      "side": 1,
+      "message": "I believe this is what happens when a port is deleted:\n  ~Port\n  -\u003e ~WeakPtrFactory\n     -\u003e ~WeakReferenceOwner\n        -\u003e WeakReferenceOwner::Invalidate()\n      \nInvalidateWeakPtrs() is a wrapper around WeakReferenceOwner::Invalidate(), so there\u0027s an implicit call to weak_factory_.InvalidateWeakPtrs().\n\nIn the dtor of Port, we also delete all connection objects (although we don\u0027t use the Destroy() method there, which makes things inconsistent). So connection objects that the Port instance is tracking, will all be deleted. \"Only\" the connection objects that are waiting for the delete task to run, will still be alive when the Port object goes out of scope.",
+      "parentUuid": "d5b080db_ca5b4d35",
+      "range": {
+        "startLine": 10,
+        "startChar": 39,
+        "endLine": 10,
+        "endChar": 53
+      },
+      "revId": "76687af1b98fcfd74237a2d0bf29b503d07e4b35",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "535edb93_0784be1d",
         "filename": "p2p/base/connection.cc",
         "patchSetId": 5
@@ -37,6 +61,24 @@
       "writtenOn": "2022-04-14T13:09:09Z",
       "side": 1,
       "message": "why it would be safe to move port_ invalidation here?\n\nduring SignalDestroy handling port_ would still be non-null and might be accessed (as I understand it might already be bogus)",
+      "revId": "76687af1b98fcfd74237a2d0bf29b503d07e4b35",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "97c61ff7_6d4b7195",
+        "filename": "p2p/base/connection.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 846,
+      "author": {
+        "id": 5508
+      },
+      "writtenOn": "2022-04-14T13:32:28Z",
+      "side": 1,
+      "message": "The unsafe period is between the time we call PostTask below and until the task actually runs. However, it\u0027s probably a better idea to clear the pointer where the pending_delete_ flag was set previously.",
+      "parentUuid": "535edb93_0784be1d",
       "revId": "76687af1b98fcfd74237a2d0bf29b503d07e4b35",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }

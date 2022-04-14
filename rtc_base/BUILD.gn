@@ -93,6 +93,7 @@ rtc_library("rtc_base_approved") {
     ":stringutils",
     ":timeutils",
     ":type_traits",
+    ":zero_memory",
     "../api:array_view",
     "../api:scoped_refptr",
     "../api:sequence_checker",
@@ -136,8 +137,6 @@ rtc_library("rtc_base_approved") {
     "rate_tracker.h",
     "swap_queue.h",
     "trace_event.h",
-    "zero_memory.cc",
-    "zero_memory.h",
   ]
 
   if (is_win) {
@@ -225,6 +224,17 @@ rtc_library("timestamp_aligner") {
     ":logging",
     ":timeutils",
     "system:rtc_export",
+  ]
+}
+
+rtc_library("zero_memory") {
+  sources = [
+    "zero_memory.cc",
+    "zero_memory.h",
+  ]
+  deps = [
+    ":checks",
+    "../api:array_view",
   ]
 }
 
@@ -981,6 +991,7 @@ rtc_library("rtc_base") {
     ":stringutils",
     ":threading",
     ":timeutils",
+    ":zero_memory",
     "../api:array_view",
     "../api:field_trials_view",
     "../api:function_view",
@@ -1480,6 +1491,7 @@ if (rtc_include_tests) {
         ":threading",
         ":timestamp_aligner",
         ":timeutils",
+        ":zero_memory",
         "../api:array_view",
         "../api:scoped_refptr",
         "../api/numerics",

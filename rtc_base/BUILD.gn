@@ -85,12 +85,11 @@ rtc_library("rtc_base_approved") {
     ":checks",
     ":logging",
     ":macromagic",
+    ":platform_thread",
+    ":platform_thread_types",
     ":refcount",
     ":rtc_event",
-    ":rtc_task_queue",
-    ":safe_compare",
     ":safe_conversions",
-    ":stringutils",
     ":timeutils",
     ":type_traits",
     "../api:array_view",
@@ -100,7 +99,6 @@ rtc_library("rtc_base_approved") {
     "system:arch",
     "system:no_unique_address",
     "system:rtc_export",
-    "third_party/base64",
   ]
   absl_deps = [
     "//third_party/abseil-cpp/absl/base:core_headers",
@@ -108,7 +106,6 @@ rtc_library("rtc_base_approved") {
     "//third_party/abseil-cpp/absl/strings",
     "//third_party/abseil-cpp/absl/types:optional",
   ]
-  public_deps = []  # no-presubmit-check TODO(webrtc:8603)
 
   sources = [
     "bit_buffer.cc",
@@ -172,18 +169,13 @@ rtc_library("rtc_base_approved") {
   }
 
   if (is_nacl) {
-    public_deps +=  # no-presubmit-check TODO(webrtc:8603)
+    public_deps =  # no-presubmit-check TODO(webrtc:8603)
         [ "//native_client_sdk/src/libraries/nacl_io" ]
   }
 
   if (is_android) {
     libs = [ "log" ]
   }
-
-  public_deps += [  # no-presubmit-check TODO(webrtc:8603)
-    ":platform_thread",
-    ":platform_thread_types",
-  ]
 }
 
 rtc_source_set("macromagic") {
@@ -232,14 +224,6 @@ rtc_library("criticalsection") {
 }
 
 rtc_library("platform_thread") {
-  visibility = [
-    ":rtc_base_approved",
-    ":rtc_task_queue_libevent",
-    ":rtc_task_queue_stdlib",
-    ":rtc_task_queue_win",
-    "../api:sequence_checker",
-    "synchronization:mutex",
-  ]
   sources = [
     "platform_thread.cc",
     "platform_thread.h",
@@ -811,6 +795,7 @@ rtc_library("threading") {
     ":macromagic",
     ":network_constants",
     ":null_socket_server",
+    ":platform_thread",
     ":platform_thread_types",
     ":refcount",
     ":rtc_base_approved",
@@ -1341,6 +1326,7 @@ if (rtc_include_tests) {
         ":macromagic",
         ":net_helpers",
         ":null_socket_server",
+        ":platform_thread",
         ":rtc_base",
         ":rtc_base_tests_utils",
         ":socket",
@@ -1423,6 +1409,7 @@ if (rtc_include_tests) {
         ":logging",
         ":macromagic",
         ":null_socket_server",
+        ":platform_thread",
         ":rate_limiter",
         ":refcount",
         ":rtc_base",

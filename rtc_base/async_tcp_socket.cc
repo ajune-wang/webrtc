@@ -75,7 +75,12 @@ AsyncTCPSocketBase::AsyncTCPSocketBase(Socket* socket,
   socket_->SignalCloseEvent.connect(this, &AsyncTCPSocketBase::OnCloseEvent);
 }
 
-AsyncTCPSocketBase::~AsyncTCPSocketBase() {}
+AsyncTCPSocketBase::~AsyncTCPSocketBase() {
+  socket_->SignalConnectEvent.disconnect(this);
+  socket_->SignalReadEvent.disconnect(this);
+  socket_->SignalWriteEvent.disconnect(this);
+  socket_->SignalCloseEvent.disconnect(this);
+}
 
 SocketAddress AsyncTCPSocketBase::GetLocalAddress() const {
   return socket_->GetLocalAddress();

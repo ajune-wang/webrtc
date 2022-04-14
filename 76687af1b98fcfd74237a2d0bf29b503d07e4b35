@@ -128,6 +128,30 @@
       },
       "revId": "76687af1b98fcfd74237a2d0bf29b503d07e4b35",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "7fd6a421_59eea803",
+        "filename": "p2p/base/connection.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 877,
+      "author": {
+        "id": 5508
+      },
+      "writtenOn": "2022-04-14T13:53:49Z",
+      "side": 1,
+      "message": "oh yes that\u0027s right. I\u0027ll update the comment.",
+      "parentUuid": "faabf03e_855d4cc8",
+      "range": {
+        "startLine": 876,
+        "startChar": 69,
+        "endLine": 877,
+        "endChar": 71
+      },
+      "revId": "76687af1b98fcfd74237a2d0bf29b503d07e4b35",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

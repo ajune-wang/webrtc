@@ -62,6 +62,30 @@
       },
       "revId": "05f834f5085e994562dcb30dca31d7c807409038",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "d00cf304_9a6a7456",
+        "filename": "modules/video_coding/utility/simulcast_utility.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 118,
+      "author": {
+        "id": 7036
+      },
+      "writtenOn": "2022-04-14T09:33:17Z",
+      "side": 1,
+      "message": "That would be similar to what\u0027s in this example: https://w3c.github.io/webrtc-svc/#example-1\nEach simulcast layer would be an entry in the encodings member: https://source.chromium.org/chromium/chromium/src/+/main:third_party/webrtc/api/rtp_parameters.h;l\u003d670;drc\u003d6892fa2a89a06063070bfac5dd22885f71bc5f8f\nEach encoding would have a value for scalability_mode: https://source.chromium.org/chromium/chromium/src/+/main:third_party/webrtc/api/rtp_parameters.h;l\u003d497;drc\u003d6892fa2a89a06063070bfac5dd22885f71bc5f8f\n\nVP8 codec *may* under some circumstances be able to generate all the simulcast streams from a single encoding, but I\u0027m not sure if it can do that with possibly different temporal layer counts.\nIf a codec reports not being able to handle the current simulcast configuration, then 3 encoders are created, one for each layer (see SimulcastEncoderAdapter). Fixing it to ensure that simulcast work can be done later.",
+      "parentUuid": "b01f2389_1a5ddd2a",
+      "range": {
+        "startLine": 116,
+        "startChar": 0,
+        "endLine": 118,
+        "endChar": 75
+      },
+      "revId": "05f834f5085e994562dcb30dca31d7c807409038",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

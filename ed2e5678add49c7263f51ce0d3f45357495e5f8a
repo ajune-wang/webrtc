@@ -50,6 +50,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "6a81db3d_8333071c",
+        "filename": "api/test/peerconnection_quality_test_fixture.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 42,
+      "author": {
+        "id": 5087
+      },
+      "writtenOn": "2022-04-15T17:01:32Z",
+      "side": 1,
+      "message": "It makes sense.\n\nCan you maybe just add a comment on the method where we explain what \"max\" means here?",
+      "parentUuid": "a2f54a0a_57f9f1da",
+      "range": {
+        "startLine": 32,
+        "startChar": 2,
+        "endLine": 42,
+        "endChar": 3
+      },
+      "revId": "ed2e5678add49c7263f51ce0d3f45357495e5f8a",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "9a06e489_4127f2af",
         "filename": "api/test/peerconnection_quality_test_fixture.h",
         "patchSetId": 2
@@ -85,6 +109,30 @@
       "side": 1,
       "message": "I don\u0027t know. I expect actually more constants to appear, like for example kSameAsSender",
       "parentUuid": "9a06e489_4127f2af",
+      "range": {
+        "startLine": 366,
+        "startChar": 8,
+        "endLine": 366,
+        "endChar": 50
+      },
+      "revId": "ed2e5678add49c7263f51ce0d3f45357495e5f8a",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "49d01deb_359a94c3",
+        "filename": "api/test/peerconnection_quality_test_fixture.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 366,
+      "author": {
+        "id": 5087
+      },
+      "writtenOn": "2022-04-15T17:01:32Z",
+      "side": 1,
+      "message": "Ok, WDYT about using an overload set (https://abseil.io/tips/148)?\n\nSomething like:\n\nVideoSubscription\u0026 SubscribeToPeer(absl::string_view peer_name, Resolution resolution);\nVideoSubscription\u0026 SubscribeToPeer(absl::string_view peer_name, ResolutionSpec);\n\nWhere ResolutionSpec is an enum class (so we make it more clear from call site point of view and we avoid magic Resolution values).",
+      "parentUuid": "e485aed3_2e873f8f",
       "range": {
         "startLine": 366,
         "startChar": 8,

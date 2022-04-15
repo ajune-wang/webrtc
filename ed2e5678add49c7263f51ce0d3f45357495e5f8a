@@ -26,6 +26,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "a2f54a0a_57f9f1da",
+        "filename": "api/test/peerconnection_quality_test_fixture.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 42,
+      "author": {
+        "id": 6337
+      },
+      "writtenOn": "2022-04-15T16:22:30Z",
+      "side": 1,
+      "message": "Basically we will take the maximum, that will fit any sender\u0027s stream. Otherwise some sender\u0027s streams might be cutted. From another point, I agree, that it might cause some rescaling with wrong ratio, but we consider that test writer will take care of it.",
+      "parentUuid": "b4f8a86a_43482fe4",
+      "range": {
+        "startLine": 32,
+        "startChar": 2,
+        "endLine": 42,
+        "endChar": 3
+      },
+      "revId": "ed2e5678add49c7263f51ce0d3f45357495e5f8a",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "9a06e489_4127f2af",
         "filename": "api/test/peerconnection_quality_test_fixture.h",
         "patchSetId": 2
@@ -49,6 +73,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "e485aed3_2e873f8f",
+        "filename": "api/test/peerconnection_quality_test_fixture.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 366,
+      "author": {
+        "id": 6337
+      },
+      "writtenOn": "2022-04-15T16:22:30Z",
+      "side": 1,
+      "message": "I don\u0027t know. I expect actually more constants to appear, like for example kSameAsSender",
+      "parentUuid": "9a06e489_4127f2af",
+      "range": {
+        "startLine": 366,
+        "startChar": 8,
+        "endLine": 366,
+        "endChar": 50
+      },
+      "revId": "ed2e5678add49c7263f51ce0d3f45357495e5f8a",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "cb1f739d_6178b07b",
         "filename": "api/test/peerconnection_quality_test_fixture_unittest.cc",
         "patchSetId": 2
@@ -60,6 +108,30 @@
       "writtenOn": "2022-04-15T14:39:37Z",
       "side": 1,
       "message": "Ok, I see this which replies to my previous question. 😊\n\nBut let\u0027s double check anyway on the other comment if this is the correct behavior.",
+      "range": {
+        "startLine": 34,
+        "startChar": 0,
+        "endLine": 46,
+        "endChar": 1
+      },
+      "revId": "ed2e5678add49c7263f51ce0d3f45357495e5f8a",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "e9946c85_ee9d2c35",
+        "filename": "api/test/peerconnection_quality_test_fixture_unittest.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 46,
+      "author": {
+        "id": 6337
+      },
+      "writtenOn": "2022-04-15T16:22:30Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "cb1f739d_6178b07b",
       "range": {
         "startLine": 34,
         "startChar": 0,

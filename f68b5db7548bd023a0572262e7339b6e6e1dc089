@@ -33,6 +33,24 @@
       "message": "In fact, there are several third-party sources outside //third_party.\n$ git ls-files | grep third_party/ | sed -re \u0027s:(.*\\/third_party/\\w+)\\/.*:\\1:g\u0027 | sort | uniq\ncommon_audio/third_party/ooura\ncommon_audio/third_party/spl_sqrt_floor\nexamples/androidapp/third_party/autobanh\nexamples/androidtests/third_party/.gitignore\nexamples/androidtests/third_party/README.webrtc\nexamples/objc/AppRTCMobile/third_party/SocketRocket\nmodules/third_party/fft\nmodules/third_party/g711\nmodules/third_party/g722\nmodules/third_party/portaudio\nrtc_base/third_party/base64\nrtc_base/third_party/sigslot\n",
       "revId": "f68b5db7548bd023a0572262e7339b6e6e1dc089",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "89d54334_bdd51fe8",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 9405
+      },
+      "writtenOn": "2022-04-15T00:45:18Z",
+      "side": 1,
+      "message": "Waiting for Mirko\u0027s reply.\nShould we move all third_party dependencies that aren\u0027t in //third_party to //third_party?",
+      "parentUuid": "bbda82b4_05c2f111",
+      "revId": "f68b5db7548bd023a0572262e7339b6e6e1dc089",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

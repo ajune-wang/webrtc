@@ -1,0 +1,73 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "b4f8a86a_43482fe4",
+        "filename": "api/test/peerconnection_quality_test_fixture.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 42,
+      "author": {
+        "id": 5087
+      },
+      "writtenOn": "2022-04-15T14:39:37Z",
+      "side": 1,
+      "message": "I have just realized that:\n\n1280x720x15\n640x360x30\n\nwill return: 1280x720x30.\n\nIs this correct?\n\nThis example shows the change in FPS but we can have also other strange situations where we pick width from one resolution and height from another (1280x720, 1024x1024 \u003d\u003e 1280x1024).\n\nI think this is rare in real usage but maybe we should define a stricter order or validation?\n\nNot sure, WDYT?",
+      "range": {
+        "startLine": 32,
+        "startChar": 2,
+        "endLine": 42,
+        "endChar": 3
+      },
+      "revId": "ed2e5678add49c7263f51ce0d3f45357495e5f8a",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "9a06e489_4127f2af",
+        "filename": "api/test/peerconnection_quality_test_fixture.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 366,
+      "author": {
+        "id": 5087
+      },
+      "writtenOn": "2022-04-15T14:39:37Z",
+      "side": 1,
+      "message": "I wonder if we can pass an absl::optional\u003cResolution\u003e here. If absl::nullopt we default on \"max from sender\", if not, we pick that resolution. WDYT?\n\nI would like the avoid the magic invalid resolution in this API.",
+      "range": {
+        "startLine": 366,
+        "startChar": 8,
+        "endLine": 366,
+        "endChar": 50
+      },
+      "revId": "ed2e5678add49c7263f51ce0d3f45357495e5f8a",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "cb1f739d_6178b07b",
+        "filename": "api/test/peerconnection_quality_test_fixture_unittest.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 46,
+      "author": {
+        "id": 5087
+      },
+      "writtenOn": "2022-04-15T14:39:37Z",
+      "side": 1,
+      "message": "Ok, I see this which replies to my previous question. 😊\n\nBut let\u0027s double check anyway on the other comment if this is the correct behavior.",
+      "range": {
+        "startLine": 34,
+        "startChar": 0,
+        "endLine": 46,
+        "endChar": 1
+      },
+      "revId": "ed2e5678add49c7263f51ce0d3f45357495e5f8a",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

@@ -1,0 +1,90 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "14d08154_21b9f6b0",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 5
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5087
+      },
+      "writtenOn": "2022-04-16T20:45:11Z",
+      "side": 1,
+      "message": "LGTM % comments.",
+      "revId": "d10d3a666823c3bc28d0189e7ccef6ab6f6ba30d",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "82e5c2f2_8ea1fd0f",
+        "filename": "api/test/peerconnection_quality_test_fixture.h",
+        "patchSetId": 5
+      },
+      "lineNbr": 340,
+      "author": {
+        "id": 5087
+      },
+      "writtenOn": "2022-04-16T20:45:11Z",
+      "side": 1,
+      "message": "\"It describes a regular resolution described by width_, height_ and fps_\".",
+      "range": {
+        "startLine": 340,
+        "startChar": 30,
+        "endLine": 340,
+        "endChar": 62
+      },
+      "revId": "d10d3a666823c3bc28d0189e7ccef6ab6f6ba30d",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "eb91d6be_30bade78",
+        "filename": "api/test/peerconnection_quality_test_fixture.h",
+        "patchSetId": 5
+      },
+      "lineNbr": 340,
+      "author": {
+        "id": 5087
+      },
+      "writtenOn": "2022-04-16T20:45:11Z",
+      "side": 1,
+      "message": "Nit: extra",
+      "range": {
+        "startLine": 340,
+        "startChar": 14,
+        "endLine": 340,
+        "endChar": 19
+      },
+      "revId": "d10d3a666823c3bc28d0189e7ccef6ab6f6ba30d",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "be13a7e9_062fdfd1",
+        "filename": "api/test/peerconnection_quality_test_fixture_unittest.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 42,
+      "author": {
+        "id": 5087
+      },
+      "writtenOn": "2022-04-16T20:45:11Z",
+      "side": 1,
+      "message": "WDYT about \"WhenSpecIsNotSetFieldsAreCompared\"?",
+      "range": {
+        "startLine": 42,
+        "startChar": 28,
+        "endLine": 42,
+        "endChar": 54
+      },
+      "revId": "d10d3a666823c3bc28d0189e7ccef6ab6f6ba30d",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

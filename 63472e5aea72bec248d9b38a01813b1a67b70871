@@ -94,6 +94,30 @@
       },
       "revId": "63472e5aea72bec248d9b38a01813b1a67b70871",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "e047f2bb_aa52dc33",
+        "filename": "rtc_base/network.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 69,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2022-04-17T21:28:16Z",
+      "side": 0,
+      "message": "When prefix lengths are equal and names are different, order of names is used (fallthrough).\nWhen prefix lengths are different, order of names is used (always) - equal names will return true.\nWhen prefix lengths are equal, and names are equal, prefix is compared.\n\nI *think* this represents that names have higher priority than prefixes, but prefixes are used as a tiebreaker when names and lengths are equal - ordering two prefixes of different length is considered a Bad Idea.\n\n(Consider eth0 129.241.1.0/24 and eth0 0.0.0.0/0  - the first one being derived from the network route, the second one being the default route - they will compare equal under present logic, but would compare different under the changed logic)\n\nTL;DR - I think this function needs documentation on what it\u0027s doing, but the proposed change will change what it\u0027s doing.",
+      "parentUuid": "26754cea_b15c45ca",
+      "range": {
+        "startLine": 62,
+        "startChar": 0,
+        "endLine": 69,
+        "endChar": 1
+      },
+      "revId": "63472e5aea72bec248d9b38a01813b1a67b70871",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

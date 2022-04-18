@@ -51,6 +51,23 @@
       "parentUuid": "bbda82b4_05c2f111",
       "revId": "f68b5db7548bd023a0572262e7339b6e6e1dc089",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "7c91a039_f8955a4c",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2022-04-18T21:05:03Z",
+      "side": 1,
+      "message": "Adding @tiovartem as reviewer since he was the one who moved it to modules/third_party back in 2018. He may be able to say why we didn\u0027t move it to /third_party.\n",
+      "revId": "f68b5db7548bd023a0572262e7339b6e6e1dc089",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

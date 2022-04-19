@@ -68,6 +68,23 @@
       "message": "A boolean function called CompareNetworks is not likely to be an \u003c\u003d\u003e operator.\n\nTake care.",
       "revId": "97205952c40e616a1d6ebabb52f41f412789f2f6",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "be8b96b2_ad73cbc5",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2022-04-19T08:06:31Z",
+      "side": 1,
+      "message": "Still confused, but if it\u0027s only used once, it should be a lambda not a function.\n",
+      "revId": "97205952c40e616a1d6ebabb52f41f412789f2f6",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

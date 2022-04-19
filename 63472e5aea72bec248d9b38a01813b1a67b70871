@@ -142,6 +142,30 @@
       },
       "revId": "63472e5aea72bec248d9b38a01813b1a67b70871",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "4f4e483d_040c24c0",
+        "filename": "rtc_base/network.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 69,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2022-04-19T08:06:31Z",
+      "side": 0,
+      "message": "Sounds to me like CompareNetworks should die altogether (or be reduced to a lambda inside the c_sort on line 347), so that it\u0027s not going to be used by others, and its effects may be documented where it matters.\n\nAdds to the confusion that SortNetworks just below ignores the \"name\" component altogether.\n\nBut since it is used in a c_sort, not a c_stable_sort, I don\u0027t think the strict_weak_ordering criterion is applicable, so I don\u0027t see that the change has a benefit corresponding to the risk of changing behavior.",
+      "parentUuid": "26f27585_dcbf2802",
+      "range": {
+        "startLine": 62,
+        "startChar": 0,
+        "endLine": 69,
+        "endChar": 1
+      },
+      "revId": "63472e5aea72bec248d9b38a01813b1a67b70871",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

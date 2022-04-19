@@ -33,6 +33,24 @@
       "message": "are you sure you want to use rtc_library and not rtc_source_set?\nMy impression is that rtc_source_set basically causes the target to be compiled, while rtc_library actually produces a library file (which is then discarded unless it\u0027s an end product) - which is why empty targets cause compile failures (on Mac or Windows, I forget which).",
       "revId": "af3f767c8af1cbe9ad5306bdcee486c5f7802da9",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "f79653db_c4cdac44",
+        "filename": "rtc_base/BUILD.gn",
+        "patchSetId": 1
+      },
+      "lineNbr": 190,
+      "author": {
+        "id": 5087
+      },
+      "writtenOn": "2022-04-19T09:05:33Z",
+      "side": 1,
+      "message": "If I remember correctly both can cause problems when there are on translation units to link but in this case we have something, so I think rtc_library if the target is not empty is the best choice (if the target is empty, then we should use rtc_cource_set).",
+      "parentUuid": "15df106d_df53bd9b",
+      "revId": "af3f767c8af1cbe9ad5306bdcee486c5f7802da9",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

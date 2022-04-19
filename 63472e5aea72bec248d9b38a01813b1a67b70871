@@ -118,6 +118,30 @@
       },
       "revId": "63472e5aea72bec248d9b38a01813b1a67b70871",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "26f27585_dcbf2802",
+        "filename": "rtc_base/network.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 69,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2022-04-19T07:23:45Z",
+      "side": 0,
+      "message": "I can see only one use, with a call to absl::c_sort, see https://source.chromium.org/chromium/chromium/src/+/main:third_party/webrtc/rtc_base/network.cc;drc\u003d2ab914c6ab73ac0f85f633a5ce499cae74e7b75a;l\u003d347\n\nThe sorting affects iteration order of the loop just below. The networks are then moved into the consolidated_address_list map (indexed (and hence ordered) by the string returned by MakeNetworkKey, not CompareNetworks).\n\nSo not at all clear to me what\u0027s the purpose of this sorting.\n\nIt would make things more consistent of CompareNetworks(a,b) gave a result consistent with `MakeNetworkKey(a-\u003ename(), a-\u003eprefix(), a-\u003eprefix_length()) \u003c MakeNetworkKey(b-\u003ename(), b-\u003eprefix(), b-\u003eprefix_length())`, but if that make sense, I have no idea.",
+      "parentUuid": "e047f2bb_aa52dc33",
+      "range": {
+        "startLine": 62,
+        "startChar": 0,
+        "endLine": 69,
+        "endChar": 1
+      },
+      "revId": "63472e5aea72bec248d9b38a01813b1a67b70871",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

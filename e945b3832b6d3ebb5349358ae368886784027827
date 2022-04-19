@@ -120,6 +120,30 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "c9f51b4c_2b1c4370",
+        "filename": "modules/audio_device/android/ensure_initialized.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 13,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2022-04-19T20:13:02Z",
+      "side": 1,
+      "message": "it removes unused includes from .cc files without the flag, but leaves them in .h files unless the flag is used. Or at least I believe so.",
+      "parentUuid": "f9892c69_252593e4",
+      "range": {
+        "startLine": 13,
+        "startChar": 0,
+        "endLine": 13,
+        "endChar": 31
+      },
+      "revId": "e945b3832b6d3ebb5349358ae368886784027827",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "11907c6e_54ab098d",

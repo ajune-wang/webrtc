@@ -86,6 +86,24 @@
       "parentUuid": "7c91a039_f8955a4c",
       "revId": "f68b5db7548bd023a0572262e7339b6e6e1dc089",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "6544deb5_e60c784b",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 9405
+      },
+      "writtenOn": "2022-04-19T23:38:22Z",
+      "side": 1,
+      "message": "\u003e 1. There is a requirement for third party code to be in directory at least */third_party/*. Sadly, I can\u0027t find a link to the policy where it was written 😞\n\nAre you looking for this page? https://opensource.google/documentation/reference/thirdparty",
+      "parentUuid": "5a0a6fe8_cc4aeb45",
+      "revId": "f68b5db7548bd023a0572262e7339b6e6e1dc089",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

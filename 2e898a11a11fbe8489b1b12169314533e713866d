@@ -16,6 +16,24 @@
       "message": "Are these builders only used for the perf waterfall?",
       "revId": "2e898a11a11fbe8489b1b12169314533e713866d",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "e2947012_c9cff4ff",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 12234
+      },
+      "writtenOn": "2022-04-19T06:50:47Z",
+      "side": 1,
+      "message": "Not sure what you mean by \"used\".\nThese builders are displayed in both, the perf and the ci waterfall.\nThis CL won\u0027t change that.",
+      "parentUuid": "68bbe7b6_75d7dc8e",
+      "revId": "2e898a11a11fbe8489b1b12169314533e713866d",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

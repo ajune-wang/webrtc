@@ -103,12 +103,14 @@ LIB_REGEX_TO_LICENSES_DICT = {
 def FindSrcDirPath():
   """Returns the abs path to the src/ dir of the project."""
   src_dir = os.path.dirname(os.path.abspath(__file__))
-  while os.path.basename(src_dir) != 'src':
+  while (os.path.basename(src_dir) != "src"
+         and os.path.basename(src_dir) != ""
+         and not os.path.exists(os.path.join(src_dir, "build"))):
     src_dir = os.path.normpath(os.path.join(src_dir, os.pardir))
   return src_dir
 
 
-SCRIPT_DIR = os.path.dirname(os.path.realpath(sys.argv[0]))
+SCRIPT_DIR = os.path.dirname(os.path.realpath(__file__))
 WEBRTC_ROOT = os.path.abspath(os.path.join(SCRIPT_DIR, os.pardir, os.pardir))
 SRC_DIR = FindSrcDirPath()
 sys.path.append(os.path.join(SRC_DIR, 'build'))

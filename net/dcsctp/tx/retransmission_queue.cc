@@ -412,7 +412,8 @@ std::vector<std::pair<TSN, Data>> RetransmissionQueue::GetChunksToSend(
     RTC_DLOG(LS_VERBOSE) << log_prefix_ << "fast-retransmit: sending "
                          << to_be_sent.size() << " chunks, " << to_be_sent_bytes
                          << " bytes";
-  } else {
+  }
+  if (to_be_sent.empty()) {
     // Normal sending. Calculate the bandwidth budget (how many bytes that is
     // allowed to be sent), and fill that up first with chunks that are
     // scheduled to be retransmitted. If there is still budget, send new chunks

@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "8ab1a934_167c35de",
+        "filename": "tools_webrtc/libs/generate_licenses.py",
+        "patchSetId": 2
+      },
+      "lineNbr": 108,
+      "author": {
+        "id": 12234
+      },
+      "writtenOn": "2022-04-19T10:56:42Z",
+      "side": 1,
+      "message": "If I understand correctly, you search for the first directory that contains a directory named \"build\" ?\nMaybe we could hardcode to go to the parent directory 2 times instead of trying to be smart.",
+      "range": {
+        "startLine": 108,
+        "startChar": 9,
+        "endLine": 108,
+        "endChar": 65
+      },
+      "revId": "1ecb594aaa88def717eae4d70c867827d48deaba",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

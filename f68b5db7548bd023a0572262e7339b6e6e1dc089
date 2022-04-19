@@ -68,6 +68,24 @@
       "message": "Adding @tiovartem as reviewer since he was the one who moved it to modules/third_party back in 2018. He may be able to say why we didn\u0027t move it to /third_party.\n",
       "revId": "f68b5db7548bd023a0572262e7339b6e6e1dc089",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "5a0a6fe8_cc4aeb45",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 6337
+      },
+      "writtenOn": "2022-04-19T23:16:46Z",
+      "side": 1,
+      "message": "There are two considerations about third_party directories:\n1. There is a requirement for third party code to be in directory at least */third_party/*. Sadly, I can\u0027t find a link to the policy where it was written 😞\n2. There is a technical limitation on putting all code into //third_party, because that one doesn\u0027t belong to WebRTC repo and is actually Chromium //third_party directory, which is mirrored into WebRTC. It makes it impossible to keep there WebRTC only third party deps. They first have to be added to Chromium.\n\nBecause of that we ended up on solution that existing WebRTC only third party libraries were moved into listed above third_party folders. \n\nI think we need to think carefully if we want to add any new libraries there, but to update existing ones it looks fine. Please ensure that licence is matching the licence from source repo.",
+      "parentUuid": "7c91a039_f8955a4c",
+      "revId": "f68b5db7548bd023a0572262e7339b6e6e1dc089",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

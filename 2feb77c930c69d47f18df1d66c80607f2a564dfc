@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "d89942ce_361d473a",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2022-04-19T19:40:20Z",
+      "side": 1,
+      "message": "Now that\u0027s an example of a widely used utility function....\n",
+      "revId": "2feb77c930c69d47f18df1d66c80607f2a564dfc",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

@@ -96,6 +96,30 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "f9892c69_252593e4",
+        "filename": "modules/audio_device/android/ensure_initialized.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 13,
+      "author": {
+        "id": 5150
+      },
+      "writtenOn": "2022-04-19T14:34:21Z",
+      "side": 1,
+      "message": "Addressed in a separate CL: https://webrtc-review.googlesource.com/c/src/+/259303\n\nNote/nit: It appears like apply-iwyu removes unused includes even without the -r flag.",
+      "parentUuid": "6ae4c65e_783705e5",
+      "range": {
+        "startLine": 13,
+        "startChar": 0,
+        "endLine": 13,
+        "endChar": 31
+      },
+      "revId": "e945b3832b6d3ebb5349358ae368886784027827",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "11907c6e_54ab098d",

@@ -140,6 +140,23 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "f5c4bd42_c3c80c1a",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 9405
+      },
+      "writtenOn": "2022-04-20T11:38:52Z",
+      "side": 1,
+      "message": "Instead of fighting the formatter and presubmit.py, I think it\u0027s time to checkout portaudio using DEPS.\nCL for this: https://webrtc-review.googlesource.com/c/src/+/256580",
+      "revId": "f68b5db7548bd023a0572262e7339b6e6e1dc089",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "cea99e78_6c4a27bd",

@@ -33,6 +33,23 @@
       "message": "Adding holmer@ for owner review.",
       "revId": "4c9be0e2e3e44ec3bcdcf61ed80a04aed9fd80cd",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "1eea9436_d41dadd6",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 9
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 18554
+      },
+      "writtenOn": "2022-04-20T02:26:36Z",
+      "side": 1,
+      "message": "Please reviewer help to merge, as no permission.\nThank you.",
+      "revId": "4c9be0e2e3e44ec3bcdcf61ed80a04aed9fd80cd",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

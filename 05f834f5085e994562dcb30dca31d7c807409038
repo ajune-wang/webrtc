@@ -38,6 +38,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "d73dbd64_9f6cebea",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2022-04-20T12:56:18Z",
+      "side": 1,
+      "message": "I\u0027ll have to dig a bit to understand how to do that. It looks like codec config for the test are configured here: https://source.chromium.org/chromium/chromium/src/+/main:third_party/webrtc/video/video_send_stream_tests.cc;drc\u003d0eab478234237c05dfd0636be907490f15cc2393;l\u003d3964\n\nby setting this num_temporal_layers member: https://source.chromium.org/chromium/chromium/src/+/main:third_party/webrtc/api/video_codecs/video_encoder_config.h;drc\u003dcfea2182f8e41c3d8293d4e26b291ef2abf23257;l\u003d61\n\nvia the entries in the vector VideoEncoderConfig::simulcast_layers. It looks like there\u0027s a scalability_mode member in there too.",
+      "parentUuid": "022957a3_78c3d1be",
+      "revId": "05f834f5085e994562dcb30dca31d7c807409038",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "410a9fdd_782ac7c1",
         "filename": "api/video_codecs/vp8_temporal_layers_factory.cc",
         "patchSetId": 1
@@ -49,6 +67,24 @@
       "writtenOn": "2022-04-20T11:40:26Z",
       "side": 1,
       "message": "We might want to log something here about the error. Also, how are callers handling a nullptr return value?\nIt should be quite exceptional though as we should accept invalid values for VP8 reach this far in the pipeline.",
+      "revId": "05f834f5085e994562dcb30dca31d7c807409038",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "03652e9b_87294bb1",
+        "filename": "api/video_codecs/vp8_temporal_layers_factory.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 32,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2022-04-20T12:56:18Z",
+      "side": 1,
+      "message": "What\u0027s a reasonable place to check for valid values higher up? To me, it makes some sense to let it be the encoder\u0027s responsibility to reject values it doesn\u0027t recognize or support.",
+      "parentUuid": "410a9fdd_782ac7c1",
       "revId": "05f834f5085e994562dcb30dca31d7c807409038",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
@@ -90,6 +126,30 @@
       "side": 1,
       "message": "This utility could be used by other codecs possibly, like H264, so you may want to change the name.",
       "parentUuid": "32c872d7_c2c0bc13",
+      "range": {
+        "startLine": 91,
+        "startChar": 38,
+        "endLine": 91,
+        "endChar": 63
+      },
+      "revId": "05f834f5085e994562dcb30dca31d7c807409038",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "4a4d2692_ab88c992",
+        "filename": "modules/video_coding/utility/simulcast_utility.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 91,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2022-04-20T12:56:18Z",
+      "side": 1,
+      "message": "It has dual purpose: Find number of temporal layers,and reject all scalability modes not supported for vp8. Will we support precisely the same scalability modes (only temporal scaling) also for H264?\n\nSuggestions on new name and/or location appreciated.",
+      "parentUuid": "c314764e_99c67a09",
       "range": {
         "startLine": 91,
         "startChar": 38,

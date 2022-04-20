@@ -16,6 +16,23 @@
       "message": "Tommi PTAL",
       "revId": "f44e3bc84cc7b79d424c68a680f46c2afec5c5b1",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "306dd903_6d517469",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 12416
+      },
+      "writtenOn": "2022-04-20T23:31:01Z",
+      "side": 1,
+      "message": "LGTM",
+      "revId": "f44e3bc84cc7b79d424c68a680f46c2afec5c5b1",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

@@ -104,6 +104,57 @@
       "parentUuid": "5a0a6fe8_cc4aeb45",
       "revId": "f68b5db7548bd023a0572262e7339b6e6e1dc089",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "f56c5b19_fcde0c8c",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2022-04-20T07:54:03Z",
+      "side": 1,
+      "message": "Given the clarifications on why we have webrtc/.../third_party/, I\u0027m just going to approve this.\n\nBut do add the Git checksum of the source commit somewhere!",
+      "revId": "f68b5db7548bd023a0572262e7339b6e6e1dc089",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "cea99e78_6c4a27bd",
+        "filename": "PRESUBMIT.py",
+        "patchSetId": 2
+      },
+      "lineNbr": 959,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2022-04-20T07:54:03Z",
+      "side": 1,
+      "message": "I take it this change was triggered by a check that fired on the updates?",
+      "revId": "f68b5db7548bd023a0572262e7339b6e6e1dc089",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "8da234bf_18654364",
+        "filename": "modules/third_party/portaudio/README.chromium",
+        "patchSetId": 2
+      },
+      "lineNbr": 3,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2022-04-20T07:54:03Z",
+      "side": 1,
+      "message": "I think the git checksum of the snapshot this was taken from should be in the description somewhere - just saying \"this is head\" is not sufficient for traceability.",
+      "revId": "f68b5db7548bd023a0572262e7339b6e6e1dc089",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

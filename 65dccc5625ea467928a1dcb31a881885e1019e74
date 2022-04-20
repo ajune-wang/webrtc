@@ -33,6 +33,125 @@
       "message": "tommi@ can you PTAL at this merge? (Austin was having difficulty cherry-picking from the UI so I ended up creating it from the Command Line)",
       "revId": "65dccc5625ea467928a1dcb31a881885e1019e74",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "67172e0e_c75577d3",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5508
+      },
+      "writtenOn": "2022-04-20T12:07:03Z",
+      "side": 1,
+      "message": "lgtm % nits",
+      "revId": "65dccc5625ea467928a1dcb31a881885e1019e74",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "ae296b78_9bd19fdc",
+        "filename": "modules/desktop_capture/win/screen_capture_utils.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 29,
+      "author": {
+        "id": 5508
+      },
+      "writtenOn": "2022-04-20T12:07:03Z",
+      "side": 1,
+      "message": "nit: could also do\nreturn GetScreenList(\u0026screens) \u0026\u0026 !screens.empty();",
+      "revId": "65dccc5625ea467928a1dcb31a881885e1019e74",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "2cbb63a4_0b34902b",
+        "filename": "modules/desktop_capture/win/screen_capture_utils.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 39,
+      "author": {
+        "id": 5508
+      },
+      "writtenOn": "2022-04-20T12:07:03Z",
+      "side": 1,
+      "message": "nit: remove `if` and change to:\n\n  RTC_DCHECK(!device_names || device_names-\u003eempty());",
+      "revId": "65dccc5625ea467928a1dcb31a881885e1019e74",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "d206cedc_ebca3612",
+        "filename": "modules/desktop_capture/win/screen_capture_utils.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 63,
+      "author": {
+        "id": 5508
+      },
+      "writtenOn": "2022-04-20T12:07:03Z",
+      "side": 1,
+      "message": "this function always returns true... should it be changed to return DesktopCapturer::SourceList?\n\nIf so, and just to clarify what I mean, it\u0027d be:\n\n  DesktopCapturer::SourceList GetScreenList(std::vector\u003cstd::string\u003e* device_names /* \u003d nullptr */) {\n    ...\n    // \u003c no need to worry about `screens-\u003esize() here \u003e\n    ...\n    return screens;\n  }\n\nThat would also make HasActiveDisplay() simpler (if you still need it):\n\n  bool HasActiveDisplay() { return !GetScreenList().empty(); }",
+      "revId": "65dccc5625ea467928a1dcb31a881885e1019e74",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "f03a411f_bda358be",
+        "filename": "modules/desktop_capture/win/screen_capture_utils.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 101,
+      "author": {
+        "id": 5508
+      },
+      "writtenOn": "2022-04-20T12:07:03Z",
+      "side": 1,
+      "message": "nit: s/0/NULL\nAlternatively `if (!monitor) {`",
+      "revId": "65dccc5625ea467928a1dcb31a881885e1019e74",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "6191306b_c9bf0a60",
+        "filename": "modules/desktop_capture/win/screen_capture_utils_unittest.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 37,
+      "author": {
+        "id": 5508
+      },
+      "writtenOn": "2022-04-20T12:07:03Z",
+      "side": 1,
+      "message": "use .empty()",
+      "revId": "65dccc5625ea467928a1dcb31a881885e1019e74",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "12462ca5_4e728d48",
+        "filename": "modules/desktop_capture/win/wgc_capture_source.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 169,
+      "author": {
+        "id": 5508
+      },
+      "writtenOn": "2022-04-20T12:07:03Z",
+      "side": 1,
+      "message": "I had to do a double check here because I read this as hmoniotor being a pointer to a HANDLE (which is rarely needed). Turns out it\u0027s an optional. Can we use .value() here instead?",
+      "revId": "65dccc5625ea467928a1dcb31a881885e1019e74",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

@@ -38,6 +38,23 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "410a9fdd_782ac7c1",
+        "filename": "api/video_codecs/vp8_temporal_layers_factory.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 32,
+      "author": {
+        "id": 7036
+      },
+      "writtenOn": "2022-04-20T11:40:26Z",
+      "side": 1,
+      "message": "We might want to log something here about the error. Also, how are callers handling a nullptr return value?\nIt should be quite exceptional though as we should accept invalid values for VP8 reach this far in the pipeline.",
+      "revId": "05f834f5085e994562dcb30dca31d7c807409038",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "32c872d7_c2c0bc13",
         "filename": "modules/video_coding/utility/simulcast_utility.cc",
         "patchSetId": 1
@@ -49,6 +66,30 @@
       "writtenOn": "2022-04-13T14:15:19Z",
       "side": 1,
       "message": "This utility has nothing to do with simulcast, so should perhaps be moved, but to where?",
+      "range": {
+        "startLine": 91,
+        "startChar": 38,
+        "endLine": 91,
+        "endChar": 63
+      },
+      "revId": "05f834f5085e994562dcb30dca31d7c807409038",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "c314764e_99c67a09",
+        "filename": "modules/video_coding/utility/simulcast_utility.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 91,
+      "author": {
+        "id": 7036
+      },
+      "writtenOn": "2022-04-20T11:40:26Z",
+      "side": 1,
+      "message": "This utility could be used by other codecs possibly, like H264, so you may want to change the name.",
+      "parentUuid": "32c872d7_c2c0bc13",
       "range": {
         "startLine": 91,
         "startChar": 38,

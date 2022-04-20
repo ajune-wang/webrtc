@@ -123,6 +123,23 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "a9dbb06b_91e05138",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 9405
+      },
+      "writtenOn": "2022-04-20T08:01:30Z",
+      "side": 1,
+      "message": "Since we doesn\u0027t modify portaudio itself, we may add DEPS entry for this library and add the GN files separately.",
+      "revId": "f68b5db7548bd023a0572262e7339b6e6e1dc089",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "cea99e78_6c4a27bd",
@@ -136,6 +153,24 @@
       "writtenOn": "2022-04-20T07:54:03Z",
       "side": 1,
       "message": "I take it this change was triggered by a check that fired on the updates?",
+      "revId": "f68b5db7548bd023a0572262e7339b6e6e1dc089",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "53850611_c4c88e44",
+        "filename": "PRESUBMIT.py",
+        "patchSetId": 2
+      },
+      "lineNbr": 959,
+      "author": {
+        "id": 9405
+      },
+      "writtenOn": "2022-04-20T08:01:30Z",
+      "side": 1,
+      "message": "Right. The code (port audio) itself has also been formatted to pass `git cl format`.",
+      "parentUuid": "cea99e78_6c4a27bd",
       "revId": "f68b5db7548bd023a0572262e7339b6e6e1dc089",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },

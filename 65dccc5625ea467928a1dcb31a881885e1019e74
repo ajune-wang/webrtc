@@ -86,6 +86,24 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "6b3db741_4800b4ff",
+        "filename": "modules/desktop_capture/win/screen_capture_utils.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 29,
+      "author": {
+        "id": 18474
+      },
+      "writtenOn": "2022-04-20T21:31:04Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "ae296b78_9bd19fdc",
+      "revId": "65dccc5625ea467928a1dcb31a881885e1019e74",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "2cbb63a4_0b34902b",
@@ -99,6 +117,24 @@
       "writtenOn": "2022-04-20T12:07:03Z",
       "side": 1,
       "message": "nit: remove `if` and change to:\n\n  RTC_DCHECK(!device_names || device_names-\u003eempty());",
+      "revId": "65dccc5625ea467928a1dcb31a881885e1019e74",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "a9694994_193901d4",
+        "filename": "modules/desktop_capture/win/screen_capture_utils.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 39,
+      "author": {
+        "id": 18474
+      },
+      "writtenOn": "2022-04-20T21:31:04Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "2cbb63a4_0b34902b",
       "revId": "65dccc5625ea467928a1dcb31a881885e1019e74",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
@@ -120,6 +156,24 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "94e56bb8_f227f430",
+        "filename": "modules/desktop_capture/win/screen_capture_utils.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 63,
+      "author": {
+        "id": 18474
+      },
+      "writtenOn": "2022-04-20T21:31:04Z",
+      "side": 1,
+      "message": "Doing it like so allows it to be used as a direct passthrough in various places for the GetSourceList method, and doesn\u0027t require a copy of the list: https://source.chromium.org/chromium/chromium/src/+/main:third_party/webrtc/modules/desktop_capture/desktop_capturer.h;drc\u003d24927780f10b88315c5e40da98062fc3db88a1b2;l\u003d119",
+      "parentUuid": "d206cedc_ebca3612",
+      "revId": "65dccc5625ea467928a1dcb31a881885e1019e74",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "f03a411f_bda358be",
@@ -133,6 +187,24 @@
       "writtenOn": "2022-04-20T12:07:03Z",
       "side": 1,
       "message": "nit: s/0/NULL\nAlternatively `if (!monitor) {`",
+      "revId": "65dccc5625ea467928a1dcb31a881885e1019e74",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "1af4b16c_bdd55213",
+        "filename": "modules/desktop_capture/win/screen_capture_utils.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 101,
+      "author": {
+        "id": 18474
+      },
+      "writtenOn": "2022-04-20T21:31:04Z",
+      "side": 1,
+      "message": "Line 71 above explicitly sets HMONITOR to 0, as it\u0027s used as a special character; so I prefer to leave this as-is",
+      "parentUuid": "f03a411f_bda358be",
       "revId": "65dccc5625ea467928a1dcb31a881885e1019e74",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
@@ -154,6 +226,24 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "cb34e6c0_279e6fd4",
+        "filename": "modules/desktop_capture/win/screen_capture_utils_unittest.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 37,
+      "author": {
+        "id": 18474
+      },
+      "writtenOn": "2022-04-20T21:31:04Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "6191306b_c9bf0a60",
+      "revId": "65dccc5625ea467928a1dcb31a881885e1019e74",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "12462ca5_4e728d48",
@@ -167,6 +257,24 @@
       "writtenOn": "2022-04-20T12:07:03Z",
       "side": 1,
       "message": "I had to do a double check here because I read this as hmoniotor being a pointer to a HANDLE (which is rarely needed). Turns out it\u0027s an optional. Can we use .value() here instead?",
+      "revId": "65dccc5625ea467928a1dcb31a881885e1019e74",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "fff73711_73c5ea3c",
+        "filename": "modules/desktop_capture/win/wgc_capture_source.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 169,
+      "author": {
+        "id": 18474
+      },
+      "writtenOn": "2022-04-20T21:31:04Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "12462ca5_4e728d48",
       "revId": "65dccc5625ea467928a1dcb31a881885e1019e74",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }

@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "a5994395_c63797a1",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 18474
+      },
+      "writtenOn": "2022-04-20T21:31:04Z",
+      "side": 1,
+      "message": "Addressed these comments in https://webrtc-review.googlesource.com/c/src/+/259660",
+      "revId": "ba846916efcffd389f74b06a84cfe013794701f2",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

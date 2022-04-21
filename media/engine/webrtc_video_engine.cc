@@ -3164,6 +3164,7 @@ WebRtcVideoChannel::WebRtcVideoReceiveStream::GetVideoReceiverInfo(
   info.frames_rendered = stats.frames_rendered;
   info.qp_sum = stats.qp_sum;
   info.total_decode_time_ms = stats.total_decode_time_ms;
+  info.total_assembly_time_ms = stats.total_assembly_time_ms;
   info.last_packet_received_timestamp_ms =
       stats.rtp_stats.last_packet_received_timestamp_ms;
   info.estimated_playout_ntp_timestamp_ms =

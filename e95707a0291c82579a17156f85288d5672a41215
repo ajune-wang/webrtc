@@ -52,6 +52,24 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "697b3ffa_3861a51f",
+        "filename": "modules/audio_coding/neteq/neteq_impl_unittest.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 323,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2022-04-21T13:08:50Z",
+      "side": 1,
+      "message": "Maybe, but it seems a bit odd to me that the factory is referenced there in the first place. Prefer to leave unchanged in this cl.",
+      "parentUuid": "ddffc67b_80d5604d",
+      "revId": "e95707a0291c82579a17156f85288d5672a41215",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "0be23933_9640f912",
@@ -69,6 +87,24 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "b052a03d_b5745643",
+        "filename": "modules/audio_device/win/audio_device_core_win.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 27,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2022-04-21T13:08:50Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "0be23933_9640f912",
+      "revId": "e95707a0291c82579a17156f85288d5672a41215",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "bc6f89c1_883d6d02",
@@ -82,6 +118,24 @@
       "writtenOn": "2022-04-21T12:08:46Z",
       "side": 1,
       "message": "should frame_encryptor have been a shared_refptr?",
+      "revId": "e95707a0291c82579a17156f85288d5672a41215",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "87c3c62f_81e57555",
+        "filename": "modules/rtp_rtcp/source/rtp_sender_video_unittest.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 790,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2022-04-21T13:08:50Z",
+      "side": 1,
+      "message": "Hmm, maybe. I\u0027m not familiar with the design; it seems a bit questionable that it needs shared ownership at all. Prefer to leave unchanged in this cl.",
+      "parentUuid": "bc6f89c1_883d6d02",
       "revId": "e95707a0291c82579a17156f85288d5672a41215",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }

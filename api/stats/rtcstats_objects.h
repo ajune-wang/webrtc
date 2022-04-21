@@ -90,6 +90,12 @@ struct RTCContentType {
   static const char* const kScreenshare;
 };
 
+struct RTCDtlsRole {
+  static const char* const kUnknown;
+  static const char* const kClient;
+  static const char* const kServer;
+};
+
 // https://w3c.github.io/webrtc-stats/#certificatestats-dict*
 class RTC_EXPORT RTCCertificateStats final : public RTCStats {
  public:
@@ -689,6 +695,7 @@ class RTC_EXPORT RTCTransportStats final : public RTCStats {
   RTCStatsMember<std::string> remote_certificate_id;
   RTCStatsMember<std::string> tls_version;
   RTCStatsMember<std::string> dtls_cipher;
+  RTCStatsMember<std::string> dtls_role;
   RTCStatsMember<std::string> srtp_cipher;
   RTCStatsMember<uint32_t> selected_candidate_pair_changes;
 };

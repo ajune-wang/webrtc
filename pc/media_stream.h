@@ -27,10 +27,10 @@ class MediaStream : public Notifier<MediaStreamInterface> {
 
   std::string id() const override { return id_; }
 
-  bool AddTrack(AudioTrackInterface* track) override;
-  bool AddTrack(VideoTrackInterface* track) override;
-  bool RemoveTrack(AudioTrackInterface* track) override;
-  bool RemoveTrack(VideoTrackInterface* track) override;
+  bool AddTrack(rtc::scoped_refptr<AudioTrackInterface> track) override;
+  bool AddTrack(rtc::scoped_refptr<VideoTrackInterface> track) override;
+  bool RemoveTrack(rtc::scoped_refptr<AudioTrackInterface> track) override;
+  bool RemoveTrack(rtc::scoped_refptr<VideoTrackInterface> track) override;
   rtc::scoped_refptr<AudioTrackInterface> FindAudioTrack(
       const std::string& track_id) override;
   rtc::scoped_refptr<VideoTrackInterface> FindVideoTrack(

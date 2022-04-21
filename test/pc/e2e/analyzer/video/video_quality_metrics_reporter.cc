@@ -47,7 +47,7 @@ void VideoQualityMetricsReporter::OnStatsReports(
   auto outbound_rtp_stats = report->GetStatsOfType<RTCOutboundRTPStreamStats>();
   StatsSample sample;
   for (auto& s : outbound_rtp_stats) {
-    if (!s->media_type.is_defined()) {
+    if (!s->kind.is_defined()) {
       continue;
     }
     if (!(*s->media_type == RTCMediaStreamTrackKind::kVideo)) {

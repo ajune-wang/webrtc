@@ -670,6 +670,7 @@ void PeerConnectionDelegateAdapter::OnRemoveTrack(
   std::string nativeStreamId = [NSString stdStringForString:streamId];
   rtc::scoped_refptr<webrtc::RtpSenderInterface> nativeSender(
       _peerConnection->CreateSender(nativeKind, nativeStreamId));
+
   return nativeSender ? [[RTC_OBJC_TYPE(RTCRtpSender) alloc] initWithFactory:self.factory
                                                              nativeRtpSender:nativeSender] :
                         nil;

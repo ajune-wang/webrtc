@@ -166,7 +166,8 @@
 // components are mocked out and messages are relayed directly from object to
 // object. It's expected that both clients reach the
 // RTCIceConnectionStateConnected state within a reasonable amount of time.
-- (void)testSession {
+// TODO: re-enable this test.
+- (void)disabletestSession {
   // Need block arguments here because we're setting up a callbacks before we
   // create the clients.
   ARDAppClient *caller = nil;

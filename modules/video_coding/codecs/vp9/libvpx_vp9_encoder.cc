@@ -14,6 +14,7 @@
 #include "modules/video_coding/codecs/vp9/libvpx_vp9_encoder.h"
 
 #include <algorithm>
+#include <iostream>
 #include <limits>
 #include <utility>
 #include <vector>
@@ -43,9 +44,44 @@
 #include "vpx/vp8cx.h"
 #include "vpx/vpx_encoder.h"
 
+#include <sys/time.h>
+
 namespace webrtc {
 
 namespace {
+
+/* timersub is not provided by msys at this time. */
+#ifndef timersub
+#define timersub(a, b, result)                       \
+  do {                                               \
+    (result)->tv_sec = (a)->tv_sec - (b)->tv_sec;    \
+    (result)->tv_usec = (a)->tv_usec - (b)->tv_usec; \
+    if ((result)->tv_usec < 0) {                     \
+      --(result)->tv_sec;                            \
+      (result)->tv_usec += 1000000;                  \
+    }                                                \
+  } while (0)
+#endif
+
+struct aom_usec_timer {
+  struct timeval begin, end;
+};
+
+static inline void aom_usec_timer_start(struct aom_usec_timer *t) {
+  gettimeofday(&t->begin, NULL);
+}
+
+static inline void aom_usec_timer_mark(struct aom_usec_timer *t) {
+  gettimeofday(&t->end, NULL);
+}
+
+static inline int64_t aom_usec_timer_elapsed(struct aom_usec_timer *t) {
+  struct timeval diff;
+
+  timersub(&t->end, &t->begin, &diff);
+  return ((int64_t)diff.tv_sec) * 1000000 + diff.tv_usec;
+}
+
 // Maps from gof_idx to encoder internal reference frame buffer index. These
 // maps work for 1,2 and 3 temporal layers with GOF length of 1,2 and 4 frames.
 uint8_t kRefBufIdx[4] = {0, 0, 0, 1};
@@ -647,9 +683,9 @@ int LibvpxVp9Encoder::InitEncode(const VideoCodec* inst,
   } else {
     config_->rc_resize_allowed = inst->VP9().automaticResizeOn ? 1 : 0;
   }
-  // Determine number of threads based on the image size and #cores.
-  config_->g_threads =
-      NumberOfThreads(config_->g_w, config_->g_h, settings.number_of_cores);
+  // // Determine number of threads based on the image size and #cores.
+  // config_->g_threads =
+  //     NumberOfThreads(config_->g_w, config_->g_h, settings.number_of_cores);
 
   is_flexible_mode_ = inst->VP9().flexibleMode;
 
@@ -845,7 +881,7 @@ int LibvpxVp9Encoder::InitAndSetControlSettings(const VideoCodec* inst) {
   if (!is_svc_ || !performance_flags_.use_per_layer_speed) {
     libvpx_->codec_control(
         encoder_, VP8E_SET_CPUUSED,
-        performance_flags_by_spatial_index_.rbegin()->base_layer_speed);
+        7);
   }
 
   if (num_spatial_layers_ > 1) {
@@ -1095,15 +1131,15 @@ int LibvpxVp9Encoder::Encode(const VideoFrame& input_image,
       // resolution instead and base the speed on that.
       for (int i = num_spatial_layers_ - 1; i >= 0; --i) {
         if (config_->ss_target_bitrate[i] > 0) {
-          int width = (svc_params_.scaling_factor_num[i] * config_->g_w) /
-                      svc_params_.scaling_factor_den[i];
-          int height = (svc_params_.scaling_factor_num[i] * config_->g_h) /
-                       svc_params_.scaling_factor_den[i];
-          int speed =
-              std::prev(performance_flags_.settings_by_resolution.lower_bound(
-                            width * height))
-                  ->second.base_layer_speed;
-          libvpx_->codec_control(encoder_, VP8E_SET_CPUUSED, speed);
+          // int width = (svc_params_.scaling_factor_num[i] * config_->g_w) /
+          //             svc_params_.scaling_factor_den[i];
+          // int height = (svc_params_.scaling_factor_num[i] * config_->g_h) /
+          //              svc_params_.scaling_factor_den[i];
+          // int speed =
+          //     std::prev(performance_flags_.settings_by_resolution.lower_bound(
+          //                   width * height))
+          //         ->second.base_layer_speed;
+          libvpx_->codec_control(encoder_, VP8E_SET_CPUUSED, 7);
           break;
         }
       }
@@ -1214,8 +1250,15 @@ int LibvpxVp9Encoder::Encode(const VideoFrame& input_image,
                          .GetTargetRate())
           : codec_.maxFramerate;
   uint32_t duration = static_cast<uint32_t>(90000 / target_framerate_fps);
+
+  std::cout << config_->g_w << " " << config_->g_h << " ";
+  struct aom_usec_timer timer;
+  aom_usec_timer_start(&timer);
   const vpx_codec_err_t rv = libvpx_->codec_encode(
       encoder_, raw_, timestamp_, duration, flags, VPX_DL_REALTIME);
+  aom_usec_timer_mark(&timer);
+  int64_t elapsed_time = aom_usec_timer_elapsed(&timer);
+  std::cout << elapsed_time << std::endl;
   if (rv != VPX_CODEC_OK) {
     RTC_LOG(LS_ERROR) << "Encoding error: " << libvpx_->codec_err_to_string(rv)
                       << "\n"
@@ -1707,6 +1750,7 @@ void LibvpxVp9Encoder::GetEncodedLayerFrame(const vpx_codec_cx_pkt* pkt) {
       pkt->data.frame.height[layer_id.spatial_layer_id];
   encoded_image_._encodedWidth =
       pkt->data.frame.width[layer_id.spatial_layer_id];
+
   int qp = -1;
   libvpx_->codec_control(encoder_, VP8E_GET_LAST_QUANTIZER, &qp);
   encoded_image_.qp_ = qp;

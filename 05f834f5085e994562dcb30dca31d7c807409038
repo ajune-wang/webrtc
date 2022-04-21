@@ -92,6 +92,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "435b34d1_d16c2b2b",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2022-04-21T09:47:49Z",
+      "side": 1,
+      "message": "Checked logs comparing logs from the failing test TestScalabilityModeL1T2Vp8 to the succeeding test TestTemporalLayersVp8. When we get to VideoStreamEncoder::ReconfigureEncoder, the succeeding test logs\n\n```\nSimulcast streams:\n0: 640x360 min_kbps: 30 target_kbps: 1000 max_kbps: 1000 max_fps: 60 max_qp: 56 num_tl: 2 active: true\n```\n\nand failing test logs\n\n```\nSimulcast streams:\n0: 640x360 min_kbps: 30 target_kbps: 1000 max_kbps: 1000 max_fps: 60 max_qp: 56 num_tl: 1 active: true\n```\n\nSo different value for \"num_tl:\".\n\nThis log message dumps the contents of a `struct SpatialLayer`, which doesn\u0027t have any scalability mode member. So next question: Should SpatialLayer have a scalability mode member, or should the code populating it be modified to set numberOfTemporalLayers based on the scalability mode of the \"parent\" VideoCodec? \n\nOr would it be more correct to move the VideoCodec::scalability_mode_ into the SpatialLayer struct? The same struct is used for both the simulcastStreams array and the spatialLayers array though, and I\u0027m not sure if a separate scalability mode make sense in both cases?",
+      "parentUuid": "223d1c20_8993096b",
+      "revId": "05f834f5085e994562dcb30dca31d7c807409038",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "410a9fdd_782ac7c1",
         "filename": "api/video_codecs/vp8_temporal_layers_factory.cc",
         "patchSetId": 1

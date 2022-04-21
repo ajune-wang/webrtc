@@ -509,6 +509,7 @@ class RTC_EXPORT RTCInboundRTPStreamStats final
   RTCStatsMember<uint32_t> key_frames_decoded;
   RTCStatsMember<uint32_t> frames_dropped;
   RTCStatsMember<double> total_decode_time;
+  RTCStatsMember<double> total_processing_delay;
   RTCStatsMember<double> total_inter_frame_delay;
   RTCStatsMember<double> total_squared_inter_frame_delay;
   // https://henbos.github.io/webrtc-provisional-stats/#dom-rtcinboundrtpstreamstats-contenttype

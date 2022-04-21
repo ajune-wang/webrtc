@@ -830,20 +830,32 @@ void ReceiveStatisticsProxy::OnDecodedFrame(const VideoFrame& frame,
                                             absl::optional<uint8_t> qp,
                                             int32_t decode_time_ms,
                                             VideoContentType content_type) {
+  int64_t processing_time_ms = 0;
+  if (frame.packet_infos().size() > 0) {
+    auto first_packet = std::min_element(
+        frame.packet_infos().cbegin(), frame.packet_infos().cend(),
+        [](const webrtc::RtpPacketInfo& a, const webrtc::RtpPacketInfo& b) {
+          return a.receive_time() < b.receive_time();
+        });
+    processing_time_ms =
+        clock_->CurrentTime().ms() - first_packet->receive_time().ms();
+  }
   // See VCMDecodedFrameCallback::Decoded for more info on what thread/queue we
   // may be on. E.g. on iOS this gets called on
   // "com.apple.coremedia.decompressionsession.clientcallback"
   VideoFrameMetaData meta(frame, clock_->CurrentTime());
-  worker_thread_->PostTask(ToQueuedTask(
-      task_safety_, [meta, qp, decode_time_ms, content_type, this]() {
-        OnDecodedFrame(meta, qp, decode_time_ms, content_type);
-      }));
+  worker_thread_->PostTask(ToQueuedTask(task_safety_, [meta, qp, decode_time_ms,
+                                                       processing_time_ms,
+                                                       content_type, this]() {
+    OnDecodedFrame(meta, qp, decode_time_ms, processing_time_ms, content_type);
+  }));
 }
 
 void ReceiveStatisticsProxy::OnDecodedFrame(
     const VideoFrameMetaData& frame_meta,
     absl::optional<uint8_t> qp,
     int32_t decode_time_ms,
+    int64_t processing_delay_ms,
     VideoContentType content_type) {
   RTC_DCHECK_RUN_ON(&main_thread_);
 
@@ -884,6 +896,7 @@ void ReceiveStatisticsProxy::OnDecodedFrame(
   decode_time_counter_.Add(decode_time_ms);
   stats_.decode_ms = decode_time_ms;
   stats_.total_decode_time_ms += decode_time_ms;
+  stats_.total_processing_delay_ms += processing_delay_ms;
   if (enable_decode_time_histograms_) {
     UpdateDecodeTimeHistograms(frame_meta.width, frame_meta.height,
                                decode_time_ms);

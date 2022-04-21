@@ -16,6 +16,29 @@
       "message": "Better?",
       "revId": "bf671c4710c5459bdcecd652dc7cbb2ff8795a79",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "8d0ee4df_2107ab66",
+        "filename": "pc/video_rtp_receiver.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 225,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2022-04-21T11:25:56Z",
+      "side": 1,
+      "message": "Looks like there\u0027s a video_track() method that could be used instead, here and below.",
+      "range": {
+        "startLine": 225,
+        "startChar": 10,
+        "endLine": 225,
+        "endChar": 57
+      },
+      "revId": "bf671c4710c5459bdcecd652dc7cbb2ff8795a79",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

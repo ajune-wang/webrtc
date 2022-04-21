@@ -366,5 +366,10 @@
     '$mixin_append': {
       'args': ['--xcode-parallelization']
     }
+  },
+  'xcodebuild-device-runner': {
+    '$mixin_append': {
+      'args': ['--xcodebuild-device-runner']
+    }
   }
 }

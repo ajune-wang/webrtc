@@ -2192,6 +2192,7 @@ TEST_F(RTCStatsCollectorTest, CollectRTCInboundRTPStreamStats_Video) {
   // `expected_video.last_packet_received_timestamp` should be undefined.
   // `expected_video.content_type` should be undefined.
   // `expected_video.decoder_implementation` should be undefined.
+  expected_video.total_assembly_time = 0;
 
   ASSERT_TRUE(report->Get(expected_video.id()));
   EXPECT_EQ(

@@ -143,6 +143,9 @@ class VideoReceiveStream : public MediaReceiveStream {
     // Timing frame info: all important timestamps for a full lifetime of a
     // single 'timing frame'.
     absl::optional<webrtc::TimingFrameInfo> timing_frame_info;
+
+    // TODO(fippo): standardize
+    uint64_t total_assembly_time_ms;
   };
 
   struct Config {

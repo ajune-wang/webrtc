@@ -32,30 +32,30 @@ struct RobustThroughputEstimatorSettings {
 
   bool enabled = false;  // Set to true to use RobustThroughputEstimator.
 
-  // The estimator handles delay spikes by removing the largest receive time
-  // gap, but this introduces some bias that may lead to overestimation when
-  // there isn't any delay spike. If `reduce_bias` is true, we instead replace
-  // the largest receive time gap by the second largest. This reduces the bias
-  // at the cost of not completely removing the genuine delay spikes.
-  bool reduce_bias = true;
+  // The estimator keeps a window of at least `min_packets` and at least
+  // the packets received during the last `min_window_duration` milliseconds.
+  // (This means that it may store more than `min_packets` at high bitrates,
+  // and a longer duration than `min_window_duration` at low bitrates.)
+  // However, if will never store more than kMaxPackets (for performance
+  // reasons), and never longer than max_window_duration (to avoid very old
+  // packets influencing the estimate for example when sending is paused).
+  unsigned window_packets = 20;
+  TimeDelta min_window_duration = TimeDelta::Millis(750);
+  TimeDelta max_window_duration = TimeDelta::Seconds(5);
 
-  // If `assume_shared_link` is false, we ignore the size of the first packet
-  // when computing the receive rate. Otherwise, we remove half of the first
-  // and last packet's sizes.
-  bool assume_shared_link = false;
+  // The estimator window requires at least `required_packets` packets
+  // to produce an estimate.
+  unsigned required_packets = 10;
 
-  // The estimator window keeps at least `min_packets` packets and up to
-  // kMaxPackets received during the last `window_duration`.
-  unsigned min_packets = 20;
-  TimeDelta window_duration = TimeDelta::Millis(500);
-
-  // The estimator window requires at least `initial_packets` packets received
-  // over at least `initial_duration`.
-  unsigned initial_packets = 20;
-
+  // If audio packets aren't including in allocation (i.e. the
+  // estimated available bandwidth is divided only among the video
+  // streams), then unacked_weight should be set to 0.
   // If audio packets are included in allocation, but not in bandwidth
-  // estimation and the sent audio packets get double counted,
-  // then it might be useful to reduce the weight to 0.5.
+  // estimation (i.e. they don't have transport-wide sequence numbers,
+  // but we nevertheless divide the estimated available bandwidth among
+  // both audio and video streams), then unacked_weight should be set to 1.
+  // If all packets have transport-wide sequence numbers, then the value
+  // of unacked_weight doesn't matter.
   double unacked_weight = 1.0;
 
   std::unique_ptr<StructParametersParser> Parser();

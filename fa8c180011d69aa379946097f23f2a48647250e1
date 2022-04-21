@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "c2692473_797cbfe0",
+        "filename": "video/video_send_stream_tests.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 4000,
+      "author": {
+        "id": 5492
+      },
+      "writtenOn": "2022-04-21T15:00:37Z",
+      "side": 1,
+      "message": "Looks like the scalability mode is not set in TestScalabilityModeL1T2Vp8.",
+      "range": {
+        "startLine": 4000,
+        "startChar": 29,
+        "endLine": 4000,
+        "endChar": 56
+      },
+      "revId": "fa8c180011d69aa379946097f23f2a48647250e1",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

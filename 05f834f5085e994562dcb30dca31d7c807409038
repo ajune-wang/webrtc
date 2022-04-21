@@ -110,6 +110,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "19313cd8_db53ec1d",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5492
+      },
+      "writtenOn": "2022-04-21T15:00:37Z",
+      "side": 1,
+      "message": "I think the option to set numberOfTemporalLayers based on the scalability mode would work (the spatialLayers array should not have a scalability mode per layer).",
+      "parentUuid": "435b34d1_d16c2b2b",
+      "revId": "05f834f5085e994562dcb30dca31d7c807409038",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "410a9fdd_782ac7c1",
         "filename": "api/video_codecs/vp8_temporal_layers_factory.cc",
         "patchSetId": 1

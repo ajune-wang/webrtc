@@ -122,6 +122,13 @@
       }
     }
   },
+  'linux-trusty': {
+    'swarming': {
+      'dimensions': {
+        'os': 'Ubuntu-14.04',
+      },
+    },
+  },
   'logdog-butler': {
     'swarming': {
       'cipd_packages': [

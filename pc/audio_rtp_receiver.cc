@@ -251,7 +251,8 @@ void AudioRtpReceiver::SetStreams(
       }
     }
     if (removed) {
-      existing_stream->RemoveTrack(track_.get());
+      existing_stream->RemoveTrack(
+          rtc::scoped_refptr<AudioTrackInterface>(track_));
     }
   }
   // Add remote track to any streams that are new.
@@ -265,7 +266,7 @@ void AudioRtpReceiver::SetStreams(
       }
     }
     if (added) {
-      stream->AddTrack(track_.get());
+      stream->AddTrack(rtc::scoped_refptr<AudioTrackInterface>(track_));
     }
   }
   streams_ = streams;

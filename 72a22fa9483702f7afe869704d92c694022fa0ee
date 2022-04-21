@@ -1,0 +1,55 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "eef7086f_d3883458",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 13,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2022-04-21T05:35:38Z",
+      "side": 1,
+      "message": "Is this work in progress, or ready for review?",
+      "revId": "72a22fa9483702f7afe869704d92c694022fa0ee",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "0bf7ec5c_5f07dfbe",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2022-04-21T05:35:38Z",
+      "side": 1,
+      "message": "Looks to me to make sense. Waiting for Mirko to say if it will work with Chromium or not.\n",
+      "revId": "72a22fa9483702f7afe869704d92c694022fa0ee",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "e433122b_42840d8e",
+        "filename": "modules/third_party/.gitignore",
+        "patchSetId": 1
+      },
+      "lineNbr": 1,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2022-04-21T05:35:38Z",
+      "side": 1,
+      "message": "Total nit: has -\u003e have (number consistency)",
+      "revId": "72a22fa9483702f7afe869704d92c694022fa0ee",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

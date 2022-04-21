@@ -510,6 +510,7 @@ rtc_library("video_coding_utility") {
 
   deps = [
     ":video_codec_interface",
+    "..:module_api_public",
     "../../api:array_view",
     "../../api:field_trials_view",
     "../../api:scoped_refptr",
@@ -723,6 +724,7 @@ rtc_library("webrtc_vp8_temporal_layers") {
     ":codec_globals_headers",
     ":video_codec_interface",
     ":video_coding_utility",
+    "..:module_api_public",
     "../../api:fec_controller_api",
     "../../api/video_codecs:video_codecs_api",
     "../../rtc_base:checks",

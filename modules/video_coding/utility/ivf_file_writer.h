@@ -18,6 +18,7 @@
 
 #include "api/video/encoded_image.h"
 #include "api/video/video_codec_type.h"
+#include "modules/include/module_common_types_public.h"
 #include "rtc_base/system/file_wrapper.h"
 #include "rtc_base/time_utils.h"
 
@@ -57,7 +58,7 @@ class IvfFileWriter {
   uint16_t height_;
   int64_t last_timestamp_;
   bool using_capture_timestamps_;
-  rtc::TimestampWrapAroundHandler wrap_handler_;
+  webrtc::TimestampUnwrapper wrap_handler_;
   FileWrapper file_;
 };
 

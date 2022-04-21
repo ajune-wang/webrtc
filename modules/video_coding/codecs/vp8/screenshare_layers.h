@@ -16,6 +16,7 @@
 
 #include "api/video_codecs/vp8_frame_config.h"
 #include "api/video_codecs/vp8_temporal_layers.h"
+#include "modules/include/module_common_types_public.h"
 #include "modules/video_coding/codecs/vp8/include/temporal_layers_checker.h"
 #include "modules/video_coding/include/video_codec_interface.h"
 #include "modules/video_coding/utility/frame_dropper.h"
@@ -99,7 +100,7 @@ class ScreenshareLayers final : public Vp8FrameBufferController {
   int64_t last_sync_timestamp_;
   int64_t last_emitted_tl0_timestamp_;
   int64_t last_frame_time_ms_;
-  rtc::TimestampWrapAroundHandler time_wrap_handler_;
+  webrtc::TimestampUnwrapper time_wrap_handler_;
   uint32_t max_debt_bytes_;
 
   std::map<uint32_t, DependencyInfo> pending_frame_configs_;

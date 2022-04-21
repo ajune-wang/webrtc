@@ -122,6 +122,13 @@
       }
     }
   },
+  'linux-trusty': {
+    'swarming': {
+      'dimensions': {
+        'os': 'Ubuntu-14.04',
+      },
+    },
+  },
   'logdog-butler': {
     'swarming': {
       'cipd_packages': [
@@ -259,4 +266,9 @@
       },
     },
   },
+  'xcodebuild-device-runner': {
+    '$mixin_append': {
+      'args': ['--xcodebuild-device-runner']
+    }
+  }
 }

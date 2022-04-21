@@ -16,6 +16,74 @@
       "message": "PTAL. Another piece taken out of https://webrtc-review.googlesource.com/c/src/+/249087",
       "revId": "e95707a0291c82579a17156f85288d5672a41215",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "491e9bd5_06bcb3a5",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2022-04-21T12:08:46Z",
+      "side": 1,
+      "message": "lgtm, just nits.\n",
+      "revId": "e95707a0291c82579a17156f85288d5672a41215",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "ddffc67b_80d5604d",
+        "filename": "modules/audio_coding/neteq/neteq_impl_unittest.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 323,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2022-04-21T12:08:46Z",
+      "side": 1,
+      "message": "DecoderDatabase::DecoderInfo::DecoderInfo() takes a pointer to the factory and stores it in the class. Should this be changed to an rtc::shared_refptr?",
+      "revId": "e95707a0291c82579a17156f85288d5672a41215",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "0be23933_9640f912",
+        "filename": "modules/audio_device/win/audio_device_core_win.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 27,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2022-04-21T12:08:46Z",
+      "side": 1,
+      "message": "Nit: \"order, must come\" -\u003e \"order, this must come\" (grammar)\nNit: \"before the below windows includes\" -\u003e \"before the Windows includes below\"\n\nOr do you mean \"the include of windows.h below\"?",
+      "revId": "e95707a0291c82579a17156f85288d5672a41215",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "bc6f89c1_883d6d02",
+        "filename": "modules/rtp_rtcp/source/rtp_sender_video_unittest.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 790,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2022-04-21T12:08:46Z",
+      "side": 1,
+      "message": "should frame_encryptor have been a shared_refptr?",
+      "revId": "e95707a0291c82579a17156f85288d5672a41215",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

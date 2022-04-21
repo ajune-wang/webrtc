@@ -159,6 +159,7 @@ class TCPConnection : public Connection {
   void CreateOutgoingTcpSocket();
 
   void ConnectSocketSignals(rtc::AsyncPacketSocket* socket);
+  void DisconnectSocketSignals(rtc::AsyncPacketSocket* socket);
 
   void OnConnect(rtc::AsyncPacketSocket* socket);
   void OnClose(rtc::AsyncPacketSocket* socket, int error);
@@ -176,7 +177,7 @@ class TCPConnection : public Connection {
 
   std::unique_ptr<rtc::AsyncPacketSocket> socket_;
   int error_;
-  bool outgoing_;
+  const bool outgoing_;
 
   // Guard against multiple outgoing tcp connection during a reconnect.
   bool connection_pending_;

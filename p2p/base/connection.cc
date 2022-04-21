@@ -850,6 +850,9 @@ void Connection::Destroy() {
   // information required for logging needs access to `port_`.
   port_.reset();
 
+#if 1
+  delete this;
+#else
   // Unwind the stack before deleting the object in case upstream callers
   // need to refer to the Connection's state as part of teardown.
   // NOTE: We move ownership of 'this' into the capture section of the lambda
@@ -858,6 +861,7 @@ void Connection::Destroy() {
   // to `Destroy()`.
   network_thread_->PostTask(
       webrtc::ToQueuedTask([me = absl::WrapUnique(this)]() {}));
+#endif
 }
 
 void Connection::FailAndDestroy() {

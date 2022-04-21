@@ -141,6 +141,24 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": true,
+      "key": {
+        "uuid": "cc5fa1ce_cbf0a2e9",
+        "filename": "api/video/i210_buffer.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 29,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2022-04-21T07:52:39Z",
+      "side": 1,
+      "message": "Hi, I intend to do a closer review after the stuff that belong in libyuv are taken out of this cl. Does that make sense, and what\u0027s current status?",
+      "parentUuid": "5c501339_f901a3af",
+      "revId": "9acf413cf9e391a5f87420882ab6fb5c99b7da7f",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": false,
       "key": {
         "uuid": "e81599a0_107aff5a",

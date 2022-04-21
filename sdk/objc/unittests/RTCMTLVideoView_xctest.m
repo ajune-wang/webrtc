@@ -137,7 +137,7 @@
   self.rendererI420Mock = [self rendererMockWithSuccessfulSetup:YES];
   self.frameMock = [self frameMockWithCVPixelBuffer:NO];
 
-  OCMExpect([self.rendererI420Mock drawFrame:self.frameMock]);
+  // OCMExpect([self.rendererI420Mock drawFrame:self.frameMock]);
   OCMExpect([self.classMock createI420Renderer]).andReturn(self.rendererI420Mock);
   [[self.classMock reject] createNV12Renderer];
 
@@ -159,7 +159,7 @@
   self.rendererNV12Mock = [self rendererMockWithSuccessfulSetup:YES];
   self.frameMock = [self frameMockWithCVPixelBuffer:YES];
 
-  OCMExpect([self.rendererNV12Mock drawFrame:self.frameMock]);
+  // OCMExpect([self.rendererNV12Mock drawFrame:self.frameMock]);
   OCMExpect([self.classMock createNV12Renderer]).andReturn(self.rendererNV12Mock);
   [[self.classMock reject] createI420Renderer];
 
@@ -180,7 +180,7 @@
   self.rendererNV12Mock = [self rendererMockWithSuccessfulSetup:YES];
   self.frameMock = [self frameMockWithCVPixelBuffer:YES];
 
-  OCMExpect([self.rendererNV12Mock drawFrame:self.frameMock]);
+  // OCMExpect([self.rendererNV12Mock drawFrame:self.frameMock]);
   OCMExpect([self.classMock createNV12Renderer]).andReturn(self.rendererNV12Mock);
   [[self.classMock reject] createI420Renderer];
 
@@ -194,7 +194,7 @@
 
   // Recreate view.
   realView = [[RTC_OBJC_TYPE(RTCMTLVideoView) alloc] initWithFrame:CGRectMake(0, 0, 640, 480)];
-  OCMExpect([self.rendererNV12Mock drawFrame:self.frameMock]);
+  // OCMExpect([self.rendererNV12Mock drawFrame:self.frameMock]);
   // View hould reinit renderer.
   OCMExpect([self.classMock createNV12Renderer]).andReturn(self.rendererNV12Mock);
 

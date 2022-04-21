@@ -1,0 +1,136 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "0c18cf17_847e8f34",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 3
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2022-04-21T08:14:38Z",
+      "side": 1,
+      "message": "Nice cleanup. A couple of questions:",
+      "revId": "1cd2d06319217ac06776297472fec8117188222a",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "98ad96b8_567e1a22",
+        "filename": "api/media_stream_interface.h",
+        "patchSetId": 3
+      },
+      "lineNbr": 353,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2022-04-21T08:14:38Z",
+      "side": 1,
+      "message": "Is this now preferred over ABSL_DEPRECATED ?",
+      "range": {
+        "startLine": 353,
+        "startChar": 2,
+        "endLine": 353,
+        "endChar": 40
+      },
+      "revId": "1cd2d06319217ac06776297472fec8117188222a",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "e136031d_6962ca3e",
+        "filename": "pc/audio_rtp_receiver.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 255,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2022-04-21T08:14:38Z",
+      "side": 1,
+      "message": "Looks like track_ is a rtc::scoped_refptr\u003cAudioTrackProxyWithInternal\u003cAudioTrack\u003e\u003e. \n\nI had expected it to just work with existing_stream-\u003eRemoveTrack(track_) (but not sure with the layers of templates and macros...). What compile errors do you get?\n\nI think existing_stream-\u003eRemoveTrack(audio_track()) is a bit nicer than the explicit conversion.",
+      "range": {
+        "startLine": 255,
+        "startChar": 50,
+        "endLine": 255,
+        "endChar": 56
+      },
+      "revId": "1cd2d06319217ac06776297472fec8117188222a",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "f75141cf_ffeb717d",
+        "filename": "pc/media_stream.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 48,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2022-04-21T08:14:38Z",
+      "side": 1,
+      "message": "Should this method also take a scoped_refptr for the track, for consistency?",
+      "range": {
+        "startLine": 48,
+        "startChar": 9,
+        "endLine": 48,
+        "endChar": 66
+      },
+      "revId": "1cd2d06319217ac06776297472fec8117188222a",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "cea83d00_3ca74414",
+        "filename": "pc/rtc_stats_collector_unittest.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 480,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2022-04-21T08:14:38Z",
+      "side": 1,
+      "message": "I can\u0027t think of a better way to write this downcast, except rewriting test to use separate types for fake audio and video tracks. \n\nIf it\u0027s a pattern we expect to really need, one could perhaps add some an explicit conversion operator utility to the scoped_refptr templates.\n\nFor this cl, looks good enough as is.",
+      "range": {
+        "startLine": 479,
+        "startChar": 0,
+        "endLine": 480,
+        "endChar": 61
+      },
+      "revId": "1cd2d06319217ac06776297472fec8117188222a",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "a8f564a0_aba60ae7",
+        "filename": "pc/stats_collector_unittest.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 843,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2022-04-21T08:14:38Z",
+      "side": 1,
+      "message": "Seems `video_track_` would be a better name.",
+      "range": {
+        "startLine": 843,
+        "startChar": 33,
+        "endLine": 843,
+        "endChar": 39
+      },
+      "revId": "1cd2d06319217ac06776297472fec8117188222a",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

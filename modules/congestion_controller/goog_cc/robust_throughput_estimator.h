@@ -12,13 +12,12 @@
 #define MODULES_CONGESTION_CONTROLLER_GOOG_CC_ROBUST_THROUGHPUT_ESTIMATOR_H_
 
 #include <deque>
-#include <memory>
 #include <vector>
 
 #include "absl/types/optional.h"
-#include "api/field_trials_view.h"
 #include "api/transport/network_types.h"
 #include "api/units/data_rate.h"
+#include "api/units/timestamp.h"
 #include "modules/congestion_controller/goog_cc/acknowledged_bitrate_estimator_interface.h"
 
 namespace webrtc {
@@ -41,6 +40,7 @@ class RobustThroughputEstimator : public AcknowledgedBitrateEstimatorInterface {
  private:
   const RobustThroughputEstimatorSettings settings_;
   std::deque<PacketResult> window_;
+  Timestamp latest_discarded_send_time_;
 };
 
 }  // namespace webrtc

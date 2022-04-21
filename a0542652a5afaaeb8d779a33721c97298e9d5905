@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "55b8ef10_f2f6e71e",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 14874
+      },
+      "writtenOn": "2022-04-21T18:01:00Z",
+      "side": 1,
+      "message": "this is the sugar coating for the not-yet-spec stat I want ;-)",
+      "revId": "a0542652a5afaaeb8d779a33721c97298e9d5905",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

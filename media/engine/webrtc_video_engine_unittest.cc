@@ -6087,6 +6087,7 @@ TEST_F(WebRtcVideoChannelTest, GetStatsTranslatesDecodeStatsCorrectly) {
   stats.frames_decoded = 14;
   stats.qp_sum = 15;
   stats.total_decode_time_ms = 16;
+  stats.total_assembly_time_ms = 4;
   stream->SetStats(stats);
 
   cricket::VideoMediaInfo info;
@@ -6115,6 +6116,8 @@ TEST_F(WebRtcVideoChannelTest, GetStatsTranslatesDecodeStatsCorrectly) {
             info.receivers[0].key_frames_decoded);
   EXPECT_EQ(stats.qp_sum, info.receivers[0].qp_sum);
   EXPECT_EQ(stats.total_decode_time_ms, info.receivers[0].total_decode_time_ms);
+  EXPECT_EQ(stats.total_assembly_time_ms,
+            info.receivers[0].total_assembly_time_ms);
 }
 
 TEST_F(WebRtcVideoChannelTest,

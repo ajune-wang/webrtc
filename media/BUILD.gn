@@ -281,6 +281,7 @@ rtc_library("rtc_audio_video") {
     "../call:call_interfaces",
     "../call:video_stream_api",
     "../common_video",
+    "../modules:module_api_public",
     "../modules/async_audio_processing:async_audio_processing",
     "../modules/audio_device",
     "../modules/audio_device:audio_device_impl",

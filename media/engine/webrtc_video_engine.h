@@ -32,6 +32,7 @@
 #include "call/video_send_stream.h"
 #include "media/base/media_engine.h"
 #include "media/engine/unhandled_packets_buffer.h"
+#include "modules/include/module_common_types_public.h"
 #include "rtc_base/network_route.h"
 #include "rtc_base/synchronization/mutex.h"
 #include "rtc_base/task_utils/pending_task_safety_flag.h"
@@ -505,7 +506,7 @@ class WebRtcVideoChannel : public VideoMediaChannel,
         RTC_GUARDED_BY(sink_lock_);
     // Expands remote RTP timestamps to int64_t to be able to estimate how long
     // the stream has been running.
-    rtc::TimestampWrapAroundHandler timestamp_wraparound_handler_
+    webrtc::TimestampUnwrapper timestamp_wraparound_handler_
         RTC_GUARDED_BY(sink_lock_);
     int64_t first_frame_timestamp_ RTC_GUARDED_BY(sink_lock_);
     // Start NTP time is estimated as current remote NTP time (estimated from

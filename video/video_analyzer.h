@@ -18,6 +18,7 @@
 
 #include "api/task_queue/task_queue_base.h"
 #include "api/video/video_source_interface.h"
+#include "modules/include/module_common_types_public.h"
 #include "modules/rtp_rtcp/source/rtp_packet.h"
 #include "modules/rtp_rtcp/source/video_rtp_depacketizer.h"
 #include "rtc_base/event.h"
@@ -292,7 +293,7 @@ class VideoAnalyzer : public PacketReceiver,
 
   std::deque<VideoFrame> frames_ RTC_GUARDED_BY(lock_);
   absl::optional<VideoFrame> last_rendered_frame_ RTC_GUARDED_BY(lock_);
-  rtc::TimestampWrapAroundHandler wrap_handler_ RTC_GUARDED_BY(lock_);
+  webrtc::TimestampUnwrapper wrap_handler_ RTC_GUARDED_BY(lock_);
   std::map<int64_t, int64_t> send_times_ RTC_GUARDED_BY(lock_);
   std::map<int64_t, int64_t> recv_times_ RTC_GUARDED_BY(lock_);
   std::map<int64_t, size_t> encoded_frame_sizes_ RTC_GUARDED_BY(lock_);

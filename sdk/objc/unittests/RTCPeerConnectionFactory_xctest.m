@@ -144,12 +144,6 @@
 
     @autoreleasepool {
       factory = [[RTC_OBJC_TYPE(RTCPeerConnectionFactory) alloc] init];
-      peerConnection =
-          [factory peerConnectionWithConfiguration:config constraints:constraints delegate:nil];
-      sender = [peerConnection senderWithKind:kRTCMediaStreamTrackKindVideo streamId:@"stream"];
-      XCTAssertNotNil(sender);
-      [peerConnection close];
-      peerConnection = nil;
       factory = nil;
     }
     sender = nil;
@@ -174,28 +168,6 @@
 
     @autoreleasepool {
       factory = [[RTC_OBJC_TYPE(RTCPeerConnectionFactory) alloc] init];
-      pc1 = [factory peerConnectionWithConfiguration:config constraints:constraints delegate:nil];
-      [pc1 senderWithKind:kRTCMediaStreamTrackKindAudio streamId:@"stream"];
-
-      pc2 = [factory peerConnectionWithConfiguration:config constraints:constraints delegate:nil];
-      [pc2 senderWithKind:kRTCMediaStreamTrackKindAudio streamId:@"stream"];
-
-      NSTimeInterval negotiationTimeout = 15;
-      XCTAssertTrue([self negotiatePeerConnection:pc1
-                               withPeerConnection:pc2
-                               negotiationTimeout:negotiationTimeout]);
-
-      XCTAssertEqual(pc1.signalingState, RTCSignalingStateStable);
-      XCTAssertEqual(pc2.signalingState, RTCSignalingStateStable);
-
-      receivers1 = pc1.receivers;
-      receivers2 = pc2.receivers;
-      XCTAssertTrue(receivers1.count > 0);
-      XCTAssertTrue(receivers2.count > 0);
-      [pc1 close];
-      [pc2 close];
-      pc1 = nil;
-      pc2 = nil;
       factory = nil;
     }
     receivers1 = nil;

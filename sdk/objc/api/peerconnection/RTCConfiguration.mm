@@ -68,7 +68,7 @@
 - (instancetype)init {
   // Copy defaults.
   webrtc::PeerConnectionInterface::RTCConfiguration config;
-  config.sdp_semantics = webrtc::SdpSemantics::kUnifiedPlan;
+  config.sdp_semantics = webrtc::SdpSemantics::kPlanB_DEPRECATED;
   return [self initWithNativeConfiguration:config];
 }
 

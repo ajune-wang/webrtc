@@ -2596,6 +2596,7 @@ TEST_F(RTCStatsCollectorTest, CollectRTCTransportStatsWithCrypto) {
   rtp_transport_channel_stats.ice_transport_stats
       .selected_candidate_pair_changes = 1;
   rtp_transport_channel_stats.ssl_version_bytes = 0x0203;
+  rtp_transport_channel_stats.dtls_role = rtc::SSL_CLIENT;
   // 0x2F is TLS_RSA_WITH_AES_128_CBC_SHA according to IANA
   rtp_transport_channel_stats.ssl_cipher_suite = 0x2F;
   rtp_transport_channel_stats.srtp_crypto_suite = rtc::kSrtpAes128CmSha1_80;
@@ -2616,6 +2617,7 @@ TEST_F(RTCStatsCollectorTest, CollectRTCTransportStatsWithCrypto) {
   expected_rtp_transport.packets_received = 0;
   // Crypto parameters
   expected_rtp_transport.tls_version = "0203";
+  expected_rtp_transport.dtls_role = RTCDtlsRole::kClient;
   expected_rtp_transport.dtls_cipher = "TLS_RSA_WITH_AES_128_CBC_SHA";
   expected_rtp_transport.srtp_cipher = "AES_CM_128_HMAC_SHA1_80";
 

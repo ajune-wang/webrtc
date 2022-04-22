@@ -20,6 +20,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "13d24d26_75b1251b",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 7
+      },
+      "lineNbr": 7,
+      "author": {
+        "id": 7755
+      },
+      "writtenOn": "2022-04-22T06:58:14Z",
+      "side": 1,
+      "message": "planning to update with links (also in the code) once the PR is merged",
+      "parentUuid": "2db6e311_98135039",
+      "revId": "15faa706e75aa15fa91609f5f985d40e81001a0d",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "db383c9e_a6e74899",
         "filename": "/PATCHSET_LEVEL",
         "patchSetId": 7

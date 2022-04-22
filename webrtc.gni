@@ -1015,13 +1015,15 @@ if (is_mac || is_ios) {
       }
     }
     if (is_ios) {
-      ios_framework_bundle(target_name) {
+      ios_xctest_bundle(target_name) {
         forward_variables_from(invoker,
                                "*",
                                [
                                  "configs",
                                  "public_headers",
                                ])
+        product_type = "com.apple.product-type.bundle.unit-test"
+        host_target = target_name + "_runner"
         if (defined(invoker.configs)) {
           configs += invoker.configs
         }

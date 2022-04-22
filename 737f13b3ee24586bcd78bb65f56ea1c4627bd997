@@ -71,6 +71,24 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "3a3ac9df_1376e479",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 12
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2022-04-22T13:51:02Z",
+      "side": 1,
+      "message": "Resolving.",
+      "parentUuid": "076ce8d9_fba69c31",
+      "revId": "737f13b3ee24586bcd78bb65f56ea1c4627bd997",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "dd1eb9fa_9ddea68a",
@@ -321,6 +339,30 @@
       "side": 1,
       "message": "My bad, there are no RotatePlane methods for 10 bits in libyuv, that\u0027s why I010Buffer implements it\u0027s own version of rotate and why I can\u0027t add a patch for i210 neither.",
       "parentUuid": "1f8ed3d5_4a71da8b",
+      "range": {
+        "startLine": 116,
+        "startChar": 0,
+        "endLine": 117,
+        "endChar": 26
+      },
+      "revId": "737f13b3ee24586bcd78bb65f56ea1c4627bd997",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "8f7372fe_6bd2c8a9",
+        "filename": "api/video/i210_buffer.cc",
+        "patchSetId": 12
+      },
+      "lineNbr": 117,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2022-04-22T13:51:02Z",
+      "side": 1,
+      "message": "I see. Would it make sense to add RotatePlane functions operating on uint16_t data to libyuv?\n\nI have some difficulty following the logic in this rotation. I think it would help to have a helper functions, separating the easy cases (Y-plane, and 180 degree rotation) from the trickier case. \n\nFor rotating the U, V planes by 90 or 270 degrees, I would expect a loop where each iteration handles a block corresponding to 2x2 pixels before subsampling. In the sub-sampled plane, it would be something like\n\n  read (x,y) and (x,y+1)\n  average the two values\n  write the average twice, at (y, 2*x) and (y, 2x+1).\n\nOr if there\u0027s good reason to instead copy those two values in a reversible fashion, that deserves a comment. If I understand it, that would mean that we rotate the matrix of 2x2 blocks in the expected way, but inside each 2x2 block, only the Y-plane is rotated, the U,V planes are left unrotated. Makes my head spin a bit).",
+      "parentUuid": "4a041024_e1738b8b",
       "range": {
         "startLine": 116,
         "startChar": 0,

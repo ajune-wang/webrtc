@@ -20,6 +20,24 @@
     {
       "unresolved": false,
       "key": {
+        "uuid": "9e73f946_9e3f4110",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 2
+      },
+      "lineNbr": 10,
+      "author": {
+        "id": 5524
+      },
+      "writtenOn": "2022-04-22T11:32:55Z",
+      "side": 1,
+      "message": "No, rollback was independent of [1] - it was a hamrit test with tight bounds that was tickled the wrong way.",
+      "parentUuid": "0d9733f0_f7eec8e6",
+      "revId": "0bf32da36784fb95ad080ef9f202f80b45f334ec",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
         "uuid": "7bef68e6_ff2a7c29",
         "filename": "/PATCHSET_LEVEL",
         "patchSetId": 2

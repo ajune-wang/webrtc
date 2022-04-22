@@ -96,6 +96,8 @@ void StunRequestManager::Clear() {
 
 bool StunRequestManager::CheckResponse(StunMessage* msg) {
   RTC_DCHECK_RUN_ON(thread_);
+  fprintf(stderr, "[CheckResponse]: begin\n");
+
   RequestMap::iterator iter = requests_.find(msg->transaction_id());
   if (iter == requests_.end()) {
     // TODO(pthatcher): Log unknown responses without being too spammy
@@ -104,6 +106,7 @@ bool StunRequestManager::CheckResponse(StunMessage* msg) {
   }
 
   StunRequest* request = iter->second.get();
+  fprintf(stderr, "[CheckResponse]: found transaction\n");
 
   // Now that we know the request, we can see if the response is
   // integrity-protected or not.
@@ -111,14 +114,18 @@ bool StunRequestManager::CheckResponse(StunMessage* msg) {
   // Complain, and then don't check.
   bool skip_integrity_checking = false;
   if (request->msg()->integrity() == StunMessage::IntegrityStatus::kNotSet) {
+    fprintf(stderr, "[CheckResponse]: skip_integrity_checking=true\n");
     skip_integrity_checking = true;
   } else {
+    fprintf(stderr, "[CheckResponse]: ValidateMessageIntegrity\n");
     msg->ValidateMessageIntegrity(request->msg()->password());
   }
 
   bool success = true;
+  fprintf(stderr, "[CheckResponse]: Checking GetNonComprehendedAttributes\n");
 
   if (!msg->GetNonComprehendedAttributes().empty()) {
+    fprintf(stderr, "[CheckResponse]: Discarding response due to\n");
     // If a response contains unknown comprehension-required attributes, it's
     // simply discarded and the transaction is considered failed. See RFC5389
     // sections 7.3.3 and 7.3.4.
@@ -126,13 +133,16 @@ bool StunRequestManager::CheckResponse(StunMessage* msg) {
                          "comprehension-required attribute.";
     success = false;
   } else if (msg->type() == GetStunSuccessResponseType(request->type())) {
+    fprintf(stderr, "[CheckResponse]: Checking IntegrityOk\n");
     if (!msg->IntegrityOk() && !skip_integrity_checking) {
       return false;
     }
     request->OnResponse(msg);
   } else if (msg->type() == GetStunErrorResponseType(request->type())) {
+    fprintf(stderr, "[CheckResponse]: calling OnErrorResponse\n");
     request->OnErrorResponse(msg);
   } else {
+    fprintf(stderr, "[CheckResponse]: wrong type\n");
     RTC_LOG(LS_ERROR) << "Received response with wrong type: " << msg->type()
                       << " (expecting "
                       << GetStunSuccessResponseType(request->type()) << ")";

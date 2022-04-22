@@ -8,7 +8,7 @@
  *  be found in the AUTHORS file in the root of the source tree.
  *
  */
-
+#define RTC_ENABLE_VP9 1
 #ifdef RTC_ENABLE_VP9
 
 #include "modules/video_coding/codecs/vp9/libvpx_vp9_encoder.h"
@@ -591,15 +591,24 @@ int LibvpxVp9Encoder::InitEncode(const VideoCodec* inst,
       config_->g_input_bit_depth = 8;
       break;
     case VP9Profile::kProfile1:
-      // Encoding of profile 1 is not implemented. It would require extended
-      // support for I444, I422, and I440 buffers.
-      RTC_DCHECK_NOTREACHED();
+      img_fmt = VPX_IMG_FMT_I422;
+      bits_for_storage = 8;
+      config_->g_bit_depth = VPX_BITS_8;
+      config_->g_profile = 1;
+      config_->g_input_bit_depth = 8;
       break;
     case VP9Profile::kProfile2:
       img_fmt = VPX_IMG_FMT_I42016;
       bits_for_storage = 16;
       config_->g_bit_depth = VPX_BITS_10;
       config_->g_profile = 2;
+      config_->g_input_bit_depth = 10;
+      break;
+    case VP9Profile::kProfile3:
+      img_fmt = VPX_IMG_FMT_I42216;
+      bits_for_storage = 16;
+      config_->g_bit_depth = VPX_BITS_10;
+      config_->g_profile = 3;
       config_->g_input_bit_depth = 10;
       break;
   }
@@ -1124,7 +1133,11 @@ int LibvpxVp9Encoder::Encode(const VideoFrame& input_image,
   // through reference counting until after encoding has finished.
   rtc::scoped_refptr<const VideoFrameBuffer> mapped_buffer;
   const I010BufferInterface* i010_buffer;
+  const I210BufferInterface* i210_buffer;
+  const I422BufferInterface* i422_buffer;
   rtc::scoped_refptr<const I010BufferInterface> i010_copy;
+  rtc::scoped_refptr<const I210BufferInterface> i210_copy;
+  rtc::scoped_refptr<const I422BufferInterface> i422_copy;
   switch (profile_) {
     case VP9Profile::kProfile0: {
       mapped_buffer =
@@ -1135,7 +1148,35 @@ int LibvpxVp9Encoder::Encode(const VideoFrame& input_image,
       break;
     }
     case VP9Profile::kProfile1: {
-      RTC_DCHECK_NOTREACHED();
+      // We can inject k422 frames directly for encode. All other formats
+      // should be converted to it.
+      switch (input_image.video_frame_buffer()->type()) {
+        case VideoFrameBuffer::Type::kI422: {
+          i422_buffer = input_image.video_frame_buffer()->GetI422();
+          break;
+        }
+        default: {
+          auto i420_buffer = input_image.video_frame_buffer()->ToI420();
+          if (!i420_buffer) {
+            RTC_LOG(LS_ERROR) << "Failed to convert "
+                              << VideoFrameBufferTypeToString(
+                                     input_image.video_frame_buffer()->type())
+                              << " image to I420. Can't encode frame.";
+            return WEBRTC_VIDEO_CODEC_ERROR;
+          }
+          i422_copy = I422Buffer::Copy(*i420_buffer);
+          i422_buffer = i422_copy.get();
+        }
+      }
+      raw_->planes[VPX_PLANE_Y] = const_cast<uint8_t*>(
+          reinterpret_cast<const uint8_t*>(i422_buffer->DataY()));
+      raw_->planes[VPX_PLANE_U] = const_cast<uint8_t*>(
+          reinterpret_cast<const uint8_t*>(i422_buffer->DataU()));
+      raw_->planes[VPX_PLANE_V] = const_cast<uint8_t*>(
+          reinterpret_cast<const uint8_t*>(i422_buffer->DataV()));
+      raw_->stride[VPX_PLANE_Y] = i422_buffer->StrideY();
+      raw_->stride[VPX_PLANE_U] = i422_buffer->StrideU();
+      raw_->stride[VPX_PLANE_V] = i422_buffer->StrideV();
       break;
     }
     case VP9Profile::kProfile2: {
@@ -1168,6 +1209,38 @@ int LibvpxVp9Encoder::Encode(const VideoFrame& input_image,
       raw_->stride[VPX_PLANE_Y] = i010_buffer->StrideY() * 2;
       raw_->stride[VPX_PLANE_U] = i010_buffer->StrideU() * 2;
       raw_->stride[VPX_PLANE_V] = i010_buffer->StrideV() * 2;
+      break;
+    }
+    case VP9Profile::kProfile3: {
+      // We can inject kI210 frames directly for encode. All other formats
+      // should be converted to it.
+      switch (input_image.video_frame_buffer()->type()) {
+        case VideoFrameBuffer::Type::kI210: {
+          i210_buffer = input_image.video_frame_buffer()->GetI210();
+          break;
+        }
+        default: {
+          auto i420_buffer = input_image.video_frame_buffer()->ToI420();
+          if (!i420_buffer) {
+            RTC_LOG(LS_ERROR) << "Failed to convert "
+                              << VideoFrameBufferTypeToString(
+                                     input_image.video_frame_buffer()->type())
+                              << " image to I420. Can't encode frame.";
+            return WEBRTC_VIDEO_CODEC_ERROR;
+          }
+          i210_copy = I210Buffer::Copy(*i420_buffer);
+          i210_buffer = i210_copy.get();
+        }
+      }
+      raw_->planes[VPX_PLANE_Y] = const_cast<uint8_t*>(
+          reinterpret_cast<const uint8_t*>(i210_buffer->DataY()));
+      raw_->planes[VPX_PLANE_U] = const_cast<uint8_t*>(
+          reinterpret_cast<const uint8_t*>(i210_buffer->DataU()));
+      raw_->planes[VPX_PLANE_V] = const_cast<uint8_t*>(
+          reinterpret_cast<const uint8_t*>(i210_buffer->DataV()));
+      raw_->stride[VPX_PLANE_Y] = i210_buffer->StrideY() * 2;
+      raw_->stride[VPX_PLANE_U] = i210_buffer->StrideU() * 2;
+      raw_->stride[VPX_PLANE_V] = i210_buffer->StrideV() * 2;
       break;
     }
   }

@@ -32,6 +32,7 @@ constexpr absl::string_view kSupportedScalabilityModes[] = {
 }  // namespace
 
 std::vector<SdpVideoFormat> SupportedVP9Codecs() {
+#define RTC_ENABLE_VP9 1
 #ifdef RTC_ENABLE_VP9
   // Profile 2 might not be available on some platforms until
   // https://bugs.chromium.org/p/webm/issues/detail?id=1544 is solved.
@@ -41,13 +42,21 @@ std::vector<SdpVideoFormat> SupportedVP9Codecs() {
       (vpx_codec_get_caps(vpx_codec_vp9_dx()) & VPX_CODEC_CAP_HIGHBITDEPTH) !=
           0;
 
-  std::vector<SdpVideoFormat> supported_formats{SdpVideoFormat(
-      cricket::kVp9CodecName,
-      {{kVP9FmtpProfileId, VP9ProfileToString(VP9Profile::kProfile0)}})};
+  std::vector<SdpVideoFormat> supported_formats{
+      SdpVideoFormat(
+          cricket::kVp9CodecName,
+          {{kVP9FmtpProfileId, VP9ProfileToString(VP9Profile::kProfile0)}}),
+      SdpVideoFormat(
+          cricket::kVp9CodecName,
+          {{kVP9FmtpProfileId, VP9ProfileToString(VP9Profile::kProfile1)}})};
+
   if (vpx_supports_high_bit_depth) {
     supported_formats.push_back(SdpVideoFormat(
         cricket::kVp9CodecName,
         {{kVP9FmtpProfileId, VP9ProfileToString(VP9Profile::kProfile2)}}));
+    supported_formats.push_back(SdpVideoFormat(
+        cricket::kVp9CodecName,
+        {{kVP9FmtpProfileId, VP9ProfileToString(VP9Profile::kProfile3)}}));
   }
 
   return supported_formats;
@@ -59,12 +68,6 @@ std::vector<SdpVideoFormat> SupportedVP9Codecs() {
 std::vector<SdpVideoFormat> SupportedVP9DecoderCodecs() {
 #ifdef RTC_ENABLE_VP9
   std::vector<SdpVideoFormat> supported_formats = SupportedVP9Codecs();
-  // The WebRTC internal decoder supports VP9 profile 1. However, there's
-  // currently no way of sending VP9 profile 1 using the internal encoder.
-  // It would require extended support for I444, I422, and I440 buffers.
-  supported_formats.push_back(SdpVideoFormat(
-      cricket::kVp9CodecName,
-      {{kVP9FmtpProfileId, VP9ProfileToString(VP9Profile::kProfile1)}}));
   return supported_formats;
 #else
   return std::vector<SdpVideoFormat>();

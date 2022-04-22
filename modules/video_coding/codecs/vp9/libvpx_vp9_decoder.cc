@@ -8,7 +8,7 @@
  *  be found in the AUTHORS file in the root of the source tree.
  *
  */
-
+#define RTC_ENABLE_VP9 1
 #ifdef RTC_ENABLE_VP9
 
 #include "modules/video_coding/codecs/vp9/libvpx_vp9_decoder.h"
@@ -312,6 +312,16 @@ int LibvpxVp9Decoder::ReturnFrame(
               // should release `img_buffer`.
               [img_buffer] {});
         }
+      } else if (img->fmt == VPX_IMG_FMT_I422) {
+        img_wrapped_buffer = WrapI422Buffer(
+            img->d_w, img->d_h, img->planes[VPX_PLANE_Y],
+            img->stride[VPX_PLANE_Y], img->planes[VPX_PLANE_U],
+            img->stride[VPX_PLANE_U], img->planes[VPX_PLANE_V],
+            img->stride[VPX_PLANE_V],
+            // WrapI422Buffer's mechanism for allowing the release of its
+            // frame buffer is through a callback function. This is where we
+            // should release `img_buffer`.
+            [img_buffer] {});
       } else if (img->fmt == VPX_IMG_FMT_I444) {
         img_wrapped_buffer = WrapI444Buffer(
             img->d_w, img->d_h, img->planes[VPX_PLANE_Y],
@@ -330,14 +340,30 @@ int LibvpxVp9Decoder::ReturnFrame(
       }
       break;
     case 10:
-      img_wrapped_buffer = WrapI010Buffer(
-          img->d_w, img->d_h,
-          reinterpret_cast<const uint16_t*>(img->planes[VPX_PLANE_Y]),
-          img->stride[VPX_PLANE_Y] / 2,
-          reinterpret_cast<const uint16_t*>(img->planes[VPX_PLANE_U]),
-          img->stride[VPX_PLANE_U] / 2,
-          reinterpret_cast<const uint16_t*>(img->planes[VPX_PLANE_V]),
-          img->stride[VPX_PLANE_V] / 2, [img_buffer] {});
+      if (img->fmt == VPX_IMG_FMT_I42016) {
+        img_wrapped_buffer = WrapI010Buffer(
+            img->d_w, img->d_h,
+            reinterpret_cast<const uint16_t*>(img->planes[VPX_PLANE_Y]),
+            img->stride[VPX_PLANE_Y] / 2,
+            reinterpret_cast<const uint16_t*>(img->planes[VPX_PLANE_U]),
+            img->stride[VPX_PLANE_U] / 2,
+            reinterpret_cast<const uint16_t*>(img->planes[VPX_PLANE_V]),
+            img->stride[VPX_PLANE_V] / 2, [img_buffer] {});
+      } else if (img->fmt == VPX_IMG_FMT_I42216) {
+        img_wrapped_buffer = WrapI210Buffer(
+            img->d_w, img->d_h,
+            reinterpret_cast<const uint16_t*>(img->planes[VPX_PLANE_Y]),
+            img->stride[VPX_PLANE_Y] / 2,
+            reinterpret_cast<const uint16_t*>(img->planes[VPX_PLANE_U]),
+            img->stride[VPX_PLANE_U] / 2,
+            reinterpret_cast<const uint16_t*>(img->planes[VPX_PLANE_V]),
+            img->stride[VPX_PLANE_V] / 2, [img_buffer] {});
+      } else {
+        RTC_LOG(LS_ERROR)
+            << "Unsupported pixel format produced by the decoder: "
+            << static_cast<int>(img->fmt);
+        return WEBRTC_VIDEO_CODEC_NO_OUTPUT;
+      }
       break;
     default:
       RTC_LOG(LS_ERROR) << "Unsupported bit depth produced by the decoder: "

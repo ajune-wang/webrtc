@@ -1161,6 +1161,10 @@ if (is_ios || is_mac) {
 
         # These tests link to the framework.
         rtc_test("sdk_framework_unittests") {
+          #xcode_test_application_name = "sdk_framework_unittests"
+
+          #xctest_bundle_principal_class =
+          #    "RTCDoNotPutCPlusPlusInFrameworkHeaders"
           is_xctest = true
           info_plist = "//test/ios/Info.plist"
           sources = [
@@ -1346,11 +1350,11 @@ if (is_ios || is_mac) {
         sources = common_objc_headers
         public_headers = common_objc_headers
 
-        ldflags = [
-          "-all_load",
-          "-install_name",
-          "@rpath/$output_name.framework/$output_name",
-        ]
+        #ldflags = [
+        #  "-all_load",
+        #  "-install_name",
+        #  "@rpath/$output_name.framework/$output_name",
+        #]
 
         deps = [
           ":audio_objc",

@@ -16,6 +16,23 @@
       "message": "Hi Alessio, PTAL, tiny cleanup CL",
       "revId": "b3f4e490073fdc3163c989c8440b436a0661c230",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "8eeb8ab6_5e2432c5",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5122
+      },
+      "writtenOn": "2022-04-22T07:20:30Z",
+      "side": 1,
+      "message": "Thanks for the clean up CL Sam!",
+      "revId": "b3f4e490073fdc3163c989c8440b436a0661c230",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

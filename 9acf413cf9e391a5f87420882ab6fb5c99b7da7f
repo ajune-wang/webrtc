@@ -422,6 +422,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "c48a052f_3ff6ec23",
+        "filename": "common_video/video_frame_buffer.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 222,
+      "author": {
+        "id": 5117
+      },
+      "writtenOn": "2022-04-22T13:14:55Z",
+      "side": 1,
+      "message": "It\u0027s enough to have it here in the I210BufferBase and not reimplement it in the I210Buffer.\n\nThere\u0027s some redundancy in existing code, it can be cleaned up.",
+      "parentUuid": "ec86d978_b7d86a42",
+      "range": {
+        "startLine": 222,
+        "startChar": 10,
+        "endLine": 222,
+        "endChar": 20
+      },
+      "revId": "9acf413cf9e391a5f87420882ab6fb5c99b7da7f",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "7cf93da6_2621afb8",
         "filename": "modules/video_coding/codecs/h264/h264_decoder_impl.cc",
         "patchSetId": 2

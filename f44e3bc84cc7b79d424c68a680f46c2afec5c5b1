@@ -67,6 +67,24 @@
       "message": "Copying the comment from the other cl to here:\n_________________________________\nTommi:\n\nthis function always returns true... should it be changed to return DesktopCapturer::SourceList?\n\nIf so, and just to clarify what I mean, it\u0027d be:\n  DesktopCapturer::SourceList GetScreenList(std::vector\u003cstd::string\u003e* device_names /* \u003d nullptr */) {\n    ...\n    // \u003c no need to worry about `screens-\u003esize() here \u003e\n    ...\n    return screens;\n  }\nThat would also make HasActiveDisplay() simpler (if you still need it):\n  bool HasActiveDisplay() { return !GetScreenList().empty(); }\n  \nAlexander:\n\nDoing it like so allows it to be used as a direct passthrough in various places for the GetSourceList method, and doesn\u0027t require a copy of the list: https://source.chromium.org/chromium/chromium/src/+/main:third_party/webrtc/modules/desktop_capture/desktop_capturer.h;drc\u003d24927780f10b88315c5e40da98062fc3db88a1b2;l\u003d119`\n_________________________________\n\nSince the underlying type for SourceList is std::vector, which is movable (copying can be avoided), it could still be used for the method you link to (right?). The presumption is still that the list is empty when the function is called, so it seems that passing a pointer as an argument doesn\u0027t have benefits. Or am I missing something?",
       "revId": "f44e3bc84cc7b79d424c68a680f46c2afec5c5b1",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "c259b263_6ee742a5",
+        "filename": "modules/desktop_capture/win/screen_capture_utils.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 34,
+      "author": {
+        "id": 18474
+      },
+      "writtenOn": "2022-04-22T17:34:14Z",
+      "side": 1,
+      "message": "Right; however the method that this is backing also needs to report a boolean (and is part of an established interface that would break downstream if it were changed). In having it like this, it\u0027s essentially just a delegated, common, static implementation of GetSourceList and allows GetSourceList to be trivially simple: https://source.chromium.org/chromium/chromium/src/+/main:third_party/webrtc/modules/desktop_capture/win/screen_capturer_win_magnifier.cc;l\u003d134\n\nI\u0027d strongly prefer to keep this signature matching the public API signature that it\u0027s essentially just an implementation for.",
+      "parentUuid": "20167c4e_22d5a8cd",
+      "revId": "f44e3bc84cc7b79d424c68a680f46c2afec5c5b1",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

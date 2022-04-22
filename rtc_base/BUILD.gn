@@ -516,6 +516,7 @@ rtc_library("timeutils") {
     ":stringutils",
     "system:rtc_export",
   ]
+  absl_deps = [ "//third_party/abseil-cpp/absl/base:core_headers" ]
   if (rtc_exclude_system_time) {
     defines = [ "WEBRTC_EXCLUDE_SYSTEM_TIME" ]
   }

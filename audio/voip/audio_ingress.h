@@ -26,6 +26,7 @@
 #include "audio/audio_level.h"
 #include "modules/audio_coding/acm2/acm_receiver.h"
 #include "modules/audio_coding/include/audio_coding_module.h"
+#include "modules/include/module_common_types_public.h"
 #include "modules/rtp_rtcp/include/receive_statistics.h"
 #include "modules/rtp_rtcp/include/remote_ntp_time_estimator.h"
 #include "modules/rtp_rtcp/source/rtp_packet_received.h"
@@ -137,7 +138,7 @@ class AudioIngress : public AudioMixer::Source {
   // per payload type set when caller set via SetReceiveCodecs.
   std::map<int, int> receive_codec_info_ RTC_GUARDED_BY(lock_);
 
-  rtc::TimestampWrapAroundHandler timestamp_wrap_handler_ RTC_GUARDED_BY(lock_);
+  webrtc::TimestampUnwrapper timestamp_wrap_handler_ RTC_GUARDED_BY(lock_);
 };
 
 }  // namespace webrtc

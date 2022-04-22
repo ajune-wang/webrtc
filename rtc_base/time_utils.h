@@ -14,6 +14,7 @@
 #include <stdint.h>
 #include <time.h>
 
+#include "absl/base/attributes.h"
 #include "rtc_base/checks.h"
 #include "rtc_base/system/rtc_export.h"
 #include "rtc_base/system_time.h"
@@ -114,7 +115,8 @@ inline int64_t TimeUntil(int64_t later) {
   return later - TimeMillis();
 }
 
-class TimestampWrapAroundHandler {
+class ABSL_DEPRECATED("Use webrtc::TimestampUnwrapper instead.")
+    TimestampWrapAroundHandler {
  public:
   TimestampWrapAroundHandler();
 

@@ -69,6 +69,7 @@ rtc_library("audio_ingress") {
     "../../api/audio:audio_mixer_api",
     "../../api/audio_codecs:audio_codecs_api",
     "../../api/voip:voip_api",
+    "../../modules:module_api_public",
     "../../modules/audio_coding",
     "../../modules/rtp_rtcp",
     "../../modules/rtp_rtcp:rtp_rtcp_format",

@@ -52,6 +52,41 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "dba475d2_81f01928",
+        "filename": "api/stats/rtcstats_objects.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 512,
+      "author": {
+        "id": 14874
+      },
+      "writtenOn": "2022-04-22T12:08:05Z",
+      "side": 1,
+      "message": "done by moving frames_received, everything below that is video.",
+      "parentUuid": "9c452392_3223c3f8",
+      "revId": "a0542652a5afaaeb8d779a33721c97298e9d5905",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "2b852b02_4e260fe5",
+        "filename": "video/receive_statistics_proxy2.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 834,
+      "author": {
+        "id": 14874
+      },
+      "writtenOn": "2022-04-22T12:08:05Z",
+      "side": 1,
+      "message": "note: this is mainly due to tests *not* filling packet_infos (or tests not setting a receive time...))",
+      "revId": "a0542652a5afaaeb8d779a33721c97298e9d5905",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "b9782bdb_0e4c5c13",
@@ -65,6 +100,30 @@
       "writtenOn": "2022-04-22T10:32:57Z",
       "side": 1,
       "message": "nit: could you please call currentTime() once? It also used below wheere |meta| is created.",
+      "range": {
+        "startLine": 840,
+        "startChar": 12,
+        "endLine": 840,
+        "endChar": 57
+      },
+      "revId": "a0542652a5afaaeb8d779a33721c97298e9d5905",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "e4e522bf_8d905475",
+        "filename": "video/receive_statistics_proxy2.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 840,
+      "author": {
+        "id": 14874
+      },
+      "writtenOn": "2022-04-22T12:08:05Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "b9782bdb_0e4c5c13",
       "range": {
         "startLine": 840,
         "startChar": 12,
@@ -166,6 +225,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "b3bcb265_1750a0d0",
+        "filename": "video/receive_statistics_proxy2.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 851,
+      "author": {
+        "id": 14874
+      },
+      "writtenOn": "2022-04-22T12:08:05Z",
+      "side": 1,
+      "message": "The definition is \"to the time the corresponding sample or frame is decoded (decoded timestamp)\" which seems correct (and hey, useful and implementable! Presentation timestamp is different and a bit harder to get).\nIn general I think much of the delay we measure with this stat is the frame assembly time for which we should have a separate stat. Working on that but this was an easy drive-by fix :-)\n\nBonus that I didn\u0027t think of: we can measure insertable streams decryption delay!",
+      "parentUuid": "dcc4e5cb_b81b29b0",
+      "revId": "a0542652a5afaaeb8d779a33721c97298e9d5905",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "b14fd15d_ca5edf08",
         "filename": "video/receive_statistics_proxy2_unittest.cc",
         "patchSetId": 1
@@ -177,6 +254,24 @@
       "writtenOn": "2022-04-22T08:06:44Z",
       "side": 1,
       "message": "Can you add a test on this layer that tests total_processing_delay_ms?\nYou can use the fake_clock_\n\nCan you sanity check that totalProcessingDelay / framesDecoded make sense?",
+      "revId": "a0542652a5afaaeb8d779a33721c97298e9d5905",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "cac8c718_3d8b3237",
+        "filename": "video/receive_statistics_proxy2_unittest.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 1345,
+      "author": {
+        "id": 14874
+      },
+      "writtenOn": "2022-04-22T12:08:05Z",
+      "side": 1,
+      "message": "Done (for the first), planning to add a webrtc-internals calculator for the second.",
+      "parentUuid": "b14fd15d_ca5edf08",
       "revId": "a0542652a5afaaeb8d779a33721c97298e9d5905",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }

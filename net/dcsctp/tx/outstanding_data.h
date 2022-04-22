@@ -79,6 +79,13 @@ class OutstandingData {
       rtc::ArrayView<const SackChunk::GapAckBlock> gap_ack_blocks,
       bool is_in_fast_recovery);
 
+  // Returns as many of the chunks that are eligible for fast retransmissions
+  // and that would fit in a single packet of `max_size`. The eligible chunks
+  // that didn't fit will be marked for (normal) retransmission and will not be
+  // returned if this method is called again.
+  std::vector<std::pair<TSN, Data>> GetChunksToBeFastRetransmitted(
+      size_t max_size);
+
   // Given `max_size` of space left in a packet, which chunks can be added to
   // it?
   std::vector<std::pair<TSN, Data>> GetChunksToBeRetransmitted(size_t max_size);
@@ -93,6 +100,10 @@ class OutstandingData {
   void ExpireOutstandingChunks(TimeMs now);
 
   bool empty() const { return outstanding_data_.empty(); }
+
+  bool has_data_to_be_fast_retransmitted() const {
+    return !to_be_fast_retransmitted_.empty();
+  }
 
   bool has_data_to_be_retransmitted() const {
     return !to_be_retransmitted_.empty() || !to_be_fast_retransmitted_.empty();
@@ -279,6 +290,10 @@ class OutstandingData {
   // fragments that share the same message - both never-before-sent fragments
   // that are still in the SendQueue and outstanding chunks.
   void AbandonAllFor(const OutstandingData::Item& item);
+
+  std::vector<std::pair<TSN, Data>> ExtractChunksThatCanFit(
+      std::set<UnwrappedTSN>& chunks,
+      size_t max_size);
 
   bool IsConsistent() const;
 

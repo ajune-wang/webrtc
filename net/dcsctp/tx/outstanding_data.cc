@@ -293,17 +293,12 @@ void OutstandingData::AbandonAllFor(const Item& item) {
   }
 }
 
-std::vector<std::pair<TSN, Data>> OutstandingData::GetChunksToBeRetransmitted(
+std::vector<std::pair<TSN, Data>> OutstandingData::ExtractChunksThatCanFit(
+    std::set<UnwrappedTSN>& chunks,
     size_t max_size) {
   std::vector<std::pair<TSN, Data>> result;
-  // TODO(webrtc:13969) Use a separate method for getting chunk that are
-  // eligible for fast retransmissions.
-  to_be_retransmitted_.insert(to_be_fast_retransmitted_.begin(),
-                              to_be_fast_retransmitted_.end());
-  to_be_fast_retransmitted_.clear();
 
-  for (auto it = to_be_retransmitted_.begin();
-       it != to_be_retransmitted_.end();) {
+  for (auto it = chunks.begin(); it != chunks.end();) {
     UnwrappedTSN tsn = *it;
     auto elem = outstanding_data_.find(tsn);
     RTC_DCHECK(elem != outstanding_data_.end());
@@ -320,7 +315,7 @@ std::vector<std::pair<TSN, Data>> OutstandingData::GetChunksToBeRetransmitted(
       max_size -= serialized_size;
       outstanding_bytes_ += serialized_size;
       ++outstanding_items_;
-      it = to_be_retransmitted_.erase(it);
+      it = chunks.erase(it);
     } else {
       ++it;
     }
@@ -329,9 +324,35 @@ std::vector<std::pair<TSN, Data>> OutstandingData::GetChunksToBeRetransmitted(
       break;
     }
   }
+  return result;
+}
+
+std::vector<std::pair<TSN, Data>>
+OutstandingData::GetChunksToBeFastRetransmitted(size_t max_size) {
+  std::vector<std::pair<TSN, Data>> result =
+      ExtractChunksThatCanFit(to_be_fast_retransmitted_, max_size);
+
+  // https://datatracker.ietf.org/doc/html/rfc4960#section-7.2.4
+  // "Those TSNs marked for retransmission due to the Fast-Retransmit algorithm
+  // that did not fit in the sent datagram carrying K other TSNs are also marked
+  // as ineligible for a subsequent Fast Retransmit.  However, as they are
+  // marked for retransmission they will be retransmitted later on as soon as
+  // cwnd allows."
+  if (!to_be_fast_retransmitted_.empty()) {
+    to_be_retransmitted_.insert(to_be_fast_retransmitted_.begin(),
+                                to_be_fast_retransmitted_.end());
+    to_be_fast_retransmitted_.clear();
+  }
 
   RTC_DCHECK(IsConsistent());
   return result;
+}
+
+std::vector<std::pair<TSN, Data>> OutstandingData::GetChunksToBeRetransmitted(
+    size_t max_size) {
+  // Chunks scheduled for fast retransmission must be sent first.
+  RTC_DCHECK(to_be_fast_retransmitted_.empty());
+  return ExtractChunksThatCanFit(to_be_retransmitted_, max_size);
 }
 
 void OutstandingData::ExpireOutstandingChunks(TimeMs now) {

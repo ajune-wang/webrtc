@@ -278,8 +278,12 @@ bool RetransmissionQueue::HandleSack(TimeMs now, const SackChunk& sack) {
     UpdateRTT(now, cumulative_tsn_ack);
   }
 
+  // Exit fast recovery before continuing processing, in case it needs to go
+  // into fast recovery again due to new reported packet loss.
+  MaybeExitFastRecovery(cumulative_tsn_ack);
+
   OutstandingData::AckInfo ack_info = outstanding_data_.HandleSack(
-      cumulative_tsn_ack, sack.gap_ack_blocks(), is_in_fast_retransmit_);
+      cumulative_tsn_ack, sack.gap_ack_blocks(), is_in_fast_recovery());
 
   // Update of outstanding_data_ is now done. Congestion control remains.
   UpdateReceiverWindow(sack.a_rwnd());
@@ -291,8 +295,6 @@ bool RetransmissionQueue::HandleSack(TimeMs now, const SackChunk& sack) {
                        << outstanding_data_.outstanding_bytes() << " ("
                        << old_outstanding_bytes << "), rwnd=" << rwnd_ << " ("
                        << old_rwnd << ")";
-
-  MaybeExitFastRecovery(cumulative_tsn_ack);
 
   if (cumulative_tsn_ack > old_last_cumulative_tsn_ack) {
     // https://tools.ietf.org/html/rfc4960#section-6.3.2

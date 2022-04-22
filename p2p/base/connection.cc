@@ -321,6 +321,7 @@ Connection::Connection(rtc::WeakPtr<Port> port,
 
 Connection::~Connection() {
   RTC_DCHECK_RUN_ON(network_thread_);
+  RTC_DCHECK(!port_);
 }
 
 webrtc::TaskQueueBase* Connection::network_thread() const {
@@ -830,10 +831,10 @@ void Connection::Prune() {
   }
 }
 
-void Connection::Destroy() {
+bool Connection::Shutdown() {
   RTC_DCHECK_RUN_ON(network_thread_);
   if (!port_)
-    return;
+    return false;  // already shut down.
 
   RTC_DLOG(LS_VERBOSE) << ToString() << ": Connection destroyed";
 
@@ -850,6 +851,14 @@ void Connection::Destroy() {
   // information required for logging needs access to `port_`.
   port_.reset();
 
+  return true;
+}
+
+void Connection::UnwindAndDelete() {
+  RTC_DCHECK_RUN_ON(network_thread_);
+  if (!Shutdown())
+    return;
+
   // Unwind the stack before deleting the object in case upstream callers
   // need to refer to the Connection's state as part of teardown.
   // NOTE: We move ownership of 'this' into the capture section of the lambda
@@ -863,7 +872,7 @@ void Connection::Destroy() {
 void Connection::FailAndDestroy() {
   RTC_DCHECK_RUN_ON(network_thread_);
   set_state(IceCandidatePairState::FAILED);
-  Destroy();
+  UnwindAndDelete();
 }
 
 void Connection::FailAndPrune() {
@@ -975,7 +984,7 @@ void Connection::UpdateState(int64_t now) {
   // Update the receiving state.
   UpdateReceiving(now);
   if (dead(now)) {
-    Destroy();
+    UnwindAndDelete();
   }
 }
 

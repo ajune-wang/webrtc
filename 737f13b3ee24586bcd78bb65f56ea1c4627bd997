@@ -100,6 +100,30 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "eb6e95e7_1380d9f3",
+        "filename": "api/video/i210_buffer.cc",
+        "patchSetId": 12
+      },
+      "lineNbr": 82,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2022-04-22T13:27:07Z",
+      "side": 1,
+      "message": "Fine to do as a followup.",
+      "parentUuid": "ba1bdc74_4126866b",
+      "range": {
+        "startLine": 80,
+        "startChar": 0,
+        "endLine": 82,
+        "endChar": 40
+      },
+      "revId": "737f13b3ee24586bcd78bb65f56ea1c4627bd997",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "58c2e8b5_4316f9f8",
@@ -137,6 +161,30 @@
       "side": 1,
       "message": "This method is a clone of the one in I010Buffer::Rotate()\n\nhttps://source.chromium.org/chromium/chromium/src/+/main:third_party/webrtc/api/video/i010_buffer.cc;l\u003d94",
       "parentUuid": "58c2e8b5_4316f9f8",
+      "range": {
+        "startLine": 101,
+        "startChar": 0,
+        "endLine": 102,
+        "endChar": 21
+      },
+      "revId": "737f13b3ee24586bcd78bb65f56ea1c4627bd997",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "b09e3132_f0d6148f",
+        "filename": "api/video/i210_buffer.cc",
+        "patchSetId": 12
+      },
+      "lineNbr": 102,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2022-04-22T13:27:07Z",
+      "side": 1,
+      "message": "Let\u0027s leave as is for consistency. Not sure what the right behavior is, but if changed, it makes sense to change all places in the same cl.\n\n(It may be that callers never use this with Rotation_0 anyway).",
+      "parentUuid": "85f2e6b8_9baeed78",
       "range": {
         "startLine": 101,
         "startChar": 0,
@@ -207,6 +255,30 @@
       "side": 1,
       "message": "Rotating a I210 plane requires a retate \u0026 scale. I implemented it for 422 buffer, so I guess I could try to land a similar patch for the 10 bit format.",
       "parentUuid": "2e045852_d829c5ae",
+      "range": {
+        "startLine": 116,
+        "startChar": 0,
+        "endLine": 117,
+        "endChar": 26
+      },
+      "revId": "737f13b3ee24586bcd78bb65f56ea1c4627bd997",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "9e1d5ff3_45d4839e",
+        "filename": "api/video/i210_buffer.cc",
+        "patchSetId": 12
+      },
+      "lineNbr": 117,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2022-04-22T13:27:07Z",
+      "side": 1,
+      "message": "I see. But RotatePlane could be used for Y plane, and for all planes in the case of Rotation_180, right?\n\nLeaving the case of 90 and 270 degree rotation of the U and V planes, which seems to be a trickier and irreversible operation.",
+      "parentUuid": "1f8ed3d5_4a71da8b",
       "range": {
         "startLine": 116,
         "startChar": 0,
@@ -301,6 +373,30 @@
       "side": 1,
       "message": "It is called y_plane in both I010Buffer and I444Buffer, would be better to keep it as it is for consistency.",
       "parentUuid": "e38374ac_d497f809",
+      "range": {
+        "startLine": 222,
+        "startChar": 18,
+        "endLine": 222,
+        "endChar": 25
+      },
+      "revId": "737f13b3ee24586bcd78bb65f56ea1c4627bd997",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "c20f1a53_29f4b3ea",
+        "filename": "api/video/i210_buffer.cc",
+        "patchSetId": 12
+      },
+      "lineNbr": 222,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2022-04-22T13:27:07Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "d2e8299b_e6afe593",
       "range": {
         "startLine": 222,
         "startChar": 18,

@@ -214,6 +214,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "27e686bd_9fce707e",
+        "filename": "modules/pacing/pacing_controller_unittest.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 2138,
+      "author": {
+        "id": 13704
+      },
+      "writtenOn": "2022-04-22T07:57:28Z",
+      "side": 1,
+      "message": "\u003e Yeah, changing the expectation order is going to be tricky. Is there a reason why that would be a problem here? If not strictly necessary would prefer not to do that in this CL.\n\nYes, when `Send` is invoked it might already have called `SendPacket` before the `EXPECT_CALL` is configured. Just move the `EXPECT_CALL` up a bit, ideally before `SetPacingRates` but at least before `Send`.",
+      "parentUuid": "e70baa19_f5f08f63",
+      "range": {
+        "startLine": 2138,
+        "startChar": 2,
+        "endLine": 2138,
+        "endChar": 46
+      },
+      "revId": "c77a43bf15dc00685fc273ae11b57eeaf0ef4ebd",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "f399252d_cffd6937",
         "filename": "modules/pacing/pacing_controller_unittest.cc",
         "patchSetId": 1

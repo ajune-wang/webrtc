@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "6e63a19c_75420475",
+        "filename": "modules/pacing/pacing_controller_unittest.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 2146,
+      "author": {
+        "id": 13704
+      },
+      "writtenOn": "2022-04-22T07:57:28Z",
+      "side": 1,
+      "message": "Nit: static constexpr",
+      "range": {
+        "startLine": 2146,
+        "startChar": 2,
+        "endLine": 2146,
+        "endChar": 7
+      },
+      "revId": "184e55721aff603e8cab370766770da9a1e0a104",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

@@ -148,6 +148,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "dcc4e5cb_b81b29b0",
+        "filename": "video/receive_statistics_proxy2.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 851,
+      "author": {
+        "id": 5142
+      },
+      "writtenOn": "2022-04-22T11:40:24Z",
+      "side": 1,
+      "message": "There\u0027s a risk of frame copies and other delays after the frame leaves WebRTC and enters Chromium, but it seems out-of-scope to improve the metric beyond what this CL is doing right now.",
+      "parentUuid": "868bdede_94dbd0cb",
+      "revId": "a0542652a5afaaeb8d779a33721c97298e9d5905",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "b14fd15d_ca5edf08",
         "filename": "video/receive_statistics_proxy2_unittest.cc",
         "patchSetId": 1

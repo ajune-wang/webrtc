@@ -130,6 +130,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "868bdede_94dbd0cb",
+        "filename": "video/receive_statistics_proxy2.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 851,
+      "author": {
+        "id": 5142
+      },
+      "writtenOn": "2022-04-22T11:38:01Z",
+      "side": 1,
+      "message": "OK thanks, then I think the way the CL correct the way it is now.\n\nStill want to see tests and a comment that we only collect it for video before LGTM",
+      "parentUuid": "e7ef9bbf_1261abf6",
+      "revId": "a0542652a5afaaeb8d779a33721c97298e9d5905",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "b14fd15d_ca5edf08",
         "filename": "video/receive_statistics_proxy2_unittest.cc",
         "patchSetId": 1

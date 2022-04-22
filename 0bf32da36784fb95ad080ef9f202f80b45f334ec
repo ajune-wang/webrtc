@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "7bef68e6_ff2a7c29",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5524
+      },
+      "writtenOn": "2022-04-22T11:20:16Z",
+      "side": 1,
+      "message": "Moved condition for when we stop sending probe packets.\nI think having it at the top of the loop is technically more correct, but it caused us to sometimes send one packet less which triggered a regression in one test.\nptal",
+      "revId": "0bf32da36784fb95ad080ef9f202f80b45f334ec",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

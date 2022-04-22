@@ -16,6 +16,23 @@
       "message": "Please take a look.",
       "revId": "a990b656dd732c59774db56a67d7796c510a0589",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "d5fc4349_c829bc73",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 4
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5087
+      },
+      "writtenOn": "2022-04-22T09:31:14Z",
+      "side": 1,
+      "message": "Sorry for the late reply on https://webrtc-review.googlesource.com/c/src/+/256580.\n\n(I am out of office now but I will review more carefully on Monday).\n\nIn the meantime, why https://webrtc-review.googlesource.com/c/src/+/256580 was abandoned? Was that because of the formatter?",
+      "revId": "a990b656dd732c59774db56a67d7796c510a0589",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

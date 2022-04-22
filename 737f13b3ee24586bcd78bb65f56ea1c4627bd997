@@ -291,6 +291,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "4a041024_e1738b8b",
+        "filename": "api/video/i210_buffer.cc",
+        "patchSetId": 12
+      },
+      "lineNbr": 117,
+      "author": {
+        "id": 5963
+      },
+      "writtenOn": "2022-04-22T13:29:20Z",
+      "side": 1,
+      "message": "My bad, there are no RotatePlane methods for 10 bits in libyuv, that\u0027s why I010Buffer implements it\u0027s own version of rotate and why I can\u0027t add a patch for i210 neither.",
+      "parentUuid": "1f8ed3d5_4a71da8b",
+      "range": {
+        "startLine": 116,
+        "startChar": 0,
+        "endLine": 117,
+        "endChar": 26
+      },
+      "revId": "737f13b3ee24586bcd78bb65f56ea1c4627bd997",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "9cdd6f8e_71ad917a",
         "filename": "api/video/i210_buffer.cc",
         "patchSetId": 12

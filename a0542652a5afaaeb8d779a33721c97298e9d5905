@@ -18,6 +18,23 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "fdd1609a_ef1ac217",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5142
+      },
+      "writtenOn": "2022-04-22T10:21:52Z",
+      "side": 1,
+      "message": "CC Ilya for question below",
+      "revId": "a0542652a5afaaeb8d779a33721c97298e9d5905",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "9c452392_3223c3f8",
@@ -48,6 +65,24 @@
       "writtenOn": "2022-04-22T08:06:44Z",
       "side": 1,
       "message": "If the worker thread is busy, there could be several milliseconds\u0027 worth of delay that happens between posting the task and the posted OnDecodedFrame() happening, which is the moment in time where framesDecoded happens to be incremented.\n\nI\u0027m wondering if the \"processing time\" should also cover this delay (by passing first_packet_receive time as the argument in the PostTask, and calculate the delay inside the posted OnDecodedFrame() instead) or if it shouldn\u0027t cover this delay (current CL already measures the time that decoding completed).\n\nThe spec does say to measure until the frame is \"ready for playout\". But the spec also says that \"typically ready for layout here means after the [...] video frame is fully decoded by the decoder\"... typically.\n\nConsidering we already have a totalDecodeTime, I think the intent behind totalProcessingTime would be to cover as much of the delay as possible, which leads me to believe maybe we should also cover the delay of this PostTask. But that\u0027s ONLY assuming the MediaStreamTrack\u0027s frame passes through the worker thread as well. Maybe it doesn\u0027t?\n\nWhen does the decoded frame get handed off to the MediaStreamTrack? Before or after the PostTask?",
+      "revId": "a0542652a5afaaeb8d779a33721c97298e9d5905",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "e50f0cf3_9b71f421",
+        "filename": "video/receive_statistics_proxy2.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 851,
+      "author": {
+        "id": 5142
+      },
+      "writtenOn": "2022-04-22T10:21:52Z",
+      "side": 1,
+      "message": "+Ilya has the video frame already been passed to the rest of the pipeline when this PostTask happens or not? Looks like only meta data is being passed in the PostTask.",
+      "parentUuid": "2b67eeab_a3b5af81",
       "revId": "a0542652a5afaaeb8d779a33721c97298e9d5905",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },

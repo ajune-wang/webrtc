@@ -1268,7 +1268,7 @@ TEST_F(TurnPortTest, TestStopProcessingPacketsAfterClosed) {
   EXPECT_EQ_SIMULATED_WAIT(Connection::STATE_WRITABLE, conn2->write_state(),
                            kSimulatedRtt * 2, fake_clock_);
 
-  turn_port_->Close();
+  turn_port_->CloseForTest();
   SIMULATED_WAIT(false, kSimulatedRtt, fake_clock_);
   turn_unknown_address_ = false;
   conn2->Ping(0);

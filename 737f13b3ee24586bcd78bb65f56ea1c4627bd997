@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "f98a0679_e80c1f00",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 12
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5963
+      },
+      "writtenOn": "2022-04-22T12:28:41Z",
+      "side": 1,
+      "message": "Sorry for the number of patchsets, but I messed with my local environment and had to bring back the previous changes.  Ignore patchsets from 5 to 10. ",
+      "revId": "737f13b3ee24586bcd78bb65f56ea1c4627bd997",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

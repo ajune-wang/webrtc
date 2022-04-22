@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "aabf9163_adc007a4",
+        "filename": "rtc_base/time_utils.h",
+        "patchSetId": 3
+      },
+      "lineNbr": 118,
+      "author": {
+        "id": 5117
+      },
+      "writtenOn": "2022-04-22T08:41:24Z",
+      "side": 1,
+      "message": "What stops us from removing it completely? Is it still used in some downstream projects?",
+      "range": {
+        "startLine": 118,
+        "startChar": 6,
+        "endLine": 118,
+        "endChar": 21
+      },
+      "revId": "7f1607d3aa1b46f789bc5a078b699ddf3e19c643",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

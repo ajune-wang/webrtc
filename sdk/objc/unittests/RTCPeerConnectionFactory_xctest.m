@@ -131,6 +131,8 @@
   XCTAssertTrue(true, "Expect test does not crash");
 }
 
+// TODO(b/123): fix senderWithKind to not use CreateSender
+//#if !TARGET_IPHONE_SIMULATOR
 - (void)testRTCRtpSenderLifetime {
   @autoreleasepool {
     RTC_OBJC_TYPE(RTCConfiguration) *config = [[RTC_OBJC_TYPE(RTCConfiguration) alloc] init];
@@ -204,6 +206,7 @@
 
   XCTAssertTrue(true, "Expect test does not crash");
 }
+//#endif
 
 - (void)testAudioSourceLifetime {
   @autoreleasepool {

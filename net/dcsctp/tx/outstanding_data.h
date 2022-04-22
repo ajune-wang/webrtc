@@ -77,7 +77,7 @@ class OutstandingData {
   AckInfo HandleSack(
       UnwrappedTSN cumulative_tsn_ack,
       rtc::ArrayView<const SackChunk::GapAckBlock> gap_ack_blocks,
-      bool is_in_fast_retransmit);
+      bool is_in_fast_recovery);
 
   // Given `max_size` of space left in a packet, which chunks can be added to
   // it?
@@ -95,7 +95,7 @@ class OutstandingData {
   bool empty() const { return outstanding_data_.empty(); }
 
   bool has_data_to_be_retransmitted() const {
-    return !to_be_retransmitted_.empty();
+    return !to_be_retransmitted_.empty() || !to_be_fast_retransmitted_.empty();
   }
 
   UnwrappedTSN last_cumulative_tsn_ack() const {
@@ -167,7 +167,7 @@ class OutstandingData {
     // is set, it might be marked for retransmission. If the item has reached
     // its max retransmission value, it will instead be abandoned. The action
     // performed is indicated as return value.
-    NackAction Nack(bool retransmit_now = false);
+    NackAction Nack(bool retransmit_now);
 
     // Prepares the item to be retransmitted. Sets it as outstanding and
     // clears all nack counters.
@@ -181,7 +181,6 @@ class OutstandingData {
     bool is_nacked() const { return ack_state_ == AckState::kNacked; }
     bool is_abandoned() const { return lifecycle_ == Lifecycle::kAbandoned; }
 
-    // Indicates if this chunk should be retransmitted.
     bool should_be_retransmitted() const {
       return lifecycle_ == Lifecycle::kToBeRetransmitted;
     }
@@ -266,7 +265,14 @@ class OutstandingData {
   // action indicated when nacking an item (e.g. retransmitting or abandoning).
   // The return value indicate if an action was performed, meaning that packet
   // loss was detected and acted upon.
-  bool NackItem(UnwrappedTSN tsn, Item& item, bool retransmit_now);
+  // If `do_fast_retransmit` is set and if the item has been nacked sufficiently
+  // many times so that it should be retransmitted, this will schedule it to be
+  // "fast retransmitted". This is only done just before going into fast
+  // recovery.
+  bool NackItem(UnwrappedTSN tsn,
+                Item& item,
+                bool retransmit_now,
+                bool do_fast_retransmit);
 
   // Given that a message fragment, `item` has been abandoned, abandon all other
   // fragments that share the same message - both never-before-sent fragments
@@ -290,6 +296,8 @@ class OutstandingData {
   // The number of DATA chunks that are in-flight (sent but not yet acked or
   // nacked).
   size_t outstanding_items_ = 0;
+  // Data chunks that are eligible for fast retransmission.
+  std::set<UnwrappedTSN> to_be_fast_retransmitted_;
   // Data chunks that are to be retransmitted.
   std::set<UnwrappedTSN> to_be_retransmitted_;
 };

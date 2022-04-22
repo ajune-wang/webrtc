@@ -51,6 +51,24 @@
       "parentUuid": "d5fc4349_c829bc73",
       "revId": "a990b656dd732c59774db56a67d7796c510a0589",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "b1a70464_9657be65",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 4
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 9405
+      },
+      "writtenOn": "2022-04-22T10:26:32Z",
+      "side": 1,
+      "message": "Right. I changed to use DEPS to avoid issues caused by the formatter.\n\nI\u0027ll leave this CL open. But I didn\u0027t find any options in `git-cl` (or `clang-format`) to keep these C++ sources intact.",
+      "parentUuid": "92ea23c0_52195f31",
+      "revId": "a990b656dd732c59774db56a67d7796c510a0589",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

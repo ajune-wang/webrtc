@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "2d249e57_6de7c8ae",
+        "filename": "test/pc/e2e/analyzer/video/video_quality_metrics_reporter.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 53,
+      "author": {
+        "id": 6337
+      },
+      "writtenOn": "2022-04-22T12:46:52Z",
+      "side": 1,
+      "message": "Should it be kind here too?",
+      "range": {
+        "startLine": 53,
+        "startChar": 14,
+        "endLine": 53,
+        "endChar": 24
+      },
+      "revId": "6982fa8a757af5cc80153a1250973923d7313c7d",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

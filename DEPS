@@ -37,6 +37,11 @@ deps = {
     'url': 'https://chromium.googlesource.com/chromium/src/ios@f05ae3297ca17437161afa22ff5058f02907ae5b',
     'condition': 'checkout_ios',
   },
+  # portaudio is a WebRTC-only dependency. Used for MacOS audio devices.
+  'src/modules/third_party/portaudio/src': {
+    'url': 'https://chromium.googlesource.com/external/github.com/PortAudio/portaudio@9d8563100d841300f1689b186d131347ad43a0f6',
+    'condition': 'checkout_mac',
+  },
   'src/testing':
     'https://chromium.googlesource.com/chromium/src/testing@e6c44c92f467e34425694b2db614d2f44ab9307f',
   'src/third_party':

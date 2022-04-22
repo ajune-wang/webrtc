@@ -321,6 +321,7 @@ Connection::Connection(rtc::WeakPtr<Port> port,
 
 Connection::~Connection() {
   RTC_DCHECK_RUN_ON(network_thread_);
+  RTC_DCHECK(!port_);
 }
 
 webrtc::TaskQueueBase* Connection::network_thread() const {
@@ -830,10 +831,10 @@ void Connection::Prune() {
   }
 }
 
-void Connection::Destroy() {
+bool Connection::Shutdown() {
   RTC_DCHECK_RUN_ON(network_thread_);
   if (!port_)
-    return;
+    return false;  // already shut down.
 
   RTC_DLOG(LS_VERBOSE) << ToString() << ": Connection destroyed";
 
@@ -849,6 +850,14 @@ void Connection::Destroy() {
   // Reset the `port_` after logging and firing the destroyed signal since
   // information required for logging needs access to `port_`.
   port_.reset();
+
+  return true;
+}
+
+void Connection::Destroy() {
+  RTC_DCHECK_RUN_ON(network_thread_);
+  if (!Shutdown())
+    return;
 
   // Unwind the stack before deleting the object in case upstream callers
   // need to refer to the Connection's state as part of teardown.

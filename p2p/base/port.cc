@@ -200,6 +200,7 @@ Port::~Port() {
 
   for (uint32_t i = 0; i < list.size(); i++) {
     list[i]->SignalDestroyed.disconnect(this);
+    list[i]->Shutdown();
     delete list[i];
   }
 }
@@ -616,7 +617,12 @@ void Port::DestroyAllConnections() {
   RTC_DCHECK_RUN_ON(thread_);
   for (auto kv : connections_) {
     kv.second->SignalDestroyed.disconnect(this);
+#if 0
     kv.second->Destroy();
+#else
+    kv.second->Shutdown();
+    delete kv.second;
+#endif
   }
   connections_.clear();
 }

@@ -188,6 +188,9 @@ class Connection : public CandidatePairInterface, public sigslot::has_slots<> {
   int receiving_timeout() const;
   void set_receiving_timeout(absl::optional<int> receiving_timeout_ms);
 
+  // Performs tear down, .
+  bool Shutdown();
+
   // Makes the connection go away.
   void Destroy();
 

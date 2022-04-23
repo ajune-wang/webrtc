@@ -370,7 +370,7 @@ if (is_ios || (is_mac && target_cpu != "x86")) {
       deps = [
         ":AppRTCMobile_ios_bundle_data",
         ":AppRTCMobile_lib",
-        "../sdk:framework_objc",
+        "../sdk:framework_objc_bundle",
         "../sdk:ios_framework_bundle",
       ]
 
@@ -430,7 +430,7 @@ if (is_ios || (is_mac && target_cpu != "x86")) {
 
         deps = [
           ":AppRTCMobileBroadcastUpload_lib",
-          "../sdk:framework_objc",
+          "../sdk:framework_objc_bundle",
         ]
       }
 
@@ -652,7 +652,7 @@ if (is_ios || (is_mac && target_cpu != "x86")) {
         deps = [
           ":AppRTCMobile_lib",
           ":apprtcmobile_test_sources",
-          "../sdk:framework_objc",
+          "../sdk:framework_objc_bundle",
           "//test:test_support",
         ]
         ldflags = [ "-all_load" ]

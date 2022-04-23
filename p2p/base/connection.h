@@ -188,8 +188,19 @@ class Connection : public CandidatePairInterface, public sigslot::has_slots<> {
   int receiving_timeout() const;
   void set_receiving_timeout(absl::optional<int> receiving_timeout_ms);
 
-  // Makes the connection go away.
+  // The preferred way of destroying a `Connection` instance is by calling
+  // the `DestroyConnection` method in `Port`. This method is provided
+  // for some external callers that still need it. Basically just forwards
+  // the call to port_.
   void Destroy();
+
+  // Signals object destruction, releases outstanding references and performs
+  // final logging. `
+  bool Shutdown();
+
+  // Calls `Shutdown()` and then deletes the object asynchronously after
+  // unwinding the stack.
+  void UnwindAndDelete();
 
   // Makes the connection go away, in a failed state.
   void FailAndDestroy();

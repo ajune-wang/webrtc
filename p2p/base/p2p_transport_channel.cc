@@ -221,10 +221,10 @@ P2PTransportChannel::P2PTransportChannel(
 P2PTransportChannel::~P2PTransportChannel() {
   TRACE_EVENT0("webrtc", "P2PTransportChannel::~P2PTransportChannel");
   RTC_DCHECK_RUN_ON(network_thread_);
-  std::vector<Connection*> copy(connections().begin(), connections().end());
-  for (Connection* con : copy) {
+  for (Connection* con : connections()) {
     con->SignalDestroyed.disconnect(this);
-    con->Destroy();
+    auto* port = con->port();
+    port->DestroyConnection(con);
   }
   resolvers_.clear();
 }
@@ -1695,7 +1695,12 @@ void P2PTransportChannel::RemoveConnectionForTest(Connection* connection) {
   RTC_DCHECK(!FindConnection(connection));
   if (selected_connection_ == connection)
     selected_connection_ = nullptr;
+#if 0
   connection->Destroy();
+#else
+  connection->Shutdown();
+  delete connection;
+#endif
 }
 
 // Monitor connection states.
@@ -2040,7 +2045,12 @@ void P2PTransportChannel::HandleAllTimedOut() {
     }
     connection->SignalDestroyed.disconnect(this);
     ice_controller_->OnConnectionDestroyed(connection);
+#if 0
     connection->Destroy();
+#else
+    connection->Shutdown();
+    delete connection;
+#endif
   }
 
   if (update_selected_connection)

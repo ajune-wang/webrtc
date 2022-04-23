@@ -1015,18 +1015,22 @@ if (is_mac || is_ios) {
       }
     }
     if (is_ios) {
-      ios_framework_bundle(target_name) {
+      ios_xctest_bundle(target_name) {
         forward_variables_from(invoker,
                                "*",
                                [
                                  "configs",
                                  "public_headers",
                                ])
+        xcode_test_application_name = target_name
+        product_type = "com.apple.product-type.bundle.unit-test"
+        host_target = target_name + "_runner"
         if (defined(invoker.configs)) {
           configs += invoker.configs
         }
-        public_headers = get_target_outputs(
-                ":create_bracket_include_headers_$this_target_name")
+
+        #public_headers = get_target_outputs(
+        #        ":create_bracket_include_headers_$this_target_name")
 
         deps += [
           ":copy_umbrella_header_$this_target_name",

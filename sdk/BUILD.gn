@@ -22,7 +22,8 @@ group("sdk") {
       public_deps += [ "android" ]
     }
     if (is_ios) {
-      public_deps += [ ":framework_objc" ]
+      public_deps +=  # no-presubmit-check TODO(webrtc:8603)
+          [ ":framework_objc+bundle" ]
     }
   }
 }
@@ -1161,6 +1162,10 @@ if (is_ios || is_mac) {
 
         # These tests link to the framework.
         rtc_test("sdk_framework_unittests") {
+          #xcode_test_application_name = "sdk_framework_unittests"
+
+          #xctest_bundle_principal_class =
+          #    "RTCDoNotPutCPlusPlusInFrameworkHeaders"
           is_xctest = true
           info_plist = "//test/ios/Info.plist"
           sources = [
@@ -1245,7 +1250,7 @@ if (is_ios || is_mac) {
 
     if (is_ios) {
       apple_framework_bundle_with_umbrella_header("framework_objc") {
-        info_plist = "objc/Info.plist"
+        #info_plist = "objc/Info.plist"
         output_name = "WebRTC"
 
         common_objc_headers = [
@@ -1346,11 +1351,11 @@ if (is_ios || is_mac) {
         sources = common_objc_headers
         public_headers = common_objc_headers
 
-        ldflags = [
-          "-all_load",
-          "-install_name",
-          "@rpath/$output_name.framework/$output_name",
-        ]
+        #ldflags = [
+        #  "-all_load",
+        #  "-install_name",
+        #  "@rpath/$output_name.framework/$output_name",
+        #]
 
         deps = [
           ":audio_objc",
@@ -1375,18 +1380,18 @@ if (is_ios || is_mac) {
           ]
         }
 
-        frameworks = [
-          "AVFoundation.framework",
-          "CoreGraphics.framework",
-          "CoreMedia.framework",
-        ]
+        #frameworks = [
+        #  "AVFoundation.framework",
+        #  "CoreGraphics.framework",
+        #  "CoreMedia.framework",
+        #]
 
         configs = [
           "..:common_objc",
           ":used_from_extension",
         ]
 
-        public_configs = [ ":common_config_objc" ]
+        #public_configs = [ ":common_config_objc" ]
       }
 
       bundle_data("ios_framework_bundle") {

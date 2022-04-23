@@ -221,10 +221,10 @@ P2PTransportChannel::P2PTransportChannel(
 P2PTransportChannel::~P2PTransportChannel() {
   TRACE_EVENT0("webrtc", "P2PTransportChannel::~P2PTransportChannel");
   RTC_DCHECK_RUN_ON(network_thread_);
-  std::vector<Connection*> copy(connections().begin(), connections().end());
-  for (Connection* con : copy) {
+  for (Connection* con : connections()) {
     con->SignalDestroyed.disconnect(this);
-    con->Destroy();
+    auto* port = con->port();
+    port->DestroyConnection(con);
   }
   resolvers_.clear();
 }
@@ -1695,7 +1695,7 @@ void P2PTransportChannel::RemoveConnectionForTest(Connection* connection) {
   RTC_DCHECK(!FindConnection(connection));
   if (selected_connection_ == connection)
     selected_connection_ = nullptr;
-  connection->Destroy();
+  connection->port()->DestroyConnection(connection);
 }
 
 // Monitor connection states.
@@ -2032,6 +2032,9 @@ void P2PTransportChannel::OnSelectedConnectionDestroyed() {
 void P2PTransportChannel::HandleAllTimedOut() {
   RTC_DCHECK_RUN_ON(network_thread_);
   bool update_selected_connection = false;
+  // Create a copy of `connections()` since
+  // `ice_controller_->OnConnectionDestroyed` will cause the underlying vector
+  // to change.
   std::vector<Connection*> copy(connections().begin(), connections().end());
   for (Connection* connection : copy) {
     if (selected_connection_ == connection) {
@@ -2040,7 +2043,7 @@ void P2PTransportChannel::HandleAllTimedOut() {
     }
     connection->SignalDestroyed.disconnect(this);
     ice_controller_->OnConnectionDestroyed(connection);
-    connection->Destroy();
+    connection->port()->DestroyConnection(connection);
   }
 
   if (update_selected_connection)

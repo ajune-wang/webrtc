@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "2562606c_ff491f4a",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 10
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 7755
+      },
+      "writtenOn": "2022-04-23T07:18:27Z",
+      "side": 1,
+      "message": "After some testing in Chrome it looks like the transport stats exist after setLocalDescription.\nThis means the role may change depending on the other side\u0027s setup attribute (and maybe ice conflicts) and can not be \"unknown\" in practice.\nShall I\n1/ remove \"unknown\" from the spec\n2/ expose it as \"unknown\" until after the handshake (i.e. remote certificate is set)?",
+      "revId": "c2d4d6f57d6d12215acf39188cde65414157646c",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

@@ -652,7 +652,7 @@ if (is_ios || (is_mac && target_cpu != "x86")) {
         deps = [
           ":AppRTCMobile_lib",
           ":apprtcmobile_test_sources",
-          "../sdk:framework_objc",
+          "../sdk:framework_objc+bundle",
           "//test:test_support",
         ]
         ldflags = [ "-all_load" ]

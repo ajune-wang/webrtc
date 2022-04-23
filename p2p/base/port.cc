@@ -186,22 +186,7 @@ void Port::Construct() {
 Port::~Port() {
   RTC_DCHECK_RUN_ON(thread_);
   CancelPendingTasks();
-
-  // Delete all of the remaining connections.  We copy the list up front
-  // because each deletion will cause it to be modified.
-
-  std::vector<Connection*> list;
-
-  AddressMap::iterator iter = connections_.begin();
-  while (iter != connections_.end()) {
-    list.push_back(iter->second);
-    ++iter;
-  }
-
-  for (uint32_t i = 0; i < list.size(); i++) {
-    list[i]->SignalDestroyed.disconnect(this);
-    delete list[i];
-  }
+  DestroyAllConnections();
 }
 
 const std::string& Port::Type() const {
@@ -353,7 +338,13 @@ void Port::AddOrReplaceConnection(Connection* conn) {
            "New remote candidate: "
         << conn->remote_candidate().ToSensitiveString();
     ret.first->second->SignalDestroyed.disconnect(this);
+#if 0
     ret.first->second->Destroy();
+#else
+    HandleConnectionDestroyed(ret.first->second);
+    ret.first->second->Shutdown();
+    delete ret.first->second;
+#endif
     ret.first->second = conn;
   }
   conn->SignalDestroyed.connect(this, &Port::OnConnectionDestroyed);
@@ -612,11 +603,20 @@ rtc::DiffServCodePoint Port::StunDscpValue() const {
   return rtc::DSCP_NO_CHANGE;
 }
 
+void Port::DestroyConnection(Connection* conn) {
+  RTC_DCHECK_RUN_ON(thread_);
+  conn->SignalDestroyed.disconnect(this);
+  OnConnectionDestroyed(conn);
+  conn->Shutdown();
+  delete conn;
+}
+
 void Port::DestroyAllConnections() {
   RTC_DCHECK_RUN_ON(thread_);
-  for (auto kv : connections_) {
-    kv.second->SignalDestroyed.disconnect(this);
-    kv.second->Destroy();
+  for (auto& [unused, connection] : connections_) {
+    connection->SignalDestroyed.disconnect(this);
+    connection->Shutdown();
+    delete connection;
   }
   connections_.clear();
 }

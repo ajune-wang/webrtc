@@ -510,7 +510,8 @@ void TCPConnection::OnClose(rtc::AsyncPacketSocket* socket, int error) {
         webrtc::ToQueuedTask(network_safety_,
                              [this]() {
                                if (pretending_to_be_writable_) {
-                                 Destroy();
+                                 Shutdown();
+                                 delete this;
                                }
                              }),
         reconnection_timeout());
@@ -520,7 +521,7 @@ void TCPConnection::OnClose(rtc::AsyncPacketSocket* socket, int error) {
     // to manually destroy here as this connection, as never connected, will not
     // be scheduled for ping to trigger destroy.
     socket_->UnsubscribeClose(this);
-    Destroy();
+    UnwindAndDelete();
   }
 }
 

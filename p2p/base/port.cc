@@ -200,6 +200,7 @@ Port::~Port() {
 
   for (uint32_t i = 0; i < list.size(); i++) {
     list[i]->SignalDestroyed.disconnect(this);
+    list[i]->Shutdown();
     delete list[i];
   }
 }
@@ -353,7 +354,13 @@ void Port::AddOrReplaceConnection(Connection* conn) {
            "New remote candidate: "
         << conn->remote_candidate().ToSensitiveString();
     ret.first->second->SignalDestroyed.disconnect(this);
+#if 0
     ret.first->second->Destroy();
+#else
+    HandleConnectionDestroyed(ret.first->second);
+    ret.first->second->Shutdown();
+    delete ret.first->second;
+#endif
     ret.first->second = conn;
   }
   conn->SignalDestroyed.connect(this, &Port::OnConnectionDestroyed);
@@ -612,11 +619,24 @@ rtc::DiffServCodePoint Port::StunDscpValue() const {
   return rtc::DSCP_NO_CHANGE;
 }
 
+void Port::DestroyConnection(Connection* conn) {
+  RTC_DCHECK_RUN_ON(thread_);
+  conn->SignalDestroyed.disconnect(this);
+  OnConnectionDestroyed(conn);
+  conn->Shutdown();
+  delete conn;
+}
+
 void Port::DestroyAllConnections() {
   RTC_DCHECK_RUN_ON(thread_);
   for (auto kv : connections_) {
     kv.second->SignalDestroyed.disconnect(this);
+#if 0
     kv.second->Destroy();
+#else
+    kv.second->Shutdown();
+    delete kv.second;
+#endif
   }
   connections_.clear();
 }

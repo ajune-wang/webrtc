@@ -321,6 +321,7 @@ Connection::Connection(rtc::WeakPtr<Port> port,
 
 Connection::~Connection() {
   RTC_DCHECK_RUN_ON(network_thread_);
+  RTC_DCHECK(!port_);
 }
 
 webrtc::TaskQueueBase* Connection::network_thread() const {
@@ -832,8 +833,14 @@ void Connection::Prune() {
 
 void Connection::Destroy() {
   RTC_DCHECK_RUN_ON(network_thread_);
+  if (port_)
+    port_->DestroyConnection(this);
+}
+
+bool Connection::Shutdown() {
+  RTC_DCHECK_RUN_ON(network_thread_);
   if (!port_)
-    return;
+    return false;  // already shut down.
 
   RTC_DLOG(LS_VERBOSE) << ToString() << ": Connection destroyed";
 
@@ -850,20 +857,7 @@ void Connection::Destroy() {
   // information required for logging needs access to `port_`.
   port_.reset();
 
-  // Unwind the stack before deleting the object in case upstream callers
-  // need to refer to the Connection's state as part of teardown.
-  // NOTE: We move ownership of 'this' into the capture section of the lambda
-  // so that the object will always be deleted, including if PostTask fails.
-  // In such a case (only tests), deletion would happen inside of the call
-  // to `Destroy()`.
-  network_thread_->PostTask(
-      webrtc::ToQueuedTask([me = absl::WrapUnique(this)]() {}));
-}
-
-void Connection::FailAndDestroy() {
-  RTC_DCHECK_RUN_ON(network_thread_);
-  set_state(IceCandidatePairState::FAILED);
-  Destroy();
+  return true;
 }
 
 void Connection::FailAndPrune() {
@@ -873,9 +867,9 @@ void Connection::FailAndPrune() {
   // and Connection. In some cases (Port dtor), a Connection object is deleted
   // without using the `Destroy` method (port_ won't be nulled and some
   // functionality won't run as expected), while in other cases
-  // (AddOrReplaceConnection), the Connection object is deleted asynchronously
-  // via the `Destroy` method and in that case `port_` will be nulled.
-  // However, in that case, there's a chance that the Port object gets
+  // the Connection object is deleted asynchronously and in that case `port_`
+  // will be nulled.
+  // In such a case, there's a chance that the Port object gets
   // deleted before the Connection object ends up being deleted.
   if (!port_)
     return;
@@ -975,7 +969,7 @@ void Connection::UpdateState(int64_t now) {
   // Update the receiving state.
   UpdateReceiving(now);
   if (dead(now)) {
-    Destroy();
+    port_->DestroyConnection(this, true);
   }
 }
 
@@ -1393,7 +1387,8 @@ void Connection::OnConnectionRequestErrorResponse(ConnectionRequest* request,
     RTC_LOG(LS_ERROR) << ToString()
                       << ": Received STUN error response, code=" << error_code
                       << "; killing connection";
-    FailAndDestroy();
+    set_state(IceCandidatePairState::FAILED);
+    port_->DestroyConnection(this, true);
   }
 }
 

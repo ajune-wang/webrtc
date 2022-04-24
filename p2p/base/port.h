@@ -292,6 +292,7 @@ class Port : public PortInterface,
 
   // Returns the connection to the given address or NULL if none exists.
   Connection* GetConnection(const rtc::SocketAddress& remote_addr) override;
+  void DestroyConnection(Connection* conn, bool async = false);
 
   // In a shared socket mode each port which shares the socket will decide
   // to accept the packet based on the `remote_addr`. Currently only UDP
@@ -452,7 +453,7 @@ class Port : public PortInterface,
 
  private:
   void Construct();
-  // Called when one of our connections deletes itself.
+  // Called when deleting a connection object.
   void OnConnectionDestroyed(Connection* conn);
 
   void OnNetworkTypeChanged(const rtc::Network* network);

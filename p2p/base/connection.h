@@ -188,11 +188,15 @@ class Connection : public CandidatePairInterface, public sigslot::has_slots<> {
   int receiving_timeout() const;
   void set_receiving_timeout(absl::optional<int> receiving_timeout_ms);
 
-  // Makes the connection go away.
+  // The preferred way of destroying a `Connection` instance is by calling
+  // the `DestroyConnection` method in `Port`. This method is provided
+  // for some external callers that still need it. Basically just forwards
+  // the call to port_.
   void Destroy();
 
-  // Makes the connection go away, in a failed state.
-  void FailAndDestroy();
+  // Signals object destruction, releases outstanding references and performs
+  // final logging. `
+  bool Shutdown();
 
   // Prunes the connection and sets its state to STATE_FAILED,
   // It will not be used or send pings although it can still receive packets.
@@ -351,6 +355,16 @@ class Connection : public CandidatePairInterface, public sigslot::has_slots<> {
   // The local port where this connection sends and receives packets.
   Port* port() { return port_.get(); }
   const Port* port() const { return port_.get(); }
+
+  // Calls `Shutdown()` and then deletes the object asynchronously after
+  // unwinding the stack. Intended to be used from within callbacks whereby
+  // the connection object needs to be deleted, but the call stack needs to
+  // be unwound first.
+  void UnwindAndDelete();
+
+  // Sets the state to `IceCandidatePairState::FAILED` and calls
+  // `UnwindAndDelete`.
+  void FailAndDestroy();
 
   // NOTE: A pointer to the network thread is held by `port_` so in theory we
   // shouldn't need to hold on to this pointer here, but rather defer to

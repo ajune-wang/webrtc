@@ -34,6 +34,24 @@
       "parentUuid": "2562606c_ff491f4a",
       "revId": "c2d4d6f57d6d12215acf39188cde65414157646c",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "20ca8662_5f5e3b3c",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 10
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2022-04-25T08:13:52Z",
+      "side": 1,
+      "message": "perhaps the right state after processing an offer is the role taken from SDP, which would necssitate adding the direction \"actpass\".\nIf we can drop the \"unknown\" state, that might be worth having to explain what \"actpass\" means.",
+      "parentUuid": "4c86a539_525d136f",
+      "revId": "c2d4d6f57d6d12215acf39188cde65414157646c",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

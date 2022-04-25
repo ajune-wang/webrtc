@@ -1,0 +1,55 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "921c0983_9e14348a",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 3
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2022-04-25T14:51:13Z",
+      "side": 1,
+      "message": "I think this is OK.\nQuery: Is the order of things in to_be_retransmitted either immaterial or imposed by the container?\nIf it was FIFO, then being a candidate for fast retransmission would cause fast-retransmit packets to go to the back of the queue once fast-retransmit failed to send them.",
+      "revId": "e3075a1b8126ecb290e5505ca11cddff84b1e6eb",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "ed18f807_533c50a6",
+        "filename": "net/dcsctp/tx/outstanding_data.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 323,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2022-04-25T14:51:13Z",
+      "side": 1,
+      "message": "should this be +1, or are there data packets that have no data?",
+      "revId": "e3075a1b8126ecb290e5505ca11cddff84b1e6eb",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "48fffde0_39ddc0c0",
+        "filename": "net/dcsctp/tx/outstanding_data.h",
+        "patchSetId": 3
+      },
+      "lineNbr": 276,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2022-04-25T14:51:13Z",
+      "side": 1,
+      "message": "\"To nack an item\" sounds like it will send a nack, but it actually processes a nack (I think from the description of performing actions). In context, it should be clear, but might be wise to read the comments to check that they\u0027re obvious.",
+      "revId": "e3075a1b8126ecb290e5505ca11cddff84b1e6eb",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

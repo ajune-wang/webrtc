@@ -16,6 +16,24 @@
       "message": "After some testing in Chrome it looks like the transport stats exist after setLocalDescription.\nThis means the role may change depending on the other side\u0027s setup attribute (and maybe ice conflicts) and can not be \"unknown\" in practice.\nShall I\n1/ remove \"unknown\" from the spec\n2/ expose it as \"unknown\" until after the handshake (i.e. remote certificate is set)?",
       "revId": "c2d4d6f57d6d12215acf39188cde65414157646c",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "4c86a539_525d136f",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 10
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5142
+      },
+      "writtenOn": "2022-04-25T07:12:02Z",
+      "side": 1,
+      "message": "So there\u0027s always a role when \"transport\" stats exist, with dtlsRole being \"client\". But after the handshake it could permanently change to \"server\". And \"unknown\" is never a thing?\n\nHarald: What makes more sense?\n- Removing \"unknown\" in favor of \"client\"/\"server\" even though \"client\" could change to \"server\" in the initial handshake.\n- Or reporting \"unknown\" until the initial handshake has completed.",
+      "parentUuid": "2562606c_ff491f4a",
+      "revId": "c2d4d6f57d6d12215acf39188cde65414157646c",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

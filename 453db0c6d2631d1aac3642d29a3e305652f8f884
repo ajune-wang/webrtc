@@ -33,6 +33,24 @@
       "message": "Do you think the unit tests can be improved to cover any of these cases that led to reverts?",
       "revId": "453db0c6d2631d1aac3642d29a3e305652f8f884",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "ae2358ac_36ecfb46",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5524
+      },
+      "writtenOn": "2022-04-25T08:52:25Z",
+      "side": 1,
+      "message": "I don\u0027t see an easy way to do it unfortunately - the pacer isn\u0027t really doing anything unexpected. It\u0027s just that this change causes equal-priority streams to be selected in a slightly different order - and that order happens to be an unlucky match to the loss patterns used by a down-stream integration test, causing more frame drops. \nMore info in cl/444013850",
+      "parentUuid": "ece2190b_3f358d6c",
+      "revId": "453db0c6d2631d1aac3642d29a3e305652f8f884",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

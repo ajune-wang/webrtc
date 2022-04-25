@@ -1107,7 +1107,7 @@ if (is_android) {
       errorprone_args = []
 
       # Treat warnings as errors.
-      errorprone_args += [ "-Werror" ]
+      #ierrorprone_args += [ "-Werror" ]
 
       # Add any arguments defined by the invoker.
       if (defined(invoker.errorprone_args)) {
@@ -1136,7 +1136,8 @@ if (is_android) {
 
       # Treat warnings as errors.
       errorprone_args = []
-      errorprone_args += [ "-Werror" ]
+
+      #errorprone_args += [ "-Werror" ]
 
       if (!defined(deps)) {
         deps = []
@@ -1159,7 +1160,8 @@ if (is_android) {
 
       # Treat warnings as errors.
       errorprone_args = []
-      errorprone_args += [ "-Werror" ]
+
+      #errorprone_args += [ "-Werror" ]
 
       if (!defined(deps)) {
         deps = []

@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "5b025c08_bc2e7323",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 19199
+      },
+      "writtenOn": "2022-04-25T18:30:42Z",
+      "side": 1,
+      "message": "This is a suggestion to adapt the v8 change into WebRTC as well. Feel free to merge or abandon if you think this follow-up change is useful for WebRTC too.\n\nI also removed the duplicated Nexus builder. Is there some other builder (probably non-debug) which was intended to be included there?",
+      "revId": "3e0136f1d98f7fede309695ab4796525364c431a",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

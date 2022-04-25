@@ -93,6 +93,30 @@
       },
       "revId": "952f6dab48614b1ea9978122e598b0bae44b627a",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "01d65e45_9e3fbb90",
+        "filename": "api/video/i210_buffer.cc",
+        "patchSetId": 14
+      },
+      "lineNbr": 127,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2022-04-25T14:03:20Z",
+      "side": 1,
+      "message": "On second thought, there are a couple of other potential and less obscure use case where it may break.\n\n1. If the destination image is mirrored by setting dst_y_stride \u003c 0.\n\n2. If the destination is a rectangular area inside a larger image. I don\u0027t know if that is generally supported by libyuv functions, but sounds like a nice-to-have.\n\nI think it\u0027s unlikely to cause problems for current usecases (Ilya, do you know if we have any image region code that might need to rotate into a larger image?).\n\nFor clarity, you could add a comment that it assumes continuous allocation of the y-plane, possibly clobbering any padding between pixel rows, and an RTC_CHECK_GT(dst_stride_y, 0). \n\nAlternatively, just do a temporary allocation for the intermediate plane, and optimize later.\n\nYou may want to think more about this when moving the function to libyuv.",
+      "parentUuid": "279bb7a4_f61e83a0",
+      "range": {
+        "startLine": 127,
+        "startChar": 58,
+        "endLine": 127,
+        "endChar": 66
+      },
+      "revId": "952f6dab48614b1ea9978122e598b0bae44b627a",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

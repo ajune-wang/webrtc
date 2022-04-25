@@ -24,9 +24,12 @@
 #include "api/video_codecs/vp9_profile.h"
 #include "call/simulated_network.h"
 #include "modules/video_coding/codecs/vp9/include/vp9.h"
+#include "rtc_base/containers/flat_map.h"
 #include "system_wrappers/include/field_trial.h"
 #include "test/field_trial.h"
+#include "test/gmock.h"
 #include "test/gtest.h"
+#include "test/pc/e2e/analyzer/video/default_video_quality_analyzer.h"
 #include "test/pc/e2e/network_quality_metrics_reporter.h"
 #include "test/testsupport/file_utils.h"
 
@@ -81,10 +84,14 @@ CreateTestFixture(const std::string& test_case_name,
                   std::pair<EmulatedNetworkManagerInterface*,
                             EmulatedNetworkManagerInterface*> network_links,
                   rtc::FunctionView<void(PeerConfigurer*)> alice_configurer,
-                  rtc::FunctionView<void(PeerConfigurer*)> bob_configurer) {
+                  rtc::FunctionView<void(PeerConfigurer*)> bob_configurer,
+                  std::unique_ptr<webrtc_pc_e2e::AudioQualityAnalyzerInterface>
+                      audio_quality_analyzer = nullptr,
+                  std::unique_ptr<webrtc_pc_e2e::VideoQualityAnalyzerInterface>
+                      video_quality_analyzer = nullptr) {
   auto fixture = webrtc_pc_e2e::CreatePeerConnectionE2EQualityTestFixture(
-      test_case_name, time_controller, /*audio_quality_analyzer=*/nullptr,
-      /*video_quality_analyzer=*/nullptr);
+      test_case_name, time_controller, std::move(audio_quality_analyzer),
+      std::move(video_quality_analyzer));
   fixture->AddPeer(network_links.first->network_dependencies(),
                    alice_configurer);
   fixture->AddPeer(network_links.second->network_dependencies(),
@@ -1309,6 +1316,260 @@ TEST(PCFullStackTest, Pc_Screenshare_Slides_Vp9_3sl_High_Fps) {
                  VP9ProfileToString(VP9Profile::kProfile0)}})});
       });
   fixture->Run(RunParams(TimeDelta::Seconds(kTestDurationSec)));
+}
+
+class SvcVideoQualityAnalyzer : public DefaultVideoQualityAnalyzer {
+ public:
+  using SpatialTemporalLayerCounts =
+      webrtc::flat_map<int, webrtc::flat_map<int, int>>;
+
+  SvcVideoQualityAnalyzer(webrtc::Clock* clock)
+      : DefaultVideoQualityAnalyzer(clock) {}
+  ~SvcVideoQualityAnalyzer() override = default;
+
+  void OnFrameEncoded(absl::string_view peer_name,
+                      uint16_t frame_id,
+                      const EncodedImage& encoded_image,
+                      const EncoderStats& stats) override {
+    auto spatial_id = encoded_image.SpatialIndex();
+    auto temporal_id = encoded_image.TemporalIndex();
+    encoder_layers_seen_[spatial_id.value_or(0)][temporal_id.value_or(0)]++;
+    DefaultVideoQualityAnalyzer::OnFrameEncoded(peer_name, frame_id,
+                                                encoded_image, stats);
+  }
+
+  void OnFramePreDecode(absl::string_view peer_name,
+                        uint16_t frame_id,
+                        const EncodedImage& input_image) override {
+    auto spatial_id = input_image.SpatialIndex();
+    decoder_layers_seen_[spatial_id.value_or(0)]++;
+    DefaultVideoQualityAnalyzer::OnFramePreDecode(peer_name, frame_id,
+                                                  input_image);
+  }
+
+  const SpatialTemporalLayerCounts& encoder_layers_seen() {
+    return encoder_layers_seen_;
+  }
+  const webrtc::flat_map<int, int>& decoder_layers_seen() {
+    return decoder_layers_seen_;
+  }
+
+ private:
+  SpatialTemporalLayerCounts encoder_layers_seen_;
+  webrtc::flat_map<int, int> decoder_layers_seen_;
+};
+
+MATCHER_P2(HasSpatialAndTemporalLayers,
+           expected_spatial_layers,
+           expected_temporal_layers,
+           "") {
+  if (arg.size() != (size_t)expected_spatial_layers) {
+    *result_listener << "spatial layer count mismatch expected "
+                     << expected_spatial_layers << " but got " << arg.size();
+    return false;
+  }
+  for (const auto& spatial_layer : arg) {
+    if (spatial_layer.first < 0 ||
+        spatial_layer.first >= expected_spatial_layers) {
+      *result_listener << "spatial layer index is not in range [0,"
+                       << expected_spatial_layers << "[.";
+      return false;
+    }
+
+    if (spatial_layer.second.size() != (size_t)expected_temporal_layers) {
+      *result_listener << "temporal layer count mismatch on spatial layer "
+                       << spatial_layer.first << ", expected "
+                       << expected_temporal_layers << " but got "
+                       << spatial_layer.second.size();
+      return false;
+    }
+    for (const auto& temporal_layer : spatial_layer.second) {
+      if (temporal_layer.first < 0 ||
+          temporal_layer.first >= expected_temporal_layers) {
+        *result_listener << "temporal layer index on spatial layer "
+                         << spatial_layer.first << " is not in range [0,"
+                         << expected_temporal_layers << "[.";
+        return false;
+      }
+    }
+  }
+  return true;
+}
+
+TEST(PCFullStackTest, Pc_Bllaaaaaa) {
+  std::unique_ptr<NetworkEmulationManager> network_emulation_manager =
+      CreateNetworkEmulationManager();
+  std::unique_ptr<SvcVideoQualityAnalyzer> analyzer =
+      std::make_unique<SvcVideoQualityAnalyzer>(
+          network_emulation_manager->time_controller()->GetClock());
+  SvcVideoQualityAnalyzer* analyzer_ptr = analyzer.get();
+  auto fixture = CreateTestFixture(
+      "pc_screenshare_slides_vp9_3sl_high_fps_foobar",
+      *network_emulation_manager->time_controller(),
+      CreateTwoNetworkLinks(network_emulation_manager.get(),
+                            BuiltInNetworkBehaviorConfig()),
+      [](PeerConfigurer* alice) {
+        VideoConfig video(1850, 1110, 30);
+        video.stream_label = "alice-video";
+        RtpEncodingParameters parameters;
+        parameters.scalability_mode = "L3T3";
+        video.encoding_params.push_back(parameters);
+        auto frame_generator = CreateScreenShareFrameGenerator(
+            video, ScreenShareConfig(TimeDelta::Seconds(10)));
+        alice->AddVideoConfig(std::move(video), std::move(frame_generator));
+        alice->SetVideoCodecs({VideoCodecConfig(
+            /*name=*/cricket::kVp9CodecName, /*required_params=*/{
+                {kVP9FmtpProfileId,
+                 VP9ProfileToString(VP9Profile::kProfile0)}})});
+      },
+      [](PeerConfigurer* bob) {}, nullptr, std::move(analyzer));
+  fixture->Run(RunParams(TimeDelta::Seconds(10)));
+  EXPECT_THAT(analyzer_ptr->encoder_layers_seen(),
+              HasSpatialAndTemporalLayers(3, 3));
+  printf("======= encoder layers seen: %lu\n",
+         analyzer_ptr->encoder_layers_seen().size());
+  for (const auto& spatial_layer : analyzer_ptr->encoder_layers_seen()) {
+    int spatial_index = spatial_layer.first;
+    for (const auto& temporal_layer : spatial_layer.second) {
+      int temporal_index = temporal_layer.first;
+      printf("======= encoder layer: %d,%d frames: %d\n", spatial_index,
+             temporal_index, temporal_layer.second);
+    }
+  }
+  printf("======= decoder layers seen: %lu\n",
+         analyzer_ptr->decoder_layers_seen().size());
+  for (const auto& it : analyzer_ptr->decoder_layers_seen()) {
+    printf("======= decoder layer: %d frames: %d\n", it.first, it.second);
+  }
+}
+
+TEST(PCFullStackTest, Pc_BllaaaaaaVP8_L1T3) {
+  std::unique_ptr<NetworkEmulationManager> network_emulation_manager =
+      CreateNetworkEmulationManager();
+  std::unique_ptr<SvcVideoQualityAnalyzer> analyzer =
+      std::make_unique<SvcVideoQualityAnalyzer>(
+          network_emulation_manager->time_controller()->GetClock());
+  SvcVideoQualityAnalyzer* analyzer_ptr = analyzer.get();
+  auto fixture = CreateTestFixture(
+      "pc_screenshare_slides_vp9_3sl_high_fps_foobar",
+      *network_emulation_manager->time_controller(),
+      CreateTwoNetworkLinks(network_emulation_manager.get(),
+                            BuiltInNetworkBehaviorConfig()),
+      [](PeerConfigurer* alice) {
+        VideoConfig video(1850, 1110, 30);
+        video.stream_label = "alice-video";
+        RtpEncodingParameters parameters;
+        parameters.scalability_mode = "L1T3";
+        video.encoding_params.push_back(parameters);
+        auto frame_generator = CreateScreenShareFrameGenerator(
+            video, ScreenShareConfig(TimeDelta::Seconds(10)));
+        alice->AddVideoConfig(std::move(video), std::move(frame_generator));
+      },
+      [](PeerConfigurer* bob) {}, nullptr, std::move(analyzer));
+  fixture->Run(RunParams(TimeDelta::Seconds(10)));
+  EXPECT_THAT(analyzer_ptr->encoder_layers_seen(),
+              HasSpatialAndTemporalLayers(1, 3));
+  printf("======= encoder layers seen: %lu\n",
+         analyzer_ptr->encoder_layers_seen().size());
+  for (const auto& spatial_layer : analyzer_ptr->encoder_layers_seen()) {
+    int spatial_index = spatial_layer.first;
+    for (const auto& temporal_layer : spatial_layer.second) {
+      int temporal_index = temporal_layer.first;
+      printf("======= encoder layer: %d,%d frames: %d\n", spatial_index,
+             temporal_index, temporal_layer.second);
+    }
+  }
+  printf("======= decoder layers seen: %lu\n",
+         analyzer_ptr->decoder_layers_seen().size());
+  for (const auto& it : analyzer_ptr->decoder_layers_seen()) {
+    printf("======= decoder layer: %d frames: %d\n", it.first, it.second);
+  }
+}
+
+TEST(PCFullStackTest, Pc_BllaaaaaaVP8_L1T2) {
+  std::unique_ptr<NetworkEmulationManager> network_emulation_manager =
+      CreateNetworkEmulationManager();
+  std::unique_ptr<SvcVideoQualityAnalyzer> analyzer =
+      std::make_unique<SvcVideoQualityAnalyzer>(
+          network_emulation_manager->time_controller()->GetClock());
+  SvcVideoQualityAnalyzer* analyzer_ptr = analyzer.get();
+  auto fixture = CreateTestFixture(
+      "pc_screenshare_slides_vp9_3sl_high_fps_foobar",
+      *network_emulation_manager->time_controller(),
+      CreateTwoNetworkLinks(network_emulation_manager.get(),
+                            BuiltInNetworkBehaviorConfig()),
+      [](PeerConfigurer* alice) {
+        VideoConfig video(1850, 1110, 30);
+        video.stream_label = "alice-video";
+        RtpEncodingParameters parameters;
+        parameters.scalability_mode = "L1T2";
+        video.encoding_params.push_back(parameters);
+        auto frame_generator = CreateScreenShareFrameGenerator(
+            video, ScreenShareConfig(TimeDelta::Seconds(10)));
+        alice->AddVideoConfig(std::move(video), std::move(frame_generator));
+      },
+      [](PeerConfigurer* bob) {}, nullptr, std::move(analyzer));
+  fixture->Run(RunParams(TimeDelta::Seconds(10)));
+  EXPECT_THAT(analyzer_ptr->encoder_layers_seen(),
+              HasSpatialAndTemporalLayers(1, 2));
+  printf("======= encoder layers seen: %lu\n",
+         analyzer_ptr->encoder_layers_seen().size());
+  for (const auto& spatial_layer : analyzer_ptr->encoder_layers_seen()) {
+    int spatial_index = spatial_layer.first;
+    for (const auto& temporal_layer : spatial_layer.second) {
+      int temporal_index = temporal_layer.first;
+      printf("======= encoder layer: %d,%d frames: %d\n", spatial_index,
+             temporal_index, temporal_layer.second);
+    }
+  }
+  printf("======= decoder layers seen: %lu\n",
+         analyzer_ptr->decoder_layers_seen().size());
+  for (const auto& it : analyzer_ptr->decoder_layers_seen()) {
+    printf("======= decoder layer: %d frames: %d\n", it.first, it.second);
+  }
+}
+
+TEST(PCFullStackTest, Pc_BllaaaaaaVP8_L1T1) {
+  std::unique_ptr<NetworkEmulationManager> network_emulation_manager =
+      CreateNetworkEmulationManager();
+  std::unique_ptr<SvcVideoQualityAnalyzer> analyzer =
+      std::make_unique<SvcVideoQualityAnalyzer>(
+          network_emulation_manager->time_controller()->GetClock());
+  SvcVideoQualityAnalyzer* analyzer_ptr = analyzer.get();
+  auto fixture = CreateTestFixture(
+      "pc_screenshare_slides_vp9_3sl_high_fps_foobar",
+      *network_emulation_manager->time_controller(),
+      CreateTwoNetworkLinks(network_emulation_manager.get(),
+                            BuiltInNetworkBehaviorConfig()),
+      [](PeerConfigurer* alice) {
+        VideoConfig video(1850, 1110, 30);
+        video.stream_label = "alice-video";
+        RtpEncodingParameters parameters;
+        parameters.scalability_mode = "L1T1";
+        video.encoding_params.push_back(parameters);
+        auto frame_generator = CreateScreenShareFrameGenerator(
+            video, ScreenShareConfig(TimeDelta::Seconds(10)));
+        alice->AddVideoConfig(std::move(video), std::move(frame_generator));
+      },
+      [](PeerConfigurer* bob) {}, nullptr, std::move(analyzer));
+  fixture->Run(RunParams(TimeDelta::Seconds(10)));
+  EXPECT_THAT(analyzer_ptr->encoder_layers_seen(),
+              HasSpatialAndTemporalLayers(1, 1));
+  printf("======= encoder layers seen: %lu\n",
+         analyzer_ptr->encoder_layers_seen().size());
+  for (const auto& spatial_layer : analyzer_ptr->encoder_layers_seen()) {
+    int spatial_index = spatial_layer.first;
+    for (const auto& temporal_layer : spatial_layer.second) {
+      int temporal_index = temporal_layer.first;
+      printf("======= encoder layer: %d,%d frames: %d\n", spatial_index,
+             temporal_index, temporal_layer.second);
+    }
+  }
+  printf("======= decoder layers seen: %lu\n",
+         analyzer_ptr->decoder_layers_seen().size());
+  for (const auto& it : analyzer_ptr->decoder_layers_seen()) {
+    printf("======= decoder layer: %d frames: %d\n", it.first, it.second);
+  }
 }
 
 TEST(PCFullStackTest, Pc_Vp9svc_3sl_High) {

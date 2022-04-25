@@ -1,6 +1,23 @@
 {
   "comments": [
     {
+      "unresolved": true,
+      "key": {
+        "uuid": "2eac6932_138c4358",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 9,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2022-04-25T08:25:46Z",
+      "side": 1,
+      "message": "Always good to add 2 words about why it is now safe to reland (\"downstream issues fixed\" or \"revert was caused by an irrelevant flake\" are typical words).",
+      "revId": "3d0bbd184af321da7700f9debd6f2766dd834bdc",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": false,
       "key": {
         "uuid": "30e237fb_e6a04806",

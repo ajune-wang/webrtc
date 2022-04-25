@@ -421,6 +421,30 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "b80c3241_9e891a46",
+        "filename": "api/video/i210_buffer.cc",
+        "patchSetId": 12
+      },
+      "lineNbr": 117,
+      "author": {
+        "id": 5963
+      },
+      "writtenOn": "2022-04-25T13:44:20Z",
+      "side": 1,
+      "message": "Yes, current test detected the error on the previous version.\n\nWould it be possible to run the tryjobs to see if I have overlooked anything else?",
+      "parentUuid": "e1f8c04a_8cb2c517",
+      "range": {
+        "startLine": 116,
+        "startChar": 0,
+        "endLine": 117,
+        "endChar": 26
+      },
+      "revId": "737f13b3ee24586bcd78bb65f56ea1c4627bd997",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "9cdd6f8e_71ad917a",

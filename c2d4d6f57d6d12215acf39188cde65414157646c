@@ -52,6 +52,24 @@
       "parentUuid": "4c86a539_525d136f",
       "revId": "c2d4d6f57d6d12215acf39188cde65414157646c",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "0845ebdb_eedcaafe",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 10
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 7755
+      },
+      "writtenOn": "2022-04-25T08:24:34Z",
+      "side": 1,
+      "message": "ah... the test I used fooled me since it had SRD too! If one adds a transceiver and calls SLD the state is \"unknown\" which is what I hoped for (and yay, that is testable)",
+      "parentUuid": "20ca8662_5f5e3b3c",
+      "revId": "c2d4d6f57d6d12215acf39188cde65414157646c",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

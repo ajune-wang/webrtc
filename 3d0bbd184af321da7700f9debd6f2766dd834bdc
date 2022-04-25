@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "30e237fb_e6a04806",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2022-04-25T08:22:05Z",
+      "side": 1,
+      "message": "Intend to reland after https://chromium-review.googlesource.com/c/chromium/src/+/3604642",
+      "revId": "3d0bbd184af321da7700f9debd6f2766dd834bdc",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

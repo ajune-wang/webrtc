@@ -1,0 +1,72 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "3322e190_17ca29f5",
+        "filename": "stats/rtcstats_objects.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 691,
+      "author": {
+        "id": 5142
+      },
+      "writtenOn": "2022-04-25T06:48:35Z",
+      "side": 1,
+      "message": "Super nit: Since you moved the order of frames_received in the header file, can you do the same in this list?",
+      "revId": "a98b27523858c2440971689dab03e48b07f585fb",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "37b6120c_62fb3b9c",
+        "filename": "video/receive_statistics_proxy2.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 833,
+      "author": {
+        "id": 5142
+      },
+      "writtenOn": "2022-04-25T06:48:35Z",
+      "side": 1,
+      "message": "Prefer webrtc::TimeDelta over int64_t. It\u0027s both modern and has higher precision... I think we want better than ms precision.\n\nIn fact can you use webrtc::TimeDelta in all the plumbing down to rtc_stats_collector.cc too? In the delta-\u003edouble conversion you can use us() instead of ms()",
+      "revId": "a98b27523858c2440971689dab03e48b07f585fb",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "549eb864_44449b21",
+        "filename": "video/receive_statistics_proxy2_unittest.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 184,
+      "author": {
+        "id": 5142
+      },
+      "writtenOn": "2022-04-25T06:48:35Z",
+      "side": 1,
+      "message": "nit: When TimeDelta is used elsewhere, this variable might as well also be TimeDelta",
+      "revId": "a98b27523858c2440971689dab03e48b07f585fb",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "c61aa453_efa0db05",
+        "filename": "video/receive_statistics_proxy2_unittest.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 195,
+      "author": {
+        "id": 5142
+      },
+      "writtenOn": "2022-04-25T06:48:35Z",
+      "side": 1,
+      "message": "Why do we multiply by i? If each processing time is 10 we should only increase by 10 per frame?\n\nAlso if 10 refers to kProcessingDelay, use kProcessingDelay or kProcessingDelay.ms()",
+      "revId": "a98b27523858c2440971689dab03e48b07f585fb",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

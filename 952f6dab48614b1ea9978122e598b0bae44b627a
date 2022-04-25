@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "0b81f2b5_ab8f146e",
+        "filename": "api/video/i210_buffer.cc",
+        "patchSetId": 14
+      },
+      "lineNbr": 106,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2022-04-25T13:19:43Z",
+      "side": 1,
+      "message": "Is this for consistency with other libyuv rotation functions?",
+      "range": {
+        "startLine": 105,
+        "startChar": 0,
+        "endLine": 106,
+        "endChar": 19
+      },
+      "revId": "952f6dab48614b1ea9978122e598b0bae44b627a",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "e91f4a46_b0f38b6b",
+        "filename": "api/video/i210_buffer.cc",
+        "patchSetId": 14
+      },
+      "lineNbr": 127,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2022-04-25T13:19:43Z",
+      "side": 1,
+      "message": "nit: temporary (here and below)\n\nOne subtlety with sing y plane as temporary is that a caller might expect it to work with an interleaved layout for the destination, say\n\n  width \u003d 100\n  y_stride \u003d 200, u_stride \u003d 200, v_stride \u003d 200\n  u_ptr \u003d y_ptr + 100, v_ptr \u003d y_ptr + 150\n\nThat would probably break with this temporary use of y. \n\nBut I don\u0027t think we need to support that here (the only place I\u0027m aware of using a strange layout like that is the output buffer for the opengl shader converting from rgb texture to yuv data, and a buffer like that could only ever be used as the src in this function, not the destination).",
+      "range": {
+        "startLine": 127,
+        "startChar": 58,
+        "endLine": 127,
+        "endChar": 66
+      },
+      "revId": "952f6dab48614b1ea9978122e598b0bae44b627a",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

@@ -37,6 +37,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "09e2fe2b_45a9c444",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 6
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2022-04-26T14:49:27Z",
+      "side": 1,
+      "message": "I guess there are two questions:\n\nWhy an enum? (i) To get a compile time error for mis-spelling, e.g., T1L1 when L1T1 was intended. (ii) To avoid string comparisons, and make it possible to use it in switch statements. So I don\u0027t have a very strong opinion, but it seems nice to me to convert from string to enum in only one place, and let code below that place deal exclusively with the enum.\n\nWhy expose? Because VideoCodec is exposed, and injected encoders need to understand its contents.\n\nNow I don\u0027t quite have the big picture, so not sure what intermediate layers in webrtc really need to understand the scalability mode, but current state seems to be that, e.g., VideoStreamEncoder wants to know the structure, in order to allocate available bit rate between layers.",
+      "parentUuid": "59bf11a7_d05e27a2",
+      "revId": "b2c6670898ed3f843f19578bf23663e293967757",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "6587fecc_66b9e36d",
         "filename": "api/video_codecs/scalability_mode.h",
         "patchSetId": 6

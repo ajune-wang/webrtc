@@ -1,6 +1,57 @@
 {
   "comments": [
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "3d6a89d3_359923e6",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 6
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2022-04-26T12:27:29Z",
+      "side": 1,
+      "message": "If we expose this enum in the API, it will be used by customers.\nI\u0027ve commented in the past about the problem with encouraging an enum for something that will expand over time.\n\nConsider if this can be done at a lower level.\n",
+      "revId": "b2c6670898ed3f843f19578bf23663e293967757",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "6587fecc_66b9e36d",
+        "filename": "api/video_codecs/scalability_mode.h",
+        "patchSetId": 6
+      },
+      "lineNbr": 16,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2022-04-26T12:27:29Z",
+      "side": 1,
+      "message": "I don\u0027t think this enum should be in api/\n\nStuff in api/ should be limited to stuff that we recommend users of the api to use. The users should be using the string form.",
+      "revId": "b2c6670898ed3f843f19578bf23663e293967757",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "244d2e68_4ca8804c",
+        "filename": "api/video_codecs/video_codec.h",
+        "patchSetId": 6
+      },
+      "lineNbr": 108,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2022-04-26T12:27:29Z",
+      "side": 1,
+      "message": "If the enum isn\u0027t in the API, these functions shouldn\u0027t be in the public API of VideoCodec either.",
+      "revId": "b2c6670898ed3f843f19578bf23663e293967757",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "8995c700_7d01bb1f",

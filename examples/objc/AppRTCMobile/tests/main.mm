@@ -15,6 +15,10 @@
 int main(int argc, char* argv[]) {
   rtc::test::ConfigureCoverageReportPath();
 
+  NSLog(@"--> start2");
+  for (int i = 0; i < argc; ++i) {
+    fprintf(stderr, "%s\n", argv[i]);
+  }
   @autoreleasepool {
     return UIApplicationMain(argc, argv, nil, nil);
   }

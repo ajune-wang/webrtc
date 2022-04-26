@@ -11,8 +11,10 @@
 #import <UIKit/UIKit.h>
 
 #import "ARDAppDelegate.h"
+#import "sdk/objc/base/RTCLogging.h"
 
 int main(int argc, char* argv[]) {
+  RTCLogError(@"--> start");
   @autoreleasepool {
     return UIApplicationMain(
         argc, argv, nil, NSStringFromClass([ARDAppDelegate class]));

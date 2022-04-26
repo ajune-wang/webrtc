@@ -77,7 +77,8 @@
     'swarming': {
       'dimensions': {
         'os': 'iOS-15.3',
-        'pool': 'chrome.tests'
+        'pool': 'chrome.tests',
+        'device': 'iPhone10,3'
       }
     }
   },
@@ -276,12 +277,6 @@
       }
     }
   },
-  'timeout-2h': {
-    'swarming': {
-      'hard_timeout': 7200,
-      'io_timeout': 7200
-    }
-  },
   'timeout-3h': {
     'swarming': {
       'hard_timeout': 10800,
@@ -365,6 +360,11 @@
   'xcode_parallelization': {
     '$mixin_append': {
       'args': ['--xcode-parallelization']
+    }
+  },
+  'xcodebuild-device-runner': {
+    '$mixin_append': {
+      'args': ['--xcodebuild-device-runner']
     }
   }
 }

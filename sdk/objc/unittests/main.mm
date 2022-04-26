@@ -10,6 +10,8 @@
 
 #import <Foundation/Foundation.h>
 #import <UIKit/UIKit.h>
+#import "api/logging/RTCCallbackLogger.h"
+
 #include "rtc_base/thread.h"
 #include "test/ios/coverage_util_ios.h"
 
@@ -18,6 +20,7 @@ int main(int argc, char* argv[]) {
 
   rtc::AutoThread main_thread;
 
+  RTCLogError("--> start");
   @autoreleasepool {
     return UIApplicationMain(argc, argv, nil, nil);
   }

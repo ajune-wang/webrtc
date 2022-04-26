@@ -1,0 +1,199 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "a8db21f1_c4e3bc80",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 20
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2022-04-26T08:47:46Z",
+      "side": 1,
+      "message": "I\u0027m not familiar with this code, and not sure how safe are these changes.\nIf you\u0027re unsure what you are doing, prefer a deeper functional review, it would be better to use another reviewer.\n\nTo me these changes look like an improvement. (Port owns the connections so it looks reasonable to move responsibility of cleanly delete Connections into the Port)",
+      "revId": "4d6db84a4babbb14027bb3f5d12d040127401357",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "55c53d75_f8cb2b73",
+        "filename": "p2p/base/connection.cc",
+        "patchSetId": 20
+      },
+      "lineNbr": 1390,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2022-04-26T08:47:46Z",
+      "side": 1,
+      "message": "the meaning of this parameter is not obvious from the context, might be good to annotate it:\n(this, /*async\u003d*/true);\n\nalternativly - have two functions:\nDestoryConnection and DestoryConnectionAsync\nwhich would make it easier to search all async usages in the future.",
+      "range": {
+        "startLine": 1390,
+        "startChar": 35,
+        "endLine": 1390,
+        "endChar": 39
+      },
+      "revId": "4d6db84a4babbb14027bb3f5d12d040127401357",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "cbfb9815_52446043",
+        "filename": "p2p/base/connection.h",
+        "patchSetId": 20
+      },
+      "lineNbr": 193,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2022-04-26T08:47:46Z",
+      "side": 1,
+      "message": "if it is for external callers only and should go away, might be a good idea to mark it deprecated:\n[[deprecated]] void Destroy();",
+      "range": {
+        "startLine": 192,
+        "startChar": 47,
+        "endLine": 193,
+        "endChar": 30
+      },
+      "revId": "4d6db84a4babbb14027bb3f5d12d040127401357",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "4f72ee7b_bc395957",
+        "filename": "p2p/base/connection.h",
+        "patchSetId": 20
+      },
+      "lineNbr": 198,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2022-04-26T08:47:46Z",
+      "side": 1,
+      "message": "nit: delete two symbols after the dot.",
+      "range": {
+        "startLine": 198,
+        "startChar": 19,
+        "endLine": 198,
+        "endChar": 21
+      },
+      "revId": "4d6db84a4babbb14027bb3f5d12d040127401357",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "aa62425b_4336ade4",
+        "filename": "p2p/base/connection.h",
+        "patchSetId": 20
+      },
+      "lineNbr": 199,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2022-04-26T08:47:46Z",
+      "side": 1,
+      "message": "what does return value means? (might be helpful to explain that in the function comment.\n\nhttps://google.github.io/styleguide/cppguide.html#Function_Comments\n\n“Types of things to mention in comments at the function declaration:\nWhat the inputs and outputs are.”",
+      "range": {
+        "startLine": 199,
+        "startChar": 2,
+        "endLine": 199,
+        "endChar": 6
+      },
+      "revId": "4d6db84a4babbb14027bb3f5d12d040127401357",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "c8700e50_e3d97a04",
+        "filename": "p2p/base/p2p_transport_channel.cc",
+        "patchSetId": 20
+      },
+      "lineNbr": 227,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2022-04-26T08:47:46Z",
+      "side": 1,
+      "message": "where this signal came from? can\u0027t easily detect how it was called previosly.",
+      "revId": "4d6db84a4babbb14027bb3f5d12d040127401357",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "c83da2fb_6eff5648",
+        "filename": "p2p/base/port.cc",
+        "patchSetId": 20
+      },
+      "lineNbr": 341,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2022-04-26T08:47:46Z",
+      "side": 1,
+      "message": "is it\nold_conn \u003d absl::WrapUnique(ret.first-\u003esecond) ?",
+      "range": {
+        "startLine": 341,
+        "startChar": 32,
+        "endLine": 341,
+        "endChar": 59
+      },
+      "revId": "4d6db84a4babbb14027bb3f5d12d040127401357",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "ced8d581_31962dda",
+        "filename": "p2p/base/port.cc",
+        "patchSetId": 20
+      },
+      "lineNbr": 601,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2022-04-26T08:47:46Z",
+      "side": 1,
+      "message": "this function clearly takes Connection with ownership (it always deletes it).\nThat suggests std::unique_ptr\u003cConnection\u003e is a better parameter type.",
+      "range": {
+        "startLine": 601,
+        "startChar": 29,
+        "endLine": 601,
+        "endChar": 45
+      },
+      "revId": "4d6db84a4babbb14027bb3f5d12d040127401357",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "b6837e00_f15dd9a8",
+        "filename": "p2p/base/port.cc",
+        "patchSetId": 20
+      },
+      "lineNbr": 613,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2022-04-26T08:47:46Z",
+      "side": 1,
+      "message": "conn \u003d ...\n\nhttps://google.github.io/styleguide/cppguide.html#Lambda_expressions\n“Do not use captures with initializers to introduce new names”",
+      "range": {
+        "startLine": 613,
+        "startChar": 30,
+        "endLine": 613,
+        "endChar": 39
+      },
+      "revId": "4d6db84a4babbb14027bb3f5d12d040127401357",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

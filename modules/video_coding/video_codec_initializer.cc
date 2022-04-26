@@ -112,8 +112,22 @@ VideoCodec VideoCodecInitializer::VideoEncoderConfigToVideoCodec(
     sim_stream->targetBitrate = streams[i].target_bitrate_bps / 1000;
     sim_stream->maxBitrate = streams[i].max_bitrate_bps / 1000;
     sim_stream->qpMax = streams[i].max_qp;
+
+    int num_temporal_layers = streams[i].num_temporal_layers.value_or(1);
+    if (streams[i].scalability_mode.has_value()) {
+      // TODO(bugs.webrtc.org/11607): Add a more general shared utility function
+      // for this. Current logic intended to cover VP8 use case.
+      absl::string_view scalability_mode = *streams[i].scalability_mode;
+      if (scalability_mode == "L1T1") {
+        num_temporal_layers = 1;
+      } else if (scalability_mode == "L1T2") {
+        num_temporal_layers = 2;
+      } else if (scalability_mode == "L1T3") {
+        num_temporal_layers = 3;
+      }
+    }
     sim_stream->numberOfTemporalLayers =
-        static_cast<unsigned char>(streams[i].num_temporal_layers.value_or(1));
+        static_cast<unsigned char>(num_temporal_layers);
     sim_stream->active = streams[i].active;
 
     video_codec.width =
@@ -128,6 +142,9 @@ VideoCodec VideoCodecInitializer::VideoEncoderConfigToVideoCodec(
                                  static_cast<unsigned int>(streams[i].max_qp));
     max_framerate = std::max(max_framerate, streams[i].max_framerate);
 
+    // TODO(bugs.webrtc.org/11607): Since scalability mode is a top-level
+    // setting on VideoCodec, we can currently honor it only if it is the same
+    // for all simulcast streams.
     if (streams[0].scalability_mode != streams[i].scalability_mode) {
       RTC_LOG(LS_WARNING) << "Inconsistent scalability modes configured.";
       scalability_mode.reset();

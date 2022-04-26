@@ -16,6 +16,24 @@
       "message": "Fixed the test. I think It would make sense to get https://webrtc-review.googlesource.com/c/src/+/259870 landed first, if you think that is a good idea.",
       "revId": "f0f19b3e93b48a62ba18cf90f46472cd7c02d137",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "0d099ec3_07218485",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 3
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2022-04-26T14:10:40Z",
+      "side": 1,
+      "message": "\u003e Fixed the test. I think It would make sense to get https://webrtc-review.googlesource.com/c/src/+/259870 landed first, if you think that is a good idea.\n\nOr maybe not, if there\u0027s no agreement on enum being the right way.\n\nI dislike having code in half a dozen places converting scalability mode string to number of temporal layers, though.\n\nOne other possible design might be something like the CreateAudioEncoderFactory template machinery, see https://source.chromium.org/chromium/chromium/src/+/main:third_party/webrtc/api/audio_codecs/audio_encoder_factory_template.h;drc\u003de62c2f2c77bca9af93b1f8cc5a37bb9978a18844;l\u003d147\n\nEach encoder using something like\n\n  CreateScalabilityControllerFactory\u003cScalabilityL1T1, ScalabilityL2T2, ...\u003e\n  \nfor its supported scalability modes (not sure exactly where that would go, though). Then we wouldn\u0027t need any global \"registry\" of supported modes, and the literal string identifying the mode would be in only one place, in corresponding the Scalability... struct.",
+      "parentUuid": "c0a239ec_5e04d5d9",
+      "revId": "f0f19b3e93b48a62ba18cf90f46472cd7c02d137",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "90b3c923_239257e1",
+        "filename": "webrtc.gni",
+        "patchSetId": 1
+      },
+      "lineNbr": 638,
+      "author": {
+        "id": 5087
+      },
+      "writtenOn": "2022-04-26T06:48:15Z",
+      "side": 1,
+      "message": "Good point about adding the same check here. \n\nHere I think we should assert() instead of switching to source_set implicitly (which is good for rtc_library).",
+      "range": {
+        "startLine": 638,
+        "startChar": 0,
+        "endLine": 638,
+        "endChar": 32
+      },
+      "revId": "92036bcdf758858ced0be25cfa2a0884c9790da4",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "6388a820_cd3c4ce0",
+        "filename": "webrtc.gni",
+        "patchSetId": 1
+      },
+      "lineNbr": 751,
+      "author": {
+        "id": 5087
+      },
+      "writtenOn": "2022-04-26T06:48:15Z",
+      "side": 1,
+      "message": "Nit: we also need to consider asm files.",
+      "range": {
+        "startLine": 748,
+        "startChar": 29,
+        "endLine": 751,
+        "endChar": 30
+      },
+      "revId": "92036bcdf758858ced0be25cfa2a0884c9790da4",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

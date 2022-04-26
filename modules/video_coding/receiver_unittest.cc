@@ -32,7 +32,7 @@ class TestVCMReceiver : public ::testing::Test {
  protected:
   TestVCMReceiver()
       : clock_(0),
-        timing_(&clock_, field_trials_),
+        timing_(&clock_),
         receiver_(&timing_, &clock_, field_trials_),
         stream_generator_(0, clock_.TimeInMilliseconds()) {}
 
@@ -367,7 +367,7 @@ class VCMReceiverTimingTest : public ::testing::Test {
   VCMReceiverTimingTest()
       : clock_(&stream_generator_, &receiver_),
         stream_generator_(0, clock_.TimeInMilliseconds()),
-        timing_(&clock_, field_trials_),
+        timing_(&clock_),
         receiver_(
             &timing_,
             &clock_,

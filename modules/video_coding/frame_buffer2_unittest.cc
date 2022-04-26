@@ -41,8 +41,7 @@ namespace video_coding {
 
 class VCMTimingFake : public VCMTiming {
  public:
-  explicit VCMTimingFake(Clock* clock, const FieldTrialsView& field_trials)
-      : VCMTiming(clock, field_trials) {}
+  explicit VCMTimingFake(Clock* clock) : VCMTiming(clock) {}
 
   Timestamp RenderTime(uint32_t frame_timestamp, Timestamp now) const override {
     if (last_render_time_.IsMinusInfinity()) {
@@ -133,7 +132,7 @@ class TestFrameBuffer2 : public ::testing::Test {
             time_controller_.GetTaskQueueFactory()->CreateTaskQueue(
                 "extract queue",
                 TaskQueueFactory::Priority::NORMAL)),
-        timing_(time_controller_.GetClock(), field_trials_),
+        timing_(time_controller_.GetClock()),
         buffer_(new FrameBuffer(time_controller_.GetClock(),
                                 &timing_,
                                 &stats_callback_,
@@ -281,7 +280,7 @@ TEST_F(TestFrameBuffer2, OneSuperFrame) {
 
 TEST_F(TestFrameBuffer2, ZeroPlayoutDelay) {
   test::ScopedKeyValueConfig field_trials;
-  VCMTiming timing(time_controller_.GetClock(), field_trials);
+  VCMTiming timing(time_controller_.GetClock());
   buffer_.reset(new FrameBuffer(time_controller_.GetClock(), &timing,
                                 &stats_callback_, field_trials));
   const VideoPlayoutDelay kPlayoutDelayMs = {0, 0};

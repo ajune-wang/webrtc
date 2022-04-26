@@ -67,7 +67,7 @@ class GenericDecoderTest : public ::testing::Test {
  protected:
   GenericDecoderTest()
       : clock_(0),
-        timing_(&clock_, field_trials_),
+        timing_(&clock_),
         task_queue_factory_(CreateDefaultTaskQueueFactory()),
         decoder_(task_queue_factory_.get()),
         vcm_callback_(&timing_, &clock_, field_trials_),

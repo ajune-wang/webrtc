@@ -48,7 +48,7 @@ class VideoCodingModuleImpl : public VideoCodingModule {
                                  const FieldTrialsView* field_trials)
       : VideoCodingModule(),
         field_trials_(field_trials),
-        timing_(new VCMTiming(clock, *field_trials_)),
+        timing_(new VCMTiming(clock)),
         receiver_(clock, timing_.get(), *field_trials_) {}
 
   ~VideoCodingModuleImpl() override {}

@@ -53,7 +53,7 @@ class TestVideoReceiver : public ::testing::Test {
 
   TestVideoReceiver()
       : clock_(0),
-        timing_(&clock_, field_trials_),
+        timing_(&clock_),
         receiver_(&clock_, &timing_, field_trials_) {}
 
   virtual void SetUp() {

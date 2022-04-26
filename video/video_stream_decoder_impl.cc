@@ -26,7 +26,7 @@ VideoStreamDecoderImpl::VideoStreamDecoderImpl(
     std::map<int, std::pair<SdpVideoFormat, int>> decoder_settings,
     const FieldTrialsView* field_trials)
     : field_trials_(field_trials),
-      timing_(Clock::GetRealTimeClock(), *field_trials_),
+      timing_(Clock::GetRealTimeClock()),
       decode_callbacks_(this),
       next_frame_info_index_(0),
       callbacks_(callbacks),

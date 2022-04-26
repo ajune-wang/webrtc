@@ -145,6 +145,13 @@ void DecodeSynchronizer::OnFrameScheduled(
 
   if (decode_before_next_tick || decode_time_in_past) {
     ScheduledFrame scheduled_frame = scheduler->ReleaseNextFrame();
+    RTC_DLOG(LS_VERBOSE)
+        << "Releasing frame with rtp timestamp "
+        << scheduled_frame.rtp_timestamp()
+        << " for decoding now, since it either needs to be decoded in the past "
+           "or before the next tick (decode time "
+        << scheduled_frame.LatestDecodeTime().ms() << ", next tick at "
+        << next_tick.ms() << ").";
     std::move(scheduled_frame).RunFrameReleaseCallback();
   }
 }
@@ -174,6 +181,9 @@ void DecodeSynchronizer::OnTick() {
     if (scheduler->ScheduledRtpTimestamp() &&
         scheduler->LatestDecodeTime() < expected_next_tick_) {
       auto scheduled_frame = scheduler->ReleaseNextFrame();
+      RTC_DLOG(LS_VERBOSE) << "OnTick: Releasing frame with rtp timestamp "
+                           << scheduled_frame.rtp_timestamp()
+                           << " for decoding.";
       std::move(scheduled_frame).RunFrameReleaseCallback();
     }
   }

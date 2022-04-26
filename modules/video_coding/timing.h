@@ -18,7 +18,6 @@
 #include "api/units/time_delta.h"
 #include "api/video/video_timing.h"
 #include "modules/video_coding/codec_timer.h"
-#include "rtc_base/experiments/field_trial_parser.h"
 #include "rtc_base/synchronization/mutex.h"
 #include "rtc_base/thread_annotations.h"
 #include "rtc_base/time/timestamp_extrapolator.h"
@@ -33,7 +32,7 @@ class VCMTiming {
   static constexpr auto kDefaultRenderDelay = TimeDelta::Millis(10);
   static constexpr auto kDelayMaxChangeMsPerS = 100;
 
-  VCMTiming(Clock* clock, const FieldTrialsView& field_trials);
+  explicit VCMTiming(Clock* clock);
   virtual ~VCMTiming() = default;
 
   // Resets the timing to the initial state.
@@ -142,11 +141,6 @@ class VCMTiming {
   absl::optional<TimingFrameInfo> timing_frame_info_ RTC_GUARDED_BY(mutex_);
   size_t num_decoded_frames_ RTC_GUARDED_BY(mutex_);
   absl::optional<int> max_composition_delay_in_frames_ RTC_GUARDED_BY(mutex_);
-  // Set by the field trial WebRTC-ZeroPlayoutDelay. The parameter min_pacing
-  // determines the minimum delay between frames scheduled for decoding that is
-  // used when min playout delay=0 and max playout delay>=0.
-  FieldTrialParameter<TimeDelta> zero_playout_delay_min_pacing_
-      RTC_GUARDED_BY(mutex_);
   // Timestamp at which the last frame was scheduled to be sent to the decoder.
   // Used only when the RTP header extension playout delay is set to min=0 ms
   // which is indicated by a render time set to 0.

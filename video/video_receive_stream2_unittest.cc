@@ -102,7 +102,7 @@ class VideoReceiveStream2Test : public ::testing::Test {
     config_.decoders.push_back(h264_decoder);
 
     clock_ = Clock::GetRealTimeClock();
-    timing_ = new VCMTiming(clock_, fake_call_.trials());
+    timing_ = new VCMTiming(clock_);
 
     video_receive_stream_ =
         std::make_unique<webrtc::internal::VideoReceiveStream2>(
@@ -292,7 +292,7 @@ class VideoReceiveStream2TestWithFakeDecoder : public ::testing::Test {
       video_receive_stream_->UnregisterFromTransport();
       video_receive_stream_ = nullptr;
     }
-    timing_ = new VCMTiming(clock_, fake_call_.trials());
+    timing_ = new VCMTiming(clock_);
     video_receive_stream_ =
         std::make_unique<webrtc::internal::VideoReceiveStream2>(
             task_queue_factory_.get(), &fake_call_, kDefaultNumCpuCores,
@@ -564,8 +564,7 @@ class VideoReceiveStream2TestWithSimulatedClock
             config_.Copy(),
             &call_stats_,
             time_controller_.GetClock(),
-            std::make_unique<VCMTiming>(time_controller_.GetClock(),
-                                        fake_call_.trials()),
+            std::make_unique<VCMTiming>(time_controller_.GetClock()),
             &nack_periodic_processor_,
             nullptr) {
     if (std::get<1>(GetParam())) {
@@ -749,7 +748,7 @@ class VideoReceiveStream2TestWithLazyDecoderCreation : public ::testing::Test {
     config_.decoders.push_back(h264_decoder);
 
     clock_ = Clock::GetRealTimeClock();
-    timing_ = new VCMTiming(clock_, fake_call_.trials());
+    timing_ = new VCMTiming(clock_);
 
     video_receive_stream_ =
         std::make_unique<webrtc::internal::VideoReceiveStream2>(

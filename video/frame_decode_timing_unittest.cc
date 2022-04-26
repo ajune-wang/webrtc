@@ -31,8 +31,7 @@ namespace {
 
 class FakeVCMTiming : public webrtc::VCMTiming {
  public:
-  explicit FakeVCMTiming(Clock* clock, const FieldTrialsView& field_trials)
-      : webrtc::VCMTiming(clock, field_trials) {}
+  explicit FakeVCMTiming(Clock* clock) : webrtc::VCMTiming(clock) {}
 
   Timestamp RenderTime(uint32_t frame_timestamp, Timestamp now) const override {
     RTC_DCHECK(render_time_map_.contains(frame_timestamp));
@@ -65,11 +64,10 @@ class FrameDecodeTimingTest : public ::testing::Test {
  public:
   FrameDecodeTimingTest()
       : clock_(Timestamp::Millis(1000)),
-        timing_(&clock_, field_trials_),
+        timing_(&clock_),
         frame_decode_scheduler_(&clock_, &timing_) {}
 
  protected:
-  test::ScopedKeyValueConfig field_trials_;
   SimulatedClock clock_;
   FakeVCMTiming timing_;
   FrameDecodeTiming frame_decode_scheduler_;

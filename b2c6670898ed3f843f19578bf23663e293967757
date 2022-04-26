@@ -54,6 +54,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "bb3e62a6_757eb59e",
+        "filename": "api/video_codecs/video_codec.h",
+        "patchSetId": 6
+      },
+      "lineNbr": 108,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2022-04-26T13:58:54Z",
+      "side": 1,
+      "message": "It\u0027s not entirely clear to me that we should have scalability mode at all at this level. Main way this is populated is in VideoCodecInitializer (and the reason VideoCodec is in api/ at all is that encoders injected by the application needs it). \n\nFor the VP8 usecase, we take scalability modes from the provided vector of VideoStream, and derive number of temporal layers for each SpatialLayer in the simulcaseStream vector. Then the top level VideoCodec scalability mode is just a headache, because there\u0027s no obviously right way to assign it if configuration differs between simulcast streams. \n\nBut for the AV1 usecase, the encoder queries the top-level scalability mode of the VideoCodec (and I take it this encoder doesn\u0027t do native simulcast?).\n\nMy thinking is that the only reasonably application use of the enum is by injected codecs, where each encoder can check for the values that it recognizes and reject anything unknown, so I don\u0027t foresee any great difficulty in adding new values.\n\nIt looks to me like it won\u0027t be possible for an application to inject an encoder supporting some completely custom scalability mode, and have that string piped through webrtc layers without interpretation. There seems to be multiple places in webrtc that wants to know, e.g., the number of temporal layers for the configured scalability mode, do you think we can get away from that and treat it as an opaque string in intermediate layers?",
+      "parentUuid": "244d2e68_4ca8804c",
+      "revId": "b2c6670898ed3f843f19578bf23663e293967757",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "8995c700_7d01bb1f",
         "filename": "modules/video_coding/svc/scalability_mode_util.cc",
         "patchSetId": 6

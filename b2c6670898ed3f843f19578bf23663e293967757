@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "8995c700_7d01bb1f",
+        "filename": "modules/video_coding/svc/scalability_mode_util.cc",
+        "patchSetId": 6
+      },
+      "lineNbr": 56,
+      "author": {
+        "id": 7036
+      },
+      "writtenOn": "2022-04-26T09:14:16Z",
+      "side": 1,
+      "message": "Can we add a test that checks all the enum values from L1T1 to the last (might want a sentinel value) and that they\u0027re covered in this method?\n\nWe probably want the inverse method as well (enum -\u003e string)",
+      "revId": "b2c6670898ed3f843f19578bf23663e293967757",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

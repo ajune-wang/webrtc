@@ -16,6 +16,24 @@
       "message": "Can we add a test that checks all the enum values from L1T1 to the last (might want a sentinel value) and that they\u0027re covered in this method?\n\nWe probably want the inverse method as well (enum -\u003e string)",
       "revId": "b2c6670898ed3f843f19578bf23663e293967757",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "90202656_fadcb314",
+        "filename": "modules/video_coding/svc/scalability_mode_util.cc",
+        "patchSetId": 6
+      },
+      "lineNbr": 56,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2022-04-26T12:01:17Z",
+      "side": 1,
+      "message": "\u003e Can we add a test that checks all the enum values from L1T1 to the last (might want a sentinel value) and that they\u0027re covered in this method?\n\nWe could, but not sure what value that would give (just to equivalent lists to keep in sync). Several of the scalability mode tests use strings in the test params, and call this function to get the corresponding enum, which should give some coverage.\n\n\u003e We probably want the inverse method as well (enum -\u003e string)\n\nI see that may be useful for logging, but I think we should strive for a design where nothing else depends that inverse lookup.",
+      "parentUuid": "8995c700_7d01bb1f",
+      "revId": "b2c6670898ed3f843f19578bf23663e293967757",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

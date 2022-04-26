@@ -13,6 +13,7 @@
 #import "ARDAppDelegate.h"
 
 int main(int argc, char* argv[]) {
+  printf("--> start");
   @autoreleasepool {
     return UIApplicationMain(
         argc, argv, nil, NSStringFromClass([ARDAppDelegate class]));

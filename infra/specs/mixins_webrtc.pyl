@@ -40,6 +40,7 @@
       'dimensions': {
         'os': 'iOS-15.3',
         'pool': 'chrome.tests',
+        'device': 'iPhone10,3',
       },
     },
   },
@@ -121,6 +122,13 @@
         'os': 'Ubuntu'
       }
     }
+  },
+  'linux-trusty': {
+    'swarming': {
+      'dimensions': {
+        'os': 'Ubuntu-14.04',
+      },
+    },
   },
   'logdog-butler': {
     'swarming': {
@@ -212,12 +220,6 @@
       },
     },
   },
-  'timeout-2h': {
-    'swarming': {
-      'hard_timeout': 7200,
-      'io_timeout': 7200,
-    },
-  },
   'timeout-3h': {
     'swarming': {
       'hard_timeout': 10800,
@@ -259,4 +261,9 @@
       },
     },
   },
+  'xcodebuild-device-runner': {
+    '$mixin_append': {
+      'args': ['--xcodebuild-device-runner']
+    }
+  }
 }

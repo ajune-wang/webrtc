@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "41510c6b_b5a5fc0c",
+        "filename": "test/pc/e2e/test_peer.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 36,
+      "author": {
+        "id": 5087
+      },
+      "writtenOn": "2022-04-26T06:42:05Z",
+      "side": 1,
+      "message": "Do we need a `const` here?",
+      "range": {
+        "startLine": 36,
+        "startChar": 24,
+        "endLine": 36,
+        "endChar": 25
+      },
+      "revId": "a483978b8897c04eff63d633307c8cbaea08d326",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

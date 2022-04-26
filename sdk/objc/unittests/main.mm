@@ -10,6 +10,7 @@
 
 #import <Foundation/Foundation.h>
 #import <UIKit/UIKit.h>
+
 #include "rtc_base/thread.h"
 #include "test/ios/coverage_util_ios.h"
 
@@ -18,6 +19,13 @@ int main(int argc, char* argv[]) {
 
   rtc::AutoThread main_thread;
 
+  NSLog(@"--> start");
+  fprintf(stderr, "%s\n", argv[0]);
+  for (int i = 1; i < argc; ++i) {
+    fprintf(stderr, "%s\n", argv[i]);
+    argv[i] = NULL;
+  }
+  argc = 1;
   @autoreleasepool {
     return UIApplicationMain(argc, argv, nil, nil);
   }

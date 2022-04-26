@@ -83,6 +83,7 @@ static int const kKbpsMultiplier = 1000;
 - (instancetype)initWithInterval:(NSTimeInterval)interval
                          repeats:(BOOL)repeats
                     timerHandler:(void (^)(void))timerHandler {
+  fprintf(stderr, "--->1 ???");
   NSParameterAssert(timerHandler);
   if (self = [super init]) {
     _timerHandler = timerHandler;
@@ -96,10 +97,12 @@ static int const kKbpsMultiplier = 1000;
 }
 
 - (void)invalidate {
+  fprintf(stderr, "--->2 ???");
   [_timer invalidate];
 }
 
 - (void)timerDidFire:(NSTimer *)timer {
+  fprintf(stderr, "--->3 ???");
   _timerHandler();
 }
 
@@ -136,10 +139,12 @@ static int const kKbpsMultiplier = 1000;
 @synthesize broadcast = _broadcast;
 
 - (instancetype)init {
+  fprintf(stderr, "--->5 ???");
   return [self initWithDelegate:nil];
 }
 
 - (instancetype)initWithDelegate:(id<ARDAppClientDelegate>)delegate {
+  fprintf(stderr, "--->6 ???");
   if (self = [super init]) {
     _roomServerClient = [[ARDAppEngineClient alloc] init];
     _delegate = delegate;
@@ -157,6 +162,7 @@ static int const kKbpsMultiplier = 1000;
                         signalingChannel:(id<ARDSignalingChannel>)channel
                               turnClient:(id<ARDTURNClient>)turnClient
                                 delegate:(id<ARDAppClientDelegate>)delegate {
+  fprintf(stderr, "--->7 ???");
   NSParameterAssert(rsClient);
   NSParameterAssert(channel);
   NSParameterAssert(turnClient);
@@ -171,6 +177,7 @@ static int const kKbpsMultiplier = 1000;
 }
 
 - (void)configure {
+  fprintf(stderr, "--->8 ???");
   _messageQueue = [NSMutableArray array];
   _iceServers = [NSMutableArray array];
   _fileLogger = [[RTC_OBJC_TYPE(RTCFileLogger) alloc] init];
@@ -178,11 +185,13 @@ static int const kKbpsMultiplier = 1000;
 }
 
 - (void)dealloc {
+  fprintf(stderr, "--->9 ???");
   self.shouldGetStats = NO;
   [self disconnect];
 }
 
 - (void)setShouldGetStats:(BOOL)shouldGetStats {
+  fprintf(stderr, "--->10 ???");
   if (_shouldGetStats == shouldGetStats) {
     return;
   }
@@ -208,6 +217,7 @@ static int const kKbpsMultiplier = 1000;
 }
 
 - (void)setState:(ARDAppClientState)state {
+  fprintf(stderr, "--->11 ???");
   if (_state == state) {
     return;
   }
@@ -291,6 +301,7 @@ static int const kKbpsMultiplier = 1000;
 }
 
 - (void)disconnect {
+  fprintf(stderr, "--->12 ???");
   if (_state == kARDAppClientStateDisconnected) {
     return;
   }
@@ -332,6 +343,7 @@ static int const kKbpsMultiplier = 1000;
 
 - (void)channel:(id<ARDSignalingChannel>)channel
     didReceiveMessage:(ARDSignalingMessage *)message {
+  fprintf(stderr, "--->13 ???");
   switch (message.type) {
     case kARDSignalingMessageTypeOffer:
     case kARDSignalingMessageTypeAnswer:
@@ -354,6 +366,7 @@ static int const kKbpsMultiplier = 1000;
 
 - (void)channel:(id<ARDSignalingChannel>)channel
     didChangeState:(ARDSignalingChannelState)state {
+  fprintf(stderr, "--->14 ???");
   switch (state) {
     case kARDSignalingChannelStateOpen:
       break;
@@ -374,11 +387,13 @@ static int const kKbpsMultiplier = 1000;
 
 - (void)peerConnection:(RTC_OBJC_TYPE(RTCPeerConnection) *)peerConnection
     didChangeSignalingState:(RTCSignalingState)stateChanged {
+  fprintf(stderr, "--->15 ???");
   RTCLog(@"Signaling state changed: %ld", (long)stateChanged);
 }
 
 - (void)peerConnection:(RTC_OBJC_TYPE(RTCPeerConnection) *)peerConnection
           didAddStream:(RTC_OBJC_TYPE(RTCMediaStream) *)stream {
+  fprintf(stderr, "--->16 ???");
   RTCLog(@"Stream with %lu video tracks and %lu audio tracks was added.",
          (unsigned long)stream.videoTracks.count,
          (unsigned long)stream.audioTracks.count);
@@ -781,6 +796,7 @@ static int const kKbpsMultiplier = 1000;
 #pragma mark - Collider methods
 
 - (void)registerWithColliderIfReady {
+  fprintf(stderr, "--->20 ???");
   if (!self.hasJoinedRoomServerRoom) {
     return;
   }
@@ -805,6 +821,7 @@ static int const kKbpsMultiplier = 1000;
 #pragma mark - Defaults
 
 - (RTC_OBJC_TYPE(RTCMediaConstraints) *)defaultMediaAudioConstraints {
+  fprintf(stderr, "--->30 ???");
   NSDictionary *mandatoryConstraints = @{};
   RTC_OBJC_TYPE(RTCMediaConstraints) *constraints =
       [[RTC_OBJC_TYPE(RTCMediaConstraints) alloc] initWithMandatoryConstraints:mandatoryConstraints
@@ -842,6 +859,7 @@ static int const kKbpsMultiplier = 1000;
 #pragma mark - Errors
 
 + (NSError *)errorForJoinResultType:(ARDJoinResultType)resultType {
+  fprintf(stderr, "--->50 ???");
   NSError *error = nil;
   switch (resultType) {
     case kARDJoinResultTypeSuccess:
@@ -867,6 +885,7 @@ static int const kKbpsMultiplier = 1000;
 }
 
 + (NSError *)errorForMessageResultType:(ARDMessageResultType)resultType {
+  fprintf(stderr, "--->60 ???");
   NSError *error = nil;
   switch (resultType) {
     case kARDMessageResultTypeSuccess:

@@ -25,6 +25,7 @@
 
 - (BOOL)application:(UIApplication *)application
     didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
+  fprintf(stderr, "--> ???");
   NSDictionary *fieldTrials = @{};
   RTCInitFieldTrialDictionary(fieldTrials);
   RTCInitializeSSL();
@@ -49,6 +50,7 @@
 }
 
 - (void)applicationWillTerminate:(UIApplication *)application {
+  fprintf(stderr, "-->2 ???");
   RTCShutdownInternalTracer();
   RTCCleanupSSL();
 }

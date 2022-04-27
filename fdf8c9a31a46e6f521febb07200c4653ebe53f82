@@ -1,0 +1,159 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "cf6b78f0_de60d0f2",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 4
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5524
+      },
+      "writtenOn": "2022-04-27T08:53:58Z",
+      "side": 1,
+      "message": "lgtm % nits",
+      "revId": "fdf8c9a31a46e6f521febb07200c4653ebe53f82",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "a90917ac_216ae774",
+        "filename": "video/video_receive_stream2.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 81,
+      "author": {
+        "id": 5524
+      },
+      "writtenOn": "2022-04-27T08:53:58Z",
+      "side": 1,
+      "message": "nit: Seconds(10)\nsame just below",
+      "range": {
+        "startLine": 81,
+        "startChar": 54,
+        "endLine": 81,
+        "endChar": 68
+      },
+      "revId": "fdf8c9a31a46e6f521febb07200c4653ebe53f82",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "bff0c0ae_580d78ac",
+        "filename": "video/video_receive_stream2.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 185,
+      "author": {
+        "id": 5524
+      },
+      "writtenOn": "2022-04-27T08:53:58Z",
+      "side": 1,
+      "message": "Seconds(600)\n...or is there a Minutes(10) ?",
+      "range": {
+        "startLine": 185,
+        "startChar": 15,
+        "endLine": 185,
+        "endChar": 29
+      },
+      "revId": "fdf8c9a31a46e6f521febb07200c4653ebe53f82",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "e7e7557e_1c89b264",
+        "filename": "video/video_receive_stream2.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 667,
+      "author": {
+        "id": 5524
+      },
+      "writtenOn": "2022-04-27T08:53:58Z",
+      "side": 1,
+      "message": "nit: drop _ms suffix",
+      "range": {
+        "startLine": 667,
+        "startChar": 20,
+        "endLine": 667,
+        "endChar": 23
+      },
+      "revId": "fdf8c9a31a46e6f521febb07200c4653ebe53f82",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "a8052d75_c28ca0ee",
+        "filename": "video/video_receive_stream2.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 972,
+      "author": {
+        "id": 5524
+      },
+      "writtenOn": "2022-04-27T08:53:58Z",
+      "side": 1,
+      "message": "afaict, this is only used to check if all of {frame_minimum_playout_delay_, base_minimum_playout_delay_, syncable_minimum_playout_delay_} have set values?\n\nI think the code would be more clear if we did that explicitly. Then it would also feel more safe to dereference them e.g. in frame_maximum_playout_delay_ \u003e TimeDelta::Zero()",
+      "range": {
+        "startLine": 972,
+        "startChar": 2,
+        "endLine": 972,
+        "endChar": 60
+      },
+      "revId": "fdf8c9a31a46e6f521febb07200c4653ebe53f82",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "d6b80b1a_80079ec7",
+        "filename": "video/video_receive_stream2.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 982,
+      "author": {
+        "id": 5524
+      },
+      "writtenOn": "2022-04-27T08:53:58Z",
+      "side": 1,
+      "message": "If this was a Frequency type instead, could you simplify the conversion to frames below?",
+      "range": {
+        "startLine": 982,
+        "startChar": 6,
+        "endLine": 982,
+        "endChar": 41
+      },
+      "revId": "fdf8c9a31a46e6f521febb07200c4653ebe53f82",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "d5004847_28622882",
+        "filename": "video/video_receive_stream2.h",
+        "patchSetId": 4
+      },
+      "lineNbr": 190,
+      "author": {
+        "id": 5524
+      },
+      "writtenOn": "2022-04-27T08:53:58Z",
+      "side": 1,
+      "message": "nit: GetMaxWaitTime ?",
+      "range": {
+        "startLine": 190,
+        "startChar": 22,
+        "endLine": 190,
+        "endChar": 24
+      },
+      "revId": "fdf8c9a31a46e6f521febb07200c4653ebe53f82",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

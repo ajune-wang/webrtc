@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "e80f36a4_3fca7b48",
+        "filename": "media/base/video_adapter.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 135,
+      "author": {
+        "id": 5492
+      },
+      "writtenOn": "2022-04-27T18:24:12Z",
+      "side": 0,
+      "message": "Or !webrtc::field_trial::IsDisabled?\n\nThe VideoAdapterTestVariableStartScale class could be removed and replaced with VideoAdapterTest in video_adapter_unittest.cc.",
+      "range": {
+        "startLine": 135,
+        "startChar": 35,
+        "endLine": 135,
+        "endChar": 65
+      },
+      "revId": "df209e797b6dd6d9472a63189bc8681d947725ef",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

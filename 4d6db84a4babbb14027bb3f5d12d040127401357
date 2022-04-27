@@ -18,6 +18,24 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "3dc06da5_6f9f611a",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 20
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5508
+      },
+      "writtenOn": "2022-04-27T20:00:56Z",
+      "side": 1,
+      "message": "The changes aren\u0027t risk free but I\u0027ve chased down several dependencies inside and outside of webrtc and tested (and made one adjustment accordingly - see other comment).",
+      "parentUuid": "a8db21f1_c4e3bc80",
+      "revId": "4d6db84a4babbb14027bb3f5d12d040127401357",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "55c53d75_f8cb2b73",
@@ -31,6 +49,30 @@
       "writtenOn": "2022-04-26T08:47:46Z",
       "side": 1,
       "message": "the meaning of this parameter is not obvious from the context, might be good to annotate it:\n(this, /*async\u003d*/true);\n\nalternativly - have two functions:\nDestoryConnection and DestoryConnectionAsync\nwhich would make it easier to search all async usages in the future.",
+      "range": {
+        "startLine": 1390,
+        "startChar": 35,
+        "endLine": 1390,
+        "endChar": 39
+      },
+      "revId": "4d6db84a4babbb14027bb3f5d12d040127401357",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "a4d6a54a_db74733d",
+        "filename": "p2p/base/connection.cc",
+        "patchSetId": 20
+      },
+      "lineNbr": 1390,
+      "author": {
+        "id": 5508
+      },
+      "writtenOn": "2022-04-27T20:00:56Z",
+      "side": 1,
+      "message": "Done. DestroyConnectionAsync is now distinct.",
+      "parentUuid": "55c53d75_f8cb2b73",
       "range": {
         "startLine": 1390,
         "startChar": 35,
@@ -64,6 +106,30 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "cf045841_bb61bed8",
+        "filename": "p2p/base/connection.h",
+        "patchSetId": 20
+      },
+      "lineNbr": 193,
+      "author": {
+        "id": 5508
+      },
+      "writtenOn": "2022-04-27T20:00:56Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "cbfb9815_52446043",
+      "range": {
+        "startLine": 192,
+        "startChar": 47,
+        "endLine": 193,
+        "endChar": 30
+      },
+      "revId": "4d6db84a4babbb14027bb3f5d12d040127401357",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "4f72ee7b_bc395957",
@@ -77,6 +143,30 @@
       "writtenOn": "2022-04-26T08:47:46Z",
       "side": 1,
       "message": "nit: delete two symbols after the dot.",
+      "range": {
+        "startLine": 198,
+        "startChar": 19,
+        "endLine": 198,
+        "endChar": 21
+      },
+      "revId": "4d6db84a4babbb14027bb3f5d12d040127401357",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "8039f801_27c6ee4c",
+        "filename": "p2p/base/connection.h",
+        "patchSetId": 20
+      },
+      "lineNbr": 198,
+      "author": {
+        "id": 5508
+      },
+      "writtenOn": "2022-04-27T20:00:56Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "4f72ee7b_bc395957",
       "range": {
         "startLine": 198,
         "startChar": 19,
@@ -112,6 +202,30 @@
     {
       "unresolved": false,
       "key": {
+        "uuid": "94142dd4_b3a464c2",
+        "filename": "p2p/base/connection.h",
+        "patchSetId": 20
+      },
+      "lineNbr": 199,
+      "author": {
+        "id": 5508
+      },
+      "writtenOn": "2022-04-27T20:00:56Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "aa62425b_4336ade4",
+      "range": {
+        "startLine": 199,
+        "startChar": 2,
+        "endLine": 199,
+        "endChar": 6
+      },
+      "revId": "4d6db84a4babbb14027bb3f5d12d040127401357",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
         "uuid": "c8700e50_e3d97a04",
         "filename": "p2p/base/p2p_transport_channel.cc",
         "patchSetId": 20
@@ -129,6 +243,24 @@
     {
       "unresolved": false,
       "key": {
+        "uuid": "aadf7140_81a4a94b",
+        "filename": "p2p/base/p2p_transport_channel.cc",
+        "patchSetId": 20
+      },
+      "lineNbr": 227,
+      "author": {
+        "id": 5508
+      },
+      "writtenOn": "2022-04-27T20:00:56Z",
+      "side": 1,
+      "message": "This was previously missing. I discovered this when running downstream tests. The reason is that previously the connection object was deleted asynchronously so the ice controller\u0027s pointer was still valid during its destruction.\nThis change makes the dtor consistent with the other methods that destroy connection objects in this file. Would be nice to consolidate in a future change.",
+      "parentUuid": "c8700e50_e3d97a04",
+      "revId": "4d6db84a4babbb14027bb3f5d12d040127401357",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
         "uuid": "c83da2fb_6eff5648",
         "filename": "p2p/base/port.cc",
         "patchSetId": 20
@@ -140,6 +272,30 @@
       "writtenOn": "2022-04-26T08:47:46Z",
       "side": 1,
       "message": "is it\nold_conn \u003d absl::WrapUnique(ret.first-\u003esecond) ?",
+      "range": {
+        "startLine": 341,
+        "startChar": 32,
+        "endLine": 341,
+        "endChar": 59
+      },
+      "revId": "4d6db84a4babbb14027bb3f5d12d040127401357",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "c7aaf315_cbfc08ed",
+        "filename": "p2p/base/port.cc",
+        "patchSetId": 20
+      },
+      "lineNbr": 341,
+      "author": {
+        "id": 5508
+      },
+      "writtenOn": "2022-04-27T20:00:56Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "c83da2fb_6eff5648",
       "range": {
         "startLine": 341,
         "startChar": 32,
@@ -173,6 +329,30 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "6caf4cf3_9d4267f1",
+        "filename": "p2p/base/port.cc",
+        "patchSetId": 20
+      },
+      "lineNbr": 601,
+      "author": {
+        "id": 5508
+      },
+      "writtenOn": "2022-04-27T20:00:56Z",
+      "side": 1,
+      "message": "Yes that\u0027s what it looks like, but since the ownership already lies with Port (not with the caller), I plan on changing the internal map to use std::unique_ptr\u003c\u003e and subsequently update this implementation. The ownership isn\u0027t being passed to Port via DestroyConnection, so it\u0027s OK as is.",
+      "parentUuid": "ced8d581_31962dda",
+      "range": {
+        "startLine": 601,
+        "startChar": 29,
+        "endLine": 601,
+        "endChar": 45
+      },
+      "revId": "4d6db84a4babbb14027bb3f5d12d040127401357",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "b6837e00_f15dd9a8",
@@ -186,6 +366,30 @@
       "writtenOn": "2022-04-26T08:47:46Z",
       "side": 1,
       "message": "conn \u003d ...\n\nhttps://google.github.io/styleguide/cppguide.html#Lambda_expressions\n“Do not use captures with initializers to introduce new names”",
+      "range": {
+        "startLine": 613,
+        "startChar": 30,
+        "endLine": 613,
+        "endChar": 39
+      },
+      "revId": "4d6db84a4babbb14027bb3f5d12d040127401357",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "e1705dea_cf031324",
+        "filename": "p2p/base/port.cc",
+        "patchSetId": 20
+      },
+      "lineNbr": 613,
+      "author": {
+        "id": 5508
+      },
+      "writtenOn": "2022-04-27T20:00:56Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "b6837e00_f15dd9a8",
       "range": {
         "startLine": 613,
         "startChar": 30,

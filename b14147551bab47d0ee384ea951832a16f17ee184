@@ -16,6 +16,23 @@
       "message": "Please take a look, Harald",
       "revId": "b14147551bab47d0ee384ea951832a16f17ee184",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "76254f12_e8357dae",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 13
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2022-04-27T11:35:07Z",
+      "side": 1,
+      "message": "Looks good!\n\nState confusion between channel and transceiver seems to be a Bad Thing.\n",
+      "revId": "b14147551bab47d0ee384ea951832a16f17ee184",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

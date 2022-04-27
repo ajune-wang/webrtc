@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "7ea4199c_97b9d8a0",
+        "filename": "test/pc/e2e/peer_configurer.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 73,
+      "author": {
+        "id": 5087
+      },
+      "writtenOn": "2022-04-27T11:58:21Z",
+      "side": 1,
+      "message": "const VideoConfig\u0026 ?",
+      "range": {
+        "startLine": 73,
+        "startChar": 7,
+        "endLine": 73,
+        "endChar": 18
+      },
+      "revId": "f8f8f327185ac3f05202d5e857eb87d5b7bd9ba0",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

@@ -41,6 +41,30 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "7c09739e_c66b3a77",
+        "filename": "video/video_receive_stream2.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 81,
+      "author": {
+        "id": 18444
+      },
+      "writtenOn": "2022-04-27T15:07:15Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "a90917ac_216ae774",
+      "range": {
+        "startLine": 81,
+        "startChar": 54,
+        "endLine": 81,
+        "endChar": 68
+      },
+      "revId": "fdf8c9a31a46e6f521febb07200c4653ebe53f82",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "bff0c0ae_580d78ac",
@@ -77,6 +101,48 @@
       "writtenOn": "2022-04-27T08:57:32Z",
       "side": 1,
       "message": "nit. Seconds(600) ?",
+      "revId": "fdf8c9a31a46e6f521febb07200c4653ebe53f82",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "e172b788_c6e26076",
+        "filename": "video/video_receive_stream2.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 185,
+      "author": {
+        "id": 18444
+      },
+      "writtenOn": "2022-04-27T15:07:15Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "d7fb4967_aa6cebc8",
+      "revId": "fdf8c9a31a46e6f521febb07200c4653ebe53f82",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "3a18c0f4_908f5965",
+        "filename": "video/video_receive_stream2.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 185,
+      "author": {
+        "id": 18444
+      },
+      "writtenOn": "2022-04-27T15:07:15Z",
+      "side": 1,
+      "message": "I have added TimeDelta::Minutes",
+      "parentUuid": "bff0c0ae_580d78ac",
+      "range": {
+        "startLine": 185,
+        "startChar": 15,
+        "endLine": 185,
+        "endChar": 29
+      },
       "revId": "fdf8c9a31a46e6f521febb07200c4653ebe53f82",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
@@ -127,6 +193,54 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "c8c41695_3645d0b9",
+        "filename": "video/video_receive_stream2.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 667,
+      "author": {
+        "id": 18444
+      },
+      "writtenOn": "2022-04-27T15:07:15Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "631e6515_05a86938",
+      "range": {
+        "startLine": 667,
+        "startChar": 20,
+        "endLine": 667,
+        "endChar": 23
+      },
+      "revId": "fdf8c9a31a46e6f521febb07200c4653ebe53f82",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "efe30768_73cb208d",
+        "filename": "video/video_receive_stream2.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 667,
+      "author": {
+        "id": 18444
+      },
+      "writtenOn": "2022-04-27T15:07:15Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "e7e7557e_1c89b264",
+      "range": {
+        "startLine": 667,
+        "startChar": 20,
+        "endLine": 667,
+        "endChar": 23
+      },
+      "revId": "fdf8c9a31a46e6f521febb07200c4653ebe53f82",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "61aed8d7_f7afe5ec",
@@ -140,6 +254,30 @@
       "writtenOn": "2022-04-27T08:57:32Z",
       "side": 1,
       "message": "I don\u0027t know if this makes a difference or not in practice, but from a boolean perspective shouldn\u0027t this be?\n\n```\n!last_keyframe_request_ ||\n```\n\nsince the condition in _ms is always true if last_keyframe_request_ms \u003d\u003d 0.",
+      "range": {
+        "startLine": 792,
+        "startChar": 6,
+        "endLine": 792,
+        "endChar": 31
+      },
+      "revId": "fdf8c9a31a46e6f521febb07200c4653ebe53f82",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "2572886a_b3c69334",
+        "filename": "video/video_receive_stream2.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 792,
+      "author": {
+        "id": 18444
+      },
+      "writtenOn": "2022-04-27T15:07:15Z",
+      "side": 1,
+      "message": "Yes this is correct. First frame should be a keyframe so we need a keyframe request.",
+      "parentUuid": "61aed8d7_f7afe5ec",
       "range": {
         "startLine": 792,
         "startChar": 6,
@@ -173,6 +311,30 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "fce50915_b53b2929",
+        "filename": "video/video_receive_stream2.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 952,
+      "author": {
+        "id": 18444
+      },
+      "writtenOn": "2022-04-27T15:07:15Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "ec5994e4_98de2d1c",
+      "range": {
+        "startLine": 952,
+        "startChar": 28,
+        "endLine": 952,
+        "endChar": 31
+      },
+      "revId": "fdf8c9a31a46e6f521febb07200c4653ebe53f82",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "a8052d75_c28ca0ee",
@@ -186,6 +348,30 @@
       "writtenOn": "2022-04-27T08:53:58Z",
       "side": 1,
       "message": "afaict, this is only used to check if all of {frame_minimum_playout_delay_, base_minimum_playout_delay_, syncable_minimum_playout_delay_} have set values?\n\nI think the code would be more clear if we did that explicitly. Then it would also feel more safe to dereference them e.g. in frame_maximum_playout_delay_ \u003e TimeDelta::Zero()",
+      "range": {
+        "startLine": 972,
+        "startChar": 2,
+        "endLine": 972,
+        "endChar": 60
+      },
+      "revId": "fdf8c9a31a46e6f521febb07200c4653ebe53f82",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "724dcd2d_0b142c44",
+        "filename": "video/video_receive_stream2.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 972,
+      "author": {
+        "id": 18444
+      },
+      "writtenOn": "2022-04-27T15:07:15Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "a8052d75_c28ca0ee",
       "range": {
         "startLine": 972,
         "startChar": 2,
@@ -219,6 +405,30 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "fd445a3d_3cc7a651",
+        "filename": "video/video_receive_stream2.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 977,
+      "author": {
+        "id": 18444
+      },
+      "writtenOn": "2022-04-27T15:07:15Z",
+      "side": 1,
+      "message": "This worked nicely.",
+      "parentUuid": "43fe3410_b62838cc",
+      "range": {
+        "startLine": 972,
+        "startChar": 0,
+        "endLine": 977,
+        "endChar": 43
+      },
+      "revId": "fdf8c9a31a46e6f521febb07200c4653ebe53f82",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "d6b80b1a_80079ec7",
@@ -242,6 +452,30 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "52822273_71b04ef5",
+        "filename": "video/video_receive_stream2.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 982,
+      "author": {
+        "id": 18444
+      },
+      "writtenOn": "2022-04-27T15:07:15Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "d6b80b1a_80079ec7",
+      "range": {
+        "startLine": 982,
+        "startChar": 6,
+        "endLine": 982,
+        "endChar": 41
+      },
+      "revId": "fdf8c9a31a46e6f521febb07200c4653ebe53f82",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "d5004847_28622882",
@@ -255,6 +489,30 @@
       "writtenOn": "2022-04-27T08:53:58Z",
       "side": 1,
       "message": "nit: GetMaxWaitTime ?",
+      "range": {
+        "startLine": 190,
+        "startChar": 22,
+        "endLine": 190,
+        "endChar": 24
+      },
+      "revId": "fdf8c9a31a46e6f521febb07200c4653ebe53f82",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "28585ffc_44a76fd6",
+        "filename": "video/video_receive_stream2.h",
+        "patchSetId": 4
+      },
+      "lineNbr": 190,
+      "author": {
+        "id": 18444
+      },
+      "writtenOn": "2022-04-27T15:07:15Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "d5004847_28622882",
       "range": {
         "startLine": 190,
         "startChar": 22,

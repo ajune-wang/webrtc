@@ -66,6 +66,23 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "d7fb4967_aa6cebc8",
+        "filename": "video/video_receive_stream2.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 185,
+      "author": {
+        "id": 9067
+      },
+      "writtenOn": "2022-04-27T08:57:32Z",
+      "side": 1,
+      "message": "nit. Seconds(600) ?",
+      "revId": "fdf8c9a31a46e6f521febb07200c4653ebe53f82",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "e7e7557e_1c89b264",
         "filename": "video/video_receive_stream2.cc",
         "patchSetId": 4
@@ -89,6 +106,75 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "631e6515_05a86938",
+        "filename": "video/video_receive_stream2.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 667,
+      "author": {
+        "id": 9067
+      },
+      "writtenOn": "2022-04-27T08:57:32Z",
+      "side": 1,
+      "message": "Remove _ms",
+      "range": {
+        "startLine": 667,
+        "startChar": 20,
+        "endLine": 667,
+        "endChar": 23
+      },
+      "revId": "fdf8c9a31a46e6f521febb07200c4653ebe53f82",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "61aed8d7_f7afe5ec",
+        "filename": "video/video_receive_stream2.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 792,
+      "author": {
+        "id": 9067
+      },
+      "writtenOn": "2022-04-27T08:57:32Z",
+      "side": 1,
+      "message": "I don\u0027t know if this makes a difference or not in practice, but from a boolean perspective shouldn\u0027t this be?\n\n```\n!last_keyframe_request_ ||\n```\n\nsince the condition in _ms is always true if last_keyframe_request_ms \u003d\u003d 0.",
+      "range": {
+        "startLine": 792,
+        "startChar": 6,
+        "endLine": 792,
+        "endChar": 31
+      },
+      "revId": "fdf8c9a31a46e6f521febb07200c4653ebe53f82",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "ec5994e4_98de2d1c",
+        "filename": "video/video_receive_stream2.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 952,
+      "author": {
+        "id": 9067
+      },
+      "writtenOn": "2022-04-27T08:57:32Z",
+      "side": 1,
+      "message": "Remove ms?",
+      "range": {
+        "startLine": 952,
+        "startChar": 28,
+        "endLine": 952,
+        "endChar": 31
+      },
+      "revId": "fdf8c9a31a46e6f521febb07200c4653ebe53f82",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "a8052d75_c28ca0ee",
         "filename": "video/video_receive_stream2.cc",
         "patchSetId": 4
@@ -105,6 +191,29 @@
         "startChar": 2,
         "endLine": 972,
         "endChar": 60
+      },
+      "revId": "fdf8c9a31a46e6f521febb07200c4653ebe53f82",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "43fe3410_b62838cc",
+        "filename": "video/video_receive_stream2.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 977,
+      "author": {
+        "id": 9067
+      },
+      "writtenOn": "2022-04-27T08:57:32Z",
+      "side": 1,
+      "message": "What do you think of using the fact that nullopt \u003c \"any assigned value\"? Then you could write something like:\n```\nconst absl::optional\u003cTimeDelta\u003e minimum_delay \u003d \n             std::max({frame_minimum_playout_delay,\n                       base_minimum_playout_delay_,\n                       syncable_minimum_playout_delay_});\n```",
+      "range": {
+        "startLine": 972,
+        "startChar": 0,
+        "endLine": 977,
+        "endChar": 43
       },
       "revId": "fdf8c9a31a46e6f521febb07200c4653ebe53f82",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"

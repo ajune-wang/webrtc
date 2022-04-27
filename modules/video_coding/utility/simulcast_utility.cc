@@ -13,6 +13,7 @@
 #include <algorithm>
 #include <cmath>
 
+#include "modules/video_coding/svc/scalability_mode_util.h"
 #include "rtc_base/checks.h"
 
 namespace webrtc {
@@ -90,8 +91,14 @@ bool SimulcastUtility::IsConferenceModeScreenshare(const VideoCodec& codec) {
 
 int SimulcastUtility::NumberOfTemporalLayers(const VideoCodec& codec,
                                              int spatial_id) {
+  RTC_DCHECK_EQ(codec.codecType, kVideoCodecVP8);
   uint8_t num_temporal_layers =
       std::max<uint8_t>(1, codec.VP8().numberOfTemporalLayers);
+  if (absl::optional<int> n =
+          ScalabilityModeToNumTemporalLayers(codec.ScalabilityMode());
+      n.has_value()) {
+    num_temporal_layers = *n;
+  }
   if (codec.numberOfSimulcastStreams > 0) {
     RTC_DCHECK_LT(spatial_id, codec.numberOfSimulcastStreams);
     num_temporal_layers =

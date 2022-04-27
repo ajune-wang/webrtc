@@ -16,6 +16,29 @@
       "message": "And now the video_engine_tests seem to actually pass.",
       "revId": "52bff80b8e7c4377c5e33ac0891e86ff84946754",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "6b6a7997_1330d2a7",
+        "filename": "modules/video_coding/codecs/vp8/libvpx_vp8_encoder.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 500,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2022-04-27T14:44:24Z",
+      "side": 1,
+      "message": "This change is probably not needed in the current patchset. But as far as I see, this is a reasonable place to reject unsupported scalability modes? Or do we prefer to silently fall back to L1T1 for anything unknown?",
+      "range": {
+        "startLine": 496,
+        "startChar": 0,
+        "endLine": 500,
+        "endChar": 3
+      },
+      "revId": "52bff80b8e7c4377c5e33ac0891e86ff84946754",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

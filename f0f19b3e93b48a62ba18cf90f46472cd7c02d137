@@ -34,6 +34,24 @@
       "parentUuid": "c0a239ec_5e04d5d9",
       "revId": "f0f19b3e93b48a62ba18cf90f46472cd7c02d137",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "6c8e0e28_1f263837",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 3
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2022-04-27T14:44:24Z",
+      "side": 1,
+      "message": "\u003e I dislike having code in half a dozen places converting scalability mode string to number of temporal layers, though.\n\nAdded a shared utility function.",
+      "parentUuid": "0d099ec3_07218485",
+      "revId": "f0f19b3e93b48a62ba18cf90f46472cd7c02d137",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

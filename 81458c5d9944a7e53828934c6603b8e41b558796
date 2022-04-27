@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "59740875_40e31a3c",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2022-04-27T12:07:52Z",
+      "side": 1,
+      "message": "This is a quick dep-fix to make it easier to isolate users of Channel.\n",
+      "revId": "81458c5d9944a7e53828934c6603b8e41b558796",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

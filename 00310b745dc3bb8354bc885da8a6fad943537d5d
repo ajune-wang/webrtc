@@ -1,0 +1,38 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "3b68a55a_9f8bcaa3",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 3
+      },
+      "lineNbr": 7,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2022-04-27T08:41:38Z",
+      "side": 1,
+      "message": "please add \"for video\" to the description, since this does not handle audio.",
+      "revId": "00310b745dc3bb8354bc885da8a6fad943537d5d",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "ed843786_8645024a",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 3
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2022-04-27T08:41:38Z",
+      "side": 1,
+      "message": "Looks good.",
+      "revId": "00310b745dc3bb8354bc885da8a6fad943537d5d",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

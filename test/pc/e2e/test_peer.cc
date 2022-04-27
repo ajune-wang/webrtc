@@ -41,7 +41,7 @@ class SetRemoteDescriptionCallback
 
 bool TestPeer::SetRemoteDescription(
     std::unique_ptr<SessionDescriptionInterface> desc,
-    std::string* error_out) {
+    RTCError* error_out) {
   RTC_CHECK(wrapper_) << "TestPeer is already closed";
 
   auto observer = rtc::make_ref_counted<SetRemoteDescriptionCallback>();
@@ -54,7 +54,7 @@ bool TestPeer::SetRemoteDescription(
                       << ": Failed to set remote description: "
                       << observer->error().message();
     if (error_out) {
-      *error_out = observer->error().message();
+      *error_out = observer->error();
     }
   }
   return observer->error().ok();

@@ -58,8 +58,38 @@ rtc_library("proxy") {
   ]
 }
 
+# TODO(bugs.webrtc.org/13931): Merge with Transceiver
 rtc_source_set("channel") {
-  visibility = [ ":*" ]
+  visibility = [
+    ":channel_manager",
+    ":jsep_transport_controller",
+    ":peer_connection",
+    ":peerconnection_unittests",
+    ":peerconnection_unittests__apk__compile_java",
+    ":peerconnection_unittests__apk__compile_resources",
+    ":peerconnection_unittests__apk__create",
+    ":peerconnection_unittests__apk__java",
+    ":peerconnection_unittests__apk__java__assetres",
+    ":peerconnection_unittests__apk__java__dex",
+    ":peerconnection_unittests__apk__java__header",
+    ":peerconnection_unittests__apk__java__validate_classpath",
+    ":peerconnection_unittests__library",
+    ":remote_audio_source",
+    ":rtc_pc_unittests",
+    ":rtc_pc_unittests__apk__compile_java",
+    ":rtc_pc_unittests__apk__compile_resources",
+    ":rtc_pc_unittests__apk__create",
+    ":rtc_pc_unittests__apk__java",
+    ":rtc_pc_unittests__apk__java__assetres",
+    ":rtc_pc_unittests__apk__java__dex",
+    ":rtc_pc_unittests__apk__java__header",
+    ":rtc_pc_unittests__apk__java__validate_classpath",
+    ":rtc_pc_unittests__library",
+    ":rtc_stats_collector",
+    ":rtp_transmission_manager",
+    ":sdp_offer_answer",
+    ":stats_collector",
+  ]
   sources = [
     "channel.cc",
     "channel.h",
@@ -102,8 +132,29 @@ rtc_source_set("channel") {
   ]
 }
 
+# TODO(bugs.webrtc.org/13931): Merge with Transceiver
 rtc_source_set("channel_interface") {
-  visibility = [ ":*" ]
+  visibility = [
+    ":channel",
+    ":channel_manager",
+    ":pc_test_utils",
+    ":peer_connection",
+    ":peerconnection_unittests",
+    ":peerconnection_unittests__apk__compile_java",
+    ":peerconnection_unittests__apk__compile_resources",
+    ":peerconnection_unittests__apk__create",
+    ":peerconnection_unittests__apk__java",
+    ":peerconnection_unittests__apk__java__assetres",
+    ":peerconnection_unittests__apk__java__dex",
+    ":peerconnection_unittests__apk__java__header",
+    ":peerconnection_unittests__apk__java__validate_classpath",
+    ":peerconnection_unittests__library",
+    ":rtc_pc_unittests__apk__compile_resources",
+    ":rtc_stats_collector",
+    ":rtp_transceiver",
+    ":sdp_offer_answer",
+    ":stats_collector",
+  ]
   sources = [ "channel_interface.h" ]
   deps = [
     ":rtp_transport_internal",

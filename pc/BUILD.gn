@@ -2617,6 +2617,7 @@ if (rtc_include_tests && !build_with_chromium) {
     ]
 
     deps = [
+      ":channel",
       ":channel_interface",
       ":jitter_buffer_delay",
       ":libjingle_peerconnection",

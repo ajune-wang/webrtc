@@ -58,8 +58,20 @@ rtc_library("proxy") {
   ]
 }
 
+# TODO(bugs.webrtc.org/13931): Merge with Transceiver
 rtc_source_set("channel") {
-  visibility = [ ":*" ]
+  visibility = [
+    ":channel_manager",
+    ":jsep_transport_controller",
+    ":peer_connection",
+    ":peerconnection_unittests",
+    ":remote_audio_source",
+    ":rtc_pc_unittests",
+    ":rtc_stats_collector",
+    ":rtp_transmission_manager",
+    ":sdp_offer_answer",
+    ":stats_collector",
+  ]
   sources = [
     "channel.cc",
     "channel.h",
@@ -102,8 +114,19 @@ rtc_source_set("channel") {
   ]
 }
 
+# TODO(bugs.webrtc.org/13931): Merge with Transceiver
 rtc_source_set("channel_interface") {
-  visibility = [ ":*" ]
+  visibility = [
+    ":channel",
+    ":channel_manager",
+    ":pc_test_utils",
+    ":peer_connection",
+    ":peerconnection_unittests",
+    ":rtc_stats_collector",
+    ":rtp_transceiver",
+    ":sdp_offer_answer",
+    ":stats_collector",
+  ]
   sources = [ "channel_interface.h" ]
   deps = [
     ":rtp_transport_internal",

@@ -153,6 +153,7 @@
   'mac': {
     'swarming': {
       'dimensions': {
+        'cpu': 'x86-64',
         'os': 'Mac'
       }
     }
@@ -169,14 +170,6 @@
     'swarming': {
       'dimensions': {
         'os': 'Mac-11'
-      }
-    }
-  },
-  'mac_10.12': {
-    'swarming': {
-      'dimensions': {
-        'cpu': 'x86-64',
-        'os': 'Mac-10.12.6'
       }
     }
   },

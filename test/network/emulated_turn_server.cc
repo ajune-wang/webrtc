@@ -169,7 +169,7 @@ void EmulatedTURNServer::OnPacketReceived(webrtc::EmulatedIpPacket packet) {
     RTC_DCHECK_RUN_ON(thread_.get());
     auto it = sockets_.find(packet.to);
     if (it != sockets_.end()) {
-      it->second->SignalReadPacket(
+      it->second->SignalReadPacketDeprecated(
           it->second, reinterpret_cast<const char*>(packet.cdata()),
           packet.size(), packet.from, packet.arrival_time.ms());
     }

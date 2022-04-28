@@ -150,7 +150,8 @@ void TurnServer::AddInternalSocket(rtc::AsyncPacketSocket* socket,
   RTC_DCHECK_RUN_ON(thread_);
   RTC_DCHECK(server_sockets_.end() == server_sockets_.find(socket));
   server_sockets_[socket] = proto;
-  socket->SignalReadPacket.connect(this, &TurnServer::OnInternalPacket);
+  socket->SignalReadPacketDeprecated.connect(this,
+                                             &TurnServer::OnInternalPacket);
 }
 
 void TurnServer::AddInternalServerSocket(
@@ -568,7 +569,7 @@ void TurnServer::DestroyInternalSocket(rtc::AsyncPacketSocket* socket) {
   if (iter != server_sockets_.end()) {
     rtc::AsyncPacketSocket* socket = iter->first;
     socket->UnsubscribeClose(this);
-    socket->SignalReadPacket.disconnect(this);
+    socket->SignalReadPacketDeprecated.disconnect(this);
     server_sockets_.erase(iter);
     std::unique_ptr<rtc::AsyncPacketSocket> socket_to_delete =
         absl::WrapUnique(socket);
@@ -614,7 +615,7 @@ TurnServerAllocation::TurnServerAllocation(TurnServer* server,
       conn_(conn),
       external_socket_(socket),
       key_(key) {
-  external_socket_->SignalReadPacket.connect(
+  external_socket_->SignalReadPacketDeprecated.connect(
       this, &TurnServerAllocation::OnExternalPacket);
 }
 

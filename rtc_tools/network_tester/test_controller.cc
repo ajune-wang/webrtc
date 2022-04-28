@@ -36,7 +36,8 @@ TestController::TestController(int min_port,
   udp_socket_ =
       std::unique_ptr<rtc::AsyncPacketSocket>(socket_factory_.CreateUdpSocket(
           rtc::SocketAddress(rtc::GetAnyIP(AF_INET), 0), min_port, max_port));
-  udp_socket_->SignalReadPacket.connect(this, &TestController::OnReadPacket);
+  udp_socket_->SignalReadPacketDeprecated.connect(
+      this, &TestController::OnReadPacket);
 }
 
 void TestController::SendConnectTo(const std::string& hostname, int port) {

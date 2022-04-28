@@ -71,7 +71,7 @@ class SocketClient : public TestGenerator, public sigslot::has_slots<> {
       : socket_(AsyncUDPSocket::Create(socket, addr)),
         post_thread_(post_thread),
         post_handler_(phandler) {
-    socket_->SignalReadPacket.connect(this, &SocketClient::OnPacket);
+    socket_->SignalReadPacketDeprecated.connect(this, &SocketClient::OnPacket);
   }
 
   ~SocketClient() override { delete socket_; }

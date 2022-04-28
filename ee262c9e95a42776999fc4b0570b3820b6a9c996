@@ -35,6 +35,24 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "4e27447c_b6ab53dc",
+        "filename": "video/video_receive_stream2.cc",
+        "patchSetId": 8
+      },
+      "lineNbr": 185,
+      "author": {
+        "id": 18444
+      },
+      "writtenOn": "2022-04-28T08:26:43Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "0599e5fb_1b8ab834",
+      "revId": "ee262c9e95a42776999fc4b0570b3820b6a9c996",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "5d975223_3b24926e",
@@ -48,6 +66,24 @@
       "writtenOn": "2022-04-27T15:39:52Z",
       "side": 1,
       "message": "nit: Can we add a static_assert that TimeDelta::Millis(-1) is guaranteed to be the same as -1? (just to make it clear that we\u0027re maintaining the previous invariant)",
+      "revId": "ee262c9e95a42776999fc4b0570b3820b6a9c996",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "dc837d48_6e229fe7",
+        "filename": "video/video_receive_stream2.cc",
+        "patchSetId": 8
+      },
+      "lineNbr": 585,
+      "author": {
+        "id": 18444
+      },
+      "writtenOn": "2022-04-28T08:26:43Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "5d975223_3b24926e",
       "revId": "ee262c9e95a42776999fc4b0570b3820b6a9c996",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }

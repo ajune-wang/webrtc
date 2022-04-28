@@ -90,6 +90,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "76df8e6c_051b9757",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 6
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2022-04-28T07:56:07Z",
+      "side": 1,
+      "message": "Added a comment on intended usage.",
+      "parentUuid": "9926e5e2_c6781b73",
+      "revId": "b2c6670898ed3f843f19578bf23663e293967757",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "6587fecc_66b9e36d",
         "filename": "api/video_codecs/scalability_mode.h",
         "patchSetId": 6

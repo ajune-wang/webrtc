@@ -24,6 +24,30 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "37bfa6b1_aa2764d0",
+        "filename": "webrtc.gni",
+        "patchSetId": 1
+      },
+      "lineNbr": 638,
+      "author": {
+        "id": 7036
+      },
+      "writtenOn": "2022-04-28T09:07:53Z",
+      "side": 1,
+      "message": "After looking more into this, we have very few rtc_static_library usage in the code, and those are mostly to aggregate all the deps in a bigger archive.\n\nIf we start hitting issues related to empty targets with this template, it might be worth considering, but at the moment, after consideration, it\u0027s probably not worth doing.",
+      "parentUuid": "90b3c923_239257e1",
+      "range": {
+        "startLine": 638,
+        "startChar": 0,
+        "endLine": 638,
+        "endChar": 32
+      },
+      "revId": "92036bcdf758858ced0be25cfa2a0884c9790da4",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "6388a820_cd3c4ce0",
@@ -37,6 +61,30 @@
       "writtenOn": "2022-04-26T06:48:15Z",
       "side": 1,
       "message": "Nit: we also need to consider asm files.",
+      "range": {
+        "startLine": 748,
+        "startChar": 29,
+        "endLine": 751,
+        "endChar": 30
+      },
+      "revId": "92036bcdf758858ced0be25cfa2a0884c9790da4",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "692922f2_edab5ff3",
+        "filename": "webrtc.gni",
+        "patchSetId": 1
+      },
+      "lineNbr": 751,
+      "author": {
+        "id": 7036
+      },
+      "writtenOn": "2022-04-28T09:07:53Z",
+      "side": 1,
+      "message": "And rc files and swift and...\nJust removed that check which was mostly for sanity checking, switching to only ignoring h, hh and inc (while we don\u0027t have hh, we do have inc in a few places). We can revisit if we ever have more file types later on to ignore.",
+      "parentUuid": "6388a820_cd3c4ce0",
       "range": {
         "startLine": 748,
         "startChar": 29,

@@ -16,6 +16,23 @@
       "message": "Seems I found my bug. Please review.\n",
       "revId": "57ace6b4670ff15a420dfa59acd6a59c9602bbf9",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "aa8f7c82_71aa2c65",
+        "filename": "pc/rtp_transceiver.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 170,
+      "author": {
+        "id": 5142
+      },
+      "writtenOn": "2022-04-28T12:42:55Z",
+      "side": 1,
+      "message": "nit: you can remove the () around stopped_",
+      "revId": "57ace6b4670ff15a420dfa59acd6a59c9602bbf9",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

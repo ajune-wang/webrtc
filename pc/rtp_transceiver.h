@@ -203,6 +203,8 @@ class RtpTransceiver : public RtpTransceiverInterface,
   // until SetRemoteDescription is called or an answer is set (either local or
   // remote).
   void set_fired_direction(RtpTransceiverDirection direction);
+  // Only applicable on rollback.
+  void reset_fired_direction();
 
   // According to JSEP rules for SetRemoteDescription, RtpTransceivers can be
   // reused only if they were added by AddTrack.

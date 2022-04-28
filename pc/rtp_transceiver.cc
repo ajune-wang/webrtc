@@ -353,6 +353,10 @@ void RtpTransceiver::set_fired_direction(RtpTransceiverDirection direction) {
   fired_direction_ = direction;
 }
 
+void RtpTransceiver::reset_fired_direction() {
+  fired_direction_ = absl::nullopt;
+}
+
 bool RtpTransceiver::stopped() const {
   RTC_DCHECK_RUN_ON(thread_);
   return stopped_;

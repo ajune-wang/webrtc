@@ -22,6 +22,30 @@
       },
       "revId": "df209e797b6dd6d9472a63189bc8681d947725ef",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "9e0a6ef7_faa02b42",
+        "filename": "media/base/video_adapter.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 135,
+      "author": {
+        "id": 6290
+      },
+      "writtenOn": "2022-04-28T13:19:38Z",
+      "side": 0,
+      "message": "Great idea, thanks!",
+      "parentUuid": "e80f36a4_3fca7b48",
+      "range": {
+        "startLine": 135,
+        "startChar": 35,
+        "endLine": 135,
+        "endChar": 65
+      },
+      "revId": "df209e797b6dd6d9472a63189bc8681d947725ef",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

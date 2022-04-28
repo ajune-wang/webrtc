@@ -13,6 +13,7 @@
 
 #include <stdint.h>
 
+#include "absl/types/optional.h"
 #include "api/video_codecs/video_codec.h"
 
 namespace webrtc {
@@ -23,6 +24,7 @@ class SimulcastUtility {
   static int NumberOfSimulcastStreams(const VideoCodec& codec);
   static bool ValidSimulcastParameters(const VideoCodec& codec,
                                        int num_streams);
+  // TODO(bugs.webrtc.org/13959): This method is VP8 only.
   static int NumberOfTemporalLayers(const VideoCodec& codec, int spatial_id);
   // TODO(sprang): Remove this hack when ScreenshareLayers is gone.
   static bool IsConferenceModeScreenshare(const VideoCodec& codec);

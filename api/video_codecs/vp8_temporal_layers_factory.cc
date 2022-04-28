@@ -18,6 +18,7 @@
 #include "api/fec_controller_override.h"
 #include "modules/video_coding/codecs/vp8/default_temporal_layers.h"
 #include "modules/video_coding/codecs/vp8/screenshare_layers.h"
+#include "modules/video_coding/svc/scalability_mode_util.h"
 #include "modules/video_coding/utility/simulcast_utility.h"
 #include "rtc_base/checks.h"
 
@@ -28,11 +29,15 @@ std::unique_ptr<Vp8FrameBufferController> Vp8TemporalLayersFactory::Create(
     const VideoEncoder::Settings& settings,
     FecControllerOverride* fec_controller_override) {
   std::vector<std::unique_ptr<Vp8FrameBufferController>> controllers;
+
   const int num_streams = SimulcastUtility::NumberOfSimulcastStreams(codec);
   RTC_DCHECK_GE(num_streams, 1);
   controllers.reserve(num_streams);
 
   for (int i = 0; i < num_streams; ++i) {
+    // TODO(bugs.webrtc.org/13959): We should return, or at least log, an error
+    // in case the codec specifies an unsupported scalability mode. Currently,
+    // we currently fall back to max(1, codec.VP8().numberOfTemporalLayers).
     int num_temporal_layers =
         SimulcastUtility::NumberOfTemporalLayers(codec, i);
     RTC_DCHECK_GE(num_temporal_layers, 1);

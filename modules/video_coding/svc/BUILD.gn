@@ -8,6 +8,17 @@
 
 import("../../../webrtc.gni")
 
+rtc_source_set("scalability_mode_util") {
+  sources = [
+    "scalability_mode_util.cc",
+    "scalability_mode_util.h",
+  ]
+  absl_deps = [
+    "//third_party/abseil-cpp/absl/strings",
+    "//third_party/abseil-cpp/absl/types:optional",
+  ]
+}
+
 rtc_source_set("scalable_video_controller") {
   sources = [
     "scalable_video_controller.h",

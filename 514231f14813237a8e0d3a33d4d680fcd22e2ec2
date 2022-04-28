@@ -18,6 +18,24 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "0d5c28e5_90769fb4",
+        "filename": "rtc_base/BUILD.gn",
+        "patchSetId": 33
+      },
+      "lineNbr": 590,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2022-04-28T11:59:49Z",
+      "side": 1,
+      "message": "git cl format produces this order.",
+      "parentUuid": "38f1fb78_8dad6451",
+      "revId": "514231f14813237a8e0d3a33d4d680fcd22e2ec2",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "16ad5f76_c6068b85",

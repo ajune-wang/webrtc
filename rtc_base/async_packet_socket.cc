@@ -24,7 +24,14 @@ PacketOptions::PacketOptions(DiffServCodePoint dscp) : dscp(dscp) {}
 PacketOptions::PacketOptions(const PacketOptions& other) = default;
 PacketOptions::~PacketOptions() = default;
 
-AsyncPacketSocket::AsyncPacketSocket() {
+AsyncPacketSocket::AsyncPacketSocket() : AsyncPacketSocket(nullptr) {}
+
+AsyncPacketSocket::AsyncPacketSocket(std::function<void(AsyncPacketSocket*,
+                                                        const char*,
+                                                        size_t,
+                                                        const SocketAddress&,
+                                                        const int64_t)> on_read)
+    : on_read_packet_(std::move(on_read)) {
   network_checker_.Detach();
 }
 

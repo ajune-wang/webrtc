@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "16ad5f76_c6068b85",
+        "filename": "rtc_base/checks.h",
+        "patchSetId": 33
+      },
+      "lineNbr": 200,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2022-04-28T09:35:01Z",
+      "side": 1,
+      "message": "I have little clue how this actually works... But this seems to make compiler happy.",
+      "range": {
+        "startLine": 196,
+        "startChar": 0,
+        "endLine": 200,
+        "endChar": 1
+      },
+      "revId": "514231f14813237a8e0d3a33d4d680fcd22e2ec2",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

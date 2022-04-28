@@ -20,6 +20,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "ad601912_84435444",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 6193
+      },
+      "writtenOn": "2022-04-28T09:15:19Z",
+      "side": 1,
+      "message": "Same machine since we only have M1 mac in the pool, I will also set that one up to run perf tests.\n\nYes I think metrics will change.",
+      "parentUuid": "2c5a4920_c7cc82a0",
+      "revId": "31f6a6ba738c1107aa4858cdd88bdba334c866a3",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "4e920c61_8df30543",
         "filename": "infra/specs/waterfalls.pyl",
         "patchSetId": 2
@@ -43,6 +61,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "be2733c2_0bc2fb43",
+        "filename": "infra/specs/waterfalls.pyl",
+        "patchSetId": 2
+      },
+      "lineNbr": 283,
+      "author": {
+        "id": 6193
+      },
+      "writtenOn": "2022-04-28T09:15:19Z",
+      "side": 1,
+      "message": "I did not want to change the name of it until the bot is updated to Mac OS 11.",
+      "parentUuid": "4e920c61_8df30543",
+      "range": {
+        "startLine": 283,
+        "startChar": 7,
+        "endLine": 283,
+        "endChar": 21
+      },
+      "revId": "31f6a6ba738c1107aa4858cdd88bdba334c866a3",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "a1c1bf15_42d4a7ba",
         "filename": "infra/specs/waterfalls.pyl",
         "patchSetId": 2
@@ -54,6 +96,30 @@
       "writtenOn": "2022-04-28T08:11:56Z",
       "side": 1,
       "message": "Could you add the \u0027x86-64\u0027 mixins instead of modifying mixins_webrtc.pyl.",
+      "range": {
+        "startLine": 287,
+        "startChar": 9,
+        "endLine": 287,
+        "endChar": 14
+      },
+      "revId": "31f6a6ba738c1107aa4858cdd88bdba334c866a3",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "789e1262_bc01852c",
+        "filename": "infra/specs/waterfalls.pyl",
+        "patchSetId": 2
+      },
+      "lineNbr": 287,
+      "author": {
+        "id": 6193
+      },
+      "writtenOn": "2022-04-28T09:15:19Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "a1c1bf15_42d4a7ba",
       "range": {
         "startLine": 287,
         "startChar": 9,

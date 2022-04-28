@@ -1,0 +1,67 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "2c5a4920_c7cc82a0",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 12234
+      },
+      "writtenOn": "2022-04-28T08:11:56Z",
+      "side": 1,
+      "message": "Is it the same machine that gets upgraded or is it a new machine ?\nGuess we expect metrics impacts after this change ?",
+      "revId": "31f6a6ba738c1107aa4858cdd88bdba334c866a3",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "4e920c61_8df30543",
+        "filename": "infra/specs/waterfalls.pyl",
+        "patchSetId": 2
+      },
+      "lineNbr": 283,
+      "author": {
+        "id": 12234
+      },
+      "writtenOn": "2022-04-28T08:11:56Z",
+      "side": 1,
+      "message": "Will need to change that as well.",
+      "range": {
+        "startLine": 283,
+        "startChar": 7,
+        "endLine": 283,
+        "endChar": 21
+      },
+      "revId": "31f6a6ba738c1107aa4858cdd88bdba334c866a3",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "a1c1bf15_42d4a7ba",
+        "filename": "infra/specs/waterfalls.pyl",
+        "patchSetId": 2
+      },
+      "lineNbr": 287,
+      "author": {
+        "id": 12234
+      },
+      "writtenOn": "2022-04-28T08:11:56Z",
+      "side": 1,
+      "message": "Could you add the \u0027x86-64\u0027 mixins instead of modifying mixins_webrtc.pyl.",
+      "range": {
+        "startLine": 287,
+        "startChar": 9,
+        "endLine": 287,
+        "endChar": 14
+      },
+      "revId": "31f6a6ba738c1107aa4858cdd88bdba334c866a3",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

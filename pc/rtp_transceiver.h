@@ -134,6 +134,9 @@ class RtpTransceiver : public RtpTransceiverInterface,
                   std::function<RtpTransportInternal*(const std::string&)>
                       transport_lookup);
 
+  // Clear the association between the transceiver and the channel.
+  void ClearChannel();
+
   // Adds an RtpSender of the appropriate type to be owned by this transceiver.
   // Must not be null.
   void AddSender(
@@ -277,6 +280,8 @@ class RtpTransceiver : public RtpTransceiverInterface,
  private:
   void OnFirstPacketReceived();
   void StopSendingAndReceiving();
+  // Delete a channel. Used by SetChannel and ClearChannel.
+  void DeleteChannel(cricket::ChannelInterface* channel_to_delete);
 
   // Enforce that this object is created, used and destroyed on one thread.
   TaskQueueBase* const thread_;

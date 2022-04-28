@@ -214,6 +214,30 @@
       },
       "revId": "63472e5aea72bec248d9b38a01813b1a67b70871",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "ee85bf2c_f0009abe",
+        "filename": "rtc_base/network.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 69,
+      "author": {
+        "id": 5087
+      },
+      "writtenOn": "2022-04-28T07:07:58Z",
+      "side": 0,
+      "message": "According to https://danlark.org/2022/04/20/changing-stdsort-at-googles-scale-and-beyond/ (which references this code as an example) the issue is with the Transitivity of incomparability: \"x \u003d\u003d y and y \u003d\u003d z imply x \u003d\u003d z, where x \u003d\u003d y means x \u003c y and y \u003c x are both false\".",
+      "parentUuid": "5cff7927_880630b9",
+      "range": {
+        "startLine": 62,
+        "startChar": 0,
+        "endLine": 69,
+        "endChar": 1
+      },
+      "revId": "63472e5aea72bec248d9b38a01813b1a67b70871",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

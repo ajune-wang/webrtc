@@ -1,0 +1,55 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "ded7aa48_6036da1c",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 4
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2022-04-28T07:01:29Z",
+      "side": 1,
+      "message": "Code looks good, a little kvetching about naming.\n",
+      "revId": "138fa586480690f6825276b2fe681563a7c4c67f",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "25a88689_0e30f6a8",
+        "filename": "net/dcsctp/tx/retransmission_queue.h",
+        "patchSetId": 4
+      },
+      "lineNbr": 84,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2022-04-28T07:01:29Z",
+      "side": 1,
+      "message": "My English detector cringes at this name - can we call it GetChunksForFastRetransmit instead?\n(FastRetransmit is a noun, \"To\" assumes it\u0027s a verb - \"FastRetransmitted\" is in the past tense, so doesn\u0027t fit with \"To\" which indicates the future)",
+      "revId": "138fa586480690f6825276b2fe681563a7c4c67f",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "c7168115_435b15e3",
+        "filename": "net/dcsctp/tx/retransmission_queue_test.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 81,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2022-04-28T07:01:29Z",
+      "side": 1,
+      "message": "GetTSNsForFastRetransmit?",
+      "revId": "138fa586480690f6825276b2fe681563a7c4c67f",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

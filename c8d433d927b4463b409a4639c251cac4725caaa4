@@ -45,6 +45,30 @@
       },
       "revId": "c8d433d927b4463b409a4639c251cac4725caaa4",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "ce909542_10c7bb81",
+        "filename": "api/scoped_refptr.h",
+        "patchSetId": 32
+      },
+      "lineNbr": 197,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2022-04-28T11:20:48Z",
+      "side": 1,
+      "message": "It appears these cause ambiguities, as long as the conversion operator is left. Deleting for now, maybe add back in later cl.\n\nOpinions welcome on whether or not we should support these comparisons.",
+      "parentUuid": "a5983203_1b362b10",
+      "range": {
+        "startLine": 197,
+        "startChar": 0,
+        "endLine": 197,
+        "endChar": 54
+      },
+      "revId": "c8d433d927b4463b409a4639c251cac4725caaa4",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

@@ -129,8 +129,8 @@ void AsyncUDPSocket::OnReadEvent(Socket* socket) {
 
   // TODO: Make sure that we got all of the packet.
   // If we did not, then we should resize our buffer to be large enough.
-  SignalReadPacket(this, buf_, static_cast<size_t>(len), remote_addr,
-                   (timestamp > -1 ? timestamp : TimeMicros()));
+  SignalReadPacketDeprecated(this, buf_, static_cast<size_t>(len), remote_addr,
+                             (timestamp > -1 ? timestamp : TimeMicros()));
 }
 
 void AsyncUDPSocket::OnWriteEvent(Socket* socket) {

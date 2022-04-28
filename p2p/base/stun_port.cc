@@ -221,7 +221,7 @@ bool UDPPort::Init() {
       RTC_LOG(LS_WARNING) << ToString() << ": UDP socket creation failed";
       return false;
     }
-    socket_->SignalReadPacket.connect(this, &UDPPort::OnReadPacket);
+    socket_->SignalReadPacketDeprecated.connect(this, &UDPPort::OnReadPacket);
   }
   socket_->SignalSentPacket.connect(this, &UDPPort::OnSentPacket);
   socket_->SignalReadyToSend.connect(this, &UDPPort::OnReadyToSend);

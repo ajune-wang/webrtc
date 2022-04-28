@@ -110,7 +110,7 @@ struct Receiver : public MessageHandlerAutoCleanup,
         sum(0),
         sum_sq(0),
         samples(0) {
-    socket->SignalReadPacket.connect(this, &Receiver::OnReadPacket);
+    socket->SignalReadPacketDeprecated.connect(this, &Receiver::OnReadPacket);
     thread->PostDelayed(RTC_FROM_HERE, 1000, this, 1);
   }
 

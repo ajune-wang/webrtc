@@ -134,8 +134,8 @@ NATServer::NATServer(NATType type,
   nat_ = NAT::Create(type);
 
   udp_server_socket_ = AsyncUDPSocket::Create(internal, internal_udp_addr);
-  udp_server_socket_->SignalReadPacket.connect(this,
-                                               &NATServer::OnInternalUDPPacket);
+  udp_server_socket_->SignalReadPacketDeprecated.connect(
+      this, &NATServer::OnInternalUDPPacket);
   tcp_proxy_server_ =
       new NATProxyServer(internal, internal_tcp_addr, external, external_ip);
 
@@ -222,7 +222,8 @@ void NATServer::Translate(const SocketAddressPair& route) {
   TransEntry* entry = new TransEntry(route, socket, nat_);
   (*int_map_)[route] = entry;
   (*ext_map_)[socket->GetLocalAddress()] = entry;
-  socket->SignalReadPacket.connect(this, &NATServer::OnExternalUDPPacket);
+  socket->SignalReadPacketDeprecated.connect(this,
+                                             &NATServer::OnExternalUDPPacket);
 }
 
 bool NATServer::ShouldFilterOut(TransEntry* entry,

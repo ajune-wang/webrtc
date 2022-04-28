@@ -118,7 +118,7 @@ StunProber::Requester::Requester(
       response_packet_(new rtc::ByteBufferWriter(nullptr, kMaxUdpBufferSize)),
       server_ips_(server_ips),
       thread_checker_(prober->thread_checker_) {
-  socket_->SignalReadPacket.connect(
+  socket_->SignalReadPacketDeprecated.connect(
       this, &StunProber::Requester::OnStunResponseReceived);
 }
 

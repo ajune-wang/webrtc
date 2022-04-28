@@ -332,8 +332,8 @@ class TurnPortTest : public ::testing::Test,
       socket_.reset(socket_factory_.CreateUdpSocket(
           rtc::SocketAddress(kLocalAddr1.ipaddr(), 0), 0, 0));
       ASSERT_TRUE(socket_ != NULL);
-      socket_->SignalReadPacket.connect(this,
-                                        &TurnPortTest::OnSocketReadPacket);
+      socket_->SignalReadPacketDeprecated.connect(
+          this, &TurnPortTest::OnSocketReadPacket);
     }
 
     RelayServerConfig config;

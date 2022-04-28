@@ -111,8 +111,8 @@ class AsyncStunTCPSocketTest : public ::testing::Test,
   void OnNewConnection(rtc::AsyncListenSocket* /*server*/,
                        rtc::AsyncPacketSocket* new_socket) {
     recv_socket_ = absl::WrapUnique(new_socket);
-    new_socket->SignalReadPacket.connect(this,
-                                         &AsyncStunTCPSocketTest::OnReadPacket);
+    new_socket->SignalReadPacketDeprecated.connect(
+        this, &AsyncStunTCPSocketTest::OnReadPacket);
   }
 
   bool Send(const void* data, size_t len) {

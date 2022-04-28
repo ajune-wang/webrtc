@@ -447,7 +447,7 @@ bool TurnPort::CreateTurnClientSocket() {
 
   if (!SharedSocket()) {
     // If socket is shared, AllocationSequence will receive the packet.
-    socket_->SignalReadPacket.connect(this, &TurnPort::OnReadPacket);
+    socket_->SignalReadPacketDeprecated.connect(this, &TurnPort::OnReadPacket);
   }
 
   socket_->SignalReadyToSend.connect(this, &TurnPort::OnReadyToSend);

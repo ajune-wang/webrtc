@@ -263,6 +263,24 @@
       "parentUuid": "8995c700_7d01bb1f",
       "revId": "b2c6670898ed3f843f19578bf23663e293967757",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "7e6d9eb1_79b01d49",
+        "filename": "modules/video_coding/svc/scalability_mode_util.cc",
+        "patchSetId": 6
+      },
+      "lineNbr": 56,
+      "author": {
+        "id": 7036
+      },
+      "writtenOn": "2022-04-28T08:31:52Z",
+      "side": 1,
+      "message": "I think keeping the list in sync is important, as well as having good utilities for logging.",
+      "parentUuid": "90202656_fadcb314",
+      "revId": "b2c6670898ed3f843f19578bf23663e293967757",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

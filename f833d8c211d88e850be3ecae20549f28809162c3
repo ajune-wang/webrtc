@@ -34,6 +34,24 @@
       "parentUuid": "9967801a_a031cd2a",
       "revId": "f833d8c211d88e850be3ecae20549f28809162c3",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "619492c2_b87da6b0",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2022-04-29T08:19:36Z",
+      "side": 1,
+      "message": "Added two bots via choose tryjobs, one of them being  linux-chromeos-compile-dbg. Does that look right?\n\nThe cq run on the original cl didn\u0027t have enough coverage to catch the compile error in chromium\u0027s \"nearby\" code.",
+      "parentUuid": "d20be615_70bacfb1",
+      "revId": "f833d8c211d88e850be3ecae20549f28809162c3",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

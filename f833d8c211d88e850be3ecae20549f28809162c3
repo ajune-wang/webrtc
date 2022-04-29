@@ -52,6 +52,24 @@
       "parentUuid": "d20be615_70bacfb1",
       "revId": "f833d8c211d88e850be3ecae20549f28809162c3",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "c17d6f6e_708191de",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5117
+      },
+      "writtenOn": "2022-04-29T08:23:18Z",
+      "side": 1,
+      "message": "Yes, looks like not all bots run all the checks.\n\nRunning these trybots seems like a best way to test chromeos from there. Let\u0027s land it if they are green.",
+      "parentUuid": "619492c2_b87da6b0",
+      "revId": "f833d8c211d88e850be3ecae20549f28809162c3",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

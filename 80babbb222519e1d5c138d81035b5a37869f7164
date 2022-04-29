@@ -16,6 +16,29 @@
       "message": "This is now OK by me.\n",
       "revId": "80babbb222519e1d5c138d81035b5a37869f7164",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "5e7ff850_debc625d",
+        "filename": "api/video_codecs/scalability_mode.h",
+        "patchSetId": 7
+      },
+      "lineNbr": 16,
+      "author": {
+        "id": 5492
+      },
+      "writtenOn": "2022-04-29T08:52:08Z",
+      "side": 1,
+      "message": "scalability",
+      "range": {
+        "startLine": 16,
+        "startChar": 13,
+        "endLine": 16,
+        "endChar": 22
+      },
+      "revId": "80babbb222519e1d5c138d81035b5a37869f7164",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

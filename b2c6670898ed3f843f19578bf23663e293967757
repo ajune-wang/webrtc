@@ -281,6 +281,24 @@
       "parentUuid": "90202656_fadcb314",
       "revId": "b2c6670898ed3f843f19578bf23663e293967757",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "82cc109e_41703d7d",
+        "filename": "modules/video_coding/svc/scalability_mode_util.cc",
+        "patchSetId": 6
+      },
+      "lineNbr": 56,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2022-04-29T07:34:05Z",
+      "side": 1,
+      "message": "Added inverse conversion utility, and basic unit tests.",
+      "parentUuid": "7e6d9eb1_79b01d49",
+      "revId": "b2c6670898ed3f843f19578bf23663e293967757",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

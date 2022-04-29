@@ -24,6 +24,30 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "d8ef8f82_508ae72c",
+        "filename": "rtc_base/network.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 198,
+      "author": {
+        "id": 5087
+      },
+      "writtenOn": "2022-04-29T14:42:06Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "e38eb332_5f332bb7",
+      "range": {
+        "startLine": 188,
+        "startChar": 0,
+        "endLine": 198,
+        "endChar": 1
+      },
+      "revId": "e5e163429c09ae3bea5d9847fe0ba855685f78bb",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "397ed134_1d78a916",
@@ -37,6 +61,30 @@
       "writtenOn": "2022-04-29T13:47:49Z",
       "side": 1,
       "message": "Purpose of this sorting is still a bit of a mystery to me.",
+      "range": {
+        "startLine": 343,
+        "startChar": 0,
+        "endLine": 343,
+        "endChar": 76
+      },
+      "revId": "e5e163429c09ae3bea5d9847fe0ba855685f78bb",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "841b7f8f_74925640",
+        "filename": "rtc_base/network.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 343,
+      "author": {
+        "id": 5087
+      },
+      "writtenOn": "2022-04-29T14:42:06Z",
+      "side": 1,
+      "message": "Same here, maybe we can even remove all this at some point?",
+      "parentUuid": "397ed134_1d78a916",
       "range": {
         "startLine": 343,
         "startChar": 0,

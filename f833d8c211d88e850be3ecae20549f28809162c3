@@ -16,6 +16,24 @@
       "message": "https://chromium-review.googlesource.com/c/chromium/src/+/3604642 now landed. I think this can be relanded now, tested with a local chromeos build of chromium.\n\nIs there an easy way to run a chromeos try-but on this cl, prior to landed?",
       "revId": "f833d8c211d88e850be3ecae20549f28809162c3",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "d20be615_70bacfb1",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5117
+      },
+      "writtenOn": "2022-04-29T08:15:50Z",
+      "side": 1,
+      "message": "CQ does have some chromeos bots already. Plus there\u0027s a \"choose tryjobs\" button below the description. It has a bunch of chromeos bots.",
+      "parentUuid": "9967801a_a031cd2a",
+      "revId": "f833d8c211d88e850be3ecae20549f28809162c3",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

@@ -161,7 +161,7 @@ RtpTransceiver::~RtpTransceiver() {
 }
 
 void RtpTransceiver::SetChannel(
-    cricket::ChannelInterface* channel,
+    std::unique_ptr<cricket::ChannelInterface> channel,
     std::function<RtpTransportInternal*(const std::string&)> transport_lookup) {
   RTC_DCHECK_RUN_ON(thread_);
   RTC_DCHECK(channel);  // Use ClearChannel() if clearing.
@@ -181,7 +181,7 @@ void RtpTransceiver::SetChannel(
   RTC_DCHECK_EQ(media_type(), channel->media_type());
   signaling_thread_safety_ = PendingTaskSafetyFlag::Create();
 
-  cricket::ChannelInterface* channel_to_delete = nullptr;
+  std::unique_ptr<cricket::ChannelInterface> channel_to_delete;
 
   // An alternative to this, could be to require SetChannel to be called
   // on the network thread. The channel object operates for the most part
@@ -196,10 +196,10 @@ void RtpTransceiver::SetChannel(
     if (channel_) {
       channel_->SetFirstPacketReceivedCallback(nullptr);
       channel_->SetRtpTransport(nullptr);
-      channel_to_delete = channel_;
+      channel_to_delete = std::move(channel_);
     }
 
-    channel_ = channel;
+    channel_ = std::move(channel);
 
     channel_->SetRtpTransport(transport_lookup(channel_->mid()));
     channel_->SetFirstPacketReceivedCallback(
@@ -212,7 +212,7 @@ void RtpTransceiver::SetChannel(
   RTC_DCHECK_BLOCK_COUNT_NO_MORE_THAN(1);
 
   if (channel_to_delete || !senders_.empty() || !receivers_.empty()) {
-    DeleteChannel(channel_to_delete);
+    DeleteChannel(std::move(channel_to_delete));
   }
 
   RTC_DCHECK_BLOCK_COUNT_NO_MORE_THAN(2);
@@ -231,29 +231,27 @@ void RtpTransceiver::ClearChannel() {
     signaling_thread_safety_->SetNotAlive();
     signaling_thread_safety_ = nullptr;
   }
-  cricket::ChannelInterface* channel_to_delete = nullptr;
+  std::unique_ptr<cricket::ChannelInterface> channel_to_delete;
 
   channel_manager_->network_thread()->Invoke<void>(RTC_FROM_HERE, [&]() {
     if (channel_) {
       channel_->SetFirstPacketReceivedCallback(nullptr);
       channel_->SetRtpTransport(nullptr);
-      channel_to_delete = channel_;
+      channel_to_delete = std::move(channel_);
     }
-
-    channel_ = nullptr;
   });
 
   RTC_DCHECK_BLOCK_COUNT_NO_MORE_THAN(1);
 
   if (channel_to_delete || !senders_.empty() || !receivers_.empty()) {
-    DeleteChannel(channel_to_delete);
+    DeleteChannel(std::move(channel_to_delete));
   }
 
   RTC_DCHECK_BLOCK_COUNT_NO_MORE_THAN(2);
 }
 
 void RtpTransceiver::DeleteChannel(
-    cricket::ChannelInterface* channel_to_delete) {
+    std::unique_ptr<cricket::ChannelInterface> channel_to_delete) {
   channel_manager_->worker_thread()->Invoke<void>(RTC_FROM_HERE, [&]() {
     auto* media_channel = channel_ ? channel_->media_channel() : nullptr;
     for (const auto& sender : senders_) {
@@ -267,7 +265,7 @@ void RtpTransceiver::DeleteChannel(
     // Destroy the channel, if we had one, now _after_ updating the receivers
     // who might have had references to the previous channel.
     if (channel_to_delete) {
-      channel_manager_->DestroyChannel(channel_to_delete);
+      channel_to_delete.reset(nullptr);
     }
   });
 }

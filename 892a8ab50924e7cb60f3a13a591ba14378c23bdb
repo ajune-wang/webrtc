@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "77328265_bb8b56e0",
+        "filename": "sdk/objc/native/src/audio/audio_device_ios.mm",
+        "patchSetId": 8
+      },
+      "lineNbr": 576,
+      "author": {
+        "id": 6039
+      },
+      "writtenOn": "2022-04-29T08:05:26Z",
+      "side": 1,
+      "message": "It is not clear to me what is changed here actually. What could happen before which is now resolved? To me it feels as if you have removed one input parameter which was only used for logging and renamed one variable. Am I missing something?",
+      "revId": "892a8ab50924e7cb60f3a13a591ba14378c23bdb",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

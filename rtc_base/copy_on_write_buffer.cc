@@ -28,7 +28,7 @@ CopyOnWriteBuffer::CopyOnWriteBuffer(CopyOnWriteBuffer&& buf)
   RTC_DCHECK(IsConsistent());
 }
 
-CopyOnWriteBuffer::CopyOnWriteBuffer(const std::string& s)
+CopyOnWriteBuffer::CopyOnWriteBuffer(absl::string_view s)
     : CopyOnWriteBuffer(s.data(), s.length()) {}
 
 CopyOnWriteBuffer::CopyOnWriteBuffer(size_t size)

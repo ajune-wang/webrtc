@@ -39,6 +39,30 @@
       },
       "revId": "d615cb11ec86d331eed2d5933a3771a44dee835b",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "628f9c51_8d6c1ed5",
+        "filename": "modules/video_coding/svc/scalability_mode_util.cc",
+        "patchSetId": 8
+      },
+      "lineNbr": 96,
+      "author": {
+        "id": 7036
+      },
+      "writtenOn": "2022-04-29T13:42:54Z",
+      "side": 1,
+      "message": "Correct! Whenever someone adds those modes to any codec, they\u0027ll have to extend the enum with more values, which should be quick easy. I don\u0027t think we necessarily need to have an exhaustive list there right now.",
+      "parentUuid": "f43b5438_f062a9d0",
+      "range": {
+        "startLine": 96,
+        "startChar": 4,
+        "endLine": 96,
+        "endChar": 38
+      },
+      "revId": "d615cb11ec86d331eed2d5933a3771a44dee835b",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

@@ -174,6 +174,7 @@ void RtpTransceiver::SetChannel(
   RTC_LOG_THREAD_BLOCK_COUNT();
 
   if (channel_) {
+    RTC_CHECK(false) << "DEBUG: Find the test that replaces";
     signaling_thread_safety_->SetNotAlive();
     signaling_thread_safety_ = nullptr;
   }

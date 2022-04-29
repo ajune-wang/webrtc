@@ -163,6 +163,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "33568dad_646e8216",
+        "filename": "api/video_codecs/vp8_temporal_layers_factory.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 32,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2022-04-29T12:58:16Z",
+      "side": 1,
+      "message": "I added an explicit check here. null return value makes InitEncode return failure.",
+      "parentUuid": "03652e9b_87294bb1",
+      "revId": "05f834f5085e994562dcb30dca31d7c807409038",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "32c872d7_c2c0bc13",
         "filename": "modules/video_coding/utility/simulcast_utility.cc",
         "patchSetId": 1

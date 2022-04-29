@@ -1,0 +1,44 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "84b7cd65_1433c2c7",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 8
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2022-04-29T12:58:16Z",
+      "side": 1,
+      "message": "Now rebased on top of the enum cl, with some things getting slightly simpler.",
+      "revId": "d615cb11ec86d331eed2d5933a3771a44dee835b",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "f43b5438_f062a9d0",
+        "filename": "modules/video_coding/svc/scalability_mode_util.cc",
+        "patchSetId": 8
+      },
+      "lineNbr": 96,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2022-04-29T12:58:16Z",
+      "side": 1,
+      "message": "This function is based on the list https://w3c.github.io/webrtc-svc/#scalabilitymodes*\n\nBut it seems we have a few modes not on that list, e.g., L2T1_KEY?",
+      "range": {
+        "startLine": 96,
+        "startChar": 4,
+        "endLine": 96,
+        "endChar": 38
+      },
+      "revId": "d615cb11ec86d331eed2d5933a3771a44dee835b",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

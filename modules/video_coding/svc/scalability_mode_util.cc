@@ -93,4 +93,40 @@ absl::string_view ScalabilityModeToString(ScalabilityMode scalability_mode) {
   RTC_CHECK_NOTREACHED();
 }
 
+int ScalabilityModeToNumTemporalLayers(ScalabilityMode scalability_mode) {
+  switch (scalability_mode) {
+    case ScalabilityMode::kL1T1:
+      return 1;
+    case ScalabilityMode::kL1T2:
+      return 2;
+    case ScalabilityMode::kL1T3:
+      return 3;
+    case ScalabilityMode::kL2T1:
+      return 1;
+    case ScalabilityMode::kL2T1h:
+      return 1;
+    case ScalabilityMode::kL2T1_KEY:
+      return 1;
+    case ScalabilityMode::kL2T2:
+      return 2;
+    case ScalabilityMode::kL2T2_KEY:
+      return 2;
+    case ScalabilityMode::kL2T2_KEY_SHIFT:
+      return 2;
+    case ScalabilityMode::kL2T3_KEY:
+      return 3;
+    case ScalabilityMode::kL3T1:
+      return 1;
+    case ScalabilityMode::kL3T3:
+      return 3;
+    case ScalabilityMode::kL3T3_KEY:
+      return 3;
+    case ScalabilityMode::kS2T1:
+      return 1;
+    case ScalabilityMode::kS3T3:
+      return 3;
+  }
+  RTC_CHECK_NOTREACHED();
+}
+
 }  // namespace webrtc

@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "55a95e2b_4a4ee671",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 2
+      },
+      "lineNbr": 13,
+      "author": {
+        "id": 9405
+      },
+      "writtenOn": "2022-04-29T10:18:52Z",
+      "side": 1,
+      "message": "It seems to be an unrelated issue. Could it be webrtc:13662?",
+      "revId": "fc253bad7cb84b04c586151114c6fc7d2308c151",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

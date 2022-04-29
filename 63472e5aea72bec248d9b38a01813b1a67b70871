@@ -238,6 +238,30 @@
       },
       "revId": "63472e5aea72bec248d9b38a01813b1a67b70871",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "20b13b85_7dcc3f91",
+        "filename": "rtc_base/network.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 69,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2022-04-29T06:07:40Z",
+      "side": 0,
+      "message": "Being called out in an article like that is an indication that we\u0027re doing something wrong.\n\n\nGOT IT (I think):\n\nIf x, y, and z all have name \u0027a\u0027\nx and y have prefixlen 1 and 2 respectively\nz has prefixlen 2\ny and z have differing prefixes\n\nx will compare equal to y (compare name only)\nx will compare equal to z (compare name only)\ny will compare not equal to z (compare  prefix)\n\nthus violating rule 4 (x \u003d\u003d y \u0026\u0026 x \u003d\u003d z \u003d\u003e x \u003d\u003d z)\n\nThat took a while!\nI\u0027d like to see such an example embedded in a test.",
+      "parentUuid": "ee85bf2c_f0009abe",
+      "range": {
+        "startLine": 62,
+        "startChar": 0,
+        "endLine": 69,
+        "endChar": 1
+      },
+      "revId": "63472e5aea72bec248d9b38a01813b1a67b70871",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

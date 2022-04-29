@@ -85,6 +85,23 @@
       "message": "Still confused, but if it\u0027s only used once, it should be a lambda not a function.\n",
       "revId": "97205952c40e616a1d6ebabb52f41f412789f2f6",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "365c9610_1984821e",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2022-04-29T06:07:40Z",
+      "side": 1,
+      "message": "I think I got it (and managed to think of how the rule can be violated).\nCan we add a test?\n",
+      "revId": "97205952c40e616a1d6ebabb52f41f412789f2f6",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

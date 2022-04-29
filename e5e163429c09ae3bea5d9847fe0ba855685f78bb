@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "e38eb332_5f332bb7",
+        "filename": "rtc_base/network.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 198,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2022-04-29T13:47:49Z",
+      "side": 1,
+      "message": "So logic is, that primary sort key is prefix length. If prefix lengths are equal, we sort on name. If both prefix lengths and names are equal, we sort on the prefix contents. Rather odd, but should be a an internally consistent sort order.\n\nTo make it clear that prefix length is primary, perhaps reorder the conditions to start with\n\n```\nif (a-\u003eprefix_length() !\u003d b-\u003eprefix_length()) {\n  return a-\u003eprefix_length() \u003c b-\u003eprefix_length();\n}\n```",
+      "range": {
+        "startLine": 188,
+        "startChar": 0,
+        "endLine": 198,
+        "endChar": 1
+      },
+      "revId": "e5e163429c09ae3bea5d9847fe0ba855685f78bb",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "397ed134_1d78a916",
+        "filename": "rtc_base/network.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 343,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2022-04-29T13:47:49Z",
+      "side": 1,
+      "message": "Purpose of this sorting is still a bit of a mystery to me.",
+      "range": {
+        "startLine": 343,
+        "startChar": 0,
+        "endLine": 343,
+        "endChar": 76
+      },
+      "revId": "e5e163429c09ae3bea5d9847fe0ba855685f78bb",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

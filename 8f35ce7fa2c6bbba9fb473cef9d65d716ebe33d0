@@ -24,6 +24,30 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "0d24da92_b6d5a71d",
+        "filename": "modules/video_coding/svc/scalability_mode_util_unittest.cc",
+        "patchSetId": 8
+      },
+      "lineNbr": 2,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2022-04-29T11:16:46Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "dc080396_a82641ec",
+      "range": {
+        "startLine": 2,
+        "startChar": 18,
+        "endLine": 2,
+        "endChar": 22
+      },
+      "revId": "8f35ce7fa2c6bbba9fb473cef9d65d716ebe33d0",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "d487e64c_48d4fe1a",
@@ -37,6 +61,30 @@
       "writtenOn": "2022-04-29T08:52:08Z",
       "side": 1,
       "message": "Some looks unneeded.",
+      "range": {
+        "startLine": 16,
+        "startChar": 0,
+        "endLine": 27,
+        "endChar": 23
+      },
+      "revId": "8f35ce7fa2c6bbba9fb473cef9d65d716ebe33d0",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "316a125e_aeb44fc8",
+        "filename": "modules/video_coding/svc/scalability_mode_util_unittest.cc",
+        "patchSetId": 8
+      },
+      "lineNbr": 27,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2022-04-29T11:16:46Z",
+      "side": 1,
+      "message": "Indeed, copy-and-paste with missing cleanup.\n\nTrimmed list, and added includes for string_view etc (to not rely on indirect include).",
+      "parentUuid": "d487e64c_48d4fe1a",
       "range": {
         "startLine": 16,
         "startChar": 0,

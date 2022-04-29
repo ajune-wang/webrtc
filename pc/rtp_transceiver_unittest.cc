@@ -76,6 +76,7 @@ TEST(RtpTransceiverTest, CannotSetChannelOnStoppedTransceiver) {
       .WillRepeatedly(Return(cricket::MediaType::MEDIA_TYPE_AUDIO));
 
   // Channel can no longer be set, so this call should be a no-op.
+  transceiver->ClearChannel();
   transceiver->SetChannel(&channel2,
                           [](const std::string&) { return nullptr; });
   EXPECT_EQ(&channel1, transceiver->channel());

@@ -69,6 +69,11 @@ class RTC_EXPORT AsyncPacketSocket : public sigslot::has_slots<> {
   };
 
   AsyncPacketSocket();
+  explicit AsyncPacketSocket(std::function<void(AsyncPacketSocket*,
+                                                const char*,
+                                                size_t,
+                                                const SocketAddress&,
+                                                const int64_t)> on_read);
   ~AsyncPacketSocket() override;
 
   AsyncPacketSocket(const AsyncPacketSocket&) = delete;
@@ -117,7 +122,7 @@ class RTC_EXPORT AsyncPacketSocket : public sigslot::has_slots<> {
                    // TODO(bugs.webrtc.org/9584): Change to passing the int64_t
                    // timestamp by value.
                    const int64_t&>
-      SignalReadPacket;
+      SignalReadPacketDeprecated;
 
   // Emitted each time a packet is sent.
   sigslot::signal2<AsyncPacketSocket*, const SentPacket&> SignalSentPacket;
@@ -148,11 +153,30 @@ class RTC_EXPORT AsyncPacketSocket : public sigslot::has_slots<> {
     on_close_.Send(this, err);
   }
 
+  // Offered to derived classes to fire `on_read_packet_`.
+  // TODO(bugs.webrtc.org/11943) The signature matches the previous sigslot
+  // variable for backwards compatibility reasons. Rename, remove the first
+  // parameter and switch to Timestamp when downstream code has been updated.
+  void SignalReadPacket(AsyncPacketSocket* s,
+                        const char* data,
+                        size_t data_len,
+                        const SocketAddress& address,
+                        const int64_t timestamp) {
+    RTC_DCHECK_EQ(this, s);
+    on_read_packet_(s, data, data_len, address, timestamp);
+  }
+
   RTC_NO_UNIQUE_ADDRESS webrtc::SequenceChecker network_checker_;
 
  private:
   webrtc::CallbackList<AsyncPacketSocket*, int> on_close_
       RTC_GUARDED_BY(&network_checker_);
+  std::function<void(AsyncPacketSocket*,
+                     const char*,
+                     size_t,
+                     const SocketAddress&,
+                     const int64_t)>
+      on_read_packet_;
 };
 
 // Listen socket, producing an AsyncPacketSocket when a peer connects.

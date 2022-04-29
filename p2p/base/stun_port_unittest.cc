@@ -101,7 +101,8 @@ class StunPortTestBase : public ::testing::Test, public sigslot::has_slots<> {
           rtc::SocketAddress(kLocalAddr.ipaddr(), 0), 0, 0));
     }
     ASSERT_TRUE(socket_ != NULL);
-    socket_->SignalReadPacket.connect(this, &StunPortTestBase::OnReadPacket);
+    socket_->SignalReadPacketDeprecated.connect(
+        this, &StunPortTestBase::OnReadPacket);
     stun_port_ = cricket::UDPPort::Create(
         rtc::Thread::Current(), &socket_factory_, &network_, socket_.get(),
         rtc::CreateRandomString(16), rtc::CreateRandomString(22), false,

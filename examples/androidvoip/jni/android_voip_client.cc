@@ -312,7 +312,7 @@ void AndroidVoipClient::StartSession(JNIEnv* env) {
                                             /*isSuccessful=*/false);
     return;
   }
-  rtp_socket_->SignalReadPacket.connect(
+  rtp_socket_->SignalReadPacketDeprecated.connect(
       this, &AndroidVoipClient::OnSignalReadRTPPacket);
 
   rtcp_socket_.reset(rtc::AsyncUDPSocket::Create(voip_thread_->socketserver(),
@@ -323,7 +323,7 @@ void AndroidVoipClient::StartSession(JNIEnv* env) {
                                             /*isSuccessful=*/false);
     return;
   }
-  rtcp_socket_->SignalReadPacket.connect(
+  rtcp_socket_->SignalReadPacketDeprecated.connect(
       this, &AndroidVoipClient::OnSignalReadRTCPPacket);
   Java_VoipClient_onStartSessionCompleted(env_, j_voip_client_,
                                           /*isSuccessful=*/true);

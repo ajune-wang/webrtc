@@ -18,11 +18,11 @@
 namespace cricket {
 
 StunServer::StunServer(rtc::AsyncUDPSocket* socket) : socket_(socket) {
-  socket_->SignalReadPacket.connect(this, &StunServer::OnPacket);
+  socket_->SignalReadPacketDeprecated.connect(this, &StunServer::OnPacket);
 }
 
 StunServer::~StunServer() {
-  socket_->SignalReadPacket.disconnect(this);
+  socket_->SignalReadPacketDeprecated.disconnect(this);
 }
 
 void StunServer::OnPacket(rtc::AsyncPacketSocket* socket,

@@ -10,7 +10,7 @@ vars = {
   # chromium waterfalls. More info at: crbug.com/570091.
   'checkout_configuration': 'default',
   'checkout_instrumented_libraries': 'checkout_linux and checkout_configuration == "default"',
-  'chromium_revision': 'bd9f2a5e9a68a1c188a47fdc1524965996094e10',
+  'chromium_revision': '6cda8db0da5393d87a7b1dbaa202bdab6bc2217a',
 
   # Keep the Chromium default of generating location tags.
   'generate_location_tags': True,
@@ -38,9 +38,9 @@ deps = {
     'condition': 'checkout_ios',
   },
   'src/testing':
-    'https://chromium.googlesource.com/chromium/src/testing@ff930f4c1aed7eee838b57cd09493234293ca50a',
+    'https://chromium.googlesource.com/chromium/src/testing@09a0db9a0ce4a5f43b84d5beeccf25759072b3a2',
   'src/third_party':
-    'https://chromium.googlesource.com/chromium/src/third_party@2f85cdfe51e005dd4a8e424f5a0d4b016ae7ddfe',
+    'https://chromium.googlesource.com/chromium/src/third_party@525b586cf438d25f942dd2b9efa9fc840d9b8bcd',
 
   'src/buildtools/linux64': {
     'packages': [
@@ -129,7 +129,7 @@ deps = {
   'src/third_party/breakpad/breakpad':
     'https://chromium.googlesource.com/breakpad/breakpad.git@8b68c72a3fff2bb687c7f411e5c1c09e356b8603',
   'src/third_party/catapult':
-    'https://chromium.googlesource.com/catapult.git@ef89d1327c8b5dcb10edd61169d1927dc2222b6e',
+    'https://chromium.googlesource.com/catapult.git@9ba02ee5ca009b67a48adae40fd01aa58a94e0c2',
   'src/third_party/ced/src': {
     'url': 'https://chromium.googlesource.com/external/github.com/google/compact_enc_det.git@ba412eaaacd3186085babcd901679a48863c7dd5',
   },
@@ -176,7 +176,7 @@ deps = {
   'src/third_party/googletest/src':
     'https://chromium.googlesource.com/external/github.com/google/googletest.git@af29db7ec28d6df1c7f0f745186884091e602e07',
   'src/third_party/icu': {
-    'url': 'https://chromium.googlesource.com/chromium/deps/icu.git@5fb93cb43cfa9aa4063238f20e1e1a09aceade04',
+    'url': 'https://chromium.googlesource.com/chromium/deps/icu.git@85814e1af52482199a13d284545623ffbc9eef83',
   },
   'src/third_party/jdk': {
       'packages': [

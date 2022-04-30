@@ -115,7 +115,7 @@
   },
   'ios-simulator-14.0': {
     '$mixin_append': {
-      'args': ['--platform', 'iPhone X', '--version', '14.0'],
+      'args': ['--platform', 'iPhone X', '--version', '14.4'],
       'swarming': {
         'named_caches': [{
           'name': 'runtime_ios_14_0',
@@ -168,7 +168,7 @@
   'mac11': {
     'swarming': {
       'dimensions': {
-        'os': 'Mac-11'
+        'os': 'Mac-12'
       }
     }
   },

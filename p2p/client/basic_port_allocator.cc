@@ -1285,8 +1285,8 @@ void AllocationSequence::Init() {
         rtc::SocketAddress(network_->GetBestIP(), 0),
         session_->allocator()->min_port(), session_->allocator()->max_port()));
     if (udp_socket_) {
-      udp_socket_->SignalReadPacket.connect(this,
-                                            &AllocationSequence::OnReadPacket);
+      udp_socket_->SignalReadPacketDeprecated.connect(
+          this, &AllocationSequence::OnReadPacket);
     }
     // Continuing if `udp_socket_` is NULL, as local TCP and RelayPort using TCP
     // are next available options to setup a communication channel.

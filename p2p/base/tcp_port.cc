@@ -157,7 +157,7 @@ Connection* TCPPort::CreateConnection(const Candidate& address,
     // Incoming connection; we already created a socket and connected signals,
     // so we need to hand off the "read packet" responsibility to
     // TCPConnection.
-    socket->SignalReadPacket.disconnect(this);
+    socket->SignalReadPacketDeprecated.disconnect(this);
     conn = new TCPConnection(NewWeakPtr(), address, socket);
   } else {
     // Outgoing connection, which will create a new socket for which we still
@@ -286,7 +286,8 @@ void TCPPort::OnNewConnection(rtc::AsyncListenSocket* socket,
   Incoming incoming;
   incoming.addr = new_socket->GetRemoteAddress();
   incoming.socket = new_socket;
-  incoming.socket->SignalReadPacket.connect(this, &TCPPort::OnReadPacket);
+  incoming.socket->SignalReadPacketDeprecated.connect(this,
+                                                      &TCPPort::OnReadPacket);
   incoming.socket->SignalReadyToSend.connect(this, &TCPPort::OnReadyToSend);
   incoming.socket->SignalSentPacket.connect(this, &TCPPort::OnSentPacket);
 
@@ -593,7 +594,8 @@ void TCPConnection::ConnectSocketSignals(rtc::AsyncPacketSocket* socket) {
   if (outgoing_) {
     socket->SignalConnect.connect(this, &TCPConnection::OnConnect);
   }
-  socket->SignalReadPacket.connect(this, &TCPConnection::OnReadPacket);
+  socket->SignalReadPacketDeprecated.connect(this,
+                                             &TCPConnection::OnReadPacket);
   socket->SignalReadyToSend.connect(this, &TCPConnection::OnReadyToSend);
   socket->SubscribeClose(
       this, [this](rtc::AsyncPacketSocket* s, int err) { OnClose(s, err); });

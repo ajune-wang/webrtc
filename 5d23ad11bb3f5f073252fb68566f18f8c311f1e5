@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "1e085c2b_19d4ab93",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2022-04-30T16:10:34Z",
+      "side": 1,
+      "message": "Removing obstacles to redesigns.\n",
+      "revId": "5d23ad11bb3f5f073252fb68566f18f8c311f1e5",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

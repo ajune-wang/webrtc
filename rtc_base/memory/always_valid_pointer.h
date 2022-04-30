@@ -29,6 +29,17 @@ class AlwaysValidPointer {
     RTC_DCHECK(pointer_);
   }
 
+  // Create a pointer by
+  // a) using |pointer|, without taking ownership
+  // b) calling |function| and taking ownership of the result
+
+  AlwaysValidPointer(Interface* pointer,
+                     std::function<std::unique_ptr<Interface>()> function)
+      : owned_instance_(pointer ? nullptr : function()),
+        pointer_(owned_instance_ ? owned_instance_.get() : pointer) {
+    RTC_DCHECK(pointer_);
+  }
+
   template <typename... Args>
   AlwaysValidPointer(Interface* pointer, Args... args)
       : owned_instance_(

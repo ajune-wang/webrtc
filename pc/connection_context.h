@@ -70,8 +70,8 @@ class ConnectionContext final
 
   rtc::Thread* signaling_thread() { return signaling_thread_; }
   const rtc::Thread* signaling_thread() const { return signaling_thread_; }
-  rtc::Thread* worker_thread() { return worker_thread_; }
-  const rtc::Thread* worker_thread() const { return worker_thread_; }
+  rtc::Thread* worker_thread() { return worker_thread_.get(); }
+  const rtc::Thread* worker_thread() const { return worker_thread_.get(); }
   rtc::Thread* network_thread() { return network_thread_; }
   const rtc::Thread* network_thread() const { return network_thread_; }
 
@@ -91,7 +91,7 @@ class ConnectionContext final
     return default_socket_factory_.get();
   }
   CallFactoryInterface* call_factory() {
-    RTC_DCHECK_RUN_ON(worker_thread_);
+    RTC_DCHECK_RUN_ON(worker_thread_.get());
     return call_factory_.get();
   }
 
@@ -114,7 +114,7 @@ class ConnectionContext final
   std::unique_ptr<rtc::Thread> owned_worker_thread_
       RTC_GUARDED_BY(signaling_thread_);
   rtc::Thread* const network_thread_;
-  rtc::Thread* const worker_thread_;
+  AlwaysValidPointer<rtc::Thread> const worker_thread_;
   rtc::Thread* const signaling_thread_;
 
   // Accessed both on signaling thread and worker thread.

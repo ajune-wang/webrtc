@@ -162,29 +162,6 @@
       'apprtcmobile_tests': {
         'mixins': ['xcode_parallelization']
       },
-      'audio_decoder_unittests': {},
-      'common_audio_unittests': {},
-      'common_video_unittests': {},
-      'dcsctp_unittests': {},
-      'modules_tests': {},
-      'modules_unittests': {},
-      'rtc_media_unittests': {},
-      'rtc_pc_unittests': {},
-      'rtc_stats_unittests': {},
-      'rtc_unittests': {},
-      'sdk_framework_unittests': {
-        'mixins': ['xcode_parallelization']
-      },
-      'sdk_unittests': {
-        'mixins': ['xcode_parallelization']
-      },
-      'system_wrappers_unittests': {},
-      'test_support_unittests': {},
-      'tools_unittests': {},
-      'video_capture_tests': {},
-      'video_engine_tests': {},
-      'voip_unittests': {},
-      'webrtc_nonparallel_tests': {},
     },
     'linux_video_capture_tests': {
       'video_capture_tests': {

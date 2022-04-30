@@ -944,6 +944,8 @@ void RtpVideoStreamReceiver2::ManageFrame(
 
 // RTC_RUN_ON(packet_sequence_checker_)
 void RtpVideoStreamReceiver2::ReceivePacket(const RtpPacketReceived& packet) {
+  // TODO(tommi): We get here via Call::DeliverRtp (and other calls), so should
+  // be moved to the network thread.
   RTC_DCHECK_RUN_ON(&worker_task_checker_);
   if (packet.payload_size() == 0) {
     // Padding or keep-alive packet.

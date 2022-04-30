@@ -168,7 +168,7 @@
   'mac11': {
     'swarming': {
       'dimensions': {
-        'os': 'Mac-11'
+        'os': 'Mac-12'
       }
     }
   },

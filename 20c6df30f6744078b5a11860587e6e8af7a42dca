@@ -33,6 +33,40 @@
       "message": "All `TRACE_EVENT_xxx` are NOOP() if RTC_TRACE_EVENTS_ENABLED is not defined.\n\nNeed not conditional MACRO by caller. ",
       "revId": "20c6df30f6744078b5a11860587e6e8af7a42dca",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "5dfe2a50_671b4dee",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2022-05-01T10:07:13Z",
+      "side": 1,
+      "message": "Please check the binary size impacts.\n",
+      "revId": "20c6df30f6744078b5a11860587e6e8af7a42dca",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "ff5a4997_4262efd6",
+        "filename": "rtc_base/event_tracer.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 76,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2022-05-01T10:07:13Z",
+      "side": 1,
+      "message": "There is no test that calls this function. Do you know that it does what you want?",
+      "revId": "20c6df30f6744078b5a11860587e6e8af7a42dca",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

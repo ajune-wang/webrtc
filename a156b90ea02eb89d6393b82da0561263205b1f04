@@ -1,0 +1,38 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "9dce281d_58773a98",
+        "filename": "modules/pacing/packet_router.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 217,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2022-05-01T10:07:13Z",
+      "side": 0,
+      "message": "Removing these #if statements will increase code size, and will increase overhead due to the loop being executed even if the TRACE_EVENT2 macro is not expanded.\n(The compiler may or may not be able to eliminate the loop)\n\nI don\u0027t think you should do this without a clear reason.",
+      "revId": "a156b90ea02eb89d6393b82da0561263205b1f04",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "4a781a27_ebbd6e15",
+        "filename": "modules/pacing/task_queue_paced_sender.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 228,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2022-05-01T10:07:13Z",
+      "side": 0,
+      "message": "If the TRACE_EVENT macro expands to nothing when RTC_TRACE_EVENTS_ENABLED is false, then removing this #if is OK.",
+      "revId": "a156b90ea02eb89d6393b82da0561263205b1f04",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "0d60fbc6_ed9b479a",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 18554
+      },
+      "writtenOn": "2022-05-01T09:17:58Z",
+      "side": 1,
+      "message": "Enable more trace during internal test.\n\nperhaps, event the parameter is not required, always enable all trace for internal debug.",
+      "revId": "20c6df30f6744078b5a11860587e6e8af7a42dca",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

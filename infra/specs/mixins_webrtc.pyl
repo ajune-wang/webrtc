@@ -95,13 +95,13 @@
         '--platform',
         'iPhone X',
         '--version',
-        '14.0',
+        '14.5',
       ],
       'swarming': {
         'named_caches': [
           {
-            'name': 'runtime_ios_14_0',
-            'path': 'Runtime-ios-14.0',
+            'name': 'runtime_ios_14_5',
+            'path': 'Runtime-ios-14.5',
           },
         ],
       },

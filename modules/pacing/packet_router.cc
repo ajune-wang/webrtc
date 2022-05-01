@@ -214,14 +214,12 @@ std::vector<std::unique_ptr<RtpPacketToSend>> PacketRouter::GeneratePadding(
     }
   }
 
-#if RTC_TRACE_EVENTS_ENABLED
   for (auto& packet : padding_packets) {
     TRACE_EVENT2(TRACE_DISABLED_BY_DEFAULT("webrtc"),
                  "PacketRouter::GeneratePadding::Loop", "sequence_number",
                  packet->SequenceNumber(), "rtp_timestamp",
                  packet->Timestamp());
   }
-#endif
 
   return padding_packets;
 }

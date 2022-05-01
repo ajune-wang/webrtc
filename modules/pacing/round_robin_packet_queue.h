@@ -28,7 +28,6 @@
 #include "modules/pacing/pacing_controller.h"
 #include "modules/rtp_rtcp/include/rtp_rtcp_defines.h"
 #include "modules/rtp_rtcp/source/rtp_packet_to_send.h"
-#include "system_wrappers/include/clock.h"
 
 namespace webrtc {
 

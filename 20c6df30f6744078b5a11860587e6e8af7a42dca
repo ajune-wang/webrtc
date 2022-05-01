@@ -67,6 +67,24 @@
       "message": "There is no test that calls this function. Do you know that it does what you want?",
       "revId": "20c6df30f6744078b5a11860587e6e8af7a42dca",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "42c2e380_4d30e2a2",
+        "filename": "rtc_base/event_tracer.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 76,
+      "author": {
+        "id": 18554
+      },
+      "writtenOn": "2022-05-01T10:33:47Z",
+      "side": 1,
+      "message": "I found it is used by `modules_unittests`, behind a command option.\n\ntest_main_lib.cc - Chromium Code Search\nhttps://source.chromium.org/chromium/chromium/src/+/main:third_party/webrtc/test/test_main_lib.cc;l\u003d203\n\nI want to capture `TaskQueuePacedSender` trace(disabled-by-default) during the `/test/scenario` unittest to analyze performance(number of PostTask events). But there is no a simple approach to enable it unless modify the source.\n\nIMHO, more trace or logs are helpful for test/debug.",
+      "parentUuid": "ff5a4997_4262efd6",
+      "revId": "20c6df30f6744078b5a11860587e6e8af7a42dca",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

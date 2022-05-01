@@ -20,6 +20,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "7b195642_df6c400e",
+        "filename": "modules/pacing/packet_router.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 217,
+      "author": {
+        "id": 18554
+      },
+      "writtenOn": "2022-05-01T10:33:47Z",
+      "side": 0,
+      "message": "Thanks for review.\n\nI just go through the code tree, most of TRACE_EVENT_xxx caller does not use this MACRO to guard.\n\nThis change is simply keep the coding style consistent.\n\nI agree to check the binary size result if remove it.",
+      "parentUuid": "9dce281d_58773a98",
+      "revId": "a156b90ea02eb89d6393b82da0561263205b1f04",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "4a781a27_ebbd6e15",
         "filename": "modules/pacing/task_queue_paced_sender.cc",
         "patchSetId": 1
@@ -31,6 +49,24 @@
       "writtenOn": "2022-05-01T10:07:13Z",
       "side": 0,
       "message": "If the TRACE_EVENT macro expands to nothing when RTC_TRACE_EVENTS_ENABLED is false, then removing this #if is OK.",
+      "revId": "a156b90ea02eb89d6393b82da0561263205b1f04",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "08b29bbc_d9469924",
+        "filename": "modules/pacing/task_queue_paced_sender.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 228,
+      "author": {
+        "id": 18554
+      },
+      "writtenOn": "2022-05-01T10:33:47Z",
+      "side": 0,
+      "message": "Ack",
+      "parentUuid": "4a781a27_ebbd6e15",
       "revId": "a156b90ea02eb89d6393b82da0561263205b1f04",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }

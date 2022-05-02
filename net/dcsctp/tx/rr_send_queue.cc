@@ -32,6 +32,7 @@ namespace dcsctp {
 
 RRSendQueue::RRSendQueue(absl::string_view log_prefix,
                          size_t buffer_size,
+                         size_t mtu,
                          StreamPriority default_priority,
                          std::function<void(StreamID)> on_buffered_amount_low,
                          size_t total_buffered_amount_low_threshold,
@@ -39,6 +40,7 @@ RRSendQueue::RRSendQueue(absl::string_view log_prefix,
     : log_prefix_(std::string(log_prefix) + "fcfs: "),
       buffer_size_(buffer_size),
       default_priority_(default_priority),
+      scheduler_(mtu),
       on_buffered_amount_low_(std::move(on_buffered_amount_low)),
       total_buffered_amount_(std::move(on_total_buffered_amount_low)) {
   total_buffered_amount_.SetLowThreshold(total_buffered_amount_low_threshold);

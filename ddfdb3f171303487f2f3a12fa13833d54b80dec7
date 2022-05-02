@@ -16,6 +16,24 @@
       "message": "Have you confirmed the pools have Mac 12 machines?",
       "revId": "ddfdb3f171303487f2f3a12fa13833d54b80dec7",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "3e5e409c_819e90e6",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 55
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 12234
+      },
+      "writtenOn": "2022-05-02T08:14:42Z",
+      "side": 1,
+      "message": "Good point, there are currently 80 machines:\nhttps://chromium-swarm.appspot.com/botlist?f\u003dos%3AMac-12\u0026f\u003dcpu%3Ax86-64\u0026f\u003dpool%3Achromium.tests\nMight be enough for WebRTC, also this number should only increase.",
+      "parentUuid": "1e5a59c3_7a95a012",
+      "revId": "ddfdb3f171303487f2f3a12fa13833d54b80dec7",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

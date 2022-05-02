@@ -35,6 +35,23 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "5ae4cdee_f5001ab8",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 9
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2022-05-02T15:46:32Z",
+      "side": 1,
+      "message": "Go for it!\n",
+      "revId": "851a0b95c3b107254d640bba8bb27dcc13e13364",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "67293140_bd83d5fc",
@@ -66,6 +83,24 @@
       "side": 1,
       "message": "I don\u0027t think RtpTranscieverDirection should get any new value, it already represents all the possible directions both in the API and in SDP. This is a unique edge case not visible in the API or SDP. The optionality here just refers to \"have we stored fired_direction() in the rollback memory?\"\n\nIf we want to refactor TransceiverStableState to store all states upon transition from stable to have-remote-offer instead of in random places where states appear to change we could do that and get rid of one layer of optionality (because then the memory would always contain all states)... but that seems like a separate refactoring effort and more risky than what I want to do now.\n\nRollback always gives more headache than you think it\u0027s going to, so small steps for now.",
       "parentUuid": "67293140_bd83d5fc",
+      "revId": "851a0b95c3b107254d640bba8bb27dcc13e13364",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "70d83f47_ddbb61d8",
+        "filename": "pc/transceiver_list.h",
+        "patchSetId": 9
+      },
+      "lineNbr": 86,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2022-05-02T15:46:32Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "f5252986_00890da0",
       "revId": "851a0b95c3b107254d640bba8bb27dcc13e13364",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }

@@ -63,6 +63,30 @@
       },
       "revId": "e79fb389ec52e19dca3db3200602b548540347e7",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "1464f831_010eaa31",
+        "filename": "pc/test/integration_test_helpers.h",
+        "patchSetId": 5
+      },
+      "lineNbr": 926,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2022-05-02T15:05:03Z",
+      "side": 1,
+      "message": "Thanks for the explanation. Do you have any suggestion on how to fix the tests?\n\nI don\u0027t quite understand the how it breaks (and I may be off track, it\u0027s just that the observer timing is the only change in behavior I\u0027ve spotted). The FakeSetLocalDescriptionObserver\u0027s callback just stores the result in it\u0027s `error_` member, with no recursive peerconnection calls. And not used until the EXPECT_TRUE_WAIT below. So not at all clear to me why exact timing of the observer call would matter.",
+      "parentUuid": "113b05a5_9140d429",
+      "range": {
+        "startLine": 922,
+        "startChar": 0,
+        "endLine": 926,
+        "endChar": 35
+      },
+      "revId": "e79fb389ec52e19dca3db3200602b548540347e7",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

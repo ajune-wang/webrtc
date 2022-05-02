@@ -87,6 +87,30 @@
       },
       "revId": "e79fb389ec52e19dca3db3200602b548540347e7",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "e74feaee_c89fd8f7",
+        "filename": "pc/test/integration_test_helpers.h",
+        "patchSetId": 5
+      },
+      "lineNbr": 926,
+      "author": {
+        "id": 5142
+      },
+      "writtenOn": "2022-05-02T15:43:57Z",
+      "side": 1,
+      "message": "Could there be a difference with the timing of ICE candidates?\n\nICE candidates would cause OnIceCandidate() to fire, which might get added to the other peer connection with AddIceCandidate().\n\nThe old versus new API might change how time you have until you proceed to the next negotiation step? Maybe that would be the difference between creating an answer before or after ICE candidates had been added?\n\nWhat\u0027s an example of a failing test and how does it fail?",
+      "parentUuid": "1464f831_010eaa31",
+      "range": {
+        "startLine": 922,
+        "startChar": 0,
+        "endLine": 926,
+        "endChar": 35
+      },
+      "revId": "e79fb389ec52e19dca3db3200602b548540347e7",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

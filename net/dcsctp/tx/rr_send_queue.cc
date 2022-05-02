@@ -32,6 +32,7 @@ namespace dcsctp {
 
 RRSendQueue::RRSendQueue(absl::string_view log_prefix,
                          size_t buffer_size,
+                         size_t mtu,
                          StreamPriority default_priority,
                          std::function<void(StreamID)> on_buffered_amount_low,
                          size_t total_buffered_amount_low_threshold,
@@ -39,6 +40,7 @@ RRSendQueue::RRSendQueue(absl::string_view log_prefix,
     : log_prefix_(std::string(log_prefix) + "fcfs: "),
       buffer_size_(buffer_size),
       default_priority_(default_priority),
+      scheduler_(mtu),
       on_buffered_amount_low_(std::move(on_buffered_amount_low)),
       total_buffered_amount_(std::move(on_total_buffered_amount_low)) {
   total_buffered_amount_.SetLowThreshold(total_buffered_amount_low_threshold);
@@ -128,7 +130,7 @@ void RRSendQueue::OutgoingStream::Add(DcSctpMessage message,
 
   size_t new_pending = bytes_to_send_in_next_message();
   if (!was_active && new_pending > 0) {
-    scheduler_stream_->MakeActive();
+    scheduler_stream_->MakeActive(new_pending);
   }
 
   RTC_DCHECK(IsConsistent());
@@ -303,7 +305,7 @@ void RRSendQueue::OutgoingStream::Pause() {
 void RRSendQueue::OutgoingStream::Resume() {
   RTC_DCHECK(pause_state_ == PauseState::kResetting);
   if (!items_.empty()) {
-    scheduler_stream_->MakeActive();
+    scheduler_stream_->MakeActive(items_.front().remaining_size);
   }
   pause_state_ = PauseState::kNotPaused;
   RTC_DCHECK(IsConsistent());
@@ -333,7 +335,7 @@ void RRSendQueue::OutgoingStream::Reset() {
     item.current_fsn = FSN(0);
     if (old_pause_state == PauseState::kPaused ||
         old_pause_state == PauseState::kResetting) {
-      scheduler_stream_->MakeActive();
+      scheduler_stream_->MakeActive(item.remaining_size);
     }
   }
   RTC_DCHECK(IsConsistent());

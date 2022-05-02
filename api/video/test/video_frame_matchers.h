@@ -29,6 +29,10 @@ MATCHER_P(PacketInfos, m, "") {
   return ::testing::Matches(m)(arg.packet_infos());
 }
 
+MATCHER_P(Id, id, "") {
+  return arg.id() == id;
+}
+
 }  // namespace webrtc::test::video_frame_matchers
 
 #endif  // API_VIDEO_TEST_VIDEO_FRAME_MATCHERS_H_

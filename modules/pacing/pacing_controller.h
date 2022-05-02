@@ -88,6 +88,7 @@ class PacingController {
     // Average queue time for the packets currently in the queue.
     // The queuing time is calculated from Push() to the last UpdateQueueTime()
     // call - with any time spent in a paused state subtracted.
+    // Returns TimeDelta::Zero() for an empty queue.
     virtual TimeDelta AverageQueueTime() const = 0;
 
     // Called during packet processing or when pause stats changes. Since the

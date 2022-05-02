@@ -51,7 +51,7 @@ class MockStreamCallback : public StreamScheduler::StreamCallback {
 };
 
 TEST(StreamSchedulerTest, HasNoActiveStreams) {
-  StreamScheduler scheduler;
+  StreamScheduler scheduler(1000);
 
   EXPECT_EQ(scheduler.Produce(TimeMs(0), 1000), absl::nullopt);
 }
@@ -63,7 +63,7 @@ TEST(StreamSchedulerTest, CanProduceFromSingleStream) {
       .WillOnce(Return(4))  // When making active
       .WillOnce(Return(0));
 
-  StreamScheduler scheduler;
+  StreamScheduler scheduler(1000);
   auto stream =
       scheduler.CreateStream(&callback, StreamID(1), StreamPriority(2));
   stream->MaybeMakeActive();
@@ -84,7 +84,7 @@ TEST(StreamSchedulerTest, WillRoundRobinBetweenStreams) {
       .WillOnce(Return(4))
       .WillOnce(Return(0));
 
-  StreamScheduler scheduler;
+  StreamScheduler scheduler(1000);
   auto stream1 =
       scheduler.CreateStream(&callback1, StreamID(1), StreamPriority(2));
   stream1->MaybeMakeActive();
@@ -125,7 +125,7 @@ TEST(StreamSchedulerTest, StreamsCanBeMadeInactive) {
       .WillOnce(Return(4))
       .WillOnce(Return(4));
 
-  StreamScheduler scheduler;
+  StreamScheduler scheduler(1000);
   auto stream1 =
       scheduler.CreateStream(&callback1, StreamID(1), StreamPriority(2));
   stream1->MaybeMakeActive();
@@ -153,7 +153,7 @@ TEST(StreamSchedulerTest, SingleStreamCanBeResumed) {
       .WillOnce(Return(4))  // When making active again
       .WillOnce(Return(0));
 
-  StreamScheduler scheduler;
+  StreamScheduler scheduler(1000);
   auto stream1 =
       scheduler.CreateStream(&callback1, StreamID(1), StreamPriority(2));
   stream1->MaybeMakeActive();
@@ -181,7 +181,7 @@ TEST(StreamSchedulerTest, WillRoundRobinWithPausedStream) {
       .WillOnce(Return(4))
       .WillOnce(Return(0));
 
-  StreamScheduler scheduler;
+  StreamScheduler scheduler(1000);
   auto stream1 =
       scheduler.CreateStream(&callback1, StreamID(1), StreamPriority(2));
   stream1->MaybeMakeActive();

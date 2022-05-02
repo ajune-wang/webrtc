@@ -23,6 +23,8 @@
 #include "absl/strings/string_view.h"
 #include "absl/types/optional.h"
 #include "api/array_view.h"
+#include "net/dcsctp/packet/chunk/idata_chunk.h"
+#include "net/dcsctp/packet/sctp_packet.h"
 #include "net/dcsctp/public/dcsctp_message.h"
 #include "net/dcsctp/public/dcsctp_socket.h"
 #include "net/dcsctp/public/types.h"
@@ -41,6 +43,7 @@ class StreamScheduler {
 
     static constexpr VirtualTime Zero() { return VirtualTime(0); }
   };
+  using InverseWeight = webrtc::StrongAlias<class InverseWeightTag, double>;
 
  public:
   class StreamCallback {
@@ -59,7 +62,8 @@ class StreamScheduler {
         : parent_(*parent),
           callback_(*callback),
           stream_id_(stream_id),
-          priority_(priority) {}
+          priority_(priority),
+          inverse_weight_(1.0 / priority.value()) {}
 
     StreamID stream_id() const { return stream_id_; }
     StreamPriority priority() const { return priority_; }
@@ -78,7 +82,7 @@ class StreamScheduler {
     // Produces a message from this stream. This will only be called on streams
     // that have data.
     absl::optional<SendQueue::DataToSend> Produce(TimeMs now, size_t max_size);
-    void MakeActive();
+    void MakeActive(size_t bytes_to_send_next);
 
     void ForceMarkInactive();
 
@@ -88,22 +92,30 @@ class StreamScheduler {
       return callback_.bytes_to_send_in_next_message();
     }
 
-    // Returns the next virtual finish time for this stream.
-    VirtualTime GetNextFinishTime() const;
+    VirtualTime CalculateFinishTime(size_t bytes_to_send_next) const;
 
     StreamScheduler& parent_;
     StreamCallback& callback_;
     const StreamID stream_id_;
     StreamPriority priority_;
+    InverseWeight inverse_weight_;
     // This outgoing stream's "current" virtual_time.
     VirtualTime current_virtual_time_ = VirtualTime::Zero();
     VirtualTime next_finish_time_ = VirtualTime::Zero();
   };
 
+  explicit StreamScheduler(size_t mtu)
+      : max_payload_bytes_(mtu - SctpPacket::kHeaderSize -
+                           IDataChunk::kHeaderSize) {}
+
   std::unique_ptr<Stream> CreateStream(StreamCallback* callback,
                                        StreamID stream_id,
                                        StreamPriority priority) {
     return std::make_unique<Stream>(this, callback, stream_id, priority);
+  }
+
+  void EnableMessageInterleaving(bool enabled) {
+    enable_message_interleaving_ = enabled;
   }
 
   void ForceReschedule() { previous_message_has_ended_ = true; }
@@ -129,11 +141,15 @@ class StreamScheduler {
 
   bool IsConsistent() const;
 
+  const size_t max_payload_bytes_;
+
   // The current virtual time, as defined in the WFQ algorithm.
   VirtualTime virtual_time_ = VirtualTime::Zero();
 
   // The current stream to send chunks from.
   Stream* current_stream_ = nullptr;
+
+  bool enable_message_interleaving_ = false;
 
   // Indicates if the previous fragment sent was the end of a message. For
   // non-interleaved sending, this means that the next message may come from a

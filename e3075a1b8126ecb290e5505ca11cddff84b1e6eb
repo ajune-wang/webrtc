@@ -35,6 +35,24 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "25e656c5_af833707",
+        "filename": "net/dcsctp/tx/outstanding_data.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 323,
+      "author": {
+        "id": 12215
+      },
+      "writtenOn": "2022-05-02T07:00:52Z",
+      "side": 1,
+      "message": "No, there are no data packets without data, so this is actually true. If there is only space for the header (or less space than that), abort, because there\u0027s no way to even send a single byte.",
+      "parentUuid": "ed18f807_533c50a6",
+      "revId": "e3075a1b8126ecb290e5505ca11cddff84b1e6eb",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "48fffde0_39ddc0c0",
@@ -48,6 +66,24 @@
       "writtenOn": "2022-04-25T14:51:13Z",
       "side": 1,
       "message": "\"To nack an item\" sounds like it will send a nack, but it actually processes a nack (I think from the description of performing actions). In context, it should be clear, but might be wise to read the comments to check that they\u0027re obvious.",
+      "revId": "e3075a1b8126ecb290e5505ca11cddff84b1e6eb",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "ed3a2a1e_b13c6ebb",
+        "filename": "net/dcsctp/tx/outstanding_data.h",
+        "patchSetId": 3
+      },
+      "lineNbr": 276,
+      "author": {
+        "id": 12215
+      },
+      "writtenOn": "2022-05-02T07:00:52Z",
+      "side": 1,
+      "message": "Thanks - I have updated the description",
+      "parentUuid": "48fffde0_39ddc0c0",
       "revId": "e3075a1b8126ecb290e5505ca11cddff84b1e6eb",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }

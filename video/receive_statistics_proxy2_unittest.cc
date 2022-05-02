@@ -1388,7 +1388,8 @@ TEST_P(ReceiveStatisticsProxy2TestWithContent, FreezesAreReported) {
   for (int i = 0; i < kMinRequiredSamples; ++i) {
     VideoFrameMetaData meta = MetaData(frame);
     statistics_proxy_->OnDecodedFrame(
-        meta, absl::nullopt, 0, webrtc::TimeDelta::Millis(0), content_type_);
+        meta, absl::nullopt, 0, webrtc::TimeDelta::Millis(0),
+        webrtc::TimeDelta::Millis(0), content_type_);
     statistics_proxy_->OnRenderedFrame(meta);
     fake_clock_.AdvanceTimeMilliseconds(kInterFrameDelayMs);
   }
@@ -1396,7 +1397,8 @@ TEST_P(ReceiveStatisticsProxy2TestWithContent, FreezesAreReported) {
   fake_clock_.AdvanceTimeMilliseconds(kFreezeDelayMs);
   VideoFrameMetaData meta = MetaData(frame);
   statistics_proxy_->OnDecodedFrame(
-      meta, absl::nullopt, 0, webrtc::TimeDelta::Millis(0), content_type_);
+      meta, absl::nullopt, 0, webrtc::TimeDelta::Millis(0),
+      webrtc::TimeDelta::Millis(0), content_type_);
   statistics_proxy_->OnRenderedFrame(meta);
 
   FlushAndUpdateHistograms(absl::nullopt, StreamDataCounters(), nullptr);
@@ -1480,7 +1482,8 @@ TEST_P(ReceiveStatisticsProxy2TestWithContent, PausesAreIgnored) {
   for (int i = 0; i <= kMinRequiredSamples; ++i) {
     VideoFrameMetaData meta = MetaData(frame);
     statistics_proxy_->OnDecodedFrame(
-        meta, absl::nullopt, 0, webrtc::TimeDelta::Millis(0), content_type_);
+        meta, absl::nullopt, 0, webrtc::TimeDelta::Millis(0),
+        webrtc::TimeDelta::Millis(0), content_type_);
     statistics_proxy_->OnRenderedFrame(meta);
     fake_clock_.AdvanceTimeMilliseconds(kInterFrameDelayMs);
   }
@@ -1491,7 +1494,8 @@ TEST_P(ReceiveStatisticsProxy2TestWithContent, PausesAreIgnored) {
   for (int i = 0; i <= kMinRequiredSamples * 3; ++i) {
     VideoFrameMetaData meta = MetaData(frame);
     statistics_proxy_->OnDecodedFrame(
-        meta, absl::nullopt, 0, webrtc::TimeDelta::Millis(0), content_type_);
+        meta, absl::nullopt, 0, webrtc::TimeDelta::Millis(0),
+        webrtc::TimeDelta::Millis(0), content_type_);
     statistics_proxy_->OnRenderedFrame(meta);
     fake_clock_.AdvanceTimeMilliseconds(kInterFrameDelayMs);
   }
@@ -1553,7 +1557,8 @@ TEST_P(ReceiveStatisticsProxy2TestWithContent, TimeInHdReported) {
   for (int i = 0; i < kMinRequiredSamples; ++i) {
     VideoFrameMetaData meta = MetaData(frame_hd);
     statistics_proxy_->OnDecodedFrame(
-        meta, absl::nullopt, 0, webrtc::TimeDelta::Millis(0), content_type_);
+        meta, absl::nullopt, 0, webrtc::TimeDelta::Millis(0),
+        webrtc::TimeDelta::Millis(0), content_type_);
     statistics_proxy_->OnRenderedFrame(meta);
     fake_clock_.AdvanceTimeMilliseconds(kInterFrameDelayMs);
   }
@@ -1561,7 +1566,8 @@ TEST_P(ReceiveStatisticsProxy2TestWithContent, TimeInHdReported) {
   for (int i = 0; i < 2 * kMinRequiredSamples; ++i) {
     VideoFrameMetaData meta = MetaData(frame_sd);
     statistics_proxy_->OnDecodedFrame(
-        meta, absl::nullopt, 0, webrtc::TimeDelta::Millis(0), content_type_);
+        meta, absl::nullopt, 0, webrtc::TimeDelta::Millis(0),
+        webrtc::TimeDelta::Millis(0), content_type_);
     statistics_proxy_->OnRenderedFrame(meta);
     fake_clock_.AdvanceTimeMilliseconds(kInterFrameDelayMs);
   }
@@ -1591,7 +1597,8 @@ TEST_P(ReceiveStatisticsProxy2TestWithContent, TimeInBlockyVideoReported) {
   for (int i = 0; i < kMinRequiredSamples; ++i) {
     VideoFrameMetaData meta = MetaData(frame);
     statistics_proxy_->OnDecodedFrame(
-        meta, kLowQp, 0, webrtc::TimeDelta::Millis(0), content_type_);
+        meta, kLowQp, 0, webrtc::TimeDelta::Millis(0),
+        webrtc::TimeDelta::Millis(0), content_type_);
     statistics_proxy_->OnRenderedFrame(meta);
     fake_clock_.AdvanceTimeMilliseconds(kInterFrameDelayMs);
   }
@@ -1599,7 +1606,8 @@ TEST_P(ReceiveStatisticsProxy2TestWithContent, TimeInBlockyVideoReported) {
   for (int i = 0; i < 2 * kMinRequiredSamples; ++i) {
     VideoFrameMetaData meta = MetaData(frame);
     statistics_proxy_->OnDecodedFrame(
-        meta, kHighQp, 0, webrtc::TimeDelta::Millis(0), content_type_);
+        meta, kHighQp, 0, webrtc::TimeDelta::Millis(0),
+        webrtc::TimeDelta::Millis(0), content_type_);
     statistics_proxy_->OnRenderedFrame(meta);
     fake_clock_.AdvanceTimeMilliseconds(kInterFrameDelayMs);
   }

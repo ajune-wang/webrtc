@@ -272,15 +272,17 @@ class RelativeUnit : public UnitBase<Unit_T> {
     return UnitBase<Unit_T>::FromValue(
         std::round(UnitBase<Unit_T>::template ToValue<int64_t>() / scalar));
   }
-  constexpr Unit_T operator*(double scalar) const {
-    return UnitBase<Unit_T>::FromValue(std::round(this->ToValue() * scalar));
+
+  friend constexpr Unit_T operator*(RelativeUnit<Unit_T> lhs, double rhs) {
+    return UnitBase<Unit_T>::FromValue(std::round(lhs.ToValue() * rhs));
   }
-  constexpr Unit_T operator*(int64_t scalar) const {
-    return UnitBase<Unit_T>::FromValue(this->ToValue() * scalar);
+  template <typename T,
+            typename std::enable_if_t<std::is_integral_v<T>>* = nullptr>
+  friend constexpr Unit_T operator*(RelativeUnit<Unit_T> lhs, T rhs) {
+    return UnitBase<Unit_T>::FromValue(lhs.ToValue() * rhs);
   }
-  constexpr Unit_T operator*(int32_t scalar) const {
-    return UnitBase<Unit_T>::FromValue(this->ToValue() * scalar);
-  }
+  friend constexpr Unit_T operator*(RelativeUnit<Unit_T> lhs,
+                                    bool rhs) = delete;
 
  protected:
   using UnitBase<Unit_T>::UnitBase;
@@ -290,14 +292,13 @@ template <class Unit_T>
 inline constexpr Unit_T operator*(double scalar, RelativeUnit<Unit_T> other) {
   return other * scalar;
 }
-template <class Unit_T>
-inline constexpr Unit_T operator*(int64_t scalar, RelativeUnit<Unit_T> other) {
-  return other * scalar;
+template <typename T,
+          typename Unit_T,
+          typename std::enable_if_t<std::is_integral_v<T>>* = nullptr>
+inline constexpr Unit_T operator*(T lhs, RelativeUnit<Unit_T> rhs) {
+  return rhs * lhs;
 }
-template <class Unit_T>
-inline constexpr Unit_T operator*(int32_t scalar, RelativeUnit<Unit_T> other) {
-  return other * scalar;
-}
+
 template <class Unit_T>
 inline constexpr Unit_T operator-(RelativeUnit<Unit_T> other) {
   if (other.IsPlusInfinity())

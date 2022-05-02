@@ -39,6 +39,30 @@
       },
       "revId": "e79fb389ec52e19dca3db3200602b548540347e7",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "113b05a5_9140d429",
+        "filename": "pc/test/integration_test_helpers.h",
+        "patchSetId": 5
+      },
+      "lineNbr": 926,
+      "author": {
+        "id": 5142
+      },
+      "writtenOn": "2022-05-02T14:51:32Z",
+      "side": 1,
+      "message": "Some methods run on the Operations Chain (https://w3c.github.io/webrtc-pc/#dfn-operations-chain), including CreateOffer, CreateAnswer, SetLocalDescription and SetRemoteDescription. The operation chain is basically just a queue of operations that ensures if you call an operation while a previous operation is still pending, the second operation is queued to be executed as soon as the pending operation has completed.\n\nThe non-deprecated versions of SLD/SRD invoke the callback as early as possible which is necessary to ensure the state of the peer connection accurately reflects the state that caused the callback to fire. However by the time this callback fires, the operation chain has not yet marked the current SLD/SRD operation as \"completed\". A consequence of this is that if the callback triggers another operation to run it, it will be queued onto the Operations Chain rather than be executed immediately. This prevents SLD/SRD operations from being executed recursively, which is probably a good thing.\n\nThen deprecated versions of SLD/SRD prevent recursion in another way: by delaying the invocation of the callback with a Post. This is good if you want to call SLD/SRD again inside of the callback and have that be executed immediately (because the operations chain will no longer be blocked)... but this is bad if you want to inspect the peer connection\u0027s state and have the state reflect why the event fired. The delay means by the time the callback happens, other API calls could have changed the peer connection\u0027s state in-betweeen the Post and the invocation.\n\nThere was a downstream usage that incorrectly assumed that SLD/SRD operations, which are supposed to be asynchronous, were in fact synchronous. This use case broke when I tried to change it from the old SLD/SRD versions to the new SLD/SRD versions, because that use cases assumed that if SLD/SRD was called inside of the callback then the SLD/SRD would instantly be completed. True with the old API, false with the new API.",
+      "parentUuid": "012403bd_a5dbca2c",
+      "range": {
+        "startLine": 922,
+        "startChar": 0,
+        "endLine": 926,
+        "endChar": 35
+      },
+      "revId": "e79fb389ec52e19dca3db3200602b548540347e7",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

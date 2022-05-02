@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "1e5a59c3_7a95a012",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 55
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 6193
+      },
+      "writtenOn": "2022-05-02T08:03:22Z",
+      "side": 1,
+      "message": "Have you confirmed the pools have Mac 12 machines?",
+      "revId": "ddfdb3f171303487f2f3a12fa13833d54b80dec7",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

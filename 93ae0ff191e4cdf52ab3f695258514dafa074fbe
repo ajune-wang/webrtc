@@ -47,6 +47,30 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "3aa3fe52_d1236981",
+        "filename": "modules/pacing/prioritized_packet_queue.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 21,
+      "author": {
+        "id": 5524
+      },
+      "writtenOn": "2022-05-02T14:19:59Z",
+      "side": 1,
+      "message": "Done.",
+      "parentUuid": "52f2ea30_3a603f3b",
+      "range": {
+        "startLine": 21,
+        "startChar": 0,
+        "endLine": 21,
+        "endChar": 6
+      },
+      "revId": "93ae0ff191e4cdf52ab3f695258514dafa074fbe",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "3f59d183_a067392a",
@@ -60,6 +84,30 @@
       "writtenOn": "2022-05-02T11:36:33Z",
       "side": 1,
       "message": "push_back\nhttps://abseil.io/tips/112",
+      "range": {
+        "startLine": 66,
+        "startChar": 27,
+        "endLine": 66,
+        "endChar": 39
+      },
+      "revId": "93ae0ff191e4cdf52ab3f695258514dafa074fbe",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "1e33e700_1eaeaf74",
+        "filename": "modules/pacing/prioritized_packet_queue.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 66,
+      "author": {
+        "id": 5524
+      },
+      "writtenOn": "2022-05-02T14:19:59Z",
+      "side": 1,
+      "message": "Done.",
+      "parentUuid": "3f59d183_a067392a",
       "range": {
         "startLine": 66,
         "startChar": 27,
@@ -93,6 +141,30 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "cb4d0c34_04ed0b94",
+        "filename": "modules/pacing/prioritized_packet_queue.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 85,
+      "author": {
+        "id": 5524
+      },
+      "writtenOn": "2022-05-02T14:19:59Z",
+      "side": 1,
+      "message": "Done.",
+      "parentUuid": "7f644247_a8239f6d",
+      "range": {
+        "startLine": 84,
+        "startChar": 2,
+        "endLine": 85,
+        "endChar": 31
+      },
+      "revId": "93ae0ff191e4cdf52ab3f695258514dafa074fbe",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "c395d1c1_f185bbb2",
@@ -106,6 +178,30 @@
       "writtenOn": "2022-05-02T11:36:33Z",
       "side": 1,
       "message": "avoid double lookup (emplace if not find):\ne.g.\n  auto [it, inserted] \u003d streams_.emplace(packet-\u003eSsrc(), nullptr);\n  if (inserted) {\n    it-\u003esecond \u003d std::make_unique\u003c...\u003e(...);\n  }\n  stream_queue \u003d it-\u003esecond.get();\n  \nor\n  auto\u0026 stream_queue_stored \u003d streams_[packet-\u003eSsrC()];\n  if (stream_queue_stored \u003d\u003d nullptr) {\n    stream_queue_stored \u003d std::make_unique\u003c...\u003e(...);\n  }\n  stream_queue \u003d stream_queue_stored.get();\n\nhttp://go/totw/132#one-time-initialization",
+      "range": {
+        "startLine": 119,
+        "startChar": 23,
+        "endLine": 119,
+        "endChar": 30
+      },
+      "revId": "93ae0ff191e4cdf52ab3f695258514dafa074fbe",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "56318e51_0e14fcd8",
+        "filename": "modules/pacing/prioritized_packet_queue.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 119,
+      "author": {
+        "id": 5524
+      },
+      "writtenOn": "2022-05-02T14:19:59Z",
+      "side": 1,
+      "message": "Done.",
+      "parentUuid": "c395d1c1_f185bbb2",
       "range": {
         "startLine": 119,
         "startChar": 23,
@@ -141,6 +237,30 @@
     {
       "unresolved": false,
       "key": {
+        "uuid": "e9b04fc0_27bf3060",
+        "filename": "modules/pacing/prioritized_packet_queue.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 130,
+      "author": {
+        "id": 5524
+      },
+      "writtenOn": "2022-05-02T14:19:59Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "c10a07f9_93faae0b",
+      "range": {
+        "startLine": 129,
+        "startChar": 0,
+        "endLine": 130,
+        "endChar": 52
+      },
+      "revId": "93ae0ff191e4cdf52ab3f695258514dafa074fbe",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
         "uuid": "f7680176_f4d6b630",
         "filename": "modules/pacing/prioritized_packet_queue.cc",
         "patchSetId": 2
@@ -152,6 +272,24 @@
       "writtenOn": "2022-05-02T11:36:33Z",
       "side": 1,
       "message": "prefer to enclose into {} even if it is a single line [for now]\nfor local consistency.",
+      "revId": "93ae0ff191e4cdf52ab3f695258514dafa074fbe",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "1a5c5980_025e512b",
+        "filename": "modules/pacing/prioritized_packet_queue.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 236,
+      "author": {
+        "id": 5524
+      },
+      "writtenOn": "2022-05-02T14:19:59Z",
+      "side": 1,
+      "message": "Done.",
+      "parentUuid": "f7680176_f4d6b630",
       "revId": "93ae0ff191e4cdf52ab3f695258514dafa074fbe",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
@@ -181,6 +319,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "d07daeb5_31c682c0",
+        "filename": "modules/pacing/prioritized_packet_queue.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 251,
+      "author": {
+        "id": 5524
+      },
+      "writtenOn": "2022-05-02T14:19:59Z",
+      "side": 1,
+      "message": "TimeDelta type does not appear to support multiplication by an integer...",
+      "parentUuid": "c9692532_74e5dd13",
+      "range": {
+        "startLine": 251,
+        "startChar": 23,
+        "endLine": 251,
+        "endChar": 69
+      },
+      "revId": "93ae0ff191e4cdf52ab3f695258514dafa074fbe",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "393299f4_1ba33e82",
         "filename": "modules/pacing/prioritized_packet_queue.h",
         "patchSetId": 2
@@ -192,6 +354,24 @@
       "writtenOn": "2022-05-02T11:36:33Z",
       "side": 1,
       "message": "please also add explicit\nPrioritizedPacketQueue operator\u003d(const PrioritizedPacketQueue\u0026) \u003d delete;\n\nhttps://google.github.io/styleguide/cppguide.html#Copy_Constructors\n“a non-copyable/movable class should explicitly delete the copy operations.”",
+      "revId": "93ae0ff191e4cdf52ab3f695258514dafa074fbe",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "df659848_664bf2cf",
+        "filename": "modules/pacing/prioritized_packet_queue.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 33,
+      "author": {
+        "id": 5524
+      },
+      "writtenOn": "2022-05-02T14:19:59Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "393299f4_1ba33e82",
       "revId": "93ae0ff191e4cdf52ab3f695258514dafa074fbe",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
@@ -242,6 +422,54 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "6f87683f_409f5472",
+        "filename": "modules/pacing/prioritized_packet_queue.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 69,
+      "author": {
+        "id": 5524
+      },
+      "writtenOn": "2022-05-02T14:19:59Z",
+      "side": 1,
+      "message": "Done.",
+      "parentUuid": "61a1a5d2_a5daaded",
+      "range": {
+        "startLine": 69,
+        "startChar": 13,
+        "endLine": 69,
+        "endChar": 54
+      },
+      "revId": "93ae0ff191e4cdf52ab3f695258514dafa074fbe",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "5a303988_9965beb6",
+        "filename": "modules/pacing/prioritized_packet_queue.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 69,
+      "author": {
+        "id": 5524
+      },
+      "writtenOn": "2022-05-02T14:19:59Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "6029d411_5e034fd9",
+      "range": {
+        "startLine": 68,
+        "startChar": 4,
+        "endLine": 69,
+        "endChar": 12
+      },
+      "revId": "93ae0ff191e4cdf52ab3f695258514dafa074fbe",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "4f660c15_47c6ffdc",
@@ -265,6 +493,30 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "5a64d8ee_2b0f14de",
+        "filename": "modules/pacing/prioritized_packet_queue.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 70,
+      "author": {
+        "id": 5524
+      },
+      "writtenOn": "2022-05-02T14:19:59Z",
+      "side": 1,
+      "message": "It doesn\u0027t, left over debug code..",
+      "parentUuid": "4f660c15_47c6ffdc",
+      "range": {
+        "startLine": 70,
+        "startChar": 4,
+        "endLine": 70,
+        "endChar": 11
+      },
+      "revId": "93ae0ff191e4cdf52ab3f695258514dafa074fbe",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "6f9df35b_753e29d2",
@@ -278,6 +530,30 @@
       "writtenOn": "2022-05-02T11:36:33Z",
       "side": 1,
       "message": "packets",
+      "range": {
+        "startLine": 88,
+        "startChar": 30,
+        "endLine": 88,
+        "endChar": 36
+      },
+      "revId": "93ae0ff191e4cdf52ab3f695258514dafa074fbe",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "65343c96_83a81dd9",
+        "filename": "modules/pacing/prioritized_packet_queue.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 88,
+      "author": {
+        "id": 5524
+      },
+      "writtenOn": "2022-05-02T14:19:59Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "6f9df35b_753e29d2",
       "range": {
         "startLine": 88,
         "startChar": 30,

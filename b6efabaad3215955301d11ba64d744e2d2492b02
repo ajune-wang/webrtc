@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "5eb0ba77_977b6968",
+        "filename": "api/peer_connection_interface.h",
+        "patchSetId": 3
+      },
+      "lineNbr": 1055,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2022-05-02T09:29:04Z",
+      "side": 1,
+      "message": "Really adding this annotation breaks proxy objects, as well as the few remaining tests for the legacy method, and the former seems hard to work around.",
+      "range": {
+        "startLine": 1055,
+        "startChar": 0,
+        "endLine": 1055,
+        "endChar": 45
+      },
+      "revId": "b6efabaad3215955301d11ba64d744e2d2492b02",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

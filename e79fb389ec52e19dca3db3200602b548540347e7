@@ -1,0 +1,44 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "f9cc9de0_f1f0fbbe",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 5
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2022-05-02T09:29:04Z",
+      "side": 1,
+      "message": "This wasn\u0027t as easy as I thought: There\u0027s a subtle difference in when observer is called between new and old signatures, and a couple of tests fail. Advice needed.",
+      "revId": "e79fb389ec52e19dca3db3200602b548540347e7",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "012403bd_a5dbca2c",
+        "filename": "pc/test/integration_test_helpers.h",
+        "patchSetId": 5
+      },
+      "lineNbr": 926,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2022-05-02T09:29:04Z",
+      "side": 1,
+      "message": "It sounds like this depends on the deprecated behavior implemented by SdpOfferAnswerHandler::SetSessionDescriptionObserverAdapter (see https://source.chromium.org/chromium/chromium/src/+/main:third_party/webrtc/pc/sdp_offer_answer.cc;drc\u003d3af79d17686a37341fa93570f8d32c7ffad644f1;l\u003d1099) which avoids calling the observer immediately (instead posting a message to do it after control returns to the message handler loop).\n\nExact timing is a bit unclear to me (I think we also have a proxy in between, so all that happens on a different thread). Anyway, by changing to the other SetLocalDescription signature (and similarly below for SetRemoteDescription), that delay no longer happens, and a couple of tests break.",
+      "range": {
+        "startLine": 922,
+        "startChar": 0,
+        "endLine": 926,
+        "endChar": 35
+      },
+      "revId": "e79fb389ec52e19dca3db3200602b548540347e7",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

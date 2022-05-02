@@ -108,15 +108,31 @@ class RRSendQueue : public SendQueue {
   // Per-stream information.
   class OutgoingStream {
    public:
-    explicit OutgoingStream(
+    enum class PauseState {
+      // The stream is not paused.
+      kNotPaused,
+      // The stream has requested to be paused but is still
+      // producing fragments
+      // of a message that hasn't ended yet. When it does,
+      // it will transition to
+      // the `kPaused` state.
+      kPending,
+      // The stream is fully paused.
+      kPaused
+    };
+    OutgoingStream(
+        StreamID stream_id,
         std::function<void()> on_buffered_amount_low,
         ThresholdWatcher& total_buffered_amount,
         const DcSctpSocketHandoverState::OutgoingStream* state = nullptr)
-        : next_unordered_mid_(MID(state ? state->next_unordered_mid : 0)),
+        : stream_id_(stream_id),
+          next_unordered_mid_(MID(state ? state->next_unordered_mid : 0)),
           next_ordered_mid_(MID(state ? state->next_ordered_mid : 0)),
           next_ssn_(SSN(state ? state->next_ssn : 0)),
           buffered_amount_(std::move(on_buffered_amount_low)),
           total_buffered_amount_(total_buffered_amount) {}
+
+    StreamID stream_id() const { return stream_id_; }
 
     // Enqueues a message to this stream.
     void Add(DcSctpMessage message,
@@ -137,9 +153,9 @@ class RRSendQueue : public SendQueue {
     void Pause();
 
     // Resumes a paused stream.
-    void Resume() { is_paused_ = false; }
+    void Resume();
 
-    bool is_paused() const { return is_paused_; }
+    PauseState pause_state() const { return pause_state_; }
 
     // Resets this stream, meaning MIDs and SSNs are set to zero.
     void Reset();
@@ -182,8 +198,9 @@ class RRSendQueue : public SendQueue {
 
     bool IsConsistent() const;
 
+    const StreamID stream_id_;
     // Streams are pause when they are about to be reset.
-    bool is_paused_ = false;
+    PauseState pause_state_ = PauseState::kNotPaused;
     // MIDs are different for unordered and ordered messages sent on a stream.
     MID next_unordered_mid_;
     MID next_ordered_mid_;

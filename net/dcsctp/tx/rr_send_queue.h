@@ -45,6 +45,7 @@ class RRSendQueue : public SendQueue {
  public:
   RRSendQueue(absl::string_view log_prefix,
               size_t buffer_size,
+              size_t mtu,
               StreamPriority default_priority,
               std::function<void(StreamID)> on_buffered_amount_low,
               size_t total_buffered_amount_low_threshold,
@@ -81,6 +82,9 @@ class RRSendQueue : public SendQueue {
   }
   size_t buffered_amount_low_threshold(StreamID stream_id) const override;
   void SetBufferedAmountLowThreshold(StreamID stream_id, size_t bytes) override;
+  void EnableMessageInterleaving(bool enabled) override {
+    scheduler_.EnableMessageInterleaving(enabled);
+  }
 
   void SetStreamPriority(StreamID stream_id, StreamPriority priority);
   StreamPriority GetStreamPriority(StreamID stream_id) const;
@@ -170,9 +174,7 @@ class RRSendQueue : public SendQueue {
     // Indicates if this stream has a partially sent message in it.
     bool has_partially_sent_message() const;
 
-    // Indicates if the stream possibly has data to send. Note that it may
-    // return `true` for streams that have enqueued, but expired, messages.
-    bool HasDataToSend() const;
+    size_t bytes_to_send_in_next_message() const;
 
     StreamPriority priority() const { return scheduler_stream_->priority(); }
     void set_priority(StreamPriority priority) {

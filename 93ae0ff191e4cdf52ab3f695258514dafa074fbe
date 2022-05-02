@@ -1,0 +1,291 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "b86e45b9_ec862f66",
+        "filename": "modules/pacing/pacing_controller.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 62,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2022-05-02T11:36:33Z",
+      "side": 1,
+      "message": "or\nif (field_trials.IsEnabled(\"WebRTC-...\")) {",
+      "range": {
+        "startLine": 62,
+        "startChar": 2,
+        "endLine": 62,
+        "endChar": 72
+      },
+      "revId": "93ae0ff191e4cdf52ab3f695258514dafa074fbe",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "52f2ea30_3a603f3b",
+        "filename": "modules/pacing/prioritized_packet_queue.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 21,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2022-05-02T11:36:33Z",
+      "side": 1,
+      "message": "static is redundant for a constant in the unnamed namespace.",
+      "range": {
+        "startLine": 21,
+        "startChar": 0,
+        "endLine": 21,
+        "endChar": 6
+      },
+      "revId": "93ae0ff191e4cdf52ab3f695258514dafa074fbe",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "3f59d183_a067392a",
+        "filename": "modules/pacing/prioritized_packet_queue.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 66,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2022-05-02T11:36:33Z",
+      "side": 1,
+      "message": "push_back\nhttps://abseil.io/tips/112",
+      "range": {
+        "startLine": 66,
+        "startChar": 27,
+        "endLine": 66,
+        "endChar": 39
+      },
+      "revId": "93ae0ff191e4cdf52ab3f695258514dafa074fbe",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "7f644247_a8239f6d",
+        "filename": "modules/pacing/prioritized_packet_queue.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 85,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2022-05-02T11:36:33Z",
+      "side": 1,
+      "message": "may be use c++11 loop:\n  for (const ???\u0026 queue : packets_) {\n    if (!queue.empty()) {\n      return false;\n    } \n  }\n\nor (though that might be less readable):\n  return absl::c_all_of(packets_, [](const ???\u0026 quueue) { return queue.empty(); });",
+      "range": {
+        "startLine": 84,
+        "startChar": 2,
+        "endLine": 85,
+        "endChar": 31
+      },
+      "revId": "93ae0ff191e4cdf52ab3f695258514dafa074fbe",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "c395d1c1_f185bbb2",
+        "filename": "modules/pacing/prioritized_packet_queue.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 119,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2022-05-02T11:36:33Z",
+      "side": 1,
+      "message": "avoid double lookup (emplace if not find):\ne.g.\n  auto [it, inserted] \u003d streams_.emplace(packet-\u003eSsrc(), nullptr);\n  if (inserted) {\n    it-\u003esecond \u003d std::make_unique\u003c...\u003e(...);\n  }\n  stream_queue \u003d it-\u003esecond.get();\n  \nor\n  auto\u0026 stream_queue_stored \u003d streams_[packet-\u003eSsrC()];\n  if (stream_queue_stored \u003d\u003d nullptr) {\n    stream_queue_stored \u003d std::make_unique\u003c...\u003e(...);\n  }\n  stream_queue \u003d stream_queue_stored.get();\n\nhttp://go/totw/132#one-time-initialization",
+      "range": {
+        "startLine": 119,
+        "startChar": 23,
+        "endLine": 119,
+        "endChar": 30
+      },
+      "revId": "93ae0ff191e4cdf52ab3f695258514dafa074fbe",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "c10a07f9_93faae0b",
+        "filename": "modules/pacing/prioritized_packet_queue.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 130,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2022-05-02T11:36:33Z",
+      "side": 1,
+      "message": "http://go/totw/88\n“Use {} initialization without the \u003d only if the above options don’t compile”\n\nIn this case it might be cleaner to remove all constructors in the QueuedPacket and then use DI:\nQueuedPacket queued_packet \u003d {.packet \u003d std::move(packet), .enqueue_time \u003d enqueue_time, ... };",
+      "range": {
+        "startLine": 129,
+        "startChar": 0,
+        "endLine": 130,
+        "endChar": 52
+      },
+      "revId": "93ae0ff191e4cdf52ab3f695258514dafa074fbe",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "f7680176_f4d6b630",
+        "filename": "modules/pacing/prioritized_packet_queue.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 236,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2022-05-02T11:36:33Z",
+      "side": 1,
+      "message": "prefer to enclose into {} even if it is a single line [for now]\nfor local consistency.",
+      "revId": "93ae0ff191e4cdf52ab3f695258514dafa074fbe",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "c9692532_74e5dd13",
+        "filename": "modules/pacing/prioritized_packet_queue.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 251,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2022-05-02T11:36:33Z",
+      "side": 1,
+      "message": "prefer multiplication in the time domain:\ndelta * size_packets_;",
+      "range": {
+        "startLine": 251,
+        "startChar": 23,
+        "endLine": 251,
+        "endChar": 69
+      },
+      "revId": "93ae0ff191e4cdf52ab3f695258514dafa074fbe",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "393299f4_1ba33e82",
+        "filename": "modules/pacing/prioritized_packet_queue.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 33,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2022-05-02T11:36:33Z",
+      "side": 1,
+      "message": "please also add explicit\nPrioritizedPacketQueue operator\u003d(const PrioritizedPacketQueue\u0026) \u003d delete;\n\nhttps://google.github.io/styleguide/cppguide.html#Copy_Constructors\n“a non-copyable/movable class should explicitly delete the copy operations.”",
+      "revId": "93ae0ff191e4cdf52ab3f695258514dafa074fbe",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "61a1a5d2_a5daaded",
+        "filename": "modules/pacing/prioritized_packet_queue.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 69,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2022-05-02T11:36:33Z",
+      "side": 1,
+      "message": "deleting copy constructor is optional when move constructor is declared (explicit move constructor imply absent copy constructor is deleted)\nbut please ass move assign operator as deleted or default",
+      "range": {
+        "startLine": 69,
+        "startChar": 13,
+        "endLine": 69,
+        "endChar": 54
+      },
+      "revId": "93ae0ff191e4cdf52ab3f695258514dafa074fbe",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "6029d411_5e034fd9",
+        "filename": "modules/pacing/prioritized_packet_queue.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 69,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2022-05-02T11:36:33Z",
+      "side": 1,
+      "message": "move and copy constructors shouldn\u0027t be marked explicit.",
+      "range": {
+        "startLine": 68,
+        "startChar": 4,
+        "endLine": 69,
+        "endChar": 12
+      },
+      "revId": "93ae0ff191e4cdf52ab3f695258514dafa074fbe",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "4f660c15_47c6ffdc",
+        "filename": "modules/pacing/prioritized_packet_queue.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 70,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2022-05-02T11:36:33Z",
+      "side": 1,
+      "message": "why does destructor needs to be virtual?",
+      "range": {
+        "startLine": 70,
+        "startChar": 4,
+        "endLine": 70,
+        "endChar": 11
+      },
+      "revId": "93ae0ff191e4cdf52ab3f695258514dafa074fbe",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "6f9df35b_753e29d2",
+        "filename": "modules/pacing/prioritized_packet_queue.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 88,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2022-05-02T11:36:33Z",
+      "side": 1,
+      "message": "packets",
+      "range": {
+        "startLine": 88,
+        "startChar": 30,
+        "endLine": 88,
+        "endChar": 36
+      },
+      "revId": "93ae0ff191e4cdf52ab3f695258514dafa074fbe",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

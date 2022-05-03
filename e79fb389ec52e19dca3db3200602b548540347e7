@@ -111,6 +111,30 @@
       },
       "revId": "e79fb389ec52e19dca3db3200602b548540347e7",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "180646ff_1685a28f",
+        "filename": "pc/test/integration_test_helpers.h",
+        "patchSetId": 5
+      },
+      "lineNbr": 926,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2022-05-03T08:24:50Z",
+      "side": 1,
+      "message": "\u003e What\u0027s an example of a failing test and how does it fail?\n\nYou can see details in the linux_dbg run. When I test locally, the failing tests (in peerconnection_unittests) are:\n\nPeerConnectionDataChannelTest/PeerConnectionDataChannelTest.SctpContentAndTransportNameSetCorrectly/0\n PeerConnectionDataChannelTest/PeerConnectionDataChannelTest.SctpContentAndTransportNameSetCorrectly/1\n PeerConnectionDataChannelTest/PeerConnectionDataChannelTest.SctpPortPropagatedFromSdpToTransport/0\n PeerConnectionDataChannelTest/PeerConnectionDataChannelTest.SctpPortPropagatedFromSdpToTransport/1\n PeerConnectionIntegrationTest/PeerConnectionIntegrationTest.CallTransferredForCallee/0\n PeerConnectionIntegrationTest/PeerConnectionIntegrationTest.CallTransferredForCallee/1\n PeerConnectionIntegrationTest/PeerConnectionIntegrationTest.CallTransferredForCallee/2\n PeerConnectionIntegrationTest/PeerConnectionIntegrationTest.CallTransferredForCallee/3\n PeerConnectionIntegrationTest/PeerConnectionIntegrationTest.CallTransferredForCallee/4\n PeerConnectionIntegrationTest/PeerConnectionIntegrationTest.CallTransferredForCallee/5\n PeerConnectionSignalingTest/PeerConnectionSignalingTest.ParameterlessSetLocalDescriptionCloseBeforeCreatingOffer/0\n PeerConnectionSignalingTest/PeerConnectionSignalingTest.ParameterlessSetLocalDescriptionCloseBeforeCreatingOffer/1\n PeerConnectionSignalingTest/PeerConnectionSignalingTest.ParameterlessSetLocalDescriptionCloseWhileCreatingOffer/0\n PeerConnectionSignalingTest/PeerConnectionSignalingTest.ParameterlessSetLocalDescriptionCloseWhileCreatingOffer/1\n\nThe first of these fails like this:\n\n```\n(peer_connection.cc:1858): Changing IceConnectionState 0 \u003d\u003e 1\n../../pc/peer_connection_data_channel_unittest.cc:255: Failure\nExpected equality of these values:\n  audio_mid\n    Which is: \"audio\"\n  *caller-\u003esctp_transport_name()\n    Which is: \"data\"\nStack trace:\n  0x557008df1da2: webrtc::PeerConnectionDataChannelTest_SctpContentAndTransportNameSetCorrectly_Test::TestBody()\n```\n\nThe SctpPortPropagatedFromSdpToTransport/0 test fails with\n\n```\n(sdp_offer_answer.cc:2676): Session: 4061979071304822041 Old state: have-remote-offer New state: stable\n(basic_port_allocator.cc:406): Start getting ports with turn_port_prune_policy 0\n\n\n#\n# Fatal error in: ../../test/pc/sctp/fake_sctp_transport.h, line 49\n# last system error: 0\n# Check failed: remote_port_\n# *** SIGABRT received at time\u003d1651565594 on cpu 34 ***\nPC: @     0x7f00ab29a8a1  (unknown)  raise\n    @     0x55d6f4cb4bb7         64  absl::WriteFailureInfo()\n    @     0x55d6f4cb4867         64  absl::AbslFailureSignalHandler()\n    @     0x7f00ab6eb200  1136865344  (unknown)\n    @     0x55d6f4f13569        384  rtc::webrtc_checks_impl::FatalLog()\n    @     0x55d6f38c1cf0        112  FakeSctpTransport::remote_port()\n```\n\nThe PeerConnectionIntegrationTest.CallTransferredForCallee/0 test fails with\n\n```\n(rtp_sender_video.cc:726): Sent last RTP packet of the first video frame (pre-pacer)\n(video_send_stream_impl.cc:456): SignalEncoderActive, Encoder is active.\n../../pc/test/integration_test_helpers.h:1043: Failure\nValue of: pc()-\u003eAddIceCandidate(candidate.get())\n  Actual: false\nExpected: true\nStack trace:\n  0x558023b1787a: webrtc::PeerConnectionIntegrationWrapper::ReceiveIceMessage()\n  0x558023b34409: webrtc::PeerConnectionIntegrationWrapper::RelayIceMessageIfReceiverExists()\n  0x558023b26d63: webrtc::PeerConnectionIntegrationWrapper::SendIceMessage()\n  0x558023b16c0e: webrtc::PeerConnectionIntegrationWrapper::OnIceCandidate()\n  0x5580242c640f: webrtc::PeerConnection::OnIceCandidate()\n  0x5580242cc164: webrtc::PeerConnection::OnTransportControllerCandidatesGathered()\n  0x5580242d784e: webrtc::PeerConnection::InitializeTransportController_n()::$_13::operator()()::{lambda()#1}::operator()()\n  0x5580242d761f: webrtc::webrtc_new_closure_impl::SafetyClosureTask\u003c\u003e::Run()\n```\n\nFinally, the PeerConnectionSignalingTest.ParameterlessSetLocalDescriptionCloseBeforeCreatingOffer/0 fails with\n\n```\n(usage_pattern.cc:24): Usage signature is 1048\n(peer_connection.cc:1771): Blocking Close: total\u003d7 (actual\u003d0, could\u003d7)\n../../pc/peer_connection_signaling_unittest.cc:842: Failure\nValue of: observer-\u003ecalled()\n  Actual: true\nExpected: false\nStack trace:\n  0x55801dc4cd82: webrtc::PeerConnectionSignalingTest_ParameterlessSetLocalDescriptionCloseBeforeCreatingOffer_Test::TestBody()\n```\n\nThat seems directly related to observer call timing, and appears easy to fix (will upload new patch set in a moment).",
+      "parentUuid": "e74feaee_c89fd8f7",
+      "range": {
+        "startLine": 922,
+        "startChar": 0,
+        "endLine": 926,
+        "endChar": 35
+      },
+      "revId": "e79fb389ec52e19dca3db3200602b548540347e7",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

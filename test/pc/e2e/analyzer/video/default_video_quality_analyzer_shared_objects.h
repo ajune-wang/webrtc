@@ -96,8 +96,18 @@ struct StreamStats {
   // The time when the first frame of this stream was captured.
   Timestamp stream_started_time;
 
+  // Frame count metrics.
+  int64_t num_send_key_frames = 0;
+  int64_t num_recv_key_frames = 0;
+
+  // Encoded frame size (in bytes) metrics.
+  SamplesStatsCounter recv_key_frame_size_bytes;
+  SamplesStatsCounter recv_delta_frame_size_bytes;
+
+  // Spatial quality metrics.
   SamplesStatsCounter psnr;
   SamplesStatsCounter ssim;
+
   // Time from frame encoded (time point on exit from encoder) to the
   // encoded image received in decoder (time point on entrance to decoder).
   SamplesStatsCounter transport_time_ms;
@@ -214,6 +224,9 @@ struct DefaultVideoQualityAnalyzerOptions {
   bool compute_ssim = true;
   // If true, weights the luma plane more than the chroma planes in the PSNR.
   bool use_weighted_psnr = false;
+  // Tells DefaultVideoQualityAnalyzer if detailed frame stats should be
+  // reported.
+  bool report_detailed_frame_stats = false;
   // If true DefaultVideoQualityAnalyzer will try to adjust frames before
   // computing PSNR and SSIM for them. In some cases picture may be shifted by
   // a few pixels after the encode/decode step. Those difference is invisible

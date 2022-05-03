@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "6551390c_38bb358c",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5578
+      },
+      "writtenOn": "2022-05-03T10:28:09Z",
+      "side": 1,
+      "message": "This is probably not correct. We are moving to new a new stats API with standardized metrics. \n\nPlease talk to deadbeef@ and/or hta@ - they know more about the stats API than I do.",
+      "revId": "665f8a427e4d3185766733d8d4b0521eec5d2377",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

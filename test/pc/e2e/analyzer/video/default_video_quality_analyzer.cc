@@ -317,7 +317,7 @@ void DefaultVideoQualityAnalyzer::OnFrameEncoded(
   used_encoder.last_frame_id = frame_id;
   used_encoder.switched_on_at = now;
   used_encoder.switched_from_at = now;
-  it->second.OnFrameEncoded(now, encoded_image.size(),
+  it->second.OnFrameEncoded(now, encoded_image._frameType, encoded_image.size(),
                             stats.target_encode_bitrate, used_encoder);
 }
 
@@ -363,7 +363,8 @@ void DefaultVideoQualityAnalyzer::OnFramePreDecode(
           ->receive_time();
   it->second.OnFramePreDecode(peer_index,
                               /*received_time=*/last_receive_time,
-                              /*decode_start_time=*/Now());
+                              /*decode_start_time=*/Now(),
+                              input_image._frameType, input_image.size());
 }
 
 void DefaultVideoQualityAnalyzer::OnFrameDecoded(
@@ -807,6 +808,28 @@ void DefaultVideoQualityAnalyzer::ReportResults(
                              sum_squared_interframe_delays_secs;
   }
 
+  if (true /* report detailed frame counts */) {
+    test::PrintResult("num_send_frames", "", test_case_name,
+                      frame_counters.encoded, "count",
+                      /*important=*/false, ImproveDirection::kBiggerIsBetter);
+    test::PrintResult("num_recv_frames", "", test_case_name,
+                      frame_counters.decoded, "count",
+                      /*important=*/false, ImproveDirection::kBiggerIsBetter);
+    test::PrintResult("num_send_key_frames", "", test_case_name,
+                      stats.num_send_key_frames, "count",
+                      /*important=*/false, ImproveDirection::kBiggerIsBetter);
+    test::PrintResult("num_recv_key_frames", "", test_case_name,
+                      stats.num_recv_key_frames, "count",
+                      /*important=*/false, ImproveDirection::kBiggerIsBetter);
+
+    ReportResult("recv_key_frame_size_bytes", test_case_name,
+                 stats.recv_key_frame_size_bytes, "count",
+                 ImproveDirection::kBiggerIsBetter);
+    ReportResult("recv_delta_frame_size_bytes", test_case_name,
+                 stats.recv_delta_frame_size_bytes, "count",
+                 ImproveDirection::kBiggerIsBetter);
+  }
+
   ReportResult("psnr", test_case_name, stats.psnr, "dB",
                ImproveDirection::kBiggerIsBetter);
   ReportResult("ssim", test_case_name, stats.ssim, "unitless",
@@ -1046,10 +1069,12 @@ bool DefaultVideoQualityAnalyzer::FrameInFlight::HaveAllPeersReceived() const {
 
 void DefaultVideoQualityAnalyzer::FrameInFlight::OnFrameEncoded(
     webrtc::Timestamp time,
+    VideoFrameType frame_type,
     int64_t encoded_image_size,
     uint32_t target_encode_bitrate,
     StreamCodecInfo used_encoder) {
   encoded_time_ = time;
+  frame_type_ = frame_type;
   encoded_image_size_ = encoded_image_size;
   target_encode_bitrate_ += target_encode_bitrate;
   // Update used encoder info. If simulcast/SVC is used, this method can
@@ -1070,9 +1095,13 @@ void DefaultVideoQualityAnalyzer::FrameInFlight::OnFrameEncoded(
 void DefaultVideoQualityAnalyzer::FrameInFlight::OnFramePreDecode(
     size_t peer,
     webrtc::Timestamp received_time,
-    webrtc::Timestamp decode_start_time) {
+    webrtc::Timestamp decode_start_time,
+    VideoFrameType frame_type,
+    int64_t encoded_image_size) {
   receiver_stats_[peer].received_time = received_time;
   receiver_stats_[peer].decode_start_time = decode_start_time;
+  receiver_stats_[peer].frame_type = frame_type;
+  receiver_stats_[peer].encoded_image_size = encoded_image_size;
 }
 
 bool DefaultVideoQualityAnalyzer::FrameInFlight::HasReceivedTime(
@@ -1134,6 +1163,7 @@ FrameStats DefaultVideoQualityAnalyzer::FrameInFlight::GetStatsForPeer(
   stats.pre_encode_time = pre_encode_time_;
   stats.encoded_time = encoded_time_;
   stats.target_encode_bitrate = target_encode_bitrate_;
+  stats.encoded_frame_type = frame_type_;
   stats.encoded_image_size = encoded_image_size_;
   stats.used_encoder = used_encoder_;
 
@@ -1148,6 +1178,8 @@ FrameStats DefaultVideoQualityAnalyzer::FrameInFlight::GetStatsForPeer(
     stats.rendered_frame_width = receiver_stats->rendered_frame_width;
     stats.rendered_frame_height = receiver_stats->rendered_frame_height;
     stats.used_decoder = receiver_stats->used_decoder;
+    stats.pre_decoded_frame_type = receiver_stats->frame_type;
+    stats.pre_decoded_image_size = receiver_stats->encoded_image_size;
   }
   return stats;
 }

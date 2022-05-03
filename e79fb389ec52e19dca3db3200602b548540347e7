@@ -135,6 +135,30 @@
       },
       "revId": "e79fb389ec52e19dca3db3200602b548540347e7",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "17196813_f27c4fd3",
+        "filename": "pc/test/integration_test_helpers.h",
+        "patchSetId": 5
+      },
+      "lineNbr": 926,
+      "author": {
+        "id": 5142
+      },
+      "writtenOn": "2022-05-03T09:40:48Z",
+      "side": 1,
+      "message": "Hmm.. Still not sure because we do EXPECT_EQ_WAIT in-between most operations, but we would certainly wait a little less now.\n\nBut if you printf at CreateOffer begin+end, CreateAnswer begin+end, SetLocalDescription begin+end, SetRemoteDescription begin+end and AddIceCandidate begin+end with the old and new observer do you see any difference in order? Maybe something is different with the timing",
+      "parentUuid": "180646ff_1685a28f",
+      "range": {
+        "startLine": 922,
+        "startChar": 0,
+        "endLine": 926,
+        "endChar": 35
+      },
+      "revId": "e79fb389ec52e19dca3db3200602b548540347e7",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

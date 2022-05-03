@@ -26,6 +26,7 @@
 #include "media/base/media_channel.h"
 #include "media/base/media_config.h"
 #include "media/base/media_engine.h"
+#include "pc/channel_factory_interface.h"
 #include "pc/channel_interface.h"
 #include "pc/session_description.h"
 #include "rtc_base/system/file_wrapper.h"
@@ -34,6 +35,9 @@
 #include "rtc_base/unique_id_generator.h"
 
 namespace cricket {
+
+class VideoChannel;
+class VoiceChannel;
 
 // ChannelManager allows the MediaEngine to run on a separate thread, and takes
 // care of marshalling calls between threads. It also creates and keeps track of

@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "2bdab9c3_8c931f2a",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 4
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2022-05-03T11:44:49Z",
+      "side": 1,
+      "message": "I now have a working lambda-capture that doesn\u0027t break any other unittests.\nI used it for the simplest case in connection_context - the two other thread pointers are more complex, so I\u0027ll do a different CL for those.\n\nPTAL.",
+      "revId": "ee714a08e4aaa2f58b813de12746f298383dbb51",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

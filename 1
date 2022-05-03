@@ -1,0 +1,740 @@
+(field_trial.cc:140): Setting field trial string:
+Note: Google Test filter = Decoder/VideoCodecTestAv1.*
+[==========] Running 6 tests from 1 test suite.
+[----------] Global test environment set-up.
+[----------] 6 tests from Decoder/VideoCodecTestAv1
+[ RUN      ] Decoder/VideoCodecTestAv1.HighBitrate/0
+(field_trial.cc:140): Setting field trial string:WebRTC-Dav1dDecoder/Enabled/
+(videocodec_test_fixture_impl.cc:810): ==> Config
+(videocodec_test_fixture_impl.cc:811): test_name: 
+filename: foreman_cif
+num_frames: 300
+max_payload_size_bytes: 1440
+decode: 1
+use_single_core: 1
+measure_cpu: 0
+num_cores: 1
+codec_type: AV1
+
+--> codec_settings
+width: 352
+height: 288
+max_framerate_fps: 30
+start_bitrate_kbps: 500
+max_bitrate_kbps: 0
+min_bitrate_kbps: 0
+max_qp: 63
+num_simulcast_streams: 0
+
+--> codec_settings.AV1complexity: 0
+
+
+(videocodec_test_fixture_impl.cc:813): ==> Codec names
+(videocodec_test_fixture_impl.cc:814): enc_impl_name: libaom
+(videocodec_test_fixture_impl.cc:816): dec_impl_name: dav1d
+(videocodec_test_fixture_impl.cc:514): ==> Send stats
+(videocodec_test_fixture_impl.cc:515): send_avg_bitrate_mismatch_pct: -4.740637
+send_avg_decode_latency_sec: 0.003725
+send_avg_delay_sec: 0.061715
+send_avg_delta_frame_size_bytes: 1962.695679
+send_avg_encode_latency_sec: 0.031384
+send_avg_framerate_mismatch_pct: 0.000000
+send_avg_key_frame_size_bytes: 8525.000000
+send_avg_psnr: 37.076817
+send_avg_qp: 137.256668
+send_avg_ssim: 0.941397
+send_bitrate_kbps: 476
+send_dec_speed_fps: 268.467682
+send_enc_speed_fps: 31.863848
+send_framerate_fps: 30.000000
+send_height: 288
+send_input_framerate_fps: 30.000000
+send_length_bytes: 595371
+send_max_decode_latency_sec: 0.009263
+send_max_delta_frame_delay_sec: 0.000000
+send_max_encode_latency_sec: 0.095786
+send_max_key_frame_delay_sec: 0.000000
+send_max_nalu_size_bytes: 0
+send_min_psnr: 34.200871
+send_min_ssim: 0.917082
+send_num_decoded_frames: 300
+send_num_dropped_frames: 0
+send_num_encoded_frames: 300
+send_num_input_frames: 300
+send_num_key_frames: 1
+send_num_spatial_resizes: 0
+send_spatial_idx: 0
+send_target_bitrate_kbps: 500
+send_temporal_idx: 0
+send_time_to_reach_target_bitrate_sec: 0.166667
+send_width: 352
+
+(videocodec_test_fixture_impl.cc:519): ==> Receive stats
+(videocodec_test_fixture_impl.cc:521): recv_avg_bitrate_mismatch_pct: -4.740637
+recv_avg_decode_latency_sec: 0.003725
+recv_avg_delay_sec: 0.061715
+recv_avg_delta_frame_size_bytes: 1962.695679
+recv_avg_encode_latency_sec: 0.031384
+recv_avg_framerate_mismatch_pct: 0.000000
+recv_avg_key_frame_size_bytes: 8525.000000
+recv_avg_psnr: 37.076817
+recv_avg_qp: 137.256668
+recv_avg_ssim: 0.941397
+recv_bitrate_kbps: 476
+recv_dec_speed_fps: 268.467682
+recv_enc_speed_fps: 31.863848
+recv_framerate_fps: 30.000000
+recv_height: 288
+recv_input_framerate_fps: 30.000000
+recv_length_bytes: 595371
+recv_max_decode_latency_sec: 0.009263
+recv_max_delta_frame_delay_sec: 0.000000
+recv_max_encode_latency_sec: 0.095786
+recv_max_key_frame_delay_sec: 0.000000
+recv_max_nalu_size_bytes: 0
+recv_min_psnr: 34.200871
+recv_min_ssim: 0.917082
+recv_num_decoded_frames: 300
+recv_num_dropped_frames: 0
+recv_num_encoded_frames: 300
+recv_num_input_frames: 300
+recv_num_key_frames: 1
+recv_num_spatial_resizes: 0
+recv_spatial_idx: 0
+recv_target_bitrate_kbps: 500
+recv_temporal_idx: 0
+recv_time_to_reach_target_bitrate_sec: 0.166667
+recv_width: 352
+
+(perf_test_histogram_writer.cc:166): Unit bytes is unsupported.
+(perf_test_histogram_writer.cc:166): Unit bytes is unsupported.
+(perf_test_histogram_writer.cc:166): Unit kbps is unsupported.
+(perf_test_histogram_writer.cc:166): Unit  is unsupported.
+(field_trial.cc:140): Setting field trial string:
+Setting CPU 10
+RESULT enc_speed_r0_sl0: = 31.863848 fps
+RESULT avg_key_frame_size_r0_sl0: = 8525 bytes
+RESULT num_key_frames_r0_sl0: = 1 frames
+
+RESULT dec_speed_r0_sl0tl0: = 268.46768 fps
+RESULT avg_delta_frame_size_r0_sl0tl0: = 1962.6957 bytes
+RESULT bitrate_r0_sl0tl0: = 476 kbps
+RESULT framerate_r0_sl0tl0: = 30 fps
+RESULT avg_psnr_y_r0_sl0tl0: = 35.785324 dB
+RESULT avg_psnr_u_r0_sl0tl0: = 41.574654 dB
+RESULT avg_psnr_v_r0_sl0tl0: = 43.165855 dB
+RESULT min_psnr_yuv_r0_sl0tl0: = 34.200871 dB
+RESULT avg_qp_r0_sl0tl0: = 137.25667 
+
+
+[       OK ] Decoder/VideoCodecTestAv1.HighBitrate/0 (12848 ms)
+[ RUN      ] Decoder/VideoCodecTestAv1.HighBitrate/1
+(field_trial.cc:140): Setting field trial string:
+(videocodec_test_fixture_impl.cc:810): ==> Config
+(videocodec_test_fixture_impl.cc:811): test_name: 
+filename: foreman_cif
+num_frames: 300
+max_payload_size_bytes: 1440
+decode: 1
+use_single_core: 1
+measure_cpu: 0
+num_cores: 1
+codec_type: AV1
+
+--> codec_settings
+width: 352
+height: 288
+max_framerate_fps: 30
+start_bitrate_kbps: 500
+max_bitrate_kbps: 0
+min_bitrate_kbps: 0
+max_qp: 63
+num_simulcast_streams: 0
+
+--> codec_settings.AV1complexity: 0
+
+
+(videocodec_test_fixture_impl.cc:813): ==> Codec names
+(videocodec_test_fixture_impl.cc:814): enc_impl_name: libaom
+(videocodec_test_fixture_impl.cc:816): dec_impl_name: libaom
+(videocodec_test_fixture_impl.cc:514): ==> Send stats
+(videocodec_test_fixture_impl.cc:515): send_avg_bitrate_mismatch_pct: -4.740637
+send_avg_decode_latency_sec: 0.009876
+send_avg_delay_sec: 0.061715
+send_avg_delta_frame_size_bytes: 1962.695679
+send_avg_encode_latency_sec: 0.028452
+send_avg_framerate_mismatch_pct: 0.000000
+send_avg_key_frame_size_bytes: 8525.000000
+send_avg_psnr: 37.076817
+send_avg_qp: 137.256668
+send_avg_ssim: 0.941397
+send_bitrate_kbps: 476
+send_dec_speed_fps: 101.259941
+send_enc_speed_fps: 35.147396
+send_framerate_fps: 30.000000
+send_height: 288
+send_input_framerate_fps: 30.000000
+send_length_bytes: 595371
+send_max_decode_latency_sec: 0.021624
+send_max_delta_frame_delay_sec: 0.000000
+send_max_encode_latency_sec: 0.121786
+send_max_key_frame_delay_sec: 0.000000
+send_max_nalu_size_bytes: 0
+send_min_psnr: 34.200871
+send_min_ssim: 0.917082
+send_num_decoded_frames: 300
+send_num_dropped_frames: 0
+send_num_encoded_frames: 300
+send_num_input_frames: 300
+send_num_key_frames: 1
+send_num_spatial_resizes: 0
+send_spatial_idx: 0
+send_target_bitrate_kbps: 500
+send_temporal_idx: 0
+send_time_to_reach_target_bitrate_sec: 0.166667
+send_width: 352
+
+(videocodec_test_fixture_impl.cc:519): ==> Receive stats
+(videocodec_test_fixture_impl.cc:521): recv_avg_bitrate_mismatch_pct: -4.740637
+recv_avg_decode_latency_sec: 0.009876
+recv_avg_delay_sec: 0.061715
+recv_avg_delta_frame_size_bytes: 1962.695679
+recv_avg_encode_latency_sec: 0.028452
+recv_avg_framerate_mismatch_pct: 0.000000
+recv_avg_key_frame_size_bytes: 8525.000000
+recv_avg_psnr: 37.076817
+recv_avg_qp: 137.256668
+recv_avg_ssim: 0.941397
+recv_bitrate_kbps: 476
+recv_dec_speed_fps: 101.259941
+recv_enc_speed_fps: 35.147396
+recv_framerate_fps: 30.000000
+recv_height: 288
+recv_input_framerate_fps: 30.000000
+recv_length_bytes: 595371
+recv_max_decode_latency_sec: 0.021624
+recv_max_delta_frame_delay_sec: 0.000000
+recv_max_encode_latency_sec: 0.121786
+recv_max_key_frame_delay_sec: 0.000000
+recv_max_nalu_size_bytes: 0
+recv_min_psnr: 34.200871
+recv_min_ssim: 0.917082
+recv_num_decoded_frames: 300
+recv_num_dropped_frames: 0
+recv_num_encoded_frames: 300
+recv_num_input_frames: 300
+recv_num_key_frames: 1
+recv_num_spatial_resizes: 0
+recv_spatial_idx: 0
+recv_target_bitrate_kbps: 500
+recv_temporal_idx: 0
+recv_time_to_reach_target_bitrate_sec: 0.166667
+recv_width: 352
+
+(field_trial.cc:140): Setting field trial string:
+Setting CPU 10
+RESULT enc_speed_r0_sl0: = 35.147396 fps
+RESULT avg_key_frame_size_r0_sl0: = 8525 bytes
+RESULT num_key_frames_r0_sl0: = 1 frames
+
+RESULT dec_speed_r0_sl0tl0: = 101.25994 fps
+RESULT avg_delta_frame_size_r0_sl0tl0: = 1962.6957 bytes
+RESULT bitrate_r0_sl0tl0: = 476 kbps
+RESULT framerate_r0_sl0tl0: = 30 fps
+RESULT avg_psnr_y_r0_sl0tl0: = 35.785324 dB
+RESULT avg_psnr_u_r0_sl0tl0: = 41.574654 dB
+RESULT avg_psnr_v_r0_sl0tl0: = 43.165855 dB
+RESULT min_psnr_yuv_r0_sl0tl0: = 34.200871 dB
+RESULT avg_qp_r0_sl0tl0: = 137.25667 
+
+
+[       OK ] Decoder/VideoCodecTestAv1.HighBitrate/1 (13604 ms)
+[ RUN      ] Decoder/VideoCodecTestAv1.VeryLowBitrate/0
+(field_trial.cc:140): Setting field trial string:WebRTC-Dav1dDecoder/Enabled/
+(videocodec_test_fixture_impl.cc:810): ==> Config
+(videocodec_test_fixture_impl.cc:811): test_name: 
+filename: foreman_cif
+num_frames: 300
+max_payload_size_bytes: 1440
+decode: 1
+use_single_core: 1
+measure_cpu: 0
+num_cores: 1
+codec_type: AV1
+
+--> codec_settings
+width: 352
+height: 288
+max_framerate_fps: 30
+start_bitrate_kbps: 50
+max_bitrate_kbps: 0
+min_bitrate_kbps: 0
+max_qp: 63
+num_simulcast_streams: 0
+
+--> codec_settings.AV1complexity: 0
+
+
+(videocodec_test_fixture_impl.cc:813): ==> Codec names
+(videocodec_test_fixture_impl.cc:814): enc_impl_name: libaom
+(videocodec_test_fixture_impl.cc:816): dec_impl_name: dav1d
+(videocodec_test_fixture_impl.cc:514): ==> Send stats
+(videocodec_test_fixture_impl.cc:515): send_avg_bitrate_mismatch_pct: -2.928000
+send_avg_decode_latency_sec: 0.001169
+send_avg_delay_sec: 0.155189
+send_avg_delta_frame_size_bytes: 199.645493
+send_avg_encode_latency_sec: 0.012352
+send_avg_framerate_mismatch_pct: 0.000000
+send_avg_key_frame_size_bytes: 976.000000
+send_avg_psnr: 28.204422
+send_avg_qp: 241.253326
+send_avg_ssim: 0.763685
+send_bitrate_kbps: 49
+send_dec_speed_fps: 855.627197
+send_enc_speed_fps: 80.960693
+send_framerate_fps: 30.000000
+send_height: 288
+send_input_framerate_fps: 30.000000
+send_length_bytes: 60670
+send_max_decode_latency_sec: 0.002799
+send_max_delta_frame_delay_sec: 0.000000
+send_max_encode_latency_sec: 0.058185
+send_max_key_frame_delay_sec: 0.000000
+send_max_nalu_size_bytes: 0
+send_min_psnr: 24.947496
+send_min_ssim: 0.563733
+send_num_decoded_frames: 300
+send_num_dropped_frames: 0
+send_num_encoded_frames: 300
+send_num_input_frames: 300
+send_num_key_frames: 1
+send_num_spatial_resizes: 0
+send_spatial_idx: 0
+send_target_bitrate_kbps: 50
+send_temporal_idx: 0
+send_time_to_reach_target_bitrate_sec: 1.000000
+send_width: 352
+
+(videocodec_test_fixture_impl.cc:519): ==> Receive stats
+(videocodec_test_fixture_impl.cc:521): recv_avg_bitrate_mismatch_pct: -2.928000
+recv_avg_decode_latency_sec: 0.001169
+recv_avg_delay_sec: 0.155189
+recv_avg_delta_frame_size_bytes: 199.645493
+recv_avg_encode_latency_sec: 0.012352
+recv_avg_framerate_mismatch_pct: 0.000000
+recv_avg_key_frame_size_bytes: 976.000000
+recv_avg_psnr: 28.204422
+recv_avg_qp: 241.253326
+recv_avg_ssim: 0.763685
+recv_bitrate_kbps: 49
+recv_dec_speed_fps: 855.627197
+recv_enc_speed_fps: 80.960693
+recv_framerate_fps: 30.000000
+recv_height: 288
+recv_input_framerate_fps: 30.000000
+recv_length_bytes: 60670
+recv_max_decode_latency_sec: 0.002799
+recv_max_delta_frame_delay_sec: 0.000000
+recv_max_encode_latency_sec: 0.058185
+recv_max_key_frame_delay_sec: 0.000000
+recv_max_nalu_size_bytes: 0
+recv_min_psnr: 24.947496
+recv_min_ssim: 0.563733
+recv_num_decoded_frames: 300
+recv_num_dropped_frames: 0
+recv_num_encoded_frames: 300
+recv_num_input_frames: 300
+recv_num_key_frames: 1
+recv_num_spatial_resizes: 0
+recv_spatial_idx: 0
+recv_target_bitrate_kbps: 50
+recv_temporal_idx: 0
+recv_time_to_reach_target_bitrate_sec: 1.000000
+recv_width: 352
+
+(field_trial.cc:140): Setting field trial string:
+Setting CPU 10
+RESULT enc_speed_r0_sl0: = 80.960693 fps
+RESULT avg_key_frame_size_r0_sl0: = 976 bytes
+RESULT num_key_frames_r0_sl0: = 1 frames
+
+RESULT dec_speed_r0_sl0tl0: = 855.6272 fps
+RESULT avg_delta_frame_size_r0_sl0tl0: = 199.64549 bytes
+RESULT bitrate_r0_sl0tl0: = 49 kbps
+RESULT framerate_r0_sl0tl0: = 30 fps
+RESULT avg_psnr_y_r0_sl0tl0: = 26.761126 dB
+RESULT avg_psnr_u_r0_sl0tl0: = 35.183849 dB
+RESULT avg_psnr_v_r0_sl0tl0: = 35.185097 dB
+RESULT min_psnr_yuv_r0_sl0tl0: = 24.947496 dB
+RESULT avg_qp_r0_sl0tl0: = 241.25333 
+
+
+[       OK ] Decoder/VideoCodecTestAv1.VeryLowBitrate/0 (6212 ms)
+[ RUN      ] Decoder/VideoCodecTestAv1.VeryLowBitrate/1
+(field_trial.cc:140): Setting field trial string:
+(videocodec_test_fixture_impl.cc:810): ==> Config
+(videocodec_test_fixture_impl.cc:811): test_name: 
+filename: foreman_cif
+num_frames: 300
+max_payload_size_bytes: 1440
+decode: 1
+use_single_core: 1
+measure_cpu: 0
+num_cores: 1
+codec_type: AV1
+
+--> codec_settings
+width: 352
+height: 288
+max_framerate_fps: 30
+start_bitrate_kbps: 50
+max_bitrate_kbps: 0
+min_bitrate_kbps: 0
+max_qp: 63
+num_simulcast_streams: 0
+
+--> codec_settings.AV1complexity: 0
+
+
+(videocodec_test_fixture_impl.cc:813): ==> Codec names
+(videocodec_test_fixture_impl.cc:814): enc_impl_name: libaom
+(videocodec_test_fixture_impl.cc:816): dec_impl_name: libaom
+(videocodec_test_fixture_impl.cc:514): ==> Send stats
+(videocodec_test_fixture_impl.cc:515): send_avg_bitrate_mismatch_pct: -2.928000
+send_avg_decode_latency_sec: 0.005023
+send_avg_delay_sec: 0.155189
+send_avg_delta_frame_size_bytes: 199.645493
+send_avg_encode_latency_sec: 0.012568
+send_avg_framerate_mismatch_pct: 0.000000
+send_avg_key_frame_size_bytes: 976.000000
+send_avg_psnr: 28.204422
+send_avg_qp: 241.253326
+send_avg_ssim: 0.763685
+send_bitrate_kbps: 49
+send_dec_speed_fps: 199.086594
+send_enc_speed_fps: 79.566376
+send_framerate_fps: 30.000000
+send_height: 288
+send_input_framerate_fps: 30.000000
+send_length_bytes: 60670
+send_max_decode_latency_sec: 0.019338
+send_max_delta_frame_delay_sec: 0.000000
+send_max_encode_latency_sec: 0.059970
+send_max_key_frame_delay_sec: 0.000000
+send_max_nalu_size_bytes: 0
+send_min_psnr: 24.947496
+send_min_ssim: 0.563733
+send_num_decoded_frames: 300
+send_num_dropped_frames: 0
+send_num_encoded_frames: 300
+send_num_input_frames: 300
+send_num_key_frames: 1
+send_num_spatial_resizes: 0
+send_spatial_idx: 0
+send_target_bitrate_kbps: 50
+send_temporal_idx: 0
+send_time_to_reach_target_bitrate_sec: 1.000000
+send_width: 352
+
+(videocodec_test_fixture_impl.cc:519): ==> Receive stats
+(videocodec_test_fixture_impl.cc:521): recv_avg_bitrate_mismatch_pct: -2.928000
+recv_avg_decode_latency_sec: 0.005023
+recv_avg_delay_sec: 0.155189
+recv_avg_delta_frame_size_bytes: 199.645493
+recv_avg_encode_latency_sec: 0.012568
+recv_avg_framerate_mismatch_pct: 0.000000
+recv_avg_key_frame_size_bytes: 976.000000
+recv_avg_psnr: 28.204422
+recv_avg_qp: 241.253326
+recv_avg_ssim: 0.763685
+recv_bitrate_kbps: 49
+recv_dec_speed_fps: 199.086594
+recv_enc_speed_fps: 79.566376
+recv_framerate_fps: 30.000000
+recv_height: 288
+recv_input_framerate_fps: 30.000000
+recv_length_bytes: 60670
+recv_max_decode_latency_sec: 0.019338
+recv_max_delta_frame_delay_sec: 0.000000
+recv_max_encode_latency_sec: 0.059970
+recv_max_key_frame_delay_sec: 0.000000
+recv_max_nalu_size_bytes: 0
+recv_min_psnr: 24.947496
+recv_min_ssim: 0.563733
+recv_num_decoded_frames: 300
+recv_num_dropped_frames: 0
+recv_num_encoded_frames: 300
+recv_num_input_frames: 300
+recv_num_key_frames: 1
+recv_num_spatial_resizes: 0
+recv_spatial_idx: 0
+recv_target_bitrate_kbps: 50
+recv_temporal_idx: 0
+recv_time_to_reach_target_bitrate_sec: 1.000000
+recv_width: 352
+
+(field_trial.cc:140): Setting field trial string:
+Setting CPU 10
+RESULT enc_speed_r0_sl0: = 79.566376 fps
+RESULT avg_key_frame_size_r0_sl0: = 976 bytes
+RESULT num_key_frames_r0_sl0: = 1 frames
+
+RESULT dec_speed_r0_sl0tl0: = 199.08659 fps
+RESULT avg_delta_frame_size_r0_sl0tl0: = 199.64549 bytes
+RESULT bitrate_r0_sl0tl0: = 49 kbps
+RESULT framerate_r0_sl0tl0: = 30 fps
+RESULT avg_psnr_y_r0_sl0tl0: = 26.761126 dB
+RESULT avg_psnr_u_r0_sl0tl0: = 35.183849 dB
+RESULT avg_psnr_v_r0_sl0tl0: = 35.185097 dB
+RESULT min_psnr_yuv_r0_sl0tl0: = 24.947496 dB
+RESULT avg_qp_r0_sl0tl0: = 241.25333 
+
+
+[       OK ] Decoder/VideoCodecTestAv1.VeryLowBitrate/1 (7411 ms)
+[ RUN      ] Decoder/VideoCodecTestAv1.Hd/0
+(field_trial.cc:140): Setting field trial string:WebRTC-Dav1dDecoder/Enabled/
+(videocodec_test_fixture_impl.cc:810): ==> Config
+(videocodec_test_fixture_impl.cc:811): test_name: 
+filename: ConferenceMotion_1280_720_50
+num_frames: 300
+max_payload_size_bytes: 1440
+decode: 1
+use_single_core: 1
+measure_cpu: 0
+num_cores: 1
+codec_type: AV1
+
+--> codec_settings
+width: 1280
+height: 720
+max_framerate_fps: 50
+start_bitrate_kbps: 1000
+max_bitrate_kbps: 0
+min_bitrate_kbps: 0
+max_qp: 63
+num_simulcast_streams: 0
+
+--> codec_settings.AV1complexity: 0
+
+
+(videocodec_test_fixture_impl.cc:813): ==> Codec names
+(videocodec_test_fixture_impl.cc:814): enc_impl_name: libaom
+(videocodec_test_fixture_impl.cc:816): dec_impl_name: dav1d
+(videocodec_test_fixture_impl.cc:514): ==> Send stats
+(videocodec_test_fixture_impl.cc:515): send_avg_bitrate_mismatch_pct: -9.426669
+send_avg_decode_latency_sec: 0.009188
+send_avg_delay_sec: 0.024583
+send_avg_delta_frame_size_bytes: 2237.946533
+send_avg_encode_latency_sec: 0.108060
+send_avg_framerate_mismatch_pct: 0.000000
+send_avg_key_frame_size_bytes: 10154.000000
+send_avg_psnr: 36.025246
+send_avg_qp: 200.466660
+send_avg_ssim: 0.929752
+send_bitrate_kbps: 906
+send_dec_speed_fps: 108.840607
+send_enc_speed_fps: 9.254127
+send_framerate_fps: 50.000000
+send_height: 720
+send_input_framerate_fps: 50.000000
+send_length_bytes: 679300
+send_max_decode_latency_sec: 0.021060
+send_max_delta_frame_delay_sec: 0.000000
+send_max_encode_latency_sec: 0.646276
+send_max_key_frame_delay_sec: 0.000000
+send_max_nalu_size_bytes: 0
+send_min_psnr: 31.502115
+send_min_ssim: 0.869801
+send_num_decoded_frames: 300
+send_num_dropped_frames: 0
+send_num_encoded_frames: 300
+send_num_input_frames: 300
+send_num_key_frames: 1
+send_num_spatial_resizes: 0
+send_spatial_idx: 0
+send_target_bitrate_kbps: 1000
+send_temporal_idx: 0
+send_time_to_reach_target_bitrate_sec: 0.160000
+send_width: 1280
+
+(videocodec_test_fixture_impl.cc:519): ==> Receive stats
+(videocodec_test_fixture_impl.cc:521): recv_avg_bitrate_mismatch_pct: -9.426669
+recv_avg_decode_latency_sec: 0.009188
+recv_avg_delay_sec: 0.024583
+recv_avg_delta_frame_size_bytes: 2237.946533
+recv_avg_encode_latency_sec: 0.108060
+recv_avg_framerate_mismatch_pct: 0.000000
+recv_avg_key_frame_size_bytes: 10154.000000
+recv_avg_psnr: 36.025246
+recv_avg_qp: 200.466660
+recv_avg_ssim: 0.929752
+recv_bitrate_kbps: 906
+recv_dec_speed_fps: 108.840607
+recv_enc_speed_fps: 9.254127
+recv_framerate_fps: 50.000000
+recv_height: 720
+recv_input_framerate_fps: 50.000000
+recv_length_bytes: 679300
+recv_max_decode_latency_sec: 0.021060
+recv_max_delta_frame_delay_sec: 0.000000
+recv_max_encode_latency_sec: 0.646276
+recv_max_key_frame_delay_sec: 0.000000
+recv_max_nalu_size_bytes: 0
+recv_min_psnr: 31.502115
+recv_min_ssim: 0.869801
+recv_num_decoded_frames: 300
+recv_num_dropped_frames: 0
+recv_num_encoded_frames: 300
+recv_num_input_frames: 300
+recv_num_key_frames: 1
+recv_num_spatial_resizes: 0
+recv_spatial_idx: 0
+recv_target_bitrate_kbps: 1000
+recv_temporal_idx: 0
+recv_time_to_reach_target_bitrate_sec: 0.160000
+recv_width: 1280
+
+(field_trial.cc:140): Setting field trial string:
+Setting CPU 10
+RESULT enc_speed_r0_sl0: = 9.2541265 fps
+RESULT avg_key_frame_size_r0_sl0: = 10154 bytes
+RESULT num_key_frames_r0_sl0: = 1 frames
+
+RESULT dec_speed_r0_sl0tl0: = 108.84061 fps
+RESULT avg_delta_frame_size_r0_sl0tl0: = 2237.9465 bytes
+RESULT bitrate_r0_sl0tl0: = 906 kbps
+RESULT framerate_r0_sl0tl0: = 50 fps
+RESULT avg_psnr_y_r0_sl0tl0: = 34.737217 dB
+RESULT avg_psnr_u_r0_sl0tl0: = 41.00349 dB
+RESULT avg_psnr_v_r0_sl0tl0: = 41.279659 dB
+RESULT min_psnr_yuv_r0_sl0tl0: = 31.502115 dB
+RESULT avg_qp_r0_sl0tl0: = 200.46666 
+
+
+[       OK ] Decoder/VideoCodecTestAv1.Hd/0 (47985 ms)
+[ RUN      ] Decoder/VideoCodecTestAv1.Hd/1
+(field_trial.cc:140): Setting field trial string:
+(videocodec_test_fixture_impl.cc:810): ==> Config
+(videocodec_test_fixture_impl.cc:811): test_name: 
+filename: ConferenceMotion_1280_720_50
+num_frames: 300
+max_payload_size_bytes: 1440
+decode: 1
+use_single_core: 1
+measure_cpu: 0
+num_cores: 1
+codec_type: AV1
+
+--> codec_settings
+width: 1280
+height: 720
+max_framerate_fps: 50
+start_bitrate_kbps: 1000
+max_bitrate_kbps: 0
+min_bitrate_kbps: 0
+max_qp: 63
+num_simulcast_streams: 0
+
+--> codec_settings.AV1complexity: 0
+
+
+(videocodec_test_fixture_impl.cc:813): ==> Codec names
+(videocodec_test_fixture_impl.cc:814): enc_impl_name: libaom
+(videocodec_test_fixture_impl.cc:816): dec_impl_name: libaom
+(videocodec_test_fixture_impl.cc:514): ==> Send stats
+(videocodec_test_fixture_impl.cc:515): send_avg_bitrate_mismatch_pct: -9.426669
+send_avg_decode_latency_sec: 0.037922
+send_avg_delay_sec: 0.024583
+send_avg_delta_frame_size_bytes: 2237.946533
+send_avg_encode_latency_sec: 0.107657
+send_avg_framerate_mismatch_pct: 0.000000
+send_avg_key_frame_size_bytes: 10154.000000
+send_avg_psnr: 36.025246
+send_avg_qp: 200.466660
+send_avg_ssim: 0.929752
+send_bitrate_kbps: 906
+send_dec_speed_fps: 26.369743
+send_enc_speed_fps: 9.288785
+send_framerate_fps: 50.000000
+send_height: 720
+send_input_framerate_fps: 50.000000
+send_length_bytes: 679300
+send_max_decode_latency_sec: 0.158658
+send_max_delta_frame_delay_sec: 0.000000
+send_max_encode_latency_sec: 0.666454
+send_max_key_frame_delay_sec: 0.000000
+send_max_nalu_size_bytes: 0
+send_min_psnr: 31.502115
+send_min_ssim: 0.869801
+send_num_decoded_frames: 300
+send_num_dropped_frames: 0
+send_num_encoded_frames: 300
+send_num_input_frames: 300
+send_num_key_frames: 1
+send_num_spatial_resizes: 0
+send_spatial_idx: 0
+send_target_bitrate_kbps: 1000
+send_temporal_idx: 0
+send_time_to_reach_target_bitrate_sec: 0.160000
+send_width: 1280
+
+(videocodec_test_fixture_impl.cc:519): ==> Receive stats
+(videocodec_test_fixture_impl.cc:521): recv_avg_bitrate_mismatch_pct: -9.426669
+recv_avg_decode_latency_sec: 0.037922
+recv_avg_delay_sec: 0.024583
+recv_avg_delta_frame_size_bytes: 2237.946533
+recv_avg_encode_latency_sec: 0.107657
+recv_avg_framerate_mismatch_pct: 0.000000
+recv_avg_key_frame_size_bytes: 10154.000000
+recv_avg_psnr: 36.025246
+recv_avg_qp: 200.466660
+recv_avg_ssim: 0.929752
+recv_bitrate_kbps: 906
+recv_dec_speed_fps: 26.369743
+recv_enc_speed_fps: 9.288785
+recv_framerate_fps: 50.000000
+recv_height: 720
+recv_input_framerate_fps: 50.000000
+recv_length_bytes: 679300
+recv_max_decode_latency_sec: 0.158658
+recv_max_delta_frame_delay_sec: 0.000000
+recv_max_encode_latency_sec: 0.666454
+recv_max_key_frame_delay_sec: 0.000000
+recv_max_nalu_size_bytes: 0
+recv_min_psnr: 31.502115
+recv_min_ssim: 0.869801
+recv_num_decoded_frames: 300
+recv_num_dropped_frames: 0
+recv_num_encoded_frames: 300
+recv_num_input_frames: 300
+recv_num_key_frames: 1
+recv_num_spatial_resizes: 0
+recv_spatial_idx: 0
+recv_target_bitrate_kbps: 1000
+recv_temporal_idx: 0
+recv_time_to_reach_target_bitrate_sec: 0.160000
+recv_width: 1280
+
+(field_trial.cc:140): Setting field trial string:
+Setting CPU 10
+RESULT enc_speed_r0_sl0: = 9.288785 fps
+RESULT avg_key_frame_size_r0_sl0: = 10154 bytes
+RESULT num_key_frames_r0_sl0: = 1 frames
+
+RESULT dec_speed_r0_sl0tl0: = 26.369743 fps
+RESULT avg_delta_frame_size_r0_sl0tl0: = 2237.9465 bytes
+RESULT bitrate_r0_sl0tl0: = 906 kbps
+RESULT framerate_r0_sl0tl0: = 50 fps
+RESULT avg_psnr_y_r0_sl0tl0: = 34.737217 dB
+RESULT avg_psnr_u_r0_sl0tl0: = 41.00349 dB
+RESULT avg_psnr_v_r0_sl0tl0: = 41.279659 dB
+RESULT min_psnr_yuv_r0_sl0tl0: = 31.502115 dB
+RESULT avg_qp_r0_sl0tl0: = 200.46666 
+
+
+[       OK ] Decoder/VideoCodecTestAv1.Hd/1 (55030 ms)
+[----------] 6 tests from Decoder/VideoCodecTestAv1 (143095 ms total)
+
+[----------] Global test environment tear-down
+[==========] 6 tests from 1 test suite ran. (143095 ms total)
+[  PASSED  ] 6 tests.

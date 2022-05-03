@@ -16,6 +16,57 @@
       "message": "PTAL",
       "revId": "f9a50b91cc5f704740f92bbd1f866047356d6135",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "45da5df5_7db3f128",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 7
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 9405
+      },
+      "writtenOn": "2022-05-03T20:25:31Z",
+      "side": 1,
+      "message": "I\u0027m not OWNER of any files,  but LGTM (with nits).",
+      "revId": "f9a50b91cc5f704740f92bbd1f866047356d6135",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "8d8fcdbc_359967ef",
+        "filename": "test/ios/google_test_runner.mm",
+        "patchSetId": 7
+      },
+      "lineNbr": 11,
+      "author": {
+        "id": 9405
+      },
+      "writtenOn": "2022-05-03T20:25:31Z",
+      "side": 1,
+      "message": "Maybe `base/test/ios/google_test_runner.mm` ?",
+      "revId": "f9a50b91cc5f704740f92bbd1f866047356d6135",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "f6698e55_f20f258b",
+        "filename": "test/ios/google_test_runner.mm",
+        "patchSetId": 7
+      },
+      "lineNbr": 12,
+      "author": {
+        "id": 9405
+      },
+      "writtenOn": "2022-05-03T20:25:31Z",
+      "side": 1,
+      "message": "I tested locally to build and test for iOS without `//base` checkout, and it was successful. So I think this comment is no longer valid. It might be a good idea to modify the comment in `test/ios/google_Test_runner_delegate.h` as well.",
+      "revId": "f9a50b91cc5f704740f92bbd1f866047356d6135",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

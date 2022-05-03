@@ -25,6 +25,7 @@
 #include "api/units/timestamp.h"
 #include "api/video/encoded_image.h"
 #include "api/video/video_frame.h"
+#include "api/video/video_frame_type.h"
 #include "rtc_base/event.h"
 #include "rtc_base/platform_thread.h"
 #include "rtc_base/synchronization/mutex.h"
@@ -179,6 +180,9 @@ class DefaultVideoQualityAnalyzer : public VideoQualityAnalyzerInterface {
     Timestamp rendered_time = Timestamp::MinusInfinity();
     Timestamp prev_frame_rendered_time = Timestamp::MinusInfinity();
 
+    VideoFrameType pre_decoded_frame_type = VideoFrameType::kEmptyFrame;
+    int64_t pre_decoded_image_size = 0;
+
     absl::optional<int> rendered_frame_width = absl::nullopt;
     absl::optional<int> rendered_frame_height = absl::nullopt;
 
@@ -217,6 +221,7 @@ class DefaultVideoQualityAnalyzer : public VideoQualityAnalyzerInterface {
     void SetPreEncodeTime(webrtc::Timestamp time) { pre_encode_time_ = time; }
 
     void OnFrameEncoded(webrtc::Timestamp time,
+                        VideoFrameType encoded_frame_type,
                         int64_t encoded_image_size,
                         uint32_t target_encode_bitrate,
                         StreamCodecInfo used_encoder);
@@ -225,7 +230,9 @@ class DefaultVideoQualityAnalyzer : public VideoQualityAnalyzerInterface {
 
     void OnFramePreDecode(size_t peer,
                           webrtc::Timestamp received_time,
-                          webrtc::Timestamp decode_start_time);
+                          webrtc::Timestamp decode_start_time,
+                          VideoFrameType pre_decoded_frame_type,
+                          int64_t pre_decoded_image_size);
 
     bool HasReceivedTime(size_t peer) const;
 
@@ -267,6 +274,7 @@ class DefaultVideoQualityAnalyzer : public VideoQualityAnalyzerInterface {
     Timestamp captured_time_;
     Timestamp pre_encode_time_ = Timestamp::MinusInfinity();
     Timestamp encoded_time_ = Timestamp::MinusInfinity();
+    VideoFrameType encoded_frame_type_ = VideoFrameType::kEmptyFrame;
     int64_t encoded_image_size_ = 0;
     uint32_t target_encode_bitrate_ = 0;
     // Can be not set if frame was dropped by encoder.

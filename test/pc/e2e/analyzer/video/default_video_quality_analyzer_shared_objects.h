@@ -125,6 +125,15 @@ struct StreamStats {
   SamplesStatsCounter resolution_of_rendered_frame;
   SamplesStatsCounter target_encode_bitrate;
 
+  // TODO(brandtr): Documentation.
+  int64_t num_send_key_frames = 0;
+  int64_t num_recv_key_frames = 0;
+
+  SamplesStatsCounter send_key_frame_size_bytes;
+  SamplesStatsCounter recv_key_frame_size_bytes;
+  SamplesStatsCounter send_delta_frame_size_bytes;
+  SamplesStatsCounter recv_delta_frame_size_bytes;
+
   int64_t total_encoded_images_payload = 0;
   // Counters on which phase how many frames were dropped.
   std::map<FrameDropPhase, int64_t> dropped_by_phase;

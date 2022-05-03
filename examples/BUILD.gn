@@ -370,8 +370,8 @@ if (is_ios || (is_mac && target_cpu != "x86")) {
       deps = [
         ":AppRTCMobile_ios_bundle_data",
         ":AppRTCMobile_lib",
+        "../sdk:framework_bundle",
         "../sdk:framework_objc",
-        "../sdk:ios_framework_bundle",
       ]
 
       if (rtc_apprtcmobile_broadcast_extension) {
@@ -414,8 +414,8 @@ if (is_ios || (is_mac && target_cpu != "x86")) {
 
         deps = [
           ":apprtc_signaling",
+          "../sdk:framework_bundle",
           "../sdk:framework_objc+link",
-          "../sdk:ios_framework_bundle",
         ]
 
         frameworks = [ "ReplayKit.framework" ]
@@ -575,8 +575,8 @@ if (is_ios || (is_mac && target_cpu != "x86")) {
 
       deps = [
         ":AppRTCMobile_lib",
-        "../sdk:mac_framework_bundle",
-        "../sdk:mac_framework_objc+link",
+        "../sdk:framework_bundle",
+        "../sdk:framework_objc+link",
       ]
     }
   }

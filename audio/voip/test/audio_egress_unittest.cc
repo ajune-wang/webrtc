@@ -9,6 +9,7 @@
  */
 
 #include "audio/voip/audio_egress.h"
+
 #include "api/audio_codecs/builtin_audio_encoder_factory.h"
 #include "api/call/transport.h"
 #include "api/task_queue/default_task_queue_factory.h"
@@ -17,6 +18,7 @@
 #include "modules/rtp_rtcp/source/rtp_rtcp_impl2.h"
 #include "rtc_base/event.h"
 #include "rtc_base/logging.h"
+#include "rtc_base/thread.h"
 #include "test/gmock.h"
 #include "test/gtest.h"
 #include "test/mock_transport.h"
@@ -98,6 +100,7 @@ class AudioEgressTest : public ::testing::Test {
     return frame;
   }
 
+  rtc::AutoThread main_thread_;
   // SimulatedClock doesn't directly affect this testcase as the the
   // AudioFrame's timestamp is driven by GetAudioFrame.
   SimulatedClock fake_clock_;

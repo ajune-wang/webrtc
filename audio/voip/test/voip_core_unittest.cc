@@ -9,11 +9,13 @@
  */
 
 #include "audio/voip/voip_core.h"
+
 #include "api/audio_codecs/builtin_audio_decoder_factory.h"
 #include "api/audio_codecs/builtin_audio_encoder_factory.h"
 #include "api/task_queue/default_task_queue_factory.h"
 #include "modules/audio_device/include/mock_audio_device.h"
 #include "modules/audio_processing/include/mock_audio_processing.h"
+#include "rtc_base/thread.h"
 #include "test/gtest.h"
 #include "test/mock_transport.h"
 
@@ -46,6 +48,7 @@ class VoipCoreTest : public ::testing::Test {
         std::move(audio_processing));
   }
 
+  rtc::AutoThread main_thread_;
   std::unique_ptr<VoipCore> voip_core_;
   NiceMock<MockTransport> transport_;
   rtc::scoped_refptr<test::MockAudioDeviceModule> audio_device_;

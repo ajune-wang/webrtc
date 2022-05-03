@@ -49,6 +49,7 @@ class ChannelManagerForTest : public cricket::ChannelManager {
 
 // Checks that a channel cannot be set on a stopped `RtpTransceiver`.
 TEST(RtpTransceiverTest, CannotSetChannelOnStoppedTransceiver) {
+  rtc::AutoThread main_thread_;
   ChannelManagerForTest cm;
   const std::string content_name("my_mid");
   auto transceiver = rtc::make_ref_counted<RtpTransceiver>(
@@ -85,6 +86,7 @@ TEST(RtpTransceiverTest, CannotSetChannelOnStoppedTransceiver) {
 
 // Checks that a channel can be unset on a stopped `RtpTransceiver`
 TEST(RtpTransceiverTest, CanUnsetChannelOnStoppedTransceiver) {
+  rtc::AutoThread main_thread_;
   ChannelManagerForTest cm;
   const std::string content_name("my_mid");
   auto transceiver = rtc::make_ref_counted<RtpTransceiver>(
@@ -142,6 +144,7 @@ class RtpTransceiverUnifiedPlanTest : public ::testing::Test {
     return sender;
   }
 
+  rtc::AutoThread main_thread_;
   rtc::scoped_refptr<MockRtpReceiverInternal> receiver_ = MockReceiver();
   rtc::scoped_refptr<MockRtpSenderInternal> sender_ = MockSender();
   ChannelManagerForTest channel_manager_;
@@ -214,6 +217,7 @@ class RtpTransceiverTestForHeaderExtensions : public ::testing::Test {
     transceiver_->ClearChannel();
   }
 
+  rtc::AutoThread main_thread_;
   rtc::scoped_refptr<MockRtpReceiverInternal> receiver_ = MockReceiver();
   rtc::scoped_refptr<MockRtpSenderInternal> sender_ = MockSender();
 

@@ -157,8 +157,9 @@ class PeerConnectionSimulcastTests : public ::testing::Test {
     auto offer = local->CreateOfferAndSetAsLocal();
     // Remove simulcast as the second peer connection won't support it.
     RemoveSimulcast(offer.get());
-    std::string err;
-    EXPECT_TRUE(remote->SetRemoteDescription(std::move(offer), &err)) << err;
+    RTCError err;
+    EXPECT_TRUE(remote->SetRemoteDescription(std::move(offer), &err))
+        << err.message();
     auto answer = remote->CreateAnswerAndSetAsLocal();
     // Setup the answer to look like a server response.
     auto mcd_answer = answer->description()->contents()[0].media_description();
@@ -166,7 +167,8 @@ class PeerConnectionSimulcastTests : public ::testing::Test {
     for (const SimulcastLayer& layer : answer_layers) {
       receive_layers.AddLayer(layer);
     }
-    EXPECT_TRUE(local->SetRemoteDescription(std::move(answer), &err)) << err;
+    EXPECT_TRUE(local->SetRemoteDescription(std::move(answer), &err))
+        << err.message();
   }
 
   RtpTransceiverInit CreateTransceiverInit(
@@ -366,8 +368,9 @@ TEST_F(PeerConnectionSimulcastTests, SimulcastLayersAreSetInSender) {
   }
   // Remove simulcast as the second peer connection won't support it.
   auto simulcast = RemoveSimulcast(offer.get());
-  std::string error;
-  EXPECT_TRUE(remote->SetRemoteDescription(std::move(offer), &error)) << error;
+  RTCError error;
+  EXPECT_TRUE(remote->SetRemoteDescription(std::move(offer), &error))
+      << error.message();
   auto answer = remote->CreateAnswerAndSetAsLocal();
 
   // Setup an answer that mimics a server accepting simulcast.
@@ -378,7 +381,8 @@ TEST_F(PeerConnectionSimulcastTests, SimulcastLayersAreSetInSender) {
   for (const auto& layer : simulcast_layers) {
     receive_layers.AddLayer(layer);
   }
-  EXPECT_TRUE(local->SetRemoteDescription(std::move(answer), &error)) << error;
+  EXPECT_TRUE(local->SetRemoteDescription(std::move(answer), &error))
+      << error.message();
   {
     SCOPED_TRACE("after set remote");
     ValidateTransceiverParameters(transceiver, layers);
@@ -401,8 +405,9 @@ TEST_F(PeerConnectionSimulcastTests, PausedSimulcastLayersAreDisabledInSender) {
 
   // Remove simulcast as the second peer connection won't support it.
   RemoveSimulcast(offer.get());
-  std::string error;
-  EXPECT_TRUE(remote->SetRemoteDescription(std::move(offer), &error)) << error;
+  RTCError error;
+  EXPECT_TRUE(remote->SetRemoteDescription(std::move(offer), &error))
+      << error.message();
   auto answer = remote->CreateAnswerAndSetAsLocal();
 
   // Setup an answer that mimics a server accepting simulcast.
@@ -412,7 +417,8 @@ TEST_F(PeerConnectionSimulcastTests, PausedSimulcastLayersAreDisabledInSender) {
   for (const SimulcastLayer& layer : server_layers) {
     receive_layers.AddLayer(layer);
   }
-  EXPECT_TRUE(local->SetRemoteDescription(std::move(answer), &error)) << error;
+  EXPECT_TRUE(local->SetRemoteDescription(std::move(answer), &error))
+      << error.message();
   {
     SCOPED_TRACE("after set remote");
     ValidateTransceiverParameters(transceiver, server_layers);
@@ -448,8 +454,9 @@ TEST_F(PeerConnectionSimulcastTests, RejectedSimulcastLayersAreDeactivated) {
   }
   // Remove simulcast as the second peer connection won't support it.
   auto removed_simulcast = RemoveSimulcast(offer.get());
-  std::string error;
-  EXPECT_TRUE(remote->SetRemoteDescription(std::move(offer), &error)) << error;
+  RTCError error;
+  EXPECT_TRUE(remote->SetRemoteDescription(std::move(offer), &error))
+      << error.message();
   auto answer = remote->CreateAnswerAndSetAsLocal();
   auto mcd_answer = answer->description()->contents()[0].media_description();
   // Setup the answer to look like a server response.
@@ -461,7 +468,8 @@ TEST_F(PeerConnectionSimulcastTests, RejectedSimulcastLayersAreDeactivated) {
     receive_layers.AddLayer(layer);
   }
   ASSERT_TRUE(mcd_answer->HasSimulcast());
-  EXPECT_TRUE(local->SetRemoteDescription(std::move(answer), &error)) << error;
+  EXPECT_TRUE(local->SetRemoteDescription(std::move(answer), &error))
+      << error.message();
   {
     SCOPED_TRACE("after set remote");
     ValidateTransceiverParameters(transceiver, expected_layers);
@@ -479,8 +487,9 @@ TEST_F(PeerConnectionSimulcastTests, ServerSendsOfferToReceiveSimulcast) {
   // Remove simulcast as a sender and set it up as a receiver.
   RemoveSimulcast(offer.get());
   AddRequestToReceiveSimulcast(layers, offer.get());
-  std::string error;
-  EXPECT_TRUE(remote->SetRemoteDescription(std::move(offer), &error)) << error;
+  RTCError error;
+  EXPECT_TRUE(remote->SetRemoteDescription(std::move(offer), &error))
+      << error.message();
   auto transceiver = remote->pc()->GetTransceivers()[0];
   transceiver->SetDirectionWithError(RtpTransceiverDirection::kSendRecv);
   EXPECT_TRUE(remote->CreateAnswerAndSetAsLocal());
@@ -500,8 +509,9 @@ TEST_F(PeerConnectionSimulcastTests, TransceiverIsNotRecycledWithSimulcast) {
   AddRequestToReceiveSimulcast(layers, offer.get());
   // Call AddTrack so that a transceiver is created.
   remote->AddVideoTrack("fake_track");
-  std::string error;
-  EXPECT_TRUE(remote->SetRemoteDescription(std::move(offer), &error)) << error;
+  RTCError error;
+  EXPECT_TRUE(remote->SetRemoteDescription(std::move(offer), &error))
+      << error.message();
   auto transceivers = remote->pc()->GetTransceivers();
   ASSERT_EQ(2u, transceivers.size());
   auto transceiver = transceivers[1];
@@ -558,8 +568,9 @@ TEST_F(PeerConnectionSimulcastTests, NegotiationDoesNotHaveRidExtension) {
   auto offer = local->CreateOfferAndSetAsLocal();
   // Remove simulcast as the second peer connection won't support it.
   RemoveSimulcast(offer.get());
-  std::string err;
-  EXPECT_TRUE(remote->SetRemoteDescription(std::move(offer), &err)) << err;
+  RTCError err;
+  EXPECT_TRUE(remote->SetRemoteDescription(std::move(offer), &err))
+      << err.message();
   auto answer = remote->CreateAnswerAndSetAsLocal();
   // Setup the answer to look like a server response.
   // Drop the RID header extension.
@@ -579,7 +590,8 @@ TEST_F(PeerConnectionSimulcastTests, NegotiationDoesNotHaveRidExtension) {
                                .receive_layers()
                                .GetAllLayers()
                                .size());
-  EXPECT_TRUE(local->SetRemoteDescription(std::move(answer), &err)) << err;
+  EXPECT_TRUE(local->SetRemoteDescription(std::move(answer), &err))
+      << err.message();
   ValidateTransceiverParameters(transceiver, expected_layers);
 }
 
@@ -651,8 +663,9 @@ TEST_F(PeerConnectionSimulcastMetricsTests, IncomingSimulcastIsLogged) {
   // Remove simulcast as a sender and set it up as a receiver.
   RemoveSimulcast(offer.get());
   AddRequestToReceiveSimulcast(layers, offer.get());
-  std::string error;
-  EXPECT_TRUE(remote->SetRemoteDescription(std::move(offer), &error)) << error;
+  RTCError error;
+  EXPECT_TRUE(remote->SetRemoteDescription(std::move(offer), &error))
+      << error.message();
   EXPECT_THAT(RemoteDescriptionSamples(),
               ElementsAre(Pair(kSimulcastApiVersionSpecCompliant, 1)));
 
@@ -673,8 +686,9 @@ TEST_F(PeerConnectionSimulcastMetricsTests, RejectedSimulcastIsLogged) {
   EXPECT_THAT(LocalDescriptionSamples(),
               ElementsAre(Pair(kSimulcastApiVersionSpecCompliant, 1)));
   RemoveSimulcast(offer.get());
-  std::string error;
-  EXPECT_TRUE(remote->SetRemoteDescription(std::move(offer), &error)) << error;
+  RTCError error;
+  EXPECT_TRUE(remote->SetRemoteDescription(std::move(offer), &error))
+      << error.message();
   EXPECT_THAT(RemoteDescriptionSamples(),
               ElementsAre(Pair(kSimulcastApiVersionNone, 1)));
 
@@ -682,7 +696,8 @@ TEST_F(PeerConnectionSimulcastMetricsTests, RejectedSimulcastIsLogged) {
   EXPECT_THAT(LocalDescriptionSamples(),
               ElementsAre(Pair(kSimulcastApiVersionNone, 1),
                           Pair(kSimulcastApiVersionSpecCompliant, 1)));
-  EXPECT_TRUE(local->SetRemoteDescription(std::move(answer), &error)) << error;
+  EXPECT_TRUE(local->SetRemoteDescription(std::move(answer), &error))
+      << error.message();
   EXPECT_THAT(RemoteDescriptionSamples(),
               ElementsAre(Pair(kSimulcastApiVersionNone, 2)));
 }
@@ -708,11 +723,13 @@ TEST_F(PeerConnectionSimulcastMetricsTests, LegacySimulcastIsLogged) {
   auto sd =
       CreateSessionDescription(SdpType::kOffer, builder.str(), &parse_error);
   ASSERT_TRUE(sd) << parse_error.line << parse_error.description;
-  std::string error;
-  EXPECT_TRUE(local->SetLocalDescription(std::move(sd), &error)) << error;
+  RTCError error;
+  EXPECT_TRUE(local->SetLocalDescription(std::move(sd), &error))
+      << error.message();
   EXPECT_THAT(LocalDescriptionSamples(),
               ElementsAre(Pair(kSimulcastApiVersionLegacy, 1)));
-  EXPECT_TRUE(remote->SetRemoteDescription(std::move(offer), &error)) << error;
+  EXPECT_TRUE(remote->SetRemoteDescription(std::move(offer), &error))
+      << error.message();
   EXPECT_THAT(RemoteDescriptionSamples(),
               ElementsAre(Pair(kSimulcastApiVersionNone, 1)));
   auto answer = remote->CreateAnswerAndSetAsLocal();
@@ -720,7 +737,8 @@ TEST_F(PeerConnectionSimulcastMetricsTests, LegacySimulcastIsLogged) {
               ElementsAre(Pair(kSimulcastApiVersionNone, 1),
                           Pair(kSimulcastApiVersionLegacy, 1)));
   // Legacy simulcast is not signaled in remote description.
-  EXPECT_TRUE(local->SetRemoteDescription(std::move(answer), &error)) << error;
+  EXPECT_TRUE(local->SetRemoteDescription(std::move(answer), &error))
+      << error.message();
   EXPECT_THAT(RemoteDescriptionSamples(),
               ElementsAre(Pair(kSimulcastApiVersionNone, 2)));
 }
@@ -733,10 +751,12 @@ TEST_F(PeerConnectionSimulcastMetricsTests, SimulcastDisabledIsLogged) {
   AddTransceiver(local.get(), layers);
   auto offer = local->CreateOfferAndSetAsLocal();
   RemoveSimulcast(offer.get());
-  std::string error;
-  EXPECT_TRUE(remote->SetRemoteDescription(std::move(offer), &error)) << error;
+  RTCError error;
+  EXPECT_TRUE(remote->SetRemoteDescription(std::move(offer), &error))
+      << error.message();
   auto answer = remote->CreateAnswerAndSetAsLocal();
-  EXPECT_TRUE(local->SetRemoteDescription(std::move(answer), &error)) << error;
+  EXPECT_TRUE(local->SetRemoteDescription(std::move(answer), &error))
+      << error.message();
 
   EXPECT_EQ(1, metrics::NumSamples("WebRTC.PeerConnection.Simulcast.Disabled"));
   EXPECT_EQ(1,

@@ -771,17 +771,17 @@ TEST_P(PeerConnectionCryptoTest, SessionErrorIfFingerprintInvalid) {
       rtc::SSLFingerprint::CreateFromCertificate(*other_certificate);
 
   // Set the invalid answer and expect a fingerprint error.
-  std::string error;
+  RTCError error;
   ASSERT_FALSE(callee->SetLocalDescription(std::move(invalid_answer), &error));
-  EXPECT_PRED_FORMAT2(AssertStringContains, error,
+  EXPECT_PRED_FORMAT2(AssertStringContains, error.message(),
                       "Local fingerprint does not match identity.");
 
   // Make sure that setting a valid remote offer or local answer also fails now.
   ASSERT_FALSE(callee->SetRemoteDescription(caller->CreateOffer(), &error));
-  EXPECT_PRED_FORMAT2(AssertStringContains, error,
+  EXPECT_PRED_FORMAT2(AssertStringContains, error.message(),
                       "Session error code: ERROR_CONTENT.");
   ASSERT_FALSE(callee->SetLocalDescription(std::move(valid_answer), &error));
-  EXPECT_PRED_FORMAT2(AssertStringContains, error,
+  EXPECT_PRED_FORMAT2(AssertStringContains, error.message(),
                       "Session error code: ERROR_CONTENT.");
 }
 

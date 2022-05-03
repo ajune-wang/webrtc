@@ -421,6 +421,8 @@ const char* StatsReport::Value::display_name() const {
       return "googAvailableReceiveBandwidth";
     case kStatsValueNameAvailableSendBandwidth:
       return "googAvailableSendBandwidth";
+    case kStatsValueNameAvailableSendBandwidthLimit:
+      return "googAvailableSendBandwidthLimit";
     case kStatsValueNameAvgEncodeMs:
       return "googAvgEncodeMs";
     case kStatsValueNameBucketDelay:

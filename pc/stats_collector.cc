@@ -413,6 +413,8 @@ void ExtractStats(const cricket::BandwidthEstimationInfo& info,
   const IntForAdd ints[] = {
       {StatsReport::kStatsValueNameAvailableSendBandwidth,
        info.available_send_bandwidth},
+      {StatsReport::kStatsValueNameAvailableSendBandwidthLimit,
+       info.available_send_bandwidth_limit},
       {StatsReport::kStatsValueNameAvailableReceiveBandwidth,
        info.available_recv_bandwidth},
       {StatsReport::kStatsValueNameTargetEncBitrate, info.target_enc_bitrate},

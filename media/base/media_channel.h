@@ -661,6 +661,7 @@ struct VideoReceiverInfo : public MediaReceiverInfo {
 
 struct BandwidthEstimationInfo {
   int available_send_bandwidth = 0;
+  int available_send_bandwidth_limit = 0;
   int available_recv_bandwidth = 0;
   int target_enc_bitrate = 0;
   int actual_enc_bitrate = 0;

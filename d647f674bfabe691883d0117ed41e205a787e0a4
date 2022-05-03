@@ -1,0 +1,44 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "5caaafae_ace0bad7",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2022-05-03T14:19:31Z",
+      "side": 1,
+      "message": "PTAL.",
+      "revId": "d647f674bfabe691883d0117ed41e205a787e0a4",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "293993bc_cf456d01",
+        "filename": "api/video_codecs/test/video_encoder_factory_template_tests.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 114,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2022-05-03T14:19:31Z",
+      "side": 1,
+      "message": "Changed this test value, since I didn\u0027t want to add kS2T3 to the enum just for this test. Similarly for S2T2 below.",
+      "range": {
+        "startLine": 114,
+        "startChar": 50,
+        "endLine": 114,
+        "endChar": 54
+      },
+      "revId": "d647f674bfabe691883d0117ed41e205a787e0a4",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

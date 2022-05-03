@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "ea985785_c5cb0fbd",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 6312
+      },
+      "writtenOn": "2022-05-03T04:45:17Z",
+      "side": 1,
+      "message": "Could you add an explanation of the use case? I\u0027m not sure I see the value of explicitly allowing unsigned values for instance. In this case we add explicit support for both 8 bit and unsigned, is there a reason why both are needed?",
+      "revId": "6d5a240f7eec430b2f97a7acadcb34be6422674c",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

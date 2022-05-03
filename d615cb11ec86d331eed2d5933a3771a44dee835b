@@ -60,6 +60,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "f8975d30_6d50b71b",
+        "filename": "api/video_codecs/vp8_temporal_layers_factory.cc",
+        "patchSetId": 8
+      },
+      "lineNbr": 34,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2022-05-03T13:20:08Z",
+      "side": 1,
+      "message": "Makes sense. Maybe I should make a separate cl to update that to use the enum, and to also support the new L1T1?\n\nLooks like QueryCodecSupport is used by chromium, but not internally in webrtc?",
+      "parentUuid": "c5320a76_e7f5e31f",
+      "range": {
+        "startLine": 33,
+        "startChar": 9,
+        "endLine": 34,
+        "endChar": 52
+      },
+      "revId": "d615cb11ec86d331eed2d5933a3771a44dee835b",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "f43b5438_f062a9d0",
         "filename": "modules/video_coding/svc/scalability_mode_util.cc",
         "patchSetId": 8
@@ -130,6 +154,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "d40a0203_2ec43ba2",
+        "filename": "modules/video_coding/video_codec_initializer.cc",
+        "patchSetId": 8
+      },
+      "lineNbr": 120,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2022-05-03T13:20:08Z",
+      "side": 1,
+      "message": "As far as I understand, setting the VideoCodec (top-level) scalability mode is needed for AV1. Maybe we can ignore that completely for vp8? I\u0027m still a bit confused.",
+      "parentUuid": "001f8171_3092a3e2",
+      "range": {
+        "startLine": 120,
+        "startChar": 14,
+        "endLine": 120,
+        "endChar": 78
+      },
+      "revId": "d615cb11ec86d331eed2d5933a3771a44dee835b",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "2acfde1d_49807ba4",
         "filename": "modules/video_coding/video_codec_initializer.cc",
         "patchSetId": 8
@@ -141,6 +189,30 @@
       "writtenOn": "2022-05-03T09:08:20Z",
       "side": 1,
       "message": "from scalability_mode if set (similar to as above)?",
+      "range": {
+        "startLine": 180,
+        "startChar": 10,
+        "endLine": 180,
+        "endChar": 24
+      },
+      "revId": "d615cb11ec86d331eed2d5933a3771a44dee835b",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "3d2f0d1f_c543df05",
+        "filename": "modules/video_coding/video_codec_initializer.cc",
+        "patchSetId": 8
+      },
+      "lineNbr": 180,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2022-05-03T13:20:08Z",
+      "side": 1,
+      "message": "Done. When is this top-level value used, rather than the values specified per simulcast stream?",
+      "parentUuid": "2acfde1d_49807ba4",
       "range": {
         "startLine": 180,
         "startChar": 10,
@@ -187,6 +259,30 @@
       "writtenOn": "2022-05-03T09:08:20Z",
       "side": 1,
       "message": "maybe change scalability mode to e.g. kL2T1 and remove line below",
+      "range": {
+        "startLine": 9047,
+        "startChar": 46,
+        "endLine": 9047,
+        "endChar": 51
+      },
+      "revId": "d615cb11ec86d331eed2d5933a3771a44dee835b",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "472d96a0_52df2ccf",
+        "filename": "video/video_stream_encoder_unittest.cc",
+        "patchSetId": 8
+      },
+      "lineNbr": 9047,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2022-05-03T13:20:08Z",
+      "side": 1,
+      "message": "I think it makes some sense to test that new scalability mode propagates to a change of temporal layers. (Even if responsibility for that conversion perhaps isn\u0027t the responsibility of VideoStreamEncoder).",
+      "parentUuid": "a07e034a_af9e6677",
       "range": {
         "startLine": 9047,
         "startChar": 46,

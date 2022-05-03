@@ -93,4 +93,77 @@ absl::string_view ScalabilityModeToString(ScalabilityMode scalability_mode) {
   RTC_CHECK_NOTREACHED();
 }
 
+InterLayerPredMode ScalabilityModeToInterLayerPredMode(
+    ScalabilityMode scalability_mode) {
+  switch (scalability_mode) {
+    case ScalabilityMode::kL1T1:
+      return InterLayerPredMode::kOn;
+    case ScalabilityMode::kL1T2:
+      return InterLayerPredMode::kOn;
+    case ScalabilityMode::kL1T3:
+      return InterLayerPredMode::kOn;
+    case ScalabilityMode::kL2T1:
+      return InterLayerPredMode::kOn;
+    case ScalabilityMode::kL2T1h:
+      return InterLayerPredMode::kOn;
+    case ScalabilityMode::kL2T1_KEY:
+      return InterLayerPredMode::kOnKeyPic;
+    case ScalabilityMode::kL2T2:
+      return InterLayerPredMode::kOn;
+    case ScalabilityMode::kL2T2_KEY:
+      return InterLayerPredMode::kOnKeyPic;
+    case ScalabilityMode::kL2T2_KEY_SHIFT:
+      return InterLayerPredMode::kOnKeyPic;
+    case ScalabilityMode::kL2T3_KEY:
+      return InterLayerPredMode::kOnKeyPic;
+    case ScalabilityMode::kL3T1:
+      return InterLayerPredMode::kOn;
+    case ScalabilityMode::kL3T3:
+      return InterLayerPredMode::kOn;
+    case ScalabilityMode::kL3T3_KEY:
+      return InterLayerPredMode::kOnKeyPic;
+    case ScalabilityMode::kS2T1:
+      return InterLayerPredMode::kOff;
+    case ScalabilityMode::kS3T3:
+      return InterLayerPredMode::kOff;
+  }
+  RTC_CHECK_NOTREACHED();
+}
+
+double ScalabilityModeToResolutionRatio(ScalabilityMode scalability_mode) {
+  switch (scalability_mode) {
+    case ScalabilityMode::kL1T1:
+      return 2.0;
+    case ScalabilityMode::kL1T2:
+      return 2.0;
+    case ScalabilityMode::kL1T3:
+      return 2.0;
+    case ScalabilityMode::kL2T1:
+      return 2.0;
+    case ScalabilityMode::kL2T1h:
+      return 1.5;
+    case ScalabilityMode::kL2T1_KEY:
+      return 2.0;
+    case ScalabilityMode::kL2T2:
+      return 2.0;
+    case ScalabilityMode::kL2T2_KEY:
+      return 2.0;
+    case ScalabilityMode::kL2T2_KEY_SHIFT:
+      return 2.0;
+    case ScalabilityMode::kL2T3_KEY:
+      return 2.0;
+    case ScalabilityMode::kL3T1:
+      return 2.0;
+    case ScalabilityMode::kL3T3:
+      return 2.0;
+    case ScalabilityMode::kL3T3_KEY:
+      return 2.0;
+    case ScalabilityMode::kS2T1:
+      return 2.0;
+    case ScalabilityMode::kS3T3:
+      return 2.0;
+  }
+  RTC_CHECK_NOTREACHED();
+}
+
 }  // namespace webrtc

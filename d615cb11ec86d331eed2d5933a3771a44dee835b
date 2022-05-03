@@ -37,6 +37,29 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "c5320a76_e7f5e31f",
+        "filename": "api/video_codecs/vp8_temporal_layers_factory.cc",
+        "patchSetId": 8
+      },
+      "lineNbr": 34,
+      "author": {
+        "id": 5492
+      },
+      "writtenOn": "2022-05-03T09:08:20Z",
+      "side": 1,
+      "message": "Should SupportsScalabilityMode be used:\nhttps://source.chromium.org/chromium/chromium/src/+/main:third_party/webrtc/modules/video_coding/codecs/vp8/libvpx_vp8_encoder.cc;l\u003d235",
+      "range": {
+        "startLine": 33,
+        "startChar": 9,
+        "endLine": 34,
+        "endChar": 52
+      },
+      "revId": "d615cb11ec86d331eed2d5933a3771a44dee835b",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "f43b5438_f062a9d0",
         "filename": "modules/video_coding/svc/scalability_mode_util.cc",
         "patchSetId": 8
@@ -77,6 +100,98 @@
         "startChar": 4,
         "endLine": 96,
         "endChar": 38
+      },
+      "revId": "d615cb11ec86d331eed2d5933a3771a44dee835b",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "001f8171_3092a3e2",
+        "filename": "modules/video_coding/video_codec_initializer.cc",
+        "patchSetId": 8
+      },
+      "lineNbr": 120,
+      "author": {
+        "id": 5492
+      },
+      "writtenOn": "2022-05-03T09:08:20Z",
+      "side": 1,
+      "message": "Should there be a check that the scalability mode is supported?\n\nIf different modes are set per stream the VideoCodec scalability mode will not be set (and temporal layers configured here), the changes in SimulcastUtility and Vp8TemporalLayerFactory might not be needed for now.",
+      "range": {
+        "startLine": 120,
+        "startChar": 14,
+        "endLine": 120,
+        "endChar": 78
+      },
+      "revId": "d615cb11ec86d331eed2d5933a3771a44dee835b",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "2acfde1d_49807ba4",
+        "filename": "modules/video_coding/video_codec_initializer.cc",
+        "patchSetId": 8
+      },
+      "lineNbr": 180,
+      "author": {
+        "id": 5492
+      },
+      "writtenOn": "2022-05-03T09:08:20Z",
+      "side": 1,
+      "message": "from scalability_mode if set (similar to as above)?",
+      "range": {
+        "startLine": 180,
+        "startChar": 10,
+        "endLine": 180,
+        "endChar": 24
+      },
+      "revId": "d615cb11ec86d331eed2d5933a3771a44dee835b",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "882b26bf_82bbdd5a",
+        "filename": "video/video_send_stream_tests.cc",
+        "patchSetId": 8
+      },
+      "lineNbr": 4128,
+      "author": {
+        "id": 5492
+      },
+      "writtenOn": "2022-05-03T09:08:20Z",
+      "side": 1,
+      "message": "Perhaps all TestTemporalLayers* tests could also be configured via scalability_mode (e.g. {kL1T3, kL1T1}).",
+      "range": {
+        "startLine": 4128,
+        "startChar": 28,
+        "endLine": 4128,
+        "endChar": 46
+      },
+      "revId": "d615cb11ec86d331eed2d5933a3771a44dee835b",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "a07e034a_af9e6677",
+        "filename": "video/video_stream_encoder_unittest.cc",
+        "patchSetId": 8
+      },
+      "lineNbr": 9047,
+      "author": {
+        "id": 5492
+      },
+      "writtenOn": "2022-05-03T09:08:20Z",
+      "side": 1,
+      "message": "maybe change scalability mode to e.g. kL2T1 and remove line below",
+      "range": {
+        "startLine": 9047,
+        "startChar": 46,
+        "endLine": 9047,
+        "endChar": 51
       },
       "revId": "d615cb11ec86d331eed2d5933a3771a44dee835b",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"

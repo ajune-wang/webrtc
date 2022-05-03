@@ -16,6 +16,29 @@
       "message": "I now have a working lambda-capture that doesn\u0027t break any other unittests.\nI used it for the simplest case in connection_context - the two other thread pointers are more complex, so I\u0027ll do a different CL for those.\n\nPTAL.",
       "revId": "ee714a08e4aaa2f58b813de12746f298383dbb51",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "beacdaf1_a8501441",
+        "filename": "rtc_base/memory/always_valid_pointer.h",
+        "patchSetId": 4
+      },
+      "lineNbr": 34,
+      "author": {
+        "id": 5522
+      },
+      "writtenOn": "2022-05-03T11:55:46Z",
+      "side": 1,
+      "message": "Sorry for the suggesting this form, as it looks like it\u0027s more common in the WebRTC codebase to write this as\n`typename std::enable_if\u003c!(std::is_invocable\u003cArg\u003e::value)\u003e::type* \u003d nullptr`\nSo maybe replace \u0027,bool\u003e::type \u003d true\u0027 by \u0027\u003e::type* \u003d nullptr\u0027 ?\n\nSame below.",
+      "range": {
+        "startLine": 33,
+        "startChar": 12,
+        "endLine": 34,
+        "endChar": 54
+      },
+      "revId": "ee714a08e4aaa2f58b813de12746f298383dbb51",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

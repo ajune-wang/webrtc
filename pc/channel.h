@@ -158,6 +158,14 @@ class BaseChannel : public ChannelInterface,
   MediaChannel* media_channel() const override {
     return media_channel_.get();
   }
+  VideoMediaChannel* video_media_channel() const override {
+    RTC_CHECK(false) << "Attempt to fetch video channel from non-video";
+    return nullptr;
+  }
+  VoiceMediaChannel* voice_media_channel() const override {
+    RTC_CHECK(false) << "Attempt to fetch voice channel from non-voice";
+    return nullptr;
+  }
 
  protected:
   void set_local_content_direction(webrtc::RtpTransceiverDirection direction)
@@ -364,6 +372,10 @@ class VoiceChannel : public BaseChannel {
     return static_cast<VoiceMediaChannel*>(BaseChannel::media_channel());
   }
 
+  VoiceMediaChannel* voice_media_channel() const override {
+    return static_cast<VoiceMediaChannel*>(media_channel());
+  }
+
   cricket::MediaType media_type() const override {
     return cricket::MEDIA_TYPE_AUDIO;
   }
@@ -406,10 +418,13 @@ class VideoChannel : public BaseChannel {
     return static_cast<VideoMediaChannel*>(BaseChannel::media_channel());
   }
 
+  VideoMediaChannel* video_media_channel() const override {
+    return static_cast<cricket::VideoMediaChannel*>(media_channel());
+  }
+
   cricket::MediaType media_type() const override {
     return cricket::MEDIA_TYPE_VIDEO;
   }
-
   void FillBitrateInfo(BandwidthEstimationInfo* bwe_info);
 
  private:

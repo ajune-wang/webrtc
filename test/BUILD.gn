@@ -302,6 +302,7 @@ if (is_ios) {
     sources = [
       "ios/coverage_util_ios.h",
       "ios/coverage_util_ios.mm",
+      "ios/google_test_runner.mm",
       "ios/google_test_runner_delegate.h",
       "ios/test_support.h",
       "ios/test_support.mm",
@@ -310,8 +311,13 @@ if (is_ios) {
       ":perf_test",
       "../sdk:helpers_objc",
     ]
+    frameworks = [ "UIKit.framework" ]
     absl_deps = [ "//third_party/abseil-cpp/absl/types:optional" ]
-    configs += [ ":test_support_objc_config" ]
+    configs += [
+      ":test_support_objc_config",
+      "//build/config/compiler:enable_arc",
+      "//build/config/ios:xctest_config",
+    ]
   }
 
   config("test_support_objc_config") {
@@ -976,9 +982,7 @@ if (is_mac) {
       "mac/video_renderer_mac.h",
       "mac/video_renderer_mac.mm",
     ]
-    deps = [
-      ":test_renderer_generic",
-    ]
+    deps = [ ":test_renderer_generic" ]
     frameworks = [
       "Cocoa.framework",
       "OpenGL.framework",

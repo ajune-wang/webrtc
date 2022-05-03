@@ -16,6 +16,24 @@
       "message": "Could you add an explanation of the use case? I\u0027m not sure I see the value of explicitly allowing unsigned values for instance. In this case we add explicit support for both 8 bit and unsigned, is there a reason why both are needed?",
       "revId": "6d5a240f7eec430b2f97a7acadcb34be6422674c",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "dcfe3f09_04520295",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2022-05-03T08:08:49Z",
+      "side": 1,
+      "message": "https://webrtc-review.googlesource.com/c/src/+/260562/4/modules/pacing/prioritized_packet_queue.cc\nline 242\n\nis an example where it is beneficial to multiply by size_t\n\nIn that particular CL a workaround was possible, that variable was converted into int, but \nproblem there was that because multiplication by size_t didn\u0027t work, it wasn\u0027t clear that TimeDelta can be multiplied by an integer\nIn some other scenario it might be less nice to force conversion to sign integer, e.g. it is currently not allowed to write `time_delta * some_vector.size()`\n\nI do not have an example where multiplying by 8bit integer is helpful. why would you find it harmful? (sometimes we do use 8 bit integers, e.g. while parsing it might be simpler to write `time_delta \u003d parse(byte_array); return time_delta * byte_array[5];` )",
+      "parentUuid": "ea985785_c5cb0fbd",
+      "revId": "6d5a240f7eec430b2f97a7acadcb34be6422674c",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

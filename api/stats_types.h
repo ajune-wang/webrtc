@@ -138,6 +138,7 @@ class RTC_EXPORT StatsReport {
     kStatsValueNameAdaptationChanges,
     kStatsValueNameAvailableReceiveBandwidth,
     kStatsValueNameAvailableSendBandwidth,
+    kStatsValueNameAvailableSendBandwidthLimit,
     kStatsValueNameAvgEncodeMs,
     kStatsValueNameBandwidthLimitedResolution,
     kStatsValueNameBucketDelay,

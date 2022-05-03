@@ -96,8 +96,20 @@ struct StreamStats {
   // The time when the first frame of this stream was captured.
   Timestamp stream_started_time;
 
+  // Frame count metrics.
+  int64_t num_send_key_frames = 0;
+  int64_t num_recv_key_frames = 0;
+
+  // Encoded frame size (in bytes) metrics.
+  SamplesStatsCounter send_key_frame_size_bytes;
+  SamplesStatsCounter recv_key_frame_size_bytes;
+  SamplesStatsCounter send_delta_frame_size_bytes;
+  SamplesStatsCounter recv_delta_frame_size_bytes;
+
+  // Spatial quality metrics.
   SamplesStatsCounter psnr;
   SamplesStatsCounter ssim;
+
   // Time from frame encoded (time point on exit from encoder) to the
   // encoded image received in decoder (time point on entrance to decoder).
   SamplesStatsCounter transport_time_ms;

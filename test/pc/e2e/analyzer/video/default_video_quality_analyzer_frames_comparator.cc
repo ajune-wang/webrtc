@@ -71,6 +71,7 @@ FrameComparison ValidateFrameComparison(FrameComparison comparison) {
           << "Regular comparison has to have used_encoder";
       RTC_DCHECK(comparison.frame_stats.used_decoder.has_value())
           << "Regular comparison has to have used_decoder";
+      // TODO(brandtr): Add stuff here.
       break;
     case FrameComparisonType::kDroppedFrame:
       // Frame can be dropped before encoder, by encoder, inside network or
@@ -428,6 +429,17 @@ void DefaultVideoQualityAnalyzerFramesComparator::ProcessComparison(
     stats->total_encoded_images_payload += frame_stats.encoded_image_size;
     stats->target_encode_bitrate.AddSample(StatsSample(
         frame_stats.target_encode_bitrate, frame_stats.encoded_time));
+
+    // Stats sliced on encoded frame type.
+    if (frame_stats.encoded_frame_type == VideoFrameType::kVideoFrameKey) {
+      ++stats->num_send_key_frames;
+      stats->send_key_frame_size_bytes.AddSample(StatsSample(
+          frame_stats.encoded_image_size, frame_stats.encoded_time));
+    } else if (frame_stats.encoded_frame_type ==
+               VideoFrameType::kVideoFrameDelta) {
+      stats->send_delta_frame_size_bytes.AddSample(StatsSample(
+          frame_stats.encoded_image_size, frame_stats.encoded_time));
+    }
   }
   // Next stats can be calculated only if frame was received on remote side.
   if (comparison.type != FrameComparisonType::kDroppedFrame) {
@@ -447,6 +459,18 @@ void DefaultVideoQualityAnalyzerFramesComparator::ProcessComparison(
       stats->transport_time_ms.AddSample(StatsSample(
           (frame_stats.decode_start_time - frame_stats.encoded_time).ms(),
           frame_stats.decode_start_time));
+
+      // Stats sliced on decoded frame type.
+      if (frame_stats.pre_decoded_frame_type ==
+          VideoFrameType::kVideoFrameKey) {
+        ++stats->num_recv_key_frames;
+        stats->recv_key_frame_size_bytes.AddSample(StatsSample(
+            frame_stats.pre_decoded_image_size, frame_stats.decode_start_time));
+      } else if (frame_stats.pre_decoded_frame_type ==
+                 VideoFrameType::kVideoFrameDelta) {
+        stats->recv_delta_frame_size_bytes.AddSample(StatsSample(
+            frame_stats.pre_decoded_image_size, frame_stats.decode_start_time));
+      }
     }
     if (frame_stats.decode_end_time.IsFinite()) {
       stats->decode_time_ms.AddSample(StatsSample(

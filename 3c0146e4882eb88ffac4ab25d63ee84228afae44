@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "f886b391_1f67c993",
+        "filename": "video/video_receive_stream2_unittest.cc",
+        "patchSetId": 6
+      },
+      "lineNbr": 116,
+      "author": {
+        "id": 5117
+      },
+      "writtenOn": "2022-05-04T08:44:11Z",
+      "side": 1,
+      "message": "nit: std::move might be more clear here, You can simply return moved out value or move it to ret first",
+      "range": {
+        "startLine": 116,
+        "startChar": 4,
+        "endLine": 116,
+        "endChar": 13
+      },
+      "revId": "3c0146e4882eb88ffac4ab25d63ee84228afae44",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

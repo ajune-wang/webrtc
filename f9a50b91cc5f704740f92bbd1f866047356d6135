@@ -121,6 +121,24 @@
       "parentUuid": "89a20984_accb3562",
       "revId": "f9a50b91cc5f704740f92bbd1f866047356d6135",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "88e4de62_703d8efe",
+        "filename": "test/ios/google_test_runner.mm",
+        "patchSetId": 7
+      },
+      "lineNbr": 12,
+      "author": {
+        "id": 5150
+      },
+      "writtenOn": "2022-05-04T09:02:17Z",
+      "side": 1,
+      "message": "Ah, I see. But then I think the comment is still correct. (As in \"We forked this code to avoid depending on //base.\") I shortened the comment a bit.\n\nYeah, I\u0027d like to remove //base from DEPS, but there are indirect dependencies from //testing and //build, so it\u0027s not clear that we won\u0027t get more build breakages if we stop pulling that dependency.",
+      "parentUuid": "d065be50_fb93b54c",
+      "revId": "f9a50b91cc5f704740f92bbd1f866047356d6135",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

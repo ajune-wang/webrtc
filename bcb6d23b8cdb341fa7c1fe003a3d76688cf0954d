@@ -1,0 +1,119 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "499cefb5_51e88b23",
+        "filename": "modules/video_coding/codecs/vp9/libvpx_vp9_encoder.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 103,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2022-05-04T13:17:57Z",
+      "side": 1,
+      "message": "Looks a bit backwards to reconstruct the mode string from other settings. Can settigns like VideoCodecVP9::interLayerPred be deleted once we have fully migrated to configuration via scalability mode?",
+      "range": {
+        "startLine": 94,
+        "startChar": 0,
+        "endLine": 103,
+        "endChar": 0
+      },
+      "revId": "bcb6d23b8cdb341fa7c1fe003a3d76688cf0954d",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "d93a5c57_876f73c5",
+        "filename": "modules/video_coding/codecs/vp9/svc_config.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 44,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2022-05-04T13:17:57Z",
+      "side": 1,
+      "message": "I think this could be simplified a bit, if expressed in terms of\n\nconst size_t input_long_side \u003d std::max(input_width, input_height);\nconst size_t input_short_side \u003d std::min(input_width, input_height);\n\n(and maybe strike the input_ prefix on all variable names).",
+      "range": {
+        "startLine": 40,
+        "startChar": 0,
+        "endLine": 44,
+        "endChar": 77
+      },
+      "revId": "bcb6d23b8cdb341fa7c1fe003a3d76688cf0954d",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "2617ab7f_ad10c5bd",
+        "filename": "modules/video_coding/codecs/vp9/svc_config.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 55,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2022-05-04T13:17:57Z",
+      "side": 1,
+      "message": "Except for this log message (is it important?), I think it would make things a bit simpler to just return limited_num_spatial_layers from this function, and leave to the caller to do\n\nnum_spatial_layers \u003d std::min(num_spatial_layers, GetLimitedNumSpatialLayers(width, eight));",
+      "range": {
+        "startLine": 51,
+        "startChar": 0,
+        "endLine": 55,
+        "endChar": 59
+      },
+      "revId": "bcb6d23b8cdb341fa7c1fe003a3d76688cf0954d",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "b9913fce_b8f8df1f",
+        "filename": "modules/video_coding/codecs/vp9/svc_config.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 176,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2022-05-04T13:17:57Z",
+      "side": 1,
+      "message": "How do we know it\u0027s always set here? Should it fallback to using VideoCodecToScalabilityMode?",
+      "range": {
+        "startLine": 176,
+        "startChar": 2,
+        "endLine": 176,
+        "endChar": 43
+      },
+      "revId": "bcb6d23b8cdb341fa7c1fe003a3d76688cf0954d",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "b0af3f99_bf96983c",
+        "filename": "modules/video_coding/svc/scalability_mode_util.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 144,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2022-05-04T13:17:57Z",
+      "side": 1,
+      "message": "It seems the av1 code (in create_scalability_structure.cc) uses a different fraction representation. It\u0027s not clear to me why that code tries to avoid floating point.",
+      "range": {
+        "startLine": 144,
+        "startChar": 0,
+        "endLine": 144,
+        "endChar": 17
+      },
+      "revId": "bcb6d23b8cdb341fa7c1fe003a3d76688cf0954d",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

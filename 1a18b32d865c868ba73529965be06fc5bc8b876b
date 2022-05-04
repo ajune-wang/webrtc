@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "227f7971_5a97c610",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 3
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2022-05-04T07:55:38Z",
+      "side": 1,
+      "message": "The long list of arguments to CreateChannel() is a PITA, indicating excessive dependencies - and it\u0027s possible that the transceiver knows some of this stuff already.\n\nBut this is a no-changed-behavior refactoring that improves things.",
+      "revId": "1a18b32d865c868ba73529965be06fc5bc8b876b",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

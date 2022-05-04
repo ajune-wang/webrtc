@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "92d96751_8ccc43e9",
+        "filename": "pc/sdp_offer_answer.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 4886,
+      "author": {
+        "id": 5508
+      },
+      "writtenOn": "2022-05-04T09:10:29Z",
+      "side": 0,
+      "message": "nice to see these methods gone",
+      "revId": "0dc2b7095fbe56b4da81b4b992b0a46f1e9127d1",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

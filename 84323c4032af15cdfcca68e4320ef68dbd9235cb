@@ -18,6 +18,57 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "118cadb1_bcfd5402",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 4
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5508
+      },
+      "writtenOn": "2022-05-04T09:10:29Z",
+      "side": 1,
+      "message": "this seems like a good step in the right direction to me - wondering if we could make some string_view related changes since we\u0027re touching the code anyway?",
+      "revId": "84323c4032af15cdfcca68e4320ef68dbd9235cb",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "17d28c0e_3b8a0771",
+        "filename": "pc/peer_connection_sdp_methods.h",
+        "patchSetId": 4
+      },
+      "lineNbr": 39,
+      "author": {
+        "id": 5508
+      },
+      "writtenOn": "2022-05-04T09:10:29Z",
+      "side": 1,
+      "message": "if this is expected to be const, could we return string_view instead? (fine as a follow-up)",
+      "revId": "84323c4032af15cdfcca68e4320ef68dbd9235cb",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "40a821d7_5eebc171",
+        "filename": "pc/peer_connection_sdp_methods.h",
+        "patchSetId": 4
+      },
+      "lineNbr": 45,
+      "author": {
+        "id": 5508
+      },
+      "writtenOn": "2022-05-04T09:10:29Z",
+      "side": 1,
+      "message": "string_view would be nice here too",
+      "revId": "84323c4032af15cdfcca68e4320ef68dbd9235cb",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "d5f5ebf8_0685a840",
@@ -49,6 +100,23 @@
       "side": 1,
       "message": "Done. SetChannel already does it, so it\u0027s not likely to catch much.",
       "parentUuid": "d5f5ebf8_0685a840",
+      "revId": "84323c4032af15cdfcca68e4320ef68dbd9235cb",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "245bb7f5_bdf7255a",
+        "filename": "pc/rtp_transceiver.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 173,
+      "author": {
+        "id": 5508
+      },
+      "writtenOn": "2022-05-04T09:10:29Z",
+      "side": 1,
+      "message": "move down?",
       "revId": "84323c4032af15cdfcca68e4320ef68dbd9235cb",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
@@ -102,6 +170,40 @@
       "side": 1,
       "message": "In isolation, I think a long argument list is better than a new layer of abstraction (interface). So in the current state, I prefer 4 more arguments.\n\nBut if this pattern repeats over many methods in future CLs, then having an interface can get rid of a lot of arguments in a lot of places.\n\nI was hesitating here because I don\u0027t know what the bigger picture is yet (how many more methods are we talking about?). Looking at this CL in isolation, what I see is an interface added which has 37 methods used to get rid of 4 arguments. It doesn\u0027t add up yet, but will it in the future? And do we need to add all methods to the interface in this CL? The interface raises questions atm",
       "parentUuid": "288e948b_325f265f",
+      "revId": "84323c4032af15cdfcca68e4320ef68dbd9235cb",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "3a456f44_a986ce54",
+        "filename": "pc/rtp_transceiver.h",
+        "patchSetId": 4
+      },
+      "lineNbr": 111,
+      "author": {
+        "id": 5508
+      },
+      "writtenOn": "2022-05-04T09:10:29Z",
+      "side": 1,
+      "message": "string_view",
+      "revId": "84323c4032af15cdfcca68e4320ef68dbd9235cb",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "6330d970_a8fefbda",
+        "filename": "pc/rtp_transceiver.h",
+        "patchSetId": 4
+      },
+      "lineNbr": 115,
+      "author": {
+        "id": 5508
+      },
+      "writtenOn": "2022-05-04T09:10:29Z",
+      "side": 1,
+      "message": "and here too",
       "revId": "84323c4032af15cdfcca68e4320ef68dbd9235cb",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }

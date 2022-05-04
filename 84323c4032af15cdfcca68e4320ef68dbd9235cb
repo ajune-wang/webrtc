@@ -35,6 +35,41 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "57692388_5531b192",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 4
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2022-05-04T10:33:40Z",
+      "side": 1,
+      "message": "The sdp_methods.h file is just breaking out a class and not modifying it; I\u0027d like to string_view it afterwards.",
+      "parentUuid": "118cadb1_bcfd5402",
+      "revId": "84323c4032af15cdfcca68e4320ef68dbd9235cb",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "df6cc296_a319d37f",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 4
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2022-05-04T10:33:40Z",
+      "side": 1,
+      "message": "No, absl::string_view is not strictly a drop-in replacement..... 4 TODOs in the code...\n",
+      "revId": "84323c4032af15cdfcca68e4320ef68dbd9235cb",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "17d28c0e_3b8a0771",
@@ -52,6 +87,24 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "cd4b4026_3a18c8c1",
+        "filename": "pc/peer_connection_sdp_methods.h",
+        "patchSetId": 4
+      },
+      "lineNbr": 39,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2022-05-04T10:33:40Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "17d28c0e_3b8a0771",
+      "revId": "84323c4032af15cdfcca68e4320ef68dbd9235cb",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "40a821d7_5eebc171",
@@ -65,6 +118,24 @@
       "writtenOn": "2022-05-04T09:10:29Z",
       "side": 1,
       "message": "string_view would be nice here too",
+      "revId": "84323c4032af15cdfcca68e4320ef68dbd9235cb",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "5a07d24b_56c591d3",
+        "filename": "pc/peer_connection_sdp_methods.h",
+        "patchSetId": 4
+      },
+      "lineNbr": 45,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2022-05-04T10:33:40Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "40a821d7_5eebc171",
       "revId": "84323c4032af15cdfcca68e4320ef68dbd9235cb",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
@@ -117,6 +188,42 @@
       "writtenOn": "2022-05-04T09:10:29Z",
       "side": 1,
       "message": "move down?",
+      "revId": "84323c4032af15cdfcca68e4320ef68dbd9235cb",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "aa178d5e_c0d71626",
+        "filename": "pc/rtp_transceiver.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 173,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2022-05-04T10:33:40Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "245bb7f5_bdf7255a",
+      "revId": "84323c4032af15cdfcca68e4320ef68dbd9235cb",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "e9d37a0d_3be7a467",
+        "filename": "pc/rtp_transceiver.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 173,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2022-05-04T10:33:40Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "245bb7f5_bdf7255a",
       "revId": "84323c4032af15cdfcca68e4320ef68dbd9235cb",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
@@ -174,6 +281,24 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "29a2d3da_bc57d8a2",
+        "filename": "pc/rtp_transceiver.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 184,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2022-05-04T10:33:40Z",
+      "side": 1,
+      "message": "OK, adding 4 more arguments (and hoping to lose them later) seems like the Right Thing.",
+      "parentUuid": "b2f56a4d_c5c49cad",
+      "revId": "84323c4032af15cdfcca68e4320ef68dbd9235cb",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "3a456f44_a986ce54",
@@ -191,6 +316,24 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "942bacc8_94d5bcd8",
+        "filename": "pc/rtp_transceiver.h",
+        "patchSetId": 4
+      },
+      "lineNbr": 111,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2022-05-04T10:33:40Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "3a456f44_a986ce54",
+      "revId": "84323c4032af15cdfcca68e4320ef68dbd9235cb",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "6330d970_a8fefbda",
@@ -204,6 +347,24 @@
       "writtenOn": "2022-05-04T09:10:29Z",
       "side": 1,
       "message": "and here too",
+      "revId": "84323c4032af15cdfcca68e4320ef68dbd9235cb",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "18d214a8_b5d1416a",
+        "filename": "pc/rtp_transceiver.h",
+        "patchSetId": 4
+      },
+      "lineNbr": 115,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2022-05-04T10:33:40Z",
+      "side": 1,
+      "message": "Done (painfully).",
+      "parentUuid": "6330d970_a8fefbda",
       "revId": "84323c4032af15cdfcca68e4320ef68dbd9235cb",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }

@@ -247,6 +247,7 @@ class RTC_EXPORT RTCIceCandidateStats : public RTCStats {
   RTCStatsMember<std::string> candidate_type;
   RTCStatsMember<int32_t> priority;
   RTCStatsMember<std::string> url;
+  RTCStatsMember<std::string> tcp_type;
 
   RTCNonStandardStatsMember<bool> vpn;
   RTCNonStandardStatsMember<std::string> network_adapter_type;

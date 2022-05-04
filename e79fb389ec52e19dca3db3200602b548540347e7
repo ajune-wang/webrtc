@@ -159,6 +159,30 @@
       },
       "revId": "e79fb389ec52e19dca3db3200602b548540347e7",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "cf99362c_2cd93624",
+        "filename": "pc/test/integration_test_helpers.h",
+        "patchSetId": 5
+      },
+      "lineNbr": 926,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2022-05-04T12:33:53Z",
+      "side": 1,
+      "message": "I can\u0027t see any difference in order of those calls. However, I have a theory regarding this failure:\n```\nExpected equality of these values:\n  audio_mid\n    Which is: \"audio\"\n  *caller-\u003esctp_transport_name()\n    Which is: \"data\"\n```\n\nThe method PeerConnection::sctp_transport_name() reads the member `sctp_transport_name_s_`. This is set in two places, PeerConnection::SetupDataChannelTransport_n and PeerConnection::OnTransportChanged.\n\nIn both cases, it gets the value from dtls_transport_, and posts a task to the signaling thread to update the `sctp_transport_name_s_` member. (There\u0027s one subtle difference, though, one call is to dtls_transport-\u003einternal()-\u003etransport_name(), the other to dtls_transport-\u003etransport_name()).\n\nAnyway, I suspect that with the old api, we post the observer call to the signaling thread and wait for it to complete, and that has the side effect that the task to set `sctp_transport_name_s_` gets to run in the mean time. While with the new api, we don\u0027t wait, and hence get the old value of `sctp_transport_name_s_`.\n\nI don\u0027t know if value of sctp_transport_name() is supposed to be synced with anything else. I\u0027ll see if updating the test to wait for the proper value to appears works.",
+      "parentUuid": "17196813_f27c4fd3",
+      "range": {
+        "startLine": 922,
+        "startChar": 0,
+        "endLine": 926,
+        "endChar": 35
+      },
+      "revId": "e79fb389ec52e19dca3db3200602b548540347e7",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

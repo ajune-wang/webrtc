@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "40d87f42_0ae0d46e",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 5
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 12234
+      },
+      "writtenOn": "2022-05-04T07:17:41Z",
+      "side": 1,
+      "message": "The mb inheritage that kicks in, mb_config.pyl now needs to be sorted 😮",
+      "revId": "5b6a8bfb9dd2de2099cfd877b6212b6d76e7b62c",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

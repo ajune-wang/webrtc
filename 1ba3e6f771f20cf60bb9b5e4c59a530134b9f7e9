@@ -24,6 +24,30 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "d10b9a03_87d9a7b2",
+        "filename": "modules/video_coding/codecs/av1/libaom_av1_encoder.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 339,
+      "author": {
+        "id": 5527
+      },
+      "writtenOn": "2022-05-04T09:21:25Z",
+      "side": 1,
+      "message": "Looking at it again, yes, you are right, updated.",
+      "parentUuid": "4924e301_b06d7c47",
+      "range": {
+        "startLine": 333,
+        "startChar": 4,
+        "endLine": 339,
+        "endChar": 5
+      },
+      "revId": "1ba3e6f771f20cf60bb9b5e4c59a530134b9f7e9",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "ef076b3a_3b596b26",
@@ -37,6 +61,30 @@
       "writtenOn": "2022-05-04T08:59:06Z",
       "side": 1,
       "message": "why don\u0027t fall back to the default logic (L346-373) in this case?",
+      "range": {
+        "startLine": 342,
+        "startChar": 67,
+        "endLine": 342,
+        "endChar": 69
+      },
+      "revId": "1ba3e6f771f20cf60bb9b5e4c59a530134b9f7e9",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "0acacb4b_818c3012",
+        "filename": "modules/video_coding/codecs/av1/libaom_av1_encoder.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 342,
+      "author": {
+        "id": 5527
+      },
+      "writtenOn": "2022-05-04T09:21:25Z",
+      "side": 1,
+      "message": "I think that would just complicate things, we should always configure CPU speeds for all ranges of resolutions we are interested in using. Having a default value is just an escape.",
+      "parentUuid": "ef076b3a_3b596b26",
       "range": {
         "startLine": 342,
         "startChar": 67,

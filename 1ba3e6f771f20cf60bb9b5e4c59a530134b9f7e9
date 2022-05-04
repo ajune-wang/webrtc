@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "4924e301_b06d7c47",
+        "filename": "modules/video_coding/codecs/av1/libaom_av1_encoder.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 339,
+      "author": {
+        "id": 5825
+      },
+      "writtenOn": "2022-05-04T08:59:06Z",
+      "side": 1,
+      "message": "-\u003elower_bound(width * height) should give you the same result. no?",
+      "range": {
+        "startLine": 333,
+        "startChar": 4,
+        "endLine": 339,
+        "endChar": 5
+      },
+      "revId": "1ba3e6f771f20cf60bb9b5e4c59a530134b9f7e9",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "ef076b3a_3b596b26",
+        "filename": "modules/video_coding/codecs/av1/libaom_av1_encoder.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 342,
+      "author": {
+        "id": 5825
+      },
+      "writtenOn": "2022-05-04T08:59:06Z",
+      "side": 1,
+      "message": "why don\u0027t fall back to the default logic (L346-373) in this case?",
+      "range": {
+        "startLine": 342,
+        "startChar": 67,
+        "endLine": 342,
+        "endChar": 69
+      },
+      "revId": "1ba3e6f771f20cf60bb9b5e4c59a530134b9f7e9",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "21615964_412ba8f8",
+        "filename": "modules/video_coding/codecs/av1/libaom_av1_encoder.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 341,
+      "author": {
+        "id": 5825
+      },
+      "writtenOn": "2022-05-04T07:52:33Z",
+      "side": 1,
+      "message": "What if the map contains only 1 entry, QVGA -\u003e 5? Speed 5 will be used for all resolutions (720p, etc).\n\nMaybe:\n auto iter \u003d aux_config_-\u003emax_pixel_count_to_cpu_speed-\u003elower_bound(width * height);\n if (iter !\u003d aux_config_-\u003emax_pixel_count_to_cpu_speed.end())\n  return iter-\u003esecond;\n\n \u003cdefault logic\u003e",
+      "range": {
+        "startLine": 336,
+        "startChar": 4,
+        "endLine": 341,
+        "endChar": 5
+      },
+      "revId": "bf3a3a74ab630b2cc9b5465509bbd757f7c05118",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "347c916d_cfde3059",
+        "filename": "modules/video_coding/codecs/av1/libaom_av1_encoder.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 22,
+      "author": {
+        "id": 5825
+      },
+      "writtenOn": "2022-05-04T07:52:33Z",
+      "side": 1,
+      "message": "Do we really need 64 bits here?",
+      "range": {
+        "startLine": 22,
+        "startChar": 11,
+        "endLine": 22,
+        "endChar": 27
+      },
+      "revId": "bf3a3a74ab630b2cc9b5465509bbd757f7c05118",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

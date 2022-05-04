@@ -86,6 +86,24 @@
       "parentUuid": "4b28a8cf_02de0892",
       "revId": "84323c4032af15cdfcca68e4320ef68dbd9235cb",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "b2f56a4d_c5c49cad",
+        "filename": "pc/rtp_transceiver.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 184,
+      "author": {
+        "id": 5142
+      },
+      "writtenOn": "2022-05-04T08:46:27Z",
+      "side": 1,
+      "message": "In isolation, I think a long argument list is better than a new layer of abstraction (interface). So in the current state, I prefer 4 more arguments.\n\nBut if this pattern repeats over many methods in future CLs, then having an interface can get rid of a lot of arguments in a lot of places.\n\nI was hesitating here because I don\u0027t know what the bigger picture is yet (how many more methods are we talking about?). Looking at this CL in isolation, what I see is an interface added which has 37 methods used to get rid of 4 arguments. It doesn\u0027t add up yet, but will it in the future? And do we need to add all methods to the interface in this CL? The interface raises questions atm",
+      "parentUuid": "288e948b_325f265f",
+      "revId": "84323c4032af15cdfcca68e4320ef68dbd9235cb",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

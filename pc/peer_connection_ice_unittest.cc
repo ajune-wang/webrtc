@@ -838,8 +838,7 @@ TEST_P(PeerConnectionIceTest,
   caller->pc()->AddIceCandidate(
       std::move(jsep_candidate), [&operation_completed](RTCError result) {
         EXPECT_FALSE(result.ok());
-        EXPECT_EQ(result.message(),
-                  std::string("The remote description was null"));
+        EXPECT_STREQ(result.message(), "The remote description was null");
         operation_completed = true;
       });
   EXPECT_TRUE_WAIT(operation_completed, kWaitTimeout);
@@ -865,10 +864,9 @@ TEST_P(PeerConnectionIceTest,
   callee->pc()->AddIceCandidate(
       std::move(jsep_candidate), [&operation_completed](RTCError result) {
         EXPECT_FALSE(result.ok());
-        EXPECT_EQ(
+        EXPECT_STREQ(
             result.message(),
-            std::string(
-                "AddIceCandidate failed because the session was shut down"));
+            "AddIceCandidate failed because the session was shut down");
         operation_completed = true;
       });
   // The operation will not be able to run until EXPECT_TRUE_WAIT(), giving us

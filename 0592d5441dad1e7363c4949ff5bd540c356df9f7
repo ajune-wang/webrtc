@@ -24,6 +24,30 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "f469eae5_15ad308b",
+        "filename": "test/pc/e2e/analyzer/video/default_video_quality_analyzer.h",
+        "patchSetId": 13
+      },
+      "lineNbr": 185,
+      "author": {
+        "id": 5023
+      },
+      "writtenOn": "2022-05-04T11:14:22Z",
+      "side": 1,
+      "message": "Done.",
+      "parentUuid": "23c00a66_76e319cf",
+      "range": {
+        "startLine": 185,
+        "startChar": 4,
+        "endLine": 185,
+        "endChar": 11
+      },
+      "revId": "0592d5441dad1e7363c4949ff5bd540c356df9f7",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "2d0525e6_a6060f52",
@@ -37,6 +61,30 @@
       "writtenOn": "2022-05-04T10:25:23Z",
       "side": 1,
       "message": "Maybe also use DataSize here?",
+      "range": {
+        "startLine": 60,
+        "startChar": 2,
+        "endLine": 60,
+        "endChar": 9
+      },
+      "revId": "0592d5441dad1e7363c4949ff5bd540c356df9f7",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "3b85ca53_8acd3fe1",
+        "filename": "test/pc/e2e/analyzer/video/default_video_quality_analyzer_internal_shared_objects.h",
+        "patchSetId": 13
+      },
+      "lineNbr": 60,
+      "author": {
+        "id": 5023
+      },
+      "writtenOn": "2022-05-04T11:14:22Z",
+      "side": 1,
+      "message": "Good idea! Done.",
+      "parentUuid": "2d0525e6_a6060f52",
       "range": {
         "startLine": 60,
         "startChar": 2,

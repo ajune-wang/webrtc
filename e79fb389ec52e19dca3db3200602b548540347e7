@@ -207,6 +207,30 @@
       },
       "revId": "e79fb389ec52e19dca3db3200602b548540347e7",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "63091718_feb8a7e1",
+        "filename": "pc/test/integration_test_helpers.h",
+        "patchSetId": 5
+      },
+      "lineNbr": 926,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2022-05-04T15:06:46Z",
+      "side": 1,
+      "message": "For the remaining failures, had a look at order for  PeerConnectionIntegrationTest.CallTransferredForCallee/0\n\nBefore changes, the order is\n\n  CreateOffer\n  SetLocalDescription\n  SetRemoteDescription\n  AddIceCandidate (twice)\n  CreateAnswer\n\n  SetLocalDescription\n  SetRemoteDescription\n  AddIceCandidate\n  CreateOffer\n  \nAfter the changes, I get instead\n\n  CreateOffer\n  SetLocalDescription\n  SetRemoteDescription\n  CreateAnswer\n  AddIceCandidate (twice)\n  \n  SetLocalDescription\n  SetRemoteDescription\n  CreateOffer\n  AddIceCandidate\n  \nThis could be explained if CreateAnswer and CreateOffer is called in response to the call to the SetRemoteDescriptionObserver, but not sure if that makes sense?\n\nFor this third AddIceCandidate call, I get a failed expectation. Log excerpt (the XXX lines is my extra debug logs):\n\n```\n(sdp_offer_answer.cc:1339): XXX begin CreateOffer\n(sdp_offer_answer.cc:2233): XXX DoCreateOffer\n(sdp_offer_answer.cc:1362): XXX end CreateOffer\n(peer_connection.cc:1858): Changing IceConnectionState 0 \u003d\u003e 1\n(peer_connection.cc:1877): Changing standardized IceConnectionState 0 \u003d\u003e 1\n(integration_test_helpers.h:1102): Callee: OnIceCandidate\n(integration_test_helpers.h:1040): New Peer: ReceiveIceMessage\n(sdp_offer_answer.cc:2476): XXX begin AddIceCandidate\n(sdp_offer_answer.cc:2496): AddIceCandidate: ICE candidates can\u0027t be added without any remote session description.\n(sdp_offer_answer.cc:2481): XXX end AddIceCandidate\n(probe_controller.cc:280): Measured bitrate: 301000 Minimum to probe further: 1260000\n../../pc/test/integration_test_helpers.h:1043: Failure\nValue of: pc()-\u003eAddIceCandidate(candidate.get())\n  Actual: false\nExpected: true\nStack trace:\n  0x55f9a4971bfa: webrtc::PeerConnectionIntegrationWrapper::ReceiveIceMessage()\n  0x55f9a498e789: webrtc::PeerConnectionIntegrationWrapper::RelayIceMessageIfReceiverExists()\n  0x55f9a49810e3: webrtc::PeerConnectionIntegrationWrapper::SendIceMessage()\n  0x55f9a4970f8e: webrtc::PeerConnectionIntegrationWrapper::OnIceCandidate()\n  0x55f9a5120a5f: webrtc::PeerConnection::OnIceCandidate()\n  0x55f9a51267b4: webrtc::PeerConnection::OnTransportControllerCandidatesGathered()\n  0x55f9a5131e9e: webrtc::PeerConnection::InitializeTransportController_n()::$_13::operator()()::{lambda()#1}::operator()()\n```\n\nThe code expects `current_remote_description_` to be non-null here. The member is updated in two places, ApplyLocalDescription, and ReplaceRemoteDescription. Not sure what\u0027s the expected code path in this test.",
+      "parentUuid": "cf99362c_2cd93624",
+      "range": {
+        "startLine": 922,
+        "startChar": 0,
+        "endLine": 926,
+        "endChar": 35
+      },
+      "revId": "e79fb389ec52e19dca3db3200602b548540347e7",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

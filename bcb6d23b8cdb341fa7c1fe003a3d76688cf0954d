@@ -26,6 +26,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "098fa617_ef3f68c4",
+        "filename": "modules/video_coding/codecs/vp9/libvpx_vp9_encoder.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 103,
+      "author": {
+        "id": 5492
+      },
+      "writtenOn": "2022-05-04T20:16:20Z",
+      "side": 1,
+      "message": "The construction of the mode is only done when the scalability mode is not set. The setting could be deleted once fully migrated.",
+      "parentUuid": "499cefb5_51e88b23",
+      "range": {
+        "startLine": 94,
+        "startChar": 0,
+        "endLine": 103,
+        "endChar": 0
+      },
+      "revId": "bcb6d23b8cdb341fa7c1fe003a3d76688cf0954d",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "d93a5c57_876f73c5",
         "filename": "modules/video_coding/codecs/vp9/svc_config.cc",
         "patchSetId": 2
@@ -72,6 +96,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "5cae9767_5818a707",
+        "filename": "modules/video_coding/codecs/vp9/svc_config.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 55,
+      "author": {
+        "id": 5492
+      },
+      "writtenOn": "2022-05-04T20:16:20Z",
+      "side": 1,
+      "message": "Changed to return limited_num_spatial_layers.",
+      "parentUuid": "2617ab7f_ad10c5bd",
+      "range": {
+        "startLine": 51,
+        "startChar": 0,
+        "endLine": 55,
+        "endChar": 59
+      },
+      "revId": "bcb6d23b8cdb341fa7c1fe003a3d76688cf0954d",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "b9913fce_b8f8df1f",
         "filename": "modules/video_coding/codecs/vp9/svc_config.cc",
         "patchSetId": 2
@@ -95,6 +143,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "49552ea3_9eb253ab",
+        "filename": "modules/video_coding/codecs/vp9/svc_config.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 176,
+      "author": {
+        "id": 5492
+      },
+      "writtenOn": "2022-05-04T20:16:20Z",
+      "side": 1,
+      "message": "The thought is that this method should be called if the scalability mode is set (and otherwise GetSvcConfig is called in VideoCodecInitializer). Later this method should always be used when configuration via scalability mode is fully integrated. VideoCodecToScalabilityMode is used when the scalability mode is not set (and VideoCodec is under creation here).",
+      "parentUuid": "b9913fce_b8f8df1f",
+      "range": {
+        "startLine": 176,
+        "startChar": 2,
+        "endLine": 176,
+        "endChar": 43
+      },
+      "revId": "bcb6d23b8cdb341fa7c1fe003a3d76688cf0954d",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "b0af3f99_bf96983c",
         "filename": "modules/video_coding/svc/scalability_mode_util.cc",
         "patchSetId": 2
@@ -106,6 +178,30 @@
       "writtenOn": "2022-05-04T13:17:57Z",
       "side": 1,
       "message": "It seems the av1 code (in create_scalability_structure.cc) uses a different fraction representation. It\u0027s not clear to me why that code tries to avoid floating point.",
+      "range": {
+        "startLine": 144,
+        "startChar": 0,
+        "endLine": 144,
+        "endChar": 17
+      },
+      "revId": "bcb6d23b8cdb341fa7c1fe003a3d76688cf0954d",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "d2233b50_def1fc61",
+        "filename": "modules/video_coding/svc/scalability_mode_util.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 144,
+      "author": {
+        "id": 5492
+      },
+      "writtenOn": "2022-05-04T20:16:20Z",
+      "side": 1,
+      "message": "Have removed this method, it was only used in tests.",
+      "parentUuid": "b0af3f99_bf96983c",
       "range": {
         "startLine": 144,
         "startChar": 0,

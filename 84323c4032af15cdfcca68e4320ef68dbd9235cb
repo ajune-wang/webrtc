@@ -1,6 +1,23 @@
 {
   "comments": [
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "faef76a7_8d89cc27",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 4
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2022-05-04T08:27:04Z",
+      "side": 1,
+      "message": "4 more arguments or 1 argument? One wobbles...\n",
+      "revId": "84323c4032af15cdfcca68e4320ef68dbd9235cb",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "d5f5ebf8_0685a840",
@@ -18,6 +35,24 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "415ed1d4_6140190b",
+        "filename": "pc/rtp_transceiver.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 166,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2022-05-04T08:27:04Z",
+      "side": 1,
+      "message": "Done. SetChannel already does it, so it\u0027s not likely to catch much.",
+      "parentUuid": "d5f5ebf8_0685a840",
+      "revId": "84323c4032af15cdfcca68e4320ef68dbd9235cb",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "4b28a8cf_02de0892",
@@ -31,6 +66,24 @@
       "writtenOn": "2022-05-04T08:15:58Z",
       "side": 1,
       "message": "What\u0027s the benefit of getting this information via PeerConnectionSdpMethods as opposed to having call_ptr, media_config, etc part of the CreateChannel() method arguments? So far the interface does not justify itself, but I\u0027m sure there\u0027s more to come.\n\nIf there will be a lot more interaction between RtpTransceiver and pc_ to come in follow-up CLs that RtpTransceiver will need to know about the most things pc going forward, then should we make pc_ be a member variable instead of an argument?",
+      "revId": "84323c4032af15cdfcca68e4320ef68dbd9235cb",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "288e948b_325f265f",
+        "filename": "pc/rtp_transceiver.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 184,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2022-05-04T08:27:04Z",
+      "side": 1,
+      "message": "Mainly a disgust at having to add 4 more arguments to an already overlong argument list. I think the channel manager interface is wrongly designed - SRTP and crypto options are transport things, not media things, and Call is constant over a PC\u0027s lifetime, so it should be passed to the channel manager constructor instead of being passed here.\n\nBut that\u0027s for a different CL.\n\nDo you think I should pass the 4 arguments separately? It would take away the dependency of rtp_transceiver on peer_connection_sdp_methods, which may be a Good Thing.",
+      "parentUuid": "4b28a8cf_02de0892",
       "revId": "84323c4032af15cdfcca68e4320ef68dbd9235cb",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }

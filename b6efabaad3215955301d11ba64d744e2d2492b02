@@ -22,6 +22,30 @@
       },
       "revId": "b6efabaad3215955301d11ba64d744e2d2492b02",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "b3bae0d3_5813d8ce",
+        "filename": "api/peer_connection_interface.h",
+        "patchSetId": 3
+      },
+      "lineNbr": 1055,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2022-05-04T08:31:20Z",
+      "side": 1,
+      "message": "I worked around that for some objects by adding an implementation in the interface (ugh) that called the new function, and not proxying the old function at all, but if (like here) the two interfaces are subtly different, that\u0027s harder.",
+      "parentUuid": "5eb0ba77_977b6968",
+      "range": {
+        "startLine": 1055,
+        "startChar": 0,
+        "endLine": 1055,
+        "endChar": 45
+      },
+      "revId": "b6efabaad3215955301d11ba64d744e2d2492b02",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

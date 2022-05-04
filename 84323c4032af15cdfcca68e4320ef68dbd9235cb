@@ -1,0 +1,38 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "d5f5ebf8_0685a840",
+        "filename": "pc/rtp_transceiver.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 166,
+      "author": {
+        "id": 5142
+      },
+      "writtenOn": "2022-05-04T08:15:58Z",
+      "side": 1,
+      "message": "Can we DCHECK which thread we are on? Negotiations \u003d lots of thread interactions",
+      "revId": "84323c4032af15cdfcca68e4320ef68dbd9235cb",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "4b28a8cf_02de0892",
+        "filename": "pc/rtp_transceiver.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 184,
+      "author": {
+        "id": 5142
+      },
+      "writtenOn": "2022-05-04T08:15:58Z",
+      "side": 1,
+      "message": "What\u0027s the benefit of getting this information via PeerConnectionSdpMethods as opposed to having call_ptr, media_config, etc part of the CreateChannel() method arguments? So far the interface does not justify itself, but I\u0027m sure there\u0027s more to come.\n\nIf there will be a lot more interaction between RtpTransceiver and pc_ to come in follow-up CLs that RtpTransceiver will need to know about the most things pc going forward, then should we make pc_ be a member variable instead of an argument?",
+      "revId": "84323c4032af15cdfcca68e4320ef68dbd9235cb",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

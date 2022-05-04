@@ -38,6 +38,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "c09de076_9533d4fd",
+        "filename": "modules/pacing/packet_router.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 217,
+      "author": {
+        "id": 5524
+      },
+      "writtenOn": "2022-05-04T07:03:58Z",
+      "side": 0,
+      "message": "+kron@ I vaguely recall there being some performance concerns which was why these were added. Can you enlighten us?",
+      "parentUuid": "7b195642_df6c400e",
+      "revId": "a156b90ea02eb89d6393b82da0561263205b1f04",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "4a781a27_ebbd6e15",
         "filename": "modules/pacing/task_queue_paced_sender.cc",
         "patchSetId": 1

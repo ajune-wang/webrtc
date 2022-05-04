@@ -22,6 +22,30 @@
       },
       "revId": "722ffb123ea4f9748e01f650a60464b05bf2fe7e",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "7cfbda3f_7b51a882",
+        "filename": "video/frame_buffer_proxy.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 593,
+      "author": {
+        "id": 18444
+      },
+      "writtenOn": "2022-05-04T13:05:02Z",
+      "side": 1,
+      "message": "Oh interesting! I wonder if the switch statement finds the default label ok. Fixed.",
+      "parentUuid": "d2fbf676_c4f41710",
+      "range": {
+        "startLine": 592,
+        "startChar": 6,
+        "endLine": 593,
+        "endChar": 14
+      },
+      "revId": "722ffb123ea4f9748e01f650a60464b05bf2fe7e",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

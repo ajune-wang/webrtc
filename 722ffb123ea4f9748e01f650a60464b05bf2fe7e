@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "d2fbf676_c4f41710",
+        "filename": "video/frame_buffer_proxy.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 593,
+      "author": {
+        "id": 5117
+      },
+      "writtenOn": "2022-05-04T12:59:55Z",
+      "side": 1,
+      "message": "Formatting here looks weird. I think you have brackets in the wrong place here. |default| clause is inside the case block. \n\nAlthough I\u0027m not sure how did it compile like this.",
+      "range": {
+        "startLine": 592,
+        "startChar": 6,
+        "endLine": 593,
+        "endChar": 14
+      },
+      "revId": "722ffb123ea4f9748e01f650a60464b05bf2fe7e",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

@@ -24,6 +24,30 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "f073c99f_492894e2",
+        "filename": "modules/video_coding/codecs/av1/libaom_av1_encoder.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 341,
+      "author": {
+        "id": 5527
+      },
+      "writtenOn": "2022-05-04T08:26:56Z",
+      "side": 1,
+      "message": "lower_bound will return an iterator \u003e\u003d value, so it might select the wrong entry, updated the logic according to your suggestion though.",
+      "parentUuid": "21615964_412ba8f8",
+      "range": {
+        "startLine": 336,
+        "startChar": 4,
+        "endLine": 341,
+        "endChar": 5
+      },
+      "revId": "bf3a3a74ab630b2cc9b5465509bbd757f7c05118",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "347c916d_cfde3059",
@@ -37,6 +61,30 @@
       "writtenOn": "2022-05-04T07:52:33Z",
       "side": 1,
       "message": "Do we really need 64 bits here?",
+      "range": {
+        "startLine": 22,
+        "startChar": 11,
+        "endLine": 22,
+        "endChar": 27
+      },
+      "revId": "bf3a3a74ab630b2cc9b5465509bbd757f7c05118",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "ed022c18_2853d9e9",
+        "filename": "modules/video_coding/codecs/av1/libaom_av1_encoder.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 22,
+      "author": {
+        "id": 5527
+      },
+      "writtenOn": "2022-05-04T08:26:56Z",
+      "side": 1,
+      "message": "No, ints will do",
+      "parentUuid": "347c916d_cfde3059",
       "range": {
         "startLine": 22,
         "startChar": 11,

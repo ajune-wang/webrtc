@@ -103,6 +103,24 @@
       "parentUuid": "f6698e55_f20f258b",
       "revId": "f9a50b91cc5f704740f92bbd1f866047356d6135",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "d065be50_fb93b54c",
+        "filename": "test/ios/google_test_runner.mm",
+        "patchSetId": 7
+      },
+      "lineNbr": 12,
+      "author": {
+        "id": 9405
+      },
+      "writtenOn": "2022-05-04T08:29:16Z",
+      "side": 1,
+      "message": "I tested locally like this: https://webrtc-review.googlesource.com/c/src/+/261120.\nUnfortunately, it doesn\u0027t work on trybots as DEPS file has a merge conflict with the main branch\u0027s one.",
+      "parentUuid": "89a20984_accb3562",
+      "revId": "f9a50b91cc5f704740f92bbd1f866047356d6135",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

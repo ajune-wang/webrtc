@@ -183,6 +183,30 @@
       },
       "revId": "e79fb389ec52e19dca3db3200602b548540347e7",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "797fcf67_be54c36b",
+        "filename": "pc/test/integration_test_helpers.h",
+        "patchSetId": 5
+      },
+      "lineNbr": 926,
+      "author": {
+        "id": 5142
+      },
+      "writtenOn": "2022-05-04T14:45:29Z",
+      "side": 1,
+      "message": "Interesting... I know that during negotiation, we could have multiple transports between offer and answer as a fallback plan to \"what if the answerer does not support BUNDLE\" (BUNDLE \u003d use same transport for all), so initially we can have multiple transports, but by the time the answer is set we (and BUNDLE accepted) we would throw away all the other transports and only use a single transport for everything.\n\nMaybe we update transport states \"synchronously\" (\u003d by the time the observer is called) but the SCTP transport name gets updated \"asynchronously\" (\u003d in a PostTask), meaning we\u0027re looking at old information even though the negotiation completed.\n\nSounds like an existing bug if SCTP transport name is not up-to-date when the SLD/SRD call is completed. In my opinion all states should be up-to-date.\n\nIf this theory is correct, we could do EXPECT_EQ_WAIT like you suggested with a TODO referencing a crbug to make sure the transport name gets updated earlier?",
+      "parentUuid": "cf99362c_2cd93624",
+      "range": {
+        "startLine": 922,
+        "startChar": 0,
+        "endLine": 926,
+        "endChar": 35
+      },
+      "revId": "e79fb389ec52e19dca3db3200602b548540347e7",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

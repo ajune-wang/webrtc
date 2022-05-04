@@ -143,7 +143,7 @@ class RetransmissionQueue {
 
   // See the SendQueue for a longer description of these methods related
   // to stream resetting.
-  void PrepareResetStreams(rtc::ArrayView<const StreamID> streams);
+  void PrepareResetStream(StreamID stream_id);
   bool CanResetStreams() const;
   void CommitResetStreams();
   void RollbackResetStreams();

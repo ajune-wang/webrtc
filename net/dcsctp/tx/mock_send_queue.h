@@ -35,10 +35,7 @@ class MockSendQueue : public SendQueue {
               Discard,
               (IsUnordered unordered, StreamID stream_id, MID message_id),
               (override));
-  MOCK_METHOD(void,
-              PrepareResetStreams,
-              (rtc::ArrayView<const StreamID> streams),
-              (override));
+  MOCK_METHOD(void, PrepareResetStream, (StreamID stream_id), (override));
   MOCK_METHOD(bool, CanResetStreams, (), (const, override));
   MOCK_METHOD(void, CommitResetStreams, (), (override));
   MOCK_METHOD(void, RollbackResetStreams, (), (override));

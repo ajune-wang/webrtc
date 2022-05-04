@@ -65,7 +65,7 @@ class RRSendQueue : public SendQueue {
   bool Discard(IsUnordered unordered,
                StreamID stream_id,
                MID message_id) override;
-  void PrepareResetStreams(rtc::ArrayView<const StreamID> streams) override;
+  void PrepareResetStream(StreamID streams) override;
   bool CanResetStreams() const override;
   void CommitResetStreams() override;
   void RollbackResetStreams() override;

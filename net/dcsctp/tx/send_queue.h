@@ -67,11 +67,11 @@ class SendQueue {
                        StreamID stream_id,
                        MID message_id) = 0;
 
-  // Prepares the streams to be reset. This is used to close a WebRTC data
+  // Prepares the stream to be reset. This is used to close a WebRTC data
   // channel and will be signaled to the other side.
   //
   // Concretely, it discards all whole (not partly sent) messages in the given
-  // streams and pauses those streams so that future added messages aren't
+  // stream and pauses that stream so that future added messages aren't
   // produced until `ResumeStreams` is called.
   //
   // TODO(boivie): Investigate if it really should discard any message at all.
@@ -82,7 +82,7 @@ class SendQueue {
   // reset, and paused while they are resetting. This is the first part of the
   // two-phase commit protocol to reset streams, where the caller completes the
   // procedure by either calling `CommitResetStreams` or `RollbackResetStreams`.
-  virtual void PrepareResetStreams(rtc::ArrayView<const StreamID> streams) = 0;
+  virtual void PrepareResetStream(StreamID stream_id) = 0;
 
   // Returns true if all non-discarded messages during `PrepareResetStreams`
   // (which are those that was partially sent before that method was called)

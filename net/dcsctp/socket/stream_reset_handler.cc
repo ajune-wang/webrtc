@@ -313,15 +313,10 @@ void StreamResetHandler::ResetStreams(
   // Enqueue streams to be reset - as this may be called multiple times
   // while a request is already in progress (and there can only be one).
   for (StreamID stream_id : outgoing_streams) {
-    streams_to_reset_.insert(stream_id);
-  }
-  if (current_request_.has_value()) {
-    // Already an ongoing request - will need to wait for it to finish as
-    // there can only be one in-flight ReConfig chunk with requests at any
-    // time.
-  } else {
-    retransmission_queue_->PrepareResetStreams(std::vector<StreamID>(
-        streams_to_reset_.begin(), streams_to_reset_.end()));
+    if (!streams_to_reset_.contains(stream_id)) {
+      streams_to_reset_.insert(stream_id);
+      retransmission_queue_->PrepareResetStream(stream_id);
+    }
   }
 }
 

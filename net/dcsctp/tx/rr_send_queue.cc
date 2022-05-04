@@ -381,10 +381,8 @@ bool RRSendQueue::Discard(IsUnordered unordered,
   return has_discarded;
 }
 
-void RRSendQueue::PrepareResetStreams(rtc::ArrayView<const StreamID> streams) {
-  for (StreamID stream_id : streams) {
-    GetOrCreateStreamInfo(stream_id).Pause();
-  }
+void RRSendQueue::PrepareResetStream(StreamID stream_id) {
+  GetOrCreateStreamInfo(stream_id).Pause();
   RTC_DCHECK(IsConsistent());
 }
 

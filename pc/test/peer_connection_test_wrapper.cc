@@ -41,11 +41,12 @@
 #include "rtc_base/time_utils.h"
 #include "test/gtest.h"
 
+using webrtc::FakeSetLocalDescriptionObserver;
+using webrtc::FakeSetRemoteDescriptionObserver;
 using webrtc::FakeVideoTrackRenderer;
 using webrtc::IceCandidateInterface;
 using webrtc::MediaStreamInterface;
 using webrtc::MediaStreamTrackInterface;
-using webrtc::MockSetSessionDescriptionObserver;
 using webrtc::PeerConnectionInterface;
 using webrtc::RtpReceiverInterface;
 using webrtc::SdpType;
@@ -235,9 +236,9 @@ void PeerConnectionTestWrapper::SetLocalDescription(SdpType type,
                    << ": SetLocalDescription " << webrtc::SdpTypeToString(type)
                    << " " << sdp;
 
-  auto observer = rtc::make_ref_counted<MockSetSessionDescriptionObserver>();
+  auto observer = rtc::make_ref_counted<FakeSetLocalDescriptionObserver>();
   peer_connection_->SetLocalDescription(
-      observer.get(), webrtc::CreateSessionDescription(type, sdp).release());
+      webrtc::CreateSessionDescription(type, sdp), observer);
 }
 
 void PeerConnectionTestWrapper::SetRemoteDescription(SdpType type,
@@ -246,9 +247,9 @@ void PeerConnectionTestWrapper::SetRemoteDescription(SdpType type,
                    << ": SetRemoteDescription " << webrtc::SdpTypeToString(type)
                    << " " << sdp;
 
-  auto observer = rtc::make_ref_counted<MockSetSessionDescriptionObserver>();
+  auto observer = rtc::make_ref_counted<FakeSetRemoteDescriptionObserver>();
   peer_connection_->SetRemoteDescription(
-      observer.get(), webrtc::CreateSessionDescription(type, sdp).release());
+      webrtc::CreateSessionDescription(type, sdp), observer);
 }
 
 void PeerConnectionTestWrapper::AddIceCandidate(const std::string& sdp_mid,

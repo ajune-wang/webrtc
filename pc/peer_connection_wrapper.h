@@ -93,14 +93,12 @@ class PeerConnectionWrapper {
   // given session description and waits for the success/failure response.
   // Returns true if the description was successfully set.
   bool SetLocalDescription(std::unique_ptr<SessionDescriptionInterface> desc,
-                           std::string* error_out = nullptr);
+                           RTCError* error_out = nullptr);
   // Calls the underlying PeerConnection's SetRemoteDescription method with the
   // given session description and waits for the success/failure response.
   // Returns true if the description was successfully set.
   bool SetRemoteDescription(std::unique_ptr<SessionDescriptionInterface> desc,
-                            std::string* error_out = nullptr);
-  bool SetRemoteDescription(std::unique_ptr<SessionDescriptionInterface> desc,
-                            RTCError* error_out);
+                            RTCError* error_out = nullptr);
 
   // Does a round of offer/answer with the local PeerConnectionWrapper
   // generating the offer and the given PeerConnectionWrapper generating the
@@ -183,9 +181,6 @@ class PeerConnectionWrapper {
   std::unique_ptr<SessionDescriptionInterface> CreateSdp(
       rtc::FunctionView<void(CreateSessionDescriptionObserver*)> fn,
       std::string* error_out);
-  bool SetSdp(rtc::FunctionView<void(SetSessionDescriptionObserver*)> fn,
-              std::string* error_out);
-
   rtc::scoped_refptr<PeerConnectionFactoryInterface> pc_factory_;
   std::unique_ptr<MockPeerConnectionObserver> observer_;
   rtc::scoped_refptr<PeerConnectionInterface> pc_;

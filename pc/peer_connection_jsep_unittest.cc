@@ -1785,12 +1785,12 @@ TEST_F(PeerConnectionJsepTest, SetLocalDescriptionFailsMissingMid) {
   auto offer = caller->CreateOffer();
   ClearMids(offer.get());
 
-  std::string error;
+  RTCError error;
   ASSERT_FALSE(caller->SetLocalDescription(std::move(offer), &error));
-  EXPECT_EQ(
+  EXPECT_STREQ(
       "Failed to set local offer sdp: A media section is missing a MID "
       "attribute.",
-      error);
+      error.message());
 }
 
 TEST_F(PeerConnectionJsepTest, RollbackSupportedInUnifiedPlan) {

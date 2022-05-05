@@ -86,6 +86,30 @@
       },
       "revId": "d647f674bfabe691883d0117ed41e205a787e0a4",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "7e3ce62a_2f600cf4",
+        "filename": "media/engine/internal_encoder_factory.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 73,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2022-05-05T11:32:48Z",
+      "side": 1,
+      "message": "Done. Also reorganized a bit, to return early on failure.",
+      "parentUuid": "59d480ab_e6a1694e",
+      "range": {
+        "startLine": 73,
+        "startChar": 46,
+        "endLine": 73,
+        "endChar": 63
+      },
+      "revId": "d647f674bfabe691883d0117ed41e205a787e0a4",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

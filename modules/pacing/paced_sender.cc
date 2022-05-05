@@ -16,6 +16,7 @@
 
 #include "absl/memory/memory.h"
 #include "absl/strings/match.h"
+#include "api/transport/network_types.h"
 #include "modules/utility/include/process_thread.h"
 #include "rtc_base/checks.h"
 #include "rtc_base/location.h"
@@ -50,9 +51,10 @@ PacedSender::~PacedSender() {
   }
 }
 
-void PacedSender::CreateProbeCluster(DataRate bitrate, int cluster_id) {
+void PacedSender::CreateProbeCluster(
+    const ProbeClusterConfig& probe_cluster_config) {
   MutexLock lock(&mutex_);
-  return pacing_controller_.CreateProbeCluster(bitrate, cluster_id);
+  return pacing_controller_.CreateProbeCluster(probe_cluster_config);
 }
 
 void PacedSender::Pause() {

@@ -14,6 +14,7 @@
 #include <utility>
 
 #include "absl/memory/memory.h"
+#include "api/transport/network_types.h"
 #include "rtc_base/checks.h"
 #include "rtc_base/experiments/field_trial_parser.h"
 #include "rtc_base/experiments/field_trial_units.h"
@@ -87,11 +88,11 @@ void TaskQueuePacedSender::EnsureStarted() {
   });
 }
 
-void TaskQueuePacedSender::CreateProbeCluster(DataRate bitrate,
-                                              int cluster_id) {
-  task_queue_.PostTask([this, bitrate, cluster_id]() {
+void TaskQueuePacedSender::CreateProbeCluster(
+    const ProbeClusterConfig& probe_cluster_config) {
+  task_queue_.PostTask([this, probe_cluster_config]() {
     RTC_DCHECK_RUN_ON(&task_queue_);
-    pacing_controller_.CreateProbeCluster(bitrate, cluster_id);
+    pacing_controller_.CreateProbeCluster(probe_cluster_config);
     MaybeProcessPackets(Timestamp::MinusInfinity());
   });
 }

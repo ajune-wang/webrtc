@@ -50,6 +50,8 @@ class FakeSctpTransport : public cricket::SctpTransportInternal {
     return *remote_port_;
   }
 
+  bool is_started() const { return local_port_.has_value(); }
+
  private:
   absl::optional<int> local_port_;
   absl::optional<int> remote_port_;

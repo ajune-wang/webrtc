@@ -237,9 +237,9 @@ TEST_P(PeerConnectionMediaTest,
   auto callee = CreatePeerConnectionWithAudioVideo();
   callee->media_engine()->set_fail_create_channel(true);
 
-  std::string error;
+  RTCError error;
   ASSERT_FALSE(callee->SetRemoteDescription(caller->CreateOffer(), &error));
-  EXPECT_PRED_FORMAT2(AssertStartsWith, error,
+  EXPECT_PRED_FORMAT2(AssertStartsWith, error.message(),
                       "Failed to set remote offer sdp: Failed to create");
 }
 
@@ -248,9 +248,9 @@ TEST_P(PeerConnectionMediaTest,
   auto caller = CreatePeerConnectionWithAudioVideo();
   caller->media_engine()->set_fail_create_channel(true);
 
-  std::string error;
+  RTCError error;
   ASSERT_FALSE(caller->SetLocalDescription(caller->CreateOffer(), &error));
-  EXPECT_PRED_FORMAT2(AssertStartsWith, error,
+  EXPECT_PRED_FORMAT2(AssertStartsWith, error.message(),
                       "Failed to set local offer sdp: Failed to create");
 }
 
@@ -374,7 +374,7 @@ TEST_F(PeerConnectionMediaTestPlanB, SimulcastOffer) {
   EXPECT_EQ(3u, description->streams()[0].get_ssrc_group("SIM")->ssrcs.size());
 
   // Check that it actually creates simulcast aswell.
-  caller->SetLocalDescription(std::move(offer));
+  ASSERT_TRUE(caller->SetLocalDescription(std::move(offer)));
   auto senders = caller->pc()->GetSenders();
   ASSERT_EQ(1u, senders.size());
   EXPECT_EQ(cricket::MediaType::MEDIA_TYPE_VIDEO, senders[0]->media_type());
@@ -401,7 +401,7 @@ TEST_F(PeerConnectionMediaTestPlanB, SimulcastAnswer) {
   EXPECT_EQ(3u, description->streams()[0].get_ssrc_group("SIM")->ssrcs.size());
 
   // Check that it actually creates simulcast aswell.
-  callee->SetLocalDescription(std::move(answer));
+  ASSERT_TRUE(callee->SetLocalDescription(std::move(answer)));
   auto senders = callee->pc()->GetSenders();
   ASSERT_EQ(1u, senders.size());
   EXPECT_EQ(cricket::MediaType::MEDIA_TYPE_VIDEO, senders[0]->media_type());
@@ -999,9 +999,10 @@ TEST_P(PeerConnectionMediaInvalidMediaTest, FailToSetRemoteAnswer) {
   auto answer = callee->CreateAnswer();
   mutator_(answer->description());
 
-  std::string error;
+  RTCError error;
   ASSERT_FALSE(caller->SetRemoteDescription(std::move(answer), &error));
-  EXPECT_EQ("Failed to set remote answer sdp: " + expected_error_, error);
+  EXPECT_EQ("Failed to set remote answer sdp: " + expected_error_,
+            error.message());
 }
 
 TEST_P(PeerConnectionMediaInvalidMediaTest, FailToSetLocalAnswer) {
@@ -1013,9 +1014,10 @@ TEST_P(PeerConnectionMediaInvalidMediaTest, FailToSetLocalAnswer) {
   auto answer = callee->CreateAnswer();
   mutator_(answer->description());
 
-  std::string error;
+  RTCError error;
   ASSERT_FALSE(callee->SetLocalDescription(std::move(answer), &error));
-  EXPECT_EQ("Failed to set local answer sdp: " + expected_error_, error);
+  EXPECT_EQ("Failed to set local answer sdp: " + expected_error_,
+            error.message());
 }
 
 void RemoveVideoContent(cricket::SessionDescription* desc) {
@@ -1211,14 +1213,14 @@ TEST_P(PeerConnectionMediaTest, MediaEngineErrorPropagatedToClients) {
   auto video_channel = caller->media_engine()->GetVideoChannel(0);
   video_channel->set_fail_set_send_codecs(true);
 
-  std::string error;
+  RTCError error;
   ASSERT_FALSE(caller->SetRemoteDescription(callee->CreateAnswerAndSetAsLocal(),
                                             &error));
   EXPECT_EQ(std::string("Failed to set remote answer sdp: Failed to set remote "
                         "video description "
                         "send parameters for m-section with mid='") +
                 (IsUnifiedPlan() ? "1" : "video") + "'.",
-            error);
+            error.message());
 }
 
 // Tests that if the underlying video encoder fails once then subsequent
@@ -1315,10 +1317,10 @@ TEST_P(PeerConnectionMediaTest, SetRemoteDescriptionFailsWithDuplicateMids) {
   RenameContent(offer->description(), cricket::MEDIA_TYPE_AUDIO, "same");
   RenameContent(offer->description(), cricket::MEDIA_TYPE_VIDEO, "same");
 
-  std::string error;
+  RTCError error;
   EXPECT_FALSE(callee->SetRemoteDescription(std::move(offer), &error));
-  EXPECT_EQ(error,
-            "Failed to set remote offer sdp: Duplicate a=mid value 'same'.");
+  EXPECT_STREQ(error.message(),
+               "Failed to set remote offer sdp: Duplicate a=mid value 'same'.");
 }
 
 TEST_P(PeerConnectionMediaTest,

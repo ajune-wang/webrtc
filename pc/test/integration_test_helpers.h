@@ -27,6 +27,7 @@
 #include <vector>
 
 #include "absl/algorithm/container.h"
+#include "absl/memory/memory.h"
 #include "absl/types/optional.h"
 #include "api/audio_options.h"
 #include "api/call/call_factory_interface.h"
@@ -926,13 +927,13 @@ class PeerConnectionIntegrationWrapper : public webrtc::PeerConnectionObserver,
   // don't outrace the description.
   bool SetLocalDescriptionAndSendSdpMessage(
       std::unique_ptr<SessionDescriptionInterface> desc) {
-    auto observer = rtc::make_ref_counted<MockSetSessionDescriptionObserver>();
+    auto observer = rtc::make_ref_counted<FakeSetLocalDescriptionObserver>();
     RTC_LOG(LS_INFO) << debug_name_ << ": SetLocalDescriptionAndSendSdpMessage";
     SdpType type = desc->GetType();
     std::string sdp;
     EXPECT_TRUE(desc->ToString(&sdp));
     RTC_LOG(LS_INFO) << debug_name_ << ": local SDP contents=\n" << sdp;
-    pc()->SetLocalDescription(observer.get(), desc.release());
+    pc()->SetLocalDescription(std::move(desc), observer);
     RemoveUnusedVideoRenderers();
     // As mentioned above, we need to send the message immediately after
     // SetLocalDescription.
@@ -942,12 +943,12 @@ class PeerConnectionIntegrationWrapper : public webrtc::PeerConnectionObserver,
   }
 
   bool SetRemoteDescription(std::unique_ptr<SessionDescriptionInterface> desc) {
-    auto observer = rtc::make_ref_counted<MockSetSessionDescriptionObserver>();
+    auto observer = rtc::make_ref_counted<FakeSetRemoteDescriptionObserver>();
     RTC_LOG(LS_INFO) << debug_name_ << ": SetRemoteDescription";
-    pc()->SetRemoteDescription(observer.get(), desc.release());
+    pc()->SetRemoteDescription(std::move(desc), observer);
     RemoveUnusedVideoRenderers();
     EXPECT_TRUE_WAIT(observer->called(), kDefaultTimeout);
-    return observer->result();
+    return observer->error().ok();
   }
 
   // This is a work around to remove unused fake_video_renderers from
@@ -1038,9 +1039,16 @@ class PeerConnectionIntegrationWrapper : public webrtc::PeerConnectionObserver,
                          int sdp_mline_index,
                          const std::string& msg) override {
     RTC_LOG(LS_INFO) << debug_name_ << ": ReceiveIceMessage";
-    std::unique_ptr<webrtc::IceCandidateInterface> candidate(
-        webrtc::CreateIceCandidate(sdp_mid, sdp_mline_index, msg, nullptr));
-    EXPECT_TRUE(pc()->AddIceCandidate(candidate.get()));
+    absl::optional<RTCError> result;
+    pc()->AddIceCandidate(absl::WrapUnique(webrtc::CreateIceCandidate(
+                              sdp_mid, sdp_mline_index, msg, nullptr)),
+                          [&result](RTCError r) { result = r; });
+    EXPECT_TRUE_WAIT(result.has_value(), kDefaultTimeout);
+    // We may get ice candidates through the fake signaling when we're not
+    // prepared for them, e.g., when we don't yet have a remote description.
+    if (!result->ok()) {
+      RTC_LOG(LS_WARNING) << "AddIceCandidate failed: " << result->message();
+    }
   }
 
   // PeerConnectionObserver callbacks.

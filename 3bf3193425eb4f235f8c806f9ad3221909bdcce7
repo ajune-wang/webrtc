@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "231d7fb6_05e42348",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 10
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2022-05-05T14:19:30Z",
+      "side": 1,
+      "message": "Tried a workaround to just ignore AddIceCandadate errors from the fake signalling. Appears to fix the PeerConnectionIntegrationTest.CallTransferredForCallee tests, but now MediaContinuesFlowingAfterIceRestart fained instead, on one of the bots. ",
+      "revId": "3bf3193425eb4f235f8c806f9ad3221909bdcce7",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

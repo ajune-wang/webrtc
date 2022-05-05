@@ -351,6 +351,30 @@
       },
       "revId": "e79fb389ec52e19dca3db3200602b548540347e7",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "912b5d42_3ddb50b0",
+        "filename": "pc/test/integration_test_helpers.h",
+        "patchSetId": 5
+      },
+      "lineNbr": 926,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2022-05-05T14:19:30Z",
+      "side": 1,
+      "message": "Done a bit more debugging of the CallTransferredForCallee. Added pc address to the debug log messages, to be able to see what happens on each object. The problem is the third peer connection in the test. Before this change what happens is:\n\n3 CreateOffer           On peer connection #3\n3 SetLocalDescription\n\n2 SetRemoteDescription  On peer connection #2\n2 AddIceCandidate\n2 AddIceCandidate\n2 CreateAnswer\n2 SetLocalDescription (also calls ApplyLocalDescription)\n\nThen back t #3,\n\n3 SetRemoteDescription\n3 AddIceCandidate\n\nWith this cl, we get instead\n\n3 CreateOffer\n3 AddIceCandidate  (invalid)\n3 SetLocalDescription\n\n2 SetRemoteDescription\n2 CreateAnswer\n2 AddIceCandidate (is this reorder with CreateAnswer harmless?)\n2 AddIceCandidate\n2 SetLocalDescription\n\n3 SetRemoteDecription\n3 AddIceCandidate\n3 AddIceCandidate\n\nFirst observation is that we get more calls to AddIceCandidate on peer connection #3). Before this change, only a single call. Wit this cl, 3 calls, the first of which is too early and invalid.\n\nAnother observation is that the failing AddIceCandidate is added to the operations chains, and error occuring after the AddIceCandidate method returned. But still long before the SetLocalDescription/SetRemoteDescription signalling.\n\nThe stack trace for this call to AddIceCandidate shows that the call comes from\n\nOnTransportControllerCandidatesGathered() --\u003e OnIceCandidate() --\u003e SendIceMessage() -\u003e RelayIceMessageIfReceiverExists() --\u003e ReceiveIceMessage()\n\nThis is related to the ConnectFakeSignaling method. Maybe it\u0027s called too early? Or if we just need a to delay things a little here, another possible workaround might be to have the SendIceMessage always post a task, even in the no-delay case.",
+      "parentUuid": "36a4c816_3bd127c2",
+      "range": {
+        "startLine": 922,
+        "startChar": 0,
+        "endLine": 926,
+        "endChar": 35
+      },
+      "revId": "e79fb389ec52e19dca3db3200602b548540347e7",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

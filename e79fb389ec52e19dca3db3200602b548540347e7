@@ -231,6 +231,30 @@
       },
       "revId": "e79fb389ec52e19dca3db3200602b548540347e7",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "7ba4e22c_8b26d8f7",
+        "filename": "pc/test/integration_test_helpers.h",
+        "patchSetId": 5
+      },
+      "lineNbr": 926,
+      "author": {
+        "id": 5142
+      },
+      "writtenOn": "2022-05-05T05:50:02Z",
+      "side": 1,
+      "message": "\u003e This could be explained if CreateAnswer and CreateOffer is called in response to the call to the SetRemoteDescriptionObserver, but not sure if that makes sense?\n\nPeerConnectionWrapper does wait for observer-\u003ecalled() to be true so its SetRemoteDescription does unblock in response to the observer being called:\nhttps://source.chromium.org/chromium/chromium/src/+/main:third_party/webrtc/pc/peer_connection_wrapper.cc;l\u003d183;drc\u003dafb246b5a949d7bf24dd93c3c3900bbebd407224\n\nAnd PeerConnectionIntegrationWrapper which called SetRemoteDescription does do CreateAnswer in response to this:\nhttps://source.chromium.org/chromium/chromium/src/+/main:third_party/webrtc/pc/test/integration_test_helpers.h;l\u003d883;drc\u003dafb246b5a949d7bf24dd93c3c3900bbebd407224\n\n\u003e For this third AddIceCandidate call, I get a failed expectation.\n\u003e [...]\n\u003e The code expects `current_remote_description_` to be non-null here.\n\nThis I don\u0027t get. Even when the timing is different, AddIceCandidate appears to happen *after* SetRemoteDescription, so remote_description() should be non-null for both peer connections:\nhttps://source.chromium.org/chromium/chromium/src/+/main:third_party/webrtc/pc/sdp_offer_answer.cc;l\u003d2648;drc\u003de813b3c6b110bce715d55f4ce12746e2c43aedb9\n\nHang on, there\u0027s actually two versions of AddIceCandidate:\nhttps://source.chromium.org/chromium/chromium/src/+/main:third_party/webrtc/api/peer_connection_interface.h;l\u003d1127;drc\u003d6c7f98472e8c629ace8ab60eb8ea50b615856902\n\nThe one that returns a bool does NOT make use of the Operations Chain, meaning it does not wait for pending SRD calls to complete before executing. This is the one the test uses. The one that returns void and takes a callback DOES make use of the Operations Chain, i.e. it makes sure any previous SRD calls would have completed before executing the ICE candidate adding.\n\nThis could make a difference, but only the peer connection where AddIceCandidate is called has not completed one of its pending operations yet. But if you remote_description() is still null, perhaps the operation is still pending? What do the logs say?\n\nDoes the test pass if the callback-based AddIceCandidate() is called instead? We should deprecate the non-callback based one I realize...",
+      "parentUuid": "63091718_feb8a7e1",
+      "range": {
+        "startLine": 922,
+        "startChar": 0,
+        "endLine": 926,
+        "endChar": 35
+      },
+      "revId": "e79fb389ec52e19dca3db3200602b548540347e7",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

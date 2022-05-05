@@ -87,7 +87,8 @@ class LossBasedBweV2 {
     bool trendline_integration_enabled = false;
     double delay_based_limit_factor = 1.0;
     int trendline_window_size = 0;
-    bool backoff_when_overusing = false;
+    double max_increase_factor = 0.0;
+    TimeDelta delayed_increase_window = TimeDelta::Zero();
   };
 
   struct Derivatives {
@@ -140,9 +141,6 @@ class LossBasedBweV2 {
   // Returns false if there exists an overusing state in the window.
   bool TrendlineEsimateAllowBitrateIncrease() const;
 
-  // Returns true if there exists an overusing state in the window.
-  bool TrendlineEsimateAllowEmergencyBackoff() const;
-
   // Returns false if no observation was created.
   bool PushBackObservation(rtc::ArrayView<const PacketResult> packet_results,
                            BandwidthUsage delay_detector_state);
@@ -163,6 +161,9 @@ class LossBasedBweV2 {
   std::vector<double> instant_upper_bound_temporal_weights_;
   std::vector<double> temporal_weights_;
   std::deque<BandwidthUsage> delay_detector_states_;
+  Timestamp recovering_after_loss_timestamp_ = Timestamp::MinusInfinity();
+  DataRate current_window_limit_ = DataRate::PlusInfinity();
+  bool limited_due_to_loss_candidate_ = false;
 };
 
 }  // namespace webrtc

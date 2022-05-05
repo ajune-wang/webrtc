@@ -16,6 +16,8 @@
 #include <memory>
 #include <utility>
 
+#include "base/logging.h"
+#include "base/strings/stringprintf.h"
 #include "modules/desktop_capture/desktop_capturer.h"
 #include "modules/desktop_capture/desktop_frame.h"
 #include "modules/desktop_capture/mouse_cursor.h"
@@ -25,6 +27,11 @@
 namespace webrtc {
 
 namespace {
+
+std::string ToString(const DesktopRect& rect) {
+  return base::StringPrintf("%d-%d;%dx%d", rect.left(), rect.top(),
+                            rect.width(), rect.height());
+}
 
 // Helper function that blends one image into another. Source image must be
 // pre-multiplied with the alpha channel. Destination is assumed to be opaque.
@@ -104,10 +111,24 @@ DesktopFrameWithCursor::DesktopFrameWithCursor(
   cursor_rect_.IntersectWith(DesktopRect::MakeSize(size()));
 
   if (!previous_cursor_rect.equals(cursor_rect_)) {
+    LOG(ERROR) << "DoNotPush Adding updated area for cursor: "
+               << ToString(cursor_rect_);
     mutable_updated_region()->AddRect(cursor_rect_);
-    mutable_updated_region()->AddRect(previous_cursor_rect);
+
+    if (original_frame_->rect().ContainsRect(previous_cursor_rect)) {
+      LOG(ERROR) << "DoNotPush Adding updated area for previous cursor: "
+                 << ToString(previous_cursor_rect);
+      mutable_updated_region()->AddRect(previous_cursor_rect);
+    } else {
+      LOG(ERROR) << "DoNotPush Not adding previous cursor";
+    }
+
   } else if (cursor_changed) {
+    LOG(ERROR) << "DoNotPush Adding updated area for one cursor: "
+               << ToString(cursor_rect_);
     mutable_updated_region()->AddRect(cursor_rect_);
+  } else {
+    LOG(ERROR) << "DoNotPush Cursor did not change";
   }
 
   if (cursor_rect_.is_empty())
@@ -229,13 +250,30 @@ void DesktopAndCursorComposer::OnCaptureResult(
       relative_position.set(relative_position.x() * scale,
                             relative_position.y() * scale);
 #endif
+      LOG(ERROR) << "DoNotPush Created frame with cursor; old_frame "
+                 << std::hex << frame.get();
+
+      for (webrtc::DesktopRegion::Iterator i(frame->updated_region());
+           !i.IsAtEnd(); i.Advance()) {
+        const auto& rect = i.rect();
+        LOG(ERROR) << "DoNotPush   -> Old Dirty region: " << ToString(rect);
+      }
+
       auto frame_with_cursor = std::make_unique<DesktopFrameWithCursor>(
           std::move(frame), *cursor_, relative_position, previous_cursor_rect_,
           cursor_changed_);
+      LOG(ERROR) << "DoNotPush Created frame with cursor; new frame "
+                 << std::hex << frame_with_cursor.get();
       previous_cursor_rect_ = frame_with_cursor->cursor_rect();
       cursor_changed_ = false;
       frame = std::move(frame_with_cursor);
       frame->set_may_contain_cursor(true);
+
+      for (webrtc::DesktopRegion::Iterator i(frame->updated_region());
+           !i.IsAtEnd(); i.Advance()) {
+        const auto& rect = i.rect();
+        LOG(ERROR) << "DoNotPush   -> New Dirty region: " << ToString(rect);
+      }
     }
   }
 

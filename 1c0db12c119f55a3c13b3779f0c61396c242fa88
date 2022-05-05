@@ -33,6 +33,24 @@
       "message": "Is there an engineering reason to keep the version number in the target names and class names?\n",
       "revId": "1c0db12c119f55a3c13b3779f0c61396c242fa88",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "ca9f3de8_7927e105",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2022-05-05T12:25:09Z",
+      "side": 1,
+      "message": "Correction: just target and file names. The class is already FrameBuffer, which makes the version number even more puzzling.",
+      "parentUuid": "6ccd1376_cfbc2f7f",
+      "revId": "1c0db12c119f55a3c13b3779f0c61396c242fa88",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

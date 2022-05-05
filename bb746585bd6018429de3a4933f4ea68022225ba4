@@ -16,6 +16,24 @@
       "message": "I wonder how it behaves when you do\nSLD, SRD\ncreateOffer(iceRestart), SLD\n-- that *should* generate a new transport. We\u0027ll find out soon I guess!",
       "revId": "bb746585bd6018429de3a4933f4ea68022225ba4",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "2f9288a5_3fce56cb",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 7755
+      },
+      "writtenOn": "2022-05-05T07:47:13Z",
+      "side": 1,
+      "message": "it looks like that does not generate a new transport and updates the ufrag. Which is a bit surprising but IMO a bug that is not related to exposing this stat.",
+      "parentUuid": "122b1ead_a05fbede",
+      "revId": "bb746585bd6018429de3a4933f4ea68022225ba4",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

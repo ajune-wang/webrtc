@@ -97,13 +97,6 @@ struct RTCDtlsRole {
   static const char* const kServer;
 };
 
-// https://www.w3.org/TR/webrtc/#rtcicerole
-struct RTCIceRole {
-  static const char* const kUnknown;
-  static const char* const kControlled;
-  static const char* const kControlling;
-};
-
 // https://w3c.github.io/webrtc-stats/#certificatestats-dict*
 class RTC_EXPORT RTCCertificateStats final : public RTCStats {
  public:
@@ -708,7 +701,6 @@ class RTC_EXPORT RTCTransportStats final : public RTCStats {
   RTCStatsMember<std::string> dtls_role;
   RTCStatsMember<std::string> srtp_cipher;
   RTCStatsMember<uint32_t> selected_candidate_pair_changes;
-  RTCStatsMember<std::string> ice_role;
 };
 
 }  // namespace webrtc

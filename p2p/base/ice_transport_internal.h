@@ -47,8 +47,6 @@ struct IceTransportStats {
   uint64_t bytes_received = 0;
   uint64_t packets_sent = 0;
   uint64_t packets_received = 0;
-
-  IceRole ice_role = ICEROLE_UNKNOWN;
 };
 
 typedef std::vector<Candidate> Candidates;

@@ -255,6 +255,30 @@
       },
       "revId": "e79fb389ec52e19dca3db3200602b548540347e7",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "e0ea620c_59c218cb",
+        "filename": "pc/test/integration_test_helpers.h",
+        "patchSetId": 5
+      },
+      "lineNbr": 926,
+      "author": {
+        "id": 5142
+      },
+      "writtenOn": "2022-05-05T05:55:31Z",
+      "side": 1,
+      "message": "Something like this?\n\n  void ReceiveIceMessage(const std::string\u0026 sdp_mid,\n                         int sdp_mline_index,\n                         const std::string\u0026 msg) override {\n    RTC_LOG(LS_INFO) \u003c\u003c debug_name_ \u003c\u003c \": ReceiveIceMessage\";\n    std::unique_ptr\u003cwebrtc::IceCandidateInterface\u003e candidate(\n        webrtc::CreateIceCandidate(sdp_mid, sdp_mline_index, msg, nullptr));\n    absl::optional\u003cRTCError\u003e result;\n    pc()-\u003eAddIceCandidate(candidate.get(), [\u0026result](RTCError r) {\n      result \u003d r;\n    });\n    EXPECT_TRUE_WAIT(result.has_value(), kDefaultTimeout);\n    EXPECT_TRUE(result.value().ok());\n  }\n\nhttps://source.chromium.org/chromium/chromium/src/+/main:third_party/webrtc/pc/test/integration_test_helpers.h;l\u003d1037;drc\u003dafb246b5a949d7bf24dd93c3c3900bbebd407224",
+      "parentUuid": "7ba4e22c_8b26d8f7",
+      "range": {
+        "startLine": 922,
+        "startChar": 0,
+        "endLine": 926,
+        "endChar": 35
+      },
+      "revId": "e79fb389ec52e19dca3db3200602b548540347e7",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

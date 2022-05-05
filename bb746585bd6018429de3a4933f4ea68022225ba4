@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "122b1ead_a05fbede",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 7755
+      },
+      "writtenOn": "2022-05-05T06:56:21Z",
+      "side": 1,
+      "message": "I wonder how it behaves when you do\nSLD, SRD\ncreateOffer(iceRestart), SLD\n-- that *should* generate a new transport. We\u0027ll find out soon I guess!",
+      "revId": "bb746585bd6018429de3a4933f4ea68022225ba4",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

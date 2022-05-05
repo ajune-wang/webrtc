@@ -51,6 +51,24 @@
       "parentUuid": "6ccd1376_cfbc2f7f",
       "revId": "1c0db12c119f55a3c13b3779f0c61396c242fa88",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "f9f810cb_8842e181",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5527
+      },
+      "writtenOn": "2022-05-05T13:21:06Z",
+      "side": 1,
+      "message": "Good question, `webrtc::FrameBuffer` (`frame_buffer3.h`) is the successor to `webrtc::video_coding::FrameBuffer` (`frame_buffer2.h`), but because of the legacy `video_coding` namespace we could name the classes the same without collision. The file names would have collided though, so it became `frame_buffer3.h`\n\nWhy didn\u0027t we simply name it to `frame_buffer.h` you might ask? Well... there is an even older legacy class by that name in modules/video_coding that we can\u0027t remove until the VideoCodingModule is removed (it\u0027s used internally unfortunately).\n\nUpdated file names now that we don\u0027t have those collisions anymore.",
+      "parentUuid": "ca9f3de8_7927e105",
+      "revId": "1c0db12c119f55a3c13b3779f0c61396c242fa88",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

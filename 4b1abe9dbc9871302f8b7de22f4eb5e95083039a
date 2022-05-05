@@ -1,0 +1,44 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "04324241_84d24b3a",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5087
+      },
+      "writtenOn": "2022-05-05T12:33:04Z",
+      "side": 1,
+      "message": "+Chris, see the extra setup required to run the binary, this is part of what we were discussing yesterday.",
+      "revId": "4b1abe9dbc9871302f8b7de22f4eb5e95083039a",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "5c2c73ad_36b87494",
+        "filename": "pc/BUILD.gn",
+        "patchSetId": 1
+      },
+      "lineNbr": 2271,
+      "author": {
+        "id": 5087
+      },
+      "writtenOn": "2022-05-05T12:33:04Z",
+      "side": 1,
+      "message": "Adding a new rtc_test (good idea) requires some extra config in order to run it on the waterfalls:\n\n- See here: https://source.chromium.org/chromium/chromium/src/+/main:third_party/webrtc/infra/specs/gn_isolate_map.pyl;l\u003d79-82;drc\u003d424cc65a4a007b08a691b6417e212e24fb4954fb\n- Here https://source.chromium.org/chromium/chromium/src/+/main:third_party/webrtc/infra/specs/test_suites.pyl;l\u003d47-51;drc\u003d2dad0a1668999e0069d695bc3b5c0ed8a8a5fa69.\n- You also need to run https://source.chromium.org/chromium/chromium/src/+/main:third_party/webrtc/infra/specs/generate_buildbot_json.py.\n\n+Jeremy how knows better.",
+      "range": {
+        "startLine": 2271,
+        "startChar": 2,
+        "endLine": 2271,
+        "endChar": 46
+      },
+      "revId": "4b1abe9dbc9871302f8b7de22f4eb5e95083039a",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

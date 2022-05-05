@@ -303,6 +303,30 @@
       },
       "revId": "e79fb389ec52e19dca3db3200602b548540347e7",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "22a298c3_1893bb53",
+        "filename": "pc/test/integration_test_helpers.h",
+        "patchSetId": 5
+      },
+      "lineNbr": 926,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2022-05-05T07:25:21Z",
+      "side": 1,
+      "message": "Thanks a lot! That seems to work.\n\nOn which thread is the callback invoked? I wonder if we need some synchronization for the `result` variable?",
+      "parentUuid": "a64addf9_58fbb691",
+      "range": {
+        "startLine": 922,
+        "startChar": 0,
+        "endLine": 926,
+        "endChar": 35
+      },
+      "revId": "e79fb389ec52e19dca3db3200602b548540347e7",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

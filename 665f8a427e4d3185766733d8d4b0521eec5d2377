@@ -51,6 +51,24 @@
       "message": "The correct target for changes is rtc_stats_collector.cc and friends.\nhbos@ has more pointers.\n\nNote - we prefer that you start a public discussion on proposals for new stats - those are at the moment in https://w3c.github.io/webrtc-provisional-stats/",
       "revId": "665f8a427e4d3185766733d8d4b0521eec5d2377",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "22083ced_9e2111ef",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 16914
+      },
+      "writtenOn": "2022-05-05T07:59:53Z",
+      "side": 1,
+      "message": "Thanks for the advise and the link.\nFor starting a public discussion on proposals, do you mean to open an issue?",
+      "parentUuid": "d81affdd_71108d53",
+      "revId": "665f8a427e4d3185766733d8d4b0521eec5d2377",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

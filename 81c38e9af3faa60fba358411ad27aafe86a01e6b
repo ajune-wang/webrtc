@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "975e8480_9486297b",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 3
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2022-05-05T12:47:03Z",
+      "side": 1,
+      "message": "I\u0027ll let you discuss whether the swarming parameter is appropriately set...\n",
+      "revId": "81c38e9af3faa60fba358411ad27aafe86a01e6b",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

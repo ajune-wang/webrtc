@@ -39,6 +39,30 @@
       },
       "revId": "4b1abe9dbc9871302f8b7de22f4eb5e95083039a",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "380d21f8_82160ca7",
+        "filename": "pc/BUILD.gn",
+        "patchSetId": 1
+      },
+      "lineNbr": 2271,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2022-05-05T12:47:03Z",
+      "side": 1,
+      "message": "Added per instructions.\nThere needs to be instructions on this somewhere in the g3doc tree... perhaps there is?",
+      "parentUuid": "5c2c73ad_36b87494",
+      "range": {
+        "startLine": 2271,
+        "startChar": 2,
+        "endLine": 2271,
+        "endChar": 46
+      },
+      "revId": "4b1abe9dbc9871302f8b7de22f4eb5e95083039a",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

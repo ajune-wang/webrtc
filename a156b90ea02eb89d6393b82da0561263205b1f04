@@ -72,6 +72,24 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "b343a833_0b5e626e",
+        "filename": "modules/pacing/packet_router.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 217,
+      "author": {
+        "id": 18554
+      },
+      "writtenOn": "2022-05-05T00:49:15Z",
+      "side": 0,
+      "message": "Ack",
+      "parentUuid": "d640c1ad_c5158a0f",
+      "revId": "a156b90ea02eb89d6393b82da0561263205b1f04",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "4a781a27_ebbd6e15",
@@ -143,6 +161,30 @@
       "writtenOn": "2022-05-04T11:35:57Z",
       "side": 0,
       "message": "Here and in rtp_sender_audio.\n\nI suspect that there will be a build error due to an unused function on some platforms if this #if/#endif is removed.",
+      "range": {
+        "startLine": 100,
+        "startChar": 0,
+        "endLine": 100,
+        "endChar": 28
+      },
+      "revId": "a156b90ea02eb89d6393b82da0561263205b1f04",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "12037645_6b585c17",
+        "filename": "modules/rtp_rtcp/source/rtp_sender_video.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 100,
+      "author": {
+        "id": 18554
+      },
+      "writtenOn": "2022-05-05T00:49:15Z",
+      "side": 0,
+      "message": "Add the condition back as it indeed caused \"unused function\" error.",
+      "parentUuid": "ad44d93b_eda1fe62",
       "range": {
         "startLine": 100,
         "startChar": 0,

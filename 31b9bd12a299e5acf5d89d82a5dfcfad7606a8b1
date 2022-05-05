@@ -51,6 +51,23 @@
       "parentUuid": "c34395fb_e3d87764",
       "revId": "31b9bd12a299e5acf5d89d82a5dfcfad7606a8b1",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "a95c7d19_d22628cf",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 7755
+      },
+      "writtenOn": "2022-05-05T11:10:36Z",
+      "side": 1,
+      "message": "chrome change has landed so roll should be unblocked",
+      "revId": "31b9bd12a299e5acf5d89d82a5dfcfad7606a8b1",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

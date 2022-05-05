@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "8f868d16_c1a86f29",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2022-05-05T07:38:48Z",
+      "side": 1,
+      "message": "Later CLs can move the check method around - I want to not create the channel manager when not configured for media.\n",
+      "revId": "12cdd2bf9b55e0e81aff763e5025f5688cb117b3",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

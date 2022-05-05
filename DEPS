@@ -10,7 +10,7 @@ vars = {
   # chromium waterfalls. More info at: crbug.com/570091.
   'checkout_configuration': 'default',
   'checkout_instrumented_libraries': 'checkout_linux and checkout_configuration == "default"',
-  'chromium_revision': '7e42d4ed1d3c2e94818ea2aba9bcb6989f6ca7f1',
+  'chromium_revision': '2441efc1406fa02b334fad353bcb19b5de6f3e87',
 
   # Keep the Chromium default of generating location tags.
   'generate_location_tags': True,
@@ -23,7 +23,7 @@ deps = {
   # TODO(kjellander): Move this to be Android-only once the libevent dependency
   # in base/third_party/libevent is solved.
   'src/base':
-    'https://chromium.googlesource.com/chromium/src/base@ab1ba45f8290c3c720b4210ac8f3d6c430d5b2e0',
+    'https://chromium.googlesource.com/chromium/src/base@cacad6ddfb94554221022b6ad3530e93a4a54744',
   'src/build':
     'https://chromium.googlesource.com/chromium/src/build@0c83e78c82d2e24d751711c0ecde15bff4b564eb',
   'src/buildtools':
@@ -38,9 +38,9 @@ deps = {
     'condition': 'checkout_ios',
   },
   'src/testing':
-    'https://chromium.googlesource.com/chromium/src/testing@2b0d8033e60e6f282de5fd4264d80e18a142266d',
+    'https://chromium.googlesource.com/chromium/src/testing@64ecf3d84d2676b063749b89b81c930f97a8132d',
   'src/third_party':
-    'https://chromium.googlesource.com/chromium/src/third_party@b4f790e0d040c5889c7c0efb3f5859dcb68b03c8',
+    'https://chromium.googlesource.com/chromium/src/third_party@daa1fe1cc9f6fe0bc15634af721d321aca8c83cf',
 
   'src/buildtools/linux64': {
     'packages': [
@@ -129,7 +129,7 @@ deps = {
   'src/third_party/breakpad/breakpad':
     'https://chromium.googlesource.com/breakpad/breakpad.git@8b68c72a3fff2bb687c7f411e5c1c09e356b8603',
   'src/third_party/catapult':
-    'https://chromium.googlesource.com/catapult.git@58f3286ec232f469dbae285d75b060af2e61d8a6',
+    'https://chromium.googlesource.com/catapult.git@7caeea585459ce25222e611e95a7347d1757948d',
   'src/third_party/ced/src': {
     'url': 'https://chromium.googlesource.com/external/github.com/google/compact_enc_det.git@ba412eaaacd3186085babcd901679a48863c7dd5',
   },
@@ -275,7 +275,7 @@ deps = {
     'condition': 'checkout_win',
   },
   'src/tools':
-    'https://chromium.googlesource.com/chromium/src/tools@2245c4814dbc404df78b2bc1ca6140a54ee164d7',
+    'https://chromium.googlesource.com/chromium/src/tools@0c4ea9b0180ba8b02372f31d6a33de9986d28725',
 
   'src/third_party/accessibility_test_framework': {
       'packages': [

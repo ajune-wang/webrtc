@@ -70,7 +70,8 @@ class PacedSender : public RtpPacketPacer, public RtpPacketSender {
 
   // Methods implementing RtpPacketPacer:
 
-  void CreateProbeCluster(DataRate bitrate, int cluster_id) override;
+  void CreateProbeCluster(
+      const ProbeClusterConfig& probe_cluster_config) override;
 
   // Temporarily pause all sending.
   void Pause() override;

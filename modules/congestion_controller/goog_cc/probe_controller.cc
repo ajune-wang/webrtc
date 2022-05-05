@@ -101,7 +101,9 @@ ProbeControllerConfig::ProbeControllerConfig(
       first_allocation_probe_scale("alloc_p1", 1),
       second_allocation_probe_scale("alloc_p2", 2),
       allocation_allow_further_probing("alloc_probe_further", false),
-      allocation_probe_max("alloc_probe_max", DataRate::PlusInfinity()) {
+      allocation_probe_max("alloc_probe_max", DataRate::PlusInfinity()),
+      min_probe_packets_sent("min_probe_packets_sent", 5),
+      min_probe_duration("min_probe_duration", TimeDelta::Millis(15)) {
   ParseFieldTrial(
       {&first_exponential_probe_scale, &second_exponential_probe_scale,
        &further_exponential_probe_scale, &further_probe_threshold,
@@ -121,6 +123,12 @@ ProbeControllerConfig::ProbeControllerConfig(
       {&first_allocation_probe_scale, &second_allocation_probe_scale,
        &allocation_allow_further_probing, &allocation_probe_max},
       key_value_config->Lookup("WebRTC-Bwe-AllocationProbing"));
+  ParseFieldTrial(
+      {&first_allocation_probe_scale, &second_allocation_probe_scale,
+       &allocation_allow_further_probing, &allocation_probe_max},
+      key_value_config->Lookup("WebRTC-Bwe-AllocationProbing"));
+  ParseFieldTrial({&min_probe_packets_sent, &min_probe_duration},
+                  key_value_config->Lookup("WebRTC-Bwe-ProbingBehavior"));
 }
 
 ProbeControllerConfig::ProbeControllerConfig(const ProbeControllerConfig&) =

@@ -16,6 +16,24 @@
       "message": "Looks good.\nHow much time does it add to the runtime of peerconnection_unittests?\n",
       "revId": "594f8ddc427ef470a12682a53b95354a870e60a0",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "25be5801_fe0f2eb5",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 3
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 7036
+      },
+      "writtenOn": "2022-05-05T12:42:40Z",
+      "side": 1,
+      "message": "0.15s on my machine! It doesn\u0027t take much to open and close many channels, and that\u0027s probably sufficient for finding most issues. We\u0027ll see later if it becomes flaky or not.",
+      "parentUuid": "a33a5887_7d30d3f2",
+      "revId": "594f8ddc427ef470a12682a53b95354a870e60a0",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

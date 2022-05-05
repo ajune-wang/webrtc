@@ -200,7 +200,7 @@ class TestMainImpl : public TestMain {
     std::string trace_event_path = absl::GetFlag(FLAGS_trace_event);
     const bool capture_events = !trace_event_path.empty();
     if (capture_events) {
-      rtc::tracing::SetupInternalTracer();
+      rtc::tracing::SetupInternalTracer(true);
       rtc::tracing::StartInternalCapture(trace_event_path);
     }
 

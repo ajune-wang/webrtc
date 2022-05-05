@@ -166,10 +166,8 @@ bool RTPSenderAudio::SendAudio(AudioFrameType frame_type,
                                const uint8_t* payload_data,
                                size_t payload_size,
                                int64_t absolute_capture_timestamp_ms) {
-#if RTC_TRACE_EVENTS_ENABLED
   TRACE_EVENT_ASYNC_STEP1("webrtc", "Audio", rtp_timestamp, "Send", "type",
                           FrameTypeToString(frame_type));
-  #endif
 
   // From RFC 4733:
   // A source has wide latitude as to how often it sends event updates. A

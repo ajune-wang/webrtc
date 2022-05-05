@@ -69,6 +69,24 @@
       "parentUuid": "2f9288a5_3fce56cb",
       "revId": "bb746585bd6018429de3a4933f4ea68022225ba4",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "a5e26599_5d6191de",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 7755
+      },
+      "writtenOn": "2022-05-05T08:06:38Z",
+      "side": 1,
+      "message": "but since ICE is make-before-break the old ufrag should continue to be used...",
+      "parentUuid": "78484c53_0af23a50",
+      "revId": "bb746585bd6018429de3a4933f4ea68022225ba4",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

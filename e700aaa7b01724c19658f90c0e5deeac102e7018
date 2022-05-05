@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "1c40ba6a_99885b2e",
+        "filename": "media/engine/webrtc_video_engine.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 352,
+      "author": {
+        "id": 5578
+      },
+      "writtenOn": "2022-05-05T07:57:15Z",
+      "side": 1,
+      "message": "Please dont refer to \"previous\" It will not be easy to understand a couple of weeks from now. ....  I was more thinking you could describe, why you picked a function like this?  Why do we think this is better than a hardcoded table? If you use a function- should we also limit the max width and height?",
+      "range": {
+        "startLine": 352,
+        "startChar": 23,
+        "endLine": 352,
+        "endChar": 32
+      },
+      "revId": "e700aaa7b01724c19658f90c0e5deeac102e7018",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

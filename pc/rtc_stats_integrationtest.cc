@@ -917,6 +917,9 @@ class RTCStatsReportVerifier {
       verifier.TestMemberIsNonNegative<double>(
           inbound_stream.total_processing_delay);
       verifier.TestMemberIsNonNegative<double>(
+          inbound_stream.total_assembly_time);
+      verifier.TestMemberIsDefined(inbound_stream.frames_assembled);
+      verifier.TestMemberIsNonNegative<double>(
           inbound_stream.total_inter_frame_delay);
       verifier.TestMemberIsNonNegative<double>(
           inbound_stream.total_squared_inter_frame_delay);
@@ -929,6 +932,8 @@ class RTCStatsReportVerifier {
       verifier.TestMemberIsUndefined(inbound_stream.frames_dropped);
       verifier.TestMemberIsUndefined(inbound_stream.total_decode_time);
       verifier.TestMemberIsUndefined(inbound_stream.total_processing_delay);
+      verifier.TestMemberIsUndefined(inbound_stream.total_assembly_time);
+      verifier.TestMemberIsUndefined(inbound_stream.frames_assembled);
       verifier.TestMemberIsUndefined(inbound_stream.total_inter_frame_delay);
       verifier.TestMemberIsUndefined(
           inbound_stream.total_squared_inter_frame_delay);

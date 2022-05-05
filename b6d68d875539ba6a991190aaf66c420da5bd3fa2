@@ -1,0 +1,188 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "48a782bc_86538101",
+        "filename": "modules/congestion_controller/goog_cc/loss_based_bwe_v2.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 226,
+      "author": {
+        "id": 5578
+      },
+      "writtenOn": "2022-05-05T10:00:44Z",
+      "side": 1,
+      "message": "Maybe  2. The estimate has been increased once by more than \u0027max_increase...\u0027 for less ... \n\nYou still allow multiple increase as long as no jump is larger than \n       current_estimate_.loss_limited_bandwidth *\n              config_-\u003emax_increase_factor.",
+      "range": {
+        "startLine": 226,
+        "startChar": 30,
+        "endLine": 226,
+        "endChar": 31
+      },
+      "revId": "b6d68d875539ba6a991190aaf66c420da5bd3fa2",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "fedf990f_030b5f55",
+        "filename": "modules/congestion_controller/goog_cc/loss_based_bwe_v2_test.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 37,
+      "author": {
+        "id": 5578
+      },
+      "writtenOn": "2022-05-05T10:00:44Z",
+      "side": 1,
+      "message": "please dont use default value here. Especially not \u003d false since you want to make trendline integration default.",
+      "range": {
+        "startLine": 37,
+        "startChar": 24,
+        "endLine": 37,
+        "endChar": 46
+      },
+      "revId": "b6d68d875539ba6a991190aaf66c420da5bd3fa2",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "6da5c0fe_b073f136",
+        "filename": "modules/congestion_controller/goog_cc/loss_based_bwe_v2_test.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 550,
+      "author": {
+        "id": 5578
+      },
+      "writtenOn": "2022-05-05T10:00:44Z",
+      "side": 1,
+      "message": "Its unclear to me what these tests try to test.  Can come up with a more descriptive name or write a comment?",
+      "range": {
+        "startLine": 550,
+        "startChar": 25,
+        "endLine": 550,
+        "endChar": 63
+      },
+      "revId": "b6d68d875539ba6a991190aaf66c420da5bd3fa2",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "eeb39792_f58241a2",
+        "filename": "modules/congestion_controller/goog_cc/loss_based_bwe_v2_test.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 563,
+      "author": {
+        "id": 5578
+      },
+      "writtenOn": "2022-05-05T10:00:44Z",
+      "side": 1,
+      "message": "his for example does not use trendline integration. \n \n Would it make sense if you parameterized these tests based on trendline integration true or false? TEST_P",
+      "range": {
+        "startLine": 563,
+        "startChar": 47,
+        "endLine": 563,
+        "endChar": 48
+      },
+      "revId": "b6d68d875539ba6a991190aaf66c420da5bd3fa2",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "28eb772c_5b2615f7",
+        "filename": "modules/congestion_controller/goog_cc/loss_based_bwe_v2_test.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 577,
+      "author": {
+        "id": 5578
+      },
+      "writtenOn": "2022-05-05T10:00:44Z",
+      "side": 1,
+      "message": "Is this trying to trigger limited_due_to_loss_candidate_ ? \n\nlimited_due_to_loss_candidate_ \u003d\n      delay_based_estimate.IsFinite() \u0026\u0026\n      \nare tests unrelated to this change?",
+      "range": {
+        "startLine": 577,
+        "startChar": 35,
+        "endLine": 577,
+        "endChar": 47
+      },
+      "revId": "b6d68d875539ba6a991190aaf66c420da5bd3fa2",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "558d98ee_2ac27880",
+        "filename": "modules/congestion_controller/goog_cc/loss_based_bwe_v2_test.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 583,
+      "author": {
+        "id": 5578
+      },
+      "writtenOn": "2022-05-05T10:00:44Z",
+      "side": 1,
+      "message": "? What do you mean by NoUpdate?       /*delay_based_limit\u003d*/DataRate::PlusInfinity());\n  EXPECT_LE(estimate_2, estimate_1);",
+      "range": {
+        "startLine": 583,
+        "startChar": 25,
+        "endLine": 583,
+        "endChar": 77
+      },
+      "revId": "b6d68d875539ba6a991190aaf66c420da5bd3fa2",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "0baf5117_b235e412",
+        "filename": "modules/congestion_controller/goog_cc/loss_based_bwe_v2_test.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 608,
+      "author": {
+        "id": 5578
+      },
+      "writtenOn": "2022-05-05T10:00:44Z",
+      "side": 1,
+      "message": "?",
+      "range": {
+        "startLine": 608,
+        "startChar": 64,
+        "endLine": 608,
+        "endChar": 70
+      },
+      "revId": "b6d68d875539ba6a991190aaf66c420da5bd3fa2",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "14326f89_decee94d",
+        "filename": "modules/congestion_controller/goog_cc/loss_based_bwe_v2_test.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 863,
+      "author": {
+        "id": 5578
+      },
+      "writtenOn": "2022-05-05T10:00:44Z",
+      "side": 1,
+      "message": "/s",
+      "range": {
+        "startLine": 863,
+        "startChar": 21,
+        "endLine": 863,
+        "endChar": 28
+      },
+      "revId": "b6d68d875539ba6a991190aaf66c420da5bd3fa2",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

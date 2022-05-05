@@ -1,0 +1,73 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "ceed59c0_d35f0623",
+        "filename": "modules/video_coding/codecs/vp9/libvpx_vp9_encoder.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 142,
+      "author": {
+        "id": 5825
+      },
+      "writtenOn": "2022-05-05T08:23:25Z",
+      "side": 1,
+      "message": "just \"Scalability mode\"?",
+      "range": {
+        "startLine": 142,
+        "startChar": 39,
+        "endLine": 142,
+        "endChar": 46
+      },
+      "revId": "2c55771e1075b070bf583c84353df7bf89ca1eaa",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "3587d973_e9cdac91",
+        "filename": "modules/video_coding/codecs/vp9/libvpx_vp9_encoder.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 155,
+      "author": {
+        "id": 5825
+      },
+      "writtenOn": "2022-05-05T08:23:25Z",
+      "side": 1,
+      "message": "do we need this special case? VideoCodecToScalabilityMode() and CreateScalabilityStructure() should result in ScalableVideoControllerNoLayering with this input.",
+      "range": {
+        "startLine": 150,
+        "startChar": 4,
+        "endLine": 155,
+        "endChar": 5
+      },
+      "revId": "2c55771e1075b070bf583c84353df7bf89ca1eaa",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "24a58c87_014f4d35",
+        "filename": "modules/video_coding/codecs/vp9/libvpx_vp9_encoder.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 605,
+      "author": {
+        "id": 5825
+      },
+      "writtenOn": "2022-05-05T08:23:25Z",
+      "side": 1,
+      "message": "would it be better to:\n scalability_mode \u003d GetScalabilityMode();\n if (scalability_mode) {\n  svc_controller_ \u003d CreateSvcController(*scalability_mode);\n  ScalableVideoController::StreamLayersConfig info \u003d\n        svc_controller_-\u003eStreamConfig();\n  num_spatial_layers_ \u003d info.num_spatial_layers;\n  num_temporal_layers_ \u003d info.num_temporal_layers;\n  inter_layer_pred_ \u003d ScalabilityModeToInterLayerPredMode(*scalability_mode);\n } else {\n  num_spatial_layers_ \u003d inst-\u003eVP9().numberOfSpatialLayers;\n  RTC_DCHECK_GT(num_spatial_layers_, 0);\n  num_temporal_layers_ \u003d inst-\u003eVP9().numberOfTemporalLayers;\n  if (num_temporal_layers_ \u003d\u003d 0) {\n    num_temporal_layers_ \u003d 1;\n  }\n  inter_layer_pred_ \u003d inst-\u003eVP9().interLayerPred;\n }\n \nGetScalabilityMode() returns codec.GetScalabilityMode() if set or infers the value from layering / inter-layer prediction mode, similar to what CreateVp9ScalabilityStructure() does.",
+      "range": {
+        "startLine": 586,
+        "startChar": 2,
+        "endLine": 605,
+        "endChar": 0
+      },
+      "revId": "2c55771e1075b070bf583c84353df7bf89ca1eaa",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

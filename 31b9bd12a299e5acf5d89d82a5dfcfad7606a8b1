@@ -68,6 +68,24 @@
       "message": "chrome change has landed so roll should be unblocked",
       "revId": "31b9bd12a299e5acf5d89d82a5dfcfad7606a8b1",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "5d8492c3_15ef9825",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5522
+      },
+      "writtenOn": "2022-05-05T11:36:00Z",
+      "side": 1,
+      "message": "Ack, I will monitor the roll.",
+      "parentUuid": "a95c7d19_d22628cf",
+      "revId": "31b9bd12a299e5acf5d89d82a5dfcfad7606a8b1",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

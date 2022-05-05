@@ -16,6 +16,23 @@
       "message": "Later CLs can move the check method around - I want to not create the channel manager when not configured for media.\n",
       "revId": "12cdd2bf9b55e0e81aff763e5025f5688cb117b3",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "2ea5f6f8_aa863cdd",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2022-05-05T09:01:08Z",
+      "side": 1,
+      "message": "internal_tests failures appear unrelated.\n",
+      "revId": "12cdd2bf9b55e0e81aff763e5025f5688cb117b3",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

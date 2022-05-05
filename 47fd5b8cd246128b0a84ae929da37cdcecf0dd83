@@ -1,0 +1,96 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "32e129af_5b3222c7",
+        "filename": "modules/congestion_controller/goog_cc/loss_based_bwe_v2.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 231,
+      "author": {
+        "id": 5578
+      },
+      "writtenOn": "2022-05-05T07:20:07Z",
+      "side": 1,
+      "message": "Why do we want to ignore large bwe increases but allow a small increase? \nshouldnt this be something like \n\nstd::min( best_candidate.loss_limited_bandwidth,  current_estimate_ .loss_limited_bandwidth *  config_-\u003emax_increase_factor) ?",
+      "range": {
+        "startLine": 231,
+        "startChar": 20,
+        "endLine": 231,
+        "endChar": 29
+      },
+      "revId": "47fd5b8cd246128b0a84ae929da37cdcecf0dd83",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "106d599a_c6fea44d",
+        "filename": "modules/congestion_controller/goog_cc/loss_based_bwe_v2.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 236,
+      "author": {
+        "id": 5578
+      },
+      "writtenOn": "2022-05-05T07:20:07Z",
+      "side": 1,
+      "message": "Not sure I fully understand. What do you mean by quick ramp up here?",
+      "range": {
+        "startLine": 236,
+        "startChar": 6,
+        "endLine": 236,
+        "endChar": 25
+      },
+      "revId": "47fd5b8cd246128b0a84ae929da37cdcecf0dd83",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "8353b95c_b2cf3ebb",
+        "filename": "modules/congestion_controller/goog_cc/loss_based_bwe_v2.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 240,
+      "author": {
+        "id": 5578
+      },
+      "writtenOn": "2022-05-05T07:20:07Z",
+      "side": 1,
+      "message": "Why previouse_estimate_? you already have current_estimate_ which is the previous, and best_candidate which is the new.",
+      "range": {
+        "startLine": 240,
+        "startChar": 2,
+        "endLine": 240,
+        "endChar": 21
+      },
+      "revId": "47fd5b8cd246128b0a84ae929da37cdcecf0dd83",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "1266ec8d_d0b5d390",
+        "filename": "modules/congestion_controller/goog_cc/loss_based_bwe_v2.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 243,
+      "author": {
+        "id": 5578
+      },
+      "writtenOn": "2022-05-05T07:20:07Z",
+      "side": 1,
+      "message": "suggest name something like limited_due_to_loss_candidate_",
+      "range": {
+        "startLine": 243,
+        "startChar": 2,
+        "endLine": 243,
+        "endChar": 24
+      },
+      "revId": "47fd5b8cd246128b0a84ae929da37cdcecf0dd83",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

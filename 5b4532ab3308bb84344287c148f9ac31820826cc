@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "2ae321a5_0e4aa1a8",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 4
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 18779
+      },
+      "writtenOn": "2022-05-06T12:50:26Z",
+      "side": 1,
+      "message": "Hey PTAL, this is a bug we discovered when resizing the display while CRD was active on ChromeOS.",
+      "revId": "5b4532ab3308bb84344287c148f9ac31820826cc",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

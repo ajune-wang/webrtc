@@ -41,6 +41,30 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "91d519b6_a4f6075d",
+        "filename": "modules/audio_processing/rms_level.cc",
+        "patchSetId": 6
+      },
+      "lineNbr": 112,
+      "author": {
+        "id": 5508
+      },
+      "writtenOn": "2022-05-06T06:58:58Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "96637c38_53016c4a",
+      "range": {
+        "startLine": 112,
+        "startChar": 69,
+        "endLine": 112,
+        "endChar": 70
+      },
+      "revId": "0167305cff799cb753062fd5ef071e7d5f22be39",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "1255251c_1739aa69",
@@ -64,6 +88,30 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "de31d56c_3d67c633",
+        "filename": "modules/audio_processing/rms_level_unittest.cc",
+        "patchSetId": 6
+      },
+      "lineNbr": 154,
+      "author": {
+        "id": 5508
+      },
+      "writtenOn": "2022-05-06T06:58:58Z",
+      "side": 1,
+      "message": "Done. Also renamed the test to OnlyDigitalSilenceIs127",
+      "parentUuid": "1255251c_1739aa69",
+      "range": {
+        "startLine": 154,
+        "startChar": 0,
+        "endLine": 154,
+        "endChar": 34
+      },
+      "revId": "0167305cff799cb753062fd5ef071e7d5f22be39",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "15013e8c_8c4f2eb0",
@@ -77,6 +125,30 @@
       "writtenOn": "2022-05-05T21:33:58Z",
       "side": 1,
       "message": "Nit: Probably better to put EXPECT_GT here.\nEXPECT_GT(127, level-\u003eAverage());",
+      "range": {
+        "startLine": 163,
+        "startChar": 2,
+        "endLine": 163,
+        "endChar": 11
+      },
+      "revId": "0167305cff799cb753062fd5ef071e7d5f22be39",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "96599e58_26c76c70",
+        "filename": "modules/audio_processing/rms_level_unittest.cc",
+        "patchSetId": 6
+      },
+      "lineNbr": 163,
+      "author": {
+        "id": 5508
+      },
+      "writtenOn": "2022-05-06T06:58:58Z",
+      "side": 1,
+      "message": "Done. Yes, we can do better than using \u0027not equal\u0027. Changed to:\n\n  EXPECT_LT(level-\u003eAverage(), 127)\n\nThe reason for using LT rather than GT is that it reads to me as \"average should be less than 127\" whereas if I use GT, that would read as \"127 should be greater than the average\".",
+      "parentUuid": "15013e8c_8c4f2eb0",
       "range": {
         "startLine": 163,
         "startChar": 2,

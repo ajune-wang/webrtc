@@ -693,8 +693,8 @@ void RtpTransportControllerSend::PostUpdates(NetworkControlUpdate update) {
     pacer()->SetPacingRates(update.pacer_config->data_rate(),
                             update.pacer_config->pad_rate());
   }
-  for (const auto& probe : update.probe_cluster_configs) {
-    pacer()->CreateProbeCluster(probe.target_data_rate, probe.id);
+  if (!update.probe_cluster_configs.empty()) {
+    pacer()->CreateProbeClusters(std::move(update.probe_cluster_configs));
   }
   if (update.target_rate) {
     control_handler_->SetTargetRate(*update.target_rate);

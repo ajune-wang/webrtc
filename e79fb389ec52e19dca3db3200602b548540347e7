@@ -399,6 +399,30 @@
       },
       "revId": "e79fb389ec52e19dca3db3200602b548540347e7",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "a2bb6107_0c4b6b2b",
+        "filename": "pc/test/integration_test_helpers.h",
+        "patchSetId": 5
+      },
+      "lineNbr": 926,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2022-05-06T09:07:19Z",
+      "side": 1,
+      "message": "I don\u0027t quite understand what the \"Transfer\" done in this test really is. It sets up a peer connection between peers 1 and 2, and that appears to still work. Then it introduces a peer 3, to somehow replace peer 1. (The test also has some contradicting comments on when peer 1 should be closed). The fake signalling only knows symmetric connection between one pair of peers, so perhaps a message intended for the path 2 --\u003e 1 ends up routed 2 --\u003e 3, if for some reason one is emitted after the second ConnectFakeSignalling?",
+      "parentUuid": "b0a0235b_8b987b0f",
+      "range": {
+        "startLine": 922,
+        "startChar": 0,
+        "endLine": 926,
+        "endChar": 35
+      },
+      "revId": "e79fb389ec52e19dca3db3200602b548540347e7",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

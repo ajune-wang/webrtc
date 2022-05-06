@@ -143,7 +143,7 @@ public final class AndroidVideoDecoderInstrumentationTest {
       lastTimestampNs += TimeUnit.SECONDS.toNanos(1) / ENCODER_SETTINGS.maxFramerate;
       VideoEncoder.EncodeInfo info = new VideoEncoder.EncodeInfo(
           new EncodedImage.FrameType[] {EncodedImage.FrameType.VideoFrameDelta});
-      HardwareVideoEncoderTest.testEncodeFrame(
+      HardwareVideoEncoderTest.tryEncodeFrame(
           encoder, new VideoFrame(TEST_FRAMES[i], 0 /* rotation */, lastTimestampNs), info);
       encodedTestFrames[i] = encodeCallback.poll();
     }

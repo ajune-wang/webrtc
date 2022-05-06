@@ -314,7 +314,7 @@ public class HardwareVideoEncoderTest {
     return useTextures ? generateTextureFrame(width, height) : generateI420Frame(width, height);
   }
 
-  static VideoCodecStatus testEncodeFrame(
+  static VideoCodecStatus tryEncodeFrame(
       VideoEncoder encoder, VideoFrame frame, VideoEncoder.EncodeInfo info) {
     int numTries = 0;
 
@@ -391,7 +391,7 @@ public class HardwareVideoEncoderTest {
       VideoFrame frame = generateFrame(SETTINGS.width, SETTINGS.height);
       VideoEncoder.EncodeInfo info = new VideoEncoder.EncodeInfo(
           new EncodedImage.FrameType[] {EncodedImage.FrameType.VideoFrameDelta});
-      testEncodeFrame(encoder, frame, info);
+      tryEncodeFrame(encoder, frame, info);
 
       callback.assertFrameEncoded(frame);
       frame.release();
@@ -414,12 +414,12 @@ public class HardwareVideoEncoderTest {
           new EncodedImage.FrameType[] {EncodedImage.FrameType.VideoFrameDelta});
 
       frame = generateTextureFrame(SETTINGS.width, SETTINGS.height);
-      testEncodeFrame(encoder, frame, info);
+      tryEncodeFrame(encoder, frame, info);
       callback.assertFrameEncoded(frame);
       frame.release();
 
       frame = generateI420Frame(SETTINGS.width, SETTINGS.height);
-      testEncodeFrame(encoder, frame, info);
+      tryEncodeFrame(encoder, frame, info);
       callback.assertFrameEncoded(frame);
       frame.release();
     }
@@ -439,12 +439,12 @@ public class HardwareVideoEncoderTest {
         new EncodedImage.FrameType[] {EncodedImage.FrameType.VideoFrameDelta});
 
     frame = generateFrame(SETTINGS.width / 2, SETTINGS.height / 2);
-    testEncodeFrame(encoder, frame, info);
+    tryEncodeFrame(encoder, frame, info);
     callback.assertFrameEncoded(frame);
     frame.release();
 
     frame = generateFrame(SETTINGS.width, SETTINGS.height);
-    testEncodeFrame(encoder, frame, info);
+    tryEncodeFrame(encoder, frame, info);
     callback.assertFrameEncoded(frame);
     frame.release();
 
@@ -452,7 +452,7 @@ public class HardwareVideoEncoderTest {
     // Force the size of input frame with the greatest multiple of 16 below the original size.
     frame = generateFrame(getAlignedNumber(SETTINGS.width / 4, PIXEL_ALIGNMENT_REQUIRED),
         getAlignedNumber(SETTINGS.height / 4, PIXEL_ALIGNMENT_REQUIRED));
-    testEncodeFrame(encoder, frame, info);
+    tryEncodeFrame(encoder, frame, info);
     callback.assertFrameEncoded(frame);
     frame.release();
 
@@ -472,13 +472,13 @@ public class HardwareVideoEncoderTest {
         new EncodedImage.FrameType[] {EncodedImage.FrameType.VideoFrameDelta});
 
     frame = generateFrame(SETTINGS.width / 2, SETTINGS.height / 2);
-    assertEquals(VideoCodecStatus.OK, testEncodeFrame(encoder, frame, info));
+    assertEquals(VideoCodecStatus.OK, tryEncodeFrame(encoder, frame, info));
     frame.release();
 
     // Android MediaCodec only guarantees of proper operation with 16-pixel-aligned input frame.
     // Following input frame with non-aligned size would return ERR_SIZE.
     frame = generateFrame(SETTINGS.width / 4, SETTINGS.height / 4);
-    assertNotEquals(VideoCodecStatus.OK, testEncodeFrame(encoder, frame, info));
+    assertNotEquals(VideoCodecStatus.OK, tryEncodeFrame(encoder, frame, info));
     frame.release();
 
     // Since our encoder has returned with an error, we reinitialize the encoder.
@@ -487,7 +487,7 @@ public class HardwareVideoEncoderTest {
 
     frame = generateFrame(getAlignedNumber(SETTINGS.width / 4, PIXEL_ALIGNMENT_REQUIRED),
         getAlignedNumber(SETTINGS.height / 4, PIXEL_ALIGNMENT_REQUIRED));
-    assertEquals(VideoCodecStatus.OK, testEncodeFrame(encoder, frame, info));
+    assertEquals(VideoCodecStatus.OK, tryEncodeFrame(encoder, frame, info));
     frame.release();
 
     assertEquals(VideoCodecStatus.OK, encoder.release());

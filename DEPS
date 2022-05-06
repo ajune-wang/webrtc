@@ -10,7 +10,7 @@ vars = {
   # chromium waterfalls. More info at: crbug.com/570091.
   'checkout_configuration': 'default',
   'checkout_instrumented_libraries': 'checkout_linux and checkout_configuration == "default"',
-  'chromium_revision': '5727c6ea301592c7f470c4d99afb6a079677d60b',
+  'chromium_revision': '55a4602a24a61641d424bf673e74abf5d3a2cd74',
 
   # Keep the Chromium default of generating location tags.
   'generate_location_tags': True,
@@ -23,7 +23,7 @@ deps = {
   # TODO(kjellander): Move this to be Android-only once the libevent dependency
   # in base/third_party/libevent is solved.
   'src/base':
-    'https://chromium.googlesource.com/chromium/src/base@2e965a39583382b814bde8bf7524ebdce7d44b50',
+    'https://chromium.googlesource.com/chromium/src/base@83b0527a525b098be84a063a4be796075e9aff75',
   'src/build':
     'https://chromium.googlesource.com/chromium/src/build@a1147fb865fb7ffbd72aca0ba48a4eedf62be5b0',
   'src/buildtools':
@@ -38,9 +38,9 @@ deps = {
     'condition': 'checkout_ios',
   },
   'src/testing':
-    'https://chromium.googlesource.com/chromium/src/testing@c14c7c14ac29ac4a17128bd75ba0a49a6cb9eef3',
+    'https://chromium.googlesource.com/chromium/src/testing@078308d0c0183a710f2c2f9f7d77892cf279d819',
   'src/third_party':
-    'https://chromium.googlesource.com/chromium/src/third_party@58db3b7560653ab94e9229f5eece7204cfbe01f4',
+    'https://chromium.googlesource.com/chromium/src/third_party@602f8f11f2bd9fb3b184e391ec6c39cbdc3726c5',
 
   'src/buildtools/linux64': {
     'packages': [
@@ -138,7 +138,7 @@ deps = {
   'src/third_party/crc32c/src':
     'https://chromium.googlesource.com/external/github.com/google/crc32c.git@fa5ade41ee480003d9c5af6f43567ba22e4e17e6',
   'src/third_party/depot_tools':
-    'https://chromium.googlesource.com/chromium/tools/depot_tools.git@b9dca865afd7b639bad61a124f888b7405a2cd55',
+    'https://chromium.googlesource.com/chromium/tools/depot_tools.git@6a1494e5d76a4d03d4a0ba1847110df1a8d1c868',
   'src/third_party/ffmpeg':
     'https://chromium.googlesource.com/chromium/third_party/ffmpeg.git@e481fc655a6287e657a88e8c2bcd6f411d254d70',
   'src/third_party/findbugs': {

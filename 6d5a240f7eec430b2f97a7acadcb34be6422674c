@@ -34,6 +34,24 @@
       "parentUuid": "ea985785_c5cb0fbd",
       "revId": "6d5a240f7eec430b2f97a7acadcb34be6422674c",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "04701a80_22d1440b",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5531
+      },
+      "writtenOn": "2022-05-06T21:00:35Z",
+      "side": 1,
+      "message": "An option would be to add explicit messaging, but multiplying with size_t seems like safe enough to allow. Could you add the explanation to the commit message? IMO just adding that case would be better though, seems like it\u0027s about as likely to protect against an accident as being in the way to me.",
+      "parentUuid": "dcfe3f09_04520295",
+      "revId": "6d5a240f7eec430b2f97a7acadcb34be6422674c",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

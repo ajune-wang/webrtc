@@ -18,15 +18,31 @@
 #include "api/fec_controller_override.h"
 #include "modules/video_coding/codecs/vp8/default_temporal_layers.h"
 #include "modules/video_coding/codecs/vp8/screenshare_layers.h"
+#include "modules/video_coding/svc/scalability_mode_util.h"
 #include "modules/video_coding/utility/simulcast_utility.h"
 #include "rtc_base/checks.h"
 
 namespace webrtc {
 
+namespace {
+
+bool SupportedScalabilityModeForVp8(
+    absl::optional<ScalabilityMode> scalability_mode) {
+  return scalability_mode == absl::nullopt ||
+         *scalability_mode == ScalabilityMode::kL1T1 ||
+         *scalability_mode == ScalabilityMode::kL1T2 ||
+         *scalability_mode == ScalabilityMode::kL1T3;
+}
+
+}  // namespace
+
 std::unique_ptr<Vp8FrameBufferController> Vp8TemporalLayersFactory::Create(
     const VideoCodec& codec,
     const VideoEncoder::Settings& settings,
     FecControllerOverride* fec_controller_override) {
+  if (!SupportedScalabilityModeForVp8(codec.GetScalabilityMode())) {
+    return nullptr;
+  }
   std::vector<std::unique_ptr<Vp8FrameBufferController>> controllers;
   const int num_streams = SimulcastUtility::NumberOfSimulcastStreams(codec);
   RTC_DCHECK_GE(num_streams, 1);

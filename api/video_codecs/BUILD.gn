@@ -181,6 +181,7 @@ rtc_library("vp8_temporal_layers_factory") {
     "../:fec_controller_api",
     "../../modules/video_coding:video_coding_utility",
     "../../modules/video_coding:webrtc_vp8_temporal_layers",
+    "../../modules/video_coding/svc:scalability_mode_util",
     "../../rtc_base:checks",
   ]
 }

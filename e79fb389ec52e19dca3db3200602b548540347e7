@@ -375,6 +375,30 @@
       },
       "revId": "e79fb389ec52e19dca3db3200602b548540347e7",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "b0a0235b_8b987b0f",
+        "filename": "pc/test/integration_test_helpers.h",
+        "patchSetId": 5
+      },
+      "lineNbr": 926,
+      "author": {
+        "id": 5142
+      },
+      "writtenOn": "2022-05-06T08:45:42Z",
+      "side": 1,
+      "message": "SDP must be signalled first and ICE candidates second, so ignoring AddIceCandidate errors is likely to hide real problems. We need to figure out why the remote SDP has not been set yet by the time that AddIceCandidate happens?\n\nThis code...\nhttps://source.chromium.org/chromium/chromium/src/+/main:third_party/webrtc/pc/test/integration_test_helpers.h;l\u003d946;drc\u003dd4d97eb04d88595d2cdf540a6efd7e99a9d62c34\n\n...makes it look like SDP is the first thing to be signalled with SendSdpMessage, so that any OnIceCandidate() would be triggered and signalled second. But the AddIceCandidate failing implies the ICE candidates arrived prior to the SDP. How can that be?",
+      "parentUuid": "912b5d42_3ddb50b0",
+      "range": {
+        "startLine": 922,
+        "startChar": 0,
+        "endLine": 926,
+        "endChar": 35
+      },
+      "revId": "e79fb389ec52e19dca3db3200602b548540347e7",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

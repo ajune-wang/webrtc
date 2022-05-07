@@ -134,7 +134,8 @@ class AudioReceiveStream final : public webrtc::AudioReceiveStream,
     return config_.rtp.remote_ssrc;
   }
 
-  const webrtc::AudioReceiveStream::Config& config() const;
+  const std::string& sync_group() const;
+
   const AudioSendStream* GetAssociatedSendStreamForTesting() const;
 
   // TODO(tommi): Remove this method.

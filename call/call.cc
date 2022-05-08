@@ -1007,12 +1007,6 @@ void Call::DestroyAudioReceiveStream(
   // and UpdateAggregateNetworkState on the network thread. The call to
   // `UnregisterFromTransport` should also happen on the network thread.
   audio_receive_stream->UnregisterFromTransport();
-
-  uint32_t ssrc = audio_receive_stream->remote_ssrc();
-  const AudioReceiveStream::Config& config = audio_receive_stream->config();
-  receive_side_cc_.GetRemoteBitrateEstimator(UseSendSideBwe(config.rtp))
-      ->RemoveStream(ssrc);
-
   audio_receive_streams_.erase(audio_receive_stream);
 
   // After calling erase(), call ConfigureSync. This will clear associated
@@ -1020,7 +1014,7 @@ void Call::DestroyAudioReceiveStream(
   // for this sync_group.
   ConfigureSync(audio_receive_stream->config().sync_group);
 
-  UnregisterReceiveStream(ssrc);
+  UnregisterReceiveStream(audio_receive_stream->remote_ssrc());
 
   UpdateAggregateNetworkState();
   // TODO(bugs.webrtc.org/11993): Consider if deleting `audio_receive_stream`

@@ -1189,6 +1189,7 @@ class WebRtcVoiceMediaChannel::WebRtcAudioReceiveStream {
 
   void SetUseTransportCc(bool use_transport_cc, bool use_nack) {
     RTC_DCHECK_RUN_ON(&worker_thread_checker_);
+    RTC_CHECK(!use_transport_cc);
     stream_->SetUseTransportCcAndNackHistory(use_transport_cc,
                                              use_nack ? kNackRtpHistoryMs : 0);
   }
@@ -1773,6 +1774,7 @@ bool WebRtcVoiceMediaChannel::SetSendCodecs(
     RTC_LOG(LS_INFO) << "Changing transport cc and NACK status on receive "
                         "streams.";
     recv_transport_cc_enabled_ = send_codec_spec_->transport_cc_enabled;
+    RTC_CHECK(!recv_transport_cc_enabled_);
     recv_nack_enabled_ = send_codec_spec_->nack_enabled;
     for (auto& kv : recv_streams_) {
       kv.second->SetUseTransportCc(recv_transport_cc_enabled_,

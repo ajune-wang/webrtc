@@ -18,81 +18,13 @@
 #include "api/neteq/neteq.h"
 #include "modules/audio_coding/neteq/tools/audio_sink.h"
 #include "modules/audio_coding/neteq/tools/input_audio_file.h"
+#include "modules/audio_coding/neteq/tools/neteq_loss_models.h"
 #include "modules/audio_coding/neteq/tools/rtp_generator.h"
 #include "system_wrappers/include/clock.h"
 #include "test/gtest.h"
 
 namespace webrtc {
 namespace test {
-
-enum LossModes {
-  kNoLoss,
-  kUniformLoss,
-  kGilbertElliotLoss,
-  kFixedLoss,
-  kLastLossMode
-};
-
-class LossModel {
- public:
-  virtual ~LossModel() {}
-  virtual bool Lost(int now_ms) = 0;
-};
-
-class NoLoss : public LossModel {
- public:
-  bool Lost(int now_ms) override;
-};
-
-class UniformLoss : public LossModel {
- public:
-  UniformLoss(double loss_rate);
-  bool Lost(int now_ms) override;
-  void set_loss_rate(double loss_rate) { loss_rate_ = loss_rate; }
-
- private:
-  double loss_rate_;
-};
-
-class GilbertElliotLoss : public LossModel {
- public:
-  GilbertElliotLoss(double prob_trans_11, double prob_trans_01);
-  ~GilbertElliotLoss() override;
-  bool Lost(int now_ms) override;
-
- private:
-  // Prob. of losing current packet, when previous packet is lost.
-  double prob_trans_11_;
-  // Prob. of losing current packet, when previous packet is not lost.
-  double prob_trans_01_;
-  bool lost_last_;
-  std::unique_ptr<UniformLoss> uniform_loss_model_;
-};
-
-struct FixedLossEvent {
-  int start_ms;
-  int duration_ms;
-  FixedLossEvent(int start_ms, int duration_ms)
-      : start_ms(start_ms), duration_ms(duration_ms) {}
-};
-
-struct FixedLossEventCmp {
-  bool operator()(const FixedLossEvent& l_event,
-                  const FixedLossEvent& r_event) const {
-    return l_event.start_ms < r_event.start_ms;
-  }
-};
-
-class FixedLossModel : public LossModel {
- public:
-  FixedLossModel(std::set<FixedLossEvent, FixedLossEventCmp> loss_events);
-  ~FixedLossModel() override;
-  bool Lost(int now_ms) override;
-
- private:
-  std::set<FixedLossEvent, FixedLossEventCmp> loss_events_;
-  std::set<FixedLossEvent, FixedLossEventCmp>::iterator loss_events_it_;
-};
 
 class NetEqQualityTest : public ::testing::Test {
  protected:

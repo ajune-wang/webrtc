@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "996c7734_3327d540",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 7
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2022-05-09T13:33:52Z",
+      "side": 1,
+      "message": "PTAL. (Old cl, but now rebased on top of FromString changes).",
+      "revId": "26cbe0eca86457a044a4fa7bd3864c66ad2625ef",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

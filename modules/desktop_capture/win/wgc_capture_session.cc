@@ -10,6 +10,7 @@
 
 #include "modules/desktop_capture/win/wgc_capture_session.h"
 
+#include <DispatcherQueue.h>
 #include <windows.graphics.capture.interop.h>
 #include <windows.graphics.directX.direct3d11.interop.h>
 #include <windows.graphics.h>
@@ -39,10 +40,14 @@ namespace {
 const auto kPixelFormat = ABI::Windows::Graphics::DirectX::DirectXPixelFormat::
     DirectXPixelFormat_B8G8R8A8UIntNormalized;
 
-// We only want 1 buffer in our frame pool to reduce latency. If we had more,
-// they would sit in the pool for longer and be stale by the time we are asked
-// for a new frame.
-const int kNumBuffers = 1;
+// We keep 2 buffers in the frame pool to balance the staleness of the frame
+// with having to wait for frames to arrive too frequently. Too many buffers
+// will lead to a high latency, and too few will lead to poor performance.
+const int kNumBuffers = 2;
+
+// The maximum time `GetFrame` will wait for a frame to arrive, if we don't have
+// any in the pool.
+const int kMaxWaitForFrameMs = 50;
 
 // These values are persisted to logs. Entries should not be renumbered and
 // numeric values should never be reused.
@@ -54,9 +59,9 @@ enum class StartCaptureResult {
   kD3dDelayLoadFailed = 4,
   kD3dDeviceCreationFailed = 5,
   kFramePoolActivationFailed = 6,
-  kFramePoolCastFailed = 7,
-  kGetItemSizeFailed = 8,
-  kCreateFreeThreadedFailed = 9,
+  // kFramePoolCastFailed = 7, (deprecated)
+  // kGetItemSizeFailed = 8, (deprecated)
+  kCreateFramePoolFailed = 9,
   kCreateCaptureSessionFailed = 10,
   kStartCaptureFailed = 11,
   kMaxValue = kStartCaptureFailed
@@ -157,22 +162,25 @@ HRESULT WgcCaptureSession::StartCapture() {
     return hr;
   }
 
-  // Cast to FramePoolStatics2 so we can use CreateFreeThreaded and avoid the
-  // need to have a DispatcherQueue. We don't listen for the FrameArrived event,
-  // so there's no difference.
-  ComPtr<WGC::IDirect3D11CaptureFramePoolStatics2> frame_pool_statics2;
-  hr = frame_pool_statics->QueryInterface(IID_PPV_ARGS(&frame_pool_statics2));
+  hr = frame_pool_statics->Create(direct3d_device_.Get(), kPixelFormat,
+                                  kNumBuffers, size_, &frame_pool_);
   if (FAILED(hr)) {
-    RecordStartCaptureResult(StartCaptureResult::kFramePoolCastFailed);
+    RecordStartCaptureResult(StartCaptureResult::kCreateFramePoolFailed);
     return hr;
   }
 
-  hr = frame_pool_statics2->CreateFreeThreaded(
-      direct3d_device_.Get(), kPixelFormat, kNumBuffers, size_, &frame_pool_);
-  if (FAILED(hr)) {
-    RecordStartCaptureResult(StartCaptureResult::kCreateFreeThreadedFailed);
-    return hr;
-  }
+  frames_in_pool_ = 0;
+
+  // Because `WgcCapturerWin` created a `DispatcherQueue`, and we created
+  // `frame_pool_` via `Create`, the `FrameArrived` event will be delivered on
+  // the current thread.
+  auto frame_arrived_handler =
+      Microsoft::WRL::Callback<ABI::Windows::Foundation::ITypedEventHandler<
+          WGC::Direct3D11CaptureFramePool*, IInspectable*>>(
+          this, &WgcCaptureSession::OnFrameArrived);
+  EventRegistrationToken frame_arrived_token;
+  hr = frame_pool_->add_FrameArrived(frame_arrived_handler.Get(),
+                                     &frame_arrived_token);
 
   hr = frame_pool_->CreateCaptureSession(item_.Get(), &session_);
   if (FAILED(hr)) {
@@ -205,6 +213,9 @@ HRESULT WgcCaptureSession::GetFrame(
 
   RTC_DCHECK(is_capture_started_);
 
+  if (frames_in_pool_ < 1)
+    wait_for_frame_event_.Wait(kMaxWaitForFrameMs);
+
   ComPtr<WGC::IDirect3D11CaptureFrame> capture_frame;
   HRESULT hr = frame_pool_->TryGetNextFrame(&capture_frame);
   if (FAILED(hr)) {
@@ -217,6 +228,8 @@ HRESULT WgcCaptureSession::GetFrame(
     RecordGetFrameResult(GetFrameResult::kFrameDropped);
     return hr;
   }
+
+  --frames_in_pool_;
 
   // We need to get `capture_frame` as an `ID3D11Texture2D` so that we can get
   // the raw image data in the format required by the `DesktopFrame` interface.
@@ -356,6 +369,15 @@ HRESULT WgcCaptureSession::CreateMappedTexture(
   map_desc.CPUAccessFlags = D3D11_CPU_ACCESS_READ;
   map_desc.MiscFlags = 0;
   return d3d11_device_->CreateTexture2D(&map_desc, nullptr, &mapped_texture_);
+}
+
+HRESULT WgcCaptureSession::OnFrameArrived(
+    WGC::IDirect3D11CaptureFramePool* sender,
+    IInspectable* event_args) {
+  RTC_DCHECK_RUN_ON(&sequence_checker_);
+  ++frames_in_pool_;
+  wait_for_frame_event_.Set();
+  return S_OK;
 }
 
 HRESULT WgcCaptureSession::OnItemClosed(WGC::IGraphicsCaptureItem* sender,

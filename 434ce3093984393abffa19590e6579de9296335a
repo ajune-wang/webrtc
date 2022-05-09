@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "bb2a7eee_4b7f63b1",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 10107
+      },
+      "writtenOn": "2022-05-09T13:10:50Z",
+      "side": 1,
+      "message": "Adding hta@ for rtc_event_log_parser.cc.",
+      "revId": "434ce3093984393abffa19590e6579de9296335a",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

@@ -250,6 +250,30 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "fb0929fd_e1b663b8",
+        "filename": "modules/video_coding/utility/simulcast_utility.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 91,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2022-05-09T13:51:25Z",
+      "side": 1,
+      "message": "Removed.",
+      "parentUuid": "4a4d2692_ab88c992",
+      "range": {
+        "startLine": 91,
+        "startChar": 38,
+        "endLine": 91,
+        "endChar": 63
+      },
+      "revId": "05f834f5085e994562dcb30dca31d7c807409038",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "b01f2389_1a5ddd2a",

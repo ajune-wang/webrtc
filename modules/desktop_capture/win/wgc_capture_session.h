@@ -21,6 +21,7 @@
 #include "api/sequence_checker.h"
 #include "modules/desktop_capture/desktop_capture_options.h"
 #include "modules/desktop_capture/win/wgc_capture_source.h"
+#include "rtc_base/event.h"
 
 namespace webrtc {
 
@@ -63,6 +64,18 @@ class WgcCaptureSession final {
   HRESULT OnItemClosed(
       ABI::Windows::Graphics::Capture::IGraphicsCaptureItem* sender,
       IInspectable* event_args);
+
+  HRESULT OnFrameArrived(
+      ABI::Windows::Graphics::Capture::IDirect3D11CaptureFramePool* sender,
+      IInspectable* event_args);
+
+  // We wait on this event in `GetFrame` if there are no frames in the pool.
+  // `OnFrameArrived` will set the event so we can proceed.
+  rtc::Event wait_for_frame_event_;
+  int frames_in_pool_;
+
+  EventRegistrationToken frame_arrived_token_;
+  EventRegistrationToken item_closed_token_;
 
   // A Direct3D11 Device provided by the caller. We use this to create an
   // IDirect3DDevice, and also to create textures that will hold the image data.

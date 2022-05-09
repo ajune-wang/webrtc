@@ -16,6 +16,23 @@
       "message": "Hey Kári! Noticed this crash in our Crahlytics and thought I\u0027d send a patch. Can you please take a look?",
       "revId": "2f693c6e205625aee137fe55334caff1f95c14d7",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "b3a2c73b_78685141",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5520
+      },
+      "writtenOn": "2022-05-09T12:16:47Z",
+      "side": 1,
+      "message": "Hi Saúl, thanks for the patch!\n\nI wonder if this is actually due to a race-condition where the captureSession is being reset or reconfigured on a different thread, and we end up calling `addInput` on a different capture session than `canAddInput`? I haven\u0027t looked closely, but this might be an explanation.\n\nAn easy way to verify would be to assign `_captureSession` to a local variable in the method instead, and see if the crashes disappear.\n\nIn general, we try very hard to avoid try/catch whenever possible and instead find the root cause of the exception to stop it happening in the first place. Of course, this isn\u0027t always possible, but I want us to eliminate all other possibilities first.\n",
+      "revId": "2f693c6e205625aee137fe55334caff1f95c14d7",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

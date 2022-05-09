@@ -16,6 +16,24 @@
       "message": "So specifying shards did nothing?",
       "revId": "73a8988ad42e78606e1a51370b09761a710d87d1",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "d1ddf0d3_437cc4f8",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 12234
+      },
+      "writtenOn": "2022-05-09T07:03:45Z",
+      "side": 1,
+      "message": "Yes, now all the tests are running one time on each shard.",
+      "parentUuid": "eca43e1c_9d8d4983",
+      "revId": "73a8988ad42e78606e1a51370b09761a710d87d1",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

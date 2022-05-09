@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "eca43e1c_9d8d4983",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 6193
+      },
+      "writtenOn": "2022-05-09T07:01:00Z",
+      "side": 1,
+      "message": "So specifying shards did nothing?",
+      "revId": "73a8988ad42e78606e1a51370b09761a710d87d1",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

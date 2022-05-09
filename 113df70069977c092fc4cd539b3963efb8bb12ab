@@ -1,0 +1,211 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "992529ee_8123c03d",
+        "filename": "modules/congestion_controller/goog_cc/loss_based_bwe_v2.cc",
+        "patchSetId": 10
+      },
+      "lineNbr": 245,
+      "author": {
+        "id": 5578
+      },
+      "writtenOn": "2022-05-09T09:31:10Z",
+      "side": 1,
+      "message": "So this ensure loss based estimate can not drop below 100kbit/s. That is quite high. \nAlso, there is already a min bwe configuration provided to goog cc. So if you want a lower bound, please use it from goog cc.",
+      "range": {
+        "startLine": 245,
+        "startChar": 17,
+        "endLine": 245,
+        "endChar": 37
+      },
+      "revId": "113df70069977c092fc4cd539b3963efb8bb12ab",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "1ccbfc7b_a933a1d1",
+        "filename": "modules/congestion_controller/goog_cc/loss_based_bwe_v2_test.cc",
+        "patchSetId": 10
+      },
+      "lineNbr": 663,
+      "author": {
+        "id": 5578
+      },
+      "writtenOn": "2022-05-09T09:31:10Z",
+      "side": 1,
+      "message": "If this test and the 2 above are the same, except for the delay state, please break it out to a separate free function, and call that function 3 times with different state. \nOr better use TEST_P for that too. \nie, you can have several TEST_P blocks with different names. LossBasedBweV2TestSmallObservationDuration, ...)",
+      "range": {
+        "startLine": 663,
+        "startChar": 15,
+        "endLine": 663,
+        "endChar": 32
+      },
+      "revId": "113df70069977c092fc4cd539b3963efb8bb12ab",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "457c4f0a_b96a9bdb",
+        "filename": "modules/congestion_controller/goog_cc/loss_based_bwe_v2_test.cc",
+        "patchSetId": 10
+      },
+      "lineNbr": 769,
+      "author": {
+        "id": 5578
+      },
+      "writtenOn": "2022-05-09T09:31:10Z",
+      "side": 1,
+      "message": "IncreaseToDelayBasedEstimateIfNoLossOrDelayIncrease ?",
+      "range": {
+        "startLine": 769,
+        "startChar": 27,
+        "endLine": 769,
+        "endChar": 55
+      },
+      "revId": "113df70069977c092fc4cd539b3963efb8bb12ab",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "67b3637e_f4dbae29",
+        "filename": "modules/congestion_controller/goog_cc/loss_based_bwe_v2_test.cc",
+        "patchSetId": 10
+      },
+      "lineNbr": 906,
+      "author": {
+        "id": 5578
+      },
+      "writtenOn": "2022-05-09T09:31:10Z",
+      "side": 1,
+      "message": "Is this explanation really correct? Isnt the reason that the loss based estimate is lower than the delay based estimate because you set the loss based estimate to be 600 above?",
+      "range": {
+        "startLine": 906,
+        "startChar": 61,
+        "endLine": 906,
+        "endChar": 64
+      },
+      "revId": "113df70069977c092fc4cd539b3963efb8bb12ab",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "d347c0ba_f258a464",
+        "filename": "modules/congestion_controller/goog_cc/loss_based_bwe_v2_test.cc",
+        "patchSetId": 10
+      },
+      "lineNbr": 906,
+      "author": {
+        "id": 5578
+      },
+      "writtenOn": "2022-05-09T09:31:10Z",
+      "side": 1,
+      "message": "nit: /s bouned here and elsewhere",
+      "range": {
+        "startLine": 906,
+        "startChar": 21,
+        "endLine": 906,
+        "endChar": 27
+      },
+      "revId": "113df70069977c092fc4cd539b3963efb8bb12ab",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "7771c15d_f2e51eae",
+        "filename": "modules/congestion_controller/goog_cc/loss_based_bwe_v2_test.cc",
+        "patchSetId": 10
+      },
+      "lineNbr": 918,
+      "author": {
+        "id": 5578
+      },
+      "writtenOn": "2022-05-09T09:31:10Z",
+      "side": 1,
+      "message": "Can you maybe change this comment to instead explain why the estimate is this low? \nI see from the EXPECT_EQ what it expect. But I dont understand why you expect that.",
+      "range": {
+        "startLine": 918,
+        "startChar": 36,
+        "endLine": 918,
+        "endChar": 53
+      },
+      "revId": "113df70069977c092fc4cd539b3963efb8bb12ab",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "7532f35e_1181fb14",
+        "filename": "modules/congestion_controller/goog_cc/loss_based_bwe_v2_test.cc",
+        "patchSetId": 10
+      },
+      "lineNbr": 935,
+      "author": {
+        "id": 5578
+      },
+      "writtenOn": "2022-05-09T09:31:10Z",
+      "side": 1,
+      "message": "suggest somethin like : since the sent packets were sent within",
+      "range": {
+        "startLine": 935,
+        "startChar": 68,
+        "endLine": 935,
+        "endChar": 71
+      },
+      "revId": "113df70069977c092fc4cd539b3963efb8bb12ab",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "c5621e01_4aac07a6",
+        "filename": "modules/congestion_controller/goog_cc/loss_based_bwe_v2_test.cc",
+        "patchSetId": 10
+      },
+      "lineNbr": 943,
+      "author": {
+        "id": 5578
+      },
+      "writtenOn": "2022-05-09T09:31:10Z",
+      "side": 1,
+      "message": "KeepIncreasingEstimateAfterDelayedIncreaseWindow",
+      "range": {
+        "startLine": 943,
+        "startChar": 27,
+        "endLine": 943,
+        "endChar": 67
+      },
+      "revId": "113df70069977c092fc4cd539b3963efb8bb12ab",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "bbed5544_32249d77",
+        "filename": "modules/congestion_controller/goog_cc/loss_based_bwe_v2_test.cc",
+        "patchSetId": 10
+      },
+      "lineNbr": 971,
+      "author": {
+        "id": 5578
+      },
+      "writtenOn": "2022-05-09T09:31:10Z",
+      "side": 1,
+      "message": "So in prod- LossBasedBweV2::SetBandwidthEstimate is only called during initialization for setting the initial lost based estimate?\n\nHave you read https://engdoc.corp.google.com/eng/doc/devguide/testing/unit/best-practices.md?cl\u003dhead\u0026polyglot\u003dcpp#structure ? \narrange, act, assert. \nTo help the reader maybe, try to follow that.\nSetting the initial bitrate and acked bitrate can be done in the act part. \nNo need to duplicate the test for setting up a low acked rate and later set a higher acked rate. \n\nTry to focus the tests a bit.\nYou have repeated test lines 973 - 988 in three tests. Can that part be a separate test and you dont need to repeat it in the other rests?",
+      "range": {
+        "startLine": 971,
+        "startChar": 33,
+        "endLine": 971,
+        "endChar": 53
+      },
+      "revId": "113df70069977c092fc4cd539b3963efb8bb12ab",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

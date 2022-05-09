@@ -26,6 +26,29 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "5e1ba947_20b931ef",
+        "filename": "modules/congestion_controller/goog_cc/loss_based_bwe_v2.cc",
+        "patchSetId": 10
+      },
+      "lineNbr": 616,
+      "author": {
+        "id": 5578
+      },
+      "writtenOn": "2022-05-09T16:13:22Z",
+      "side": 1,
+      "message": "This is what was intended to be used for not ramping up too quick. \nDid you consider tweaking this value? Currently I think config_-\u003erampup_acceleration_max_factor is set to 10000 in the experiment config.",
+      "range": {
+        "startLine": 616,
+        "startChar": 17,
+        "endLine": 616,
+        "endChar": 37
+      },
+      "revId": "113df70069977c092fc4cd539b3963efb8bb12ab",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "1ccbfc7b_a933a1d1",
         "filename": "modules/congestion_controller/goog_cc/loss_based_bwe_v2_test.cc",
         "patchSetId": 10

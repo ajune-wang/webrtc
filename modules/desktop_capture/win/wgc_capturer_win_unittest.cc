@@ -491,7 +491,7 @@ TEST_F(WgcCapturerWindowTest, MinimizeWindowMidCapture) {
 
   // Minmize the window and capture should continue but return temporary errors.
   MinimizeTestWindow(window_info_.hwnd);
-  for (int i = 0; i < 10; ++i) {
+  for (int i = 0; i < 5; ++i) {
     capturer_->CaptureFrame();
     EXPECT_EQ(result_, DesktopCapturer::Result::ERROR_TEMPORARY);
   }
@@ -527,10 +527,12 @@ TEST_F(WgcCapturerWindowTest, CloseWindowMidCapture) {
     SleepMs(1);
   }
 
-  // Occasionally, one last frame will have made it into the frame pool before
-  // the window closed. The first call will consume it, and in that case we need
-  // to make one more call to CaptureFrame.
+  // The frame pool can buffer `kNumBuffers` (2) frames. We must consume these
+  // and then make one more call to CaptureFrame before we expect to see the
+  // failure.
   capturer_->CaptureFrame();
+  if (result_ == DesktopCapturer::Result::SUCCESS)
+    capturer_->CaptureFrame();
   if (result_ == DesktopCapturer::Result::SUCCESS)
     capturer_->CaptureFrame();
 

@@ -34,6 +34,24 @@
       "parentUuid": "34c43deb_aa04d4ee",
       "revId": "e1f7dacb81b2e8f1f72dc08a60586b39a3671d7f",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "1dd6d34d_08fd8091",
+        "filename": "pc/proxy.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 97,
+      "author": {
+        "id": 7641
+      },
+      "writtenOn": "2022-05-09T12:59:07Z",
+      "side": 1,
+      "message": "I\u0027ll look it up. It compiles on MacOS.",
+      "parentUuid": "f0b19834_b9acf687",
+      "revId": "e1f7dacb81b2e8f1f72dc08a60586b39a3671d7f",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

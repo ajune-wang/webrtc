@@ -70,6 +70,24 @@
       "parentUuid": "04701a80_22d1440b",
       "revId": "6d5a240f7eec430b2f97a7acadcb34be6422674c",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "bc411efb_4a96ffd4",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5531
+      },
+      "writtenOn": "2022-05-09T15:09:07Z",
+      "side": 1,
+      "message": "I\u0027m thinking about stuff like assuming the wrong signedness on a char or assuming other properties of the multiplication. Might be less likely, but in general I\u0027d consider extracting raw bytes and using them directly a bit of a code smell anyway, forcing an explicit conversion can provide some useful documentation there. Even using size_t is slightly questionable in the general case as it\u0027s reasy to get signedness wrong, but for multiplication I would in general assume positive input anyway and there\u0027s a pretty good use case as you suggested, making it the more ergonomical choice to allow.",
+      "parentUuid": "e63da884_5aa70320",
+      "revId": "6d5a240f7eec430b2f97a7acadcb34be6422674c",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

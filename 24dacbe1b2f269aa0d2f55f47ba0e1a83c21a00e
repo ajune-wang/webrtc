@@ -1,0 +1,44 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "7407e00c_083d55ff",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 4
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2022-05-09T07:56:48Z",
+      "side": 1,
+      "message": "I don\u0027t know the details of the receive side cc processing. Stefan, can you have a look?",
+      "revId": "24dacbe1b2f269aa0d2f55f47ba0e1a83c21a00e",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "b3e1c2d0_24b5826c",
+        "filename": "call/call.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 1673,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2022-05-09T07:56:48Z",
+      "side": 1,
+      "message": "Here, we use receive_side_cc_ for audio packets, probably for sending acks with transport-wide sequence numbers.",
+      "range": {
+        "startLine": 1673,
+        "startChar": 4,
+        "endLine": 1673,
+        "endChar": 20
+      },
+      "revId": "24dacbe1b2f269aa0d2f55f47ba0e1a83c21a00e",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

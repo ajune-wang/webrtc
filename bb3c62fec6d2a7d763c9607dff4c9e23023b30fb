@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "29dde948_63bedc10",
+        "filename": "call/call.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 1012,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2022-05-09T07:56:48Z",
+      "side": 0,
+      "message": "It\u0027s not clear to me exactly what receive_side_cc is doing for audio.",
+      "range": {
+        "startLine": 1012,
+        "startChar": 2,
+        "endLine": 1012,
+        "endChar": 18
+      },
+      "revId": "bb3c62fec6d2a7d763c9607dff4c9e23023b30fb",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

@@ -16,6 +16,40 @@
       "message": "Adding hta@ for rtc_event_log_parser.cc.",
       "revId": "434ce3093984393abffa19590e6579de9296335a",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "498909ea_33053142",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2022-05-09T13:34:32Z",
+      "side": 1,
+      "message": "Puzzled by one change that seems to be unrelated to subject of CL.\n",
+      "revId": "434ce3093984393abffa19590e6579de9296335a",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "6c276b79_2eff7541",
+        "filename": "logging/rtc_event_log/rtc_event_log_parser.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 1642,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2022-05-09T13:34:32Z",
+      "side": 1,
+      "message": "Does Parse() in fact write to the buffer? If not, what\u0027s the point of the copy?\n(it ought to be cheap, but should still have a reason)",
+      "revId": "434ce3093984393abffa19590e6579de9296335a",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "c96f7d3a_1ff2204b",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 18474
+      },
+      "writtenOn": "2022-05-09T17:22:09Z",
+      "side": 1,
+      "message": "Mirko, can you PTAL at this merge to M102?",
+      "revId": "28c2f67ca02c8fd19720283e343deb6e9d041e6f",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

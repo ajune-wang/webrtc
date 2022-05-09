@@ -24,6 +24,30 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "71bf8668_0a455345",
+        "filename": "modules/congestion_controller/goog_cc/loss_based_bwe_v2.cc",
+        "patchSetId": 10
+      },
+      "lineNbr": 245,
+      "author": {
+        "id": 19004
+      },
+      "writtenOn": "2022-05-09T21:02:31Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "992529ee_8123c03d",
+      "range": {
+        "startLine": 245,
+        "startChar": 17,
+        "endLine": 245,
+        "endChar": 37
+      },
+      "revId": "113df70069977c092fc4cd539b3963efb8bb12ab",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "5e1ba947_20b931ef",
@@ -37,6 +61,30 @@
       "writtenOn": "2022-05-09T16:13:22Z",
       "side": 1,
       "message": "This is what was intended to be used for not ramping up too quick. \nDid you consider tweaking this value? Currently I think config_-\u003erampup_acceleration_max_factor is set to 10000 in the experiment config.",
+      "range": {
+        "startLine": 616,
+        "startChar": 17,
+        "endLine": 616,
+        "endChar": 37
+      },
+      "revId": "113df70069977c092fc4cd539b3963efb8bb12ab",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "ebdc7ffd_2a4e9854",
+        "filename": "modules/congestion_controller/goog_cc/loss_based_bwe_v2.cc",
+        "patchSetId": 10
+      },
+      "lineNbr": 616,
+      "author": {
+        "id": 19004
+      },
+      "writtenOn": "2022-05-09T21:02:31Z",
+      "side": 1,
+      "message": "Ack.\n\n10000 is for bandwidth_rampup_upper_bound_factor, and this rampup_acceleration_max_factor is 0. Tweaking this can result in slow ramping up when probing, which is not the thing we want. What we want is to allow ramping quickly if it is probing, and slowly after loss.",
+      "parentUuid": "5e1ba947_20b931ef",
       "range": {
         "startLine": 616,
         "startChar": 17,
@@ -70,6 +118,30 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "17e2887c_52879b5f",
+        "filename": "modules/congestion_controller/goog_cc/loss_based_bwe_v2_test.cc",
+        "patchSetId": 10
+      },
+      "lineNbr": 663,
+      "author": {
+        "id": 19004
+      },
+      "writtenOn": "2022-05-09T21:02:31Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "1ccbfc7b_a933a1d1",
+      "range": {
+        "startLine": 663,
+        "startChar": 15,
+        "endLine": 663,
+        "endChar": 32
+      },
+      "revId": "113df70069977c092fc4cd539b3963efb8bb12ab",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "457c4f0a_b96a9bdb",
@@ -83,6 +155,30 @@
       "writtenOn": "2022-05-09T09:31:10Z",
       "side": 1,
       "message": "IncreaseToDelayBasedEstimateIfNoLossOrDelayIncrease ?",
+      "range": {
+        "startLine": 769,
+        "startChar": 27,
+        "endLine": 769,
+        "endChar": 55
+      },
+      "revId": "113df70069977c092fc4cd539b3963efb8bb12ab",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "8c6db8fa_158b4933",
+        "filename": "modules/congestion_controller/goog_cc/loss_based_bwe_v2_test.cc",
+        "patchSetId": 10
+      },
+      "lineNbr": 769,
+      "author": {
+        "id": 19004
+      },
+      "writtenOn": "2022-05-09T21:02:31Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "457c4f0a_b96a9bdb",
       "range": {
         "startLine": 769,
         "startChar": 27,
@@ -139,6 +235,54 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "e4f522b9_1bc7235d",
+        "filename": "modules/congestion_controller/goog_cc/loss_based_bwe_v2_test.cc",
+        "patchSetId": 10
+      },
+      "lineNbr": 906,
+      "author": {
+        "id": 19004
+      },
+      "writtenOn": "2022-05-09T21:02:31Z",
+      "side": 1,
+      "message": "Ack.\n\nThe delay based estimate is a candidate, and not a bound. The acked bitrate is a bound in this case since the bandwidth_rampup_upper_bound_factor is 1.1 by default (not 100000).",
+      "parentUuid": "67b3637e_f4dbae29",
+      "range": {
+        "startLine": 906,
+        "startChar": 61,
+        "endLine": 906,
+        "endChar": 64
+      },
+      "revId": "113df70069977c092fc4cd539b3963efb8bb12ab",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "25ff2afc_7203c815",
+        "filename": "modules/congestion_controller/goog_cc/loss_based_bwe_v2_test.cc",
+        "patchSetId": 10
+      },
+      "lineNbr": 906,
+      "author": {
+        "id": 19004
+      },
+      "writtenOn": "2022-05-09T21:02:31Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "d347c0ba_f258a464",
+      "range": {
+        "startLine": 906,
+        "startChar": 21,
+        "endLine": 906,
+        "endChar": 27
+      },
+      "revId": "113df70069977c092fc4cd539b3963efb8bb12ab",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "7771c15d_f2e51eae",
@@ -152,6 +296,30 @@
       "writtenOn": "2022-05-09T09:31:10Z",
       "side": 1,
       "message": "Can you maybe change this comment to instead explain why the estimate is this low? \nI see from the EXPECT_EQ what it expect. But I dont understand why you expect that.",
+      "range": {
+        "startLine": 918,
+        "startChar": 36,
+        "endLine": 918,
+        "endChar": 53
+      },
+      "revId": "113df70069977c092fc4cd539b3963efb8bb12ab",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "50aa3885_7244c1a0",
+        "filename": "modules/congestion_controller/goog_cc/loss_based_bwe_v2_test.cc",
+        "patchSetId": 10
+      },
+      "lineNbr": 918,
+      "author": {
+        "id": 19004
+      },
+      "writtenOn": "2022-05-09T21:02:31Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "7771c15d_f2e51eae",
       "range": {
         "startLine": 918,
         "startChar": 36,
@@ -185,6 +353,30 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "eee1adc2_2de1f999",
+        "filename": "modules/congestion_controller/goog_cc/loss_based_bwe_v2_test.cc",
+        "patchSetId": 10
+      },
+      "lineNbr": 935,
+      "author": {
+        "id": 19004
+      },
+      "writtenOn": "2022-05-09T21:02:31Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "7532f35e_1181fb14",
+      "range": {
+        "startLine": 935,
+        "startChar": 68,
+        "endLine": 935,
+        "endChar": 71
+      },
+      "revId": "113df70069977c092fc4cd539b3963efb8bb12ab",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "c5621e01_4aac07a6",
@@ -208,6 +400,30 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "c8c3ee99_853afd85",
+        "filename": "modules/congestion_controller/goog_cc/loss_based_bwe_v2_test.cc",
+        "patchSetId": 10
+      },
+      "lineNbr": 943,
+      "author": {
+        "id": 19004
+      },
+      "writtenOn": "2022-05-09T21:02:31Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "c5621e01_4aac07a6",
+      "range": {
+        "startLine": 943,
+        "startChar": 27,
+        "endLine": 943,
+        "endChar": 67
+      },
+      "revId": "113df70069977c092fc4cd539b3963efb8bb12ab",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "bbed5544_32249d77",
@@ -221,6 +437,30 @@
       "writtenOn": "2022-05-09T09:31:10Z",
       "side": 1,
       "message": "So in prod- LossBasedBweV2::SetBandwidthEstimate is only called during initialization for setting the initial lost based estimate?\n\nHave you read https://engdoc.corp.google.com/eng/doc/devguide/testing/unit/best-practices.md?cl\u003dhead\u0026polyglot\u003dcpp#structure ? \narrange, act, assert. \nTo help the reader maybe, try to follow that.\nSetting the initial bitrate and acked bitrate can be done in the act part. \nNo need to duplicate the test for setting up a low acked rate and later set a higher acked rate. \n\nTry to focus the tests a bit.\nYou have repeated test lines 973 - 988 in three tests. Can that part be a separate test and you dont need to repeat it in the other rests?",
+      "range": {
+        "startLine": 971,
+        "startChar": 33,
+        "endLine": 971,
+        "endChar": 53
+      },
+      "revId": "113df70069977c092fc4cd539b3963efb8bb12ab",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "9a234854_6d8452d0",
+        "filename": "modules/congestion_controller/goog_cc/loss_based_bwe_v2_test.cc",
+        "patchSetId": 10
+      },
+      "lineNbr": 971,
+      "author": {
+        "id": 19004
+      },
+      "writtenOn": "2022-05-09T21:02:31Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "bbed5544_32249d77",
       "range": {
         "startLine": 971,
         "startChar": 33,

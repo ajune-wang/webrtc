@@ -510,7 +510,12 @@ const int64_t kNanosecondsPerSecond = 1000000000;
     [_captureSession removeInput:oldInput];
   }
   if ([_captureSession canAddInput:input]) {
-    [_captureSession addInput:input];
+    // Despite what the docs say we've seen crashes here.
+    @try {
+      [_captureSession addInput:input];
+    } @catch (NSException *exception) {
+      RTCLogError(@"Cannot add camera as an input to the session: %@", exception.userInfo);
+    }
   } else {
     RTCLogError(@"Cannot add camera as an input to the session.");
   }

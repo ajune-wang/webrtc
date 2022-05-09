@@ -30,6 +30,7 @@
 #include "modules/video_coding/codecs/interface/common_constants.h"
 #include "modules/video_coding/codecs/vp8/include/vp8.h"
 #include "modules/video_coding/include/video_error_codes.h"
+#include "modules/video_coding/svc/scalability_mode_util.h"
 #include "modules/video_coding/utility/simulcast_rate_allocator.h"
 #include "modules/video_coding/utility/simulcast_utility.h"
 #include "rtc_base/checks.h"
@@ -482,7 +483,15 @@ int LibvpxVp8Encoder::InitEncode(const VideoCodec* inst,
     frame_buffer_controller_ =
         factory.Create(*inst, settings, fec_controller_override_);
   }
-  RTC_DCHECK(frame_buffer_controller_);
+  if (!frame_buffer_controller_) {
+    absl::optional<ScalabilityMode> scalability_mode =
+        inst->GetScalabilityMode();
+    RTC_LOG(LS_WARNING) << "Failed to set scalability mode "
+                        << (scalability_mode
+                                ? ScalabilityModeToString(*scalability_mode)
+                                : "unspecified");
+    return WEBRTC_VIDEO_CODEC_ERR_PARAMETER;
+  }
 
   number_of_cores_ = settings.number_of_cores;
   timestamp_ = 0;

@@ -33,6 +33,24 @@
       "message": "Hi Saúl, thanks for the patch!\n\nI wonder if this is actually due to a race-condition where the captureSession is being reset or reconfigured on a different thread, and we end up calling `addInput` on a different capture session than `canAddInput`? I haven\u0027t looked closely, but this might be an explanation.\n\nAn easy way to verify would be to assign `_captureSession` to a local variable in the method instead, and see if the crashes disappear.\n\nIn general, we try very hard to avoid try/catch whenever possible and instead find the root cause of the exception to stop it happening in the first place. Of course, this isn\u0027t always possible, but I want us to eliminate all other possibilities first.\n",
       "revId": "2f693c6e205625aee137fe55334caff1f95c14d7",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "2fda3504_3276d277",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 15079
+      },
+      "writtenOn": "2022-05-09T12:48:21Z",
+      "side": 1,
+      "message": "Good point, I asked myself the same :-) We are not calling that API directly, we just call `startCaptureWithDevice:format:fps:completionHandler:` and I see that it internally dispatches the call to the `RTCDispatcherTypeCaptureSession` queue.\n\nI don\u0027t see any obvious code paths in WebRTC leading to changes to `_captureSession` from multiple threads, that\u0027s why I suspect the docs might not be accurate.",
+      "parentUuid": "b3a2c73b_78685141",
+      "revId": "2f693c6e205625aee137fe55334caff1f95c14d7",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

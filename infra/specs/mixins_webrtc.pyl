@@ -60,6 +60,12 @@
         'iPhone X',
         '--version',
         '12.4',
+        '--env-var',
+        'GTEST_TOTAL_SHARDS',
+        '${GTEST_TOTAL_SHARDS}',
+        '--env-var',
+        'GTEST_SHARD_INDEX',
+        '${GTEST_SHARD_INDEX}',
       ],
       'swarming': {
         'named_caches': [
@@ -78,6 +84,12 @@
         'iPhone X',
         '--version',
         '13.6',
+        '--env-var',
+        'GTEST_TOTAL_SHARDS',
+        '${GTEST_TOTAL_SHARDS}',
+        '--env-var',
+        'GTEST_SHARD_INDEX',
+        '${GTEST_SHARD_INDEX}',
       ],
       'swarming': {
         'named_caches': [
@@ -96,6 +108,12 @@
         'iPhone X',
         '--version',
         '14.0',
+        '--env-var',
+        'GTEST_TOTAL_SHARDS',
+        '${GTEST_TOTAL_SHARDS}',
+        '--env-var',
+        'GTEST_SHARD_INDEX',
+        '${GTEST_SHARD_INDEX}',
       ],
       'swarming': {
         'named_caches': [
@@ -203,6 +221,21 @@
     'resultdb': {
       'result_format': 'json'
     }
+  },
+  'shards-2': {
+    'swarming': {
+      'shards': 2,
+    },
+  },
+  'shards-4': {
+    'swarming': {
+      'shards': 4,
+    },
+  },
+  'shards-6': {
+    'swarming': {
+      'shards': 6,
+    },
   },
   'shamu': {
     'swarming': {

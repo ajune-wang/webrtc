@@ -16,6 +16,7 @@
 #include <vector>
 
 #include "absl/algorithm/container.h"
+#include "absl/strings/match.h"
 #include "api/video_codecs/video_encoder.h"
 #include "api/video_codecs/video_encoder_factory.h"
 #include "modules/video_coding/svc/scalability_mode_util.h"
@@ -64,7 +65,12 @@ class VideoEncoderFactoryTemplate : public VideoEncoderFactory {
  private:
   template <typename V>
   bool IsFormatSupported(const SdpVideoFormat& format) const {
-    return absl::c_count(V::SupportedFormats(), format) > 0;
+    return absl::c_any_of(
+        V::SupportedFormats(),
+        [&format](const SdpVideoFormat& supported_format) {
+          return absl::EqualsIgnoreCase(supported_format.name, format.name) &&
+                 supported_format.parameters == format.parameters;
+        });
   }
 
   template <typename V>

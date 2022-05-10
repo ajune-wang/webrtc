@@ -123,6 +123,12 @@ TEST(VideoEncoderFactoryTemplate, TwoTemplateAdaptersCodecSupport) {
               Field(&CodecSupport::is_supported, false));
 }
 
+TEST(VideoEncoderFactoryTemplate, NameMatchingIsCaseInsensitive) {
+  VideoEncoderFactoryTemplate<FooEncoderTemplateAdapter> factory;
+  EXPECT_THAT(factory.CreateVideoEncoder(SdpVideoFormat("Foo")), Ne(nullptr));
+  EXPECT_THAT(factory.CreateVideoEncoder(SdpVideoFormat("fOO")), Ne(nullptr));
+}
+
 TEST(VideoEncoderFactoryTemplate, LibvpxVp8) {
   VideoEncoderFactoryTemplate<LibvpxVp8EncoderTemplateAdapter> factory;
   const SdpVideoFormat kVp8Sdp("VP8");

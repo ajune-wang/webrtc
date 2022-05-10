@@ -438,6 +438,12 @@ class WebRtcVideoChannel : public VideoMediaChannel,
         const webrtc::FlexfecReceiveStream::Config& flexfec_config);
     ~WebRtcVideoReceiveStream();
 
+    // The video receive stream should always be valid, so return type is a
+    // reference.
+    webrtc::VideoReceiveStream& stream();
+    // Return value may be nullptr.
+    webrtc::FlexfecReceiveStream* flexfec_stream();
+
     const std::vector<uint32_t>& GetSsrcs() const;
 
     std::vector<webrtc::RtpSource> GetSources();
@@ -478,7 +484,7 @@ class WebRtcVideoChannel : public VideoMediaChannel,
             frame_transformer);
 
    private:
-    void RecreateWebRtcVideoStream();
+    void RecreateReceiveStream();
 
     // Applies a new receive codecs configration to `config_`. Returns true
     // if the internal stream needs to be reconstructed, or false if no changes

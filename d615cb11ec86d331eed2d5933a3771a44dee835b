@@ -201,6 +201,30 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "28cfea6b_3ed996aa",
+        "filename": "modules/video_coding/svc/scalability_mode_util.cc",
+        "patchSetId": 8
+      },
+      "lineNbr": 96,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2022-05-10T07:59:31Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "628f9c51_8d6c1ed5",
+      "range": {
+        "startLine": 96,
+        "startChar": 4,
+        "endLine": 96,
+        "endChar": 38
+      },
+      "revId": "d615cb11ec86d331eed2d5933a3771a44dee835b",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "001f8171_3092a3e2",
@@ -356,6 +380,30 @@
       "writtenOn": "2022-05-03T09:08:20Z",
       "side": 1,
       "message": "Perhaps all TestTemporalLayers* tests could also be configured via scalability_mode (e.g. {kL1T3, kL1T1}).",
+      "range": {
+        "startLine": 4128,
+        "startChar": 28,
+        "endLine": 4128,
+        "endChar": 46
+      },
+      "revId": "d615cb11ec86d331eed2d5933a3771a44dee835b",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "9f5a1931_9a7330f8",
+        "filename": "video/video_send_stream_tests.cc",
+        "patchSetId": 8
+      },
+      "lineNbr": 4128,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2022-05-10T07:59:31Z",
+      "side": 1,
+      "message": "Done, should have now have same coverage as the previous temporal layers tests.",
+      "parentUuid": "882b26bf_82bbdd5a",
       "range": {
         "startLine": 4128,
         "startChar": 28,

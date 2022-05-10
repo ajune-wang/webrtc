@@ -99,7 +99,9 @@
           "--xcode-build-version",
           "13c100",
           "--out-dir",
-          "${ISOLATED_OUTDIR}"
+          "${ISOLATED_OUTDIR}",
+          "--args-json",
+          "{\"env_var\": [\"GTEST_TOTAL_SHARDS=${GTEST_TOTAL_SHARDS}\", \"GTEST_SHARD_INDEX=${GTEST_SHARD_INDEX}\"]}"
         ],
         "isolate_name": "modules_tests",
         "merge": {
@@ -134,7 +136,8 @@
               "path": "Xcode.app"
             }
           ],
-          "service_account": "chrome-tester@chops-service-accounts.iam.gserviceaccount.com"
+          "service_account": "chrome-tester@chops-service-accounts.iam.gserviceaccount.com",
+          "shards": 2
         },
         "test_id_prefix": "ninja://modules:modules_tests/"
       },
@@ -145,7 +148,9 @@
           "--xcode-build-version",
           "13c100",
           "--out-dir",
-          "${ISOLATED_OUTDIR}"
+          "${ISOLATED_OUTDIR}",
+          "--args-json",
+          "{\"env_var\": [\"GTEST_TOTAL_SHARDS=${GTEST_TOTAL_SHARDS}\", \"GTEST_SHARD_INDEX=${GTEST_SHARD_INDEX}\"]}"
         ],
         "isolate_name": "modules_unittests",
         "merge": {
@@ -178,7 +183,8 @@
               "path": "Xcode.app"
             }
           ],
-          "service_account": "chrome-tester@chops-service-accounts.iam.gserviceaccount.com"
+          "service_account": "chrome-tester@chops-service-accounts.iam.gserviceaccount.com",
+          "shards": 6
         },
         "test_id_prefix": "ninja://modules:modules_unittests/"
       },
@@ -453,7 +459,9 @@
           "--xcode-build-version",
           "13c100",
           "--out-dir",
-          "${ISOLATED_OUTDIR}"
+          "${ISOLATED_OUTDIR}",
+          "--args-json",
+          "{\"env_var\": [\"GTEST_TOTAL_SHARDS=${GTEST_TOTAL_SHARDS}\", \"GTEST_SHARD_INDEX=${GTEST_SHARD_INDEX}\"]}"
         ],
         "isolate_name": "video_engine_tests",
         "merge": {
@@ -486,7 +494,8 @@
               "path": "Xcode.app"
             }
           ],
-          "service_account": "chrome-tester@chops-service-accounts.iam.gserviceaccount.com"
+          "service_account": "chrome-tester@chops-service-accounts.iam.gserviceaccount.com",
+          "shards": 4
         },
         "test_id_prefix": "ninja://:video_engine_tests/"
       }
@@ -646,7 +655,9 @@
           "--xcode-build-version",
           "13c100",
           "--out-dir",
-          "${ISOLATED_OUTDIR}"
+          "${ISOLATED_OUTDIR}",
+          "--args-json",
+          "{\"env_var\": [\"GTEST_TOTAL_SHARDS=${GTEST_TOTAL_SHARDS}\", \"GTEST_SHARD_INDEX=${GTEST_SHARD_INDEX}\"]}"
         ],
         "isolate_name": "modules_tests",
         "merge": {
@@ -681,7 +692,8 @@
               "path": "Xcode.app"
             }
           ],
-          "service_account": "chrome-tester@chops-service-accounts.iam.gserviceaccount.com"
+          "service_account": "chrome-tester@chops-service-accounts.iam.gserviceaccount.com",
+          "shards": 2
         },
         "test_id_prefix": "ninja://modules:modules_tests/"
       },
@@ -692,7 +704,9 @@
           "--xcode-build-version",
           "13c100",
           "--out-dir",
-          "${ISOLATED_OUTDIR}"
+          "${ISOLATED_OUTDIR}",
+          "--args-json",
+          "{\"env_var\": [\"GTEST_TOTAL_SHARDS=${GTEST_TOTAL_SHARDS}\", \"GTEST_SHARD_INDEX=${GTEST_SHARD_INDEX}\"]}"
         ],
         "isolate_name": "modules_unittests",
         "merge": {
@@ -725,7 +739,8 @@
               "path": "Xcode.app"
             }
           ],
-          "service_account": "chrome-tester@chops-service-accounts.iam.gserviceaccount.com"
+          "service_account": "chrome-tester@chops-service-accounts.iam.gserviceaccount.com",
+          "shards": 6
         },
         "test_id_prefix": "ninja://modules:modules_unittests/"
       },
@@ -1000,7 +1015,9 @@
           "--xcode-build-version",
           "13c100",
           "--out-dir",
-          "${ISOLATED_OUTDIR}"
+          "${ISOLATED_OUTDIR}",
+          "--args-json",
+          "{\"env_var\": [\"GTEST_TOTAL_SHARDS=${GTEST_TOTAL_SHARDS}\", \"GTEST_SHARD_INDEX=${GTEST_SHARD_INDEX}\"]}"
         ],
         "isolate_name": "video_engine_tests",
         "merge": {
@@ -1033,7 +1050,8 @@
               "path": "Xcode.app"
             }
           ],
-          "service_account": "chrome-tester@chops-service-accounts.iam.gserviceaccount.com"
+          "service_account": "chrome-tester@chops-service-accounts.iam.gserviceaccount.com",
+          "shards": 4
         },
         "test_id_prefix": "ninja://:video_engine_tests/"
       }

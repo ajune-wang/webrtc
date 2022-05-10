@@ -261,6 +261,29 @@
       }
     }
   },
+  'shards-2': {
+    'swarming': {
+      'shards': 2
+    }
+  },
+  'shards-4': {
+    'swarming': {
+      'shards': 4
+    }
+  },
+  'shards-6': {
+    'swarming': {
+      'shards': 6
+    }
+  },
+  'shards-ios': {
+    '$mixin_append': {
+      'args': [
+        '--args-json',
+        '{"env_var": ["GTEST_TOTAL_SHARDS=${GTEST_TOTAL_SHARDS}", "GTEST_SHARD_INDEX=${GTEST_SHARD_INDEX}"]}'
+      ]
+    }
+  },
   'timeout-2h': {
     'swarming': {
       'hard_timeout': 7200,

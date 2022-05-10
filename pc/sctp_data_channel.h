@@ -131,6 +131,13 @@ class SctpDataChannel : public DataChannelInterface,
   static rtc::scoped_refptr<DataChannelInterface> CreateProxy(
       rtc::scoped_refptr<SctpDataChannel> channel);
 
+  // Invalidate the link to the provider (DataChannelController);
+  // Note: `Provider` is used in two meanings in this file -
+  // connected_to_provider_ and DisconnectFromProvider() refer to
+  // the connection to a live transport; provider_ and DetachFromProvider()
+  // refer to the controller that manages the datachannels.
+  void DetachFromProvider();
+
   void RegisterObserver(DataChannelObserver* observer) override;
   void UnregisterObserver() override;
 
@@ -268,6 +275,7 @@ class SctpDataChannel : public DataChannelInterface,
   uint64_t bytes_received_ RTC_GUARDED_BY(signaling_thread_) = 0;
   SctpDataChannelProviderInterface* const provider_
       RTC_GUARDED_BY(signaling_thread_);
+  bool provider_detached_ RTC_GUARDED_BY(signaling_thread_) = false;
   HandshakeState handshake_state_ RTC_GUARDED_BY(signaling_thread_) =
       kHandshakeInit;
   bool connected_to_provider_ RTC_GUARDED_BY(signaling_thread_) = false;
@@ -280,6 +288,11 @@ class SctpDataChannel : public DataChannelInterface,
   PacketQueue queued_received_data_ RTC_GUARDED_BY(signaling_thread_);
   PacketQueue queued_send_data_ RTC_GUARDED_BY(signaling_thread_);
 };
+
+// Downcast a PeerConnectionInterface that points to a proxy object
+// to its underlying SctpDataChannel object. For testing only.
+SctpDataChannel* DowncastProxiedDataChannelInterfaceToSctpDataChannelForTesting(
+    DataChannelInterface* channel);
 
 }  // namespace webrtc
 

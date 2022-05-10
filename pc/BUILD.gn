@@ -2524,6 +2524,7 @@ if (rtc_include_tests && !build_with_chromium) {
       ":data_channel_controller",
       ":pc_test_utils",
       ":peer_connection_internal",
+      ":sctp_data_channel",
       "../test:test_support",
     ]
   }

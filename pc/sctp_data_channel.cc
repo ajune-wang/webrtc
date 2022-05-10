@@ -178,6 +178,11 @@ SctpDataChannel::SctpDataChannel(const InternalDataChannelInit& config,
   RTC_UNUSED(network_thread_);
 }
 
+void SctpDataChannel::DetachFromProvider() {
+  RTC_DCHECK_RUN_ON(signaling_thread_);
+  provider_detached_ = true;
+}
+
 bool SctpDataChannel::Init() {
   RTC_DCHECK_RUN_ON(signaling_thread_);
   if (config_.id < -1 ||
@@ -214,6 +219,7 @@ bool SctpDataChannel::Init() {
   // This has to be done async because the upper layer objects (e.g.
   // Chrome glue and WebKit) are not wired up properly until after this
   // function returns.
+  RTC_DCHECK(!provider_detached_);
   if (provider_->ReadyToSendData()) {
     AddRef();
     rtc::Thread::Current()->PostTask(ToQueuedTask(
@@ -330,6 +336,7 @@ void SctpDataChannel::SetSctpSid(int sid) {
   }
 
   const_cast<InternalDataChannelInit&>(config_).id = sid;
+  RTC_DCHECK(!provider_detached_);
   provider_->AddSctpDataStream(sid);
 }
 
@@ -363,6 +370,9 @@ void SctpDataChannel::OnClosingProcedureComplete(int sid) {
 
 void SctpDataChannel::OnTransportChannelCreated() {
   RTC_DCHECK_RUN_ON(signaling_thread_);
+  if (provider_detached_) {
+    return;
+  }
   if (!connected_to_provider_) {
     connected_to_provider_ = provider_->ConnectDataChannel(this);
   }
@@ -535,7 +545,7 @@ void SctpDataChannel::UpdateState() {
         // OnClosingProcedureComplete will end up called asynchronously
         // afterwards.
         if (connected_to_provider_ && !started_closing_procedure_ &&
-            config_.id >= 0) {
+            !provider_detached_ && config_.id >= 0) {
           started_closing_procedure_ = true;
           provider_->RemoveSctpDataStream(config_.id);
         }
@@ -566,7 +576,7 @@ void SctpDataChannel::SetState(DataState state) {
 
 void SctpDataChannel::DisconnectFromProvider() {
   RTC_DCHECK_RUN_ON(signaling_thread_);
-  if (!connected_to_provider_)
+  if (!connected_to_provider_ || provider_detached_)
     return;
 
   provider_->DisconnectDataChannel(this);
@@ -609,6 +619,9 @@ bool SctpDataChannel::SendDataMessage(const DataBuffer& buffer,
                                       bool queue_if_blocked) {
   RTC_DCHECK_RUN_ON(signaling_thread_);
   SendDataParams send_params;
+  if (provider_detached_) {
+    return false;
+  }
 
   send_params.ordered = config_.ordered;
   // Send as ordered if it is still going through OPEN/ACK signaling.
@@ -688,6 +701,9 @@ bool SctpDataChannel::SendControlMessage(const rtc::CopyOnWriteBuffer& buffer) {
   RTC_DCHECK(writable_);
   RTC_DCHECK_GE(config_.id, 0);
 
+  if (provider_detached_) {
+    return false;
+  }
   bool is_open_message = handshake_state_ == kHandshakeShouldSendOpen;
   RTC_DCHECK(!is_open_message || !config_.negotiated);
 
@@ -724,6 +740,12 @@ bool SctpDataChannel::SendControlMessage(const rtc::CopyOnWriteBuffer& buffer) {
 // static
 void SctpDataChannel::ResetInternalIdAllocatorForTesting(int new_value) {
   g_unique_id = new_value;
+}
+
+SctpDataChannel* DowncastProxiedDataChannelInterfaceToSctpDataChannelForTesting(
+    DataChannelInterface* channel) {
+  return static_cast<SctpDataChannel*>(
+      static_cast<DataChannelProxy*>(channel)->internal());
 }
 
 }  // namespace webrtc

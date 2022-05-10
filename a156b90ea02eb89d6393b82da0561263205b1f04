@@ -217,6 +217,30 @@
       },
       "revId": "a156b90ea02eb89d6393b82da0561263205b1f04",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "2f0651da_b2df15b0",
+        "filename": "modules/rtp_rtcp/source/rtp_sender_video.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 100,
+      "author": {
+        "id": 18554
+      },
+      "writtenOn": "2022-05-10T00:40:24Z",
+      "side": 0,
+      "message": "If set `rtc_disable_trace_events\u003dtrue`, many \"unused function/variable\" error across different modules.\n\nLet me split current patch into 3 small patches for easier review:\n\n1. Enable all trace categories for internal test, without any changes on \"RTC_TRACE_EVENTS_ENABLED\"\n2. Set `rtc_disable_trace_events\u003dtrue` and fix existing compiling error to pass DryRun.\n3, Base on #2, remove unnecessary \"#if RTC_TRACE_EVENTS_ENABLED\".",
+      "parentUuid": "1c76b5b5_30dbba22",
+      "range": {
+        "startLine": 100,
+        "startChar": 0,
+        "endLine": 100,
+        "endChar": 28
+      },
+      "revId": "a156b90ea02eb89d6393b82da0561263205b1f04",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

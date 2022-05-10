@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "03ccbc67_0e1eed01",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5142
+      },
+      "writtenOn": "2022-05-10T07:38:27Z",
+      "side": 1,
+      "message": "Cleanup of flag, PTAL",
+      "revId": "6827811a1fd08a2fd3571154efd0b614d5dcd08a",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

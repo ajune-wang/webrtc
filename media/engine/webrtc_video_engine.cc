@@ -2996,6 +2996,7 @@ void WebRtcVideoChannel::WebRtcVideoReceiveStream::SetRecvParameters(
     }
   }
   if (params.flexfec_payload_type) {
+    RTC_DCHECK_NE(flexfec_config_.payload_type, *params.flexfec_payload_type);
     flexfec_config_.payload_type = *params.flexfec_payload_type;
     // TODO(tommi): See if it is better to always have a flexfec stream object
     // configured and instead of recreating the video stream, reconfigure the
@@ -3012,6 +3013,9 @@ void WebRtcVideoChannel::WebRtcVideoReceiveStream::SetRecvParameters(
 void WebRtcVideoChannel::WebRtcVideoReceiveStream::RecreateReceiveStream() {
   absl::optional<int> base_minimum_playout_delay_ms;
   absl::optional<webrtc::VideoReceiveStream::RecordingState> recording_state;
+  bool stream_exists = (stream_ != nullptr);
+  bool flexfec_exists = (flexfec_stream_ != nullptr);
+  RTC_DCHECK_EQ(stream_exists, flexfec_exists);
   if (stream_) {
     base_minimum_playout_delay_ms = stream_->GetBaseMinimumPlayoutDelayMs();
     recording_state = stream_->SetAndGetRecordingState(

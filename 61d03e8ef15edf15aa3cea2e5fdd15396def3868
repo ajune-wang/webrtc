@@ -16,6 +16,23 @@
       "message": "Split out from https://webrtc-review.googlesource.com/c/src/+/261620 as suggested.",
       "revId": "61d03e8ef15edf15aa3cea2e5fdd15396def3868",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "4a7162df_42c5d005",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5117
+      },
+      "writtenOn": "2022-05-10T08:47:16Z",
+      "side": 1,
+      "message": "Per, you can RS LGTM this as an owner. This CL is a no-op - just a refactoring, I\u0027ve checked.",
+      "revId": "61d03e8ef15edf15aa3cea2e5fdd15396def3868",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

@@ -1,0 +1,188 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "d94f24db_21229652",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 13
+      },
+      "lineNbr": 7,
+      "author": {
+        "id": 5578
+      },
+      "writtenOn": "2022-05-10T08:54:30Z",
+      "side": 1,
+      "message": "nit add a new line to ensure cl title is shorter.",
+      "range": {
+        "startLine": 7,
+        "startChar": 65,
+        "endLine": 7,
+        "endChar": 72
+      },
+      "revId": "04bcbfd6457b69fe23af0524a81fa0abd9b84114",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "7960cf83_00a33a04",
+        "filename": "modules/congestion_controller/goog_cc/loss_based_bwe_v2_test.cc",
+        "patchSetId": 13
+      },
+      "lineNbr": 136,
+      "author": {
+        "id": 5578
+      },
+      "writtenOn": "2022-05-10T08:54:30Z",
+      "side": 1,
+      "message": "I think you should remove this method. Its confusing",
+      "range": {
+        "startLine": 136,
+        "startChar": 7,
+        "endLine": 136,
+        "endChar": 43
+      },
+      "revId": "04bcbfd6457b69fe23af0524a81fa0abd9b84114",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "8ae69e18_7bf2130d",
+        "filename": "modules/congestion_controller/goog_cc/loss_based_bwe_v2_test.cc",
+        "patchSetId": 13
+      },
+      "lineNbr": 367,
+      "author": {
+        "id": 5578
+      },
+      "writtenOn": "2022-05-10T08:54:30Z",
+      "side": 1,
+      "message": "use your new factory for feedback here too?",
+      "range": {
+        "startLine": 367,
+        "startChar": 15,
+        "endLine": 367,
+        "endChar": 50
+      },
+      "revId": "04bcbfd6457b69fe23af0524a81fa0abd9b84114",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "10e48e3a_109bccfd",
+        "filename": "modules/congestion_controller/goog_cc/loss_based_bwe_v2_test.cc",
+        "patchSetId": 13
+      },
+      "lineNbr": 398,
+      "author": {
+        "id": 5578
+      },
+      "writtenOn": "2022-05-10T08:54:30Z",
+      "side": 1,
+      "message": "This comment is hopefully wrong .\n\nCan you also add a test that shows that its not backing down if we are overusing and there is no loss.",
+      "range": {
+        "startLine": 398,
+        "startChar": 68,
+        "endLine": 398,
+        "endChar": 73
+      },
+      "revId": "04bcbfd6457b69fe23af0524a81fa0abd9b84114",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "0fa4e8a3_3550d617",
+        "filename": "modules/congestion_controller/goog_cc/loss_based_bwe_v2_test.cc",
+        "patchSetId": 13
+      },
+      "lineNbr": 503,
+      "author": {
+        "id": 5578
+      },
+      "writtenOn": "2022-05-10T08:54:30Z",
+      "side": 1,
+      "message": "Do you need to set the send time or that does not matter?",
+      "range": {
+        "startLine": 503,
+        "startChar": 2,
+        "endLine": 503,
+        "endChar": 19
+      },
+      "revId": "04bcbfd6457b69fe23af0524a81fa0abd9b84114",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "4b62ec9c_887b7df9",
+        "filename": "modules/congestion_controller/goog_cc/loss_based_bwe_v2_test.cc",
+        "patchSetId": 13
+      },
+      "lineNbr": 568,
+      "author": {
+        "id": 5578
+      },
+      "writtenOn": "2022-05-10T08:54:30Z",
+      "side": 1,
+      "message": "SHould This be named NoBweIncreaseIf...",
+      "range": {
+        "startLine": 568,
+        "startChar": 7,
+        "endLine": 568,
+        "endChar": 67
+      },
+      "revId": "04bcbfd6457b69fe23af0524a81fa0abd9b84114",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "6e087361_817ef37e",
+        "filename": "modules/congestion_controller/goog_cc/loss_based_bwe_v2_test.cc",
+        "patchSetId": 13
+      },
+      "lineNbr": 596,
+      "author": {
+        "id": 5578
+      },
+      "writtenOn": "2022-05-10T08:54:30Z",
+      "side": 1,
+      "message": "Dito? Its about the no increase right?",
+      "range": {
+        "startLine": 596,
+        "startChar": 7,
+        "endLine": 596,
+        "endChar": 71
+      },
+      "revId": "04bcbfd6457b69fe23af0524a81fa0abd9b84114",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "700b4533_16b2ac2a",
+        "filename": "modules/congestion_controller/goog_cc/loss_based_bwe_v2_test.cc",
+        "patchSetId": 13
+      },
+      "lineNbr": 641,
+      "author": {
+        "id": 5578
+      },
+      "writtenOn": "2022-05-10T08:54:30Z",
+      "side": 1,
+      "message": "Sorry but I think this gets hard to read. Just inline what you need here. I dont understand why this test needs to set SetAcknowledgedBitrate on line 646 and inside SetAcknowledgedBitrate with another value. \n\nI think SetAcknowledgedBitrate just hide what you are trying to do.",
+      "range": {
+        "startLine": 641,
+        "startChar": 2,
+        "endLine": 641,
+        "endChar": 36
+      },
+      "revId": "04bcbfd6457b69fe23af0524a81fa0abd9b84114",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

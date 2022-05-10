@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "9c605c12_dfaf8936",
+        "filename": "modules/congestion_controller/goog_cc/robust_throughput_estimator_unittest.cc",
+        "patchSetId": 14
+      },
+      "lineNbr": 31,
+      "author": {
+        "id": 5578
+      },
+      "writtenOn": "2022-05-10T14:57:18Z",
+      "side": 1,
+      "message": "I guess you always copy values from the pointer.",
+      "range": {
+        "startLine": 31,
+        "startChar": 46,
+        "endLine": 31,
+        "endChar": 52
+      },
+      "revId": "14b12136b382b5dfa6acc983e7dd1bad3ab54379",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

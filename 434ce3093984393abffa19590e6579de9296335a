@@ -50,6 +50,24 @@
       "message": "Does Parse() in fact write to the buffer? If not, what\u0027s the point of the copy?\n(it ought to be cheap, but should still have a reason)",
       "revId": "434ce3093984393abffa19590e6579de9296335a",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "e6aa51a4_e1a8cd36",
+        "filename": "logging/rtc_event_log/rtc_event_log_parser.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 1642,
+      "author": {
+        "id": 10107
+      },
+      "writtenOn": "2022-05-10T09:52:17Z",
+      "side": 1,
+      "message": "The other overloads of Parse() also copy their input so it doesn\u0027t make any difference which overload is called.\n\nFYI, the reason for this change being in this CL is that prior to this CL, the string passed to Parse() would be implicitly converted to a CopyOnWriteBuffer. We\u0027re now making the constructor of CopyOnWriteBuffer explicit (as required by our style guides), so we can\u0027t rely on this implicit conversion anymore.",
+      "parentUuid": "6c276b79_2eff7541",
+      "revId": "434ce3093984393abffa19590e6579de9296335a",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

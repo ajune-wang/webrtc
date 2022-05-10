@@ -38,6 +38,7 @@ class DataChannelController : public SctpDataChannelProviderInterface,
                               public DataChannelSink {
  public:
   explicit DataChannelController(PeerConnectionInternal* pc) : pc_(pc) {}
+  ~DataChannelController();
 
   // Not copyable or movable.
   DataChannelController(DataChannelController&) = delete;

@@ -44,7 +44,7 @@ TEST_F(DataChannelControllerTest, CreateDataChannelEarlyRelease) {
   auto channel = dcc.InternalCreateDataChannelWithProxy(
       "label",
       std::make_unique<InternalDataChannelInit>(DataChannelInit()).get());
-  channel = nullptr;  // Should call destructor of channel
+  channel = nullptr;  // dcc holds a reference to channel, so not destroyed yet
 }
 
 TEST_F(DataChannelControllerTest, CreateDataChannelLateRelease) {
@@ -54,6 +54,17 @@ TEST_F(DataChannelControllerTest, CreateDataChannelLateRelease) {
       std::make_unique<InternalDataChannelInit>(DataChannelInit()).get());
   dcc.reset();
   channel = nullptr;
+}
+
+TEST_F(DataChannelControllerTest, CloseAfterControllerDestroyed) {
+  auto dcc = std::make_unique<DataChannelController>(pc_.get());
+  auto channel = dcc->InternalCreateDataChannelWithProxy(
+      "label",
+      std::make_unique<InternalDataChannelInit>(DataChannelInit()).get());
+  // Connect to provider
+  dcc->ConnectDataChannel(static_cast<SctpDataChannel*>(channel.get()));
+  dcc.reset();
+  channel->Close();
 }
 
 }  // namespace

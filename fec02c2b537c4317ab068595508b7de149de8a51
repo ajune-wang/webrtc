@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "87631b04_ae4b7b30",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2022-05-10T12:04:12Z",
+      "side": 1,
+      "message": "PTAL, smaller change you suggested on the other cl.",
+      "revId": "fec02c2b537c4317ab068595508b7de149de8a51",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "7e83b28b_f8464256",
+        "filename": "modules/video_coding/utility/simulcast_utility.cc",
+        "patchSetId": 13
+      },
+      "lineNbr": 95,
+      "author": {
+        "id": 5492
+      },
+      "writtenOn": "2022-05-10T12:41:52Z",
+      "side": 1,
+      "message": "Since num temporal layers are configured in VideoCodecInitializer based on scalability mode, is this needed?",
+      "range": {
+        "startLine": 95,
+        "startChar": 2,
+        "endLine": 95,
+        "endChar": 79
+      },
+      "revId": "e8a98f4d672986aa1cc0e9847ede8228246433b7",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

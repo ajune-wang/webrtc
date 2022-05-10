@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "46c00ad6_54a02693",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 3
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5117
+      },
+      "writtenOn": "2022-05-10T11:17:07Z",
+      "side": 1,
+      "message": "This is unfortunate. This file seems to be created before some of the style checks were added. Sadly, you\u0027ll have to address all the warnings.\n\nPlease run \"git cl format\" then run \"git cl presubmit -f\" and address any errors.\n\nFor example, it complains that sprintf is used in device_info_v3l2.cc, and snprintf should be used instead.\n\nI\u0027ve removed my LGTM so that I could reapprove it again after changes were uploaded.",
+      "revId": "52fafccd77a8030a89a2d5eb70c874b2eb49db06",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

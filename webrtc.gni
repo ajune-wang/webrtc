@@ -288,7 +288,7 @@ declare_args() {
   rtc_disable_logging = false
 
   # Set this to true to disable trace events.
-  rtc_disable_trace_events = false
+  rtc_disable_trace_events = true
 
   # Set this to true to disable detailed error message and logging for
   # RTC_CHECKs.

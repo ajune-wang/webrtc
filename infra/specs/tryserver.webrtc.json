@@ -2714,6 +2714,8 @@
           "iPhone X",
           "--version",
           "12.4",
+          "--args-json",
+          "{\"env_var\": [\"GTEST_TOTAL_SHARDS\", \"GTEST_SHARD_INDEX\"]}",
           "--xcode-build-version",
           "12a7209",
           "--out-dir",
@@ -2764,6 +2766,8 @@
           "iPhone X",
           "--version",
           "12.4",
+          "--args-json",
+          "{\"env_var\": [\"GTEST_TOTAL_SHARDS\", \"GTEST_SHARD_INDEX\"]}",
           "--xcode-build-version",
           "12a7209",
           "--out-dir",
@@ -2813,6 +2817,8 @@
           "iPhone X",
           "--version",
           "12.4",
+          "--args-json",
+          "{\"env_var\": [\"GTEST_TOTAL_SHARDS\", \"GTEST_SHARD_INDEX\"]}",
           "--xcode-build-version",
           "12a7209",
           "--out-dir",
@@ -2862,6 +2868,8 @@
           "iPhone X",
           "--version",
           "12.4",
+          "--args-json",
+          "{\"env_var\": [\"GTEST_TOTAL_SHARDS\", \"GTEST_SHARD_INDEX\"]}",
           "--xcode-build-version",
           "12a7209",
           "--out-dir",
@@ -2911,6 +2919,8 @@
           "iPhone X",
           "--version",
           "12.4",
+          "--args-json",
+          "{\"env_var\": [\"GTEST_TOTAL_SHARDS\", \"GTEST_SHARD_INDEX\"]}",
           "--xcode-build-version",
           "12a7209",
           "--out-dir",
@@ -2960,6 +2970,8 @@
           "iPhone X",
           "--version",
           "12.4",
+          "--args-json",
+          "{\"env_var\": [\"GTEST_TOTAL_SHARDS\", \"GTEST_SHARD_INDEX\"]}",
           "--xcode-build-version",
           "12a7209",
           "--out-dir",
@@ -2999,7 +3011,8 @@
               "path": "Xcode.app"
             }
           ],
-          "service_account": "chromium-tester@chops-service-accounts.iam.gserviceaccount.com"
+          "service_account": "chromium-tester@chops-service-accounts.iam.gserviceaccount.com",
+          "shards": 2
         },
         "test_id_prefix": "ninja://modules:modules_tests/"
       },
@@ -3009,6 +3022,8 @@
           "iPhone X",
           "--version",
           "12.4",
+          "--args-json",
+          "{\"env_var\": [\"GTEST_TOTAL_SHARDS\", \"GTEST_SHARD_INDEX\"]}",
           "--xcode-build-version",
           "12a7209",
           "--out-dir",
@@ -3048,7 +3063,8 @@
               "path": "Xcode.app"
             }
           ],
-          "service_account": "chromium-tester@chops-service-accounts.iam.gserviceaccount.com"
+          "service_account": "chromium-tester@chops-service-accounts.iam.gserviceaccount.com",
+          "shards": 6
         },
         "test_id_prefix": "ninja://modules:modules_unittests/"
       },
@@ -3058,6 +3074,8 @@
           "iPhone X",
           "--version",
           "12.4",
+          "--args-json",
+          "{\"env_var\": [\"GTEST_TOTAL_SHARDS\", \"GTEST_SHARD_INDEX\"]}",
           "--xcode-build-version",
           "12a7209",
           "--out-dir",
@@ -3107,6 +3125,8 @@
           "iPhone X",
           "--version",
           "12.4",
+          "--args-json",
+          "{\"env_var\": [\"GTEST_TOTAL_SHARDS\", \"GTEST_SHARD_INDEX\"]}",
           "--xcode-build-version",
           "12a7209",
           "--out-dir",
@@ -3156,6 +3176,8 @@
           "iPhone X",
           "--version",
           "12.4",
+          "--args-json",
+          "{\"env_var\": [\"GTEST_TOTAL_SHARDS\", \"GTEST_SHARD_INDEX\"]}",
           "--xcode-build-version",
           "12a7209",
           "--out-dir",
@@ -3205,6 +3227,8 @@
           "iPhone X",
           "--version",
           "12.4",
+          "--args-json",
+          "{\"env_var\": [\"GTEST_TOTAL_SHARDS\", \"GTEST_SHARD_INDEX\"]}",
           "--xcode-build-version",
           "12a7209",
           "--out-dir",
@@ -3244,7 +3268,8 @@
               "path": "Xcode.app"
             }
           ],
-          "service_account": "chromium-tester@chops-service-accounts.iam.gserviceaccount.com"
+          "service_account": "chromium-tester@chops-service-accounts.iam.gserviceaccount.com",
+          "shards": 6
         },
         "test_id_prefix": "ninja://:rtc_unittests/"
       },
@@ -3254,6 +3279,8 @@
           "iPhone X",
           "--version",
           "12.4",
+          "--args-json",
+          "{\"env_var\": [\"GTEST_TOTAL_SHARDS\", \"GTEST_SHARD_INDEX\"]}",
           "--xcode-build-version",
           "12a7209",
           "--out-dir",
@@ -3304,6 +3331,8 @@
           "iPhone X",
           "--version",
           "12.4",
+          "--args-json",
+          "{\"env_var\": [\"GTEST_TOTAL_SHARDS\", \"GTEST_SHARD_INDEX\"]}",
           "--xcode-build-version",
           "12a7209",
           "--out-dir",
@@ -3354,6 +3383,8 @@
           "iPhone X",
           "--version",
           "12.4",
+          "--args-json",
+          "{\"env_var\": [\"GTEST_TOTAL_SHARDS\", \"GTEST_SHARD_INDEX\"]}",
           "--xcode-build-version",
           "12a7209",
           "--out-dir",
@@ -3403,6 +3434,8 @@
           "iPhone X",
           "--version",
           "12.4",
+          "--args-json",
+          "{\"env_var\": [\"GTEST_TOTAL_SHARDS\", \"GTEST_SHARD_INDEX\"]}",
           "--xcode-build-version",
           "12a7209",
           "--out-dir",
@@ -3452,6 +3485,8 @@
           "iPhone X",
           "--version",
           "12.4",
+          "--args-json",
+          "{\"env_var\": [\"GTEST_TOTAL_SHARDS\", \"GTEST_SHARD_INDEX\"]}",
           "--xcode-build-version",
           "12a7209",
           "--out-dir",
@@ -3501,6 +3536,8 @@
           "iPhone X",
           "--version",
           "12.4",
+          "--args-json",
+          "{\"env_var\": [\"GTEST_TOTAL_SHARDS\", \"GTEST_SHARD_INDEX\"]}",
           "--xcode-build-version",
           "12a7209",
           "--out-dir",
@@ -3550,6 +3587,8 @@
           "iPhone X",
           "--version",
           "12.4",
+          "--args-json",
+          "{\"env_var\": [\"GTEST_TOTAL_SHARDS\", \"GTEST_SHARD_INDEX\"]}",
           "--xcode-build-version",
           "12a7209",
           "--out-dir",
@@ -3589,7 +3628,8 @@
               "path": "Xcode.app"
             }
           ],
-          "service_account": "chromium-tester@chops-service-accounts.iam.gserviceaccount.com"
+          "service_account": "chromium-tester@chops-service-accounts.iam.gserviceaccount.com",
+          "shards": 4
         },
         "test_id_prefix": "ninja://:video_engine_tests/"
       },
@@ -3599,6 +3639,8 @@
           "iPhone X",
           "--version",
           "12.4",
+          "--args-json",
+          "{\"env_var\": [\"GTEST_TOTAL_SHARDS\", \"GTEST_SHARD_INDEX\"]}",
           "--xcode-build-version",
           "12a7209",
           "--out-dir",
@@ -3648,6 +3690,8 @@
           "iPhone X",
           "--version",
           "12.4",
+          "--args-json",
+          "{\"env_var\": [\"GTEST_TOTAL_SHARDS\", \"GTEST_SHARD_INDEX\"]}",
           "--xcode-build-version",
           "12a7209",
           "--out-dir",
@@ -3701,6 +3745,8 @@
           "iPhone X",
           "--version",
           "13.6",
+          "--args-json",
+          "{\"env_var\": [\"GTEST_TOTAL_SHARDS\", \"GTEST_SHARD_INDEX\"]}",
           "--xcode-build-version",
           "12a7209",
           "--out-dir",
@@ -3751,6 +3797,8 @@
           "iPhone X",
           "--version",
           "13.6",
+          "--args-json",
+          "{\"env_var\": [\"GTEST_TOTAL_SHARDS\", \"GTEST_SHARD_INDEX\"]}",
           "--xcode-build-version",
           "12a7209",
           "--out-dir",
@@ -3800,6 +3848,8 @@
           "iPhone X",
           "--version",
           "13.6",
+          "--args-json",
+          "{\"env_var\": [\"GTEST_TOTAL_SHARDS\", \"GTEST_SHARD_INDEX\"]}",
           "--xcode-build-version",
           "12a7209",
           "--out-dir",
@@ -3849,6 +3899,8 @@
           "iPhone X",
           "--version",
           "13.6",
+          "--args-json",
+          "{\"env_var\": [\"GTEST_TOTAL_SHARDS\", \"GTEST_SHARD_INDEX\"]}",
           "--xcode-build-version",
           "12a7209",
           "--out-dir",
@@ -3898,6 +3950,8 @@
           "iPhone X",
           "--version",
           "13.6",
+          "--args-json",
+          "{\"env_var\": [\"GTEST_TOTAL_SHARDS\", \"GTEST_SHARD_INDEX\"]}",
           "--xcode-build-version",
           "12a7209",
           "--out-dir",
@@ -3947,6 +4001,8 @@
           "iPhone X",
           "--version",
           "13.6",
+          "--args-json",
+          "{\"env_var\": [\"GTEST_TOTAL_SHARDS\", \"GTEST_SHARD_INDEX\"]}",
           "--xcode-build-version",
           "12a7209",
           "--out-dir",
@@ -3986,7 +4042,8 @@
               "path": "Xcode.app"
             }
           ],
-          "service_account": "chromium-tester@chops-service-accounts.iam.gserviceaccount.com"
+          "service_account": "chromium-tester@chops-service-accounts.iam.gserviceaccount.com",
+          "shards": 2
         },
         "test_id_prefix": "ninja://modules:modules_tests/"
       },
@@ -3996,6 +4053,8 @@
           "iPhone X",
           "--version",
           "13.6",
+          "--args-json",
+          "{\"env_var\": [\"GTEST_TOTAL_SHARDS\", \"GTEST_SHARD_INDEX\"]}",
           "--xcode-build-version",
           "12a7209",
           "--out-dir",
@@ -4035,7 +4094,8 @@
               "path": "Xcode.app"
             }
           ],
-          "service_account": "chromium-tester@chops-service-accounts.iam.gserviceaccount.com"
+          "service_account": "chromium-tester@chops-service-accounts.iam.gserviceaccount.com",
+          "shards": 6
         },
         "test_id_prefix": "ninja://modules:modules_unittests/"
       },
@@ -4045,6 +4105,8 @@
           "iPhone X",
           "--version",
           "13.6",
+          "--args-json",
+          "{\"env_var\": [\"GTEST_TOTAL_SHARDS\", \"GTEST_SHARD_INDEX\"]}",
           "--xcode-build-version",
           "12a7209",
           "--out-dir",
@@ -4094,6 +4156,8 @@
           "iPhone X",
           "--version",
           "13.6",
+          "--args-json",
+          "{\"env_var\": [\"GTEST_TOTAL_SHARDS\", \"GTEST_SHARD_INDEX\"]}",
           "--xcode-build-version",
           "12a7209",
           "--out-dir",
@@ -4143,6 +4207,8 @@
           "iPhone X",
           "--version",
           "13.6",
+          "--args-json",
+          "{\"env_var\": [\"GTEST_TOTAL_SHARDS\", \"GTEST_SHARD_INDEX\"]}",
           "--xcode-build-version",
           "12a7209",
           "--out-dir",
@@ -4192,6 +4258,8 @@
           "iPhone X",
           "--version",
           "13.6",
+          "--args-json",
+          "{\"env_var\": [\"GTEST_TOTAL_SHARDS\", \"GTEST_SHARD_INDEX\"]}",
           "--xcode-build-version",
           "12a7209",
           "--out-dir",
@@ -4231,7 +4299,8 @@
               "path": "Xcode.app"
             }
           ],
-          "service_account": "chromium-tester@chops-service-accounts.iam.gserviceaccount.com"
+          "service_account": "chromium-tester@chops-service-accounts.iam.gserviceaccount.com",
+          "shards": 6
         },
         "test_id_prefix": "ninja://:rtc_unittests/"
       },
@@ -4241,6 +4310,8 @@
           "iPhone X",
           "--version",
           "13.6",
+          "--args-json",
+          "{\"env_var\": [\"GTEST_TOTAL_SHARDS\", \"GTEST_SHARD_INDEX\"]}",
           "--xcode-build-version",
           "12a7209",
           "--out-dir",
@@ -4291,6 +4362,8 @@
           "iPhone X",
           "--version",
           "13.6",
+          "--args-json",
+          "{\"env_var\": [\"GTEST_TOTAL_SHARDS\", \"GTEST_SHARD_INDEX\"]}",
           "--xcode-build-version",
           "12a7209",
           "--out-dir",
@@ -4341,6 +4414,8 @@
           "iPhone X",
           "--version",
           "13.6",
+          "--args-json",
+          "{\"env_var\": [\"GTEST_TOTAL_SHARDS\", \"GTEST_SHARD_INDEX\"]}",
           "--xcode-build-version",
           "12a7209",
           "--out-dir",
@@ -4390,6 +4465,8 @@
           "iPhone X",
           "--version",
           "13.6",
+          "--args-json",
+          "{\"env_var\": [\"GTEST_TOTAL_SHARDS\", \"GTEST_SHARD_INDEX\"]}",
           "--xcode-build-version",
           "12a7209",
           "--out-dir",
@@ -4439,6 +4516,8 @@
           "iPhone X",
           "--version",
           "13.6",
+          "--args-json",
+          "{\"env_var\": [\"GTEST_TOTAL_SHARDS\", \"GTEST_SHARD_INDEX\"]}",
           "--xcode-build-version",
           "12a7209",
           "--out-dir",
@@ -4488,6 +4567,8 @@
           "iPhone X",
           "--version",
           "13.6",
+          "--args-json",
+          "{\"env_var\": [\"GTEST_TOTAL_SHARDS\", \"GTEST_SHARD_INDEX\"]}",
           "--xcode-build-version",
           "12a7209",
           "--out-dir",
@@ -4537,6 +4618,8 @@
           "iPhone X",
           "--version",
           "13.6",
+          "--args-json",
+          "{\"env_var\": [\"GTEST_TOTAL_SHARDS\", \"GTEST_SHARD_INDEX\"]}",
           "--xcode-build-version",
           "12a7209",
           "--out-dir",
@@ -4576,7 +4659,8 @@
               "path": "Xcode.app"
             }
           ],
-          "service_account": "chromium-tester@chops-service-accounts.iam.gserviceaccount.com"
+          "service_account": "chromium-tester@chops-service-accounts.iam.gserviceaccount.com",
+          "shards": 4
         },
         "test_id_prefix": "ninja://:video_engine_tests/"
       },
@@ -4586,6 +4670,8 @@
           "iPhone X",
           "--version",
           "13.6",
+          "--args-json",
+          "{\"env_var\": [\"GTEST_TOTAL_SHARDS\", \"GTEST_SHARD_INDEX\"]}",
           "--xcode-build-version",
           "12a7209",
           "--out-dir",
@@ -4635,6 +4721,8 @@
           "iPhone X",
           "--version",
           "13.6",
+          "--args-json",
+          "{\"env_var\": [\"GTEST_TOTAL_SHARDS\", \"GTEST_SHARD_INDEX\"]}",
           "--xcode-build-version",
           "12a7209",
           "--out-dir",
@@ -4688,6 +4776,8 @@
           "iPhone X",
           "--version",
           "14.0",
+          "--args-json",
+          "{\"env_var\": [\"GTEST_TOTAL_SHARDS\", \"GTEST_SHARD_INDEX\"]}",
           "--xcode-build-version",
           "12a7209",
           "--out-dir",
@@ -4738,6 +4828,8 @@
           "iPhone X",
           "--version",
           "14.0",
+          "--args-json",
+          "{\"env_var\": [\"GTEST_TOTAL_SHARDS\", \"GTEST_SHARD_INDEX\"]}",
           "--xcode-build-version",
           "12a7209",
           "--out-dir",
@@ -4787,6 +4879,8 @@
           "iPhone X",
           "--version",
           "14.0",
+          "--args-json",
+          "{\"env_var\": [\"GTEST_TOTAL_SHARDS\", \"GTEST_SHARD_INDEX\"]}",
           "--xcode-build-version",
           "12a7209",
           "--out-dir",
@@ -4836,6 +4930,8 @@
           "iPhone X",
           "--version",
           "14.0",
+          "--args-json",
+          "{\"env_var\": [\"GTEST_TOTAL_SHARDS\", \"GTEST_SHARD_INDEX\"]}",
           "--xcode-build-version",
           "12a7209",
           "--out-dir",
@@ -4885,6 +4981,8 @@
           "iPhone X",
           "--version",
           "14.0",
+          "--args-json",
+          "{\"env_var\": [\"GTEST_TOTAL_SHARDS\", \"GTEST_SHARD_INDEX\"]}",
           "--xcode-build-version",
           "12a7209",
           "--out-dir",
@@ -4934,6 +5032,8 @@
           "iPhone X",
           "--version",
           "14.0",
+          "--args-json",
+          "{\"env_var\": [\"GTEST_TOTAL_SHARDS\", \"GTEST_SHARD_INDEX\"]}",
           "--xcode-build-version",
           "12a7209",
           "--out-dir",
@@ -4973,7 +5073,8 @@
               "path": "Xcode.app"
             }
           ],
-          "service_account": "chromium-tester@chops-service-accounts.iam.gserviceaccount.com"
+          "service_account": "chromium-tester@chops-service-accounts.iam.gserviceaccount.com",
+          "shards": 2
         },
         "test_id_prefix": "ninja://modules:modules_tests/"
       },
@@ -4983,6 +5084,8 @@
           "iPhone X",
           "--version",
           "14.0",
+          "--args-json",
+          "{\"env_var\": [\"GTEST_TOTAL_SHARDS\", \"GTEST_SHARD_INDEX\"]}",
           "--xcode-build-version",
           "12a7209",
           "--out-dir",
@@ -5022,7 +5125,8 @@
               "path": "Xcode.app"
             }
           ],
-          "service_account": "chromium-tester@chops-service-accounts.iam.gserviceaccount.com"
+          "service_account": "chromium-tester@chops-service-accounts.iam.gserviceaccount.com",
+          "shards": 6
         },
         "test_id_prefix": "ninja://modules:modules_unittests/"
       },
@@ -5032,6 +5136,8 @@
           "iPhone X",
           "--version",
           "14.0",
+          "--args-json",
+          "{\"env_var\": [\"GTEST_TOTAL_SHARDS\", \"GTEST_SHARD_INDEX\"]}",
           "--xcode-build-version",
           "12a7209",
           "--out-dir",
@@ -5081,6 +5187,8 @@
           "iPhone X",
           "--version",
           "14.0",
+          "--args-json",
+          "{\"env_var\": [\"GTEST_TOTAL_SHARDS\", \"GTEST_SHARD_INDEX\"]}",
           "--xcode-build-version",
           "12a7209",
           "--out-dir",
@@ -5130,6 +5238,8 @@
           "iPhone X",
           "--version",
           "14.0",
+          "--args-json",
+          "{\"env_var\": [\"GTEST_TOTAL_SHARDS\", \"GTEST_SHARD_INDEX\"]}",
           "--xcode-build-version",
           "12a7209",
           "--out-dir",
@@ -5179,6 +5289,8 @@
           "iPhone X",
           "--version",
           "14.0",
+          "--args-json",
+          "{\"env_var\": [\"GTEST_TOTAL_SHARDS\", \"GTEST_SHARD_INDEX\"]}",
           "--xcode-build-version",
           "12a7209",
           "--out-dir",
@@ -5218,7 +5330,8 @@
               "path": "Xcode.app"
             }
           ],
-          "service_account": "chromium-tester@chops-service-accounts.iam.gserviceaccount.com"
+          "service_account": "chromium-tester@chops-service-accounts.iam.gserviceaccount.com",
+          "shards": 6
         },
         "test_id_prefix": "ninja://:rtc_unittests/"
       },
@@ -5228,6 +5341,8 @@
           "iPhone X",
           "--version",
           "14.0",
+          "--args-json",
+          "{\"env_var\": [\"GTEST_TOTAL_SHARDS\", \"GTEST_SHARD_INDEX\"]}",
           "--xcode-build-version",
           "12a7209",
           "--out-dir",
@@ -5278,6 +5393,8 @@
           "iPhone X",
           "--version",
           "14.0",
+          "--args-json",
+          "{\"env_var\": [\"GTEST_TOTAL_SHARDS\", \"GTEST_SHARD_INDEX\"]}",
           "--xcode-build-version",
           "12a7209",
           "--out-dir",
@@ -5328,6 +5445,8 @@
           "iPhone X",
           "--version",
           "14.0",
+          "--args-json",
+          "{\"env_var\": [\"GTEST_TOTAL_SHARDS\", \"GTEST_SHARD_INDEX\"]}",
           "--xcode-build-version",
           "12a7209",
           "--out-dir",
@@ -5377,6 +5496,8 @@
           "iPhone X",
           "--version",
           "14.0",
+          "--args-json",
+          "{\"env_var\": [\"GTEST_TOTAL_SHARDS\", \"GTEST_SHARD_INDEX\"]}",
           "--xcode-build-version",
           "12a7209",
           "--out-dir",
@@ -5426,6 +5547,8 @@
           "iPhone X",
           "--version",
           "14.0",
+          "--args-json",
+          "{\"env_var\": [\"GTEST_TOTAL_SHARDS\", \"GTEST_SHARD_INDEX\"]}",
           "--xcode-build-version",
           "12a7209",
           "--out-dir",
@@ -5475,6 +5598,8 @@
           "iPhone X",
           "--version",
           "14.0",
+          "--args-json",
+          "{\"env_var\": [\"GTEST_TOTAL_SHARDS\", \"GTEST_SHARD_INDEX\"]}",
           "--xcode-build-version",
           "12a7209",
           "--out-dir",
@@ -5524,6 +5649,8 @@
           "iPhone X",
           "--version",
           "14.0",
+          "--args-json",
+          "{\"env_var\": [\"GTEST_TOTAL_SHARDS\", \"GTEST_SHARD_INDEX\"]}",
           "--xcode-build-version",
           "12a7209",
           "--out-dir",
@@ -5563,7 +5690,8 @@
               "path": "Xcode.app"
             }
           ],
-          "service_account": "chromium-tester@chops-service-accounts.iam.gserviceaccount.com"
+          "service_account": "chromium-tester@chops-service-accounts.iam.gserviceaccount.com",
+          "shards": 4
         },
         "test_id_prefix": "ninja://:video_engine_tests/"
       },
@@ -5573,6 +5701,8 @@
           "iPhone X",
           "--version",
           "14.0",
+          "--args-json",
+          "{\"env_var\": [\"GTEST_TOTAL_SHARDS\", \"GTEST_SHARD_INDEX\"]}",
           "--xcode-build-version",
           "12a7209",
           "--out-dir",
@@ -5622,6 +5752,8 @@
           "iPhone X",
           "--version",
           "14.0",
+          "--args-json",
+          "{\"env_var\": [\"GTEST_TOTAL_SHARDS\", \"GTEST_SHARD_INDEX\"]}",
           "--xcode-build-version",
           "12a7209",
           "--out-dir",

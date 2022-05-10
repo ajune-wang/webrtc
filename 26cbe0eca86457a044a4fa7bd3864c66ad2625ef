@@ -58,6 +58,30 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "67cfde06_5015e509",
+        "filename": "pc/webrtc_sdp.cc",
+        "patchSetId": 7
+      },
+      "lineNbr": 496,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2022-05-10T10:40:23Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "f588bb8c_e6d244df",
+      "range": {
+        "startLine": 496,
+        "startChar": 18,
+        "endLine": 496,
+        "endChar": 35
+      },
+      "revId": "26cbe0eca86457a044a4fa7bd3864c66ad2625ef",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "050a955b_6fbfba43",
@@ -75,6 +99,24 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "4ad2a019_ccf4c8c5",
+        "filename": "pc/webrtc_sdp.cc",
+        "patchSetId": 7
+      },
+      "lineNbr": 549,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2022-05-10T10:40:23Z",
+      "side": 1,
+      "message": "Deleted comment (it returns a const std::string\u0026, so at least no copy).",
+      "parentUuid": "050a955b_6fbfba43",
+      "revId": "26cbe0eca86457a044a4fa7bd3864c66ad2625ef",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "bb567dac_6033fd0b",
@@ -88,6 +130,30 @@
       "writtenOn": "2022-05-10T09:33:38Z",
       "side": 1,
       "message": "delete?",
+      "range": {
+        "startLine": 1043,
+        "startChar": 53,
+        "endLine": 1045,
+        "endChar": 73
+      },
+      "revId": "26cbe0eca86457a044a4fa7bd3864c66ad2625ef",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "96a46b6d_d725af23",
+        "filename": "pc/webrtc_sdp.cc",
+        "patchSetId": 7
+      },
+      "lineNbr": 1045,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2022-05-10T10:40:23Z",
+      "side": 1,
+      "message": "Deleted comment. I think GetLine should be refactored to produce a string_view representing the line, but perhaps a separate cl. Not sure why return value is ignored.",
+      "parentUuid": "bb567dac_6033fd0b",
       "range": {
         "startLine": 1043,
         "startChar": 53,
@@ -121,6 +187,30 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "1d11d075_648190e5",
+        "filename": "pc/webrtc_sdp.cc",
+        "patchSetId": 7
+      },
+      "lineNbr": 1793,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2022-05-10T10:40:23Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "9aba9b64_4a4ebc7d",
+      "range": {
+        "startLine": 1793,
+        "startChar": 6,
+        "endLine": 1793,
+        "endChar": 26
+      },
+      "revId": "26cbe0eca86457a044a4fa7bd3864c66ad2625ef",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "76377353_6b82e49e",
@@ -134,6 +224,24 @@
       "writtenOn": "2022-05-10T09:33:38Z",
       "side": 1,
       "message": "Nit: include the corresponding header file.",
+      "revId": "26cbe0eca86457a044a4fa7bd3864c66ad2625ef",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "869c55d7_05139c34",
+        "filename": "pc/webrtc_sdp.h",
+        "patchSetId": 7
+      },
+      "lineNbr": 69,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2022-05-10T10:40:23Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "76377353_6b82e49e",
       "revId": "26cbe0eca86457a044a4fa7bd3864c66ad2625ef",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }

@@ -27,7 +27,7 @@ class VideoReceiveStreamTimeoutTracker {
     TimeDelta max_wait_for_frame;
   };
 
-  using TimeoutCallback = std::function<void()>;
+  using TimeoutCallback = std::function<void(TimeDelta)>;
   VideoReceiveStreamTimeoutTracker(Clock* clock,
                                    TaskQueueBase* const bookkeeping_queue,
                                    const Timeouts& timeouts,
@@ -58,6 +58,7 @@ class VideoReceiveStreamTimeoutTracker {
   RepeatingTaskHandle timeout_task_;
 
   Timestamp timeout_ = Timestamp::MinusInfinity();
+  Timestamp last_frame_ = Timestamp::MinusInfinity();
   bool waiting_for_keyframe_;
 };
 }  // namespace webrtc

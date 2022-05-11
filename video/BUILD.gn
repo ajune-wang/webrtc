@@ -53,10 +53,11 @@ rtc_library("video") {
   ]
 
   deps = [
-    ":frame_buffer_proxy",
+    ":decode_synchronizer",
     ":frame_cadence_adapter",
     ":frame_decode_scheduler",
     ":frame_dumping_decoder",
+    ":task_queue_frame_decode_scheduler",
     ":video_receive_stream_timeout_tracker",
     ":video_stream_encoder_impl",
     "../api:array_view",
@@ -75,6 +76,7 @@ rtc_library("video") {
     "../api/units:frequency",
     "../api/units:time_delta",
     "../api/units:timestamp",
+    "../api/video:encoded_frame",
     "../api/video:encoded_image",
     "../api/video:frame_buffer",
     "../api/video:recordable_encoded_frame",
@@ -323,41 +325,6 @@ rtc_library("frame_cadence_adapter") {
   absl_deps = [
     "//third_party/abseil-cpp/absl/algorithm:container",
     "//third_party/abseil-cpp/absl/base:core_headers",
-  ]
-}
-
-rtc_library("frame_buffer_proxy") {
-  sources = [
-    "frame_buffer_proxy.cc",
-    "frame_buffer_proxy.h",
-  ]
-  deps = [
-    ":decode_synchronizer",
-    ":frame_decode_timing",
-    ":task_queue_frame_decode_scheduler",
-    ":video_receive_stream_timeout_tracker",
-    "../api:field_trials_view",
-    "../api:sequence_checker",
-    "../api/metronome",
-    "../api/task_queue",
-    "../api/units:data_size",
-    "../api/video:encoded_frame",
-    "../api/video:frame_buffer",
-    "../api/video:video_rtp_headers",
-    "../modules/video_coding",
-    "../modules/video_coding:frame_helpers",
-    "../modules/video_coding:timing",
-    "../modules/video_coding:video_codec_interface",
-    "../rtc_base:checks",
-    "../rtc_base:logging",
-    "../rtc_base:macromagic",
-    "../rtc_base:rtc_task_queue",
-    "../system_wrappers",
-    "../system_wrappers:field_trial",
-  ]
-  absl_deps = [
-    "//third_party/abseil-cpp/absl/functional:bind_front",
-    "//third_party/abseil-cpp/absl/types:optional",
   ]
 }
 
@@ -810,7 +777,6 @@ if (rtc_include_tests) {
       "end_to_end_tests/ssrc_tests.cc",
       "end_to_end_tests/stats_tests.cc",
       "end_to_end_tests/transport_feedback_tests.cc",
-      "frame_buffer_proxy_unittest.cc",
       "frame_cadence_adapter_unittest.cc",
       "frame_decode_timing_unittest.cc",
       "frame_encode_metadata_writer_unittest.cc",
@@ -837,7 +803,6 @@ if (rtc_include_tests) {
     ]
     deps = [
       ":decode_synchronizer",
-      ":frame_buffer_proxy",
       ":frame_cadence_adapter",
       ":frame_decode_scheduler",
       ":frame_decode_timing",

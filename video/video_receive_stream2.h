@@ -15,10 +15,12 @@
 #include <string>
 #include <vector>
 
+#include "absl/container/inlined_vector.h"
 #include "api/sequence_checker.h"
 #include "api/task_queue/task_queue_factory.h"
 #include "api/units/time_delta.h"
 #include "api/units/timestamp.h"
+#include "api/video/frame_buffer.h"
 #include "api/video/recordable_encoded_frame.h"
 #include "call/call.h"
 #include "call/rtp_packet_sink_interface.h"
@@ -26,18 +28,22 @@
 #include "call/video_receive_stream.h"
 #include "modules/rtp_rtcp/include/flexfec_receiver.h"
 #include "modules/rtp_rtcp/source/source_tracker.h"
+#include "modules/video_coding/inter_frame_delay.h"
+#include "modules/video_coding/jitter_estimator.h"
 #include "modules/video_coding/nack_requester.h"
 #include "modules/video_coding/video_receiver2.h"
+#include "rtc_base/experiments/rtt_mult_experiment.h"
 #include "rtc_base/system/no_unique_address.h"
 #include "rtc_base/task_queue.h"
 #include "rtc_base/task_utils/pending_task_safety_flag.h"
 #include "rtc_base/thread_annotations.h"
 #include "system_wrappers/include/clock.h"
-#include "video/frame_buffer_proxy.h"
+#include "video/decode_synchronizer.h"
 #include "video/receive_statistics_proxy2.h"
 #include "video/rtp_streams_synchronizer2.h"
 #include "video/rtp_video_stream_receiver2.h"
 #include "video/transport_adapter.h"
+#include "video/video_receive_stream_timeout_tracker.h"
 #include "video/video_stream_decoder2.h"
 
 namespace webrtc {
@@ -84,8 +90,7 @@ class VideoReceiveStream2
       public NackSender,
       public RtpVideoStreamReceiver2::OnCompleteFrameCallback,
       public Syncable,
-      public CallStatsObserver,
-      public FrameSchedulingReceiver {
+      public CallStatsObserver {
  public:
   // The maximum number of buffered encoded frames when encoded output is
   // configured.
@@ -185,12 +190,15 @@ class VideoReceiveStream2
   void GenerateKeyFrame() override;
 
  private:
-  void OnEncodedFrame(std::unique_ptr<EncodedFrame> frame) override;
-  void OnDecodableFrameTimeout(TimeDelta wait_time) override;
+  void OnTimeout(TimeDelta wait_time);
+  void MaybeScheduleFrameForDecoding() RTC_RUN_ON(&worker_sequence_checker_);
+  void ForceKeyFrameReleaseImmediately() RTC_RUN_ON(&worker_sequence_checker_);
+  void OnFrameReadyForDecoding(
+      absl::InlinedVector<std::unique_ptr<EncodedFrame>, 4> frames,
+      Timestamp render_time) RTC_RUN_ON(&worker_sequence_checker_);
   void CreateAndRegisterExternalDecoder(const Decoder& decoder);
-  TimeDelta GetMaxWait() const RTC_RUN_ON(decode_queue_);
-  void HandleEncodedFrame(std::unique_ptr<EncodedFrame> frame)
-      RTC_RUN_ON(decode_queue_);
+  bool HandleEncodedFrame(std::unique_ptr<EncodedFrame> frame,
+                          bool keyframe_required) RTC_RUN_ON(decode_queue_);
   void HandleFrameBufferTimeout(Timestamp now, TimeDelta wait)
       RTC_RUN_ON(packet_sequence_checker_);
   void UpdatePlayoutDelays() const
@@ -221,6 +229,8 @@ class VideoReceiveStream2
   TaskQueueFactory* const task_queue_factory_;
 
   TransportAdapter transport_adapter_;
+  const absl::optional<RttMultExperiment::Settings> rtt_mult_settings_ =
+      RttMultExperiment::GetRttMultValue();
   const VideoReceiveStream::Config config_;
   const int num_cpu_cores_;
   Call* const call_;
@@ -248,8 +258,6 @@ class VideoReceiveStream2
   // moved to the new VideoStreamDecoder.
   std::vector<std::unique_ptr<VideoDecoder>> video_decoders_;
 
-  std::unique_ptr<FrameBufferProxy> frame_buffer_;
-
   std::unique_ptr<RtpStreamReceiverInterface> media_receiver_
       RTC_GUARDED_BY(packet_sequence_checker_);
   std::unique_ptr<RtxReceiveStream> rtx_receive_stream_
@@ -259,7 +267,7 @@ class VideoReceiveStream2
 
   // Whenever we are in an undecodable state (stream has just started or due to
   // a decoding error) we require a keyframe to restart the stream.
-  bool keyframe_required_ RTC_GUARDED_BY(decode_queue_) = true;
+  bool keyframe_required_ RTC_GUARDED_BY(worker_sequence_checker_) = true;
 
   // If we have successfully decoded any frame.
   bool frame_decoded_ RTC_GUARDED_BY(decode_queue_) = false;
@@ -313,7 +321,31 @@ class VideoReceiveStream2
   // any video frame has been received.
   FieldTrialParameter<int> maximum_pre_stream_decoders_;
 
-  DecodeSynchronizer* decode_sync_;
+  const std::unique_ptr<FrameDecodeScheduler> frame_decode_scheduler_
+      RTC_GUARDED_BY(&worker_sequence_checker_);
+
+  VCMJitterEstimator jitter_estimator_
+      RTC_GUARDED_BY(&worker_sequence_checker_);
+  VCMInterFrameDelay inter_frame_delay_
+      RTC_GUARDED_BY(&worker_sequence_checker_);
+  std::unique_ptr<FrameBuffer> buffer_
+      RTC_GUARDED_BY(&worker_sequence_checker_);
+  FrameDecodeTiming decode_timing_ RTC_GUARDED_BY(&worker_sequence_checker_);
+  VideoReceiveStreamTimeoutTracker timeout_tracker_
+      RTC_GUARDED_BY(&worker_sequence_checker_);
+  int frames_dropped_before_last_new_frame_
+      RTC_GUARDED_BY(&worker_sequence_checker_) = 0;
+  VCMVideoProtection protection_mode_
+      RTC_GUARDED_BY(&worker_sequence_checker_) = kProtectionNack;
+  bool waiting_for_decode_to_complete_
+      RTC_GUARDED_BY(&worker_sequence_checker_) = false;
+
+  // Maximum number of frames in the decode queue to allow pacing. If the
+  // queue grows beyond the max limit, pacing will be disabled and frames will
+  // be pushed to the decoder as soon as possible. This only has an effect
+  // when the low-latency rendering path is active, which is indicated by
+  // the frame's render time == 0.
+  FieldTrialParameter<unsigned> zero_playout_delay_max_decode_queue_size_;
 
   // Defined last so they are destroyed before all other members.
   rtc::TaskQueue decode_queue_;

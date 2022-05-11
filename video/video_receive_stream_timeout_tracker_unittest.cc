@@ -12,7 +12,9 @@
 
 #include <utility>
 
+#include "absl/functional/bind_front.h"
 #include "api/task_queue/task_queue_base.h"
+#include "api/units/time_delta.h"
 #include "rtc_base/task_queue.h"
 #include "test/gmock.h"
 #include "test/gtest.h"
@@ -35,10 +37,12 @@ class VideoReceiveStreamTimeoutTrackerTest : public ::testing::Test {
         task_queue_(time_controller_.GetTaskQueueFactory()->CreateTaskQueue(
             "scheduler",
             TaskQueueFactory::Priority::NORMAL)),
-        timeout_tracker_(time_controller_.GetClock(),
-                         task_queue_.Get(),
-                         config,
-                         [this] { OnTimeout(); }) {}
+        timeout_tracker_(
+            time_controller_.GetClock(),
+            task_queue_.Get(),
+            config,
+            absl::bind_front(&VideoReceiveStreamTimeoutTrackerTest::OnTimeout,
+                             this)) {}
 
  protected:
   template <class Task>
@@ -53,7 +57,7 @@ class VideoReceiveStreamTimeoutTrackerTest : public ::testing::Test {
   int timeouts_ = 0;
 
  private:
-  void OnTimeout() { ++timeouts_; }
+  void OnTimeout(TimeDelta delay) { ++timeouts_; }
 };
 
 TEST_F(VideoReceiveStreamTimeoutTrackerTest, TimeoutAfterInitialPeriod) {

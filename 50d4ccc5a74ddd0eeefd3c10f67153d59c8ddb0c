@@ -37,6 +37,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "89077aa6_0e48c70a",
+        "filename": "api/test/mock_dtmf_sender.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 28,
+      "author": {
+        "id": 7036
+      },
+      "writtenOn": "2022-05-11T22:22:50Z",
+      "side": 1,
+      "message": "Ah, I see: static_assert(!std::is_abstract_v\u003crtc::RefCountedObject\u003cMockRtpSender\u003e\u003e, \"\");\nIt\u0027s used in only 3 mocks, should definitely be expanded to all the others. Will update this one.",
+      "parentUuid": "8d5322de_38347198",
+      "revId": "50d4ccc5a74ddd0eeefd3c10f67153d59c8ddb0c",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "4ecdb5e0_dbb1991f",
         "filename": "api/test/mock_dtmf_sender.h",
         "patchSetId": 1
@@ -48,6 +66,24 @@
       "writtenOn": "2022-05-11T21:34:32Z",
       "side": 1,
       "message": "There\u0027s inconsistency between mocks on whether they have RefCountedObject as part of their class definition or whether they expect users to use MakeRefCounted on them.\n\n@nisse may want to chime in here.\n\n(The RefCountedObject thing matters if you want to do the static_assert; I can\u0027t remember which way it goes at the moment.)",
+      "revId": "50d4ccc5a74ddd0eeefd3c10f67153d59c8ddb0c",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "a60c9b55_77bf9817",
+        "filename": "api/test/mock_dtmf_sender.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 30,
+      "author": {
+        "id": 7036
+      },
+      "writtenOn": "2022-05-11T22:22:50Z",
+      "side": 1,
+      "message": "I reused the pattern I saw in the DataChannel mock which was also a RefCountedObject through its interface.\nLet me know if I should do any changes in this case.",
+      "parentUuid": "4ecdb5e0_dbb1991f",
       "revId": "50d4ccc5a74ddd0eeefd3c10f67153d59c8ddb0c",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }

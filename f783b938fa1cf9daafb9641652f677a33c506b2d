@@ -1,0 +1,142 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "36c1cb0d_03e64d6d",
+        "filename": "modules/congestion_controller/goog_cc/loss_based_bwe_v2.cc",
+        "patchSetId": 20
+      },
+      "lineNbr": 136,
+      "author": {
+        "id": 5150
+      },
+      "writtenOn": "2022-05-11T09:02:21Z",
+      "side": 1,
+      "message": "Do I understand correctly that this is the function that bounds the ensures\n`target_rate \u003d std::min(loss_based, delay_based)`?",
+      "range": {
+        "startLine": 136,
+        "startChar": 25,
+        "endLine": 136,
+        "endChar": 45
+      },
+      "revId": "f783b938fa1cf9daafb9641652f677a33c506b2d",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "e08dfce6_d9bb56e5",
+        "filename": "modules/congestion_controller/goog_cc/loss_based_bwe_v2.cc",
+        "patchSetId": 20
+      },
+      "lineNbr": 152,
+      "author": {
+        "id": 5150
+      },
+      "writtenOn": "2022-05-11T09:02:21Z",
+      "side": 1,
+      "message": "If so, shouldn\u0027t this return the delay_based estimate, if such is available?",
+      "range": {
+        "startLine": 152,
+        "startChar": 0,
+        "endLine": 152,
+        "endChar": 36
+      },
+      "revId": "f783b938fa1cf9daafb9641652f677a33c506b2d",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "e0eed232_e0a7176b",
+        "filename": "modules/congestion_controller/goog_cc/loss_based_bwe_v2.cc",
+        "patchSetId": 20
+      },
+      "lineNbr": 158,
+      "author": {
+        "id": 5150
+      },
+      "writtenOn": "2022-05-11T09:02:21Z",
+      "side": 1,
+      "message": "Also assuming I understand this function; if delay_based_limit_factor is greater than 1, we might return a result above what the delay-based estimator provides. This effectively disables the delay based estimator. If you think that the delay based estimator backs off too much, please adjust that setting directly using e.g.\nWebRTC-BweBackOffFactor/Enabled-0.9/",
+      "range": {
+        "startLine": 158,
+        "startChar": 0,
+        "endLine": 158,
+        "endChar": 77
+      },
+      "revId": "f783b938fa1cf9daafb9641652f677a33c506b2d",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "57fd1de6_008e3d2c",
+        "filename": "modules/congestion_controller/goog_cc/loss_based_bwe_v2.cc",
+        "patchSetId": 20
+      },
+      "lineNbr": 224,
+      "author": {
+        "id": 5150
+      },
+      "writtenOn": "2022-05-11T09:02:21Z",
+      "side": 1,
+      "message": "nit: increase",
+      "range": {
+        "startLine": 224,
+        "startChar": 24,
+        "endLine": 224,
+        "endChar": 36
+      },
+      "revId": "f783b938fa1cf9daafb9641652f677a33c506b2d",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "31727503_487bbecc",
+        "filename": "modules/congestion_controller/goog_cc/loss_based_bwe_v2.h",
+        "patchSetId": 20
+      },
+      "lineNbr": 88,
+      "author": {
+        "id": 5150
+      },
+      "writtenOn": "2022-05-11T09:02:21Z",
+      "side": 1,
+      "message": "I think this parameter should be removed. You don\u0027t allow values less than 1, and values greater can effectively disable the delay-based estimator, if I unerstand correctly.",
+      "range": {
+        "startLine": 88,
+        "startChar": 0,
+        "endLine": 88,
+        "endChar": 42
+      },
+      "revId": "f783b938fa1cf9daafb9641652f677a33c506b2d",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "e72f5bad_d2a727cc",
+        "filename": "modules/congestion_controller/goog_cc/loss_based_bwe_v2.h",
+        "patchSetId": 20
+      },
+      "lineNbr": 89,
+      "author": {
+        "id": 5150
+      },
+      "writtenOn": "2022-05-11T09:02:21Z",
+      "side": 1,
+      "message": "nit: Maybe rename to make it clear that we don\u0027t compute a trendline over this window? Maybe something like `delay_detections_window_size` or `trendline_observations_window_size`?",
+      "range": {
+        "startLine": 89,
+        "startChar": 8,
+        "endLine": 89,
+        "endChar": 29
+      },
+      "revId": "f783b938fa1cf9daafb9641652f677a33c506b2d",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

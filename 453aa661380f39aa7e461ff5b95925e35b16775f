@@ -350,6 +350,24 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "3f8a9aee_64ec1ed3",
+        "filename": "modules/congestion_controller/goog_cc/acknowledged_bitrate_estimator_interface.h",
+        "patchSetId": 6
+      },
+      "lineNbr": 58,
+      "author": {
+        "id": 5150
+      },
+      "writtenOn": "2022-05-11T07:47:11Z",
+      "side": 1,
+      "message": "Ideally it should be a boolean, but the floating point weight was added as a work around for another bug which double counts non-TWCC packets. Will keep it as-is for the time being.",
+      "parentUuid": "e9de9bec_cdc19adc",
+      "revId": "453aa661380f39aa7e461ff5b95925e35b16775f",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "4fcda2f5_b8adcfb6",

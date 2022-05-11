@@ -22,6 +22,30 @@
       },
       "revId": "14b12136b382b5dfa6acc983e7dd1bad3ab54379",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "4175facc_0b270d56",
+        "filename": "modules/congestion_controller/goog_cc/robust_throughput_estimator_unittest.cc",
+        "patchSetId": 14
+      },
+      "lineNbr": 31,
+      "author": {
+        "id": 5150
+      },
+      "writtenOn": "2022-05-11T07:47:11Z",
+      "side": 1,
+      "message": "Correct. The Settings structs holds the actual values. This pointer conversion is a bit ugly, but comes from GoogCcNetworkControl using a FieldTrialView*.",
+      "parentUuid": "9c605c12_dfaf8936",
+      "range": {
+        "startLine": 31,
+        "startChar": 46,
+        "endLine": 31,
+        "endChar": 52
+      },
+      "revId": "14b12136b382b5dfa6acc983e7dd1bad3ab54379",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

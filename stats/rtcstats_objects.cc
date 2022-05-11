@@ -100,13 +100,8 @@ RTCCertificateStats::RTCCertificateStats(std::string&& id, int64_t timestamp_us)
       base64_certificate("base64Certificate"),
       issuer_certificate_id("issuerCertificateId") {}
 
-RTCCertificateStats::RTCCertificateStats(const RTCCertificateStats& other)
-    : RTCStats(other.id(), other.timestamp_us()),
-      fingerprint(other.fingerprint),
-      fingerprint_algorithm(other.fingerprint_algorithm),
-      base64_certificate(other.base64_certificate),
-      issuer_certificate_id(other.issuer_certificate_id) {}
-
+RTCCertificateStats::RTCCertificateStats(const RTCCertificateStats& other) =
+    default;
 RTCCertificateStats::~RTCCertificateStats() {}
 
 // clang-format off

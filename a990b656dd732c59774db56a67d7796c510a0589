@@ -69,6 +69,24 @@
       "parentUuid": "92ea23c0_52195f31",
       "revId": "a990b656dd732c59774db56a67d7796c510a0589",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "54246bec_9fe9f732",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 4
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 9405
+      },
+      "writtenOn": "2022-05-11T23:43:46Z",
+      "side": 1,
+      "message": "Now chromium wants MacOS 10.13 support, so we need to land this CL.\nMirko, do you have any other opinions about this?",
+      "parentUuid": "b1a70464_9657be65",
+      "revId": "a990b656dd732c59774db56a67d7796c510a0589",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

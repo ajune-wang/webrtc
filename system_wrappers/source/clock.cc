@@ -10,8 +10,6 @@
 
 #include "system_wrappers/include/clock.h"
 
-#include "system_wrappers/include/field_trial.h"
-
 #if defined(WEBRTC_WIN)
 
 // Windows needs to be included before mmsystem.h
@@ -80,22 +78,13 @@ void GetSecondsAndFraction(const timeval& time,
 
 class RealTimeClock : public Clock {
  public:
-  RealTimeClock()
-      : use_system_independent_ntp_time_(!field_trial::IsEnabled(
-            "WebRTC-SystemIndependentNtpTimeKillSwitch")) {}
+  RealTimeClock() = default;
 
   Timestamp CurrentTime() override {
     return Timestamp::Micros(rtc::TimeMicros());
   }
 
-  NtpTime CurrentNtpTime() override {
-    return use_system_independent_ntp_time_ ? TimeMicrosToNtp(rtc::TimeMicros())
-                                            : SystemDependentNtpTime();
-  }
-
   NtpTime ConvertTimestampToNtpTime(Timestamp timestamp) override {
-    // This method does not check `use_system_independent_ntp_time_` because
-    // all callers never used the old behavior of `CurrentNtpTime`.
     return TimeMicrosToNtp(timestamp.us());
   }
 
@@ -111,8 +100,6 @@ class RealTimeClock : public Clock {
     return NtpTime(seconds, static_cast<uint32_t>(
                                 fraction * kMagicNtpFractionalUnit + 0.5));
   }
-
-  bool use_system_independent_ntp_time_;
 };
 
 #if defined(WINUWP)

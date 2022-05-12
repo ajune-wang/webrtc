@@ -261,6 +261,24 @@
       "message": "I think the git checksum of the snapshot this was taken from should be in the description somewhere - just saying \"this is head\" is not sufficient for traceability.",
       "revId": "f68b5db7548bd023a0572262e7339b6e6e1dc089",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "520bd6ff_a54fb71e",
+        "filename": "modules/third_party/portaudio/README.chromium",
+        "patchSetId": 2
+      },
+      "lineNbr": 3,
+      "author": {
+        "id": 5087
+      },
+      "writtenOn": "2022-05-12T14:55:42Z",
+      "side": 1,
+      "message": "Do you mean the CL description or something else in this file?",
+      "parentUuid": "8da234bf_18654364",
+      "revId": "f68b5db7548bd023a0572262e7339b6e6e1dc089",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ],
   "submitRequirementResults": [

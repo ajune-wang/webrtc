@@ -371,6 +371,18 @@ std::unique_ptr<SocketUnderTest> HandoverSocket(
   return handover_socket;
 }
 
+std::vector<uint32_t> GetReceivedMessagePpids(SocketUnderTest& z) {
+  std::vector<uint32_t> ppids;
+  for (;;) {
+    absl::optional<DcSctpMessage> msg = z.cb.ConsumeReceivedMessage();
+    if (!msg.has_value()) {
+      break;
+    }
+    ppids.push_back(*msg->ppid());
+  }
+  return ppids;
+}
+
 // Test parameter that controls whether to perform handovers during the test. A
 // test can have multiple points where it conditionally hands over socket Z.
 // Either socket Z will be handed over at all those points or handed over never.
@@ -2379,5 +2391,110 @@ TEST_P(DcSctpSocketParametrizedTest, WillHandoverPriority) {
   EXPECT_EQ(a->socket.GetStreamPriority(StreamID(1)), StreamPriority(43));
   EXPECT_EQ(a->socket.GetStreamPriority(StreamID(2)), StreamPriority(43));
 }
+
+TEST(DcSctpSocketTest, SmallSentMessagesWithPrioWillArriveInSpecificOrder) {
+  DcSctpOptions options = {.enable_message_interleaving = true};
+  SocketUnderTest a("A", options);
+  SocketUnderTest z("A", options);
+
+  a.socket.SetStreamPriority(StreamID(1), StreamPriority(700));
+  a.socket.SetStreamPriority(StreamID(2), StreamPriority(200));
+  a.socket.SetStreamPriority(StreamID(3), StreamPriority(100));
+
+  // Enqueue messages before connecting the socket, to ensure they aren't send
+  // as soon as Send() is called.
+  a.socket.Send(DcSctpMessage(StreamID(3), PPID(5),
+                              std::vector<uint8_t>(kSmallMessageSize)),
+                kSendOptions);
+  a.socket.Send(DcSctpMessage(StreamID(1), PPID(1),
+                              std::vector<uint8_t>(kSmallMessageSize)),
+                kSendOptions);
+  a.socket.Send(DcSctpMessage(StreamID(2), PPID(4),
+                              std::vector<uint8_t>(kSmallMessageSize)),
+                kSendOptions);
+  a.socket.Send(DcSctpMessage(StreamID(1), PPID(2),
+                              std::vector<uint8_t>(kSmallMessageSize)),
+                kSendOptions);
+  a.socket.Send(DcSctpMessage(StreamID(1), PPID(3),
+                              std::vector<uint8_t>(kSmallMessageSize)),
+                kSendOptions);
+
+  ConnectSockets(a, z);
+  ExchangeMessages(a, z);
+
+  std::vector<uint32_t> received_ppids;
+  for (;;) {
+    absl::optional<DcSctpMessage> msg = z.cb.ConsumeReceivedMessage();
+    if (!msg.has_value()) {
+      break;
+    }
+    received_ppids.push_back(*msg->ppid());
+  }
+
+  EXPECT_THAT(received_ppids, ElementsAre(1, 2, 3, 4, 5));
+}
+
+TEST(DcSctpSocketTest, LargeSentMessagesWithPrioWillArriveInSpecificOrder) {
+  DcSctpOptions options = {.enable_message_interleaving = true};
+  SocketUnderTest a("A", options);
+  SocketUnderTest z("A", options);
+
+  a.socket.SetStreamPriority(StreamID(1), StreamPriority(700));
+  a.socket.SetStreamPriority(StreamID(2), StreamPriority(200));
+  a.socket.SetStreamPriority(StreamID(3), StreamPriority(100));
+
+  // Enqueue messages before connecting the socket, to ensure they aren't send
+  // as soon as Send() is called.
+  a.socket.Send(DcSctpMessage(StreamID(3), PPID(104),
+                              std::vector<uint8_t>(kLargeMessageSize)),
+                kSendOptions);
+  a.socket.Send(DcSctpMessage(StreamID(1), PPID(101),
+                              std::vector<uint8_t>(kLargeMessageSize)),
+                kSendOptions);
+  a.socket.Send(DcSctpMessage(StreamID(2), PPID(103),
+                              std::vector<uint8_t>(kLargeMessageSize)),
+                kSendOptions);
+  a.socket.Send(DcSctpMessage(StreamID(1), PPID(102),
+                              std::vector<uint8_t>(kLargeMessageSize)),
+                kSendOptions);
+
+  ConnectSockets(a, z);
+  ExchangeMessages(a, z);
+
+  EXPECT_THAT(GetReceivedMessagePpids(z), ElementsAre(101, 102, 103, 104));
+}
+
+TEST(DcSctpSocketTest, MessageWithHigherPrioWillInterruptLowerPrioMessage) {
+  DcSctpOptions options = {.enable_message_interleaving = true};
+  SocketUnderTest a("A", options);
+  SocketUnderTest z("Z", options);
+
+  ConnectSockets(a, z);
+
+  a.socket.SetStreamPriority(StreamID(2), StreamPriority(128));
+  a.socket.Send(DcSctpMessage(StreamID(2), PPID(103),
+                              std::vector<uint8_t>(kLargeMessageSize)),
+                kSendOptions);
+
+  // Due to a non-zero initial congestion window, the message will already start
+  // to send, but will not succeed to be sent completely before filling the
+  // congestion window or stopping due to reaching how many packets that can be
+  // sent at once (max burst). The important thing is that the entire message
+  // doesn't get sent in full.
+
+  // Now enqueue a small and a large higher priority message.
+  a.socket.SetStreamPriority(StreamID(1), StreamPriority(512));
+  a.socket.Send(DcSctpMessage(StreamID(1), PPID(101),
+                              std::vector<uint8_t>(kSmallMessageSize)),
+                kSendOptions);
+  a.socket.Send(DcSctpMessage(StreamID(1), PPID(102),
+                              std::vector<uint8_t>(kLargeMessageSize)),
+                kSendOptions);
+
+  ExchangeMessages(a, z);
+
+  EXPECT_THAT(GetReceivedMessagePpids(z), ElementsAre(101, 102, 103));
+}
+
 }  // namespace
 }  // namespace dcsctp

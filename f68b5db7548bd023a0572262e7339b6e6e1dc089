@@ -228,6 +228,24 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "9c02ec4f_2fe145df",
+        "filename": "PRESUBMIT.py",
+        "patchSetId": 2
+      },
+      "lineNbr": 959,
+      "author": {
+        "id": 9405
+      },
+      "writtenOn": "2022-05-12T13:50:11Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "ac8d5600_a6e8816b",
+      "revId": "f68b5db7548bd023a0572262e7339b6e6e1dc089",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "8da234bf_18654364",

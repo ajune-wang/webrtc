@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "5d2bee76_0a114458",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 4
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 9405
+      },
+      "writtenOn": "2022-05-12T13:50:11Z",
+      "side": 1,
+      "message": "Mirko, I restored this CL and addressed all issues.",
+      "revId": "692646b05794b1a754a13aedc65515e536f561d3",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

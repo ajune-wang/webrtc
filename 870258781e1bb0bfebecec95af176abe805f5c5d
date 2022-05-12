@@ -3,6 +3,23 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "e7045332_5f22940b",
+        "filename": "modules/video_coding/codecs/av1/av1_svc_config.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 44,
+      "author": {
+        "id": 5524
+      },
+      "writtenOn": "2022-05-12T11:55:30Z",
+      "side": 1,
+      "message": "Are there cases where low resolutions will have to be rounded? If so we would need to check sl[1].width / 2 \u003d\u003d sl[0].width instead?",
+      "revId": "870258781e1bb0bfebecec95af176abe805f5c5d",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "53425a41_9260a886",
         "filename": "modules/video_coding/codecs/av1/av1_svc_config.cc",
         "patchSetId": 2
@@ -20,6 +37,40 @@
         "endLine": 92,
         "endChar": 38
       },
+      "revId": "870258781e1bb0bfebecec95af176abe805f5c5d",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "a07cb1d6_5f256e0b",
+        "filename": "modules/video_coding/codecs/av1/av1_svc_config_unittest.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 33,
+      "author": {
+        "id": 5524
+      },
+      "writtenOn": "2022-05-12T11:55:30Z",
+      "side": 1,
+      "message": "Should you also verify the scalability mode enum/string is correct?\nTest coverage for the resolution validation and \u0027h\u0027 mode would be good too.",
+      "revId": "870258781e1bb0bfebecec95af176abe805f5c5d",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "fee88cfa_cf24b0f4",
+        "filename": "modules/video_coding/codecs/av1/av1_svc_config_unittest.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 41,
+      "author": {
+        "id": 5524
+      },
+      "writtenOn": "2022-05-12T11:55:30Z",
+      "side": 1,
+      "message": "...so the below could be a separate test case?",
       "revId": "870258781e1bb0bfebecec95af176abe805f5c5d",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }

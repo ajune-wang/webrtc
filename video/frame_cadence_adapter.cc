@@ -21,6 +21,7 @@
 #include "api/sequence_checker.h"
 #include "api/task_queue/task_queue_base.h"
 #include "api/units/time_delta.h"
+#include "api/units/timestamp.h"
 #include "api/video/video_frame.h"
 #include "rtc_base/checks.h"
 #include "rtc_base/logging.h"
@@ -184,6 +185,7 @@ class ZeroHertzAdapterMode : public AdapterMode {
   TaskQueueBase* const queue_;
   Clock* const clock_;
   FrameCadenceAdapterInterface::Callback* const callback_;
+
   // The configured max_fps.
   // TODO(crbug.com/1255737): support max_fps updates.
   const double max_fps_;
@@ -263,6 +265,11 @@ class FrameCadenceAdapterImpl : public FrameCadenceAdapterInterface {
   absl::optional<ZeroHertzModeParams> zero_hertz_params_;
   // Cache for the current adapter mode.
   AdapterMode* current_adapter_mode_ = nullptr;
+
+  // Timestamp for statistics reporting.
+  Mutex timestamp_mutex_;
+  absl::optional<Timestamp> zero_hertz_adapter_created_timestamp_
+      RTC_GUARDED_BY(timestamp_mutex_);
 
   // Set up during Initialize.
   Callback* callback_ = nullptr;
@@ -619,6 +626,17 @@ void FrameCadenceAdapterImpl::OnFrame(const VideoFrame& frame) {
   frames_scheduled_for_processing_.fetch_add(1, std::memory_order_relaxed);
   queue_->PostTask(ToQueuedTask(safety_.flag(), [this, post_time, frame] {
     RTC_DCHECK_RUN_ON(queue_);
+    {
+      MutexLock lock(&timestamp_mutex_);
+      if (zero_hertz_adapter_created_timestamp_.has_value()) {
+        TimeDelta time_until_first_frame =
+            clock_->CurrentTime() - *zero_hertz_adapter_created_timestamp_;
+        zero_hertz_adapter_created_timestamp_ = absl::nullopt;
+        RTC_HISTOGRAM_COUNTS_10000(
+            "WebRTC.Screenshare.ZeroHz.TimeUntilFirstFrameMs",
+            time_until_first_frame.ms());
+      }
+    }
     const int frames_scheduled_for_processing =
         frames_scheduled_for_processing_.fetch_sub(1,
                                                    std::memory_order_relaxed);
@@ -673,6 +691,8 @@ void FrameCadenceAdapterImpl::MaybeReconfigureAdapters(
         should_request_refresh_frame_ = false;
         callback_->RequestRefreshFrame();
       }
+      MutexLock lock(&timestamp_mutex_);
+      zero_hertz_adapter_created_timestamp_ = clock_->CurrentTime();
     }
     zero_hertz_adapter_->ReconfigureParameters(zero_hertz_params_.value());
     current_adapter_mode_ = &zero_hertz_adapter_.value();

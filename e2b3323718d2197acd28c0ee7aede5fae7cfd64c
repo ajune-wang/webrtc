@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "a6f41e88_48b159d0",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 3
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 10107
+      },
+      "writtenOn": "2022-05-12T15:48:35Z",
+      "side": 1,
+      "message": "PTAL. The corresponding prerequisite Chromium CL was submitted here: https://chromium-review.googlesource.com/c/chromium/src/+/3644729",
+      "revId": "e2b3323718d2197acd28c0ee7aede5fae7cfd64c",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

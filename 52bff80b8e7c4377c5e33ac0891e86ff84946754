@@ -39,6 +39,30 @@
       },
       "revId": "52bff80b8e7c4377c5e33ac0891e86ff84946754",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "387de8b1_884541b3",
+        "filename": "modules/video_coding/codecs/vp8/libvpx_vp8_encoder.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 500,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2022-05-12T13:37:07Z",
+      "side": 1,
+      "message": "Still depends on what sanity checks we want to have in  Vp8TemporalLayersFactory::Create, if that can return null, we need some error handling here.",
+      "parentUuid": "6b6a7997_1330d2a7",
+      "range": {
+        "startLine": 496,
+        "startChar": 0,
+        "endLine": 500,
+        "endChar": 3
+      },
+      "revId": "52bff80b8e7c4377c5e33ac0891e86ff84946754",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

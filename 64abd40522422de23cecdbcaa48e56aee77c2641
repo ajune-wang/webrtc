@@ -70,6 +70,30 @@
       },
       "revId": "64abd40522422de23cecdbcaa48e56aee77c2641",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "0f110f4a_6feaa5ea",
+        "filename": "api/video_codecs/vp8_temporal_layers_factory.cc",
+        "patchSetId": 12
+      },
+      "lineNbr": 37,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2022-05-12T13:37:07Z",
+      "side": 1,
+      "message": "The alternative would be to just ignore the top-level scalability mode, and check for valid modes elsewhere.",
+      "parentUuid": "868544d8_c60ddf68",
+      "range": {
+        "startLine": 31,
+        "startChar": 0,
+        "endLine": 37,
+        "endChar": 3
+      },
+      "revId": "64abd40522422de23cecdbcaa48e56aee77c2641",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

@@ -298,6 +298,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "af0fc838_69e2aaa3",
+        "filename": "modules/video_coding/video_codec_initializer.cc",
+        "patchSetId": 8
+      },
+      "lineNbr": 120,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2022-05-12T13:37:07Z",
+      "side": 1,
+      "message": "Disabled below warning for VP8. What about validation, do we need validation (variants of SupportsScalabilityMode for VP8, VP9 and H264 here?)? My current understanding is that higher layers should check that, but not crystal clear to me where.",
+      "parentUuid": "e78d6d26_2bb5530e",
+      "range": {
+        "startLine": 120,
+        "startChar": 14,
+        "endLine": 120,
+        "endChar": 78
+      },
+      "revId": "d615cb11ec86d331eed2d5933a3771a44dee835b",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "2acfde1d_49807ba4",
         "filename": "modules/video_coding/video_codec_initializer.cc",
         "patchSetId": 8
@@ -357,6 +381,30 @@
       "side": 1,
       "message": "For example: \n- when numberOfSimulcastStreams \u003d 0 (e.g. https://source.chromium.org/chromium/chromium/src/+/main:third_party/webrtc/media/engine/simulcast_encoder_adapter.cc;l\u003d767)\n- in LibvpxVp8Encoder (e.g. https://source.chromium.org/chromium/chromium/src/+/main:third_party/webrtc/modules/video_coding/codecs/vp8/libvpx_vp8_encoder.cc;l\u003d1022)\n\nNote that if different number of temporal layers are configured per stream, LibvpxVp8Encoder will fallback (https://source.chromium.org/chromium/chromium/src/+/main:third_party/webrtc/modules/video_coding/codecs/vp8/libvpx_vp8_encoder.cc;l\u003d483) to SimulcastEncoderAdapter (e.g. see TestTemporalLayersVp8SimulcastWithDifferentNumTls).",
       "parentUuid": "3d2f0d1f_c543df05",
+      "range": {
+        "startLine": 180,
+        "startChar": 10,
+        "endLine": 180,
+        "endChar": 24
+      },
+      "revId": "d615cb11ec86d331eed2d5933a3771a44dee835b",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "15c9f927_a8dd7bb9",
+        "filename": "modules/video_coding/video_codec_initializer.cc",
+        "patchSetId": 8
+      },
+      "lineNbr": 180,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2022-05-12T13:37:07Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "b521dd4f_77b5672f",
       "range": {
         "startLine": 180,
         "startChar": 10,

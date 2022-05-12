@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "fbec0cb7_01f4a5a6",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 14
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2022-05-12T13:37:07Z",
+      "side": 1,
+      "message": "Hi, there are a couple of unresolved comments regarding validation and error handling. Advice needed. I think this should be landable pretty soon, if we can just sort out those issues.",
+      "revId": "f33bdb5aa98502b36c41b4fb3fc80f0de20cb219",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

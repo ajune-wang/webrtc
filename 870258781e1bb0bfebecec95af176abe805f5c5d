@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "53425a41_9260a886",
+        "filename": "modules/video_coding/codecs/av1/av1_svc_config.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 92,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2022-05-12T11:44:38Z",
+      "side": 1,
+      "message": "I think AV1 is probably the only user of this VideoCodec top-level scalability mode setting.\n\nThe top-level setting is a bit odd, in the simulcast case. \n\nDo you think it would make sense to either retire it, and instead add a scalability mode to each entry in the simulcastStream array? Or document that the top-level scalability mode is valid only if numberOfSimulcastStreams \u003d\u003d 0 ?",
+      "range": {
+        "startLine": 92,
+        "startChar": 18,
+        "endLine": 92,
+        "endChar": 38
+      },
+      "revId": "870258781e1bb0bfebecec95af176abe805f5c5d",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

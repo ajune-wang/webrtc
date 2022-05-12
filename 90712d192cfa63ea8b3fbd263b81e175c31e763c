@@ -26,6 +26,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "0ecd42db_689903d3",
+        "filename": "modules/desktop_capture/win/wgc_capture_session.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 64,
+      "author": {
+        "id": 12416
+      },
+      "writtenOn": "2022-05-12T00:08:24Z",
+      "side": 1,
+      "message": "I\u0027d be fine deprecating this and adding a new one if you think that\u0027s the better way to go, I just figured it was basically the same. I will update the commit description to mention this.",
+      "parentUuid": "6c03636a_16048b21",
+      "range": {
+        "startLine": 64,
+        "startChar": 2,
+        "endLine": 64,
+        "endChar": 29
+      },
+      "revId": "90712d192cfa63ea8b3fbd263b81e175c31e763c",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "f5d2b605_7eefa79c",
         "filename": "modules/desktop_capture/win/wgc_capture_session.cc",
         "patchSetId": 4
@@ -37,6 +61,30 @@
       "writtenOn": "2022-05-10T23:37:12Z",
       "side": 1,
       "message": "I think if we direct this through std::hex it\u0027s more searchable. e.g.\n`\"Message: \" \u003c\u003c std::hex \u003c\u003c hr;` (At least, I get more hits when I can translate to a hex number and then search for HRESULT \u003chex\u003e instead of HRESULT \u003cdec\u003e, if there\u0027s a place for me to search that that doesn\u0027t matter then fine as is)\n\nSo that it will yield e.g. 0x800XXXXX instead of -245....\n\nSame below.\n\n(Don\u0027t need to change existing instances, but changing new instances/instances going forward would be helpful if you agree).",
+      "range": {
+        "startLine": 114,
+        "startChar": 26,
+        "endLine": 114,
+        "endChar": 31
+      },
+      "revId": "90712d192cfa63ea8b3fbd263b81e175c31e763c",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "64911650_ac6e9df9",
+        "filename": "modules/desktop_capture/win/wgc_capture_session.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 114,
+      "author": {
+        "id": 12416
+      },
+      "writtenOn": "2022-05-12T00:08:24Z",
+      "side": 1,
+      "message": "That sounds good to me, I\u0027ll update the new uses.",
+      "parentUuid": "f5d2b605_7eefa79c",
       "range": {
         "startLine": 114,
         "startChar": 26,
@@ -72,6 +120,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "6ec9012f_473eb4b3",
+        "filename": "modules/desktop_capture/win/wgc_capture_session.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 120,
+      "author": {
+        "id": 12416
+      },
+      "writtenOn": "2022-05-12T00:08:24Z",
+      "side": 1,
+      "message": "Good idea! I will do this.",
+      "parentUuid": "03a4aa84_6976d3ca",
+      "range": {
+        "startLine": 109,
+        "startChar": 0,
+        "endLine": 120,
+        "endChar": 5
+      },
+      "revId": "90712d192cfa63ea8b3fbd263b81e175c31e763c",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "52715502_7de1dfda",
         "filename": "modules/desktop_capture/win/wgc_capture_session.cc",
         "patchSetId": 4
@@ -83,6 +155,30 @@
       "writtenOn": "2022-05-10T23:37:12Z",
       "side": 1,
       "message": "Do we actually need/want this? I guess otherwise we have to lock to access the frame queue; but I want to make sure that this isn\u0027t causing more work that will block the main thread and lead to a performance regression? Are we already on our own thread?",
+      "range": {
+        "startLine": 187,
+        "startChar": 2,
+        "endLine": 189,
+        "endChar": 24
+      },
+      "revId": "90712d192cfa63ea8b3fbd263b81e175c31e763c",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "78f97344_4ace0640",
+        "filename": "modules/desktop_capture/win/wgc_capture_session.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 189,
+      "author": {
+        "id": 12416
+      },
+      "writtenOn": "2022-05-12T00:08:24Z",
+      "side": 1,
+      "message": "Yes, capture is done on its own thread. Both the NativeDesktopMediaList  DesktopCaptureDevice create a base::Thread object to run capture on.\n\nAnd yes exactly I wanted to avoid locks.",
+      "parentUuid": "52715502_7de1dfda",
       "range": {
         "startLine": 187,
         "startChar": 2,
@@ -112,6 +208,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "9a33b0fa_d68f5844",
+        "filename": "modules/desktop_capture/win/wgc_capture_session.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 390,
+      "author": {
+        "id": 12416
+      },
+      "writtenOn": "2022-05-12T00:08:24Z",
+      "side": 1,
+      "message": "I don\u0027t think we will get any FrameArrived events if there\u0027s no room in the pool, but I\u0027ll double check this and add some DCHECKS (also one to ensure we don\u0027t go negative).",
+      "parentUuid": "8f273f09_e0474f3a",
+      "revId": "90712d192cfa63ea8b3fbd263b81e175c31e763c",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "66486894_ca934e01",
         "filename": "modules/desktop_capture/win/wgc_capture_session.cc",
         "patchSetId": 4
@@ -135,6 +249,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "74e89f01_00552d18",
+        "filename": "modules/desktop_capture/win/wgc_capture_session.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 410,
+      "author": {
+        "id": 12416
+      },
+      "writtenOn": "2022-05-12T00:08:24Z",
+      "side": 1,
+      "message": "I will look into this.",
+      "parentUuid": "66486894_ca934e01",
+      "range": {
+        "startLine": 410,
+        "startChar": 2,
+        "endLine": 410,
+        "endChar": 48
+      },
+      "revId": "90712d192cfa63ea8b3fbd263b81e175c31e763c",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "66ef627a_649a0218",
         "filename": "modules/desktop_capture/win/wgc_capturer_win.cc",
         "patchSetId": 4
@@ -146,6 +284,30 @@
       "writtenOn": "2022-05-10T23:37:12Z",
       "side": 1,
       "message": "So I understand; can you point to where we do that?",
+      "range": {
+        "startLine": 231,
+        "startChar": 69,
+        "endLine": 232,
+        "endChar": 19
+      },
+      "revId": "90712d192cfa63ea8b3fbd263b81e175c31e763c",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "a3e62f48_e8a0039a",
+        "filename": "modules/desktop_capture/win/wgc_capturer_win.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 232,
+      "author": {
+        "id": 12416
+      },
+      "writtenOn": "2022-05-12T00:08:24Z",
+      "side": 1,
+      "message": "all base::Thread objects are COM initialized:\nhttps://source.chromium.org/chromium/chromium/src/+/main:base/threading/thread.cc;l\u003d384;drc\u003d72186360334350c90b9b94515b3c82bea25e27ff",
+      "parentUuid": "66ef627a_649a0218",
       "range": {
         "startLine": 231,
         "startChar": 69,

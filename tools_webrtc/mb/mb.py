@@ -117,11 +117,10 @@ class WebRTCMetaBuildWrapper(mb.MetaBuildWrapper):
           '../../third_party/gtest-parallel/gtest_parallel.py',
           '../../tools_webrtc/gtest-parallel-wrapper.py',
       ]
-      output_dir = '${ISOLATED_OUTDIR}/test_logs'
       timeout = isolate_map[target].get('timeout', 900)
       cmdline += [
           '../../tools_webrtc/gtest-parallel-wrapper.py',
-          '--output_dir=%s' % output_dir,
+          '--output_dir=${ISOLATED_OUTDIR}',
           '--gtest_color=no',
           # We tell gtest-parallel to interrupt the test after 900
           # seconds, so it can exit cleanly and report results,

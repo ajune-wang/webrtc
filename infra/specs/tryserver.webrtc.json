@@ -5755,6 +5755,7 @@
       },
       {
         "args": [
+          "--",
           "--quick"
         ],
         "isolate_name": "low_bandwidth_audio_test",
@@ -6172,6 +6173,7 @@
       },
       {
         "args": [
+          "--",
           "--quick"
         ],
         "isolate_name": "low_bandwidth_audio_test",
@@ -6584,6 +6586,7 @@
       },
       {
         "args": [
+          "--",
           "--quick"
         ],
         "isolate_name": "low_bandwidth_audio_test",
@@ -7021,6 +7024,7 @@
       },
       {
         "args": [
+          "--",
           "--quick"
         ],
         "isolate_name": "low_bandwidth_audio_test",
@@ -7432,6 +7436,7 @@
       },
       {
         "args": [
+          "--",
           "--quick"
         ],
         "isolate_name": "low_bandwidth_audio_test",
@@ -7893,6 +7898,7 @@
       },
       {
         "args": [
+          "--",
           "--quick"
         ],
         "isolate_name": "low_bandwidth_audio_test",
@@ -8304,6 +8310,7 @@
       },
       {
         "args": [
+          "--",
           "--quick"
         ],
         "isolate_name": "low_bandwidth_audio_test",
@@ -8715,6 +8722,7 @@
       },
       {
         "args": [
+          "--",
           "--quick"
         ],
         "isolate_name": "low_bandwidth_audio_test",
@@ -9126,6 +9134,7 @@
       },
       {
         "args": [
+          "--",
           "--quick"
         ],
         "isolate_name": "low_bandwidth_audio_test",
@@ -9537,6 +9546,7 @@
       },
       {
         "args": [
+          "--",
           "--quick"
         ],
         "isolate_name": "low_bandwidth_audio_test",
@@ -9952,6 +9962,7 @@
       },
       {
         "args": [
+          "--",
           "--quick"
         ],
         "isolate_name": "low_bandwidth_audio_test",
@@ -10384,6 +10395,7 @@
       },
       {
         "args": [
+          "--",
           "--quick"
         ],
         "isolate_name": "low_bandwidth_audio_test",
@@ -10814,6 +10826,7 @@
       },
       {
         "args": [
+          "--",
           "--quick"
         ],
         "isolate_name": "low_bandwidth_audio_test",
@@ -11240,6 +11253,7 @@
       },
       {
         "args": [
+          "--",
           "--quick"
         ],
         "isolate_name": "low_bandwidth_audio_test",
@@ -11705,6 +11719,7 @@
       },
       {
         "args": [
+          "--",
           "--quick"
         ],
         "isolate_name": "low_bandwidth_audio_test",
@@ -12131,6 +12146,7 @@
       },
       {
         "args": [
+          "--",
           "--quick"
         ],
         "isolate_name": "low_bandwidth_audio_test",
@@ -12546,6 +12562,7 @@
       },
       {
         "args": [
+          "--",
           "--quick"
         ],
         "isolate_name": "low_bandwidth_audio_test",
@@ -12957,6 +12974,7 @@
       },
       {
         "args": [
+          "--",
           "--quick"
         ],
         "isolate_name": "low_bandwidth_audio_test",
@@ -13368,6 +13386,7 @@
       },
       {
         "args": [
+          "--",
           "--quick"
         ],
         "isolate_name": "low_bandwidth_audio_test",
@@ -13779,6 +13798,7 @@
       },
       {
         "args": [
+          "--",
           "--quick"
         ],
         "isolate_name": "low_bandwidth_audio_test",
@@ -14190,6 +14210,7 @@
       },
       {
         "args": [
+          "--",
           "--quick"
         ],
         "isolate_name": "low_bandwidth_audio_test",

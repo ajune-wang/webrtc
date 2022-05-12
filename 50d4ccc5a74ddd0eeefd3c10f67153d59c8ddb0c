@@ -18,6 +18,23 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "9f634c52_0f27d12e",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2022-05-12T07:02:16Z",
+      "side": 1,
+      "message": "Are there any tests within webrtc that can use these mocks?",
+      "revId": "50d4ccc5a74ddd0eeefd3c10f67153d59c8ddb0c",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "8d5322de_38347198",
@@ -84,6 +101,24 @@
       "side": 1,
       "message": "I reused the pattern I saw in the DataChannel mock which was also a RefCountedObject through its interface.\nLet me know if I should do any changes in this case.",
       "parentUuid": "4ecdb5e0_dbb1991f",
+      "revId": "50d4ccc5a74ddd0eeefd3c10f67153d59c8ddb0c",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "4945eb29_86428f78",
+        "filename": "api/test/mock_dtmf_sender.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 30,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2022-05-12T07:02:16Z",
+      "side": 1,
+      "message": "I\u0027d prefer just \n\nclass MockDtmfSender : public DtmfSenderInterface {...}\n\nAnd then the Create method can use rtc::make_ref_counted\u003cMockDtmfSender\u003e();",
+      "parentUuid": "a60c9b55_77bf9817",
       "revId": "50d4ccc5a74ddd0eeefd3c10f67153d59c8ddb0c",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }

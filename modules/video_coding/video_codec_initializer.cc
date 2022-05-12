@@ -23,6 +23,7 @@
 #include "modules/video_coding/codecs/av1/av1_svc_config.h"
 #include "modules/video_coding/codecs/vp9/svc_config.h"
 #include "modules/video_coding/include/video_coding_defines.h"
+#include "modules/video_coding/svc/scalability_mode_util.h"
 #include "rtc_base/checks.h"
 #include "rtc_base/experiments/min_video_bitrate_experiment.h"
 #include "rtc_base/logging.h"
@@ -113,8 +114,14 @@ VideoCodec VideoCodecInitializer::VideoEncoderConfigToVideoCodec(
     sim_stream->targetBitrate = streams[i].target_bitrate_bps / 1000;
     sim_stream->maxBitrate = streams[i].max_bitrate_bps / 1000;
     sim_stream->qpMax = streams[i].max_qp;
+
+    int num_temporal_layers =
+        streams[i].scalability_mode.has_value()
+            ? ScalabilityModeToNumTemporalLayers(*streams[i].scalability_mode)
+            : streams[i].num_temporal_layers.value_or(1);
+
     sim_stream->numberOfTemporalLayers =
-        static_cast<unsigned char>(streams[i].num_temporal_layers.value_or(1));
+        static_cast<unsigned char>(num_temporal_layers);
     sim_stream->active = streams[i].active;
 
     video_codec.width =
@@ -129,9 +136,16 @@ VideoCodec VideoCodecInitializer::VideoEncoderConfigToVideoCodec(
                                  static_cast<unsigned int>(streams[i].max_qp));
     max_framerate = std::max(max_framerate, streams[i].max_framerate);
 
+    // TODO(bugs.webrtc.org/11607): Since scalability mode is a top-level
+    // setting on VideoCodec, setting it makes sense only if it is the same for
+    // all simulcast streams.
     if (streams[0].scalability_mode != streams[i].scalability_mode) {
-      RTC_LOG(LS_WARNING) << "Inconsistent scalability modes configured.";
       scalability_mode.reset();
+      // For VP8, top-level scalability mode doesn't matter, since configuration
+      // is based on the per-simulcast stream configuration of temporal layers.
+      if (video_codec.codecType != kVideoCodecVP8) {
+        RTC_LOG(LS_WARNING) << "Inconsistent scalability modes configured.";
+      }
     }
   }
 
@@ -166,9 +180,13 @@ VideoCodec VideoCodecInitializer::VideoEncoderConfigToVideoCodec(
         *video_codec.VP8() = VideoEncoder::GetDefaultVp8Settings();
       }
 
-      video_codec.VP8()->numberOfTemporalLayers = static_cast<unsigned char>(
-          streams.back().num_temporal_layers.value_or(
-              video_codec.VP8()->numberOfTemporalLayers));
+      video_codec.VP8()->numberOfTemporalLayers =
+          streams.back().scalability_mode.has_value()
+              ? ScalabilityModeToNumTemporalLayers(
+                    *streams.back().scalability_mode)
+              : streams.back().num_temporal_layers.value_or(
+                    video_codec.VP8()->numberOfTemporalLayers);
+
       RTC_DCHECK_GE(video_codec.VP8()->numberOfTemporalLayers, 1);
       RTC_DCHECK_LE(video_codec.VP8()->numberOfTemporalLayers,
                     kMaxTemporalStreams);

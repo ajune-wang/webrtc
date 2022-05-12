@@ -266,14 +266,14 @@ class RtpSenderTest : public ::testing::Test {
 
   // Enable sending of the MID header extension for both the primary SSRC and
   // the RTX SSRC.
-  void EnableMidSending(const std::string& mid) {
+  void EnableMidSending(absl::string_view mid) {
     rtp_sender_->RegisterRtpHeaderExtension(RtpMid::Uri(), kMidExtensionId);
     rtp_sender_->SetMid(mid);
   }
 
   // Enable sending of the RSID header extension for the primary SSRC and the
   // RRSID header extension for the RTX SSRC.
-  void EnableRidSending(const std::string& rid) {
+  void EnableRidSending(absl::string_view rid) {
     rtp_sender_->RegisterRtpHeaderExtension(RtpStreamId::Uri(),
                                             kRidExtensionId);
     rtp_sender_->RegisterRtpHeaderExtension(RepairedRtpStreamId::Uri(),

@@ -101,9 +101,9 @@ class ModuleRtpRtcpImpl : public RtpRtcp, public RTCPReceiver::ModuleRtpRtcp {
 
   uint32_t SSRC() const override { return rtcp_sender_.SSRC(); }
 
-  void SetRid(const std::string& rid) override;
+  void SetRid(absl::string_view rid) override;
 
-  void SetMid(const std::string& mid) override;
+  void SetMid(absl::string_view mid) override;
 
   void SetCsrcs(const std::vector<uint32_t>& csrcs) override;
 
@@ -167,7 +167,7 @@ class ModuleRtpRtcpImpl : public RtpRtcp, public RTCPReceiver::ModuleRtpRtcp {
   void SetRTCPStatus(RtcpMode method) override;
 
   // Set RTCP CName.
-  int32_t SetCNAME(const char* c_name) override;
+  int32_t SetCNAME(absl::string_view c_name) override;
 
   // Get remote NTP.
   int32_t RemoteNTP(uint32_t* received_ntp_secs,

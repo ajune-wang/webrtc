@@ -800,7 +800,7 @@ bool BaseRtpStringExtension::Parse(rtc::ArrayView<const uint8_t> data,
 }
 
 bool BaseRtpStringExtension::Write(rtc::ArrayView<uint8_t> data,
-                                   const std::string& str) {
+                                   absl::string_view str) {
   if (str.size() > kMaxValueSizeBytes) {
     return false;
   }

@@ -291,13 +291,13 @@ RtpState ModuleRtpRtcpImpl::GetRtxState() const {
   return state;
 }
 
-void ModuleRtpRtcpImpl::SetRid(const std::string& rid) {
+void ModuleRtpRtcpImpl::SetRid(absl::string_view rid) {
   if (rtp_sender_) {
     rtp_sender_->packet_generator.SetRid(rid);
   }
 }
 
-void ModuleRtpRtcpImpl::SetMid(const std::string& mid) {
+void ModuleRtpRtcpImpl::SetMid(absl::string_view mid) {
   if (rtp_sender_) {
     rtp_sender_->packet_generator.SetMid(mid);
   }
@@ -517,7 +517,7 @@ void ModuleRtpRtcpImpl::SetRTCPStatus(const RtcpMode method) {
   rtcp_sender_.SetRTCPStatus(method);
 }
 
-int32_t ModuleRtpRtcpImpl::SetCNAME(const char* c_name) {
+int32_t ModuleRtpRtcpImpl::SetCNAME(absl::string_view c_name) {
   return rtcp_sender_.SetCNAME(c_name);
 }
 

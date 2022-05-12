@@ -467,7 +467,10 @@ rtc_library("mock_rtp_rtcp") {
     "../../rtc_base:checks",
     "../../test:test_support",
   ]
-  absl_deps = [ "//third_party/abseil-cpp/absl/types:optional" ]
+  absl_deps = [
+    "//third_party/abseil-cpp/absl/strings",
+    "//third_party/abseil-cpp/absl/types:optional",
+  ]
 }
 
 rtc_library("rtp_packetizer_av1_test_helper") {

@@ -9,6 +9,8 @@
  */
 #include "net/dcsctp/tx/stream_scheduler.h"
 
+#include <algorithm>
+
 #include "absl/algorithm/container.h"
 #include "absl/types/optional.h"
 #include "api/array_view.h"
@@ -25,12 +27,18 @@ namespace dcsctp {
 
 void StreamScheduler::Stream::set_priority(StreamPriority priority) {
   priority_ = priority;
+  inverse_weight_ = InverseWeight(priority);
 }
 
 absl::optional<SendQueue::DataToSend> StreamScheduler::Produce(
     TimeMs now,
     size_t max_size) {
-  bool rescheduling = previous_message_has_ended_;
+  // For non-interleaved streams: Previous message has ended. And for
+  // interleaved message sending, this is done for every I-DATA chunk sent;
+  // Round-robin to a different stream, if there even is one with data to
+  // send.
+  bool rescheduling =
+      enable_message_interleaving_ || previous_message_has_ended_;
 
   RTC_LOG(LS_VERBOSE) << "Producing data, rescheduling=" << rescheduling
                       << ", active="
@@ -92,7 +100,7 @@ absl::optional<SendQueue::DataToSend> StreamScheduler::Produce(
   // in `active_streams`.
   size_t bytes_to_send_next = current_stream_->bytes_to_send_in_next_message();
   if (rescheduling && bytes_to_send_next > 0) {
-    current_stream_->MakeActive();
+    current_stream_->MakeActive(bytes_to_send_next);
   } else if (!rescheduling && bytes_to_send_next == 0) {
     current_stream_->MakeInactive();
   }
@@ -101,8 +109,12 @@ absl::optional<SendQueue::DataToSend> StreamScheduler::Produce(
   return data;
 }
 
-StreamScheduler::VirtualTime StreamScheduler::Stream::GetNextFinishTime()
-    const {
+StreamScheduler::VirtualTime StreamScheduler::Stream::CalculateFinishTime(
+    size_t bytes_to_send_next) const {
+  if (parent_.enable_message_interleaving_) {
+    return VirtualTime(*current_virtual_time_ +
+                       bytes_to_send_next * *inverse_weight_);
+  }
   return VirtualTime(*current_virtual_time_ + 1);
 }
 
@@ -112,7 +124,7 @@ absl::optional<SendQueue::DataToSend> StreamScheduler::Stream::Produce(
   absl::optional<SendQueue::DataToSend> data = callback_.Produce(now, max_size);
 
   if (data.has_value()) {
-    VirtualTime new_current = GetNextFinishTime();
+    VirtualTime new_current = CalculateFinishTime(data->data.payload.size());
     RTC_DLOG(LS_VERBOSE) << "Virtual time changed: " << *current_virtual_time_
                          << " -> " << *new_current;
     current_virtual_time_ = new_current;
@@ -140,15 +152,17 @@ void StreamScheduler::Stream::MaybeMakeActive() {
     return;
   }
 
-  MakeActive();
+  MakeActive(bytes_to_send_next);
 }
 
-void StreamScheduler::Stream::MakeActive() {
+void StreamScheduler::Stream::MakeActive(size_t bytes_to_send_next) {
   current_virtual_time_ = parent_.virtual_time_;
-  VirtualTime next_finish_time = GetNextFinishTime();
+  RTC_DCHECK_GT(bytes_to_send_next, 0);
+  VirtualTime next_finish_time = CalculateFinishTime(
+      std::min(bytes_to_send_next, parent_.max_payload_bytes_));
+  RTC_DCHECK_GT(*next_finish_time, 0);
   RTC_DLOG(LS_VERBOSE) << "Making stream " << *stream_id()
                        << " active, expiring at " << *next_finish_time;
-  RTC_DCHECK_GT(*next_finish_time, 0);
   RTC_DCHECK(next_finish_time_ == VirtualTime::Zero());
   next_finish_time_ = next_finish_time;
   RTC_DCHECK(!absl::c_any_of(parent_.active_streams_,

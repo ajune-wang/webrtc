@@ -91,14 +91,14 @@ class TestStream {
 
 // A scheduler without active streams doesn't produce data.
 TEST(StreamSchedulerTest, HasNoActiveStreams) {
-  StreamScheduler scheduler;
+  StreamScheduler scheduler(kMtu);
 
   EXPECT_EQ(scheduler.Produce(TimeMs(0), kMtu), absl::nullopt);
 }
 
 // A scheduler with a single stream produced packets from it.
 TEST(StreamSchedulerTest, CanProduceFromSingleStream) {
-  StreamScheduler scheduler;
+  StreamScheduler scheduler(kMtu);
 
   StrictMock<MockStreamCallback> callback;
   EXPECT_CALL(callback, Produce).WillOnce(CreateChunk(StreamID(1), MID(0)));
@@ -115,7 +115,7 @@ TEST(StreamSchedulerTest, CanProduceFromSingleStream) {
 
 // Switches between two streams after every packet.
 TEST(StreamSchedulerTest, WillRoundRobinBetweenStreams) {
-  StreamScheduler scheduler;
+  StreamScheduler scheduler(kMtu);
 
   StrictMock<MockStreamCallback> callback1;
   EXPECT_CALL(callback1, Produce)
@@ -157,7 +157,7 @@ TEST(StreamSchedulerTest, WillRoundRobinBetweenStreams) {
 // Switches between two streams after every packet, but keeps producing from the
 // same stream when a packet contains of multiple fragments.
 TEST(StreamSchedulerTest, WillRoundRobinOnlyWhenFinishedProducingChunk) {
-  StreamScheduler scheduler;
+  StreamScheduler scheduler(kMtu);
 
   StrictMock<MockStreamCallback> callback1;
   EXPECT_CALL(callback1, Produce)
@@ -219,7 +219,7 @@ TEST(StreamSchedulerTest, WillRoundRobinOnlyWhenFinishedProducingChunk) {
 
 // Deactivates a stream before it has finished producing all packets.
 TEST(StreamSchedulerTest, StreamsCanBeMadeInactive) {
-  StreamScheduler scheduler;
+  StreamScheduler scheduler(kMtu);
 
   StrictMock<MockStreamCallback> callback1;
   EXPECT_CALL(callback1, Produce)
@@ -243,7 +243,7 @@ TEST(StreamSchedulerTest, StreamsCanBeMadeInactive) {
 
 // Resumes a paused stream - makes a stream active after inactivating it.
 TEST(StreamSchedulerTest, SingleStreamCanBeResumed) {
-  StreamScheduler scheduler;
+  StreamScheduler scheduler(kMtu);
 
   StrictMock<MockStreamCallback> callback1;
   // Callbacks are setup so that they hint that there is a MID(2) coming...
@@ -273,7 +273,7 @@ TEST(StreamSchedulerTest, SingleStreamCanBeResumed) {
 
 // Iterates between streams, where one is suddenly paused and later resumed.
 TEST(StreamSchedulerTest, WillRoundRobinWithPausedStream) {
-  StreamScheduler scheduler;
+  StreamScheduler scheduler(kMtu);
 
   StrictMock<MockStreamCallback> callback1;
   EXPECT_CALL(callback1, Produce)
@@ -317,7 +317,7 @@ TEST(StreamSchedulerTest, WillRoundRobinWithPausedStream) {
 
 // Verifies that packet counts are evenly distributed in round robin scheduling.
 TEST(StreamSchedulerTest, WillDistributeRoundRobinPacketsEvenlyTwoStreams) {
-  StreamScheduler scheduler;
+  StreamScheduler scheduler(kMtu);
   TestStream stream1(scheduler, StreamID(1), StreamPriority(1));
   TestStream stream2(scheduler, StreamID(2), StreamPriority(1));
 
@@ -330,7 +330,7 @@ TEST(StreamSchedulerTest, WillDistributeRoundRobinPacketsEvenlyTwoStreams) {
 // where a stream is suddenly made inactive, two are added, and then the paused
 // stream is resumed.
 TEST(StreamSchedulerTest, WillDistributeEvenlyWithPausedAndAddedStreams) {
-  StreamScheduler scheduler;
+  StreamScheduler scheduler(kMtu);
   TestStream stream1(scheduler, StreamID(1), StreamPriority(1));
   TestStream stream2(scheduler, StreamID(2), StreamPriority(1));
 
@@ -356,6 +356,91 @@ TEST(StreamSchedulerTest, WillDistributeEvenlyWithPausedAndAddedStreams) {
   EXPECT_EQ(counts3[StreamID(2)], 5U);
   EXPECT_EQ(counts3[StreamID(3)], 5U);
   EXPECT_EQ(counts3[StreamID(4)], 5U);
+}
+
+TEST(StreamSchedulerTest, WillDistributeWFQPacketsInTwoStreamsByPriority) {
+  // A simple test with two streams of different priority, but sending packets
+  // of identical size. Verifies that the ratio of sent packets represent their
+  // priority.
+  StreamScheduler scheduler(kMtu);
+  scheduler.EnableMessageInterleaving(true);
+
+  TestStream stream1(scheduler, StreamID(1), StreamPriority(100), kPayloadSize);
+  TestStream stream2(scheduler, StreamID(2), StreamPriority(200), kPayloadSize);
+
+  std::map<StreamID, size_t> packet_counts = GetPacketCounts(scheduler, 15);
+  EXPECT_EQ(packet_counts[StreamID(1)], 5U);
+  EXPECT_EQ(packet_counts[StreamID(2)], 10U);
+}
+
+TEST(StreamSchedulerTest, WillDistributeWFQPacketsInFourStreamsByPriority) {
+  // Same as `WillDistributeWFQPacketsInTwoStreamsByPriority` but with more
+  // streams.
+  StreamScheduler scheduler(kMtu);
+  scheduler.EnableMessageInterleaving(true);
+
+  TestStream stream1(scheduler, StreamID(1), StreamPriority(100), kPayloadSize);
+  TestStream stream2(scheduler, StreamID(2), StreamPriority(200), kPayloadSize);
+  TestStream stream3(scheduler, StreamID(3), StreamPriority(300), kPayloadSize);
+  TestStream stream4(scheduler, StreamID(4), StreamPriority(400), kPayloadSize);
+
+  std::map<StreamID, size_t> packet_counts = GetPacketCounts(scheduler, 50);
+  EXPECT_EQ(packet_counts[StreamID(1)], 5U);
+  EXPECT_EQ(packet_counts[StreamID(2)], 10U);
+  EXPECT_EQ(packet_counts[StreamID(3)], 15U);
+  EXPECT_EQ(packet_counts[StreamID(4)], 20U);
+}
+
+TEST(StreamSchedulerTest, WillDistributeFromTwoStreamsFairly) {
+  // A simple test with two streams of different priority, but sending packets
+  // of different size. Verifies that the ratio of total packet payload
+  // represent their priority.
+  // In this example,
+  // * stream1 has priority 100 and sends packets of size 8
+  // * stream2 has priority 400 and sends packets of size 4
+  // With round robin, stream1 would get twice as many payload bytes on the wire
+  // as stream2, but with WFQ and a 4x priority increase, stream2 should 4x as
+  // many payload bytes on the wire. That translates to stream2 getting 8x as
+  // many packets on the wire as they are half as large.
+  StreamScheduler scheduler(kMtu);
+  // Enable WFQ scheduler.
+  scheduler.EnableMessageInterleaving(true);
+
+  TestStream stream1(scheduler, StreamID(1), StreamPriority(100),
+                     /*packet_size=*/8);
+  TestStream stream2(scheduler, StreamID(2), StreamPriority(400),
+                     /*packet_size=*/4);
+
+  std::map<StreamID, size_t> packet_counts = GetPacketCounts(scheduler, 90);
+  EXPECT_EQ(packet_counts[StreamID(1)], 10U);
+  EXPECT_EQ(packet_counts[StreamID(2)], 80U);
+}
+
+TEST(StreamSchedulerTest, WillDistributeFromFourStreamsFairly) {
+  // Same as `WillDistributeWeightedFairFromTwoStreamsFairly` but more
+  // complicated.
+  StreamScheduler scheduler(kMtu);
+  // Enable WFQ scheduler.
+  scheduler.EnableMessageInterleaving(true);
+
+  TestStream stream1(scheduler, StreamID(1), StreamPriority(100),
+                     /*packet_size=*/10);
+  TestStream stream2(scheduler, StreamID(2), StreamPriority(200),
+                     /*packet_size=*/10);
+  TestStream stream3(scheduler, StreamID(3), StreamPriority(200),
+                     /*packet_size=*/20);
+  TestStream stream4(scheduler, StreamID(4), StreamPriority(400),
+                     /*packet_size=*/30);
+
+  std::map<StreamID, size_t> packet_counts = GetPacketCounts(scheduler, 80);
+  // 15 packets * 10 bytes = 150 bytes at priority 100.
+  EXPECT_EQ(packet_counts[StreamID(1)], 15U);
+  // 30 packets * 10 bytes = 300 bytes at priority 200.
+  EXPECT_EQ(packet_counts[StreamID(2)], 30U);
+  // 15 packets * 20 bytes = 300 bytes at priority 200.
+  EXPECT_EQ(packet_counts[StreamID(3)], 15U);
+  // 20 packets * 30 bytes = 600 bytes at priority 400.
+  EXPECT_EQ(packet_counts[StreamID(4)], 20U);
 }
 
 }  // namespace

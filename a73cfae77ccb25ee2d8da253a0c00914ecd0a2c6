@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "18bb9dd1_303b6ee2",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2022-05-12T09:11:42Z",
+      "side": 1,
+      "message": "while it is possible to supported wider TimeDelta range, I\u0027ve put smaller limit for simplicity.\nThough larger time delta values are theoretically possible, I consider them unpractical to support. ",
+      "revId": "a73cfae77ccb25ee2d8da253a0c00914ecd0a2c6",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

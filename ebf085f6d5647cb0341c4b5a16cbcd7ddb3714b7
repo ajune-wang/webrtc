@@ -16,6 +16,23 @@
       "message": "Thanks. All done.",
       "revId": "ebf085f6d5647cb0341c4b5a16cbcd7ddb3714b7",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "2478a83a_257f14bc",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 4
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 10107
+      },
+      "writtenOn": "2022-05-13T08:29:09Z",
+      "side": 1,
+      "message": "Adding xalep@ for OWNERS approval of files under sdk/.",
+      "revId": "ebf085f6d5647cb0341c4b5a16cbcd7ddb3714b7",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

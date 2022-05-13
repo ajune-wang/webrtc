@@ -14,7 +14,9 @@
 #include <memory>
 #include <vector>
 
+#include "api/transport/field_trial_based_config.h"
 #include "system_wrappers/include/clock.h"
+#include "test/field_trial.h"
 #include "test/gmock.h"
 #include "test/gtest.h"
 
@@ -1031,6 +1033,36 @@ TEST_F(BitrateAllocatorTest, PriorityRateThreeObserversTwoAllocatedToMax) {
   allocator_->RemoveObserver(&observer_low);
   allocator_->RemoveObserver(&observer_mid);
   allocator_->RemoveObserver(&observer_high);
+}
+
+TEST_F(BitrateAllocatorTest, ConfigurableMediaRateCap) {
+  // limit total media bitrate to between 30 and 40k
+  test::ScopedFieldTrials trials(
+      "WebRTC-MediaRateCap/lower_limit_kbps:30,upper_limit_kbps:40/");
+
+  allocator_.release();
+  std::unique_ptr<BitrateAllocator> fieldtrial_alloc(
+      new BitrateAllocator(&limit_observer_));
+  std::swap(allocator_, fieldtrial_alloc);
+
+  TestBitrateObserver observer_a;
+  AddObserver(&observer_a, 10000, 100000, 0, false, 2.0);
+
+  allocator_->OnNetworkEstimateChanged(
+      CreateTargetRateMessage(20000, 0, 0, kDefaultProbingIntervalMs));
+  EXPECT_EQ(30000u, observer_a.last_bitrate_bps_);
+
+  allocator_->OnNetworkEstimateChanged(
+      CreateTargetRateMessage(150000, 0, 0, kDefaultProbingIntervalMs));
+  EXPECT_EQ(40000u, observer_a.last_bitrate_bps_);
+
+  TestBitrateObserver observer_b;
+  AddObserver(&observer_b, 10000, 100000, 0, false, 2.0);
+
+  allocator_->OnNetworkEstimateChanged(
+      CreateTargetRateMessage(150000, 0, 0, kDefaultProbingIntervalMs));
+  EXPECT_EQ(20000u, observer_a.last_bitrate_bps_);
+  EXPECT_EQ(20000u, observer_b.last_bitrate_bps_);
 }
 
 }  // namespace webrtc

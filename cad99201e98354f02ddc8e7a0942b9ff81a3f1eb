@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "ac1c70e0_4d34d8c8",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 8
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 9405
+      },
+      "writtenOn": "2022-05-13T01:24:59Z",
+      "side": 1,
+      "message": "Does this test sharding work for both gtest-based tests and XCTest-based tests?\nLooking at https://source.chromium.org/chromium/chromium/src/+/main:ios/build/bots/scripts/shard_util.py?q\u003dfetch_test_names_for_debug\nand the tests on it, it doesn\u0027t seem to work with gtest-based tests.",
+      "revId": "cad99201e98354f02ddc8e7a0942b9ff81a3f1eb",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

@@ -23,6 +23,7 @@
 #include "rtc_base/logging.h"
 #include "rtc_base/numerics/safe_minmax.h"
 #include "system_wrappers/include/clock.h"
+#include "system_wrappers/include/field_trial.h"
 #include "system_wrappers/include/metrics.h"
 
 namespace webrtc {
@@ -351,6 +352,13 @@ std::map<BitrateAllocatorObserver*, int> AllocateBitrates(
 
 }  // namespace
 
+MediaRateCapConfig::MediaRateCapConfig()
+    : lower_limit("lower_limit_kbps", DataRate::Zero()),
+      upper_limit("upper_limit_kbps", DataRate::PlusInfinity()) {
+  ParseFieldTrial({&upper_limit, &lower_limit},
+                  field_trial::FindFullName("WebRTC-MediaRateCap"));
+}
+
 BitrateAllocator::BitrateAllocator(LimitObserver* limit_observer)
     : limit_observer_(limit_observer),
       last_target_bps_(0),
@@ -360,7 +368,8 @@ BitrateAllocator::BitrateAllocator(LimitObserver* limit_observer)
       last_rtt_(0),
       last_bwe_period_ms_(1000),
       num_pause_events_(0),
-      last_bwe_log_time_(0) {
+      last_bwe_log_time_(0),
+      config_(MediaRateCapConfig()) {
   sequenced_checker_.Detach();
 }
 
@@ -392,6 +401,19 @@ void BitrateAllocator::OnNetworkEstimateChanged(TargetTransferRate msg) {
   if (now > last_bwe_log_time_ + kBweLogIntervalMs) {
     RTC_LOG(LS_INFO) << "Current BWE " << last_target_bps_;
     last_bwe_log_time_ = now;
+  }
+
+  if (!config_.lower_limit->IsZero()) {
+    last_target_bps_ =
+        std::max<uint32_t>(config_.lower_limit->bps(), last_target_bps_);
+    last_stable_target_bps_ =
+        std::max<uint32_t>(config_.lower_limit->bps(), last_stable_target_bps_);
+  }
+  if (!config_.upper_limit->IsPlusInfinity()) {
+    last_target_bps_ =
+        std::min<uint32_t>(config_.upper_limit->bps(), last_target_bps_);
+    last_stable_target_bps_ =
+        std::min<uint32_t>(config_.upper_limit->bps(), last_stable_target_bps_);
   }
 
   auto allocation = AllocateBitrates(allocatable_tracks_, last_target_bps_);

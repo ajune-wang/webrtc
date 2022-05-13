@@ -34,6 +34,24 @@
       "parentUuid": "ac1c70e0_4d34d8c8",
       "revId": "cad99201e98354f02ddc8e7a0942b9ff81a3f1eb",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "4dbd1594_4af5b473",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 8
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 9405
+      },
+      "writtenOn": "2022-05-13T08:06:05Z",
+      "side": 1,
+      "message": "I see. gtest-based tests work fine.\nLooking at the results, there is an error in the rtc_unittests. rtc_unittests has a few Objective-C tests that use gtest, but their method names are similar to XCTest, which seems to cause problems.\nIt looks like this that should be modified to test in sdk_unittests instead of rtc_unittests after changing the test structure.",
+      "parentUuid": "6e7109bb_593431ae",
+      "revId": "cad99201e98354f02ddc8e7a0942b9ff81a3f1eb",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

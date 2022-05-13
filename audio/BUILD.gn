@@ -62,6 +62,7 @@ rtc_library("audio") {
     "../api/rtc_event_log",
     "../api/task_queue",
     "../api/transport/rtp:rtp_source",
+    "../api/units:time_delta",
     "../call:audio_sender_interface",
     "../call:bitrate_allocator",
     "../call:call_interfaces",

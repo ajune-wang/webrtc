@@ -22,6 +22,7 @@
 #include "api/crypto/frame_encryptor_interface.h"
 #include "api/rtc_event_log/rtc_event_log.h"
 #include "api/sequence_checker.h"
+#include "api/units/time_delta.h"
 #include "audio/channel_send_frame_transformer_delegate.h"
 #include "audio/utility/audio_frame_operations.h"
 #include "call/rtp_transport_controller_send_interface.h"
@@ -49,8 +50,8 @@ namespace voe {
 
 namespace {
 
-constexpr int64_t kMaxRetransmissionWindowMs = 1000;
-constexpr int64_t kMinRetransmissionWindowMs = 30;
+constexpr TimeDelta kMaxRetransmissionWindow = TimeDelta::Seconds(1);
+constexpr TimeDelta kMinRetransmissionWindow = TimeDelta::Millis(30);
 
 class RtpPacketSenderProxy;
 class TransportSequenceNumberProxy;
@@ -218,7 +219,7 @@ class ChannelSend : public ChannelSendInterface,
       nullptr;
   TransportFeedbackObserver* const feedback_observer_;
   const std::unique_ptr<RtpPacketSenderProxy> rtp_packet_pacer_proxy_;
-  const std::unique_ptr<RateLimiter> retransmission_rate_limiter_;
+  RateLimiter retransmission_rate_limiter_;
 
   SequenceChecker construction_thread_;
 
@@ -469,8 +470,7 @@ ChannelSend::ChannelSend(
       rtcp_observer_(new VoERtcpObserver(this)),
       feedback_observer_(feedback_observer),
       rtp_packet_pacer_proxy_(new RtpPacketSenderProxy()),
-      retransmission_rate_limiter_(
-          new RateLimiter(clock, kMaxRetransmissionWindowMs)),
+      retransmission_rate_limiter_(clock, kMaxRetransmissionWindow),
       frame_encryptor_(frame_encryptor),
       crypto_options_(crypto_options),
       fixing_timestamp_stall_(
@@ -491,8 +491,7 @@ ChannelSend::ChannelSend(
 
   configuration.event_log = event_log_;
   configuration.rtt_stats = rtcp_rtt_stats;
-  configuration.retransmission_rate_limiter =
-      retransmission_rate_limiter_.get();
+  configuration.retransmission_rate_limiter = &retransmission_rate_limiter_;
   configuration.extmap_allow_mixed = extmap_allow_mixed;
   configuration.rtcp_report_interval_ms = rtcp_report_interval_ms;
   configuration.rtcp_packet_type_counter_observer = this;
@@ -615,7 +614,7 @@ void ChannelSend::OnBitrateAllocation(BitrateAllocationUpdate update) {
   CallEncoder([&](AudioEncoder* encoder) {
     encoder->OnReceivedUplinkAllocation(update);
   });
-  retransmission_rate_limiter_->SetMaxRate(update.target_bitrate.bps());
+  retransmission_rate_limiter_.SetMaxRate(update.target_bitrate);
 }
 
 int ChannelSend::GetTargetBitrate() const {
@@ -640,13 +639,13 @@ void ChannelSend::ReceivedRTCPPacket(const uint8_t* data, size_t length) {
     return;
   }
 
-  int64_t nack_window_ms = rtt;
-  if (nack_window_ms < kMinRetransmissionWindowMs) {
-    nack_window_ms = kMinRetransmissionWindowMs;
-  } else if (nack_window_ms > kMaxRetransmissionWindowMs) {
-    nack_window_ms = kMaxRetransmissionWindowMs;
+  TimeDelta nack_window = TimeDelta::Millis(rtt);
+  if (nack_window < kMinRetransmissionWindow) {
+    nack_window = kMinRetransmissionWindow;
+  } else if (nack_window > kMaxRetransmissionWindow) {
+    nack_window = kMaxRetransmissionWindow;
   }
-  retransmission_rate_limiter_->SetWindowSize(nack_window_ms);
+  retransmission_rate_limiter_.SetWindowSize(nack_window);
 
   OnReceivedRtt(rtt);
 }

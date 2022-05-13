@@ -37,7 +37,7 @@ const int kTestNumberOfRtxPackets = 149;
 const int kNumFrames = 30;
 const int kPayloadType = 123;
 const int kRtxPayloadType = 98;
-const int64_t kMaxRttMs = 1000;
+const TimeDelta kMaxRtt = TimeDelta::Seconds(1);
 
 class VerifyingMediaStream : public RtpPacketSinkInterface {
  public:
@@ -123,7 +123,7 @@ class RtpRtcpRtxNackTest : public ::testing::Test {
         transport_(kTestRtxSsrc),
         rtx_stream_(&media_stream_, rtx_associated_payload_types_, kTestSsrc),
         fake_clock(123456),
-        retransmission_rate_limiter_(&fake_clock, kMaxRttMs) {}
+        retransmission_rate_limiter_(&fake_clock, kMaxRtt) {}
   ~RtpRtcpRtxNackTest() override {}
 
   void SetUp() override {

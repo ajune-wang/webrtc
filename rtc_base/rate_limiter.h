@@ -14,6 +14,9 @@
 #include <stddef.h>
 #include <stdint.h>
 
+#include "api/units/data_rate.h"
+#include "api/units/data_size.h"
+#include "api/units/time_delta.h"
 #include "rtc_base/rate_statistics.h"
 #include "rtc_base/synchronization/mutex.h"
 #include "rtc_base/thread_annotations.h"
@@ -27,32 +30,36 @@ class Clock;
 // methods will acquire (the same) lock befeore executing.
 class RateLimiter {
  public:
-  RateLimiter(Clock* clock, int64_t max_window_ms);
+  RateLimiter(Clock* clock, TimeDelta max_window);
+  [[deprecated]] RateLimiter(Clock* clock, int64_t max_window_ms);
 
   RateLimiter() = delete;
   RateLimiter(const RateLimiter&) = delete;
   RateLimiter& operator=(const RateLimiter&) = delete;
 
-  ~RateLimiter();
+  ~RateLimiter() = default;
 
   // Try to use rate to send bytes. Returns true on success and if so updates
   // current rate.
-  bool TryUseRate(size_t packet_size_bytes);
+  bool TryUseRate(DataSize packet_size);
+  [[deprecated]] bool TryUseRate(size_t packet_size_bytes);
 
-  // Set the maximum bitrate, in bps, that this limiter allows to send.
-  void SetMaxRate(uint32_t max_rate_bps);
+  // Set the maximum bitrate that this limiter allows to send.
+  void SetMaxRate(DataRate max_rate);
+  [[deprecated]] void SetMaxRate(uint32_t max_rate_bps);
 
   // Set the window size over which to measure the current bitrate.
   // For example, irt retransmissions, this is typically the RTT.
-  // Returns true on success and false if window_size_ms is out of range.
-  bool SetWindowSize(int64_t window_size_ms);
+  // Returns true on success and false if `window_size` is out of range.
+  bool SetWindowSize(TimeDelta window_size);
+  [[deprecated]] bool SetWindowSize(int64_t window_size_ms);
 
  private:
   Clock* const clock_;
   Mutex lock_;
   RateStatistics current_rate_ RTC_GUARDED_BY(lock_);
-  int64_t window_size_ms_ RTC_GUARDED_BY(lock_);
-  uint32_t max_rate_bps_ RTC_GUARDED_BY(lock_);
+  TimeDelta window_size_ RTC_GUARDED_BY(lock_);
+  DataRate max_rate_ RTC_GUARDED_BY(lock_);
 };
 
 }  // namespace webrtc

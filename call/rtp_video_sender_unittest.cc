@@ -50,7 +50,7 @@ const int16_t kInitialPictureId1 = 222;
 const int16_t kInitialPictureId2 = 44;
 const int16_t kInitialTl0PicIdx1 = 99;
 const int16_t kInitialTl0PicIdx2 = 199;
-const int64_t kRetransmitWindowSizeMs = 500;
+const TimeDelta kRetransmitWindowSize = TimeDelta::Millis(500);
 const int kTransportsSequenceExtensionId = 7;
 const int kDependencyDescriptorExtensionId = 8;
 
@@ -141,7 +141,7 @@ class RtpVideoSenderTestFixture {
                      VideoEncoderConfig::ContentType::kRealtimeVideo,
                      field_trials ? *field_trials : field_trials_),
         retransmission_rate_limiter_(time_controller_.GetClock(),
-                                     kRetransmitWindowSizeMs) {
+                                     kRetransmitWindowSize) {
     transport_controller_.EnsureStarted();
     std::map<uint32_t, RtpState> suspended_ssrcs;
     router_ = std::make_unique<RtpVideoSender>(

@@ -488,6 +488,10 @@ rtc_library("rate_limiter") {
   deps = [
     ":macromagic",
     ":rate_statistics",
+    "../api/units:data_rate",
+    "../api/units:data_size",
+    "../api/units:time_delta",
+    "../api/units:timestamp",
     "../system_wrappers",
     "synchronization:mutex",
   ]

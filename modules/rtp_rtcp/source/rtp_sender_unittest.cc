@@ -128,7 +128,7 @@ class RtpSenderTest : public ::testing::Test {
   RtpSenderTest()
       : time_controller_(Timestamp::Millis(kStartTime)),
         clock_(time_controller_.GetClock()),
-        retransmission_rate_limiter_(clock_, 1000),
+        retransmission_rate_limiter_(clock_, TimeDelta::Seconds(1)),
         flexfec_sender_(0,
                         kFlexFecSsrc,
                         kSsrc,
@@ -866,7 +866,8 @@ TEST_F(RtpSenderTest, MidAndRridNotIncludedOnRtxPacketsAfterRtpStateRestored) {
 TEST_F(RtpSenderTest, RespectsNackBitrateLimit) {
   const int32_t kPacketSize = 1400;
   const int32_t kNumPackets = 30;
-  retransmission_rate_limiter_.SetMaxRate(kPacketSize * kNumPackets * 8);
+  retransmission_rate_limiter_.SetMaxRate(
+      DataRate::BytesPerSec(kPacketSize * kNumPackets));
   EnableRtx();
 
   std::vector<uint16_t> sequence_numbers;

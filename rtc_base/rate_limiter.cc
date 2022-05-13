@@ -13,56 +13,65 @@
 #include <limits>
 
 #include "absl/types/optional.h"
+#include "api/units/data_rate.h"
+#include "api/units/data_size.h"
+#include "api/units/time_delta.h"
+#include "api/units/timestamp.h"
 #include "system_wrappers/include/clock.h"
 
 namespace webrtc {
 
 RateLimiter::RateLimiter(Clock* clock, int64_t max_window_ms)
+    : RateLimiter(clock, TimeDelta::Millis(max_window_ms)) {}
+
+RateLimiter::RateLimiter(Clock* clock, TimeDelta max_window)
     : clock_(clock),
-      current_rate_(max_window_ms, RateStatistics::kBpsScale),
-      window_size_ms_(max_window_ms),
-      max_rate_bps_(std::numeric_limits<uint32_t>::max()) {}
+      current_rate_(max_window.ms(), RateStatistics::kBpsScale),
+      window_size_(max_window),
+      max_rate_(DataRate::Infinity()) {}
 
-RateLimiter::~RateLimiter() {}
-
-// Usage note: This class is intended be usable in a scenario where different
-// threads may call each of the the different method. For instance, a network
-// thread trying to send data calling TryUseRate(), the bandwidth estimator
-// calling SetMaxRate() and a timed maintenance thread periodically updating
-// the RTT.
 bool RateLimiter::TryUseRate(size_t packet_size_bytes) {
+  return TryUseRate(DataSize::Bytes(packet_size_bytes));
+}
+
+bool RateLimiter::TryUseRate(DataSize packet_size) {
   MutexLock lock(&lock_);
-  int64_t now_ms = clock_->TimeInMilliseconds();
-  absl::optional<uint32_t> current_rate = current_rate_.Rate(now_ms);
-  if (current_rate) {
+  Timestamp now = clock_->CurrentTime();
+  absl::optional<int64_t> current_rate_bps = current_rate_.Rate(now.ms());
+  if (current_rate_bps) {
     // If there is a current rate, check if adding bytes would cause maximum
     // bitrate target to be exceeded. If there is NOT a valid current rate,
     // allow allocating rate even if target is exceeded. This prevents
     // problems
     // at very low rates, where for instance retransmissions would never be
     // allowed due to too high bitrate caused by a single packet.
-
-    size_t bitrate_addition_bps =
-        (packet_size_bytes * 8 * 1000) / window_size_ms_;
-    if (*current_rate + bitrate_addition_bps > max_rate_bps_)
+    DataRate current_rate = DataRate::BitsPerSec(*current_rate_bps);
+    DataRate bitrate_addition = packet_size / window_size_;
+    if (current_rate + bitrate_addition > max_rate_)
       return false;
   }
 
-  current_rate_.Update(packet_size_bytes, now_ms);
+  current_rate_.Update(packet_size.bytes(), now.ms());
   return true;
 }
 
 void RateLimiter::SetMaxRate(uint32_t max_rate_bps) {
-  MutexLock lock(&lock_);
-  max_rate_bps_ = max_rate_bps;
+  SetMaxRate(DataRate::BitsPerSec(max_rate_bps));
 }
 
-// Set the window size over which to measure the current bitrate.
-// For retransmissions, this is typically the RTT.
-bool RateLimiter::SetWindowSize(int64_t window_size_ms) {
+void RateLimiter::SetMaxRate(DataRate max_rate) {
   MutexLock lock(&lock_);
-  window_size_ms_ = window_size_ms;
-  return current_rate_.SetWindowSize(window_size_ms,
+  max_rate_ = max_rate;
+}
+
+bool RateLimiter::SetWindowSize(int64_t window_size_ms) {
+  return SetWindowSize(TimeDelta::Millis(window_size_ms));
+}
+
+bool RateLimiter::SetWindowSize(TimeDelta window_size) {
+  MutexLock lock(&lock_);
+  window_size_ = window_size;
+  return current_rate_.SetWindowSize(window_size.ms(),
                                      clock_->TimeInMilliseconds());
 }
 

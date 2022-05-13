@@ -18,6 +18,23 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "e673e1d3_255252dc",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 14
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2022-05-13T08:04:30Z",
+      "side": 1,
+      "message": "Thanks for the suggestion on validation. That makes sense, updated accordingly. One unresolved question left.",
+      "revId": "f33bdb5aa98502b36c41b4fb3fc80f0de20cb219",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "d87f9632_47e7cbbd",
@@ -31,6 +48,30 @@
       "writtenOn": "2022-05-12T16:00:00Z",
       "side": 1,
       "message": "Could we do the validation here? And if a simulcast layer has an unsupported mode, then (only) set the VideoCodec scalability mode to the invalid mode and let InitEncode check if the mode is supported (instead of in Vp8TemporalLayersFactory)?",
+      "range": {
+        "startLine": 178,
+        "startChar": 4,
+        "endLine": 178,
+        "endChar": 23
+      },
+      "revId": "f33bdb5aa98502b36c41b4fb3fc80f0de20cb219",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "f2e03660_1f2ad71b",
+        "filename": "modules/video_coding/video_codec_initializer.cc",
+        "patchSetId": 14
+      },
+      "lineNbr": 178,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2022-05-13T08:04:30Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "d87f9632_47e7cbbd",
       "range": {
         "startLine": 178,
         "startChar": 4,

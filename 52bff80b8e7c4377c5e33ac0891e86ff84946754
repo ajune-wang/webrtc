@@ -63,6 +63,30 @@
       },
       "revId": "52bff80b8e7c4377c5e33ac0891e86ff84946754",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "e5621461_ae820de8",
+        "filename": "modules/video_coding/codecs/vp8/libvpx_vp8_encoder.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 500,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2022-05-13T08:04:30Z",
+      "side": 1,
+      "message": "Moved check to InitEncode.",
+      "parentUuid": "387de8b1_884541b3",
+      "range": {
+        "startLine": 496,
+        "startChar": 0,
+        "endLine": 500,
+        "endChar": 3
+      },
+      "revId": "52bff80b8e7c4377c5e33ac0891e86ff84946754",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

@@ -86,6 +86,24 @@
       "parentUuid": "b3197f35_42a69268",
       "revId": "692646b05794b1a754a13aedc65515e536f561d3",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "88af3b25_cec4ff13",
+        "filename": "modules/third_party/portaudio/README.chromium",
+        "patchSetId": 4
+      },
+      "lineNbr": 14,
+      "author": {
+        "id": 9405
+      },
+      "writtenOn": "2022-05-13T08:29:32Z",
+      "side": 1,
+      "message": "Done. https://crbug.com/1325240",
+      "parentUuid": "910e0d77_8d5c7036",
+      "revId": "692646b05794b1a754a13aedc65515e536f561d3",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

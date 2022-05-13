@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "c8f6e76a_7dca53be",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5087
+      },
+      "writtenOn": "2022-05-13T07:24:13Z",
+      "side": 1,
+      "message": "Thanks for the CL, I leave the review to Kari who is more experienced than me on ObjC.",
+      "revId": "eb1535437991b117374174c99557e6538787e704",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

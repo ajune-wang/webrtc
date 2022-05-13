@@ -16,6 +16,23 @@
       "message": "Hi, mixing objective-c tests in `rtc_unittests` doesn\u0027t seem like a good idea, so I merged them into `sdk_unittests`. PTAL. Thank you.",
       "revId": "5f6ed130d09034e51ec76d238fbe27953b58a019",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "5980e43d_dbe75347",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5520
+      },
+      "writtenOn": "2022-05-13T09:41:19Z",
+      "side": 1,
+      "message": "This is great, thanks!",
+      "revId": "5f6ed130d09034e51ec76d238fbe27953b58a019",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

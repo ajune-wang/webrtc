@@ -297,6 +297,24 @@
       "parentUuid": "520bd6ff_a54fb71e",
       "revId": "f68b5db7548bd023a0572262e7339b6e6e1dc089",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "e941d6ce_79745f5c",
+        "filename": "modules/third_party/portaudio/README.chromium",
+        "patchSetId": 2
+      },
+      "lineNbr": 3,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2022-05-13T06:58:28Z",
+      "side": 1,
+      "message": "This looks good to me. It allows anyone who returns to this in a year to figure out what version to look at in the source repo to figure out what\u0027s changed.",
+      "parentUuid": "87303146_19559136",
+      "revId": "f68b5db7548bd023a0572262e7339b6e6e1dc089",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ],
   "submitRequirementResults": [

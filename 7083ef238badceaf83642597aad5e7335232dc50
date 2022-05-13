@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "ed446ed4_9edbf23e",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 19269
+      },
+      "writtenOn": "2022-05-13T00:32:30Z",
+      "side": 1,
+      "message": "Added a WebRtc field trial of the form:\n\nWebRTC-MediaRateCap/lower_limit_kbps:30,upper_limit_kbps:40/\n\nwhere the limit is applied to aggregate media target bitrate.",
+      "revId": "7083ef238badceaf83642597aad5e7335232dc50",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

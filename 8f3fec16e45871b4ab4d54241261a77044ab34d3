@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "5af49197_aabaf546",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 11
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 12234
+      },
+      "writtenOn": "2022-05-13T09:21:45Z",
+      "side": 1,
+      "message": "Here\u0027s a CL to simplify the gtest-parallel-wrapper and keep the logs as provided by gtest-parallel.\nI actually don\u0027t think it\u0027s going to help https://crbug.com/webrtc/14064.",
+      "revId": "8f3fec16e45871b4ab4d54241261a77044ab34d3",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

@@ -58,6 +58,30 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "db43b050_bef03363",
+        "filename": "system_wrappers/source/metrics.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 126,
+      "author": {
+        "id": 10107
+      },
+      "writtenOn": "2022-05-13T08:28:17Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "308165fb_39c2e0b9",
+      "range": {
+        "startLine": 126,
+        "startChar": 17,
+        "endLine": 126,
+        "endChar": 29
+      },
+      "revId": "e2b3323718d2197acd28c0ee7aede5fae7cfd64c",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "8f949b1c_bf209780",
@@ -81,6 +105,30 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "92a3a688_9b1452ab",
+        "filename": "system_wrappers/source/metrics.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 137,
+      "author": {
+        "id": 10107
+      },
+      "writtenOn": "2022-05-13T08:28:17Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "8f949b1c_bf209780",
+      "range": {
+        "startLine": 137,
+        "startChar": 17,
+        "endLine": 137,
+        "endChar": 28
+      },
+      "revId": "e2b3323718d2197acd28c0ee7aede5fae7cfd64c",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "514eb3e9_b9ffbb85",
@@ -94,6 +142,30 @@
       "writtenOn": "2022-05-13T07:36:19Z",
       "side": 1,
       "message": "Probably not needed.",
+      "range": {
+        "startLine": 284,
+        "startChar": 11,
+        "endLine": 284,
+        "endChar": 22
+      },
+      "revId": "e2b3323718d2197acd28c0ee7aede5fae7cfd64c",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "5f68b958_23f54645",
+        "filename": "system_wrappers/source/metrics.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 284,
+      "author": {
+        "id": 10107
+      },
+      "writtenOn": "2022-05-13T08:28:17Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "514eb3e9_b9ffbb85",
       "range": {
         "startLine": 284,
         "startChar": 11,

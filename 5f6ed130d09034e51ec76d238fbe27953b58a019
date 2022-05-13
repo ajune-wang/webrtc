@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "4a54c083_a0dac6e2",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 9405
+      },
+      "writtenOn": "2022-05-13T09:22:46Z",
+      "side": 1,
+      "message": "Hi, mixing objective-c tests in `rtc_unittests` doesn\u0027t seem like a good idea, so I merged them into `sdk_unittests`. PTAL. Thank you.",
+      "revId": "5f6ed130d09034e51ec76d238fbe27953b58a019",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

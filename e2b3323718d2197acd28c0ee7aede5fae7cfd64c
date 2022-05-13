@@ -16,6 +16,92 @@
       "message": "PTAL. The corresponding prerequisite Chromium CL was submitted here: https://chromium-review.googlesource.com/c/chromium/src/+/3644729",
       "revId": "e2b3323718d2197acd28c0ee7aede5fae7cfd64c",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "dfbea1be_7424b104",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 3
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2022-05-13T07:36:19Z",
+      "side": 1,
+      "message": "I think a few of the explicit calls to std::string constructor can be omitted. Otherwise, looks good.",
+      "revId": "e2b3323718d2197acd28c0ee7aede5fae7cfd64c",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "308165fb_39c2e0b9",
+        "filename": "system_wrappers/source/metrics.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 126,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2022-05-13T07:36:19Z",
+      "side": 1,
+      "message": "Probably not needed, since emplace implies a call to constructor?",
+      "range": {
+        "startLine": 126,
+        "startChar": 17,
+        "endLine": 126,
+        "endChar": 29
+      },
+      "revId": "e2b3323718d2197acd28c0ee7aede5fae7cfd64c",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "8f949b1c_bf209780",
+        "filename": "system_wrappers/source/metrics.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 137,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2022-05-13T07:36:19Z",
+      "side": 1,
+      "message": "d:o",
+      "range": {
+        "startLine": 137,
+        "startChar": 17,
+        "endLine": 137,
+        "endChar": 28
+      },
+      "revId": "e2b3323718d2197acd28c0ee7aede5fae7cfd64c",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "514eb3e9_b9ffbb85",
+        "filename": "system_wrappers/source/metrics.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 284,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2022-05-13T07:36:19Z",
+      "side": 1,
+      "message": "Probably not needed.",
+      "range": {
+        "startLine": 284,
+        "startChar": 11,
+        "endLine": 284,
+        "endChar": 22
+      },
+      "revId": "e2b3323718d2197acd28c0ee7aede5fae7cfd64c",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

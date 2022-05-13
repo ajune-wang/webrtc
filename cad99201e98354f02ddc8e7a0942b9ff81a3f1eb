@@ -16,6 +16,24 @@
       "message": "Does this test sharding work for both gtest-based tests and XCTest-based tests?\nLooking at https://source.chromium.org/chromium/chromium/src/+/main:ios/build/bots/scripts/shard_util.py?q\u003dfetch_test_names_for_debug\nand the tests on it, it doesn\u0027t seem to work with gtest-based tests.",
       "revId": "cad99201e98354f02ddc8e7a0942b9ff81a3f1eb",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "6e7109bb_593431ae",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 8
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 12234
+      },
+      "writtenOn": "2022-05-13T07:20:10Z",
+      "side": 1,
+      "message": "Haven\u0027t tried but from my understanding, in order to have shards working for XCTest-based tests, we have to rename WebRTC tests to match these patterns:\nhttps://crsrc.org/c/ios/build/bots/scripts/shard_util.py;l\u003d21;bpv\u003d1;bpt\u003d0;drc\u003d165bb2e839b3dc0b30a75e66c46e19cdea69e2bc\nCurrently I only added shards to the gtest-based tests and it seems to work now that https://crrev.com/c/3639706 has landed.",
+      "parentUuid": "ac1c70e0_4d34d8c8",
+      "revId": "cad99201e98354f02ddc8e7a0942b9ff81a3f1eb",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

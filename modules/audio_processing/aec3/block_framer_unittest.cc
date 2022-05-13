@@ -64,14 +64,13 @@ bool VerifySubFrame(
   return true;
 }
 
-void FillBlock(size_t block_counter,
-               std::vector<std::vector<std::vector<float>>>* block) {
-  for (size_t band = 0; band < block->size(); ++band) {
-    for (size_t channel = 0; channel < (*block)[band].size(); ++channel) {
-      for (size_t sample = 0; sample < (*block)[band][channel].size();
-           ++sample) {
-        (*block)[band][channel][sample] = ComputeSampleValue(
-            block_counter, kBlockSize, band, channel, sample, 0);
+void FillBlock(size_t block_counter, Block* block) {
+  for (size_t band = 0; band < block->NumBands(); ++band) {
+    for (size_t channel = 0; channel < block->NumChannels(); ++channel) {
+      float* b = block->FloatArray(band, channel);
+      for (size_t sample = 0; sample < kBlockSize; ++sample) {
+        b[sample] = ComputeSampleValue(block_counter, kBlockSize, band, channel,
+                                       sample, 0);
       }
     }
   }
@@ -82,9 +81,7 @@ void RunFramerTest(int sample_rate_hz, size_t num_channels) {
   constexpr size_t kNumSubFramesToProcess = 10;
   const size_t num_bands = NumBandsForRate(sample_rate_hz);
 
-  std::vector<std::vector<std::vector<float>>> block(
-      num_bands, std::vector<std::vector<float>>(
-                     num_channels, std::vector<float>(kBlockSize, 0.f)));
+  Block block(num_bands, num_channels);
   std::vector<std::vector<std::vector<float>>> output_sub_frame(
       num_bands, std::vector<std::vector<float>>(
                      num_channels, std::vector<float>(kSubFrameLength, 0.f)));
@@ -123,10 +120,7 @@ void RunWronglySizedInsertAndExtractParametersTest(
     size_t sub_frame_length) {
   const size_t correct_num_bands = NumBandsForRate(sample_rate_hz);
 
-  std::vector<std::vector<std::vector<float>>> block(
-      num_block_bands,
-      std::vector<std::vector<float>>(num_block_channels,
-                                      std::vector<float>(block_length, 0.f)));
+  Block block(num_block_bands, num_block_channels);
   std::vector<std::vector<std::vector<float>>> output_sub_frame(
       num_sub_frame_bands,
       std::vector<std::vector<float>>(
@@ -149,14 +143,8 @@ void RunWronglySizedInsertParameterTest(int sample_rate_hz,
                                         size_t block_length) {
   const size_t correct_num_bands = NumBandsForRate(sample_rate_hz);
 
-  std::vector<std::vector<std::vector<float>>> correct_block(
-      correct_num_bands,
-      std::vector<std::vector<float>>(correct_num_channels,
-                                      std::vector<float>(kBlockSize, 0.f)));
-  std::vector<std::vector<std::vector<float>>> wrong_block(
-      num_block_bands,
-      std::vector<std::vector<float>>(num_block_channels,
-                                      std::vector<float>(block_length, 0.f)));
+  Block correct_block(correct_num_bands, correct_num_channels);
+  Block wrong_block(num_block_bands, num_block_channels);
   std::vector<std::vector<std::vector<float>>> output_sub_frame(
       correct_num_bands,
       std::vector<std::vector<float>>(
@@ -183,10 +171,7 @@ void RunWronglyInsertOrderTest(int sample_rate_hz,
                                size_t num_preceeding_api_calls) {
   const size_t correct_num_bands = NumBandsForRate(sample_rate_hz);
 
-  std::vector<std::vector<std::vector<float>>> block(
-      correct_num_bands,
-      std::vector<std::vector<float>>(num_channels,
-                                      std::vector<float>(kBlockSize, 0.f)));
+  Block block(correct_num_bands, num_channels);
   std::vector<std::vector<std::vector<float>>> output_sub_frame(
       correct_num_bands,
       std::vector<std::vector<float>>(
@@ -364,12 +349,9 @@ TEST(BlockFramerDeathTest, ZeroNumberOfBandsParameter) {
 
 // Verifies that the verification for null sub_frame pointer works.
 TEST(BlockFramerDeathTest, NullSubFrameParameter) {
-  EXPECT_DEATH(BlockFramer(1, 1).InsertBlockAndExtractSubFrame(
-                   std::vector<std::vector<std::vector<float>>>(
-                       1, std::vector<std::vector<float>>(
-                              1, std::vector<float>(kBlockSize, 0.f))),
-                   nullptr),
-               "");
+  EXPECT_DEATH(
+      BlockFramer(1, 1).InsertBlockAndExtractSubFrame(Block(1, 1), nullptr),
+      "");
 }
 
 #endif

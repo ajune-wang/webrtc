@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "70393ade_5c6a96f3",
+        "filename": "pc/webrtc_sdp.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 3765,
+      "author": {
+        "id": 10107
+      },
+      "writtenOn": "2022-05-13T09:25:49Z",
+      "side": 1,
+      "message": "Could either use StringBuilder here or maybe just use param.append(iter-\u003edata(), iter-\u003elength()) directly to avoid the conversion.",
+      "revId": "8748a5d216318850e263c092645bfb183c250685",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

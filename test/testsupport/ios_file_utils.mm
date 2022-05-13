@@ -13,7 +13,7 @@
 #import <Foundation/Foundation.h>
 #include <string.h>
 
-#import "sdk/objc/helpers/NSString+StdString.h"
+#import "sdk/objc/helpers/NSString+RTCStdString.h"
 
 #include "absl/strings/string_view.h"
 #include "rtc_base/checks.h"

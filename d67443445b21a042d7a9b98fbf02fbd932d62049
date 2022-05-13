@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "3241e3b5_960e55d6",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 18554
+      },
+      "writtenOn": "2022-05-13T02:47:08Z",
+      "side": 1,
+      "message": "- Pass compiling w/ and w/o `RTC_TRACE_EVENTS_ENABLED` \n- Try to not depend on `RTC_TRACE_EVENTS_ENABLED` to keep style consistent.\n- And a few code formatting\n",
+      "revId": "d67443445b21a042d7a9b98fbf02fbd932d62049",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

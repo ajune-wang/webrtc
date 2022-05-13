@@ -16,6 +16,23 @@
       "message": "Thanks for the CL, I leave the review to Kari who is more experienced than me on ObjC.",
       "revId": "eb1535437991b117374174c99557e6538787e704",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "e7904377_144f5303",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5520
+      },
+      "writtenOn": "2022-05-13T09:46:40Z",
+      "side": 1,
+      "message": "Thanks!",
+      "revId": "eb1535437991b117374174c99557e6538787e704",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

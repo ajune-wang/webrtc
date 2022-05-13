@@ -33,24 +33,31 @@ void SetEncoderSpecific(VideoEncoderConfig* encoder_config,
   }
 }
 
-SpatialLayer GetLayer(int pixels, const VideoCodec& codec) {
+struct LayerRates {
+  unsigned int minBitrate = 0;
+  unsigned int maxBitrate = 0;
+};
+
+LayerRates GetLayerRates(int pixels, const VideoCodec& codec) {
   if (codec.codecType == VideoCodecType::kVideoCodecVP9) {
     for (size_t i = 0; i < codec.VP9().numberOfSpatialLayers; ++i) {
       if (codec.spatialLayers[i].width * codec.spatialLayers[i].height ==
           pixels) {
-        return codec.spatialLayers[i];
+        return {codec.spatialLayers[i].minBitrate,
+                codec.spatialLayers[i].maxBitrate};
       }
     }
   } else {
     for (int i = 0; i < codec.numberOfSimulcastStreams; ++i) {
       if (codec.simulcastStream[i].width * codec.simulcastStream[i].height ==
           pixels) {
-        return codec.simulcastStream[i];
+        return {codec.simulcastStream[i].minBitrate,
+                codec.simulcastStream[i].minBitrate};
       }
     }
   }
   ADD_FAILURE();
-  return SpatialLayer();
+  return LayerRates();
 }
 
 }  // namespace
@@ -147,7 +154,7 @@ class InitEncodeTest : public test::EndToEndTest,
   int32_t InitEncode(const VideoCodec* codec,
                      const Settings& settings) override {
     for (const auto& expected : expectations_) {
-      SpatialLayer layer = GetLayer(expected.pixels, *codec);
+      LayerRates layer = GetLayerRates(expected.pixels, *codec);
       if (expected.eq_bitrate_bps.min)
         EXPECT_EQ(*expected.eq_bitrate_bps.min, layer.minBitrate * 1000);
       if (expected.eq_bitrate_bps.max)

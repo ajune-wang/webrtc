@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "1a8817bf_5dab90a9",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2022-05-13T13:10:18Z",
+      "side": 1,
+      "message": "ntp_time_ms is standing in my way, but while removing it notice there was more unused code.",
+      "revId": "8fef2659c89ded6fa1af05c323a651c962d5ecb6",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

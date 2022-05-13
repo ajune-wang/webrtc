@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "8bbf7b12_49ac5d1b",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 6
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2022-05-13T08:13:15Z",
+      "side": 1,
+      "message": "PTAL. It\u0027s a bit subtle to keep the old setting in all tests. In the current patchset (#6), it\u0027s set to false by default in VideoEncoderConfig, true in prod code, which I\u0027m fairly confident is no change, and in the quality scaling tests, which for some reason seem to depend on it being set to true.",
+      "revId": "0cb2954777d262f9d5dd78327ea55831f9795877",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

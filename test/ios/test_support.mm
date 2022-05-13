@@ -15,7 +15,7 @@
 #include "test/ios/test_support.h"
 #include "test/testsupport/perf_test.h"
 
-#import "sdk/objc/helpers/NSString+StdString.h"
+#import "sdk/objc/helpers/NSString+RTCStdString.h"
 
 // Springboard will kill any iOS app that fails to check in after launch within
 // a given time. Starting a UIApplication before invoking TestSuite::Run

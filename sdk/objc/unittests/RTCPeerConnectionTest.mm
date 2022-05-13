@@ -25,7 +25,7 @@
 #import "api/peerconnection/RTCPeerConnectionFactory+Native.h"
 #import "api/peerconnection/RTCPeerConnectionFactory.h"
 #import "api/peerconnection/RTCSessionDescription.h"
-#import "helpers/NSString+StdString.h"
+#import "helpers/NSString+RTCStdString.h"
 
 @interface RTCPeerConnectionTest : NSObject
 - (void)testConfigurationGetter;

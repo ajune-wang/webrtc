@@ -22,6 +22,7 @@ rtc_library("aec3") {
     "alignment_mixer.h",
     "api_call_jitter_metrics.cc",
     "api_call_jitter_metrics.h",
+    "block.h",
     "block_buffer.cc",
     "block_delay_buffer.cc",
     "block_delay_buffer.h",

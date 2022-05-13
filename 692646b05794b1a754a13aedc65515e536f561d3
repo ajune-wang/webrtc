@@ -33,6 +33,24 @@
       "message": "Do you still need this now that third_party_filter_list is updated?",
       "revId": "692646b05794b1a754a13aedc65515e536f561d3",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "b3197f35_42a69268",
+        "filename": "modules/third_party/portaudio/README.chromium",
+        "patchSetId": 4
+      },
+      "lineNbr": 14,
+      "author": {
+        "id": 9405
+      },
+      "writtenOn": "2022-05-13T07:11:56Z",
+      "side": 1,
+      "message": "Unfortunately, yes. `CheckPatchFormatted` [1] used in `PRESUBMIT.py` did not ignore any files, so I had to reformat all files using `git cl format`.\n[1] https://source.chromium.org/chromium/chromium/tools/depot_tools/+/e6bbb3a237155d885e836fddd73019d353fe86bd:presubmit_canned_checks.py;l\u003d1446",
+      "parentUuid": "d9ec4aba_9c00be57",
+      "revId": "692646b05794b1a754a13aedc65515e536f561d3",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

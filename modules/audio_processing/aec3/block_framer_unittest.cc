@@ -64,14 +64,13 @@ bool VerifySubFrame(
   return true;
 }
 
-void FillBlock(size_t block_counter,
-               std::vector<std::vector<std::vector<float>>>* block) {
-  for (size_t band = 0; band < block->size(); ++band) {
-    for (size_t channel = 0; channel < (*block)[band].size(); ++channel) {
-      for (size_t sample = 0; sample < (*block)[band][channel].size();
-           ++sample) {
-        (*block)[band][channel][sample] = ComputeSampleValue(
-            block_counter, kBlockSize, band, channel, sample, 0);
+void FillBlock(size_t block_counter, Block* block) {
+  for (size_t band = 0; band < block->NumBands(); ++band) {
+    for (size_t channel = 0; channel < block->NumChannels(); ++channel) {
+      for (size_t sample = 0; sample < kBlockSize; ++sample) {
+        auto it = block->begin(band, channel) + sample;
+        *it = ComputeSampleValue(block_counter, kBlockSize, band, channel,
+                                 sample, 0);
       }
     }
   }
@@ -82,9 +81,7 @@ void RunFramerTest(int sample_rate_hz, size_t num_channels) {
   constexpr size_t kNumSubFramesToProcess = 10;
   const size_t num_bands = NumBandsForRate(sample_rate_hz);
 
-  std::vector<std::vector<std::vector<float>>> block(
-      num_bands, std::vector<std::vector<float>>(
-                     num_channels, std::vector<float>(kBlockSize, 0.f)));
+  Block block(num_bands, num_channels);
   std::vector<std::vector<std::vector<float>>> output_sub_frame(
       num_bands, std::vector<std::vector<float>>(
                      num_channels, std::vector<float>(kSubFrameLength, 0.f)));

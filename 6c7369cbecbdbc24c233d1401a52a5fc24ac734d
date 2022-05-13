@@ -24,6 +24,30 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "5260d468_834bfc96",
+        "filename": "call/call.cc",
+        "patchSetId": 8
+      },
+      "lineNbr": 1397,
+      "author": {
+        "id": 5508
+      },
+      "writtenOn": "2022-05-13T09:03:09Z",
+      "side": 1,
+      "message": "Removed the extra variable.",
+      "parentUuid": "a580dabd_436bdc44",
+      "range": {
+        "startLine": 1397,
+        "startChar": 8,
+        "endLine": 1397,
+        "endChar": 22
+      },
+      "revId": "6c7369cbecbdbc24c233d1401a52a5fc24ac734d",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "06bd7142_c971de5b",
@@ -41,6 +65,24 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "245ec35a_d213ba4d",
+        "filename": "call/call.cc",
+        "patchSetId": 8
+      },
+      "lineNbr": 1404,
+      "author": {
+        "id": 5508
+      },
+      "writtenOn": "2022-05-13T09:03:09Z",
+      "side": 1,
+      "message": "`receive_stream` removed.",
+      "parentUuid": "06bd7142_c971de5b",
+      "revId": "6c7369cbecbdbc24c233d1401a52a5fc24ac734d",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "e0594b89_9b07d783",
@@ -54,6 +96,30 @@
       "writtenOn": "2022-05-11T09:01:56Z",
       "side": 1,
       "message": "may be use structural bindings for more descriptive names:\nfor (auto\u0026 [unused, receive_stream] : receive_streams_) {...",
+      "range": {
+        "startLine": 1250,
+        "startChar": 7,
+        "endLine": 1250,
+        "endChar": 15
+      },
+      "revId": "6c7369cbecbdbc24c233d1401a52a5fc24ac734d",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "f1fea75a_8bf06ae6",
+        "filename": "media/engine/webrtc_video_engine.cc",
+        "patchSetId": 8
+      },
+      "lineNbr": 1250,
+      "author": {
+        "id": 5508
+      },
+      "writtenOn": "2022-05-13T09:03:09Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "e0594b89_9b07d783",
       "range": {
         "startLine": 1250,
         "startChar": 7,
@@ -89,6 +155,30 @@
     {
       "unresolved": false,
       "key": {
+        "uuid": "ae3ab371_c0369f4e",
+        "filename": "media/engine/webrtc_video_engine.cc",
+        "patchSetId": 8
+      },
+      "lineNbr": 1252,
+      "author": {
+        "id": 5508
+      },
+      "writtenOn": "2022-05-13T09:03:09Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "ff1d0604_729ddb50",
+      "range": {
+        "startLine": 1252,
+        "startChar": 4,
+        "endLine": 1252,
+        "endChar": 8
+      },
+      "revId": "6c7369cbecbdbc24c233d1401a52a5fc24ac734d",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
         "uuid": "c6bf5a44_574b8bcc",
         "filename": "media/engine/webrtc_video_engine.h",
         "patchSetId": 8
@@ -112,6 +202,30 @@
     {
       "unresolved": false,
       "key": {
+        "uuid": "12590e8f_dc1071fb",
+        "filename": "media/engine/webrtc_video_engine.h",
+        "patchSetId": 8
+      },
+      "lineNbr": 446,
+      "author": {
+        "id": 5508
+      },
+      "writtenOn": "2022-05-13T09:03:09Z",
+      "side": 1,
+      "message": "Removed.",
+      "parentUuid": "c6bf5a44_574b8bcc",
+      "range": {
+        "startLine": 445,
+        "startChar": 4,
+        "endLine": 446,
+        "endChar": 17
+      },
+      "revId": "6c7369cbecbdbc24c233d1401a52a5fc24ac734d",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
         "uuid": "4df8b070_37adee08",
         "filename": "video/video_receive_stream2.cc",
         "patchSetId": 8
@@ -123,6 +237,30 @@
       "writtenOn": "2022-05-11T09:01:56Z",
       "side": 1,
       "message": "or may be\nconst_cast\u003cuint32_t\u0026\u003e(config_.rtp.local_ssrc) \u003d local_ssrc;\n\nto rely less on the type of the `config_`",
+      "range": {
+        "startLine": 350,
+        "startChar": 2,
+        "endLine": 353,
+        "endChar": 32
+      },
+      "revId": "6c7369cbecbdbc24c233d1401a52a5fc24ac734d",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "b6fcdfbb_df1e0482",
+        "filename": "video/video_receive_stream2.cc",
+        "patchSetId": 8
+      },
+      "lineNbr": 353,
+      "author": {
+        "id": 5508
+      },
+      "writtenOn": "2022-05-13T09:03:09Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "4df8b070_37adee08",
       "range": {
         "startLine": 350,
         "startChar": 2,

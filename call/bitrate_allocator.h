@@ -20,8 +20,10 @@
 #include <vector>
 
 #include "api/call/bitrate_allocation.h"
+#include "api/field_trials_view.h"
 #include "api/sequence_checker.h"
 #include "api/transport/network_types.h"
+#include "rtc_base/experiments/field_trial_parser.h"
 #include "rtc_base/system/no_unique_address.h"
 
 namespace webrtc {
@@ -95,6 +97,17 @@ struct AllocatableTrack {
 };
 }  // namespace bitrate_allocator_impl
 
+struct MediaRateCapConfig {
+  MediaRateCapConfig();
+  MediaRateCapConfig(const MediaRateCapConfig&) = default;
+  MediaRateCapConfig& operator=(const MediaRateCapConfig&) = default;
+  ~MediaRateCapConfig() = default;
+
+  // Configures the lower and/or upper limits of aggregate media streams.
+  FieldTrialParameter<DataRate> lower_limit;
+  FieldTrialParameter<DataRate> upper_limit;
+};
+
 // Usage: this class will register multiple RtcpBitrateObserver's one at each
 // RTCP module. It will aggregate the results and run one bandwidth estimation
 // and push the result to the encoders via BitrateAllocatorObserver(s).
@@ -164,6 +177,7 @@ class BitrateAllocator : public BitrateAllocatorInterface {
   int num_pause_events_ RTC_GUARDED_BY(&sequenced_checker_);
   int64_t last_bwe_log_time_ RTC_GUARDED_BY(&sequenced_checker_);
   BitrateAllocationLimits current_limits_ RTC_GUARDED_BY(&sequenced_checker_);
+  MediaRateCapConfig config_ RTC_GUARDED_BY(&sequenced_checker_);
 };
 
 }  // namespace webrtc

@@ -16,6 +16,23 @@
       "message": "PTAL",
       "revId": "e1a7c27dae0b6416c90bdae35c03d035bebe252b",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "9ada9bc6_bb9dacc5",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 19254
+      },
+      "writtenOn": "2022-05-13T02:16:35Z",
+      "side": 1,
+      "message": "Sorry, Mark, I added you as a “WebRTC” owner but you don’t own that directory. :(",
+      "revId": "e1a7c27dae0b6416c90bdae35c03d035bebe252b",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "b545416c_1110cff2",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 9405
+      },
+      "writtenOn": "2022-05-13T01:17:37Z",
+      "side": 1,
+      "message": "Hi, this is CL to address the issue caused by category conflicts. PTAL. Thanks.",
+      "revId": "3d162339a3f805c29f8d8d8fc16b043cd3bc44eb",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

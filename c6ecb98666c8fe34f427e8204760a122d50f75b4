@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "6099a193_7d15f8c2",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 3
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 9405
+      },
+      "writtenOn": "2022-05-13T10:04:52Z",
+      "side": 1,
+      "message": "Hi, Artem. Could you review //test directory? Thanks.",
+      "revId": "c6ecb98666c8fe34f427e8204760a122d50f75b4",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

@@ -18,6 +18,24 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "871bfa43_6a091b7b",
+        "filename": "modules/video_coding/codecs/av1/av1_svc_config.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 44,
+      "author": {
+        "id": 5527
+      },
+      "writtenOn": "2022-05-13T11:21:30Z",
+      "side": 1,
+      "message": "Since `h` scaling is not defined for `_KEY` modes I removed the scaling logic.",
+      "parentUuid": "e7045332_5f22940b",
+      "revId": "870258781e1bb0bfebecec95af176abe805f5c5d",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "53425a41_9260a886",
@@ -31,6 +49,30 @@
       "writtenOn": "2022-05-12T11:44:38Z",
       "side": 1,
       "message": "I think AV1 is probably the only user of this VideoCodec top-level scalability mode setting.\n\nThe top-level setting is a bit odd, in the simulcast case. \n\nDo you think it would make sense to either retire it, and instead add a scalability mode to each entry in the simulcastStream array? Or document that the top-level scalability mode is valid only if numberOfSimulcastStreams \u003d\u003d 0 ?",
+      "range": {
+        "startLine": 92,
+        "startChar": 18,
+        "endLine": 92,
+        "endChar": 38
+      },
+      "revId": "870258781e1bb0bfebecec95af176abe805f5c5d",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "8d567403_c48585a6",
+        "filename": "modules/video_coding/codecs/av1/av1_svc_config.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 92,
+      "author": {
+        "id": 5527
+      },
+      "writtenOn": "2022-05-13T11:21:30Z",
+      "side": 1,
+      "message": "Given the WebRTC SVC spec I guess it makes more sense to have the scalability mode on the simulcast level. Not something I think we should change in this CL though.",
+      "parentUuid": "53425a41_9260a886",
       "range": {
         "startLine": 92,
         "startChar": 18,
@@ -58,6 +100,24 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "ae947098_ad28b62e",
+        "filename": "modules/video_coding/codecs/av1/av1_svc_config_unittest.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 33,
+      "author": {
+        "id": 5527
+      },
+      "writtenOn": "2022-05-13T11:21:30Z",
+      "side": 1,
+      "message": "Scaling logic removed.",
+      "parentUuid": "a07cb1d6_5f256e0b",
+      "revId": "870258781e1bb0bfebecec95af176abe805f5c5d",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "fee88cfa_cf24b0f4",
@@ -71,6 +131,24 @@
       "writtenOn": "2022-05-12T11:55:30Z",
       "side": 1,
       "message": "...so the below could be a separate test case?",
+      "revId": "870258781e1bb0bfebecec95af176abe805f5c5d",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "5f0e100a_f28b4b96",
+        "filename": "modules/video_coding/codecs/av1/av1_svc_config_unittest.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 41,
+      "author": {
+        "id": 5527
+      },
+      "writtenOn": "2022-05-13T11:21:30Z",
+      "side": 1,
+      "message": "Done.",
+      "parentUuid": "fee88cfa_cf24b0f4",
       "revId": "870258781e1bb0bfebecec95af176abe805f5c5d",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }

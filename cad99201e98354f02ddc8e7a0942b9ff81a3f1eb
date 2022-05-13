@@ -52,6 +52,24 @@
       "parentUuid": "6e7109bb_593431ae",
       "revId": "cad99201e98354f02ddc8e7a0942b9ff81a3f1eb",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "7b2bd272_b0d68e0a",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 8
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 12234
+      },
+      "writtenOn": "2022-05-13T08:11:16Z",
+      "side": 1,
+      "message": "Was looking how to modify the assert but moving the tests sounds like a good idea!",
+      "parentUuid": "4dbd1594_4af5b473",
+      "revId": "cad99201e98354f02ddc8e7a0942b9ff81a3f1eb",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

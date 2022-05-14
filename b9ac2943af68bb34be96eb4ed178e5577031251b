@@ -50,6 +50,24 @@
       "message": "Hi Tim, I think this change is impacted by a Gerrit issue b/231981018. I believe CQ will continue to work if you rebase your change and revote CQ+2.",
       "revId": "b9ac2943af68bb34be96eb4ed178e5577031251b",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "6c2efff6_2a9935c9",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 11641
+      },
+      "writtenOn": "2022-05-14T01:19:13Z",
+      "side": 1,
+      "message": "k, let me try it.",
+      "parentUuid": "e2006865_80eccdec",
+      "revId": "b9ac2943af68bb34be96eb4ed178e5577031251b",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

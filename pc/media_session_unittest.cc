@@ -1355,6 +1355,50 @@ TEST_F(MediaSessionDescriptionFactoryTest, TestCreateVideoAnswerGcmAnswer) {
   TestVideoGcmCipher(false, true);
 }
 
+// Create a video answer with no common codecs, and ensure it is rejected.
+TEST_F(MediaSessionDescriptionFactoryTest,
+       TestCreateVideoAnswerWithNoCommonCodecs) {
+  MediaSessionOptions opts;
+  AddMediaDescriptionOptions(MEDIA_TYPE_VIDEO, "video",
+                             RtpTransceiverDirection::kSendRecv, kActive,
+                             &opts);
+  std::vector f1_codecs = {VideoCodec(96, "H264")};
+  f1_.set_video_codecs(f1_codecs, f1_codecs);
+
+  std::vector f2_codecs = {VideoCodec(97, "VP8")};
+  f2_.set_video_codecs(f2_codecs, f2_codecs);
+
+  std::unique_ptr<SessionDescription> offer = f1_.CreateOffer(opts, nullptr);
+  std::unique_ptr<SessionDescription> answer =
+      f2_.CreateAnswer(offer.get(), opts, NULL);
+  const ContentInfo* vc = answer->GetContentByName("video");
+  ASSERT_TRUE(vc != NULL);
+  EXPECT_TRUE(vc->rejected);
+}
+
+// Create a video answer with no common codecs, and ensure it is rejected.
+TEST_F(MediaSessionDescriptionFactoryTest,
+       TestCreateVideoAnswerWithOnlyFecCodecsCommon) {
+  MediaSessionOptions opts;
+  AddMediaDescriptionOptions(MEDIA_TYPE_VIDEO, "video",
+                             RtpTransceiverDirection::kSendRecv, kActive,
+                             &opts);
+  std::vector f1_codecs = {VideoCodec(96, "H264"),
+                           VideoCodec(118, "flexfec-03")};
+  f1_.set_video_codecs(f1_codecs, f1_codecs);
+
+  std::vector f2_codecs = {VideoCodec(97, "VP8"),
+                           VideoCodec(118, "flexfec-03")};
+  f2_.set_video_codecs(f2_codecs, f2_codecs);
+
+  std::unique_ptr<SessionDescription> offer = f1_.CreateOffer(opts, nullptr);
+  std::unique_ptr<SessionDescription> answer =
+      f2_.CreateAnswer(offer.get(), opts, NULL);
+  const ContentInfo* vc = answer->GetContentByName("video");
+  ASSERT_TRUE(vc != NULL);
+  EXPECT_TRUE(vc->rejected);
+}
+
 // The use_sctpmap flag should be set in an Sctp DataContentDescription by
 // default. The answer's use_sctpmap flag should match the offer's.
 TEST_F(MediaSessionDescriptionFactoryTest, TestCreateDataAnswerUsesSctpmap) {

@@ -645,6 +645,11 @@ static bool IsFlexfecCodec(const C& codec) {
   return absl::EqualsIgnoreCase(codec.name, kFlexfecCodecName);
 }
 
+template <class C>
+static bool IsUlpfecCodec(const C& codec) {
+  return absl::EqualsIgnoreCase(codec.name, kUlpfecCodecName);
+}
+
 // Create a media content to be offered for the given `sender_options`,
 // according to the given options.rtcp_mux, session_options.is_muc, codecs,
 // secure_transport, crypto, and current_streams. If we don't currently have
@@ -2766,6 +2771,13 @@ bool MediaSessionDescriptionFactory::AddVideoContentForAnswer(
     filtered_codecs = ComputeCodecsUnion<VideoCodec>(
         filtered_codecs, other_video_codecs, field_trials);
   }
+  // Determine if we have media codecs in common.
+  bool has_filtered_media_codecs =
+      std::count_if(
+          filtered_codecs.begin(), filtered_codecs.end(),
+          [](const VideoCodec& c) {
+            return !(IsRedCodec(c) || IsUlpfecCodec(c) || IsFlexfecCodec(c));
+          }) > 0;
 
   if (session_options.raw_packetization_for_video) {
     for (VideoCodec& codec : filtered_codecs) {
@@ -2793,12 +2805,12 @@ bool MediaSessionDescriptionFactory::AddVideoContentForAnswer(
           filtered_rtp_header_extensions(default_video_rtp_header_extensions),
           ssrc_generator_, enable_encrypted_rtp_header_extensions_,
           current_streams, bundle_enabled, video_answer.get())) {
-    return false;  // Failed the sessin setup.
+    return false;  // Failed the session setup.
   }
   bool secure = bundle_transport ? bundle_transport->description.secure()
                                  : video_transport->secure();
   bool rejected = media_description_options.stopped ||
-                  offer_content->rejected ||
+                  offer_content->rejected || !has_filtered_media_codecs ||
                   !IsMediaProtocolSupported(MEDIA_TYPE_VIDEO,
                                             video_answer->protocol(), secure);
   if (!AddTransportAnswer(media_description_options.mid,

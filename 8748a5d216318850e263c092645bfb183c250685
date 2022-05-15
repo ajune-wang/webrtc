@@ -1,6 +1,57 @@
 {
   "comments": [
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "d37e228c_65d80763",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 3
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2022-05-15T18:55:28Z",
+      "side": 1,
+      "message": "Another bunch of string copies hits the dust!\n\nI think it\u0027s better to have TODOs attached to the function declarations rather than to the function calls (easier to find them when fixing). But that\u0027s a minor point.\n\nWaiting for resolution of Ali\u0027s questions before approving.",
+      "revId": "8748a5d216318850e263c092645bfb183c250685",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "6720b3aa_8558f721",
+        "filename": "pc/webrtc_sdp.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 1116,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2022-05-15T18:55:28Z",
+      "side": 1,
+      "message": "Should this TODO move to the StringToProto declaration rather than annotating each usage?",
+      "revId": "8748a5d216318850e263c092645bfb183c250685",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "312178c7_4a1c294c",
+        "filename": "pc/webrtc_sdp.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 2326,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2022-05-15T18:55:28Z",
+      "side": 1,
+      "message": "Move this TODO to declaration too?",
+      "revId": "8748a5d216318850e263c092645bfb183c250685",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "70393ade_5c6a96f3",

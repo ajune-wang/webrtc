@@ -35,7 +35,6 @@ bool VideoCodecVP8::operator==(const VideoCodecVP8& other) const {
           numberOfTemporalLayers == other.numberOfTemporalLayers &&
           denoisingOn == other.denoisingOn &&
           automaticResizeOn == other.automaticResizeOn &&
-          frameDroppingOn == other.frameDroppingOn &&
           keyFrameInterval == other.keyFrameInterval);
 }
 
@@ -43,7 +42,6 @@ bool VideoCodecVP9::operator==(const VideoCodecVP9& other) const {
   return (complexity == other.complexity &&
           numberOfTemporalLayers == other.numberOfTemporalLayers &&
           denoisingOn == other.denoisingOn &&
-          frameDroppingOn == other.frameDroppingOn &&
           keyFrameInterval == other.keyFrameInterval &&
           adaptiveQpMode == other.adaptiveQpMode &&
           automaticResizeOn == other.automaticResizeOn &&
@@ -52,8 +50,7 @@ bool VideoCodecVP9::operator==(const VideoCodecVP9& other) const {
 }
 
 bool VideoCodecH264::operator==(const VideoCodecH264& other) const {
-  return (frameDroppingOn == other.frameDroppingOn &&
-          keyFrameInterval == other.keyFrameInterval &&
+  return (keyFrameInterval == other.keyFrameInterval &&
           numberOfTemporalLayers == other.numberOfTemporalLayers);
 }
 
@@ -159,19 +156,7 @@ void VideoCodec::SetVideoEncoderComplexity(
 }
 
 bool VideoCodec::GetFrameDropEnabled() const {
-  if (frame_drop_enabled_.has_value()) {
-    return *frame_drop_enabled_;
-  }
-  switch (codecType) {
-    default:
-      return false;
-    case kVideoCodecVP8:
-      return VP8().frameDroppingOn;
-    case kVideoCodecVP9:
-      return VP9().frameDroppingOn;
-    case kVideoCodecH264:
-      return H264().frameDroppingOn;
-  }
+  return frame_drop_enabled_;
 }
 
 void VideoCodec::SetFrameDropEnabled(bool enabled) {

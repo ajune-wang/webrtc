@@ -33,6 +33,24 @@
       "message": "Does the script needs to be updated?\n\nCan you clarify this part a bit more?",
       "revId": "7c7410080d059a9c21e08923e366b8966df4439c",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "c5aae63a_3ed4d871",
+        "filename": "tools_webrtc/sslroots/README.md",
+        "patchSetId": 1
+      },
+      "lineNbr": 23,
+      "author": {
+        "id": 16681
+      },
+      "writtenOn": "2022-05-16T14:27:50Z",
+      "side": 1,
+      "message": "\u003e Does the script needs to be updated?\n\nIf possible, yes, because I want to use the script with OpenSSL.\n\nHowever, script might become more complex to maintain if I added support with both OpenSSL version 1 and version 3. What do you think?",
+      "parentUuid": "e424e30b_8ba5c813",
+      "revId": "7c7410080d059a9c21e08923e366b8966df4439c",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

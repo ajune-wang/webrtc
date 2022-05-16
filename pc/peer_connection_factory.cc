@@ -319,7 +319,7 @@ std::unique_ptr<Call> PeerConnectionFactory::CreateCall_w(
   RTC_DCHECK_RUN_ON(worker_thread());
 
   webrtc::Call::Config call_config(event_log, network_thread());
-  if (!channel_manager()->media_engine() || !context_->call_factory()) {
+  if (!channel_manager() || !context_->call_factory()) {
     return nullptr;
   }
   call_config.audio_state =

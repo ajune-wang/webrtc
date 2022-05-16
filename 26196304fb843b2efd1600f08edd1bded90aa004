@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "4a04acdb_449c1623",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2022-05-16T10:40:31Z",
+      "side": 1,
+      "message": "Trying to simplify the CL that is causing trouble.\n",
+      "revId": "26196304fb843b2efd1600f08edd1bded90aa004",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

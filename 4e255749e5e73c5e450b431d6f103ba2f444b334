@@ -1,0 +1,55 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "281c86b9_7b542e4f",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 17
+      },
+      "lineNbr": 9,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2022-05-16T05:16:32Z",
+      "side": 1,
+      "message": "Why the multiple names?\nIs there some external factor preventing the use of calling 422 i422depth10bit and 420 i420depth10bit?",
+      "revId": "4e255749e5e73c5e450b431d6f103ba2f444b334",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "2cf6bf01_ef0f404c",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 17
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2022-05-16T05:16:32Z",
+      "side": 1,
+      "message": "Awaiting video experts\u0027 approval, but wanted to ask about the naming.\n",
+      "revId": "4e255749e5e73c5e450b431d6f103ba2f444b334",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "a5f2a7a1_022cf4a3",
+        "filename": "api/video/i210_buffer.h",
+        "patchSetId": 17
+      },
+      "lineNbr": 25,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2022-05-16T05:16:32Z",
+      "side": 1,
+      "message": "Please add a note about what an I210buffer is.",
+      "revId": "4e255749e5e73c5e450b431d6f103ba2f444b334",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

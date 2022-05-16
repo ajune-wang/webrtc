@@ -16,6 +16,23 @@
       "message": "@emircan can you check my setup of the buffer collection?",
       "revId": "cbcabd2344ea3f6b4e5c057a8dc387e319454769",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "7287e63c_91bb282c",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5087
+      },
+      "writtenOn": "2022-05-16T07:05:01Z",
+      "side": 1,
+      "message": "I think we need (not in this CL but as part of this effort) create a Fuchsia builder/tester on CQ/CI.\n\n+jleconte@ and +jansson@ for this.\n\nThis will allow us to get some confidence on the patches before landing them.",
+      "revId": "cbcabd2344ea3f6b4e5c057a8dc387e319454769",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

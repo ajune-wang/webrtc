@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "5887af69_6260a1f8",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 16681
+      },
+      "writtenOn": "2022-05-16T13:47:18Z",
+      "side": 1,
+      "message": "I tried to use tools_webrtc/sslroots/generate_sslroots.py and noticed the script uses openssl internally and it should be LibreSSL.\nI updated README.md to describe that.",
+      "revId": "7c7410080d059a9c21e08923e366b8966df4439c",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

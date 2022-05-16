@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "9d342106_5003257b",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 19214
+      },
+      "writtenOn": "2022-05-16T05:34:50Z",
+      "side": 1,
+      "message": "@emircan can you check my setup of the buffer collection?",
+      "revId": "cbcabd2344ea3f6b4e5c057a8dc387e319454769",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

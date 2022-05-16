@@ -223,13 +223,6 @@ class UnitBase {
 template <class Unit_T>
 class RelativeUnit : public UnitBase<Unit_T> {
  public:
-  constexpr Unit_T Clamped(Unit_T min_value, Unit_T max_value) const {
-    return std::max(min_value,
-                    std::min(UnitBase<Unit_T>::AsSubClassRef(), max_value));
-  }
-  constexpr void Clamp(Unit_T min_value, Unit_T max_value) {
-    *this = Clamped(min_value, max_value);
-  }
   constexpr Unit_T operator+(const Unit_T other) const {
     if (this->IsPlusInfinity() || other.IsPlusInfinity()) {
       RTC_DCHECK(!this->IsMinusInfinity());

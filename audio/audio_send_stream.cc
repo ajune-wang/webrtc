@@ -10,6 +10,7 @@
 
 #include "audio/audio_send_stream.h"
 
+#include <algorithm>
 #include <memory>
 #include <string>
 #include <utility>
@@ -509,10 +510,12 @@ uint32_t AudioSendStream::OnBitrateUpdated(BitrateAllocationUpdate update) {
   // it 1) allocated a bitrate of zero to disable the stream or 2) allocated a
   // higher than max to allow for e.g. extra FEC.
   RTC_DCHECK(cached_constraints_.has_value());
-  update.target_bitrate.Clamp(cached_constraints_->min,
-                              cached_constraints_->max);
-  update.stable_target_bitrate.Clamp(cached_constraints_->min,
-                                     cached_constraints_->max);
+  update.target_bitrate =
+      std::clamp(update.target_bitrate, cached_constraints_->min,
+                 cached_constraints_->max);
+  update.stable_target_bitrate =
+      std::clamp(update.stable_target_bitrate, cached_constraints_->min,
+                 cached_constraints_->max);
 
   channel_send_->OnBitrateAllocation(update);
 

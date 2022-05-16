@@ -138,7 +138,8 @@ void VCMJitterEstimator::UpdateEstimate(TimeDelta frame_delay,
   // Cap frame_delay based on the current time deviation noise.
   TimeDelta max_time_deviation =
       TimeDelta::Millis(time_deviation_upper_bound_ * sqrt(var_noise_) + 0.5);
-  frame_delay.Clamp(-max_time_deviation, max_time_deviation);
+  frame_delay =
+      std::clamp(frame_delay, -max_time_deviation, max_time_deviation);
 
   // Only update the Kalman filter if the sample is not considered an extreme
   // outlier. Even if it is an extreme outlier from a delay point of view, if

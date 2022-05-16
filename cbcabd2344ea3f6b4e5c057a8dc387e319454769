@@ -33,6 +33,230 @@
       "message": "I think we need (not in this CL but as part of this effort) create a Fuchsia builder/tester on CQ/CI.\n\n+jleconte@ and +jansson@ for this.\n\nThis will allow us to get some confidence on the patches before landing them.",
       "revId": "cbcabd2344ea3f6b4e5c057a8dc387e319454769",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "79d961db_73ab9683",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 6779
+      },
+      "writtenOn": "2022-05-16T23:25:46Z",
+      "side": 1,
+      "message": "Looking good! I got some questions.",
+      "revId": "cbcabd2344ea3f6b4e5c057a8dc387e319454769",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "83ff04ab_604c239c",
+        "filename": "modules/desktop_capture/screen_capturer_fuchsia.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 89,
+      "author": {
+        "id": 6779
+      },
+      "writtenOn": "2022-05-16T23:25:46Z",
+      "side": 1,
+      "message": "This seems like an oversight in the API. We are basically making the API sync. We can iterate on this.",
+      "range": {
+        "startLine": 89,
+        "startChar": 17,
+        "endLine": 89,
+        "endChar": 25
+      },
+      "revId": "cbcabd2344ea3f6b4e5c057a8dc387e319454769",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "49eb4134_33d9e7c6",
+        "filename": "modules/desktop_capture/screen_capturer_fuchsia.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 98,
+      "author": {
+        "id": 6779
+      },
+      "writtenOn": "2022-05-16T23:25:46Z",
+      "side": 1,
+      "message": "Let\u0027s add a TODO about using SharedMemoryDesktopFrame. I think a VMO backed Fuchsia version of it can be created.",
+      "range": {
+        "startLine": 98,
+        "startChar": 18,
+        "endLine": 98,
+        "endChar": 35
+      },
+      "revId": "cbcabd2344ea3f6b4e5c057a8dc387e319454769",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "f4a69f09_929fb2c0",
+        "filename": "modules/desktop_capture/screen_capturer_fuchsia.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 99,
+      "author": {
+        "id": 6779
+      },
+      "writtenOn": "2022-05-16T23:25:46Z",
+      "side": 1,
+      "message": "Is it possible to use a pool rather than allocate/free cycle?",
+      "range": {
+        "startLine": 99,
+        "startChar": 10,
+        "endLine": 99,
+        "endChar": 27
+      },
+      "revId": "cbcabd2344ea3f6b4e5c057a8dc387e319454769",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "9b6ee2d1_5879f99a",
+        "filename": "modules/desktop_capture/screen_capturer_fuchsia.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 113,
+      "author": {
+        "id": 6779
+      },
+      "writtenOn": "2022-05-16T23:25:46Z",
+      "side": 1,
+      "message": "I am not sure if this is a main thread in webrtc that should not be blocked. Copy can be offloaded to another thread. Let\u0027s make a note about it and ask webrtc owners.",
+      "range": {
+        "startLine": 113,
+        "startChar": 26,
+        "endLine": 113,
+        "endChar": 40
+      },
+      "revId": "cbcabd2344ea3f6b4e5c057a8dc387e319454769",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "be9cf22e_8ba180fd",
+        "filename": "modules/desktop_capture/screen_capturer_fuchsia.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 164,
+      "author": {
+        "id": 6779
+      },
+      "writtenOn": "2022-05-16T23:25:46Z",
+      "side": 1,
+      "message": "There is always a conversion to I420 down the line, both in Chrome and WebRTC as far as I can follow. Fuchsia can render into I420 if the constraints have an overlap. Can you check if it is possible?",
+      "range": {
+        "startLine": 164,
+        "startChar": 23,
+        "endLine": 164,
+        "endChar": 38
+      },
+      "revId": "cbcabd2344ea3f6b4e5c057a8dc387e319454769",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "d07d1b59_30ac98d8",
+        "filename": "modules/desktop_capture/screen_capturer_fuchsia.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 164,
+      "author": {
+        "id": 6779
+      },
+      "writtenOn": "2022-05-16T23:25:46Z",
+      "side": 1,
+      "message": "Can you make this a constant?",
+      "range": {
+        "startLine": 164,
+        "startChar": 40,
+        "endLine": 164,
+        "endChar": 46
+      },
+      "revId": "cbcabd2344ea3f6b4e5c057a8dc387e319454769",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "cf332790_9a489489",
+        "filename": "modules/desktop_capture/screen_capturer_fuchsia.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 190,
+      "author": {
+        "id": 6779
+      },
+      "writtenOn": "2022-05-16T23:25:46Z",
+      "side": 1,
+      "message": "Lets not forget to remove since this is adding another OOT Scenic dependency. Can you add: \n// TODO(fxbug.dev/100303): Remove when Flatland is the only API.",
+      "range": {
+        "startLine": 190,
+        "startChar": 10,
+        "endLine": 190,
+        "endChar": 22
+      },
+      "revId": "cbcabd2344ea3f6b4e5c057a8dc387e319454769",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "e83da06d_33bd3891",
+        "filename": "modules/desktop_capture/screen_capturer_fuchsia.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 38,
+      "author": {
+        "id": 6779
+      },
+      "writtenOn": "2022-05-16T23:25:46Z",
+      "side": 1,
+      "message": "2 should be ok since we are copying the result and releasing right away. Feel free to try 3 if you find any performance issues.",
+      "range": {
+        "startLine": 38,
+        "startChar": 46,
+        "endLine": 38,
+        "endChar": 47
+      },
+      "revId": "cbcabd2344ea3f6b4e5c057a8dc387e319454769",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "4c30c7e4_177ac295",
+        "filename": "modules/desktop_capture/screen_capturer_fuchsia.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 41,
+      "author": {
+        "id": 6779
+      },
+      "writtenOn": "2022-05-16T23:25:46Z",
+      "side": 1,
+      "message": "Let\u0027s reduce this to 1000ms. 5s is a little bit too much for real time.",
+      "range": {
+        "startLine": 41,
+        "startChar": 55,
+        "endLine": 41,
+        "endChar": 59
+      },
+      "revId": "cbcabd2344ea3f6b4e5c057a8dc387e319454769",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

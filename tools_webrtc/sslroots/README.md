@@ -19,3 +19,5 @@ $ vpython3 tools_webrtc/sslroots/generate_sslroots.py <the pem file>
 [ssl-roots-header]: https://cs.chromium.org/chromium/src/third_party/webrtc/rtc_base/ssl_roots.h
 [pki-goog]: https://www.google.com/url?q=https://pki.google.com/roots.pem
 [mozila-cacert]: https://curl.se/ca/cacert.pem
+
+The script uses openssl internally and it should be LibreSSL.

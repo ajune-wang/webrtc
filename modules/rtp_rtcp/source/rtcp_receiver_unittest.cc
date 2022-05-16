@@ -1983,4 +1983,43 @@ TEST(RtcpReceiverTest, HandlesIncorrectTargetBitrate) {
   receiver.IncomingPacket(xr.Build());
 }
 
+TEST(RtcpReceiverTest, ChangeLocalMediaSsrc) {
+  ReceiverMocks mocks;
+  // Construct a receiver with `kReceiverMainSsrc` (default) local media ssrc.
+  RTCPReceiver receiver(DefaultConfiguration(&mocks), &mocks.rtp_rtcp_impl);
+  receiver.SetRemoteSSRC(kSenderSsrc);
+
+  constexpr uint32_t kSecondarySsrc = kReceiverMainSsrc + 1;
+
+  // Expect to only get the `OnReceivedNack()` callback once since we'll
+  // configure it for the `kReceiverMainSsrc` media ssrc.
+  EXPECT_CALL(mocks.rtp_rtcp_impl, OnReceivedNack(_)).Times(1);
+
+  // We'll get two callbacks to RtcpPacketTypesCounterUpdated, one for each
+  // call to `IncomingPacket`, differentiated by the local media ssrc.
+  EXPECT_CALL(mocks.packet_type_counter_observer,
+              RtcpPacketTypesCounterUpdated(kReceiverMainSsrc, _))
+      .Times(1);
+  EXPECT_CALL(mocks.packet_type_counter_observer,
+              RtcpPacketTypesCounterUpdated(kSecondarySsrc, _))
+      .Times(1);
+
+  // Construct a test nack packet with media ssrc set to `kReceiverMainSsrc`.
+  auto nack = std::make_unique<rtcp::Nack>();
+  nack->SetSenderSsrc(kSenderSsrc);
+  nack->SetMediaSsrc(kReceiverMainSsrc);
+  const uint16_t kNackList1[] = {1, 2, 3, 5};
+  nack->SetPacketIds(kNackList1, arraysize(kNackList1));
+
+  // Deliver the first callback.
+  receiver.IncomingPacket(nack->Build());
+
+  // Change the set local media ssrc.
+  receiver.set_local_media_ssrc(kSecondarySsrc);
+
+  // Deliver another packet - this time there will be no callback to
+  // OnReceivedNack due to the ssrc not matching.
+  receiver.IncomingPacket(nack->Build());
+}
+
 }  // namespace webrtc

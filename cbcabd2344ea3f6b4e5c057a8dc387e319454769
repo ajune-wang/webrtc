@@ -52,6 +52,24 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "eb9429f1_9c6e6e8b",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 19214
+      },
+      "writtenOn": "2022-05-17T06:08:14Z",
+      "side": 1,
+      "message": "I started working on getting WebRTC to build stand-alone for Fuchsia here: https://webrtc-review.googlesource.com/c/src/+/262200\n\nIt\u0027s blocked on another bug in the Chromium build toolchain but other than that it works until I try to build something that actually uses the SDK.",
+      "parentUuid": "7287e63c_91bb282c",
+      "revId": "cbcabd2344ea3f6b4e5c057a8dc387e319454769",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "bcb56bf6_ef1f5f1d",
@@ -65,6 +83,30 @@
       "writtenOn": "2022-05-16T23:56:29Z",
       "side": 1,
       "message": "A helper function like this should be in an anonymous namespace before everything else.\n\nIt\u0027s also not immediately clear to me from the name what the goal is here (I think you\u0027re rounding up to the nearest alignment multiple? Maybe RoundUpAlignment or AlignAndRoundUp Or even something like GetNeededSpaceWithPadding could be a clearer name?) It seems like it may be the same as multiplying this by alignment as well: https://source.chromium.org/chromium/chromium/src/+/main:third_party/webrtc/rtc_base/numerics/divide_round.h;drc\u003d33b83fdc9558d4919d3e8ee7b2dca1f6e9e65197;l\u003d22?\n\nWhich may be a bit better than rolling some of your own here?",
+      "range": {
+        "startLine": 43,
+        "startChar": 0,
+        "endLine": 45,
+        "endChar": 1
+      },
+      "revId": "cbcabd2344ea3f6b4e5c057a8dc387e319454769",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "723e305d_70a3dadd",
+        "filename": "modules/desktop_capture/screen_capturer_fuchsia.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 45,
+      "author": {
+        "id": 19214
+      },
+      "writtenOn": "2022-05-17T06:08:14Z",
+      "side": 1,
+      "message": "How about RoundUpToMultiple? \n\nI left it as it is since this implementation seems more simple than the functions in //rtc_base/numerics. \n\nLet me know if you really think I should use them, or if the naming is still not clear.",
+      "parentUuid": "bcb56bf6_ef1f5f1d",
       "range": {
         "startLine": 43,
         "startChar": 0,
@@ -98,6 +140,30 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "7ed1ae25_56df90fa",
+        "filename": "modules/desktop_capture/screen_capturer_fuchsia.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 75,
+      "author": {
+        "id": 19214
+      },
+      "writtenOn": "2022-05-17T06:08:14Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "24846a82_3aabd351",
+      "range": {
+        "startLine": 72,
+        "startChar": 1,
+        "endLine": 75,
+        "endChar": 3
+      },
+      "revId": "cbcabd2344ea3f6b4e5c057a8dc387e319454769",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "d713714e_f00d1016",
@@ -111,6 +177,30 @@
       "writtenOn": "2022-05-16T23:56:29Z",
       "side": 1,
       "message": "Style guide usually discourages abbreviations like this. Prefer naming it something like `frame_args` or `next_frame_args`",
+      "range": {
+        "startLine": 78,
+        "startChar": 45,
+        "endLine": 78,
+        "endChar": 53
+      },
+      "revId": "cbcabd2344ea3f6b4e5c057a8dc387e319454769",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "4cdcea42_42aa9f8a",
+        "filename": "modules/desktop_capture/screen_capturer_fuchsia.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 78,
+      "author": {
+        "id": 19214
+      },
+      "writtenOn": "2022-05-17T06:08:14Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "d713714e_f00d1016",
       "range": {
         "startLine": 78,
         "startChar": 45,
@@ -157,6 +247,30 @@
       "writtenOn": "2022-05-16T23:56:29Z",
       "side": 1,
       "message": "How long will this block for? Looks like up to 5 seconds? We should probably consider a shorter time (~500ms I think is used in some of the Windows code), unless there\u0027s reasoning behind the 5 seconds? Or unless I\u0027m wrong about the units on the constant.",
+      "range": {
+        "startLine": 89,
+        "startChar": 0,
+        "endLine": 90,
+        "endChar": 35
+      },
+      "revId": "cbcabd2344ea3f6b4e5c057a8dc387e319454769",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "43145d83_7ae55766",
+        "filename": "modules/desktop_capture/screen_capturer_fuchsia.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 90,
+      "author": {
+        "id": 19214
+      },
+      "writtenOn": "2022-05-17T06:08:14Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "b5b99d87_13ed2ddb",
       "range": {
         "startLine": 89,
         "startChar": 0,
@@ -262,6 +376,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "d25cf061_dfcfdbc0",
+        "filename": "modules/desktop_capture/screen_capturer_fuchsia.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 112,
+      "author": {
+        "id": 19214
+      },
+      "writtenOn": "2022-05-17T06:08:14Z",
+      "side": 1,
+      "message": "I tried that but I got \n`error: \u0027kBytesPerPixel\u0027 cannot be captured because it does not have automatic storage duration`\n\nActually thinking about it, I think I kept moving `kBytesPerPixel` around trying to get that error to go away and that\u0027s how I ended up with all the constants in such a weird place. It didn\u0027t work there anyway though.\n\nIf you know how to fix this error I\u0027d love to have a better way of doing this.",
+      "parentUuid": "9cd81500_bd3aff1e",
+      "range": {
+        "startLine": 112,
+        "startChar": 37,
+        "endLine": 112,
+        "endChar": 57
+      },
+      "revId": "cbcabd2344ea3f6b4e5c057a8dc387e319454769",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "9b6ee2d1_5879f99a",
         "filename": "modules/desktop_capture/screen_capturer_fuchsia.cc",
         "patchSetId": 2
@@ -320,6 +458,30 @@
       "writtenOn": "2022-05-16T23:56:29Z",
       "side": 1,
       "message": "NIT: Prefer Bugs as TODOs unless this is intended to be cleaned up before landing.",
+      "range": {
+        "startLine": 148,
+        "startChar": 10,
+        "endLine": 148,
+        "endChar": 16
+      },
+      "revId": "cbcabd2344ea3f6b4e5c057a8dc387e319454769",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "ba8a1aca_6e6263d0",
+        "filename": "modules/desktop_capture/screen_capturer_fuchsia.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 148,
+      "author": {
+        "id": 19214
+      },
+      "writtenOn": "2022-05-17T06:08:14Z",
+      "side": 1,
+      "message": "Removing this completely. I just left it in as a reminder to get the constraints checked as part of this CL since I wasn\u0027t sure what they should be when I wrote them.",
+      "parentUuid": "815de3e8_557cad2d",
       "range": {
         "startLine": 148,
         "startChar": 10,
@@ -400,6 +562,54 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "37676f0d_5b9833f6",
+        "filename": "modules/desktop_capture/screen_capturer_fuchsia.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 164,
+      "author": {
+        "id": 19214
+      },
+      "writtenOn": "2022-05-17T06:08:14Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "bbcf08d9_b421fca8",
+      "range": {
+        "startLine": 164,
+        "startChar": 23,
+        "endLine": 164,
+        "endChar": 38
+      },
+      "revId": "cbcabd2344ea3f6b4e5c057a8dc387e319454769",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "2f4b8045_285323a4",
+        "filename": "modules/desktop_capture/screen_capturer_fuchsia.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 164,
+      "author": {
+        "id": 19214
+      },
+      "writtenOn": "2022-05-17T06:08:14Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "d07d1b59_30ac98d8",
+      "range": {
+        "startLine": 164,
+        "startChar": 40,
+        "endLine": 164,
+        "endChar": 46
+      },
+      "revId": "cbcabd2344ea3f6b4e5c057a8dc387e319454769",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "cf332790_9a489489",
@@ -413,6 +623,30 @@
       "writtenOn": "2022-05-16T23:25:46Z",
       "side": 1,
       "message": "Lets not forget to remove since this is adding another OOT Scenic dependency. Can you add: \n// TODO(fxbug.dev/100303): Remove when Flatland is the only API.",
+      "range": {
+        "startLine": 190,
+        "startChar": 10,
+        "endLine": 190,
+        "endChar": 22
+      },
+      "revId": "cbcabd2344ea3f6b4e5c057a8dc387e319454769",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "0eaf7646_283ffedc",
+        "filename": "modules/desktop_capture/screen_capturer_fuchsia.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 190,
+      "author": {
+        "id": 19214
+      },
+      "writtenOn": "2022-05-17T06:08:14Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "cf332790_9a489489",
       "range": {
         "startLine": 190,
         "startChar": 10,
@@ -446,6 +680,30 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "6b3901c0_69624bff",
+        "filename": "modules/desktop_capture/screen_capturer_fuchsia.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 198,
+      "author": {
+        "id": 19214
+      },
+      "writtenOn": "2022-05-17T06:08:14Z",
+      "side": 1,
+      "message": "It should be checked. Thanks for catching.",
+      "parentUuid": "6cb6931b_714d49b2",
+      "range": {
+        "startLine": 198,
+        "startChar": 2,
+        "endLine": 198,
+        "endChar": 8
+      },
+      "revId": "cbcabd2344ea3f6b4e5c057a8dc387e319454769",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "4fa01421_5e7e307c",
@@ -459,6 +717,30 @@
       "writtenOn": "2022-05-16T23:56:29Z",
       "side": 1,
       "message": "Spell out or replace rbc with another descriptive word.",
+      "range": {
+        "startLine": 276,
+        "startChar": 57,
+        "endLine": 276,
+        "endChar": 65
+      },
+      "revId": "cbcabd2344ea3f6b4e5c057a8dc387e319454769",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "e2c5fa3b_3ea8f068",
+        "filename": "modules/desktop_capture/screen_capturer_fuchsia.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 276,
+      "author": {
+        "id": 19214
+      },
+      "writtenOn": "2022-05-17T06:08:14Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "4fa01421_5e7e307c",
       "range": {
         "startLine": 276,
         "startChar": 57,
@@ -492,6 +774,30 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "089191de_be3d898d",
+        "filename": "modules/desktop_capture/screen_capturer_fuchsia.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 322,
+      "author": {
+        "id": 19214
+      },
+      "writtenOn": "2022-05-17T06:08:14Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "dec31b1f_6875795a",
+      "range": {
+        "startLine": 322,
+        "startChar": 48,
+        "endLine": 322,
+        "endChar": 55
+      },
+      "revId": "cbcabd2344ea3f6b4e5c057a8dc387e319454769",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "461679ae_cb8ec909",
@@ -505,6 +811,30 @@
       "writtenOn": "2022-05-16T23:56:29Z",
       "side": 1,
       "message": "Spell out sc/use \"capture\"",
+      "range": {
+        "startLine": 327,
+        "startChar": 59,
+        "endLine": 327,
+        "endChar": 68
+      },
+      "revId": "cbcabd2344ea3f6b4e5c057a8dc387e319454769",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "273abd45_0284e39c",
+        "filename": "modules/desktop_capture/screen_capturer_fuchsia.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 327,
+      "author": {
+        "id": 19214
+      },
+      "writtenOn": "2022-05-17T06:08:14Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "461679ae_cb8ec909",
       "range": {
         "startLine": 327,
         "startChar": 59,
@@ -561,6 +891,30 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "f88534f0_23a9013f",
+        "filename": "modules/desktop_capture/screen_capturer_fuchsia.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 350,
+      "author": {
+        "id": 19214
+      },
+      "writtenOn": "2022-05-17T06:08:14Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "1c669c09_50b12cdd",
+      "range": {
+        "startLine": 350,
+        "startChar": 13,
+        "endLine": 350,
+        "endChar": 20
+      },
+      "revId": "cbcabd2344ea3f6b4e5c057a8dc387e319454769",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "c52999e6_8cc59cca",
@@ -584,6 +938,30 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "21cc5a60_1dcf7d8a",
+        "filename": "modules/desktop_capture/screen_capturer_fuchsia.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 351,
+      "author": {
+        "id": 19214
+      },
+      "writtenOn": "2022-05-17T06:08:14Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "c52999e6_8cc59cca",
+      "range": {
+        "startLine": 351,
+        "startChar": 4,
+        "endLine": 351,
+        "endChar": 43
+      },
+      "revId": "cbcabd2344ea3f6b4e5c057a8dc387e319454769",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "e83da06d_33bd3891",
@@ -597,6 +975,30 @@
       "writtenOn": "2022-05-16T23:25:46Z",
       "side": 1,
       "message": "2 should be ok since we are copying the result and releasing right away. Feel free to try 3 if you find any performance issues.",
+      "range": {
+        "startLine": 38,
+        "startChar": 46,
+        "endLine": 38,
+        "endChar": 47
+      },
+      "revId": "cbcabd2344ea3f6b4e5c057a8dc387e319454769",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "b7e5104a_5b79e25c",
+        "filename": "modules/desktop_capture/screen_capturer_fuchsia.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 38,
+      "author": {
+        "id": 19214
+      },
+      "writtenOn": "2022-05-17T06:08:14Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "e83da06d_33bd3891",
       "range": {
         "startLine": 38,
         "startChar": 46,
@@ -671,6 +1073,78 @@
         "startChar": 0,
         "endLine": 41,
         "endChar": 61
+      },
+      "revId": "cbcabd2344ea3f6b4e5c057a8dc387e319454769",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "0dde3038_c8438926",
+        "filename": "modules/desktop_capture/screen_capturer_fuchsia.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 41,
+      "author": {
+        "id": 19214
+      },
+      "writtenOn": "2022-05-17T06:08:14Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "4c30c7e4_177ac295",
+      "range": {
+        "startLine": 41,
+        "startChar": 55,
+        "endLine": 41,
+        "endChar": 59
+      },
+      "revId": "cbcabd2344ea3f6b4e5c057a8dc387e319454769",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "ca7e3c2b_0feaa26f",
+        "filename": "modules/desktop_capture/screen_capturer_fuchsia.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 41,
+      "author": {
+        "id": 19214
+      },
+      "writtenOn": "2022-05-17T06:08:14Z",
+      "side": 1,
+      "message": "Done. I saw it in the fake_desktop_capturer and tried it out hoping it would fix a storage duration error I was seeing for kBytesPerPixel but it didn\u0027t fix the error. I agree it\u0027s better in the .cc file.",
+      "parentUuid": "0b12f992_47476015",
+      "range": {
+        "startLine": 38,
+        "startChar": 0,
+        "endLine": 41,
+        "endChar": 61
+      },
+      "revId": "cbcabd2344ea3f6b4e5c057a8dc387e319454769",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "6570a4e8_ce566fbf",
+        "filename": "modules/desktop_capture/screen_capturer_fuchsia.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 41,
+      "author": {
+        "id": 19214
+      },
+      "writtenOn": "2022-05-17T06:08:14Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "d78fdc70_3d641b63",
+      "range": {
+        "startLine": 41,
+        "startChar": 50,
+        "endLine": 41,
+        "endChar": 54
       },
       "revId": "cbcabd2344ea3f6b4e5c057a8dc387e319454769",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"

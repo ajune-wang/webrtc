@@ -34,13 +34,15 @@
 #include "video/send_delay_stats.h"
 #include "video/send_statistics_proxy.h"
 
+namespace webrtc {
+namespace {
+
 using ::testing::_;
+using ::testing::Each;
 using ::testing::NiceMock;
 using ::testing::SaveArg;
 using ::testing::SizeIs;
 
-namespace webrtc {
-namespace {
 const int8_t kPayloadType = 96;
 const uint32_t kSsrc1 = 12345;
 const uint32_t kSsrc2 = 23456;
@@ -53,6 +55,29 @@ const int16_t kInitialTl0PicIdx2 = 199;
 const int64_t kRetransmitWindowSizeMs = 500;
 const int kTransportsSequenceExtensionId = 7;
 const int kDependencyDescriptorExtensionId = 8;
+
+template <typename Extension>
+class HasExtensionMatcher {
+ public:
+  using is_gtest_matcher = void;
+
+  bool MatchAndExplain(const RtpPacket& packet, std::ostream*) const {
+    return packet.HasExtension<Extension>();
+  }
+
+  void DescribeTo(std::ostream* os) const {
+    *os << "have the specified RTP header extension";
+  }
+
+  void DescribeNegationTo(std::ostream* os) const {
+    *os << "doesn't have the specified RTP header extension";
+  }
+};
+
+template <typename Extension>
+HasExtensionMatcher<Extension> HasExtension() {
+  return HasExtensionMatcher<Extension>();
+}
 
 class MockRtcpIntraFrameObserver : public RtcpIntraFrameObserver {
  public:
@@ -742,6 +767,46 @@ TEST(RtpVideoSenderTest, SupportsDependencyDescriptor) {
   ASSERT_THAT(sent_packets, SizeIs(2));
   EXPECT_TRUE(
       sent_packets.back().HasExtension<RtpDependencyDescriptorExtension>());
+}
+
+TEST(RtpVideoSenderTest,
+     SupportsDependencyDescriptorForVp8NotProvidedByEncoder) {
+  constexpr uint8_t kPayload[1] = {'a'};
+  RtpVideoSenderTestFixture test({kSsrc1}, {}, kPayloadType, {});
+  RtpHeaderExtensionMap extensions;
+  extensions.Register<RtpDependencyDescriptorExtension>(
+      kDependencyDescriptorExtensionId);
+  std::vector<RtpPacket> sent_packets;
+  ON_CALL(test.transport(), SendRtp)
+      .WillByDefault(
+          [&](const uint8_t* packet, size_t length, const PacketOptions&) {
+            sent_packets.emplace_back(&extensions);
+            EXPECT_TRUE(sent_packets.back().Parse(packet, length));
+            return true;
+          });
+  test.SetActive(true);
+
+  EncodedImage key_frame_image;
+  key_frame_image._frameType = VideoFrameType::kVideoFrameKey;
+  key_frame_image.SetEncodedData(
+      EncodedImageBuffer::Create(kPayload, sizeof(kPayload)));
+  CodecSpecificInfo key_frame_info;
+  key_frame_info.codecType = VideoCodecType::kVideoCodecVP8;
+  ASSERT_EQ(
+      test.router()->OnEncodedImage(key_frame_image, &key_frame_info).error,
+      EncodedImageCallback::Result::OK);
+
+  EncodedImage delta_image;
+  delta_image._frameType = VideoFrameType::kVideoFrameDelta;
+  delta_image.SetEncodedData(
+      EncodedImageBuffer::Create(kPayload, sizeof(kPayload)));
+  CodecSpecificInfo delta_info;
+  delta_info.codecType = VideoCodecType::kVideoCodecVP8;
+  ASSERT_EQ(test.router()->OnEncodedImage(delta_image, &delta_info).error,
+            EncodedImageCallback::Result::OK);
+
+  EXPECT_THAT(sent_packets,
+              Each(HasExtension<RtpDependencyDescriptorExtension>()));
 }
 
 TEST(RtpVideoSenderTest, SupportsDependencyDescriptorForVp9) {

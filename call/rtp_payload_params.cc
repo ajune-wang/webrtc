@@ -397,6 +397,12 @@ void RtpPayloadParams::Vp8ToGeneric(const CodecSpecificInfoVP8& vp8_info,
   generic.frame_id = shared_frame_id;
   generic.spatial_index = spatial_index;
   generic.temporal_index = temporal_index;
+  generic.decode_target_indications.resize(kMaxTemporalStreams);
+  auto it = std::fill_n(generic.decode_target_indications.begin(),
+                        temporal_index, DecodeTargetIndication::kNotPresent);
+  std::fill(it, generic.decode_target_indications.end(),
+            DecodeTargetIndication::kSwitch);
+  generic.chain_diffs.resize(kMaxTemporalStreams, 1);
 
   if (vp8_info.useExplicitDependencies) {
     SetDependenciesVp8New(vp8_info, shared_frame_id, is_keyframe,

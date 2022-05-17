@@ -11,6 +11,7 @@
 #ifndef MODULES_DESKTOP_CAPTURE_WIN_WGC_CAPTURER_WIN_H_
 #define MODULES_DESKTOP_CAPTURE_WIN_WGC_CAPTURER_WIN_H_
 
+#include <DispatcherQueue.h>
 #include <d3d11.h>
 #include <wrl/client.h>
 
@@ -109,6 +110,12 @@ class WgcCapturerWin : public DesktopCapturer {
   bool IsSourceBeingCaptured(SourceId id);
 
  private:
+  // We do not make use of this, other than to know if the current thread had a
+  // `DispatcherQueue` or if we need to create one. `DispatcherQueue`s and their
+  // controller's lifetimes are bound to the current thread, and there can only
+  // be one of each on any thread.
+  ABI::Windows::System::IDispatcherQueueController* queue_controller_ = nullptr;
+
   // Factory to create a WgcCaptureSource for us whenever SelectSource is
   // called. Initialized at construction with a source-specific implementation.
   std::unique_ptr<WgcCaptureSourceFactory> source_factory_;

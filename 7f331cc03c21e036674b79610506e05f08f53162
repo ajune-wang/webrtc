@@ -1,0 +1,96 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "0b6055fd_dc4f2523",
+        "filename": "modules/rtp_rtcp/source/rtcp_receiver_unittest.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 1996,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2022-05-17T07:58:18Z",
+      "side": 1,
+      "message": ".Times(1) can be omited:\nwhen cardinality is not specified explicitly, then Times(1) is used.",
+      "range": {
+        "startLine": 1996,
+        "startChar": 53,
+        "endLine": 1996,
+        "endChar": 62
+      },
+      "revId": "7f331cc03c21e036674b79610506e05f08f53162",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "fa757ac9_8db8a092",
+        "filename": "modules/rtp_rtcp/source/rtcp_receiver_unittest.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 1996,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2022-05-17T07:58:18Z",
+      "side": 1,
+      "message": "when all matchers are wildcards, they can be ommited:\nEXPECT_CALL(..., OnReceivedNack);\nhttp://go/totw/150",
+      "range": {
+        "startLine": 1996,
+        "startChar": 49,
+        "endLine": 1996,
+        "endChar": 52
+      },
+      "revId": "7f331cc03c21e036674b79610506e05f08f53162",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "9c39b475_640dcec9",
+        "filename": "modules/rtp_rtcp/source/rtcp_receiver_unittest.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 2008,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2022-05-17T07:58:18Z",
+      "side": 1,
+      "message": "why create nack as unique_ptr instead of the local variable?\nrtcp::Nack nack;\nnack.SetSenderSsrc(...)\n...\nnack.Build()\n...\n\nhttps://abseil.io/tips/187",
+      "range": {
+        "startLine": 2008,
+        "startChar": 2,
+        "endLine": 2008,
+        "endChar": 45
+      },
+      "revId": "7f331cc03c21e036674b79610506e05f08f53162",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "1ec63e49_1ad98edc",
+        "filename": "modules/rtp_rtcp/source/rtcp_receiver_unittest.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 2012,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2022-05-17T07:58:18Z",
+      "side": 1,
+      "message": "may be use c++ style function (introduced in c++17) instead of the macro:\nstd::size(kNackList1)",
+      "range": {
+        "startLine": 2012,
+        "startChar": 33,
+        "endLine": 2012,
+        "endChar": 42
+      },
+      "revId": "7f331cc03c21e036674b79610506e05f08f53162",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

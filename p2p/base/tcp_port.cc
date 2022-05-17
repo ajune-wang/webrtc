@@ -73,6 +73,7 @@
 
 #include "absl/algorithm/container.h"
 #include "absl/memory/memory.h"
+#include "absl/strings/string_view.h"
 #include "p2p/base/p2p_constants.h"
 #include "rtc_base/checks.h"
 #include "rtc_base/ip_address.h"
@@ -90,8 +91,8 @@ TCPPort::TCPPort(rtc::Thread* thread,
                  const rtc::Network* network,
                  uint16_t min_port,
                  uint16_t max_port,
-                 const std::string& username,
-                 const std::string& password,
+                 absl::string_view username,
+                 absl::string_view password,
                  bool allow_listen,
                  const webrtc::FieldTrialsView* field_trials)
     : Port(thread,
@@ -268,7 +269,7 @@ int TCPPort::GetError() {
   return error_;
 }
 
-bool TCPPort::SupportsProtocol(const std::string& protocol) const {
+bool TCPPort::SupportsProtocol(absl::string_view protocol) const {
   return protocol == TCP_PROTOCOL_NAME || protocol == SSLTCP_PROTOCOL_NAME;
 }
 

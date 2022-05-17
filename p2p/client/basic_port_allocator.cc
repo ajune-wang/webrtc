@@ -20,6 +20,7 @@
 
 #include "absl/algorithm/container.h"
 #include "absl/memory/memory.h"
+#include "absl/strings/string_view.h"
 #include "api/transport/field_trial_based_config.h"
 #include "p2p/base/basic_packet_socket_factory.h"
 #include "p2p/base/port.h"
@@ -90,7 +91,7 @@ int ComparePort(const cricket::Port* a, const cricket::Port* b) {
 
 struct NetworkFilter {
   using Predicate = std::function<bool(const rtc::Network*)>;
-  NetworkFilter(Predicate pred, const std::string& description)
+  NetworkFilter(Predicate pred, absl::string_view description)
       : predRemain(
             [pred](const rtc::Network* network) { return !pred(network); }),
         description(description) {}
@@ -241,10 +242,10 @@ int BasicPortAllocator::GetNetworkIgnoreMask() const {
 }
 
 PortAllocatorSession* BasicPortAllocator::CreateSessionInternal(
-    const std::string& content_name,
+    absl::string_view content_name,
     int component,
-    const std::string& ice_ufrag,
-    const std::string& ice_pwd) {
+    absl::string_view ice_ufrag,
+    absl::string_view ice_pwd) {
   CheckRunOnValidThreadAndInitialized();
   PortAllocatorSession* session = new BasicPortAllocatorSession(
       this, content_name, component, ice_ufrag, ice_pwd);
@@ -281,10 +282,10 @@ void BasicPortAllocator::Init(RelayPortFactoryInterface* relay_port_factory,
 // BasicPortAllocatorSession
 BasicPortAllocatorSession::BasicPortAllocatorSession(
     BasicPortAllocator* allocator,
-    const std::string& content_name,
+    absl::string_view content_name,
     int component,
-    const std::string& ice_ufrag,
-    const std::string& ice_pwd)
+    absl::string_view ice_ufrag,
+    absl::string_view ice_pwd)
     : PortAllocatorSession(content_name,
                            component,
                            ice_ufrag,
@@ -1026,7 +1027,7 @@ void BasicPortAllocatorSession::OnCandidateError(
 }
 
 Port* BasicPortAllocatorSession::GetBestTurnPortForNetwork(
-    const std::string& network_name) const {
+    absl::string_view network_name) const {
   RTC_DCHECK_RUN_ON(network_thread_);
   Port* best_turn_port = nullptr;
   for (const PortData& data : ports_) {
@@ -1691,8 +1692,8 @@ void AllocationSequence::OnPortDestroyed(PortInterface* port) {
 
 PortConfiguration::PortConfiguration(
     const ServerAddresses& stun_servers,
-    const std::string& username,
-    const std::string& password,
+    absl::string_view username,
+    absl::string_view password,
     const webrtc::FieldTrialsView* field_trials)
     : stun_servers(stun_servers), username(username), password(password) {
   if (!stun_servers.empty())

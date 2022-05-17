@@ -15,6 +15,7 @@
 #include <string>
 #include <vector>
 
+#include "absl/strings/string_view.h"
 #include "api/field_trials_view.h"
 #include "api/turn_customizer.h"
 #include "p2p/base/port_allocator.h"
@@ -66,10 +67,10 @@ class RTC_EXPORT BasicPortAllocator : public PortAllocator {
   }
 
   PortAllocatorSession* CreateSessionInternal(
-      const std::string& content_name,
+      absl::string_view content_name,
       int component,
-      const std::string& ice_ufrag,
-      const std::string& ice_pwd) override;
+      absl::string_view ice_ufrag,
+      absl::string_view ice_pwd) override;
 
   // Convenience method that adds a TURN server to the configuration.
   void AddTurnServer(const RelayServerConfig& turn_server);
@@ -123,10 +124,10 @@ enum class SessionState {
 class RTC_EXPORT BasicPortAllocatorSession : public PortAllocatorSession {
  public:
   BasicPortAllocatorSession(BasicPortAllocator* allocator,
-                            const std::string& content_name,
+                            absl::string_view content_name,
                             int component,
-                            const std::string& ice_ufrag,
-                            const std::string& ice_pwd);
+                            absl::string_view ice_ufrag,
+                            absl::string_view ice_pwd);
   ~BasicPortAllocatorSession() override;
 
   virtual BasicPortAllocator* allocator();
@@ -266,7 +267,7 @@ class RTC_EXPORT BasicPortAllocatorSession : public PortAllocatorSession {
   // append to `candidates`.
   void GetCandidatesFromPort(const PortData& data,
                              std::vector<Candidate>* candidates) const;
-  Port* GetBestTurnPortForNetwork(const std::string& network_name) const;
+  Port* GetBestTurnPortForNetwork(absl::string_view network_name) const;
   // Returns true if at least one TURN port is pruned.
   bool PruneTurnPorts(Port* newly_pairable_turn_port);
   bool PruneNewlyPairableTurnPort(PortData* newly_pairable_turn_port);
@@ -306,8 +307,8 @@ struct RTC_EXPORT PortConfiguration {
   RelayList relays;
 
   PortConfiguration(const ServerAddresses& stun_servers,
-                    const std::string& username,
-                    const std::string& password,
+                    absl::string_view username,
+                    absl::string_view password,
                     const webrtc::FieldTrialsView* field_trials = nullptr);
 
   // Returns addresses of both the explicitly configured STUN servers,

@@ -14,6 +14,7 @@
 #include <vector>
 
 #include "absl/memory/memory.h"
+#include "absl/strings/string_view.h"
 #include "api/transport/stun.h"
 #include "p2p/base/connection.h"
 #include "p2p/base/p2p_constants.h"
@@ -158,8 +159,8 @@ UDPPort::UDPPort(rtc::Thread* thread,
                  rtc::PacketSocketFactory* factory,
                  const rtc::Network* network,
                  rtc::AsyncPacketSocket* socket,
-                 const std::string& username,
-                 const std::string& password,
+                 absl::string_view username,
+                 absl::string_view password,
                  bool emit_local_for_anyaddress,
                  const webrtc::FieldTrialsView* field_trials)
     : Port(thread,
@@ -186,8 +187,8 @@ UDPPort::UDPPort(rtc::Thread* thread,
                  const rtc::Network* network,
                  uint16_t min_port,
                  uint16_t max_port,
-                 const std::string& username,
-                 const std::string& password,
+                 absl::string_view username,
+                 absl::string_view password,
                  bool emit_local_for_anyaddress,
                  const webrtc::FieldTrialsView* field_trials)
     : Port(thread,
@@ -350,7 +351,7 @@ bool UDPPort::HandleIncomingPacket(rtc::AsyncPacketSocket* socket,
   return true;
 }
 
-bool UDPPort::SupportsProtocol(const std::string& protocol) const {
+bool UDPPort::SupportsProtocol(absl::string_view protocol) const {
   return protocol == UDP_PROTOCOL_NAME;
 }
 
@@ -543,7 +544,7 @@ void UDPPort::OnStunBindingRequestSucceeded(
 void UDPPort::OnStunBindingOrResolveRequestFailed(
     const rtc::SocketAddress& stun_server_addr,
     int error_code,
-    const std::string& reason) {
+    absl::string_view reason) {
   rtc::StringBuilder url;
   url << "stun:" << stun_server_addr.ToString();
   SignalCandidateError(
@@ -621,8 +622,8 @@ std::unique_ptr<StunPort> StunPort::Create(
     const rtc::Network* network,
     uint16_t min_port,
     uint16_t max_port,
-    const std::string& username,
-    const std::string& password,
+    absl::string_view username,
+    absl::string_view password,
     const ServerAddresses& servers,
     absl::optional<int> stun_keepalive_interval,
     const webrtc::FieldTrialsView* field_trials) {
@@ -642,8 +643,8 @@ StunPort::StunPort(rtc::Thread* thread,
                    const rtc::Network* network,
                    uint16_t min_port,
                    uint16_t max_port,
-                   const std::string& username,
-                   const std::string& password,
+                   absl::string_view username,
+                   absl::string_view password,
                    const ServerAddresses& servers,
                    const webrtc::FieldTrialsView* field_trials)
     : UDPPort(thread,

@@ -15,6 +15,7 @@
 #include <string>
 #include <vector>
 
+#include "absl/strings/string_view.h"
 #include "absl/types/optional.h"
 #include "api/candidate.h"
 #include "api/transport/stun.h"
@@ -74,7 +75,7 @@ class ConnectionRequest : public StunRequest {
 class Connection : public CandidatePairInterface {
  public:
   struct SentPing {
-    SentPing(const std::string id, int64_t sent_time, uint32_t nomination)
+    SentPing(absl::string_view id, int64_t sent_time, uint32_t nomination)
         : id(id), sent_time(sent_time), nomination(nomination) {}
 
     std::string id;
@@ -207,7 +208,7 @@ class Connection : public CandidatePairInterface {
   void Ping(int64_t now);
   void ReceivedPingResponse(
       int rtt,
-      const std::string& request_id,
+      absl::string_view request_id,
       const absl::optional<uint32_t>& nomination = absl::nullopt);
 
   int64_t last_ping_response_received() const;

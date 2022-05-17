@@ -20,6 +20,7 @@
 #include "absl/algorithm/container.h"
 #include "absl/memory/memory.h"
 #include "absl/strings/match.h"
+#include "absl/strings/string_view.h"
 #include "p2p/base/port_allocator.h"
 #include "rtc_base/checks.h"
 #include "rtc_base/crc32.h"
@@ -68,7 +69,7 @@ inline bool TooLongWithoutResponse(
 
 // Helper methods for converting string values of log description fields to
 // enum.
-webrtc::IceCandidateType GetCandidateTypeByString(const std::string& type) {
+webrtc::IceCandidateType GetCandidateTypeByString(absl::string_view type) {
   if (type == cricket::LOCAL_PORT_TYPE) {
     return webrtc::IceCandidateType::kLocal;
   } else if (type == cricket::STUN_PORT_TYPE) {
@@ -82,7 +83,7 @@ webrtc::IceCandidateType GetCandidateTypeByString(const std::string& type) {
 }
 
 webrtc::IceCandidatePairProtocol GetProtocolByString(
-    const std::string& protocol) {
+    absl::string_view protocol) {
   if (protocol == cricket::UDP_PROTOCOL_NAME) {
     return webrtc::IceCandidatePairProtocol::kUdp;
   } else if (protocol == cricket::TCP_PROTOCOL_NAME) {
@@ -1068,7 +1069,7 @@ int64_t Connection::last_data_received() const {
 
 void Connection::ReceivedPingResponse(
     int rtt,
-    const std::string& request_id,
+    absl::string_view request_id,
     const absl::optional<uint32_t>& nomination) {
   RTC_DCHECK_RUN_ON(network_thread_);
   RTC_DCHECK_GE(rtt, 0);

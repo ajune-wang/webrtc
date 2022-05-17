@@ -1,0 +1,101 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "eb551baa_9b163900",
+        "filename": "call/rtp_payload_params.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 400,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2022-05-17T12:22:11Z",
+      "side": 1,
+      "message": "may be add some check\ntemporal_index \u003c kMaxTemporalStreams",
+      "revId": "ffff6ff15e5f339a8859129dc64d78ea10aa9385",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "e48769e9_b70a57b2",
+        "filename": "call/rtp_payload_params.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 405,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2022-05-17T12:22:11Z",
+      "side": 1,
+      "message": "that doesn\u0027t look correct: sloppy chains are fine for templates,\nbut for actual frames it should be more accurate.\nIn case of VP8 I think there are two valid ways to treat chains:\nCreate single chain (of T0 frames), or not to create chains at all (let SFM code guess).\n\ni.e. can you please change chain_diffs to \n1) have one element\n2) that element be frame diff to the last T0 frame (in case of T0 frame - to the previous T0 frame). or 0 for the key frame.\n\n(note that in MinimalisticStructure num_chains \u003d num_SPATIAL_layers)\n\nif you find that complicated - keep chain_diffs empty (and ensure matching structure also doesn\u0027t have chains)",
+      "range": {
+        "startLine": 405,
+        "startChar": 2,
+        "endLine": 405,
+        "endChar": 53
+      },
+      "revId": "ffff6ff15e5f339a8859129dc64d78ea10aa9385",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "4d9c7bd6_31c7c15b",
+        "filename": "call/rtp_payload_params_unittest.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 237,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2022-05-17T12:22:11Z",
+      "side": 1,
+      "message": "for key frame chain_diff should be zero. (key frames reset chains)",
+      "range": {
+        "startLine": 237,
+        "startChar": 40,
+        "endLine": 237,
+        "endChar": 50
+      },
+      "revId": "ffff6ff15e5f339a8859129dc64d78ea10aa9385",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "0d67fa31_0961262c",
+        "filename": "call/rtp_payload_params_unittest.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 255,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2022-05-17T12:22:11Z",
+      "side": 1,
+      "message": "may be add EXPECT_THAT for the 2nd key delta frame (T0),\nin particular it should depend on previous T0 frame (not T1 frame),\nand chain_diff should also point to the previous T0 frame (T1 frames are not part of the chain)",
+      "revId": "ffff6ff15e5f339a8859129dc64d78ea10aa9385",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "c78779d8_049ccc38",
+        "filename": "call/rtp_video_sender_unittest.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 809,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2022-05-17T12:22:11Z",
+      "side": 1,
+      "message": "may be add a stronger expectation:\nthat those extensions can be parsed\n\n(in particular that would validate that frame dependency structure in the key frame matches following frames)",
+      "revId": "ffff6ff15e5f339a8859129dc64d78ea10aa9385",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

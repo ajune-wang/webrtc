@@ -329,7 +329,7 @@ int NetEqImpl::GetBaseMinimumDelayMs() const {
 int NetEqImpl::TargetDelayMs() const {
   MutexLock lock(&mutex_);
   RTC_DCHECK(controller_.get());
-  return controller_->TargetLevelMs();
+  return controller_->PureTargetLevelMs();
 }
 
 int NetEqImpl::FilteredCurrentDelayMs() const {
@@ -363,7 +363,7 @@ NetEqNetworkStatistics NetEqImpl::CurrentNetworkStatisticsInternal() const {
       sync_buffer_->FutureLength();
 
   RTC_DCHECK(controller_.get());
-  stats.preferred_buffer_size_ms = controller_->TargetLevelMs();
+  stats.preferred_buffer_size_ms = controller_->PureTargetLevelMs();
   stats.jitter_peaks_found = controller_->PeakFound();
   RTC_DCHECK_GT(fs_hz_, 0);
   stats.current_buffer_size_ms =

@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "34d43d03_19a02d5c",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 9405
+      },
+      "writtenOn": "2022-05-17T21:14:04Z",
+      "side": 1,
+      "message": "Hi, Kári. This CL is intended to improve thread safety in the Obj-C sdk. PTAL. Thank you.",
+      "revId": "2c4d20253c3a29e97f0af375ebdc598cca27a11a",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

@@ -46,7 +46,6 @@ struct VideoCodecVP8 {
   unsigned char numberOfTemporalLayers;
   bool denoisingOn;
   bool automaticResizeOn;
-  bool frameDroppingOn;
   int keyFrameInterval;
 };
 
@@ -64,7 +63,6 @@ struct VideoCodecVP9 {
   }
   unsigned char numberOfTemporalLayers;
   bool denoisingOn;
-  bool frameDroppingOn;
   int keyFrameInterval;
   bool adaptiveQpMode;
   bool automaticResizeOn;
@@ -79,7 +77,6 @@ struct VideoCodecH264 {
   bool operator!=(const VideoCodecH264& other) const {
     return !(*this == other);
   }
-  bool frameDroppingOn;
   int keyFrameInterval;
   uint8_t numberOfTemporalLayers;
 };
@@ -180,9 +177,7 @@ class RTC_EXPORT VideoCodec {
   // 'complexity_' indicates the CPU capability of the client. It's used to
   // determine encoder CPU complexity (e.g., cpu_used for VP8, VP9. and AV1).
   VideoCodecComplexity complexity_;
-  // TODO(bugs.webrtc.org/6883): When unset, GetEnableFrameDrop checks the
-  // codec-specific settings.
-  absl::optional<bool> frame_drop_enabled_;
+  bool frame_drop_enabled_ = false;
 };
 
 }  // namespace webrtc

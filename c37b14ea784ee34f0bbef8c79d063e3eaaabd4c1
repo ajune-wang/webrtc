@@ -36,6 +36,24 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "b4e5bc9e_8ce0da23",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 3
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 14874
+      },
+      "writtenOn": "2022-05-17T12:29:40Z",
+      "side": 1,
+      "message": "oh i meant how one creates the flexfec receive stream which is totally different from the ulpfec one ;-)",
+      "parentUuid": "d3824a07_022eae60",
+      "revId": "c37b14ea784ee34f0bbef8c79d063e3eaaabd4c1",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "f59212fa_39de78c1",
@@ -49,6 +67,30 @@
       "writtenOn": "2022-05-17T08:58:10Z",
       "side": 1,
       "message": "Should we validate the PT and SSRC, and put this whole block in a conditional?",
+      "range": {
+        "startLine": 493,
+        "startChar": 4,
+        "endLine": 502,
+        "endChar": 60
+      },
+      "revId": "c37b14ea784ee34f0bbef8c79d063e3eaaabd4c1",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "429abe05_76eaee5a",
+        "filename": "rtc_tools/video_replay.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 502,
+      "author": {
+        "id": 14874
+      },
+      "writtenOn": "2022-05-17T12:29:40Z",
+      "side": 1,
+      "message": "changing the default flex payload type to one from the forbidden range and use that as a sentinel?",
+      "parentUuid": "f59212fa_39de78c1",
       "range": {
         "startLine": 493,
         "startChar": 4,

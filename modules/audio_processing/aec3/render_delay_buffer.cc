@@ -54,8 +54,7 @@ class RenderDelayBufferImpl final : public RenderDelayBuffer {
   ~RenderDelayBufferImpl() override;
 
   void Reset() override;
-  BufferingEvent Insert(
-      const std::vector<std::vector<std::vector<float>>>& block) override;
+  BufferingEvent Insert(const Block& block) override;
   BufferingEvent PrepareCaptureProcessing() override;
   void HandleSkippedCaptureProcessing() override;
   bool AlignFromDelay(size_t delay) override;
@@ -110,8 +109,7 @@ class RenderDelayBufferImpl final : public RenderDelayBuffer {
   int MapDelayToTotalDelay(size_t delay) const;
   int ComputeDelay() const;
   void ApplyTotalDelay(int delay);
-  void InsertBlock(const std::vector<std::vector<std::vector<float>>>& block,
-                   int previous_write);
+  void InsertBlock(const Block& block, int previous_write);
   bool DetectActiveRender(rtc::ArrayView<const float> x) const;
   bool DetectExcessRenderBlocks();
   void IncrementWriteIndices();
@@ -211,7 +209,7 @@ void RenderDelayBufferImpl::Reset() {
 
 // Inserts a new block into the render buffers.
 RenderDelayBuffer::BufferingEvent RenderDelayBufferImpl::Insert(
-    const std::vector<std::vector<std::vector<float>>>& block) {
+    const Block& block) {
   ++render_call_counter_;
   if (delay_) {
     if (!last_call_was_render_) {
@@ -239,7 +237,8 @@ RenderDelayBuffer::BufferingEvent RenderDelayBufferImpl::Insert(
 
   // Detect and update render activity.
   if (!render_activity_) {
-    render_activity_counter_ += DetectActiveRender(block[0][0]) ? 1 : 0;
+    render_activity_counter_ +=
+        DetectActiveRender(block.View(/*band=*/0, /*channel=*/0)) ? 1 : 0;
     render_activity_ = render_activity_counter_ >= 20;
   }
 
@@ -394,9 +393,8 @@ void RenderDelayBufferImpl::AlignFromExternalDelay() {
 }
 
 // Inserts a block into the render buffers.
-void RenderDelayBufferImpl::InsertBlock(
-    const std::vector<std::vector<std::vector<float>>>& block,
-    int previous_write) {
+void RenderDelayBufferImpl::InsertBlock(const Block& block,
+                                        int previous_write) {
   auto& b = blocks_;
   auto& lr = low_rate_;
   auto& ds = render_ds_;
@@ -404,13 +402,13 @@ void RenderDelayBufferImpl::InsertBlock(
   auto& s = spectra_;
   const size_t num_bands = b.buffer[b.write].size();
   const size_t num_render_channels = b.buffer[b.write][0].size();
-  RTC_DCHECK_EQ(block.size(), b.buffer[b.write].size());
+  RTC_DCHECK_EQ(block.NumBands(), b.buffer[b.write].size());
+  RTC_DCHECK_EQ(block.NumChannels(), num_render_channels);
   for (size_t band = 0; band < num_bands; ++band) {
-    RTC_DCHECK_EQ(block[band].size(), num_render_channels);
     RTC_DCHECK_EQ(b.buffer[b.write][band].size(), num_render_channels);
     for (size_t ch = 0; ch < num_render_channels; ++ch) {
-      RTC_DCHECK_EQ(block[band][ch].size(), b.buffer[b.write][band][ch].size());
-      std::copy(block[band][ch].begin(), block[band][ch].end(),
+      RTC_DCHECK_EQ(kBlockSize, b.buffer[b.write][band][ch].size());
+      std::copy(block.begin(band, ch), block.end(band, ch),
                 b.buffer[b.write][band][ch].begin());
     }
   }

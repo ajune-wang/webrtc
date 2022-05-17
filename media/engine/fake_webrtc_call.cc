@@ -365,11 +365,11 @@ void FakeVideoSendStream::InjectVideoSinkWants(
 }
 
 FakeVideoReceiveStream::FakeVideoReceiveStream(
-    webrtc::VideoReceiveStream::Config config)
+    webrtc::VideoReceiveStreamInterface::Config config)
     : config_(std::move(config)), receiving_(false) {}
 
-const webrtc::VideoReceiveStream::Config& FakeVideoReceiveStream::GetConfig()
-    const {
+const webrtc::VideoReceiveStreamInterface::Config&
+FakeVideoReceiveStream::GetConfig() const {
   return config_;
 }
 
@@ -381,7 +381,8 @@ void FakeVideoReceiveStream::InjectFrame(const webrtc::VideoFrame& frame) {
   config_.renderer->OnFrame(frame);
 }
 
-webrtc::VideoReceiveStream::Stats FakeVideoReceiveStream::GetStats() const {
+webrtc::VideoReceiveStreamInterface::Stats FakeVideoReceiveStream::GetStats()
+    const {
   return stats_;
 }
 
@@ -404,7 +405,7 @@ void FakeVideoReceiveStream::Stop() {
 }
 
 void FakeVideoReceiveStream::SetStats(
-    const webrtc::VideoReceiveStream::Stats& stats) {
+    const webrtc::VideoReceiveStreamInterface::Stats& stats) {
   stats_ = stats;
 }
 
@@ -584,8 +585,8 @@ void FakeCall::DestroyVideoSendStream(webrtc::VideoSendStream* send_stream) {
   }
 }
 
-webrtc::VideoReceiveStream* FakeCall::CreateVideoReceiveStream(
-    webrtc::VideoReceiveStream::Config config) {
+webrtc::VideoReceiveStreamInterface* FakeCall::CreateVideoReceiveStream(
+    webrtc::VideoReceiveStreamInterface::Config config) {
   video_receive_streams_.push_back(
       new FakeVideoReceiveStream(std::move(config)));
   ++num_created_receive_streams_;
@@ -593,7 +594,7 @@ webrtc::VideoReceiveStream* FakeCall::CreateVideoReceiveStream(
 }
 
 void FakeCall::DestroyVideoReceiveStream(
-    webrtc::VideoReceiveStream* receive_stream) {
+    webrtc::VideoReceiveStreamInterface* receive_stream) {
   auto it = absl::c_find(video_receive_streams_,
                          static_cast<FakeVideoReceiveStream*>(receive_stream));
   if (it == video_receive_streams_.end()) {
@@ -715,7 +716,7 @@ void FakeCall::OnLocalSsrcUpdated(webrtc::AudioReceiveStream& stream,
   fake_stream.SetLocalSsrc(local_ssrc);
 }
 
-void FakeCall::OnLocalSsrcUpdated(webrtc::VideoReceiveStream& stream,
+void FakeCall::OnLocalSsrcUpdated(webrtc::VideoReceiveStreamInterface& stream,
                                   uint32_t local_ssrc) {
   auto& fake_stream = static_cast<FakeVideoReceiveStream&>(stream);
   fake_stream.SetLocalSsrc(local_ssrc);

@@ -39,7 +39,7 @@ namespace webrtc {
 class RtpPacketSinkInterface;
 class VideoDecoderFactory;
 
-class VideoReceiveStream : public MediaReceiveStreamInterface {
+class VideoReceiveStreamInterface : public MediaReceiveStreamInterface {
  public:
   // Class for handling moving in/out recording state.
   struct RecordingState {
@@ -48,11 +48,11 @@ class VideoReceiveStream : public MediaReceiveStreamInterface {
         std::function<void(const RecordableEncodedFrame&)> callback)
         : callback(std::move(callback)) {}
 
-    // Callback stored from the VideoReceiveStream. The VideoReceiveStream
-    // client should not interpret the attribute.
+    // Callback stored from the VideoReceiveStreamInterface. The
+    // VideoReceiveStreamInterface client should not interpret the attribute.
     std::function<void(const RecordableEncodedFrame&)> callback;
-    // Memento of when a keyframe request was last sent. The VideoReceiveStream
-    // client should not interpret the attribute.
+    // Memento of when a keyframe request was last sent. The
+    // VideoReceiveStreamInterface client should not interpret the attribute.
     absl::optional<int64_t> last_keyframe_request_ms;
   };
 
@@ -287,7 +287,7 @@ class VideoReceiveStream : public MediaReceiveStreamInterface {
   virtual void GenerateKeyFrame() = 0;
 
  protected:
-  virtual ~VideoReceiveStream() {}
+  virtual ~VideoReceiveStreamInterface() {}
 };
 
 }  // namespace webrtc

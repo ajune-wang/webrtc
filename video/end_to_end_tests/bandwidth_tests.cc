@@ -201,7 +201,7 @@ TEST_F(BandwidthEndToEndTest, RembWithSendSideBwe) {
           remb_bitrate_bps_(1000000),
           receive_transport_(nullptr),
           state_(kWaitForFirstRampUp),
-          retransmission_rate_limiter_(clock_, 1000),
+          retransmission_rate_limiter_(clock_, TimeDelta::Seconds(1)),
           task_queue_(task_queue) {}
 
     void OnStreamsStopped() override { rtp_rtcp_ = nullptr; }

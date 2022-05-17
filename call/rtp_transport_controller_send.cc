@@ -30,9 +30,8 @@
 
 namespace webrtc {
 namespace {
-static const int64_t kRetransmitWindowSizeMs = 500;
-static const size_t kMaxOverheadBytes = 500;
-
+constexpr TimeDelta kRetransmitWindowSize = TimeDelta::Millis(500);
+constexpr size_t kMaxOverheadBytes = 500;
 constexpr TimeDelta kPacerQueueUpdateInterval = TimeDelta::Millis(25);
 
 TargetRateConstraints ConvertConstraints(int min_bitrate_bps,
@@ -117,7 +116,7 @@ RtpTransportControllerSend::RtpTransportControllerSend(
       network_available_(false),
       congestion_window_size_(DataSize::PlusInfinity()),
       is_congested_(false),
-      retransmission_rate_limiter_(clock, kRetransmitWindowSizeMs),
+      retransmission_rate_limiter_(clock, kRetransmitWindowSize),
       task_queue_(task_queue_factory->CreateTaskQueue(
           "rtp_send_controller",
           TaskQueueFactory::Priority::NORMAL)),
@@ -183,7 +182,7 @@ void RtpTransportControllerSend::UpdateControlState() {
   absl::optional<TargetTransferRate> update = control_handler_->GetUpdate();
   if (!update)
     return;
-  retransmission_rate_limiter_.SetMaxRate(update->target_rate.bps());
+  retransmission_rate_limiter_.SetMaxRate(update->target_rate);
   // We won't create control_handler_ until we have an observers.
   RTC_DCHECK(observer_ != nullptr);
   observer_->OnTargetTransferRate(*update);

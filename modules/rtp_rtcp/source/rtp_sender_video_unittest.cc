@@ -175,7 +175,7 @@ class RtpSenderVideoTest : public ::testing::TestWithParam<bool> {
   RtpSenderVideoTest()
       : field_trials_(GetParam()),
         fake_clock_(kStartTime),
-        retransmission_rate_limiter_(&fake_clock_, 1000),
+        retransmission_rate_limiter_(&fake_clock_, TimeDelta::Seconds(1)),
         rtp_module_(ModuleRtpRtcpImpl2::Create([&] {
           RtpRtcpInterface::Configuration config;
           config.clock = &fake_clock_;
@@ -1391,7 +1391,7 @@ class RtpSenderVideoWithFrameTransformerTest : public ::testing::Test {
  public:
   RtpSenderVideoWithFrameTransformerTest()
       : fake_clock_(kStartTime),
-        retransmission_rate_limiter_(&fake_clock_, 1000),
+        retransmission_rate_limiter_(&fake_clock_, TimeDelta::Seconds(1)),
         rtp_module_(ModuleRtpRtcpImpl2::Create([&] {
           RtpRtcpInterface::Configuration config;
           config.clock = &fake_clock_;

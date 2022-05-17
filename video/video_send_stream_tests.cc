@@ -1480,7 +1480,8 @@ TEST_F(VideoSendStreamTest, MinTransmitBitrateRespectsRemb) {
     explicit BitrateObserver(TaskQueueBase* task_queue)
         : SendTest(kDefaultTimeoutMs),
           task_queue_(task_queue),
-          retranmission_rate_limiter_(Clock::GetRealTimeClock(), 1000),
+          retranmission_rate_limiter_(Clock::GetRealTimeClock(),
+                                      TimeDelta::Seconds(1)),
           stream_(nullptr),
           bitrate_capped_(false),
           task_safety_flag_(PendingTaskSafetyFlag::CreateDetached()) {}

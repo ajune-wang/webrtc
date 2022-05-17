@@ -293,7 +293,8 @@ int32_t RTPSender::ReSendPacket(uint16_t packet_id) {
             packet_size = stored_packet.size();
             std::unique_ptr<RtpPacketToSend> retransmit_packet;
             if (retransmission_rate_limiter_ &&
-                !retransmission_rate_limiter_->TryUseRate(packet_size)) {
+                !retransmission_rate_limiter_->TryUseRate(
+                    DataSize::Bytes(packet_size))) {
               return retransmit_packet;
             }
             if (rtx) {

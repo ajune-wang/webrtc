@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "398c47df_d21b9a6c",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2022-05-17T07:14:18Z",
+      "side": 1,
+      "message": "PTAL. Just need a few downstream updates.",
+      "revId": "50eb632bd1caafa97f1dbcb75d2c6ef6a0c95c6a",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

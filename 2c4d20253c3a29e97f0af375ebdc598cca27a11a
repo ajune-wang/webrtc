@@ -16,6 +16,23 @@
       "message": "Hi, Kári. This CL is intended to improve thread safety in the Obj-C sdk. PTAL. Thank you.",
       "revId": "2c4d20253c3a29e97f0af375ebdc598cca27a11a",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "2b8286b4_a47c3bf3",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2022-05-17T22:00:53Z",
+      "side": 1,
+      "message": "Think carefully about whether you really want this.\n\nInside WebRTC, there\u0027s been an effort to move away from blocking invokes to other threads - because they can cause surprisingly large performance hits in some situations. The tendency is to try to stay on one thread as long as possible, and if a set of operations needs to be done on another thread, one groups them together to perform them with one thread jump.\n\nAnd of course, if the task doesn\u0027t need a synchronous response, one uses PostTask, not Invoke.\n\nStill, proxying is better than accessing objects on the wrong thread. But sometimes the answer to being called on the wrong thread is just crashing (DCHECK).\n",
+      "revId": "2c4d20253c3a29e97f0af375ebdc598cca27a11a",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

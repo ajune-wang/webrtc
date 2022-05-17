@@ -65,6 +65,30 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "193ea3db_368bded2",
+        "filename": "modules/desktop_capture/win/wgc_capture_session.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 64,
+      "author": {
+        "id": 12416
+      },
+      "writtenOn": "2022-05-17T23:25:37Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "0ecd42db_689903d3",
+      "range": {
+        "startLine": 64,
+        "startChar": 2,
+        "endLine": 64,
+        "endChar": 29
+      },
+      "revId": "90712d192cfa63ea8b3fbd263b81e175c31e763c",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "f5d2b605_7eefa79c",
@@ -112,6 +136,30 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "05434d2a_ab2cfe26",
+        "filename": "modules/desktop_capture/win/wgc_capture_session.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 114,
+      "author": {
+        "id": 12416
+      },
+      "writtenOn": "2022-05-17T23:25:37Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "64911650_ac6e9df9",
+      "range": {
+        "startLine": 114,
+        "startChar": 26,
+        "endLine": 114,
+        "endChar": 31
+      },
+      "revId": "90712d192cfa63ea8b3fbd263b81e175c31e763c",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "03a4aa84_6976d3ca",
@@ -149,6 +197,30 @@
       "side": 1,
       "message": "Good idea! I will do this.",
       "parentUuid": "03a4aa84_6976d3ca",
+      "range": {
+        "startLine": 109,
+        "startChar": 0,
+        "endLine": 120,
+        "endChar": 5
+      },
+      "revId": "90712d192cfa63ea8b3fbd263b81e175c31e763c",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "40bd3317_4c881de6",
+        "filename": "modules/desktop_capture/win/wgc_capture_session.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 120,
+      "author": {
+        "id": 12416
+      },
+      "writtenOn": "2022-05-17T23:25:37Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "6ec9012f_473eb4b3",
       "range": {
         "startLine": 109,
         "startChar": 0,
@@ -241,6 +313,24 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "ee0bde23_71942c9b",
+        "filename": "modules/desktop_capture/win/wgc_capture_session.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 390,
+      "author": {
+        "id": 12416
+      },
+      "writtenOn": "2022-05-17T23:25:37Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "9a33b0fa_d68f5844",
+      "revId": "90712d192cfa63ea8b3fbd263b81e175c31e763c",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "66486894_ca934e01",
@@ -288,6 +378,30 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "5e3dcf78_71656e69",
+        "filename": "modules/desktop_capture/win/wgc_capture_session.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 410,
+      "author": {
+        "id": 12416
+      },
+      "writtenOn": "2022-05-17T23:25:37Z",
+      "side": 1,
+      "message": "item_ is still valid until we destruct it. Receiving the event simply fires the event and unregisters the event handler (since they don\u0027t expect to send the event again).",
+      "parentUuid": "74e89f01_00552d18",
+      "range": {
+        "startLine": 410,
+        "startChar": 2,
+        "endLine": 410,
+        "endChar": 48
+      },
+      "revId": "90712d192cfa63ea8b3fbd263b81e175c31e763c",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "66ef627a_649a0218",
@@ -325,6 +439,30 @@
       "side": 1,
       "message": "all base::Thread objects are COM initialized:\nhttps://source.chromium.org/chromium/chromium/src/+/main:base/threading/thread.cc;l\u003d384;drc\u003d72186360334350c90b9b94515b3c82bea25e27ff",
       "parentUuid": "66ef627a_649a0218",
+      "range": {
+        "startLine": 231,
+        "startChar": 69,
+        "endLine": 232,
+        "endChar": 19
+      },
+      "revId": "90712d192cfa63ea8b3fbd263b81e175c31e763c",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "fb7f4d6c_1168798c",
+        "filename": "modules/desktop_capture/win/wgc_capturer_win.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 232,
+      "author": {
+        "id": 12416
+      },
+      "writtenOn": "2022-05-17T23:25:37Z",
+      "side": 1,
+      "message": "I updated this comment to say \"should already be COM initialized\" since it is up to the consumer to do this.",
+      "parentUuid": "a3e62f48_e8a0039a",
       "range": {
         "startLine": 231,
         "startChar": 69,

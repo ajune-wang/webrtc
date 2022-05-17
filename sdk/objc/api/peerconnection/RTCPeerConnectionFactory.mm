@@ -51,6 +51,7 @@
 
 #if defined(WEBRTC_IOS)
 #import "sdk/objc/native/api/audio_device_module.h"
+#import "sdk/objc/native/api/external_audio_device.h"
 #endif
 
 // Adding the nogncheck to disable the including header check.
@@ -96,6 +97,13 @@
 - (instancetype)
     initWithEncoderFactory:(nullable id<RTC_OBJC_TYPE(RTCVideoEncoderFactory)>)encoderFactory
             decoderFactory:(nullable id<RTC_OBJC_TYPE(RTCVideoDecoderFactory)>)decoderFactory {
+  return [self initWithEncoderFactory:encoderFactory decoderFactory:decoderFactory audioDevice:nil];
+}
+
+- (instancetype)
+    initWithEncoderFactory:(nullable id<RTC_OBJC_TYPE(RTCVideoEncoderFactory)>)encoderFactory
+            decoderFactory:(nullable id<RTC_OBJC_TYPE(RTCVideoDecoderFactory)>)decoderFactory
+               audioDevice:(nullable id<RTC_OBJC_TYPE(RTCAudioDevice)>)audioDevice {
 #ifdef HAVE_NO_MEDIA
   return [self initWithNoMedia];
 #else
@@ -107,14 +115,21 @@
   if (decoderFactory) {
     native_decoder_factory = webrtc::ObjCToNativeVideoDecoderFactory(decoderFactory);
   }
+  rtc::scoped_refptr<webrtc::AudioDeviceModule> audio_device_module;
+  if (audioDevice) {
+    audio_device_module = webrtc::CreateAudioDeviceModule(audioDevice);
+  } else {
+    audio_device_module = [self audioDeviceModule];
+  }
   return [self initWithNativeAudioEncoderFactory:webrtc::CreateBuiltinAudioEncoderFactory()
                        nativeAudioDecoderFactory:webrtc::CreateBuiltinAudioDecoderFactory()
                        nativeVideoEncoderFactory:std::move(native_encoder_factory)
                        nativeVideoDecoderFactory:std::move(native_decoder_factory)
-                               audioDeviceModule:[self audioDeviceModule].get()
+                               audioDeviceModule:audio_device_module.get()
                            audioProcessingModule:nullptr];
 #endif
 }
+
 - (instancetype)initNative {
   if (self = [super init]) {
     _networkThread = rtc::Thread::CreateWithSocketServer();

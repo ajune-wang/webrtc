@@ -1,0 +1,44 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "a07bd37b_1c052fe5",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2022-05-17T11:26:07Z",
+      "side": 1,
+      "message": "lgtm % typo fix",
+      "revId": "f8a3e853971b6859070e7aa18605d38fa2e01829",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "ea8d1fab_ae8e7556",
+        "filename": "api/video_codecs/video_codec.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 142,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2022-05-17T11:26:07Z",
+      "side": 1,
+      "message": "Should return `complexity_`, right?",
+      "range": {
+        "startLine": 142,
+        "startChar": 9,
+        "endLine": 142,
+        "endChar": 48
+      },
+      "revId": "f8a3e853971b6859070e7aa18605d38fa2e01829",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

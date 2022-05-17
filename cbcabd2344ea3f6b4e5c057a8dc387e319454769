@@ -119,6 +119,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "8f497420_32228b96",
+        "filename": "modules/desktop_capture/screen_capturer_fuchsia.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 45,
+      "author": {
+        "id": 18474
+      },
+      "writtenOn": "2022-05-17T20:17:20Z",
+      "side": 1,
+      "message": "Naming is definitely better; while I agree this may be a bit simpler; I think it may be more readable within the context of this file if you made the method simply:\n\n```\nRoundUpToMultiple(size_t value, size_t multiple) {\n return webrtc::DivideRoundUp(value, multiple) * multiple\n}\n```\n\nAs a reader/if I were investigating a bug, I tend to have higher confidence in a widely used //base function (that\u0027s fairly readable), rather than something local to a specific file and/or needing to do some of the math here myself to convince myself that there\u0027s no edge cases this fails in (e.g. already evenly divisible by multiple).",
+      "parentUuid": "723e305d_70a3dadd",
+      "range": {
+        "startLine": 43,
+        "startChar": 0,
+        "endLine": 45,
+        "endChar": 1
+      },
+      "revId": "cbcabd2344ea3f6b4e5c057a8dc387e319454769",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "24846a82_3aabd351",
         "filename": "modules/desktop_capture/screen_capturer_fuchsia.cc",
         "patchSetId": 2
@@ -388,6 +412,30 @@
       "side": 1,
       "message": "I tried that but I got \n`error: \u0027kBytesPerPixel\u0027 cannot be captured because it does not have automatic storage duration`\n\nActually thinking about it, I think I kept moving `kBytesPerPixel` around trying to get that error to go away and that\u0027s how I ended up with all the constants in such a weird place. It didn\u0027t work there anyway though.\n\nIf you know how to fix this error I\u0027d love to have a better way of doing this.",
       "parentUuid": "9cd81500_bd3aff1e",
+      "range": {
+        "startLine": 112,
+        "startChar": 37,
+        "endLine": 112,
+        "endChar": 57
+      },
+      "revId": "cbcabd2344ea3f6b4e5c057a8dc387e319454769",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "ff5faa44_731f964a",
+        "filename": "modules/desktop_capture/screen_capturer_fuchsia.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 112,
+      "author": {
+        "id": 18474
+      },
+      "writtenOn": "2022-05-17T20:17:20Z",
+      "side": 1,
+      "message": "Ahhh, I bet it\u0027s because this is a lambda. It should be resolved with either my other comment (about not being sure if the lambda is needed); OR potentially adding kBytesPerPixel to the capture.\n\n(If that\u0027s still acting up, maybe copying it to a const local that is captured like pixels_per_row may do it as well).",
+      "parentUuid": "d25cf061_dfcfdbc0",
       "range": {
         "startLine": 112,
         "startChar": 37,

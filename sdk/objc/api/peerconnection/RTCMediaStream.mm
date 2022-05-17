@@ -10,8 +10,6 @@
 
 #import "RTCMediaStream+Private.h"
 
-#include <vector>
-
 #import "RTCAudioTrack+Private.h"
 #import "RTCMediaStreamTrack+Private.h"
 #import "RTCPeerConnectionFactory+Private.h"
@@ -20,8 +18,9 @@
 
 @implementation RTC_OBJC_TYPE (RTCMediaStream) {
   RTC_OBJC_TYPE(RTCPeerConnectionFactory) * _factory;
-  NSMutableArray *_audioTracks;
-  NSMutableArray *_videoTracks;
+  rtc::Thread *_signaling_thread;
+  NSMutableArray *_audioTracks /* guarded by _signaling_thread */;
+  NSMutableArray *_videoTracks /* guarded by _signaling_thread */;
   rtc::scoped_refptr<webrtc::MediaStreamInterface> _nativeMediaStream;
 }
 
@@ -36,10 +35,18 @@
 }
 
 - (NSArray<RTC_OBJC_TYPE(RTCAudioTrack) *> *)audioTracks {
+  if (!_signaling_thread->IsCurrent()) {
+    return _signaling_thread->Invoke<NSArray<RTC_OBJC_TYPE(RTCAudioTrack) *> *>(
+        RTC_FROM_HERE, [self]() { return self.audioTracks; });
+  }
   return [_audioTracks copy];
 }
 
 - (NSArray<RTC_OBJC_TYPE(RTCVideoTrack) *> *)videoTracks {
+  if (!_signaling_thread->IsCurrent()) {
+    return _signaling_thread->Invoke<NSArray<RTC_OBJC_TYPE(RTCVideoTrack) *> *>(
+        RTC_FROM_HERE, [self]() { return self.videoTracks; });
+  }
   return [_videoTracks copy];
 }
 
@@ -48,33 +55,52 @@
 }
 
 - (void)addAudioTrack:(RTC_OBJC_TYPE(RTCAudioTrack) *)audioTrack {
+  if (!_signaling_thread->IsCurrent()) {
+    return _signaling_thread->Invoke<void>(
+        RTC_FROM_HERE, [audioTrack, self]() { return [self addAudioTrack:audioTrack]; });
+  }
   if (_nativeMediaStream->AddTrack(audioTrack.nativeAudioTrack)) {
     [_audioTracks addObject:audioTrack];
   }
 }
 
 - (void)addVideoTrack:(RTC_OBJC_TYPE(RTCVideoTrack) *)videoTrack {
+  if (!_signaling_thread->IsCurrent()) {
+    return _signaling_thread->Invoke<void>(
+        RTC_FROM_HERE, [videoTrack, self]() { return [self addVideoTrack:videoTrack]; });
+  }
   if (_nativeMediaStream->AddTrack(videoTrack.nativeVideoTrack)) {
     [_videoTracks addObject:videoTrack];
   }
 }
 
 - (void)removeAudioTrack:(RTC_OBJC_TYPE(RTCAudioTrack) *)audioTrack {
+  if (!_signaling_thread->IsCurrent()) {
+    return _signaling_thread->Invoke<void>(
+        RTC_FROM_HERE, [audioTrack, self]() { return [self removeAudioTrack:audioTrack]; });
+  }
   NSUInteger index = [_audioTracks indexOfObjectIdenticalTo:audioTrack];
-  NSAssert(index != NSNotFound,
-           @"|removeAudioTrack| called on unexpected RTC_OBJC_TYPE(RTCAudioTrack)");
-  if (index != NSNotFound &&
-      _nativeMediaStream->RemoveTrack(audioTrack.nativeAudioTrack)) {
+  if (index != NSNotFound) {
+    RTC_LOG(LS_INFO) << "|removeAudioTrack| called on unexpected RTC_OBJC_TYPE(RTCAudioTrack)";
+    return;
+  }
+  if (_nativeMediaStream->RemoveTrack(audioTrack.nativeAudioTrack)) {
     [_audioTracks removeObjectAtIndex:index];
   }
 }
 
 - (void)removeVideoTrack:(RTC_OBJC_TYPE(RTCVideoTrack) *)videoTrack {
+  if (!_signaling_thread->IsCurrent()) {
+    return _signaling_thread->Invoke<void>(
+        RTC_FROM_HERE, [videoTrack, self]() { return [self removeVideoTrack:videoTrack]; });
+  }
   NSUInteger index = [_videoTracks indexOfObjectIdenticalTo:videoTrack];
-  NSAssert(index != NSNotFound,
-           @"|removeVideoTrack| called on unexpected RTC_OBJC_TYPE(RTCVideoTrack)");
-  if (index != NSNotFound &&
-      _nativeMediaStream->RemoveTrack(videoTrack.nativeVideoTrack)) {
+  if (index != NSNotFound) {
+    RTC_LOG(LS_INFO) << "|removeVideoTrack| called on unexpected RTC_OBJC_TYPE(RTCVideoTrack)";
+    return;
+  }
+
+  if (_nativeMediaStream->RemoveTrack(videoTrack.nativeVideoTrack)) {
     [_videoTracks removeObjectAtIndex:index];
   }
 }

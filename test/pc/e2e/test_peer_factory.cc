@@ -18,7 +18,11 @@
 #include "api/test/time_controller.h"
 #include "api/transport/field_trial_based_config.h"
 #include "api/video_codecs/builtin_video_decoder_factory.h"
-#include "api/video_codecs/builtin_video_encoder_factory.h"
+#include "api/video_codecs/video_encoder_factory_template.h"
+#include "api/video_codecs/video_encoder_factory_template_libaom_av1_adapter.h"
+#include "api/video_codecs/video_encoder_factory_template_libvpx_vp8_adapter.h"
+#include "api/video_codecs/video_encoder_factory_template_libvpx_vp9_adapter.h"
+#include "api/video_codecs/video_encoder_factory_template_open_h264_adapter.h"
 #include "media/engine/webrtc_media_engine.h"
 #include "media/engine/webrtc_media_engine_defaults.h"
 #include "modules/audio_processing/aec_dump/aec_dump_factory.h"
@@ -194,7 +198,9 @@ void WrapVideoEncoderFactory(
   if (pcf_dependencies->video_encoder_factory != nullptr) {
     video_encoder_factory = std::move(pcf_dependencies->video_encoder_factory);
   } else {
-    video_encoder_factory = CreateBuiltinVideoEncoderFactory();
+    video_encoder_factory = std::make_unique<VideoEncoderFactoryTemplate<
+        LibvpxVp8EncoderTemplateAdapter, LibvpxVp9EncoderTemplateAdapter,
+        OpenH264EncoderTemplateAdapter, LibaomAv1EncoderTemplateAdapter>>();
   }
   pcf_dependencies->video_encoder_factory =
       video_analyzer_helper->WrapVideoEncoderFactory(

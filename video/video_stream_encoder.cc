@@ -18,6 +18,7 @@
 #include <utility>
 
 #include "absl/algorithm/container.h"
+#include "absl/strings/match.h"
 #include "absl/types/optional.h"
 #include "api/field_trials_view.h"
 #include "api/sequence_checker.h"
@@ -889,6 +890,31 @@ void VideoStreamEncoder::ConfigureEncoder(VideoEncoderConfig config,
       });
 }
 
+absl::optional<SdpVideoFormat> MatchOriginalFormat(
+    const std::vector<SdpVideoFormat>& supported_formats,
+    const SdpVideoFormat& format) {
+  absl::optional<SdpVideoFormat> res;
+  int best_parameter_match = 0;
+  for (const auto& supported_format : supported_formats) {
+    if (absl::EqualsIgnoreCase(supported_format.name, format.name)) {
+      int matching_parameters = 0;
+      for (const auto& kv : supported_format.parameters) {
+        auto it = format.parameters.find(kv.first);
+        if (it != format.parameters.end() && it->second == kv.second) {
+          matching_parameters += 1;
+        }
+      }
+
+      if (!res || matching_parameters > best_parameter_match) {
+        res = supported_format;
+        best_parameter_match = matching_parameters;
+      }
+    }
+  }
+
+  return res;
+}
+
 // We should reduce the number of 'full' ReconfigureEncoder(). If only need
 // subset of it at runtime, consider handle it in
 // VideoStreamEncoder::EncodeVideoFrame() when encoder_info_ != info.
@@ -904,7 +930,9 @@ void VideoStreamEncoder::ReconfigureEncoder() {
     encoder_.reset();
 
     encoder_ = settings_.encoder_factory->CreateVideoEncoder(
-        encoder_config_.video_format);
+        MatchOriginalFormat(settings_.encoder_factory->GetSupportedFormats(),
+                            encoder_config_.video_format)
+            .value_or(encoder_config_.video_format));
     if (!encoder_) {
       RTC_LOG(LS_ERROR) << "CreateVideoEncoder failed, failing encoder format: "
                         << encoder_config_.video_format.ToString();

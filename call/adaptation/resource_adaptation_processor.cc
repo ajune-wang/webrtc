@@ -15,6 +15,7 @@
 #include <utility>
 
 #include "absl/algorithm/container.h"
+#include "absl/strings/string_view.h"
 #include "api/sequence_checker.h"
 #include "api/video/video_adaptation_counters.h"
 #include "call/adaptation/video_stream_adapter.h"
@@ -59,7 +60,8 @@ ResourceAdaptationProcessor::MitigationResultAndLogMessage::
     : result(MitigationResult::kAdaptationApplied), message() {}
 
 ResourceAdaptationProcessor::MitigationResultAndLogMessage::
-    MitigationResultAndLogMessage(MitigationResult result, std::string message)
+    MitigationResultAndLogMessage(MitigationResult result,
+                                  absl::string_view message)
     : result(result), message(std::move(message)) {}
 
 ResourceAdaptationProcessor::ResourceAdaptationProcessor(

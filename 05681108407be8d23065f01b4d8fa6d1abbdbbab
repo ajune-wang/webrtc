@@ -39,6 +39,30 @@
       },
       "revId": "05681108407be8d23065f01b4d8fa6d1abbdbbab",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "62efbd38_a8bd72d8",
+        "filename": "audio/channel_receive_frame_transformer_delegate_unittest.cc",
+        "patchSetId": 13
+      },
+      "lineNbr": 71,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2022-05-18T13:59:30Z",
+      "side": 1,
+      "message": "Good question. I\u0027ve been just running the tests, and fixing those that failed (and for some reason, some failures happened only when running the webrtc tests on the internal test bot).\n\nIt\u0027s good to add DCHECKs where code (typically constructors) expect a non-null thread, which I\u0027ve done in a couple of places.\n\nIt would also help to move away from assigning member variables from rtc::Thread::Current(), since that makes for unobvious implicit dependencies on calling thread being wrapped.\n\nTommi suggested I should look into using RunLoop instead of rtc::AutoThread. I\u0027ll investigate.",
+      "parentUuid": "89b33fe5_f8ea86a4",
+      "range": {
+        "startLine": 71,
+        "startChar": 2,
+        "endLine": 71,
+        "endChar": 30
+      },
+      "revId": "05681108407be8d23065f01b4d8fa6d1abbdbbab",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

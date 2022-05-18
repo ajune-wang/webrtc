@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "f2d099db_78440292",
+        "filename": "test/test_main_lib.cc",
+        "patchSetId": 13
+      },
+      "lineNbr": 148,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2022-05-18T13:27:06Z",
+      "side": 0,
+      "message": "Which is an invitation for use-after-free. I think it\u0027s preferable for each test to explicitly create and own any rtc::Thread object it needs.",
+      "range": {
+        "startLine": 148,
+        "startChar": 30,
+        "endLine": 148,
+        "endChar": 64
+      },
+      "revId": "0ac50b9dfd7cf4a2d6373e415a815f61a4dbe797",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

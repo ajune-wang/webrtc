@@ -20,8 +20,12 @@ namespace webrtc {
 
 // Creates a new factory that can create the built-in types of video encoders.
 // The factory has simulcast support for VP8.
+ABSL_DEPRECATED("Use the VideoEncoderFactoryTemplate instead.")
 RTC_EXPORT std::unique_ptr<VideoEncoderFactory>
 CreateBuiltinVideoEncoderFactory();
+
+RTC_EXPORT std::unique_ptr<VideoEncoderFactory>
+DEPRECATED_CreateBuiltinVideoEncoderFactory();
 
 }  // namespace webrtc
 

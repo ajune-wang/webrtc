@@ -17,9 +17,13 @@
 #include "api/task_queue/default_task_queue_factory.h"
 #include "api/test/create_frame_generator.h"
 #include "api/video_codecs/builtin_video_decoder_factory.h"
-#include "api/video_codecs/builtin_video_encoder_factory.h"
 #include "api/video_codecs/video_encoder.h"
 #include "api/video_codecs/video_encoder_config.h"
+#include "api/video_codecs/video_encoder_factory_template.h"
+#include "api/video_codecs/video_encoder_factory_template_libaom_av1_adapter.h"
+#include "api/video_codecs/video_encoder_factory_template_libvpx_vp8_adapter.h"
+#include "api/video_codecs/video_encoder_factory_template_libvpx_vp9_adapter.h"
+#include "api/video_codecs/video_encoder_factory_template_open_h264_adapter.h"
 #include "media/base/media_constants.h"
 #include "rtc_base/strings/json.h"
 #include "rtc_base/system/file_wrapper.h"
@@ -163,7 +167,12 @@ absl::optional<RtpGeneratorOptions> ParseRtpGeneratorOptionsFromFile(
 
 RtpGenerator::RtpGenerator(const RtpGeneratorOptions& options)
     : options_(options),
-      video_encoder_factory_(CreateBuiltinVideoEncoderFactory()),
+      video_encoder_factory_(
+          std::make_unique<
+              VideoEncoderFactoryTemplate<LibvpxVp8EncoderTemplateAdapter,
+                                          LibvpxVp9EncoderTemplateAdapter,
+                                          OpenH264EncoderTemplateAdapter,
+                                          LibaomAv1EncoderTemplateAdapter>>()),
       video_decoder_factory_(CreateBuiltinVideoDecoderFactory()),
       video_bitrate_allocator_factory_(
           CreateBuiltinVideoBitrateAllocatorFactory()),

@@ -35,7 +35,11 @@
 #include "api/uma_metrics.h"
 #include "api/video/video_codec_constants.h"
 #include "api/video_codecs/builtin_video_decoder_factory.h"
-#include "api/video_codecs/builtin_video_encoder_factory.h"
+#include "api/video_codecs/video_encoder_factory_template.h"
+#include "api/video_codecs/video_encoder_factory_template_libaom_av1_adapter.h"
+#include "api/video_codecs/video_encoder_factory_template_libvpx_vp8_adapter.h"
+#include "api/video_codecs/video_encoder_factory_template_libvpx_vp9_adapter.h"
+#include "api/video_codecs/video_encoder_factory_template_open_h264_adapter.h"
 #include "media/base/rid_description.h"
 #include "media/base/stream_params.h"
 #include "modules/audio_device/include/audio_device.h"
@@ -120,17 +124,21 @@ namespace webrtc {
 class PeerConnectionSimulcastTests : public ::testing::Test {
  public:
   PeerConnectionSimulcastTests()
-      : pc_factory_(
-            CreatePeerConnectionFactory(rtc::Thread::Current(),
-                                        rtc::Thread::Current(),
-                                        rtc::Thread::Current(),
-                                        FakeAudioCaptureModule::Create(),
-                                        CreateBuiltinAudioEncoderFactory(),
-                                        CreateBuiltinAudioDecoderFactory(),
-                                        CreateBuiltinVideoEncoderFactory(),
-                                        CreateBuiltinVideoDecoderFactory(),
-                                        nullptr,
-                                        nullptr)) {}
+      : pc_factory_(CreatePeerConnectionFactory(
+            rtc::Thread::Current(),
+            rtc::Thread::Current(),
+            rtc::Thread::Current(),
+            FakeAudioCaptureModule::Create(),
+            CreateBuiltinAudioEncoderFactory(),
+            CreateBuiltinAudioDecoderFactory(),
+            std::make_unique<
+                VideoEncoderFactoryTemplate<LibvpxVp8EncoderTemplateAdapter,
+                                            LibvpxVp9EncoderTemplateAdapter,
+                                            OpenH264EncoderTemplateAdapter,
+                                            LibaomAv1EncoderTemplateAdapter>>(),
+            CreateBuiltinVideoDecoderFactory(),
+            nullptr,
+            nullptr)) {}
 
   rtc::scoped_refptr<PeerConnectionInterface> CreatePeerConnection(
       MockPeerConnectionObserver* observer) {

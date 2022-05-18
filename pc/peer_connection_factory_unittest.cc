@@ -21,7 +21,11 @@
 #include "api/jsep.h"
 #include "api/media_stream_interface.h"
 #include "api/video_codecs/builtin_video_decoder_factory.h"
-#include "api/video_codecs/builtin_video_encoder_factory.h"
+#include "api/video_codecs/video_encoder_factory_template.h"
+#include "api/video_codecs/video_encoder_factory_template_libaom_av1_adapter.h"
+#include "api/video_codecs/video_encoder_factory_template_libvpx_vp8_adapter.h"
+#include "api/video_codecs/video_encoder_factory_template_libvpx_vp9_adapter.h"
+#include "api/video_codecs/video_encoder_factory_template_open_h264_adapter.h"
 #include "media/base/fake_frame_source.h"
 #include "modules/audio_device/include/audio_device.h"
 #include "modules/audio_processing/include/audio_processing.h"
@@ -109,7 +113,11 @@ class PeerConnectionFactoryTest : public ::testing::Test {
             FakeAudioCaptureModule::Create()),
         webrtc::CreateBuiltinAudioEncoderFactory(),
         webrtc::CreateBuiltinAudioDecoderFactory(),
-        webrtc::CreateBuiltinVideoEncoderFactory(),
+        std::make_unique<webrtc::VideoEncoderFactoryTemplate<
+            webrtc::LibvpxVp8EncoderTemplateAdapter,
+            webrtc::LibvpxVp9EncoderTemplateAdapter,
+            webrtc::OpenH264EncoderTemplateAdapter,
+            webrtc::LibaomAv1EncoderTemplateAdapter>>(),
         webrtc::CreateBuiltinVideoDecoderFactory(), nullptr /* audio_mixer */,
         nullptr /* audio_processing */);
 
@@ -179,7 +187,11 @@ TEST(PeerConnectionFactoryTestInternal, DISABLED_CreatePCUsingInternalModules) {
           nullptr /* signaling_thread */, nullptr /* default_adm */,
           webrtc::CreateBuiltinAudioEncoderFactory(),
           webrtc::CreateBuiltinAudioDecoderFactory(),
-          webrtc::CreateBuiltinVideoEncoderFactory(),
+          std::make_unique<webrtc::VideoEncoderFactoryTemplate<
+              webrtc::LibvpxVp8EncoderTemplateAdapter,
+              webrtc::LibvpxVp9EncoderTemplateAdapter,
+              webrtc::OpenH264EncoderTemplateAdapter,
+              webrtc::LibaomAv1EncoderTemplateAdapter>>(),
           webrtc::CreateBuiltinVideoDecoderFactory(), nullptr /* audio_mixer */,
           nullptr /* audio_processing */));
 

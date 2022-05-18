@@ -24,6 +24,30 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "d60445d3_e7eee842",
+        "filename": "call/rtp_payload_params.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 421,
+      "author": {
+        "id": 13704
+      },
+      "writtenOn": "2022-05-18T15:15:23Z",
+      "side": 1,
+      "message": "Done.",
+      "parentUuid": "e59b970c_47e5dbd8",
+      "range": {
+        "startLine": 421,
+        "startChar": 30,
+        "endLine": 421,
+        "endChar": 32
+      },
+      "revId": "e75e3c796869c5e2749bc36a7874dadb1d07a140",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "a4e94eb7_b1067790",
@@ -37,6 +61,30 @@
       "writtenOn": "2022-05-18T13:41:22Z",
       "side": 1,
       "message": "you\u0027re using only one template parameter.\nMay be declare matcher in a more common/better known way:\n\n  MATCHER(HasDependencyDescriptorExtension, \"\") {\n    return arg.HasExtension\u003cRtpDependencyDescriptorExtension\u003e();\n  }",
+      "range": {
+        "startLine": 59,
+        "startChar": 0,
+        "endLine": 80,
+        "endChar": 1
+      },
+      "revId": "e75e3c796869c5e2749bc36a7874dadb1d07a140",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "a5104daa_9d368e76",
+        "filename": "call/rtp_video_sender_unittest.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 80,
+      "author": {
+        "id": 13704
+      },
+      "writtenOn": "2022-05-18T15:15:23Z",
+      "side": 1,
+      "message": "\u003e you\u0027re using only one template parameter.\n\u003e May be declare matcher in a more common/better known way:\n\u003e \n\nSure. I thought about the possibility of spreading this matcher but one major problem is that the explanation message doesn\u0027t contain the extension name. Since typeid requires RTTI (no constexpr version AFAIK) we cannot use that to use the parameter name. Now that I think about it again, maybe `Extension::Uri()` could\u0027ve been an option?\n\n\u003e   MATCHER(HasDependencyDescriptorExtension, \"\") {\n\u003e     return arg.HasExtension\u003cRtpDependencyDescriptorExtension\u003e();\n\u003e   }\n\nYou also need to use the use `template` keyword to treat `HasExtension` as a dependent template name:\n\n```\nMATCHER(HasDependencyDescriptorExtension, \"\") {\n  return arg.template HasExtension\u003cRtpDependencyDescriptorExtension\u003e();\n}\n```\n\nAnyway, I removed this matcher in favor of making the test assertions even stronger as you suggested.",
+      "parentUuid": "a4e94eb7_b1067790",
       "range": {
         "startLine": 59,
         "startChar": 0,
@@ -72,6 +120,30 @@
     {
       "unresolved": false,
       "key": {
+        "uuid": "af7a4b29_f6110ce4",
+        "filename": "call/rtp_video_sender_unittest.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 783,
+      "author": {
+        "id": 13704
+      },
+      "writtenOn": "2022-05-18T15:15:23Z",
+      "side": 1,
+      "message": "Nice, TIL.",
+      "parentUuid": "d2244cbd_f0eb0dd4",
+      "range": {
+        "startLine": 783,
+        "startChar": 25,
+        "endLine": 783,
+        "endChar": 37
+      },
+      "revId": "e75e3c796869c5e2749bc36a7874dadb1d07a140",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
         "uuid": "eff79086_8baa78e0",
         "filename": "call/rtp_video_sender_unittest.cc",
         "patchSetId": 3
@@ -95,6 +167,30 @@
     {
       "unresolved": false,
       "key": {
+        "uuid": "bc1e0050_6cab98ee",
+        "filename": "call/rtp_video_sender_unittest.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 812,
+      "author": {
+        "id": 13704
+      },
+      "writtenOn": "2022-05-18T15:15:23Z",
+      "side": 1,
+      "message": "Good point, changed it to `AllOf(SizeIs(2), Each(...))` since that\u0027s both stronger and more conventional.",
+      "parentUuid": "eff79086_8baa78e0",
+      "range": {
+        "startLine": 812,
+        "startChar": 6,
+        "endLine": 812,
+        "endChar": 73
+      },
+      "revId": "e75e3c796869c5e2749bc36a7874dadb1d07a140",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
         "uuid": "91bea9f4_5f853076",
         "filename": "call/rtp_video_sender_unittest.cc",
         "patchSetId": 3
@@ -106,6 +202,24 @@
       "writtenOn": "2022-05-18T13:41:22Z",
       "side": 1,
       "message": "I do not see a test that generated structure matches the generated dependency descriptor (in particular that would validate number of chains matches).\n\nmay be add stronger expectation: not just that there is \u003csome\u003e DD written, but that it can be parsed:\n\nsomething like\n\nDependencyDescriptor key_dd, delta_dd;\nASSERT_THAT(packets, SizeIs(2));\nEXPECT_TRUE(packets[0].GetExtension(\u0026key_dd, nullptr));\nEXPECT_TRUE(packets[1].GetExtension(\u0026delta_dd, *key_dd.structure);",
+      "revId": "e75e3c796869c5e2749bc36a7874dadb1d07a140",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "6b77ac62_d33b4244",
+        "filename": "call/rtp_video_sender_unittest.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 814,
+      "author": {
+        "id": 13704
+      },
+      "writtenOn": "2022-05-18T15:15:23Z",
+      "side": 1,
+      "message": "Done.",
+      "parentUuid": "91bea9f4_5f853076",
       "revId": "e75e3c796869c5e2749bc36a7874dadb1d07a140",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }

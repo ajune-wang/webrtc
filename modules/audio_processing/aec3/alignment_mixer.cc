@@ -55,7 +55,8 @@ AlignmentMixer::AlignmentMixer(size_t num_channels,
       excitation_energy_threshold_(kBlockSize * activity_power_threshold),
       prefer_first_two_channels_(prefer_first_two_channels),
       selection_variant_(
-          ChooseMixingVariant(downmix, adaptive_selection, num_channels_)) {
+          ChooseMixingVariant(downmix, adaptive_selection, num_channels_)),
+      input_channels_(num_channels) {
   if (selection_variant_ == MixingVariant::kAdaptive) {
     std::fill(strong_block_counters_.begin(), strong_block_counters_.end(), 0);
     cumulative_energies_.resize(num_channels_);
@@ -66,22 +67,53 @@ AlignmentMixer::AlignmentMixer(size_t num_channels,
 void AlignmentMixer::ProduceOutput(rtc::ArrayView<const std::vector<float>> x,
                                    rtc::ArrayView<float, kBlockSize> y) {
   RTC_DCHECK_EQ(x.size(), num_channels_);
+
+  input_channels_.clear();
+  for (size_t ch = 0; ch < num_channels_; ++ch) {
+    RTC_DCHECK_EQ(x[ch].size(), kBlockSize);
+    input_channels_.push_back(x[ch].data());
+  }
+
   if (selection_variant_ == MixingVariant::kDownmix) {
-    Downmix(x, y);
+    Downmix(input_channels_, y);
     return;
   }
 
-  int ch = selection_variant_ == MixingVariant::kFixed ? 0 : SelectChannel(x);
+  int ch = selection_variant_ == MixingVariant::kFixed
+               ? 0
+               : SelectChannel(input_channels_);
 
-  RTC_DCHECK_GE(x.size(), ch);
+  RTC_DCHECK_GT(x.size(), ch);
   std::copy(x[ch].begin(), x[ch].end(), y.begin());
 }
 
-void AlignmentMixer::Downmix(rtc::ArrayView<const std::vector<float>> x,
+void AlignmentMixer::ProduceOutput(const Block& x,
+                                   rtc::ArrayView<float, kBlockSize> y) {
+  RTC_DCHECK_EQ(x.NumChannels(), num_channels_);
+
+  input_channels_.clear();
+  for (size_t ch = 0; ch < num_channels_; ++ch) {
+    input_channels_.push_back(x.View(/*band=*/0, ch).data());
+  }
+
+  if (selection_variant_ == MixingVariant::kDownmix) {
+    Downmix(input_channels_, y);
+    return;
+  }
+
+  int ch = selection_variant_ == MixingVariant::kFixed
+               ? 0
+               : SelectChannel(input_channels_);
+
+  RTC_DCHECK_GT(x.NumChannels(), ch);
+  std::copy(x.begin(/*band=*/0, ch), x.end(/*band=*/0, ch), y.begin());
+}
+
+void AlignmentMixer::Downmix(rtc::ArrayView<const float*> x,
                              rtc::ArrayView<float, kBlockSize> y) const {
   RTC_DCHECK_EQ(x.size(), num_channels_);
   RTC_DCHECK_GE(num_channels_, 2);
-  std::copy(x[0].begin(), x[0].end(), y.begin());
+  std::memcpy(y.data(), x.data(), y.size() * sizeof(float));
   for (size_t ch = 1; ch < num_channels_; ++ch) {
     for (size_t i = 0; i < kBlockSize; ++i) {
       y[i] += x[ch][i];
@@ -93,7 +125,7 @@ void AlignmentMixer::Downmix(rtc::ArrayView<const std::vector<float>> x,
   }
 }
 
-int AlignmentMixer::SelectChannel(rtc::ArrayView<const std::vector<float>> x) {
+int AlignmentMixer::SelectChannel(rtc::ArrayView<const float*> x) {
   RTC_DCHECK_EQ(x.size(), num_channels_);
   RTC_DCHECK_GE(num_channels_, 2);
   RTC_DCHECK_EQ(cumulative_energies_.size(), num_channels_);
@@ -112,7 +144,6 @@ int AlignmentMixer::SelectChannel(rtc::ArrayView<const std::vector<float>> x) {
   ++block_counter_;
 
   for (int ch = 0; ch < num_ch_to_analyze; ++ch) {
-    RTC_DCHECK_EQ(x[ch].size(), kBlockSize);
     float x2_sum = 0.f;
     for (size_t i = 0; i < kBlockSize; ++i) {
       x2_sum += x[ch][i] * x[ch][i];

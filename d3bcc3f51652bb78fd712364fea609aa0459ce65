@@ -88,6 +88,24 @@
       "parentUuid": "51fc252b_01b0a5d9",
       "revId": "d3bcc3f51652bb78fd712364fea609aa0459ce65",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "aced8788_c474b05f",
+        "filename": "api/video/i210_buffer.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 269,
+      "author": {
+        "id": 5117
+      },
+      "writtenOn": "2022-05-18T09:41:46Z",
+      "side": 1,
+      "message": "Since there\u0027s no I210toI420 function in webrtc for now, you can just make a CL in libyuv with a TODO, wait for the libyuv roll into webrtc and then just use this function in this CL and land it.",
+      "parentUuid": "c199956a_c4b1116c",
+      "revId": "d3bcc3f51652bb78fd712364fea609aa0459ce65",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

@@ -141,6 +141,30 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "efe55595_628361e7",
+        "filename": "modules/desktop_capture/screen_capturer_fuchsia.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 45,
+      "author": {
+        "id": 19214
+      },
+      "writtenOn": "2022-05-18T07:07:02Z",
+      "side": 1,
+      "message": "Fair enough. Fixed.",
+      "parentUuid": "8f497420_32228b96",
+      "range": {
+        "startLine": 43,
+        "startChar": 0,
+        "endLine": 45,
+        "endChar": 1
+      },
+      "revId": "cbcabd2344ea3f6b4e5c057a8dc387e319454769",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "24846a82_3aabd351",
@@ -328,6 +352,30 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "da9a68f5_782cdf36",
+        "filename": "modules/desktop_capture/screen_capturer_fuchsia.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 98,
+      "author": {
+        "id": 19214
+      },
+      "writtenOn": "2022-05-18T07:07:02Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "49eb4134_33d9e7c6",
+      "range": {
+        "startLine": 98,
+        "startChar": 18,
+        "endLine": 98,
+        "endChar": 35
+      },
+      "revId": "cbcabd2344ea3f6b4e5c057a8dc387e319454769",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "f4a69f09_929fb2c0",
@@ -365,6 +413,30 @@
       "side": 1,
       "message": "It should be do-able; I believe other capturers are using this for that purpose: https://source.chromium.org/chromium/chromium/src/+/main:third_party/webrtc/modules/desktop_capture/screen_capture_frame_queue.h;drc\u003d0ee94ab5197f4c6904d566790622797da6ffaff1;l\u003d37\n\nI think the arrangement is supposed to be that by the time GetFrame is called again, the frame should be released; but I wouldn\u0027t bank on just a single-frame.",
       "parentUuid": "f4a69f09_929fb2c0",
+      "range": {
+        "startLine": 99,
+        "startChar": 10,
+        "endLine": 99,
+        "endChar": 27
+      },
+      "revId": "cbcabd2344ea3f6b4e5c057a8dc387e319454769",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "7426ac78_2e2bcf31",
+        "filename": "modules/desktop_capture/screen_capturer_fuchsia.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 99,
+      "author": {
+        "id": 19214
+      },
+      "writtenOn": "2022-05-18T07:07:02Z",
+      "side": 1,
+      "message": "Is this possible without using SharedDesktopFrame? That\u0027s what all the other capturers use for their queues.",
+      "parentUuid": "fc8bcdd7_d7418e08",
       "range": {
         "startLine": 99,
         "startChar": 10,
@@ -446,6 +518,30 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "0acfbe50_9d2cac90",
+        "filename": "modules/desktop_capture/screen_capturer_fuchsia.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 112,
+      "author": {
+        "id": 19214
+      },
+      "writtenOn": "2022-05-18T07:07:02Z",
+      "side": 1,
+      "message": "Yeah it got that error when kBytesPerPixel was in the capture 🤷\n\nThe copy to a local variable was a good idea though.\n\nAnyway I got rid of the lambda as suggested. Good to know for next time though!",
+      "parentUuid": "ff5faa44_731f964a",
+      "range": {
+        "startLine": 112,
+        "startChar": 37,
+        "endLine": 112,
+        "endChar": 57
+      },
+      "revId": "cbcabd2344ea3f6b4e5c057a8dc387e319454769",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "9b6ee2d1_5879f99a",
@@ -483,6 +579,30 @@
       "side": 1,
       "message": "It should be okay here; other capturers do this copy in \"GetFrame\"; and I believe in chromium the capturers are running on their own thread anyway.",
       "parentUuid": "9b6ee2d1_5879f99a",
+      "range": {
+        "startLine": 113,
+        "startChar": 26,
+        "endLine": 113,
+        "endChar": 40
+      },
+      "revId": "cbcabd2344ea3f6b4e5c057a8dc387e319454769",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "1980a151_96cf7423",
+        "filename": "modules/desktop_capture/screen_capturer_fuchsia.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 113,
+      "author": {
+        "id": 19214
+      },
+      "writtenOn": "2022-05-18T07:07:02Z",
+      "side": 1,
+      "message": "Leaving it here then.",
+      "parentUuid": "cf894a84_3d83e974",
       "range": {
         "startLine": 113,
         "startChar": 26,
@@ -653,6 +773,30 @@
         "startChar": 40,
         "endLine": 164,
         "endChar": 46
+      },
+      "revId": "cbcabd2344ea3f6b4e5c057a8dc387e319454769",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "40a6a018_0638168c",
+        "filename": "modules/desktop_capture/screen_capturer_fuchsia.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 164,
+      "author": {
+        "id": 19214
+      },
+      "writtenOn": "2022-05-18T07:07:02Z",
+      "side": 1,
+      "message": "This fails with the combination of pixel type I420 and color space SRGB. Is there some other color space that would work? Or should I swap the pixel type back to BGRA32 or something else?\n\nThe error was:\n```\n[00221.769320][4631][6055][sysmem, driver_host:sys, driver] ERROR: [src/devices/sysmem/drivers/sysmem/logical_buffer_collection.cc(1877)] !ImageFormatIsSupportedColorSpaceForPixelFormat() color_space.type: 1 pixel_format.type: 102 - collection \"FlatlandImageMemory\"\n[00221.769359][4631][6055][sysmem, driver_host:sys, driver] ERROR: [src/devices/sysmem/drivers/sysmem/logical_buffer_collection.cc(916)] CombineConstraints() failed\n[00221.769402][4631][6055][sysmem, driver_host:sys, driver] ERROR: [src/devices/sysmem/drivers/sysmem/logical_buffer_collection.cc(1242)] [LogicalBufferCollection fail] LogicalBufferCollection::SendAllocationResult() done sending allocation failure - now auto-failing self.\n[00221.769526][4631][6055][sysmem, driver_host:sys, driver] ERROR: [src/devices/sysmem/drivers/sysmem/logical_buffer_collection.cc(817)] Root node was failed due to sub-tree having zero clients remaining. (1) - collection \"FlatlandImageMemory\"\n```",
+      "parentUuid": "37676f0d_5b9833f6",
+      "range": {
+        "startLine": 164,
+        "startChar": 23,
+        "endLine": 164,
+        "endChar": 38
       },
       "revId": "cbcabd2344ea3f6b4e5c057a8dc387e319454769",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
@@ -906,6 +1050,30 @@
       "writtenOn": "2022-05-16T23:56:29Z",
       "side": 1,
       "message": "I don\u0027t really understand what this function is doing. Can you add a function level comment/some more comments to this function?\n\nWe seem to be mapping a set of bytes so that we can operate on them and then clearing them?\n\nWe also are only calling this in one place it looks like; so unless there\u0027s plans that we\u0027ll need something more complex later, I think it can take in all of the params it may otherwise need (either taking a ref or just the pointer of the frame, since the style guide allows mutable references now), rather than requiring a passed-in std::function?",
+      "range": {
+        "startLine": 348,
+        "startChar": 28,
+        "endLine": 348,
+        "endChar": 42
+      },
+      "revId": "cbcabd2344ea3f6b4e5c057a8dc387e319454769",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "b2bde73c_dc2d9b3e",
+        "filename": "modules/desktop_capture/screen_capturer_fuchsia.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 348,
+      "author": {
+        "id": 19214
+      },
+      "writtenOn": "2022-05-18T07:07:02Z",
+      "side": 1,
+      "message": "I\u0027m still looking at different ways I could re-write this. The basic idea is that the frame bytes that we get back from our API are in a Virtual Memory Object. We map that on to the host so that we can get a pointer to pass in to `CopyPixelsFrom` and then unmap it once we\u0027re done. \n\nSince we\u0027re reusing the same VMOs I think we might be able to reuse the same mappings too but I\u0027m still exploring that. I\u0027ll add documentation once I\u0027ve settled on a way to do it, and it\u0027ll need to be renamed as well.\n\nFor now I\u0027ve at least gotten rid of the callback though.",
+      "parentUuid": "c63dfb5e_fd78b13f",
       "range": {
         "startLine": 348,
         "startChar": 28,

@@ -18,6 +18,24 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "565d64f1_70078838",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 15
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5116
+      },
+      "writtenOn": "2022-05-18T14:25:48Z",
+      "side": 1,
+      "message": "It has been tested for bit-exactness. I now added that to the CL description.\nI have done some bench marking, and it seems to be at least as fast as before. (I measured it to be slightly faster, but that is probably noise.)",
+      "parentUuid": "fb8b623f_ae44982d",
+      "revId": "020e1b9872795bebdc6ee12dd18a36686bbe4b53",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "e0e697a1_ea941177",
@@ -31,6 +49,30 @@
       "writtenOn": "2022-05-18T09:18:41Z",
       "side": 1,
       "message": "Is this necessary? \nTo me it seems like we use input_channels_ only to achieve a nice call to Downmix which seems a bit backwards.\n\nCan\u0027t we instead change Downmix to avoid the pre-setup of input_channels_?",
+      "range": {
+        "startLine": 71,
+        "startChar": 2,
+        "endLine": 75,
+        "endChar": 3
+      },
+      "revId": "020e1b9872795bebdc6ee12dd18a36686bbe4b53",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "241a81e8_ca293260",
+        "filename": "modules/audio_processing/aec3/alignment_mixer.cc",
+        "patchSetId": 15
+      },
+      "lineNbr": 75,
+      "author": {
+        "id": 5116
+      },
+      "writtenOn": "2022-05-18T14:25:48Z",
+      "side": 1,
+      "message": "input_channels_ are also used with SelectChannel().\nAnother way would perhaps be to have two template implementations of Downmix and SelectChannel, but I am not sure that would be better.\nDo you have any other ideas?",
+      "parentUuid": "e0e697a1_ea941177",
       "range": {
         "startLine": 71,
         "startChar": 2,
@@ -64,6 +106,30 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "66f83c67_3ef836df",
+        "filename": "modules/audio_processing/aec3/alignment_mixer.cc",
+        "patchSetId": 15
+      },
+      "lineNbr": 118,
+      "author": {
+        "id": 5116
+      },
+      "writtenOn": "2022-05-18T14:25:48Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "e4f13d0d_8a8257dd",
+      "range": {
+        "startLine": 116,
+        "startChar": 2,
+        "endLine": 118,
+        "endChar": 3
+      },
+      "revId": "020e1b9872795bebdc6ee12dd18a36686bbe4b53",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "af0e2aa9_bd08cba0",
@@ -77,6 +143,30 @@
       "writtenOn": "2022-05-18T09:18:41Z",
       "side": 1,
       "message": "I think it would be good to specify in more detail what data is actually accessed. I.e., An array to the actual 64 samples for a specific band and channel",
+      "range": {
+        "startLine": 53,
+        "startChar": 2,
+        "endLine": 53,
+        "endChar": 35
+      },
+      "revId": "020e1b9872795bebdc6ee12dd18a36686bbe4b53",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "0c344bc0_9c2e8924",
+        "filename": "modules/audio_processing/aec3/block.h",
+        "patchSetId": 15
+      },
+      "lineNbr": 53,
+      "author": {
+        "id": 5116
+      },
+      "writtenOn": "2022-05-18T14:25:48Z",
+      "side": 1,
+      "message": "Removed FloatArray() (see below).",
+      "parentUuid": "af0e2aa9_bd08cba0",
       "range": {
         "startLine": 53,
         "startChar": 2,
@@ -110,6 +200,30 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "ce907f40_c6f29de3",
+        "filename": "modules/audio_processing/aec3/block.h",
+        "patchSetId": 15
+      },
+      "lineNbr": 54,
+      "author": {
+        "id": 5116
+      },
+      "writtenOn": "2022-05-18T14:25:48Z",
+      "side": 1,
+      "message": "I think pointer access is nice to have, but removing it for now.",
+      "parentUuid": "c264158c_b8db54b2",
+      "range": {
+        "startLine": 54,
+        "startChar": 2,
+        "endLine": 54,
+        "endChar": 8
+      },
+      "revId": "020e1b9872795bebdc6ee12dd18a36686bbe4b53",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "98af419d_14eb9f2f",
@@ -123,6 +237,54 @@
       "writtenOn": "2022-05-18T09:18:41Z",
       "side": 1,
       "message": "Can we make this return\n rtc::ArrayView\u003cfloat,kBlockSize\u003e?\n \n (same below)",
+      "range": {
+        "startLine": 63,
+        "startChar": 2,
+        "endLine": 63,
+        "endChar": 23
+      },
+      "revId": "020e1b9872795bebdc6ee12dd18a36686bbe4b53",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "d4d4650e_d4b18a25",
+        "filename": "modules/audio_processing/aec3/block.h",
+        "patchSetId": 15
+      },
+      "lineNbr": 63,
+      "author": {
+        "id": 5116
+      },
+      "writtenOn": "2022-05-18T14:25:48Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "98af419d_14eb9f2f",
+      "range": {
+        "startLine": 63,
+        "startChar": 2,
+        "endLine": 63,
+        "endChar": 23
+      },
+      "revId": "020e1b9872795bebdc6ee12dd18a36686bbe4b53",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "f3907c3a_9c29f588",
+        "filename": "modules/audio_processing/aec3/block.h",
+        "patchSetId": 15
+      },
+      "lineNbr": 63,
+      "author": {
+        "id": 5116
+      },
+      "writtenOn": "2022-05-18T14:25:48Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "98af419d_14eb9f2f",
       "range": {
         "startLine": 63,
         "startChar": 2,
@@ -156,6 +318,30 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "f9a3cbc3_25706aa0",
+        "filename": "modules/audio_processing/aec3/block.h",
+        "patchSetId": 15
+      },
+      "lineNbr": 75,
+      "author": {
+        "id": 5116
+      },
+      "writtenOn": "2022-05-18T14:25:48Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "99c99635_07c7b85c",
+      "range": {
+        "startLine": 75,
+        "startChar": 26,
+        "endLine": 75,
+        "endChar": 44
+      },
+      "revId": "020e1b9872795bebdc6ee12dd18a36686bbe4b53",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "7006d03e_d073f307",
@@ -169,6 +355,30 @@
       "writtenOn": "2022-05-18T09:18:41Z",
       "side": 1,
       "message": "Here is an example where I would prefer using\nfloat* e0 \u003d e-\u003eView(/*band\u003d*/0, ch).data();\n\nand not expose a FloatArray() method\n\nI definitely agree that that is more cumbersome codewise initially, but it sets the stage for follow-up changes where the data is not accessed via raw-pointers.\n\nIf we add a FloatArray() method, it invites the use of raw-pointer access.",
+      "range": {
+        "startLine": 124,
+        "startChar": 4,
+        "endLine": 124,
+        "endChar": 46
+      },
+      "revId": "020e1b9872795bebdc6ee12dd18a36686bbe4b53",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "afb7ed11_819170f4",
+        "filename": "modules/audio_processing/aec3/suppression_filter.cc",
+        "patchSetId": 15
+      },
+      "lineNbr": 124,
+      "author": {
+        "id": 5116
+      },
+      "writtenOn": "2022-05-18T14:25:48Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "7006d03e_d073f307",
       "range": {
         "startLine": 124,
         "startChar": 4,

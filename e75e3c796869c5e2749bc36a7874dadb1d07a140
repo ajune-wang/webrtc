@@ -1,0 +1,113 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "e59b970c_47e5dbd8",
+        "filename": "call/rtp_payload_params.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 421,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2022-05-18T13:41:22Z",
+      "side": 1,
+      "message": "may be shared_frame_id, or remove this block, and instead on the next line write\ngeneric.chain_diffs \u003d {is_keyframe ? 0 : shared_frame_id - chain_last_frame_id_[0]};\n\n// though that rely on (is_keyframe || chain_last_frame_id_[0] \u003e\u003d 0)\n.... then to be safe you might write\ngeneric.chain_diffs \u003d {is_keyframe || chain_last_frame_id_[0] \u003c 0 ? 0 : shared_frame_id - chain_last_frame_id_[0]};",
+      "range": {
+        "startLine": 421,
+        "startChar": 30,
+        "endLine": 421,
+        "endChar": 32
+      },
+      "revId": "e75e3c796869c5e2749bc36a7874dadb1d07a140",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "a4e94eb7_b1067790",
+        "filename": "call/rtp_video_sender_unittest.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 80,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2022-05-18T13:41:22Z",
+      "side": 1,
+      "message": "you\u0027re using only one template parameter.\nMay be declare matcher in a more common/better known way:\n\n  MATCHER(HasDependencyDescriptorExtension, \"\") {\n    return arg.HasExtension\u003cRtpDependencyDescriptorExtension\u003e();\n  }",
+      "range": {
+        "startLine": 59,
+        "startChar": 0,
+        "endLine": 80,
+        "endChar": 1
+      },
+      "revId": "e75e3c796869c5e2749bc36a7874dadb1d07a140",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "d2244cbd_f0eb0dd4",
+        "filename": "call/rtp_video_sender_unittest.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 783,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2022-05-18T13:41:22Z",
+      "side": 1,
+      "message": "since c++17 emplace_back returns the reference to the added element, so you might write\n\nEXPECT_TRUE(send_packets.emplace_back(\u0026extensions).Parse(packet, length));\n\nhttps://en.cppreference.com/w/cpp/container/vector/emplace_back",
+      "range": {
+        "startLine": 783,
+        "startChar": 25,
+        "endLine": 783,
+        "endChar": 37
+      },
+      "revId": "e75e3c796869c5e2749bc36a7874dadb1d07a140",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "eff79086_8baa78e0",
+        "filename": "call/rtp_video_sender_unittest.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 812,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2022-05-18T13:41:22Z",
+      "side": 1,
+      "message": "I was sure more readable way to express the same is\nAllOf(SizeIs(2), Each(HasDependencyDescriptorExtension()));\n\nbut Contains(...).Times(x)\nis valid too: https://github.com/google/googletest/blob/main/docs/reference/matchers.md#container-matchers\n\nThey mean slightly different things though: 1st one ensure there are exactly 2 elements and all of them has DD.\n2nd one checks there are exactly 2 elements with DD [but there might be a 3rd element without DD].\n\nFor this test the difference doesn\u0027t look important.",
+      "range": {
+        "startLine": 812,
+        "startChar": 6,
+        "endLine": 812,
+        "endChar": 73
+      },
+      "revId": "e75e3c796869c5e2749bc36a7874dadb1d07a140",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "91bea9f4_5f853076",
+        "filename": "call/rtp_video_sender_unittest.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 814,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2022-05-18T13:41:22Z",
+      "side": 1,
+      "message": "I do not see a test that generated structure matches the generated dependency descriptor (in particular that would validate number of chains matches).\n\nmay be add stronger expectation: not just that there is \u003csome\u003e DD written, but that it can be parsed:\n\nsomething like\n\nDependencyDescriptor key_dd, delta_dd;\nASSERT_THAT(packets, SizeIs(2));\nEXPECT_TRUE(packets[0].GetExtension(\u0026key_dd, nullptr));\nEXPECT_TRUE(packets[1].GetExtension(\u0026delta_dd, *key_dd.structure);",
+      "revId": "e75e3c796869c5e2749bc36a7874dadb1d07a140",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

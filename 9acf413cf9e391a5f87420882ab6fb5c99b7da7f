@@ -446,6 +446,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "f97477d6_0a3e02e2",
+        "filename": "common_video/video_frame_buffer.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 222,
+      "author": {
+        "id": 5963
+      },
+      "writtenOn": "2022-05-18T07:12:59Z",
+      "side": 1,
+      "message": "The code redundancy is also present on the other buffers, which would be the best way to fix it?",
+      "parentUuid": "c48a052f_3ff6ec23",
+      "range": {
+        "startLine": 222,
+        "startChar": 10,
+        "endLine": 222,
+        "endChar": 20
+      },
+      "revId": "9acf413cf9e391a5f87420882ab6fb5c99b7da7f",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "7cf93da6_2621afb8",
         "filename": "modules/video_coding/codecs/h264/h264_decoder_impl.cc",
         "patchSetId": 2

@@ -34,6 +34,24 @@
       "parentUuid": "6ba8fbc7_d5081ae1",
       "revId": "d3bcc3f51652bb78fd712364fea609aa0459ce65",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "fffd897d_e57d3cc9",
+        "filename": "api/video/i210_buffer.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 269,
+      "author": {
+        "id": 5963
+      },
+      "writtenOn": "2022-05-18T07:12:59Z",
+      "side": 1,
+      "message": "There is no direct conversion from i210 to i420 in libyuv, and we need to use an intermediate i010 buffer instead. \n\nI have added a ticket in libyuv https://bugs.chromium.org/p/libyuv/issues/detail?id\u003d931 to try to get one.\n\nI don\u0027t think than creating an webrtcI210toI420 method would be cleaner than just having the code conversion explicitly there as when the new method is available the code change would be just moving from\n\nrtc::scoped_refptr\u003cI010Buffer\u003e i010buffer \u003d I010Buffer::Create(width(), height());\n  libyuv::I210ToI010(DataY(), StrideY(), DataU(), StrideU(), DataV(), StrideV(),\n                     i010buffer-\u003eMutableDataY(), i010buffer-\u003eStrideY(),\n                     i010buffer-\u003eMutableDataU(), i010buffer-\u003eStrideU(),\n                     i010buffer-\u003eMutableDataV(), i010buffer-\u003eStrideV(), width(),\n                     height());\n  return i010buffer-\u003eToI420();\n  \n  \nto\n\nrtc::scoped_refptr\u003cI420Buffer\u003e i420buffer \u003d I420Buffer::Create(width(), height());\n  libyuv::I210ToI420(DataY(), StrideY(), DataU(), StrideU(), DataV(), StrideV(),\n                     i010buffer-\u003eMutableDataY(), i010buffer-\u003eStrideY(),\n                     i010buffer-\u003eMutableDataU(), i010buffer-\u003eStrideU(),\n                     i010buffer-\u003eMutableDataV(), i010buffer-\u003eStrideV(), width(),\n                     height());\n  return i42buffer;",
+      "parentUuid": "a57b9e7f_c9bcf4a9",
+      "revId": "d3bcc3f51652bb78fd712364fea609aa0459ce65",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

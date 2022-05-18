@@ -20,6 +20,24 @@
     {
       "unresolved": false,
       "key": {
+        "uuid": "8854345d_93419687",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 17
+      },
+      "lineNbr": 9,
+      "author": {
+        "id": 5963
+      },
+      "writtenOn": "2022-05-18T07:12:59Z",
+      "side": 1,
+      "message": "That\u0027s how they are called everywhere else (chrome, libyuv, ...) \nhttps://chromium.googlesource.com/libyuv/libyuv/+/HEAD/docs/formats.md\n\nI like the more verbose names, but I think that keeping i210 it is better for consistency with the rest of the source code (also, the I010buffer is already present in the code)",
+      "parentUuid": "281c86b9_7b542e4f",
+      "revId": "4e255749e5e73c5e450b431d6f103ba2f444b334",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
         "uuid": "2cf6bf01_ef0f404c",
         "filename": "/PATCHSET_LEVEL",
         "patchSetId": 17
@@ -48,6 +66,24 @@
       "writtenOn": "2022-05-16T05:16:32Z",
       "side": 1,
       "message": "Please add a note about what an I210buffer is.",
+      "revId": "4e255749e5e73c5e450b431d6f103ba2f444b334",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "b99d7b7e_18f9ebd9",
+        "filename": "api/video/i210_buffer.h",
+        "patchSetId": 17
+      },
+      "lineNbr": 25,
+      "author": {
+        "id": 5963
+      },
+      "writtenOn": "2022-05-18T07:12:59Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "a5f2a7a1_022cf4a3",
       "revId": "4e255749e5e73c5e450b431d6f103ba2f444b334",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }

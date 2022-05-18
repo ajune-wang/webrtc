@@ -9,6 +9,7 @@
  */
 #include "common_video/include/video_frame_buffer.h"
 
+#include "api/video/i010_buffer.h"
 #include "api/video/i420_buffer.h"
 #include "rtc_base/checks.h"
 #include "rtc_base/ref_counted_object.h"
@@ -211,6 +212,25 @@ rtc::scoped_refptr<I420BufferInterface> I010BufferBase::ToI420() {
   return i420_buffer;
 }
 
+class I210BufferBase : public I210BufferInterface {
+ public:
+  rtc::scoped_refptr<I420BufferInterface> ToI420() final;
+};
+
+rtc::scoped_refptr<I420BufferInterface> I210BufferBase::ToI420() {
+  // There is no direct conversion from i210 to i420 in libyuv, so we need to
+  // use an i010 buffer intermediate buffer.
+  // https://bugs.chromium.org/p/libyuv/issues/detail?id=931
+  rtc::scoped_refptr<I010Buffer> i010buffer =
+      I010Buffer::Create(width(), height());
+  libyuv::I210ToI010(DataY(), StrideY(), DataU(), StrideU(), DataV(), StrideV(),
+                     i010buffer->MutableDataY(), i010buffer->StrideY(),
+                     i010buffer->MutableDataU(), i010buffer->StrideU(),
+                     i010buffer->MutableDataV(), i010buffer->StrideV(), width(),
+                     height());
+  return i010buffer->ToI420();
+}
+
 }  // namespace
 
 rtc::scoped_refptr<I420BufferInterface> WrapI420Buffer(
@@ -317,6 +337,22 @@ rtc::scoped_refptr<I010BufferInterface> WrapI010Buffer(
     std::function<void()> no_longer_used) {
   return rtc::scoped_refptr<I010BufferInterface>(
       rtc::make_ref_counted<WrappedYuv16BBuffer<I010BufferBase>>(
+          width, height, y_plane, y_stride, u_plane, u_stride, v_plane,
+          v_stride, no_longer_used));
+}
+
+rtc::scoped_refptr<I210BufferInterface> WrapI210Buffer(
+    int width,
+    int height,
+    const uint16_t* y_plane,
+    int y_stride,
+    const uint16_t* u_plane,
+    int u_stride,
+    const uint16_t* v_plane,
+    int v_stride,
+    std::function<void()> no_longer_used) {
+  return rtc::scoped_refptr<I210BufferInterface>(
+      rtc::make_ref_counted<WrappedYuv16BBuffer<I210BufferBase>>(
           width, height, y_plane, y_stride, u_plane, u_stride, v_plane,
           v_stride, no_longer_used));
 }

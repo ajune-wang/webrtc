@@ -10,7 +10,7 @@ vars = {
   # chromium waterfalls. More info at: crbug.com/570091.
   'checkout_configuration': 'default',
   'checkout_instrumented_libraries': 'checkout_linux and checkout_configuration == "default"',
-  'chromium_revision': '524559feaa84d535b9fb24d4956b138939561271',
+  'chromium_revision': '2f684b2dbdbc728b22eef8f4bf47479c9e1b59c5',
 
   # Keep the Chromium default of generating location tags.
   'generate_location_tags': True,
@@ -23,7 +23,7 @@ deps = {
   # TODO(kjellander): Move this to be Android-only once the libevent dependency
   # in base/third_party/libevent is solved.
   'src/base':
-    'https://chromium.googlesource.com/chromium/src/base@48dbbda0acb50c4d6357c07193138fbee5391078',
+    'https://chromium.googlesource.com/chromium/src/base@d8b80c8e03738ab9318246771a179455b242719c',
   'src/build':
     'https://chromium.googlesource.com/chromium/src/build@25a9e6331603b0eb48d93e6ff48c7146fa86967c',
   'src/buildtools':
@@ -34,13 +34,13 @@ deps = {
     'condition': 'checkout_android',
   },
   'src/ios': {
-    'url': 'https://chromium.googlesource.com/chromium/src/ios@0f7e70fedbd55d8610cc113d077480e1531f5487',
+    'url': 'https://chromium.googlesource.com/chromium/src/ios@1abf10119645ec25d5d0787889e10087db163621',
     'condition': 'checkout_ios',
   },
   'src/testing':
     'https://chromium.googlesource.com/chromium/src/testing@c5ec396eb3519dee7182ccdd6d9c00154a9f5cdd',
   'src/third_party':
-    'https://chromium.googlesource.com/chromium/src/third_party@7e38141447a27163e7d9cfde9569897368610420',
+    'https://chromium.googlesource.com/chromium/src/third_party@84a8ffa75c5def185425fbc148da36a25747dbba',
 
   'src/buildtools/linux64': {
     'packages': [
@@ -220,7 +220,7 @@ deps = {
       'condition': 'checkout_android',
   },
   'src/third_party/perfetto':
-    'https://android.googlesource.com/platform/external/perfetto.git@ec1d6d0d5136c09633f6405569793b2adf8abdd8',
+    'https://android.googlesource.com/platform/external/perfetto.git@93023f73a562e51c878b6d3d21763470714bcb64',
   'src/third_party/libvpx/source/libvpx':
     'https://chromium.googlesource.com/webm/libvpx.git@ca89bed50dbc5fe2abef50c5f36924bb1da6d1f6',
   'src/third_party/libyuv':

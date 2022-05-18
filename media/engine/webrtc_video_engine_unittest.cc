@@ -35,12 +35,16 @@
 #include "api/video/i420_buffer.h"
 #include "api/video/video_bitrate_allocation.h"
 #include "api/video_codecs/builtin_video_decoder_factory.h"
-#include "api/video_codecs/builtin_video_encoder_factory.h"
 #include "api/video_codecs/h264_profile_level_id.h"
 #include "api/video_codecs/sdp_video_format.h"
 #include "api/video_codecs/video_decoder_factory.h"
 #include "api/video_codecs/video_encoder.h"
 #include "api/video_codecs/video_encoder_factory.h"
+#include "api/video_codecs/video_encoder_factory_template.h"
+#include "api/video_codecs/video_encoder_factory_template_libaom_av1_adapter.h"
+#include "api/video_codecs/video_encoder_factory_template_libvpx_vp8_adapter.h"
+#include "api/video_codecs/video_encoder_factory_template_libvpx_vp9_adapter.h"
+#include "api/video_codecs/video_encoder_factory_template_open_h264_adapter.h"
 #include "call/flexfec_receive_stream.h"
 #include "media/base/fake_frame_source.h"
 #include "media/base/fake_network_interface.h"
@@ -1391,7 +1395,11 @@ class WebRtcVideoChannelEncodedFrameCallbackTest : public ::testing::Test {
         video_bitrate_allocator_factory_(
             webrtc::CreateBuiltinVideoBitrateAllocatorFactory()),
         engine_(
-            webrtc::CreateBuiltinVideoEncoderFactory(),
+            std::make_unique<webrtc::VideoEncoderFactoryTemplate<
+                webrtc::LibvpxVp8EncoderTemplateAdapter,
+                webrtc::LibvpxVp9EncoderTemplateAdapter,
+                webrtc::OpenH264EncoderTemplateAdapter,
+                webrtc::LibaomAv1EncoderTemplateAdapter>>(),
             std::make_unique<webrtc::test::FunctionVideoDecoderFactory>(
                 []() { return std::make_unique<webrtc::test::FakeDecoder>(); },
                 kSdpVideoFormats),
@@ -1537,7 +1545,11 @@ class WebRtcVideoChannelBaseTest : public ::testing::Test {
       : task_queue_factory_(webrtc::CreateDefaultTaskQueueFactory()),
         video_bitrate_allocator_factory_(
             webrtc::CreateBuiltinVideoBitrateAllocatorFactory()),
-        engine_(webrtc::CreateBuiltinVideoEncoderFactory(),
+        engine_(std::make_unique<webrtc::VideoEncoderFactoryTemplate<
+                    webrtc::LibvpxVp8EncoderTemplateAdapter,
+                    webrtc::LibvpxVp9EncoderTemplateAdapter,
+                    webrtc::OpenH264EncoderTemplateAdapter,
+                    webrtc::LibaomAv1EncoderTemplateAdapter>>(),
                 webrtc::CreateBuiltinVideoDecoderFactory(),
                 field_trials_) {}
 

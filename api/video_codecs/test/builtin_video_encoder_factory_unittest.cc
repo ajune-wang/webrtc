@@ -21,7 +21,7 @@ namespace webrtc {
 
 TEST(BuiltinVideoEncoderFactoryTest, AnnouncesVp9AccordingToBuildFlags) {
   std::unique_ptr<VideoEncoderFactory> factory =
-      CreateBuiltinVideoEncoderFactory();
+      DEPRECATED_CreateBuiltinVideoEncoderFactory();
   bool claims_vp9_support = false;
   for (const SdpVideoFormat& format : factory->GetSupportedFormats()) {
     if (format.name == "VP9") {

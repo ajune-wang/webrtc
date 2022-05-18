@@ -35,7 +35,11 @@
 #include "api/set_remote_description_observer_interface.h"
 #include "api/uma_metrics.h"
 #include "api/video_codecs/builtin_video_decoder_factory.h"
-#include "api/video_codecs/builtin_video_encoder_factory.h"
+#include "api/video_codecs/video_encoder_factory_template.h"
+#include "api/video_codecs/video_encoder_factory_template_libaom_av1_adapter.h"
+#include "api/video_codecs/video_encoder_factory_template_libvpx_vp8_adapter.h"
+#include "api/video_codecs/video_encoder_factory_template_libvpx_vp9_adapter.h"
+#include "api/video_codecs/video_encoder_factory_template_open_h264_adapter.h"
 #include "media/base/stream_params.h"
 #include "modules/audio_device/include/audio_device.h"
 #include "modules/audio_processing/include/audio_processing.h"
@@ -88,17 +92,21 @@ class PeerConnectionRtpBaseTest : public ::testing::Test {
  public:
   explicit PeerConnectionRtpBaseTest(SdpSemantics sdp_semantics)
       : sdp_semantics_(sdp_semantics),
-        pc_factory_(
-            CreatePeerConnectionFactory(rtc::Thread::Current(),
-                                        rtc::Thread::Current(),
-                                        rtc::Thread::Current(),
-                                        FakeAudioCaptureModule::Create(),
-                                        CreateBuiltinAudioEncoderFactory(),
-                                        CreateBuiltinAudioDecoderFactory(),
-                                        CreateBuiltinVideoEncoderFactory(),
-                                        CreateBuiltinVideoDecoderFactory(),
-                                        nullptr /* audio_mixer */,
-                                        nullptr /* audio_processing */)) {
+        pc_factory_(CreatePeerConnectionFactory(
+            rtc::Thread::Current(),
+            rtc::Thread::Current(),
+            rtc::Thread::Current(),
+            FakeAudioCaptureModule::Create(),
+            CreateBuiltinAudioEncoderFactory(),
+            CreateBuiltinAudioDecoderFactory(),
+            std::make_unique<
+                VideoEncoderFactoryTemplate<LibvpxVp8EncoderTemplateAdapter,
+                                            LibvpxVp9EncoderTemplateAdapter,
+                                            OpenH264EncoderTemplateAdapter,
+                                            LibaomAv1EncoderTemplateAdapter>>(),
+            CreateBuiltinVideoDecoderFactory(),
+            nullptr /* audio_mixer */,
+            nullptr /* audio_processing */)) {
     webrtc::metrics::Reset();
   }
 

@@ -106,6 +106,24 @@
       "parentUuid": "c199956a_c4b1116c",
       "revId": "d3bcc3f51652bb78fd712364fea609aa0459ce65",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "8f900c48_6115e469",
+        "filename": "api/video/i210_buffer.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 269,
+      "author": {
+        "id": 5963
+      },
+      "writtenOn": "2022-05-18T10:02:29Z",
+      "side": 1,
+      "message": "oh, I see your point. \n\nI will do my best and try to create a CL to libyuv for that function. If it does get merged soon and lands in libwbertc, I will update this code to use it so we can merge it.\n\nHowever, if the libuv CL is stalled for any reason I will ask you in the following weeks to merge it as it is ;)",
+      "parentUuid": "aced8788_c474b05f",
+      "revId": "d3bcc3f51652bb78fd712364fea609aa0459ce65",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

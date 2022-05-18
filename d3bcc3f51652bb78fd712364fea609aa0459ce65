@@ -70,6 +70,24 @@
       "parentUuid": "fffd897d_e57d3cc9",
       "revId": "d3bcc3f51652bb78fd712364fea609aa0459ce65",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "c199956a_c4b1116c",
+        "filename": "api/video/i210_buffer.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 269,
+      "author": {
+        "id": 5963
+      },
+      "writtenOn": "2022-05-18T09:37:02Z",
+      "side": 1,
+      "message": "We can\u0027t name the function as I210toI420 as we will have a compilation issue when that same function is added to libyuv (that already happened on the 422 patch), so we would have to name it webrtcI210toI420 or similar, which would still require someone to keep an eye to rename the function once it lands in libyuv.\n\nMoreover, if we want to make that change we should make the function available to common_video/video_frame_buffer.cc so we would have to make webrtcI210toI420 public as webrtc::I210toI420 and also add it to a header file.",
+      "parentUuid": "51fc252b_01b0a5d9",
+      "revId": "d3bcc3f51652bb78fd712364fea609aa0459ce65",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

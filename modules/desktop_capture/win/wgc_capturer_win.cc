@@ -10,6 +10,7 @@
 
 #include "modules/desktop_capture/win/wgc_capturer_win.h"
 
+#include <DispatcherQueue.h>
 #include <windows.foundation.metadata.h>
 #include <windows.graphics.capture.h>
 
@@ -45,7 +46,8 @@ enum class WgcCapturerResult {
   kSessionStartFailure = 4,
   kGetFrameFailure = 5,
   kFrameDropped = 6,
-  kMaxValue = kFrameDropped
+  kCreateDispatcherQueueFailure = 7,
+  kMaxValue = kCreateDispatcherQueueFailure
 };
 
 void RecordWgcCapturerResult(WgcCapturerResult error) {
@@ -224,9 +226,29 @@ void WgcCapturerWin::CaptureFrame() {
     return;
   }
 
+  HRESULT hr;
+  if (!queue_controller_) {
+    // Set the apartment type to NONE because this thread should already be COM
+    // initialized.
+    DispatcherQueueOptions options{
+        sizeof(DispatcherQueueOptions),
+        DISPATCHERQUEUE_THREAD_TYPE::DQTYPE_THREAD_CURRENT,
+        DISPATCHERQUEUE_THREAD_APARTMENTTYPE::DQTAT_COM_NONE};
+    hr = CreateDispatcherQueueController(options, &queue_controller_);
+
+    // If there is already a DispatcherQueue on this thread, that is fine. Its
+    // lifetime is tied to the thread's, and as long as the thread has one, even
+    // if we didn't create it, the capture session's events will be delivered on
+    // this thread.
+    if (FAILED(hr) && hr != RPC_E_WRONG_THREAD) {
+      RecordWgcCapturerResult(WgcCapturerResult::kCreateDispatcherQueueFailure);
+      callback_->OnCaptureResult(DesktopCapturer::Result::ERROR_PERMANENT,
+                                 /*frame=*/nullptr);
+    }
+  }
+
   int64_t capture_start_time_nanos = rtc::TimeNanos();
 
-  HRESULT hr;
   WgcCaptureSession* capture_session = nullptr;
   std::map<SourceId, WgcCaptureSession>::iterator session_iter =
       ongoing_captures_.find(capture_source_->GetSourceId());

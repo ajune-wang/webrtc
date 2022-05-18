@@ -92,6 +92,7 @@ if (is_ios || is_mac) {
   rtc_library("base_objc") {
     visibility = [ "*" ]
     sources = [
+      "objc/base/RTCAudioDevice.h",
       "objc/base/RTCCodecSpecificInfo.h",
       "objc/base/RTCEncodedImage.h",
       "objc/base/RTCEncodedImage.m",
@@ -260,6 +261,10 @@ if (is_ios || is_mac) {
           "objc/native/src/audio/audio_device_module_ios.mm",
           "objc/native/src/audio/helpers.h",
           "objc/native/src/audio/helpers.mm",
+          "objc/native/src/audio/objc_audio_device.h",
+          "objc/native/src/audio/objc_audio_device.mm",
+          "objc/native/src/audio/objc_audio_device_delegate.h",
+          "objc/native/src/audio/objc_audio_device_delegate.mm",
           "objc/native/src/audio/voice_processing_audio_unit.h",
           "objc/native/src/audio/voice_processing_audio_unit.mm",
         ]
@@ -290,6 +295,26 @@ if (is_ios || is_mac) {
         absl_deps = [ "//third_party/abseil-cpp/absl/base:core_headers" ]
 
         frameworks = [ "AudioToolbox.framework" ]
+      }
+
+      rtc_library("external_audio_device_objc") {
+        visibility = [ "*" ]
+
+        sources = [
+          "objc/native/api/external_audio_device.h",
+          "objc/native/api/external_audio_device.mm",
+        ]
+
+        deps = [
+          ":audio_device",
+          ":base_objc",
+          "../modules/audio_device:audio_device_api",
+          "../modules/audio_device:audio_device_generic",
+          "../rtc_base:checks",
+          "../rtc_base:logging",
+          "../rtc_base:refcount",
+          "../system_wrappers",
+        ]
       }
 
       # This target exists to expose :audio_session_objc and
@@ -1044,7 +1069,10 @@ if (is_ios || is_mac) {
       ]
 
       if (is_ios) {
-        deps += [ ":native_api_audio_device_module" ]
+        deps += [
+          ":external_audio_device_objc",
+          ":native_api_audio_device_module",
+        ]
       }
     }
 
@@ -1214,6 +1242,7 @@ if (is_ios || is_mac) {
           "objc/base/RTCMacros.h",
           "objc/base/RTCMutableI420Buffer.h",
           "objc/base/RTCMutableYUVPlanarBuffer.h",
+          "objc/base/RTCAudioDevice.h",
           "objc/base/RTCSSLCertificateVerifier.h",
           "objc/base/RTCVideoCapturer.h",
           "objc/base/RTCVideoCodecInfo.h",
@@ -1403,6 +1432,7 @@ if (is_ios || is_mac) {
           "objc/api/video_codec/RTCVideoEncoderVP9.h",
           "objc/api/video_frame_buffer/RTCNativeI420Buffer.h",
           "objc/api/video_frame_buffer/RTCNativeMutableI420Buffer.h",
+          "objc/base/RTCAudioDevice.h",
           "objc/base/RTCCodecSpecificInfo.h",
           "objc/base/RTCEncodedImage.h",
           "objc/base/RTCI420Buffer.h",

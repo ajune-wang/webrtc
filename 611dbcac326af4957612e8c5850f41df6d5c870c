@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "782060c5_96d64d6f",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 9
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 6305
+      },
+      "writtenOn": "2022-05-18T09:23:24Z",
+      "side": 1,
+      "message": "Hi Henrik!\n\nI\u0027ve previously attempted to propose CL (https://webrtc-review.googlesource.com/c/src/+/239181) which adjusted current implementation of iOS ADM to solve the problem (webrtc:13436). As you reasonably noticed previous CL had major drawback: it affects all existing clients and may cause new bugs for them.\n\nThis is another attempt to provide a way to resolve webrtc:13436. \nIn this CL I\u0027m defining new protocol RTCAudioDevice which could be implemented by client application to provide playback\u0026recording to WebRTC. With this approach existing clients are not affected and new clients could replace ADM implementation  solely by using Objectice-C/Swift and having only pre-built version of WebRTC.framework.\nTo verify usability of protocol I\u0027ve implemented RTCAudioDevice in demo application via 2 different iOS APIs: AUAudioUnit and AVAudioEngine:\n1. https://github.com/mstyura/RTCAudioDevice/blob/main/CustomRTCAudioDevice/AUAudioUnitRTCAudioDevice.swift\n2. https://github.com/mstyura/RTCAudioDevice/blob/main/CustomRTCAudioDevice/AVAudioEngineRTCAudioDevice.swift\n\nCould you please give your opinion on that approach: is RTCAudioDevice acceptable addition to iOS WebRTC SDK? So I can either continue work on this CL or will look for other ways to resolve problem?\n\nThanks a lot in advance, \nYura.",
+      "revId": "611dbcac326af4957612e8c5850f41df6d5c870c",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

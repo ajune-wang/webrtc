@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "e44749e4_fdb344a5",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 3
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2022-05-18T07:24:18Z",
+      "side": 1,
+      "message": "Could consider renaming header file to receive_stream_interface.h as well. But not needed for this cl.",
+      "revId": "35a9fe04ad9e49e93fc08ab86bcdd18dfdd9d1ca",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

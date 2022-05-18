@@ -55,7 +55,13 @@ class BuiltinVideoEncoderFactory : public VideoEncoderFactory {
 
 }  // namespace
 
+// Marked deprecated.
 std::unique_ptr<VideoEncoderFactory> CreateBuiltinVideoEncoderFactory() {
+  return std::make_unique<BuiltinVideoEncoderFactory>();
+}
+
+std::unique_ptr<VideoEncoderFactory>
+DEPRECATED_CreateBuiltinVideoEncoderFactory() {
   return std::make_unique<BuiltinVideoEncoderFactory>();
 }
 

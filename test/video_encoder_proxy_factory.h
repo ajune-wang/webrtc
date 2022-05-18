@@ -40,9 +40,7 @@ class VideoEncoderProxyFactory : public VideoEncoderFactory {
         max_num_simultaneous_encoder_instances_(0) {
   }
 
-  // Unused by tests.
   std::vector<SdpVideoFormat> GetSupportedFormats() const override {
-    RTC_DCHECK_NOTREACHED();
     return {};
   }
 

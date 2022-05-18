@@ -52,6 +52,24 @@
       "parentUuid": "a57b9e7f_c9bcf4a9",
       "revId": "d3bcc3f51652bb78fd712364fea609aa0459ce65",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "51fc252b_01b0a5d9",
+        "filename": "api/video/i210_buffer.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 269,
+      "author": {
+        "id": 5117
+      },
+      "writtenOn": "2022-05-18T09:07:20Z",
+      "side": 1,
+      "message": "I think adding a I210toI420 now in libyuv (even as a two-step process) and leaving a todo(crbug.com/p/libyuv/931) there is better, since the code in webrtc won\u0027t have to be changed after libyuv issue is fixed. Otherwise someone has to keep an eye on it and update the webrtc code later, which might get forgotten.\n\nThus, I\u0027m asking you to move the code to libyuv now, so that the remaining work would happen only in libyuv.",
+      "parentUuid": "fffd897d_e57d3cc9",
+      "revId": "d3bcc3f51652bb78fd712364fea609aa0459ce65",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

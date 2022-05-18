@@ -470,6 +470,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "969ec610_f43a4ed0",
+        "filename": "common_video/video_frame_buffer.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 222,
+      "author": {
+        "id": 5117
+      },
+      "writtenOn": "2022-05-18T09:07:20Z",
+      "side": 1,
+      "message": "If you feel like it, please go ahead and remove the redundancy in other buffers also. But it won\u0027t block this CL landing if it\u0027s not done.",
+      "parentUuid": "f97477d6_0a3e02e2",
+      "range": {
+        "startLine": 222,
+        "startChar": 10,
+        "endLine": 222,
+        "endChar": 20
+      },
+      "revId": "9acf413cf9e391a5f87420882ab6fb5c99b7da7f",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "7cf93da6_2621afb8",
         "filename": "modules/video_coding/codecs/h264/h264_decoder_impl.cc",
         "patchSetId": 2

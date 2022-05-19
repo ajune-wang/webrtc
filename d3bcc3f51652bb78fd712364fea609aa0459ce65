@@ -142,6 +142,24 @@
       "parentUuid": "8f900c48_6115e469",
       "revId": "d3bcc3f51652bb78fd712364fea609aa0459ce65",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "69c976c4_07eb0b73",
+        "filename": "api/video/i210_buffer.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 269,
+      "author": {
+        "id": 5963
+      },
+      "writtenOn": "2022-05-19T14:32:02Z",
+      "side": 1,
+      "message": "CL to libyuv available in here:\n\nhttps://chromium-review.googlesource.com/c/libyuv/libyuv/+/3655455",
+      "parentUuid": "b3dec15f_32299847",
+      "revId": "d3bcc3f51652bb78fd712364fea609aa0459ce65",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

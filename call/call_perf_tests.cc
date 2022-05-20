@@ -124,15 +124,15 @@ class VideoRtcpAndSyncObserver : public test::RtpRtcpObserver,
     if (stats.sync_offset_ms == std::numeric_limits<int>::max())
       return;
 
-    int64_t now_ms = clock_->TimeInMilliseconds();
-    int64_t time_since_creation = now_ms - creation_time_ms_;
+    int64_t time_since_creation =
+        clock_->TimeInMilliseconds() - creation_time_ms_;
     // During the first couple of seconds audio and video can falsely be
     // estimated as being synchronized. We don't want to trigger on those.
     if (time_since_creation < kStartupTimeMs)
       return;
     if (std::abs(stats.sync_offset_ms) < kInSyncThresholdMs) {
-      if (first_time_in_sync_ == -1) {
-        first_time_in_sync_ = now_ms;
+      if (!first_time_in_sync_) {
+        first_time_in_sync_ = true;
         webrtc::test::PrintResult("sync_convergence_time", test_label_,
                                   "synchronization", time_since_creation, "ms",
                                   false);
@@ -140,7 +140,7 @@ class VideoRtcpAndSyncObserver : public test::RtpRtcpObserver,
       if (time_since_creation > kMinRunTimeMs)
         observation_complete_.Set();
     }
-    if (first_time_in_sync_ != -1)
+    if (first_time_in_sync_)
       sync_offset_ms_list_.push_back(stats.sync_offset_ms);
   }
 
@@ -159,7 +159,7 @@ class VideoRtcpAndSyncObserver : public test::RtpRtcpObserver,
   Clock* const clock_;
   const std::string test_label_;
   const int64_t creation_time_ms_;
-  int64_t first_time_in_sync_ = -1;
+  bool first_time_in_sync_ = false;
   VideoReceiveStream* receive_stream_ = nullptr;
   std::vector<double> sync_offset_ms_list_;
   TaskQueueBase* const task_queue_;
@@ -393,10 +393,7 @@ void CallPerfTest::TestCaptureNtpTime(
           threshold_ms_(threshold_ms),
           start_time_ms_(start_time_ms),
           run_time_ms_(run_time_ms),
-          creation_time_ms_(clock_->TimeInMilliseconds()),
-          capturer_(nullptr),
-          rtp_start_timestamp_set_(false),
-          rtp_start_timestamp_(0) {}
+          creation_time_ms_(clock_->TimeInMilliseconds()) {}
 
    private:
     std::unique_ptr<test::PacketTransport> CreateSendTransport(
@@ -461,17 +458,16 @@ void CallPerfTest::TestCaptureNtpTime(
       RtpPacket rtp_packet;
       EXPECT_TRUE(rtp_packet.Parse(packet, length));
 
-      if (!rtp_start_timestamp_set_) {
+      if (!rtp_start_timestamp_) {
         // Calculate the rtp timestamp offset in order to calculate the real
         // capture time.
         uint32_t first_capture_timestamp =
             90 * static_cast<uint32_t>(capturer_->first_frame_capture_time());
         rtp_start_timestamp_ = rtp_packet.Timestamp() - first_capture_timestamp;
-        rtp_start_timestamp_set_ = true;
       }
 
       uint32_t capture_timestamp =
-          rtp_packet.Timestamp() - rtp_start_timestamp_;
+          rtp_packet.Timestamp() - *rtp_start_timestamp_;
       capture_time_list_.insert(
           capture_time_list_.end(),
           std::make_pair(rtp_packet.Timestamp(), capture_timestamp));
@@ -506,9 +502,8 @@ void CallPerfTest::TestCaptureNtpTime(
     const int start_time_ms_;
     const int run_time_ms_;
     const int64_t creation_time_ms_;
-    test::FrameGeneratorCapturer* capturer_;
-    bool rtp_start_timestamp_set_;
-    uint32_t rtp_start_timestamp_;
+    test::FrameGeneratorCapturer* capturer_ = nullptr;
+    absl::optional<uint32_t> rtp_start_timestamp_;
     typedef std::map<uint32_t, uint32_t> FrameCaptureTimeList;
     FrameCaptureTimeList capture_time_list_ RTC_GUARDED_BY(&mutex_);
     std::vector<double> time_offset_ms_list_;
@@ -793,10 +788,6 @@ TEST_F(CallPerfTest, MAYBE_KeepsHighBitrateWhenReconfiguringSender) {
     explicit BitrateObserver(TaskQueueBase* task_queue)
         : EndToEndTest(kDefaultTimeoutMs),
           FakeEncoder(Clock::GetRealTimeClock()),
-          encoder_inits_(0),
-          last_set_bitrate_kbps_(0),
-          send_stream_(nullptr),
-          frame_generator_(nullptr),
           encoder_factory_(this),
           bitrate_allocator_factory_(
               CreateBuiltinVideoBitrateAllocatorFactory()),
@@ -804,19 +795,17 @@ TEST_F(CallPerfTest, MAYBE_KeepsHighBitrateWhenReconfiguringSender) {
 
     int32_t InitEncode(const VideoCodec* config,
                        const VideoEncoder::Settings& settings) override {
-      ++encoder_inits_;
-      if (encoder_inits_ == 1) {
+      if (FakeEncoder::GetNumInitializations() == 0) {
         // First time initialization. Frame size is known.
         // `expected_bitrate` is affected by bandwidth estimation before the
         // first frame arrives to the encoder.
-        uint32_t expected_bitrate = last_set_bitrate_kbps_ > 0
-                                        ? last_set_bitrate_kbps_
-                                        : kInitialBitrateKbps;
+        uint32_t expected_bitrate =
+            last_set_bitrate_kbps_.value_or(kInitialBitrateKbps);
         EXPECT_EQ(expected_bitrate, config->startBitrate)
             << "Encoder not initialized at expected bitrate.";
         EXPECT_EQ(kDefaultWidth, config->width);
         EXPECT_EQ(kDefaultHeight, config->height);
-      } else if (encoder_inits_ == 2) {
+      } else if (FakeEncoder::GetNumInitializations() == 1) {
         EXPECT_EQ(2 * kDefaultWidth, config->width);
         EXPECT_EQ(2 * kDefaultHeight, config->height);
         EXPECT_GE(last_set_bitrate_kbps_, kReconfigureThresholdKbps);
@@ -829,7 +818,7 @@ TEST_F(CallPerfTest, MAYBE_KeepsHighBitrateWhenReconfiguringSender) {
 
     void SetRates(const RateControlParameters& parameters) override {
       last_set_bitrate_kbps_ = parameters.bitrate.get_sum_kbps();
-      if (encoder_inits_ == 1 &&
+      if (FakeEncoder::GetNumInitializations() == 1 &&
           parameters.bitrate.get_sum_kbps() > kReconfigureThresholdKbps) {
         time_to_reconfigure_.Set();
       }
@@ -880,10 +869,9 @@ TEST_F(CallPerfTest, MAYBE_KeepsHighBitrateWhenReconfiguringSender) {
 
    private:
     rtc::Event time_to_reconfigure_;
-    int encoder_inits_;
-    uint32_t last_set_bitrate_kbps_;
-    VideoSendStream* send_stream_;
-    test::FrameGeneratorCapturer* frame_generator_;
+    absl::optional<uint32_t> last_set_bitrate_kbps_;
+    VideoSendStream* send_stream_ = nullptr;
+    test::FrameGeneratorCapturer* frame_generator_ = nullptr;
     test::VideoEncoderProxyFactory encoder_factory_;
     std::unique_ptr<VideoBitrateAllocatorFactory> bitrate_allocator_factory_;
     VideoEncoderConfig encoder_config_;

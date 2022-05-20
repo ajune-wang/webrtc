@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "ec6d5aa6_25e1084d",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 3
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5527
+      },
+      "writtenOn": "2022-05-20T09:29:53Z",
+      "side": 1,
+      "message": "Jut curios, what is the intended use case for this?\n\nTypically I would hand this to Erik, but he is on vacation for two weeks. Åsa do you know this code?\n\nIf not would it be possible to wait to land this CL?",
+      "revId": "2a191ad5972b7fefebf6b9b784919f5062c6714d",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

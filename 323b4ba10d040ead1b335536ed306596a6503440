@@ -16,6 +16,98 @@
       "message": "Thanks a lot for the review. I have tried to address your comments.",
       "revId": "323b4ba10d040ead1b335536ed306596a6503440",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "5fa61d8d_6ba1138c",
+        "filename": "modules/audio_processing/aec3/alignment_mixer.cc",
+        "patchSetId": 18
+      },
+      "lineNbr": 112,
+      "author": {
+        "id": 5125
+      },
+      "writtenOn": "2022-05-20T08:41:07Z",
+      "side": 1,
+      "message": "This is something I\u0027d like to avoid.\nWith this, we have no longer any concept of the length, and the reader of the code will have a hard time verifying that the pointer cannot be null, or point to incorrect memory.\n\nThat is a downgrade from the previous implementation where none of that could happen.",
+      "range": {
+        "startLine": 112,
+        "startChar": 29,
+        "endLine": 112,
+        "endChar": 59
+      },
+      "revId": "323b4ba10d040ead1b335536ed306596a6503440",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "766db357_2eb31edd",
+        "filename": "modules/audio_processing/aec3/alignment_mixer.cc",
+        "patchSetId": 18
+      },
+      "lineNbr": 128,
+      "author": {
+        "id": 5125
+      },
+      "writtenOn": "2022-05-20T08:41:07Z",
+      "side": 1,
+      "message": "Same comment as above",
+      "range": {
+        "startLine": 128,
+        "startChar": 50,
+        "endLine": 128,
+        "endChar": 62
+      },
+      "revId": "323b4ba10d040ead1b335536ed306596a6503440",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "9ee19a2a_7cea3ac0",
+        "filename": "modules/audio_processing/aec3/block.h",
+        "patchSetId": 18
+      },
+      "lineNbr": 54,
+      "author": {
+        "id": 5125
+      },
+      "writtenOn": "2022-05-20T08:41:07Z",
+      "side": 1,
+      "message": "One slight limitation of this class, which becomes apparent in the alingment mixer, is that it is not possible to use it to only pass the information of band 0.\n\nWould it be possible to return an arrayview of arrayviews that only refer to the data for a specific band?",
+      "range": {
+        "startLine": 54,
+        "startChar": 2,
+        "endLine": 54,
+        "endChar": 31
+      },
+      "revId": "323b4ba10d040ead1b335536ed306596a6503440",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "5d54814c_01bcf676",
+        "filename": "modules/audio_processing/aec3/echo_path_delay_estimator.cc",
+        "patchSetId": 18
+      },
+      "lineNbr": 62,
+      "author": {
+        "id": 5125
+      },
+      "writtenOn": "2022-05-20T08:41:07Z",
+      "side": 1,
+      "message": "Is this really correct? The former code passed the samples and channels for band 0\n\nBut the new code passes the information for all bands",
+      "range": {
+        "startLine": 62,
+        "startChar": 10,
+        "endLine": 62,
+        "endChar": 24
+      },
+      "revId": "323b4ba10d040ead1b335536ed306596a6503440",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

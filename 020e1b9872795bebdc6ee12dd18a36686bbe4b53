@@ -85,6 +85,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "da1ed718_90ef23f2",
+        "filename": "modules/audio_processing/aec3/alignment_mixer.cc",
+        "patchSetId": 15
+      },
+      "lineNbr": 75,
+      "author": {
+        "id": 5125
+      },
+      "writtenOn": "2022-05-20T08:41:07Z",
+      "side": 1,
+      "message": "I think the reason we end up in this situation is that\nThe CL changes the AlignmentMixer to both be called with a Block (which contains all bands) and the former way (which only passes the channels and samples for band 0).\n\n\nAs I see it, there are two options\n1. Keep calling this with only the the channels and samples for band 0.\n2. Change the other invokation of this to also call it using a Block.\n\n\nI\u0027d prefer a combination of 1) and 2) where the other invokation also uses the new Block structure but only passes the channels and samples for band 0.\n\nWould it be possible to achieve a method where the Block returns an arrayview of arrayviews?",
+      "parentUuid": "241a81e8_ca293260",
+      "range": {
+        "startLine": 71,
+        "startChar": 2,
+        "endLine": 75,
+        "endChar": 3
+      },
+      "revId": "020e1b9872795bebdc6ee12dd18a36686bbe4b53",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "e4f13d0d_8a8257dd",
         "filename": "modules/audio_processing/aec3/alignment_mixer.cc",
         "patchSetId": 15

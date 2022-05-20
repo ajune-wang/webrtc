@@ -239,13 +239,6 @@
       }
     }
   },
-  'win10-1703': {
-    'swarming': {
-      'dimensions': {
-        'os': 'Windows-10-15063',
-      },
-    },
-  },
   'xcode_12a7209': {
     '$mixin_append': {
       'args': ['--xcode-build-version', '12a7209'],

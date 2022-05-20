@@ -66,6 +66,8 @@ const int kWindowHeightSubtrahend = 7;
 const UINT kDestroyWindow = WM_APP;
 const UINT kQuitRunning = WM_APP + 1;
 
+const int kMaxTries = 500;
+
 }  // namespace
 
 class WgcCapturerWinTest : public ::testing::TestWithParam<CaptureType>,
@@ -189,9 +191,11 @@ class WgcCapturerWinTest : public ::testing::TestWithParam<CaptureType>,
     // Sometimes the first few frames are empty becaues the capture engine is
     // still starting up. We also may drop a few frames when the window is
     // resized or un-minimized.
+    int num_tries = 0;
     do {
       capturer_->CaptureFrame();
-    } while (result_ == DesktopCapturer::Result::ERROR_TEMPORARY);
+    } while (result_ == DesktopCapturer::Result::ERROR_TEMPORARY &&
+             ++num_tries < kMaxTries);
 
     EXPECT_EQ(result_, DesktopCapturer::Result::SUCCESS);
     EXPECT_TRUE(frame_);
@@ -310,10 +314,12 @@ TEST_P(WgcCapturerWinTest, CaptureTime) {
   capturer_->Start(this);
 
   int64_t start_time;
+  int num_tries = 0;
   do {
     start_time = rtc::TimeNanos();
     capturer_->CaptureFrame();
-  } while (result_ == DesktopCapturer::Result::ERROR_TEMPORARY);
+  } while (result_ == DesktopCapturer::Result::ERROR_TEMPORARY &&
+           ++num_tries < kMaxTries);
 
   int capture_time_ms =
       (rtc::TimeNanos() - start_time) / rtc::kNumNanosecsPerMillisec;
@@ -491,7 +497,7 @@ TEST_F(WgcCapturerWindowTest, MinimizeWindowMidCapture) {
 
   // Minmize the window and capture should continue but return temporary errors.
   MinimizeTestWindow(window_info_.hwnd);
-  for (int i = 0; i < 10; ++i) {
+  for (int i = 0; i < 5; ++i) {
     capturer_->CaptureFrame();
     EXPECT_EQ(result_, DesktopCapturer::Result::ERROR_TEMPORARY);
   }
@@ -520,17 +526,23 @@ TEST_F(WgcCapturerWindowTest, CloseWindowMidCapture) {
   // stops.
   auto* wgc_capturer = static_cast<WgcCapturerWin*>(capturer_.get());
   MSG msg;
-  while (wgc_capturer->IsSourceBeingCaptured(source_id_)) {
+  int num_tries = 0;
+  while (wgc_capturer->IsSourceBeingCaptured(source_id_) &&
+         num_tries++ < kMaxTries) {
     // Unlike GetMessage, PeekMessage will not hang if there are no messages in
     // the queue.
     PeekMessage(&msg, 0, 0, 0, PM_REMOVE);
     SleepMs(1);
   }
 
-  // Occasionally, one last frame will have made it into the frame pool before
-  // the window closed. The first call will consume it, and in that case we need
-  // to make one more call to CaptureFrame.
+  EXPECT_FALSE(wgc_capturer->IsSourceBeingCaptured(source_id_));
+
+  // The frame pool can buffer `kNumBuffers` (2) frames. We must consume these
+  // and then make one more call to CaptureFrame before we expect to see the
+  // failure.
   capturer_->CaptureFrame();
+  if (result_ == DesktopCapturer::Result::SUCCESS)
+    capturer_->CaptureFrame();
   if (result_ == DesktopCapturer::Result::SUCCESS)
     capturer_->CaptureFrame();
 

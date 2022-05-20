@@ -18,11 +18,11 @@
 
 namespace webrtc {
 
-class VCMRttFilter {
+class RttFilter {
  public:
-  VCMRttFilter();
-  VCMRttFilter(const VCMRttFilter&) = delete;
-  VCMRttFilter& operator=(const VCMRttFilter&) = delete;
+  RttFilter();
+  RttFilter(const RttFilter&) = delete;
+  RttFilter& operator=(const RttFilter&) = delete;
 
   // Resets the filter.
   void Reset();

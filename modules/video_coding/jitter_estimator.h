@@ -152,7 +152,7 @@ class VCMJitterEstimator {
   // Keeps track of the number of nacks received, but never goes above
   // kNackLimit.
   uint32_t nack_count_;
-  VCMRttFilter rtt_filter_;
+  RttFilter rtt_filter_;
 
   // Tracks frame rates in microseconds.
   rtc::RollingAccumulator<uint64_t> fps_counter_;

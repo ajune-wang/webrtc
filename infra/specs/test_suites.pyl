@@ -239,19 +239,17 @@
     },
     'win_video_capture_tests': {
       'video_capture_tests': {
-        'remove_mixins': ['win7'],
         'mixins': ['win', 'baremetal-pool'],
       }
     },
     'win_video_capture_tests_tryserver': {
       'video_capture_tests': {
-        'remove_mixins': ['win7'],
         'mixins': ['win', 'baremetal-try-pool'],
       }
     },
     'win_webrtc_perf_tests_tryserver': {
       'webrtc_perf_tests': {
-        'remove_mixins': ['win7', 'resultdb-json-format'],
+        'remove_mixins': ['resultdb-json-format'],
         'mixins': [
           'win', 'baremetal-try-pool', 'quick-perf-tests',
           'resultdb-gtest-json-format'

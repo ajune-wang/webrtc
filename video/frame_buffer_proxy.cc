@@ -501,8 +501,7 @@ class FrameBuffer3Proxy : public FrameBufferProxy {
 
   VCMJitterEstimator jitter_estimator_
       RTC_GUARDED_BY(&worker_sequence_checker_);
-  VCMInterFrameDelay inter_frame_delay_
-      RTC_GUARDED_BY(&worker_sequence_checker_);
+  InterFrameDelay inter_frame_delay_ RTC_GUARDED_BY(&worker_sequence_checker_);
   bool keyframe_required_ RTC_GUARDED_BY(&worker_sequence_checker_) = false;
   std::unique_ptr<FrameBuffer> buffer_
       RTC_GUARDED_BY(&worker_sequence_checker_);

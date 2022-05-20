@@ -74,6 +74,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "15791ce2_f9d51e22",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 4
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 18474
+      },
+      "writtenOn": "2022-05-20T17:46:51Z",
+      "side": 1,
+      "message": "FWIW, when I run this locally I see one of the tests hang because it looks like we never get the \"Closed\" event to stop one of the captures, so they test just waits for forever.",
+      "parentUuid": "3a1bad55_7456b030",
+      "revId": "90712d192cfa63ea8b3fbd263b81e175c31e763c",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "6c03636a_16048b21",
         "filename": "modules/desktop_capture/win/wgc_capture_session.cc",
         "patchSetId": 4
@@ -228,6 +246,30 @@
       "side": 1,
       "message": "Oh sorry, I did not end up doing this actually. RTC_LOG expects a char* and adding std::hex turns it into a std::ios_base type which does not compile.",
       "parentUuid": "05434d2a_ab2cfe26",
+      "range": {
+        "startLine": 114,
+        "startChar": 26,
+        "endLine": 114,
+        "endChar": 31
+      },
+      "revId": "90712d192cfa63ea8b3fbd263b81e175c31e763c",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "44542609_6437b17e",
+        "filename": "modules/desktop_capture/win/wgc_capture_session.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 114,
+      "author": {
+        "id": 18474
+      },
+      "writtenOn": "2022-05-20T17:46:51Z",
+      "side": 1,
+      "message": "Ack :(",
+      "parentUuid": "4abf049c_243cba6e",
       "range": {
         "startLine": 114,
         "startChar": 26,

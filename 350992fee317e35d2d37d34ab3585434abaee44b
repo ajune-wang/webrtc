@@ -1,0 +1,44 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "307cfccd_5c25fd48",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 7
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5578
+      },
+      "writtenOn": "2022-05-20T06:08:17Z",
+      "side": 1,
+      "message": "Nice. Thanks. \n\nlgtm % default of schedule_periodic_compound_packets ",
+      "revId": "350992fee317e35d2d37d34ab3585434abaee44b",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "ea2afb51_354295dd",
+        "filename": "modules/rtp_rtcp/source/rtcp_transceiver_impl_unittest.cc",
+        "patchSetId": 7
+      },
+      "lineNbr": 188,
+      "author": {
+        "id": 5578
+      },
+      "writtenOn": "2022-05-20T06:08:17Z",
+      "side": 1,
+      "message": "schedule_periodic_compound_packets is per default enabled. Also in prod. So it would make more sense to have it per default enabled in tests as well.",
+      "range": {
+        "startLine": 188,
+        "startChar": 11,
+        "endLine": 188,
+        "endChar": 46
+      },
+      "revId": "350992fee317e35d2d37d34ab3585434abaee44b",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

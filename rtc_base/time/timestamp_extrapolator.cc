@@ -12,13 +12,10 @@
 
 #include <algorithm>
 
-#include "absl/types/optional.h"
-
 namespace webrtc {
 
-TimestampExtrapolator::TimestampExtrapolator(Timestamp start)
-    : _start(Timestamp::Zero()),
-      _prev(Timestamp::Zero()),
+TimestampExtrapolator::TimestampExtrapolator(int64_t start_ms)
+    : _startMs(0),
       _firstTimestamp(0),
       _wrapArounds(0),
       _prevUnwrappedTimestamp(-1),
@@ -33,12 +30,12 @@ TimestampExtrapolator::TimestampExtrapolator(Timestamp start)
       _accDrift(6600),  // in timestamp ticks, i.e. 15 ms
       _accMaxError(7000),
       _pP11(1e10) {
-  Reset(start);
+  Reset(start_ms);
 }
 
-void TimestampExtrapolator::Reset(Timestamp start) {
-  _start = start;
-  _prev = _start;
+void TimestampExtrapolator::Reset(int64_t start_ms) {
+  _startMs = start_ms;
+  _prevMs = _startMs;
   _firstTimestamp = 0;
   _w[0] = 90.0;
   _w[1] = 0;
@@ -54,18 +51,17 @@ void TimestampExtrapolator::Reset(Timestamp start) {
   _detectorAccumulatorNeg = 0;
 }
 
-void TimestampExtrapolator::Update(Timestamp now, uint32_t ts90khz) {
-  if (now - _prev > TimeDelta::Seconds(10)) {
+void TimestampExtrapolator::Update(int64_t tMs, uint32_t ts90khz) {
+  if (tMs - _prevMs > 10e3) {
     // Ten seconds without a complete frame.
     // Reset the extrapolator
-    Reset(now);
+    Reset(tMs);
   } else {
-    _prev = now;
+    _prevMs = tMs;
   }
 
   // Remove offset to prevent badly scaled matrices
-  const TimeDelta offset = now - _start;
-  double tMs = offset.ms();
+  tMs -= _startMs;
 
   CheckForWrapArounds(ts90khz);
 
@@ -83,7 +79,7 @@ void TimestampExtrapolator::Update(Timestamp now, uint32_t ts90khz) {
   }
 
   double residual = (static_cast<double>(unwrapped_ts90khz) - _firstTimestamp) -
-                    tMs * _w[0] - _w[1];
+                    static_cast<double>(tMs) * _w[0] - _w[1];
   if (DelayChangeDetection(residual) &&
       _packetCount >= _startUpFilterDelayInPackets) {
     // A sudden change of average network delay has been detected.
@@ -127,28 +123,32 @@ void TimestampExtrapolator::Update(Timestamp now, uint32_t ts90khz) {
   }
 }
 
-absl::optional<Timestamp> TimestampExtrapolator::ExtrapolateLocalTime(
-    uint32_t timestamp90khz) {
+int64_t TimestampExtrapolator::ExtrapolateLocalTime(uint32_t timestamp90khz) {
+  int64_t localTimeMs = 0;
   CheckForWrapArounds(timestamp90khz);
   double unwrapped_ts90khz =
       static_cast<double>(timestamp90khz) +
       _wrapArounds * ((static_cast<int64_t>(1) << 32) - 1);
   if (_packetCount == 0) {
-    return absl::nullopt;
+    localTimeMs = -1;
   } else if (_packetCount < _startUpFilterDelayInPackets) {
-    auto diffMs = static_cast<int64_t>(
-        static_cast<double>(unwrapped_ts90khz - _prevUnwrappedTimestamp) /
-            90.0 +
-        0.5);
-    return _prev + TimeDelta::Millis(diffMs);
-  } else if (_w[0] < 1e-3) {
-    return _start;
+    localTimeMs =
+        _prevMs +
+        static_cast<int64_t>(
+            static_cast<double>(unwrapped_ts90khz - _prevUnwrappedTimestamp) /
+                90.0 +
+            0.5);
   } else {
-    double timestampDiff =
-        unwrapped_ts90khz - static_cast<double>(_firstTimestamp);
-    auto diffMs = static_cast<int64_t>((timestampDiff - _w[1]) / _w[0] + 0.5);
-    return _start + TimeDelta::Millis(diffMs);
+    if (_w[0] < 1e-3) {
+      localTimeMs = _startMs;
+    } else {
+      double timestampDiff =
+          unwrapped_ts90khz - static_cast<double>(_firstTimestamp);
+      localTimeMs = static_cast<int64_t>(static_cast<double>(_startMs) +
+                                         (timestampDiff - _w[1]) / _w[0] + 0.5);
+    }
   }
+  return localTimeMs;
 }
 
 // Investigates if the timestamp clock has overflowed since the last timestamp

@@ -203,9 +203,8 @@ int32_t VideoReceiver::Decode(uint16_t maxWaitTimeMs) {
   }
 
   // If this frame was too late, we should adjust the delay accordingly
-  if (frame->RenderTimeMs() > 0)
-    _timing->UpdateCurrentDelay(Timestamp::Millis(frame->RenderTimeMs()),
-                                clock_->CurrentTime());
+  _timing->UpdateCurrentDelay(frame->RenderTimeMs(),
+                              clock_->TimeInMilliseconds());
 
   if (first_frame_received_()) {
     RTC_LOG(LS_INFO) << "Received first complete decodable video frame";

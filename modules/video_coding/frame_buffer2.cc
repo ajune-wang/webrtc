@@ -104,7 +104,7 @@ void FrameBuffer::NextFrame(int64_t max_wait_time_ms,
 void FrameBuffer::StartWaitForNextFrameOnQueue() {
   RTC_DCHECK(callback_queue_);
   RTC_DCHECK(!callback_task_.Running());
-  int64_t wait_ms = FindNextFrame(clock_->CurrentTime());
+  int64_t wait_ms = FindNextFrame(clock_->TimeInMilliseconds());
   callback_task_ = RepeatingTaskHandle::DelayedStart(
       callback_queue_->Get(), TimeDelta::Millis(wait_ms),
       [this] {
@@ -118,12 +118,13 @@ void FrameBuffer::StartWaitForNextFrameOnQueue() {
           if (!frames_to_decode_.empty()) {
             // We have frames, deliver!
             frame = GetNextFrame();
-            timing_->SetLastDecodeScheduledTimestamp(clock_->CurrentTime());
+            timing_->SetLastDecodeScheduledTimestamp(
+                clock_->TimeInMilliseconds());
           } else if (clock_->TimeInMilliseconds() < latest_return_time_ms_) {
             // If there's no frames to decode and there is still time left, it
             // means that the frame buffer was cleared between creation and
             // execution of this task. Continue waiting for the remaining time.
-            int64_t wait_ms = FindNextFrame(clock_->CurrentTime());
+            int64_t wait_ms = FindNextFrame(clock_->TimeInMilliseconds());
             return TimeDelta::Millis(wait_ms);
           }
           frame_handler = std::move(frame_handler_);
@@ -136,8 +137,8 @@ void FrameBuffer::StartWaitForNextFrameOnQueue() {
       TaskQueueBase::DelayPrecision::kHigh);
 }
 
-int64_t FrameBuffer::FindNextFrame(Timestamp now) {
-  int64_t wait_ms = latest_return_time_ms_ - now.ms();
+int64_t FrameBuffer::FindNextFrame(int64_t now_ms) {
+  int64_t wait_ms = latest_return_time_ms_ - now_ms;
   frames_to_decode_.clear();
 
   // `last_continuous_frame_` may be empty below, but nullopt is smaller
@@ -216,16 +217,14 @@ int64_t FrameBuffer::FindNextFrame(Timestamp now) {
 
     frames_to_decode_ = std::move(current_superframe);
 
-    absl::optional<Timestamp> render_time = frame->RenderTimestamp();
-    if (!render_time) {
-      render_time = timing_->RenderTime(frame->Timestamp(), now);
-      frame->SetRenderTime(render_time->ms());
+    if (frame->RenderTime() == -1) {
+      frame->SetRenderTime(timing_->RenderTimeMs(frame->Timestamp(), now_ms));
     }
     bool too_many_frames_queued =
         frames_.size() > zero_playout_delay_max_decode_queue_size_ ? true
                                                                    : false;
-    wait_ms =
-        timing_->MaxWaitingTime(*render_time, now, too_many_frames_queued).ms();
+    wait_ms = timing_->MaxWaitingTime(frame->RenderTime(), now_ms,
+                                      too_many_frames_queued);
 
     // This will cause the frame buffer to prefer high framerate rather
     // than high resolution in the case of the decoder not decoding fast
@@ -237,14 +236,14 @@ int64_t FrameBuffer::FindNextFrame(Timestamp now) {
 
     break;
   }
-  wait_ms = std::min<int64_t>(wait_ms, latest_return_time_ms_ - now.ms());
+  wait_ms = std::min<int64_t>(wait_ms, latest_return_time_ms_ - now_ms);
   wait_ms = std::max<int64_t>(wait_ms, 0);
   return wait_ms;
 }
 
 std::unique_ptr<EncodedFrame> FrameBuffer::GetNextFrame() {
   RTC_DCHECK_RUN_ON(&callback_checker_);
-  Timestamp now = clock_->CurrentTime();
+  int64_t now_ms = clock_->TimeInMilliseconds();
   // TODO(ilnik): remove `frames_out` use frames_to_decode_ directly.
   std::vector<std::unique_ptr<EncodedFrame>> frames_out;
 
@@ -252,21 +251,21 @@ std::unique_ptr<EncodedFrame> FrameBuffer::GetNextFrame() {
   bool superframe_delayed_by_retransmission = false;
   size_t superframe_size = 0;
   const EncodedFrame& first_frame = *frames_to_decode_[0]->second.frame;
-  absl::optional<Timestamp> render_time = first_frame.RenderTimestamp();
+  int64_t render_time_ms = first_frame.RenderTime();
   int64_t receive_time_ms = first_frame.ReceivedTime();
   // Gracefully handle bad RTP timestamps and render time issues.
-  if (!render_time ||
-      FrameHasBadRenderTiming(*render_time, now, timing_->TargetVideoDelay())) {
+  if (FrameHasBadRenderTiming(first_frame.RenderTimeMs(), now_ms,
+                              timing_->TargetVideoDelay())) {
     jitter_estimator_.Reset();
     timing_->Reset();
-    render_time = timing_->RenderTime(first_frame.Timestamp(), now);
+    render_time_ms = timing_->RenderTimeMs(first_frame.Timestamp(), now_ms);
   }
 
   for (FrameMap::iterator& frame_it : frames_to_decode_) {
     RTC_DCHECK(frame_it != frames_.end());
     std::unique_ptr<EncodedFrame> frame = std::move(frame_it->second.frame);
 
-    frame->SetRenderTime(render_time->ms());
+    frame->SetRenderTime(render_time_ms);
 
     superframe_delayed_by_retransmission |= frame->delayed_by_retransmission();
     receive_time_ms = std::max(receive_time_ms, frame->ReceivedTime());
@@ -306,9 +305,9 @@ std::unique_ptr<EncodedFrame> FrameBuffer::GetNextFrame() {
       rtt_mult = rtt_mult_settings_->rtt_mult_setting;
       rtt_mult_add_cap_ms = rtt_mult_settings_->rtt_mult_add_cap_ms;
     }
-    timing_->SetJitterDelay(TimeDelta::Millis(
-        jitter_estimator_.GetJitterEstimate(rtt_mult, rtt_mult_add_cap_ms)));
-    timing_->UpdateCurrentDelay(*render_time, now);
+    timing_->SetJitterDelay(
+        jitter_estimator_.GetJitterEstimate(rtt_mult, rtt_mult_add_cap_ms));
+    timing_->UpdateCurrentDelay(render_time_ms, now_ms);
   } else {
     if (RttMultExperiment::RttMultEnabled())
       jitter_estimator_.FrameNacked();
@@ -447,10 +446,8 @@ int64_t FrameBuffer::InsertFrame(std::unique_ptr<EncodedFrame> frame) {
   if (!UpdateFrameInfoWithIncomingFrame(*frame, info))
     return last_continuous_frame_id;
 
-  // If ReceiveTime is negative then it is not a valid timestamp.
-  if (!frame->delayed_by_retransmission() && frame->ReceivedTime() >= 0)
-    timing_->IncomingTimestamp(frame->Timestamp(),
-                               Timestamp::Millis(frame->ReceivedTime()));
+  if (!frame->delayed_by_retransmission())
+    timing_->IncomingTimestamp(frame->Timestamp(), frame->ReceivedTime());
 
   // It can happen that a frame will be reported as fully received even if a
   // lower spatial layer frame is missing.
@@ -594,17 +591,18 @@ void FrameBuffer::UpdateJitterDelay() {
   if (!stats_callback_)
     return;
 
-  TimeDelta max_decode = TimeDelta::Zero();
-  TimeDelta current_delay = TimeDelta::Zero();
-  TimeDelta target_delay = TimeDelta::Zero();
-  TimeDelta jitter_buffer = TimeDelta::Zero();
-  TimeDelta min_playout_delay = TimeDelta::Zero();
-  TimeDelta render_delay = TimeDelta::Zero();
-  if (timing_->GetTimings(&max_decode, &current_delay, &target_delay,
-                          &jitter_buffer, &min_playout_delay, &render_delay)) {
+  int max_decode_ms;
+  int current_delay_ms;
+  int target_delay_ms;
+  int jitter_buffer_ms;
+  int min_playout_delay_ms;
+  int render_delay_ms;
+  if (timing_->GetTimings(&max_decode_ms, &current_delay_ms, &target_delay_ms,
+                          &jitter_buffer_ms, &min_playout_delay_ms,
+                          &render_delay_ms)) {
     stats_callback_->OnFrameBufferTimingsUpdated(
-        max_decode.ms(), current_delay.ms(), target_delay.ms(),
-        jitter_buffer.ms(), min_playout_delay.ms(), render_delay.ms());
+        max_decode_ms, current_delay_ms, target_delay_ms, jitter_buffer_ms,
+        min_playout_delay_ms, render_delay_ms);
   }
 }
 

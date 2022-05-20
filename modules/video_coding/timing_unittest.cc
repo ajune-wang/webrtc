@@ -10,18 +10,13 @@
 
 #include "modules/video_coding/timing.h"
 
-#include "api/units/frequency.h"
-#include "api/units/time_delta.h"
 #include "system_wrappers/include/clock.h"
 #include "test/field_trial.h"
 #include "test/gtest.h"
 
 namespace webrtc {
 namespace {
-
-constexpr Frequency k25Fps = Frequency::Hertz(25);
-constexpr Frequency k90kHz = Frequency::KiloHertz(90);
-
+const int kFps = 25;
 }  // namespace
 
 TEST(ReceiverTimingTest, JitterDelay) {
@@ -34,105 +29,102 @@ TEST(ReceiverTimingTest, JitterDelay) {
 
   timing.Reset();
 
-  timing.IncomingTimestamp(timestamp, clock.CurrentTime());
-  TimeDelta jitter_delay = TimeDelta::Millis(20);
-  timing.SetJitterDelay(jitter_delay);
+  timing.IncomingTimestamp(timestamp, clock.TimeInMilliseconds());
+  uint32_t jitter_delay_ms = 20;
+  timing.SetJitterDelay(jitter_delay_ms);
   timing.UpdateCurrentDelay(timestamp);
-  timing.set_render_delay(TimeDelta::Zero());
-  auto wait_time = timing.MaxWaitingTime(
-      timing.RenderTime(timestamp, clock.CurrentTime()), clock.CurrentTime(),
-      /*too_many_frames_queued=*/false);
+  timing.set_render_delay(0);
+  uint32_t wait_time_ms = timing.MaxWaitingTime(
+      timing.RenderTimeMs(timestamp, clock.TimeInMilliseconds()),
+      clock.TimeInMilliseconds(), /*too_many_frames_queued=*/false);
   // First update initializes the render time. Since we have no decode delay
-  // we get wait_time = renderTime - now - renderDelay = jitter.
-  EXPECT_EQ(jitter_delay, wait_time);
+  // we get wait_time_ms = renderTime - now - renderDelay = jitter.
+  EXPECT_EQ(jitter_delay_ms, wait_time_ms);
 
-  jitter_delay += TimeDelta::Millis(VCMTiming::kDelayMaxChangeMsPerS + 10);
+  jitter_delay_ms += VCMTiming::kDelayMaxChangeMsPerS + 10;
   timestamp += 90000;
   clock.AdvanceTimeMilliseconds(1000);
-  timing.SetJitterDelay(jitter_delay);
+  timing.SetJitterDelay(jitter_delay_ms);
   timing.UpdateCurrentDelay(timestamp);
-  wait_time = timing.MaxWaitingTime(
-      timing.RenderTime(timestamp, clock.CurrentTime()), clock.CurrentTime(),
-      /*too_many_frames_queued=*/false);
+  wait_time_ms = timing.MaxWaitingTime(
+      timing.RenderTimeMs(timestamp, clock.TimeInMilliseconds()),
+      clock.TimeInMilliseconds(), /*too_many_frames_queued=*/false);
   // Since we gradually increase the delay we only get 100 ms every second.
-  EXPECT_EQ(jitter_delay - TimeDelta::Millis(10), wait_time);
+  EXPECT_EQ(jitter_delay_ms - 10, wait_time_ms);
 
   timestamp += 90000;
   clock.AdvanceTimeMilliseconds(1000);
   timing.UpdateCurrentDelay(timestamp);
-  wait_time = timing.MaxWaitingTime(
-      timing.RenderTime(timestamp, clock.CurrentTime()), clock.CurrentTime(),
-      /*too_many_frames_queued=*/false);
-  EXPECT_EQ(jitter_delay, wait_time);
+  wait_time_ms = timing.MaxWaitingTime(
+      timing.RenderTimeMs(timestamp, clock.TimeInMilliseconds()),
+      clock.TimeInMilliseconds(), /*too_many_frames_queued=*/false);
+  EXPECT_EQ(jitter_delay_ms, wait_time_ms);
 
   // Insert frames without jitter, verify that this gives the exact wait time.
   const int kNumFrames = 300;
   for (int i = 0; i < kNumFrames; i++) {
-    clock.AdvanceTime(1 / k25Fps);
-    timestamp += k90kHz / k25Fps;
-    timing.IncomingTimestamp(timestamp, clock.CurrentTime());
+    clock.AdvanceTimeMilliseconds(1000 / kFps);
+    timestamp += 90000 / kFps;
+    timing.IncomingTimestamp(timestamp, clock.TimeInMilliseconds());
   }
   timing.UpdateCurrentDelay(timestamp);
-  wait_time = timing.MaxWaitingTime(
-      timing.RenderTime(timestamp, clock.CurrentTime()), clock.CurrentTime(),
-      /*too_many_frames_queued=*/false);
-  EXPECT_EQ(jitter_delay, wait_time);
+  wait_time_ms = timing.MaxWaitingTime(
+      timing.RenderTimeMs(timestamp, clock.TimeInMilliseconds()),
+      clock.TimeInMilliseconds(), /*too_many_frames_queued=*/false);
+  EXPECT_EQ(jitter_delay_ms, wait_time_ms);
 
   // Add decode time estimates for 1 second.
-  const TimeDelta kDecodeTime = TimeDelta::Millis(10);
-  for (int i = 0; i < k25Fps.hertz(); i++) {
-    clock.AdvanceTime(kDecodeTime);
-    timing.StopDecodeTimer(kDecodeTime, clock.CurrentTime());
-    timestamp += k90kHz / k25Fps;
-    clock.AdvanceTime(1 / k25Fps - kDecodeTime);
-    timing.IncomingTimestamp(timestamp, clock.CurrentTime());
+  const uint32_t kDecodeTimeMs = 10;
+  for (int i = 0; i < kFps; i++) {
+    clock.AdvanceTimeMilliseconds(kDecodeTimeMs);
+    timing.StopDecodeTimer(kDecodeTimeMs, clock.TimeInMilliseconds());
+    timestamp += 90000 / kFps;
+    clock.AdvanceTimeMilliseconds(1000 / kFps - kDecodeTimeMs);
+    timing.IncomingTimestamp(timestamp, clock.TimeInMilliseconds());
   }
   timing.UpdateCurrentDelay(timestamp);
-  wait_time = timing.MaxWaitingTime(
-      timing.RenderTime(timestamp, clock.CurrentTime()), clock.CurrentTime(),
-      /*too_many_frames_queued=*/false);
-  EXPECT_EQ(jitter_delay, wait_time);
+  wait_time_ms = timing.MaxWaitingTime(
+      timing.RenderTimeMs(timestamp, clock.TimeInMilliseconds()),
+      clock.TimeInMilliseconds(), /*too_many_frames_queued=*/false);
+  EXPECT_EQ(jitter_delay_ms, wait_time_ms);
 
-  const TimeDelta kMinTotalDelay = TimeDelta::Millis(200);
-  timing.set_min_playout_delay(kMinTotalDelay);
+  const int kMinTotalDelayMs = 200;
+  timing.set_min_playout_delay(kMinTotalDelayMs);
   clock.AdvanceTimeMilliseconds(5000);
   timestamp += 5 * 90000;
   timing.UpdateCurrentDelay(timestamp);
-  const TimeDelta kRenderDelay = TimeDelta::Millis(10);
-  timing.set_render_delay(kRenderDelay);
-  wait_time = timing.MaxWaitingTime(
-      timing.RenderTime(timestamp, clock.CurrentTime()), clock.CurrentTime(),
-      /*too_many_frames_queued=*/false);
+  const int kRenderDelayMs = 10;
+  timing.set_render_delay(kRenderDelayMs);
+  wait_time_ms = timing.MaxWaitingTime(
+      timing.RenderTimeMs(timestamp, clock.TimeInMilliseconds()),
+      clock.TimeInMilliseconds(), /*too_many_frames_queued=*/false);
   // We should at least have kMinTotalDelayMs - decodeTime (10) - renderTime
   // (10) to wait.
-  EXPECT_EQ(kMinTotalDelay - kDecodeTime - kRenderDelay, wait_time);
+  EXPECT_EQ(kMinTotalDelayMs - kDecodeTimeMs - kRenderDelayMs, wait_time_ms);
   // The total video delay should be equal to the min total delay.
-  EXPECT_EQ(kMinTotalDelay, timing.TargetVideoDelay());
+  EXPECT_EQ(kMinTotalDelayMs, timing.TargetVideoDelay());
 
   // Reset playout delay.
-  timing.set_min_playout_delay(TimeDelta::Zero());
+  timing.set_min_playout_delay(0);
   clock.AdvanceTimeMilliseconds(5000);
   timestamp += 5 * 90000;
   timing.UpdateCurrentDelay(timestamp);
 }
 
 TEST(ReceiverTimingTest, TimestampWrapAround) {
-  constexpr auto kStartTime = Timestamp::Millis(1337);
-  SimulatedClock clock(kStartTime);
+  SimulatedClock clock(0);
   VCMTiming timing(&clock);
-
   // Provoke a wrap-around. The fifth frame will have wrapped at 25 fps.
-  constexpr uint32_t kRtpTicksPerFrame = k90kHz / k25Fps;
-  uint32_t timestamp = 0xFFFFFFFFu - 3 * kRtpTicksPerFrame;
+  uint32_t timestamp = 0xFFFFFFFFu - 3 * 90000 / kFps;
   for (int i = 0; i < 5; ++i) {
-    timing.IncomingTimestamp(timestamp, clock.CurrentTime());
-    clock.AdvanceTime(1 / k25Fps);
-    timestamp += kRtpTicksPerFrame;
-    EXPECT_EQ(kStartTime + 3 / k25Fps,
-              timing.RenderTime(0xFFFFFFFFu, clock.CurrentTime()));
-    // One ms later in 90 kHz.
-    EXPECT_EQ(kStartTime + 3 / k25Fps + TimeDelta::Millis(1),
-              timing.RenderTime(89u, clock.CurrentTime()));
+    timing.IncomingTimestamp(timestamp, clock.TimeInMilliseconds());
+    clock.AdvanceTimeMilliseconds(1000 / kFps);
+    timestamp += 90000 / kFps;
+    EXPECT_EQ(3 * 1000 / kFps,
+              timing.RenderTimeMs(0xFFFFFFFFu, clock.TimeInMilliseconds()));
+    EXPECT_EQ(3 * 1000 / kFps + 1,
+              timing.RenderTimeMs(89u,  // One ms later in 90 kHz.
+                                  clock.TimeInMilliseconds()));
   }
 }
 
@@ -140,85 +132,85 @@ TEST(ReceiverTimingTest, MaxWaitingTimeIsZeroForZeroRenderTime) {
   // This is the default path when the RTP playout delay header extension is set
   // to min==0 and max==0.
   constexpr int64_t kStartTimeUs = 3.15e13;  // About one year in us.
-  constexpr TimeDelta kTimeDelta = 1 / Frequency::Hertz(60);
-  constexpr Timestamp kZeroRenderTime = Timestamp::Zero();
+  constexpr int64_t kTimeDeltaMs = 1000.0 / 60.0;
+  constexpr int64_t kZeroRenderTimeMs = 0;
   SimulatedClock clock(kStartTimeUs);
   VCMTiming timing(&clock);
   timing.Reset();
-  timing.set_max_playout_delay(TimeDelta::Zero());
+  timing.set_max_playout_delay(0);
   for (int i = 0; i < 10; ++i) {
-    clock.AdvanceTime(kTimeDelta);
-    Timestamp now = clock.CurrentTime();
-    EXPECT_LT(timing.MaxWaitingTime(kZeroRenderTime, now,
+    clock.AdvanceTimeMilliseconds(kTimeDeltaMs);
+    int64_t now_ms = clock.TimeInMilliseconds();
+    EXPECT_LT(timing.MaxWaitingTime(kZeroRenderTimeMs, now_ms,
                                     /*too_many_frames_queued=*/false),
-              TimeDelta::Zero());
+              0);
   }
   // Another frame submitted at the same time also returns a negative max
   // waiting time.
-  Timestamp now = clock.CurrentTime();
-  EXPECT_LT(timing.MaxWaitingTime(kZeroRenderTime, now,
+  int64_t now_ms = clock.TimeInMilliseconds();
+  EXPECT_LT(timing.MaxWaitingTime(kZeroRenderTimeMs, now_ms,
                                   /*too_many_frames_queued=*/false),
-            TimeDelta::Zero());
+            0);
   // MaxWaitingTime should be less than zero even if there's a burst of frames.
-  EXPECT_LT(timing.MaxWaitingTime(kZeroRenderTime, now,
+  EXPECT_LT(timing.MaxWaitingTime(kZeroRenderTimeMs, now_ms,
                                   /*too_many_frames_queued=*/false),
-            TimeDelta::Zero());
-  EXPECT_LT(timing.MaxWaitingTime(kZeroRenderTime, now,
+            0);
+  EXPECT_LT(timing.MaxWaitingTime(kZeroRenderTimeMs, now_ms,
                                   /*too_many_frames_queued=*/false),
-            TimeDelta::Zero());
-  EXPECT_LT(timing.MaxWaitingTime(kZeroRenderTime, now,
+            0);
+  EXPECT_LT(timing.MaxWaitingTime(kZeroRenderTimeMs, now_ms,
                                   /*too_many_frames_queued=*/false),
-            TimeDelta::Zero());
+            0);
 }
 
 TEST(ReceiverTimingTest, MaxWaitingTimeZeroDelayPacingExperiment) {
   // The minimum pacing is enabled by a field trial and active if the RTP
   // playout delay header extension is set to min==0.
-  constexpr TimeDelta kMinPacing = TimeDelta::Millis(3);
+  constexpr int64_t kMinPacingMs = 3;
   test::ScopedFieldTrials override_field_trials(
       "WebRTC-ZeroPlayoutDelay/min_pacing:3ms/");
   constexpr int64_t kStartTimeUs = 3.15e13;  // About one year in us.
-  constexpr TimeDelta kTimeDelta = 1 / Frequency::Hertz(60);
-  constexpr auto kZeroRenderTime = Timestamp::Zero();
+  constexpr int64_t kTimeDeltaMs = 1000.0 / 60.0;
+  constexpr int64_t kZeroRenderTimeMs = 0;
   SimulatedClock clock(kStartTimeUs);
   VCMTiming timing(&clock);
   timing.Reset();
   // MaxWaitingTime() returns zero for evenly spaced video frames.
   for (int i = 0; i < 10; ++i) {
-    clock.AdvanceTime(kTimeDelta);
-    Timestamp now = clock.CurrentTime();
-    EXPECT_EQ(timing.MaxWaitingTime(kZeroRenderTime, now,
+    clock.AdvanceTimeMilliseconds(kTimeDeltaMs);
+    int64_t now_ms = clock.TimeInMilliseconds();
+    EXPECT_EQ(timing.MaxWaitingTime(kZeroRenderTimeMs, now_ms,
                                     /*too_many_frames_queued=*/false),
-              TimeDelta::Zero());
-    timing.SetLastDecodeScheduledTimestamp(now);
+              0);
+    timing.SetLastDecodeScheduledTimestamp(now_ms);
   }
   // Another frame submitted at the same time is paced according to the field
   // trial setting.
-  auto now = clock.CurrentTime();
-  EXPECT_EQ(timing.MaxWaitingTime(kZeroRenderTime, now,
+  int64_t now_ms = clock.TimeInMilliseconds();
+  EXPECT_EQ(timing.MaxWaitingTime(kZeroRenderTimeMs, now_ms,
                                   /*too_many_frames_queued=*/false),
-            kMinPacing);
+            kMinPacingMs);
   // If there's a burst of frames, the wait time is calculated based on next
   // decode time.
-  EXPECT_EQ(timing.MaxWaitingTime(kZeroRenderTime, now,
+  EXPECT_EQ(timing.MaxWaitingTime(kZeroRenderTimeMs, now_ms,
                                   /*too_many_frames_queued=*/false),
-            kMinPacing);
-  EXPECT_EQ(timing.MaxWaitingTime(kZeroRenderTime, now,
+            kMinPacingMs);
+  EXPECT_EQ(timing.MaxWaitingTime(kZeroRenderTimeMs, now_ms,
                                   /*too_many_frames_queued=*/false),
-            kMinPacing);
+            kMinPacingMs);
   // Allow a few ms to pass, this should be subtracted from the MaxWaitingTime.
-  constexpr TimeDelta kTwoMs = TimeDelta::Millis(2);
-  clock.AdvanceTime(kTwoMs);
-  now = clock.CurrentTime();
-  EXPECT_EQ(timing.MaxWaitingTime(kZeroRenderTime, now,
+  constexpr int64_t kTwoMs = 2;
+  clock.AdvanceTimeMilliseconds(kTwoMs);
+  now_ms = clock.TimeInMilliseconds();
+  EXPECT_EQ(timing.MaxWaitingTime(kZeroRenderTimeMs, now_ms,
                                   /*too_many_frames_queued=*/false),
-            kMinPacing - kTwoMs);
+            kMinPacingMs - kTwoMs);
   // A frame is decoded at the current time, the wait time should be restored to
   // pacing delay.
-  timing.SetLastDecodeScheduledTimestamp(now);
-  EXPECT_EQ(timing.MaxWaitingTime(kZeroRenderTime, now,
+  timing.SetLastDecodeScheduledTimestamp(now_ms);
+  EXPECT_EQ(timing.MaxWaitingTime(kZeroRenderTimeMs, now_ms,
                                   /*too_many_frames_queued=*/false),
-            kMinPacing);
+            kMinPacingMs);
 }
 
 TEST(ReceiverTimingTest, DefaultMaxWaitingTimeUnaffectedByPacingExperiment) {
@@ -227,65 +219,65 @@ TEST(ReceiverTimingTest, DefaultMaxWaitingTimeUnaffectedByPacingExperiment) {
   test::ScopedFieldTrials override_field_trials(
       "WebRTC-ZeroPlayoutDelay/min_pacing:3ms/");
   constexpr int64_t kStartTimeUs = 3.15e13;  // About one year in us.
-  const TimeDelta kTimeDelta = TimeDelta::Millis(1000.0 / 60.0);
+  constexpr int64_t kTimeDeltaMs = 1000.0 / 60.0;
   SimulatedClock clock(kStartTimeUs);
   VCMTiming timing(&clock);
   timing.Reset();
-  clock.AdvanceTime(kTimeDelta);
-  auto now = clock.CurrentTime();
-  Timestamp render_time = now + TimeDelta::Millis(30);
+  clock.AdvanceTimeMilliseconds(kTimeDeltaMs);
+  int64_t now_ms = clock.TimeInMilliseconds();
+  int64_t render_time_ms = now_ms + 30;
   // Estimate the internal processing delay from the first frame.
-  TimeDelta estimated_processing_delay =
-      (render_time - now) -
-      timing.MaxWaitingTime(render_time, now,
+  int64_t estimated_processing_delay =
+      (render_time_ms - now_ms) -
+      timing.MaxWaitingTime(render_time_ms, now_ms,
                             /*too_many_frames_queued=*/false);
-  EXPECT_GT(estimated_processing_delay, TimeDelta::Zero());
+  EXPECT_GT(estimated_processing_delay, 0);
 
   // Any other frame submitted at the same time should be scheduled according to
   // its render time.
   for (int i = 0; i < 5; ++i) {
-    render_time += kTimeDelta;
-    EXPECT_EQ(timing.MaxWaitingTime(render_time, now,
+    render_time_ms += kTimeDeltaMs;
+    EXPECT_EQ(timing.MaxWaitingTime(render_time_ms, now_ms,
                                     /*too_many_frames_queued=*/false),
-              render_time - now - estimated_processing_delay);
+              render_time_ms - now_ms - estimated_processing_delay);
   }
 }
 
-TEST(ReceiverTimingTest, MaxWaitingTimeReturnsZeroIfTooManyFramesQueuedIsTrue) {
+TEST(ReceiverTiminTest, MaxWaitingTimeReturnsZeroIfTooManyFramesQueuedIsTrue) {
   // The minimum pacing is enabled by a field trial and active if the RTP
   // playout delay header extension is set to min==0.
-  constexpr TimeDelta kMinPacing = TimeDelta::Millis(3);
+  constexpr int64_t kMinPacingMs = 3;
   test::ScopedFieldTrials override_field_trials(
       "WebRTC-ZeroPlayoutDelay/min_pacing:3ms/");
   constexpr int64_t kStartTimeUs = 3.15e13;  // About one year in us.
-  const TimeDelta kTimeDelta = TimeDelta::Millis(1000.0 / 60.0);
-  constexpr auto kZeroRenderTime = Timestamp::Zero();
+  constexpr int64_t kTimeDeltaMs = 1000.0 / 60.0;
+  constexpr int64_t kZeroRenderTimeMs = 0;
   SimulatedClock clock(kStartTimeUs);
   VCMTiming timing(&clock);
   timing.Reset();
   // MaxWaitingTime() returns zero for evenly spaced video frames.
   for (int i = 0; i < 10; ++i) {
-    clock.AdvanceTime(kTimeDelta);
-    auto now = clock.CurrentTime();
-    EXPECT_EQ(timing.MaxWaitingTime(kZeroRenderTime, now,
+    clock.AdvanceTimeMilliseconds(kTimeDeltaMs);
+    int64_t now_ms = clock.TimeInMilliseconds();
+    EXPECT_EQ(timing.MaxWaitingTime(kZeroRenderTimeMs, now_ms,
                                     /*too_many_frames_queued=*/false),
-              TimeDelta::Zero());
-    timing.SetLastDecodeScheduledTimestamp(now);
+              0);
+    timing.SetLastDecodeScheduledTimestamp(now_ms);
   }
   // Another frame submitted at the same time is paced according to the field
   // trial setting.
-  auto now_ms = clock.CurrentTime();
-  EXPECT_EQ(timing.MaxWaitingTime(kZeroRenderTime, now_ms,
+  int64_t now_ms = clock.TimeInMilliseconds();
+  EXPECT_EQ(timing.MaxWaitingTime(kZeroRenderTimeMs, now_ms,
                                   /*too_many_frames_queued=*/false),
-            kMinPacing);
+            kMinPacingMs);
   // MaxWaitingTime returns 0 even if there's a burst of frames if
   // too_many_frames_queued is set to true.
-  EXPECT_EQ(timing.MaxWaitingTime(kZeroRenderTime, now_ms,
+  EXPECT_EQ(timing.MaxWaitingTime(kZeroRenderTimeMs, now_ms,
                                   /*too_many_frames_queued=*/true),
-            TimeDelta::Zero());
-  EXPECT_EQ(timing.MaxWaitingTime(kZeroRenderTime, now_ms,
+            0);
+  EXPECT_EQ(timing.MaxWaitingTime(kZeroRenderTimeMs, now_ms,
                                   /*too_many_frames_queued=*/true),
-            TimeDelta::Zero());
+            0);
 }
 
 }  // namespace webrtc

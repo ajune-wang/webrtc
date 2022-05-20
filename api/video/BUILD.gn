@@ -149,11 +149,7 @@ rtc_library("encoded_frame") {
     "encoded_frame.h",
   ]
 
-  deps = [
-    "../../modules/video_coding:encoded_frame",
-    "../units:timestamp",
-  ]
-  absl_deps = [ "//third_party/abseil-cpp/absl/types:optional" ]
+  deps = [ "../../modules/video_coding:encoded_frame" ]
 }
 
 rtc_library("rtp_video_frame_assembler") {

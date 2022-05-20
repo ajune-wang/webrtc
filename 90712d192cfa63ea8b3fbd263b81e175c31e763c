@@ -128,6 +128,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "8e29471d_1193bba9",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 4
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 12416
+      },
+      "writtenOn": "2022-05-20T19:29:10Z",
+      "side": 1,
+      "message": "We run our own little message pump in the CloseWindowMidCapture test to work around that. As for the FrameArrived event, it is not a requirement that we process or even allow the event to fire before we can pick up the frame from the pool.\n\nAnd I just realized CaptureTime is still stuck in the infinite loop for ASAN, it\u0027s only passing for x86. And I bet the screen capture tests are getting skipped because we check if there are monitors attached when running `IsWgcSupported`.\n\nIt\u0027s starting to make a little more sense, but I\u0027m still confused as to why these tests pass for ASAN when we add a bail-out via kMaxTries, whereas before they were stuck looping forever. And I guess they\u0027re failing in x86 because we\u0027re bailing out too soon?",
+      "parentUuid": "93e5e7e4_84244e3b",
+      "revId": "90712d192cfa63ea8b3fbd263b81e175c31e763c",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "6c03636a_16048b21",
         "filename": "modules/desktop_capture/win/wgc_capture_session.cc",
         "patchSetId": 4

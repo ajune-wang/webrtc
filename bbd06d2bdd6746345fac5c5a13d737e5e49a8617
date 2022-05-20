@@ -16,6 +16,23 @@
       "message": "updated, PTAL",
       "revId": "bbd06d2bdd6746345fac5c5a13d737e5e49a8617",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "ad8fffbf_b564a61e",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 6
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 14874
+      },
+      "writtenOn": "2022-05-20T14:31:12Z",
+      "side": 1,
+      "message": "Mirko, can you help landing this please?",
+      "revId": "bbd06d2bdd6746345fac5c5a13d737e5e49a8617",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

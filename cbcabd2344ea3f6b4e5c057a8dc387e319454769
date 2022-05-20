@@ -449,6 +449,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "cfef66e9_59af6b77",
+        "filename": "modules/desktop_capture/screen_capturer_fuchsia.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 99,
+      "author": {
+        "id": 18474
+      },
+      "writtenOn": "2022-05-20T18:26:50Z",
+      "side": 1,
+      "message": "Mmm, likely not, if I\u0027m remembering correctly the ScreenCaptureFrameQueue maintains ownership of the frame but then also \"Shares\" it with the result; otherwise I think there may be a copy? But right now you\u0027re probably doing an allocation per frame?",
+      "parentUuid": "7426ac78_2e2bcf31",
+      "range": {
+        "startLine": 99,
+        "startChar": 10,
+        "endLine": 99,
+        "endChar": 27
+      },
+      "revId": "cbcabd2344ea3f6b4e5c057a8dc387e319454769",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "9cd81500_bd3aff1e",
         "filename": "modules/desktop_capture/screen_capturer_fuchsia.cc",
         "patchSetId": 2
@@ -1098,6 +1122,30 @@
       "side": 1,
       "message": "I\u0027m still looking at different ways I could re-write this. The basic idea is that the frame bytes that we get back from our API are in a Virtual Memory Object. We map that on to the host so that we can get a pointer to pass in to `CopyPixelsFrom` and then unmap it once we\u0027re done. \n\nSince we\u0027re reusing the same VMOs I think we might be able to reuse the same mappings too but I\u0027m still exploring that. I\u0027ll add documentation once I\u0027ve settled on a way to do it, and it\u0027ll need to be renamed as well.\n\nFor now I\u0027ve at least gotten rid of the callback though.",
       "parentUuid": "c63dfb5e_fd78b13f",
+      "range": {
+        "startLine": 348,
+        "startChar": 28,
+        "endLine": 348,
+        "endChar": 42
+      },
+      "revId": "cbcabd2344ea3f6b4e5c057a8dc387e319454769",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "7956d27b_91d3455d",
+        "filename": "modules/desktop_capture/screen_capturer_fuchsia.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 348,
+      "author": {
+        "id": 18474
+      },
+      "writtenOn": "2022-05-20T18:26:50Z",
+      "side": 1,
+      "message": "Thanks; that makes a bit more sense, perhaps we can spell out vmo as at least virtual_mem or memory or something similar? (e.g. vmo_index-\u003ememory_index or virtual_memory_index)",
+      "parentUuid": "b2bde73c_dc2d9b3e",
       "range": {
         "startLine": 348,
         "startChar": 28,

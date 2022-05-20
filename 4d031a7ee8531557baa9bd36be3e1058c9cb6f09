@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "2125db33_f901c4a1",
+        "filename": "modules/desktop_capture/screen_capturer_fuchsia.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 128,
+      "author": {
+        "id": 18474
+      },
+      "writtenOn": "2022-05-20T18:26:50Z",
+      "side": 1,
+      "message": "Since this is a class member we don\u0027t need to pass in buffer_collection_info_.\n\nAlso, since this isn\u0027t returning anything and we\u0027re not *doing* anything with the frame before now; we should just have this create/return the frame rather than passing a ref to a unique_ptr. (And even in the case we wanted to use an out param, I *think* the preferred way would be to use a raw ptr via frame.get())",
+      "range": {
+        "startLine": 128,
+        "startChar": 2,
+        "endLine": 128,
+        "endChar": 63
+      },
+      "revId": "4d031a7ee8531557baa9bd36be3e1058c9cb6f09",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "907381cf_30af1f4c",
+        "filename": "modules/desktop_capture/screen_capturer_fuchsia.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 363,
+      "author": {
+        "id": 18474
+      },
+      "writtenOn": "2022-05-20T18:26:50Z",
+      "side": 1,
+      "message": "And then per prior comment this becomes `memory` or `virtual_memory` or `system_memory` or something more descriptive than vmo? I think had I know that acronym from the start, this would\u0027ve been clearer.",
+      "range": {
+        "startLine": 363,
+        "startChar": 17,
+        "endLine": 363,
+        "endChar": 20
+      },
+      "revId": "4d031a7ee8531557baa9bd36be3e1058c9cb6f09",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

@@ -87,6 +87,30 @@
       },
       "revId": "05681108407be8d23065f01b4d8fa6d1abbdbbab",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "5b36d4b7_cc9cfb66",
+        "filename": "audio/channel_receive_frame_transformer_delegate_unittest.cc",
+        "patchSetId": 13
+      },
+      "lineNbr": 71,
+      "author": {
+        "id": 5508
+      },
+      "writtenOn": "2022-05-20T10:57:22Z",
+      "side": 1,
+      "message": "I did write a TQ implementation the other day that does that - maybe we could move it to some test utility file:\n\n  class SuperLazyTaskQueue : public webrtc::TaskQueueBase {\n   public:\n    SuperLazyTaskQueue() \u003d default;\n    ~SuperLazyTaskQueue() override \u003d default;\n\n   private:\n    void Delete() override { delete this; }\n    void PostTask(std::unique_ptr\u003cQueuedTask\u003e task) override {\n      // meh.\n    }\n    void PostDelayedTask(std::unique_ptr\u003cQueuedTask\u003e task,\n                         uint32_t milliseconds) override {\n      ASSERT_TRUE(false);\n    }\n  };",
+      "parentUuid": "b900f235_bd26aede",
+      "range": {
+        "startLine": 71,
+        "startChar": 2,
+        "endLine": 71,
+        "endChar": 30
+      },
+      "revId": "05681108407be8d23065f01b4d8fa6d1abbdbbab",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

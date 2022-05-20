@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "bf3409b6_1fb68b25",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 15
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5508
+      },
+      "writtenOn": "2022-05-20T10:57:22Z",
+      "side": 1,
+      "message": "Would you like to land the cl as is and continue in follow-up CLs?",
+      "revId": "505c8b0557f25cf5104043a0ed77b953b590d31f",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

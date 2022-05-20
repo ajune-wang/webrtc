@@ -56,6 +56,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "3a1bad55_7456b030",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 4
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 12234
+      },
+      "writtenOn": "2022-05-20T13:11:47Z",
+      "side": 1,
+      "message": "There isn\u0027t much logs but from what I understand the tests are interrupted because they hit a 900 seconds timeout (15 minutes).",
+      "parentUuid": "ef4c5aa9_775b7a76",
+      "revId": "90712d192cfa63ea8b3fbd263b81e175c31e763c",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "6c03636a_16048b21",
         "filename": "modules/desktop_capture/win/wgc_capture_session.cc",
         "patchSetId": 4

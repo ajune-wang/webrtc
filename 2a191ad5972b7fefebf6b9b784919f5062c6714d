@@ -35,6 +35,24 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "17b3c0c2_714fa46e",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 3
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 19269
+      },
+      "writtenOn": "2022-05-20T16:24:02Z",
+      "side": 1,
+      "message": "We are looking at media quality at 50k. Current congestion control has various issues at that rate. The change is intended to allow us to investigate other issues independent of congestion control so progress can be made in parallel.\n\nNo strict deadline requirements.",
+      "parentUuid": "ec6d5aa6_25e1084d",
+      "revId": "2a191ad5972b7fefebf6b9b784919f5062c6714d",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "06633cda_5ff5c16e",
@@ -58,6 +76,30 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "41f2753c_b53af702",
+        "filename": "call/bitrate_allocator.h",
+        "patchSetId": 3
+      },
+      "lineNbr": 106,
+      "author": {
+        "id": 19269
+      },
+      "writtenOn": "2022-05-20T16:24:02Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "06633cda_5ff5c16e",
+      "range": {
+        "startLine": 106,
+        "startChar": 0,
+        "endLine": 106,
+        "endChar": 72
+      },
+      "revId": "2a191ad5972b7fefebf6b9b784919f5062c6714d",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "2eb2ac28_50b163d8",
@@ -71,6 +113,30 @@
       "writtenOn": "2022-05-20T09:33:38Z",
       "side": 1,
       "message": "Maybe something like\n`allocator_ \u003d std::make_unique\u003cBitrateAllocator\u003e(\u0026limit_observer_);`\n\nOr is there a particular reason for releasing the previous BitrateAllocator, constructing a new one and then swapping it in?",
+      "range": {
+        "startLine": 1044,
+        "startChar": 0,
+        "endLine": 1047,
+        "endChar": 42
+      },
+      "revId": "2a191ad5972b7fefebf6b9b784919f5062c6714d",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "d4ca923a_7ce924c0",
+        "filename": "call/bitrate_allocator_unittest.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 1047,
+      "author": {
+        "id": 19269
+      },
+      "writtenOn": "2022-05-20T16:24:02Z",
+      "side": 1,
+      "message": "Indeed that works and is cleaner.",
+      "parentUuid": "2eb2ac28_50b163d8",
       "range": {
         "startLine": 1044,
         "startChar": 0,

@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "f5291a2c_0987061a",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 4
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 19269
+      },
+      "writtenOn": "2022-05-20T16:24:02Z",
+      "side": 1,
+      "message": "Hi Bjorn, Philip,\nThanks for the fast response and helpful feedback. Please send additional questions/suggestions that you may have.",
+      "revId": "6cc55733bf3c3c7aa7d2c023c54d49455302affa",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

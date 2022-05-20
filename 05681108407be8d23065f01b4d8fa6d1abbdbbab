@@ -63,6 +63,30 @@
       },
       "revId": "05681108407be8d23065f01b4d8fa6d1abbdbbab",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "b900f235_bd26aede",
+        "filename": "audio/channel_receive_frame_transformer_delegate_unittest.cc",
+        "patchSetId": 13
+      },
+      "lineNbr": 71,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2022-05-20T08:38:51Z",
+      "side": 1,
+      "message": "I\u0027ve changed the voip tests to use RunLoop rather than AutoThread, and that seems to work fine.\n\nBut even that fairly simple case begs for some further cleanup. The code run by this test that requires the current thread to be wrapped is ModuleRtpRtcpImpl2. On construction, it sets a member `worker_queue_` from TaskQueueBase::Current(), and DCHECKs that the value is non-null. I don\u0027t think it depends on rtc::Thread::Current (), only that there\u0027s a current task queue.\n\nThen it uses this tq to post some tasks, see \n\nhttps://source.chromium.org/chromium/chromium/src/+/main:third_party/webrtc/modules/rtp_rtcp/source/rtp_rtcp_impl2.cc;drc\u003dd14e8894fca7e5257c4f72a6ed94f6bd1fb29276;l\u003d108\n\nhttps://source.chromium.org/chromium/chromium/src/+/main:third_party/webrtc/modules/rtp_rtcp/source/rtp_rtcp_impl2.cc;drc\u003dd14e8894fca7e5257c4f72a6ed94f6bd1fb29276;l\u003d808\n\nand\n\nhttps://source.chromium.org/chromium/chromium/src/+/main:third_party/webrtc/modules/rtp_rtcp/source/rtp_rtcp_impl2.cc;drc\u003dd14e8894fca7e5257c4f72a6ed94f6bd1fb29276;l\u003d825\n\nThat will not have any effect when the class is instantiated as part of the voip unit tests, since RunLoop::Run() is never called. Should we make that part of RtpRtcp optional? Or let the test use some kind of dummy or mock task queue that explicitly discards any posted tasks?\n\nI think landing this cl as is a step in the right direction, since it deletes the kludgy and fragile wrapping in test_main_lib. Even though there\u0027s plenty of room for further improvements.",
+      "parentUuid": "62efbd38_a8bd72d8",
+      "range": {
+        "startLine": 71,
+        "startChar": 2,
+        "endLine": 71,
+        "endChar": 30
+      },
+      "revId": "05681108407be8d23065f01b4d8fa6d1abbdbbab",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

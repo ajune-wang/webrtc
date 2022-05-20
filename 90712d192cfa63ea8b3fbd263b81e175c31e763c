@@ -92,6 +92,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "93e5e7e4_84244e3b",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 4
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 12416
+      },
+      "writtenOn": "2022-05-20T19:23:26Z",
+      "side": 1,
+      "message": "It seems that it is capture failing in the trybots (we don\u0027t get to the Closed event portion of the test), I see the expectations from `DoCapture` failing now that I\u0027ve added kMaxTries to prevent the infinite loop, e.g.\n../../modules/desktop_capture/win/wgc_capturer_win_unittest.cc(201): error: Value of: frame_\n  Actual: false\nExpected: true\n\nI am not sure why capture fails for the Increase/Decrease and Close window mid capture tests, but not others like CaptureTime or any of the Screen capture tests.",
+      "parentUuid": "15791ce2_f9d51e22",
+      "revId": "90712d192cfa63ea8b3fbd263b81e175c31e763c",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "6c03636a_16048b21",
         "filename": "modules/desktop_capture/win/wgc_capture_session.cc",
         "patchSetId": 4

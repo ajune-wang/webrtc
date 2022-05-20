@@ -41,6 +41,30 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "a9fd295c_e38cec27",
+        "filename": "modules/audio_processing/aec3/alignment_mixer.cc",
+        "patchSetId": 18
+      },
+      "lineNbr": 112,
+      "author": {
+        "id": 5116
+      },
+      "writtenOn": "2022-05-20T12:17:27Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "5fa61d8d_6ba1138c",
+      "range": {
+        "startLine": 112,
+        "startChar": 29,
+        "endLine": 112,
+        "endChar": 59
+      },
+      "revId": "323b4ba10d040ead1b335536ed306596a6503440",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "766db357_2eb31edd",
@@ -54,6 +78,30 @@
       "writtenOn": "2022-05-20T08:41:07Z",
       "side": 1,
       "message": "Same comment as above",
+      "range": {
+        "startLine": 128,
+        "startChar": 50,
+        "endLine": 128,
+        "endChar": 62
+      },
+      "revId": "323b4ba10d040ead1b335536ed306596a6503440",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "9191f136_201b7a02",
+        "filename": "modules/audio_processing/aec3/alignment_mixer.cc",
+        "patchSetId": 18
+      },
+      "lineNbr": 128,
+      "author": {
+        "id": 5116
+      },
+      "writtenOn": "2022-05-20T12:17:27Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "766db357_2eb31edd",
       "range": {
         "startLine": 128,
         "startChar": 50,
@@ -87,6 +135,30 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "353b1859_816d691a",
+        "filename": "modules/audio_processing/aec3/block.h",
+        "patchSetId": 18
+      },
+      "lineNbr": 54,
+      "author": {
+        "id": 5116
+      },
+      "writtenOn": "2022-05-20T12:17:27Z",
+      "side": 1,
+      "message": "With the new data structure it will not be possible to separate one band from the rest of the Block. Of course a an ArrayView\u003cstd::array\u003cfloat\u003e\u003e could be returned at the moment. But I will soon restructure the internal data to not be vector-vector-array-float.",
+      "parentUuid": "9ee19a2a_7cea3ac0",
+      "range": {
+        "startLine": 54,
+        "startChar": 2,
+        "endLine": 54,
+        "endChar": 31
+      },
+      "revId": "323b4ba10d040ead1b335536ed306596a6503440",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "5d54814c_01bcf676",
@@ -100,6 +172,30 @@
       "writtenOn": "2022-05-20T08:41:07Z",
       "side": 1,
       "message": "Is this really correct? The former code passed the samples and channels for band 0\n\nBut the new code passes the information for all bands",
+      "range": {
+        "startLine": 62,
+        "startChar": 10,
+        "endLine": 62,
+        "endChar": 24
+      },
+      "revId": "323b4ba10d040ead1b335536ed306596a6503440",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "ace17143_5bdaf83b",
+        "filename": "modules/audio_processing/aec3/echo_path_delay_estimator.cc",
+        "patchSetId": 18
+      },
+      "lineNbr": 62,
+      "author": {
+        "id": 5116
+      },
+      "writtenOn": "2022-05-20T12:17:27Z",
+      "side": 1,
+      "message": "It\u0027s correct. Now the alignment mixer operates on Blocks (but only band 0).",
+      "parentUuid": "5d54814c_01bcf676",
       "range": {
         "startLine": 62,
         "startChar": 10,

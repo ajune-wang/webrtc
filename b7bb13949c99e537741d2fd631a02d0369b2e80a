@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "0353cfc4_a732a0ed",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 19
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5116
+      },
+      "writtenOn": "2022-05-20T12:17:27Z",
+      "side": 1,
+      "message": "Thanks for the review!\nI have now moved the BlockBuffer class to make use of Block (which makes sense). This increases the size of the CL somewhat, but makes it possible to get rid of the problem with the alignment mixer being called with two different data structures.",
+      "revId": "b7bb13949c99e537741d2fd631a02d0369b2e80a",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

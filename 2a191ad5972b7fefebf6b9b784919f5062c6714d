@@ -16,6 +16,69 @@
       "message": "Jut curios, what is the intended use case for this?\n\nTypically I would hand this to Erik, but he is on vacation for two weeks. Åsa do you know this code?\n\nIf not would it be possible to wait to land this CL?",
       "revId": "2a191ad5972b7fefebf6b9b784919f5062c6714d",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "95180d94_79dea33a",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 3
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5150
+      },
+      "writtenOn": "2022-05-20T09:33:38Z",
+      "side": 1,
+      "message": "Looks good to me % nits, but I wonder if there are existing configs that can achieve a similar effect. Since I\u0027m not that knowledgable about the bitrate allocation, I\u0027d like somebody else to review this.",
+      "revId": "2a191ad5972b7fefebf6b9b784919f5062c6714d",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "06633cda_5ff5c16e",
+        "filename": "call/bitrate_allocator.h",
+        "patchSetId": 3
+      },
+      "lineNbr": 106,
+      "author": {
+        "id": 5150
+      },
+      "writtenOn": "2022-05-20T09:33:38Z",
+      "side": 1,
+      "message": "nit: Add .",
+      "range": {
+        "startLine": 106,
+        "startChar": 0,
+        "endLine": 106,
+        "endChar": 72
+      },
+      "revId": "2a191ad5972b7fefebf6b9b784919f5062c6714d",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "2eb2ac28_50b163d8",
+        "filename": "call/bitrate_allocator_unittest.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 1047,
+      "author": {
+        "id": 5150
+      },
+      "writtenOn": "2022-05-20T09:33:38Z",
+      "side": 1,
+      "message": "Maybe something like\n`allocator_ \u003d std::make_unique\u003cBitrateAllocator\u003e(\u0026limit_observer_);`\n\nOr is there a particular reason for releasing the previous BitrateAllocator, constructing a new one and then swapping it in?",
+      "range": {
+        "startLine": 1044,
+        "startChar": 0,
+        "endLine": 1047,
+        "endChar": 42
+      },
+      "revId": "2a191ad5972b7fefebf6b9b784919f5062c6714d",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

@@ -63,6 +63,7 @@ class CallTest : public ::testing::Test, public RtpPacketSinkInterface {
     kPayloadTypeVP9 = 124,
     kPayloadTypeGeneric = 125,
     kFakeVideoSendPayloadType = 126,
+    kInvalidPayloadType = 255,  // Valid range is [0, 127].
   };
   static const uint32_t kSendRtxSsrcs[kNumSsrcs];
   static const uint32_t kVideoSendSsrcs[kNumSsrcs];

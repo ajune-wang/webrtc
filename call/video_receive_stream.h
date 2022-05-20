@@ -210,7 +210,7 @@ class VideoReceiveStream : public MediaReceiveStream {
       // Set if the stream is protected using FlexFEC.
       bool protected_by_flexfec = false;
 
-      // Optional callback sink to support additional packet handlsers such as
+      // Optional callback sink to support additional packet handlers such as
       // FlexFec.
       RtpPacketSinkInterface* packet_sink_ = nullptr;
 

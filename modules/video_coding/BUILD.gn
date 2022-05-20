@@ -184,25 +184,12 @@ rtc_library("timing") {
   absl_deps = [ "//third_party/abseil-cpp/absl/types:optional" ]
 }
 
-rtc_library("rtt_filter") {
-  sources = [
-    "rtt_filter.cc",
-    "rtt_filter.h",
-  ]
-  deps = [ "../../api/units:time_delta" ]
-  absl_deps = [
-    "//third_party/abseil-cpp/absl/algorithm:container",
-    "//third_party/abseil-cpp/absl/container:inlined_vector",
-  ]
-}
-
 rtc_library("jitter_estimator") {
   sources = [
     "jitter_estimator.cc",
     "jitter_estimator.h",
   ]
   deps = [
-    ":rtt_filter",
     "../../api:field_trials_view",
     "../../api/units:data_size",
     "../../api/units:frequency",
@@ -212,6 +199,7 @@ rtc_library("jitter_estimator") {
     "../../rtc_base:safe_conversions",
     "../../rtc_base/experiments:jitter_upper_bound_experiment",
     "../../system_wrappers",
+    "timing:rtt_filter",
   ]
   absl_deps = [ "//third_party/abseil-cpp/absl/types:optional" ]
 }
@@ -281,7 +269,6 @@ rtc_library("video_coding") {
     ":frame_helpers",
     ":inter_frame_delay",
     ":jitter_estimator",
-    ":rtt_filter",
     ":timing",
     ":video_codec_interface",
     ":video_coding_utility",
@@ -348,6 +335,7 @@ rtc_library("video_coding") {
     "../rtp_rtcp:rtp_video_header",
     "codecs/av1:av1_svc_config",
     "svc:scalability_mode_util",
+    "timing:rtt_filter",
   ]
   absl_deps = [
     "//third_party/abseil-cpp/absl/base:core_headers",
@@ -1170,7 +1158,6 @@ if (rtc_include_tests) {
       "rtp_frame_reference_finder_unittest.cc",
       "rtp_vp8_ref_finder_unittest.cc",
       "rtp_vp9_ref_finder_unittest.cc",
-      "rtt_filter_unittest.cc",
       "session_info_unittest.cc",
       "test/stream_generator.cc",
       "test/stream_generator.h",
@@ -1207,7 +1194,6 @@ if (rtc_include_tests) {
       ":jitter_estimator",
       ":nack_requester",
       ":packet_buffer",
-      ":rtt_filter",
       ":simulcast_test_fixture_impl",
       ":timing",
       ":video_codec_interface",
@@ -1291,6 +1277,7 @@ if (rtc_include_tests) {
       "deprecated:nack_module",
       "svc:scalability_structure_tests",
       "svc:svc_rate_allocator_tests",
+      "timing:rtt_filter",
     ]
     absl_deps = [
       "//third_party/abseil-cpp/absl/memory",

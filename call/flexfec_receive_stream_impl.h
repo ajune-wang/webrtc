@@ -57,6 +57,7 @@ class FlexfecReceiveStreamImpl : public FlexfecReceiveStream {
   void OnRtpPacket(const RtpPacketReceived& packet) override;
 
   Stats GetStats() const override;
+  void SetPayloadType(int payload_type) override;
 
   // ReceiveStreamInterface impl.
   void SetRtpExtensions(std::vector<RtpExtension> extensions) override;

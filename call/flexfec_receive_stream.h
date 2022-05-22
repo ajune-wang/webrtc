@@ -68,6 +68,9 @@ class FlexfecReceiveStream : public RtpPacketSinkInterface,
   };
 
   virtual Stats GetStats() const = 0;
+
+  // Called to change the payload type after initialization.
+  virtual void SetPayloadType(int payload_type) = 0;
 };
 
 }  // namespace webrtc

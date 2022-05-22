@@ -316,6 +316,7 @@ class FakeFlexfecReceiveStream final : public webrtc::FlexfecReceiveStream {
 
  private:
   webrtc::FlexfecReceiveStream::Stats GetStats() const override;
+  void SetPayloadType(int payload_type) { config_.payload_type = payload_type; }
 
   void OnRtpPacket(const webrtc::RtpPacketReceived& packet) override;
 

@@ -1258,8 +1258,7 @@ cricket::ChannelManager* SdpOfferAnswerHandler::channel_manager() const {
 
 cricket::MediaEngineInterface* SdpOfferAnswerHandler::media_engine() const {
   RTC_DCHECK(context_);
-  RTC_DCHECK(context_->channel_manager());
-  return context_->channel_manager()->media_engine();
+  return context_->media_engine();
 }
 
 TransceiverList* SdpOfferAnswerHandler::transceivers() {

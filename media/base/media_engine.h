@@ -114,8 +114,12 @@ class VideoEngineInterface : public RtpHeaderExtensionQueryInterface {
       webrtc::VideoBitrateAllocatorFactory*
           video_bitrate_allocator_factory) = 0;
 
-  virtual std::vector<VideoCodec> send_codecs() const = 0;
-  virtual std::vector<VideoCodec> recv_codecs() const = 0;
+  // Retrieve list of supported codecs.
+  // If include_rtx is false, don't include RTX codecs.
+  virtual std::vector<VideoCodec> send_codecs(
+      bool include_rtx = true) const = 0;
+  virtual std::vector<VideoCodec> recv_codecs(
+      bool include_rtx = true) const = 0;
 };
 
 // MediaEngineInterface is an abstraction of a media engine which can be

@@ -16,6 +16,40 @@
       "message": "PTAL.",
       "revId": "fc5201c4f2465d0c86ebdf37ad5fc9ba02feedd3",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "a1e50091_0fd93ebb",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2022-05-22T09:06:53Z",
+      "side": 1,
+      "message": "Only one comment, and that is not the concern of this CL. Approved.",
+      "revId": "fc5201c4f2465d0c86ebdf37ad5fc9ba02feedd3",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "a3f253f2_40285c6d",
+        "filename": "p2p/base/port.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 86,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2022-05-22T09:06:53Z",
+      "side": 1,
+      "message": "This (+ its underlying sets of constants) is a butt-ugly way of doing name to number conversion. A const std::map\u003cabsl::string_view, ProtocolType\u003e would be more readable and likely more efficient. (I consider readability to be the most important aspect)",
+      "revId": "fc5201c4f2465d0c86ebdf37ad5fc9ba02feedd3",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

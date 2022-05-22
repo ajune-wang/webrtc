@@ -16,6 +16,24 @@
       "message": "Outstanding question on bug is how big the performance impact of changing the default from \"off\" to \"on\" is.\n\nIf the default was \"off\" (preserving existing behavior), I would see this Cl as unproblematic, and we could discuss flipping the default as a a separate issue.",
       "revId": "a717782218f7dccb51ccd82bd1e30fd127c9aa23",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "2e0d26db_7b655967",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 8
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2022-05-22T19:53:08Z",
+      "side": 1,
+      "message": "Measured in bug, and overhead is not worth worrying about (at the moment).\nApproved.",
+      "parentUuid": "24e25a62_ef1757fc",
+      "revId": "a717782218f7dccb51ccd82bd1e30fd127c9aa23",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

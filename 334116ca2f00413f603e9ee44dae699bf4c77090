@@ -1,0 +1,107 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "cf34fc9e_65b2de5a",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 5
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 18474
+      },
+      "writtenOn": "2022-05-23T17:10:26Z",
+      "side": 1,
+      "message": "LGTM with member variable name corrected",
+      "revId": "334116ca2f00413f603e9ee44dae699bf4c77090",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "910a8875_5cec5cdf",
+        "filename": "modules/desktop_capture/screen_capturer_fuchsia.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 52,
+      "author": {
+        "id": 18474
+      },
+      "writtenOn": "2022-05-23T17:10:26Z",
+      "side": 1,
+      "message": "Remove these",
+      "range": {
+        "startLine": 49,
+        "startChar": 0,
+        "endLine": 52,
+        "endChar": 46
+      },
+      "revId": "334116ca2f00413f603e9ee44dae699bf4c77090",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "3847c7dc_38b5dd27",
+        "filename": "modules/desktop_capture/screen_capturer_fuchsia.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 383,
+      "author": {
+        "id": 18474
+      },
+      "writtenOn": "2022-05-23T17:10:26Z",
+      "side": 1,
+      "message": "If it\u0027s possible for this to fail; should we check and assign a fatal error for production code?",
+      "range": {
+        "startLine": 383,
+        "startChar": 4,
+        "endLine": 383,
+        "endChar": 32
+      },
+      "revId": "334116ca2f00413f603e9ee44dae699bf4c77090",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "58abfdf8_998ae08f",
+        "filename": "modules/desktop_capture/screen_capturer_fuchsia.h",
+        "patchSetId": 5
+      },
+      "lineNbr": 29,
+      "author": {
+        "id": 18474
+      },
+      "writtenOn": "2022-05-23T17:10:26Z",
+      "side": 1,
+      "message": "override",
+      "revId": "334116ca2f00413f603e9ee44dae699bf4c77090",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "036da08f_ee8d88e2",
+        "filename": "modules/desktop_capture/screen_capturer_fuchsia.h",
+        "patchSetId": 5
+      },
+      "lineNbr": 51,
+      "author": {
+        "id": 18474
+      },
+      "writtenOn": "2022-05-23T17:10:26Z",
+      "side": 1,
+      "message": "Add trailing underscore",
+      "range": {
+        "startLine": 51,
+        "startChar": 11,
+        "endLine": 51,
+        "endChar": 38
+      },
+      "revId": "334116ca2f00413f603e9ee44dae699bf4c77090",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

@@ -16,6 +16,23 @@
       "message": "Hi Bjorn, Philip,\nThanks for the fast response and helpful feedback. Please send additional questions/suggestions that you may have.",
       "revId": "6cc55733bf3c3c7aa7d2c023c54d49455302affa",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "07c64ec7_4f5e65fd",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 4
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 19269
+      },
+      "writtenOn": "2022-05-23T23:05:27Z",
+      "side": 1,
+      "message": "Thanks everyone for helpful suggestions and comments. Please see inline for response.",
+      "revId": "6cc55733bf3c3c7aa7d2c023c54d49455302affa",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

@@ -473,6 +473,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "38f2dd81_e094989a",
+        "filename": "modules/desktop_capture/screen_capturer_fuchsia.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 99,
+      "author": {
+        "id": 19214
+      },
+      "writtenOn": "2022-05-23T06:55:53Z",
+      "side": 1,
+      "message": "Yeah that\u0027s what I saw. The benefit of using the frame queue comes from the shared memory. Since getting this Fuchsia desktop capturer to use SharedMemoryDesktopFrame is what I plan to work on once this is submitted, can I leave using the queue until then?",
+      "parentUuid": "7426ac78_2e2bcf31",
+      "range": {
+        "startLine": 99,
+        "startChar": 10,
+        "endLine": 99,
+        "endChar": 27
+      },
+      "revId": "cbcabd2344ea3f6b4e5c057a8dc387e319454769",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "9cd81500_bd3aff1e",
         "filename": "modules/desktop_capture/screen_capturer_fuchsia.cc",
         "patchSetId": 2
@@ -852,6 +876,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "687698a2_546ed83f",
+        "filename": "modules/desktop_capture/screen_capturer_fuchsia.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 164,
+      "author": {
+        "id": 19214
+      },
+      "writtenOn": "2022-05-23T06:55:53Z",
+      "side": 1,
+      "message": "I still get an error, although slightly different now\n```\n[00129.237360][4683][6073][sysmem, driver_host:sys, driver] ERROR: [src/devices/sysmem/drivers/sysmem/logical_buffer_collection.cc(2157)] all pixel_format(s) eliminated - collection \"FlatlandImageMemory\" - client \"scenic.cmx\" id 59008\n[00129.237400][4683][6073][sysmem, driver_host:sys, driver] ERROR: [src/devices/sysmem/drivers/sysmem/logical_buffer_collection.cc(916)] CombineConstraints() failed\n[00129.237449][4683][6073][sysmem, driver_host:sys, driver] ERROR: [src/devices/sysmem/drivers/sysmem/logical_buffer_collection.cc(1242)] [LogicalBufferCollection fail] LogicalBufferCollection::SendAllocationResult() done sending allocation failure - now auto-failing self.\n[00129.237548][4683][6073][sysmem, driver_host:sys, driver] ERROR: [src/devices/sysmem/drivers/sysmem/logical_buffer_collection.cc(817)] Root node was failed due to sub-tree having zero clients remaining. (1) - collection \"FlatlandImageMemory\"\n```",
+      "parentUuid": "2de65328_264a681e",
+      "range": {
+        "startLine": 164,
+        "startChar": 23,
+        "endLine": 164,
+        "endChar": 38
+      },
+      "revId": "cbcabd2344ea3f6b4e5c057a8dc387e319454769",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "cf332790_9a489489",
         "filename": "modules/desktop_capture/screen_capturer_fuchsia.cc",
         "patchSetId": 2
@@ -1146,6 +1194,30 @@
       "side": 1,
       "message": "Thanks; that makes a bit more sense, perhaps we can spell out vmo as at least virtual_mem or memory or something similar? (e.g. vmo_index-\u003ememory_index or virtual_memory_index)",
       "parentUuid": "b2bde73c_dc2d9b3e",
+      "range": {
+        "startLine": 348,
+        "startChar": 28,
+        "endLine": 348,
+        "endChar": 42
+      },
+      "revId": "cbcabd2344ea3f6b4e5c057a8dc387e319454769",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "1643d7b9_f212b0fe",
+        "filename": "modules/desktop_capture/screen_capturer_fuchsia.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 348,
+      "author": {
+        "id": 19214
+      },
+      "writtenOn": "2022-05-23T06:55:53Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "7956d27b_91d3455d",
       "range": {
         "startLine": 348,
         "startChar": 28,

@@ -24,6 +24,30 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "1278c90f_969fea29",
+        "filename": "modules/desktop_capture/screen_capturer_fuchsia.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 128,
+      "author": {
+        "id": 19214
+      },
+      "writtenOn": "2022-05-23T06:55:53Z",
+      "side": 1,
+      "message": "Removed this function.",
+      "parentUuid": "2125db33_f901c4a1",
+      "range": {
+        "startLine": 128,
+        "startChar": 2,
+        "endLine": 128,
+        "endChar": 63
+      },
+      "revId": "4d031a7ee8531557baa9bd36be3e1058c9cb6f09",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "907381cf_30af1f4c",
@@ -37,6 +61,30 @@
       "writtenOn": "2022-05-20T18:26:50Z",
       "side": 1,
       "message": "And then per prior comment this becomes `memory` or `virtual_memory` or `system_memory` or something more descriptive than vmo? I think had I know that acronym from the start, this would\u0027ve been clearer.",
+      "range": {
+        "startLine": 363,
+        "startChar": 17,
+        "endLine": 363,
+        "endChar": 20
+      },
+      "revId": "4d031a7ee8531557baa9bd36be3e1058c9cb6f09",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "4c374f9a_e1a65edd",
+        "filename": "modules/desktop_capture/screen_capturer_fuchsia.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 363,
+      "author": {
+        "id": 19214
+      },
+      "writtenOn": "2022-05-23T06:55:53Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "907381cf_30af1f4c",
       "range": {
         "startLine": 363,
         "startChar": 17,

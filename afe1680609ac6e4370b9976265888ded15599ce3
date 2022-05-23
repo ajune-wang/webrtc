@@ -33,6 +33,24 @@
       "message": "Weetbix does not have access to write to this table, so this is creating alerts in prod for us.\n\nYou will need to grant the weetbix service account access.\n\nchops-weetbix-dev@appspot.gserviceaccount.com (for dev)\nchops-weetbix@appspot.gserviceaccount.com (for prod)",
       "revId": "afe1680609ac6e4370b9976265888ded15599ce3",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "97f1490d_bbd5f17f",
+        "filename": "infra/config/chops-weetbix.cfg",
+        "patchSetId": 2
+      },
+      "lineNbr": 114,
+      "author": {
+        "id": 6193
+      },
+      "writtenOn": "2022-05-23T08:30:47Z",
+      "side": 1,
+      "message": "I had done that but only with bigquery read permissions for resultdb access. Could you include which specific bigquery permissions (and any other if needed) it requires on the setup page? I assume at least bigquery.dataset.create/update (in case it does not exist) bigquery.tables.create/update/updateData/read.",
+      "parentUuid": "24cde296_ffe1a6a9",
+      "revId": "afe1680609ac6e4370b9976265888ded15599ce3",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

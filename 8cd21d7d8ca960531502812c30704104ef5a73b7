@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "9b2c4ae3_a1ffdcc4",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2022-05-23T12:43:43Z",
+      "side": 1,
+      "message": "From the CL, it seems that nobody was using it?\n\nIf so, LGTM.\n",
+      "revId": "8cd21d7d8ca960531502812c30704104ef5a73b7",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

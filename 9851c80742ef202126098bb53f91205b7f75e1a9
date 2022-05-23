@@ -41,6 +41,30 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "acc88c92_6fc7f803",
+        "filename": "modules/audio_processing/aec3/aec_state.cc",
+        "patchSetId": 20
+      },
+      "lineNbr": 471,
+      "author": {
+        "id": 5116
+      },
+      "writtenOn": "2022-05-23T08:41:54Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "af54b2f8_60d63a1b",
+      "range": {
+        "startLine": 471,
+        "startChar": 6,
+        "endLine": 471,
+        "endChar": 10
+      },
+      "revId": "9851c80742ef202126098bb53f91205b7f75e1a9",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "86ee50aa_02808105",
@@ -54,6 +78,30 @@
       "writtenOn": "2022-05-23T07:43:54Z",
       "side": 1,
       "message": "Could we spell this type out (not use auto)? For me it is not obvious what the type is.",
+      "range": {
+        "startLine": 119,
+        "startChar": 10,
+        "endLine": 119,
+        "endChar": 14
+      },
+      "revId": "9851c80742ef202126098bb53f91205b7f75e1a9",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "dbda3b9f_3941a5eb",
+        "filename": "modules/audio_processing/aec3/alignment_mixer.cc",
+        "patchSetId": 20
+      },
+      "lineNbr": 119,
+      "author": {
+        "id": 5116
+      },
+      "writtenOn": "2022-05-23T08:41:54Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "86ee50aa_02808105",
       "range": {
         "startLine": 119,
         "startChar": 10,
@@ -87,6 +135,30 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "10965e40_ed7d9c47",
+        "filename": "modules/audio_processing/aec3/block_buffer.cc",
+        "patchSetId": 20
+      },
+      "lineNbr": 19,
+      "author": {
+        "id": 5116
+      },
+      "writtenOn": "2022-05-23T08:41:54Z",
+      "side": 1,
+      "message": ";)",
+      "parentUuid": "da8413e2_2bf3806d",
+      "range": {
+        "startLine": 18,
+        "startChar": 5,
+        "endLine": 19,
+        "endChar": 53
+      },
+      "revId": "9851c80742ef202126098bb53f91205b7f75e1a9",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "f399da5b_8c0ef06d",
@@ -100,6 +172,30 @@
       "writtenOn": "2022-05-23T07:43:54Z",
       "side": 1,
       "message": "Would it be possible to write the type of this?",
+      "range": {
+        "startLine": 101,
+        "startChar": 8,
+        "endLine": 101,
+        "endChar": 12
+      },
+      "revId": "9851c80742ef202126098bb53f91205b7f75e1a9",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "e2608649_49b93f30",
+        "filename": "modules/audio_processing/aec3/echo_audibility.cc",
+        "patchSetId": 20
+      },
+      "lineNbr": 101,
+      "author": {
+        "id": 5116
+      },
+      "writtenOn": "2022-05-23T08:41:54Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "f399da5b_8c0ef06d",
       "range": {
         "startLine": 101,
         "startChar": 8,
@@ -133,6 +229,30 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "e89da2d3_904e62e0",
+        "filename": "modules/audio_processing/aec3/filter_analyzer.cc",
+        "patchSetId": 20
+      },
+      "lineNbr": 269,
+      "author": {
+        "id": 5116
+      },
+      "writtenOn": "2022-05-23T08:41:54Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "3d75b346_79d5ace0",
+      "range": {
+        "startLine": 269,
+        "startChar": 6,
+        "endLine": 269,
+        "endChar": 10
+      },
+      "revId": "9851c80742ef202126098bb53f91205b7f75e1a9",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "2a67ea87_23f18fe1",
@@ -156,6 +276,30 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "5a78ca46_e16182e8",
+        "filename": "modules/audio_processing/aec3/render_delay_buffer.cc",
+        "patchSetId": 20
+      },
+      "lineNbr": 416,
+      "author": {
+        "id": 5116
+      },
+      "writtenOn": "2022-05-23T08:41:54Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "2a67ea87_23f18fe1",
+      "range": {
+        "startLine": 416,
+        "startChar": 8,
+        "endLine": 416,
+        "endChar": 12
+      },
+      "revId": "9851c80742ef202126098bb53f91205b7f75e1a9",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "90799fc3_c344d68f",
@@ -169,6 +313,30 @@
       "writtenOn": "2022-05-23T07:43:54Z",
       "side": 1,
       "message": "Nit: this is only used on line 434. Can they be bundled into one single line?",
+      "range": {
+        "startLine": 433,
+        "startChar": 1,
+        "endLine": 433,
+        "endChar": 58
+      },
+      "revId": "9851c80742ef202126098bb53f91205b7f75e1a9",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "7441df57_01a836f1",
+        "filename": "modules/audio_processing/aec3/suppression_gain.cc",
+        "patchSetId": 20
+      },
+      "lineNbr": 433,
+      "author": {
+        "id": 5116
+      },
+      "writtenOn": "2022-05-23T08:41:54Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "90799fc3_c344d68f",
       "range": {
         "startLine": 433,
         "startChar": 1,

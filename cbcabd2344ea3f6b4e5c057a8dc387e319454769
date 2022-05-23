@@ -519,6 +519,30 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "483c565b_f49d8f4a",
+        "filename": "modules/desktop_capture/screen_capturer_fuchsia.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 99,
+      "author": {
+        "id": 6779
+      },
+      "writtenOn": "2022-05-23T21:12:21Z",
+      "side": 1,
+      "message": "Leaving as a TODO sgtm.",
+      "parentUuid": "db38f376_3be1fb8b",
+      "range": {
+        "startLine": 99,
+        "startChar": 10,
+        "endLine": 99,
+        "endChar": 27
+      },
+      "revId": "cbcabd2344ea3f6b4e5c057a8dc387e319454769",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "9cd81500_bd3aff1e",
@@ -912,6 +936,30 @@
       "side": 1,
       "message": "I still get an error, although slightly different now\n```\n[00129.237360][4683][6073][sysmem, driver_host:sys, driver] ERROR: [src/devices/sysmem/drivers/sysmem/logical_buffer_collection.cc(2157)] all pixel_format(s) eliminated - collection \"FlatlandImageMemory\" - client \"scenic.cmx\" id 59008\n[00129.237400][4683][6073][sysmem, driver_host:sys, driver] ERROR: [src/devices/sysmem/drivers/sysmem/logical_buffer_collection.cc(916)] CombineConstraints() failed\n[00129.237449][4683][6073][sysmem, driver_host:sys, driver] ERROR: [src/devices/sysmem/drivers/sysmem/logical_buffer_collection.cc(1242)] [LogicalBufferCollection fail] LogicalBufferCollection::SendAllocationResult() done sending allocation failure - now auto-failing self.\n[00129.237548][4683][6073][sysmem, driver_host:sys, driver] ERROR: [src/devices/sysmem/drivers/sysmem/logical_buffer_collection.cc(817)] Root node was failed due to sub-tree having zero clients remaining. (1) - collection \"FlatlandImageMemory\"\n```",
       "parentUuid": "2de65328_264a681e",
+      "range": {
+        "startLine": 164,
+        "startChar": 23,
+        "endLine": 164,
+        "endChar": 38
+      },
+      "revId": "cbcabd2344ea3f6b4e5c057a8dc387e319454769",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "21ae90c3_18041b92",
+        "filename": "modules/desktop_capture/screen_capturer_fuchsia.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 164,
+      "author": {
+        "id": 6779
+      },
+      "writtenOn": "2022-05-23T21:12:21Z",
+      "side": 1,
+      "message": "I believe I420 as a render target is not yet supported on the device we are targeting then. I am sorry for the delay in checking. BGRA and RGBA are supported in every device. We can keep using that reliably.",
+      "parentUuid": "687698a2_546ed83f",
       "range": {
         "startLine": 164,
         "startChar": 23,

@@ -32,18 +32,19 @@ namespace cricket {
 class RTC_EXPORT BasicPortAllocator : public PortAllocator {
  public:
   // The NetworkManager is a mandatory argument. The other arguments are
-  // optional. All these objects are owned by caller and must have a life time
+  // optional. All pointers are owned by caller and must have a life time
   // that exceeds that of BasicPortAllocator.
-  // TODO(bugs.webrtc.org/13145): The SocketFactory should be mandatory, but
-  // currenly isn't. When not specified, one is created internally, based on the
-  // socket server associated with the thread calling CreateSession.
   BasicPortAllocator(rtc::NetworkManager* network_manager,
                      rtc::PacketSocketFactory* socket_factory,
                      webrtc::TurnCustomizer* customizer = nullptr,
                      RelayPortFactoryInterface* relay_port_factory = nullptr);
-  explicit BasicPortAllocator(rtc::NetworkManager* network_manager);
-  BasicPortAllocator(rtc::NetworkManager* network_manager,
-                     const ServerAddresses& stun_servers);
+  BasicPortAllocator(
+      rtc::NetworkManager* network_manager,
+      std::unique_ptr<rtc::PacketSocketFactory> owned_socket_factory);
+  BasicPortAllocator(
+      rtc::NetworkManager* network_manager,
+      std::unique_ptr<rtc::PacketSocketFactory> owned_socket_factory,
+      const ServerAddresses& stun_servers);
   BasicPortAllocator(rtc::NetworkManager* network_manager,
                      rtc::PacketSocketFactory* socket_factory,
                      const ServerAddresses& stun_servers);
@@ -97,6 +98,7 @@ class RTC_EXPORT BasicPortAllocator : public PortAllocator {
   const webrtc::FieldTrialsView* field_trials_;
   std::unique_ptr<webrtc::FieldTrialsView> owned_field_trials_;
   rtc::NetworkManager* network_manager_;
+  std::unique_ptr<rtc::PacketSocketFactory> owned_socket_factory_;
   rtc::PacketSocketFactory* socket_factory_;
   int network_ignore_mask_ = rtc::kDefaultNetworkIgnoreMask;
 
@@ -273,7 +275,6 @@ class RTC_EXPORT BasicPortAllocatorSession : public PortAllocatorSession {
 
   BasicPortAllocator* allocator_;
   rtc::Thread* network_thread_;
-  std::unique_ptr<rtc::PacketSocketFactory> owned_socket_factory_;
   rtc::PacketSocketFactory* socket_factory_;
   bool allocation_started_;
   bool network_manager_started_;

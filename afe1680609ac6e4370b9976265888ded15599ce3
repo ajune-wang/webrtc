@@ -1,0 +1,38 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "fb7c12af_bfdb2318",
+        "filename": "infra/config/chops-weetbix-dev.cfg",
+        "patchSetId": 2
+      },
+      "lineNbr": 114,
+      "author": {
+        "id": 19305
+      },
+      "writtenOn": "2022-05-23T04:03:13Z",
+      "side": 1,
+      "message": "Looks like you are asking dev + prod to both pipe the data into the same table. This is not a good idea.\n\nSuggest you either create a separate table if you want use dev Weetbix as well (e.g. for testing) or use prod Weetbix only.",
+      "revId": "afe1680609ac6e4370b9976265888ded15599ce3",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "24cde296_ffe1a6a9",
+        "filename": "infra/config/chops-weetbix.cfg",
+        "patchSetId": 2
+      },
+      "lineNbr": 114,
+      "author": {
+        "id": 19305
+      },
+      "writtenOn": "2022-05-23T04:03:13Z",
+      "side": 1,
+      "message": "Weetbix does not have access to write to this table, so this is creating alerts in prod for us.\n\nYou will need to grant the weetbix service account access.\n\nchops-weetbix-dev@appspot.gserviceaccount.com (for dev)\nchops-weetbix@appspot.gserviceaccount.com (for prod)",
+      "revId": "afe1680609ac6e4370b9976265888ded15599ce3",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

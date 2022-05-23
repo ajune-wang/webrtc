@@ -1,6 +1,23 @@
 {
   "comments": [
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "7f2ed66f_cd94ce92",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 6
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5508
+      },
+      "writtenOn": "2022-05-23T13:41:39Z",
+      "side": 1,
+      "message": "lgtm % log statement comments",
+      "revId": "49e70d5d62cf399b19c2a6953d463d865a9d8bd9",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "757d3783_8ba3e91a",
@@ -14,6 +31,57 @@
       "writtenOn": "2022-05-23T13:40:20Z",
       "side": 1,
       "message": "Do you want this log or was it only for debugging?",
+      "revId": "49e70d5d62cf399b19c2a6953d463d865a9d8bd9",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "a3163602_32fed51e",
+        "filename": "pc/data_channel_controller.cc",
+        "patchSetId": 6
+      },
+      "lineNbr": 72,
+      "author": {
+        "id": 5508
+      },
+      "writtenOn": "2022-05-23T13:41:39Z",
+      "side": 1,
+      "message": "remove?",
+      "revId": "49e70d5d62cf399b19c2a6953d463d865a9d8bd9",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "7e96a9de_201c6177",
+        "filename": "pc/sctp_data_channel.cc",
+        "patchSetId": 6
+      },
+      "lineNbr": 264,
+      "author": {
+        "id": 5508
+      },
+      "writtenOn": "2022-05-23T13:41:39Z",
+      "side": 1,
+      "message": "remove?",
+      "revId": "49e70d5d62cf399b19c2a6953d463d865a9d8bd9",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "c84965cc_b023ece6",
+        "filename": "pc/sctp_data_channel.cc",
+        "patchSetId": 6
+      },
+      "lineNbr": 541,
+      "author": {
+        "id": 5508
+      },
+      "writtenOn": "2022-05-23T13:41:39Z",
+      "side": 1,
+      "message": "remove?",
       "revId": "49e70d5d62cf399b19c2a6953d463d865a9d8bd9",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }

@@ -16,6 +16,24 @@
       "message": "Looks good to me.",
       "revId": "e392992bf913676f873364ffeec9bb1022d3abb3",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "8b19e253_3b194599",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 18829
+      },
+      "writtenOn": "2022-05-23T20:21:05Z",
+      "side": 1,
+      "message": "Thanks for the swift review! I have adjusted the change to incorporate width/height into existing capture options to keep it contained -- no other changes in the CL, feel free to take another look if you like.",
+      "parentUuid": "45304a54_2450e2f9",
+      "revId": "e392992bf913676f873364ffeec9bb1022d3abb3",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

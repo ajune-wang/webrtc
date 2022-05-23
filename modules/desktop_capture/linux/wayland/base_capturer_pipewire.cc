@@ -35,8 +35,13 @@ BaseCapturerPipeWire::BaseCapturerPipeWire(const DesktopCaptureOptions& options)
 
 BaseCapturerPipeWire::BaseCapturerPipeWire(
     const DesktopCaptureOptions& options,
-    std::unique_ptr<ScreenCapturePortalInterface> portal)
-    : options_(options), portal_(std::move(portal)) {}
+    std::unique_ptr<ScreenCapturePortalInterface> portal,
+    uint32_t width,
+    uint32_t height)
+    : options_(options),
+      portal_(std::move(portal)),
+      width_(width),
+      height_(height) {}
 
 BaseCapturerPipeWire::~BaseCapturerPipeWire() {}
 
@@ -44,8 +49,8 @@ void BaseCapturerPipeWire::OnScreenCastRequestResult(RequestResponse result,
                                                      uint32_t stream_node_id,
                                                      int fd) {
   if (result != RequestResponse::kSuccess ||
-      !options_.screencast_stream()->StartScreenCastStream(stream_node_id,
-                                                           fd)) {
+      !options_.screencast_stream()->StartScreenCastStream(stream_node_id, fd,
+                                                           width_, height_)) {
     capturer_failed_ = true;
     RTC_LOG(LS_ERROR) << "ScreenCastPortal failed: "
                       << static_cast<uint>(result);

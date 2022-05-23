@@ -28,7 +28,9 @@ class BaseCapturerPipeWire : public DesktopCapturer,
   explicit BaseCapturerPipeWire(const DesktopCaptureOptions& options);
   BaseCapturerPipeWire(
       const DesktopCaptureOptions& options,
-      std::unique_ptr<xdg_portal::ScreenCapturePortalInterface> portal);
+      std::unique_ptr<xdg_portal::ScreenCapturePortalInterface> portal,
+      uint32_t width = 0,
+      uint32_t height = 0);
   ~BaseCapturerPipeWire() override;
 
   BaseCapturerPipeWire(const BaseCapturerPipeWire&) = delete;
@@ -53,6 +55,8 @@ class BaseCapturerPipeWire : public DesktopCapturer,
   Callback* callback_ = nullptr;
   bool capturer_failed_ = false;
   std::unique_ptr<xdg_portal::ScreenCapturePortalInterface> portal_;
+  uint32_t width_ = 0;
+  uint32_t height_ = 0;
 };
 
 }  // namespace webrtc

@@ -10,7 +10,7 @@ vars = {
   # chromium waterfalls. More info at: crbug.com/570091.
   'checkout_configuration': 'default',
   'checkout_instrumented_libraries': 'checkout_linux and checkout_configuration == "default"',
-  'chromium_revision': '4c07188ff7c34731dead7f9aeaf00cbd0db78d2a',
+  'chromium_revision': 'b108b0c30304e43b165c1bcb0ec56bf473def273',
 
   # Keep the Chromium default of generating location tags.
   'generate_location_tags': True,
@@ -34,13 +34,13 @@ deps = {
     'condition': 'checkout_android',
   },
   'src/ios': {
-    'url': 'https://chromium.googlesource.com/chromium/src/ios@9e5dcc6cb4671154359ad1fe9b617802c5b46877',
+    'url': 'https://chromium.googlesource.com/chromium/src/ios@426f96c790ccc97f10236b43c267dedcdda41f8f',
     'condition': 'checkout_ios',
   },
   'src/testing':
-    'https://chromium.googlesource.com/chromium/src/testing@dbc83fd6df82fd2a4a03735a40f0b94ba2b7f3d6',
+    'https://chromium.googlesource.com/chromium/src/testing@e7f4079d1f8cc01394bde5dffa86a5cabc72f3c1',
   'src/third_party':
-    'https://chromium.googlesource.com/chromium/src/third_party@b9877b44b176b98caf74e3c6d6f2706d7540c6b2',
+    'https://chromium.googlesource.com/chromium/src/third_party@2adf1175e765094bcaee2d45cad61313630415ed',
 
   'src/buildtools/linux64': {
     'packages': [
@@ -220,7 +220,7 @@ deps = {
       'condition': 'checkout_android',
   },
   'src/third_party/perfetto':
-    'https://android.googlesource.com/platform/external/perfetto.git@785aac6dabe1216142ec32490a9086cd35db3b2d',
+    'https://android.googlesource.com/platform/external/perfetto.git@cbdce4222823e8b0711b90eb4431a0c0dafe826a',
   'src/third_party/libvpx/source/libvpx':
     'https://chromium.googlesource.com/webm/libvpx.git@ca89bed50dbc5fe2abef50c5f36924bb1da6d1f6',
   'src/third_party/libyuv':
@@ -275,7 +275,7 @@ deps = {
     'condition': 'checkout_win',
   },
   'src/tools':
-    'https://chromium.googlesource.com/chromium/src/tools@574c88fbcfb6b5e4fb46ba45b7f627590095a9b1',
+    'https://chromium.googlesource.com/chromium/src/tools@b0199cf85d90801b6b2e2cf771609986d0ac8499',
 
   'src/third_party/accessibility_test_framework': {
       'packages': [

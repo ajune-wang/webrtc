@@ -34,6 +34,24 @@
       "parentUuid": "f9938f84_81037e82",
       "revId": "889aaf9ad785628ec45921ab934af6b999dbe07a",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "88228618_0e3356a1",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 18444
+      },
+      "writtenOn": "2022-05-23T07:56:58Z",
+      "side": 1,
+      "message": "I have looked into this recently. The reason why it causes video delay is that the max delay \u003c min delay. The previous code executed clamp as,\n  \n  std::min(max_delay, std::max(min_delay, delay))\n  \nClamped() does\n  \n  std::max(min_delay, std::min(max_delay, delay))\n  \nThe order does not matter so long as min_delay \u003c max_delay. However, clamp is undefined. \n\nLikely what is happening is that there is a conflict in the delay values set. This can happen if the delay header extension is used at the same time as a playout hint.\nIt would have been better before to have a warning to the user that there was a delay conflict but that case was not known until now.",
+      "parentUuid": "cf96f159_28f25083",
+      "revId": "889aaf9ad785628ec45921ab934af6b999dbe07a",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

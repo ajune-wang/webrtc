@@ -12,6 +12,7 @@
 
 #include <stdio.h>
 
+#include <cstdint>
 #include <memory>
 #include <string>
 
@@ -106,7 +107,6 @@ void DecisionLogic::SoftReset() {
   packet_length_samples_ = 0;
   sample_memory_ = 0;
   prev_time_scale_ = false;
-  last_pack_cng_or_dtmf_ = true;
   timescale_countdown_ =
       tick_timer_->GetNewCountdown(kMinTimescaleInterval + 1);
   time_stretched_cn_samples_ = 0;
@@ -240,7 +240,6 @@ absl::optional<int> DecisionLogic::PacketArrived(
     const PacketArrivedInfo& info) {
   buffer_flush_ = buffer_flush_ || info.buffer_flush;
   if (info.is_cng_or_dtmf) {
-    last_pack_cng_or_dtmf_ = true;
     return absl::nullopt;
   }
   if (!should_update_stats) {
@@ -251,12 +250,14 @@ absl::optional<int> DecisionLogic::PacketArrived(
     packet_length_samples_ = info.packet_length_samples;
     delay_manager_->SetPacketAudioLength(packet_length_samples_ * 1000 / fs_hz);
   }
-  packet_arrival_history_.Insert(
-      info.main_timestamp, tick_timer_->ticks() * tick_timer_->ms_per_tick());
-  auto relative_delay = delay_manager_->Update(
-      info.main_timestamp, fs_hz, /*reset=*/last_pack_cng_or_dtmf_);
-  last_pack_cng_or_dtmf_ = false;
-  return relative_delay;
+  int64_t time_now_ms = tick_timer_->ticks() * tick_timer_->ms_per_tick();
+  packet_arrival_history_.Insert(info.main_timestamp, time_now_ms);
+  int arrival_delay_ms =
+      packet_arrival_history_.GetDelayMs(info.main_timestamp, time_now_ms);
+  bool reordered =
+      !packet_arrival_history_.IsNewestTimestamp(info.main_timestamp);
+  delay_manager_->Update(arrival_delay_ms, reordered);
+  return arrival_delay_ms;
 }
 
 void DecisionLogic::FilterBufferLevel(size_t buffer_size_samples) {

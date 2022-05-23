@@ -41,7 +41,7 @@ class DelayManagerTest : public ::testing::Test {
  protected:
   DelayManagerTest();
   virtual void SetUp();
-  absl::optional<int> InsertNextPacket();
+  void InsertNextPacket();
   void IncreaseTime(int inc_ms);
 
   TickTimer tick_timer_;
@@ -56,10 +56,9 @@ void DelayManagerTest::SetUp() {
   dm_.SetPacketAudioLength(kFrameSizeMs);
 }
 
-absl::optional<int> DelayManagerTest::InsertNextPacket() {
-  auto relative_delay = dm_.Update(ts_, kFs);
+void DelayManagerTest::InsertNextPacket() {
+  dm_.Update(ts_, kFs);
   ts_ += kTsIncrement;
-  return relative_delay;
 }
 
 void DelayManagerTest::IncreaseTime(int inc_ms) {
@@ -234,8 +233,6 @@ TEST_F(DelayManagerTest, BaseMinimumDelay) {
 }
 
 TEST_F(DelayManagerTest, Failures) {
-  // Wrong sample rate.
-  EXPECT_EQ(absl::nullopt, dm_.Update(0, -1));
   // Wrong packet size.
   EXPECT_EQ(-1, dm_.SetPacketAudioLength(0));
   EXPECT_EQ(-1, dm_.SetPacketAudioLength(-1));
@@ -248,15 +245,6 @@ TEST_F(DelayManagerTest, Failures) {
   EXPECT_TRUE(dm_.SetMaximumDelay(100));
   EXPECT_TRUE(dm_.SetMinimumDelay(80));
   EXPECT_FALSE(dm_.SetMaximumDelay(60));
-}
-
-TEST_F(DelayManagerTest, RelativeArrivalDelayStatistic) {
-  EXPECT_EQ(absl::nullopt, InsertNextPacket());
-  IncreaseTime(kFrameSizeMs);
-  EXPECT_EQ(0, InsertNextPacket());
-  IncreaseTime(2 * kFrameSizeMs);
-
-  EXPECT_EQ(20, InsertNextPacket());
 }
 
 }  // namespace webrtc

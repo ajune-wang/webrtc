@@ -69,6 +69,7 @@ bool DataChannelController::ConnectDataChannel(
 void DataChannelController::DisconnectDataChannel(
     SctpDataChannel* webrtc_data_channel) {
   RTC_DCHECK_RUN_ON(signaling_thread());
+  RTC_LOG(LS_ERROR) << "DisconnectDataChannel called";
   if (!data_channel_transport()) {
     RTC_LOG(LS_ERROR)
         << "DisconnectDataChannel called when sctp_transport_ is NULL.";

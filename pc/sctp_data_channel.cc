@@ -261,6 +261,7 @@ uint64_t SctpDataChannel::buffered_amount() const {
 
 void SctpDataChannel::Close() {
   RTC_DCHECK_RUN_ON(signaling_thread_);
+  RTC_LOG(LS_ERROR) << "DEBUG: Close, state = " << state_;
   if (state_ == kClosing || state_ == kClosed)
     return;
   SetState(kClosing);
@@ -537,6 +538,7 @@ void SctpDataChannel::UpdateState() {
       break;
     }
     case kClosing: {
+      RTC_LOG(LS_ERROR) << "DEBUG: UpdateState(kClosing), this = " << this;
       // Wait for all queued data to be sent before beginning the closing
       // procedure.
       if (queued_send_data_.Empty() && queued_control_data_.Empty()) {

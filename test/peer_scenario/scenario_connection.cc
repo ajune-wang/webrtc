@@ -95,8 +95,9 @@ ScenarioIceConnectionImpl::ScenarioIceConnectionImpl(
           cricket::ConnectionRole::CONNECTIONROLE_PASSIVE,
           rtc::SSLFingerprint::CreateFromCertificate(*certificate_.get())
               .get()),
-      port_allocator_(
-          new cricket::BasicPortAllocator(manager_->network_manager())),
+      port_allocator_(new cricket::BasicPortAllocator(
+          manager_->network_manager(),
+          std::unique_ptr<rtc::PacketSocketFactory>())),
       jsep_controller_(
           new JsepTransportController(network_thread_,
                                       port_allocator_.get(),

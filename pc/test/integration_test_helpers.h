@@ -750,7 +750,9 @@ class PeerConnectionIntegrationWrapper : public webrtc::PeerConnectionObserver,
     fake_network_manager_->AddInterface(kDefaultLocalAddress);
 
     std::unique_ptr<cricket::PortAllocator> port_allocator(
-        new cricket::BasicPortAllocator(fake_network_manager_.get()));
+        new cricket::BasicPortAllocator(
+            fake_network_manager_.get(),
+            std::unique_ptr<rtc::PacketSocketFactory>()));
     port_allocator_ = port_allocator.get();
     fake_audio_capture_module_ = FakeAudioCaptureModule::Create();
     if (!fake_audio_capture_module_) {

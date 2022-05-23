@@ -51,6 +51,24 @@
       "parentUuid": "b3a2c73b_78685141",
       "revId": "2f693c6e205625aee137fe55334caff1f95c14d7",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "722b6049_ff1060b5",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5520
+      },
+      "writtenOn": "2022-05-23T09:22:30Z",
+      "side": 1,
+      "message": "Apologies for the delayed response. I\u0027ve been looking into this, and we don\u0027t see these crashes in our internal products. We use a different capture component but it\u0027s doing the same canAddInput/addInput dance. That leads me to suspect that there might be a race here. \n\nI don\u0027t want to land a try/catch that hides a potential race condition, so I think we should look carefully at the root cause first.",
+      "parentUuid": "2fda3504_3276d277",
+      "revId": "2f693c6e205625aee137fe55334caff1f95c14d7",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

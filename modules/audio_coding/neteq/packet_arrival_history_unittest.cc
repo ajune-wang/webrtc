@@ -35,6 +35,7 @@ class PacketArrivalHistoryTest : public testing::Test {
       timestamp_ = timestamp;
     }
     history_.Insert(timestamp, time_ms_);
+    EXPECT_EQ(history_.newest_rtp_timestamp(), timestamp_);
     return history_.GetDelayMs(timestamp, time_ms_);
   }
 

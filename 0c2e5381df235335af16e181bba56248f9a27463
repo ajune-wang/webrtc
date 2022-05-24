@@ -35,6 +35,24 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": true,
+      "key": {
+        "uuid": "b69d5994_7fdc3e54",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 7
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 9405
+      },
+      "writtenOn": "2022-05-24T13:25:32Z",
+      "side": 1,
+      "message": "Does this description is okay?\n```\nThis template allows holding owned or unowned pointers of type |Interface|.\nThe behavior when it is passed a null pointer depends on the type of class\n|Default|. If class |Default| is not void, an object of class |Default| will\nbe created, which will be deallocated when the pointer is deleted.\nIf class |Default| is void, no default object is created.\nIf you want to always have a valid pointer, you shouldn\u0027t pass void for\nclass |Default|.\n```",
+      "parentUuid": "f7c60382_9a5ad353",
+      "revId": "0c2e5381df235335af16e181bba56248f9a27463",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": false,
       "key": {
         "uuid": "f76ddb2c_cb6d95e5",

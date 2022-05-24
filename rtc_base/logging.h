@@ -8,6 +8,8 @@
  *  be found in the AUTHORS file in the root of the source tree.
  */
 
+// TEST
+
 // RTC_LOG(...) an ostream target that can be used to send formatted
 // output to a variety of logging targets, such as debugger console, stderr,
 // or any LogSink.

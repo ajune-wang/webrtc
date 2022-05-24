@@ -72,6 +72,30 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "6feb1a64_af0d9c38",
+        "filename": "modules/audio_coding/neteq/decision_logic.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 251,
+      "author": {
+        "id": 8038
+      },
+      "writtenOn": "2022-05-24T21:31:36Z",
+      "side": 1,
+      "message": "I still think the packet arrival history is more understandable than the relative arrival delay tracker, so we should use that in any case.",
+      "parentUuid": "7e5bc8be_ea919fe7",
+      "range": {
+        "startLine": 251,
+        "startChar": 0,
+        "endLine": 251,
+        "endChar": 67
+      },
+      "revId": "a83eceefef426eb78dd31db8d249227f32194d1a",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "a3a196fa_40b7d6d7",
@@ -133,6 +157,30 @@
       "side": 1,
       "message": "emm ... I don\u0027t read it that way. \n\nIsRtpTimestampNewer is to compare with the PacketArrivalHistory, i.e., given a rtp timestamp, is it newer than the latest timestamp that PacketArrivalHistory has stored.\n\nIsNewestRtpTimestamp reads to me like if a give rtp timestamp equals the latest timestamp in PacketArrivalHistory.\n\nmaybe I interpret it wrong. WDYT?",
       "parentUuid": "a69c32d2_13296cdd",
+      "range": {
+        "startLine": 42,
+        "startChar": 7,
+        "endLine": 42,
+        "endChar": 24
+      },
+      "revId": "a83eceefef426eb78dd31db8d249227f32194d1a",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "c28a8e0b_159f4c4c",
+        "filename": "modules/audio_coding/neteq/packet_arrival_history.h",
+        "patchSetId": 4
+      },
+      "lineNbr": 42,
+      "author": {
+        "id": 8038
+      },
+      "writtenOn": "2022-05-24T21:31:36Z",
+      "side": 1,
+      "message": "Hm...since this confuses us both, changed to return the newest timestamp instead :)",
+      "parentUuid": "a2b337e2_983c55e2",
       "range": {
         "startLine": 42,
         "startChar": 7,

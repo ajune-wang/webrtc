@@ -16,6 +16,91 @@
       "message": "Hi, Niels and Harald. This CL is based on https://webrtc-review.googlesource.com/c/src/+/239123, and all tests now pass. Please take a look. Thanks.",
       "revId": "81b6e93801cfc52f6f8b322f8e6b7cf2ac7e159d",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "93d24511_39a37f84",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 4
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2022-05-24T07:55:45Z",
+      "side": 1,
+      "message": "Looks good, but not 100% clear on whether you want to encourage owned factories or pointed-to factories in general.\n\nIs it safe to use a PacketSocketFactory for two different BasicPortAllocator instances at the same time? If not, we should definitely encourage the ownership model (deprecating the pointer model).\n\nCheck out AlwaysValidPointer as a possible helper to use.\n",
+      "revId": "81b6e93801cfc52f6f8b322f8e6b7cf2ac7e159d",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "8617930f_cc9c0161",
+        "filename": "p2p/client/basic_port_allocator.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 177,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2022-05-24T07:55:45Z",
+      "side": 1,
+      "message": "It\u0027s clearer to use owned_socket_factory_(std::move(owned_socket_factory).",
+      "revId": "81b6e93801cfc52f6f8b322f8e6b7cf2ac7e159d",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "9e3d98c0_72762981",
+        "filename": "p2p/client/basic_port_allocator.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 193,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2022-05-24T07:55:45Z",
+      "side": 1,
+      "message": "This calls the pointer version of the constructor, and prevents owned_socket_factory_ from being const. That\u0027s not good.\n\nIf this is the version we want people to use in the future, it should have the cleanest code path.",
+      "revId": "81b6e93801cfc52f6f8b322f8e6b7cf2ac7e159d",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "5bc64bb1_fb0caa9b",
+        "filename": "p2p/client/basic_port_allocator.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 203,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2022-05-24T07:55:45Z",
+      "side": 1,
+      "message": "Since the requirement is a new one, I suggest to use CHECK rather than DCHECK.\n(Ensure that wrong usages in downstream projects break instead of silently misbehaving).",
+      "revId": "81b6e93801cfc52f6f8b322f8e6b7cf2ac7e159d",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "f36ca64b_82a3bf05",
+        "filename": "p2p/client/basic_port_allocator.h",
+        "patchSetId": 4
+      },
+      "lineNbr": 102,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2022-05-24T07:55:45Z",
+      "side": 1,
+      "message": "You can merge these two by using an AlwaysValidPointer. Also take the opportunity to make it const, if possible.",
+      "revId": "81b6e93801cfc52f6f8b322f8e6b7cf2ac7e159d",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

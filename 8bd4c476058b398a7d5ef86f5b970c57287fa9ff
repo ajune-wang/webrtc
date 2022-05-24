@@ -54,6 +54,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "58e5c149_0b6377a7",
+        "filename": "rtc_base/memory/always_valid_pointer.h",
+        "patchSetId": 8
+      },
+      "lineNbr": 112,
+      "author": {
+        "id": 9405
+      },
+      "writtenOn": "2022-05-24T21:10:40Z",
+      "side": 1,
+      "message": "Added some comments.",
+      "parentUuid": "c3996cdd_9cc63515",
+      "revId": "8bd4c476058b398a7d5ef86f5b970c57287fa9ff",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "a5188585_a1b56a97",
         "filename": "rtc_base/memory/always_valid_pointer.h",
         "patchSetId": 8
@@ -65,6 +83,24 @@
       "writtenOn": "2022-05-24T14:48:42Z",
       "side": 1,
       "message": "RTC_CHECK?",
+      "revId": "8bd4c476058b398a7d5ef86f5b970c57287fa9ff",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "a4149242_7fbf0536",
+        "filename": "rtc_base/memory/always_valid_pointer.h",
+        "patchSetId": 8
+      },
+      "lineNbr": 117,
+      "author": {
+        "id": 9405
+      },
+      "writtenOn": "2022-05-24T21:10:40Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "a5188585_a1b56a97",
       "revId": "8bd4c476058b398a7d5ef86f5b970c57287fa9ff",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
@@ -86,6 +122,24 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "8b10c849_81e30264",
+        "filename": "rtc_base/memory/always_valid_pointer.h",
+        "patchSetId": 8
+      },
+      "lineNbr": 122,
+      "author": {
+        "id": 9405
+      },
+      "writtenOn": "2022-05-24T21:10:40Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "a498b5fc_a4815dff",
+      "revId": "8bd4c476058b398a7d5ef86f5b970c57287fa9ff",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "3dd98e86_6af447ce",
@@ -99,6 +153,24 @@
       "writtenOn": "2022-05-24T14:48:42Z",
       "side": 1,
       "message": "RTC_CHECK?",
+      "revId": "8bd4c476058b398a7d5ef86f5b970c57287fa9ff",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "32dee503_350c1dc5",
+        "filename": "rtc_base/memory/always_valid_pointer.h",
+        "patchSetId": 8
+      },
+      "lineNbr": 127,
+      "author": {
+        "id": 9405
+      },
+      "writtenOn": "2022-05-24T21:10:40Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "3dd98e86_6af447ce",
       "revId": "8bd4c476058b398a7d5ef86f5b970c57287fa9ff",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },

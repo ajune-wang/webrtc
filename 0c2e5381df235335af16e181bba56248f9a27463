@@ -73,6 +73,41 @@
     {
       "unresolved": false,
       "key": {
+        "uuid": "0f5b0936_6793c7a3",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 7
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2022-05-24T13:35:35Z",
+      "side": 1,
+      "message": "Touching infrastructure is always fun :-)\n",
+      "revId": "0c2e5381df235335af16e181bba56248f9a27463",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "e322c9ca_ef0c032b",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 7
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2022-05-24T13:35:35Z",
+      "side": 1,
+      "message": "This sounds good, but the added examples and tests in the actual update will hopefully make it all clear!\n\n(All contructors need to have at least one exercise in always_valid_pointer_unittest.cc, or I\u0027m unhappy!)",
+      "parentUuid": "e20c4295_4025af20",
+      "revId": "0c2e5381df235335af16e181bba56248f9a27463",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
         "uuid": "f76ddb2c_cb6d95e5",
         "filename": "rtc_base/memory/always_valid_pointer.h",
         "patchSetId": 7

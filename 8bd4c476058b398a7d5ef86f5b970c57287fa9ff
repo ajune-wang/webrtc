@@ -1,0 +1,106 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "dd63c077_a9bfaf44",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 8
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2022-05-24T14:48:42Z",
+      "side": 1,
+      "message": "Do want to crash in production when the contract is violated...\n",
+      "revId": "8bd4c476058b398a7d5ef86f5b970c57287fa9ff",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "c3996cdd_9cc63515",
+        "filename": "rtc_base/memory/always_valid_pointer.h",
+        "patchSetId": 8
+      },
+      "lineNbr": 112,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2022-05-24T14:48:42Z",
+      "side": 1,
+      "message": "This is a completely new class, right? Just using the same name?\n OK, maybe it looks tidier that way....",
+      "revId": "8bd4c476058b398a7d5ef86f5b970c57287fa9ff",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "a5188585_a1b56a97",
+        "filename": "rtc_base/memory/always_valid_pointer.h",
+        "patchSetId": 8
+      },
+      "lineNbr": 117,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2022-05-24T14:48:42Z",
+      "side": 1,
+      "message": "RTC_CHECK?",
+      "revId": "8bd4c476058b398a7d5ef86f5b970c57287fa9ff",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "a498b5fc_a4815dff",
+        "filename": "rtc_base/memory/always_valid_pointer.h",
+        "patchSetId": 8
+      },
+      "lineNbr": 122,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2022-05-24T14:48:42Z",
+      "side": 1,
+      "message": "Add \"One of the arguments must be non-NULL\"?",
+      "revId": "8bd4c476058b398a7d5ef86f5b970c57287fa9ff",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "3dd98e86_6af447ce",
+        "filename": "rtc_base/memory/always_valid_pointer.h",
+        "patchSetId": 8
+      },
+      "lineNbr": 127,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2022-05-24T14:48:42Z",
+      "side": 1,
+      "message": "RTC_CHECK?",
+      "revId": "8bd4c476058b398a7d5ef86f5b970c57287fa9ff",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "9a44b12f_afa7c845",
+        "filename": "rtc_base/memory/always_valid_pointer_unittest.cc",
+        "patchSetId": 8
+      },
+      "lineNbr": 110,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2022-05-24T14:48:42Z",
+      "side": 1,
+      "message": "I\u0027d prefer this one to crash in production....",
+      "revId": "8bd4c476058b398a7d5ef86f5b970c57287fa9ff",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

@@ -28,8 +28,8 @@ constexpr TimeDelta kLowLatencyRendererMaxPlayoutDelay = TimeDelta::Millis(500);
 void CheckDelaysValid(TimeDelta min_delay, TimeDelta max_delay) {
   if (min_delay > max_delay) {
     RTC_LOG(LS_ERROR)
-        << "Playout delays set incorrectly: min playout delay (" << min_delay
-        << ") > max playout delay (" << max_delay
+        << "FIPPO Playout delays set incorrectly: min playout delay ("
+        << min_delay << ") > max playout delay (" << max_delay
         << "). This is undefined behaviour. Application writers should "
            "ensure that the min delay is always less than or equals max "
            "delay. If trying to use the playout delay header extensions "
@@ -227,7 +227,9 @@ TimeDelta VCMTiming::MaxWaitingTime(Timestamp render_time,
     // many frames are sent at once. Therefore, limit the interframe delay to
     // |zero_playout_delay_min_pacing_| unless too many frames are queued in
     // which case the frames are sent to the decoder at once.
+    RTC_LOG(LS_ERROR) << "FIPPO ZERO LATENCY PATH ZERO";
     if (too_many_frames_queued) {
+      RTC_LOG(LS_ERROR) << "FIPPO ZERO LATENCY PATH ZERO";
       return TimeDelta::Zero();
     }
     Timestamp earliest_next_decode_start_time =
@@ -235,8 +237,13 @@ TimeDelta VCMTiming::MaxWaitingTime(Timestamp render_time,
     TimeDelta max_wait_time = now >= earliest_next_decode_start_time
                                   ? TimeDelta::Zero()
                                   : earliest_next_decode_start_time - now;
+    RTC_LOG(LS_ERROR) << "FIPPO ZERO LATENCY PATH " << max_wait_time.us()
+                      << "us";
     return max_wait_time;
   }
+  RTC_LOG(LS_ERROR)
+      << "FIPPO NORMAL PATH "
+      << (render_time - now - RequiredDecodeTime() - render_delay_).us();
   return render_time - now - RequiredDecodeTime() - render_delay_;
 }
 

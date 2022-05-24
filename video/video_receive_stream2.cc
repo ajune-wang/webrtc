@@ -599,6 +599,7 @@ int VideoReceiveStream2::GetBaseMinimumPlayoutDelayMs() const {
 }
 
 void VideoReceiveStream2::OnFrame(const VideoFrame& video_frame) {
+  RTC_LOG(LS_ERROR) << "FIPPO OnFrame";
   VideoFrameMetaData frame_meta(video_frame, clock_->CurrentTime());
 
   // TODO(bugs.webrtc.org/10739): we should set local capture clock offset for
@@ -761,6 +762,7 @@ void VideoReceiveStream2::OnEncodedFrame(std::unique_ptr<EncodedFrame> frame) {
   RTC_DCHECK_RUN_ON(&decode_queue_);
   if (decoder_stopped_)
     return;
+  RTC_LOG(LS_ERROR) << "FIPPO OnEncodedFrame";
   HandleEncodedFrame(std::move(frame));
   frame_buffer_->StartNextDecode(keyframe_required_);
 }

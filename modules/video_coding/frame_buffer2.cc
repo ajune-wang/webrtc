@@ -227,6 +227,7 @@ int64_t FrameBuffer::FindNextFrame(Timestamp now) {
                                                                    : false;
     wait_ms =
         timing_->MaxWaitingTime(*render_time, now, too_many_frames_queued).ms();
+    RTC_LOG(LS_ERROR) << "FIPPO MAX WAIT TIME " << wait_ms;
 
     // This will cause the frame buffer to prefer high framerate rather
     // than high resolution in the case of the decoder not decoding fast
@@ -240,6 +241,7 @@ int64_t FrameBuffer::FindNextFrame(Timestamp now) {
   }
   wait_ms = std::min<int64_t>(wait_ms, latest_return_time_ms_ - now.ms());
   wait_ms = std::max<int64_t>(wait_ms, 0);
+  RTC_LOG(LS_ERROR) << "FIPPO MAX WAIT TIME HERE " << wait_ms;
   return wait_ms;
 }
 

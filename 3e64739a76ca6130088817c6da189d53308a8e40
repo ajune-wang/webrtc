@@ -39,6 +39,30 @@
       },
       "revId": "3e64739a76ca6130088817c6da189d53308a8e40",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "eb97ca74_17ee265c",
+        "filename": "sdk/android/api/org/webrtc/NetworkMonitorAutoDetect.java",
+        "patchSetId": 13
+      },
+      "lineNbr": 316,
+      "author": {
+        "id": 18904
+      },
+      "writtenOn": "2022-05-24T19:39:35Z",
+      "side": 1,
+      "message": "Oof i can\u0027t type. The above should read: \"We can verify that the networks satisfy our request in API 30 and above.\"",
+      "parentUuid": "6b9be759_819500be",
+      "range": {
+        "startLine": 316,
+        "startChar": 13,
+        "endLine": 316,
+        "endChar": 50
+      },
+      "revId": "3e64739a76ca6130088817c6da189d53308a8e40",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

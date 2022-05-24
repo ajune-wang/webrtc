@@ -17,9 +17,13 @@
 
 namespace webrtc {
 
-// This template allows the instantiation of a pointer to Interface in such a
-// way that if it is passed a null pointer, an object of class Default will be
-// created, which will be deallocated when the pointer is deleted.
+// This template allows holding owned or unowned pointers of type |Interface|.
+// The behavior when it is passed a null pointer depends on the type of class
+// |Default|. If class |Default| is not void, an object of class |Default| will
+// be created, which will be deallocated when the pointer is deleted.
+// If class |Default| is void, no default object is created.
+// If you want to always have a valid pointer, you shouldn't pass void for
+// class |Default|.
 template <typename Interface, typename Default = Interface>
 class AlwaysValidPointer {
  public:
@@ -104,6 +108,93 @@ class AlwaysValidPointer {
   const std::unique_ptr<Interface> owned_instance_;
   Interface* const pointer_;
 };
+
+// This version does not create a default object and crashes if none of the
+// input pointers are non-null.
+template <typename Interface>
+class AlwaysValidPointer<Interface, void> {
+ public:
+  explicit AlwaysValidPointer(Interface* pointer)
+      : pointer_(pointer ? pointer : owned_instance_.get()) {
+    RTC_CHECK(pointer_);
+  }
+
+  // Create a pointer by
+  // a) taking over ownership of |instance|
+  // b) or fallback to |pointer|, without taking ownership.
+  // At least one of the arguments must be non-null.
+  explicit AlwaysValidPointer(std::unique_ptr<Interface>&& instance,
+                              Interface* pointer = nullptr)
+      : owned_instance_(instance ? std::move(instance) : nullptr),
+        pointer_(owned_instance_ ? owned_instance_.get() : pointer) {
+    RTC_CHECK(pointer_);
+  }
+
+  Interface* get() { return pointer_; }
+  Interface* operator->() { return pointer_; }
+  Interface& operator*() { return *pointer_; }
+
+  Interface* get() const { return pointer_; }
+  Interface* operator->() const { return pointer_; }
+  Interface& operator*() const { return *pointer_; }
+
+ private:
+  const std::unique_ptr<Interface> owned_instance_;
+  Interface* const pointer_;
+};
+
+template <typename T, typename U, typename V, typename W>
+bool operator==(const AlwaysValidPointer<T, U>& a,
+                const AlwaysValidPointer<V, W>& b) {
+  return a.get() == b.get();
+}
+
+template <typename T, typename U, typename V, typename W>
+bool operator!=(const AlwaysValidPointer<T, U>& a,
+                const AlwaysValidPointer<V, W>& b) {
+  return !(a == b);
+}
+
+template <typename T, typename U>
+bool operator==(const AlwaysValidPointer<T, U>& a, std::nullptr_t) {
+  return a.get() == nullptr;
+}
+
+template <typename T, typename U>
+bool operator!=(const AlwaysValidPointer<T, U>& a, std::nullptr_t) {
+  return !(a == nullptr);
+}
+
+template <typename T, typename U>
+bool operator==(std::nullptr_t, const AlwaysValidPointer<T, U>& a) {
+  return a.get() == nullptr;
+}
+
+template <typename T, typename U>
+bool operator!=(std::nullptr_t, const AlwaysValidPointer<T, U>& a) {
+  return !(a == nullptr);
+}
+
+// Comparison with raw pointer.
+template <typename T, typename U, typename V>
+bool operator==(const AlwaysValidPointer<T, U>& a, const V* b) {
+  return a.get() == b;
+}
+
+template <typename T, typename U, typename V>
+bool operator!=(const AlwaysValidPointer<T, U>& a, const V* b) {
+  return !(a == b);
+}
+
+template <typename T, typename U, typename V>
+bool operator==(const T* a, const AlwaysValidPointer<U, V>& b) {
+  return a == b.get();
+}
+
+template <typename T, typename U, typename V>
+bool operator!=(const T* a, const AlwaysValidPointer<U, V>& b) {
+  return !(a == b);
+}
 
 }  // namespace webrtc
 

@@ -16,6 +16,46 @@
       "message": "Adding jonaso@ for the heavy mods to AlwaysValidPointer\n",
       "revId": "0c2e5381df235335af16e181bba56248f9a27463",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "f7c60382_9a5ad353",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 7
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5613
+      },
+      "writtenOn": "2022-05-24T11:59:38Z",
+      "side": 1,
+      "message": "with a loose comment that it would be nice to not specify void\nfor the either-or case.",
+      "revId": "0c2e5381df235335af16e181bba56248f9a27463",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "f76ddb2c_cb6d95e5",
+        "filename": "rtc_base/memory/always_valid_pointer.h",
+        "patchSetId": 7
+      },
+      "lineNbr": 25,
+      "author": {
+        "id": 5613
+      },
+      "writtenOn": "2022-05-24T11:59:38Z",
+      "side": 1,
+      "message": "Got use case, seems fine.\n\nNot 100% sure I like the \"interface\",\ncould we add a template specialization, for the \"void\" case ?\nNot sure how that would look though :(",
+      "range": {
+        "startLine": 25,
+        "startChar": 6,
+        "endLine": 25,
+        "endChar": 24
+      },
+      "revId": "0c2e5381df235335af16e181bba56248f9a27463",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

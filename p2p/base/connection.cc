@@ -18,7 +18,6 @@
 #include <vector>
 
 #include "absl/algorithm/container.h"
-#include "absl/memory/memory.h"
 #include "absl/strings/match.h"
 #include "p2p/base/port_allocator.h"
 #include "rtc_base/checks.h"
@@ -170,6 +169,8 @@ ConnectionRequest::ConnectionRequest(StunRequestManager& manager,
 
 void ConnectionRequest::Prepare(StunMessage* message) {
   RTC_DCHECK_RUN_ON(connection_->network_thread_);
+  RTC_DCHECK(connection_->port());
+
   message->SetType(STUN_BINDING_REQUEST);
   std::string username;
   connection_->port()->CreateStunUsername(
@@ -320,6 +321,7 @@ Connection::Connection(rtc::WeakPtr<Port> port,
 
 Connection::~Connection() {
   RTC_DCHECK_RUN_ON(network_thread_);
+  RTC_DCHECK(!port_);
 }
 
 webrtc::TaskQueueBase* Connection::network_thread() const {
@@ -831,8 +833,14 @@ void Connection::Prune() {
 
 void Connection::Destroy() {
   RTC_DCHECK_RUN_ON(network_thread_);
+  if (port_)
+    port_->DestroyConnection(this);
+}
+
+bool Connection::Shutdown() {
+  RTC_DCHECK_RUN_ON(network_thread_);
   if (!port_)
-    return;
+    return false;  // already shut down.
 
   RTC_DLOG(LS_VERBOSE) << ToString() << ": Connection destroyed";
 
@@ -840,8 +848,9 @@ void Connection::Destroy() {
   // intentionally to avoid a situation whereby the signal might have dangling
   // pointers to objects that have been deleted by the time the async task
   // that deletes the connection object runs.
-  SignalDestroyed(this);
+  auto destroyed_signals = SignalDestroyed;
   SignalDestroyed.disconnect_all();
+  destroyed_signals(this);
 
   LogCandidatePairConfig(webrtc::IceCandidatePairConfigType::kDestroyed);
 
@@ -849,20 +858,7 @@ void Connection::Destroy() {
   // information required for logging needs access to `port_`.
   port_.reset();
 
-  // Unwind the stack before deleting the object in case upstream callers
-  // need to refer to the Connection's state as part of teardown.
-  // NOTE: We move ownership of 'this' into the capture section of the lambda
-  // so that the object will always be deleted, including if PostTask fails.
-  // In such a case (only tests), deletion would happen inside of the call
-  // to `Destroy()`.
-  network_thread_->PostTask(
-      webrtc::ToQueuedTask([me = absl::WrapUnique(this)]() {}));
-}
-
-void Connection::FailAndDestroy() {
-  RTC_DCHECK_RUN_ON(network_thread_);
-  set_state(IceCandidatePairState::FAILED);
-  Destroy();
+  return true;
 }
 
 void Connection::FailAndPrune() {
@@ -872,9 +868,9 @@ void Connection::FailAndPrune() {
   // and Connection. In some cases (Port dtor), a Connection object is deleted
   // without using the `Destroy` method (port_ won't be nulled and some
   // functionality won't run as expected), while in other cases
-  // (AddOrReplaceConnection), the Connection object is deleted asynchronously
-  // via the `Destroy` method and in that case `port_` will be nulled.
-  // However, in that case, there's a chance that the Port object gets
+  // the Connection object is deleted asynchronously and in that case `port_`
+  // will be nulled.
+  // In such a case, there's a chance that the Port object gets
   // deleted before the Connection object ends up being deleted.
   if (!port_)
     return;
@@ -912,6 +908,9 @@ void Connection::set_selected(bool selected) {
 
 void Connection::UpdateState(int64_t now) {
   RTC_DCHECK_RUN_ON(network_thread_);
+  if (!port_)
+    return;
+
   int rtt = ConservativeRTTEstimate(rtt_);
 
   if (RTC_LOG_CHECK_LEVEL(LS_VERBOSE)) {
@@ -964,7 +963,7 @@ void Connection::UpdateState(int64_t now) {
   // Update the receiving state.
   UpdateReceiving(now);
   if (dead(now)) {
-    Destroy();
+    port_->DestroyConnectionAsync(this);
   }
 }
 
@@ -975,6 +974,9 @@ int64_t Connection::last_ping_sent() const {
 
 void Connection::Ping(int64_t now) {
   RTC_DCHECK_RUN_ON(network_thread_);
+  if (!port_)
+    return;
+
   last_ping_sent_ = now;
   ConnectionRequest* req = new ConnectionRequest(requests_, this);
   // If not using renomination, we use "1" to mean "nominated" and "0" to mean
@@ -1382,7 +1384,8 @@ void Connection::OnConnectionRequestErrorResponse(ConnectionRequest* request,
     RTC_LOG(LS_ERROR) << ToString()
                       << ": Received STUN error response, code=" << error_code
                       << "; killing connection";
-    FailAndDestroy();
+    set_state(IceCandidatePairState::FAILED);
+    port_->DestroyConnectionAsync(this);
   }
 }
 
@@ -1478,17 +1481,22 @@ ConnectionInfo Connection::stats() {
   stats_.rtt = rtt_;
   stats_.key = this;
   stats_.state = state_;
-  stats_.priority = priority();
+  if (port_) {
+    stats_.priority = priority();
+    stats_.local_candidate = local_candidate();
+  }
   stats_.nominated = nominated();
   stats_.total_round_trip_time_ms = total_round_trip_time_ms_;
   stats_.current_round_trip_time_ms = current_round_trip_time_ms_;
-  stats_.local_candidate = local_candidate();
   stats_.remote_candidate = remote_candidate();
   return stats_;
 }
 
 void Connection::MaybeUpdateLocalCandidate(ConnectionRequest* request,
                                            StunMessage* response) {
+  if (!port_)
+    return;
+
   // RFC 5245
   // The agent checks the mapped address from the STUN response.  If the
   // transport address does not match any of the local candidates that the
@@ -1533,15 +1541,16 @@ void Connection::MaybeUpdateLocalCandidate(ConnectionRequest* request,
   std::string id = rtc::CreateRandomString(8);
 
   // Create a peer-reflexive candidate based on the local candidate.
-  Candidate new_local_candidate(local_candidate());
+  const Candidate& candidate = local_candidate();
+  Candidate new_local_candidate(candidate);
   new_local_candidate.set_id(id);
   new_local_candidate.set_type(PRFLX_PORT_TYPE);
   new_local_candidate.set_address(addr->GetAddress());
   new_local_candidate.set_priority(priority);
-  new_local_candidate.set_related_address(local_candidate().address());
-  new_local_candidate.set_foundation(Port::ComputeFoundation(
-      PRFLX_PORT_TYPE, local_candidate().protocol(),
-      local_candidate().relay_protocol(), local_candidate().address()));
+  new_local_candidate.set_related_address(candidate.address());
+  new_local_candidate.set_foundation(
+      Port::ComputeFoundation(PRFLX_PORT_TYPE, candidate.protocol(),
+                              candidate.relay_protocol(), candidate.address()));
 
   // Change the local candidate of this Connection to the new prflx candidate.
   RTC_LOG(LS_INFO) << ToString() << ": Updating local candidate type to prflx.";

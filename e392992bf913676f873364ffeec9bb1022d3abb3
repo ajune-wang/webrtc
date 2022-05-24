@@ -52,6 +52,24 @@
       "parentUuid": "8b19e253_3b194599",
       "revId": "e392992bf913676f873364ffeec9bb1022d3abb3",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "f890db39_014f424e",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 18829
+      },
+      "writtenOn": "2022-05-24T22:35:56Z",
+      "side": 1,
+      "message": "(While I have your attention) Tangential question: Is it possible to resize an already connected/live pipewire stream such that resize is triggered from the client side or does it need to be recreated every time with a different resolution? If yes, do you have any pointers to such examples/documentation?\n\nEven recreating the stream itself would be useful as long as we don\u0027t have to recreate the portal session. In my experiments, I wasn\u0027t able to get this to work reliably even after core/context/stream recreation. Please let me know if you happened to have tried it and it is supposed to work.",
+      "parentUuid": "b7dafca1_504e3073",
+      "revId": "e392992bf913676f873364ffeec9bb1022d3abb3",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

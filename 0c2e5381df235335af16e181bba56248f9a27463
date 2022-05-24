@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "f4b6ff2e_fdfc6dd6",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 7
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2022-05-24T11:20:35Z",
+      "side": 1,
+      "message": "Adding jonaso@ for the heavy mods to AlwaysValidPointer\n",
+      "revId": "0c2e5381df235335af16e181bba56248f9a27463",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

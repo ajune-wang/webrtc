@@ -16,6 +16,23 @@
       "message": "ping",
       "revId": "b7c8582d77748281507e71a5c73065df28dcc9ff",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "b21a2614_e3666e5c",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5150
+      },
+      "writtenOn": "2022-05-24T13:38:53Z",
+      "side": 1,
+      "message": "Sorry, I missed this one.\nLGTM",
+      "revId": "b7c8582d77748281507e71a5c73065df28dcc9ff",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

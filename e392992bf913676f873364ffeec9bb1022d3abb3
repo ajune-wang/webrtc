@@ -34,6 +34,24 @@
       "parentUuid": "45304a54_2450e2f9",
       "revId": "e392992bf913676f873364ffeec9bb1022d3abb3",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "b7dafca1_504e3073",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 8046
+      },
+      "writtenOn": "2022-05-24T04:59:08Z",
+      "side": 1,
+      "message": "That\u0027s definitely a better approach.",
+      "parentUuid": "8b19e253_3b194599",
+      "revId": "e392992bf913676f873364ffeec9bb1022d3abb3",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

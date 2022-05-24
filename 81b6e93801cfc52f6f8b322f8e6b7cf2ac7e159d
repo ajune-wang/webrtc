@@ -37,6 +37,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "3efee54e_94676cd9",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 4
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 9405
+      },
+      "writtenOn": "2022-05-24T11:13:04Z",
+      "side": 1,
+      "message": "Looking at the underlying implementation of BasicPacketSocketFactory, I don\u0027t think there is a problem with two different BasicPortAllocators sharing a PacketSocketFactory.\n\nAnd, AlwaysValidPointer seems to fit this code. So, I changed it slightly to make it work without creating a unique_ptr.",
+      "parentUuid": "93d24511_39a37f84",
+      "revId": "81b6e93801cfc52f6f8b322f8e6b7cf2ac7e159d",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "8617930f_cc9c0161",
         "filename": "p2p/client/basic_port_allocator.cc",
         "patchSetId": 4
@@ -48,6 +66,24 @@
       "writtenOn": "2022-05-24T07:55:45Z",
       "side": 1,
       "message": "It\u0027s clearer to use owned_socket_factory_(std::move(owned_socket_factory).",
+      "revId": "81b6e93801cfc52f6f8b322f8e6b7cf2ac7e159d",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "7268b4c8_f6a0f271",
+        "filename": "p2p/client/basic_port_allocator.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 177,
+      "author": {
+        "id": 9405
+      },
+      "writtenOn": "2022-05-24T11:13:04Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "8617930f_cc9c0161",
       "revId": "81b6e93801cfc52f6f8b322f8e6b7cf2ac7e159d",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
@@ -69,6 +105,24 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "8add3884_781fa139",
+        "filename": "p2p/client/basic_port_allocator.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 193,
+      "author": {
+        "id": 9405
+      },
+      "writtenOn": "2022-05-24T11:13:04Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "9e3d98c0_72762981",
+      "revId": "81b6e93801cfc52f6f8b322f8e6b7cf2ac7e159d",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "5bc64bb1_fb0caa9b",
@@ -86,6 +140,24 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "1af7957e_1766759a",
+        "filename": "p2p/client/basic_port_allocator.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 203,
+      "author": {
+        "id": 9405
+      },
+      "writtenOn": "2022-05-24T11:13:04Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "5bc64bb1_fb0caa9b",
+      "revId": "81b6e93801cfc52f6f8b322f8e6b7cf2ac7e159d",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "f36ca64b_82a3bf05",
@@ -99,6 +171,24 @@
       "writtenOn": "2022-05-24T07:55:45Z",
       "side": 1,
       "message": "You can merge these two by using an AlwaysValidPointer. Also take the opportunity to make it const, if possible.",
+      "revId": "81b6e93801cfc52f6f8b322f8e6b7cf2ac7e159d",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "21876789_e3afe55f",
+        "filename": "p2p/client/basic_port_allocator.h",
+        "patchSetId": 4
+      },
+      "lineNbr": 102,
+      "author": {
+        "id": 9405
+      },
+      "writtenOn": "2022-05-24T11:13:04Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "f36ca64b_82a3bf05",
       "revId": "81b6e93801cfc52f6f8b322f8e6b7cf2ac7e159d",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }

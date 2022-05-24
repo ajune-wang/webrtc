@@ -1,0 +1,73 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "4f63bcce_a01ad8d5",
+        "filename": "modules/audio_coding/neteq/decision_logic.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 251,
+      "author": {
+        "id": 7015
+      },
+      "writtenOn": "2022-05-24T08:44:52Z",
+      "side": 1,
+      "message": "maybe simply wrap this change under `enable_stable_playout_delay`, keep both implementations of delay_manager_-\u003eUpdate (can have code duplication a bit, for easy clean-up for future). Then we do not need to worry about bit exactness.",
+      "range": {
+        "startLine": 251,
+        "startChar": 0,
+        "endLine": 251,
+        "endChar": 67
+      },
+      "revId": "a83eceefef426eb78dd31db8d249227f32194d1a",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "a3a196fa_40b7d6d7",
+        "filename": "modules/audio_coding/neteq/packet_arrival_history.h",
+        "patchSetId": 4
+      },
+      "lineNbr": 42,
+      "author": {
+        "id": 7015
+      },
+      "writtenOn": "2022-05-24T08:44:52Z",
+      "side": 1,
+      "message": "I would call this \"IsRtpTimestampNewer\"",
+      "range": {
+        "startLine": 42,
+        "startChar": 7,
+        "endLine": 42,
+        "endChar": 24
+      },
+      "revId": "a83eceefef426eb78dd31db8d249227f32194d1a",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "d57aec5a_bcf12e7e",
+        "filename": "modules/audio_coding/neteq/packet_arrival_history.h",
+        "patchSetId": 4
+      },
+      "lineNbr": 76,
+      "author": {
+        "id": 7015
+      },
+      "writtenOn": "2022-05-24T08:44:52Z",
+      "side": 1,
+      "message": "I would add \"rtp\" before \"timestamp\"",
+      "range": {
+        "startLine": 76,
+        "startChar": 26,
+        "endLine": 76,
+        "endChar": 43
+      },
+      "revId": "a83eceefef426eb78dd31db8d249227f32194d1a",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

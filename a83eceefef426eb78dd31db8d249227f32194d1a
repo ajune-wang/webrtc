@@ -48,6 +48,30 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "7e5bc8be_ea919fe7",
+        "filename": "modules/audio_coding/neteq/decision_logic.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 251,
+      "author": {
+        "id": 7015
+      },
+      "writtenOn": "2022-05-24T20:08:35Z",
+      "side": 1,
+      "message": "I fully trust you. well, what if we imagine that we failed to launch enable_stable_playout_delay (I hope we won\u0027t), should we dropping packet_arrival_history_ and let delay_manager_.update to revert? will it then be better to keep the old delay_manager_.update.",
+      "parentUuid": "e0a693cd_0a821ea4",
+      "range": {
+        "startLine": 251,
+        "startChar": 0,
+        "endLine": 251,
+        "endChar": 67
+      },
+      "revId": "a83eceefef426eb78dd31db8d249227f32194d1a",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "a3a196fa_40b7d6d7",
@@ -85,6 +109,30 @@
       "side": 1,
       "message": "named it IsNewestRtpTimestamp. Newer sound like we are comparing two timestamps, but Newest is more absolute.",
       "parentUuid": "a3a196fa_40b7d6d7",
+      "range": {
+        "startLine": 42,
+        "startChar": 7,
+        "endLine": 42,
+        "endChar": 24
+      },
+      "revId": "a83eceefef426eb78dd31db8d249227f32194d1a",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "a2b337e2_983c55e2",
+        "filename": "modules/audio_coding/neteq/packet_arrival_history.h",
+        "patchSetId": 4
+      },
+      "lineNbr": 42,
+      "author": {
+        "id": 7015
+      },
+      "writtenOn": "2022-05-24T20:08:35Z",
+      "side": 1,
+      "message": "emm ... I don\u0027t read it that way. \n\nIsRtpTimestampNewer is to compare with the PacketArrivalHistory, i.e., given a rtp timestamp, is it newer than the latest timestamp that PacketArrivalHistory has stored.\n\nIsNewestRtpTimestamp reads to me like if a give rtp timestamp equals the latest timestamp in PacketArrivalHistory.\n\nmaybe I interpret it wrong. WDYT?",
+      "parentUuid": "a69c32d2_13296cdd",
       "range": {
         "startLine": 42,
         "startChar": 7,

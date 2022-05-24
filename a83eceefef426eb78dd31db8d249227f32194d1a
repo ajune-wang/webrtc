@@ -24,6 +24,30 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "e0a693cd_0a821ea4",
+        "filename": "modules/audio_coding/neteq/decision_logic.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 251,
+      "author": {
+        "id": 8038
+      },
+      "writtenOn": "2022-05-24T13:30:17Z",
+      "side": 1,
+      "message": "I don\u0027t worry about any bit exactness, I\u0027m 100% comfortable with this change.",
+      "parentUuid": "4f63bcce_a01ad8d5",
+      "range": {
+        "startLine": 251,
+        "startChar": 0,
+        "endLine": 251,
+        "endChar": 67
+      },
+      "revId": "a83eceefef426eb78dd31db8d249227f32194d1a",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "a3a196fa_40b7d6d7",
@@ -47,6 +71,30 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "a69c32d2_13296cdd",
+        "filename": "modules/audio_coding/neteq/packet_arrival_history.h",
+        "patchSetId": 4
+      },
+      "lineNbr": 42,
+      "author": {
+        "id": 8038
+      },
+      "writtenOn": "2022-05-24T13:30:17Z",
+      "side": 1,
+      "message": "named it IsNewestRtpTimestamp. Newer sound like we are comparing two timestamps, but Newest is more absolute.",
+      "parentUuid": "a3a196fa_40b7d6d7",
+      "range": {
+        "startLine": 42,
+        "startChar": 7,
+        "endLine": 42,
+        "endChar": 24
+      },
+      "revId": "a83eceefef426eb78dd31db8d249227f32194d1a",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "d57aec5a_bcf12e7e",
@@ -60,6 +108,30 @@
       "writtenOn": "2022-05-24T08:44:52Z",
       "side": 1,
       "message": "I would add \"rtp\" before \"timestamp\"",
+      "range": {
+        "startLine": 76,
+        "startChar": 26,
+        "endLine": 76,
+        "endChar": 43
+      },
+      "revId": "a83eceefef426eb78dd31db8d249227f32194d1a",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "d277ff00_e83660f8",
+        "filename": "modules/audio_coding/neteq/packet_arrival_history.h",
+        "patchSetId": 4
+      },
+      "lineNbr": 76,
+      "author": {
+        "id": 8038
+      },
+      "writtenOn": "2022-05-24T13:30:17Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "d57aec5a_bcf12e7e",
       "range": {
         "startLine": 76,
         "startChar": 26,

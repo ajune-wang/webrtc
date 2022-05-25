@@ -16,6 +16,24 @@
       "message": "Looks good to me PipeWire-wise, but doesn\u0027t really feel natural that you go through the portal interface to update the resolution and communicate it to the capturer using the notifier. It\u0027s like you are bending it to add something that\u0027s not in the xdg-desktop-portal API.\n\nCan you update the resolution using the capturer directly or getting ScreenCastStream access from DesktopCapturerOptions?",
       "revId": "e7660f4e00bc4d12669f783aa0c0c69dc10815e4",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "4905ced0_802d42a4",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 18829
+      },
+      "writtenOn": "2022-05-25T20:09:24Z",
+      "side": 1,
+      "message": "Done.",
+      "parentUuid": "3a7c7b50_94930d8c",
+      "revId": "e7660f4e00bc4d12669f783aa0c0c69dc10815e4",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

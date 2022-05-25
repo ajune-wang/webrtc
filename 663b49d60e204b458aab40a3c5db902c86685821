@@ -52,6 +52,24 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "1089a750_8280aa62",
+        "filename": "rtc_base/memory/always_valid_pointer.h",
+        "patchSetId": 11
+      },
+      "lineNbr": 140,
+      "author": {
+        "id": 9405
+      },
+      "writtenOn": "2022-05-25T23:56:37Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "fbf167c3_1731711d",
+      "revId": "663b49d60e204b458aab40a3c5db902c86685821",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "6d286dac_1fad72f5",
@@ -65,6 +83,24 @@
       "writtenOn": "2022-05-25T21:53:12Z",
       "side": 1,
       "message": "I don\u0027t particularly like exposing this name to users. The concept of \"always valid pointer\" should be the generic case - all read operations can assume that it\u0027s valid, no matter how it\u0027s constructed (if not, you have crashed before this).\n\nThe details of what arguments it\u0027s constructed with should be internal to its initialization.\n\nBut if it\u0027s hard....",
+      "revId": "663b49d60e204b458aab40a3c5db902c86685821",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "552d509d_71b7ae3b",
+        "filename": "rtc_base/network.h",
+        "patchSetId": 11
+      },
+      "lineNbr": 360,
+      "author": {
+        "id": 9405
+      },
+      "writtenOn": "2022-05-25T23:56:37Z",
+      "side": 1,
+      "message": "I can declare this as `AlwaysValidPointer\u003cconst FieldTrialsView\u003e field_trials_;` and initialize it as `field_trials_(field_trials, []() { return std::make_unique\u003cFieldTrialBasedConfig\u003e(); })`. Since FieldTrialsView is an abstract class, one must pass a proper concrete implementation to create a default instance.\nBut I\u0027m not sure if this is a cleaner approach.",
+      "parentUuid": "6d286dac_1fad72f5",
       "revId": "663b49d60e204b458aab40a3c5db902c86685821",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }

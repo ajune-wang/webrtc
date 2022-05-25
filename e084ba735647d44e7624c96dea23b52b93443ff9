@@ -16,6 +16,161 @@
       "message": "oh, I added this check too just in case. Since this getter is similar to the local_candidate() getter in that it implies that local state is being queried, but it actually relies on state from port_, I figured avoiding dereferencing port_ here too, would be the safe thing.",
       "revId": "e084ba735647d44e7624c96dea23b52b93443ff9",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "035080eb_22137e97",
+        "filename": "p2p/base/connection.cc",
+        "patchSetId": 6
+      },
+      "lineNbr": 1551,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2022-05-25T15:31:24Z",
+      "side": 1,
+      "message": "set_related_address before address\notherwise you\u0027re setting related_address to new value of address instead of the previous value.",
+      "range": {
+        "startLine": 1551,
+        "startChar": 39,
+        "endLine": 1551,
+        "endChar": 66
+      },
+      "revId": "e084ba735647d44e7624c96dea23b52b93443ff9",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "a4cfa922_3f3cf2a7",
+        "filename": "p2p/base/connection.cc",
+        "patchSetId": 6
+      },
+      "lineNbr": 1552,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2022-05-25T15:31:24Z",
+      "side": 1,
+      "message": "same here: previous code used old value of address,\nnew code uses updated address.",
+      "range": {
+        "startLine": 1552,
+        "startChar": 19,
+        "endLine": 1552,
+        "endChar": 33
+      },
+      "revId": "e084ba735647d44e7624c96dea23b52b93443ff9",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "76c2d99e_bb40d985",
+        "filename": "p2p/base/connection.h",
+        "patchSetId": 6
+      },
+      "lineNbr": 206,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2022-05-25T15:31:24Z",
+      "side": 1,
+      "message": "prefer absl::string_view \n\nbugs.webrtc.org/13579",
+      "range": {
+        "startLine": 206,
+        "startChar": 32,
+        "endLine": 206,
+        "endChar": 51
+      },
+      "revId": "e084ba735647d44e7624c96dea23b52b93443ff9",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "42545f2f_7ac6fe31",
+        "filename": "p2p/base/port.cc",
+        "patchSetId": 6
+      },
+      "lineNbr": 242,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2022-05-25T15:31:24Z",
+      "side": 1,
+      "message": "can this code be simpler?\n\nIs is true that all connections_ use local_candiate_ from candidates_ list?\nthen you can just add an extra loop:\n  for (auto\u0026 [unused, connection] : connections_) {\n    connection-\u003eUpdateLocalIceParameters(component, username_fragment, passwords);\n  }\n\nwhich saves multiple lookups.",
+      "range": {
+        "startLine": 240,
+        "startChar": 0,
+        "endLine": 242,
+        "endChar": 65
+      },
+      "revId": "e084ba735647d44e7624c96dea23b52b93443ff9",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "8922ba55_a438852c",
+        "filename": "p2p/base/port.cc",
+        "patchSetId": 6
+      },
+      "lineNbr": 885,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2022-05-25T15:31:24Z",
+      "side": 1,
+      "message": "or absl::c_find_if(connections_, [\u0026](...\n\nabsl::c_find_if - to note this is a simple case of searching through all of the container\n[\u0026] capture to note lambda can\u0027t escape current scope\nhttp://go/c-readability-advice#explicit-vs-implicit-lambda-capture-clauses\n\n(In case this function is even needed)",
+      "range": {
+        "startLine": 884,
+        "startChar": 15,
+        "endLine": 885,
+        "endChar": 47
+      },
+      "revId": "e084ba735647d44e7624c96dea23b52b93443ff9",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "5ea45e95_3179771e",
+        "filename": "p2p/base/port.cc",
+        "patchSetId": 6
+      },
+      "lineNbr": 886,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2022-05-25T15:31:24Z",
+      "side": 1,
+      "message": "`AddressMap::value_type` or `auto`\nwhich is actually\n`std::pair\u003cconst rtc::SocketAddress, Connection*\u003e`\n(to avoid conversion for each call)",
+      "range": {
+        "startLine": 886,
+        "startChar": 25,
+        "endLine": 886,
+        "endChar": 67
+      },
+      "revId": "e084ba735647d44e7624c96dea23b52b93443ff9",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "f24c57d5_01b49337",
+        "filename": "p2p/base/port.cc",
+        "patchSetId": 6
+      },
+      "lineNbr": 913,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2022-05-25T15:31:24Z",
+      "side": 1,
+      "message": "Same question here:\nit seems simpler to iterate through all connections and update their cost and signal change.",
+      "revId": "e084ba735647d44e7624c96dea23b52b93443ff9",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

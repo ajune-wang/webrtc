@@ -18,6 +18,24 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "0f2b2d14_f69d8e89",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 3
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5508
+      },
+      "writtenOn": "2022-05-25T11:51:30Z",
+      "side": 1,
+      "message": "Ack, fixed the CL description.",
+      "parentUuid": "06869f56_0d5722e1",
+      "revId": "1d1f9960bd359f9d0ebc93c6d35a84ee6acde440",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "7dbb826e_c872417c",
@@ -71,6 +89,24 @@
       "writtenOn": "2022-05-25T11:29:37Z",
       "side": 1,
       "message": "ditto, why move would be significantly more efficient than copy?",
+      "revId": "1d1f9960bd359f9d0ebc93c6d35a84ee6acde440",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "507396c8_4d39a873",
+        "filename": "rtc_base/ip_address.h",
+        "patchSetId": 3
+      },
+      "lineNbr": 72,
+      "author": {
+        "id": 5508
+      },
+      "writtenOn": "2022-05-25T11:51:30Z",
+      "side": 1,
+      "message": "Don\u0027t expect that they would.\n\nTaking a couple of steps back - The background is that I\u0027m changing a few methods in the port and connection classes that have to do with candidates. As is, the Connection class exposes a getter (local_candidate()) that is actually a forwarding call over to port_\u0027s vector of candidates, using an index into that vector that\u0027s owned by Connection.\n\nThe problem is that the lifetime of Port and Connection (still) isn\u0027t strictly defined, so Connection\u0027s `port_` pointer, might in theory be nullptr when local_candidate() is called.\n\nWhat I\u0027d rather have, is that Connection would have a reliable local candidate member variable. It could be shared with port, but it\u0027s important to get away from dereferencing the port_ variable.\n\nSo as I was looking into how candidates are constructed, stored and passed around, I saw that we were pretty much copying them at every turn. So, this cl is kind of at the opposite end of the story.\n\nThoughts?",
+      "parentUuid": "6613a980_419a64e8",
       "revId": "1d1f9960bd359f9d0ebc93c6d35a84ee6acde440",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }

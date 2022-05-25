@@ -65,6 +65,7 @@ class ScreenCastPortal : public xdg_portal::ScreenCapturePortalInterface {
                                            uint32_t stream_node_id,
                                            int fd) = 0;
     virtual void OnScreenCastSessionClosed() = 0;
+    virtual void SetResolution(uint32_t width, uint32_t height){};
 
    protected:
     PortalNotifier() = default;
@@ -97,6 +98,7 @@ class ScreenCastPortal : public xdg_portal::ScreenCapturePortalInterface {
 
   // Sends a create session request to the portal.
   void RequestSession(GDBusProxy* proxy) override;
+  void SetResolution(uint32_t width, uint32_t height) override;
   void Cleanup();
 
   // Set of methods leveraged by remote desktop portal to setup a common session

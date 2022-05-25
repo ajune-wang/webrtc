@@ -47,6 +47,8 @@ class ScreenCapturePortalInterface {
   virtual void OnPortalDone(xdg_portal::RequestResponse result) {}
   // Sends a create session request to the portal.
   virtual void RequestSession(GDBusProxy* proxy) {}
+  // Sets desired resolution for the captured stream.
+  virtual void SetResolution(uint32_t width, uint32_t height) {}
 
   // Following methods should not be made virtual as they share a common
   // implementation between portals.

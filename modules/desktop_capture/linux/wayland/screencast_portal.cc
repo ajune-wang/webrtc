@@ -139,6 +139,10 @@ void ScreenCastPortal::RequestSession(GDBusProxy* proxy) {
       proxy_, cancellable_, portal_handle_, session_request_signal_id_, this);
 }
 
+void ScreenCastPortal::SetResolution(uint32_t width, uint32_t height) {
+  notifier_->SetResolution(width, height);
+}
+
 // static
 void ScreenCastPortal::OnSessionRequested(GDBusProxy* proxy,
                                           GAsyncResult* result,

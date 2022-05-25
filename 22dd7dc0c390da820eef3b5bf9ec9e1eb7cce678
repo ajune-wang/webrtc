@@ -16,6 +16,115 @@
       "message": "Switching over to this approach for the candidates. Performance isn\u0027t the concern in this, it\u0027s rather the potential dereferencing of the `port_` pointer from the Connection class.",
       "revId": "22dd7dc0c390da820eef3b5bf9ec9e1eb7cce678",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "d8aa24cf_55929425",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 5
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2022-05-25T13:30:44Z",
+      "side": 1,
+      "message": "I think overall that makes code cleaner.\n\nMain concern (I\u0027m not familiar enough with this code to see if it is a problem):\nsome Port functions updates certain settings for all candidates_\n(network cost and 3 ice parameters)\n\nHow Connection would keep those settings in sync?",
+      "revId": "22dd7dc0c390da820eef3b5bf9ec9e1eb7cce678",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "63c84a8b_aca96cce",
+        "filename": "p2p/base/connection.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 1220,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2022-05-25T13:30:44Z",
+      "side": 1,
+      "message": "is this string change intended?",
+      "range": {
+        "startLine": 1220,
+        "startChar": 14,
+        "endLine": 1220,
+        "endChar": 16
+      },
+      "revId": "22dd7dc0c390da820eef3b5bf9ec9e1eb7cce678",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "65acef46_8a155994",
+        "filename": "p2p/base/connection.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 1506,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2022-05-25T13:30:44Z",
+      "side": 1,
+      "message": "prefer exact type Candidate over auto\n\nhttps://google.github.io/styleguide/cppguide.html#Type_deduction\n\n“use type deduction only to make the code clearer or safer, and do not use it merely to avoid the inconvenience of writing an explicit type.”",
+      "range": {
+        "startLine": 1506,
+        "startChar": 13,
+        "endLine": 1506,
+        "endChar": 17
+      },
+      "revId": "22dd7dc0c390da820eef3b5bf9ec9e1eb7cce678",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "6039afa6_b63a9dc7",
+        "filename": "p2p/base/connection.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 1547,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2022-05-25T13:30:44Z",
+      "side": 1,
+      "message": "this is the only usage of the AddPrflxCandidate function.\nit might as well return reference to the newly added candidate.\nbetter yet - void",
+      "range": {
+        "startLine": 1547,
+        "startChar": 24,
+        "endLine": 1547,
+        "endChar": 41
+      },
+      "revId": "22dd7dc0c390da820eef3b5bf9ec9e1eb7cce678",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "6f6f58eb_23b21dcb",
+        "filename": "p2p/base/connection.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 1548,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2022-05-25T13:30:44Z",
+      "side": 1,
+      "message": "may be \n\u003d new_local_candidate;\n\nor reverse:\nremove new_local_candidate variable, instead update local_candidate_ variable:\nlocal_candidate_.set_id(id);\nlocal_candidate_.set_related_address(local_candidate_.address());\nlocal_candidate_.set_address(addr-\u003eGetAddress());\n...\nport_-\u003eAddPrflxCandidate(local_candidate_);",
+      "range": {
+        "startLine": 1548,
+        "startChar": 21,
+        "endLine": 1548,
+        "endChar": 47
+      },
+      "revId": "22dd7dc0c390da820eef3b5bf9ec9e1eb7cce678",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

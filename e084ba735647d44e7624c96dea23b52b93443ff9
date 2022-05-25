@@ -41,6 +41,30 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "d65a6d1b_305c666f",
+        "filename": "p2p/base/connection.cc",
+        "patchSetId": 6
+      },
+      "lineNbr": 1551,
+      "author": {
+        "id": 5508
+      },
+      "writtenOn": "2022-05-25T16:27:18Z",
+      "side": 1,
+      "message": "🙏 - I should take a break. Fixed.",
+      "parentUuid": "035080eb_22137e97",
+      "range": {
+        "startLine": 1551,
+        "startChar": 39,
+        "endLine": 1551,
+        "endChar": 66
+      },
+      "revId": "e084ba735647d44e7624c96dea23b52b93443ff9",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "a4cfa922_3f3cf2a7",
@@ -54,6 +78,30 @@
       "writtenOn": "2022-05-25T15:31:24Z",
       "side": 1,
       "message": "same here: previous code used old value of address,\nnew code uses updated address.",
+      "range": {
+        "startLine": 1552,
+        "startChar": 19,
+        "endLine": 1552,
+        "endChar": 33
+      },
+      "revId": "e084ba735647d44e7624c96dea23b52b93443ff9",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "c64222b8_3d41d69f",
+        "filename": "p2p/base/connection.cc",
+        "patchSetId": 6
+      },
+      "lineNbr": 1552,
+      "author": {
+        "id": 5508
+      },
+      "writtenOn": "2022-05-25T16:27:18Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "a4cfa922_3f3cf2a7",
       "range": {
         "startLine": 1552,
         "startChar": 19,
@@ -89,6 +137,30 @@
     {
       "unresolved": false,
       "key": {
+        "uuid": "650fe817_a6fe335a",
+        "filename": "p2p/base/connection.h",
+        "patchSetId": 6
+      },
+      "lineNbr": 206,
+      "author": {
+        "id": 5508
+      },
+      "writtenOn": "2022-05-25T16:27:18Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "76c2d99e_bb40d985",
+      "range": {
+        "startLine": 206,
+        "startChar": 32,
+        "endLine": 206,
+        "endChar": 51
+      },
+      "revId": "e084ba735647d44e7624c96dea23b52b93443ff9",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
         "uuid": "42545f2f_7ac6fe31",
         "filename": "p2p/base/port.cc",
         "patchSetId": 6
@@ -100,6 +172,30 @@
       "writtenOn": "2022-05-25T15:31:24Z",
       "side": 1,
       "message": "can this code be simpler?\n\nIs is true that all connections_ use local_candiate_ from candidates_ list?\nthen you can just add an extra loop:\n  for (auto\u0026 [unused, connection] : connections_) {\n    connection-\u003eUpdateLocalIceParameters(component, username_fragment, passwords);\n  }\n\nwhich saves multiple lookups.",
+      "range": {
+        "startLine": 240,
+        "startChar": 0,
+        "endLine": 242,
+        "endChar": 65
+      },
+      "revId": "e084ba735647d44e7624c96dea23b52b93443ff9",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "9d2be8a2_ba3e21b2",
+        "filename": "p2p/base/port.cc",
+        "patchSetId": 6
+      },
+      "lineNbr": 242,
+      "author": {
+        "id": 5508
+      },
+      "writtenOn": "2022-05-25T16:27:18Z",
+      "side": 1,
+      "message": "Indeed and yes - done.",
+      "parentUuid": "42545f2f_7ac6fe31",
       "range": {
         "startLine": 240,
         "startChar": 0,
@@ -158,6 +254,30 @@
     {
       "unresolved": false,
       "key": {
+        "uuid": "e08727e6_fce1acab",
+        "filename": "p2p/base/port.cc",
+        "patchSetId": 6
+      },
+      "lineNbr": 886,
+      "author": {
+        "id": 5508
+      },
+      "writtenOn": "2022-05-25T16:27:18Z",
+      "side": 1,
+      "message": "Done (switched to `auto`)",
+      "parentUuid": "5ea45e95_3179771e",
+      "range": {
+        "startLine": 886,
+        "startChar": 25,
+        "endLine": 886,
+        "endChar": 67
+      },
+      "revId": "e084ba735647d44e7624c96dea23b52b93443ff9",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
         "uuid": "f24c57d5_01b49337",
         "filename": "p2p/base/port.cc",
         "patchSetId": 6
@@ -169,6 +289,24 @@
       "writtenOn": "2022-05-25T15:31:24Z",
       "side": 1,
       "message": "Same question here:\nit seems simpler to iterate through all connections and update their cost and signal change.",
+      "revId": "e084ba735647d44e7624c96dea23b52b93443ff9",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "26abc979_121732a1",
+        "filename": "p2p/base/port.cc",
+        "patchSetId": 6
+      },
+      "lineNbr": 913,
+      "author": {
+        "id": 5508
+      },
+      "writtenOn": "2022-05-25T16:27:18Z",
+      "side": 1,
+      "message": "Done. As I was digging through the code that actually does the network calculation, I was mentally thinking that I only wanted to update the local candidates, but of course that\u0027s what we\u0027re updating here anyway.",
+      "parentUuid": "f24c57d5_01b49337",
       "revId": "e084ba735647d44e7624c96dea23b52b93443ff9",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }

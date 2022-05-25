@@ -69,6 +69,8 @@ class RTC_EXPORT IPAddress {
     ::memcpy(&u_, &other.u_, sizeof(u_));
   }
 
+  IPAddress(IPAddress&& other) = default;
+
   virtual ~IPAddress() {}
 
   const IPAddress& operator=(const IPAddress& other) {
@@ -76,6 +78,8 @@ class RTC_EXPORT IPAddress {
     ::memcpy(&u_, &other.u_, sizeof(u_));
     return *this;
   }
+
+  IPAddress& operator=(IPAddress&& other) = default;
 
   bool operator==(const IPAddress& other) const;
   bool operator!=(const IPAddress& other) const;

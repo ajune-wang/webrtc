@@ -70,6 +70,24 @@
       "parentUuid": "b7dafca1_504e3073",
       "revId": "e392992bf913676f873364ffeec9bb1022d3abb3",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "04965a43_af8ff9de",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 8046
+      },
+      "writtenOn": "2022-05-25T04:53:11Z",
+      "side": 1,
+      "message": "I believe it should be possible. Have you tried to re-negotiate stream parameters the way I re-negotiate stream when dropping a DMA-BUF modifier?\n\nIt\u0027s invoked here: https://source.chromium.org/chromium/chromium/src/+/main:third_party/webrtc/modules/desktop_capture/linux/wayland/shared_screencast_stream.cc;l\u003d621?q\u003dshared_screencast\u0026ss\u003dchromium\n\nAnd calls following function:\nhttps://source.chromium.org/chromium/chromium/src/+/main:third_party/webrtc/modules/desktop_capture/linux/wayland/shared_screencast_stream.cc;l\u003d319;bpv\u003d0;bpt\u003d1\n\nBasically you want to try call pw_stream_update_params().",
+      "parentUuid": "f890db39_014f424e",
+      "revId": "e392992bf913676f873364ffeec9bb1022d3abb3",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

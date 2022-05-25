@@ -897,16 +897,21 @@ class PeerConnectionInterfaceBaseTest : public ::testing::Test {
   bool DoSetSessionDescription(
       std::unique_ptr<SessionDescriptionInterface> desc,
       bool local) {
-    auto observer = rtc::make_ref_counted<MockSetSessionDescriptionObserver>();
     if (local) {
-      pc_->SetLocalDescription(observer.get(), desc.release());
+      auto observer = rtc::make_ref_counted<FakeSetLocalDescriptionObserver>();
+      pc_->SetLocalDescription(std::move(desc), observer);
+      if (pc_->signaling_state() != PeerConnectionInterface::kClosed) {
+        EXPECT_EQ_WAIT(true, observer->called(), kTimeout);
+      }
+      return observer->error().ok();
     } else {
-      pc_->SetRemoteDescription(observer.get(), desc.release());
+      auto observer = rtc::make_ref_counted<FakeSetRemoteDescriptionObserver>();
+      pc_->SetRemoteDescription(std::move(desc), observer);
+      if (pc_->signaling_state() != PeerConnectionInterface::kClosed) {
+        EXPECT_EQ_WAIT(true, observer->called(), kTimeout);
+      }
+      return observer->error().ok();
     }
-    if (pc_->signaling_state() != PeerConnectionInterface::kClosed) {
-      EXPECT_EQ_WAIT(true, observer->called(), kTimeout);
-    }
-    return observer->result();
   }
 
   bool DoSetLocalDescription(

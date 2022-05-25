@@ -2606,9 +2606,8 @@ TEST_P(PeerConnectionIntegrationTest, IceTransportFactoryUsedForConnections) {
                                              /*reset_decoder_factory=*/false);
   ASSERT_TRUE(wrapper);
   wrapper->CreateDataChannel();
-  auto observer = rtc::make_ref_counted<MockSetSessionDescriptionObserver>();
-  wrapper->pc()->SetLocalDescription(observer.get(),
-                                     wrapper->CreateOfferAndWait().release());
+  auto observer = rtc::make_ref_counted<FakeSetLocalDescriptionObserver>();
+  wrapper->pc()->SetLocalDescription(wrapper->CreateOfferAndWait(), observer);
 }
 
 // Test that audio and video flow end-to-end when codec names don't use the
@@ -3091,9 +3090,8 @@ TEST_F(PeerConnectionIntegrationTestUnifiedPlan,
   SetSignalIceCandidates(false);  // Workaround candidate outrace sdp.
   caller()->AddVideoTrack();
   callee()->AddVideoTrack();
-  auto observer = rtc::make_ref_counted<MockSetSessionDescriptionObserver>();
-  callee()->pc()->SetLocalDescription(observer.get(),
-                                      callee()->CreateOfferAndWait().release());
+  auto observer = rtc::make_ref_counted<FakeSetLocalDescriptionObserver>();
+  callee()->pc()->SetLocalDescription(callee()->CreateOfferAndWait(), observer);
   EXPECT_TRUE_WAIT(observer->called(), kDefaultTimeout);
   caller()->CreateAndSetAndSignalOffer();  // Implicit rollback.
   ASSERT_TRUE_WAIT(SignalingStateStable(), kDefaultTimeout);
@@ -3108,19 +3106,17 @@ TEST_F(PeerConnectionIntegrationTestUnifiedPlan,
 
   ASSERT_TRUE(CreatePeerConnectionWrappersWithConfig(config, config));
 
-  auto sld_observer =
-      rtc::make_ref_counted<MockSetSessionDescriptionObserver>();
-  callee()->pc()->SetLocalDescription(sld_observer.get(),
-                                      callee()->CreateOfferAndWait().release());
+  auto sld_observer = rtc::make_ref_counted<FakeSetLocalDescriptionObserver>();
+  callee()->pc()->SetLocalDescription(callee()->CreateOfferAndWait(),
+                                      sld_observer);
   EXPECT_TRUE_WAIT(sld_observer->called(), kDefaultTimeout);
-  EXPECT_EQ(sld_observer->error(), "");
+  EXPECT_STREQ(sld_observer->error().message(), "");
 
-  auto srd_observer =
-      rtc::make_ref_counted<MockSetSessionDescriptionObserver>();
-  callee()->pc()->SetRemoteDescription(
-      srd_observer.get(), caller()->CreateOfferAndWait().release());
+  auto srd_observer = rtc::make_ref_counted<FakeSetRemoteDescriptionObserver>();
+  callee()->pc()->SetRemoteDescription(caller()->CreateOfferAndWait(),
+                                       srd_observer);
   EXPECT_TRUE_WAIT(srd_observer->called(), kDefaultTimeout);
-  EXPECT_EQ(srd_observer->error(), "");
+  EXPECT_STREQ(srd_observer->error().message(), "");
 
   EXPECT_THAT(callee()->peer_connection_signaling_state_history(),
               ElementsAre(PeerConnectionInterface::kHaveLocalOffer,

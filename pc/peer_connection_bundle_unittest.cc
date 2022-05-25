@@ -623,19 +623,19 @@ TEST_P(PeerConnectionBundleTest, FailToSetDescriptionWithBundleAndNoRtcpMux) {
   auto offer = caller->CreateOffer(options);
   SdpContentsForEach(RemoveRtcpMux(), offer->description());
 
-  std::string error;
+  RTCError error;
   EXPECT_FALSE(caller->SetLocalDescription(CloneSessionDescription(offer.get()),
                                            &error));
-  EXPECT_EQ(
+  EXPECT_STREQ(
       "Failed to set local offer sdp: rtcp-mux must be enabled when BUNDLE is "
       "enabled.",
-      error);
+      error.message());
 
   EXPECT_FALSE(callee->SetRemoteDescription(std::move(offer), &error));
-  EXPECT_EQ(
+  EXPECT_STREQ(
       "Failed to set remote offer sdp: rtcp-mux must be enabled when BUNDLE is "
       "enabled.",
-      error);
+      error.message());
 }
 
 // Test that candidates sent to the "video" transport do not get pushed down to

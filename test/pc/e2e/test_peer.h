@@ -81,14 +81,14 @@ class TestPeer final {
   }
 
   bool SetLocalDescription(std::unique_ptr<SessionDescriptionInterface> desc,
-                           std::string* error_out = nullptr) {
+                           RTCError* error_out = nullptr) {
     RTC_CHECK(wrapper_) << "TestPeer is already closed";
     return wrapper_->SetLocalDescription(std::move(desc), error_out);
   }
 
   // `error_out` will be set only if returned value is false.
   bool SetRemoteDescription(std::unique_ptr<SessionDescriptionInterface> desc,
-                            std::string* error_out = nullptr);
+                            RTCError* error_out = nullptr);
 
   rtc::scoped_refptr<RtpTransceiverInterface> AddTransceiver(
       cricket::MediaType media_type,

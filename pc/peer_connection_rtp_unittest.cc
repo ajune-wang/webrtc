@@ -906,9 +906,14 @@ TEST_P(PeerConnectionRtpTest, LegacyObserverOnSuccess) {
   auto caller = CreatePeerConnection();
   auto callee = CreatePeerConnection();
 
-  std::string error;
-  ASSERT_TRUE(
-      callee->SetRemoteDescription(caller->CreateOfferAndSetAsLocal(), &error));
+  rtc::scoped_refptr<webrtc::MockSetSessionDescriptionObserver> observer =
+      rtc::make_ref_counted<webrtc::MockSetSessionDescriptionObserver>();
+
+  auto offer = caller->CreateOfferAndSetAsLocal();
+  callee->pc()->SetRemoteDescription(observer.get(), offer.release());
+
+  EXPECT_EQ_WAIT(true, observer->called(), kDefaultTimeout);
+  ASSERT_TRUE(observer->result());
 }
 
 // Verifies legacy behavior: The observer is not called if if the peer

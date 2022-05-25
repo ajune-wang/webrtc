@@ -942,13 +942,13 @@ class PeerConnectionIntegrationWrapper : public webrtc::PeerConnectionObserver,
   // don't outrace the description.
   bool SetLocalDescriptionAndSendSdpMessage(
       std::unique_ptr<SessionDescriptionInterface> desc) {
-    auto observer = rtc::make_ref_counted<MockSetSessionDescriptionObserver>();
+    auto observer = rtc::make_ref_counted<FakeSetLocalDescriptionObserver>();
     RTC_LOG(LS_INFO) << debug_name_ << ": SetLocalDescriptionAndSendSdpMessage";
     SdpType type = desc->GetType();
     std::string sdp;
     EXPECT_TRUE(desc->ToString(&sdp));
     RTC_LOG(LS_INFO) << debug_name_ << ": local SDP contents=\n" << sdp;
-    pc()->SetLocalDescription(observer.get(), desc.release());
+    pc()->SetLocalDescription(std::move(desc), observer);
     RemoveUnusedVideoRenderers();
     // As mentioned above, we need to send the message immediately after
     // SetLocalDescription.
@@ -958,12 +958,12 @@ class PeerConnectionIntegrationWrapper : public webrtc::PeerConnectionObserver,
   }
 
   bool SetRemoteDescription(std::unique_ptr<SessionDescriptionInterface> desc) {
-    auto observer = rtc::make_ref_counted<MockSetSessionDescriptionObserver>();
+    auto observer = rtc::make_ref_counted<FakeSetRemoteDescriptionObserver>();
     RTC_LOG(LS_INFO) << debug_name_ << ": SetRemoteDescription";
-    pc()->SetRemoteDescription(observer.get(), desc.release());
+    pc()->SetRemoteDescription(std::move(desc), observer);
     RemoveUnusedVideoRenderers();
     EXPECT_TRUE_WAIT(observer->called(), kDefaultTimeout);
-    return observer->result();
+    return observer->error().ok();
   }
 
   // This is a work around to remove unused fake_video_renderers from
@@ -1059,7 +1059,11 @@ class PeerConnectionIntegrationWrapper : public webrtc::PeerConnectionObserver,
                               sdp_mid, sdp_mline_index, msg, nullptr)),
                           [&result](RTCError r) { result = r; });
     EXPECT_TRUE_WAIT(result.has_value(), kDefaultTimeout);
-    EXPECT_TRUE(result.value().ok());
+    // We may get ice candidates through the fake signaling when we're not
+    // prepared for them, e.g., when we don't yet have a remote description.
+    if (!result->ok()) {
+      RTC_LOG(LS_WARNING) << "AddIceCandidate failed: " << result->message();
+    }
   }
 
   // PeerConnectionObserver callbacks.

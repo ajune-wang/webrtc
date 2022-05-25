@@ -145,22 +145,14 @@ std::unique_ptr<SessionDescriptionInterface> PeerConnectionWrapper::CreateSdp(
 
 bool PeerConnectionWrapper::SetLocalDescription(
     std::unique_ptr<SessionDescriptionInterface> desc,
-    std::string* error_out) {
-  return SetSdp(
-      [this, &desc](SetSessionDescriptionObserver* observer) {
-        pc()->SetLocalDescription(observer, desc.release());
-      },
-      error_out);
-}
-
-bool PeerConnectionWrapper::SetRemoteDescription(
-    std::unique_ptr<SessionDescriptionInterface> desc,
-    std::string* error_out) {
-  return SetSdp(
-      [this, &desc](SetSessionDescriptionObserver* observer) {
-        pc()->SetRemoteDescription(observer, desc.release());
-      },
-      error_out);
+    RTCError* error_out) {
+  auto observer = rtc::make_ref_counted<FakeSetLocalDescriptionObserver>();
+  pc()->SetLocalDescription(std::move(desc), observer);
+  EXPECT_EQ_WAIT(true, observer->called(), kDefaultTimeout);
+  bool ok = observer->error().ok();
+  if (error_out)
+    *error_out = std::move(observer->error());
+  return ok;
 }
 
 bool PeerConnectionWrapper::SetRemoteDescription(
@@ -173,18 +165,6 @@ bool PeerConnectionWrapper::SetRemoteDescription(
   if (error_out)
     *error_out = std::move(observer->error());
   return ok;
-}
-
-bool PeerConnectionWrapper::SetSdp(
-    rtc::FunctionView<void(SetSessionDescriptionObserver*)> fn,
-    std::string* error_out) {
-  auto observer = rtc::make_ref_counted<MockSetSessionDescriptionObserver>();
-  fn(observer.get());
-  EXPECT_EQ_WAIT(true, observer->called(), kDefaultTimeout);
-  if (error_out && !observer->result()) {
-    *error_out = observer->error();
-  }
-  return observer->result();
 }
 
 bool PeerConnectionWrapper::ExchangeOfferAnswerWith(

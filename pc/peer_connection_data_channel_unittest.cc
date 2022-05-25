@@ -37,6 +37,7 @@
 #include "pc/session_description.h"
 #include "pc/test/mock_peer_connection_observers.h"
 #include "rtc_base/checks.h"
+#include "rtc_base/gunit.h"
 #include "rtc_base/logging.h"
 #include "rtc_base/rtc_certificate_generator.h"
 #include "rtc_base/thread.h"
@@ -68,6 +69,10 @@ PeerConnectionFactoryDependencies CreatePeerConnectionFactoryDependencies() {
   deps.call_factory = CreateCallFactory();
   deps.sctp_factory = std::make_unique<FakeSctpTransportFactory>();
   return deps;
+}
+
+namespace {
+const uint32_t kDefaultTimeout = 10000U;
 }
 
 }  // namespace
@@ -240,7 +245,9 @@ TEST_P(PeerConnectionDataChannelTest, SctpContentAndTransportNameSetCorrectly) {
   ASSERT_TRUE(caller->sctp_mid());
   EXPECT_EQ(data_mid, *caller->sctp_mid());
   ASSERT_TRUE(caller->sctp_transport_name());
-  EXPECT_EQ(data_mid, *caller->sctp_transport_name());
+  // Update of sctp_transport_name() is asynchronous, with the network thread
+  // posting an update to the signaling thread.
+  EXPECT_EQ_WAIT(data_mid, *caller->sctp_transport_name(), kDefaultTimeout);
 
   // Create answer that finishes BUNDLE negotiation, which means everything
   // should be bundled on the first transport (audio).
@@ -252,7 +259,7 @@ TEST_P(PeerConnectionDataChannelTest, SctpContentAndTransportNameSetCorrectly) {
   ASSERT_TRUE(caller->sctp_mid());
   EXPECT_EQ(data_mid, *caller->sctp_mid());
   ASSERT_TRUE(caller->sctp_transport_name());
-  EXPECT_EQ(audio_mid, *caller->sctp_transport_name());
+  EXPECT_EQ_WAIT(audio_mid, *caller->sctp_transport_name(), kDefaultTimeout);
 }
 
 TEST_P(PeerConnectionDataChannelTest,
@@ -299,6 +306,7 @@ TEST_P(PeerConnectionDataChannelTest, SctpPortPropagatedFromSdpToTransport) {
   auto* callee_transport =
       callee->sctp_transport_factory()->last_fake_sctp_transport();
   ASSERT_TRUE(callee_transport);
+  EXPECT_EQ_WAIT(callee_transport->is_started(), true, kDefaultTimeout);
   EXPECT_EQ(kNewSendPort, callee_transport->remote_port());
   EXPECT_EQ(kNewRecvPort, callee_transport->local_port());
 }

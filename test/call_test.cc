@@ -444,7 +444,6 @@ void CallTest::CreateMatchingFecConfig(
     Transport* transport,
     const VideoSendStream::Config& send_config) {
   FlexfecReceiveStream::Config config(transport);
-  config.payload_type = send_config.rtp.flexfec.payload_type;
   config.rtp.remote_ssrc = send_config.rtp.flexfec.ssrc;
   config.protected_media_ssrcs = send_config.rtp.flexfec.protected_media_ssrcs;
   config.rtp.local_ssrc = kReceiverLocalVideoSsrc;

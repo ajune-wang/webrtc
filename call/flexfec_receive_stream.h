@@ -40,9 +40,6 @@ class FlexfecReceiveStream : public RtpPacketSinkInterface,
     // enable receiving FlexFEC.
     bool IsCompleteAndEnabled() const;
 
-    // Payload type for FlexFEC.
-    int payload_type = -1;
-
     ReceiveStreamRtpConfig rtp;
 
     // Vector containing a single element, corresponding to the SSRC of the

@@ -535,8 +535,6 @@ TEST_F(RtpRtcpEndToEndTest, DISABLED_TestFlexfecRtpStatePreservation) {
     // Set up the receive config manually instead.
     FlexfecReceiveStream::Config flexfec_receive_config(
         receive_transport.get());
-    flexfec_receive_config.payload_type =
-        GetVideoSendConfig()->rtp.flexfec.payload_type;
     flexfec_receive_config.rtp.remote_ssrc =
         GetVideoSendConfig()->rtp.flexfec.ssrc;
     flexfec_receive_config.protected_media_ssrcs =

@@ -250,7 +250,6 @@ TEST(CallTest, CreateDestroy_FlexfecReceiveStream) {
     CallHelper call(use_null_audio_processing);
     MockTransport rtcp_send_transport;
     FlexfecReceiveStream::Config config(&rtcp_send_transport);
-    config.payload_type = 118;
     config.rtp.remote_ssrc = 38837212;
     config.protected_media_ssrcs = {27273};
 
@@ -265,7 +264,6 @@ TEST(CallTest, CreateDestroy_FlexfecReceiveStreams) {
     CallHelper call(use_null_audio_processing);
     MockTransport rtcp_send_transport;
     FlexfecReceiveStream::Config config(&rtcp_send_transport);
-    config.payload_type = 118;
     std::list<FlexfecReceiveStream*> streams;
 
     for (int i = 0; i < 2; ++i) {
@@ -293,7 +291,6 @@ TEST(CallTest, MultipleFlexfecReceiveStreamsProtectingSingleVideoStream) {
     CallHelper call(use_null_audio_processing);
     MockTransport rtcp_send_transport;
     FlexfecReceiveStream::Config config(&rtcp_send_transport);
-    config.payload_type = 118;
     config.protected_media_ssrcs = {1324234};
     FlexfecReceiveStream* stream;
     std::list<FlexfecReceiveStream*> streams;

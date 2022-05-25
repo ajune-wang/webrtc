@@ -566,7 +566,6 @@ ReceiveVideoStream::ReceiveVideoStream(CallClient* receiver,
     if (config.stream.use_flexfec) {
       RTC_DCHECK(num_streams == 1);
       FlexfecReceiveStream::Config flexfec(feedback_transport);
-      flexfec.payload_type = CallTest::kFlexfecPayloadType;
       flexfec.rtp.remote_ssrc = CallTest::kFlexfecSendSsrc;
       flexfec.protected_media_ssrcs = send_stream->rtx_ssrcs_;
       flexfec.rtp.local_ssrc = recv_config.rtp.local_ssrc;

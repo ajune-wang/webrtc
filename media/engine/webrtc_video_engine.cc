@@ -1538,7 +1538,6 @@ void WebRtcVideoChannel::ConfigureReceiverRtp(
   config->rtp.extensions = recv_rtp_extensions_;
 
   // TODO(brandtr): Generalize when we add support for multistream protection.
-  flexfec_config->payload_type = recv_flexfec_payload_type_;
   if (!IsDisabled(call_->trials(), "WebRTC-FlexFEC-03-Advertised") &&
       sp.GetFecFrSsrc(ssrc, &flexfec_config->rtp.remote_ssrc)) {
     flexfec_config->protected_media_ssrcs = {ssrc};
@@ -2828,7 +2827,6 @@ WebRtcVideoChannel::WebRtcVideoReceiveStream::WebRtcVideoReceiveStream(
   RTC_DCHECK(config_.decoder_factory);
   config_.renderer = this;
   ConfigureCodecs(recv_codecs);
-  flexfec_config_.payload_type = flexfec_config.payload_type;
   RecreateReceiveStream();
 }
 
@@ -3017,15 +3015,6 @@ void WebRtcVideoChannel::WebRtcVideoReceiveStream::SetRecvParameters(
         video_needs_recreation = true;
       }
     }
-  }
-  if (params.flexfec_payload_type) {
-    flexfec_config_.payload_type = *params.flexfec_payload_type;
-    // TODO(tommi): See if it is better to always have a flexfec stream object
-    // configured and instead of recreating the video stream, reconfigure the
-    // flexfec object from within the rtp callback (soon to be on the network
-    // thread).
-    if (flexfec_stream_ || flexfec_config_.IsCompleteAndEnabled())
-      video_needs_recreation = true;
   }
   if (video_needs_recreation) {
     RecreateReceiveStream();

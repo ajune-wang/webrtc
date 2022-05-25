@@ -44,7 +44,6 @@ constexpr uint8_t kMediaSsrc[] = {0x00, 0x00, 0x00, 0x02};
 FlexfecReceiveStream::Config CreateDefaultConfig(
     Transport* rtcp_send_transport) {
   FlexfecReceiveStream::Config config(rtcp_send_transport);
-  config.payload_type = kFlexfecPlType;
   config.rtp.remote_ssrc = ByteReader<uint32_t>::ReadBigEndian(kFlexfecSsrc);
   config.protected_media_ssrcs = {
       ByteReader<uint32_t>::ReadBigEndian(kMediaSsrc)};
@@ -68,9 +67,6 @@ TEST(FlexfecReceiveStreamConfigTest, IsCompleteAndEnabled) {
   config.rtcp_mode = RtcpMode::kCompound;
   config.rtp.transport_cc = true;
   config.rtp.extensions.emplace_back(TransportSequenceNumber::Uri(), 7);
-  EXPECT_FALSE(config.IsCompleteAndEnabled());
-
-  config.payload_type = 123;
   EXPECT_FALSE(config.IsCompleteAndEnabled());
 
   config.rtp.remote_ssrc = 238423838;

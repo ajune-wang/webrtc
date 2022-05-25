@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "2cde29e6_cb3189d7",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2022-05-25T06:48:17Z",
+      "side": 1,
+      "message": "Cleaning up leftovers.\n",
+      "revId": "9a7d99ae7d3974a1aaad3caa0177552fd71ade9e",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

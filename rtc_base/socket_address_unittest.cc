@@ -99,6 +99,17 @@ TEST(SocketAddressTest, TestCopyCtor) {
   EXPECT_EQ("1.2.3.4:5678", addr.ToString());
 }
 
+TEST(SocketAddressTest, TestMoveCtor) {
+  SocketAddress addr("a.b.com", 5678);
+  EXPECT_TRUE(addr.IsUnresolvedIP());
+  EXPECT_EQ("a.b.com", addr.hostname());
+
+  SocketAddress new_addr(std::move(addr));
+  EXPECT_TRUE(new_addr.IsUnresolvedIP());
+  EXPECT_EQ("a.b.com", new_addr.hostname());
+  EXPECT_TRUE(addr.hostname().empty());
+}
+
 TEST(SocketAddressTest, TestAssign) {
   SocketAddress from("1.2.3.4", 5678);
   SocketAddress addr(IPAddress(0x88888888), 9999);

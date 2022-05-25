@@ -50,6 +50,9 @@ class RTC_EXPORT SocketAddress {
   // Creates a copy of the given address.
   SocketAddress(const SocketAddress& addr);
 
+  // Constructs a new SocketAddress by moving ownership of data from `addr`.
+  SocketAddress(SocketAddress&& addr) = default;
+
   // Resets to the nil address.
   void Clear();
 
@@ -61,6 +64,9 @@ class RTC_EXPORT SocketAddress {
 
   // Replaces our address with the given one.
   SocketAddress& operator=(const SocketAddress& addr);
+
+  // Support for move-assign.
+  SocketAddress& operator=(SocketAddress&& addr) = default;
 
   // Changes the IP of this address to the given one, and clears the hostname
   // IP is given as an integer in host byte order. V4 only, to be deprecated..

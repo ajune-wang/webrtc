@@ -45,6 +45,7 @@ class RTC_EXPORT Candidate {
             uint16_t network_id = 0,
             uint16_t network_cost = 0);
   Candidate(const Candidate&);
+  Candidate(Candidate&&) = default;
   ~Candidate();
 
   const std::string& id() const { return id_; }
@@ -173,6 +174,10 @@ class RTC_EXPORT Candidate {
 
   bool operator==(const Candidate& o) const;
   bool operator!=(const Candidate& o) const;
+
+  // Copy and move-assign operators.
+  Candidate& operator=(const Candidate& o) = default;
+  Candidate& operator=(Candidate&& o) = default;
 
   // Returns a sanitized copy configured by the given booleans. If
   // `use_host_address` is true, the returned copy has its IP removed from

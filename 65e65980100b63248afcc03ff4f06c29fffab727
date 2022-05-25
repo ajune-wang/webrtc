@@ -46,6 +46,30 @@
       },
       "revId": "65e65980100b63248afcc03ff4f06c29fffab727",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "36f5d3e8_20b34938",
+        "filename": "modules/audio_coding/neteq/packet_arrival_history.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 92,
+      "author": {
+        "id": 7015
+      },
+      "writtenOn": "2022-05-25T18:27:00Z",
+      "side": 1,
+      "message": "sure, I slightly prefer the old (given we check \u003d\u003d, not \u003e\u003d), it is a bit more clear to me to compare unwrapped to unwrapped timestamp.",
+      "parentUuid": "494e6066_ec80dd1e",
+      "range": {
+        "startLine": 92,
+        "startChar": 33,
+        "endLine": 92,
+        "endChar": 35
+      },
+      "revId": "65e65980100b63248afcc03ff4f06c29fffab727",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

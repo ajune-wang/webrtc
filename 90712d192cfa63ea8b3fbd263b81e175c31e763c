@@ -164,6 +164,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "c7350545_364768d3",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 4
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 12416
+      },
+      "writtenOn": "2022-05-25T20:39:47Z",
+      "side": 1,
+      "message": "My understanding is that window capture should work fine on RS5+ (17763). I\u0027ve asked the API owner if there are any known issues with this version.",
+      "parentUuid": "65865137_3889a747",
+      "revId": "90712d192cfa63ea8b3fbd263b81e175c31e763c",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "6c03636a_16048b21",
         "filename": "modules/desktop_capture/win/wgc_capture_session.cc",
         "patchSetId": 4

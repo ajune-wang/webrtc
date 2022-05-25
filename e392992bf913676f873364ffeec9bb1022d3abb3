@@ -106,6 +106,24 @@
       "parentUuid": "04965a43_af8ff9de",
       "revId": "e392992bf913676f873364ffeec9bb1022d3abb3",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "1028dcef_4a7c41c4",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 18829
+      },
+      "writtenOn": "2022-05-25T13:20:59Z",
+      "side": 1,
+      "message": "It does seem to work. I will do some more testing and if it still looks ok, I will send out another CL for this.",
+      "parentUuid": "300ab319_211edb50",
+      "revId": "e392992bf913676f873364ffeec9bb1022d3abb3",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

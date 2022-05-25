@@ -89,6 +89,7 @@ class SharedScreenCastStreamPrivate {
                              int fd,
                              uint32_t width = 0,
                              uint32_t height = 0);
+  void SetScreenCastStreamResolution(uint32_t width, uint32_t height);
   void StopScreenCastStream();
   std::unique_ptr<DesktopFrame> CaptureFrame();
   std::unique_ptr<MouseCursor> CaptureCursor();
@@ -129,6 +130,12 @@ class SharedScreenCastStreamPrivate {
   PipeWireVersion pw_server_version_;
   // Version of the library used to run our code
   PipeWireVersion pw_client_version_;
+
+  // Resolution parameters.
+  uint32_t width_ = 0;
+  uint32_t height_ = 0;
+  // Resolution changes are processed during buffer processing.
+  bool pending_resolution_change_ = false;
 
   // event handlers
   pw_core_events pw_core_events_ = {};
@@ -329,18 +336,23 @@ void SharedScreenCastStreamPrivate::OnRenegotiateFormat(void* data, uint64_t) {
     spa_pod_builder builder = spa_pod_builder{buffer, sizeof(buffer)};
 
     std::vector<const spa_pod*> params;
+    struct spa_rectangle resolution =
+        SPA_RECTANGLE(that->width_, that->height_);
 
     for (uint32_t format : {SPA_VIDEO_FORMAT_BGRA, SPA_VIDEO_FORMAT_RGBA,
                             SPA_VIDEO_FORMAT_BGRx, SPA_VIDEO_FORMAT_RGBx}) {
       if (!that->modifiers_.empty()) {
-        params.push_back(BuildFormat(&builder, format, that->modifiers_,
-                                     /*resolution=*/nullptr));
+        params.push_back(BuildFormat(
+            &builder, format, that->modifiers_,
+            that->pending_resolution_change_ ? &resolution : nullptr));
       }
-      params.push_back(BuildFormat(&builder, format, /*modifiers=*/{},
-                                   /*resolution=*/nullptr));
+      params.push_back(BuildFormat(
+          &builder, format, /*modifiers=*/{},
+          that->pending_resolution_change_ ? &resolution : nullptr));
     }
 
     pw_stream_update_params(that->pw_stream_, params.data(), params.size());
+    that->pending_resolution_change_ = false;
   }
 }
 
@@ -374,6 +386,8 @@ bool SharedScreenCastStreamPrivate::StartScreenCastStream(
     int fd,
     uint32_t width,
     uint32_t height) {
+  width_ = width;
+  height_ = height;
 #if defined(WEBRTC_DLOPEN_PIPEWIRE)
   StubPathMap paths;
 
@@ -500,6 +514,26 @@ bool SharedScreenCastStreamPrivate::StartScreenCastStream(
     RTC_LOG(LS_INFO) << "PipeWire remote opened.";
   }
   return true;
+}
+
+void SharedScreenCastStreamPrivate::SetScreenCastStreamResolution(
+    uint32_t width,
+    uint32_t height) {
+  if (!width || !height) {
+    RTC_LOG(LS_WARNING) << "Bad resolution specified: " << width << "x"
+                        << height;
+    return;
+  }
+  if (!pw_main_loop_) {
+    RTC_LOG(LS_WARNING) << "No main pipewire loop, ignoring resolution change";
+    return;
+  }
+  PipeWireThreadLoopLock thread_loop_lock(pw_main_loop_);
+  if (width_ != width || height_ != height) {
+    width_ = width;
+    height_ = height;
+    pending_resolution_change_ = true;
+  }
 }
 
 void SharedScreenCastStreamPrivate::StopScreenCastStream() {
@@ -630,6 +664,10 @@ void SharedScreenCastStreamPrivate::ProcessBuffer(pw_buffer* buffer) {
     return;
   }
 
+  if (pending_resolution_change_) {
+    pw_loop_signal_event(pw_thread_loop_get_loop(pw_main_loop_), renegotiate_);
+  }
+
   struct spa_meta_region* video_metadata =
       static_cast<struct spa_meta_region*>(spa_buffer_find_meta_data(
           spa_buffer, SPA_META_VideoCrop, sizeof(*video_metadata)));
@@ -749,6 +787,11 @@ bool SharedScreenCastStream::StartScreenCastStream(uint32_t stream_node_id,
                                                    uint32_t width,
                                                    uint32_t height) {
   return private_->StartScreenCastStream(stream_node_id, fd, width, height);
+}
+
+void SharedScreenCastStream::SetScreenCastStreamResolution(uint32_t width,
+                                                           uint32_t height) {
+  private_->SetScreenCastStreamResolution(width, height);
 }
 
 void SharedScreenCastStream::StopScreenCastStream() {

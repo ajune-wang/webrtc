@@ -109,6 +109,24 @@
       "parentUuid": "6613a980_419a64e8",
       "revId": "1d1f9960bd359f9d0ebc93c6d35a84ee6acde440",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "ee86889d_29b40ff8",
+        "filename": "rtc_base/ip_address.h",
+        "patchSetId": 3
+      },
+      "lineNbr": 72,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2022-05-25T12:14:02Z",
+      "side": 1,
+      "message": "why copying is a problem? if it is perfomance issue, then moving most likely won\u0027t solve it.\n\nThere is also \"copy elision\" feature (and also \"return value optimization\")\ne.g. see https://abseil.io/tips/166 or https://abseil.io/tips/117\n\"It turns out that sometimes passing by value can be much more efficient than passing by reference.\"\n\nI would suggest to somehow measure perfomance to check if copy is a problem in the first place. If they are copied only during startup/renegotiation/tear down, then those events are so rare that slow copy unlikely be an issue.\n\nif copy is expensive, then it might be more efficient to wrap those types into unique_ptr (and move), or into shared_ptr\u003cconst T\u003e to have cheap immutable copies (or shared_ptr\u003cT\u003e, but then need to be careful when it is used from different threads)",
+      "parentUuid": "507396c8_4d39a873",
+      "revId": "1d1f9960bd359f9d0ebc93c6d35a84ee6acde440",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

@@ -33,6 +33,24 @@
       "message": "Adding Ilya for the review.",
       "revId": "fc84ca878272982f5234f3ac5bf5bb9e79571bc4",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "7214226b_167c279f",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5023
+      },
+      "writtenOn": "2022-05-25T05:44:33Z",
+      "side": 1,
+      "message": "Sorry, I was OOO yesterday. Not sure if gerrit can be configured to show that, given the corp calendar?",
+      "parentUuid": "38c41b79_8568efa3",
+      "revId": "fc84ca878272982f5234f3ac5bf5bb9e79571bc4",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

@@ -291,7 +291,7 @@ Connection::Connection(rtc::WeakPtr<Port> port,
     : network_thread_(port->thread()),
       id_(rtc::CreateRandomId()),
       port_(std::move(port)),
-      local_candidate_index_(index),
+      local_candidate_(port_->Candidates()[index]),
       remote_candidate_(remote_candidate),
       recv_rate_tracker_(100, 10u),
       send_rate_tracker_(100, 10u),
@@ -328,8 +328,7 @@ webrtc::TaskQueueBase* Connection::network_thread() const {
 
 const Candidate& Connection::local_candidate() const {
   RTC_DCHECK_RUN_ON(network_thread_);
-  RTC_DCHECK(local_candidate_index_ < port_->Candidates().size());
-  return port_->Candidates()[local_candidate_index_];
+  return local_candidate_;
 }
 
 const Candidate& Connection::remote_candidate() const {
@@ -1216,22 +1215,22 @@ std::string Connection::ToString() const {
   ss << "Conn[" << ToDebugId();
 
   if (!port_) {
-    // No content name for pending delete, so temporarily substitute the name
-    // with a hash (rhyming with trash) and don't include any information about
-    // the network or candidates, state that belongs to a potentially deleted
-    // `port_`.
-    ss << ":#:";
+    // No content or network names for pending delete. Temporarily substitute
+    // the names with a hash (rhyming with trash).
+    ss << ":#:#:";
   } else {
-    const Candidate& local = local_candidate();
-    const Candidate& remote = remote_candidate();
     ss << ":" << port_->content_name() << ":" << port_->Network()->ToString()
-       << ":" << local.id() << ":" << local.component() << ":"
-       << local.generation() << ":" << local.type() << ":" << local.protocol()
-       << ":" << local.address().ToSensitiveString() << "->" << remote.id()
-       << ":" << remote.component() << ":" << remote.priority() << ":"
-       << remote.type() << ":" << remote.protocol() << ":"
-       << remote.address().ToSensitiveString() << "|";
+       << ":";
   }
+
+  const Candidate& local = local_candidate();
+  const Candidate& remote = remote_candidate();
+  ss << local.id() << ":" << local.component() << ":" << local.generation()
+     << ":" << local.type() << ":" << local.protocol() << ":"
+     << local.address().ToSensitiveString() << "->" << remote.id() << ":"
+     << remote.component() << ":" << remote.priority() << ":" << remote.type()
+     << ":" << remote.protocol() << ":" << remote.address().ToSensitiveString()
+     << "|";
 
   ss << CONNECT_STATE_ABBREV[connected_] << RECEIVE_STATE_ABBREV[receiving_]
      << WRITE_STATE_ABBREV[write_state_] << ICESTATE[static_cast<int>(state_)]
@@ -1504,12 +1503,13 @@ void Connection::MaybeUpdateLocalCandidate(ConnectionRequest* request,
     return;
   }
 
+  // TODO(tommi): change loop type.
   for (size_t i = 0; i < port_->Candidates().size(); ++i) {
     if (port_->Candidates()[i].address() == addr->GetAddress()) {
-      if (local_candidate_index_ != i) {
+      if (local_candidate_ != port_->Candidates()[i]) {
         RTC_LOG(LS_INFO) << ToString()
                          << ": Updating local candidate type to srflx.";
-        local_candidate_index_ = i;
+        local_candidate_ = port_->Candidates()[i];
         // SignalStateChange to force a re-sort in P2PTransportChannel as this
         // Connection's local candidate has changed.
         SignalStateChange(this);
@@ -1545,7 +1545,8 @@ void Connection::MaybeUpdateLocalCandidate(ConnectionRequest* request,
 
   // Change the local candidate of this Connection to the new prflx candidate.
   RTC_LOG(LS_INFO) << ToString() << ": Updating local candidate type to prflx.";
-  local_candidate_index_ = port_->AddPrflxCandidate(new_local_candidate);
+  size_t index = port_->AddPrflxCandidate(new_local_candidate);
+  local_candidate_ = port_->Candidates()[index];
 
   // SignalStateChange to force a re-sort in P2PTransportChannel as this
   // Connection's local candidate has changed.

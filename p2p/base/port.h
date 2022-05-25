@@ -364,7 +364,7 @@ class Port : public PortInterface,
 
   // Called when the Connection discovers a local peer reflexive candidate.
   // Returns the index of the new local candidate.
-  size_t AddPrflxCandidate(const Candidate& local);
+  size_t AddPrflxCandidate(Candidate local);
 
   int16_t network_cost() const { return network_cost_; }
 
@@ -402,7 +402,7 @@ class Port : public PortInterface,
                   const std::string& url,
                   bool is_final);
 
-  void FinishAddingAddress(const Candidate& c, bool is_final);
+  void FinishAddingAddress(Candidate c, bool is_final);
 
   virtual void PostAddAddress(bool is_final);
 

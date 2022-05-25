@@ -1545,7 +1545,8 @@ void Connection::MaybeUpdateLocalCandidate(ConnectionRequest* request,
 
   // Change the local candidate of this Connection to the new prflx candidate.
   RTC_LOG(LS_INFO) << ToString() << ": Updating local candidate type to prflx.";
-  local_candidate_index_ = port_->AddPrflxCandidate(new_local_candidate);
+  local_candidate_index_ =
+      port_->AddPrflxCandidate(std::move(new_local_candidate));
 
   // SignalStateChange to force a re-sort in P2PTransportChannel as this
   // Connection's local candidate has changed.

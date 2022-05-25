@@ -287,7 +287,7 @@ void Port::AddAddress(const rtc::SocketAddress& address,
   bool pending = MaybeObfuscateAddress(&c, type, is_final);
 
   if (!pending) {
-    FinishAddingAddress(c, is_final);
+    FinishAddingAddress(std::move(c), is_final);
   }
 }
 
@@ -319,18 +319,18 @@ bool Port::MaybeObfuscateAddress(Candidate* c,
     if (weak_ptr != nullptr) {
       weak_ptr->set_mdns_name_registration_status(
           MdnsNameRegistrationStatus::kCompleted);
-      weak_ptr->FinishAddingAddress(copy, is_final);
+      weak_ptr->FinishAddingAddress(std::move(copy), is_final);
     }
   };
   set_mdns_name_registration_status(MdnsNameRegistrationStatus::kInProgress);
   network_->GetMdnsResponder()->CreateNameForAddress(copy.address().ipaddr(),
-                                                     callback);
+                                                     std::move(callback));
   return true;
 }
 
-void Port::FinishAddingAddress(const Candidate& c, bool is_final) {
-  candidates_.push_back(c);
-  SignalCandidateReady(this, c);
+void Port::FinishAddingAddress(Candidate c, bool is_final) {
+  candidates_.emplace_back(std::move(c));
+  SignalCandidateReady(this, candidates_.back());
 
   PostAddAddress(is_final);
 }
@@ -421,8 +421,8 @@ void Port::OnReadyToSend() {
   }
 }
 
-size_t Port::AddPrflxCandidate(const Candidate& local) {
-  candidates_.push_back(local);
+size_t Port::AddPrflxCandidate(Candidate local) {
+  candidates_.emplace_back(std::move(local));
   return (candidates_.size() - 1);
 }
 

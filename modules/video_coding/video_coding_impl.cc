@@ -109,7 +109,7 @@ class VideoCodingModuleImpl : public VideoCodingModule {
   }
 
  private:
-  AlwaysValidPointer<const FieldTrialsView, FieldTrialBasedConfig>
+  AlwaysValidPointerWithDefault<const FieldTrialsView, FieldTrialBasedConfig>
       field_trials_;
   SequenceChecker construction_thread_;
   const std::unique_ptr<VCMTiming> timing_;

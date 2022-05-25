@@ -1134,8 +1134,9 @@ webrtc::MdnsResponderInterface* Network::GetMdnsResponder() const {
 
 uint16_t Network::GetCost(const webrtc::FieldTrialsView* field_trials) const {
   return GetCost(
-      *webrtc::AlwaysValidPointer<const webrtc::FieldTrialsView,
-                                  webrtc::FieldTrialBasedConfig>(field_trials));
+      *webrtc::AlwaysValidPointerWithDefault<const webrtc::FieldTrialsView,
+                                             webrtc::FieldTrialBasedConfig>(
+          field_trials));
 }
 
 uint16_t Network::GetCost(const webrtc::FieldTrialsView& field_trials) const {

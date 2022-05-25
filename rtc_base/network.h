@@ -357,8 +357,8 @@ class RTC_EXPORT BasicNetworkManager : public NetworkManagerBase,
   bool sent_first_update_ = true;
   int start_count_ = 0;
   // Chromium create BasicNetworkManager() w/o field trials.
-  webrtc::AlwaysValidPointer<const webrtc::FieldTrialsView,
-                             webrtc::FieldTrialBasedConfig>
+  webrtc::AlwaysValidPointerWithDefault<const webrtc::FieldTrialsView,
+                                        webrtc::FieldTrialBasedConfig>
       field_trials_;
   std::vector<std::string> network_ignore_list_;
   NetworkMonitorFactory* const network_monitor_factory_;

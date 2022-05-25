@@ -72,6 +72,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "cea27789_10844924",
+        "filename": "rtc_base/memory/always_valid_pointer.h",
+        "patchSetId": 8
+      },
+      "lineNbr": 112,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2022-05-25T07:32:12Z",
+      "side": 1,
+      "message": "It might be clearer with a new class name, over passing on void as the second template argument where it is used.\n\nAn alternative design: Replace the Default template argument with a std::function \nFunctionView (not entirely sure how that would work as a template argument though, maybe it has to be a constructor argument?), and then one can pass []{RTC_FATAL();} in the case that no default object should be constructed. And then it would be rather natural to add a second constructor accepting a unique_ptr.",
+      "parentUuid": "58e5c149_0b6377a7",
+      "revId": "8bd4c476058b398a7d5ef86f5b970c57287fa9ff",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "a5188585_a1b56a97",
         "filename": "rtc_base/memory/always_valid_pointer.h",
         "patchSetId": 8

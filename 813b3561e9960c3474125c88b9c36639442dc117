@@ -34,6 +34,121 @@
       "parentUuid": "5b86edbe_838320f9",
       "revId": "813b3561e9960c3474125c88b9c36639442dc117",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "58512c7f_c98b4dbc",
+        "filename": "p2p/base/p2p_transport_channel_unittest.cc",
+        "patchSetId": 9
+      },
+      "lineNbr": 176,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2022-05-25T07:32:12Z",
+      "side": 1,
+      "message": "Prefer std::make_unique, even if that means we\u0027ll need a allocator.release() in the return statement.",
+      "range": {
+        "startLine": 176,
+        "startChar": 43,
+        "endLine": 176,
+        "endChar": 74
+      },
+      "revId": "813b3561e9960c3474125c88b9c36639442dc117",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "040076ce_37911962",
+        "filename": "rtc_base/memory/always_valid_pointer.h",
+        "patchSetId": 9
+      },
+      "lineNbr": 118,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2022-05-25T07:32:12Z",
+      "side": 1,
+      "message": "Can just be pointer_(pointer), since owned_instance.get() will always be null?",
+      "range": {
+        "startLine": 118,
+        "startChar": 8,
+        "endLine": 118,
+        "endChar": 59
+      },
+      "revId": "813b3561e9960c3474125c88b9c36639442dc117",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "b3c6bf98_a6d34de2",
+        "filename": "rtc_base/memory/always_valid_pointer.h",
+        "patchSetId": 9
+      },
+      "lineNbr": 126,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2022-05-25T07:32:12Z",
+      "side": 1,
+      "message": "Use just `std::unique_ptr\u003cInterface\u003e instance`. Style guide discourages use of rvalue reference arguments except in few special cases. See https://google.github.io/styleguide/cppguide.html#Rvalue_references.",
+      "range": {
+        "startLine": 126,
+        "startChar": 30,
+        "endLine": 126,
+        "endChar": 67
+      },
+      "revId": "813b3561e9960c3474125c88b9c36639442dc117",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "944bd9d7_894db2c8",
+        "filename": "rtc_base/memory/always_valid_pointer.h",
+        "patchSetId": 9
+      },
+      "lineNbr": 127,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2022-05-25T07:32:12Z",
+      "side": 1,
+      "message": "Where is this used? Seems clearer to have use the separate constructor when constructing from an unowned pointer.",
+      "range": {
+        "startLine": 127,
+        "startChar": 30,
+        "endLine": 127,
+        "endChar": 58
+      },
+      "revId": "813b3561e9960c3474125c88b9c36639442dc117",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "d7363dee_48e278a8",
+        "filename": "rtc_base/memory/always_valid_pointer.h",
+        "patchSetId": 9
+      },
+      "lineNbr": 128,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2022-05-25T07:32:12Z",
+      "side": 1,
+      "message": "Just `owned_instance_(std::move(instance))` should be enough.",
+      "range": {
+        "startLine": 128,
+        "startChar": 8,
+        "endLine": 128,
+        "endChar": 65
+      },
+      "revId": "813b3561e9960c3474125c88b9c36639442dc117",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

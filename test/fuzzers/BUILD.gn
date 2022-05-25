@@ -607,6 +607,7 @@ webrtc_fuzzer_test("frame_buffer2_fuzzer") {
   deps = [
     "../../modules/video_coding:timing",
     "../../modules/video_coding/",
+    "../../modules/video_coding/timing:timing_module",
     "../../test:scoped_key_value_config",
     "../time_controller:time_controller",
   ]

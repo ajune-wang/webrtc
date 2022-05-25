@@ -20,7 +20,7 @@
 #include "api/units/timestamp.h"
 #include "modules/video_coding/frame_object.h"
 #include "modules/video_coding/jitter_estimator.h"
-#include "modules/video_coding/timing.h"
+#include "modules/video_coding/timing/timing.h"
 #include "rtc_base/numerics/sequence_number_util.h"
 #include "rtc_base/platform_thread.h"
 #include "rtc_base/random.h"

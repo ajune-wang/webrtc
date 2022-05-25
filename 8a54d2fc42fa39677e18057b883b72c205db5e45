@@ -1,0 +1,44 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "dd2ded7c_9b07438b",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 3
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 18474
+      },
+      "writtenOn": "2022-05-25T20:29:07Z",
+      "side": 1,
+      "message": "LGTM w/one unused item removed.",
+      "revId": "8a54d2fc42fa39677e18057b883b72c205db5e45",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "13ac67ae_f7da4bd7",
+        "filename": "modules/desktop_capture/linux/wayland/screen_capture_portal_interface.h",
+        "patchSetId": 3
+      },
+      "lineNbr": 51,
+      "author": {
+        "id": 18474
+      },
+      "writtenOn": "2022-05-25T20:29:07Z",
+      "side": 1,
+      "message": "Unused now?",
+      "range": {
+        "startLine": 50,
+        "startChar": 0,
+        "endLine": 51,
+        "endChar": 64
+      },
+      "revId": "8a54d2fc42fa39677e18057b883b72c205db5e45",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

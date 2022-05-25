@@ -127,6 +127,24 @@
       "parentUuid": "507396c8_4d39a873",
       "revId": "1d1f9960bd359f9d0ebc93c6d35a84ee6acde440",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "7d6e0f8a_e6afe9ed",
+        "filename": "rtc_base/ip_address.h",
+        "patchSetId": 3
+      },
+      "lineNbr": 72,
+      "author": {
+        "id": 5508
+      },
+      "writtenOn": "2022-05-25T12:39:48Z",
+      "side": 1,
+      "message": "I guess this would be the simplest approach then:\nhttps://webrtc-review.googlesource.com/c/src/+/263643\n\nIt does remove the previous `index` optimization though, but I\u0027m not sure if that was actually justified from the start.",
+      "parentUuid": "ee86889d_29b40ff8",
+      "revId": "1d1f9960bd359f9d0ebc93c6d35a84ee6acde440",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

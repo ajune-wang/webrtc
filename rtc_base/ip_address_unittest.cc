@@ -330,6 +330,21 @@ TEST(IPAddressTest, TestCopyCtor) {
   EXPECT_TRUE(AreEqual(addr, addr2));
 }
 
+// Basic test for the default generated move ctor.
+TEST(IPAddressTest, TestMoveCtor) {
+  in_addr v4addr;
+  v4addr.s_addr = htonl(kIPv4PublicAddr);
+  IPAddress addr(v4addr);
+  IPAddress addr2(addr);
+
+  EXPECT_TRUE(AreEqual(addr, addr2));
+
+  auto addr3(std::move(addr));
+  EXPECT_TRUE(AreEqual(addr3, addr2));
+  // Since `addr` has been moved from, we don't test its value. It's fine if
+  // it's still the same as before the move since IPAddress is a pod struct.
+}
+
 TEST(IPAddressTest, TestEquality) {
   // Check v4 equality
   in_addr v4addr, v4addr2;

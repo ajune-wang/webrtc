@@ -16,6 +16,24 @@
       "message": "Alex/Jan, I moved the renegotiation for resolution outside the buffer processing method in the hope that resolution is adjusted as soon as the `SetResolution` method is invoked on the stream rather than waiting for stream buffer processing (which seems to happen if anything changes on the screen e.g. mouse movement) though I still see the resize happen only on input change. Kindly take another look when you get some time. Thanks!",
       "revId": "8366a9258e61a6a4866ab31eeb181f99f8c0191d",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "a7ac1930_43723ace",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 4
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 18474
+      },
+      "writtenOn": "2022-05-25T23:22:51Z",
+      "side": 1,
+      "message": "It looks like Renegotiate already doesn\u0027t happen until \"ProcessBuffer\" unless there\u0027s a signal on the PipeWire side to drive it?\nhttps://source.chromium.org/chromium/chromium/src/+/main:third_party/webrtc/modules/desktop_capture/linux/wayland/shared_screencast_stream.cc;drc\u003df71315c480f9450ad2bb14a068b38fd47b23c8d8;l\u003d621",
+      "parentUuid": "fb5370da_b3714032",
+      "revId": "8366a9258e61a6a4866ab31eeb181f99f8c0191d",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

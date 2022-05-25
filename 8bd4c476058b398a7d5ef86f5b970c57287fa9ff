@@ -90,6 +90,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "5dc8ea2c_287f5cba",
+        "filename": "rtc_base/memory/always_valid_pointer.h",
+        "patchSetId": 8
+      },
+      "lineNbr": 112,
+      "author": {
+        "id": 9405
+      },
+      "writtenOn": "2022-05-25T14:43:04Z",
+      "side": 1,
+      "message": "I used your design, and it seems to work.\nNow we have three classes;\n1) `AlwaysValidPointer\u003cInterface, CreateFunc\u003e`: Generic version\n2) `AlwaysValidPointerWithDefault\u003cInterface, Default\u003e` \u003d `AlwaysValidPointer\u003cInterface, UniquePtrCreator\u003cDefault\u003e\u003e`: This is exactly the same as the behavior before this CL.\n3) `AlwaysValidPointerNoDefault\u003cInterface\u003e` \u003d `AlwaysValidPointer\u003cInterface, FatalCreator\u003cDefault\u003e\u003e`: That\u0027s what I want to use now.",
+      "parentUuid": "cea27789_10844924",
+      "revId": "8bd4c476058b398a7d5ef86f5b970c57287fa9ff",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "a5188585_a1b56a97",
         "filename": "rtc_base/memory/always_valid_pointer.h",
         "patchSetId": 8

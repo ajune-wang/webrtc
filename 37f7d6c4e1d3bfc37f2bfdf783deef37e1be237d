@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "cbbb04eb_d8cbe0f9",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 3
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2022-05-25T07:46:08Z",
+      "side": 1,
+      "message": "Late comment and question: It seems this changes the behavior of this function, the old list had 21 entries (and L1T1 missing), while the list used by CreateScalabilityStructure has 15 entries. \n\nDo we expect AV1 and VP9 to support exactly the same set of scalability modes?",
+      "revId": "37f7d6c4e1d3bfc37f2bfdf783deef37e1be237d",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

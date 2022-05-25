@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "870798b0_c305ad9d",
+        "filename": "p2p/base/connection.cc",
+        "patchSetId": 6
+      },
+      "lineNbr": 347,
+      "author": {
+        "id": 5508
+      },
+      "writtenOn": "2022-05-25T14:44:04Z",
+      "side": 1,
+      "message": "oh, I added this check too just in case. Since this getter is similar to the local_candidate() getter in that it implies that local state is being queried, but it actually relies on state from port_, I figured avoiding dereferencing port_ here too, would be the safe thing.",
+      "revId": "e084ba735647d44e7624c96dea23b52b93443ff9",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

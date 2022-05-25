@@ -37,6 +37,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "bd9defa8_b3949671",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 5
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5508
+      },
+      "writtenOn": "2022-05-25T14:41:48Z",
+      "side": 1,
+      "message": "Great point - I guess I rushed a bit too quickly into this change - thanks for catching.\n\nI\u0027ve updated the code now to update the Connection\u0027s local candidate when the network cost changes or when ICE parameters are updated in Port (the two places that update all connections).\n\nI\u0027m not sure what effect it has actually though because from what I could tell, the network cost is calculated from the remote candidate instances and the ICE parameters are modified before any Connection instances are allocated. However, better safe than sorry.",
+      "parentUuid": "d8aa24cf_55929425",
+      "revId": "22dd7dc0c390da820eef3b5bf9ec9e1eb7cce678",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "63c84a8b_aca96cce",
         "filename": "p2p/base/connection.cc",
         "patchSetId": 5
@@ -48,6 +66,30 @@
       "writtenOn": "2022-05-25T13:30:44Z",
       "side": 1,
       "message": "is this string change intended?",
+      "range": {
+        "startLine": 1220,
+        "startChar": 14,
+        "endLine": 1220,
+        "endChar": 16
+      },
+      "revId": "22dd7dc0c390da820eef3b5bf9ec9e1eb7cce678",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "694f8799_fb6856a4",
+        "filename": "p2p/base/connection.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 1220,
+      "author": {
+        "id": 5508
+      },
+      "writtenOn": "2022-05-25T14:41:48Z",
+      "side": 1,
+      "message": "Yes, but not strictly necessary. This change makes it so that the content_name() and Network() strings, have a matching \u0027#\u0027, just in case anyone out there expects there to be a certain number of entries in the string.\n\nThe earlier change that substituted a single \u0027#\u0027 for those names + the local/remote properties, was part of a fix that avoided having ToString() reference a deleted port pointer. Since then, a few changes have been made, we\u0027re now using a weak_ptr instead of a raw pointer to the port object for example, so this particular change brings back a bit of consistency to the ToString() format.",
+      "parentUuid": "63c84a8b_aca96cce",
       "range": {
         "startLine": 1220,
         "startChar": 14,
@@ -81,6 +123,30 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "fc89700e_460bcf52",
+        "filename": "p2p/base/connection.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 1506,
+      "author": {
+        "id": 5508
+      },
+      "writtenOn": "2022-05-25T14:41:48Z",
+      "side": 1,
+      "message": "Thanks, done.",
+      "parentUuid": "65acef46_8a155994",
+      "range": {
+        "startLine": 1506,
+        "startChar": 13,
+        "endLine": 1506,
+        "endChar": 17
+      },
+      "revId": "22dd7dc0c390da820eef3b5bf9ec9e1eb7cce678",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "6039afa6_b63a9dc7",
@@ -104,6 +170,30 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "636fdee0_da4776ac",
+        "filename": "p2p/base/connection.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 1547,
+      "author": {
+        "id": 5508
+      },
+      "writtenOn": "2022-05-25T14:41:48Z",
+      "side": 1,
+      "message": "Changed the return type to void.",
+      "parentUuid": "6039afa6_b63a9dc7",
+      "range": {
+        "startLine": 1547,
+        "startChar": 24,
+        "endLine": 1547,
+        "endChar": 41
+      },
+      "revId": "22dd7dc0c390da820eef3b5bf9ec9e1eb7cce678",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "6f6f58eb_23b21dcb",
@@ -117,6 +207,30 @@
       "writtenOn": "2022-05-25T13:30:44Z",
       "side": 1,
       "message": "may be \n\u003d new_local_candidate;\n\nor reverse:\nremove new_local_candidate variable, instead update local_candidate_ variable:\nlocal_candidate_.set_id(id);\nlocal_candidate_.set_related_address(local_candidate_.address());\nlocal_candidate_.set_address(addr-\u003eGetAddress());\n...\nport_-\u003eAddPrflxCandidate(local_candidate_);",
+      "range": {
+        "startLine": 1548,
+        "startChar": 21,
+        "endLine": 1548,
+        "endChar": 47
+      },
+      "revId": "22dd7dc0c390da820eef3b5bf9ec9e1eb7cce678",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "1e3ca751_336edd83",
+        "filename": "p2p/base/connection.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 1548,
+      "author": {
+        "id": 5508
+      },
+      "writtenOn": "2022-05-25T14:41:48Z",
+      "side": 1,
+      "message": "Done (just use local_candidate_)",
+      "parentUuid": "6f6f58eb_23b21dcb",
       "range": {
         "startLine": 1548,
         "startChar": 21,

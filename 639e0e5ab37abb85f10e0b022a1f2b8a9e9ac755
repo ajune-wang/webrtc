@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "126d97da_4ee1ab7f",
+        "filename": "rtc_base/socket_address_unittest.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 110,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2022-05-25T11:50:26Z",
+      "side": 1,
+      "message": "std::string move constructor doesn\u0027t guarantee moved-out string is empty.\n\nhttps://en.cppreference.com/w/cpp/string/basic_string/basic_string\n“8) Move constructor. Constructs the string with the contents of other using move semantics. other is left in valid, but unspecified state.”",
+      "range": {
+        "startLine": 110,
+        "startChar": 2,
+        "endLine": 110,
+        "endChar": 39
+      },
+      "revId": "639e0e5ab37abb85f10e0b022a1f2b8a9e9ac755",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

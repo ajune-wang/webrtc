@@ -166,20 +166,19 @@ static RTCErrorType ParseIceServerUrl(
 
   RTC_DCHECK(stun_servers != nullptr);
   RTC_DCHECK(turn_servers != nullptr);
-  std::vector<std::string> tokens;
   cricket::ProtocolType turn_transport_type = cricket::PROTO_UDP;
   RTC_DCHECK(!url.empty());
-  rtc::split(url, '?', &tokens);
-  std::string uri_without_transport = tokens[0];
+  std::vector<absl::string_view> tokens = rtc::split(url, '?');
+  absl::string_view uri_without_transport = tokens[0];
   // Let's look into transport= param, if it exists.
   if (tokens.size() == kTurnTransportTokensNum) {  // ?transport= is present.
-    std::string uri_transport_param = tokens[1];
-    rtc::split(uri_transport_param, '=', &tokens);
-    if (tokens[0] != kTransport) {
+    std::vector<absl::string_view> transport_tokens =
+        rtc::split(tokens[1], '=');
+    if (transport_tokens[0] != kTransport) {
       RTC_LOG(LS_WARNING) << "Invalid transport parameter key.";
       return RTCErrorType::SYNTAX_ERROR;
     }
-    if (tokens.size() < 2) {
+    if (transport_tokens.size() < 2) {
       RTC_LOG(LS_WARNING) << "Transport parameter missing value.";
       return RTCErrorType::SYNTAX_ERROR;
     }
@@ -196,8 +195,10 @@ static RTCErrorType ParseIceServerUrl(
 
   std::string hoststring;
   ServiceType service_type;
-  if (!GetServiceTypeAndHostnameFromUri(uri_without_transport, &service_type,
-                                        &hoststring)) {
+  // TODO(bugs.webrtc.org:13579): GetServiceTypeAndHostnameFromUri should accept
+  // string_view input.
+  if (!GetServiceTypeAndHostnameFromUri(std::string(uri_without_transport),
+                                        &service_type, &hoststring)) {
     RTC_LOG(LS_WARNING) << "Invalid transport parameter in ICE URI: " << url;
     return RTCErrorType::SYNTAX_ERROR;
   }

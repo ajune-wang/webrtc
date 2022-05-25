@@ -42,19 +42,43 @@ rtc_library("rtt_filter") {
   ]
 }
 
+rtc_library("timing_module") {
+  sources = [
+    "timing.cc",
+    "timing.h",
+  ]
+  deps = [
+    ":codec_timer",
+    "../../../api:field_trials_view",
+    "../../../api/units:time_delta",
+    "../../../api/video:video_rtp_headers",
+    "../../../rtc_base:logging",
+    "../../../rtc_base:macromagic",
+    "../../../rtc_base:rtc_numerics",
+    "../../../rtc_base/experiments:field_trial_parser",
+    "../../../rtc_base/synchronization:mutex",
+    "../../../rtc_base/time:timestamp_extrapolator",
+    "../../../system_wrappers",
+  ]
+  absl_deps = [ "//third_party/abseil-cpp/absl/types:optional" ]
+}
+
 rtc_library("timing_unittests") {
   testonly = true
   sources = [
     "inter_frame_delay_unittest.cc",
     "rtt_filter_unittest.cc",
+    "timing_unittest.cc",
   ]
   deps = [
     ":inter_frame_delay",
     ":rtt_filter",
+    ":timing_module",
     "../../../api/units:frequency",
     "../../../api/units:time_delta",
     "../../../api/units:timestamp",
     "../../../system_wrappers:system_wrappers",
+    "../../../test:scoped_key_value_config",
     "../../../test:test_support",
   ]
   absl_deps = [ "//third_party/abseil-cpp/absl/types:optional" ]

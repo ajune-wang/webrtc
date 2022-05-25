@@ -4658,6 +4658,33 @@ TEST_F(WebRtcSdpTest, MaxChannels) {
   ExpectParseFailure(sdp, "a=rtpmap:108 ISAC/16000/512");
 }
 
+TEST_F(WebRtcSdpTest, DuplicateAudioRtpmapWithConflict) {
+  std::string sdp =
+      "v=0\r\n"
+      "o=- 11 22 IN IP4 127.0.0.1\r\n"
+      "s=-\r\n"
+      "t=0 0\r\n"
+      "m=audio 49232 RTP/AVP 108\r\n"
+      // Same name but different payload type.
+      "a=rtpmap:108 ISAC/16000\r\n"
+      "a=rtpmap:108 ISAC/32000\r\n";
+
+  ExpectParseFailure(sdp, "a=rtpmap:108 ISAC/32000");
+}
+
+TEST_F(WebRtcSdpTest, DuplicateVideoRtpmapWithConflict) {
+  std::string sdp =
+      "v=0\r\n"
+      "o=- 11 22 IN IP4 127.0.0.1\r\n"
+      "s=-\r\n"
+      "t=0 0\r\n"
+      "m=video 49232 RTP/AVP 108\r\n"
+      "a=rtpmap:108 VP8/90000\r\n"
+      "a=rtpmap:108 VP9/90000\r\n";
+
+  ExpectParseFailure(sdp, "a=rtpmap:108 VP9/90000");
+}
+
 // This tests parsing of SDP with unknown ssrc-specific attributes.
 TEST_F(WebRtcSdpTest, ParseIgnoreUnknownSsrcSpecificAttribute) {
   std::string sdp = kSdpString;

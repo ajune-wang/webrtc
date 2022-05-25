@@ -357,7 +357,7 @@ class Connection : public CandidatePairInterface {
   webrtc::TaskQueueBase* const network_thread_;
   const uint32_t id_;
   rtc::WeakPtr<Port> port_;
-  size_t local_candidate_index_ RTC_GUARDED_BY(network_thread_);
+  Candidate local_candidate_ RTC_GUARDED_BY(network_thread_);
   Candidate remote_candidate_;
 
   ConnectionInfo stats_;

@@ -598,7 +598,8 @@ class PeerConnection : public PeerConnectionInternal,
   // a) Specified in PeerConnectionDependencies (owned).
   // b) Accessed via ConnectionContext (e.g PeerConnectionFactoryDependencies>
   // c) Created as Default (FieldTrialBasedConfig).
-  const webrtc::AlwaysValidPointer<const FieldTrialsView, FieldTrialBasedConfig>
+  const webrtc::AlwaysValidPointerWithDefault<const FieldTrialsView,
+                                              FieldTrialBasedConfig>
       trials_;
   const PeerConnectionFactoryInterface::Options options_;
   PeerConnectionObserver* observer_ RTC_GUARDED_BY(signaling_thread()) =

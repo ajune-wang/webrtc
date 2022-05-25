@@ -498,8 +498,8 @@ class Port : public PortInterface,
       MdnsNameRegistrationStatus::kNotStarted;
 
   rtc::WeakPtrFactory<Port> weak_factory_;
-  webrtc::AlwaysValidPointer<const webrtc::FieldTrialsView,
-                             webrtc::FieldTrialBasedConfig>
+  webrtc::AlwaysValidPointerWithDefault<const webrtc::FieldTrialsView,
+                                        webrtc::FieldTrialBasedConfig>
       field_trials_;
 
   bool MaybeObfuscateAddress(Candidate* c,

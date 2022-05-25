@@ -86,7 +86,7 @@ class VideoStreamDecoderImpl : public VideoStreamDecoderInterface {
   VideoStreamDecoderImpl::DecodeResult DecodeFrame(
       std::unique_ptr<EncodedFrame> frame) RTC_RUN_ON(decode_queue_);
 
-  AlwaysValidPointer<const FieldTrialsView, FieldTrialBasedConfig>
+  AlwaysValidPointerWithDefault<const FieldTrialsView, FieldTrialBasedConfig>
       field_trials_;
   VCMTiming timing_;
   DecodeCallbacks decode_callbacks_;

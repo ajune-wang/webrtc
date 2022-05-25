@@ -237,9 +237,16 @@ void Port::SetIceParameters(int component,
   ice_username_fragment_ = username_fragment;
   password_ = password;
   for (Candidate& c : candidates_) {
+    // In case any connections exist that are associated with this
+    // candidate, make sure we update them too.
+    Connection* connection = FindConnectionFromLocalCandidate(c);
     c.set_component(component);
     c.set_username(username_fragment);
     c.set_password(password);
+    if (connection) {
+      connection->UpdateLocalIceParameters(component, username_fragment,
+                                           password);
+    }
   }
 }
 
@@ -421,9 +428,8 @@ void Port::OnReadyToSend() {
   }
 }
 
-size_t Port::AddPrflxCandidate(const Candidate& local) {
+void Port::AddPrflxCandidate(const Candidate& local) {
   candidates_.push_back(local);
-  return (candidates_.size() - 1);
 }
 
 bool Port::GetStunMessage(const char* data,
@@ -873,6 +879,16 @@ void Port::OnNetworkTypeChanged(const rtc::Network* network) {
   UpdateNetworkCost();
 }
 
+Connection* Port::FindConnectionFromLocalCandidate(
+    const Candidate& candidate) const {
+  auto found = std::find_if(
+      connections_.begin(), connections_.end(),
+      [&candidate](const std::pair<rtc::SocketAddress, Connection*>& entry) {
+        return entry.second->local_candidate() == candidate;
+      });
+  return found == connections_.end() ? nullptr : found->second;
+}
+
 std::string Port::ToString() const {
   rtc::StringBuilder ss;
   ss << "Port[" << rtc::ToHex(reinterpret_cast<uintptr_t>(this)) << ":"
@@ -894,14 +910,10 @@ void Port::UpdateNetworkCost() {
                    << connections_.size();
   network_cost_ = new_cost;
   for (cricket::Candidate& candidate : candidates_) {
+    Connection* connection = FindConnectionFromLocalCandidate(candidate);
     candidate.set_network_cost(network_cost_);
-  }
-  // Network cost change will affect the connection selection criteria.
-  // Signal the connection state change on each connection to force a
-  // re-sort in P2PTransportChannel.
-  for (const auto& kv : connections_) {
-    Connection* conn = kv.second;
-    conn->SignalStateChange(conn);
+    if (connection)
+      connection->SetLocalCandidateNetworkCost(network_cost_);
   }
 }
 

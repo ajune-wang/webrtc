@@ -363,8 +363,7 @@ class Port : public PortInterface,
   void OnReadyToSend();
 
   // Called when the Connection discovers a local peer reflexive candidate.
-  // Returns the index of the new local candidate.
-  size_t AddPrflxCandidate(const Candidate& local);
+  void AddPrflxCandidate(const Candidate& local);
 
   int16_t network_cost() const { return network_cost_; }
 
@@ -456,6 +455,9 @@ class Port : public PortInterface,
   void OnConnectionDestroyed(Connection* conn);
 
   void OnNetworkTypeChanged(const rtc::Network* network);
+
+  Connection* FindConnectionFromLocalCandidate(
+      const Candidate& candidate) const;
 
   rtc::Thread* const thread_;
   rtc::PacketSocketFactory* const factory_;

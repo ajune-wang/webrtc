@@ -33,6 +33,24 @@
       "message": "LGTM\n\nIs there any other way to configure WebRTC for streaming, though?",
       "revId": "faff525076a78b720a58b401fc1cb7fc267758c0",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "7d3d875b_12af9b3d",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5023
+      },
+      "writtenOn": "2022-05-25T08:20:35Z",
+      "side": 1,
+      "message": "I\u0027m not sure, but maybe the playout delay RTP extension could be used to force a certain minimum level of the receiver delay? That should improve smoothness, at the cost of some extra delay that probably doesn\u0027t matter in streaming scenarios.",
+      "parentUuid": "85a055b2_4fc87777",
+      "revId": "faff525076a78b720a58b401fc1cb7fc267758c0",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

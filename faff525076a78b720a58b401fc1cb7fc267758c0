@@ -16,6 +16,23 @@
       "message": "`internal_tests` failure should be a flake.",
       "revId": "faff525076a78b720a58b401fc1cb7fc267758c0",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "85a055b2_4fc87777",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5150
+      },
+      "writtenOn": "2022-05-25T08:09:17Z",
+      "side": 1,
+      "message": "LGTM\n\nIs there any other way to configure WebRTC for streaming, though?",
+      "revId": "faff525076a78b720a58b401fc1cb7fc267758c0",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

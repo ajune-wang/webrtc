@@ -316,6 +316,8 @@ class FakeFlexfecReceiveStream final : public webrtc::FlexfecReceiveStream {
   uint32_t remote_ssrc() const { return config_.rtp.remote_ssrc; }
 
  private:
+  void SetPayloadType(int payload_type) { config_.payload_type = payload_type; }
+
   void OnRtpPacket(const webrtc::RtpPacketReceived& packet) override;
 
   webrtc::FlexfecReceiveStream::Config config_;

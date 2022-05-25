@@ -188,6 +188,11 @@ void FlexfecReceiveStreamImpl::OnRtpPacket(const RtpPacketReceived& packet) {
   }
 }
 
+void FlexfecReceiveStreamImpl::SetPayloadType(int payload_type) {
+  RTC_DCHECK_RUN_ON(&packet_sequence_checker_);
+  const_cast<int&>(config_.payload_type) = payload_type;
+}
+
 void FlexfecReceiveStreamImpl::SetRtpExtensions(
     std::vector<RtpExtension> extensions) {
   RTC_DCHECK_RUN_ON(&packet_sequence_checker_);

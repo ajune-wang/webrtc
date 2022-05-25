@@ -16,6 +16,57 @@
       "message": "Reply on a comment...",
       "revId": "663b49d60e204b458aab40a3c5db902c86685821",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "c567ad58_9099051b",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 11
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2022-05-25T21:53:12Z",
+      "side": 1,
+      "message": "A few more comments.\n",
+      "revId": "663b49d60e204b458aab40a3c5db902c86685821",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "fbf167c3_1731711d",
+        "filename": "rtc_base/memory/always_valid_pointer.h",
+        "patchSetId": 11
+      },
+      "lineNbr": 140,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2022-05-25T21:53:12Z",
+      "side": 1,
+      "message": "be careful of namespace rules - \"detail\" may be too generic, may need to use \"webrtc::always_valid_pointer_internal\" for a namespace name.",
+      "revId": "663b49d60e204b458aab40a3c5db902c86685821",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "6d286dac_1fad72f5",
+        "filename": "rtc_base/network.h",
+        "patchSetId": 11
+      },
+      "lineNbr": 360,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2022-05-25T21:53:12Z",
+      "side": 1,
+      "message": "I don\u0027t particularly like exposing this name to users. The concept of \"always valid pointer\" should be the generic case - all read operations can assume that it\u0027s valid, no matter how it\u0027s constructed (if not, you have crashed before this).\n\nThe details of what arguments it\u0027s constructed with should be internal to its initialization.\n\nBut if it\u0027s hard....",
+      "revId": "663b49d60e204b458aab40a3c5db902c86685821",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "92cef464_f5d720b7",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 5
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5508
+      },
+      "writtenOn": "2022-05-25T13:05:04Z",
+      "side": 1,
+      "message": "Switching over to this approach for the candidates. Performance isn\u0027t the concern in this, it\u0027s rather the potential dereferencing of the `port_` pointer from the Connection class.",
+      "revId": "22dd7dc0c390da820eef3b5bf9ec9e1eb7cce678",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

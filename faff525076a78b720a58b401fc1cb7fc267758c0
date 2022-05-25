@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "8d7fb1f5_4064736f",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5023
+      },
+      "writtenOn": "2022-05-25T07:08:15Z",
+      "side": 1,
+      "message": "`internal_tests` failure should be a flake.",
+      "revId": "faff525076a78b720a58b401fc1cb7fc267758c0",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

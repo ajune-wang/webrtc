@@ -34,6 +34,24 @@
       "parentUuid": "fb5370da_b3714032",
       "revId": "8366a9258e61a6a4866ab31eeb181f99f8c0191d",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "131d82e8_807c57c6",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 4
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 8046
+      },
+      "writtenOn": "2022-05-26T05:12:42Z",
+      "side": 1,
+      "message": "It might be that some buffers were allocated ahead with given resolution? I don\u0027t know. I would expect that once you agree on new stream parameters, following buffers you receive have the resolution you set.\n\nOne more thing for this change. I would maybe use a different naming for SetResolution()/SetScreenCastStreamResolution() because on first look (without looking into the source code) one might think you can also call this to set the initial resolution, but this is actually used to update resolution for an already running stream, which is confusing as it doesn\u0027t have any effect if the stream is not running.",
+      "parentUuid": "a7ac1930_43723ace",
+      "revId": "8366a9258e61a6a4866ab31eeb181f99f8c0191d",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

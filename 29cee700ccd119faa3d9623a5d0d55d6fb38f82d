@@ -109,6 +109,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "8c0e28b5_81c02e7a",
+        "filename": "modules/desktop_capture/linux/wayland/shared_screencast_stream.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 536,
+      "author": {
+        "id": 8046
+      },
+      "writtenOn": "2022-05-26T16:40:55Z",
+      "side": 1,
+      "message": "Sorry for being picky. I would just drop the lock without replacement as I believe none of them is needed in this case.",
+      "parentUuid": "25974349_4de1a94e",
+      "revId": "29cee700ccd119faa3d9623a5d0d55d6fb38f82d",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "88578676_e0c64f6e",
         "filename": "modules/desktop_capture/linux/wayland/shared_screencast_stream.cc",
         "patchSetId": 5

@@ -1,6 +1,23 @@
 {
   "comments": [
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "96a1c504_10e44254",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 5
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 18829
+      },
+      "writtenOn": "2022-05-26T14:50:20Z",
+      "side": 1,
+      "message": "Thank you for taking another look!",
+      "revId": "29cee700ccd119faa3d9623a5d0d55d6fb38f82d",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "adb3fa8a_ac1040b6",
@@ -18,6 +35,24 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "ef435135_6ffb04e2",
+        "filename": "modules/desktop_capture/linux/wayland/shared_screencast_stream.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 536,
+      "author": {
+        "id": 18829
+      },
+      "writtenOn": "2022-05-26T14:50:20Z",
+      "side": 1,
+      "message": "Thanks for the input, Jan! I believe this lock is not the cause of the delay-until-any-activity I am observing. The motivation for the lock is to keep the access to `pending_resolution_change_` consistent since it is getting updated in `OnRenegotiateFormat` as well with the same lock.",
+      "parentUuid": "adb3fa8a_ac1040b6",
+      "revId": "29cee700ccd119faa3d9623a5d0d55d6fb38f82d",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "88578676_e0c64f6e",
@@ -31,6 +66,24 @@
       "writtenOn": "2022-05-26T05:12:42Z",
       "side": 1,
       "message": "Maybe calling `pw_loop_signal_event(pw_thread_loop_get_loop(pw_main_loop_),                         renegotiate_);` is cleaner. This will signalize that you want to update your stream parameters and I guess doing it this way is safer and gives PipeWire opportunity to safely stop what it was currently doing/processing (finish loop iteration).",
+      "revId": "29cee700ccd119faa3d9623a5d0d55d6fb38f82d",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "0d069b36_61db1b7f",
+        "filename": "modules/desktop_capture/linux/wayland/shared_screencast_stream.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 541,
+      "author": {
+        "id": 18829
+      },
+      "writtenOn": "2022-05-26T14:50:20Z",
+      "side": 1,
+      "message": "Thanks. I had tried that and it crashes in a non-obvious way with an illegal instruction error. I was hoping that calling `OnRenegotiateFormat` is still going to be safe since it acquires the loop lock.",
+      "parentUuid": "88578676_e0c64f6e",
       "revId": "29cee700ccd119faa3d9623a5d0d55d6fb38f82d",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }

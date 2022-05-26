@@ -52,6 +52,24 @@
       "parentUuid": "a7ac1930_43723ace",
       "revId": "8366a9258e61a6a4866ab31eeb181f99f8c0191d",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "50a83e0d_3a5c5f48",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 4
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 18829
+      },
+      "writtenOn": "2022-05-26T14:50:20Z",
+      "side": 1,
+      "message": "\u003e It looks like Renegotiate already doesn\u0027t happen until \"ProcessBuffer\" unless there\u0027s a signal on the PipeWire side to drive it?\n\nThat signal calls into a callback that I am calling here directly. Also trying to signal for renegotiation here causes a crash for an obscure reason (illegal instruction) so I am directly calling the core method that updates the resolution here.\n\n\u003e I would expect that once you agree on new stream parameters, following buffers you receive have the resolution you set.\n\nThis makes sense since my understanding is if there is no activity on the screen then there will be no new buffers written by PipeWire server so doing it either this new way or the old way should be fine (though the older implementation would require two buffer updates for the resolution to take effect).\n\n\u003e One more thing for this change. I would maybe use a different naming for SetResolution()/SetScreenCastStreamResolution() because on first look (without looking into the source code) one might think you can also call this to set the initial resolution, but this is actually used to update resolution for an already running stream, which is confusing as it doesn\u0027t have any effect if the stream is not running.\n\nGood idea. Will change it to `UpdateResolution`.",
+      "parentUuid": "131d82e8_807c57c6",
+      "revId": "8366a9258e61a6a4866ab31eeb181f99f8c0191d",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

@@ -181,6 +181,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "de3e01e3_8b732b16",
+        "filename": "modules/desktop_capture/linux/wayland/shared_screencast_stream.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 536,
+      "author": {
+        "id": 18829
+      },
+      "writtenOn": "2022-05-26T17:09:05Z",
+      "side": 1,
+      "message": "heh .. thanks!\nMy question was more related to the non-pipewire object access here that we have been talking about, specifically `pending_resolution_changes_`. One access point is already protected with the main lock inside renegotiation method, but in the new `UpdateResolution` that I added, we don\u0027t have any protection if we don\u0027t replace the main loop lock with a custom one. Thoughts?",
+      "parentUuid": "e4bb6c0e_137b3073",
+      "revId": "29cee700ccd119faa3d9623a5d0d55d6fb38f82d",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "88578676_e0c64f6e",
         "filename": "modules/desktop_capture/linux/wayland/shared_screencast_stream.cc",
         "patchSetId": 5

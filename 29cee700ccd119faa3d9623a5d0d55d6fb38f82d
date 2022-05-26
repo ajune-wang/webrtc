@@ -3,6 +3,23 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "adb3fa8a_ac1040b6",
+        "filename": "modules/desktop_capture/linux/wayland/shared_screencast_stream.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 536,
+      "author": {
+        "id": 8046
+      },
+      "writtenOn": "2022-05-26T05:16:47Z",
+      "side": 1,
+      "message": "I also believe you don\u0027t need a lock here (maybe that\u0027s what gives you a bit delay?) if you are going to only signalize you want to renegotiate. And the OnRenegotiateFormat callback already has a lock.",
+      "revId": "29cee700ccd119faa3d9623a5d0d55d6fb38f82d",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "88578676_e0c64f6e",
         "filename": "modules/desktop_capture/linux/wayland/shared_screencast_stream.cc",
         "patchSetId": 5

@@ -16,6 +16,23 @@
       "message": "Still LGTM",
       "revId": "5d23e382e0ec144e8004bbebfac66afc4d2185a2",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "8632ec82_c721ff80",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 9
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 8046
+      },
+      "writtenOn": "2022-05-26T18:24:16Z",
+      "side": 1,
+      "message": "Looks good to me, but I don\u0027t have permission to give +1.",
+      "revId": "5d23e382e0ec144e8004bbebfac66afc4d2185a2",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

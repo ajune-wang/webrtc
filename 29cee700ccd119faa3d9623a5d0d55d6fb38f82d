@@ -127,6 +127,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "c64efc3c_39041197",
+        "filename": "modules/desktop_capture/linux/wayland/shared_screencast_stream.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 536,
+      "author": {
+        "id": 18829
+      },
+      "writtenOn": "2022-05-26T16:50:41Z",
+      "side": 1,
+      "message": "No problem at all :) Just wanted to understand the rationale, that\u0027s all.\n\nRE: dropping the lock. Are the methods guaranteed to be called on a single thread (or serialized in some other fashion)?",
+      "parentUuid": "8c0e28b5_81c02e7a",
+      "revId": "29cee700ccd119faa3d9623a5d0d55d6fb38f82d",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "88578676_e0c64f6e",
         "filename": "modules/desktop_capture/linux/wayland/shared_screencast_stream.cc",
         "patchSetId": 5

@@ -106,6 +106,24 @@
       "parentUuid": "68fb66e3_0c6f764a",
       "revId": "8366a9258e61a6a4866ab31eeb181f99f8c0191d",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "88b5c8be_993904dc",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 4
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 18474
+      },
+      "writtenOn": "2022-05-26T18:22:55Z",
+      "side": 1,
+      "message": "Yep; anywhere that adds Pipewire calls that aren\u0027t in the stubs file needs to have that header added, or we get crashes on official builds.",
+      "parentUuid": "aad62b74_29e0e366",
+      "revId": "8366a9258e61a6a4866ab31eeb181f99f8c0191d",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

@@ -88,6 +88,24 @@
       "parentUuid": "50a83e0d_3a5c5f48",
       "revId": "8366a9258e61a6a4866ab31eeb181f99f8c0191d",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "aad62b74_29e0e366",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 4
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 18829
+      },
+      "writtenOn": "2022-05-26T15:23:32Z",
+      "side": 1,
+      "message": "Sure, Done. Also thanks for the pointer to `RTC_NO_SANITIZE(\"cfi-icall\")`.",
+      "parentUuid": "68fb66e3_0c6f764a",
+      "revId": "8366a9258e61a6a4866ab31eeb181f99f8c0191d",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

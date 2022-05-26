@@ -197,6 +197,24 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "5c2a3d36_34fca7e5",
+        "filename": "modules/desktop_capture/linux/wayland/shared_screencast_stream.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 536,
+      "author": {
+        "id": 8046
+      },
+      "writtenOn": "2022-05-26T17:26:58Z",
+      "side": 1,
+      "message": "You are right, I made the assumption based on expectation that no one will be changing resolution multiple times in such short period that it might get accessed from two places. Just the lock in StartScreenSharing() is not necessary as the loop is not running and at that point it\u0027s only you accessing it.",
+      "parentUuid": "de3e01e3_8b732b16",
+      "revId": "29cee700ccd119faa3d9623a5d0d55d6fb38f82d",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "88578676_e0c64f6e",

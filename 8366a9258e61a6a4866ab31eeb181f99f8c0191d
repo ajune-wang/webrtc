@@ -70,6 +70,24 @@
       "parentUuid": "131d82e8_807c57c6",
       "revId": "8366a9258e61a6a4866ab31eeb181f99f8c0191d",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "68fb66e3_0c6f764a",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 4
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 8046
+      },
+      "writtenOn": "2022-05-26T15:04:11Z",
+      "side": 1,
+      "message": "\u003eThat signal calls into a callback that I am calling here directly. Also trying to \u003esignal for renegotiation here causes a crash for an obscure reason (illegal \u003einstruction) so I am directly calling the core method that updates the resolution \u003ehere.\n\nI know you can call it directly and giving it the signal will have same result. But I believe it is safer to do as you don\u0027t call it in the middle of loop iteration so I would prefer you do it this way. The crash is most likely because you have to add `RTC_NO_SANITIZE(\"cfi-icall\")` on top of your new method as we do in most cases.",
+      "parentUuid": "50a83e0d_3a5c5f48",
+      "revId": "8366a9258e61a6a4866ab31eeb181f99f8c0191d",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

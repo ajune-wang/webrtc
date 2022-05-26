@@ -55,6 +55,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "182cc6f3_321ed442",
+        "filename": "modules/desktop_capture/linux/wayland/shared_screencast_stream.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 536,
+      "author": {
+        "id": 8046
+      },
+      "writtenOn": "2022-05-26T15:04:11Z",
+      "side": 1,
+      "message": "The lock is needed/used in case you do operation on any of PipeWire objects, which you don\u0027t. If you want to guard `pending_resolution_change_` you should use your own lock.",
+      "parentUuid": "ef435135_6ffb04e2",
+      "revId": "29cee700ccd119faa3d9623a5d0d55d6fb38f82d",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "88578676_e0c64f6e",
         "filename": "modules/desktop_capture/linux/wayland/shared_screencast_stream.cc",
         "patchSetId": 5
@@ -84,6 +102,24 @@
       "side": 1,
       "message": "Thanks. I had tried that and it crashes in a non-obvious way with an illegal instruction error. I was hoping that calling `OnRenegotiateFormat` is still going to be safe since it acquires the loop lock.",
       "parentUuid": "88578676_e0c64f6e",
+      "revId": "29cee700ccd119faa3d9623a5d0d55d6fb38f82d",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "c68c8944_254a9ead",
+        "filename": "modules/desktop_capture/linux/wayland/shared_screencast_stream.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 541,
+      "author": {
+        "id": 8046
+      },
+      "writtenOn": "2022-05-26T15:04:11Z",
+      "side": 1,
+      "message": "See my comment above.",
+      "parentUuid": "0d069b36_61db1b7f",
       "revId": "29cee700ccd119faa3d9623a5d0d55d6fb38f82d",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }

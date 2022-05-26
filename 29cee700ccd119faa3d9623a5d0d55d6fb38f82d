@@ -91,6 +91,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "25974349_4de1a94e",
+        "filename": "modules/desktop_capture/linux/wayland/shared_screencast_stream.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 536,
+      "author": {
+        "id": 8046
+      },
+      "writtenOn": "2022-05-26T15:59:54Z",
+      "side": 1,
+      "message": "1) The lock we use here is just a wrapper for pw_thread_loop_lock() so it is PipeWire API to protect simultaneous access to its objects. We don\u0027t use it to protect our internal variables and it should\u0027t be used this way.\n2) I didn\u0027t say it will do anything about the delay, just that you should use our lock (a new one) if you want to protect access to our variables and do not use PipeWire lock which is meant for completely different purpose.",
+      "parentUuid": "b8487dc0_16653cb4",
+      "revId": "29cee700ccd119faa3d9623a5d0d55d6fb38f82d",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "88578676_e0c64f6e",
         "filename": "modules/desktop_capture/linux/wayland/shared_screencast_stream.cc",
         "patchSetId": 5

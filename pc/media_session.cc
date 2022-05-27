@@ -2525,7 +2525,7 @@ bool MediaSessionDescriptionFactory::AddDataContentForOffer(
   data->set_protocol(secure_transport ? kMediaProtocolUdpDtlsSctp
                                       : kMediaProtocolSctp);
   data->set_use_sctpmap(session_options.use_obsolete_sctp_sdp);
-  data->set_max_message_size(kSctpSendBufferSize);
+  data->set_max_message_size(kSctpMaxMessageSize);
 
   if (!CreateContentOffer(media_description_options, session_options,
                           sdes_policy, GetCryptos(current_content),
@@ -2878,12 +2878,12 @@ bool MediaSessionDescriptionFactory::AddDataContentForAnswer(
     // whichever is smaller.
     // 0 is treated specially - it means "I can accept any size". Since
     // we do not implement infinite size messages, reply with
-    // kSctpSendBufferSize.
+    // kSctpMaxMessageSize.
     if (offer_data_description->max_message_size() == 0) {
-      data_answer->as_sctp()->set_max_message_size(kSctpSendBufferSize);
+      data_answer->as_sctp()->set_max_message_size(kSctpMaxMessageSize);
     } else {
       data_answer->as_sctp()->set_max_message_size(std::min(
-          offer_data_description->max_message_size(), kSctpSendBufferSize));
+          offer_data_description->max_message_size(), kSctpMaxMessageSize));
     }
     if (!CreateMediaContentAnswer(
             offer_data_description, media_description_options, session_options,

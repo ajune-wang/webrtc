@@ -1555,7 +1555,7 @@ TEST_F(MediaSessionDescriptionFactoryTest,
   const SctpDataContentDescription* dcd_answer =
       dc_answer->media_description()->as_sctp();
   EXPECT_FALSE(dc_answer->rejected);
-  EXPECT_EQ(cricket::kSctpSendBufferSize, dcd_answer->max_message_size());
+  EXPECT_EQ(cricket::kSctpMaxMessageSize, dcd_answer->max_message_size());
 }
 
 // Verifies that the order of the media contents in the offer is preserved in

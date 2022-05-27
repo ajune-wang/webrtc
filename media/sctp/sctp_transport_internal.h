@@ -30,8 +30,7 @@
 namespace cricket {
 
 // Constants that are important to API users
-// The size of the SCTP association send buffer. 256kB, the usrsctp default.
-constexpr int kSctpSendBufferSize = 256 * 1024;
+constexpr int kSctpMaxMessageSize = 256 * 1024;
 
 // The number of outgoing streams that we'll negotiate.
 //
@@ -84,8 +83,8 @@ class SctpTransportInternal {
   // to the ports at the IP level. If set to -1, we default to
   // kSctpDefaultPort.
   // `max_message_size_` sets the max message size on the connection.
-  // It must be smaller than or equal to kSctpSendBufferSize.
-  // It can be changed by a secons Start() call.
+  // It must be smaller than or equal to kSctpMaxMessageSize.
+  // It can be changed by a second Start() call.
   //
   // TODO(deadbeef): Support calling Start with different local/remote ports
   // and create a new association? Not clear if this is something we need to

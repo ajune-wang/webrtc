@@ -39,14 +39,14 @@ FrameDecodeTiming::OnFrameBufferUpdated(uint32_t next_temporal_unit_rtp,
   // to the next frame in the buffer.
   if (max_wait <= -kMaxAllowedFrameDelay &&
       next_temporal_unit_rtp != last_temporal_unit_rtp) {
-    RTC_DLOG(LS_VERBOSE) << "Fast-forwarded frame " << next_temporal_unit_rtp
-                         << " render time " << render_time.ms()
-                         << " with delay " << max_wait.ms() << "ms";
+    RTC_LOG(LS_VERBOSE) << "Fast-forwarded frame " << next_temporal_unit_rtp
+                        << " render time " << render_time.ms() << " with delay "
+                        << max_wait.ms() << "ms";
     return absl::nullopt;
   }
-  RTC_DLOG(LS_VERBOSE) << "Selected frame with rtp " << next_temporal_unit_rtp
-                       << " render time " << render_time.ms()
-                       << " with a max wait of " << max_wait.ms() << "ms";
+  RTC_LOG(LS_VERBOSE) << "Selected frame with rtp " << next_temporal_unit_rtp
+                      << " render time " << render_time.ms()
+                      << " with a max wait of " << max_wait.ms() << "ms";
 
   Timestamp latest_decode_time = now + std::max(max_wait, TimeDelta::Zero());
   return FrameSchedule{.latest_decode_time = latest_decode_time,

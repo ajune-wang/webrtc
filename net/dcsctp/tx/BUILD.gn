@@ -29,6 +29,7 @@ rtc_library("rr_send_queue") {
     "../../../rtc_base:checks",
     "../../../rtc_base:logging",
     "../../../rtc_base/containers:flat_map",
+    "../common:internal_types",
     "../common:str_join",
     "../packet:data",
     "../public:socket",

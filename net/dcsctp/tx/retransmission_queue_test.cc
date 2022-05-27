@@ -28,6 +28,7 @@
 #include "net/dcsctp/packet/chunk/sack_chunk.h"
 #include "net/dcsctp/packet/data.h"
 #include "net/dcsctp/public/dcsctp_options.h"
+#include "net/dcsctp/socket/mock_dcsctp_socket_callbacks.h"
 #include "net/dcsctp/testing/data_generator.h"
 #include "net/dcsctp/timer/fake_timeout.h"
 #include "net/dcsctp/timer/timer.h"
@@ -97,7 +98,7 @@ class RetransmissionQueueTest : public testing::Test {
   RetransmissionQueue CreateQueue(bool supports_partial_reliability = true,
                                   bool use_message_interleaving = false) {
     return RetransmissionQueue(
-        "", TSN(10), kArwnd, producer_, on_rtt_.AsStdFunction(),
+        "", &callbacks_, TSN(10), kArwnd, producer_, on_rtt_.AsStdFunction(),
         on_clear_retransmission_counter_.AsStdFunction(), *timer_, options_,
         supports_partial_reliability, use_message_interleaving);
   }
@@ -108,12 +109,13 @@ class RetransmissionQueueTest : public testing::Test {
     queue.AddHandoverState(state);
     g_handover_state_transformer_for_test(&state);
     return RetransmissionQueue(
-        "", TSN(10), kArwnd, producer_, on_rtt_.AsStdFunction(),
+        "", &callbacks_, TSN(10), kArwnd, producer_, on_rtt_.AsStdFunction(),
         on_clear_retransmission_counter_.AsStdFunction(), *timer_, options_,
         /*supports_partial_reliability=*/true,
         /*use_message_interleaving=*/false, &state);
   }
 
+  MockDcSctpSocketCallbacks callbacks_;
   DcSctpOptions options_;
   DataGenerator gen_;
   TimeMs now_ = TimeMs(0);

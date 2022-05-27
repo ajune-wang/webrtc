@@ -336,7 +336,7 @@ class Connection : public CandidatePairInterface {
   void OnSendStunPacket(const void* data, size_t size, StunRequest* req);
 
   // Callbacks from ConnectionRequest
-  virtual void OnConnectionRequestResponse(ConnectionRequest* req,
+  virtual void OnConnectionRequestResponse(StunRequest* req,
                                            StunMessage* response);
   void OnConnectionRequestErrorResponse(ConnectionRequest* req,
                                         StunMessage* response)
@@ -380,8 +380,7 @@ class Connection : public CandidatePairInterface {
  private:
   // Update the local candidate based on the mapped address attribute.
   // If the local candidate changed, fires SignalStateChange.
-  void MaybeUpdateLocalCandidate(ConnectionRequest* request,
-                                 StunMessage* response)
+  void MaybeUpdateLocalCandidate(StunRequest* request, StunMessage* response)
       RTC_RUN_ON(network_thread_);
 
   void LogCandidatePairConfig(webrtc::IceCandidatePairConfigType type)

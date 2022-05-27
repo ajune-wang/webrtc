@@ -1313,7 +1313,7 @@ void Connection::LogCandidatePairEvent(webrtc::IceCandidatePairEventType type,
   ice_event_log_->LogCandidatePairEvent(type, id(), transaction_id);
 }
 
-void Connection::OnConnectionRequestResponse(ConnectionRequest* request,
+void Connection::OnConnectionRequestResponse(StunRequest* request,
                                              StunMessage* response) {
   RTC_DCHECK_RUN_ON(network_thread_);
   // Log at LS_INFO if we receive a ping response on an unwritable
@@ -1498,7 +1498,7 @@ ConnectionInfo Connection::stats() {
   return stats_;
 }
 
-void Connection::MaybeUpdateLocalCandidate(ConnectionRequest* request,
+void Connection::MaybeUpdateLocalCandidate(StunRequest* request,
                                            StunMessage* response) {
   // RFC 5245
   // The agent checks the mapped address from the STUN response.  If the

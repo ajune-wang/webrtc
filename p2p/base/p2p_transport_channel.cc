@@ -1869,7 +1869,8 @@ void P2PTransportChannel::SwitchSelectedConnection(Connection* conn,
     network_route_->connected = ReadyToSend(selected_connection_);
     network_route_->local = CreateRouteEndpointFromCandidate(
         /* local= */ true, selected_connection_->local_candidate(),
-        /* uses_turn= */ selected_connection_->port()->Type() ==
+        /* uses_turn= */
+        static_cast<const Connection*>(selected_connection_)->port()->Type() ==
             RELAY_PORT_TYPE);
     network_route_->remote = CreateRouteEndpointFromCandidate(
         /* local= */ false, selected_connection_->remote_candidate(),

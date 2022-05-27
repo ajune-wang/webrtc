@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "d7c5a426_20bd19cd",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 7755
+      },
+      "writtenOn": "2022-05-27T18:22:10Z",
+      "side": 1,
+      "message": "I actually fixed a nasty bug because of that log message. Well, after adding those timestamps so I knew where to look :-)",
+      "revId": "c0a86c7840b7a1e46722b9555be6d20a46c7ed52",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

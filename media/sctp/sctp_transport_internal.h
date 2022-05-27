@@ -33,18 +33,11 @@ namespace cricket {
 // The size of the SCTP association send buffer. 256kB, the usrsctp default.
 constexpr int kSctpSendBufferSize = 256 * 1024;
 
-// The number of outgoing streams that we'll negotiate. Since stream IDs (SIDs)
-// are 0-based, the highest usable SID is 1023.
-//
-// It's recommended to use the maximum of 65535 in:
-// https://tools.ietf.org/html/draft-ietf-rtcweb-data-channel-13#section-6.2
-// However, we use 1024 in order to save memory. usrsctp allocates 104 bytes
-// for each pair of incoming/outgoing streams (on a 64-bit system), so 65535
-// streams would waste ~6MB.
+// The number of outgoing streams that we'll negotiate.
 //
 // Note: "max" and "min" here are inclusive.
-constexpr uint16_t kMaxSctpStreams = 1024;
-constexpr uint16_t kMaxSctpSid = kMaxSctpStreams - 1;
+constexpr uint16_t kMaxSctpStreams = 65535;
+constexpr uint16_t kMaxSctpSid = kMaxSctpStreams;
 constexpr uint16_t kMinSctpSid = 0;
 
 // This is the default SCTP port to use. It is passed along the wire and the

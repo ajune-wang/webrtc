@@ -16,6 +16,7 @@
 #include <vector>
 
 #include "absl/types/optional.h"
+#include "net/dcsctp/common/internal_types.h"
 #include "net/dcsctp/common/sequence_numbers.h"
 #include "net/dcsctp/packet/chunk/forward_tsn_chunk.h"
 #include "net/dcsctp/packet/chunk/iforward_tsn_chunk.h"
@@ -63,6 +64,11 @@ class OutstandingData {
 
     // Highest TSN Newly Acknowledged, an SCTP variable.
     UnwrappedTSN highest_tsn_acked;
+
+    // The set of lifecycle IDs that were acked using cumulative_tsn_ack.
+    std::vector<LifecycleId> acked_lifecycle_ids;
+    // The set of lifecycle IDs that were acked, but had been abandoned.
+    std::vector<LifecycleId> abandoned_lifecycle_ids;
   };
 
   OutstandingData(
@@ -125,7 +131,8 @@ class OutstandingData {
       const Data& data,
       TimeMs time_sent,
       MaxRetransmits max_retransmissions = MaxRetransmits::NoLimit(),
-      TimeMs expires_at = TimeMs::InfiniteFuture());
+      TimeMs expires_at = TimeMs::InfiniteFuture(),
+      LifecycleId lifecycle_id = LifecycleId::NotSet());
 
   // Nacks all outstanding data.
   void NackAll();
@@ -161,13 +168,15 @@ class OutstandingData {
     };
 
     explicit Item(Data data,
+                  LifecycleId lifecycle_id,
                   MaxRetransmits max_retransmissions,
                   TimeMs time_sent,
                   TimeMs expires_at)
         : max_retransmissions_(max_retransmissions),
           time_sent_(time_sent),
           expires_at_(expires_at),
-          data_(std::move(data)) {}
+          data_(std::move(data)),
+          lifecycle_id_(std::move(lifecycle_id)) {}
 
     TimeMs time_sent() const { return time_sent_; }
 
@@ -204,6 +213,8 @@ class OutstandingData {
     // Given the current time, and the current state of this DATA chunk, it will
     // indicate if it has expired (SCTP Partial Reliability Extension).
     bool has_expired(TimeMs now) const;
+
+    LifecycleId lifecycle_id() const { return lifecycle_id_; }
 
    private:
     enum class Lifecycle {
@@ -245,6 +256,8 @@ class OutstandingData {
     const TimeMs expires_at_;
     // The actual data to send/retransmit.
     Data data_;
+    // An optional lifecycle id, which may only be set for the last fragment.
+    LifecycleId lifecycle_id_;
   };
 
   // Returns how large a chunk will be, serialized, carrying the data

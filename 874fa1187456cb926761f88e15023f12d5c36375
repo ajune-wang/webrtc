@@ -22,6 +22,30 @@
       },
       "revId": "874fa1187456cb926761f88e15023f12d5c36375",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "18aff421_11475283",
+        "filename": "p2p/base/p2p_transport_channel.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 1871,
+      "author": {
+        "id": 5508
+      },
+      "writtenOn": "2022-05-27T13:59:54Z",
+      "side": 1,
+      "message": "Moved configuration of the NetworkRoute object into a separate function 👍",
+      "parentUuid": "2a230ce4_1620a0eb",
+      "range": {
+        "startLine": 1871,
+        "startChar": 8,
+        "endLine": 1871,
+        "endChar": 19
+      },
+      "revId": "874fa1187456cb926761f88e15023f12d5c36375",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

@@ -419,12 +419,6 @@ class DcSctpSocketCallbacks {
   // Will be called when a non-expired message has been acknowledged by the
   // peer as delivered.
   //
-  // Note that this will trigger only when the peer moves its cumulative TSN ack
-  // beyond this message, and will not fire for messages acked using
-  // gap-ack-blocks as those are renegable. This means that this may fire a bit
-  // later than the message was actually first "acked" by the peer, as -
-  // according to the protocol - those acks may be unacked later by the client.
-  //
   // It's guaranteed that `OnLifecycleMessageExpired` is not called if this
   // callback has triggered.
   //

@@ -203,8 +203,6 @@ P2PTransportChannel::P2PTransportChannel(
   IceControllerFactoryArgs args{
       [this] { return GetState(); }, [this] { return GetIceRole(); },
       [this](const Connection* connection) {
-        // TODO(webrtc:10647/jonaso): Figure out a way to remove friendship
-        // between P2PTransportChannel and Connection.
         return IsPortPruned(connection->port()) ||
                IsRemoteCandidatePruned(connection->remote_candidate());
       },
@@ -1869,7 +1867,8 @@ void P2PTransportChannel::SwitchSelectedConnection(Connection* conn,
     network_route_->connected = ReadyToSend(selected_connection_);
     network_route_->local = CreateRouteEndpointFromCandidate(
         /* local= */ true, selected_connection_->local_candidate(),
-        /* uses_turn= */ selected_connection_->port()->Type() ==
+        /* uses_turn= */
+        static_cast<const Connection*>(selected_connection_)->port()->Type() ==
             RELAY_PORT_TYPE);
     network_route_->remote = CreateRouteEndpointFromCandidate(
         /* local= */ false, selected_connection_->remote_candidate(),

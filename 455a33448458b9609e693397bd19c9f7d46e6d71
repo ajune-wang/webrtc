@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "f418be19_6bb97a63",
+        "filename": "p2p/base/port.h",
+        "patchSetId": 8
+      },
+      "lineNbr": 484,
+      "author": {
+        "id": 5508
+      },
+      "writtenOn": "2022-05-27T08:24:32Z",
+      "side": 1,
+      "message": "Added this thread guard along the way since it\u0027s implicitly required by the current design.",
+      "revId": "455a33448458b9609e693397bd19c9f7d46e6d71",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

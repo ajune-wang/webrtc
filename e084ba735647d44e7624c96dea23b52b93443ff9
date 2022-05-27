@@ -18,6 +18,24 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "af849877_1e72579f",
+        "filename": "p2p/base/connection.cc",
+        "patchSetId": 6
+      },
+      "lineNbr": 347,
+      "author": {
+        "id": 5508
+      },
+      "writtenOn": "2022-05-27T08:24:32Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "870798b0_c305ad9d",
+      "revId": "e084ba735647d44e7624c96dea23b52b93443ff9",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "035080eb_22137e97",

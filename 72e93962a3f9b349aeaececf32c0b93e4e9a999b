@@ -16,6 +16,23 @@
       "message": "I would have loved to have that debug log in the release version :-)",
       "revId": "72e93962a3f9b349aeaececf32c0b93e4e9a999b",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "4a5f7067_65c22e11",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 18444
+      },
+      "writtenOn": "2022-05-27T13:16:13Z",
+      "side": 1,
+      "message": "Having these in release seems fine to me as they are verbose. Impact on binary size is small.",
+      "revId": "72e93962a3f9b349aeaececf32c0b93e4e9a999b",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

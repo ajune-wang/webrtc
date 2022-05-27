@@ -158,4 +158,31 @@ void CallbackDeferrer::OnTotalBufferedAmountLow() {
   deferred_.emplace_back(
       [](DcSctpSocketCallbacks& cb) { cb.OnTotalBufferedAmountLow(); });
 }
+
+void CallbackDeferrer::OnLifecycleMessageExpired(LifecycleId lifecycle_id,
+                                                 bool maybe_delivered) {
+  RTC_DCHECK(prepared_);
+  deferred_.emplace_back(
+      [lifecycle_id, maybe_delivered](DcSctpSocketCallbacks& cb) {
+        cb.OnLifecycleMessageExpired(lifecycle_id, maybe_delivered);
+      });
+}
+void CallbackDeferrer::OnLifecycleMessageFullySent(LifecycleId lifecycle_id) {
+  RTC_DCHECK(prepared_);
+  deferred_.emplace_back([lifecycle_id](DcSctpSocketCallbacks& cb) {
+    cb.OnLifecycleMessageFullySent(lifecycle_id);
+  });
+}
+void CallbackDeferrer::OnLifecycleMessageDelivered(LifecycleId lifecycle_id) {
+  RTC_DCHECK(prepared_);
+  deferred_.emplace_back([lifecycle_id](DcSctpSocketCallbacks& cb) {
+    cb.OnLifecycleMessageDelivered(lifecycle_id);
+  });
+}
+void CallbackDeferrer::OnLifecycleEnd(LifecycleId lifecycle_id) {
+  RTC_DCHECK(prepared_);
+  deferred_.emplace_back([lifecycle_id](DcSctpSocketCallbacks& cb) {
+    cb.OnLifecycleEnd(lifecycle_id);
+  });
+}
 }  // namespace dcsctp

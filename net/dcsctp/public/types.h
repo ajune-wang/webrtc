@@ -122,6 +122,22 @@ class MaxRetransmits
     return MaxRetransmits(std::numeric_limits<uint16_t>::max());
   }
 };
+
+// An identifier that can be set on sent messages. If different from
+// `::NotSet()`, lifecycle events will be generated, and eventually
+// `DcSctpSocket::EndLifecycle` will be called to indicate that the lifecycle
+// isn't tracked any longer.
+class LifecycleId
+    : public webrtc::StrongAlias<class LifecycleIdTag, ptrdiff_t> {
+ public:
+  constexpr explicit LifecycleId(const UnderlyingType& v)
+      : webrtc::StrongAlias<class LifecycleIdTag, ptrdiff_t>(v) {}
+
+  constexpr bool IsSet() const { return value_ != 0; }
+
+  // Lifecycle events not set.
+  static constexpr LifecycleId NotSet() { return LifecycleId(0); }
+};
 }  // namespace dcsctp
 
 #endif  // NET_DCSCTP_PUBLIC_TYPES_H_

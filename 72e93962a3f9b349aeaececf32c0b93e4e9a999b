@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "05736bb2_dd23b416",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 14874
+      },
+      "writtenOn": "2022-05-27T12:54:41Z",
+      "side": 1,
+      "message": "I would have loved to have that debug log in the release version :-)",
+      "revId": "72e93962a3f9b349aeaececf32c0b93e4e9a999b",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

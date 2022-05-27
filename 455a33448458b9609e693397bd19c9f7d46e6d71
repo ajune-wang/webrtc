@@ -3,6 +3,29 @@
     {
       "unresolved": false,
       "key": {
+        "uuid": "9c3b7a42_90d49e70",
+        "filename": "p2p/base/port.cc",
+        "patchSetId": 8
+      },
+      "lineNbr": 248,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2022-05-27T08:46:08Z",
+      "side": 1,
+      "message": "password_ \u003d std::string(password);\n\nis a more convinient way to assign absl::string_view to std::string\n\nhttps://abseil.io/tips/1\n“you can explicitly convert to a C++ string object using std::string(my_string_view).”",
+      "range": {
+        "startLine": 246,
+        "startChar": 2,
+        "endLine": 248,
+        "endChar": 53
+      },
+      "revId": "455a33448458b9609e693397bd19c9f7d46e6d71",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
         "uuid": "f418be19_6bb97a63",
         "filename": "p2p/base/port.h",
         "patchSetId": 8

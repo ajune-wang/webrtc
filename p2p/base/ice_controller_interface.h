@@ -24,7 +24,7 @@ namespace cricket {
 
 struct IceFieldTrials;  // Forward declaration to avoid circular dependency.
 
-struct IceControllerEvent {
+struct IceRecheckEvent {
   // TODO(bugs.webrtc.org/14125) replace with IceSwitchReason.
   enum Type {
     REMOTE_CANDIDATE_GENERATION_CHANGE,
@@ -42,12 +42,12 @@ struct IceControllerEvent {
     ICE_CONTROLLER_RECHECK,
   };
 
-  IceControllerEvent(IceSwitchReason _reason, int _recheck_delay_ms)
+  IceRecheckEvent(IceSwitchReason _reason, int _recheck_delay_ms)
       : reason(_reason),
         type(FromIceSwitchReason(_reason)),
         recheck_delay_ms(_recheck_delay_ms) {}
 
-  [[deprecated("bugs.webrtc.org/14125")]] IceControllerEvent(
+  [[deprecated("bugs.webrtc.org/14125")]] IceRecheckEvent(
       const Type& _type)  // NOLINT: runtime/explicit
       : reason(FromType(_type)), type(_type) {}
 
@@ -61,6 +61,9 @@ struct IceControllerEvent {
   Type type;
   int recheck_delay_ms = 0;
 };
+
+// TODO(bugs.webrtc.org/14125): remove.
+using IceControllerEvent = IceRecheckEvent;
 
 // Defines the interface for a module that control
 // - which connection to ping
@@ -93,7 +96,7 @@ class IceControllerInterface {
     absl::optional<const Connection*> connection;
 
     // An optional recheck event for when a Switch() should be attempted again.
-    absl::optional<IceControllerEvent> recheck_event;
+    absl::optional<IceRecheckEvent> recheck_event;
 
     // A vector with connection to run ForgetLearnedState on.
     std::vector<const Connection*> connections_to_forget_state_on;
@@ -157,8 +160,7 @@ class IceControllerInterface {
     return {absl::nullopt, absl::nullopt};
   }
   [[deprecated("bugs.webrtc.org/14125")]] virtual SwitchResult
-  ShouldSwitchConnection(IceControllerEvent reason,
-                         const Connection* connection) {
+  ShouldSwitchConnection(IceRecheckEvent reason, const Connection* connection) {
     return {absl::nullopt, absl::nullopt};
   }
 
@@ -168,7 +170,7 @@ class IceControllerInterface {
     return {absl::nullopt, absl::nullopt};
   }
   [[deprecated("bugs.webrtc.org/14125")]] virtual SwitchResult
-  SortAndSwitchConnection(IceControllerEvent reason) {
+  SortAndSwitchConnection(IceRecheckEvent reason) {
     return {absl::nullopt, absl::nullopt};
   }
 

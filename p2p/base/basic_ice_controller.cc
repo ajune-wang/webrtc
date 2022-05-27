@@ -464,9 +464,8 @@ BasicIceController::HandleInitialSelectDampening(
   }
 
   RTC_LOG(LS_INFO) << "delay initial selection up to " << min_delay << "ms";
-  return {
-      absl::nullopt,
-      IceControllerEvent(IceSwitchReason::ICE_CONTROLLER_RECHECK, min_delay)};
+  return {absl::nullopt,
+          IceRecheckEvent(IceSwitchReason::ICE_CONTROLLER_RECHECK, min_delay)};
 }
 
 IceControllerInterface::SwitchResult BasicIceController::ShouldSwitchConnection(
@@ -496,7 +495,7 @@ IceControllerInterface::SwitchResult BasicIceController::ShouldSwitchConnection(
                                receiving_unchanged_threshold,
                                &missed_receiving_unchanged_threshold);
 
-  absl::optional<IceControllerEvent> recheck_event;
+  absl::optional<IceRecheckEvent> recheck_event;
   if (missed_receiving_unchanged_threshold &&
       config_.receiving_switching_delay_or_default()) {
     // If we do not switch to the connection because it missed the receiving

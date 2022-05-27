@@ -16,6 +16,7 @@
 #include <vector>
 
 #include "absl/types/optional.h"
+#include "net/dcsctp/common/internal_types.h"
 #include "net/dcsctp/common/sequence_numbers.h"
 #include "net/dcsctp/packet/chunk/forward_tsn_chunk.h"
 #include "net/dcsctp/packet/chunk/iforward_tsn_chunk.h"
@@ -63,6 +64,11 @@ class OutstandingData {
 
     // Highest TSN Newly Acknowledged, an SCTP variable.
     UnwrappedTSN highest_tsn_acked;
+
+    // The set of lifecycle IDs that were acked using cumulative_tsn_ack.
+    std::vector<LifecycleId> acked_lifecycle_ids;
+    // The set of lifecycle IDs that were acked, but had been abandoned.
+    std::vector<LifecycleId> abandoned_lifecycle_ids;
   };
 
   OutstandingData(
@@ -125,7 +131,8 @@ class OutstandingData {
       const Data& data,
       TimeMs time_sent,
       MaxRetransmits max_retransmissions = MaxRetransmits::NoLimit(),
-      TimeMs expires_at = TimeMs::InfiniteFuture());
+      TimeMs expires_at = TimeMs::InfiniteFuture(),
+      LifecycleId lifecycle_id = LifecycleId::NotSet());
 
   // Nacks all outstanding data.
   void NackAll();
@@ -163,10 +170,12 @@ class OutstandingData {
     explicit Item(Data data,
                   TimeMs time_sent,
                   MaxRetransmits max_retransmissions,
-                  TimeMs expires_at)
+                  TimeMs expires_at,
+                  LifecycleId lifecycle_id)
         : time_sent_(time_sent),
           max_retransmissions_(max_retransmissions),
           expires_at_(expires_at),
+          lifecycle_id_(lifecycle_id),
           data_(std::move(data)) {}
 
     TimeMs time_sent() const { return time_sent_; }
@@ -205,6 +214,8 @@ class OutstandingData {
     // indicate if it has expired (SCTP Partial Reliability Extension).
     bool has_expired(TimeMs now) const;
 
+    LifecycleId lifecycle_id() const { return lifecycle_id_; }
+
    private:
     enum class Lifecycle {
       // The chunk is alive (sent, received, etc)
@@ -233,6 +244,8 @@ class OutstandingData {
     // At this exact millisecond, the item is considered expired. If the message
     // is not to be expired, this is set to the infinite future.
     const TimeMs expires_at_;
+    // An optional lifecycle id, which may only be set for the last fragment.
+    const LifecycleId lifecycle_id_;
 
     // The actual data to send/retransmit.
     Data data_;

@@ -22,6 +22,7 @@
 #include "absl/strings/string_view.h"
 #include "absl/types/optional.h"
 #include "api/array_view.h"
+#include "net/dcsctp/common/internal_types.h"
 #include "net/dcsctp/public/dcsctp_message.h"
 #include "net/dcsctp/public/dcsctp_socket.h"
 #include "net/dcsctp/public/types.h"
@@ -41,6 +42,15 @@ namespace dcsctp {
 //
 // As messages can be (requested to be) sent before the connection is properly
 // established, this send queue is always present - even for closed connections.
+//
+// The send queue may trigger callbacks:
+//  * `OnBufferedAmountLow`, `OnTotalBufferedAmountLow`
+//    These will be triggered as defined in their documentation.
+//  * `OnLifecycleMessageExpired(/*maybe_delivered=*/false)`, `OnLifecycleEnd`
+//    These will be triggered when messages have been expired, abandoned or
+//    discarded from the send queue. If a message is fully produced, meaning
+//    that the last fragment has been produced, the responsibility to send
+//    lifecycle events is then transferred to the caller.
 class RRSendQueue : public SendQueue {
  public:
   RRSendQueue(absl::string_view log_prefix,
@@ -50,8 +60,8 @@ class RRSendQueue : public SendQueue {
               StreamPriority default_priority,
               size_t total_buffered_amount_low_threshold);
 
-  // Indicates if the buffer is full. Note that it's up to the caller to ensure
-  // that the buffer is not full prior to adding new items to it.
+  // Indicates if the buffer is full. Note that it's up to the caller to
+  // ensure that the buffer is not full prior to adding new items to it.
   bool IsFull() const;
   // Indicates if the buffer is empty.
   bool IsEmpty() const;
@@ -92,6 +102,13 @@ class RRSendQueue : public SendQueue {
   void RestoreFromState(const DcSctpSocketHandoverState& state);
 
  private:
+  struct MessageAttributes {
+    IsUnordered unordered;
+    MaxRetransmits max_retransmissions;
+    TimeMs expires_at;
+    LifecycleId lifecycle_id;
+  };
+
   // Represents a value and a "low threshold" that when the value reaches or
   // goes under the "low threshold", will trigger `on_threshold_reached`
   // callback.
@@ -135,9 +152,7 @@ class RRSendQueue : public SendQueue {
     StreamID stream_id() const { return scheduler_stream_->stream_id(); }
 
     // Enqueues a message to this stream.
-    void Add(DcSctpMessage message,
-             TimeMs expires_at,
-             const SendOptions& send_options);
+    void Add(DcSctpMessage message, MessageAttributes attributes);
 
     // Implementing `StreamScheduler::StreamCallbacks`.
     absl::optional<SendQueue::DataToSend> Produce(TimeMs now,
@@ -204,17 +219,13 @@ class RRSendQueue : public SendQueue {
 
     // An enqueued message and metadata.
     struct Item {
-      explicit Item(DcSctpMessage msg,
-                    TimeMs expires_at,
-                    const SendOptions& send_options)
+      explicit Item(DcSctpMessage msg, MessageAttributes attributes)
           : message(std::move(msg)),
-            expires_at(expires_at),
-            send_options(send_options),
+            attributes(std::move(attributes)),
             remaining_offset(0),
             remaining_size(message.payload().size()) {}
       DcSctpMessage message;
-      TimeMs expires_at;
-      SendOptions send_options;
+      MessageAttributes attributes;
       // The remaining payload (offset and size) to be sent, when it has been
       // fragmented.
       size_t remaining_offset;
@@ -228,6 +239,7 @@ class RRSendQueue : public SendQueue {
     };
 
     bool IsConsistent() const;
+    void HandleMessageExpired(OutgoingStream::Item& item);
 
     RRSendQueue& parent_;
 

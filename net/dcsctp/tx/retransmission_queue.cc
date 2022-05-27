@@ -51,6 +51,7 @@ constexpr float kMinBytesRequiredToSendFactor = 0.9;
 
 RetransmissionQueue::RetransmissionQueue(
     absl::string_view log_prefix,
+    DcSctpSocketCallbacks* callbacks,
     TSN my_initial_tsn,
     size_t a_rwnd,
     SendQueue& send_queue,
@@ -61,7 +62,8 @@ RetransmissionQueue::RetransmissionQueue(
     bool supports_partial_reliability,
     bool use_message_interleaving,
     const DcSctpSocketHandoverState* handover_state)
-    : options_(options),
+    : callbacks_(*callbacks),
+      options_(options),
       min_bytes_required_to_send_(options.mtu * kMinBytesRequiredToSendFactor),
       partial_reliability_(supports_partial_reliability),
       log_prefix_(std::string(log_prefix) + "tx: "),
@@ -93,6 +95,11 @@ RetransmissionQueue::RetransmissionQueue(
                                     : TSN(*my_initial_tsn - 1)),
           [this](IsUnordered unordered, StreamID stream_id, MID message_id) {
             return send_queue_.Discard(unordered, stream_id, message_id);
+          },
+          [this](LifecycleId lifecycle_id) {
+            callbacks_.OnLifecycleMessageExpired(lifecycle_id,
+                                                 /*maybe_delivered=*/true);
+            callbacks_.OnLifecycleEnd(lifecycle_id);
           }) {}
 
 bool RetransmissionQueue::IsConsistent() const {
@@ -285,6 +292,12 @@ bool RetransmissionQueue::HandleSack(TimeMs now, const SackChunk& sack) {
   OutstandingData::AckInfo ack_info = outstanding_data_.HandleSack(
       cumulative_tsn_ack, sack.gap_ack_blocks(), is_in_fast_recovery());
 
+  // Add lifecycle events for delivered messages.
+  for (LifecycleId& lifecycle_id : ack_info.acked_lifecycle_ids) {
+    callbacks_.OnLifecycleMessageDelivered(lifecycle_id);
+    callbacks_.OnLifecycleEnd(lifecycle_id);
+  }
+
   // Update of outstanding_data_ is now done. Congestion control remains.
   UpdateReceiverWindow(sack.a_rwnd());
 
@@ -460,7 +473,7 @@ std::vector<std::pair<TSN, Data>> RetransmissionQueue::GetChunksToSend(
     rwnd_ -= chunk_size;
 
     absl::optional<UnwrappedTSN> tsn = outstanding_data_.Insert(
-        chunk_opt->data,
+        chunk_opt->data, std::move(chunk_opt->lifecycle_id),
         partial_reliability_ ? chunk_opt->max_retransmissions
                              : MaxRetransmits::NoLimit(),
         now,
@@ -468,6 +481,10 @@ std::vector<std::pair<TSN, Data>> RetransmissionQueue::GetChunksToSend(
                              : TimeMs::InfiniteFuture());
 
     if (tsn.has_value()) {
+      if (chunk_opt->lifecycle_id.IsSet()) {
+        RTC_DCHECK(chunk_opt->data.is_end);
+        callbacks_.OnLifecycleMessageFullySent(chunk_opt->lifecycle_id);
+      }
       to_be_sent.emplace_back(tsn->Wrap(), std::move(chunk_opt->data));
     }
   }

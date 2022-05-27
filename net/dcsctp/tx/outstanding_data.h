@@ -16,6 +16,7 @@
 #include <vector>
 
 #include "absl/types/optional.h"
+#include "net/dcsctp/common/internal_types.h"
 #include "net/dcsctp/common/sequence_numbers.h"
 #include "net/dcsctp/packet/chunk/forward_tsn_chunk.h"
 #include "net/dcsctp/packet/chunk/iforward_tsn_chunk.h"
@@ -62,17 +63,23 @@ class OutstandingData {
 
     // Highest TSN Newly Acknowledged, an SCTP variable.
     UnwrappedTSN highest_tsn_acked;
+
+    // The set lifecycle IDs that were acked using cumulative_tsn_ack.
+    std::vector<LifecycleId> acked_lifecycle_ids;
   };
 
   OutstandingData(
       size_t data_chunk_header_size,
       UnwrappedTSN next_tsn,
       UnwrappedTSN last_cumulative_tsn_ack,
-      std::function<bool(IsUnordered, StreamID, MID)> discard_from_send_queue)
+      std::function<bool(IsUnordered, StreamID, MID)> discard_from_send_queue,
+      std::function<void(LifecycleId)> on_fully_sent_message_abandoned)
       : data_chunk_header_size_(data_chunk_header_size),
         next_tsn_(next_tsn),
         last_cumulative_tsn_ack_(last_cumulative_tsn_ack),
-        discard_from_send_queue_(std::move(discard_from_send_queue)) {}
+        discard_from_send_queue_(std::move(discard_from_send_queue)),
+        on_fully_sent_message_abandoned_(
+            std::move(on_fully_sent_message_abandoned)) {}
 
   AckInfo HandleSack(
       UnwrappedTSN cumulative_tsn_ack,
@@ -121,6 +128,7 @@ class OutstandingData {
   // parameters. Returns the TSN if the item was actually added and scheduled to
   // be sent, and absl::nullopt if it shouldn't be sent.
   absl::optional<UnwrappedTSN> Insert(const Data& data,
+                                      LifecycleId lifecycle_id,
                                       MaxRetransmits max_retransmissions,
                                       TimeMs time_sent,
                                       TimeMs expires_at);
@@ -159,13 +167,15 @@ class OutstandingData {
     };
 
     explicit Item(Data data,
+                  LifecycleId lifecycle_id,
                   MaxRetransmits max_retransmissions,
                   TimeMs time_sent,
                   TimeMs expires_at)
         : max_retransmissions_(max_retransmissions),
           time_sent_(time_sent),
           expires_at_(expires_at),
-          data_(std::move(data)) {}
+          data_(std::move(data)),
+          lifecycle_id_(std::move(lifecycle_id)) {}
 
     TimeMs time_sent() const { return time_sent_; }
 
@@ -202,6 +212,8 @@ class OutstandingData {
     // Given the current time, and the current state of this DATA chunk, it will
     // indicate if it has expired (SCTP Partial Reliability Extension).
     bool has_expired(TimeMs now) const;
+
+    LifecycleId& lifecycle_id() { return lifecycle_id_; }
 
    private:
     enum class Lifecycle {
@@ -243,6 +255,8 @@ class OutstandingData {
     const TimeMs expires_at_;
     // The actual data to send/retransmit.
     Data data_;
+    // An optional lifecycle id, which may only be set for the last fragment.
+    LifecycleId lifecycle_id_;
   };
 
   // Returns how large a chunk will be, serialized, carrying the data
@@ -305,6 +319,9 @@ class OutstandingData {
   UnwrappedTSN last_cumulative_tsn_ack_;
   // Callback when to discard items from the send queue.
   std::function<bool(IsUnordered, StreamID, MID)> discard_from_send_queue_;
+  // Callback when a fully sent message has been abandoned, to trigger
+  // `DcSctpSocketCallback::OnLifecycleMessageExpired(_, true);`
+  std::function<void(LifecycleId)> on_fully_sent_message_abandoned_;
 
   std::map<UnwrappedTSN, Item> outstanding_data_;
   // The number of bytes that are in-flight (sent but not yet acked or nacked).

@@ -145,6 +145,10 @@ void OutstandingData::RemoveAcked(UnwrappedTSN cumulative_tsn_ack,
 
   for (auto iter = outstanding_data_.begin(); iter != first_unacked; ++iter) {
     AckChunk(ack_info, iter);
+    if (!iter->second.is_abandoned() && iter->second.lifecycle_id().IsSet()) {
+      ack_info.acked_lifecycle_ids.emplace_back(
+          std::move(iter->second.lifecycle_id()));
+    }
   }
 
   outstanding_data_.erase(outstanding_data_.begin(), first_unacked);
@@ -265,9 +269,9 @@ void OutstandingData::AbandonAllFor(const Item& item) {
                      Data::IsEnd(true), item.data().is_unordered);
     Item& added_item =
         outstanding_data_
-            .emplace(tsn,
-                     Item(std::move(message_end), MaxRetransmits::NoLimit(),
-                          TimeMs(0), TimeMs::InfiniteFuture()))
+            .emplace(tsn, Item(std::move(message_end), LifecycleId::NotSet(),
+                               MaxRetransmits::NoLimit(), TimeMs(0),
+                               TimeMs::InfiniteFuture()))
             .first->second;
     // The added chunk shouldn't be included in `outstanding_bytes`, so set it
     // as acked.
@@ -382,6 +386,7 @@ UnwrappedTSN OutstandingData::highest_outstanding_tsn() const {
 
 absl::optional<UnwrappedTSN> OutstandingData::Insert(
     const Data& data,
+    LifecycleId lifecycle_id,
     MaxRetransmits max_retransmissions,
     TimeMs time_sent,
     TimeMs expires_at) {
@@ -393,8 +398,8 @@ absl::optional<UnwrappedTSN> OutstandingData::Insert(
   outstanding_bytes_ += chunk_size;
   ++outstanding_items_;
   auto it = outstanding_data_
-                .emplace(tsn, Item(data.Clone(), max_retransmissions, time_sent,
-                                   expires_at))
+                .emplace(tsn, Item(data.Clone(), std::move(lifecycle_id),
+                                   max_retransmissions, time_sent, expires_at))
                 .first;
 
   if (it->second.has_expired(time_sent)) {

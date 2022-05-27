@@ -41,8 +41,7 @@ constexpr uint16_t kMinSctpSid = 0;
 
 // This is the default SCTP port to use. It is passed along the wire and the
 // connectee and connector must be using the same port. It is not related to the
-// ports at the IP level. (Corresponds to: sockaddr_conn.sconn_port in
-// usrsctp.h)
+// ports at the IP level.
 const int kSctpDefaultPort = 5000;
 
 // Error cause codes defined at
@@ -109,7 +108,7 @@ class SctpTransportInternal {
   // SignalClosingProcedureComplete on the other side.
   virtual bool ResetStream(int sid) = 0;
   // Send data down this channel (will be wrapped as SCTP packets then given to
-  // usrsctp that will then post the network interface).
+  // the SCTP library that will then post the network interface).
   // Returns true iff successful data somewhere on the send-queue/network.
   // Uses `params.ssrc` as the SCTP sid.
   virtual bool SendData(int sid,
@@ -122,7 +121,7 @@ class SctpTransportInternal {
   // and
   // changes to true when SignalReadyToSendData is fired. The underlying DTLS/
   // ICE channels may be unwritable while ReadyToSendData is true, because data
-  // can still be queued in usrsctp.
+  // can still be queued in the SCTP library.
   virtual bool ReadyToSendData() = 0;
   // Returns the current max message size, set with Start().
   virtual int max_message_size() const = 0;

@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "2a230ce4_1620a0eb",
+        "filename": "p2p/base/p2p_transport_channel.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 1871,
+      "author": {
+        "id": 5613
+      },
+      "writtenOn": "2022-05-27T13:09:53Z",
+      "side": 1,
+      "message": "const cast instead ?\nor move the creation of the rtc::NetworkRoute into a function\nthat takes an \"const Connection*\" as argument ?",
+      "range": {
+        "startLine": 1871,
+        "startChar": 8,
+        "endLine": 1871,
+        "endChar": 19
+      },
+      "revId": "874fa1187456cb926761f88e15023f12d5c36375",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

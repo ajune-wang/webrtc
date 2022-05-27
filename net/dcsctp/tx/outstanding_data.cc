@@ -31,6 +31,9 @@ size_t OutstandingData::GetSerializedChunkSize(const Data& data) const {
 }
 
 void OutstandingData::Item::Ack() {
+  if (lifecycle_ == Lifecycle::kToBeRetransmitted) {
+    lifecycle_ = Lifecycle::kActive;
+  }
   ack_state_ = AckState::kAcked;
 }
 

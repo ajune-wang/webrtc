@@ -10,7 +10,7 @@ vars = {
   # chromium waterfalls. More info at: crbug.com/570091.
   'checkout_configuration': 'default',
   'checkout_instrumented_libraries': 'checkout_linux and checkout_configuration == "default"',
-  'chromium_revision': '3c03316c5989526139f67a6d04830c3fa4738df5',
+  'chromium_revision': 'fe6f9c3b424c97db779716ac8fe17cb2c22c28a5',
 
   # Keep the Chromium default of generating location tags.
   'generate_location_tags': True,
@@ -38,7 +38,7 @@ deps = {
     'condition': 'checkout_ios',
   },
   'src/testing':
-    'https://chromium.googlesource.com/chromium/src/testing@d84a9a9b949951d69852ee4c2c40426c18806e7f',
+    'https://chromium.googlesource.com/chromium/src/testing@96a3fea4bad948e6007b8644e24d5cf3a7a0f7d7',
   'src/third_party':
     'https://chromium.googlesource.com/chromium/src/third_party@264641f339bb891258570c2c4146e13288b45193',
 
@@ -78,7 +78,7 @@ deps = {
   'src/buildtools/third_party/libc++/trunk':
     'https://chromium.googlesource.com/external/github.com/llvm/llvm-project/libcxx.git@b1269813eaf5b8ac78e35e45a0f7cc320bd3e7d6',
   'src/buildtools/third_party/libc++abi/trunk':
-    'https://chromium.googlesource.com/external/github.com/llvm/llvm-project/libcxxabi.git@8b1770bc550a6e9d62a18a4612e94bf7cccf5151',
+    'https://chromium.googlesource.com/external/github.com/llvm/llvm-project/libcxxabi.git@1a14c577528f5f8c860ac826384aa031f501e958',
   'src/buildtools/third_party/libunwind/trunk':
     'https://chromium.googlesource.com/external/github.com/llvm/llvm-project/libunwind.git@5e737be79cd244af1c36b4cccc0cba4c6a4306a3',
 
@@ -363,7 +363,7 @@ deps = {
     'packages': [
       {
           'package': 'chromium/third_party/androidx',
-          'version': '_3gaSYtb8HQIr0ti1OnRCzzfyUDoYIHd9U7cGQk9Q5EC',
+          'version': '_BgrtGL0M9mSNIBsFxZ4z69R1FN_czTV0jN8uTXnODkC',
       },
     ],
     'condition': 'checkout_android',

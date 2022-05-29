@@ -103,6 +103,24 @@
       "parentUuid": "6d286dac_1fad72f5",
       "revId": "663b49d60e204b458aab40a3c5db902c86685821",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "64177931_b2909d73",
+        "filename": "rtc_base/network.h",
+        "patchSetId": 11
+      },
+      "lineNbr": 360,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2022-05-29T20:24:53Z",
+      "side": 1,
+      "message": "I think that was the point of the two-type initializer. Declaring the member as\n\nAlwaysValidPointer\u003cconst FieldTrialsView, FieldTrialBaseConfig\u003e \n\nand initializing it as field_trials_() should Just Work (if I understood Jonas\u0027 code correctly).",
+      "parentUuid": "552d509d_71b7ae3b",
+      "revId": "663b49d60e204b458aab40a3c5db902c86685821",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

@@ -16,6 +16,57 @@
       "message": "5$ on \"breaks downstream tests\"",
       "revId": "a71bea81b90f628610c812f753359d18dee0f4fb",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "ad85745c_47db2cc9",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 4
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2022-05-29T08:47:19Z",
+      "side": 1,
+      "message": "Looks good, with minor quibbles. Make a choice!\n",
+      "revId": "a71bea81b90f628610c812f753359d18dee0f4fb",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "4b221adf_dd81f48c",
+        "filename": "pc/webrtc_sdp.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 3601,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2022-05-29T08:47:19Z",
+      "side": 1,
+      "message": "This code block is duplicated for audio and video.\nI think it should be valid for all RTP-based media types, so can be done before the \"if\".",
+      "revId": "a71bea81b90f628610c812f753359d18dee0f4fb",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "b4c0aea9_f74c496e",
+        "filename": "pc/webrtc_sdp.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 3632,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2022-05-29T08:47:19Z",
+      "side": 1,
+      "message": "Arguing against the refactoring comment above: Should we also check that channel count does not change?",
+      "revId": "a71bea81b90f628610c812f753359d18dee0f4fb",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

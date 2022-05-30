@@ -198,6 +198,7 @@ StunRequest::StunRequest(StunRequestManager& manager)
       count_(0),
       timeout_(false) {
   msg_->SetTransactionID(rtc::CreateRandomString(kStunTransactionIdLength));
+  Prepare(msg_.get());
 }
 
 StunRequest::StunRequest(StunRequestManager& manager,
@@ -208,18 +209,14 @@ StunRequest::StunRequest(StunRequestManager& manager,
       count_(0),
       timeout_(false) {
   msg_->SetTransactionID(rtc::CreateRandomString(kStunTransactionIdLength));
+  Prepare(msg_.get());
 }
 
 StunRequest::~StunRequest() {
   manager_.network_thread()->Clear(this);
 }
 
-void StunRequest::Construct() {
-  if (msg_->type() == 0) {
-    Prepare(msg_.get());
-    RTC_DCHECK(msg_->type() != 0);
-  }
-}
+void StunRequest::Construct() {}
 
 int StunRequest::type() {
   RTC_DCHECK(msg_ != NULL);

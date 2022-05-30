@@ -121,6 +121,24 @@
       "parentUuid": "552d509d_71b7ae3b",
       "revId": "663b49d60e204b458aab40a3c5db902c86685821",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "1a663fdb_292806e1",
+        "filename": "rtc_base/network.h",
+        "patchSetId": 11
+      },
+      "lineNbr": 360,
+      "author": {
+        "id": 9405
+      },
+      "writtenOn": "2022-05-30T13:13:25Z",
+      "side": 1,
+      "message": "Naming things is hard.\nDo you think the code from #PS8 (i.e. `AlwaysValidPointer\u003cInterface, Default\u003e` and `AlwaysValidPointer\u003cInterface, void\u003e`) is better in terms of naming?",
+      "parentUuid": "64177931_b2909d73",
+      "revId": "663b49d60e204b458aab40a3c5db902c86685821",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "0076f2b7_8f45d9c5",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2022-05-30T12:02:23Z",
+      "side": 1,
+      "message": "PTAL. There were a couple of places where a signed char was passed to macros like isdigit.",
+      "revId": "ed53f58aa7931971942017a47fc3f381382b4c12",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

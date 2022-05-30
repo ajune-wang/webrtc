@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "a2fa11dc_71cb8374",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 4
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2022-05-30T13:23:09Z",
+      "side": 1,
+      "message": "Do I get it right that transport_cc flag is part of the stream state (queried by Call?), but not wired further down to the rtp/rtcp stack?",
+      "revId": "84f6deff92d02a4ecd3c75c83034ed1118a7067a",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

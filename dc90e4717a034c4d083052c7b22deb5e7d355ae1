@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "96e86a2b_7ba631da",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2022-05-30T08:17:28Z",
+      "side": 1,
+      "message": "lgtm, just want to see all bot results before submit.",
+      "revId": "dc90e4717a034c4d083052c7b22deb5e7d355ae1",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

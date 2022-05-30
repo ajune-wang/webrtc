@@ -175,6 +175,24 @@
       "parentUuid": "3f31af18_8dbbfbf1",
       "revId": "663b49d60e204b458aab40a3c5db902c86685821",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "e5ebfc82_74b5ad15",
+        "filename": "rtc_base/network.h",
+        "patchSetId": 11
+      },
+      "lineNbr": 360,
+      "author": {
+        "id": 9405
+      },
+      "writtenOn": "2022-05-30T14:20:01Z",
+      "side": 1,
+      "message": "Creating a factory method requires a move constructor, so we have to introduce an empty state, which contradicts the purpose of this class.\n\nI\u0027m thinking of using #PS8\u0027s code, with leave AlwaysValidPointer\u003cInterface, Default\u003e as it is and renaming `AlwaysValidPointer\u003cInterface, void\u003e` to `AlwaysValidPointerNoDefault\u003cInterface\u003e` to make it clear to the user that an initial value should be passed. Would it be good enough?",
+      "parentUuid": "85c7adc9_4c4a67f5",
+      "revId": "663b49d60e204b458aab40a3c5db902c86685821",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

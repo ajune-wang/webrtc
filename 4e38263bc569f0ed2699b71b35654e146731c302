@@ -20,6 +20,23 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "9faa7ef4_66a7d4df",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2022-05-30T15:45:56Z",
+      "side": 1,
+      "message": "to avoid breaking dependencies, you might need to do it in multiple steps:\n1) introduce rid in the config struct (And use it by default)\n2) update dependencies to use config struct instead of the SetRid\n3) Delete SetRid",
+      "revId": "4e38263bc569f0ed2699b71b35654e146731c302",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "6ea0d3d0_f44ccd2a",
         "filename": "modules/rtp_rtcp/source/rtp_rtcp_interface.h",
         "patchSetId": 1
@@ -36,6 +53,46 @@
         "startChar": 0,
         "endLine": 264,
         "endChar": 49
+      },
+      "revId": "4e38263bc569f0ed2699b71b35654e146731c302",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "eb440b6c_36378b9f",
+        "filename": "modules/rtp_rtcp/source/rtp_sender.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 184,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2022-05-30T15:45:56Z",
+      "side": 1,
+      "message": "remove this UpdateHeaderSize (no need to call it twice)",
+      "revId": "4e38263bc569f0ed2699b71b35654e146731c302",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "e55d316b_0c9e8aa8",
+        "filename": "modules/rtp_rtcp/source/rtp_sender_unittest.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 76,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2022-05-30T15:45:56Z",
+      "side": 1,
+      "message": "prefer \n`constexpr absl::string_view kRid \u003d \"f\";`\n\nhttps://abseil.io/tips/140#extern-const-variable\n“NOTE: absl::string_view is a good way to declare a string constant. The type has a constexpr constructor and a trivial destructor, so it is safe to declare them as global variables.”\n\nhttps://google.github.io/styleguide/cppguide.html#Goals\n“Consistency should not generally be used as a justification to do things in an old style without considering the benefits of the new style, or the tendency of the codebase to converge on newer styles over time.”",
+      "range": {
+        "startLine": 75,
+        "startChar": 0,
+        "endLine": 76,
+        "endChar": 24
       },
       "revId": "4e38263bc569f0ed2699b71b35654e146731c302",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"

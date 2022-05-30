@@ -86,6 +86,24 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "472bb7b1_6f48493b",
+        "filename": "pc/webrtc_sdp.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 1116,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2022-05-30T09:30:43Z",
+      "side": 1,
+      "message": "TODO issue now fixed.",
+      "parentUuid": "6720b3aa_8558f721",
+      "revId": "8748a5d216318850e263c092645bfb183c250685",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "312178c7_4a1c294c",

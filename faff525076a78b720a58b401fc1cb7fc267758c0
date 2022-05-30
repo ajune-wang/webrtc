@@ -51,6 +51,23 @@
       "parentUuid": "85a055b2_4fc87777",
       "revId": "faff525076a78b720a58b401fc1cb7fc267758c0",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "fe9e03a7_b81c6a8f",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5023
+      },
+      "writtenOn": "2022-05-30T08:42:52Z",
+      "side": 1,
+      "message": "`internal_compile_lite` failure looks like a flake. Trying again.",
+      "revId": "faff525076a78b720a58b401fc1cb7fc267758c0",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

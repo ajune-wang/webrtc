@@ -16,6 +16,23 @@
       "message": "I actually fixed a nasty bug because of that log message. Well, after adding those timestamps so I knew where to look :-)",
       "revId": "c0a86c7840b7a1e46722b9555be6d20a46c7ed52",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "225462c9_309cdf22",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5150
+      },
+      "writtenOn": "2022-05-30T14:00:22Z",
+      "side": 1,
+      "message": "Thanks! Out of curiosity, what was the nasty bug?",
+      "revId": "c0a86c7840b7a1e46722b9555be6d20a46c7ed52",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

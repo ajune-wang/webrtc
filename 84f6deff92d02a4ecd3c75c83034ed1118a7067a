@@ -16,6 +16,24 @@
       "message": "Do I get it right that transport_cc flag is part of the stream state (queried by Call?), but not wired further down to the rtp/rtcp stack?",
       "revId": "84f6deff92d02a4ecd3c75c83034ed1118a7067a",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "6e5bd59e_1599f0f1",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 4
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5508
+      },
+      "writtenOn": "2022-05-30T13:32:14Z",
+      "side": 1,
+      "message": "Yes, it\u0027s checked inside call.cc [1] when called from\n`Call::IdentifyReceivedPacket` [2].\n\n[1] https://source.chromium.org/chromium/chromium/src/+/main:third_party/webrtc/call/call.cc;l\u003d89;bpv\u003d1;bpt\u003d1?q\u003dcall.cc\u0026ss\u003dchromium\n\n[2] https://source.chromium.org/chromium/chromium/src/+/main:third_party/webrtc/call/call.cc;l\u003d1709;bpv\u003d1;bpt\u003d1?q\u003dcall.cc\u0026ss\u003dchromium",
+      "parentUuid": "a2fa11dc_71cb8374",
+      "revId": "84f6deff92d02a4ecd3c75c83034ed1118a7067a",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

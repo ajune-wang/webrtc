@@ -139,6 +139,24 @@
       "parentUuid": "64177931_b2909d73",
       "revId": "663b49d60e204b458aab40a3c5db902c86685821",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "3f31af18_8dbbfbf1",
+        "filename": "rtc_base/network.h",
+        "patchSetId": 11
+      },
+      "lineNbr": 360,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2022-05-30T13:24:47Z",
+      "side": 1,
+      "message": "I kind of liked \u003ctype, void\u003e as a way to say \"and never fall back\", so I\u0027d be OK with going back to that approach.\n\nI don\u0027t think Niels liked it that much, but I\u0027ll let him speak for himself.\n\n(We could even create a special class called NoDefault and use that to trigger the will-crash-if-no-value path....)",
+      "parentUuid": "1a663fdb_292806e1",
+      "revId": "663b49d60e204b458aab40a3c5db902c86685821",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

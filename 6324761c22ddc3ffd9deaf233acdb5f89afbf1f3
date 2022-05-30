@@ -16,6 +16,23 @@
       "message": "Two-type declaration?\n",
       "revId": "6324761c22ddc3ffd9deaf233acdb5f89afbf1f3",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "812a2edf_d0094275",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 12
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2022-05-30T13:24:47Z",
+      "side": 1,
+      "message": "More naming..",
+      "revId": "6324761c22ddc3ffd9deaf233acdb5f89afbf1f3",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

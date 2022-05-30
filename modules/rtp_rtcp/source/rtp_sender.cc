@@ -173,6 +173,8 @@ RTPSender::RTPSender(const RtpRtcpInterface::Configuration& config,
       max_packet_size_(IP_PACKET_SIZE - 28),  // Default is IP-v4/UDP.
       rtp_header_extension_map_(config.extmap_allow_mixed),
       // RTP variables
+      rid_(config.rid),
+      mid_(config.mid),
       always_send_mid_and_rid_(config.always_send_mid_and_rid),
       ssrc_has_acked_(false),
       rtx_ssrc_has_acked_(false),
@@ -186,6 +188,10 @@ RTPSender::RTPSender(const RtpRtcpInterface::Configuration& config,
 
   RTC_DCHECK(paced_sender_);
   RTC_DCHECK(packet_history_);
+  RTC_DCHECK_LE(rid_.length(), RtpStreamId::kMaxValueSizeBytes);
+  RTC_DCHECK_LE(mid_.length(), RtpMid::kMaxValueSizeBytes);
+
+  UpdateHeaderSizes();
 }
 
 RTPSender::~RTPSender() {
@@ -582,22 +588,6 @@ void RTPSender::SetTimestampOffset(uint32_t timestamp) {
 uint32_t RTPSender::TimestampOffset() const {
   MutexLock lock(&send_mutex_);
   return timestamp_offset_;
-}
-
-void RTPSender::SetRid(absl::string_view rid) {
-  // RID is used in simulcast scenario when multiple layers share the same mid.
-  MutexLock lock(&send_mutex_);
-  RTC_DCHECK_LE(rid.length(), RtpStreamId::kMaxValueSizeBytes);
-  rid_ = std::string(rid);
-  UpdateHeaderSizes();
-}
-
-void RTPSender::SetMid(absl::string_view mid) {
-  // This is configured via the API.
-  MutexLock lock(&send_mutex_);
-  RTC_DCHECK_LE(mid.length(), RtpMid::kMaxValueSizeBytes);
-  mid_ = std::string(mid);
-  UpdateHeaderSizes();
 }
 
 void RTPSender::SetCsrcs(const std::vector<uint32_t>& csrcs) {

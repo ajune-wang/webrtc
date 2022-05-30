@@ -33,6 +33,29 @@
       "message": "More naming..",
       "revId": "6324761c22ddc3ffd9deaf233acdb5f89afbf1f3",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "ab4b2b0d_36b83c24",
+        "filename": "rtc_base/memory/always_valid_pointer.h",
+        "patchSetId": 12
+      },
+      "lineNbr": 21,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2022-05-30T13:42:10Z",
+      "side": 1,
+      "message": "These helpers should also go into the internal namesapce.",
+      "range": {
+        "startLine": 21,
+        "startChar": 7,
+        "endLine": 21,
+        "endChar": 23
+      },
+      "revId": "6324761c22ddc3ffd9deaf233acdb5f89afbf1f3",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

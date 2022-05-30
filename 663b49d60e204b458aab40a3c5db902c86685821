@@ -157,6 +157,24 @@
       "parentUuid": "1a663fdb_292806e1",
       "revId": "663b49d60e204b458aab40a3c5db902c86685821",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "85c7adc9_4c4a67f5",
+        "filename": "rtc_base/network.h",
+        "patchSetId": 11
+      },
+      "lineNbr": 360,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2022-05-30T13:42:10Z",
+      "side": 1,
+      "message": "I don\u0027t quite like using void type as a naming device. Having a single type AlwaysValidPointer would be nice (whatever a \"single\" type means in the context of templates), but not essential, imo.\n\nBut I\u0027d prefer something explicit like \"NoDefault\" close to where it\u0027s constructed.\n\nSome other alternatives: AlwaysValidPointer::Create(...), AlwaysValidPointer::CreateWithDefault()(...), ...\n\nAs I understand it, the state of all AlwaysValidPointer variants is the same: a unique_ptr and a (non-null) raw pointer (possibly of different type, with former being a subclass of the latter). It\u0027s just the construction time logic that differs. From that perspective, it makes sense to have a single type, templated only on the type of those pointers. And then having several constructors or static Create methods seems like one reasonable way to organize it.",
+      "parentUuid": "3f31af18_8dbbfbf1",
+      "revId": "663b49d60e204b458aab40a3c5db902c86685821",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

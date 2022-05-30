@@ -1,0 +1,44 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "54b6bf4e_a7254966",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2022-05-30T14:36:56Z",
+      "side": 1,
+      "message": "PTAL.",
+      "revId": "4e38263bc569f0ed2699b71b35654e146731c302",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "6ea0d3d0_f44ccd2a",
+        "filename": "modules/rtp_rtcp/source/rtp_rtcp_interface.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 264,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2022-05-30T14:36:56Z",
+      "side": 1,
+      "message": "I\u0027d like to delete this one too, but that seems trickier due to the way AudioSendStream is created and configured.",
+      "range": {
+        "startLine": 264,
+        "startChar": 0,
+        "endLine": 264,
+        "endChar": 49
+      },
+      "revId": "4e38263bc569f0ed2699b71b35654e146731c302",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

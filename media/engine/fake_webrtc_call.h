@@ -113,6 +113,9 @@ class FakeAudioReceiveStream final
 
  private:
   bool transport_cc() const override { return config_.rtp.transport_cc; }
+  void SetTransportCc(bool transport_cc) override {
+    config_.rtp.transport_cc = transport_cc;
+  }
   uint32_t remote_ssrc() const override { return config_.rtp.remote_ssrc; }
   void Start() override { started_ = true; }
   void Stop() override { started_ = false; }
@@ -276,6 +279,9 @@ class FakeVideoReceiveStream final
   void SetRtpExtensions(std::vector<webrtc::RtpExtension> extensions) override;
   webrtc::RtpHeaderExtensionMap GetRtpExtensionMap() const override;
   bool transport_cc() const override { return config_.rtp.transport_cc; }
+  void SetTransportCc(bool transport_cc) override {
+    config_.rtp.transport_cc = transport_cc;
+  }
 
   void Start() override;
   void Stop() override;
@@ -310,6 +316,9 @@ class FakeFlexfecReceiveStream final : public webrtc::FlexfecReceiveStream {
   void SetRtpExtensions(std::vector<webrtc::RtpExtension> extensions) override;
   webrtc::RtpHeaderExtensionMap GetRtpExtensionMap() const override;
   bool transport_cc() const override { return config_.rtp.transport_cc; }
+  void SetTransportCc(bool transport_cc) override {
+    config_.rtp.transport_cc = transport_cc;
+  }
 
   const webrtc::FlexfecReceiveStream::Config& GetConfig() const;
 

@@ -75,6 +75,8 @@ class ChannelSend : public ChannelSendInterface,
               bool extmap_allow_mixed,
               int rtcp_report_interval_ms,
               uint32_t ssrc,
+              std::string rid,
+              std::string mid,
               rtc::scoped_refptr<FrameTransformerInterface> frame_transformer,
               TransportFeedbackObserver* feedback_observer,
               const FieldTrialsView& field_trials);
@@ -456,6 +458,8 @@ ChannelSend::ChannelSend(
     bool extmap_allow_mixed,
     int rtcp_report_interval_ms,
     uint32_t ssrc,
+    std::string rid,
+    std::string mid,
     rtc::scoped_refptr<FrameTransformerInterface> frame_transformer,
     TransportFeedbackObserver* feedback_observer,
     const FieldTrialsView& field_trials)
@@ -498,7 +502,8 @@ ChannelSend::ChannelSend(
   configuration.rtcp_packet_type_counter_observer = this;
 
   configuration.local_media_ssrc = ssrc;
-
+  configuration.rid = std::move(rid);
+  configuration.mid = std::move(mid);
   rtp_rtcp_ = ModuleRtpRtcpImpl2::Create(configuration);
   rtp_rtcp_->SetSendingMediaStatus(false);
 
@@ -947,14 +952,16 @@ std::unique_ptr<ChannelSendInterface> CreateChannelSend(
     bool extmap_allow_mixed,
     int rtcp_report_interval_ms,
     uint32_t ssrc,
+    std::string rid,
+    std::string mid,
     rtc::scoped_refptr<FrameTransformerInterface> frame_transformer,
     TransportFeedbackObserver* feedback_observer,
     const FieldTrialsView& field_trials) {
   return std::make_unique<ChannelSend>(
       clock, task_queue_factory, rtp_transport, rtcp_rtt_stats, rtc_event_log,
       frame_encryptor, crypto_options, extmap_allow_mixed,
-      rtcp_report_interval_ms, ssrc, std::move(frame_transformer),
-      feedback_observer, field_trials);
+      rtcp_report_interval_ms, ssrc, std::move(rid), std::move(mid),
+      std::move(frame_transformer), feedback_observer, field_trials);
 }
 
 }  // namespace voe

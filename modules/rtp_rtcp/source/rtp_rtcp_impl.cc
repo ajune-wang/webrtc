@@ -292,20 +292,6 @@ RtpState ModuleRtpRtcpImpl::GetRtxState() const {
   return state;
 }
 
-void ModuleRtpRtcpImpl::SetRid(absl::string_view rid) {
-  if (rtp_sender_) {
-    rtp_sender_->packet_generator.SetRid(rid);
-  }
-}
-
-void ModuleRtpRtcpImpl::SetMid(absl::string_view mid) {
-  if (rtp_sender_) {
-    rtp_sender_->packet_generator.SetMid(mid);
-  }
-  // TODO(bugs.webrtc.org/4050): If we end up supporting the MID SDES item for
-  // RTCP, this will need to be passed down to the RTCPSender also.
-}
-
 void ModuleRtpRtcpImpl::SetCsrcs(const std::vector<uint32_t>& csrcs) {
   rtcp_sender_.SetCsrcs(csrcs);
   rtp_sender_->packet_generator.SetCsrcs(csrcs);

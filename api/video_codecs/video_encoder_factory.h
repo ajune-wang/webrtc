@@ -19,6 +19,7 @@
 #include "api/units/data_rate.h"
 #include "api/video/render_resolution.h"
 #include "api/video_codecs/sdp_video_format.h"
+#include "rtc_base/ref_count.h"
 
 namespace webrtc {
 
@@ -59,6 +60,10 @@ class VideoEncoderFactory {
     // return a non-empty if an encoder switch should be performed.
     virtual absl::optional<SdpVideoFormat> OnEncoderBroken() = 0;
   };
+
+  // A ref counted variant suitable for RtpSenderInterface::SetEncoderSelector.
+  class RefCountedEncoderSelectorInterface : public EncoderSelectorInterface,
+                                             public rtc::RefCountInterface {};
 
   // Returns a list of supported video formats in order of preference, to use
   // for signaling etc.

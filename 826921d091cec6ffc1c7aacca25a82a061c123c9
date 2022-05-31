@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "a3a66c73_6d0b46ec",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 3
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5527
+      },
+      "writtenOn": "2022-05-31T11:02:14Z",
+      "side": 1,
+      "message": "This works differently from how I expected it to. My expectation was basically what Nisse proposed a long time ago where we burst packets onto the wire as soon as they are dumped into the pacer (up to a certain limit ofc).\n\nAFAICT this would cause additional SendBurstInterval of e2e delay when encode rate ~\u003d pacing rate.\n \nAlso, how would these bursts be used to infer the bandwidth?",
+      "revId": "826921d091cec6ffc1c7aacca25a82a061c123c9",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

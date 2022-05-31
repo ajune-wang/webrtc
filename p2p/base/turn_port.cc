@@ -1824,9 +1824,8 @@ int TurnEntry::Send(const void* data,
       !port_->TurnCustomizerAllowChannelData(data, size, payload)) {
     // If we haven't bound the channel yet, we have to use a Send Indication.
     // The turn_customizer_ can also make us use Send Indication.
-    TurnMessage msg;
-    msg.SetType(TURN_SEND_INDICATION);
-    msg.SetTransactionID(rtc::CreateRandomString(kStunTransactionIdLength));
+    TurnMessage msg(TURN_SEND_INDICATION,
+                    rtc::CreateRandomString(kStunTransactionIdLength));
     msg.AddAttribute(std::make_unique<StunXorAddressAttribute>(
         STUN_ATTR_XOR_PEER_ADDRESS, ext_addr_));
     msg.AddAttribute(

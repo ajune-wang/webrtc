@@ -149,6 +149,12 @@ class PacingController {
   void SetIncludeOverhead();
 
   void SetTransportOverhead(DataSize overhead_per_packet);
+  // Packets are attempted to be sent in bursts with this time interval. Video
+  // packets are allowed to be delayed up to 'burst_interval' to create a burst.
+  // Audio packets are never delayed, and stored video packets are sent
+  // immediately after an audio packet if the pacing budget allow. Defaults to
+  // zero.
+  void SetSendBurstInterval(TimeDelta burst_interval);
 
   // Returns the time when the oldest packet was queued.
   Timestamp OldestPacketEnqueueTime() const;
@@ -176,7 +182,7 @@ class PacingController {
   void SetProbingEnabled(bool enabled);
 
   // Returns the next time we expect ProcessPackets() to be called.
-  Timestamp NextSendTime() const;
+  Timestamp NextSendTime();
 
   // Check queue of pending packets and send them or padding packets, if budget
   // is available.
@@ -185,6 +191,8 @@ class PacingController {
   bool IsProbing() const;
 
  private:
+  void EnqueInternalPacket(std::unique_ptr<RtpPacketToSend> packet);
+  Timestamp DelayNextSendTimeUntil(Timestamp now);
   TimeDelta UpdateTimeAndGetElapsed(Timestamp now);
   bool ShouldSendKeepalive(Timestamp now) const;
 
@@ -219,8 +227,10 @@ class PacingController {
   const TimeDelta padding_target_duration_;
 
   TimeDelta min_packet_limit_;
-
   DataSize transport_overhead_per_packet_;
+  // Max time a packet can be delayed in the PacerController before a burst of
+  // packets are sent.
+  TimeDelta send_burst_interval_;
 
   // TODO(webrtc:9716): Remove this when we are certain clocks are monotonic.
   // The last millisecond timestamp returned by `clock_`.

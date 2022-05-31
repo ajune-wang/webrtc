@@ -757,9 +757,7 @@ class PortTest : public ::testing::Test, public sigslot::has_slots<> {
   }
 
   std::unique_ptr<IceMessage> CreateStunMessage(int type) {
-    auto msg = std::make_unique<IceMessage>();
-    msg->SetType(type);
-    msg->SetTransactionID("TESTTESTTEST");
+    auto msg = std::make_unique<IceMessage>(type, "TESTTESTTEST");
     return msg;
   }
   std::unique_ptr<IceMessage> CreateStunMessageWithUsername(

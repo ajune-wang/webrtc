@@ -193,12 +193,11 @@ void StunRequestManager::SendPacket(const void* data,
 
 StunRequest::StunRequest(StunRequestManager& manager)
     : manager_(manager),
-      msg_(new StunMessage()),
+      msg_(new StunMessage(0,
+                           rtc::CreateRandomString(kStunTransactionIdLength))),
       tstamp_(0),
       count_(0),
-      timeout_(false) {
-  msg_->SetTransactionID(rtc::CreateRandomString(kStunTransactionIdLength));
-}
+      timeout_(false) {}
 
 StunRequest::StunRequest(StunRequestManager& manager,
                          std::unique_ptr<StunMessage> message)

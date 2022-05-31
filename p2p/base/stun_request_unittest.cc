@@ -15,6 +15,7 @@
 
 #include "rtc_base/fake_clock.h"
 #include "rtc_base/gunit.h"
+#include "rtc_base/helpers.h"
 #include "rtc_base/logging.h"
 #include "rtc_base/time_utils.h"
 #include "test/gtest.h"
@@ -24,11 +25,9 @@ namespace {
 std::unique_ptr<StunMessage> CreateStunMessage(
     StunMessageType type,
     const StunMessage* req = nullptr) {
-  std::unique_ptr<StunMessage> msg = std::make_unique<StunMessage>();
-  msg->SetType(type);
-  if (req) {
-    msg->SetTransactionID(req->transaction_id());
-  }
+  std::unique_ptr<StunMessage> msg = std::make_unique<StunMessage>(
+      type, req ? req->transaction_id()
+                : rtc::CreateRandomString(kStunTransactionIdLength));
   return msg;
 }
 

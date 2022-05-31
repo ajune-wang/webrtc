@@ -62,9 +62,8 @@ void StunServer::SendErrorResponse(const StunMessage& msg,
                                    const rtc::SocketAddress& addr,
                                    int error_code,
                                    const char* error_desc) {
-  StunMessage err_msg;
-  err_msg.SetType(GetStunErrorResponseType(msg.type()));
-  err_msg.SetTransactionID(msg.transaction_id());
+  StunMessage err_msg(GetStunErrorResponseType(msg.type()),
+                      msg.transaction_id());
 
   auto err_code = StunAttribute::CreateErrorCode();
   err_code->SetCode(error_code);

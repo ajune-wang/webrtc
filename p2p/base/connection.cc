@@ -728,9 +728,7 @@ void Connection::SendStunBindingResponse(const StunMessage* message) {
   }
 
   // Fill in the response.
-  StunMessage response;
-  response.SetType(STUN_BINDING_RESPONSE);
-  response.SetTransactionID(message->transaction_id());
+  StunMessage response(STUN_BINDING_RESPONSE, message->transaction_id());
   const StunUInt32Attribute* retransmit_attr =
       message->GetUInt32(STUN_ATTR_RETRANSMIT_COUNT);
   if (retransmit_attr) {
@@ -776,9 +774,7 @@ void Connection::SendGoogPingResponse(const StunMessage* message) {
   RTC_DCHECK(message->type() == GOOG_PING_REQUEST);
 
   // Fill in the response.
-  StunMessage response;
-  response.SetType(GOOG_PING_RESPONSE);
-  response.SetTransactionID(message->transaction_id());
+  StunMessage response(GOOG_PING_RESPONSE, message->transaction_id());
   response.AddMessageIntegrity32(local_candidate().password());
   SendResponseMessage(response);
 }

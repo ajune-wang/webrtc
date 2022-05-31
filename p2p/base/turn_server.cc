@@ -850,9 +850,8 @@ void TurnServerAllocation::OnExternalPacket(
   } else if (!server_->enable_permission_checks_ ||
              HasPermission(addr.ipaddr())) {
     // No channel, but a permission exists. Send as a data indication.
-    TurnMessage msg;
-    msg.SetType(TURN_DATA_INDICATION);
-    msg.SetTransactionID(rtc::CreateRandomString(kStunTransactionIdLength));
+    TurnMessage msg(TURN_DATA_INDICATION,
+                    rtc::CreateRandomString(kStunTransactionIdLength));
     msg.AddAttribute(std::make_unique<StunXorAddressAttribute>(
         STUN_ATTR_XOR_PEER_ADDRESS, addr));
     msg.AddAttribute(

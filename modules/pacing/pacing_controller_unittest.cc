@@ -2001,5 +2001,98 @@ TEST_F(PacingControllerTest, HandlesSubMicrosecondPaddingInterval) {
   EXPECT_GT(pacer->NextSendTime(), clock_.CurrentTime());
 }
 
+TEST_F(PacingControllerTest, SendsPacketsInBurstAfterMaxDelay) {
+  constexpr TimeDelta kMaxDelay = TimeDelta::Millis(20);
+  PacingController pacer(&clock_, &callback_, trials_);
+  pacer.SetSendBurstInterval(kMaxDelay);
+  // High pacing rate.
+  pacer.SetPacingRates(DataRate::KilobitsPerSec(5000), DataRate::Zero());
+
+  pacer.EnqueuePacket(video_.BuildNextPacket());
+  pacer.EnqueuePacket(video_.BuildNextPacket());
+  pacer.EnqueuePacket(video_.BuildNextPacket());
+  pacer.ProcessPackets();
+  EXPECT_EQ(pacer.QueueSizePackets(), 3u);
+  EXPECT_EQ(pacer.NextSendTime(), clock_.CurrentTime() + kMaxDelay);
+
+  AdvanceTimeUntil(pacer.NextSendTime());
+  pacer.ProcessPackets();
+  EXPECT_EQ(pacer.QueueSizePackets(), 0u);
+
+  // Advance time to ensure the media depbt is drained.
+  // Pacer expects ProcessPackets to be called periodically in order to update
+  // its budget and last processed time.
+  Timestamp time_after_packets_sent = clock_.CurrentTime();
+  while (clock_.CurrentTime() <
+         time_after_packets_sent + TimeDelta::Seconds(1)) {
+    AdvanceTimeUntil(pacer.NextSendTime());
+    pacer.ProcessPackets();
+  }
+
+  // Enqued video packet is not immediately sent.
+  pacer.EnqueuePacket(video_.BuildNextPacket());
+  pacer.ProcessPackets();
+  EXPECT_EQ(pacer.QueueSizePackets(), 1u);
+}
+
+TEST_F(PacingControllerTest, SendsPacketsInBurstEvenIfNotEnqueedAtSameTime) {
+  constexpr TimeDelta kMaxDelay = TimeDelta::Millis(20);
+  PacingController pacer(&clock_, &callback_, trials_);
+  pacer.SetSendBurstInterval(kMaxDelay);
+  // High pacing rate.
+  pacer.SetPacingRates(DataRate::KilobitsPerSec(5000), DataRate::Zero());
+
+  pacer.EnqueuePacket(video_.BuildNextPacket());
+  clock_.AdvanceTime(TimeDelta::Millis(5));
+  pacer.EnqueuePacket(video_.BuildNextPacket());
+  pacer.ProcessPackets();
+  EXPECT_EQ(pacer.QueueSizePackets(), 2u);
+  EXPECT_EQ(pacer.NextSendTime(),
+            clock_.CurrentTime() + kMaxDelay - TimeDelta::Millis(5));
+
+  AdvanceTimeUntil(pacer.NextSendTime());
+  pacer.ProcessPackets();
+  EXPECT_EQ(pacer.QueueSizePackets(), 0u);
+}
+
+TEST_F(PacingControllerTest, SendsPacketsInBurstImmediatelyAfterAudioPacket) {
+  PacingController pacer(&clock_, &callback_, trials_);
+  pacer.SetSendBurstInterval(TimeDelta::Millis(20));
+  pacer.SetAccountForAudioPackets(true);
+  // High pacing rate.
+  pacer.SetPacingRates(DataRate::KilobitsPerSec(5000), DataRate::Zero());
+
+  pacer.EnqueuePacket(video_.BuildNextPacket());
+  pacer.EnqueuePacket(video_.BuildNextPacket());
+  pacer.EnqueuePacket(audio_.BuildNextPacket());
+  EXPECT_EQ(pacer.NextSendTime(), clock_.CurrentTime());
+  EXPECT_CALL(callback_, SendPacket).Times(3);
+  pacer.ProcessPackets();
+}
+
+TEST_F(PacingControllerTest, RespectsTargetRateWhenSendingPacketsInBursts) {
+  PacingController pacer(&clock_, &callback_, trials_);
+  pacer.SetSendBurstInterval(TimeDelta::Millis(20));
+  pacer.SetAccountForAudioPackets(true);
+  pacer.SetPacingRates(DataRate::KilobitsPerSec(1000), DataRate::Zero());
+  Timestamp start_time = clock_.CurrentTime();
+  // Inject 20 packets, with size 1000bytes over 100ms.
+  // Expect only 1Mbps / (8*1000) / 10 =  12 packets to be sent.
+  // Packets are sent in burst. Each burst is then 3 packets * 1000bytes at
+  // 1Mbits = 24ms long. Thus, expect 4 bursts.
+  EXPECT_CALL(callback_, SendPacket).Times(12);
+  int number_of_bursts = 0;
+  while (clock_.CurrentTime() < start_time + TimeDelta::Millis(100)) {
+    pacer.EnqueuePacket(video_.BuildNextPacket(1000));
+    if (pacer.NextSendTime() <= clock_.CurrentTime()) {
+      pacer.ProcessPackets();
+      ++number_of_bursts;
+    }
+    clock_.AdvanceTime(TimeDelta::Millis(5));
+  }
+  EXPECT_EQ(pacer.QueueSizePackets(), 8u);
+  EXPECT_EQ(number_of_bursts, 4);
+}
+
 }  // namespace
 }  // namespace webrtc

@@ -226,7 +226,7 @@ void VideoEncoderSoftwareFallbackWrapperTestBase::InitEncode() {
   codec_.maxFramerate = kFramerate;
   codec_.width = kWidth;
   codec_.height = kHeight;
-  codec_.VP8()->numberOfTemporalLayers = 1;
+  codec_.SetScalabilityMode(ScalabilityMode::kL1T1);
   rate_allocator_.reset(new SimulcastRateAllocator(codec_));
 
   if (wrapper_initialized_) {
@@ -257,7 +257,7 @@ void VideoEncoderSoftwareFallbackWrapperTestBase::UtilizeFallbackEncoder() {
   codec_.maxFramerate = kFramerate;
   codec_.width = kWidth;
   codec_.height = kHeight;
-  codec_.VP8()->numberOfTemporalLayers = 1;
+  codec_.SetScalabilityMode(ScalabilityMode::kL1T1);
   rate_allocator_.reset(new SimulcastRateAllocator(codec_));
 
   if (wrapper_initialized_) {
@@ -285,7 +285,7 @@ void VideoEncoderSoftwareFallbackWrapperTestBase::FallbackFromEncodeRequest() {
   codec_.maxFramerate = kFramerate;
   codec_.width = kWidth;
   codec_.height = kHeight;
-  codec_.VP8()->numberOfTemporalLayers = 1;
+  codec_.SetScalabilityMode(ScalabilityMode::kL1T1);
   rate_allocator_.reset(new SimulcastRateAllocator(codec_));
   if (wrapper_initialized_) {
     fallback_wrapper_->Release();
@@ -506,7 +506,7 @@ class ForcedFallbackTest : public VideoEncoderSoftwareFallbackWrapperTestBase {
     codec_.maxFramerate = kFramerate;
     codec_.width = kWidth;
     codec_.height = kHeight;
-    codec_.VP8()->numberOfTemporalLayers = 1;
+    codec_.SetScalabilityMode(ScalabilityMode::kL1T1);
     codec_.VP8()->automaticResizeOn = true;
     codec_.SetFrameDropEnabled(true);
     rate_allocator_.reset(new SimulcastRateAllocator(codec_));
@@ -825,18 +825,10 @@ class PreferTemporalLayersFallbackTest : public ::testing::Test {
     codec_settings.width = kWidth;
     codec_settings.height = kHeight;
     codec_settings.numberOfSimulcastStreams = 1;
-    codec_settings.VP8()->numberOfTemporalLayers = 1;
+    codec_settings.SetScalabilityMode(ScalabilityMode::kL1T1);
   }
 
  protected:
-  void SetSupportsLayers(VideoEncoder::EncoderInfo* info, bool tl_enabled) {
-    int num_layers = 1;
-    if (tl_enabled) {
-      num_layers = codec_settings.VP8()->numberOfTemporalLayers;
-    }
-    SetNumLayers(info, num_layers);
-  }
-
   void SetNumLayers(VideoEncoder::EncoderInfo* info, int num_layers) {
     info->fps_allocation[0].clear();
     for (int i = 0; i < num_layers; ++i) {
@@ -855,18 +847,18 @@ class PreferTemporalLayersFallbackTest : public ::testing::Test {
 };
 
 TEST_F(PreferTemporalLayersFallbackTest, UsesMainWhenLayersNotUsed) {
-  codec_settings.VP8()->numberOfTemporalLayers = 1;
-  SetSupportsLayers(&hw_info_, true);
-  SetSupportsLayers(&sw_info_, true);
+  codec_settings.SetScalabilityMode(ScalabilityMode::kL1T1);
+  SetNumLayers(&hw_info_, 1);
+  SetNumLayers(&sw_info_, 1);
   EXPECT_EQ(WEBRTC_VIDEO_CODEC_OK,
             wrapper_->InitEncode(&codec_settings, kSettings));
   EXPECT_EQ(wrapper_->GetEncoderInfo().implementation_name, "hw");
 }
 
 TEST_F(PreferTemporalLayersFallbackTest, UsesMainWhenLayersSupported) {
-  codec_settings.VP8()->numberOfTemporalLayers = 2;
-  SetSupportsLayers(&hw_info_, true);
-  SetSupportsLayers(&sw_info_, true);
+  codec_settings.SetScalabilityMode(ScalabilityMode::kL1T2);
+  SetNumLayers(&hw_info_, 2);
+  SetNumLayers(&sw_info_, 2);
   EXPECT_EQ(WEBRTC_VIDEO_CODEC_OK,
             wrapper_->InitEncode(&codec_settings, kSettings));
   EXPECT_EQ(wrapper_->GetEncoderInfo().implementation_name, "hw");
@@ -874,25 +866,25 @@ TEST_F(PreferTemporalLayersFallbackTest, UsesMainWhenLayersSupported) {
 
 TEST_F(PreferTemporalLayersFallbackTest,
        UsesFallbackWhenLayersNotSupportedOnMain) {
-  codec_settings.VP8()->numberOfTemporalLayers = 2;
-  SetSupportsLayers(&hw_info_, false);
-  SetSupportsLayers(&sw_info_, true);
+  codec_settings.SetScalabilityMode(ScalabilityMode::kL1T2);
+  SetNumLayers(&hw_info_, 1);
+  SetNumLayers(&sw_info_, 2);
   EXPECT_EQ(WEBRTC_VIDEO_CODEC_OK,
             wrapper_->InitEncode(&codec_settings, kSettings));
   EXPECT_EQ(wrapper_->GetEncoderInfo().implementation_name, "sw");
 }
 
 TEST_F(PreferTemporalLayersFallbackTest, UsesMainWhenNeitherSupportsTemporal) {
-  codec_settings.VP8()->numberOfTemporalLayers = 2;
-  SetSupportsLayers(&hw_info_, false);
-  SetSupportsLayers(&sw_info_, false);
+  codec_settings.SetScalabilityMode(ScalabilityMode::kL1T2);
+  SetNumLayers(&hw_info_, 1);
+  SetNumLayers(&sw_info_, 1);
   EXPECT_EQ(WEBRTC_VIDEO_CODEC_OK,
             wrapper_->InitEncode(&codec_settings, kSettings));
   EXPECT_EQ(wrapper_->GetEncoderInfo().implementation_name, "hw");
 }
 
 TEST_F(PreferTemporalLayersFallbackTest, UsesFallbackWhenLayersAreUndefined) {
-  codec_settings.VP8()->numberOfTemporalLayers = 2;
+  codec_settings.SetScalabilityMode(ScalabilityMode::kL1T2);
   SetNumLayers(&hw_info_, 1);
   SetNumLayers(&sw_info_, 0);
   EXPECT_EQ(WEBRTC_VIDEO_CODEC_OK,
@@ -901,10 +893,10 @@ TEST_F(PreferTemporalLayersFallbackTest, UsesFallbackWhenLayersAreUndefined) {
 }
 
 TEST_F(PreferTemporalLayersFallbackTest, PrimesEncoderOnSwitch) {
-  codec_settings.VP8()->numberOfTemporalLayers = 2;
+  codec_settings.SetScalabilityMode(ScalabilityMode::kL1T2);
   // Both support temporal layers, will use main one.
-  SetSupportsLayers(&hw_info_, true);
-  SetSupportsLayers(&sw_info_, true);
+  SetNumLayers(&hw_info_, 2);
+  SetNumLayers(&sw_info_, 2);
 
   // On first InitEncode most params have no state and will not be
   // called to update.
@@ -987,7 +979,7 @@ TEST_F(PreferTemporalLayersFallbackTest, PrimesEncoderOnSwitch) {
   EXPECT_CALL(*sw_, OnLossNotification).Times(1);
   EXPECT_CALL(*hw_, OnLossNotification).Times(0);
 
-  SetSupportsLayers(&hw_info_, false);
+  SetNumLayers(&hw_info_, 1);
   EXPECT_EQ(WEBRTC_VIDEO_CODEC_OK,
             wrapper_->InitEncode(&codec_settings, kSettings));
   EXPECT_EQ(wrapper_->GetEncoderInfo().implementation_name, "sw");
@@ -1046,7 +1038,7 @@ TEST_F(PreferTemporalLayersFallbackTest, PrimesEncoderOnSwitch) {
   EXPECT_CALL(*hw_, OnLossNotification).Times(1);
   EXPECT_CALL(*sw_, OnLossNotification).Times(0);
 
-  SetSupportsLayers(&hw_info_, true);
+  SetNumLayers(&hw_info_, 2);
   EXPECT_EQ(WEBRTC_VIDEO_CODEC_OK,
             wrapper_->InitEncode(&codec_settings, kSettings));
   EXPECT_EQ(wrapper_->GetEncoderInfo().implementation_name, "hw");

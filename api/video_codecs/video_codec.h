@@ -44,7 +44,6 @@ struct VideoCodecVP8 {
   bool operator!=(const VideoCodecVP8& other) const {
     return !(*this == other);
   }
-  unsigned char numberOfTemporalLayers;
   bool denoisingOn;
   bool automaticResizeOn;
   int keyFrameInterval;

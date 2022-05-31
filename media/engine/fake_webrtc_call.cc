@@ -274,8 +274,7 @@ void FakeVideoSendStream::ReconfigureVideoEncoder(
       config.encoder_specific_settings->FillVideoCodecVp8(
           &codec_specific_settings_.vp8);
       if (!video_streams_.empty()) {
-        codec_specific_settings_.vp8.numberOfTemporalLayers =
-            num_temporal_layers;
+        // XXX Propagate scalability mode ?
       }
     } else if (config_.rtp.payload_name == "VP9") {
       config.encoder_specific_settings->FillVideoCodecVp9(

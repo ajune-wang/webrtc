@@ -45,12 +45,14 @@ TEST(Config, NumberOfTemporalLayersIsOne) {
   EXPECT_EQ(1u, config.NumberOfTemporalLayers());
 }
 
+#if 0
 TEST(Config, NumberOfTemporalLayers_Vp8) {
   Config config;
   webrtc::test::CodecSettings(kVideoCodecVP8, &config.codec_settings);
   config.codec_settings.VP8()->numberOfTemporalLayers = kNumTemporalLayers;
   EXPECT_EQ(kNumTemporalLayers, config.NumberOfTemporalLayers());
 }
+#endif
 
 TEST(Config, NumberOfTemporalLayers_Vp9) {
   Config config;

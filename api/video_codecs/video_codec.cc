@@ -31,8 +31,7 @@ constexpr char kPayloadNameMultiplex[] = "Multiplex";
 }  // namespace
 
 bool VideoCodecVP8::operator==(const VideoCodecVP8& other) const {
-  return (numberOfTemporalLayers == other.numberOfTemporalLayers &&
-          denoisingOn == other.denoisingOn &&
+  return (denoisingOn == other.denoisingOn &&
           automaticResizeOn == other.automaticResizeOn &&
           keyFrameInterval == other.keyFrameInterval);
 }

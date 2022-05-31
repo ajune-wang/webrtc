@@ -20,6 +20,7 @@
 #include <tuple>
 #include <vector>
 
+#include "modules/video_coding/svc/scalability_mode_util.h"
 #include "rtc_base/checks.h"
 #include "rtc_base/experiments/rate_control_settings.h"
 #include "system_wrappers/include/field_trial.h"
@@ -332,7 +333,8 @@ int SimulcastRateAllocator::NumTemporalStreams(size_t simulcast_id) const {
   return std::max<uint8_t>(
       1,
       codec_.codecType == kVideoCodecVP8 && codec_.numberOfSimulcastStreams == 0
-          ? codec_.VP8().numberOfTemporalLayers
+          ? ScalabilityModeToNumTemporalLayers(
+                codec_.GetScalabilityMode().value_or(ScalabilityMode::kL1T1))
           : codec_.simulcastStream[simulcast_id].numberOfTemporalLayers);
 }
 

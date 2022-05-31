@@ -622,6 +622,7 @@ if (rtc_include_tests) {
         "../modules/rtp_rtcp:rtp_rtcp_format",
         "../modules/video_coding:simulcast_test_fixture_impl",
         "../modules/video_coding:video_codec_interface",
+        "../modules/video_coding:video_coding_utility",
         "../modules/video_coding:webrtc_h264",
         "../modules/video_coding:webrtc_vp8",
         "../modules/video_coding/codecs/av1:libaom_av1_decoder",

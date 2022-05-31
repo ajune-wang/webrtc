@@ -784,8 +784,12 @@ webrtc::VideoCodec SimulcastEncoderAdapter::MakeStreamCodec(
     }
   }
   if (codec.codecType == webrtc::kVideoCodecVP8) {
-    codec_params.VP8()->numberOfTemporalLayers =
-        stream_params.numberOfTemporalLayers;
+    static const ScalabilityMode svc_modes[] = {
+        ScalabilityMode::kL1T1, ScalabilityMode::kL1T2, ScalabilityMode::kL1T3};
+    RTC_CHECK_GE(stream_params.numberOfTemporalLayers, 1);
+    RTC_CHECK_LE(stream_params.numberOfTemporalLayers, 3);
+    codec_params.SetScalabilityMode(
+        svc_modes[stream_params.numberOfTemporalLayers - 1]);
     if (!is_highest_quality_stream) {
       // For resolutions below CIF, set the codec `complexity` parameter to
       // kComplexityHigher, which maps to cpu_used = -4.

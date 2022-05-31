@@ -133,7 +133,7 @@ class SimulcastRateAllocatorTest : public ::testing::TestWithParam<bool> {
 
   void SetupCodec3TL() {
     codec_.maxBitrate = 0;
-    codec_.VP8()->numberOfTemporalLayers = 3;
+    codec_.SetScalabilityMode(ScalabilityMode::kL1T3);
   }
 
   VideoBitrateAllocation GetAllocation(uint32_t target_bitrate) {
@@ -673,7 +673,7 @@ class ScreenshareRateAllocationTest : public SimulcastRateAllocatorTest {
       codec_.simulcastStream[1].active = active;
     } else {
       codec_.numberOfSimulcastStreams = 0;
-      codec_.VP8()->numberOfTemporalLayers = 2;
+      codec_.SetScalabilityMode(ScalabilityMode::kL1T2);
       codec_.active = active;
     }
   }

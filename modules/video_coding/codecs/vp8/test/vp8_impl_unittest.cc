@@ -131,8 +131,6 @@ TEST_F(TestVp8Impl, ErrorResilienceDisabledForNoTemporalLayers) {
 
 TEST_F(TestVp8Impl, DefaultErrorResilienceEnabledForTemporalLayers) {
   codec_settings_.simulcastStream[0].numberOfTemporalLayers = 2;
-  codec_settings_.VP8()->numberOfTemporalLayers = 2;
-
   auto* const vpx = new NiceMock<MockLibvpxInterface>();
   LibvpxVp8Encoder encoder((std::unique_ptr<LibvpxInterface>(vpx)),
                            VP8Encoder::Settings());
@@ -150,8 +148,6 @@ TEST_F(TestVp8Impl,
   test::ScopedFieldTrials field_trials(
       "WebRTC-VP8-ForcePartitionResilience/Enabled/");
   codec_settings_.simulcastStream[0].numberOfTemporalLayers = 2;
-  codec_settings_.VP8()->numberOfTemporalLayers = 2;
-
   auto* const vpx = new NiceMock<MockLibvpxInterface>();
   LibvpxVp8Encoder encoder((std::unique_ptr<LibvpxInterface>(vpx)),
                            VP8Encoder::Settings());
@@ -388,7 +384,7 @@ TEST_F(TestVp8Impl, MAYBE_AlignedStrideEncodeDecode) {
 }
 
 TEST_F(TestVp8Impl, EncoderWith2TemporalLayers) {
-  codec_settings_.VP8()->numberOfTemporalLayers = 2;
+  codec_settings_.SetScalabilityMode(ScalabilityMode::kL1T2);
   EXPECT_EQ(WEBRTC_VIDEO_CODEC_OK,
             encoder_->InitEncode(&codec_settings_, kSettings));
 
@@ -441,7 +437,7 @@ TEST_F(TestVp8Impl, DontDropKeyframes) {
   codec_settings_.SetFrameDropEnabled(false);
   codec_settings_.mode = VideoCodecMode::kScreensharing;
   // ScreenshareLayers triggers on 2 temporal layers and 1000kbps max bitrate.
-  codec_settings_.VP8()->numberOfTemporalLayers = 2;
+  codec_settings_.SetScalabilityMode(ScalabilityMode::kL1T2);
   codec_settings_.maxBitrate = 1000;
 
   // Reset the frame generator with large number of squares, leading to lots of
@@ -478,7 +474,7 @@ TEST_F(TestVp8Impl, KeepsTimestampOnReencode) {
   // overshoot-drop-reencode logic.
   codec_settings_.maxBitrate = 1000;
   codec_settings_.mode = VideoCodecMode::kScreensharing;
-  codec_settings_.VP8()->numberOfTemporalLayers = 2;
+  codec_settings_.SetScalabilityMode(ScalabilityMode::kL1T2);
   codec_settings_.legacy_conference_mode = true;
 
   EXPECT_CALL(*vpx, img_wrap(_, _, _, _, _, _))

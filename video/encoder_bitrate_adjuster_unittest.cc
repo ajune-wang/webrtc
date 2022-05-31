@@ -14,6 +14,7 @@
 #include <vector>
 
 #include "api/units/data_rate.h"
+#include "rtc_base/checks.h"
 #include "rtc_base/fake_clock.h"
 #include "rtc_base/numerics/safe_conversions.h"
 #include "test/field_trial.h"
@@ -58,9 +59,14 @@ class EncoderBitrateAdjusterTest : public ::testing::Test {
         codec_.spatialLayers[si].numberOfTemporalLayers = num_temporal_layers;
       }
     } else {
+      static const ScalabilityMode svc_modes[] = {ScalabilityMode::kL1T1,
+                                                  ScalabilityMode::kL1T2,
+                                                  ScalabilityMode::kL1T3};
       codec_.codecType = VideoCodecType::kVideoCodecVP8;
       codec_.numberOfSimulcastStreams = num_spatial_layers;
-      codec_.VP8()->numberOfTemporalLayers = num_temporal_layers;
+      RTC_CHECK_GE(num_temporal_layers, 1);
+      RTC_CHECK_LE(num_temporal_layers, 3);
+      codec_.SetScalabilityMode(svc_modes[num_temporal_layers - 1]);
       for (size_t si = 0; si < num_spatial_layers; ++si) {
         codec_.simulcastStream[si].minBitrate = 100 * (1 << si);
         codec_.simulcastStream[si].targetBitrate = 200 * (1 << si);

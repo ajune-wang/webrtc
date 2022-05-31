@@ -195,17 +195,6 @@ VideoCodec VideoCodecInitializer::VideoEncoderConfigToVideoCodec(
           break;
         }
       }
-      video_codec.VP8()->numberOfTemporalLayers =
-          streams.back().scalability_mode.has_value()
-              ? ScalabilityModeToNumTemporalLayers(
-                    *streams.back().scalability_mode)
-              : streams.back().num_temporal_layers.value_or(
-                    video_codec.VP8()->numberOfTemporalLayers);
-
-      RTC_DCHECK_GE(video_codec.VP8()->numberOfTemporalLayers, 1);
-      RTC_DCHECK_LE(video_codec.VP8()->numberOfTemporalLayers,
-                    kMaxTemporalStreams);
-
       break;
     }
     case kVideoCodecVP9: {

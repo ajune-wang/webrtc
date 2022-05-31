@@ -37,6 +37,7 @@
 #include "media/engine/simulcast.h"
 #include "modules/video_coding/codecs/h264/include/h264_globals.h"
 #include "modules/video_coding/codecs/vp9/svc_config.h"
+#include "modules/video_coding/svc/scalability_mode_util.h"
 #include "modules/video_coding/utility/ivf_file_writer.h"
 #include "rtc_base/checks.h"
 #include "rtc_base/cpu_time.h"
@@ -104,8 +105,6 @@ std::string CodecSpecificToString(const VideoCodec& codec) {
   rtc::SimpleStringBuilder ss(buf);
   switch (codec.codecType) {
     case kVideoCodecVP8:
-      ss << "\nnum_temporal_layers: "
-         << static_cast<int>(codec.VP8().numberOfTemporalLayers);
       ss << "\ndenoising: " << codec.VP8().denoisingOn;
       ss << "\nautomatic_resize: " << codec.VP8().automaticResizeOn;
       ss << "\nkey_frame_interval: " << codec.VP8().keyFrameInterval;
@@ -209,8 +208,10 @@ void VideoCodecTestFixtureImpl::Config::SetCodecSettings(
   codec_settings.SetFrameDropEnabled(frame_dropper_on);
   switch (codec_settings.codecType) {
     case kVideoCodecVP8:
+#if 0
       codec_settings.VP8()->numberOfTemporalLayers =
           static_cast<uint8_t>(num_temporal_layers);
+#endif
       codec_settings.VP8()->denoisingOn = denoising_on;
       codec_settings.VP8()->automaticResizeOn = spatial_resize_on;
       codec_settings.VP8()->keyFrameInterval = kBaseKeyFrameInterval;
@@ -249,8 +250,10 @@ size_t VideoCodecTestFixtureImpl::Config::NumberOfCores() const {
 }
 
 size_t VideoCodecTestFixtureImpl::Config::NumberOfTemporalLayers() const {
-  if (codec_settings.codecType == kVideoCodecVP8) {
-    return codec_settings.VP8().numberOfTemporalLayers;
+  if (absl::optional<ScalabilityMode> scalability_mode =
+          codec_settings.GetScalabilityMode();
+      scalability_mode.has_value()) {
+    return ScalabilityModeToNumTemporalLayers(*scalability_mode);
   } else if (codec_settings.codecType == kVideoCodecVP9) {
     return codec_settings.VP9().numberOfTemporalLayers;
   } else if (codec_settings.codecType == kVideoCodecH264) {

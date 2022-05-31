@@ -181,7 +181,9 @@ rtc::scoped_refptr<VideoEncoderConfig::EncoderSpecificSettings>
 CreateVp8SpecificSettings(VideoStreamConfig config) {
   VideoCodecVP8 vp8_settings = VideoEncoder::GetDefaultVp8Settings();
   vp8_settings.keyFrameInterval = config.encoder.key_frame_interval.value_or(0);
+#if 0
   vp8_settings.numberOfTemporalLayers = config.encoder.layers.temporal;
+#endif
   if (config.encoder.layers.spatial * config.encoder.layers.temporal > 1) {
     vp8_settings.automaticResizeOn = false;
     vp8_settings.denoisingOn = false;

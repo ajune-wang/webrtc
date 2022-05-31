@@ -1007,7 +1007,8 @@ int LibvpxVp8Encoder::Encode(const VideoFrame& frame,
     // layer.
     if (encoders_.size() == 1 &&
         codec_.mode == VideoCodecMode::kScreensharing &&
-        codec_.VP8()->numberOfTemporalLayers <= 1) {
+        codec_.GetScalabilityMode().value_or(ScalabilityMode::kL1T1) ==
+            ScalabilityMode::kL1T2) {
       const uint32_t forceKeyFrameIntraTh = 100;
       libvpx_->codec_control(&(encoders_[0]), VP8E_SET_MAX_INTRA_BITRATE_PCT,
                              forceKeyFrameIntraTh);

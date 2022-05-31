@@ -148,6 +148,12 @@ class RtpRtcpInterface : public RtcpFeedbackSenderInterface {
     // Estimate RTT as non-sender as described in
     // https://tools.ietf.org/html/rfc3611#section-4.4 and #section-4.5
     bool non_sender_rtt_measurement = false;
+
+    // If non-empty, sets the value for sending in the RID (and Repaired) RTP
+    // header extension. RIDs are used to identify an RTP stream if SSRCs are
+    // not negotiated. If the RID and Repaired RID extensions are not
+    // registered, the RID will not be sent.
+    std::string rid;
   };
 
   // Stats for RTCP sender reports (SR) for a specific SSRC.
@@ -251,12 +257,6 @@ class RtpRtcpInterface : public RtcpFeedbackSenderInterface {
 
   // Returns SSRC.
   virtual uint32_t SSRC() const = 0;
-
-  // Sets the value for sending in the RID (and Repaired) RTP header extension.
-  // RIDs are used to identify an RTP stream if SSRCs are not negotiated.
-  // If the RID and Repaired RID extensions are not registered, the RID will
-  // not be sent.
-  virtual void SetRid(absl::string_view rid) = 0;
 
   // Sets the value for sending in the MID RTP header extension.
   // The MID RTP header extension should be registered for this to do anything.

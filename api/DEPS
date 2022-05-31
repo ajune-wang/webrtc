@@ -312,6 +312,10 @@ specific_include_rules = {
     "+rtc_base/thread_annotations.h",
   ],
 
+  "video_encoder_factory\.h": [
+    "+rtc_base/ref_count.h",
+  ],
+
   "video_encoder_factory_template.*\.h": [
     "+modules/video_coding",
   ],

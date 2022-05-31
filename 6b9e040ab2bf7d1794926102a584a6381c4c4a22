@@ -52,6 +52,24 @@
       "parentUuid": "9cc6ddcc_1a644ee6",
       "revId": "6b9e040ab2bf7d1794926102a584a6381c4c4a22",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "ac9f4974_58bcc7cc",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 9405
+      },
+      "writtenOn": "2022-05-31T09:34:35Z",
+      "side": 1,
+      "message": "Thanks. I\u0027ll keep the API and mark it as deprecated for similar refactorings in the future.",
+      "parentUuid": "bc6b3544_54b9713f",
+      "revId": "6b9e040ab2bf7d1794926102a584a6381c4c4a22",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

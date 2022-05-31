@@ -25,11 +25,9 @@ namespace webrtc {
 // Listeners can be added and removed from any sequence, but it is illegal to
 // remove a listener from an OnTick invocation.
 //
-// The metronome concept is still under experimentation, and may not be availble
-// in all platforms or applications. See https://crbug.com/1253787 for more
-// details.
-//
-// Metronome implementations must be thread-safe.
+// The metronome concept is still under experimentation, and may not be
+// available in all platforms or applications. See https://crbug.com/1253787 for
+// more details.
 class RTC_EXPORT Metronome {
  public:
   class RTC_EXPORT TickListener {
@@ -49,11 +47,13 @@ class RTC_EXPORT Metronome {
   // Adds a tick listener to the metronome. Once this method has returned
   // OnTick will be invoked on each metronome tick. A listener may
   // only be added to the metronome once.
+  // This should be called from `listener.OnTickTaskQueue()`.
   virtual void AddListener(TickListener* listener) = 0;
 
   // Removes the tick listener from the metronome. Once this method has returned
   // OnTick will never be called again. This method must not be called from
   // within OnTick.
+  // This should be called from `listener.OnTickTaskQueue()`.
   virtual void RemoveListener(TickListener* listener) = 0;
 
   // Returns the current tick period of the metronome.

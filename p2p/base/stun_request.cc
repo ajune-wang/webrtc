@@ -215,9 +215,10 @@ StunRequest::~StunRequest() {
 }
 
 void StunRequest::Construct() {
+  RTC_DCHECK_EQ(msg_->type(), 0);
   if (msg_->type() == 0) {
     Prepare(msg_.get());
-    RTC_DCHECK(msg_->type() != 0);
+    RTC_DCHECK_NE(msg_->type(), 0);
   }
 }
 

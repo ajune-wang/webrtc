@@ -1,0 +1,38 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "2741c5d2_166601d6",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2022-05-31T09:02:22Z",
+      "side": 1,
+      "message": "Tiptoeing into nirvana :-) I guess the last step is to make CreateNoGlobal -\u003e Create and Create -\u003e CreateWithGlobal?\n\nSuggesting more tests, otherwise good to go.",
+      "revId": "61c7f3dae188b64f61d3962e872f5bbc0603248b",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "0287fdb6_68159c7a",
+        "filename": "api/field_trials_unittest.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 88,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2022-05-31T09:02:22Z",
+      "side": 1,
+      "message": "You should augment this test with the \"NoGlobal\" setting \"OtherString/Enabled/\" and checking that OtherString is not set in f0.\n\nVice versa, that f0 has ThirdString/Enabled/ and f1 does not have it.",
+      "revId": "61c7f3dae188b64f61d3962e872f5bbc0603248b",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

@@ -16,6 +16,24 @@
       "message": "jansson@, what was the problem?",
       "revId": "6b9e040ab2bf7d1794926102a584a6381c4c4a22",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "9cc6ddcc_1a644ee6",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2022-05-31T09:28:19Z",
+      "side": 1,
+      "message": "Some internal project depending on the BasicPortAllocator constructors that were deleted in the cl. So would need to keep those deprecated constructors around until the downsstream dependencies are updated.",
+      "parentUuid": "0331499a_0c9db23e",
+      "revId": "6b9e040ab2bf7d1794926102a584a6381c4c4a22",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

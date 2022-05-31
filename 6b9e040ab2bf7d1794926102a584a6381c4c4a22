@@ -34,6 +34,24 @@
       "parentUuid": "0331499a_0c9db23e",
       "revId": "6b9e040ab2bf7d1794926102a584a6381c4c4a22",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "bc6b3544_54b9713f",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2022-05-31T09:31:39Z",
+      "side": 1,
+      "message": "I\u0027ll see if I can reland it with just those constructors kept for now.",
+      "parentUuid": "9cc6ddcc_1a644ee6",
+      "revId": "6b9e040ab2bf7d1794926102a584a6381c4c4a22",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

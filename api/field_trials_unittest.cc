@@ -70,4 +70,22 @@ TEST(FieldTrials, SequentialInstances) {
   { FieldTrials f("SomeOtherString/Enabled/"); }
 }
 
+TEST(FieldTrials, NoGlobals) {
+  auto f1 = FieldTrials::CreateNoGlobal("SomeString/Enabled/");
+  EXPECT_TRUE(f1);
+}
+
+TEST(FieldTrials, SeveralNoGlobals) {
+  auto f1 = FieldTrials::CreateNoGlobal("SomeString/Enabled/");
+  auto f2 = FieldTrials::CreateNoGlobal("SomeString/Enabled/");
+  EXPECT_TRUE(f1);
+  EXPECT_TRUE(f2);
+}
+
+TEST(FieldTrials, GlobalAndNoGlobals) {
+  FieldTrials f0("SomeString/Enabled/");
+  auto f1 = FieldTrials::CreateNoGlobal("SomeString/Enabled/");
+  EXPECT_TRUE(f1);
+}
+
 }  // namespace webrtc

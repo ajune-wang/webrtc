@@ -1,0 +1,38 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "2a411131_a8de52c1",
+        "filename": "net/dcsctp/socket/dcsctp_socket.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 426,
+      "author": {
+        "id": 7036
+      },
+      "writtenOn": "2022-05-31T19:19:44Z",
+      "side": 1,
+      "message": "Missing RTC_DCHECK_RUN_ON(\u0026thread_checker_); ?",
+      "revId": "11b489247cc726659c623da1700202ca80e34dce",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "6e5911ed_e5678438",
+        "filename": "net/dcsctp/socket/dcsctp_socket.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 429,
+      "author": {
+        "id": 7036
+      },
+      "writtenOn": "2022-05-31T19:19:44Z",
+      "side": 1,
+      "message": "Missing RTC_DCHECK_RUN_ON(\u0026thread_checker_); ?",
+      "revId": "11b489247cc726659c623da1700202ca80e34dce",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

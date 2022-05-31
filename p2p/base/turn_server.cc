@@ -100,13 +100,12 @@ class TurnServerAllocation::Channel : public rtc::MessageHandlerAutoCleanup {
   rtc::SocketAddress peer_;
 };
 
-static bool InitResponse(const StunMessage* req, StunMessage* resp) {
-  int resp_type = (req) ? GetStunSuccessResponseType(req->type()) : -1;
+static void InitResponse(const StunMessage& req, StunMessage* resp) {
+  int resp_type = GetStunSuccessResponseType(req.type());
   if (resp_type == -1)
-    return false;
+    return;
   resp->SetType(resp_type);
-  resp->SetTransactionID(req->transaction_id());
-  return true;
+  resp->SetTransactionID(req.transaction_id());
 }
 
 static bool InitErrorResponse(const StunMessage* req,
@@ -380,8 +379,9 @@ bool TurnServer::CheckAuthorization(TurnServerConnection* conn,
 
 void TurnServer::HandleBindingRequest(TurnServerConnection* conn,
                                       const StunMessage* req) {
+  RTC_DCHECK(req);
   StunMessage response;
-  InitResponse(req, &response);
+  InitResponse(*req, &response);
 
   // Tell the user the address that we received their request from.
   auto mapped_addr_attr = std::make_unique<StunXorAddressAttribute>(
@@ -671,7 +671,7 @@ void TurnServerAllocation::HandleAllocateRequest(const TurnMessage* msg) {
   username_ = username_attr->GetString();
 
   // Figure out the lifetime and start the allocation timer.
-  int lifetime_secs = ComputeLifetime(msg);
+  int lifetime_secs = ComputeLifetime(*msg);
   thread_->PostDelayed(RTC_FROM_HERE, lifetime_secs * 1000, this,
                        MSG_ALLOCATION_TIMEOUT);
 
@@ -680,7 +680,7 @@ void TurnServerAllocation::HandleAllocateRequest(const TurnMessage* msg) {
 
   // We've already validated all the important bits; just send a response here.
   TurnMessage response;
-  InitResponse(msg, &response);
+  InitResponse(*msg, &response);
 
   auto mapped_addr_attr = std::make_unique<StunXorAddressAttribute>(
       STUN_ATTR_XOR_MAPPED_ADDRESS, conn_.src());
@@ -697,7 +697,7 @@ void TurnServerAllocation::HandleAllocateRequest(const TurnMessage* msg) {
 
 void TurnServerAllocation::HandleRefreshRequest(const TurnMessage* msg) {
   // Figure out the new lifetime.
-  int lifetime_secs = ComputeLifetime(msg);
+  int lifetime_secs = ComputeLifetime(*msg);
 
   // Reset the expiration timer.
   thread_->Clear(this, MSG_ALLOCATION_TIMEOUT);
@@ -709,7 +709,7 @@ void TurnServerAllocation::HandleRefreshRequest(const TurnMessage* msg) {
 
   // Send a success response with a LIFETIME attribute.
   TurnMessage response;
-  InitResponse(msg, &response);
+  InitResponse(*msg, &response);
 
   auto lifetime_attr =
       std::make_unique<StunUInt32Attribute>(STUN_ATTR_LIFETIME, lifetime_secs);
@@ -764,7 +764,7 @@ void TurnServerAllocation::HandleCreatePermissionRequest(
 
   // Send a success response.
   TurnMessage response;
-  InitResponse(msg, &response);
+  InitResponse(*msg, &response);
   SendResponse(&response);
 }
 
@@ -813,7 +813,7 @@ void TurnServerAllocation::HandleChannelBindRequest(const TurnMessage* msg) {
 
   // Send a success response.
   TurnMessage response;
-  InitResponse(msg, &response);
+  InitResponse(*msg, &response);
   SendResponse(&response);
 }
 
@@ -850,9 +850,8 @@ void TurnServerAllocation::OnExternalPacket(
   } else if (!server_->enable_permission_checks_ ||
              HasPermission(addr.ipaddr())) {
     // No channel, but a permission exists. Send as a data indication.
-    TurnMessage msg;
-    msg.SetType(TURN_DATA_INDICATION);
-    msg.SetTransactionID(rtc::CreateRandomString(kStunTransactionIdLength));
+    TurnMessage msg(TURN_DATA_INDICATION,
+                    rtc::CreateRandomString(kStunTransactionIdLength));
     msg.AddAttribute(std::make_unique<StunXorAddressAttribute>(
         STUN_ATTR_XOR_PEER_ADDRESS, addr));
     msg.AddAttribute(
@@ -865,10 +864,10 @@ void TurnServerAllocation::OnExternalPacket(
   }
 }
 
-int TurnServerAllocation::ComputeLifetime(const TurnMessage* msg) {
+int TurnServerAllocation::ComputeLifetime(const TurnMessage& msg) {
   // Return the smaller of our default lifetime and the requested lifetime.
   int lifetime = kDefaultAllocationTimeout / 1000;  // convert to seconds
-  const StunUInt32Attribute* lifetime_attr = msg->GetUInt32(STUN_ATTR_LIFETIME);
+  const StunUInt32Attribute* lifetime_attr = msg.GetUInt32(STUN_ATTR_LIFETIME);
   if (lifetime_attr && static_cast<int>(lifetime_attr->value()) < lifetime) {
     lifetime = static_cast<int>(lifetime_attr->value());
   }

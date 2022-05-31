@@ -26,6 +26,7 @@
 #include "api/rtc_error.h"
 #include "api/rtp_parameters.h"
 #include "api/scoped_refptr.h"
+#include "api/video_codecs/video_encoder_factory.h"
 #include "rtc_base/ref_count.h"
 #include "rtc_base/system/rtc_export.h"
 
@@ -95,6 +96,13 @@ class RTC_EXPORT RtpSenderInterface : public rtc::RefCountInterface {
 
   virtual void SetEncoderToPacketizerFrameTransformer(
       rtc::scoped_refptr<FrameTransformerInterface> frame_transformer);
+
+  // Sets a user defined encoder selector.
+  // Override selector that is (optionally) provided by VideoEncoderFactory.
+  virtual void SetEncoderSelector(
+      rtc::scoped_refptr<
+          VideoEncoderFactory::RefCountedEncoderSelectorInterface>
+          encoder_selector) {}
 
  protected:
   ~RtpSenderInterface() override = default;

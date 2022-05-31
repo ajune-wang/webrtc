@@ -145,6 +145,7 @@ class StunXorAddressAttribute;
 class StunMessage {
  public:
   StunMessage();
+  StunMessage(int type, std::string transaction_id);
   virtual ~StunMessage();
 
   // The verification status of the message. This is checked on parsing,
@@ -169,7 +170,6 @@ class StunMessage {
   bool IsLegacy() const;
 
   void SetType(int type) { type_ = static_cast<uint16_t>(type); }
-  bool SetTransactionID(const std::string& str);
 
   // Get a list of all of the attribute types in the "comprehension required"
   // range that were not recognized.
@@ -251,6 +251,9 @@ class StunMessage {
   // This is used for testing.
   void SetStunMagicCookie(uint32_t val);
 
+  // Change the internal transaction id. Used only for testing.
+  void SetTransactionIdForTesting(absl::string_view transaction_id);
+
   // Contruct a copy of `this`.
   std::unique_ptr<StunMessage> Clone() const;
 
@@ -303,11 +306,11 @@ class StunMessage {
                                              size_t size,
                                              const std::string& password);
 
-  uint16_t type_;
-  uint16_t length_;
+  uint16_t type_ = 0;
+  uint16_t length_ = 0;
   std::string transaction_id_;
-  uint32_t reduced_transaction_id_;
-  uint32_t stun_magic_cookie_;
+  uint32_t reduced_transaction_id_ = 0;
+  uint32_t stun_magic_cookie_ = kStunMagicCookie;
   // The original buffer for messages created by Read().
   std::string buffer_;
   IntegrityStatus integrity_ = IntegrityStatus::kNotSet;
@@ -635,6 +638,9 @@ enum RelayAttributeType {
 
 // A "GTURN" STUN message.
 class RelayMessage : public StunMessage {
+ public:
+  using StunMessage::StunMessage;
+
  protected:
   StunAttributeValueType GetAttributeValueType(int type) const override;
   StunMessage* CreateNew() const override;
@@ -689,6 +695,9 @@ extern const char STUN_ERROR_REASON_ALLOCATION_MISMATCH[];
 extern const char STUN_ERROR_REASON_WRONG_CREDENTIALS[];
 extern const char STUN_ERROR_REASON_UNSUPPORTED_PROTOCOL[];
 class TurnMessage : public StunMessage {
+ public:
+  using StunMessage::StunMessage;
+
  protected:
   StunAttributeValueType GetAttributeValueType(int type) const override;
   StunMessage* CreateNew() const override;
@@ -747,6 +756,9 @@ extern const char STUN_ERROR_REASON_ROLE_CONFLICT[];
 
 // A RFC 5245 ICE STUN message.
 class IceMessage : public StunMessage {
+ public:
+  using StunMessage::StunMessage;
+
  protected:
   StunAttributeValueType GetAttributeValueType(int type) const override;
   StunMessage* CreateNew() const override;

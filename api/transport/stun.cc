@@ -11,9 +11,11 @@
 #include "api/transport/stun.h"
 
 #include <string.h>
+
 #include <algorithm>
 #include <cstdint>
 #include <iterator>
+#include <limits>
 #include <memory>
 #include <utility>
 
@@ -36,8 +38,8 @@ const int kTheoreticalMaximumAttributeLength = 65535;
 
 uint32_t ReduceTransactionId(const std::string& transaction_id) {
   RTC_DCHECK(transaction_id.length() == cricket::kStunTransactionIdLength ||
-             transaction_id.length() ==
-                 cricket::kStunLegacyTransactionIdLength);
+             transaction_id.length() == cricket::kStunLegacyTransactionIdLength)
+      << transaction_id.length();
   ByteBufferReader reader(transaction_id.c_str(), transaction_id.length());
   uint32_t result = 0;
   uint32_t next;
@@ -101,11 +103,14 @@ const int SERVER_NOT_REACHABLE_ERROR = 701;
 
 // StunMessage
 
-StunMessage::StunMessage()
-    : type_(0),
-      length_(0),
-      transaction_id_(EMPTY_TRANSACTION_ID),
-      stun_magic_cookie_(kStunMagicCookie) {
+StunMessage::StunMessage() : StunMessage(0, EMPTY_TRANSACTION_ID) {}
+
+StunMessage::StunMessage(int type, std::string transaction_id)
+    : type_(type),
+      transaction_id_(std::move(transaction_id)),
+      reduced_transaction_id_(ReduceTransactionId(transaction_id_)) {
+  RTC_DCHECK_GE(type, 0);
+  RTC_DCHECK_LE(type, std::numeric_limits<uint16_t>::max());
   RTC_DCHECK(IsValidTransactionId(transaction_id_));
 }
 
@@ -116,15 +121,6 @@ bool StunMessage::IsLegacy() const {
     return true;
   RTC_DCHECK(transaction_id_.size() == kStunTransactionIdLength);
   return false;
-}
-
-bool StunMessage::SetTransactionID(const std::string& str) {
-  if (!IsValidTransactionId(str)) {
-    return false;
-  }
-  transaction_id_ = str;
-  reduced_transaction_id_ = ReduceTransactionId(transaction_id_);
-  return true;
 }
 
 static bool DesignatedExpertRange(int attr_type) {
@@ -587,6 +583,12 @@ StunMessage* StunMessage::CreateNew() const {
 
 void StunMessage::SetStunMagicCookie(uint32_t val) {
   stun_magic_cookie_ = val;
+}
+
+void StunMessage::SetTransactionIdForTesting(absl::string_view transaction_id) {
+  const_cast<std::string&>(transaction_id_) = std::string(transaction_id);
+  const_cast<uint32_t&>(reduced_transaction_id_) =
+      ReduceTransactionId(transaction_id_);
 }
 
 StunAttributeValueType StunMessage::GetAttributeValueType(int type) const {

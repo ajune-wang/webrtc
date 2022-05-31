@@ -37,6 +37,47 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "d2402a9b_2019568f",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2022-05-31T08:10:30Z",
+      "side": 1,
+      "message": "Right. I\u0027ll make a separate cl for step 1.",
+      "parentUuid": "9faa7ef4_66a7d4df",
+      "revId": "4e38263bc569f0ed2699b71b35654e146731c302",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "84783ca3_bb7bf044",
+        "filename": "modules/rtp_rtcp/source/rtp_rtcp_interface.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 156,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2022-05-31T08:10:30Z",
+      "side": 1,
+      "message": "BTW, for current uses, I think this could be an unowned string_view, but seems safer to make an owned copy for the config struct.",
+      "range": {
+        "startLine": 156,
+        "startChar": 4,
+        "endLine": 156,
+        "endChar": 20
+      },
+      "revId": "4e38263bc569f0ed2699b71b35654e146731c302",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "6ea0d3d0_f44ccd2a",
         "filename": "modules/rtp_rtcp/source/rtp_rtcp_interface.h",
         "patchSetId": 1
@@ -75,6 +116,24 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "5ff2865f_973b6dac",
+        "filename": "modules/rtp_rtcp/source/rtp_sender.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 184,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2022-05-31T08:10:30Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "eb440b6c_36378b9f",
+      "revId": "4e38263bc569f0ed2699b71b35654e146731c302",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "e55d316b_0c9e8aa8",
@@ -88,6 +147,30 @@
       "writtenOn": "2022-05-30T15:45:56Z",
       "side": 1,
       "message": "prefer \n`constexpr absl::string_view kRid \u003d \"f\";`\n\nhttps://abseil.io/tips/140#extern-const-variable\n“NOTE: absl::string_view is a good way to declare a string constant. The type has a constexpr constructor and a trivial destructor, so it is safe to declare them as global variables.”\n\nhttps://google.github.io/styleguide/cppguide.html#Goals\n“Consistency should not generally be used as a justification to do things in an old style without considering the benefits of the new style, or the tendency of the codebase to converge on newer styles over time.”",
+      "range": {
+        "startLine": 75,
+        "startChar": 0,
+        "endLine": 76,
+        "endChar": 24
+      },
+      "revId": "4e38263bc569f0ed2699b71b35654e146731c302",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "7f47aab6_bcdf7f4f",
+        "filename": "modules/rtp_rtcp/source/rtp_sender_unittest.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 76,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2022-05-31T08:10:30Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "e55d316b_0c9e8aa8",
       "range": {
         "startLine": 75,
         "startChar": 0,

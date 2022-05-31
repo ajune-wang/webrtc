@@ -36,8 +36,8 @@ const int kTheoreticalMaximumAttributeLength = 65535;
 
 uint32_t ReduceTransactionId(const std::string& transaction_id) {
   RTC_DCHECK(transaction_id.length() == cricket::kStunTransactionIdLength ||
-             transaction_id.length() ==
-                 cricket::kStunLegacyTransactionIdLength);
+             transaction_id.length() == cricket::kStunLegacyTransactionIdLength)
+      << transaction_id.length();
   ByteBufferReader reader(transaction_id.c_str(), transaction_id.length());
   uint32_t result = 0;
   uint32_t next;
@@ -101,11 +101,12 @@ const int SERVER_NOT_REACHABLE_ERROR = 701;
 
 // StunMessage
 
-StunMessage::StunMessage()
-    : type_(0),
-      length_(0),
-      transaction_id_(EMPTY_TRANSACTION_ID),
-      stun_magic_cookie_(kStunMagicCookie) {
+StunMessage::StunMessage() : StunMessage(0, EMPTY_TRANSACTION_ID) {}
+
+StunMessage::StunMessage(uint16_t type, std::string transaction_id)
+    : type_(type),
+      transaction_id_(std::move(transaction_id)),
+      reduced_transaction_id_(ReduceTransactionId(transaction_id_)) {
   RTC_DCHECK(IsValidTransactionId(transaction_id_));
 }
 

@@ -24,6 +24,30 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "691f75d7_7dae1c3e",
+        "filename": "test/pc/e2e/analyzer/video/default_video_quality_analyzer.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 164,
+      "author": {
+        "id": 6337
+      },
+      "writtenOn": "2022-06-01T11:44:04Z",
+      "side": 1,
+      "message": "It doesn\u0027t really matter here, because we will initialize it unconditionally under mutex, but let me set it to that value.",
+      "parentUuid": "26bfb4f5_5f3d8b84",
+      "range": {
+        "startLine": 164,
+        "startChar": 22,
+        "endLine": 164,
+        "endChar": 23
+      },
+      "revId": "6e787a49748fbdd150733d2446d7f7f23b91b3e7",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "a7ff5a9b_ff6a05a8",
@@ -37,6 +61,30 @@
       "writtenOn": "2022-06-01T11:09:04Z",
       "side": 1,
       "message": "If we store the name instead of the index in the map key we can just copy instead of creating a new map.",
+      "range": {
+        "startLine": 745,
+        "startChar": 2,
+        "endLine": 745,
+        "endChar": 43
+      },
+      "revId": "6e787a49748fbdd150733d2446d7f7f23b91b3e7",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "5890aca0_1f84e22c",
+        "filename": "test/pc/e2e/analyzer/video/default_video_quality_analyzer.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 745,
+      "author": {
+        "id": 6337
+      },
+      "writtenOn": "2022-06-01T11:44:04Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "a7ff5a9b_ff6a05a8",
       "range": {
         "startLine": 745,
         "startChar": 2,
@@ -70,6 +118,30 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "f1aaa5ec_af951572",
+        "filename": "test/pc/e2e/analyzer/video/default_video_quality_analyzer.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 354,
+      "author": {
+        "id": 6337
+      },
+      "writtenOn": "2022-06-01T11:44:04Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "7a9c8582_e3194c49",
+      "range": {
+        "startLine": 354,
+        "startChar": 51,
+        "endLine": 354,
+        "endChar": 52
+      },
+      "revId": "6e787a49748fbdd150733d2446d7f7f23b91b3e7",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "deb86039_b14cd2ea",
@@ -83,6 +155,30 @@
       "writtenOn": "2022-06-01T11:09:04Z",
       "side": 1,
       "message": "What is the key in this map?\n\nIt is the peer index IIUC, let\u0027s mention this in the comment.\n\nWhy not using the peer_name?",
+      "range": {
+        "startLine": 377,
+        "startChar": 11,
+        "endLine": 377,
+        "endChar": 17
+      },
+      "revId": "6e787a49748fbdd150733d2446d7f7f23b91b3e7",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "b40008c0_252dcdd7",
+        "filename": "test/pc/e2e/analyzer/video/default_video_quality_analyzer.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 377,
+      "author": {
+        "id": 6337
+      },
+      "writtenOn": "2022-06-01T11:44:04Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "deb86039_b14cd2ea",
       "range": {
         "startLine": 377,
         "startChar": 11,
@@ -116,6 +212,30 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "b233913a_4e3cfa0a",
+        "filename": "test/pc/e2e/analyzer/video/quality_analyzing_video_decoder.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 119,
+      "author": {
+        "id": 6337
+      },
+      "writtenOn": "2022-06-01T11:44:04Z",
+      "side": 1,
+      "message": "It shouldn\u0027t be the case. Also we have the same map above",
+      "parentUuid": "ad0551db_b4f56b0f",
+      "range": {
+        "startLine": 119,
+        "startChar": 46,
+        "endLine": 119,
+        "endChar": 55
+      },
+      "revId": "6e787a49748fbdd150733d2446d7f7f23b91b3e7",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "86bf3dd2_d9b4a07c",
@@ -129,6 +249,24 @@
       "writtenOn": "2022-06-01T11:09:04Z",
       "side": 1,
       "message": "Does it CHECK on this or does the user need to ensure they don\u0027t pass in images without frame id?",
+      "revId": "6e787a49748fbdd150733d2446d7f7f23b91b3e7",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "4678034c_5e0a37f3",
+        "filename": "test/pc/e2e/analyzer/video/single_process_encoded_image_data_injector.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 41,
+      "author": {
+        "id": 6337
+      },
+      "writtenOn": "2022-06-01T11:44:04Z",
+      "side": 1,
+      "message": "I expect it to crash loudly",
+      "parentUuid": "86bf3dd2_d9b4a07c",
       "revId": "6e787a49748fbdd150733d2446d7f7f23b91b3e7",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }

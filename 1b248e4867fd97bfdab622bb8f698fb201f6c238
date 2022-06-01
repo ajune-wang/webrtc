@@ -16,6 +16,29 @@
       "message": "PTAL. Related to https://webrtc-review.googlesource.com/c/src/+/261951, but these changes go a bit further.",
       "revId": "1b248e4867fd97bfdab622bb8f698fb201f6c238",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "4f237dbe_6e5c1fa1",
+        "filename": "pc/ice_server_parsing.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 219,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2022-06-01T10:47:28Z",
+      "side": 1,
+      "message": "I don\u0027t quite like these return value structs, is there some nicer way to either return a couple of values or fail? Is there some nice and concise way to assign to separate local variables service_type/host on success?",
+      "range": {
+        "startLine": 219,
+        "startChar": 43,
+        "endLine": 219,
+        "endChar": 64
+      },
+      "revId": "1b248e4867fd97bfdab622bb8f698fb201f6c238",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

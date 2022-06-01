@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "881b00dd_6909c94c",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5087
+      },
+      "writtenOn": "2022-06-01T10:05:01Z",
+      "side": 1,
+      "message": "No-Try because CQ is green % one unrelated bot",
+      "revId": "510c517b9cc8ec64b40ce61a276b68fdf999172c",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

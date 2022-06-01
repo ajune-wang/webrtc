@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "e18d6cbf_2bc4bcf2",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 9816
+      },
+      "writtenOn": "2022-06-01T10:05:13Z",
+      "side": 1,
+      "message": "Another part split out from https://webrtc-review.googlesource.com/c/src/+/261620.\nIt is not related to the new backend but it will be needed for chromium integration.\nThe corresponding chromium CL is here: https://chromium-review.googlesource.com/c/chromium/src/+/3308882/",
+      "revId": "45b40887ac3927da627c67bf7cb9e9700c115ba3",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

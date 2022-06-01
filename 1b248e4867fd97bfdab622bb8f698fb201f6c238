@@ -138,6 +138,30 @@
       },
       "revId": "1b248e4867fd97bfdab622bb8f698fb201f6c238",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "cbc99794_0b45b921",
+        "filename": "pc/ice_server_parsing.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 219,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2022-06-01T11:15:11Z",
+      "side": 1,
+      "message": "Seems worth trying. Would you then access the variables only inside the if?\n\nIf not, auto [success, .... ]; if (success) { ... would be needed, and probably more readable.\n\n(A limitation of structured binding seems to be that you can\u0027t point to previously declared variables)",
+      "parentUuid": "c70b1e6c_b633a2d6",
+      "range": {
+        "startLine": 219,
+        "startChar": 43,
+        "endLine": 219,
+        "endChar": 64
+      },
+      "revId": "1b248e4867fd97bfdab622bb8f698fb201f6c238",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

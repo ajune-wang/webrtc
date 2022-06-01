@@ -1797,7 +1797,7 @@ constexpr int kOnlyLocalPorts = cricket::PORTALLOCATOR_DISABLE_STUN |
 // Use a mock resolver to resolve the hostname back to the original IP on both
 // sides and check that the ICE connection connects.
 // TODO(bugs.webrtc.org/12590): Flaky on Windows and on Linux MSAN.
-#if defined(WEBRTC_WIN) || defined(WEBRTC_LINUX)
+#if defined(WEBRTC_WIN)
 #define MAYBE_IceStatesReachCompletionWithRemoteHostname \
   DISABLED_IceStatesReachCompletionWithRemoteHostname
 #else

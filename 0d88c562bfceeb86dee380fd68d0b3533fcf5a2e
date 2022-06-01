@@ -24,6 +24,30 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "52d4ec23_abedea45",
+        "filename": "api/transport/stun.cc",
+        "patchSetId": 20
+      },
+      "lineNbr": 597,
+      "author": {
+        "id": 5508
+      },
+      "writtenOn": "2022-06-01T13:29:29Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "4cf017ab_eb11d54d",
+      "range": {
+        "startLine": 596,
+        "startChar": 0,
+        "endLine": 597,
+        "endChar": 11
+      },
+      "revId": "0d88c562bfceeb86dee380fd68d0b3533fcf5a2e",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "07f15752_27fdb5e1",
@@ -37,6 +61,30 @@
       "writtenOn": "2022-06-01T12:57:55Z",
       "side": 1,
       "message": "If these are the values that goes out on the wire, maybe this is a good place to also document endianness of the wire protocol.",
+      "range": {
+        "startLine": 33,
+        "startChar": 0,
+        "endLine": 33,
+        "endChar": 60
+      },
+      "revId": "0d88c562bfceeb86dee380fd68d0b3533fcf5a2e",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "16edddd8_5c8ff9b7",
+        "filename": "api/transport/stun.h",
+        "patchSetId": 20
+      },
+      "lineNbr": 33,
+      "author": {
+        "id": 5508
+      },
+      "writtenOn": "2022-06-01T13:29:29Z",
+      "side": 1,
+      "message": "I\u0027m assuming network byte order for anything that goes on the wire but am hesitant to add docs around it here in case there are edge cases that I\u0027m not aware of but the implementation takes into account.",
+      "parentUuid": "07f15752_27fdb5e1",
       "range": {
         "startLine": 33,
         "startChar": 0,
@@ -72,6 +120,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "44a0fae7_d4c1d4b6",
+        "filename": "api/transport/stun.h",
+        "patchSetId": 20
+      },
+      "lineNbr": 150,
+      "author": {
+        "id": 5508
+      },
+      "writtenOn": "2022-06-01T13:29:29Z",
+      "side": 1,
+      "message": "It\u0027s still being used so we can\u0027t deprecate it just yet, but that would be nice for sure. I\u0027d also like to get rid of the SetType() method.",
+      "parentUuid": "c51aa848_cb776c04",
+      "range": {
+        "startLine": 148,
+        "startChar": 0,
+        "endLine": 150,
+        "endChar": 16
+      },
+      "revId": "0d88c562bfceeb86dee380fd68d0b3533fcf5a2e",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "dc353b36_b4c72153",
         "filename": "api/transport/stun.h",
         "patchSetId": 20
@@ -95,6 +167,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "d8a26cb8_91465e53",
+        "filename": "api/transport/stun.h",
+        "patchSetId": 20
+      },
+      "lineNbr": 331,
+      "author": {
+        "id": 5508
+      },
+      "writtenOn": "2022-06-01T13:29:29Z",
+      "side": 1,
+      "message": "it\u0027s used in the serialization method as well. In actuality  there\u0027s overlap between this variable and transaction_id_. In non-legacy mode, the cookie represents the first 4 bytes of the transaction_id field as represented in the network packet and subsequently the size of the transaction_id itself, goes down to 12 (from 16). This feels a bit unclear to me from just looking at the code since I think I would have preferred a fixed size buffer for the transaction id over a std::string and not really treat these 16 bytes as a `string + maybe_uint32` type thing as things are.\nBut defining a `TransactionId` class that owns that representation (including the `legacy` flag) is a separate exercise I think.",
+      "parentUuid": "dc353b36_b4c72153",
+      "range": {
+        "startLine": 331,
+        "startChar": 0,
+        "endLine": 331,
+        "endChar": 49
+      },
+      "revId": "0d88c562bfceeb86dee380fd68d0b3533fcf5a2e",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "e415764e_55c53e53",
         "filename": "api/transport/stun.h",
         "patchSetId": 20
@@ -106,6 +202,30 @@
       "writtenOn": "2022-06-01T12:57:55Z",
       "side": 1,
       "message": "Might be clearer to explicitly declare intended constructors (as I understand it, the using declaration makes the class inherit all constructors defined on the base class).",
+      "range": {
+        "startLine": 660,
+        "startChar": 0,
+        "endLine": 660,
+        "endChar": 33
+      },
+      "revId": "0d88c562bfceeb86dee380fd68d0b3533fcf5a2e",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "d4ba48fa_477ad3e1",
+        "filename": "api/transport/stun.h",
+        "patchSetId": 20
+      },
+      "lineNbr": 660,
+      "author": {
+        "id": 5508
+      },
+      "writtenOn": "2022-06-01T13:29:29Z",
+      "side": 1,
+      "message": "as is I think they\u0027re actually all used.",
+      "parentUuid": "e415764e_55c53e53",
       "range": {
         "startLine": 660,
         "startChar": 0,

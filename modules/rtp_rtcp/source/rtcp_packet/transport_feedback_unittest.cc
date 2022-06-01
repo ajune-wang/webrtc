@@ -414,16 +414,18 @@ TEST(RtcpPacketTest, TransportFeedbackLimits) {
   EXPECT_TRUE(packet->AddReceivedPacket(1, kMaxNegativeTimeDelta));
 
   // Base time at maximum value.
+  static constexpr int64_t kBaseTimeWrapAround =
+      TransportFeedback::kDeltaScaleFactor * (int64_t{1} << 32);
   int64_t kMaxBaseTime =
       static_cast<int64_t>(TransportFeedback::kDeltaScaleFactor) * (1L << 8) *
-      ((1L << 23) - 1);
+      ((1L << 24) - 1);
   packet.reset(new TransportFeedback());
   packet->SetBase(0, kMaxBaseTime);
   EXPECT_TRUE(packet->AddReceivedPacket(0, kMaxBaseTime));
   // Serialize and de-serialize (verify 24bit parsing).
   rtc::Buffer raw_packet = packet->Build();
   packet = TransportFeedback::ParseFrom(raw_packet.data(), raw_packet.size());
-  EXPECT_EQ(kMaxBaseTime, packet->GetBaseTimeUs());
+  EXPECT_EQ((kMaxBaseTime - packet->GetBaseTimeUs()) % kBaseTimeWrapAround, 0);
 
   // Base time above maximum value.
   int64_t kTooLargeBaseTime =
@@ -433,7 +435,8 @@ TEST(RtcpPacketTest, TransportFeedbackLimits) {
   packet->AddReceivedPacket(0, kTooLargeBaseTime);
   raw_packet = packet->Build();
   packet = TransportFeedback::ParseFrom(raw_packet.data(), raw_packet.size());
-  EXPECT_NE(kTooLargeBaseTime, packet->GetBaseTimeUs());
+  EXPECT_EQ((kTooLargeBaseTime - packet->GetBaseTimeUs()) % kBaseTimeWrapAround,
+            0);
 
   // TODO(sprang): Once we support max length lower than RTCP length limit,
   // add back test for max size in bytes.

@@ -825,10 +825,9 @@ bool VideoStreamEncoderResourceManager::IsSimulcastOrMultipleSpatialLayers(
   }
 
   absl::optional<int> num_spatial_layers;
-  if (simulcast_layers[0].scalability_mode.has_value() &&
-      encoder_config.number_of_streams == 1) {
-    num_spatial_layers = ScalabilityModeToNumSpatialLayers(
-        *simulcast_layers[0].scalability_mode);
+  if (encoder_config.number_of_streams == 1) {
+    num_spatial_layers =
+        ScalabilityModeToNumSpatialLayers(simulcast_layers[0].scalability_mode);
   }
 
   if (simulcast_layers.size() == 1) {

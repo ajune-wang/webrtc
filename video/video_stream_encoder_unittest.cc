@@ -8989,7 +8989,6 @@ class ReconfigureEncoderTest : public VideoStreamEncoderTest {
     stream.scale_resolution_down_by = 1.0;
     stream.num_temporal_layers = 1;
     stream.bitrate_priority = 1.0;
-    stream.scalability_mode = absl::nullopt;
     return stream;
   }
 

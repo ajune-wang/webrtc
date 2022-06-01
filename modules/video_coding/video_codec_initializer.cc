@@ -118,9 +118,9 @@ VideoCodec VideoCodecInitializer::VideoEncoderConfigToVideoCodec(
     sim_stream->qpMax = streams[i].max_qp;
 
     int num_temporal_layers =
-        streams[i].scalability_mode.has_value()
-            ? ScalabilityModeToNumTemporalLayers(*streams[i].scalability_mode)
-            : streams[i].num_temporal_layers.value_or(1);
+        streams[i].num_temporal_layers.has_value()
+            ? *streams[i].num_temporal_layers
+            : ScalabilityModeToNumTemporalLayers(streams[i].scalability_mode);
 
     sim_stream->numberOfTemporalLayers =
         static_cast<unsigned char>(num_temporal_layers);
@@ -186,21 +186,18 @@ VideoCodec VideoCodecInitializer::VideoEncoderConfigToVideoCodec(
       // mode, store it as the top-level scalability mode, which will make
       // InitEncode fail with an appropriate error.
       for (const auto& stream : streams) {
-        if (stream.scalability_mode.has_value() &&
-            !VP8SupportsScalabilityMode(*stream.scalability_mode)) {
+        if (!VP8SupportsScalabilityMode(stream.scalability_mode)) {
           RTC_LOG(LS_WARNING)
               << "Invalid scalability mode for VP8: "
-              << ScalabilityModeToString(*stream.scalability_mode);
-          video_codec.SetScalabilityMode(*stream.scalability_mode);
+              << ScalabilityModeToString(stream.scalability_mode);
+          video_codec.SetScalabilityMode(stream.scalability_mode);
           break;
         }
       }
       video_codec.VP8()->numberOfTemporalLayers =
-          streams.back().scalability_mode.has_value()
-              ? ScalabilityModeToNumTemporalLayers(
-                    *streams.back().scalability_mode)
-              : streams.back().num_temporal_layers.value_or(
-                    video_codec.VP8()->numberOfTemporalLayers);
+          streams.back().num_temporal_layers.value_or(
+              ScalabilityModeToNumTemporalLayers(
+                  streams.back().scalability_mode));
 
       RTC_DCHECK_GE(video_codec.VP8()->numberOfTemporalLayers, 1);
       RTC_DCHECK_LE(video_codec.VP8()->numberOfTemporalLayers,

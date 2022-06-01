@@ -50,12 +50,6 @@ struct VideoCodecVP8 {
   int keyFrameInterval;
 };
 
-enum class InterLayerPredMode : int {
-  kOff = 0,      // Inter-layer prediction is disabled.
-  kOn = 1,       // Inter-layer prediction is enabled.
-  kOnKeyPic = 2  // Inter-layer prediction is enabled but limited to key frames.
-};
-
 // VP9 specific.
 struct VideoCodecVP9 {
   bool operator==(const VideoCodecVP9& other) const;

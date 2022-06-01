@@ -14,7 +14,6 @@
 #include "absl/strings/string_view.h"
 #include "absl/types/optional.h"
 #include "api/video_codecs/scalability_mode.h"
-#include "api/video_codecs/video_codec.h"
 
 namespace webrtc {
 

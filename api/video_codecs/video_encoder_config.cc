@@ -11,24 +11,11 @@
 
 #include <string>
 
+#include "modules/video_coding/svc/scalability_mode_util.h"
 #include "rtc_base/checks.h"
 #include "rtc_base/strings/string_builder.h"
 
 namespace webrtc {
-VideoStream::VideoStream()
-    : width(0),
-      height(0),
-      max_framerate(-1),
-      min_bitrate_bps(-1),
-      target_bitrate_bps(-1),
-      max_bitrate_bps(-1),
-      scale_resolution_down_by(-1.),
-      max_qp(-1),
-      num_temporal_layers(absl::nullopt),
-      active(true) {}
-VideoStream::VideoStream(const VideoStream& other) = default;
-
-VideoStream::~VideoStream() = default;
 
 std::string VideoStream::ToString() const {
   char buf[1024];
@@ -44,7 +31,8 @@ std::string VideoStream::ToString() const {
   ss << ", bitrate_priority: " << bitrate_priority.value_or(0);
   ss << ", active: " << active;
   ss << ", scale_down_by: " << scale_resolution_down_by;
-
+  ss << ", scalability_mode: " << ScalabilityModeToString(scalability_mode);
+  ss << "}";
   return ss.str();
 }
 

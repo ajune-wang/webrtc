@@ -92,7 +92,7 @@ class InitEncodeTest : public test::EndToEndTest,
   struct TestConfig {
     const bool active;
     const Bitrate bitrate;
-    const absl::optional<ScalabilityMode> scalability_mode;
+    const ScalabilityMode scalability_mode = ScalabilityMode::kL1T1;
   };
   struct Expectation {
     const uint32_t pixels = 0;

@@ -27,31 +27,31 @@ namespace webrtc {
 
 // The `VideoStream` struct describes a simulcast layer, or "stream".
 struct VideoStream {
-  VideoStream();
-  ~VideoStream();
-  VideoStream(const VideoStream& other);
+  VideoStream() = default;
+  ~VideoStream() = default;
+  VideoStream(const VideoStream& other) = default;
   std::string ToString() const;
 
   // Width in pixels.
-  size_t width;
+  size_t width = 0;
 
   // Height in pixels.
-  size_t height;
+  size_t height = 0;
 
   // Frame rate in fps.
-  int max_framerate;
+  int max_framerate = -1;
 
   // Bitrate, in bps, for the stream.
-  int min_bitrate_bps;
-  int target_bitrate_bps;
-  int max_bitrate_bps;
+  int min_bitrate_bps = -1;
+  int target_bitrate_bps = -1;
+  int max_bitrate_bps = -1;
 
   // Scaling factor applied to the stream size.
   // `width` and `height` values are already scaled down.
-  double scale_resolution_down_by;
+  double scale_resolution_down_by = -1.0;
 
   // Maximum Quantization Parameter to use when encoding the stream.
-  int max_qp;
+  int max_qp = -1;
 
   // Determines the number of temporal layers that the stream should be
   // encoded with. This value should be greater than zero.
@@ -65,10 +65,10 @@ struct VideoStream {
   // between multiple streams.
   absl::optional<double> bitrate_priority;
 
-  absl::optional<ScalabilityMode> scalability_mode;
+  ScalabilityMode scalability_mode = ScalabilityMode::kL1T1;
 
   // If this stream is enabled by the user, or not.
-  bool active;
+  bool active = true;
 };
 
 class VideoEncoderConfig {

@@ -2501,7 +2501,8 @@ WebRtcVideoChannel::WebRtcVideoSendStream::CreateVideoEncoderConfig(
         rtp_parameters_.encodings[i].active;
     encoder_config.simulcast_layers[i].scalability_mode =
         webrtc::ScalabilityModeFromString(
-            rtp_parameters_.encodings[i].scalability_mode.value_or(""));
+            rtp_parameters_.encodings[i].scalability_mode.value_or(""))
+            .value_or(webrtc::ScalabilityMode::kL1T1);
     if (rtp_parameters_.encodings[i].min_bitrate_bps) {
       encoder_config.simulcast_layers[i].min_bitrate_bps =
           *rtp_parameters_.encodings[i].min_bitrate_bps;

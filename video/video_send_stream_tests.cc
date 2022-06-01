@@ -3414,7 +3414,8 @@ void VideoSendStreamTest::TestVp9NonFlexMode(
       } else {
         absl::optional<ScalabilityMode> mode =
             ScalabilityModeFromString(params_.scalability_mode);
-        encoder_config->simulcast_layers[0].scalability_mode = mode;
+        encoder_config->simulcast_layers[0].scalability_mode =
+            mode.value_or(ScalabilityMode::kL1T1);
         EXPECT_TRUE(mode.has_value());
       }
     }

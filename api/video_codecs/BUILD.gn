@@ -51,6 +51,7 @@ rtc_library("video_codecs_api") {
     "..:scoped_refptr",
     "../../api:array_view",
     "../../modules/video_coding:codec_globals_headers",
+    "../../modules/video_coding/svc:scalability_mode_util",
     "../../rtc_base:checks",
     "../../rtc_base:macromagic",
     "../../rtc_base:refcount",

@@ -75,7 +75,7 @@ class ScalingObserver : public test::SendTest {
  protected:
   struct TestParams {
     bool active;
-    absl::optional<ScalabilityMode> scalability_mode;
+    ScalabilityMode scalability_mode = ScalabilityMode::kL1T1;
   };
   ScalingObserver(const std::string& payload_name,
                   const std::vector<TestParams>& test_params,

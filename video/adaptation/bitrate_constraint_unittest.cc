@@ -36,7 +36,7 @@ const VideoSourceRestrictions k720p{/*max_pixels_per_frame=*/1280 * 720,
 
 struct TestParams {
   bool active;
-  absl::optional<ScalabilityMode> scalability_mode;
+  ScalabilityMode scalability_mode = ScalabilityMode::kL1T1;
 };
 
 void FillCodecConfig(VideoCodec* video_codec,
@@ -56,8 +56,7 @@ void FillCodecConfig(VideoCodec* video_codec,
     int layer_width_px = width_px >> (num_layers - 1 - layer_idx);
     int layer_height_px = height_px >> (num_layers - 1 - layer_idx);
 
-    if (params[layer_idx].scalability_mode)
-      video_codec->SetScalabilityMode(*params[layer_idx].scalability_mode);
+    video_codec->SetScalabilityMode(params[layer_idx].scalability_mode);
     video_codec->simulcastStream[layer_idx].active = params[layer_idx].active;
     video_codec->simulcastStream[layer_idx].width = layer_width_px;
     video_codec->simulcastStream[layer_idx].height = layer_height_px;

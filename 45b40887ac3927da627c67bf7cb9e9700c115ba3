@@ -16,6 +16,63 @@
       "message": "Another part split out from https://webrtc-review.googlesource.com/c/src/+/261620.\nIt is not related to the new backend but it will be needed for chromium integration.\nThe corresponding chromium CL is here: https://chromium-review.googlesource.com/c/chromium/src/+/3308882/",
       "revId": "45b40887ac3927da627c67bf7cb9e9700c115ba3",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "4bc5fea1_975a345c",
+        "filename": "modules/video_capture/video_capture_impl.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 106,
+      "author": {
+        "id": 5117
+      },
+      "writtenOn": "2022-06-01T10:58:39Z",
+      "side": 1,
+      "message": "Add RTC_DCHECKs that both rawDataCallBack and dataCallback can\u0027t be set.\nIn RegisterCaptureDataCallback DCHECK that dataCallback is null, in RegisterCaptureDataCallback check rawDataCallBack.",
+      "revId": "45b40887ac3927da627c67bf7cb9e9700c115ba3",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "576fac2f_d9594ea7",
+        "filename": "modules/video_capture/video_capture_impl.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 133,
+      "author": {
+        "id": 5117
+      },
+      "writtenOn": "2022-06-01T10:58:39Z",
+      "side": 1,
+      "message": "nit: maybe use true/false as a more clear indicator of success.",
+      "range": {
+        "startLine": 133,
+        "startChar": 4,
+        "endLine": 133,
+        "endChar": 13
+      },
+      "revId": "45b40887ac3927da627c67bf7cb9e9700c115ba3",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "fd27572e_711eeb74",
+        "filename": "modules/video_capture/video_capture_impl.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 149,
+      "author": {
+        "id": 5117
+      },
+      "writtenOn": "2022-06-01T10:58:39Z",
+      "side": 1,
+      "message": "nit: it will be more clear to just check the rawDataCallback here and call the void function if it\u0027s set.",
+      "revId": "45b40887ac3927da627c67bf7cb9e9700c115ba3",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

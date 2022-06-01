@@ -20,6 +20,23 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "695e4d18_e56f4578",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 6
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5613
+      },
+      "writtenOn": "2022-06-01T13:49:06Z",
+      "side": 1,
+      "message": "Hi hta,\n\nI only commented on the API (i.e no implementation details).\nLet\u0027s argue about that first ok ?\nPTAL",
+      "revId": "1f496216438a1a8d11cabe242c2f77821e0d6d68",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "fe259991_6f76d5e6",
         "filename": "api/video_codecs/video_encoder_factory.h",
         "patchSetId": 6
@@ -31,6 +48,24 @@
       "writtenOn": "2022-06-01T08:51:21Z",
       "side": 1,
       "message": "I don\u0027t think deriving from RefCountInterface is the preferred meethod - just use make_ref_counted\u003cEncoderSelectorInterface\u003e where you need the object.",
+      "revId": "1f496216438a1a8d11cabe242c2f77821e0d6d68",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "ca986194_1fdf1d5c",
+        "filename": "api/video_codecs/video_encoder_factory.h",
+        "patchSetId": 6
+      },
+      "lineNbr": 65,
+      "author": {
+        "id": 5613
+      },
+      "writtenOn": "2022-06-01T13:49:06Z",
+      "side": 1,
+      "message": "The problem is in \npc/proxy.h:120:13: note: in instantiation of member function \u0027rtc::scoped_refptr\u003cwebrtc::VideoEncoderFactory::EncoderSelectorInterface\u003e::~scoped_refptr\u0027 requested here\n    (c-\u003e*m)(std::forward\u003cArgs\u003e(args)...);\n    \nHere it does not realize that it needs to wrap the EncoderSelectorInterface inside a FinalRefCountedObject temporary.\n\nI\u0027m not sure how to do that...and I\u0027m not entirely sure that it is the right thing to do. _ALL_ other object being passed though the api/ is inheriting from RefCountInterface. All of them.\n\nI could make RtpSenderInterface::SetEncoderSelector take a unique_ptr instead...\nthat is nice and has clear semantics...but that would be sort of lonely.",
+      "parentUuid": "fe259991_6f76d5e6",
       "revId": "1f496216438a1a8d11cabe242c2f77821e0d6d68",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },

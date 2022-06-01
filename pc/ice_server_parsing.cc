@@ -22,18 +22,20 @@
 #include "rtc_base/logging.h"
 #include "rtc_base/socket_address.h"
 #include "rtc_base/string_encode.h"
+#include "rtc_base/string_to_number.h"
 
 namespace webrtc {
 
+namespace {
 // Number of tokens must be preset when TURN uri has transport param.
-static const size_t kTurnTransportTokensNum = 2;
+const size_t kTurnTransportTokensNum = 2;
 // The default stun port.
-static const int kDefaultStunPort = 3478;
-static const int kDefaultStunTlsPort = 5349;
-static const char kTransport[] = "transport";
+const int kDefaultStunPort = 3478;
+const int kDefaultStunTlsPort = 5349;
+const char kTransport[] = "transport";
 
 // Allowed characters in hostname per RFC 3986 Appendix A "reg-name"
-static const char kRegNameCharacters[] =
+const char kRegNameCharacters[] =
     "abcdefghijklmnopqrstuvwxyz"
     "ABCDEFGHIJKLMNOPQRSTUVWXYZ"
     "0123456789"
@@ -42,7 +44,7 @@ static const char kRegNameCharacters[] =
     "!$&'()*+,;=";  // sub-delims
 
 // NOTE: Must be in the same order as the ServiceType enum.
-static const char* kValidIceServiceTypes[] = {"stun", "stuns", "turn", "turns"};
+const char* kValidIceServiceTypes[] = {"stun", "stuns", "turn", "turns"};
 
 // NOTE: A loop below assumes that the first value of this enum is 0 and all
 // other values are incremental.
@@ -63,90 +65,111 @@ static_assert(INVALID == arraysize(kValidIceServiceTypes),
 // scheme        = "stun" / "stuns" / "turn" / "turns"
 // host          = IP-literal / IPv4address / reg-name
 // port          = *DIGIT
-static bool GetServiceTypeAndHostnameFromUri(const std::string& in_str,
-                                             ServiceType* service_type,
-                                             std::string* hostname) {
-  const std::string::size_type colonpos = in_str.find(':');
-  if (colonpos == std::string::npos) {
+struct ParsedServiceTypeAndHost {
+  ServiceType service_type;
+  absl::string_view host;
+};
+
+absl::optional<ParsedServiceTypeAndHost> GetServiceTypeAndHostnameFromUri(
+    absl::string_view in_str) {
+  const auto colonpos = in_str.find(':');
+  if (colonpos == absl::string_view::npos) {
     RTC_LOG(LS_WARNING) << "Missing ':' in ICE URI: " << in_str;
-    return false;
+    return absl::nullopt;
   }
   if ((colonpos + 1) == in_str.length()) {
     RTC_LOG(LS_WARNING) << "Empty hostname in ICE URI: " << in_str;
-    return false;
+    return absl::nullopt;
   }
-  *service_type = INVALID;
+  ServiceType service_type = INVALID;
   for (size_t i = 0; i < arraysize(kValidIceServiceTypes); ++i) {
     if (in_str.compare(0, colonpos, kValidIceServiceTypes[i]) == 0) {
-      *service_type = static_cast<ServiceType>(i);
+      service_type = static_cast<ServiceType>(i);
       break;
     }
   }
-  if (*service_type == INVALID) {
-    return false;
+  if (service_type == INVALID) {
+    return absl::nullopt;
   }
-  *hostname = in_str.substr(colonpos + 1, std::string::npos);
-  return true;
+  return ParsedServiceTypeAndHost{.service_type = service_type,
+                                  .host = in_str.substr(colonpos + 1)};
 }
 
-static bool ParsePort(const std::string& in_str, int* port) {
-  // Make sure port only contains digits. FromString doesn't check this.
+absl::optional<int> ParsePort(absl::string_view in_str) {
+  // Make sure port only contains digits. StringToNumber doesn't check this.
   for (const char& c : in_str) {
     if (!std::isdigit(static_cast<unsigned char>(c))) {
       return false;
     }
   }
-  return rtc::FromString(in_str, port);
+  return rtc::StringToNumber<int>(in_str);
 }
+
+struct ParsedHostAndPort {
+  absl::string_view host;
+  int port;
+};
 
 // This method parses IPv6 and IPv4 literal strings, along with hostnames in
 // standard hostname:port format.
 // Consider following formats as correct.
 // `hostname:port`, |[IPV6 address]:port|, |IPv4 address|:port,
 // `hostname`, |[IPv6 address]|, |IPv4 address|.
-static bool ParseHostnameAndPortFromString(const std::string& in_str,
-                                           std::string* host,
-                                           int* port) {
-  RTC_DCHECK(host->empty());
+absl::optional<ParsedHostAndPort> ParseHostnameAndPortFromString(
+    absl::string_view in_str,
+    int default_port) {
+  if (in_str.empty()) {
+    return absl::nullopt;
+  }
+  absl::string_view host;
+  int port = default_port;
+
   if (in_str.at(0) == '[') {
     // IP_literal syntax
-    std::string::size_type closebracket = in_str.rfind(']');
-    if (closebracket != std::string::npos) {
-      std::string::size_type colonpos = in_str.find(':', closebracket);
-      if (std::string::npos != colonpos) {
-        if (!ParsePort(in_str.substr(closebracket + 2, std::string::npos),
-                       port)) {
-          return false;
-        }
-      }
-      *host = in_str.substr(1, closebracket - 1);
-    } else {
-      return false;
+    auto closebracket = in_str.rfind(']');
+    if (closebracket == absl::string_view::npos) {
+      return absl::nullopt;
     }
+    auto colonpos = in_str.find(':', closebracket);
+    if (absl::string_view::npos != colonpos) {
+      if (absl::optional<int> opt_port =
+              ParsePort(in_str.substr(closebracket + 2))) {
+        port = *opt_port;
+      } else {
+        return absl::nullopt;
+      }
+    }
+    host = in_str.substr(1, closebracket - 1);
   } else {
     // IPv4address or reg-name syntax
-    std::string::size_type colonpos = in_str.find(':');
-    if (std::string::npos != colonpos) {
-      if (!ParsePort(in_str.substr(colonpos + 1, std::string::npos), port)) {
-        return false;
+    auto colonpos = in_str.find(':');
+    if (absl::string_view::npos != colonpos) {
+      if (absl::optional<int> opt_port =
+              ParsePort(in_str.substr(colonpos + 1))) {
+        port = *opt_port;
+      } else {
+        return absl::nullopt;
       }
-      *host = in_str.substr(0, colonpos);
+      host = in_str.substr(0, colonpos);
     } else {
-      *host = in_str;
+      host = in_str;
     }
     // RFC 3986 section 3.2.2 and Appendix A - "reg-name" syntax
-    if (host->find_first_not_of(kRegNameCharacters) != std::string::npos) {
-      return false;
+    if (host.find_first_not_of(kRegNameCharacters) != absl::string_view::npos) {
+      return absl::nullopt;
     }
   }
-  return !host->empty();
+  if (host.empty()) {
+    return absl::nullopt;
+  }
+  return ParsedHostAndPort{.host = host, .port = port};
 }
 
 // Adds a STUN or TURN server to the appropriate list,
 // by parsing `url` and using the username/password in `server`.
-static RTCErrorType ParseIceServerUrl(
+RTCErrorType ParseIceServerUrl(
     const PeerConnectionInterface::IceServer& server,
-    const std::string& url,
+    absl::string_view url,
     cricket::ServerAddresses* stun_servers,
     std::vector<cricket::RelayServerConfig>* turn_servers) {
   // RFC 7064
@@ -166,26 +189,25 @@ static RTCErrorType ParseIceServerUrl(
 
   RTC_DCHECK(stun_servers != nullptr);
   RTC_DCHECK(turn_servers != nullptr);
-  std::vector<std::string> tokens;
   cricket::ProtocolType turn_transport_type = cricket::PROTO_UDP;
   RTC_DCHECK(!url.empty());
-  rtc::split(url, '?', &tokens);
-  std::string uri_without_transport = tokens[0];
+  std::vector<absl::string_view> tokens = rtc::split(url, '?');
+  absl::string_view uri_without_transport = tokens[0];
   // Let's look into transport= param, if it exists.
   if (tokens.size() == kTurnTransportTokensNum) {  // ?transport= is present.
-    std::string uri_transport_param = tokens[1];
-    rtc::split(uri_transport_param, '=', &tokens);
-    if (tokens[0] != kTransport) {
+    std::vector<absl::string_view> transport_tokens =
+        rtc::split(tokens[1], '=');
+    if (transport_tokens[0] != kTransport) {
       RTC_LOG(LS_WARNING) << "Invalid transport parameter key.";
       return RTCErrorType::SYNTAX_ERROR;
     }
-    if (tokens.size() < 2) {
+    if (transport_tokens.size() < 2) {
       RTC_LOG(LS_WARNING) << "Transport parameter missing value.";
       return RTCErrorType::SYNTAX_ERROR;
     }
 
     absl::optional<cricket::ProtocolType> proto =
-        cricket::StringToProto(tokens[1]);
+        cricket::StringToProto(transport_tokens[1]);
     if (!proto ||
         (*proto != cricket::PROTO_UDP && *proto != cricket::PROTO_TCP)) {
       RTC_LOG(LS_WARNING) << "Transport parameter should always be udp or tcp.";
@@ -194,44 +216,46 @@ static RTCErrorType ParseIceServerUrl(
     turn_transport_type = *proto;
   }
 
-  std::string hoststring;
-  ServiceType service_type;
-  if (!GetServiceTypeAndHostnameFromUri(uri_without_transport, &service_type,
-                                        &hoststring)) {
+  absl::optional<ParsedServiceTypeAndHost> service_type_and_host =
+      GetServiceTypeAndHostnameFromUri(uri_without_transport);
+  if (!service_type_and_host) {
     RTC_LOG(LS_WARNING) << "Invalid transport parameter in ICE URI: " << url;
     return RTCErrorType::SYNTAX_ERROR;
   }
 
   // GetServiceTypeAndHostnameFromUri should never give an empty hoststring
-  RTC_DCHECK(!hoststring.empty());
+  RTC_DCHECK(!service_type_and_host->host.empty());
 
-  int port = kDefaultStunPort;
-  if (service_type == TURNS) {
-    port = kDefaultStunTlsPort;
+  int default_port = kDefaultStunPort;
+  if (service_type_and_host->service_type == TURNS) {
+    default_port = kDefaultStunTlsPort;
     turn_transport_type = cricket::PROTO_TLS;
   }
 
-  if (hoststring.find('@') != std::string::npos) {
+  if (service_type_and_host->host.find('@') != absl::string_view::npos) {
     RTC_LOG(LS_WARNING) << "Invalid url: " << uri_without_transport;
     RTC_LOG(LS_WARNING)
         << "Note that user-info@ in turn:-urls is long-deprecated.";
     return RTCErrorType::SYNTAX_ERROR;
   }
-  std::string address;
-  if (!ParseHostnameAndPortFromString(hoststring, &address, &port)) {
+
+  absl::optional<ParsedHostAndPort> host_and_port =
+      ParseHostnameAndPortFromString(service_type_and_host->host, default_port);
+  if (!host_and_port) {
     RTC_LOG(LS_WARNING) << "Invalid hostname format: " << uri_without_transport;
     return RTCErrorType::SYNTAX_ERROR;
   }
 
-  if (port <= 0 || port > 0xffff) {
-    RTC_LOG(LS_WARNING) << "Invalid port: " << port;
+  if (host_and_port->port <= 0 || host_and_port->port > 0xffff) {
+    RTC_LOG(LS_WARNING) << "Invalid port: " << host_and_port->port;
     return RTCErrorType::SYNTAX_ERROR;
   }
 
-  switch (service_type) {
+  switch (service_type_and_host->service_type) {
     case STUN:
     case STUNS:
-      stun_servers->insert(rtc::SocketAddress(address, port));
+      stun_servers->insert(
+          rtc::SocketAddress(host_and_port->host, host_and_port->port));
       break;
     case TURN:
     case TURNS: {
@@ -244,12 +268,12 @@ static RTCErrorType ParseIceServerUrl(
       // If the hostname field is not empty, then the server address must be
       // the resolved IP for that host, the hostname is needed later for TLS
       // handshake (SNI and Certificate verification).
-      const std::string& hostname =
-          server.hostname.empty() ? address : server.hostname;
-      rtc::SocketAddress socket_address(hostname, port);
+      absl::string_view hostname =
+          server.hostname.empty() ? host_and_port->host : server.hostname;
+      rtc::SocketAddress socket_address(hostname, host_and_port->port);
       if (!server.hostname.empty()) {
         rtc::IPAddress ip;
-        if (!IPFromString(address, &ip)) {
+        if (!IPFromString(host_and_port->host, &ip)) {
           // When hostname is set, the server address must be a
           // resolved ip address.
           RTC_LOG(LS_WARNING)
@@ -281,6 +305,8 @@ static RTCErrorType ParseIceServerUrl(
   }
   return RTCErrorType::NONE;
 }
+
+}  // namespace
 
 RTCErrorType ParseIceServers(
     const PeerConnectionInterface::IceServers& servers,

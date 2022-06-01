@@ -18,6 +18,57 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "f48cc5cf_aa8a507e",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2022-06-01T11:03:30Z",
+      "side": 1,
+      "message": "I think this can be done more simply / more readable.\nParsing stuff is security sensitive (those are external values), so the more obvious we can make it, the better.\n",
+      "revId": "1b248e4867fd97bfdab622bb8f698fb201f6c238",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "b137f0fb_d732e94a",
+        "filename": "pc/ice_server_parsing.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 71,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2022-06-01T11:03:30Z",
+      "side": 1,
+      "message": "I think you can use std::tuple\u003cServiceType, absl::string_view\u003e with no reduction in readability. These are throwaway structs.",
+      "revId": "1b248e4867fd97bfdab622bb8f698fb201f6c238",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "98c4ca5d_0a22fd3d",
+        "filename": "pc/ice_server_parsing.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 194,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2022-06-01T11:03:30Z",
+      "side": 1,
+      "message": "I feel queasy every time I see split used when the syntax only allows for a single separator. But it\u0027s all through this file; feel free to ignore my queasiness.",
+      "revId": "1b248e4867fd97bfdab622bb8f698fb201f6c238",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "4f237dbe_6e5c1fa1",
@@ -31,6 +82,30 @@
       "writtenOn": "2022-06-01T10:47:28Z",
       "side": 1,
       "message": "I don\u0027t quite like these return value structs, is there some nicer way to either return a couple of values or fail? Is there some nice and concise way to assign to separate local variables service_type/host on success?",
+      "range": {
+        "startLine": 219,
+        "startChar": 43,
+        "endLine": 219,
+        "endChar": 64
+      },
+      "revId": "1b248e4867fd97bfdab622bb8f698fb201f6c238",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "58e36b4e_9de11e4a",
+        "filename": "pc/ice_server_parsing.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 219,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2022-06-01T11:03:30Z",
+      "side": 1,
+      "message": "std::tie seems to be the C++ 17 standard\u0027s way of assigning multiple variables.\nOr structured binding:\n\nauto [service_type, host, error] \u003d GetServiceTypeAndHostnameFromUri()\n\nwhere GetServiceTypeAndHostnameFromUri returns a std::tuple.\nBut neither plays well with failures; all outputs will be written to.",
+      "parentUuid": "4f237dbe_6e5c1fa1",
       "range": {
         "startLine": 219,
         "startChar": 43,

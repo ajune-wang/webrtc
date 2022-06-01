@@ -95,6 +95,30 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "c9ab5c42_840d46a1",
+        "filename": "api/transport/stun.h",
+        "patchSetId": 20
+      },
+      "lineNbr": 33,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2022-06-01T13:39:10Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "16edddd8_5c8ff9b7",
+      "range": {
+        "startLine": 33,
+        "startChar": 0,
+        "endLine": 33,
+        "endChar": 60
+      },
+      "revId": "0d88c562bfceeb86dee380fd68d0b3533fcf5a2e",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "c51aa848_cb776c04",
@@ -132,6 +156,30 @@
       "side": 1,
       "message": "It\u0027s still being used so we can\u0027t deprecate it just yet, but that would be nice for sure. I\u0027d also like to get rid of the SetType() method.",
       "parentUuid": "c51aa848_cb776c04",
+      "range": {
+        "startLine": 148,
+        "startChar": 0,
+        "endLine": 150,
+        "endChar": 16
+      },
+      "revId": "0d88c562bfceeb86dee380fd68d0b3533fcf5a2e",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "8c8f2260_05cf956a",
+        "filename": "api/transport/stun.h",
+        "patchSetId": 20
+      },
+      "lineNbr": 150,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2022-06-01T13:39:10Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "44a0fae7_d4c1d4b6",
       "range": {
         "startLine": 148,
         "startChar": 0,
@@ -189,6 +237,30 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "ba9409b9_657c6dbd",
+        "filename": "api/transport/stun.h",
+        "patchSetId": 20
+      },
+      "lineNbr": 331,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2022-06-01T13:39:10Z",
+      "side": 1,
+      "message": "Sounds rather complicated. Sounds good to leave changes out of this cl.",
+      "parentUuid": "d8a26cb8_91465e53",
+      "range": {
+        "startLine": 331,
+        "startChar": 0,
+        "endLine": 331,
+        "endChar": 49
+      },
+      "revId": "0d88c562bfceeb86dee380fd68d0b3533fcf5a2e",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "e415764e_55c53e53",
@@ -226,6 +298,30 @@
       "side": 1,
       "message": "as is I think they\u0027re actually all used.",
       "parentUuid": "e415764e_55c53e53",
+      "range": {
+        "startLine": 660,
+        "startChar": 0,
+        "endLine": 660,
+        "endChar": 33
+      },
+      "revId": "0d88c562bfceeb86dee380fd68d0b3533fcf5a2e",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "0a20b249_e1d62fe5",
+        "filename": "api/transport/stun.h",
+        "patchSetId": 20
+      },
+      "lineNbr": 660,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2022-06-01T13:39:10Z",
+      "side": 1,
+      "message": "Ok. I was hoping that not all subclasses were using the default constructor.",
+      "parentUuid": "d4ba48fa_477ad3e1",
       "range": {
         "startLine": 660,
         "startChar": 0,

@@ -1,0 +1,119 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "4cf017ab_eb11d54d",
+        "filename": "api/transport/stun.cc",
+        "patchSetId": 20
+      },
+      "lineNbr": 597,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2022-06-01T12:57:55Z",
+      "side": 1,
+      "message": "Can this be an RTC_CHECK instead? Seems useless to have tests pass an invalid id.",
+      "range": {
+        "startLine": 596,
+        "startChar": 0,
+        "endLine": 597,
+        "endChar": 11
+      },
+      "revId": "0d88c562bfceeb86dee380fd68d0b3533fcf5a2e",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "07f15752_27fdb5e1",
+        "filename": "api/transport/stun.h",
+        "patchSetId": 20
+      },
+      "lineNbr": 33,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2022-06-01T12:57:55Z",
+      "side": 1,
+      "message": "If these are the values that goes out on the wire, maybe this is a good place to also document endianness of the wire protocol.",
+      "range": {
+        "startLine": 33,
+        "startChar": 0,
+        "endLine": 33,
+        "endChar": 60
+      },
+      "revId": "0d88c562bfceeb86dee380fd68d0b3533fcf5a2e",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "c51aa848_cb776c04",
+        "filename": "api/transport/stun.h",
+        "patchSetId": 20
+      },
+      "lineNbr": 150,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2022-06-01T12:57:55Z",
+      "side": 1,
+      "message": "Can this be marked deprecated (and later deleted)?",
+      "range": {
+        "startLine": 148,
+        "startChar": 0,
+        "endLine": 150,
+        "endChar": 16
+      },
+      "revId": "0d88c562bfceeb86dee380fd68d0b3533fcf5a2e",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "dc353b36_b4c72153",
+        "filename": "api/transport/stun.h",
+        "patchSetId": 20
+      },
+      "lineNbr": 331,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2022-06-01T12:57:55Z",
+      "side": 1,
+      "message": "This is a member only for the SetStunMagicCookie method?",
+      "range": {
+        "startLine": 331,
+        "startChar": 0,
+        "endLine": 331,
+        "endChar": 49
+      },
+      "revId": "0d88c562bfceeb86dee380fd68d0b3533fcf5a2e",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "e415764e_55c53e53",
+        "filename": "api/transport/stun.h",
+        "patchSetId": 20
+      },
+      "lineNbr": 660,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2022-06-01T12:57:55Z",
+      "side": 1,
+      "message": "Might be clearer to explicitly declare intended constructors (as I understand it, the using declaration makes the class inherit all constructors defined on the base class).",
+      "range": {
+        "startLine": 660,
+        "startChar": 0,
+        "endLine": 660,
+        "endChar": 33
+      },
+      "revId": "0d88c562bfceeb86dee380fd68d0b3533fcf5a2e",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

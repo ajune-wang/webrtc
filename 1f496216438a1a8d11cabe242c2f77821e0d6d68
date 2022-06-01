@@ -1,6 +1,40 @@
 {
   "comments": [
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "25bd4d83_611ae0de",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 6
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2022-06-01T08:51:21Z",
+      "side": 1,
+      "message": "Confused. I can\u0027t tell what the ownership model of the *old* encoder selector is supposed to be after this change. It\u0027s not identical to what it was before.\n\n",
+      "revId": "1f496216438a1a8d11cabe242c2f77821e0d6d68",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "fe259991_6f76d5e6",
+        "filename": "api/video_codecs/video_encoder_factory.h",
+        "patchSetId": 6
+      },
+      "lineNbr": 65,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2022-06-01T08:51:21Z",
+      "side": 1,
+      "message": "I don\u0027t think deriving from RefCountInterface is the preferred meethod - just use make_ref_counted\u003cEncoderSelectorInterface\u003e where you need the object.",
+      "revId": "1f496216438a1a8d11cabe242c2f77821e0d6d68",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "a608215d_f6816451",
@@ -20,6 +54,74 @@
         "endLine": 66,
         "endChar": 77
       },
+      "revId": "1f496216438a1a8d11cabe242c2f77821e0d6d68",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "57b54267_72a267ff",
+        "filename": "call/video_send_stream.h",
+        "patchSetId": 6
+      },
+      "lineNbr": 193,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2022-06-01T08:51:21Z",
+      "side": 1,
+      "message": "Nit: Overrides",
+      "revId": "1f496216438a1a8d11cabe242c2f77821e0d6d68",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "169172df_ab5255b1",
+        "filename": "call/video_send_stream.h",
+        "patchSetId": 6
+      },
+      "lineNbr": 197,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2022-06-01T08:51:21Z",
+      "side": 1,
+      "message": "rtc::scoped_refptr\u003cEncoderSelectorInterface\u003e should be enough.",
+      "revId": "1f496216438a1a8d11cabe242c2f77821e0d6d68",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "3400848c_0eb270f3",
+        "filename": "video/video_send_stream.cc",
+        "patchSetId": 6
+      },
+      "lineNbr": 168,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2022-06-01T08:51:21Z",
+      "side": 1,
+      "message": "Here you\u0027re passing ownership of the encoder selector to the encoder. It\u0027ll be std::moved. What happens when you create the second encoder?",
+      "revId": "1f496216438a1a8d11cabe242c2f77821e0d6d68",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "a7194442_6c023d2a",
+        "filename": "video/video_stream_encoder.h",
+        "patchSetId": 6
+      },
+      "lineNbr": 272,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2022-06-01T08:51:21Z",
+      "side": 1,
+      "message": "This seems perverted. If the VideoStreamEncoder owns the encoder selector from the factory, then two encoders created from the same factory will both own the encoder selector, and that can\u0027t be right.",
       "revId": "1f496216438a1a8d11cabe242c2f77821e0d6d68",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }

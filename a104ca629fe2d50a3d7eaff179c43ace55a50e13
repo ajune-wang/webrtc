@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "10a88869_a22b55bb",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 9816
+      },
+      "writtenOn": "2022-06-01T10:12:53Z",
+      "side": 1,
+      "message": "There was a hack for this in https://webrtc-review.googlesource.com/c/src/+/261620/ to keep things simple and easy to rebase. This does it properly.",
+      "revId": "a104ca629fe2d50a3d7eaff179c43ace55a50e13",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

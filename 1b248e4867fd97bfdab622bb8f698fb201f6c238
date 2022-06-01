@@ -114,6 +114,30 @@
       },
       "revId": "1b248e4867fd97bfdab622bb8f698fb201f6c238",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "c70b1e6c_b633a2d6",
+        "filename": "pc/ice_server_parsing.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 219,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2022-06-01T11:08:55Z",
+      "side": 1,
+      "message": "I can change to std::tuple and\n\nauto [success, service_type, host] \u003d ...;\n\nif you think that is good enough? Probably usable also in an if statement,\n\n  if (auto [success, ...] \u003d ...; success) { ... }",
+      "parentUuid": "58e36b4e_9de11e4a",
+      "range": {
+        "startLine": 219,
+        "startChar": 43,
+        "endLine": 219,
+        "endChar": 64
+      },
+      "revId": "1b248e4867fd97bfdab622bb8f698fb201f6c238",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

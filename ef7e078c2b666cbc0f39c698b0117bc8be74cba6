@@ -54,6 +54,93 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "b20dc75b_a84b56b9",
+        "filename": "api/rtp_sender_interface.h",
+        "patchSetId": 7
+      },
+      "lineNbr": 105,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2022-06-02T13:28:24Z",
+      "side": 1,
+      "message": "A default implementation can\u0027t do much else. And I suspect we need a default implementation, due to downstream mocks inheriting this interface.",
+      "parentUuid": "9acf6425_125590df",
+      "revId": "ef7e078c2b666cbc0f39c698b0117bc8be74cba6",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "f1c06a48_a6786b99",
+        "filename": "media/base/media_channel.h",
+        "patchSetId": 7
+      },
+      "lineNbr": 250,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2022-06-02T13:28:24Z",
+      "side": 1,
+      "message": "I think raw pointer deserves a comment on ownership (here and elsewhere).",
+      "range": {
+        "startLine": 250,
+        "startChar": 6,
+        "endLine": 250,
+        "endChar": 60
+      },
+      "revId": "ef7e078c2b666cbc0f39c698b0117bc8be74cba6",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "5d6dfcfd_40d2ede2",
+        "filename": "pc/rtp_sender.cc",
+        "patchSetId": 7
+      },
+      "lineNbr": 337,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2022-06-02T13:28:24Z",
+      "side": 1,
+      "message": "Somewhat odd self-assignment. Maybe add a separate method for just updating the medoa_channel_ ?",
+      "range": {
+        "startLine": 337,
+        "startChar": 0,
+        "endLine": 337,
+        "endChar": 53
+      },
+      "revId": "ef7e078c2b666cbc0f39c698b0117bc8be74cba6",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "88f2bd14_37eabdd4",
+        "filename": "video/video_stream_encoder.cc",
+        "patchSetId": 7
+      },
+      "lineNbr": 631,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2022-06-02T13:28:24Z",
+      "side": 1,
+      "message": "Note that this really is a create method.\n\nMaybe use the AlwaysValidPointer thing to manage the owned-vs-unowned pointers?",
+      "range": {
+        "startLine": 631,
+        "startChar": 42,
+        "endLine": 631,
+        "endChar": 60
+      },
+      "revId": "ef7e078c2b666cbc0f39c698b0117bc8be74cba6",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "92ea0fd2_197ff06f",
         "filename": "video/video_stream_encoder.h",
         "patchSetId": 7

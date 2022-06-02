@@ -173,6 +173,8 @@ class Connection::ConnectionRequest : public StunRequest {
   int resend_delay() override;
 
  private:
+  void MyPrepare(StunMessage* message);
+
   Connection* const connection_;
 };
 
@@ -180,9 +182,13 @@ class Connection::ConnectionRequest : public StunRequest {
 Connection::ConnectionRequest::ConnectionRequest(StunRequestManager& manager,
                                                  Connection* connection)
     : StunRequest(manager, std::make_unique<IceMessage>(STUN_BINDING_REQUEST)),
-      connection_(connection) {}
+      connection_(connection) {
+  MyPrepare(const_cast<StunMessage*>(msg()));
+}
 
-void Connection::ConnectionRequest::Prepare(StunMessage* message) {
+void Connection::ConnectionRequest::Prepare(StunMessage* message) {}
+
+void Connection::ConnectionRequest::MyPrepare(StunMessage* message) {
   RTC_DCHECK_RUN_ON(connection_->network_thread_);
   RTC_DCHECK_EQ(message->type(), STUN_BINDING_REQUEST);
   std::string username;
@@ -194,13 +200,6 @@ void Connection::ConnectionRequest::Prepare(StunMessage* message) {
   message->AddAttribute(
       std::make_unique<StunByteStringAttribute>(STUN_ATTR_USERNAME, username));
 
-  // connection_ already holds this ping, so subtract one from count.
-  if (connection_->port()->send_retransmit_count_attribute()) {
-    message->AddAttribute(std::make_unique<StunUInt32Attribute>(
-        STUN_ATTR_RETRANSMIT_COUNT,
-        static_cast<uint32_t>(connection_->pings_since_last_response_.size() -
-                              1)));
-  }
   uint32_t network_info = connection_->port()->Network()->id();
   network_info = (network_info << 16) | connection_->port()->network_cost();
   message->AddAttribute(std::make_unique<StunUInt32Attribute>(
@@ -251,22 +250,41 @@ void Connection::ConnectionRequest::Prepare(StunMessage* message) {
   message->AddAttribute(std::make_unique<StunUInt32Attribute>(
       STUN_ATTR_PRIORITY, prflx_priority));
 
-  if (connection_->field_trials_->enable_goog_ping &&
-      !connection_->remote_support_goog_ping_.has_value()) {
-    // Check if remote supports GOOG PING by announcing which version we
-    // support. This is sent on all STUN_BINDING_REQUEST until we get a
-    // STUN_BINDING_RESPONSE.
-    auto list =
-        StunAttribute::CreateUInt16ListAttribute(STUN_ATTR_GOOG_MISC_INFO);
-    list->AddTypeAtIndex(kSupportGoogPingVersionRequestIndex, kGoogPingVersion);
-    message->AddAttribute(std::move(list));
-  }
-
   if (connection_->ShouldSendGoogPing(message)) {
     message->SetType(GOOG_PING_REQUEST);
     message->ClearAttributes();
     message->AddMessageIntegrity32(connection_->remote_candidate().password());
   } else {
+    // Set the following attributes here since they're ignored by
+    // `ShouldSendGoogPing`:
+    // * STUN_ATTR_FINGERPRINT
+    // * STUN_ATTR_MESSAGE_INTEGRITY
+    // * STUN_ATTR_RETRANSMIT_COUNT
+    // * STUN_ATTR_GOOG_MISC_INFO
+
+    if (connection_->port()->send_retransmit_count_attribute()) {
+      // Note to self (tommi) - previously the transmit count was set to
+      // `pings_since_last_response_.size() - 1` because when Prepare() was
+      // called, the `this` ConnectionRequest instance had already been added to
+      // the pings_since_last_response_` array. Now that MyPrepare is being
+      // called from the constructor, -1 is incorrect. ConnnectionRequest
+      // shouldn't be touching `pings_since_last_response_` however.
+      message->AddAttribute(std::make_unique<StunUInt32Attribute>(
+          STUN_ATTR_RETRANSMIT_COUNT,
+          static_cast<uint32_t>(
+              connection_->pings_since_last_response_.size())));
+    }
+    if (connection_->field_trials_->enable_goog_ping &&
+        !connection_->remote_support_goog_ping_.has_value()) {
+      // Check if remote supports GOOG PING by announcing which version we
+      // support. This is sent on all STUN_BINDING_REQUEST until we get a
+      // STUN_BINDING_RESPONSE.
+      auto list =
+          StunAttribute::CreateUInt16ListAttribute(STUN_ATTR_GOOG_MISC_INFO);
+      list->AddTypeAtIndex(kSupportGoogPingVersionRequestIndex,
+                           kGoogPingVersion);
+      message->AddAttribute(std::move(list));
+    }
     message->AddMessageIntegrity(connection_->remote_candidate().password());
     message->AddFingerprint();
   }

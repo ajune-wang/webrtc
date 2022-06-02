@@ -220,7 +220,7 @@
           'isolated_scripts': 'ios_simulator_tests',
         },
       },
-      'iOS64 Sim Debug (iOS 14.0)': {
+      'iOS64 Sim Debug (iOS 14)': {
         'mixins': [
           'mac11', 'chromium-tester-service-account', 'ios-simulator-14.0',
           'xcode_12a7209', 'mac_toolchain', 'has_native_resultdb_integration',

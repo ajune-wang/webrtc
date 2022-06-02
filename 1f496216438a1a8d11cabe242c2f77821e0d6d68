@@ -35,6 +35,23 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "e7a9e2e6_3c6f5b2e",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 6
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2022-06-02T07:29:04Z",
+      "side": 1,
+      "message": "Adding nisse@ to thread as current expert on rtc::make_ref_counted.\n\nI actually worry more about the ownership issues in my other comments, but let\u0027s beat this one to death first....",
+      "revId": "1f496216438a1a8d11cabe242c2f77821e0d6d68",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "fe259991_6f76d5e6",
@@ -66,6 +83,24 @@
       "side": 1,
       "message": "The problem is in \npc/proxy.h:120:13: note: in instantiation of member function \u0027rtc::scoped_refptr\u003cwebrtc::VideoEncoderFactory::EncoderSelectorInterface\u003e::~scoped_refptr\u0027 requested here\n    (c-\u003e*m)(std::forward\u003cArgs\u003e(args)...);\n    \nHere it does not realize that it needs to wrap the EncoderSelectorInterface inside a FinalRefCountedObject temporary.\n\nI\u0027m not sure how to do that...and I\u0027m not entirely sure that it is the right thing to do. _ALL_ other object being passed though the api/ is inheriting from RefCountInterface. All of them.\n\nI could make RtpSenderInterface::SetEncoderSelector take a unique_ptr instead...\nthat is nice and has clear semantics...but that would be sort of lonely.",
       "parentUuid": "fe259991_6f76d5e6",
+      "revId": "1f496216438a1a8d11cabe242c2f77821e0d6d68",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "64c5f36a_3a56dffc",
+        "filename": "api/video_codecs/video_encoder_factory.h",
+        "patchSetId": 6
+      },
+      "lineNbr": 65,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2022-06-02T07:29:04Z",
+      "side": 1,
+      "message": "The ability to refcount objects without inheriting from RefCountInterface is fairly new (added by nisse@), so it\u0027s reasonable that all other refcounted objects inherit from RefCountInterface.\n\nI guess you found a bug in that support!\n\nBut I still think it\u0027s wrong to use a variant EncoderSelectorInterface here - either we should make EncoderSelectorInterface refcounted by default, or we should have a refcounted EncoderSelectorWrapper that contains a std::unique_ptr to an EncoderSelector.\nHaving some selector objects that are owned by refcounting and some selector objects that are single ownership only seems to me to be a bad design choice.",
+      "parentUuid": "ca986194_1fdf1d5c",
       "revId": "1f496216438a1a8d11cabe242c2f77821e0d6d68",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },

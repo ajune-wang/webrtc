@@ -362,9 +362,9 @@ bool StunMessage::ValidateMessageIntegrityOfType(int mi_attr_type,
                 mi_attr_size) == 0;
 }
 
-bool StunMessage::AddMessageIntegrity(const std::string& password) {
+bool StunMessage::AddMessageIntegrity(absl::string_view password) {
   return AddMessageIntegrityOfType(STUN_ATTR_MESSAGE_INTEGRITY,
-                                   kStunMessageIntegritySize, password.c_str(),
+                                   kStunMessageIntegritySize, password.data(),
                                    password.size());
 }
 
@@ -1006,9 +1006,9 @@ StunByteStringAttribute::StunByteStringAttribute(uint16_t type)
     : StunAttribute(type, 0), bytes_(NULL) {}
 
 StunByteStringAttribute::StunByteStringAttribute(uint16_t type,
-                                                 const std::string& str)
+                                                 absl::string_view str)
     : StunAttribute(type, 0), bytes_(NULL) {
-  CopyBytes(str.c_str(), str.size());
+  CopyBytes(str.data(), str.size());
 }
 
 StunByteStringAttribute::StunByteStringAttribute(uint16_t type,

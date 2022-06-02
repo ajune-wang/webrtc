@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "c976f547_ba11a053",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2022-06-02T11:02:14Z",
+      "side": 1,
+      "message": "just to resolve an easy TODO (now RtcpTransceiver does support senders and thus send-only endpoints)",
+      "revId": "04aa944f0338504926c1e82e943c118e8c3c6280",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

@@ -191,6 +191,10 @@ class WebRtcVideoChannel : public VideoMediaChannel,
                          rtc::scoped_refptr<webrtc::FrameEncryptorInterface>
                              frame_encryptor) override;
 
+  void SetEncoderSelector(uint32_t ssrc,
+                          webrtc::VideoEncoderFactory::EncoderSelectorInterface*
+                              encoder_selector) override;
+
   void SetVideoCodecSwitchingEnabled(bool enabled) override;
 
   bool SetBaseMinimumPlayoutDelayMs(uint32_t ssrc, int delay_ms) override;
@@ -350,6 +354,10 @@ class WebRtcVideoChannel : public VideoMediaChannel,
 
     bool SetVideoSend(const VideoOptions* options,
                       rtc::VideoSourceInterface<webrtc::VideoFrame>* source);
+
+    void SetEncoderSelector(
+        webrtc::VideoEncoderFactory::EncoderSelectorInterface*
+            encoder_selector);
 
     void SetSend(bool send);
 

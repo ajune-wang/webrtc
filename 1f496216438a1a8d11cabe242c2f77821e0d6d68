@@ -54,6 +54,52 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "06dc7833_8ff17311",
+        "filename": "api/rtp_sender_interface.h",
+        "patchSetId": 6
+      },
+      "lineNbr": 29,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2022-06-02T11:30:19Z",
+      "side": 1,
+      "message": "Maybe EncoderSelectorInterface should be moved elsewhere? It looks odd to ahve this file depend on encoder factory apis.",
+      "range": {
+        "startLine": 29,
+        "startChar": 9,
+        "endLine": 29,
+        "endChar": 51
+      },
+      "revId": "1f496216438a1a8d11cabe242c2f77821e0d6d68",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "6297313a_5c9ddbc0",
+        "filename": "api/rtp_sender_interface.h",
+        "patchSetId": 6
+      },
+      "lineNbr": 99,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2022-06-02T11:30:19Z",
+      "side": 1,
+      "message": "Regarding other scoped_refptrs in this interface. GetDtmfSender() looks reasonable, if application is expected to hold on to and pass around that pointer. SetFrameEncryptor/GetFrameEncryptor look a bit odd, why would application want to touch or update it after initializing it properly with keys and stuff? No idea if and why shared ownership would be appropriate for SetEncoderToPacketizerFrameTransformer.",
+      "range": {
+        "startLine": 83,
+        "startChar": 0,
+        "endLine": 99,
+        "endChar": 0
+      },
+      "revId": "1f496216438a1a8d11cabe242c2f77821e0d6d68",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "fe259991_6f76d5e6",
         "filename": "api/video_codecs/video_encoder_factory.h",
         "patchSetId": 6

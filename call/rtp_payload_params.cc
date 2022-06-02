@@ -467,18 +467,33 @@ void RtpPayloadParams::Vp9ToGeneric(const CodecSpecificInfoVP9& vp9_info,
                                     RTPVideoHeader& rtp_video_header) {
   const auto& vp9_header =
       absl::get<RTPVideoHeaderVP9>(rtp_video_header.video_type_header);
-  const int num_spatial_layers = vp9_header.num_spatial_layers;
-  const int num_temporal_layers = kMaxTemporalStreams;
 
   int spatial_index =
       vp9_header.spatial_idx != kNoSpatialIdx ? vp9_header.spatial_idx : 0;
   int temporal_index =
       vp9_header.temporal_idx != kNoTemporalIdx ? vp9_header.temporal_idx : 0;
 
+  if (rtp_video_header.frame_type == VideoFrameType::kVideoFrameKey &&
+      spatial_index == 0) {
+    // Reset number of spatial layers on the key frame since for generic header
+    // number of layers may change at key frame only.
+    num_vp9_spatial_layers_ = vp9_header.num_spatial_layers;
+  }
+
+  const int num_spatial_layers = num_vp9_spatial_layers_;
+  const int num_temporal_layers = kMaxTemporalStreams;
+
   if (spatial_index >= num_spatial_layers ||
       temporal_index >= num_temporal_layers ||
       num_spatial_layers > RtpGenericFrameDescriptor::kMaxSpatialLayers) {
     // Prefer to generate no generic layering than an inconsistent one.
+    RTC_LOG(LS_WARNING) << "Inconsistent VP9 frame from layer S"
+                        << spatial_index << "T" << temporal_index
+                        << " when there can be up to " << num_spatial_layers
+                        << " spatial layers and " << num_temporal_layers
+                        << " temporal layers.";
+    // Crash in tests to catch such mistakes faster.
+    RTC_DCHECK(false) << "Misconfigured vp9 encoder wrapper.";
     return;
   }
 

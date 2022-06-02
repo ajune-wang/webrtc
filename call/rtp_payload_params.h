@@ -114,6 +114,7 @@ class RtpPayloadParams final {
   // ids for the `picture_id` are stored at the index `picture_id % 128`.
   std::vector<std::array<int64_t, RtpGenericFrameDescriptor::kMaxSpatialLayers>>
       last_vp9_frame_id_;
+  size_t num_vp9_spatial_layers_ = 0;
   // Last frame id for each chain
   std::array<int64_t, RtpGenericFrameDescriptor::kMaxSpatialLayers>
       chain_last_frame_id_;

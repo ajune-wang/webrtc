@@ -105,6 +105,7 @@ TEST(RtpPayloadParamsTest, InfoMappedToRtpVideoHeader_Vp9) {
   EncodedImage encoded_image;
   encoded_image.rotation_ = kVideoRotation_90;
   encoded_image.content_type_ = VideoContentType::SCREENSHARE;
+  encoded_image._frameType = VideoFrameType::kVideoFrameKey;
   encoded_image.SetSpatialIndex(0);
   CodecSpecificInfo codec_info;
   codec_info.codecType = kVideoCodecVP9;
@@ -320,22 +321,28 @@ TEST(RtpPayloadParamsTest, Tl0PicIdxUpdatedForVp9) {
   state.tl0_pic_idx = kInitialTl0PicIdx1;
 
   EncodedImage encoded_image;
+  encoded_image._frameType = VideoFrameType::kVideoFrameKey;
   // Modules are sending for this test.
   // OnEncodedImage, temporalIdx: 1.
   CodecSpecificInfo codec_info;
   codec_info.codecType = kVideoCodecVP9;
-  codec_info.codecSpecific.VP9.temporal_idx = 1;
+  codec_info.codecSpecific.VP9.num_spatial_layers = 1;
+  codec_info.codecSpecific.VP9.temporal_idx = 0;
   codec_info.codecSpecific.VP9.first_frame_in_picture = true;
 
   RtpPayloadParams params(kSsrc1, &state, FieldTrialBasedConfig());
   RTPVideoHeader header =
       params.GetRtpVideoHeader(encoded_image, &codec_info, kDontCare);
 
+  encoded_image._frameType = VideoFrameType::kVideoFrameDelta;
+  codec_info.codecSpecific.VP9.temporal_idx = 1;
+  header = params.GetRtpVideoHeader(encoded_image, &codec_info, kDontCare);
+
   EXPECT_EQ(kVideoCodecVP9, header.codec);
   const auto& vp9_header =
       absl::get<RTPVideoHeaderVP9>(header.video_type_header);
-  EXPECT_EQ(kInitialPictureId1 + 1, vp9_header.picture_id);
-  EXPECT_EQ(kInitialTl0PicIdx1, vp9_header.tl0_pic_idx);
+  EXPECT_EQ(kInitialPictureId1 + 2, vp9_header.picture_id);
+  EXPECT_EQ(kInitialTl0PicIdx1 + 1, vp9_header.tl0_pic_idx);
 
   // OnEncodedImage, temporalIdx: 0.
   codec_info.codecSpecific.VP9.temporal_idx = 0;
@@ -343,8 +350,8 @@ TEST(RtpPayloadParamsTest, Tl0PicIdxUpdatedForVp9) {
   header = params.GetRtpVideoHeader(encoded_image, &codec_info, kDontCare);
 
   EXPECT_EQ(kVideoCodecVP9, header.codec);
-  EXPECT_EQ(kInitialPictureId1 + 2, vp9_header.picture_id);
-  EXPECT_EQ(kInitialTl0PicIdx1 + 1, vp9_header.tl0_pic_idx);
+  EXPECT_EQ(kInitialPictureId1 + 3, vp9_header.picture_id);
+  EXPECT_EQ(kInitialTl0PicIdx1 + 2, vp9_header.tl0_pic_idx);
 
   // OnEncodedImage, first_frame_in_picture = false
   codec_info.codecSpecific.VP9.first_frame_in_picture = false;
@@ -352,12 +359,12 @@ TEST(RtpPayloadParamsTest, Tl0PicIdxUpdatedForVp9) {
   header = params.GetRtpVideoHeader(encoded_image, &codec_info, kDontCare);
 
   EXPECT_EQ(kVideoCodecVP9, header.codec);
-  EXPECT_EQ(kInitialPictureId1 + 2, vp9_header.picture_id);
-  EXPECT_EQ(kInitialTl0PicIdx1 + 1, vp9_header.tl0_pic_idx);
+  EXPECT_EQ(kInitialPictureId1 + 3, vp9_header.picture_id);
+  EXPECT_EQ(kInitialTl0PicIdx1 + 2, vp9_header.tl0_pic_idx);
 
   // State should hold latest used picture id and tl0_pic_idx.
-  EXPECT_EQ(kInitialPictureId1 + 2, params.state().picture_id);
-  EXPECT_EQ(kInitialTl0PicIdx1 + 1, params.state().tl0_pic_idx);
+  EXPECT_EQ(kInitialPictureId1 + 3, params.state().picture_id);
+  EXPECT_EQ(kInitialTl0PicIdx1 + 2, params.state().tl0_pic_idx);
 }
 
 TEST(RtpPayloadParamsTest, PictureIdForOldGenericFormat) {

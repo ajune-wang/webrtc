@@ -107,6 +107,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "b402428b_f62faa96",
+        "filename": "api/video_codecs/video_encoder_factory.h",
+        "patchSetId": 6
+      },
+      "lineNbr": 65,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2022-06-02T07:46:43Z",
+      "side": 1,
+      "message": "I don\u0027t have the big picture. First question is what ownership should be, and why it needs to be ref counted?\n\nAnd rtc::scoped_refptr\u003cwebrtc::VideoEncoderFactory::EncoderSelectorInterface\u003e can work only if the *interface* is defined as ref counted, by inheriting RefCountInterface.\n\nIf you really want only this subclass to be ref counted, the pointer has to be of type scoped_refptr\u003cRefCountedEncoderSelectorInterface\u003e.",
+      "parentUuid": "64c5f36a_3a56dffc",
+      "revId": "1f496216438a1a8d11cabe242c2f77821e0d6d68",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "a608215d_f6816451",
         "filename": "api/video_codecs/video_encoder_factory.h",
         "patchSetId": 6

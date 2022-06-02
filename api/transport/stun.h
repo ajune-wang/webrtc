@@ -507,7 +507,7 @@ class StunUInt64Attribute : public StunAttribute {
 class StunByteStringAttribute : public StunAttribute {
  public:
   explicit StunByteStringAttribute(uint16_t type);
-  StunByteStringAttribute(uint16_t type, const std::string& str);
+  StunByteStringAttribute(uint16_t type, absl::string_view str);
   StunByteStringAttribute(uint16_t type, const void* bytes, size_t length);
   StunByteStringAttribute(uint16_t type, uint16_t length);
   ~StunByteStringAttribute() override;

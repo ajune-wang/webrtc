@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "241037c2_3a2a464d",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2022-06-02T13:37:50Z",
+      "side": 1,
+      "message": "Doing this as a separate CL in case the issues are different.\nBut I think it\u0027s the same issue, and should be fixed now.\n",
+      "revId": "bd9c55c8c7924a0ad4868312ca03ea2c5ab177e7",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

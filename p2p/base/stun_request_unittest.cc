@@ -84,7 +84,9 @@ class StunRequestThunker : public StunRequest {
     Construct();  // Triggers a call to `Prepare()` which sets the type.
   }
   StunRequestThunker(StunRequestManager& manager, StunRequestTest* test)
-      : StunRequest(manager), test_(test) {
+      : StunRequest(manager,
+                    std::make_unique<StunMessage>(STUN_BINDING_REQUEST)),
+        test_(test) {
     Construct();  // Triggers a call to `Prepare()` which sets the type.
   }
 
@@ -98,10 +100,6 @@ class StunRequestThunker : public StunRequest {
     test_->OnErrorResponse(res);
   }
   virtual void OnTimeout() { test_->OnTimeout(); }
-
-  virtual void Prepare(StunMessage* message) {
-    message->SetType(STUN_BINDING_REQUEST);
-  }
 
   StunRequestTest* test_;
 };

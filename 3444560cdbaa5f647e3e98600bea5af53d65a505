@@ -56,6 +56,30 @@
       },
       "revId": "3444560cdbaa5f647e3e98600bea5af53d65a505",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "e28593f5_feed183f",
+        "filename": "modules/pacing/pacing_controller.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 622,
+      "author": {
+        "id": 5578
+      },
+      "writtenOn": "2022-06-02T15:06:03Z",
+      "side": 1,
+      "message": "yes. Otherwise packets are not allowed to be sent early.",
+      "parentUuid": "834ab53e_29d0eb2f",
+      "range": {
+        "startLine": 622,
+        "startChar": 32,
+        "endLine": 622,
+        "endChar": 64
+      },
+      "revId": "3444560cdbaa5f647e3e98600bea5af53d65a505",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

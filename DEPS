@@ -10,7 +10,7 @@ vars = {
   # chromium waterfalls. More info at: crbug.com/570091.
   'checkout_configuration': 'default',
   'checkout_instrumented_libraries': 'checkout_linux and checkout_configuration == "default"',
-  'chromium_revision': '32b557421feba8a4f4180b6257b298d2412704d2',
+  'chromium_revision': '0b15bb9abb106879e6a7b3b04fed4ea897ca1719',
 
   # Keep the Chromium default of generating location tags.
   'generate_location_tags': True,
@@ -25,7 +25,7 @@ deps = {
   'src/base':
     'https://chromium.googlesource.com/chromium/src/base@f10a4cbe064ced29743e7ff675d21681454f1c64',
   'src/build':
-    'https://chromium.googlesource.com/chromium/src/build@d95e42df719e4b0ec0054663e995f7da9337560d',
+    'https://chromium.googlesource.com/chromium/src/build@945eb4e7dcc949890a9c401e233c2e0f87c72353',
   'src/buildtools':
     'https://chromium.googlesource.com/chromium/src/buildtools@8b16338d17cd71b04a6ba28da7322ab6739892c2',
   # Gradle 6.6.1. Used for testing Android Studio project generation for WebRTC.
@@ -34,13 +34,13 @@ deps = {
     'condition': 'checkout_android',
   },
   'src/ios': {
-    'url': 'https://chromium.googlesource.com/chromium/src/ios@8b438f370d0125e3c82c9ac32728b2094ab17dd7',
+    'url': 'https://chromium.googlesource.com/chromium/src/ios@728293db2a4ae74db57c0147db60fee6aefabe9a',
     'condition': 'checkout_ios',
   },
   'src/testing':
-    'https://chromium.googlesource.com/chromium/src/testing@122cd8d853e5fa7a26bf6c56692cb55ef0aaf757',
+    'https://chromium.googlesource.com/chromium/src/testing@cc33cc37ac5eb635526dbb82a8c561f9ff84711d',
   'src/third_party':
-    'https://chromium.googlesource.com/chromium/src/third_party@99d293658dbf8435843249de35f78d37c7f74750',
+    'https://chromium.googlesource.com/chromium/src/third_party@be3db215cbebbb3d3bb1f8cc2105435ac28fd568',
 
   'src/buildtools/linux64': {
     'packages': [
@@ -363,7 +363,7 @@ deps = {
     'packages': [
       {
           'package': 'chromium/third_party/androidx',
-          'version': 'M3UVOXjeT-PmTSnZQgUH8_jIRCw3KnvzsroL57LOZagC',
+          'version': 'EKR4SCLSFfEmo0jX5ydw8CXB5JVIF8JzSzpccM2Rq-UC',
       },
     ],
     'condition': 'checkout_android',

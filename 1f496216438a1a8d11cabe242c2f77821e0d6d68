@@ -52,6 +52,24 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "02faf9cf_af005514",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 6
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5613
+      },
+      "writtenOn": "2022-06-02T12:34:59Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "695e4d18_e56f4578",
+      "revId": "1f496216438a1a8d11cabe242c2f77821e0d6d68",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "06dc7833_8ff17311",
@@ -75,6 +93,30 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "991c4810_5f65486a",
+        "filename": "api/rtp_sender_interface.h",
+        "patchSetId": 6
+      },
+      "lineNbr": 29,
+      "author": {
+        "id": 5613
+      },
+      "writtenOn": "2022-06-02T12:34:59Z",
+      "side": 1,
+      "message": "agree, (move to own file), but I prefer not to do it in this cl/.",
+      "parentUuid": "06dc7833_8ff17311",
+      "range": {
+        "startLine": 29,
+        "startChar": 9,
+        "endLine": 29,
+        "endChar": 51
+      },
+      "revId": "1f496216438a1a8d11cabe242c2f77821e0d6d68",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "6297313a_5c9ddbc0",
@@ -88,6 +130,30 @@
       "writtenOn": "2022-06-02T11:30:19Z",
       "side": 1,
       "message": "Regarding other scoped_refptrs in this interface. GetDtmfSender() looks reasonable, if application is expected to hold on to and pass around that pointer. SetFrameEncryptor/GetFrameEncryptor look a bit odd, why would application want to touch or update it after initializing it properly with keys and stuff? No idea if and why shared ownership would be appropriate for SetEncoderToPacketizerFrameTransformer.",
+      "range": {
+        "startLine": 83,
+        "startChar": 0,
+        "endLine": 99,
+        "endChar": 0
+      },
+      "revId": "1f496216438a1a8d11cabe242c2f77821e0d6d68",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "287f227e_a5feb390",
+        "filename": "api/rtp_sender_interface.h",
+        "patchSetId": 6
+      },
+      "lineNbr": 99,
+      "author": {
+        "id": 5613
+      },
+      "writtenOn": "2022-06-02T12:34:59Z",
+      "side": 1,
+      "message": "I switched to unique_ptr instead.",
+      "parentUuid": "6297313a_5c9ddbc0",
       "range": {
         "startLine": 83,
         "startChar": 0,
@@ -169,6 +235,24 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "cc103c5b_82c03af3",
+        "filename": "api/video_codecs/video_encoder_factory.h",
+        "patchSetId": 6
+      },
+      "lineNbr": 65,
+      "author": {
+        "id": 5613
+      },
+      "writtenOn": "2022-06-02T12:34:59Z",
+      "side": 1,
+      "message": "removed after discussion with nisse@.\nusing unique_ptr instead.",
+      "parentUuid": "b402428b_f62faa96",
+      "revId": "1f496216438a1a8d11cabe242c2f77821e0d6d68",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "a608215d_f6816451",
@@ -182,6 +266,30 @@
       "writtenOn": "2022-06-01T08:28:31Z",
       "side": 1,
       "message": "I\u0027m not sure, but should this class not have a virtual destructor too?",
+      "range": {
+        "startLine": 66,
+        "startChar": 75,
+        "endLine": 66,
+        "endChar": 77
+      },
+      "revId": "1f496216438a1a8d11cabe242c2f77821e0d6d68",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "07327838_99de0d9c",
+        "filename": "api/video_codecs/video_encoder_factory.h",
+        "patchSetId": 6
+      },
+      "lineNbr": 66,
+      "author": {
+        "id": 5613
+      },
+      "writtenOn": "2022-06-02T12:34:59Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "a608215d_f6816451",
       "range": {
         "startLine": 66,
         "startChar": 75,
@@ -209,6 +317,24 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "53ea945b_afc9c408",
+        "filename": "call/video_send_stream.h",
+        "patchSetId": 6
+      },
+      "lineNbr": 193,
+      "author": {
+        "id": 5613
+      },
+      "writtenOn": "2022-06-02T12:34:59Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "57b54267_72a267ff",
+      "revId": "1f496216438a1a8d11cabe242c2f77821e0d6d68",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "169172df_ab5255b1",
@@ -222,6 +348,24 @@
       "writtenOn": "2022-06-01T08:51:21Z",
       "side": 1,
       "message": "rtc::scoped_refptr\u003cEncoderSelectorInterface\u003e should be enough.",
+      "revId": "1f496216438a1a8d11cabe242c2f77821e0d6d68",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "9ef37b5d_6bfd323f",
+        "filename": "call/video_send_stream.h",
+        "patchSetId": 6
+      },
+      "lineNbr": 197,
+      "author": {
+        "id": 5613
+      },
+      "writtenOn": "2022-06-02T12:34:59Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "169172df_ab5255b1",
       "revId": "1f496216438a1a8d11cabe242c2f77821e0d6d68",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
@@ -243,6 +387,24 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "b2dfd111_a3eb1b43",
+        "filename": "video/video_send_stream.cc",
+        "patchSetId": 6
+      },
+      "lineNbr": 168,
+      "author": {
+        "id": 5613
+      },
+      "writtenOn": "2022-06-02T12:34:59Z",
+      "side": 1,
+      "message": "now using raw pointer\nwith ownership kep in RtpSenderBase",
+      "parentUuid": "3400848c_0eb270f3",
+      "revId": "1f496216438a1a8d11cabe242c2f77821e0d6d68",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "a7194442_6c023d2a",
@@ -256,6 +418,24 @@
       "writtenOn": "2022-06-01T08:51:21Z",
       "side": 1,
       "message": "This seems perverted. If the VideoStreamEncoder owns the encoder selector from the factory, then two encoders created from the same factory will both own the encoder selector, and that can\u0027t be right.",
+      "revId": "1f496216438a1a8d11cabe242c2f77821e0d6d68",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "1b18adc2_1ed95c76",
+        "filename": "video/video_stream_encoder.h",
+        "patchSetId": 6
+      },
+      "lineNbr": 272,
+      "author": {
+        "id": 5613
+      },
+      "writtenOn": "2022-06-02T12:34:59Z",
+      "side": 1,
+      "message": "new version ptal",
+      "parentUuid": "a7194442_6c023d2a",
       "revId": "1f496216438a1a8d11cabe242c2f77821e0d6d68",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }

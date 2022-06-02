@@ -274,6 +274,10 @@ class Connection : public CandidatePairInterface {
   // Returns the last time when the connection changed its receiving state.
   int64_t receiving_unchanged_since() const;
 
+  // Constructs the prflx priority as described in
+  // https://datatracker.ietf.org/doc/html/rfc5245#section-4.1.2.1
+  uint32_t prflx_priority() const;
+
   bool stable(int64_t now) const;
 
   // Check if we sent `val` pings without receving a response.

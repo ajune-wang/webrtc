@@ -73,7 +73,6 @@ static int GetRelayPreference(cricket::ProtocolType proto) {
 class TurnAllocateRequest : public StunRequest {
  public:
   explicit TurnAllocateRequest(TurnPort* port);
-  void Prepare(StunMessage* message) override;
   void OnSent() override;
   void OnResponse(StunMessage* response) override;
   void OnErrorResponse(StunMessage* response) override;
@@ -91,7 +90,6 @@ class TurnAllocateRequest : public StunRequest {
 class TurnRefreshRequest : public StunRequest {
  public:
   explicit TurnRefreshRequest(TurnPort* port);
-  void Prepare(StunMessage* message) override;
   void OnSent() override;
   void OnResponse(StunMessage* response) override;
   void OnErrorResponse(StunMessage* response) override;
@@ -110,7 +108,6 @@ class TurnCreatePermissionRequest : public StunRequest,
                               TurnEntry* entry,
                               const rtc::SocketAddress& ext_addr,
                               const std::string& remote_ufrag);
-  void Prepare(StunMessage* message) override;
   void OnSent() override;
   void OnResponse(StunMessage* response) override;
   void OnErrorResponse(StunMessage* response) override;
@@ -131,7 +128,6 @@ class TurnChannelBindRequest : public StunRequest, public sigslot::has_slots<> {
                          TurnEntry* entry,
                          int channel_id,
                          const rtc::SocketAddress& ext_addr);
-  void Prepare(StunMessage* message) override;
   void OnSent() override;
   void OnResponse(StunMessage* response) override;
   void OnErrorResponse(StunMessage* response) override;
@@ -1376,9 +1372,9 @@ void TurnPort::MaybeAddTurnLoggingId(StunMessage* msg) {
 TurnAllocateRequest::TurnAllocateRequest(TurnPort* port)
     : StunRequest(port->request_manager(),
                   std::make_unique<TurnMessage>(TURN_ALLOCATE_REQUEST)),
-      port_(port) {}
+      port_(port) {
+  StunMessage* message = mutable_msg();
 
-void TurnAllocateRequest::Prepare(StunMessage* message) {
   // Create the request as indicated in RFC 5766, Section 6.1.
   RTC_DCHECK_EQ(message->type(), TURN_ALLOCATE_REQUEST);
   auto transport_attr =
@@ -1567,9 +1563,8 @@ TurnRefreshRequest::TurnRefreshRequest(TurnPort* port)
     : StunRequest(port->request_manager(),
                   std::make_unique<TurnMessage>(TURN_REFRESH_REQUEST)),
       port_(port),
-      lifetime_(-1) {}
-
-void TurnRefreshRequest::Prepare(StunMessage* message) {
+      lifetime_(-1) {
+  StunMessage* message = mutable_msg();
   // Create the request as indicated in RFC 5766, Section 7.1.
   // No attributes need to be included.
   RTC_DCHECK_EQ(message->type(), TURN_REFRESH_REQUEST);
@@ -1657,11 +1652,9 @@ TurnCreatePermissionRequest::TurnCreatePermissionRequest(
       remote_ufrag_(remote_ufrag) {
   entry_->SignalDestroyed.connect(
       this, &TurnCreatePermissionRequest::OnEntryDestroyed);
-}
-
-void TurnCreatePermissionRequest::Prepare(StunMessage* message) {
+  StunMessage* message = mutable_msg();
+  RTC_DCHECK_EQ(message->type(), TURN_CREATE_PERMISSION_REQUEST);
   // Create the request as indicated in RFC5766, Section 9.1.
-  message->SetType(TURN_CREATE_PERMISSION_REQUEST);
   message->AddAttribute(std::make_unique<StunXorAddressAttribute>(
       STUN_ATTR_XOR_PEER_ADDRESS, ext_addr_));
   if (port_->field_trials_ &&
@@ -1731,9 +1724,7 @@ TurnChannelBindRequest::TurnChannelBindRequest(
       ext_addr_(ext_addr) {
   entry_->SignalDestroyed.connect(this,
                                   &TurnChannelBindRequest::OnEntryDestroyed);
-}
-
-void TurnChannelBindRequest::Prepare(StunMessage* message) {
+  StunMessage* message = mutable_msg();
   // Create the request as indicated in RFC5766, Section 11.1.
   RTC_DCHECK_EQ(message->type(), TURN_CHANNEL_BIND_REQUEST);
   message->AddAttribute(std::make_unique<StunUInt32Attribute>(

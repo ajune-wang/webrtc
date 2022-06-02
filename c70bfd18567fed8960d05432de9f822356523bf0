@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "bdd73fb4_498cee66",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5087
+      },
+      "writtenOn": "2022-06-02T12:33:40Z",
+      "side": 1,
+      "message": "Applying Owners-Override since this is a clean reland without any change so the LGTMs on https://webrtc-review.googlesource.com/c/src/+/262340 still apply.",
+      "revId": "c70bfd18567fed8960d05432de9f822356523bf0",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

@@ -173,6 +173,15 @@ class Connection::ConnectionRequest : public StunRequest {
   int resend_delay() override;
 
  private:
+  void MyPrepare(StunMessage* message,
+                 absl::string_view username,
+                 uint32_t network_info,
+                 absl::optional<std::string> last_ping_id_received,
+                 IceRole ice_role,
+                 uint64_t ice_tiebreaker,
+                 bool use_candidate_attr,
+                 absl::optional<uint32_t> nomination);
+
   Connection* const connection_;
 };
 
@@ -180,59 +189,70 @@ class Connection::ConnectionRequest : public StunRequest {
 Connection::ConnectionRequest::ConnectionRequest(StunRequestManager& manager,
                                                  Connection* connection)
     : StunRequest(manager, std::make_unique<IceMessage>(STUN_BINDING_REQUEST)),
-      connection_(connection) {}
-
-void Connection::ConnectionRequest::Prepare(StunMessage* message) {
-  RTC_DCHECK_RUN_ON(connection_->network_thread_);
-  RTC_DCHECK_EQ(message->type(), STUN_BINDING_REQUEST);
+      connection_(connection) {
   std::string username;
   connection_->port()->CreateStunUsername(
       connection_->remote_candidate().username(), &username);
+  uint32_t network_info = connection_->port()->Network()->id();
+  network_info = (network_info << 16) | connection_->port()->network_cost();
+  MyPrepare(const_cast<StunMessage*>(msg()), username, network_info,
+            connection_->field_trials_->piggyback_ice_check_acknowledgement &&
+                    connection_->last_ping_id_received()
+                ? connection_->last_ping_id_received()
+                : absl::nullopt,
+            connection_->port()->GetIceRole(),
+            connection_->port()->IceTiebreaker(),
+            connection_->use_candidate_attr(),
+            connection_->nomination_ &&
+                    connection_->nomination_ != connection_->acked_nomination()
+                ? absl::optional<uint32_t>(connection_->nomination_)
+                : absl::nullopt);
+}
+
+void Connection::ConnectionRequest::Prepare(StunMessage* message) {}
+
+void Connection::ConnectionRequest::MyPrepare(
+    StunMessage* message,
+    absl::string_view username,
+    uint32_t network_info,
+    absl::optional<std::string> last_ping_id_received,
+    IceRole ice_role,
+    uint64_t ice_tiebreaker,
+    bool use_candidate_attr,
+    absl::optional<uint32_t> nomination) {
+  RTC_DCHECK_RUN_ON(connection_->network_thread_);
+  RTC_DCHECK_EQ(message->type(), STUN_BINDING_REQUEST);
+  RTC_DCHECK(ice_role == ICEROLE_CONTROLLING || ice_role == ICEROLE_CONTROLLED);
   // Note that the order of attributes does not impact the parsing on the
   // receiver side. The attribute is retrieved then by iterating and matching
   // over all parsed attributes. See StunMessage::GetAttribute.
   message->AddAttribute(
       std::make_unique<StunByteStringAttribute>(STUN_ATTR_USERNAME, username));
-
-  // connection_ already holds this ping, so subtract one from count.
-  if (connection_->port()->send_retransmit_count_attribute()) {
-    message->AddAttribute(std::make_unique<StunUInt32Attribute>(
-        STUN_ATTR_RETRANSMIT_COUNT,
-        static_cast<uint32_t>(connection_->pings_since_last_response_.size() -
-                              1)));
-  }
-  uint32_t network_info = connection_->port()->Network()->id();
-  network_info = (network_info << 16) | connection_->port()->network_cost();
   message->AddAttribute(std::make_unique<StunUInt32Attribute>(
       STUN_ATTR_GOOG_NETWORK_INFO, network_info));
 
-  if (connection_->field_trials_->piggyback_ice_check_acknowledgement &&
-      connection_->last_ping_id_received()) {
+  if (last_ping_id_received) {
     message->AddAttribute(std::make_unique<StunByteStringAttribute>(
-        STUN_ATTR_GOOG_LAST_ICE_CHECK_RECEIVED,
-        connection_->last_ping_id_received().value()));
+        STUN_ATTR_GOOG_LAST_ICE_CHECK_RECEIVED, *last_ping_id_received));
   }
 
   // Adding ICE_CONTROLLED or ICE_CONTROLLING attribute based on the role.
-  if (connection_->port()->GetIceRole() == ICEROLE_CONTROLLING) {
-    message->AddAttribute(std::make_unique<StunUInt64Attribute>(
-        STUN_ATTR_ICE_CONTROLLING, connection_->port()->IceTiebreaker()));
+  message->AddAttribute(std::make_unique<StunUInt64Attribute>(
+      ice_role == ICEROLE_CONTROLLING ? STUN_ATTR_ICE_CONTROLLING
+                                      : STUN_ATTR_ICE_CONTROLLED,
+      ice_tiebreaker));
+
+  if (ice_role == ICEROLE_CONTROLLING) {
     // We should have either USE_CANDIDATE attribute or ICE_NOMINATION
     // attribute but not both. That was enforced in p2ptransportchannel.
-    if (connection_->use_candidate_attr()) {
+    if (use_candidate_attr) {
       message->AddAttribute(
           std::make_unique<StunByteStringAttribute>(STUN_ATTR_USE_CANDIDATE));
     }
-    if (connection_->nomination_ &&
-        connection_->nomination_ != connection_->acked_nomination()) {
+    if (nomination) {
       message->AddAttribute(std::make_unique<StunUInt32Attribute>(
-          STUN_ATTR_NOMINATION, connection_->nomination_));
+          STUN_ATTR_NOMINATION, *nomination));
     }
-  } else if (connection_->port()->GetIceRole() == ICEROLE_CONTROLLED) {
-    message->AddAttribute(std::make_unique<StunUInt64Attribute>(
-        STUN_ATTR_ICE_CONTROLLED, connection_->port()->IceTiebreaker()));
-  } else {
-    RTC_DCHECK_NOTREACHED();
   }
 
   // Adding PRIORITY Attribute.
@@ -251,22 +271,41 @@ void Connection::ConnectionRequest::Prepare(StunMessage* message) {
   message->AddAttribute(std::make_unique<StunUInt32Attribute>(
       STUN_ATTR_PRIORITY, prflx_priority));
 
-  if (connection_->field_trials_->enable_goog_ping &&
-      !connection_->remote_support_goog_ping_.has_value()) {
-    // Check if remote supports GOOG PING by announcing which version we
-    // support. This is sent on all STUN_BINDING_REQUEST until we get a
-    // STUN_BINDING_RESPONSE.
-    auto list =
-        StunAttribute::CreateUInt16ListAttribute(STUN_ATTR_GOOG_MISC_INFO);
-    list->AddTypeAtIndex(kSupportGoogPingVersionRequestIndex, kGoogPingVersion);
-    message->AddAttribute(std::move(list));
-  }
-
   if (connection_->ShouldSendGoogPing(message)) {
     message->SetType(GOOG_PING_REQUEST);
     message->ClearAttributes();
     message->AddMessageIntegrity32(connection_->remote_candidate().password());
   } else {
+    // Set the following attributes here since they're ignored by
+    // `ShouldSendGoogPing`:
+    // * STUN_ATTR_FINGERPRINT
+    // * STUN_ATTR_MESSAGE_INTEGRITY
+    // * STUN_ATTR_RETRANSMIT_COUNT
+    // * STUN_ATTR_GOOG_MISC_INFO
+
+    if (connection_->port()->send_retransmit_count_attribute()) {
+      // Note to self (tommi) - previously the transmit count was set to
+      // `pings_since_last_response_.size() - 1` because when Prepare() was
+      // called, the `this` ConnectionRequest instance had already been added to
+      // the pings_since_last_response_` array. Now that MyPrepare is being
+      // called from the constructor, -1 is incorrect. ConnnectionRequest
+      // shouldn't be touching `pings_since_last_response_` however.
+      message->AddAttribute(std::make_unique<StunUInt32Attribute>(
+          STUN_ATTR_RETRANSMIT_COUNT,
+          static_cast<uint32_t>(
+              connection_->pings_since_last_response_.size())));
+    }
+    if (connection_->field_trials_->enable_goog_ping &&
+        !connection_->remote_support_goog_ping_.has_value()) {
+      // Check if remote supports GOOG PING by announcing which version we
+      // support. This is sent on all STUN_BINDING_REQUEST until we get a
+      // STUN_BINDING_RESPONSE.
+      auto list =
+          StunAttribute::CreateUInt16ListAttribute(STUN_ATTR_GOOG_MISC_INFO);
+      list->AddTypeAtIndex(kSupportGoogPingVersionRequestIndex,
+                           kGoogPingVersion);
+      message->AddAttribute(std::move(list));
+    }
     message->AddMessageIntegrity(connection_->remote_candidate().password());
     message->AddFingerprint();
   }

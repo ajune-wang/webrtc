@@ -16,6 +16,57 @@
       "message": "Hi folks and thanks for feedback!\nI switched to unique_ptr after discussion with nisse,\nOwnership of object is kept in RtpSenderBase.\nPTAL\n",
       "revId": "ef7e078c2b666cbc0f39c698b0117bc8be74cba6",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "5c7edb32_4711675a",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 7
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2022-06-02T13:04:24Z",
+      "side": 1,
+      "message": "I think we need tests. I don\u0027t understand how this could ever have worked when we had multiple encoders.\n",
+      "revId": "ef7e078c2b666cbc0f39c698b0117bc8be74cba6",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "9acf6425_125590df",
+        "filename": "api/rtp_sender_interface.h",
+        "patchSetId": 7
+      },
+      "lineNbr": 105,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2022-06-02T13:04:24Z",
+      "side": 1,
+      "message": "so this function takes ownership.\nIf the default implementation is called with std::move, the encoder selector passed goes away. Intended behavior?",
+      "revId": "ef7e078c2b666cbc0f39c698b0117bc8be74cba6",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "92ea0fd2_197ff06f",
+        "filename": "video/video_stream_encoder.h",
+        "patchSetId": 7
+      },
+      "lineNbr": 270,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2022-06-02T13:04:24Z",
+      "side": 1,
+      "message": "The unique_ptr here means that encoder_selector_from_factory_ (a member of VideoEncoder) takes ownership of the factory\u0027s EncoderSelecctorInterface. This is the part I don\u0027t get.\n\nAll the usage I can find in webrtc uses nullptr.... was this For Future Extension, or is it used \"downstream\"?",
+      "revId": "ef7e078c2b666cbc0f39c698b0117bc8be74cba6",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

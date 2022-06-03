@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "45f467ec_707f172b",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 18779
+      },
+      "writtenOn": "2022-06-03T14:39:23Z",
+      "side": 1,
+      "message": "PTAL, this fixes/works around an issue which is marked as release blocker for Chrome M103 (see crbug/234824290 and b/234824290).",
+      "revId": "2a9a840e51d4c01ff118ac63fe350f1fe7bb7a07",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

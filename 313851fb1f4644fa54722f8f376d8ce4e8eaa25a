@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "3f20867e_026990de",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 14
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5613
+      },
+      "writtenOn": "2022-06-03T10:15:24Z",
+      "side": 1,
+      "message": "overall LGTM from me, with one comment\n\nI would prefer making the BuildIceBindingRequest a member function\nof Connection (rather now: static, before: member function of ConnectionRequest)\nI think is the most natural place...(but have not checked if there are reasons why that can\u0027t be done).\n\n\nWDYT ?",
+      "revId": "313851fb1f4644fa54722f8f376d8ce4e8eaa25a",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

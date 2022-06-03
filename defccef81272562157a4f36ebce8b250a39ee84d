@@ -1,0 +1,157 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "1ae3ca78_f2553861",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 9
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2022-06-03T12:15:26Z",
+      "side": 1,
+      "message": "Now I like it!\n\nStill missing tests. Otherwise, just language nits.\n(The ?: trigraphs in constructors down at the bottom still cry out for AlwaysValidPointer, but that can be a later CL.)\n",
+      "revId": "defccef81272562157a4f36ebce8b250a39ee84d",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "af425255_b55df0cc",
+        "filename": "api/video_codecs/video_encoder_factory.h",
+        "patchSetId": 9
+      },
+      "lineNbr": 103,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2022-06-03T12:15:26Z",
+      "side": 1,
+      "message": "Add the new name and [[deprecate]] the old?\nIf you don\u0027t do it now, you\u0027re sure to forget :-)",
+      "revId": "defccef81272562157a4f36ebce8b250a39ee84d",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "69874d90_5c471ce2",
+        "filename": "api/video_codecs/video_encoder_factory.h",
+        "patchSetId": 9
+      },
+      "lineNbr": 108,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2022-06-03T12:15:26Z",
+      "side": 1,
+      "message": "Nit: due to the fact that the method",
+      "revId": "defccef81272562157a4f36ebce8b250a39ee84d",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "49a53b62_6b7f3219",
+        "filename": "api/video_codecs/video_encoder_factory.h",
+        "patchSetId": 9
+      },
+      "lineNbr": 110,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2022-06-03T12:15:26Z",
+      "side": 1,
+      "message": "nit: one does not know which stream",
+      "revId": "defccef81272562157a4f36ebce8b250a39ee84d",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "d69046d8_a87081ca",
+        "filename": "api/video_codecs/video_encoder_factory.h",
+        "patchSetId": 9
+      },
+      "lineNbr": 113,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2022-06-03T12:15:26Z",
+      "side": 1,
+      "message": "Nit: in such a scenario",
+      "revId": "defccef81272562157a4f36ebce8b250a39ee84d",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "52b93bc0_2b15b6f6",
+        "filename": "call/video_send_stream.h",
+        "patchSetId": 9
+      },
+      "lineNbr": 193,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2022-06-03T12:15:26Z",
+      "side": 1,
+      "message": "nit: provided by the user",
+      "revId": "defccef81272562157a4f36ebce8b250a39ee84d",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "66cbef92_d099c45c",
+        "filename": "media/base/media_channel.h",
+        "patchSetId": 9
+      },
+      "lineNbr": 249,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2022-06-03T12:15:26Z",
+      "side": 1,
+      "message": "I would like this comment to refer to the behavior of this class, not the behavior of some other class. More conventional would be:\n\n\"The encoder_selector object must remain valid for the lifetime of the MediaChannel, unless replaced.\"",
+      "revId": "defccef81272562157a4f36ebce8b250a39ee84d",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "e4aacb06_799689ee",
+        "filename": "media/engine/webrtc_video_engine.h",
+        "patchSetId": 9
+      },
+      "lineNbr": 195,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2022-06-03T12:15:26Z",
+      "side": 1,
+      "message": "ditto here.",
+      "revId": "defccef81272562157a4f36ebce8b250a39ee84d",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "b7adb902_e3920930",
+        "filename": "media/engine/webrtc_video_engine.h",
+        "patchSetId": 9
+      },
+      "lineNbr": 361,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2022-06-03T12:15:26Z",
+      "side": 1,
+      "message": "ditto here.",
+      "revId": "defccef81272562157a4f36ebce8b250a39ee84d",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

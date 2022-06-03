@@ -35,6 +35,41 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "47f56653_d179f1cc",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 7
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5613
+      },
+      "writtenOn": "2022-06-03T10:19:33Z",
+      "side": 1,
+      "message": "I think the \"old api\" didn\u0027t really work with multiple encoders...\nIt didn\u0027t crash, but it was basically impossible to use.\nIt was added for Duo, that only have 1 encoder...\n\nI will add tests!",
+      "parentUuid": "5c7edb32_4711675a",
+      "revId": "ef7e078c2b666cbc0f39c698b0117bc8be74cba6",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "c429acfa_73472b54",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 7
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5613
+      },
+      "writtenOn": "2022-06-03T10:19:33Z",
+      "side": 1,
+      "message": "thanks and PTAL",
+      "revId": "ef7e078c2b666cbc0f39c698b0117bc8be74cba6",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "9acf6425_125590df",
@@ -70,6 +105,24 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "2264d5f4_583975fa",
+        "filename": "api/rtp_sender_interface.h",
+        "patchSetId": 7
+      },
+      "lineNbr": 105,
+      "author": {
+        "id": 5613
+      },
+      "writtenOn": "2022-06-03T10:19:33Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "b20dc75b_a84b56b9",
+      "revId": "ef7e078c2b666cbc0f39c698b0117bc8be74cba6",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "f1c06a48_a6786b99",
@@ -83,6 +136,30 @@
       "writtenOn": "2022-06-02T13:28:24Z",
       "side": 1,
       "message": "I think raw pointer deserves a comment on ownership (here and elsewhere).",
+      "range": {
+        "startLine": 250,
+        "startChar": 6,
+        "endLine": 250,
+        "endChar": 60
+      },
+      "revId": "ef7e078c2b666cbc0f39c698b0117bc8be74cba6",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "986bc7b3_480f7fef",
+        "filename": "media/base/media_channel.h",
+        "patchSetId": 7
+      },
+      "lineNbr": 250,
+      "author": {
+        "id": 5613
+      },
+      "writtenOn": "2022-06-03T10:19:33Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "f1c06a48_a6786b99",
       "range": {
         "startLine": 250,
         "startChar": 6,
@@ -116,6 +193,30 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "01268fc8_c918244e",
+        "filename": "pc/rtp_sender.cc",
+        "patchSetId": 7
+      },
+      "lineNbr": 337,
+      "author": {
+        "id": 5613
+      },
+      "writtenOn": "2022-06-03T10:19:33Z",
+      "side": 1,
+      "message": "hmm...it is identical to the 3 above...\nDone.",
+      "parentUuid": "5d6dfcfd_40d2ede2",
+      "range": {
+        "startLine": 337,
+        "startChar": 0,
+        "endLine": 337,
+        "endChar": 53
+      },
+      "revId": "ef7e078c2b666cbc0f39c698b0117bc8be74cba6",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "88f2bd14_37eabdd4",
@@ -139,6 +240,30 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "4ecaadfc_693d17ff",
+        "filename": "video/video_stream_encoder.cc",
+        "patchSetId": 7
+      },
+      "lineNbr": 631,
+      "author": {
+        "id": 5613
+      },
+      "writtenOn": "2022-06-03T10:19:33Z",
+      "side": 1,
+      "message": "re note: noted (I didn\u0027t write it!)\nre AlwaysValid: I prefer not to...since the pointer can be nullptr\nwhich I think violates the most fundamental contract of AlwaysValid.\n\nhta@ suggested instead of a nullptr, have a null-object that return defaults to all the methods of the interface. WDYT of that ?",
+      "parentUuid": "88f2bd14_37eabdd4",
+      "range": {
+        "startLine": 631,
+        "startChar": 42,
+        "endLine": 631,
+        "endChar": 60
+      },
+      "revId": "ef7e078c2b666cbc0f39c698b0117bc8be74cba6",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "92ea0fd2_197ff06f",
@@ -152,6 +277,24 @@
       "writtenOn": "2022-06-02T13:04:24Z",
       "side": 1,
       "message": "The unique_ptr here means that encoder_selector_from_factory_ (a member of VideoEncoder) takes ownership of the factory\u0027s EncoderSelecctorInterface. This is the part I don\u0027t get.\n\nAll the usage I can find in webrtc uses nullptr.... was this For Future Extension, or is it used \"downstream\"?",
+      "revId": "ef7e078c2b666cbc0f39c698b0117bc8be74cba6",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "f3849383_25d5e663",
+        "filename": "video/video_stream_encoder.h",
+        "patchSetId": 7
+      },
+      "lineNbr": 270,
+      "author": {
+        "id": 5613
+      },
+      "writtenOn": "2022-06-03T10:19:33Z",
+      "side": 1,
+      "message": "this is in use in an google product\nIt injects a VideoEncoderFactory, only sends 1 stream\nand the purpose built VideoEncoderFactory has \"pointers\" to the application.",
+      "parentUuid": "92ea0fd2_197ff06f",
       "revId": "ef7e078c2b666cbc0f39c698b0117bc8be74cba6",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }

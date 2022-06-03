@@ -1,6 +1,69 @@
 {
   "comments": [
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "02fc22e0_aadaa3ab",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 13
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2022-06-03T10:03:06Z",
+      "side": 1,
+      "message": "api/ changes lgtm, except that I\u0027d like string_view in a few more places.\n\nAdding jonaso@, for review of the connection changes.",
+      "revId": "468771576fae7976e9f919394636c55e51253426",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "bf14723f_0253fe9a",
+        "filename": "api/transport/stun.cc",
+        "patchSetId": 13
+      },
+      "lineNbr": 380,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2022-06-03T10:03:06Z",
+      "side": 1,
+      "message": "Can we have a string_view here too?",
+      "range": {
+        "startLine": 379,
+        "startChar": 44,
+        "endLine": 380,
+        "endChar": 57
+      },
+      "revId": "468771576fae7976e9f919394636c55e51253426",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "47290c58_42912571",
+        "filename": "api/transport/stun.h",
+        "patchSetId": 13
+      },
+      "lineNbr": 521,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2022-06-03T10:03:06Z",
+      "side": 1,
+      "message": "string_view, please, and delete above (const char*) overload.",
+      "range": {
+        "startLine": 521,
+        "startChar": 17,
+        "endLine": 521,
+        "endChar": 49
+      },
+      "revId": "468771576fae7976e9f919394636c55e51253426",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "48a33c01_2085480b",

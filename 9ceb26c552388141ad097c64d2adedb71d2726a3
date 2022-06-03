@@ -16,6 +16,24 @@
       "message": "I\u0027ve now updated the downstream uses I could find.",
       "revId": "9ceb26c552388141ad097c64d2adedb71d2726a3",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "7f901a91_a7a9bae1",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 9405
+      },
+      "writtenOn": "2022-06-03T14:38:47Z",
+      "side": 1,
+      "message": "Thanks!",
+      "parentUuid": "379c71fa_1d7d416c",
+      "revId": "9ceb26c552388141ad097c64d2adedb71d2726a3",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

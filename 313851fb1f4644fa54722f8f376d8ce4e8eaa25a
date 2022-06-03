@@ -34,6 +34,24 @@
       "parentUuid": "3f20867e_026990de",
       "revId": "313851fb1f4644fa54722f8f376d8ce4e8eaa25a",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "e308e6bc_a7503513",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 14
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5613
+      },
+      "writtenOn": "2022-06-03T12:22:51Z",
+      "side": 1,
+      "message": "hmm...but I don\u0027t see it ?\nI would expect the BuildIceBindingRequest as a member function in Connection.\nAm I missing something ?",
+      "parentUuid": "89655fdd_396bcc9a",
+      "revId": "313851fb1f4644fa54722f8f376d8ce4e8eaa25a",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

@@ -348,8 +348,7 @@ class Port : public PortInterface,
   bool ParseStunUsername(const StunMessage* stun_msg,
                          std::string* local_username,
                          std::string* remote_username) const;
-  void CreateStunUsername(const std::string& remote_username,
-                          std::string* stun_username_attr_str) const;
+  std::string CreateStunUsername(const std::string& remote_username) const;
 
   bool MaybeIceRoleConflict(const rtc::SocketAddress& addr,
                             IceMessage* stun_msg,

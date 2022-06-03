@@ -725,12 +725,8 @@ bool Port::MaybeIceRoleConflict(const rtc::SocketAddress& addr,
   return ret;
 }
 
-void Port::CreateStunUsername(const std::string& remote_username,
-                              std::string* stun_username_attr_str) const {
-  stun_username_attr_str->clear();
-  *stun_username_attr_str = remote_username;
-  stun_username_attr_str->append(":");
-  stun_username_attr_str->append(username_fragment());
+std::string Port::CreateStunUsername(const std::string& remote_username) const {
+  return remote_username + ":" + username_fragment();
 }
 
 bool Port::HandleIncomingPacket(rtc::AsyncPacketSocket* socket,

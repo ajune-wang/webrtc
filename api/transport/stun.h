@@ -514,8 +514,12 @@ class StunByteStringAttribute : public StunAttribute {
   StunAttributeValueType value_type() const override;
 
   const char* bytes() const { return bytes_; }
-  absl::string_view GetString() const {
+  absl::string_view string_view() const {
     return absl::string_view(bytes_, length());
+  }
+
+  [[deprecated]] std::string GetString() const {
+    return std::string(bytes_, length());
   }
 
   void CopyBytes(const void* bytes, size_t length);

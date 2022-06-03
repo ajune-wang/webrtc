@@ -33,6 +33,23 @@
       "message": "Ah, no need to revert, fix in progress:\nhttps://webrtc-review.googlesource.com/c/src/+/264980",
       "revId": "91c8f6c25cb694a641002324000d16772a9d8446",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "2f69d59b_86c4ab4b",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 6193
+      },
+      "writtenOn": "2022-06-03T08:16:28Z",
+      "side": 1,
+      "message": "I think the forward fix in https://webrtc-review.googlesource.com/c/src/+/264980 will solve this in the next roll.",
+      "revId": "91c8f6c25cb694a641002324000d16772a9d8446",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ],
   "submitRequirementResults": [

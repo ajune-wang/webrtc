@@ -204,6 +204,7 @@ class Connection : public CandidatePairInterface {
       int rtt,
       absl::string_view request_id,
       const absl::optional<uint32_t>& nomination = absl::nullopt);
+  std::unique_ptr<IceMessage> BuildPingRequest() RTC_RUN_ON(network_thread_);
 
   int64_t last_ping_response_received() const;
   const absl::optional<std::string>& last_ping_id_received() const;

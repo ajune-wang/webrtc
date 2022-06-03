@@ -1659,12 +1659,14 @@ TEST_F(TestVp9Impl, DisableNewLayerInVideoDelaysSsInfoTillTL0) {
   SetWaitForEncodedFramesThreshold(num_spatial_layers - 1);
   EXPECT_EQ(WEBRTC_VIDEO_CODEC_OK, encoder_->Encode(NextInputFrame(), nullptr));
   ASSERT_TRUE(WaitForEncodedFrames(&encoded_frames, &codec_specific_info));
-  EXPECT_EQ(codec_specific_info[0].codecSpecific.VP9.temporal_idx, 0u);
-  EXPECT_TRUE(codec_specific_info[0].codecSpecific.VP9.ss_data_available);
-  EXPECT_TRUE(codec_specific_info[0]
-                  .codecSpecific.VP9.spatial_layer_resolution_present);
-  EXPECT_EQ(codec_specific_info[0].codecSpecific.VP9.num_spatial_layers,
-            num_spatial_layers - 1);
+  const CodecSpecificInfoVP9& vp9 = codec_specific_info[0].codecSpecific.VP9;
+  EXPECT_EQ(vp9.temporal_idx, 0u);
+  EXPECT_TRUE(vp9.ss_data_available);
+  EXPECT_TRUE(vp9.spatial_layer_resolution_present);
+  EXPECT_EQ(vp9.num_spatial_layers, num_spatial_layers);
+  // Check resolution for the disaled layer is zero to signal layer is disabled.
+  EXPECT_EQ(vp9.width[num_spatial_layers - 1], 0);
+  EXPECT_EQ(vp9.height[num_spatial_layers - 1], 0);
 }
 
 TEST_F(TestVp9Impl,

@@ -191,6 +191,12 @@ class WebRtcVideoChannel : public VideoMediaChannel,
                          rtc::scoped_refptr<webrtc::FrameEncryptorInterface>
                              frame_encryptor) override;
 
+  // note: Ownership of `encoder_selector` is kept outside of WebRtcVideoChannel
+  // in RtpSenderBase.
+  void SetEncoderSelector(uint32_t ssrc,
+                          webrtc::VideoEncoderFactory::EncoderSelectorInterface*
+                              encoder_selector) override;
+
   void SetVideoCodecSwitchingEnabled(bool enabled) override;
 
   bool SetBaseMinimumPlayoutDelayMs(uint32_t ssrc, int delay_ms) override;
@@ -350,6 +356,12 @@ class WebRtcVideoChannel : public VideoMediaChannel,
 
     bool SetVideoSend(const VideoOptions* options,
                       rtc::VideoSourceInterface<webrtc::VideoFrame>* source);
+
+    // note: Ownership of `encoder_selector` is kept outside of
+    // WebRtcVideoSendStream in RtpSenderBase.
+    void SetEncoderSelector(
+        webrtc::VideoEncoderFactory::EncoderSelectorInterface*
+            encoder_selector);
 
     void SetSend(bool send);
 

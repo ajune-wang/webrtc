@@ -64,7 +64,7 @@ void StunRequestManager::SendDelayed(StunRequest* request, int delay) {
     thread_->PostDelayed(RTC_FROM_HERE, delay, iter->second.get(),
                          MSG_STUN_SEND, NULL);
   } else {
-    thread_->Send(RTC_FROM_HERE, iter->second.get(), MSG_STUN_SEND, NULL);
+    request->Send(webrtc::TimeDelta::Millis(delay));
   }
 }
 
@@ -73,7 +73,7 @@ void StunRequestManager::FlushForTest(int msg_type) {
   for (const auto& [unused, request] : requests_) {
     if (msg_type == kAllRequests || msg_type == request->type()) {
       thread_->Clear(request.get(), MSG_STUN_SEND);
-      thread_->Send(RTC_FROM_HERE, request.get(), MSG_STUN_SEND, NULL);
+      request->Send(webrtc::TimeDelta::Millis(0));
     }
   }
 }
@@ -195,7 +195,9 @@ StunRequest::StunRequest(StunRequestManager& manager)
       msg_(new StunMessage(STUN_INVALID_MESSAGE_TYPE)),
       tstamp_(0),
       count_(0),
-      timeout_(false) {}
+      timeout_(false) {
+  RTC_DCHECK_RUN_ON(network_thread());
+}
 
 StunRequest::StunRequest(StunRequestManager& manager,
                          std::unique_ptr<StunMessage> message)
@@ -204,6 +206,7 @@ StunRequest::StunRequest(StunRequestManager& manager,
       tstamp_(0),
       count_(0),
       timeout_(false) {
+  RTC_DCHECK_RUN_ON(network_thread());
   RTC_DCHECK(!msg_->transaction_id().empty());
 }
 
@@ -228,7 +231,11 @@ int StunRequest::Elapsed() const {
 void StunRequest::OnMessage(rtc::Message* pmsg) {
   RTC_DCHECK_RUN_ON(network_thread());
   RTC_DCHECK(pmsg->message_id == MSG_STUN_SEND);
+  SendInternal();
+}
 
+void StunRequest::SendInternal() {
+  RTC_DCHECK_RUN_ON(network_thread());
   if (timeout_) {
     OnTimeout();
     manager_.OnRequestTimedOut(this);
@@ -244,6 +251,16 @@ void StunRequest::OnMessage(rtc::Message* pmsg) {
   OnSent();
   manager_.network_thread()->PostDelayed(RTC_FROM_HERE, resend_delay(), this,
                                          MSG_STUN_SEND, NULL);
+}
+
+void StunRequest::Send(webrtc::TimeDelta delay) {
+  RTC_DCHECK_RUN_ON(network_thread());
+  RTC_DCHECK_GE(delay.ms(), 0);
+  if (delay.IsZero()) {
+    SendInternal();
+  } else {
+    RTC_DCHECK_NOTREACHED();
+  }
 }
 
 void StunRequest::OnSent() {

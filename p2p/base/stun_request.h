@@ -20,6 +20,7 @@
 #include <string>
 
 #include "api/transport/stun.h"
+#include "api/units/time_delta.h"
 #include "rtc_base/message_handler.h"
 #include "rtc_base/thread.h"
 
@@ -114,6 +115,9 @@ class StunRequest : public rtc::MessageHandler {
  protected:
   friend class StunRequestManager;
 
+  // Called by StunRequestManager.
+  void Send(webrtc::TimeDelta delay);
+
   StunMessage* mutable_msg() { return msg_.get(); }
 
   // Called when the message receives a response or times out.
@@ -134,6 +138,7 @@ class StunRequest : public rtc::MessageHandler {
  private:
   // Handles messages for sending and timeout.
   void OnMessage(rtc::Message* pmsg) override;
+  void SendInternal();
 
   StunRequestManager& manager_;
   const std::unique_ptr<StunMessage> msg_;

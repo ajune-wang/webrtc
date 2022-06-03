@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "48a33c01_2085480b",
+        "filename": "p2p/base/connection.cc",
+        "patchSetId": 13
+      },
+      "lineNbr": 160,
+      "author": {
+        "id": 5508
+      },
+      "writtenOn": "2022-06-03T09:56:20Z",
+      "side": 1,
+      "message": "This method now contains most of the steps previously done in `ConnectionRequest::Prepare()` below. The difference is:\n\n* To remove dependency on `connection_-\u003e` this method accepts arguments from `Connection`.\n* The `Connection::ShouldSendGoogPing` check is now done from within `Connection`.",
+      "range": {
+        "startLine": 160,
+        "startChar": 28,
+        "endLine": 160,
+        "endChar": 50
+      },
+      "revId": "468771576fae7976e9f919394636c55e51253426",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

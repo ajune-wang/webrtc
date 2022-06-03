@@ -52,6 +52,24 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "d41641d4_ad3f8f90",
+        "filename": "pc/ice_server_parsing.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 71,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2022-06-03T11:52:47Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "b137f0fb_d732e94a",
+      "revId": "1b248e4867fd97bfdab622bb8f698fb201f6c238",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "98c4ca5d_0a22fd3d",
@@ -65,6 +83,24 @@
       "writtenOn": "2022-06-01T11:03:30Z",
       "side": 1,
       "message": "I feel queasy every time I see split used when the syntax only allows for a single separator. But it\u0027s all through this file; feel free to ignore my queasiness.",
+      "revId": "1b248e4867fd97bfdab622bb8f698fb201f6c238",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "1cc3911e_c7222df6",
+        "filename": "pc/ice_server_parsing.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 194,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2022-06-03T11:52:47Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "98c4ca5d_0a22fd3d",
       "revId": "1b248e4867fd97bfdab622bb8f698fb201f6c238",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
@@ -154,6 +190,30 @@
       "side": 1,
       "message": "Seems worth trying. Would you then access the variables only inside the if?\n\nIf not, auto [success, .... ]; if (success) { ... would be needed, and probably more readable.\n\n(A limitation of structured binding seems to be that you can\u0027t point to previously declared variables)",
       "parentUuid": "c70b1e6c_b633a2d6",
+      "range": {
+        "startLine": 219,
+        "startChar": 43,
+        "endLine": 219,
+        "endChar": 64
+      },
+      "revId": "1b248e4867fd97bfdab622bb8f698fb201f6c238",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "fbde4398_86662778",
+        "filename": "pc/ice_server_parsing.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 219,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2022-06-03T11:52:47Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "cbc99794_0b45b921",
       "range": {
         "startLine": 219,
         "startChar": 43,

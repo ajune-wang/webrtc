@@ -1317,9 +1317,7 @@ bool LibvpxVp9Encoder::PopulateCodecSpecific(CodecSpecificInfo* codec_specific,
       !is_inter_layer_pred_allowed ||
       layer_id.spatial_layer_id + 1 == num_spatial_layers_;
 
-  // Always populate this, so that the packetizer can properly set the marker
-  // bit.
-  vp9_info->num_spatial_layers = num_active_spatial_layers_;
+  vp9_info->num_spatial_layers = num_spatial_layers_;
   vp9_info->first_active_layer = first_active_layer_;
 
   vp9_info->num_ref_pics = 0;
@@ -1369,6 +1367,11 @@ bool LibvpxVp9Encoder::PopulateCodecSpecific(CodecSpecificInfo* codec_specific,
                            svc_params_.scaling_factor_den[i];
       vp9_info->height[i] = codec_.height * svc_params_.scaling_factor_num[i] /
                             svc_params_.scaling_factor_den[i];
+    }
+    // Signal disabled layers.
+    for (size_t i = num_active_spatial_layers_; i < num_spatial_layers_; ++i) {
+      vp9_info->width[i] = 0;
+      vp9_info->height[i] = 0;
     }
     if (vp9_info->flexible_mode) {
       vp9_info->gof.num_frames_in_gof = 0;

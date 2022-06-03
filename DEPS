@@ -10,7 +10,7 @@ vars = {
   # chromium waterfalls. More info at: crbug.com/570091.
   'checkout_configuration': 'default',
   'checkout_instrumented_libraries': 'checkout_linux and checkout_configuration == "default"',
-  'chromium_revision': '5ef4c5b62f83ef99ef04f344305c1419d6a12afd',
+  'chromium_revision': '1b47a3d6b9ede4bc90cad1e6a17d81b7e2594bda',
 
   # Keep the Chromium default of generating location tags.
   'generate_location_tags': True,
@@ -25,7 +25,7 @@ deps = {
   'src/base':
     'https://chromium.googlesource.com/chromium/src/base@2d08c901e74d3d59e0a111d70db7a8bc6b228384',
   'src/build':
-    'https://chromium.googlesource.com/chromium/src/build@a56852668f892151fc97343b57af15e82db2e798',
+    'https://chromium.googlesource.com/chromium/src/build@0c946902209eff82e373b464c907cee896164138',
   'src/buildtools':
     'https://chromium.googlesource.com/chromium/src/buildtools@8b16338d17cd71b04a6ba28da7322ab6739892c2',
   # Gradle 6.6.1. Used for testing Android Studio project generation for WebRTC.
@@ -34,11 +34,11 @@ deps = {
     'condition': 'checkout_android',
   },
   'src/ios': {
-    'url': 'https://chromium.googlesource.com/chromium/src/ios@13df66df148103e1cd1523bc85d4e35b28d3a91e',
+    'url': 'https://chromium.googlesource.com/chromium/src/ios@cbe9feda44a48e1bf4fbec102c7823f26920eac8',
     'condition': 'checkout_ios',
   },
   'src/testing':
-    'https://chromium.googlesource.com/chromium/src/testing@f8314af5fae39011ad3a1130fa85a47af1997781',
+    'https://chromium.googlesource.com/chromium/src/testing@66f9aa8ca06d8aa03fe366d44dfd39ef4d5254df',
   'src/third_party':
     'https://chromium.googlesource.com/chromium/src/third_party@a4ef57c8b7ac1832d441fe0cf5bf31f3ea6911c7',
 
@@ -275,7 +275,7 @@ deps = {
     'condition': 'checkout_win',
   },
   'src/tools':
-    'https://chromium.googlesource.com/chromium/src/tools@90307c1cfa60d92687344267dc0fffcd8a38ea4e',
+    'https://chromium.googlesource.com/chromium/src/tools@3b0c26580c021ff08d10d93623a5058cd431c0ed',
 
   'src/third_party/accessibility_test_framework': {
       'packages': [

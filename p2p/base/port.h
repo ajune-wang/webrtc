@@ -62,7 +62,9 @@ extern const char TCPTYPE_ACTIVE_STR[];
 extern const char TCPTYPE_PASSIVE_STR[];
 extern const char TCPTYPE_SIMOPEN_STR[];
 
-enum IcePriorityValue {
+// The type preference MUST be an integer from 0 to 126 inclusive.
+// https://datatracker.ietf.org/doc/html/rfc5245#section-4.1.2.1
+enum IcePriorityValue : uint8_t {
   ICE_TYPE_PREFERENCE_RELAY_TLS = 0,
   ICE_TYPE_PREFERENCE_RELAY_TCP = 1,
   ICE_TYPE_PREFERENCE_RELAY_UDP = 2,

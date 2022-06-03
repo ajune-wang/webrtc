@@ -39,6 +39,30 @@
       },
       "revId": "22dba8f10cbdd45bf2ba0b7ef9b4f93d398f3edf",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "aba71f8b_959f0158",
+        "filename": "call/rtp_payload_params.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 486,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2022-06-03T07:52:15Z",
+      "side": 1,
+      "message": "For VP9 we should know number of spatial layers.\nI treat changing number of spatial layers (without a key frame) as an error in the encoder wrapper.\nVP9 rtp spec defines related value as \n\"the number of spatial layers present in the VP9 stream.\"\n\nI read it that it should include \"inactive\" spatial layers too, i.e. it shouldn\u0027t be \"the number of spatial layers present in the current picture\" or \"the number of spatial layers present in the current group of frames\".",
+      "parentUuid": "71d6226b_8f116345",
+      "range": {
+        "startLine": 486,
+        "startChar": 6,
+        "endLine": 486,
+        "endChar": 41
+      },
+      "revId": "22dba8f10cbdd45bf2ba0b7ef9b4f93d398f3edf",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

@@ -70,6 +70,30 @@
       },
       "revId": "8041f25c61466f0a9f955f66a8fe72025094cb3a",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "b0dfe487_04d1cfac",
+        "filename": "video/video_send_stream_tests.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 4034,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2022-06-03T09:33:27Z",
+      "side": 1,
+      "message": "I\u0027m getting a bit confused. Which test code is getting instantiated by \n\nINSTANTIATE_TEST_SUITE_P(\n    ScalabilityMode,\n    Vp9Test,...) \n    \n?\n\nAt this place: https://source.chromium.org/chromium/chromium/src/+/main:third_party/webrtc/video/video_send_stream_tests.cc;drc\u003d3176ef79e9a4f3d34abe77fa4fbdd2f0140314c5;l\u003d3410\n\nthe use_scalability_mode_identifier flag is used to select old or new way of configuration.\n\nI think it\u0027s important to have tests for the old way, so that\u0027s not accidentally broken before we remove it.\n\nI wonder if VP8 and VP9 tests should be more similar? But maybe VP8 tests are different, because they also test simulcast?",
+      "parentUuid": "b8407212_8167d0d9",
+      "range": {
+        "startLine": 4034,
+        "startChar": 8,
+        "endLine": 4034,
+        "endChar": 49
+      },
+      "revId": "8041f25c61466f0a9f955f66a8fe72025094cb3a",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

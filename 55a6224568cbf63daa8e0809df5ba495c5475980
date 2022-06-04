@@ -16,6 +16,23 @@
       "message": "Thanks! Want me to land the CL?",
       "revId": "55a6224568cbf63daa8e0809df5ba495c5475980",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "01d7df37_d21b87df",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 18739
+      },
+      "writtenOn": "2022-06-04T13:27:04Z",
+      "side": 1,
+      "message": "Please merge it.",
+      "revId": "55a6224568cbf63daa8e0809df5ba495c5475980",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

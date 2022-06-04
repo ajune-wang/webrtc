@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "5d7f9427_781ff768",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 12
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5508
+      },
+      "writtenOn": "2022-06-04T09:53:25Z",
+      "side": 1,
+      "message": "reland ready for review again. Several other CLs in this area of the code have landed since the revert so I think it\u0027s safest to take a look at the whole CL again although it fundamentally still does the same thing.",
+      "revId": "f36d10bc625b1520b815c91e4af8b4a95a83e2b2",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

@@ -1,0 +1,38 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "ccd78ca8_d8a89a66",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 8
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2022-06-05T22:29:47Z",
+      "side": 1,
+      "message": "Quick look late at night. Looks reasonable, but I have a couple of worries.\n",
+      "revId": "8e7a1ec01db2580b59c928846d82c13aa01240a9",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "675dca06_69a35f85",
+        "filename": "p2p/base/stun_request.h",
+        "patchSetId": 8
+      },
+      "lineNbr": 139,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2022-06-05T22:29:47Z",
+      "side": 1,
+      "message": "I don\u0027t like this name simply because it\u0027s unlike what we use everywhere else.\nWhy not call it SendDelayed?\n\nThere needs to be a comment about the unit of the delay parameter. Why isn\u0027t it a webrtc::TimeDelta?",
+      "revId": "8e7a1ec01db2580b59c928846d82c13aa01240a9",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

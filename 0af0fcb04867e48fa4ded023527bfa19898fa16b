@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "5ebb9e0b_dd92c841",
+        "filename": "p2p/base/stun_request.cc",
+        "patchSetId": 8
+      },
+      "lineNbr": 164,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2022-06-05T22:29:47Z",
+      "side": 0,
+      "message": "I\u0027m not sure about removing the TODOs here. Spamming an endpoint with STUN responses in the hope that one of them goes through is a possible attack.\nProbably we should increment some counter instead.",
+      "revId": "0af0fcb04867e48fa4ded023527bfa19898fa16b",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

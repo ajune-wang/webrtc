@@ -124,6 +124,12 @@ class ScopedTaskSafety final {
   // Returns a new reference to the safety flag.
   rtc::scoped_refptr<PendingTaskSafetyFlag> flag() const { return flag_; }
 
+  // Marks the current flag as not-alive and creates a new one.
+  void reset() {
+    flag_->SetNotAlive();
+    flag_ = PendingTaskSafetyFlag::Create();
+  }
+
  private:
   rtc::scoped_refptr<PendingTaskSafetyFlag> flag_ =
       PendingTaskSafetyFlag::Create();

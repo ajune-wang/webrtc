@@ -11,6 +11,7 @@
 #ifndef MODULES_AUDIO_CODING_NETEQ_NETEQ_IMPL_H_
 #define MODULES_AUDIO_CODING_NETEQ_NETEQ_IMPL_H_
 
+#include <cstdint>
 #include <map>
 #include <memory>
 #include <string>
@@ -397,6 +398,11 @@ class NetEqImpl : public webrtc::NetEq {
       RTC_GUARDED_BY(mutex_);
   std::vector<uint32_t> last_decoded_timestamps_ RTC_GUARDED_BY(mutex_);
   std::vector<RtpPacketInfo> last_decoded_packet_infos_ RTC_GUARDED_BY(mutex_);
+  struct DecodedPacketInfo {
+    uint16_t sequence_number;
+    uint32_t timestamp;
+  };
+  absl::optional<DecodedPacketInfo> last_decoded_packet_ RTC_GUARDED_BY(mutex_);
   ExpandUmaLogger expand_uma_logger_ RTC_GUARDED_BY(mutex_);
   ExpandUmaLogger speech_expand_uma_logger_ RTC_GUARDED_BY(mutex_);
   bool no_time_stretching_ RTC_GUARDED_BY(mutex_);  // Only used for test.

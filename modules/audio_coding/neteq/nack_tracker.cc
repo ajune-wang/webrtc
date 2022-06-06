@@ -217,7 +217,7 @@ void NackTracker::LimitNackListSize() {
 }
 
 int64_t NackTracker::TimeToPlay(uint32_t timestamp) const {
-  uint32_t timestamp_increase = timestamp - timestamp_last_decoded_rtp_;
+  int32_t timestamp_increase = timestamp - timestamp_last_decoded_rtp_;
   return timestamp_increase / sample_rate_khz_;
 }
 

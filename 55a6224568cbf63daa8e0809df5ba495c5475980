@@ -33,6 +33,24 @@
       "message": "Please merge it.",
       "revId": "55a6224568cbf63daa8e0809df5ba495c5475980",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "105b8b46_42b81123",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5142
+      },
+      "writtenOn": "2022-06-06T10:32:09Z",
+      "side": 1,
+      "message": "Merged!",
+      "parentUuid": "01d7df37_d21b87df",
+      "revId": "55a6224568cbf63daa8e0809df5ba495c5475980",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ],
   "submitRequirementResults": [

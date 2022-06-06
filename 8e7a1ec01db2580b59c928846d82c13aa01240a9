@@ -33,6 +33,24 @@
       "message": "I don\u0027t like this name simply because it\u0027s unlike what we use everywhere else.\nWhy not call it SendDelayed?\n\nThere needs to be a comment about the unit of the delay parameter. Why isn\u0027t it a webrtc::TimeDelta?",
       "revId": "8e7a1ec01db2580b59c928846d82c13aa01240a9",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "61541cb6_e428fb07",
+        "filename": "p2p/base/stun_request.h",
+        "patchSetId": 8
+      },
+      "lineNbr": 139,
+      "author": {
+        "id": 5508
+      },
+      "writtenOn": "2022-06-06T16:12:05Z",
+      "side": 1,
+      "message": "QueueSend renamed to SendDelayed.\n\nChanged the param to this function to use TimeDelta. The class still uses `int` for delay values internally such as for the resend_delay() virtual method and StunRequestManager\u0027s methods that incorporate timeouts.\n\nAdded a comment for resend_delay to clarify that it represents milliseconds.",
+      "parentUuid": "675dca06_69a35f85",
+      "revId": "8e7a1ec01db2580b59c928846d82c13aa01240a9",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

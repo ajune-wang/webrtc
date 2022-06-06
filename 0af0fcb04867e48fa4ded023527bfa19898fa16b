@@ -16,6 +16,24 @@
       "message": "I\u0027m not sure about removing the TODOs here. Spamming an endpoint with STUN responses in the hope that one of them goes through is a possible attack.\nProbably we should increment some counter instead.",
       "revId": "0af0fcb04867e48fa4ded023527bfa19898fa16b",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "20625f1b_92332a72",
+        "filename": "p2p/base/stun_request.cc",
+        "patchSetId": 8
+      },
+      "lineNbr": 164,
+      "author": {
+        "id": 5508
+      },
+      "writtenOn": "2022-06-06T16:12:05Z",
+      "side": 0,
+      "message": "I figured since the todo has been there for 7 years it\u0027s not been a problem.\nI can put it back?",
+      "parentUuid": "5ebb9e0b_dd92c841",
+      "revId": "0af0fcb04867e48fa4ded023527bfa19898fa16b",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

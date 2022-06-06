@@ -995,6 +995,45 @@ INSTANTIATE_TEST_SUITE_P(GetNackList,
                          testing::Values(SdpAudioFormat("g722", 8000, 1),
                                          SdpAudioFormat("opus", 48000, 2)));
 
+TEST_F(NetEqImplTest, ShouldNotNackLongGaps) {
+  UseNoMocks();
+  CreateInstance();
+  neteq_->EnableNack(200);
+
+  SdpAudioFormat format("opus", 48000, 2);
+
+  const uint8_t kPayloadType = 17;  // Just an arbitrary number.
+  const int kPayloadSampleRateHz = format.clockrate_hz;
+  const size_t kPayloadLengthSamples =
+      static_cast<size_t>(20 * kPayloadSampleRateHz / 1000);
+  const size_t kPayloadLengthBytes = kPayloadLengthSamples * 2;
+  EXPECT_TRUE(neteq_->RegisterPayloadType(kPayloadType, format));
+
+  std::vector<uint8_t> payload(kPayloadLengthBytes, 0);
+  RTPHeader rtp_header;
+  rtp_header.payloadType = kPayloadType;
+  rtp_header.sequenceNumber = 0x1234;
+  rtp_header.timestamp = 0x12345678;
+  rtp_header.ssrc = 0x87654321;
+
+  neteq_->InsertPacket(rtp_header, payload);
+  AudioFrame frame;
+  bool muted;
+  neteq_->GetAudio(&frame, &muted);
+  EXPECT_EQ(neteq_->LastDecodedTimestamps().front(), rtp_header.timestamp);
+
+  constexpr int kLossGapPackets = 100;
+
+  for (int i = 0; i < kLossGapPackets * 2; ++i) {
+    neteq_->GetAudio(&frame, &muted);
+  }
+
+  rtp_header.sequenceNumber += kLossGapPackets;
+  rtp_header.timestamp += kLossGapPackets * kPayloadLengthSamples;
+  neteq_->InsertPacket(rtp_header, payload);
+  EXPECT_LT(neteq_->GetNackList(20).size(), 50u);
+}
+
 // This test verifies that NetEq can handle comfort noise and enters/quits codec
 // internal CNG mode properly.
 TEST_F(NetEqImplTest, CodecInternalCng) {

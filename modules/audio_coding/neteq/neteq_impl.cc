@@ -1021,6 +1021,11 @@ int NetEqImpl::GetAudioInternal(AudioFrame* audio_frame,
     generated_noise_stopwatch_.reset();
   }
 
+  if (last_decoded_packet_ && nack_enabled_) {
+    nack_->UpdateLastDecodedPacket(last_decoded_packet_->sequence_number,
+                                   last_decoded_packet_->timestamp);
+  }
+
   if (decode_return_value)
     return decode_return_value;
   return return_value;
@@ -1487,6 +1492,8 @@ int NetEqImpl::DecodeLoop(PacketList* packet_list,
     last_decoded_timestamps_.push_back(packet_list->front().timestamp);
     last_decoded_packet_infos_.push_back(
         std::move(packet_list->front().packet_info));
+    last_decoded_packet_ = {packet_list->front().sequence_number,
+                            packet_list->front().timestamp};
     packet_list->pop_front();
     if (opt_result) {
       const auto& result = *opt_result;
@@ -1983,12 +1990,6 @@ int NetEqImpl::ExtractPackets(size_t required_samples,
 
     if (first_packet) {
       first_packet = false;
-      if (nack_enabled_) {
-        RTC_DCHECK(nack_);
-        // TODO(henrik.lundin): Should we update this for all decoded packets?
-        nack_->UpdateLastDecodedPacket(packet->sequence_number,
-                                       packet->timestamp);
-      }
       prev_sequence_number = packet->sequence_number;
       prev_timestamp = packet->timestamp;
       prev_payload_type = packet->payload_type;

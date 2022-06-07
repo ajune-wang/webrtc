@@ -18,6 +18,24 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "94d7d6c2_67651573",
+        "filename": "modules/rtp_rtcp/source/rtcp_packet/transport_feedback.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 303,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2022-06-07T17:27:35Z",
+      "side": 1,
+      "message": "yes, operator% is absent and can be implemented for the TimeDelta (it doesn\u0027t make that much sense for Timestamp though),\nhowever operator/ is implemented, but it implements double division, not integer division.\nSo having integer-like operator% but double-like operator/ might be confusing.",
+      "parentUuid": "194d44da_33428cdc",
+      "revId": "32eebdad67c3e024e59f62669f79c16f6adcf86c",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "5fd3f14a_5bb0799e",
@@ -41,6 +59,30 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "fc7d3ced_3eeda1b2",
+        "filename": "modules/rtp_rtcp/source/rtcp_packet/transport_feedback_unittest.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 96,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2022-06-07T17:27:35Z",
+      "side": 1,
+      "message": "actually first stored timestamp has the same precision as any other timestamp,\nit is base time that is stored with lower precision (and first delta is the diff between base time and the first stored timestamp).\nAdjusted comment.",
+      "parentUuid": "5fd3f14a_5bb0799e",
+      "range": {
+        "startLine": 96,
+        "startChar": 13,
+        "endLine": 96,
+        "endChar": 58
+      },
+      "revId": "32eebdad67c3e024e59f62669f79c16f6adcf86c",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "b6467b42_86b41e8b",
@@ -54,6 +96,30 @@
       "writtenOn": "2022-06-07T16:41:03Z",
       "side": 1,
       "message": "Not sure I follow where this negation comes from? A comment would be good :)",
+      "range": {
+        "startLine": 98,
+        "startChar": 31,
+        "endLine": 98,
+        "endChar": 32
+      },
+      "revId": "32eebdad67c3e024e59f62669f79c16f6adcf86c",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "0e4db282_41f2e6e0",
+        "filename": "modules/rtp_rtcp/source/rtcp_packet/transport_feedback_unittest.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 98,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2022-06-07T17:27:35Z",
+      "side": 1,
+      "message": "I\u0027m using GetBaseDelta for something it is not suppose to be used for.\nNot sure how to better extract 1st delta. Probably the whole expectation of deltas should be rewritten to avoid assumption about the very 1st base time, but keep expectation that deltas can be properly calculated across multiple transport feedback messages. Then it would look closer to how it suppose to be used.",
+      "parentUuid": "b6467b42_86b41e8b",
       "range": {
         "startLine": 98,
         "startChar": 31,

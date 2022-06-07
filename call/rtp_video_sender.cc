@@ -606,16 +606,13 @@ EncodedImageCallback::Result RtpVideoSender::OnEncodedImage(
     } else if (codec_specific_info &&
                codec_specific_info->codecType == kVideoCodecVP8) {
       FrameDependencyStructure structure =
-          RtpPayloadParams::MinimalisticStructure(/*num_spatial_layers=*/1,
-                                                  kMaxTemporalStreams);
+          RtpPayloadParams::GenericVp8Structure();
       sender_video.SetVideoStructure(&structure);
     } else if (codec_specific_info &&
                codec_specific_info->codecType == kVideoCodecVP9) {
       const CodecSpecificInfoVP9& vp9 = codec_specific_info->codecSpecific.VP9;
-
       FrameDependencyStructure structure =
-          RtpPayloadParams::MinimalisticStructure(vp9.num_spatial_layers,
-                                                  kMaxTemporalStreams);
+          RtpPayloadParams::GenericVp9Structure();
       if (vp9.ss_data_available && vp9.spatial_layer_resolution_present) {
         for (size_t i = 0; i < vp9.num_spatial_layers; ++i) {
           structure.resolutions.emplace_back(vp9.width[i], vp9.height[i]);

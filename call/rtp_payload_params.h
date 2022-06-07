@@ -52,6 +52,12 @@ class RtpPayloadParams final {
   static FrameDependencyStructure MinimalisticStructure(
       int num_spatial_layers,
       int num_temporal_layers);
+  // Returns structure that aligns with simulated generic info based on vp8
+  // descriptor.
+  static FrameDependencyStructure GenericVp8Structure();
+  // Returns structure that aligns with simulated generic info based on vp9
+  // descriptor.
+  static FrameDependencyStructure GenericVp9Structure();
 
   uint32_t ssrc() const;
 

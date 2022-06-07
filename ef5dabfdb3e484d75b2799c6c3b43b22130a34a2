@@ -1,0 +1,106 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "b4404877_0cf7698b",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 19
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2022-06-07T10:54:40Z",
+      "side": 1,
+      "message": "A few things I don\u0027t understand, it seems.",
+      "revId": "ef5dabfdb3e484d75b2799c6c3b43b22130a34a2",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "761ad04c_1ae6061e",
+        "filename": "net/dcsctp/tx/stream_scheduler.cc",
+        "patchSetId": 19
+      },
+      "lineNbr": 106,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2022-06-07T10:54:40Z",
+      "side": 1,
+      "message": "why is 1 always the right number?",
+      "revId": "ef5dabfdb3e484d75b2799c6c3b43b22130a34a2",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "3943d8f1_15acbb6c",
+        "filename": "net/dcsctp/tx/stream_scheduler.cc",
+        "patchSetId": 19
+      },
+      "lineNbr": 139,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2022-06-07T10:54:40Z",
+      "side": 1,
+      "message": "style nit - seems odd to allocate a temporary here.",
+      "revId": "ef5dabfdb3e484d75b2799c6c3b43b22130a34a2",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "e39abde3_74eb0b73",
+        "filename": "net/dcsctp/tx/stream_scheduler.h",
+        "patchSetId": 19
+      },
+      "lineNbr": 42,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2022-06-07T10:54:40Z",
+      "side": 1,
+      "message": "This declares VirtualTime to be a double, doesn\u0027t it?\nWhat\u0027s the unit of VirtualTime? (from context, it seems like VirtualTime \u003d packet count, which makes double a confusing type choice).",
+      "revId": "ef5dabfdb3e484d75b2799c6c3b43b22130a34a2",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "726cbe35_25fd8dc6",
+        "filename": "net/dcsctp/tx/stream_scheduler.h",
+        "patchSetId": 19
+      },
+      "lineNbr": 172,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2022-06-07T10:54:40Z",
+      "side": 1,
+      "message": "Nitting about naming: if there is no previous message, this will be true, which seems odd. would an inverted sense and naming it currently_sending_a_message be more readable?\n\nThe comment isn\u0027t 100% clear that when doing interleaved mode, this doesn\u0027t influence the choice of which stream the next message may come from.",
+      "revId": "ef5dabfdb3e484d75b2799c6c3b43b22130a34a2",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "440615c7_69a449d7",
+        "filename": "net/dcsctp/tx/stream_scheduler_test.cc",
+        "patchSetId": 19
+      },
+      "lineNbr": 137,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2022-06-07T10:54:40Z",
+      "side": 1,
+      "message": "the MID assignment seems like it\u0027s a bit deterministic - an implementation that sorted on MID would achiheve alternate-streams behavior.\nIs it required to be deterministic, or could we make it be more messy?",
+      "revId": "ef5dabfdb3e484d75b2799c6c3b43b22130a34a2",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

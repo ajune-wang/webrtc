@@ -22,6 +22,30 @@
       },
       "revId": "0ba10283fb3cbdf1cedea79d84e4bc3b720da6a1",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "54aa3917_e31175dd",
+        "filename": "modules/desktop_capture/desktop_frame.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 172,
+      "author": {
+        "id": 18779
+      },
+      "writtenOn": "2022-06-07T12:08:44Z",
+      "side": 1,
+      "message": "Just for my understanding/curiosity, how can that cause issues? I assumed that, given that the source and destination are identical in every way that their `data_` would also be identical. When/how would that not be the case?",
+      "parentUuid": "f079aa46_f91e52fc",
+      "range": {
+        "startLine": 172,
+        "startChar": 0,
+        "endLine": 172,
+        "endChar": 77
+      },
+      "revId": "0ba10283fb3cbdf1cedea79d84e4bc3b720da6a1",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

@@ -43,20 +43,23 @@ class GainController2 {
   // Sets the fixed digital gain.
   void SetFixedGainDb(float gain_db);
 
-  // Applies fixed and adaptive digital gains to `audio` and runs a limiter.
-  void Process(AudioBuffer* audio);
+  // Applies fixed and adaptive digital gains to `audio` given the VAD
+  // probability `voice_activity_probability` and runs a limiter.
+  void Process(absl::optional<float> voice_activity_probability,
+               AudioBuffer* audio);
 
   // Handles analog level changes.
   void NotifyAnalogLevel(int level);
 
   static bool Validate(const AudioProcessing::Config::GainController2& config);
 
+  AvailableCpuFeatures GetCpuFeatures() const { return cpu_features_; }
+
  private:
   static int instance_count_;
   const AvailableCpuFeatures cpu_features_;
   ApmDataDumper data_dumper_;
   GainApplier fixed_gain_applier_;
-  std::unique_ptr<VoiceActivityDetectorWrapper> vad_;
   std::unique_ptr<AdaptiveDigitalGainController> adaptive_digital_controller_;
   Limiter limiter_;
   int calls_since_last_limiter_log_;

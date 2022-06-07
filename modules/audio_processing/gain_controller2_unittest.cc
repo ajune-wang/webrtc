@@ -47,7 +47,8 @@ float RunAgc2WithConstantInput(GainController2& agc2,
   // Give time to the level estimator to converge.
   for (int i = 0; i < num_frames + 1; ++i) {
     SetAudioBufferSamples(input_level, ab);
-    agc2.Process(&ab);
+    // Process without VAD probability.
+    agc2.Process(/*voice_activity_probability=*/absl::nullopt, &ab);
   }
 
   // Return the last sample from the last processed frame.
@@ -254,6 +255,8 @@ TEST(GainController2, CheckFinalGainWithAdaptiveDigitalController) {
   config.fixed_digital.gain_db = 0.0f;
   config.adaptive_digital.enabled = true;
   GainController2 agc2(config, kSampleRateHz, kStereo);
+  VoiceActivityDetectorWrapper vad(config.adaptive_digital.vad_reset_period_ms,
+                                   GetAvailableCpuFeatures(), kSampleRateHz);
 
   test::InputAudioFile input_file(
       test::GetApmCaptureTestVectorFileName(kSampleRateHz),
@@ -280,12 +283,22 @@ TEST(GainController2, CheckFinalGainWithAdaptiveDigitalController) {
       x *= gain;
     test::CopyVectorToAudioBuffer(stream_config, frame, &audio_buffer);
     // Process.
-    agc2.Process(&audio_buffer);
+    absl::optional<float> voice_activity_probability;
+    AudioFrameView<float> float_frame(audio_buffer.channels(),
+                                      audio_buffer.num_channels(),
+                                      audio_buffer.num_frames());
+    voice_activity_probability = vad.Analyze(float_frame);
+    agc2.Process(voice_activity_probability, &audio_buffer);
   }
 
   // Estimate the applied gain by processing a probing frame.
   SetAudioBufferSamples(/*value=*/1.0f, audio_buffer);
-  agc2.Process(&audio_buffer);
+  absl::optional<float> voice_activity_probability;
+  AudioFrameView<float> float_frame(audio_buffer.channels(),
+                                    audio_buffer.num_channels(),
+                                    audio_buffer.num_frames());
+  voice_activity_probability = vad.Analyze(float_frame);
+  agc2.Process(voice_activity_probability, &audio_buffer);
   const float applied_gain_db =
       20.0f * std::log10(audio_buffer.channels_const()[0][0]);
 

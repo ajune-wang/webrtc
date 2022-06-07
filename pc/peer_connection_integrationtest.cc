@@ -3605,6 +3605,54 @@ TEST_F(PeerConnectionIntegrationTestUnifiedPlan,
             callee_track->state());
 }
 
+TEST_P(PeerConnectionIntegrationTest, EndToEndRtpSenderVideoEncoderSelector) {
+  ASSERT_TRUE(
+      CreateOneDirectionalPeerConnectionWrappers(/*caller_to_callee=*/true));
+  ConnectFakeSignaling();
+  // Add one-directional video, from caller to callee.
+  rtc::scoped_refptr<webrtc::VideoTrackInterface> caller_track =
+      caller()->CreateLocalVideoTrack();
+  auto sender = caller()->AddTrack(caller_track);
+  PeerConnectionInterface::RTCOfferAnswerOptions options;
+  options.offer_to_receive_video = 0;
+  caller()->SetOfferAnswerOptions(options);
+  caller()->CreateAndSetAndSignalOffer();
+  ASSERT_TRUE_WAIT(SignalingStateStable(), kDefaultTimeout);
+  ASSERT_EQ(callee()->pc()->GetReceivers().size(), 1u);
+
+  class EncoderSelector : public VideoEncoderFactory::EncoderSelectorInterface {
+   public:
+    explicit EncoderSelector(absl::optional<SdpVideoFormat>& on_current)
+        : on_current_(on_current) {}
+    virtual ~EncoderSelector() {}
+    void OnCurrentEncoder(const SdpVideoFormat& format) override {
+      on_current_ = format;
+    }
+    absl::optional<SdpVideoFormat> OnAvailableBitrate(
+        const DataRate& rate) override {
+      return absl::nullopt;
+    }
+    absl::optional<SdpVideoFormat> OnEncoderBroken() override {
+      return absl::nullopt;
+    }
+
+   private:
+    absl::optional<SdpVideoFormat>& on_current_;
+  };
+  absl::optional<SdpVideoFormat> on_current;
+  std::unique_ptr<EncoderSelector> selector =
+      std::make_unique<EncoderSelector>(on_current);
+  sender->SetEncoderSelector(std::move(selector));
+
+  // Expect video to be received in one direction.
+  MediaExpectations media_expectations;
+  media_expectations.CallerExpectsNoVideo();
+  media_expectations.CalleeExpectsSomeVideo();
+
+  EXPECT_TRUE(ExpectNewFrames(media_expectations));
+  EXPECT_TRUE(on_current);
+}
+
 }  // namespace
 
 }  // namespace webrtc

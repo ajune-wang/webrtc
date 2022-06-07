@@ -26,8 +26,6 @@
 
 namespace webrtc {
 
-class RtpRtcp;
-
 // State for setting picture id and tl0 pic idx, for VP8 and VP9
 // TODO(nisse): Make these properties not codec specific.
 class RtpPayloadParams final {
@@ -42,16 +40,17 @@ class RtpPayloadParams final {
                                    const CodecSpecificInfo* codec_specific_info,
                                    int64_t shared_frame_id);
 
-  // Returns structure that aligns with simulated generic info. The templates
-  // allow to produce valid dependency descriptor for any stream where
-  // `num_spatial_layers` * `num_temporal_layers` <= 32 (limited by
-  // https://aomediacodec.github.io/av1-rtp-spec/#a82-syntax, see
-  // template_fdiffs()). The set of the templates is not tuned for any paricular
-  // structure thus dependency descriptor would use more bytes on the wire than
-  // with tuned templates.
-  static FrameDependencyStructure MinimalisticStructure(
-      int num_spatial_layers,
-      int num_temporal_layers);
+  // Returns structure that aligns with simulated generic info generated for
+  // unspecified generic codec.
+  static FrameDependencyStructure GenericStructure();
+
+  // Returns structure that aligns with simulated generic info based on vp8
+  // descriptor.
+  static FrameDependencyStructure GenericVp8Structure();
+
+  // Returns structure that aligns with simulated generic info based on vp9
+  // descriptor.
+  static FrameDependencyStructure GenericVp9Structure();
 
   uint32_t ssrc() const;
 

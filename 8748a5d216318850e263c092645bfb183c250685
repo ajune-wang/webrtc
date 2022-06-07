@@ -121,6 +121,24 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "e7333bca_af13ee60",
+        "filename": "pc/webrtc_sdp.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 2326,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2022-06-07T12:01:24Z",
+      "side": 1,
+      "message": "Fixed the TODO issues.",
+      "parentUuid": "312178c7_4a1c294c",
+      "revId": "8748a5d216318850e263c092645bfb183c250685",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "70393ade_5c6a96f3",
@@ -134,6 +152,24 @@
       "writtenOn": "2022-05-13T09:25:49Z",
       "side": 1,
       "message": "Could either use StringBuilder here or maybe just use param.append(iter-\u003edata(), iter-\u003elength()) directly to avoid the conversion.",
+      "revId": "8748a5d216318850e263c092645bfb183c250685",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "8bf13292_007f297a",
+        "filename": "pc/webrtc_sdp.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 3765,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2022-06-07T12:01:24Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "70393ade_5c6a96f3",
       "revId": "8748a5d216318850e263c092645bfb183c250685",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }

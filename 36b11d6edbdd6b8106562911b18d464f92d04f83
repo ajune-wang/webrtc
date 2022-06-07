@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "c63d5473_3cb54f48",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 3
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 9816
+      },
+      "writtenOn": "2022-06-07T15:44:05Z",
+      "side": 1,
+      "message": "I\u0027ve uploaded a new version. Please take a look.",
+      "revId": "36b11d6edbdd6b8106562911b18d464f92d04f83",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

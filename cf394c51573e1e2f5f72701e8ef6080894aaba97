@@ -1,0 +1,44 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "5d3fb65e_82547c9e",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 9
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2022-06-07T10:04:22Z",
+      "side": 1,
+      "message": "Drive by comment,",
+      "revId": "cf394c51573e1e2f5f72701e8ef6080894aaba97",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "ef70a0f7_3bad78e5",
+        "filename": "p2p/base/stun_request.cc",
+        "patchSetId": 9
+      },
+      "lineNbr": 244,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2022-06-07T10:04:22Z",
+      "side": 1,
+      "message": "Might deserve a comment. If I understand it correctly, it effectively cancels any previous SendDelayed? Is that unchanged behavior?",
+      "range": {
+        "startLine": 244,
+        "startChar": 0,
+        "endLine": 244,
+        "endChar": 23
+      },
+      "revId": "cf394c51573e1e2f5f72701e8ef6080894aaba97",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

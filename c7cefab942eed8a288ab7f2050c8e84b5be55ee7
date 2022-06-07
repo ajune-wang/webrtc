@@ -16,6 +16,29 @@
       "message": "solution alternative to https://webrtc-review.googlesource.com/c/src/+/264827",
       "revId": "c7cefab942eed8a288ab7f2050c8e84b5be55ee7",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "3a7966be_2ae44cf8",
+        "filename": "call/rtp_payload_params.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 60,
+      "author": {
+        "id": 5527
+      },
+      "writtenOn": "2022-06-07T17:18:42Z",
+      "side": 1,
+      "message": "nit: Not sure if these functions add clarity, would prefer not to have them.",
+      "range": {
+        "startLine": 55,
+        "startChar": 0,
+        "endLine": 60,
+        "endChar": 56
+      },
+      "revId": "c7cefab942eed8a288ab7f2050c8e84b5be55ee7",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

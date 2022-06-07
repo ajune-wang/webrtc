@@ -1,0 +1,38 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "c9b27052_5b5ed080",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 17
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2022-06-07T10:33:48Z",
+      "side": 1,
+      "message": "Looks good (having a query operator not mutate things is good for the principle of least surprise).\n\nOne question (nit) about the API shape and possible usages.",
+      "revId": "a1dc57276503d6a0fd43351e85db5d98cf0895df",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "c8e4ba69_3bdeb207",
+        "filename": "net/dcsctp/tx/rr_send_queue.cc",
+        "patchSetId": 17
+      },
+      "lineNbr": 131,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2022-06-07T10:33:48Z",
+      "side": 1,
+      "message": "this is just stylistic - but if the caller has to be prepared to receive nothing, does it make sense to police the has-to-have-an-item requirement?\nThe user of this class might choose to call Produce() and handle emptiness instead of using HasDataToSend() before calling this one.",
+      "revId": "a1dc57276503d6a0fd43351e85db5d98cf0895df",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

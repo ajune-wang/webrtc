@@ -191,6 +191,24 @@
       "parentUuid": "440615c7_69a449d7",
       "revId": "ef5dabfdb3e484d75b2799c6c3b43b22130a34a2",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "1eb24813_8acd73fe",
+        "filename": "net/dcsctp/tx/stream_scheduler_test.cc",
+        "patchSetId": 19
+      },
+      "lineNbr": 137,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2022-06-07T20:33:04Z",
+      "side": 1,
+      "message": "Looks better!\n\nwould have looked even more obvious if the first stream created mids 0, 1 and 2, and the second stream created mids 100,n101, 102, with the resulting sequence being 0, 100, 1, 101, 2, 102 ... but this is certainly good enough!",
+      "parentUuid": "fc9c9d2e_7850c4da",
+      "revId": "ef5dabfdb3e484d75b2799c6c3b43b22130a34a2",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

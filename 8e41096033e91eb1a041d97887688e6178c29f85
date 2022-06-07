@@ -16,6 +16,29 @@
       "message": "new version,\nadded 1 test case to peer_connection_integration_test\nPTAL",
       "revId": "8e41096033e91eb1a041d97887688e6178c29f85",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "79e0612b_36edc987",
+        "filename": "pc/peer_connection_integrationtest.cc",
+        "patchSetId": 10
+      },
+      "lineNbr": 3641,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2022-06-07T09:42:35Z",
+      "side": 1,
+      "message": "If the test just wants to check how OnCurrentEncoder is called, perhaps using a gmock class would be better?",
+      "range": {
+        "startLine": 3623,
+        "startChar": 0,
+        "endLine": 3641,
+        "endChar": 4
+      },
+      "revId": "8e41096033e91eb1a041d97887688e6178c29f85",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

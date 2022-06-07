@@ -35,6 +35,24 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "75b21b1e_a06c05bd",
+        "filename": "net/dcsctp/tx/stream_scheduler.cc",
+        "patchSetId": 19
+      },
+      "lineNbr": 106,
+      "author": {
+        "id": 12215
+      },
+      "writtenOn": "2022-06-07T20:05:54Z",
+      "side": 1,
+      "message": "It\u0027s the smallest positive integer. And TBH: It just needs to be \u003e 0, and not even an integer. I added a comment on this",
+      "parentUuid": "761ad04c_1ae6061e",
+      "revId": "ef5dabfdb3e484d75b2799c6c3b43b22130a34a2",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "3943d8f1_15acbb6c",
@@ -48,6 +66,24 @@
       "writtenOn": "2022-06-07T10:54:40Z",
       "side": 1,
       "message": "style nit - seems odd to allocate a temporary here.",
+      "revId": "ef5dabfdb3e484d75b2799c6c3b43b22130a34a2",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "ddd34b68_0352eec7",
+        "filename": "net/dcsctp/tx/stream_scheduler.cc",
+        "patchSetId": 19
+      },
+      "lineNbr": 139,
+      "author": {
+        "id": 12215
+      },
+      "writtenOn": "2022-06-07T20:05:54Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "3943d8f1_15acbb6c",
       "revId": "ef5dabfdb3e484d75b2799c6c3b43b22130a34a2",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
@@ -69,6 +105,24 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "7ecc318f_097b4206",
+        "filename": "net/dcsctp/tx/stream_scheduler.h",
+        "patchSetId": 19
+      },
+      "lineNbr": 42,
+      "author": {
+        "id": 12215
+      },
+      "writtenOn": "2022-06-07T20:05:54Z",
+      "side": 1,
+      "message": "Yes, it defines VirtualTime to be a double - and that\u0027s actually unneeded in this round robin algorithm (it could be an integer), but is needed for the WFQ algorithm.\n\nVirtual Time doesn\u0027t have an obvious unit. It creates a virtual timeline of when streams are scheduled to produce data. All active streams have a calculated virtual finish time - representing when they are allowed to produce data, and then the \"current virtual time\" advances to the next virtual finish time each iteration, which picks which stream to produce from.\n\nWhen using round robin scheduling, the virtual finish time of a stream simply increases by one (1) whenever it has produced any data, so that it will \"move back in line\" compared to any other stream that had the same virtual finish time. To use virtual time for a round robin algorithm only makes sense when you want to support multiple algorithms (see below), and in this case, the unit is ... well, unit-less?\n\nFor the FQ[1] algorithm, suddenly this virtual time changes unit. Then the virtual finish time represent when a stream has sent its data (or well, its packet), meaning that the virtual finish time represents \"some kind of clock time\", but it\u0027s not wall time as we\u0027re not adjusting it by the bandwidth. A stream\u0027s virtual finish time is then proportional (or equal) to the packet size. If a stream sends many small packets, its virtual finish time will increase in small steps, and will be allowed to produce more packets than a stream that sends large packets - and that will have a virtual finish time further away into the future.\n\nAnd then we come to the WFQ[2] algorithm, which builds upon the FQ algorithm and just adds a weight to every stream, so that its virtual finish time is adjusted by the weight. A more important \u003d higher priority \u003d lower weight - will have a virtual finish time that comes _before_ a less important \u003d lower priority \u003d higher weight stream. And the weight is defined as 1/priority, and priority is a number.\n\nAnd because of the 1/priority, I\u0027m using a double here. It can likely be transformed to integer math, but I don\u0027t quite see the value.\n\nSo what is the unit? I don\u0027t have a good answer.\n\nBut I did write a shorter explanation of virtual time in the class description, which really should\u0027ve been mentioned. Sorry for not doing that, as it really helps to review the code.\n\n[1] http://people.csail.mit.edu/imcgraw/links/research/pubs/networks/WFQ.pdf\n[2] http://www.cs.columbia.edu/~ricardo/misc/docs/gps.pdf",
+      "parentUuid": "e39abde3_74eb0b73",
+      "revId": "ef5dabfdb3e484d75b2799c6c3b43b22130a34a2",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "726cbe35_25fd8dc6",
@@ -86,6 +140,24 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "b356f646_73aaf337",
+        "filename": "net/dcsctp/tx/stream_scheduler.h",
+        "patchSetId": 19
+      },
+      "lineNbr": 172,
+      "author": {
+        "id": 12215
+      },
+      "writtenOn": "2022-06-07T20:05:54Z",
+      "side": 1,
+      "message": "You\u0027re right - inverting it makes more sense. Thanks, and done!",
+      "parentUuid": "726cbe35_25fd8dc6",
+      "revId": "ef5dabfdb3e484d75b2799c6c3b43b22130a34a2",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "440615c7_69a449d7",
@@ -99,6 +171,24 @@
       "writtenOn": "2022-06-07T10:54:40Z",
       "side": 1,
       "message": "the MID assignment seems like it\u0027s a bit deterministic - an implementation that sorted on MID would achiheve alternate-streams behavior.\nIs it required to be deterministic, or could we make it be more messy?",
+      "revId": "ef5dabfdb3e484d75b2799c6c3b43b22130a34a2",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "fc9c9d2e_7850c4da",
+        "filename": "net/dcsctp/tx/stream_scheduler_test.cc",
+        "patchSetId": 19
+      },
+      "lineNbr": 137,
+      "author": {
+        "id": 12215
+      },
+      "writtenOn": "2022-06-07T20:05:54Z",
+      "side": 1,
+      "message": "Let\u0027s mess it up!\n\nI still prefer to make tests easy to read - so not messing it up too much.",
+      "parentUuid": "440615c7_69a449d7",
       "revId": "ef5dabfdb3e484d75b2799c6c3b43b22130a34a2",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }

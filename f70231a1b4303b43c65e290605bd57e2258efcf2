@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "1583b1c3_e3c46ef9",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 19214
+      },
+      "writtenOn": "2022-06-07T15:00:02Z",
+      "side": 1,
+      "message": "This is a re-upload of https://webrtc-review.googlesource.com/c/src/+/262340 however to make it pass the Chromium tests I moved the flatland check earlier and if it doesn\u0027t pass we return a nullptr rather than a DesktopCapturer",
+      "revId": "f70231a1b4303b43c65e290605bd57e2258efcf2",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

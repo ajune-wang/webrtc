@@ -467,8 +467,13 @@ void RtpPayloadParams::Vp9ToGeneric(const CodecSpecificInfoVP9& vp9_info,
                                     RTPVideoHeader& rtp_video_header) {
   const auto& vp9_header =
       absl::get<RTPVideoHeaderVP9>(rtp_video_header.video_type_header);
-  const int num_spatial_layers = vp9_header.num_spatial_layers;
+  const int num_spatial_layers = kMaxSpatialLayers;
+  const int num_active_spatial_layers = vp9_header.num_spatial_layers;
   const int num_temporal_layers = kMaxTemporalStreams;
+  static_assert(kMaxSpatialLayers <=
+                RtpGenericFrameDescriptor::kMaxSpatialLayers);
+  static_assert(kMaxTemporalStreams <=
+                RtpGenericFrameDescriptor::kMaxTemporalLayers);
 
   int spatial_index =
       vp9_header.spatial_idx != kNoSpatialIdx ? vp9_header.spatial_idx : 0;
@@ -477,7 +482,7 @@ void RtpPayloadParams::Vp9ToGeneric(const CodecSpecificInfoVP9& vp9_info,
 
   if (spatial_index >= num_spatial_layers ||
       temporal_index >= num_temporal_layers ||
-      num_spatial_layers > RtpGenericFrameDescriptor::kMaxSpatialLayers) {
+      num_active_spatial_layers > num_spatial_layers) {
     // Prefer to generate no generic layering than an inconsistent one.
     return;
   }
@@ -541,6 +546,9 @@ void RtpPayloadParams::Vp9ToGeneric(const CodecSpecificInfoVP9& vp9_info,
   last_vp9_frame_id_[vp9_header.picture_id % kPictureDiffLimit][spatial_index] =
       shared_frame_id;
 
+  result.active_decode_targets =
+      ((uint32_t{1} << num_temporal_layers * num_active_spatial_layers) - 1);
+
   // Calculate chains, asuming chain includes all frames with temporal_id = 0
   if (!vp9_header.inter_pic_predicted && !vp9_header.inter_layer_predicted) {
     // Assume frames without dependencies also reset chains.
@@ -548,8 +556,8 @@ void RtpPayloadParams::Vp9ToGeneric(const CodecSpecificInfoVP9& vp9_info,
       chain_last_frame_id_[sid] = -1;
     }
   }
-  result.chain_diffs.resize(num_spatial_layers);
-  for (int sid = 0; sid < num_spatial_layers; ++sid) {
+  result.chain_diffs.resize(num_spatial_layers, 0);
+  for (int sid = 0; sid < num_active_spatial_layers; ++sid) {
     if (chain_last_frame_id_[sid] == -1) {
       result.chain_diffs[sid] = 0;
       continue;

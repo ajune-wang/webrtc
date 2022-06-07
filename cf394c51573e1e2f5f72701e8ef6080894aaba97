@@ -18,6 +18,23 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "0d860556_a40bcee2",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 9
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2022-06-07T10:25:28Z",
+      "side": 1,
+      "message": "Somewhat worried that we\u0027re not clear about whether this class is send-once or not (Nisse\u0027s comment). Please make clearer.",
+      "revId": "cf394c51573e1e2f5f72701e8ef6080894aaba97",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "ef70a0f7_3bad78e5",
@@ -31,6 +48,30 @@
       "writtenOn": "2022-06-07T10:04:22Z",
       "side": 1,
       "message": "Might deserve a comment. If I understand it correctly, it effectively cancels any previous SendDelayed? Is that unchanged behavior?",
+      "range": {
+        "startLine": 244,
+        "startChar": 0,
+        "endLine": 244,
+        "endChar": 23
+      },
+      "revId": "cf394c51573e1e2f5f72701e8ef6080894aaba97",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "d0ed548f_31ff14ec",
+        "filename": "p2p/base/stun_request.cc",
+        "patchSetId": 9
+      },
+      "lineNbr": 244,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2022-06-07T10:25:28Z",
+      "side": 1,
+      "message": "I think I understand the logic so that SendInternal() sends the packet and then sets it up to be sent again after a delay (using SendDelayed, which in turn calls SendInternal). In the old code, the Clear() in the destructor was the event that broke the loop; in the new code, it\u0027s the destruction of the pending task safety flag that breaks it.\n\nI can\u0027t find any place in the old code that guards against sending a request multiple times, but I think it would be an error; I\u0027d argue for replacing this line with RTC_DCHECK(\"we haven\u0027t tried to send this before\") and see if the tests pass.",
+      "parentUuid": "ef70a0f7_3bad78e5",
       "range": {
         "startLine": 244,
         "startChar": 0,

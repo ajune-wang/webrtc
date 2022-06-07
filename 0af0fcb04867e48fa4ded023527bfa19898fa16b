@@ -34,6 +34,24 @@
       "parentUuid": "5ebb9e0b_dd92c841",
       "revId": "0af0fcb04867e48fa4ded023527bfa19898fa16b",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "848ba2e6_de0ed5dd",
+        "filename": "p2p/base/stun_request.cc",
+        "patchSetId": 8
+      },
+      "lineNbr": 164,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2022-06-07T10:25:28Z",
+      "side": 0,
+      "message": "Can leave it out after 7 years. It belongs more on a security evaluation of the STUN mechanism (what attacks can be performed, and do they matter?)",
+      "parentUuid": "20625f1b_92332a72",
+      "revId": "0af0fcb04867e48fa4ded023527bfa19898fa16b",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

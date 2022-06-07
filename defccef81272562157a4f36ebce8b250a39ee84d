@@ -53,6 +53,24 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "127d8b0e_c46947fc",
+        "filename": "api/video_codecs/video_encoder_factory.h",
+        "patchSetId": 9
+      },
+      "lineNbr": 103,
+      "author": {
+        "id": 5613
+      },
+      "writtenOn": "2022-06-07T09:36:51Z",
+      "side": 1,
+      "message": "I agree with nisse@, let\u0027s keep it this way...and try to move the users to\nthe new shiny. ok ?",
+      "parentUuid": "f827083c_f60dea48",
+      "revId": "defccef81272562157a4f36ebce8b250a39ee84d",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "69874d90_5c471ce2",
@@ -66,6 +84,24 @@
       "writtenOn": "2022-06-03T12:15:26Z",
       "side": 1,
       "message": "Nit: due to the fact that the method",
+      "revId": "defccef81272562157a4f36ebce8b250a39ee84d",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "2af73c30_46aaff01",
+        "filename": "api/video_codecs/video_encoder_factory.h",
+        "patchSetId": 9
+      },
+      "lineNbr": 108,
+      "author": {
+        "id": 5613
+      },
+      "writtenOn": "2022-06-07T09:36:51Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "69874d90_5c471ce2",
       "revId": "defccef81272562157a4f36ebce8b250a39ee84d",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
@@ -87,6 +123,24 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "454f1f0a_0b8db55c",
+        "filename": "api/video_codecs/video_encoder_factory.h",
+        "patchSetId": 9
+      },
+      "lineNbr": 110,
+      "author": {
+        "id": 5613
+      },
+      "writtenOn": "2022-06-07T09:36:51Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "49a53b62_6b7f3219",
+      "revId": "defccef81272562157a4f36ebce8b250a39ee84d",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "d69046d8_a87081ca",
@@ -100,6 +154,24 @@
       "writtenOn": "2022-06-03T12:15:26Z",
       "side": 1,
       "message": "Nit: in such a scenario",
+      "revId": "defccef81272562157a4f36ebce8b250a39ee84d",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "fc153f61_d3d9c726",
+        "filename": "api/video_codecs/video_encoder_factory.h",
+        "patchSetId": 9
+      },
+      "lineNbr": 113,
+      "author": {
+        "id": 5613
+      },
+      "writtenOn": "2022-06-07T09:36:51Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "d69046d8_a87081ca",
       "revId": "defccef81272562157a4f36ebce8b250a39ee84d",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
@@ -121,6 +193,24 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "2a9a4512_683298ac",
+        "filename": "call/video_send_stream.h",
+        "patchSetId": 9
+      },
+      "lineNbr": 193,
+      "author": {
+        "id": 5613
+      },
+      "writtenOn": "2022-06-07T09:36:51Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "52b93bc0_2b15b6f6",
+      "revId": "defccef81272562157a4f36ebce8b250a39ee84d",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "66cbef92_d099c45c",
@@ -134,6 +224,24 @@
       "writtenOn": "2022-06-03T12:15:26Z",
       "side": 1,
       "message": "I would like this comment to refer to the behavior of this class, not the behavior of some other class. More conventional would be:\n\n\"The encoder_selector object must remain valid for the lifetime of the MediaChannel, unless replaced.\"",
+      "revId": "defccef81272562157a4f36ebce8b250a39ee84d",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "c4e468d9_54b10c80",
+        "filename": "media/base/media_channel.h",
+        "patchSetId": 9
+      },
+      "lineNbr": 249,
+      "author": {
+        "id": 5613
+      },
+      "writtenOn": "2022-06-07T09:36:51Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "66cbef92_d099c45c",
       "revId": "defccef81272562157a4f36ebce8b250a39ee84d",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
@@ -155,6 +263,24 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "5005a766_f50f2256",
+        "filename": "media/engine/webrtc_video_engine.h",
+        "patchSetId": 9
+      },
+      "lineNbr": 195,
+      "author": {
+        "id": 5613
+      },
+      "writtenOn": "2022-06-07T09:36:51Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "e4aacb06_799689ee",
+      "revId": "defccef81272562157a4f36ebce8b250a39ee84d",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "b7adb902_e3920930",
@@ -168,6 +294,24 @@
       "writtenOn": "2022-06-03T12:15:26Z",
       "side": 1,
       "message": "ditto here.",
+      "revId": "defccef81272562157a4f36ebce8b250a39ee84d",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "bde195fc_024489fe",
+        "filename": "media/engine/webrtc_video_engine.h",
+        "patchSetId": 9
+      },
+      "lineNbr": 361,
+      "author": {
+        "id": 5613
+      },
+      "writtenOn": "2022-06-07T09:36:51Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "b7adb902_e3920930",
       "revId": "defccef81272562157a4f36ebce8b250a39ee84d",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }

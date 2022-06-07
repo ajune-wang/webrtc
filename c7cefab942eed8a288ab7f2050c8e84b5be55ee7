@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "69409a06_5ebb2033",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2022-06-07T10:37:08Z",
+      "side": 1,
+      "message": "solution alternative to https://webrtc-review.googlesource.com/c/src/+/264827",
+      "revId": "c7cefab942eed8a288ab7f2050c8e84b5be55ee7",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

@@ -33,6 +33,24 @@
       "message": "this is just stylistic - but if the caller has to be prepared to receive nothing, does it make sense to police the has-to-have-an-item requirement?\nThe user of this class might choose to call Produce() and handle emptiness instead of using HasDataToSend() before calling this one.",
       "revId": "a1dc57276503d6a0fd43351e85db5d98cf0895df",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "465eb73f_84eced8d",
+        "filename": "net/dcsctp/tx/rr_send_queue.cc",
+        "patchSetId": 17
+      },
+      "lineNbr": 131,
+      "author": {
+        "id": 12215
+      },
+      "writtenOn": "2022-06-07T13:54:29Z",
+      "side": 1,
+      "message": "No, you\u0027re actually right - there\u0027s no sense to enforce that now, as the code supports it.\n\nI\u0027ll remove the check - Thanks",
+      "parentUuid": "c8e4ba69_3bdeb207",
+      "revId": "a1dc57276503d6a0fd43351e85db5d98cf0895df",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

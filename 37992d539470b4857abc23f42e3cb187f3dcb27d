@@ -18,6 +18,23 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "983a716e_835eed9a",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5524
+      },
+      "writtenOn": "2022-06-07T09:16:10Z",
+      "side": 1,
+      "message": "Nice, lgtm!\nAlso, thanks for adding round_robin_packet_queue_unittest.cc, though I hope to soon be able to kill that code 😊",
+      "revId": "37992d539470b4857abc23f42e3cb187f3dcb27d",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "41478ac2_e48d45be",
@@ -35,6 +52,24 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "66b4d1f7_42719c61",
+        "filename": "modules/pacing/round_robin_packet_queue.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 359,
+      "author": {
+        "id": 5524
+      },
+      "writtenOn": "2022-06-07T09:16:10Z",
+      "side": 1,
+      "message": "Afaict, the other branch is only run when called from MaybePromoteSinglePacketToNormalQueue(), in which case we don\u0027t want to increment the size.\nSo this should be fine.",
+      "parentUuid": "41478ac2_e48d45be",
+      "revId": "37992d539470b4857abc23f42e3cb187f3dcb27d",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "dec784d0_bcf30c0d",
@@ -48,6 +83,24 @@
       "writtenOn": "2022-06-07T08:53:14Z",
       "side": 1,
       "message": "What about kForwardErrorCorrection, does it matter if we pace FEC?",
+      "revId": "37992d539470b4857abc23f42e3cb187f3dcb27d",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "d004464b_750e37ef",
+        "filename": "modules/pacing/task_queue_paced_sender.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 308,
+      "author": {
+        "id": 5524
+      },
+      "writtenOn": "2022-06-07T09:16:10Z",
+      "side": 1,
+      "message": "Video FEC runs with the same pacing priority as video. I don\u0027t think we need to special case that here.",
+      "parentUuid": "dec784d0_bcf30c0d",
       "revId": "37992d539470b4857abc23f42e3cb187f3dcb27d",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }

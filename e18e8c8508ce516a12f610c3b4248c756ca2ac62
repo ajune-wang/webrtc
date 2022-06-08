@@ -16,6 +16,46 @@
       "message": "PTAL Alex!\n\nIt turns out merging a libyuv fix is not as straight-forward as merging one from webrtc so I\u0027m going to try this route to fix the empty rect crash.\n\nOnce this CL has been merged, I can back it out again (though we could also leave it in per Frank\u0027s comment).",
       "revId": "e18e8c8508ce516a12f610c3b4248c756ca2ac62",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "d918aa71_caaf86b3",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 18474
+      },
+      "writtenOn": "2022-06-08T22:52:32Z",
+      "side": 1,
+      "message": "Just to be sure I understand; so in this scenario we essentially just skip copying the frame if one of it\u0027s dimensions is 0, and we return an empty frame? Or has the data on the frame not yet been initialized?",
+      "revId": "e18e8c8508ce516a12f610c3b4248c756ca2ac62",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "1ee03428_2ee0d3f8",
+        "filename": "modules/desktop_capture/desktop_frame.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 48,
+      "author": {
+        "id": 18474
+      },
+      "writtenOn": "2022-06-08T22:52:32Z",
+      "side": 1,
+      "message": "Prefer Crbug to alias",
+      "range": {
+        "startLine": 48,
+        "startChar": 10,
+        "endLine": 48,
+        "endChar": 16
+      },
+      "revId": "e18e8c8508ce516a12f610c3b4248c756ca2ac62",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

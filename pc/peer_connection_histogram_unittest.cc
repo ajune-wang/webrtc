@@ -242,7 +242,7 @@ class PeerConnectionUsageHistogramTest : public ::testing::Test {
       WrapperPtr;
 
   PeerConnectionUsageHistogramTest()
-      : vss_(new rtc::VirtualSocketServer()), main_(vss_.get()) {
+      : vss_(std::make_unique<rtc::VirtualSocketServer>()), main_(vss_.get()) {
     webrtc::metrics::Reset();
   }
 

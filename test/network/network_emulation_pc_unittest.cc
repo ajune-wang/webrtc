@@ -26,6 +26,7 @@
 #include "pc/peer_connection_wrapper.h"
 #include "pc/test/mock_peer_connection_observers.h"
 #include "rtc_base/gunit.h"
+#include "rtc_base/null_socket_server.h"
 #include "test/gmock.h"
 #include "test/gtest.h"
 #include "test/network/network_emulation.h"

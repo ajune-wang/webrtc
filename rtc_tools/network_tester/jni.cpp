@@ -11,16 +11,23 @@
 #include <jni.h>
 #undef JNIEXPORT
 #define JNIEXPORT __attribute__((visibility("default")))
+#include <memory>
 #include <string>
+#include <utility>
 
+#include "rtc_base/thread.h"
 #include "rtc_tools/network_tester/test_controller.h"
 
 extern "C" JNIEXPORT jlong JNICALL
 Java_com_google_media_networktester_NetworkTester_CreateTestController(
     JNIEnv* jni,
     jclass) {
+  auto socket_server = std::make_unique<rtc::PhysicalSocketServer>();
+  rtc::SocketFactory socket_factory_ptr = socket_server.get();
+  rtc::ThreadManager::Instance()->WrapCurrentThread(std::move(socket_server));
+
   return reinterpret_cast<intptr_t>(new webrtc::TestController(
-      0, 0, "/mnt/sdcard/network_tester_client_config.dat",
+      socket_factory_ptr, 0, 0, "/mnt/sdcard/network_tester_client_config.dat",
       "/mnt/sdcard/network_tester_client_packet_log.dat"));
 }
 

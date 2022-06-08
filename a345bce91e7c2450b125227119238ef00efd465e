@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "face5551_22e77627",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5221
+      },
+      "writtenOn": "2022-06-08T22:40:15Z",
+      "side": 1,
+      "message": "Looks like a good safe work around that is good for long term too.",
+      "revId": "a345bce91e7c2450b125227119238ef00efd465e",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

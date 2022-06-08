@@ -1,0 +1,44 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "a9c38c37_1bddc2de",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 4
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 7015
+      },
+      "writtenOn": "2022-06-08T11:39:37Z",
+      "side": 1,
+      "message": "Great idea, while there may be a better way to implement it.",
+      "revId": "4adb78f4f44603d6d1931b1d10123975399b01df",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "89cfa80a_e60c6058",
+        "filename": "modules/audio_coding/neteq/neteq_impl.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 1026,
+      "author": {
+        "id": 7015
+      },
+      "writtenOn": "2022-06-08T11:39:37Z",
+      "side": 1,
+      "message": "I agree that nack_list_ in nack_ has to be updated more frequently, while I don\u0027t feel like calling UpdateLastDecodedPacket multiple times with the same arguments to trigger that update.",
+      "range": {
+        "startLine": 1025,
+        "startChar": 0,
+        "endLine": 1026,
+        "endChar": 68
+      },
+      "revId": "4adb78f4f44603d6d1931b1d10123975399b01df",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

@@ -154,6 +154,11 @@ class RtpRtcpInterface : public RtcpFeedbackSenderInterface {
     // not negotiated. If the RID and Repaired RID extensions are not
     // registered, the RID will not be sent.
     std::string rid;
+
+    // If non-empty, sets the value for sending in the MID RTP header extension.
+    // The MID RTP header extension should be registered for this to do
+    // anything.
+    std::string mid;
   };
 
   // Stats for RTCP sender reports (SR) for a specific SSRC.
@@ -257,11 +262,6 @@ class RtpRtcpInterface : public RtcpFeedbackSenderInterface {
 
   // Returns SSRC.
   virtual uint32_t SSRC() const = 0;
-
-  // Sets the value for sending in the MID RTP header extension.
-  // The MID RTP header extension should be registered for this to do anything.
-  // Once set, this value can not be changed or removed.
-  virtual void SetMid(absl::string_view mid) = 0;
 
   // Sets CSRC.
   // `csrcs` - vector of CSRCs

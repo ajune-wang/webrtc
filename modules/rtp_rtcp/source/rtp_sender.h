@@ -58,8 +58,6 @@ class RTPSender {
   uint32_t TimestampOffset() const RTC_LOCKS_EXCLUDED(send_mutex_);
   void SetTimestampOffset(uint32_t timestamp) RTC_LOCKS_EXCLUDED(send_mutex_);
 
-  void SetMid(absl::string_view mid) RTC_LOCKS_EXCLUDED(send_mutex_);
-
   uint16_t SequenceNumber() const RTC_LOCKS_EXCLUDED(send_mutex_);
   void SetSequenceNumber(uint16_t seq) RTC_LOCKS_EXCLUDED(send_mutex_);
 
@@ -196,7 +194,7 @@ class RTPSender {
   // RID value to send in the RID or RepairedRID header extension.
   const std::string rid_;
   // MID value to send in the MID header extension.
-  std::string mid_ RTC_GUARDED_BY(send_mutex_);
+  const std::string mid_;
   // Should we send MID/RID even when ACKed? (see below).
   const bool always_send_mid_and_rid_;
   // Track if any ACK has been received on the SSRC and RTX SSRC to indicate

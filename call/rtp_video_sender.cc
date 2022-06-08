@@ -233,6 +233,7 @@ std::vector<RtpStreamSender> CreateRtpStreamSenders(
   configuration.extmap_allow_mixed = rtp_config.extmap_allow_mixed;
   configuration.rtcp_report_interval_ms = rtcp_report_interval_ms;
   configuration.field_trials = &trials;
+  configuration.mid = rtp_config.mid;
 
   std::vector<RtpStreamSender> rtp_streams;
 
@@ -430,12 +431,6 @@ RtpVideoSender::RtpVideoSender(
   }
 
   ConfigureSsrcs(suspended_ssrcs);
-
-  if (!rtp_config_.mid.empty()) {
-    for (const RtpStreamSender& stream : rtp_streams_) {
-      stream.rtp_rtcp->SetMid(rtp_config_.mid);
-    }
-  }
 
   bool fec_enabled = false;
   for (const RtpStreamSender& stream : rtp_streams_) {

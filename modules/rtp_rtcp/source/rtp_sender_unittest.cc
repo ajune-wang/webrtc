@@ -163,9 +163,10 @@ class RtpSenderTest : public ::testing::Test {
     config.retransmission_rate_limiter = &retransmission_rate_limiter_;
     config.paced_sender = &mock_paced_sender_;
     config.field_trials = &field_trials_;
-    // Configure rid unconditionally, it has effect only if
+    // Configure rid and mid unconditionally, they have effect only if
     // corresponding header extension is enabled.
     config.rid = std::string(kRid);
+    config.mid = std::string(kMid);
     return config;
   }
 
@@ -272,9 +273,8 @@ class RtpSenderTest : public ::testing::Test {
 
   // Enable sending of the MID header extension for both the primary SSRC and
   // the RTX SSRC.
-  void EnableMidSending(absl::string_view mid) {
+  void EnableMidSending() {
     rtp_sender_->RegisterRtpHeaderExtension(RtpMid::Uri(), kMidExtensionId);
-    rtp_sender_->SetMid(mid);
   }
 
   // Enable sending of the RSID header extension for the primary SSRC and the
@@ -597,7 +597,7 @@ TEST_F(RtpSenderTest, KeepsTimestampsOnPayloadPadding) {
 // Test that the MID header extension is included on sent packets when
 // configured.
 TEST_F(RtpSenderTest, MidIncludedOnSentPackets) {
-  EnableMidSending(kMid);
+  EnableMidSending();
 
   // Send a couple packets, expect both packets to have the MID set.
   EXPECT_CALL(mock_paced_sender_,
@@ -642,7 +642,7 @@ TEST_F(RtpSenderTest, RidIncludedOnRtxSentPackets) {
 }
 
 TEST_F(RtpSenderTest, MidAndRidNotIncludedOnSentPacketsAfterAck) {
-  EnableMidSending(kMid);
+  EnableMidSending();
   EnableRidSending();
 
   // This first packet should include both MID and RID.
@@ -665,7 +665,7 @@ TEST_F(RtpSenderTest, MidAndRidNotIncludedOnSentPacketsAfterAck) {
 
 TEST_F(RtpSenderTest, MidAndRidAlwaysIncludedOnSentPacketsWhenConfigured) {
   SetUpRtpSender(false, /*always_send_mid_and_rid=*/true, nullptr);
-  EnableMidSending(kMid);
+  EnableMidSending();
   EnableRidSending();
 
   // Send two media packets: one before and one after the ack.
@@ -687,7 +687,7 @@ TEST_F(RtpSenderTest, MidAndRidAlwaysIncludedOnSentPacketsWhenConfigured) {
 // SSRC.
 TEST_F(RtpSenderTest, MidAndRidIncludedOnFirstRtxPacket) {
   EnableRtx();
-  EnableMidSending(kMid);
+  EnableMidSending();
   EnableRidSending();
 
   // This first packet will include both MID and RID.
@@ -718,7 +718,7 @@ TEST_F(RtpSenderTest, MidAndRidIncludedOnFirstRtxPacket) {
 // had a MID or RID.
 TEST_F(RtpSenderTest, MidAndRidNotIncludedOnRtxPacketsAfterAck) {
   EnableRtx();
-  EnableMidSending(kMid);
+  EnableMidSending();
   EnableRidSending();
 
   // This first packet will include both MID and RID.
@@ -759,7 +759,7 @@ TEST_F(RtpSenderTest, MidAndRidNotIncludedOnRtxPacketsAfterAck) {
 TEST_F(RtpSenderTest, MidAndRidAlwaysIncludedOnRtxPacketsWhenConfigured) {
   SetUpRtpSender(false, /*always_send_mid_and_rid=*/true, nullptr);
   EnableRtx();
-  EnableMidSending(kMid);
+  EnableMidSending();
   EnableRidSending();
 
   // Send two media packets: one before and one after the ack.
@@ -802,7 +802,7 @@ TEST_F(RtpSenderTest, MidAndRidAlwaysIncludedOnRtxPacketsWhenConfigured) {
 // Test that if the RtpState indicates an ACK has been received on that SSRC
 // then neither the MID nor RID header extensions will be sent.
 TEST_F(RtpSenderTest, MidAndRidNotIncludedOnSentPacketsAfterRtpStateRestored) {
-  EnableMidSending(kMid);
+  EnableMidSending();
   EnableRidSending();
 
   RtpState state = rtp_sender_->GetRtpState();
@@ -823,7 +823,7 @@ TEST_F(RtpSenderTest, MidAndRidNotIncludedOnSentPacketsAfterRtpStateRestored) {
 // RTX packets.
 TEST_F(RtpSenderTest, MidAndRridNotIncludedOnRtxPacketsAfterRtpStateRestored) {
   EnableRtx();
-  EnableMidSending(kMid);
+  EnableMidSending();
   EnableRidSending();
 
   RtpState rtx_state = rtp_sender_->GetRtxRtpState();
@@ -932,7 +932,6 @@ TEST_F(RtpSenderTest, CountMidOnlyUntilAcked) {
 
   // Counted only if set.
   EXPECT_EQ(rtp_sender_->ExpectedPerPacketOverhead(), 12u);
-  rtp_sender_->SetMid("foo");
   EXPECT_EQ(rtp_sender_->ExpectedPerPacketOverhead(), 36u);
   rtp_sender_->RegisterRtpHeaderExtension(RtpStreamId::Uri(), kRidExtensionId);
   EXPECT_EQ(rtp_sender_->ExpectedPerPacketOverhead(), 52u);

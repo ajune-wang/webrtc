@@ -35,6 +35,24 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "2001e0c6_2f8c1d2a",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 19214
+      },
+      "writtenOn": "2022-06-08T12:13:13Z",
+      "side": 1,
+      "message": "Yes, that\u0027s right.",
+      "parentUuid": "f3d75792_1a6df200",
+      "revId": "f70231a1b4303b43c65e290605bd57e2258efcf2",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "7543828a_b36bb4f0",

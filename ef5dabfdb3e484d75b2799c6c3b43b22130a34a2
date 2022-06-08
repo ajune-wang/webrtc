@@ -209,6 +209,24 @@
       "parentUuid": "fc9c9d2e_7850c4da",
       "revId": "ef5dabfdb3e484d75b2799c6c3b43b22130a34a2",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "7a9fdb11_4cb0c748",
+        "filename": "net/dcsctp/tx/stream_scheduler_test.cc",
+        "patchSetId": 19
+      },
+      "lineNbr": 137,
+      "author": {
+        "id": 12215
+      },
+      "writtenOn": "2022-06-08T20:44:38Z",
+      "side": 1,
+      "message": "That\u0027s a good idea. I changed so that it\u0027s now \u003cstream_id\u003e\u003csequence_nbr\u003e, i.e. 100, 101, 102 - and 200, 201, 202.",
+      "parentUuid": "1eb24813_8acd73fe",
+      "revId": "ef5dabfdb3e484d75b2799c6c3b43b22130a34a2",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

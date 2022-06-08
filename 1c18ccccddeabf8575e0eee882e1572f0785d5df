@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "3a5eb2f2_aa2ad334",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 3
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2022-06-08T07:53:16Z",
+      "side": 1,
+      "message": "I think this can be landed now; downstream usage has been migrated.",
+      "revId": "1c18ccccddeabf8575e0eee882e1572f0785d5df",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

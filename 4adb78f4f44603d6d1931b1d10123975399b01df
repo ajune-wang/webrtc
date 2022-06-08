@@ -39,6 +39,30 @@
       },
       "revId": "4adb78f4f44603d6d1931b1d10123975399b01df",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "b1d0c99b_e365b92e",
+        "filename": "modules/audio_coding/neteq/neteq_impl.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 1026,
+      "author": {
+        "id": 8038
+      },
+      "writtenOn": "2022-06-08T14:35:20Z",
+      "side": 1,
+      "message": "Sure, it might be a bit weird. Note that I\u0027m just using the NackTracker as it is designed to work (not by me, read the definition of UpdateLastDecodedPacket).\n\nDo you think it would be better to add a \"OnGetAudio\" function in NackTracker that we call instead?",
+      "parentUuid": "89cfa80a_e60c6058",
+      "range": {
+        "startLine": 1025,
+        "startChar": 0,
+        "endLine": 1026,
+        "endChar": 68
+      },
+      "revId": "4adb78f4f44603d6d1931b1d10123975399b01df",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

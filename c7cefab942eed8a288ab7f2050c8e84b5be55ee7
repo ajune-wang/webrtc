@@ -39,6 +39,30 @@
       },
       "revId": "c7cefab942eed8a288ab7f2050c8e84b5be55ee7",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "ce7c2ad7_262aa29f",
+        "filename": "call/rtp_payload_params.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 60,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2022-06-08T08:09:23Z",
+      "side": 1,
+      "message": "This functions allow to keep number of spatial/temporal layeres in the simulated structure internal to the RtpPayloadParams class (otherwise RtpVideoSender has to exactly know how many spatial/temporal layers will be simulated.)\n\nI\u0027ve made further steps and... discovered two bugs: RtpVideoSender was setting resolution using wrong number of spatial layers. Moving that code into RtpPayloadParams made it easier to detect.\n(2nd bug - I\u0027ve noticed vp9 wrapper may set 0 resolution sometimes. DD doesn\u0027t support that)",
+      "parentUuid": "3a7966be_2ae44cf8",
+      "range": {
+        "startLine": 55,
+        "startChar": 0,
+        "endLine": 60,
+        "endChar": 56
+      },
+      "revId": "c7cefab942eed8a288ab7f2050c8e84b5be55ee7",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

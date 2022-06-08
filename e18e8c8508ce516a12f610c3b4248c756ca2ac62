@@ -35,6 +35,24 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "6dbe2203_1c608f72",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 13849
+      },
+      "writtenOn": "2022-06-08T23:00:51Z",
+      "side": 1,
+      "message": "The scenario I know of is where a 0x0 mouse cursor is provided in CrOS.  Calling CopyPlane should be a no-op however for a subset of CPU-optimized codepaths a copy is attempted erroneously.\n\nI do know this occurs in other situations as I\u0027ve seen similar crash reports on other CRD OS platforms.",
+      "parentUuid": "d918aa71_caaf86b3",
+      "revId": "e18e8c8508ce516a12f610c3b4248c756ca2ac62",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "1ee03428_2ee0d3f8",
@@ -48,6 +66,30 @@
       "writtenOn": "2022-06-08T22:52:32Z",
       "side": 1,
       "message": "Prefer Crbug to alias",
+      "range": {
+        "startLine": 48,
+        "startChar": 10,
+        "endLine": 48,
+        "endChar": 16
+      },
+      "revId": "e18e8c8508ce516a12f610c3b4248c756ca2ac62",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "00a7144c_558a8c9d",
+        "filename": "modules/desktop_capture/desktop_frame.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 48,
+      "author": {
+        "id": 13849
+      },
+      "writtenOn": "2022-06-08T23:00:51Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "1ee03428_2ee0d3f8",
       "range": {
         "startLine": 48,
         "startChar": 10,

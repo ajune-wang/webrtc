@@ -1,0 +1,67 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "797662de_7f7c96ad",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 3
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 18474
+      },
+      "writtenOn": "2022-06-08T17:19:22Z",
+      "side": 1,
+      "message": "LGTM with minor comment addition/tweaks.",
+      "revId": "d344a0dc6f944ae9736eefc7172ad50245409907",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "7b636009_a3342ff9",
+        "filename": "modules/desktop_capture/linux/wayland/shared_screencast_stream.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 607,
+      "author": {
+        "id": 18474
+      },
+      "writtenOn": "2022-06-08T17:19:22Z",
+      "side": 1,
+      "message": "I\u0027m assuming this is the import you refer to in the later comment. Can you add some kind of comment about the usage of stride here/that we\u0027re doing this import?",
+      "range": {
+        "startLine": 596,
+        "startChar": 0,
+        "endLine": 607,
+        "endChar": 25
+      },
+      "revId": "d344a0dc6f944ae9736eefc7172ad50245409907",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "be2c3a63_3b20db13",
+        "filename": "modules/desktop_capture/linux/wayland/shared_screencast_stream.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 684,
+      "author": {
+        "id": 18474
+      },
+      "writtenOn": "2022-06-08T17:19:22Z",
+      "side": 1,
+      "message": "NIT: This reads ~like a todo. Can you add it below the rest of the explanatory comment as something like \"For more context see https://crbug.com/1333304\"",
+      "range": {
+        "startLine": 684,
+        "startChar": 0,
+        "endLine": 684,
+        "endChar": 26
+      },
+      "revId": "d344a0dc6f944ae9736eefc7172ad50245409907",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

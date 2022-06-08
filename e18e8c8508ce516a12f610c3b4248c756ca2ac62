@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "79bba2fc_30fe0409",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 13849
+      },
+      "writtenOn": "2022-06-08T22:45:43Z",
+      "side": 1,
+      "message": "PTAL Alex!\n\nIt turns out merging a libyuv fix is not as straight-forward as merging one from webrtc so I\u0027m going to try this route to fix the empty rect crash.\n\nOnce this CL has been merged, I can back it out again (though we could also leave it in per Frank\u0027s comment).",
+      "revId": "e18e8c8508ce516a12f610c3b4248c756ca2ac62",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

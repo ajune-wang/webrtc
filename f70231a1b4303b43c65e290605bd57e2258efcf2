@@ -58,6 +58,30 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "87dd86af_7be66b57",
+        "filename": "modules/desktop_capture/screen_capturer_fuchsia.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 205,
+      "author": {
+        "id": 19214
+      },
+      "writtenOn": "2022-06-08T12:12:48Z",
+      "side": 1,
+      "message": "For some reason I thought you could only grab it once but I tried it out and it\u0027s fine. Fixed.",
+      "parentUuid": "7543828a_b36bb4f0",
+      "range": {
+        "startLine": 205,
+        "startChar": 23,
+        "endLine": 205,
+        "endChar": 41
+      },
+      "revId": "f70231a1b4303b43c65e290605bd57e2258efcf2",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "c77686c7_68ff73d9",
@@ -71,6 +95,30 @@
       "writtenOn": "2022-06-07T17:14:36Z",
       "side": 1,
       "message": "I\u0027m not a fan of this un-named side-effect happening in here. We should just re-query it when we setup the buffers.",
+      "range": {
+        "startLine": 230,
+        "startChar": 0,
+        "endLine": 231,
+        "endChar": 38
+      },
+      "revId": "f70231a1b4303b43c65e290605bd57e2258efcf2",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "5bc27515_4e5aeb55",
+        "filename": "modules/desktop_capture/screen_capturer_fuchsia.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 231,
+      "author": {
+        "id": 19214
+      },
+      "writtenOn": "2022-06-08T12:12:48Z",
+      "side": 1,
+      "message": "Yep. Agree.",
+      "parentUuid": "c77686c7_68ff73d9",
       "range": {
         "startLine": 230,
         "startChar": 0,

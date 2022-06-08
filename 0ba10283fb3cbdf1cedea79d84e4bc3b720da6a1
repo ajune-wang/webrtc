@@ -46,6 +46,30 @@
       },
       "revId": "0ba10283fb3cbdf1cedea79d84e4bc3b720da6a1",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "6fddd1aa_df52bba9",
+        "filename": "modules/desktop_capture/desktop_frame.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 172,
+      "author": {
+        "id": 6092
+      },
+      "writtenOn": "2022-06-08T22:57:30Z",
+      "side": 1,
+      "message": "I think I see the issue? Generally, stride is bigger than width, so the stride should control the calculation of how much memory to allocate or copy?\n\nIn particular, `new BasicDesktopFrame(frame.size())` would create a new frame with stride \u003d\u003d width, so if the old frame had a different (bigger) stride, the memory could not simply be bulk-copied using memcpy().",
+      "parentUuid": "54aa3917_e31175dd",
+      "range": {
+        "startLine": 172,
+        "startChar": 0,
+        "endLine": 172,
+        "endChar": 77
+      },
+      "revId": "0ba10283fb3cbdf1cedea79d84e4bc3b720da6a1",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

@@ -94,6 +94,30 @@
       },
       "revId": "0ba10283fb3cbdf1cedea79d84e4bc3b720da6a1",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "8763cb2a_3a3e455c",
+        "filename": "modules/desktop_capture/desktop_frame.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 172,
+      "author": {
+        "id": 18779
+      },
+      "writtenOn": "2022-06-09T08:16:36Z",
+      "side": 1,
+      "message": "ok I think I understand, if the source frame is a `BasicDesktopFrame` we can trust the size of `data_` (as we know how much was allocated in the constructor), but if the source frame is any other `DesktopFrame`implementation the size of `data_` might deviate in the areas you\u0027ve outlined.\n\nThanks for clarifying!",
+      "parentUuid": "747e9d98_6fdcd06e",
+      "range": {
+        "startLine": 172,
+        "startChar": 0,
+        "endLine": 172,
+        "endChar": 77
+      },
+      "revId": "0ba10283fb3cbdf1cedea79d84e4bc3b720da6a1",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

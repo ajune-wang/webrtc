@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "9edc1191_967f8553",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 13849
+      },
+      "writtenOn": "2022-06-09T00:08:27Z",
+      "side": 1,
+      "message": "Another clean merge, PTAL (and commit +2 please as I don\u0027t have that option available).\n\nThanks!",
+      "revId": "34dff580ef652c21d9e75f0da0740429d817a044",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

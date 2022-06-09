@@ -70,6 +70,30 @@
       },
       "revId": "0ba10283fb3cbdf1cedea79d84e4bc3b720da6a1",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "747e9d98_6fdcd06e",
+        "filename": "modules/desktop_capture/desktop_frame.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 172,
+      "author": {
+        "id": 5221
+      },
+      "writtenOn": "2022-06-09T06:50:05Z",
+      "side": 1,
+      "message": "There are a few scenarios where width and stride dont match\n1. the frame may have row padding to make it hardware compatible. e.g. a power of 2\nthe last row may also be missing the padding.\n2. a window on a desktop could have a stride of the desktop but the width and height of the window\n3. stride can be negative with the pointer to the last row.\n\nin libyuv I check the stride \u003d\u003d width and do a single memcpy, but if the stride does not match, copy row by row.\nhttps://source.corp.google.com/piper///depot/google3/third_party/libyuv/files/source/planar_functions.cc;l\u003d47-52?q\u003dplanar_functions%20%2F%2F%20Coalesce%20rows.\n\nBut that relates to the bug we found.  If the width, height and stride are 0, it changes it into a 0x1 image.  Instead of doing 0 rows, it does 1 row with 0 pixels.  Most of the low levels would do nothing.\nERMS is used on most Intel CPUs with AVX or greater.  This is a single rep movsb instruction with a count of 0.\nThe C version uses memcpy and will do nothing.\nSo its the SSE, AVX and NEON versions that would loop once, copying 16 bytes.\nEven now, ASAN isnt catching this?  And the unittests pass.\n\nThe fixed is to check for 0 and return early.",
+      "parentUuid": "6fddd1aa_df52bba9",
+      "range": {
+        "startLine": 172,
+        "startChar": 0,
+        "endLine": 172,
+        "endChar": 77
+      },
+      "revId": "0ba10283fb3cbdf1cedea79d84e4bc3b720da6a1",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

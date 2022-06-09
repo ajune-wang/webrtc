@@ -58,6 +58,30 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "a3306122_a846e5c5",
+        "filename": "modules/desktop_capture/linux/wayland/shared_screencast_stream.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 607,
+      "author": {
+        "id": 8046
+      },
+      "writtenOn": "2022-06-09T07:38:20Z",
+      "side": 1,
+      "message": "Added a comment. Let me know if you expected something else or if it\u0027s fine. Thanks.",
+      "parentUuid": "7b636009_a3342ff9",
+      "range": {
+        "startLine": 596,
+        "startChar": 0,
+        "endLine": 607,
+        "endChar": 25
+      },
+      "revId": "d344a0dc6f944ae9736eefc7172ad50245409907",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "be2c3a63_3b20db13",
@@ -71,6 +95,30 @@
       "writtenOn": "2022-06-08T17:19:22Z",
       "side": 1,
       "message": "NIT: This reads ~like a todo. Can you add it below the rest of the explanatory comment as something like \"For more context see https://crbug.com/1333304\"",
+      "range": {
+        "startLine": 684,
+        "startChar": 0,
+        "endLine": 684,
+        "endChar": 26
+      },
+      "revId": "d344a0dc6f944ae9736eefc7172ad50245409907",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "5b026cdc_b005065c",
+        "filename": "modules/desktop_capture/linux/wayland/shared_screencast_stream.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 684,
+      "author": {
+        "id": 8046
+      },
+      "writtenOn": "2022-06-09T07:38:20Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "be2c3a63_3b20db13",
       "range": {
         "startLine": 684,
         "startChar": 0,

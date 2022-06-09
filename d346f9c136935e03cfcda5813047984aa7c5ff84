@@ -24,6 +24,30 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "62ca5fd6_734d3b98",
+        "filename": "modules/desktop_capture/screen_capturer_fuchsia.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 63,
+      "author": {
+        "id": 19214
+      },
+      "writtenOn": "2022-06-09T07:39:33Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "cdc0c98d_53fd26c7",
+      "range": {
+        "startLine": 59,
+        "startChar": 0,
+        "endLine": 63,
+        "endChar": 17
+      },
+      "revId": "d346f9c136935e03cfcda5813047984aa7c5ff84",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "a048b88d_4aa2ba3b",
@@ -41,6 +65,24 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "442d3e89_2ddfd2ed",
+        "filename": "modules/desktop_capture/screen_capturer_fuchsia.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 68,
+      "author": {
+        "id": 19214
+      },
+      "writtenOn": "2022-06-09T07:39:33Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "a048b88d_4aa2ba3b",
+      "revId": "d346f9c136935e03cfcda5813047984aa7c5ff84",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "b995db4d_3a31d0e2",
@@ -54,6 +96,30 @@
       "writtenOn": "2022-06-08T16:50:17Z",
       "side": 1,
       "message": "Looks like this can just do assignment rather than this, which is a bit more clear about the return type, so e.g.\n\n```\nstd::unique_ptr\u003csys::ComponentContext\u003e component_context \u003d \n    sys::ComponentContext::CreateAndServeOutgoingDirectory();\n```\n\nOtherwise, it\u0027s not clear that this returns a unique_ptr instead of a raw ptr.",
+      "range": {
+        "startLine": 85,
+        "startChar": 0,
+        "endLine": 86,
+        "endChar": 64
+      },
+      "revId": "d346f9c136935e03cfcda5813047984aa7c5ff84",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "3b32f7b5_b7a97fd4",
+        "filename": "modules/desktop_capture/screen_capturer_fuchsia.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 86,
+      "author": {
+        "id": 19214
+      },
+      "writtenOn": "2022-06-09T07:39:33Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "b995db4d_3a31d0e2",
       "range": {
         "startLine": 85,
         "startChar": 0,

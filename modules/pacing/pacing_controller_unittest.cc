@@ -1756,7 +1756,7 @@ TEST_F(PacingControllerTest,
   }
 }
 
-TEST_F(PacingControllerTest, AccountsForAudioEnqueuTime) {
+TEST_F(PacingControllerTest, AccountsForAudioEnqueueTime) {
   const uint32_t kSsrc = 12345;
   const DataRate kPacingDataRate = DataRate::KilobitsPerSec(125);
   const DataRate kPaddingDataRate = DataRate::Zero();
@@ -2061,6 +2061,46 @@ TEST_F(PacingControllerTest, RespectsTargetRateWhenSendingPacketsInBursts) {
   }
   EXPECT_EQ(pacer.QueueSizePackets(), 88u);
   EXPECT_EQ(number_of_bursts, 4);
+}
+
+TEST_F(PacingControllerTest, RespectsQueueTimeLimit) {
+  static constexpr DataSize kPacketSize = DataSize::Bytes(100);
+  static constexpr DataRate kNominalPacingRate = DataRate::KilobitsPerSec(200);
+  static constexpr TimeDelta kPacketPacingTime =
+      kPacketSize / kNominalPacingRate;
+  static constexpr TimeDelta kQueueTimeLimit = TimeDelta::Millis(1000);
+
+  PacingController pacer(&clock_, &callback_, trials_);
+  pacer.SetPacingRates(kNominalPacingRate, /*padding_rate=*/DataRate::Zero());
+  pacer.SetQueueTimeLimit(kQueueTimeLimit);
+
+  // Fill pacer up to queue time limit.
+  static constexpr int kNumPackets = kQueueTimeLimit / kPacketPacingTime;
+  for (int i = 0; i < kNumPackets; ++i) {
+    pacer.EnqueuePacket(video_.BuildNextPacket(kPacketSize.bytes()));
+  }
+  EXPECT_EQ(pacer.ExpectedQueueTime(), kQueueTimeLimit);
+  EXPECT_EQ(pacer.pacing_rate(), kNominalPacingRate);
+
+  // Double the amount of packets in the queue, the queue time limit should
+  // effectively double the pacing rate in response.
+  for (int i = 0; i < kNumPackets; ++i) {
+    pacer.EnqueuePacket(video_.BuildNextPacket(kPacketSize.bytes()));
+  }
+  EXPECT_EQ(pacer.ExpectedQueueTime(), kQueueTimeLimit);
+  EXPECT_EQ(pacer.pacing_rate(), 2 * kNominalPacingRate);
+
+  // Send all the packets, should take as long as the queue time limit.
+  Timestamp start_time = clock_.CurrentTime();
+  while (pacer.QueueSizePackets() > 0) {
+    AdvanceTimeUntil(pacer.NextSendTime());
+    pacer.ProcessPackets();
+  }
+  EXPECT_EQ(clock_.CurrentTime() - start_time, kQueueTimeLimit);
+
+  // We're back in a normal state - pacing rate should be back to previous
+  // levels.
+  EXPECT_EQ(pacer.pacing_rate(), kNominalPacingRate);
 }
 
 }  // namespace

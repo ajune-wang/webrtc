@@ -35,6 +35,24 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "e809210c_4bb99d8e",
+        "filename": "p2p/base/connection.cc",
+        "patchSetId": 12
+      },
+      "lineNbr": 1384,
+      "author": {
+        "id": 5508
+      },
+      "writtenOn": "2022-06-09T19:23:48Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "01aa9f77_017e32d3",
+      "revId": "f36d10bc625b1520b815c91e4af8b4a95a83e2b2",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "0de888d5_ea59637f",
@@ -48,6 +66,30 @@
       "writtenOn": "2022-06-07T10:53:41Z",
       "side": 1,
       "message": "the type is not obvious from the local context, so please specify it explicetly.\nis is std::unique_ptr\u003cConnection\u003e ?",
+      "range": {
+        "startLine": 349,
+        "startChar": 4,
+        "endLine": 349,
+        "endChar": 8
+      },
+      "revId": "f36d10bc625b1520b815c91e4af8b4a95a83e2b2",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "60cacebf_10a9591a",
+        "filename": "p2p/base/port.cc",
+        "patchSetId": 12
+      },
+      "lineNbr": 349,
+      "author": {
+        "id": 5508
+      },
+      "writtenOn": "2022-06-09T19:23:48Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "0de888d5_ea59637f",
       "range": {
         "startLine": 349,
         "startChar": 4,
@@ -81,6 +123,30 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "2a299c31_82ee9846",
+        "filename": "p2p/base/port.cc",
+        "patchSetId": 12
+      },
+      "lineNbr": 904,
+      "author": {
+        "id": 5508
+      },
+      "writtenOn": "2022-06-09T19:23:48Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "546d201c_9d62888c",
+      "range": {
+        "startLine": 904,
+        "startChar": 2,
+        "endLine": 904,
+        "endChar": 27
+      },
+      "revId": "f36d10bc625b1520b815c91e4af8b4a95a83e2b2",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "17392eb2_28cf8f84",
@@ -104,6 +170,30 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "81036429_ac1046fc",
+        "filename": "p2p/base/port.h",
+        "patchSetId": 12
+      },
+      "lineNbr": 302,
+      "author": {
+        "id": 5508
+      },
+      "writtenOn": "2022-06-09T19:23:48Z",
+      "side": 1,
+      "message": "Fixed",
+      "parentUuid": "17392eb2_28cf8f84",
+      "range": {
+        "startLine": 300,
+        "startChar": 46,
+        "endLine": 302,
+        "endChar": 46
+      },
+      "revId": "f36d10bc625b1520b815c91e4af8b4a95a83e2b2",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "d6945fc6_5563765f",
@@ -117,6 +207,30 @@
       "writtenOn": "2022-06-07T10:53:41Z",
       "side": 1,
       "message": "while braces can be omited for single-line expression, it is allowed \"for historical reasons\", so please do not remove them.\n\nhttps://google.github.io/styleguide/cppguide.html#Conditionals\n“For historical reasons, we allow one exception to the above rules: if an if statement has no else or else if clauses, then the curly braces for the controlled statement or the line breaks inside the curly braces may be omitted if ...”",
+      "range": {
+        "startLine": 515,
+        "startChar": 33,
+        "endLine": 515,
+        "endChar": 43
+      },
+      "revId": "f36d10bc625b1520b815c91e4af8b4a95a83e2b2",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "72548de8_0e31bd59",
+        "filename": "p2p/base/tcp_port.cc",
+        "patchSetId": 12
+      },
+      "lineNbr": 515,
+      "author": {
+        "id": 5508
+      },
+      "writtenOn": "2022-06-09T19:23:48Z",
+      "side": 1,
+      "message": "Done\n(leftovers from an abandoned change)",
+      "parentUuid": "d6945fc6_5563765f",
       "range": {
         "startLine": 515,
         "startChar": 33,

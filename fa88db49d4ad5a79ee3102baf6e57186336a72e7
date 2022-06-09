@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "462f6f3b_c22f46e6",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 15
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2022-06-09T13:00:14Z",
+      "side": 1,
+      "message": "Hmm, there are some problems with downstream mock classes. Maybe have to resolve those first.\n\nAlso, not at all clear to me what to do with downstream tests that use a mock PeerConnectionFactory and set expectations on the method with old signature?",
+      "revId": "fa88db49d4ad5a79ee3102baf6e57186336a72e7",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

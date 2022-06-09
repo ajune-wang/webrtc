@@ -14,6 +14,7 @@
 #include <gio/gio.h>
 
 #include <string>
+#include <vector>
 
 namespace webrtc {
 namespace xdg_portal {
@@ -24,7 +25,7 @@ struct SessionDetails {
   GDBusProxy* proxy = nullptr;
   GCancellable* cancellable = nullptr;
   std::string session_handle;
-  uint32_t pipewire_stream_node_id = 0;
+  std::vector<uint32_t> pipewire_stream_node_ids;
 };
 
 }  // namespace xdg_portal

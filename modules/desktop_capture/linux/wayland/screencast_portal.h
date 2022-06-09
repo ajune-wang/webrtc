@@ -62,7 +62,7 @@ class ScreenCastPortal : public xdg_portal::ScreenCapturePortalInterface {
   class PortalNotifier {
    public:
     virtual void OnScreenCastRequestResult(xdg_portal::RequestResponse result,
-                                           uint32_t stream_node_id,
+                                           const std::vector<uint32_t>& stream_node_ids,
                                            int fd) = 0;
     virtual void OnScreenCastSessionClosed() = 0;
 
@@ -102,7 +102,7 @@ class ScreenCastPortal : public xdg_portal::ScreenCapturePortalInterface {
   // Set of methods leveraged by remote desktop portal to setup a common session
   // with screen cast portal.
   void SetSessionDetails(const xdg_portal::SessionDetails& session_details);
-  uint32_t pipewire_stream_node_id();
+  std::vector<uint32_t> pipewire_stream_node_ids();
   void SourcesRequest();
   void OpenPipeWireRemote();
 
@@ -110,7 +110,7 @@ class ScreenCastPortal : public xdg_portal::ScreenCapturePortalInterface {
   PortalNotifier* notifier_;
 
   // A PipeWire stream ID of stream we will be connecting to
-  uint32_t pw_stream_node_id_ = 0;
+  std::vector<uint32_t> pw_stream_node_ids_;
   // A file descriptor of PipeWire socket
   int pw_fd_ = -1;
 

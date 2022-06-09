@@ -42,9 +42,10 @@ class BaseCapturerPipeWire : public DesktopCapturer,
 
   // ScreenCastPortal::PortalNotifier interface.
   void OnScreenCastRequestResult(xdg_portal::RequestResponse result,
-                                 uint32_t stream_node_id,
+                                 const std::vector<uint32_t>& stream_node_ids,
                                  int fd) override;
   void OnScreenCastSessionClosed() override;
+  void UpdateResolution(uint32_t width, uint32_t height) override;
 
   xdg_portal::SessionDetails GetSessionDetails();
 
@@ -52,6 +53,10 @@ class BaseCapturerPipeWire : public DesktopCapturer,
   DesktopCaptureOptions options_ = {};
   Callback* callback_ = nullptr;
   bool capturer_failed_ = false;
+  SourceId current_source_id_ = -1;
+  std::map<SourceId, /*pipewire_node_id=*/uint32_t> source_to_node_id_;
+  // A file descriptor of PipeWire socket
+  int pw_fd_ = -1;
   std::unique_ptr<xdg_portal::ScreenCapturePortalInterface> portal_;
 };
 

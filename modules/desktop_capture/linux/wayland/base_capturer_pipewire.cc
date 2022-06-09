@@ -41,20 +41,34 @@ BaseCapturerPipeWire::BaseCapturerPipeWire(
 BaseCapturerPipeWire::~BaseCapturerPipeWire() {}
 
 void BaseCapturerPipeWire::OnScreenCastRequestResult(RequestResponse result,
-                                                     uint32_t stream_node_id,
+                                                     const std::vector<uint32_t>& stream_node_ids,
                                                      int fd) {
   if (result != RequestResponse::kSuccess ||
+      // TODO: Need to start all streams here.
       !options_.screencast_stream()->StartScreenCastStream(
-          stream_node_id, fd, options_.get_width(), options_.get_height())) {
+          stream_node_ids.at(0), fd, options_.get_width(),
+          options_.get_height())) {
     capturer_failed_ = true;
     RTC_LOG(LS_ERROR) << "ScreenCastPortal failed: "
                       << static_cast<uint>(result);
+    return;
   }
+  pw_fd_ = fd;
+  // TODO: Do a reverse lookup of source id that corresponds to the stream node
+  // id.
+  // current_source_id_ = id;
 }
 
 void BaseCapturerPipeWire::OnScreenCastSessionClosed() {
   if (!capturer_failed_) {
     options_.screencast_stream()->StopScreenCastStream();
+  }
+}
+
+void BaseCapturerPipeWire::UpdateResolution(uint32_t width, uint32_t height) {
+  if (!capturer_failed_) {
+    options_.screencast_stream()->UpdateScreenCastStreamResolution(width,
+                                                                   height);
   }
 }
 
@@ -101,6 +115,19 @@ bool BaseCapturerPipeWire::GetSourceList(SourceList* sources) {
 }
 
 bool BaseCapturerPipeWire::SelectSource(SourceId id) {
+  RTC_LOG(LS_WARNING) << __func__  << ">>> Selecting source id: " << id;
+  options_.screencast_stream()->StopScreenCastStream();
+
+  auto it = source_to_node_id_.find(id);
+  if (it == source_to_node_id_.end()) {
+    RTC_LOG(LS_ERROR) << ">>> Unknown source id provided: " << id;
+    return false;
+  }
+  current_source_id_ = id;
+
+  options_.screencast_stream()->StartScreenCastStream(
+          it->second, pw_fd_, options_.get_width(),
+          options_.get_height());
   // Screen selection is handled by the xdg-desktop-portal.
   return true;
 }

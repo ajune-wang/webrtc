@@ -82,6 +82,30 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "3886c934_4e5c68ea",
+        "filename": "modules/desktop_capture/linux/wayland/shared_screencast_stream.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 607,
+      "author": {
+        "id": 18474
+      },
+      "writtenOn": "2022-06-09T20:01:44Z",
+      "side": 1,
+      "message": "Got it this makes sense. We\u0027re using the provided stride here because we\u0027re copying from the system; but the code way below is resetting the stride because we don\u0027t have padding.",
+      "parentUuid": "a3306122_a846e5c5",
+      "range": {
+        "startLine": 596,
+        "startChar": 0,
+        "endLine": 607,
+        "endChar": 25
+      },
+      "revId": "d344a0dc6f944ae9736eefc7172ad50245409907",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "be2c3a63_3b20db13",

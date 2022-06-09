@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "01835451_2e29f31d",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5142
+      },
+      "writtenOn": "2022-06-09T07:58:11Z",
+      "side": 1,
+      "message": "Please take a look, Harald.\n\nYou can ignore the internal_compile_lite failure. There is an internal dependency with a code path for \"if inbound_rtp.roundTripTime.is_defined() { ... }\" code which is never triggered because we don\u0027t implement it, so I have a g3 CL to remove the dependency on it.",
+      "revId": "f012f4085a133389a620c55f42eec0d281687ad2",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

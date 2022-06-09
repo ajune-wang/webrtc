@@ -1,0 +1,61 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "9a23020b_52810b2a",
+        "filename": "modules/pacing/pacing_controller.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 234,
+      "author": {
+        "id": 5578
+      },
+      "writtenOn": "2022-06-09T12:25:49Z",
+      "side": 1,
+      "message": "It would be cleaner if you did not call UpdateMediaRate here. \nWhy not just wait until next time ProcessTime is called? SHould not matter much.",
+      "revId": "b4a229f8995c5b47bb5308f85823f6296e6d5134",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "74f6f5ca_9bdb9d9b",
+        "filename": "modules/pacing/pacing_controller.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 542,
+      "author": {
+        "id": 5578
+      },
+      "writtenOn": "2022-06-09T12:25:49Z",
+      "side": 1,
+      "message": "Dito, it is more understandable I think if the rate is only changed in one place due to long queues. Should not be needed both here and on line 425.",
+      "range": {
+        "startLine": 542,
+        "startChar": 2,
+        "endLine": 542,
+        "endChar": 17
+      },
+      "revId": "b4a229f8995c5b47bb5308f85823f6296e6d5134",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "0d2a5198_0d5ca877",
+        "filename": "modules/pacing/pacing_controller.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 220,
+      "author": {
+        "id": 5578
+      },
+      "writtenOn": "2022-06-09T12:25:49Z",
+      "side": 1,
+      "message": "MaybeUpdateMediaRateDueToLongQueue?",
+      "revId": "b4a229f8995c5b47bb5308f85823f6296e6d5134",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

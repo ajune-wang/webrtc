@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "a00624b6_65eb7d16",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 7755
+      },
+      "writtenOn": "2022-06-09T10:31:44Z",
+      "side": 1,
+      "message": "found in the context of https://bugs.chromium.org/p/webrtc/issues/detail?id\u003d14149 but unrelated to that. No more references to it",
+      "revId": "d7d9ca36a03366e415d3a88275658a5f1bddbf2e",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

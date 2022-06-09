@@ -18,6 +18,24 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "8b2b32e1_d87ef05e",
+        "filename": "modules/pacing/pacing_controller.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 234,
+      "author": {
+        "id": 5524
+      },
+      "writtenOn": "2022-06-09T13:10:48Z",
+      "side": 1,
+      "message": "Increasing the queue length implicitly changes the expected queue time.\nUpdating it here is more correct as it may change the time to next ProcessPacket().\nI\u0027d rather keep it correct, that \"works good enough\" just to keep the call site count down.\nAlso partly because it\u0027s easier to test this way (we don\u0027t have to rely on it happening in a specific method, which might at the same time alter other state). I don\u0027t think the performance impact will be noticeable.",
+      "parentUuid": "9a23020b_52810b2a",
+      "revId": "b4a229f8995c5b47bb5308f85823f6296e6d5134",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "74f6f5ca_9bdb9d9b",
@@ -41,6 +59,30 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "5d2e84ae_afcbe816",
+        "filename": "modules/pacing/pacing_controller.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 542,
+      "author": {
+        "id": 5524
+      },
+      "writtenOn": "2022-06-09T13:10:48Z",
+      "side": 1,
+      "message": "The expected queueing time actually changes on enqueue/dequeue and SetRates - so I\u0027ve removed it from L423 instead - it should already be updated at that time.",
+      "parentUuid": "74f6f5ca_9bdb9d9b",
+      "range": {
+        "startLine": 542,
+        "startChar": 2,
+        "endLine": 542,
+        "endChar": 17
+      },
+      "revId": "b4a229f8995c5b47bb5308f85823f6296e6d5134",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "0d2a5198_0d5ca877",
@@ -54,6 +96,47 @@
       "writtenOn": "2022-06-09T12:25:49Z",
       "side": 1,
       "message": "MaybeUpdateMediaRateDueToLongQueue?",
+      "revId": "b4a229f8995c5b47bb5308f85823f6296e6d5134",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "7ebfb347_dbf5e09a",
+        "filename": "modules/pacing/pacing_controller.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 220,
+      "author": {
+        "id": 5524
+      },
+      "writtenOn": "2022-06-09T13:10:48Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "0d2a5198_0d5ca877",
+      "revId": "b4a229f8995c5b47bb5308f85823f6296e6d5134",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "d5116b2a_0defc138",
+        "filename": "modules/pacing/pacing_controller_unittest.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 1099,
+      "author": {
+        "id": 5524
+      },
+      "writtenOn": "2022-06-09T13:10:48Z",
+      "side": 1,
+      "message": "Huh, there was already a test case - but that didn\u0027t fully cover this error. Plus more messy unit handling. I removed it since we have a new one.",
+      "range": {
+        "startLine": 1099,
+        "startChar": 0,
+        "endLine": 1099,
+        "endChar": 51
+      },
       "revId": "b4a229f8995c5b47bb5308f85823f6296e6d5134",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }

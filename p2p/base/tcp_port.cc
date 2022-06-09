@@ -511,8 +511,9 @@ void TCPConnection::OnClose(rtc::AsyncPacketSocket* socket, int error) {
     network_thread()->PostDelayedTask(
         webrtc::ToQueuedTask(network_safety_,
                              [this]() {
-                               if (pretending_to_be_writable_)
+                               if (pretending_to_be_writable_) {
                                  Destroy();
+                               }
                              }),
         reconnection_timeout());
   } else if (!pretending_to_be_writable_) {

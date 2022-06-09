@@ -296,12 +296,11 @@ class Port : public PortInterface,
   // Returns the connection to the given address or NULL if none exists.
   Connection* GetConnection(const rtc::SocketAddress& remote_addr) override;
 
-  // Removes and deletes a connection object. By default the connection will
-  // be deleted directly inside the function, but a caller may optionally pass
-  // `async = true` in order to defer the actual `delete` call to happen when
-  // the current call stack has been unwound. This may be needed when a
-  // connection object needs to be deleted but pointers to the object are held
-  // call stack.
+  // Removes and deletes a connection object. `DestroyConnection` will
+  // delete the connection object directly whereas `DestroyConnectionAsync`
+  // defers the `delete` operation to when the call stack has been unwound.
+  // Async may be needed when deleting a connection object from within a
+  // callback.
   void DestroyConnection(Connection* conn) {
     DestroyConnectionInternal(conn, false);
   }

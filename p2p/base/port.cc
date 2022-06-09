@@ -346,7 +346,7 @@ void Port::AddOrReplaceConnection(Connection* conn) {
         << ": A new connection was created on an existing remote address. "
            "New remote candidate: "
         << conn->remote_candidate().ToSensitiveString();
-    auto old_conn = absl::WrapUnique(ret.first->second);
+    std::unique_ptr<Connection> old_conn = absl::WrapUnique(ret.first->second);
     ret.first->second = conn;
     HandleConnectionDestroyed(old_conn.get());
     old_conn->Shutdown();
@@ -891,9 +891,7 @@ void Port::EnablePortPackets() {
 }
 
 bool Port::OnConnectionDestroyed(Connection* conn) {
-  AddressMap::iterator iter =
-      connections_.find(conn->remote_candidate().address());
-  if (iter == connections_.end()) {
+  if (connections_.erase(conn->remote_candidate().address()) == 0) {
     // This could indicate a programmer error outside of webrtc so while we
     // do have this check here to alert external developers, we also need to
     // handle it since it might be a corner case not caught in tests.
@@ -901,7 +899,6 @@ bool Port::OnConnectionDestroyed(Connection* conn) {
     return false;
   }
 
-  connections_.erase(iter);
   HandleConnectionDestroyed(conn);
 
   // Ports time out after all connections fail if it is not marked as

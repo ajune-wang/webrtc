@@ -168,7 +168,9 @@ class FrameBufferProxyFixture
 
   absl::optional<WaitResult> WaitForFrameOrTimeout(TimeDelta wait) {
     if (wait_result_) {
-      return std::move(wait_result_);
+      absl::optional<WaitResult> res = std::move(wait_result_);
+      wait_result_.reset();
+      return res;
     }
     run_loop_.PostTask([&] { time_controller_.AdvanceTime(wait); });
     run_loop_.PostTask([&] {
@@ -188,7 +190,9 @@ class FrameBufferProxyFixture
       });
     });
     run_loop_.Run();
-    return std::move(wait_result_);
+    absl::optional<WaitResult> res = std::move(wait_result_);
+    wait_result_.reset();
+    return res;
   }
 
   void StartNextDecode() {
@@ -746,6 +750,77 @@ TEST_P(FrameBufferProxyTest, NextFrameWithOldTimestamp) {
     EXPECT_THAT(WaitForFrameOrTimeout(kFps30Delay), Frame(test::WithId(2)));
   } else {
     EXPECT_THAT(WaitForFrameOrTimeout(kMaxWaitForFrame), TimedOut());
+  }
+}
+
+TEST_P(FrameBufferProxyTest, VideoPauseDueToDropFrameMaintainsFpsEstimate) {
+  // Initial keyframe.
+  StartNextDecodeForceKeyframe();
+  proxy_->InsertFrame(test::FakeFrameBuilder()
+                          .Id(0)
+                          .Time(0)
+                          .ReceivedTime(clock_->CurrentTime())
+                          .AsLast()
+                          .Build());
+  EXPECT_THAT(WaitForFrameOrTimeout(kFps30Delay), Frame(test::WithId(0)));
+
+  StartNextDecode();
+  proxy_->InsertFrame(test::FakeFrameBuilder()
+                          .Id(1)
+                          .Time(kFps30Rtp)
+                          .ReceivedTime(clock_->CurrentTime())
+                          .Refs({0})
+                          .AsLast()
+                          .Build());
+  EXPECT_THAT(WaitForFrameOrTimeout(kFps30Delay), Frame(test::WithId(1)));
+
+  // Simulate lost frame 2 and then receiving a key frame after 10 seconds.
+  StartNextDecode();
+  // Frame2 lost.
+  time_controller_.AdvanceTime(kFps30Delay);
+  Timestamp end_time = clock_->CurrentTime() + TimeDelta::Seconds(20);
+
+  int id = 3;
+  while (clock_->CurrentTime() < end_time) {
+    ++id;
+    proxy_->InsertFrame(test::FakeFrameBuilder()
+                            .Id(id)
+                            .Time(kFps30Rtp * id)
+                            .ReceivedTime(clock_->CurrentTime())
+                            .Refs({id - 1})
+                            .AsLast()
+                            .Build());
+    auto wait_result = WaitForFrameOrTimeout(kFps30Delay);
+    // When the stream signals a timeout, simulate a keyframe request.
+    if (wait_result && absl::holds_alternative<TimeDelta>(*wait_result)) {
+      StartNextDecodeForceKeyframe();
+    }
+  }
+
+  ++id;
+  // Insert keyframe which will recover the stream.
+  proxy_->InsertFrame(test::FakeFrameBuilder()
+                          .Id(id)
+                          .Time(id * kFps30Rtp)
+                          .ReceivedTime(clock_->CurrentTime())
+                          .AsLast()
+                          .Build());
+  EXPECT_THAT(WaitForFrameOrTimeout(kFps30Delay), Frame(test::WithId(id)));
+
+  end_time = clock_->CurrentTime() + TimeDelta::Millis(500);
+  while (clock_->CurrentTime() < end_time) {
+    StartNextDecode();
+    time_controller_.AdvanceTime(kFps30Delay);
+    ++id;
+    proxy_->InsertFrame(test::FakeFrameBuilder()
+                            .Id(id)
+                            .Time(id * kFps30Rtp)
+                            .ReceivedTime(clock_->CurrentTime())
+                            .Refs({id - 1})
+                            .AsLast()
+                            .Build());
+    EXPECT_THAT(WaitForFrameOrTimeout(TimeDelta::Zero()),
+                Frame(test::WithId(id)));
   }
 }
 

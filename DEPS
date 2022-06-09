@@ -10,7 +10,7 @@ vars = {
   # chromium waterfalls. More info at: crbug.com/570091.
   'checkout_configuration': 'default',
   'checkout_instrumented_libraries': 'checkout_linux and checkout_configuration == "default"',
-  'chromium_revision': 'b24fc2ea7604ee24e3ee49288609d2221d97f543',
+  'chromium_revision': '1e1b14e1925295e79dfe31c6c7cf7ca5f47e2f8c',
 
   # Keep the Chromium default of generating location tags.
   'generate_location_tags': True,
@@ -23,7 +23,7 @@ deps = {
   # TODO(kjellander): Move this to be Android-only once the libevent dependency
   # in base/third_party/libevent is solved.
   'src/base':
-    'https://chromium.googlesource.com/chromium/src/base@901d29a224b70c7b70e9659de10f60865bef7a00',
+    'https://chromium.googlesource.com/chromium/src/base@77a999ee78b198123cd8ff98b3bf5224dfe4cd55',
   'src/build':
     'https://chromium.googlesource.com/chromium/src/build@a789781b39e57f5b40ceaafdf4a20903d29916a5',
   'src/buildtools':
@@ -34,19 +34,19 @@ deps = {
     'condition': 'checkout_android',
   },
   'src/ios': {
-    'url': 'https://chromium.googlesource.com/chromium/src/ios@1ac422622839295fb19ab9704533f4b5eed3b4d5',
+    'url': 'https://chromium.googlesource.com/chromium/src/ios@9371f2dfc04a4ea231bfb1cda83adfaa3dd2ac9f',
     'condition': 'checkout_ios',
   },
   'src/testing':
-    'https://chromium.googlesource.com/chromium/src/testing@4d0a162419a883933993f06957e67eaaf45e205a',
+    'https://chromium.googlesource.com/chromium/src/testing@09e9e54f50187281a1f6710821200ed5783a8939',
   'src/third_party':
-    'https://chromium.googlesource.com/chromium/src/third_party@c0cb1131052424332d9893c060ca5aef06d88c31',
+    'https://chromium.googlesource.com/chromium/src/third_party@41155a9587395cf74c96263935ef0d646c0bb859',
 
   'src/buildtools/linux64': {
     'packages': [
       {
         'package': 'gn/gn/linux-${{arch}}',
-        'version': 'git_revision:fd6cae41bd7d5d255dc2fb96004a8bf74ac9d972',
+        'version': 'git_revision:2ecd43a10266bd091c98e6dcde507c64f6a0dad3',
       }
     ],
     'dep_type': 'cipd',
@@ -56,7 +56,7 @@ deps = {
     'packages': [
       {
         'package': 'gn/gn/mac-${{arch}}',
-        'version': 'git_revision:fd6cae41bd7d5d255dc2fb96004a8bf74ac9d972',
+        'version': 'git_revision:2ecd43a10266bd091c98e6dcde507c64f6a0dad3',
       }
     ],
     'dep_type': 'cipd',
@@ -66,7 +66,7 @@ deps = {
     'packages': [
       {
         'package': 'gn/gn/windows-amd64',
-        'version': 'git_revision:fd6cae41bd7d5d255dc2fb96004a8bf74ac9d972',
+        'version': 'git_revision:2ecd43a10266bd091c98e6dcde507c64f6a0dad3',
       }
     ],
     'dep_type': 'cipd',
@@ -78,7 +78,7 @@ deps = {
   'src/buildtools/third_party/libc++/trunk':
     'https://chromium.googlesource.com/external/github.com/llvm/llvm-project/libcxx.git@b1269813eaf5b8ac78e35e45a0f7cc320bd3e7d6',
   'src/buildtools/third_party/libc++abi/trunk':
-    'https://chromium.googlesource.com/external/github.com/llvm/llvm-project/libcxxabi.git@11395e54b43a650df15a50b2d6bfb419e9ff312f',
+    'https://chromium.googlesource.com/external/github.com/llvm/llvm-project/libcxxabi.git@013bcd820a353ec1d3ff472f2971553fea7232cf',
   'src/buildtools/third_party/libunwind/trunk':
     'https://chromium.googlesource.com/external/github.com/llvm/llvm-project/libunwind.git@1644d070bf374182739543c3a12df88dfec0b88a',
 
@@ -226,7 +226,7 @@ deps = {
   'src/third_party/libyuv':
     'https://chromium.googlesource.com/libyuv/libyuv.git@baef41447887e1a17897a4cb6ccc854ef3a9d652',
   'src/third_party/lss': {
-    'url': 'https://chromium.googlesource.com/linux-syscall-support.git@92a65a8f5d705d1928874420c8d0d15bde8c89e5',
+    'url': 'https://chromium.googlesource.com/linux-syscall-support.git@1d387f43f3702818f7fc04d334539a2f05cafccd',
     'condition': 'checkout_android or checkout_linux',
   },
   'src/third_party/mockito/src': {
@@ -275,7 +275,7 @@ deps = {
     'condition': 'checkout_win',
   },
   'src/tools':
-    'https://chromium.googlesource.com/chromium/src/tools@389744913f77d7ae0286b994a482c249444c941a',
+    'https://chromium.googlesource.com/chromium/src/tools@0eaa0b727dfe211e16cb8f4d5d4458f9bd4652b6',
 
   'src/third_party/accessibility_test_framework': {
       'packages': [

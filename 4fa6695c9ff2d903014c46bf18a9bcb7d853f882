@@ -1,0 +1,55 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "f6b86ca3_99c53c1a",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 23
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2022-06-09T07:56:34Z",
+      "side": 1,
+      "message": "No test changes. I assume that proves it\u0027s a dropin replacement.\n",
+      "revId": "4fa6695c9ff2d903014c46bf18a9bcb7d853f882",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "6ab0cc2b_6b459df5",
+        "filename": "net/dcsctp/tx/rr_send_queue.h",
+        "patchSetId": 23
+      },
+      "lineNbr": 116,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2022-06-09T07:56:34Z",
+      "side": 1,
+      "message": "The name \"StreamCallback\" seems a bit odd - the class is not implementing a callback, it\u0027s exposing a callback.\nShould this name be StreamCallbackTarget?",
+      "revId": "4fa6695c9ff2d903014c46bf18a9bcb7d853f882",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "7933727d_3287856d",
+        "filename": "net/dcsctp/tx/rr_send_queue.h",
+        "patchSetId": 23
+      },
+      "lineNbr": 140,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2022-06-09T07:56:34Z",
+      "side": 1,
+      "message": "StreamCallback? (spurious s)",
+      "revId": "4fa6695c9ff2d903014c46bf18a9bcb7d853f882",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

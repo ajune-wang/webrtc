@@ -16,6 +16,23 @@
       "message": "Looks like a clean merge, PTAL (and commit +2 please as I don\u0027t have that option available).\n\nThanks!",
       "revId": "8c8f98353fe5e7fda448c068618a6c99532a2f47",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "cd7d076b_ff5ca36f",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 6515
+      },
+      "writtenOn": "2022-06-09T16:52:03Z",
+      "side": 1,
+      "message": "Thanks!",
+      "revId": "8c8f98353fe5e7fda448c068618a6c99532a2f47",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

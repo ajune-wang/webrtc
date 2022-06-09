@@ -118,6 +118,30 @@
       },
       "revId": "8041f25c61466f0a9f955f66a8fe72025094cb3a",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "6c236d10_210d3afc",
+        "filename": "video/video_send_stream_tests.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 4034,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2022-06-09T13:07:11Z",
+      "side": 1,
+      "message": "Ok, keeping only the temporal layers part of the test, since we already have coverage for setting via scalability mode.",
+      "parentUuid": "555acf51_c671654d",
+      "range": {
+        "startLine": 4034,
+        "startChar": 8,
+        "endLine": 4034,
+        "endChar": 49
+      },
+      "revId": "8041f25c61466f0a9f955f66a8fe72025094cb3a",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

@@ -159,7 +159,6 @@ rtc_source_set("audio_device_module_from_input_and_output") {
       "../../rtc_base:logging",
       "../../rtc_base:macromagic",
       "../../rtc_base:platform_thread",
-      "../../rtc_base:refcount",
       "../../rtc_base:safe_conversions",
       "../../rtc_base:stringutils",
       "../../rtc_base:timeutils",
@@ -180,6 +179,7 @@ rtc_library("audio_device_impl") {
     ":audio_device_default",
     ":audio_device_generic",
     "../../api:array_view",
+    "../../api:make_ref_counted",
     "../../api:refcountedbase",
     "../../api:scoped_refptr",
     "../../api:sequence_checker",
@@ -193,7 +193,6 @@ rtc_library("audio_device_impl") {
     "../../rtc_base:macromagic",
     "../../rtc_base:platform_thread",
     "../../rtc_base:random",
-    "../../rtc_base:refcount",
     "../../rtc_base:rtc_event",
     "../../rtc_base:rtc_task_queue",
     "../../rtc_base:safe_conversions",
@@ -396,7 +395,7 @@ rtc_source_set("mock_audio_device") {
     ":audio_device",
     ":audio_device_buffer",
     ":audio_device_impl",
-    "../../rtc_base:refcount",
+    "../../api:make_ref_counted",
     "../../test:test_support",
   ]
 }

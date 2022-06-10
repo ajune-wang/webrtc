@@ -16,6 +16,24 @@
       "message": "Which downstream build error cased? What should I do to fix it?",
       "revId": "7dbfad613c2d5abc56a67d86e02366a50e7212db",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "86cad3fe_69af6f45",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5150
+      },
+      "writtenOn": "2022-06-10T15:32:22Z",
+      "side": 1,
+      "message": "It\u0027s some cycle in the dependencies. I\u0027m looking into it.",
+      "parentUuid": "1ce88e5e_af3e32a6",
+      "revId": "7dbfad613c2d5abc56a67d86e02366a50e7212db",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

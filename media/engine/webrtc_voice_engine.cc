@@ -2366,6 +2366,8 @@ bool WebRtcVoiceMediaChannel::GetStats(VoiceMediaInfo* info,
     rinfo.silent_concealed_samples = stats.silent_concealed_samples;
     rinfo.concealment_events = stats.concealment_events;
     rinfo.jitter_buffer_delay_seconds = stats.jitter_buffer_delay_seconds;
+    rinfo.jitter_buffer_target_delay_seconds =
+        stats.jitter_buffer_target_delay_seconds;
     rinfo.jitter_buffer_emitted_count = stats.jitter_buffer_emitted_count;
     rinfo.jitter_buffer_target_delay_seconds =
         stats.jitter_buffer_target_delay_seconds;

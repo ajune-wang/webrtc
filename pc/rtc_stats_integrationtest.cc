@@ -853,6 +853,8 @@ class RTCStatsReportVerifier {
     verifier.TestMemberIsUndefined(inbound_stream.frame_bit_depth);
     verifier.TestMemberIsNonNegative<double>(
         inbound_stream.jitter_buffer_delay);
+    verifier.TestMemberIsNonNegative<double>(
+        inbound_stream.jitter_buffer_target_delay);
     verifier.TestMemberIsNonNegative<uint64_t>(
         inbound_stream.jitter_buffer_emitted_count);
     if (inbound_stream.kind.is_defined() &&

@@ -237,7 +237,10 @@ TimeDelta VCMTiming::MaxWaitingTime(Timestamp render_time,
                                   : earliest_next_decode_start_time - now;
     return max_wait_time;
   }
-  return render_time - now - RequiredDecodeTime() - render_delay_;
+  auto ret = render_time - now - RequiredDecodeTime() - render_delay_;
+  RTC_DLOG(LS_VERBOSE) << "Max delay = " << ret
+                       << " render_time=" << render_time << " now=" << now;
+  return ret;
 }
 
 TimeDelta VCMTiming::TargetVideoDelay() const {

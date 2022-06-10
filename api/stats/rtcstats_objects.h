@@ -381,6 +381,8 @@ class RTC_EXPORT RTCMediaStreamTrackStats final : public RTCStats {
   // buffer. (https://github.com/w3c/webrtc-provisional-stats/pull/20)
   // Currently it is implemented only for audio.
   // TODO(titovartem) implement for video streams when will be requested.
+  // TODO(ivoc): Remove this, since the standardized version is now
+  // available on RTCInboundRTPStreamStats.
   RTCNonStandardStatsMember<double> jitter_buffer_target_delay;
   // TODO(henrik.lundin): Add description of the interruption metrics at
   // https://github.com/henbos/webrtc-provisional-stats/issues/17
@@ -495,6 +497,7 @@ class RTC_EXPORT RTCInboundRTPStreamStats final
   RTCStatsMember<uint64_t> header_bytes_received;
   RTCStatsMember<double> last_packet_received_timestamp;
   RTCStatsMember<double> jitter_buffer_delay;
+  RTCStatsMember<double> jitter_buffer_target_delay;
   RTCStatsMember<uint64_t> jitter_buffer_emitted_count;
   RTCStatsMember<uint64_t> total_samples_received;
   RTCStatsMember<uint64_t> concealed_samples;

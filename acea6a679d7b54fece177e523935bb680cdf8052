@@ -34,6 +34,23 @@
       "parentUuid": "5280f09b_54fc7db6",
       "revId": "acea6a679d7b54fece177e523935bb680cdf8052",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "889302c4_df21cb6e",
+        "filename": "api/make_ref_counted.h",
+        "patchSetId": 6
+      },
+      "lineNbr": 117,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2022-06-10T15:18:58Z",
+      "side": 1,
+      "message": "Do we need to expose Ref in API, or can we leave that in the internal parts?\n\nDo we have external usages of Ref?",
+      "revId": "acea6a679d7b54fece177e523935bb680cdf8052",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

@@ -16,6 +16,24 @@
       "message": "Lots of affected files, but almost all changes are substitutions of include lines and corresponding build targets.",
       "revId": "acea6a679d7b54fece177e523935bb680cdf8052",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "be0cce85_121cf476",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 6
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5087
+      },
+      "writtenOn": "2022-06-10T14:19:31Z",
+      "side": 1,
+      "message": "Do you know if any downstream client is using rtc::make_ref_counted?\n\nIf they #include rtc_base/ref_counted_object.h, they will not get it and there might be a compile error.",
+      "parentUuid": "5280f09b_54fc7db6",
+      "revId": "acea6a679d7b54fece177e523935bb680cdf8052",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

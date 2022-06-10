@@ -16,6 +16,23 @@
       "message": "Removing auto-submit. This change may not be the culprit after all.",
       "revId": "6440fd7d27c1969e02f59fff50c04da12240e911",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "dc34e5fd_e1393d49",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5150
+      },
+      "writtenOn": "2022-06-10T15:09:48Z",
+      "side": 1,
+      "message": "Managed to reproduce locally. It indeed looks to be caused by this CL. Reverting while investigating further.",
+      "revId": "6440fd7d27c1969e02f59fff50c04da12240e911",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

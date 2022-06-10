@@ -168,7 +168,9 @@ class FrameBufferProxyFixture
 
   absl::optional<WaitResult> WaitForFrameOrTimeout(TimeDelta wait) {
     if (wait_result_) {
-      return std::move(wait_result_);
+      absl::optional<WaitResult> res = std::move(wait_result_);
+      wait_result_.reset();
+      return res;
     }
     run_loop_.PostTask([&] { time_controller_.AdvanceTime(wait); });
     run_loop_.PostTask([&] {
@@ -188,7 +190,9 @@ class FrameBufferProxyFixture
       });
     });
     run_loop_.Run();
-    return std::move(wait_result_);
+    absl::optional<WaitResult> res = std::move(wait_result_);
+    wait_result_.reset();
+    return res;
   }
 
   void StartNextDecode() {

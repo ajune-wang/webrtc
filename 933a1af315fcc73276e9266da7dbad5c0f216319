@@ -33,6 +33,23 @@
       "message": "Adding saza@ for media/",
       "revId": "933a1af315fcc73276e9266da7dbad5c0f216319",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "419dc852_92f44475",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5607
+      },
+      "writtenOn": "2022-06-10T09:15:11Z",
+      "side": 1,
+      "message": "Adding myself as reviewer, because it seems like I used the wrong account to upload this CL",
+      "revId": "933a1af315fcc73276e9266da7dbad5c0f216319",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

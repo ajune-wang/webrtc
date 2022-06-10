@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "7ebfed3a_ff5b99af",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5524
+      },
+      "writtenOn": "2022-06-10T14:09:40Z",
+      "side": 1,
+      "message": "Removing auto-submit. This change may not be the culprit after all.",
+      "revId": "6440fd7d27c1969e02f59fff50c04da12240e911",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

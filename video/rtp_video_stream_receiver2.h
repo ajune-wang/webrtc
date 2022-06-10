@@ -404,6 +404,8 @@ class RtpVideoStreamReceiver2 : public LossNotificationSender,
       RTC_GUARDED_BY(packet_sequence_checker_);
   std::map<int64_t, RtpPacketInfo> packet_infos_
       RTC_GUARDED_BY(packet_sequence_checker_);
+
+  absl::optional<Timestamp> next_keyframe_request_for_missing_video_structure_;
 };
 
 }  // namespace webrtc

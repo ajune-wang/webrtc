@@ -15,6 +15,7 @@
 #include <string>
 #include <vector>
 
+#include "absl/strings/string_view.h"
 #include "p2p/base/basic_packet_socket_factory.h"
 #include "p2p/base/port_allocator.h"
 #include "p2p/base/udp_port.h"
@@ -35,8 +36,8 @@ class TestUDPPort : public UDPPort {
                              const rtc::Network* network,
                              uint16_t min_port,
                              uint16_t max_port,
-                             const std::string& username,
-                             const std::string& password,
+                             absl::string_view username,
+                             absl::string_view password,
                              bool emit_localhost_for_anyaddress,
                              const webrtc::FieldTrialsView* field_trials) {
     TestUDPPort* port =
@@ -55,8 +56,8 @@ class TestUDPPort : public UDPPort {
               const rtc::Network* network,
               uint16_t min_port,
               uint16_t max_port,
-              const std::string& username,
-              const std::string& password,
+              absl::string_view username,
+              absl::string_view password,
               bool emit_localhost_for_anyaddress,
               const webrtc::FieldTrialsView* field_trials)
       : UDPPort(thread,
@@ -78,10 +79,10 @@ class FakePortAllocatorSession : public PortAllocatorSession {
   FakePortAllocatorSession(PortAllocator* allocator,
                            rtc::Thread* network_thread,
                            rtc::PacketSocketFactory* factory,
-                           const std::string& content_name,
+                           absl::string_view content_name,
                            int component,
-                           const std::string& ice_ufrag,
-                           const std::string& ice_pwd,
+                           absl::string_view ice_ufrag,
+                           absl::string_view ice_pwd,
                            const webrtc::FieldTrialsView& field_trials)
       : PortAllocatorSession(content_name,
                              component,
@@ -233,10 +234,10 @@ class FakePortAllocator : public cricket::PortAllocator {
   void SetNetworkIgnoreMask(int network_ignore_mask) override {}
 
   cricket::PortAllocatorSession* CreateSessionInternal(
-      const std::string& content_name,
+      absl::string_view content_name,
       int component,
-      const std::string& ice_ufrag,
-      const std::string& ice_pwd) override {
+      absl::string_view ice_ufrag,
+      absl::string_view ice_pwd) override {
     return new FakePortAllocatorSession(this, network_thread_, factory_,
                                         content_name, component, ice_ufrag,
                                         ice_pwd, field_trials_);

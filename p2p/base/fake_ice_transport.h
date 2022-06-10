@@ -17,6 +17,7 @@
 #include <utility>
 
 #include "absl/algorithm/container.h"
+#include "absl/strings/string_view.h"
 #include "absl/types/optional.h"
 #include "api/ice_transport_interface.h"
 #include "p2p/base/ice_transport_internal.h"
@@ -31,7 +32,7 @@ namespace cricket {
 // constructor).
 class FakeIceTransport : public IceTransportInternal {
  public:
-  explicit FakeIceTransport(const std::string& name,
+  explicit FakeIceTransport(absl::string_view name,
                             int component,
                             rtc::Thread* network_thread = nullptr)
       : name_(name),

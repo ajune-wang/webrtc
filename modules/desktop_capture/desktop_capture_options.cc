@@ -18,8 +18,6 @@
 #include "modules/desktop_capture/linux/wayland/shared_screencast_stream.h"
 #endif
 
-#include "rtc_base/ref_counted_object.h"
-
 namespace webrtc {
 
 DesktopCaptureOptions::DesktopCaptureOptions() {}

@@ -360,6 +360,119 @@ TEST_F(RetransmissionQueueTest, RetransmitsOnT3Expiry) {
                           Pair(TSN(10), State::kInFlight)));
 }
 
+TEST_F(RetransmissionQueueTest, RetransmitsOnlySomeOnT3Expiry) {
+  // Verifies that only chunks that were outstanding when the T3RTX timer
+  // was started will be retransmitted, and not chunks sent after that.
+  RetransmissionQueue queue = CreateQueue();
+  EXPECT_CALL(producer_, Produce)
+      .WillOnce([this](TimeMs, size_t) {
+        return SendQueue::DataToSend(gen_.Ordered({1, 2, 3, 4}, "BE"));
+      })
+      .WillOnce([this](TimeMs, size_t) {
+        return SendQueue::DataToSend(gen_.Ordered({1, 2, 3, 4}, "BE"));
+      })
+      .WillOnce([this](TimeMs, size_t) {
+        return SendQueue::DataToSend(gen_.Ordered({1, 2, 3, 4}, "BE"));
+      })
+      .WillRepeatedly([](TimeMs, size_t) { return absl::nullopt; });
+
+  // T3-RTX will be started when sending this packet.
+  std::vector<std::pair<TSN, Data>> chunks_to_send =
+      queue.GetChunksToSend(now_, 2 * (4 + DataChunk::kHeaderSize));
+  EXPECT_THAT(chunks_to_send, ElementsAre(Pair(TSN(10), _), Pair(TSN(11), _)));
+  EXPECT_THAT(queue.GetChunkStatesForTesting(),
+              ElementsAre(Pair(TSN(9), State::kAcked),  //
+                          Pair(TSN(10), State::kInFlight),
+                          Pair(TSN(11), State::kInFlight)));
+
+  // And will already be running when this is produced, so this should
+  // not be retransmitted when t3-rtx expires.
+  std::vector<std::pair<TSN, Data>> chunks_to_send2 =
+      queue.GetChunksToSend(now_, 1000);
+  EXPECT_THAT(chunks_to_send2, ElementsAre(Pair(TSN(12), _)));
+  EXPECT_THAT(queue.GetChunkStatesForTesting(),
+              ElementsAre(Pair(TSN(9), State::kAcked),  //
+                          Pair(TSN(10), State::kInFlight),
+                          Pair(TSN(11), State::kInFlight),
+                          Pair(TSN(12), State::kInFlight)));
+
+  // Expire T3-RTX and retransmit TSN 10 and 11, but not 12.
+  queue.HandleT3RtxTimerExpiry();
+
+  EXPECT_THAT(queue.GetChunkStatesForTesting(),
+              ElementsAre(Pair(TSN(9), State::kAcked),  //
+                          Pair(TSN(10), State::kToBeRetransmitted),
+                          Pair(TSN(11), State::kToBeRetransmitted),
+                          Pair(TSN(12), State::kInFlight)));
+
+  std::vector<std::pair<TSN, Data>> chunks_to_rtx =
+      queue.GetChunksToSend(now_, 1000);
+  EXPECT_THAT(chunks_to_rtx, ElementsAre(Pair(TSN(10), _), Pair(TSN(11), _)));
+
+  EXPECT_THAT(queue.GetChunkStatesForTesting(),
+              ElementsAre(Pair(TSN(9), State::kAcked),  //
+                          Pair(TSN(10), State::kInFlight),
+                          Pair(TSN(11), State::kInFlight),
+                          Pair(TSN(12), State::kInFlight)));
+
+  // If T3-RTX expires now, all chunks should be retransmitted as the timer was
+  // restarted when retransmitting chunks.
+  queue.HandleT3RtxTimerExpiry();
+
+  EXPECT_THAT(queue.GetChunkStatesForTesting(),
+              ElementsAre(Pair(TSN(9), State::kAcked),  //
+                          Pair(TSN(10), State::kToBeRetransmitted),
+                          Pair(TSN(11), State::kToBeRetransmitted),
+                          Pair(TSN(12), State::kToBeRetransmitted)));
+}
+
+TEST_F(RetransmissionQueueTest, RetransmitsMoreOnT3RtxRestarts) {
+  // Verifies that, when t3-rtx expires and restarts itself, all chunks that
+  // were inflight when it was restarted may now be retransmitted.
+  RetransmissionQueue queue = CreateQueue();
+  EXPECT_CALL(producer_, Produce)
+      .WillOnce([this](TimeMs, size_t) {
+        return SendQueue::DataToSend(gen_.Ordered({1, 2, 3, 4}, "BE"));
+      })
+      .WillOnce([this](TimeMs, size_t) {
+        return SendQueue::DataToSend(gen_.Ordered({1, 2, 3, 4}, "BE"));
+      })
+      .WillOnce([this](TimeMs, size_t) {
+        return SendQueue::DataToSend(gen_.Ordered({1, 2, 3, 4}, "BE"));
+      })
+      .WillRepeatedly([](TimeMs, size_t) { return absl::nullopt; });
+
+  // T3-RTX will be started when sending this packet.
+  std::vector<std::pair<TSN, Data>> chunks_to_send =
+      queue.GetChunksToSend(now_, 2 * (4 + DataChunk::kHeaderSize));
+  EXPECT_THAT(chunks_to_send, ElementsAre(Pair(TSN(10), _), Pair(TSN(11), _)));
+  EXPECT_THAT(queue.GetChunkStatesForTesting(),
+              ElementsAre(Pair(TSN(9), State::kAcked),  //
+                          Pair(TSN(10), State::kInFlight),
+                          Pair(TSN(11), State::kInFlight)));
+
+  EXPECT_THAT(queue.GetChunksToSend(now_, 1000), ElementsAre(Pair(TSN(12), _)));
+
+  // Expire T3-RTX and retransmit TSN 10 and 11, but not 12. And as T3-RTX will
+  // be restarted now,
+  queue.HandleT3RtxTimerExpiry();
+
+  EXPECT_THAT(queue.GetChunkStatesForTesting(),
+              ElementsAre(Pair(TSN(9), State::kAcked),  //
+                          Pair(TSN(10), State::kToBeRetransmitted),
+                          Pair(TSN(11), State::kToBeRetransmitted),
+                          Pair(TSN(12), State::kInFlight)));
+
+  // This will also retransmit TSN=12
+  queue.HandleT3RtxTimerExpiry();
+
+  EXPECT_THAT(queue.GetChunkStatesForTesting(),
+              ElementsAre(Pair(TSN(9), State::kAcked),  //
+                          Pair(TSN(10), State::kToBeRetransmitted),
+                          Pair(TSN(11), State::kToBeRetransmitted),
+                          Pair(TSN(12), State::kToBeRetransmitted)));
+}
+
 TEST_F(RetransmissionQueueTest, LimitedRetransmissionOnlyWithRfc3758Support) {
   RetransmissionQueue queue =
       CreateQueue(/*supports_partial_reliability=*/false);

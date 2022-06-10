@@ -411,8 +411,11 @@ absl::optional<UnwrappedTSN> OutstandingData::Insert(
   return tsn;
 }
 
-void OutstandingData::NackAll() {
+void OutstandingData::NackAllUntil(UnwrappedTSN max_tsn_to_nack) {
   for (auto& [tsn, item] : outstanding_data_) {
+    if (tsn > max_tsn_to_nack) {
+      break;
+    }
     if (!item.is_acked()) {
       NackItem(tsn, item, /*retransmit_now=*/true,
                /*do_fast_retransmit=*/false);

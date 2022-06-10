@@ -93,7 +93,8 @@ RetransmissionQueue::RetransmissionQueue(
                                     : TSN(*my_initial_tsn - 1)),
           [this](IsUnordered unordered, StreamID stream_id, MID message_id) {
             return send_queue_.Discard(unordered, stream_id, message_id);
-          }) {}
+          }),
+      max_tsn_to_retransmit_(outstanding_data_.highest_outstanding_tsn()) {}
 
 bool RetransmissionQueue::IsConsistent() const {
   return true;
@@ -214,6 +215,20 @@ void RetransmissionQueue::UpdateReceiverWindow(uint32_t a_rwnd) {
               : a_rwnd - outstanding_data_.outstanding_bytes();
 }
 
+void RetransmissionQueue::MaybeStartT3RtxTimer() {
+  RTC_DCHECK(!outstanding_data_.empty());
+  if (t3_rtx_.is_running()) {
+    return;
+  }
+
+  // Keep track of which outstanding chunk that was the last sent. When this
+  // timer expires, all chunks prior and including this chunk can be
+  // retransmitted. Later chunks shouldn' be retransmitted, as the peer hasn't
+  // been given enough time to SACK those yet. They may still be in-flight.
+  max_tsn_to_retransmit_ = outstanding_data_.highest_outstanding_tsn();
+  t3_rtx_.Start();
+}
+
 void RetransmissionQueue::StartT3RtxTimerIfOutstandingData() {
   // Note: Can't use `outstanding_bytes()` as that one doesn't count chunks to
   // be retransmitted.
@@ -232,9 +247,7 @@ void RetransmissionQueue::StartT3RtxTimerIfOutstandingData() {
     // acknowledged via a Gap Ack Block, start the T3-rtx for the destination
     // address to which the DATA chunk was originally transmitted if it is not
     // already running."
-    if (!t3_rtx_.is_running()) {
-      t3_rtx_.Start();
-    }
+    MaybeStartT3RtxTimer();
   }
 }
 
@@ -372,7 +385,8 @@ void RetransmissionQueue::HandleT3RtxTimerExpiry() {
   // T3-rtx timer expired but did not fit in one MTU (rule E3 above) should be
   // marked for retransmission and sent as soon as cwnd allows (normally, when a
   // SACK arrives)."
-  outstanding_data_.NackAll();
+  outstanding_data_.NackAllUntil(max_tsn_to_retransmit_);
+  max_tsn_to_retransmit_ = outstanding_data_.highest_outstanding_tsn();
 
   // https://tools.ietf.org/html/rfc4960#section-6.3.3
   // "Start the retransmission timer T3-rtx on the destination address
@@ -402,9 +416,7 @@ RetransmissionQueue::GetChunksForFastRetransmit(size_t bytes_in_packet) {
   // "Every time a DATA chunk is sent to any address (including a
   // retransmission), if the T3-rtx timer of that address is not running,
   // start it running so that it will expire after the RTO of that address."
-  if (!t3_rtx_.is_running()) {
-    t3_rtx_.Start();
-  }
+  MaybeStartT3RtxTimer();
   RTC_DLOG(LS_VERBOSE) << log_prefix_ << "Fast-retransmitting TSN "
                        << StrJoin(to_be_sent, ",",
                                   [&](rtc::StringBuilder& sb,
@@ -456,6 +468,7 @@ std::vector<std::pair<TSN, Data>> RetransmissionQueue::GetChunksToSend(
     }
 
     size_t chunk_size = GetSerializedChunkSize(chunk_opt->data);
+    RTC_DCHECK_LE(chunk_size, max_bytes);
     max_bytes -= chunk_size;
     rwnd_ -= chunk_size;
 
@@ -477,9 +490,7 @@ std::vector<std::pair<TSN, Data>> RetransmissionQueue::GetChunksToSend(
     // "Every time a DATA chunk is sent to any address (including a
     // retransmission), if the T3-rtx timer of that address is not running,
     // start it running so that it will expire after the RTO of that address."
-    if (!t3_rtx_.is_running()) {
-      t3_rtx_.Start();
-    }
+    MaybeStartT3RtxTimer();
     RTC_DLOG(LS_VERBOSE) << log_prefix_ << "Sending TSN "
                          << StrJoin(to_be_sent, ",",
                                     [&](rtc::StringBuilder& sb,

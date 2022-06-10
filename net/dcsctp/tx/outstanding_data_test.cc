@@ -327,7 +327,7 @@ TEST_F(OutstandingDataTest, CanGenerateForwardTsn) {
 
   EXPECT_CALL(on_discard_, Call(IsUnordered(false), StreamID(1), MID(42)))
       .WillOnce(Return(false));
-  buf_.NackAll();
+  buf_.NackAllUntil(unwrapper_.Unwrap(TSN(12)));
 
   EXPECT_FALSE(buf_.has_data_to_be_retransmitted());
   EXPECT_THAT(buf_.GetChunkStatesForTesting(),
@@ -406,7 +406,9 @@ TEST_F(OutstandingDataTest, MustRetransmitBeforeGettingNackedAgain) {
 
   static constexpr MaxRetransmits kOneRetransmission(1);
   for (int tsn = 10; tsn <= 20; ++tsn) {
-    buf_.Insert(gen_.Ordered({1}, tsn == 10 ? "B" : tsn == 20 ? "E" : ""),
+    buf_.Insert(gen_.Ordered({1}, tsn == 10   ? "B"
+                                  : tsn == 20 ? "E"
+                                              : ""),
                 kOneRetransmission, kNow, TimeMs::InfiniteFuture());
   }
 
@@ -519,5 +521,24 @@ TEST_F(OutstandingDataTest, CanAbandonChunksMarkedForFastRetransmit) {
   EXPECT_THAT(buf_.GetChunksToBeFastRetransmitted(1000), IsEmpty());
   EXPECT_THAT(buf_.GetChunksToBeRetransmitted(1000), IsEmpty());
 }
+
+TEST_F(OutstandingDataTest, NacksUntilAndIncludingGivenTsn) {
+  buf_.Insert(gen_.Ordered({1}, "B"), MaxRetransmits::NoLimit(), kNow,
+              TimeMs::InfiniteFuture());
+  buf_.Insert(gen_.Ordered({1}, ""), MaxRetransmits::NoLimit(), kNow,
+              TimeMs::InfiniteFuture());
+  buf_.Insert(gen_.Ordered({1}, "E"), MaxRetransmits::NoLimit(), kNow,
+              TimeMs::InfiniteFuture());
+
+  buf_.NackAllUntil(unwrapper_.Unwrap(TSN(11)));
+
+  EXPECT_TRUE(buf_.has_data_to_be_retransmitted());
+  EXPECT_THAT(buf_.GetChunkStatesForTesting(),
+              ElementsAre(Pair(TSN(9), State::kAcked),
+                          Pair(TSN(10), State::kToBeRetransmitted),
+                          Pair(TSN(11), State::kToBeRetransmitted),
+                          Pair(TSN(12), State::kInFlight)));
+}
+
 }  // namespace
 }  // namespace dcsctp

@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "252ebe2f_ab388650",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 13849
+      },
+      "writtenOn": "2022-06-10T22:50:40Z",
+      "side": 1,
+      "message": "lgtm, adding desktop_capture OWNER.",
+      "revId": "9eca3da5f502e7e402912d8173386504ffb6d641",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

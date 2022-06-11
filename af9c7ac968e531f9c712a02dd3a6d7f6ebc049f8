@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "69e076fb_94fecde6",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2022-06-11T08:58:59Z",
+      "side": 1,
+      "message": "This logic seems wrong to me, but I may just not get it.\nHow long is T3 compared to RTT?\n\nIf T3 is 3x RTT, what will happen in a burst loss is:\n\n- We send A and start T3\n- We send B, C, D, E (T3 is running, so no restart)\n- All 4 are lost\n- T3 expires\n- We resend A\n- A is acked, B/C/D/E are resent (?)\n\nThis will delay the retransmission of B, C, D, E by one RTT compared to current code.\n\nIs the RFC saying that this is how one should do it?\n\n",
+      "revId": "af9c7ac968e531f9c712a02dd3a6d7f6ebc049f8",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

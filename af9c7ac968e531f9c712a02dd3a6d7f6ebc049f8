@@ -16,6 +16,24 @@
       "message": "This logic seems wrong to me, but I may just not get it.\nHow long is T3 compared to RTT?\n\nIf T3 is 3x RTT, what will happen in a burst loss is:\n\n- We send A and start T3\n- We send B, C, D, E (T3 is running, so no restart)\n- All 4 are lost\n- T3 expires\n- We resend A\n- A is acked, B/C/D/E are resent (?)\n\nThis will delay the retransmission of B, C, D, E by one RTT compared to current code.\n\nIs the RFC saying that this is how one should do it?\n\n",
       "revId": "af9c7ac968e531f9c712a02dd3a6d7f6ebc049f8",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "b148ed49_bd21a7b7",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 12215
+      },
+      "writtenOn": "2022-06-11T21:56:40Z",
+      "side": 1,
+      "message": "T3 is set to the retransmission timeout (RTO), which is ~RTT+a bit more.\n\nThe standard is very vague: https://datatracker.ietf.org/doc/html/rfc4960#section-6.3.3:\n\n   Note: Any DATA chunks that were sent to the address for which the\n   T3-rtx timer expired but did not fit in one MTU (rule E3 above)\n   should be marked for retransmission and sent as soon as cwnd allows\n   (normally, when a SACK arrives).\n   \nWhat are the \"DATA chunks ... _for which the T3-rtx timer expired_\"? I\u0027m (now in this CL) arguing that it\u0027s the ones that were inflight when T3-RTX was started, and not any newer chunks, as T3-RTX wasn\u0027t running \"for them\" - just for the prior chunks.\n\nWhat does pion do? The logic is at https://github.com/pion/sctp/blob/17090a459a9c7f70d4972a95924cb01498610d42/association.go#L2474 and they just send everything. That\u0027s what we do before this CL.\n\nWhat does usrsctp do? The logic is at https://github.com/sctplab/usrsctp/blob/3e1c5ae9560154d86f5636d6abfb8101dc2e0c47/usrsctplib/netinet/sctp_timer.c#L487. When T3 expires, it will actually compare the send timestamps of all outstanding unacked chunks, and if they were sent more than RTO ago, they will be resent. When was RTO ago? That was when T3 was started (as it expires after RTO), so this is the same as acking all outstanding when T3 was started, which is exactly what this CL does as well.\n\nI actually found this issue when analyzing https://drive.google.com/file/d/1ZWDYQ5tQY-AQqGQEWwdbfmCHibtWPWto/view?usp\u003dsharing (shared with your google account). If you open it, you\u0027ll see that DATA with TSN\u003d793796649 was sent at 08:11:53.614660 (packet 37), and then when T3-RTX expires, it re-sends that chunk at 08:11:53.758259 (packet 41), which isn\u0027t nice, as only 150ms has passed, and the RTT was higher than that (RTO.min is 400ms BTW). So that chunk didn\u0027t have time to be acked (that takes at least an RTT), but was retransmitted anyway.",
+      "parentUuid": "69e076fb_94fecde6",
+      "revId": "af9c7ac968e531f9c712a02dd3a6d7f6ebc049f8",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

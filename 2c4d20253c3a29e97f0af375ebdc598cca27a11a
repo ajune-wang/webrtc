@@ -51,6 +51,40 @@
       "parentUuid": "2b8286b4_a47c3bf3",
       "revId": "2c4d20253c3a29e97f0af375ebdc598cca27a11a",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "359fe1c7_58b208fd",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2022-06-11T08:32:23Z",
+      "side": 1,
+      "message": "Explanation accepted - I assume the pointed-to object is the internal object, not the proxy (which would already do the threadjump).\n\nAwaiting Kari\u0027s review for Obj-C style reading.\n",
+      "revId": "2c4d20253c3a29e97f0af375ebdc598cca27a11a",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "3095c18d_c06b107f",
+        "filename": "sdk/objc/api/peerconnection/RTCMediaStream.mm",
+        "patchSetId": 2
+      },
+      "lineNbr": 98,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2022-06-11T08:32:23Z",
+      "side": 1,
+      "message": "This change seems wrong. It seems to return with no action when the object is found, contrary to what the previous code was (it would assert when the object was not fund).",
+      "revId": "2c4d20253c3a29e97f0af375ebdc598cca27a11a",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

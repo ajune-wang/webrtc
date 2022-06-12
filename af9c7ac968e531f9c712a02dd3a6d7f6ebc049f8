@@ -34,6 +34,41 @@
       "parentUuid": "69e076fb_94fecde6",
       "revId": "af9c7ac968e531f9c712a02dd3a6d7f6ebc049f8",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "6959031a_9099493f",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2022-06-12T07:39:38Z",
+      "side": 1,
+      "message": "Needs a bug report against the standard :-)\n\nStill worried.\n\nIs RTO.min the value of T3 when RTT is shorter than this? A minimum value of T3 of 0.4 seconds (OUCH!) means that this patch will severely degrade performance in short-RTT situations with bursty loss, since there will then be many chunks that are sent before T3 expires that should have been acked, but are lost by the burst loss.\n\n0.4 seconds (400 ms) is an awfully long time; RTT from Stockholm to California is 70 ms on a clear day.",
+      "parentUuid": "b148ed49_bd21a7b7",
+      "revId": "af9c7ac968e531f9c712a02dd3a6d7f6ebc049f8",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "134dfc12_a9c4ca32",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2022-06-12T07:39:38Z",
+      "side": 1,
+      "message": "400 ms????",
+      "revId": "af9c7ac968e531f9c712a02dd3a6d7f6ebc049f8",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

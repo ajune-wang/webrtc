@@ -22,6 +22,30 @@
       },
       "revId": "35b706d76a89b925d4b5701aa54437bb270284c4",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "c22f606a_55e2785e",
+        "filename": "video/frame_buffer_proxy.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 255,
+      "author": {
+        "id": 5527
+      },
+      "writtenOn": "2022-06-13T14:32:05Z",
+      "side": 1,
+      "message": "That might be cleaner, could be for a future CL.",
+      "parentUuid": "1c31ecda_cd737284",
+      "range": {
+        "startLine": 255,
+        "startChar": 0,
+        "endLine": 255,
+        "endChar": 39
+      },
+      "revId": "35b706d76a89b925d4b5701aa54437bb270284c4",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

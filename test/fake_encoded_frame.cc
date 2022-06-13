@@ -14,7 +14,7 @@
 
 #include "api/video/video_frame_type.h"
 
-namespace webrtc::test {
+namespace webrtc {
 
 void PrintTo(const EncodedFrame& frame,
              std::ostream* os) /* no-presubmit-check TODO(webrtc:8982) */ {
@@ -25,6 +25,7 @@ void PrintTo(const EncodedFrame& frame,
   }
   *os << "]";
 }
+namespace test {
 
 int64_t FakeEncodedFrame::ReceivedTime() const {
   return received_time_;
@@ -34,12 +35,20 @@ int64_t FakeEncodedFrame::RenderTime() const {
   return _renderTimeMs;
 }
 
+bool FakeEncodedFrame::delayed_by_retransmission() const {
+  return nacked_;
+}
+
 void FakeEncodedFrame::SetReceivedTime(int64_t received_time) {
   received_time_ = received_time;
 }
 
 void FakeEncodedFrame::SetPayloadType(int payload_type) {
   _payloadType = payload_type;
+}
+
+void FakeEncodedFrame::SetNacked(bool nacked) {
+  nacked_ = nacked;
 }
 
 FakeFrameBuilder& FakeFrameBuilder::Time(uint32_t rtp_timestamp) {
@@ -99,6 +108,7 @@ std::unique_ptr<FakeEncodedFrame> FakeFrameBuilder::Build() {
     frame->SetPlayoutDelay(*playout_delay_);
   frame->SetFrameType(references_.empty() ? VideoFrameType::kVideoFrameKey
                                           : VideoFrameType::kVideoFrameDelta);
+  frame->SetNacked(nacked_);
   for (int64_t ref : references_) {
     frame->references[frame->num_references] = ref;
     frame->num_references++;
@@ -138,4 +148,10 @@ FakeFrameBuilder& FakeFrameBuilder::PacketInfos(RtpPacketInfos packet_infos) {
   return *this;
 }
 
-}  // namespace webrtc::test
+FakeFrameBuilder& FakeFrameBuilder::Nacked() {
+  nacked_ = true;
+  return *this;
+}
+
+}  // namespace test
+}  // namespace webrtc

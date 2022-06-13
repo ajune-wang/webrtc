@@ -21,24 +21,29 @@
 #include "api/video/video_rotation.h"
 #include "test/gmock.h"
 
-namespace webrtc::test {
+namespace webrtc {
 
 // For test printing.
 void PrintTo(const EncodedFrame& frame,
              std::ostream* os);  // no-presubmit-check TODO(webrtc:8982)
+
+namespace test {
 
 class FakeEncodedFrame : public EncodedFrame {
  public:
   // Always 10ms delay and on time.
   int64_t ReceivedTime() const override;
   int64_t RenderTime() const override;
+  bool delayed_by_retransmission() const override;
 
   // Setters for protected variables.
   void SetReceivedTime(int64_t received_time);
   void SetPayloadType(int payload_type);
+  void SetNacked(bool nacked);
 
  private:
   int64_t received_time_;
+  bool nacked_;
 };
 
 MATCHER_P(WithId, id, "") {
@@ -67,6 +72,7 @@ class FakeFrameBuilder {
   FakeFrameBuilder& NtpTime(Timestamp ntp_time);
   FakeFrameBuilder& Rotation(VideoRotation rotation);
   FakeFrameBuilder& PacketInfos(RtpPacketInfos packet_infos);
+  FakeFrameBuilder& Nacked();
   std::unique_ptr<FakeEncodedFrame> Build();
 
  private:
@@ -81,9 +87,11 @@ class FakeFrameBuilder {
   absl::optional<RtpPacketInfos> packet_infos_;
   std::vector<int64_t> references_;
   bool last_spatial_layer_ = false;
+  bool nacked_ = false;
   size_t size_ = 10;
 };
 
-}  // namespace webrtc::test
+}  // namespace test
+}  // namespace webrtc
 
 #endif  // TEST_FAKE_ENCODED_FRAME_H_

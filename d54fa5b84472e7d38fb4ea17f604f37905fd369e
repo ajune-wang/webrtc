@@ -41,6 +41,30 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "bb8f67a5_e6b943ab",
+        "filename": "video/frame_buffer_proxy.cc",
+        "patchSetId": 7
+      },
+      "lineNbr": 255,
+      "author": {
+        "id": 18444
+      },
+      "writtenOn": "2022-06-13T15:39:30Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "9cb06eb0_8dbde5a5",
+      "range": {
+        "startLine": 255,
+        "startChar": 4,
+        "endLine": 255,
+        "endChar": 8
+      },
+      "revId": "d54fa5b84472e7d38fb4ea17f604f37905fd369e",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "02df00b9_9844abf5",
@@ -54,6 +78,30 @@
       "writtenOn": "2022-06-13T14:49:52Z",
       "side": 1,
       "message": "nit: Add `using ::testing::AnyNumber;` up among the other \"users\"",
+      "range": {
+        "startLine": 1053,
+        "startChar": 47,
+        "endLine": 1053,
+        "endChar": 58
+      },
+      "revId": "d54fa5b84472e7d38fb4ea17f604f37905fd369e",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "12626e7d_a1a831b5",
+        "filename": "video/video_receive_stream2_unittest.cc",
+        "patchSetId": 7
+      },
+      "lineNbr": 1053,
+      "author": {
+        "id": 18444
+      },
+      "writtenOn": "2022-06-13T15:39:30Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "02df00b9_9844abf5",
       "range": {
         "startLine": 1053,
         "startChar": 47,

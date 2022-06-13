@@ -1,0 +1,55 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "b1492982_3604f26d",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 26
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2022-06-13T06:24:28Z",
+      "side": 1,
+      "message": "Most important comment is that we need tests that MTU argument behaves right.\nApproving for priority.",
+      "revId": "7d69fbad8b25d67577a3598b5c0df25b6794bf37",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "9b27bba8_f53b0c17",
+        "filename": "net/dcsctp/tx/stream_scheduler.cc",
+        "patchSetId": 26
+      },
+      "lineNbr": 28,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2022-06-13T06:24:28Z",
+      "side": 1,
+      "message": "I\u0027d call it SetPriority, just because it manipulates more than the priority.",
+      "revId": "7d69fbad8b25d67577a3598b5c0df25b6794bf37",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "596b6c89_d9b18acd",
+        "filename": "net/dcsctp/tx/stream_scheduler.h",
+        "patchSetId": 26
+      },
+      "lineNbr": 158,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2022-06-13T06:24:28Z",
+      "side": 1,
+      "message": "The mtu argument is new in this CL. I\u0027m missing tests that check that the behavior influenced by MTU is as expected.\n\nI also think this needs a comment - it is not the mtu of the link, it is the mtu available to SCTP, which in WebRTC will be network mtu - IP overhead - UDP overhead - dtls overhead.",
+      "revId": "7d69fbad8b25d67577a3598b5c0df25b6794bf37",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

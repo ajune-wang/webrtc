@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "31f43058_e1f39db4",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2022-06-13T08:38:59Z",
+      "side": 1,
+      "message": "PTAL, initial steps extracted from cl https://webrtc-review.googlesource.com/c/src/+/265390",
+      "revId": "ab81cc2eebc11e698a89bbb735d409dcd450bcdc",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

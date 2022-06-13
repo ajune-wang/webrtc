@@ -1,0 +1,38 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "1bab16af_722a8cda",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2022-06-13T07:43:19Z",
+      "side": 1,
+      "message": "Looks good, but would like a pass to replace FIXME with bug references...",
+      "revId": "578e966c5dec519d40b1d22b1e8989d507fdfd91",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "aa08a0b4_09ba46d8",
+        "filename": "api/stats/rtcstats_objects.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 205,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2022-06-13T07:43:19Z",
+      "side": 1,
+      "message": "Does this need a new filed bug?",
+      "revId": "578e966c5dec519d40b1d22b1e8989d507fdfd91",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

@@ -124,13 +124,6 @@
       }
     }
   },
-  'linux': {
-    'swarming': {
-      'dimensions': {
-        'os': 'Ubuntu'
-      }
-    }
-  },
   'linux-bionic': {
     'swarming': {
       'dimensions': {

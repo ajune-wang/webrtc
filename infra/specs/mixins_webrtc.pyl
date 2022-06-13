@@ -115,13 +115,6 @@
       ],
     }
   },
-  'linux': {
-    'swarming': {
-      'dimensions': {
-        'os': 'Ubuntu'
-      }
-    }
-  },
   'logdog-butler': {
     'swarming': {
       'cipd_packages': [

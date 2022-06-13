@@ -16,6 +16,52 @@
       "message": "+sprang for owners review",
       "revId": "d54fa5b84472e7d38fb4ea17f604f37905fd369e",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "9cb06eb0_8dbde5a5",
+        "filename": "video/frame_buffer_proxy.cc",
+        "patchSetId": 7
+      },
+      "lineNbr": 255,
+      "author": {
+        "id": 5524
+      },
+      "writtenOn": "2022-06-13T14:49:52Z",
+      "side": 1,
+      "message": "nit: For simple types prefer explicit type instead of auto.",
+      "range": {
+        "startLine": 255,
+        "startChar": 4,
+        "endLine": 255,
+        "endChar": 8
+      },
+      "revId": "d54fa5b84472e7d38fb4ea17f604f37905fd369e",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "02df00b9_9844abf5",
+        "filename": "video/video_receive_stream2_unittest.cc",
+        "patchSetId": 7
+      },
+      "lineNbr": 1053,
+      "author": {
+        "id": 5524
+      },
+      "writtenOn": "2022-06-13T14:49:52Z",
+      "side": 1,
+      "message": "nit: Add `using ::testing::AnyNumber;` up among the other \"users\"",
+      "range": {
+        "startLine": 1053,
+        "startChar": 47,
+        "endLine": 1053,
+        "endChar": 58
+      },
+      "revId": "d54fa5b84472e7d38fb4ea17f604f37905fd369e",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

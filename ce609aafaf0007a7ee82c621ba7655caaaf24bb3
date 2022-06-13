@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "cd15b4a8_7de94217",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 3
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 17719
+      },
+      "writtenOn": "2022-06-13T13:38:19Z",
+      "side": 1,
+      "message": "Thank you Alessio for the comments! I\u0027ve modified the code based on your comments, could you please take a look again?\n\nThanks!",
+      "revId": "ce609aafaf0007a7ee82c621ba7655caaaf24bb3",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

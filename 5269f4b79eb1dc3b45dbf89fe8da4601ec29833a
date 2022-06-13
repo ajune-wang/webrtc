@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "0aa2edaf_6c5ca12d",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 12234
+      },
+      "writtenOn": "2022-06-13T14:51:01Z",
+      "side": 1,
+      "message": "When you say \"apply to bots in prep for upgrade\", does it mean apply to all bots ?",
+      "revId": "5269f4b79eb1dc3b45dbf89fe8da4601ec29833a",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

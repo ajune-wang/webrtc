@@ -163,6 +163,7 @@ bool AudioProcessingImpl::SubmoduleStates::Update(
     bool noise_suppressor_enabled,
     bool adaptive_gain_controller_enabled,
     bool gain_controller2_enabled,
+    bool voice_activity_detector_enabled,
     bool gain_adjustment_enabled,
     bool echo_controller_enabled,
     bool transient_suppressor_enabled) {
@@ -174,6 +175,8 @@ bool AudioProcessingImpl::SubmoduleStates::Update(
   changed |=
       (adaptive_gain_controller_enabled != adaptive_gain_controller_enabled_);
   changed |= (gain_controller2_enabled != gain_controller2_enabled_);
+  changed |=
+      (voice_activity_detector_enabled != voice_activity_detector_enabled_);
   changed |= (gain_adjustment_enabled != gain_adjustment_enabled_);
   changed |= (echo_controller_enabled != echo_controller_enabled_);
   changed |= (transient_suppressor_enabled != transient_suppressor_enabled_);
@@ -183,6 +186,7 @@ bool AudioProcessingImpl::SubmoduleStates::Update(
     noise_suppressor_enabled_ = noise_suppressor_enabled;
     adaptive_gain_controller_enabled_ = adaptive_gain_controller_enabled;
     gain_controller2_enabled_ = gain_controller2_enabled;
+    voice_activity_detector_enabled_ = voice_activity_detector_enabled;
     gain_adjustment_enabled_ = gain_adjustment_enabled;
     echo_controller_enabled_ = echo_controller_enabled;
     transient_suppressor_enabled_ = transient_suppressor_enabled;
@@ -396,6 +400,7 @@ void AudioProcessingImpl::InitializeLocked() {
   InitializeResidualEchoDetector();
   InitializeEchoController();
   InitializeGainController2(/*config_has_changed=*/true);
+  InitializeVoiceActivityDetector(/*config_has_changed=*/true);
   InitializeNoiseSuppressor();
   InitializeAnalyzer();
   InitializePostProcessor();
@@ -570,6 +575,7 @@ void AudioProcessingImpl::ApplyConfig(const AudioProcessing::Config& config) {
   }
 
   InitializeGainController2(agc2_config_changed);
+  InitializeVoiceActivityDetector(agc2_config_changed);
 
   if (pre_amplifier_config_changed || gain_adjustment_config_changed) {
     InitializeCaptureLevelsAdjuster();
@@ -1298,10 +1304,19 @@ int AudioProcessingImpl::ProcessCaptureStreamLocked() {
       submodules_.capture_analyzer->Analyze(capture_buffer);
     }
 
+    absl::optional<float> voice_activity_probability = absl::nullopt;
     if (submodules_.gain_controller2) {
       submodules_.gain_controller2->NotifyAnalogLevel(
           recommended_stream_analog_level_locked());
-      submodules_.gain_controller2->Process(capture_buffer);
+      if (submodules_.voice_activity_detector) {
+        voice_activity_probability =
+            submodules_.voice_activity_detector->Analyze(
+                AudioFrameView<const float>(capture_buffer->channels(),
+                                            capture_buffer->num_channels(),
+                                            capture_buffer->num_frames()));
+      }
+      submodules_.gain_controller2->Process(voice_activity_probability,
+                                            capture_buffer);
     }
 
     if (submodules_.capture_post_processor) {
@@ -1693,7 +1708,7 @@ bool AudioProcessingImpl::UpdateActiveSubmoduleStates() {
   return submodule_states_.Update(
       config_.high_pass_filter.enabled, !!submodules_.echo_control_mobile,
       !!submodules_.noise_suppressor, !!submodules_.gain_control,
-      !!submodules_.gain_controller2,
+      !!submodules_.gain_controller2, !!submodules_.voice_activity_detector,
       config_.pre_amplifier.enabled || config_.capture_level_adjustment.enabled,
       capture_nonlocked_.echo_controller_enabled,
       !!submodules_.transient_suppressor);
@@ -1901,9 +1916,34 @@ void AudioProcessingImpl::InitializeGainController2(bool config_has_changed) {
     return;
   }
   if (!submodules_.gain_controller2 || config_has_changed) {
+    const bool use_internal_vad =
+        transient_suppressor_vad_mode_ != TransientSuppressor::VadMode::kRnnVad;
     submodules_.gain_controller2 = std::make_unique<GainController2>(
         config_.gain_controller2, proc_fullband_sample_rate_hz(),
-        num_input_channels());
+        num_input_channels(), use_internal_vad);
+  }
+}
+
+void AudioProcessingImpl::InitializeVoiceActivityDetector(
+    bool config_has_changed) {
+  if (!config_has_changed) {
+    return;
+  }
+  const bool use_vad =
+      transient_suppressor_vad_mode_ == TransientSuppressor::VadMode::kRnnVad &&
+      config_.gain_controller2.enabled &&
+      config_.gain_controller2.adaptive_digital.enabled;
+  if (!use_vad) {
+    submodules_.voice_activity_detector.reset();
+    return;
+  }
+  if (!submodules_.voice_activity_detector || config_has_changed) {
+    RTC_DCHECK(!!submodules_.gain_controller2);
+    submodules_.voice_activity_detector =
+        std::make_unique<VoiceActivityDetectorWrapper>(
+            config_.gain_controller2.adaptive_digital.vad_reset_period_ms,
+            submodules_.gain_controller2->GetCpuFeatures(),
+            proc_fullband_sample_rate_hz());
   }
 }
 

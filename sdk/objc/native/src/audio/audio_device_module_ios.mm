@@ -41,8 +41,15 @@ namespace webrtc {
 namespace ios_adm {
 
 AudioDeviceModuleIOS::AudioDeviceModuleIOS(bool bypass_voice_processing)
-    : bypass_voice_processing_(bypass_voice_processing),
-      task_queue_factory_(CreateDefaultTaskQueueFactory()) {
+    : AudioDeviceModuleIOS(
+          std::function<std::unique_ptr<AudioDeviceGeneric>()>([bypass_voice_processing]() {
+            return std::make_unique<AudioDeviceIOS>(bypass_voice_processing);
+          })) {}
+
+AudioDeviceModuleIOS::AudioDeviceModuleIOS(
+    std::function<std::unique_ptr<AudioDeviceGeneric>()> audio_device_factory)
+    : task_queue_factory_(CreateDefaultTaskQueueFactory()),
+      audio_device_factory_(audio_device_factory) {
   RTC_LOG(LS_INFO) << "current platform is IOS";
   RTC_LOG(LS_INFO) << "iPhone Audio APIs will be utilized.";
 }
@@ -73,7 +80,7 @@ AudioDeviceModuleIOS::AudioDeviceModuleIOS(bool bypass_voice_processing)
       return 0;
 
     audio_device_buffer_.reset(new webrtc::AudioDeviceBuffer(task_queue_factory_.get()));
-    audio_device_.reset(new ios_adm::AudioDeviceIOS(bypass_voice_processing_));
+    audio_device_ = audio_device_factory_();
     RTC_CHECK(audio_device_);
 
     this->AttachAudioBuffer();

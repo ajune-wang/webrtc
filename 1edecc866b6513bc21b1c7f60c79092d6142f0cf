@@ -24,6 +24,30 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "17d8f28b_b75c1fc1",
+        "filename": "test/pc/e2e/analyzer/video/default_video_quality_analyzer.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 232,
+      "author": {
+        "id": 6337
+      },
+      "writtenOn": "2022-06-13T08:02:36Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "ceaa8350_23700694",
+      "range": {
+        "startLine": 232,
+        "startChar": 21,
+        "endLine": 232,
+        "endChar": 36
+      },
+      "revId": "1edecc866b6513bc21b1c7f60c79092d6142f0cf",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "ade0ee82_7e6d09fe",
@@ -47,6 +71,30 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "ecf01edb_8a5f01f8",
+        "filename": "test/pc/e2e/analyzer/video/default_video_quality_analyzer_frame_in_flight.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 135,
+      "author": {
+        "id": 6337
+      },
+      "writtenOn": "2022-06-13T08:02:36Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "ade0ee82_7e6d09fe",
+      "range": {
+        "startLine": 131,
+        "startChar": 67,
+        "endLine": 135,
+        "endChar": 49
+      },
+      "revId": "1edecc866b6513bc21b1c7f60c79092d6142f0cf",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "22b66e2d_ff502f52",
@@ -60,6 +108,30 @@
       "writtenOn": "2022-06-13T06:59:04Z",
       "side": 1,
       "message": "nit: present (also in the method name below)",
+      "range": {
+        "startLine": 74,
+        "startChar": 48,
+        "endLine": 74,
+        "endChar": 57
+      },
+      "revId": "1edecc866b6513bc21b1c7f60c79092d6142f0cf",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "234d812a_376f1f1f",
+        "filename": "test/pc/e2e/analyzer/video/names_collection.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 74,
+      "author": {
+        "id": 6337
+      },
+      "writtenOn": "2022-06-13T08:02:36Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "22b66e2d_ff502f52",
       "range": {
         "startLine": 74,
         "startChar": 48,

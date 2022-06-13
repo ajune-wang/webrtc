@@ -16,6 +16,24 @@
       "message": "Add an #include \"api/make_ref_counted.h\" here, and clients will continue to compile, and you can hunt them down later. I think.",
       "revId": "f65d735e7dc77ae3b496e03c05db72cd61117126",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "cf1ecde1_478577af",
+        "filename": "rtc_base/ref_counted_object.h",
+        "patchSetId": 6
+      },
+      "lineNbr": 19,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2022-06-13T07:27:32Z",
+      "side": 0,
+      "message": "That would result in an include cycle. Could probably be made to work thanks to include guards, but still doesn\u0027t seem quite right.",
+      "parentUuid": "dad48efc_e8507e4c",
+      "revId": "f65d735e7dc77ae3b496e03c05db72cd61117126",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

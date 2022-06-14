@@ -50,6 +50,23 @@
       "message": "Adding myself as reviewer, because it seems like I used the wrong account to upload this CL",
       "revId": "933a1af315fcc73276e9266da7dbad5c0f216319",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "921dec37_bbfaf692",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5607
+      },
+      "writtenOn": "2022-06-14T14:25:55Z",
+      "side": 1,
+      "message": "Hi, PTAL",
+      "revId": "933a1af315fcc73276e9266da7dbad5c0f216319",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

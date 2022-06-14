@@ -58,6 +58,30 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "8981e86b_6e5614e9",
+        "filename": "common_video/video_frame_buffer_pool.cc",
+        "patchSetId": 20
+      },
+      "lineNbr": 253,
+      "author": {
+        "id": 5963
+      },
+      "writtenOn": "2022-06-14T09:05:00Z",
+      "side": 1,
+      "message": "I was not sure if the new buffers had to implement the InitializeData() or not. Seems it is deprecated and not implemented in i010buffer anyway, so seems good to delete it.\n\n  // Sets all three planes to all zeros. Used to work around for\n  // quirks in memory checkers\n  // (https://bugs.chromium.org/p/libyuv/issues/detail?id\u003d377) and\n  // ffmpeg (http://crbug.com/390941).\n  // TODO(nisse): Deprecated. Should be deleted if/when those issues\n  // are resolved in a better way. Or in the mean time, use SetBlack.\n  void InitializeData();",
+      "parentUuid": "891bbaeb_4ce43f86",
+      "range": {
+        "startLine": 252,
+        "startChar": 0,
+        "endLine": 253,
+        "endChar": 30
+      },
+      "revId": "13c97baaaea70d10b49acb6ea5ac8995cf9aafab",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "9c701fcc_672e988b",
@@ -71,6 +95,30 @@
       "writtenOn": "2022-06-14T08:27:52Z",
       "side": 1,
       "message": "Delete?",
+      "range": {
+        "startLine": 282,
+        "startChar": 0,
+        "endLine": 284,
+        "endChar": 0
+      },
+      "revId": "13c97baaaea70d10b49acb6ea5ac8995cf9aafab",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "e24a8f46_a31d031e",
+        "filename": "common_video/video_frame_buffer_pool.cc",
+        "patchSetId": 20
+      },
+      "lineNbr": 284,
+      "author": {
+        "id": 5963
+      },
+      "writtenOn": "2022-06-14T09:05:00Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "9c701fcc_672e988b",
       "range": {
         "startLine": 282,
         "startChar": 0,

@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "fc45c166_95c71f46",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 7
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5508
+      },
+      "writtenOn": "2022-06-14T08:31:33Z",
+      "side": 1,
+      "message": "rubber stamping - looks like the other change has landed already",
+      "revId": "3931ae62e1a9f763c89f7c9a2ab395efc34a65ad",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

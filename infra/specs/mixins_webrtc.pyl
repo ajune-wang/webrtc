@@ -150,7 +150,14 @@
   'mac11': {
     'swarming': {
       'dimensions': {
-        'os': 'Mac-11'
+        'os': 'mac-11'
+      }
+    }
+  },
+  'mac11_or_mac12': {
+    'swarming': {
+      'dimensions': {
+        'os': 'Mac-11|Mac-12'
       }
     }
   },

@@ -16,6 +16,24 @@
       "message": "When you say \"apply to bots in prep for upgrade\", does it mean apply to all bots ?",
       "revId": "5269f4b79eb1dc3b45dbf89fe8da4601ec29833a",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "e907fbbe_ba4cd17f",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 6192
+      },
+      "writtenOn": "2022-06-14T12:30:54Z",
+      "side": 1,
+      "message": "All macOS bots need to be able to upgrade to MacOS 12 eventually.",
+      "parentUuid": "0aa2edaf_6c5ca12d",
+      "revId": "5269f4b79eb1dc3b45dbf89fe8da4601ec29833a",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

@@ -177,6 +177,24 @@
       "parentUuid": "41112d5e_faa12583",
       "revId": "acea6a679d7b54fece177e523935bb680cdf8052",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "57ce9a4b_f4ff61fa",
+        "filename": "api/make_ref_counted.h",
+        "patchSetId": 6
+      },
+      "lineNbr": 117,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2022-06-14T13:50:41Z",
+      "side": 1,
+      "message": "Separate deletion cl landed. So rtc::Ref no longer moved anywhere.",
+      "parentUuid": "8b8f2f5d_0e6dcf64",
+      "revId": "acea6a679d7b54fece177e523935bb680cdf8052",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

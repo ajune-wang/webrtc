@@ -69,6 +69,24 @@
       "message": "400 ms????",
       "revId": "af9c7ac968e531f9c712a02dd3a6d7f6ebc049f8",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "f1ad70e6_f150570e",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 12215
+      },
+      "writtenOn": "2022-06-14T11:45:28Z",
+      "side": 1,
+      "message": "An update just so that you didn\u0027t think I\u0027m not working on this 😊\n\nFirst of all: 400ms. That can likely be lowered more. It\u0027s 1 second by default in usrsctp, and I went with 400ms at the time because of issues that arose due to the 200ms delayed ack timeout that usrsctp has. Since then, I have added the \"rto_min_variance\" option that makes it possible to reduce rto.min to anything really. But it will never be smaller than 200ms due to the delayed ack timeout.\n\ndcSCTP has a delayed ack (ato) set to rto/2, or 200ms (whatever is smallest). I am thinking about reducing this to 40ms (as is default in Linux TCP, but not disable it, as having a non-zero delay allows it to be bundled without DATA chunks). That should bring the actual RTO to be smaller - way below 400ms.\n\nBut it\u0027s not always a good idea to have a lower retransmission timeout. When it expires, it resets the congestion window to 1 MTU, and it will take time to ramp up again. In many cases, packets can be retransmitted by fast retransmit by a number of gap-ack reports, and that will not reduce the congestion window too much.\n\nGoing back to this CL: I have three issues to resolve:\n1. When t3-rtx is doing exponential backoff, it should still retransmit chunks that were sent up to 1 RTO ago - not the TSN that was send when t3 was started (in other words: Do what usrsctp does). \n2. When not retransmitting everything and setting the congestion window to 1 MTU, there is outstanding data still (in-flight), which the congestion window must be adjusted for so that t3-rtx expiring can still send packets (and not be considered full already because of the inflight packets)\n3. Convince Harald. I\u0027ll invite you to a VC.",
+      "parentUuid": "6959031a_9099493f",
+      "revId": "af9c7ac968e531f9c712a02dd3a6d7f6ebc049f8",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

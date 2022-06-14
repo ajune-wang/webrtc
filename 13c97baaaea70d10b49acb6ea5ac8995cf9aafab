@@ -37,6 +37,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "50c00d99_d3d87b0f",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 20
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5963
+      },
+      "writtenOn": "2022-06-14T09:15:30Z",
+      "side": 1,
+      "message": "The code I think that should be tested are all the conversions in the switch statements. I plan to submit a new CL to move all that to a new generic WrapBuffer which would be much easier to test than having to deal with h264 files of each of the formats.",
+      "parentUuid": "c4efcbe3_84541e7c",
+      "revId": "13c97baaaea70d10b49acb6ea5ac8995cf9aafab",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "891bbaeb_4ce43f86",
         "filename": "common_video/video_frame_buffer_pool.cc",
         "patchSetId": 20

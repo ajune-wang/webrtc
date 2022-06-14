@@ -159,6 +159,24 @@
       "parentUuid": "7095e2e3_f51c2948",
       "revId": "acea6a679d7b54fece177e523935bb680cdf8052",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "8b8f2f5d_0e6dcf64",
+        "filename": "api/make_ref_counted.h",
+        "patchSetId": 6
+      },
+      "lineNbr": 117,
+      "author": {
+        "id": 5508
+      },
+      "writtenOn": "2022-06-14T09:30:44Z",
+      "side": 1,
+      "message": "Fixing AsyncInvoker and removing rtc::Ref is also an option but I\u0027d prefer to do that in a separate CL.",
+      "parentUuid": "41112d5e_faa12583",
+      "revId": "acea6a679d7b54fece177e523935bb680cdf8052",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

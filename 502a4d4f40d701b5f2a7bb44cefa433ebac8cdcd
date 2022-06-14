@@ -92,6 +92,30 @@
       },
       "revId": "502a4d4f40d701b5f2a7bb44cefa433ebac8cdcd",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "180c9ff7_92db364b",
+        "filename": "test/fuzzers/frame_buffer_fuzzer.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 82,
+      "author": {
+        "id": 18444
+      },
+      "writtenOn": "2022-06-14T14:24:04Z",
+      "side": 1,
+      "message": "I\u0027ll just remove the nodisacrd",
+      "parentUuid": "4771ee45_a6eceb77",
+      "range": {
+        "startLine": 82,
+        "startChar": 8,
+        "endLine": 82,
+        "endChar": 19
+      },
+      "revId": "502a4d4f40d701b5f2a7bb44cefa433ebac8cdcd",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

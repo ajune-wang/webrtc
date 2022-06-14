@@ -8,6 +8,8 @@
  *  be found in the AUTHORS file in the root of the source tree.
  */
 
+#include <tuple>
+
 #include "api/array_view.h"
 #include "api/video/encoded_frame.h"
 #include "api/video/frame_buffer.h"
@@ -77,7 +79,7 @@ void FuzzOneInput(const uint8_t* data, size_t size) {
           frame->references[i] = helper.ReadOrDefaultValue<int64_t>(0);
         }
 
-        buffer.InsertFrame(std::move(frame));
+        std::ignore = buffer.InsertFrame(std::move(frame));
         break;
       }
     }

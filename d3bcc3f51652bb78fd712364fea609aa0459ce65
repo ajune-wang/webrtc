@@ -160,6 +160,24 @@
       "parentUuid": "b3dec15f_32299847",
       "revId": "d3bcc3f51652bb78fd712364fea609aa0459ce65",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "dc035329_d5d9231e",
+        "filename": "api/video/i210_buffer.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 269,
+      "author": {
+        "id": 5963
+      },
+      "writtenOn": "2022-06-14T08:09:05Z",
+      "side": 1,
+      "message": "I210To420 is avaibale now in libyuv, using it now.",
+      "parentUuid": "69c976c4_07eb0b73",
+      "revId": "d3bcc3f51652bb78fd712364fea609aa0459ce65",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

@@ -18,7 +18,6 @@
 #include "absl/container/inlined_vector.h"
 #include "absl/types/optional.h"
 #include "api/field_trials_view.h"
-#include "api/units/timestamp.h"
 #include "api/video/encoded_frame.h"
 #include "modules/video_coding/utility/decoded_frames_history.h"
 
@@ -48,8 +47,8 @@ class FrameBuffer {
   ~FrameBuffer() = default;
 
   // Inserted frames may only reference backwards, and must have no duplicate
-  // references.
-  void InsertFrame(std::unique_ptr<EncodedFrame> frame);
+  // references. Returns true if the frame was successfully inserted.
+  bool InsertFrame(std::unique_ptr<EncodedFrame> frame);
 
   // Mark all frames belonging to the next decodable temporal unit as decoded
   // and returns them.

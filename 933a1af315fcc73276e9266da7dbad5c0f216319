@@ -84,6 +84,74 @@
       "message": "Hi, PTAL",
       "revId": "933a1af315fcc73276e9266da7dbad5c0f216319",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "991b42a2_5b6b9107",
+        "filename": "api/stats/rtcstats_objects.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 384,
+      "author": {
+        "id": 5142
+      },
+      "writtenOn": "2022-06-14T14:27:40Z",
+      "side": 1,
+      "message": "Can you add a crbug reference?",
+      "revId": "933a1af315fcc73276e9266da7dbad5c0f216319",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "6adf32a8_c767a686",
+        "filename": "api/stats/rtcstats_objects.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 386,
+      "author": {
+        "id": 5142
+      },
+      "writtenOn": "2022-06-14T14:27:40Z",
+      "side": 1,
+      "message": "Anything blocking removing this now? Makes sense to do in a follow-up CL to avoid a revert but I didn\u0027t find any obvious g3 references so please do it if it\u0027s possible",
+      "revId": "933a1af315fcc73276e9266da7dbad5c0f216319",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "9bf5adfd_ee33404b",
+        "filename": "media/base/media_channel.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 447,
+      "author": {
+        "id": 5142
+      },
+      "writtenOn": "2022-06-14T14:27:40Z",
+      "side": 1,
+      "message": "If this is only set in the audio case then we should make this absl::optional\u003cdouble\u003e and only set the stat if it has a value, otherwise we\u0027ll expose a default value 0.0 in the video case which is incorrect.\n\n(Metrics in getStats are undefined by default so there is a difference between no value and 0)",
+      "revId": "933a1af315fcc73276e9266da7dbad5c0f216319",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "2e07295d_2cf00bf7",
+        "filename": "media/engine/webrtc_voice_engine.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 2373,
+      "author": {
+        "id": 5142
+      },
+      "writtenOn": "2022-06-14T14:27:40Z",
+      "side": 1,
+      "message": "Looks like it is being set twice",
+      "revId": "933a1af315fcc73276e9266da7dbad5c0f216319",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

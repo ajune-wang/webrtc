@@ -105,6 +105,24 @@
       "parentUuid": "889302c4_df21cb6e",
       "revId": "acea6a679d7b54fece177e523935bb680cdf8052",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "a7f55706_a35b26bb",
+        "filename": "api/make_ref_counted.h",
+        "patchSetId": 6
+      },
+      "lineNbr": 117,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2022-06-14T08:46:37Z",
+      "side": 1,
+      "message": "Why is that a problem?\nDoes the HasAddRefAndRelease utility depend on Ref?\nCan we move Ref into the webrtc_make_ref_counted_internal namespace?\n\nThe name sounds so general, and as is so well commented, that it looks like something users of this API should be doing, and I\u0027m not clear why we should want that.",
+      "parentUuid": "1b37872d_ea4842d5",
+      "revId": "acea6a679d7b54fece177e523935bb680cdf8052",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "6fe33a18_1b9e084a",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 14
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 6305
+      },
+      "writtenOn": "2022-06-14T09:01:43Z",
+      "side": 1,
+      "message": "Hello Kári and Henrik!\n\nCould you please take a look at this CL which introduces RTCAudioDevice protocol which will allow to substitute audio device on iOS to implement custom playout \u0026 recording solely using Swift/ObjC with pre-built WebRTC SDK.\n\nThanks a lot in advance,\nYury.",
+      "revId": "3664467e0bde4503a34bde539524edb0c9861f25",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

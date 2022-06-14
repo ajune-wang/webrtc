@@ -30,12 +30,28 @@ rtc_library("inter_frame_delay") {
   absl_deps = [ "//third_party/abseil-cpp/absl/types:optional" ]
 }
 
+rtc_library("kalman_filter") {
+  sources = [
+    "kalman_filter.cc",
+    "kalman_filter.h",
+  ]
+  deps = [
+    "../../../api/units:data_size",
+    "../../../api/units:time_delta",
+  ]
+  visibility = [
+    ":jitter_estimator",
+    ":timing_unittests",
+  ]
+}
+
 rtc_library("jitter_estimator") {
   sources = [
     "jitter_estimator.cc",
     "jitter_estimator.h",
   ]
   deps = [
+    ":kalman_filter",
     ":rtt_filter",
     "../../../api:field_trials_view",
     "../../../api/units:data_size",
@@ -88,12 +104,14 @@ rtc_library("timing_unittests") {
   sources = [
     "inter_frame_delay_unittest.cc",
     "jitter_estimator_unittest.cc",
+    "kalman_filter_unittest.cc",
     "rtt_filter_unittest.cc",
     "timing_unittest.cc",
   ]
   deps = [
     ":inter_frame_delay",
     ":jitter_estimator",
+    ":kalman_filter",
     ":rtt_filter",
     ":timing_module",
     "../../../api:array_view",

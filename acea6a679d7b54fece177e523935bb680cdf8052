@@ -123,6 +123,24 @@
       "parentUuid": "1b37872d_ea4842d5",
       "revId": "acea6a679d7b54fece177e523935bb680cdf8052",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "7095e2e3_f51c2948",
+        "filename": "api/make_ref_counted.h",
+        "patchSetId": 6
+      },
+      "lineNbr": 117,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2022-06-14T09:25:16Z",
+      "side": 1,
+      "message": "Tommi, what\u0027s your opinion? I can only find one user of rtc::Ref, the (deprecated) AsyncInvoker, so I don\u0027t really see its claimed utility for template programming.\n\nThe dependency problem: rtc::make_ref_counted depends on the HasAddRefAndRelease utility, and with this cl, that\u0027s defined in an internal namespace in this file.\n\nrtc::Ref also depends on HasAddRefAndRelease. So if I leave that in the old place, I can\u0027t include api/make_ref_counted (circular include), so I\u0027d have to move or duplicate HasAddRefAndRelease, which doesn\u0027t seem quite right, but not extremely wrong either.\n\nI\u0027m tempted to try to change AsyncInvoker to just use scoped_ref_ptr, and then delete the rtc::Ref as unused.",
+      "parentUuid": "a7f55706_a35b26bb",
+      "revId": "acea6a679d7b54fece177e523935bb680cdf8052",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

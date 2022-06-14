@@ -80,6 +80,30 @@
       },
       "revId": "cf394c51573e1e2f5f72701e8ef6080894aaba97",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "02ff5da9_22453b34",
+        "filename": "p2p/base/stun_request.cc",
+        "patchSetId": 9
+      },
+      "lineNbr": 244,
+      "author": {
+        "id": 5508
+      },
+      "writtenOn": "2022-06-14T14:00:56Z",
+      "side": 1,
+      "message": "Yes, that\u0027s it. The FlushForTest method also shows that the expectation is that an ongoing sequence of a call to Send, must not conflict with a new call to Send.\n\nI\u0027ve added a comment that summarizes this.",
+      "parentUuid": "d0ed548f_31ff14ec",
+      "range": {
+        "startLine": 244,
+        "startChar": 0,
+        "endLine": 244,
+        "endChar": 23
+      },
+      "revId": "cf394c51573e1e2f5f72701e8ef6080894aaba97",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

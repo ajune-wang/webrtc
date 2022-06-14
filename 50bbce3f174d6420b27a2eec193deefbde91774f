@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "23bb7e17_a4b23869",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 14
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5508
+      },
+      "writtenOn": "2022-06-14T14:00:56Z",
+      "side": 1,
+      "message": "I\u0027ve moved the \".reset()\" path for the task safety flag into the ForTest code, which is consistent with how it was before. I had hoped to be able to delete the ForTest code but it\u0027s a bit too complicated to do in this CL.\n\nBut I\u0027ve added a \"make sure this hasn\u0027t been sent before\" dcheck now, which is based on the state of the safety flag. Ptal.",
+      "revId": "50bbce3f174d6420b27a2eec193deefbde91774f",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

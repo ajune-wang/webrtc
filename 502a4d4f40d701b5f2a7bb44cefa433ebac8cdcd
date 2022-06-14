@@ -1,0 +1,73 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "b844be4d_fdc68cc7",
+        "filename": "api/video/frame_buffer.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 50,
+      "author": {
+        "id": 5527
+      },
+      "writtenOn": "2022-06-14T14:22:32Z",
+      "side": 1,
+      "message": "Please update comment with the return value",
+      "range": {
+        "startLine": 49,
+        "startChar": 0,
+        "endLine": 50,
+        "endChar": 16
+      },
+      "revId": "502a4d4f40d701b5f2a7bb44cefa433ebac8cdcd",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "fd57f99a_63e13f2d",
+        "filename": "api/video/frame_buffer.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 51,
+      "author": {
+        "id": 5527
+      },
+      "writtenOn": "2022-06-14T14:22:32Z",
+      "side": 1,
+      "message": "Why?",
+      "range": {
+        "startLine": 51,
+        "startChar": 2,
+        "endLine": 51,
+        "endChar": 15
+      },
+      "revId": "502a4d4f40d701b5f2a7bb44cefa433ebac8cdcd",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "4771ee45_a6eceb77",
+        "filename": "test/fuzzers/frame_buffer_fuzzer.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 82,
+      "author": {
+        "id": 5527
+      },
+      "writtenOn": "2022-06-14T14:22:32Z",
+      "side": 1,
+      "message": "Not sure what best practices are, I think this is what we use in WebRTC: https://source.chromium.org/chromium/chromium/src/+/main:third_party/webrtc/rtc_base/system/unused.h;l\u003d22;drc\u003d83ceb90fdff5238864cf8d83a0164273603f2742",
+      "range": {
+        "startLine": 82,
+        "startChar": 8,
+        "endLine": 82,
+        "endChar": 19
+      },
+      "revId": "502a4d4f40d701b5f2a7bb44cefa433ebac8cdcd",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

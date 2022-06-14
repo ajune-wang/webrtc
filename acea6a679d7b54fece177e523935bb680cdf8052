@@ -141,6 +141,24 @@
       "parentUuid": "a7f55706_a35b26bb",
       "revId": "acea6a679d7b54fece177e523935bb680cdf8052",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "41112d5e_faa12583",
+        "filename": "api/make_ref_counted.h",
+        "patchSetId": 6
+      },
+      "lineNbr": 117,
+      "author": {
+        "id": 5508
+      },
+      "writtenOn": "2022-06-14T09:28:41Z",
+      "side": 1,
+      "message": "Agree that we don\u0027t want this to become an API that we expect external code to rely on. Can we move it into the internal namespace as Harald suggests?",
+      "parentUuid": "7095e2e3_f51c2948",
+      "revId": "acea6a679d7b54fece177e523935bb680cdf8052",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

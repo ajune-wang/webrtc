@@ -16,6 +16,23 @@
       "message": "Hello Kári and Henrik!\n\nCould you please take a look at this CL which introduces RTCAudioDevice protocol which will allow to substitute audio device on iOS to implement custom playout \u0026 recording solely using Swift/ObjC with pre-built WebRTC SDK.\n\nThanks a lot in advance,\nYury.",
       "revId": "3664467e0bde4503a34bde539524edb0c9861f25",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "5012a63c_1148438d",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 14
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5091
+      },
+      "writtenOn": "2022-06-14T09:05:27Z",
+      "side": 1,
+      "message": "Please check https://bugs.chromium.org/p/webrtc/issues/detail?id\u003d13436#c5. The idea with an injectable ADM is that users can provide (and own) their own ADM externally. ",
+      "revId": "3664467e0bde4503a34bde539524edb0c9861f25",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

@@ -10,7 +10,7 @@ vars = {
   # chromium waterfalls. More info at: crbug.com/570091.
   'checkout_configuration': 'default',
   'checkout_instrumented_libraries': 'checkout_linux and checkout_configuration == "default"',
-  'chromium_revision': '97950d557053783dd12855d5fd007862088097a1',
+  'chromium_revision': 'c0793847985770e54e78faa121f901a1805b4c70',
 
   # Keep the Chromium default of generating location tags.
   'generate_location_tags': True,
@@ -27,9 +27,9 @@ deps = {
   # TODO(kjellander): Move this to be Android-only once the libevent dependency
   # in base/third_party/libevent is solved.
   'src/base':
-    'https://chromium.googlesource.com/chromium/src/base@d8d5f05f815a4a46eca1e79c380f833d44730582',
+    'https://chromium.googlesource.com/chromium/src/base@8e3419f9a2503fa56276a88d17cb842b7ca98bdc',
   'src/build':
-    'https://chromium.googlesource.com/chromium/src/build@95f9cf50a87c3589399878d4a6fb8b27e4cd9305',
+    'https://chromium.googlesource.com/chromium/src/build@2bf23f24220085e29db45bec2aaa8e94086e673f',
   'src/buildtools':
     'https://chromium.googlesource.com/chromium/src/buildtools@8b16338d17cd71b04a6ba28da7322ab6739892c2',
   # Gradle 6.6.1. Used for testing Android Studio project generation for WebRTC.
@@ -44,7 +44,7 @@ deps = {
   'src/testing':
     'https://chromium.googlesource.com/chromium/src/testing@6e24a6600dc14d7581370330625f9a76deff9e22',
   'src/third_party':
-    'https://chromium.googlesource.com/chromium/src/third_party@67024c02ca1c97b12fd3571490bba3f1178aeca5',
+    'https://chromium.googlesource.com/chromium/src/third_party@05e5e5cc444113dd5152bdaab376ca90301face1',
 
   'src/buildtools/linux64': {
     'packages': [
@@ -224,7 +224,7 @@ deps = {
       'condition': 'checkout_android',
   },
   'src/third_party/perfetto':
-    'https://android.googlesource.com/platform/external/perfetto.git@ddc88694c41b71562428bd08b168666c8d42eaf3',
+    'https://android.googlesource.com/platform/external/perfetto.git@74fabc35bb05d6d0795387df62cc30c81d517952',
   'src/third_party/libvpx/source/libvpx':
     'https://chromium.googlesource.com/webm/libvpx.git@ca89bed50dbc5fe2abef50c5f36924bb1da6d1f6',
   'src/third_party/libyuv':
@@ -275,7 +275,7 @@ deps = {
     'condition': 'checkout_win',
   },
   'src/tools':
-    'https://chromium.googlesource.com/chromium/src/tools@5bff4d9d3d0b72cef899b76ed07cb5fa55561319',
+    'https://chromium.googlesource.com/chromium/src/tools@ea71c2a0b95c087ae532d90bade6377ba905ee35',
 
   'src/third_party/accessibility_test_framework': {
       'packages': [

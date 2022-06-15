@@ -1,0 +1,44 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "be51b7d5_3fa317a6",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 4
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2022-06-15T08:34:46Z",
+      "side": 1,
+      "message": "api/ lgtm",
+      "revId": "43fd9caf31bd6b658f9e6b321b0ce379a7fc1190",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "009d28e1_f939728e",
+        "filename": "api/video/frame_buffer.h",
+        "patchSetId": 4
+      },
+      "lineNbr": 50,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2022-06-15T08:34:46Z",
+      "side": 1,
+      "message": "To me it would make some sense to discard duplicates silently, and not consider that an error. But I\u0027m not that familiar with this class to have a strong informed opinion.\n\nDepends a bit on how you intend callers to handle errors from this method.",
+      "range": {
+        "startLine": 50,
+        "startChar": 43,
+        "endLine": 50,
+        "endChar": 68
+      },
+      "revId": "43fd9caf31bd6b658f9e6b321b0ce379a7fc1190",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

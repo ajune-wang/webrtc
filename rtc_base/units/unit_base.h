@@ -267,10 +267,16 @@ class RelativeUnit : public UnitBase<Unit_T> {
            other.template ToValue<double>();
   }
   template <typename T>
-  constexpr typename std::enable_if<std::is_arithmetic<T>::value, Unit_T>::type
-  operator/(const T& scalar) const {
+  typename std::enable_if_t<std::is_floating_point_v<T>, Unit_T> operator/(
+      T scalar) const {
     return UnitBase<Unit_T>::FromValue(
-        std::round(UnitBase<Unit_T>::template ToValue<int64_t>() / scalar));
+        std::round(UnitBase<Unit_T>::template ToValue<T>() / scalar));
+  }
+  template <typename T>
+  constexpr typename std::enable_if_t<std::is_integral_v<T>, Unit_T> operator/(
+      T scalar) const {
+    return UnitBase<Unit_T>::FromValue(
+        UnitBase<Unit_T>::template ToValue<int64_t>() / scalar);
   }
   constexpr Unit_T operator*(double scalar) const {
     return UnitBase<Unit_T>::FromValue(std::round(this->ToValue() * scalar));

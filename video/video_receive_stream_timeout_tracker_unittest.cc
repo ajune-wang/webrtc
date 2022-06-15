@@ -38,7 +38,7 @@ class VideoReceiveStreamTimeoutTrackerTest : public ::testing::Test {
         timeout_tracker_(time_controller_.GetClock(),
                          task_queue_.Get(),
                          config,
-                         [this] { OnTimeout(); }) {}
+                         [this](TimeDelta delay) { OnTimeout(delay); }) {}
 
  protected:
   template <class Task>
@@ -53,7 +53,8 @@ class VideoReceiveStreamTimeoutTrackerTest : public ::testing::Test {
   int timeouts_ = 0;
 
  private:
-  void OnTimeout() { ++timeouts_; }
+  // TODO(eshr): Test this.
+  void OnTimeout(TimeDelta delay) { ++timeouts_; }
 };
 
 TEST_F(VideoReceiveStreamTimeoutTrackerTest, TimeoutAfterInitialPeriod) {

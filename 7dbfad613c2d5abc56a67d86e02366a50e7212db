@@ -34,6 +34,24 @@
       "parentUuid": "1ce88e5e_af3e32a6",
       "revId": "7dbfad613c2d5abc56a67d86e02366a50e7212db",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "d9eda833_cb16a648",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5150
+      },
+      "writtenOn": "2022-06-15T09:29:42Z",
+      "side": 1,
+      "message": "So what happened here is that WebRTC has an existing dependency cycle (between peerconnection api and /p2p). Internal build tooling attempts to manage this cycle. Your CL moved some dependencies which made the (existing) cycle be generated in different orders on different platforms. The build tooling wasn\u0027t robust enough to handle this. I\u0027ve made some mitigations, which should make it possible to reland your CL now.\n\nLong term, we should try to get rid of the dependency cycle...",
+      "parentUuid": "86cad3fe_69af6f45",
+      "revId": "7dbfad613c2d5abc56a67d86e02366a50e7212db",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

@@ -68,6 +68,7 @@ TEST(UnitBaseTest, ConstExpr) {
   static_assert(kTestUnitValue.ToValueOr(0) == kValue, "");
   static_assert(TestUnitAddKilo(kTestUnitValue, 2).ToValue() == kValue + 2000,
                 "");
+  static_assert(TestUnit::FromValue(500) / 2 == TestUnit::FromValue(250));
 }
 
 TEST(UnitBaseTest, GetBackSameValues) {

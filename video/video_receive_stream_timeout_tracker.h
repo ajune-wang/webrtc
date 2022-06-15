@@ -27,7 +27,7 @@ class VideoReceiveStreamTimeoutTracker {
     TimeDelta max_wait_for_frame;
   };
 
-  using TimeoutCallback = std::function<void()>;
+  using TimeoutCallback = std::function<void(TimeDelta)>;
   VideoReceiveStreamTimeoutTracker(Clock* clock,
                                    TaskQueueBase* const bookkeeping_queue,
                                    const Timeouts& timeouts,

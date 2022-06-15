@@ -70,7 +70,8 @@ TimeDelta VideoReceiveStreamTimeoutTracker::HandleTimeoutTask() {
   if (now >= timeout_) {
     TimeDelta timeout_delay = TimeoutForNextFrame();
     timeout_ = now + timeout_delay;
-    callback_();
+    // TODO(eshr): Use the waited time.
+    callback_(timeout_delay);
     return timeout_delay;
   }
   // Otherwise, `timeout_` changed since we scheduled a timeout. Reschedule

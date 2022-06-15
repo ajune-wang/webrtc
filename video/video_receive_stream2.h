@@ -38,7 +38,6 @@
 #include "video/rtp_streams_synchronizer2.h"
 #include "video/rtp_video_stream_receiver2.h"
 #include "video/transport_adapter.h"
-#include "video/video_stream_decoder2.h"
 
 namespace webrtc {
 
@@ -249,11 +248,8 @@ class VideoReceiveStream2
   VideoReceiver2 video_receiver_;
   std::unique_ptr<rtc::VideoSinkInterface<VideoFrame>> incoming_video_stream_;
   RtpVideoStreamReceiver2 rtp_video_stream_receiver_;
-  std::unique_ptr<VideoStreamDecoder> video_stream_decoder_;
   RtpStreamsSynchronizer rtp_stream_sync_;
 
-  // TODO(nisse, philipel): Creation and ownership of video encoders should be
-  // moved to the new VideoStreamDecoder.
   std::vector<std::unique_ptr<VideoDecoder>> video_decoders_;
 
   std::unique_ptr<FrameBufferProxy> frame_buffer_;

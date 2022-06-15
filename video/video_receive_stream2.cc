@@ -407,9 +407,6 @@ void VideoReceiveStream2::Start() {
   }
 
   RTC_DCHECK(renderer != nullptr);
-  video_stream_decoder_.reset(
-      new VideoStreamDecoder(&video_receiver_, &stats_proxy_, renderer));
-
   // Make sure we register as a stats observer *after* we've prepared the
   // `video_stream_decoder_`.
   call_stats_->RegisterStatsObserver(this);
@@ -468,7 +465,6 @@ void VideoReceiveStream2::Stop() {
     UpdateHistograms();
   }
 
-  video_stream_decoder_.reset();
   incoming_video_stream_.reset();
   transport_adapter_.Disable();
 }

@@ -48,8 +48,6 @@ rtc_library("video") {
     "video_send_stream.h",
     "video_send_stream_impl.cc",
     "video_send_stream_impl.h",
-    "video_stream_decoder2.cc",
-    "video_stream_decoder2.h",
   ]
 
   deps = [

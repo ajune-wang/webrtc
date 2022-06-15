@@ -39,6 +39,30 @@
       },
       "revId": "43fd9caf31bd6b658f9e6b321b0ce379a7fc1190",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "f1bc5131_3c9c3f94",
+        "filename": "api/video/frame_buffer.h",
+        "patchSetId": 4
+      },
+      "lineNbr": 50,
+      "author": {
+        "id": 18444
+      },
+      "writtenOn": "2022-06-15T08:38:46Z",
+      "side": 1,
+      "message": "The purpose of returning error/success here it to inform callers of whether or not that frame could potentially be decoded in the future. In this case the caller can update things like timing or metrics. To put it another way, callers are currently reacting on success, rather than handling failures.",
+      "parentUuid": "009d28e1_f939728e",
+      "range": {
+        "startLine": 50,
+        "startChar": 43,
+        "endLine": 50,
+        "endChar": 68
+      },
+      "revId": "43fd9caf31bd6b658f9e6b321b0ce379a7fc1190",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

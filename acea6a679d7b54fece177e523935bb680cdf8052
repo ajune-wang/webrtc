@@ -72,6 +72,24 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "0be074fe_66146d67",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 6
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2022-06-15T08:16:03Z",
+      "side": 1,
+      "message": "Looks green now!",
+      "parentUuid": "a818913d_4967e4f5",
+      "revId": "acea6a679d7b54fece177e523935bb680cdf8052",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "889302c4_df21cb6e",

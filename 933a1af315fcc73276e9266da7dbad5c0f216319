@@ -139,6 +139,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "d1c47213_0f903102",
+        "filename": "media/base/media_channel.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 447,
+      "author": {
+        "id": 5119
+      },
+      "writtenOn": "2022-06-15T12:29:35Z",
+      "side": 1,
+      "message": "I guess this applies to `jitter_buffer_delay_seconds` as well?\n\nIt would be good if the implementations agreed, so the distributions of reported metrics could be compared.",
+      "parentUuid": "9bf5adfd_ee33404b",
+      "revId": "933a1af315fcc73276e9266da7dbad5c0f216319",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "2e07295d_2cf00bf7",
         "filename": "media/engine/webrtc_voice_engine.cc",
         "patchSetId": 2

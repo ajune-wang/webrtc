@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "7bab865f_dad29193",
+        "filename": "g3doc/implementation_basics.md",
+        "patchSetId": 1
+      },
+      "lineNbr": 50,
+      "author": {
+        "id": 5087
+      },
+      "writtenOn": "2022-06-15T14:12:11Z",
+      "side": 1,
+      "message": "Is this mandatory?\n\nCan we have a builder that builds a complex object (no heap allocation) and just returns it by value?\n\nThis is probably rare but I would not be surprised by such behaviour for a *Builder.",
+      "range": {
+        "startLine": 50,
+        "startChar": 48,
+        "endLine": 50,
+        "endChar": 84
+      },
+      "revId": "0ce60f93d69733c42e2bdfbb80fb857726231106",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

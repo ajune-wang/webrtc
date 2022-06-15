@@ -37,6 +37,24 @@ This may contain a SocketServer for processing I/O, and is used for policing
 certain calling pattern between a few core threads (the NetworkThread cannot
 do Invoke on the Worker thread, for instance).
 
+## Reserved class names
+
+C++ classes with names ending in the following suffixes are supposed to behave
+in certain well known ways.
+
+For a particular class name Foo, the following classes, if they exist, should
+behave as follows:
+
+* FooFactory: Has a Create function that returns a std::unique_ptr or an rtc::scoped_refptr<Foo>. The Create function should NOT alter the factory state; ideally, it is marked const. Ownership of the returned object is with the caller.
+
+* FooBuilder: Has a Build function that returns a pointer (as above) to a Foo object. The Builder can only be used once, and resources given to the Builder before the Build function is called are either released or owned by the Foo object.
+
+* FooManager: Has a Create function that returns an rtc::scoped_refptr<Foo> (if shared ownership) or a Foo* (if the Manager retains sole ownership). The Manager is responsible for keeping track of the object; if the Create function returns a Foo*, the Foo object is guaranteed to be destroyed when the FooManager is destroyed.
+
+Note that classes with these names exist that do not follow these conventions.
+When they are detected, they need to be marked with TODO statements and bugs
+filed on them to get them into a conformant state.
+
 ## Synchronization primitives
 
 ### PostTask and thread-guarded variables

@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "2a9b20f5_7cee3977",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2022-06-16T13:48:37Z",
+      "side": 1,
+      "message": "With RtpVideoStreamReceiver deleted, these can be deleted too.",
+      "revId": "07df3260e22ea7f1b7f2e64b3f979499886e6329",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

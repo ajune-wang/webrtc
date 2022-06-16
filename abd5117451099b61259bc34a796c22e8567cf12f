@@ -1,0 +1,38 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "7a96abcd_984f9b68",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 6
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2022-06-16T05:52:26Z",
+      "side": 1,
+      "message": "I think this changes behavior, which may not be desirable.\n",
+      "revId": "abd5117451099b61259bc34a796c22e8567cf12f",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "0146f9ce_77e90e2f",
+        "filename": "rtc_base/units/unit_base.h",
+        "patchSetId": 6
+      },
+      "lineNbr": 277,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2022-06-16T05:52:26Z",
+      "side": 1,
+      "message": "What happens here if the result is not evenly divisible?\n\nfor instance 3 / 4 - will it be 1 or 0?\n\nMy reading is that in the old code it is 1, in the new code it is 0.",
+      "revId": "abd5117451099b61259bc34a796c22e8567cf12f",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

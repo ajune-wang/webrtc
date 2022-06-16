@@ -218,6 +218,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "e690cfc6_953d4b99",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 4
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 12234
+      },
+      "writtenOn": "2022-06-16T20:35:51Z",
+      "side": 1,
+      "message": "The bots we are using are shared with chromium and we don\u0027t really have an hand on them.\nCould you try to use win11 here and see if it actually solves the issue:\nhttps://webrtc.googlesource.com/src/+/refs/changes/80/261780/10/infra/specs/waterfalls.pyl#596\nFYI, there are currently only 30 win11 bots.",
+      "parentUuid": "50cc5779_2a6caabc",
+      "revId": "90712d192cfa63ea8b3fbd263b81e175c31e763c",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "6c03636a_16048b21",
         "filename": "modules/desktop_capture/win/wgc_capture_session.cc",
         "patchSetId": 4

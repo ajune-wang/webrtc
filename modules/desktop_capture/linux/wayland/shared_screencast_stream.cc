@@ -15,6 +15,7 @@
 #include <spa/param/video/format-utils.h>
 #include <sys/mman.h>
 
+#include <unordered_map>
 #include <vector>
 
 #include "absl/memory/memory.h"
@@ -53,6 +54,80 @@ constexpr PipeWireVersion kDmaBufMinVersion = {0, 3, 24};
 constexpr PipeWireVersion kDmaBufModifierMinVersion = {0, 3, 33};
 constexpr PipeWireVersion kDropSingleModifierMinVersion = {0, 3, 40};
 
+namespace {
+
+// TODO: Also handle `ProcessBuffer` method with this new type.
+// Encapsulates data asscoiated with a pipwire stream.
+// TODO: Should `mouse_cursor_` and `mouse_cursor_position_` be tied to this?
+struct StreamData {
+  // StreamData(StreamData&& other) :
+  //   width_(other.width_),
+  //   height_(other.height_),
+  //   resolution_lock_(std::move(other.resolution_lock_)),
+  //   pending_resolution_change_(other.pending_resolution_change_),
+  //   pw_stream_(other.pw_stream_),
+  //   pw_stream_node_id_(other.pw_stream_node_id_),
+  //   pw_stream_events_(std::move(other.pw_stream_events_)),
+  //   spa_stream_listener_(std::move(other.spa_stream_listener_)),
+  //   spa_video_format_(std::move(other.spa_video_format_)),
+  //   desktop_size_(std::move(other.desktop_size_)),
+  //   modifier_(other.modifier_),
+  //   modifiers_(std::move(other.modifiers_)),
+  //   video_size_(std::move(other.video_size_)),
+  //   queue_lock_(std::move(other.queue_lock_)),
+  //   queue_(std::move(other.queue_)),
+  //   mouse_cursor_(std::move(other.mouse_cursor_)),
+  //   mouse_cursor_position_(std::move(other.mouse_cursor_position_)),
+  //   renegotiate_(other.renegotiate_) {}
+
+  // Resolution parameters.
+  uint32_t width_ = 0;
+  uint32_t height_ = 0;
+  std::unique_ptr<webrtc::Mutex> resolution_lock_ =
+      std::make_unique<webrtc::Mutex>();
+  // Resolution changes are processed during buffer processing.
+  bool pending_resolution_change_ RTC_GUARDED_BY(resolution_lock_.get()) =
+      false;
+
+  struct pw_stream* pw_stream_ = nullptr;
+  uint32_t pw_stream_node_id_ = 0;
+  pw_stream_events pw_stream_events_ = {};
+  spa_hook spa_stream_listener_;
+  struct spa_video_info_raw spa_video_format_;
+  DesktopSize desktop_size_ = {};
+  int64_t modifier_;
+  // List of modifiers we query as supported by the graphics card/driver
+  std::vector<uint64_t> modifiers_;
+
+  DesktopSize video_size_;
+
+  std::unique_ptr<webrtc::Mutex> queue_lock_ =
+      std::make_unique<webrtc::Mutex>();
+  std::unique_ptr<ScreenCaptureFrameQueue<SharedDesktopFrame>> queue_
+      RTC_GUARDED_BY(queue_lock_.get()) =
+          std::make_unique<ScreenCaptureFrameQueue<SharedDesktopFrame>>();
+  std::unique_ptr<MouseCursor> mouse_cursor_;
+  DesktopVector mouse_cursor_position_ = DesktopVector(-1, -1);
+  struct spa_source* renegotiate_ = nullptr;
+};
+
+struct GlobalData {
+  EglDmaBuf* egl_dmabuf_;
+  // Read-only (Used in `OnStreamParamChanged`)
+  PipeWireVersion pw_server_version_;
+  // Used for locking in `OnRenegotiateFormat`
+  struct pw_thread_loop* pw_main_loop_;
+};
+
+// Encapsulates the data (global + stream specific) that is needed by the
+// callbacks corresponding to stream events.
+struct CallbackData {
+  // CallbackData(GlobalData global_data, StreamData stream_data) :
+  //   global(std::move(global_data)), stream(std::move(stream_data)) {}
+  GlobalData global;
+  StreamData stream;
+};
+
 class ScopedBuf {
  public:
   ScopedBuf() {}
@@ -80,64 +155,256 @@ class ScopedBuf {
   int fd_;
 };
 
+void ConvertRGBxToBGRx(uint8_t* frame, uint32_t size) {
+  for (uint32_t i = 0; i < size; i += 4) {
+    uint8_t tempR = frame[i];
+    uint8_t tempB = frame[i + 2];
+    frame[i] = tempB;
+    frame[i + 2] = tempR;
+  }
+}
+
+RTC_NO_SANITIZE("cfi-icall")
+void ProcessBuffer(pw_buffer* buffer, CallbackData* data) {
+  spa_buffer* spa_buffer = buffer->buffer;
+  ScopedBuf map;
+  std::unique_ptr<uint8_t[]> src_unique_ptr;
+  uint8_t* src = nullptr;
+
+  // Try to update the mouse cursor first, because it can be the only
+  // information carried by the buffer
+  {
+    const struct spa_meta_cursor* cursor =
+        static_cast<struct spa_meta_cursor*>(spa_buffer_find_meta_data(
+            spa_buffer, SPA_META_Cursor, sizeof(*cursor)));
+    if (cursor && spa_meta_cursor_is_valid(cursor)) {
+      struct spa_meta_bitmap* bitmap = nullptr;
+
+      if (cursor->bitmap_offset)
+        bitmap =
+            SPA_MEMBER(cursor, cursor->bitmap_offset, struct spa_meta_bitmap);
+
+      if (bitmap && bitmap->size.width > 0 && bitmap->size.height > 0) {
+        const uint8_t* bitmap_data =
+            SPA_MEMBER(bitmap, bitmap->offset, uint8_t);
+        BasicDesktopFrame* mouse_frame = new BasicDesktopFrame(
+            DesktopSize(bitmap->size.width, bitmap->size.height));
+        mouse_frame->CopyPixelsFrom(
+            bitmap_data, bitmap->stride,
+            DesktopRect::MakeWH(bitmap->size.width, bitmap->size.height));
+        data->stream.mouse_cursor_ = std::make_unique<MouseCursor>(
+            mouse_frame, DesktopVector(cursor->hotspot.x, cursor->hotspot.y));
+      }
+      data->stream.mouse_cursor_position_.set(cursor->position.x,
+                                              cursor->position.y);
+    }
+  }
+
+  if (spa_buffer->datas[0].chunk->size == 0) {
+    return;
+  }
+
+  if (spa_buffer->datas[0].type == SPA_DATA_MemFd) {
+    map.initialize(
+        static_cast<uint8_t*>(
+            mmap(nullptr,
+                 spa_buffer->datas[0].maxsize + spa_buffer->datas[0].mapoffset,
+                 PROT_READ, MAP_PRIVATE, spa_buffer->datas[0].fd, 0)),
+        spa_buffer->datas[0].maxsize + spa_buffer->datas[0].mapoffset,
+        spa_buffer->datas[0].fd);
+
+    if (!map) {
+      RTC_LOG(LS_ERROR) << "Failed to mmap the memory: "
+                        << std::strerror(errno);
+      return;
+    }
+
+    src = SPA_MEMBER(map.get(), spa_buffer->datas[0].mapoffset, uint8_t);
+  } else if (spa_buffer->datas[0].type == SPA_DATA_DmaBuf) {
+    const uint n_planes = spa_buffer->n_datas;
+
+    if (!n_planes) {
+      return;
+    }
+
+    std::vector<EglDmaBuf::PlaneData> plane_datas;
+    for (uint32_t i = 0; i < n_planes; ++i) {
+      EglDmaBuf::PlaneData data = {
+          static_cast<int32_t>(spa_buffer->datas[i].fd),
+          static_cast<uint32_t>(spa_buffer->datas[i].chunk->stride),
+          static_cast<uint32_t>(spa_buffer->datas[i].chunk->offset)};
+      plane_datas.push_back(data);
+    }
+
+    src_unique_ptr = data->global.egl_dmabuf_->ImageFromDmaBuf(
+        data->stream.desktop_size_, data->stream.spa_video_format_.format,
+        plane_datas, data->stream.modifier_);
+    if (src_unique_ptr) {
+      src = src_unique_ptr.get();
+    } else {
+      RTC_LOG(LS_ERROR) << "Dropping DMA-BUF modifier: "
+                        << data->stream.modifier_
+                        << " and trying to renegotiate stream parameters";
+
+      std::vector<uint64_t>& modifiers_ = data->stream.modifiers_;
+      if (data->global.pw_server_version_ >= kDropSingleModifierMinVersion) {
+        data->stream.modifiers_.erase(
+            std::remove(modifiers_.begin(), modifiers_.end(),
+                        data->stream.modifier_),
+            data->stream.modifiers_.end());
+      } else {
+        data->stream.modifiers_.clear();
+      }
+
+      pw_loop_signal_event(pw_thread_loop_get_loop(data->global.pw_main_loop_),
+                           data->stream.renegotiate_);
+      return;
+    }
+  } else if (spa_buffer->datas[0].type == SPA_DATA_MemPtr) {
+    src = static_cast<uint8_t*>(spa_buffer->datas[0].data);
+  }
+
+  if (!src) {
+    return;
+  }
+
+  struct spa_meta_region* video_metadata =
+      static_cast<struct spa_meta_region*>(spa_buffer_find_meta_data(
+          spa_buffer, SPA_META_VideoCrop, sizeof(*video_metadata)));
+
+  // Video size from metadata is bigger than an actual video stream size.
+  // The metadata are wrong or we should up-scale the video...in both cases
+  // just quit now.
+  if (video_metadata &&
+      (video_metadata->region.size.width >
+           static_cast<uint32_t>(data->stream.desktop_size_.width()) ||
+       video_metadata->region.size.height >
+           static_cast<uint32_t>(data->stream.desktop_size_.height()))) {
+    RTC_LOG(LS_ERROR) << "Stream metadata sizes are wrong!";
+    return;
+  }
+
+  // Use video metadata when video size from metadata is set and smaller than
+  // video stream size, so we need to adjust it.
+  bool video_metadata_use = false;
+  const struct spa_rectangle* video_metadata_size =
+      video_metadata ? &video_metadata->region.size : nullptr;
+
+  if (video_metadata_size && video_metadata_size->width != 0 &&
+      video_metadata_size->height != 0 &&
+      (static_cast<int>(video_metadata_size->width) <
+           data->stream.desktop_size_.width() ||
+       static_cast<int>(video_metadata_size->height) <
+           data->stream.desktop_size_.height())) {
+    video_metadata_use = true;
+  }
+
+  if (video_metadata_use) {
+    data->stream.video_size_ =
+        DesktopSize(video_metadata_size->width, video_metadata_size->height);
+  } else {
+    data->stream.video_size_ = data->stream.desktop_size_;
+  }
+
+  const DesktopSize& video_size_ = data->stream.video_size_;
+  uint32_t y_offset =
+      video_metadata_use &&
+              (video_metadata->region.position.y + video_size_.height() <=
+               data->stream.desktop_size_.height())
+          ? video_metadata->region.position.y
+          : 0;
+  uint32_t x_offset = video_metadata_use && (video_metadata->region.position.x +
+                                                 video_size_.width() <=
+                                             data->stream.desktop_size_.width())
+                          ? video_metadata->region.position.x
+                          : 0;
+
+  uint8_t* updated_src = src + (spa_buffer->datas[0].chunk->stride * y_offset) +
+                         (kBytesPerPixel * x_offset);
+
+  webrtc::MutexLock lock(data->stream.queue_lock_.get());
+
+  auto& queue_ = data->stream.queue_;
+  // Move to the next frame if the current one is being used and shared
+  if (queue_->current_frame() && queue_->current_frame()->IsShared()) {
+    queue_->MoveToNextFrame();
+    if (queue_->current_frame() && queue_->current_frame()->IsShared()) {
+      RTC_LOG(LS_WARNING)
+          << "Failed to process PipeWire buffer: no available frame";
+      return;
+    }
+  }
+
+  if (!queue_->current_frame() ||
+      !queue_->current_frame()->size().equals(video_size_)) {
+    std::unique_ptr<DesktopFrame> frame(new BasicDesktopFrame(
+        DesktopSize(video_size_.width(), video_size_.height())));
+    queue_->ReplaceCurrentFrame(SharedDesktopFrame::Wrap(std::move(frame)));
+  }
+
+  queue_->current_frame()->CopyPixelsFrom(
+      updated_src,
+      (spa_buffer->datas[0].chunk->stride - (kBytesPerPixel * x_offset)),
+      DesktopRect::MakeWH(video_size_.width(), video_size_.height()));
+
+  if (data->stream.spa_video_format_.format == SPA_VIDEO_FORMAT_RGBx ||
+      data->stream.spa_video_format_.format == SPA_VIDEO_FORMAT_RGBA) {
+    uint8_t* tmp_src = queue_->current_frame()->data();
+    for (int i = 0; i < video_size_.height(); ++i) {
+      // If both sides decided to go with the RGBx format we need to convert
+      // it to BGRx to match color format expected by WebRTC.
+      ConvertRGBxToBGRx(tmp_src, queue_->current_frame()->stride());
+      tmp_src += queue_->current_frame()->stride();
+    }
+  }
+
+  queue_->current_frame()->mutable_updated_region()->SetRect(
+      DesktopRect::MakeSize(queue_->current_frame()->size()));
+}
+
+}  // namespace
+
 class SharedScreenCastStreamPrivate {
  public:
   SharedScreenCastStreamPrivate();
   ~SharedScreenCastStreamPrivate();
 
+  // Creates a new stream for the given `stream_node_id` if one doesn't exist
+  // already.
   bool StartScreenCastStream(uint32_t stream_node_id,
                              int fd,
                              uint32_t width = 0,
                              uint32_t height = 0);
+  void UpdateScreenCastStreamResolution(uint32_t width, uint32_t height);
   void StopScreenCastStream();
-  std::unique_ptr<DesktopFrame> CaptureFrame();
+  std::unique_ptr<DesktopFrame> CaptureFrame(uint32_t node_id);
   std::unique_ptr<MouseCursor> CaptureCursor();
   DesktopVector CaptureCursorPosition();
 
  private:
-  uint32_t pw_stream_node_id_ = 0;
+  std::unordered_map</*pw_stream_node_id=*/uint32_t, CallbackData>
+      node_id_stream_;
   int pw_fd_ = -1;
 
-  DesktopSize desktop_size_ = {};
-  DesktopSize video_size_;
-
-  webrtc::Mutex queue_lock_;
-  ScreenCaptureFrameQueue<SharedDesktopFrame> queue_
-      RTC_GUARDED_BY(&queue_lock_);
-  std::unique_ptr<MouseCursor> mouse_cursor_;
-  DesktopVector mouse_cursor_position_ = DesktopVector(-1, -1);
-
-  int64_t modifier_;
   std::unique_ptr<EglDmaBuf> egl_dmabuf_;
-  // List of modifiers we query as supported by the graphics card/driver
-  std::vector<uint64_t> modifiers_;
 
   // PipeWire types
   struct pw_context* pw_context_ = nullptr;
   struct pw_core* pw_core_ = nullptr;
-  struct pw_stream* pw_stream_ = nullptr;
   struct pw_thread_loop* pw_main_loop_ = nullptr;
-  struct spa_source* renegotiate_ = nullptr;
 
   spa_hook spa_core_listener_;
-  spa_hook spa_stream_listener_;
-
   // A number used to verify all previous methods and the resulting
   // events have been handled.
   int server_version_sync_ = 0;
   // Version of the running PipeWire server we communicate with
   PipeWireVersion pw_server_version_;
+  bool retreived_server_version_ = false;
   // Version of the library used to run our code
   PipeWireVersion pw_client_version_;
 
   // event handlers
   pw_core_events pw_core_events_ = {};
-  pw_stream_events pw_stream_events_ = {};
-
-  struct spa_video_info_raw spa_video_format_;
-
-  void ProcessBuffer(pw_buffer* buffer);
-  void ConvertRGBxToBGRx(uint8_t* frame, uint32_t size);
 
   // PipeWire callbacks
   static void OnCoreError(void* data,
@@ -181,6 +448,7 @@ void SharedScreenCastStreamPrivate::OnCoreInfo(void* data,
   RTC_DCHECK(stream);
 
   stream->pw_server_version_ = PipeWireVersion::Parse(info->version);
+  stream->retreived_server_version_ = true;
 }
 
 void SharedScreenCastStreamPrivate::OnCoreDone(void* data,
@@ -222,8 +490,7 @@ void SharedScreenCastStreamPrivate::OnStreamParamChanged(
     void* data,
     uint32_t id,
     const struct spa_pod* format) {
-  SharedScreenCastStreamPrivate* that =
-      static_cast<SharedScreenCastStreamPrivate*>(data);
+  CallbackData* that = static_cast<CallbackData*>(data);
   RTC_DCHECK(that);
 
   RTC_LOG(LS_INFO) << "PipeWire stream format changed.";
@@ -231,14 +498,14 @@ void SharedScreenCastStreamPrivate::OnStreamParamChanged(
     return;
   }
 
-  spa_format_video_raw_parse(format, &that->spa_video_format_);
+  spa_format_video_raw_parse(format, &that->stream.spa_video_format_);
 
-  auto width = that->spa_video_format_.size.width;
-  auto height = that->spa_video_format_.size.height;
+  auto width = that->stream.spa_video_format_.size.width;
+  auto height = that->stream.spa_video_format_.size.height;
   auto stride = SPA_ROUND_UP_N(width * kBytesPerPixel, 4);
   auto size = height * stride;
 
-  that->desktop_size_ = DesktopSize(width, height);
+  that->stream.desktop_size_ = DesktopSize(width, height);
 
   uint8_t buffer[1024] = {};
   auto builder = spa_pod_builder{buffer, sizeof(buffer)};
@@ -250,11 +517,12 @@ void SharedScreenCastStreamPrivate::OnStreamParamChanged(
   // See https://github.com/PipeWire/pipewire/blob/master/doc/dma-buf.dox
   const bool has_modifier =
       spa_pod_find_prop(format, nullptr, SPA_FORMAT_VIDEO_modifier);
-  that->modifier_ =
-      has_modifier ? that->spa_video_format_.modifier : DRM_FORMAT_MOD_INVALID;
+  that->stream.modifier_ = has_modifier
+                               ? that->stream.spa_video_format_.modifier
+                               : DRM_FORMAT_MOD_INVALID;
   std::vector<const spa_pod*> params;
   const int buffer_types =
-      has_modifier || (that->pw_server_version_ >= kDmaBufMinVersion)
+      has_modifier || (that->global.pw_server_version_ >= kDmaBufMinVersion)
           ? (1 << SPA_DATA_DmaBuf) | (1 << SPA_DATA_MemFd) |
                 (1 << SPA_DATA_MemPtr)
           : (1 << SPA_DATA_MemFd) | (1 << SPA_DATA_MemPtr);
@@ -285,25 +553,25 @@ void SharedScreenCastStreamPrivate::OnStreamParamChanged(
                                sizeof(struct spa_meta_region) * 1,
                                sizeof(struct spa_meta_region) * 16))));
 
-  pw_stream_update_params(that->pw_stream_, params.data(), params.size());
+  pw_stream_update_params(that->stream.pw_stream_, params.data(),
+                          params.size());
 }
 
 // static
 void SharedScreenCastStreamPrivate::OnStreamProcess(void* data) {
-  SharedScreenCastStreamPrivate* that =
-      static_cast<SharedScreenCastStreamPrivate*>(data);
+  CallbackData* that = static_cast<CallbackData*>(data);
   RTC_DCHECK(that);
 
   struct pw_buffer* next_buffer;
   struct pw_buffer* buffer = nullptr;
 
-  next_buffer = pw_stream_dequeue_buffer(that->pw_stream_);
+  next_buffer = pw_stream_dequeue_buffer(that->stream.pw_stream_);
   while (next_buffer) {
     buffer = next_buffer;
-    next_buffer = pw_stream_dequeue_buffer(that->pw_stream_);
+    next_buffer = pw_stream_dequeue_buffer(that->stream.pw_stream_);
 
     if (next_buffer) {
-      pw_stream_queue_buffer(that->pw_stream_, buffer);
+      pw_stream_queue_buffer(that->stream.pw_stream_, buffer);
     }
   }
 
@@ -311,49 +579,61 @@ void SharedScreenCastStreamPrivate::OnStreamProcess(void* data) {
     return;
   }
 
-  that->ProcessBuffer(buffer);
+  ProcessBuffer(buffer, that);
 
-  pw_stream_queue_buffer(that->pw_stream_, buffer);
+  pw_stream_queue_buffer(that->stream.pw_stream_, buffer);
 }
 
 void SharedScreenCastStreamPrivate::OnRenegotiateFormat(void* data, uint64_t) {
-  SharedScreenCastStreamPrivate* that =
-      static_cast<SharedScreenCastStreamPrivate*>(data);
+  CallbackData* that = static_cast<CallbackData*>(data);
   RTC_DCHECK(that);
 
   {
-    PipeWireThreadLoopLock thread_loop_lock(that->pw_main_loop_);
+    PipeWireThreadLoopLock thread_loop_lock(that->global.pw_main_loop_);
 
     uint8_t buffer[2048] = {};
 
     spa_pod_builder builder = spa_pod_builder{buffer, sizeof(buffer)};
 
     std::vector<const spa_pod*> params;
+    struct spa_rectangle resolution =
+        SPA_RECTANGLE(that->stream.width_, that->stream.height_);
 
+    webrtc::MutexLock lock(that->stream.resolution_lock_.get());
     for (uint32_t format : {SPA_VIDEO_FORMAT_BGRA, SPA_VIDEO_FORMAT_RGBA,
                             SPA_VIDEO_FORMAT_BGRx, SPA_VIDEO_FORMAT_RGBx}) {
-      if (!that->modifiers_.empty()) {
-        params.push_back(BuildFormat(&builder, format, that->modifiers_,
-                                     /*resolution=*/nullptr));
+      if (!that->stream.modifiers_.empty()) {
+        params.push_back(BuildFormat(
+            &builder, format, that->stream.modifiers_,
+            that->stream.pending_resolution_change_ ? &resolution : nullptr));
       }
-      params.push_back(BuildFormat(&builder, format, /*modifiers=*/{},
-                                   /*resolution=*/nullptr));
+      params.push_back(BuildFormat(
+          &builder, format, /*modifiers=*/{},
+          that->stream.pending_resolution_change_ ? &resolution : nullptr));
     }
 
-    pw_stream_update_params(that->pw_stream_, params.data(), params.size());
+    pw_stream_update_params(that->stream.pw_stream_, params.data(),
+                            params.size());
+    that->stream.pending_resolution_change_ = false;
   }
 }
 
-SharedScreenCastStreamPrivate::SharedScreenCastStreamPrivate() {}
+SharedScreenCastStreamPrivate::SharedScreenCastStreamPrivate() {
+  // TODO: Make this more dynamic. Currently done to see if the map recreation
+  // is causing invalidation of existing pointers/iterators.
+  // 2 buckets didn't seem to help.
+  node_id_stream_.reserve(10);
+}
 
 SharedScreenCastStreamPrivate::~SharedScreenCastStreamPrivate() {
   if (pw_main_loop_) {
     pw_thread_loop_stop(pw_main_loop_);
   }
 
-  if (pw_stream_) {
-    pw_stream_destroy(pw_stream_);
-  }
+  // TODO: See if we can somehow get an identifier of what stream to stop here.
+  // if (pw_stream_) {
+  //   pw_stream_destroy(pw_stream_);
+  // }
 
   if (pw_core_) {
     pw_core_disconnect(pw_core_);
@@ -374,6 +654,13 @@ bool SharedScreenCastStreamPrivate::StartScreenCastStream(
     int fd,
     uint32_t width,
     uint32_t height) {
+  auto stream_it = node_id_stream_.find(stream_node_id);
+  if (stream_it != node_id_stream_.end()) {
+    RTC_LOG(LS_WARNING) << "Stream already exists for stream node id: "
+                        << stream_node_id;
+    return false;
+  }
+
 #if defined(WEBRTC_DLOPEN_PIPEWIRE)
   StubPathMap paths;
 
@@ -389,41 +676,39 @@ bool SharedScreenCastStreamPrivate::StartScreenCastStream(
     return false;
   }
 #endif  // defined(WEBRTC_DLOPEN_PIPEWIRE)
-  egl_dmabuf_ = std::make_unique<EglDmaBuf>();
+  if (!egl_dmabuf_)
+    egl_dmabuf_ = std::make_unique<EglDmaBuf>();
 
-  pw_stream_node_id_ = stream_node_id;
+  RTC_CHECK(pw_fd_ == -1 || pw_fd_ == fd);
   pw_fd_ = fd;
 
-  pw_init(/*argc=*/nullptr, /*argc=*/nullptr);
+  // Start the main loop only once regardless of how many streams are started.
+  if (!pw_main_loop_) {
+    RTC_DCHECK(!pw_context_);
+    pw_init(/*argc=*/nullptr, /*argc=*/nullptr);
 
-  pw_main_loop_ = pw_thread_loop_new("pipewire-main-loop", nullptr);
+    pw_main_loop_ = pw_thread_loop_new("pipewire-main-loop", nullptr);
 
-  pw_context_ =
-      pw_context_new(pw_thread_loop_get_loop(pw_main_loop_), nullptr, 0);
-  if (!pw_context_) {
-    RTC_LOG(LS_ERROR) << "Failed to create PipeWire context";
-    return false;
-  }
+    pw_context_ =
+        pw_context_new(pw_thread_loop_get_loop(pw_main_loop_), nullptr, 0);
+    if (!pw_context_) {
+      RTC_LOG(LS_ERROR) << "Failed to create PipeWire context";
+      return false;
+    }
 
-  if (pw_thread_loop_start(pw_main_loop_) < 0) {
-    RTC_LOG(LS_ERROR) << "Failed to start main PipeWire loop";
-    return false;
-  }
+    if (pw_thread_loop_start(pw_main_loop_) < 0) {
+      RTC_LOG(LS_ERROR) << "Failed to start main PipeWire loop";
+      return false;
+    }
 
-  pw_client_version_ = PipeWireVersion::Parse(pw_get_library_version());
+    pw_client_version_ = PipeWireVersion::Parse(pw_get_library_version());
 
-  // Initialize event handlers, remote end and stream-related.
-  pw_core_events_.version = PW_VERSION_CORE_EVENTS;
-  pw_core_events_.info = &OnCoreInfo;
-  pw_core_events_.done = &OnCoreDone;
-  pw_core_events_.error = &OnCoreError;
+    // Initialize event handlers, remote end and stream-related.
+    pw_core_events_.version = PW_VERSION_CORE_EVENTS;
+    pw_core_events_.info = &OnCoreInfo;
+    pw_core_events_.done = &OnCoreDone;
+    pw_core_events_.error = &OnCoreError;
 
-  pw_stream_events_.version = PW_VERSION_STREAM_EVENTS;
-  pw_stream_events_.state_changed = &OnStreamStateChanged;
-  pw_stream_events_.param_changed = &OnStreamParamChanged;
-  pw_stream_events_.process = &OnStreamProcess;
-
-  {
     PipeWireThreadLoopLock thread_loop_lock(pw_main_loop_);
 
     if (!pw_fd_) {
@@ -439,26 +724,99 @@ bool SharedScreenCastStreamPrivate::StartScreenCastStream(
 
     pw_core_add_listener(pw_core_, &spa_core_listener_, &pw_core_events_, this);
 
-    // Add an event that can be later invoked by pw_loop_signal_event()
-    renegotiate_ = pw_loop_add_event(pw_thread_loop_get_loop(pw_main_loop_),
-                                     OnRenegotiateFormat, this);
-
     server_version_sync_ =
         pw_core_sync(pw_core_, PW_ID_CORE, server_version_sync_);
 
     pw_thread_loop_wait(pw_main_loop_);
+  }
+
+  RTC_CHECK(retreived_server_version_);
+  //  CallbackData data = {
+  //      {
+  //        .egl_dmabuf_ = egl_dmabuf_.get(),
+  //        .pw_server_version_ = pw_server_version_,
+  //        .pw_main_loop_ = pw_main_loop_,
+  //      },
+  //      {
+  //        .width_ = width,
+  //        .height_ = height,
+  //        .pw_stream_node_id_ = stream_node_id,
+  //        .pw_stream_events_ = {
+  //          .version = PW_VERSION_STREAM_EVENTS,
+  //          .state_changed = &OnStreamStateChanged,
+  //          .param_changed = &OnStreamParamChanged,
+  //          .process = &OnStreamProcess,
+  //        },
+  //      }
+  //  };
+
+  //  auto [cb_data_it, inserted] = node_id_stream_.emplace(
+  //    std::piecewise_construct,
+  //    std::forward_as_tuple(stream_node_id),
+  //    std::forward_as_tuple(std::move(data)));
+
+  //  auto [cb_data_it, inserted] = node_id_stream_.emplace(
+  //    std::piecewise_construct,
+  //    std::forward_as_tuple(stream_node_id), std::forward_as_tuple(
+  //      {
+  //        .egl_dmabuf_ = egl_dmabuf_.get(),
+  //        .pw_server_version_ = pw_server_version_,
+  //        .pw_main_loop_ = pw_main_loop_,
+  //      },
+  //      {
+  //        .width_ = width,
+  //        .height_ = height,
+  //        .pw_stream_node_id_ = stream_node_id,
+  //        .pw_stream_events_ = {
+  //          .version = PW_VERSION_STREAM_EVENTS,
+  //          .state_changed = &OnStreamStateChanged,
+  //          .param_changed = &OnStreamParamChanged,
+  //          .process = &OnStreamProcess,
+  //        },
+  //      }
+  //));
+
+  auto [cb_data_it, inserted] = node_id_stream_.emplace(
+      stream_node_id,
+      CallbackData{GlobalData{
+                       .egl_dmabuf_ = egl_dmabuf_.get(),
+                       .pw_server_version_ = pw_server_version_,
+                       .pw_main_loop_ = pw_main_loop_,
+                   },
+                   StreamData{
+                       .width_ = width,
+                       .height_ = height,
+                       .pw_stream_node_id_ = stream_node_id,
+                       .pw_stream_events_ =
+                           {
+                               .version = PW_VERSION_STREAM_EVENTS,
+                               .state_changed = &OnStreamStateChanged,
+                               .param_changed = &OnStreamParamChanged,
+                               .process = &OnStreamProcess,
+                           },
+                   }});
+  RTC_CHECK(inserted);
+
+  {
+    PipeWireThreadLoopLock thread_loop_lock(pw_main_loop_);
+    CallbackData& cb_data = cb_data_it->second;
+    // Add an event that can be later invoked by pw_loop_signal_event()
+    cb_data.stream.renegotiate_ = pw_loop_add_event(
+        pw_thread_loop_get_loop(pw_main_loop_), OnRenegotiateFormat, &cb_data);
 
     pw_properties* reuseProps =
         pw_properties_new_string("pipewire.client.reuse=1");
-    pw_stream_ = pw_stream_new(pw_core_, "webrtc-consume-stream", reuseProps);
+    cb_data.stream.pw_stream_ =
+        pw_stream_new(pw_core_, "webrtc-consume-stream", reuseProps);
 
-    if (!pw_stream_) {
+    if (!cb_data.stream.pw_stream_) {
       RTC_LOG(LS_ERROR) << "Failed to create PipeWire stream";
       return false;
     }
 
-    pw_stream_add_listener(pw_stream_, &spa_stream_listener_,
-                           &pw_stream_events_, this);
+    pw_stream_add_listener(cb_data.stream.pw_stream_,
+                           &cb_data.stream.spa_stream_listener_,
+                           &cb_data.stream.pw_stream_events_, &cb_data);
     uint8_t buffer[2048] = {};
 
     spa_pod_builder builder = spa_pod_builder{buffer, sizeof(buffer)};
@@ -478,10 +836,11 @@ bool SharedScreenCastStreamPrivate::StartScreenCastStream(
                             SPA_VIDEO_FORMAT_BGRx, SPA_VIDEO_FORMAT_RGBx}) {
       // Modifiers can be used with PipeWire >= 0.3.33
       if (has_required_pw_client_version && has_required_pw_server_version) {
-        modifiers_ = egl_dmabuf_->QueryDmaBufModifiers(format);
+        cb_data.stream.modifiers_ = egl_dmabuf_->QueryDmaBufModifiers(format);
 
-        if (!modifiers_.empty()) {
-          params.push_back(BuildFormat(&builder, format, modifiers_,
+        if (!cb_data.stream.modifiers_.empty()) {
+          params.push_back(BuildFormat(&builder, format,
+                                       cb_data.stream.modifiers_,
                                        set_resolution ? &resolution : nullptr));
         }
       }
@@ -490,10 +849,12 @@ bool SharedScreenCastStreamPrivate::StartScreenCastStream(
                                    set_resolution ? &resolution : nullptr));
     }
 
-    if (pw_stream_connect(pw_stream_, PW_DIRECTION_INPUT, pw_stream_node_id_,
+    if (pw_stream_connect(cb_data.stream.pw_stream_, PW_DIRECTION_INPUT,
+                          cb_data.stream.pw_stream_node_id_,
                           PW_STREAM_FLAG_AUTOCONNECT, params.data(),
                           params.size()) != 0) {
-      RTC_LOG(LS_ERROR) << "Could not connect receiving stream.";
+      RTC_LOG(LS_ERROR) << "Could not connect receiving stream with stream "
+                        << "node id: " << cb_data.stream.pw_stream_node_id_;
       return false;
     }
 
@@ -502,231 +863,78 @@ bool SharedScreenCastStreamPrivate::StartScreenCastStream(
   return true;
 }
 
-void SharedScreenCastStreamPrivate::StopScreenCastStream() {
-  if (pw_stream_) {
-    pw_stream_disconnect(pw_stream_);
+RTC_NO_SANITIZE("cfi-icall")
+void SharedScreenCastStreamPrivate::UpdateScreenCastStreamResolution(
+    uint32_t width,
+    uint32_t height) {
+  if (!width || !height) {
+    RTC_LOG(LS_WARNING) << "Bad resolution specified: " << width << "x"
+                        << height;
+    return;
   }
+  if (!pw_main_loop_) {
+    RTC_LOG(LS_WARNING) << "No main pipewire loop, ignoring resolution change";
+    return;
+  }
+  // TODO: Figure out the exact stream for which we are updating the resolution.
+  // if (!renegotiate_) {
+  //   RTC_LOG(LS_WARNING) << "Can not renegotiate stream params, ignoring "
+  //                       << "resolution change";
+  //   return;
+  // }
+  // if (width_ != width || height_ != height) {
+  //   width_ = width;
+  //   height_ = height;
+  //   {
+  //     webrtc::MutexLock lock(&resolution_lock_);
+  //     pending_resolution_change_ = true;
+  //   }
+  //   pw_loop_signal_event(pw_thread_loop_get_loop(pw_main_loop_),
+  //   renegotiate_);
+  // }
 }
 
-std::unique_ptr<DesktopFrame> SharedScreenCastStreamPrivate::CaptureFrame() {
-  webrtc::MutexLock lock(&queue_lock_);
+void SharedScreenCastStreamPrivate::StopScreenCastStream() {
+  // TODO: Fix this.
+  // if (pw_stream_) {
+  //   pw_stream_disconnect(pw_stream_);
+  // }
+}
 
-  if (!queue_.current_frame()) {
+std::unique_ptr<DesktopFrame> SharedScreenCastStreamPrivate::CaptureFrame(
+    uint32_t node_id) {
+  auto it = node_id_stream_.find(node_id);
+  if (it == node_id_stream_.end()) {
+    RTC_LOG(LS_ERROR) << "Can not capture frames from node id: " << node_id
+                      << ", no corresponding stream found";
+    return nullptr;
+  }
+  CallbackData& cb_data = it->second;
+  webrtc::MutexLock lock(cb_data.stream.queue_lock_.get());
+
+  if (!cb_data.stream.queue_->current_frame()) {
     return std::unique_ptr<DesktopFrame>{};
   }
 
-  std::unique_ptr<SharedDesktopFrame> frame = queue_.current_frame()->Share();
+  std::unique_ptr<SharedDesktopFrame> frame =
+      cb_data.stream.queue_->current_frame()->Share();
   return std::move(frame);
 }
 
 std::unique_ptr<MouseCursor> SharedScreenCastStreamPrivate::CaptureCursor() {
-  if (!mouse_cursor_) {
+  if (node_id_stream_.empty() ||
+      !node_id_stream_.begin()->second.stream.mouse_cursor_) {
     return nullptr;
   }
 
-  return std::move(mouse_cursor_);
+  return std::move(node_id_stream_.begin()->second.stream.mouse_cursor_);
 }
 
 DesktopVector SharedScreenCastStreamPrivate::CaptureCursorPosition() {
-  return mouse_cursor_position_;
-}
-
-RTC_NO_SANITIZE("cfi-icall")
-void SharedScreenCastStreamPrivate::ProcessBuffer(pw_buffer* buffer) {
-  spa_buffer* spa_buffer = buffer->buffer;
-  ScopedBuf map;
-  std::unique_ptr<uint8_t[]> src_unique_ptr;
-  uint8_t* src = nullptr;
-
-  // Try to update the mouse cursor first, because it can be the only
-  // information carried by the buffer
-  {
-    const struct spa_meta_cursor* cursor =
-        static_cast<struct spa_meta_cursor*>(spa_buffer_find_meta_data(
-            spa_buffer, SPA_META_Cursor, sizeof(*cursor)));
-    if (cursor && spa_meta_cursor_is_valid(cursor)) {
-      struct spa_meta_bitmap* bitmap = nullptr;
-
-      if (cursor->bitmap_offset)
-        bitmap =
-            SPA_MEMBER(cursor, cursor->bitmap_offset, struct spa_meta_bitmap);
-
-      if (bitmap && bitmap->size.width > 0 && bitmap->size.height > 0) {
-        const uint8_t* bitmap_data =
-            SPA_MEMBER(bitmap, bitmap->offset, uint8_t);
-        BasicDesktopFrame* mouse_frame = new BasicDesktopFrame(
-            DesktopSize(bitmap->size.width, bitmap->size.height));
-        mouse_frame->CopyPixelsFrom(
-            bitmap_data, bitmap->stride,
-            DesktopRect::MakeWH(bitmap->size.width, bitmap->size.height));
-        mouse_cursor_ = std::make_unique<MouseCursor>(
-            mouse_frame, DesktopVector(cursor->hotspot.x, cursor->hotspot.y));
-      }
-      mouse_cursor_position_.set(cursor->position.x, cursor->position.y);
-    }
-  }
-
-  if (spa_buffer->datas[0].chunk->size == 0) {
-    return;
-  }
-
-  if (spa_buffer->datas[0].type == SPA_DATA_MemFd) {
-    map.initialize(
-        static_cast<uint8_t*>(
-            mmap(nullptr,
-                 spa_buffer->datas[0].maxsize + spa_buffer->datas[0].mapoffset,
-                 PROT_READ, MAP_PRIVATE, spa_buffer->datas[0].fd, 0)),
-        spa_buffer->datas[0].maxsize + spa_buffer->datas[0].mapoffset,
-        spa_buffer->datas[0].fd);
-
-    if (!map) {
-      RTC_LOG(LS_ERROR) << "Failed to mmap the memory: "
-                        << std::strerror(errno);
-      return;
-    }
-
-    src = SPA_MEMBER(map.get(), spa_buffer->datas[0].mapoffset, uint8_t);
-  } else if (spa_buffer->datas[0].type == SPA_DATA_DmaBuf) {
-    const uint n_planes = spa_buffer->n_datas;
-
-    if (!n_planes) {
-      return;
-    }
-
-    std::vector<EglDmaBuf::PlaneData> plane_datas;
-    for (uint32_t i = 0; i < n_planes; ++i) {
-      EglDmaBuf::PlaneData data = {
-          static_cast<int32_t>(spa_buffer->datas[i].fd),
-          static_cast<uint32_t>(spa_buffer->datas[i].chunk->stride),
-          static_cast<uint32_t>(spa_buffer->datas[i].chunk->offset)};
-      plane_datas.push_back(data);
-    }
-
-    src_unique_ptr = egl_dmabuf_->ImageFromDmaBuf(
-        desktop_size_, spa_video_format_.format, plane_datas, modifier_);
-    if (src_unique_ptr) {
-      src = src_unique_ptr.get();
-    } else {
-      RTC_LOG(LS_ERROR) << "Dropping DMA-BUF modifier: " << modifier_
-                        << " and trying to renegotiate stream parameters";
-
-      if (pw_server_version_ >= kDropSingleModifierMinVersion) {
-        modifiers_.erase(
-            std::remove(modifiers_.begin(), modifiers_.end(), modifier_),
-            modifiers_.end());
-      } else {
-        modifiers_.clear();
-      }
-
-      pw_loop_signal_event(pw_thread_loop_get_loop(pw_main_loop_),
-                           renegotiate_);
-      return;
-    }
-  } else if (spa_buffer->datas[0].type == SPA_DATA_MemPtr) {
-    src = static_cast<uint8_t*>(spa_buffer->datas[0].data);
-  }
-
-  if (!src) {
-    return;
-  }
-
-  struct spa_meta_region* video_metadata =
-      static_cast<struct spa_meta_region*>(spa_buffer_find_meta_data(
-          spa_buffer, SPA_META_VideoCrop, sizeof(*video_metadata)));
-
-  // Video size from metadata is bigger than an actual video stream size.
-  // The metadata are wrong or we should up-scale the video...in both cases
-  // just quit now.
-  if (video_metadata && (video_metadata->region.size.width >
-                             static_cast<uint32_t>(desktop_size_.width()) ||
-                         video_metadata->region.size.height >
-                             static_cast<uint32_t>(desktop_size_.height()))) {
-    RTC_LOG(LS_ERROR) << "Stream metadata sizes are wrong!";
-    return;
-  }
-
-  // Use video metadata when video size from metadata is set and smaller than
-  // video stream size, so we need to adjust it.
-  bool video_metadata_use = false;
-  const struct spa_rectangle* video_metadata_size =
-      video_metadata ? &video_metadata->region.size : nullptr;
-
-  if (video_metadata_size && video_metadata_size->width != 0 &&
-      video_metadata_size->height != 0 &&
-      (static_cast<int>(video_metadata_size->width) < desktop_size_.width() ||
-       static_cast<int>(video_metadata_size->height) <
-           desktop_size_.height())) {
-    video_metadata_use = true;
-  }
-
-  if (video_metadata_use) {
-    video_size_ =
-        DesktopSize(video_metadata_size->width, video_metadata_size->height);
-  } else {
-    video_size_ = desktop_size_;
-  }
-
-  uint32_t y_offset = video_metadata_use && (video_metadata->region.position.y +
-                                                 video_size_.height() <=
-                                             desktop_size_.height())
-                          ? video_metadata->region.position.y
-                          : 0;
-  uint32_t x_offset = video_metadata_use && (video_metadata->region.position.x +
-                                                 video_size_.width() <=
-                                             desktop_size_.width())
-                          ? video_metadata->region.position.x
-                          : 0;
-
-  uint8_t* updated_src = src + (spa_buffer->datas[0].chunk->stride * y_offset) +
-                         (kBytesPerPixel * x_offset);
-
-  webrtc::MutexLock lock(&queue_lock_);
-
-  // Move to the next frame if the current one is being used and shared
-  if (queue_.current_frame() && queue_.current_frame()->IsShared()) {
-    queue_.MoveToNextFrame();
-    if (queue_.current_frame() && queue_.current_frame()->IsShared()) {
-      RTC_LOG(LS_WARNING)
-          << "Failed to process PipeWire buffer: no available frame";
-      return;
-    }
-  }
-
-  if (!queue_.current_frame() ||
-      !queue_.current_frame()->size().equals(video_size_)) {
-    std::unique_ptr<DesktopFrame> frame(new BasicDesktopFrame(
-        DesktopSize(video_size_.width(), video_size_.height())));
-    queue_.ReplaceCurrentFrame(SharedDesktopFrame::Wrap(std::move(frame)));
-  }
-
-  queue_.current_frame()->CopyPixelsFrom(
-      updated_src,
-      (spa_buffer->datas[0].chunk->stride - (kBytesPerPixel * x_offset)),
-      DesktopRect::MakeWH(video_size_.width(), video_size_.height()));
-
-  if (spa_video_format_.format == SPA_VIDEO_FORMAT_RGBx ||
-      spa_video_format_.format == SPA_VIDEO_FORMAT_RGBA) {
-    uint8_t* tmp_src = queue_.current_frame()->data();
-    for (int i = 0; i < video_size_.height(); ++i) {
-      // If both sides decided to go with the RGBx format we need to convert
-      // it to BGRx to match color format expected by WebRTC.
-      ConvertRGBxToBGRx(tmp_src, queue_.current_frame()->stride());
-      tmp_src += queue_.current_frame()->stride();
-    }
-  }
-
-  queue_.current_frame()->mutable_updated_region()->SetRect(
-      DesktopRect::MakeSize(queue_.current_frame()->size()));
-}
-
-void SharedScreenCastStreamPrivate::ConvertRGBxToBGRx(uint8_t* frame,
-                                                      uint32_t size) {
-  for (uint32_t i = 0; i < size; i += 4) {
-    uint8_t tempR = frame[i];
-    uint8_t tempB = frame[i + 2];
-    frame[i] = tempB;
-    frame[i + 2] = tempR;
-  }
+  // TODO: This needs fixing.
+  if (node_id_stream_.empty())
+    return DesktopVector(-1, -1);
+  return node_id_stream_.begin()->second.stream.mouse_cursor_position_;
 }
 
 SharedScreenCastStream::SharedScreenCastStream()
@@ -751,15 +959,23 @@ bool SharedScreenCastStream::StartScreenCastStream(uint32_t stream_node_id,
   return private_->StartScreenCastStream(stream_node_id, fd, width, height);
 }
 
+void SharedScreenCastStream::UpdateScreenCastStreamResolution(uint32_t width,
+                                                              uint32_t height) {
+  private_->UpdateScreenCastStreamResolution(width, height);
+}
+
 void SharedScreenCastStream::StopScreenCastStream() {
   private_->StopScreenCastStream();
 }
 
-std::unique_ptr<DesktopFrame> SharedScreenCastStream::CaptureFrame() {
-  return private_->CaptureFrame();
+std::unique_ptr<DesktopFrame> SharedScreenCastStream::CaptureFrame(
+    uint32_t node_id) {
+  return private_->CaptureFrame(node_id);
 }
 
 std::unique_ptr<MouseCursor> SharedScreenCastStream::CaptureCursor() {
+  // TODO: Would need a mechanism to determine which `pw_stream_node_id` stream
+  // is active and return cursor from that stream.
   return private_->CaptureCursor();
 }
 

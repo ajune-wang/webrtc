@@ -194,6 +194,32 @@ TEST_P(PeerConnectionIntegrationTest,
                      }));
 }
 
+TEST_P(PeerConnectionIntegrationTest, OnIceCandidateFlushesGetStatsCache) {
+  ASSERT_TRUE(CreatePeerConnectionWrappers());
+  ConnectFakeSignaling();
+  caller()->AddAudioTrack();
+
+  // Call getStats, assert there are no candidates.
+  rtc::scoped_refptr<const webrtc::RTCStatsReport> first_report =
+      caller()->NewGetStats();
+  ASSERT_TRUE(first_report);
+  auto first_candidate_stats =
+      first_report->GetStatsOfType<webrtc::RTCLocalIceCandidateStats>();
+  ASSERT_EQ(first_candidate_stats.size(), 0u);
+
+  // Start candidate gathering and wait for it to complete.
+  caller()->CreateAndSetAndSignalOffer();
+  ASSERT_TRUE_WAIT(caller()->IceGatheringStateComplete(), kDefaultTimeout);
+
+  // Call getStats again, assert there are candidates now.
+  rtc::scoped_refptr<const webrtc::RTCStatsReport> second_report =
+      caller()->NewGetStats();
+  ASSERT_TRUE(second_report);
+  auto second_candidate_stats =
+      second_report->GetStatsOfType<webrtc::RTCLocalIceCandidateStats>();
+  ASSERT_NE(second_candidate_stats.size(), 0u);
+}
+
 class DummyDtmfObserver : public DtmfSenderObserverInterface {
  public:
   DummyDtmfObserver() : completed_(false) {}

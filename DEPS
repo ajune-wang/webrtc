@@ -10,7 +10,7 @@ vars = {
   # chromium waterfalls. More info at: crbug.com/570091.
   'checkout_configuration': 'default',
   'checkout_instrumented_libraries': 'checkout_linux and checkout_configuration == "default"',
-  'chromium_revision': '64869c1cf95ffbc609a7c4646c3a0f9e5747c47f',
+  'chromium_revision': '44d4f4e951dafe58848cfdbd0f8e90930d1ea5c7',
 
   # Keep the Chromium default of generating location tags.
   'generate_location_tags': True,
@@ -29,9 +29,9 @@ deps = {
   'src/base':
     'https://chromium.googlesource.com/chromium/src/base@903a26410c5e7a602bec4e2a159f4552d090f283',
   'src/build':
-    'https://chromium.googlesource.com/chromium/src/build@563ee07827d804e5a31b0e2eb48edd64cbf56de0',
+    'https://chromium.googlesource.com/chromium/src/build@c05f2b082527a7f12b2b33327fdecb05bfafe53b',
   'src/buildtools':
-    'https://chromium.googlesource.com/chromium/src/buildtools@b9cfcf9a5ee54069b05ef4b8389db47ca78f3704',
+    'https://chromium.googlesource.com/chromium/src/buildtools@3d439036450a4af0761e7e3e5385a86e2c11ccd4',
   # Gradle 6.6.1. Used for testing Android Studio project generation for WebRTC.
   'src/examples/androidtests/third_party/gradle': {
     'url': 'https://chromium.googlesource.com/external/github.com/gradle/gradle.git@f2d1fb54a951d8b11d25748e4711bec8d128d7e3',
@@ -44,7 +44,7 @@ deps = {
   'src/testing':
     'https://chromium.googlesource.com/chromium/src/testing@f98faec51fc6210d40e855f2f1b6391ebafcfaa6',
   'src/third_party':
-    'https://chromium.googlesource.com/chromium/src/third_party@855b8c82f3f0f4cbfdae480b7e45fd359a8e4684',
+    'https://chromium.googlesource.com/chromium/src/third_party@ec68b4096be985d5b16e4386992faf5a30e8a1b4',
 
   'src/buildtools/linux64': {
     'packages': [
@@ -80,7 +80,7 @@ deps = {
   'src/buildtools/clang_format/script':
     'https://chromium.googlesource.com/external/github.com/llvm/llvm-project/clang/tools/clang-format.git@e435ad79c17b1888b34df88d6a30a094936e3836',
   'src/buildtools/third_party/libc++/trunk':
-    'https://chromium.googlesource.com/external/github.com/llvm/llvm-project/libcxx.git@1a637088a36d19d4ba0358c5e2994c3c9e024a62',
+    'https://chromium.googlesource.com/external/github.com/llvm/llvm-project/libcxx.git@b1269813eaf5b8ac78e35e45a0f7cc320bd3e7d6',
   'src/buildtools/third_party/libc++abi/trunk':
     'https://chromium.googlesource.com/external/github.com/llvm/llvm-project/libcxxabi.git@2dba7d2cc46a25cd67fb990826179e0c159c5b5c',
   'src/buildtools/third_party/libunwind/trunk':

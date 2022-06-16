@@ -200,6 +200,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "50cc5779_2a6caabc",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 4
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 12416
+      },
+      "writtenOn": "2022-06-16T20:21:27Z",
+      "side": 1,
+      "message": "I believe we\u0027ve root caused the issue here to a bug in Windows that was fixed in build 19611. The issue is that we have monitors attached (so GraphicsCaptureSession::IsSupported returns true) but the monitors are not active so the DWM (Desktop Window Manager) isn\u0027t awake and WGC can\u0027t get image data for windows.\n\nUnfortunately 19611 didn\u0027t ship in a desktop release (only server) and so is only available in Win11.\n\nIs there any way to make the monitors on these trybots active (I\u0027m not sure what\u0027s required to achieve this)? Or do we have any trybots that run Win11?",
+      "parentUuid": "4245924a_101d15cd",
+      "revId": "90712d192cfa63ea8b3fbd263b81e175c31e763c",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "6c03636a_16048b21",
         "filename": "modules/desktop_capture/win/wgc_capture_session.cc",
         "patchSetId": 4

@@ -2661,6 +2661,7 @@ void PeerConnection::AddRemoteCandidate(const std::string& mid,
               signaling_thread_safety_.flag(),
               [this, candidate = std::move(candidate)] {
                 ReportRemoteIceCandidateAdded(candidate);
+#if 0
                 // Candidates successfully submitted for checking.
                 if (ice_connection_state() ==
                         PeerConnectionInterface::kIceConnectionNew ||
@@ -2679,6 +2680,7 @@ void PeerConnection::AddRemoteCandidate(const std::string& mid,
                       PeerConnectionInterface::kIceConnectionChecking);
                 }
                 // TODO(bemasc): If state is Completed, go back to Connected.
+#endif
               }));
         } else {
           RTC_LOG(LS_WARNING) << error.message();

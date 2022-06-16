@@ -16,6 +16,24 @@
       "message": "Can you add:\n\n#include \"rtc_base/string_encode.h\"",
       "revId": "027955d97981959ca7ecb4ea4e04c3f87a130f0d",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "644ffdfc_c44e03ee",
+        "filename": "rtc_base/openssl_stream_adapter.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 33,
+      "author": {
+        "id": 5087
+      },
+      "writtenOn": "2022-06-16T08:52:38Z",
+      "side": 1,
+      "message": "On WebRTC bots it works because of https://source.chromium.org/chromium/chromium/src/+/main:third_party/webrtc/rtc_base/logging.cc;l\u003d48;drc\u003d2ab914c6ab73ac0f85f633a5ce499cae74e7b75a but in Chromium we don\u0027t include logging.cc in the build graph (https://source.chromium.org/chromium/chromium/src/+/main:third_party/webrtc/rtc_base/BUILD.gn;l\u003d425-453;drc\u003de00d7d0ce664233402afb3ece94fc270d2e3a8cf).\n\nThis is in line with https://google.github.io/styleguide/cppguide.html#Include_What_You_Use, which requires to #include headers directly and don\u0027t rely on transitive inclusions.",
+      "parentUuid": "75629f32_670c322e",
+      "revId": "027955d97981959ca7ecb4ea4e04c3f87a130f0d",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

@@ -36,6 +36,24 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "b869e016_52d95e9a",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 6
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2022-06-16T08:11:13Z",
+      "side": 1,
+      "message": "I\u0027ve run all the tests in patchset#5, but there were no functional changes since that one.",
+      "parentUuid": "3adccad2_9d9efeba",
+      "revId": "abd5117451099b61259bc34a796c22e8567cf12f",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "0146f9ce_77e90e2f",

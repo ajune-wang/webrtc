@@ -137,6 +137,23 @@
       },
       "revId": "0ce60f93d69733c42e2bdfbb80fb857726231106",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "291008dc_8608c08f",
+        "filename": "g3doc/implementation_basics.md",
+        "patchSetId": 1
+      },
+      "lineNbr": 52,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2022-06-16T06:39:44Z",
+      "side": 1,
+      "message": "Wonder if I should add some words like \"If a Manager keeps track of objects of class Foo and Bar, the name should be suitably generic (probably not FooAndBarManager), and the Create functions should be named CreateFoo, CreateBar and so on\".",
+      "revId": "0ce60f93d69733c42e2bdfbb80fb857726231106",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

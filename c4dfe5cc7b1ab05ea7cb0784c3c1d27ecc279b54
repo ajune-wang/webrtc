@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "bd9d7d42_18415f92",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 14874
+      },
+      "writtenOn": "2022-06-16T10:47:23Z",
+      "side": 1,
+      "message": "sometimes you need to see the actual fingerprints...",
+      "revId": "c4dfe5cc7b1ab05ea7cb0784c3c1d27ecc279b54",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

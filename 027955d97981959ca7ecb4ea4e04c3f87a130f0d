@@ -34,6 +34,24 @@
       "parentUuid": "75629f32_670c322e",
       "revId": "027955d97981959ca7ecb4ea4e04c3f87a130f0d",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "337c2ee8_aa6ef97a",
+        "filename": "rtc_base/openssl_stream_adapter.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 33,
+      "author": {
+        "id": 14874
+      },
+      "writtenOn": "2022-06-16T10:47:23Z",
+      "side": 1,
+      "message": "Heh, the solution was trivial. Updated, thank you for figuring out why this passed linux-rel!",
+      "parentUuid": "644ffdfc_c44e03ee",
+      "revId": "027955d97981959ca7ecb4ea4e04c3f87a130f0d",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

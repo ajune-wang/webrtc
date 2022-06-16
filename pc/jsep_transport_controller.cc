@@ -1170,6 +1170,7 @@ void JsepTransportController::OnTransportReceivingState_n(
 
 void JsepTransportController::OnTransportGatheringState_n(
     cricket::IceTransportInternal* transport) {
+  RTC_LOG(LS_ERROR) << "Gathering changed";
   UpdateAggregateStates_n();
 }
 
@@ -1396,6 +1397,8 @@ void JsepTransportController::UpdateAggregateStates_n() {
   } else if (any_gathering) {
     new_gathering_state = cricket::kIceGatheringGathering;
   }
+  RTC_LOG(LS_ERROR) << "TG " << ice_gathering_state_ << " "
+                    << new_gathering_state;
   if (ice_gathering_state_ != new_gathering_state) {
     ice_gathering_state_ = new_gathering_state;
     signal_ice_gathering_state_.Send(new_gathering_state);

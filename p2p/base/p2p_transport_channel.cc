@@ -873,6 +873,8 @@ int P2PTransportChannel::check_receiving_interval() const {
 
 void P2PTransportChannel::MaybeStartGathering() {
   RTC_DCHECK_RUN_ON(network_thread_);
+  RTC_LOG(LS_ERROR) << "MAYBE START GATHERING '" << ice_parameters_.ufrag
+                    << "' gathering state '" << gathering_state_ << "'";
   if (ice_parameters_.ufrag.empty() || ice_parameters_.pwd.empty()) {
     RTC_LOG(LS_ERROR)
         << "Cannot gather candidates because ICE parameters are empty"
@@ -887,6 +889,7 @@ void P2PTransportChannel::MaybeStartGathering() {
                             ice_parameters_.ufrag, ice_parameters_.pwd)) {
     if (gathering_state_ != kIceGatheringGathering) {
       gathering_state_ = kIceGatheringGathering;
+      RTC_LOG(LS_ERROR) << "change state to gathering";
       SignalGatheringState(this);
     }
 
@@ -908,6 +911,7 @@ void P2PTransportChannel::MaybeStartGathering() {
       if (session->IsStopped()) {
         continue;
       }
+      RTC_LOG(LS_ERROR) << "stop getting ports...";
       session->StopGettingPorts();
     }
 
@@ -933,6 +937,7 @@ void P2PTransportChannel::MaybeStartGathering() {
       AddAllocatorSession(allocator_->CreateSession(
           transport_name(), component(), ice_parameters_.ufrag,
           ice_parameters_.pwd));
+      RTC_LOG(LS_ERROR) << "start getting ports...";
       allocator_sessions_.back()->StartGettingPorts();
     }
   }

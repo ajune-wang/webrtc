@@ -2206,6 +2206,7 @@ void SdpOfferAnswerHandler::DoSetLocalDescription(
     ReportNegotiatedSdpSemantics(*local_description());
   }
 
+  RTC_LOG(LS_ERROR) << "SLD COMPLETE";
   observer->OnSetLocalDescriptionComplete(RTCError::OK());
   pc_->NoteUsageEvent(UsageEvent::SET_LOCAL_DESCRIPTION_SUCCEEDED);
 

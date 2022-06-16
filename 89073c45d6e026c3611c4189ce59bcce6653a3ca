@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "dd46463f_14dc1a84",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2022-06-16T14:04:04Z",
+      "side": 1,
+      "message": "Variant of https://webrtc-review.googlesource.com/c/src/+/265807, but using a vector with an entry per simulcast stream. Currently fails one test, ProbingTest.ProbesRampsUpWhenVideoEncoderConfigChanges, needs a bit more debugging.",
+      "revId": "89073c45d6e026c3611c4189ce59bcce6653a3ca",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

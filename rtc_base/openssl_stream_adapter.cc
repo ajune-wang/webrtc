@@ -42,6 +42,7 @@
 #include "rtc_base/openssl_utility.h"
 #include "rtc_base/ssl_certificate.h"
 #include "rtc_base/stream.h"
+#include "rtc_base/string_encode.h"
 #include "rtc_base/task_utils/to_queued_task.h"
 #include "rtc_base/thread.h"
 #include "rtc_base/time_utils.h"
@@ -1131,7 +1132,10 @@ bool OpenSSLStreamAdapter::VerifyPeerCertificate() {
   Buffer computed_digest(digest, digest_length);
   if (computed_digest != peer_certificate_digest_value_) {
     RTC_LOG(LS_WARNING)
-        << "Rejected peer certificate due to mismatched digest.";
+        << "Rejected peer certificate due to mismatched digest using "
+        << peer_certificate_digest_algorithm_ << ". Expected "
+        << rtc::hex_encode_with_delimiter(peer_certificate_digest_value_, ':')
+        << " got " << rtc::hex_encode_with_delimiter(computed_digest, ':');
     return false;
   }
   // Ignore any verification error if the digest matches, since there is no

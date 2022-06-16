@@ -15,6 +15,7 @@
 
 #include <string>
 
+#include "modules/desktop_capture/desktop_capture_types.h"
 #include "modules/desktop_capture/linux/wayland/portal_request_response.h"
 #include "modules/desktop_capture/linux/wayland/screen_capture_portal_interface.h"
 #include "modules/desktop_capture/linux/wayland/xdg_desktop_portal_utils.h"
@@ -61,9 +62,10 @@ class ScreenCastPortal : public xdg_portal::ScreenCapturePortalInterface {
   // Interface that must be implemented by the ScreenCastPortal consumers.
   class PortalNotifier {
    public:
-    virtual void OnScreenCastRequestResult(xdg_portal::RequestResponse result,
-                                           uint32_t stream_node_id,
-                                           int fd) = 0;
+    virtual void OnScreenCastRequestResult(
+        xdg_portal::RequestResponse result,
+        const SourceStreamIds& stream_node_ids,
+        int fd) = 0;
     virtual void OnScreenCastSessionClosed() = 0;
 
    protected:
@@ -102,7 +104,7 @@ class ScreenCastPortal : public xdg_portal::ScreenCapturePortalInterface {
   // Set of methods leveraged by remote desktop portal to setup a common session
   // with screen cast portal.
   void SetSessionDetails(const xdg_portal::SessionDetails& session_details);
-  uint32_t pipewire_stream_node_id();
+  SourceStreamIds pipewire_stream_node_ids();
   void SourcesRequest();
   void OpenPipeWireRemote();
 
@@ -110,7 +112,7 @@ class ScreenCastPortal : public xdg_portal::ScreenCapturePortalInterface {
   PortalNotifier* notifier_;
 
   // A PipeWire stream ID of stream we will be connecting to
-  uint32_t pw_stream_node_id_ = 0;
+  SourceStreamIds pw_stream_node_ids_;
   // A file descriptor of PipeWire socket
   int pw_fd_ = -1;
 

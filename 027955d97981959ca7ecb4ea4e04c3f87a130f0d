@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "75629f32_670c322e",
+        "filename": "rtc_base/openssl_stream_adapter.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 33,
+      "author": {
+        "id": 5087
+      },
+      "writtenOn": "2022-06-16T08:42:43Z",
+      "side": 1,
+      "message": "Can you add:\n\n#include \"rtc_base/string_encode.h\"",
+      "revId": "027955d97981959ca7ecb4ea4e04c3f87a130f0d",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

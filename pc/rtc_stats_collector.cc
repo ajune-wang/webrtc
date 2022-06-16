@@ -424,6 +424,7 @@ std::unique_ptr<RTCInboundRTPStreamStats> CreateInboundAudioStreamStats(
                                                 inbound_audio.get());
   inbound_audio->media_type = "audio";
   inbound_audio->kind = "audio";
+  inbound_audio->mid = mid;
   if (voice_receiver_info.codec_payload_type) {
     inbound_audio->codec_id = RTCCodecStatsIDFromMidDirectionAndPayload(
         mid, /*inbound=*/true, *voice_receiver_info.codec_payload_type);
@@ -524,6 +525,7 @@ void SetInboundRTPStreamStatsFromVideoReceiverInfo(
     RTCInboundRTPStreamStats* inbound_video) {
   SetInboundRTPStreamStatsFromMediaReceiverInfo(video_receiver_info,
                                                 inbound_video);
+  inbound_video->mid = mid;
   inbound_video->media_type = "video";
   inbound_video->kind = "video";
   if (video_receiver_info.codec_payload_type) {
@@ -617,6 +619,7 @@ void SetOutboundRTPStreamStatsFromVoiceSenderInfo(
                                                outbound_audio);
   outbound_audio->media_type = "audio";
   outbound_audio->kind = "audio";
+  outbound_audio->mid = mid;
   if (voice_sender_info.target_bitrate > 0) {
     outbound_audio->target_bitrate = voice_sender_info.target_bitrate;
   }
@@ -636,6 +639,7 @@ void SetOutboundRTPStreamStatsFromVideoSenderInfo(
                                                outbound_video);
   outbound_video->media_type = "video";
   outbound_video->kind = "video";
+  outbound_video->mid = mid;
   if (video_sender_info.codec_payload_type) {
     outbound_video->codec_id = RTCCodecStatsIDFromMidDirectionAndPayload(
         mid, /*inbound=*/false, *video_sender_info.codec_payload_type);

@@ -2098,6 +2098,7 @@ TEST_F(RTCStatsCollectorTest, CollectRTCInboundRTPStreamStats_Audio) {
   expected_audio.ssrc = 1;
   expected_audio.media_type = "audio";
   expected_audio.kind = "audio";
+  expected_audio.mid = "AudioMid";
   expected_audio.track_id = stats_of_track_type[0]->id();
   expected_audio.transport_id = "RTCTransport_TransportName_1";
   expected_audio.codec_id = "RTCCodec_AudioMid_Inbound_42";
@@ -2204,6 +2205,7 @@ TEST_F(RTCStatsCollectorTest, CollectRTCInboundRTPStreamStats_Video) {
   RTCInboundRTPStreamStats expected_video("RTCInboundRTPVideoStream_1",
                                           report->timestamp_us());
   expected_video.ssrc = 1;
+  expected_video.mid = "VideoMid";
   expected_video.media_type = "video";
   expected_video.kind = "video";
   expected_video.track_id = IdForType<RTCMediaStreamTrackStats>(report.get());
@@ -2301,6 +2303,7 @@ TEST_F(RTCStatsCollectorTest, CollectRTCOutboundRTPStreamStats_Audio) {
   expected_audio.ssrc = 1;
   expected_audio.media_type = "audio";
   expected_audio.kind = "audio";
+  expected_audio.mid = "AudioMid";
   expected_audio.track_id = IdForType<RTCMediaStreamTrackStats>(report.get());
   expected_audio.transport_id = "RTCTransport_TransportName_1";
   expected_audio.codec_id = "RTCCodec_AudioMid_Outbound_42";
@@ -2388,6 +2391,7 @@ TEST_F(RTCStatsCollectorTest, CollectRTCOutboundRTPStreamStats_Video) {
   expected_video.ssrc = 1;
   expected_video.media_type = "video";
   expected_video.kind = "video";
+  expected_video.mid = "VideoMid";
   expected_video.track_id = stats_of_track_type[0]->id();
   expected_video.transport_id = "RTCTransport_TransportName_1";
   expected_video.codec_id = "RTCCodec_VideoMid_Outbound_42";

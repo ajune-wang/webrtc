@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "dcab0ce5_dfe81c80",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 7755
+      },
+      "writtenOn": "2022-06-16T11:30:17Z",
+      "side": 1,
+      "message": "when running\n  chrome https://jsfiddle.net/fippo/xbf2j4m7/5/\nI get this output:\n[52574:16:0616/132818.253850:ERROR:jsep_transport_controller.cc(1400)] TG 0 0\n[52574:15:0616/132818.253957:ERROR:sdp_offer_answer.cc(2210)] SLD COMPLETE\n[52574:16:0616/132818.254050:ERROR:p2p_transport_channel.cc(875)] MAYBE START GATHERING \u0027mKqL\u0027 gathering state \u00270\u0027\n[52574:16:0616/132818.254073:ERROR:p2p_transport_channel.cc(890)] change state to gathering\n[52574:16:0616/132818.254090:ERROR:jsep_transport_controller.cc(1173)] Gathering changed\n[52574:16:0616/132818.254107:ERROR:jsep_transport_controller.cc(1400)] TG 0 1\n[52574:16:0616/132818.254173:ERROR:p2p_transport_channel.cc(938)] start getting ports...\n[52574:15:0616/132818.263981:ERROR:sdp_offer_answer.cc(2210)] SLD COMPLETE\n[52574:16:0616/132818.264091:ERROR:p2p_transport_channel.cc(875)] MAYBE START GATHERING \u00278pDQ\u0027 gathering state \u00271\u0027\n[52574:16:0616/132818.264144:ERROR:p2p_transport_channel.cc(912)] stop getting ports...\n[52574:16:0616/132818.264185:ERROR:p2p_transport_channel.cc(938)] start getting ports...\n[52574:16:0616/132818.264234:ERROR:jsep_transport_controller.cc(1173)] Gathering changed\n[52574:16:0616/132818.264266:ERROR:jsep_transport_controller.cc(1400)] TG 1 2\n[52574:16:0616/132818.390731:ERROR:jsep_transport_controller.cc(1173)] Gathering changed\n[52574:16:0616/132818.390870:ERROR:jsep_transport_controller.cc(1400)] TG 2 2\n\nSo one needs to unsubscribe from all events of the old port and synthetically generate them?\n",
+      "revId": "979dbb8d129a67c83f76e4f84238aa9f0a2aaf27",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

@@ -18,6 +18,24 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "3adccad2_9d9efeba",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 6
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2022-06-16T08:10:02Z",
+      "side": 1,
+      "message": "I\u0027ve run all the tests, they pass.",
+      "parentUuid": "7a96abcd_984f9b68",
+      "revId": "abd5117451099b61259bc34a796c22e8567cf12f",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "0146f9ce_77e90e2f",
@@ -31,6 +49,24 @@
       "writtenOn": "2022-06-16T05:52:26Z",
       "side": 1,
       "message": "What happens here if the result is not evenly divisible?\n\nfor instance 3 / 4 - will it be 1 or 0?\n\nMy reading is that in the old code it is 1, in the new code it is 0.",
+      "revId": "abd5117451099b61259bc34a796c22e8567cf12f",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "98606b7d_ad069db5",
+        "filename": "rtc_base/units/unit_base.h",
+        "patchSetId": 6
+      },
+      "lineNbr": 277,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2022-06-16T08:10:02Z",
+      "side": 1,
+      "message": "I\u0027ve updated description to note rounding did change.\n\nI would argue that \u0027round down\u0027 is less surprising in this case because it matches rounding for integer division.\n\nin particular it allows to convert code\n  SomeFunction(int64_t time_us) {\n    if (xxx \u003e time_us / 2) { ... }\n  }\n\nto\n  SomeFunction(TimeDelta time) {\n    if (xxx \u003e time / 2) { ... }\n  }\n\nwithout changing behavior.",
+      "parentUuid": "0146f9ce_77e90e2f",
       "revId": "abd5117451099b61259bc34a796c22e8567cf12f",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }

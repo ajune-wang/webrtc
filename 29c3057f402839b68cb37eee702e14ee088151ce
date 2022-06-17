@@ -16,6 +16,24 @@
       "message": "Sorry, my bad the print() needs to go here (under host_os win).",
       "revId": "29c3057f402839b68cb37eee702e14ee088151ce",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "e4ae7bca_b53fc9f0",
+        "filename": "tools_webrtc/get_landmines.py",
+        "patchSetId": 1
+      },
+      "lineNbr": 45,
+      "author": {
+        "id": 6337
+      },
+      "writtenOn": "2022-06-17T10:27:08Z",
+      "side": 1,
+      "message": "Ah, didn\u0027t notice \"if host_os() \u003d\u003d \u0027mac\u0027:\" in the middle",
+      "parentUuid": "5af6d3a9_3539782d",
+      "revId": "29c3057f402839b68cb37eee702e14ee088151ce",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

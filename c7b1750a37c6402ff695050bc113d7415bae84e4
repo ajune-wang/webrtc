@@ -91,6 +91,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "f8f7ad6a_07f1f612",
+        "filename": "common_video/video_frame_buffer.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 329,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2022-06-17T14:31:24Z",
+      "side": 1,
+      "message": "\u003e I also find the Buffer creation code very bloated too:\n\u003e \n\u003e https://webrtc.googlesource.com/src/+/refs/heads/main/modules/video_coding/codecs/h264/h264_decoder_impl.cc#126\n\nI agree there\u0027s a problem.\n\nI think it is reasonable to have a switch statement with one case per supported format for conversion between webrtc conventions and encoder/decoder-specific representation. But the body of each of the cases shouldn\u0027t be more than one or two lines. E.g., could we do more with compile time templates? E.g., something like\n\n  switch (context-\u003epix_fmt) {\n    case AV_PIX_FMT_YUV420P:\n      frame_buffer \u003d CreateAndMapBuffer\u003cI420Buffer\u003e(av_frame);\n      break;\n    case ...\n\nDoesn\u0027t work that well with the current frame pool used in that code though, so it\u0027s not a trivial change.",
+      "parentUuid": "b2697f24_f4d58d04",
+      "range": {
+        "startLine": 319,
+        "startChar": 0,
+        "endLine": 329,
+        "endChar": 0
+      },
+      "revId": "c7b1750a37c6402ff695050bc113d7415bae84e4",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "556867b8_d13b58c5",
         "filename": "modules/video_coding/codecs/vp9/libvpx_vp9_decoder.cc",
         "patchSetId": 3

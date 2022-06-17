@@ -20,6 +20,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "7f03dc7f_a1809a8e",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2022-06-17T11:40:37Z",
+      "side": 1,
+      "message": "Maybe, can you suggest where such a test would go, and what operations it should do to trigger use of the PacketSocketFactory?\n\nDo we have some tests with an emulated network that injects a PortAllocator or an rtc:SocketFactory? If so, we could try to convert them to inject a PacketSocketFactory instead.",
+      "parentUuid": "8dec1af4_ea06451a",
+      "revId": "897a6f5efdb0f0b5800f3eb906459716e28e03f7",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "5a638167_5f21c346",
         "filename": "api/peer_connection_interface.h",
         "patchSetId": 2
@@ -31,6 +49,24 @@
       "writtenOn": "2022-06-17T11:21:02Z",
       "side": 1,
       "message": "Please complete the comment change.",
+      "revId": "897a6f5efdb0f0b5800f3eb906459716e28e03f7",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "c29e366b_f81cde07",
+        "filename": "api/peer_connection_interface.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 1384,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2022-06-17T11:40:37Z",
+      "side": 1,
+      "message": "Ooops. Now deleted the left over line.",
+      "parentUuid": "5a638167_5f21c346",
       "revId": "897a6f5efdb0f0b5800f3eb906459716e28e03f7",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
@@ -54,6 +90,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "9b6503ae_a4acedf1",
+        "filename": "pc/connection_context.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 105,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2022-06-17T11:40:37Z",
+      "side": 1,
+      "message": "This gets complicated due to the way socket_factory is selected. (Injected directly, or created, or taken from injected network_thread).",
+      "parentUuid": "c3fcda7e_957882dd",
+      "revId": "897a6f5efdb0f0b5800f3eb906459716e28e03f7",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "b9247f7f_0a7a0a0d",
         "filename": "pc/connection_context.h",
         "patchSetId": 2
@@ -65,6 +119,24 @@
       "writtenOn": "2022-06-17T11:21:02Z",
       "side": 1,
       "message": "Maybe later: The name default_socket_factory is now misleading and should be just packet_socket_factory.",
+      "revId": "897a6f5efdb0f0b5800f3eb906459716e28e03f7",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "5669a3cf_9aab1dc2",
+        "filename": "pc/connection_context.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 144,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2022-06-17T11:40:37Z",
+      "side": 1,
+      "message": "It\u0027s \"default\" in the sense that it is used of applications doesn\u0027t inject it\u0027s own port allocator, and default_network_manager is used in the same way. Let\u0027s consider renaming later.",
+      "parentUuid": "b9247f7f_0a7a0a0d",
       "revId": "897a6f5efdb0f0b5800f3eb906459716e28e03f7",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }

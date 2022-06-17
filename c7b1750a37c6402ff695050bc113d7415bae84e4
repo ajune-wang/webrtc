@@ -16,6 +16,52 @@
       "message": "Hi all,\n\nThis CL refactors a bit the buffer wrapping by extending the 10 bit support in the WrapYuvBuffer helper method, cleaning up the h264 decoder.\n\nAs a bonus, it adds support for 422 8 and 10 bits decoding to vp9.\n",
       "revId": "c7b1750a37c6402ff695050bc113d7415bae84e4",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "e8d05118_cf6f8ec4",
+        "filename": "common_video/video_frame_buffer.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 329,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2022-06-17T13:07:43Z",
+      "side": 1,
+      "message": "I see that this simplifies code at the call sites, but I don\u0027t really like to have these reinterpret_casts here. At this place, I think it would be more appropriate with two separate overloads:\n\nrtc::scoped_refptr\u003cPlanar8YuvBuffer\u003e WrapYuvBuffer(... const uint8_t* y_plane, ...)\n\nrtc::scoped_refptr\u003cPlanar16YuvBuffer\u003e WrapYuvBuffer(..., const uint16_t* y_plane, ...)\n\nIf we want a method to handle both uint8_t and uint16_t data, I think plane pointers should be const void*, and we need to clearly document the unit of the stride (byte size would make most sense to me, in that setting) and alignment requirements of those pointers.\n\nIdeally, I\u0027d prefer to keep the switch statements in the caller\u0027s, and use some other way to reduce verbosity there.",
+      "range": {
+        "startLine": 319,
+        "startChar": 0,
+        "endLine": 329,
+        "endChar": 0
+      },
+      "revId": "c7b1750a37c6402ff695050bc113d7415bae84e4",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "556867b8_d13b58c5",
+        "filename": "modules/video_coding/codecs/vp9/libvpx_vp9_decoder.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 319,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2022-06-17T13:07:43Z",
+      "side": 1,
+      "message": "E.g., if the switch statement inside this method returned a callable instead of just an enum, it could perhaps be written as\n\nimg_wrapped_buffer \u003d WrapFunctionFor(img-\u003efmt)(img-\u003ed_w, img-\u003ed_h, img-\u003eplanes...);",
+      "range": {
+        "startLine": 319,
+        "startChar": 50,
+        "endLine": 319,
+        "endChar": 68
+      },
+      "revId": "c7b1750a37c6402ff695050bc113d7415bae84e4",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

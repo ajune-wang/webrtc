@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "e22cf9ec_dccda398",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 5
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2022-06-17T19:48:43Z",
+      "side": 1,
+      "message": "This test does what it should.\n\napproving CL, why it fails on Nexus 5 is a good question.\n",
+      "revId": "886676bd18f9636ab26eb5a49bb6c0aced6004d7",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

@@ -77,7 +77,7 @@ bool FakeDesktopCapturer::GetSourceList(DesktopCapturer::SourceList* sources) {
   return true;
 }
 
-bool FakeDesktopCapturer::SelectSource(DesktopCapturer::SourceId id) {
+bool FakeDesktopCapturer::SelectSource(SourceId id) {
   return id == kWindowId || id == kScreenId || id == kFullDesktopScreenId;
 }
 

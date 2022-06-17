@@ -59,7 +59,7 @@ bool GetScreenList(DesktopCapturer::SourceList* screens,
   return true;
 }
 
-bool GetHmonitorFromDeviceIndex(const DesktopCapturer::SourceId device_index,
+bool GetHmonitorFromDeviceIndex(const SourceId device_index,
                                 HMONITOR* hmonitor) {
   // A device index of `kFullDesktopScreenId` or -1 represents all screens, an
   // HMONITOR of 0 indicates the same.
@@ -121,8 +121,7 @@ DesktopRect GetMonitorRect(const HMONITOR monitor) {
       monitor_info.rcMonitor.right, monitor_info.rcMonitor.bottom);
 }
 
-bool IsScreenValid(const DesktopCapturer::SourceId screen,
-                   std::wstring* device_key) {
+bool IsScreenValid(const SourceId screen, std::wstring* device_key) {
   if (screen == kFullDesktopScreenId) {
     *device_key = L"";
     return true;
@@ -145,7 +144,7 @@ DesktopRect GetFullscreenRect() {
                                GetSystemMetrics(SM_CYVIRTUALSCREEN));
 }
 
-DesktopRect GetScreenRect(const DesktopCapturer::SourceId screen,
+DesktopRect GetScreenRect(const SourceId screen,
                           const std::wstring& device_key) {
   if (screen == kFullDesktopScreenId) {
     return GetFullscreenRect();

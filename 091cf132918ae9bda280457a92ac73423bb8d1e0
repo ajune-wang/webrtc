@@ -16,6 +16,144 @@
       "message": "Ptal :)\n\nIt\u0027s a lot of lines, but most of them are copy/pasted.",
       "revId": "091cf132918ae9bda280457a92ac73423bb8d1e0",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "081b0955_bceca8f3",
+        "filename": "modules/video_coding/timing/frame_delay_delta_kalman_filter.cc",
+        "patchSetId": 13
+      },
+      "lineNbr": 43,
+      "author": {
+        "id": 5527
+      },
+      "writtenOn": "2022-06-17T13:22:00Z",
+      "side": 1,
+      "message": "suggestion: `int64_t inter_frame_size_diff_bytes  // May be negative.`",
+      "range": {
+        "startLine": 43,
+        "startChar": 11,
+        "endLine": 43,
+        "endChar": 33
+      },
+      "revId": "091cf132918ae9bda280457a92ac73423bb8d1e0",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "4ff0f8bc_6fa79a52",
+        "filename": "modules/video_coding/timing/frame_delay_delta_kalman_filter.cc",
+        "patchSetId": 13
+      },
+      "lineNbr": 44,
+      "author": {
+        "id": 5527
+      },
+      "writtenOn": "2022-06-17T13:22:00Z",
+      "side": 1,
+      "message": "Is `max_frame_size` used for anything other than the kalman filter? If not it should live inside this class.",
+      "range": {
+        "startLine": 44,
+        "startChar": 13,
+        "endLine": 44,
+        "endChar": 27
+      },
+      "revId": "091cf132918ae9bda280457a92ac73423bb8d1e0",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "b5f911c8_b7db23a4",
+        "filename": "modules/video_coding/timing/frame_delay_delta_kalman_filter.cc",
+        "patchSetId": 13
+      },
+      "lineNbr": 45,
+      "author": {
+        "id": 5527
+      },
+      "writtenOn": "2022-06-17T13:22:00Z",
+      "side": 1,
+      "message": "ditto",
+      "range": {
+        "startLine": 45,
+        "startChar": 11,
+        "endLine": 45,
+        "endChar": 20
+      },
+      "revId": "091cf132918ae9bda280457a92ac73423bb8d1e0",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "22530e8e_447c64a3",
+        "filename": "modules/video_coding/timing/frame_delay_delta_kalman_filter.h",
+        "patchSetId": 13
+      },
+      "lineNbr": 30,
+      "author": {
+        "id": 5527
+      },
+      "writtenOn": "2022-06-17T13:22:00Z",
+      "side": 1,
+      "message": "Please update with new params.",
+      "range": {
+        "startLine": 30,
+        "startChar": 5,
+        "endLine": 30,
+        "endChar": 10
+      },
+      "revId": "091cf132918ae9bda280457a92ac73423bb8d1e0",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "8d55fa93_2eeaf837",
+        "filename": "modules/video_coding/timing/frame_delay_delta_kalman_filter.h",
+        "patchSetId": 13
+      },
+      "lineNbr": 48,
+      "author": {
+        "id": 5527
+      },
+      "writtenOn": "2022-06-17T13:22:00Z",
+      "side": 1,
+      "message": "format",
+      "range": {
+        "startLine": 46,
+        "startChar": 14,
+        "endLine": 48,
+        "endChar": 66
+      },
+      "revId": "091cf132918ae9bda280457a92ac73423bb8d1e0",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "7b3380fb_28572ba4",
+        "filename": "modules/video_coding/timing/jitter_estimator.cc",
+        "patchSetId": 13
+      },
+      "lineNbr": 87,
+      "author": {
+        "id": 5527
+      },
+      "writtenOn": "2022-06-17T13:22:00Z",
+      "side": 1,
+      "message": "You can remove the `Reset` function and simply do `kalman_filter_ \u003d FrameDelayDeltaKalmanFilter()` instead.",
+      "range": {
+        "startLine": 87,
+        "startChar": 2,
+        "endLine": 87,
+        "endChar": 25
+      },
+      "revId": "091cf132918ae9bda280457a92ac73423bb8d1e0",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

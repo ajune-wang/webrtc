@@ -103,6 +103,24 @@
       "message": "I think you need to include \"api/make_ref_counted.h\" in i210_buffer.cc\n",
       "revId": "453fb323f156b16e8e10e4af08ed2f407b42817e",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "2f474db0_9ae91900",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 22
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2022-06-17T08:59:52Z",
+      "side": 1,
+      "message": "See https://webrtc-review.googlesource.com/c/src/+/265660 for similar changes to the other buffer types. In particular, please also drop direct dependency on rtc_base/ref_counted_object.h where it\u0027s not needed.",
+      "parentUuid": "f35d135e_ed956486",
+      "revId": "453fb323f156b16e8e10e4af08ed2f407b42817e",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

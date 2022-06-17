@@ -16,6 +16,23 @@
       "message": "PTAL. I think I prefer this variant over https://webrtc-review.googlesource.com/c/src/+/265807",
       "revId": "bc71706e77b99eac856a6d2981aed97d9efcbd45",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "13261cc5_9d68ab78",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 3
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 6337
+      },
+      "writtenOn": "2022-06-17T12:09:10Z",
+      "side": 1,
+      "message": "Generally it looks good to me, but I think Florent will be better person to provide feedback on how good is the configuration option, because I\u0027m not familiar with current way of configuring SVC/Simulcast.",
+      "revId": "bc71706e77b99eac856a6d2981aed97d9efcbd45",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

@@ -20,6 +20,7 @@
 #include "api/data_channel_interface.h"
 #include "api/jsep.h"
 #include "api/media_stream_interface.h"
+#include "api/test/mock_packet_socket_factory.h"
 #include "api/video_codecs/builtin_video_decoder_factory.h"
 #include "api/video_codecs/builtin_video_encoder_factory.h"
 #include "media/base/fake_frame_source.h"
@@ -491,4 +492,20 @@ TEST_F(PeerConnectionFactoryTest, LocalRendering) {
   source->InjectFrame(frame_source.GetFrame());
   EXPECT_EQ(3, local_renderer.num_rendered_frames());
   EXPECT_FALSE(local_renderer.black_frame());
+}
+
+TEST(PeerConnectionFactoryDependenciesTest, UsesPacketSocketFactory) {
+  auto mock_socket_factory = std::make_unique<rtc::MockPacketSocketFactory>();
+
+  webrtc::PeerConnectionFactoryDependencies pcf_dependencies;
+  pcf_dependencies.packet_socket_factory = std::move(mock_socket_factory);
+
+  rtc::scoped_refptr<webrtc::PeerConnectionFactoryInterface> pcf =
+      CreateModularPeerConnectionFactory(std::move(pcf_dependencies));
+
+  NullPeerConnectionObserver observer;
+  auto pc = pcf->CreatePeerConnectionOrError(
+      webrtc::PeerConnectionInterface::RTCConfiguration(),
+      webrtc::PeerConnectionDependencies(&observer));
+  ASSERT_TRUE(pc.ok());
 }

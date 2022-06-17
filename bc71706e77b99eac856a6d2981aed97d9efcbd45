@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "b8b8a0a1_405acbac",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 3
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2022-06-17T11:50:18Z",
+      "side": 1,
+      "message": "PTAL. I think I prefer this variant over https://webrtc-review.googlesource.com/c/src/+/265807",
+      "revId": "bc71706e77b99eac856a6d2981aed97d9efcbd45",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

@@ -67,6 +67,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "b2697f24_f4d58d04",
+        "filename": "common_video/video_frame_buffer.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 329,
+      "author": {
+        "id": 5963
+      },
+      "writtenOn": "2022-06-17T14:08:55Z",
+      "side": 1,
+      "message": "I also find the Buffer creation code very bloated too:\n\nhttps://webrtc.googlesource.com/src/+/refs/heads/main/modules/video_coding/codecs/h264/h264_decoder_impl.cc#126\n\nThere are like 200 lines of code that could be removed by having access to the start of the plane memory\n\nMaybe we should differentiate the access to the pixel data from the plane memory?\n\nlike\n\nclass PlanarYuvBuffer {\n  virtual const uint8_t* PlaneY() const \u003d 0;\n  virtual const uint8_t* PlaneU() const \u003d 0;\n  virtual const uint8_t* PlaneV() const \u003d 0;\n  \n  // Returns the number of bytes between successive rows for a given plane.\n  virtual int StridePlaneY() const \u003d 0;\n  virtual int StridePlaneU() const \u003d 0;\n  virtual int StridePlaneV() const \u003d 0;\n  \n  // Returns the number of steps(in terms of Data*() return type) between\n  // successive rows for a given plane.\n  virtual int StrideY() const \u003d 0;\n  virtual int StrideU() const \u003d 0;\n  virtual int StrideV() const \u003d 0;\n\n};\n\nclass PlanarYuv8BBuffer : public PlanarYuvBuffer {\n  virtual const uint8_t* DataY() const \u003d 0;\n  virtual const uint8_t* DataU() const \u003d 0;\n  virtual const uint8_t* DataV() const \u003d 0;\n};\n  \nclass PlanarYuv16BBuffer : public PlanarYuvBuffer {\n  virtual const uint16_t* DataY() const \u003d 0;\n  virtual const uint16_t* DataU() const \u003d 0;\n  virtual const uint16_t* DataV() const \u003d 0;\n};",
+      "parentUuid": "9a89ca6f_9c98fcb3",
+      "range": {
+        "startLine": 319,
+        "startChar": 0,
+        "endLine": 329,
+        "endChar": 0
+      },
+      "revId": "c7b1750a37c6402ff695050bc113d7415bae84e4",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "556867b8_d13b58c5",
         "filename": "modules/video_coding/codecs/vp9/libvpx_vp9_decoder.cc",
         "patchSetId": 3

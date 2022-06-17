@@ -752,7 +752,7 @@ TEST_F(ReceiveStatisticsProxy2Test, BadCallHistogramsAreUpdated) {
   const int kBadFameIntervalMs = 1100;
 
   StreamDataCounters counters;
-  counters.first_packet_time_ms = fake_clock_.TimeInMilliseconds();
+  counters.first_packet_time = fake_clock_.CurrentTime();
 
   webrtc::VideoFrame frame = CreateFrame(kWidth, kHeight);
 
@@ -1201,7 +1201,7 @@ TEST_F(ReceiveStatisticsProxy2Test, AverageDelayOfDelayedFramesIsReported) {
 TEST_F(ReceiveStatisticsProxy2Test,
        RtcpHistogramsNotUpdatedIfMinRuntimeHasNotPassed) {
   StreamDataCounters data_counters;
-  data_counters.first_packet_time_ms = fake_clock_.TimeInMilliseconds();
+  data_counters.first_packet_time = fake_clock_.CurrentTime();
 
   fake_clock_.AdvanceTimeMilliseconds((metrics::kMinRunTimeInSeconds * 1000) -
                                       1);
@@ -1220,7 +1220,7 @@ TEST_F(ReceiveStatisticsProxy2Test,
 
 TEST_F(ReceiveStatisticsProxy2Test, RtcpHistogramsAreUpdated) {
   StreamDataCounters data_counters;
-  data_counters.first_packet_time_ms = fake_clock_.TimeInMilliseconds();
+  data_counters.first_packet_time = fake_clock_.CurrentTime();
   fake_clock_.AdvanceTimeMilliseconds(metrics::kMinRunTimeInSeconds * 1000);
 
   const uint32_t kFirPackets = 100;

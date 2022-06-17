@@ -23,6 +23,7 @@
 #include "api/task_queue/pending_task_safety_flag.h"
 #include "api/task_queue/task_queue_base.h"
 #include "api/units/data_rate.h"
+#include "api/units/timestamp.h"
 #include "modules/remote_bitrate_estimator/test/bwe_test_logging.h"
 #include "modules/rtp_rtcp/include/rtp_rtcp_defines.h"
 #include "modules/rtp_rtcp/source/packet_sequencer.h"
@@ -92,30 +93,23 @@ class RtpSenderEgress {
   std::vector<std::unique_ptr<RtpPacketToSend>> FetchFecPackets();
 
  private:
-  // Maps capture time in milliseconds to send-side delay in milliseconds.
-  // Send-side delay is the difference between transmission time and capture
-  // time.
-  typedef std::map<int64_t, int> SendDelayMap;
-
-  RtpSendRates GetSendRatesLocked(int64_t now_ms) const
+  RtpSendRates GetSendRatesLocked(Timestamp now) const
       RTC_EXCLUSIVE_LOCKS_REQUIRED(lock_);
   bool HasCorrectSsrc(const RtpPacketToSend& packet) const;
   void AddPacketToTransportFeedback(uint16_t packet_id,
                                     const RtpPacketToSend& packet,
                                     const PacedPacketInfo& pacing_info);
-  void UpdateDelayStatistics(int64_t capture_time_ms,
-                             int64_t now_ms,
+  void UpdateDelayStatistics(Timestamp capture_time,
+                             Timestamp now,
                              uint32_t ssrc);
   void RecomputeMaxSendDelay() RTC_EXCLUSIVE_LOCKS_REQUIRED(lock_);
-  void UpdateOnSendPacket(int packet_id,
-                          int64_t capture_time_ms,
-                          uint32_t ssrc);
+  void UpdateOnSendPacket(int packet_id, Timestamp capture_time, uint32_t ssrc);
   // Sends packet on to `transport_`, leaving the RTP module.
   bool SendPacketToNetwork(const RtpPacketToSend& packet,
                            const PacketOptions& options,
                            const PacedPacketInfo& pacing_info);
 
-  void UpdateRtpStats(int64_t now_ms,
+  void UpdateRtpStats(Timestamp now,
                       uint32_t packet_ssrc,
                       RtpPacketMediaType packet_type,
                       RtpPacketCounter counter,
@@ -157,11 +151,14 @@ class RtpSenderEgress {
   bool force_part_of_allocation_ RTC_GUARDED_BY(lock_);
   uint32_t timestamp_offset_ RTC_GUARDED_BY(worker_queue_);
 
-  SendDelayMap send_delays_ RTC_GUARDED_BY(lock_);
-  SendDelayMap::const_iterator max_delay_it_ RTC_GUARDED_BY(lock_);
-  // The sum of delays over a kSendSideDelayWindowMs sliding window.
-  int64_t sum_delays_ms_ RTC_GUARDED_BY(lock_);
-  uint64_t total_packet_send_delay_ms_ RTC_GUARDED_BY(lock_);
+  // Maps capture time to send-side delay.
+  // Send-side delay is the difference between transmission time and capture
+  // time.
+  std::map<Timestamp, TimeDelta> send_delays_ RTC_GUARDED_BY(lock_);
+  TimeDelta max_delay_ RTC_GUARDED_BY(lock_) = TimeDelta::Zero();
+  // The sum of delays over a kSendSideDelayWindow sliding window.
+  TimeDelta sum_delays_ RTC_GUARDED_BY(lock_) = TimeDelta::Zero();
+  TimeDelta total_packet_send_delay_ RTC_GUARDED_BY(lock_) = TimeDelta::Zero();
   StreamDataCounters rtp_stats_ RTC_GUARDED_BY(lock_);
   StreamDataCounters rtx_rtp_stats_ RTC_GUARDED_BY(lock_);
   // One element per value in RtpPacketMediaType, with index matching value.

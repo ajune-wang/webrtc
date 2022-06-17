@@ -25,6 +25,7 @@
 #include "api/audio_codecs/audio_format.h"
 #include "api/rtp_headers.h"
 #include "api/transport/network_types.h"
+#include "api/units/timestamp.h"
 #include "modules/rtp_rtcp/source/rtcp_packet/remote_estimate.h"
 #include "system_wrappers/include/clock.h"
 
@@ -160,19 +161,12 @@ struct RTCPReportBlock {
 typedef std::list<RTCPReportBlock> ReportBlockList;
 
 struct RtpState {
-  RtpState()
-      : sequence_number(0),
-        start_timestamp(0),
-        timestamp(0),
-        capture_time_ms(-1),
-        last_timestamp_time_ms(-1),
-        ssrc_has_acked(false) {}
-  uint16_t sequence_number;
-  uint32_t start_timestamp;
-  uint32_t timestamp;
-  int64_t capture_time_ms;
-  int64_t last_timestamp_time_ms;
-  bool ssrc_has_acked;
+  uint16_t sequence_number = 0;
+  uint32_t start_timestamp = 0;
+  uint32_t timestamp = 0;
+  Timestamp capture_time = Timestamp::MinusInfinity();
+  Timestamp last_timestamp_time = Timestamp::MinusInfinity();
+  bool ssrc_has_acked = false;
 };
 
 // Callback interface for packets recovered by FlexFEC or ULPFEC. In
@@ -357,11 +351,11 @@ struct StreamDataCounters {
     transmitted.Add(other.transmitted);
     retransmitted.Add(other.retransmitted);
     fec.Add(other.fec);
-    if (other.first_packet_time_ms != -1 &&
-        (other.first_packet_time_ms < first_packet_time_ms ||
-         first_packet_time_ms == -1)) {
+    if (other.first_packet_time.IsFinite() &&
+        (other.first_packet_time < first_packet_time ||
+         first_packet_time.IsInfinite())) {
       // Use oldest time.
-      first_packet_time_ms = other.first_packet_time_ms;
+      first_packet_time = other.first_packet_time;
     }
   }
 
@@ -369,16 +363,12 @@ struct StreamDataCounters {
     transmitted.Subtract(other.transmitted);
     retransmitted.Subtract(other.retransmitted);
     fec.Subtract(other.fec);
-    if (other.first_packet_time_ms != -1 &&
-        (other.first_packet_time_ms > first_packet_time_ms ||
-         first_packet_time_ms == -1)) {
+    if (other.first_packet_time.IsFinite() &&
+        (other.first_packet_time > first_packet_time ||
+         first_packet_time.IsInfinite())) {
       // Use youngest time.
-      first_packet_time_ms = other.first_packet_time_ms;
+      first_packet_time = other.first_packet_time;
     }
-  }
-
-  int64_t TimeSinceFirstPacketInMs(int64_t now_ms) const {
-    return (first_packet_time_ms == -1) ? -1 : (now_ms - first_packet_time_ms);
   }
 
   // Returns the number of bytes corresponding to the actual media payload (i.e.
@@ -389,11 +379,12 @@ struct StreamDataCounters {
            fec.payload_bytes;
   }
 
-  int64_t first_packet_time_ms;  // Time when first packet is sent/received.
+  // Time when first packet is sent/received.
+  Timestamp first_packet_time = Timestamp::MinusInfinity();
   // The timestamp at which the last packet was received, i.e. the time of the
   // local clock when it was received - not the RTP timestamp of that packet.
   // https://w3c.github.io/webrtc-stats/#dom-rtcinboundrtpstreamstats-lastpacketreceivedtimestamp
-  absl::optional<int64_t> last_packet_received_timestamp_ms;
+  Timestamp last_packet_received_timestamp = Timestamp::MinusInfinity();
   RtpPacketCounter transmitted;    // Number of transmitted packets/bytes.
   RtpPacketCounter retransmitted;  // Number of retransmitted packets/bytes.
   RtpPacketCounter fec;            // Number of redundancy packets/bytes.

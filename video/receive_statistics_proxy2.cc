@@ -429,8 +429,7 @@ void ReceiveStatisticsProxy::UpdateHistograms(
     rtp_rtx_stats.Add(*rtx_stats);
 
   int64_t elapsed_sec =
-      rtp_rtx_stats.TimeSinceFirstPacketInMs(clock_->TimeInMilliseconds()) /
-      1000;
+      (clock_->CurrentTime() - rtp_rtx_stats.first_packet_time).seconds_or(0);
   if (elapsed_sec >= metrics::kMinRunTimeInSeconds) {
     RTC_HISTOGRAM_COUNTS_10000(
         "WebRTC.Video.BitrateReceivedInKbps",

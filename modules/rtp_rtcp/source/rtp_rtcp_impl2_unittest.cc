@@ -536,8 +536,8 @@ TEST_P(RtpRtcpImpl2Test, RtcpPacketTypeCounter_Nack) {
 
 TEST_P(RtpRtcpImpl2Test, AddStreamDataCounters) {
   StreamDataCounters rtp;
-  const int64_t kStartTimeMs = 1;
-  rtp.first_packet_time_ms = kStartTimeMs;
+  constexpr Timestamp kStartTime = Timestamp::Millis(1);
+  rtp.first_packet_time = kStartTime;
   rtp.transmitted.packets = 1;
   rtp.transmitted.payload_bytes = 1;
   rtp.transmitted.header_bytes = 2;
@@ -547,7 +547,6 @@ TEST_P(RtpRtcpImpl2Test, AddStreamDataCounters) {
                                               rtp.transmitted.padding_bytes);
 
   StreamDataCounters rtp2;
-  rtp2.first_packet_time_ms = -1;
   rtp2.transmitted.packets = 10;
   rtp2.transmitted.payload_bytes = 10;
   rtp2.retransmitted.header_bytes = 4;
@@ -558,7 +557,7 @@ TEST_P(RtpRtcpImpl2Test, AddStreamDataCounters) {
 
   StreamDataCounters sum = rtp;
   sum.Add(rtp2);
-  EXPECT_EQ(kStartTimeMs, sum.first_packet_time_ms);
+  EXPECT_EQ(sum.first_packet_time, kStartTime);
   EXPECT_EQ(11U, sum.transmitted.packets);
   EXPECT_EQ(11U, sum.transmitted.payload_bytes);
   EXPECT_EQ(2U, sum.transmitted.header_bytes);
@@ -572,9 +571,9 @@ TEST_P(RtpRtcpImpl2Test, AddStreamDataCounters) {
             rtp.transmitted.TotalBytes() + rtp2.transmitted.TotalBytes());
 
   StreamDataCounters rtp3;
-  rtp3.first_packet_time_ms = kStartTimeMs + 10;
+  rtp3.first_packet_time = kStartTime + TimeDelta::Millis(10);
   sum.Add(rtp3);
-  EXPECT_EQ(kStartTimeMs, sum.first_packet_time_ms);  // Holds oldest time.
+  EXPECT_EQ(sum.first_packet_time, kStartTime);  // Holds oldest time.
 }
 
 TEST_P(RtpRtcpImpl2Test, SendsInitialNackList) {
@@ -1069,16 +1068,16 @@ TEST_P(RtpRtcpImpl2Test, RtpStateReflectsCurrentState) {
   // Verify that that each of the field of GetRtpState actually reflects
   // the current state.
 
-  // Current time will be used for `timestamp`, `capture_time_ms` and
-  // `last_timestamp_time_ms`.
-  const int64_t time_ms = time_controller_.GetClock()->TimeInMilliseconds();
+  // Current time will be used for `timestamp`, `capture_time` and
+  // `last_timestamp_time`.
+  const Timestamp time = time_controller_.GetClock()->CurrentTime();
 
   // Use different than default sequence number to test `sequence_number`.
   const uint16_t kSeq = kSequenceNumber + 123;
   // Hard-coded value for `start_timestamp`.
   const uint32_t kStartTimestamp = 3456;
-  const int64_t capture_time_ms = time_ms;
-  const uint32_t timestamp = capture_time_ms * kCaptureTimeMsToRtpTimestamp;
+  const Timestamp capture_time = time;
+  const uint32_t timestamp = capture_time.ms() * kCaptureTimeMsToRtpTimestamp;
 
   sender_.impl_->SetSequenceNumber(kSeq - 1);
   sender_.impl_->SetStartTimestamp(kStartTimestamp);
@@ -1094,8 +1093,8 @@ TEST_P(RtpRtcpImpl2Test, RtpStateReflectsCurrentState) {
   EXPECT_EQ(state.sequence_number, kSeq);
   EXPECT_EQ(state.start_timestamp, kStartTimestamp);
   EXPECT_EQ(state.timestamp, timestamp);
-  EXPECT_EQ(state.capture_time_ms, capture_time_ms);
-  EXPECT_EQ(state.last_timestamp_time_ms, time_ms);
+  EXPECT_EQ(state.capture_time, capture_time);
+  EXPECT_EQ(state.last_timestamp_time, time);
   EXPECT_EQ(state.ssrc_has_acked, true);
 
   // Reset sender, advance time, restore state. Directly observing state
@@ -1108,8 +1107,8 @@ TEST_P(RtpRtcpImpl2Test, RtpStateReflectsCurrentState) {
   EXPECT_EQ(state.sequence_number, kSeq);
   EXPECT_EQ(state.start_timestamp, kStartTimestamp);
   EXPECT_EQ(state.timestamp, timestamp);
-  EXPECT_EQ(state.capture_time_ms, capture_time_ms);
-  EXPECT_EQ(state.last_timestamp_time_ms, time_ms);
+  EXPECT_EQ(state.capture_time, capture_time);
+  EXPECT_EQ(state.last_timestamp_time, time);
   EXPECT_EQ(state.ssrc_has_acked, true);
 }
 

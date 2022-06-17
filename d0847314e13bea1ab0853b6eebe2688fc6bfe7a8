@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "69f06863_b04a5628",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 7755
+      },
+      "writtenOn": "2022-06-17T09:22:52Z",
+      "side": 1,
+      "message": "a git grep + replace operation went a bit wrong.\nI wonder if there is a way to make \"mediaType\" an internal alias... but then I bet there are native apps relying on the wrong field...",
+      "revId": "d0847314e13bea1ab0853b6eebe2688fc6bfe7a8",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

@@ -20,11 +20,6 @@ constexpr double kThetaLow = 0.000001;
 }
 
 FrameDelayDeltaKalmanFilter::FrameDelayDeltaKalmanFilter() {
-  Reset();
-}
-
-// Resets the JitterEstimate.
-void FrameDelayDeltaKalmanFilter::Reset() {
   theta_[0] = 1 / (512e3 / 8);
   theta_[1] = 0;
 
@@ -38,11 +33,10 @@ void FrameDelayDeltaKalmanFilter::Reset() {
 
 // Updates Kalman estimate of the channel.
 // The caller is expected to sanity check the inputs.
-void FrameDelayDeltaKalmanFilter::KalmanEstimateChannel(
-    TimeDelta frame_delay,
-    double delta_frame_size_bytes,
-    DataSize max_frame_size,
-    double var_noise) {
+void FrameDelayDeltaKalmanFilter::Update(TimeDelta frame_delay,
+                                         double delta_frame_size_bytes,
+                                         DataSize max_frame_size,
+                                         double var_noise) {
   double Mh[2];
   double hMh_sigma;
   double kalmanGain[2];

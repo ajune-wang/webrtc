@@ -205,8 +205,10 @@ class VideoReceiveStream2
   void OnDecodableFrameTimeout(TimeDelta wait_time);
   void CreateAndRegisterExternalDecoder(const Decoder& decoder);
   TimeDelta MaxWait() const RTC_RUN_ON(worker_sequence_checker_);
-  void HandleEncodedFrame(std::unique_ptr<EncodedFrame> frame,
-                          bool keyframe_required) RTC_RUN_ON(decode_queue_);
+  void HandleEncodedFrame(const EncodedFrame* frame,
+                          bool keyframe_required,
+                          bool keyframe_request_is_due)
+      RTC_RUN_ON(decode_queue_);
   void HandleFrameBufferTimeout(Timestamp now, TimeDelta wait)
       RTC_RUN_ON(packet_sequence_checker_);
   void UpdatePlayoutDelays() const
@@ -292,7 +294,7 @@ class VideoReceiveStream2
   bool frame_decoded_ RTC_GUARDED_BY(decode_queue_) = false;
 
   absl::optional<Timestamp> last_keyframe_request_
-      RTC_GUARDED_BY(decode_queue_);
+      RTC_GUARDED_BY(worker_sequence_checker_);
 
   // Keyframe request intervals are configurable through field trials.
   const TimeDelta max_wait_for_keyframe_;
@@ -339,20 +341,18 @@ class VideoReceiveStream2
 
   // Function that is triggered with encoded frames, if not empty.
   std::function<void(const RecordableEncodedFrame&)>
-      encoded_frame_buffer_function_ RTC_GUARDED_BY(decode_queue_);
+      encoded_frame_buffer_function_ RTC_GUARDED_BY(worker_sequence_checker_);
   // Set to true while we're requesting keyframes but not yet received one.
   bool keyframe_generation_requested_ RTC_GUARDED_BY(packet_sequence_checker_) =
       false;
-  // Lock to avoid unnecessary per-frame idle wakeups in the code.
-  webrtc::Mutex pending_resolution_mutex_;
   // Signal from decode queue to OnFrame callback to fill pending_resolution_.
   // absl::nullopt - no resolution needed. 0x0 - next OnFrame to fill with
   // received resolution. Not 0x0 - OnFrame has filled a resolution.
   absl::optional<RecordableEncodedFrame::EncodedResolution> pending_resolution_
-      RTC_GUARDED_BY(pending_resolution_mutex_);
+      RTC_GUARDED_BY(worker_sequence_checker_);
   // Buffered encoded frames held while waiting for decoded resolution.
   std::vector<std::unique_ptr<EncodedFrame>> buffered_encoded_frames_
-      RTC_GUARDED_BY(decode_queue_);
+      RTC_GUARDED_BY(worker_sequence_checker_);
 
   // Set by the field trial WebRTC-PreStreamDecoders. The parameter `max`
   // determines the maximum number of decoders that are created up front before

@@ -16,6 +16,23 @@
       "message": "as promised, done as three different patchsets, one for each operation.\n\nhbos: PTAL at PS3 but beware, you might feel an urge to convert more stats to TimeDeltas ;-)",
       "revId": "e676ce0b74bbb14141f2c48740a16c3d581bd400",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "4897a7c4_6f303a19",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 6
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5142
+      },
+      "writtenOn": "2022-06-17T13:55:51Z",
+      "side": 1,
+      "message": "Thanks!",
+      "revId": "e676ce0b74bbb14141f2c48740a16c3d581bd400",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

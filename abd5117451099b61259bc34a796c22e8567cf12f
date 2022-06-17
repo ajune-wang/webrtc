@@ -105,6 +105,24 @@
       "parentUuid": "98606b7d_ad069db5",
       "revId": "abd5117451099b61259bc34a796c22e8567cf12f",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "ce614ef7_5cd3d483",
+        "filename": "rtc_base/units/unit_base.h",
+        "patchSetId": 6
+      },
+      "lineNbr": 277,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2022-06-17T08:21:34Z",
+      "side": 1,
+      "message": "Added a test for rounding together with the comment why it is rounded that way.",
+      "parentUuid": "fd989d76_d36adf18",
+      "revId": "abd5117451099b61259bc34a796c22e8567cf12f",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

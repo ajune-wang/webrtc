@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "f3f12c87_48170e45",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 6
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 17719
+      },
+      "writtenOn": "2022-06-17T08:28:05Z",
+      "side": 1,
+      "message": "Hi Alessio, one more iteration of changes in the tests, can you please take a look? Thanks!",
+      "revId": "ab9ea3b6a72f4463c4fbc915885c4d58b4844686",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

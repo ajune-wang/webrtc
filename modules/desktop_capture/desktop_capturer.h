@@ -62,6 +62,8 @@ class RTC_EXPORT DesktopCapturer {
     virtual ~Callback() {}
   };
 
+  // Keeping this here till we adjust the users in downstream chromoting code
+  // base.
 #if defined(CHROMEOS)
   typedef int64_t SourceId;
 #else
@@ -144,6 +146,8 @@ class RTC_EXPORT DesktopCapturer {
 
 #if defined(WEBRTC_USE_PIPEWIRE) || defined(WEBRTC_USE_X11)
   static bool IsRunningUnderWayland();
+
+  virtual void UpdateResolution(uint32_t width, uint32_t height){};
 #endif  // defined(WEBRTC_USE_PIPEWIRE) || defined(WEBRTC_USE_X11)
 
 #if defined(WEBRTC_USE_GIO)

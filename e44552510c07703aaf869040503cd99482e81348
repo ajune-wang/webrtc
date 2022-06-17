@@ -46,6 +46,30 @@
       },
       "revId": "e44552510c07703aaf869040503cd99482e81348",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "01c3fe8b_1bd6389b",
+        "filename": "pc/peer_connection_factory_unittest.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 510,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2022-06-17T14:14:47Z",
+      "side": 1,
+      "message": "\u003e SetLocalDescription(\"\") should do it - an UDP socket has to be created in order to start generating candidates.\n\nDidn\u0027t work at first attempt.\n \n\u003e Or simply CreatePeerConnection with a pool size parameter of \u003e 1.\n\nBit this did the trick. ice_candidate_pool_size isn\u0027t well documented, So I don\u0027t really understand what it\u0027s supposed to do. But it triggers creation of a few sockets.",
+      "parentUuid": "2965fb4e_503eca69",
+      "range": {
+        "startLine": 510,
+        "startChar": 2,
+        "endLine": 510,
+        "endChar": 23
+      },
+      "revId": "e44552510c07703aaf869040503cd99482e81348",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

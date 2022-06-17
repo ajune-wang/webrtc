@@ -1,0 +1,72 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "8dec1af4_ea06451a",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2022-06-17T11:21:02Z",
+      "side": 1,
+      "message": "Seems like this DI could never have worked, and since this CL doesn\u0027t invalidate any tests, it seems that it did not have test coverage.\n\nIs it possible to add a test that it actually works now (inject a MockPacketSocketFactory and check that it is called at an appropriate time)?",
+      "revId": "897a6f5efdb0f0b5800f3eb906459716e28e03f7",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "5a638167_5f21c346",
+        "filename": "api/peer_connection_interface.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 1384,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2022-06-17T11:21:02Z",
+      "side": 1,
+      "message": "Please complete the comment change.",
+      "revId": "897a6f5efdb0f0b5800f3eb906459716e28e03f7",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "c3fcda7e_957882dd",
+        "filename": "pc/connection_context.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 105,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2022-06-17T11:21:02Z",
+      "side": 1,
+      "message": "We could simplify this by making default_socket_factory_ an AlwaysValidPointer\u003cPacketSocketFactory, BasicPacketSocketFacory\u003e and initialize it as\n\ndefault_socket_factory_(dependencies-\u003epacket_socket_factory, socket_factory)\n\nI think.",
+      "revId": "897a6f5efdb0f0b5800f3eb906459716e28e03f7",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "b9247f7f_0a7a0a0d",
+        "filename": "pc/connection_context.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 144,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2022-06-17T11:21:02Z",
+      "side": 1,
+      "message": "Maybe later: The name default_socket_factory is now misleading and should be just packet_socket_factory.",
+      "revId": "897a6f5efdb0f0b5800f3eb906459716e28e03f7",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

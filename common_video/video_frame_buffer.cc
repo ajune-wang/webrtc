@@ -316,6 +316,19 @@ rtc::scoped_refptr<PlanarYuvBuffer> WrapYuvBuffer(
     case VideoFrameBuffer::Type::kI444:
       return WrapI444Buffer(width, height, y_plane, y_stride, u_plane, u_stride,
                             v_plane, v_stride, no_longer_used);
+    case VideoFrameBuffer::Type::kI010:
+      return WrapI010Buffer(
+          width, height, reinterpret_cast<const uint16_t*>(y_plane),
+          y_stride / 2, reinterpret_cast<const uint16_t*>(u_plane),
+          u_stride / 2, reinterpret_cast<const uint16_t*>(v_plane),
+          v_stride / 2, no_longer_used);
+    case VideoFrameBuffer::Type::kI210:
+      return WrapI210Buffer(
+          width, height, reinterpret_cast<const uint16_t*>(y_plane),
+          y_stride / 2, reinterpret_cast<const uint16_t*>(u_plane),
+          u_stride / 2, reinterpret_cast<const uint16_t*>(v_plane),
+          v_stride / 2, no_longer_used);
+
     default:
       RTC_CHECK_NOTREACHED();
   }

@@ -208,7 +208,7 @@ class RtpVideoSenderTestFixture {
   template <typename Closure>
   void RunOnTransportQueue(Closure&& task) {
     transport_controller_.GetWorkerQueue()->PostTask(std::move(task));
-    AdvanceTime(TimeDelta::Millis(0));
+    AdvanceTime(TimeDelta::Zero());
   }
 
  private:

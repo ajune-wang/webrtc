@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "31836288_331080f8",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 13
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5023
+      },
+      "writtenOn": "2022-06-17T12:58:25Z",
+      "side": 1,
+      "message": "Ptal :)\n\nIt\u0027s a lot of lines, but most of them are copy/pasted.",
+      "revId": "091cf132918ae9bda280457a92ac73423bb8d1e0",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

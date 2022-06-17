@@ -558,9 +558,7 @@ void DefaultVideoQualityAnalyzer::RegisterParticipantInCall(
   // as well. Sending stats (from this peer to others) will be added by
   // DefaultVideoQualityAnalyzer::OnFrameCaptured.
   std::vector<std::pair<InternalStatsKey, Timestamp>> stream_started_time;
-  for (auto& key_val : stream_to_sender_) {
-    size_t stream_index = key_val.first;
-    size_t sender_peer_index = key_val.second;
+  for (auto [stream_index, sender_peer_index] : stream_to_sender_) {
     InternalStatsKey key(stream_index, sender_peer_index, new_peer_index);
 
     // To initiate `FrameCounters` for the stream we should pick frame
@@ -589,16 +587,30 @@ void DefaultVideoQualityAnalyzer::RegisterParticipantInCall(
                                                start_time_);
   // Ensure, that frames states are handled correctly
   // (e.g. dropped frames tracking).
-  for (auto& key_val : stream_states_) {
-    key_val.second.AddPeer(new_peer_index);
+  for (auto& [stream_index, stream_state] : stream_states_) {
+    stream_state.AddPeer(new_peer_index);
   }
   // Register new peer for every frame in flight.
   // It is guaranteed, that no garbage FrameInFlight objects will stay in
   // memory because of adding new peer. Even if the new peer won't receive the
   // frame, the frame will be removed by OnFrameRendered after next frame comes
   // for the new peer. It is important because FrameInFlight is a large object.
-  for (auto& key_val : captured_frames_in_flight_) {
-    key_val.second.AddExpectedReceiver(new_peer_index);
+  for (auto& [frame_id, frame_in_flight] : captured_frames_in_flight_) {
+    frame_in_flight.AddExpectedReceiver(new_peer_index);
+  }
+}
+
+void DefaultVideoQualityAnalyzer::UnregisterParticipantInCall(
+    absl::string_view peer_name) {
+  MutexLock lock(&mutex_);
+  RTC_CHECK(peers_->HasName(peer_name));
+  absl::optional<size_t> peer_index = peers_->RemoveIfPresent(peer_name);
+  RTC_CHECK(peer_index.has_value());
+
+  // After peer was removed we need to update all stream states and frames in
+  // flight and removed this peer as expected receiver to ensure correct clean
+  // up of internal structures.
+  for (auto [stream_index, sender_peer_index] : stream_to_sender_) {
   }
 }
 

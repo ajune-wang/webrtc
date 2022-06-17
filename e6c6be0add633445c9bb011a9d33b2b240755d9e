@@ -34,6 +34,24 @@
       "parentUuid": "f7d29125_8320485b",
       "revId": "e6c6be0add633445c9bb011a9d33b2b240755d9e",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "74b2d14f_06b796f6",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 7755
+      },
+      "writtenOn": "2022-06-17T09:42:14Z",
+      "side": 1,
+      "message": "while it is tempting to do I am not sure it the right thing. E.g. onicegatheringstatechange doesn\u0027t create any new objects. We should probably add more wording to the spec what invalidates the cache.\n\nWill do addIceCandidate in another CL!",
+      "parentUuid": "eb2c9726_10262581",
+      "revId": "e6c6be0add633445c9bb011a9d33b2b240755d9e",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "11cd103d_5819d5dc",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5963
+      },
+      "writtenOn": "2022-06-17T14:37:18Z",
+      "side": 1,
+      "message": "This CL adds support for 422 8 and 10 bits decoding based on the latest I210Buffer and I422Buffer objects.",
+      "revId": "fc37d0600651c7dca13f7b1ed0e0f1670141e1b1",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

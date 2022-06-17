@@ -12,6 +12,7 @@
 // Everything declared/defined in this header is only required when WebRTC is
 // build with H264 support, please do not move anything out of the
 // #ifdef unless needed and tested.
+#define WEBRTC_USE_H264 1
 #ifdef WEBRTC_USE_H264
 
 #include "modules/video_coding/codecs/h264/h264_decoder_impl.h"
@@ -515,66 +516,13 @@ int32_t H264DecoderImpl::Decode(const EncodedImage& input_image,
       return WEBRTC_VIDEO_CODEC_ERROR;
   }
 
-  rtc::scoped_refptr<webrtc::VideoFrameBuffer> cropped_buffer;
-  switch (video_frame_buffer_type) {
-    case VideoFrameBuffer::Type::kI420:
-      cropped_buffer = WrapI420Buffer(
-          av_frame_->width, av_frame_->height, av_frame_->data[kYPlaneIndex],
-          av_frame_->linesize[kYPlaneIndex], av_frame_->data[kUPlaneIndex],
-          av_frame_->linesize[kUPlaneIndex], av_frame_->data[kVPlaneIndex],
-          av_frame_->linesize[kVPlaneIndex],
-          // To keep reference alive.
-          [frame_buffer] {});
-      break;
-    case VideoFrameBuffer::Type::kI444:
-      cropped_buffer = WrapI444Buffer(
-          av_frame_->width, av_frame_->height, av_frame_->data[kYPlaneIndex],
-          av_frame_->linesize[kYPlaneIndex], av_frame_->data[kUPlaneIndex],
-          av_frame_->linesize[kUPlaneIndex], av_frame_->data[kVPlaneIndex],
-          av_frame_->linesize[kVPlaneIndex],
-          // To keep reference alive.
-          [frame_buffer] {});
-      break;
-    case VideoFrameBuffer::Type::kI422:
-      cropped_buffer = WrapI422Buffer(
-          av_frame_->width, av_frame_->height, av_frame_->data[kYPlaneIndex],
-          av_frame_->linesize[kYPlaneIndex], av_frame_->data[kUPlaneIndex],
-          av_frame_->linesize[kUPlaneIndex], av_frame_->data[kVPlaneIndex],
-          av_frame_->linesize[kVPlaneIndex],
-          // To keep reference alive.
-          [frame_buffer] {});
-      break;
-    case VideoFrameBuffer::Type::kI010:
-      cropped_buffer = WrapI010Buffer(
-          av_frame_->width, av_frame_->height,
-          reinterpret_cast<const uint16_t*>(av_frame_->data[kYPlaneIndex]),
-          av_frame_->linesize[kYPlaneIndex] / 2,
-          reinterpret_cast<const uint16_t*>(av_frame_->data[kUPlaneIndex]),
-          av_frame_->linesize[kUPlaneIndex] / 2,
-          reinterpret_cast<const uint16_t*>(av_frame_->data[kVPlaneIndex]),
-          av_frame_->linesize[kVPlaneIndex] / 2,
-          // To keep reference alive.
-          [frame_buffer] {});
-      break;
-    case VideoFrameBuffer::Type::kI210:
-      cropped_buffer = WrapI210Buffer(
-          av_frame_->width, av_frame_->height,
-          reinterpret_cast<const uint16_t*>(av_frame_->data[kYPlaneIndex]),
-          av_frame_->linesize[kYPlaneIndex] / 2,
-          reinterpret_cast<const uint16_t*>(av_frame_->data[kUPlaneIndex]),
-          av_frame_->linesize[kUPlaneIndex] / 2,
-          reinterpret_cast<const uint16_t*>(av_frame_->data[kVPlaneIndex]),
-          av_frame_->linesize[kVPlaneIndex] / 2,
-          // To keep reference alive.
-          [frame_buffer] {});
-      break;
-    default:
-      RTC_LOG(LS_ERROR) << "frame_buffer type: "
-                        << static_cast<int32_t>(video_frame_buffer_type)
-                        << " is not supported!";
-      ReportError();
-      return WEBRTC_VIDEO_CODEC_ERROR;
-  }
+  rtc::scoped_refptr<webrtc::VideoFrameBuffer> cropped_buffer = WrapYuvBuffer(
+      video_frame_buffer_type, av_frame_->width, av_frame_->height,
+      av_frame_->data[kYPlaneIndex], av_frame_->linesize[kYPlaneIndex],
+      av_frame_->data[kUPlaneIndex], av_frame_->linesize[kUPlaneIndex],
+      av_frame_->data[kVPlaneIndex], av_frame_->linesize[kVPlaneIndex],
+      // To keep reference alive.
+      [frame_buffer] {});
 
   // Preference for NV12 output format is ignored if actual format isn't
   // trivially convertible to it.

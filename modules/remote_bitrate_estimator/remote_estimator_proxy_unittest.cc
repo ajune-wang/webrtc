@@ -572,7 +572,7 @@ TEST_F(RemoteEstimatorProxyOnRequestTest,
 }
 
 TEST_F(RemoteEstimatorProxyTest, ReportsIncomingPacketToNetworkStateEstimator) {
-  Timestamp first_send_timestamp = Timestamp::Millis(0);
+  Timestamp first_send_timestamp = Timestamp::Zero();
   const DataSize kPacketOverhead = DataSize::Bytes(38);
   proxy_.SetTransportOverhead(kPacketOverhead);
 
@@ -614,7 +614,7 @@ TEST_F(RemoteEstimatorProxyTest, IncomingPacketHandlesWrapInAbsSendTime) {
   const uint32_t kSecondAbsSendTime = AbsoluteSendTime::MsTo24Bits((1 << 24));
   const TimeDelta kExpectedAbsSendTimeDelta = TimeDelta::Millis(30);
 
-  Timestamp first_send_timestamp = Timestamp::Millis(0);
+  Timestamp first_send_timestamp = Timestamp::Zero();
   EXPECT_CALL(network_state_estimator_, OnReceivedPacket(_))
       .WillOnce(Invoke([&first_send_timestamp](const PacketResult& packet) {
         EXPECT_EQ(packet.receive_time, kBaseTime);

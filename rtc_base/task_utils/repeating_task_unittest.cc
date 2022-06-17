@@ -192,7 +192,7 @@ TEST(RepeatingTaskTest, CompensatesForLongRunTime) {
 }
 
 TEST(RepeatingTaskTest, CompensatesForShortRunTime) {
-  SimulatedClock clock(Timestamp::Millis(0));
+  SimulatedClock clock(Timestamp::Zero());
   FakeTaskQueue task_queue(&clock);
   std::atomic_int counter(0);
   RepeatingTaskHandle::Start(
@@ -333,7 +333,7 @@ TEST(RepeatingTaskTest, Example) {
 TEST(RepeatingTaskTest, ClockIntegration) {
   std::unique_ptr<QueuedTask> delayed_task;
   uint32_t expected_ms = 0;
-  SimulatedClock clock(Timestamp::Millis(0));
+  SimulatedClock clock(Timestamp::Zero());
 
   NiceMock<MockTaskQueue> task_queue;
   ON_CALL(task_queue, PostDelayedTask)

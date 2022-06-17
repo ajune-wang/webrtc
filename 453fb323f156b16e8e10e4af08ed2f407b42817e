@@ -68,6 +68,24 @@
       "message": "everything ready now?",
       "revId": "453fb323f156b16e8e10e4af08ed2f407b42817e",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "3291cccd_8ade6e60",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 22
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5117
+      },
+      "writtenOn": "2022-06-17T08:33:00Z",
+      "side": 1,
+      "message": "Landing now. Thank you for addressing all the comments.",
+      "parentUuid": "2ed7fb5e_e846d961",
+      "revId": "453fb323f156b16e8e10e4af08ed2f407b42817e",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

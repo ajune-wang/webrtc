@@ -60,6 +60,9 @@ std::vector<SdpVideoFormat> SupportedVP9DecoderCodecs() {
   supported_formats.push_back(SdpVideoFormat(
       cricket::kVp9CodecName,
       {{kVP9FmtpProfileId, VP9ProfileToString(VP9Profile::kProfile1)}}));
+  supported_formats.push_back(SdpVideoFormat(
+      cricket::kVp9CodecName,
+      {{kVP9FmtpProfileId, VP9ProfileToString(VP9Profile::kProfile3)}}));
   return supported_formats;
 #else
   return std::vector<SdpVideoFormat>();

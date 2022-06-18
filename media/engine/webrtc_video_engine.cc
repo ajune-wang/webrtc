@@ -145,6 +145,14 @@ bool IsCodecValidForLowerRange(const VideoCodec& codec) {
       // H264 with YUV444.
       return absl::StartsWithIgnoreCase(profileLevelId, "f400");
     }
+  } else if (absl::EqualsIgnoreCase(codec.name, kVp9CodecName)) {
+    std::string profileId;
+
+    if (codec.GetParam(kVP9ProfileId, &profileId)) {
+      if (profileId.compare("1") == 0 || profileId.compare("3") == 0) {
+        return true;
+      }
+    }
   }
   return false;
 }

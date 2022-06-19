@@ -1,0 +1,38 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "7f676793_0cb7614b",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2022-06-19T21:13:52Z",
+      "side": 1,
+      "message": "The spurious line makes me wonder what\u0027s going on here.\nOtherwise, code looks good.\n",
+      "revId": "130069d3c8c9e2b9720025740067045cefc9398c",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "4cb1f51b_50d972b3",
+        "filename": "pc/peer_connection_integrationtest.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 2439,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2022-06-19T21:13:52Z",
+      "side": 1,
+      "message": "This line seems to do nothing.",
+      "revId": "130069d3c8c9e2b9720025740067045cefc9398c",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

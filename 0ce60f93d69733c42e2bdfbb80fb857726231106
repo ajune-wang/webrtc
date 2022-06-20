@@ -135,6 +135,30 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "f2a3d962_82db2dc5",
+        "filename": "g3doc/implementation_basics.md",
+        "patchSetId": 1
+      },
+      "lineNbr": 48,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2022-06-20T09:38:26Z",
+      "side": 1,
+      "message": "I think the reason factory classes are so common in C++ (and java) is that unlike many other OO languages, classes aren\u0027t a first class type; i.e., you can\u0027t pass a reference to a class, and let other code create instances of it. However, these days we do have convenient lambdas (unnamed functions with state), which are perfectly fine for this common use case.\n\nSo I think it would make some sense to add a note here that new code should consider using a function (e.g., represented as an absl::AnyInvocable which is just being released), instead of defining additional factory interface classes.",
+      "parentUuid": "12ebeb75_9142d3bd",
+      "range": {
+        "startLine": 48,
+        "startChar": 2,
+        "endLine": 48,
+        "endChar": 35
+      },
+      "revId": "0ce60f93d69733c42e2bdfbb80fb857726231106",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "7bab865f_dad29193",
@@ -200,6 +224,30 @@
         "startChar": 86,
         "endLine": 50,
         "endChar": 119
+      },
+      "revId": "0ce60f93d69733c42e2bdfbb80fb857726231106",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "627fbfcf_8547d67c",
+        "filename": "g3doc/implementation_basics.md",
+        "patchSetId": 1
+      },
+      "lineNbr": 50,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2022-06-20T09:38:26Z",
+      "side": 1,
+      "message": "Makes sense to me, and it\u0027s what VideoFrame::Builder::build() does.",
+      "parentUuid": "7bab865f_dad29193",
+      "range": {
+        "startLine": 50,
+        "startChar": 48,
+        "endLine": 50,
+        "endChar": 84
       },
       "revId": "0ce60f93d69733c42e2bdfbb80fb857726231106",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"

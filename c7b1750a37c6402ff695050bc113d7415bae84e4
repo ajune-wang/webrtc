@@ -163,6 +163,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "a661cb13_71895343",
+        "filename": "common_video/video_frame_buffer.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 329,
+      "author": {
+        "id": 5963
+      },
+      "writtenOn": "2022-06-20T09:37:35Z",
+      "side": 1,
+      "message": "regarding the switch statement and the reinterpret_cast, they were already present in current code, just moved from the decoder to the utility function. \n\nchrome video frame buffer offers a very similar WrapExternalYuvData with the stride in bytes:\n\nhttps://source.chromium.org/chromium/chromium/src/+/main:media/base/video_frame.h;l\u003d217?q\u003dmedia::VideoFrame::WrapExternalYuvData\u0026sq\u003d\u0026ss\u003dchromium%2Fchromium%2Fsrc",
+      "parentUuid": "5c520630_33dcedcc",
+      "range": {
+        "startLine": 319,
+        "startChar": 0,
+        "endLine": 329,
+        "endChar": 0
+      },
+      "revId": "c7b1750a37c6402ff695050bc113d7415bae84e4",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "556867b8_d13b58c5",
         "filename": "modules/video_coding/codecs/vp9/libvpx_vp9_decoder.cc",
         "patchSetId": 3

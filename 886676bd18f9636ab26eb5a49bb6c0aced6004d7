@@ -16,6 +16,24 @@
       "message": "This test does what it should.\n\napproving CL, why it fails on Nexus 5 is a good question.\n",
       "revId": "886676bd18f9636ab26eb5a49bb6c0aced6004d7",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "38d3d786_a30f3046",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 5
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2022-06-20T07:10:45Z",
+      "side": 1,
+      "message": "Log says \"Machine has no networks; no ports will be allocated\", which appears to mean that BasicPortAllocatorSession::GetNetworks returned an empty vector.\n\nUnclear why, there\u0027s a large number of different flags checked and I don\u0027t know what set in this test or if there\u0027s something android specific somewhere.\n\nMaybe just disable the test on android?",
+      "parentUuid": "e22cf9ec_dccda398",
+      "revId": "886676bd18f9636ab26eb5a49bb6c0aced6004d7",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

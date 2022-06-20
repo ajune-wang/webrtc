@@ -45,6 +45,30 @@
       },
       "revId": "03b8f298f7e32b439071d025e3fddbb6361f94c1",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "a7c7e22b_113b7e3a",
+        "filename": "infra/specs/gn_isolate_map.pyl",
+        "patchSetId": 7
+      },
+      "lineNbr": 113,
+      "author": {
+        "id": 12234
+      },
+      "writtenOn": "2022-06-20T13:36:43Z",
+      "side": 1,
+      "message": "Was too late on this :)",
+      "parentUuid": "ceed60d5_6698383c",
+      "range": {
+        "startLine": 113,
+        "startChar": 13,
+        "endLine": 113,
+        "endChar": 47
+      },
+      "revId": "03b8f298f7e32b439071d025e3fddbb6361f94c1",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

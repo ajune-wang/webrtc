@@ -24,6 +24,9 @@ class RtcEventLogFactoryInterface {
  public:
   virtual ~RtcEventLogFactoryInterface() = default;
 
+  virtual std::unique_ptr<RtcEventLog> Create(
+      RtcEventLog::EncodingType encoding_type) const = 0;
+  // TODO(xxx): Deprecate and remove this name.
   virtual std::unique_ptr<RtcEventLog> CreateRtcEventLog(
       RtcEventLog::EncodingType encoding_type) = 0;
 };

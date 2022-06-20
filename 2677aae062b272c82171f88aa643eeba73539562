@@ -24,6 +24,30 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "a32fe423_7cfde8c0",
+        "filename": "test/pc/e2e/analyzer/video/default_video_quality_analyzer.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 631,
+      "author": {
+        "id": 6337
+      },
+      "writtenOn": "2022-06-20T16:12:23Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "ac3c64cf_badd3733",
+      "range": {
+        "startLine": 630,
+        "startChar": 7,
+        "endLine": 631,
+        "endChar": 69
+      },
+      "revId": "2677aae062b272c82171f88aa643eeba73539562",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "d1014eb5_6c4efb2c",
@@ -49,6 +73,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "d2383197_ae847884",
+        "filename": "test/pc/e2e/analyzer/video/default_video_quality_analyzer_test.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 1659,
+      "author": {
+        "id": 6337
+      },
+      "writtenOn": "2022-06-20T16:12:23Z",
+      "side": 1,
+      "message": "In this test name we have \"SenderAndReceiver\" instead of \"Sender\" only for the ones who received frames. Bob is receiver and Alice is sender",
+      "parentUuid": "d1014eb5_6c4efb2c",
+      "range": {
+        "startLine": 1656,
+        "startChar": 0,
+        "endLine": 1659,
+        "endChar": 51
+      },
+      "revId": "2677aae062b272c82171f88aa643eeba73539562",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "85baee65_f82cdae6",
         "filename": "test/pc/e2e/analyzer/video/default_video_quality_analyzer_test.cc",
         "patchSetId": 3
@@ -60,6 +108,30 @@
       "writtenOn": "2022-06-20T14:04:09Z",
       "side": 1,
       "message": "Is it important to have \"david\" joining or can we keep the test focused on \"bob\" unregistering and registering back?",
+      "range": {
+        "startLine": 1925,
+        "startChar": 0,
+        "endLine": 1925,
+        "endChar": 48
+      },
+      "revId": "2677aae062b272c82171f88aa643eeba73539562",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "86c5aed2_1255cee4",
+        "filename": "test/pc/e2e/analyzer/video/default_video_quality_analyzer_test.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 1925,
+      "author": {
+        "id": 6337
+      },
+      "writtenOn": "2022-06-20T16:12:23Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "85baee65_f82cdae6",
       "range": {
         "startLine": 1925,
         "startChar": 0,

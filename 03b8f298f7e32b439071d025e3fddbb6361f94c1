@@ -69,6 +69,30 @@
       },
       "revId": "03b8f298f7e32b439071d025e3fddbb6361f94c1",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "497614e9_e854127e",
+        "filename": "infra/specs/gn_isolate_map.pyl",
+        "patchSetId": 7
+      },
+      "lineNbr": 113,
+      "author": {
+        "id": 7036
+      },
+      "writtenOn": "2022-06-20T16:16:04Z",
+      "side": 1,
+      "message": "Modified the test to run with simulated time, that should remove the need to have a non_parallel test.",
+      "parentUuid": "719f051f_896f462c",
+      "range": {
+        "startLine": 113,
+        "startChar": 13,
+        "endLine": 113,
+        "endChar": 47
+      },
+      "revId": "03b8f298f7e32b439071d025e3fddbb6361f94c1",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "d49edfaa_3b37cb78",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2022-06-20T13:42:19Z",
+      "side": 1,
+      "message": "Should hopefully also ease reland https://webrtc-review.googlesource.com/c/src/+/265982",
+      "revId": "4d02264f6709798769b90b58bd16659eaf2c290a",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

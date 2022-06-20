@@ -34,6 +34,24 @@
       "parentUuid": "e22cf9ec_dccda398",
       "revId": "886676bd18f9636ab26eb5a49bb6c0aced6004d7",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "d6b1e0a7_0127ed33",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 5
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2022-06-20T07:24:32Z",
+      "side": 1,
+      "message": "Disabling the test seems to make sense. It is strange that any networking test passes at all on that configuration. Or we could make the test tolerant of BasicPortAllocatorSession::GetNetworks returning an empty vector.\n\nDo file a bug, this behavior is strange (especially if it\u0027s limited to Nexus 5).",
+      "parentUuid": "38d3d786_a30f3046",
+      "revId": "886676bd18f9636ab26eb5a49bb6c0aced6004d7",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

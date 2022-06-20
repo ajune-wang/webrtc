@@ -18,6 +18,74 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "b0c9ec03_9d3b217f",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5142
+      },
+      "writtenOn": "2022-06-20T08:54:13Z",
+      "side": 1,
+      "message": "There\u0027s an edge case bug that needs to be fixed. Luckily it\u0027s easy, you just move the clearing into SdpOfferAnswerHandler.",
+      "revId": "130069d3c8c9e2b9720025740067045cefc9398c",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "ae8af958_869ef766",
+        "filename": "pc/peer_connection.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 1618,
+      "author": {
+        "id": 5142
+      },
+      "writtenOn": "2022-06-20T08:54:13Z",
+      "side": 1,
+      "message": "This one is fine because it\u0027s synchronous so we know no stats caching can happen in-between this line and the return statement where the operation has completed.",
+      "revId": "130069d3c8c9e2b9720025740067045cefc9398c",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "eba0e8a7_4f7a9508",
+        "filename": "pc/peer_connection.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 1625,
+      "author": {
+        "id": 5142
+      },
+      "writtenOn": "2022-06-20T08:54:13Z",
+      "side": 1,
+      "message": "This one doesn\u0027t work, there will be a race condition.\n\nFor this async one, the adding of the ICE candidate is queued onto the operations chain. So stats caching could happen in-between this line and by the time that the ICE candidate is added. (E.g. enqueue some SDP methods on the chain, call addIceCandidate without awaiting and then do getStats() before addIceCandidate completes. What would happen is cache is cleared, ICE operation is queued, getStats happens causing a new cache event prior to the ICE candidate being added, then ICE candidate is added.)\n\nInstead, can you add ClearStatsCache() to the PeerConnectionSdpMethods interface so that the SdpOfferAnswerHandler can access it and then add \"pc_-\u003eClearStatsCache()\" here on the line after AddIceCandidateInternal has finished:\nhttps://source.chromium.org/chromium/chromium/src/+/main:third_party/webrtc/pc/sdp_offer_answer.cc;l\u003d2545;drc\u003d169c6cc102b39295a5bfe2f2a176b42b1c2fe2c4",
+      "revId": "130069d3c8c9e2b9720025740067045cefc9398c",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "bb7b9504_c4468682",
+        "filename": "pc/peer_connection.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 1633,
+      "author": {
+        "id": 5142
+      },
+      "writtenOn": "2022-06-20T08:54:13Z",
+      "side": 1,
+      "message": "While you\u0027re at it, how about a ClearStatsCache() here was well while you\u0027re at it. This one only has a synchronous implementation.",
+      "revId": "130069d3c8c9e2b9720025740067045cefc9398c",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "4cb1f51b_50d972b3",

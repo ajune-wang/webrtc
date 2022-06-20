@@ -72,6 +72,10 @@ class FrameInFlight {
 
   void AddExpectedReceiver(size_t peer) { expected_receivers_.insert(peer); }
 
+  bool HasExpectedReceiver(size_t peer) {
+    return expected_receivers_.find(peer) != expected_receivers_.end();
+  }
+
   void RemoveExpectedReceiver(size_t peer) { expected_receivers_.erase(peer); }
 
   std::vector<size_t> GetPeersWhichDidntReceive() const;

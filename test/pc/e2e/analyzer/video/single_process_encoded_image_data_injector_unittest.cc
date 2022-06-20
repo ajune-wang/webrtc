@@ -37,6 +37,12 @@ EncodedImage CreateEncodedImageOfSizeNFilledWithValuesFromX(size_t n,
   return image;
 }
 
+EncodedImage DeepCopyEncodedImage(const EncodedImage& source) {
+  EncodedImage copy = source;
+  copy.SetEncodedData(EncodedImageBuffer::Create(source.data(), source.size()));
+  return copy;
+}
+
 TEST(SingleProcessEncodedImageDataInjectorTest, InjectExtractDiscardFalse) {
   SingleProcessEncodedImageDataInjector injector;
   injector.Start(1);
@@ -328,16 +334,46 @@ TEST(SingleProcessEncodedImageDataInjectorTest, Add3rdReceiverAfterStart) {
   }
 }
 
+TEST(SingleProcessEncodedImageDataInjectorTest,
+     RemoveReceiverRemovesOnlyFullyReceivedFrames) {
+  SingleProcessEncodedImageDataInjector injector;
+  injector.Start(3);
+
+  EncodedImage source1 = CreateEncodedImageOfSizeNFilledWithValuesFromX(10, 1);
+  source1.SetTimestamp(10);
+  EncodedImage source2 = CreateEncodedImageOfSizeNFilledWithValuesFromX(10, 1);
+  source2.SetTimestamp(20);
+
+  EncodedImage modified_image1 = injector.InjectData(
+      /*id=*/512, /*discard=*/false, source1);
+  EncodedImage modified_image2 = injector.InjectData(
+      /*id=*/513, /*discard=*/false, source2);
+
+  // Out of 3 receivers 1st image received by 2 and 2nd image by 1
+  injector.ExtractData(DeepCopyEncodedImage(modified_image1));
+  injector.ExtractData(DeepCopyEncodedImage(modified_image1));
+  injector.ExtractData(DeepCopyEncodedImage(modified_image2));
+
+  // When we removed one receiver, 2nd image should still be available for
+  // extraction.
+  injector.RemoveParticipantInCall();
+
+  EncodedImageExtractionResult out =
+      injector.ExtractData(DeepCopyEncodedImage(modified_image2));
+
+  EXPECT_EQ(out.id, 513);
+  EXPECT_FALSE(out.discard);
+  EXPECT_EQ(out.image.size(), 10ul);
+  EXPECT_EQ(out.image.SpatialLayerFrameSize(0).value_or(0), 0ul);
+  for (int i = 0; i < 10; ++i) {
+    EXPECT_EQ(out.image.data()[i], i + 1);
+  }
+}
+
 // Death tests.
 // Disabled on Android because death tests misbehave on Android, see
 // base/test/gtest_util.h.
 #if RTC_DCHECK_IS_ON && GTEST_HAS_DEATH_TEST && !defined(WEBRTC_ANDROID)
-EncodedImage DeepCopyEncodedImage(const EncodedImage& source) {
-  EncodedImage copy = source;
-  copy.SetEncodedData(EncodedImageBuffer::Create(source.data(), source.size()));
-  return copy;
-}
-
 TEST(SingleProcessEncodedImageDataInjectorTest,
      InjectOnceExtractMoreThenExpected) {
   SingleProcessEncodedImageDataInjector injector;
@@ -352,6 +388,33 @@ TEST(SingleProcessEncodedImageDataInjectorTest,
   injector.ExtractData(DeepCopyEncodedImage(modified));
   injector.ExtractData(DeepCopyEncodedImage(modified));
   EXPECT_DEATH(injector.ExtractData(DeepCopyEncodedImage(modified)),
+               "Unknown sub_id=0 for frame_id=512");
+}
+
+TEST(SingleProcessEncodedImageDataInjectorTest,
+     RemoveReceiverRemovesOnlyFullyReceivedFramesVerifyFrameIsRemoved) {
+  SingleProcessEncodedImageDataInjector injector;
+  injector.Start(3);
+
+  EncodedImage source1 = CreateEncodedImageOfSizeNFilledWithValuesFromX(10, 1);
+  source1.SetTimestamp(10);
+  EncodedImage source2 = CreateEncodedImageOfSizeNFilledWithValuesFromX(10, 1);
+  source2.SetTimestamp(20);
+
+  EncodedImage modified_image1 = injector.InjectData(
+      /*id=*/512, /*discard=*/false, source1);
+  EncodedImage modified_image2 = injector.InjectData(
+      /*id=*/513, /*discard=*/false, source2);
+
+  // Out of 3 receivers 1st image received by 2 and 2nd image by 1
+  injector.ExtractData(DeepCopyEncodedImage(modified_image1));
+  injector.ExtractData(DeepCopyEncodedImage(modified_image1));
+  injector.ExtractData(DeepCopyEncodedImage(modified_image2));
+
+  // When we removed one receiver 1st image should be removed.
+  injector.RemoveParticipantInCall();
+
+  EXPECT_DEATH(injector.ExtractData(DeepCopyEncodedImage(modified_image1)),
                "Unknown sub_id=0 for frame_id=512");
 }
 #endif  // RTC_DCHECK_IS_ON && GTEST_HAS_DEATH_TEST && !defined(WEBRTC_ANDROID)

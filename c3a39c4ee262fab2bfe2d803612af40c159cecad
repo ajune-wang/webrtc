@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "be951c4f_2575bdec",
+        "filename": "infra/specs/test_suites.pyl",
+        "patchSetId": 8
+      },
+      "lineNbr": 115,
+      "author": {
+        "id": 12234
+      },
+      "writtenOn": "2022-06-20T14:12:17Z",
+      "side": 1,
+      "message": "Just being curious, why not run the test on ios device ?",
+      "range": {
+        "startLine": 115,
+        "startChar": 5,
+        "endLine": 115,
+        "endChar": 21
+      },
+      "revId": "c3a39c4ee262fab2bfe2d803612af40c159cecad",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

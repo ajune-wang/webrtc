@@ -16,6 +16,47 @@
       "message": "We do have a naming problem with Create(): We\u0027re using static FooFactory::Create() to create a FooFactory, and we\u0027re here proposing to use (non-static) FooFactory::Create() to create a Foo.\n\nIs this a problem? If so, which one should yield?",
       "revId": "4b1c2c6ce4fc4909a13f676f4ac78f8f62e48446",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "e652082f_fead3cac",
+        "filename": "g3doc/implementation_basics.md",
+        "patchSetId": 2
+      },
+      "lineNbr": 48,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2022-06-20T10:02:34Z",
+      "side": 1,
+      "message": "Factory function to create factory usually indicates there is some overdesign with factories (when possible, constructors should be preferred over factories, they are simpler)\n\nthat note aside I do not think there is a problem:\nFooFactory::Create() should create some form of FooFactory.\nFooFactory().Create() should create some form of Foo\n\nWhen FooFactory has no state, Create function that creates Foo still shouldn\u0027t be static (though in such case I would strictly prefer factory free function)",
+      "parentUuid": "2720426d_ac2fe798",
+      "revId": "4b1c2c6ce4fc4909a13f676f4ac78f8f62e48446",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "70612806_8cb2397d",
+        "filename": "g3doc/implementation_basics.md",
+        "patchSetId": 2
+      },
+      "lineNbr": 48,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2022-06-20T10:02:34Z",
+      "side": 1,
+      "message": "Sentence \"ownership of the returned object is with the caller\"\nduplicates statement \"returns the object or an owning reference to it\"\n\nmay be leave just one of these two.",
+      "range": {
+        "startLine": 48,
+        "startChar": 258,
+        "endLine": 48,
+        "endChar": 310
+      },
+      "revId": "4b1c2c6ce4fc4909a13f676f4ac78f8f62e48446",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

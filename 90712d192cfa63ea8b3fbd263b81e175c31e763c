@@ -254,6 +254,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "664c68c2_4ae8c6bf",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 4
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 12234
+      },
+      "writtenOn": "2022-06-20T13:11:48Z",
+      "side": 1,
+      "message": "That\u0027s good news !\nShould this function be updated to run capturer tests only on win 11 ? \nhttps://source.chromium.org/chromium/_/webrtc/src.git/+/905c3a6c73d293882ef11942066ccda52a9e14d1:modules/desktop_capture/win/wgc_capturer_win.cc;l\u003d59;drc\u003dc5b8c8f36b6ba20283074870ef4bdea0e1f51970;bpv\u003d1;bpt\u003d0\n\n\"modules_unittests\" is too big to run on Windows 11, a solution would be to make a small target \"wgc_capturer_unittests\" and run this one on Windows 11.\n\nOtherwise I think we would need to wait for Chromium to migrate toward Windows 11 even if I don\u0027t see any current plan to do that.",
+      "parentUuid": "b8a9ff54_dfe275cb",
+      "revId": "90712d192cfa63ea8b3fbd263b81e175c31e763c",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "6c03636a_16048b21",
         "filename": "modules/desktop_capture/win/wgc_capture_session.cc",
         "patchSetId": 4

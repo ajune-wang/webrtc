@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "2720426d_ac2fe798",
+        "filename": "g3doc/implementation_basics.md",
+        "patchSetId": 2
+      },
+      "lineNbr": 48,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2022-06-20T09:31:31Z",
+      "side": 1,
+      "message": "We do have a naming problem with Create(): We\u0027re using static FooFactory::Create() to create a FooFactory, and we\u0027re here proposing to use (non-static) FooFactory::Create() to create a Foo.\n\nIs this a problem? If so, which one should yield?",
+      "revId": "4b1c2c6ce4fc4909a13f676f4ac78f8f62e48446",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

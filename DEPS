@@ -10,7 +10,7 @@ vars = {
   # chromium waterfalls. More info at: crbug.com/570091.
   'checkout_configuration': 'default',
   'checkout_instrumented_libraries': 'checkout_linux and checkout_configuration == "default"',
-  'chromium_revision': '1bf77954eaadee591eaf25fbc9b6be428e429dcd',
+  'chromium_revision': 'dcbe04e297bee6dc5d1c20104fbbc237b8b9df2c',
 
   # Keep the Chromium default of generating location tags.
   'generate_location_tags': True,
@@ -29,7 +29,7 @@ deps = {
   'src/base':
     'https://chromium.googlesource.com/chromium/src/base@4f56dc6ce73a8e862d2474c629c02e5277af6e54',
   'src/build':
-    'https://chromium.googlesource.com/chromium/src/build@3463623f1762e839f2a6fe2128cb7f472492aa38',
+    'https://chromium.googlesource.com/chromium/src/build@df09e54f8bf48738ae77967b719853728781e8d7',
   'src/buildtools':
     'https://chromium.googlesource.com/chromium/src/buildtools@34f9ff8fd5f494bf2b886337e6ef6fcea414cb11',
   # Gradle 6.6.1. Used for testing Android Studio project generation for WebRTC.
@@ -38,13 +38,13 @@ deps = {
     'condition': 'checkout_android',
   },
   'src/ios': {
-    'url': 'https://chromium.googlesource.com/chromium/src/ios@f278005ce4818c89a15b84e8dd3c8b92c435b427',
+    'url': 'https://chromium.googlesource.com/chromium/src/ios@af764e16b93febb31f1e3412fb94b5ddbfa82d83',
     'condition': 'checkout_ios',
   },
   'src/testing':
-    'https://chromium.googlesource.com/chromium/src/testing@409f9dc815e3d97f7d0cafc4efbcdec1efe2404d',
+    'https://chromium.googlesource.com/chromium/src/testing@06e718a077818c24a87462f11c5368057ef9b52d',
   'src/third_party':
-    'https://chromium.googlesource.com/chromium/src/third_party@364e22ce19608fae53b8cb5c78f22b9a561a0202',
+    'https://chromium.googlesource.com/chromium/src/third_party@cede86f490ecfd8ada929cf00fe9675835ec042a',
 
   'src/buildtools/linux64': {
     'packages': [
@@ -84,7 +84,7 @@ deps = {
   'src/buildtools/third_party/libc++abi/trunk':
     'https://chromium.googlesource.com/external/github.com/llvm/llvm-project/libcxxabi.git@2dba7d2cc46a25cd67fb990826179e0c159c5b5c',
   'src/buildtools/third_party/libunwind/trunk':
-    'https://chromium.googlesource.com/external/github.com/llvm/llvm-project/libunwind.git@1644d070bf374182739543c3a12df88dfec0b88a',
+    'https://chromium.googlesource.com/external/github.com/llvm/llvm-project/libunwind.git@b387062642f045b19adbf6a80757293caaf64e8b',
 
   'src/third_party/android_system_sdk': {
       'packages': [

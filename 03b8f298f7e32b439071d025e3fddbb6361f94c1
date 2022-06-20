@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "719f051f_896f462c",
+        "filename": "infra/specs/gn_isolate_map.pyl",
+        "patchSetId": 7
+      },
+      "lineNbr": 113,
+      "author": {
+        "id": 5087
+      },
+      "writtenOn": "2022-06-20T13:30:40Z",
+      "side": 1,
+      "message": "Why do we need the non_parallel_console_test_launcher for this test?",
+      "range": {
+        "startLine": 113,
+        "startChar": 13,
+        "endLine": 113,
+        "endChar": 47
+      },
+      "revId": "03b8f298f7e32b439071d025e3fddbb6361f94c1",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

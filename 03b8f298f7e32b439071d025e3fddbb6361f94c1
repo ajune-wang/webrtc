@@ -22,6 +22,29 @@
       },
       "revId": "03b8f298f7e32b439071d025e3fddbb6361f94c1",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "ceed60d5_6698383c",
+        "filename": "infra/specs/gn_isolate_map.pyl",
+        "patchSetId": 7
+      },
+      "lineNbr": 113,
+      "author": {
+        "id": 12234
+      },
+      "writtenOn": "2022-06-20T13:33:57Z",
+      "side": 1,
+      "message": "I think you should go with console_test_launcher which is basically the default.\nIt won\u0027t change anything for your test since non_parallel_console_test_launcher is only used for tests running with gtest_parallel.",
+      "range": {
+        "startLine": 113,
+        "startChar": 13,
+        "endLine": 113,
+        "endChar": 47
+      },
+      "revId": "03b8f298f7e32b439071d025e3fddbb6361f94c1",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

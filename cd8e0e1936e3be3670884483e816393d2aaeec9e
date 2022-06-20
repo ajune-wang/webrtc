@@ -1,0 +1,119 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "21cb38d8_f37819d5",
+        "filename": "pc/test/svc_e2e_tests.cc",
+        "patchSetId": 10
+      },
+      "lineNbr": 41,
+      "author": {
+        "id": 6337
+      },
+      "writtenOn": "2022-06-20T22:43:54Z",
+      "side": 1,
+      "message": "::webrtc::webrtc_pc_e2e",
+      "range": {
+        "startLine": 41,
+        "startChar": 18,
+        "endLine": 41,
+        "endChar": 31
+      },
+      "revId": "cd8e0e1936e3be3670884483e816393d2aaeec9e",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "307e4243_a72bb7b9",
+        "filename": "pc/test/svc_e2e_tests.cc",
+        "patchSetId": 10
+      },
+      "lineNbr": 91,
+      "author": {
+        "id": 6337
+      },
+      "writtenOn": "2022-06-20T22:43:54Z",
+      "side": 1,
+      "message": "FYI: this is not required for test to work, but provide some network stats which might be useful for debugging. So feel free to remove if you want or keep otherwise.",
+      "range": {
+        "startLine": 89,
+        "startChar": 2,
+        "endLine": 91,
+        "endChar": 54
+      },
+      "revId": "cd8e0e1936e3be3670884483e816393d2aaeec9e",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "1f29910f_cf2b252a",
+        "filename": "pc/test/svc_e2e_tests.cc",
+        "patchSetId": 10
+      },
+      "lineNbr": 228,
+      "author": {
+        "id": 6337
+      },
+      "writtenOn": "2022-06-20T22:43:54Z",
+      "side": 1,
+      "message": "Prefer add using declaration for classes/methods in ::testing namespace.",
+      "range": {
+        "startLine": 228,
+        "startChar": 6,
+        "endLine": 228,
+        "endChar": 25
+      },
+      "revId": "cd8e0e1936e3be3670884483e816393d2aaeec9e",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "0ea68f6d_0f469d62",
+        "filename": "pc/test/svc_e2e_tests.cc",
+        "patchSetId": 10
+      },
+      "lineNbr": 275,
+      "author": {
+        "id": 6337
+      },
+      "writtenOn": "2022-06-20T22:43:54Z",
+      "side": 1,
+      "message": "Prefer add using declaration for classes/methods in ::testing namespace.",
+      "range": {
+        "startLine": 275,
+        "startChar": 4,
+        "endLine": 275,
+        "endChar": 21
+      },
+      "revId": "cd8e0e1936e3be3670884483e816393d2aaeec9e",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "ae45cdc1_d922ff7b",
+        "filename": "pc/test/svc_e2e_tests.cc",
+        "patchSetId": 10
+      },
+      "lineNbr": 282,
+      "author": {
+        "id": 6337
+      },
+      "writtenOn": "2022-06-20T22:43:54Z",
+      "side": 1,
+      "message": "Prefer add using declaration for classes/methods in ::testing namespace.",
+      "range": {
+        "startLine": 282,
+        "startChar": 4,
+        "endLine": 282,
+        "endChar": 21
+      },
+      "revId": "cd8e0e1936e3be3670884483e816393d2aaeec9e",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

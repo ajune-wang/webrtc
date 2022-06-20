@@ -95,6 +95,30 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "66f14a8a_79c70a27",
+        "filename": "test/pc/e2e/analyzer/video/default_video_quality_analyzer_test.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 1659,
+      "author": {
+        "id": 5087
+      },
+      "writtenOn": "2022-06-20T19:36:04Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "d2383197_ae847884",
+      "range": {
+        "startLine": 1656,
+        "startChar": 0,
+        "endLine": 1659,
+        "endChar": 51
+      },
+      "revId": "2677aae062b272c82171f88aa643eeba73539562",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "85baee65_f82cdae6",

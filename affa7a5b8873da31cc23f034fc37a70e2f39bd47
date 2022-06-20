@@ -16,6 +16,23 @@
       "message": "hta@, this is going to land tomorrow but feel free to LGTM now.",
       "revId": "affa7a5b8873da31cc23f034fc37a70e2f39bd47",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "5262beab_39b18ae7",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2022-06-20T06:55:32Z",
+      "side": 1,
+      "message": "Looks beautiful!\n",
+      "revId": "affa7a5b8873da31cc23f034fc37a70e2f39bd47",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

@@ -58,6 +58,30 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "a2d2c478_93729169",
+        "filename": "modules/video_coding/codecs/vp8/libvpx_vp8_encoder.cc",
+        "patchSetId": 10
+      },
+      "lineNbr": 1163,
+      "author": {
+        "id": 7036
+      },
+      "writtenOn": "2022-06-21T11:07:07Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "05ece0b6_7a726a47",
+      "range": {
+        "startLine": 1159,
+        "startChar": 8,
+        "endLine": 1163,
+        "endChar": 69
+      },
+      "revId": "cd8e0e1936e3be3670884483e816393d2aaeec9e",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "de7ff57c_b8c69a81",
@@ -71,6 +95,30 @@
       "writtenOn": "2022-06-21T05:21:43Z",
       "side": 1,
       "message": "2022",
+      "range": {
+        "startLine": 2,
+        "startChar": 18,
+        "endLine": 2,
+        "endChar": 22
+      },
+      "revId": "cd8e0e1936e3be3670884483e816393d2aaeec9e",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "15b0a05a_45d774b0",
+        "filename": "pc/test/svc_e2e_tests.cc",
+        "patchSetId": 10
+      },
+      "lineNbr": 2,
+      "author": {
+        "id": 7036
+      },
+      "writtenOn": "2022-06-21T11:07:07Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "de7ff57c_b8c69a81",
       "range": {
         "startLine": 2,
         "startChar": 18,
@@ -104,6 +152,30 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "1f99c471_2842963c",
+        "filename": "pc/test/svc_e2e_tests.cc",
+        "patchSetId": 10
+      },
+      "lineNbr": 41,
+      "author": {
+        "id": 7036
+      },
+      "writtenOn": "2022-06-21T11:07:07Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "21cb38d8_f37819d5",
+      "range": {
+        "startLine": 41,
+        "startChar": 18,
+        "endLine": 41,
+        "endChar": 31
+      },
+      "revId": "cd8e0e1936e3be3670884483e816393d2aaeec9e",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "307e4243_a72bb7b9",
@@ -117,6 +189,30 @@
       "writtenOn": "2022-06-20T22:43:54Z",
       "side": 1,
       "message": "FYI: this is not required for test to work, but provide some network stats which might be useful for debugging. So feel free to remove if you want or keep otherwise.",
+      "range": {
+        "startLine": 89,
+        "startChar": 2,
+        "endLine": 91,
+        "endChar": 54
+      },
+      "revId": "cd8e0e1936e3be3670884483e816393d2aaeec9e",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "49962eec_86df8098",
+        "filename": "pc/test/svc_e2e_tests.cc",
+        "patchSetId": 10
+      },
+      "lineNbr": 91,
+      "author": {
+        "id": 7036
+      },
+      "writtenOn": "2022-06-21T11:07:07Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "307e4243_a72bb7b9",
       "range": {
         "startLine": 89,
         "startChar": 2,
@@ -150,6 +246,30 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "59a160ea_c6c6e30f",
+        "filename": "pc/test/svc_e2e_tests.cc",
+        "patchSetId": 10
+      },
+      "lineNbr": 115,
+      "author": {
+        "id": 7036
+      },
+      "writtenOn": "2022-06-21T11:07:07Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "c3ae8834_5d5d654f",
+      "range": {
+        "startLine": 112,
+        "startChar": 4,
+        "endLine": 115,
+        "endChar": 76
+      },
+      "revId": "cd8e0e1936e3be3670884483e816393d2aaeec9e",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "8fd980c6_f10a5a4b",
@@ -163,6 +283,30 @@
       "writtenOn": "2022-06-21T05:21:43Z",
       "side": 1,
       "message": "I would write out the type here, and below.\n\nhttps://google.github.io/styleguide/cppguide.html#Type_deduction",
+      "range": {
+        "startLine": 145,
+        "startChar": 4,
+        "endLine": 145,
+        "endChar": 8
+      },
+      "revId": "cd8e0e1936e3be3670884483e816393d2aaeec9e",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "f17e6365_9ebd789c",
+        "filename": "pc/test/svc_e2e_tests.cc",
+        "patchSetId": 10
+      },
+      "lineNbr": 145,
+      "author": {
+        "id": 7036
+      },
+      "writtenOn": "2022-06-21T11:07:07Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "8fd980c6_f10a5a4b",
       "range": {
         "startLine": 145,
         "startChar": 4,
@@ -219,6 +363,30 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "22059e53_e26c8f6e",
+        "filename": "pc/test/svc_e2e_tests.cc",
+        "patchSetId": 10
+      },
+      "lineNbr": 228,
+      "author": {
+        "id": 7036
+      },
+      "writtenOn": "2022-06-21T11:07:07Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "1f29910f_cf2b252a",
+      "range": {
+        "startLine": 228,
+        "startChar": 6,
+        "endLine": 228,
+        "endChar": 25
+      },
+      "revId": "cd8e0e1936e3be3670884483e816393d2aaeec9e",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "ce6ba895_eb24c948",
@@ -232,6 +400,30 @@
       "writtenOn": "2022-06-21T05:21:43Z",
       "side": 1,
       "message": "Is there a reason for going with screenshare content here? Just because that is very challenging in general?",
+      "range": {
+        "startLine": 240,
+        "startChar": 12,
+        "endLine": 240,
+        "endChar": 43
+      },
+      "revId": "cd8e0e1936e3be3670884483e816393d2aaeec9e",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "a8523bc2_58ba6ab1",
+        "filename": "pc/test/svc_e2e_tests.cc",
+        "patchSetId": 10
+      },
+      "lineNbr": 240,
+      "author": {
+        "id": 7036
+      },
+      "writtenOn": "2022-06-21T11:07:07Z",
+      "side": 1,
+      "message": "Exactly, and I don\u0027t want to have any issues with the smaller resolutions being disabled as we had with simulcast in the past.",
+      "parentUuid": "ce6ba895_eb24c948",
       "range": {
         "startLine": 240,
         "startChar": 12,
@@ -265,6 +457,30 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "928bf1de_409cabef",
+        "filename": "pc/test/svc_e2e_tests.cc",
+        "patchSetId": 10
+      },
+      "lineNbr": 275,
+      "author": {
+        "id": 7036
+      },
+      "writtenOn": "2022-06-21T11:07:07Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "0ea68f6d_0f469d62",
+      "range": {
+        "startLine": 275,
+        "startChar": 4,
+        "endLine": 275,
+        "endChar": 21
+      },
+      "revId": "cd8e0e1936e3be3670884483e816393d2aaeec9e",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "ae45cdc1_d922ff7b",
@@ -288,6 +504,30 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "0cc97c33_25eea122",
+        "filename": "pc/test/svc_e2e_tests.cc",
+        "patchSetId": 10
+      },
+      "lineNbr": 282,
+      "author": {
+        "id": 7036
+      },
+      "writtenOn": "2022-06-21T11:07:07Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "ae45cdc1_d922ff7b",
+      "range": {
+        "startLine": 282,
+        "startChar": 4,
+        "endLine": 282,
+        "endChar": 21
+      },
+      "revId": "cd8e0e1936e3be3670884483e816393d2aaeec9e",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "4ee52099_820f67b9",
@@ -301,6 +541,30 @@
       "writtenOn": "2022-06-21T05:21:43Z",
       "side": 1,
       "message": "Maybe add a comment why this type of processor is sometimes needed (SVC for AV1?).",
+      "range": {
+        "startLine": 142,
+        "startChar": 6,
+        "endLine": 142,
+        "endChar": 69
+      },
+      "revId": "cd8e0e1936e3be3670884483e816393d2aaeec9e",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "5b7d7a87_c85b89d3",
+        "filename": "test/pc/e2e/peer_connection_quality_test.cc",
+        "patchSetId": 10
+      },
+      "lineNbr": 142,
+      "author": {
+        "id": 7036
+      },
+      "writtenOn": "2022-06-21T11:07:07Z",
+      "side": 1,
+      "message": "Switching automatically to using the right way to track frames should be just dependent on the field trial, not related to AVC for AV1, so I don\u0027t think I need to add a comment there, this is just updating the testing framework to remove boilerplate related to that trial.\nLater on, the framework should just enable the RTP header extension using regular PC APIs and use the right implementation if it\u0027s enabled. But that\u0027s outside the scope of this change.\n\nI do already have a comment where I enable the field trial in the test, which should be enough.",
+      "parentUuid": "4ee52099_820f67b9",
       "range": {
         "startLine": 142,
         "startChar": 6,

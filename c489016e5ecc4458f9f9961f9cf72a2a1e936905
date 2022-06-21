@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "698ff850_a9f24124",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 5
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 9405
+      },
+      "writtenOn": "2022-06-21T00:26:01Z",
+      "side": 1,
+      "message": "Hi, Mirko. Could you take a look at sdk/BUILD.gn? ",
+      "revId": "c489016e5ecc4458f9f9961f9cf72a2a1e936905",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

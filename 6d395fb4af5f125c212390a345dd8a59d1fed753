@@ -24,6 +24,30 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "4243b558_dd07f8a5",
+        "filename": "sdk/objc/api/peerconnection/RTCVideoTrack.mm",
+        "patchSetId": 4
+      },
+      "lineNbr": 21,
+      "author": {
+        "id": 9405
+      },
+      "writtenOn": "2022-06-21T00:26:01Z",
+      "side": 1,
+      "message": "Done.\nNote that `guarded by` is fairly used in WebRTC Java code. Probably because of the `@GuardedBy` (`androidx.annotation`, `com.google.errorprone.annotations.concurrent` ...) annotation.",
+      "parentUuid": "f907c763_7d35488d",
+      "range": {
+        "startLine": 21,
+        "startChar": 31,
+        "endLine": 21,
+        "endChar": 41
+      },
+      "revId": "6d395fb4af5f125c212390a345dd8a59d1fed753",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "a3f2ea5c_04bf2412",
@@ -37,6 +61,30 @@
       "writtenOn": "2022-06-20T14:04:16Z",
       "side": 1,
       "message": "\"removeRenderer called with a renderer that has not been previously added\"",
+      "range": {
+        "startLine": 110,
+        "startChar": 25,
+        "endLine": 110,
+        "endChar": 97
+      },
+      "revId": "6d395fb4af5f125c212390a345dd8a59d1fed753",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "4bef3569_76f233a8",
+        "filename": "sdk/objc/api/peerconnection/RTCVideoTrack.mm",
+        "patchSetId": 4
+      },
+      "lineNbr": 110,
+      "author": {
+        "id": 9405
+      },
+      "writtenOn": "2022-06-21T00:26:01Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "a3f2ea5c_04bf2412",
       "range": {
         "startLine": 110,
         "startChar": 25,

@@ -34,6 +34,24 @@
       "parentUuid": "6cdee33a_b57ac3bf",
       "revId": "8f9fb244fb6947d520a891b935c460bed538ac3c",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "130ce77f_2c59055b",
+        "filename": "api/peer_connection_interface.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 1437,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2022-06-21T08:01:55Z",
+      "side": 1,
+      "message": "I messed that last change up; I pressed the submit button before actually uploading the new patch set. Will make a followup cl with the comment fix.",
+      "parentUuid": "639c4e07_7d60e31c",
+      "revId": "8f9fb244fb6947d520a891b935c460bed538ac3c",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ],
   "submitRequirementResults": [

@@ -10,7 +10,7 @@ vars = {
   # chromium waterfalls. More info at: crbug.com/570091.
   'checkout_configuration': 'default',
   'checkout_instrumented_libraries': 'checkout_linux and checkout_configuration == "default"',
-  'chromium_revision': 'c2285d20ad9d27240e6ece47f6e3b5014c4512f8',
+  'chromium_revision': 'e9fd8af09224316c5919d6e1da8b17506bf71bab',
 
   # Keep the Chromium default of generating location tags.
   'generate_location_tags': True,
@@ -27,9 +27,9 @@ deps = {
   # TODO(kjellander): Move this to be Android-only once the libevent dependency
   # in base/third_party/libevent is solved.
   'src/base':
-    'https://chromium.googlesource.com/chromium/src/base@4f56dc6ce73a8e862d2474c629c02e5277af6e54',
+    'https://chromium.googlesource.com/chromium/src/base@ff62bfd6db62c528caf3a1e51d935b9998b79a09',
   'src/build':
-    'https://chromium.googlesource.com/chromium/src/build@9b1463e569fba8aa91586e0c7ea3b476ca082eeb',
+    'https://chromium.googlesource.com/chromium/src/build@37b3beeb71e83e6da1859da6f1a267ce6176afd7',
   'src/buildtools':
     'https://chromium.googlesource.com/chromium/src/buildtools@34f9ff8fd5f494bf2b886337e6ef6fcea414cb11',
   # Gradle 6.6.1. Used for testing Android Studio project generation for WebRTC.
@@ -38,13 +38,13 @@ deps = {
     'condition': 'checkout_android',
   },
   'src/ios': {
-    'url': 'https://chromium.googlesource.com/chromium/src/ios@04f2483c280411552e1027e68c875fde155ce6b3',
+    'url': 'https://chromium.googlesource.com/chromium/src/ios@e49ca2da86b5962dba01b9cba4c73bcc632893c3',
     'condition': 'checkout_ios',
   },
   'src/testing':
     'https://chromium.googlesource.com/chromium/src/testing@26236c4e9a2b5d44bdf10ac3f5ae894583bc005d',
   'src/third_party':
-    'https://chromium.googlesource.com/chromium/src/third_party@631be728ee2e699985507ea143ee1b64a455077c',
+    'https://chromium.googlesource.com/chromium/src/third_party@fca6802241721ef86e5b6ed1a02f645acc89119f',
 
   'src/buildtools/linux64': {
     'packages': [
@@ -249,7 +249,7 @@ deps = {
       'packages': [
           {
               'package': 'chromium/third_party/r8',
-              'version': '9ZYYzSVt4L6QGnf272Wm7wxsJ4VH77Dh2fel6JB9nOcC',
+              'version': 'iMLEt10uXASDfG2AlATR1fO8xYhBoF24nQvDDXLY6Q8C',
           },
       ],
       'condition': 'checkout_android',
@@ -275,7 +275,7 @@ deps = {
     'condition': 'checkout_win',
   },
   'src/tools':
-    'https://chromium.googlesource.com/chromium/src/tools@ed4ed4571c127888b41e48b0fbac50934ad2673b',
+    'https://chromium.googlesource.com/chromium/src/tools@822a56611c4c87b88b11494061f5d7db5f7b3972',
 
   'src/third_party/accessibility_test_framework': {
       'packages': [

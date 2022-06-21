@@ -41,6 +41,30 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "8ebbb25f_e04d739c",
+        "filename": "g3doc/implementation_basics.md",
+        "patchSetId": 1
+      },
+      "lineNbr": 40,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2022-06-21T09:30:48Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "7276cc84_514504dd",
+      "range": {
+        "startLine": 40,
+        "startChar": 18,
+        "endLine": 40,
+        "endChar": 23
+      },
+      "revId": "0ce60f93d69733c42e2bdfbb80fb857726231106",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "e8f48c53_94d7286b",
@@ -178,6 +202,30 @@
         "startChar": 2,
         "endLine": 48,
         "endChar": 35
+      },
+      "revId": "0ce60f93d69733c42e2bdfbb80fb857726231106",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "6321f4b4_c93afe1a",
+        "filename": "g3doc/implementation_basics.md",
+        "patchSetId": 1
+      },
+      "lineNbr": 48,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2022-06-21T09:30:48Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "6e1bf071_516b05df",
+      "range": {
+        "startLine": 48,
+        "startChar": 41,
+        "endLine": 48,
+        "endChar": 96
       },
       "revId": "0ce60f93d69733c42e2bdfbb80fb857726231106",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
@@ -325,6 +373,54 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "045d8c1d_df82f1dc",
+        "filename": "g3doc/implementation_basics.md",
+        "patchSetId": 1
+      },
+      "lineNbr": 50,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2022-06-21T09:30:48Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "627fbfcf_8547d67c",
+      "range": {
+        "startLine": 50,
+        "startChar": 48,
+        "endLine": 50,
+        "endChar": 84
+      },
+      "revId": "0ce60f93d69733c42e2bdfbb80fb857726231106",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "75f84d85_206e8dab",
+        "filename": "g3doc/implementation_basics.md",
+        "patchSetId": 1
+      },
+      "lineNbr": 50,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2022-06-21T09:30:48Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "5ac8f16a_c1f6688b",
+      "range": {
+        "startLine": 50,
+        "startChar": 86,
+        "endLine": 50,
+        "endChar": 119
+      },
+      "revId": "0ce60f93d69733c42e2bdfbb80fb857726231106",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "05acaae3_318b96c1",
@@ -433,6 +529,48 @@
         "endLine": 52,
         "endChar": 108
       },
+      "revId": "0ce60f93d69733c42e2bdfbb80fb857726231106",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "f23c1b14_03678a9f",
+        "filename": "g3doc/implementation_basics.md",
+        "patchSetId": 1
+      },
+      "lineNbr": 52,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2022-06-21T09:30:48Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "10fdc797_81ca8e86",
+      "range": {
+        "startLine": 52,
+        "startChar": 101,
+        "endLine": 52,
+        "endChar": 108
+      },
+      "revId": "0ce60f93d69733c42e2bdfbb80fb857726231106",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "269a66e2_6de1fe72",
+        "filename": "g3doc/implementation_basics.md",
+        "patchSetId": 1
+      },
+      "lineNbr": 52,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2022-06-21T09:30:48Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "291008dc_8608c08f",
       "revId": "0ce60f93d69733c42e2bdfbb80fb857726231106",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }

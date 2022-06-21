@@ -99,6 +99,24 @@
       },
       "revId": "4b1c2c6ce4fc4909a13f676f4ac78f8f62e48446",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "38878b0f_13c8c99f",
+        "filename": "g3doc/implementation_basics.md",
+        "patchSetId": 2
+      },
+      "lineNbr": 48,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2022-06-21T09:30:48Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "03a52ab4_78a5fd20",
+      "revId": "4b1c2c6ce4fc4909a13f676f4ac78f8f62e48446",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

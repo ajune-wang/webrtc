@@ -157,7 +157,10 @@ void VCMTiming::UpdateCurrentDelay(Timestamp render_time,
   TimeDelta target_delay = TargetDelayInternal();
   TimeDelta delayed =
       (actual_decode_time - render_time) + RequiredDecodeTime() + render_delay_;
-  if (delayed < TimeDelta::Zero()) {
+
+  // Milliseconds may be left after rounding and this should be considered 0,
+  // not negative.
+  if (delayed <= TimeDelta::Millis(-1)) {
     return;
   }
   if (current_delay_ + delayed <= target_delay) {

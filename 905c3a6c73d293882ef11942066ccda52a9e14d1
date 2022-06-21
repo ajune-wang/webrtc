@@ -1,6 +1,23 @@
 {
   "comments": [
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "9b64c577_6e07fb0a",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 8
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2022-06-21T20:29:42Z",
+      "side": 1,
+      "message": "Just explaining..",
+      "revId": "905c3a6c73d293882ef11942066ccda52a9e14d1",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "4df3d138_40d32497",
@@ -48,6 +65,24 @@
       "writtenOn": "2022-06-21T20:28:07Z",
       "side": 1,
       "message": "Or alternatively, wait until you can inject a fake network manager as well, and can control the networks observed.",
+      "parentUuid": "c410201e_6c08ca98",
+      "revId": "905c3a6c73d293882ef11942066ccda52a9e14d1",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "440abc23_e69e9284",
+        "filename": "pc/peer_connection_factory_unittest.cc",
+        "patchSetId": 8
+      },
+      "lineNbr": 535,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2022-06-21T20:29:42Z",
+      "side": 1,
+      "message": "If you set pool size to \u003e 1, the PC will try to generate candidates before setLocalDescription is called, and have them ready to go when SLD is called, to speed things up.\n\nOf course, to create a candidate, you have to open a port, and that means opening a socket.",
       "parentUuid": "c410201e_6c08ca98",
       "revId": "905c3a6c73d293882ef11942066ccda52a9e14d1",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"

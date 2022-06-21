@@ -17,7 +17,7 @@
 namespace webrtc {
 
 std::unique_ptr<FullScreenApplicationHandler>
-CreateFullScreenMacApplicationHandler(DesktopCapturer::SourceId sourceId);
+CreateFullScreenMacApplicationHandler(SourceId sourceId);
 
 }  // namespace webrtc
 

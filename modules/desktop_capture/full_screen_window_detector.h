@@ -37,7 +37,7 @@ class FullScreenWindowDetector
  public:
   using ApplicationHandlerFactory =
       std::function<std::unique_ptr<FullScreenApplicationHandler>(
-          DesktopCapturer::SourceId sourceId)>;
+          SourceId sourceId)>;
 
   FullScreenWindowDetector(
       ApplicationHandlerFactory application_handler_factory);
@@ -48,13 +48,12 @@ class FullScreenWindowDetector
   // Returns the full-screen window in place of the original window if all the
   // criteria provided by FullScreenApplicationHandler are met, or 0 if no such
   // window found.
-  DesktopCapturer::SourceId FindFullScreenWindow(
-      DesktopCapturer::SourceId original_source_id);
+  SourceId FindFullScreenWindow(SourceId original_source_id);
 
   // The caller should call this function periodically, implementation will
   // update internal state no often than twice per second
   void UpdateWindowListIfNeeded(
-      DesktopCapturer::SourceId original_source_id,
+      SourceId original_source_id,
       rtc::FunctionView<bool(DesktopCapturer::SourceList*)> get_sources);
 
   static rtc::scoped_refptr<FullScreenWindowDetector>
@@ -64,16 +63,16 @@ class FullScreenWindowDetector
   std::unique_ptr<FullScreenApplicationHandler> app_handler_;
 
  private:
-  void CreateApplicationHandlerIfNeeded(DesktopCapturer::SourceId source_id);
+  void CreateApplicationHandlerIfNeeded(SourceId source_id);
 
   ApplicationHandlerFactory application_handler_factory_;
 
   int64_t last_update_time_ms_;
-  DesktopCapturer::SourceId previous_source_id_;
+  SourceId previous_source_id_;
 
   // Save the source id when we fail to create an instance of
   // CreateApplicationHandlerIfNeeded to avoid redundant attempt to do it again.
-  DesktopCapturer::SourceId no_handler_source_id_;
+  SourceId no_handler_source_id_;
 
   DesktopCapturer::SourceList window_list_;
 };

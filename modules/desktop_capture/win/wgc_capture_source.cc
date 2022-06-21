@@ -25,7 +25,7 @@ namespace WGC = ABI::Windows::Graphics::Capture;
 
 namespace webrtc {
 
-WgcCaptureSource::WgcCaptureSource(DesktopCapturer::SourceId source_id)
+WgcCaptureSource::WgcCaptureSource(SourceId source_id)
     : source_id_(source_id) {}
 WgcCaptureSource::~WgcCaptureSource() = default;
 
@@ -69,7 +69,7 @@ WgcWindowSourceFactory::WgcWindowSourceFactory() = default;
 WgcWindowSourceFactory::~WgcWindowSourceFactory() = default;
 
 std::unique_ptr<WgcCaptureSource> WgcWindowSourceFactory::CreateCaptureSource(
-    DesktopCapturer::SourceId source_id) {
+    SourceId source_id) {
   return std::make_unique<WgcWindowSource>(source_id);
 }
 
@@ -77,11 +77,11 @@ WgcScreenSourceFactory::WgcScreenSourceFactory() = default;
 WgcScreenSourceFactory::~WgcScreenSourceFactory() = default;
 
 std::unique_ptr<WgcCaptureSource> WgcScreenSourceFactory::CreateCaptureSource(
-    DesktopCapturer::SourceId source_id) {
+    SourceId source_id) {
   return std::make_unique<WgcScreenSource>(source_id);
 }
 
-WgcWindowSource::WgcWindowSource(DesktopCapturer::SourceId source_id)
+WgcWindowSource::WgcWindowSource(SourceId source_id)
     : WgcCaptureSource(source_id) {}
 WgcWindowSource::~WgcWindowSource() = default;
 
@@ -145,7 +145,7 @@ HRESULT WgcWindowSource::CreateCaptureItem(
   return hr;
 }
 
-WgcScreenSource::WgcScreenSource(DesktopCapturer::SourceId source_id)
+WgcScreenSource::WgcScreenSource(SourceId source_id)
     : WgcCaptureSource(source_id) {
   // Getting the HMONITOR could fail if the source_id is invalid. In that case,
   // we leave hmonitor_ uninitialized and `IsCapturable()` will fail.

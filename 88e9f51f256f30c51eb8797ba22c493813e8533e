@@ -16,6 +16,46 @@
       "message": "Addressed comments, I hope.\n",
       "revId": "88e9f51f256f30c51eb8797ba22c493813e8533e",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "506777eb_815b9402",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 3
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2022-06-21T09:23:04Z",
+      "side": 1,
+      "message": "nit: Please break lines of the paragraphs to appropriate length, when viewed as a plain text file. It looks like some paragraphs are now single long lines. (E.g., M-q in emacs).",
+      "revId": "88e9f51f256f30c51eb8797ba22c493813e8533e",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "75ba8ecf_f6c9708c",
+        "filename": "g3doc/implementation_basics.md",
+        "patchSetId": 3
+      },
+      "lineNbr": 52,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2022-06-21T09:23:04Z",
+      "side": 1,
+      "message": "Spelling",
+      "range": {
+        "startLine": 52,
+        "startChar": 174,
+        "endLine": 52,
+        "endChar": 182
+      },
+      "revId": "88e9f51f256f30c51eb8797ba22c493813e8533e",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "6cdee33a_b57ac3bf",
+        "filename": "api/peer_connection_interface.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 1437,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2022-06-21T06:12:43Z",
+      "side": 1,
+      "message": "Nit: when reading, it is not obvious if the comment refers to the line above or the line below. Say `network_monitor_factory` instead of \"this\"? (Similar on previous comment.)",
+      "revId": "8f9fb244fb6947d520a891b935c460bed538ac3c",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

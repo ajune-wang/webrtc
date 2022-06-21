@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "8fde5df8_6c6d6154",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2022-06-21T08:05:40Z",
+      "side": 1,
+      "message": "The comment fix left out of previous cl.",
+      "revId": "59e2311b6898c9fd459e9ab34ff7586282f78391",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

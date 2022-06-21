@@ -57,6 +57,48 @@
       },
       "revId": "4b1c2c6ce4fc4909a13f676f4ac78f8f62e48446",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "03a52ab4_78a5fd20",
+        "filename": "g3doc/implementation_basics.md",
+        "patchSetId": 2
+      },
+      "lineNbr": 48,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2022-06-21T07:33:39Z",
+      "side": 1,
+      "message": "Added a note about when FooFactory is useful. Suggested the name CreateFoo() for a free function that creates a Foo.",
+      "parentUuid": "e652082f_fead3cac",
+      "revId": "4b1c2c6ce4fc4909a13f676f4ac78f8f62e48446",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "b1093cec_55380bca",
+        "filename": "g3doc/implementation_basics.md",
+        "patchSetId": 2
+      },
+      "lineNbr": 48,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2022-06-21T07:33:39Z",
+      "side": 1,
+      "message": "The extra statement should clarify that the factory does *not* retain a reference. I changed it to \"Ownership of the returned object is only with the caller\".",
+      "parentUuid": "70612806_8cb2397d",
+      "range": {
+        "startLine": 48,
+        "startChar": 258,
+        "endLine": 48,
+        "endChar": 310
+      },
+      "revId": "4b1c2c6ce4fc4909a13f676f4ac78f8f62e48446",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

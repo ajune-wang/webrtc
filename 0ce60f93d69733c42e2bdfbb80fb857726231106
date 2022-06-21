@@ -303,6 +303,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "5ac8f16a_c1f6688b",
+        "filename": "g3doc/implementation_basics.md",
+        "patchSetId": 1
+      },
+      "lineNbr": 50,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2022-06-21T07:33:39Z",
+      "side": 1,
+      "message": "Added text about invocation and that C++ will police the \"once\" requirement for you.",
+      "parentUuid": "ba81d407_25adebde",
+      "range": {
+        "startLine": 50,
+        "startChar": 86,
+        "endLine": 50,
+        "endChar": 119
+      },
+      "revId": "0ce60f93d69733c42e2bdfbb80fb857726231106",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "05acaae3_318b96c1",
         "filename": "g3doc/implementation_basics.md",
         "patchSetId": 1
@@ -379,6 +403,30 @@
       "side": 1,
       "message": "at least add an option to return Foo\u0026 (as an indication Create function can\u0027t fail)",
       "parentUuid": "8fbc6612_a3eea4e8",
+      "range": {
+        "startLine": 52,
+        "startChar": 101,
+        "endLine": 52,
+        "endChar": 108
+      },
+      "revId": "0ce60f93d69733c42e2bdfbb80fb857726231106",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "10fdc797_81ca8e86",
+        "filename": "g3doc/implementation_basics.md",
+        "patchSetId": 1
+      },
+      "lineNbr": 52,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2022-06-21T07:33:39Z",
+      "side": 1,
+      "message": "Added option (with caveat).",
+      "parentUuid": "18fb316a_3d44eefa",
       "range": {
         "startLine": 52,
         "startChar": 101,

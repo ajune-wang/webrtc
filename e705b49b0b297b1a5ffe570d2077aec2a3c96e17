@@ -24,6 +24,30 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "d24e310c_57829700",
+        "filename": "test/pc/e2e/analyzer/video/single_process_encoded_image_data_injector.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 66,
+      "author": {
+        "id": 6337
+      },
+      "writtenOn": "2022-06-21T07:38:20Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "ce101488_f9c1cddd",
+      "range": {
+        "startLine": 65,
+        "startChar": 70,
+        "endLine": 66,
+        "endChar": 51
+      },
+      "revId": "e705b49b0b297b1a5ffe570d2077aec2a3c96e17",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "0cee136d_49436232",
@@ -37,6 +61,30 @@
       "writtenOn": "2022-06-21T06:52:33Z",
       "side": 1,
       "message": "How do we know that all the participants in the call have received the frame?\n\nFor example:\n\n* 3 participants (a, b, c)\n* frame is received by (a, b)\n* b leaves the call\n* we remove the frame from the extraction cache even if c hasn\u0027t received the frame and c is still in the call",
+      "range": {
+        "startLine": 67,
+        "startChar": 2,
+        "endLine": 76,
+        "endChar": 3
+      },
+      "revId": "e705b49b0b297b1a5ffe570d2077aec2a3c96e17",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "2deb7584_13c7bcf4",
+        "filename": "test/pc/e2e/analyzer/video/single_process_encoded_image_data_injector.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 76,
+      "author": {
+        "id": 6337
+      },
+      "writtenOn": "2022-06-21T07:38:20Z",
+      "side": 1,
+      "message": "Frame is received if `received_count` equals to `expected_receivers_count_`. Added a comment",
+      "parentUuid": "0cee136d_49436232",
       "range": {
         "startLine": 67,
         "startChar": 2,
@@ -70,6 +118,30 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "e87462bd_17240bb9",
+        "filename": "test/pc/e2e/analyzer/video/single_process_encoded_image_data_injector_unittest.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 340,
+      "author": {
+        "id": 6337
+      },
+      "writtenOn": "2022-06-21T07:38:20Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "42cb2f8d_331e6564",
+      "range": {
+        "startLine": 340,
+        "startChar": 17,
+        "endLine": 340,
+        "endChar": 18
+      },
+      "revId": "e705b49b0b297b1a5ffe570d2077aec2a3c96e17",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "c56d0c74_caa4f28a",
@@ -83,6 +155,30 @@
       "writtenOn": "2022-06-21T06:52:33Z",
       "side": 1,
       "message": "/*n\u003d*/\n\n(and \"x\" for the other one).",
+      "range": {
+        "startLine": 342,
+        "startChar": 72,
+        "endLine": 342,
+        "endChar": 74
+      },
+      "revId": "e705b49b0b297b1a5ffe570d2077aec2a3c96e17",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "21a90429_cd08b337",
+        "filename": "test/pc/e2e/analyzer/video/single_process_encoded_image_data_injector_unittest.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 342,
+      "author": {
+        "id": 6337
+      },
+      "writtenOn": "2022-06-21T07:38:20Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "c56d0c74_caa4f28a",
       "range": {
         "startLine": 342,
         "startChar": 72,
@@ -116,6 +212,30 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "3fa34fcc_4b55f5c9",
+        "filename": "test/pc/e2e/analyzer/video/single_process_encoded_image_data_injector_unittest.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 394,
+      "author": {
+        "id": 6337
+      },
+      "writtenOn": "2022-06-21T07:38:20Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "67774814_175d1ea8",
+      "range": {
+        "startLine": 394,
+        "startChar": 5,
+        "endLine": 394,
+        "endChar": 46
+      },
+      "revId": "e705b49b0b297b1a5ffe570d2077aec2a3c96e17",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "9b4805d1_eeaccbba",
@@ -129,6 +249,30 @@
       "writtenOn": "2022-06-21T06:52:33Z",
       "side": 1,
       "message": "I don\u0027t remember why we have an RTC_ version of this (https://source.chromium.org/chromium/chromium/src/+/main:third_party/webrtc/test/testsupport/rtc_expect_death.h), do you remember?",
+      "range": {
+        "startLine": 417,
+        "startChar": 2,
+        "endLine": 417,
+        "endChar": 14
+      },
+      "revId": "e705b49b0b297b1a5ffe570d2077aec2a3c96e17",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "608a2a29_7b24806d",
+        "filename": "test/pc/e2e/analyzer/video/single_process_encoded_image_data_injector_unittest.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 417,
+      "author": {
+        "id": 6337
+      },
+      "writtenOn": "2022-06-21T07:38:20Z",
+      "side": 1,
+      "message": "I don\u0027t know, but as I see EXPECT_DEATH is used more widely in the code base",
+      "parentUuid": "9b4805d1_eeaccbba",
       "range": {
         "startLine": 417,
         "startChar": 2,

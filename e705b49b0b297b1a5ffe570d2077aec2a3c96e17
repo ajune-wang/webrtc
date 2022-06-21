@@ -119,6 +119,30 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "ce1763dd_0dca9a53",
+        "filename": "test/pc/e2e/analyzer/video/single_process_encoded_image_data_injector.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 76,
+      "author": {
+        "id": 6337
+      },
+      "writtenOn": "2022-06-21T07:58:52Z",
+      "side": 1,
+      "message": "Yep, here we care only about total number of receivers.",
+      "parentUuid": "c48e5e5b_98c77d36",
+      "range": {
+        "startLine": 67,
+        "startChar": 2,
+        "endLine": 76,
+        "endChar": 3
+      },
+      "revId": "e705b49b0b297b1a5ffe570d2077aec2a3c96e17",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "42cb2f8d_331e6564",

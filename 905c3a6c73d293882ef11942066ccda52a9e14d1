@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "c410201e_6c08ca98",
+        "filename": "pc/peer_connection_factory_unittest.cc",
+        "patchSetId": 8
+      },
+      "lineNbr": 535,
+      "author": {
+        "id": 5053
+      },
+      "writtenOn": "2022-06-21T20:25:50Z",
+      "side": 1,
+      "message": "I\u0027m curious how this even works, since no sockets should be created unless you set a local description? Anyway, if the issue on android is that there are no networks except the loopback interface, you could set the network_ignore_mask to 0 to allow use of loopback addresses.",
+      "revId": "905c3a6c73d293882ef11942066ccda52a9e14d1",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

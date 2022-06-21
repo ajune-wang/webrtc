@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "c368dae7_531d0369",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 4
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2022-06-21T07:18:44Z",
+      "side": 1,
+      "message": "All of ProcessThread can be deleted now, but I prefer to split even deletion changes into several steps.\nThis one removes ProcessThread from production code.",
+      "revId": "ceeeb026e5048633d4d6ab01dbaacd5e02986a99",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

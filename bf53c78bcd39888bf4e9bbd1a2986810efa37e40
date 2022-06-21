@@ -22,6 +22,30 @@
       },
       "revId": "bf53c78bcd39888bf4e9bbd1a2986810efa37e40",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "a99e6e91_c1660807",
+        "filename": "api/video/encoded_image.h",
+        "patchSetId": 13
+      },
+      "lineNbr": 105,
+      "author": {
+        "id": 7036
+      },
+      "writtenOn": "2022-06-21T13:12:59Z",
+      "side": 1,
+      "message": "I don\u0027t think so, those are supposed to represent the codec specific payload information in RTP packets. We can maybe still do some refactoring there later though.",
+      "parentUuid": "1624a08c_bc0ba282",
+      "range": {
+        "startLine": 100,
+        "startChar": 0,
+        "endLine": 105,
+        "endChar": 3
+      },
+      "revId": "bf53c78bcd39888bf4e9bbd1a2986810efa37e40",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

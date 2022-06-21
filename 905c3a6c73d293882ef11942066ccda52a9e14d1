@@ -3,6 +3,23 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "4df3d138_40d32497",
+        "filename": "api/peer_connection_interface.h",
+        "patchSetId": 8
+      },
+      "lineNbr": 1424,
+      "author": {
+        "id": 5053
+      },
+      "writtenOn": "2022-06-21T20:28:07Z",
+      "side": 1,
+      "message": "Although there is no way to DCHECK for this anymore, we should call out the fact that this factory won\u0027t end up being used if you pass in a custom PortAllocator to CreatePeerConnection",
+      "revId": "905c3a6c73d293882ef11942066ccda52a9e14d1",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "c410201e_6c08ca98",
         "filename": "pc/peer_connection_factory_unittest.cc",
         "patchSetId": 8
@@ -14,6 +31,24 @@
       "writtenOn": "2022-06-21T20:25:50Z",
       "side": 1,
       "message": "I\u0027m curious how this even works, since no sockets should be created unless you set a local description? Anyway, if the issue on android is that there are no networks except the loopback interface, you could set the network_ignore_mask to 0 to allow use of loopback addresses.",
+      "revId": "905c3a6c73d293882ef11942066ccda52a9e14d1",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "036e8cf8_a6134eac",
+        "filename": "pc/peer_connection_factory_unittest.cc",
+        "patchSetId": 8
+      },
+      "lineNbr": 535,
+      "author": {
+        "id": 5053
+      },
+      "writtenOn": "2022-06-21T20:28:07Z",
+      "side": 1,
+      "message": "Or alternatively, wait until you can inject a fake network manager as well, and can control the networks observed.",
+      "parentUuid": "c410201e_6c08ca98",
       "revId": "905c3a6c73d293882ef11942066ccda52a9e14d1",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }

@@ -46,6 +46,30 @@
       },
       "revId": "bf53c78bcd39888bf4e9bbd1a2986810efa37e40",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "f16d4c81_3892fef0",
+        "filename": "api/video/encoded_image.h",
+        "patchSetId": 13
+      },
+      "lineNbr": 105,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2022-06-21T13:43:28Z",
+      "side": 1,
+      "message": "I\u0027m looking at EncodedImageCallback, with the method\n\n  virtual Result OnEncodedImage(\n      const EncodedImage\u0026 encoded_image,\n      const CodecSpecificInfo* codec_specific_info) \u003d 0;\n\nIt seems unnecessary to include temporalIdx in both of those two arguments. \n\nMy gut feeling is that everything needed to be put the image onto the wire (on send side) and everything needed to be able to decoded it (on receive side) should be attached directly to the EncodedImage. Currently, I think the send side stores additional metadata in the CodecSpecificInfo, while the receive side stores similar info in some of the half-dozen subclasses of EncodedImage.",
+      "parentUuid": "a99e6e91_c1660807",
+      "range": {
+        "startLine": 100,
+        "startChar": 0,
+        "endLine": 105,
+        "endChar": 3
+      },
+      "revId": "bf53c78bcd39888bf4e9bbd1a2986810efa37e40",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

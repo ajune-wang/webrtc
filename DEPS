@@ -10,7 +10,7 @@ vars = {
   # chromium waterfalls. More info at: crbug.com/570091.
   'checkout_configuration': 'default',
   'checkout_instrumented_libraries': 'checkout_linux and checkout_configuration == "default"',
-  'chromium_revision': '18554d103efa4782745de4ea12048a3ad64924f3',
+  'chromium_revision': 'b468cc4fc110f0966914788707b402f383fc2066',
 
   # Keep the Chromium default of generating location tags.
   'generate_location_tags': True,
@@ -27,7 +27,7 @@ deps = {
   # TODO(kjellander): Move this to be Android-only once the libevent dependency
   # in base/third_party/libevent is solved.
   'src/base':
-    'https://chromium.googlesource.com/chromium/src/base@957ba2a101e1b741ed0051d62fa1c1cb13f644f3',
+    'https://chromium.googlesource.com/chromium/src/base@6868b3234ab516ea648af221776603b4bc7b79ed',
   'src/build':
     'https://chromium.googlesource.com/chromium/src/build@7eec98d54067738ee1e436132e35b705b9f734b6',
   'src/buildtools':
@@ -38,13 +38,13 @@ deps = {
     'condition': 'checkout_android',
   },
   'src/ios': {
-    'url': 'https://chromium.googlesource.com/chromium/src/ios@9f69d49fd71bba89d71cee242f4818dea76d6481',
+    'url': 'https://chromium.googlesource.com/chromium/src/ios@089bde89420193cd4983412f1e3bc72e2d8b1d9b',
     'condition': 'checkout_ios',
   },
   'src/testing':
     'https://chromium.googlesource.com/chromium/src/testing@7b1f11a4c872cb45756eb80ddc8cd8aa719b1700',
   'src/third_party':
-    'https://chromium.googlesource.com/chromium/src/third_party@0d4a31585e7b2a9b87a6bfdc2a6a6903aa0a5c42',
+    'https://chromium.googlesource.com/chromium/src/third_party@0f7256042f2132dd33f46773990a132662edfd14',
 
   'src/buildtools/linux64': {
     'packages': [
@@ -166,7 +166,7 @@ deps = {
   },
   # WebRTC-only dependency (not present in Chromium).
   'src/third_party/gtest-parallel':
-    'https://chromium.googlesource.com/external/github.com/google/gtest-parallel@e28fc0e83f54105af859e68e068e3ec05d87c3b7',
+    'https://chromium.googlesource.com/external/github.com/google/gtest-parallel@f4d65b555894b301699c7c3c52906f72ea052e83',
   'src/third_party/google-truth': {
       'packages': [
           {
@@ -275,7 +275,7 @@ deps = {
     'condition': 'checkout_win',
   },
   'src/tools':
-    'https://chromium.googlesource.com/chromium/src/tools@beea5f845f8ba359223e6904580cc21768587230',
+    'https://chromium.googlesource.com/chromium/src/tools@ff5f0a8e7b294d7268402451c5aa5c20e86878f5',
 
   'src/third_party/accessibility_test_framework': {
       'packages': [

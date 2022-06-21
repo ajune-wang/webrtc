@@ -24,6 +24,7 @@
 #include "rtc_base/thread.h"
 #include "rtc_base/time_utils.h"
 #include "rtc_base/win/scoped_com_initializer.h"
+#include "rtc_base/win/windows_version.h"
 #include "system_wrappers/include/metrics.h"
 #include "system_wrappers/include/sleep.h"
 #include "test/gtest.h"
@@ -49,6 +50,13 @@ const int kSourceClosed = 1;
 const char kCaptureTimeHistogram[] =
     "WebRTC.DesktopCapture.Win.WgcCapturerFrameTime";
 
+// The capturer keeps two frames in its frame pool, so we need to request two
+// frames to clear those out. The third frame will have any changes to the
+// source's size (if any) and we will resize the frame pool. Then, we need to
+// clear the frames that made it into the frame pool before the resize. Finally,
+// the fifth frame will be the new size.
+const int kNumCapturesToFlushBuffers = 5;
+
 const int kSmallWindowWidth = 200;
 const int kSmallWindowHeight = 100;
 const int kMediumWindowWidth = 300;
@@ -65,6 +73,8 @@ const int kWindowHeightSubtrahend = 7;
 // and quit running.
 const UINT kDestroyWindow = WM_APP;
 const UINT kQuitRunning = WM_APP + 1;
+
+const int kMaxTries = 50;
 
 }  // namespace
 
@@ -185,20 +195,26 @@ class WgcCapturerWinTest : public ::testing::TestWithParam<CaptureType>,
     return sources[0].id;
   }
 
-  void DoCapture() {
+  void DoCapture(int num_captures = 1) {
     // Sometimes the first few frames are empty becaues the capture engine is
     // still starting up. We also may drop a few frames when the window is
     // resized or un-minimized.
+    int num_tries = 0;
+    int pre_successful_count = successful_captures_;
     do {
       capturer_->CaptureFrame();
-    } while (result_ == DesktopCapturer::Result::ERROR_TEMPORARY);
+      if (result_ == DesktopCapturer::Result::ERROR_PERMANENT)
+        break;
+      if (result_ == DesktopCapturer::Result::SUCCESS)
+        successful_captures_++;
+    } while (successful_captures_ < pre_successful_count + num_captures &&
+             ++num_tries < kMaxTries);
 
     EXPECT_EQ(result_, DesktopCapturer::Result::SUCCESS);
     EXPECT_TRUE(frame_);
 
-    EXPECT_GT(metrics::NumEvents(kCapturerResultHistogram, kSuccess),
+    EXPECT_GE(metrics::NumEvents(kCapturerResultHistogram, kSuccess),
               successful_captures_);
-    ++successful_captures_;
   }
 
   void ValidateFrame(int expected_width, int expected_height) {
@@ -206,8 +222,7 @@ class WgcCapturerWinTest : public ::testing::TestWithParam<CaptureType>,
     EXPECT_EQ(frame_->size().height(),
               expected_height - kWindowHeightSubtrahend);
 
-    // Verify the buffer contains as much data as it should, and that the right
-    // colors are found.
+    // Verify the buffer contains as much data as it should.
     int data_length = frame_->stride() * frame_->size().height();
 
     // The first and last pixel should have the same color because they will be
@@ -219,7 +234,7 @@ class WgcCapturerWinTest : public ::testing::TestWithParam<CaptureType>,
     EXPECT_EQ(first_pixel, last_pixel);
 
     // Let's also check a pixel from the middle of the content area, which the
-    // TestWindow will paint a consistent color for us to verify.
+    // test window will paint a consistent color for us to verify.
     uint8_t* middle_pixel = frame_->data() + (data_length / 2);
 
     int sub_pixel_offset = DesktopFrame::kBytesPerPixel / 4;
@@ -299,6 +314,22 @@ TEST_P(WgcCapturerWinTest, Capture) {
   EXPECT_GT(frame_->size().height(), 0);
 }
 
+TEST_P(WgcCapturerWinTest, FirstCaptureSucceeds) {
+  if (GetParam() == CaptureType::kWindow) {
+    SetUpForWindowCapture();
+  } else {
+    SetUpForScreenCapture();
+  }
+
+  EXPECT_TRUE(capturer_->SelectSource(source_id_));
+
+  capturer_->Start(this);
+  capturer_->CaptureFrame();
+  EXPECT_EQ(result_, DesktopCapturer::Result::SUCCESS);
+  EXPECT_GT(frame_->size().width(), 0);
+  EXPECT_GT(frame_->size().height(), 0);
+}
+
 TEST_P(WgcCapturerWinTest, CaptureTime) {
   if (GetParam() == CaptureType::kWindow) {
     SetUpForWindowCapture();
@@ -310,10 +341,12 @@ TEST_P(WgcCapturerWinTest, CaptureTime) {
   capturer_->Start(this);
 
   int64_t start_time;
+  int num_tries = 0;
   do {
     start_time = rtc::TimeNanos();
     capturer_->CaptureFrame();
-  } while (result_ == DesktopCapturer::Result::ERROR_TEMPORARY);
+  } while (result_ == DesktopCapturer::Result::ERROR_TEMPORARY &&
+           ++num_tries < kMaxTries);
 
   int capture_time_ms =
       (rtc::TimeNanos() - start_time) / rtc::kNumNanosecsPerMillisec;
@@ -341,6 +374,13 @@ TEST(WgcCapturerNoMonitorTest, NoMonitors) {
   // A bug in `CreateForMonitor` prevents screen capture when no displays are
   // attached.
   EXPECT_FALSE(IsWgcSupported(CaptureType::kScreen));
+
+  // A bug in the DWM (Desktop Window Manager) that prevents it from providing
+  // image data if there are no displays attached. This was fixed in Windows 11.
+  if (rtc::rtc_win::GetVersion() < rtc::rtc_win::Version::VERSION_WIN11)
+    EXPECT_FALSE(IsWgcSupported(CaptureType::kWindow));
+  else
+    EXPECT_TRUE(IsWgcSupported(CaptureType::kWindow));
 }
 
 class WgcCapturerMonitorTest : public WgcCapturerWinTest {
@@ -452,15 +492,11 @@ TEST_F(WgcCapturerWindowTest, IncreaseWindowSizeMidCapture) {
   ValidateFrame(kSmallWindowWidth, kSmallWindowHeight);
 
   ResizeTestWindow(window_info_.hwnd, kSmallWindowWidth, kMediumWindowHeight);
-  DoCapture();
-  // We don't expect to see the new size until the next capture, as the frame
-  // pool hadn't had a chance to resize yet to fit the new, larger image.
-  DoCapture();
+  DoCapture(kNumCapturesToFlushBuffers);
   ValidateFrame(kSmallWindowWidth, kMediumWindowHeight);
 
   ResizeTestWindow(window_info_.hwnd, kLargeWindowWidth, kMediumWindowHeight);
-  DoCapture();
-  DoCapture();
+  DoCapture(kNumCapturesToFlushBuffers);
   ValidateFrame(kLargeWindowWidth, kMediumWindowHeight);
 }
 
@@ -473,13 +509,11 @@ TEST_F(WgcCapturerWindowTest, ReduceWindowSizeMidCapture) {
   ValidateFrame(kLargeWindowWidth, kLargeWindowHeight);
 
   ResizeTestWindow(window_info_.hwnd, kLargeWindowWidth, kMediumWindowHeight);
-  // We expect to see the new size immediately because the image data has shrunk
-  // and will fit in the existing buffer.
-  DoCapture();
+  DoCapture(kNumCapturesToFlushBuffers);
   ValidateFrame(kLargeWindowWidth, kMediumWindowHeight);
 
   ResizeTestWindow(window_info_.hwnd, kSmallWindowWidth, kMediumWindowHeight);
-  DoCapture();
+  DoCapture(kNumCapturesToFlushBuffers);
   ValidateFrame(kSmallWindowWidth, kMediumWindowHeight);
 }
 
@@ -491,7 +525,7 @@ TEST_F(WgcCapturerWindowTest, MinimizeWindowMidCapture) {
 
   // Minmize the window and capture should continue but return temporary errors.
   MinimizeTestWindow(window_info_.hwnd);
-  for (int i = 0; i < 10; ++i) {
+  for (int i = 0; i < 5; ++i) {
     capturer_->CaptureFrame();
     EXPECT_EQ(result_, DesktopCapturer::Result::ERROR_TEMPORARY);
   }
@@ -520,17 +554,23 @@ TEST_F(WgcCapturerWindowTest, CloseWindowMidCapture) {
   // stops.
   auto* wgc_capturer = static_cast<WgcCapturerWin*>(capturer_.get());
   MSG msg;
-  while (wgc_capturer->IsSourceBeingCaptured(source_id_)) {
+  int num_tries = 0;
+  while (wgc_capturer->IsSourceBeingCaptured(source_id_) &&
+         num_tries++ < kMaxTries) {
     // Unlike GetMessage, PeekMessage will not hang if there are no messages in
     // the queue.
     PeekMessage(&msg, 0, 0, 0, PM_REMOVE);
     SleepMs(1);
   }
 
-  // Occasionally, one last frame will have made it into the frame pool before
-  // the window closed. The first call will consume it, and in that case we need
-  // to make one more call to CaptureFrame.
+  EXPECT_FALSE(wgc_capturer->IsSourceBeingCaptured(source_id_));
+
+  // The frame pool can buffer `kNumBuffers` (2) frames. We must consume these
+  // and then make one more call to CaptureFrame before we expect to see the
+  // failure.
   capturer_->CaptureFrame();
+  if (result_ == DesktopCapturer::Result::SUCCESS)
+    capturer_->CaptureFrame();
   if (result_ == DesktopCapturer::Result::SUCCESS)
     capturer_->CaptureFrame();
 

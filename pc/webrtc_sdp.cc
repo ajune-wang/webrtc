@@ -221,7 +221,11 @@ static const char kSdpDelimiterSemicolonChar = ';';
 static const char kSdpDelimiterSlashChar = '/';
 static const char kNewLineChar = '\n';
 static const char kReturnChar = '\r';
+#if defined(WEBRTC_WIN)
 static const char kLineBreak[] = "\r\n";
+#else
+static const char kLineBreak[] = "\n";
+#endif
 
 // TODO(deadbeef): Generate the Session and Time description
 // instead of hardcoding.

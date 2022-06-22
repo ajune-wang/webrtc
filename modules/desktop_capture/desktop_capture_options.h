@@ -11,6 +11,8 @@
 #define MODULES_DESKTOP_CAPTURE_DESKTOP_CAPTURE_OPTIONS_H_
 
 #include "api/scoped_refptr.h"
+#include "rtc_base/checks.h"
+#include "rtc_base/logging.h"
 #include "rtc_base/system/rtc_export.h"
 
 #if defined(WEBRTC_USE_X11)
@@ -184,6 +186,39 @@ class RTC_EXPORT DesktopCaptureOptions {
   const rtc::scoped_refptr<SharedScreenCastStream>& screencast_stream() const {
     return screencast_stream_;
   }
+
+  const std::map<uint32_t, rtc::scoped_refptr<SharedScreenCastStream>>&
+  screencast_streams() const {
+    return screencast_streams_;
+  }
+
+  const rtc::scoped_refptr<SharedScreenCastStream>& screencast_streams(
+      uint32_t stream_id,
+      bool create_new = false) {
+    auto it = screencast_streams_.find(stream_id);
+    RTC_LOG(LS_ERROR) << ">>> screencapture streams found: "
+                      << (it != screencast_streams_.end());
+    RTC_DCHECK(it != screencast_streams_.end() || create_new);
+    if (it == screencast_streams_.end()) {
+      if (create_new) {
+        RTC_LOG(LS_ERROR) << ">>> Creating a new stream for stream id: "
+                          << stream_id;
+        screencast_streams_[stream_id] =
+            SharedScreenCastStream::CreateDefault();
+        RTC_LOG(LS_ERROR) << ">>> Returning a new stream for stream id: "
+                          << stream_id;
+        return screencast_streams_[stream_id];
+      }
+      RTC_DCHECK_NOTREACHED()
+          << "Callers must ensure that either the stream exists or that they "
+             "should explicitly create the stream by setting `create_new` to "
+             "true";
+    }
+    RTC_LOG(LS_ERROR) << ">>> Returning an existing stream for stream id: "
+                      << stream_id;
+    return it->second;
+  }
+
   void set_screencast_stream(
       rtc::scoped_refptr<SharedScreenCastStream> stream) {
     screencast_stream_ = stream;
@@ -205,6 +240,8 @@ class RTC_EXPORT DesktopCaptureOptions {
   // BaseCapturerPipeWire and MouseCursorMonitorPipeWire as cursor information
   // is sent together with screen content.
   rtc::scoped_refptr<SharedScreenCastStream> screencast_stream_;
+  std::map<uint32_t, rtc::scoped_refptr<SharedScreenCastStream>>
+      screencast_streams_;
 #endif
 #if defined(WEBRTC_MAC) && !defined(WEBRTC_IOS)
   rtc::scoped_refptr<DesktopConfigurationMonitor> configuration_monitor_;

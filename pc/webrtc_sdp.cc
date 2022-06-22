@@ -221,7 +221,11 @@ static const char kSdpDelimiterSemicolonChar = ';';
 static const char kSdpDelimiterSlashChar = '/';
 static const char kNewLineChar = '\n';
 static const char kReturnChar = '\r';
+#if defined(WEBRTC_WIN)
 static const char kLineBreak[] = "\r\n";
+#else
+static const char kLineBreak[] = "\n";
+#endif
 
 // TODO(deadbeef): Generate the Session and Time description
 // instead of hardcoding.
@@ -968,8 +972,13 @@ std::string SdpSerializeCandidate(const cricket::Candidate& candidate) {
   // just candidate:<candidate> not a=candidate:<blah>CRLF
   RTC_DCHECK(message.find("a=") == 0);
   message.erase(0, 2);
+#if defined(WEBRTC_WIN)
   RTC_DCHECK(message.find(kLineBreak) == message.size() - 2);
   message.resize(message.size() - 2);
+#else
+  RTC_DCHECK(message.find(kLineBreak) == message.size() - 1);
+  message.resize(message.size() - 1);
+#endif
   return message;
 }
 

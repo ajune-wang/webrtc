@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "39a4f90e_c0a7a5a4",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5527
+      },
+      "writtenOn": "2022-06-22T09:06:37Z",
+      "side": 1,
+      "message": "Johannes/Ilya, could you take a look at this? I think you know HDR and related Chrome integration problems the best.",
+      "revId": "e509e4efae8547ffbd063c8831f21f4ebb314f9c",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

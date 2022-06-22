@@ -1,0 +1,38 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "38858525_dc1ddc40",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2022-06-22T09:28:09Z",
+      "side": 1,
+      "message": "Looks good!\n",
+      "revId": "c2e2276a1544aa46edf979a15f7eb77f314faa20",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "eda7b09a_7c323e96",
+        "filename": "g3doc/field-trials.md",
+        "patchSetId": 2
+      },
+      "lineNbr": 43,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2022-06-22T09:28:09Z",
+      "side": 1,
+      "message": "final nit: - has the end date specified (singular/plural consistency).",
+      "revId": "c2e2276a1544aa46edf979a15f7eb77f314faa20",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

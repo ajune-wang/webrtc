@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "041410ca_ee811eec",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2022-06-22T16:01:41Z",
+      "side": 1,
+      "message": "The line break in correctly formed SDP is \\r\\n.\nI think we handle non-conformant SDP with just \\n, but that should be regarded as an \"accept what you get\".\nWe should always send \\r\\n.\n",
+      "revId": "dc9c6696e4dc5bbb46e97059f45a616dc74a7447",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

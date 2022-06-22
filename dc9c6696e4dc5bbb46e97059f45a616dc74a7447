@@ -16,6 +16,23 @@
       "message": "The line break in correctly formed SDP is \\r\\n.\nI think we handle non-conformant SDP with just \\n, but that should be regarded as an \"accept what you get\".\nWe should always send \\r\\n.\n",
       "revId": "dc9c6696e4dc5bbb46e97059f45a616dc74a7447",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "2a2c1708_332ec1eb",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2022-06-22T20:37:20Z",
+      "side": 1,
+      "message": "Note - since this is a function that chops a candidate down from the Cricket format of a\u003dcandidate:\u003ccandidate\u003e\\r\\n to just candidate\u003d\u003ccandidate\u003e, I would not mind at all changing the resize to a function that searched for either \\r or \\n to find the truncation point.\nBut since this string might have been extracted from properly formatted SDP, we need to accept \\r\\n no matter what the platform is.",
+      "revId": "dc9c6696e4dc5bbb46e97059f45a616dc74a7447",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

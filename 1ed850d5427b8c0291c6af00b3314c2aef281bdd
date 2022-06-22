@@ -1,0 +1,123 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "05336434_80132958",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2022-06-22T08:45:49Z",
+      "side": 1,
+      "message": "Looks good, I have nits (as always).\n",
+      "revId": "1ed850d5427b8c0291c6af00b3314c2aef281bdd",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "1007f391_fd46a166",
+        "filename": "g3doc/field-trials.md",
+        "patchSetId": 1
+      },
+      "lineNbr": 11,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2022-06-22T08:45:49Z",
+      "side": 1,
+      "message": "I\u0027d drop this section altogether. It adds no information.",
+      "revId": "1ed850d5427b8c0291c6af00b3314c2aef281bdd",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "ab81d543_108eae85",
+        "filename": "g3doc/field-trials.md",
+        "patchSetId": 1
+      },
+      "lineNbr": 13,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2022-06-22T08:45:49Z",
+      "side": 1,
+      "message": "Numeric consistency: A field trial consists of ....",
+      "revId": "1ed850d5427b8c0291c6af00b3314c2aef281bdd",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "15cc3e8b_87ee601a",
+        "filename": "g3doc/field-trials.md",
+        "patchSetId": 1
+      },
+      "lineNbr": 18,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2022-06-22T08:45:49Z",
+      "side": 1,
+      "message": "Suggest rephrasing as \"There are helper functions to use a field trial as a boolean, with \"Enabled\" returning true and \"Disabled\" returning false\".\n\nWill these helper functions throw an exception if something other than Enabled or Disabled is in the value field?\n\nShould we name those helper functions in the doc?",
+      "revId": "1ed850d5427b8c0291c6af00b3314c2aef281bdd",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "0608765a_310e4fe7",
+        "filename": "g3doc/field-trials.md",
+        "patchSetId": 1
+      },
+      "lineNbr": 25,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2022-06-22T08:45:49Z",
+      "side": 1,
+      "message": "Break the code line into a new line with ```before and after, for calling it out more loudly.",
+      "revId": "1ed850d5427b8c0291c6af00b3314c2aef281bdd",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "f4bc8af7_af3978da",
+        "filename": "g3doc/field-trials.md",
+        "patchSetId": 1
+      },
+      "lineNbr": 29,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2022-06-22T08:45:49Z",
+      "side": 1,
+      "message": "The policy for field trials is:",
+      "revId": "1ed850d5427b8c0291c6af00b3314c2aef281bdd",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "3b461da9_84f360f5",
+        "filename": "g3doc/field-trials.md",
+        "patchSetId": 1
+      },
+      "lineNbr": 41,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2022-06-22T08:45:49Z",
+      "side": 1,
+      "message": "Add: Adding a field trial that does not adhere to these rules may cause a runtime failure when debug mode is on.",
+      "revId": "1ed850d5427b8c0291c6af00b3314c2aef281bdd",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

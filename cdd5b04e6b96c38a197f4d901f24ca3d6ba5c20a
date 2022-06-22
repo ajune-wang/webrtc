@@ -24,6 +24,30 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": true,
+      "key": {
+        "uuid": "112f86ea_28070b8f",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 10,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2022-06-22T09:34:37Z",
+      "side": 1,
+      "message": "better?",
+      "parentUuid": "3aa50a24_5d90d1cf",
+      "range": {
+        "startLine": 9,
+        "startChar": 0,
+        "endLine": 10,
+        "endChar": 18
+      },
+      "revId": "cdd5b04e6b96c38a197f4d901f24ca3d6ba5c20a",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": false,
       "key": {
         "uuid": "e3e7dbc1_ca3351e1",
@@ -201,6 +225,30 @@
       "side": 1,
       "message": "Ok, so as a followup, one could delete such dummy methods (and not have the two classes share a common interface).",
       "parentUuid": "e2c9eba2_2679a2ad",
+      "range": {
+        "startLine": 181,
+        "startChar": 2,
+        "endLine": 181,
+        "endChar": 27
+      },
+      "revId": "cdd5b04e6b96c38a197f4d901f24ca3d6ba5c20a",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "fd15ff8f_8bcd0beb",
+        "filename": "modules/congestion_controller/receive_side_congestion_controller.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 181,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2022-06-22T09:34:37Z",
+      "side": 1,
+      "message": "Yes, that\u0027s my plan: Make RemoteEstimatorProxy a concrete class, without any noop functions\nand remove ReceiveSideCC::RemoteEstimatorWrapper, embed its functionality directly into ReceiveSideCC class",
+      "parentUuid": "4d7e0960_8c9f8971",
       "range": {
         "startLine": 181,
         "startChar": 2,

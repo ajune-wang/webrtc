@@ -37,6 +37,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "51b4009e_58d6b9cc",
+        "filename": "api/peer_connection_interface.h",
+        "patchSetId": 8
+      },
+      "lineNbr": 1424,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2022-06-22T07:13:25Z",
+      "side": 1,
+      "message": "I\u0027ll make a follow up cl with an additional comment.",
+      "parentUuid": "4df3d138_40d32497",
+      "revId": "905c3a6c73d293882ef11942066ccda52a9e14d1",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "c410201e_6c08ca98",
         "filename": "pc/peer_connection_factory_unittest.cc",
         "patchSetId": 8
@@ -84,6 +102,24 @@
       "side": 1,
       "message": "If you set pool size to \u003e 1, the PC will try to generate candidates before setLocalDescription is called, and have them ready to go when SLD is called, to speed things up.\n\nOf course, to create a candidate, you have to open a port, and that means opening a socket.",
       "parentUuid": "c410201e_6c08ca98",
+      "revId": "905c3a6c73d293882ef11942066ccda52a9e14d1",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "64aaddf4_48221a1e",
+        "filename": "pc/peer_connection_factory_unittest.cc",
+        "patchSetId": 8
+      },
+      "lineNbr": 535,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2022-06-22T07:13:25Z",
+      "side": 1,
+      "message": "In the reland, I worked around the issue by clearing the \"ignore mask\" (since the default is to discard local addresses, which are available even on an offline machine).",
+      "parentUuid": "440abc23_e69e9284",
       "revId": "905c3a6c73d293882ef11942066ccda52a9e14d1",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }

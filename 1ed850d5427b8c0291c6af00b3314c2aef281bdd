@@ -35,6 +35,24 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "f4b10490_e27a4b6b",
+        "filename": "g3doc/field-trials.md",
+        "patchSetId": 1
+      },
+      "lineNbr": 11,
+      "author": {
+        "id": 13704
+      },
+      "writtenOn": "2022-06-22T09:22:59Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "1007f391_fd46a166",
+      "revId": "1ed850d5427b8c0291c6af00b3314c2aef281bdd",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "ab81d543_108eae85",
@@ -48,6 +66,24 @@
       "writtenOn": "2022-06-22T08:45:49Z",
       "side": 1,
       "message": "Numeric consistency: A field trial consists of ....",
+      "revId": "1ed850d5427b8c0291c6af00b3314c2aef281bdd",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "c33f11ff_a99322a7",
+        "filename": "g3doc/field-trials.md",
+        "patchSetId": 1
+      },
+      "lineNbr": 13,
+      "author": {
+        "id": 13704
+      },
+      "writtenOn": "2022-06-22T09:22:59Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "ab81d543_108eae85",
       "revId": "1ed850d5427b8c0291c6af00b3314c2aef281bdd",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
@@ -69,6 +105,24 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "84b49b07_b347774a",
+        "filename": "g3doc/field-trials.md",
+        "patchSetId": 1
+      },
+      "lineNbr": 18,
+      "author": {
+        "id": 13704
+      },
+      "writtenOn": "2022-06-22T09:22:59Z",
+      "side": 1,
+      "message": "\u003e Suggest rephrasing as \"There are helper functions to use a field trial as a boolean, with \"Enabled\" returning true and \"Disabled\" returning false\".\n\nRephrased a bit with your suggestion as insperation.\n\n\u003e Will these helper functions throw an exception if something other than Enabled or Disabled is in the value field?\n\nNo, it only checks if any of these substrings exists anywhere.\n\n\u003e Should we name those helper functions in the doc?\n\nI added a link to the FieldTrialsView interface.",
+      "parentUuid": "15cc3e8b_87ee601a",
+      "revId": "1ed850d5427b8c0291c6af00b3314c2aef281bdd",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "0608765a_310e4fe7",
@@ -82,6 +136,24 @@
       "writtenOn": "2022-06-22T08:45:49Z",
       "side": 1,
       "message": "Break the code line into a new line with ```before and after, for calling it out more loudly.",
+      "revId": "1ed850d5427b8c0291c6af00b3314c2aef281bdd",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "cf5fbf54_f63522a7",
+        "filename": "g3doc/field-trials.md",
+        "patchSetId": 1
+      },
+      "lineNbr": 25,
+      "author": {
+        "id": 13704
+      },
+      "writtenOn": "2022-06-22T09:22:59Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "0608765a_310e4fe7",
       "revId": "1ed850d5427b8c0291c6af00b3314c2aef281bdd",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
@@ -103,6 +175,24 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "5ce2caab_2ae241e7",
+        "filename": "g3doc/field-trials.md",
+        "patchSetId": 1
+      },
+      "lineNbr": 29,
+      "author": {
+        "id": 13704
+      },
+      "writtenOn": "2022-06-22T09:22:59Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "f4bc8af7_af3978da",
+      "revId": "1ed850d5427b8c0291c6af00b3314c2aef281bdd",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "3b461da9_84f360f5",
@@ -116,6 +206,24 @@
       "writtenOn": "2022-06-22T08:45:49Z",
       "side": 1,
       "message": "Add: Adding a field trial that does not adhere to these rules may cause a runtime failure when debug mode is on.",
+      "revId": "1ed850d5427b8c0291c6af00b3314c2aef281bdd",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "49008f04_ae7bb755",
+        "filename": "g3doc/field-trials.md",
+        "patchSetId": 1
+      },
+      "lineNbr": 41,
+      "author": {
+        "id": 13704
+      },
+      "writtenOn": "2022-06-22T09:22:59Z",
+      "side": 1,
+      "message": "I\u0027d rather add that when the run-time checks are actually in place.",
+      "parentUuid": "3b461da9_84f360f5",
       "revId": "1ed850d5427b8c0291c6af00b3314c2aef281bdd",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }

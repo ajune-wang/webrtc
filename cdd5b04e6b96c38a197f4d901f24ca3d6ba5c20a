@@ -1,6 +1,29 @@
 {
   "comments": [
     {
+      "unresolved": true,
+      "key": {
+        "uuid": "3aa50a24_5d90d1cf",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 10,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2022-06-22T09:21:54Z",
+      "side": 1,
+      "message": "I find this a bit hard to read, can you rephrase as a complete sentence?",
+      "range": {
+        "startLine": 9,
+        "startChar": 0,
+        "endLine": 10,
+        "endChar": 18
+      },
+      "revId": "cdd5b04e6b96c38a197f4d901f24ca3d6ba5c20a",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": false,
       "key": {
         "uuid": "e3e7dbc1_ca3351e1",
@@ -49,6 +72,23 @@
       "side": 1,
       "message": "you remember right:\nremote_bitrate_estimator_ is the actual receive side bwe\nremote_estimator_proxy_ doesn\u0027t estimate, doesn\u0027t proxy, but produces acks (TransportFeedback) messages so that other endpoint can do send side bwe.",
       "parentUuid": "3812b692_668cb18d",
+      "revId": "cdd5b04e6b96c38a197f4d901f24ca3d6ba5c20a",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "dd368457_11b71446",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2022-06-22T09:21:54Z",
+      "side": 1,
+      "message": "Looks good then, thanks for cleaning this up.",
       "revId": "cdd5b04e6b96c38a197f4d901f24ca3d6ba5c20a",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
@@ -137,6 +177,30 @@
       "side": 1,
       "message": "remote_estimator_proxy_.RemoveStream is always noop.\nhttps://source.chromium.org/chromium/chromium/src/+/main:third_party/webrtc/modules/remote_bitrate_estimator/remote_estimator_proxy.h;l\u003d66;drc\u003d122085543050977affa1a38041a33efab6f6609b",
       "parentUuid": "94184d4c_05c3c436",
+      "range": {
+        "startLine": 181,
+        "startChar": 2,
+        "endLine": 181,
+        "endChar": 27
+      },
+      "revId": "cdd5b04e6b96c38a197f4d901f24ca3d6ba5c20a",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "4d7e0960_8c9f8971",
+        "filename": "modules/congestion_controller/receive_side_congestion_controller.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 181,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2022-06-22T09:21:54Z",
+      "side": 1,
+      "message": "Ok, so as a followup, one could delete such dummy methods (and not have the two classes share a common interface).",
+      "parentUuid": "e2c9eba2_2679a2ad",
       "range": {
         "startLine": 181,
         "startChar": 2,

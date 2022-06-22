@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "e3e7dbc1_ca3351e1",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2022-06-22T08:14:58Z",
+      "side": 1,
+      "message": "Nisse, this is mostly to resolve your TODO\nDo you remember the reasons for it?\n\n(my reasons are not that strong: unexposing RBE interface would allow to remove few layers inside ReceiveSideCC, make it easier to read.)",
+      "revId": "cdd5b04e6b96c38a197f4d901f24ca3d6ba5c20a",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

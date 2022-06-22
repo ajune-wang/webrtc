@@ -16,6 +16,69 @@
       "message": "Nisse, this is mostly to resolve your TODO\nDo you remember the reasons for it?\n\n(my reasons are not that strong: unexposing RBE interface would allow to remove few layers inside ReceiveSideCC, make it easier to read.)",
       "revId": "cdd5b04e6b96c38a197f4d901f24ca3d6ba5c20a",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "3812b692_668cb18d",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2022-06-22T08:53:33Z",
+      "side": 1,
+      "message": "Not sure the removal of the send_side_bwe argument is done right.\n\n(And I\u0027m afraid I don\u0027t quite remember the responsibilities of remote_estimator_proxy_ vs remote_bitrate_estimator_. I think one is the actual (and old-style) receive-side estimator, and the other is an object that emits needed acks for the send side estimator at the other end).",
+      "revId": "cdd5b04e6b96c38a197f4d901f24ca3d6ba5c20a",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "f47bdd9b_9ff38fd4",
+        "filename": "modules/congestion_controller/receive_side_congestion_controller.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 173,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2022-06-22T08:53:33Z",
+      "side": 1,
+      "message": "Looks like the current call passes `send_side_bwe \u003d\u003d false`? Then we ought to use `remote_estimator_proxy_` instead?",
+      "range": {
+        "startLine": 173,
+        "startChar": 6,
+        "endLine": 173,
+        "endChar": 31
+      },
+      "revId": "cdd5b04e6b96c38a197f4d901f24ca3d6ba5c20a",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "94184d4c_05c3c436",
+        "filename": "modules/congestion_controller/receive_side_congestion_controller.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 181,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2022-06-22T08:53:33Z",
+      "side": 1,
+      "message": "Without the send_side_bwe argument, maybe call both remote_bitrate_estimator_-\u003eRemoveStream and remote_estimator_proxy_-\u003eRemoveStream?",
+      "range": {
+        "startLine": 181,
+        "startChar": 2,
+        "endLine": 181,
+        "endChar": 27
+      },
+      "revId": "cdd5b04e6b96c38a197f4d901f24ca3d6ba5c20a",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

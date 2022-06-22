@@ -18,6 +18,23 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "51ee2c84_ca1001a8",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5117
+      },
+      "writtenOn": "2022-06-22T10:07:34Z",
+      "side": 1,
+      "message": "Added Niels as reviewer, since he did review other I422 cls too.\n\nMoved Johannes to CC, since I think there are enough reviewers now.",
+      "revId": "e509e4efae8547ffbd063c8831f21f4ebb314f9c",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "789c3fa2_f33682bd",

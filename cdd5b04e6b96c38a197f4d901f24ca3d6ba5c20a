@@ -35,6 +35,24 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "d07fc2d2_b574acfd",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2022-06-22T09:02:17Z",
+      "side": 1,
+      "message": "you remember right:\nremote_bitrate_estimator_ is the actual receive side bwe\nremote_estimator_proxy_ doesn\u0027t estimate, doesn\u0027t proxy, but produces acks (TransportFeedback) messages so that other endpoint can do send side bwe.",
+      "parentUuid": "3812b692_668cb18d",
+      "revId": "cdd5b04e6b96c38a197f4d901f24ca3d6ba5c20a",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "f47bdd9b_9ff38fd4",
@@ -58,6 +76,30 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "73579d60_ea03bdf6",
+        "filename": "modules/congestion_controller/receive_side_congestion_controller.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 173,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2022-06-22T09:02:17Z",
+      "side": 1,
+      "message": "other way around:\nsend_size_bwe \u003d\u003d false \u003d\u003e use remote_bitrate_estimator_ (actual estimator)\n\n(side note: remote_estimator_proxy_.LatestEstmiate always returns false. Because it doesn\u0027t estimate bwe)",
+      "parentUuid": "f47bdd9b_9ff38fd4",
+      "range": {
+        "startLine": 173,
+        "startChar": 6,
+        "endLine": 173,
+        "endChar": 31
+      },
+      "revId": "cdd5b04e6b96c38a197f4d901f24ca3d6ba5c20a",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "94184d4c_05c3c436",
@@ -71,6 +113,30 @@
       "writtenOn": "2022-06-22T08:53:33Z",
       "side": 1,
       "message": "Without the send_side_bwe argument, maybe call both remote_bitrate_estimator_-\u003eRemoveStream and remote_estimator_proxy_-\u003eRemoveStream?",
+      "range": {
+        "startLine": 181,
+        "startChar": 2,
+        "endLine": 181,
+        "endChar": 27
+      },
+      "revId": "cdd5b04e6b96c38a197f4d901f24ca3d6ba5c20a",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "e2c9eba2_2679a2ad",
+        "filename": "modules/congestion_controller/receive_side_congestion_controller.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 181,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2022-06-22T09:02:17Z",
+      "side": 1,
+      "message": "remote_estimator_proxy_.RemoveStream is always noop.\nhttps://source.chromium.org/chromium/chromium/src/+/main:third_party/webrtc/modules/remote_bitrate_estimator/remote_estimator_proxy.h;l\u003d66;drc\u003d122085543050977affa1a38041a33efab6f6609b",
+      "parentUuid": "94184d4c_05c3c436",
       "range": {
         "startLine": 181,
         "startChar": 2,

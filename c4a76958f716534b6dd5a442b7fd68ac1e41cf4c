@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "afbdd654_19ff5f34",
+        "filename": "video/frame_buffer_proxy.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 465,
+      "author": {
+        "id": 5524
+      },
+      "writtenOn": "2022-06-22T14:06:43Z",
+      "side": 1,
+      "message": "nit: Couldn\u0027t this be `max_wait \u003d std::max(max_wait - TimeDelta::Millis(1), TimeDelta::Zero());` ?\n\notherwise the behavior is a bit odd at delta \u003c 1ms",
+      "range": {
+        "startLine": 463,
+        "startChar": 4,
+        "endLine": 465,
+        "endChar": 5
+      },
+      "revId": "c4a76958f716534b6dd5a442b7fd68ac1e41cf4c",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

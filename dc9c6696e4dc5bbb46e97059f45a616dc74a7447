@@ -33,6 +33,24 @@
       "message": "Note - since this is a function that chops a candidate down from the Cricket format of a\u003dcandidate:\u003ccandidate\u003e\\r\\n to just candidate\u003d\u003ccandidate\u003e, I would not mind at all changing the resize to a function that searched for either \\r or \\n to find the truncation point.\nBut since this string might have been extracted from properly formatted SDP, we need to accept \\r\\n no matter what the platform is.",
       "revId": "dc9c6696e4dc5bbb46e97059f45a616dc74a7447",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "eec9d462_41cc01a5",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5087
+      },
+      "writtenOn": "2022-06-22T20:41:26Z",
+      "side": 1,
+      "message": "Thanks. This makes sense.\n\nOk, let\u0027s abandon this one, I will send tell you what I was trying to solve, I suspect the issue might be somewhere else.",
+      "parentUuid": "2a2c1708_332ec1eb",
+      "revId": "dc9c6696e4dc5bbb46e97059f45a616dc74a7447",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

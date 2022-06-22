@@ -324,6 +324,7 @@ BasicPortAllocatorSession::BasicPortAllocatorSession(
       turn_port_prune_policy_(allocator->turn_port_prune_policy()) {
   TRACE_EVENT0("webrtc",
                "BasicPortAllocatorSession::BasicPortAllocatorSession");
+  RTC_DCHECK(socket_factory_);
   allocator_->network_manager()->SignalNetworksChanged.connect(
       this, &BasicPortAllocatorSession::OnNetworksChanged);
   allocator_->network_manager()->StartUpdating();

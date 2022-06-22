@@ -146,6 +146,7 @@ class PeerConnectionRampUpTest : public ::testing::Test {
         virtual_socket_server_(new rtc::VirtualSocketServer()),
         firewall_socket_server_(
             new rtc::FirewallSocketServer(virtual_socket_server_.get())),
+        packet_socket_factory_(firewall_socket_server_.get()),
         network_thread_(new rtc::Thread(firewall_socket_server_.get())),
         worker_thread_(rtc::Thread::Create()) {
     network_thread_->SetName("PCNetworkThread", this);
@@ -325,6 +326,7 @@ class PeerConnectionRampUpTest : public ::testing::Test {
   // up queue.
   std::unique_ptr<rtc::VirtualSocketServer> virtual_socket_server_;
   std::unique_ptr<rtc::FirewallSocketServer> firewall_socket_server_;
+  rtc::BasicPacketSocketFactory packet_socket_factory_;
   std::unique_ptr<rtc::Thread> network_thread_;
   std::unique_ptr<rtc::Thread> worker_thread_;
   // The `pc_factory` uses `network_thread_` & `worker_thread_`, so it must be

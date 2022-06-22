@@ -99,7 +99,7 @@ int main(int argc, char* argv[]) {
 
   rtc::InitializeSSL();
   // Must be constructed after we set the socketserver.
-  PeerConnectionClient client;
+  PeerConnectionClient client(&socket_server);
   auto conductor = rtc::make_ref_counted<Conductor>(&client, &wnd);
   socket_server.set_client(&client);
   socket_server.set_conductor(conductor.get());

@@ -19,13 +19,12 @@
 
 namespace webrtc {
 
-TestController::TestController(int min_port,
+TestController::TestController(rtc::SocketFactory* sf,
+                               int min_port,
                                int max_port,
                                const std::string& config_file_path,
                                const std::string& log_file_path)
-    // TODO(bugs.webrtc.org/13145): Add a SocketFactory argument.
-    : socket_factory_(
-          rtc::ThreadManager::Instance()->WrapCurrentThread()->socketserver()),
+    : socket_factory_(sf),
       config_file_path_(config_file_path),
       packet_logger_(log_file_path),
       local_test_done_(false),

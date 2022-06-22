@@ -11,8 +11,8 @@
 
 #include "p2p/base/stun_server.h"
 #include "rtc_base/async_udp_socket.h"
+#include "rtc_base/physical_socket_server.h"
 #include "rtc_base/socket_address.h"
-#include "rtc_base/socket_server.h"
 #include "rtc_base/thread.h"
 
 using cricket::StunServer;
@@ -29,21 +29,21 @@ int main(int argc, char* argv[]) {
     return 1;
   }
 
-  rtc::Thread* pthMain = rtc::Thread::Current();
+  rtc::PhysicalSocketServer socket_server;
+  rtc::AutoSocketServerThread main_thread(&socket_server);
 
   rtc::AsyncUDPSocket* server_socket =
-      rtc::AsyncUDPSocket::Create(pthMain->socketserver(), server_addr);
+      rtc::AsyncUDPSocket::Create(&socket_server, server_addr);
   if (!server_socket) {
     std::cerr << "Failed to create a UDP socket" << std::endl;
     return 1;
   }
 
-  StunServer* server = new StunServer(server_socket);
+  auto server = std::make_unique<StunServer>(server_socket);
 
   std::cout << "Listening at " << server_addr.ToString() << std::endl;
 
-  pthMain->Run();
+  main_thread.Run();
 
-  delete server;
   return 0;
 }

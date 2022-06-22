@@ -16,8 +16,12 @@
 #include "api/ice_transport_factory.h"
 #include "api/make_ref_counted.h"
 #include "api/scoped_refptr.h"
+#include "p2p/base/basic_packet_socket_factory.h"
 #include "p2p/base/fake_ice_transport.h"
 #include "p2p/base/fake_port_allocator.h"
+#include "rtc_base/gunit.h"
+#include "rtc_base/null_socket_server.h"
+#include "test/gmock.h"
 #include "test/gtest.h"
 
 namespace webrtc {
@@ -37,9 +41,11 @@ TEST_F(IceTransportTest, CreateNonSelfDeletingTransport) {
   EXPECT_NE(ice_transport->internal(), cricket_transport.get());
 }
 
-TEST_F(IceTransportTest, CreateSelfDeletingTransport) {
+TEST(IceTransportTest, CreateSelfDeletingTransport) {
+  rtc::NullSocketServer null_socket_server;
+  rtc::BasicPacketSocketFactory socket_factory(&null_socket_server);
   std::unique_ptr<cricket::FakePortAllocator> port_allocator(
-      std::make_unique<cricket::FakePortAllocator>(nullptr, nullptr));
+      std::make_unique<cricket::FakePortAllocator>(nullptr, &socket_factory));
   IceTransportInit init;
   init.set_port_allocator(port_allocator.get());
   auto ice_transport = CreateIceTransport(std::move(init));

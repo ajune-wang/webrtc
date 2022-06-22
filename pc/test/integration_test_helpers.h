@@ -1397,6 +1397,7 @@ class PeerConnectionIntegrationBaseTest : public ::testing::Test {
       : sdp_semantics_(sdp_semantics),
         ss_(new rtc::VirtualSocketServer()),
         fss_(new rtc::FirewallSocketServer(ss_.get())),
+        packet_socket_factory_(fss_.get()),
         network_thread_(new rtc::Thread(fss_.get())),
         worker_thread_(rtc::Thread::Create()),
         // TODO(bugs.webrtc.org/10335): Pass optional ScopedKeyValueConfig.
@@ -1929,6 +1930,7 @@ class PeerConnectionIntegrationBaseTest : public ::testing::Test {
   // `ss_` is used by `network_thread_` so it must be destroyed later.
   std::unique_ptr<rtc::VirtualSocketServer> ss_;
   std::unique_ptr<rtc::FirewallSocketServer> fss_;
+  rtc::BasicPacketSocketFactory packet_socket_factory_;
   // `network_thread_` and `worker_thread_` are used by both
   // `caller_` and `callee_` so they must be destroyed
   // later.

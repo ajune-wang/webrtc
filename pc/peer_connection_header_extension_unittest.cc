@@ -31,6 +31,7 @@
 #include "api/task_queue/task_queue_factory.h"
 #include "media/base/fake_media_engine.h"
 #include "media/base/media_engine.h"
+#include "p2p/base/basic_packet_socket_factory.h"
 #include "p2p/base/fake_port_allocator.h"
 #include "p2p/base/port_allocator.h"
 #include "pc/peer_connection_wrapper.h"
@@ -39,6 +40,7 @@
 #include "rtc_base/rtc_certificate_generator.h"
 #include "rtc_base/strings/string_builder.h"
 #include "rtc_base/thread.h"
+#include "rtc_base/virtual_socket_server.h"
 #include "test/gmock.h"
 #include "test/gtest.h"
 
@@ -55,7 +57,9 @@ class PeerConnectionHeaderExtensionTest
           std::tuple<cricket::MediaType, SdpSemantics>> {
  protected:
   PeerConnectionHeaderExtensionTest()
-      : extensions_(
+      : socket_factory_(&vss_),
+        main_thread_(&vss_),
+        extensions_(
             {RtpHeaderExtensionCapability("uri1",
                                           1,
                                           RtpTransceiverDirection::kStopped),
@@ -96,7 +100,7 @@ class PeerConnectionHeaderExtensionTest
         CreateModularPeerConnectionFactory(std::move(factory_dependencies));
 
     auto fake_port_allocator = std::make_unique<cricket::FakePortAllocator>(
-        rtc::Thread::Current(), nullptr);
+        rtc::Thread::Current(), &socket_factory_);
     auto observer = std::make_unique<MockPeerConnectionObserver>();
     PeerConnectionInterface::RTCConfiguration config;
     if (semantics)
@@ -111,7 +115,9 @@ class PeerConnectionHeaderExtensionTest
         pc_factory, result.MoveValue(), std::move(observer));
   }
 
-  rtc::AutoThread main_thread_;
+  rtc::VirtualSocketServer vss_;
+  rtc::BasicPacketSocketFactory socket_factory_;
+  rtc::AutoSocketServerThread main_thread_;
   std::vector<RtpHeaderExtensionCapability> extensions_;
 };
 

@@ -138,8 +138,9 @@ class PeerConnectionIceBaseTest : public ::testing::Test {
   typedef std::unique_ptr<PeerConnectionWrapperForIceTest> WrapperPtr;
 
   explicit PeerConnectionIceBaseTest(SdpSemantics sdp_semantics)
-      : vss_(new rtc::VirtualSocketServer()),
-        main_(vss_.get()),
+      : vss_(std::make_unique<rtc::VirtualSocketServer>()),
+        packet_socket_factory_(vss_.get()),
+        main_thread_(vss_.get()),
         sdp_semantics_(sdp_semantics) {
 #ifdef WEBRTC_ANDROID
     InitializeAndroidObjects();
@@ -315,7 +316,8 @@ class PeerConnectionIceBaseTest : public ::testing::Test {
   }
 
   std::unique_ptr<rtc::VirtualSocketServer> vss_;
-  rtc::AutoSocketServerThread main_;
+  rtc::BasicPacketSocketFactory packet_socket_factory_;
+  rtc::AutoSocketServerThread main_thread_;
   rtc::scoped_refptr<PeerConnectionFactoryInterface> pc_factory_;
   std::vector<std::unique_ptr<rtc::FakeNetworkManager>> fake_networks_;
   const SdpSemantics sdp_semantics_;
@@ -1405,6 +1407,9 @@ INSTANTIATE_TEST_SUITE_P(PeerConnectionIceTest,
                                 SdpSemantics::kUnifiedPlan));
 
 class PeerConnectionIceConfigTest : public ::testing::Test {
+ public:
+  PeerConnectionIceConfigTest() : socket_factory_(&vss_), main_thread_(&vss_) {}
+
  protected:
   void SetUp() override {
     pc_factory_ = CreatePeerConnectionFactory(
@@ -1415,8 +1420,8 @@ class PeerConnectionIceConfigTest : public ::testing::Test {
         nullptr /* audio_processing */);
   }
   void CreatePeerConnection(const RTCConfiguration& config) {
-    std::unique_ptr<cricket::FakePortAllocator> port_allocator(
-        new cricket::FakePortAllocator(rtc::Thread::Current(), nullptr));
+    auto port_allocator = std::make_unique<cricket::FakePortAllocator>(
+        rtc::Thread::Current(), &socket_factory_);
     port_allocator_ = port_allocator.get();
     PeerConnectionDependencies pc_dependencies(&observer_);
     pc_dependencies.allocator = std::move(port_allocator);
@@ -1426,7 +1431,9 @@ class PeerConnectionIceConfigTest : public ::testing::Test {
     pc_ = result.MoveValue();
   }
 
-  rtc::AutoThread main_thread_;
+  rtc::VirtualSocketServer vss_;
+  rtc::BasicPacketSocketFactory socket_factory_;
+  rtc::AutoSocketServerThread main_thread_;
   rtc::scoped_refptr<PeerConnectionFactoryInterface> pc_factory_ = nullptr;
   rtc::scoped_refptr<PeerConnectionInterface> pc_ = nullptr;
   cricket::FakePortAllocator* port_allocator_ = nullptr;

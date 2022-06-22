@@ -26,6 +26,7 @@
 #include "api/rtp_receiver_interface.h"
 #include "api/scoped_refptr.h"
 #include "api/sequence_checker.h"
+#include "p2p/base/basic_packet_socket_factory.h"
 #include "pc/test/fake_audio_capture_module.h"
 #include "pc/test/fake_video_track_renderer.h"
 #include "rtc_base/third_party/sigslot/sigslot.h"
@@ -40,6 +41,7 @@ class PeerConnectionTestWrapper
                       PeerConnectionTestWrapper* callee);
 
   PeerConnectionTestWrapper(const std::string& name,
+                            rtc::BasicPacketSocketFactory* socket_factory,
                             rtc::Thread* network_thread,
                             rtc::Thread* worker_thread);
   virtual ~PeerConnectionTestWrapper();
@@ -118,6 +120,7 @@ class PeerConnectionTestWrapper
       bool video);
 
   std::string name_;
+  rtc::BasicPacketSocketFactory* const socket_factory_;
   rtc::Thread* const network_thread_;
   rtc::Thread* const worker_thread_;
   webrtc::SequenceChecker pc_thread_checker_;

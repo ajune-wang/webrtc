@@ -403,6 +403,7 @@ if (!build_with_chromium) {
         "../../../api/task_queue",
         "../../../api/units:time_delta",
         "../../../api/units:timestamp",
+        "../../../p2p:rtc_p2p",
         "../../../pc:pc_test_utils",
         "../../../pc:sdp_utils",
         "../../../rtc_base",

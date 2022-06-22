@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "31497de9_e42e0319",
+        "filename": "modules/video_coding/video_receiver.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 191,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2022-06-22T13:53:49Z",
+      "side": 0,
+      "message": "I haven\u0027t found any usage of this module with ProcessThread (only usage where VideoCoding::Process is called directly from time to time).\n\nThus this particular branch would always crash, i.e. not used.\nBut I prefer to skip investigating how much more code could be removed inhere, since VideoCoding module is deprecated and should be eventually deleted anyway.",
+      "range": {
+        "startLine": 191,
+        "startChar": 8,
+        "endLine": 191,
+        "endChar": 35
+      },
+      "revId": "0ed3a2b6cb992d5eb106a4678d0ac4f113bd2ca3",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

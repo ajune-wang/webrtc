@@ -71,6 +71,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "331d2c89_3db495f6",
+        "filename": "pc/peer_connection.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 1625,
+      "author": {
+        "id": 7755
+      },
+      "writtenOn": "2022-06-22T06:19:08Z",
+      "side": 1,
+      "message": "or I can just wrap the callback?",
+      "parentUuid": "eba0e8a7_4f7a9508",
+      "revId": "130069d3c8c9e2b9720025740067045cefc9398c",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "bb7b9504_c4468682",
         "filename": "pc/peer_connection.cc",
         "patchSetId": 2
@@ -88,6 +106,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "dbe23fbc_abf74cde",
+        "filename": "pc/peer_connection.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 1633,
+      "author": {
+        "id": 7755
+      },
+      "writtenOn": "2022-06-22T06:19:08Z",
+      "side": 1,
+      "message": "but then I would have to write a test and this is a nonstandard thing. The party that wants this method should do that and the test :-p",
+      "parentUuid": "bb7b9504_c4468682",
+      "revId": "130069d3c8c9e2b9720025740067045cefc9398c",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "4cb1f51b_50d972b3",
         "filename": "pc/peer_connection_integrationtest.cc",
         "patchSetId": 2
@@ -99,6 +135,24 @@
       "writtenOn": "2022-06-19T21:13:52Z",
       "side": 1,
       "message": "This line seems to do nothing.",
+      "revId": "130069d3c8c9e2b9720025740067045cefc9398c",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "bc05c8aa_35c8be6c",
+        "filename": "pc/peer_connection_integrationtest.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 2439,
+      "author": {
+        "id": 7755
+      },
+      "writtenOn": "2022-06-22T06:19:08Z",
+      "side": 1,
+      "message": "oh I was looking for that line and thought I had removed it, thank you",
+      "parentUuid": "4cb1f51b_50d972b3",
       "revId": "130069d3c8c9e2b9720025740067045cefc9398c",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }

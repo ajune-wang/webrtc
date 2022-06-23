@@ -116,6 +116,30 @@
       },
       "revId": "01bb908b68831667cdee0f10e8277ae9dc108903",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "90250984_5c047c3b",
+        "filename": "infra/specs/test_suite_exceptions.pyl",
+        "patchSetId": 1
+      },
+      "lineNbr": 13,
+      "author": {
+        "id": 12234
+      },
+      "writtenOn": "2022-06-23T09:28:20Z",
+      "side": 1,
+      "message": "but the main works fine, it\u0027s only the tryserver that is broken:\nhttps://ci.chromium.org/p/webrtc/builders/ci/Linux64%20Release",
+      "parentUuid": "6b43e0bc_afba8b95",
+      "range": {
+        "startLine": 13,
+        "startChar": 0,
+        "endLine": 13,
+        "endChar": 24
+      },
+      "revId": "01bb908b68831667cdee0f10e8277ae9dc108903",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

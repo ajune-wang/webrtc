@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "f3640694_9ced729f",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2022-06-23T14:03:28Z",
+      "side": 1,
+      "message": "I\u0027m giving this deletion a try. Should perhaps be split in pieces to make it easy to review the hairier parts carefully.",
+      "revId": "5d95d9be879384f2a5617a3f549b3f8f25c0db03",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

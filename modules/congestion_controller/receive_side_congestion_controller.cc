@@ -148,25 +148,6 @@ void ReceiveSideCongestionController::SetSendPeriodicFeedback(
   remote_estimator_proxy_.SetSendPeriodicFeedback(send_periodic_feedback);
 }
 
-RemoteBitrateEstimator*
-ReceiveSideCongestionController::GetRemoteBitrateEstimator(bool send_side_bwe) {
-  if (send_side_bwe) {
-    return &remote_estimator_proxy_;
-  } else {
-    return &remote_bitrate_estimator_;
-  }
-}
-
-const RemoteBitrateEstimator*
-ReceiveSideCongestionController::GetRemoteBitrateEstimator(
-    bool send_side_bwe) const {
-  if (send_side_bwe) {
-    return &remote_estimator_proxy_;
-  } else {
-    return &remote_bitrate_estimator_;
-  }
-}
-
 DataRate ReceiveSideCongestionController::LatestReceiveSideEstimate() const {
   std::vector<uint32_t> unused_ssrcs;
   uint32_t bitrate_bps = 0;
@@ -204,13 +185,10 @@ TimeDelta ReceiveSideCongestionController::MaybeProcess() {
     remote_bitrate_estimator_.Process();
     time_until_rbe_ms = remote_bitrate_estimator_.TimeUntilNextProcess();
   }
-  int64_t time_until_rep_ms = remote_estimator_proxy_.TimeUntilNextProcess();
-  if (time_until_rep_ms <= 0) {
-    remote_estimator_proxy_.Process();
-    time_until_rep_ms = remote_estimator_proxy_.TimeUntilNextProcess();
-  }
-  int64_t time_until_next_ms = std::min(time_until_rbe_ms, time_until_rep_ms);
-  return TimeDelta::Millis(std::max<int64_t>(time_until_next_ms, 0));
+  TimeDelta time_until_rbe = TimeDelta::Millis(time_until_rbe_ms);
+  TimeDelta time_until_rep = remote_estimator_proxy_.Process();
+  TimeDelta time_until = std::min(time_until_rbe, time_until_rep);
+  return std::max(time_until, TimeDelta::Zero());
 }
 
 void ReceiveSideCongestionController::SetMaxDesiredReceiveBitrate(

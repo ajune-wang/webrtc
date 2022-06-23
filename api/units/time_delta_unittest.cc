@@ -200,6 +200,17 @@ TEST(TimeDeltaTest, MathOperations) {
   EXPECT_EQ(mutable_delta, TimeDelta::Millis(kValueA));
 }
 
+TEST(TimeDeltaTest, ModuloOperations) {
+  static constexpr TimeDelta num = TimeDelta::Millis(12345);
+  static constexpr TimeDelta den = TimeDelta::Millis(100);
+  static_assert(num % den == TimeDelta::Millis(45));
+  static_assert(-num % den == -TimeDelta::Millis(45));
+  static_assert(IDivDuration(num, den) == 123);
+  TimeDelta rem = TimeDelta::Zero();
+  EXPECT_EQ(IDivDuration(num, den, rem), 123);
+  EXPECT_EQ(rem, TimeDelta::Millis(45));
+}
+
 TEST(TimeDeltaTest, MultiplyByScalar) {
   const TimeDelta kValue = TimeDelta::Micros(267);
   const int64_t kInt64 = 450;

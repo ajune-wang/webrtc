@@ -16,11 +16,13 @@
 #include <utility>
 
 #include "absl/algorithm/container.h"
+#include "api/units/time_delta.h"
 #include "modules/include/module_common_types_public.h"
 #include "modules/rtp_rtcp/source/byte_io.h"
 #include "modules/rtp_rtcp/source/rtcp_packet/common_header.h"
 #include "rtc_base/checks.h"
 #include "rtc_base/logging.h"
+#include "rtc_base/numerics/safe_conversions.h"
 #include "rtc_base/trace_event.h"
 
 namespace webrtc {
@@ -300,7 +302,8 @@ void TransportFeedback::SetBase(uint16_t base_sequence,
   RTC_DCHECK_EQ(num_seq_no_, 0);
   base_seq_no_ = base_sequence;
   base_time_ticks_ =
-      (ref_timestamp.us() % kTimeWrapPeriod.us()) / kBaseTimeTick.us();
+      IDivDuration(ref_timestamp - Timestamp::Zero(), kBaseTimeTick) &
+      0x00FF'FFFF;
   last_timestamp_ = BaseTime();
 }
 
@@ -319,22 +322,22 @@ bool TransportFeedback::AddReceivedPacket(uint16_t sequence_number,
       timestamp += (last_timestamp_ - timestamp).RoundUpTo(kTimeWrapPeriod);
     }
     RTC_DCHECK_GE(timestamp, last_timestamp_);
-    int64_t delta_full =
-        (timestamp - last_timestamp_).us() % kTimeWrapPeriod.us();
-    if (delta_full > kTimeWrapPeriod.us() / 2) {
-      delta_full -= kTimeWrapPeriod.us();
-      delta_full -= kDeltaTick.us() / 2;
+    TimeDelta delta_full = (timestamp - last_timestamp_) % kTimeWrapPeriod;
+    if (delta_full * 2 >= kTimeWrapPeriod) {
+      delta_full -= kTimeWrapPeriod;
+      delta_full -= kDeltaTick / 2;
     } else {
-      delta_full += kDeltaTick.us() / 2;
+      delta_full += kDeltaTick / 2;
     }
-    delta_full /= kDeltaTick.us();
+    int64_t delta_full_ticks = IDivDuration(delta_full, kDeltaTick);
 
-    delta = static_cast<int16_t>(delta_full);
     // If larger than 16bit signed, we can't represent it - need new fb packet.
-    if (delta != delta_full) {
+    if (!rtc::IsValueInRangeForNumericType<int16_t>(delta_full_ticks)) {
       RTC_LOG(LS_WARNING) << "Delta value too large ( >= 2^16 ticks )";
       return false;
     }
+
+    delta = rtc::dchecked_cast<int16_t>(delta_full_ticks);
   }
 
   uint16_t next_seq_no = base_seq_no_ + num_seq_no_;

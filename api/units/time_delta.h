@@ -86,6 +86,23 @@ class TimeDelta final : public rtc_units_impl::RelativeUnit<TimeDelta> {
     return us() < 0 ? TimeDelta::Micros(-us()) : *this;
   }
 
+  friend constexpr int64_t IDivDuration(TimeDelta num, TimeDelta den) {
+    RTC_DCHECK_GT(den.ToValue(), 0);
+    return num.ToValue() / den.ToValue();
+  }
+
+  friend int64_t IDivDuration(TimeDelta num, TimeDelta den, TimeDelta& rem) {
+    RTC_DCHECK_GT(den.ToValue(), 0);
+    auto r = std::div(num.ToValue(), den.ToValue());
+    rem = TimeDelta(r.rem);
+    return r.quot;
+  }
+
+  friend constexpr TimeDelta operator%(TimeDelta lhs, TimeDelta rhs) {
+    RTC_DCHECK_GT(rhs.ToValue(), 0);
+    return TimeDelta(lhs.ToValue() % rhs.ToValue());
+  }
+
  private:
   friend class rtc_units_impl::UnitBase<TimeDelta>;
   using RelativeUnit::RelativeUnit;

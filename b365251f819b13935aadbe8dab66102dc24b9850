@@ -16,6 +16,23 @@
       "message": "The merge went clean, PTAL and give the +2 vote as well as I do not have that power.\n\nThanks!\n\nJeroen",
       "revId": "b365251f819b13935aadbe8dab66102dc24b9850",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "e3700943_25af56eb",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 18474
+      },
+      "writtenOn": "2022-06-23T18:30:18Z",
+      "side": 1,
+      "message": "I think the infra failures are benign/because CQ support is a bit iffy on branches; but +mirko to be sure.\n\nMirko, can you help assert if this is fine to merge?",
+      "revId": "b365251f819b13935aadbe8dab66102dc24b9850",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

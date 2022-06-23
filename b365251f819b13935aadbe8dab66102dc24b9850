@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "950f56c2_919ac595",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 18779
+      },
+      "writtenOn": "2022-06-23T08:31:04Z",
+      "side": 1,
+      "message": "The merge went clean, PTAL and give the +2 vote as well as I do not have that power.\n\nThanks!\n\nJeroen",
+      "revId": "b365251f819b13935aadbe8dab66102dc24b9850",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

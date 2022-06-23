@@ -92,6 +92,30 @@
       },
       "revId": "01bb908b68831667cdee0f10e8277ae9dc108903",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "6b43e0bc_afba8b95",
+        "filename": "infra/specs/test_suite_exceptions.pyl",
+        "patchSetId": 1
+      },
+      "lineNbr": 13,
+      "author": {
+        "id": 9405
+      },
+      "writtenOn": "2022-06-23T09:25:51Z",
+      "side": 1,
+      "message": "Both lines were needed when I ran generate_buildbot_json.py. One for tryserver and one for main.",
+      "parentUuid": "69753d80_0ae2c154",
+      "range": {
+        "startLine": 13,
+        "startChar": 0,
+        "endLine": 13,
+        "endChar": 24
+      },
+      "revId": "01bb908b68831667cdee0f10e8277ae9dc108903",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

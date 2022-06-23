@@ -140,6 +140,30 @@
       },
       "revId": "01bb908b68831667cdee0f10e8277ae9dc108903",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "b46a2984_bb90a475",
+        "filename": "infra/specs/test_suite_exceptions.pyl",
+        "patchSetId": 1
+      },
+      "lineNbr": 13,
+      "author": {
+        "id": 9405
+      },
+      "writtenOn": "2022-06-23T09:34:27Z",
+      "side": 1,
+      "message": "Aha, you\u0027re right.\nI thought the main works fine as the capture-related changes couldn\u0027t land on the main. But they are running the tests correctly. I forgot that pools have different names for WebRTC-baremetal vs WebRTC-baremetal-try.",
+      "parentUuid": "90250984_5c047c3b",
+      "range": {
+        "startLine": 13,
+        "startChar": 0,
+        "endLine": 13,
+        "endChar": 24
+      },
+      "revId": "01bb908b68831667cdee0f10e8277ae9dc108903",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

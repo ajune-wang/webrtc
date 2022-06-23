@@ -15,7 +15,6 @@
 #include <vector>
 
 #include "absl/base/attributes.h"
-#include "rtc_base/atomic_ops.h"
 #include "rtc_base/checks.h"
 #include "rtc_base/synchronization/mutex.h"
 
@@ -648,12 +647,12 @@ ABSL_CONST_INIT thread_local bool mutex_locked = false;
 
 - (int)incrementActivationCount {
   RTCLog(@"Incrementing activation count.");
-  return rtc::AtomicOps::Increment(&_activationCount);
+  return _activationCount.fetch_add(1) + 1;
 }
 
 - (NSInteger)decrementActivationCount {
   RTCLog(@"Decrementing activation count.");
-  return rtc::AtomicOps::Decrement(&_activationCount);
+  return _activationCount.fetch_sub(1) - 1;
 }
 
 - (int)webRTCSessionCount {
@@ -693,7 +692,7 @@ ABSL_CONST_INIT thread_local bool mutex_locked = false;
   if (outError) {
     *outError = nil;
   }
-  rtc::AtomicOps::Increment(&_webRTCSessionCount);
+  _webRTCSessionCount.fetch_add(1);
   [self notifyDidStartPlayOrRecord];
   return YES;
 }
@@ -702,7 +701,7 @@ ABSL_CONST_INIT thread_local bool mutex_locked = false;
   if (outError) {
     *outError = nil;
   }
-  rtc::AtomicOps::Decrement(&_webRTCSessionCount);
+  _webRTCSessionCount.fetch_sub(1);
   [self notifyDidStopPlayOrRecord];
   return YES;
 }

@@ -10,7 +10,7 @@ vars = {
   # chromium waterfalls. More info at: crbug.com/570091.
   'checkout_configuration': 'default',
   'checkout_instrumented_libraries': 'checkout_linux and checkout_configuration == "default"',
-  'chromium_revision': '3aed89bb309c8f82f013396b27a19f794b946b58',
+  'chromium_revision': '677b2b503d1d7019226bc30de582ffa0768a6d89',
 
   # Keep the Chromium default of generating location tags.
   'generate_location_tags': True,
@@ -38,13 +38,13 @@ deps = {
     'condition': 'checkout_android',
   },
   'src/ios': {
-    'url': 'https://chromium.googlesource.com/chromium/src/ios@63865030bed23516c8a10b7d6cbffaf6aebbc897',
+    'url': 'https://chromium.googlesource.com/chromium/src/ios@26814c18c1ac53a0ee5def3cdd91d1cbb796c147',
     'condition': 'checkout_ios',
   },
   'src/testing':
     'https://chromium.googlesource.com/chromium/src/testing@6a44e5f8eed21b209f799ab7539a671015bac174',
   'src/third_party':
-    'https://chromium.googlesource.com/chromium/src/third_party@b7bdfc166f117dcc5e8148a916f0ceb4be403f38',
+    'https://chromium.googlesource.com/chromium/src/third_party@c3d04ac46751df78e9ad03eb2a86d377e15f4121',
 
   'src/buildtools/linux64': {
     'packages': [
@@ -133,7 +133,7 @@ deps = {
   'src/third_party/breakpad/breakpad':
     'https://chromium.googlesource.com/breakpad/breakpad.git@c4c43b80ea8854c57a4374ac32579b577172dc23',
   'src/third_party/catapult':
-    'https://chromium.googlesource.com/catapult.git@c083518eecae6cecd78e0b63ab7288231e4e7788',
+    'https://chromium.googlesource.com/catapult.git@ef16f927e50151533a42c5ecf789c9f75f9f95b3',
   'src/third_party/ced/src': {
     'url': 'https://chromium.googlesource.com/external/github.com/google/compact_enc_det.git@ba412eaaacd3186085babcd901679a48863c7dd5',
   },
@@ -275,7 +275,7 @@ deps = {
     'condition': 'checkout_win',
   },
   'src/tools':
-    'https://chromium.googlesource.com/chromium/src/tools@e7c5cee0442c945675a0517649cae7524e2dad1c',
+    'https://chromium.googlesource.com/chromium/src/tools@732087ae0f066f0452a7d441d5a1317cc92657e9',
 
   'src/third_party/accessibility_test_framework': {
       'packages': [

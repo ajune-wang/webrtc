@@ -16,6 +16,7 @@
 #include <utility>
 
 #include "api/units/data_size.h"
+#include "modules/rtp_rtcp/source/rtcp_packet/remote_estimate.h"
 #include "modules/rtp_rtcp/source/rtcp_packet/transport_feedback.h"
 #include "rtc_base/checks.h"
 #include "rtc_base/logging.h"
@@ -151,32 +152,20 @@ void RemoteEstimatorProxy::IncomingPacket(Packet packet) {
   }
 }
 
-bool RemoteEstimatorProxy::LatestEstimate(std::vector<unsigned int>* ssrcs,
-                                          unsigned int* bitrate_bps) const {
-  return false;
-}
-
-int64_t RemoteEstimatorProxy::TimeUntilNextProcess() {
+TimeDelta RemoteEstimatorProxy::Process() {
   MutexLock lock(&lock_);
   if (!send_periodic_feedback_) {
-    // Wait a day until next process.
-    return 24 * 60 * 60 * 1000;
-  } else if (last_process_time_ms_ != -1) {
-    int64_t now = clock_->TimeInMilliseconds();
-    if (now - last_process_time_ms_ < send_interval_ms_)
-      return last_process_time_ms_ + send_interval_ms_ - now;
+    return TimeDelta::PlusInfinity();
   }
-  return 0;
-}
-
-void RemoteEstimatorProxy::Process() {
-  MutexLock lock(&lock_);
-  if (!send_periodic_feedback_) {
-    return;
+  int64_t now_ms = clock_->TimeInMilliseconds();
+  int64_t next_process_time_ms = last_process_time_ms_ + send_interval_ms_;
+  if (last_process_time_ms_ == -1 || now_ms >= next_process_time_ms) {
+    last_process_time_ms_ = now_ms;
+    SendPeriodicFeedbacks();
+    return TimeDelta::Millis(send_interval_ms_);
   }
-  last_process_time_ms_ = clock_->TimeInMilliseconds();
 
-  SendPeriodicFeedbacks();
+  return TimeDelta::Millis(next_process_time_ms - now_ms);
 }
 
 void RemoteEstimatorProxy::OnBitrateChanged(int bitrate_bps) {

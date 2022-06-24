@@ -47,18 +47,18 @@
 #include "sdk/objc/native/api/video_encoder_factory.h"
 #include "sdk/objc/native/src/objc_video_decoder_factory.h"
 #include "sdk/objc/native/src/objc_video_encoder_factory.h"
-#endif
-
-#if defined(WEBRTC_IOS)
-#import "sdk/objc/native/api/audio_device_module.h"
-#endif
-
+#else
 // Adding the nogncheck to disable the including header check.
 // The no-media version PeerConnectionFactory doesn't depend on media related
 // C++ target.
 // TODO(zhihuang): Remove nogncheck once MediaEngineInterface is moved to C++
 // API layer.
 #include "media/engine/webrtc_media_engine.h"  // nogncheck
+#endif
+
+#if defined(WEBRTC_IOS)
+#import "sdk/objc/native/api/audio_device_module.h"
+#endif
 
 @implementation RTC_OBJC_TYPE (RTCPeerConnectionFactory) {
   std::unique_ptr<rtc::Thread> _networkThread;

@@ -33,6 +33,24 @@
       "message": "I think the infra failures are benign/because CQ support is a bit iffy on branches; but +mirko to be sure.\n\nMirko, can you help assert if this is fine to merge?",
       "revId": "b365251f819b13935aadbe8dab66102dc24b9850",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "a40b94c4_0f1091c2",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5087
+      },
+      "writtenOn": "2022-06-24T06:50:23Z",
+      "side": 1,
+      "message": "Yes, I confirm.\n\nFeel free to +2 when ready.",
+      "parentUuid": "e3700943_25af56eb",
+      "revId": "b365251f819b13935aadbe8dab66102dc24b9850",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

@@ -16,6 +16,24 @@
       "message": "Thanks for the votes. Unfortunately I do not have permission to +2, so if any of you could add that vote that would be awesome.",
       "revId": "9cf858d8756774f8e0bf539f7a67840762934494",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "b35e92b0_1cd32f13",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5087
+      },
+      "writtenOn": "2022-06-24T07:02:15Z",
+      "side": 1,
+      "message": "Sure, is the merge approved?",
+      "parentUuid": "61b61944_9a2ee665",
+      "revId": "9cf858d8756774f8e0bf539f7a67840762934494",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

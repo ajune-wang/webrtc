@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "61b61944_9a2ee665",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 18779
+      },
+      "writtenOn": "2022-06-24T06:59:02Z",
+      "side": 1,
+      "message": "Thanks for the votes. Unfortunately I do not have permission to +2, so if any of you could add that vote that would be awesome.",
+      "revId": "9cf858d8756774f8e0bf539f7a67840762934494",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

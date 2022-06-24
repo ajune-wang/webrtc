@@ -62,6 +62,8 @@ class RTC_EXPORT DesktopCapturer {
     virtual ~Callback() {}
   };
 
+  // Keeping this here till we adjust the users in downstream chromoting code
+  // base.
 #if defined(CHROMEOS)
   typedef int64_t SourceId;
 #else

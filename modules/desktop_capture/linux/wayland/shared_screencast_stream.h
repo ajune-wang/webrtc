@@ -47,7 +47,7 @@ class RTC_EXPORT SharedScreenCastStream
   // Returns the most recent screen/window frame we obtained from PipeWire
   // buffer. Will return an empty frame in case we didn't manage to get a frame
   // from PipeWire buffer.
-  std::unique_ptr<DesktopFrame> CaptureFrame();
+  std::unique_ptr<DesktopFrame> CaptureFrame(uint32_t node_id);
 
   // Returns the most recent mouse cursor image. Will return an nullptr cursor
   // in case we didn't manage to get a cursor from PipeWire buffer. NOTE: the

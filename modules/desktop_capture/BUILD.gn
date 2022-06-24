@@ -57,6 +57,7 @@ if (rtc_include_tests) {
     defines = []
     sources = []
     deps = [
+      ":desktop_capture_generic",
       "../../api:function_view",
       "../../api:scoped_refptr",
       "../../rtc_base:checks",
@@ -112,6 +113,7 @@ if (rtc_include_tests) {
     ]
     deps = [
       ":desktop_capture",
+      ":desktop_capture_generic",
       ":desktop_capture_mock",
       ":primitives",
       "../../rtc_base:checks",
@@ -171,8 +173,6 @@ if (rtc_include_tests) {
   rtc_library("screen_drawer") {
     testonly = true
 
-    public_deps = [ ":desktop_capture" ]  # no-presubmit-check TODO(webrtc:8603)
-
     sources = [
       "screen_drawer.cc",
       "screen_drawer.h",
@@ -191,6 +191,7 @@ if (rtc_include_tests) {
     }
 
     deps = [
+      ":desktop_capture_generic",
       ":primitives",
       "../../api:scoped_refptr",
       "../../rtc_base:checks",
@@ -209,14 +210,13 @@ if (rtc_include_tests) {
   rtc_library("desktop_capture_mock") {
     testonly = true
 
-    public_deps = [ ":desktop_capture" ]  # no-presubmit-check TODO(webrtc:8603)
-
     sources = [
       "mock_desktop_capturer_callback.cc",
       "mock_desktop_capturer_callback.h",
     ]
 
     deps = [
+      ":desktop_capture_generic",
       ":primitives",
       "../../test:test_support",
     ]
@@ -296,10 +296,8 @@ if (is_linux || is_chromeos) {
 
 rtc_source_set("desktop_capture") {
   visibility = [ "*" ]
-  public_deps =  # no-presubmit-check TODO(webrtc:8603)
-      [ ":desktop_capture_generic" ]
   if (is_mac) {
-    public_deps += [ ":desktop_capture_objc" ]
+    deps = [ ":desktop_capture_objc" ]
   }
 }
 
@@ -346,10 +344,7 @@ if (is_mac) {
 rtc_library("desktop_capture_generic") {
   defines = []
   public_configs = [ ":x11_config" ]
-  visibility = [
-    ":desktop_capture",
-    ":desktop_capture_objc",
-  ]
+  visibility = [ ":*" ]
   sources = [
     "blank_detector_desktop_capturer_wrapper.cc",
     "blank_detector_desktop_capturer_wrapper.h",

@@ -35,6 +35,24 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "76be898a_67cf6f80",
+        "filename": "net/dcsctp/tx/stream_scheduler.cc",
+        "patchSetId": 26
+      },
+      "lineNbr": 28,
+      "author": {
+        "id": 12215
+      },
+      "writtenOn": "2022-06-25T21:33:45Z",
+      "side": 1,
+      "message": "Agree. Done.",
+      "parentUuid": "9b27bba8_f53b0c17",
+      "revId": "7d69fbad8b25d67577a3598b5c0df25b6794bf37",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "596b6c89_d9b18acd",
@@ -48,6 +66,24 @@
       "writtenOn": "2022-06-13T06:24:28Z",
       "side": 1,
       "message": "The mtu argument is new in this CL. I\u0027m missing tests that check that the behavior influenced by MTU is as expected.\n\nI also think this needs a comment - it is not the mtu of the link, it is the mtu available to SCTP, which in WebRTC will be network mtu - IP overhead - UDP overhead - dtls overhead.",
+      "revId": "7d69fbad8b25d67577a3598b5c0df25b6794bf37",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "7824fe02_9a28c8f5",
+        "filename": "net/dcsctp/tx/stream_scheduler.h",
+        "patchSetId": 26
+      },
+      "lineNbr": 158,
+      "author": {
+        "id": 12215
+      },
+      "writtenOn": "2022-06-25T21:33:45Z",
+      "side": 1,
+      "message": "I have documented it and added two test cases that tests different mtu values.",
+      "parentUuid": "596b6c89_d9b18acd",
       "revId": "7d69fbad8b25d67577a3598b5c0df25b6794bf37",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }

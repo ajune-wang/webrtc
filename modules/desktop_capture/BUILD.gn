@@ -57,6 +57,7 @@ if (rtc_include_tests) {
     defines = []
     sources = []
     deps = [
+      ":desktop_capture_generic",
       "../../api:function_view",
       "../../api:scoped_refptr",
       "../../rtc_base:checks",
@@ -171,8 +172,6 @@ if (rtc_include_tests) {
   rtc_library("screen_drawer") {
     testonly = true
 
-    public_deps = [ ":desktop_capture" ]  # no-presubmit-check TODO(webrtc:8603)
-
     sources = [
       "screen_drawer.cc",
       "screen_drawer.h",
@@ -191,6 +190,7 @@ if (rtc_include_tests) {
     }
 
     deps = [
+      ":desktop_capture_generic",
       ":primitives",
       "../../api:scoped_refptr",
       "../../rtc_base:checks",
@@ -209,14 +209,13 @@ if (rtc_include_tests) {
   rtc_library("desktop_capture_mock") {
     testonly = true
 
-    public_deps = [ ":desktop_capture" ]  # no-presubmit-check TODO(webrtc:8603)
-
     sources = [
       "mock_desktop_capturer_callback.cc",
       "mock_desktop_capturer_callback.h",
     ]
 
     deps = [
+      ":desktop_capture_generic",
       ":primitives",
       "../../test:test_support",
     ]
@@ -298,16 +297,19 @@ rtc_source_set("desktop_capture") {
   visibility = [ "*" ]
   public_deps =  # no-presubmit-check TODO(webrtc:8603)
       [ ":desktop_capture_generic" ]
-  if (is_mac) {
-    public_deps += [ ":desktop_capture_objc" ]
-  }
 }
 
 if (is_mac) {
   rtc_library("desktop_capture_objc") {
-    visibility = [ ":desktop_capture" ]
+    visibility = [ ":desktop_capture_generic" ]
     sources = [
+      "desktop_capture_options.h",
+      "desktop_capturer.h",
+      "full_screen_application_handler.h",
+      "full_screen_window_detector.h",
+      "mac/desktop_configuration.h",
       "mac/desktop_configuration.mm",
+      "mac/desktop_configuration_monitor.h",
       "mac/desktop_frame_cgimage.h",
       "mac/desktop_frame_cgimage.mm",
       "mac/desktop_frame_iosurface.h",
@@ -316,22 +318,31 @@ if (is_mac) {
       "mac/desktop_frame_provider.mm",
       "mac/screen_capturer_mac.h",
       "mac/screen_capturer_mac.mm",
+      "mac/window_list_utils.h",
+      "mouse_cursor.h",
+      "mouse_cursor_monitor.h",
       "mouse_cursor_monitor_mac.mm",
+      "screen_capture_frame_queue.h",
       "screen_capturer_darwin.mm",
+      "screen_capturer_helper.h",
       "window_capturer_mac.mm",
+      "window_finder.h",
       "window_finder_mac.h",
       "window_finder_mac.mm",
     ]
     deps = [
-      ":desktop_capture_generic",
       ":primitives",
+      "../../api:function_view",
+      "../../api:refcountedbase",
       "../../api:scoped_refptr",
       "../../api:sequence_checker",
       "../../rtc_base",
       "../../rtc_base:checks",
       "../../rtc_base:event_tracer",
       "../../rtc_base:logging",
+      "../../rtc_base:macromagic",
       "../../rtc_base:timeutils",
+      "../../rtc_base/synchronization:mutex",
       "../../rtc_base/system:rtc_export",
       "../../sdk:helpers_objc",
     ]
@@ -345,11 +356,8 @@ if (is_mac) {
 
 rtc_library("desktop_capture_generic") {
   defines = []
+  deps = []
   public_configs = [ ":x11_config" ]
-  visibility = [
-    ":desktop_capture",
-    ":desktop_capture_objc",
-  ]
   sources = [
     "blank_detector_desktop_capturer_wrapper.cc",
     "blank_detector_desktop_capturer_wrapper.h",
@@ -409,6 +417,7 @@ rtc_library("desktop_capture_generic") {
       "mac/window_list_utils.cc",
       "mac/window_list_utils.h",
     ]
+    deps += [ ":desktop_capture_objc" ]
   }
 
   if (build_with_mozilla) {
@@ -487,14 +496,13 @@ rtc_library("desktop_capture_generic") {
     ]
   }
 
-  deps = [
+  deps += [
     ":primitives",
     "../../api:function_view",
     "../../api:make_ref_counted",
     "../../api:refcountedbase",
     "../../api:scoped_refptr",
     "../../api:sequence_checker",
-    "../../rtc_base",  # TODO(kjellander): Cleanup in bugs.webrtc.org/3806.
     "../../rtc_base:checks",
     "../../rtc_base:event_tracer",
     "../../rtc_base:logging",

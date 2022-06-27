@@ -84,6 +84,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "dbe8e3f6_c8e7d667",
+        "filename": "modules/audio_processing/aec3/echo_canceller3.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 717,
+      "author": {
+        "id": 5087
+      },
+      "writtenOn": "2022-06-27T07:57:19Z",
+      "side": 1,
+      "message": "I see.\n\nThis is indeed fine, but I wonder if this pattern is a bit error prone (easy to get wrong), but I am not sure a helper function taking the atomic and the increment makes it easier at all.",
+      "parentUuid": "12e3c329_38b252b4",
+      "range": {
+        "startLine": 717,
+        "startChar": 65,
+        "endLine": 717,
+        "endChar": 69
+      },
+      "revId": "5d95d9be879384f2a5617a3f549b3f8f25c0db03",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "9b9a2c8e_dd52a845",
         "filename": "sdk/objc/native/src/audio/audio_device_ios.mm",
         "patchSetId": 1
@@ -119,6 +143,30 @@
       "side": 1,
       "message": "Fixed.",
       "parentUuid": "9b9a2c8e_dd52a845",
+      "range": {
+        "startLine": 383,
+        "startChar": 7,
+        "endLine": 383,
+        "endChar": 16
+      },
+      "revId": "5d95d9be879384f2a5617a3f549b3f8f25c0db03",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "1e43e398_3418ecd2",
+        "filename": "sdk/objc/native/src/audio/audio_device_ios.mm",
+        "patchSetId": 1
+      },
+      "lineNbr": 383,
+      "author": {
+        "id": 5087
+      },
+      "writtenOn": "2022-06-27T07:57:19Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "33d4ee45_73f18863",
       "range": {
         "startLine": 383,
         "startChar": 7,

@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "8755f300_5502f8c4",
+        "filename": "modules/remote_bitrate_estimator/remote_estimator_proxy.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 155,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2022-06-27T08:52:22Z",
+      "side": 1,
+      "message": "Since you change the signature of the Process method, could you give it current time as an argument, to eliminate the `clock_` member?\n\nOr maybe it\u0027s possible to let it return an interval rather than a timestamp.\n\nIt would be nice to reduce the number of classes that wants to read the clock, and as far as I see, the class doesn\u0027t use the clock for anything else.",
+      "range": {
+        "startLine": 155,
+        "startChar": 32,
+        "endLine": 155,
+        "endChar": 39
+      },
+      "revId": "948a4f459afb149347512ad8777a5937e10b6eb8",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

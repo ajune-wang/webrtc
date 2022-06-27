@@ -1,0 +1,38 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "ae36858d_09c75480",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 22
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2022-06-27T08:31:17Z",
+      "side": 1,
+      "message": "Wonder a bit about the Create function introduced here. Opportunities for improvement?\n",
+      "revId": "14efb85966b9498bc563589ad4b3ba14a2bff724",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "239ae586_245b8c2c",
+        "filename": "net/dcsctp/socket/dcsctp_socket.h",
+        "patchSetId": 22
+      },
+      "lineNbr": 141,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2022-06-27T08:31:17Z",
+      "side": 1,
+      "message": "Should the comment about state overriding a_rwnd go here?\nAre there other args that are overwritten by handover_state?\nShould there be two Create functions, one with and one without state?",
+      "revId": "14efb85966b9498bc563589ad4b3ba14a2bff724",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

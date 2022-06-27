@@ -51,8 +51,10 @@ class RegatheringControllerTest : public ::testing::Test,
       : vss_(new rtc::VirtualSocketServer()),
         thread_(vss_.get()),
         ice_transport_(new cricket::MockIceTransport()),
+        packet_socket_factory_(new rtc::BasicPacketSocketFactory(vss_.get())),
         allocator_(
-            new cricket::FakePortAllocator(rtc::Thread::Current(), nullptr)) {
+            new cricket::FakePortAllocator(rtc::Thread::Current(),
+                                           packet_socket_factory_.get())) {
     BasicRegatheringController::Config regathering_config;
     regathering_config.regather_on_failed_networks_interval = 0;
     regathering_controller_.reset(new BasicRegatheringController(
@@ -108,6 +110,7 @@ class RegatheringControllerTest : public ::testing::Test,
   rtc::AutoSocketServerThread thread_;
   std::unique_ptr<cricket::IceTransportInternal> ice_transport_;
   std::unique_ptr<BasicRegatheringController> regathering_controller_;
+  std::unique_ptr<rtc::PacketSocketFactory> packet_socket_factory_;
   std::unique_ptr<cricket::PortAllocator> allocator_;
   std::unique_ptr<cricket::PortAllocatorSession> allocator_session_;
   std::map<cricket::IceRegatheringReason, int> count_;

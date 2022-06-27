@@ -1,0 +1,38 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "6d151633_bcd8e182",
+        "filename": "net/dcsctp/public/dcsctp_socket.h",
+        "patchSetId": 23
+      },
+      "lineNbr": 399,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2022-06-27T12:40:25Z",
+      "side": 1,
+      "message": "so it will trigger before the message has been fully received (it is still in the maybe-retransmit queue)?",
+      "revId": "592753b6ceb0644677f97bd64e00173124fc66f8",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "1ccf0599_78516426",
+        "filename": "net/dcsctp/public/dcsctp_socket.h",
+        "patchSetId": 23
+      },
+      "lineNbr": 435,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2022-06-27T12:40:25Z",
+      "side": 1,
+      "message": "This seems odd. The other calls are called \"lifecycle events\", so a literal reading is that this is called when one of the other callbacks is finished, which makes no sense. It probably intends to say \"Will be called when processing of a message is complete, no matter how it completed. Will be called after all other lifecycle events, if any.\"",
+      "revId": "592753b6ceb0644677f97bd64e00173124fc66f8",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

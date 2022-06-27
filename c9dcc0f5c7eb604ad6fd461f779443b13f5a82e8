@@ -18,6 +18,23 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "9917a9cf_d7ae9178",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 25
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2022-06-27T12:40:25Z",
+      "side": 1,
+      "message": "Some worries about the base type of LifecycleId. Since it\u0027s not generated in this CL, it\u0027s hard to say more.\n",
+      "revId": "c9dcc0f5c7eb604ad6fd461f779443b13f5a82e8",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "0aa2beb5_1a2ad842",
@@ -48,6 +65,23 @@
       "writtenOn": "2022-06-27T12:28:10Z",
       "side": 1,
       "message": "Will users allocate a LifecycleId or will it be returned by a Send() API call?",
+      "revId": "c9dcc0f5c7eb604ad6fd461f779443b13f5a82e8",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "659ad7e1_111bd208",
+        "filename": "net/dcsctp/public/types.h",
+        "patchSetId": 25
+      },
+      "lineNbr": 132,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2022-06-27T12:40:25Z",
+      "side": 1,
+      "message": "I\u0027m a bit scared by the choice of a ptrdiff_t as the base type for this ID, because it seems to gently hint that there will be some use of the address of a message as the basis for an \"unique\" identifier.\n\nIf lifecycle IDs are assumed to be unique over time, this will break badly when buffers are being reused. If they are expected to be valid over the lifetime of the message only (from creation to lifecycle-end), it may be OK, as long as it is based on a pointer to a non-relocatable resource.",
       "revId": "c9dcc0f5c7eb604ad6fd461f779443b13f5a82e8",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }

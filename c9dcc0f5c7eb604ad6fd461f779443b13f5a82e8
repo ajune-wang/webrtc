@@ -1,0 +1,55 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "bdc632b3_9c328204",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 25
+      },
+      "lineNbr": 15,
+      "author": {
+        "id": 7036
+      },
+      "writtenOn": "2022-06-27T12:28:10Z",
+      "side": 1,
+      "message": "I would probably add a note explaining that the API to actually send a message with a LifecycleId is not yet implemented but will come in a later commit.",
+      "revId": "c9dcc0f5c7eb604ad6fd461f779443b13f5a82e8",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "0aa2beb5_1a2ad842",
+        "filename": "net/dcsctp/public/dcsctp_socket.h",
+        "patchSetId": 25
+      },
+      "lineNbr": 402,
+      "author": {
+        "id": 7036
+      },
+      "writtenOn": "2022-06-27T12:28:10Z",
+      "side": 1,
+      "message": "Could you add some sort of transition graph explaining in which order events are supposed to be triggered?\nAs I understand, it should be FullySent -\u003e Delivered -\u003e End or FullySent -\u003e Expired(true/false) -\u003e End in the regular paths.",
+      "revId": "c9dcc0f5c7eb604ad6fd461f779443b13f5a82e8",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "38cd97f0_dae83c16",
+        "filename": "net/dcsctp/public/types.h",
+        "patchSetId": 25
+      },
+      "lineNbr": 131,
+      "author": {
+        "id": 7036
+      },
+      "writtenOn": "2022-06-27T12:28:10Z",
+      "side": 1,
+      "message": "Will users allocate a LifecycleId or will it be returned by a Send() API call?",
+      "revId": "c9dcc0f5c7eb604ad6fd461f779443b13f5a82e8",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

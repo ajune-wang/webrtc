@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "49056ff8_d2a45837",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 4
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2022-06-27T21:28:39Z",
+      "side": 1,
+      "message": "Using standard constructs is good. This seems straightforward.\n",
+      "revId": "165a5629a70c5765ea8381e17e45eb76312a6861",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "2bc9cc33_9f589f5c",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2022-06-27T07:48:57Z",
+      "side": 1,
+      "message": "Checking if the new naming guideline is actually capable of being followed.\n",
+      "revId": "bfc8a3e46a24b853af7bc48608c28bbe630d191a",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

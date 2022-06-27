@@ -108,6 +108,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "f6a49f66_9cb5b220",
+        "filename": "modules/audio_processing/aec3/echo_canceller3.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 717,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2022-06-27T08:28:14Z",
+      "side": 1,
+      "message": "I don\u0027t think a helper is a good idea. To eliminate the +1, I think one could either just delete it and hope it doesn\u0027t matter if ApmDataDumpers are created with the sequence {0, 1, 2, ...} instead of {1, 2, 3, ...}. Or change the initial valuefrom 0 to 1 above. By I hesitate to make that change in this cl.\n\nWould at least need review by someone on the audio team.",
+      "parentUuid": "dbe8e3f6_c8e7d667",
+      "range": {
+        "startLine": 717,
+        "startChar": 65,
+        "endLine": 717,
+        "endChar": 69
+      },
+      "revId": "5d95d9be879384f2a5617a3f549b3f8f25c0db03",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "9b9a2c8e_dd52a845",
         "filename": "sdk/objc/native/src/audio/audio_device_ios.mm",
         "patchSetId": 1

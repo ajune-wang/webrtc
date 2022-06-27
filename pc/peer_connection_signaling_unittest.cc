@@ -138,6 +138,10 @@ class PeerConnectionSignalingBaseTest : public ::testing::Test {
         nullptr /* audio_mixer */, nullptr /* audio_processing */);
   }
 
+  ~PeerConnectionSignalingBaseTest() {
+    RTC_LOG(LS_ERROR) << "DEBUG: Destroying signaling base test";
+  }
+
   WrapperPtr CreatePeerConnection() {
     return CreatePeerConnection(RTCConfiguration());
   }

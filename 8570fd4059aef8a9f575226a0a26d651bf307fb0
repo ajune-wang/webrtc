@@ -34,6 +34,41 @@
       "parentUuid": "134fbc0d_c7051ae5",
       "revId": "8570fd4059aef8a9f575226a0a26d651bf307fb0",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "e7d7c017_f00c5312",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2022-06-27T21:31:15Z",
+      "side": 1,
+      "message": "I\u0027ll take Björn\u0027s word for it being a correct fix.",
+      "revId": "8570fd4059aef8a9f575226a0a26d651bf307fb0",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "866512bb_d559a777",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2022-06-27T21:31:15Z",
+      "side": 1,
+      "message": "Would be nice to have test coverage - the ScopedFieldTrial allows to write tests for field trial gated code with reasonable effort. But if you say it\u0027s OK, I\u0027ll approve of it, so leaving comment resolved.",
+      "parentUuid": "3aa68787_0ddbe0ed",
+      "revId": "8570fd4059aef8a9f575226a0a26d651bf307fb0",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

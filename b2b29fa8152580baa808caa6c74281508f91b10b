@@ -34,6 +34,24 @@
       "parentUuid": "fb12a373_da1e0292",
       "revId": "b2b29fa8152580baa808caa6c74281508f91b10b",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "3775365e_091b33c6",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 4
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5087
+      },
+      "writtenOn": "2022-06-28T10:16:21Z",
+      "side": 1,
+      "message": "Yes, that is what you need.\n\nI think it is even better to restrict only to the file that includes it (e.g. https://source.chromium.org/chromium/chromium/src/+/main:third_party/webrtc/api/DEPS;l\u003d57-59;drc\u003d7c8c4db8ea600e87fae0867b031552a5a8967876) with a comment that opus.h should only be included by this file because it is the WebRTC wrapper.",
+      "parentUuid": "41e5e1e7_37cbbe5b",
+      "revId": "b2b29fa8152580baa808caa6c74281508f91b10b",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

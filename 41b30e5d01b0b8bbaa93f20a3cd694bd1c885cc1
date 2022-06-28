@@ -16,6 +16,24 @@
       "message": "It looks like downstream code is still depending on third_party/webrtc/files/stable/webrtc/modules/audio_device:audio_device_java\n\nI understand that this target is deprecated? What\u0027s the correct replacement?",
       "revId": "41b30e5d01b0b8bbaa93f20a3cd694bd1c885cc1",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "547abf15_385e4977",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 18739
+      },
+      "writtenOn": "2022-06-28T05:57:10Z",
+      "side": 1,
+      "message": "adk/android:java_audio_device_module_java have same class to replease modules/audio_device:audio_device_java",
+      "parentUuid": "6b70c0f3_6afd2931",
+      "revId": "41b30e5d01b0b8bbaa93f20a3cd694bd1c885cc1",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

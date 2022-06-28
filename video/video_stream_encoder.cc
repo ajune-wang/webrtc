@@ -737,9 +737,15 @@ void VideoStreamEncoder::Stop() {
   RTC_DCHECK_RUN_ON(worker_queue_);
   video_source_sink_controller_.SetSource(nullptr);
 
+  if (stopped_) {
+    return;
+  }
+
+  stopped_ = true;
+
   rtc::Event shutdown_event;
 
-  encoder_queue_.PostTask(webrtc::ToQueuedTask(
+  encoder_queue_.PostTask(ToQueuedTask(
       [this] {
         RTC_DCHECK_RUN_ON(&encoder_queue_);
         if (resource_adaptation_processor_) {
@@ -770,6 +776,9 @@ void VideoStreamEncoder::Stop() {
 
 void VideoStreamEncoder::SetFecControllerOverride(
     FecControllerOverride* fec_controller_override) {
+  RTC_DCHECK_RUN_ON(worker_queue_);
+  RTC_DCHECK(!stopped_);
+
   encoder_queue_.PostTask([this, fec_controller_override] {
     RTC_DCHECK_RUN_ON(&encoder_queue_);
     RTC_DCHECK(!fec_controller_override_);
@@ -783,6 +792,7 @@ void VideoStreamEncoder::SetFecControllerOverride(
 void VideoStreamEncoder::AddAdaptationResource(
     rtc::scoped_refptr<Resource> resource) {
   RTC_DCHECK_RUN_ON(worker_queue_);
+  RTC_DCHECK(!stopped_);
   TRACE_EVENT0("webrtc", "VideoStreamEncoder::AddAdaptationResource");
   // Map any externally added resources as kCpu for the sake of stats reporting.
   // TODO(hbos): Make the manager map any unknown resources to kCpu and get rid
@@ -801,6 +811,7 @@ void VideoStreamEncoder::AddAdaptationResource(
 std::vector<rtc::scoped_refptr<Resource>>
 VideoStreamEncoder::GetAdaptationResources() {
   RTC_DCHECK_RUN_ON(worker_queue_);
+  RTC_DCHECK(!stopped_);
   // In practice, this method is only called by tests to verify operations that
   // run on the encoder queue. So rather than force PostTask() operations to
   // be accompanied by an event and a `Wait()`, we'll use PostTask + Wait()
@@ -820,6 +831,7 @@ void VideoStreamEncoder::SetSource(
     rtc::VideoSourceInterface<VideoFrame>* source,
     const DegradationPreference& degradation_preference) {
   RTC_DCHECK_RUN_ON(worker_queue_);
+  RTC_DCHECK(!stopped_);
   video_source_sink_controller_.SetSource(source);
   input_state_provider_.OnHasInputChanged(source);
 
@@ -840,6 +852,8 @@ void VideoStreamEncoder::SetSource(
 
 void VideoStreamEncoder::SetSink(EncoderSink* sink, bool rotation_applied) {
   RTC_DCHECK_RUN_ON(worker_queue_);
+  RTC_DCHECK(!stopped_);
+
   video_source_sink_controller_.SetRotationApplied(rotation_applied);
   video_source_sink_controller_.PushSourceSinkSettings();
 
@@ -850,6 +864,7 @@ void VideoStreamEncoder::SetSink(EncoderSink* sink, bool rotation_applied) {
 }
 
 void VideoStreamEncoder::SetStartBitrate(int start_bitrate_bps) {
+  // Called on the transport queue.
   encoder_queue_.PostTask([this, start_bitrate_bps] {
     RTC_DCHECK_RUN_ON(&encoder_queue_);
     RTC_LOG(LS_INFO) << "SetStartBitrate " << start_bitrate_bps;
@@ -864,6 +879,7 @@ void VideoStreamEncoder::SetStartBitrate(int start_bitrate_bps) {
 void VideoStreamEncoder::ConfigureEncoder(VideoEncoderConfig config,
                                           size_t max_data_payload_length) {
   RTC_DCHECK_RUN_ON(worker_queue_);
+  RTC_DCHECK(!stopped_);
   encoder_queue_.PostTask(
       [this, config = std::move(config), max_data_payload_length]() mutable {
         RTC_DCHECK_RUN_ON(&encoder_queue_);
@@ -1912,6 +1928,7 @@ void VideoStreamEncoder::EncodeVideoFrame(const VideoFrame& video_frame,
 void VideoStreamEncoder::RequestRefreshFrame() {
   worker_queue_->PostTask(ToQueuedTask(task_safety_, [this] {
     RTC_DCHECK_RUN_ON(worker_queue_);
+    RTC_DCHECK(!stopped_);
     video_source_sink_controller_.RequestRefreshFrame();
   }));
 }
@@ -2252,6 +2269,7 @@ void VideoStreamEncoder::OnVideoSourceRestrictionsUpdated(
   worker_queue_->PostTask(ToQueuedTask(
       task_safety_, [this, restrictions = std::move(restrictions)]() {
         RTC_DCHECK_RUN_ON(worker_queue_);
+        RTC_DCHECK(!stopped_);
         video_source_sink_controller_.SetRestrictions(std::move(restrictions));
         video_source_sink_controller_.PushSourceSinkSettings();
       }));
@@ -2394,6 +2412,7 @@ void VideoStreamEncoder::CheckForAnimatedContent(
     worker_queue_->PostTask(
         ToQueuedTask(task_safety_, [this, should_cap_resolution]() {
           RTC_DCHECK_RUN_ON(worker_queue_);
+          RTC_DCHECK(!stopped_);
           video_source_sink_controller_.SetPixelsPerFrameUpperLimit(
               should_cap_resolution
                   ? absl::optional<size_t>(kMaxAnimationPixels)

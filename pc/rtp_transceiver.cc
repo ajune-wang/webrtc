@@ -31,10 +31,61 @@
 #include "rtc_base/checks.h"
 #include "rtc_base/location.h"
 #include "rtc_base/logging.h"
+#include "rtc_base/synchronization/yield_policy.h"
 #include "rtc_base/thread.h"
 
 namespace webrtc {
 namespace {
+#if RTC_DCHECK_IS_ON
+class ScopedDisallowWait : public rtc::YieldInterface {
+ public:
+  ScopedDisallowWait() : ScopedDisallowWait(0) {}
+  explicit ScopedDisallowWait(int max_count)
+      : max_count_(max_count), previous_disallow_(current_disallow) {
+    current_disallow = this;
+  }
+
+  ~ScopedDisallowWait() { current_disallow = previous_disallow_; }
+
+ private:
+  void YieldExecution() override {
+    ++counter_;
+    if (counter_ > max_count_) {
+      RTC_DCHECK_NOTREACHED();
+    }
+
+    YieldExecutionPassThrough();
+  }
+
+  void YieldExecutionPassThrough() {
+    if (!policy_.previous_policy())
+      return;
+
+    if (previous_disallow_ == policy_.previous_policy()) {
+      previous_disallow_->YieldExecutionPassThrough();
+    } else {
+      policy_.previous_policy()->YieldExecution();
+    }
+  }
+
+  int counter_ = 0;
+  const int max_count_ = 0;
+  rtc::ScopedYieldPolicy policy_{this};
+  ScopedDisallowWait* const previous_disallow_;
+
+  ABSL_CONST_INIT thread_local static ScopedDisallowWait* current_disallow;
+};
+
+ABSL_CONST_INIT thread_local ScopedDisallowWait*
+    ScopedDisallowWait::current_disallow = nullptr;
+
+#define DISALLOW_WAIT() ScopedDisallowWait no_waiting_please
+#define ALLOW_SPECIFIED_WAITS(x) ScopedDisallowWait some_waiting_allowed(x)
+#else
+#define DISALLOW_WAIT()
+#define ALLOW_SPECIFIED_WAITS(x)
+#endif
+
 template <class T>
 RTCError VerifyCodecPreferences(const std::vector<RtpCodecCapability>& codecs,
                                 const std::vector<T>& send_codecs,
@@ -141,6 +192,7 @@ RtpTransceiver::RtpTransceiver(
       context_(context),
       header_extensions_to_offer_(std::move(header_extensions_offered)),
       on_negotiation_needed_(std::move(on_negotiation_needed)) {
+  DISALLOW_WAIT();
   RTC_DCHECK(media_type_ == cricket::MEDIA_TYPE_AUDIO ||
              media_type_ == cricket::MEDIA_TYPE_VIDEO);
   RTC_DCHECK_EQ(sender->media_type(), receiver->media_type());
@@ -276,6 +328,7 @@ void RtpTransceiver::SetChannel(
   // helps with keeping the channel implementation requirements being met and
   // avoids synchronization for accessing the pointer or network related state.
   context()->network_thread()->Invoke<void>(RTC_FROM_HERE, [&]() {
+    DISALLOW_WAIT();
     if (channel_) {
       channel_->SetFirstPacketReceivedCallback(nullptr);
       channel_->SetRtpTransport(nullptr);
@@ -364,6 +417,7 @@ void RtpTransceiver::AddSender(
 
 bool RtpTransceiver::RemoveSender(RtpSenderInterface* sender) {
   RTC_DCHECK(!unified_plan_);
+  DISALLOW_WAIT();
   if (sender) {
     RTC_DCHECK_EQ(media_type(), sender->media_type());
   }
@@ -371,7 +425,14 @@ bool RtpTransceiver::RemoveSender(RtpSenderInterface* sender) {
   if (it == senders_.end()) {
     return false;
   }
-  (*it)->internal()->Stop();
+
+  {
+    // Blocks on transport queue in `AudioSendStream::RemoveBitrateObserver`
+    // encoder queue in `ChannelSend::StopSend`.
+    ALLOW_SPECIFIED_WAITS(2);
+    (*it)->internal()->Stop();
+  }
+
   senders_.erase(it);
   return true;
 }
@@ -401,6 +462,7 @@ bool RtpTransceiver::RemoveReceiver(RtpReceiverInterface* receiver) {
 
   (*it)->internal()->Stop();
   context()->worker_thread()->Invoke<void>(RTC_FROM_HERE, [&]() {
+    DISALLOW_WAIT();
     // `Stop()` will clear the receiver's pointer to the media channel.
     (*it)->internal()->SetMediaChannel(nullptr);
   });
@@ -431,6 +493,7 @@ absl::optional<std::string> RtpTransceiver::mid() const {
 }
 
 void RtpTransceiver::OnFirstPacketReceived() {
+  DISALLOW_WAIT();
   for (const auto& receiver : receivers_) {
     receiver->internal()->NotifyFirstPacketReceived();
   }
@@ -486,6 +549,7 @@ RtpTransceiverDirection RtpTransceiver::direction() const {
 
 RTCError RtpTransceiver::SetDirectionWithError(
     RtpTransceiverDirection new_direction) {
+  DISALLOW_WAIT();
   if (unified_plan_ && stopping()) {
     LOG_AND_RETURN_ERROR(RTCErrorType::INVALID_STATE,
                          "Cannot set direction on a stopping transceiver.");
@@ -535,6 +599,7 @@ void RtpTransceiver::StopSendingAndReceiving() {
     receiver->internal()->Stop();
 
   context()->worker_thread()->Invoke<void>(RTC_FROM_HERE, [&]() {
+    DISALLOW_WAIT();
     // 5 Stop receiving media with receiver.
     for (const auto& receiver : receivers_)
       receiver->internal()->SetMediaChannel(nullptr);
@@ -546,6 +611,7 @@ void RtpTransceiver::StopSendingAndReceiving() {
 
 RTCError RtpTransceiver::StopStandard() {
   RTC_DCHECK_RUN_ON(thread_);
+
   // If we're on Plan B, do what Stop() used to do there.
   if (!unified_plan_) {
     StopInternal();
@@ -570,6 +636,7 @@ RTCError RtpTransceiver::StopStandard() {
   // 5. Stop sending and receiving given transceiver, and update the
   // negotiation-needed flag for connection.
   StopSendingAndReceiving();
+  DISALLOW_WAIT();
   on_negotiation_needed_();
 
   return RTCError::OK();
@@ -590,6 +657,8 @@ void RtpTransceiver::StopTransceiverProcedure() {
 
   // 2. Set transceiver.[[Stopped]] to true.
   stopped_ = true;
+
+  DISALLOW_WAIT();
 
   // Signal the updated change to the senders.
   for (const auto& sender : senders_)

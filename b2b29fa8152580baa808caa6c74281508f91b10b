@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "fb12a373_da1e0292",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 4
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5113
+      },
+      "writtenOn": "2022-06-28T08:26:15Z",
+      "side": 1,
+      "message": "Now, could you also help me resolve \u0027checkdeps\u0027? 😅",
+      "revId": "b2b29fa8152580baa808caa6c74281508f91b10b",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

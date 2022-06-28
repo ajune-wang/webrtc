@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "974d3801_e2c37330",
+        "filename": "modules/audio_coding/BUILD.gn",
+        "patchSetId": 3
+      },
+      "lineNbr": 833,
+      "author": {
+        "id": 5087
+      },
+      "writtenOn": "2022-06-28T07:12:27Z",
+      "side": 1,
+      "message": "The issue is that https://source.chromium.org/chromium/chromium/src/+/main:third_party/webrtc/modules/audio_coding/codecs/opus/opus_unittest.cc;l\u003d326-335;drc\u003dcfea2182f8e41c3d8293d4e26b291ef2abf23257 requires OPUS_FIXED_POINT to be propagated by GN but public_configs (https://source.chromium.org/chromium/chromium/src/+/main:third_party/opus/BUILD.gn;l\u003d387;drc\u003d3046ad75255096848a18ef91a0a0bb3519b74690) are propagated to the target that has them + the target that depends on the target that has them (in this case //third_party/opus and //modules/audio_coding:webrtc_opus_wrapper. Before, when we had public_deps, the public_config (with the -DOPUS_FIXED_POINT) was pushed up one more edge in the graph (reaching https://source.chromium.org/chromium/chromium/src/+/main:third_party/webrtc/modules/audio_coding/BUILD.gn;l\u003d1968;drc\u003db5e51ed41501ec8da4c8425da95bc44d861db55d) but now, with \"deps\" GN just stops the propagation 1 target too early.\n\nhttps://gn.googlesource.com/gn/+/master/docs/reference.md#var_all_dependent_configs is deprecated but it should be used https://source.chromium.org/chromium/chromium/src/+/main:third_party/opus/BUILD.gn;l\u003d387;drc\u003d3046ad75255096848a18ef91a0a0bb3519b74690 if we want to avoid the public_deps but the GN authors want to remove it at some point.\n\nThe best fix (since this is a \"wrapper target\" and in WebRTC everyone is supposed to use opus via this target) is to do:\n\n```\n   if (rtc_build_opus) {\n     deps +\u003d [ rtc_opus_dir ]\n+    public_configs \u003d [\"//third_party/opus:opus_config\"]\n   } else if (build_with_mozilla) {\n     include_dirs \u003d [ getenv(\"DIST\") + \"/include/opus\" ]\n   }\n```\n\nAnd manually push the configs one level up.",
+      "range": {
+        "startLine": 829,
+        "startChar": 0,
+        "endLine": 833,
+        "endChar": 3
+      },
+      "revId": "385b825b56235f16a0d51493eafd11d12d643bc0",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

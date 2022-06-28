@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "f2ee0d06_693b442b",
+        "filename": "api/rtc_event_log/rtc_event_log_factory_interface.h",
+        "patchSetId": 4
+      },
+      "lineNbr": 29,
+      "author": {
+        "id": 5508
+      },
+      "writtenOn": "2022-06-28T14:01:02Z",
+      "side": 1,
+      "message": "username or bug?",
+      "range": {
+        "startLine": 29,
+        "startChar": 5,
+        "endLine": 29,
+        "endChar": 9
+      },
+      "revId": "b0e16c43504558e0ac48f847b467b0fbbaee61a2",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "5561b75f_d2f778bf",
+        "filename": "pc/peer_connection_signaling_unittest.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 142,
+      "author": {
+        "id": 5508
+      },
+      "writtenOn": "2022-06-28T14:01:02Z",
+      "side": 1,
+      "message": "remove? (or DLOG?)",
+      "range": {
+        "startLine": 142,
+        "startChar": 33,
+        "endLine": 142,
+        "endChar": 43
+      },
+      "revId": "b0e16c43504558e0ac48f847b467b0fbbaee61a2",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

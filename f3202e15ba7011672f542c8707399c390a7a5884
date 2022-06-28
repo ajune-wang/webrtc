@@ -33,6 +33,23 @@
       "message": "Adding hta@, Harald I think you can LGTM as owner to unblock the checkdeps issue.",
       "revId": "f3202e15ba7011672f542c8707399c390a7a5884",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "9a952a2c_cb2deffd",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 6
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2022-06-28T19:10:33Z",
+      "side": 1,
+      "message": "Approving on Mirko\u0027s word :-)\n",
+      "revId": "f3202e15ba7011672f542c8707399c390a7a5884",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

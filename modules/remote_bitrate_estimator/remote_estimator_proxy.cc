@@ -60,7 +60,10 @@ RemoteEstimatorProxy::RemoteEstimatorProxy(
       send_interval_(send_config_.default_interval.Get()),
       send_periodic_feedback_(true),
       previous_abs_send_time_(0),
-      abs_send_timestamp_(Timestamp::Zero()) {
+      // Avoid Timestamp near zero because sometimes it is convinient to
+      // substract small delta from an absolute timestamp, but negative
+      // timestamps are invalid.
+      abs_send_timestamp_(Timestamp::Seconds(1 << 6)) {
   RTC_LOG(LS_INFO)
       << "Maximum interval between transport feedback RTCP messages (ms): "
       << send_config_.max_interval->ms();

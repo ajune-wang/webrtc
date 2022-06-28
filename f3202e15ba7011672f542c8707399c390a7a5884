@@ -16,6 +16,23 @@
       "message": "Could you add an appropriate OWNER",
       "revId": "f3202e15ba7011672f542c8707399c390a7a5884",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "88626a69_7c34b947",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 6
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5087
+      },
+      "writtenOn": "2022-06-28T18:51:10Z",
+      "side": 1,
+      "message": "Adding hta@, Harald I think you can LGTM as owner to unblock the checkdeps issue.",
+      "revId": "f3202e15ba7011672f542c8707399c390a7a5884",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

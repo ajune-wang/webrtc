@@ -664,7 +664,16 @@ void RtpVideoSender::OnVideoLayersAllocationUpdated(
     const VideoLayersAllocation& allocation) {
   MutexLock lock(&mutex_);
   if (IsActiveLocked()) {
-    for (size_t i = 0; i < rtp_streams_.size(); ++i) {
+    size_t num_active_rtp_streams = rtp_streams_.size();
+    if (!allocation.active_spatial_layers.empty()) {
+      // active_spatial_layers should be ordered by rtp_stream_index, so
+      // largest should be the last one.
+      num_active_rtp_streams = std::min<size_t>(
+          allocation.active_spatial_layers.back().rtp_stream_index + 1,
+          rtp_streams_.size());
+    }
+
+    for (size_t i = 0; i < num_active_rtp_streams; ++i) {
       VideoLayersAllocation stream_allocation = allocation;
       stream_allocation.rtp_stream_index = i;
       rtp_streams_[i].sender_video->SetVideoLayersAllocation(

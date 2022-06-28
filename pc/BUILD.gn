@@ -1717,6 +1717,7 @@ rtc_library("audio_rtp_receiver") {
     "../rtc_base:location",
     "../rtc_base:macromagic",
     "../rtc_base:threading",
+    "../rtc_base/synchronization:yield_policy",
     "../rtc_base/system:no_unique_address",
   ]
   absl_deps = [
@@ -1757,6 +1758,7 @@ rtc_library("video_rtp_receiver") {
     "../rtc_base:logging",
     "../rtc_base:macromagic",
     "../rtc_base:threading",
+    "../rtc_base/synchronization:yield_policy",
     "../rtc_base/system:no_unique_address",
   ]
   absl_deps = [

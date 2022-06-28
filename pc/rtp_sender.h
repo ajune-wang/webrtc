@@ -404,9 +404,9 @@ class VideoRtpSender : public RtpSenderBase {
   cricket::VideoMediaChannel* video_media_channel() {
     return static_cast<cricket::VideoMediaChannel*>(media_channel_);
   }
-  rtc::scoped_refptr<VideoTrackInterface> video_track() const {
-    return rtc::scoped_refptr<VideoTrackInterface>(
-        static_cast<VideoTrackInterface*>(track_.get()));
+
+  VideoTrackInterface* video_track() const {
+    return static_cast<VideoTrackInterface*>(track_.get());
   }
 
   VideoTrackInterface::ContentHint cached_track_content_hint_ =

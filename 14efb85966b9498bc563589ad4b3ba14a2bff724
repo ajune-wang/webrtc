@@ -18,6 +18,24 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "a03c1a56_6f433f01",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 22
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 12215
+      },
+      "writtenOn": "2022-06-28T13:14:30Z",
+      "side": 1,
+      "message": "Agree :) https://webrtc-review.googlesource.com/c/src/+/267006 is what I ended up with, which made this commit become very small.",
+      "parentUuid": "ae36858d_09c75480",
+      "revId": "14efb85966b9498bc563589ad4b3ba14a2bff724",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "239ae586_245b8c2c",
@@ -31,6 +49,24 @@
       "writtenOn": "2022-06-27T08:31:17Z",
       "side": 1,
       "message": "Should the comment about state overriding a_rwnd go here?\nAre there other args that are overwritten by handover_state?\nShould there be two Create functions, one with and one without state?",
+      "revId": "14efb85966b9498bc563589ad4b3ba14a2bff724",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "5c836d25_6042106e",
+        "filename": "net/dcsctp/socket/dcsctp_socket.h",
+        "patchSetId": 22
+      },
+      "lineNbr": 141,
+      "author": {
+        "id": 12215
+      },
+      "writtenOn": "2022-06-28T13:14:30Z",
+      "side": 1,
+      "message": "I have separated this refactoring to https://webrtc-review.googlesource.com/c/src/+/267006 instead - and improved the code in my opinion. PTAL!",
+      "parentUuid": "239ae586_245b8c2c",
       "revId": "14efb85966b9498bc563589ad4b3ba14a2bff724",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }

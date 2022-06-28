@@ -1,0 +1,222 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "d9ded214_57c4f6ca",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 16
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 18474
+      },
+      "writtenOn": "2022-06-28T23:41:36Z",
+      "side": 1,
+      "message": "Mostly looks good; a few questions to make sure I understand everything.",
+      "revId": "725d1e83cd1a49d4a02b449e4e57314aa7301f56",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "08c76527_508abb24",
+        "filename": "modules/desktop_capture/win/wgc_capture_session.cc",
+        "patchSetId": 16
+      },
+      "lineNbr": 406,
+      "author": {
+        "id": 18474
+      },
+      "writtenOn": "2022-06-28T23:41:36Z",
+      "side": 1,
+      "message": "Should this check the token validity to prevent logging in the case that it\u0027s already been removed/was never subscribed (e.g. in the Destructor)?",
+      "range": {
+        "startLine": 406,
+        "startChar": 6,
+        "endLine": 406,
+        "endChar": 17
+      },
+      "revId": "725d1e83cd1a49d4a02b449e4e57314aa7301f56",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "f8dcc11a_1c4b7722",
+        "filename": "modules/desktop_capture/win/wgc_capturer_win.cc",
+        "patchSetId": 16
+      },
+      "lineNbr": 77,
+      "author": {
+        "id": 18474
+      },
+      "writtenOn": "2022-06-28T23:41:36Z",
+      "side": 1,
+      "message": "NIT: Maybe worth adding a comment that we can\u0027t enforce we won\u0027t be asked for the entire virtual screen as well, so that\u0027s why we block creation.",
+      "range": {
+        "startLine": 76,
+        "startChar": 0,
+        "endLine": 77,
+        "endChar": 74
+      },
+      "revId": "725d1e83cd1a49d4a02b449e4e57314aa7301f56",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "900a4b3e_5b636702",
+        "filename": "modules/desktop_capture/win/wgc_capturer_win.h",
+        "patchSetId": 16
+      },
+      "lineNbr": 116,
+      "author": {
+        "id": 18474
+      },
+      "writtenOn": "2022-06-28T23:41:36Z",
+      "side": 1,
+      "message": "Are there implications if we create one? Or is it just a case of \"Ensure the object has been created\"? (e.g. if we don\u0027t make use of this what\u0027s the requirement to hold onto it, unless multiple methods try to ensure it\u0027s existence, in which case a bool may be a better option than a raw pointer?)",
+      "range": {
+        "startLine": 114,
+        "startChar": 23,
+        "endLine": 116,
+        "endChar": 34
+      },
+      "revId": "725d1e83cd1a49d4a02b449e4e57314aa7301f56",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "c432ed7c_a4fc9e68",
+        "filename": "modules/desktop_capture/win/wgc_capturer_win_unittest.cc",
+        "patchSetId": 16
+      },
+      "lineNbr": 56,
+      "author": {
+        "id": 18474
+      },
+      "writtenOn": "2022-06-28T23:41:36Z",
+      "side": 1,
+      "message": "If the third frame contains the resize why do we need to wait until the 5th frame? Or is it that the 3rd frame contains an event/delivers the event to re-size and so we need to then clear it and (maybe) the 4th frame before the 5th frame is guaranteed to be the new size?",
+      "range": {
+        "startLine": 55,
+        "startChar": 60,
+        "endLine": 56,
+        "endChar": 70
+      },
+      "revId": "725d1e83cd1a49d4a02b449e4e57314aa7301f56",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "477a1335_ddbb7ae1",
+        "filename": "modules/desktop_capture/win/wgc_capturer_win_unittest.cc",
+        "patchSetId": 16
+      },
+      "lineNbr": 77,
+      "author": {
+        "id": 18474
+      },
+      "writtenOn": "2022-06-28T23:41:36Z",
+      "side": 1,
+      "message": "NIT: Potentially comment that this is the result of the message queue hanging (If I\u0027m recalling correctly)",
+      "revId": "725d1e83cd1a49d4a02b449e4e57314aa7301f56",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "747b2a67_cec175e3",
+        "filename": "modules/desktop_capture/win/wgc_capturer_win_unittest.cc",
+        "patchSetId": 16
+      },
+      "lineNbr": 203,
+      "author": {
+        "id": 18474
+      },
+      "writtenOn": "2022-06-28T23:41:36Z",
+      "side": 1,
+      "message": "I think it may be a little clearer if we used a local \"succesful_captures\" here so that we can make the while loop condition be:\n`successful_captures \u003c num_captures`\n\nAnd then after the loop do something like\n`total_succesful_captures_ +\u003d successful_captures` \nfor the metric",
+      "range": {
+        "startLine": 203,
+        "startChar": 31,
+        "endLine": 203,
+        "endChar": 51
+      },
+      "revId": "725d1e83cd1a49d4a02b449e4e57314aa7301f56",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "720ac92e_e9185c58",
+        "filename": "modules/desktop_capture/win/wgc_capturer_win_unittest.cc",
+        "patchSetId": 16
+      },
+      "lineNbr": 317,
+      "author": {
+        "id": 18474
+      },
+      "writtenOn": "2022-06-28T23:41:36Z",
+      "side": 1,
+      "message": "Given that this is now expected, does the \"Warmup\" logic in DoCapture still apply?\nOr is it there to prevent noise in the other tests if this test is failing?\n(If so, maybe worth commenting)",
+      "range": {
+        "startLine": 317,
+        "startChar": 27,
+        "endLine": 317,
+        "endChar": 47
+      },
+      "revId": "725d1e83cd1a49d4a02b449e4e57314aa7301f56",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "fad8b988_176a4057",
+        "filename": "modules/desktop_capture/win/wgc_capturer_win_unittest.cc",
+        "patchSetId": 16
+      },
+      "lineNbr": 530,
+      "author": {
+        "id": 18474
+      },
+      "writtenOn": "2022-06-28T23:41:36Z",
+      "side": 1,
+      "message": "Why are we dropping this to 5?",
+      "range": {
+        "startLine": 530,
+        "startChar": 22,
+        "endLine": 530,
+        "endChar": 23
+      },
+      "revId": "725d1e83cd1a49d4a02b449e4e57314aa7301f56",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "05d01318_b98a771e",
+        "filename": "modules/desktop_capture/win/wgc_capturer_win_unittest.cc",
+        "patchSetId": 16
+      },
+      "lineNbr": 577,
+      "author": {
+        "id": 18474
+      },
+      "writtenOn": "2022-06-28T23:41:36Z",
+      "side": 1,
+      "message": "NIT: Maybe throw this into a loop? I know we can\u0027t use kNumBuffers directly here; but perhaps we can re-create the constant for test purposes so that we can more easily tweak it? (Or expose it as a static/global on/from WgcCapturer)",
+      "range": {
+        "startLine": 573,
+        "startChar": 0,
+        "endLine": 577,
+        "endChar": 30
+      },
+      "revId": "725d1e83cd1a49d4a02b449e4e57314aa7301f56",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

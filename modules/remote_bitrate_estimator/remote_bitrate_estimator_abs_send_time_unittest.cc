@@ -25,12 +25,10 @@ class RemoteBitrateEstimatorAbsSendTimeTest
   RemoteBitrateEstimatorAbsSendTimeTest& operator=(
       const RemoteBitrateEstimatorAbsSendTimeTest&) = delete;
 
-  virtual void SetUp() {
-    bitrate_estimator_.reset(new RemoteBitrateEstimatorAbsSendTime(
-        bitrate_observer_.get(), &clock_));
+  void SetUp() override {
+    bitrate_estimator_.reset(
+        new RemoteBitrateEstimatorAbsSendTime(bitrate_observer_.get()));
   }
-
- protected:
 };
 
 TEST_F(RemoteBitrateEstimatorAbsSendTimeTest, InitialBehavior) {
@@ -108,10 +106,10 @@ TEST_F(RemoteBitrateEstimatorAbsSendTimeTest, TestProcessAfterTimeout) {
   IncomingPacket(0, 1000, clock_.TimeInMilliseconds(), 0, 0);
   clock_.AdvanceTimeMilliseconds(kStreamTimeOutMs + 1);
   // Trigger timeout.
-  bitrate_estimator_->Process();
+  bitrate_estimator_->Process(clock_.CurrentTime());
   clock_.AdvanceTimeMilliseconds(kProcessIntervalMs);
   // This shouldn't crash.
-  bitrate_estimator_->Process();
+  bitrate_estimator_->Process(clock_.CurrentTime());
 }
 
 TEST_F(RemoteBitrateEstimatorAbsSendTimeTest, TestProbeDetection) {
@@ -131,7 +129,7 @@ TEST_F(RemoteBitrateEstimatorAbsSendTimeTest, TestProbeDetection) {
     IncomingPacket(0, 1000, now_ms, 90 * now_ms, AbsSendTime(now_ms, 1000));
   }
 
-  bitrate_estimator_->Process();
+  bitrate_estimator_->Process(clock_.CurrentTime());
   EXPECT_TRUE(bitrate_observer_->updated());
   EXPECT_GT(bitrate_observer_->latest_bitrate(), 1500000u);
 }
@@ -151,7 +149,7 @@ TEST_F(RemoteBitrateEstimatorAbsSendTimeTest,
     IncomingPacket(0, 100, now_ms, 90 * now_ms, AbsSendTime(now_ms, 1000));
   }
 
-  bitrate_estimator_->Process();
+  bitrate_estimator_->Process(clock_.CurrentTime());
   EXPECT_TRUE(bitrate_observer_->updated());
   EXPECT_GT(bitrate_observer_->latest_bitrate(), 800000u);
 }
@@ -182,7 +180,7 @@ TEST_F(RemoteBitrateEstimatorAbsSendTimeTest,
                    AbsSendTime(send_time_ms, 1000));
   }
 
-  bitrate_estimator_->Process();
+  bitrate_estimator_->Process(clock_.CurrentTime());
   EXPECT_TRUE(bitrate_observer_->updated());
   EXPECT_NEAR(bitrate_observer_->latest_bitrate(), 800000u, 10000);
 }
@@ -202,7 +200,7 @@ TEST_F(RemoteBitrateEstimatorAbsSendTimeTest,
                    AbsSendTime(send_time_ms, 1000));
   }
 
-  bitrate_estimator_->Process();
+  bitrate_estimator_->Process(clock_.CurrentTime());
   EXPECT_TRUE(bitrate_observer_->updated());
   EXPECT_GT(bitrate_observer_->latest_bitrate(), 800000u);
 }
@@ -221,7 +219,7 @@ TEST_F(RemoteBitrateEstimatorAbsSendTimeTest, TestProbeDetectionFasterArrival) {
                    AbsSendTime(send_time_ms, 1000));
   }
 
-  bitrate_estimator_->Process();
+  bitrate_estimator_->Process(clock_.CurrentTime());
   EXPECT_FALSE(bitrate_observer_->updated());
 }
 
@@ -239,7 +237,7 @@ TEST_F(RemoteBitrateEstimatorAbsSendTimeTest, TestProbeDetectionSlowerArrival) {
                    AbsSendTime(send_time_ms, 1000));
   }
 
-  bitrate_estimator_->Process();
+  bitrate_estimator_->Process(clock_.CurrentTime());
   EXPECT_TRUE(bitrate_observer_->updated());
   EXPECT_NEAR(bitrate_observer_->latest_bitrate(), 1140000, 10000);
 }
@@ -259,7 +257,7 @@ TEST_F(RemoteBitrateEstimatorAbsSendTimeTest,
                    AbsSendTime(send_time_ms, 1000));
   }
 
-  bitrate_estimator_->Process();
+  bitrate_estimator_->Process(clock_.CurrentTime());
   EXPECT_TRUE(bitrate_observer_->updated());
   EXPECT_NEAR(bitrate_observer_->latest_bitrate(), 4000000u, 10000);
 }
@@ -275,7 +273,7 @@ TEST_F(RemoteBitrateEstimatorAbsSendTimeTest, ProbingIgnoresSmallPackets) {
     IncomingPacket(0, 200, now_ms, 90 * now_ms, AbsSendTime(now_ms, 1000));
   }
 
-  bitrate_estimator_->Process();
+  bitrate_estimator_->Process(clock_.CurrentTime());
   EXPECT_FALSE(bitrate_observer_->updated());
 
   // Followed by a probe with 1000 bytes packets, should be detected as a
@@ -289,7 +287,7 @@ TEST_F(RemoteBitrateEstimatorAbsSendTimeTest, ProbingIgnoresSmallPackets) {
   // Wait long enough so that we can call Process again.
   clock_.AdvanceTimeMilliseconds(1000);
 
-  bitrate_estimator_->Process();
+  bitrate_estimator_->Process(clock_.CurrentTime());
   EXPECT_TRUE(bitrate_observer_->updated());
   EXPECT_NEAR(bitrate_observer_->latest_bitrate(), 800000u, 10000);
 }

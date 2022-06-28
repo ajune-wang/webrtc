@@ -35,14 +35,12 @@
 #include "rtc_base/rate_statistics.h"
 #include "rtc_base/synchronization/mutex.h"
 #include "rtc_base/thread_annotations.h"
-#include "system_wrappers/include/clock.h"
 
 namespace webrtc {
 
 class RemoteBitrateEstimatorAbsSendTime : public RemoteBitrateEstimator {
  public:
-  RemoteBitrateEstimatorAbsSendTime(RemoteBitrateObserver* observer,
-                                    Clock* clock);
+  explicit RemoteBitrateEstimatorAbsSendTime(RemoteBitrateObserver* observer);
 
   RemoteBitrateEstimatorAbsSendTime() = delete;
   RemoteBitrateEstimatorAbsSendTime(const RemoteBitrateEstimatorAbsSendTime&) =
@@ -52,15 +50,11 @@ class RemoteBitrateEstimatorAbsSendTime : public RemoteBitrateEstimator {
 
   ~RemoteBitrateEstimatorAbsSendTime() override;
 
-  void IncomingPacket(int64_t arrival_time_ms,
+  void IncomingPacket(Timestamp now,
+                      int64_t arrival_time_ms,
                       size_t payload_size,
                       const RTPHeader& header) override;
-  // This class relies on Process() being called periodically (at least once
-  // every other second) for streams to be timed out properly. Therefore it
-  // shouldn't be detached from the ProcessThread except if it's about to be
-  // deleted.
-  void Process() override;
-  int64_t TimeUntilNextProcess() override;
+  TimeDelta Process(Timestamp now) override;
   void OnRttUpdate(int64_t avg_rtt_ms, int64_t max_rtt_ms) override;
   void RemoveStream(uint32_t ssrc) override;
   bool LatestEstimate(std::vector<uint32_t>* ssrcs,
@@ -99,7 +93,8 @@ class RemoteBitrateEstimatorAbsSendTime : public RemoteBitrateEstimator {
   static void MaybeAddCluster(const Cluster& cluster_aggregate,
                               std::list<Cluster>& clusters);
 
-  void IncomingPacketInfo(Timestamp arrival_time,
+  void IncomingPacketInfo(Timestamp now,
+                          Timestamp arrival_time,
                           uint32_t send_time_24bits,
                           DataSize payload_size,
                           uint32_t ssrc);
@@ -118,7 +113,6 @@ class RemoteBitrateEstimatorAbsSendTime : public RemoteBitrateEstimator {
   void TimeoutStreams(Timestamp now) RTC_EXCLUSIVE_LOCKS_REQUIRED(&mutex_);
 
   rtc::RaceChecker network_race_;
-  Clock* const clock_;
   const FieldTrialBasedConfig field_trials_;
   RemoteBitrateObserver* const observer_;
   std::unique_ptr<InterArrival> inter_arrival_;

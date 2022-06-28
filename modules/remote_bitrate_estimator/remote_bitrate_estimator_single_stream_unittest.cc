@@ -25,8 +25,8 @@ class RemoteBitrateEstimatorSingleTest : public RemoteBitrateEstimatorTest {
       const RemoteBitrateEstimatorSingleTest&) = delete;
 
   virtual void SetUp() {
-    bitrate_estimator_.reset(new RemoteBitrateEstimatorSingleStream(
-        bitrate_observer_.get(), &clock_));
+    bitrate_estimator_.reset(
+        new RemoteBitrateEstimatorSingleStream(bitrate_observer_.get()));
   }
 
  protected:

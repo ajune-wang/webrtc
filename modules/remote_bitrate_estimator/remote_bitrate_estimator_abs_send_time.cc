@@ -353,16 +353,13 @@ void RemoteBitrateEstimatorAbsSendTime::IncomingPacketInfo(
   }
 }
 
-void RemoteBitrateEstimatorAbsSendTime::Process() {}
-
-int64_t RemoteBitrateEstimatorAbsSendTime::TimeUntilNextProcess() {
-  const int64_t kDisabledModuleTime = 1000;
-  return kDisabledModuleTime;
+TimeDelta RemoteBitrateEstimatorAbsSendTime::Process(Timestamp /*now*/) {
+  return TimeDelta::PlusInfinity();
 }
 
 void RemoteBitrateEstimatorAbsSendTime::TimeoutStreams(Timestamp now) {
   for (auto it = ssrcs_.begin(); it != ssrcs_.end();) {
-    if (now - it->second > TimeDelta::Millis(kStreamTimeOutMs)) {
+    if (now - it->second > kStreamTimeOut) {
       ssrcs_.erase(it++);
     } else {
       ++it;

@@ -17,7 +17,7 @@
 #include <memory>
 #include <vector>
 
-#include "modules/include/module.h"
+#include "api/units/time_delta.h"
 #include "modules/include/module_common_types.h"
 #include "modules/rtp_rtcp/include/rtp_rtcp_defines.h"
 #include "modules/rtp_rtcp/source/rtcp_packet.h"
@@ -38,7 +38,7 @@ class RemoteBitrateObserver {
   virtual ~RemoteBitrateObserver() {}
 };
 
-class RemoteBitrateEstimator : public CallStatsObserver, public Module {
+class RemoteBitrateEstimator : public CallStatsObserver {
  public:
   ~RemoteBitrateEstimator() override {}
 
@@ -62,9 +62,10 @@ class RemoteBitrateEstimator : public CallStatsObserver, public Module {
 
   virtual void SetMinBitrate(int min_bitrate_bps) = 0;
 
+  virtual TimeDelta Process(Timestamp now) = 0;
+
  protected:
-  static const int64_t kProcessIntervalMs = 500;
-  static const int64_t kStreamTimeOutMs = 2000;
+  static constexpr TimeDelta kStreamTimeOut = TimeDelta::Seconds(2);
 };
 
 }  // namespace webrtc

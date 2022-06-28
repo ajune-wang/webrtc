@@ -10,7 +10,6 @@
 
 #include "modules/remote_bitrate_estimator/remote_bitrate_estimator_single_stream.h"
 
-
 #include <cstdint>
 #include <utility>
 
@@ -22,7 +21,6 @@
 #include "modules/remote_bitrate_estimator/overuse_estimator.h"
 #include "rtc_base/checks.h"
 #include "rtc_base/logging.h"
-#include "system_wrappers/include/clock.h"
 #include "system_wrappers/include/metrics.h"
 
 namespace webrtc {
@@ -58,15 +56,13 @@ struct RemoteBitrateEstimatorSingleStream::Detector {
 };
 
 RemoteBitrateEstimatorSingleStream::RemoteBitrateEstimatorSingleStream(
-    RemoteBitrateObserver* observer,
-    Clock* clock)
-    : clock_(clock),
-      incoming_bitrate_(kBitrateWindowMs, 8000),
+    RemoteBitrateObserver* observer)
+    : incoming_bitrate_(kBitrateWindowMs, 8000),
       last_valid_incoming_bitrate_(0),
       remote_rate_(new AimdRateControl(&field_trials_)),
       observer_(observer),
-      last_process_time_(-1),
-      process_interval_ms_(kProcessIntervalMs),
+      last_process_time_(Timestamp::MinusInfinity()),
+      process_interval_(TimeDelta::Millis(500)),
       uma_recorded_(false) {
   RTC_LOG(LS_INFO) << "RemoteBitrateEstimatorSingleStream: Instantiating.";
 }
@@ -80,6 +76,7 @@ RemoteBitrateEstimatorSingleStream::~RemoteBitrateEstimatorSingleStream() {
 }
 
 void RemoteBitrateEstimatorSingleStream::IncomingPacket(
+    Timestamp now,
     int64_t arrival_time_ms,
     size_t payload_size,
     const RTPHeader& header) {
@@ -93,7 +90,7 @@ void RemoteBitrateEstimatorSingleStream::IncomingPacket(
   uint32_t ssrc = header.ssrc;
   uint32_t rtp_timestamp =
       header.timestamp + header.extension.transmissionTimeOffset;
-  int64_t now_ms = clock_->TimeInMilliseconds();
+  int64_t now_ms = now.ms();
   MutexLock lock(&mutex_);
   SsrcOveruseEstimatorMap::iterator it = overuse_detectors_.find(ssrc);
   if (it == overuse_detectors_.end()) {
@@ -145,8 +142,7 @@ void RemoteBitrateEstimatorSingleStream::IncomingPacket(
     if (incoming_bitrate_bps &&
         (prior_state != BandwidthUsage::kBwOverusing ||
          GetRemoteRate()->TimeToReduceFurther(
-             Timestamp::Millis(now_ms),
-             DataRate::BitsPerSec(*incoming_bitrate_bps)))) {
+             now, DataRate::BitsPerSec(*incoming_bitrate_bps)))) {
       // The first overuse should immediately trigger a new estimate.
       // We also have to update the estimate immediately if we are overusing
       // and the target bitrate is too high compared to what we are receiving.
@@ -155,22 +151,16 @@ void RemoteBitrateEstimatorSingleStream::IncomingPacket(
   }
 }
 
-void RemoteBitrateEstimatorSingleStream::Process() {
-  {
-    MutexLock lock(&mutex_);
-    UpdateEstimate(clock_->TimeInMilliseconds());
+TimeDelta RemoteBitrateEstimatorSingleStream::Process(Timestamp now) {
+  MutexLock lock(&mutex_);
+  Timestamp next_process_time = last_process_time_ + process_interval_;
+  if (now >= next_process_time) {
+    UpdateEstimate(now.ms());
+    last_process_time_ = now;
+    return process_interval_;
   }
-  last_process_time_ = clock_->TimeInMilliseconds();
-}
 
-int64_t RemoteBitrateEstimatorSingleStream::TimeUntilNextProcess() {
-  if (last_process_time_ < 0) {
-    return 0;
-  }
-  MutexLock lock_(&mutex_);
-  RTC_DCHECK_GT(process_interval_ms_, 0);
-  return last_process_time_ + process_interval_ms_ -
-         clock_->TimeInMilliseconds();
+  return next_process_time - now;
 }
 
 void RemoteBitrateEstimatorSingleStream::UpdateEstimate(int64_t now_ms) {
@@ -180,7 +170,7 @@ void RemoteBitrateEstimatorSingleStream::UpdateEstimate(int64_t now_ms) {
     const int64_t time_of_last_received_packet =
         it->second->last_packet_time_ms;
     if (time_of_last_received_packet >= 0 &&
-        now_ms - time_of_last_received_packet > kStreamTimeOutMs) {
+        now_ms - time_of_last_received_packet > kStreamTimeOut.ms()) {
       // This over-use detector hasn't received packets for `kStreamTimeOutMs`
       // milliseconds and is considered stale.
       delete it->second;
@@ -205,8 +195,8 @@ void RemoteBitrateEstimatorSingleStream::UpdateEstimate(int64_t now_ms) {
   uint32_t target_bitrate =
       remote_rate->Update(&input, Timestamp::Millis(now_ms)).bps<uint32_t>();
   if (remote_rate->ValidEstimate()) {
-    process_interval_ms_ = remote_rate->GetFeedbackInterval().ms();
-    RTC_DCHECK_GT(process_interval_ms_, 0);
+    process_interval_ = remote_rate->GetFeedbackInterval();
+    RTC_DCHECK_GT(process_interval_, TimeDelta::Zero());
     std::vector<uint32_t> ssrcs;
     GetSsrcs(&ssrcs);
     if (observer_)

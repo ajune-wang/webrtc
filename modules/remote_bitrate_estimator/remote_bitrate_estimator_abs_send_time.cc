@@ -96,13 +96,10 @@ void RemoteBitrateEstimatorAbsSendTime::MaybeAddCluster(
 }
 
 RemoteBitrateEstimatorAbsSendTime::RemoteBitrateEstimatorAbsSendTime(
-    RemoteBitrateObserver* observer,
-    Clock* clock)
-    : clock_(clock),
-      observer_(observer),
+    RemoteBitrateObserver* observer)
+    : observer_(observer),
       detector_(&field_trials_),
       remote_rate_(&field_trials_) {
-  RTC_DCHECK(clock_);
   RTC_DCHECK(observer_);
   RTC_LOG(LS_INFO) << "RemoteBitrateEstimatorAbsSendTime: Instantiating.";
 }
@@ -212,6 +209,7 @@ bool RemoteBitrateEstimatorAbsSendTime::IsBitrateImproving(
 }
 
 void RemoteBitrateEstimatorAbsSendTime::IncomingPacket(
+    Timestamp now,
     int64_t arrival_time_ms,
     size_t payload_size,
     const RTPHeader& header) {
@@ -222,12 +220,13 @@ void RemoteBitrateEstimatorAbsSendTime::IncomingPacket(
            "is missing absolute send time extension!";
     return;
   }
-  IncomingPacketInfo(Timestamp::Millis(arrival_time_ms),
+  IncomingPacketInfo(now, Timestamp::Millis(arrival_time_ms),
                      header.extension.absoluteSendTime,
                      DataSize::Bytes(payload_size), header.ssrc);
 }
 
 void RemoteBitrateEstimatorAbsSendTime::IncomingPacketInfo(
+    Timestamp now,
     Timestamp arrival_time,
     uint32_t send_time_24bits,
     DataSize payload_size,
@@ -244,7 +243,6 @@ void RemoteBitrateEstimatorAbsSendTime::IncomingPacketInfo(
   Timestamp send_time =
       Timestamp::Millis(static_cast<int64_t>(timestamp) * kTimestampToMs);
 
-  Timestamp now = clock_->CurrentTime();
   // TODO(holmer): SSRCs are only needed for REMB, should be broken out from
   // here.
 
@@ -353,16 +351,13 @@ void RemoteBitrateEstimatorAbsSendTime::IncomingPacketInfo(
   }
 }
 
-void RemoteBitrateEstimatorAbsSendTime::Process() {}
-
-int64_t RemoteBitrateEstimatorAbsSendTime::TimeUntilNextProcess() {
-  const int64_t kDisabledModuleTime = 1000;
-  return kDisabledModuleTime;
+TimeDelta RemoteBitrateEstimatorAbsSendTime::Process(Timestamp /*now*/) {
+  return TimeDelta::PlusInfinity();
 }
 
 void RemoteBitrateEstimatorAbsSendTime::TimeoutStreams(Timestamp now) {
   for (auto it = ssrcs_.begin(); it != ssrcs_.end();) {
-    if (now - it->second > TimeDelta::Millis(kStreamTimeOutMs)) {
+    if (now - it->second > kStreamTimeOut) {
       ssrcs_.erase(it++);
     } else {
       ++it;

@@ -19,6 +19,8 @@
 #include <vector>
 
 #include "api/transport/field_trial_based_config.h"
+#include "api/units/time_delta.h"
+#include "api/units/timestamp.h"
 #include "modules/remote_bitrate_estimator/aimd_rate_control.h"
 #include "modules/remote_bitrate_estimator/include/remote_bitrate_estimator.h"
 #include "rtc_base/rate_statistics.h"
@@ -32,8 +34,7 @@ struct RTPHeader;
 
 class RemoteBitrateEstimatorSingleStream : public RemoteBitrateEstimator {
  public:
-  RemoteBitrateEstimatorSingleStream(RemoteBitrateObserver* observer,
-                                     Clock* clock);
+  explicit RemoteBitrateEstimatorSingleStream(RemoteBitrateObserver* observer);
 
   RemoteBitrateEstimatorSingleStream() = delete;
   RemoteBitrateEstimatorSingleStream(
@@ -43,11 +44,11 @@ class RemoteBitrateEstimatorSingleStream : public RemoteBitrateEstimator {
 
   ~RemoteBitrateEstimatorSingleStream() override;
 
-  void IncomingPacket(int64_t arrival_time_ms,
+  void IncomingPacket(Timestamp now,
+                      int64_t arrival_time_ms,
                       size_t payload_size,
                       const RTPHeader& header) override;
-  void Process() override;
-  int64_t TimeUntilNextProcess() override;
+  TimeDelta Process(Timestamp now) override;
   void OnRttUpdate(int64_t avg_rtt_ms, int64_t max_rtt_ms) override;
   void RemoveStream(uint32_t ssrc) override;
   bool LatestEstimate(std::vector<uint32_t>* ssrcs,
@@ -69,7 +70,6 @@ class RemoteBitrateEstimatorSingleStream : public RemoteBitrateEstimator {
   // otherwise creates it.
   AimdRateControl* GetRemoteRate() RTC_EXCLUSIVE_LOCKS_REQUIRED(mutex_);
 
-  Clock* const clock_;
   const FieldTrialBasedConfig field_trials_;
   SsrcOveruseEstimatorMap overuse_detectors_ RTC_GUARDED_BY(mutex_);
   RateStatistics incoming_bitrate_ RTC_GUARDED_BY(mutex_);
@@ -77,8 +77,8 @@ class RemoteBitrateEstimatorSingleStream : public RemoteBitrateEstimator {
   std::unique_ptr<AimdRateControl> remote_rate_ RTC_GUARDED_BY(mutex_);
   RemoteBitrateObserver* const observer_ RTC_GUARDED_BY(mutex_);
   mutable Mutex mutex_;
-  int64_t last_process_time_;
-  int64_t process_interval_ms_ RTC_GUARDED_BY(mutex_);
+  Timestamp last_process_time_;
+  TimeDelta process_interval_ RTC_GUARDED_BY(mutex_);
   bool uma_recorded_;
 };
 

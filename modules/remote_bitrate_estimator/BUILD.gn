@@ -65,7 +65,6 @@ rtc_library("remote_bitrate_estimator") {
     "../../rtc_base:stringutils",
     "../../rtc_base/experiments:field_trial_parser",
     "../../rtc_base/synchronization:mutex",
-    "../../system_wrappers",
     "../../system_wrappers:field_trial",
     "../../system_wrappers:metrics",
   ]

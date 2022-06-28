@@ -17,7 +17,8 @@
 #include <memory>
 #include <vector>
 
-#include "modules/include/module.h"
+#include "api/units/time_delta.h"
+#include "api/units/timestamp.h"
 #include "modules/include/module_common_types.h"
 #include "modules/rtp_rtcp/include/rtp_rtcp_defines.h"
 #include "modules/rtp_rtcp/source/rtcp_packet.h"
@@ -38,7 +39,7 @@ class RemoteBitrateObserver {
   virtual ~RemoteBitrateObserver() {}
 };
 
-class RemoteBitrateEstimator : public CallStatsObserver, public Module {
+class RemoteBitrateEstimator : public CallStatsObserver {
  public:
   ~RemoteBitrateEstimator() override {}
 
@@ -47,7 +48,8 @@ class RemoteBitrateEstimator : public CallStatsObserver, public Module {
   // remote bitrate estimate will be updated. Note that `payload_size` is the
   // packet size excluding headers.
   // Note that `arrival_time_ms` can be of an arbitrary time base.
-  virtual void IncomingPacket(int64_t arrival_time_ms,
+  virtual void IncomingPacket(Timestamp now,
+                              int64_t arrival_time_ms,
                               size_t payload_size,
                               const RTPHeader& header) = 0;
 
@@ -62,9 +64,10 @@ class RemoteBitrateEstimator : public CallStatsObserver, public Module {
 
   virtual void SetMinBitrate(int min_bitrate_bps) = 0;
 
+  virtual TimeDelta Process(Timestamp now) = 0;
+
  protected:
-  static const int64_t kProcessIntervalMs = 500;
-  static const int64_t kStreamTimeOutMs = 2000;
+  static constexpr TimeDelta kStreamTimeOut = TimeDelta::Seconds(2);
 };
 
 }  // namespace webrtc

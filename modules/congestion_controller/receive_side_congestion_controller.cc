@@ -24,10 +24,9 @@ static const uint32_t kTimeOffsetSwitchThreshold = 30;
 }  // namespace
 
 ReceiveSideCongestionController::WrappingBitrateEstimator::
-    WrappingBitrateEstimator(RemoteBitrateObserver* observer, Clock* clock)
+    WrappingBitrateEstimator(RemoteBitrateObserver* observer)
     : observer_(observer),
-      clock_(clock),
-      rbe_(new RemoteBitrateEstimatorSingleStream(observer_, clock_)),
+      rbe_(new RemoteBitrateEstimatorSingleStream(observer_)),
       using_absolute_send_time_(false),
       packets_since_absolute_send_time_(0),
       min_bitrate_bps_(congestion_controller::GetMinBitrateBps()) {}
@@ -36,23 +35,19 @@ ReceiveSideCongestionController::WrappingBitrateEstimator::
     ~WrappingBitrateEstimator() = default;
 
 void ReceiveSideCongestionController::WrappingBitrateEstimator::IncomingPacket(
+    Timestamp now,
     int64_t arrival_time_ms,
     size_t payload_size,
     const RTPHeader& header) {
   MutexLock lock(&mutex_);
   PickEstimatorFromHeader(header);
-  rbe_->IncomingPacket(arrival_time_ms, payload_size, header);
+  rbe_->IncomingPacket(now, arrival_time_ms, payload_size, header);
 }
 
-void ReceiveSideCongestionController::WrappingBitrateEstimator::Process() {
+TimeDelta ReceiveSideCongestionController::WrappingBitrateEstimator::Process(
+    Timestamp now) {
   MutexLock lock(&mutex_);
-  rbe_->Process();
-}
-
-int64_t ReceiveSideCongestionController::WrappingBitrateEstimator::
-    TimeUntilNextProcess() {
-  MutexLock lock(&mutex_);
-  return rbe_->TimeUntilNextProcess();
+  return rbe_->Process(now);
 }
 
 void ReceiveSideCongestionController::WrappingBitrateEstimator::OnRttUpdate(
@@ -112,9 +107,9 @@ void ReceiveSideCongestionController::WrappingBitrateEstimator::
 void ReceiveSideCongestionController::WrappingBitrateEstimator::
     PickEstimator() {
   if (using_absolute_send_time_) {
-    rbe_.reset(new RemoteBitrateEstimatorAbsSendTime(observer_, clock_));
+    rbe_.reset(new RemoteBitrateEstimatorAbsSendTime(observer_));
   } else {
-    rbe_.reset(new RemoteBitrateEstimatorSingleStream(observer_, clock_));
+    rbe_.reset(new RemoteBitrateEstimatorSingleStream(observer_));
   }
   rbe_->SetMinBitrate(min_bitrate_bps_);
 }
@@ -126,7 +121,7 @@ ReceiveSideCongestionController::ReceiveSideCongestionController(
     NetworkStateEstimator* network_state_estimator)
     : clock_(*clock),
       remb_throttler_(std::move(remb_sender), clock),
-      remote_bitrate_estimator_(&remb_throttler_, clock),
+      remote_bitrate_estimator_(&remb_throttler_),
       remote_estimator_proxy_(std::move(feedback_sender),
                               &field_trial_config_,
                               network_state_estimator) {}
@@ -138,8 +133,8 @@ void ReceiveSideCongestionController::OnReceivedPacket(
   remote_estimator_proxy_.IncomingPacket(arrival_time_ms, payload_size, header);
   if (!header.extension.hasTransportSequenceNumber) {
     // Receive-side BWE.
-    remote_bitrate_estimator_.IncomingPacket(arrival_time_ms, payload_size,
-                                             header);
+    remote_bitrate_estimator_.IncomingPacket(
+        clock_.CurrentTime(), arrival_time_ms, payload_size, header);
   }
 }
 
@@ -171,22 +166,9 @@ void ReceiveSideCongestionController::OnBitrateChanged(int bitrate_bps) {
   remote_estimator_proxy_.OnBitrateChanged(bitrate_bps);
 }
 
-int64_t ReceiveSideCongestionController::TimeUntilNextProcess() {
-  return remote_bitrate_estimator_.TimeUntilNextProcess();
-}
-
-void ReceiveSideCongestionController::Process() {
-  remote_bitrate_estimator_.Process();
-}
-
 TimeDelta ReceiveSideCongestionController::MaybeProcess() {
   Timestamp now = clock_.CurrentTime();
-  int64_t time_until_rbe_ms = remote_bitrate_estimator_.TimeUntilNextProcess();
-  if (time_until_rbe_ms <= 0) {
-    remote_bitrate_estimator_.Process();
-    time_until_rbe_ms = remote_bitrate_estimator_.TimeUntilNextProcess();
-  }
-  TimeDelta time_until_rbe = TimeDelta::Millis(time_until_rbe_ms);
+  TimeDelta time_until_rbe = remote_bitrate_estimator_.Process(now);
   TimeDelta time_until_rep = remote_estimator_proxy_.Process(now);
   TimeDelta time_until = std::min(time_until_rbe, time_until_rep);
   return std::max(time_until, TimeDelta::Zero());

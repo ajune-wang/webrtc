@@ -10,7 +10,7 @@ vars = {
   # chromium waterfalls. More info at: crbug.com/570091.
   'checkout_configuration': 'default',
   'checkout_instrumented_libraries': 'checkout_linux and checkout_configuration == "default"',
-  'chromium_revision': 'ed26d8e9ab79308488eb8a1e08917010f98a411d',
+  'chromium_revision': '308b0dccee8298ef243d5d652607e93377729d81',
 
   # Keep the Chromium default of generating location tags.
   'generate_location_tags': True,
@@ -20,14 +20,14 @@ vars = {
 
   # By default, download the fuchsia sdk from the public sdk directory.
   'fuchsia_sdk_cipd_prefix': 'fuchsia/sdk/gn/',
-  'fuchsia_version': 'version:8.20220627.1.1',
+  'fuchsia_version': 'version:8.20220627.3.1',
 }
 
 deps = {
   # TODO(kjellander): Move this to be Android-only once the libevent dependency
   # in base/third_party/libevent is solved.
   'src/base':
-    'https://chromium.googlesource.com/chromium/src/base@0070c64c09af8c47cc61eceb685e05ba49f110f3',
+    'https://chromium.googlesource.com/chromium/src/base@3680287225315bbbdee0d9498d6af330fff39978',
   'src/build':
     'https://chromium.googlesource.com/chromium/src/build@4e6d71ddc18505dcf0c189f030cca52bc548e46f',
   'src/buildtools':
@@ -38,13 +38,13 @@ deps = {
     'condition': 'checkout_android',
   },
   'src/ios': {
-    'url': 'https://chromium.googlesource.com/chromium/src/ios@93452723938faf269f9a005f89be9a24545ee315',
+    'url': 'https://chromium.googlesource.com/chromium/src/ios@a1f80e1a70e4fe696c800681d938e01f9dfb2c37',
     'condition': 'checkout_ios',
   },
   'src/testing':
-    'https://chromium.googlesource.com/chromium/src/testing@f0dad2419cc42c68284469a4e69268a7c6a96052',
+    'https://chromium.googlesource.com/chromium/src/testing@02d75ae7ec9d856c9263ffac2c45b937edd4fb41',
   'src/third_party':
-    'https://chromium.googlesource.com/chromium/src/third_party@9967f332145a8b835437af081327f7afc92e4f37',
+    'https://chromium.googlesource.com/chromium/src/third_party@f0cdb6b655cebf043bde530dddfc91463bc6da5c',
 
   'src/buildtools/linux64': {
     'packages': [
@@ -142,7 +142,7 @@ deps = {
   'src/third_party/crc32c/src':
     'https://chromium.googlesource.com/external/github.com/google/crc32c.git@fa5ade41ee480003d9c5af6f43567ba22e4e17e6',
   'src/third_party/depot_tools':
-    'https://chromium.googlesource.com/chromium/tools/depot_tools.git@418f021a0eddf7a207d8e5b68cccf0588c3a9724',
+    'https://chromium.googlesource.com/chromium/tools/depot_tools.git@3c4d401cbdd24154d1fa6dc2d398fdace8daedf8',
   'src/third_party/ffmpeg':
     'https://chromium.googlesource.com/chromium/third_party/ffmpeg.git@b86aef09f324c87e324365980422e56f6533454f',
   'src/third_party/findbugs': {
@@ -275,7 +275,7 @@ deps = {
     'condition': 'checkout_win',
   },
   'src/tools':
-    'https://chromium.googlesource.com/chromium/src/tools@15a81f29dfabe4158612ff2adc4d078d7bc70d5d',
+    'https://chromium.googlesource.com/chromium/src/tools@3599032cf48c566ee5b0740f95e0524994774d59',
 
   'src/third_party/accessibility_test_framework': {
       'packages': [

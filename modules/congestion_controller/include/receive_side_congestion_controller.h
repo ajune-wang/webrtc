@@ -32,8 +32,7 @@ class RemoteBitrateObserver;
 // relaying for each received RTP packet back to the sender. While for
 // receive side bandwidth estimation, we do the estimation locally and
 // send our results back to the sender.
-class ReceiveSideCongestionController : public CallStatsObserver,
-                                        public Module {
+class ReceiveSideCongestionController : public CallStatsObserver {
  public:
   ReceiveSideCongestionController(
       Clock* clock,
@@ -49,9 +48,10 @@ class ReceiveSideCongestionController : public CallStatsObserver,
 
   void SetSendPeriodicFeedback(bool send_periodic_feedback);
   // TODO(nisse): Delete these methods, design a more specific interface.
-  virtual RemoteBitrateEstimator* GetRemoteBitrateEstimator(bool send_side_bwe);
-  virtual const RemoteBitrateEstimator* GetRemoteBitrateEstimator(
-      bool send_side_bwe) const;
+  [[deprecated]] virtual RemoteBitrateEstimator* GetRemoteBitrateEstimator(
+      bool send_side_bwe);
+  [[deprecated]] virtual const RemoteBitrateEstimator*
+  GetRemoteBitrateEstimator(bool send_side_bwe) const;
 
   // Implements CallStatsObserver.
   void OnRttUpdate(int64_t avg_rtt_ms, int64_t max_rtt_ms) override;
@@ -63,9 +63,22 @@ class ReceiveSideCongestionController : public CallStatsObserver,
   // `bitrate` using RTCP REMB.
   void SetMaxDesiredReceiveBitrate(DataRate bitrate);
 
-  // Implements Module.
-  int64_t TimeUntilNextProcess() override;
-  void Process() override;
+  void SetTransportOverhead(DataSize overhead_per_packet);
+
+  // Returns latest receive side bandwidth estimation.
+  // Returns zero if receive side bandwidth estimation is unavailable.
+  DataRate LatestReceiveSideEstimate() const;
+
+  // Removes stream from receive side bandwidth estimation.
+  // Noop if receive side bwe is not used or stream doesn't participate in it.
+  void RemoveStream(uint32_t ssrc);
+
+  [[deprecated]] int64_t TimeUntilNextProcess();
+  [[deprecated]] void Process();
+
+  // Runs periodic tasks if it is time to run them, returns time until next
+  // call to `MaybeProcess` should be non idle.
+  TimeDelta MaybeProcess();
 
  private:
   class WrappingBitrateEstimator : public RemoteBitrateEstimator {

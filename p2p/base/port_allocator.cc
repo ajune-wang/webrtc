@@ -14,6 +14,7 @@
 #include <set>
 #include <utility>
 
+#include "absl/strings/string_view.h"
 #include "p2p/base/ice_credentials_iterator.h"
 #include "rtc_base/checks.h"
 #include "rtc_base/logging.h"
@@ -310,6 +311,16 @@ std::vector<IceParameters> PortAllocator::GetPooledIceCredentials() {
         IceParameters(session->ice_ufrag(), session->ice_pwd(), false));
   }
   return list;
+}
+
+PortAllocatorSession* PortAllocator::CreateSessionInternal(
+    const std::string& content_name,
+    int component,
+    const std::string& ice_ufrag,
+    const std::string& ice_pwd) {
+  return CreateSessionInternal(absl::string_view(content_name), component,
+                               absl::string_view(ice_ufrag),
+                               absl::string_view(ice_pwd));
 }
 
 Candidate PortAllocator::SanitizeCandidate(const Candidate& c) const {

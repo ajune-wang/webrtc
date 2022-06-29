@@ -29,6 +29,9 @@ namespace webrtc {
 
 class RTC_EXPORT VideoFrame {
  public:
+  // Value used to signal that `VideoFrame::id()` is not set.
+  static constexpr uint16_t kNotSetId = 0;
+
   struct RTC_EXPORT UpdateRect {
     int offset_x;
     int offset_y;
@@ -78,6 +81,21 @@ class RTC_EXPORT VideoFrame {
     Timestamp finish;
   };
 
+  struct RTC_EXPORT RenderParameters {
+    bool use_low_latency_rendering = false;
+    absl::optional<int32_t> max_composition_delay_in_frames;
+
+    bool operator==(const RenderParameters& other) const {
+      return other.use_low_latency_rendering == use_low_latency_rendering &&
+             other.max_composition_delay_in_frames ==
+                 max_composition_delay_in_frames;
+    }
+
+    bool operator!=(const RenderParameters& other) const {
+      return !(*this == other);
+    }
+  };
+
   // Preferred way of building VideoFrame objects.
   class RTC_EXPORT Builder {
    public:
@@ -99,13 +117,14 @@ class RTC_EXPORT VideoFrame {
     Builder& set_packet_infos(RtpPacketInfos packet_infos);
 
    private:
-    uint16_t id_ = 0;
+    uint16_t id_ = kNotSetId;
     rtc::scoped_refptr<webrtc::VideoFrameBuffer> video_frame_buffer_;
     int64_t timestamp_us_ = 0;
     uint32_t timestamp_rtp_ = 0;
     int64_t ntp_time_ms_ = 0;
     VideoRotation rotation_ = kVideoRotation_0;
     absl::optional<ColorSpace> color_space_;
+    RenderParameters render_parameters_;
     absl::optional<UpdateRect> update_rect_;
     RtpPacketInfos packet_infos_;
   };
@@ -134,12 +153,12 @@ class RTC_EXPORT VideoFrame {
   // Get frame size in pixels.
   uint32_t size() const;
 
-  // Get frame ID. Returns 0 if ID is not set. Not guaranteed to be transferred
-  // from the sender to the receiver, but preserved on the sender side. The id
-  // should be propagated between all frame modifications during its lifetime
-  // from capturing to sending as encoded image. It is intended to be unique
-  // over a time window of a few minutes for the peer connection to which the
-  // corresponding video stream belongs to.
+  // Get frame ID. Returns `kNotSetId` if ID is not set. Not guaranteed to be
+  // transferred from the sender to the receiver, but preserved on the sender
+  // side. The id should be propagated between all frame modifications during
+  // its lifetime from capturing to sending as encoded image. It is intended to
+  // be unique over a time window of a few minutes for the peer connection to
+  // which the corresponding video stream belongs to.
   uint16_t id() const { return id_; }
   void set_id(uint16_t id) { id_ = id; }
 
@@ -186,14 +205,17 @@ class RTC_EXPORT VideoFrame {
     color_space_ = color_space;
   }
 
-  // max_composition_delay_in_frames() is used in an experiment of a low-latency
-  // renderer algorithm see crbug.com/1138888.
-  absl::optional<int32_t> max_composition_delay_in_frames() const {
-    return max_composition_delay_in_frames_;
+  RenderParameters render_parameters() const { return render_parameters_; }
+  void set_render_parameters(const RenderParameters& render_parameters) {
+    render_parameters_ = render_parameters;
   }
-  void set_max_composition_delay_in_frames(
-      absl::optional<int32_t> max_composition_delay_in_frames) {
-    max_composition_delay_in_frames_ = max_composition_delay_in_frames;
+
+  // Deprecated in favor of render_parameters, will be removed once Chromium is
+  // updated. max_composition_delay_in_frames() is used in an experiment of a
+  // low-latency renderer algorithm see crbug.com/1138888.
+  [[deprecated("Use render_parameters() instead.")]] absl::optional<int32_t>
+  max_composition_delay_in_frames() const {
+    return render_parameters_.max_composition_delay_in_frames;
   }
 
   // Get render time in milliseconds.
@@ -254,6 +276,7 @@ class RTC_EXPORT VideoFrame {
              int64_t ntp_time_ms,
              VideoRotation rotation,
              const absl::optional<ColorSpace>& color_space,
+             const RenderParameters& render_parameters,
              const absl::optional<UpdateRect>& update_rect,
              RtpPacketInfos packet_infos);
 
@@ -265,7 +288,8 @@ class RTC_EXPORT VideoFrame {
   int64_t timestamp_us_;
   VideoRotation rotation_;
   absl::optional<ColorSpace> color_space_;
-  absl::optional<int32_t> max_composition_delay_in_frames_;
+  // Contains parameters that affect have the frame should be rendered.
+  RenderParameters render_parameters_;
   // Updated since the last frame area. If present it means that the bounding
   // box of all the changes is within the rectangular area and is close to it.
   // If absent, it means that there's no information about the change at all and

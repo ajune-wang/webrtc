@@ -26,7 +26,6 @@
 #include "rtc_base/helpers.h"
 #include "rtc_base/location.h"
 #include "rtc_base/logging.h"
-#include "rtc_base/ref_counted_object.h"
 #include "rtc_base/trace_event.h"
 
 namespace webrtc {
@@ -128,6 +127,23 @@ void RtpSenderBase::SetFrameEncryptor(
   if (media_channel_ && ssrc_ && !stopped_) {
     worker_thread_->Invoke<void>(RTC_FROM_HERE, [&] {
       media_channel_->SetFrameEncryptor(ssrc_, frame_encryptor_);
+    });
+  }
+}
+
+void RtpSenderBase::SetEncoderSelector(
+    std::unique_ptr<VideoEncoderFactory::EncoderSelectorInterface>
+        encoder_selector) {
+  RTC_DCHECK_RUN_ON(signaling_thread_);
+  encoder_selector_ = std::move(encoder_selector);
+  SetEncoderSelectorOnChannel();
+}
+
+void RtpSenderBase::SetEncoderSelectorOnChannel() {
+  RTC_DCHECK_RUN_ON(signaling_thread_);
+  if (media_channel_ && ssrc_ && !stopped_) {
+    worker_thread_->Invoke<void>(RTC_FROM_HERE, [&] {
+      media_channel_->SetEncoderSelector(ssrc_, encoder_selector_.get());
     });
   }
 }
@@ -320,6 +336,9 @@ void RtpSenderBase::SetSsrc(uint32_t ssrc) {
   }
   if (frame_transformer_) {
     SetEncoderToPacketizerFrameTransformer(frame_transformer_);
+  }
+  if (encoder_selector_) {
+    SetEncoderSelectorOnChannel();
   }
 }
 
@@ -651,7 +670,8 @@ void VideoRtpSender::SetSend() {
       break;
   }
   bool success = worker_thread_->Invoke<bool>(RTC_FROM_HERE, [&] {
-    return video_media_channel()->SetVideoSend(ssrc_, &options, video_track());
+    return video_media_channel()->SetVideoSend(ssrc_, &options,
+                                               video_track().get());
   });
   RTC_DCHECK(success);
 }

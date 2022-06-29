@@ -20,6 +20,8 @@
 
 #include "absl/algorithm/container.h"
 #include "absl/memory/memory.h"
+#include "absl/strings/string_view.h"
+#include "api/task_queue/to_queued_task.h"
 #include "api/transport/field_trial_based_config.h"
 #include "p2p/base/basic_packet_socket_factory.h"
 #include "p2p/base/port.h"
@@ -30,7 +32,7 @@
 #include "rtc_base/checks.h"
 #include "rtc_base/helpers.h"
 #include "rtc_base/logging.h"
-#include "rtc_base/task_utils/to_queued_task.h"
+#include "rtc_base/strings/string_builder.h"
 #include "rtc_base/trace_event.h"
 #include "system_wrappers/include/metrics.h"
 
@@ -97,7 +99,6 @@ struct NetworkFilter {
   const std::string description;
 };
 
-using NetworkList = rtc::NetworkManager::NetworkList;
 void FilterNetworks(std::vector<const rtc::Network*>* networks,
                     NetworkFilter filter) {
   auto start_to_remove =
@@ -141,6 +142,14 @@ bool IsAllowedByCandidateFilter(const Candidate& c, uint32_t filter) {
   return false;
 }
 
+std::string NetworksToString(const std::vector<const rtc::Network*>& networks) {
+  rtc::StringBuilder ost;
+  for (auto n : networks) {
+    ost << n->name() << " ";
+  }
+  return ost.Release();
+}
+
 }  // namespace
 
 const uint32_t DISABLE_ALL_PHASES =
@@ -157,23 +166,35 @@ BasicPortAllocator::BasicPortAllocator(
   Init(relay_port_factory, nullptr);
   RTC_DCHECK(relay_port_factory_ != nullptr);
   RTC_DCHECK(network_manager_ != nullptr);
-  RTC_DCHECK(socket_factory_ != nullptr);
+  RTC_CHECK(socket_factory_ != nullptr);
   SetConfiguration(ServerAddresses(), std::vector<RelayServerConfig>(), 0,
                    webrtc::NO_PRUNE, customizer);
 }
 
-BasicPortAllocator::BasicPortAllocator(rtc::NetworkManager* network_manager)
-    : network_manager_(network_manager), socket_factory_(nullptr) {
+BasicPortAllocator::BasicPortAllocator(
+    rtc::NetworkManager* network_manager,
+    std::unique_ptr<rtc::PacketSocketFactory> owned_socket_factory)
+    : network_manager_(network_manager),
+      socket_factory_(std::move(owned_socket_factory)) {
   Init(nullptr, nullptr);
   RTC_DCHECK(relay_port_factory_ != nullptr);
   RTC_DCHECK(network_manager_ != nullptr);
+  RTC_CHECK(socket_factory_ != nullptr);
 }
 
-BasicPortAllocator::BasicPortAllocator(rtc::NetworkManager* network_manager,
-                                       const ServerAddresses& stun_servers)
-    : BasicPortAllocator(network_manager,
-                         /*socket_factory=*/nullptr,
-                         stun_servers) {}
+BasicPortAllocator::BasicPortAllocator(
+    rtc::NetworkManager* network_manager,
+    std::unique_ptr<rtc::PacketSocketFactory> owned_socket_factory,
+    const ServerAddresses& stun_servers)
+    : network_manager_(network_manager),
+      socket_factory_(std::move(owned_socket_factory)) {
+  Init(nullptr, nullptr);
+  RTC_DCHECK(relay_port_factory_ != nullptr);
+  RTC_DCHECK(network_manager_ != nullptr);
+  RTC_CHECK(socket_factory_ != nullptr);
+  SetConfiguration(stun_servers, std::vector<RelayServerConfig>(), 0,
+                   webrtc::NO_PRUNE, nullptr);
+}
 
 BasicPortAllocator::BasicPortAllocator(rtc::NetworkManager* network_manager,
                                        rtc::PacketSocketFactory* socket_factory,
@@ -182,6 +203,7 @@ BasicPortAllocator::BasicPortAllocator(rtc::NetworkManager* network_manager,
   Init(nullptr, nullptr);
   RTC_DCHECK(relay_port_factory_ != nullptr);
   RTC_DCHECK(network_manager_ != nullptr);
+  RTC_CHECK(socket_factory_ != nullptr);
   SetConfiguration(stun_servers, std::vector<RelayServerConfig>(), 0,
                    webrtc::NO_PRUNE, nullptr);
 }
@@ -233,13 +255,14 @@ int BasicPortAllocator::GetNetworkIgnoreMask() const {
 }
 
 PortAllocatorSession* BasicPortAllocator::CreateSessionInternal(
-    const std::string& content_name,
+    absl::string_view content_name,
     int component,
-    const std::string& ice_ufrag,
-    const std::string& ice_pwd) {
+    absl::string_view ice_ufrag,
+    absl::string_view ice_pwd) {
   CheckRunOnValidThreadAndInitialized();
   PortAllocatorSession* session = new BasicPortAllocatorSession(
-      this, content_name, component, ice_ufrag, ice_pwd);
+      this, std::string(content_name), component, std::string(ice_ufrag),
+      std::string(ice_pwd));
   session->SignalIceRegathering.connect(this,
                                         &BasicPortAllocator::OnIceRegathering);
   return session;
@@ -386,11 +409,6 @@ void BasicPortAllocatorSession::SetCandidateFilter(uint32_t filter) {
 void BasicPortAllocatorSession::StartGettingPorts() {
   RTC_DCHECK_RUN_ON(network_thread_);
   state_ = SessionState::GATHERING;
-  if (!socket_factory_) {
-    owned_socket_factory_.reset(
-        new rtc::BasicPacketSocketFactory(network_thread_->socketserver()));
-    socket_factory_ = owned_socket_factory_.get();
-  }
 
   network_thread_->PostTask(webrtc::ToQueuedTask(
       network_safety_, [this] { GetPortConfigurations(); }));
@@ -801,7 +819,7 @@ void BasicPortAllocatorSession::DoAllocate(bool disable_equivalent) {
         << "Machine has no networks; no ports will be allocated";
     done_signal_needed = true;
   } else {
-    RTC_LOG(LS_INFO) << "Allocate ports on " << networks.size() << " networks";
+    RTC_LOG(LS_INFO) << "Allocate ports on " << NetworksToString(networks);
     PortConfiguration* config =
         configs_.empty() ? nullptr : configs_.back().get();
     for (uint32_t i = 0; i < networks.size(); ++i) {

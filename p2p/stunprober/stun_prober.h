@@ -16,12 +16,12 @@
 #include <vector>
 
 #include "api/sequence_checker.h"
+#include "api/task_queue/pending_task_safety_flag.h"
 #include "rtc_base/byte_buffer.h"
 #include "rtc_base/ip_address.h"
 #include "rtc_base/network.h"
 #include "rtc_base/socket_address.h"
 #include "rtc_base/system/rtc_export.h"
-#include "rtc_base/task_utils/pending_task_safety_flag.h"
 #include "rtc_base/thread.h"
 
 namespace rtc {
@@ -95,12 +95,6 @@ class RTC_EXPORT StunProber : public sigslot::has_slots<> {
     std::set<std::string> srflx_addrs;
   };
 
-  // TODO(bugs.webrtc.org/13869): Delete, use constructor with const
-  // rtc::Network*.
-  ABSL_DEPRECATED("bugs.webrtc.org/13869")
-  StunProber(rtc::PacketSocketFactory* socket_factory,
-             rtc::Thread* thread,
-             const rtc::NetworkManager::NetworkList& networks);
   StunProber(rtc::PacketSocketFactory* socket_factory,
              rtc::Thread* thread,
              std::vector<const rtc::Network*> networks);

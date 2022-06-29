@@ -25,12 +25,8 @@ using xdg_portal::kScreenCastInterfaceName;
 using xdg_portal::PrepareSignalHandle;
 using xdg_portal::RequestResponse;
 using xdg_portal::RequestSessionProxy;
-using xdg_portal::RequestSessionUsingProxy;
-using xdg_portal::SessionRequestHandler;
-using xdg_portal::SessionRequestResponseSignalHelper;
 using xdg_portal::SetupRequestResponseSignal;
 using xdg_portal::SetupSessionRequestHandlers;
-using xdg_portal::StartRequestedHandler;
 using xdg_portal::StartSessionRequest;
 using xdg_portal::TearDownSession;
 
@@ -59,9 +55,14 @@ ScreenCastPortal::ScreenCastPortal(
       user_data_(user_data) {}
 
 ScreenCastPortal::~ScreenCastPortal() {
+  Cleanup();
+}
+
+void ScreenCastPortal::Cleanup() {
   UnsubscribeSignalHandlers();
   TearDownSession(std::move(session_handle_), proxy_, cancellable_,
                   connection_);
+  session_handle_ = "";
   cancellable_ = nullptr;
   proxy_ = nullptr;
 
@@ -116,19 +117,21 @@ xdg_portal::SessionDetails ScreenCastPortal::GetSessionDetails() {
   return {};  // No-op
 }
 
-void ScreenCastPortal::PortalFailed(RequestResponse result) {
+void ScreenCastPortal::OnPortalDone(RequestResponse result) {
   notifier_->OnScreenCastRequestResult(result, pw_stream_node_id_, pw_fd_);
+  if (result != RequestResponse::kSuccess) {
+    Cleanup();
+  }
 }
 
 // static
 void ScreenCastPortal::OnProxyRequested(GObject* gobject,
                                         GAsyncResult* result,
                                         gpointer user_data) {
-  RequestSessionUsingProxy<ScreenCastPortal>(
-      static_cast<ScreenCastPortal*>(user_data), gobject, result);
+  static_cast<ScreenCastPortal*>(user_data)->RequestSessionUsingProxy(result);
 }
 
-void ScreenCastPortal::SessionRequest(GDBusProxy* proxy) {
+void ScreenCastPortal::RequestSession(GDBusProxy* proxy) {
   proxy_ = proxy;
   connection_ = g_dbus_proxy_get_connection(proxy_);
   SetupSessionRequestHandlers(
@@ -140,8 +143,8 @@ void ScreenCastPortal::SessionRequest(GDBusProxy* proxy) {
 void ScreenCastPortal::OnSessionRequested(GDBusProxy* proxy,
                                           GAsyncResult* result,
                                           gpointer user_data) {
-  SessionRequestHandler(static_cast<ScreenCastPortal*>(user_data), proxy,
-                        result, user_data);
+  static_cast<ScreenCastPortal*>(user_data)->OnSessionRequestResult(proxy,
+                                                                    result);
 }
 
 // static
@@ -155,9 +158,9 @@ void ScreenCastPortal::OnSessionRequestResponseSignal(
     gpointer user_data) {
   ScreenCastPortal* that = static_cast<ScreenCastPortal*>(user_data);
   RTC_DCHECK(that);
-  SessionRequestResponseSignalHelper(
-      OnSessionClosedSignal, that, that->connection_, that->session_handle_,
-      parameters, that->session_closed_signal_id_);
+  that->RegisterSessionClosedSignalHandler(
+      OnSessionClosedSignal, parameters, that->connection_,
+      that->session_handle_, that->session_closed_signal_id_);
   that->SourcesRequest();
 }
 
@@ -195,17 +198,34 @@ void ScreenCastPortal::SourcesRequest() {
   g_variant_builder_add(&builder, "{sv}", "multiple",
                         g_variant_new_boolean(false));
 
-  Scoped<GVariant> variant(
+  Scoped<GVariant> cursorModesVariant(
       g_dbus_proxy_get_cached_property(proxy_, "AvailableCursorModes"));
-  if (variant.get()) {
+  if (cursorModesVariant.get()) {
     uint32_t modes = 0;
-    g_variant_get(variant.get(), "u", &modes);
+    g_variant_get(cursorModesVariant.get(), "u", &modes);
     // Make request only if this mode is advertised by the portal
     // implementation.
     if (modes & static_cast<uint32_t>(cursor_mode_)) {
       g_variant_builder_add(
           &builder, "{sv}", "cursor_mode",
           g_variant_new_uint32(static_cast<uint32_t>(cursor_mode_)));
+    }
+  }
+
+  Scoped<GVariant> versionVariant(
+      g_dbus_proxy_get_cached_property(proxy_, "version"));
+  if (versionVariant.get()) {
+    uint32_t version = 0;
+    g_variant_get(versionVariant.get(), "u", &version);
+    // Make request only if xdg-desktop-portal has required API version
+    if (version >= 4) {
+      g_variant_builder_add(
+          &builder, "{sv}", "persist_mode",
+          g_variant_new_uint32(static_cast<uint32_t>(persist_mode_)));
+      if (!restore_token_.empty()) {
+        g_variant_builder_add(&builder, "{sv}", "restore_token",
+                              g_variant_new_string(restore_token_.c_str()));
+      }
     }
   }
 
@@ -240,7 +260,7 @@ void ScreenCastPortal::OnSourcesRequested(GDBusProxy* proxy,
     if (g_error_matches(error.get(), G_IO_ERROR, G_IO_ERROR_CANCELLED))
       return;
     RTC_LOG(LS_ERROR) << "Failed to request the sources: " << error->message;
-    that->PortalFailed(RequestResponse::kError);
+    that->OnPortalDone(RequestResponse::kError);
     return;
   }
 
@@ -255,7 +275,7 @@ void ScreenCastPortal::OnSourcesRequested(GDBusProxy* proxy,
                                            that->sources_request_signal_id_);
       that->sources_request_signal_id_ = 0;
     }
-    that->PortalFailed(RequestResponse::kError);
+    that->OnPortalDone(RequestResponse::kError);
     return;
   }
 
@@ -281,7 +301,7 @@ void ScreenCastPortal::OnSourcesRequestResponseSignal(
   if (portal_response) {
     RTC_LOG(LS_ERROR)
         << "Failed to select sources for the screen cast session.";
-    that->PortalFailed(RequestResponse::kError);
+    that->OnPortalDone(RequestResponse::kError);
     return;
   }
 
@@ -298,8 +318,8 @@ void ScreenCastPortal::StartRequest() {
 void ScreenCastPortal::OnStartRequested(GDBusProxy* proxy,
                                         GAsyncResult* result,
                                         gpointer user_data) {
-  StartRequestedHandler(static_cast<ScreenCastPortal*>(user_data), proxy,
-                        result);
+  static_cast<ScreenCastPortal*>(user_data)->OnStartRequestResult(proxy,
+                                                                  result);
 }
 
 // static
@@ -317,11 +337,12 @@ void ScreenCastPortal::OnStartRequestResponseSignal(GDBusConnection* connection,
   uint32_t portal_response;
   Scoped<GVariant> response_data;
   Scoped<GVariantIter> iter;
+  Scoped<char> restore_token;
   g_variant_get(parameters, "(u@a{sv})", &portal_response,
                 response_data.receive());
   if (portal_response || !response_data) {
     RTC_LOG(LS_ERROR) << "Failed to start the screen cast session.";
-    that->PortalFailed(static_cast<RequestResponse>(portal_response));
+    that->OnPortalDone(static_cast<RequestResponse>(portal_response));
     return;
   }
 
@@ -351,11 +372,28 @@ void ScreenCastPortal::OnStartRequestResponseSignal(GDBusConnection* connection,
     }
   }
 
+  if (g_variant_lookup(response_data.get(), "restore_token", "s",
+                       restore_token.receive())) {
+    that->restore_token_ = restore_token.get();
+  }
+
   that->OpenPipeWireRemote();
 }
 
 uint32_t ScreenCastPortal::pipewire_stream_node_id() {
   return pw_stream_node_id_;
+}
+
+void ScreenCastPortal::SetPersistMode(ScreenCastPortal::PersistMode mode) {
+  persist_mode_ = mode;
+}
+
+void ScreenCastPortal::SetRestoreToken(const std::string& token) {
+  restore_token_ = token;
+}
+
+std::string ScreenCastPortal::RestoreToken() const {
+  return restore_token_;
 }
 
 void ScreenCastPortal::OpenPipeWireRemote() {
@@ -388,7 +426,7 @@ void ScreenCastPortal::OnOpenPipeWireRemoteRequested(GDBusProxy* proxy,
       return;
     RTC_LOG(LS_ERROR) << "Failed to open the PipeWire remote: "
                       << error->message;
-    that->PortalFailed(RequestResponse::kError);
+    that->OnPortalDone(RequestResponse::kError);
     return;
   }
 
@@ -400,12 +438,11 @@ void ScreenCastPortal::OnOpenPipeWireRemoteRequested(GDBusProxy* proxy,
   if (that->pw_fd_ == -1) {
     RTC_LOG(LS_ERROR) << "Failed to get file descriptor from the list: "
                       << error->message;
-    that->PortalFailed(RequestResponse::kError);
+    that->OnPortalDone(RequestResponse::kError);
     return;
   }
 
-  that->notifier_->OnScreenCastRequestResult(
-      RequestResponse::kSuccess, that->pw_stream_node_id_, that->pw_fd_);
+  that->OnPortalDone(RequestResponse::kSuccess);
 }
 
 }  // namespace webrtc

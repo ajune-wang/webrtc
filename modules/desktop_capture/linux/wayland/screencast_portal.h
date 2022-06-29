@@ -15,6 +15,7 @@
 
 #include <string>
 
+#include "modules/desktop_capture/linux/wayland/portal_request_response.h"
 #include "modules/desktop_capture/linux/wayland/screen_capture_portal_interface.h"
 #include "modules/desktop_capture/linux/wayland/xdg_desktop_portal_utils.h"
 #include "modules/desktop_capture/linux/wayland/xdg_session_details.h"
@@ -57,6 +58,21 @@ class ScreenCastPortal : public xdg_portal::ScreenCapturePortalInterface {
     kMetadata = 0b100
   };
 
+  // Values are set based on persist mode property in
+  // xdg-desktop-portal/screencast
+  // https://github.com/flatpak/xdg-desktop-portal/blob/master/data/org.freedesktop.portal.ScreenCast.xml
+  enum class PersistMode : uint32_t {
+    // Do not allow to restore stream
+    kDoNotPersist = 0b00,
+    // The restore token is valid as long as the application is alive. It's
+    // stored in memory and revoked when the application closes its DBus
+    // connection
+    kTransient = 0b01,
+    // The restore token is stored in disk and is valid until the user manually
+    // revokes it
+    kPersistent = 0b10
+  };
+
   // Interface that must be implemented by the ScreenCastPortal consumers.
   class PortalNotifier {
    public:
@@ -92,12 +108,11 @@ class ScreenCastPortal : public xdg_portal::ScreenCapturePortalInterface {
   xdg_portal::SessionDetails GetSessionDetails() override;
 
   // Method to notify the reason for failure of a portal request.
-  void PortalFailed(xdg_portal::RequestResponse result);
+  void OnPortalDone(xdg_portal::RequestResponse result) override;
 
   // Sends a create session request to the portal.
-  void SessionRequest(GDBusProxy* proxy);
-
-  void UnsubscribeSignalHandlers();
+  void RequestSession(GDBusProxy* proxy) override;
+  void Cleanup();
 
   // Set of methods leveraged by remote desktop portal to setup a common session
   // with screen cast portal.
@@ -106,6 +121,11 @@ class ScreenCastPortal : public xdg_portal::ScreenCapturePortalInterface {
   void SourcesRequest();
   void OpenPipeWireRemote();
 
+  // ScreenCast specific methods for stream restoration
+  void SetPersistMode(ScreenCastPortal::PersistMode mode);
+  void SetRestoreToken(const std::string& token);
+  std::string RestoreToken() const;
+
  private:
   PortalNotifier* notifier_;
 
@@ -113,11 +133,15 @@ class ScreenCastPortal : public xdg_portal::ScreenCapturePortalInterface {
   uint32_t pw_stream_node_id_ = 0;
   // A file descriptor of PipeWire socket
   int pw_fd_ = -1;
+  // Restore token that can be used to restore previous session
+  std::string restore_token_;
 
   CaptureSourceType capture_source_type_ =
       ScreenCastPortal::CaptureSourceType::kScreen;
 
   CursorMode cursor_mode_ = ScreenCastPortal::CursorMode::kMetadata;
+
+  PersistMode persist_mode_ = ScreenCastPortal::PersistMode::kDoNotPersist;
 
   ProxyRequestResponseHandler proxy_request_response_handler_;
   SourcesRequestResponseSignalHandler sources_request_response_signal_handler_;
@@ -135,6 +159,7 @@ class ScreenCastPortal : public xdg_portal::ScreenCapturePortalInterface {
   guint start_request_signal_id_ = 0;
   guint session_closed_signal_id_ = 0;
 
+  void UnsubscribeSignalHandlers();
   static void OnProxyRequested(GObject* object,
                                GAsyncResult* result,
                                gpointer user_data);

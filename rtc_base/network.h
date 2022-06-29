@@ -19,10 +19,12 @@
 #include <string>
 #include <vector>
 
+#include "absl/base/attributes.h"
 #include "absl/strings/string_view.h"
 #include "api/array_view.h"
 #include "api/field_trials_view.h"
 #include "api/sequence_checker.h"
+#include "api/task_queue/pending_task_safety_flag.h"
 #include "api/transport/field_trial_based_config.h"
 #include "rtc_base/ip_address.h"
 #include "rtc_base/mdns_responder_interface.h"
@@ -31,7 +33,6 @@
 #include "rtc_base/network_monitor_factory.h"
 #include "rtc_base/socket_factory.h"
 #include "rtc_base/system/rtc_export.h"
-#include "rtc_base/task_utils/pending_task_safety_flag.h"
 #include "rtc_base/third_party/sigslot/sigslot.h"
 #include "rtc_base/thread_annotations.h"
 
@@ -52,6 +53,11 @@ class Thread;
 // By default, ignore loopback interfaces on the host.
 const int kDefaultNetworkIgnoreMask = ADAPTER_TYPE_LOOPBACK;
 
+namespace webrtc_network_internal {
+bool CompareNetworks(const std::unique_ptr<Network>& a,
+                     const std::unique_ptr<Network>& b);
+}  // namespace webrtc_network_internal
+
 // Makes a string key for this network. Used in the network manager's maps.
 // Network objects are keyed on interface name, network prefix and the
 // length of that prefix.
@@ -62,7 +68,7 @@ std::string MakeNetworkKey(absl::string_view name,
 // Utility function that attempts to determine an adapter type by an interface
 // name (e.g., "wlan0"). Can be used by NetworkManager subclasses when other
 // mechanisms fail to determine the type.
-RTC_EXPORT AdapterType GetAdapterTypeFromName(const char* network_name);
+RTC_EXPORT AdapterType GetAdapterTypeFromName(absl::string_view network_name);
 
 class DefaultLocalAddressProvider {
  public:
@@ -116,8 +122,6 @@ class NetworkMask {
 class RTC_EXPORT NetworkManager : public DefaultLocalAddressProvider,
                                   public MdnsResponderProvider {
  public:
-  typedef std::vector<Network*> NetworkList;
-
   // This enum indicates whether adapter enumeration is allowed.
   enum EnumerationPermission {
     ENUMERATION_ALLOWED,  // Adapter enumeration is allowed. Getting 0 network
@@ -126,9 +130,6 @@ class RTC_EXPORT NetworkManager : public DefaultLocalAddressProvider,
     ENUMERATION_BLOCKED,  // Adapter enumeration is disabled.
                           // GetAnyAddressNetworks() should be used instead.
   };
-
-  NetworkManager();
-  ~NetworkManager() override;
 
   // Called when network list is updated.
   sigslot::signal0<> SignalNetworksChanged;
@@ -152,16 +153,9 @@ class RTC_EXPORT NetworkManager : public DefaultLocalAddressProvider,
   // It makes sure that repeated calls return the same object for a
   // given network, so that quality is tracked appropriately. Does not
   // include ignored networks.
-  virtual std::vector<const Network*> GetNetworks() const {
-    std::vector<Network*> networks;
-    std::vector<const Network*> const_networks;
-    GetNetworks(&networks);
-    const_networks.insert(const_networks.begin(), networks.begin(),
-                          networks.end());
-    return const_networks;
-  }
-  // TODO(bugs.webrtc.org/13869): Delete this overload.
-  virtual void GetNetworks(NetworkList* networks) const = 0;
+  // The returned vector of Network* is valid as long as the NetworkManager is
+  // alive.
+  virtual std::vector<const Network*> GetNetworks() const = 0;
 
   // Returns the current permission state of GetNetworks().
   virtual EnumerationPermission enumeration_permission() const;
@@ -173,18 +167,7 @@ class RTC_EXPORT NetworkManager : public DefaultLocalAddressProvider,
   //
   // This method appends the "any address" networks to the list, such that this
   // can optionally be called after GetNetworks.
-  //
-  // TODO(guoweis): remove this body when chromium implements this.
-  virtual std::vector<const Network*> GetAnyAddressNetworks() {
-    std::vector<Network*> networks;
-    std::vector<const Network*> const_networks;
-    GetAnyAddressNetworks(&networks);
-    const_networks.insert(const_networks.begin(), networks.begin(),
-                          networks.end());
-    return const_networks;
-  }
-  // TODO(bugs.webrtc.org/13869): Delete this overload.
-  virtual void GetAnyAddressNetworks(NetworkList* networks) {}
+  virtual std::vector<const Network*> GetAnyAddressNetworks() = 0;
 
   // Dumps the current list of networks in the network manager.
   virtual void DumpNetworks() {}
@@ -209,15 +192,9 @@ class RTC_EXPORT NetworkManager : public DefaultLocalAddressProvider,
 class RTC_EXPORT NetworkManagerBase : public NetworkManager {
  public:
   NetworkManagerBase(const webrtc::FieldTrialsView* field_trials = nullptr);
-  ~NetworkManagerBase() override;
 
-  // The using declarations are needed to inherit new signature variant.
-  // TODO(bugs.webrtc.org/13869): Delete using declarations when old signature
-  // is replaced.
-  using NetworkManager::GetAnyAddressNetworks;
-  using NetworkManager::GetNetworks;
-  void GetNetworks(NetworkList* networks) const override;
-  void GetAnyAddressNetworks(NetworkList* networks) override;
+  std::vector<const Network*> GetNetworks() const override;
+  std::vector<const Network*> GetAnyAddressNetworks() override;
 
   EnumerationPermission enumeration_permission() const override;
 
@@ -228,16 +205,16 @@ class RTC_EXPORT NetworkManagerBase : public NetworkManager {
   static bool IsVpnMacAddress(rtc::ArrayView<const uint8_t> address);
 
  protected:
-  typedef std::map<std::string, Network*> NetworkMap;
   // Updates `networks_` with the networks listed in `list`. If
-  // `network_map_` already has a Network object for a network listed
+  // `networks_map_` already has a Network object for a network listed
   // in the `list` then it is reused. Accept ownership of the Network
   // objects in the `list`. `changed` will be set to true if there is
   // any change in the network list.
-  void MergeNetworkList(const NetworkList& list, bool* changed);
+  void MergeNetworkList(std::vector<std::unique_ptr<Network>> list,
+                        bool* changed);
 
   // `stats` will be populated even if |*changed| is false.
-  void MergeNetworkList(const NetworkList& list,
+  void MergeNetworkList(std::vector<std::unique_ptr<Network>> list,
                         bool* changed,
                         NetworkManager::Stats* stats);
 
@@ -250,14 +227,18 @@ class RTC_EXPORT NetworkManagerBase : public NetworkManager {
 
   Network* GetNetworkFromAddress(const rtc::IPAddress& ip) const;
 
+  // To enable subclasses to get the networks list, without interfering with
+  // refactoring of the interface GetNetworks method.
+  const std::vector<Network*>& GetNetworksInternal() const { return networks_; }
+
  private:
   friend class NetworkTest;
 
   EnumerationPermission enumeration_permission_;
 
-  NetworkList networks_;
+  std::vector<Network*> networks_;
 
-  NetworkMap networks_map_;
+  std::map<std::string, std::unique_ptr<Network>> networks_map_;
 
   std::unique_ptr<rtc::Network> ipv4_any_address_network_;
   std::unique_ptr<rtc::Network> ipv6_any_address_network_;
@@ -339,11 +320,15 @@ class RTC_EXPORT BasicNetworkManager : public NetworkManagerBase,
   void ConvertIfAddrs(ifaddrs* interfaces,
                       IfAddrsConverter* converter,
                       bool include_ignored,
-                      NetworkList* networks) const RTC_RUN_ON(thread_);
+                      std::vector<std::unique_ptr<Network>>* networks) const
+      RTC_RUN_ON(thread_);
+  NetworkMonitorInterface::InterfaceInfo GetInterfaceInfo(
+      struct ifaddrs* cursor) const RTC_RUN_ON(thread_);
 #endif  // defined(WEBRTC_POSIX)
 
   // Creates a network object for each network available on the machine.
-  bool CreateNetworks(bool include_ignored, NetworkList* networks) const
+  bool CreateNetworks(bool include_ignored,
+                      std::vector<std::unique_ptr<Network>>* networks) const
       RTC_RUN_ON(thread_);
 
   // Determines if a network should be ignored. This should only be determined

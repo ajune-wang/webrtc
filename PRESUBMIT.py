@@ -26,7 +26,6 @@ CPPLINT_EXCEPTIONS = [
     'examples/objc',
     'media/base/stream_params.h',
     'media/base/video_common.h',
-    'media/sctp/usrsctp_transport.cc',
     'modules/audio_coding',
     'modules/audio_device',
     'modules/audio_processing',
@@ -954,7 +953,7 @@ def CommonChecks(input_api, output_api):
   # Skip long-lines check for DEPS and GN files.
   build_file_filter_list = (r'.+\.gn$', r'.+\.gni$', 'DEPS')
   # Also we will skip most checks for third_party directory.
-  third_party_filter_list = (r'^third_party[\\\/].+', )
+  third_party_filter_list = (r'(^|.*[\\\/])third_party[\\\/].+', )
   eighty_char_sources = lambda x: input_api.FilterSourceFile(
       x,
       files_to_skip=build_file_filter_list + objc_filter_list +

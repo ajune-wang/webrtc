@@ -114,8 +114,6 @@ struct InjectableComponents {
 struct Params {
   // Peer name. If empty - default one will be set by the fixture.
   absl::optional<std::string> name;
-  // If `video_configs` is empty - no video should be added to the test call.
-  std::vector<PeerConnectionE2EQualityTestFixture::VideoConfig> video_configs;
   // If `audio_config` is set audio stream will be configured
   absl::optional<PeerConnectionE2EQualityTestFixture::AudioConfig> audio_config;
   // Flags to set on `cricket::PortAllocator`. These flags will be added
@@ -139,9 +137,20 @@ struct Params {
   double video_encoder_bitrate_multiplier = 1.0;
 
   PeerConnectionInterface::RTCConfiguration rtc_configuration;
+  PeerConnectionInterface::RTCOfferAnswerOptions rtc_offer_answer_options;
   BitrateSettings bitrate_settings;
   std::vector<PeerConnectionE2EQualityTestFixture::VideoCodecConfig>
       video_codecs;
+};
+
+// Contains parameters that maybe changed by test writer during the test call.
+struct ConfigurableParams {
+  // If `video_configs` is empty - no video should be added to the test call.
+  std::vector<PeerConnectionE2EQualityTestFixture::VideoConfig> video_configs;
+
+  PeerConnectionE2EQualityTestFixture::VideoSubscription video_subscription =
+      PeerConnectionE2EQualityTestFixture::VideoSubscription()
+          .SubscribeToAllPeers();
 };
 
 }  // namespace webrtc_pc_e2e

@@ -18,6 +18,7 @@
 #include <vector>
 
 #include "absl/algorithm/container.h"
+#include "absl/memory/memory.h"
 #include "absl/strings/match.h"
 #include "absl/strings/string_view.h"
 #include "p2p/base/connection.h"
@@ -80,14 +81,13 @@ const char* ProtoToString(ProtocolType proto) {
   return PROTO_NAMES[proto];
 }
 
-bool StringToProto(const char* value, ProtocolType* proto) {
+absl::optional<ProtocolType> StringToProto(absl::string_view proto_name) {
   for (size_t i = 0; i <= PROTO_LAST; ++i) {
-    if (absl::EqualsIgnoreCase(PROTO_NAMES[i], value)) {
-      *proto = static_cast<ProtocolType>(i);
-      return true;
+    if (absl::EqualsIgnoreCase(PROTO_NAMES[i], proto_name)) {
+      return static_cast<ProtocolType>(i);
     }
   }
-  return false;
+  return absl::nullopt;
 }
 
 // RFC 6544, TCP candidate encoding rules.
@@ -186,22 +186,7 @@ void Port::Construct() {
 Port::~Port() {
   RTC_DCHECK_RUN_ON(thread_);
   CancelPendingTasks();
-
-  // Delete all of the remaining connections.  We copy the list up front
-  // because each deletion will cause it to be modified.
-
-  std::vector<Connection*> list;
-
-  AddressMap::iterator iter = connections_.begin();
-  while (iter != connections_.end()) {
-    list.push_back(iter->second);
-    ++iter;
-  }
-
-  for (uint32_t i = 0; i < list.size(); i++) {
-    list[i]->SignalDestroyed.disconnect(this);
-    delete list[i];
-  }
+  DestroyAllConnections();
 }
 
 const std::string& Port::Type() const {
@@ -231,15 +216,22 @@ bool Port::SharedSocket() const {
 }
 
 void Port::SetIceParameters(int component,
-                            const std::string& username_fragment,
-                            const std::string& password) {
+                            absl::string_view username_fragment,
+                            absl::string_view password) {
+  RTC_DCHECK_RUN_ON(thread_);
   component_ = component;
-  ice_username_fragment_ = username_fragment;
-  password_ = password;
+  ice_username_fragment_ = std::string(username_fragment);
+  password_ = std::string(password);
   for (Candidate& c : candidates_) {
     c.set_component(component);
     c.set_username(username_fragment);
     c.set_password(password);
+  }
+
+  // In case any connections exist make sure we update them too.
+  for (auto& [unused, connection] : connections_) {
+    connection->UpdateLocalIceParameters(component, username_fragment,
+                                         password);
   }
 }
 
@@ -266,6 +258,7 @@ void Port::AddAddress(const rtc::SocketAddress& address,
                       uint32_t relay_preference,
                       const std::string& url,
                       bool is_final) {
+  RTC_DCHECK_RUN_ON(thread_);
   if (protocol == TCP_PROTOCOL_NAME && type == LOCAL_PORT_TYPE) {
     RTC_DCHECK(!tcptype.empty());
   }
@@ -317,6 +310,7 @@ bool Port::MaybeObfuscateAddress(Candidate* c,
     copy.set_address(hostname_address);
     copy.set_related_address(rtc::SocketAddress());
     if (weak_ptr != nullptr) {
+      RTC_DCHECK_RUN_ON(weak_ptr->thread_);
       weak_ptr->set_mdns_name_registration_status(
           MdnsNameRegistrationStatus::kCompleted);
       weak_ptr->FinishAddingAddress(copy, is_final);
@@ -352,12 +346,11 @@ void Port::AddOrReplaceConnection(Connection* conn) {
         << ": A new connection was created on an existing remote address. "
            "New remote candidate: "
         << conn->remote_candidate().ToSensitiveString();
-    ret.first->second->SignalDestroyed.disconnect(this);
-    ret.first->second->Destroy();
+    std::unique_ptr<Connection> old_conn = absl::WrapUnique(ret.first->second);
     ret.first->second = conn;
+    HandleConnectionDestroyed(old_conn.get());
+    old_conn->Shutdown();
   }
-  conn->SignalDestroyed.connect(this, &Port::OnConnectionDestroyed);
-  SignalConnectionCreated(this, conn);
 }
 
 void Port::OnReadPacket(const char* data,
@@ -422,9 +415,9 @@ void Port::OnReadyToSend() {
   }
 }
 
-size_t Port::AddPrflxCandidate(const Candidate& local) {
+void Port::AddPrflxCandidate(const Candidate& local) {
+  RTC_DCHECK_RUN_ON(thread_);
   candidates_.push_back(local);
-  return (candidates_.size() - 1);
 }
 
 bool Port::GetStunMessage(const char* data,
@@ -615,9 +608,9 @@ rtc::DiffServCodePoint Port::StunDscpValue() const {
 
 void Port::DestroyAllConnections() {
   RTC_DCHECK_RUN_ON(thread_);
-  for (auto kv : connections_) {
-    kv.second->SignalDestroyed.disconnect(this);
-    kv.second->Destroy();
+  for (auto& [unused, connection] : connections_) {
+    connection->Shutdown();
+    delete connection;
   }
   connections_.clear();
 }
@@ -646,14 +639,14 @@ bool Port::ParseStunUsername(const StunMessage* stun_msg,
     return false;
 
   // RFRAG:LFRAG
-  const std::string username = username_attr->GetString();
+  const absl::string_view username = username_attr->string_view();
   size_t colon_pos = username.find(':');
-  if (colon_pos == std::string::npos) {
+  if (colon_pos == absl::string_view::npos) {
     return false;
   }
 
-  *local_ufrag = username.substr(0, colon_pos);
-  *remote_ufrag = username.substr(colon_pos + 1, username.size());
+  *local_ufrag = std::string(username.substr(0, colon_pos));
+  *remote_ufrag = std::string(username.substr(colon_pos + 1, username.size()));
   return true;
 }
 
@@ -718,12 +711,8 @@ bool Port::MaybeIceRoleConflict(const rtc::SocketAddress& addr,
   return ret;
 }
 
-void Port::CreateStunUsername(const std::string& remote_username,
-                              std::string* stun_username_attr_str) const {
-  stun_username_attr_str->clear();
-  *stun_username_attr_str = remote_username;
-  stun_username_attr_str->append(":");
-  stun_username_attr_str->append(username_fragment());
+std::string Port::CreateStunUsername(const std::string& remote_username) const {
+  return remote_username + ":" + username_fragment();
 }
 
 bool Port::HandleIncomingPacket(rtc::AsyncPacketSocket* socket,
@@ -739,21 +728,18 @@ bool Port::CanHandleIncomingPacketsFrom(const rtc::SocketAddress&) const {
   return false;
 }
 
-void Port::SendBindingErrorResponse(StunMessage* request,
+void Port::SendBindingErrorResponse(StunMessage* message,
                                     const rtc::SocketAddress& addr,
                                     int error_code,
                                     const std::string& reason) {
-  RTC_DCHECK(request->type() == STUN_BINDING_REQUEST ||
-             request->type() == GOOG_PING_REQUEST);
+  RTC_DCHECK(message->type() == STUN_BINDING_REQUEST ||
+             message->type() == GOOG_PING_REQUEST);
 
   // Fill in the response message.
-  StunMessage response;
-  if (request->type() == STUN_BINDING_REQUEST) {
-    response.SetType(STUN_BINDING_ERROR_RESPONSE);
-  } else {
-    response.SetType(GOOG_PING_ERROR_RESPONSE);
-  }
-  response.SetTransactionID(request->transaction_id());
+  StunMessage response(message->type() == STUN_BINDING_REQUEST
+                           ? STUN_BINDING_ERROR_RESPONSE
+                           : GOOG_PING_ERROR_RESPONSE,
+                       message->transaction_id());
 
   // When doing GICE, we need to write out the error code incorrectly to
   // maintain backwards compatiblility.
@@ -766,15 +752,15 @@ void Port::SendBindingErrorResponse(StunMessage* request,
   // because we don't have enough information to determine the shared secret.
   if (error_code != STUN_ERROR_BAD_REQUEST &&
       error_code != STUN_ERROR_UNAUTHORIZED &&
-      request->type() != GOOG_PING_REQUEST) {
-    if (request->type() == STUN_BINDING_REQUEST) {
+      message->type() != GOOG_PING_REQUEST) {
+    if (message->type() == STUN_BINDING_REQUEST) {
       response.AddMessageIntegrity(password_);
     } else {
       response.AddMessageIntegrity32(password_);
     }
   }
 
-  if (request->type() == STUN_BINDING_REQUEST) {
+  if (message->type() == STUN_BINDING_REQUEST) {
     response.AddFingerprint();
   }
 
@@ -792,15 +778,13 @@ void Port::SendBindingErrorResponse(StunMessage* request,
 }
 
 void Port::SendUnknownAttributesErrorResponse(
-    StunMessage* request,
+    StunMessage* message,
     const rtc::SocketAddress& addr,
     const std::vector<uint16_t>& unknown_types) {
-  RTC_DCHECK(request->type() == STUN_BINDING_REQUEST);
+  RTC_DCHECK(message->type() == STUN_BINDING_REQUEST);
 
   // Fill in the response message.
-  StunMessage response;
-  response.SetType(STUN_BINDING_ERROR_RESPONSE);
-  response.SetTransactionID(request->transaction_id());
+  StunMessage response(STUN_BINDING_ERROR_RESPONSE, message->transaction_id());
 
   auto error_attr = StunAttribute::CreateErrorCode();
   error_attr->SetCode(STUN_ERROR_UNKNOWN_ATTRIBUTE);
@@ -884,6 +868,7 @@ std::string Port::ToString() const {
 
 // TODO(honghaiz): Make the network cost configurable from user setting.
 void Port::UpdateNetworkCost() {
+  RTC_DCHECK_RUN_ON(thread_);
   uint16_t new_cost = network_->GetCost(*field_trials_);
   if (network_cost_ == new_cost) {
     return;
@@ -894,27 +879,26 @@ void Port::UpdateNetworkCost() {
                    << ". Number of connections created: "
                    << connections_.size();
   network_cost_ = new_cost;
-  for (cricket::Candidate& candidate : candidates_) {
+  for (cricket::Candidate& candidate : candidates_)
     candidate.set_network_cost(network_cost_);
-  }
-  // Network cost change will affect the connection selection criteria.
-  // Signal the connection state change on each connection to force a
-  // re-sort in P2PTransportChannel.
-  for (const auto& kv : connections_) {
-    Connection* conn = kv.second;
-    conn->SignalStateChange(conn);
-  }
+
+  for (auto& [unused, connection] : connections_)
+    connection->SetLocalCandidateNetworkCost(network_cost_);
 }
 
 void Port::EnablePortPackets() {
   enable_port_packets_ = true;
 }
 
-void Port::OnConnectionDestroyed(Connection* conn) {
-  AddressMap::iterator iter =
-      connections_.find(conn->remote_candidate().address());
-  RTC_DCHECK(iter != connections_.end());
-  connections_.erase(iter);
+bool Port::OnConnectionDestroyed(Connection* conn) {
+  if (connections_.erase(conn->remote_candidate().address()) == 0) {
+    // This could indicate a programmer error outside of webrtc so while we
+    // do have this check here to alert external developers, we also need to
+    // handle it since it might be a corner case not caught in tests.
+    RTC_DCHECK_NOTREACHED() << "Calling Destroy recursively?";
+    return false;
+  }
+
   HandleConnectionDestroyed(conn);
 
   // Ports time out after all connections fail if it is not marked as
@@ -926,6 +910,28 @@ void Port::OnConnectionDestroyed(Connection* conn) {
     last_time_all_connections_removed_ = rtc::TimeMillis();
     thread_->PostDelayed(RTC_FROM_HERE, timeout_delay_, this,
                          MSG_DESTROY_IF_DEAD);
+  }
+
+  return true;
+}
+
+void Port::DestroyConnectionInternal(Connection* conn, bool async) {
+  RTC_DCHECK_RUN_ON(thread_);
+  if (!OnConnectionDestroyed(conn))
+    return;
+
+  conn->Shutdown();
+  if (async) {
+    // Unwind the stack before deleting the object in case upstream callers
+    // need to refer to the Connection's state as part of teardown.
+    // NOTE: We move ownership of `conn` into the capture section of the lambda
+    // so that the object will always be deleted, including if PostTask fails.
+    // In such a case (only tests), deletion would happen inside of the call
+    // to `DestroyConnection()`.
+    thread_->PostTask(
+        webrtc::ToQueuedTask([conn = absl::WrapUnique(conn)]() {}));
+  } else {
+    delete conn;
   }
 }
 

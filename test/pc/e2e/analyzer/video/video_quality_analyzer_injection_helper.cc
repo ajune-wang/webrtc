@@ -167,6 +167,14 @@ void VideoQualityAnalyzerInjectionHelper::RegisterParticipantInCall(
   peers_count_++;
 }
 
+void VideoQualityAnalyzerInjectionHelper::UnregisterParticipantInCall(
+    absl::string_view peer_name) {
+  analyzer_->UnregisterParticipantInCall(peer_name);
+  extractor_->RemoveParticipantInCall();
+  MutexLock lock(&mutex_);
+  peers_count_--;
+}
+
 void VideoQualityAnalyzerInjectionHelper::OnStatsReports(
     absl::string_view pc_label,
     const rtc::scoped_refptr<const RTCStatsReport>& report) {
@@ -212,14 +220,16 @@ void VideoQualityAnalyzerInjectionHelper::OnFrame(absl::string_view peer_name,
   frame_copy.set_video_frame_buffer(I420Buffer::Copy(*i420_buffer));
   analyzer_->OnFrameRendered(peer_name, frame_copy);
 
-  std::string stream_label = analyzer_->GetStreamLabel(frame.id());
-  std::vector<std::unique_ptr<rtc::VideoSinkInterface<VideoFrame>>>* sinks =
-      PopulateSinks(ReceiverStream(peer_name, stream_label));
-  if (sinks == nullptr) {
-    return;
-  }
-  for (auto& sink : *sinks) {
-    sink->OnFrame(frame);
+  if (frame.id() != VideoFrame::kNotSetId) {
+    std::string stream_label = analyzer_->GetStreamLabel(frame.id());
+    std::vector<std::unique_ptr<rtc::VideoSinkInterface<VideoFrame>>>* sinks =
+        PopulateSinks(ReceiverStream(peer_name, stream_label));
+    if (sinks == nullptr) {
+      return;
+    }
+    for (auto& sink : *sinks) {
+      sink->OnFrame(frame);
+    }
   }
 }
 
@@ -240,6 +250,7 @@ VideoQualityAnalyzerInjectionHelper::PopulateSinks(
   absl::optional<std::string> output_dump_file_name =
       config.output_dump_file_name;
   if (output_dump_file_name.has_value() && peers_count_ > 2) {
+    // TODO(titovartem): make this default behavior for any amount of peers.
     rtc::StringBuilder builder(*output_dump_file_name);
     builder << "." << receiver_stream.peer_name;
     output_dump_file_name = builder.str();

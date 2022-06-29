@@ -57,10 +57,10 @@ TEST_F(NetEqDecodingTest, MAYBE_TestBitExactness) {
       webrtc::test::ResourcePath("audio_coding/neteq_universal_new", "rtp");
 
   const std::string output_checksum =
-      "ba4fae83a52f5e9d95b0910f05d540114285697b";
+      "dee7a10ab92526876a70a85bc48a4906901af3df";
 
   const std::string network_stats_checksum =
-      "fa878a8464ef1cb3d01503b7f927c3e2ce6f02c4";
+      "911dbf5fd97f48d25b8f0967286eb73c9d6f6158";
 
   DecodeAndCompare(input_rtp_file, output_checksum, network_stats_checksum,
                    absl::GetFlag(FLAGS_gen_ref));
@@ -79,11 +79,11 @@ TEST_F(NetEqDecodingTest, MAYBE_TestOpusBitExactness) {
   // The checksum depends on SSE being enabled, the second part is the non-SSE
   // checksum.
   const std::string output_checksum =
-      "6e23d8827ae54ca352e1448ae363bdfd2878c78e|"
-      "47cddbf3494b0233f48cb350676e704807237545";
+      "919e5eb3ba901192878f2354b981a15508c8373c|"
+      "c5eb0a8fcf7e8255a40f821cb815e1096619efeb";
 
   const std::string network_stats_checksum =
-      "f89a9533dbb35a4c449b44c3ed120f7f1c7f90b6";
+      "3d043e47e5f4bb81d37e7bce8c44bf802965c853";
 
   DecodeAndCompare(input_rtp_file, output_checksum, network_stats_checksum,
                    absl::GetFlag(FLAGS_gen_ref));
@@ -840,67 +840,6 @@ TEST_F(NetEqDecodingTestTwoInstances, CompareMutedStateOnOff) {
     }
   }
   EXPECT_FALSE(muted);
-}
-
-TEST_F(NetEqDecodingTest, LastDecodedTimestampsEmpty) {
-  EXPECT_TRUE(neteq_->LastDecodedTimestamps().empty());
-
-  // Pull out data once.
-  AudioFrame output;
-  bool muted;
-  ASSERT_EQ(0, neteq_->GetAudio(&output, &muted));
-
-  EXPECT_TRUE(neteq_->LastDecodedTimestamps().empty());
-}
-
-TEST_F(NetEqDecodingTest, LastDecodedTimestampsOneDecoded) {
-  // Insert one packet with PCM16b WB data (this is what PopulateRtpInfo does by
-  // default). Make the length 10 ms.
-  constexpr size_t kPayloadSamples = 16 * 10;
-  constexpr size_t kPayloadBytes = 2 * kPayloadSamples;
-  uint8_t payload[kPayloadBytes] = {0};
-
-  RTPHeader rtp_info;
-  constexpr uint32_t kRtpTimestamp = 0x1234;
-  PopulateRtpInfo(0, kRtpTimestamp, &rtp_info);
-  EXPECT_EQ(0, neteq_->InsertPacket(rtp_info, payload));
-
-  // Pull out data once.
-  AudioFrame output;
-  bool muted;
-  ASSERT_EQ(0, neteq_->GetAudio(&output, &muted));
-
-  EXPECT_EQ(std::vector<uint32_t>({kRtpTimestamp}),
-            neteq_->LastDecodedTimestamps());
-
-  // Nothing decoded on the second call.
-  ASSERT_EQ(0, neteq_->GetAudio(&output, &muted));
-  EXPECT_TRUE(neteq_->LastDecodedTimestamps().empty());
-}
-
-TEST_F(NetEqDecodingTest, LastDecodedTimestampsTwoDecoded) {
-  // Insert two packets with PCM16b WB data (this is what PopulateRtpInfo does
-  // by default). Make the length 5 ms so that NetEq must decode them both in
-  // the same GetAudio call.
-  constexpr size_t kPayloadSamples = 16 * 5;
-  constexpr size_t kPayloadBytes = 2 * kPayloadSamples;
-  uint8_t payload[kPayloadBytes] = {0};
-
-  RTPHeader rtp_info;
-  constexpr uint32_t kRtpTimestamp1 = 0x1234;
-  PopulateRtpInfo(0, kRtpTimestamp1, &rtp_info);
-  EXPECT_EQ(0, neteq_->InsertPacket(rtp_info, payload));
-  constexpr uint32_t kRtpTimestamp2 = kRtpTimestamp1 + kPayloadSamples;
-  PopulateRtpInfo(1, kRtpTimestamp2, &rtp_info);
-  EXPECT_EQ(0, neteq_->InsertPacket(rtp_info, payload));
-
-  // Pull out data once.
-  AudioFrame output;
-  bool muted;
-  ASSERT_EQ(0, neteq_->GetAudio(&output, &muted));
-
-  EXPECT_EQ(std::vector<uint32_t>({kRtpTimestamp1, kRtpTimestamp2}),
-            neteq_->LastDecodedTimestamps());
 }
 
 TEST_F(NetEqDecodingTest, TestConcealmentEvents) {

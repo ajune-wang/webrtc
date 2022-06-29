@@ -21,11 +21,11 @@
 #include "api/rtp_parameters.h"
 #include "api/scoped_refptr.h"
 #include "api/sequence_checker.h"
+#include "api/task_queue/to_queued_task.h"
 #include "api/video_codecs/video_codec.h"
 #include "call/rtp_transport_controller_send_interface.h"
 #include "call/video_send_stream.h"
-#include "modules/pacing/paced_sender.h"
-#include "rtc_base/atomic_ops.h"
+#include "modules/pacing/pacing_controller.h"
 #include "rtc_base/checks.h"
 #include "rtc_base/experiments/alr_experiment.h"
 #include "rtc_base/experiments/field_trial_parser.h"
@@ -33,7 +33,6 @@
 #include "rtc_base/experiments/rate_control_settings.h"
 #include "rtc_base/logging.h"
 #include "rtc_base/numerics/safe_conversions.h"
-#include "rtc_base/task_utils/to_queued_task.h"
 #include "rtc_base/trace_event.h"
 #include "system_wrappers/include/clock.h"
 #include "system_wrappers/include/field_trial.h"
@@ -194,8 +193,7 @@ uint32_t GetInitialEncoderMaxBitrate(int initial_encoder_max_bitrate) {
 
 PacingConfig::PacingConfig(const FieldTrialsView& field_trials)
     : pacing_factor("factor", kStrictPacingMultiplier),
-      max_pacing_delay("max_delay",
-                       TimeDelta::Millis(PacedSender::kMaxQueueLengthMs)) {
+      max_pacing_delay("max_delay", PacingController::kMaxExpectedQueueLength) {
   ParseFieldTrial({&pacing_factor, &max_pacing_delay},
                   field_trials.Lookup("WebRTC-Video-Pacing"));
 }

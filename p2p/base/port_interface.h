@@ -15,6 +15,7 @@
 #include <utility>
 #include <vector>
 
+#include "absl/strings/string_view.h"
 #include "absl/types/optional.h"
 #include "api/candidate.h"
 #include "p2p/base/transport_description.h"
@@ -60,7 +61,10 @@ class PortInterface {
 
   virtual bool SharedSocket() const = 0;
 
-  virtual bool SupportsProtocol(const std::string& protocol) const = 0;
+  // TODO(webrtc:13579): Remove std::string version once downstream users have
+  // migrated to the absl::string_view version.
+  virtual bool SupportsProtocol(const std::string& protocol) const;
+  virtual bool SupportsProtocol(absl::string_view protocol) const = 0;
 
   // PrepareAddress will attempt to get an address for this port that other
   // clients can send to.  It may take some time before the address is ready.
@@ -107,7 +111,7 @@ class PortInterface {
 
   // Sends a response message (normal or error) to the given request.  One of
   // these methods should be called as a response to SignalUnknownAddress.
-  virtual void SendBindingErrorResponse(StunMessage* request,
+  virtual void SendBindingErrorResponse(StunMessage* message,
                                         const rtc::SocketAddress& addr,
                                         int error_code,
                                         const std::string& reason) = 0;

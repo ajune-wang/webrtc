@@ -44,7 +44,8 @@ class WebRTCMetaBuildWrapper(mb.MetaBuildWrapper):
     assert self.default_config
     assert self.default_isolate_map
     self.default_config = os.path.join(_SCRIPT_DIR, 'mb_config.pyl')
-    self.default_isolate_map = os.path.join(_SCRIPT_DIR, 'gn_isolate_map.pyl')
+    self.default_isolate_map = os.path.join(_SRC_DIR, 'infra', 'specs',
+                                            'gn_isolate_map.pyl')
 
   def GetSwarmingCommand(self, target, vals):
     isolate_map = self.ReadIsolateMap()
@@ -87,7 +88,7 @@ class WebRTCMetaBuildWrapper(mb.MetaBuildWrapper):
     elif is_ios:
       cmdline += [
           vpython_exe, '../../tools_webrtc/flags_compatibility.py',
-          'bin/run_%s' % target, '--out-dir', '${ISOLATED_OUTDIR}'
+          'bin/run_%s' % target
       ]
       extra_files.append('../../tools_webrtc/flags_compatibility.py')
     elif test_type == 'raw':
@@ -116,8 +117,7 @@ class WebRTCMetaBuildWrapper(mb.MetaBuildWrapper):
           '../../third_party/gtest-parallel/gtest_parallel.py',
           '../../tools_webrtc/gtest-parallel-wrapper.py',
       ]
-      sep = '\\' if self.platform == 'win32' else '/'
-      output_dir = '${ISOLATED_OUTDIR}' + sep + 'test_logs'
+      output_dir = '${ISOLATED_OUTDIR}/test_logs'
       timeout = isolate_map[target].get('timeout', 900)
       cmdline += [
           '../../tools_webrtc/gtest-parallel-wrapper.py',

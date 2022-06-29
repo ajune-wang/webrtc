@@ -73,6 +73,8 @@
 
 #include "absl/algorithm/container.h"
 #include "absl/memory/memory.h"
+#include "absl/strings/string_view.h"
+#include "api/task_queue/to_queued_task.h"
 #include "p2p/base/p2p_constants.h"
 #include "rtc_base/checks.h"
 #include "rtc_base/ip_address.h"
@@ -80,7 +82,6 @@
 #include "rtc_base/logging.h"
 #include "rtc_base/net_helper.h"
 #include "rtc_base/rate_tracker.h"
-#include "rtc_base/task_utils/to_queued_task.h"
 #include "rtc_base/third_party/sigslot/sigslot.h"
 
 namespace cricket {
@@ -268,7 +269,7 @@ int TCPPort::GetError() {
   return error_;
 }
 
-bool TCPPort::SupportsProtocol(const std::string& protocol) const {
+bool TCPPort::SupportsProtocol(absl::string_view protocol) const {
   return protocol == TCP_PROTOCOL_NAME || protocol == SSLTCP_PROTOCOL_NAME;
 }
 
@@ -419,7 +420,7 @@ int TCPConnection::GetError() {
   return error_;
 }
 
-void TCPConnection::OnConnectionRequestResponse(ConnectionRequest* req,
+void TCPConnection::OnConnectionRequestResponse(StunRequest* req,
                                                 StunMessage* response) {
   // Process the STUN response before we inform upper layer ready to send.
   Connection::OnConnectionRequestResponse(req, response);
@@ -491,6 +492,8 @@ void TCPConnection::OnClose(rtc::AsyncPacketSocket* socket, int error) {
   RTC_DCHECK(socket == socket_.get());
   RTC_LOG(LS_INFO) << ToString() << ": Connection closed with error " << error;
 
+  RTC_DCHECK(port());
+
   // Guard against the condition where IPC socket will call OnClose for every
   // packet it can't send.
   if (connected()) {
@@ -506,7 +509,7 @@ void TCPConnection::OnClose(rtc::AsyncPacketSocket* socket, int error) {
     // We don't attempt reconnect right here. This is to avoid a case where the
     // shutdown is intentional and reconnect is not necessary. We only reconnect
     // when the connection is used to Send() or Ping().
-    port()->thread()->PostDelayedTask(
+    network_thread()->PostDelayedTask(
         webrtc::ToQueuedTask(network_safety_,
                              [this]() {
                                if (pretending_to_be_writable_) {
@@ -519,7 +522,8 @@ void TCPConnection::OnClose(rtc::AsyncPacketSocket* socket, int error) {
     // initial connect() (i.e. `pretending_to_be_writable_` is false) . We have
     // to manually destroy here as this connection, as never connected, will not
     // be scheduled for ping to trigger destroy.
-    Destroy();
+    socket_->UnsubscribeClose(this);
+    port()->DestroyConnectionAsync(this);
   }
 }
 
@@ -557,6 +561,11 @@ void TCPConnection::CreateOutgoingTcpSocket() {
   int opts = (remote_candidate().protocol() == SSLTCP_PROTOCOL_NAME)
                  ? rtc::PacketSocketFactory::OPT_TLS_FAKE
                  : 0;
+
+  if (socket_) {
+    socket_->UnsubscribeClose(this);
+  }
+
   rtc::PacketSocketTcpOptions tcp_opts;
   tcp_opts.opts = opts;
   socket_.reset(port()->socket_factory()->CreateClientTcpSocket(
@@ -579,7 +588,7 @@ void TCPConnection::CreateOutgoingTcpSocket() {
     // the StunRequests from the request_map_. And if this is in the stack
     // of Connection::Ping(), we are still using the request.
     // Unwind the stack and defer the FailAndPrune.
-    port()->thread()->PostTask(
+    network_thread()->PostTask(
         webrtc::ToQueuedTask(network_safety_, [this]() { FailAndPrune(); }));
   }
 }
@@ -590,7 +599,11 @@ void TCPConnection::ConnectSocketSignals(rtc::AsyncPacketSocket* socket) {
   }
   socket->SignalReadPacket.connect(this, &TCPConnection::OnReadPacket);
   socket->SignalReadyToSend.connect(this, &TCPConnection::OnReadyToSend);
-  socket->SignalClose.connect(this, &TCPConnection::OnClose);
+  socket->SubscribeClose(this, [this, safety = network_safety_.flag()](
+                                   rtc::AsyncPacketSocket* s, int err) {
+    if (safety->alive())
+      OnClose(s, err);
+  });
 }
 
 }  // namespace cricket

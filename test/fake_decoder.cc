@@ -49,7 +49,7 @@ int32_t FakeDecoder::Decode(const EncodedImage& input,
   }
 
   rtc::scoped_refptr<I420Buffer> buffer = I420Buffer::Create(width_, height_);
-  I420Buffer::SetBlack(buffer);
+  I420Buffer::SetBlack(buffer.get());
   VideoFrame frame = VideoFrame::Builder()
                          .set_video_frame_buffer(buffer)
                          .set_rotation(webrtc::kVideoRotation_0)
@@ -61,12 +61,11 @@ int32_t FakeDecoder::Decode(const EncodedImage& input,
   if (decode_delay_ms_ == 0 || !task_queue_) {
     callback_->Decoded(frame);
   } else {
-    task_queue_->PostDelayedHighPrecisionTask(
-        [frame, this]() {
-          VideoFrame copy = frame;
-          callback_->Decoded(copy);
-        },
-        decode_delay_ms_);
+    task_queue_->PostDelayedHighPrecisionTask(ToQueuedTask([frame, this]() {
+                                                VideoFrame copy = frame;
+                                                callback_->Decoded(copy);
+                                              }),
+                                              decode_delay_ms_);
   }
 
   return WEBRTC_VIDEO_CODEC_OK;

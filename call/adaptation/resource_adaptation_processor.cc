@@ -15,13 +15,13 @@
 #include <utility>
 
 #include "absl/algorithm/container.h"
+#include "absl/strings/string_view.h"
 #include "api/sequence_checker.h"
+#include "api/task_queue/to_queued_task.h"
 #include "api/video/video_adaptation_counters.h"
 #include "call/adaptation/video_stream_adapter.h"
 #include "rtc_base/logging.h"
-#include "rtc_base/ref_counted_object.h"
 #include "rtc_base/strings/string_builder.h"
-#include "rtc_base/task_utils/to_queued_task.h"
 
 namespace webrtc {
 
@@ -59,8 +59,9 @@ ResourceAdaptationProcessor::MitigationResultAndLogMessage::
     : result(MitigationResult::kAdaptationApplied), message() {}
 
 ResourceAdaptationProcessor::MitigationResultAndLogMessage::
-    MitigationResultAndLogMessage(MitigationResult result, std::string message)
-    : result(result), message(std::move(message)) {}
+    MitigationResultAndLogMessage(MitigationResult result,
+                                  absl::string_view message)
+    : result(result), message(message) {}
 
 ResourceAdaptationProcessor::ResourceAdaptationProcessor(
     VideoStreamAdapter* stream_adapter)
@@ -113,7 +114,7 @@ void ResourceAdaptationProcessor::AddResource(
         << "Resource \"" << resource->Name() << "\" was already registered.";
     resources_.push_back(resource);
   }
-  resource->SetResourceListener(resource_listener_delegate_);
+  resource->SetResourceListener(resource_listener_delegate_.get());
   RTC_LOG(LS_INFO) << "Registered resource \"" << resource->Name() << "\".";
 }
 

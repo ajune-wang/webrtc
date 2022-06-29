@@ -167,6 +167,20 @@ ReceiveSideCongestionController::GetRemoteBitrateEstimator(
   }
 }
 
+DataRate ReceiveSideCongestionController::LatestReceiveSideEstimate() const {
+  std::vector<uint32_t> unused_ssrcs;
+  uint32_t bitrate_bps = 0;
+  if (remote_bitrate_estimator_.LatestEstimate(&unused_ssrcs, &bitrate_bps)) {
+    return DataRate::BitsPerSec(bitrate_bps);
+  } else {
+    return DataRate::Zero();
+  }
+}
+
+void ReceiveSideCongestionController::RemoveStream(uint32_t ssrc) {
+  remote_bitrate_estimator_.RemoveStream(ssrc);
+}
+
 void ReceiveSideCongestionController::OnRttUpdate(int64_t avg_rtt_ms,
                                                   int64_t max_rtt_ms) {
   remote_bitrate_estimator_.OnRttUpdate(avg_rtt_ms, max_rtt_ms);
@@ -184,9 +198,29 @@ void ReceiveSideCongestionController::Process() {
   remote_bitrate_estimator_.Process();
 }
 
+TimeDelta ReceiveSideCongestionController::MaybeProcess() {
+  int64_t time_until_rbe_ms = remote_bitrate_estimator_.TimeUntilNextProcess();
+  if (time_until_rbe_ms <= 0) {
+    remote_bitrate_estimator_.Process();
+    time_until_rbe_ms = remote_bitrate_estimator_.TimeUntilNextProcess();
+  }
+  int64_t time_until_rep_ms = remote_estimator_proxy_.TimeUntilNextProcess();
+  if (time_until_rep_ms <= 0) {
+    remote_estimator_proxy_.Process();
+    time_until_rep_ms = remote_estimator_proxy_.TimeUntilNextProcess();
+  }
+  int64_t time_until_next_ms = std::min(time_until_rbe_ms, time_until_rep_ms);
+  return TimeDelta::Millis(std::max<int64_t>(time_until_next_ms, 0));
+}
+
 void ReceiveSideCongestionController::SetMaxDesiredReceiveBitrate(
     DataRate bitrate) {
   remb_throttler_.SetMaxDesiredReceiveBitrate(bitrate);
+}
+
+void ReceiveSideCongestionController::SetTransportOverhead(
+    DataSize overhead_per_packet) {
+  remote_estimator_proxy_.SetTransportOverhead(overhead_per_packet);
 }
 
 }  // namespace webrtc

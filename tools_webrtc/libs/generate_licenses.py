@@ -53,7 +53,8 @@ LIB_TO_LICENSES_DICT = {
     'libaom': ['third_party/libaom/source/libaom/LICENSE'],
     'libc++': ['buildtools/third_party/libc++/trunk/LICENSE.TXT'],
     'libc++abi': ['buildtools/third_party/libc++abi/trunk/LICENSE.TXT'],
-    'libevent': ['base/third_party/libevent/LICENSE'],
+    'libevent':
+    ['base/third_party/libevent/LICENSE', 'third_party/libevent/LICENSE'],
     'libjpeg_turbo': ['third_party/libjpeg_turbo/LICENSE.md'],
     'libsrtp': ['third_party/libsrtp/LICENSE'],
     'libunwind': ['buildtools/third_party/libunwind/trunk/LICENSE.TXT'],
@@ -64,7 +65,6 @@ LIB_TO_LICENSES_DICT = {
     'pffft': ['third_party/pffft/LICENSE'],
     'protobuf': ['third_party/protobuf/LICENSE'],
     'rnnoise': ['third_party/rnnoise/COPYING'],
-    'usrsctp': ['third_party/usrsctp/LICENSE'],
     'webrtc': ['LICENSE'],
     'zlib': ['third_party/zlib/LICENSE'],
     'base64': ['rtc_base/third_party/base64/LICENSE'],
@@ -101,17 +101,9 @@ LIB_REGEX_TO_LICENSES_DICT = {
 }
 
 
-def FindSrcDirPath():
-  """Returns the abs path to the src/ dir of the project."""
-  src_dir = os.path.dirname(os.path.abspath(__file__))
-  while os.path.basename(src_dir) != 'src':
-    src_dir = os.path.normpath(os.path.join(src_dir, os.pardir))
-  return src_dir
-
-
-SCRIPT_DIR = os.path.dirname(os.path.realpath(sys.argv[0]))
+SCRIPT_DIR = os.path.dirname(os.path.realpath(__file__))
 WEBRTC_ROOT = os.path.abspath(os.path.join(SCRIPT_DIR, os.pardir, os.pardir))
-SRC_DIR = FindSrcDirPath()
+SRC_DIR = os.path.dirname(os.path.dirname(SCRIPT_DIR))
 sys.path.append(os.path.join(SRC_DIR, 'build'))
 import find_depot_tools
 
@@ -229,6 +221,9 @@ class LicenseBuilder:
       output_license_file.write('```\n')
       for path in self.common_licenses_dict[license_lib]:
         license_path = os.path.join(WEBRTC_ROOT, path)
+        # TODO(crbug.com/1335194) Workaround for unblocking autoroller.
+        if license_lib == "libevent" and not os.path.exists(license_path):
+          continue
         with open(license_path, 'r') as license_file:
           license_text = escape(license_file.read(), quote=True)
           output_license_file.write(license_text)

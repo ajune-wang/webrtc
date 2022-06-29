@@ -17,10 +17,11 @@
 #include <string>
 
 #include "absl/memory/memory.h"
+#include "absl/strings/string_view.h"
+#include "api/task_queue/pending_task_safety_flag.h"
 #include "p2p/base/port.h"
 #include "p2p/base/stun_request.h"
 #include "rtc_base/async_packet_socket.h"
-#include "rtc_base/task_utils/pending_task_safety_flag.h"
 
 namespace cricket {
 
@@ -100,7 +101,7 @@ class UDPPort : public Port {
                             const rtc::SocketAddress& remote_addr,
                             int64_t packet_time_us) override;
 
-  bool SupportsProtocol(const std::string& protocol) const override;
+  bool SupportsProtocol(absl::string_view protocol) const override;
   ProtocolType GetProtocol() const override;
 
   void GetStunStats(absl::optional<StunStats>* stats) override;
@@ -114,9 +115,11 @@ class UDPPort : public Port {
     stun_keepalive_lifetime_ = lifetime;
   }
   // Returns true if there is a pending request with type `msg_type`.
-  bool HasPendingRequest(int msg_type) {
-    return requests_.HasRequest(msg_type);
+  bool HasPendingRequestForTest(int msg_type) {
+    return request_manager_.HasRequestForTest(msg_type);
   }
+
+  StunRequestManager& request_manager() { return request_manager_; }
 
  protected:
   UDPPort(rtc::Thread* thread,
@@ -244,7 +247,7 @@ class UDPPort : public Port {
   ServerAddresses server_addresses_;
   ServerAddresses bind_request_succeeded_servers_;
   ServerAddresses bind_request_failed_servers_;
-  StunRequestManager requests_;
+  StunRequestManager request_manager_;
   rtc::AsyncPacketSocket* socket_;
   int error_;
   int send_error_count_ = 0;

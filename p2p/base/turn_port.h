@@ -21,12 +21,13 @@
 #include <vector>
 
 #include "absl/memory/memory.h"
+#include "absl/strings/string_view.h"
 #include "api/async_dns_resolver.h"
+#include "api/task_queue/pending_task_safety_flag.h"
 #include "p2p/base/port.h"
 #include "p2p/client/basic_port_allocator.h"
 #include "rtc_base/async_packet_socket.h"
 #include "rtc_base/ssl_certificate.h"
-#include "rtc_base/task_utils/pending_task_safety_flag.h"
 
 namespace webrtc {
 class TurnCustomizer;
@@ -158,7 +159,7 @@ class TurnPort : public Port {
   void OnSentPacket(rtc::AsyncPacketSocket* socket,
                     const rtc::SentPacket& sent_packet) override;
   virtual void OnReadyToSend(rtc::AsyncPacketSocket* socket);
-  bool SupportsProtocol(const std::string& protocol) const override;
+  bool SupportsProtocol(absl::string_view protocol) const override;
 
   void OnSocketConnect(rtc::AsyncPacketSocket* socket);
   void OnSocketClose(rtc::AsyncPacketSocket* socket, int error);
@@ -171,6 +172,7 @@ class TurnPort : public Port {
   void OnAllocateMismatch();
 
   rtc::AsyncPacketSocket* socket() const { return socket_; }
+  StunRequestManager& request_manager() { return request_manager_; }
 
   // Signal with resolved server address.
   // Parameters are port, server address and resolved server address.
@@ -188,7 +190,11 @@ class TurnPort : public Port {
   sigslot::signal2<TurnPort*, int> SignalTurnRefreshResult;
   sigslot::signal3<TurnPort*, const rtc::SocketAddress&, int>
       SignalCreatePermissionResult;
-  void FlushRequests(int msg_type) { request_manager_.Flush(msg_type); }
+
+  void FlushRequestsForTest(int msg_type) {
+    request_manager_.FlushForTest(msg_type);
+  }
+
   bool HasRequests() { return !request_manager_.empty(); }
   void set_credentials(const RelayCredentials& credentials) {
     credentials_ = credentials;
@@ -196,11 +202,10 @@ class TurnPort : public Port {
   // Finds the turn entry with `address` and sets its channel id.
   // Returns true if the entry is found.
   bool SetEntryChannelId(const rtc::SocketAddress& address, int channel_id);
-  // Visible for testing.
-  // Shuts down the turn port, usually because of some fatal errors.
-  void Close();
 
   void HandleConnectionDestroyed(Connection* conn) override;
+
+  void CloseForTest() { Close(); }
 
  protected:
   TurnPort(rtc::Thread* thread,
@@ -244,6 +249,9 @@ class TurnPort : public Port {
 
   rtc::DiffServCodePoint StunDscpValue() const override;
 
+  // Shuts down the turn port, frees requests and deletes connections.
+  void Close();
+
  private:
   enum {
     MSG_ALLOCATE_ERROR = MSG_FIRST_AVAILABLE,
@@ -263,10 +271,10 @@ class TurnPort : public Port {
 
   bool CreateTurnClientSocket();
 
-  void set_nonce(const std::string& nonce) { nonce_ = nonce; }
-  void set_realm(const std::string& realm) {
+  void set_nonce(absl::string_view nonce) { nonce_ = std::string(nonce); }
+  void set_realm(absl::string_view realm) {
     if (realm != realm_) {
-      realm_ = realm;
+      realm_ = std::string(realm);
       UpdateHash();
     }
   }

@@ -20,8 +20,8 @@
 #include "api/task_queue/queued_task.h"
 #include "api/task_queue/task_queue_base.h"
 #include "api/task_queue/task_queue_factory.h"
+#include "api/task_queue/to_queued_task.h"
 #include "rtc_base/system/rtc_export.h"
-#include "rtc_base/task_utils/to_queued_task.h"
 #include "rtc_base/thread_annotations.h"
 
 namespace rtc {
@@ -114,34 +114,6 @@ class RTC_LOCKABLE RTC_EXPORT TaskQueue {
                 std::unique_ptr<webrtc::QueuedTask>>::value>::type* = nullptr>
   void PostTask(Closure&& closure) {
     PostTask(webrtc::ToQueuedTask(std::forward<Closure>(closure)));
-  }
-  template <class Closure,
-            typename std::enable_if<!std::is_convertible<
-                Closure,
-                std::unique_ptr<webrtc::QueuedTask>>::value>::type* = nullptr>
-  void PostDelayedTask(Closure&& closure, uint32_t milliseconds) {
-    PostDelayedTask(webrtc::ToQueuedTask(std::forward<Closure>(closure)),
-                    milliseconds);
-  }
-  template <class Closure,
-            typename std::enable_if<!std::is_convertible<
-                Closure,
-                std::unique_ptr<webrtc::QueuedTask>>::value>::type* = nullptr>
-  void PostDelayedHighPrecisionTask(Closure&& closure, uint32_t milliseconds) {
-    PostDelayedHighPrecisionTask(
-        webrtc::ToQueuedTask(std::forward<Closure>(closure)), milliseconds);
-  }
-  template <class Closure,
-            typename std::enable_if<!std::is_convertible<
-                Closure,
-                std::unique_ptr<webrtc::QueuedTask>>::value>::type* = nullptr>
-  void PostDelayedTaskWithPrecision(
-      webrtc::TaskQueueBase::DelayPrecision precision,
-      Closure&& closure,
-      uint32_t milliseconds) {
-    PostDelayedTaskWithPrecision(
-        precision, webrtc::ToQueuedTask(std::forward<Closure>(closure)),
-        milliseconds);
   }
 
  private:

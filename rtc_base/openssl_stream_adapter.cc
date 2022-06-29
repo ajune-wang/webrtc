@@ -39,10 +39,11 @@
 #else
 #include "rtc_base/openssl_identity.h"
 #endif
+#include "api/task_queue/to_queued_task.h"
 #include "rtc_base/openssl_utility.h"
 #include "rtc_base/ssl_certificate.h"
 #include "rtc_base/stream.h"
-#include "rtc_base/task_utils/to_queued_task.h"
+#include "rtc_base/string_encode.h"
 #include "rtc_base/thread.h"
 #include "rtc_base/time_utils.h"
 #include "system_wrappers/include/field_trial.h"
@@ -841,6 +842,8 @@ void OpenSSLStreamAdapter::SetTimeout(int delay_ms) {
             RTC_LOG(LS_INFO) << "DTLS retransmission";
           } else if (res < 0) {
             RTC_LOG(LS_INFO) << "DTLSv1_handle_timeout() return -1";
+            Error("DTLSv1_handle_timeout", res, -1, true);
+            return webrtc::TimeDelta::PlusInfinity();
           }
           ContinueSSL();
         } else {
@@ -956,7 +959,7 @@ int OpenSSLStreamAdapter::ContinueSSL() {
   return 0;
 }
 
-void OpenSSLStreamAdapter::Error(const char* context,
+void OpenSSLStreamAdapter::Error(absl::string_view context,
                                  int err,
                                  uint8_t alert,
                                  bool signal) {
@@ -1129,7 +1132,10 @@ bool OpenSSLStreamAdapter::VerifyPeerCertificate() {
   Buffer computed_digest(digest, digest_length);
   if (computed_digest != peer_certificate_digest_value_) {
     RTC_LOG(LS_WARNING)
-        << "Rejected peer certificate due to mismatched digest.";
+        << "Rejected peer certificate due to mismatched digest using "
+        << peer_certificate_digest_algorithm_ << ". Expected "
+        << rtc::hex_encode_with_delimiter(peer_certificate_digest_value_, ':')
+        << " got " << rtc::hex_encode_with_delimiter(computed_digest, ':');
     return false;
   }
   // Ignore any verification error if the digest matches, since there is no

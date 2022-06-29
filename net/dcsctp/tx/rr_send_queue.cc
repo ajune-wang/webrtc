@@ -13,12 +13,14 @@
 #include <deque>
 #include <limits>
 #include <map>
+#include <set>
 #include <utility>
 #include <vector>
 
 #include "absl/algorithm/container.h"
 #include "absl/types/optional.h"
 #include "api/array_view.h"
+#include "net/dcsctp/common/str_join.h"
 #include "net/dcsctp/packet/data.h"
 #include "net/dcsctp/public/dcsctp_message.h"
 #include "net/dcsctp/public/dcsctp_socket.h"
@@ -30,42 +32,32 @@ namespace dcsctp {
 
 RRSendQueue::RRSendQueue(absl::string_view log_prefix,
                          size_t buffer_size,
+                         size_t mtu,
+                         StreamPriority default_priority,
                          std::function<void(StreamID)> on_buffered_amount_low,
                          size_t total_buffered_amount_low_threshold,
                          std::function<void()> on_total_buffered_amount_low)
     : log_prefix_(std::string(log_prefix) + "fcfs: "),
       buffer_size_(buffer_size),
+      default_priority_(default_priority),
+      scheduler_(mtu),
       on_buffered_amount_low_(std::move(on_buffered_amount_low)),
       total_buffered_amount_(std::move(on_total_buffered_amount_low)) {
   total_buffered_amount_.SetLowThreshold(total_buffered_amount_low_threshold);
 }
 
-bool RRSendQueue::OutgoingStream::HasDataToSend(TimeMs now) {
-  while (!items_.empty()) {
-    RRSendQueue::OutgoingStream::Item& item = items_.front();
-    if (item.message_id.has_value()) {
-      // Already partially sent messages can always continue to be sent. This
-      // ensures e.g. that paused streams with partially sent messages get to
-      // send the partial message in full before resetting.
-      return true;
-    }
-
-    // Message has expired. Remove it and inspect the next one.
-    if (item.expires_at <= now) {
-      buffered_amount_.Decrease(item.remaining_size);
-      total_buffered_amount_.Decrease(item.remaining_size);
-      items_.pop_front();
-      RTC_DCHECK(IsConsistent());
-      continue;
-    }
-
-    if (is_paused_) {
-      // The stream has paused (and there is no partially sent message).
-      return false;
-    }
-    return true;
+size_t RRSendQueue::OutgoingStream::bytes_to_send_in_next_message() const {
+  if (pause_state_ == PauseState::kPaused ||
+      pause_state_ == PauseState::kResetting) {
+    // The stream has paused (and there is no partially sent message).
+    return 0;
   }
-  return false;
+
+  if (items_.empty()) {
+    return 0;
+  }
+
+  return items_.front().remaining_size;
 }
 
 void RRSendQueue::OutgoingStream::AddHandoverState(
@@ -73,28 +65,28 @@ void RRSendQueue::OutgoingStream::AddHandoverState(
   state.next_ssn = next_ssn_.value();
   state.next_ordered_mid = next_ordered_mid_.value();
   state.next_unordered_mid = next_unordered_mid_.value();
+  state.priority = *scheduler_stream_->priority();
 }
 
 bool RRSendQueue::IsConsistent() const {
-  size_t total_buffered_amount = 0;
-  for (const auto& [unused, stream] : streams_) {
-    total_buffered_amount += stream.buffered_amount().value();
-  }
+  std::set<StreamID> expected_active_streams;
+  std::set<StreamID> actual_active_streams =
+      scheduler_.ActiveStreamsForTesting();
 
-  if (previous_message_has_ended_) {
-    auto it = streams_.find(current_stream_id_);
-    if (it != streams_.end() && it->second.has_partially_sent_message()) {
-      RTC_DLOG(LS_ERROR)
-          << "Previous message has ended, but still partial message in stream";
-      return false;
+  size_t total_buffered_amount = 0;
+  for (const auto& [stream_id, stream] : streams_) {
+    total_buffered_amount += stream.buffered_amount().value();
+    if (stream.bytes_to_send_in_next_message() > 0) {
+      expected_active_streams.emplace(stream_id);
     }
-  } else {
-    auto it = streams_.find(current_stream_id_);
-    if (it == streams_.end() || !it->second.has_partially_sent_message()) {
-      RTC_DLOG(LS_ERROR)
-          << "Previous message has NOT ended, but there is no partial message";
-      return false;
-    }
+  }
+  if (expected_active_streams != actual_active_streams) {
+    auto fn = [&](rtc::StringBuilder& sb, const auto& p) { sb << *p; };
+    RTC_DLOG(LS_ERROR) << "Active streams mismatch, is=["
+                       << StrJoin(actual_active_streams, ",", fn)
+                       << "], expected=["
+                       << StrJoin(expected_active_streams, ",", fn) << "]";
+    return false;
   }
 
   return total_buffered_amount == total_buffered_amount_.value();
@@ -129,82 +121,107 @@ void RRSendQueue::ThresholdWatcher::SetLowThreshold(size_t low_threshold) {
 void RRSendQueue::OutgoingStream::Add(DcSctpMessage message,
                                       TimeMs expires_at,
                                       const SendOptions& send_options) {
+  bool was_active = bytes_to_send_in_next_message() > 0;
   buffered_amount_.Increase(message.payload().size());
   total_buffered_amount_.Increase(message.payload().size());
   items_.emplace_back(std::move(message), expires_at, send_options);
 
+  if (!was_active) {
+    scheduler_stream_->MaybeMakeActive();
+  }
+
   RTC_DCHECK(IsConsistent());
 }
 
-SendQueue::DataToSend RRSendQueue::OutgoingStream::Produce(TimeMs now,
-                                                           size_t max_size) {
-  RTC_DCHECK(!items_.empty());
+absl::optional<SendQueue::DataToSend> RRSendQueue::OutgoingStream::Produce(
+    TimeMs now,
+    size_t max_size) {
+  RTC_DCHECK(pause_state_ != PauseState::kPaused &&
+             pause_state_ != PauseState::kResetting);
 
-  Item* item = &items_.front();
-  DcSctpMessage& message = item->message;
+  while (!items_.empty()) {
+    Item& item = items_.front();
+    DcSctpMessage& message = item.message;
 
-  // Allocate Message ID and SSN when the first fragment is sent.
-  if (!item->message_id.has_value()) {
-    MID& mid =
-        item->send_options.unordered ? next_unordered_mid_ : next_ordered_mid_;
-    item->message_id = mid;
-    mid = MID(*mid + 1);
-  }
-  if (!item->send_options.unordered && !item->ssn.has_value()) {
-    item->ssn = next_ssn_;
-    next_ssn_ = SSN(*next_ssn_ + 1);
-  }
+    // Allocate Message ID and SSN when the first fragment is sent.
+    if (!item.message_id.has_value()) {
+      // Oops, this entire message has already expired. Try the next one.
+      if (item.expires_at <= now) {
+        buffered_amount_.Decrease(item.remaining_size);
+        total_buffered_amount_.Decrease(item.remaining_size);
+        items_.pop_front();
+        continue;
+      }
 
-  // Grab the next `max_size` fragment from this message and calculate flags.
-  rtc::ArrayView<const uint8_t> chunk_payload =
-      item->message.payload().subview(item->remaining_offset, max_size);
-  rtc::ArrayView<const uint8_t> message_payload = message.payload();
-  Data::IsBeginning is_beginning(chunk_payload.data() ==
-                                 message_payload.data());
-  Data::IsEnd is_end((chunk_payload.data() + chunk_payload.size()) ==
-                     (message_payload.data() + message_payload.size()));
+      MID& mid =
+          item.send_options.unordered ? next_unordered_mid_ : next_ordered_mid_;
+      item.message_id = mid;
+      mid = MID(*mid + 1);
+    }
+    if (!item.send_options.unordered && !item.ssn.has_value()) {
+      item.ssn = next_ssn_;
+      next_ssn_ = SSN(*next_ssn_ + 1);
+    }
 
-  StreamID stream_id = message.stream_id();
-  PPID ppid = message.ppid();
+    // Grab the next `max_size` fragment from this message and calculate flags.
+    rtc::ArrayView<const uint8_t> chunk_payload =
+        item.message.payload().subview(item.remaining_offset, max_size);
+    rtc::ArrayView<const uint8_t> message_payload = message.payload();
+    Data::IsBeginning is_beginning(chunk_payload.data() ==
+                                   message_payload.data());
+    Data::IsEnd is_end((chunk_payload.data() + chunk_payload.size()) ==
+                       (message_payload.data() + message_payload.size()));
 
-  // Zero-copy the payload if the message fits in a single chunk.
-  std::vector<uint8_t> payload =
-      is_beginning && is_end
-          ? std::move(message).ReleasePayload()
-          : std::vector<uint8_t>(chunk_payload.begin(), chunk_payload.end());
+    StreamID stream_id = message.stream_id();
+    PPID ppid = message.ppid();
 
-  FSN fsn(item->current_fsn);
-  item->current_fsn = FSN(*item->current_fsn + 1);
-  buffered_amount_.Decrease(payload.size());
-  total_buffered_amount_.Decrease(payload.size());
+    // Zero-copy the payload if the message fits in a single chunk.
+    std::vector<uint8_t> payload =
+        is_beginning && is_end
+            ? std::move(message).ReleasePayload()
+            : std::vector<uint8_t>(chunk_payload.begin(), chunk_payload.end());
 
-  SendQueue::DataToSend chunk(Data(stream_id, item->ssn.value_or(SSN(0)),
-                                   item->message_id.value(), fsn, ppid,
-                                   std::move(payload), is_beginning, is_end,
-                                   item->send_options.unordered));
-  if (item->send_options.max_retransmissions.has_value() &&
-      *item->send_options.max_retransmissions >=
-          std::numeric_limits<MaxRetransmits::UnderlyingType>::min() &&
-      *item->send_options.max_retransmissions <=
-          std::numeric_limits<MaxRetransmits::UnderlyingType>::max()) {
-    chunk.max_retransmissions =
-        MaxRetransmits(*item->send_options.max_retransmissions);
-  }
-  chunk.expires_at = item->expires_at;
+    FSN fsn(item.current_fsn);
+    item.current_fsn = FSN(*item.current_fsn + 1);
+    buffered_amount_.Decrease(payload.size());
+    total_buffered_amount_.Decrease(payload.size());
 
-  if (is_end) {
-    // The entire message has been sent, and its last data copied to `chunk`, so
-    // it can safely be discarded.
-    items_.pop_front();
-  } else {
-    item->remaining_offset += chunk_payload.size();
-    item->remaining_size -= chunk_payload.size();
-    RTC_DCHECK(item->remaining_offset + item->remaining_size ==
-               item->message.payload().size());
-    RTC_DCHECK(item->remaining_size > 0);
+    SendQueue::DataToSend chunk(Data(stream_id, item.ssn.value_or(SSN(0)),
+                                     item.message_id.value(), fsn, ppid,
+                                     std::move(payload), is_beginning, is_end,
+                                     item.send_options.unordered));
+    if (item.send_options.max_retransmissions.has_value() &&
+        *item.send_options.max_retransmissions >=
+            std::numeric_limits<MaxRetransmits::UnderlyingType>::min() &&
+        *item.send_options.max_retransmissions <=
+            std::numeric_limits<MaxRetransmits::UnderlyingType>::max()) {
+      chunk.max_retransmissions =
+          MaxRetransmits(*item.send_options.max_retransmissions);
+    }
+    chunk.expires_at = item.expires_at;
+
+    if (is_end) {
+      // The entire message has been sent, and its last data copied to `chunk`,
+      // so it can safely be discarded.
+      items_.pop_front();
+
+      if (pause_state_ == PauseState::kPending) {
+        RTC_DLOG(LS_VERBOSE) << "Pause state on " << *stream_id
+                             << " is moving from pending to paused";
+        pause_state_ = PauseState::kPaused;
+      }
+    } else {
+      item.remaining_offset += chunk_payload.size();
+      item.remaining_size -= chunk_payload.size();
+      RTC_DCHECK(item.remaining_offset + item.remaining_size ==
+                 item.message.payload().size());
+      RTC_DCHECK(item.remaining_size > 0);
+    }
+    RTC_DCHECK(IsConsistent());
+    return chunk;
   }
   RTC_DCHECK(IsConsistent());
-  return chunk;
+  return absl::nullopt;
 }
 
 bool RRSendQueue::OutgoingStream::Discard(IsUnordered unordered,
@@ -217,6 +234,18 @@ bool RRSendQueue::OutgoingStream::Discard(IsUnordered unordered,
       buffered_amount_.Decrease(item.remaining_size);
       total_buffered_amount_.Decrease(item.remaining_size);
       items_.pop_front();
+
+      // Only partially sent messages are discarded, so if a message was
+      // discarded, then it was the currently sent message.
+      scheduler_stream_->ForceReschedule();
+
+      if (pause_state_ == PauseState::kPending) {
+        pause_state_ = PauseState::kPaused;
+        scheduler_stream_->MakeInactive();
+      } else if (bytes_to_send_in_next_message() == 0) {
+        scheduler_stream_->MakeInactive();
+      }
+
       // As the item still existed, it had unsent data.
       result = true;
     }
@@ -226,7 +255,12 @@ bool RRSendQueue::OutgoingStream::Discard(IsUnordered unordered,
 }
 
 void RRSendQueue::OutgoingStream::Pause() {
-  is_paused_ = true;
+  if (pause_state_ != PauseState::kNotPaused) {
+    // Already in progress.
+    return;
+  }
+
+  bool had_pending_items = !items_.empty();
 
   // https://datatracker.ietf.org/doc/html/rfc8831#section-6.7
   // "Closing of a data channel MUST be signaled by resetting the corresponding
@@ -250,10 +284,36 @@ void RRSendQueue::OutgoingStream::Pause() {
       ++it;
     }
   }
+
+  pause_state_ = (items_.empty() || items_.front().remaining_offset == 0)
+                     ? PauseState::kPaused
+                     : PauseState::kPending;
+
+  if (had_pending_items && pause_state_ == PauseState::kPaused) {
+    RTC_DLOG(LS_VERBOSE) << "Stream " << *stream_id()
+                         << " was previously active, but is now paused.";
+    scheduler_stream_->MakeInactive();
+  }
+
+  RTC_DCHECK(IsConsistent());
+}
+
+void RRSendQueue::OutgoingStream::Resume() {
+  RTC_DCHECK(pause_state_ == PauseState::kResetting);
+  pause_state_ = PauseState::kNotPaused;
+  scheduler_stream_->MaybeMakeActive();
   RTC_DCHECK(IsConsistent());
 }
 
 void RRSendQueue::OutgoingStream::Reset() {
+  // This can be called both when an outgoing stream reset has been responded
+  // to, or when the entire SendQueue is reset due to detecting the peer having
+  // restarted. The stream may be in any state at this time.
+  PauseState old_pause_state = pause_state_;
+  pause_state_ = PauseState::kNotPaused;
+  next_ordered_mid_ = MID(0);
+  next_unordered_mid_ = MID(0);
+  next_ssn_ = SSN(0);
   if (!items_.empty()) {
     // If this message has been partially sent, reset it so that it will be
     // re-sent.
@@ -267,11 +327,11 @@ void RRSendQueue::OutgoingStream::Reset() {
     item.message_id = absl::nullopt;
     item.ssn = absl::nullopt;
     item.current_fsn = FSN(0);
+    if (old_pause_state == PauseState::kPaused ||
+        old_pause_state == PauseState::kResetting) {
+      scheduler_stream_->MaybeMakeActive();
+    }
   }
-  is_paused_ = false;
-  next_ordered_mid_ = MID(0);
-  next_unordered_mid_ = MID(0);
-  next_ssn_ = SSN(0);
   RTC_DCHECK(IsConsistent());
 }
 
@@ -308,63 +368,9 @@ bool RRSendQueue::IsEmpty() const {
   return total_buffered_amount() == 0;
 }
 
-std::map<StreamID, RRSendQueue::OutgoingStream>::iterator
-RRSendQueue::GetNextStream(TimeMs now) {
-  auto start_it = streams_.lower_bound(StreamID(*current_stream_id_ + 1));
-
-  for (auto it = start_it; it != streams_.end(); ++it) {
-    if (it->second.HasDataToSend(now)) {
-      current_stream_id_ = it->first;
-      return it;
-    }
-  }
-
-  for (auto it = streams_.begin(); it != start_it; ++it) {
-    if (it->second.HasDataToSend(now)) {
-      current_stream_id_ = it->first;
-      return it;
-    }
-  }
-  return streams_.end();
-}
-
 absl::optional<SendQueue::DataToSend> RRSendQueue::Produce(TimeMs now,
                                                            size_t max_size) {
-  std::map<StreamID, RRSendQueue::OutgoingStream>::iterator stream_it;
-
-  if (previous_message_has_ended_) {
-    // Previous message has ended. Round-robin to a different stream, if there
-    // even is one with data to send.
-    stream_it = GetNextStream(now);
-    if (stream_it == streams_.end()) {
-      RTC_DLOG(LS_VERBOSE)
-          << log_prefix_
-          << "There is no stream with data; Can't produce any data.";
-      return absl::nullopt;
-    }
-  } else {
-    // The previous message has not ended; Continue from the current stream.
-    stream_it = streams_.find(current_stream_id_);
-    RTC_DCHECK(stream_it != streams_.end());
-  }
-
-  DataToSend data = stream_it->second.Produce(now, max_size);
-  RTC_DLOG(LS_VERBOSE) << log_prefix_ << "Producing DATA, type="
-                       << (data.data.is_unordered ? "unordered" : "ordered")
-                       << "::"
-                       << (*data.data.is_beginning && *data.data.is_end
-                               ? "complete"
-                               : *data.data.is_beginning
-                                     ? "first"
-                                     : *data.data.is_end ? "last" : "middle")
-                       << ", stream_id=" << *stream_it->first
-                       << ", ppid=" << *data.data.ppid
-                       << ", length=" << data.data.payload.size();
-
-  previous_message_has_ended_ = *data.data.is_end;
-
-  RTC_DCHECK(IsConsistent());
-  return data;
+  return scheduler_.Produce(now, max_size);
 }
 
 bool RRSendQueue::Discard(IsUnordered unordered,
@@ -372,36 +378,44 @@ bool RRSendQueue::Discard(IsUnordered unordered,
                           MID message_id) {
   bool has_discarded =
       GetOrCreateStreamInfo(stream_id).Discard(unordered, message_id);
-  if (has_discarded) {
-    // Only partially sent messages are discarded, so if a message was
-    // discarded, then it was the currently sent message.
-    previous_message_has_ended_ = true;
-  }
 
+  RTC_DCHECK(IsConsistent());
   return has_discarded;
 }
 
-void RRSendQueue::PrepareResetStreams(rtc::ArrayView<const StreamID> streams) {
-  for (StreamID stream_id : streams) {
-    GetOrCreateStreamInfo(stream_id).Pause();
-  }
+void RRSendQueue::PrepareResetStream(StreamID stream_id) {
+  GetOrCreateStreamInfo(stream_id).Pause();
   RTC_DCHECK(IsConsistent());
 }
 
-bool RRSendQueue::CanResetStreams() const {
-  // Streams can be reset if those streams that are paused don't have any
-  // messages that are partially sent.
+bool RRSendQueue::HasStreamsReadyToBeReset() const {
   for (auto& [unused, stream] : streams_) {
-    if (stream.is_paused() && stream.has_partially_sent_message()) {
-      return false;
+    if (stream.IsReadyToBeReset()) {
+      return true;
     }
   }
-  return true;
+  return false;
+}
+std::vector<StreamID> RRSendQueue::GetStreamsReadyToBeReset() {
+  RTC_DCHECK(absl::c_count_if(streams_, [](const auto& p) {
+               return p.second.IsResetting();
+             }) == 0);
+  std::vector<StreamID> ready;
+  for (auto& [stream_id, stream] : streams_) {
+    if (stream.IsReadyToBeReset()) {
+      stream.SetAsResetting();
+      ready.push_back(stream_id);
+    }
+  }
+  return ready;
 }
 
 void RRSendQueue::CommitResetStreams() {
+  RTC_DCHECK(absl::c_count_if(streams_, [](const auto& p) {
+               return p.second.IsResetting();
+             }) > 0);
   for (auto& [unused, stream] : streams_) {
-    if (stream.is_paused()) {
+    if (stream.IsResetting()) {
       stream.Reset();
     }
   }
@@ -409,8 +423,13 @@ void RRSendQueue::CommitResetStreams() {
 }
 
 void RRSendQueue::RollbackResetStreams() {
+  RTC_DCHECK(absl::c_count_if(streams_, [](const auto& p) {
+               return p.second.IsResetting();
+             }) > 0);
   for (auto& [unused, stream] : streams_) {
-    stream.Resume();
+    if (stream.IsResetting()) {
+      stream.Resume();
+    }
   }
   RTC_DCHECK(IsConsistent());
 }
@@ -421,7 +440,7 @@ void RRSendQueue::Reset() {
   for (auto& [unused, stream] : streams_) {
     stream.Reset();
   }
-  previous_message_has_ended_ = true;
+  scheduler_.ForceReschedule();
 }
 
 size_t RRSendQueue::buffered_amount(StreamID stream_id) const {
@@ -453,11 +472,28 @@ RRSendQueue::OutgoingStream& RRSendQueue::GetOrCreateStreamInfo(
   }
 
   return streams_
-      .emplace(stream_id,
-               OutgoingStream(
+      .emplace(std::piecewise_construct, std::forward_as_tuple(stream_id),
+               std::forward_as_tuple(
+                   &scheduler_, stream_id, default_priority_,
                    [this, stream_id]() { on_buffered_amount_low_(stream_id); },
                    total_buffered_amount_))
       .first->second;
+}
+
+void RRSendQueue::SetStreamPriority(StreamID stream_id,
+                                    StreamPriority priority) {
+  OutgoingStream& stream = GetOrCreateStreamInfo(stream_id);
+
+  stream.SetPriority(priority);
+  RTC_DCHECK(IsConsistent());
+}
+
+StreamPriority RRSendQueue::GetStreamPriority(StreamID stream_id) const {
+  auto stream_it = streams_.find(stream_id);
+  if (stream_it == streams_.end()) {
+    return default_priority_;
+  }
+  return stream_it->second.priority();
 }
 
 HandoverReadinessStatus RRSendQueue::GetHandoverReadiness() const {
@@ -481,11 +517,12 @@ void RRSendQueue::RestoreFromState(const DcSctpSocketHandoverState& state) {
   for (const DcSctpSocketHandoverState::OutgoingStream& state_stream :
        state.tx.streams) {
     StreamID stream_id(state_stream.id);
-    streams_.emplace(stream_id, OutgoingStream(
-                                    [this, stream_id]() {
-                                      on_buffered_amount_low_(stream_id);
-                                    },
-                                    total_buffered_amount_, &state_stream));
+    streams_.emplace(
+        std::piecewise_construct, std::forward_as_tuple(stream_id),
+        std::forward_as_tuple(
+            &scheduler_, stream_id, StreamPriority(state_stream.priority),
+            [this, stream_id]() { on_buffered_amount_low_(stream_id); },
+            total_buffered_amount_, &state_stream));
   }
 }
 }  // namespace dcsctp

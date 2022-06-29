@@ -14,6 +14,7 @@
 #include <vector>
 
 #include "absl/memory/memory.h"
+#include "absl/strings/string_view.h"
 #include "api/transport/stun.h"
 #include "p2p/base/connection.h"
 #include "p2p/base/p2p_constants.h"
@@ -40,13 +41,13 @@ class StunBindingRequest : public StunRequest {
   StunBindingRequest(UDPPort* port,
                      const rtc::SocketAddress& addr,
                      int64_t start_time)
-      : port_(port), server_addr_(addr), start_time_(start_time) {}
+      : StunRequest(port->request_manager(),
+                    std::make_unique<StunMessage>(STUN_BINDING_REQUEST)),
+        port_(port),
+        server_addr_(addr),
+        start_time_(start_time) {}
 
   const rtc::SocketAddress& server_addr() const { return server_addr_; }
-
-  void Prepare(StunMessage* request) override {
-    request->SetType(STUN_BINDING_REQUEST);
-  }
 
   void OnResponse(StunMessage* response) override {
     const StunAddressAttribute* addr_attr =
@@ -63,7 +64,7 @@ class StunBindingRequest : public StunRequest {
 
     // The keep-alive requests will be stopped after its lifetime has passed.
     if (WithinLifetime(rtc::TimeMillis())) {
-      port_->requests_.SendDelayed(
+      port_->request_manager_.SendDelayed(
           new StunBindingRequest(port_, server_addr_, start_time_),
           port_->stun_keepalive_delay());
     }
@@ -88,7 +89,7 @@ class StunBindingRequest : public StunRequest {
     int64_t now = rtc::TimeMillis();
     if (WithinLifetime(now) &&
         rtc::TimeDiff(now, start_time_) < RETRY_TIMEOUT) {
-      port_->requests_.SendDelayed(
+      port_->request_manager_.SendDelayed(
           new StunBindingRequest(port_, server_addr_, start_time_),
           port_->stun_keepalive_delay());
     }
@@ -166,7 +167,11 @@ UDPPort::UDPPort(rtc::Thread* thread,
            username,
            password,
            field_trials),
-      requests_(thread),
+      request_manager_(
+          thread,
+          [this](const void* data, size_t size, StunRequest* request) {
+            OnSendPacket(data, size, request);
+          }),
       socket_(socket),
       error_(0),
       ready_(false),
@@ -192,7 +197,11 @@ UDPPort::UDPPort(rtc::Thread* thread,
            username,
            password,
            field_trials),
-      requests_(thread),
+      request_manager_(
+          thread,
+          [this](const void* data, size_t size, StunRequest* request) {
+            OnSendPacket(data, size, request);
+          }),
       socket_(nullptr),
       error_(0),
       ready_(false),
@@ -215,7 +224,6 @@ bool UDPPort::Init() {
   socket_->SignalSentPacket.connect(this, &UDPPort::OnSentPacket);
   socket_->SignalReadyToSend.connect(this, &UDPPort::OnReadyToSend);
   socket_->SignalAddressReady.connect(this, &UDPPort::OnLocalAddressReady);
-  requests_.SignalSendPacket.connect(this, &UDPPort::OnSendPacket);
   return true;
 }
 
@@ -225,7 +233,7 @@ UDPPort::~UDPPort() {
 }
 
 void UDPPort::PrepareAddress() {
-  RTC_DCHECK(requests_.empty());
+  RTC_DCHECK(request_manager_.empty());
   if (socket_->GetState() == rtc::AsyncPacketSocket::STATE_BOUND) {
     OnLocalAddressReady(socket_, socket_->GetLocalAddress());
   }
@@ -340,7 +348,7 @@ bool UDPPort::HandleIncomingPacket(rtc::AsyncPacketSocket* socket,
   return true;
 }
 
-bool UDPPort::SupportsProtocol(const std::string& protocol) const {
+bool UDPPort::SupportsProtocol(absl::string_view protocol) const {
   return protocol == UDP_PROTOCOL_NAME;
 }
 
@@ -390,7 +398,7 @@ void UDPPort::OnReadPacket(rtc::AsyncPacketSocket* socket,
   // will eat it because it might be a response to a retransmitted packet, and
   // we already cleared the request when we got the first response.
   if (server_addresses_.find(remote_addr) != server_addresses_.end()) {
-    requests_.CheckResponse(data, size);
+    request_manager_.CheckResponse(data, size);
     return;
   }
 
@@ -413,7 +421,7 @@ void UDPPort::OnReadyToSend(rtc::AsyncPacketSocket* socket) {
 void UDPPort::SendStunBindingRequests() {
   // We will keep pinging the stun server to make sure our NAT pin-hole stays
   // open until the deadline (specified in SendStunBindingRequest).
-  RTC_DCHECK(requests_.empty());
+  RTC_DCHECK(request_manager_.empty());
 
   for (ServerAddresses::const_iterator it = server_addresses_.begin();
        it != server_addresses_.end(); ++it) {
@@ -463,7 +471,7 @@ void UDPPort::SendStunBindingRequest(const rtc::SocketAddress& stun_addr) {
   } else if (socket_->GetState() == rtc::AsyncPacketSocket::STATE_BOUND) {
     // Check if `server_addr_` is compatible with the port's ip.
     if (IsCompatibleAddress(stun_addr)) {
-      requests_.Send(
+      request_manager_.Send(
           new StunBindingRequest(this, stun_addr, rtc::TimeMillis()));
     } else {
       // Since we can't send stun messages to the server, we should mark this

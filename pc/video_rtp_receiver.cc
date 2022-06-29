@@ -21,7 +21,6 @@
 #include "rtc_base/checks.h"
 #include "rtc_base/location.h"
 #include "rtc_base/logging.h"
-#include "rtc_base/ref_counted_object.h"
 
 namespace webrtc {
 
@@ -112,11 +111,6 @@ void VideoRtpReceiver::Stop() {
   RTC_DCHECK_RUN_ON(&signaling_thread_checker_);
   source_->SetState(MediaSourceInterface::kEnded);
   track_->internal()->set_ended();
-}
-
-void VideoRtpReceiver::SetSourceEnded() {
-  RTC_DCHECK_RUN_ON(&signaling_thread_checker_);
-  source_->SetState(MediaSourceInterface::kEnded);
 }
 
 // RTC_RUN_ON(&signaling_thread_checker_)
@@ -221,7 +215,7 @@ void VideoRtpReceiver::SetStreams(
       }
     }
     if (removed) {
-      existing_stream->RemoveTrack(track_);
+      existing_stream->RemoveTrack(video_track());
     }
   }
   // Add remote track to any streams that are new.
@@ -235,7 +229,7 @@ void VideoRtpReceiver::SetStreams(
       }
     }
     if (added) {
-      stream->AddTrack(track_);
+      stream->AddTrack(video_track());
     }
   }
   streams_ = streams;

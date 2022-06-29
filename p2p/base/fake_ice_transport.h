@@ -19,10 +19,10 @@
 #include "absl/algorithm/container.h"
 #include "absl/types/optional.h"
 #include "api/ice_transport_interface.h"
+#include "api/task_queue/pending_task_safety_flag.h"
+#include "api/task_queue/to_queued_task.h"
 #include "p2p/base/ice_transport_internal.h"
 #include "rtc_base/copy_on_write_buffer.h"
-#include "rtc_base/task_utils/pending_task_safety_flag.h"
-#include "rtc_base/task_utils/to_queued_task.h"
 
 namespace cricket {
 
@@ -37,7 +37,9 @@ class FakeIceTransport : public IceTransportInternal {
       : name_(name),
         component_(component),
         network_thread_(network_thread ? network_thread
-                                       : rtc::Thread::Current()) {}
+                                       : rtc::Thread::Current()) {
+    RTC_DCHECK(network_thread_);
+  }
   // Must be called either on the network thread, or after the network thread
   // has been shut down.
   ~FakeIceTransport() override {

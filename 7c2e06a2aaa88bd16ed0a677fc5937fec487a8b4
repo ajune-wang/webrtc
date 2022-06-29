@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "639f1694_662bc2e9",
+        "filename": "rtc_tools/BUILD.gn",
+        "patchSetId": 1
+      },
+      "lineNbr": 488,
+      "author": {
+        "id": 5087
+      },
+      "writtenOn": "2022-06-29T12:55:37Z",
+      "side": 0,
+      "message": "Aren\u0027t these testonly as well?\n\nhttps://source.chromium.org/chromium/chromium/src/+/main:third_party/webrtc/test/BUILD.gn;l\u003d664;drc\u003dc374d11fac252535ccba15975568b1f6552c117e",
+      "range": {
+        "startLine": 487,
+        "startChar": 0,
+        "endLine": 488,
+        "endChar": 30
+      },
+      "revId": "7c2e06a2aaa88bd16ed0a677fc5937fec487a8b4",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

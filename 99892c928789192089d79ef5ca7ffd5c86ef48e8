@@ -33,6 +33,23 @@
       "message": "Hello, Stefan. PTAL.",
       "revId": "99892c928789192089d79ef5ca7ffd5c86ef48e8",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "4b7e4464_ee6c652e",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 9405
+      },
+      "writtenOn": "2022-06-29T22:38:50Z",
+      "side": 1,
+      "message": "Hi Stefan and Tommy. Could you please review this CL? I changed rtc_base/DEPS, so I need your stamp.",
+      "revId": "99892c928789192089d79ef5ca7ffd5c86ef48e8",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

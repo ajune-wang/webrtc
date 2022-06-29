@@ -24,6 +24,30 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "cff182ef_d72f994f",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 4
+      },
+      "lineNbr": 9,
+      "author": {
+        "id": 5524
+      },
+      "writtenOn": "2022-06-29T12:37:40Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "df1d0e32_afc314bb",
+      "range": {
+        "startLine": 9,
+        "startChar": 13,
+        "endLine": 9,
+        "endChar": 28
+      },
+      "revId": "dbe8786e3b8b683c12699811bcb7dc86a012c6a8",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "61dd6831_eda50d8c",
@@ -37,6 +61,30 @@
       "writtenOn": "2022-06-29T12:16:05Z",
       "side": 1,
       "message": "I think all the layers, except for the top one, are filled to |targetBitrate| instead. Maybe you should use that instead of maxBitrate for them. WDYT?",
+      "range": {
+        "startLine": 3663,
+        "startChar": 33,
+        "endLine": 3663,
+        "endChar": 58
+      },
+      "revId": "dbe8786e3b8b683c12699811bcb7dc86a012c6a8",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "c881ead4_c75127fb",
+        "filename": "media/engine/webrtc_video_engine.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 3663,
+      "author": {
+        "id": 5524
+      },
+      "writtenOn": "2022-06-29T12:37:40Z",
+      "side": 1,
+      "message": "That\u0027s the (current) behavior of SimulcastRateAllocator, but the SvcRateAllocator allows allocating up to max bitrate for all spatial layers.\n\nRegardless of how a specific rate allocator work (remember it might even be injected), I think the max bitrate of the RTP stream should not be lower than the sum of the SVC layers it may contain.",
+      "parentUuid": "61dd6831_eda50d8c",
       "range": {
         "startLine": 3663,
         "startChar": 33,

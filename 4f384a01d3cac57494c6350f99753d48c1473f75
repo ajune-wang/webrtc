@@ -33,6 +33,23 @@
       "message": "Harald, can you help with landing this please?",
       "revId": "4f384a01d3cac57494c6350f99753d48c1473f75",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "6b648b79_54fc6426",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 7
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2022-06-30T13:04:52Z",
+      "side": 1,
+      "message": "So is the default path to execute the newly added code?\n",
+      "revId": "4f384a01d3cac57494c6350f99753d48c1473f75",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

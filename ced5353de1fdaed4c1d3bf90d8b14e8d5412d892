@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "6e93123f_d0ad67a2",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 3
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 13704
+      },
+      "writtenOn": "2022-06-30T14:49:01Z",
+      "side": 1,
+      "message": "Accidentally overwrote this CL with another one (uploaded another one with identical Change-Id)...",
+      "revId": "ced5353de1fdaed4c1d3bf90d8b14e8d5412d892",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

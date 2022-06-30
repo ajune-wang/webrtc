@@ -24,6 +24,30 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "eb81e757_ae5423a4",
+        "filename": "logging/BUILD.gn",
+        "patchSetId": 1
+      },
+      "lineNbr": 76,
+      "author": {
+        "id": 10107
+      },
+      "writtenOn": "2022-06-30T16:45:54Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "5524fa27_46640967",
+      "range": {
+        "startLine": 76,
+        "startChar": 0,
+        "endLine": 76,
+        "endChar": 44
+      },
+      "revId": "381a63df731f5c3444a71ec78d3ebddefeaa70e1",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "2b26eada_ae250a74",
@@ -41,6 +65,24 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "5ac4a975_3a104de1",
+        "filename": "logging/rtc_event_log/rtc_event_log_impl.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 243,
+      "author": {
+        "id": 10107
+      },
+      "writtenOn": "2022-06-30T16:45:54Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "2b26eada_ae250a74",
+      "revId": "381a63df731f5c3444a71ec78d3ebddefeaa70e1",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "d1622911_4515ee33",
@@ -54,6 +96,30 @@
       "writtenOn": "2022-06-30T16:03:06Z",
       "side": 1,
       "message": "Would it be possible to avoid this cast? Maybe an overload that takes a string_view?",
+      "range": {
+        "startLine": 263,
+        "startChar": 28,
+        "endLine": 263,
+        "endChar": 40
+      },
+      "revId": "381a63df731f5c3444a71ec78d3ebddefeaa70e1",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "ecf8d89a_0becc1cf",
+        "filename": "logging/rtc_event_log/rtc_event_log_impl.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 263,
+      "author": {
+        "id": 10107
+      },
+      "writtenOn": "2022-06-30T16:45:54Z",
+      "side": 1,
+      "message": "We decided a while back not to change anything under api/ as part of the absl::string_view migration. So far, we\u0027ve used absl::string_view as much as possible internally in non-api code and then translated to strings whenever necessary due to interaction with code under api/ or with external code.\n\nI plan to propose changes to the API once the internal migration is finished, so hopefully we get to change this as part of that.\n\nI also don\u0027t particularly like having function overloads with both std::string and absl::string_view, but I could be convinced otherwise...",
+      "parentUuid": "d1622911_4515ee33",
       "range": {
         "startLine": 263,
         "startChar": 28,

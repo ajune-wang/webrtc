@@ -41,6 +41,30 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "b3bd8f2c_265c49d2",
+        "filename": "modules/desktop_capture/win/wgc_capture_session.cc",
+        "patchSetId": 17
+      },
+      "lineNbr": 407,
+      "author": {
+        "id": 12416
+      },
+      "writtenOn": "2022-06-30T21:56:16Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "40d21d8c_0aa0cd57",
+      "range": {
+        "startLine": 407,
+        "startChar": 21,
+        "endLine": 407,
+        "endChar": 41
+      },
+      "revId": "d6c429ef26747f112c2318a41fcd271283fd29cf",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "f93dd9dc_c7a522e4",
@@ -54,6 +78,24 @@
       "writtenOn": "2022-06-30T21:34:38Z",
       "side": 1,
       "message": "NIT: Move this down a line so that it\u0027s only created inside the if block",
+      "revId": "d6c429ef26747f112c2318a41fcd271283fd29cf",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "f970cfe8_01596d4b",
+        "filename": "modules/desktop_capture/win/wgc_capturer_win.cc",
+        "patchSetId": 17
+      },
+      "lineNbr": 245,
+      "author": {
+        "id": 12416
+      },
+      "writtenOn": "2022-06-30T21:56:16Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "f93dd9dc_c7a522e4",
       "revId": "d6c429ef26747f112c2318a41fcd271283fd29cf",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }

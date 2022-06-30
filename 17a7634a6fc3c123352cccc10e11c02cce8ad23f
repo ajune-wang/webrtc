@@ -16,6 +16,24 @@
       "message": "The moving made it a bit hard to see what remains the same ... the main advantage is that the template functions can now be simply functions?\n\nI see that there is no change to callers, which is Good.\nNot 100% sure I understand it yet, but it seems good.",
       "revId": "17a7634a6fc3c123352cccc10e11c02cce8ad23f",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "14d06217_848d440d",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 3
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2022-06-30T11:16:02Z",
+      "side": 1,
+      "message": "yes, AnyInvocable can abstract away move-only functions (same as std::function abstracts copiable functions).\n\nthat allows to remove custom functor template parameter and thus move more code from header to .cc, reducing duplication.",
+      "parentUuid": "d412ad61_038fbd3f",
+      "revId": "17a7634a6fc3c123352cccc10e11c02cce8ad23f",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

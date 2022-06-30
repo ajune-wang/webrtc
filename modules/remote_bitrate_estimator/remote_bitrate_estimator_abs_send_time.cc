@@ -390,26 +390,16 @@ void RemoteBitrateEstimatorAbsSendTime::RemoveStream(uint32_t ssrc) {
   ssrcs_.erase(ssrc);
 }
 
-bool RemoteBitrateEstimatorAbsSendTime::LatestEstimate(
-    std::vector<uint32_t>* ssrcs,
-    uint32_t* bitrate_bps) const {
+DataRate RemoteBitrateEstimatorAbsSendTime::LatestEstimate() const {
   // Currently accessed from both the process thread (see
   // ModuleRtpRtcpImpl::Process()) and the configuration thread (see
   // Call::GetStats()). Should in the future only be accessed from a single
   // thread.
-  RTC_DCHECK(ssrcs);
-  RTC_DCHECK(bitrate_bps);
   MutexLock lock(&mutex_);
-  if (!remote_rate_.ValidEstimate()) {
-    return false;
+  if (!remote_rate_.ValidEstimate() || ssrcs_.empty()) {
+    return DataRate::Zero();
   }
-  *ssrcs = Keys(ssrcs_);
-  if (ssrcs_.empty()) {
-    *bitrate_bps = 0;
-  } else {
-    *bitrate_bps = remote_rate_.LatestEstimate().bps<uint32_t>();
-  }
-  return true;
+  return remote_rate_.LatestEstimate();
 }
 
 void RemoteBitrateEstimatorAbsSendTime::SetMinBitrate(int min_bitrate_bps) {

@@ -19,6 +19,7 @@
 #include <vector>
 
 #include "api/transport/field_trial_based_config.h"
+#include "api/units/data_rate.h"
 #include "modules/remote_bitrate_estimator/aimd_rate_control.h"
 #include "modules/remote_bitrate_estimator/include/remote_bitrate_estimator.h"
 #include "rtc_base/rate_statistics.h"
@@ -50,8 +51,7 @@ class RemoteBitrateEstimatorSingleStream : public RemoteBitrateEstimator {
   int64_t TimeUntilNextProcess() override;
   void OnRttUpdate(int64_t avg_rtt_ms, int64_t max_rtt_ms) override;
   void RemoveStream(uint32_t ssrc) override;
-  bool LatestEstimate(std::vector<uint32_t>* ssrcs,
-                      uint32_t* bitrate_bps) const override;
+  DataRate LatestEstimate() const override;
   void SetMinBitrate(int min_bitrate_bps) override;
 
  private:

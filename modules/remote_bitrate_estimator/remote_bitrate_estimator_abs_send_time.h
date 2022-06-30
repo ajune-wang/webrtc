@@ -63,8 +63,7 @@ class RemoteBitrateEstimatorAbsSendTime : public RemoteBitrateEstimator {
   int64_t TimeUntilNextProcess() override;
   void OnRttUpdate(int64_t avg_rtt_ms, int64_t max_rtt_ms) override;
   void RemoveStream(uint32_t ssrc) override;
-  bool LatestEstimate(std::vector<uint32_t>* ssrcs,
-                      uint32_t* bitrate_bps) const override;
+  DataRate LatestEstimate() const override;
   void SetMinBitrate(int min_bitrate_bps) override;
 
  private:

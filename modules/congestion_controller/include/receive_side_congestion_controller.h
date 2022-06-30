@@ -99,8 +99,7 @@ class ReceiveSideCongestionController : public CallStatsObserver {
 
     void RemoveStream(unsigned int ssrc) override;
 
-    bool LatestEstimate(std::vector<unsigned int>* ssrcs,
-                        unsigned int* bitrate_bps) const override;
+    DataRate LatestEstimate() const override;
 
     void SetMinBitrate(int min_bitrate_bps) override;
 

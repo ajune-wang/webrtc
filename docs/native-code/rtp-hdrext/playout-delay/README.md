@@ -35,6 +35,8 @@ MIN and MAX playout delay in turn represent the minimum and maximum delay that c
 
 A value of 0 for example is meaningless from the perspective of actually meeting the suggested delay, but it indicates to the receiver that the frame should be rendered as soon as possible. It is up-to the receiver to decide how to handle a frame when it arrives too late (i.e., whether to simply drop or hand over for rendering as soon as possible).
 
+Note that the MIN playout delay may be overridden by the need to synchronize audio with the video stream.
+
 ## RTP header extension format
 
      0 1 2 3 4 5 6 7 8 9 0 1 2 3 4 5 6 7 8 9 0 1 2 3 4 5 6 7 8 9 0 1

@@ -1381,6 +1381,13 @@ void P2PTransportChannel::RemoveRemoteCandidate(
                         << cand_to_remove.ToSensitiveString();
     remote_candidates_.erase(iter, remote_candidates_.end());
   }
+  for (Connection* conn : connections()) {
+    if (cand_to_remove.MatchesForRemoval(conn->remote_candidate())) {
+      RTC_LOG(LS_VERBOSE) << "Prune associated connection "
+                          << conn->ToString();
+      conn->FailAndPrune();
+    }
+  }
 }
 
 void P2PTransportChannel::RemoveAllRemoteCandidates() {

@@ -152,6 +152,30 @@
       },
       "revId": "bbd06d2bdd6746345fac5c5a13d737e5e49a8617",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "9b54ca87_638faf10",
+        "filename": "rtc_tools/video_replay.cc",
+        "patchSetId": 6
+      },
+      "lineNbr": 493,
+      "author": {
+        "id": 14874
+      },
+      "writtenOn": "2022-06-30T13:12:00Z",
+      "side": 1,
+      "message": "Not an issue in practice, one needs to carefully specify all the PTs and SSRCs used anyway",
+      "parentUuid": "d5caa821_0606be60",
+      "range": {
+        "startLine": 493,
+        "startChar": 32,
+        "endLine": 493,
+        "endChar": 34
+      },
+      "revId": "bbd06d2bdd6746345fac5c5a13d737e5e49a8617",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

@@ -335,6 +335,30 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "619793a6_be28b6ff",
+        "filename": "modules/desktop_capture/win/wgc_capturer_win_unittest.cc",
+        "patchSetId": 16
+      },
+      "lineNbr": 317,
+      "author": {
+        "id": 18474
+      },
+      "writtenOn": "2022-06-30T21:34:38Z",
+      "side": 1,
+      "message": "Sounds good. I think that matches some of the behavior we have for the DirectX capturer as well.",
+      "parentUuid": "e38abb4b_2e4ed0a0",
+      "range": {
+        "startLine": 317,
+        "startChar": 27,
+        "endLine": 317,
+        "endChar": 47
+      },
+      "revId": "725d1e83cd1a49d4a02b449e4e57314aa7301f56",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "fad8b988_176a4057",
@@ -372,6 +396,30 @@
       "side": 1,
       "message": "Now that we don\u0027t expect to see dropped frames (which would return temporary errors, but not for the reason we\u0027re looking for here), and because we\u0027re waiting for frames now (rather than capturing as fast as we can), I figured I\u0027d save the trybots some execution time by reducing this.",
       "parentUuid": "fad8b988_176a4057",
+      "range": {
+        "startLine": 530,
+        "startChar": 22,
+        "endLine": 530,
+        "endChar": 23
+      },
+      "revId": "725d1e83cd1a49d4a02b449e4e57314aa7301f56",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "b1e6d727_65e85d5a",
+        "filename": "modules/desktop_capture/win/wgc_capturer_win_unittest.cc",
+        "patchSetId": 16
+      },
+      "lineNbr": 530,
+      "author": {
+        "id": 18474
+      },
+      "writtenOn": "2022-06-30T21:34:38Z",
+      "side": 1,
+      "message": "Ah; got it. Didn\u0027t read the test case closely enough; it\u0027s essentially arbitrary. So this is fine.",
+      "parentUuid": "d014f226_f31038b2",
       "range": {
         "startLine": 530,
         "startChar": 22,

@@ -1,0 +1,61 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "a72fe4b2_88398848",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 17
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 18474
+      },
+      "writtenOn": "2022-06-30T21:34:38Z",
+      "side": 1,
+      "message": "modules/desktop_capture LGTM with one minor NIT",
+      "revId": "d6c429ef26747f112c2318a41fcd271283fd29cf",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "40d21d8c_0aa0cd57",
+        "filename": "modules/desktop_capture/win/wgc_capture_session.cc",
+        "patchSetId": 17
+      },
+      "lineNbr": 407,
+      "author": {
+        "id": 18474
+      },
+      "writtenOn": "2022-06-30T21:34:38Z",
+      "side": 1,
+      "message": "NIT: Should reset this to null after the remove?",
+      "range": {
+        "startLine": 407,
+        "startChar": 21,
+        "endLine": 407,
+        "endChar": 41
+      },
+      "revId": "d6c429ef26747f112c2318a41fcd271283fd29cf",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "f93dd9dc_c7a522e4",
+        "filename": "modules/desktop_capture/win/wgc_capturer_win.cc",
+        "patchSetId": 17
+      },
+      "lineNbr": 245,
+      "author": {
+        "id": 18474
+      },
+      "writtenOn": "2022-06-30T21:34:38Z",
+      "side": 1,
+      "message": "NIT: Move this down a line so that it\u0027s only created inside the if block",
+      "revId": "d6c429ef26747f112c2318a41fcd271283fd29cf",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

@@ -16,6 +16,40 @@
       "message": "hta, can you help with approval and landing please?",
       "revId": "0ee7cc37e7f758bd73962a6ebd50460c2246e1f0",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "0459775b_867f1862",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2022-06-30T13:00:09Z",
+      "side": 1,
+      "message": "Scary amounts of log....\n",
+      "revId": "0ee7cc37e7f758bd73962a6ebd50460c2246e1f0",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "7cd779d5_6d925c8b",
+        "filename": "video/frame_decode_timing.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 50,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2022-06-30T13:00:09Z",
+      "side": 1,
+      "message": "This will log for every frame, if I read it correctly - ~30 lines per second.\nEven at LS_VERBOSE level, this seems excessive in a release build.\n(It\u0027s already excessive in a debug build, but that\u0027s a preexisting issue)\n\nSuggest to keep this as RTC_DLOG.",
+      "revId": "0ee7cc37e7f758bd73962a6ebd50460c2246e1f0",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

@@ -68,6 +68,23 @@
       "parentUuid": "6b648b79_54fc6426",
       "revId": "4f384a01d3cac57494c6350f99753d48c1473f75",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "bcaa93ad_cdaf373b",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 7
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2022-06-30T13:14:35Z",
+      "side": 1,
+      "message": "OK, then.\nseems like this tool really should take a file containing the SDP as an argument:-)\n",
+      "revId": "4f384a01d3cac57494c6350f99753d48c1473f75",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

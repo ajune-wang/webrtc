@@ -18,6 +18,24 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "02c2b5f8_56e575bb",
+        "filename": "net/dcsctp/public/dcsctp_socket.h",
+        "patchSetId": 23
+      },
+      "lineNbr": 399,
+      "author": {
+        "id": 12215
+      },
+      "writtenOn": "2022-07-01T06:51:25Z",
+      "side": 1,
+      "message": "I have clarified it a bit. Yes, it\u0027s supposed to be used to capture the time of how long a message stays in the send queue until it\u0027s actually sent (in full). Which will provide insights to e.g. if an RPC is slow - if this was due to issues with the congestion window filling up, and the socket buffering too much. And as priorities will make the send queue behave differently, we can use this metric to validate that priorities have the expected results.\n\nDoes this make sense?",
+      "parentUuid": "6d151633_bcd8e182",
+      "revId": "592753b6ceb0644677f97bd64e00173124fc66f8",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "1ccf0599_78516426",
@@ -31,6 +49,24 @@
       "writtenOn": "2022-06-27T12:40:25Z",
       "side": 1,
       "message": "This seems odd. The other calls are called \"lifecycle events\", so a literal reading is that this is called when one of the other callbacks is finished, which makes no sense. It probably intends to say \"Will be called when processing of a message is complete, no matter how it completed. Will be called after all other lifecycle events, if any.\"",
+      "revId": "592753b6ceb0644677f97bd64e00173124fc66f8",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "1580e31b_a6e24397",
+        "filename": "net/dcsctp/public/dcsctp_socket.h",
+        "patchSetId": 23
+      },
+      "lineNbr": 435,
+      "author": {
+        "id": 12215
+      },
+      "writtenOn": "2022-07-01T06:51:25Z",
+      "side": 1,
+      "message": "I have used your phrasing - PTAL",
+      "parentUuid": "1ccf0599_78516426",
       "revId": "592753b6ceb0644677f97bd64e00173124fc66f8",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }

@@ -20,6 +20,24 @@
     {
       "unresolved": false,
       "key": {
+        "uuid": "db7c3241_00f6837a",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 25
+      },
+      "lineNbr": 15,
+      "author": {
+        "id": 12215
+      },
+      "writtenOn": "2022-07-01T06:51:25Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "bdc632b3_9c328204",
+      "revId": "c9dcc0f5c7eb604ad6fd461f779443b13f5a82e8",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
         "uuid": "9917a9cf_d7ae9178",
         "filename": "/PATCHSET_LEVEL",
         "patchSetId": 25
@@ -31,6 +49,24 @@
       "writtenOn": "2022-06-27T12:40:25Z",
       "side": 1,
       "message": "Some worries about the base type of LifecycleId. Since it\u0027s not generated in this CL, it\u0027s hard to say more.\n",
+      "revId": "c9dcc0f5c7eb604ad6fd461f779443b13f5a82e8",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "db106e42_1f949783",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 25
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 12215
+      },
+      "writtenOn": "2022-07-01T06:51:25Z",
+      "side": 1,
+      "message": "I decided to make it more concrete. PTAL",
+      "parentUuid": "9917a9cf_d7ae9178",
       "revId": "c9dcc0f5c7eb604ad6fd461f779443b13f5a82e8",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
@@ -52,6 +88,24 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "3c8ebc78_f0ec0b6b",
+        "filename": "net/dcsctp/public/dcsctp_socket.h",
+        "patchSetId": 25
+      },
+      "lineNbr": 402,
+      "author": {
+        "id": 12215
+      },
+      "writtenOn": "2022-07-01T06:51:25Z",
+      "side": 1,
+      "message": "I have added a transition graph",
+      "parentUuid": "0aa2beb5_1a2ad842",
+      "revId": "c9dcc0f5c7eb604ad6fd461f779443b13f5a82e8",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "38cd97f0_dae83c16",
@@ -69,6 +123,24 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "d615d943_47697f92",
+        "filename": "net/dcsctp/public/types.h",
+        "patchSetId": 25
+      },
+      "lineNbr": 131,
+      "author": {
+        "id": 12215
+      },
+      "writtenOn": "2022-07-01T06:51:25Z",
+      "side": 1,
+      "message": "I have clarified that both in the documentation for LifecycleId and in SentOptions::lifecycle_id",
+      "parentUuid": "38cd97f0_dae83c16",
+      "revId": "c9dcc0f5c7eb604ad6fd461f779443b13f5a82e8",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "659ad7e1_111bd208",
@@ -82,6 +154,24 @@
       "writtenOn": "2022-06-27T12:40:25Z",
       "side": 1,
       "message": "I\u0027m a bit scared by the choice of a ptrdiff_t as the base type for this ID, because it seems to gently hint that there will be some use of the address of a message as the basis for an \"unique\" identifier.\n\nIf lifecycle IDs are assumed to be unique over time, this will break badly when buffers are being reused. If they are expected to be valid over the lifetime of the message only (from creation to lifecycle-end), it may be OK, as long as it is based on a pointer to a non-relocatable resource.",
+      "revId": "c9dcc0f5c7eb604ad6fd461f779443b13f5a82e8",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "65bc2e9a_4842bc42",
+        "filename": "net/dcsctp/public/types.h",
+        "patchSetId": 25
+      },
+      "lineNbr": 132,
+      "author": {
+        "id": 12215
+      },
+      "writtenOn": "2022-07-01T06:51:25Z",
+      "side": 1,
+      "message": "The client gets to pick the value to use as LifecycleID (which wasn\u0027t obvious, so I have documented it now), and I decided to initially use a ptrdiff_t to allow clients to put pointers there if they want to (since the callbacks would ensure that client know when they are \"out of scope\").But let\u0027s avoid that and use an uint64_t instead. The caller can use that as an index (to a record with metadata about the message sent), or to encode a timestamp in it, for example.",
+      "parentUuid": "659ad7e1_111bd208",
       "revId": "c9dcc0f5c7eb604ad6fd461f779443b13f5a82e8",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }

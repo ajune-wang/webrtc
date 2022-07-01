@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "a21333a3_c4ef18f4",
+        "filename": "rtc_base/system/no_cfi_icall.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 25,
+      "author": {
+        "id": 5087
+      },
+      "writtenOn": "2022-07-01T08:39:01Z",
+      "side": 1,
+      "message": "I think it is also good to wrap it into a \"#if !defined(DISABLE_CFI_ICALL)\n\" (like it is done https://source.chromium.org/chromium/chromium/src/+/main:base/compiler_specific.h;l\u003d173;drc\u003d64c67dd9c7e4d3b15e3f058b402f0c622dc9f2eb). This avoids the redefinition (e.g. if it is defined to something else, redefining can break the build).\n\nAlso https://source.chromium.org/chromium/chromium/src/+/main:base/compiler_specific.h;l\u003d181-183;drc\u003d64c67dd9c7e4d3b15e3f058b402f0c622dc9f2eb (define empty) is a good thing to do.",
+      "range": {
+        "startLine": 20,
+        "startChar": 0,
+        "endLine": 25,
+        "endChar": 30
+      },
+      "revId": "a5349d6550d068b3afed3dd976b0442aac8abeea",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

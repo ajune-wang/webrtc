@@ -1,6 +1,23 @@
 {
   "comments": [
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "4c8a58a8_2fdd5337",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2022-07-01T11:37:28Z",
+      "side": 1,
+      "message": "Hope we don\u0027t trigger problems.\n",
+      "revId": "3fe8b0d9a980642ee5ebb1f9e429378b063c1f07",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "e0836a39_eead460c",
@@ -32,6 +49,24 @@
       "side": 1,
       "message": "Ah, good point!\n\nhta@, in case you see issues, https://bugs.chromium.org/p/webrtc/issues/detail?id\u003d11577#c6 has the context on the problem Tommi is referring to.",
       "parentUuid": "e0836a39_eead460c",
+      "revId": "3fe8b0d9a980642ee5ebb1f9e429378b063c1f07",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "2c86cb52_b6954c08",
+        "filename": "pc/rtp_sender_receiver_unittest.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 1154,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2022-07-01T11:37:28Z",
+      "side": 1,
+      "message": "I hope the fix applied in that bug (renaming all the test helpers to *DeathTest) applies in this case too. And it has this gloriously simplifying init sequence:\n\n  RtpSenderReceiverTest()\n      : network_thread_(rtc::Thread::Current()),\n        worker_thread_(rtc::Thread::Current()),\n\nSo there shouldn\u0027t really be any extra threads (I think).\n(Note: the extensive use of single threads in unit tests is, to my mind, quite dangerous, since the RTC_DCHECK_RUN_ON statements that we depend on for policing thread access will never trigger when all the threads are the same thread. Different topic.)",
+      "parentUuid": "69c7a797_7626dc05",
       "revId": "3fe8b0d9a980642ee5ebb1f9e429378b063c1f07",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }

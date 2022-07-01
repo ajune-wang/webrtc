@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "e0836a39_eead460c",
+        "filename": "pc/rtp_sender_receiver_unittest.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 1154,
+      "author": {
+        "id": 5508
+      },
+      "writtenOn": "2022-07-01T10:29:00Z",
+      "side": 1,
+      "message": "This could be problematic. There are issues with using rtc::Thread objects in death tests that could have unintentional side effects. I can\u0027t remember exactly the issues we\u0027ve run into except that for sure we turn off automatic thread wrapping because of this. When I saw this a vague alarm bell went off in my head so I figured I\u0027d share it 😊",
+      "revId": "3fe8b0d9a980642ee5ebb1f9e429378b063c1f07",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

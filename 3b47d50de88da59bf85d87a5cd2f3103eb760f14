@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "89c13e41_b6cab1b0",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 9405
+      },
+      "writtenOn": "2022-07-01T00:51:25Z",
+      "side": 1,
+      "message": "Hi, Mirko. This CL is a follow-up of https://chromium-review.googlesource.com/c/chromium/src/+/3721997.\nPlease take a look. Thanks.",
+      "revId": "3b47d50de88da59bf85d87a5cd2f3103eb760f14",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

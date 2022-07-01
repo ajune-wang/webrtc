@@ -122,6 +122,16 @@ class MaxRetransmits
     return MaxRetransmits(std::numeric_limits<uint16_t>::max());
   }
 };
+
+enum class TimerBackoffAlgorithm {
+  // The base duration will be used for any restart.
+  kFixed,
+  // An exponential backoff is used for restarts, with a 2x multiplier, meaning
+  // that every restart will use a duration that is twice as long as the
+  // previous.
+  kExponential,
+};
+
 }  // namespace dcsctp
 
 #endif  // NET_DCSCTP_PUBLIC_TYPES_H_

@@ -30,18 +30,7 @@ namespace dcsctp {
 using TimerID = webrtc::StrongAlias<class TimerIDTag, uint32_t>;
 using TimerGeneration = webrtc::StrongAlias<class TimerGenerationTag, uint32_t>;
 
-enum class TimerBackoffAlgorithm {
-  // The base duration will be used for any restart.
-  kFixed,
-  // An exponential backoff is used for restarts, with a 2x multiplier, meaning
-  // that every restart will use a duration that is twice as long as the
-  // previous.
-  kExponential,
-};
-
 struct TimerOptions {
-  explicit TimerOptions(DurationMs duration)
-      : TimerOptions(duration, TimerBackoffAlgorithm::kExponential) {}
   TimerOptions(DurationMs duration, TimerBackoffAlgorithm backoff_algorithm)
       : TimerOptions(duration, backoff_algorithm, absl::nullopt) {}
   TimerOptions(DurationMs duration,

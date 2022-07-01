@@ -43,7 +43,7 @@ class DataTrackerTest : public testing::Test {
         timer_(timer_manager_.CreateTimer(
             "test/delayed_ack",
             []() { return absl::nullopt; },
-            TimerOptions(DurationMs(0)))),
+            TimerOptions(DurationMs(0), TimerBackoffAlgorithm::kExponential))),
         tracker_(
             std::make_unique<DataTracker>("log: ", timer_.get(), kInitialTSN)) {
   }

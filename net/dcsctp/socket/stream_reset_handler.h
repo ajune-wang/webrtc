@@ -80,7 +80,7 @@ class StreamResetHandler {
         reconfig_timer_(timer_manager->CreateTimer(
             "re-config",
             absl::bind_front(&StreamResetHandler::OnReconfigTimerExpiry, this),
-            TimerOptions(DurationMs(0)))),
+            TimerOptions(DurationMs(0), TimerBackoffAlgorithm::kExponential))),
         next_outgoing_req_seq_nbr_(
             handover_state
                 ? ReconfigRequestSN(handover_state->tx.next_reset_req_sn)

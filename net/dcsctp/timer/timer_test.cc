@@ -436,7 +436,7 @@ TEST(TimerManagerTest, TimerManagerPassesPrecisionToCreateTimeoutMethod) {
   // Default TimerOptions.
   manager.CreateTimer(
       "test_timer", []() { return absl::optional<DurationMs>(); },
-      TimerOptions(DurationMs(123)));
+      TimerOptions(DurationMs(123), TimerBackoffAlgorithm::kExponential));
   EXPECT_EQ(create_timer_precison, webrtc::TaskQueueBase::DelayPrecision::kLow);
   // High precision TimerOptions.
   manager.CreateTimer(

@@ -61,7 +61,7 @@ TransmissionControlBlock::TransmissionControlBlock(
           "t3-rtx",
           absl::bind_front(&TransmissionControlBlock::OnRtxTimerExpiry, this),
           TimerOptions(options.rto_initial,
-                       TimerBackoffAlgorithm::kExponential,
+                       options.t3_rtx_backoff_algorithm,
                        /*max_restarts=*/absl::nullopt,
                        options.max_timer_backoff_duration))),
       delayed_ack_timer_(timer_manager_.CreateTimer(

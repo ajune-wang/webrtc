@@ -71,7 +71,8 @@ class RetransmissionQueueTest : public testing::Test {
         timer_(timer_manager_.CreateTimer(
             "test/t3_rtx",
             []() { return absl::nullopt; },
-            TimerOptions(options_.rto_initial))) {}
+            TimerOptions(options_.rto_initial,
+                         options_.t3_rtx_backoff_algorithm))) {}
 
   std::function<SendQueue::DataToSend(TimeMs, size_t)> CreateChunk() {
     return [this](TimeMs now, size_t max_size) {

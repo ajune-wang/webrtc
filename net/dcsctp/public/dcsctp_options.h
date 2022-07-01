@@ -109,14 +109,32 @@ struct DcSctpOptions {
   // timeout.
   DurationMs rto_min = DurationMs(400);
 
-  // T1-init timeout.
+  // T1-init timeout and backoff algorithm. The number of retries until the
+  // timer stops, and the connection attempt fails, is decided by
+  // `max_init_retransmits`.
   DurationMs t1_init_timeout = DurationMs(1000);
+  TimerBackoffAlgorithm t1_init_backoff_algorithm =
+      TimerBackoffAlgorithm::kExponential;
 
-  // T1-cookie timeout.
+  // T1-cookie timeout and backoff algorithm. The number of retries until the
+  // timer stops, and the connection attempt fails, is decided by
+  // `max_init_retransmits`.
   DurationMs t1_cookie_timeout = DurationMs(1000);
+  TimerBackoffAlgorithm t1_cookie_backoff_algorithm =
+      TimerBackoffAlgorithm::kExponential;
 
-  // T2-shutdown timeout.
+  // T2-shutdown timeout and backoff algorithm. The number of retries until the
+  // timer stops, and the socket closes (possibly with pending data), is decided
+  // by `max_retransmissions`.
   DurationMs t2_shutdown_timeout = DurationMs(1000);
+  TimerBackoffAlgorithm t2_shutdown_backoff_algorithm =
+      TimerBackoffAlgorithm::kExponential;
+
+  // T3-rtx backoff algorithm. The number of retries until the timer stops, and
+  // the socket closes (possibly with pending data), is decided by
+  // `max_retransmissions`.
+  TimerBackoffAlgorithm t3_rtx_backoff_algorithm =
+      TimerBackoffAlgorithm::kExponential;
 
   // For t1-init, t1-cookie, t2-shutdown, t3-rtx, this value - if set - will be
   // the upper bound on how large the exponentially backed off timeout can

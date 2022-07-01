@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "da831865_733204af",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 19
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 12234
+      },
+      "writtenOn": "2022-07-01T07:02:22Z",
+      "side": 1,
+      "message": "Presubmit error is caused by tests added recently that didn\u0027t picked up the config change.\nYou need to rebase and redo infra/specs/generate_buildbot_json.py.",
+      "revId": "8761e7f4f7e6590f470c9fb35758607f9551d862",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

@@ -22,6 +22,30 @@
       },
       "revId": "a5349d6550d068b3afed3dd976b0442aac8abeea",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "418a526c_daac5e4a",
+        "filename": "rtc_base/system/no_cfi_icall.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 25,
+      "author": {
+        "id": 9405
+      },
+      "writtenOn": "2022-07-01T08:52:25Z",
+      "side": 1,
+      "message": "If we wrap this with `#if !defined(DISABLE_CFI_ICALL)` then `!defined(WEBRTC_CHROMIUM_BUILD)` seems unnecessary.\n\nHere\u0027s the final version:\n```\n#if !defined(DISABLE_CFI_ICALL)\n#if defined(WEBRTC_WIN)\n// Windows also needs __declspec(guard(nocf)).\n#define DISABLE_CFI_ICALL RTC_NO_SANITIZE(\"cfi-icall\") __declspec(guard(nocf))\n#else\n#define DISABLE_CFI_ICALL RTC_NO_SANITIZE(\"cfi-icall\")\n#endif  // defined(WEBRTC_WIN)\n#endif  // !defined(DISABLE_CFI_ICALL)\n#if !defined(DISABLE_CFI_ICALL)\n#define DISABLE_CFI_ICALL\n#endif\n```",
+      "parentUuid": "a21333a3_c4ef18f4",
+      "range": {
+        "startLine": 20,
+        "startChar": 0,
+        "endLine": 25,
+        "endChar": 30
+      },
+      "revId": "a5349d6550d068b3afed3dd976b0442aac8abeea",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

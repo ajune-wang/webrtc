@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "6ee48504_8fb9dce0",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 5
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5053
+      },
+      "writtenOn": "2022-07-01T20:34:17Z",
+      "side": 1,
+      "message": "Also landing with No-Try since no Mac bots are available, and all other tests succeeded: https://chromium-swarm.appspot.com/task?id\u003d5bd43c2e86748b10#",
+      "revId": "39fc2d544892efe7af8ee0714edd84ad840902ec",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

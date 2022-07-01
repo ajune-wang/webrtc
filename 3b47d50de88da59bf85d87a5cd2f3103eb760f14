@@ -16,6 +16,29 @@
       "message": "Hi, Mirko. This CL is a follow-up of https://chromium-review.googlesource.com/c/chromium/src/+/3721997.\nPlease take a look. Thanks.",
       "revId": "3b47d50de88da59bf85d87a5cd2f3103eb760f14",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "b8d938ac_3880fbbe",
+        "filename": "rtc_base/system/no_cfi_icall.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 18,
+      "author": {
+        "id": 5087
+      },
+      "writtenOn": "2022-07-01T06:28:40Z",
+      "side": 1,
+      "message": "As a safe check, can we check !defined(WEBRTC_CHROMIUM_BUILD)?",
+      "range": {
+        "startLine": 18,
+        "startChar": 3,
+        "endLine": 18,
+        "endChar": 47
+      },
+      "revId": "3b47d50de88da59bf85d87a5cd2f3103eb760f14",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

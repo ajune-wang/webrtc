@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "19f767df_eb990025",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 5
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5053
+      },
+      "writtenOn": "2022-07-01T20:12:01Z",
+      "side": 1,
+      "message": "Bypassing presubmit because there are some unrelated Python3 related errors I don\u0027t think I\u0027ll have the time to figure out: https://ci.chromium.org/ui/p/webrtc/builders/try/presubmit/66692/overview",
+      "revId": "74e2ecc3ed9fe752a7255d667665e12b704811cb",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

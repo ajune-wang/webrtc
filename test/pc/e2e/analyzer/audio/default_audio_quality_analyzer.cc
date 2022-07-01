@@ -26,14 +26,11 @@ void DefaultAudioQualityAnalyzer::Start(std::string test_case_name,
 void DefaultAudioQualityAnalyzer::OnStatsReports(
     absl::string_view pc_label,
     const rtc::scoped_refptr<const RTCStatsReport>& report) {
-  // TODO(https://crbug.com/webrtc/11789): use "inbound-rtp" instead of "track"
-  // stats when required audio metrics moved there
-  auto stats = report->GetStatsOfType<RTCMediaStreamTrackStats>();
+  auto stats = report->GetStatsOfType<RTCInboundRTPStreamStats>();
 
   for (auto& stat : stats) {
     if (!stat->kind.is_defined() ||
-        !(*stat->kind == RTCMediaStreamTrackKind::kAudio) ||
-        !*stat->remote_source) {
+        !(*stat->kind == RTCMediaStreamTrackKind::kAudio)) {
       continue;
     }
 
@@ -55,7 +52,7 @@ void DefaultAudioQualityAnalyzer::OnStatsReports(
         stat->jitter_buffer_emitted_count.ValueOrDefault(0ul);
 
     const std::string stream_label = std::string(
-        analyzer_helper_->GetStreamLabelFromTrackId(*stat->track_identifier));
+        analyzer_helper_->GetStreamLabelFromTrackId(*stat->track_id));
 
     MutexLock lock(&lock_);
     StatsSample prev_sample = last_stats_sample_[stream_label];

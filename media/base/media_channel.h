@@ -450,6 +450,9 @@ struct MediaReceiverInfo {
   // Jitter (network-related) latency (cumulative).
   // https://w3c.github.io/webrtc-stats/#dom-rtcinboundrtpstreamstats-jitterbufferdelay
   double jitter_buffer_delay_seconds = 0.0;
+  // Target delay for the jitter buffer (cumulative).
+  // https://w3c.github.io/webrtc-stats/#dom-rtcinboundrtpstreamstats-jitterbuffertargetdelay
+  absl::optional<double> jitter_buffer_target_delay_seconds = 0.0;
   // Number of observations for cumulative jitter latency.
   // https://w3c.github.io/webrtc-stats/#dom-rtcinboundrtpstreamstats-jitterbufferemittedcount
   uint64_t jitter_buffer_emitted_count = 0;
@@ -495,7 +498,6 @@ struct VoiceReceiverInfo : public MediaReceiverInfo {
   uint64_t concealed_samples = 0;
   uint64_t silent_concealed_samples = 0;
   uint64_t concealment_events = 0;
-  double jitter_buffer_target_delay_seconds = 0.0;
   uint64_t inserted_samples_for_deceleration = 0;
   uint64_t removed_samples_for_acceleration = 0;
   uint64_t fec_packets_received = 0;

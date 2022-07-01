@@ -30,11 +30,10 @@ class ScopedKeyValueConfig : public FieldTrialsView {
   explicit ScopedKeyValueConfig(absl::string_view s);
   ScopedKeyValueConfig(ScopedKeyValueConfig& parent, absl::string_view s);
 
-  std::string Lookup(absl::string_view key) const override;
-
  private:
   ScopedKeyValueConfig(ScopedKeyValueConfig* parent, absl::string_view s);
   ScopedKeyValueConfig* GetRoot(ScopedKeyValueConfig* n);
+  std::string GetValue(absl::string_view key) const override;
   std::string LookupRecurse(absl::string_view key) const;
 
   ScopedKeyValueConfig* const parent_;

@@ -110,7 +110,8 @@ class FieldTrialConfig : public FieldTrialsView {
 
   void SetMaxPaddingFactor(double factor) { max_padding_factor_ = factor; }
 
-  std::string Lookup(absl::string_view key) const override {
+ private:
+  std::string GetValue(absl::string_view key) const override {
     if (key == "WebRTC-LimitPaddingSize") {
       char string_buf[32];
       rtc::SimpleStringBuilder ssb(string_buf);
@@ -120,7 +121,6 @@ class FieldTrialConfig : public FieldTrialsView {
     return "";
   }
 
- private:
   double max_padding_factor_;
 };
 

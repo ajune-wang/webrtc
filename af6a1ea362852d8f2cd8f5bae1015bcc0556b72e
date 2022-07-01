@@ -63,6 +63,30 @@
       },
       "revId": "af6a1ea362852d8f2cd8f5bae1015bcc0556b72e",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "86d035b9_2d10a53e",
+        "filename": "modules/audio_coding/neteq/buffer_level_filter.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 49,
+      "author": {
+        "id": 8038
+      },
+      "writtenOn": "2022-07-01T15:10:56Z",
+      "side": 1,
+      "message": "Resolve",
+      "parentUuid": "b27bd87b_a7d13562",
+      "range": {
+        "startLine": 49,
+        "startChar": 39,
+        "endLine": 49,
+        "endChar": 58
+      },
+      "revId": "af6a1ea362852d8f2cd8f5bae1015bcc0556b72e",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

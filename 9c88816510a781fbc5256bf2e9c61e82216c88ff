@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "e1a80988_5a79c1fe",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 4
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5607
+      },
+      "writtenOn": "2022-07-01T15:13:22Z",
+      "side": 1,
+      "message": "Thanks for the reviews and sorry for the long delay. PTAL.",
+      "revId": "9c88816510a781fbc5256bf2e9c61e82216c88ff",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

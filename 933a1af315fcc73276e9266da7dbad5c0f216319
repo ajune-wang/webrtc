@@ -103,6 +103,24 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "392ec20a_6113fc72",
+        "filename": "api/stats/rtcstats_objects.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 384,
+      "author": {
+        "id": 5607
+      },
+      "writtenOn": "2022-07-01T15:13:22Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "991b42a2_5b6b9107",
+      "revId": "933a1af315fcc73276e9266da7dbad5c0f216319",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "6adf32a8_c767a686",
@@ -116,6 +134,24 @@
       "writtenOn": "2022-06-14T14:27:40Z",
       "side": 1,
       "message": "Anything blocking removing this now? Makes sense to do in a follow-up CL to avoid a revert but I didn\u0027t find any obvious g3 references so please do it if it\u0027s possible",
+      "revId": "933a1af315fcc73276e9266da7dbad5c0f216319",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "db910d24_bc565145",
+        "filename": "api/stats/rtcstats_objects.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 386,
+      "author": {
+        "id": 5607
+      },
+      "writtenOn": "2022-07-01T15:13:22Z",
+      "side": 1,
+      "message": "I added it to this CL, PTAL.",
+      "parentUuid": "6adf32a8_c767a686",
       "revId": "933a1af315fcc73276e9266da7dbad5c0f216319",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
@@ -151,6 +187,24 @@
       "side": 1,
       "message": "I guess this applies to `jitter_buffer_delay_seconds` as well?\n\nIt would be good if the implementations agreed, so the distributions of reported metrics could be compared.",
       "parentUuid": "9bf5adfd_ee33404b",
+      "revId": "933a1af315fcc73276e9266da7dbad5c0f216319",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "0c81959d_3d4bd8d5",
+        "filename": "media/base/media_channel.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 447,
+      "author": {
+        "id": 5607
+      },
+      "writtenOn": "2022-07-01T15:13:22Z",
+      "side": 1,
+      "message": "I changed this to an optional. About `jitter_buffer_delay_seconds`: that one does seem to be reported by video in webrtc_video_engine.cc, so I think that one does not need to be an optional.",
+      "parentUuid": "d1c47213_0f903102",
       "revId": "933a1af315fcc73276e9266da7dbad5c0f216319",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },

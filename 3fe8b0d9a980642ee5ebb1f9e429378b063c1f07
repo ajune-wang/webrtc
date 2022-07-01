@@ -16,6 +16,24 @@
       "message": "This could be problematic. There are issues with using rtc::Thread objects in death tests that could have unintentional side effects. I can\u0027t remember exactly the issues we\u0027ve run into except that for sure we turn off automatic thread wrapping because of this. When I saw this a vague alarm bell went off in my head so I figured I\u0027d share it 😊",
       "revId": "3fe8b0d9a980642ee5ebb1f9e429378b063c1f07",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "69c7a797_7626dc05",
+        "filename": "pc/rtp_sender_receiver_unittest.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 1154,
+      "author": {
+        "id": 5087
+      },
+      "writtenOn": "2022-07-01T11:29:05Z",
+      "side": 1,
+      "message": "Ah, good point!\n\nhta@, in case you see issues, https://bugs.chromium.org/p/webrtc/issues/detail?id\u003d11577#c6 has the context on the problem Tommi is referring to.",
+      "parentUuid": "e0836a39_eead460c",
+      "revId": "3fe8b0d9a980642ee5ebb1f9e429378b063c1f07",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

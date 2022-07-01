@@ -45,6 +45,30 @@
       },
       "revId": "3ac3631a792b2f807cb6f1645e9c6fc4d6878228",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "1b0df438_1d05ad09",
+        "filename": "g3doc/style-guide.md",
+        "patchSetId": 2
+      },
+      "lineNbr": 71,
+      "author": {
+        "id": 13704
+      },
+      "writtenOn": "2022-07-01T08:01:12Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "d3337d80_feed6e98",
+      "range": {
+        "startLine": 71,
+        "startChar": 30,
+        "endLine": 71,
+        "endChar": 38
+      },
+      "revId": "3ac3631a792b2f807cb6f1645e9c6fc4d6878228",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

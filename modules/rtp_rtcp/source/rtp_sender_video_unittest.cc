@@ -157,7 +157,8 @@ class FieldTrials : public FieldTrialsView {
     include_capture_clock_offset_ = include_capture_clock_offset;
   }
 
-  std::string Lookup(absl::string_view key) const override {
+ private:
+  std::string GetValue(absl::string_view key) const override {
     if (key == "WebRTC-SendSideBwe-WithOverhead") {
       return use_send_side_bwe_with_overhead_ ? "Enabled" : "";
     } else if (key == "WebRTC-IncludeCaptureClockOffset") {
@@ -166,7 +167,6 @@ class FieldTrials : public FieldTrialsView {
     return "";
   }
 
- private:
   bool use_send_side_bwe_with_overhead_;
   bool include_capture_clock_offset_;
 };

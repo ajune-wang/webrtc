@@ -43,10 +43,11 @@ class FieldTrials : public FieldTrialsView {
   // global variable (i.e can not be used for all parts of webrtc).
   static std::unique_ptr<FieldTrials> CreateNoGlobal(const std::string& s);
 
-  std::string Lookup(absl::string_view key) const override;
-
  private:
   explicit FieldTrials(const std::string& s, bool);
+
+  std::string GetValue(absl::string_view key) const override;
+
   const bool uses_global_;
   const std::string field_trial_string_;
   const char* const previous_field_trial_string_;

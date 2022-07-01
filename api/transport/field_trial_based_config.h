@@ -18,8 +18,8 @@
 namespace webrtc {
 // Implementation using the field trial API fo the key value lookup.
 class FieldTrialBasedConfig : public FieldTrialsView {
- public:
-  std::string Lookup(absl::string_view key) const override;
+ private:
+  std::string GetValue(absl::string_view key) const override;
 };
 }  // namespace webrtc
 

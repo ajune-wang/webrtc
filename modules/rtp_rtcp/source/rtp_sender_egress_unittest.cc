@@ -94,14 +94,14 @@ class FieldTrialConfig : public FieldTrialsView {
 
   void SetOverHeadEnabled(bool enabled) { overhead_enabled_ = enabled; }
 
-  std::string Lookup(absl::string_view key) const override {
+ private:
+  std::string GetValue(absl::string_view key) const override {
     if (key == "WebRTC-SendSideBwe-WithOverhead") {
       return overhead_enabled_ ? "Enabled" : "Disabled";
     }
     return "";
   }
 
- private:
   bool overhead_enabled_;
 };
 

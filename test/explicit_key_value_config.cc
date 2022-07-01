@@ -46,7 +46,7 @@ ExplicitKeyValueConfig::ExplicitKeyValueConfig(absl::string_view s) {
   RTC_CHECK_EQ(field_start, s.size());
 }
 
-std::string ExplicitKeyValueConfig::Lookup(absl::string_view key) const {
+std::string ExplicitKeyValueConfig::GetValue(absl::string_view key) const {
   auto it = key_value_map_.find(key);
   if (it != key_value_map_.end())
     return it->second;

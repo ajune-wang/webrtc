@@ -97,7 +97,7 @@ ScopedKeyValueConfig* ScopedKeyValueConfig::GetRoot(ScopedKeyValueConfig* n) {
   return n;
 }
 
-std::string ScopedKeyValueConfig::Lookup(absl::string_view key) const {
+std::string ScopedKeyValueConfig::GetValue(absl::string_view key) const {
   if (parent_ == nullptr) {
     return leaf_->LookupRecurse(key);
   } else {

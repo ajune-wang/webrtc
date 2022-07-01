@@ -17,16 +17,22 @@
 
 namespace webrtc {
 
-// An interface that provides a key-value mapping for configuring internal
-// details of WebRTC. Note that there's no guarantess that the meaning of a
-// particular key value mapping will be preserved over time and no announcements
-// will be made if they are changed. It's up to the library user to ensure that
-// the behavior does not break.
+// An abstract base class that provides the means to access field trials.
+//
+// Note that there are no guarantess that the meaning of a particular key-value
+// mapping will be preserved over time and no announcements will be made if they
+// are changed. It's up to the library user to ensure that the behavior does not
+// break.
 class RTC_EXPORT FieldTrialsView {
  public:
   virtual ~FieldTrialsView() = default;
-  // The configured value for the given key. Defaults to an empty string.
-  virtual std::string Lookup(absl::string_view key) const = 0;
+
+  // Returns the configured value for `key` or an empty string if the field
+  // trial isn't configured.
+  //
+  // TODO(bugs.webrtc.org/14154): Check that `key` is registered before
+  // returning the value.
+  std::string Lookup(absl::string_view key) const { return GetValue(key); }
 
   bool IsEnabled(absl::string_view key) const {
     return Lookup(key).find("Enabled") == 0;
@@ -35,6 +41,9 @@ class RTC_EXPORT FieldTrialsView {
   bool IsDisabled(absl::string_view key) const {
     return Lookup(key).find("Disabled") == 0;
   }
+
+ private:
+  virtual std::string GetValue(absl::string_view key) const = 0;
 };
 
 // TODO(bugs.webrtc.org/10335): Remove once all migrated to

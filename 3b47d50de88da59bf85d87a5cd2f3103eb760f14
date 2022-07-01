@@ -39,6 +39,30 @@
       },
       "revId": "3b47d50de88da59bf85d87a5cd2f3103eb760f14",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "fabdccf2_947ce5a8",
+        "filename": "rtc_base/system/no_cfi_icall.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 18,
+      "author": {
+        "id": 9405
+      },
+      "writtenOn": "2022-07-01T08:24:01Z",
+      "side": 1,
+      "message": "Thanks. Didn\u0027t know about WEBRTC_CHROMIUM_BUILD.",
+      "parentUuid": "b8d938ac_3880fbbe",
+      "range": {
+        "startLine": 18,
+        "startChar": 3,
+        "endLine": 18,
+        "endChar": 47
+      },
+      "revId": "3b47d50de88da59bf85d87a5cd2f3103eb760f14",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

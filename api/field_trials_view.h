@@ -13,7 +13,9 @@
 #include <string>
 
 #include "absl/strings/string_view.h"
+#include "rtc_base/checks.h"
 #include "rtc_base/system/rtc_export.h"
+#include "tools_webrtc/experiments/field_trials_registry.h"
 
 namespace webrtc {
 
@@ -27,12 +29,13 @@ class RTC_EXPORT FieldTrialsView {
  public:
   virtual ~FieldTrialsView() = default;
 
-  // Returns the configured value for `key` or an empty string if the field
-  // trial isn't configured.
-  //
-  // TODO(bugs.webrtc.org/14154): Check that `key` is registered before
-  // returning the value.
-  std::string Lookup(absl::string_view key) const { return GetValue(key); }
+  // Verifies that `key` is a registered field trial and then returns the
+  // configured value for `key` or an empty string if the field trial isn't
+  // configured.
+  std::string Lookup(absl::string_view key) const {
+    RTC_DCHECK(IsFieldTrialRegistered(key)) << key << " is not registered.";
+    return GetValue(key);
+  }
 
   bool IsEnabled(absl::string_view key) const {
     return Lookup(key).find("Enabled") == 0;

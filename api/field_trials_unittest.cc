@@ -28,100 +28,100 @@ using ::testing::NotNull;
 
 TEST(FieldTrialsTest, EmptyStringHasNoEffect) {
   FieldTrials f("");
-  EXPECT_FALSE(f.IsEnabled("MyCoolTrial"));
-  EXPECT_FALSE(f.IsDisabled("MyCoolTrial"));
+  EXPECT_FALSE(f.IsEnabled("TestKey-A"));
+  EXPECT_FALSE(f.IsDisabled("TestKey-A"));
 }
 
 TEST(FieldTrialsTest, EnabledDisabledMustBeFirstInValue) {
   FieldTrials f(
-      "MyCoolTrial/EnabledFoo/"
-      "MyUncoolTrial/DisabledBar/"
-      "AnotherTrial/BazEnabled/");
-  EXPECT_TRUE(f.IsEnabled("MyCoolTrial"));
-  EXPECT_TRUE(f.IsDisabled("MyUncoolTrial"));
-  EXPECT_FALSE(f.IsEnabled("AnotherTrial"));
+      "TestKey-A/EnabledFoo/"
+      "TestKey-B/DisabledBar/"
+      "TestKey-C/BazEnabled/");
+  EXPECT_TRUE(f.IsEnabled("TestKey-A"));
+  EXPECT_TRUE(f.IsDisabled("TestKey-B"));
+  EXPECT_FALSE(f.IsEnabled("TestKey-C"));
 }
 
 TEST(FieldTrialsTest, FieldTrialsDoesNotReadGlobalString) {
-  static constexpr char s[] = "MyCoolTrial/Enabled/MyUncoolTrial/Disabled/";
+  static constexpr char s[] = "TestKey-A/Enabled/TestKey-B/Disabled/";
   webrtc::field_trial::InitFieldTrialsFromString(s);
   FieldTrials f("");
-  EXPECT_FALSE(f.IsEnabled("MyCoolTrial"));
-  EXPECT_FALSE(f.IsDisabled("MyUncoolTrial"));
+  EXPECT_FALSE(f.IsEnabled("TestKey-A"));
+  EXPECT_FALSE(f.IsDisabled("TestKey-B"));
 }
 
 TEST(FieldTrialsTest, FieldTrialsWritesGlobalString) {
-  FieldTrials f("MyCoolTrial/Enabled/MyUncoolTrial/Disabled/");
-  EXPECT_TRUE(webrtc::field_trial::IsEnabled("MyCoolTrial"));
-  EXPECT_TRUE(webrtc::field_trial::IsDisabled("MyUncoolTrial"));
+  FieldTrials f("TestKey-A/Enabled/TestKey-B/Disabled/");
+  EXPECT_TRUE(webrtc::field_trial::IsEnabled("TestKey-A"));
+  EXPECT_TRUE(webrtc::field_trial::IsDisabled("TestKey-B"));
 }
 
 TEST(FieldTrialsTest, FieldTrialsRestoresGlobalStringAfterDestruction) {
-  static constexpr char s[] = "SomeString/Enabled/";
+  static constexpr char s[] = "TestKey-A/Enabled/";
   webrtc::field_trial::InitFieldTrialsFromString(s);
   {
-    FieldTrials f("SomeOtherString/Enabled/");
+    FieldTrials f("TestKey-B/Enabled/");
     EXPECT_STREQ(webrtc::field_trial::GetFieldTrialString(),
-                 "SomeOtherString/Enabled/");
+                 "TestKey-B/Enabled/");
   }
   EXPECT_STREQ(webrtc::field_trial::GetFieldTrialString(), s);
 }
 
 #if GTEST_HAS_DEATH_TEST && !defined(WEBRTC_ANDROID)
 TEST(FieldTrialsTest, FieldTrialsDoesNotSupportSimultaneousInstances) {
-  FieldTrials f("SomeString/Enabled/");
-  RTC_EXPECT_DEATH(FieldTrials("SomeOtherString/Enabled/").Lookup("Whatever"),
+  FieldTrials f("TestKey-A/Enabled/");
+  RTC_EXPECT_DEATH(FieldTrials("TestKey-B/Enabled/").Lookup("Whatever"),
                    "Only one instance");
 }
 #endif  // GTEST_HAS_DEATH_TEST && !defined(WEBRTC_ANDROID)
 
 TEST(FieldTrialsTest, FieldTrialsSupportsSeparateInstances) {
-  { FieldTrials f("SomeString/Enabled/"); }
-  { FieldTrials f("SomeOtherString/Enabled/"); }
+  { FieldTrials f("TestKey-A/Enabled/"); }
+  { FieldTrials f("TestKey-B/Enabled/"); }
 }
 
 TEST(FieldTrialsTest, NonGlobalFieldTrialsInstanceDoesNotModifyGlobalString) {
   std::unique_ptr<FieldTrials> f =
-      FieldTrials::CreateNoGlobal("SomeString/Enabled/");
+      FieldTrials::CreateNoGlobal("TestKey-A/Enabled/");
   ASSERT_THAT(f, NotNull());
-  EXPECT_TRUE(f->IsEnabled("SomeString"));
-  EXPECT_FALSE(webrtc::field_trial::IsEnabled("SomeString"));
+  EXPECT_TRUE(f->IsEnabled("TestKey-A"));
+  EXPECT_FALSE(webrtc::field_trial::IsEnabled("TestKey-A"));
 }
 
 TEST(FieldTrialsTest, NonGlobalFieldTrialsSupportSimultaneousInstances) {
   std::unique_ptr<FieldTrials> f1 =
-      FieldTrials::CreateNoGlobal("SomeString/Enabled/");
+      FieldTrials::CreateNoGlobal("TestKey-A/Enabled/");
   std::unique_ptr<FieldTrials> f2 =
-      FieldTrials::CreateNoGlobal("SomeOtherString/Enabled/");
+      FieldTrials::CreateNoGlobal("TestKey-B/Enabled/");
   ASSERT_THAT(f1, NotNull());
   ASSERT_THAT(f2, NotNull());
 
-  EXPECT_TRUE(f1->IsEnabled("SomeString"));
-  EXPECT_FALSE(f1->IsEnabled("SomeOtherString"));
+  EXPECT_TRUE(f1->IsEnabled("TestKey-A"));
+  EXPECT_FALSE(f1->IsEnabled("TestKey-B"));
 
-  EXPECT_FALSE(f2->IsEnabled("SomeString"));
-  EXPECT_TRUE(f2->IsEnabled("SomeOtherString"));
+  EXPECT_FALSE(f2->IsEnabled("TestKey-A"));
+  EXPECT_TRUE(f2->IsEnabled("TestKey-B"));
 }
 
 TEST(FieldTrialsTest, GlobalAndNonGlobalFieldTrialsAreDisjoint) {
-  FieldTrials f1("SomeString/Enabled/");
+  FieldTrials f1("TestKey-A/Enabled/");
   std::unique_ptr<FieldTrials> f2 =
-      FieldTrials::CreateNoGlobal("SomeOtherString/Enabled/");
+      FieldTrials::CreateNoGlobal("TestKey-B/Enabled/");
   ASSERT_THAT(f2, NotNull());
 
-  EXPECT_TRUE(f1.IsEnabled("SomeString"));
-  EXPECT_FALSE(f1.IsEnabled("SomeOtherString"));
+  EXPECT_TRUE(f1.IsEnabled("TestKey-A"));
+  EXPECT_FALSE(f1.IsEnabled("TestKey-B"));
 
-  EXPECT_FALSE(f2->IsEnabled("SomeString"));
-  EXPECT_TRUE(f2->IsEnabled("SomeOtherString"));
+  EXPECT_FALSE(f2->IsEnabled("TestKey-A"));
+  EXPECT_TRUE(f2->IsEnabled("TestKey-B"));
 }
 
 TEST(FieldTrialsTest, FieldTrialBasedConfigReadsGlobalString) {
-  static constexpr char s[] = "MyCoolTrial/Enabled/MyUncoolTrial/Disabled/";
+  static constexpr char s[] = "TestKey-A/Enabled/TestKey-B/Disabled/";
   webrtc::field_trial::InitFieldTrialsFromString(s);
   FieldTrialBasedConfig f;
-  EXPECT_TRUE(f.IsEnabled("MyCoolTrial"));
-  EXPECT_TRUE(f.IsDisabled("MyUncoolTrial"));
+  EXPECT_TRUE(f.IsEnabled("TestKey-A"));
+  EXPECT_TRUE(f.IsDisabled("TestKey-B"));
 }
 
 }  // namespace

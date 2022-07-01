@@ -10,7 +10,7 @@ vars = {
   # chromium waterfalls. More info at: crbug.com/570091.
   'checkout_configuration': 'default',
   'checkout_instrumented_libraries': 'checkout_linux and checkout_configuration == "default"',
-  'chromium_revision': 'c4edcb406fe832cad04012fcbe000b8c09a836a2',
+  'chromium_revision': 'a009d32660da06ea925dcfb72f0ff6580ba8eda8',
 
   # Keep the Chromium default of generating location tags.
   'generate_location_tags': True,
@@ -41,9 +41,9 @@ deps = {
     'condition': 'checkout_ios',
   },
   'src/testing':
-    'https://chromium.googlesource.com/chromium/src/testing@a6545e1c1a575c8a17d5680019a8fb43c0315cbb',
+    'https://chromium.googlesource.com/chromium/src/testing@d3c5ee98657be25e6f7657bb3b175cb31981fdbe',
   'src/third_party':
-    'https://chromium.googlesource.com/chromium/src/third_party@2f0cfbbf0574c5442a6e2bb019c65d12fd03a446',
+    'https://chromium.googlesource.com/chromium/src/third_party@d504325b586de989eeead6dcec0b4c17eaa54289',
 
   'src/buildtools/linux64': {
     'packages': [
@@ -141,7 +141,7 @@ deps = {
   'src/third_party/crc32c/src':
     'https://chromium.googlesource.com/external/github.com/google/crc32c.git@fa5ade41ee480003d9c5af6f43567ba22e4e17e6',
   'src/third_party/depot_tools':
-    'https://chromium.googlesource.com/chromium/tools/depot_tools.git@6628661eba73cdb8e1ce6387837f948d0360fe48',
+    'https://chromium.googlesource.com/chromium/tools/depot_tools.git@9dec1b42e1d491ec67c10cc95ae4b4f4d9b3a3cd',
   'src/third_party/ffmpeg':
     'https://chromium.googlesource.com/chromium/third_party/ffmpeg.git@880df5ede50a8534c8116d0d50e4bc4f3ef08a06',
   'src/third_party/findbugs': {
@@ -274,7 +274,7 @@ deps = {
     'condition': 'checkout_win',
   },
   'src/tools':
-    'https://chromium.googlesource.com/chromium/src/tools@3f4a0e65649889e7c2eb6974045451e110f98e20',
+    'https://chromium.googlesource.com/chromium/src/tools@c1e84fff7f9634ddbc2aa383157d73ee9b124b34',
 
   'src/third_party/accessibility_test_framework': {
       'packages': [
@@ -474,11 +474,11 @@ deps = {
       'packages': [
         {
           'package': 'infra/tools/luci/isolate/${{platform}}',
-          'version': 'git_revision:5d9b6ecf87cdfb928e1112d2838d26bc7ede2b48',
+          'version': 'git_revision:be5d9aacf8987c0826223264f0427cd0b530b6a4',
         },
         {
           'package': 'infra/tools/luci/swarming/${{platform}}',
-          'version': 'git_revision:5d9b6ecf87cdfb928e1112d2838d26bc7ede2b48',
+          'version': 'git_revision:be5d9aacf8987c0826223264f0427cd0b530b6a4',
         },
       ],
       'dep_type': 'cipd',

@@ -70,6 +70,30 @@
       },
       "revId": "a5349d6550d068b3afed3dd976b0442aac8abeea",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "52e87283_b14c4d6f",
+        "filename": "rtc_base/system/no_cfi_icall.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 25,
+      "author": {
+        "id": 9405
+      },
+      "writtenOn": "2022-07-01T09:03:59Z",
+      "side": 1,
+      "message": "Understand. Done.",
+      "parentUuid": "5b0033c0_8f7ea607",
+      "range": {
+        "startLine": 20,
+        "startChar": 0,
+        "endLine": 25,
+        "endChar": 30
+      },
+      "revId": "a5349d6550d068b3afed3dd976b0442aac8abeea",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

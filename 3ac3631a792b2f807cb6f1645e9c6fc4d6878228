@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "fb670e8c_13d2788d",
+        "filename": "g3doc/style-guide.md",
+        "patchSetId": 2
+      },
+      "lineNbr": 65,
+      "author": {
+        "id": 13704
+      },
+      "writtenOn": "2022-07-01T07:53:22Z",
+      "side": 1,
+      "message": "Technically it\u0027s excluding the scheme part and :// but maybe it\u0027s overkill to mention any of this?",
+      "range": {
+        "startLine": 65,
+        "startChar": 52,
+        "endLine": 65,
+        "endChar": 79
+      },
+      "revId": "3ac3631a792b2f807cb6f1645e9c6fc4d6878228",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

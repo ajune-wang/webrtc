@@ -46,6 +46,30 @@
       },
       "revId": "a5349d6550d068b3afed3dd976b0442aac8abeea",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "5b0033c0_8f7ea607",
+        "filename": "rtc_base/system/no_cfi_icall.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 25,
+      "author": {
+        "id": 5087
+      },
+      "writtenOn": "2022-07-01T08:56:13Z",
+      "side": 1,
+      "message": "I think we still need it (to wrap all this) because since this is in the WebRTC repo, I want another check before we start using it (e.g. have a CL where the WEBRTC_CHROMIUM_BUILD gets removed with a good CL desc, since this is a Chromium only thing).",
+      "parentUuid": "418a526c_daac5e4a",
+      "range": {
+        "startLine": 20,
+        "startChar": 0,
+        "endLine": 25,
+        "endChar": 30
+      },
+      "revId": "a5349d6550d068b3afed3dd976b0442aac8abeea",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

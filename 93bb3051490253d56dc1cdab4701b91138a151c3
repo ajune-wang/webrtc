@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "6ba2381f_e43f0b78",
+        "filename": "modules/desktop_capture/BUILD.gn",
+        "patchSetId": 21
+      },
+      "lineNbr": 640,
+      "author": {
+        "id": 5087
+      },
+      "writtenOn": "2022-07-02T07:39:05Z",
+      "side": 1,
+      "message": "I see a test failure when rolling this CL into Chromium: https://ci.chromium.org/ui/p/chromium/builders/try/win10_chromium_x64_rel_ng/1226722/overview.\n\n```\n[  FAILED  ] DelayloadsTest.ChromeDllDelayloadsCheck (219 ms)\n[1/6] DelayloadsTest.ChromeDllDelayloadsCheck (219 ms)\n[2/6] DelayloadsTest.ChromeDllLoadSanityTest (2249 ms)\n[3/6] DelayloadsTest.ChromeElfDllDelayloadsCheck (0 ms)\n[4/6] DelayloadsTest.ChromeElfDllLoadSanityTest (14 ms)\n[5/6] DelayloadsTest.ChromeExeDelayloadsCheck (0 ms)\n[6/6] DelayloadsTest.ChromeExeLoadSanityCheck (0 ms)\nRetrying 1 test (retry #0)\n[ RUN      ] DelayloadsTest.ChromeDllDelayloadsCheck\n..\\..\\chrome\\test\\delayload\\delayloads_unittest.cc(127): error: Value of: match\n  Actual: false\nExpected: true\nIllegal import in chrome.dll: CoreMessaging.dll\nStack trace:\nBacktrace:\n\ttesting::internal::BriefUnitTestResultPrinter::`scalar deleting destructor\u0027 [0x00007FF6D29B17BB+811]\n\n[  FAILED  ] DelayloadsTest.ChromeDllDelayloadsCheck (36 ms)\n[7/7] DelayloadsTest.ChromeDllDelayloadsCheck (36 ms)\n1 test failed:\n    DelayloadsTest.ChromeDllDelayloadsCheck (..\\..\\chrome\\test\\delayload\\delayloads_unittest.cc:81)\nTests took 2 seconds.\n```\n\nAnd it looks related to this line.\n\nI am going to revert and see if the roll goes green, can you take a look at DelayloadsTest.ChromeDllDelayloadsCheck and see why there is such expectation?",
+      "range": {
+        "startLine": 640,
+        "startChar": 6,
+        "endLine": 640,
+        "endChar": 26
+      },
+      "revId": "93bb3051490253d56dc1cdab4701b91138a151c3",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

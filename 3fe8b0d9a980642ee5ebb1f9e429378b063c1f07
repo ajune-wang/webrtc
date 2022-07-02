@@ -69,6 +69,24 @@
       "parentUuid": "69c7a797_7626dc05",
       "revId": "3fe8b0d9a980642ee5ebb1f9e429378b063c1f07",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "fa10638e_7552b6e6",
+        "filename": "pc/rtp_sender_receiver_unittest.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 1154,
+      "author": {
+        "id": 5508
+      },
+      "writtenOn": "2022-07-02T14:11:28Z",
+      "side": 1,
+      "message": "+1 on the point that it would be better to have tests match with the production environment.\n\niirc the thread wrapping was the biggest problem and it triggered a particular bot (one of asan, tsan, msan). It could be that by using rtc::Thread::Current(), which relies on thread local storage, could trigger that again. But if things are green, then _maybe_ it\u0027s safe as is.",
+      "parentUuid": "2c86cb52_b6954c08",
+      "revId": "3fe8b0d9a980642ee5ebb1f9e429378b063c1f07",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

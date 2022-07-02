@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "2cc574d4_6dd78ea6",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 6
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 6337
+      },
+      "writtenOn": "2022-07-02T17:47:59Z",
+      "side": 1,
+      "message": "LGTM for test/pc/e2e/analyzer/audio/default_audio_quality_analyzer.cc",
+      "revId": "7b3421ff1d8ef0c9fba52bdca3b3fb49d295a343",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

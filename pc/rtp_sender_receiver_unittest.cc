@@ -1186,6 +1186,7 @@ TEST_F(RtpSenderReceiverDeathTest,
   video_rtp_sender_->SetMediaChannel(video_media_channel());
   EXPECT_DEATH(video_rtp_sender_->SetSsrc(kVideoSsrcSimulcast), "");
 }
+
 #endif
 
 TEST_F(RtpSenderReceiverTest,

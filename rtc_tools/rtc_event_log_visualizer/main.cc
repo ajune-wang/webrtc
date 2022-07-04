@@ -11,6 +11,7 @@
 #include <stdio.h>
 #include <string.h>
 
+#include <cstdio>
 #include <iostream>
 #include <map>
 #include <memory>
@@ -33,9 +34,9 @@
 #include "rtc_tools/rtc_event_log_visualizer/alerts.h"
 #include "rtc_tools/rtc_event_log_visualizer/analyze_audio.h"
 #include "rtc_tools/rtc_event_log_visualizer/analyzer.h"
+#include "rtc_tools/rtc_event_log_visualizer/conversational_speech_en.h"
 #include "rtc_tools/rtc_event_log_visualizer/plot_base.h"
 #include "system_wrappers/include/field_trial.h"
-#include "test/testsupport/file_utils.h"
 
 ABSL_FLAG(std::string,
           plot,
@@ -464,11 +465,20 @@ int main(int argc, char* argv[]) {
   });
 
   std::string wav_path;
+  bool has_generated_wav_file = false;
+  FILE* wav_file;
   if (!absl::GetFlag(FLAGS_wav_filename).empty()) {
     wav_path = absl::GetFlag(FLAGS_wav_filename);
   } else {
-    wav_path = webrtc::test::ResourcePath(
-        "audio_processing/conversational_speech/EN_script2_F_sp2_B1", "wav");
+    wav_path = std::tmpnam(nullptr);
+    wav_file = std::fopen(wav_path.c_str(), "wb");
+    RTC_CHECK(wav_file) << "Failed to open a temporary file at: " << wav_path;
+    int write_result = std::fputs(
+        reinterpret_cast<const char*>(webrtc::conversational_speech_en_wav),
+        wav_file);
+    RTC_CHECK_NE(write_result, EOF)
+        << "Failed to write to temporary file at: " << wav_path;
+    has_generated_wav_file = true;
   }
   absl::optional<webrtc::NetEqStatsGetterMap> neteq_stats;
 
@@ -622,5 +632,10 @@ int main(int argc, char* argv[]) {
     triage_alerts.Print(stderr);
   }
 
+  if (has_generated_wav_file) {
+    RTC_CHECK_EQ(std::fclose(wav_file), 0) << "Failed to close " << wav_path;
+    RTC_CHECK_EQ(std::remove(wav_path.c_str()), 0)
+        << "Failed to remove " << wav_path;
+  }
   return 0;
 }

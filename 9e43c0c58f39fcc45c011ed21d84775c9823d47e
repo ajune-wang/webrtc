@@ -16,6 +16,74 @@
       "message": "First batch of TODO updates, most of the updated ones get bug links.",
       "revId": "9e43c0c58f39fcc45c011ed21d84775c9823d47e",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "63110cbd_8b6c5b47",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2022-07-04T18:05:44Z",
+      "side": 1,
+      "message": "basic +1, but a couple of nits / questions.\n",
+      "revId": "9e43c0c58f39fcc45c011ed21d84775c9823d47e",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "7145412b_ccdef363",
+        "filename": "api/video/nv12_buffer.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 55,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2022-07-04T18:05:44Z",
+      "side": 1,
+      "message": "This bug is marked closed. Should we be TODOing to it?",
+      "revId": "9e43c0c58f39fcc45c011ed21d84775c9823d47e",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "81a3e09b_200a823b",
+        "filename": "api/video/video_frame.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 175,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2022-07-04T18:05:44Z",
+      "side": 1,
+      "message": "can you make this [[deprecated(\"Use timestamp()\")]]?",
+      "revId": "9e43c0c58f39fcc45c011ed21d84775c9823d47e",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "f92a5708_d7314c55",
+        "filename": "api/video_codecs/video_encoder.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 103,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2022-07-04T18:05:44Z",
+      "side": 1,
+      "message": "Too self-explanatory to be worth a bug?",
+      "revId": "9e43c0c58f39fcc45c011ed21d84775c9823d47e",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

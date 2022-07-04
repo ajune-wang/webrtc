@@ -148,6 +148,8 @@ class RtpSenderBase : public RtpSenderInternal, public ObserverInterface {
   void set_init_send_encodings(
       const std::vector<RtpEncodingParameters>& init_send_encodings) override {
     init_parameters_.encodings = init_send_encodings;
+    RTC_LOG(LS_ERROR) << "DEBUG: set_init_send_encodings, size = "
+                      << init_parameters_.encodings.size();
   }
   std::vector<RtpEncodingParameters> init_send_encodings() const override {
     RTC_DCHECK_RUN_ON(signaling_thread_);

@@ -16,6 +16,23 @@
       "message": "LGTM for test/pc/e2e/analyzer/audio/default_audio_quality_analyzer.cc",
       "revId": "7b3421ff1d8ef0c9fba52bdca3b3fb49d295a343",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "ae9941a5_bb048358",
+        "filename": "media/base/media_channel.h",
+        "patchSetId": 6
+      },
+      "lineNbr": 455,
+      "author": {
+        "id": 5142
+      },
+      "writtenOn": "2022-07-04T10:22:32Z",
+      "side": 1,
+      "message": "Don\u0027t initialize this to 0 by default, it makes it impossible to tell when it has been set or not.\n\nAs far as I can tell, this is only implemented for audio:\nhttps://source.chromium.org/chromium/chromium/src/+/main:third_party/webrtc/media/engine/webrtc_voice_engine.cc;l\u003d2370;drc\u003dadd83b6797a5ad031419a9adc0524dd1d83af5bf\nBut the integration test to say that this is non-negative passes for both audio and video cases now. (It should be updated to expect different things depending on kind() \u003d\u003d \"audio\" or \"video\".)\n\nCan you correct me if I\u0027m wrong or make sure that it\u0027s undefined in the video case and add a TODO(crbug) link here to say it\u0027s only implemented for audio but should also be implemented for video.",
+      "revId": "7b3421ff1d8ef0c9fba52bdca3b3fb49d295a343",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

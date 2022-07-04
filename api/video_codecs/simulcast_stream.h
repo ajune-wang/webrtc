@@ -16,15 +16,15 @@ namespace webrtc {
 // TODO(bugs.webrtc.org/6883): Unify with struct VideoStream, part of
 // VideoEncoderConfig.
 struct SimulcastStream {
-  int width;
-  int height;
-  float maxFramerate;  // fps.
-  unsigned char numberOfTemporalLayers;
-  unsigned int maxBitrate;     // kilobits/sec.
-  unsigned int targetBitrate;  // kilobits/sec.
-  unsigned int minBitrate;     // kilobits/sec.
-  unsigned int qpMax;          // minimum quality
-  bool active;                 // encoded and sent.
+  int width = 0;
+  int height = 0;
+  float maxFramerate = -1;  // fps.
+  unsigned char numberOfTemporalLayers = 1;
+  unsigned int maxBitrate = -1;     // kilobits/sec.
+  unsigned int targetBitrate = -1;  // kilobits/sec.
+  unsigned int minBitrate = -1;     // kilobits/sec.
+  unsigned int qpMax = -1;          // minimum quality
+  bool active = true;               // encoded and sent.
 };
 
 }  // namespace webrtc

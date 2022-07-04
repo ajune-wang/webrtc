@@ -480,6 +480,9 @@ RTCError UpdateSimulcastLayerStatusInSender(
     rtc::scoped_refptr<RtpSenderInternal> sender) {
   RTC_DCHECK(sender);
   RtpParameters parameters = sender->GetParametersInternal();
+  RTC_LOG(LS_ERROR) << "DEBUG: GetParameters got "
+                    << parameters.encodings.size() << " layers, asked to set "
+                    << layers.size() << "layers";
   std::vector<std::string> disabled_layers;
 
   // The simulcast envelope cannot be changed, only the status of the streams.
@@ -498,6 +501,7 @@ RTCError UpdateSimulcastLayerStatusInSender(
     encoding.active = !iter->is_paused;
   }
 
+  RTC_LOG(LS_ERROR) << "DEBUG: SetParametersInternal from UpdateSLS";
   RTCError result = sender->SetParametersInternal(parameters);
   if (result.ok()) {
     result = sender->DisableEncodingLayers(disabled_layers);

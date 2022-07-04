@@ -117,6 +117,8 @@ RtpSenderBase::RtpSenderBase(rtc::Thread* worker_thread,
       set_streams_observer_(set_streams_observer) {
   RTC_DCHECK(worker_thread);
   init_parameters_.encodings.emplace_back();
+  RTC_LOG(LS_ERROR) << "DEBUG: Sender " << this << " created, initsize="
+                    << init_parameters_.encodings.size();
 }
 
 void RtpSenderBase::SetFrameEncryptor(
@@ -160,11 +162,18 @@ RtpParameters RtpSenderBase::GetParametersInternal() const {
     return RtpParameters();
   }
   if (!media_channel_ || !ssrc_) {
+    RTC_LOG(LS_ERROR) << "DEBUG: " << this
+                      << " Returning init_parameters_, size = "
+                      << init_parameters_.encodings.size();
     return init_parameters_;
   }
   return worker_thread_->Invoke<RtpParameters>(RTC_FROM_HERE, [&] {
     RtpParameters result = media_channel_->GetRtpSendParameters(ssrc_);
+    RTC_LOG(LS_ERROR) << "DEBUG: Returning mediachannel parameters, size = "
+                      << result.encodings.size();
     RemoveEncodingLayers(disabled_rids_, &result.encodings);
+    RTC_LOG(LS_ERROR) << "DEBUG: After removing disabled rids, size = "
+                      << result.encodings.size();
     return result;
   });
 }
@@ -191,6 +200,8 @@ RTCError RtpSenderBase::SetParametersInternal(const RtpParameters& parameters) {
         init_parameters_, parameters);
     if (result.ok()) {
       init_parameters_ = parameters;
+      RTC_LOG(LS_ERROR) << "DEBUG: SetParametersInternal init_="
+                        << init_parameters_.encodings.size();
     }
     return result;
   }
@@ -209,6 +220,7 @@ RTCError RtpSenderBase::SetParametersInternal(const RtpParameters& parameters) {
 
 RTCError RtpSenderBase::SetParameters(const RtpParameters& parameters) {
   RTC_DCHECK_RUN_ON(signaling_thread_);
+  RTC_LOG(LS_ERROR) << "DEBUG: SetParameters called";
   TRACE_EVENT0("webrtc", "RtpSenderBase::SetParameters");
   if (is_transceiver_stopped_) {
     LOG_AND_RETURN_ERROR(
@@ -235,7 +247,6 @@ RTCError RtpSenderBase::SetParameters(const RtpParameters& parameters) {
         "Failed to set parameters since the transaction_id doesn't match"
         " the last value returned from getParameters()");
   }
-
   RTCError result = SetParametersInternal(parameters);
   last_transaction_id_.reset();
   return result;
@@ -316,6 +327,9 @@ void RtpSenderBase::SetSsrc(uint32_t ssrc) {
       // we need to copy.
       RtpParameters current_parameters =
           media_channel_->GetRtpSendParameters(ssrc_);
+      RTC_LOG(LS_ERROR) << "DEBUG: encoding sizes current="
+                        << current_parameters.encodings.size()
+                        << " init=" << init_parameters_.encodings.size();
       RTC_CHECK_GE(current_parameters.encodings.size(),
                    init_parameters_.encodings.size());
       for (size_t i = 0; i < init_parameters_.encodings.size(); ++i) {
@@ -327,6 +341,7 @@ void RtpSenderBase::SetSsrc(uint32_t ssrc) {
       current_parameters.degradation_preference =
           init_parameters_.degradation_preference;
       media_channel_->SetRtpSendParameters(ssrc_, current_parameters);
+      RTC_LOG(LS_ERROR) << "DEBUG: Clearing init_parameters_.encodings";
       init_parameters_.encodings.clear();
     });
   }
@@ -388,6 +403,8 @@ RTCError RtpSenderBase::DisableEncodingLayers(
 
   if (!media_channel_ || !ssrc_) {
     RemoveEncodingLayers(rids, &init_parameters_.encodings);
+    RTC_LOG(LS_ERROR) << "DEBUG: After RemoveEncodingLayers init="
+                      << init_parameters_.encodings.size();
     // Invalidate any transaction upon success.
     last_transaction_id_.reset();
     return RTCError::OK();
@@ -400,6 +417,8 @@ RTCError RtpSenderBase::DisableEncodingLayers(
         [&encoding](const std::string& rid) { return encoding.rid == rid; });
   }
 
+  RTC_LOG(LS_ERROR)
+      << "DEBUG: SetParametersInternal called from DisableEncodingLayers";
   RTCError result = SetParametersInternal(parameters);
   if (result.ok()) {
     disabled_rids_.insert(disabled_rids_.end(), rids.begin(), rids.end());

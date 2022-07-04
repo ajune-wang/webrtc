@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "2690e89b_3b838fda",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2022-07-04T14:32:21Z",
+      "side": 1,
+      "message": "PTAL. Intended to help landing https://webrtc-review.googlesource.com/c/src/+/264800",
+      "revId": "10e71dafeade74055e82572154e2864c6adc6ec0",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

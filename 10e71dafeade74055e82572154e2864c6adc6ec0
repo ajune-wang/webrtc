@@ -16,6 +16,23 @@
       "message": "PTAL. Intended to help landing https://webrtc-review.googlesource.com/c/src/+/264800",
       "revId": "10e71dafeade74055e82572154e2864c6adc6ec0",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "a4273dc7_4739f299",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2022-07-04T15:13:45Z",
+      "side": 1,
+      "message": "I\u0027ll try initializing to 0 instead, for consistency with the struct typically being memset as part of VideoCodec.",
+      "revId": "10e71dafeade74055e82572154e2864c6adc6ec0",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

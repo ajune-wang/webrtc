@@ -19,7 +19,7 @@
 #include "api/scoped_refptr.h"
 #include "api/sequence_checker.h"
 #include "api/stats_types.h"
-#include "pc/stats_collector_interface.h"
+#include "pc/legacy_stats_collector_interface.h"
 #include "rtc_base/checks.h"
 #include "rtc_base/location.h"
 
@@ -55,11 +55,11 @@ struct CreateSessionDescriptionMsg : public rtc::MessageData {
 
 struct GetStatsMsg : public rtc::MessageData {
   GetStatsMsg(webrtc::StatsObserver* observer,
-              StatsCollectorInterface* stats,
+              LegacyStatsCollectorInterface* stats,
               webrtc::MediaStreamTrackInterface* track)
       : observer(observer), stats(stats), track(track) {}
   rtc::scoped_refptr<webrtc::StatsObserver> observer;
-  StatsCollectorInterface* stats;
+  LegacyStatsCollectorInterface* stats;
   rtc::scoped_refptr<webrtc::MediaStreamTrackInterface> track;
 };
 
@@ -164,7 +164,7 @@ void PeerConnectionMessageHandler::PostCreateSessionDescriptionFailure(
 
 void PeerConnectionMessageHandler::PostGetStats(
     StatsObserver* observer,
-    StatsCollectorInterface* stats,
+    LegacyStatsCollectorInterface* stats,
     MediaStreamTrackInterface* track) {
   signaling_thread()->Post(RTC_FROM_HERE, this, MSG_GETSTATS,
                            new GetStatsMsg(observer, stats, track));

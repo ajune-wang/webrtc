@@ -18,7 +18,7 @@
 #include "api/rtp_transceiver_direction.h"
 #include "pc/audio_rtp_receiver.h"
 #include "pc/channel_interface.h"
-#include "pc/stats_collector_interface.h"
+#include "pc/legacy_stats_collector_interface.h"
 #include "pc/video_rtp_receiver.h"
 #include "rtc_base/checks.h"
 #include "rtc_base/helpers.h"
@@ -38,7 +38,7 @@ RtpTransmissionManager::RtpTransmissionManager(
     ConnectionContext* context,
     UsagePattern* usage_pattern,
     PeerConnectionObserver* observer,
-    StatsCollectorInterface* stats,
+    LegacyStatsCollectorInterface* stats,
     std::function<void()> on_negotiation_needed)
     : is_unified_plan_(is_unified_plan),
       context_(context),

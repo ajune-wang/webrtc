@@ -543,15 +543,15 @@ PeerConnection::~PeerConnection() {
   }
 
   // Need to stop transceivers before destroying the stats collector because
-  // AudioRtpSender has a reference to the StatsCollector it will update when
-  // stopping.
+  // AudioRtpSender has a reference to the LegacyStatsCollector it will update
+  // when stopping.
   if (rtp_manager()) {
     for (const auto& transceiver : rtp_manager()->transceivers()->List()) {
       transceiver->StopInternal();
     }
   }
 
-  stats_.reset(nullptr);
+  legacy_stats_.reset(nullptr);
   if (stats_collector_) {
     stats_collector_->WaitForPendingRequest();
     stats_collector_ = nullptr;
@@ -635,15 +635,15 @@ RTCError PeerConnection::Initialize(
 
   configuration_ = configuration;
 
-  stats_ = std::make_unique<StatsCollector>(this);
+  legacy_stats_ = std::make_unique<LegacyStatsCollector>(this);
   stats_collector_ = RTCStatsCollector::Create(this);
 
   sdp_handler_ = SdpOfferAnswerHandler::Create(this, configuration,
                                                dependencies, context_.get());
 
   rtp_manager_ = std::make_unique<RtpTransmissionManager>(
-      IsUnifiedPlan(), context_.get(), &usage_pattern_, observer_, stats_.get(),
-      [this]() {
+      IsUnifiedPlan(), context_.get(), &usage_pattern_, observer_,
+      legacy_stats_.get(), [this]() {
         RTC_DCHECK_RUN_ON(signaling_thread());
         sdp_handler_->UpdateNegotiationNeeded();
       });
@@ -868,7 +868,7 @@ RTCErrorOr<rtc::scoped_refptr<RtpSenderInterface>> PeerConnection::AddTrack(
   auto sender_or_error = rtp_manager()->AddTrack(track, stream_ids);
   if (sender_or_error.ok()) {
     sdp_handler_->UpdateNegotiationNeeded();
-    stats_->AddTrack(track.get());
+    legacy_stats_->AddTrack(track.get());
   }
   return sender_or_error;
 }
@@ -1145,8 +1145,9 @@ rtc::scoped_refptr<RtpSenderInterface> PeerConnection::CreateSender(
   // TODO(steveanton): Move construction of the RtpSenders to RtpTransceiver.
   rtc::scoped_refptr<RtpSenderProxyWithInternal<RtpSenderInternal>> new_sender;
   if (kind == MediaStreamTrackInterface::kAudioKind) {
-    auto audio_sender = AudioRtpSender::Create(
-        worker_thread(), rtc::CreateRandomUuid(), stats_.get(), rtp_manager());
+    auto audio_sender =
+        AudioRtpSender::Create(worker_thread(), rtc::CreateRandomUuid(),
+                               legacy_stats_.get(), rtp_manager());
     audio_sender->SetMediaChannel(rtp_manager()->voice_media_channel());
     new_sender = RtpSenderProxyWithInternal<RtpSenderInternal>::Create(
         signaling_thread(), audio_sender);
@@ -1217,18 +1218,18 @@ bool PeerConnection::GetStats(StatsObserver* observer,
 
   RTC_LOG_THREAD_BLOCK_COUNT();
 
-  stats_->UpdateStats(level);
+  legacy_stats_->UpdateStats(level);
 
   RTC_DCHECK_BLOCK_COUNT_NO_MORE_THAN(4);
 
-  // The StatsCollector is used to tell if a track is valid because it may
+  // The LegacyStatsCollector is used to tell if a track is valid because it may
   // remember tracks that the PeerConnection previously removed.
-  if (track && !stats_->IsValidTrack(track->id())) {
+  if (track && !legacy_stats_->IsValidTrack(track->id())) {
     RTC_LOG(LS_WARNING) << "GetStats is called with an invalid track: "
                         << track->id();
     return false;
   }
-  message_handler_.PostGetStats(observer, stats_.get(), track);
+  message_handler_.PostGetStats(observer, legacy_stats_.get(), track);
 
   return true;
 }
@@ -1811,7 +1812,7 @@ void PeerConnection::Close() {
   }
   // Update stats here so that we have the most recent stats for tracks and
   // streams before the channels are closed.
-  stats_->UpdateStats(kStatsOutputLevelStandard);
+  legacy_stats_->UpdateStats(kStatsOutputLevelStandard);
 
   ice_connection_state_ = PeerConnectionInterface::kIceConnectionClosed;
   Observer()->OnIceConnectionChange(ice_connection_state_);

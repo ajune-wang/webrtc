@@ -16,6 +16,23 @@
       "message": "LGTM. And thanks for the cl!",
       "revId": "38c636b67bfd0a8d71040595133c1ca29ee49a0b",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "85c442bd_89375a3b",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5150
+      },
+      "writtenOn": "2022-07-04T14:22:57Z",
+      "side": 1,
+      "message": "Adding hta@ for OWNER approval",
+      "revId": "38c636b67bfd0a8d71040595133c1ca29ee49a0b",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

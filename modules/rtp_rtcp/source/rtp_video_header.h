@@ -12,6 +12,7 @@
 
 #include <bitset>
 #include <cstdint>
+#include <vector>
 
 #include "absl/container/inlined_vector.h"
 #include "absl/types/optional.h"
@@ -87,6 +88,8 @@ struct RTPVideoHeader {
   // http://www.webrtc.org/experiments/rtp-hdrext/abs-capture-time.
   // Otherwise, it is derived from other relevant information.
   absl::optional<AbsoluteCaptureTime> absolute_capture_time;
+
+  std::vector<uint32_t> csrcs;
 };
 
 }  // namespace webrtc

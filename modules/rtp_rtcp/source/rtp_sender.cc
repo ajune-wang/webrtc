@@ -534,6 +534,9 @@ std::unique_ptr<RtpPacketToSend> RTPSender::AllocatePacket() const {
       &rtp_header_extension_map_, max_packet_size_ + kExtraCapacity);
   packet->SetSsrc(ssrc_);
   packet->SetCsrcs(csrcs_);
+  RTC_LOG(LS_ERROR)
+      << "HERRE !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!! RTPSender::AllocatePacket ssrc "
+      << ssrc_ << ", csrcs " << csrcs_.size();
   // Reserve extensions, if registered, RtpSender set in SendToNetwork.
   packet->ReserveExtension<AbsoluteSendTime>();
   packet->ReserveExtension<TransmissionOffset>();

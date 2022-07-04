@@ -506,6 +506,7 @@ void RtpVideoStreamReceiver2::OnReceivedPayloadData(
   video_header.content_type = VideoContentType::UNSPECIFIED;
   video_header.video_timing.flags = VideoSendTiming::kInvalid;
   video_header.is_last_packet_in_frame |= rtp_packet.Marker();
+  video_header.csrcs = packet_info.csrcs();
 
   rtp_packet.GetExtension<VideoOrientation>(&video_header.rotation);
   rtp_packet.GetExtension<VideoContentTypeExtension>(

@@ -97,7 +97,8 @@ class RTPSenderVideo {
                  int64_t capture_time_ms,
                  rtc::ArrayView<const uint8_t> payload,
                  RTPVideoHeader video_header,
-                 absl::optional<int64_t> expected_retransmission_time_ms);
+                 absl::optional<int64_t> expected_retransmission_time_ms,
+                 const VideoFrameMetadata* metadata = nullptr);
 
   bool SendEncodedImage(
       int payload_type,

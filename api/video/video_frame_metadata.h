@@ -12,6 +12,7 @@
 #define API_VIDEO_VIDEO_FRAME_METADATA_H_
 
 #include <cstdint>
+#include <vector>
 
 #include "absl/container/inlined_vector.h"
 #include "absl/types/optional.h"
@@ -45,6 +46,10 @@ class VideoFrameMetadata {
     return decode_target_indications_;
   }
 
+  std::vector<uint32_t> GetCsrcs() const { return csrcs_; }
+
+  void SetCsrcs(std::vector<uint32_t> csrcs) { csrcs_ = csrcs; }
+
  private:
   int16_t width_;
   int16_t height_;
@@ -53,6 +58,7 @@ class VideoFrameMetadata {
   int temporal_index_ = 0;
   absl::InlinedVector<int64_t, 5> frame_dependencies_;
   absl::InlinedVector<DecodeTargetIndication, 10> decode_target_indications_;
+  std::vector<uint32_t> csrcs_;
 };
 }  // namespace webrtc
 

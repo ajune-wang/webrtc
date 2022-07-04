@@ -33,6 +33,24 @@
       "message": "\"the caller\" - is that an assumption about who calls the constructor?\nIs there a link between the send queue and the retransmission queue, or is \"the caller\" the one that has the link?\n\n\"The owner\" may be better, since it\u0027s unclear that the caller of the constructor is the future owner of the object. Or is the \"parent_\" link relevant here?",
       "revId": "a573dd925a9f831851aae933c4cd15bb5d0c6e1d",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "90b8dd52_253c611f",
+        "filename": "net/dcsctp/tx/rr_send_queue.h",
+        "patchSetId": 39
+      },
+      "lineNbr": 52,
+      "author": {
+        "id": 12215
+      },
+      "writtenOn": "2022-07-04T13:09:46Z",
+      "side": 1,
+      "message": "Thanks - I have clarified the comment",
+      "parentUuid": "34a051c5_f281b6e8",
+      "revId": "a573dd925a9f831851aae933c4cd15bb5d0c6e1d",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

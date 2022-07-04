@@ -23,6 +23,7 @@ VideoFrameMetadata::VideoFrameMetadata(const RTPVideoHeader& header)
     frame_dependencies_ = header.generic->dependencies;
     decode_target_indications_ = header.generic->decode_target_indications;
   }
+  csrcs_ = header.csrcs;
 }
 
 }  // namespace webrtc

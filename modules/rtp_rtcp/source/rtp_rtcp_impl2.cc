@@ -237,6 +237,7 @@ void ModuleRtpRtcpImpl2::SetMid(absl::string_view mid) {
 }
 
 void ModuleRtpRtcpImpl2::SetCsrcs(const std::vector<uint32_t>& csrcs) {
+  RTC_DCHECK_NOTREACHED() << "ModuleRtpRtcpImpl2::SetCsrcs";
   rtcp_sender_.SetCsrcs(csrcs);
   rtp_sender_->packet_generator.SetCsrcs(csrcs);
 }

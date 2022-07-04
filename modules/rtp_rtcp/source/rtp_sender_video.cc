@@ -474,7 +474,8 @@ bool RTPSenderVideo::SendVideo(
     int64_t capture_time_ms,
     rtc::ArrayView<const uint8_t> payload,
     RTPVideoHeader video_header,
-    absl::optional<int64_t> expected_retransmission_time_ms) {
+    absl::optional<int64_t> expected_retransmission_time_ms,
+    const VideoFrameMetadata* metadata) {
   TRACE_EVENT_ASYNC_STEP1("webrtc", "Video", capture_time_ms, "Send", "type",
                           FrameTypeToString(video_header.frame_type));
   RTC_CHECK_RUNS_SERIALIZED(&send_checker_);
@@ -524,6 +525,8 @@ bool RTPSenderVideo::SendVideo(
   int packet_capacity = rtp_sender_->MaxRtpPacketSize() -
                         (use_fec ? FecPacketOverhead() : 0) -
                         (rtp_sender_->RtxStatus() ? kRtxHeaderSize : 0);
+
+  rtp_sender_->SetCsrcs(metadata->GetCsrcs());
 
   std::unique_ptr<RtpPacketToSend> single_packet =
       rtp_sender_->AllocatePacket();

@@ -62,6 +62,7 @@ class TransformableVideoFrameInterface : public TransformableFrameInterface {
   virtual std::vector<uint8_t> GetAdditionalData() const = 0;
 
   virtual const VideoFrameMetadata& GetMetadata() const = 0;
+  virtual void SetCsrcs(std::vector<uint32_t> crscs) {}
 };
 
 // Extends the TransformableFrameInterface to expose audio-specific information.

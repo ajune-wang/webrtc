@@ -16,6 +16,41 @@
       "message": "I wonder if there is a danger of the wrong result here:\n\nSend message in 3 chunks (1, 2, 3END)\nSACK(3) (1 and 2 are lost)\nRetransmit(1)\nFORWARD-TSN(2) (2 is now abandoned)\n\nNow 3END is fully acked, but the message isn\u0027t.\n\nMight be worth constructing a test case for this scenario.\n",
       "revId": "ea28411ca8ec6443a0505b3c5b20ec584c2aef10",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "4866430a_60519639",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 45
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 12215
+      },
+      "writtenOn": "2022-07-05T09:29:35Z",
+      "side": 1,
+      "message": "Your concern is reasonable, but fortunately handled - and I have updated LifecycleReturnsAbandonedAfterT3rtxExpired test case to represent this use-case, with additional validation.\n\nThe reason why it works, is because the decision to report it as acked or abandoned is taken from RemoveAcked(), and that one is called when the cumulative TSN ack (everything up to that sequence number is acked) moves, and not when acking chunks with gap-ack blocks.\n\nSo, this is how it will be:\n\nA: Send message in 3 chunks (1,2,3END), no retransmissions\nB: 1, 2 are lost, 3 is received\nB: Send SACK(cum_ack_tsn\u003d0, gap_ack\u003d[3])\nA: Receives SACK, and will mark chunk 3 as acked, and chunk 1,2 as nacked\nA: Later decides to abandon message - which it wouldn\u0027t do after a single SACK - it would take multiple, or that the RTO expires, but anyway.\nA: Marks all chunks in the entire message (1,2,3) as ABANDONED, and sends FORWARD_TSN(3)\nB: Receives FORWARD_TSN(3), will drop the partly received message and send SACK(3)\nA: Receives SACK(3) and call RemoveAcked. It will see that chunk 3 is abandoned - the only chunk with lifecycle-id, and will add it to the set of messages that were expired.",
+      "parentUuid": "62e9d4f0_7fef97d4",
+      "revId": "ea28411ca8ec6443a0505b3c5b20ec584c2aef10",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "89f9beb6_b524f06a",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 45
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 12215
+      },
+      "writtenOn": "2022-07-05T09:29:35Z",
+      "side": 1,
+      "message": "Thanks for reviewing!",
+      "revId": "ea28411ca8ec6443a0505b3c5b20ec584c2aef10",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

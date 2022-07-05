@@ -52,6 +52,24 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "c815ff3f_9395ab3a",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5150
+      },
+      "writtenOn": "2022-07-05T09:00:27Z",
+      "side": 1,
+      "message": "Yes, there are.",
+      "parentUuid": "838c11a0_7059bc7c",
+      "revId": "38c636b67bfd0a8d71040595133c1ca29ee49a0b",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "4c5e3a15_15657737",
@@ -65,6 +83,24 @@
       "writtenOn": "2022-07-05T07:20:27Z",
       "side": 1,
       "message": "Should there be a TODO on this to declare it pure virtual once all classes implement it?",
+      "revId": "38c636b67bfd0a8d71040595133c1ca29ee49a0b",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "e2b3da5c_0a786511",
+        "filename": "api/rtc_event_log_output.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 38,
+      "author": {
+        "id": 5150
+      },
+      "writtenOn": "2022-07-05T09:00:27Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "4c5e3a15_15657737",
       "revId": "38c636b67bfd0a8d71040595133c1ca29ee49a0b",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }

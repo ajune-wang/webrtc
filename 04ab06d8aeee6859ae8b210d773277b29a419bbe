@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "055f1312_a42dc6a1",
+        "filename": "modules/rtp_rtcp/source/rtp_sender_video.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 103,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2022-07-05T11:17:28Z",
+      "side": 1,
+      "message": "Looks like it\u0027s this method that is called from call/rtp_video_sender. So if csrcs are attached to EncodedImage, they could be copied into the packet. \n\nI\u0027m not sure how RTPVideoHeader is populated, some of that metadata, e.g., temporal and spatial index, should probably be moved to EncodedImage at some point.",
+      "range": {
+        "startLine": 103,
+        "startChar": 7,
+        "endLine": 103,
+        "endChar": 23
+      },
+      "revId": "04ab06d8aeee6859ae8b210d773277b29a419bbe",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

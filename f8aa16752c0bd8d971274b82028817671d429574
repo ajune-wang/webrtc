@@ -16,6 +16,23 @@
       "message": "PTAL.",
       "revId": "f8aa16752c0bd8d971274b82028817671d429574",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "ffe39d2d_766a3484",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2022-07-05T06:55:51Z",
+      "side": 1,
+      "message": "asking Florent to review, as he\u0027s the most deeply embedded into SVC at the moment",
+      "revId": "f8aa16752c0bd8d971274b82028817671d429574",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

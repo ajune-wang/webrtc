@@ -16,6 +16,12 @@ namespace webrtc {
 // TODO(bugs.webrtc.org/6883): Unify with struct VideoStream, part of
 // VideoEncoderConfig.
 struct SimulcastStream {
+  // Temporary utility method for transition from numberOfTemporalLayers setting
+  // to ScalabilityMode.
+  unsigned char GetNumberOfTemporalLayers() const {
+    return numberOfTemporalLayers;
+  }
+
   int width = 0;
   int height = 0;
   float maxFramerate = 0;  // fps.

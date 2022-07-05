@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "62e9d4f0_7fef97d4",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 45
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2022-07-05T07:25:05Z",
+      "side": 1,
+      "message": "I wonder if there is a danger of the wrong result here:\n\nSend message in 3 chunks (1, 2, 3END)\nSACK(3) (1 and 2 are lost)\nRetransmit(1)\nFORWARD-TSN(2) (2 is now abandoned)\n\nNow 3END is fully acked, but the message isn\u0027t.\n\nMight be worth constructing a test case for this scenario.\n",
+      "revId": "ea28411ca8ec6443a0505b3c5b20ec584c2aef10",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

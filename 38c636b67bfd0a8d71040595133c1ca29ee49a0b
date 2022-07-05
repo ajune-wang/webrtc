@@ -33,6 +33,40 @@
       "message": "Adding hta@ for OWNER approval",
       "revId": "38c636b67bfd0a8d71040595133c1ca29ee49a0b",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "838c11a0_7059bc7c",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2022-07-05T07:20:27Z",
+      "side": 1,
+      "message": "do we know that there are subclasses outside of webrtc that need to support the absl::string_view version before we can declare it pure virtual?\n",
+      "revId": "38c636b67bfd0a8d71040595133c1ca29ee49a0b",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "4c5e3a15_15657737",
+        "filename": "api/rtc_event_log_output.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 38,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2022-07-05T07:20:27Z",
+      "side": 1,
+      "message": "Should there be a TODO on this to declare it pure virtual once all classes implement it?",
+      "revId": "38c636b67bfd0a8d71040595133c1ca29ee49a0b",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

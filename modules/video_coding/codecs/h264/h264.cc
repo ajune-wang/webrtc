@@ -14,6 +14,7 @@
 #include <memory>
 #include <string>
 
+#include "absl/container/inlined_vector.h"
 #include "absl/types/optional.h"
 #include "api/video_codecs/sdp_video_format.h"
 #include "media/base/media_constants.h"
@@ -55,11 +56,18 @@ SdpVideoFormat CreateH264Format(H264Profile profile,
   const absl::optional<std::string> profile_string =
       H264ProfileLevelIdToString(H264ProfileLevelId(profile, level));
   RTC_CHECK(profile_string);
+  absl::InlinedVector<ScalabilityMode, kScalabilityModeCount> scalability_modes;
+  scalability_modes.reserve(sizeof(kSupportedScalabilityModes) /
+                            sizeof(ScalabilityMode));
+  for (const auto scalability_mode : kSupportedScalabilityModes) {
+    scalability_modes.push_back(scalability_mode);
+  }
   return SdpVideoFormat(
       cricket::kH264CodecName,
       {{cricket::kH264FmtpProfileLevelId, *profile_string},
        {cricket::kH264FmtpLevelAsymmetryAllowed, "1"},
-       {cricket::kH264FmtpPacketizationMode, packetization_mode}});
+       {cricket::kH264FmtpPacketizationMode, packetization_mode}},
+      std::move(scalability_modes));
 }
 
 void DisableRtcUseH264() {

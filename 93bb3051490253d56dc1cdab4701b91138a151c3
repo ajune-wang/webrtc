@@ -22,6 +22,30 @@
       },
       "revId": "93bb3051490253d56dc1cdab4701b91138a151c3",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "5bee13d6_4e8cb716",
+        "filename": "modules/desktop_capture/BUILD.gn",
+        "patchSetId": 21
+      },
+      "lineNbr": 640,
+      "author": {
+        "id": 12416
+      },
+      "writtenOn": "2022-07-05T21:22:35Z",
+      "side": 1,
+      "message": "Thanks for the heads up! I\u0027ve uploaded a reland with a fix. I will also apply the fix to my chromium checkout and run this test to validate.",
+      "parentUuid": "6ba2381f_e43f0b78",
+      "range": {
+        "startLine": 640,
+        "startChar": 6,
+        "endLine": 640,
+        "endChar": 26
+      },
+      "revId": "93bb3051490253d56dc1cdab4701b91138a151c3",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

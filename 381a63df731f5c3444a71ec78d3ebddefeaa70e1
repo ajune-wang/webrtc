@@ -128,6 +128,30 @@
       },
       "revId": "381a63df731f5c3444a71ec78d3ebddefeaa70e1",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "d3d7ce2f_8c9eb12c",
+        "filename": "logging/rtc_event_log/rtc_event_log_impl.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 263,
+      "author": {
+        "id": 5150
+      },
+      "writtenOn": "2022-07-05T14:47:41Z",
+      "side": 1,
+      "message": "API added in https://webrtc-review.googlesource.com/c/src/+/267641, as discussed offline.\n\nLGTM % this",
+      "parentUuid": "ecf8d89a_0becc1cf",
+      "range": {
+        "startLine": 263,
+        "startChar": 28,
+        "endLine": 263,
+        "endChar": 40
+      },
+      "revId": "381a63df731f5c3444a71ec78d3ebddefeaa70e1",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

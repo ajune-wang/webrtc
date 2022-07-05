@@ -70,6 +70,14 @@ constexpr absl::optional<int> kMinMicLevelOverride = 20;
 constexpr absl::optional<int> kMinMicLevelOverride = absl::nullopt;
 #endif
 
+// Returns true if the analog controller must enforce the minimum mic level
+// override even when the mic level has manually been set to zero.
+bool EnforceMinMicLevelOverrideOnZeroLevel() {
+  return kMinMicLevelOverride.has_value() &&
+         field_trial::IsEnabled(
+             "WebRTC-Audio-AgcAnalogFixZeroMicLevelBugKillSwitch");
+}
+
 int ClampLevel(int mic_level, int min_mic_level) {
   return rtc::SafeClamp(mic_level, min_mic_level, kMaxMicLevel);
 }
@@ -455,6 +463,8 @@ AgcManagerDirect::AgcManagerDirect(
     int clipped_wait_frames,
     const ClippingPredictorConfig& clipping_config)
     : min_mic_level_override_(kMinMicLevelOverride),
+      enforce_min_mic_level_override_on_zero_level_(
+          EnforceMinMicLevelOverrideOnZeroLevel()),
       data_dumper_(new ApmDataDumper(instance_counter_.fetch_add(1) + 1)),
       use_min_channel_level_(!UseMaxAnalogChannelLevel()),
       num_capture_channels_(num_capture_channels),
@@ -706,9 +716,10 @@ void AgcManagerDirect::AggregateChannelLevels() {
       }
     }
   }
-  // TODO(crbug.com/1275566): Do not enforce minimum if the user has manually
-  // set the mic level to zero.
-  if (min_mic_level_override_.has_value()) {
+
+  if (min_mic_level_override_.has_value() &&
+      (enforce_min_mic_level_override_on_zero_level_ ||
+       stream_analog_level_ > 0)) {
     stream_analog_level_ =
         std::max(stream_analog_level_, *min_mic_level_override_);
   }

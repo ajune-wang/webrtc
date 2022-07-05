@@ -163,6 +163,11 @@ class NetEqController {
   // Returns the target buffer level in ms.
   virtual int TargetLevelMs() const = 0;
 
+  // Returns the target buffer level in ms as it would be if no minimum or
+  // maximum delay was set.
+  // TODO(ivoc): Make pure virtual once all implementations are updated.
+  virtual int PureTargetLevelMs() const { return 0; }
+
   // Notify the NetEqController that a packet has arrived. Returns the relative
   // arrival delay, if it can be computed.
   virtual absl::optional<int> PacketArrived(int fs_hz,

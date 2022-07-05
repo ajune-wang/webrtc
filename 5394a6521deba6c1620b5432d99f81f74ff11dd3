@@ -16,6 +16,40 @@
       "message": "why do I think you were involved with L16?",
       "revId": "5394a6521deba6c1620b5432d99f81f74ff11dd3",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "18ca4292_e9793d2e",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2022-07-05T06:32:50Z",
+      "side": 1,
+      "message": "Looks good. How did you verify that it actually worked?\n",
+      "revId": "5394a6521deba6c1620b5432d99f81f74ff11dd3",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "c4768e0e_4c105e0f",
+        "filename": "api/audio_codecs/L16/audio_encoder_L16.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 39,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2022-07-05T06:32:50Z",
+      "side": 1,
+      "message": "should default be 44100, or is 8000 a magic default?",
+      "revId": "5394a6521deba6c1620b5432d99f81f74ff11dd3",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

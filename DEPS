@@ -10,7 +10,7 @@ vars = {
   # chromium waterfalls. More info at: crbug.com/570091.
   'checkout_configuration': 'default',
   'checkout_instrumented_libraries': 'checkout_linux and checkout_configuration == "default"',
-  'chromium_revision': '89179a03302aa0ee6956e2388b7203c8ee4e4e64',
+  'chromium_revision': '5f2441b204f136e48c35e1f7d1654fdba7481712',
 
   # Keep the Chromium default of generating location tags.
   'generate_location_tags': True,
@@ -28,7 +28,7 @@ deps = {
   'src/base':
     'https://chromium.googlesource.com/chromium/src/base@dcc9e0f0ad8769da3e1379931f4f9d46aba5c548',
   'src/build':
-    'https://chromium.googlesource.com/chromium/src/build@9ea9d4931de4cf0a2496d66b0e9bbe3a6479e4e1',
+    'https://chromium.googlesource.com/chromium/src/build@21c35b97a1cc941c0053f7252dce79a4c0a81a12',
   'src/buildtools':
     'https://chromium.googlesource.com/chromium/src/buildtools@34f9ff8fd5f494bf2b886337e6ef6fcea414cb11',
   # Gradle 6.6.1. Used for testing Android Studio project generation for WebRTC.
@@ -37,13 +37,13 @@ deps = {
     'condition': 'checkout_android',
   },
   'src/ios': {
-    'url': 'https://chromium.googlesource.com/chromium/src/ios@656c3124279e41f34062b87548634d2492272602',
+    'url': 'https://chromium.googlesource.com/chromium/src/ios@d7707df2c86fcf2eea5120c7756146fdf14467ad',
     'condition': 'checkout_ios',
   },
   'src/testing':
-    'https://chromium.googlesource.com/chromium/src/testing@61e1b984d18ded435a026d7d5176e4d362999f1d',
+    'https://chromium.googlesource.com/chromium/src/testing@34674445e63728966aa0efd6a9871e25db35a8ad',
   'src/third_party':
-    'https://chromium.googlesource.com/chromium/src/third_party@536cd52d78656b8867c61ca01ad8197656366552',
+    'https://chromium.googlesource.com/chromium/src/third_party@6a1cafed71bf320cc9b454a3a15a75b0c8fc1f4e',
 
   'src/buildtools/linux64': {
     'packages': [
@@ -274,7 +274,7 @@ deps = {
     'condition': 'checkout_win',
   },
   'src/tools':
-    'https://chromium.googlesource.com/chromium/src/tools@ddde2729cd9572b89cba66c28d5d1196c270ed71',
+    'https://chromium.googlesource.com/chromium/src/tools@7752ac66c1ef21cf0f56f2eacff93ee94d6fa73d',
 
   'src/third_party/accessibility_test_framework': {
       'packages': [

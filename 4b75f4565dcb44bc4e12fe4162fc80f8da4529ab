@@ -34,6 +34,24 @@
       "parentUuid": "d61690e9_9cf568ba",
       "revId": "4b75f4565dcb44bc4e12fe4162fc80f8da4529ab",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "1de44755_39d9f7a2",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2022-07-05T12:50:48Z",
+      "side": 1,
+      "message": "Transition is intended to delete these numberOfTemporalLayers attributes completely, replaced by enum ScalabilityMode.\n\nI think we should have a numeric numberOfTemporalLayers only in low-level config of the spatial layers corresponding to the scalability mode of each simulcast stream.",
+      "parentUuid": "af9e9af7_4d1ad8bf",
+      "revId": "4b75f4565dcb44bc4e12fe4162fc80f8da4529ab",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

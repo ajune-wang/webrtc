@@ -14,6 +14,8 @@
 #include <utility>
 
 #include "absl/strings/string_view.h"
+#include "api/task_queue/pending_task_safety_flag.h"
+#include "api/units/time_delta.h"
 #include "rtc_base/location.h"
 
 namespace webrtc {
@@ -68,14 +70,14 @@ bool DegradedCall::FakeNetworkPipeOnTaskQueue::Process() {
     if (!next_process_ms_ || next_process_time < *next_process_ms_) {
       next_process_ms_ = next_process_time;
       task_queue_->PostDelayedHighPrecisionTask(
-          ToQueuedTask(task_safety_,
-                       [this] {
-                         RTC_DCHECK_RUN_ON(task_queue_);
-                         if (!Process()) {
-                           next_process_ms_.reset();
-                         }
-                       }),
-          *time_to_next);
+          SafeTask(task_safety_.flag(),
+                   [this] {
+                     RTC_DCHECK_RUN_ON(task_queue_);
+                     if (!Process()) {
+                       next_process_ms_.reset();
+                     }
+                   }),
+          TimeDelta::Millis(*time_to_next));
     }
   }));
 

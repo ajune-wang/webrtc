@@ -22,6 +22,7 @@
 #include "api/task_queue/task_queue_base.h"
 #include "api/task_queue/task_queue_factory.h"
 #include "api/task_queue/to_queued_task.h"
+#include "api/units/time_delta.h"
 #include "rtc_base/system/rtc_export.h"
 #include "rtc_base/thread_annotations.h"
 
@@ -99,12 +100,12 @@ class RTC_LOCKABLE RTC_EXPORT TaskQueue {
   // See webrtc::TaskQueueBase for precision expectations.
   void PostDelayedTask(std::unique_ptr<webrtc::QueuedTask> task,
                        uint32_t milliseconds);
-  void PostDelayedHighPrecisionTask(std::unique_ptr<webrtc::QueuedTask> task,
-                                    uint32_t milliseconds);
+  void PostDelayedHighPrecisionTask(absl::AnyInvocable<void() &&> task,
+                                    webrtc::TimeDelta delay);
   void PostDelayedTaskWithPrecision(
       webrtc::TaskQueueBase::DelayPrecision precision,
-      std::unique_ptr<webrtc::QueuedTask> task,
-      uint32_t milliseconds);
+      absl::AnyInvocable<void() &&> task,
+      webrtc::TimeDelta delay);
 
   void PostTask(absl::AnyInvocable<void() &&> task) {
     impl_->PostTask(std::move(task));

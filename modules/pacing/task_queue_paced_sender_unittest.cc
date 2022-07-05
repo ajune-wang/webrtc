@@ -18,10 +18,11 @@
 #include <utility>
 #include <vector>
 
+#include "absl/functional/any_invocable.h"
 #include "api/task_queue/task_queue_base.h"
-#include "api/task_queue/to_queued_task.h"
 #include "api/transport/network_types.h"
 #include "api/units/data_rate.h"
+#include "api/units/time_delta.h"
 #include "modules/pacing/packet_router.h"
 #include "test/gmock.h"
 #include "test/gtest.h"
@@ -119,36 +120,34 @@ class TaskQueueWithFakePrecisionFactory : public TaskQueueFactory {
       // TaskQueueDeleter.
       delete this;
     }
-    void PostTask(std::unique_ptr<QueuedTask> task) override {
-      task_queue_->PostTask(
-          ToQueuedTask([this, task = std::move(task)]() mutable {
-            RunTask(std::move(task));
-          }));
+    void PostTask(absl::AnyInvocable<void() &&> task) override {
+      task_queue_->PostTask([this, task = std::move(task)]() mutable {
+        RunTask(std::move(task));
+      });
     }
-    void PostDelayedTask(std::unique_ptr<QueuedTask> task,
-                         uint32_t milliseconds) override {
+    void PostDelayedTask(absl::AnyInvocable<void() &&> task,
+                         TimeDelta delay) override {
       ++parent_factory_->delayed_low_precision_count_;
       task_queue_->PostDelayedTask(
-          ToQueuedTask([this, task = std::move(task)]() mutable {
+          [this, task = std::move(task)]() mutable {
             RunTask(std::move(task));
-          }),
-          milliseconds);
+          },
+          delay);
     }
-    void PostDelayedHighPrecisionTask(std::unique_ptr<QueuedTask> task,
-                                      uint32_t milliseconds) override {
+    void PostDelayedHighPrecisionTask(absl::AnyInvocable<void() &&> task,
+                                      TimeDelta delay) override {
       ++parent_factory_->delayed_high_precision_count_;
       task_queue_->PostDelayedHighPrecisionTask(
-          ToQueuedTask([this, task = std::move(task)]() mutable {
+          [this, task = std::move(task)]() mutable {
             RunTask(std::move(task));
-          }),
-          milliseconds);
+          },
+          delay);
     }
 
    private:
-    void RunTask(std::unique_ptr<QueuedTask> task) {
+    void RunTask(absl::AnyInvocable<void() &&> task) {
       CurrentTaskQueueSetter set_current(this);
-      if (!task->Run())
-        task.release();
+      std::move(task)();
     }
 
     TaskQueueWithFakePrecisionFactory* parent_factory_;

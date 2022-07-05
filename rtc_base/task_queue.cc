@@ -9,9 +9,14 @@
  */
 #include "rtc_base/task_queue.h"
 
+#include <utility>
+
+#include "absl/functional/any_invocable.h"
 #include "api/task_queue/task_queue_base.h"
+#include "api/units/time_delta.h"
 
 namespace rtc {
+using ::webrtc::TimeDelta;
 
 TaskQueue::TaskQueue(
     std::unique_ptr<webrtc::TaskQueueBase, webrtc::TaskQueueDeleter> task_queue)
@@ -38,17 +43,16 @@ void TaskQueue::PostDelayedTask(std::unique_ptr<webrtc::QueuedTask> task,
   impl_->PostDelayedTask(std::move(task), milliseconds);
 }
 
-void TaskQueue::PostDelayedHighPrecisionTask(
-    std::unique_ptr<webrtc::QueuedTask> task,
-    uint32_t milliseconds) {
-  impl_->PostDelayedHighPrecisionTask(std::move(task), milliseconds);
+void TaskQueue::PostDelayedHighPrecisionTask(absl::AnyInvocable<void() &&> task,
+                                             TimeDelta delay) {
+  impl_->PostDelayedHighPrecisionTask(std::move(task), delay);
 }
 
 void TaskQueue::PostDelayedTaskWithPrecision(
     webrtc::TaskQueueBase::DelayPrecision precision,
-    std::unique_ptr<webrtc::QueuedTask> task,
-    uint32_t milliseconds) {
-  impl_->PostDelayedTaskWithPrecision(precision, std::move(task), milliseconds);
+    absl::AnyInvocable<void() &&> task,
+    TimeDelta delay) {
+  impl_->PostDelayedTaskWithPrecision(precision, std::move(task), delay);
 }
 
 }  // namespace rtc

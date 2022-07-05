@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "d61690e9_9cf568ba",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2022-07-05T12:28:15Z",
+      "side": 1,
+      "message": "PTAL. Do you think this is a reasonable way to help transition?",
+      "revId": "4b75f4565dcb44bc4e12fe4162fc80f8da4529ab",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

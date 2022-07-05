@@ -52,6 +52,24 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "ba3ef13a_aeb0300c",
+        "filename": "api/video/nv12_buffer.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 55,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2022-07-05T06:57:55Z",
+      "side": 1,
+      "message": "I think it\u0027s common with TODO items for low-prio followup work on closed bugs. In particular if bug is closed because some workaround was landed, without addressing root cause.",
+      "parentUuid": "7145412b_ccdef363",
+      "revId": "9e43c0c58f39fcc45c011ed21d84775c9823d47e",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "81a3e09b_200a823b",
@@ -69,6 +87,24 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "1dcecc7e_cac32d94",
+        "filename": "api/video/video_frame.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 175,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2022-07-05T06:57:55Z",
+      "side": 1,
+      "message": "Done. I\u0027m considering making a separate cl to just delete it.",
+      "parentUuid": "81a3e09b_200a823b",
+      "revId": "9e43c0c58f39fcc45c011ed21d84775c9823d47e",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "f92a5708_d7314c55",
@@ -82,6 +118,24 @@
       "writtenOn": "2022-07-04T18:05:44Z",
       "side": 1,
       "message": "Too self-explanatory to be worth a bug?",
+      "revId": "9e43c0c58f39fcc45c011ed21d84775c9823d47e",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "a49bf27f_1579d7ab",
+        "filename": "api/video_codecs/video_encoder.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 103,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2022-07-05T06:57:55Z",
+      "side": 1,
+      "message": "Probably, but now linked to the absl::optional migration bug.",
+      "parentUuid": "f92a5708_d7314c55",
       "revId": "9e43c0c58f39fcc45c011ed21d84775c9823d47e",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }

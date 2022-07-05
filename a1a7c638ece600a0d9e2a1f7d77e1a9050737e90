@@ -22,6 +22,30 @@
       },
       "revId": "a1a7c638ece600a0d9e2a1f7d77e1a9050737e90",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "c75ee30d_0a41c070",
+        "filename": "api/rtp_parameters.h",
+        "patchSetId": 6
+      },
+      "lineNbr": 192,
+      "author": {
+        "id": 9405
+      },
+      "writtenOn": "2022-07-05T20:24:22Z",
+      "side": 1,
+      "message": "With regards to the GetRtpSenderCapabilities API, using strings would use too much memory, so I thought it would be better to expose them using enums.",
+      "parentUuid": "360f0e25_7caf4e50",
+      "range": {
+        "startLine": 192,
+        "startChar": 22,
+        "endLine": 192,
+        "endChar": 37
+      },
+      "revId": "a1a7c638ece600a0d9e2a1f7d77e1a9050737e90",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

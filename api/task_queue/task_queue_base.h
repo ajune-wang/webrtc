@@ -121,14 +121,6 @@ class RTC_LOCKABLE RTC_EXPORT TaskQueueBase {
   virtual void PostDelayedHighPrecisionTask(absl::AnyInvocable<void() &&> task,
                                             TimeDelta delay);
 
-  // Deprecated, use `PostDelayedHighPrecisionTask` variant above in new code.
-  // TODO(bugs.webrtc.org/14245): Delete when all usage is updated to the
-  // function above.
-  virtual void PostDelayedHighPrecisionTask(std::unique_ptr<QueuedTask> task,
-                                            uint32_t milliseconds) {
-    PostDelayedTask(std::move(task), milliseconds);
-  }
-
   // As specified by `precision`, calls either PostDelayedTask() or
   // PostDelayedHighPrecisionTask().
   void PostDelayedTaskWithPrecision(DelayPrecision precision,
@@ -140,22 +132,6 @@ class RTC_LOCKABLE RTC_EXPORT TaskQueueBase {
         break;
       case DelayPrecision::kHigh:
         PostDelayedHighPrecisionTask(std::move(task), delay);
-        break;
-    }
-  }
-
-  // Deprecated, use `PostDelayedTaskWithPrecision` variant above in new code.
-  // TODO(bugs.webrtc.org/14245): Delete when all usage is updated to the
-  // function above.
-  void PostDelayedTaskWithPrecision(DelayPrecision precision,
-                                    std::unique_ptr<QueuedTask> task,
-                                    uint32_t milliseconds) {
-    switch (precision) {
-      case DelayPrecision::kLow:
-        PostDelayedTask(std::move(task), milliseconds);
-        break;
-      case DelayPrecision::kHigh:
-        PostDelayedHighPrecisionTask(std::move(task), milliseconds);
         break;
     }
   }
@@ -177,6 +153,13 @@ class RTC_LOCKABLE RTC_EXPORT TaskQueueBase {
    private:
     TaskQueueBase* const previous_;
   };
+
+  // TODO(bugs.webrtc.org/14245): Delete when all implementaions are updated to
+  // implement the `PostDelayedHighPrecisionTask` function above.
+  virtual void PostDelayedHighPrecisionTask(std::unique_ptr<QueuedTask> task,
+                                            uint32_t milliseconds) {
+    PostDelayedTask(std::move(task), milliseconds);
+  }
 
   // Users of the TaskQueue should call Delete instead of directly deleting
   // this object.

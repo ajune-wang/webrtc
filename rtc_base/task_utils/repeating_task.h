@@ -11,8 +11,6 @@
 #ifndef RTC_BASE_TASK_UTILS_REPEATING_TASK_H_
 #define RTC_BASE_TASK_UTILS_REPEATING_TASK_H_
 
-#include <memory>
-#include <type_traits>
 #include <utility>
 
 #include "absl/functional/any_invocable.h"

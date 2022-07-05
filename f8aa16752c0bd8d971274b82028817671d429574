@@ -68,6 +68,24 @@
       "parentUuid": "cccdd016_a3f0449e",
       "revId": "f8aa16752c0bd8d971274b82028817671d429574",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "c27e2235_61daaaf6",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2022-07-05T09:19:19Z",
+      "side": 1,
+      "message": "Our current thinking is to expose the supported modes behind a different feature flag than the main SVC interface, so that we can postpone the discussion on whether to expose them.\n\nThe suggestion to remove them from the JS API was made not that long ago, so we still have tests and demos that depend on it.",
+      "parentUuid": "ab028c4f_13e17bc0",
+      "revId": "f8aa16752c0bd8d971274b82028817671d429574",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

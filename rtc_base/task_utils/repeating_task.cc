@@ -10,80 +10,69 @@
 
 #include "rtc_base/task_utils/repeating_task.h"
 
+#include <memory>
+
 #include "absl/functional/any_invocable.h"
-#include "absl/memory/memory.h"
 #include "api/task_queue/pending_task_safety_flag.h"
-#include "api/task_queue/to_queued_task.h"
 #include "rtc_base/logging.h"
-#include "rtc_base/time_utils.h"
 
 namespace webrtc {
 namespace {
 
-class RepeatingTask : public QueuedTask {
- public:
+struct RepeatingTask {
   RepeatingTask(TaskQueueBase* task_queue,
                 TaskQueueBase::DelayPrecision precision,
                 TimeDelta first_delay,
                 absl::AnyInvocable<TimeDelta()> task,
                 Clock* clock,
-                rtc::scoped_refptr<PendingTaskSafetyFlag> alive_flag);
-  ~RepeatingTask() override = default;
+                rtc::scoped_refptr<PendingTaskSafetyFlag> alive_flag)
+      : task_queue(task_queue),
+        precision(precision),
+        clock(clock),
+        task(std::move(task)),
+        next_run_time(clock->CurrentTime() + first_delay),
+        alive_flag(std::move(alive_flag)) {}
 
- private:
-  bool Run() final;
-
-  TaskQueueBase* const task_queue_;
-  const TaskQueueBase::DelayPrecision precision_;
-  Clock* const clock_;
-  absl::AnyInvocable<TimeDelta()> task_;
+  TaskQueueBase* const task_queue;
+  const TaskQueueBase::DelayPrecision precision;
+  Clock* const clock;
+  absl::AnyInvocable<TimeDelta()> task;
   // This is always finite.
-  Timestamp next_run_time_ RTC_GUARDED_BY(task_queue_);
-  rtc::scoped_refptr<PendingTaskSafetyFlag> alive_flag_
-      RTC_GUARDED_BY(task_queue_);
+  Timestamp next_run_time RTC_GUARDED_BY(task_queue);
+  rtc::scoped_refptr<PendingTaskSafetyFlag> alive_flag
+      RTC_GUARDED_BY(task_queue);
 };
 
-RepeatingTask::RepeatingTask(
-    TaskQueueBase* task_queue,
-    TaskQueueBase::DelayPrecision precision,
-    TimeDelta first_delay,
-    absl::AnyInvocable<TimeDelta()> task,
-    Clock* clock,
-    rtc::scoped_refptr<PendingTaskSafetyFlag> alive_flag)
-    : task_queue_(task_queue),
-      precision_(precision),
-      clock_(clock),
-      task_(std::move(task)),
-      next_run_time_(clock_->CurrentTime() + first_delay),
-      alive_flag_(std::move(alive_flag)) {}
+absl::AnyInvocable<void() &&> RunLater(std::unique_ptr<RepeatingTask> task);
 
-bool RepeatingTask::Run() {
-  RTC_DCHECK_RUN_ON(task_queue_);
-  // Return true to tell the TaskQueue to destruct this object.
-  if (!alive_flag_->alive())
-    return true;
+void RunNow(std::unique_ptr<RepeatingTask> repeating_task) {
+  RTC_DCHECK_RUN_ON(repeating_task->task_queue);
+  if (!repeating_task->alive_flag->alive())
+    return;
 
   webrtc_repeating_task_impl::RepeatingTaskImplDTraceProbeRun();
-  TimeDelta delay = task_();
+  TimeDelta delay = repeating_task->task();
   RTC_DCHECK_GE(delay, TimeDelta::Zero());
 
   // A delay of +infinity means that the task should not be run again.
-  // Alternatively, the closure might have stopped this task. In either which
-  // case we return true to destruct this object.
-  if (delay.IsPlusInfinity() || !alive_flag_->alive())
-    return true;
+  // Alternatively, the closure might have stopped this task.
+  if (delay.IsPlusInfinity() || !repeating_task->alive_flag->alive())
+    return;
 
-  TimeDelta lost_time = clock_->CurrentTime() - next_run_time_;
-  next_run_time_ += delay;
+  TimeDelta lost_time =
+      repeating_task->clock->CurrentTime() - repeating_task->next_run_time;
+  repeating_task->next_run_time += delay;
   delay -= lost_time;
   delay = std::max(delay, TimeDelta::Zero());
 
-  task_queue_->PostDelayedTaskWithPrecision(precision_, absl::WrapUnique(this),
-                                            delay.ms());
+  TaskQueueBase* task_queue = repeating_task->task_queue;
+  TaskQueueBase::DelayPrecision precision = repeating_task->precision;
+  task_queue->PostDelayedTaskWithPrecision(
+      precision, RunLater(std::move(repeating_task)), delay);
+}
 
-  // Return false to tell the TaskQueue to not destruct this object since we
-  // have taken ownership with absl::WrapUnique.
-  return false;
+absl::AnyInvocable<void() &&> RunLater(std::unique_ptr<RepeatingTask> task) {
+  return [task = std::move(task)]() mutable { RunNow(std::move(task)); };
 }
 
 }  // namespace
@@ -95,9 +84,9 @@ RepeatingTaskHandle RepeatingTaskHandle::Start(
     Clock* clock) {
   auto alive_flag = PendingTaskSafetyFlag::CreateDetached();
   webrtc_repeating_task_impl::RepeatingTaskHandleDTraceProbeStart();
-  task_queue->PostTask(
+  task_queue->PostTask(RunLater(
       std::make_unique<RepeatingTask>(task_queue, precision, TimeDelta::Zero(),
-                                      std::move(closure), clock, alive_flag));
+                                      std::move(closure), clock, alive_flag)));
   return RepeatingTaskHandle(std::move(alive_flag));
 }
 
@@ -113,9 +102,10 @@ RepeatingTaskHandle RepeatingTaskHandle::DelayedStart(
   webrtc_repeating_task_impl::RepeatingTaskHandleDTraceProbeDelayedStart();
   task_queue->PostDelayedTaskWithPrecision(
       precision,
-      std::make_unique<RepeatingTask>(task_queue, precision, first_delay,
-                                      std::move(closure), clock, alive_flag),
-      first_delay.ms());
+      RunLater(std::make_unique<RepeatingTask>(task_queue, precision,
+                                               first_delay, std::move(closure),
+                                               clock, alive_flag)),
+      first_delay);
   return RepeatingTaskHandle(std::move(alive_flag));
 }
 

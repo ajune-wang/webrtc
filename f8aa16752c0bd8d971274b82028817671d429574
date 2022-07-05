@@ -50,6 +50,24 @@
       "message": "After consulting with Florent, approving.\n\nNote: exposing this to JS is still debatable, due to the fingerprinting surface. But that\u0027s not a concern for the C++ interface.",
       "revId": "f8aa16752c0bd8d971274b82028817671d429574",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "ab028c4f_13e17bc0",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 9405
+      },
+      "writtenOn": "2022-07-05T09:01:39Z",
+      "side": 1,
+      "message": "Hmm. I was thinking that I\u0027ll apply this to chromium. Some scalabilitymodes are already exposed to JS. https://source.chromium.org/chromium/chromium/src/+/341b3a4a3077590e24af1cabd80ae79fd7ba195f:third_party/blink/renderer/modules/peerconnection/rtc_rtp_sender.cc;l\u003d776",
+      "parentUuid": "cccdd016_a3f0449e",
+      "revId": "f8aa16752c0bd8d971274b82028817671d429574",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

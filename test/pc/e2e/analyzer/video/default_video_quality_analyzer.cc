@@ -896,9 +896,8 @@ void DefaultVideoQualityAnalyzer::ReportResults(
   double harmonic_framerate_fps = 0;
   TimeDelta video_duration = video_end_time - video_start_time;
   if (sum_squared_interframe_delays_secs > 0.0 && video_duration.IsFinite()) {
-    harmonic_framerate_fps = static_cast<double>(video_duration.us()) /
-                             static_cast<double>(kMicrosPerSecond) /
-                             sum_squared_interframe_delays_secs;
+    harmonic_framerate_fps =
+        video_duration.seconds<double>() / sum_squared_interframe_delays_secs;
   }
 
   ReportResult("psnr", test_case_name, stats.psnr, "dB",

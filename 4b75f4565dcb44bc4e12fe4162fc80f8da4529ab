@@ -16,6 +16,24 @@
       "message": "PTAL. Do you think this is a reasonable way to help transition?",
       "revId": "4b75f4565dcb44bc4e12fe4162fc80f8da4529ab",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "af9e9af7_4d1ad8bf",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5524
+      },
+      "writtenOn": "2022-07-05T12:46:15Z",
+      "side": 1,
+      "message": "I think it could be. As we\u0027re transitioning, maybe we could also change the type from unsigned char to a plain int? The char type bites me from time to time, and doesn\u0027t seem to provide any tangible benefits.",
+      "parentUuid": "d61690e9_9cf568ba",
+      "revId": "4b75f4565dcb44bc4e12fe4162fc80f8da4529ab",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

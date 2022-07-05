@@ -63,6 +63,7 @@ bool UseMaxAnalogChannelLevel() {
   return field_trial::IsEnabled("WebRTC-UseMaxAnalogAgcChannelLevel");
 }
 
+<<<<<<< HEAD   (7e74f2 [merge to M104] pc: make codec comparison for static codecs )
 // If the "WebRTC-Audio-AgcMinMicLevelExperiment" field trial is specified,
 // parses it and returns a value between 0 and 255 depending on the field-trial
 // string. Returns an unspecified value if the field trial is not specified, if
@@ -86,6 +87,26 @@ absl::optional<int> GetMinMicLevelOverride() {
     return absl::nullopt;
   }
 }
+=======
+// Minimum mic level override.
+// `kMinMicLevelOverride`: if specified, the override replaces `kMinMicLevel`
+// and it is applied even when clipping is detected.
+// `EnforceMinMicLevelOverrideOnZeroLevel()`: returns true if the analog
+// controller must enforce the minimum mic level override even when the mic
+// level has manually been set to zero.
+#if defined(WEBRTC_MAC)
+constexpr absl::optional<int> kMinMicLevelOverride = 20;
+bool EnforceMinMicLevelOverrideOnZeroLevel() {
+  return field_trial::IsEnabled(
+      "WebRTC-Audio-AgcAnalogFixZeroMicLevelBugKillSwitch");
+}
+#else
+constexpr absl::optional<int> kMinMicLevelOverride = absl::nullopt;
+constexpr bool EnforceMinMicLevelOverrideOnZeroLevel() {
+  return false;
+}
+#endif
+>>>>>>> CHANGE (e76daa `AgcManagerDirect`: stop enforcing min mic level override wi)
 
 int ClampLevel(int mic_level, int min_mic_level) {
   return rtc::SafeClamp(mic_level, min_mic_level, kMaxMicLevel);
@@ -471,9 +492,16 @@ AgcManagerDirect::AgcManagerDirect(
     float clipped_ratio_threshold,
     int clipped_wait_frames,
     const ClippingPredictorConfig& clipping_config)
+<<<<<<< HEAD   (7e74f2 [merge to M104] pc: make codec comparison for static codecs )
     : min_mic_level_override_(GetMinMicLevelOverride()),
       data_dumper_(
           new ApmDataDumper(rtc::AtomicOps::Increment(&instance_counter_))),
+=======
+    : min_mic_level_override_(kMinMicLevelOverride),
+      enforce_min_mic_level_override_on_zero_level_(
+          EnforceMinMicLevelOverrideOnZeroLevel()),
+      data_dumper_(new ApmDataDumper(instance_counter_.fetch_add(1) + 1)),
+>>>>>>> CHANGE (e76daa `AgcManagerDirect`: stop enforcing min mic level override wi)
       use_min_channel_level_(!UseMaxAnalogChannelLevel()),
       num_capture_channels_(num_capture_channels),
       disable_digital_adaptive_(disable_digital_adaptive),
@@ -724,7 +752,14 @@ void AgcManagerDirect::AggregateChannelLevels() {
       }
     }
   }
+<<<<<<< HEAD   (7e74f2 [merge to M104] pc: make codec comparison for static codecs )
   if (min_mic_level_override_.has_value()) {
+=======
+
+  if (min_mic_level_override_.has_value() &&
+      (enforce_min_mic_level_override_on_zero_level_ ||
+       stream_analog_level_ > 0)) {
+>>>>>>> CHANGE (e76daa `AgcManagerDirect`: stop enforcing min mic level override wi)
     stream_analog_level_ =
         std::max(stream_analog_level_, *min_mic_level_override_);
   }

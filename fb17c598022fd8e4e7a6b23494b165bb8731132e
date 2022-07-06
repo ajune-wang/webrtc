@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "d037c609_0fcb6e8c",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 7755
+      },
+      "writtenOn": "2022-07-06T09:35:09Z",
+      "side": 1,
+      "message": "what nisse said in the bug, the test can be much simpler",
+      "revId": "fb17c598022fd8e4e7a6b23494b165bb8731132e",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

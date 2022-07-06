@@ -16,6 +16,23 @@
       "message": "what nisse said in the bug, the test can be much simpler",
       "revId": "fb17c598022fd8e4e7a6b23494b165bb8731132e",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "b0513a8c_4a224db7",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2022-07-06T10:13:29Z",
+      "side": 1,
+      "message": "Thank you!",
+      "revId": "fb17c598022fd8e4e7a6b23494b165bb8731132e",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

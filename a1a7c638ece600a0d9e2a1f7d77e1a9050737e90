@@ -46,6 +46,53 @@
       },
       "revId": "a1a7c638ece600a0d9e2a1f7d77e1a9050737e90",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "0478cc82_483ceb8d",
+        "filename": "api/rtp_parameters.h",
+        "patchSetId": 6
+      },
+      "lineNbr": 192,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2022-07-06T06:13:40Z",
+      "side": 1,
+      "message": "They could perhaps be string_views, referencing statically allocated data.\n\nI don\u0027t have a very strong opinion on the matter, but if we want to use the enum at this api level, I think that\n\n1. The discouraging comment on the enum definition should be updated.\n\n2. For consistency, use enum also in RtpEncodingParameters below.\n\nHarald previously wanted to keep the enum rather internal, have you changed your mind?",
+      "parentUuid": "c75ee30d_0a41c070",
+      "range": {
+        "startLine": 192,
+        "startChar": 22,
+        "endLine": 192,
+        "endChar": 37
+      },
+      "revId": "a1a7c638ece600a0d9e2a1f7d77e1a9050737e90",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "a2605966_129b6669",
+        "filename": "api/rtp_parameters.h",
+        "patchSetId": 6
+      },
+      "lineNbr": 503,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2022-07-06T06:13:40Z",
+      "side": 1,
+      "message": "In this nearby api struct, we use string representation.",
+      "range": {
+        "startLine": 503,
+        "startChar": 2,
+        "endLine": 503,
+        "endChar": 46
+      },
+      "revId": "a1a7c638ece600a0d9e2a1f7d77e1a9050737e90",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

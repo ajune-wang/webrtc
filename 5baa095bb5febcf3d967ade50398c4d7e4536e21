@@ -1,0 +1,73 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "a7cf2fe4_f4d4977f",
+        "filename": "pc/rtc_stats_collector.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 1307,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2022-07-06T08:02:15Z",
+      "side": 1,
+      "message": "ToQueuedTask should be no longer needed (since yersterday), lambda can be posted directly.\nSee http://bugs.webrtc.org/14245",
+      "range": {
+        "startLine": 1307,
+        "startChar": 32,
+        "endLine": 1307,
+        "endChar": 44
+      },
+      "revId": "5baa095bb5febcf3d967ade50398c4d7e4536e21",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "b3688a85_40fc3711",
+        "filename": "pc/rtc_stats_collector.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 1309,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2022-07-06T08:02:15Z",
+      "side": 1,
+      "message": "https://google.github.io/styleguide/cppguide.html#Lambda_expressions\n\n“Use captures only to actually capture variables from the enclosing scope. Do not use captures with initializers to introduce new names, or to substantially change the meaning of an existing name. Instead, declare a new variable in the conventional way and then capture it, or avoid the lambda shorthand and define a function object explicitly.”\n\ni.e. either\nrtc::scoped_refptr\u003cRTCStatsCollector\u003e self \u003d ...(this);\nrtc::scoped_refptr\u003cconst RTCStatsReport\u003e cached_report \u003d cached_report;\nstd::vector\u003cRequestInfo\u003e requests \u003d std::move(requests_);\n... [self \u003d std::move(self), cached_report \u003d std::move(cached_report, requests \u003d std::move(requests)] ...\n\nor\nkeep DeliverTask class, but do not derive it from the QueuedTask:\n\nclass DeliverTask {\npublic:\n void operator()() \u0026\u0026 { collector_-\u003eDeliver(...); }\nprivate:\n...\n};\n...\nsinglaing_thread_-\u003ePostTask(DeliverTask(this, cached_report_, std::move(requests_));",
+      "range": {
+        "startLine": 1308,
+        "startChar": 10,
+        "endLine": 1309,
+        "endChar": 72
+      },
+      "revId": "5baa095bb5febcf3d967ade50398c4d7e4536e21",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "ea1db6b6_c1e5e5be",
+        "filename": "pc/rtc_stats_collector.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 1311,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2022-07-06T08:02:15Z",
+      "side": 1,
+      "message": "lambdas posted to the TQ return void",
+      "range": {
+        "startLine": 1311,
+        "startChar": 10,
+        "endLine": 1311,
+        "endChar": 22
+      },
+      "revId": "5baa095bb5febcf3d967ade50398c4d7e4536e21",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

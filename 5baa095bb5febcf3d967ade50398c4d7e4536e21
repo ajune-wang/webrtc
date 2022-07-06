@@ -26,6 +26,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "1ff6c61f_7c923bbd",
+        "filename": "pc/rtc_stats_collector.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 1307,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2022-07-06T08:31:37Z",
+      "side": 1,
+      "message": "Nice, that makes this a bit more concise.",
+      "parentUuid": "a7cf2fe4_f4d4977f",
+      "range": {
+        "startLine": 1307,
+        "startChar": 32,
+        "endLine": 1307,
+        "endChar": 44
+      },
+      "revId": "5baa095bb5febcf3d967ade50398c4d7e4536e21",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "b3688a85_40fc3711",
         "filename": "pc/rtc_stats_collector.cc",
         "patchSetId": 1
@@ -49,6 +73,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "daaa9e1a_88d87670",
+        "filename": "pc/rtc_stats_collector.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 1309,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2022-07-06T08:31:37Z",
+      "side": 1,
+      "message": "\u003e https://google.github.io/styleguide/cppguide.html#Lambda_expressions\n\u003e \n\u003e “Use captures only to actually capture variables from the enclosing scope. Do not use captures with initializers to introduce new names, or to substantially change the meaning of an existing name. Instead, declare a new variable in the conventional way and then capture it, or avoid the lambda shorthand and define a function object explicitly.”\n\nI\u0027ve taken out the rtc::scoped_refptr\u003cRTCStatsCollector\u003e to a local variable.\n\nBut as for [foo \u003d foo_], I\u0027d say that capturing a member variable by copying it doesn\u0027t substantially change the meaning of anything. Do you really want a local variable cached_report \u003d cached_report_?\n\nRegarding [foo \u003d std::move(foo_)], I can see that is more questionable. Changed back to local variable + swap.\n\nIt\u0027s also not clear to me if it\u0027s desirable to call DeliverCachedReport if the lambda holds the last reference to the collector. Maybe capturing this + safety flag would be better. But not for this cl, since that would be a rather subtle change in behavior.",
+      "parentUuid": "b3688a85_40fc3711",
+      "range": {
+        "startLine": 1308,
+        "startChar": 10,
+        "endLine": 1309,
+        "endChar": 72
+      },
+      "revId": "5baa095bb5febcf3d967ade50398c4d7e4536e21",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "ea1db6b6_c1e5e5be",
         "filename": "pc/rtc_stats_collector.cc",
         "patchSetId": 1
@@ -60,6 +108,30 @@
       "writtenOn": "2022-07-06T08:02:15Z",
       "side": 1,
       "message": "lambdas posted to the TQ return void",
+      "range": {
+        "startLine": 1311,
+        "startChar": 10,
+        "endLine": 1311,
+        "endChar": 22
+      },
+      "revId": "5baa095bb5febcf3d967ade50398c4d7e4536e21",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "4053cdc2_5e47ed58",
+        "filename": "pc/rtc_stats_collector.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 1311,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2022-07-06T08:31:37Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "ea1db6b6_c1e5e5be",
       "range": {
         "startLine": 1311,
         "startChar": 10,

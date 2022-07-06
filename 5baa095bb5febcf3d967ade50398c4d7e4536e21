@@ -119,6 +119,30 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "166ef5f0_e1078af6",
+        "filename": "pc/rtc_stats_collector.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 1309,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2022-07-06T08:51:55Z",
+      "side": 1,
+      "message": "capturing member by copy or by move doesn\u0027t substantially change the meaning. That I agree, I was mostly refereing to the part \"Do not use captures with initializers to introduce new names\"\n\nI would say [..., name \u003d name_, ...] is a corner case,\nsame as [..., name \u003d std::move(name_), ....]\n\nPersonally I treat that it still introduces a new name (\"name\" !\u003d \"name_\"), and try to avoid such construct.\n\nSpecially when capture includes \u0027this\u0027 at the same time as that might lead to subtle bug:\n```\nPostTask([this, member \u003d member_] {\n  if (member_-\u003ealive()) { this-\u003eCallSomething(); }\n});\n```\n\nIt seems safer (though confusing) to keep the original name in that case:\n```\nPostTask([this, member_ \u003d member_] {\n  if (member_-\u003ealive()) { this-\u003eCallSomething(); }\n});\n```\n\n\nSo here is another suggestion:\n```\nrtc::scoped_refptr\u003cRTCStatsCollector\u003e collector(this);\nsignaling_thread_-\u003ePostTask([collector \u003d std::move(collector),\n                             cached_report_ \u003d cached_report_,\n                             requests_ \u003d std::move(requests_)]() mutable {\n  collector-\u003eDeliverCachedReport(cached_report_, std::move(requests_));\n});\n```",
+      "parentUuid": "daaa9e1a_88d87670",
+      "range": {
+        "startLine": 1308,
+        "startChar": 10,
+        "endLine": 1309,
+        "endChar": 72
+      },
+      "revId": "5baa095bb5febcf3d967ade50398c4d7e4536e21",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "ea1db6b6_c1e5e5be",

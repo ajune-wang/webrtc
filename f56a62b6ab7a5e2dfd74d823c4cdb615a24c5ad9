@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "373c4e66_6b1ae07c",
+        "filename": "pc/rtc_stats_collector.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 1312,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2022-07-06T08:51:55Z",
+      "side": 1,
+      "message": "mark lambda as mutable:\n]() mutable {\n\notherwise `requests` capture is const and thus moving it has no effect - that vector will be copied.",
+      "range": {
+        "startLine": 1312,
+        "startChar": 63,
+        "endLine": 1312,
+        "endChar": 66
+      },
+      "revId": "f56a62b6ab7a5e2dfd74d823c4cdb615a24c5ad9",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

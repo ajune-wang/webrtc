@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "1b3da972_896e2913",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 3
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2022-07-06T07:37:46Z",
+      "side": 1,
+      "message": "MAC failures seem like infra fails. Submitting with no-presubmit.\n",
+      "revId": "bac74c9172021e40dc7002945f6b364f4e9309ce",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

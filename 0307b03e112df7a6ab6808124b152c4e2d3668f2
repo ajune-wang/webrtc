@@ -39,6 +39,30 @@
       },
       "revId": "0307b03e112df7a6ab6808124b152c4e2d3668f2",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "71e26e6b_c388de0c",
+        "filename": "call/rtp_stream_receiver_controller.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 25,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2022-07-06T08:37:31Z",
+      "side": 1,
+      "message": "For flexfec to work it needs to see both regular media packets and flexfec specific packets.\nI\u0027m unsure how it is currently implemented.\nlog messages suggest there is a problem, though it might be a test-only problem",
+      "parentUuid": "5c35dffc_52c022c8",
+      "range": {
+        "startLine": 25,
+        "startChar": 0,
+        "endLine": 25,
+        "endChar": 20
+      },
+      "revId": "0307b03e112df7a6ab6808124b152c4e2d3668f2",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

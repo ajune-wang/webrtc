@@ -1,0 +1,44 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "aa74ad16_e4ae636e",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2022-07-06T08:08:32Z",
+      "side": 1,
+      "message": "PTAL. Are flexfec logs normal, or a sign of a bug?",
+      "revId": "0307b03e112df7a6ab6808124b152c4e2d3668f2",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "5c35dffc_52c022c8",
+        "filename": "call/rtp_stream_receiver_controller.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 25,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2022-07-06T08:08:32Z",
+      "side": 1,
+      "message": "When trying out a test run with a DCHECK for below RemoveSink, I noted these log messages from flexfec:\n\n[ RUN      ] FlexfecReceiveStreamTest.RecoversPacket\n(flexfec_receive_stream_impl.cc:145): FlexfecReceiveStreamImpl: {payload_type: 118, remote_ssrc: 1, local_ssrc: 0, protected_media_ssrcs: [2], transport_cc: off, rtp.extensions: []}\n(flexfec_receive_stream_impl.cc:145): FlexfecReceiveStreamImpl: {payload_type: 118, remote_ssrc: 1, local_ssrc: 0, protected_media_ssrcs: [2], transport_cc: off, rtp.extensions: []}\n(rtp_demuxer.cc:210): {mid: \u003cempty\u003e, rsid: \u003cempty\u003e, ssrcs: [1, ], payload_types \u003d []} would conflict with existing sink \u003d 93de2340 binding by SSRC\u003d1\n(rtp_demuxer.cc:135): Unable to add sink\u003daacf460 due to conflicting criteria {mid: \u003cempty\u003e, rsid: \u003cempty\u003e, ssrcs: [1, ], payload_types \u003d []}\n(rtp_stream_receiver_controller.cc:26): RtpStreamReceiverController::Receiver::Receiver: Sink could not be added for SSRC\u003d1.\n\nDoes that mean that test configuration is wrong? Looks like FlexfecReceiveStreamImpl is instantiated twice, with same ssrc.",
+      "range": {
+        "startLine": 25,
+        "startChar": 0,
+        "endLine": 25,
+        "endChar": 20
+      },
+      "revId": "0307b03e112df7a6ab6808124b152c4e2d3668f2",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

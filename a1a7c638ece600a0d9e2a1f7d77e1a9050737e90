@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "c66f79cb_b80d7bc5",
+        "filename": "test/pc/e2e/analyzer/video/default_video_quality_analyzer.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 900,
+      "author": {
+        "id": 6337
+      },
+      "writtenOn": "2022-07-06T11:02:10Z",
+      "side": 0,
+      "message": "Should we also remove this const?",
+      "range": {
+        "startLine": 900,
+        "startChar": 49,
+        "endLine": 900,
+        "endChar": 65
+      },
+      "revId": "a1a7c638ece600a0d9e2a1f7d77e1a9050737e90",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

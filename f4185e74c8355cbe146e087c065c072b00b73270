@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "4f6fcc2f_58f84ea4",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 8
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5150
+      },
+      "writtenOn": "2022-07-06T07:21:12Z",
+      "side": 1,
+      "message": "LGTM. I\u0027ve tested 3 different logs and the analyzer output has the same md5 sum before and after the CL. I haven\u0027t tested audio network adaptation (because it needs to be enabled separately and none of the logs contain it), but those graphs don\u0027t use the wav file anyway.",
+      "revId": "f4185e74c8355cbe146e087c065c072b00b73270",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

@@ -602,6 +602,7 @@ rtc_library("rtc_task_queue") {
     ":macromagic",
     "../api/task_queue",
     "../api/task_queue:to_queued_task",
+    "../api/units:time_delta",
     "system:rtc_export",
   ]
   absl_deps = [

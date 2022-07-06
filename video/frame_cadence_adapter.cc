@@ -378,12 +378,12 @@ void ZeroHertzAdapterMode::OnFrame(Timestamp post_time,
   current_frame_id_++;
   scheduled_repeat_ = absl::nullopt;
   queue_->PostDelayedHighPrecisionTask(
-      ToQueuedTask(safety_,
-                   [this] {
-                     RTC_DCHECK_RUN_ON(&sequence_checker_);
-                     ProcessOnDelayedCadence();
-                   }),
-      frame_delay_.ms());
+      SafeTask(safety_.flag(),
+               [this] {
+                 RTC_DCHECK_RUN_ON(&sequence_checker_);
+                 ProcessOnDelayedCadence();
+               }),
+      frame_delay_);
 }
 
 void ZeroHertzAdapterMode::OnDiscardedFrame() {
@@ -500,12 +500,12 @@ void ZeroHertzAdapterMode::ScheduleRepeat(int frame_id, bool idle_repeat) {
 
   TimeDelta repeat_delay = RepeatDuration(idle_repeat);
   queue_->PostDelayedHighPrecisionTask(
-      ToQueuedTask(safety_,
-                   [this, frame_id] {
-                     RTC_DCHECK_RUN_ON(&sequence_checker_);
-                     ProcessRepeatedFrameOnDelayedCadence(frame_id);
-                   }),
-      repeat_delay.ms());
+      SafeTask(safety_.flag(),
+               [this, frame_id] {
+                 RTC_DCHECK_RUN_ON(&sequence_checker_);
+                 ProcessRepeatedFrameOnDelayedCadence(frame_id);
+               }),
+      repeat_delay);
 }
 
 // RTC_RUN_ON(&sequence_checker_)

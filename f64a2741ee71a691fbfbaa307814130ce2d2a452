@@ -16,6 +16,24 @@
       "message": "being naive .... is there a good reason for Thread to continue overriding these interfaces rather than using the base class implementation?\n\nIf we want to continue the migration of Thread -\u003e TaskQueue, reducing the amount of stuff Thread layers on top of TaskQueue seems like a Good Thing.\n\n\n",
       "revId": "f64a2741ee71a691fbfbaa307814130ce2d2a452",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "a065afe5_a4378495",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 3
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2022-07-07T07:43:18Z",
+      "side": 1,
+      "message": "because old and new functions are named the same, removing old functions would disallow code that uses Thread directly to call those old function, even though they are defined in the base interface.\nThus for now (hopefully not for long) both need to be present.",
+      "parentUuid": "9976a528_49f3fa94",
+      "revId": "f64a2741ee71a691fbfbaa307814130ce2d2a452",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ],
   "submitRequirementResults": [

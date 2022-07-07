@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "9976a528_49f3fa94",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 3
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2022-07-07T07:37:11Z",
+      "side": 1,
+      "message": "being naive .... is there a good reason for Thread to continue overriding these interfaces rather than using the base class implementation?\n\nIf we want to continue the migration of Thread -\u003e TaskQueue, reducing the amount of stuff Thread layers on top of TaskQueue seems like a Good Thing.\n\n\n",
+      "revId": "f64a2741ee71a691fbfbaa307814130ce2d2a452",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

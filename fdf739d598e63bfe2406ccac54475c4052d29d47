@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "28c1b883_cf8aa48a",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 4
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2022-07-07T13:23:20Z",
+      "side": 1,
+      "message": "If I read https://stackoverflow.com/questions/8816794/overloading-a-virtual-function-in-a-child-class rightly, the lack of implementation of the Write(string) function in the subclasses means that anyone with a pointer to the subclass won\u0027t see the std::string version at all. Perhaps it\u0027s not needed?\n\nI see that absl::string_view() seems to have a non-explicit constructor with a std::string argument, so perhaps we can simply delete the string version of Write()?",
+      "revId": "fdf739d598e63bfe2406ccac54475c4052d29d47",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

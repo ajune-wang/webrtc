@@ -10,6 +10,7 @@
 
 #include "video/rtp_video_stream_receiver_frame_transformer_delegate.h"
 
+#include <string>
 #include <utility>
 #include <vector>
 
@@ -46,6 +47,31 @@ class TransformableVideoReceiverFrame
 
   bool IsKeyFrame() const override {
     return frame_->FrameType() == VideoFrameType::kVideoFrameKey;
+  }
+
+  std::string GetCodecMimeType() const override {
+    std::string mime_type = "video/";
+    switch (frame_->codec_type()) {
+      case kVideoCodecGeneric:
+        mime_type += "generic";
+        break;
+      case kVideoCodecVP8:
+        mime_type += "VP8";
+        break;
+      case kVideoCodecVP9:
+        mime_type += "VP9";
+        break;
+      case kVideoCodecH264:
+        mime_type += "H264";
+        break;
+      case kVideoCodecAV1:
+        mime_type += "AV1";
+        break;
+      case kVideoCodecMultiplex:
+        mime_type += "Multiplex";
+        break;
+    }
+    return mime_type;
   }
 
   std::vector<uint8_t> GetAdditionalData() const override {

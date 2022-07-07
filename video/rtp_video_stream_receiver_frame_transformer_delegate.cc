@@ -10,6 +10,7 @@
 
 #include "video/rtp_video_stream_receiver_frame_transformer_delegate.h"
 
+#include <string>
 #include <utility>
 #include <vector>
 
@@ -47,6 +48,8 @@ class TransformableVideoReceiverFrame
   bool IsKeyFrame() const override {
     return frame_->FrameType() == VideoFrameType::kVideoFrameKey;
   }
+
+  std::string GetCodecMimeType() const override { return "video/unknown"; }
 
   std::vector<uint8_t> GetAdditionalData() const override {
     return RtpDescriptorAuthentication(frame_->GetRtpVideoHeader());

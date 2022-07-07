@@ -10,6 +10,7 @@
 
 #include "modules/rtp_rtcp/source/rtp_sender_video_frame_transformer_delegate.h"
 
+#include <string>
 #include <utility>
 #include <vector>
 
@@ -58,6 +59,33 @@ class TransformableVideoSenderFrame : public TransformableVideoFrameInterface {
 
   uint32_t GetTimestamp() const override { return timestamp_; }
   uint32_t GetSsrc() const override { return ssrc_; }
+  std::string GetCodecMimeType() const override {
+    std::string mime_type = "video/";
+    if (!codec_type_.has_value()) {
+      return mime_type + "unknown (send)";
+    }
+    switch (*codec_type_) {
+      case kVideoCodecGeneric:
+        mime_type += "generic";
+        break;
+      case kVideoCodecVP8:
+        mime_type += "VP8";
+        break;
+      case kVideoCodecVP9:
+        mime_type += "VP9";
+        break;
+      case kVideoCodecH264:
+        mime_type += "H264";
+        break;
+      case kVideoCodecAV1:
+        mime_type += "AV1";
+        break;
+      case kVideoCodecMultiplex:
+        mime_type += "Multiplex";
+        break;
+    }
+    return mime_type;
+  }
 
   bool IsKeyFrame() const override {
     return frame_type_ == VideoFrameType::kVideoFrameKey;

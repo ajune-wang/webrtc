@@ -10,6 +10,7 @@
 
 #include "audio/channel_send_frame_transformer_delegate.h"
 
+#include <string>
 #include <utility>
 
 namespace webrtc {
@@ -49,6 +50,7 @@ class TransformableOutgoingAudioFrame : public TransformableFrameInterface {
     return absolute_capture_timestamp_ms_;
   }
   Direction GetDirection() const override { return Direction::kSender; }
+  std::string GetMimeType() const override { return "audio/unknown"; }
 
  private:
   AudioFrameType frame_type_;

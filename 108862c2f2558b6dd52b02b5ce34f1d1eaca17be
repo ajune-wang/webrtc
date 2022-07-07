@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "59b2aa2b_9afdf656",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 11717
+      },
+      "writtenOn": "2022-07-07T18:43:16Z",
+      "side": 1,
+      "message": "I don\u0027t have access to dry-run and can\u0027t commit.",
+      "revId": "108862c2f2558b6dd52b02b5ce34f1d1eaca17be",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

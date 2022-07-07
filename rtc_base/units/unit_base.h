@@ -276,7 +276,7 @@ class RelativeUnit : public UnitBase<Unit_T> {
   constexpr Unit_T operator/(T scalar) const {
     return UnitBase<Unit_T>::FromValue(this->ToValue() / scalar);
   }
-  Unit_T operator*(double scalar) const {
+  constexpr Unit_T operator*(double scalar) const {
     return UnitBase<Unit_T>::FromValue(std::llround(this->ToValue() * scalar));
   }
   constexpr Unit_T operator*(int64_t scalar) const {

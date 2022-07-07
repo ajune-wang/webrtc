@@ -47,7 +47,7 @@ int32_t WebRtcVad_GaussianProbability(int16_t input,
   // inv_std2 = (int16_t)((inv_std * inv_std) >> 6);
   // gives better accuracy.
 
-  tmp16 = (input << 3);  // Q4 -> Q7
+  tmp16 = (input * (1 << 3));  // Q4 -> Q7
   tmp16 = tmp16 - mean;  // Q7 - Q7 = Q7
 
   // To be used later, when updating noise/speech model.

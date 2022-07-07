@@ -1,0 +1,44 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "b680cf29_af8e14c7",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5119
+      },
+      "writtenOn": "2022-07-07T16:07:37Z",
+      "side": 1,
+      "message": "Nice!\n\nNot obligatory, but curious: Were you able to repro locally and verify that the fix works?",
+      "revId": "f160530c142109835e32cd7674249209eaa5f145",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "89fc0f5b_c5e389c1",
+        "filename": "common_audio/vad/vad_filterbank.c",
+        "patchSetId": 2
+      },
+      "lineNbr": 100,
+      "author": {
+        "id": 5119
+      },
+      "writtenOn": "2022-07-07T16:07:37Z",
+      "side": 1,
+      "message": "I didn\u0027t follow along 100% in the chat discussion - the problem was that we overflow here, right? If we fix this by extending the rate (32 -\u003e 64 bit), won\u0027t we instead overflow when we downshift and cast to `int16_t` on line 104?",
+      "range": {
+        "startLine": 100,
+        "startChar": 4,
+        "endLine": 100,
+        "endChar": 25
+      },
+      "revId": "f160530c142109835e32cd7674249209eaa5f145",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

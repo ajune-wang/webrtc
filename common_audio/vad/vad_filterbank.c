@@ -89,19 +89,19 @@ static void AllPassFilter(const int16_t* data_in, size_t data_length,
 
   size_t i;
   int16_t tmp16 = 0;
-  int32_t tmp32 = 0;
-  int32_t state32 = ((int32_t) (*filter_state) * (1 << 16));  // Q15
+  int64_t tmp64 = 0;
+  int64_t state64 = ((int64_t) (*filter_state) * (1 << 16));  // Q15
 
   for (i = 0; i < data_length; i++) {
-    tmp32 = state32 + filter_coefficient * *data_in;
-    tmp16 = (int16_t) (tmp32 >> 16);  // Q(-1)
+    tmp64 = state64 + filter_coefficient * *data_in;
+    tmp16 = (int16_t) (tmp64 >> 16);  // Q(-1)
     *data_out++ = tmp16;
-    state32 = (*data_in * (1 << 14)) - filter_coefficient * tmp16;  // Q14
-    state32 *= 2;  // Q15.
+    state64 = (*data_in * (1 << 14)) - filter_coefficient * tmp16;  // Q14
+    state64 *= 2;  // Q15
     data_in += 2;
   }
 
-  *filter_state = (int16_t) (state32 >> 16);  // Q(-1)
+  *filter_state = (int16_t) (state64 >> 16);  // Q(-1)
 }
 
 // Splits `data_in` into `hp_data_out` and `lp_data_out` corresponding to

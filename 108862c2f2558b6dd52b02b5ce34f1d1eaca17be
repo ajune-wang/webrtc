@@ -67,6 +67,42 @@
       "message": "as I can see, cricket::Interpolate is not used to initialize any constexpr constants, so may be it is simpler to remove constexpr from `cricket::Interpolate` instead.",
       "revId": "108862c2f2558b6dd52b02b5ce34f1d1eaca17be",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "aec4558e_d0b763a1",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 11717
+      },
+      "writtenOn": "2022-07-08T08:49:31Z",
+      "side": 1,
+      "message": "std::llround is __builtin_llround in libstdc++ and that is constexpr. I also had in mind to change constexpr to const for cricket::Interpolate.",
+      "parentUuid": "b0c4fa19_45d52879",
+      "revId": "108862c2f2558b6dd52b02b5ce34f1d1eaca17be",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "e8b5ed3b_ec9babf7",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 11717
+      },
+      "writtenOn": "2022-07-08T08:49:31Z",
+      "side": 1,
+      "message": "Working on it now.",
+      "parentUuid": "ee709241_df1931f6",
+      "revId": "108862c2f2558b6dd52b02b5ce34f1d1eaca17be",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

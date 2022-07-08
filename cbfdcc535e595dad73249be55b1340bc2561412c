@@ -22,6 +22,30 @@
       },
       "revId": "cbfdcc535e595dad73249be55b1340bc2561412c",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "781d13e1_7c839bca",
+        "filename": "test/time_controller/simulated_task_queue.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 58,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2022-07-08T11:38:28Z",
+      "side": 0,
+      "message": "no, absl::AnyInvocable\u003cvoid() \u0026\u0026\u003e can run only once and is always deleted once run.\ntasks that repost themself would create a new absl::AnyInvocable\u003cvoid() \u0026\u0026\u003e on each iteration.\n\nI\u0027m deleting `ready` explicitly just to delete it before `lock_` is retaken.\n\n(side note: keeping tasks alive posted as unique_ptr\u003cQueuedTask\u003e is handled by wrapper in\nhttps://source.chromium.org/chromium/chromium/src/+/main:third_party/webrtc/api/task_queue/task_queue_base.cc;l\u003d116;drc\u003d8feb6fd1e9b11122d5b8530dd8184b3668bea011 )",
+      "parentUuid": "88eb3047_91bfad48",
+      "range": {
+        "startLine": 58,
+        "startChar": 4,
+        "endLine": 58,
+        "endChar": 36
+      },
+      "revId": "cbfdcc535e595dad73249be55b1340bc2561412c",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

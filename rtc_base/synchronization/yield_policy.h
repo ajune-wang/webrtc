@@ -29,6 +29,9 @@ class ScopedYieldPolicy final {
   // (which by default is a no-op).
   static void YieldExecution();
 
+  // Exposed in case yielding to the previous policy is desired.
+  YieldInterface* previous_policy() const { return previous_; }
+
  private:
   YieldInterface* const previous_;
 };

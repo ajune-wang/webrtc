@@ -284,7 +284,7 @@ class VideoStreamEncoder : public VideoStreamEncoderInterface,
   VideoEncoderConfig encoder_config_ RTC_GUARDED_BY(&encoder_queue_);
   std::unique_ptr<VideoEncoder> encoder_ RTC_GUARDED_BY(&encoder_queue_)
       RTC_PT_GUARDED_BY(&encoder_queue_);
-  bool encoder_initialized_;
+  bool encoder_initialized_ RTC_GUARDED_BY(&encoder_queue_);
   std::unique_ptr<VideoBitrateAllocator> rate_allocator_
       RTC_GUARDED_BY(&encoder_queue_) RTC_PT_GUARDED_BY(&encoder_queue_);
   int max_framerate_ RTC_GUARDED_BY(&encoder_queue_);
@@ -447,6 +447,7 @@ class VideoStreamEncoder : public VideoStreamEncoderInterface,
 
   // Enables encoder switching on initialization failures.
   bool switch_encoder_on_init_failures_;
+  bool stopped_ RTC_GUARDED_BY(worker_queue_) = false;
 
   const absl::optional<int> vp9_low_tier_core_threshold_;
 

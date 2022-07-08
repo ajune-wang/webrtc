@@ -33,6 +33,23 @@
       "message": "LGTM, but given that this was explicitly not added by Danil, let him take a look first.",
       "revId": "108862c2f2558b6dd52b02b5ce34f1d1eaca17be",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "b0c4fa19_45d52879",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2022-07-08T08:39:15Z",
+      "side": 1,
+      "message": "std::llround is not constexpr until c++23, so marking operator* as constexpr likely is not enough to make it constexpr\n\nHow did you verify it works?",
+      "revId": "108862c2f2558b6dd52b02b5ce34f1d1eaca17be",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

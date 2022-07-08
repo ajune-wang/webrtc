@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "88eb3047_91bfad48",
+        "filename": "test/time_controller/simulated_task_queue.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 58,
+      "author": {
+        "id": 6337
+      },
+      "writtenOn": "2022-07-08T11:02:20Z",
+      "side": 0,
+      "message": "Can it be that for some tasks deleting them may lead to an issue?",
+      "range": {
+        "startLine": 58,
+        "startChar": 4,
+        "endLine": 58,
+        "endChar": 36
+      },
+      "revId": "cbfdcc535e595dad73249be55b1340bc2561412c",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

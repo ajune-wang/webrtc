@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "72f4fe34_e19e4c82",
+        "filename": "test/pc/e2e/test_activities_executor.h",
+        "patchSetId": 5
+      },
+      "lineNbr": 37,
+      "author": {
+        "id": 6337
+      },
+      "writtenOn": "2022-07-08T11:02:20Z",
+      "side": 1,
+      "message": "I think this method can be just removed in such case",
+      "range": {
+        "startLine": 37,
+        "startChar": 2,
+        "endLine": 37,
+        "endChar": 42
+      },
+      "revId": "248d75da47616a9f445f74e0f7b8592ef335b9f1",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

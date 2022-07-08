@@ -10,6 +10,7 @@
 
 #include "audio/channel_send_frame_transformer_delegate.h"
 
+#include <string>
 #include <utility>
 
 namespace webrtc {
@@ -19,6 +20,7 @@ class TransformableOutgoingAudioFrame : public TransformableFrameInterface {
  public:
   TransformableOutgoingAudioFrame(AudioFrameType frame_type,
                                   uint8_t payload_type,
+                                  AudioEncoder::CodecType codec_type,
                                   uint32_t rtp_timestamp,
                                   uint32_t rtp_start_timestamp,
                                   const uint8_t* payload_data,
@@ -31,7 +33,8 @@ class TransformableOutgoingAudioFrame : public TransformableFrameInterface {
         rtp_start_timestamp_(rtp_start_timestamp),
         payload_(payload_data, payload_size),
         absolute_capture_timestamp_ms_(absolute_capture_timestamp_ms),
-        ssrc_(ssrc) {}
+        ssrc_(ssrc),
+        codec_type_(codec_type) {}
   ~TransformableOutgoingAudioFrame() override = default;
   rtc::ArrayView<const uint8_t> GetData() const override { return payload_; }
   void SetData(rtc::ArrayView<const uint8_t> data) override {
@@ -49,6 +52,36 @@ class TransformableOutgoingAudioFrame : public TransformableFrameInterface {
     return absolute_capture_timestamp_ms_;
   }
   Direction GetDirection() const override { return Direction::kSender; }
+  std::string GetMimeType() const override {
+    std::string mime_type = "audio/";
+    switch (codec_type_) {
+      case AudioEncoder::CodecType::kOther:
+        mime_type += "other";
+        break;
+      case AudioEncoder::CodecType::kOpus:
+        mime_type += "opus";
+        break;
+      case AudioEncoder::CodecType::kIsac:
+        mime_type += "isac";
+        break;
+      case AudioEncoder::CodecType::kPcmA:
+        mime_type += "PCMA";
+        break;
+      case AudioEncoder::CodecType::kPcmU:
+        mime_type += "PCMU";
+        break;
+      case AudioEncoder::CodecType::kG722:
+        mime_type += "G722";
+        break;
+      case AudioEncoder::CodecType::kIlbc:
+        mime_type += "ilbc";
+        break;
+      default:
+        mime_type += "unknown";
+        break;
+    }
+    return mime_type;
+  }
 
  private:
   AudioFrameType frame_type_;
@@ -58,6 +91,7 @@ class TransformableOutgoingAudioFrame : public TransformableFrameInterface {
   rtc::Buffer payload_;
   int64_t absolute_capture_timestamp_ms_;
   uint32_t ssrc_;
+  AudioEncoder::CodecType codec_type_;
 };
 }  // namespace
 
@@ -85,6 +119,7 @@ void ChannelSendFrameTransformerDelegate::Reset() {
 void ChannelSendFrameTransformerDelegate::Transform(
     AudioFrameType frame_type,
     uint8_t payload_type,
+    AudioEncoder::CodecType codec_type,
     uint32_t rtp_timestamp,
     uint32_t rtp_start_timestamp,
     const uint8_t* payload_data,
@@ -93,8 +128,9 @@ void ChannelSendFrameTransformerDelegate::Transform(
     uint32_t ssrc) {
   frame_transformer_->Transform(
       std::make_unique<TransformableOutgoingAudioFrame>(
-          frame_type, payload_type, rtp_timestamp, rtp_start_timestamp,
-          payload_data, payload_size, absolute_capture_timestamp_ms, ssrc));
+          frame_type, payload_type, codec_type, rtp_timestamp,
+          rtp_start_timestamp, payload_data, payload_size,
+          absolute_capture_timestamp_ms, ssrc));
 }
 
 void ChannelSendFrameTransformerDelegate::OnTransformedFrame(

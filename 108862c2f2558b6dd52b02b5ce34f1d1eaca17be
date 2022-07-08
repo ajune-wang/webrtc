@@ -50,6 +50,23 @@
       "message": "std::llround is not constexpr until c++23, so marking operator* as constexpr likely is not enough to make it constexpr\n\nHow did you verify it works?",
       "revId": "108862c2f2558b6dd52b02b5ce34f1d1eaca17be",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "ee709241_df1931f6",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2022-07-08T08:43:43Z",
+      "side": 1,
+      "message": "as I can see, cricket::Interpolate is not used to initialize any constexpr constants, so may be it is simpler to remove constexpr from `cricket::Interpolate` instead.",
+      "revId": "108862c2f2558b6dd52b02b5ce34f1d1eaca17be",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

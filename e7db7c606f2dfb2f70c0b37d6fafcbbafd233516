@@ -16,6 +16,23 @@
       "message": "Ping :)",
       "revId": "e7db7c606f2dfb2f70c0b37d6fafcbbafd233516",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "63d883e2_2cd11ccf",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5117
+      },
+      "writtenOn": "2022-07-08T11:52:06Z",
+      "side": 1,
+      "message": "Sorry about the delay. I thought I did press LGTM, but something went wrong somewhere.",
+      "revId": "e7db7c606f2dfb2f70c0b37d6fafcbbafd233516",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

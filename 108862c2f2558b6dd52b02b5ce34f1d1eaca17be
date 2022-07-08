@@ -103,6 +103,47 @@
       "parentUuid": "ee709241_df1931f6",
       "revId": "108862c2f2558b6dd52b02b5ce34f1d1eaca17be",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "6b308e25_72b5ff61",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2022-07-08T08:54:42Z",
+      "side": 1,
+      "message": "If it is constexpr in some compilers, I do not see much harm in marking it constexpr in UnitBase\n\nThe only harm I see that it might be confusing: it won\u0027t be allowed to create constexpr variables using operator* because with some std libraries std::llround and thus operator* won\u0027t be constexpr",
+      "parentUuid": "aec4558e_d0b763a1",
+      "revId": "108862c2f2558b6dd52b02b5ce34f1d1eaca17be",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "9bff30f6_9edf7272",
+        "filename": "rtc_base/units/unit_base.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 271,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2022-07-08T08:54:42Z",
+      "side": 1,
+      "message": "may be mark operator/(double) constexpr too, for consistency.",
+      "range": {
+        "startLine": 271,
+        "startChar": 9,
+        "endLine": 271,
+        "endChar": 18
+      },
+      "revId": "108862c2f2558b6dd52b02b5ce34f1d1eaca17be",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

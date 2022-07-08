@@ -96,7 +96,7 @@ void AecDumpImpl::WriteInitMessage(const ProcessingConfig& api_format,
       api_format.reverse_output_stream().num_channels());
   msg->set_timestamp_ms(time_now_ms);
 
-  worker_queue_->PostTask(std::move(task));
+  worker_queue_->PostTask([task = std::move(task)] { task->Run(); });
 }
 
 void AecDumpImpl::AddCaptureStreamInput(
@@ -128,7 +128,7 @@ void AecDumpImpl::AddAudioProcessingState(const AudioProcessingState& state) {
 void AecDumpImpl::WriteCaptureStreamMessage() {
   auto task = capture_stream_info_.GetTask();
   RTC_DCHECK(task);
-  worker_queue_->PostTask(std::move(task));
+  worker_queue_->PostTask([task = std::move(task)] { task->Run(); });
   capture_stream_info_.SetTask(CreateWriteToFileTask());
 }
 
@@ -143,7 +143,7 @@ void AecDumpImpl::WriteRenderStreamMessage(const int16_t* const data,
   const size_t data_size = sizeof(int16_t) * samples_per_channel * num_channels;
   msg->set_data(data, data_size);
 
-  worker_queue_->PostTask(std::move(task));
+  worker_queue_->PostTask([task = std::move(task)] { task->Run(); });
 }
 
 void AecDumpImpl::WriteRenderStreamMessage(
@@ -160,7 +160,7 @@ void AecDumpImpl::WriteRenderStreamMessage(
     msg->add_channel(channel_view.begin(), sizeof(float) * channel_view.size());
   }
 
-  worker_queue_->PostTask(std::move(task));
+  worker_queue_->PostTask([task = std::move(task)] { task->Run(); });
 }
 
 void AecDumpImpl::WriteConfig(const InternalAPMConfig& config) {
@@ -169,7 +169,7 @@ void AecDumpImpl::WriteConfig(const InternalAPMConfig& config) {
   auto* event = task->GetEvent();
   event->set_type(audioproc::Event::CONFIG);
   CopyFromConfigToEvent(config, event->mutable_config());
-  worker_queue_->PostTask(std::move(task));
+  worker_queue_->PostTask([task = std::move(task)] { task->Run(); });
 }
 
 void AecDumpImpl::WriteRuntimeSetting(
@@ -233,7 +233,7 @@ void AecDumpImpl::WriteRuntimeSetting(
       RTC_DCHECK_NOTREACHED();
       break;
   }
-  worker_queue_->PostTask(std::move(task));
+  worker_queue_->PostTask([task = std::move(task)] { task->Run(); });
 }
 
 std::unique_ptr<WriteToFileTask> AecDumpImpl::CreateWriteToFileTask() {

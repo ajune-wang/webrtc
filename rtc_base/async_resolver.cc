@@ -34,7 +34,6 @@
 #endif  // defined(WEBRTC_POSIX) && !defined(__native_client__)
 
 #include "api/task_queue/task_queue_base.h"
-#include "api/task_queue/to_queued_task.h"
 #include "rtc_base/ip_address.h"
 #include "rtc_base/logging.h"
 #include "rtc_base/platform_thread.h"
@@ -51,17 +50,18 @@ namespace rtc {
 namespace {
 
 void GlobalGcdRunTask(void* context) {
-  std::unique_ptr<webrtc::QueuedTask> task(
-      static_cast<webrtc::QueuedTask*>(context));
-  task->Run();
+  auto* c = static_cast<absl::AnyInvocable<void() &&>*>(context);
+  std::move (*c)();
+  delete c;
 }
 
 // Post a task into the system-defined global concurrent queue.
-void PostTaskToGlobalQueue(std::unique_ptr<webrtc::QueuedTask> task) {
+void PostTaskToGlobalQueue(absl::AnyInvocable<void() &&> task) {
   dispatch_queue_global_t global_queue =
       dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0);
-  webrtc::QueuedTask* context = task.release();
-  dispatch_async_f(global_queue, context, &GlobalGcdRunTask);
+  dispatch_async_f(global_queue,
+                   new absl::AnyInvocable<void() &&>(std::move(task)),
+                   &GlobalGcdRunTask);
 }
 
 }  // namespace
@@ -156,7 +156,7 @@ void AsyncResolver::Start(const SocketAddress& addr) {
         int error = ResolveHostname(addr.hostname(), addr.family(), &addresses);
         webrtc::MutexLock lock(&state->mutex);
         if (state->status == State::Status::kLive) {
-          caller_task_queue->PostTask(webrtc::ToQueuedTask(
+          caller_task_queue->PostTask(
               [this, error, addresses = std::move(addresses), state] {
                 bool live;
                 {
@@ -169,11 +169,11 @@ void AsyncResolver::Start(const SocketAddress& addr) {
                   RTC_DCHECK_RUN_ON(&sequence_checker_);
                   ResolveDone(std::move(addresses), error);
                 }
-              }));
+              });
         }
       };
 #if defined(WEBRTC_MAC) || defined(WEBRTC_IOS)
-  PostTaskToGlobalQueue(webrtc::ToQueuedTask(std::move(thread_function)));
+  PostTaskToGlobalQueue(std::move(thread_function));
 #else
   PlatformThread::SpawnDetached(std::move(thread_function), "AsyncResolver");
 #endif

@@ -12,6 +12,7 @@
 #define API_FRAME_TRANSFORMER_INTERFACE_H_
 
 #include <memory>
+#include <string>
 #include <vector>
 
 #include "api/scoped_refptr.h"
@@ -36,6 +37,7 @@ class TransformableFrameInterface {
   virtual uint8_t GetPayloadType() const = 0;
   virtual uint32_t GetSsrc() const = 0;
   virtual uint32_t GetTimestamp() const = 0;
+  virtual std::string GetMimeType() const = 0;
 
   enum class Direction {
     kUnknown,

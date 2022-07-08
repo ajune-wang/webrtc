@@ -67,4 +67,9 @@ void AudioTrack::OnChanged() {
   }
 }
 
+rtc::scoped_refptr<AudioTrackInterface> AudioTrack::Clone(
+    absl::string_view label) {
+  return Create(label, audio_source_);
+}
+
 }  // namespace webrtc

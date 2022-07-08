@@ -52,6 +52,9 @@ class AudioTrack : public MediaStreamTrack<AudioTrackInterface>,
   void AddSink(AudioTrackSinkInterface* sink) override;
   void RemoveSink(AudioTrackSinkInterface* sink) override;
 
+  rtc::scoped_refptr<AudioTrackInterface> Clone(
+      absl::string_view label) override;
+
  private:
   // ObserverInterface implementation.
   void OnChanged() override;

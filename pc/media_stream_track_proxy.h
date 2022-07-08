@@ -37,6 +37,7 @@ PROXY_METHOD0(rtc::scoped_refptr<AudioProcessorInterface>, GetAudioProcessor)
 PROXY_METHOD1(bool, set_enabled, bool)
 PROXY_METHOD1(void, RegisterObserver, ObserverInterface*)
 PROXY_METHOD1(void, UnregisterObserver, ObserverInterface*)
+PROXY_METHOD1(rtc::scoped_refptr<AudioTrackInterface>, Clone, absl::string_view)
 END_PROXY_MAP(AudioTrack)
 
 BEGIN_PROXY_MAP(VideoTrack)

@@ -306,6 +306,14 @@ class RTC_EXPORT AudioTrackInterface : public MediaStreamTrackInterface {
   // TODO(deadbeef): Make the interface pure virtual.
   virtual rtc::scoped_refptr<AudioProcessorInterface> GetAudioProcessor();
 
+  // Create a new audio track sharing the same source as this, analogous to the
+  // MediaStreamTrack::Clone() web interface.
+  virtual rtc::scoped_refptr<AudioTrackInterface> Clone(
+      absl::string_view label) {
+    RTC_CHECK_NOTREACHED();
+    return nullptr;
+  }
+
  protected:
   ~AudioTrackInterface() override = default;
 };

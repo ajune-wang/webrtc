@@ -3019,6 +3019,10 @@ void WebRtcVideoChannel::WebRtcVideoReceiveStream::SetFeedbackParameters(
   // based on the rtcp-fb for the FlexFEC codec, not the media codec.
   flexfec_config_.rtp.transport_cc = config_.rtp.transport_cc;
   flexfec_config_.rtcp_mode = config_.rtp.rtcp_mode;
+  if (flexfec_stream_) {
+    flexfec_stream_->SetTransportCc(flexfec_config_.rtp.transport_cc);
+    flexfec_stream_->SetRtcpMode(flexfec_config_.rtcp_mode);
+  }
   RTC_LOG(LS_INFO) << "RecreateReceiveStream (recv) because of "
                       "SetFeedbackParameters; nack="
                    << nack_enabled << ", transport_cc=" << transport_cc_enabled;

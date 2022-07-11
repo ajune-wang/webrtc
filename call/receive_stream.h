@@ -69,6 +69,8 @@ class ReceiveStreamInterface {
 
   virtual void SetTransportCc(bool transport_cc) = 0;
 
+  virtual void SetRtcpMode(RtcpMode mode) {}
+
  protected:
   virtual ~ReceiveStreamInterface() {}
 };

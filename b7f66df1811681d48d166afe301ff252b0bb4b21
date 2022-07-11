@@ -51,6 +51,24 @@
       "message": "```\nIn file included from ../../base/task/sequence_manager/thread_controller.cc:5:\n../../base/task/sequence_manager/thread_controller.h:356:12: error: private field \u0027was_tracing_enabled_\u0027 is not used [-Werror,-Wunused-private-field]\n      bool was_tracing_enabled_;\n```\n\nThis looks like a real thing to fix in //base.",
       "revId": "b7f66df1811681d48d166afe301ff252b0bb4b21",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "cb67589c_2579c149",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5150
+      },
+      "writtenOn": "2022-07-11T10:48:20Z",
+      "side": 1,
+      "message": "Looks like a separate issue introduced by https://chromium-review.googlesource.com/c/chromium/src/+/3645137. Given the size of that CL, it\u0027s probably easier to do a small fix rather than revert.",
+      "parentUuid": "682ad880_a12ce195",
+      "revId": "b7f66df1811681d48d166afe301ff252b0bb4b21",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

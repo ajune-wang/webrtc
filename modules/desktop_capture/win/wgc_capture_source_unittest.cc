@@ -54,7 +54,7 @@ class WgcCaptureSourceTest : public ::testing::TestWithParam<CaptureType> {
   void SetUpForWindowSource() {
     window_info_ = CreateTestWindow(kWindowTitle);
     window_open_ = true;
-    source_id_ = reinterpret_cast<DesktopCapturer::SourceId>(window_info_.hwnd);
+    source_id_ = reinterpret_cast<SourceId>(window_info_.hwnd);
     source_factory_ = std::make_unique<WgcWindowSourceFactory>();
   }
 
@@ -67,7 +67,7 @@ class WgcCaptureSourceTest : public ::testing::TestWithParam<CaptureType> {
   std::unique_ptr<ScopedCOMInitializer> com_initializer_;
   std::unique_ptr<WgcCaptureSourceFactory> source_factory_;
   std::unique_ptr<WgcCaptureSource> source_;
-  DesktopCapturer::SourceId source_id_;
+  SourceId source_id_;
   WindowInfo window_info_;
   bool window_open_ = false;
 };

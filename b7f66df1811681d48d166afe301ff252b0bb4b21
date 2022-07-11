@@ -16,6 +16,24 @@
       "message": "I think this should fix the blocked DEPS roll. If not, we can always revert it, right?",
       "revId": "b7f66df1811681d48d166afe301ff252b0bb4b21",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "31d2d9dd_acd358f6",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5087
+      },
+      "writtenOn": "2022-07-11T09:33:49Z",
+      "side": 1,
+      "message": "Yes, this LGTM. If CQ is happy we can go.",
+      "parentUuid": "20b9d2c2_b0c3e7d9",
+      "revId": "b7f66df1811681d48d166afe301ff252b0bb4b21",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

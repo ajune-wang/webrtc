@@ -34,6 +34,23 @@
       "parentUuid": "20b9d2c2_b0c3e7d9",
       "revId": "b7f66df1811681d48d166afe301ff252b0bb4b21",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "682ad880_a12ce195",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5087
+      },
+      "writtenOn": "2022-07-11T10:03:38Z",
+      "side": 1,
+      "message": "```\nIn file included from ../../base/task/sequence_manager/thread_controller.cc:5:\n../../base/task/sequence_manager/thread_controller.h:356:12: error: private field \u0027was_tracing_enabled_\u0027 is not used [-Werror,-Wunused-private-field]\n      bool was_tracing_enabled_;\n```\n\nThis looks like a real thing to fix in //base.",
+      "revId": "b7f66df1811681d48d166afe301ff252b0bb4b21",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

@@ -59,6 +59,8 @@ class FlexfecReceiveStream : public RtpPacketSinkInterface,
     // Transport for outgoing RTCP packets.
     Transport* rtcp_send_transport = nullptr;
   };
+
+  virtual void SetRtcpMode(RtcpMode mode) = 0;
 };
 
 }  // namespace webrtc

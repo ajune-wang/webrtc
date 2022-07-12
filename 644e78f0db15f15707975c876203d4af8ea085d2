@@ -33,6 +33,23 @@
       "message": "Adding hbos@ for stats code and saza@ for media/",
       "revId": "644e78f0db15f15707975c876203d4af8ea085d2",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "06d93bf5_317f1df2",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 4
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 7710
+      },
+      "writtenOn": "2022-07-12T10:33:49Z",
+      "side": 1,
+      "message": "PTAL",
+      "revId": "644e78f0db15f15707975c876203d4af8ea085d2",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

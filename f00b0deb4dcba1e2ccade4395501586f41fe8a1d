@@ -16,6 +16,23 @@
       "message": "johannes: advance notice, chromium CL should be incoming shortly",
       "revId": "f00b0deb4dcba1e2ccade4395501586f41fe8a1d",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "b50d3cb8_47a997b9",
+        "filename": "pc/peer_connection.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 2006,
+      "author": {
+        "id": 7036
+      },
+      "writtenOn": "2022-07-12T13:50:09Z",
+      "side": 1,
+      "message": "Can you check ufrag and pwd separately instead of concatenating them?\nIt\u0027s fine to have a single histogram value though.",
+      "revId": "f00b0deb4dcba1e2ccade4395501586f41fe8a1d",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

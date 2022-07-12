@@ -1,0 +1,170 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "68fd7172_150e991b",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 7
+      },
+      "lineNbr": 13,
+      "author": {
+        "id": 17089
+      },
+      "writtenOn": "2022-07-12T08:24:27Z",
+      "side": 1,
+      "message": "thanks for testing it before hand!",
+      "range": {
+        "startLine": 13,
+        "startChar": 107,
+        "endLine": 13,
+        "endChar": 184
+      },
+      "revId": "79d8b3677c007594cce3d6064481b9cc2b4be0a4",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "6d0645f0_06947520",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 7
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 17089
+      },
+      "writtenOn": "2022-07-12T08:24:27Z",
+      "side": 1,
+      "message": "Thanks for adding this fuzzer Sam! Really useful. I added some design comments and a couple of nits.",
+      "revId": "79d8b3677c007594cce3d6064481b9cc2b4be0a4",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "baa0c258_68eeef8d",
+        "filename": "test/fuzzers/audio_processing_sample_rate_fuzzer.cc",
+        "patchSetId": 7
+      },
+      "lineNbr": 32,
+      "author": {
+        "id": 17089
+      },
+      "writtenOn": "2022-07-12T08:24:27Z",
+      "side": 1,
+      "message": "nit: see my comment on line 80, replace 3840 with a named constant",
+      "range": {
+        "startLine": 32,
+        "startChar": 2,
+        "endLine": 32,
+        "endChar": 49
+      },
+      "revId": "79d8b3677c007594cce3d6064481b9cc2b4be0a4",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "788e1c6f_ca37f39e",
+        "filename": "test/fuzzers/audio_processing_sample_rate_fuzzer.cc",
+        "patchSetId": 7
+      },
+      "lineNbr": 51,
+      "author": {
+        "id": 17089
+      },
+      "writtenOn": "2022-07-12T08:24:27Z",
+      "side": 1,
+      "message": "// Write interleaved samples.\nnit: add comment above",
+      "revId": "79d8b3677c007594cce3d6064481b9cc2b4be0a4",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "7219fd54_e3ce5560",
+        "filename": "test/fuzzers/audio_processing_sample_rate_fuzzer.cc",
+        "patchSetId": 7
+      },
+      "lineNbr": 75,
+      "author": {
+        "id": 17089
+      },
+      "writtenOn": "2022-07-12T08:24:27Z",
+      "side": 1,
+      "message": "If we only fuzz APM with its default config, I would state that in the CL description. Otherwise, do you see alternatives? Could input/output sample rate combos be incorrectly handled at an APM sub-module level? If so, should we for example randomly select from a collection of representative configs (e.g., presets such as \"all sub-modules disabled\", \"HPF AEC NS TS AGC2\").",
+      "range": {
+        "startLine": 71,
+        "startChar": 0,
+        "endLine": 75,
+        "endChar": 20
+      },
+      "revId": "79d8b3677c007594cce3d6064481b9cc2b4be0a4",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "0d2c5a17_42ec0ee3",
+        "filename": "test/fuzzers/audio_processing_sample_rate_fuzzer.cc",
+        "patchSetId": 7
+      },
+      "lineNbr": 80,
+      "author": {
+        "id": 17089
+      },
+      "writtenOn": "2022-07-12T08:24:27Z",
+      "side": 1,
+      "message": "nit: add a named constexpr for this; what about\n\n```\nconstexpr int kMaxSamplesPerChannel \u003d AudioFrame::kMaxDataSizeSamples / kMaxNumChannels;\n```\n\nyou can define this is the anon ns and reuse it in line 32 as well",
+      "range": {
+        "startLine": 80,
+        "startChar": 31,
+        "endLine": 80,
+        "endChar": 35
+      },
+      "revId": "79d8b3677c007594cce3d6064481b9cc2b4be0a4",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "c6a4714e_ccd42cdf",
+        "filename": "test/fuzzers/audio_processing_sample_rate_fuzzer.cc",
+        "patchSetId": 7
+      },
+      "lineNbr": 105,
+      "author": {
+        "id": 17089
+      },
+      "writtenOn": "2022-07-12T08:24:27Z",
+      "side": 1,
+      "message": "Just a double check. I assume that APM doesn\u0027t include any DCHECKs to avoid too many capture/render calls in a row. If instead that can happen, then we need to avoid a \"focus shift\": the fuzzer may shift towards triggering capture/render call patterns that trigger a crash instead of focusing on the sample rate issues.",
+      "range": {
+        "startLine": 105,
+        "startChar": 4,
+        "endLine": 105,
+        "endChar": 63
+      },
+      "revId": "79d8b3677c007594cce3d6064481b9cc2b4be0a4",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "d13bc698_10b8faef",
+        "filename": "test/fuzzers/audio_processing_sample_rate_fuzzer.cc",
+        "patchSetId": 7
+      },
+      "lineNbr": 109,
+      "author": {
+        "id": 17089
+      },
+      "writtenOn": "2022-07-12T08:24:27Z",
+      "side": 1,
+      "message": "Have you considered the option of creating two separate fuzzers for the float and fix cases? In this file, there is little code in common for the two cases, in practice we never switch to and from fix/float unless APM is recreated, and separate fuzzers might help the fuzzer to more effectively mutate the input data.",
+      "revId": "79d8b3677c007594cce3d6064481b9cc2b4be0a4",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

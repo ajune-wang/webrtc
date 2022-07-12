@@ -16,6 +16,23 @@
       "message": "I don\u0027t have access to dry-run and can\u0027t commit.",
       "revId": "29b42d72b033c78b2f11f0d9a24b3023a9c93c50",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "5f5c3b37_a9004556",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 11717
+      },
+      "writtenOn": "2022-07-12T08:46:31Z",
+      "side": 1,
+      "message": "Can someone retry please. TIA.",
+      "revId": "29b42d72b033c78b2f11f0d9a24b3023a9c93c50",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

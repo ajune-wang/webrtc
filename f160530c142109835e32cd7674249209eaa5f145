@@ -81,6 +81,30 @@
       },
       "revId": "f160530c142109835e32cd7674249209eaa5f145",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "8c52fbbd_f18c45c3",
+        "filename": "common_audio/vad/vad_filterbank.c",
+        "patchSetId": 2
+      },
+      "lineNbr": 100,
+      "author": {
+        "id": 5119
+      },
+      "writtenOn": "2022-07-12T09:41:46Z",
+      "side": 1,
+      "message": "I don\u0027t have a strong opinion. Clamping sounds like the simplest solution assuming that it does not break any unit tests, and clamping what used to be an overflow should make the values closer to the \"truth\".",
+      "parentUuid": "4b6602fd_6336c66e",
+      "range": {
+        "startLine": 100,
+        "startChar": 4,
+        "endLine": 100,
+        "endChar": 25
+      },
+      "revId": "f160530c142109835e32cd7674249209eaa5f145",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

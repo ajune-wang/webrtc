@@ -18,6 +18,24 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "37d724e6_cd719002",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5122
+      },
+      "writtenOn": "2022-07-12T09:04:52Z",
+      "side": 1,
+      "message": "yup",
+      "parentUuid": "b680cf29_af8e14c7",
+      "revId": "f160530c142109835e32cd7674249209eaa5f145",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "89fc0f5b_c5e389c1",
@@ -31,6 +49,30 @@
       "writtenOn": "2022-07-07T16:07:37Z",
       "side": 1,
       "message": "I didn\u0027t follow along 100% in the chat discussion - the problem was that we overflow here, right? If we fix this by extending the rate (32 -\u003e 64 bit), won\u0027t we instead overflow when we downshift and cast to `int16_t` on line 104?",
+      "range": {
+        "startLine": 100,
+        "startChar": 4,
+        "endLine": 100,
+        "endChar": 25
+      },
+      "revId": "f160530c142109835e32cd7674249209eaa5f145",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "4b6602fd_6336c66e",
+        "filename": "common_audio/vad/vad_filterbank.c",
+        "patchSetId": 2
+      },
+      "lineNbr": 100,
+      "author": {
+        "id": 5122
+      },
+      "writtenOn": "2022-07-12T09:04:52Z",
+      "side": 1,
+      "message": "Good point; the fuzzer found this issue:\n\n```\n../../third_party/webrtc/common_audio/vad/vad_filterbank.c:96:21: runtime error: signed integer overflow: 1583657904 + 677877956 cannot be represented in type \u0027int\u0027\n```\n\nbut your point is anyways valid, as exactly the same happens in line 97.\n\nThe alternatives I see:\n- use Q14 for `state32` and hence reducing precision\n- clamping, which still requires a 64 bit tmp variable\n\nBoth alternatives might break the unit tests though. I will give a try and get back; feel free to propose other options.",
+      "parentUuid": "89fc0f5b_c5e389c1",
       "range": {
         "startLine": 100,
         "startChar": 4,

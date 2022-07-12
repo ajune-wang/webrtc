@@ -1996,6 +1996,18 @@ void PeerConnection::ReportFirstConnectUsageMetrics() {
   // Record the number of configured ICE servers for connected connections.
   RTC_HISTOGRAM_COUNTS_LINEAR("WebRTC.PeerConnection.IceServers.Connected",
                               configuration_.servers.size(), 0, 31, 32);
+
+  // Record the number of valid / invalid ice-ufrag. We do allow certain
+  // non-spec ice-char for backward-compat reasons.
+  auto transport_infos = remote_description()->description()->transport_infos();
+  if (transport_infos.size() > 0) {
+    auto ice_parameters = transport_infos[0].description.GetIceParameters();
+    bool isUsingInvalidIceChar = absl::c_any_of(
+        ice_parameters.ufrag + ice_parameters.pwd,
+        [](char c) { return c == '-' || c == '=' || c == '#' || c == '_'; });
+    RTC_HISTOGRAM_BOOLEAN_SPARSE("WebRTC.PeerConnection.ValidIceChars",
+                                 !isUsingInvalidIceChar);
+  }
 }
 
 void PeerConnection::OnIceGatheringChange(

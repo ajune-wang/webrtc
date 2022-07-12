@@ -23,6 +23,7 @@ class MockTransformableFrame : public TransformableFrameInterface {
   MOCK_METHOD(uint8_t, GetPayloadType, (), (const, override));
   MOCK_METHOD(uint32_t, GetSsrc, (), (const, override));
   MOCK_METHOD(uint32_t, GetTimestamp, (), (const, override));
+  MOCK_METHOD(std::string, GetMimeType, (), (const, override));
 };
 
 }  // namespace webrtc

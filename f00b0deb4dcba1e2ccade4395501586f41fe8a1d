@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "269d505e_d2f5709b",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 7755
+      },
+      "writtenOn": "2022-07-12T13:44:38Z",
+      "side": 1,
+      "message": "johannes: advance notice, chromium CL should be incoming shortly",
+      "revId": "f00b0deb4dcba1e2ccade4395501586f41fe8a1d",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

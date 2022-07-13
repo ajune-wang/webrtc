@@ -16,6 +16,23 @@
       "message": "Instead of a disallow list, shouldn\u0027t we use an allow list?\nE.g. alphanumeric per spec plus some additional backwards compat ones?\n\nIf you\u0027re specifically interested in these special chars you could have an additional counter for that, but saying it\u0027s valid just because it doesn\u0027t contain -\u003d#_ is incorrect",
       "revId": "a6f7ef5bfb51cfc7be9213f8b0ed2645fbe4f9ef",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "e850262f_2cb73d29",
+        "filename": "pc/peer_connection.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 2011,
+      "author": {
+        "id": 5142
+      },
+      "writtenOn": "2022-07-13T09:00:14Z",
+      "side": 1,
+      "message": "What\u0027s the difference between BOOLEAN_SPARSE and BOOLEAN?",
+      "revId": "a6f7ef5bfb51cfc7be9213f8b0ed2645fbe4f9ef",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

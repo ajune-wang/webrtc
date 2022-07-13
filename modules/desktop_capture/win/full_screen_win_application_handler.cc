@@ -90,14 +90,13 @@ DesktopCapturer::SourceList GetProcessWindows(
 
 class FullScreenPowerPointHandler : public FullScreenApplicationHandler {
  public:
-  explicit FullScreenPowerPointHandler(DesktopCapturer::SourceId sourceId)
+  explicit FullScreenPowerPointHandler(SourceId sourceId)
       : FullScreenApplicationHandler(sourceId) {}
 
   ~FullScreenPowerPointHandler() override {}
 
-  DesktopCapturer::SourceId FindFullScreenWindow(
-      const DesktopCapturer::SourceList& window_list,
-      int64_t timestamp) const override {
+  SourceId FindFullScreenWindow(const DesktopCapturer::SourceList& window_list,
+                                int64_t timestamp) const override {
     if (window_list.empty())
       return 0;
 
@@ -185,12 +184,11 @@ class FullScreenPowerPointHandler : public FullScreenApplicationHandler {
 
 class OpenOfficeApplicationHandler : public FullScreenApplicationHandler {
  public:
-  explicit OpenOfficeApplicationHandler(DesktopCapturer::SourceId sourceId)
+  explicit OpenOfficeApplicationHandler(SourceId sourceId)
       : FullScreenApplicationHandler(sourceId) {}
 
-  DesktopCapturer::SourceId FindFullScreenWindow(
-      const DesktopCapturer::SourceList& window_list,
-      int64_t timestamp) const override {
+  SourceId FindFullScreenWindow(const DesktopCapturer::SourceList& window_list,
+                                int64_t timestamp) const override {
     if (window_list.empty())
       return 0;
 
@@ -272,7 +270,7 @@ std::wstring GetPathByWindowId(HWND window_id) {
 }  // namespace
 
 std::unique_ptr<FullScreenApplicationHandler>
-CreateFullScreenWinApplicationHandler(DesktopCapturer::SourceId source_id) {
+CreateFullScreenWinApplicationHandler(SourceId source_id) {
   std::unique_ptr<FullScreenApplicationHandler> result;
   HWND hwnd = reinterpret_cast<HWND>(source_id);
   std::wstring exe_path = GetPathByWindowId(hwnd);

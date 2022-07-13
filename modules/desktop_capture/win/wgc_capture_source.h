@@ -29,7 +29,7 @@ namespace webrtc {
 // of the appropriate type.
 class WgcCaptureSource {
  public:
-  explicit WgcCaptureSource(DesktopCapturer::SourceId source_id);
+  explicit WgcCaptureSource(SourceId source_id);
   virtual ~WgcCaptureSource();
 
   virtual DesktopVector GetTopLeft() = 0;
@@ -39,7 +39,7 @@ class WgcCaptureSource {
   HRESULT GetCaptureItem(
       Microsoft::WRL::ComPtr<
           ABI::Windows::Graphics::Capture::IGraphicsCaptureItem>* result);
-  DesktopCapturer::SourceId GetSourceId() { return source_id_; }
+  SourceId GetSourceId() { return source_id_; }
 
  protected:
   virtual HRESULT CreateCaptureItem(
@@ -49,15 +49,14 @@ class WgcCaptureSource {
  private:
   Microsoft::WRL::ComPtr<ABI::Windows::Graphics::Capture::IGraphicsCaptureItem>
       item_;
-  const DesktopCapturer::SourceId source_id_;
+  const SourceId source_id_;
 };
 
 class WgcCaptureSourceFactory {
  public:
   virtual ~WgcCaptureSourceFactory();
 
-  virtual std::unique_ptr<WgcCaptureSource> CreateCaptureSource(
-      DesktopCapturer::SourceId) = 0;
+  virtual std::unique_ptr<WgcCaptureSource> CreateCaptureSource(SourceId) = 0;
 };
 
 class WgcWindowSourceFactory final : public WgcCaptureSourceFactory {
@@ -70,8 +69,7 @@ class WgcWindowSourceFactory final : public WgcCaptureSourceFactory {
 
   ~WgcWindowSourceFactory() override;
 
-  std::unique_ptr<WgcCaptureSource> CreateCaptureSource(
-      DesktopCapturer::SourceId) override;
+  std::unique_ptr<WgcCaptureSource> CreateCaptureSource(SourceId) override;
 };
 
 class WgcScreenSourceFactory final : public WgcCaptureSourceFactory {
@@ -83,14 +81,13 @@ class WgcScreenSourceFactory final : public WgcCaptureSourceFactory {
 
   ~WgcScreenSourceFactory() override;
 
-  std::unique_ptr<WgcCaptureSource> CreateCaptureSource(
-      DesktopCapturer::SourceId) override;
+  std::unique_ptr<WgcCaptureSource> CreateCaptureSource(SourceId) override;
 };
 
 // Class for capturing application windows.
 class WgcWindowSource final : public WgcCaptureSource {
  public:
-  explicit WgcWindowSource(DesktopCapturer::SourceId source_id);
+  explicit WgcWindowSource(SourceId source_id);
 
   WgcWindowSource(const WgcWindowSource&) = delete;
   WgcWindowSource& operator=(const WgcWindowSource&) = delete;
@@ -112,7 +109,7 @@ class WgcWindowSource final : public WgcCaptureSource {
 // Class for capturing screens/monitors/displays.
 class WgcScreenSource final : public WgcCaptureSource {
  public:
-  explicit WgcScreenSource(DesktopCapturer::SourceId source_id);
+  explicit WgcScreenSource(SourceId source_id);
 
   WgcScreenSource(const WgcScreenSource&) = delete;
   WgcScreenSource& operator=(const WgcScreenSource&) = delete;

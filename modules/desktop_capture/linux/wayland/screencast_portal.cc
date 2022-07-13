@@ -102,8 +102,8 @@ void ScreenCastPortal::SetSessionDetails(
   if (!session_details.session_handle.empty()) {
     session_handle_ = session_details.session_handle;
   }
-  if (session_details.pipewire_stream_node_id) {
-    pw_stream_node_id_ = session_details.pipewire_stream_node_id;
+  if (!session_details.source_stream_infos.empty()) {
+    source_stream_infos_ = session_details.source_stream_infos;
   }
 }
 
@@ -118,7 +118,8 @@ xdg_portal::SessionDetails ScreenCastPortal::GetSessionDetails() {
 }
 
 void ScreenCastPortal::OnPortalDone(RequestResponse result) {
-  notifier_->OnScreenCastRequestResult(result, pw_stream_node_id_, pw_fd_);
+  RTC_LOG(LS_ERROR) << __func__ << ">>> ScreencastPortal done";
+  notifier_->OnScreenCastRequestResult(result, source_stream_infos_, pw_fd_);
   if (result != RequestResponse::kSuccess) {
     Cleanup();
   }
@@ -175,8 +176,9 @@ void ScreenCastPortal::OnSessionClosedSignal(GDBusConnection* connection,
   ScreenCastPortal* that = static_cast<ScreenCastPortal*>(user_data);
   RTC_DCHECK(that);
 
-  RTC_LOG(LS_INFO) << "Received closed signal from session.";
+  RTC_LOG(LS_INFO) << __func__ << " : >>> Received closed signal from session.";
 
+  that->source_stream_infos_.clear();
   that->notifier_->OnScreenCastSessionClosed();
 
   // Unsubscribe from the signal and free the session handle to avoid calling
@@ -196,7 +198,7 @@ void ScreenCastPortal::SourcesRequest() {
       g_variant_new_uint32(static_cast<uint32_t>(capture_source_type_)));
   // We don't want to allow selection of multiple sources.
   g_variant_builder_add(&builder, "{sv}", "multiple",
-                        g_variant_new_boolean(false));
+                        g_variant_new_boolean(true));
 
   Scoped<GVariant> cursorModesVariant(
       g_dbus_proxy_get_cached_property(proxy_, "AvailableCursorModes"));
@@ -351,14 +353,20 @@ void ScreenCastPortal::OnStartRequestResponseSignal(GDBusConnection* connection,
   // documentation for <method name="Start">.
   if (g_variant_lookup(response_data.get(), "streams", "a(ua{sv})",
                        iter.receive())) {
-    Scoped<GVariant> variant;
+    GVariant* variant;
 
-    while (g_variant_iter_next(iter.get(), "@(ua{sv})", variant.receive())) {
+    SourceId invalid_source_id = -1;
+    while (g_variant_iter_next(iter.get(), "@(ua{sv})", &variant)) {
       uint32_t stream_id;
       uint32_t type;
+      int x;
+      int y;
+      int width;
+      int height;
+      gchar* name;
       Scoped<GVariant> options;
 
-      g_variant_get(variant.get(), "(u@a{sv})", &stream_id, options.receive());
+      g_variant_get(variant, "(u@a{sv})", &stream_id, options.receive());
       RTC_DCHECK(options.get());
 
       if (g_variant_lookup(options.get(), "source_type", "u", &type)) {
@@ -366,9 +374,26 @@ void ScreenCastPortal::OnStartRequestResponseSignal(GDBusConnection* connection,
             static_cast<ScreenCastPortal::CaptureSourceType>(type);
       }
 
-      that->pw_stream_node_id_ = stream_id;
+      g_variant_lookup(options.get(), "position", "(ii)", &x, &y);
+      g_variant_lookup(options.get(), "size", "(ii)", &width, &height);
 
-      break;
+      SourceId source_id = 0;
+      if (g_variant_lookup(options.get(), "monitor_connector", "&s", &name)) {
+        RTC_LOG(LS_INFO) << "Monitor name: " << name
+                         << ", correspnding to stream: " << stream_id;
+        source_id = std::hash<std::string>{}(std::string(name));
+        RTC_LOG(LS_WARNING)
+            << ">>> Found monitor name: " << std::string(name)
+            << " for stream: " << stream_id << ", having hash: " << source_id;
+      } else {
+        RTC_LOG(LS_WARNING)
+            << ">>> Did not find monitor name for stream: " << stream_id;
+        source_id = invalid_source_id--;
+      }
+
+      PipeWireStreamInfo stream_info{stream_id, x, y, width, height, name};
+      that->source_stream_infos_.emplace(source_id, std::move(stream_info));
+      g_variant_unref(variant);
     }
   }
 
@@ -380,8 +405,8 @@ void ScreenCastPortal::OnStartRequestResponseSignal(GDBusConnection* connection,
   that->OpenPipeWireRemote();
 }
 
-uint32_t ScreenCastPortal::pipewire_stream_node_id() {
-  return pw_stream_node_id_;
+SourceStreamInfo ScreenCastPortal::source_stream_infos() {
+  return source_stream_infos_;
 }
 
 void ScreenCastPortal::SetPersistMode(ScreenCastPortal::PersistMode mode) {
@@ -443,6 +468,7 @@ void ScreenCastPortal::OnOpenPipeWireRemoteRequested(GDBusProxy* proxy,
   }
 
   that->OnPortalDone(RequestResponse::kSuccess);
+  RTC_LOG(LS_ERROR) << ">>> Opened pipewire streams successfully";
 }
 
 }  // namespace webrtc

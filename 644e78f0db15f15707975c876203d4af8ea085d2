@@ -50,6 +50,57 @@
       "message": "PTAL",
       "revId": "644e78f0db15f15707975c876203d4af8ea085d2",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "5691a53b_dc1baab0",
+        "filename": "api/neteq/neteq_controller.h",
+        "patchSetId": 4
+      },
+      "lineNbr": 169,
+      "author": {
+        "id": 5142
+      },
+      "writtenOn": "2022-07-13T08:55:10Z",
+      "side": 1,
+      "message": "If there are various implementations and not all support this, should we return optional? I\u0027ll let you decide.",
+      "revId": "644e78f0db15f15707975c876203d4af8ea085d2",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "1f3de576_5a9df0e9",
+        "filename": "modules/audio_coding/neteq/delay_manager.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 104,
+      "author": {
+        "id": 5142
+      },
+      "writtenOn": "2022-07-13T08:55:10Z",
+      "side": 1,
+      "message": "Is this the current value or an accumulative counter? Remember that the average jitterBufferMinimumDelay per sample is \"delta jitterBufferMinimumDelay / delta jitterBufferEmittedCount\"",
+      "revId": "644e78f0db15f15707975c876203d4af8ea085d2",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "2cf4774e_b14db133",
+        "filename": "stats/rtcstats_objects.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 703,
+      "author": {
+        "id": 5142
+      },
+      "writtenOn": "2022-07-13T08:55:10Z",
+      "side": 1,
+      "message": "Don\u0027t forget add jitterBufferMinimumDelay to https://source.chromium.org/chromium/chromium/src/+/main:chrome/test/data/webrtc/peerconnection_getstats.js;l\u003d129;drc\u003d5c6149565123ac3c3596300383c751136001db64 before landing this.",
+      "revId": "644e78f0db15f15707975c876203d4af8ea085d2",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

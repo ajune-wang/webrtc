@@ -38,6 +38,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "d0077ff7_4ea9d9af",
+        "filename": "pc/peer_connection.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 2010,
+      "author": {
+        "id": 5142
+      },
+      "writtenOn": "2022-07-13T09:05:53Z",
+      "side": 1,
+      "message": "OK no objection then! But can add a comment clarifying that this is the set of non-standard characters not already blocked by transport_description.cc?",
+      "parentUuid": "9bb14a3c_61a0790d",
+      "revId": "a6f7ef5bfb51cfc7be9213f8b0ed2645fbe4f9ef",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "e850262f_2cb73d29",
         "filename": "pc/peer_connection.cc",
         "patchSetId": 2

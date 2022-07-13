@@ -10,6 +10,7 @@
 
 #include "audio/channel_receive_frame_transformer_delegate.h"
 
+#include <string>
 #include <utility>
 
 #include "api/task_queue/to_queued_task.h"
@@ -39,6 +40,7 @@ class TransformableIncomingAudioFrame
   uint32_t GetTimestamp() const override { return header_.timestamp; }
   const RTPHeader& GetHeader() const override { return header_; }
   Direction GetDirection() const override { return Direction::kReceiver; }
+  std::string GetMimeType() const override { return "audio/unknown"; }
 
  private:
   rtc::Buffer payload_;

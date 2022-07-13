@@ -52,6 +52,24 @@
       "parentUuid": "4efd2a8d_49a5bba8",
       "revId": "8aaedcee251781ea6f802fd76abfe233069b8931",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "7c0f78ca_7ba9762e",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5087
+      },
+      "writtenOn": "2022-07-13T11:08:39Z",
+      "side": 1,
+      "message": "Yes, let\u0027s try to revert that one and talk with them to try to reland.",
+      "parentUuid": "a37c084d_5f382f4b",
+      "revId": "8aaedcee251781ea6f802fd76abfe233069b8931",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

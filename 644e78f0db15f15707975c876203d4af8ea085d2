@@ -104,6 +104,24 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "80bdfc6f_551bdee4",
+        "filename": "api/neteq/neteq_controller.h",
+        "patchSetId": 4
+      },
+      "lineNbr": 169,
+      "author": {
+        "id": 5142
+      },
+      "writtenOn": "2022-07-13T12:12:05Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "ce42c0bf_505ff53c",
+      "revId": "644e78f0db15f15707975c876203d4af8ea085d2",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "1f3de576_5a9df0e9",
@@ -135,6 +153,24 @@
       "side": 1,
       "message": "This is the current/instantaneous value of the metric. The accumulation happens in statistics_calculator.cc. This works the same way for other NetEq metrics.",
       "parentUuid": "1f3de576_5a9df0e9",
+      "revId": "644e78f0db15f15707975c876203d4af8ea085d2",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "bff6a1a0_edd10e5d",
+        "filename": "modules/audio_coding/neteq/delay_manager.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 104,
+      "author": {
+        "id": 5142
+      },
+      "writtenOn": "2022-07-13T12:12:05Z",
+      "side": 1,
+      "message": "I see, thanks for clarifying!",
+      "parentUuid": "ab3c6d0c_e5809c24",
       "revId": "644e78f0db15f15707975c876203d4af8ea085d2",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },

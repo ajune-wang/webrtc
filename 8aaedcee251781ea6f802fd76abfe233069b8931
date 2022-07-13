@@ -16,6 +16,24 @@
       "message": "Hmm, it looks like \"gn analyze\" is trying to resolve dependencies for //base tests and it fails...\n\nI would expect https://source.chromium.org/chromium/chromium/src/+/main:third_party/webrtc/infra/specs/trybot_analyze_config.json;l\u003d6;drc\u003d68fef2f3e9e94b3134501b0cfd8a47aca55e39ca to fix this but something is missing...",
       "revId": "8aaedcee251781ea6f802fd76abfe233069b8931",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "4efd2a8d_49a5bba8",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5150
+      },
+      "writtenOn": "2022-07-13T11:01:40Z",
+      "side": 1,
+      "message": "I\u0027ll try not syncing //base as a mitigation.",
+      "parentUuid": "3c3af5e9_31b2703a",
+      "revId": "8aaedcee251781ea6f802fd76abfe233069b8931",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

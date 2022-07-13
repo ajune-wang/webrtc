@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "1b416b41_0df3159a",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 19479
+      },
+      "writtenOn": "2022-07-13T16:43:47Z",
+      "side": 1,
+      "message": "@Alessio added myself to authors",
+      "revId": "acd196c7ae1998eccf9ae00d4d5b2fab15f2067b",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

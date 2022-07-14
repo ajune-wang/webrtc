@@ -162,6 +162,30 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "f5e67926_375a869f",
+        "filename": "api/neteq/neteq_controller.h",
+        "patchSetId": 4
+      },
+      "lineNbr": 169,
+      "author": {
+        "id": 5607
+      },
+      "writtenOn": "2022-07-14T14:20:09Z",
+      "side": 1,
+      "message": "Good idea, that is indeed more descriptive than pure. Done.",
+      "parentUuid": "2d933dfd_5847584c",
+      "range": {
+        "startLine": 169,
+        "startChar": 14,
+        "endLine": 169,
+        "endChar": 31
+      },
+      "revId": "644e78f0db15f15707975c876203d4af8ea085d2",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "1f3de576_5a9df0e9",

@@ -24,6 +24,30 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "9c5e535b_57eb2c34",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 5
+      },
+      "lineNbr": 9,
+      "author": {
+        "id": 5527
+      },
+      "writtenOn": "2022-07-14T14:12:41Z",
+      "side": 1,
+      "message": "There is (much) more work to be done, but yes, eventually.",
+      "parentUuid": "1ec4f0cd_67ee71d8",
+      "range": {
+        "startLine": 9,
+        "startChar": 240,
+        "endLine": 9,
+        "endChar": 266
+      },
+      "revId": "cc90ca68aea7ce21f468c4d0feffa0f84fce5cc3",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "39808042_bc795f8f",
@@ -61,6 +85,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "67229a2e_a5297341",
+        "filename": "api/video_codecs/video_decoder_factory_template.h",
+        "patchSetId": 5
+      },
+      "lineNbr": 30,
+      "author": {
+        "id": 5527
+      },
+      "writtenOn": "2022-07-14T14:12:41Z",
+      "side": 1,
+      "message": "If you want I can do that in a followup CL.\n\nIt is true that every time this function is called it should return the same set of supported formats, but I don\u0027t see the reason to switch to an ArrayView really. If we do that then every template adapter would have to manage the backing array, which IMO is a bit more complicated.",
+      "parentUuid": "3a8c8ce3_540a28ce",
+      "revId": "cc90ca68aea7ce21f468c4d0feffa0f84fce5cc3",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "be3698d4_403a3d19",
         "filename": "api/video_codecs/video_decoder_factory_template.h",
         "patchSetId": 5
@@ -72,6 +114,24 @@
       "writtenOn": "2022-07-14T09:33:06Z",
       "side": 1,
       "message": "change to `std::vector\u003cSdpVideoFormat\u003e GetSupportedFormatsInternal() const`?\n\nWon\u0027t `formats` always be empty when this method is called?\n\nAlso, can you add some documentation about what the function does? It\u0027s not immediately clear to me why the filtering is needed. Alternatively a more descriptive name could do the job.",
+      "revId": "cc90ca68aea7ce21f468c4d0feffa0f84fce5cc3",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "e3252824_7c5b7cfc",
+        "filename": "api/video_codecs/video_decoder_factory_template.h",
+        "patchSetId": 5
+      },
+      "lineNbr": 64,
+      "author": {
+        "id": 5527
+      },
+      "writtenOn": "2022-07-14T14:12:41Z",
+      "side": 1,
+      "message": "I thought it was easier if these recursive template functions all worked the same way, but maybe it just causes more confusion, updated.",
+      "parentUuid": "be3698d4_403a3d19",
       "revId": "cc90ca68aea7ce21f468c4d0feffa0f84fce5cc3",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
@@ -89,6 +149,24 @@
       "writtenOn": "2022-07-14T09:33:06Z",
       "side": 1,
       "message": "nit: this is arguably a bit unusual with the return type being void.",
+      "revId": "cc90ca68aea7ce21f468c4d0feffa0f84fce5cc3",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "83629c73_80167809",
+        "filename": "api/video_codecs/video_decoder_factory_template.h",
+        "patchSetId": 5
+      },
+      "lineNbr": 73,
+      "author": {
+        "id": 5527
+      },
+      "writtenOn": "2022-07-14T14:12:41Z",
+      "side": 1,
+      "message": "copy-paste error, fixed now :)",
+      "parentUuid": "c637cacd_bb19e0ff",
       "revId": "cc90ca68aea7ce21f468c4d0feffa0f84fce5cc3",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }

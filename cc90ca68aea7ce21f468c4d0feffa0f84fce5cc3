@@ -20,6 +20,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "3a8c8ce3_540a28ce",
+        "filename": "api/video_codecs/video_decoder_factory_template.h",
+        "patchSetId": 5
+      },
+      "lineNbr": 30,
+      "author": {
+        "id": 5087
+      },
+      "writtenOn": "2022-07-14T11:18:45Z",
+      "side": 1,
+      "message": "This is a good point.\n\nIf we do it, let\u0027s also port it https://source.chromium.org/chromium/chromium/src/+/main:third_party/webrtc/api/video_codecs/video_encoder_factory_template.h.\n\nSince https://source.chromium.org/chromium/chromium/src/+/main:third_party/webrtc/api/video_codecs/video_encoder_factory_template.h already exists,  I am also fine if we do this in a follow up CL.",
+      "parentUuid": "39808042_bc795f8f",
+      "revId": "cc90ca68aea7ce21f468c4d0feffa0f84fce5cc3",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "be3698d4_403a3d19",
         "filename": "api/video_codecs/video_decoder_factory_template.h",
         "patchSetId": 5

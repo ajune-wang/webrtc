@@ -37,6 +37,7 @@ if (!build_with_chromium) {
         ":default_video_quality_analyzer_frames_comparator_test",
         ":default_video_quality_analyzer_stream_state_test",
         ":default_video_quality_analyzer_test",
+        ":fixed_fps_video_writer_test",
         ":multi_reader_queue_test",
         ":names_collection_test",
         ":peer_connection_e2e_smoke_test",
@@ -599,6 +600,21 @@ if (!build_with_chromium) {
       absl_deps = [ "//third_party/abseil-cpp/absl/types:optional" ]
     }
 
+    rtc_library("fixed_fps_video_writer_test") {
+      testonly = true
+      sources = [ "analyzer/video/fixed_fps_video_writer_test.cc" ]
+      deps = [
+        ":fixed_fps_video_writer",
+        "../..:test_support",
+        "../..:video_test_support",
+        "../../../api/units:time_delta",
+        "../../../api/video:video_frame",
+        "../../../rtc_base/synchronization:mutex",
+        "../../time_controller",
+      ]
+      absl_deps = [ "//third_party/abseil-cpp/absl/types:optional" ]
+    }
+
     rtc_library("default_video_quality_analyzer_stream_state_test") {
       testonly = true
       sources = [
@@ -917,6 +933,22 @@ if (!build_with_chromium) {
     testonly = true
     sources = [ "analyzer/video/multi_reader_queue.h" ]
     deps = [ "../../../rtc_base:checks" ]
+    absl_deps = [ "//third_party/abseil-cpp/absl/types:optional" ]
+  }
+
+  rtc_library("fixed_fps_video_writer") {
+    visibility = [ "*" ]
+    testonly = true
+    sources = [
+      "analyzer/video/fixed_fps_video_writer.cc",
+      "analyzer/video/fixed_fps_video_writer.h",
+    ]
+    deps = [
+      "../..:video_test_support",
+      "../../../api/units:time_delta",
+      "../../../api/video:video_frame",
+      "../../../system_wrappers",
+    ]
     absl_deps = [ "//third_party/abseil-cpp/absl/types:optional" ]
   }
 }

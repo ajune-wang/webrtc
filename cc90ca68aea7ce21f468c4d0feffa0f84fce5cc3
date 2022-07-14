@@ -103,6 +103,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "dab5a4f3_9c9e9d22",
+        "filename": "api/video_codecs/video_decoder_factory_template.h",
+        "patchSetId": 5
+      },
+      "lineNbr": 30,
+      "author": {
+        "id": 5508
+      },
+      "writtenOn": "2022-07-14T14:22:17Z",
+      "side": 1,
+      "message": "OK, if it doesn\u0027t make sense to do it that way then it\u0027s fine with me. However, a benefit of using ArrayView would be that a static config is both forced (can be assumed to never change) and low overhead.",
+      "parentUuid": "67229a2e_a5297341",
+      "revId": "cc90ca68aea7ce21f468c4d0feffa0f84fce5cc3",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "be3698d4_403a3d19",
         "filename": "api/video_codecs/video_decoder_factory_template.h",
         "patchSetId": 5

@@ -48,6 +48,30 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "9c9e6f91_f8e63e08",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 5
+      },
+      "lineNbr": 9,
+      "author": {
+        "id": 5087
+      },
+      "writtenOn": "2022-07-14T14:24:09Z",
+      "side": 1,
+      "message": "Thanks for driving this!",
+      "parentUuid": "9c5e535b_57eb2c34",
+      "range": {
+        "startLine": 9,
+        "startChar": 240,
+        "endLine": 9,
+        "endChar": 266
+      },
+      "revId": "cc90ca68aea7ce21f468c4d0feffa0f84fce5cc3",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "39808042_bc795f8f",

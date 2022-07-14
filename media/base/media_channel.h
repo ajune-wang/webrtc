@@ -455,6 +455,11 @@ struct MediaReceiverInfo {
   // audio, it should be implemented for video as well.
   // https://w3c.github.io/webrtc-stats/#dom-rtcinboundrtpstreamstats-jitterbuffertargetdelay
   absl::optional<double> jitter_buffer_target_delay_seconds;
+  // Minimum obtainable delay for the jitter buffer (cumulative).
+  // TODO(https://crbug.com/webrtc/14244): This metric is only implemented for
+  // audio, it should be implemented for video as well.
+  // https://w3c.github.io/webrtc-stats/#dom-rtcinboundrtpstreamstats-jitterbufferminimumdelay
+  absl::optional<double> jitter_buffer_minimum_delay_seconds;
   // Number of observations for cumulative jitter latency.
   // https://w3c.github.io/webrtc-stats/#dom-rtcinboundrtpstreamstats-jitterbufferemittedcount
   uint64_t jitter_buffer_emitted_count = 0;

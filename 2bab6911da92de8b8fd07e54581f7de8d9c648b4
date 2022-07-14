@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "18442ab7_77583ee0",
+        "filename": "api/video_codecs/video_encoder_factory_template.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 90,
+      "author": {
+        "id": 5508
+      },
+      "writtenOn": "2022-07-14T15:10:15Z",
+      "side": 1,
+      "message": "nice touch",
+      "revId": "2bab6911da92de8b8fd07e54581f7de8d9c648b4",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

@@ -33,6 +33,57 @@
       "message": "Adding tommi@ as reviewer for changes to call/audio_receive_stream.h (all other owners are OOO).",
       "revId": "beea58942ee79cf69ff7c5cd5ed7e9b4222443b3",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "2c755155_559c818d",
+        "filename": "api/neteq/neteq_controller.h",
+        "patchSetId": 5
+      },
+      "lineNbr": 168,
+      "author": {
+        "id": 5508
+      },
+      "writtenOn": "2022-07-14T14:33:32Z",
+      "side": 1,
+      "message": "use bugs.webrtc.org/\u003cnumber\u003e instead?",
+      "revId": "beea58942ee79cf69ff7c5cd5ed7e9b4222443b3",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "08226243_adb82296",
+        "filename": "media/base/media_channel.h",
+        "patchSetId": 5
+      },
+      "lineNbr": 459,
+      "author": {
+        "id": 5508
+      },
+      "writtenOn": "2022-07-14T14:33:32Z",
+      "side": 1,
+      "message": "we don\u0027t need the `https://` part actually for chromium bugs and for webrtc, just use `TODO(bugs.webrtc.org/14244):`",
+      "revId": "beea58942ee79cf69ff7c5cd5ed7e9b4222443b3",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "82873b6e_52fbf91f",
+        "filename": "modules/audio_coding/neteq/delay_manager.h",
+        "patchSetId": 5
+      },
+      "lineNbr": 117,
+      "author": {
+        "id": 5508
+      },
+      "writtenOn": "2022-07-14T14:33:32Z",
+      "side": 1,
+      "message": "it would be nice to start using thread annotations in this class",
+      "revId": "beea58942ee79cf69ff7c5cd5ed7e9b4222443b3",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

@@ -41,6 +41,30 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "e83d22c1_c73dfc1d",
+        "filename": "test/testsupport/fixed_fps_video_frame_writer_adaptor.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 91,
+      "author": {
+        "id": 6337
+      },
+      "writtenOn": "2022-07-15T21:46:23Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "ddb827bd_8c70e749",
+      "range": {
+        "startLine": 87,
+        "startChar": 4,
+        "endLine": 91,
+        "endChar": 3
+      },
+      "revId": "c60dcc9d609032e26914d16836b14d0dfa8d2700",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "b2d26a0b_02c32403",
@@ -54,6 +78,30 @@
       "writtenOn": "2022-07-15T15:48:45Z",
       "side": 1,
       "message": "nit: \"from A to F\".",
+      "range": {
+        "startLine": 38,
+        "startChar": 25,
+        "endLine": 38,
+        "endChar": 28
+      },
+      "revId": "c60dcc9d609032e26914d16836b14d0dfa8d2700",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "baf6a3ff_fe6d954f",
+        "filename": "test/testsupport/fixed_fps_video_frame_writer_adaptor.h",
+        "patchSetId": 3
+      },
+      "lineNbr": 38,
+      "author": {
+        "id": 6337
+      },
+      "writtenOn": "2022-07-15T21:46:23Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "b2d26a0b_02c32403",
       "range": {
         "startLine": 38,
         "startChar": 25,
@@ -89,6 +137,30 @@
     {
       "unresolved": false,
       "key": {
+        "uuid": "ba398c63_b3d03062",
+        "filename": "test/testsupport/fixed_fps_video_frame_writer_adaptor.h",
+        "patchSetId": 3
+      },
+      "lineNbr": 67,
+      "author": {
+        "id": 6337
+      },
+      "writtenOn": "2022-07-15T21:46:23Z",
+      "side": 1,
+      "message": "Used WriteMissedSlotsExceptLast",
+      "parentUuid": "956f0000_1107ebfd",
+      "range": {
+        "startLine": 67,
+        "startChar": 7,
+        "endLine": 67,
+        "endChar": 35
+      },
+      "revId": "c60dcc9d609032e26914d16836b14d0dfa8d2700",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
         "uuid": "66440abf_3c8d9a86",
         "filename": "test/testsupport/fixed_fps_video_frame_writer_adaptor_test.cc",
         "patchSetId": 3
@@ -100,6 +172,30 @@
       "writtenOn": "2022-07-15T15:23:33Z",
       "side": 1,
       "message": "nit: TestVideoWriter.",
+      "range": {
+        "startLine": 40,
+        "startChar": 6,
+        "endLine": 40,
+        "endChar": 26
+      },
+      "revId": "c60dcc9d609032e26914d16836b14d0dfa8d2700",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "0606b361_b7bae062",
+        "filename": "test/testsupport/fixed_fps_video_frame_writer_adaptor_test.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 40,
+      "author": {
+        "id": 6337
+      },
+      "writtenOn": "2022-07-15T21:46:23Z",
+      "side": 1,
+      "message": "I used InMemoryVideoWriter, because otherwise it conflicts with writer under test",
+      "parentUuid": "66440abf_3c8d9a86",
       "range": {
         "startLine": 40,
         "startChar": 6,
@@ -135,6 +231,30 @@
     {
       "unresolved": false,
       "key": {
+        "uuid": "959f5a13_cc0c70b6",
+        "filename": "test/testsupport/fixed_fps_video_frame_writer_adaptor_test.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 95,
+      "author": {
+        "id": 6337
+      },
+      "writtenOn": "2022-07-15T21:46:23Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "b528d453_a6856cba",
+      "range": {
+        "startLine": 95,
+        "startChar": 29,
+        "endLine": 95,
+        "endChar": 36
+      },
+      "revId": "c60dcc9d609032e26914d16836b14d0dfa8d2700",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
         "uuid": "9ded8a94_65714d2e",
         "filename": "test/testsupport/fixed_fps_video_frame_writer_adaptor_test.cc",
         "patchSetId": 3
@@ -158,6 +278,30 @@
     {
       "unresolved": false,
       "key": {
+        "uuid": "1f008152_d345cd29",
+        "filename": "test/testsupport/fixed_fps_video_frame_writer_adaptor_test.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 100,
+      "author": {
+        "id": 6337
+      },
+      "writtenOn": "2022-07-15T21:46:23Z",
+      "side": 1,
+      "message": "It may lead to confusion that this is writer under test, so it is why I used inmemory_writer",
+      "parentUuid": "9ded8a94_65714d2e",
+      "range": {
+        "startLine": 100,
+        "startChar": 7,
+        "endLine": 100,
+        "endChar": 23
+      },
+      "revId": "c60dcc9d609032e26914d16836b14d0dfa8d2700",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
         "uuid": "5e9dfe54_816b129e",
         "filename": "test/testsupport/fixed_fps_video_frame_writer_adaptor_test.cc",
         "patchSetId": 3
@@ -169,6 +313,30 @@
       "writtenOn": "2022-07-15T15:23:33Z",
       "side": 1,
       "message": "nit:\n\nI\u0027m not sure what are you testing here, since you check for times when the frames were written, but these are triggered when there\u0027s an incoming frame, so it they can be arbitrary different. It just so happens that everything evens out in this case here.\n\nI suggest to delete this test and time keeping from the test video writer.",
+      "range": {
+        "startLine": 344,
+        "startChar": 0,
+        "endLine": 345,
+        "endChar": 71
+      },
+      "revId": "c60dcc9d609032e26914d16836b14d0dfa8d2700",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "6f563868_bc855d5a",
+        "filename": "test/testsupport/fixed_fps_video_frame_writer_adaptor_test.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 345,
+      "author": {
+        "id": 6337
+      },
+      "writtenOn": "2022-07-15T21:46:23Z",
+      "side": 1,
+      "message": "Ah, yep, you are right, I missed that, thank you",
+      "parentUuid": "5e9dfe54_816b129e",
       "range": {
         "startLine": 344,
         "startChar": 0,

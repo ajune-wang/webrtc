@@ -64,6 +64,30 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "b65735ff_a8597f9d",
+        "filename": "test/fuzzers/audio_processing_sample_rate_fuzzer.cc",
+        "patchSetId": 7
+      },
+      "lineNbr": 32,
+      "author": {
+        "id": 5119
+      },
+      "writtenOn": "2022-07-15T12:56:44Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "baa0c258_68eeef8d",
+      "range": {
+        "startLine": 32,
+        "startChar": 2,
+        "endLine": 32,
+        "endChar": 49
+      },
+      "revId": "79d8b3677c007594cce3d6064481b9cc2b4be0a4",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "788e1c6f_ca37f39e",
@@ -81,6 +105,24 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "7420f913_8d008fc2",
+        "filename": "test/fuzzers/audio_processing_sample_rate_fuzzer.cc",
+        "patchSetId": 7
+      },
+      "lineNbr": 51,
+      "author": {
+        "id": 5119
+      },
+      "writtenOn": "2022-07-15T12:56:44Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "788e1c6f_ca37f39e",
+      "revId": "79d8b3677c007594cce3d6064481b9cc2b4be0a4",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "7219fd54_e3ce5560",
@@ -94,6 +136,30 @@
       "writtenOn": "2022-07-12T08:24:27Z",
       "side": 1,
       "message": "If we only fuzz APM with its default config, I would state that in the CL description. Otherwise, do you see alternatives? Could input/output sample rate combos be incorrectly handled at an APM sub-module level? If so, should we for example randomly select from a collection of representative configs (e.g., presets such as \"all sub-modules disabled\", \"HPF AEC NS TS AGC2\").",
+      "range": {
+        "startLine": 71,
+        "startChar": 0,
+        "endLine": 75,
+        "endChar": 20
+      },
+      "revId": "79d8b3677c007594cce3d6064481b9cc2b4be0a4",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "68727d9b_18761170",
+        "filename": "test/fuzzers/audio_processing_sample_rate_fuzzer.cc",
+        "patchSetId": 7
+      },
+      "lineNbr": 75,
+      "author": {
+        "id": 5119
+      },
+      "writtenOn": "2022-07-15T12:56:44Z",
+      "side": 1,
+      "message": "Good question! APM is quick to resample the input to one of the safe processing formats (16/32/48), and all modules run on those formats. So there are no issues within submodules, it is only in how APM handles the resampling and initial / final stages of a Process call.\n\nI had a look at the initialization code and there is a tiny bit of dependency on which submodules are active. I have added two no-op submodules to exercise this behavior, thank you for pointing it out!",
+      "parentUuid": "7219fd54_e3ce5560",
       "range": {
         "startLine": 71,
         "startChar": 0,
@@ -127,6 +193,30 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "a2a358f7_436005a1",
+        "filename": "test/fuzzers/audio_processing_sample_rate_fuzzer.cc",
+        "patchSetId": 7
+      },
+      "lineNbr": 80,
+      "author": {
+        "id": 5119
+      },
+      "writtenOn": "2022-07-15T12:56:44Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "0d2c5a17_42ec0ee3",
+      "range": {
+        "startLine": 80,
+        "startChar": 31,
+        "endLine": 80,
+        "endChar": 35
+      },
+      "revId": "79d8b3677c007594cce3d6064481b9cc2b4be0a4",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "c6a4714e_ccd42cdf",
@@ -150,6 +240,30 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "6d7436ee_1ab0bf8b",
+        "filename": "test/fuzzers/audio_processing_sample_rate_fuzzer.cc",
+        "patchSetId": 7
+      },
+      "lineNbr": 105,
+      "author": {
+        "id": 5119
+      },
+      "writtenOn": "2022-07-15T12:56:44Z",
+      "side": 1,
+      "message": "We do allow an arbitrary call order, and are supposed to handle it.\n\nSince reinitialization happens slightly differently for capture and render, I want the fuzzer to be able to choose the call order.\n\nYou are right to question whether this diverts \"fuzzing energy\" to call order fuzzing. I think it is OK: the low input size limit (100 bytes) doesn\u0027t allow for a great deal of effort on call order. One Process call takes about 10-15 bytes to fuzz, so the fuzzer cannot do more than 5-10 Process calls.",
+      "parentUuid": "c6a4714e_ccd42cdf",
+      "range": {
+        "startLine": 105,
+        "startChar": 4,
+        "endLine": 105,
+        "endChar": 63
+      },
+      "revId": "79d8b3677c007594cce3d6064481b9cc2b4be0a4",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "d13bc698_10b8faef",
@@ -163,6 +277,24 @@
       "writtenOn": "2022-07-12T08:24:27Z",
       "side": 1,
       "message": "Have you considered the option of creating two separate fuzzers for the float and fix cases? In this file, there is little code in common for the two cases, in practice we never switch to and from fix/float unless APM is recreated, and separate fuzzers might help the fuzzer to more effectively mutate the input data.",
+      "revId": "79d8b3677c007594cce3d6064481b9cc2b4be0a4",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "b1d088a8_d4e1b5c2",
+        "filename": "test/fuzzers/audio_processing_sample_rate_fuzzer.cc",
+        "patchSetId": 7
+      },
+      "lineNbr": 109,
+      "author": {
+        "id": 5119
+      },
+      "writtenOn": "2022-07-15T12:56:44Z",
+      "side": 1,
+      "message": "I tried it now, but there is still a lot of unshared code. I think it is worth the little bit of added complexity.\n\nHowever, great point that we never switch between the interfaces! I\u0027ve updated the code to choose one of the APIs and then stick to it for the duration of the fuzzer test case.",
+      "parentUuid": "d13bc698_10b8faef",
       "revId": "79d8b3677c007594cce3d6064481b9cc2b4be0a4",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }

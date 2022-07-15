@@ -664,12 +664,12 @@ RtpFileReader* RtpFileReader::Create(FileFormat format,
 }
 
 RtpFileReader* RtpFileReader::Create(FileFormat format,
-                                     const std::string& filename,
+                                     absl::string_view filename,
                                      const std::set<uint32_t>& ssrc_filter) {
   RtpFileReaderImpl* reader = CreateReaderForFormat(format);
-  FILE* file = fopen(filename.c_str(), "rb");
+  FILE* file = fopen(std::string(filename).c_str(), "rb");
   if (file == nullptr) {
-    printf("ERROR: Can't open file: %s\n", filename.c_str());
+    printf("ERROR: Can't open file: %s\n", std::string(filename).c_str());
     return nullptr;
   }
 
@@ -681,7 +681,7 @@ RtpFileReader* RtpFileReader::Create(FileFormat format,
 }
 
 RtpFileReader* RtpFileReader::Create(FileFormat format,
-                                     const std::string& filename) {
+                                     absl::string_view filename) {
   return RtpFileReader::Create(format, filename, std::set<uint32_t>());
 }
 

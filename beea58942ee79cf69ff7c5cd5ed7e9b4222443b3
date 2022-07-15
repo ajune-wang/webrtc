@@ -155,6 +155,24 @@
       "parentUuid": "82873b6e_52fbf91f",
       "revId": "beea58942ee79cf69ff7c5cd5ed7e9b4222443b3",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "8580f58f_5308a2ec",
+        "filename": "modules/audio_coding/neteq/delay_manager.h",
+        "patchSetId": 5
+      },
+      "lineNbr": 117,
+      "author": {
+        "id": 8038
+      },
+      "writtenOn": "2022-07-15T07:58:51Z",
+      "side": 1,
+      "message": "Currently, all of NetEq is guarded behind a mutex and accessed by both the networking thread (?) and audio rendering thread. Does it make sense to use thread annotations in this case?",
+      "parentUuid": "189699b5_23f7939d",
+      "revId": "beea58942ee79cf69ff7c5cd5ed7e9b4222443b3",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

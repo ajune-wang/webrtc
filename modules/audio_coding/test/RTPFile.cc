@@ -14,6 +14,8 @@
 
 #include <limits>
 
+#include "absl/strings/string_view.h"
+
 #ifdef WIN32
 #include <Winsock2.h>
 #else
@@ -122,9 +124,10 @@ bool RTPBuffer::EndOfFile() const {
   return _rtpQueue.empty();
 }
 
-void RTPFile::Open(const char* filename, const char* mode) {
-  if ((_rtpFile = fopen(filename, mode)) == NULL) {
-    printf("Cannot write file %s.\n", filename);
+void RTPFile::Open(absl::string_view filename, absl::string_view mode) {
+  if ((_rtpFile = fopen(std::string(filename).c_str(),
+                        std::string(mode).c_str())) == NULL) {
+    printf("Cannot write file %s.\n", std::string(filename).c_str());
     ADD_FAILURE() << "Unable to write file";
     exit(1);
   }

@@ -1,0 +1,159 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "41d80c58_d90efb61",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 3
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5117
+      },
+      "writtenOn": "2022-07-15T15:23:33Z",
+      "side": 1,
+      "message": "Thank you, the code looks great now. There are only a few small comments, typos and nits.",
+      "revId": "c60dcc9d609032e26914d16836b14d0dfa8d2700",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "ddb827bd_8c70e749",
+        "filename": "test/testsupport/fixed_fps_video_frame_writer_adaptor.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 91,
+      "author": {
+        "id": 5117
+      },
+      "writtenOn": "2022-07-15T15:23:33Z",
+      "side": 1,
+      "message": "This is the part of the same \"operation\" as the code below. They should be together.\n\nI suggest to drop |else|, since there\u0027s a return clause before it.",
+      "range": {
+        "startLine": 87,
+        "startChar": 4,
+        "endLine": 91,
+        "endChar": 3
+      },
+      "revId": "c60dcc9d609032e26914d16836b14d0dfa8d2700",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "956f0000_1107ebfd",
+        "filename": "test/testsupport/fixed_fps_video_frame_writer_adaptor.h",
+        "patchSetId": 3
+      },
+      "lineNbr": 67,
+      "author": {
+        "id": 5117
+      },
+      "writtenOn": "2022-07-15T15:23:33Z",
+      "side": 1,
+      "message": "nit: How about |WriteMissedSlots|?",
+      "range": {
+        "startLine": 67,
+        "startChar": 7,
+        "endLine": 67,
+        "endChar": 35
+      },
+      "revId": "c60dcc9d609032e26914d16836b14d0dfa8d2700",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "66440abf_3c8d9a86",
+        "filename": "test/testsupport/fixed_fps_video_frame_writer_adaptor_test.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 40,
+      "author": {
+        "id": 5117
+      },
+      "writtenOn": "2022-07-15T15:23:33Z",
+      "side": 1,
+      "message": "nit: TestVideoWriter.",
+      "range": {
+        "startLine": 40,
+        "startChar": 6,
+        "endLine": 40,
+        "endChar": 26
+      },
+      "revId": "c60dcc9d609032e26914d16836b14d0dfa8d2700",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "b528d453_a6856cba",
+        "filename": "test/testsupport/fixed_fps_video_frame_writer_adaptor_test.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 95,
+      "author": {
+        "id": 5117
+      },
+      "writtenOn": "2022-07-15T15:23:33Z",
+      "side": 1,
+      "message": "s/Adaptor/Adapter/",
+      "range": {
+        "startLine": 95,
+        "startChar": 29,
+        "endLine": 95,
+        "endChar": 36
+      },
+      "revId": "c60dcc9d609032e26914d16836b14d0dfa8d2700",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "9ded8a94_65714d2e",
+        "filename": "test/testsupport/fixed_fps_video_frame_writer_adaptor_test.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 100,
+      "author": {
+        "id": 5117
+      },
+      "writtenOn": "2022-07-15T15:23:33Z",
+      "side": 1,
+      "message": "nit: test_writer",
+      "range": {
+        "startLine": 100,
+        "startChar": 7,
+        "endLine": 100,
+        "endChar": 23
+      },
+      "revId": "c60dcc9d609032e26914d16836b14d0dfa8d2700",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "5e9dfe54_816b129e",
+        "filename": "test/testsupport/fixed_fps_video_frame_writer_adaptor_test.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 345,
+      "author": {
+        "id": 5117
+      },
+      "writtenOn": "2022-07-15T15:23:33Z",
+      "side": 1,
+      "message": "nit:\n\nI\u0027m not sure what are you testing here, since you check for times when the frames were written, but these are triggered when there\u0027s an incoming frame, so it they can be arbitrary different. It just so happens that everything evens out in this case here.\n\nI suggest to delete this test and time keeping from the test video writer.",
+      "range": {
+        "startLine": 344,
+        "startChar": 0,
+        "endLine": 345,
+        "endChar": 71
+      },
+      "revId": "c60dcc9d609032e26914d16836b14d0dfa8d2700",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

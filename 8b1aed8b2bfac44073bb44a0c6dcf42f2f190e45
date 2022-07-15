@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "48226ed6_d280bbb6",
+        "filename": "test/testsupport/fixed_fps_video_frame_writer_adaptor.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 48,
+      "author": {
+        "id": 5117
+      },
+      "writtenOn": "2022-07-15T15:23:33Z",
+      "side": 1,
+      "message": "Adapter",
+      "range": {
+        "startLine": 48,
+        "startChar": 30,
+        "endLine": 48,
+        "endChar": 37
+      },
+      "revId": "8b1aed8b2bfac44073bb44a0c6dcf42f2f190e45",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "ca21d269_5c54d876",
+        "filename": "test/testsupport/fixed_fps_video_frame_writer_adaptor.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 57,
+      "author": {
+        "id": 5117
+      },
+      "writtenOn": "2022-07-15T15:23:33Z",
+      "side": 1,
+      "message": "adaptor -\u003e adapter",
+      "range": {
+        "startLine": 57,
+        "startChar": 12,
+        "endLine": 57,
+        "endChar": 20
+      },
+      "revId": "8b1aed8b2bfac44073bb44a0c6dcf42f2f190e45",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

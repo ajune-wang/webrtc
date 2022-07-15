@@ -173,7 +173,7 @@ class WgcCapturerWinTest : public ::testing::TestWithParam<CaptureType>,
     window_open_ = false;
   }
 
-  DesktopCapturer::SourceId GetTestWindowIdFromSourceList() {
+  SourceId GetTestWindowIdFromSourceList() {
     // Frequently, the test window will not show up in GetSourceList because it
     // was created too recently. Since we are confident the window will be found
     // eventually we loop here until we find it.
@@ -194,7 +194,7 @@ class WgcCapturerWinTest : public ::testing::TestWithParam<CaptureType>,
     return src_id;
   }
 
-  DesktopCapturer::SourceId GetScreenIdFromSourceList() {
+  SourceId GetScreenIdFromSourceList() {
     DesktopCapturer::SourceList sources;
     EXPECT_TRUE(capturer_->GetSourceList(&sources));
     EXPECT_GT(sources.size(), 0ULL);

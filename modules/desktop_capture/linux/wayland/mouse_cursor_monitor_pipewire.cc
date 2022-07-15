@@ -43,7 +43,10 @@ void MouseCursorMonitorPipeWire::Capture() {
   std::unique_ptr<MouseCursor> mouse_cursor =
       options_.screencast_stream()->CaptureCursor();
 
+  RTC_LOG(LS_ERROR) << __func__ << ": >>> Monitor pipewire capturer";
   if (mouse_cursor && mouse_cursor->image()->data()) {
+    RTC_LOG(LS_ERROR) << __func__
+                      << ": >>> Monitor pipewire capturer on mouse cursor";
     callback_->OnMouseCursor(mouse_cursor.release());
   }
 

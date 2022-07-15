@@ -184,7 +184,7 @@ bool WgcCapturerWin::GetSourceList(SourceList* sources) {
   return source_enumerator_->FindAllSources(sources);
 }
 
-bool WgcCapturerWin::SelectSource(DesktopCapturer::SourceId id) {
+bool WgcCapturerWin::SelectSource(SourceId id) {
   capture_source_ = source_factory_->CreateCaptureSource(id);
   if (allow_delayed_capturable_check_)
     return true;
@@ -351,9 +351,9 @@ void WgcCapturerWin::CaptureFrame() {
                              std::move(frame));
 }
 
-bool WgcCapturerWin::IsSourceBeingCaptured(DesktopCapturer::SourceId id) {
-  std::map<DesktopCapturer::SourceId, WgcCaptureSession>::iterator
-      session_iter = ongoing_captures_.find(id);
+bool WgcCapturerWin::IsSourceBeingCaptured(SourceId id) {
+  std::map<SourceId, WgcCaptureSession>::iterator session_iter =
+      ongoing_captures_.find(id);
   if (session_iter == ongoing_captures_.end())
     return false;
 

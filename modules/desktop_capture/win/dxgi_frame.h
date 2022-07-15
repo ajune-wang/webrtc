@@ -46,14 +46,14 @@ class DxgiFrame final {
   friend class DxgiDuplicatorController;
 
   // Prepares current instance with desktop size and source id.
-  bool Prepare(DesktopSize size, DesktopCapturer::SourceId source_id);
+  bool Prepare(DesktopSize size, SourceId source_id);
 
   // Should not be called if Prepare() is not executed or returns false.
   Context* context();
 
   SharedMemoryFactory* const factory_;
   ResolutionTracker resolution_tracker_;
-  DesktopCapturer::SourceId source_id_ = kFullDesktopScreenId;
+  SourceId source_id_ = kFullDesktopScreenId;
   std::unique_ptr<SharedDesktopFrame> frame_;
   Context context_;
 };

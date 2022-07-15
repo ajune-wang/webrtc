@@ -26,6 +26,7 @@
 #include "modules/desktop_capture/desktop_frame.h"
 #include "modules/desktop_capture/shared_memory.h"
 #include "rtc_base/system/rtc_export.h"
+// #include "third_party/abseil-cpp/absl/types/optional.h"
 
 namespace webrtc {
 
@@ -62,6 +63,8 @@ class RTC_EXPORT DesktopCapturer {
     virtual ~Callback() {}
   };
 
+  // Keeping this here till we adjust the users in downstream chromoting code
+  // base.
 #if defined(CHROMEOS)
   typedef int64_t SourceId;
 #else
@@ -145,7 +148,7 @@ class RTC_EXPORT DesktopCapturer {
 #if defined(WEBRTC_USE_PIPEWIRE) || defined(WEBRTC_USE_X11)
   static bool IsRunningUnderWayland();
 
-  virtual void UpdateResolution(uint32_t width, uint32_t height) {}
+  virtual void UpdateResolution(uint32_t width, uint32_t height, absl::optional<SourceId> id) {}
 #endif  // defined(WEBRTC_USE_PIPEWIRE) || defined(WEBRTC_USE_X11)
 
 #if defined(WEBRTC_USE_GIO)

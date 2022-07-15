@@ -88,6 +88,30 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "4e3589c5_8843c4c7",
+        "filename": "test/pc/e2e/analyzer/video/fixed_fps_video_writer.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 80,
+      "author": {
+        "id": 5117
+      },
+      "writtenOn": "2022-07-15T11:46:41Z",
+      "side": 1,
+      "message": "Correction: all writers currently do not save timestamp in the file. So it\u0027s not that necessary.\n\nBut still, if you are up to it, it would be greate to update VideoFrame::ntp_time_ms_ and rtp_timestamp_",
+      "parentUuid": "f6a5ab18_39658e61",
+      "range": {
+        "startLine": 80,
+        "startChar": 5,
+        "endLine": 80,
+        "endChar": 46
+      },
+      "revId": "1b04e7db18075fb7f38eff24efe511dd23f57e6c",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "080afd6a_ab303993",

@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "17074ac9_a9772dc3",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5122
+      },
+      "writtenOn": "2022-07-15T08:14:56Z",
+      "side": 1,
+      "message": "Hi Hanna, could you PTAL again?",
+      "revId": "9e90111ffabbb43d4f05711987bc3eef82661e92",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

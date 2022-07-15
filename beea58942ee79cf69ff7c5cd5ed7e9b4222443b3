@@ -191,6 +191,24 @@
       "parentUuid": "8580f58f_5308a2ec",
       "revId": "beea58942ee79cf69ff7c5cd5ed7e9b4222443b3",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "9ee84a1c_5f90aa89",
+        "filename": "modules/audio_coding/neteq/delay_manager.h",
+        "patchSetId": 5
+      },
+      "lineNbr": 117,
+      "author": {
+        "id": 5508
+      },
+      "writtenOn": "2022-07-15T09:30:59Z",
+      "side": 1,
+      "message": "Thread annotations are useful to enforce and document the threading model. So +1 on the improved readability but they also catch potential programmer mistakes if a programmer forgets to grab a lock or if a lock is already held.\n\nOn the name \"thread annotations\" - this doesn\u0027t explicitly mean that a variable will only be used on a particular thread. It\u0027s about thread safety and associating state with an object that implements a locking contract and guarantees the safety. An example could be a mutex but it could also be other types of constructs such as sequence checkers or task queues in the webrtc code base.\n\nSo in my opinion it\u0027s useful even if we just start with this one member variable. One bite at a time and all that",
+      "parentUuid": "e8a64177_89dc57bf",
+      "revId": "beea58942ee79cf69ff7c5cd5ed7e9b4222443b3",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

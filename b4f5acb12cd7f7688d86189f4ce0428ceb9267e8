@@ -16,6 +16,23 @@
       "message": "Thank you for a great review! I\u0027ve addressed all comments to various extents, PTAL!",
       "revId": "b4f5acb12cd7f7688d86189f4ce0428ceb9267e8",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "bb83a308_f48bbefc",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 10
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5122
+      },
+      "writtenOn": "2022-07-18T08:41:21Z",
+      "side": 1,
+      "message": "Thanks Sam! Great work!",
+      "revId": "b4f5acb12cd7f7688d86189f4ce0428ceb9267e8",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

@@ -1,0 +1,67 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "b54466a4_1c904e76",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5119
+      },
+      "writtenOn": "2022-07-18T09:53:52Z",
+      "side": 1,
+      "message": "Great CL, it really improves the code. Thank you!",
+      "revId": "e7fdee68ba5db82862a5701729c9e8e8ec4255c2",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "dc545fcf_d50b4d73",
+        "filename": "modules/audio_processing/aec_dump/aec_dump_impl.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 230,
+      "author": {
+        "id": 5119
+      },
+      "writtenOn": "2022-07-18T09:53:52Z",
+      "side": 1,
+      "message": "It looks like this `return` doesn\u0027t do anything and should be removed.",
+      "range": {
+        "startLine": 230,
+        "startChar": 2,
+        "endLine": 230,
+        "endChar": 9
+      },
+      "revId": "e7fdee68ba5db82862a5701729c9e8e8ec4255c2",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "40ade7b8_f7711e65",
+        "filename": "modules/audio_processing/aec_dump/aec_dump_impl.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 76,
+      "author": {
+        "id": 5119
+      },
+      "writtenOn": "2022-07-18T09:53:52Z",
+      "side": 1,
+      "message": "The logic in `PostWriteToFileTask` had me pretty confused until I understood that `-1` means something special. It was even worse before this CL.\n\nCan you add a comment saying something like:\n```\n// Tracks how much more space is left for the aecdump file. If negative, there is no limit on aecdump file size.\n```\n\n...or change it to optional, but that\u0027s beyond what you\u0027re working on here so I will do it if you are not interested.",
+      "range": {
+        "startLine": 76,
+        "startChar": 0,
+        "endLine": 76,
+        "endChar": 38
+      },
+      "revId": "e7fdee68ba5db82862a5701729c9e8e8ec4255c2",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

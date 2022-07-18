@@ -158,6 +158,24 @@
       "parentUuid": "fa10638e_7552b6e6",
       "revId": "3fe8b0d9a980642ee5ebb1f9e429378b063c1f07",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "7d3c22d0_c8a97d23",
+        "filename": "pc/rtp_sender_receiver_unittest.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 1154,
+      "author": {
+        "id": 5508
+      },
+      "writtenOn": "2022-07-18T10:30:26Z",
+      "side": 1,
+      "message": "ah that\u0027s right - great improvement.\n\nI took a look at the issue again and what seems to be the subtle side effect I was thinking of in my initial comment was that if InitCocoaMultiThreading gets called (implicitly) then additional worker threads get created. That in turn causes the thread count to be inconsistent on exit.",
+      "parentUuid": "e8b760ac_6bd9c4f7",
+      "revId": "3fe8b0d9a980642ee5ebb1f9e429378b063c1f07",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

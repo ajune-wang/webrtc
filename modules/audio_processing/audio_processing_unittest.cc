@@ -70,14 +70,8 @@ namespace {
 // applicable.
 
 const int32_t kChannels[] = {1, 2};
-const int kSampleRates[] = {8000, 16000, 32000, 48000};
-
-#if defined(WEBRTC_AUDIOPROC_FIXED_PROFILE)
-// Android doesn't support 48kHz.
-const int kProcessSampleRates[] = {8000, 16000, 32000};
-#elif defined(WEBRTC_AUDIOPROC_FLOAT_PROFILE)
+const int kSampleRates[] = {8000, 11025, 16000, 22050, 32000, 44100, 48000};
 const int kProcessSampleRates[] = {8000, 16000, 32000, 48000};
-#endif
 
 enum StreamDirection { kForward = 0, kReverse };
 
@@ -300,10 +294,11 @@ void OpenFileAndReadMessage(const std::string& filename, MessageLite* msg) {
   fclose(file);
 }
 
-// Reads a 10 ms chunk of int16 interleaved audio from the given (assumed
-// stereo) file, converts to deinterleaved float (optionally downmixing) and
-// returns the result in `cb`. Returns false if the file ended (or on error) and
-// true otherwise.
+// Reads a 10 ms chunk (actually AudioProcessing::GetFrameSize() samples per
+// channel) of int16 interleaved audio from the given (assumed stereo) file,
+// converts to deinterleaved float (optionally downmixing) and returns the
+// result in `cb`. Returns false if the file ended (or on error) and true
+// otherwise.
 //
 // `int_data` and `float_data` are just temporary space that must be
 // sufficiently large to hold the 10 ms chunk.
@@ -2333,7 +2328,8 @@ void RunApmRateAndChannelTest(
                 cfg->set_sample_rate_hz(sample_rate_hz);
                 cfg->set_num_channels(num_channels);
 
-                size_t max_frame_size = ceil(sample_rate_hz / 100.f);
+                size_t max_frame_size =
+                    AudioProcessing::GetFrameSize(sample_rate_hz);
                 channels_data->resize(num_channels * max_frame_size);
                 std::fill(channels_data->begin(), channels_data->end(), 0.5f);
                 frame_data->resize(num_channels);

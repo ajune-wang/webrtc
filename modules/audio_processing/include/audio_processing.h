@@ -92,9 +92,9 @@ static constexpr int kClippedLevelMin = 70;
 //   2. Parameter getters are never called concurrently with the corresponding
 //      setter.
 //
-// APM accepts only linear PCM audio data in chunks of 10 ms. The int16
-// interfaces use interleaved data, while the float interfaces use deinterleaved
-// data.
+// APM accepts only linear PCM audio data in chunks of 10 ms (more precisely
+// AudioProcessing::GetFrameSize() samples per channel). The int16 interfaces
+// use interleaved data, while the float interfaces use deinterleaved data.
 //
 // Usage example, omitting error checking:
 // AudioProcessing* apm = AudioProcessingBuilder().Create();
@@ -533,7 +533,7 @@ class RTC_EXPORT AudioProcessing : public rtc::RefCountInterface {
   // enqueueing was successfull.
   virtual bool PostRuntimeSetting(RuntimeSetting setting) = 0;
 
-  // Accepts and produces a 10 ms frame interleaved 16 bit integer audio as
+  // Accepts and produces a ~10 ms frame of interleaved 16 bit integer audio as
   // specified in `input_config` and `output_config`. `src` and `dest` may use
   // the same memory, if desired.
   virtual int ProcessStream(const int16_t* const src,
@@ -553,7 +553,7 @@ class RTC_EXPORT AudioProcessing : public rtc::RefCountInterface {
                             const StreamConfig& output_config,
                             float* const* dest) = 0;
 
-  // Accepts and produces a 10 ms frame of interleaved 16 bit integer audio for
+  // Accepts and produces a ~10 ms frame of interleaved 16 bit integer audio for
   // the reverse direction audio stream as specified in `input_config` and
   // `output_config`. `src` and `dest` may use the same memory, if desired.
   virtual int ProcessReverseStream(const int16_t* const src,
@@ -574,10 +574,10 @@ class RTC_EXPORT AudioProcessing : public rtc::RefCountInterface {
   virtual int AnalyzeReverseStream(const float* const* data,
                                    const StreamConfig& reverse_config) = 0;
 
-  // Returns the most recently produced 10 ms of the linear AEC output at a rate
-  // of 16 kHz. If there is more than one capture channel, a mono representation
-  // of the input is returned. Returns true/false to indicate whether an output
-  // returned.
+  // Returns the most recently produced ~10 ms of the linear AEC output at a
+  // rate of 16 kHz. If there is more than one capture channel, a mono
+  // representation of the input is returned. Returns true/false to indicate
+  // whether an output returned.
   virtual bool GetLinearAecOutput(
       rtc::ArrayView<std::array<float, 160>> linear_output) const = 0;
 
@@ -694,7 +694,16 @@ class RTC_EXPORT AudioProcessing : public rtc::RefCountInterface {
   static constexpr int kMaxNativeSampleRateHz =
       kNativeSampleRatesHz[kNumNativeSampleRates - 1];
 
+  // APM processes audio in chunks of about 10 ms. See GetFrameSize() for
+  // details.
   static constexpr int kChunkSizeMs = 10;
+
+  // Returns floor(sample_rate_hz/100), the number of samples per channel used
+  // as input and output to the audio processing module in calls to
+  // ProcessStream, ProcessReverseStream, AnalyzeReverseStream, and
+  // GetLinearAecOutput. This is approximately 10 ms, but slightly less for
+  // sample rates not divisible by 100.
+  static int GetFrameSize(int sample_rate_hz) { return sample_rate_hz / 100; }
 };
 
 class RTC_EXPORT AudioProcessingBuilder {
@@ -792,8 +801,7 @@ class StreamConfig {
 
  private:
   static size_t calculate_frames(int sample_rate_hz) {
-    return static_cast<size_t>(AudioProcessing::kChunkSizeMs * sample_rate_hz /
-                               1000);
+    return static_cast<size_t>(AudioProcessing::GetFrameSize(sample_rate_hz));
   }
 
   int sample_rate_hz_;

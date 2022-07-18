@@ -140,6 +140,24 @@
       "parentUuid": "2c86cb52_b6954c08",
       "revId": "3fe8b0d9a980642ee5ebb1f9e429378b063c1f07",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "e8b760ac_6bd9c4f7",
+        "filename": "pc/rtp_sender_receiver_unittest.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 1154,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2022-07-18T09:21:20Z",
+      "side": 1,
+      "message": "Note that some automagic thread wrapping and check for \"DeathTest\" name was deleted in https://webrtc-review.googlesource.com/c/src/+/254681, so hopefully no longer an issue.",
+      "parentUuid": "fa10638e_7552b6e6",
+      "revId": "3fe8b0d9a980642ee5ebb1f9e429378b063c1f07",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

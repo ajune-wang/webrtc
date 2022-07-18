@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "4cf3c2d9_56eb781b",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2022-07-18T10:01:12Z",
+      "side": 1,
+      "message": "Tommi, can you have a look? Most owners are ooo.",
+      "revId": "e722a9e8a3391bc1e75a1d42a27f4b03c7c7b561",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

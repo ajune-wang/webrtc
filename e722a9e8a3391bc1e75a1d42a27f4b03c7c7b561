@@ -50,6 +50,24 @@
       "message": "should we add checks for valid values of `n` here as well?",
       "revId": "e722a9e8a3391bc1e75a1d42a27f4b03c7c7b561",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "a76e7409_17aa8361",
+        "filename": "api/video_codecs/simulcast_stream.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 21,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2022-07-18T11:44:08Z",
+      "side": 1,
+      "message": "Done. (Would otherwise have had to do that in next cl, when changing this method to assign to a new scalability_mode member instead).",
+      "parentUuid": "137d9d70_84aee3ff",
+      "revId": "e722a9e8a3391bc1e75a1d42a27f4b03c7c7b561",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

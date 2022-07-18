@@ -601,7 +601,6 @@ rtc_library("rtc_task_queue") {
   deps = [
     ":macromagic",
     "../api/task_queue",
-    "../api/task_queue:to_queued_task",
     "system:rtc_export",
   ]
   absl_deps = [
@@ -948,7 +947,6 @@ rtc_library("threading") {
     "../api:sequence_checker",
     "../api/task_queue",
     "../api/task_queue:pending_task_safety_flag",
-    "../api/task_queue:to_queued_task",
     "../api/units:time_delta",
     "synchronization:mutex",
     "system:no_unique_address",
@@ -1092,8 +1090,8 @@ rtc_library("rtc_base") {
     "../api/numerics",
     "../api/task_queue",
     "../api/task_queue:pending_task_safety_flag",
-    "../api/task_queue:to_queued_task",
     "../api/transport:field_trial_based_config",
+    "../api/units:time_delta",
     "../system_wrappers:field_trial",
     "memory:always_valid_pointer",
     "network:sent_packet",
@@ -1378,7 +1376,6 @@ rtc_library("rtc_base_tests_utils") {
     ":stringutils",
     ":threading",
     ":timeutils",
-    "../api/task_queue:to_queued_task",
     "../api/units:time_delta",
     "../api/units:timestamp",
     "../test:scoped_key_value_config",
@@ -1407,11 +1404,14 @@ rtc_library("task_queue_for_test") {
     ":macromagic",
     ":rtc_event",
     ":rtc_task_queue",
+    "../api:function_view",
     "../api/task_queue",
     "../api/task_queue:default_task_queue_factory",
-    "../api/task_queue:to_queued_task",
   ]
-  absl_deps = [ "//third_party/abseil-cpp/absl/strings" ]
+  absl_deps = [
+    "//third_party/abseil-cpp/absl/cleanup",
+    "//third_party/abseil-cpp/absl/strings",
+  ]
 }
 
 if (rtc_include_tests) {
@@ -1594,7 +1594,6 @@ if (rtc_include_tests) {
         "../api:make_ref_counted",
         "../api:scoped_refptr",
         "../api/numerics",
-        "../api/task_queue:to_queued_task",
         "../api/units:time_delta",
         "../system_wrappers",
         "../test:fileutils",
@@ -1631,6 +1630,7 @@ if (rtc_include_tests) {
         ":rtc_task_queue",
         ":task_queue_for_test",
         ":timeutils",
+        "../api/units:time_delta",
         "../test:test_main",
         "../test:test_support",
       ]
@@ -1736,7 +1736,6 @@ if (rtc_include_tests) {
         "../api/task_queue",
         "../api/task_queue:pending_task_safety_flag",
         "../api/task_queue:task_queue_test",
-        "../api/task_queue:to_queued_task",
         "../api/units:time_delta",
         "../test:field_trial",
         "../test:fileutils",
@@ -1770,6 +1769,7 @@ if (rtc_include_tests) {
       }
       absl_deps = [
         "//third_party/abseil-cpp/absl/algorithm:container",
+        "//third_party/abseil-cpp/absl/functional:any_invocable",
         "//third_party/abseil-cpp/absl/memory",
         "//third_party/abseil-cpp/absl/strings",
         "//third_party/abseil-cpp/absl/types:optional",

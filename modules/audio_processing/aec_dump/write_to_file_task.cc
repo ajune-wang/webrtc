@@ -38,7 +38,7 @@ void WriteToFileTask::UpdateBytesLeft(size_t event_byte_size) {
   }
 }
 
-bool WriteToFileTask::Run() {
+void WriteToFileTask::Run() {
   std::string event_string;
   event_.SerializeToString(&event_string);
 
@@ -48,7 +48,7 @@ bool WriteToFileTask::Run() {
     // Ensure that no further events are written, even if they're smaller than
     // the current event.
     *num_bytes_left_for_log_ = 0;
-    return true;
+    return;
   }
 
   UpdateBytesLeft(event_byte_size);
@@ -60,7 +60,6 @@ bool WriteToFileTask::Run() {
   if (!debug_file_->Write(event_string.data(), event_string.length())) {
     RTC_DCHECK_NOTREACHED();
   }
-  return true;  // Delete task from queue at once.
 }
 
 }  // namespace webrtc

@@ -15,7 +15,6 @@
 #include <string>
 #include <utility>
 
-#include "api/task_queue/queued_task.h"
 #include "rtc_base/checks.h"
 #include "rtc_base/event.h"
 #include "rtc_base/ignore_wundef.h"
@@ -32,20 +31,20 @@ RTC_POP_IGNORING_WUNDEF()
 
 namespace webrtc {
 
-class WriteToFileTask : public QueuedTask {
+class WriteToFileTask {
  public:
   WriteToFileTask(webrtc::FileWrapper* debug_file,
                   int64_t* num_bytes_left_for_log);
-  ~WriteToFileTask() override;
+  ~WriteToFileTask();
 
   audioproc::Event* GetEvent();
+
+  void Run();
 
  private:
   bool IsRoomForNextEvent(size_t event_byte_size) const;
 
   void UpdateBytesLeft(size_t event_byte_size);
-
-  bool Run() override;
 
   webrtc::FileWrapper* const debug_file_;
   audioproc::Event event_;

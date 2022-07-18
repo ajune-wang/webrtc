@@ -16,6 +16,24 @@
       "message": "Nit: maybe add a one line comment to the description on why this change is needed?\nE.g. unblock removal of rtc::TaskQueue interface.",
       "revId": "df87d04c90932c27c5f2e034ece7aaa8a05fe1aa",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "448495f9_eb42c2a7",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 4
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2022-07-18T13:27:55Z",
+      "side": 1,
+      "message": "added some description about the benefit of this change (in addition to the description inside the linked bug)",
+      "parentUuid": "4b1da08c_a20692bd",
+      "revId": "df87d04c90932c27c5f2e034ece7aaa8a05fe1aa",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

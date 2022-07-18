@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "4b1da08c_a20692bd",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 4
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5117
+      },
+      "writtenOn": "2022-07-18T13:22:53Z",
+      "side": 1,
+      "message": "Nit: maybe add a one line comment to the description on why this change is needed?\nE.g. unblock removal of rtc::TaskQueue interface.",
+      "revId": "df87d04c90932c27c5f2e034ece7aaa8a05fe1aa",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

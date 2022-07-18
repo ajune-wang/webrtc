@@ -10,7 +10,7 @@ vars = {
   # chromium waterfalls. More info at: crbug.com/570091.
   'checkout_configuration': 'default',
   'checkout_instrumented_libraries': 'checkout_linux and checkout_configuration == "default"',
-  'chromium_revision': '5695b2c37720353dcf32ec9387fff3586072bc84',
+  'chromium_revision': 'b95a84404b24b7b8259e48d1a24d44b419602367',
 
   # Keep the Chromium default of generating location tags.
   'generate_location_tags': True,
@@ -26,7 +26,7 @@ vars = {
 deps = {
   # TODO(kjellander): Move this to be Android-only.
   'src/base':
-    'https://chromium.googlesource.com/chromium/src/base@fb3ebaf8601e24de29c220d6a165465a87288cd8',
+    'https://chromium.googlesource.com/chromium/src/base@d28c12571acc3827b0b8267959fde07c5796569d',
   'src/build':
     'https://chromium.googlesource.com/chromium/src/build@9c1be2c8e61be38fdf65e167741a6f933bc08f87',
   'src/buildtools':
@@ -41,9 +41,9 @@ deps = {
     'condition': 'checkout_ios',
   },
   'src/testing':
-    'https://chromium.googlesource.com/chromium/src/testing@5ebeb35b969aee85d4d078930b8a52ab20e3b7f2',
+    'https://chromium.googlesource.com/chromium/src/testing@e6adfc18cf8b8b990237533a4b781408b9920d29',
   'src/third_party':
-    'https://chromium.googlesource.com/chromium/src/third_party@cad0ef7a7da3965f3d490dc4d1086f3885559b2c',
+    'https://chromium.googlesource.com/chromium/src/third_party@a5bc02649f322cfa13ffe0d90e924a584307276e',
 
   'src/buildtools/linux64': {
     'packages': [
@@ -83,7 +83,7 @@ deps = {
   'src/buildtools/third_party/libc++abi/trunk':
     'https://chromium.googlesource.com/external/github.com/llvm/llvm-project/libcxxabi.git@b954e3e65634a9e2f7b595598a30c455f5f2eb26',
   'src/buildtools/third_party/libunwind/trunk':
-    'https://chromium.googlesource.com/external/github.com/llvm/llvm-project/libunwind.git@49191c55bba0e64664954eec93a43d8eb11e5798',
+    'https://chromium.googlesource.com/external/github.com/llvm/llvm-project/libunwind.git@955e2ff5fbb15791fea263c1c80e1ec6b3c5ee61',
 
   'src/third_party/android_system_sdk': {
       'packages': [
@@ -266,7 +266,7 @@ deps = {
     'condition': 'checkout_android',
   },
   'src/tools':
-    'https://chromium.googlesource.com/chromium/src/tools@a8e81b2b7dcbfb5405bb6492e1ba300d38191146',
+    'https://chromium.googlesource.com/chromium/src/tools@05386af6acf23a76e89a76300c77f36b17995688',
 
   'src/third_party/accessibility_test_framework': {
       'packages': [

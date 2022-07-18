@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "10da9abb_5c1645e6",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2022-07-18T13:05:30Z",
+      "side": 1,
+      "message": "PTAL. Since class is in a cc file, the method isn\u0027t widely exposed.",
+      "revId": "ea00313b8ff5825255a436a981d62b1bd833f2d4",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

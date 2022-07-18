@@ -18,6 +18,23 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "63897aa4_bb46c66c",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5119
+      },
+      "writtenOn": "2022-07-18T09:54:15Z",
+      "side": 1,
+      "message": "LGTM but please have a look at the comments, they\u0027re minor.",
+      "revId": "e7fdee68ba5db82862a5701729c9e8e8ec4255c2",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "dc545fcf_d50b4d73",

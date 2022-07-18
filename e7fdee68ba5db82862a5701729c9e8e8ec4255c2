@@ -58,6 +58,30 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "4d7c606e_a285ac6f",
+        "filename": "modules/audio_processing/aec_dump/aec_dump_impl.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 230,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2022-07-18T10:24:25Z",
+      "side": 1,
+      "message": "oops, yes, leftover from old code/alternative design. Removed.",
+      "parentUuid": "dc545fcf_d50b4d73",
+      "range": {
+        "startLine": 230,
+        "startChar": 2,
+        "endLine": 230,
+        "endChar": 9
+      },
+      "revId": "e7fdee68ba5db82862a5701729c9e8e8ec4255c2",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "40ade7b8_f7711e65",
@@ -71,6 +95,30 @@
       "writtenOn": "2022-07-18T09:53:52Z",
       "side": 1,
       "message": "The logic in `PostWriteToFileTask` had me pretty confused until I understood that `-1` means something special. It was even worse before this CL.\n\nCan you add a comment saying something like:\n```\n// Tracks how much more space is left for the aecdump file. If negative, there is no limit on aecdump file size.\n```\n\n...or change it to optional, but that\u0027s beyond what you\u0027re working on here so I will do it if you are not interested.",
+      "range": {
+        "startLine": 76,
+        "startChar": 0,
+        "endLine": 76,
+        "endChar": 38
+      },
+      "revId": "e7fdee68ba5db82862a5701729c9e8e8ec4255c2",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "fabf8f4f_f8d530f4",
+        "filename": "modules/audio_processing/aec_dump/aec_dump_impl.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 76,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2022-07-18T10:24:25Z",
+      "side": 1,
+      "message": "I\u0027ve considered optional, but that limit (including special value) is passed from the outside, so I\u0027ve copied a comment next to the constructor (there is already a comment in the aec dump factory).\n\nWould prefer improving factory interface as separate effort (another thing to do is  to drop dependency on old rtc::TaskQueue which is now just a simple wrapper of  webrtc::TaskQueueBase)",
+      "parentUuid": "40ade7b8_f7711e65",
       "range": {
         "startLine": 76,
         "startChar": 0,

@@ -36,6 +36,24 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "e24d22c7_22c3cb14",
+        "filename": "rtc_base/task_queue_libevent.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 235,
+      "author": {
+        "id": 5508
+      },
+      "writtenOn": "2022-07-19T13:01:09Z",
+      "side": 1,
+      "message": "Great. Although this CL isn\u0027t an explicit fix for issue webrtc:12889, can we still tag it for that bug to put it on the radar of folks watching that bug?",
+      "parentUuid": "5d6b978a_33320a82",
+      "revId": "3dbb4b2974771ca944146c04de49eebf99400643",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "a9d89a92_affb3157",

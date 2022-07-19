@@ -24,6 +24,30 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "4eb024d2_a0ee161d",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 9,
+      "author": {
+        "id": 18864
+      },
+      "writtenOn": "2022-07-19T12:14:56Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "fc36d23d_8b54bb0d",
+      "range": {
+        "startLine": 9,
+        "startChar": 0,
+        "endLine": 9,
+        "endChar": 4
+      },
+      "revId": "d5ec599d2959cb3f7acecd92f8fe17dd80c81011",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "21dc1cb5_3515bdb1",
@@ -37,6 +61,30 @@
       "writtenOn": "2022-02-03T11:53:39Z",
       "side": 1,
       "message": "We could consider always showing the link capacity (if the log contains those messages). Or maybe it makes the chart too messy?",
+      "range": {
+        "startLine": 887,
+        "startChar": 0,
+        "endLine": 887,
+        "endChar": 30
+      },
+      "revId": "d5ec599d2959cb3f7acecd92f8fe17dd80c81011",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "408bc9b4_64de412f",
+        "filename": "rtc_tools/rtc_event_log_visualizer/analyzer.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 887,
+      "author": {
+        "id": 18864
+      },
+      "writtenOn": "2022-07-19T12:14:56Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "21dc1cb5_3515bdb1",
       "range": {
         "startLine": 887,
         "startChar": 0,

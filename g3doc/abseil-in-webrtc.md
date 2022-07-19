@@ -13,16 +13,6 @@ adds the first use.
 [abseil]: https://abseil.io/about/
 
 
-## How to depend on Abseil
-
-For build targets of type `rtc_library`, `rtc_source_set` and
-`rtc_static_library`, dependencies on Abseil need to be listed in `absl_deps`
-instead of `deps`.
-
-This is needed in order to support the Abseil component build in Chromium. In
-that build mode, WebRTC will depend on a monolithic Abseil build target that
-will generate a shared library.
-
 ## **Allowed**
 
 * `absl::AnyInvocable`

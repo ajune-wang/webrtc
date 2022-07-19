@@ -147,8 +147,6 @@ rtc_library("rtc_p2p") {
     "../rtc_base/third_party/base64",
     "../rtc_base/third_party/sigslot",
     "../system_wrappers:metrics",
-  ]
-  absl_deps = [
     "//third_party/abseil-cpp/absl/algorithm:container",
     "//third_party/abseil-cpp/absl/memory",
     "//third_party/abseil-cpp/absl/strings",
@@ -169,8 +167,6 @@ if (rtc_include_tests) {
       "../api/units:time_delta",
       "../rtc_base",
       "../rtc_base:copy_on_write_buffer",
-    ]
-    absl_deps = [
       "//third_party/abseil-cpp/absl/algorithm:container",
       "//third_party/abseil-cpp/absl/strings",
       "//third_party/abseil-cpp/absl/types:optional",
@@ -188,8 +184,8 @@ if (rtc_include_tests) {
       "../rtc_base:threading",
       "../rtc_base/memory:always_valid_pointer",
       "../test:scoped_key_value_config",
+      "//third_party/abseil-cpp/absl/strings",
     ]
-    absl_deps = [ "//third_party/abseil-cpp/absl/strings" ]
   }
 
   rtc_library("p2p_test_utils") {
@@ -227,8 +223,6 @@ if (rtc_include_tests) {
       "../rtc_base:threading",
       "../rtc_base/third_party/sigslot",
       "../test:test_support",
-    ]
-    absl_deps = [
       "//third_party/abseil-cpp/absl/algorithm:container",
       "//third_party/abseil-cpp/absl/strings",
       "//third_party/abseil-cpp/absl/types:optional",
@@ -298,8 +292,6 @@ if (rtc_include_tests) {
       "../test:scoped_key_value_config",
       "../test:test_support",
       "//testing/gtest",
-    ]
-    absl_deps = [
       "//third_party/abseil-cpp/absl/algorithm:container",
       "//third_party/abseil-cpp/absl/memory",
       "//third_party/abseil-cpp/absl/strings",
@@ -331,8 +323,6 @@ rtc_library("p2p_server_utils") {
     "../rtc_base:stringutils",
     "../rtc_base:threading",
     "../rtc_base/third_party/sigslot",
-  ]
-  absl_deps = [
     "//third_party/abseil-cpp/absl/algorithm:container",
     "//third_party/abseil-cpp/absl/memory",
     "//third_party/abseil-cpp/absl/strings",

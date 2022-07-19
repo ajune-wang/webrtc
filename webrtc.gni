@@ -366,19 +366,16 @@ set_defaults("rtc_test") {
 set_defaults("rtc_library") {
   configs = rtc_add_configs
   suppressed_configs = []
-  absl_deps = []
 }
 
 set_defaults("rtc_source_set") {
   configs = rtc_add_configs
   suppressed_configs = []
-  absl_deps = []
 }
 
 set_defaults("rtc_static_library") {
   configs = rtc_add_configs
   suppressed_configs = []
-  absl_deps = []
 }
 
 set_defaults("rtc_executable") {
@@ -505,17 +502,12 @@ template("rtc_test") {
       }
     }
 
-    # If absl_deps is [], no action is needed. If not [], then it needs to be
-    # converted to //third_party/abseil-cpp:absl when build_with_chromium=true
-    # otherwise it just needs to be added to deps.
-    if (defined(absl_deps) && absl_deps != []) {
-      if (!defined(deps)) {
-        deps = []
-      }
-      if (build_with_chromium) {
-        deps += [ "//third_party/abseil-cpp:absl" ]
-      } else {
-        deps += absl_deps
+    if (build_with_chromium && defined(deps)) {
+      foreach(d, deps) {
+        if (string_replace(d, "//third_party/abseil-cpp/absl/", "") != d) {
+          deps += [ "//third_party/abseil-cpp:absl" ]
+          deps -= [ d ]
+        }
       }
     }
 
@@ -619,17 +611,12 @@ template("rtc_source_set") {
       public_configs += invoker.public_configs
     }
 
-    # If absl_deps is [], no action is needed. If not [], then it needs to be
-    # converted to //third_party/abseil-cpp:absl when build_with_chromium=true
-    # otherwise it just needs to be added to deps.
-    if (absl_deps != []) {
-      if (!defined(deps)) {
-        deps = []
-      }
-      if (build_with_chromium) {
-        deps += [ "//third_party/abseil-cpp:absl" ]
-      } else {
-        deps += absl_deps
+    if (build_with_chromium && defined(deps)) {
+      foreach(d, deps) {
+        if (string_replace(d, "//third_party/abseil-cpp/absl/", "") != d) {
+          deps += [ "//third_party/abseil-cpp:absl" ]
+          deps -= [ d ]
+        }
       }
     }
   }
@@ -708,17 +695,12 @@ template("rtc_static_library") {
       public_configs += invoker.public_configs
     }
 
-    # If absl_deps is [], no action is needed. If not [], then it needs to be
-    # converted to //third_party/abseil-cpp:absl when build_with_chromium=true
-    # otherwise it just needs to be added to deps.
-    if (absl_deps != []) {
-      if (!defined(deps)) {
-        deps = []
-      }
-      if (build_with_chromium) {
-        deps += [ "//third_party/abseil-cpp:absl" ]
-      } else {
-        deps += absl_deps
+    if (build_with_chromium && defined(deps)) {
+      foreach(d, deps) {
+        if (string_replace(d, "//third_party/abseil-cpp/absl/", "") != d) {
+          deps += [ "//third_party/abseil-cpp:absl" ]
+          deps -= [ d ]
+        }
       }
     }
   }
@@ -847,17 +829,12 @@ template("rtc_library") {
       public_configs += invoker.public_configs
     }
 
-    # If absl_deps is [], no action is needed. If not [], then it needs to be
-    # converted to //third_party/abseil-cpp:absl when build_with_chromium=true
-    # otherwise it just needs to be added to deps.
-    if (absl_deps != []) {
-      if (!defined(deps)) {
-        deps = []
-      }
-      if (build_with_chromium) {
-        deps += [ "//third_party/abseil-cpp:absl" ]
-      } else {
-        deps += absl_deps
+    if (build_with_chromium && defined(deps)) {
+      foreach(d, deps) {
+        if (string_replace(d, "//third_party/abseil-cpp/absl/", "") != d) {
+          deps += [ "//third_party/abseil-cpp:absl" ]
+          deps -= [ d ]
+        }
       }
     }
   }

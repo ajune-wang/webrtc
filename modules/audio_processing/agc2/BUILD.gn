@@ -52,9 +52,8 @@ rtc_library("adaptive_digital") {
     "../../../rtc_base:safe_compare",
     "../../../rtc_base:safe_minmax",
     "../../../system_wrappers:metrics",
+    "//third_party/abseil-cpp/absl/types:optional",
   ]
-
-  absl_deps = [ "//third_party/abseil-cpp/absl/types:optional" ]
 }
 
 rtc_library("biquad_filter") {

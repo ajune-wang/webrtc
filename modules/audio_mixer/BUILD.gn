@@ -108,7 +108,6 @@ if (rtc_include_tests) {
       "audio_mixer_impl_unittest.cc",
       "frame_combiner_unittest.cc",
     ]
-    absl_deps = [ "//third_party/abseil-cpp/absl/types:optional" ]
     deps = [
       ":audio_frame_manipulator",
       ":audio_mixer_impl",
@@ -122,6 +121,7 @@ if (rtc_include_tests) {
       "../../rtc_base:stringutils",
       "../../rtc_base:task_queue_for_test",
       "../../test:test_support",
+      "//third_party/abseil-cpp/absl/types:optional",
     ]
   }
 

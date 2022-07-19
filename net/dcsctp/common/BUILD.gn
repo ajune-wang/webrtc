@@ -27,9 +27,11 @@ rtc_source_set("sequence_numbers") {
 }
 
 rtc_source_set("str_join") {
-  deps = [ "../../../rtc_base:stringutils" ]
+  deps = [
+    "../../../rtc_base:stringutils",
+    "//third_party/abseil-cpp/absl/strings",
+  ]
   sources = [ "str_join.h" ]
-  absl_deps = [ "//third_party/abseil-cpp/absl/strings" ]
 }
 
 if (rtc_include_tests) {

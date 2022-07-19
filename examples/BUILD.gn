@@ -73,8 +73,8 @@ rtc_library("read_auth_file") {
     "../api:array_view",
     "../rtc_base",
     "../rtc_base:stringutils",
+    "//third_party/abseil-cpp/absl/strings:strings",
   ]
-  absl_deps = [ "//third_party/abseil-cpp/absl/strings:strings" ]
 }
 
 if (rtc_include_tests) {

@@ -148,8 +148,6 @@ rtc_library("video") {
     "../system_wrappers:field_trial",
     "../system_wrappers:metrics",
     "./adaptation:video_adaptation",
-  ]
-  absl_deps = [
     "//third_party/abseil-cpp/absl/algorithm:container",
     "//third_party/abseil-cpp/absl/base:core_headers",
     "//third_party/abseil-cpp/absl/container:inlined_vector",
@@ -192,8 +190,8 @@ rtc_library("video_stream_decoder_impl") {
     "../rtc_base/memory:always_valid_pointer",
     "../rtc_base/synchronization:mutex",
     "../system_wrappers",
+    "//third_party/abseil-cpp/absl/types:optional",
   ]
-  absl_deps = [ "//third_party/abseil-cpp/absl/types:optional" ]
 }
 
 rtc_library("frame_dumping_decoder") {
@@ -242,8 +240,6 @@ rtc_library("frame_cadence_adapter") {
     "../system_wrappers",
     "../system_wrappers:field_trial",
     "../system_wrappers:metrics",
-  ]
-  absl_deps = [
     "//third_party/abseil-cpp/absl/algorithm:container",
     "//third_party/abseil-cpp/absl/base:core_headers",
   ]
@@ -278,8 +274,6 @@ rtc_library("frame_buffer_proxy") {
     "../rtc_base:macromagic",
     "../system_wrappers",
     "../system_wrappers:field_trial",
-  ]
-  absl_deps = [
     "//third_party/abseil-cpp/absl/base:core_headers",
     "//third_party/abseil-cpp/absl/functional:bind_front",
     "//third_party/abseil-cpp/absl/types:optional",
@@ -291,8 +285,8 @@ rtc_source_set("frame_decode_scheduler") {
   deps = [
     ":frame_decode_timing",
     "../api/units:timestamp",
+    "//third_party/abseil-cpp/absl/types:optional",
   ]
-  absl_deps = [ "//third_party/abseil-cpp/absl/types:optional" ]
 }
 
 rtc_library("task_queue_frame_decode_scheduler") {
@@ -309,8 +303,8 @@ rtc_library("task_queue_frame_decode_scheduler") {
     "../api/units:timestamp",
     "../rtc_base:checks",
     "../system_wrappers",
+    "//third_party/abseil-cpp/absl/types:optional",
   ]
-  absl_deps = [ "//third_party/abseil-cpp/absl/types:optional" ]
 }
 
 rtc_library("frame_decode_timing") {
@@ -325,8 +319,8 @@ rtc_library("frame_decode_timing") {
     "../modules/video_coding/timing:timing_module",
     "../rtc_base:logging",
     "../system_wrappers",
+    "//third_party/abseil-cpp/absl/types:optional",
   ]
-  absl_deps = [ "//third_party/abseil-cpp/absl/types:optional" ]
 }
 
 rtc_library("video_receive_stream_timeout_tracker") {
@@ -360,8 +354,8 @@ rtc_library("decode_synchronizer") {
     "../rtc_base:checks",
     "../rtc_base:logging",
     "../rtc_base:macromagic",
+    "//third_party/abseil-cpp/absl/types:optional",
   ]
-  absl_deps = [ "//third_party/abseil-cpp/absl/types:optional" ]
 }
 
 rtc_library("video_stream_encoder_impl") {
@@ -443,8 +437,6 @@ rtc_library("video_stream_encoder_impl") {
     "../system_wrappers:field_trial",
     "../system_wrappers:metrics",
     "adaptation:video_adaptation",
-  ]
-  absl_deps = [
     "//third_party/abseil-cpp/absl/algorithm:container",
     "//third_party/abseil-cpp/absl/base:core_headers",
     "//third_party/abseil-cpp/absl/cleanup",
@@ -542,8 +534,6 @@ if (rtc_include_tests) {
         "../test:test_support_test_artifacts",
         "../test:video_test_common",
         "../test:video_test_support",
-      ]
-      absl_deps = [
         "//third_party/abseil-cpp/absl/algorithm:container",
         "//third_party/abseil-cpp/absl/flags:flag",
         "//third_party/abseil-cpp/absl/flags:parse",
@@ -576,8 +566,6 @@ if (rtc_include_tests) {
         "../test:test_common",
         "../test:test_support",
         "//testing/gtest",
-      ]
-      absl_deps = [
         "//third_party/abseil-cpp/absl/flags:flag",
         "//third_party/abseil-cpp/absl/flags:parse",
         "//third_party/abseil-cpp/absl/types:optional",
@@ -632,8 +620,6 @@ if (rtc_include_tests) {
         "../test:test_renderer",
         "../test:test_support",
         "//testing/gtest",
-      ]
-      absl_deps = [
         "//third_party/abseil-cpp/absl/flags:flag",
         "//third_party/abseil-cpp/absl/flags:parse",
         "//third_party/abseil-cpp/absl/types:optional",
@@ -909,8 +895,6 @@ if (rtc_include_tests) {
       "../test:video_test_common",
       "../test/time_controller",
       "adaptation:video_adaptation",
-    ]
-    absl_deps = [
       "//third_party/abseil-cpp/absl/algorithm:container",
       "//third_party/abseil-cpp/absl/functional:any_invocable",
       "//third_party/abseil-cpp/absl/functional:bind_front",

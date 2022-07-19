@@ -26,8 +26,8 @@ rtc_library("inter_frame_delay") {
     "../../../api/units:frequency",
     "../../../api/units:time_delta",
     "../../../api/units:timestamp",
+    "//third_party/abseil-cpp/absl/types:optional",
   ]
-  absl_deps = [ "//third_party/abseil-cpp/absl/types:optional" ]
 }
 
 rtc_library("jitter_estimator") {
@@ -46,8 +46,8 @@ rtc_library("jitter_estimator") {
     "../../../rtc_base:safe_conversions",
     "../../../rtc_base/experiments:jitter_upper_bound_experiment",
     "../../../system_wrappers",
+    "//third_party/abseil-cpp/absl/types:optional",
   ]
-  absl_deps = [ "//third_party/abseil-cpp/absl/types:optional" ]
 }
 
 rtc_library("rtt_filter") {
@@ -55,8 +55,8 @@ rtc_library("rtt_filter") {
     "rtt_filter.cc",
     "rtt_filter.h",
   ]
-  deps = [ "../../../api/units:time_delta" ]
-  absl_deps = [
+  deps = [
+    "../../../api/units:time_delta",
     "//third_party/abseil-cpp/absl/algorithm:container",
     "//third_party/abseil-cpp/absl/container:inlined_vector",
   ]
@@ -80,8 +80,8 @@ rtc_library("timing_module") {
     "../../../rtc_base/synchronization:mutex",
     "../../../rtc_base/time:timestamp_extrapolator",
     "../../../system_wrappers",
+    "//third_party/abseil-cpp/absl/types:optional",
   ]
-  absl_deps = [ "//third_party/abseil-cpp/absl/types:optional" ]
 }
 
 rtc_library("timing_unittests") {
@@ -109,6 +109,6 @@ rtc_library("timing_unittests") {
     "../../../system_wrappers:system_wrappers",
     "../../../test:scoped_key_value_config",
     "../../../test:test_support",
+    "//third_party/abseil-cpp/absl/types:optional",
   ]
-  absl_deps = [ "//third_party/abseil-cpp/absl/types:optional" ]
 }

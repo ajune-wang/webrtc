@@ -36,8 +36,8 @@ rtc_library("media_constraints") {
   deps = [
     "../api:audio_options_api",
     "../api:libjingle_peerconnection_api",
+    "//third_party/abseil-cpp/absl/types:optional",
   ]
-  absl_deps = [ "//third_party/abseil-cpp/absl/types:optional" ]
 }
 
 rtc_library("sdk_tests") {
@@ -150,9 +150,8 @@ if (is_ios || is_mac) {
     deps = [
       ":base_objc",
       "../rtc_base:checks",
+      "//third_party/abseil-cpp/absl/strings",
     ]
-
-    absl_deps = [ "//third_party/abseil-cpp/absl/strings" ]
 
     frameworks = [
       "AVFoundation.framework",
@@ -189,14 +188,13 @@ if (is_ios || is_mac) {
         "../rtc_base",
         "../rtc_base:checks",
         "../rtc_base:logging",
+        "//third_party/abseil-cpp/absl/strings",
       ]
 
       configs += [
         "..:common_objc",
         ":used_from_extension",
       ]
-
-      absl_deps = [ "//third_party/abseil-cpp/absl/strings" ]
     }
 
     rtc_library("file_logger_objc") {
@@ -286,8 +284,8 @@ if (is_ios || is_mac) {
           "../rtc_base:timeutils",
           "../system_wrappers:field_trial",
           "../system_wrappers:metrics",
+          "//third_party/abseil-cpp/absl/base:core_headers",
         ]
-        absl_deps = [ "//third_party/abseil-cpp/absl/base:core_headers" ]
 
         frameworks = [ "AudioToolbox.framework" ]
       }
@@ -349,9 +347,8 @@ if (is_ios || is_mac) {
           "../rtc_base",
           "../rtc_base:checks",
           "../rtc_base/synchronization:mutex",
+          "//third_party/abseil-cpp/absl/base:core_headers",
         ]
-
-        absl_deps = [ "//third_party/abseil-cpp/absl/base:core_headers" ]
       }
 
       rtc_source_set("network_monitor_observer") {
@@ -364,9 +361,8 @@ if (is_ios || is_mac) {
           "../rtc_base:network_constants",
           "../rtc_base:stringutils",
           "../rtc_base:threading",
+          "//third_party/abseil-cpp/absl/strings",
         ]
-
-        absl_deps = [ "//third_party/abseil-cpp/absl/strings" ]
       }
 
       rtc_library("network_monitor_objc") {
@@ -502,8 +498,8 @@ if (is_ios || is_mac) {
         "../rtc_base",
         "../rtc_base:checks",
         "../rtc_base:logging",
+        "//third_party/abseil-cpp/absl/types:optional",
       ]
-      absl_deps = [ "//third_party/abseil-cpp/absl/types:optional" ]
 
       configs += [
         "..:common_objc",
@@ -1541,11 +1537,11 @@ if (is_ios || is_mac) {
         "../rtc_base:buffer",
         "../rtc_base:logging",
         "../rtc_base:threading",
+        "//third_party/abseil-cpp/absl/memory",
       ]
       if (is_ios) {
         deps += [ ":native_network_monitor" ]
       }
-      absl_deps = [ "//third_party/abseil-cpp/absl/memory" ]
     }
 
     if (is_ios) {
@@ -1569,9 +1565,8 @@ if (is_ios || is_mac) {
           "../rtc_base:macromagic",
           "../rtc_base:stringutils",
           "../rtc_base:threading",
+          "//third_party/abseil-cpp/absl/strings",
         ]
-
-        absl_deps = [ "//third_party/abseil-cpp/absl/strings" ]
       }
     }
 

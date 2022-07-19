@@ -58,8 +58,6 @@ if (rtc_enable_protobuf) {
       "../../rtc_base/synchronization:mutex",
       "../../rtc_base/system:no_unique_address",
       "../../rtc_base/third_party/sigslot",
-    ]
-    absl_deps = [
       "//third_party/abseil-cpp/absl/functional:any_invocable",
       "//third_party/abseil-cpp/absl/types:optional",
     ]

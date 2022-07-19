@@ -22,9 +22,8 @@ rtc_library("av1_svc_config") {
     "../../svc:scalability_mode_util",
     "../../svc:scalability_structures",
     "../../svc:scalable_video_controller",
+    "//third_party/abseil-cpp/absl/container:inlined_vector",
   ]
-
-  absl_deps = [ "//third_party/abseil-cpp/absl/container:inlined_vector" ]
 }
 
 rtc_library("dav1d_decoder") {
@@ -41,18 +40,20 @@ rtc_library("dav1d_decoder") {
     "../../../../api/video_codecs:video_codecs_api",
     "../../../../common_video",
     "../../../../rtc_base:logging",
+    "//third_party/abseil-cpp/absl/types:optional",
     "//third_party/dav1d",
     "//third_party/libyuv",
   ]
-  absl_deps = [ "//third_party/abseil-cpp/absl/types:optional" ]
 }
 
 rtc_library("libaom_av1_decoder") {
   visibility = [ "*" ]
   poisonous = [ "software_video_codecs" ]
   public = [ "libaom_av1_decoder.h" ]
-  deps = [ "../../../../api/video_codecs:video_codecs_api" ]
-  absl_deps = [ "//third_party/abseil-cpp/absl/base:core_headers" ]
+  deps = [
+    "../../../../api/video_codecs:video_codecs_api",
+    "//third_party/abseil-cpp/absl/base:core_headers",
+  ]
 
   if (enable_libaom) {
     sources = [ "libaom_av1_decoder.cc" ]
@@ -63,10 +64,10 @@ rtc_library("libaom_av1_decoder") {
       "../../../../api/video:video_frame",
       "../../../../common_video",
       "../../../../rtc_base:logging",
+      "//third_party/abseil-cpp/absl/types:optional",
       "//third_party/libaom",
       "//third_party/libyuv",
     ]
-    absl_deps += [ "//third_party/abseil-cpp/absl/types:optional" ]
   } else {
     sources = [ "libaom_av1_decoder_absent.cc" ]
   }
@@ -88,13 +89,11 @@ rtc_library("libaom_av1_encoder") {
     "../../../../rtc_base:logging",
     "../../svc:scalability_structures",
     "../../svc:scalable_video_controller",
-    "//third_party/libaom",
-  ]
-  absl_deps = [
     "//third_party/abseil-cpp/absl/algorithm:container",
     "//third_party/abseil-cpp/absl/base:core_headers",
     "//third_party/abseil-cpp/absl/strings:strings",
     "//third_party/abseil-cpp/absl/types:optional",
+    "//third_party/libaom",
   ]
 }
 
@@ -126,8 +125,8 @@ if (rtc_include_tests) {
         "../../svc:scalability_mode_util",
         "../../svc:scalability_structures",
         "../../svc:scalable_video_controller",
+        "//third_party/abseil-cpp/absl/types:optional",
       ]
-      absl_deps = [ "//third_party/abseil-cpp/absl/types:optional" ]
     }
   }
 }

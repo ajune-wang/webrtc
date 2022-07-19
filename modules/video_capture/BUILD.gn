@@ -40,9 +40,9 @@ rtc_library("video_capture_module") {
     "../../rtc_base:timeutils",
     "../../rtc_base/synchronization:mutex",
     "../../system_wrappers",
+    "//third_party/abseil-cpp/absl/strings",
     "//third_party/libyuv",
   ]
-  absl_deps = [ "//third_party/abseil-cpp/absl/strings" ]
 }
 
 if (!build_with_chromium) {

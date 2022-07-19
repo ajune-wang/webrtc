@@ -74,8 +74,6 @@ rtc_library("call_interfaces") {
     "../rtc_base:refcount",
     "../rtc_base:stringutils",
     "../rtc_base/network:sent_packet",
-  ]
-  absl_deps = [
     "//third_party/abseil-cpp/absl/functional:bind_front",
     "//third_party/abseil-cpp/absl/strings",
     "//third_party/abseil-cpp/absl/types:optional",
@@ -123,8 +121,6 @@ rtc_library("rtp_interfaces") {
     "../rtc_base:checks",
     "../rtc_base:rtc_task_queue",
     "../rtc_base:stringutils",
-  ]
-  absl_deps = [
     "//third_party/abseil-cpp/absl/algorithm:container",
     "//third_party/abseil-cpp/absl/strings",
     "//third_party/abseil-cpp/absl/types:optional",
@@ -153,8 +149,6 @@ rtc_library("rtp_receiver") {
     "../rtc_base:stringutils",
     "../rtc_base/containers:flat_map",
     "../rtc_base/containers:flat_set",
-  ]
-  absl_deps = [
     "//third_party/abseil-cpp/absl/strings:strings",
     "//third_party/abseil-cpp/absl/types:optional",
   ]
@@ -218,8 +212,6 @@ rtc_library("rtp_sender") {
     "../rtc_base:timeutils",
     "../rtc_base/synchronization:mutex",
     "../rtc_base/task_utils:repeating_task",
-  ]
-  absl_deps = [
     "//third_party/abseil-cpp/absl/algorithm:container",
     "//third_party/abseil-cpp/absl/container:inlined_vector",
     "//third_party/abseil-cpp/absl/strings:strings",
@@ -241,8 +233,8 @@ rtc_library("bitrate_configurator") {
     "../api/transport:bitrate_settings",
     "../api/units:data_rate",
     "../rtc_base:checks",
+    "//third_party/abseil-cpp/absl/types:optional",
   ]
-  absl_deps = [ "//third_party/abseil-cpp/absl/types:optional" ]
 }
 
 rtc_library("bitrate_allocator") {
@@ -263,8 +255,8 @@ rtc_library("bitrate_allocator") {
     "../system_wrappers",
     "../system_wrappers:field_trial",
     "../system_wrappers:metrics",
+    "//third_party/abseil-cpp/absl/algorithm:container",
   ]
-  absl_deps = [ "//third_party/abseil-cpp/absl/algorithm:container" ]
 }
 
 rtc_library("call") {
@@ -335,8 +327,6 @@ rtc_library("call") {
     "../video",
     "../video:decode_synchronizer",
     "adaptation:resource_adaptation",
-  ]
-  absl_deps = [
     "//third_party/abseil-cpp/absl/functional:bind_front",
     "//third_party/abseil-cpp/absl/memory",
     "//third_party/abseil-cpp/absl/strings",
@@ -384,8 +374,8 @@ rtc_library("video_stream_api") {
     "../modules/rtp_rtcp:rtp_rtcp_format",
     "../rtc_base:checks",
     "../rtc_base:stringutils",
+    "//third_party/abseil-cpp/absl/types:optional",
   ]
-  absl_deps = [ "//third_party/abseil-cpp/absl/types:optional" ]
 }
 
 rtc_library("simulated_network") {
@@ -405,8 +395,8 @@ rtc_library("simulated_network") {
     "../rtc_base:race_checker",
     "../rtc_base:random",
     "../rtc_base/synchronization:mutex",
+    "//third_party/abseil-cpp/absl/types:optional",
   ]
-  absl_deps = [ "//third_party/abseil-cpp/absl/types:optional" ]
 }
 
 rtc_source_set("simulated_packet_receiver") {
@@ -523,8 +513,6 @@ if (rtc_include_tests) {
         "adaptation:resource_adaptation_test_utilities",
         "//testing/gmock",
         "//testing/gtest",
-      ]
-      absl_deps = [
         "//third_party/abseil-cpp/absl/container:inlined_vector",
         "//third_party/abseil-cpp/absl/functional:any_invocable",
         "//third_party/abseil-cpp/absl/memory",
@@ -591,8 +579,6 @@ if (rtc_include_tests) {
         "../test:video_test_common",
         "../video",
         "//testing/gtest",
-      ]
-      absl_deps = [
         "//third_party/abseil-cpp/absl/flags:flag",
         "//third_party/abseil-cpp/absl/strings",
       ]
@@ -619,8 +605,8 @@ if (rtc_include_tests) {
       "../rtc_base:rate_limiter",
       "../rtc_base/network:sent_packet",
       "../test:test_support",
+      "//third_party/abseil-cpp/absl/strings",
     ]
-    absl_deps = [ "//third_party/abseil-cpp/absl/strings" ]
   }
   rtc_source_set("mock_bitrate_allocator") {
     testonly = true
@@ -655,7 +641,7 @@ if (rtc_include_tests) {
       "../system_wrappers",
       "../test:test_support",
       "//testing/gtest",
+      "//third_party/abseil-cpp/absl/algorithm:container",
     ]
-    absl_deps = [ "//third_party/abseil-cpp/absl/algorithm:container" ]
   }
 }

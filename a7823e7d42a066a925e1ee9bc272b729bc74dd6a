@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "f790fe8c_0f4c2feb",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5508
+      },
+      "writtenOn": "2022-07-19T10:50:00Z",
+      "side": 1,
+      "message": "This is a belt and suspenders approach while I figure out what the issue may be with the Chromium integration that causes the TCPConnection object to remain alive after the port object has been cleared.",
+      "revId": "a7823e7d42a066a925e1ee9bc272b729bc74dd6a",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

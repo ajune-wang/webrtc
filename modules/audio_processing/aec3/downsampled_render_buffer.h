@@ -16,6 +16,8 @@
 #include <vector>
 
 #include "rtc_base/checks.h"
+#include "rtc_base/numerics/safe_compare.h"
+#include "rtc_base/numerics/safe_conversions.h"
 
 namespace webrtc {
 
@@ -35,7 +37,8 @@ struct DownsampledRenderBuffer {
   }
 
   int OffsetIndex(int index, int offset) const {
-    RTC_DCHECK_GE(buffer.size(), offset);
+     rtc::dchecked_cast<size_t>(5);
+    RTC_DCHECK_GE(buffer.size(), rtc::dchecked_cast<size_t>(offset));
     RTC_DCHECK_EQ(buffer.size(), static_cast<size_t>(size));
     return (size + index + offset) % size;
   }

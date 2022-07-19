@@ -96,8 +96,8 @@ class UnitBase {
   static constexpr Unit_T FromValue(T value) {
     if (Unit_T::one_sided)
       RTC_DCHECK_GE(value, 0);
-    RTC_DCHECK_GT(value, MinusInfinityVal());
-    RTC_DCHECK_LT(value, PlusInfinityVal());
+    RTC_DCHECK_GT(rtc::dchecked_cast<int64_t>(value), MinusInfinityVal());
+    RTC_DCHECK_LT(rtc::dchecked_cast<int64_t>(value), PlusInfinityVal());
     return Unit_T(rtc::dchecked_cast<int64_t>(value));
   }
   template <typename T,
@@ -120,8 +120,8 @@ class UnitBase {
   static constexpr Unit_T FromFraction(int64_t denominator, T value) {
     if (Unit_T::one_sided)
       RTC_DCHECK_GE(value, 0);
-    RTC_DCHECK_GT(value, MinusInfinityVal() / denominator);
-    RTC_DCHECK_LT(value, PlusInfinityVal() / denominator);
+    RTC_DCHECK_GT(rtc::dchecked_cast<int64_t>(value), MinusInfinityVal() / denominator);
+    RTC_DCHECK_LT(rtc::dchecked_cast<int64_t>(value), PlusInfinityVal() / denominator);
     return Unit_T(rtc::dchecked_cast<int64_t>(value * denominator));
   }
   template <typename T,

@@ -34,6 +34,7 @@
 #include "modules/rtp_rtcp/source/rtcp_packet/tmmbr.h"
 #include "modules/rtp_rtcp/source/rtcp_packet/transport_feedback.h"
 #include "rtc_base/checks.h"
+#include "rtc_base/numerics/safe_conversions.h"
 
 namespace webrtc {
 namespace test {
@@ -43,7 +44,7 @@ template <typename Packet>
 bool ParseSinglePacket(const uint8_t* buffer, size_t size, Packet* packet) {
   rtcp::CommonHeader header;
   RTC_CHECK(header.Parse(buffer, size));
-  RTC_CHECK_EQ(size, header.NextPacket() - buffer);
+  RTC_CHECK_EQ(size, rtc::checked_cast<size_t>(header.NextPacket() - buffer));
   return packet->Parse(header);
 }
 // Same function, but takes raw buffer as single argument instead of pair.

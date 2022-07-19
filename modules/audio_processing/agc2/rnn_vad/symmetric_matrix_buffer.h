@@ -59,7 +59,7 @@ class SymmetricMatrixBuffer {
     for (int i = 0; rtc::SafeLt(i, values.size()); ++i) {
       const int index = (S - 1 - i) * (S - 1) - 1;
       RTC_DCHECK_GE(index, 0);
-      RTC_DCHECK_LT(index, buf_.size());
+      RTC_DCHECK_LT(rtc::dchecked_cast<size_t>(index), buf_.size());
       buf_[index] = values[i];
     }
   }

@@ -53,7 +53,7 @@ class VectorMath {
       const int incomplete_block_index = (x.size() >> kBlockSizeLog2)
                                          << kBlockSizeLog2;
       for (int i = 0; i < incomplete_block_index; i += kBlockSize) {
-        RTC_DCHECK_LE(i + kBlockSize, x.size());
+        RTC_DCHECK_LE(rtc::dchecked_cast<size_t>(i + kBlockSize), x.size());
         const __m128 x_i = _mm_loadu_ps(&x[i]);
         const __m128 y_i = _mm_loadu_ps(&y[i]);
         // Multiply-add.
@@ -81,7 +81,7 @@ class VectorMath {
       const int incomplete_block_index = (x.size() >> kBlockSizeLog2)
                                          << kBlockSizeLog2;
       for (int i = 0; i < incomplete_block_index; i += kBlockSize) {
-        RTC_DCHECK_LE(i + kBlockSize, x.size());
+        RTC_DCHECK_LE(rtc::dchecked_cast<size_t>(i + kBlockSize), x.size());
         const float32x4_t x_i = vld1q_f32(&x[i]);
         const float32x4_t y_i = vld1q_f32(&y[i]);
         accumulator = vfmaq_f32(accumulator, x_i, y_i);

@@ -16,6 +16,23 @@
       "message": "Hi Mirko, could you also PTAL? Alessio",
       "revId": "c35cf33c57d91c3d230c24c1d00651ec23d0c29f",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "ab6c29c5_22f9d5f4",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 4
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5087
+      },
+      "writtenOn": "2022-07-19T10:55:04Z",
+      "side": 1,
+      "message": "Failures are not related. I need to fix one thing than this CL can land.",
+      "revId": "c35cf33c57d91c3d230c24c1d00651ec23d0c29f",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

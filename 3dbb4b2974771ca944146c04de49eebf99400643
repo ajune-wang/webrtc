@@ -18,6 +18,24 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "5d6b978a_33320a82",
+        "filename": "rtc_base/task_queue_libevent.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 235,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2022-07-19T12:24:03Z",
+      "side": 1,
+      "message": "I do not, but I imaging it can.\nlet say task was scheudled at 12\u0027990us with delay of 2ms \u003d 2\u0027000us\nand it took 15us from the posted_us to run the lambda on the right thread. i.e.\nlambda run at 13\u0027005us. Compensation (assume round down) would notice 13 - 12 \u003d 1ms difference and post delay task to run at 13\u0027005us + (2ms - 1ms) \u003d 14.005us.\n\nbut originally task intended to run at 12\u0027990 us + 2ms \u003d 14\u0027990us, so it could run 985us too early.\n\nusing microsecond precision should at least reduce the chance and error margin.",
+      "parentUuid": "e641fa10_1f41882a",
+      "revId": "3dbb4b2974771ca944146c04de49eebf99400643",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "a9d89a92_affb3157",
@@ -31,6 +49,24 @@
       "writtenOn": "2022-07-18T15:14:14Z",
       "side": 1,
       "message": "Can you add a comment that explains the PostTask around PostDelayedTask?",
+      "revId": "3dbb4b2974771ca944146c04de49eebf99400643",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "188bf55c_072e63de",
+        "filename": "rtc_base/task_queue_libevent.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 236,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2022-07-19T12:24:03Z",
+      "side": 1,
+      "message": "Added a comment (the way I understand the main reason) and an extra helper function to explain the posting.",
+      "parentUuid": "a9d89a92_affb3157",
       "revId": "3dbb4b2974771ca944146c04de49eebf99400643",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }

@@ -209,6 +209,24 @@
       "parentUuid": "e8a64177_89dc57bf",
       "revId": "beea58942ee79cf69ff7c5cd5ed7e9b4222443b3",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "871f30f8_f1f50a54",
+        "filename": "modules/audio_coding/neteq/delay_manager.h",
+        "patchSetId": 5
+      },
+      "lineNbr": 117,
+      "author": {
+        "id": 5607
+      },
+      "writtenOn": "2022-07-19T14:58:05Z",
+      "side": 1,
+      "message": "I think I will leave this for another CL to get this CL out of the door faster. The threading model in NetEq is a bit complicated, so it makes sense to do a bit of thinking about what the best way is to add useful thread annotations.",
+      "parentUuid": "9ee84a1c_5f90aa89",
+      "revId": "beea58942ee79cf69ff7c5cd5ed7e9b4222443b3",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

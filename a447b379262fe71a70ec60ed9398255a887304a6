@@ -22,6 +22,30 @@
       },
       "revId": "a447b379262fe71a70ec60ed9398255a887304a6",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "5919254c_3dd83d2d",
+        "filename": "rtc_base/async_resolver.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 55,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2022-07-19T10:55:05Z",
+      "side": 1,
+      "message": "yes, this \" \" should be removed, but formatter adds it back (and a presubmit check requires to agree with the formatter)",
+      "parentUuid": "0cd4548b_70f07597",
+      "range": {
+        "startLine": 55,
+        "startChar": 11,
+        "endLine": 55,
+        "endChar": 12
+      },
+      "revId": "a447b379262fe71a70ec60ed9398255a887304a6",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

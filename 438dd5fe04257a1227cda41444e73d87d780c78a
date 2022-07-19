@@ -16,6 +16,23 @@
       "message": "PTAL.",
       "revId": "438dd5fe04257a1227cda41444e73d87d780c78a",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "fc9549ee_16638c83",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 3
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 10107
+      },
+      "writtenOn": "2022-07-19T10:08:17Z",
+      "side": 1,
+      "message": "Friendly ping.",
+      "revId": "438dd5fe04257a1227cda41444e73d87d780c78a",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

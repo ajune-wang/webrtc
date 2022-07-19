@@ -79,10 +79,10 @@ FullyConnectedLayer::FullyConnectedLayer(
       activation_function_(GetActivationFunction(activation_function)) {
   RTC_DCHECK_LE(output_size_, kFullyConnectedLayerMaxUnits)
       << "Insufficient FC layer over-allocation (" << layer_name << ").";
-  RTC_DCHECK_EQ(output_size_, bias_.size())
+  RTC_DCHECK_EQ(rtc::dchecked_cast<size_t>(output_size_), bias_.size())
       << "Mismatching output size and bias terms array size (" << layer_name
       << ").";
-  RTC_DCHECK_EQ(input_size_ * output_size_, weights_.size())
+  RTC_DCHECK_EQ(rtc::dchecked_cast<size_t>(input_size_ * output_size_), weights_.size())
       << "Mismatching input-output size and weight coefficients array size ("
       << layer_name << ").";
 }
@@ -90,7 +90,7 @@ FullyConnectedLayer::FullyConnectedLayer(
 FullyConnectedLayer::~FullyConnectedLayer() = default;
 
 void FullyConnectedLayer::ComputeOutput(rtc::ArrayView<const float> input) {
-  RTC_DCHECK_EQ(input.size(), input_size_);
+  RTC_DCHECK_EQ(input.size(), rtc::dchecked_cast<size_t>(input_size_));
   rtc::ArrayView<const float> weights(weights_);
   for (int o = 0; o < output_size_; ++o) {
     output_[o] = activation_function_(

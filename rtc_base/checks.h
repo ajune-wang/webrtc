@@ -396,8 +396,10 @@ RTC_NORETURN RTC_EXPORT void UnreachableCodeReached();
                     __FILE__, __LINE__, #condition) &           \
                     ::rtc::webrtc_checks_impl::LogStreamer<>()
 
+// Note that this method does not use rtc::Safe(Eq,Le..) etc. because they
+                    // don't enforce explicit sign conversion required by Chrome CHECKs etc.
 #define RTC_CHECK_OP(name, op, val1, val2)                 \
-  ::rtc::Safe##name((val1), (val2))                        \
+  ((val1) op (val2))                        \
       ? static_cast<void>(0)                               \
       : ::rtc::webrtc_checks_impl::FatalLogCall<true>(     \
             __FILE__, __LINE__, #val1 " " #op " " #val2) & \

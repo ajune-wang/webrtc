@@ -17,6 +17,7 @@
 
 #include "modules/audio_processing/aec3/fft_data.h"
 #include "rtc_base/checks.h"
+#include "rtc_base/numerics/safe_conversions.h"
 
 namespace webrtc {
 
@@ -37,7 +38,7 @@ struct FftBuffer {
   }
 
   int OffsetIndex(int index, int offset) const {
-    RTC_DCHECK_GE(buffer.size(), offset);
+    RTC_DCHECK_GE(buffer.size(), rtc::dchecked_cast<size_t>(offset));
     RTC_DCHECK_EQ(buffer.size(), static_cast<size_t>(size));
     return (size + index + offset) % size;
   }

@@ -131,8 +131,6 @@ rtc_library("rtp_rtcp_format") {
     "../../rtc_base:stringutils",
     "../../system_wrappers",
     "../video_coding:codec_globals_headers",
-  ]
-  absl_deps = [
     "//third_party/abseil-cpp/absl/algorithm:container",
     "//third_party/abseil-cpp/absl/strings",
     "//third_party/abseil-cpp/absl/types:optional",
@@ -327,8 +325,6 @@ rtc_library("rtp_rtcp") {
     "../../system_wrappers:metrics",
     "../remote_bitrate_estimator",
     "../video_coding:codec_globals_headers",
-  ]
-  absl_deps = [
     "//third_party/abseil-cpp/absl/algorithm:container",
     "//third_party/abseil-cpp/absl/base:core_headers",
     "//third_party/abseil-cpp/absl/container:inlined_vector",
@@ -367,8 +363,6 @@ rtc_source_set("rtp_rtcp_legacy") {
     "../../rtc_base/synchronization:mutex",
     "../../system_wrappers",
     "../remote_bitrate_estimator",
-  ]
-  absl_deps = [
     "//third_party/abseil-cpp/absl/strings",
     "//third_party/abseil-cpp/absl/types:optional",
   ]
@@ -406,8 +400,6 @@ rtc_library("rtcp_transceiver") {
     "../../rtc_base/containers:flat_map",
     "../../rtc_base/task_utils:repeating_task",
     "../../system_wrappers",
-  ]
-  absl_deps = [
     "//third_party/abseil-cpp/absl/algorithm:container",
     "//third_party/abseil-cpp/absl/base:core_headers",
     "//third_party/abseil-cpp/absl/cleanup",
@@ -430,8 +422,6 @@ rtc_library("rtp_video_header") {
     "../../api/video:video_frame_type",
     "../../api/video:video_rtp_headers",
     "../../modules/video_coding:codec_globals_headers",
-  ]
-  absl_deps = [
     "//third_party/abseil-cpp/absl/container:inlined_vector",
     "//third_party/abseil-cpp/absl/types:optional",
     "//third_party/abseil-cpp/absl/types:variant",
@@ -466,8 +456,6 @@ rtc_library("mock_rtp_rtcp") {
     "../../api/video:video_bitrate_allocation",
     "../../rtc_base:checks",
     "../../test:test_support",
-  ]
-  absl_deps = [
     "//third_party/abseil-cpp/absl/strings",
     "//third_party/abseil-cpp/absl/types:optional",
   ]
@@ -660,8 +648,6 @@ if (rtc_include_tests) {
       "../../test:test_support",
       "../../test/time_controller:time_controller",
       "../video_coding:codec_globals_headers",
-    ]
-    absl_deps = [
       "//third_party/abseil-cpp/absl/algorithm:container",
       "//third_party/abseil-cpp/absl/base:core_headers",
       "//third_party/abseil-cpp/absl/memory",

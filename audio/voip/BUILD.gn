@@ -26,8 +26,8 @@ rtc_library("voip_core") {
     "../../rtc_base:criticalsection",
     "../../rtc_base:logging",
     "../../rtc_base/synchronization:mutex",
+    "//third_party/abseil-cpp/absl/types:optional",
   ]
-  absl_deps = [ "//third_party/abseil-cpp/absl/types:optional" ]
 }
 
 rtc_library("audio_channel") {
@@ -75,8 +75,8 @@ rtc_library("audio_ingress") {
     "../../rtc_base:timeutils",
     "../../rtc_base/synchronization:mutex",
     "../utility:audio_frame_operations",
+    "//third_party/abseil-cpp/absl/types:optional",
   ]
-  absl_deps = [ "//third_party/abseil-cpp/absl/types:optional" ]
 }
 
 rtc_library("audio_egress") {

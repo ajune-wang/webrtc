@@ -362,7 +362,7 @@ void LogMessage::OutputToDebug(absl::string_view str,
 void LogMessage::OutputToDebug(absl::string_view str,
                                LoggingSeverity severity) {
 #endif
-  std::string str_str = std::string(str);
+  std::string str_str(str);
   bool log_to_stderr = log_to_stderr_;
 #if defined(WEBRTC_MAC) && !defined(WEBRTC_IOS) && defined(NDEBUG)
   // On the Mac, all stderr output goes to the Console log and causes clutter.

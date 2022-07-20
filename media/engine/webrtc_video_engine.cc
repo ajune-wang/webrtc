@@ -1220,10 +1220,13 @@ bool WebRtcVideoChannel::GetChangedRecvParameters(
         absl::optional<std::vector<webrtc::RtpExtension>>(filtered_extensions);
   }
 
+  /*
   int flexfec_payload_type = mapped_codecs.front().flexfec_payload_type;
   if (flexfec_payload_type != recv_flexfec_payload_type_) {
+    RTC_LOG(LS_ERROR) << "*** GetChangedRecvParameters: "
+                         "flexfec_payload_type != recv_flexfec_payload_type_";
     changed_params->flexfec_payload_type = flexfec_payload_type;
-  }
+  }*/
 
   return true;
 }
@@ -1547,7 +1550,6 @@ void WebRtcVideoChannel::ConfigureReceiverRtp(
   config->rtp.extensions = recv_rtp_extensions_;
 
   // TODO(brandtr): Generalize when we add support for multistream protection.
-  flexfec_config->payload_type = recv_flexfec_payload_type_;
   if (!IsDisabled(call_->trials(), "WebRTC-FlexFEC-03-Advertised") &&
       sp.GetFecFrSsrc(ssrc, &flexfec_config->rtp.remote_ssrc)) {
     flexfec_config->protected_media_ssrcs = {ssrc};
@@ -2861,7 +2863,6 @@ WebRtcVideoChannel::WebRtcVideoReceiveStream::WebRtcVideoReceiveStream(
   RTC_DCHECK(config_.decoder_factory);
   config_.renderer = this;
   ConfigureCodecs(recv_codecs);
-  flexfec_config_.payload_type = flexfec_config.payload_type;
   RecreateReceiveStream();
 }
 
@@ -3043,10 +3044,13 @@ void WebRtcVideoChannel::WebRtcVideoReceiveStream::SetFeedbackParameters(
 
 void WebRtcVideoChannel::WebRtcVideoReceiveStream::SetRecvParameters(
     const ChangedRecvParameters& params) {
+  RTC_LOG(LS_ERROR) << "*** SetRecvParameters";
   bool video_needs_recreation = false;
   if (params.codec_settings) {
     video_needs_recreation = ConfigureCodecs(*params.codec_settings);
   }
+
+  RTC_LOG(LS_ERROR) << "*** SetRecvParameters1 " << video_needs_recreation;
 
   if (params.rtp_header_extensions) {
     if (config_.rtp.extensions != *params.rtp_header_extensions) {
@@ -3067,18 +3071,41 @@ void WebRtcVideoChannel::WebRtcVideoReceiveStream::SetRecvParameters(
       }
     }
   }
+
+  RTC_LOG(LS_ERROR) << "*** SetRecvParameters2 " << video_needs_recreation;
+
   if (params.flexfec_payload_type) {
-    flexfec_config_.payload_type = *params.flexfec_payload_type;
-    // TODO(tommi): See if it is better to always have a flexfec stream object
-    // configured and instead of recreating the video stream, reconfigure the
-    // flexfec object from within the rtp callback (soon to be on the network
-    // thread).
-    if (flexfec_stream_ || flexfec_config_.IsCompleteAndEnabled())
+    RTC_LOG(LS_ERROR) << "*** SetRecvParameters2.0 pt="
+                      << *params.flexfec_payload_type;
+    /*    flexfec_config_.payload_type = *params.flexfec_payload_type;
+        // TODO(tommi): See if it is better to always have a flexfec stream
+       object
+        // configured and instead of recreating the video stream, reconfigure
+       the
+        // flexfec object from within the rtp callback (soon to be on the
+       network
+        // thread).
+        if (flexfec_stream_ || flexfec_config_.IsCompleteAndEnabled())
+          video_needs_recreation = true;*/
+    RTC_LOG(LS_ERROR) << "*** SetRecvParameters2.1 - IsCompleteAndEnabled="
+                      << flexfec_config_.IsCompleteAndEnabled();
+    if (flexfec_config_.IsCompleteAndEnabled()) {
+      // RTC_DCHECK(!flexfec_stream_);
+      // TODO(tommi): Only recreate flexfec stream?
       video_needs_recreation = true;
+    }
+  } else if (flexfec_stream_) {
+    if (!flexfec_config_.IsCompleteAndEnabled()) {
+      // TODO(tommi): Delete the flexfec stream, update
+      // `config.rtp.protected_by_flexfec` and `config.rtp.packet_sink_`.
+      video_needs_recreation = true;
+    }
   }
+  RTC_LOG(LS_ERROR) << "*** SetRecvParameters3 " << video_needs_recreation;
   if (video_needs_recreation) {
     RecreateReceiveStream();
   }
+  RTC_LOG(LS_ERROR) << "*** SetRecvParameters - done";
 }
 
 void WebRtcVideoChannel::WebRtcVideoReceiveStream::RecreateReceiveStream() {

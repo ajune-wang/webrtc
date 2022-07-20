@@ -497,7 +497,9 @@ class RtpReplayer final {
       receive_config.rtp.protected_by_flexfec = true;
       webrtc::FlexfecReceiveStream::Config flexfec_config(
           &(stream_state->transport));
-      flexfec_config.payload_type = FlexfecPayloadType();
+      // TODO(tommi): if `payload_type` goes away, the command line flag might
+      // need to be updated.
+      // flexfec_config.payload_type = FlexfecPayloadType();
       flexfec_config.protected_media_ssrcs.push_back(Ssrc());
       flexfec_config.rtp.remote_ssrc = SsrcFlexfec();
       FlexfecReceiveStream* flexfec_stream =

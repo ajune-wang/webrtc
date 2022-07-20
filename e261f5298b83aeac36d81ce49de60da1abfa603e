@@ -173,6 +173,24 @@
       "parentUuid": "d6541a95_6699cfc8",
       "revId": "e261f5298b83aeac36d81ce49de60da1abfa603e",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "dc724007_1bf7dcf1",
+        "filename": "modules/audio_coding/test/RTPFile.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 128,
+      "author": {
+        "id": 5508
+      },
+      "writtenOn": "2022-07-20T11:41:29Z",
+      "side": 1,
+      "message": "Ack - yes that\u0027s right. I was thinking semantically - but I think that totw tip has been pointed out to me in the past so I had a vague recollection of it being preferred but couldn\u0027t quite remember. Thanks for the link. Why I was thinking that this would perhaps being an exception to that rule is because the expression on the right side of `\u003d` actually uses the constructor that is being avoided 😊",
+      "parentUuid": "21dd13b3_af67a435",
+      "revId": "e261f5298b83aeac36d81ce49de60da1abfa603e",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

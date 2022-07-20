@@ -105,6 +105,24 @@
       "parentUuid": "73d7c988_416cea6c",
       "revId": "bdf7d702f7131dea5adfe8d4d9f5bfadfe2c8fb5",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "7ac8b84d_1edbd8f6",
+        "filename": "pc/peer_connection_interface_unittest.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 3663,
+      "author": {
+        "id": 9405
+      },
+      "writtenOn": "2022-07-20T14:00:52Z",
+      "side": 1,
+      "message": "Of course. It would be much better if the user could set a lower bound on the resolution.",
+      "parentUuid": "0bb39f28_dba463c4",
+      "revId": "bdf7d702f7131dea5adfe8d4d9f5bfadfe2c8fb5",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

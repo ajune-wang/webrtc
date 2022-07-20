@@ -14,6 +14,7 @@
 
 #include <cstdlib>
 
+#include "absl/strings/string_view.h"
 #include "modules/audio_device/dummy/file_audio_device.h"
 #include "rtc_base/logging.h"
 
@@ -38,8 +39,8 @@ FileAudioDevice* FileAudioDeviceFactory::CreateFileAudioDevice() {
 }
 
 void FileAudioDeviceFactory::SetFilenamesToUse(
-    const char* inputAudioFilename,
-    const char* outputAudioFilename) {
+    absl::string_view inputAudioFilename,
+    absl::string_view outputAudioFilename) {
 #ifdef WEBRTC_DUMMY_FILE_DEVICES
   RTC_DCHECK_LT(strlen(inputAudioFilename), MAX_FILENAME_LEN);
   RTC_DCHECK_LT(strlen(outputAudioFilename), MAX_FILENAME_LEN);

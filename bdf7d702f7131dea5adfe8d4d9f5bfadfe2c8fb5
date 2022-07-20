@@ -159,6 +159,24 @@
       "parentUuid": "00dcdc5a_02111411",
       "revId": "bdf7d702f7131dea5adfe8d4d9f5bfadfe2c8fb5",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "35dc233c_d61a3872",
+        "filename": "pc/peer_connection_interface_unittest.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 3663,
+      "author": {
+        "id": 5142
+      },
+      "writtenOn": "2022-07-20T14:20:30Z",
+      "side": 1,
+      "message": "Alright. Well maybe we should continue to allow DISABLED in C++, it seems to solve your problem. That would be the easiest way to allow the app to do custom adaptation logic.",
+      "parentUuid": "1368274d_8012a450",
+      "revId": "bdf7d702f7131dea5adfe8d4d9f5bfadfe2c8fb5",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

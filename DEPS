@@ -10,7 +10,7 @@ vars = {
   # chromium waterfalls. More info at: crbug.com/570091.
   'checkout_configuration': 'default',
   'checkout_instrumented_libraries': 'checkout_linux and checkout_configuration == "default"',
-  'chromium_revision': '1b992fc712d6ee0cf678d05a3626fdc02f4d4dca',
+  'chromium_revision': 'c9d2d58ae9f88ffffa8d8766de4b9527de238c79',
 
   # Keep the Chromium default of generating location tags.
   'generate_location_tags': True,
@@ -26,9 +26,9 @@ vars = {
 deps = {
   # TODO(kjellander): Move this to be Android-only.
   'src/base':
-    'https://chromium.googlesource.com/chromium/src/base@311317bc941588ef2b2675e52478bf97ea2e9502',
+    'https://chromium.googlesource.com/chromium/src/base@459b7c2a3b9bce33fca00c47d0cfe44612eb715d',
   'src/build':
-    'https://chromium.googlesource.com/chromium/src/build@ac02acec7e9712c52169df9eb309e146d2a892e6',
+    'https://chromium.googlesource.com/chromium/src/build@6993728845422b5672a7b6f2020bb1bd8547a8e0',
   'src/buildtools':
     'https://chromium.googlesource.com/chromium/src/buildtools@a4506d5d63a5a13a8c9ae8b29f67f7e3c3bc192b',
   # Gradle 6.6.1. Used for testing Android Studio project generation for WebRTC.
@@ -37,13 +37,13 @@ deps = {
     'condition': 'checkout_android',
   },
   'src/ios': {
-    'url': 'https://chromium.googlesource.com/chromium/src/ios@daa442d05bf34c4f3e4e7bc7b4d0c066e95e78e1',
+    'url': 'https://chromium.googlesource.com/chromium/src/ios@14cdf60c56e9f1b96232c5346d8af7e3c6aac81a',
     'condition': 'checkout_ios',
   },
   'src/testing':
-    'https://chromium.googlesource.com/chromium/src/testing@84daac48379ac412b3d769beded506046298b3b1',
+    'https://chromium.googlesource.com/chromium/src/testing@227d7adf04c10dbf736c10ee18bbe77169fbb401',
   'src/third_party':
-    'https://chromium.googlesource.com/chromium/src/third_party@c337bbeaccfd490a8bcab8e3e258934c68105572',
+    'https://chromium.googlesource.com/chromium/src/third_party@175c8a72112fd132a7612c08ad7f5a370903d735',
 
   'src/buildtools/linux64': {
     'packages': [
@@ -266,7 +266,7 @@ deps = {
     'condition': 'checkout_android',
   },
   'src/tools':
-    'https://chromium.googlesource.com/chromium/src/tools@3d196512c153e81683b14328039d595208648284',
+    'https://chromium.googlesource.com/chromium/src/tools@0b946c3d8a84b5d1be65abb477f4ee4afa646b36',
 
   'src/third_party/accessibility_test_framework': {
       'packages': [

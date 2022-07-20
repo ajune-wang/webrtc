@@ -16,6 +16,91 @@
       "message": "Adding Tommi for global approval.",
       "revId": "e261f5298b83aeac36d81ce49de60da1abfa603e",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "0141f5a1_a268f7dc",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 4
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5508
+      },
+      "writtenOn": "2022-07-20T10:01:01Z",
+      "side": 1,
+      "message": "some minor comments but lgtm",
+      "revId": "e261f5298b83aeac36d81ce49de60da1abfa603e",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "9d0c4e9a_6515293d",
+        "filename": "modules/audio_coding/neteq/tools/neteq_delay_analyzer.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 201,
+      "author": {
+        "id": 5508
+      },
+      "writtenOn": "2022-07-20T10:01:01Z",
+      "side": 1,
+      "message": "nit: {} not necessary here?",
+      "revId": "e261f5298b83aeac36d81ce49de60da1abfa603e",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "92c9fc4f_71e0d4cb",
+        "filename": "modules/audio_coding/neteq/tools/neteq_rtpplay.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 171,
+      "author": {
+        "id": 5508
+      },
+      "writtenOn": "2022-07-20T10:01:01Z",
+      "side": 1,
+      "message": "nit: is `std::string str_str \u003d std::string(str)` preferred over `std::string str_str(str)`?",
+      "revId": "e261f5298b83aeac36d81ce49de60da1abfa603e",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "dfb30ad4_8152983e",
+        "filename": "modules/audio_coding/neteq/tools/neteq_rtpplay.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 204,
+      "author": {
+        "id": 5508
+      },
+      "writtenOn": "2022-07-20T10:01:01Z",
+      "side": 1,
+      "message": "Can also do:\n\nprintf(\"Invalid SSRC: %.*s\\n\", static_cast\u003cint\u003e(str.size()), str.data());\n\n(see `FormatStringView` for an example)",
+      "revId": "e261f5298b83aeac36d81ce49de60da1abfa603e",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "d6541a95_6699cfc8",
+        "filename": "modules/audio_coding/test/RTPFile.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 128,
+      "author": {
+        "id": 5508
+      },
+      "writtenOn": "2022-07-20T10:01:01Z",
+      "side": 1,
+      "message": "not sure if going through operator\u003d() is preferred",
+      "revId": "e261f5298b83aeac36d81ce49de60da1abfa603e",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

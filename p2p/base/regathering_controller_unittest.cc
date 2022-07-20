@@ -48,14 +48,12 @@ class RegatheringControllerTest : public ::testing::Test,
                                   public sigslot::has_slots<> {
  public:
   RegatheringControllerTest()
-      : vss_(std::make_unique<rtc::VirtualSocketServer>()),
-        thread_(vss_.get()),
+      : thread_(&vss_),
+        socket_factory_(&vss_),
         ice_transport_(std::make_unique<cricket::MockIceTransport>()),
-        packet_socket_factory_(
-            std::make_unique<rtc::BasicPacketSocketFactory>(vss_.get())),
-        allocator_(std::make_unique<cricket::FakePortAllocator>(
-            rtc::Thread::Current(),
-            packet_socket_factory_.get())) {
+        allocator_(
+            std::make_unique<cricket::FakePortAllocator>(&thread_,
+                                                         &socket_factory_)) {
     BasicRegatheringController::Config regathering_config;
     regathering_config.regather_on_failed_networks_interval = 0;
     regathering_controller_.reset(new BasicRegatheringController(
@@ -107,8 +105,9 @@ class RegatheringControllerTest : public ::testing::Test,
   }
 
  private:
-  std::unique_ptr<rtc::VirtualSocketServer> vss_;
+  rtc::VirtualSocketServer vss_;
   rtc::AutoSocketServerThread thread_;
+  rtc::BasicPacketSocketFactory socket_factory_;
   std::unique_ptr<cricket::IceTransportInternal> ice_transport_;
   std::unique_ptr<BasicRegatheringController> regathering_controller_;
   std::unique_ptr<rtc::PacketSocketFactory> packet_socket_factory_;

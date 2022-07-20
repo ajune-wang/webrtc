@@ -96,6 +96,7 @@ class PeerConnectionMediaBaseTest : public ::testing::Test {
   explicit PeerConnectionMediaBaseTest(SdpSemantics sdp_semantics)
       : vss_(new rtc::VirtualSocketServer()),
         main_(vss_.get()),
+        socket_factory_(vss_.get()),
         sdp_semantics_(sdp_semantics) {
 #ifdef WEBRTC_ANDROID
     InitializeAndroidObjects();
@@ -210,6 +211,7 @@ class PeerConnectionMediaBaseTest : public ::testing::Test {
 
   std::unique_ptr<rtc::VirtualSocketServer> vss_;
   rtc::AutoSocketServerThread main_;
+  rtc::BasicPacketSocketFactory socket_factory_;
   const SdpSemantics sdp_semantics_;
 };
 

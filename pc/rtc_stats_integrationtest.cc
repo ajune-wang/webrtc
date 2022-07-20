@@ -103,7 +103,8 @@ RTCStatsReportTraceListener* RTCStatsReportTraceListener::traced_report_ =
 class RTCStatsIntegrationTest : public ::testing::Test {
  public:
   RTCStatsIntegrationTest()
-      : network_thread_(new rtc::Thread(&virtual_socket_server_)),
+      : socket_factory_(&virtual_socket_server_),
+        network_thread_(new rtc::Thread(&virtual_socket_server_)),
         worker_thread_(rtc::Thread::Create()) {
     RTCStatsReportTraceListener::SetUp();
 
@@ -194,6 +195,7 @@ class RTCStatsIntegrationTest : public ::testing::Test {
   // `network_thread_` uses `virtual_socket_server_` so they must be
   // constructed/destructed in the correct order.
   rtc::VirtualSocketServer virtual_socket_server_;
+  rtc::BasicPacketSocketFactory socket_factory_;
   std::unique_ptr<rtc::Thread> network_thread_;
   std::unique_ptr<rtc::Thread> worker_thread_;
   rtc::scoped_refptr<PeerConnectionTestWrapper> caller_;

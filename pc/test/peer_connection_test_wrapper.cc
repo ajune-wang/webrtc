@@ -101,10 +101,9 @@ bool PeerConnectionTestWrapper::CreatePc(
     const webrtc::PeerConnectionInterface::RTCConfiguration& config,
     rtc::scoped_refptr<webrtc::AudioEncoderFactory> audio_encoder_factory,
     rtc::scoped_refptr<webrtc::AudioDecoderFactory> audio_decoder_factory) {
-  std::unique_ptr<cricket::PortAllocator> port_allocator(
-      new cricket::FakePortAllocator(
-          network_thread_,
-          std::make_unique<rtc::BasicPacketSocketFactory>(socket_server_)));
+  auto port_allocator = std::make_unique<cricket::FakePortAllocator>(
+      network_thread_,
+      std::make_unique<rtc::BasicPacketSocketFactory>(socket_server_));
 
   RTC_DCHECK_RUN_ON(&pc_thread_checker_);
 

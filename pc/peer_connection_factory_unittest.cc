@@ -26,6 +26,7 @@
 #include "media/base/fake_frame_source.h"
 #include "modules/audio_device/include/audio_device.h"
 #include "modules/audio_processing/include/audio_processing.h"
+#include "p2p/base/basic_packet_socket_factory.h"
 #include "p2p/base/fake_port_allocator.h"
 #include "p2p/base/port.h"
 #include "p2p/base/port_allocator.h"
@@ -38,6 +39,7 @@
 #include "rtc_base/rtc_certificate_generator.h"
 #include "rtc_base/socket_address.h"
 #include "rtc_base/time_utils.h"
+#include "rtc_base/virtual_socket_server.h"
 #include "test/gmock.h"
 #include "test/gtest.h"
 
@@ -123,9 +125,7 @@ class MockNetworkManager : public rtc::NetworkManager {
 
 class PeerConnectionFactoryTest : public ::testing::Test {
  public:
-  PeerConnectionFactoryTest()
-      : socket_server_(rtc::CreateDefaultSocketServer()),
-        main_thread_(socket_server_.get()) {}
+  PeerConnectionFactoryTest() : main_thread_(&vss_) {}
 
  private:
   void SetUp() {
@@ -146,10 +146,9 @@ class PeerConnectionFactoryTest : public ::testing::Test {
         nullptr /* audio_processing */);
 
     ASSERT_TRUE(factory_.get() != NULL);
-    packet_socket_factory_.reset(
-        new rtc::BasicPacketSocketFactory(socket_server_.get()));
-    port_allocator_.reset(new cricket::FakePortAllocator(
-        rtc::Thread::Current(), packet_socket_factory_.get()));
+    port_allocator_ = std::make_unique<cricket::FakePortAllocator>(
+        rtc::Thread::Current(),
+        std::make_unique<rtc::BasicPacketSocketFactory>(&vss_));
     raw_port_allocator_ = port_allocator_.get();
   }
 
@@ -227,7 +226,7 @@ class PeerConnectionFactoryTest : public ::testing::Test {
     }
   }
 
-  std::unique_ptr<rtc::SocketServer> socket_server_;
+  rtc::VirtualSocketServer vss_;
   rtc::AutoSocketServerThread main_thread_;
   rtc::scoped_refptr<PeerConnectionFactoryInterface> factory_;
   NullPeerConnectionObserver observer_;

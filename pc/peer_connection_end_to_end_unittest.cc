@@ -39,6 +39,7 @@
 #include "api/rtc_error.h"
 #include "api/scoped_refptr.h"
 #include "media/sctp/sctp_transport_internal.h"
+#include "p2p/base/basic_packet_socket_factory.h"
 #include "rtc_base/checks.h"
 #include "rtc_base/copy_on_write_buffer.h"
 #include "rtc_base/gunit.h"
@@ -81,7 +82,8 @@ class PeerConnectionEndToEndBaseTest : public sigslot::has_slots<>,
   typedef std::vector<rtc::scoped_refptr<DataChannelInterface>> DataChannelList;
 
   explicit PeerConnectionEndToEndBaseTest(SdpSemantics sdp_semantics)
-      : network_thread_(std::make_unique<rtc::Thread>(&pss_)),
+      : socket_factory_(&pss_),
+        network_thread_(std::make_unique<rtc::Thread>(&pss_)),
         worker_thread_(rtc::Thread::Create()) {
     RTC_CHECK(network_thread_->Start());
     RTC_CHECK(worker_thread_->Start());
@@ -221,6 +223,7 @@ class PeerConnectionEndToEndBaseTest : public sigslot::has_slots<>,
  protected:
   rtc::AutoThread main_thread_;
   rtc::PhysicalSocketServer pss_;
+  rtc::BasicPacketSocketFactory socket_factory_;
   std::unique_ptr<rtc::Thread> network_thread_;
   std::unique_ptr<rtc::Thread> worker_thread_;
   rtc::scoped_refptr<PeerConnectionTestWrapper> caller_;

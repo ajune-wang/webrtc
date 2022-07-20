@@ -169,7 +169,6 @@ class NetworkTest : public ::testing::Test, public sigslot::has_slots<> {
     RTC_DCHECK_RUN_ON(network_manager.thread_);
     return network_manager.QueryDefaultLocalAddress(family);
   }
-
   std::vector<std::unique_ptr<Network>> GetNetworks(
       const BasicNetworkManager& network_manager,
       bool include_ignored) {

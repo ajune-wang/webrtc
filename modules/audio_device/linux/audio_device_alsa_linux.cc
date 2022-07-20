@@ -10,7 +10,7 @@
 
 #include "modules/audio_device/linux/audio_device_alsa_linux.h"
 
-
+#include "absl/strings/string_view.h"
 #include "modules/audio_device/audio_device_config.h"
 #include "rtc_base/logging.h"
 #include "rtc_base/system/arch.h"
@@ -45,11 +45,11 @@ WebRTCAlsaSymbolTable* GetAlsaSymbolTable() {
   } while (0)
 
 // snd_lib_error_handler_t
-void WebrtcAlsaErrorHandler(const char* file,
+void WebrtcAlsaErrorHandler(absl::string_view file,
                             int line,
-                            const char* function,
+                            absl::string_view function,
                             int err,
-                            const char* fmt,
+                            absl::string_view fmt,
                             ...) {}
 
 namespace webrtc {

@@ -101,6 +101,7 @@ rtc_library("audio_device_name") {
     "audio_device_name.cc",
     "audio_device_name.h",
   ]
+  absl_deps = [ "//third_party/abseil-cpp/absl/strings" ]
 }
 
 rtc_source_set("windows_core_audio_utility") {

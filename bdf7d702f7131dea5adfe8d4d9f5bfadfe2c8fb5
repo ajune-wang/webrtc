@@ -1,0 +1,38 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "139b7a66_2e5140c3",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 3
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5142
+      },
+      "writtenOn": "2022-07-20T12:40:45Z",
+      "side": 1,
+      "message": "LGTM % nit",
+      "revId": "bdf7d702f7131dea5adfe8d4d9f5bfadfe2c8fb5",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "1526b2c7_3bdfddf1",
+        "filename": "pc/peer_connection_interface_unittest.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 3663,
+      "author": {
+        "id": 5142
+      },
+      "writtenOn": "2022-07-20T12:40:45Z",
+      "side": 1,
+      "message": "On some layers of our code base DISABLED is the default value but according to spec DISABLED does not exist and there are some TODOs to remove it, so I prefer to use some other DegradationPreference value other than DISABLED just in case. Also while it may not have a value by default on this layer, I have a feeling that MAINTAIN_FRAMERATE tends to be the behavior we get if we don\u0027t say anything.\n\nnit: Can you update this test to use MAINTAIN_RESOLUTION instead? It might not matter but that seems the most future-proof in case we delete DISABLED and start defaulting to MAINTAIN_FRAMERATE at some point",
+      "revId": "bdf7d702f7131dea5adfe8d4d9f5bfadfe2c8fb5",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

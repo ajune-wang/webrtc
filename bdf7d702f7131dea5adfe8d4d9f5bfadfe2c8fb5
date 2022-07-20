@@ -141,6 +141,24 @@
       "parentUuid": "7ac8b84d_1edbd8f6",
       "revId": "bdf7d702f7131dea5adfe8d4d9f5bfadfe2c8fb5",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "1368274d_8012a450",
+        "filename": "pc/peer_connection_interface_unittest.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 3663,
+      "author": {
+        "id": 9405
+      },
+      "writtenOn": "2022-07-20T14:16:00Z",
+      "side": 1,
+      "message": "Because our products are distributed worldwide, configurable resolution is much preferred. I have no preference between using the C++ API and using the field trial.",
+      "parentUuid": "00dcdc5a_02111411",
+      "revId": "bdf7d702f7131dea5adfe8d4d9f5bfadfe2c8fb5",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

@@ -16,6 +16,23 @@
       "message": "Ilya, PTAL",
       "revId": "17d91ab66505236ac8795fb3b3d8ec7092a957e3",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "2afa38b4_53da5d62",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 9741
+      },
+      "writtenOn": "2022-07-20T09:04:12Z",
+      "side": 1,
+      "message": "Thanks Ilya for the quick review!",
+      "revId": "17d91ab66505236ac8795fb3b3d8ec7092a957e3",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

@@ -123,6 +123,24 @@
       "parentUuid": "0bb39f28_dba463c4",
       "revId": "bdf7d702f7131dea5adfe8d4d9f5bfadfe2c8fb5",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "00dcdc5a_02111411",
+        "filename": "pc/peer_connection_interface_unittest.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 3663,
+      "author": {
+        "id": 5142
+      },
+      "writtenOn": "2022-07-20T14:04:56Z",
+      "side": 1,
+      "message": "Alright. Just one nuance to see if I understand this:\n\nWould you need an API to configure this, or would it be enough that CPU adaptation stops at some hardcoded VGA/QVGA resolution (that is not application specific) after which going down further would not be worth it?\n\n(An API change is one thing and a bug fix to CPU adaptation to stop making \"unreasonable tradeoffs\" is another thing)",
+      "parentUuid": "7ac8b84d_1edbd8f6",
+      "revId": "bdf7d702f7131dea5adfe8d4d9f5bfadfe2c8fb5",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

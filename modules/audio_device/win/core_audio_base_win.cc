@@ -230,7 +230,7 @@ bool CoreAudioBase::IsDefaultCommunicationsDevice(int index) const {
   return index == kDefaultCommunications;
 }
 
-bool CoreAudioBase::IsDefaultDeviceId(const std::string& device_id) const {
+bool CoreAudioBase::IsDefaultDeviceId(absl::string_view device_id) const {
   // Returns true if `device_id` corresponds to the id of the default
   // device. Note that, if only one device is available (or if the user has not
   // explicitly set a default device), `device_id` will also math
@@ -242,7 +242,7 @@ bool CoreAudioBase::IsDefaultDeviceId(const std::string& device_id) const {
 }
 
 bool CoreAudioBase::IsDefaultCommunicationsDeviceId(
-    const std::string& device_id) const {
+    absl::string_view device_id) const {
   // Returns true if `device_id` corresponds to the id of the default
   // communication device. Note that, if only one device is available (or if
   // the user has not explicitly set a communication device), `device_id` will

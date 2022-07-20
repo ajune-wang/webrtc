@@ -209,6 +209,24 @@
       "parentUuid": "dc724007_1bf7dcf1",
       "revId": "e261f5298b83aeac36d81ce49de60da1abfa603e",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "1c6d6084_c1e45979",
+        "filename": "modules/audio_coding/test/RTPFile.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 128,
+      "author": {
+        "id": 5508
+      },
+      "writtenOn": "2022-07-20T12:32:09Z",
+      "side": 1,
+      "message": "Yes, lgtm to go ahead with submitting as is.\n\nI\u0027d guess that the right hand side uses this constructor:\n```template\u003c class StringViewLike \u003e\nexplicit basic_string(const StringViewLike\u0026 t,\n                      const Allocator\u0026 alloc \u003d Allocator());\n```\n\nWhat I mean is that the right hand side is using that ctor and if we did not use assignment (i.e. `std::string filename_str(filename)`) then we\u0027d also be using that ctor, simply without assignment.\n\nLooking at the totw/ and abseil tips, I don\u0027t think this is exactly the same situation as we have here.\n\nBasically, in this case we are doing: `Foo f \u003d Foo(bar)` and not `Foo f \u003d bar`. The tips are for the latter, but not as far as I can tell, the former.",
+      "parentUuid": "df5aa930_01ef2476",
+      "revId": "e261f5298b83aeac36d81ce49de60da1abfa603e",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

@@ -245,6 +245,24 @@
       "parentUuid": "1c6d6084_c1e45979",
       "revId": "e261f5298b83aeac36d81ce49de60da1abfa603e",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "e59fff1f_999adaa5",
+        "filename": "modules/audio_coding/test/RTPFile.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 128,
+      "author": {
+        "id": 10107
+      },
+      "writtenOn": "2022-07-20T18:01:05Z",
+      "side": 1,
+      "message": "So it seems there is consensus that totw/88 does not recommend the assignment form in this particular case. I\u0027ll stick with the constructor form from now on and I\u0027ll try to convert the assignment forms I find. Does that sg?",
+      "parentUuid": "3690d874_e7826383",
+      "revId": "e261f5298b83aeac36d81ce49de60da1abfa603e",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

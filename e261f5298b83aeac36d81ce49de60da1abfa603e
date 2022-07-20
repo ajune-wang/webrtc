@@ -227,6 +227,24 @@
       "parentUuid": "df5aa930_01ef2476",
       "revId": "e261f5298b83aeac36d81ce49de60da1abfa603e",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "3690d874_e7826383",
+        "filename": "modules/audio_coding/test/RTPFile.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 128,
+      "author": {
+        "id": 10107
+      },
+      "writtenOn": "2022-07-20T14:31:54Z",
+      "side": 1,
+      "message": "So it turns out (I stumbled on this some time ago) absl::string_view does not fulfil the requirements for StringViewLike. This means that the right hand side is in fact using absl::string_view\u0027s string conversion operator, and so is the non-assignment form. I tested this manually with printf-logging to confirm.\n\nAs long as absl::string_view is not aliased to std::string_view, creating a string from string_view will end up using std::string\u0027s copy constructor. And my reading of totw/88 was that copy construction should prefer the assignment form.\n\nI personally find this to be quite confusing, because in the (possibly far) future I\u0027m sure chromium and webrtc will want to move from absl::string_view to std::string_view. So which form should we use in the meantime? No idea...\n\nI\u0027ve asked for opinions on this in our internal C users mailinglist. We should probably just make a decision and then stick with it. I\u0027m happy to ensure consistency in webrtc\u0027s codebase whatever the decision.",
+      "parentUuid": "1c6d6084_c1e45979",
+      "revId": "e261f5298b83aeac36d81ce49de60da1abfa603e",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

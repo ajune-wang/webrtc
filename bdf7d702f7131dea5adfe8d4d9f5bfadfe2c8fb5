@@ -51,6 +51,24 @@
       "parentUuid": "1526b2c7_3bdfddf1",
       "revId": "bdf7d702f7131dea5adfe8d4d9f5bfadfe2c8fb5",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "e957eec4_b593fb95",
+        "filename": "pc/peer_connection_interface_unittest.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 3663,
+      "author": {
+        "id": 5142
+      },
+      "writtenOn": "2022-07-20T13:04:43Z",
+      "side": 1,
+      "message": "I can\u0027t find an issue but \"disabled\" does not exist in the spec or on the web and I think I\u0027ve seen TODOs about removing it but AFAIK nobody is working on removing it at the moment.\n\nWhy do you feel the need to disable CPU adaptation? It sounds like something one would only want to do if CPU adaptation is not working correctly.",
+      "parentUuid": "04357bab_e9b3b4ac",
+      "revId": "bdf7d702f7131dea5adfe8d4d9f5bfadfe2c8fb5",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

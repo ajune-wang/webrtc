@@ -33,6 +33,24 @@
       "message": "On some layers of our code base DISABLED is the default value but according to spec DISABLED does not exist and there are some TODOs to remove it, so I prefer to use some other DegradationPreference value other than DISABLED just in case. Also while it may not have a value by default on this layer, I have a feeling that MAINTAIN_FRAMERATE tends to be the behavior we get if we don\u0027t say anything.\n\nnit: Can you update this test to use MAINTAIN_RESOLUTION instead? It might not matter but that seems the most future-proof in case we delete DISABLED and start defaulting to MAINTAIN_FRAMERATE at some point",
       "revId": "bdf7d702f7131dea5adfe8d4d9f5bfadfe2c8fb5",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "04357bab_e9b3b4ac",
+        "filename": "pc/peer_connection_interface_unittest.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 3663,
+      "author": {
+        "id": 9405
+      },
+      "writtenOn": "2022-07-20T12:50:10Z",
+      "side": 1,
+      "message": "Hmmm, will DegradationPreference::DISABLED be removed? Since enable_cpu_adaptation is deprecated, I have been using DegradationPreference::DISABLED as an alternative. Is there a related issue tracker item?\n\nAnyway, I changed tests to use DegradationPreference::MAINTAIN_RESOLUTION.",
+      "parentUuid": "1526b2c7_3bdfddf1",
+      "revId": "bdf7d702f7131dea5adfe8d4d9f5bfadfe2c8fb5",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

@@ -87,6 +87,24 @@
       "parentUuid": "e957eec4_b593fb95",
       "revId": "bdf7d702f7131dea5adfe8d4d9f5bfadfe2c8fb5",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "0bb39f28_dba463c4",
+        "filename": "pc/peer_connection_interface_unittest.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 3663,
+      "author": {
+        "id": 5142
+      },
+      "writtenOn": "2022-07-20T13:35:57Z",
+      "side": 1,
+      "message": "OK. Is the issue that we don\u0027t want ANY degradation or is the issue that we send unreasonably low resolution and fps?\n\nThe performance gains in degrading are significant when resolution is high, but the quality vs performance tradeoff changes as we go down in resolution.\n\nIf max resolution is already at VGA, there probably is no point in going down even further, but the current adaptation logic always goes down in fractions of whatever the input was.\n\nQuestion: Would your issue be resolved if the CPU adaptation logic prevented going down below some unreasonably low threshold? Or is this a matter of wanting to force high resolution no matter what?",
+      "parentUuid": "73d7c988_416cea6c",
+      "revId": "bdf7d702f7131dea5adfe8d4d9f5bfadfe2c8fb5",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

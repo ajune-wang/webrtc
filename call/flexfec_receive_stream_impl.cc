@@ -34,7 +34,6 @@ namespace webrtc {
 std::string FlexfecReceiveStream::Config::ToString() const {
   char buf[1024];
   rtc::SimpleStringBuilder ss(buf);
-  ss << "{payload_type: " << payload_type;
   ss << ", remote_ssrc: " << rtp.remote_ssrc;
   ss << ", local_ssrc: " << rtp.local_ssrc;
   ss << ", protected_media_ssrcs: [";
@@ -56,8 +55,6 @@ std::string FlexfecReceiveStream::Config::ToString() const {
 
 bool FlexfecReceiveStream::Config::IsCompleteAndEnabled() const {
   // Check if FlexFEC is enabled.
-  if (payload_type < 0)
-    return false;
   // Do we have the necessary SSRC information?
   if (rtp.remote_ssrc == 0)
     return false;
@@ -74,14 +71,6 @@ std::unique_ptr<FlexfecReceiver> MaybeCreateFlexfecReceiver(
     Clock* clock,
     const FlexfecReceiveStream::Config& config,
     RecoveredPacketReceiver* recovered_packet_receiver) {
-  if (config.payload_type < 0) {
-    RTC_LOG(LS_WARNING)
-        << "Invalid FlexFEC payload type given. "
-           "This FlexfecReceiveStream will therefore be useless.";
-    return nullptr;
-  }
-  RTC_DCHECK_GE(config.payload_type, 0);
-  RTC_DCHECK_LE(config.payload_type, 127);
   if (config.rtp.remote_ssrc == 0) {
     RTC_LOG(LS_WARNING)
         << "Invalid FlexFEC SSRC given. "

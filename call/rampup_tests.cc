@@ -290,7 +290,6 @@ void RampUpTester::ModifyFlexfecConfigs(
   if (num_flexfec_streams_ == 0)
     return;
   RTC_DCHECK_EQ(1, num_flexfec_streams_);
-  (*receive_configs)[0].payload_type = test::CallTest::kFlexfecPayloadType;
   (*receive_configs)[0].rtp.remote_ssrc = test::CallTest::kFlexfecSendSsrc;
   (*receive_configs)[0].protected_media_ssrcs = {video_ssrcs_[0]};
   (*receive_configs)[0].rtp.local_ssrc = video_ssrcs_[0];

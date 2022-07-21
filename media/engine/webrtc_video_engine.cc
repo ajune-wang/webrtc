@@ -2983,7 +2983,30 @@ bool WebRtcVideoChannel::WebRtcVideoReceiveStream::ConfigureCodecs(
     recreate_needed = true;
   }
 
+  // TODO(tommi): Is this a reliable comparison? (any chance the order may
+  // be different?).
   if (decoders != config_.decoders) {
+#if 1
+    auto copy1 = decoders;
+    auto copy2 = config_.decoders;
+    auto comp =
+        [](const webrtc::VideoReceiveStreamInterface::Decoder& a,
+           const webrtc::VideoReceiveStreamInterface::Decoder& b) -> bool {
+      if (a.video_format == b.video_format) {
+        return a.payload_type < b.payload_type;
+      }
+      const auto& fmt_a = a.video_format;
+      const auto& fmt_b = b.video_format;
+      if (fmt_a.name == fmt_b.name) {
+        return fmt_a.parameters < fmt_b.parameters;
+      }
+      return fmt_a.name < fmt_b.name;
+    };
+    std::sort(copy1.begin(), copy1.end(), comp);
+    std::sort(copy2.begin(), copy2.end(), comp);
+    RTC_DCHECK(copy1 != copy2);
+#endif
+
     decoders.swap(config_.decoders);
     recreate_needed = true;
   }
@@ -3044,6 +3067,7 @@ void WebRtcVideoChannel::WebRtcVideoReceiveStream::SetFeedbackParameters(
 void WebRtcVideoChannel::WebRtcVideoReceiveStream::SetRecvParameters(
     const ChangedRecvParameters& params) {
   bool video_needs_recreation = false;
+  bool flexfec_needs_recreation = false;
   if (params.codec_settings) {
     video_needs_recreation = ConfigureCodecs(*params.codec_settings);
   }
@@ -3063,21 +3087,53 @@ void WebRtcVideoChannel::WebRtcVideoReceiveStream::SetRecvParameters(
       if (flexfec_stream_) {
         flexfec_stream_->SetRtpExtensions(flexfec_config_.rtp.extensions);
       } else if (flexfec_config_.IsCompleteAndEnabled()) {
-        video_needs_recreation = true;
+        flexfec_needs_recreation = true;
       }
     }
   }
+
   if (params.flexfec_payload_type) {
-    flexfec_config_.payload_type = *params.flexfec_payload_type;
     // TODO(tommi): See if it is better to always have a flexfec stream object
     // configured and instead of recreating the video stream, reconfigure the
     // flexfec object from within the rtp callback (soon to be on the network
     // thread).
-    if (flexfec_stream_ || flexfec_config_.IsCompleteAndEnabled())
-      video_needs_recreation = true;
+    if (flexfec_stream_) {
+      RTC_DCHECK_NE(flexfec_stream_->payload_type(),
+                    *params.flexfec_payload_type);
+      flexfec_config_.payload_type = *params.flexfec_payload_type;
+      if (flexfec_config_.payload_type == -1) {
+        RTC_DCHECK(!flexfec_config_.IsCompleteAndEnabled());
+        // TODO(tommi): This should delete flexfec and clear references to it
+        // from `stream_`.
+        flexfec_needs_recreation = true;
+      } else {
+        RTC_DCHECK(false) << "mod payload=" << flexfec_config_.payload_type;
+        flexfec_stream_->SetPayloadType(flexfec_config_.payload_type);
+      }
+    } else if (*params.flexfec_payload_type != -1) {
+      flexfec_config_.payload_type = *params.flexfec_payload_type;
+      if (flexfec_config_.IsCompleteAndEnabled()) {
+        // TODO(tommi): Construct new flexfec, configure `stream_`.
+        flexfec_needs_recreation = true;
+      }
+    } else {
+      // Noop config change. No flexfec stream and "new" payload == -1.
+      RTC_DCHECK(!flexfec_stream_);
+      RTC_DCHECK(!flexfec_config_.IsCompleteAndEnabled());
+      flexfec_config_.payload_type = *params.flexfec_payload_type;
+      RTC_DCHECK(!flexfec_config_.IsCompleteAndEnabled());
+    }
   }
+
   if (video_needs_recreation) {
     RecreateReceiveStream();
+  } else if (flexfec_needs_recreation) {
+    // TODO(tommi): recreate only the flexfec stream and reconfigure
+    // the existing stream_.
+    // RTC_DCHECK(false);
+    RecreateReceiveStream();
+  } else {
+    RTC_LOG_F(LS_INFO) << "*** No recreate needed.";
   }
 }
 
@@ -3085,6 +3141,10 @@ void WebRtcVideoChannel::WebRtcVideoReceiveStream::RecreateReceiveStream() {
   absl::optional<int> base_minimum_playout_delay_ms;
   absl::optional<webrtc::VideoReceiveStreamInterface::RecordingState>
       recording_state;
+  // TODO(tommi): Create flexfec without having to recreate stream.
+  // bool stream_exists = (stream_ != nullptr);
+  // bool flexfec_exists = (flexfec_stream_ != nullptr);
+  // RTC_DCHECK_EQ(stream_exists, flexfec_exists);
   if (stream_) {
     base_minimum_playout_delay_ms = stream_->GetBaseMinimumPlayoutDelayMs();
     recording_state = stream_->SetAndGetRecordingState(

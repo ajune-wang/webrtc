@@ -272,6 +272,24 @@
       "parentUuid": "2cf4774e_b14db133",
       "revId": "644e78f0db15f15707975c876203d4af8ea085d2",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "f37f57f6_6ba73bbf",
+        "filename": "stats/rtcstats_objects.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 703,
+      "author": {
+        "id": 5142
+      },
+      "writtenOn": "2022-07-21T08:44:02Z",
+      "side": 1,
+      "message": "Allow list CL here: https://chromium-review.googlesource.com/c/chromium/src/+/3779657",
+      "parentUuid": "83162160_080992aa",
+      "revId": "644e78f0db15f15707975c876203d4af8ea085d2",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

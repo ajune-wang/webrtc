@@ -51,6 +51,24 @@
       "parentUuid": "67d2c0fd_7196d203",
       "revId": "1f96f5ef14796a17e2ae4ad9c60ca9f698a2ae31",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "05257451_8724dfa6",
+        "filename": "sdk/objc/components/audio/RTCAudioDevice.h",
+        "patchSetId": 9
+      },
+      "lineNbr": 144,
+      "author": {
+        "id": 5091
+      },
+      "writtenOn": "2022-07-21T09:42:52Z",
+      "side": 1,
+      "message": "I ask because you will most likely get questions in this area given that you are the main architect here. If you have the resources to also update the AppRTCMobile application that would be highly appreciated. Perhaps add as a possible TODO in the original issue.",
+      "parentUuid": "1723590e_d15bf1d3",
+      "revId": "1f96f5ef14796a17e2ae4ad9c60ca9f698a2ae31",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

@@ -22,6 +22,30 @@
       },
       "revId": "620a9c48068f030c9d24d80f73916d1f2296851d",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "150ad990_24986771",
+        "filename": "sdk/objc/api/peerconnection/RTCPeerConnectionFactory.h",
+        "patchSetId": 11
+      },
+      "lineNbr": 48,
+      "author": {
+        "id": 6305
+      },
+      "writtenOn": "2022-07-21T11:18:03Z",
+      "side": 1,
+      "message": "\u003e I know (but have not analyzed any code) that clients are injecting external ADMs for iOS today but when I see your change I wonder how they do it? \n\nHm. They are probably not using SDK to inject custom ADM. Or they might compile SDK with their own patches. In general I prefer not having custom patches, so that\u0027s why I\u0027m creating an API to inject custom ObjC ADM with means of SDK.\n\nThere is also `RTCPeerConnectionFactoryBuilder.h` header in sdk source code, which provides object which allows to inject custom ADM written in C++. But it relies on the fact that it should be possible to implement ADM interface which is located in [header](https://source.chromium.org/chromium/chromium/src/+/main:third_party/webrtc/modules/audio_device/include/audio_device.h;l\u003d1) `modules/audio_device/include/audio_device.h` which is not exposed in ObjC SDK. The `RTCPeerConnectionFactoryBuilder.h` is [also not part of SDK](https://source.chromium.org/chromium/chromium/src/+/main:third_party/webrtc/sdk/BUILD.gn;l\u003d1205-1291) and I\u0027m not sure who and how uses it. I only see it is used [in test](https://source.chromium.org/chromium/chromium/src/+/main:third_party/webrtc/sdk/objc/unittests/RTCPeerConnectionFactoryBuilderTest.mm;l\u003d22).",
+      "parentUuid": "e5323fda_cc16ba0c",
+      "range": {
+        "startLine": 48,
+        "startChar": 3,
+        "endLine": 48,
+        "endChar": 13
+      },
+      "revId": "620a9c48068f030c9d24d80f73916d1f2296851d",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

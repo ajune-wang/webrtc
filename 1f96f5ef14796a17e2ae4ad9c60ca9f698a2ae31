@@ -69,6 +69,24 @@
       "parentUuid": "1723590e_d15bf1d3",
       "revId": "1f96f5ef14796a17e2ae4ad9c60ca9f698a2ae31",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "0ced8987_4fe0e1bf",
+        "filename": "sdk/objc/components/audio/RTCAudioDevice.h",
+        "patchSetId": 9
+      },
+      "lineNbr": 144,
+      "author": {
+        "id": 6305
+      },
+      "writtenOn": "2022-07-21T11:18:03Z",
+      "side": 1,
+      "message": "Added TODO in the code next to protocol definition.",
+      "parentUuid": "05257451_8724dfa6",
+      "revId": "1f96f5ef14796a17e2ae4ad9c60ca9f698a2ae31",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

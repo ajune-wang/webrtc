@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "dad22ec6_2324ed62",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2022-07-21T11:04:32Z",
+      "side": 1,
+      "message": "the only practical difference - rtc event log would no longer record this message if received.",
+      "revId": "d28e2ffdc1f19301d8fc1bf1fcee472e06de0028",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

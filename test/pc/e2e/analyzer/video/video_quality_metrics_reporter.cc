@@ -83,11 +83,22 @@ void VideoQualityMetricsReporter::OnStatsReports(
     return;
   }
 
+  if (sample.retransmitted_bytes_sent < prev_sample.retransmitted_bytes_sent) {
+    RTC_LOG(LS_WARNING)
+        << "BUG BUG BUG: retransmitted_bytes_sent must increase";
+    return;
+  }
   DataRate retransmission_bitrate =
       (sample.retransmitted_bytes_sent - prev_sample.retransmitted_bytes_sent) /
       time_between_samples;
   video_bwe_stats.retransmission_bitrate.AddSample(
       retransmission_bitrate.bytes_per_sec());
+
+  if ((sample.bytes_sent + sample.header_bytes_sent) <
+      (prev_sample.bytes_sent + prev_sample.header_bytes_sent)) {
+    RTC_LOG(LS_WARNING) << "BUG BUG BUG: transmission_bitrate must increase";
+    return;
+  }
   DataRate transmission_bitrate =
       (sample.bytes_sent + sample.header_bytes_sent - prev_sample.bytes_sent -
        prev_sample.header_bytes_sent) /

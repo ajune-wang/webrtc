@@ -55,6 +55,9 @@ class FlexfecReceiveStreamImpl : public FlexfecReceiveStream {
 
   // RtpPacketSinkInterface.
   void OnRtpPacket(const RtpPacketReceived& packet) override;
+
+  void SetPayloadType(int payload_type) override;
+
   // ReceiveStreamInterface impl.
   void SetRtpExtensions(std::vector<RtpExtension> extensions) override;
   RtpHeaderExtensionMap GetRtpExtensionMap() const override;
@@ -87,6 +90,9 @@ class FlexfecReceiveStreamImpl : public FlexfecReceiveStream {
 
   const uint32_t remote_ssrc_;
   bool transport_cc_ RTC_GUARDED_BY(packet_sequence_checker_);
+
+  // TODO(tommi): optional instead of -1?
+  int payload_type_ RTC_GUARDED_BY(packet_sequence_checker_) = -1;
 
   // Erasure code interfacing.
   const std::unique_ptr<FlexfecReceiver> receiver_;

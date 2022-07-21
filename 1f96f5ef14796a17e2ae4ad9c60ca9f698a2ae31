@@ -16,6 +16,23 @@
       "message": "Hi Henrik, Tommi and Justin!\n\nCould you please review this CL which is the second step of providing API to inject ObjC audio device: it defines RTCAudioDevice protocol and adjusts existing SDL API to allow user to inject their own RTCAudioDevice implementation.\n\nThanks a lot in advance, Yury.",
       "revId": "1f96f5ef14796a17e2ae4ad9c60ca9f698a2ae31",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "67d2c0fd_7196d203",
+        "filename": "sdk/objc/components/audio/RTCAudioDevice.h",
+        "patchSetId": 9
+      },
+      "lineNbr": 144,
+      "author": {
+        "id": 5091
+      },
+      "writtenOn": "2022-07-21T08:47:37Z",
+      "side": 1,
+      "message": "Would it make sense to add a link to example implementations here as help to future users? E.g. to https://github.com/mstyura/RTCAudioDevice",
+      "revId": "1f96f5ef14796a17e2ae4ad9c60ca9f698a2ae31",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

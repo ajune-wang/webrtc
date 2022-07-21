@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "e5323fda_cc16ba0c",
+        "filename": "sdk/objc/api/peerconnection/RTCPeerConnectionFactory.h",
+        "patchSetId": 11
+      },
+      "lineNbr": 48,
+      "author": {
+        "id": 5091
+      },
+      "writtenOn": "2022-07-21T09:48:54Z",
+      "side": 1,
+      "message": "My question will illustrate my limited understanding of the existing iOS implementation (mainly done work on the Android side).\n\nI know (but have not analyzed any code) that clients are injecting external ADMs for iOS today but when I see your change I wonder how they do it? All I can see is support for injecting the default ADM. What am I missing?",
+      "range": {
+        "startLine": 48,
+        "startChar": 3,
+        "endLine": 48,
+        "endChar": 13
+      },
+      "revId": "620a9c48068f030c9d24d80f73916d1f2296851d",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

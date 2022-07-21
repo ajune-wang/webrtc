@@ -33,6 +33,24 @@
       "message": "Would it make sense to add a link to example implementations here as help to future users? E.g. to https://github.com/mstyura/RTCAudioDevice",
       "revId": "1f96f5ef14796a17e2ae4ad9c60ca9f698a2ae31",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "1723590e_d15bf1d3",
+        "filename": "sdk/objc/components/audio/RTCAudioDevice.h",
+        "patchSetId": 9
+      },
+      "lineNbr": 144,
+      "author": {
+        "id": 6305
+      },
+      "writtenOn": "2022-07-21T09:21:29Z",
+      "side": 1,
+      "message": "That make sense as long as it\u0027s ok to put link to my github in shared WebRTC repo.\nAlternatively an example implementation of RTCAudioDevice could be part of AppRTCMobile (need to be additionally implemented from scratch in ObjC, my examples written in Swift).",
+      "parentUuid": "67d2c0fd_7196d203",
+      "revId": "1f96f5ef14796a17e2ae4ad9c60ca9f698a2ae31",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

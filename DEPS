@@ -10,7 +10,7 @@ vars = {
   # chromium waterfalls. More info at: crbug.com/570091.
   'checkout_configuration': 'default',
   'checkout_instrumented_libraries': 'checkout_linux and checkout_configuration == "default"',
-  'chromium_revision': '3123edb9d3f7470a87742cd0f1a54c14cd2a3657',
+  'chromium_revision': 'd944d146dee87d2cd5605e51275f9b4fd1c8a16d',
 
   # Keep the Chromium default of generating location tags.
   'generate_location_tags': True,
@@ -30,7 +30,7 @@ deps = {
   'src/build':
     'https://chromium.googlesource.com/chromium/src/build@d98ebc53dda65979cb9bddc65b14635a1d059a5f',
   'src/buildtools':
-    'https://chromium.googlesource.com/chromium/src/buildtools@a657f8c643ec2dce61b46f668c38d43d0530f320',
+    'https://chromium.googlesource.com/chromium/src/buildtools@39622de727285b4dc18ae4aac75554e569519bb4',
   # Gradle 6.6.1. Used for testing Android Studio project generation for WebRTC.
   'src/examples/androidtests/third_party/gradle': {
     'url': 'https://chromium.googlesource.com/external/github.com/gradle/gradle.git@f2d1fb54a951d8b11d25748e4711bec8d128d7e3',
@@ -43,7 +43,7 @@ deps = {
   'src/testing':
     'https://chromium.googlesource.com/chromium/src/testing@9222b02eb9aef4e403b6f715f492b70d0e68d0ca',
   'src/third_party':
-    'https://chromium.googlesource.com/chromium/src/third_party@4dec5587268061d3157245c34e9c37cafe51fc1e',
+    'https://chromium.googlesource.com/chromium/src/third_party@9cc03de926b5ebe6dcd8774923ffdc92a7ef08bb',
 
   'src/buildtools/linux64': {
     'packages': [
@@ -132,7 +132,7 @@ deps = {
   'src/third_party/breakpad/breakpad':
     'https://chromium.googlesource.com/breakpad/breakpad.git@afc8daa2de3d9ef5da015ceb5e7436ed8adb5f47',
   'src/third_party/catapult':
-    'https://chromium.googlesource.com/catapult.git@b0098bb7849bcc644df1bda896fb07dfd7c60177',
+    'https://chromium.googlesource.com/catapult.git@07e4a3d3cc6e4ac9d59a051b20669bdd7931d983',
   'src/third_party/ced/src': {
     'url': 'https://chromium.googlesource.com/external/github.com/google/compact_enc_det.git@ba412eaaacd3186085babcd901679a48863c7dd5',
   },
@@ -266,7 +266,7 @@ deps = {
     'condition': 'checkout_android',
   },
   'src/tools':
-    'https://chromium.googlesource.com/chromium/src/tools@7a17048dd4417f2ebd68eb2ba31f062c91662ee6',
+    'https://chromium.googlesource.com/chromium/src/tools@fd02e7c203d9c72cff52173e4e1a1ff8f5d96fe1',
 
   'src/third_party/accessibility_test_framework': {
       'packages': [

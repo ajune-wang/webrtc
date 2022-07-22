@@ -292,6 +292,10 @@ class VideoReceiveStreamInterface : public MediaReceiveStreamInterface {
   // the packet delivery thread.
   virtual void SetFlexFecProtection(RtpPacketSinkInterface* flexfec_sink) = 0;
 
+  // Turns on/off loss notifications. Must be called on the packet delivery
+  // thread.
+  virtual void SetLossNotificationEnabled(bool enabled) = 0;
+
  protected:
   virtual ~VideoReceiveStreamInterface() {}
 };

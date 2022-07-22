@@ -3062,8 +3062,6 @@ void WebRtcVideoChannel::WebRtcVideoReceiveStream::SetRecvParameters(
       flexfec_config_.rtp.extensions = *params.rtp_header_extensions;
       if (flexfec_stream_) {
         flexfec_stream_->SetRtpExtensions(flexfec_config_.rtp.extensions);
-      } else if (flexfec_config_.IsCompleteAndEnabled()) {
-        video_needs_recreation = true;
       }
     }
   }

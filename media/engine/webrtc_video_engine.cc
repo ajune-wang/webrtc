@@ -3057,13 +3057,13 @@ void WebRtcVideoChannel::WebRtcVideoReceiveStream::SetFlexFecPayload(
     }
 
     flexfec_config_.payload_type = payload_type;
+    flexfec_stream_->SetPayloadType(payload_type);
 
-    if (flexfec_config_.payload_type == -1) {
+    if (payload_type == -1) {
       // TODO(tommi): Delete `flexfec_stream_` and clear references to it from
       // `stream_` without having to recreate `stream_`.
+      RTC_DCHECK_NOTREACHED();
       flexfec_needs_recreation = true;
-    } else {
-      flexfec_stream_->SetPayloadType(flexfec_config_.payload_type);
     }
   } else if (payload_type != -1) {
     flexfec_config_.payload_type = payload_type;

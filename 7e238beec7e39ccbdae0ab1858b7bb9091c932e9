@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "4ff1bef6_7a898438",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 5
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 10107
+      },
+      "writtenOn": "2022-07-22T10:26:04Z",
+      "side": 1,
+      "message": "Just shepherding along old prepared CLs...",
+      "revId": "7e238beec7e39ccbdae0ab1858b7bb9091c932e9",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

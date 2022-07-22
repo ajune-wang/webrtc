@@ -289,6 +289,10 @@ class FakeVideoReceiveStream final
     config_.rtp.protected_by_flexfec = sink ? true : false;
   }
 
+  void SetLossNotificationEnabled(bool enabled) override {
+    config_.rtp.lntf.enabled = enabled;
+  }
+
   void Start() override;
   void Stop() override;
 

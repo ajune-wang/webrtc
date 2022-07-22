@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "c77b3d42_5cd0ca52",
+        "filename": "rtc_base/logging.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 365,
+      "author": {
+        "id": 5508
+      },
+      "writtenOn": "2022-07-22T18:30:15Z",
+      "side": 1,
+      "message": "nit: instead of `str` and `str_str` we could use `sv` and `str` or some other names derived from the purpose of the value or type.",
+      "revId": "e4c655e88c559256f58e79af8e911d0a3634285c",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

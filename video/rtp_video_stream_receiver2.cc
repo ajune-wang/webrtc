@@ -935,6 +935,17 @@ void RtpVideoStreamReceiver2::SetPacketSink(
   packet_sink_ = packet_sink;
 }
 
+void RtpVideoStreamReceiver2::SetLossNotificationEnabled(bool enabled) {
+  RTC_DCHECK_RUN_ON(&packet_sequence_checker_);
+  if (enabled && !loss_notification_controller_) {
+    loss_notification_controller_ =
+        std::make_unique<LossNotificationController>(&rtcp_feedback_buffer_,
+                                                     &rtcp_feedback_buffer_);
+  } else if (!enabled && loss_notification_controller_) {
+    loss_notification_controller_.reset();
+  }
+}
+
 absl::optional<int64_t> RtpVideoStreamReceiver2::LastReceivedPacketMs() const {
   RTC_DCHECK_RUN_ON(&packet_sequence_checker_);
   if (last_received_rtp_system_time_) {

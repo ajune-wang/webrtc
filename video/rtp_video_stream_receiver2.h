@@ -192,6 +192,10 @@ class RtpVideoStreamReceiver2 : public LossNotificationSender,
   // thread.
   void SetPacketSink(RtpPacketSinkInterface* packet_sink);
 
+  // Turns on/off loss notifications. Must be called on the packet delivery
+  // thread.
+  void SetLossNotificationEnabled(bool enabled);
+
   absl::optional<int64_t> LastReceivedPacketMs() const;
   absl::optional<int64_t> LastReceivedKeyframePacketMs() const;
 
@@ -334,7 +338,8 @@ class RtpVideoStreamReceiver2 : public LossNotificationSender,
 
   RtcpFeedbackBuffer rtcp_feedback_buffer_;
   const std::unique_ptr<NackRequester> nack_module_;
-  std::unique_ptr<LossNotificationController> loss_notification_controller_;
+  std::unique_ptr<LossNotificationController> loss_notification_controller_
+      RTC_GUARDED_BY(packet_sequence_checker_);
 
   video_coding::PacketBuffer packet_buffer_
       RTC_GUARDED_BY(packet_sequence_checker_);

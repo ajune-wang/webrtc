@@ -3071,11 +3071,19 @@ void WebRtcVideoChannel::WebRtcVideoReceiveStream::SetFeedbackParameters(
     return;
   }
 
+  RTC_LOG_F(LS_INFO) << "(recv) because of SetFeedbackParameters; nack="
+                     << nack_enabled << ". lntf " << config_.rtp.lntf.enabled
+                     << "->" << lntf_enabled << ". rtp_history_ms "
+                     << config_.rtp.nack.rtp_history_ms << "->"
+                     << nack_history_ms;
+
   config_.rtp.lntf.enabled = lntf_enabled;
+  stream_->SetLossNotificationEnabled(lntf_enabled);
+
   config_.rtp.nack.rtp_history_ms = nack_history_ms;
 
-  RTC_LOG_F(LS_INFO) << "(recv) because of SetFeedbackParameters; nack="
-                     << nack_enabled;
+  RTC_DCHECK_NOTREACHED();
+
   RecreateReceiveStream();
 }
 

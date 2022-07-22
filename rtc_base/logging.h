@@ -119,6 +119,15 @@ class LogSink {
   virtual void OnLogMessage(absl::string_view message,
                             LoggingSeverity severity);
   virtual void OnLogMessage(absl::string_view message);
+  virtual void OnLogMessage(absl::string_view filename,
+                            int line,
+                            absl::string_view msg,
+                            LoggingSeverity severity,
+                            const char* tag);
+  virtual void OnLogMessage(absl::string_view filename,
+                            int line,
+                            absl::string_view message,
+                            LoggingSeverity severity);
 
  private:
   friend class ::rtc::LogMessage;
@@ -538,11 +547,16 @@ class LogMessage {
 
 // These write out the actual log messages.
 #if defined(WEBRTC_ANDROID)
-  static void OutputToDebug(absl::string_view msg,
+  static void OutputToDebug(absl::string_view filename,
+                            int line,
+                            absl::string_view msg,
                             LoggingSeverity severity,
                             const char* tag);
 #else
-  static void OutputToDebug(absl::string_view msg, LoggingSeverity severity);
+  static void OutputToDebug(absl::string_view filename,
+                            int line,
+                            absl::string_view msg,
+                            LoggingSeverity severity);
 #endif  // defined(WEBRTC_ANDROID)
 
   // Called from the dtor (or from a test) to append optional extra error
@@ -551,6 +565,9 @@ class LogMessage {
 
   // The severity level of this message
   LoggingSeverity severity_;
+  // The source location of the log
+  absl::string_view filename_;
+  int line_ = 0;
 
 #if defined(WEBRTC_ANDROID)
   // The default Android debug output tag.
@@ -579,11 +596,15 @@ class LogMessage {
   // Next methods do nothing; no one will call these functions.
   inline static void UpdateMinLogSeverity() {}
 #if defined(WEBRTC_ANDROID)
-  inline static void OutputToDebug(absl::string_view msg,
+  inline static void OutputToDebug(absl::string_view filename,
+                                   int line,
+                                   absl::string_view msg,
                                    LoggingSeverity severity,
                                    const char* tag) {}
 #else
-  inline static void OutputToDebug(absl::string_view msg,
+  inline static void OutputToDebug(absl::string_view filename,
+                                   int line,
+                                   absl::string_view msg,
                                    LoggingSeverity severity) {}
 #endif  // defined(WEBRTC_ANDROID)
   inline void FinishPrintStream() {}

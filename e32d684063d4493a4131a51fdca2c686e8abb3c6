@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "8fa56621_79e0a99b",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5864
+      },
+      "writtenOn": "2022-07-22T22:24:52Z",
+      "side": 1,
+      "message": "PTAL and let me know if this sounds reasonable (3 CLs):\n\n1: Add these methods to checks.h\n2: Define these methods in webrtc_overrides/rtc_base/checks_overrides.cc (and add to buildfile under build_with_chromium)\n3: Move this out of anonymous-namespace in checks.cc, only define when not building with chromium.\n\nAnother option is that webrtc defines LS_FATAL and starts using fatal logging for this, then logging.h as an override would use LOG_FATAL for webrtc\u0027s LS_FATAL and would crash equally.",
+      "revId": "e32d684063d4493a4131a51fdca2c686e8abb3c6",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

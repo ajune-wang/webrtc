@@ -10,7 +10,7 @@ vars = {
   # chromium waterfalls. More info at: crbug.com/570091.
   'checkout_configuration': 'default',
   'checkout_instrumented_libraries': 'checkout_linux and checkout_configuration == "default"',
-  'chromium_revision': '4804befd52f2085349e01b74b197ca02cfec7c0b',
+  'chromium_revision': 'd9427f85dbee7cc6124eaaa62f9af5dd466259a3',
 
   # Keep the Chromium default of generating location tags.
   'generate_location_tags': True,
@@ -41,9 +41,9 @@ deps = {
     'condition': 'checkout_ios',
   },
   'src/testing':
-    'https://chromium.googlesource.com/chromium/src/testing@ffa317a6c202e9289abef9f18c9dca5ce9b5d779',
+    'https://chromium.googlesource.com/chromium/src/testing@1647ea28d716912ce8b7d50bdd57cc23cf1d92ff',
   'src/third_party':
-    'https://chromium.googlesource.com/chromium/src/third_party@5f708a2f530f89453e2e4a068f604afec25b09b1',
+    'https://chromium.googlesource.com/chromium/src/third_party@583b5d0bfd079695eb852f70d16e8b72020e23d0',
 
   'src/buildtools/linux64': {
     'packages': [
@@ -141,7 +141,7 @@ deps = {
   'src/third_party/crc32c/src':
     'https://chromium.googlesource.com/external/github.com/google/crc32c.git@fa5ade41ee480003d9c5af6f43567ba22e4e17e6',
   'src/third_party/depot_tools':
-    'https://chromium.googlesource.com/chromium/tools/depot_tools.git@f353dc3e889584a1b0e1201fefc0464726d22917',
+    'https://chromium.googlesource.com/chromium/tools/depot_tools.git@77da3f2347151e8258dd0b163a00c35d2d9d3a35',
   'src/third_party/ffmpeg':
     'https://chromium.googlesource.com/chromium/third_party/ffmpeg.git@880df5ede50a8534c8116d0d50e4bc4f3ef08a06',
   'src/third_party/grpc/src': {
@@ -266,7 +266,7 @@ deps = {
     'condition': 'checkout_android',
   },
   'src/tools':
-    'https://chromium.googlesource.com/chromium/src/tools@0e82a37d483ca68d8c3ab7284abcc7bbdd5f1284',
+    'https://chromium.googlesource.com/chromium/src/tools@6a911e972fc1d0824a63f5080d675a8ff9708937',
 
   'src/third_party/accessibility_test_framework': {
       'packages': [

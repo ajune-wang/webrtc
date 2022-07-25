@@ -16,6 +16,23 @@
       "message": "api/sequence_checker.h and\nrtc_base/synchronization/sequence_checker_internal.h  - actual change\n\nother files - converting raw comments into RTC_DCHECK_RUN_ON to be sure it won\u0027t get out of sync with RTC_RUN_ON in the class definition.\n\n(side effect: it is now poissible to have two\nRTC_DCHECK_RUN_ON in the same scope. see video/rtp_video_stream_receiver2.cc )\n",
       "revId": "583acd946c5d2deeacae9d9bfc941c9a54fa835f",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "d5d1810f_7d192391",
+        "filename": "audio/channel_receive.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 1040,
+      "author": {
+        "id": 5508
+      },
+      "writtenOn": "2022-07-25T18:27:41Z",
+      "side": 1,
+      "message": "Do we need both runtime and compile time checks?",
+      "revId": "583acd946c5d2deeacae9d9bfc941c9a54fa835f",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

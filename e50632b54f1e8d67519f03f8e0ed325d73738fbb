@@ -20,6 +20,24 @@
     {
       "unresolved": false,
       "key": {
+        "uuid": "52af38b2_eb0d9f0c",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2022-07-25T11:36:00Z",
+      "side": 1,
+      "message": "changed comparison to Timestamp::Zero with IsInfinite()/IsFinite checks\n[though that checks, same as comparison to minus infinity generates slightly bigger binary size than comparision to zero.\nBut  might be better to fix in some centralized way, e.g. introduce check\nIsValid(Timestamp t) { return t \u003e\u003d Timestamp::Zero(); } \nor\nexplicit Timestamp::operator bool() { ... }\n\nEither way, out of scope of this change.",
+      "parentUuid": "559891ad_4368a606",
+      "revId": "e50632b54f1e8d67519f03f8e0ed325d73738fbb",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
         "uuid": "edc899be_a0564556",
         "filename": "modules/remote_bitrate_estimator/packet_arrival_map.cc",
         "patchSetId": 2

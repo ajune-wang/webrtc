@@ -14,6 +14,7 @@
 #include <array>
 #include <string>
 
+#include "absl/strings/string_view.h"
 #include "modules/audio_processing/agc2/agc2_common.h"
 #include "rtc_base/gtest_prod_util.h"
 #include "system_wrappers/include/metrics.h"
@@ -60,7 +61,7 @@ class InterpolatedGainCurve {
   };
 
   InterpolatedGainCurve(ApmDataDumper* apm_data_dumper,
-                        const std::string& histogram_name_prefix);
+                        absl::string_view histogram_name_prefix);
   ~InterpolatedGainCurve();
 
   InterpolatedGainCurve(const InterpolatedGainCurve&) = delete;
@@ -86,10 +87,10 @@ class InterpolatedGainCurve {
     metrics::Histogram* limiter_histogram;
     metrics::Histogram* saturation_histogram;
 
-    RegionLogger(const std::string& identity_histogram_name,
-                 const std::string& knee_histogram_name,
-                 const std::string& limiter_histogram_name,
-                 const std::string& saturation_histogram_name);
+    RegionLogger(absl::string_view identity_histogram_name,
+                 absl::string_view knee_histogram_name,
+                 absl::string_view limiter_histogram_name,
+                 absl::string_view saturation_histogram_name);
 
     ~RegionLogger();
 

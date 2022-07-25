@@ -34,6 +34,24 @@
       "parentUuid": "8fa56621_79e0a99b",
       "revId": "e32d684063d4493a4131a51fdca2c686e8abb3c6",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "2ec3e4d8_a5137540",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5087
+      },
+      "writtenOn": "2022-07-25T07:29:53Z",
+      "side": 1,
+      "message": "The LS_FATAL severity looks interesting.\n\nWe do have an RTC_FATAL (https://source.chromium.org/chromium/chromium/src/+/main:third_party/webrtc/rtc_base/checks.h;l\u003d464-467;drc\u003d9432768024b0397f2dccfec0cab30f33dde87b93) which seem a bit off compared to the rest (RTC_LOG(LS_FATAL) would be better).\n\nLet me ask around how people feel about LS_FATAL, IIUC this is also easier to implement overall:\n* RTC_FATAL disappears in favor of RTC_LOG(LS_FATAL) which maps with the current overrides system.\n* No need to maintain the WriteFatalLog only when building for Chromium.\n* Easier to connect to other log systems (e.g. absl).",
+      "parentUuid": "760e0192_fafc0a50",
+      "revId": "e32d684063d4493a4131a51fdca2c686e8abb3c6",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

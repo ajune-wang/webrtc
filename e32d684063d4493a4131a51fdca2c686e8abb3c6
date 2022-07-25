@@ -52,6 +52,24 @@
       "parentUuid": "760e0192_fafc0a50",
       "revId": "e32d684063d4493a4131a51fdca2c686e8abb3c6",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "640fa817_51e4bb89",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5864
+      },
+      "writtenOn": "2022-07-25T16:08:45Z",
+      "side": 1,
+      "message": "If you\u0027d be interested to go down this path I think it\u0027s a better one than this as it\u0027s more compatible with existing. In Chromium LOG_FATAL dies in ~LogMessage (see IMMEDIATE_CRASH()).\n\nThough you may run into the problem that your RTC_FATAL() is properly [[noreturn]] whereas LogMessage\u0027s destructor for LOG_FATAL is not [[noreturn]] so you can\u0027t (at least right now) call\n\nLOG(FATAL) \u003c\u003c \"foo\";\n// and skip the return here because the compiler knows it\u0027s an unreachable statement.\n\nThat was one of the issues I ran into doing this. Let me know if you\u0027d like to proceed with this to get better crash reporting until we figure out logging. Undoing the work here shouldn\u0027t be hard if you\u0027re able to transition to LS_FATAL, so we can also treat them as orthogonal. Your call.",
+      "parentUuid": "2ec3e4d8_a5137540",
+      "revId": "e32d684063d4493a4131a51fdca2c686e8abb3c6",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

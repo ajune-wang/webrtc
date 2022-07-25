@@ -785,7 +785,7 @@ void VideoReceiveStream2::OnDecodableFrameTimeout(TimeDelta wait_time) {
 
 void VideoReceiveStream2::HandleEncodedFrame(
     std::unique_ptr<EncodedFrame> frame) {
-  // Running on `decode_queue_`.
+  RTC_DCHECK_RUN_ON(&decode_queue_);
   Timestamp now = clock_->CurrentTime();
 
   // Current OnPreDecode only cares about QP for VP8.

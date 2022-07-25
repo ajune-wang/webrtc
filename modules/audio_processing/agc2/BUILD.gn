@@ -103,6 +103,7 @@ rtc_library("fixed_digital") {
     "../../../rtc_base:safe_minmax",
     "../../../system_wrappers:metrics",
   ]
+  absl_deps = [ "//third_party/abseil-cpp/absl/strings" ]
 }
 
 rtc_library("gain_applier") {

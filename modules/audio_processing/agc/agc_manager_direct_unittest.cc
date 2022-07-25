@@ -12,6 +12,7 @@
 
 #include <limits>
 
+#include "absl/strings/string_view.h"
 #include "modules/audio_processing/agc/gain_control.h"
 #include "modules/audio_processing/agc/mock_agc.h"
 #include "modules/audio_processing/include/mock_audio_processing.h"
@@ -201,7 +202,7 @@ constexpr AnalogAgcConfig GetAnalogAgcTestConfig() {
   config.clipped_wait_frames = kClippedWaitFrames;
   config.clipping_predictor = kDefaultAnalogConfig.clipping_predictor;
   return config;
-};
+}
 
 class AgcManagerDirectTestHelper {
  public:

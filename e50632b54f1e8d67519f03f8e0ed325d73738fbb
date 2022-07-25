@@ -1,0 +1,67 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "559891ad_4368a606",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5527
+      },
+      "writtenOn": "2022-07-25T11:10:36Z",
+      "side": 1,
+      "message": "LGTM % suggestions",
+      "revId": "e50632b54f1e8d67519f03f8e0ed325d73738fbb",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "edc899be_a0564556",
+        "filename": "modules/remote_bitrate_estimator/packet_arrival_map.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 68,
+      "author": {
+        "id": 5527
+      },
+      "writtenOn": "2022-07-25T11:10:36Z",
+      "side": 1,
+      "message": "I think `\u003d\u003d Timestamp::MinusInfinity()` would be a bit clearer.",
+      "range": {
+        "startLine": 68,
+        "startChar": 47,
+        "endLine": 68,
+        "endChar": 66
+      },
+      "revId": "e50632b54f1e8d67519f03f8e0ed325d73738fbb",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "75684c95_e340e112",
+        "filename": "modules/remote_bitrate_estimator/remote_estimator_proxy.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 295,
+      "author": {
+        "id": 5527
+      },
+      "writtenOn": "2022-07-25T11:10:36Z",
+      "side": 1,
+      "message": "ditto",
+      "range": {
+        "startLine": 295,
+        "startChar": 8,
+        "endLine": 295,
+        "endChar": 40
+      },
+      "revId": "e50632b54f1e8d67519f03f8e0ed325d73738fbb",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

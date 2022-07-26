@@ -1,0 +1,130 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "ad62cd0e_e5f88f01",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 19
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2022-07-26T13:06:44Z",
+      "side": 1,
+      "message": "current implementation of the flexfec receiver completely ignores payload id, instead it distinguish flexfec and media packets using ssrc [which is technically wrong, but works in practice]\n\nso it seems flexfec payload id (aka payload_type) can only be checked to decide if flexfec should be enabled or disabled, or may be, completely ignored for now, until flexfec is fixed to properly use payload id instead of ssrc.",
+      "revId": "fa707931dfab77ac26ea391c98daa05dec88f49c",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "33cdae2c_cd299f5a",
+        "filename": "call/flexfec_receive_stream_impl.cc",
+        "patchSetId": 19
+      },
+      "lineNbr": 195,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2022-07-26T13:06:44Z",
+      "side": 1,
+      "message": "is is the same as\nRTC_DCHECK_GE(payload_type, -1);",
+      "range": {
+        "startLine": 195,
+        "startChar": 2,
+        "endLine": 195,
+        "endChar": 54
+      },
+      "revId": "fa707931dfab77ac26ea391c98daa05dec88f49c",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "ad5b76ea_67fb55f5",
+        "filename": "call/flexfec_receive_stream_impl.h",
+        "patchSetId": 19
+      },
+      "lineNbr": 97,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2022-07-26T13:06:44Z",
+      "side": 1,
+      "message": "this member is unused other than for reconfiguration, \nbut reconfiguration already has access to the currently configured flexfec payload id inside `flexfec_config_` struct,\nnot sure what is benefit in adding this member and related virtual functions.",
+      "revId": "fa707931dfab77ac26ea391c98daa05dec88f49c",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "0dbb0146_aee76e46",
+        "filename": "media/engine/fake_webrtc_call.h",
+        "patchSetId": 19
+      },
+      "lineNbr": 327,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2022-07-26T13:06:44Z",
+      "side": 1,
+      "message": "override",
+      "range": {
+        "startLine": 327,
+        "startChar": 39,
+        "endLine": 327,
+        "endChar": 40
+      },
+      "revId": "fa707931dfab77ac26ea391c98daa05dec88f49c",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "61322532_e1546fa8",
+        "filename": "media/engine/webrtc_video_engine.cc",
+        "patchSetId": 19
+      },
+      "lineNbr": 2987,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2022-07-26T13:06:44Z",
+      "side": 1,
+      "message": "what needs to be done here, how this message is related to the main topic of the  the change?",
+      "range": {
+        "startLine": 2986,
+        "startChar": 0,
+        "endLine": 2987,
+        "endChar": 20
+      },
+      "revId": "fa707931dfab77ac26ea391c98daa05dec88f49c",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "556ed54d_610c9db3",
+        "filename": "media/engine/webrtc_video_engine.h",
+        "patchSetId": 19
+      },
+      "lineNbr": 512,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2022-07-26T13:06:44Z",
+      "side": 1,
+      "message": "https://google.github.io/styleguide/cppguide.html#Inputs_and_Outputs\n\n“Prefer using return values over output parameters”",
+      "range": {
+        "startLine": 512,
+        "startChar": 45,
+        "endLine": 512,
+        "endChar": 75
+      },
+      "revId": "fa707931dfab77ac26ea391c98daa05dec88f49c",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

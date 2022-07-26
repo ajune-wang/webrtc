@@ -16,6 +16,29 @@
       "message": "Hi Ivo! PTAL",
       "revId": "3c4d76f57c51c8beece5c0ef66f845e2b877f319",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "9e9829cf_d16cef3e",
+        "filename": "common_audio/resampler/push_resampler.cc",
+        "patchSetId": 6
+      },
+      "lineNbr": 54,
+      "author": {
+        "id": 5607
+      },
+      "writtenOn": "2022-07-26T15:06:55Z",
+      "side": 1,
+      "message": "Does this mean that these DCHECKs were previously failing on machines with these unusual sampling rates?",
+      "range": {
+        "startLine": 54,
+        "startChar": 2,
+        "endLine": 54,
+        "endChar": 15
+      },
+      "revId": "3c4d76f57c51c8beece5c0ef66f845e2b877f319",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

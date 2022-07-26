@@ -51,6 +51,24 @@
       "parentUuid": "d5d1810f_7d192391",
       "revId": "583acd946c5d2deeacae9d9bfc941c9a54fa835f",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "74bdc296_696f9a3f",
+        "filename": "audio/channel_receive.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 1040,
+      "author": {
+        "id": 5508
+      },
+      "writtenOn": "2022-07-26T09:04:15Z",
+      "side": 1,
+      "message": "I don\u0027t feel very strongly either way, so what you prefer sounds good to me. I just wanted to check if this was on purpose.\n\nHaving both, it feels likely to me that someone will remove either one down the line. As a general rule of thumb for myself, I have a slight preference for RTC_RUN_ON for private non-virtual method because locking is fully contained within the implementation. But for public and methods, I prefer RTC_DCHECK_RUN_ON, both because we have less information about the caller and it could encourage the anti-pattern (imo) of having a lock outside of the class.\n\nBtw, I think it could be interesting to get a deeper understanding of the impact that these DCHECKs have on the binary size (I\u0027m assuming SequenceChecker related) because this CL does affect the binary size - even though it\u0027s only supposed to change DCHECKs.",
+      "parentUuid": "68cd6a60_c45ccd13",
+      "revId": "583acd946c5d2deeacae9d9bfc941c9a54fa835f",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

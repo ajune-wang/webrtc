@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "4f256f2e_5b940476",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 6
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5119
+      },
+      "writtenOn": "2022-07-26T12:24:51Z",
+      "side": 1,
+      "message": "Hi Ivo! PTAL",
+      "revId": "3c4d76f57c51c8beece5c0ef66f845e2b877f319",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

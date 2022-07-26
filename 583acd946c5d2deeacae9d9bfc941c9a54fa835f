@@ -33,6 +33,24 @@
       "message": "Do we need both runtime and compile time checks?",
       "revId": "583acd946c5d2deeacae9d9bfc941c9a54fa835f",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "68cd6a60_c45ccd13",
+        "filename": "audio/channel_receive.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 1040,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2022-07-26T08:43:09Z",
+      "side": 1,
+      "message": "Depends on what do you mean by \u0027need\u0027.\nTo make it compile - no, either one is enough.\n\nBut for documentation purpose - may be, debatable:\npure comment `// RTC_RUN_ON(worker_thread_checker_)` above the function can get out of sync with the same annotation in the class declaration, and no tool would issue a warning about that.\nThis run time check is verified by compiler/tests, i.e. this kind of documentation is more reliable.\n(it is a DCHECK, so in production code it doesn\u0027t add any overhead)",
+      "parentUuid": "d5d1810f_7d192391",
+      "revId": "583acd946c5d2deeacae9d9bfc941c9a54fa835f",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

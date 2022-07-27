@@ -118,6 +118,24 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "5479f6e0_ad8d1351",
+        "filename": "call/flexfec_receive_stream_impl.h",
+        "patchSetId": 19
+      },
+      "lineNbr": 97,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2022-07-27T15:01:49Z",
+      "side": 1,
+      "message": "if flexfec_config_ will be gone, then this look like most appropriate place to keep currently configured payload id of the flexfec03 payload type.",
+      "parentUuid": "ba001221_7b6d1b9a",
+      "revId": "fa707931dfab77ac26ea391c98daa05dec88f49c",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "0dbb0146_aee76e46",
@@ -249,6 +267,30 @@
       "side": 1,
       "message": "The `flexfec_needs_recreation` parameter will be removed in an a follow-up CL. I opted to have it like this to explicitly state that the `bool` in this case doesn\u0027t represent success/failure as bool return values typically do, but that a value of `true` for this variable means that the operation could not be applied directly and that in order to complete the operation, the receive streams need to be deleted and reconstructed. That in itself to me feels closer to indicating that setting the flexfec payload has actually not been set when the function returns. Hence I figured that temporarily living with this not being a return value, would be OK.\n\nIf you feel strongly about it though I can change it.",
       "parentUuid": "556ed54d_610c9db3",
+      "range": {
+        "startLine": 512,
+        "startChar": 45,
+        "endLine": 512,
+        "endChar": 75
+      },
+      "revId": "fa707931dfab77ac26ea391c98daa05dec88f49c",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "b1dc0204_0383bfda",
+        "filename": "media/engine/webrtc_video_engine.h",
+        "patchSetId": 19
+      },
+      "lineNbr": 512,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2022-07-27T15:01:49Z",
+      "side": 1,
+      "message": "if this parameter is planned for removal, then I do not feel strong about making it a return value\n\n(otherwise would suggest to change function name to communicate the returned result, or wrap result in a struct or enum, but that is too much work for code that doesn\u0027t suppose to live long)",
+      "parentUuid": "10e39cca_8ef8512b",
       "range": {
         "startLine": 512,
         "startChar": 45,

@@ -49,6 +49,7 @@ class H264EncoderImpl : public H264Encoder {
     bool frame_dropping_on = false;
     int key_frame_interval = 0;
     int num_temporal_layers = 1;
+    int current_num_temporal_layers = 1;
 
     void SetStreamState(bool send_stream);
   };

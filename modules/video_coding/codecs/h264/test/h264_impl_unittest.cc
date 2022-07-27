@@ -13,6 +13,7 @@
 #include <memory>
 
 #include "absl/types/optional.h"
+#include "api/test/create_frame_generator.h"
 #include "api/video/color_space.h"
 #include "api/video/encoded_image.h"
 #include "api/video/video_frame.h"
@@ -30,6 +31,12 @@
 #include "test/video_codec_settings.h"
 
 namespace webrtc {
+namespace {
+const VideoEncoder::Capabilities kCapabilities(false);
+const VideoEncoder::Settings kSettings(kCapabilities,
+                                       /*number_of_cores=*/1,
+                                       /*max_payload_size=*/0);
+}  // namespace
 
 class TestH264Impl : public VideoCodecUnitTest {
  protected:
@@ -44,14 +51,46 @@ class TestH264Impl : public VideoCodecUnitTest {
   void ModifyCodecSettings(VideoCodec* codec_settings) override {
     webrtc::test::CodecSettings(kVideoCodecH264, codec_settings);
   }
+
+  void EncodeAndWaitForFrame(const VideoFrame& input_frame,
+                             EncodedImage* encoded_frame,
+                             CodecSpecificInfo* codec_specific_info,
+                             bool keyframe = false) {
+    std::vector<VideoFrameType> frame_types;
+    if (keyframe) {
+      frame_types.emplace_back(VideoFrameType::kVideoFrameKey);
+    } else {
+      frame_types.emplace_back(VideoFrameType::kVideoFrameDelta);
+    }
+    EXPECT_EQ(WEBRTC_VIDEO_CODEC_OK,
+              encoder_->Encode(input_frame, &frame_types));
+    ASSERT_TRUE(WaitForEncodedFrame(encoded_frame, codec_specific_info));
+    EXPECT_EQ(kVideoCodecH264, codec_specific_info->codecType);
+    EXPECT_EQ(0, encoded_frame->SpatialIndex());
+  }
+
+  void EncodeAndExpectFrameWith(const VideoFrame& input_frame,
+                                uint8_t temporal_idx,
+                                bool keyframe = false) {
+    EncodedImage encoded_frame;
+    CodecSpecificInfo codec_specific_info;
+    EncodeAndWaitForFrame(input_frame, &encoded_frame, &codec_specific_info,
+                          keyframe);
+    EXPECT_EQ(temporal_idx,
+              codec_specific_info.codecSpecific.H264.temporal_idx);
+  }
 };
 
 #ifdef WEBRTC_USE_H264
 #define MAYBE_EncodeDecode EncodeDecode
 #define MAYBE_DecodedQpEqualsEncodedQp DecodedQpEqualsEncodedQp
+#define MAYBE_EncoderWith2TemporalLayers EncoderWith2TemporalLayers
+#define MAYBE_ReduceTemporalLayers ReduceTemporalLayers
 #else
 #define MAYBE_EncodeDecode DISABLED_EncodeDecode
 #define MAYBE_DecodedQpEqualsEncodedQp DISABLED_DecodedQpEqualsEncodedQp
+#define MAYBE_EncoderWith2TemporalLayers DISABLED_EncoderWith2TemporalLayers
+#define MAYBE_ReduceTemporalLayers DISABLED_ReduceTemporalLayers
 #endif
 
 TEST_F(TestH264Impl, MAYBE_EncodeDecode) {
@@ -94,6 +133,73 @@ TEST_F(TestH264Impl, MAYBE_DecodedQpEqualsEncodedQp) {
   ASSERT_TRUE(decoded_frame);
   ASSERT_TRUE(decoded_qp);
   EXPECT_EQ(encoded_frame.qp_, *decoded_qp);
+}
+
+TEST_F(TestH264Impl, MAYBE_EncoderWith2TemporalLayers) {
+  codec_settings_.simulcastStream[0].SetNumberOfTemporalLayers(2);
+
+  EXPECT_EQ(WEBRTC_VIDEO_CODEC_OK,
+            encoder_->InitEncode(&codec_settings_, kSettings));
+
+  // Temporal layer 0.
+  EncodeAndExpectFrameWith(NextInputFrame(), 0);
+  // Temporal layer 1.
+  EncodeAndExpectFrameWith(NextInputFrame(), 1);
+  // Temporal layer 0.
+  EncodeAndExpectFrameWith(NextInputFrame(), 0);
+  // Temporal layer 1.
+  EncodeAndExpectFrameWith(NextInputFrame(), 1);
+}
+
+TEST_F(TestH264Impl, MAYBE_ReduceTemporalLayers) {
+  const int kScreenWidth = 1280;
+  const int kScreenHeight = 720;
+
+  codec_settings_.width = kScreenWidth;
+  codec_settings_.height = kScreenHeight;
+
+  codec_settings_.simulcastStream[0].SetNumberOfTemporalLayers(2);
+  codec_settings_.maxBitrate = 2500;
+
+  input_frame_generator_ = test::CreateSquareFrameGenerator(
+      codec_settings_.width, codec_settings_.height,
+      test::FrameGeneratorInterface::OutputType::kI420,
+      /* num_squares = */ absl::optional<int>(300));
+
+  EXPECT_EQ(WEBRTC_VIDEO_CODEC_OK,
+            encoder_->InitEncode(&codec_settings_, kSettings));
+
+  // Temporal layer 0.
+  EncodeAndExpectFrameWith(NextInputFrame(), 0);
+  // Temporal layer 1.
+  EncodeAndExpectFrameWith(NextInputFrame(), 1);
+  // Temporal layer 0.
+  EncodeAndExpectFrameWith(NextInputFrame(), 0);
+
+  VideoBitrateAllocation bitrate_allocation;
+  // Bitrate only enough for TL0.
+  bitrate_allocation.SetBitrate(0, 0, 200'000);
+  encoder_->SetRates(
+      VideoEncoder::RateControlParameters(bitrate_allocation, 30.0));
+
+  // Temporal layer 1 should not occur.
+  EncodeAndExpectFrameWith(NextInputFrame(), 0);
+  EncodeAndExpectFrameWith(NextInputFrame(), 0);
+  EncodeAndExpectFrameWith(NextInputFrame(), 0);
+
+  // Restore bitrate
+  VideoBitrateAllocation bitrate_allocation2;
+  bitrate_allocation2.SetBitrate(0, 0, 180'000);
+  bitrate_allocation2.SetBitrate(0, 1, 120'000);
+  encoder_->SetRates(
+      VideoEncoder::RateControlParameters(bitrate_allocation2, 30.0));
+
+  // Temporal layer 0.
+  EncodeAndExpectFrameWith(NextInputFrame(), 0);
+  // Temporal layer 1.
+  EncodeAndExpectFrameWith(NextInputFrame(), 1);
+  // Temporal layer 0.
+  EncodeAndExpectFrameWith(NextInputFrame(), 0);
 }
 
 }  // namespace webrtc

@@ -241,8 +241,9 @@ int32_t H264EncoderImpl::InitEncode(const VideoCodec* inst,
     configurations_[i].frame_dropping_on = codec_.GetFrameDropEnabled();
     configurations_[i].key_frame_interval = codec_.H264()->keyFrameInterval;
     configurations_[i].num_temporal_layers =
-        std::max(codec_.H264()->numberOfTemporalLayers,
-                 codec_.simulcastStream[idx].numberOfTemporalLayers);
+        configurations_[i].current_num_temporal_layers =
+            std::max(codec_.H264()->numberOfTemporalLayers,
+                     codec_.simulcastStream[idx].numberOfTemporalLayers);
 
     // Create downscaled image buffers.
     if (i > 0) {
@@ -280,7 +281,7 @@ int32_t H264EncoderImpl::InitEncode(const VideoCodec* inst,
     encoded_images_[i]._encodedHeight = codec_.simulcastStream[idx].height;
     encoded_images_[i].set_size(0);
 
-    tl0sync_limit_[i] = configurations_[i].num_temporal_layers;
+    tl0sync_limit_[i] = configurations_[i].current_num_temporal_layers;
   }
 
   SimulcastRateAllocator init_allocator(codec_);
@@ -353,6 +354,24 @@ void H264EncoderImpl::SetRates(const RateControlParameters& parameters) {
       encoders_[i]->SetOption(ENCODER_OPTION_BITRATE, &target_bitrate);
       encoders_[i]->SetOption(ENCODER_OPTION_FRAME_RATE,
                               &configurations_[i].max_frame_rate);
+      if (configurations_[i].num_temporal_layers > 1) {
+        int num_temporal_layers = configurations_[i].num_temporal_layers;
+        for (int temporal_layer = 0;
+             temporal_layer < configurations_[i].num_temporal_layers;
+             ++temporal_layer) {
+          if (parameters.bitrate.GetBitrate(i, temporal_layer) == 0) {
+            num_temporal_layers = temporal_layer;
+            break;
+          }
+        }
+        if (configurations_[i].current_num_temporal_layers !=
+            num_temporal_layers) {
+          configurations_[i].current_num_temporal_layers = num_temporal_layers;
+          SEncParamExt encoder_params = CreateEncoderParams(i);
+          encoders_[i]->SetOption(ENCODER_OPTION_SVC_ENCODE_PARAM_EXT,
+                                  &encoder_params);
+        }
+      }
     } else {
       configurations_[i].SetStreamState(false);
     }
@@ -514,7 +533,7 @@ int32_t H264EncoderImpl::Encode(
           tl0sync_limit_[i] = tid;
         }
         if (tid == 0) {
-          tl0sync_limit_[i] = configurations_[i].num_temporal_layers;
+          tl0sync_limit_[i] = configurations_[i].current_num_temporal_layers;
         }
       }
       encoded_image_callback_->OnEncodedImage(encoded_images_[i],
@@ -576,7 +595,8 @@ SEncParamExt H264EncoderImpl::CreateEncoderParams(size_t i) const {
       encoder_params.iTargetBitrate;
   encoder_params.sSpatialLayers[0].iMaxSpatialBitrate =
       encoder_params.iMaxBitrate;
-  encoder_params.iTemporalLayerNum = configurations_[i].num_temporal_layers;
+  encoder_params.iTemporalLayerNum =
+      configurations_[i].current_num_temporal_layers;
   if (encoder_params.iTemporalLayerNum > 1) {
     // iNumRefFrame specifies total number of reference buffers to allocate.
     // For N temporal layers we need at least (N - 1) buffers to store last
@@ -637,6 +657,28 @@ VideoEncoder::EncoderInfo H264EncoderImpl::GetEncoderInfo() const {
   info.is_hardware_accelerated = false;
   info.supports_simulcast = true;
   info.preferred_pixel_formats = {VideoFrameBuffer::Type::kI420};
+  if (!encoders_.empty()) {
+    for (size_t si = 0; si < encoders_.size(); ++si) {
+      info.fps_allocation[si].clear();
+      if (codec_.numberOfSimulcastStreams > si &&
+          !codec_.simulcastStream[si].active) {
+        continue;
+      }
+      if (configurations_[si].current_num_temporal_layers <= 1) {
+        info.fps_allocation[si].push_back(EncoderInfo::kMaxFramerateFraction);
+      } else {
+        for (int ti = 0; ti < configurations_[si].current_num_temporal_layers;
+             ++ti) {
+          info.fps_allocation[si].push_back(rtc::saturated_cast<uint8_t>(
+              EncoderInfo::kMaxFramerateFraction /
+                  (1 << (configurations_[si].current_num_temporal_layers - ti -
+                         1)) +
+              0.5));
+        }
+      }
+    }
+  }
+
   return info;
 }
 

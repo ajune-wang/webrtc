@@ -66,18 +66,9 @@ ABSL_FLAG(bool,
 namespace webrtc {
 namespace {
 
-// TODO(ekmeyerson): Switch to using StreamConfig and ProcessingConfig where
-// applicable.
-
-const int32_t kChannels[] = {1, 2};
-const int kSampleRates[] = {8000, 16000, 32000, 48000};
-
-#if defined(WEBRTC_AUDIOPROC_FIXED_PROFILE)
-// Android doesn't support 48kHz.
-const int kProcessSampleRates[] = {8000, 16000, 32000};
-#elif defined(WEBRTC_AUDIOPROC_FLOAT_PROFILE)
+// All sample rates used by APM internally during processing. Other input /
+// output rates are resampled to / from one of these.
 const int kProcessSampleRates[] = {8000, 16000, 32000, 48000};
-#endif
 
 enum StreamDirection { kForward = 0, kReverse };
 
@@ -300,10 +291,11 @@ void OpenFileAndReadMessage(const std::string& filename, MessageLite* msg) {
   fclose(file);
 }
 
-// Reads a 10 ms chunk of int16 interleaved audio from the given (assumed
-// stereo) file, converts to deinterleaved float (optionally downmixing) and
-// returns the result in `cb`. Returns false if the file ended (or on error) and
-// true otherwise.
+// Reads a 10 ms chunk (actually AudioProcessing::GetFrameSize() samples per
+// channel) of int16 interleaved audio from the given (assumed stereo) file,
+// converts to deinterleaved float (optionally downmixing) and returns the
+// result in `cb`. Returns false if the file ended (or on error) and true
+// otherwise.
 //
 // `int_data` and `float_data` are just temporary space that must be
 // sufficiently large to hold the 10 ms chunk.
@@ -1150,8 +1142,9 @@ void ApmTest::RunQuantizedVolumeDoesNotGetStuckTest(int sample_rate) {
 // Verifies that despite volume slider quantization, the AGC can continue to
 // increase its volume.
 TEST_F(ApmTest, QuantizedVolumeDoesNotGetStuck) {
-  for (size_t i = 0; i < arraysize(kSampleRates); ++i) {
-    RunQuantizedVolumeDoesNotGetStuckTest(kSampleRates[i]);
+  for (size_t sample_rate_hz : kProcessSampleRates) {
+    SCOPED_TRACE(::testing::Message() << "sample_rate_hz=" << sample_rate_hz);
+    RunQuantizedVolumeDoesNotGetStuckTest(sample_rate_hz);
   }
 }
 
@@ -1205,8 +1198,9 @@ void ApmTest::RunManualVolumeChangeIsPossibleTest(int sample_rate) {
 }
 
 TEST_F(ApmTest, ManualVolumeChangeIsPossible) {
-  for (size_t i = 0; i < arraysize(kSampleRates); ++i) {
-    RunManualVolumeChangeIsPossibleTest(kSampleRates[i]);
+  for (size_t sample_rate_hz : kProcessSampleRates) {
+    SCOPED_TRACE(::testing::Message() << "sample_rate_hz=" << sample_rate_hz);
+    RunManualVolumeChangeIsPossibleTest(sample_rate_hz);
   }
 }
 
@@ -1228,8 +1222,13 @@ TEST_F(ApmTest, AllProcessingDisabledByDefault) {
 }
 
 TEST_F(ApmTest, NoProcessingWhenAllComponentsDisabled) {
-  for (size_t i = 0; i < arraysize(kSampleRates); i++) {
-    Init(kSampleRates[i], kSampleRates[i], kSampleRates[i], 2, 2, 2, false);
+  // Test that ProcessStream copies input to output even with no processing.
+  // Runs over all processing rates, and two particularly common (44100 Hz) or
+  // problematic (22050 Hz: not exactly 10 ms per frame) rates.
+  constexpr int kSampleRatesHz[] = {8000, 16000, 22050, 32000, 44100, 48000};
+  for (size_t sample_rate_hz : kSampleRatesHz) {
+    SCOPED_TRACE(::testing::Message() << "sample_rate_hz=" << sample_rate_hz);
+    Init(sample_rate_hz, sample_rate_hz, sample_rate_hz, 2, 2, 2, false);
     SetFrameTo(&frame_, 1000, 2000);
     Int16FrameData frame_copy;
     frame_copy.CopyFrom(frame_);
@@ -1644,6 +1643,7 @@ TEST_F(ApmTest, Process) {
   if (!absl::GetFlag(FLAGS_write_apm_ref_data)) {
     OpenFileAndReadMessage(ref_filename_, &ref_data);
   } else {
+    const int kChannels[] = {1, 2};
     // Write the desired tests to the protobuf reference file.
     for (size_t i = 0; i < arraysize(kChannels); i++) {
       for (size_t j = 0; j < arraysize(kChannels); j++) {
@@ -2297,11 +2297,12 @@ void RunApmRateAndChannelTest(
     rtc::ArrayView<const int> sample_rates_hz,
     rtc::ArrayView<const int> render_channel_counts,
     rtc::ArrayView<const int> capture_channel_counts) {
-  rtc::scoped_refptr<AudioProcessing> apm =
-      AudioProcessingBuilderForTesting().Create();
   webrtc::AudioProcessing::Config apm_config;
+  apm_config.pipeline.multi_channel_render = true;
+  apm_config.pipeline.multi_channel_capture = true;
   apm_config.echo_canceller.enabled = true;
-  apm->ApplyConfig(apm_config);
+  rtc::scoped_refptr<AudioProcessing> apm =
+      AudioProcessingBuilderForTesting().SetConfig(apm_config).Create();
 
   StreamConfig render_input_stream_config;
   StreamConfig render_output_stream_config;
@@ -2333,7 +2334,8 @@ void RunApmRateAndChannelTest(
                 cfg->set_sample_rate_hz(sample_rate_hz);
                 cfg->set_num_channels(num_channels);
 
-                size_t max_frame_size = ceil(sample_rate_hz / 100.f);
+                size_t max_frame_size =
+                    AudioProcessing::GetFrameSize(sample_rate_hz);
                 channels_data->resize(num_channels * max_frame_size);
                 std::fill(channels_data->begin(), channels_data->end(), 0.5f);
                 frame_data->resize(num_channels);

@@ -52,6 +52,23 @@
       "parentUuid": "4e05e631_41f47957",
       "revId": "57cd664034cf6333877f35d417b8568061d196d9",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "cfcd1200_8101af1f",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 14134
+      },
+      "writtenOn": "2022-07-27T18:01:51Z",
+      "side": 1,
+      "message": "Try using a generic WebRTC demo application or the Zoom PWA instead of Meet, which has some custom screensharing behaviors.\n\nhttps://www.webrtc-experiment.com/getDisplayMedia/\n\n",
+      "revId": "57cd664034cf6333877f35d417b8568061d196d9",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

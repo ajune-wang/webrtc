@@ -18,6 +18,24 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "f218e681_51898957",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 19
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5508
+      },
+      "writtenOn": "2022-07-27T14:28:19Z",
+      "side": 1,
+      "message": "Yes, the payload id for flexfec isn\u0027t registered like other payloads. It seems to only have special handling.",
+      "parentUuid": "ad62cd0e_e5f88f01",
+      "revId": "fa707931dfab77ac26ea391c98daa05dec88f49c",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "33cdae2c_cd299f5a",
@@ -31,6 +49,30 @@
       "writtenOn": "2022-07-26T13:06:44Z",
       "side": 1,
       "message": "is is the same as\nRTC_DCHECK_GE(payload_type, -1);",
+      "range": {
+        "startLine": 195,
+        "startChar": 2,
+        "endLine": 195,
+        "endChar": 54
+      },
+      "revId": "fa707931dfab77ac26ea391c98daa05dec88f49c",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "743a4566_07e6f37d",
+        "filename": "call/flexfec_receive_stream_impl.cc",
+        "patchSetId": 19
+      },
+      "lineNbr": 195,
+      "author": {
+        "id": 5508
+      },
+      "writtenOn": "2022-07-27T14:28:19Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "33cdae2c_cd299f5a",
       "range": {
         "startLine": 195,
         "startChar": 2,
@@ -60,6 +102,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "ba001221_7b6d1b9a",
+        "filename": "call/flexfec_receive_stream_impl.h",
+        "patchSetId": 19
+      },
+      "lineNbr": 97,
+      "author": {
+        "id": 5508
+      },
+      "writtenOn": "2022-07-27T14:28:19Z",
+      "side": 1,
+      "message": "Many of these classes hold a big part of their state via a single `config_` variable, which is a copy of the configuration passed via the ctor. Some of that state needs to be held, some of it needs to change and some of it is essentially duplicate of state held via other means (e.g. via contained objects).\n\nI\u0027ve previously removed such a `config_` variable from `FlexfecReceiveStreamImpl` and instead have variables representing the state that needs to be maintained and/or can change. In this CL, I\u0027m moving the payload property closer to the implementation and also to the instance to which the configuration actually belongs. The \"flexfec_config_` variable will eventually be gone and we won\u0027t need to tear down and recreate all the streams (+ a number of contained objects and state) when parts of the configuration changes.",
+      "parentUuid": "ad5b76ea_67fb55f5",
+      "revId": "fa707931dfab77ac26ea391c98daa05dec88f49c",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "0dbb0146_aee76e46",
         "filename": "media/engine/fake_webrtc_call.h",
         "patchSetId": 19
@@ -71,6 +131,30 @@
       "writtenOn": "2022-07-26T13:06:44Z",
       "side": 1,
       "message": "override",
+      "range": {
+        "startLine": 327,
+        "startChar": 39,
+        "endLine": 327,
+        "endChar": 40
+      },
+      "revId": "fa707931dfab77ac26ea391c98daa05dec88f49c",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "dff3cdf2_b47aa5be",
+        "filename": "media/engine/fake_webrtc_call.h",
+        "patchSetId": 19
+      },
+      "lineNbr": 327,
+      "author": {
+        "id": 5508
+      },
+      "writtenOn": "2022-07-27T14:28:19Z",
+      "side": 1,
+      "message": "Done. Thanks for catching.",
+      "parentUuid": "0dbb0146_aee76e46",
       "range": {
         "startLine": 327,
         "startChar": 39,
@@ -106,6 +190,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "765a6d4a_3487d863",
+        "filename": "media/engine/webrtc_video_engine.cc",
+        "patchSetId": 19
+      },
+      "lineNbr": 2987,
+      "author": {
+        "id": 5508
+      },
+      "writtenOn": "2022-07-27T14:28:19Z",
+      "side": 1,
+      "message": "Ah, this was a note to self. Removed now. However, this comparison feels a bit brittle to me since if only the order changes, everything will need to be reconstructed.",
+      "parentUuid": "61322532_e1546fa8",
+      "range": {
+        "startLine": 2986,
+        "startChar": 0,
+        "endLine": 2987,
+        "endChar": 20
+      },
+      "revId": "fa707931dfab77ac26ea391c98daa05dec88f49c",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "556ed54d_610c9db3",
         "filename": "media/engine/webrtc_video_engine.h",
         "patchSetId": 19
@@ -117,6 +225,30 @@
       "writtenOn": "2022-07-26T13:06:44Z",
       "side": 1,
       "message": "https://google.github.io/styleguide/cppguide.html#Inputs_and_Outputs\n\n“Prefer using return values over output parameters”",
+      "range": {
+        "startLine": 512,
+        "startChar": 45,
+        "endLine": 512,
+        "endChar": 75
+      },
+      "revId": "fa707931dfab77ac26ea391c98daa05dec88f49c",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "10e39cca_8ef8512b",
+        "filename": "media/engine/webrtc_video_engine.h",
+        "patchSetId": 19
+      },
+      "lineNbr": 512,
+      "author": {
+        "id": 5508
+      },
+      "writtenOn": "2022-07-27T14:28:19Z",
+      "side": 1,
+      "message": "The `flexfec_needs_recreation` parameter will be removed in an a follow-up CL. I opted to have it like this to explicitly state that the `bool` in this case doesn\u0027t represent success/failure as bool return values typically do, but that a value of `true` for this variable means that the operation could not be applied directly and that in order to complete the operation, the receive streams need to be deleted and reconstructed. That in itself to me feels closer to indicating that setting the flexfec payload has actually not been set when the function returns. Hence I figured that temporarily living with this not being a return value, would be OK.\n\nIf you feel strongly about it though I can change it.",
+      "parentUuid": "556ed54d_610c9db3",
       "range": {
         "startLine": 512,
         "startChar": 45,

@@ -16,6 +16,24 @@
       "message": "Since there aren\u0027t any unit tests fro this code, were you able to build Chrome and verify this change fixes the issue?\n\nNote that we are in the process of launching a new window capture implementation for Mac.  I believe this fix should also apply to it, but you should try running Chrome with --enable-features\u003dScreenCaptureKitMac and check.",
       "revId": "57cd664034cf6333877f35d417b8568061d196d9",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "4e05e631_41f47957",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 19559
+      },
+      "writtenOn": "2022-07-27T17:24:57Z",
+      "side": 1,
+      "message": "I\u0027ve only been able to verify by using this modified chromium / webrtc to build my Electron app and checking the screenshare behavior there. I tried verifying with Chromium + Google Meet, but it seems like Meet does not support screenshare from Chromium: \"Your browser can\u0027t share your screen\".",
+      "parentUuid": "604977ba_c7e08920",
+      "revId": "57cd664034cf6333877f35d417b8568061d196d9",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

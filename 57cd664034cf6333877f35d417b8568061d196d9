@@ -69,6 +69,24 @@
       "message": "Try using a generic WebRTC demo application or the Zoom PWA instead of Meet, which has some custom screensharing behaviors.\n\nhttps://www.webrtc-experiment.com/getDisplayMedia/\n\n",
       "revId": "57cd664034cf6333877f35d417b8568061d196d9",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "d058a28b_41058330",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 19559
+      },
+      "writtenOn": "2022-07-27T18:32:16Z",
+      "side": 1,
+      "message": "Ah nice, I was able to test here: https://www.webrtc-experiment.com/Pluginfree-Screen-Sharing\n\nIt works but only without ScreenCaptureKit. Added some debug logs locally and with ScreenCaptureKit the fullscreen application handler isn\u0027t being constructed at all, so screenshare still has old behavior of continuing to share the editor window.\n\nIn desktop_capture_options.cc it is calling result.set_full_screen_window_detector, but then I think nothing is making use of that, maybe the new ScreenCaptureKit code needs to explicitly use the window detector?",
+      "parentUuid": "cfcd1200_8101af1f",
+      "revId": "57cd664034cf6333877f35d417b8568061d196d9",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

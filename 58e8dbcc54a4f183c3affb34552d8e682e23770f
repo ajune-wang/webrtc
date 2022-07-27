@@ -16,6 +16,23 @@
       "message": "The mac bot I think it is failing for a known reason, I will check with my team.\n\nThe Android one seems unrelated, a delta frames is generated instead of a key frame:\n\n```\n../../video/picture_id_tests.cc:141: Failure\nI  326.583s run_tests_on_device(01e79192ca784c49)  Expected equality of these values:\nI  326.583s run_tests_on_device(01e79192ca784c49)    VideoFrameType::kVideoFrameKey\nI  326.583s run_tests_on_device(01e79192ca784c49)      Which is: 4-byte object \u003c03-00 00-00\u003e\nI  326.583s run_tests_on_device(01e79192ca784c49)    current.frame_type\nI  326.583s run_tests_on_device(01e79192ca784c49)      Which is: 4-byte object \u003c04-00 00-00\u003e\nI  326.583s run_tests_on_device(01e79192ca784c49)  ../../video/picture_id_tests.cc:154: Failure\n```\n\nI will open a separate bug for this, I don\u0027t think this CL is causing this issue.",
       "revId": "58e8dbcc54a4f183c3affb34552d8e682e23770f",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "35bfcc84_68980eab",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 8
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2022-07-27T08:55:39Z",
+      "side": 1,
+      "message": "I\u0027m worried it might be more difficult to read text logs when time is not aligned (and thus it would be harder to track how much time passed between neighbor log lines).\nI\u0027ve put alternative suggestion into the doc how to have fine grain LogSink API, but keep existent format for the webrtc text logs.",
+      "revId": "58e8dbcc54a4f183c3affb34552d8e682e23770f",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

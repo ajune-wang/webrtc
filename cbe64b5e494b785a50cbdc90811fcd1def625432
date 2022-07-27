@@ -3,6 +3,29 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "388c58a7_d8326b10",
+        "filename": "rtc_base/logging.cc",
+        "patchSetId": 8
+      },
+      "lineNbr": 131,
+      "author": {
+        "id": 5087
+      },
+      "writtenOn": "2022-07-27T09:09:27Z",
+      "side": 0,
+      "message": "If I understand correctly, the idea is to avoid to append to the stream the thread id and the timestamp at this stage but do it later and pass all the info to log sinks (in the struct) but then allow OutputToDebug to recreate the current format.\n\nIs this accurate?",
+      "range": {
+        "startLine": 112,
+        "startChar": 0,
+        "endLine": 131,
+        "endChar": 3
+      },
+      "revId": "cbe64b5e494b785a50cbdc90811fcd1def625432",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "1c47dc48_cff1720f",
         "filename": "rtc_base/logging_unittest.cc",
         "patchSetId": 8

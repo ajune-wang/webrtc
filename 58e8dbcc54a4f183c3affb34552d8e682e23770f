@@ -33,6 +33,24 @@
       "message": "I\u0027m worried it might be more difficult to read text logs when time is not aligned (and thus it would be harder to track how much time passed between neighbor log lines).\nI\u0027ve put alternative suggestion into the doc how to have fine grain LogSink API, but keep existent format for the webrtc text logs.",
       "revId": "58e8dbcc54a4f183c3affb34552d8e682e23770f",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "0c9a3114_4fa52285",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 8
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5087
+      },
+      "writtenOn": "2022-07-27T09:09:27Z",
+      "side": 1,
+      "message": "Thanks, see the other comment to double check I understand the proposal.",
+      "parentUuid": "35bfcc84_68980eab",
+      "revId": "58e8dbcc54a4f183c3affb34552d8e682e23770f",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

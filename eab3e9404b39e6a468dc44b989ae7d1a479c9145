@@ -35,6 +35,46 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "85d18f06_d8667e43",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 7
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5091
+      },
+      "writtenOn": "2022-07-27T08:33:29Z",
+      "side": 1,
+      "message": "Nice work. Could it be made more clear at a higher level that usage of e.g. 22050 will lead to some drift that does not exists in e.g. the 44100 case? Feel essential.",
+      "revId": "eab3e9404b39e6a468dc44b989ae7d1a479c9145",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "8777e26e_0356bffb",
+        "filename": "common_audio/resampler/push_resampler.cc",
+        "patchSetId": 7
+      },
+      "lineNbr": 47,
+      "author": {
+        "id": 5091
+      },
+      "writtenOn": "2022-07-27T08:33:29Z",
+      "side": 1,
+      "message": "Still an issue? If not, perhaps a good time to clean up.",
+      "range": {
+        "startLine": 47,
+        "startChar": 1,
+        "endLine": 47,
+        "endChar": 3
+      },
+      "revId": "eab3e9404b39e6a468dc44b989ae7d1a479c9145",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "97e31455_2727f150",
@@ -77,6 +117,75 @@
         "startChar": 51,
         "endLine": 245,
         "endChar": 52
+      },
+      "revId": "eab3e9404b39e6a468dc44b989ae7d1a479c9145",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "3f5f1b5f_864dfee1",
+        "filename": "modules/audio_processing/audio_processing_unittest.cc",
+        "patchSetId": 7
+      },
+      "lineNbr": 73,
+      "author": {
+        "id": 5091
+      },
+      "writtenOn": "2022-07-27T08:33:29Z",
+      "side": 1,
+      "message": "Why not 96 as well? Why this particular range?",
+      "range": {
+        "startLine": 73,
+        "startChar": 10,
+        "endLine": 73,
+        "endChar": 22
+      },
+      "revId": "eab3e9404b39e6a468dc44b989ae7d1a479c9145",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "b0aba072_3bed58af",
+        "filename": "modules/audio_processing/include/audio_processing.h",
+        "patchSetId": 7
+      },
+      "lineNbr": 95,
+      "author": {
+        "id": 5091
+      },
+      "writtenOn": "2022-07-27T08:33:29Z",
+      "side": 1,
+      "message": "Can you clarify the discrepancy between using 10 here and ~10 below. Does ~10 mean 10 +- n and if so what is n?",
+      "range": {
+        "startLine": 95,
+        "startChar": 55,
+        "endLine": 95,
+        "endChar": 58
+      },
+      "revId": "eab3e9404b39e6a468dc44b989ae7d1a479c9145",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "4b89b049_72cf1008",
+        "filename": "modules/audio_processing/include/audio_processing.h",
+        "patchSetId": 7
+      },
+      "lineNbr": 707,
+      "author": {
+        "id": 5091
+      },
+      "writtenOn": "2022-07-27T08:33:29Z",
+      "side": 1,
+      "message": "Perhaps add some examples, 44100, 22050 to illustrate what the result is after truncation.",
+      "range": {
+        "startLine": 707,
+        "startChar": 3,
+        "endLine": 707,
+        "endChar": 5
       },
       "revId": "eab3e9404b39e6a468dc44b989ae7d1a479c9145",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"

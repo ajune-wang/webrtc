@@ -87,6 +87,24 @@
       "parentUuid": "cfcd1200_8101af1f",
       "revId": "57cd664034cf6333877f35d417b8568061d196d9",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "c8e72afa_aeb1c0cc",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 14134
+      },
+      "writtenOn": "2022-07-27T22:03:32Z",
+      "side": 1,
+      "message": "It\u0027s likely more involved than simply creating the fullscreen window detector, because the capturer needs to get notified by the detector when it should start capturing a new window.  I can file a Chromium side issue to look into this.",
+      "parentUuid": "d058a28b_41058330",
+      "revId": "57cd664034cf6333877f35d417b8568061d196d9",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

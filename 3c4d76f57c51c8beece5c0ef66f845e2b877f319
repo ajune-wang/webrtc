@@ -39,6 +39,30 @@
       },
       "revId": "3c4d76f57c51c8beece5c0ef66f845e2b877f319",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "eda7f293_ffd90dab",
+        "filename": "common_audio/resampler/push_resampler.cc",
+        "patchSetId": 6
+      },
+      "lineNbr": 54,
+      "author": {
+        "id": 5119
+      },
+      "writtenOn": "2022-07-27T08:21:59Z",
+      "side": 1,
+      "message": "I think so but I have never seen them fail. The stars need to align:\n\n- non-Windows (because of the #if)\n- sample rate 22050 Hz or similar\n- num_channels \u003e\u003d 2\n- DCHECKs included in the build\n\nAnd lastly the resampling has to happen elsewhere than APM. This `PushResampler` is a wrapper for the `PushSincResampler`, but APM uses `PushSincResampler` directly. `PushResampler` users:\n\n- AGC2 VAD wrapper (where only native APM rates are used)\n- audio transport non-Chrome capture (where I don\u0027t know of any nondivisible rate users)\n- audio transport playout (whose audio I think always comes from ~ NetEQ and I don\u0027t know if the playout is ever at this rate)\n- `ACMResampler::Resample10Msec()` which I don\u0027t really know when it runs.\n\nSo maybe it could happen if the right, star-aligned system is able to configure playout at these rates (--\u003e audio transport playout resampling DCHECK) or calls getUserMedia with all processing disabled (--\u003e maybe ACM resampling DCHECK).\n\n\n\nThe DCHECKs are updated in this CL because we add test coverage for nondivisible sample rates on these checks. The new version is correct and the previous one is not, because the resampler itself interprets 10 ms as floor(sample_rate/100).",
+      "parentUuid": "9e9829cf_d16cef3e",
+      "range": {
+        "startLine": 54,
+        "startChar": 2,
+        "endLine": 54,
+        "endChar": 15
+      },
+      "revId": "3c4d76f57c51c8beece5c0ef66f845e2b877f319",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

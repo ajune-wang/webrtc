@@ -18,6 +18,23 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "63056e11_2a598d31",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 7
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5119
+      },
+      "writtenOn": "2022-07-27T08:21:59Z",
+      "side": 1,
+      "message": "Thank you for the review!\n\nHenrik, can you please review as owner of modules/ and indirect owner of common_audio/ and audio/ ?",
+      "revId": "eab3e9404b39e6a468dc44b989ae7d1a479c9145",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "97e31455_2727f150",
@@ -31,6 +48,30 @@
       "writtenOn": "2022-07-26T15:06:55Z",
       "side": 1,
       "message": "Is this an accidental change, or is this actually important?",
+      "range": {
+        "startLine": 245,
+        "startChar": 51,
+        "endLine": 245,
+        "endChar": 52
+      },
+      "revId": "eab3e9404b39e6a468dc44b989ae7d1a479c9145",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "f3248c78_45afa0f8",
+        "filename": "common_audio/resampler/push_sinc_resampler_unittest.cc",
+        "patchSetId": 7
+      },
+      "lineNbr": 245,
+      "author": {
+        "id": 5119
+      },
+      "writtenOn": "2022-07-27T08:21:59Z",
+      "side": 1,
+      "message": "Good question. It is important, otherwise the new test cases will not pass.\n\nThese thresholds (`kHighFrequencyMaxError`, `rms_error_`, `low_freq_error_`) are chosen to just barely pass all the test cases. In a sense these tests are more like bit exactness tests than tests for reasonable behavior, like `ApmTest.Process`.",
+      "parentUuid": "97e31455_2727f150",
       "range": {
         "startLine": 245,
         "startChar": 51,

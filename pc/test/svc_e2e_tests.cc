@@ -224,7 +224,8 @@ TEST_P(SvcTest, ScalabilityModeSupported) {
   // Track frames using an RTP header instead of modifying the encoded data as
   // this doesn't seem to work for AV1.
   webrtc::test::ScopedFieldTrials override_trials(
-      AppendFieldTrials("WebRTC-VideoFrameTrackingIdAdvertised/Enabled/"));
+      AppendFieldTrials("WebRTC-VideoFrameTrackingIdAdvertised/Enabled/"
+                        "WebRTC-DependencyDescriptorAdvertised/Enabled/"));
   std::unique_ptr<NetworkEmulationManager> network_emulation_manager =
       CreateNetworkEmulationManager(webrtc::TimeMode::kSimulated);
   auto analyzer = std::make_unique<SvcVideoQualityAnalyzer>(
@@ -305,6 +306,16 @@ INSTANTIATE_TEST_SUITE_P(
 // SvcTestParameters{cricket::kVp9CodecName, "S2T1", 2, 1},
 // SvcTestParameters{cricket::kVp9CodecName, "S3T3", 3, 3},
 
+#endif
+
+#if defined(WEBRTC_USE_H264)
+INSTANTIATE_TEST_SUITE_P(
+    SvcTestH264,
+    SvcTest,
+    Values(SvcTestParameters{cricket::kH264CodecName, "L1T1", 1, 1},
+           SvcTestParameters{cricket::kH264CodecName, "L1T2", 1, 2},
+           SvcTestParameters{cricket::kH264CodecName, "L1T3", 1, 3}),
+    SvcTestNameGenerator);
 #endif
 
 }  // namespace webrtc

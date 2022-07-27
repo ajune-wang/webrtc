@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "1c47dc48_cff1720f",
+        "filename": "rtc_base/logging_unittest.cc",
+        "patchSetId": 8
+      },
+      "lineNbr": 230,
+      "author": {
+        "id": 5087
+      },
+      "writtenOn": "2022-07-27T08:32:36Z",
+      "side": 0,
+      "message": "Since now the filename and the line are not added to the stream but passed to OutoutToDebug and log sinks, it becomes inconvenient to test if the path was correctly parsed by searching in the log.\n\nI wonder if adding a getter might help testing but I don\u0027t like for other reasons. Or I can register a log sink but that also seems a bit too overkill.\n\nWhat do you think?",
+      "range": {
+        "startLine": 218,
+        "startChar": 0,
+        "endLine": 230,
+        "endChar": 1
+      },
+      "revId": "cbe64b5e494b785a50cbdc90811fcd1def625432",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

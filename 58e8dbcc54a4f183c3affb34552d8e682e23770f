@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "313fb1e2_ada9282f",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 8
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5087
+      },
+      "writtenOn": "2022-07-27T08:32:36Z",
+      "side": 1,
+      "message": "The mac bot I think it is failing for a known reason, I will check with my team.\n\nThe Android one seems unrelated, a delta frames is generated instead of a key frame:\n\n```\n../../video/picture_id_tests.cc:141: Failure\nI  326.583s run_tests_on_device(01e79192ca784c49)  Expected equality of these values:\nI  326.583s run_tests_on_device(01e79192ca784c49)    VideoFrameType::kVideoFrameKey\nI  326.583s run_tests_on_device(01e79192ca784c49)      Which is: 4-byte object \u003c03-00 00-00\u003e\nI  326.583s run_tests_on_device(01e79192ca784c49)    current.frame_type\nI  326.583s run_tests_on_device(01e79192ca784c49)      Which is: 4-byte object \u003c04-00 00-00\u003e\nI  326.583s run_tests_on_device(01e79192ca784c49)  ../../video/picture_id_tests.cc:154: Failure\n```\n\nI will open a separate bug for this, I don\u0027t think this CL is causing this issue.",
+      "revId": "58e8dbcc54a4f183c3affb34552d8e682e23770f",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

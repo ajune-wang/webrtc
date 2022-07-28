@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "92d187f7_e2696a38",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 9405
+      },
+      "writtenOn": "2022-07-28T14:39:58Z",
+      "side": 1,
+      "message": "Hi, Ilya. Could you take a look at my solution for flaky tests?\n\nThis test failure has been reproduced locally. Specifically, it occurred whether using PrioritizedPacketQueue or RoundRobinPacketQueue.",
+      "revId": "63e00a03f0fcb6473313c98e25324d316dac6c6a",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

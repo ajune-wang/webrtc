@@ -43,6 +43,7 @@ static const int kMaxLogLineSize = 1024 - 60;
 
 #include "absl/base/attributes.h"
 #include "absl/strings/string_view.h"
+#include "api/units/timestamp.h"
 #include "rtc_base/checks.h"
 #include "rtc_base/platform_thread_types.h"
 #include "rtc_base/string_encode.h"
@@ -54,6 +55,7 @@ static const int kMaxLogLineSize = 1024 - 60;
 
 namespace rtc {
 namespace {
+
 // By default, release builds don't log, debug builds at info level
 #if !defined(NDEBUG)
 constexpr LoggingSeverity kDefaultLoggingSeverity = LS_INFO;
@@ -83,6 +85,31 @@ webrtc::Mutex& GetLoggingLock() {
 
 }  // namespace
 
+std::string LogLineRef::DefaultLogLine() const {
+  rtc::StringBuilder log_output;
+  if (timestamp_.has_value()) {
+    // TODO(kwiberg): Switch to absl::StrFormat, if binary size is ok.
+    char timestamp[50];  // Maximum string length of an int64_t is 20.
+    int len =
+        snprintf(timestamp, sizeof(timestamp), "[%03" PRId64 ":%03" PRId64 "]",
+                 timestamp_->ms() / 1000, timestamp_->ms() % 1000);
+    RTC_DCHECK_LT(len, sizeof(timestamp));
+    log_output << timestamp;
+  }
+  if (thread_id_.has_value()) {
+    log_output << "[" << *thread_id_ << "] ";
+  }
+  if (filename_.has_value()) {
+#if defined(WEBRTC_ANDROID)
+    log_output << "(line " << *line_ << "): ";
+#else
+    log_output << "(" << *filename_ << ":" << *line_ << "): ";
+#endif
+  }
+  log_output << message_;
+  return log_output.Release();
+}
+
 /////////////////////////////////////////////////////////////////////////////
 // LogMessage
 /////////////////////////////////////////////////////////////////////////////
@@ -98,7 +125,7 @@ ABSL_CONST_INIT LogSink* LogMessage::streams_ RTC_GUARDED_BY(GetLoggingLock()) =
 ABSL_CONST_INIT std::atomic<bool> LogMessage::streams_empty_ = {true};
 
 // Boolean options default to false (0)
-bool LogMessage::thread_, LogMessage::timestamp_;
+bool LogMessage::log_thread_, LogMessage::log_timestamp_;
 
 LogMessage::LogMessage(const char* file, int line, LoggingSeverity sev)
     : LogMessage(file, line, sev, ERRCTX_NONE, 0) {}
@@ -109,33 +136,25 @@ LogMessage::LogMessage(const char* file,
                        LogErrorContext err_ctx,
                        int err)
     : severity_(sev) {
-  if (timestamp_) {
+  if (log_timestamp_) {
     // Use SystemTimeMillis so that even if tests use fake clocks, the timestamp
     // in log messages represents the real system time.
     int64_t time = TimeDiff(SystemTimeMillis(), LogStartTime());
     // Also ensure WallClockStartTime is initialized, so that it matches
     // LogStartTime.
     WallClockStartTime();
-    // TODO(kwiberg): Switch to absl::StrFormat, if binary size is ok.
-    char timestamp[50];  // Maximum string length of an int64_t is 20.
-    int len =
-        snprintf(timestamp, sizeof(timestamp), "[%03" PRId64 ":%03" PRId64 "]",
-                 time / 1000, time % 1000);
-    RTC_DCHECK_LT(len, sizeof(timestamp));
-    print_stream_ << timestamp;
+    timestamp_ = webrtc::Timestamp::Millis(time);
   }
 
-  if (thread_) {
-    PlatformThreadId id = CurrentThreadId();
-    print_stream_ << "[" << id << "] ";
+  if (log_thread_) {
+    thread_id_ = CurrentThreadId();
   }
 
   if (file != nullptr) {
+    filename_ = FilenameFromPath(file);
+    line_ = line;
 #if defined(WEBRTC_ANDROID)
-    tag_ = FilenameFromPath(file);
-    print_stream_ << "(line " << line << "): ";
-#else
-    print_stream_ << "(" << FilenameFromPath(file) << ":" << line << "): ";
+    tag_ = filename_->data();
 #endif
   }
 
@@ -176,7 +195,7 @@ LogMessage::LogMessage(const char* file,
                        int line,
                        LoggingSeverity sev,
                        const char* tag)
-    : LogMessage(file, line, sev, ERRCTX_NONE, 0 /* err */) {
+    : LogMessage(file, line, sev, ERRCTX_NONE, /*err=*/0) {
   tag_ = tag;
   print_stream_ << tag << ": ";
 }
@@ -187,22 +206,21 @@ LogMessage::~LogMessage() {
 
   const std::string str = print_stream_.Release();
 
-  if (severity_ >= g_dbg_sev) {
 #if defined(WEBRTC_ANDROID)
-    OutputToDebug(str, severity_, tag_);
+  LogLineRef log_ref(std::move(str), filename_, line_, thread_id_, timestamp_,
+                     tag_);
 #else
-    OutputToDebug(str, severity_);
+  LogLineRef log_ref(std::move(str), filename_, line_, thread_id_, timestamp_);
 #endif
+
+  if (severity_ >= g_dbg_sev) {
+    OutputToDebug(log_ref, severity_);
   }
 
   webrtc::MutexLock lock(&GetLoggingLock());
   for (LogSink* entry = streams_; entry != nullptr; entry = entry->next_) {
     if (severity_ >= entry->min_severity_) {
-#if defined(WEBRTC_ANDROID)
-      entry->OnLogMessage(str, severity_, tag_);
-#else
-      entry->OnLogMessage(str, severity_);
-#endif
+      entry->OnLogMessage(log_ref, severity_);
     }
   }
 }
@@ -235,11 +253,11 @@ uint32_t LogMessage::WallClockStartTime() {
 }
 
 void LogMessage::LogThreads(bool on) {
-  thread_ = on;
+  log_thread_ = on;
 }
 
 void LogMessage::LogTimestamps(bool on) {
-  timestamp_ = on;
+  log_timestamp_ = on;
 }
 
 void LogMessage::LogToDebug(LoggingSeverity min_sev) {
@@ -343,15 +361,9 @@ void LogMessage::UpdateMinLogSeverity()
   g_min_sev = min_sev;
 }
 
-#if defined(WEBRTC_ANDROID)
-void LogMessage::OutputToDebug(absl::string_view msg,
-                               LoggingSeverity severity,
-                               const char* tag) {
-#else
-void LogMessage::OutputToDebug(absl::string_view msg,
+void LogMessage::OutputToDebug(const LogLineRef& log_line_ref,
                                LoggingSeverity severity) {
-#endif
-  std::string msg_str(msg);
+  std::string msg_str = log_line_ref.DefaultLogLine();
   bool log_to_stderr = log_to_stderr_;
 #if defined(WEBRTC_MAC) && !defined(WEBRTC_IOS) && defined(NDEBUG)
   // On the Mac, all stderr output goes to the Console log and causes clutter.
@@ -382,8 +394,8 @@ void LogMessage::OutputToDebug(absl::string_view msg,
     if (HANDLE error_handle = ::GetStdHandle(STD_ERROR_HANDLE)) {
       log_to_stderr = false;
       DWORD written = 0;
-      ::WriteFile(error_handle, msg.data(), static_cast<DWORD>(msg.size()),
-                  &written, 0);
+      ::WriteFile(error_handle, msg_str.c_str(),
+                  static_cast<DWORD>(msg_str.size()), &written, 0);
     }
   }
 #endif  // WEBRTC_WIN
@@ -411,22 +423,24 @@ void LogMessage::OutputToDebug(absl::string_view msg,
       prio = ANDROID_LOG_UNKNOWN;
   }
 
-  int size = msg.size();
-  int line = 0;
+  int size = msg_str.size();
+  int current_line = 0;
   int idx = 0;
   const int max_lines = size / kMaxLogLineSize + 1;
   if (max_lines == 1) {
-    __android_log_print(prio, tag, "%.*s", size, msg_str.c_str());
+    __android_log_print(prio, log_line_ref.tag().data(), "%.*s", size,
+                        msg_str.c_str());
   } else {
     while (size > 0) {
       const int len = std::min(size, kMaxLogLineSize);
       // Use the size of the string in the format (msg may have \0 in the
       // middle).
-      __android_log_print(prio, tag, "[%d/%d] %.*s", line + 1, max_lines, len,
+      __android_log_print(prio, log_line_ref.tag().data(), "[%d/%d] %.*s",
+                          current_line + 1, max_lines, len,
                           msg_str.c_str() + idx);
       idx += len;
       size -= len;
-      ++line;
+      ++current_line;
     }
   }
 #endif  // WEBRTC_ANDROID
@@ -543,6 +557,17 @@ void Log(const LogArgType* fmt, ...) {
 #endif
 
 namespace rtc {
+// Default implementation, override is recomended.
+void LogSink::OnLogMessage(const LogLineRef& log_line_ref,
+                           LoggingSeverity severity) {
+#if defined(WEBRTC_ANDROID)
+  OnLogMessage(log_line_ref.DefaultLogLine(), severity,
+               log_line_ref.tag().data());
+#else
+  OnLogMessage(log_line_ref.DefaultLogLine(), severity);
+#endif
+}
+
 // Inefficient default implementation, override is recommended.
 void LogSink::OnLogMessage(const std::string& msg,
                            LoggingSeverity severity,

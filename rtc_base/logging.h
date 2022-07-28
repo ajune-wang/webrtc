@@ -55,6 +55,9 @@
 #include "absl/base/attributes.h"
 #include "absl/meta/type_traits.h"
 #include "absl/strings/string_view.h"
+#include "absl/types/optional.h"
+#include "api/units/timestamp.h"
+#include "rtc_base/platform_thread_types.h"
 #include "rtc_base/strings/string_builder.h"
 #include "rtc_base/system/inline.h"
 
@@ -101,6 +104,56 @@ enum LogErrorContext {
 };
 
 class LogMessage;
+
+class LogLineRef {
+ public:
+#if defined(WEBRTC_ANDROID)
+  LogLineRef(std::string message,
+             absl::optional<absl::string_view> filename,
+             absl::optional<int> line,
+             absl::optional<PlatformThreadId> thread_id,
+             absl::optional<webrtc::Timestamp> timestamp,
+             absl::string_view tag)
+      : message_(std::move(message)),
+        filename_(filename),
+        line_(line),
+        thread_id_(thread_id),
+        timestamp_(timestamp),
+        tag_(tag) {}
+#else
+  LogLineRef(std::string message,
+             absl::optional<absl::string_view> filename,
+             absl::optional<int> line,
+             absl::optional<PlatformThreadId> thread_id,
+             absl::optional<webrtc::Timestamp> timestamp)
+      : message_(std::move(message)),
+        filename_(filename),
+        line_(line),
+        thread_id_(thread_id),
+        timestamp_(timestamp) {}
+#endif
+  absl::string_view message() { return message_; }
+  absl::optional<absl::string_view> filename() { return filename_; };
+  absl::optional<int> line() { return line_; };
+  absl::optional<PlatformThreadId> thread_id() { return thread_id_; };
+  absl::optional<webrtc::Timestamp> timestamp() { return timestamp_; };
+#if defined(WEBRTC_ANDROID)
+  absl::string_view tag() const { return tag_; };
+#endif
+
+  std::string DefaultLogLine() const;
+
+ private:
+  std::string message_;
+  absl::optional<absl::string_view> filename_;
+  absl::optional<int> line_;
+  absl::optional<PlatformThreadId> thread_id_;
+  absl::optional<webrtc::Timestamp> timestamp_;
+#if defined(WEBRTC_ANDROID)
+  absl::string_view tag_;
+#endif
+};
+
 // Virtual sink interface that can receive log messages.
 class LogSink {
  public:
@@ -119,6 +172,7 @@ class LogSink {
   virtual void OnLogMessage(absl::string_view message,
                             LoggingSeverity severity);
   virtual void OnLogMessage(absl::string_view message);
+  virtual void OnLogMessage(const LogLineRef& line, LoggingSeverity severity);
 
  private:
   friend class ::rtc::LogMessage;
@@ -537,13 +591,8 @@ class LogMessage {
   static void UpdateMinLogSeverity();
 
 // These write out the actual log messages.
-#if defined(WEBRTC_ANDROID)
-  static void OutputToDebug(absl::string_view msg,
-                            LoggingSeverity severity,
-                            const char* tag);
-#else
-  static void OutputToDebug(absl::string_view msg, LoggingSeverity severity);
-#endif  // defined(WEBRTC_ANDROID)
+  static void OutputToDebug(const LogLineRef& log_line_ref,
+                            LoggingSeverity severity);
 
   // Called from the dtor (or from a test) to append optional extra error
   // information to the log stream and a newline character.
@@ -551,6 +600,9 @@ class LogMessage {
 
   // The severity level of this message
   LoggingSeverity severity_;
+  // The source location of the log
+  absl::optional<absl::string_view> filename_;
+  absl::optional<int> line_;
 
 #if defined(WEBRTC_ANDROID)
   // The default Android debug output tag.
@@ -570,8 +622,11 @@ class LogMessage {
   // are added/removed.
   static std::atomic<bool> streams_empty_;
 
-  // Flags for formatting options
-  static bool thread_, timestamp_;
+  // Flags for formatting options and their potential values.
+  static bool log_thread_;
+  static bool log_timestamp_;
+  absl::optional<PlatformThreadId> thread_id_;
+  absl::optional<webrtc::Timestamp> timestamp_;
 
   // Determines if logs will be directed to stderr in debug mode.
   static bool log_to_stderr_;
@@ -579,11 +634,15 @@ class LogMessage {
   // Next methods do nothing; no one will call these functions.
   inline static void UpdateMinLogSeverity() {}
 #if defined(WEBRTC_ANDROID)
-  inline static void OutputToDebug(absl::string_view msg,
+  inline static void OutputToDebug(absl::string_view filename,
+                                   int line,
+                                   absl::string_view msg,
                                    LoggingSeverity severity,
                                    const char* tag) {}
 #else
-  inline static void OutputToDebug(absl::string_view msg,
+  inline static void OutputToDebug(absl::string_view filename,
+                                   int line,
+                                   absl::string_view msg,
                                    LoggingSeverity severity) {}
 #endif  // defined(WEBRTC_ANDROID)
   inline void FinishPrintStream() {}

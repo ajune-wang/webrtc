@@ -10,7 +10,7 @@ vars = {
   # chromium waterfalls. More info at: crbug.com/570091.
   'checkout_configuration': 'default',
   'checkout_instrumented_libraries': 'checkout_linux and checkout_configuration == "default"',
-  'chromium_revision': '49c36fb970e9e63c9d4786b1056319b815cc162b',
+  'chromium_revision': '938ed492431d8342ac9964d50821271981f94209',
 
   # Keep the Chromium default of generating location tags.
   'generate_location_tags': True,
@@ -26,9 +26,9 @@ vars = {
 deps = {
   # TODO(kjellander): Move this to be Android-only.
   'src/base':
-    'https://chromium.googlesource.com/chromium/src/base@8d41f6e56d59de1186b63921bc9b1989e25cf0c5',
+    'https://chromium.googlesource.com/chromium/src/base@43e256bcf23f3f4ca775e3e2ddc841fe0eef1ca2',
   'src/build':
-    'https://chromium.googlesource.com/chromium/src/build@de38ae6d35687b4be2db50f41c9075a9154e4a07',
+    'https://chromium.googlesource.com/chromium/src/build@87c7295b65d9694b70d711289f722c191ecc7385',
   'src/buildtools':
     'https://chromium.googlesource.com/chromium/src/buildtools@af18ab7c6f3abdf4828c2f6bc80d44ca99ec7132',
   # Gradle 6.6.1. Used for testing Android Studio project generation for WebRTC.
@@ -37,13 +37,13 @@ deps = {
     'condition': 'checkout_android',
   },
   'src/ios': {
-    'url': 'https://chromium.googlesource.com/chromium/src/ios@3a03b06e63dc3c0df8cdb65d8a5a5e17c5dd5548',
+    'url': 'https://chromium.googlesource.com/chromium/src/ios@ea841c34affbc7e1b61e693b25a6c94a5d5f8e1d',
     'condition': 'checkout_ios',
   },
   'src/testing':
-    'https://chromium.googlesource.com/chromium/src/testing@165c0fbeec8bd2e797ff4c815c86b5fb8b5762bc',
+    'https://chromium.googlesource.com/chromium/src/testing@f061a606153774471332159b1b9df396d7d24e14',
   'src/third_party':
-    'https://chromium.googlesource.com/chromium/src/third_party@f5c7759c8d5476c4dfbdec62785e943ea2d5f821',
+    'https://chromium.googlesource.com/chromium/src/third_party@9f18d127071aa2b38cc2505629972fcab4513456',
 
   'src/buildtools/linux64': {
     'packages': [
@@ -145,7 +145,7 @@ deps = {
   'src/third_party/ffmpeg':
     'https://chromium.googlesource.com/chromium/third_party/ffmpeg.git@880df5ede50a8534c8116d0d50e4bc4f3ef08a06',
   'src/third_party/grpc/src': {
-    'url': 'https://chromium.googlesource.com/external/github.com/grpc/grpc.git@89f7534e43cf73f56c492a9cf7eb85ca6bfbd87a',
+    'url': 'https://chromium.googlesource.com/external/github.com/grpc/grpc.git@dd77c67217b10ffeaf766e25eb8b46d2d59de4ff',
   },
   # Used for embedded builds. CrOS & Linux use the system version.
   'src/third_party/fontconfig/src': {
@@ -266,7 +266,7 @@ deps = {
     'condition': 'checkout_android',
   },
   'src/tools':
-    'https://chromium.googlesource.com/chromium/src/tools@eda4710fa7dead03d3094a9c4447306c820a394d',
+    'https://chromium.googlesource.com/chromium/src/tools@3aa3ed174721fbe9c192a3c684de420672adcdf5',
 
   'src/third_party/accessibility_test_framework': {
       'packages': [

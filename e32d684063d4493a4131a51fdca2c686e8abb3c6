@@ -70,6 +70,24 @@
       "parentUuid": "2ec3e4d8_a5137540",
       "revId": "e32d684063d4493a4131a51fdca2c686e8abb3c6",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "270f000e_76ffbc89",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5087
+      },
+      "writtenOn": "2022-07-29T16:50:05Z",
+      "side": 1,
+      "message": "Discussed offline, we agreed to proceed with this solutions and eventually rework it when we will do LS_FATAL which requires some more work before being able to land that.",
+      "parentUuid": "640fa817_51e4bb89",
+      "revId": "e32d684063d4493a4131a51fdca2c686e8abb3c6",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

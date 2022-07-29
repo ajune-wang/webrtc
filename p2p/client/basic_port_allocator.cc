@@ -868,7 +868,7 @@ void BasicPortAllocatorSession::DoAllocate(bool disable_equivalent) {
                                    if (safety_flag->alive())
                                      OnPortAllocationComplete();
                                  });
-      sequence->Init();
+      sequence->Init(*allocator()->field_trials());
       sequence->Start();
       sequences_.push_back(sequence);
       done_signal_needed = true;
@@ -1292,10 +1292,10 @@ AllocationSequence::AllocationSequence(
       port_allocation_complete_callback_(
           std::move(port_allocation_complete_callback)) {}
 
-void AllocationSequence::Init() {
+void AllocationSequence::Init(const webrtc::FieldTrialsView& field_trials) {
   if (IsFlagSet(PORTALLOCATOR_ENABLE_SHARED_SOCKET)) {
     udp_socket_.reset(session_->socket_factory()->CreateUdpSocket(
-        rtc::SocketAddress(network_->GetBestIP(), 0),
+        rtc::SocketAddress(network_->GetCompatibleIP(field_trials), 0),
         session_->allocator()->min_port(), session_->allocator()->max_port()));
     if (udp_socket_) {
       udp_socket_->SignalReadPacket.connect(this,

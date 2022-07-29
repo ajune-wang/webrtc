@@ -442,6 +442,16 @@ class RTC_EXPORT Network {
   // IPv6 address
   IPAddress GetBestIP() const;
 
+  // Returns the Network's current idea of a 'compatible' IP it has. Without
+  // WebRTC-PreferGlobalIPv6ToLinkLocal enabled, it works the same as GetBestIP.
+  // Otherwise, if the network has no active addresses, it returns an unset IP.
+  // If the network has active addresses, here is the rule on how we mark the
+  // IPv6 address as ignorable for WebRTC. 1) return all global temporary
+  // dynamic and non-deprecated ones. 2) if #1 not available, return global
+  // ones. 3) if #2 not available, return link local ones. 4) if #3 not
+  // available, use ULA ipv6 as last resort.
+  IPAddress GetCompatibleIP(const webrtc::FieldTrialsView& field_trials) const;
+
   // Keep the original function here for now.
   // TODO(guoweis): Remove this when all callers are migrated to GetBestIP().
   IPAddress ip() const { return GetBestIP(); }

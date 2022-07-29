@@ -373,8 +373,8 @@ void TurnPort::PrepareAddress() {
     // If protocol family of server address doesn't match with local, return.
     if (!IsCompatibleAddress(server_address_.address)) {
       RTC_LOG(LS_ERROR) << "IP address family does not match. server: "
-                        << server_address_.address.family()
-                        << " local: " << Network()->GetBestIP().family();
+                        << server_address_.address.family() << " local: "
+                        << Network()->GetCompatibleIP(*field_trials_).family();
       OnAllocateError(STUN_ERROR_GLOBAL_FAILURE,
                       "IP address family does not match.");
       return;

@@ -16,6 +16,23 @@
       "message": "Hi, sprang. I am interested in using H.264 temporal scalability with dependency descriptor RTP header extension. Please take a look.",
       "revId": "271bfa5fb2ae73fbbca86c296aa33f8b4eb0a64a",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "dd8251d9_b7ae0ce4",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5524
+      },
+      "writtenOn": "2022-07-29T08:47:28Z",
+      "side": 1,
+      "message": "Dependency descriptors _and_ h264? This sounds like a philipel@ ticket! ;)",
+      "revId": "271bfa5fb2ae73fbbca86c296aa33f8b4eb0a64a",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

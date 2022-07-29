@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "7a7a3b2e_25bfd2fe",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 11
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5087
+      },
+      "writtenOn": "2022-07-29T07:07:23Z",
+      "side": 1,
+      "message": "I reported the android bots issue to https://bugs.chromium.org/p/webrtc/issues/detail?id\u003d14295.\n\nDanil, please take another look. I am not 100% happy about some parts but I need to context switch for the morning.",
+      "revId": "452bdaacd325637c4971a3e00c2850f534c31cb7",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

@@ -357,7 +357,7 @@ class AllocationSequence : public sigslot::has_slots<> {
                      PortConfiguration* config,
                      uint32_t flags,
                      std::function<void()> port_allocation_complete_callback);
-  void Init();
+  void Init(const webrtc::FieldTrialsView& field_trials);
   void Clear();
   void OnNetworkFailed();
 

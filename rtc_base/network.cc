@@ -11,6 +11,7 @@
 #include "rtc_base/network.h"
 
 #include "absl/strings/string_view.h"
+#include "rtc_base/ip_address.h"
 
 #if defined(WEBRTC_POSIX)
 #include <net/if.h>
@@ -1130,6 +1131,56 @@ IPAddress Network::GetBestIP() const {
   // No proper global IPv6 address found, use ULA instead.
   if (IPIsUnspec(selected_ip) && !IPIsUnspec(ula_ip)) {
     selected_ip = ula_ip;
+  }
+
+  return static_cast<IPAddress>(selected_ip);
+}
+
+// Select a compatible IP address to use from this Network.
+IPAddress Network::GetCompatibleIP(
+    const webrtc::FieldTrialsView& field_trials) const {
+  if (ips_.size() == 0) {
+    return IPAddress();
+  }
+
+  if (prefix_.family() == AF_INET) {
+    return static_cast<IPAddress>(ips_.at(0));
+  }
+
+  InterfaceAddress selected_ip, link_local_ip, ula_ip;
+  const bool prefer_global_ipv6_to_link_local =
+      field_trials.IsEnabled("WebRTC-PreferGlobalIPv6ToLinkLocal");
+  for (const InterfaceAddress& ip : ips_) {
+    // Ignore any address which has been deprecated already.
+    if (ip.ipv6_flags() & IPV6_ADDRESS_FLAG_DEPRECATED)
+      continue;
+
+    if (prefer_global_ipv6_to_link_local && IPIsLinkLocal(ip)) {
+      link_local_ip = ip;
+      continue;
+    }
+
+    // ULA address should only be returned when we have no other
+    // global IP.
+    if (IPIsULA(static_cast<const IPAddress&>(ip))) {
+      ula_ip = ip;
+      continue;
+    }
+    selected_ip = ip;
+
+    // Search could stop once a temporary non-deprecated one is found.
+    if (ip.ipv6_flags() & IPV6_ADDRESS_FLAG_TEMPORARY)
+      break;
+  }
+
+  if (IPIsUnspec(selected_ip)) {
+    if (prefer_global_ipv6_to_link_local && !IPIsUnspec(link_local_ip)) {
+      // No proper global IPv6 address found, use link local address instead.
+      selected_ip = link_local_ip;
+    } else if (!IPIsUnspec(ula_ip)) {
+      // No proper global and link local address found, use ULA instead.
+      selected_ip = ula_ip;
+    }
   }
 
   return static_cast<IPAddress>(selected_ip);

@@ -588,7 +588,7 @@ bool Port::GetStunMessage(const char* data,
 
 bool Port::IsCompatibleAddress(const rtc::SocketAddress& addr) {
   // Get a representative IP for the Network this port is configured to use.
-  rtc::IPAddress ip = network_->GetBestIP();
+  rtc::IPAddress ip = network_->GetCompatibleIP(*field_trials_);
   // We use single-stack sockets, so families must match.
   if (addr.family() != ip.family()) {
     return false;

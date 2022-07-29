@@ -1153,6 +1153,75 @@ TEST_F(NetworkTest, TestIPv6Selection) {
   EXPECT_EQ(ipv6_network.GetBestIP(), static_cast<IPAddress>(ip));
 }
 
+// Test that the filtering logic follows the defined ruleset in network.h.
+TEST_F(NetworkTest, TestGetCompatibeIP) {
+  webrtc::test::ScopedKeyValueConfig field_trials(
+      "WebRTC-PreferGlobalIPv6ToLinkLocal/Enabled/");
+  InterfaceAddress ip, link_local;
+  std::string ipstr;
+
+  ipstr = "2401:fa00:4:1000:be30:5bff:fee5:c3";
+  ASSERT_TRUE(IPFromString(ipstr, IPV6_ADDRESS_FLAG_DEPRECATED, &ip));
+
+  // Create a network with this prefix.
+  Network ipv6_network("test_eth0", "Test NetworkAdapter", TruncateIP(ip, 64),
+                       64);
+
+  // When there is no address added, it should return an unspecified
+  // address.
+  EXPECT_EQ(ipv6_network.GetCompatibleIP(field_trials), IPAddress());
+  EXPECT_TRUE(IPIsUnspec(ipv6_network.GetCompatibleIP(field_trials)));
+
+  // Deprecated one should not be returned.
+  ipv6_network.AddIP(ip);
+  EXPECT_EQ(ipv6_network.GetCompatibleIP(field_trials), IPAddress());
+
+  // Add ULA one. ULA is unique local address which is starting either
+  // with 0xfc or 0xfd.
+  ipstr = "fd00:fa00:4:1000:be30:5bff:fee5:c4";
+  ASSERT_TRUE(IPFromString(ipstr, IPV6_ADDRESS_FLAG_NONE, &ip));
+  ipv6_network.AddIP(ip);
+  EXPECT_EQ(ipv6_network.GetCompatibleIP(field_trials),
+            static_cast<IPAddress>(ip));
+
+  // Add link local one.
+  ipstr = "fe80::aabb:ccff:fedd:eeff";
+  ASSERT_TRUE(IPFromString(ipstr, IPV6_ADDRESS_FLAG_NONE, &link_local));
+  ipv6_network.AddIP(link_local);
+  EXPECT_EQ(ipv6_network.GetCompatibleIP(field_trials),
+            static_cast<IPAddress>(link_local));
+
+  // Add global one.
+  ipstr = "2401:fa00:4:1000:be30:5bff:fee5:c5";
+  ASSERT_TRUE(IPFromString(ipstr, IPV6_ADDRESS_FLAG_NONE, &ip));
+  ipv6_network.AddIP(ip);
+  EXPECT_EQ(ipv6_network.GetCompatibleIP(field_trials),
+            static_cast<IPAddress>(ip));
+
+  // Add another link local one, then the compatible address is still global
+  // one.
+  ipstr = "fe80::aabb:ccff:fedd:eedd";
+  ASSERT_TRUE(IPFromString(ipstr, IPV6_ADDRESS_FLAG_NONE, &link_local));
+  ipv6_network.AddIP(link_local);
+  EXPECT_EQ(ipv6_network.GetCompatibleIP(field_trials),
+            static_cast<IPAddress>(ip));
+
+  // Add global dynamic temporary one.
+  ipstr = "2401:fa00:4:1000:be30:5bff:fee5:c6";
+  ASSERT_TRUE(IPFromString(ipstr, IPV6_ADDRESS_FLAG_TEMPORARY, &ip));
+  ipv6_network.AddIP(ip);
+  EXPECT_EQ(ipv6_network.GetCompatibleIP(field_trials),
+            static_cast<IPAddress>(ip));
+
+  // Add another link local one, then the compatible address is still global
+  // dynamic one.
+  ipstr = "fe80::aabb:ccff:fedd:eedd";
+  ASSERT_TRUE(IPFromString(ipstr, IPV6_ADDRESS_FLAG_NONE, &link_local));
+  ipv6_network.AddIP(link_local);
+  EXPECT_EQ(ipv6_network.GetCompatibleIP(field_trials),
+            static_cast<IPAddress>(ip));
+}
+
 TEST_F(NetworkTest, TestNetworkMonitoring) {
   FakeNetworkMonitorFactory factory;
   PhysicalSocketServer socket_server;

@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "b3db6d19_ff7fcfba",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5524
+      },
+      "writtenOn": "2022-07-29T08:28:19Z",
+      "side": 1,
+      "message": "I\u0027m a little uncomfortable with this, as we might allow real issues and not only \"setup flakiness\" to pass.\nlgtm as a stop-gap solution though, just saying we (the team) should still look into improve these tests 😊",
+      "revId": "bb9153f52e690744c790e9ecc5e517ce95380ee7",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

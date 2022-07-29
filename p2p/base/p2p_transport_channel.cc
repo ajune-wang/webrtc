@@ -1605,6 +1605,8 @@ int P2PTransportChannel::SendPacket(const char* data,
                                     size_t len,
                                     const rtc::PacketOptions& options,
                                     int flags) {
+  TRACE_EVENT0("webrtc", "P2PTransportChannel::SendPacket");
+
   RTC_DCHECK_RUN_ON(network_thread_);
   if (flags != 0) {
     error_ = EINVAL;
@@ -1631,6 +1633,42 @@ int P2PTransportChannel::SendPacket(const char* data,
 
   bytes_sent_ += sent;
   return sent;
+}
+
+int P2PTransportChannel::SendPackets(
+    std::vector<const char*> data,
+    std::vector<size_t> len,
+    std::vector<const rtc::PacketOptions>& options,
+    int flags) {
+  TRACE_EVENT0("webrtc", "P2PTransportChannel::SendPacket");
+
+  RTC_DCHECK_RUN_ON(network_thread_);
+  if (flags != 0) {
+    error_ = EINVAL;
+    return -1;
+  }
+  // If we don't think the connection is working yet, return ENOTCONN
+  // instead of sending a packet that will probably be dropped.
+  if (!ReadyToSend(selected_connection_)) {
+    error_ = ENOTCONN;
+    return -1;
+  }
+
+  std::vector<rtc::PacketOptions> send_modified_options;
+  size_t size = data.size();
+  for (uint32_t i = 0; i < size; i++) {
+    packets_sent_++;
+    last_sent_packet_id_ = options[i].packet_id;
+    rtc::PacketOptions modified_options(options[i]);
+    modified_options.info_signaled_after_sent.packet_type =
+        rtc::PacketType::kData;
+
+    send_modified_options.push_back(modified_options);
+    bytes_sent_ += len[i];
+  }
+
+  selected_connection_->Sends(data, len, send_modified_options);
+  return 0;
 }
 
 bool P2PTransportChannel::GetStats(IceTransportStats* ice_transport_stats) {

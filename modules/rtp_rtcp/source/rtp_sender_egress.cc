@@ -20,6 +20,7 @@
 #include "logging/rtc_event_log/events/rtc_event_rtp_packet_outgoing.h"
 #include "rtc_base/logging.h"
 #include "rtc_base/task_utils/to_queued_task.h"
+#include "rtc_base/trace_event.h"
 
 namespace webrtc {
 namespace {
@@ -130,6 +131,8 @@ RtpSenderEgress::~RtpSenderEgress() {
 
 void RtpSenderEgress::SendPacket(RtpPacketToSend* packet,
                                  const PacedPacketInfo& pacing_info) {
+  TRACE_EVENT0("webrtc", "RtpSenderEgress::SendPacket");
+
   RTC_DCHECK_RUN_ON(&pacer_checker_);
   RTC_DCHECK(packet);
 
@@ -270,7 +273,9 @@ void RtpSenderEgress::SendPacket(RtpPacketToSend* packet,
                        packet_ssrc);
   }
 
-  const bool send_success = SendPacketToNetwork(*packet, options, pacing_info);
+  m_packet_to_sends.push_back(*packet);
+  m_packet_options.push_back(options);
+  m_packet_infos.push_back(pacing_info);
 
   // Put packet in retransmission history or update pending status even if
   // actual sending fails.
@@ -280,6 +285,10 @@ void RtpSenderEgress::SendPacket(RtpPacketToSend* packet,
   } else if (packet->retransmitted_sequence_number()) {
     packet_history_->MarkPacketAsSent(*packet->retransmitted_sequence_number());
   }
+
+#if 0
+  const bool send_success = SendPacketToNetwork(
+      packet_to_sends[0], packet_options[0], packet_infos[0]);
 
   if (send_success) {
     // `media_has_been_sent_` is used by RTPSender to figure out if it can send
@@ -301,6 +310,50 @@ void RtpSenderEgress::SendPacket(RtpPacketToSend* packet,
           UpdateRtpStats(now_ms, packet_ssrc, packet_type, std::move(counter),
                          size);
         }));
+  }
+#endif
+}
+
+void RtpSenderEgress::SendPackets(std::vector<RtpPacketToSend*> packets,
+                                  std::vector<PacedPacketInfo>& pacing_infos) {
+  RTC_DCHECK_RUN_ON(&pacer_checker_);
+
+  m_packet_to_sends.clear();
+  m_packet_options.clear();
+  m_packet_infos.clear();
+
+  uint32_t size = packets.size();
+  for (uint32_t i = 0; i < size; i++) {
+    SendPacket(packets[i], pacing_infos[i]);
+    // why fetch fec before actually sent?
+    FetchFecPackets();
+  }
+
+  const bool send_success =
+      SendPacketsToNetwork(m_packet_to_sends, m_packet_options, m_packet_infos);
+
+  if (send_success) {
+    // `media_has_been_sent_` is used by RTPSender to figure out if it can send
+    // padding in the absence of transport-cc or abs-send-time.
+    // In those cases media must be sent first to set a reference timestamp.
+    media_has_been_sent_ = true;
+
+#if 0
+    // TODO(sprang): Add support for FEC protecting all header extensions, add
+    // media packet to generator here instead.
+
+    RTC_DCHECK(packet->packet_type().has_value());
+    RtpPacketMediaType packet_type = *packet->packet_type();
+    RtpPacketCounter counter(*packet);
+    size_t size = packet->size();
+    worker_queue_->PostTask(
+        ToQueuedTask(task_safety_, [this, now_ms, packet_ssrc, packet_type,
+                                    counter = std::move(counter), size]() {
+          RTC_DCHECK_RUN_ON(worker_queue_);
+          UpdateRtpStats(now_ms, packet_ssrc, packet_type, std::move(counter),
+                         size);
+        }));
+#endif
   }
 }
 
@@ -446,6 +499,7 @@ void RtpSenderEgress::AddPacketToTransportFeedback(
         break;
     }
 
+    TRACE_EVENT0("webrtc", "RtpSenderEgress::AddPacketToTransportFeedback");
     transport_feedback_observer_->OnAddPacket(packet_info);
   }
 }
@@ -542,12 +596,15 @@ void RtpSenderEgress::UpdateOnSendPacket(int packet_id,
     return;
   }
 
+  TRACE_EVENT0("webrtc", "RtpSenderEgress::UpdateOnSendPacket");
   send_packet_observer_->OnSendPacket(packet_id, capture_time_ms, ssrc);
 }
 
 bool RtpSenderEgress::SendPacketToNetwork(const RtpPacketToSend& packet,
                                           const PacketOptions& options,
                                           const PacedPacketInfo& pacing_info) {
+  TRACE_EVENT0("webrtc", "RtpSenderEgress::SendPacketToNetwork");
+
   int bytes_sent = -1;
   if (transport_) {
     bytes_sent = transport_->SendRtp(packet.data(), packet.size(), options)
@@ -563,6 +620,21 @@ bool RtpSenderEgress::SendPacketToNetwork(const RtpPacketToSend& packet,
     RTC_LOG(LS_WARNING) << "Transport failed to send packet.";
     return false;
   }
+  return true;
+}
+
+bool RtpSenderEgress::SendPacketsToNetwork(
+    std::vector<RtpPacketToSend>& packets,
+    std::vector<PacketOptions>& options,
+    std::vector<PacedPacketInfo>& pacing_infos) {
+  uint32_t size = packets.size();
+  std::vector<const uint8_t*> datas;
+  std::vector<size_t> lengths;
+  for (uint32_t i = 0; i < size; i++) {
+    datas.push_back(packets[i].data());
+    lengths.push_back(packets[i].size());
+  }
+  transport_->SendRtps(datas, lengths, options);
   return true;
 }
 

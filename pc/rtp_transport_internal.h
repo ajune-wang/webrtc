@@ -75,6 +75,18 @@ class RtpTransportInternal : public sigslot::has_slots<> {
                              const rtc::PacketOptions& options,
                              int flags) = 0;
 
+  virtual bool SendRtpPackets(
+      std::vector<rtc::CopyOnWriteBuffer*> packets,
+      std::vector<const rtc::PacketOptions>& packets_options,
+      int flags) {
+    size_t size = packets.size();
+    for (uint32_t i = 0; i < size; i++) {
+      SendRtpPacket(packets[i], packets_options[i], flags);
+    }
+
+    return true;
+  }
+
   virtual bool SendRtcpPacket(rtc::CopyOnWriteBuffer* packet,
                               const rtc::PacketOptions& options,
                               int flags) = 0;

@@ -183,6 +183,66 @@ void PacketRouter::SendPacket(std::unique_ptr<RtpPacketToSend> packet,
   }
 }
 
+void PacketRouter::SendPackets(std::vector<PacedPacket>& paced_packets) {
+  TRACE_EVENT0(TRACE_DISABLED_BY_DEFAULT("webrtc"),
+               "PacketRouter::SendPackets");
+
+  MutexLock lock(&modules_mutex_);
+
+  std::unordered_map<uint32_t, std::vector<PacedPacket>> ssrc_map;
+  for (auto& packet : paced_packets) {
+    // With the new pacer code path, transport sequence numbers are only set
+    // here, on the pacer thread. Therefore we don't need
+    // atomics/synchronization.
+    if (packet.packet->HasExtension<TransportSequenceNumber>()) {
+      packet.packet->SetExtension<TransportSequenceNumber>((++transport_seq_) &
+                                                           0xFFFF);
+    }
+
+    uint32_t ssrc = packet.packet->Ssrc();
+    auto kv = ssrc_map.find(ssrc);
+    if (kv == ssrc_map.end()) {
+      ssrc_map[ssrc] = std::vector<PacedPacket>(0);
+    }
+    ssrc_map[ssrc].push_back({std::move(packet.packet), packet.cluster_info});
+  }
+
+  for (auto& it : ssrc_map) {
+    uint32_t ssrc = it.first;
+    auto kv = send_modules_map_.find(ssrc);
+    if (kv == send_modules_map_.end()) {
+      RTC_LOG(LS_WARNING)
+          << "Failed to send packet, matching RTP module not found "
+             "or transport error. SSRC = "
+          << ssrc;
+      continue;
+    }
+
+    RtpRtcpInterface* rtp_module = kv->second;
+    std::vector<RtpPacketToSend*> packets;
+    std::vector<PacedPacketInfo> pacing_infos;
+
+    for (auto& packet : it.second) {
+      packets.push_back(packet.packet.get());
+      pacing_infos.push_back(packet.cluster_info);
+    }
+    if (!rtp_module->TrySendPackets(packets, pacing_infos)) {
+      RTC_LOG(LS_WARNING) << "Failed to send packet, rejected by RTP module.";
+      continue;
+    }
+
+    if (rtp_module->SupportsRtxPayloadPadding()) {
+      // This is now the last module to send media, and has the desired
+      // properties needed for payload based padding. Cache it for later use.
+      last_send_module_ = rtp_module;
+    }
+
+    for (auto& packet : rtp_module->FetchFecPackets()) {
+      pending_fec_packets_.push_back(std::move(packet));
+    }
+  }
+}
+
 std::vector<std::unique_ptr<RtpPacketToSend>> PacketRouter::FetchFec() {
   MutexLock lock(&modules_mutex_);
   std::vector<std::unique_ptr<RtpPacketToSend>> fec_packets =

@@ -141,6 +141,17 @@ class Connection : public CandidatePairInterface {
                    size_t size,
                    const rtc::PacketOptions& options) = 0;
 
+  virtual int Sends(std::vector<const char*> data,
+                    std::vector<size_t> size,
+                    std::vector<rtc::PacketOptions>& options) {
+    size_t p_size = data.size();
+    for (uint32_t i = 0; i < p_size; i++) {
+      Send(data[i], size[i], options[i]);
+    }
+
+    return 0;
+  }
+
   // Error if Send() returns < 0
   virtual int GetError() = 0;
 
@@ -474,6 +485,11 @@ class ProxyConnection : public Connection {
   int Send(const void* data,
            size_t size,
            const rtc::PacketOptions& options) override;
+
+  int Sends(std::vector<const char*> data,
+            std::vector<size_t> size,
+            std::vector<rtc::PacketOptions>& options) override;
+
   int GetError() override;
 
  private:

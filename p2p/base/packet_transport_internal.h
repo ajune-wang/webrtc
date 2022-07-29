@@ -50,6 +50,18 @@ class RTC_EXPORT PacketTransportInternal : public sigslot::has_slots<> {
                          const rtc::PacketOptions& options,
                          int flags = 0) = 0;
 
+  virtual int SendPackets(std::vector<const char*> data,
+                          std::vector<size_t> len,
+                          std::vector<const rtc::PacketOptions>& options,
+                          int flags = 0) {
+    size_t size = data.size();
+    for (uint32_t i = 0; i < size; i++) {
+      SendPacket(data[i], len[i], options[i], flags);
+    }
+
+    return 0;
+  }
+
   // Sets a socket option. Note that not all options are
   // supported by all transport types.
   virtual int SetOption(rtc::Socket::Option opt, int value) = 0;

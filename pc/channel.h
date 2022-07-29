@@ -213,6 +213,11 @@ class BaseChannel : public ChannelInterface,
   // NetworkInterface implementation, called by MediaEngine
   bool SendPacket(rtc::CopyOnWriteBuffer* packet,
                   const rtc::PacketOptions& options) override;
+
+  bool SendPackets(
+      std::vector<rtc::CopyOnWriteBuffer*>& packets,
+      std::vector<const rtc::PacketOptions>& packets_options) override;
+
   bool SendRtcp(rtc::CopyOnWriteBuffer* packet,
                 const rtc::PacketOptions& options) override;
 

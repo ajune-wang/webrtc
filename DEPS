@@ -10,7 +10,7 @@ vars = {
   # chromium waterfalls. More info at: crbug.com/570091.
   'checkout_configuration': 'default',
   'checkout_instrumented_libraries': 'checkout_linux and checkout_configuration == "default"',
-  'chromium_revision': 'a826fa7c056b2224e3b7ff5196517b8d4ae0c8d9',
+  'chromium_revision': '6af16417dc640d32f188bd566bd1291533b8eb80',
 
   # Keep the Chromium default of generating location tags.
   'generate_location_tags': True,
@@ -41,7 +41,7 @@ deps = {
     'condition': 'checkout_ios',
   },
   'src/testing':
-    'https://chromium.googlesource.com/chromium/src/testing@07f51dcf347f8bf50bb129a725c0ccf7f098553f',
+    'https://chromium.googlesource.com/chromium/src/testing@7887a11f266b2c12505a010559ee643841c4b12b',
   'src/third_party':
     'https://chromium.googlesource.com/chromium/src/third_party@4f44bed242e76064ebd08a90597336388de6ee18',
 
@@ -132,7 +132,7 @@ deps = {
   'src/third_party/breakpad/breakpad':
     'https://chromium.googlesource.com/breakpad/breakpad.git@afc8daa2de3d9ef5da015ceb5e7436ed8adb5f47',
   'src/third_party/catapult':
-    'https://chromium.googlesource.com/catapult.git@7e701fa6365e481bb9090ecd351c8f3cca8ee944',
+    'https://chromium.googlesource.com/catapult.git@2c40c3505fc0e67e300778c41ccbc8f61cc1a59d',
   'src/third_party/ced/src': {
     'url': 'https://chromium.googlesource.com/external/github.com/google/compact_enc_det.git@ba412eaaacd3186085babcd901679a48863c7dd5',
   },

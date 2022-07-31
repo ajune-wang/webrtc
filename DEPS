@@ -10,7 +10,7 @@ vars = {
   # chromium waterfalls. More info at: crbug.com/570091.
   'checkout_configuration': 'default',
   'checkout_instrumented_libraries': 'checkout_linux and checkout_configuration == "default"',
-  'chromium_revision': 'a826fa7c056b2224e3b7ff5196517b8d4ae0c8d9',
+  'chromium_revision': '5897d216cd98db41e72dbd3733eb452b32bbeba8',
 
   # Keep the Chromium default of generating location tags.
   'generate_location_tags': True,
@@ -20,7 +20,7 @@ vars = {
 
   # By default, download the fuchsia sdk from the public sdk directory.
   'fuchsia_sdk_cipd_prefix': 'fuchsia/sdk/gn/',
-  'fuchsia_version': 'version:9.20220729.2.1',
+  'fuchsia_version': 'version:9.20220730.3.1',
 }
 
 deps = {
@@ -28,7 +28,7 @@ deps = {
   'src/base':
     'https://chromium.googlesource.com/chromium/src/base@03c16c2206099fcd42ae3200ae869fa8b695463e',
   'src/build':
-    'https://chromium.googlesource.com/chromium/src/build@0572ff1db2818e129b606b276d2a63e98ab8342c',
+    'https://chromium.googlesource.com/chromium/src/build@4bfce1a8a927de75541720ea575fe5f7abd72021',
   'src/buildtools':
     'https://chromium.googlesource.com/chromium/src/buildtools@6940fd4e92d0f675233f93b3e983cb68e5b13471',
   # Gradle 6.6.1. Used for testing Android Studio project generation for WebRTC.
@@ -41,9 +41,9 @@ deps = {
     'condition': 'checkout_ios',
   },
   'src/testing':
-    'https://chromium.googlesource.com/chromium/src/testing@07f51dcf347f8bf50bb129a725c0ccf7f098553f',
+    'https://chromium.googlesource.com/chromium/src/testing@7887a11f266b2c12505a010559ee643841c4b12b',
   'src/third_party':
-    'https://chromium.googlesource.com/chromium/src/third_party@4f44bed242e76064ebd08a90597336388de6ee18',
+    'https://chromium.googlesource.com/chromium/src/third_party@ad99bafedd8972743ec355a99ad901f12582ad43',
 
   'src/buildtools/linux64': {
     'packages': [
@@ -132,7 +132,7 @@ deps = {
   'src/third_party/breakpad/breakpad':
     'https://chromium.googlesource.com/breakpad/breakpad.git@afc8daa2de3d9ef5da015ceb5e7436ed8adb5f47',
   'src/third_party/catapult':
-    'https://chromium.googlesource.com/catapult.git@7e701fa6365e481bb9090ecd351c8f3cca8ee944',
+    'https://chromium.googlesource.com/catapult.git@2c40c3505fc0e67e300778c41ccbc8f61cc1a59d',
   'src/third_party/ced/src': {
     'url': 'https://chromium.googlesource.com/external/github.com/google/compact_enc_det.git@ba412eaaacd3186085babcd901679a48863c7dd5',
   },

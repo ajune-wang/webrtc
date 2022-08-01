@@ -268,8 +268,6 @@ class VideoReceiveStream2
 
   absl::optional<Timestamp> last_keyframe_request_
       RTC_GUARDED_BY(decode_queue_);
-  absl::optional<Timestamp> last_complete_frame_time_
-      RTC_GUARDED_BY(worker_sequence_checker_);
 
   // Keyframe request intervals are configurable through field trials.
   const TimeDelta max_wait_for_keyframe_;

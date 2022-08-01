@@ -596,8 +596,13 @@ bool Port::IsCompatibleAddress(const rtc::SocketAddress& addr) {
   // Link-local IPv6 ports can only connect to other link-local IPv6 ports.
   if (ip.family() == AF_INET6 &&
       (IPIsLinkLocal(ip) != IPIsLinkLocal(addr.ipaddr()))) {
+    RTC_LOG(LS_INFO) << " IsCompatibleAddress: bad" << addr.ToSensitiveString()
+                     << " vs " << ip.ToSensitiveString();
     return false;
   }
+
+  RTC_LOG(LS_INFO) << " IsCompatibleAddress: good " << addr.ToSensitiveString()
+                   << " vs " << ip.ToSensitiveString();
   return true;
 }
 

@@ -18,6 +18,24 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "d4e91921_e4bb1f39",
+        "filename": "rtc_base/network.h",
+        "patchSetId": 7
+      },
+      "lineNbr": 457,
+      "author": {
+        "id": 19004
+      },
+      "writtenOn": "2022-08-01T19:22:24Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "36d77a11_33157e61",
+      "revId": "ccc495a6a2839a94cfc86797155aa29ad01c3bb6",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "3c9c5559_59c6361d",
@@ -31,6 +49,30 @@
       "writtenOn": "2022-08-01T18:52:40Z",
       "side": 1,
       "message": "Do you know if this is something we are still trying to achieve? Or can/should we remove this?",
+      "range": {
+        "startLine": 459,
+        "startChar": 2,
+        "endLine": 459,
+        "endChar": 77
+      },
+      "revId": "ccc495a6a2839a94cfc86797155aa29ad01c3bb6",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "e97bb0ad_38f51ff6",
+        "filename": "rtc_base/network.h",
+        "patchSetId": 7
+      },
+      "lineNbr": 459,
+      "author": {
+        "id": 19004
+      },
+      "writtenOn": "2022-08-01T19:22:24Z",
+      "side": 1,
+      "message": "There is still one usage of ip() in webrtc/p2p/base/basic_ice_controller.cc;rcl\u003d452744888;l\u003d799. Should I replace that usage by GetBestIP(), then remove ip(), or just leave it there?",
+      "parentUuid": "3c9c5559_59c6361d",
       "range": {
         "startLine": 459,
         "startChar": 2,

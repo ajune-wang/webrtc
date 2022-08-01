@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "7e9db8d4_d86df0bc",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 4
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5119
+      },
+      "writtenOn": "2022-08-01T11:23:15Z",
+      "side": 1,
+      "message": "Hi, PTAL! Spin-off from https://webrtc-review.googlesource.com/c/src/+/268769",
+      "revId": "0a423dc6319b02801d1ad80994f9217aa7fe171b",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

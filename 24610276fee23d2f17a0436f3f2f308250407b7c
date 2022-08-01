@@ -18,6 +18,24 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "723de3a9_30e94b4b",
+        "filename": "p2p/base/port_unittest.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 522,
+      "author": {
+        "id": 19004
+      },
+      "writtenOn": "2022-08-01T15:29:49Z",
+      "side": 1,
+      "message": "Done. Because of the for loop in GetBestIP, the implementation tends to pick the last ip in ip_. But I agree that we should add the link local before and after, to make sure that all cases are covered.",
+      "parentUuid": "80d03647_bfa7c1d0",
+      "revId": "24610276fee23d2f17a0436f3f2f308250407b7c",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "f512223d_0e200fdd",
@@ -35,6 +53,24 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "3162a1ce_c1137dfd",
+        "filename": "rtc_base/network.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 1141,
+      "author": {
+        "id": 19004
+      },
+      "writtenOn": "2022-08-01T15:29:49Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "f512223d_0e200fdd",
+      "revId": "24610276fee23d2f17a0436f3f2f308250407b7c",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "970cf89c_503277f3",
@@ -48,6 +84,24 @@
       "writtenOn": "2022-07-29T21:07:22Z",
       "side": 1,
       "message": "As long as this is gated behind a field trial, it seems like we could just change the behavior of GetBestIP, then we don\u0027t need to worry about calling the wrong method somewhere.",
+      "revId": "24610276fee23d2f17a0436f3f2f308250407b7c",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "315b2d0f_2c29ac3c",
+        "filename": "rtc_base/network.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 446,
+      "author": {
+        "id": 19004
+      },
+      "writtenOn": "2022-08-01T15:29:49Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "970cf89c_503277f3",
       "revId": "24610276fee23d2f17a0436f3f2f308250407b7c",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }

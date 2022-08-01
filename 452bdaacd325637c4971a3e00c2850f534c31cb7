@@ -18,6 +18,24 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "d0f24352_77eb5494",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 11
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2022-08-01T09:55:29Z",
+      "side": 1,
+      "message": "Overall this looks good to me.\nWhat parts are you not happy about. I might have ideas how to improve them.\n\ne.g. LogLineRef could be a member of the LogMessage and most fields could be set directly into it instead of having a copy in the LogMessage. Only `message_` would need to be assembled in the ~LogMessage.\nLogLineRef setters could be private and LogMessage can be friend of the LogLineRef to use them.",
+      "parentUuid": "7a7a3b2e_25bfd2fe",
+      "revId": "452bdaacd325637c4971a3e00c2850f534c31cb7",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "8e8926f0_dd26eedf",
@@ -37,6 +55,29 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "348d8ebe_301d467c",
+        "filename": "rtc_base/logging.cc",
+        "patchSetId": 11
+      },
+      "lineNbr": 210,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2022-08-01T09:55:29Z",
+      "side": 1,
+      "message": "not sure you can convert \"const std::string\u0026\" to \"std::string\u0026\u0026\"\nso if you want to move the `str`, remove `const` at line#207\n\nor remove `str` name altogether:\n`LogLineRef log_ref(print_stream_.Release(), filename_, ..., tag_);`\nthat would be simpler if tag_ is always present, not just for android.",
+      "range": {
+        "startLine": 210,
+        "startChar": 21,
+        "endLine": 210,
+        "endChar": 35
+      },
+      "revId": "452bdaacd325637c4971a3e00c2850f534c31cb7",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "db1ebed3_7cab18cf",
         "filename": "rtc_base/logging.h",
         "patchSetId": 11
@@ -48,6 +89,75 @@
       "writtenOn": "2022-08-01T08:19:38Z",
       "side": 1,
       "message": "can you add a bit of documentation?",
+      "revId": "452bdaacd325637c4971a3e00c2850f534c31cb7",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "4ee22715_43837ca4",
+        "filename": "rtc_base/logging.h",
+        "patchSetId": 11
+      },
+      "lineNbr": 151,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2022-08-01T09:55:29Z",
+      "side": 1,
+      "message": "This fields have reasonable default values to indicate unset:\nfilename_ \u003d \"\"; // or default constructed  absl::string_view\nline_ \u003d 0;\ntimestamp_ \u003d Timestamp::MinusInfinity();\nthread_id_ - unsure.\n\nMay be it would be simpler/faster not to wrap them into absl::optional\nbut may be saving not worth it. I\u0027m unsure.",
+      "range": {
+        "startLine": 148,
+        "startChar": 0,
+        "endLine": 151,
+        "endChar": 47
+      },
+      "revId": "452bdaacd325637c4971a3e00c2850f534c31cb7",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "aa806d60_022c512b",
+        "filename": "rtc_base/logging.h",
+        "patchSetId": 11
+      },
+      "lineNbr": 154,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2022-08-01T09:55:29Z",
+      "side": 1,
+      "message": "may it would be simpler to always have tag_ field (even only set and used by android builds):\nstring_view has trivial destructor, cheap constructor, so overhead of having it probably small enough not to worry",
+      "range": {
+        "startLine": 152,
+        "startChar": 0,
+        "endLine": 154,
+        "endChar": 6
+      },
+      "revId": "452bdaacd325637c4971a3e00c2850f534c31cb7",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "1da960c1_3f04d7f4",
+        "filename": "rtc_base/logging.h",
+        "patchSetId": 11
+      },
+      "lineNbr": 175,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2022-08-01T09:55:29Z",
+      "side": 1,
+      "message": "severity can be member of the LogLineRef too.",
+      "range": {
+        "startLine": 175,
+        "startChar": 52,
+        "endLine": 175,
+        "endChar": 76
+      },
       "revId": "452bdaacd325637c4971a3e00c2850f534c31cb7",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }

@@ -75,6 +75,30 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "b609a53a_de3ed08b",
+        "filename": "common_audio/resampler/push_resampler.cc",
+        "patchSetId": 7
+      },
+      "lineNbr": 47,
+      "author": {
+        "id": 5119
+      },
+      "writtenOn": "2022-08-01T09:28:11Z",
+      "side": 1,
+      "message": "Sounds good. It looks like the issue might be resolved but there is no decisive explanation in the bug. I\u0027ll remove the #if condition in a separate CL in case the issue is still there and it gets reverted.\n\nhttps://webrtc-review.googlesource.com/c/src/+/269761",
+      "parentUuid": "8777e26e_0356bffb",
+      "range": {
+        "startLine": 47,
+        "startChar": 1,
+        "endLine": 47,
+        "endChar": 3
+      },
+      "revId": "eab3e9404b39e6a468dc44b989ae7d1a479c9145",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "97e31455_2727f150",
@@ -145,6 +169,30 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "ada6f9b3_f14c02e6",
+        "filename": "modules/audio_processing/audio_processing_unittest.cc",
+        "patchSetId": 7
+      },
+      "lineNbr": 73,
+      "author": {
+        "id": 5119
+      },
+      "writtenOn": "2022-08-01T09:28:11Z",
+      "side": 1,
+      "message": "I chose the most common sample rates (looked at WebRTC.AudioInputSampleRate) plus the sample rates which triggered the work in this CL (22050, 11025).\n\nThinking more on it, some of these global arrays are not helpful any more. They are used inconsistently, by only a few tests, and those tests differ in what rates make sense to test. I replaced / moved the arrays to the tests themselves and updated the sample rate ranges.\n\n\nI\u0027ve added coverage for all rates seen in Chrome, split across two tests: AudioProcessingTest.Formats and ApmConfiguration.HandlingOfRateConfigurations.",
+      "parentUuid": "3f5f1b5f_864dfee1",
+      "range": {
+        "startLine": 73,
+        "startChar": 10,
+        "endLine": 73,
+        "endChar": 22
+      },
+      "revId": "eab3e9404b39e6a468dc44b989ae7d1a479c9145",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "b0aba072_3bed58af",
@@ -168,6 +216,30 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "19e7c830_ab973378",
+        "filename": "modules/audio_processing/include/audio_processing.h",
+        "patchSetId": 7
+      },
+      "lineNbr": 95,
+      "author": {
+        "id": 5119
+      },
+      "writtenOn": "2022-08-01T09:28:11Z",
+      "side": 1,
+      "message": "Done (should have been ~10 here as well)",
+      "parentUuid": "b0aba072_3bed58af",
+      "range": {
+        "startLine": 95,
+        "startChar": 55,
+        "endLine": 95,
+        "endChar": 58
+      },
+      "revId": "eab3e9404b39e6a468dc44b989ae7d1a479c9145",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "4b89b049_72cf1008",
@@ -181,6 +253,30 @@
       "writtenOn": "2022-07-27T08:33:29Z",
       "side": 1,
       "message": "Perhaps add some examples, 44100, 22050 to illustrate what the result is after truncation.",
+      "range": {
+        "startLine": 707,
+        "startChar": 3,
+        "endLine": 707,
+        "endChar": 5
+      },
+      "revId": "eab3e9404b39e6a468dc44b989ae7d1a479c9145",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "93ce52f7_85170866",
+        "filename": "modules/audio_processing/include/audio_processing.h",
+        "patchSetId": 7
+      },
+      "lineNbr": 707,
+      "author": {
+        "id": 5119
+      },
+      "writtenOn": "2022-08-01T09:28:11Z",
+      "side": 1,
+      "message": "Good idea! done",
+      "parentUuid": "4b89b049_72cf1008",
       "range": {
         "startLine": 707,
         "startChar": 3,

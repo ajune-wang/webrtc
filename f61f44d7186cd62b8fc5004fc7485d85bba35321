@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "b8a45bf0_a576ed65",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 11
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5119
+      },
+      "writtenOn": "2022-08-01T09:28:11Z",
+      "side": 1,
+      "message": "Thank you for the review! I\u0027ve update the CL following your comments.\n\nThere are some infra failures blocking presubmits, but the tests pass locally.",
+      "revId": "f61f44d7186cd62b8fc5004fc7485d85bba35321",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

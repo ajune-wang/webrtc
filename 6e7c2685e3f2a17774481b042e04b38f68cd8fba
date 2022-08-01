@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "b1084c3b_30f7265d",
+        "filename": "modules/audio_processing/audio_processing_unittest.cc",
+        "patchSetId": 9
+      },
+      "lineNbr": 2055,
+      "author": {
+        "id": 5119
+      },
+      "writtenOn": "2022-08-01T09:28:11Z",
+      "side": 0,
+      "message": "8000 Hz is no longer an internal processing rate. https://bugs.webrtc.org/10863",
+      "range": {
+        "startLine": 2054,
+        "startChar": 0,
+        "endLine": 2055,
+        "endChar": 24
+      },
+      "revId": "6e7c2685e3f2a17774481b042e04b38f68cd8fba",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

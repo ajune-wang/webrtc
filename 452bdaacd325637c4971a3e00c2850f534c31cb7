@@ -16,6 +16,40 @@
       "message": "I reported the android bots issue to https://bugs.chromium.org/p/webrtc/issues/detail?id\u003d14295.\n\nDanil, please take another look. I am not 100% happy about some parts but I need to context switch for the morning.",
       "revId": "452bdaacd325637c4971a3e00c2850f534c31cb7",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "8e8926f0_dd26eedf",
+        "filename": "rtc_base/logging.cc",
+        "patchSetId": 11
+      },
+      "lineNbr": 128,
+      "author": {
+        "id": 5508
+      },
+      "writtenOn": "2022-08-01T08:19:38Z",
+      "side": 1,
+      "message": "nit: default initialize? (would go nicely with the comment)\nalso, split to two lines.",
+      "revId": "452bdaacd325637c4971a3e00c2850f534c31cb7",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "db1ebed3_7cab18cf",
+        "filename": "rtc_base/logging.h",
+        "patchSetId": 11
+      },
+      "lineNbr": 108,
+      "author": {
+        "id": 5508
+      },
+      "writtenOn": "2022-08-01T08:19:38Z",
+      "side": 1,
+      "message": "can you add a bit of documentation?",
+      "revId": "452bdaacd325637c4971a3e00c2850f534c31cb7",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

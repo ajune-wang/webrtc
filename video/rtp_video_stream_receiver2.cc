@@ -954,7 +954,8 @@ void RtpVideoStreamReceiver2::ManageFrame(
 
 void RtpVideoStreamReceiver2::ReceivePacket(const RtpPacketReceived& packet) {
   RTC_DCHECK_RUN_ON(&packet_sequence_checker_);
-  RTC_DCHECK_RUN_ON(&worker_task_checker_);
+  // TODO(tommi): We get here via Call::DeliverRtp (and other calls), so should
+  // be moved to the network thread.
   if (packet.payload_size() == 0) {
     // Padding or keep-alive packet.
     // TODO(nisse): Could drop empty packets earlier, but need to figure out how

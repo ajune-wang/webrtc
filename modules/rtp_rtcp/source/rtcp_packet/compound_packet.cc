@@ -10,40 +10,39 @@
 
 #include "modules/rtp_rtcp/source/rtcp_packet/compound_packet.h"
 
+#include <cstddef>
+#include <cstdint>
 #include <memory>
 #include <utility>
 
+#include "api/array_view.h"
+#include "rtc_base/buffer.h"
 #include "rtc_base/checks.h"
 
 namespace webrtc {
 namespace rtcp {
 
-CompoundPacket::CompoundPacket() = default;
-
-CompoundPacket::~CompoundPacket() = default;
-
 void CompoundPacket::Append(std::unique_ptr<RtcpPacket> packet) {
   RTC_CHECK(packet);
-  appended_packets_.push_back(std::move(packet));
+  packets_.push_back(std::move(packet));
 }
 
-bool CompoundPacket::Create(uint8_t* packet,
-                            size_t* index,
-                            size_t max_length,
-                            PacketReadyCallback callback) const {
-  for (const auto& appended : appended_packets_) {
-    if (!appended->Create(packet, index, max_length, callback))
-      return false;
+rtc::Buffer CompoundPacket::Build() const {
+  size_t size = 0;
+  for (const std::unique_ptr<RtcpPacket>& rtcp_packet : packets_) {
+    size += rtcp_packet->BlockLength();
   }
-  return true;
-}
-
-size_t CompoundPacket::BlockLength() const {
-  size_t block_length = 0;
-  for (const auto& appended : appended_packets_) {
-    block_length += appended->BlockLength();
+  rtc::Buffer buffer(size);
+  size_t index = 0;
+  uint8_t* data = buffer.data();
+  for (const std::unique_ptr<RtcpPacket>& rtcp_packet : packets_) {
+    RTC_CHECK(rtcp_packet->Create(
+        data, &index, size, [](rtc::ArrayView<const uint8_t>) {
+          RTC_CHECK(false) << "Unexpected fragmentation";
+        }));
   }
-  return block_length;
+  RTC_CHECK_EQ(index, size);
+  return buffer;
 }
 
 }  // namespace rtcp

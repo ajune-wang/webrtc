@@ -49,6 +49,30 @@
     {
       "unresolved": false,
       "key": {
+        "uuid": "9414b35b_44eac3fb",
+        "filename": "call/video_receive_stream.h",
+        "patchSetId": 10
+      },
+      "lineNbr": 292,
+      "author": {
+        "id": 5508
+      },
+      "writtenOn": "2022-08-02T09:51:32Z",
+      "side": 1,
+      "message": "it\u0027s still technically a thread that\u0027s provided to webrtc via the PeerConnectionDependency mechanism, butwe\u0027ve moved over to using the TQ interface at least. So I guess it\u0027s still borderline until we migrate the PC dependencies over to using the TQ interface.\nAdded this clarification to this comment:\n```\n  // TODO(bugs.webrtc.org/11993): Packet delivery thread today means `worker\n  // thread` but will be `network thread`.\n```",
+      "parentUuid": "9dbcbfcc_a4a94a9b",
+      "range": {
+        "startLine": 292,
+        "startChar": 25,
+        "endLine": 292,
+        "endChar": 31
+      },
+      "revId": "4e731fbe52fab07a5c230261be23030d7017d4f2",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
         "uuid": "a834b19c_38df9715",
         "filename": "media/engine/fake_webrtc_call.h",
         "patchSetId": 10
@@ -60,6 +84,30 @@
       "writtenOn": "2022-08-02T08:44:17Z",
       "side": 1,
       "message": "may be `\u003d (sink !\u003d nullptr);`\nis a bit easier to read.\n\nif you like to keep it short, then `\u003d !!sink` is not an uncommon way to explicitly convert something to boolean",
+      "range": {
+        "startLine": 289,
+        "startChar": 39,
+        "endLine": 289,
+        "endChar": 58
+      },
+      "revId": "4e731fbe52fab07a5c230261be23030d7017d4f2",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "c78a54bb_5b904388",
+        "filename": "media/engine/fake_webrtc_call.h",
+        "patchSetId": 10
+      },
+      "lineNbr": 289,
+      "author": {
+        "id": 5508
+      },
+      "writtenOn": "2022-08-02T09:51:32Z",
+      "side": 1,
+      "message": "Done. Went for `sink !\u003d nullptr` since in some past conversations there\u0027s been some hesitancy around the readability of \"not not\" expressions (and whether a reader might mistakenly think that a single \"not\" was the intention and fix it).",
+      "parentUuid": "a834b19c_38df9715",
       "range": {
         "startLine": 289,
         "startChar": 39,
@@ -95,6 +143,30 @@
     {
       "unresolved": false,
       "key": {
+        "uuid": "737db9a5_f704ba98",
+        "filename": "media/engine/webrtc_video_engine_unittest.cc",
+        "patchSetId": 10
+      },
+      "lineNbr": 4238,
+      "author": {
+        "id": 5508
+      },
+      "writtenOn": "2022-08-02T09:51:32Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "ece5d5b8_61c8d1d3",
+      "range": {
+        "startLine": 4238,
+        "startChar": 7,
+        "endLine": 4238,
+        "endChar": 50
+      },
+      "revId": "4e731fbe52fab07a5c230261be23030d7017d4f2",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
         "uuid": "5c6ca770_8d146eac",
         "filename": "video/rtp_video_stream_receiver2.h",
         "patchSetId": 10
@@ -106,6 +178,30 @@
       "writtenOn": "2022-08-02T08:44:17Z",
       "side": 1,
       "message": "is this the same thread `OnRtpPacket` should be called?",
+      "range": {
+        "startLine": 191,
+        "startChar": 60,
+        "endLine": 191,
+        "endChar": 75
+      },
+      "revId": "4e731fbe52fab07a5c230261be23030d7017d4f2",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "2d270cde_4c382617",
+        "filename": "video/rtp_video_stream_receiver2.h",
+        "patchSetId": 10
+      },
+      "lineNbr": 191,
+      "author": {
+        "id": 5508
+      },
+      "writtenOn": "2022-08-02T09:51:32Z",
+      "side": 1,
+      "message": "Yes - added clarification.",
+      "parentUuid": "5c6ca770_8d146eac",
       "range": {
         "startLine": 191,
         "startChar": 60,
@@ -141,6 +237,30 @@
     {
       "unresolved": false,
       "key": {
+        "uuid": "3f6367a5_5741c47c",
+        "filename": "video/rtp_video_stream_receiver2.h",
+        "patchSetId": 10
+      },
+      "lineNbr": 192,
+      "author": {
+        "id": 5508
+      },
+      "writtenOn": "2022-08-02T09:51:32Z",
+      "side": 1,
+      "message": "Same as for the other comment and added this here too:\n```\n  // TODO(bugs.webrtc.org/11993): Packet delivery thread today means `worker\n  // thread` but will be `network thread`.\n```",
+      "parentUuid": "b36138fa_d13c2de7",
+      "range": {
+        "startLine": 192,
+        "startChar": 5,
+        "endLine": 192,
+        "endChar": 11
+      },
+      "revId": "4e731fbe52fab07a5c230261be23030d7017d4f2",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
         "uuid": "8d5741ff_e4bd69b7",
         "filename": "video/video_receive_stream2.cc",
         "patchSetId": 10
@@ -152,6 +272,30 @@
       "writtenOn": "2022-08-02T08:44:17Z",
       "side": 1,
       "message": "ditto, may be\n`(flexfec_sink !\u003d nullptr)` or `!!flexfec_sink`",
+      "range": {
+        "startLine": 517,
+        "startChar": 6,
+        "endLine": 517,
+        "endChar": 33
+      },
+      "revId": "4e731fbe52fab07a5c230261be23030d7017d4f2",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "0a3831cd_5247ff26",
+        "filename": "video/video_receive_stream2.cc",
+        "patchSetId": 10
+      },
+      "lineNbr": 517,
+      "author": {
+        "id": 5508
+      },
+      "writtenOn": "2022-08-02T09:51:32Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "8d5741ff_e4bd69b7",
       "range": {
         "startLine": 517,
         "startChar": 6,

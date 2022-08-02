@@ -117,6 +117,30 @@
       },
       "revId": "cbe64b5e494b785a50cbdc90811fcd1def625432",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "98c8a2b5_af77afd3",
+        "filename": "rtc_base/logging_unittest.cc",
+        "patchSetId": 8
+      },
+      "lineNbr": 230,
+      "author": {
+        "id": 5087
+      },
+      "writtenOn": "2022-08-02T20:39:47Z",
+      "side": 0,
+      "message": "Hmm... This is a good point...\n\nIt looks like this function is not really testing Windows paths (things should still work fine https://source.chromium.org/chromium/chromium/src/+/main:third_party/webrtc/rtc_base/logging.cc;l\u003d68-76;drc\u003d98bfd991517c30ae883b12a131c684aec8a3b178, but I will send another CL to add the test).",
+      "parentUuid": "cc97116c_dc3ca75a",
+      "range": {
+        "startLine": 218,
+        "startChar": 0,
+        "endLine": 230,
+        "endChar": 1
+      },
+      "revId": "cbe64b5e494b785a50cbdc90811fcd1def625432",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

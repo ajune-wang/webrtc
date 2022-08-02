@@ -1,0 +1,165 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "da517d30_5bbce792",
+        "filename": "call/video_receive_stream.h",
+        "patchSetId": 10
+      },
+      "lineNbr": 292,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2022-08-02T08:44:17Z",
+      "side": 1,
+      "message": "this is the only mention of the \u0027packet delivery\u0027 thread in this file.\nWhat should it match to?",
+      "range": {
+        "startLine": 292,
+        "startChar": 9,
+        "endLine": 292,
+        "endChar": 24
+      },
+      "revId": "4e731fbe52fab07a5c230261be23030d7017d4f2",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "9dbcbfcc_a4a94a9b",
+        "filename": "call/video_receive_stream.h",
+        "patchSetId": 10
+      },
+      "lineNbr": 292,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2022-08-02T08:44:17Z",
+      "side": 1,
+      "message": "task queue?",
+      "range": {
+        "startLine": 292,
+        "startChar": 25,
+        "endLine": 292,
+        "endChar": 31
+      },
+      "revId": "4e731fbe52fab07a5c230261be23030d7017d4f2",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "a834b19c_38df9715",
+        "filename": "media/engine/fake_webrtc_call.h",
+        "patchSetId": 10
+      },
+      "lineNbr": 289,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2022-08-02T08:44:17Z",
+      "side": 1,
+      "message": "may be `\u003d (sink !\u003d nullptr);`\nis a bit easier to read.\n\nif you like to keep it short, then `\u003d !!sink` is not an uncommon way to explicitly convert something to boolean",
+      "range": {
+        "startLine": 289,
+        "startChar": 39,
+        "endLine": 289,
+        "endChar": 58
+      },
+      "revId": "4e731fbe52fab07a5c230261be23030d7017d4f2",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "ece5d5b8_61c8d1d3",
+        "filename": "media/engine/webrtc_video_engine_unittest.cc",
+        "patchSetId": 10
+      },
+      "lineNbr": 4238,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2022-08-02T08:44:17Z",
+      "side": 1,
+      "message": "rename the test now that it is no longer true",
+      "range": {
+        "startLine": 4238,
+        "startChar": 7,
+        "endLine": 4238,
+        "endChar": 50
+      },
+      "revId": "4e731fbe52fab07a5c230261be23030d7017d4f2",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "5c6ca770_8d146eac",
+        "filename": "video/rtp_video_stream_receiver2.h",
+        "patchSetId": 10
+      },
+      "lineNbr": 191,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2022-08-02T08:44:17Z",
+      "side": 1,
+      "message": "is this the same thread `OnRtpPacket` should be called?",
+      "range": {
+        "startLine": 191,
+        "startChar": 60,
+        "endLine": 191,
+        "endChar": 75
+      },
+      "revId": "4e731fbe52fab07a5c230261be23030d7017d4f2",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "b36138fa_d13c2de7",
+        "filename": "video/rtp_video_stream_receiver2.h",
+        "patchSetId": 10
+      },
+      "lineNbr": 192,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2022-08-02T08:44:17Z",
+      "side": 1,
+      "message": "task queue?",
+      "range": {
+        "startLine": 192,
+        "startChar": 5,
+        "endLine": 192,
+        "endChar": 11
+      },
+      "revId": "4e731fbe52fab07a5c230261be23030d7017d4f2",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "8d5741ff_e4bd69b7",
+        "filename": "video/video_receive_stream2.cc",
+        "patchSetId": 10
+      },
+      "lineNbr": 517,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2022-08-02T08:44:17Z",
+      "side": 1,
+      "message": "ditto, may be\n`(flexfec_sink !\u003d nullptr)` or `!!flexfec_sink`",
+      "range": {
+        "startLine": 517,
+        "startChar": 6,
+        "endLine": 517,
+        "endChar": 33
+      },
+      "revId": "4e731fbe52fab07a5c230261be23030d7017d4f2",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

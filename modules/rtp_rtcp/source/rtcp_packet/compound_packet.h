@@ -16,29 +16,22 @@
 #include <vector>
 
 #include "modules/rtp_rtcp/source/rtcp_packet.h"
+#include "rtc_base/buffer.h"
 
 namespace webrtc {
 namespace rtcp {
 
-class CompoundPacket : public RtcpPacket {
+class CompoundPacket {
  public:
-  CompoundPacket();
-  ~CompoundPacket() override;
-
+  CompoundPacket() = default;
   CompoundPacket(const CompoundPacket&) = delete;
   CompoundPacket& operator=(const CompoundPacket&) = delete;
+  ~CompoundPacket() = default;
 
   void Append(std::unique_ptr<RtcpPacket> packet);
+  rtc::Buffer Build();
 
-  // Size of this packet in bytes (i.e. total size of nested packets).
-  size_t BlockLength() const override;
-  // Returns true if all calls to Create succeeded.
-  bool Create(uint8_t* packet,
-              size_t* index,
-              size_t max_length,
-              PacketReadyCallback callback) const override;
-
- protected:
+ private:
   std::vector<std::unique_ptr<RtcpPacket>> appended_packets_;
 };
 

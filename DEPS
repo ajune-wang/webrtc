@@ -10,7 +10,7 @@ vars = {
   # chromium waterfalls. More info at: crbug.com/570091.
   'checkout_configuration': 'default',
   'checkout_instrumented_libraries': 'checkout_linux and checkout_configuration == "default"',
-  'chromium_revision': '37771fc5bcddbd7a7a11267da008b523f85908de',
+  'chromium_revision': '39157827ad735e6768a1f18b3db643bd31d6f8dc',
 
   # Keep the Chromium default of generating location tags.
   'generate_location_tags': True,
@@ -20,13 +20,13 @@ vars = {
 
   # By default, download the fuchsia sdk from the public sdk directory.
   'fuchsia_sdk_cipd_prefix': 'fuchsia/sdk/gn/',
-  'fuchsia_version': 'version:9.20220801.1.1',
+  'fuchsia_version': 'version:9.20220801.2.1',
 }
 
 deps = {
   # TODO(kjellander): Move this to be Android-only.
   'src/base':
-    'https://chromium.googlesource.com/chromium/src/base@e2855e8b9ddb6523e934d137ab336f4559ba9e60',
+    'https://chromium.googlesource.com/chromium/src/base@feb65a503af685e9298d714107f712c1683c31e0',
   'src/build':
     'https://chromium.googlesource.com/chromium/src/build@b1d3dcea6a61ae9c6469673e1033ea07d1193b96',
   'src/buildtools':
@@ -37,13 +37,13 @@ deps = {
     'condition': 'checkout_android',
   },
   'src/ios': {
-    'url': 'https://chromium.googlesource.com/chromium/src/ios@8b01b97a4495ced162376d29377ef3298b0fa335',
+    'url': 'https://chromium.googlesource.com/chromium/src/ios@3ee26fb6acdd16f4483919a0aa5a1277785d3da8',
     'condition': 'checkout_ios',
   },
   'src/testing':
     'https://chromium.googlesource.com/chromium/src/testing@0260b894e7a39f5a9c6f76a382e11ebb7cbaf433',
   'src/third_party':
-    'https://chromium.googlesource.com/chromium/src/third_party@fd5911272d7f324548f3a2dfe2b86531cfeadc33',
+    'https://chromium.googlesource.com/chromium/src/third_party@a9d681f554caba849767fd7ac2a21f2d55562c36',
 
   'src/buildtools/linux64': {
     'packages': [
@@ -266,7 +266,7 @@ deps = {
     'condition': 'checkout_android',
   },
   'src/tools':
-    'https://chromium.googlesource.com/chromium/src/tools@a75f817bb1fa16074a06e10b98b4d0b320601d8a',
+    'https://chromium.googlesource.com/chromium/src/tools@7762d68ebb09b69dbcc585733f4921c59c4aa89c',
 
   'src/third_party/accessibility_test_framework': {
       'packages': [

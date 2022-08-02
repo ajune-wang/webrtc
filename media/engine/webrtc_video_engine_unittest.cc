@@ -4215,13 +4215,13 @@ TEST_F(WebRtcVideoChannelFlexfecRecvTest,
   recv_parameters.codecs.push_back(GetEngineCodec("flexfec-03"));
   ASSERT_TRUE(channel_->SetRecvParameters(recv_parameters));
 
-  // Now the count of created streams will be 3 since the video stream was
-  // recreated and a flexfec stream was created.
-  EXPECT_EQ(3, fake_call_->GetNumCreatedReceiveStreams())
-      << "Enabling FlexFEC should create FlexfecReceiveStream.";
-
+  // The count of created streams will remain 2 despite the creation of a new
+  // flexfec stream. The existing receive stream will have been reconfigured
+  // to use the new flexfec instance.
+  EXPECT_EQ(2, fake_call_->GetNumCreatedReceiveStreams())
+      << "Enabling FlexFEC should not create VideoReceiveStreamInterface (1).";
   EXPECT_EQ(1U, fake_call_->GetVideoReceiveStreams().size())
-      << "Enabling FlexFEC should not create VideoReceiveStreamInterface.";
+      << "Enabling FlexFEC should not create VideoReceiveStreamInterface (2).";
   EXPECT_EQ(1U, fake_call_->GetFlexfecReceiveStreams().size())
       << "Enabling FlexFEC should create a single FlexfecReceiveStream.";
   video_stream = video_streams.front();

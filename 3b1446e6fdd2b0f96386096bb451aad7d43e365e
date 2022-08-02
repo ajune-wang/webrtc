@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "c311bede_227ade2c",
+        "filename": "pc/rtc_stats_collector.cc",
+        "patchSetId": 7
+      },
+      "lineNbr": 564,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2022-08-02T11:56:03Z",
+      "side": 1,
+      "message": "Static casts begone - hooray!",
+      "revId": "3b1446e6fdd2b0f96386096bb451aad7d43e365e",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

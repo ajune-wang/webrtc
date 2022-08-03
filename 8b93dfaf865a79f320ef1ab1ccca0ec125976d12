@@ -1,0 +1,136 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "cb15f862_0fd23b37",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 14
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2022-08-03T11:14:01Z",
+      "side": 1,
+      "message": "few optional nits",
+      "revId": "8b93dfaf865a79f320ef1ab1ccca0ec125976d12",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "00c0635f_92c7b53d",
+        "filename": "media/engine/webrtc_video_engine.cc",
+        "patchSetId": 14
+      },
+      "lineNbr": 1287,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2022-08-03T11:14:01Z",
+      "side": 1,
+      "message": "write exact type instead of auto: VideoCodecSettings",
+      "range": {
+        "startLine": 1287,
+        "startChar": 13,
+        "endLine": 1287,
+        "endChar": 17
+      },
+      "revId": "8b93dfaf865a79f320ef1ab1ccca0ec125976d12",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "39d737c8_933dcaaa",
+        "filename": "media/engine/webrtc_video_engine.cc",
+        "patchSetId": 14
+      },
+      "lineNbr": 1292,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2022-08-03T11:14:01Z",
+      "side": 1,
+      "message": "or\n`.emplace(recv_codec.rtx_payload_type, recv_codec.codec.id);`",
+      "range": {
+        "startLine": 1291,
+        "startChar": 33,
+        "endLine": 1292,
+        "endChar": 59
+      },
+      "revId": "8b93dfaf865a79f320ef1ab1ccca0ec125976d12",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "cb736158_92a0ae29",
+        "filename": "media/engine/webrtc_video_engine.cc",
+        "patchSetId": 14
+      },
+      "lineNbr": 2887,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2022-08-03T11:14:01Z",
+      "side": 1,
+      "message": "`should be` ?",
+      "range": {
+        "startLine": 2887,
+        "startChar": 23,
+        "endLine": 2887,
+        "endChar": 25
+      },
+      "revId": "8b93dfaf865a79f320ef1ab1ccca0ec125976d12",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "86e8b076_14c05a98",
+        "filename": "media/engine/webrtc_video_engine.cc",
+        "patchSetId": 14
+      },
+      "lineNbr": 2891,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2022-08-03T11:14:01Z",
+      "side": 1,
+      "message": "prefer exact type over auto\n\nhttps://google.github.io/styleguide/cppguide.html#Type_deduction\n\n“Use type deduction only if it makes the code clearer to readers who aren\u0027t familiar with the project, or if it makes the code safer. Do not use it merely to avoid the inconvenience of writing an explicit type.”",
+      "range": {
+        "startLine": 2891,
+        "startChar": 8,
+        "endLine": 2891,
+        "endChar": 12
+      },
+      "revId": "8b93dfaf865a79f320ef1ab1ccca0ec125976d12",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "64ba2012_1fd565db",
+        "filename": "media/engine/webrtc_video_engine.h",
+        "patchSetId": 14
+      },
+      "lineNbr": 335,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2022-08-03T11:14:01Z",
+      "side": 1,
+      "message": "`rtc::ArrayView\u003cconst T\u003e` is usually a better parameter type than `const std::vector\u003cT\u003e\u0026`",
+      "range": {
+        "startLine": 335,
+        "startChar": 6,
+        "endLine": 335,
+        "endChar": 44
+      },
+      "revId": "8b93dfaf865a79f320ef1ab1ccca0ec125976d12",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

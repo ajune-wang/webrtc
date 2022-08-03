@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "79b5b447_ad34b670",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5119
+      },
+      "writtenOn": "2022-08-03T14:50:17Z",
+      "side": 1,
+      "message": "Hi Alessio, PTAL when you have time. It is not urgent.",
+      "revId": "a10ff746bb7ff2c29455b4787f731f0c36b89374",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

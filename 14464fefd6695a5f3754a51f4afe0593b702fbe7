@@ -24,6 +24,30 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "c94aa7a5_a2873428",
+        "filename": "api/test/peerconnection_quality_test_fixture.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 138,
+      "author": {
+        "id": 6337
+      },
+      "writtenOn": "2022-08-03T09:24:31Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "1a6334f9_7b134e5a",
+      "range": {
+        "startLine": 138,
+        "startChar": 41,
+        "endLine": 138,
+        "endChar": 42
+      },
+      "revId": "14464fefd6695a5f3754a51f4afe0593b702fbe7",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "a6cf3bda_852e2909",
@@ -37,6 +61,30 @@
       "writtenOn": "2022-08-03T07:22:53Z",
       "side": 1,
       "message": "specifies",
+      "range": {
+        "startLine": 230,
+        "startChar": 26,
+        "endLine": 230,
+        "endChar": 35
+      },
+      "revId": "14464fefd6695a5f3754a51f4afe0593b702fbe7",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "f3925737_0c312f33",
+        "filename": "api/test/peerconnection_quality_test_fixture.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 230,
+      "author": {
+        "id": 6337
+      },
+      "writtenOn": "2022-08-03T09:24:31Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "a6cf3bda_852e2909",
       "range": {
         "startLine": 230,
         "startChar": 26,
@@ -70,6 +118,30 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "ba98d2fa_a1046f72",
+        "filename": "api/test/peerconnection_quality_test_fixture.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 231,
+      "author": {
+        "id": 6337
+      },
+      "writtenOn": "2022-08-03T09:24:31Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "adaf8aad_aca76454",
+      "range": {
+        "startLine": 231,
+        "startChar": 44,
+        "endLine": 231,
+        "endChar": 50
+      },
+      "revId": "14464fefd6695a5f3754a51f4afe0593b702fbe7",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "ca50114c_1f03a2bf",
@@ -83,6 +155,30 @@
       "writtenOn": "2022-08-03T07:22:53Z",
       "side": 1,
       "message": "Let\u0027s remove \"assigned\" and add \"the\" (It will contain the frame ids...).",
+      "range": {
+        "startLine": 233,
+        "startChar": 7,
+        "endLine": 233,
+        "endChar": 15
+      },
+      "revId": "14464fefd6695a5f3754a51f4afe0593b702fbe7",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "ee5861b0_47ff0ccf",
+        "filename": "api/test/peerconnection_quality_test_fixture.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 233,
+      "author": {
+        "id": 6337
+      },
+      "writtenOn": "2022-08-03T09:24:31Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "ca50114c_1f03a2bf",
       "range": {
         "startLine": 233,
         "startChar": 7,
@@ -116,6 +212,30 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "9774191f_a5476d39",
+        "filename": "api/test/peerconnection_quality_test_fixture.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 234,
+      "author": {
+        "id": 6337
+      },
+      "writtenOn": "2022-08-03T09:24:31Z",
+      "side": 1,
+      "message": "Yep, if I understood you correctly.\n\nSo when frames are going through test video pipeline they will be assigned a frame id. So exported file will have those frames ids in the same order as frames in the exported video file",
+      "parentUuid": "bfeb57ca_8c72f951",
+      "range": {
+        "startLine": 233,
+        "startChar": 47,
+        "endLine": 234,
+        "endChar": 31
+      },
+      "revId": "14464fefd6695a5f3754a51f4afe0593b702fbe7",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "14118b4e_44dcea77",
@@ -129,6 +249,30 @@
       "writtenOn": "2022-08-03T07:22:53Z",
       "side": 1,
       "message": "Should this be EQ sizeof(frame_id) + 1?",
+      "range": {
+        "startLine": 108,
+        "startChar": 30,
+        "endLine": 108,
+        "endChar": 31
+      },
+      "revId": "14464fefd6695a5f3754a51f4afe0593b702fbe7",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "1c28d823_cddb2352",
+        "filename": "test/pc/e2e/analyzer/video/video_quality_analyzer_injection_helper.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 108,
+      "author": {
+        "id": 6337
+      },
+      "writtenOn": "2022-08-03T09:24:31Z",
+      "side": 1,
+      "message": "It\u0027s actually not bytes, but characters, so changed on GE 2, because the number is varying depending on the amount of digits in the frame_id",
+      "parentUuid": "14118b4e_44dcea77",
       "range": {
         "startLine": 108,
         "startChar": 30,

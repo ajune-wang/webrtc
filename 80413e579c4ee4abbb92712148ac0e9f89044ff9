@@ -1,0 +1,38 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "9c664a9d_c533692b",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5508
+      },
+      "writtenOn": "2022-08-03T10:31:56Z",
+      "side": 1,
+      "message": "lgtm % swapping function for a constant",
+      "revId": "80413e579c4ee4abbb92712148ac0e9f89044ff9",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "90c00397_ef31472d",
+        "filename": "rtc_base/logging_unittest.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 32,
+      "author": {
+        "id": 5508
+      },
+      "writtenOn": "2022-08-03T10:31:56Z",
+      "side": 1,
+      "message": "nit: might as well just define this as a constant. A getter that returns `const char*` always makes me wonder about the storage of the backed buffer anyway.",
+      "revId": "80413e579c4ee4abbb92712148ac0e9f89044ff9",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

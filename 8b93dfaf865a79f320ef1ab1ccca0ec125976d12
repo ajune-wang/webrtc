@@ -43,6 +43,30 @@
     {
       "unresolved": false,
       "key": {
+        "uuid": "03c2ec99_2a21bea8",
+        "filename": "media/engine/webrtc_video_engine.cc",
+        "patchSetId": 14
+      },
+      "lineNbr": 1287,
+      "author": {
+        "id": 5508
+      },
+      "writtenOn": "2022-08-03T12:04:11Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "00c0635f_92c7b53d",
+      "range": {
+        "startLine": 1287,
+        "startChar": 13,
+        "endLine": 1287,
+        "endChar": 17
+      },
+      "revId": "8b93dfaf865a79f320ef1ab1ccca0ec125976d12",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
         "uuid": "39d737c8_933dcaaa",
         "filename": "media/engine/webrtc_video_engine.cc",
         "patchSetId": 14
@@ -66,6 +90,30 @@
     {
       "unresolved": false,
       "key": {
+        "uuid": "d70d076e_713bacdb",
+        "filename": "media/engine/webrtc_video_engine.cc",
+        "patchSetId": 14
+      },
+      "lineNbr": 1292,
+      "author": {
+        "id": 5508
+      },
+      "writtenOn": "2022-08-03T12:04:11Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "39d737c8_933dcaaa",
+      "range": {
+        "startLine": 1291,
+        "startChar": 33,
+        "endLine": 1292,
+        "endChar": 59
+      },
+      "revId": "8b93dfaf865a79f320ef1ab1ccca0ec125976d12",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
         "uuid": "cb736158_92a0ae29",
         "filename": "media/engine/webrtc_video_engine.cc",
         "patchSetId": 14
@@ -77,6 +125,30 @@
       "writtenOn": "2022-08-03T11:14:01Z",
       "side": 1,
       "message": "`should be` ?",
+      "range": {
+        "startLine": 2887,
+        "startChar": 23,
+        "endLine": 2887,
+        "endChar": 25
+      },
+      "revId": "8b93dfaf865a79f320ef1ab1ccca0ec125976d12",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "6bde82d3_b20f7588",
+        "filename": "media/engine/webrtc_video_engine.cc",
+        "patchSetId": 14
+      },
+      "lineNbr": 2887,
+      "author": {
+        "id": 5508
+      },
+      "writtenOn": "2022-08-03T12:04:11Z",
+      "side": 1,
+      "message": "Left as is since what I want to catch is if decoders is not empty. It could still be that `recv_codecs` contains valid info too, so we can\u0027t know in the dcheck (as is) if information is missing from `recv_codecs`.",
+      "parentUuid": "cb736158_92a0ae29",
       "range": {
         "startLine": 2887,
         "startChar": 23,
@@ -112,6 +184,30 @@
     {
       "unresolved": false,
       "key": {
+        "uuid": "963f93fa_c76983dd",
+        "filename": "media/engine/webrtc_video_engine.cc",
+        "patchSetId": 14
+      },
+      "lineNbr": 2891,
+      "author": {
+        "id": 5508
+      },
+      "writtenOn": "2022-08-03T12:04:11Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "86e8b076_14c05a98",
+      "range": {
+        "startLine": 2891,
+        "startChar": 8,
+        "endLine": 2891,
+        "endChar": 12
+      },
+      "revId": "8b93dfaf865a79f320ef1ab1ccca0ec125976d12",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
         "uuid": "64ba2012_1fd565db",
         "filename": "media/engine/webrtc_video_engine.h",
         "patchSetId": 14
@@ -123,6 +219,30 @@
       "writtenOn": "2022-08-03T11:14:01Z",
       "side": 1,
       "message": "`rtc::ArrayView\u003cconst T\u003e` is usually a better parameter type than `const std::vector\u003cT\u003e\u0026`",
+      "range": {
+        "startLine": 335,
+        "startChar": 6,
+        "endLine": 335,
+        "endChar": 44
+      },
+      "revId": "8b93dfaf865a79f320ef1ab1ccca0ec125976d12",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "832902d4_b6cf70e6",
+        "filename": "media/engine/webrtc_video_engine.h",
+        "patchSetId": 14
+      },
+      "lineNbr": 335,
+      "author": {
+        "id": 5508
+      },
+      "writtenOn": "2022-08-03T12:04:11Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "64ba2012_1fd565db",
       "range": {
         "startLine": 335,
         "startChar": 6,

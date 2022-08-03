@@ -24,6 +24,30 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "d7948249_3d79c3c3",
+        "filename": "rtc_base/logging.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 122,
+      "author": {
+        "id": 5087
+      },
+      "writtenOn": "2022-08-03T15:06:28Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "0ead0ef4_c60f27d4",
+      "range": {
+        "startLine": 122,
+        "startChar": 19,
+        "endLine": 122,
+        "endChar": 20
+      },
+      "revId": "2581428e2a2422ec9ec85bfbf05a4fa8d240081c",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "0ab0c92c_6ab0df44",
@@ -37,6 +61,30 @@
       "writtenOn": "2022-08-03T15:05:11Z",
       "side": 1,
       "message": "I assume that in this case implementation is already defined.",
+      "range": {
+        "startLine": 123,
+        "startChar": 2,
+        "endLine": 123,
+        "endChar": 37
+      },
+      "revId": "2581428e2a2422ec9ec85bfbf05a4fa8d240081c",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "2280fb3b_b478d517",
+        "filename": "rtc_base/logging.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 123,
+      "author": {
+        "id": 5087
+      },
+      "writtenOn": "2022-08-03T15:06:28Z",
+      "side": 1,
+      "message": "Yes, it is in the .cc file.",
+      "parentUuid": "0ab0c92c_6ab0df44",
       "range": {
         "startLine": 123,
         "startChar": 2,

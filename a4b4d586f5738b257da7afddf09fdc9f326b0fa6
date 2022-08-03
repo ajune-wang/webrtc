@@ -68,6 +68,24 @@
       "parentUuid": "527e074c_fdbe37cd",
       "revId": "a4b4d586f5738b257da7afddf09fdc9f326b0fa6",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "b9058921_9a0b4fd2",
+        "filename": "api/sequence_checker.h",
+        "patchSetId": 3
+      },
+      "lineNbr": 113,
+      "author": {
+        "id": 5508
+      },
+      "writtenOn": "2022-08-03T11:50:51Z",
+      "side": 1,
+      "message": "Ack - good comment 👍",
+      "parentUuid": "74b10bbc_c3c9eb1f",
+      "revId": "a4b4d586f5738b257da7afddf09fdc9f326b0fa6",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

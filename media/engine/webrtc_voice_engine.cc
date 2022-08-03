@@ -548,8 +548,8 @@ bool WebRtcVoiceEngine::ApplyOptions(const AudioOptions& options_in) {
   webrtc::AudioProcessing* ap = apm();
   if (!ap) {
     RTC_LOG(LS_INFO)
-        << "No audio processing module present. No software-provided effects "
-           "(AEC, NS, AGC, ...) are activated";
+        << "No audio processing module present within WebRTC => no "
+           "software-provided effects AEC, NS, AGC, ...) are activated here";
     return true;
   }
 

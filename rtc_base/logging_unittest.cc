@@ -27,6 +27,18 @@
 
 namespace rtc {
 
+namespace {
+
+const char* GetFilePath() {
+#if defined(WEBRTC_WIN)
+  return "some\\path\\myfile.cc";
+#else
+  return "some/path/myfile.cc";
+#endif
+}
+
+}  // namespace
+
 class LogSinkImpl : public LogSink {
  public:
   explicit LogSinkImpl(std::string* log_data) : log_data_(log_data) {}
@@ -205,8 +217,8 @@ TEST(LogTest, WallClockStartTime) {
 }
 
 TEST(LogTest, CheckExtraErrorField) {
-  LogMessageForTesting log_msg("some/path/myfile.cc", 100, LS_WARNING,
-                               ERRCTX_ERRNO, 0xD);
+  LogMessageForTesting log_msg(GetFilePath(), 100, LS_WARNING, ERRCTX_ERRNO,
+                               0xD);
   log_msg.stream() << "This gets added at dtor time";
 
   const std::string& extra = log_msg.get_extra();
@@ -216,7 +228,7 @@ TEST(LogTest, CheckExtraErrorField) {
 }
 
 TEST(LogTest, CheckFilePathParsed) {
-  LogMessageForTesting log_msg("some/path/myfile.cc", 100, LS_INFO);
+  LogMessageForTesting log_msg(GetFilePath(), 100, LS_INFO);
   log_msg.stream() << "<- Does this look right?";
 
   const std::string stream = log_msg.GetPrintStream();

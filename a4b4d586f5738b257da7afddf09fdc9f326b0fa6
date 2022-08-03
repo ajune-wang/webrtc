@@ -50,6 +50,24 @@
       "message": "very interesting. Can you add a comment that explains what\u0027s going on here and what\u0027s being worked around?",
       "revId": "a4b4d586f5738b257da7afddf09fdc9f326b0fa6",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "74b10bbc_c3c9eb1f",
+        "filename": "api/sequence_checker.h",
+        "patchSetId": 3
+      },
+      "lineNbr": 113,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2022-08-03T11:37:55Z",
+      "side": 1,
+      "message": "Added documentation what\u0027s going on here,\nbut I do not think it needs documentation what\u0027s beeing worked around here\n\nCL description explains why removed approach with AssertHeld function is not good enough, I do not think comment about removed code belong into code.",
+      "parentUuid": "527e074c_fdbe37cd",
+      "revId": "a4b4d586f5738b257da7afddf09fdc9f326b0fa6",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

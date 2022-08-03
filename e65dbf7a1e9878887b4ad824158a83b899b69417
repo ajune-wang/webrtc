@@ -24,6 +24,30 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "df266085_8c5311b4",
+        "filename": "rtc_base/logging.cc",
+        "patchSetId": 15
+      },
+      "lineNbr": 128,
+      "author": {
+        "id": 5087
+      },
+      "writtenOn": "2022-08-03T08:12:52Z",
+      "side": 1,
+      "message": "Done.\n\nI used ABSL_CONST_INIT because of \"non-const static data member must be initialized out of line\".",
+      "parentUuid": "6ec8e578_bf43c270",
+      "range": {
+        "startLine": 128,
+        "startChar": 28,
+        "endLine": 128,
+        "endChar": 36
+      },
+      "revId": "e65dbf7a1e9878887b4ad824158a83b899b69417",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "056c034a_9be8dca2",
@@ -37,6 +61,24 @@
       "writtenOn": "2022-08-03T07:58:54Z",
       "side": 1,
       "message": "set_tag takes `absl::string_view`, not `const char*`, i.e. remove `.data()`",
+      "revId": "e65dbf7a1e9878887b4ad824158a83b899b69417",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "6568ab60_9da7545f",
+        "filename": "rtc_base/logging.cc",
+        "patchSetId": 15
+      },
+      "lineNbr": 158,
+      "author": {
+        "id": 5087
+      },
+      "writtenOn": "2022-08-03T08:12:52Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "056c034a_9be8dca2",
       "revId": "e65dbf7a1e9878887b4ad824158a83b899b69417",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
@@ -77,6 +119,24 @@
       "writtenOn": "2022-08-03T07:58:54Z",
       "side": 1,
       "message": "delete lonely `;`",
+      "revId": "e65dbf7a1e9878887b4ad824158a83b899b69417",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "88f28d31_d556e3c4",
+        "filename": "rtc_base/logging.h",
+        "patchSetId": 15
+      },
+      "lineNbr": 143,
+      "author": {
+        "id": 5087
+      },
+      "writtenOn": "2022-08-03T08:12:52Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "3dfca750_94d3d895",
       "revId": "e65dbf7a1e9878887b4ad824158a83b899b69417",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }

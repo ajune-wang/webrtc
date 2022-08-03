@@ -110,6 +110,6 @@ class RTC_LOCKABLE SequenceChecker
 #define RTC_DCHECK_RUN_ON(x)                                               \
   RTC_DCHECK((x)->IsCurrent())                                             \
       << webrtc::webrtc_sequence_checker_internal::ExpectationToString(x); \
-  webrtc::webrtc_sequence_checker_internal::AssertHeld(x)
+  []() RTC_ASSERT_EXCLUSIVE_LOCK(x) {}()
 
 #endif  // API_SEQUENCE_CHECKER_H_

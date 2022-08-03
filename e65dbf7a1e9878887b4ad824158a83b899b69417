@@ -1,0 +1,84 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "6ec8e578_bf43c270",
+        "filename": "rtc_base/logging.cc",
+        "patchSetId": 15
+      },
+      "lineNbr": 128,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2022-08-03T07:58:54Z",
+      "side": 1,
+      "message": "nit: prefer assignment syntax:\nABSL_CONST_INIT bool LogMessage::log_thread_ \u003d false;\n\nmay be even better to inline it:\nclass LogMessage {\n ...\n static bool log_thread_ \u003d false;\n}\n\n\nhttps://abseil.io/tips/88",
+      "range": {
+        "startLine": 128,
+        "startChar": 28,
+        "endLine": 128,
+        "endChar": 36
+      },
+      "revId": "e65dbf7a1e9878887b4ad824158a83b899b69417",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "056c034a_9be8dca2",
+        "filename": "rtc_base/logging.cc",
+        "patchSetId": 15
+      },
+      "lineNbr": 158,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2022-08-03T07:58:54Z",
+      "side": 1,
+      "message": "set_tag takes `absl::string_view`, not `const char*`, i.e. remove `.data()`",
+      "revId": "e65dbf7a1e9878887b4ad824158a83b899b69417",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "da0c01cb_7ffbbdc5",
+        "filename": "rtc_base/logging.cc",
+        "patchSetId": 15
+      },
+      "lineNbr": 359,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2022-08-03T07:58:54Z",
+      "side": 1,
+      "message": "`msg` name is gone, so that variable once again can be called that.",
+      "range": {
+        "startLine": 359,
+        "startChar": 14,
+        "endLine": 359,
+        "endChar": 21
+      },
+      "revId": "e65dbf7a1e9878887b4ad824158a83b899b69417",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "3dfca750_94d3d895",
+        "filename": "rtc_base/logging.h",
+        "patchSetId": 15
+      },
+      "lineNbr": 143,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2022-08-03T07:58:54Z",
+      "side": 1,
+      "message": "delete lonely `;`",
+      "revId": "e65dbf7a1e9878887b4ad824158a83b899b69417",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

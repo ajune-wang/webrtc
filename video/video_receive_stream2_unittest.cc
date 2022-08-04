@@ -323,7 +323,11 @@ TEST_P(VideoReceiveStream2Test, CreateFrameFromH264FmtpSpropAndIdr) {
 TEST_P(VideoReceiveStream2Test, PlayoutDelay) {
   const VideoPlayoutDelay kPlayoutDelayMs = {123, 321};
   std::unique_ptr<test::FakeEncodedFrame> test_frame =
-      test::FakeFrameBuilder().Id(0).AsLast().Build();
+      test::FakeFrameBuilder()
+          .Id(0)
+          .ReceivedTime(clock_->CurrentTime())
+          .AsLast()
+          .Build();
   test_frame->SetPlayoutDelay(kPlayoutDelayMs);
 
   video_receive_stream_->OnCompleteFrame(std::move(test_frame));
@@ -360,7 +364,11 @@ TEST_P(VideoReceiveStream2Test, PlayoutDelayPreservesDefaultMaxValue) {
   const VideoPlayoutDelay kPlayoutDelayMs = {123, -1};
 
   std::unique_ptr<test::FakeEncodedFrame> test_frame =
-      test::FakeFrameBuilder().Id(0).AsLast().Build();
+      test::FakeFrameBuilder()
+          .Id(0)
+          .ReceivedTime(clock_->CurrentTime())
+          .AsLast()
+          .Build();
   test_frame->SetPlayoutDelay(kPlayoutDelayMs);
 
   video_receive_stream_->OnCompleteFrame(std::move(test_frame));

@@ -186,7 +186,7 @@ class UDPPort : public Port {
         rtc::PacketSocketFactory* factory,
         std::function<void(const rtc::SocketAddress&, int)> done_callback);
 
-    void Resolve(const rtc::SocketAddress& address);
+    void Resolve(const rtc::SocketAddress& address, int family);
     bool GetResolvedAddress(const rtc::SocketAddress& input,
                             int family,
                             rtc::SocketAddress* output) const;

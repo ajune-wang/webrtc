@@ -122,7 +122,8 @@ UDPPort::AddressResolver::AddressResolver(
     std::function<void(const rtc::SocketAddress&, int)> done_callback)
     : socket_factory_(factory), done_(std::move(done_callback)) {}
 
-void UDPPort::AddressResolver::Resolve(const rtc::SocketAddress& address) {
+void UDPPort::AddressResolver::Resolve(const rtc::SocketAddress& address,
+                                       int family) {
   if (resolvers_.find(address) != resolvers_.end())
     return;
 
@@ -133,7 +134,7 @@ void UDPPort::AddressResolver::Resolve(const rtc::SocketAddress& address) {
       pair = std::make_pair(address, std::move(resolver));
 
   resolvers_.insert(std::move(pair));
-  resolver_ptr->Start(address, [this, address] {
+  resolver_ptr->Start(address, family, [this, address] {
     ResolverMap::const_iterator it = resolvers_.find(address);
     if (it != resolvers_.end()) {
       done_(it->first, it->second->result().GetError());
@@ -439,7 +440,7 @@ void UDPPort::ResolveStunAddress(const rtc::SocketAddress& stun_addr) {
 
   RTC_LOG(LS_INFO) << ToString() << ": Starting STUN host lookup for "
                    << stun_addr.ToSensitiveString();
-  resolver_->Resolve(stun_addr);
+  resolver_->Resolve(stun_addr, Network()->family());
 }
 
 void UDPPort::OnResolveResult(const rtc::SocketAddress& input, int error) {

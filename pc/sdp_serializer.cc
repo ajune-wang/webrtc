@@ -46,7 +46,6 @@ const char kDelimiterSpaceChar = ' ';
 
 // https://tools.ietf.org/html/draft-ietf-mmusic-sdp-simulcast-13#section-5.1
 // https://tools.ietf.org/html/draft-ietf-mmusic-rid-15#section-10
-const char kSimulcastPausedStream[] = "~";
 const char kSimulcastPausedStreamChar = '~';
 const char kSendDirection[] = "send";
 const char kReceiveDirection[] = "recv";
@@ -58,11 +57,9 @@ RTCError ParseError(const std::string& message) {
 
 // These methods serialize simulcast according to the specification:
 // https://tools.ietf.org/html/draft-ietf-mmusic-sdp-simulcast-13#section-5.1
+// Note: "pause" is not serialized.
 rtc::StringBuilder& operator<<(rtc::StringBuilder& builder,
                                const SimulcastLayer& simulcast_layer) {
-  if (simulcast_layer.is_paused) {
-    builder << kSimulcastPausedStream;
-  }
   builder << simulcast_layer.rid;
   return builder;
 }
@@ -122,7 +119,8 @@ RTCErrorOr<SimulcastLayerList> ParseSimulcastLayerList(const std::string& str) {
 
     std::vector<SimulcastLayer> layers;
     for (const absl::string_view& rid_token : rid_tokens) {
-      if (rid_token.empty() || rid_token == kSimulcastPausedStream) {
+      if (rid_token.empty() || (rid_token.length() == 1 &&
+                                rid_token[0] == kSimulcastPausedStreamChar)) {
         return ParseError("Rid must not be empty.");
       }
 

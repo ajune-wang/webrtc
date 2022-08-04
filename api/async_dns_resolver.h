@@ -14,6 +14,7 @@
 #include <functional>
 #include <memory>
 
+#include "rtc_base/checks.h"
 #include "rtc_base/socket_address.h"
 #include "rtc_base/system/rtc_export.h"
 
@@ -63,6 +64,12 @@ class RTC_EXPORT AsyncDnsResolverInterface {
   // Start address resolution of the hostname in `addr`.
   virtual void Start(const rtc::SocketAddress& addr,
                      std::function<void()> callback) = 0;
+  // Start address resolution of the hostname in `addr` matching `family`.
+  virtual void Start(const rtc::SocketAddress& addr,
+                     int family,
+                     std::function<void()> callback) {
+    RTC_DCHECK_NOTREACHED();
+  }
   virtual const AsyncDnsResolverResult& result() const = 0;
 };
 

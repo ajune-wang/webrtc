@@ -465,6 +465,10 @@ class Port : public PortInterface,
     mdns_name_registration_status_ = status;
   }
 
+  webrtc::AlwaysValidPointer<const webrtc::FieldTrialsView,
+                             webrtc::FieldTrialBasedConfig>
+      field_trials_;
+
  private:
   void Construct();
 
@@ -524,9 +528,6 @@ class Port : public PortInterface,
       MdnsNameRegistrationStatus::kNotStarted;
 
   rtc::WeakPtrFactory<Port> weak_factory_;
-  webrtc::AlwaysValidPointer<const webrtc::FieldTrialsView,
-                             webrtc::FieldTrialBasedConfig>
-      field_trials_;
 
   bool MaybeObfuscateAddress(Candidate* c,
                              absl::string_view type,

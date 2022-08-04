@@ -21,7 +21,6 @@
 #include "p2p/base/dtls_transport_internal.h"
 #include "pc/dtls_transport.h"
 #include "rtc_base/checks.h"
-#include "rtc_base/third_party/sigslot/sigslot.h"
 #include "rtc_base/thread.h"
 #include "rtc_base/thread_annotations.h"
 
@@ -32,8 +31,7 @@ namespace webrtc {
 // This object must be constructed and updated on the networking thread,
 // the same thread as the one the cricket::SctpTransportInternal object
 // lives on.
-class SctpTransport : public SctpTransportInterface,
-                      public sigslot::has_slots<> {
+class SctpTransport : public SctpTransportInterface {
  public:
   explicit SctpTransport(
       std::unique_ptr<cricket::SctpTransportInternal> internal);

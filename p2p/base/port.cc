@@ -112,7 +112,8 @@ Port::Port(rtc::Thread* thread,
            absl::string_view username_fragment,
            absl::string_view password,
            const webrtc::FieldTrialsView* field_trials)
-    : thread_(thread),
+    : field_trials_(field_trials),
+      thread_(thread),
       factory_(factory),
       type_(type),
       send_retransmit_count_attribute_(false),
@@ -128,8 +129,7 @@ Port::Port(rtc::Thread* thread,
       ice_role_(ICEROLE_UNKNOWN),
       tiebreaker_(0),
       shared_socket_(true),
-      weak_factory_(this),
-      field_trials_(field_trials) {
+      weak_factory_(this) {
   RTC_DCHECK(factory_ != NULL);
   Construct();
 }
@@ -143,7 +143,8 @@ Port::Port(rtc::Thread* thread,
            absl::string_view username_fragment,
            absl::string_view password,
            const webrtc::FieldTrialsView* field_trials)
-    : thread_(thread),
+    : field_trials_(field_trials),
+      thread_(thread),
       factory_(factory),
       type_(type),
       send_retransmit_count_attribute_(false),
@@ -159,8 +160,7 @@ Port::Port(rtc::Thread* thread,
       ice_role_(ICEROLE_UNKNOWN),
       tiebreaker_(0),
       shared_socket_(false),
-      weak_factory_(this),
-      field_trials_(field_trials) {
+      weak_factory_(this) {
   RTC_DCHECK(factory_ != NULL);
   Construct();
 }

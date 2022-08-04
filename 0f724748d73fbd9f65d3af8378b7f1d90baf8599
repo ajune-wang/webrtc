@@ -1,0 +1,73 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "bf7acc27_1afb663c",
+        "filename": "modules/video_coding/generic_decoder.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 170,
+      "author": {
+        "id": 5524
+      },
+      "writtenOn": "2022-08-04T16:06:55Z",
+      "side": 1,
+      "message": "Does .value_or() not work because of the -1?",
+      "range": {
+        "startLine": 170,
+        "startChar": 6,
+        "endLine": 170,
+        "endChar": 65
+      },
+      "revId": "0f724748d73fbd9f65d3af8378b7f1d90baf8599",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "ea4859f7_c6b99cbc",
+        "filename": "modules/video_coding/timestamp_map.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 19,
+      "author": {
+        "id": 5524
+      },
+      "writtenOn": "2022-08-04T16:06:55Z",
+      "side": 1,
+      "message": "Ehhh, I did not know we had this. Rather than trying to refactor this mess, could we replace it with a std::deque and just put the logic in  VCMDecodedFrameCallback::Decoded() instead? Seems we could then just increment a frame drop counter instead of trying to infer it based on the delta of the size change from Pop()...",
+      "range": {
+        "startLine": 19,
+        "startChar": 0,
+        "endLine": 19,
+        "endChar": 12
+      },
+      "revId": "0f724748d73fbd9f65d3af8378b7f1d90baf8599",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "5030189e_f933480c",
+        "filename": "modules/video_coding/timestamp_map.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 29,
+      "author": {
+        "id": 5524
+      },
+      "writtenOn": "2022-08-04T16:06:55Z",
+      "side": 1,
+      "message": "Can we avoid the optional by using another magic value, such as Timestamp::MinusInfinity() ?",
+      "range": {
+        "startLine": 29,
+        "startChar": 2,
+        "endLine": 29,
+        "endChar": 16
+      },
+      "revId": "0f724748d73fbd9f65d3af8378b7f1d90baf8599",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

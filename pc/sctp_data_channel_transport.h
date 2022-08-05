@@ -16,16 +16,16 @@
 #include "media/base/media_channel.h"
 #include "media/sctp/sctp_transport_internal.h"
 #include "rtc_base/copy_on_write_buffer.h"
-#include "rtc_base/third_party/sigslot/sigslot.h"
+#include "rtc_base/weak_ptr.h"
 
 namespace webrtc {
 
 // SCTP implementation of DataChannelTransportInterface.
 class SctpDataChannelTransport : public DataChannelTransportInterface,
-                                 public sigslot::has_slots<> {
+                                 public DataChannelSink {
  public:
   explicit SctpDataChannelTransport(
-      cricket::SctpTransportInternal* sctp_transport);
+      const rtc::WeakPtr<cricket::SctpTransportInternal>& sctp_transport);
 
   RTCError OpenChannel(int channel_id) override;
   RTCError SendData(int channel_id,
@@ -36,14 +36,16 @@ class SctpDataChannelTransport : public DataChannelTransportInterface,
   bool IsReadyToSend() const override;
 
  private:
-  void OnReadyToSendData();
-  void OnDataReceived(const cricket::ReceiveDataParams& params,
-                      const rtc::CopyOnWriteBuffer& buffer);
-  void OnClosingProcedureStartedRemotely(int channel_id);
-  void OnClosingProcedureComplete(int channel_id);
-  void OnClosedAbruptly(RTCError error);
+  // DataChannelSink implementation - proxying calls to DataChannelController.
+  void OnDataReceived(int channel_id,
+                      DataMessageType type,
+                      const rtc::CopyOnWriteBuffer& buffer) override;
+  void OnChannelClosing(int channel_id) override;
+  void OnChannelClosed(int channel_id) override;
+  void OnReadyToSend() override;
+  void OnTransportClosed(RTCError error) override;
 
-  cricket::SctpTransportInternal* const sctp_transport_;
+  rtc::WeakPtr<cricket::SctpTransportInternal> sctp_transport_;
 
   DataChannelSink* sink_ = nullptr;
   bool ready_to_send_ = false;

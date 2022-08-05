@@ -101,7 +101,7 @@ JsepTransport::JsepTransport(
                                : nullptr),
       sctp_data_channel_transport_(
           sctp_transport ? std::make_unique<webrtc::SctpDataChannelTransport>(
-                               sctp_transport.get())
+                               sctp_transport->GetWeakPtr())
                          : nullptr),
       sctp_transport_(sctp_transport
                           ? rtc::make_ref_counted<webrtc::SctpTransport>(

@@ -20,6 +20,11 @@
 // local/remote ports.
 class FakeSctpTransport : public cricket::SctpTransportInternal {
  public:
+  void SetOnConnectedCallback(std::function<void()> callback) override {}
+  void SetDataChannelSink(webrtc::DataChannelSink* sink) override {}
+  rtc::WeakPtr<SctpTransportInternal> GetWeakPtr() override {
+    return rtc::WeakPtr<SctpTransportInternal>();
+  }
   void SetDtlsTransport(rtc::PacketTransportInternal* transport) override {}
   bool Start(int local_port, int remote_port, int max_message_size) override {
     local_port_.emplace(local_port);

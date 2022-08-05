@@ -28,9 +28,8 @@ SctpTransport::SctpTransport(
       info_(SctpTransportState::kNew),
       internal_sctp_transport_(std::move(internal)) {
   RTC_DCHECK(internal_sctp_transport_.get());
-  internal_sctp_transport_->SignalAssociationChangeCommunicationUp.connect(
-      this, &SctpTransport::OnAssociationChangeCommunicationUp);
-  // TODO(https://bugs.webrtc.org/10360): Add handlers for transport closing.
+  internal_sctp_transport_->SetOnConnectedCallback(
+      [this]() { OnAssociationChangeCommunicationUp(); });
 
   if (dtls_transport_) {
     UpdateInformation(SctpTransportState::kConnecting);

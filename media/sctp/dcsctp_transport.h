@@ -30,6 +30,7 @@
 #include "rtc_base/random.h"
 #include "rtc_base/third_party/sigslot/sigslot.h"
 #include "rtc_base/thread.h"
+#include "rtc_base/thread_annotations.h"
 #include "system_wrappers/include/clock.h"
 
 namespace webrtc {
@@ -48,6 +49,9 @@ class DcSctpTransport : public cricket::SctpTransportInternal,
   ~DcSctpTransport() override;
 
   // cricket::SctpTransportInternal
+  void SetOnConnectedCallback(std::function<void()> callback) override;
+  void SetDataChannelSink(DataChannelSink* sink) override;
+  rtc::WeakPtr<cricket::SctpTransportInternal> GetWeakPtr() override;
   void SetDtlsTransport(rtc::PacketTransportInternal* transport) override;
   bool Start(int local_sctp_port,
              int remote_sctp_port,
@@ -128,6 +132,10 @@ class DcSctpTransport : public cricket::SctpTransportInternal,
 
   flat_map<dcsctp::StreamID, StreamClosingState> closing_states_;
   bool ready_to_send_data_ = false;
+  std::function<void()> on_connected_callback_ RTC_GUARDED_BY(network_thread_);
+  DataChannelSink* data_channel_sink_ RTC_GUARDED_BY(network_thread_) = nullptr;
+
+  rtc::WeakPtrFactory<cricket::SctpTransportInternal> weak_factory_;
 };
 
 }  // namespace webrtc

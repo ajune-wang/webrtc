@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "6e72aabc_695f8bcf",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 3
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2022-08-05T15:00:07Z",
+      "side": 1,
+      "message": "tested locally linked test case (note that it is for 32bit system. same file for 64bit system choose very different, less interesting code path)\nfor release version this change reduce runtime from 72 seconds to 7 seconds.\nfor debug version this change reduce runtime from to long to wait to 120 seconds, which is still too long to fit into 60s timeout.\nnot sure if it is feasible to fit into that timeout while using dense struct instead of sparse (e.g. std::map) like it was before \nhttps://webrtc-review.googlesource.com/c/src/+/217388",
+      "revId": "6c80432f2adb28b26f3a7b1c47c13e914d1aaf0b",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "c7ac3543_7bde7c1c",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 3
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 8527
+      },
+      "writtenOn": "2022-08-05T09:44:21Z",
+      "side": 1,
+      "message": "LGTM\n1) would it not be better if the resolver took a std::string (or string_view) rather than a rtc::SocketAddress ? (maybe big change?)\n\n2) Otherwise is it not possible to set the family also for a SocketAddress with hostname ?\n\nSummary: LGTM above is just food for thought\n\n",
+      "revId": "dafde2729c468981753a44a43195978af8474e71",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

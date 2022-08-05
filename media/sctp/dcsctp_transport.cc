@@ -151,6 +151,16 @@ DcSctpTransport::~DcSctpTransport() {
   }
 }
 
+void DcSctpTransport::SetOnConnectedCallback(std::function<void()> callback) {
+  RTC_DCHECK_RUN_ON(network_thread_);
+  on_connected_callback_ = callback;
+}
+
+void DcSctpTransport::SetDataChannelSink(DataChannelSink* sink) {
+  RTC_DCHECK_RUN_ON(network_thread_);
+  data_channel_sink_ = sink;
+}
+
 void DcSctpTransport::SetDtlsTransport(
     rtc::PacketTransportInternal* transport) {
   RTC_DCHECK_RUN_ON(network_thread_);
@@ -394,9 +404,12 @@ uint32_t DcSctpTransport::GetRandomInt(uint32_t low, uint32_t high) {
 }
 
 void DcSctpTransport::OnTotalBufferedAmountLow() {
+  RTC_DCHECK_RUN_ON(network_thread_);
   if (!ready_to_send_data_) {
     ready_to_send_data_ = true;
-    SignalReadyToSendData();
+    if (data_channel_sink_) {
+      data_channel_sink_->OnReadyToSend();
+    }
   }
 }
 
@@ -423,7 +436,10 @@ void DcSctpTransport::OnMessageReceived(dcsctp::DcSctpMessage message) {
     receive_buffer_.AppendData(message.payload().data(),
                                message.payload().size());
 
-  SignalDataReceived(receive_data_params, receive_buffer_);
+  if (data_channel_sink_) {
+    data_channel_sink_->OnDataReceived(
+        receive_data_params.sid, receive_data_params.type, receive_buffer_);
+  }
 }
 
 void DcSctpTransport::OnError(dcsctp::ErrorKind error,
@@ -444,6 +460,7 @@ void DcSctpTransport::OnError(dcsctp::ErrorKind error,
 
 void DcSctpTransport::OnAborted(dcsctp::ErrorKind error,
                                 absl::string_view message) {
+  RTC_DCHECK_RUN_ON(network_thread_);
   RTC_LOG(LS_ERROR) << debug_name_
                     << "->OnAborted(error=" << dcsctp::ToString(error)
                     << ", message=" << message << ").";
@@ -455,14 +472,21 @@ void DcSctpTransport::OnAborted(dcsctp::ErrorKind error,
   if (code.has_value()) {
     rtc_error.set_sctp_cause_code(static_cast<uint16_t>(*code));
   }
-  SignalClosedAbruptly(rtc_error);
+  if (data_channel_sink_) {
+    data_channel_sink_->OnTransportClosed(rtc_error);
+  }
 }
 
 void DcSctpTransport::OnConnected() {
+  RTC_DCHECK_RUN_ON(network_thread_);
   RTC_LOG(LS_INFO) << debug_name_ << "->OnConnected().";
   ready_to_send_data_ = true;
-  SignalReadyToSendData();
-  SignalAssociationChangeCommunicationUp();
+  if (data_channel_sink_) {
+    data_channel_sink_->OnReadyToSend();
+  }
+  if (on_connected_callback_) {
+    on_connected_callback_();
+  }
 }
 
 void DcSctpTransport::OnClosed() {
@@ -488,6 +512,7 @@ void DcSctpTransport::OnStreamsResetFailed(
 
 void DcSctpTransport::OnStreamsResetPerformed(
     rtc::ArrayView<const dcsctp::StreamID> outgoing_streams) {
+  RTC_DCHECK_RUN_ON(network_thread_);
   for (auto& stream_id : outgoing_streams) {
     RTC_LOG(LS_INFO) << debug_name_
                      << "->OnStreamsResetPerformed(...): Outgoing stream reset"
@@ -498,7 +523,9 @@ void DcSctpTransport::OnStreamsResetPerformed(
     if (closing_state.incoming_reset_done) {
       //  When the close was not initiated locally, we can signal the end of the
       //  data channel close procedure when the remote ACKs the reset.
-      SignalClosingProcedureComplete(stream_id.value());
+      if (data_channel_sink_) {
+        data_channel_sink_->OnChannelClosed(stream_id.value());
+      }
       closing_states_.erase(stream_id);
     }
   }
@@ -506,6 +533,7 @@ void DcSctpTransport::OnStreamsResetPerformed(
 
 void DcSctpTransport::OnIncomingStreamsReset(
     rtc::ArrayView<const dcsctp::StreamID> incoming_streams) {
+  RTC_DCHECK_RUN_ON(network_thread_);
   for (auto& stream_id : incoming_streams) {
     RTC_LOG(LS_INFO) << debug_name_
                      << "->OnIncomingStreamsReset(...): Incoming stream reset"
@@ -519,13 +547,17 @@ void DcSctpTransport::OnIncomingStreamsReset(
       // direction too.
       dcsctp::StreamID streams[1] = {stream_id};
       socket_->ResetStreams(streams);
-      SignalClosingProcedureStartedRemotely(stream_id.value());
+      if (data_channel_sink_) {
+        data_channel_sink_->OnChannelClosing(stream_id.value());
+      }
     }
 
     if (closing_state.outgoing_reset_done) {
       // The close procedure that was initiated locally is complete when we
       // receive and incoming reset event.
-      SignalClosingProcedureComplete(stream_id.value());
+      if (data_channel_sink_) {
+        data_channel_sink_->OnChannelClosed(stream_id.value());
+      }
       closing_states_.erase(stream_id);
     }
   }
@@ -587,8 +619,11 @@ void DcSctpTransport::OnTransportReadPacket(
 
 void DcSctpTransport::OnTransportClosed(
     rtc::PacketTransportInternal* transport) {
+  RTC_DCHECK_RUN_ON(network_thread_);
   RTC_LOG(LS_VERBOSE) << debug_name_ << "->OnTransportClosed().";
-  SignalClosedAbruptly({});
+  if (data_channel_sink_) {
+    data_channel_sink_->OnTransportClosed({});
+  }
 }
 
 void DcSctpTransport::MaybeConnectSocket() {

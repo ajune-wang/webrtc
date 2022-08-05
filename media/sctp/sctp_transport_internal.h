@@ -77,6 +77,9 @@ class SctpTransportInternal {
  public:
   virtual ~SctpTransportInternal() {}
 
+  virtual void SetOnConnectedCallback(std::function<void()> callback) = 0;
+  virtual void SetDataChannelSink(webrtc::DataChannelSink* sink) = 0;
+
   // Changes what underlying DTLS transport is uses. Used when switching which
   // bundled transport the SctpTransport uses.
   virtual void SetDtlsTransport(rtc::PacketTransportInternal* transport) = 0;
@@ -139,24 +142,6 @@ class SctpTransportInternal {
   virtual absl::optional<int> max_outbound_streams() const = 0;
   // Returns the current negotiated max # of inbound streams.
   virtual absl::optional<int> max_inbound_streams() const = 0;
-
-  sigslot::signal0<> SignalReadyToSendData;
-  sigslot::signal0<> SignalAssociationChangeCommunicationUp;
-  // ReceiveDataParams includes SID, seq num, timestamp, etc. CopyOnWriteBuffer
-  // contains message payload.
-  sigslot::signal2<const ReceiveDataParams&, const rtc::CopyOnWriteBuffer&>
-      SignalDataReceived;
-  // Parameter is SID; fired when we receive an incoming stream reset on an
-  // open stream, indicating that the other side started the closing procedure.
-  // After resetting the outgoing stream, SignalClosingProcedureComplete will
-  // fire too.
-  sigslot::signal1<int> SignalClosingProcedureStartedRemotely;
-  // Parameter is SID; fired when closing procedure is complete (both incoming
-  // and outgoing streams reset).
-  sigslot::signal1<int> SignalClosingProcedureComplete;
-  // Fired when the underlying DTLS transport has closed due to an error
-  // or an incoming DTLS disconnect or SCTP transport errors.
-  sigslot::signal1<webrtc::RTCError> SignalClosedAbruptly;
 
   // Helper for debugging.
   virtual void set_debug_name_for_testing(const char* debug_name) = 0;

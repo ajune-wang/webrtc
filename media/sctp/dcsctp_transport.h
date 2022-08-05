@@ -48,6 +48,8 @@ class DcSctpTransport : public cricket::SctpTransportInternal,
   ~DcSctpTransport() override;
 
   // cricket::SctpTransportInternal
+  void SetOnConnectedCallback(std::function<void()> callback) override;
+  void SetDataChannelSink(DataChannelSink* sink) override;
   void SetDtlsTransport(rtc::PacketTransportInternal* transport) override;
   bool Start(int local_sctp_port,
              int remote_sctp_port,
@@ -128,6 +130,8 @@ class DcSctpTransport : public cricket::SctpTransportInternal,
 
   flat_map<dcsctp::StreamID, StreamClosingState> closing_states_;
   bool ready_to_send_data_ = false;
+  std::function<void()> on_connected_callback_;
+  DataChannelSink* data_channel_sink_ = nullptr;
 };
 
 }  // namespace webrtc

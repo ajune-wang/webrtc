@@ -393,9 +393,6 @@ void MonoAgc::UpdateGain() {
   int old_level = level_;
   SetLevel(LevelFromGainError(residual_gain, level_, min_mic_level_));
   if (old_level != level_) {
-    // level_ was updated by SetLevel; log the new value.
-    RTC_HISTOGRAM_COUNTS_LINEAR("WebRTC.Audio.AgcSetLevel", level_, 1,
-                                kMaxMicLevel, 50);
     // Reset the AGC since the level has changed.
     agc_->Reset();
   }

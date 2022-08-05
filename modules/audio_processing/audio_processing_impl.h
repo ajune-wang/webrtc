@@ -104,8 +104,10 @@ class AudioProcessingImpl : public AudioProcessing {
   int set_stream_delay_ms(int delay) override;
   void set_stream_key_pressed(bool key_pressed) override;
   void set_stream_analog_level(int level) override;
-  int recommended_stream_analog_level() const
-      RTC_LOCKS_EXCLUDED(mutex_capture_) override;
+  int recommended_stream_analog_level() const override
+      RTC_EXCLUSIVE_LOCKS_REQUIRED(mutex_capture_) {
+    return last_recommended_analog_level_;
+  }
 
   // Render-side exclusive methods possibly running APM in a
   // multi-threaded manner. Acquire the render lock.
@@ -163,7 +165,7 @@ class AudioProcessingImpl : public AudioProcessing {
   FRIEND_TEST_ALL_PREFIXES(ApmWithSubmodulesExcludedTest,
                            BitexactWithDisabledModules);
 
-  int recommended_stream_analog_level_locked() const
+  void UpdateRecommendedStreamAnalogLevelLocked()
       RTC_EXCLUSIVE_LOCKS_REQUIRED(mutex_capture_);
 
   void OverrideSubmoduleCreationForTesting(
@@ -189,6 +191,10 @@ class AudioProcessingImpl : public AudioProcessing {
   const bool use_setup_specific_default_aec3_config_;
 
   const bool use_denormal_disabler_;
+
+  // Cache for the last applied and recommended analog levels.
+  int last_applied_analog_level_ RTC_GUARDED_BY(mutex_capture_);
+  int last_recommended_analog_level_ RTC_GUARDED_BY(mutex_capture_);
 
   const TransientSuppressor::VadMode transient_suppressor_vad_mode_;
 

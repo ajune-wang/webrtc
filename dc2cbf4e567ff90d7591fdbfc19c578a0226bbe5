@@ -1,0 +1,106 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "4db3662c_421d1ba1",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 3
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5508
+      },
+      "writtenOn": "2022-08-05T13:02:04Z",
+      "side": 1,
+      "message": "nice!\n\nBtw - do you know how much of this code is actually active?",
+      "revId": "dc2cbf4e567ff90d7591fdbfc19c578a0226bbe5",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "00556284_8ba94e08",
+        "filename": "media/sctp/dcsctp_transport.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 418,
+      "author": {
+        "id": 5508
+      },
+      "writtenOn": "2022-08-05T13:02:04Z",
+      "side": 1,
+      "message": "hmm.. can we convert these `RTC_LOG(LS_VERBOSE)` statements to DLOG?",
+      "revId": "dc2cbf4e567ff90d7591fdbfc19c578a0226bbe5",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "ea4c4698_4b541699",
+        "filename": "media/sctp/dcsctp_transport.h",
+        "patchSetId": 3
+      },
+      "lineNbr": 134,
+      "author": {
+        "id": 5508
+      },
+      "writtenOn": "2022-08-05T13:02:04Z",
+      "side": 1,
+      "message": "Can you add thread annotation (presumably for the network thread)?\n\nAlso, could we make this a weak_ptr or something (even refcount?) in the future? Given some of the issues we\u0027ve had in the Connection classes, not having the lifetime/ownership relationship declared rings some alarm bells.",
+      "revId": "dc2cbf4e567ff90d7591fdbfc19c578a0226bbe5",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "a03c6aa7_3caad2bb",
+        "filename": "media/sctp/dcsctp_transport_unittest.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 63,
+      "author": {
+        "id": 5508
+      },
+      "writtenOn": "2022-08-05T13:02:04Z",
+      "side": 1,
+      "message": "remove `this-\u003e`?",
+      "revId": "dc2cbf4e567ff90d7591fdbfc19c578a0226bbe5",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "c4a0bbc4_9d90ae9c",
+        "filename": "pc/sctp_transport.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 32,
+      "author": {
+        "id": 5508
+      },
+      "writtenOn": "2022-08-05T13:02:04Z",
+      "side": 1,
+      "message": "skip `this-\u003e`",
+      "revId": "dc2cbf4e567ff90d7591fdbfc19c578a0226bbe5",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "24f5dc63_22d48bca",
+        "filename": "pc/sctp_transport_unittest.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 43,
+      "author": {
+        "id": 5508
+      },
+      "writtenOn": "2022-08-05T13:02:04Z",
+      "side": 1,
+      "message": "nit: `std::move`",
+      "revId": "dc2cbf4e567ff90d7591fdbfc19c578a0226bbe5",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

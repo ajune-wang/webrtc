@@ -456,7 +456,8 @@ AgcManagerDirect::AgcManagerDirect(
 
 AgcManagerDirect::AgcManagerDirect(int num_capture_channels,
                                    const AnalogAgcConfig& analog_config)
-    : min_mic_level_override_(GetMinMicLevelOverride()),
+    : analog_controller_enabled_(analog_config.enabled),
+      min_mic_level_override_(GetMinMicLevelOverride()),
       data_dumper_(new ApmDataDumper(instance_counter_.fetch_add(1) + 1)),
       use_min_channel_level_(!UseMaxAnalogChannelLevel()),
       num_capture_channels_(num_capture_channels),
@@ -478,6 +479,10 @@ AgcManagerDirect::AgcManagerDirect(int num_capture_channels,
       clipping_predictor_log_counter_(0),
       clipping_rate_log_(0.0f),
       clipping_rate_log_counter_(0) {
+  RTC_LOG(LS_INFO) << "[agc] analog controller enabled: "
+                   << (analog_controller_enabled_ ? "yes" : "no");
+  RTC_HISTOGRAM_BOOLEAN("WebRTC.Audio.GainController.Analog.Enabled",
+                        analog_controller_enabled_);
   const int min_mic_level = min_mic_level_override_.value_or(kMinMicLevel);
   RTC_LOG(LS_INFO) << "[agc] Min mic level: " << min_mic_level
                    << " (overridden: "
@@ -683,6 +688,10 @@ float AgcManagerDirect::voice_probability() const {
 }
 
 void AgcManagerDirect::set_stream_analog_level(int level) {
+  if (!analog_controller_enabled_) {
+    stream_analog_level_ = level;
+  }
+
   for (size_t ch = 0; ch < channel_agcs_.size(); ++ch) {
     channel_agcs_[ch]->set_stream_analog_level(level);
   }
@@ -691,29 +700,35 @@ void AgcManagerDirect::set_stream_analog_level(int level) {
 }
 
 void AgcManagerDirect::AggregateChannelLevels() {
-  stream_analog_level_ = channel_agcs_[0]->stream_analog_level();
+  int new_stream_analog_level = stream_analog_level_;
+
+  new_stream_analog_level = channel_agcs_[0]->stream_analog_level();
   channel_controlling_gain_ = 0;
   if (use_min_channel_level_) {
     for (size_t ch = 1; ch < channel_agcs_.size(); ++ch) {
       int level = channel_agcs_[ch]->stream_analog_level();
-      if (level < stream_analog_level_) {
-        stream_analog_level_ = level;
+      if (level < new_stream_analog_level) {
+        new_stream_analog_level = level;
         channel_controlling_gain_ = static_cast<int>(ch);
       }
     }
   } else {
     for (size_t ch = 1; ch < channel_agcs_.size(); ++ch) {
       int level = channel_agcs_[ch]->stream_analog_level();
-      if (level > stream_analog_level_) {
-        stream_analog_level_ = level;
+      if (level > new_stream_analog_level) {
+        new_stream_analog_level = level;
         channel_controlling_gain_ = static_cast<int>(ch);
       }
     }
   }
 
-  if (min_mic_level_override_.has_value() && stream_analog_level_ > 0) {
-    stream_analog_level_ =
-        std::max(stream_analog_level_, *min_mic_level_override_);
+  if (min_mic_level_override_.has_value() && new_stream_analog_level > 0) {
+    new_stream_analog_level =
+        std::max(new_stream_analog_level, *min_mic_level_override_);
+  }
+
+  if (analog_controller_enabled_) {
+    stream_analog_level_ = new_stream_analog_level;
   }
 }
 

@@ -10,15 +10,19 @@
 
 #include "modules/audio_processing/agc/agc_manager_direct.h"
 
+#include <fstream>
 #include <limits>
+#include <vector>
 
 #include "modules/audio_processing/agc/gain_control.h"
 #include "modules/audio_processing/agc/mock_agc.h"
 #include "modules/audio_processing/include/mock_audio_processing.h"
+#include "rtc_base/numerics/safe_minmax.h"
 #include "rtc_base/strings/string_builder.h"
 #include "test/field_trial.h"
 #include "test/gmock.h"
 #include "test/gtest.h"
+#include "test/testsupport/file_utils.h"
 
 using ::testing::_;
 using ::testing::AtLeast;
@@ -39,6 +43,9 @@ constexpr int kMinMicLevel = 12;
 constexpr int kClippedLevelStep = 15;
 constexpr float kClippedRatioThreshold = 0.1f;
 constexpr int kClippedWaitFrames = 300;
+
+constexpr float kMinSample = std::numeric_limits<int16_t>::min();
+constexpr float kMaxSample = std::numeric_limits<int16_t>::max();
 
 using AnalogAgcConfig =
     AudioProcessing::Config::GainController1::AnalogGainController;
@@ -96,8 +103,8 @@ void CallPreProcessAudioBuffer(int num_calls,
                                float peak_ratio,
                                AgcManagerDirect& manager) {
   RTC_DCHECK_LE(peak_ratio, 1.0f);
-  AudioBuffer audio_buffer(kSampleRateHz, 1, kSampleRateHz, 1, kSampleRateHz,
-                           1);
+  AudioBuffer audio_buffer(kSampleRateHz, kNumChannels, kSampleRateHz,
+                           kNumChannels, kSampleRateHz, kNumChannels);
   const int num_channels = audio_buffer.num_channels();
   const int num_frames = audio_buffer.num_frames();
 
@@ -160,8 +167,8 @@ std::string GetAgcMinMicLevelExperimentFieldTrial(
 void WriteAudioBufferSamples(float samples_value,
                              float clipped_ratio,
                              AudioBuffer& audio_buffer) {
-  RTC_DCHECK_GE(samples_value, std::numeric_limits<int16_t>::min());
-  RTC_DCHECK_LE(samples_value, std::numeric_limits<int16_t>::max());
+  RTC_DCHECK_GE(samples_value, kMinSample);
+  RTC_DCHECK_LE(samples_value, kMaxSample);
   RTC_DCHECK_GE(clipped_ratio, 0.0f);
   RTC_DCHECK_LE(clipped_ratio, 1.0f);
   int num_channels = audio_buffer.num_channels();
@@ -187,12 +194,71 @@ void CallPreProcessAndProcess(int num_calls,
   }
 }
 
+// Reads a given number of 10 ms chunks from a PCM file and feeds them to
+// `AgcManagerDirect`.
+class SpeechSamplesReader {
+ private:
+  // Recording properties.
+  static constexpr int kPcmSampleRateHz = 16000;
+  static constexpr int kPcmNumChannels = 1;
+  static constexpr int kPcmBytesPerSamples = sizeof(int16_t);
+
+ public:
+  SpeechSamplesReader()
+      : is_(test::ResourcePath("audio_processing/agc/agc_audio", "pcm"),
+            std::ios::binary | std::ios::ate),
+        audio_buffer_(kPcmSampleRateHz,
+                      kPcmNumChannels,
+                      kPcmSampleRateHz,
+                      kPcmNumChannels,
+                      kPcmSampleRateHz,
+                      kPcmNumChannels),
+        buffer_(audio_buffer_.num_frames()),
+        buffer_num_bytes_(buffer_.size() * kPcmBytesPerSamples) {
+    RTC_CHECK(is_);
+  }
+
+  // Reads `num_frames` 10 ms frames from the beginning of the PCM file, applies
+  // `gain_db` and feeds the frames to `agc` by calling `AnalyzePreProcess()`
+  // and `Process()` for each frame. Reads the number of 10 ms frames available
+  // in the PCM file if `num_frames` is too large - i.e., does not loop.
+  void Feed(int num_frames, int gain_db, AgcManagerDirect& agc) {
+    float gain = std::pow(10.0f, gain_db / 20.0f);  // From dB to linear gain.
+    is_.seekg(0, is_.beg);  // Start from the beginning of the PCM file.
+
+    // Read and feed frames.
+    for (int i = 0; i < num_frames; ++i) {
+      is_.read(reinterpret_cast<char*>(buffer_.data()), buffer_num_bytes_);
+      if (is_.gcount() < buffer_num_bytes_) {
+        // EOF reached. Stop.
+        break;
+      }
+      // Apply gain and copy samples into `audio_buffer_`.
+      std::transform(buffer_.begin(), buffer_.end(),
+                     audio_buffer_.channels()[0], [gain](int16_t v) -> float {
+                       return rtc::SafeClamp(static_cast<float>(v) * gain,
+                                             kMinSample, kMaxSample);
+                     });
+
+      agc.AnalyzePreProcess(&audio_buffer_);
+      agc.Process(&audio_buffer_);
+    }
+  }
+
+ private:
+  std::ifstream is_;
+  AudioBuffer audio_buffer_;
+  std::vector<int16_t> buffer_;
+  const std::streamsize buffer_num_bytes_;
+};
+
 }  // namespace
 
 // TODO(bugs.webrtc.org/12874): Use constexpr struct with designated
 // initializers once fixed.
 constexpr AnalogAgcConfig GetAnalogAgcTestConfig() {
   AnalogAgcConfig config;
+  config.enabled = true;
   config.startup_min_volume = kInitialVolume;
   config.clipped_level_min = kClippedMin;
   config.enable_digital_adaptive = true;
@@ -201,7 +267,13 @@ constexpr AnalogAgcConfig GetAnalogAgcTestConfig() {
   config.clipped_wait_frames = kClippedWaitFrames;
   config.clipping_predictor = kDefaultAnalogConfig.clipping_predictor;
   return config;
-};
+}
+
+constexpr AnalogAgcConfig GetDisabledAnalogAgcConfig() {
+  AnalogAgcConfig config = GetAnalogAgcTestConfig();
+  config.enabled = false;
+  return config;
+}
 
 class AgcManagerDirectTestHelper {
  public:
@@ -321,6 +393,78 @@ class AgcManagerDirectParametrizedTest
 INSTANTIATE_TEST_SUITE_P(,
                          AgcManagerDirectParametrizedTest,
                          testing::Values(absl::nullopt, 12, 20));
+
+// Checks that when the analog controller is disabled, no downward adaptation
+// takes place.
+TEST_P(AgcManagerDirectParametrizedTest,
+       DisabledAnalogAgcDoesNotAdaptDownwards) {
+  AgcManagerDirect manager_no_analog_agc(kNumChannels,
+                                         GetDisabledAnalogAgcConfig());
+  manager_no_analog_agc.Initialize();
+  AgcManagerDirect manager_with_analog_agc(kNumChannels,
+                                           GetAnalogAgcTestConfig());
+  manager_with_analog_agc.Initialize();
+
+  AudioBuffer audio_buffer(kSampleRateHz, kNumChannels, kSampleRateHz,
+                           kNumChannels, kSampleRateHz, kNumChannels);
+
+  constexpr int kAnalogLevel = 250;
+  static_assert(kAnalogLevel > kInitialVolume, "Increase `kAnalogLevel`.");
+  manager_no_analog_agc.set_stream_analog_level(kAnalogLevel);
+  manager_with_analog_agc.set_stream_analog_level(kAnalogLevel);
+
+  // Make a first call with input that doesn't clip in order to let the
+  // controller read the input volume. That happens because clipping input
+  // causes the controller to stay in idle state for
+  // `AnalogAgcConfig::clipped_wait_frames` frames.
+  WriteAudioBufferSamples(/*samples_value=*/0.0f, /*clipping_ratio=*/0.0f,
+                          audio_buffer);
+  manager_no_analog_agc.AnalyzePreProcess(&audio_buffer);
+  manager_with_analog_agc.AnalyzePreProcess(&audio_buffer);
+  manager_no_analog_agc.Process(&audio_buffer);
+  manager_with_analog_agc.Process(&audio_buffer);
+
+  // Feed clipping input to trigger a downward adapation of the analog level.
+  WriteAudioBufferSamples(/*samples_value=*/0.0f, /*clipping_ratio=*/0.2f,
+                          audio_buffer);
+  manager_no_analog_agc.AnalyzePreProcess(&audio_buffer);
+  manager_with_analog_agc.AnalyzePreProcess(&audio_buffer);
+  manager_no_analog_agc.Process(&audio_buffer);
+  manager_with_analog_agc.Process(&audio_buffer);
+
+  // Check that no adaptation occurs when the analog controller is disabled
+  // and make sure that the test triggers a downward adaptation otherwise.
+  EXPECT_EQ(manager_no_analog_agc.stream_analog_level(), kAnalogLevel);
+  ASSERT_LT(manager_with_analog_agc.stream_analog_level(), kAnalogLevel);
+}
+
+// Checks that when the analog controller is disabled, no upward adaptation
+// takes place.
+TEST_P(AgcManagerDirectParametrizedTest, DisabledAnalogAgcDoesNotAdaptUpwards) {
+  AgcManagerDirect manager_no_analog_agc(kNumChannels,
+                                         GetDisabledAnalogAgcConfig());
+  manager_no_analog_agc.Initialize();
+  AgcManagerDirect manager_with_analog_agc(kNumChannels,
+                                           GetAnalogAgcTestConfig());
+  manager_with_analog_agc.Initialize();
+
+  constexpr int kAnalogLevel = kInitialVolume;
+  manager_no_analog_agc.set_stream_analog_level(kAnalogLevel);
+  manager_with_analog_agc.set_stream_analog_level(kAnalogLevel);
+
+  // Feed speech with low energy to trigger an upward adapation of the analog
+  // level.
+  constexpr int kNumFrames = 125;
+  constexpr int kGainDb = -20;
+  SpeechSamplesReader reader;
+  reader.Feed(kNumFrames, kGainDb, manager_no_analog_agc);
+  reader.Feed(kNumFrames, kGainDb, manager_with_analog_agc);
+
+  // Check that no adaptation occurs when the analog controller is disabled
+  // and make sure that the test triggers an upward adaptation otherwise.
+  EXPECT_EQ(manager_no_analog_agc.stream_analog_level(), kAnalogLevel);
+  ASSERT_GT(manager_with_analog_agc.stream_analog_level(), kAnalogLevel);
+}
 
 TEST_P(AgcManagerDirectParametrizedTest,
        StartupMinVolumeConfigurationIsRespected) {

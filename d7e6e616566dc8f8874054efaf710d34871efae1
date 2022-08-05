@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "46ebd8ba_2593f94d",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 3
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5119
+      },
+      "writtenOn": "2022-08-05T08:44:47Z",
+      "side": 1,
+      "message": "I took your advice to heart and just removed the APM presence log + any provably unnecessary logs in ApplyOptions.",
+      "revId": "d7e6e616566dc8f8874054efaf710d34871efae1",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

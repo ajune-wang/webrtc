@@ -11,14 +11,15 @@
 #ifndef MODULES_VIDEO_CODING_GENERIC_DECODER_H_
 #define MODULES_VIDEO_CODING_GENERIC_DECODER_H_
 
+#include <cstdint>
+#include <deque>
 #include <string>
+#include <utility>
 
 #include "api/field_trials_view.h"
 #include "api/sequence_checker.h"
 #include "api/video_codecs/video_decoder.h"
 #include "modules/video_coding/encoded_frame.h"
-#include "modules/video_coding/include/video_codec_interface.h"
-#include "modules/video_coding/timestamp_map.h"
 #include "modules/video_coding/timing/timing.h"
 #include "rtc_base/synchronization/mutex.h"
 
@@ -26,7 +27,19 @@ namespace webrtc {
 
 class VCMReceiveCallback;
 
-enum { kDecoderFrameMemoryLength = 10 };
+struct FrameInformation {
+  // This is likely not optional, but some inputs seem to sometimes be negative.
+  // TODO(bugs.webrtc.org/13756): See if this can be replaced with Timestamp
+  // once all inputs to this field use Timestamp instead of an integer.
+  absl::optional<Timestamp> render_time;
+  absl::optional<Timestamp> decode_start;
+  VideoRotation rotation;
+  VideoContentType content_type;
+  EncodedImage::Timing timing;
+  int64_t ntp_time_ms;
+  RtpPacketInfos packet_infos;
+  // ColorSpace is not stored here, as it might be modified by decoders.
+};
 
 class VCMDecodedFrameCallback : public DecodedImageCallback {
  public:
@@ -50,7 +63,6 @@ class VCMDecodedFrameCallback : public DecodedImageCallback {
 
  private:
   SequenceChecker construction_thread_;
-  // Protect `_timestampMap`.
   Clock* const _clock;
   // This callback must be set before the decoder thread starts running
   // and must only be unset when external threads (e.g decoder thread)
@@ -59,8 +71,15 @@ class VCMDecodedFrameCallback : public DecodedImageCallback {
   // from the same thread, and therfore a lock is not required to access it.
   VCMReceiveCallback* _receiveCallback = nullptr;
   VCMTiming* _timing;
+  // Protect `_timestampMap`.
   Mutex lock_;
-  TimestampMap _timestampMap RTC_GUARDED_BY(lock_);
+  struct TimestampFrameInfoPair {
+    TimestampFrameInfoPair(uint32_t rtp_timestamp, FrameInformation frame_info)
+        : rtp_timestamp(rtp_timestamp), frame_info(std::move(frame_info)) {}
+    uint32_t rtp_timestamp;
+    FrameInformation frame_info;
+  };
+  std::deque<TimestampFrameInfoPair> timestamp_map_ RTC_GUARDED_BY(lock_);
   int64_t ntp_offset_;
 };
 

@@ -24,6 +24,30 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "92171c3a_dfa42b91",
+        "filename": "modules/video_coding/generic_decoder.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 170,
+      "author": {
+        "id": 18444
+      },
+      "writtenOn": "2022-08-05T07:55:18Z",
+      "side": 1,
+      "message": "Yes, types do not match. value_or will return a Timestamp or some default Timestamp value. If there was a map operation (might come in C++23) then this could use value_or.\n\nhttps://en.cppreference.com/w/cpp/utility/optional/transform",
+      "parentUuid": "bf7acc27_1afb663c",
+      "range": {
+        "startLine": 170,
+        "startChar": 6,
+        "endLine": 170,
+        "endChar": 65
+      },
+      "revId": "0f724748d73fbd9f65d3af8378b7f1d90baf8599",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "ea4859f7_c6b99cbc",
@@ -47,6 +71,30 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "4404d452_60eb9d7c",
+        "filename": "modules/video_coding/timestamp_map.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 19,
+      "author": {
+        "id": 18444
+      },
+      "writtenOn": "2022-08-05T07:55:18Z",
+      "side": 1,
+      "message": "I can do this in a follow-up and delete this file.",
+      "parentUuid": "ea4859f7_c6b99cbc",
+      "range": {
+        "startLine": 19,
+        "startChar": 0,
+        "endLine": 19,
+        "endChar": 12
+      },
+      "revId": "0f724748d73fbd9f65d3af8378b7f1d90baf8599",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "5030189e_f933480c",
@@ -60,6 +108,30 @@
       "writtenOn": "2022-08-04T16:06:55Z",
       "side": 1,
       "message": "Can we avoid the optional by using another magic value, such as Timestamp::MinusInfinity() ?",
+      "range": {
+        "startLine": 29,
+        "startChar": 2,
+        "endLine": 29,
+        "endChar": 16
+      },
+      "revId": "0f724748d73fbd9f65d3af8378b7f1d90baf8599",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "043e20e8_2e7db088",
+        "filename": "modules/video_coding/timestamp_map.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 29,
+      "author": {
+        "id": 18444
+      },
+      "writtenOn": "2022-08-05T07:55:18Z",
+      "side": 1,
+      "message": "No, Timestamps can not be negative [1] (they are guarded as positive only values) and Timestamp::Zero is technically a valid value. \n\n[1] https://source.chromium.org/chromium/chromium/src/+/main:third_party/webrtc/api/units/timestamp.h;l\u003d120;drc\u003db95d90b78a3491ef8e8aa0640dd521515ec881ca",
+      "parentUuid": "5030189e_f933480c",
       "range": {
         "startLine": 29,
         "startChar": 2,

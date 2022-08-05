@@ -62,9 +62,9 @@ class AgcManagerDirect final {
   // prediction (if enabled).
   void AnalyzePreProcess(const AudioBuffer* audio);
 
-  // Processes `audio`. Chooses and applies a digital compression gain on each
-  // channel and chooses the new input volume to recommend. Undefined behavior
-  // if `AnalyzePreProcess()` is not called beforehand.
+  // Processes `audio`. Chooses a digital compression gain and the new input
+  // volume to recommend. Undefined behavior if `AnalyzePreProcess()` is not
+  // called beforehand.
   void Process(const AudioBuffer* audio);
 
   // Call when the capture stream output has been flagged to be used/not-used.
@@ -82,7 +82,7 @@ class AgcManagerDirect final {
   int num_channels() const { return num_capture_channels_; }
 
   // If available, returns the latest digital compression gain that has been
-  // applied.
+  // chosen.
   absl::optional<int> GetDigitalComressionGain();
 
   // Returns true if clipping prediction is enabled.
@@ -128,6 +128,8 @@ class AgcManagerDirect final {
   void AnalyzePreProcess(const float* const* audio, size_t samples_per_channel);
 
   void AggregateChannelLevels();
+
+  const bool analog_controller_enabled_;
 
   const absl::optional<int> min_mic_level_override_;
   std::unique_ptr<ApmDataDumper> data_dumper_;

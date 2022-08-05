@@ -25,6 +25,8 @@
 #include "rtc_base/synchronization/mutex.h"
 #include "rtc_base/task_queue_for_test.h"
 #include "test/call_test.h"
+#include "test/gmock.h"
+#include "test/gtest.h"
 
 namespace webrtc {
 namespace {
@@ -37,6 +39,22 @@ const int kMinPacketsToObserve = 10;
 const int kEncoderBitrateBps = 300000;
 const uint32_t kPictureIdWraparound = (1 << 15);
 const size_t kNumTemporalLayers[] = {1, 2, 3};
+
+MATCHER_P(PictureIdAheadOf, last, "") {
+  if (AheadOf<uint16_t, kPictureIdWraparound>(arg.picture_id, last.picture_id))
+    return true;
+  *result_listener << "picture id " << arg.picture_id << " behind "
+                   << last.picture_id;
+  return false;
+}
+
+MATCHER_P(Tl0PicIdxAheadOf, last, "") {
+  if (AheadOf<uint8_t>(arg.tl0_pic_idx, last.tl0_pic_idx))
+    return true;
+  *result_listener << "tl0 pic index " << arg.tl0_pic_idx << " behind "
+                   << last.tl0_pic_idx;
+  return false;
+}
 
 }  // namespace
 
@@ -129,8 +147,7 @@ class PictureIdObserver : public test::RtpRtcpObserver {
 
     // Packet belongs to a new frame.
     // Picture id should be increasing.
-    EXPECT_TRUE((AheadOf<uint16_t, kPictureIdWraparound>(current.picture_id,
-                                                         last.picture_id)));
+    EXPECT_THAT(current, PictureIdAheadOf(last));
 
     // Expect continuously increasing picture id.
     int diff = ForwardDiff<uint16_t, kPictureIdWraparound>(last.picture_id,
@@ -143,7 +160,9 @@ class PictureIdObserver : public test::RtpRtcpObserver {
       // transmission error".
       // A larger gap is only possible for first frame after a recreation, i.e.
       // key frames.
-      EXPECT_EQ(VideoFrameType::kVideoFrameKey, current.frame_type);
+      EXPECT_EQ(VideoFrameType::kVideoFrameKey, current.frame_type)
+          << " forward diff was " << diff
+          << " but the frame type was not a keyframe.";
     }
   }
 
@@ -161,7 +180,7 @@ class PictureIdObserver : public test::RtpRtcpObserver {
 
     // New frame with `temporal_idx` 0.
     // `tl0_pic_idx` should be increasing.
-    EXPECT_TRUE(AheadOf<uint8_t>(current.tl0_pic_idx, last.tl0_pic_idx));
+    EXPECT_THAT(current, Tl0PicIdxAheadOf(last));
 
     // Expect continuously increasing idx.
     int diff = ForwardDiff<uint8_t>(last.tl0_pic_idx, current.tl0_pic_idx);
@@ -169,7 +188,9 @@ class PictureIdObserver : public test::RtpRtcpObserver {
       // If the VideoSendStream is destroyed, any frames still in queue is lost.
       // Gaps only possible for first frame after a recreation, i.e. key frames.
       EXPECT_EQ(VideoFrameType::kVideoFrameKey, current.frame_type);
-      EXPECT_LE(diff - 1, max_expected_tl0_idx_gap_);
+      EXPECT_LE(diff - 1, max_expected_tl0_idx_gap_)
+          << " forward diff was " << diff
+          << " but the frame type was not a keyframe.";
     }
   }
 

@@ -242,6 +242,18 @@ void TaskQueueLibevent::PostDelayedTaskOnTaskQueue(
 
 void TaskQueueLibevent::PostDelayedTask(absl::AnyInvocable<void() &&> task,
                                         TimeDelta delay) {
+#if RTC_DLOG_IS_ON
+  if (delay > TimeDelta::Zero())
+    task = [execution_time = Timestamp::Micros(rtc::TimeMicros()) + delay,
+            task = std::move(task)]() mutable {
+      TimeDelta delta = execution_time - Timestamp::Micros(rtc::TimeMicros());
+      if (delta > TimeDelta::Millis(1)) {
+        RTC_DLOG(LS_WARNING) << "BUGBUG: Task queue scheduled delayed call "
+                             << delta << " too early.";
+      }
+      std::move(task)();
+    };
+#endif
   if (IsCurrent()) {
     PostDelayedTaskOnTaskQueue(std::move(task), delay);
   } else {

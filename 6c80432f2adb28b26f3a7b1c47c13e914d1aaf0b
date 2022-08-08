@@ -35,6 +35,24 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "7242fd7d_a4a11f40",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 3
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2022-08-08T09:51:13Z",
+      "side": 1,
+      "message": "The class handles incoming rtp packets, so the scenario is when incoming rtp packets have huge transport sequence number gaps between them.\nNormal client shouldn\u0027t generate such rtp stream [other than occasionally, e.g. after a pause], but malformed client may.\ne.g. in the linked test scenario packet arrive with these transport sequence numbers: \n61, 15797, 47360, 65597, 81337, 113920, 131133, 146877, ...",
+      "parentUuid": "3d591bb5_d6dbd95b",
+      "revId": "6c80432f2adb28b26f3a7b1c47c13e914d1aaf0b",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "82865948_4ffb047c",
@@ -58,6 +76,30 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "9c7599ca_b98b55f5",
+        "filename": "modules/remote_bitrate_estimator/packet_arrival_map.h",
+        "patchSetId": 3
+      },
+      "lineNbr": 109,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2022-08-08T09:51:13Z",
+      "side": 1,
+      "message": "it won\u0027t give automatic reallocation (copying from old buffer to new one is not straight forward).\nIt is harder to control capacity of the BufferT (this class heavily rely on capacity beeing power of 2)\ni.e. I do not find it to be a good fit.\n\nFor automatic lifetime management it seems better to use std::unique_ptr\u003cTimestamp[]\u003e, switched to that one.\n\nOn the other hand may be it would be a good idea to create a dedicate template CircularBuffer with custom value type, it is common in WebRTC to handle incoming packets with known sequence number (which might be transport sequence number, rtp sequence number, picture id, frame id, or something else)\nBut more generic class would require more effort\n(e.g. here I assume that Timestamp constructor is optional - I assign to uninitialized memory with operator\u003d instead of placement new.\nI even considered optimization of resetting Timestamp with std::memset rather than std::fill. That is faster and produce expected result, but creates Timestamp value that is otherwise impossible to create.)",
+      "parentUuid": "82865948_4ffb047c",
+      "range": {
+        "startLine": 109,
+        "startChar": 2,
+        "endLine": 109,
+        "endChar": 12
+      },
+      "revId": "6c80432f2adb28b26f3a7b1c47c13e914d1aaf0b",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "5f39e282_165ca4b5",
@@ -71,6 +113,30 @@
       "writtenOn": "2022-08-08T08:47:50Z",
       "side": 1,
       "message": "As this represents a bitmask (capacity is always a power of two, and minus 1 makes it a mask), and since it\u0027s only used to map a sequence number (by applying the mask) into a position within the buffer, maybe name it as something with \"_mask\"?",
+      "range": {
+        "startLine": 115,
+        "startChar": 6,
+        "endLine": 115,
+        "endChar": 23
+      },
+      "revId": "6c80432f2adb28b26f3a7b1c47c13e914d1aaf0b",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "f4956c12_465108d8",
+        "filename": "modules/remote_bitrate_estimator/packet_arrival_map.h",
+        "patchSetId": 3
+      },
+      "lineNbr": 115,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2022-08-08T09:51:13Z",
+      "side": 1,
+      "message": "main purpose of this variable is to track capacity (and sometimes it is used as such through the capacity() accessor)\nThe fact it can be reused as mask is a useful side effect",
+      "parentUuid": "5f39e282_165ca4b5",
       "range": {
         "startLine": 115,
         "startChar": 6,

@@ -53,6 +53,24 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "9a072e89_27642d0c",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 3
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 17854
+      },
+      "writtenOn": "2022-08-08T12:11:05Z",
+      "side": 1,
+      "message": "Thanks for the context! I\u0027ve added the new API to the AsyncDnsResolverFactoryInterface and impl to avoid adding a dependency on the to-be-deprecated Create + Start combo.\n\nAsyncResolver already has all the code needed to handle the new API. It uses the family in the input SocketAddress, but it happens to always be AF_UNSPEC, so we are hampered somewhat in making full use of the implementation there. The new API just allows a way to pass a family other than AF_UNSPEC.\n\nAs I said in the other comment, we could set the family to something else in the input SocketAddress, instead of adding this new API, if that would be a more correct approach. It would just need some changes around the the const-ness of SocketAddresses at the callsites.\n\nI\u0027m using the new API to fix STUN hostname lookup in StunPort (https://webrtc-review.googlesource.com/c/src/+/270625).",
+      "parentUuid": "88e28b59_9e042a18",
+      "revId": "dafde2729c468981753a44a43195978af8474e71",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "8e3842fa_d1cc4868",
@@ -66,6 +84,24 @@
       "writtenOn": "2022-08-08T07:45:05Z",
       "side": 1,
       "message": "add a TODO to make pure virtual when all subclasses have been updated?",
+      "revId": "dafde2729c468981753a44a43195978af8474e71",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "3362169c_aa549d26",
+        "filename": "rtc_base/async_resolver_interface.h",
+        "patchSetId": 3
+      },
+      "lineNbr": 29,
+      "author": {
+        "id": 17854
+      },
+      "writtenOn": "2022-08-08T12:11:05Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "8e3842fa_d1cc4868",
       "revId": "dafde2729c468981753a44a43195978af8474e71",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }

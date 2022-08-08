@@ -63,6 +63,30 @@
       },
       "revId": "e9bad833c1b1c4169fa52fb23efec5011089bcfb",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "316cf01c_08489758",
+        "filename": "p2p/base/stun_port.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 429,
+      "author": {
+        "id": 17854
+      },
+      "writtenOn": "2022-08-08T15:16:10Z",
+      "side": 1,
+      "message": "Done! Also rephrased the comment inside the loop to (hopefully) be clearer about what is invalidated, and hence needs to be copied.",
+      "parentUuid": "29b9721e_694b4979",
+      "range": {
+        "startLine": 429,
+        "startChar": 10,
+        "endLine": 429,
+        "endChar": 11
+      },
+      "revId": "e9bad833c1b1c4169fa52fb23efec5011089bcfb",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

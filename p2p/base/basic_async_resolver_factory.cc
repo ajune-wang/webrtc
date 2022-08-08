@@ -40,4 +40,14 @@ WrappingAsyncDnsResolverFactory::CreateAndResolve(
   return resolver;
 }
 
+std::unique_ptr<webrtc::AsyncDnsResolverInterface>
+WrappingAsyncDnsResolverFactory::CreateAndResolve(
+    const rtc::SocketAddress& addr,
+    int family,
+    std::function<void()> callback) {
+  std::unique_ptr<webrtc::AsyncDnsResolverInterface> resolver = Create();
+  resolver->Start(addr, family, callback);
+  return resolver;
+}
+
 }  // namespace webrtc

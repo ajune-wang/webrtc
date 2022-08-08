@@ -1,0 +1,90 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "87d8ee32_9a2a9826",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 9
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5119
+      },
+      "writtenOn": "2022-08-08T13:12:33Z",
+      "side": 1,
+      "message": "Hi! Thanks for clearing things up. I have to look a little bit more to convince myself that the `UpdateRecommendedStreamAnalogLevelLocked()` calls are in the right places, but here are my comments on the rest of the code.",
+      "revId": "486e7fdf6ab9b56a19be2d0e7bbe0c3482da5fc8",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "d9205caf_53e5cb3f",
+        "filename": "modules/audio_processing/audio_processing_impl.cc",
+        "patchSetId": 9
+      },
+      "lineNbr": 1634,
+      "author": {
+        "id": 5119
+      },
+      "writtenOn": "2022-08-08T13:12:33Z",
+      "side": 1,
+      "message": "Side note - this can now be made atomic, but may be controversial (locks are simpler, the performance gain is debatable) and will anyway be rendered unnecesary by your at least current plans to incorporate `recommended_stream_analog_level()` into `ProcessStream()`.",
+      "range": {
+        "startLine": 1634,
+        "startChar": 0,
+        "endLine": 1634,
+        "endChar": 40
+      },
+      "revId": "486e7fdf6ab9b56a19be2d0e7bbe0c3482da5fc8",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "896cbdd6_d5293828",
+        "filename": "modules/audio_processing/debug.proto",
+        "patchSetId": 9
+      },
+      "lineNbr": 38,
+      "author": {
+        "id": 5119
+      },
+      "writtenOn": "2022-08-08T13:12:33Z",
+      "side": 1,
+      "message": "How is this handled if an aecdump with this value is encountered? Crash?\nIs appending `[deprecated\u003dtrue]` an option?\n\nAlternatively, is it possible to rename the field, reusing the field number? Since the value is only encoded using the field number. Only textproto and code references should be affected.\n\n\nSee also internal references:\ngo/proto-guidelines#delete-field\ngo/proto-guidelines#rename-field",
+      "range": {
+        "startLine": 38,
+        "startChar": 2,
+        "endLine": 38,
+        "endChar": 12
+      },
+      "revId": "486e7fdf6ab9b56a19be2d0e7bbe0c3482da5fc8",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "005ab3e1_e35b504a",
+        "filename": "modules/audio_processing/test/aec_dump_based_simulator.cc",
+        "patchSetId": 9
+      },
+      "lineNbr": 179,
+      "author": {
+        "id": 5119
+      },
+      "writtenOn": "2022-08-08T13:12:33Z",
+      "side": 1,
+      "message": "Does this introduce a break in `audioproc_f` compatibility? I.e. will this force anyone to use one audioproc_f version for future aecdumps and a separate one for older aecdumps? That sounds problematic for AEC tuning and bit exactness scripts.",
+      "range": {
+        "startLine": 176,
+        "startChar": 0,
+        "endLine": 179,
+        "endChar": 55
+      },
+      "revId": "486e7fdf6ab9b56a19be2d0e7bbe0c3482da5fc8",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

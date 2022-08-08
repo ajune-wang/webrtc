@@ -39,6 +39,30 @@
       },
       "revId": "e9bad833c1b1c4169fa52fb23efec5011089bcfb",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "29b9721e_694b4979",
+        "filename": "p2p/base/stun_port.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 429,
+      "author": {
+        "id": 5578
+      },
+      "writtenOn": "2022-08-08T13:51:37Z",
+      "side": 1,
+      "message": "Discussed offline and convinced this may be easier to understand what is being invalidated by   SendStunBindingRequest(*addr);.\n\n\nBut please document in   SendStunBindingRequest(const rtc::SocketAddress\u0026 ) that server_addresses_ may be modified.",
+      "parentUuid": "86af76a1_6ef58865",
+      "range": {
+        "startLine": 429,
+        "startChar": 10,
+        "endLine": 429,
+        "endChar": 11
+      },
+      "revId": "e9bad833c1b1c4169fa52fb23efec5011089bcfb",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

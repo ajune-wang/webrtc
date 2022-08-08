@@ -236,14 +236,7 @@ TEST_F(StunPortTest, TestPrepareAddressFail) {
   ASSERT_EQ(error_event_.url, server_url);
 }
 
-// Test that we can get an address from a STUN server specified by a hostname.
-// Crashes on Linux, see webrtc:7416
-#if defined(WEBRTC_LINUX) || defined(WEBRTC_WIN)
-#define MAYBE_TestPrepareAddressHostname DISABLED_TestPrepareAddressHostname
-#else
-#define MAYBE_TestPrepareAddressHostname TestPrepareAddressHostname
-#endif
-TEST_F(StunPortTest, MAYBE_TestPrepareAddressHostname) {
+TEST_F(StunPortTest, TestPrepareAddressHostname) {
   CreateStunPort(kStunHostnameAddr);
   PrepareAddress();
   EXPECT_TRUE_SIMULATED_WAIT(done(), kTimeoutMs, fake_clock);

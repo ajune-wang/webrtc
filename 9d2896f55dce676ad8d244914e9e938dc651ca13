@@ -16,6 +16,69 @@
       "message": "The follow up",
       "revId": "9d2896f55dce676ad8d244914e9e938dc651ca13",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "5d1224f2_c3b71850",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 6
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5524
+      },
+      "writtenOn": "2022-08-08T09:25:43Z",
+      "side": 1,
+      "message": "nice! just a few nits",
+      "revId": "9d2896f55dce676ad8d244914e9e938dc651ca13",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "38b18b8a_653e32e4",
+        "filename": "modules/video_coding/generic_decoder.h",
+        "patchSetId": 6
+      },
+      "lineNbr": 82,
+      "author": {
+        "id": 5524
+      },
+      "writtenOn": "2022-08-08T09:25:43Z",
+      "side": 1,
+      "message": "Could this be a member in FrameInformation instead, so we can drop this helper struct?",
+      "range": {
+        "startLine": 82,
+        "startChar": 4,
+        "endLine": 82,
+        "endChar": 27
+      },
+      "revId": "9d2896f55dce676ad8d244914e9e938dc651ca13",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "f677f37c_e6ae3ed1",
+        "filename": "modules/video_coding/generic_decoder_unittest.cc",
+        "patchSetId": 6
+      },
+      "lineNbr": 35,
+      "author": {
+        "id": 5524
+      },
+      "writtenOn": "2022-08-08T09:25:43Z",
+      "side": 1,
+      "message": "Is this needed?",
+      "range": {
+        "startLine": 35,
+        "startChar": 44,
+        "endLine": 35,
+        "endChar": 53
+      },
+      "revId": "9d2896f55dce676ad8d244914e9e938dc651ca13",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

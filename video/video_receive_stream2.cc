@@ -764,6 +764,7 @@ bool VideoReceiveStream2::SetMinimumPlayoutDelay(int delay_ms) {
   return true;
 }
 
+// RTC_RUN_ON(decode_queue_)
 TimeDelta VideoReceiveStream2::GetMaxWait() const {
   return keyframe_required_ ? max_wait_for_keyframe_ : max_wait_for_frame_;
 }
@@ -809,10 +810,6 @@ void VideoReceiveStream2::HandleEncodedFrame(
   bool force_request_key_frame = false;
   int64_t decoded_frame_picture_id = -1;
 
-  const bool keyframe_request_is_due =
-      !last_keyframe_request_ ||
-      now >= (*last_keyframe_request_ + max_wait_for_keyframe_);
-
   if (!video_receiver_.IsExternalDecoderRegistered(frame->PayloadType())) {
     // Look for the decoder with this payload type.
     for (const Decoder& decoder : config_.decoders) {
@@ -836,8 +833,7 @@ void VideoReceiveStream2::HandleEncodedFrame(
 
     if (decode_result == WEBRTC_VIDEO_CODEC_OK_REQUEST_KEYFRAME)
       force_request_key_frame = true;
-  } else if (!frame_decoded_ || !keyframe_required_ ||
-             keyframe_request_is_due) {
+  } else if (!frame_decoded_ || !keyframe_required_) {
     keyframe_required_ = true;
     // TODO(philipel): Remove this keyframe request when downstream project
     //                 has been fixed.
@@ -847,10 +843,27 @@ void VideoReceiveStream2::HandleEncodedFrame(
   {
     // TODO(bugs.webrtc.org/11993): Make this PostTask to the network thread.
     call_->worker_thread()->PostTask(SafeTask(
-        task_safety_.flag(),
-        [this, now, received_frame_is_keyframe, force_request_key_frame,
-         decoded_frame_picture_id, keyframe_request_is_due]() {
+        task_safety_.flag(), [this, now, received_frame_is_keyframe,
+                              force_request_key_frame, decoded_frame_picture_id,
+                              last_keyframe_request = last_keyframe_request_,
+                              decode_result]() mutable {
           RTC_DCHECK_RUN_ON(&packet_sequence_checker_);
+
+          const bool keyframe_request_is_due =
+              !last_keyframe_request ||
+              now >= (*last_keyframe_request + max_wait_for_keyframe_);
+          if (decode_result != WEBRTC_VIDEO_CODEC_OK &&
+              decode_result != WEBRTC_VIDEO_CODEC_OK_REQUEST_KEYFRAME &&
+              keyframe_request_is_due) {
+            decode_queue_.PostTask([this] {
+              RTC_DCHECK_RUN_ON(&decode_queue_);
+              keyframe_required_ = true;
+            });
+
+            // TODO(philipel): Remove this keyframe request when downstream
+            // project has been fixed.
+            force_request_key_frame = true;
+          }
 
           if (decoded_frame_picture_id != -1)
             rtp_video_stream_receiver_.FrameDecoded(decoded_frame_picture_id);

@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "ca6f7733_346fcd3c",
+        "filename": "sdk/objc/components/audio/RTCAudioDevice.h",
+        "patchSetId": 15
+      },
+      "lineNbr": 127,
+      "author": {
+        "id": 5670
+      },
+      "writtenOn": "2022-08-08T15:10:46Z",
+      "side": 1,
+      "message": "Is there a way to avoid this API? Or can we perhaps change the naming to suggest that it should be used restrictively?",
+      "range": {
+        "startLine": 127,
+        "startChar": 8,
+        "endLine": 127,
+        "endChar": 21
+      },
+      "revId": "7bc37166329428e64c73d1cb913a82d1a55e7136",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

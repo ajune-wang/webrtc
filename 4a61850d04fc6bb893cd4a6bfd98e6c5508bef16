@@ -22,6 +22,30 @@
       },
       "revId": "4a61850d04fc6bb893cd4a6bfd98e6c5508bef16",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "0bcff57e_068d82ab",
+        "filename": "modules/remote_bitrate_estimator/packet_arrival_map.cc",
+        "patchSetId": 6
+      },
+      "lineNbr": 180,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2022-08-08T12:27:47Z",
+      "side": 1,
+      "message": "yes, it was fuzzer that discovered the slowness issue in the first place.\nI run this change with msan fuzzer for a short while - no issues found.\n\nI can also rearrange code a bit and try to make it easier to see that all entries in range [begin_sn_, end_sn_) are assigned.",
+      "parentUuid": "a0718e82_3e65919e",
+      "range": {
+        "startLine": 180,
+        "startChar": 2,
+        "endLine": 180,
+        "endChar": 63
+      },
+      "revId": "4a61850d04fc6bb893cd4a6bfd98e6c5508bef16",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

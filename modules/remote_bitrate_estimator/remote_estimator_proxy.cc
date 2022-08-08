@@ -20,8 +20,7 @@
 #include "modules/rtp_rtcp/source/rtcp_packet/transport_feedback.h"
 #include "rtc_base/checks.h"
 #include "rtc_base/logging.h"
-#include "rtc_base/numerics/safe_minmax.h"
-#include "system_wrappers/include/clock.h"
+#include "rtc_base/numerics/mod_ops.h"
 
 namespace webrtc {
 namespace {
@@ -29,21 +28,6 @@ namespace {
 // than the numerical limit since we often convert to microseconds.
 static constexpr int64_t kMaxTimeMs =
     std::numeric_limits<int64_t>::max() / 1000;
-
-TimeDelta GetAbsoluteSendTimeDelta(uint32_t new_sendtime,
-                                   uint32_t previous_sendtime) {
-  static constexpr uint32_t kWrapAroundPeriod = 0x0100'0000;
-  RTC_DCHECK_LT(new_sendtime, kWrapAroundPeriod);
-  RTC_DCHECK_LT(previous_sendtime, kWrapAroundPeriod);
-  uint32_t delta = (new_sendtime - previous_sendtime) % kWrapAroundPeriod;
-  if (delta >= kWrapAroundPeriod / 2) {
-    // absolute send time wraps around, thus treat deltas larger than half of
-    // the wrap around period as negative. Ignore reordering of packets and
-    // treat them as they have approximately the same send time.
-    return TimeDelta::Zero();
-  }
-  return TimeDelta::Micros(int64_t{delta} * 1'000'000 / (1 << 18));
-}
 }  // namespace
 
 RemoteEstimatorProxy::RemoteEstimatorProxy(
@@ -58,9 +42,7 @@ RemoteEstimatorProxy::RemoteEstimatorProxy(
       feedback_packet_count_(0),
       packet_overhead_(DataSize::Zero()),
       send_interval_(send_config_.default_interval.Get()),
-      send_periodic_feedback_(true),
-      previous_abs_send_time_(0),
-      abs_send_timestamp_(Timestamp::Zero()) {
+      send_periodic_feedback_(true) {
   RTC_LOG(LS_INFO)
       << "Maximum interval between transport feedback RTCP messages (ms): "
       << send_config_.max_interval->ms();
@@ -98,6 +80,37 @@ void RemoteEstimatorProxy::IncomingPacket(int64_t arrival_time_ms,
   packet.feedback_request = header.extension.feedback_request;
 
   IncomingPacket(packet);
+}
+
+Timestamp RemoteEstimatorProxy::AbsSendTime(uint32_t absolute_send_time_24bits,
+                                            Timestamp arrival_time) {
+  static constexpr uint32_t kWrapAround = 0x0100'0000;
+  if (unwrapped_abs_send_time_ < 0) {  // First call
+    unwrapped_abs_send_time_ = absolute_send_time_24bits;
+  } else {
+    uint32_t wrapped_last_abs_send_time =
+        (unwrapped_abs_send_time_ % kWrapAround);
+    uint32_t diff = ForwardDiff<uint32_t, kWrapAround>(
+        wrapped_last_abs_send_time, absolute_send_time_24bits);
+
+    // Absolute send time wraps around, thus treat deltas larger than half
+    // of the wrap around period as negative. Ignore reordering of packets and
+    // treat them as they have approximately the same send time.
+    bool diff_is_positive = diff < kWrapAround / 2;
+
+    // Absolute send time wraps around every 64 seconds. If there was large
+    // gap between arrived packets, assume connection was paused, and thus
+    // treat send time diff as positive regardless the wrap around.
+    bool unpausing =
+        arrival_time - last_packet_arrival_time_ > TimeDelta::Seconds(30);
+
+    if (diff_is_positive || unpausing) {
+      unwrapped_abs_send_time_ += diff;
+    }
+  }
+  last_packet_arrival_time_ = arrival_time;
+
+  return Timestamp::Micros(unwrapped_abs_send_time_ * 1'000'000 / (1 << 18));
 }
 
 void RemoteEstimatorProxy::IncomingPacket(Packet packet) {
@@ -140,10 +153,8 @@ void RemoteEstimatorProxy::IncomingPacket(Packet packet) {
   if (network_state_estimator_ && packet.absolute_send_time_24bits) {
     PacketResult packet_result;
     packet_result.receive_time = packet.arrival_time;
-    abs_send_timestamp_ += GetAbsoluteSendTimeDelta(
-        *packet.absolute_send_time_24bits, previous_abs_send_time_);
-    previous_abs_send_time_ = *packet.absolute_send_time_24bits;
-    packet_result.sent_packet.send_time = abs_send_timestamp_;
+    packet_result.sent_packet.send_time =
+        AbsSendTime(*packet.absolute_send_time_24bits, packet.arrival_time);
     packet_result.sent_packet.size = packet.size + packet_overhead_;
     packet_result.sent_packet.sequence_number = seq;
     network_state_estimator_->OnReceivedPacket(packet_result);

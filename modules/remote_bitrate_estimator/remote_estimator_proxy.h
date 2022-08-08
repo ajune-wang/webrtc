@@ -110,6 +110,12 @@ class RemoteEstimatorProxy {
       int64_t end_sequence_number_exclusive,
       bool is_periodic_update) RTC_EXCLUSIVE_LOCKS_REQUIRED(&lock_);
 
+  // Unwraps asbolute send time and converts it to Timestamp with unspecfied
+  // epoch. Ignores negative jumps.
+  Timestamp AbsSendTime(uint32_t absolute_send_time_24bits,
+                        Timestamp arrival_time)
+      RTC_EXCLUSIVE_LOCKS_REQUIRED(&lock_);
+
   const TransportFeedbackSender feedback_sender_;
   const TransportWideFeedbackConfig send_config_;
   Timestamp last_process_time_;
@@ -134,8 +140,9 @@ class RemoteEstimatorProxy {
   bool send_periodic_feedback_ RTC_GUARDED_BY(&lock_);
 
   // Unwraps absolute send times.
-  uint32_t previous_abs_send_time_ RTC_GUARDED_BY(&lock_);
-  Timestamp abs_send_timestamp_ RTC_GUARDED_BY(&lock_);
+  int64_t unwrapped_abs_send_time_ RTC_GUARDED_BY(&lock_) = -1;
+  Timestamp last_packet_arrival_time_ RTC_GUARDED_BY(&lock_) =
+      Timestamp::MinusInfinity();
 };
 
 }  // namespace webrtc

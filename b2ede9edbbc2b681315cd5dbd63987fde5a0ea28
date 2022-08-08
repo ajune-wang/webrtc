@@ -16,6 +16,24 @@
       "message": "Why are you using template type for BasicSocketFactory,\nwhen the only 2 types both are BasicSocketFactory ??",
       "revId": "b2ede9edbbc2b681315cd5dbd63987fde5a0ea28",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "1aabc8fb_ee3766db",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 17854
+      },
+      "writtenOn": "2022-08-08T14:49:05Z",
+      "side": 1,
+      "message": "Try #2 without template",
+      "parentUuid": "67d45d93_e5bd01ad",
+      "revId": "b2ede9edbbc2b681315cd5dbd63987fde5a0ea28",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

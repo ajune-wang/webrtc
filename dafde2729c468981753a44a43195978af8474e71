@@ -34,6 +34,40 @@
       "parentUuid": "c7ac3543_7bde7c1c",
       "revId": "dafde2729c468981753a44a43195978af8474e71",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "88e28b59_9e042a18",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 3
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2022-08-08T07:45:05Z",
+      "side": 1,
+      "message": "Note: The whole AsyncDnsResolver / AsyncResolver duality is another half-done conversion. The target is to have only AsyncDnsResolver and not use sigslot. So if possible, I\u0027d like to add this only to AsyncDnsResolver, not to AsyncResolver.\n\nYou\u0027re not providing any working implementation of DNS resolution with address family - where is the implementation that uses this API supposed to live?",
+      "revId": "dafde2729c468981753a44a43195978af8474e71",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "8e3842fa_d1cc4868",
+        "filename": "rtc_base/async_resolver_interface.h",
+        "patchSetId": 3
+      },
+      "lineNbr": 29,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2022-08-08T07:45:05Z",
+      "side": 1,
+      "message": "add a TODO to make pure virtual when all subclasses have been updated?",
+      "revId": "dafde2729c468981753a44a43195978af8474e71",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

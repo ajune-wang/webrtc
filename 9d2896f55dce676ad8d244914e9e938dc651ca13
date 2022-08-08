@@ -58,6 +58,30 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "7bb6f3d8_2d37b409",
+        "filename": "modules/video_coding/generic_decoder.h",
+        "patchSetId": 6
+      },
+      "lineNbr": 82,
+      "author": {
+        "id": 18444
+      },
+      "writtenOn": "2022-08-08T11:21:24Z",
+      "side": 1,
+      "message": "Yeah. Fixed this and replaced some of the struct copies with moves.",
+      "parentUuid": "38b18b8a_653e32e4",
+      "range": {
+        "startLine": 82,
+        "startChar": 4,
+        "endLine": 82,
+        "endChar": 27
+      },
+      "revId": "9d2896f55dce676ad8d244914e9e938dc651ca13",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "f677f37c_e6ae3ed1",
@@ -71,6 +95,30 @@
       "writtenOn": "2022-08-08T09:25:43Z",
       "side": 1,
       "message": "Is this needed?",
+      "range": {
+        "startLine": 35,
+        "startChar": 44,
+        "endLine": 35,
+        "endChar": 53
+      },
+      "revId": "9d2896f55dce676ad8d244914e9e938dc651ca13",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "93bf1a09_3068797e",
+        "filename": "modules/video_coding/generic_decoder_unittest.cc",
+        "patchSetId": 6
+      },
+      "lineNbr": 35,
+      "author": {
+        "id": 18444
+      },
+      "writtenOn": "2022-08-08T11:21:24Z",
+      "side": 1,
+      "message": "Removed.",
+      "parentUuid": "f677f37c_e6ae3ed1",
       "range": {
         "startLine": 35,
         "startChar": 44,

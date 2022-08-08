@@ -14,7 +14,6 @@
 #include <cmath>
 #include <utility>
 
-#include "modules/video_coding/include/video_codec_interface.h"
 #include "rtc_base/checks.h"
 #include "rtc_base/logging.h"
 #include "rtc_base/strings/string_builder.h"
@@ -664,20 +663,6 @@ void ReceiveStatisticsProxy::OnFrameBufferTimingsUpdated(
     int jitter_buffer_ms,
     int min_playout_delay_ms,
     int render_delay_ms) {
-  // Only called on main_thread_ with FrameBuffer3
-  if (!worker_thread_->IsCurrent()) {
-    RTC_DCHECK_RUN_ON(&decode_queue_);
-    worker_thread_->PostTask(SafeTask(
-        task_safety_.flag(),
-        [max_decode_ms, current_delay_ms, target_delay_ms, jitter_buffer_ms,
-         min_playout_delay_ms, render_delay_ms, this]() {
-          OnFrameBufferTimingsUpdated(max_decode_ms, current_delay_ms,
-                                      target_delay_ms, jitter_buffer_ms,
-                                      min_playout_delay_ms, render_delay_ms);
-        }));
-    return;
-  }
-
   RTC_DCHECK_RUN_ON(&main_thread_);
   stats_.max_decode_ms = max_decode_ms;
   stats_.current_delay_ms = current_delay_ms;
@@ -700,14 +685,6 @@ void ReceiveStatisticsProxy::OnUniqueFramesCounted(int num_unique_frames) {
 
 void ReceiveStatisticsProxy::OnTimingFrameInfoUpdated(
     const TimingFrameInfo& info) {
-  // Only called on main_thread_ with FrameBuffer3
-  if (!worker_thread_->IsCurrent()) {
-    RTC_DCHECK_RUN_ON(&decode_queue_);
-    worker_thread_->PostTask(SafeTask(task_safety_.flag(), [info, this]() {
-      OnTimingFrameInfoUpdated(info);
-    }));
-    return;
-  }
   RTC_DCHECK_RUN_ON(&main_thread_);
   if (info.flags != VideoSendTiming::kInvalid) {
     int64_t now_ms = clock_->TimeInMilliseconds();
@@ -971,26 +948,25 @@ void ReceiveStatisticsProxy::OnCompleteFrame(bool is_keyframe,
 }
 
 void ReceiveStatisticsProxy::OnDroppedFrames(uint32_t frames_dropped) {
-  // Can be called on either the decode queue or the worker thread
-  // See FrameBuffer2 for more details.
-  worker_thread_->PostTask(
-      SafeTask(task_safety_.flag(), [frames_dropped, this]() {
-        RTC_DCHECK_RUN_ON(&main_thread_);
-        stats_.frames_dropped += frames_dropped;
-      }));
+  // Can be called on either the decode queue (eg VideoStreamDecoder2) or the
+  // worker thread (eg. VideoReceiveStream2).
+  if (!worker_thread_->IsCurrent()) {
+    worker_thread_->PostTask(
+        SafeTask(task_safety_.flag(),
+                 [this, frames_dropped] { OnDroppedFrames(frames_dropped); }));
+    return;
+  }
+  RTC_DCHECK_RUN_ON(&main_thread_);
+  stats_.frames_dropped += frames_dropped;
 }
 
 void ReceiveStatisticsProxy::OnPreDecode(VideoCodecType codec_type, int qp) {
-  RTC_DCHECK_RUN_ON(&decode_queue_);
-  worker_thread_->PostTask(
-      SafeTask(task_safety_.flag(), [codec_type, qp, this]() {
-        RTC_DCHECK_RUN_ON(&main_thread_);
-        last_codec_type_ = codec_type;
-        if (last_codec_type_ == kVideoCodecVP8 && qp != -1) {
-          qp_counters_.vp8.Add(qp);
-          qp_sample_.Add(qp);
-        }
-      }));
+  RTC_DCHECK_RUN_ON(&main_thread_);
+  last_codec_type_ = codec_type;
+  if (last_codec_type_ == kVideoCodecVP8 && qp != -1) {
+    qp_counters_.vp8.Add(qp);
+    qp_sample_.Add(qp);
+  }
 }
 
 void ReceiveStatisticsProxy::OnStreamInactive() {

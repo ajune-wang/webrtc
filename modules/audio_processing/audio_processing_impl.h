@@ -163,7 +163,7 @@ class AudioProcessingImpl : public AudioProcessing {
   FRIEND_TEST_ALL_PREFIXES(ApmWithSubmodulesExcludedTest,
                            BitexactWithDisabledModules);
 
-  int recommended_stream_analog_level_locked() const
+  void UpdateRecommendedStreamAnalogLevelLocked()
       RTC_EXCLUSIVE_LOCKS_REQUIRED(mutex_capture_);
 
   void OverrideSubmoduleCreationForTesting(
@@ -189,6 +189,8 @@ class AudioProcessingImpl : public AudioProcessing {
   const bool use_setup_specific_default_aec3_config_;
 
   const bool use_denormal_disabler_;
+
+  int last_recommended_analog_level_ RTC_GUARDED_BY(mutex_capture_);
 
   const TransientSuppressor::VadMode transient_suppressor_vad_mode_;
 

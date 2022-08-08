@@ -29,21 +29,6 @@ namespace {
 // than the numerical limit since we often convert to microseconds.
 static constexpr int64_t kMaxTimeMs =
     std::numeric_limits<int64_t>::max() / 1000;
-
-TimeDelta GetAbsoluteSendTimeDelta(uint32_t new_sendtime,
-                                   uint32_t previous_sendtime) {
-  static constexpr uint32_t kWrapAroundPeriod = 0x0100'0000;
-  RTC_DCHECK_LT(new_sendtime, kWrapAroundPeriod);
-  RTC_DCHECK_LT(previous_sendtime, kWrapAroundPeriod);
-  uint32_t delta = (new_sendtime - previous_sendtime) % kWrapAroundPeriod;
-  if (delta >= kWrapAroundPeriod / 2) {
-    // absolute send time wraps around, thus treat deltas larger than half of
-    // the wrap around period as negative. Ignore reordering of packets and
-    // treat them as they have approximately the same send time.
-    return TimeDelta::Zero();
-  }
-  return TimeDelta::Micros(int64_t{delta} * 1'000'000 / (1 << 18));
-}
 }  // namespace
 
 RemoteEstimatorProxy::RemoteEstimatorProxy(
@@ -58,15 +43,42 @@ RemoteEstimatorProxy::RemoteEstimatorProxy(
       feedback_packet_count_(0),
       packet_overhead_(DataSize::Zero()),
       send_interval_(send_config_.default_interval.Get()),
-      send_periodic_feedback_(true),
-      previous_abs_send_time_(0),
-      abs_send_timestamp_(Timestamp::Zero()) {
+      send_periodic_feedback_(true) {
   RTC_LOG(LS_INFO)
       << "Maximum interval between transport feedback RTCP messages (ms): "
       << send_config_.max_interval->ms();
 }
 
 RemoteEstimatorProxy::~RemoteEstimatorProxy() {}
+
+Timestamp RemoteEstimatorProxy::AbsSendTime(uint32_t absolute_send_time_24bits,
+                                            Timestamp arrival_time) {
+  static constexpr uint32_t kWrapAroundPeriod = 0x0100'0000;
+  RTC_DCHECK_LT(absolute_send_time_24bits, kWrapAroundPeriod);
+
+  if (!previous_abs_send_time_.has_value()) {
+    previous_abs_send_time_ = absolute_send_time_24bits;
+  } else if (arrival_time - last_arrival_time_ > TimeDelta::Seconds(30)) {
+    // Abs send time wraps around every 64 seconds. If there was a large gap
+    // in received packets, assume stream of packets was paused.
+    abs_send_timestamp_ += (arrival_time - last_arrival_time_);
+    previous_abs_send_time_ = absolute_send_time_24bits;
+  } else {
+    uint32_t delta = (absolute_send_time_24bits - *previous_abs_send_time_) %
+                     kWrapAroundPeriod;
+    if (delta < kWrapAroundPeriod / 2) {
+      // absolute send time wraps around, thus treat deltas larger than half of
+      // the wrap around period as negative. Ignore reordering of packets and
+      // treat them as they have approximately the same send time.
+      abs_send_timestamp_ +=
+          TimeDelta::Micros(int64_t{delta} * 1'000'000 / (1 << 18));
+      previous_abs_send_time_ = absolute_send_time_24bits;
+    }
+  }
+
+  last_arrival_time_ = arrival_time;
+  return abs_send_timestamp_;
+}
 
 void RemoteEstimatorProxy::MaybeCullOldPackets(int64_t sequence_number,
                                                Timestamp arrival_time) {
@@ -140,10 +152,8 @@ void RemoteEstimatorProxy::IncomingPacket(Packet packet) {
   if (network_state_estimator_ && packet.absolute_send_time_24bits) {
     PacketResult packet_result;
     packet_result.receive_time = packet.arrival_time;
-    abs_send_timestamp_ += GetAbsoluteSendTimeDelta(
-        *packet.absolute_send_time_24bits, previous_abs_send_time_);
-    previous_abs_send_time_ = *packet.absolute_send_time_24bits;
-    packet_result.sent_packet.send_time = abs_send_timestamp_;
+    packet_result.sent_packet.send_time =
+        AbsSendTime(*packet.absolute_send_time_24bits, packet.arrival_time);
     packet_result.sent_packet.size = packet.size + packet_overhead_;
     packet_result.sent_packet.sequence_number = seq;
     network_state_estimator_->OnReceivedPacket(packet_result);

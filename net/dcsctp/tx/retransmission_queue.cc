@@ -84,7 +84,6 @@ RetransmissionQueue::RetransmissionQueue(
       send_queue_(send_queue),
       outstanding_data_(
           data_chunk_header_size_,
-          tsn_unwrapper_.Unwrap(my_initial_tsn),
           tsn_unwrapper_.Unwrap(TSN(*my_initial_tsn - 1)),
           [this](IsUnordered unordered, StreamID stream_id, MID message_id) {
             return send_queue_.Discard(unordered, stream_id, message_id);
@@ -605,7 +604,6 @@ void RetransmissionQueue::RestoreFromState(
   partial_bytes_acked_ = state.tx.partial_bytes_acked;
 
   outstanding_data_.ResetSequenceNumbers(
-      tsn_unwrapper_.Unwrap(TSN(state.tx.next_tsn)),
       tsn_unwrapper_.Unwrap(TSN(state.tx.next_tsn - 1)));
 }
 }  // namespace dcsctp

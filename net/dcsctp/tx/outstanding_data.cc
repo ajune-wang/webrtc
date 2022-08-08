@@ -93,7 +93,7 @@ bool OutstandingData::IsConsistent() const {
   }
 
   if (outstanding_data_.empty() &&
-      next_tsn_ != last_cumulative_tsn_ack_.next_value()) {
+      last_outstanding_tsn_ != last_cumulative_tsn_ack_) {
     return false;
   }
 
@@ -267,8 +267,8 @@ void OutstandingData::AbandonAllFor(const Item& item) {
     // skipped over). So create a new fragment, representing the end, that the
     // received will never see as it is abandoned immediately and used as cum
     // TSN in the sent FORWARD-TSN.
-    UnwrappedTSN tsn = next_tsn_;
-    next_tsn_.Increment();
+    last_outstanding_tsn_.Increment();
+    UnwrappedTSN tsn = last_outstanding_tsn_;
     Data message_end(item.data().stream_id, item.data().ssn,
                      item.data().message_id, item.data().fsn, item.data().ppid,
                      std::vector<uint8_t>(), Data::IsBeginning(false),
@@ -386,19 +386,14 @@ void OutstandingData::ExpireOutstandingChunks(TimeMs now) {
   RTC_DCHECK(IsConsistent());
 }
 
-UnwrappedTSN OutstandingData::highest_outstanding_tsn() const {
-  return outstanding_data_.empty() ? last_cumulative_tsn_ack_
-                                   : outstanding_data_.rbegin()->first;
-}
-
 absl::optional<UnwrappedTSN> OutstandingData::Insert(
     const Data& data,
     TimeMs time_sent,
     MaxRetransmits max_retransmissions,
     TimeMs expires_at,
     LifecycleId lifecycle_id) {
-  UnwrappedTSN tsn = next_tsn_;
-  next_tsn_.Increment();
+  last_outstanding_tsn_.Increment();
+  UnwrappedTSN tsn = last_outstanding_tsn_;
 
   // All chunks are always padded to be even divisible by 4.
   size_t chunk_size = GetSerializedChunkSize(data);
@@ -532,12 +527,9 @@ IForwardTsnChunk OutstandingData::CreateIForwardTsn() const {
                           std::move(skipped_streams));
 }
 
-void OutstandingData::ResetSequenceNumbers(UnwrappedTSN next_tsn,
-                                           UnwrappedTSN last_cumulative_tsn) {
+void OutstandingData::ResetSequenceNumbers(UnwrappedTSN last_cumulative_tsn) {
   RTC_DCHECK(outstanding_data_.empty());
-  RTC_DCHECK(next_tsn_ == last_cumulative_tsn_ack_.next_value());
-  RTC_DCHECK(next_tsn == last_cumulative_tsn.next_value());
-  next_tsn_ = next_tsn;
+  last_outstanding_tsn_ = last_cumulative_tsn;
   last_cumulative_tsn_ack_ = last_cumulative_tsn;
 }
 }  // namespace dcsctp

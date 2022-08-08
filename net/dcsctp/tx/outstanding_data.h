@@ -72,11 +72,10 @@ class OutstandingData {
 
   OutstandingData(
       size_t data_chunk_header_size,
-      UnwrappedTSN next_tsn,
       UnwrappedTSN last_cumulative_tsn_ack,
       std::function<bool(IsUnordered, StreamID, MID)> discard_from_send_queue)
       : data_chunk_header_size_(data_chunk_header_size),
-        next_tsn_(next_tsn),
+        last_outstanding_tsn_(last_cumulative_tsn_ack),
         last_cumulative_tsn_ack_(last_cumulative_tsn_ack),
         discard_from_send_queue_(std::move(discard_from_send_queue)) {}
 
@@ -119,9 +118,9 @@ class OutstandingData {
     return last_cumulative_tsn_ack_;
   }
 
-  UnwrappedTSN next_tsn() const { return next_tsn_; }
+  UnwrappedTSN next_tsn() const { return last_outstanding_tsn_.next_value(); }
 
-  UnwrappedTSN highest_outstanding_tsn() const;
+  UnwrappedTSN highest_outstanding_tsn() const { return last_outstanding_tsn_; }
 
   // Schedules `data` to be sent, with the provided partial reliability
   // parameters. Returns the TSN if the item was actually added and scheduled to
@@ -155,9 +154,8 @@ class OutstandingData {
   // abandoned, which means that a FORWARD-TSN should be sent.
   bool ShouldSendForwardTsn() const;
 
-  // Sets the next TSN to be used. This is used in handover.
-  void ResetSequenceNumbers(UnwrappedTSN next_tsn,
-                            UnwrappedTSN last_cumulative_tsn);
+  // Sets the last cumulative TSN to be used. This is used in handover.
+  void ResetSequenceNumbers(UnwrappedTSN last_cumulative_tsn);
 
  private:
   // A fragmented message's DATA chunk while in the retransmission queue, and
@@ -328,8 +326,8 @@ class OutstandingData {
 
   // The size of the data chunk (DATA/I-DATA) header that is used.
   const size_t data_chunk_header_size_;
-  // Next TSN to used.
-  UnwrappedTSN next_tsn_;
+  // The last outstanding TSN.
+  UnwrappedTSN last_outstanding_tsn_;
   // The last cumulative TSN ack number.
   UnwrappedTSN last_cumulative_tsn_ack_;
   // Callback when to discard items from the send queue.

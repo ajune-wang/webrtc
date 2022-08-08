@@ -16,6 +16,69 @@
       "message": "tested locally linked test case (note that it is for 32bit system. same file for 64bit system choose very different, less interesting code path)\nfor release version this change reduce runtime from 72 seconds to 7 seconds.\nfor debug version this change reduce runtime from to long to wait to 120 seconds, which is still too long to fit into 60s timeout.\nnot sure if it is feasible to fit into that timeout while using dense struct instead of sparse (e.g. std::map) like it was before \nhttps://webrtc-review.googlesource.com/c/src/+/217388",
       "revId": "6c80432f2adb28b26f3a7b1c47c13e914d1aaf0b",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "3d591bb5_d6dbd95b",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 3
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 12215
+      },
+      "writtenOn": "2022-08-08T08:47:50Z",
+      "side": 1,
+      "message": "Looks very good overall - just two small questions.\n\nAlso a bit curious to know which scenarios that trigger large jumps in sequence numbers!",
+      "revId": "6c80432f2adb28b26f3a7b1c47c13e914d1aaf0b",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "82865948_4ffb047c",
+        "filename": "modules/remote_bitrate_estimator/packet_arrival_map.h",
+        "patchSetId": 3
+      },
+      "lineNbr": 109,
+      "author": {
+        "id": 12215
+      },
+      "writtenOn": "2022-08-08T08:47:50Z",
+      "side": 1,
+      "message": "How about using BufferT instead? (it would give you automatic lifetime management of the buffer, and is well-known in WebRTC?)",
+      "range": {
+        "startLine": 109,
+        "startChar": 2,
+        "endLine": 109,
+        "endChar": 12
+      },
+      "revId": "6c80432f2adb28b26f3a7b1c47c13e914d1aaf0b",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "5f39e282_165ca4b5",
+        "filename": "modules/remote_bitrate_estimator/packet_arrival_map.h",
+        "patchSetId": 3
+      },
+      "lineNbr": 115,
+      "author": {
+        "id": 12215
+      },
+      "writtenOn": "2022-08-08T08:47:50Z",
+      "side": 1,
+      "message": "As this represents a bitmask (capacity is always a power of two, and minus 1 makes it a mask), and since it\u0027s only used to map a sequence number (by applying the mask) into a position within the buffer, maybe name it as something with \"_mask\"?",
+      "range": {
+        "startLine": 115,
+        "startChar": 6,
+        "endLine": 115,
+        "endChar": 23
+      },
+      "revId": "6c80432f2adb28b26f3a7b1c47c13e914d1aaf0b",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

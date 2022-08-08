@@ -1,0 +1,73 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "86708fc6_04c7f5b1",
+        "filename": "modules/audio_processing/agc/agc_manager_direct.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 483,
+      "author": {
+        "id": 5119
+      },
+      "writtenOn": "2022-08-08T12:54:10Z",
+      "side": 1,
+      "message": "Can we infer this from other, pre-existing logs? Including Chrome logs.\n\nAlternatively, is the same information conveyed by logging AudioProcessingSettings::ToString() [1] in audio::AudioProcessor::Create [2]? It is guaranteed to only log once per APM instance, and will also cover other settings that are not obvious to infer at the moment. It can replace at least one already existing log (the one at [2]), and with timestamp information it might end up using roughly the same space already.\n\n[1] https://source.chromium.org/chromium/chromium/src/+/main:media/base/audio_processing.h;l\u003d19;drc\u003dd5a2d2950088170ccf5c83f89c9b19e4d525ba1e\n[2] https://source.chromium.org/chromium/chromium/src/+/main:media/webrtc/audio_processor.cc;l\u003d210;drc\u003dcf0720f7ee1734aa91405756c9782b64187a2c02",
+      "range": {
+        "startLine": 482,
+        "startChar": 0,
+        "endLine": 483,
+        "endChar": 66
+      },
+      "revId": "912e1a53ed586c3868fafe821cedf3cfdbba1fb6",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "f0860e5e_9286ce67",
+        "filename": "modules/audio_processing/agc/agc_manager_direct.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 484,
+      "author": {
+        "id": 5119
+      },
+      "writtenOn": "2022-08-08T12:54:10Z",
+      "side": 1,
+      "message": "Just double checking:\nThis will give us the % of all AgcManagerDirect instances that had analog AGC enabled. Do we want that, or do we want the % of all APM reconfigurations? At the top of this function:\nhttps://source.chromium.org/chromium/chromium/src/+/main:third_party/webrtc/modules/audio_processing/audio_processing_impl.cc;l\u003d1855;drc\u003d1fa87c44cb387aa6173867383c1da3f0e4fc4349\n\nI guess the latter will be logging several times per WebRTC call, if audio input/output format doesn\u0027t match the default values. How is it treated in the current CL version?",
+      "range": {
+        "startLine": 484,
+        "startChar": 25,
+        "endLine": 484,
+        "endChar": 67
+      },
+      "revId": "912e1a53ed586c3868fafe821cedf3cfdbba1fb6",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "996702b1_01d76495",
+        "filename": "modules/audio_processing/agc/agc_manager_direct.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 142,
+      "author": {
+        "id": 5119
+      },
+      "writtenOn": "2022-08-08T12:54:10Z",
+      "side": 1,
+      "message": "Can you add a comment clarifying whether this means the from-outside-reported level or the recommended level?",
+      "range": {
+        "startLine": 142,
+        "startChar": 6,
+        "endLine": 142,
+        "endChar": 26
+      },
+      "revId": "912e1a53ed586c3868fafe821cedf3cfdbba1fb6",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

@@ -1707,23 +1707,37 @@ void VideoStreamEncoder::MaybeEncodeVideoFrame(const VideoFrame& video_frame,
   stream_resource_manager_.OnMaybeEncodeFrame();
 
   if (EncoderPaused()) {
-    // Storing references to a native buffer risks blocking frame capture.
-    if (video_frame.video_frame_buffer()->type() !=
-        VideoFrameBuffer::Type::kNative) {
-      if (pending_frame_)
-        TraceFrameDropStart();
-      pending_frame_ = video_frame;
-      pending_frame_post_time_us_ = time_when_posted_us;
+    // We might be paused because we have not yet received the correct bitrate
+    // targets from the bandwidth allocator. If available, try using the start
+    // bitrate instead.
+    if (!last_encoder_rate_settings_ && encoder_target_bitrate_bps_) {
+      DataRate start_bitrate =
+          DataRate::BitsPerSec(*encoder_target_bitrate_bps_);
+      OnBitrateUpdated(/*target_bitrate=*/start_bitrate,
+                       /*stable_target_bitrate=*/start_bitrate,
+                       /*link_allocation=*/start_bitrate,
+                       /*fraction_lost=*/0,
+                       /*round_trip_time_ms=*/0,
+                       /*cwnd_reduce_ratio=*/0);
     } else {
-      // Ensure that any previously stored frame is dropped.
-      pending_frame_.reset();
-      TraceFrameDropStart();
-      accumulated_update_rect_.Union(video_frame.update_rect());
-      accumulated_update_rect_is_valid_ &= video_frame.has_update_rect();
-      encoder_stats_observer_->OnFrameDropped(
-          VideoStreamEncoderObserver::DropReason::kEncoderQueue);
+      // Storing references to a native buffer risks blocking frame capture.
+      if (video_frame.video_frame_buffer()->type() !=
+          VideoFrameBuffer::Type::kNative) {
+        if (pending_frame_)
+          TraceFrameDropStart();
+        pending_frame_ = video_frame;
+        pending_frame_post_time_us_ = time_when_posted_us;
+      } else {
+        // Ensure that any previously stored frame is dropped.
+        pending_frame_.reset();
+        TraceFrameDropStart();
+        accumulated_update_rect_.Union(video_frame.update_rect());
+        accumulated_update_rect_is_valid_ &= video_frame.has_update_rect();
+        encoder_stats_observer_->OnFrameDropped(
+            VideoStreamEncoderObserver::DropReason::kEncoderQueue);
+      }
+      return;
     }
-    return;
   }
 
   pending_frame_.reset();

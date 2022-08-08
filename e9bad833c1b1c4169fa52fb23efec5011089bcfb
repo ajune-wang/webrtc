@@ -1,0 +1,44 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "9046b4ad_3c557d17",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5578
+      },
+      "writtenOn": "2022-08-08T13:05:05Z",
+      "side": 1,
+      "message": "lgtm if comment is addressed.",
+      "revId": "e9bad833c1b1c4169fa52fb23efec5011089bcfb",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "86af76a1_6ef58865",
+        "filename": "p2p/base/stun_port.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 429,
+      "author": {
+        "id": 5578
+      },
+      "writtenOn": "2022-08-08T13:05:05Z",
+      "side": 1,
+      "message": "prefer \nrtc::SocketAddress addr \u003d \nSendStunBindingRequest(addr);",
+      "range": {
+        "startLine": 429,
+        "startChar": 10,
+        "endLine": 429,
+        "endChar": 11
+      },
+      "revId": "e9bad833c1b1c4169fa52fb23efec5011089bcfb",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

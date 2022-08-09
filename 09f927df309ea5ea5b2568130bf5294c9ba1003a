@@ -22,6 +22,30 @@
       },
       "revId": "09f927df309ea5ea5b2568130bf5294c9ba1003a",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "b3fd1272_3ba1208f",
+        "filename": "modules/audio_processing/audio_processing_impl.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 270,
+      "author": {
+        "id": 5122
+      },
+      "writtenOn": "2022-08-09T10:08:46Z",
+      "side": 1,
+      "message": "The init value doesn\u0027t matter since:\n- by APM contract (see [1]) the call order must be `set_stream_analog_level()`, `ProcessStream()`, `recommended_stream_analog_level()`\n- the `ProcessStream()` impl always calls `UpdateRecommendedStreamAnalogLevelLocked()` (with only one exception: namely, when  `ProcessCaptureStreamLocked()` returns an error)\n- hence before `last_recommended_analog_level_` is returned by the getter it is always updated by the active analog controller or, if no AGC is used, it is assigned to the latest value set via `set_stream_analog_level()`\n\nSo, from this perspective, I don\u0027t see any behavior changes. By taking into account threading aspects, I also can\u0027t think of a scenario where the behavior changes. Please, feel free to double check the code and prove me wrong.\n\n[1] https://source.chromium.org/chromium/chromium/src/+/main:third_party/webrtc/modules/audio_processing/include/audio_processing.h;l\u003d587-595;drc\u003d3bd444ffdb572f45814c3a9978e01a5cd6776f3f",
+      "parentUuid": "c094245a_f7ad8ca0",
+      "range": {
+        "startLine": 270,
+        "startChar": 6,
+        "endLine": 270,
+        "endChar": 40
+      },
+      "revId": "09f927df309ea5ea5b2568130bf5294c9ba1003a",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

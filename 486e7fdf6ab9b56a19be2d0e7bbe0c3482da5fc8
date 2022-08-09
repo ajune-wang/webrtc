@@ -18,6 +18,24 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "d4376006_1764da0f",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 9
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5122
+      },
+      "writtenOn": "2022-08-09T10:08:46Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "87d8ee32_9a2a9826",
+      "revId": "486e7fdf6ab9b56a19be2d0e7bbe0c3482da5fc8",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "d9205caf_53e5cb3f",
@@ -31,6 +49,30 @@
       "writtenOn": "2022-08-08T13:12:33Z",
       "side": 1,
       "message": "Side note - this can now be made atomic, but may be controversial (locks are simpler, the performance gain is debatable) and will anyway be rendered unnecesary by your at least current plans to incorporate `recommended_stream_analog_level()` into `ProcessStream()`.",
+      "range": {
+        "startLine": 1634,
+        "startChar": 0,
+        "endLine": 1634,
+        "endChar": 40
+      },
+      "revId": "486e7fdf6ab9b56a19be2d0e7bbe0c3482da5fc8",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "8a7f61c9_84637f93",
+        "filename": "modules/audio_processing/audio_processing_impl.cc",
+        "patchSetId": 9
+      },
+      "lineNbr": 1634,
+      "author": {
+        "id": 5122
+      },
+      "writtenOn": "2022-08-09T10:08:46Z",
+      "side": 1,
+      "message": "Good that you mentioned this option. I agree with you, as we aim to unifying the 3 methods and there is little gain with an atomic property, I would leave as is.",
+      "parentUuid": "d9205caf_53e5cb3f",
       "range": {
         "startLine": 1634,
         "startChar": 0,
@@ -66,6 +108,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "bac004ac_ecbea8ff",
+        "filename": "modules/audio_processing/debug.proto",
+        "patchSetId": 9
+      },
+      "lineNbr": 38,
+      "author": {
+        "id": 5122
+      },
+      "writtenOn": "2022-08-09T10:08:46Z",
+      "side": 1,
+      "message": "Great catch!\n\n\u003e How is this handled if an aecdump with this value is encountered? Crash?\n\u003e Is appending `[deprecated\u003dtrue]` an option?\n\nFacts:\n#1 The `recommended_analog_level` and `level` definitions differ (only slightly, but they\u0027re not exactly the same)\n#2 If choose to rename `level`, the golden AEC dump `ref03.aecdump` must be updated anyways since the stored values are different (because of the different definition)\n#3 By renaming/deprecating `level`, we can still use/inspect old AEC dumps; whereas, by deleting the field, we won\u0027t be able to access the `level` values anymore\n#4 There is little/no code dependency on this field from a code view point\n\nSo, I see these options:\n#1 -\u003e delete `level`, add `recommended_analog_level`\n#2 -\u003e no preference: regardless of whether the field is deleted or renamed, the golden `ref03.aecdump` must be updated in order to land this CL\n#3 -\u003e deprecated `level`, stop writing it in the AEC dumps\n#4 -\u003e delete `level`\n\nI now realize that ignoring the `level` field in the existing AEC dump collections can be a problem and therefore deleting is not the best option. By contrast, I don\u0027t expect any severe consequence because of the slightly different definition. So, what if:\n- `level` is marked as deprecated as you recommend\n- we stop writing `level`\n- we add `recommended_analog_level`\n- when `level` is read, `recommended_analog_level`, which must be unspecified, is assigned to the value in `level`\n\nIn this way, any external scripts can use `recommended_analog_level` and the existing AEC dumps will still provide analog level information - the only issue could be a timing one because of the definition change.\n\nWDYT?\n\n\u003e \n\u003e Alternatively, is it possible to rename the field, reusing the field number? Since the value is only encoded using the field number. Only textproto and code references should be affected.\n\u003e \n\u003e \n\u003e See also internal references:\n\u003e go/proto-guidelines#delete-field\n\u003e go/proto-guidelines#rename-field\n\nYes.",
+      "parentUuid": "896cbdd6_d5293828",
+      "range": {
+        "startLine": 38,
+        "startChar": 2,
+        "endLine": 38,
+        "endChar": 12
+      },
+      "revId": "486e7fdf6ab9b56a19be2d0e7bbe0c3482da5fc8",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "005ab3e1_e35b504a",
         "filename": "modules/audio_processing/test/aec_dump_based_simulator.cc",
         "patchSetId": 9
@@ -77,6 +143,30 @@
       "writtenOn": "2022-08-08T13:12:33Z",
       "side": 1,
       "message": "Does this introduce a break in `audioproc_f` compatibility? I.e. will this force anyone to use one audioproc_f version for future aecdumps and a separate one for older aecdumps? That sounds problematic for AEC tuning and bit exactness scripts.",
+      "range": {
+        "startLine": 176,
+        "startChar": 0,
+        "endLine": 179,
+        "endChar": 55
+      },
+      "revId": "486e7fdf6ab9b56a19be2d0e7bbe0c3482da5fc8",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "a555f51a_6fcd6be9",
+        "filename": "modules/audio_processing/test/aec_dump_based_simulator.cc",
+        "patchSetId": 9
+      },
+      "lineNbr": 179,
+      "author": {
+        "id": 5122
+      },
+      "writtenOn": "2022-08-09T10:08:46Z",
+      "side": 1,
+      "message": "Exactly. This is related to the discussion in modules/audio_processing/debug.proto and the choice to delete/deprecate/rename the `level` field. Let\u0027s close that discussion first and then I\u0027ll fix this accordingly.",
+      "parentUuid": "005ab3e1_e35b504a",
       "range": {
         "startLine": 176,
         "startChar": 0,

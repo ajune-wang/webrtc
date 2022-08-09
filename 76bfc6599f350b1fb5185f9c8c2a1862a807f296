@@ -58,6 +58,30 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "e1a5cf9c_cfbe1dfc",
+        "filename": "BUILD.gn",
+        "patchSetId": 2
+      },
+      "lineNbr": 276,
+      "author": {
+        "id": 13704
+      },
+      "writtenOn": "2022-08-09T13:00:11Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "9851586a_b68a926d",
+      "range": {
+        "startLine": 276,
+        "startChar": 18,
+        "endLine": 276,
+        "endChar": 21
+      },
+      "revId": "76bfc6599f350b1fb5185f9c8c2a1862a807f296",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "9772d65e_a68b15f5",
@@ -71,6 +95,24 @@
       "writtenOn": "2022-08-09T11:57:48Z",
       "side": 1,
       "message": "from a this-bothers-me viewpoint, #include of a file in tools_webrtc bothers me.\nCan the .h file live elsewhere?\nIf it\u0027s generated every time, it should probably live in out/. If not (if it\u0027s checked in), it should probably live somewhere in the normal source tree.",
+      "revId": "76bfc6599f350b1fb5185f9c8c2a1862a807f296",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "40042b9d_5da8891d",
+        "filename": "api/DEPS",
+        "patchSetId": 2
+      },
+      "lineNbr": 311,
+      "author": {
+        "id": 13704
+      },
+      "writtenOn": "2022-08-09T13:00:11Z",
+      "side": 1,
+      "message": "It output to `${out}/gen/`. Since the equivalent of `-I\"${out}/gen/\"` is passed to the compiler, hence the weird-looking includes.\n\nI could just generate it to `${out}/gen/api/field_trials_registry.h` instead. One downside with that is that `field_trials.py` would probably live somewhere else.",
+      "parentUuid": "9772d65e_a68b15f5",
       "revId": "76bfc6599f350b1fb5185f9c8c2a1862a807f296",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
@@ -94,6 +136,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "31859d72_8e075ea9",
+        "filename": "tools_webrtc/experiments/field_trials.py",
+        "patchSetId": 2
+      },
+      "lineNbr": 3,
+      "author": {
+        "id": 13704
+      },
+      "writtenOn": "2022-08-09T13:00:11Z",
+      "side": 1,
+      "message": "I don\u0027t have a strong opinion, what do you prefer?",
+      "parentUuid": "cb799ed8_5bd37753",
+      "revId": "76bfc6599f350b1fb5185f9c8c2a1862a807f296",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "a4657ee6_63d60852",
         "filename": "tools_webrtc/experiments/field_trials.py",
         "patchSetId": 2
@@ -105,6 +165,24 @@
       "writtenOn": "2022-08-09T11:57:48Z",
       "side": 1,
       "message": "Add one field trial here. Otherwise, important parts of the code don\u0027t get exercised.",
+      "revId": "76bfc6599f350b1fb5185f9c8c2a1862a807f296",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "3104845e_54b162de",
+        "filename": "tools_webrtc/experiments/field_trials.py",
+        "patchSetId": 2
+      },
+      "lineNbr": 33,
+      "author": {
+        "id": 13704
+      },
+      "writtenOn": "2022-08-09T13:00:11Z",
+      "side": 1,
+      "message": "It won\u0027t get exercised at all unless the GN flag `rtc_strict_field_trials` is set. I think adding to this list can be done later.",
+      "parentUuid": "a4657ee6_63d60852",
       "revId": "76bfc6599f350b1fb5185f9c8c2a1862a807f296",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
@@ -126,6 +204,24 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "934b06ed_f0242a87",
+        "filename": "tools_webrtc/experiments/field_trials.py",
+        "patchSetId": 2
+      },
+      "lineNbr": 46,
+      "author": {
+        "id": 13704
+      },
+      "writtenOn": "2022-08-09T13:00:11Z",
+      "side": 1,
+      "message": "I\u0027m using doctest to have an inline unittest in the docstring, that\u0027s why the output has to match exactly.",
+      "parentUuid": "9fd94fdc_a23089be",
+      "revId": "76bfc6599f350b1fb5185f9c8c2a1862a807f296",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "b09dda6d_0d146ecd",
@@ -143,6 +239,24 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "bb4b3f05_054ea6d9",
+        "filename": "tools_webrtc/experiments/field_trials.py",
+        "patchSetId": 2
+      },
+      "lineNbr": 73,
+      "author": {
+        "id": 13704
+      },
+      "writtenOn": "2022-08-09T13:00:11Z",
+      "side": 1,
+      "message": "Does that work with f-strings? AFIK the preferred way to wrap lines is this (verbose) syntax...",
+      "parentUuid": "b09dda6d_0d146ecd",
+      "revId": "76bfc6599f350b1fb5185f9c8c2a1862a807f296",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "55a9aa62_bf678728",
@@ -156,6 +270,24 @@
       "writtenOn": "2022-08-09T11:57:48Z",
       "side": 1,
       "message": "Use std::find for better readability?",
+      "revId": "76bfc6599f350b1fb5185f9c8c2a1862a807f296",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "55c6bee0_d74303a2",
+        "filename": "tools_webrtc/experiments/field_trials_registry.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 22,
+      "author": {
+        "id": 13704
+      },
+      "writtenOn": "2022-08-09T13:00:11Z",
+      "side": 1,
+      "message": "Ah yes, that one is `constexpr` so that works.",
+      "parentUuid": "55a9aa62_bf678728",
       "revId": "76bfc6599f350b1fb5185f9c8c2a1862a807f296",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }

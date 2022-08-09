@@ -145,7 +145,6 @@ rtc_library("rtp_rtcp") {
     "include/flexfec_sender.h",
     "include/receive_statistics.h",
     "include/remote_ntp_time_estimator.h",
-    "include/ulpfec_receiver.h",
     "source/absolute_capture_time_interpolator.cc",
     "source/absolute_capture_time_interpolator.h",
     "source/absolute_capture_time_sender.cc",

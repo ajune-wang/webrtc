@@ -20,28 +20,37 @@
 #include "api/sequence_checker.h"
 #include "modules/rtp_rtcp/include/rtp_header_extension_map.h"
 #include "modules/rtp_rtcp/include/rtp_rtcp_defines.h"
-#include "modules/rtp_rtcp/include/ulpfec_receiver.h"
 #include "modules/rtp_rtcp/source/forward_error_correction.h"
 #include "modules/rtp_rtcp/source/rtp_packet_received.h"
 #include "rtc_base/system/no_unique_address.h"
 
 namespace webrtc {
 
-class UlpfecReceiverImpl : public UlpfecReceiver {
+struct FecPacketCounter {
+  FecPacketCounter() = default;
+  size_t num_packets = 0;  // Number of received packets.
+  size_t num_bytes = 0;
+  size_t num_fec_packets = 0;  // Number of received FEC packets.
+  size_t num_recovered_packets =
+      0;  // Number of recovered media packets using FEC.
+  int64_t first_packet_time_ms = -1;  // Time when first packet is received.
+};
+
+class UlpfecReceiver {
  public:
-  explicit UlpfecReceiverImpl(uint32_t ssrc,
-                              RecoveredPacketReceiver* callback,
-                              rtc::ArrayView<const RtpExtension> extensions);
-  ~UlpfecReceiverImpl() override;
+  UlpfecReceiver(uint32_t ssrc,
+                 RecoveredPacketReceiver* callback,
+                 rtc::ArrayView<const RtpExtension> extensions);
+  ~UlpfecReceiver();
 
   bool AddReceivedRedPacket(const RtpPacketReceived& rtp_packet,
-                            uint8_t ulpfec_payload_type) override;
+                            uint8_t ulpfec_payload_type);
 
-  void ProcessReceivedFec() override;
+  void ProcessReceivedFec();
 
-  FecPacketCounter GetPacketCounter() const override;
+  FecPacketCounter GetPacketCounter() const;
 
-  void SetRtpExtensions(rtc::ArrayView<const RtpExtension> extensions) override;
+  void SetRtpExtensions(rtc::ArrayView<const RtpExtension> extensions);
 
  private:
   const uint32_t ssrc_;

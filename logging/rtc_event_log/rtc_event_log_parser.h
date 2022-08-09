@@ -626,6 +626,15 @@ class ParsedRtcEventLog {
     }
   }
 
+  const std::vector<LoggedRtcpRemoteEstimate>& remote_estimates(
+      PacketDirection direction) {
+    if (direction == kIncomingPacket) {
+      return incoming_remote_estimate_;
+    } else {
+      return outgoing_remote_estimate_;
+    }
+  }
+
   const std::vector<LoggedGenericPacketReceived>& generic_packets_received()
       const {
     return generic_packets_received_;
@@ -847,6 +856,8 @@ class ParsedRtcEventLog {
   std::vector<LoggedRtcpPacketTransportFeedback> outgoing_transport_feedback_;
   std::vector<LoggedRtcpPacketLossNotification> incoming_loss_notification_;
   std::vector<LoggedRtcpPacketLossNotification> outgoing_loss_notification_;
+  std::vector<LoggedRtcpRemoteEstimate> incoming_remote_estimate_;
+  std::vector<LoggedRtcpRemoteEstimate> outgoing_remote_estimate_;
 
   std::vector<LoggedStartEvent> start_log_events_;
   std::vector<LoggedStopEvent> stop_log_events_;

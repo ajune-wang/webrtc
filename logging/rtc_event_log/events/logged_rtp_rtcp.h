@@ -12,6 +12,7 @@
 #define LOGGING_RTC_EVENT_LOG_EVENTS_LOGGED_RTP_RTCP_H_
 
 #include <string>
+#include <utility>
 #include <vector>
 
 #include "absl/strings/string_view.h"
@@ -25,6 +26,7 @@
 #include "modules/rtp_rtcp/source/rtcp_packet/pli.h"
 #include "modules/rtp_rtcp/source/rtcp_packet/receiver_report.h"
 #include "modules/rtp_rtcp/source/rtcp_packet/remb.h"
+#include "modules/rtp_rtcp/source/rtcp_packet/remote_estimate.h"
 #include "modules/rtp_rtcp/source/rtcp_packet/sender_report.h"
 #include "modules/rtp_rtcp/source/rtcp_packet/transport_feedback.h"
 
@@ -242,6 +244,19 @@ struct LoggedRtcpPacketLossNotification {
 
   Timestamp timestamp = Timestamp::MinusInfinity();
   rtcp::LossNotification loss_notification;
+};
+
+struct LoggedRtcpRemoteEstimate {
+  LoggedRtcpRemoteEstimate() = default;
+  LoggedRtcpRemoteEstimate(Timestamp timestamp, rtcp::App app)
+      : timestamp(timestamp), remote_estimate(std::move(app)) {}
+
+  int64_t log_time_us() const { return timestamp.us(); }
+  int64_t log_time_ms() const { return timestamp.ms(); }
+  Timestamp log_time() const { return timestamp; }
+
+  Timestamp timestamp = Timestamp::MinusInfinity();
+  rtcp::RemoteEstimate remote_estimate;
 };
 
 struct LoggedRtcpPacketBye {

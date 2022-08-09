@@ -1,6 +1,23 @@
 {
   "comments": [
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "c21737bb_2dc3cc32",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 15
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 6305
+      },
+      "writtenOn": "2022-08-09T11:49:13Z",
+      "side": 1,
+      "message": "Hi Peter. I\u0027ve explained motivation behind current API, let me know what do you think.\n\nThanks a lot, Yury.",
+      "revId": "7bc37166329428e64c73d1cb913a82d1a55e7136",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "ca6f7733_346fcd3c",
@@ -14,6 +31,30 @@
       "writtenOn": "2022-08-08T15:10:46Z",
       "side": 1,
       "message": "Is there a way to avoid this API? Or can we perhaps change the naming to suggest that it should be used restrictively?",
+      "range": {
+        "startLine": 127,
+        "startChar": 8,
+        "endLine": 127,
+        "endChar": 21
+      },
+      "revId": "7bc37166329428e64c73d1cb913a82d1a55e7136",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "1f9764bd_d4228ea0",
+        "filename": "sdk/objc/components/audio/RTCAudioDevice.h",
+        "patchSetId": 15
+      },
+      "lineNbr": 127,
+      "author": {
+        "id": 6305
+      },
+      "writtenOn": "2022-08-09T11:49:13Z",
+      "side": 1,
+      "message": "That\u0027s good and tough question. I\u0027ll try to explain my motivation behind current API.\nFrom my experience, `RTCAudioDevice` implementation has two threading options:\n1. `AudioUnit`/`AVAudioEngine`/ other Audio API objects (aka underlying audio objects) are created and modified directly from the thread which invokes `startPlayout`/`stopPlayout`/`startRecording`/`stopRecording`. This is \"native ADM\" thread, which I think is currently worker thread.\n2. `AudioUnit`/`AVAudioEngine`/ other Audio API objects are created and modified on dedicated thread owned by `RTCAudioDevice` implementation.\n\nIn both cases implementation of `RTCAudioDevice` must handle an external events from system which could lead to re-configuration of `AudioUnit`/`AVAudioEngine`/ other Audio API objects.\nWhen audio objects are stopped to be re-configured, buffers inside `ObjCAudioDeviceModule` must also be re-configured to handle new audio format: channel count or sample rate or IO buffer duration could be changed.\nOnly after buffers inside `ObjCAudioDeviceModule` are re-configured audio objects can be resumed.\nThis lead to necessity to somehow synchronously update buffers inside `ObjCAudioDeviceModule`. \nFor that purpose there are methods: `notifyAudioInputParametersChange` and `notifyAudioOutputParametersChange`.\nCurrently they have an assertion that they must be used only from \"native ADM\" thread (`ObjCAudioDeviceModule` thread).\nTo dispatch to thread I\u0027ve proposed 2 methods: `dispatchSync` and `dispatchAsync` - so the user could pick more suitable method for it\u0027s implementation.\n\nBack to threading options of implementation of `RTCAudioDevice`.\n1. When `RTCAudioDevice`\u0027s underlying audio objects are only modified from \"native ADM\" thread it is useful to have `dispatchAsync` method to switch to \"native ADM\" thread to perform modification.\nE.g. in that case handler of audio route change notification might dispatch whole handler via `dispatchAsync` and modify underlying audio object from \"native ADM\" thread.\n2. When `RTCAudioDevice`\u0027s underlying audio object are modified on some other thread (one of the options here is that underlying audio objects are stored as mutable state of Swift\u0027s actor).\nIn that case it is very useful to have `dispatchSync` method to synchronously call to `notifyAudioInputParametersChange` and `notifyAudioOutputParametersChange` from other thread and only when `ObjCAudioDeviceModule` buffers are updated underlying audio objects are resumed.\n\nIt is possible not to add support for implementations which are relying on synchronization of underlying audio objects mutation via dispatching mutations to native ADM thread.\nIn that case `notifyAudioInputParametersChange`, `notifyAudioOutputParametersChange`, `notifyAudioInputInterrupted` and `notifyAudioOutputInterrupted` must be implemented such that they could be called on any thread, while under the hood invoking these methods on non ADM thread will lead to dispatch to native ADM thread and blocking until buffers inside `ObjCAudioDeviceModule` are updated.\n\nSo I\u0027ve preferred not to have implicitly blocking `notify*` methods in favor of explicitly blocking `dispatchSync` method (maybe it should renamed somehow, like `executeSync`/`executeAsync`).\nIf you believe that `notify*` methods must allow execution on any thread let me know. \nThey could be implemented either by implicitly blocking methods, or (just came to my mind) as asynchronous method with completion handlers to allow implementer of `RTCAudioDevice` guarantee when underlying audio objects can be resumed.\nOf course making methods asynchronous could lead to more trickier to implement `RTCAudioDevice` protocol, especially in ObjC without async/await and actors.\n\nPlease let me know what do you think regarding API with more information provided.",
+      "parentUuid": "ca6f7733_346fcd3c",
       "range": {
         "startLine": 127,
         "startChar": 8,

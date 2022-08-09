@@ -41,6 +41,30 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "a27dfc10_5604b57b",
+        "filename": "modules/video_coding/timing/frame_delay_delta_kalman_filter.cc",
+        "patchSetId": 13
+      },
+      "lineNbr": 43,
+      "author": {
+        "id": 5023
+      },
+      "writtenOn": "2022-08-09T12:07:40Z",
+      "side": 1,
+      "message": "I agree that the parameter is poorly named, but I\u0027ll keep it for now to keep this CL simple. Will probably rename this in the follow up though.\n\nRegarding the type: I don\u0027t know why it is double, but it seems to be a conscious choice in https://webrtc-review.googlesource.com/c/src/+/253121. Keeping that for now.\n\nAdded a comment about the argument possibly being negative, in the header.",
+      "parentUuid": "081b0955_bceca8f3",
+      "range": {
+        "startLine": 43,
+        "startChar": 11,
+        "endLine": 43,
+        "endChar": 33
+      },
+      "revId": "091cf132918ae9bda280457a92ac73423bb8d1e0",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "4ff0f8bc_6fa79a52",
@@ -54,6 +78,30 @@
       "writtenOn": "2022-06-17T13:22:00Z",
       "side": 1,
       "message": "Is `max_frame_size` used for anything other than the kalman filter? If not it should live inside this class.",
+      "range": {
+        "startLine": 44,
+        "startChar": 13,
+        "endLine": 44,
+        "endChar": 27
+      },
+      "revId": "091cf132918ae9bda280457a92ac73423bb8d1e0",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "45b2fcf5_0791eb5c",
+        "filename": "modules/video_coding/timing/frame_delay_delta_kalman_filter.cc",
+        "patchSetId": 13
+      },
+      "lineNbr": 44,
+      "author": {
+        "id": 5023
+      },
+      "writtenOn": "2022-08-09T12:07:40Z",
+      "side": 1,
+      "message": "Yes, it\u0027s both used and updated in the \"non-Kalman filtering\" (*): \n\nhttps://source.chromium.org/chromium/chromium/src/+/main:third_party/webrtc/modules/video_coding/timing/jitter_estimator.cc;l\u003d323;drc\u003dbead2b4d2553e57229747b48b3dceaadbb8972bf\n\nhttps://source.chromium.org/chromium/chromium/src/+/main:third_party/webrtc/modules/video_coding/timing/jitter_estimator.cc;l\u003d121;drc\u003dbead2b4d2553e57229747b48b3dceaadbb8972bf\n\n-----\n\n(*) The current JitterEstimator does a bunch of different type of filterings. The main point of this current CL is to split out the Kalman filtering from all the other stuff going on, for it to be easier to analyze both the individual, but also the aggregate, behaviours.\n\nI\u0027ll look into modularizing the external filtering a bit as well, but that would be a follow up CL.",
+      "parentUuid": "4ff0f8bc_6fa79a52",
       "range": {
         "startLine": 44,
         "startChar": 13,
@@ -87,6 +135,30 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "0d9d73f5_b1641104",
+        "filename": "modules/video_coding/timing/frame_delay_delta_kalman_filter.cc",
+        "patchSetId": 13
+      },
+      "lineNbr": 45,
+      "author": {
+        "id": 5023
+      },
+      "writtenOn": "2022-08-09T12:07:40Z",
+      "side": 1,
+      "message": "Same motivation as above:\n\nhttps://source.chromium.org/chromium/chromium/src/+/main:third_party/webrtc/modules/video_coding/timing/jitter_estimator.cc;l\u003d131;drc\u003dbead2b4d2553e57229747b48b3dceaadbb8972bf\n\nhttps://source.chromium.org/chromium/chromium/src/+/main:third_party/webrtc/modules/video_coding/timing/jitter_estimator.cc;l\u003d301;drc\u003dbead2b4d2553e57229747b48b3dceaadbb8972bf\n\n---\n\nSome more details for the noise variance: my current understanding is that the \"non-Kalman filtering\" decides on a noise level, which is then used as a parameter in the Kalman filter. This is a well-known robustification technique used in Kalman filtering, so that\u0027s all fine. But again, it\u0027s hard to analyze what is actually going on when all the state updates are intermingled.",
+      "parentUuid": "b5f911c8_b7db23a4",
+      "range": {
+        "startLine": 45,
+        "startChar": 11,
+        "endLine": 45,
+        "endChar": 20
+      },
+      "revId": "091cf132918ae9bda280457a92ac73423bb8d1e0",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "22530e8e_447c64a3",
@@ -100,6 +172,30 @@
       "writtenOn": "2022-06-17T13:22:00Z",
       "side": 1,
       "message": "Please update with new params.",
+      "range": {
+        "startLine": 30,
+        "startChar": 5,
+        "endLine": 30,
+        "endChar": 10
+      },
+      "revId": "091cf132918ae9bda280457a92ac73423bb8d1e0",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "228316c1_35cebf91",
+        "filename": "modules/video_coding/timing/frame_delay_delta_kalman_filter.h",
+        "patchSetId": 13
+      },
+      "lineNbr": 30,
+      "author": {
+        "id": 5023
+      },
+      "writtenOn": "2022-08-09T12:07:40Z",
+      "side": 1,
+      "message": "Done. Kept the ugly formatting for now.",
+      "parentUuid": "22530e8e_447c64a3",
       "range": {
         "startLine": 30,
         "startChar": 5,
@@ -133,6 +229,30 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "a166d354_dc806367",
+        "filename": "modules/video_coding/timing/frame_delay_delta_kalman_filter.h",
+        "patchSetId": 13
+      },
+      "lineNbr": 48,
+      "author": {
+        "id": 5023
+      },
+      "writtenOn": "2022-08-09T12:07:40Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "8d55fa93_2eeaf837",
+      "range": {
+        "startLine": 46,
+        "startChar": 14,
+        "endLine": 48,
+        "endChar": 66
+      },
+      "revId": "091cf132918ae9bda280457a92ac73423bb8d1e0",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "7b3380fb_28572ba4",
@@ -146,6 +266,30 @@
       "writtenOn": "2022-06-17T13:22:00Z",
       "side": 1,
       "message": "You can remove the `Reset` function and simply do `kalman_filter_ \u003d FrameDelayDeltaKalmanFilter()` instead.",
+      "range": {
+        "startLine": 87,
+        "startChar": 2,
+        "endLine": 87,
+        "endChar": 25
+      },
+      "revId": "091cf132918ae9bda280457a92ac73423bb8d1e0",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "ceb9b96e_2855fddd",
+        "filename": "modules/video_coding/timing/jitter_estimator.cc",
+        "patchSetId": 13
+      },
+      "lineNbr": 87,
+      "author": {
+        "id": 5023
+      },
+      "writtenOn": "2022-08-09T12:07:40Z",
+      "side": 1,
+      "message": "Agree. I\u0027m planning on following up with that, amongst other things: https://webrtc-review.googlesource.com/c/src/+/265877.",
+      "parentUuid": "7b3380fb_28572ba4",
       "range": {
         "startLine": 87,
         "startChar": 2,

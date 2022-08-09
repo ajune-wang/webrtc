@@ -58,9 +58,9 @@ ABSL_FLAG(std::string,
           "drift.int32",
           "The name of the drift file.");
 ABSL_FLAG(std::string,
-          level_file,
-          "level.int32",
-          "The name of the level file.");
+          recommended_analog_level_file,
+          "recommended_analog_level_file.int32",
+          "The name of the recommended analog level file.");
 ABSL_FLAG(std::string,
           keypress_file,
           "keypress.bool",
@@ -468,15 +468,15 @@ int do_main(int argc, char* argv[]) {
           }
         }
 
-        if (msg.has_level()) {
-          static FILE* level_file =
-              OpenFile(absl::GetFlag(FLAGS_level_file), "wb");
-          int32_t level = msg.level();
+        if (msg.has_recommended_analog_level()) {
+          static FILE* level_file = OpenFile(
+              absl::GetFlag(FLAGS_recommended_analog_level_file), "wb");
+          int32_t level = msg.recommended_analog_level();
           if (absl::GetFlag(FLAGS_text)) {
             fprintf(level_file, "%d\n", level);
           } else {
             WriteData(&level, sizeof(level), level_file,
-                      absl::GetFlag(FLAGS_level_file));
+                      absl::GetFlag(FLAGS_recommended_analog_level_file));
           }
         }
 

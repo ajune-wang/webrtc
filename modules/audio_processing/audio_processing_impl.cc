@@ -267,6 +267,7 @@ AudioProcessingImpl::AudioProcessingImpl(
           UseSetupSpecificDefaultAec3Congfig()),
       use_denormal_disabler_(
           !field_trial::IsEnabled("WebRTC-ApmDenormalDisablerKillSwitch")),
+      last_recommended_analog_level_(0),
       transient_suppressor_vad_mode_(GetTransientSuppressorVadMode()),
       capture_runtime_settings_(RuntimeSettingQueueSize()),
       render_runtime_settings_(RuntimeSettingQueueSize()),
@@ -777,6 +778,9 @@ int AudioProcessingImpl::ProcessStream(const float* const* src,
   if (aec_dump_) {
     RecordProcessedCaptureStream(dest);
   }
+
+  UpdateRecommendedStreamAnalogLevelLocked();
+
   return kNoError;
 }
 
@@ -1074,6 +1078,8 @@ int AudioProcessingImpl::ProcessStream(const int16_t* const src,
     RecordProcessedCaptureStream(dest, output_config);
   }
 
+  UpdateRecommendedStreamAnalogLevelLocked();
+
   return kNoError;
 }
 
@@ -1129,12 +1135,11 @@ int AudioProcessingImpl::ProcessCaptureStreamLocked() {
   }
 
   // Detect an analog gain change.
-  int analog_mic_level = recommended_stream_analog_level_locked();
   const bool analog_mic_level_changed =
-      capture_.prev_analog_mic_level != analog_mic_level &&
+      capture_.prev_analog_mic_level != last_recommended_analog_level_ &&
       capture_.prev_analog_mic_level != -1;
-  capture_.prev_analog_mic_level = analog_mic_level;
-  analog_gain_stats_reporter_.UpdateStatistics(analog_mic_level);
+  capture_.prev_analog_mic_level = last_recommended_analog_level_;
+  analog_gain_stats_reporter_.UpdateStatistics(last_recommended_analog_level_);
 
   if (submodules_.echo_controller) {
     capture_.echo_path_gain_change = analog_mic_level_changed;
@@ -1318,7 +1323,7 @@ int AudioProcessingImpl::ProcessCaptureStreamLocked() {
 
     if (submodules_.gain_controller2) {
       submodules_.gain_controller2->NotifyAnalogLevel(
-          recommended_stream_analog_level_locked());
+          last_recommended_analog_level_);
       submodules_.gain_controller2->Process(voice_probability, capture_buffer);
     }
 
@@ -1336,12 +1341,6 @@ int AudioProcessingImpl::ProcessCaptureStreamLocked() {
           RmsLevel::kMinLevelDb, 64);
       RTC_HISTOGRAM_COUNTS_LINEAR("WebRTC.Audio.ApmCaptureOutputLevelPeakRms",
                                   levels.peak, 1, RmsLevel::kMinLevelDb, 64);
-    }
-
-    if (submodules_.agc_manager) {
-      int level = recommended_stream_analog_level_locked();
-      data_dumper_->DumpRaw("experimental_gain_control_stream_analog_level", 1,
-                            &level);
     }
 
     // Compute echo-detector stats.
@@ -1605,6 +1604,8 @@ void AudioProcessingImpl::set_stream_key_pressed(bool key_pressed) {
 void AudioProcessingImpl::set_stream_analog_level(int level) {
   MutexLock lock_capture(&mutex_capture_);
 
+  data_dumper_->DumpRaw("gain_control_stream_analog_level", 1, &level);
+
   if (config_.capture_level_adjustment.analog_mic_gain_emulation.enabled) {
     // If the analog mic gain is emulated internally, simply cache the level for
     // later reporting back as the recommended stream analog level to use.
@@ -1632,23 +1633,23 @@ void AudioProcessingImpl::set_stream_analog_level(int level) {
 
 int AudioProcessingImpl::recommended_stream_analog_level() const {
   MutexLock lock_capture(&mutex_capture_);
-  return recommended_stream_analog_level_locked();
+  return last_recommended_analog_level_;
 }
 
-int AudioProcessingImpl::recommended_stream_analog_level_locked() const {
+void AudioProcessingImpl::UpdateRecommendedStreamAnalogLevelLocked() {
   if (config_.capture_level_adjustment.analog_mic_gain_emulation.enabled) {
-    return capture_.cached_stream_analog_level_;
+    last_recommended_analog_level_ = capture_.cached_stream_analog_level_;
+  } else if (submodules_.agc_manager) {
+    last_recommended_analog_level_ =
+        submodules_.agc_manager->recommended_analog_level();
+  } else if (submodules_.gain_control) {
+    last_recommended_analog_level_ =
+        submodules_.gain_control->stream_analog_level();
+  } else {
+    last_recommended_analog_level_ = capture_.cached_stream_analog_level_;
   }
-
-  if (submodules_.agc_manager) {
-    return submodules_.agc_manager->recommended_analog_level();
-  }
-
-  if (submodules_.gain_control) {
-    return submodules_.gain_control->stream_analog_level();
-  }
-
-  return capture_.cached_stream_analog_level_;
+  data_dumper_->DumpRaw("gain_control_recommended_analog_level", 1,
+                        &last_recommended_analog_level_);
 }
 
 bool AudioProcessingImpl::CreateAndAttachAecDump(const std::string& file_name,
@@ -2155,7 +2156,7 @@ void AudioProcessingImpl::RecordAudioProcessingState() {
   AecDump::AudioProcessingState audio_proc_state;
   audio_proc_state.delay = capture_nonlocked_.stream_delay_ms;
   audio_proc_state.drift = 0;
-  audio_proc_state.level = recommended_stream_analog_level_locked();
+  audio_proc_state.recommended_analog_level = last_recommended_analog_level_;
   audio_proc_state.keypress = capture_.key_pressed;
   aec_dump_->AddAudioProcessingState(audio_proc_state);
 }

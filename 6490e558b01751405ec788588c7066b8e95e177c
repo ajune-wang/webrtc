@@ -18,6 +18,24 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "47895eff_2ba4336d",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 13704
+      },
+      "writtenOn": "2022-08-09T13:02:42Z",
+      "side": 1,
+      "message": "Yes, it was just easier to update the interface than all the call-sites.\n\nI could e.g. keep Lookup as (but make it private) and add a LookupAndValidate.",
+      "parentUuid": "b09c2a3f_6b3358fc",
+      "revId": "6490e558b01751405ec788588c7066b8e95e177c",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "75dd9d24_f9caa0e1",
@@ -31,6 +49,24 @@
       "writtenOn": "2022-08-09T12:02:49Z",
       "side": 1,
       "message": "While you\u0027re changing this stuff around - why does Lookup() / GetValue() return a copy of the string and not an absl::string_view?",
+      "revId": "6490e558b01751405ec788588c7066b8e95e177c",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "68fb6b91_46c7a8ce",
+        "filename": "api/field_trials.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 93,
+      "author": {
+        "id": 13704
+      },
+      "writtenOn": "2022-08-09T13:02:42Z",
+      "side": 1,
+      "message": "If it had returned `const std::string\u0026` it would be a no-brainer to change to `string_view`. However, the field trial string should be owned by or outlive a concrete `FieldTrialsView` so I think it should be possible to change both to `string_view`. I could do that as a follow-up?",
+      "parentUuid": "75dd9d24_f9caa0e1",
       "revId": "6490e558b01751405ec788588c7066b8e95e177c",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }

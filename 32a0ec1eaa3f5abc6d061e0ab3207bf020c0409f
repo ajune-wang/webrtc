@@ -35,6 +35,24 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "5ad0d17a_2fdcd301",
+        "filename": "p2p/base/stun_port.cc",
+        "patchSetId": 6
+      },
+      "lineNbr": 145,
+      "author": {
+        "id": 17854
+      },
+      "writtenOn": "2022-08-09T12:45:47Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "9828526c_800b22fb",
+      "revId": "32a0ec1eaa3f5abc6d061e0ab3207bf020c0409f",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "cbf8a59a_3db9b4a2",
@@ -52,6 +70,24 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "edd8b028_705531dd",
+        "filename": "p2p/base/stun_port_unittest.cc",
+        "patchSetId": 6
+      },
+      "lineNbr": 369,
+      "author": {
+        "id": 17854
+      },
+      "writtenOn": "2022-08-09T12:45:47Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "cbf8a59a_3db9b4a2",
+      "revId": "32a0ec1eaa3f5abc6d061e0ab3207bf020c0409f",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "975f13d7_d304daec",
@@ -65,6 +101,24 @@
       "writtenOn": "2022-08-09T11:30:36Z",
       "side": 1,
       "message": "This (messing around with the field trials member) looks messy.\n\nProbably works (there\u0027s a new empty field trials object for every test), but it looks messy. Is there a better way?",
+      "revId": "32a0ec1eaa3f5abc6d061e0ab3207bf020c0409f",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "4b4aa622_4121d773",
+        "filename": "p2p/base/stun_port_unittest.cc",
+        "patchSetId": 6
+      },
+      "lineNbr": 650,
+      "author": {
+        "id": 17854
+      },
+      "writtenOn": "2022-08-09T12:45:47Z",
+      "side": 1,
+      "message": "Done. Field trials passed directly to STUN port creation without messing with (unnecessary) member.",
+      "parentUuid": "975f13d7_d304daec",
       "revId": "32a0ec1eaa3f5abc6d061e0ab3207bf020c0409f",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }

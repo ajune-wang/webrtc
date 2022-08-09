@@ -36,6 +36,24 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "82986ed7_09e07dd0",
+        "filename": "api/field_trials_view.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 35,
+      "author": {
+        "id": 13704
+      },
+      "writtenOn": "2022-08-09T10:58:11Z",
+      "side": 1,
+      "message": "That won\u0027t work either because some of the tests exercise `IsEnabled` which in turn uses `Lookup`.\n\nI the \"global behavior\" imposed by `IsFieldTrialRegistered` will be impossible to mock/fake without refactoring that free function into a class that can be injected to FieldTrialsView. I\u0027ll go ahead an just add some dummy test-only field trials for now.",
+      "parentUuid": "dd6f8eaa_c6522f92",
+      "revId": "d0a41e57a420da30df043575e4da6c86f76ec351",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "7980f1f2_0d3800e5",
@@ -59,6 +77,30 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "b0a686e1_6cb47b56",
+        "filename": "api/field_trials_view.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 37,
+      "author": {
+        "id": 13704
+      },
+      "writtenOn": "2022-08-09T10:58:11Z",
+      "side": 1,
+      "message": "Good point, fixed",
+      "parentUuid": "7980f1f2_0d3800e5",
+      "range": {
+        "startLine": 37,
+        "startChar": 4,
+        "endLine": 37,
+        "endChar": 39
+      },
+      "revId": "d0a41e57a420da30df043575e4da6c86f76ec351",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "c86c7f38_002e8afe",
@@ -72,6 +114,30 @@
       "writtenOn": "2022-07-01T09:27:09Z",
       "side": 1,
       "message": "not sure why you need this extra flag in chain build_flag -\u003e c++ macro -\u003e c++ bool flag.\n\nyou can write with just a macro:\n#if RTC_STRICT_FIELD_TRIALS\ninline bool IsFieldTrialRegistered(absl::string_view key) {\n  return absl::c_linear_search(kRegisteredFieldTrials, key);\n}\n#else\nconstexpr bool IsFieldTrialRegistered(absl::string_view /*key*/) {\n  return true;\n}\n#endif\n\nit might be possible to avoid c++ macro also, but then this helper function won\u0027t be constexpr and noop for the scenario when flag is not there.\nOn the other hand, checking field trials shouldn\u0027t be perfomance critical, binary size increase is also very small:\n\n.h\nbool IsFieldTrialRegistered(key);\n\n_without.cc\nbool IsFieldTrialRegistered(key) { return true; }\n\n_with.cc\nbool IsFieldTrialRegistered(key) { return search(key); }\n\n.gn\npublic \u003d [\".h\"]\nif (rtc_strict_field_trials) {\n  sources +\u003d [\".with.cc\"]\n  deps +\u003d [\"tools_webrtc/experiments:field_trial_registry\" ]\n} else {\n  sources +\u003d [\".without.cc\"]\n}",
+      "range": {
+        "startLine": 22,
+        "startChar": 17,
+        "endLine": 22,
+        "endChar": 34
+      },
+      "revId": "d0a41e57a420da30df043575e4da6c86f76ec351",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "8cb2c70a_39427886",
+        "filename": "tools_webrtc/experiments/field_trials_registry.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 22,
+      "author": {
+        "id": 13704
+      },
+      "writtenOn": "2022-08-09T10:58:11Z",
+      "side": 1,
+      "message": "Yeah, I experimented a bit with constexpr if but I think that has better use when the condition is determined by e.g. a type trait.\n\nI still don\u0027t like having two declarations of the function with different signatures. I\u0027m leaning towards just having two different implementations of the same function signature gated on a macro definition instead.",
+      "parentUuid": "c86c7f38_002e8afe",
       "range": {
         "startLine": 22,
         "startChar": 17,

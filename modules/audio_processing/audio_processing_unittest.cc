@@ -363,7 +363,8 @@ void ExpectStreamFieldsEq(const audioproc::Stream& actual,
   EXPECT_EQ(actual.output_data(), expected.output_data());
   EXPECT_EQ(actual.delay(), expected.delay());
   EXPECT_EQ(actual.drift(), expected.drift());
-  EXPECT_EQ(actual.level(), expected.level());
+  EXPECT_EQ(actual.recommended_analog_level(),
+            expected.recommended_analog_level());
   EXPECT_EQ(actual.keypress(), expected.keypress());
 }
 
@@ -1512,7 +1513,7 @@ void ApmTest::ProcessDebugDump(const std::string& in_filename,
       // ProcessStream could have changed this for the output frame.
       frame_.num_channels = apm_->num_input_channels();
 
-      apm_->set_stream_analog_level(msg.level());
+      apm_->set_stream_analog_level(msg.recommended_analog_level());
       EXPECT_NOERR(apm_->set_stream_delay_ms(msg.delay()));
       if (msg.has_keypress()) {
         apm_->set_stream_key_pressed(msg.keypress());
@@ -1567,6 +1568,8 @@ void ApmTest::VerifyDebugDumpTest(Format format) {
   ProcessDebugDump(in_filename, ref_filename, format, -1);
   ProcessDebugDump(ref_filename, out_filename, format, -1);
   ProcessDebugDump(ref_filename, limited_filename, format, logging_limit_bytes);
+
+  printf("out_filename = %s\n", out_filename.c_str());
 
   FILE* ref_file = fopen(ref_filename.c_str(), "rb");
   FILE* out_file = fopen(out_filename.c_str(), "rb");

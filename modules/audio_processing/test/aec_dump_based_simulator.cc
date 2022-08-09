@@ -175,8 +175,8 @@ void AecDumpBasedSimulator::PrepareProcessStreamCall(
   }
 
   // Level is always logged in AEC dumps.
-  RTC_CHECK(msg.has_level());
-  aec_dump_mic_level_ = msg.level();
+  RTC_CHECK(msg.has_recommended_analog_level());
+  aec_dump_mic_level_ = msg.recommended_analog_level();
 }
 
 void AecDumpBasedSimulator::VerifyProcessStreamBitExactness(

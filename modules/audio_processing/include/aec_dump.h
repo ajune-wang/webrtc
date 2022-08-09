@@ -67,7 +67,8 @@ class AecDump {
   struct AudioProcessingState {
     int delay;
     int drift;
-    int level;
+    // Analog level recommended by APM before the input audio is processed.
+    int recommended_analog_level;
     bool keypress;
   };
 

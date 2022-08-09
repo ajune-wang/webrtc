@@ -50,7 +50,11 @@ class UlpfecReceiverTest : public ::testing::Test {
  protected:
   UlpfecReceiverTest()
       : fec_(ForwardErrorCorrection::CreateUlpfec(kMediaSsrc)),
-        receiver_fec_(kMediaSsrc, &recovered_packet_receiver_, {}),
+        receiver_fec_(kMediaSsrc,
+                      kFecPayloadType,
+                      &recovered_packet_receiver_,
+                      {},
+                      Clock::GetRealTimeClock()),
         packet_generator_(kMediaSsrc) {}
 
   // Generates `num_fec_packets` FEC packets, given `media_packets`.
@@ -125,13 +129,13 @@ void UlpfecReceiverTest::BuildAndAddRedMediaPacket(AugmentedPacket* packet,
                                                    bool is_recovered) {
   RtpPacketReceived red_packet =
       packet_generator_.BuildMediaRedPacket(*packet, is_recovered);
-  EXPECT_TRUE(receiver_fec_.AddReceivedRedPacket(red_packet, kFecPayloadType));
+  EXPECT_TRUE(receiver_fec_.AddReceivedRedPacket(red_packet));
 }
 
 void UlpfecReceiverTest::BuildAndAddRedFecPacket(Packet* packet) {
   RtpPacketReceived red_packet =
       packet_generator_.BuildUlpfecRedPacket(*packet);
-  EXPECT_TRUE(receiver_fec_.AddReceivedRedPacket(red_packet, kFecPayloadType));
+  EXPECT_TRUE(receiver_fec_.AddReceivedRedPacket(red_packet));
 }
 
 void UlpfecReceiverTest::VerifyReconstructedMediaPacket(
@@ -175,11 +179,12 @@ void UlpfecReceiverTest::SurvivesMaliciousPacket(const uint8_t* data,
                                                  size_t length,
                                                  uint8_t ulpfec_payload_type) {
   NullRecoveredPacketReceiver null_callback;
-  UlpfecReceiver receiver_fec(kMediaSsrc, &null_callback, {});
+  UlpfecReceiver receiver_fec(kMediaSsrc, ulpfec_payload_type, &null_callback,
+                              {}, Clock::GetRealTimeClock());
 
   RtpPacketReceived rtp_packet;
   ASSERT_TRUE(rtp_packet.Parse(data, length));
-  receiver_fec.AddReceivedRedPacket(rtp_packet, ulpfec_payload_type);
+  receiver_fec.AddReceivedRedPacket(rtp_packet);
 }
 
 TEST_F(UlpfecReceiverTest, TwoMediaOneFec) {

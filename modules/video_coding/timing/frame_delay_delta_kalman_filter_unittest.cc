@@ -17,12 +17,36 @@
 namespace webrtc {
 namespace {
 
-TEST(FrameDelayDeltaKalmanFilterTest, InitialBandwidthStateIs512kbps) {
+// This test verifies that the initial filter state (link bandwidth, link
+// propagation delay) is such that a frame of size zero would take no time to
+// propagate.
+TEST(FrameDelayDeltaKalmanFilterTest,
+     InitialStateFilterWithZeroSizeFrameTakesNoTimeToPropagate) {
   FrameDelayDeltaKalmanFilter filter;
 
-  // The slope corresponds to the estimated bandwidth, and the initial value
-  // is set in the implementation.
-  EXPECT_EQ(filter.GetSlope(), 1 / (512e3 / 8));
+  // A zero-sized frame...
+  double frame_size_delta_bytes = 0.0;
+
+  // ...should take no time to propagate due to it's size...
+  EXPECT_EQ(filter.GetFrameDelayDeltaEstimateSizeBased(frame_size_delta_bytes),
+            0.0);
+
+  // ...and no time due to the initial link propagation delay being zero.
+  EXPECT_EQ(filter.GetFrameDelayDeltaEstimateTotal(frame_size_delta_bytes),
+            0.0);
+}
+
+TEST(FrameDelayDeltaKalmanFilterTest,
+     InitialStateFilterWithSmallSizeFrameTakesFixedTimeToPropagate) {
+  FrameDelayDeltaKalmanFilter filter;
+
+  // A small-sized frame...
+  double frame_size_delta_bytes = 1.0;
+  double expected_frame_delay_delta_estimate = 1.0 / (512e3 / 8.0);
+  EXPECT_EQ(filter.GetFrameDelayDeltaEstimateSizeBased(frame_size_delta_bytes),
+            expected_frame_delay_delta_estimate);
+  EXPECT_EQ(filter.GetFrameDelayDeltaEstimateTotal(frame_size_delta_bytes),
+            expected_frame_delay_delta_estimate);
 }
 
 }  // namespace

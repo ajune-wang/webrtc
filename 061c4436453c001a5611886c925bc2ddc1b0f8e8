@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "7b1512ca_606c24f7",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 19624
+      },
+      "writtenOn": "2022-08-09T18:34:08Z",
+      "side": 1,
+      "message": "Resolves an issue where, in Chrome, WebRTC event logs do not capture outgoing packets for video receivers because no reference to the event log was passed to the video receiver.",
+      "revId": "061c4436453c001a5611886c925bc2ddc1b0f8e8",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

@@ -1,0 +1,38 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "b09c2a3f_6b3358fc",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2022-08-09T12:02:49Z",
+      "side": 1,
+      "message": "So the point is to distinguish FieldTrialsView::Lookup (which can check validity) from FieldTrials::GetValue (which doesn\u0027t check)?\n\nDoesn\u0027t seem like much of a reason for a name change to me, but OK....",
+      "revId": "6490e558b01751405ec788588c7066b8e95e177c",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "75dd9d24_f9caa0e1",
+        "filename": "api/field_trials.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 93,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2022-08-09T12:02:49Z",
+      "side": 1,
+      "message": "While you\u0027re changing this stuff around - why does Lookup() / GetValue() return a copy of the string and not an absl::string_view?",
+      "revId": "6490e558b01751405ec788588c7066b8e95e177c",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

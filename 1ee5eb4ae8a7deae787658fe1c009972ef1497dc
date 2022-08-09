@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "bacf6252_77e13298",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 4
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5023
+      },
+      "writtenOn": "2022-08-09T15:08:51Z",
+      "side": 1,
+      "message": "I wonder why this interface existed in the first place? The git history in code search does not work past the big src/ move...",
+      "revId": "1ee5eb4ae8a7deae787658fe1c009972ef1497dc",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

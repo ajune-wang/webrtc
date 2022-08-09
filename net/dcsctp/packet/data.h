@@ -59,6 +59,12 @@ struct Data {
         is_end(is_end),
         is_unordered(is_unordered) {}
 
+  static Data Empty() {
+    return Data(StreamID(0), SSN(0), MID(0), FSN(0), PPID(0),
+                std::vector<uint8_t>(), IsBeginning(false), IsEnd(false),
+                IsUnordered(false));
+  }
+
   // Move-only, to avoid accidental copies.
   Data(Data&& other) = default;
   Data& operator=(Data&& other) = default;

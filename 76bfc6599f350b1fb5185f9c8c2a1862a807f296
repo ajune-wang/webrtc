@@ -1,0 +1,44 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "9fde3b49_81d70097",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2022-08-09T11:25:24Z",
+      "side": 1,
+      "message": "cpp part lgtm % one comment",
+      "revId": "76bfc6599f350b1fb5185f9c8c2a1862a807f296",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "9851586a_b68a926d",
+        "filename": "BUILD.gn",
+        "patchSetId": 2
+      },
+      "lineNbr": 276,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2022-08-09T11:25:24Z",
+      "side": 1,
+      "message": "I think WEBRTC_ prefix for macros is safer to use.",
+      "range": {
+        "startLine": 276,
+        "startChar": 18,
+        "endLine": 276,
+        "endChar": 21
+      },
+      "revId": "76bfc6599f350b1fb5185f9c8c2a1862a807f296",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

@@ -54,7 +54,7 @@ class FullScreenMacApplicationHandler : public FullScreenApplicationHandler {
   using TitlePredicate =
       std::function<bool(const std::string&, const std::string&)>;
 
-  FullScreenMacApplicationHandler(DesktopCapturer::SourceId sourceId,
+  FullScreenMacApplicationHandler(SourceId sourceId,
                                   TitlePredicate title_predicate,
                                   bool ignore_original_window)
       : FullScreenApplicationHandler(sourceId),
@@ -118,12 +118,10 @@ class FullScreenMacApplicationHandler : public FullScreenApplicationHandler {
     return it != cache_sources_.end() ? it->id : 0;
   }
 
-  DesktopCapturer::SourceId FindFullScreenWindow(
+  SourceId FindFullScreenWindow(
       const DesktopCapturer::SourceList& source_list,
       int64_t timestamp) const override {
     return !ignore_original_window_ && IsWindowOnScreen(GetSourceId())
-               ? 0
-               : FindFullScreenWindowWithSamePid(source_list, timestamp);
   }
 
  protected:
@@ -153,12 +151,11 @@ bool slide_show_title_predicate(const std::string& original_title,
 
 class OpenOfficeApplicationHandler : public FullScreenMacApplicationHandler {
  public:
-  OpenOfficeApplicationHandler(DesktopCapturer::SourceId sourceId)
+  OpenOfficeApplicationHandler(SourceId sourceId)
       : FullScreenMacApplicationHandler(sourceId, nullptr, false) {}
 
-  DesktopCapturer::SourceId FindFullScreenWindow(
-      const DesktopCapturer::SourceList& source_list,
-      int64_t timestamp) const override {
+  SourceId FindFullScreenWindow(const DesktopCapturer::SourceList& source_list,
+                                int64_t timestamp) const override {
     InvalidateCacheIfNeeded(source_list, timestamp,
                             [&](const DesktopCapturer::Source& src) {
                               return GetWindowOwnerPid(src.id) == owner_pid_;
@@ -200,7 +197,7 @@ class OpenOfficeApplicationHandler : public FullScreenMacApplicationHandler {
 }  // namespace
 
 std::unique_ptr<FullScreenApplicationHandler>
-CreateFullScreenMacApplicationHandler(DesktopCapturer::SourceId sourceId) {
+CreateFullScreenMacApplicationHandler(SourceId sourceId) {
   std::unique_ptr<FullScreenApplicationHandler> result;
   int pid = GetWindowOwnerPid(sourceId);
   char buffer[PROC_PIDPATHINFO_MAXSIZE];

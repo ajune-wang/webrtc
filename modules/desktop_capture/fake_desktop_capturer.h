@@ -57,11 +57,11 @@ class RTC_EXPORT FakeDesktopCapturer : public DesktopCapturer {
   void SetSharedMemoryFactory(
       std::unique_ptr<SharedMemoryFactory> shared_memory_factory) override;
   bool GetSourceList(DesktopCapturer::SourceList* sources) override;
-  bool SelectSource(DesktopCapturer::SourceId id) override;
+  bool SelectSource(SourceId id) override;
 
  private:
-  static constexpr DesktopCapturer::SourceId kWindowId = 1378277495;
-  static constexpr DesktopCapturer::SourceId kScreenId = 1378277496;
+  static constexpr SourceId kWindowId = 1378277495;
+  static constexpr SourceId kScreenId = 1378277496;
 
   DesktopCapturer::Callback* callback_ = nullptr;
   std::unique_ptr<SharedMemoryFactory> shared_memory_factory_;

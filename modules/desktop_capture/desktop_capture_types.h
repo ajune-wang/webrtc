@@ -13,6 +13,9 @@
 
 #include <stdint.h>
 
+#include <map>
+#include <string>
+
 namespace webrtc {
 
 enum class CaptureType { kWindow, kScreen };
@@ -38,21 +41,40 @@ const WindowId kNullWindowId = 0;
   typedef intptr_t ScreenId;
 #endif
 
-// The screen id corresponds to all screen combined together.
-const ScreenId kFullDesktopScreenId = -1;
+#if defined(CHROMEOS)
+  typedef int64_t SourceId;
+#else
+  typedef intptr_t SourceId;
+#endif
 
-const ScreenId kInvalidScreenId = -2;
+  struct PipeWireStreamInfo {
+    uint32_t node_id;
+    int x;
+    int y;
+    int width;
+    int height;
+    std::string monitor_name;
+  };
 
-// Integers to attach to each DesktopFrame to differentiate the generator of
-// the frame. The entries in this namespace should remain in sync with the
-// SequentialDesktopCapturerId enum, which is logged via UMA.
-// `kScreenCapturerWinGdi` and `kScreenCapturerWinDirectx` values are preserved
-// to maintain compatibility
-namespace DesktopCapturerId {
-constexpr uint32_t CreateFourCC(char a, char b, char c, char d) {
-  return ((static_cast<uint32_t>(a)) | (static_cast<uint32_t>(b) << 8) |
-          (static_cast<uint32_t>(c) << 16) | (static_cast<uint32_t>(d) << 24));
-}
+  // Mapping from source ID to corresponding pipewire stream information.
+  using SourceStreamInfo = std::map<SourceId, PipeWireStreamInfo>;
+
+  // The screen id corresponds to all screen combined together.
+  const ScreenId kFullDesktopScreenId = -1;
+
+  const ScreenId kInvalidScreenId = -2;
+
+  // Integers to attach to each DesktopFrame to differentiate the generator of
+  // the frame. The entries in this namespace should remain in sync with the
+  // SequentialDesktopCapturerId enum, which is logged via UMA.
+  // `kScreenCapturerWinGdi` and `kScreenCapturerWinDirectx` values are
+  // preserved to maintain compatibility
+  namespace DesktopCapturerId {
+  constexpr uint32_t CreateFourCC(char a, char b, char c, char d) {
+    return ((static_cast<uint32_t>(a)) | (static_cast<uint32_t>(b) << 8) |
+            (static_cast<uint32_t>(c) << 16) |
+            (static_cast<uint32_t>(d) << 24));
+  }
 
 constexpr uint32_t kUnknown = 0;
 constexpr uint32_t kWgcCapturerWin = 1;

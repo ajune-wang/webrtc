@@ -236,8 +236,10 @@ RtpVideoStreamReceiver2::RtpVideoStreamReceiver2(
       rtp_receive_statistics_(rtp_receive_statistics),
       ulpfec_receiver_(
           std::make_unique<UlpfecReceiver>(config->rtp.remote_ssrc,
+                                           config_.rtp.ulpfec_payload_type,
                                            this,
-                                           config->rtp.extensions)),
+                                           config->rtp.extensions,
+                                           clock)),
       packet_sink_(config->rtp.packet_sink_),
       receiving_(false),
       last_packet_log_ms_(-1),

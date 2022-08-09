@@ -154,6 +154,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "b632d469_de745b23",
+        "filename": "tools_webrtc/experiments/field_trials.py",
+        "patchSetId": 2
+      },
+      "lineNbr": 3,
+      "author": {
+        "id": 5087
+      },
+      "writtenOn": "2022-08-09T14:47:59Z",
+      "side": 1,
+      "message": "I would be in favour of a top level folder //experiments or //field_trials, this should fix the problem, right?",
+      "parentUuid": "31859d72_8e075ea9",
+      "revId": "76bfc6599f350b1fb5185f9c8c2a1862a807f296",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "a4657ee6_63d60852",
         "filename": "tools_webrtc/experiments/field_trials.py",
         "patchSetId": 2
@@ -324,6 +342,29 @@
       "side": 1,
       "message": "You are of course correct. Let\u0027s hold off on that then.",
       "parentUuid": "11d218be_4b1b503e",
+      "revId": "76bfc6599f350b1fb5185f9c8c2a1862a807f296",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "42cb76ae_852aa26c",
+        "filename": "webrtc.gni",
+        "patchSetId": 2
+      },
+      "lineNbr": 233,
+      "author": {
+        "id": 5087
+      },
+      "writtenOn": "2022-08-09T14:47:59Z",
+      "side": 1,
+      "message": "I think we can turn this ON on CQ/CI by changing https://source.chromium.org/chromium/chromium/src/+/main:third_party/webrtc/tools_webrtc/mb/mb_config.pyl;l\u003d380;drc\u003d35fc144e01cbff6a5d56cda53d09ca841d7334f2 to:\n\n```\n\u0027debug_bot\u0027: {\n  \u0027mixins\u0027: [\u0027debug\u0027, \u0027goma\u0027, \u0027strict_field_trials\u0027],\n},\n```\n\nAnd here https://source.chromium.org/chromium/chromium/src/+/main:third_party/webrtc/tools_webrtc/mb/mb_config.pyl;l\u003d391;drc\u003d35fc144e01cbff6a5d56cda53d09ca841d7334f2:\n\n```\n\u0027strict_field_trials\u0027: {\n  \u0027gn_args\u0027: \u0027rtc_strict_field_trials\u003dtrue\u0027,\n},\n```",
+      "range": {
+        "startLine": 233,
+        "startChar": 0,
+        "endLine": 233,
+        "endChar": 33
+      },
       "revId": "76bfc6599f350b1fb5185f9c8c2a1862a807f296",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }

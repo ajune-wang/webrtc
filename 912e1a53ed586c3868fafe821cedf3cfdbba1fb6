@@ -24,6 +24,30 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "54a520e6_de8ce554",
+        "filename": "modules/audio_processing/agc/agc_manager_direct.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 483,
+      "author": {
+        "id": 5122
+      },
+      "writtenOn": "2022-08-09T08:22:38Z",
+      "side": 1,
+      "message": "\u003e Can we infer this from other, pre-existing logs? Including Chrome logs.\n\nUnfortunately not. We stopped logging the applied APM config some time ago (I wanted to add it back, but we decided to abandon https://webrtc-review.googlesource.com/c/src/+/235206).\n\n\u003e \n\u003e Alternatively, is the same information conveyed by logging AudioProcessingSettings::ToString() [1] in audio::AudioProcessor::Create [2]?\n\nI don\u0027t think so as this setting comes from `AudioProcessing::Config::GainController1::AnalogGainController::enabled`.\n\n\u003e It is guaranteed to only log once per APM instance, and will also cover other settings that are not obvious to infer at the moment. It can replace at least one already existing log (the one at [2]), and with timestamp information it might end up using roughly the same space already.\n\u003e \n\u003e [1] https://source.chromium.org/chromium/chromium/src/+/main:media/base/audio_processing.h;l\u003d19;drc\u003dd5a2d2950088170ccf5c83f89c9b19e4d525ba1e\n\u003e [2] https://source.chromium.org/chromium/chromium/src/+/main:media/webrtc/audio_processor.cc;l\u003d210;drc\u003dcf0720f7ee1734aa91405756c9782b64187a2c02\n\nAck",
+      "parentUuid": "86708fc6_04c7f5b1",
+      "range": {
+        "startLine": 482,
+        "startChar": 0,
+        "endLine": 483,
+        "endChar": 66
+      },
+      "revId": "912e1a53ed586c3868fafe821cedf3cfdbba1fb6",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "f0860e5e_9286ce67",
@@ -47,6 +71,30 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "ddd88cdc_6b77f71d",
+        "filename": "modules/audio_processing/agc/agc_manager_direct.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 484,
+      "author": {
+        "id": 5122
+      },
+      "writtenOn": "2022-08-09T08:22:38Z",
+      "side": 1,
+      "message": "\u003e Just double checking:\n\u003e This will give us the % of all AgcManagerDirect instances that had analog AGC enabled.\n\nYes\n\n\u003e Do we want that, or do we want the % of all APM reconfigurations? At the top of this function:\n\u003e https://source.chromium.org/chromium/chromium/src/+/main:third_party/webrtc/modules/audio_processing/audio_processing_impl.cc;l\u003d1855;drc\u003d1fa87c44cb387aa6173867383c1da3f0e4fc4349\n\nGood catch! I missed that.\nHistogram logging moved there.\n\n\u003e \n\u003e I guess the latter will be logging several times per WebRTC call, if audio input/output format doesn\u0027t match the default values.\n\nYes.\n\n\u003e How is it treated in the current CL version?\n\nWe could delay logging and only log when at least one frame has been processed, but then the logic may become too complex. Ballpark figures are fine for this metric.\n\nMarking as fixed, but feel free to reopen.",
+      "parentUuid": "f0860e5e_9286ce67",
+      "range": {
+        "startLine": 484,
+        "startChar": 25,
+        "endLine": 484,
+        "endChar": 67
+      },
+      "revId": "912e1a53ed586c3868fafe821cedf3cfdbba1fb6",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "996702b1_01d76495",
@@ -60,6 +108,30 @@
       "writtenOn": "2022-08-08T12:54:10Z",
       "side": 1,
       "message": "Can you add a comment clarifying whether this means the from-outside-reported level or the recommended level?",
+      "range": {
+        "startLine": 142,
+        "startChar": 6,
+        "endLine": 142,
+        "endChar": 26
+      },
+      "revId": "912e1a53ed586c3868fafe821cedf3cfdbba1fb6",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "4bc04716_9988786c",
+        "filename": "modules/audio_processing/agc/agc_manager_direct.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 142,
+      "author": {
+        "id": 5122
+      },
+      "writtenOn": "2022-08-09T08:22:38Z",
+      "side": 1,
+      "message": "Good suggestion.\n\nThis is not an obvious one as this member can be both depending on whether `analog_controller_enabled_` is true or false.\n\nI renamed to `recommended_analog_level_` so that a comment is not needed and we make a first step towards more self-explanatory names - we can keep \"stream\" for the actual level read from the sound card (or switch to \"applied\") and switch to \"recommended\" for the value chosen by the gain controller.\n\nFeel free to reopen and suggest alternatives.\n\nOnce this CL lands, I will write a follow-up one to fix other places in APM to make the naming consistent.",
+      "parentUuid": "996702b1_01d76495",
       "range": {
         "startLine": 142,
         "startChar": 6,

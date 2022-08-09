@@ -10,6 +10,7 @@
 #ifndef NET_DCSCTP_TX_OUTSTANDING_DATA_H_
 #define NET_DCSCTP_TX_OUTSTANDING_DATA_H_
 
+#include <algorithm>
 #include <map>
 #include <set>
 #include <utility>
@@ -104,7 +105,9 @@ class OutstandingData {
   // least once) chunks that have a limited lifetime.
   void ExpireOutstandingChunks(TimeMs now);
 
-  bool empty() const { return outstanding_data_.empty(); }
+  bool empty() const {
+    return last_cumulative_tsn_ack_ == last_outstanding_tsn_;
+  }
 
   bool has_data_to_be_fast_retransmitted() const {
     return !to_be_fast_retransmitted_.empty();
@@ -158,6 +161,10 @@ class OutstandingData {
   void ResetSequenceNumbers(UnwrappedTSN last_cumulative_tsn);
 
  private:
+  static constexpr size_t kMinCapacity = 128;
+  // A SACK can only - using gap-ack-blocks - reference up to 64k TSNs.
+  static constexpr size_t kMaxCapacity = 65536;
+
   // A fragmented message's DATA chunk while in the retransmission queue, and
   // its associated metadata.
   class Item {
@@ -168,19 +175,23 @@ class OutstandingData {
       kAbandon,
     };
 
-    Item(Data data,
-         TimeMs time_sent,
-         MaxRetransmits max_retransmissions,
-         TimeMs expires_at,
-         LifecycleId lifecycle_id)
-        : time_sent_(time_sent),
-          max_retransmissions_(max_retransmissions),
-          expires_at_(expires_at),
-          lifecycle_id_(lifecycle_id),
-          data_(std::move(data)) {}
+    Item()
+        : time_sent_(TimeMs(0)),
+          max_retransmissions_(MaxRetransmits(0)),
+          expires_at_(TimeMs(0)),
+          lifecycle_id_(LifecycleId::NotSet()),
+          data_(Data::Empty()) {}
 
-    Item(const Item&) = delete;
-    Item& operator=(const Item&) = delete;
+    Item(Item&& other) = default;
+    Item& operator=(Item&& other) = default;
+
+    void Allocate(Data data,
+                  TimeMs time_sent,
+                  MaxRetransmits max_retransmissions,
+                  TimeMs expires_at,
+                  LifecycleId lifecycle_id);
+
+    void Release() { data_.payload.clear(); }
 
     TimeMs time_sent() const { return time_sent_; }
 
@@ -243,34 +254,46 @@ class OutstandingData {
     // to avoid unnecessary padding.
 
     // When the packet was sent, and placed in this queue.
-    const TimeMs time_sent_;
+    TimeMs time_sent_;
     // If the message was sent with a maximum number of retransmissions, this is
     // set to that number. The value zero (0) means that it will never be
     // retransmitted.
-    const MaxRetransmits max_retransmissions_;
+    MaxRetransmits max_retransmissions_;
 
     // Indicates the life cycle status of this chunk.
-    Lifecycle lifecycle_ = Lifecycle::kActive;
+    Lifecycle lifecycle_;
     // Indicates the presence of this chunk, if it's in flight (Unacked), has
     // been received (Acked) or is possibly lost (Nacked).
-    AckState ack_state_ = AckState::kUnacked;
+    AckState ack_state_;
 
     // The number of times the DATA chunk has been nacked (by having received a
     // SACK which doesn't include it). Will be cleared on retransmissions.
-    uint8_t nack_count_ = 0;
+    uint8_t nack_count_;
     // The number of times the DATA chunk has been retransmitted.
-    uint16_t num_retransmissions_ = 0;
+    uint16_t num_retransmissions_;
 
     // At this exact millisecond, the item is considered expired. If the message
     // is not to be expired, this is set to the infinite future.
-    const TimeMs expires_at_;
+    TimeMs expires_at_;
 
     // An optional lifecycle id, which may only be set for the last fragment.
-    const LifecycleId lifecycle_id_;
+    LifecycleId lifecycle_id_;
 
     // The actual data to send/retransmit.
-    const Data data_;
+    Data data_;
   };
+
+  void EnsureEnoughCapacity();
+
+  int Index(UnwrappedTSN tsn) const {
+    RTC_DCHECK(tsn > last_cumulative_tsn_ack_);
+    RTC_DCHECK(tsn <= last_outstanding_tsn_);
+    return tsn.Wrap().value() & (outstanding_data_.size() - 1);
+  }
+
+  UnwrappedTSN ClampOutstandingTSN(UnwrappedTSN tsn) const {
+    return std::clamp(tsn, last_cumulative_tsn_ack_, last_outstanding_tsn_);
+  }
 
   // Returns how large a chunk will be, serialized, carrying the data
   size_t GetSerializedChunkSize(const Data& data) const;
@@ -296,9 +319,9 @@ class OutstandingData {
       bool is_in_fast_recovery,
       OutstandingData::AckInfo& ack_info);
 
-  // Process the acknowledgement of the chunk referenced by `iter` and updates
+  // Process the acknowledgement of the chunk referenced by `item` and updates
   // state in `ack_info` and the object's state.
-  void AckChunk(AckInfo& ack_info, std::map<UnwrappedTSN, Item>::iterator iter);
+  void AckChunk(AckInfo& ack_info, UnwrappedTSN tsn, Item& item);
 
   // Helper method to process an incoming nack of an item and perform the
   // correct operations given the action indicated when nacking an item (e.g.
@@ -333,7 +356,11 @@ class OutstandingData {
   // Callback when to discard items from the send queue.
   std::function<bool(IsUnordered, StreamID, MID)> discard_from_send_queue_;
 
-  std::map<UnwrappedTSN, Item> outstanding_data_;
+  // A circular buffer with outstanding chunks. The index of a TSN into the
+  // array is (TSN % capacity) and the first valid entry is
+  // `last_cumulative_tsn_ack_ + 1` and the last one is `next_tsn_ - 1`.
+  std::vector<Item> outstanding_data_;
+
   // The number of bytes that are in-flight (sent but not yet acked or nacked).
   size_t outstanding_bytes_ = 0;
   // The number of DATA chunks that are in-flight (sent but not yet acked or

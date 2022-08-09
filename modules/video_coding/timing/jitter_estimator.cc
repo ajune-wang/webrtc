@@ -23,6 +23,7 @@
 #include "api/units/time_delta.h"
 #include "api/units/timestamp.h"
 #include "modules/video_coding/timing/rtt_filter.h"
+#include "rtc_base/checks.h"
 #include "rtc_base/numerics/safe_conversions.h"
 #include "system_wrappers/include/clock.h"
 
@@ -78,7 +79,7 @@ void JitterEstimator::Reset() {
   rtt_filter_.Reset();
   fps_counter_.Reset();
 
-  kalman_filter_.Reset();
+  kalman_filter_ = std::make_unique<KalmanFilter>();
 }
 
 // Updates the estimates with the new measurements.
@@ -128,8 +129,9 @@ void JitterEstimator::UpdateEstimate(TimeDelta frame_delay,
   // outlier. Even if it is an extreme outlier from a delay point of view, if
   // the frame size also is large the deviation is probably due to an incorrect
   // line slope.
-  double deviation =
-      kalman_filter_.DeviationFromExpectedDelay(frame_delay, delta_frame_bytes);
+  RTC_CHECK(kalman_filter_);
+  double deviation = kalman_filter_->DeviationFromExpectedDelay(
+      frame_delay, delta_frame_bytes);
 
   if (fabs(deviation) < kNumStdDevDelayOutlier * sqrt(var_noise_) ||
       frame_size.bytes() >
@@ -146,8 +148,9 @@ void JitterEstimator::UpdateEstimate(TimeDelta frame_delay,
     // frame.
     if (delta_frame_bytes > -0.25 * max_frame_size_.bytes()) {
       // Update the Kalman filter with the new data
-      kalman_filter_.KalmanEstimateChannel(frame_delay, delta_frame_bytes,
-                                           max_frame_size_, var_noise_);
+      RTC_CHECK(kalman_filter_);
+      kalman_filter_->Update(frame_delay, delta_frame_bytes, max_frame_size_,
+                             var_noise_);
     }
   } else {
     int nStdDev =
@@ -228,7 +231,8 @@ double JitterEstimator::NoiseThreshold() const {
 
 // Calculates the current jitter estimate from the filtered estimates.
 TimeDelta JitterEstimator::CalculateEstimate() {
-  double retMs = kalman_filter_.GetSlope() *
+  RTC_CHECK(kalman_filter_);
+  double retMs = kalman_filter_->GetSlope() *
                      (max_frame_size_.bytes() - avg_frame_size_.bytes()) +
                  NoiseThreshold();
 

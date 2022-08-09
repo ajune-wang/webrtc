@@ -11,6 +11,8 @@
 #ifndef MODULES_VIDEO_CODING_TIMING_JITTER_ESTIMATOR_H_
 #define MODULES_VIDEO_CODING_TIMING_JITTER_ESTIMATOR_H_
 
+#include <memory>
+
 #include "absl/types/optional.h"
 #include "api/field_trials_view.h"
 #include "api/units/data_size.h"
@@ -91,7 +93,7 @@ class JitterEstimator {
 
   // Filters the {frame_delay_delta, frame_size_delta} measurements through
   // a linear Kalman filter.
-  FrameDelayDeltaKalmanFilter kalman_filter_;
+  std::unique_ptr<FrameDelayDeltaKalmanFilter> kalman_filter_;
 
   static constexpr DataSize kDefaultAvgAndMaxFrameSize = DataSize::Bytes(500);
   DataSize avg_frame_size_ = kDefaultAvgAndMaxFrameSize;  // Average frame size

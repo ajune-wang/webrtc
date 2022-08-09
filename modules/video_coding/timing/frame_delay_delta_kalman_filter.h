@@ -16,17 +16,29 @@
 
 namespace webrtc {
 
+// This class uses a linear Kalman filter
+// (see https://en.wikipedia.org/wiki/Kalman_filter) to estimate the frame delay
+// delta (i.e., the difference in transmission time between a frame and the
+// prior frame) for a frame, given its size delta in bytes (i.e., the difference
+// in size between a frame and the prior frame). The idea is that, given a
+// fixed network bandwidth, a larger frame (in bytes) would take proportionally
+// longer to arrive than a correspondingly smaller frame. Using the variations
+// of frame delay deltas and frame size deltas, the underlying bandwidth and
+// propagation time of the network link can be estimated.
+//
+// The filter takes as input the frame delay delta and frame size delta, for a
+// single frame. The hidden state is the network bandwidth and propagation
+// delay. The estimated state can be used to get the expected frame delay delta
+// for a frame, given it's frame size delta. This information can then be used
+// to estimate the frame delay variation coming from network jitter.
 class FrameDelayDeltaKalmanFilter {
  public:
   FrameDelayDeltaKalmanFilter();
   ~FrameDelayDeltaKalmanFilter() = default;
+  // Update the Kalman filter with a measurement pair.
 
-  // Resets the estimate to the initial state.
-  void Reset();
-
-  // Updates the Kalman filter for the line describing the frame size dependent
-  // jitter.
   //
+  // This function will internally do both the prediction and the update steps.
   // Input:
   //          - frame_delay
   //              Delay-delta calculated by UTILDelayEstimate.
@@ -37,10 +49,10 @@ class FrameDelayDeltaKalmanFilter {
   //              Filtered version of the largest frame size received.
   //          - var_noise
   //              Variance of the estimated random jitter.
-  void KalmanEstimateChannel(TimeDelta frame_delay,
-                             double delta_frame_size_bytes,
-                             DataSize max_frame_size,
-                             double var_noise);
+  void Update(TimeDelta frame_delay,
+              double delta_frame_size_bytes,
+              DataSize max_frame_size,
+              double var_noise);
 
   // Calculates the difference in delay between a sample and the expected delay
   // estimated by the Kalman filter.

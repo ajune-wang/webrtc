@@ -33,6 +33,23 @@
       "message": "It seems that I somehow managed to submit the changes without tagging a reviewer.",
       "revId": "061c4436453c001a5611886c925bc2ddc1b0f8e8",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "dcfeb0ac_b927cee5",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5087
+      },
+      "writtenOn": "2022-08-09T21:27:40Z",
+      "side": 1,
+      "message": "Also adding terelius@ since this is about event logs.",
+      "revId": "061c4436453c001a5611886c925bc2ddc1b0f8e8",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

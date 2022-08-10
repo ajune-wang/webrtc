@@ -99,6 +99,21 @@
   return _i420Buffer->DataV();
 }
 
+- (id<RTC_OBJC_TYPE(RTCVideoFrameBuffer)>)cropAndScaleWith:(int)offsetX
+                                                   offsetY:(int)offsetY
+                                                 cropWidth:(int)cropWidth
+                                                cropHeight:(int)cropHeight
+                                                scaleWidth:(int)scaleWidth
+                                               scaleHeight:(int)scaleHeight {
+  rtc::scoped_refptr<webrtc::VideoFrameBuffer> scaled_buffer =
+      _i420Buffer->CropAndScale(offsetX, offsetY, cropWidth, cropHeight, scaleWidth, scaleHeight);
+  webrtc::I420BufferInterface *buffer =
+      static_cast<webrtc::I420BufferInterface *>(scaled_buffer.get());
+  RTC_OBJC_TYPE(RTCI420Buffer) *result = [[RTC_OBJC_TYPE(RTCI420Buffer) alloc]
+      initWithFrameBuffer:rtc::scoped_refptr<webrtc::I420BufferInterface>(buffer)];
+  return result;
+}
+
 - (id<RTC_OBJC_TYPE(RTCI420Buffer)>)toI420 {
   return self;
 }

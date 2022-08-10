@@ -22,6 +22,30 @@
       },
       "revId": "b546ccad0a2532aa50469efa03ae224ee0a1ad76",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "93636612_b1f0c60c",
+        "filename": "modules/rtp_rtcp/source/ulpfec_receiver.cc",
+        "patchSetId": 6
+      },
+      "lineNbr": 55,
+      "author": {
+        "id": 5508
+      },
+      "writtenOn": "2022-08-10T07:49:03Z",
+      "side": 1,
+      "message": "(just making sure I understand correctly) do you mean that we could have an assumption in UlpfecReceiver that uplfec_payload_type_ is never -1 and modify RtpVideoStreamReceiver2 so that when the configured ulpfec_payload_type is -1, then there\u0027s no UlpfecReceiver instance allocated?\n\nHere, in `ParseAndHandleEncapsulatingHeader`, it\u0027s not exactly clear to me if the payload type is never -1 when `ulpfec_receiver_` is referenced:\n\nhttps://source.chromium.org/chromium/chromium/src/+/main:third_party/webrtc/video/rtp_video_stream_receiver2.cc;l\u003d1023",
+      "parentUuid": "1dce906d_b66fcd0a",
+      "range": {
+        "startLine": 55,
+        "startChar": 10,
+        "endLine": 55,
+        "endChar": 36
+      },
+      "revId": "b546ccad0a2532aa50469efa03ae224ee0a1ad76",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

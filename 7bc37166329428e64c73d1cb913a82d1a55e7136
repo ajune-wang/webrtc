@@ -63,6 +63,30 @@
       },
       "revId": "7bc37166329428e64c73d1cb913a82d1a55e7136",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "e9836975_9d4ccfba",
+        "filename": "sdk/objc/components/audio/RTCAudioDevice.h",
+        "patchSetId": 15
+      },
+      "lineNbr": 127,
+      "author": {
+        "id": 5670
+      },
+      "writtenOn": "2022-08-10T12:17:38Z",
+      "side": 1,
+      "message": "Thanks for the thorough explanation Yury. Perhaps it\u0027s enough then to clarify in the documentation comment that the intended use is to reconfigure the underlying audio objects?",
+      "parentUuid": "1f9764bd_d4228ea0",
+      "range": {
+        "startLine": 127,
+        "startChar": 8,
+        "endLine": 127,
+        "endChar": 21
+      },
+      "revId": "7bc37166329428e64c73d1cb913a82d1a55e7136",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

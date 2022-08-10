@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "99d9c812_e8d198e4",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 9405
+      },
+      "writtenOn": "2022-08-10T09:49:13Z",
+      "side": 1,
+      "message": "Hi, Kári. This change is a small change for optimizing the ObjC video buffer. Please take a look. Thank you.",
+      "revId": "e59ec4fc81f3a37c1defaa8be9238e3eee65917d",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

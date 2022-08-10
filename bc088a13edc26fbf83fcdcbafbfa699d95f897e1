@@ -46,6 +46,30 @@
       },
       "revId": "bc088a13edc26fbf83fcdcbafbfa699d95f897e1",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "c1670d21_f6640a06",
+        "filename": "test/pc/e2e/analyzer/video/default_video_quality_analyzer_frames_comparator.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 220,
+      "author": {
+        "id": 5087
+      },
+      "writtenOn": "2022-08-10T13:40:01Z",
+      "side": 1,
+      "message": "Ah, ok. That SGTM.",
+      "parentUuid": "76b0e513_2b87164d",
+      "range": {
+        "startLine": 220,
+        "startChar": 55,
+        "endLine": 220,
+        "endChar": 57
+      },
+      "revId": "bc088a13edc26fbf83fcdcbafbfa699d95f897e1",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

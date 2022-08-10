@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "1dce906d_b66fcd0a",
+        "filename": "modules/rtp_rtcp/source/ulpfec_receiver.cc",
+        "patchSetId": 6
+      },
+      "lineNbr": 55,
+      "author": {
+        "id": 5023
+      },
+      "writtenOn": "2022-08-10T06:09:52Z",
+      "side": 1,
+      "message": "Now that the PT is constant for the duration of the receiver lifetime, we could consider doing these sorts of checks in the RtpVideoStreamReceiver2 instead, i.e., not instantiating when not needed.",
+      "range": {
+        "startLine": 55,
+        "startChar": 10,
+        "endLine": 55,
+        "endChar": 36
+      },
+      "revId": "b546ccad0a2532aa50469efa03ae224ee0a1ad76",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

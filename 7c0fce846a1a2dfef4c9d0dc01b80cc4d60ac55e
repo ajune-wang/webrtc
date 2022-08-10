@@ -67,6 +67,24 @@
       "message": "can we change this to be a `switch` statement instead?\n\nAlso, would it make sense to change RequestResponse enum values so that they map to these constants?",
       "revId": "7c0fce846a1a2dfef4c9d0dc01b80cc4d60ac55e",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "68fa21ac_24bc8ea4",
+        "filename": "modules/desktop_capture/linux/wayland/screencast_portal.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 36,
+      "author": {
+        "id": 18474
+      },
+      "writtenOn": "2022-08-10T22:53:36Z",
+      "side": 1,
+      "message": "Converted to a switch statement.\n\nI prefer keeping the enum values as-is so that the default-initialization is not the \"Success\" case. In general, the cast from an unaffiliated type to an enum feels a little bit fragile to me anyway.",
+      "parentUuid": "d16e3169_8d0f5ed4",
+      "revId": "7c0fce846a1a2dfef4c9d0dc01b80cc4d60ac55e",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

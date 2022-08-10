@@ -1288,6 +1288,8 @@ void Call::OnUpdateSyncGroup(webrtc::AudioReceiveStreamInterface& stream,
 }
 
 void Call::OnSentPacket(const rtc::SentPacket& sent_packet) {
+  TRACE_EVENT0("webrtc", "Call::OnSentPacket");
+
   RTC_DCHECK_RUN_ON(&sent_packet_sequence_checker_);
   // When bundling is in effect, multiple senders may be sharing the same
   // transport. It means every |sent_packet| will be multiply notified from

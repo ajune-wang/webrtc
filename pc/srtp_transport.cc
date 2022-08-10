@@ -126,7 +126,7 @@ bool SrtpTransport::SendRtpPacket(rtc::CopyOnWriteBuffer* packet,
     return false;
   }
   rtc::PacketOptions updated_options = options;
-  TRACE_EVENT0("webrtc", "SRTP Encode");
+  TRACE_EVENT0("webrtc", "SendRtpPacket");
   bool res;
   uint8_t* data = packet->MutableData();
   int len = rtc::checked_cast<int>(packet->size());
@@ -170,7 +170,30 @@ bool SrtpTransport::SendRtpPacket(rtc::CopyOnWriteBuffer* packet,
 
   // Update the length of the packet now that we've added the auth tag.
   packet->SetSize(len);
+
+#if 0
   return SendPacket(/*rtcp=*/false, packet, updated_options, flags);
+#else
+  packets_.push_back(packet);
+  packets_options_.push_back(updated_options);
+  return true;
+#endif
+}
+
+bool SrtpTransport::SendRtpPackets(
+    std::vector<rtc::CopyOnWriteBuffer*> packets,
+    std::vector<const rtc::PacketOptions>& packets_options,
+    int flags) {
+  packets_.clear();
+  packets_options_.clear();
+
+  size_t size = packets.size();
+  for (uint32_t i = 0; i < size; i++) {
+    SendRtpPacket(packets[i], packets_options[i], flags);
+  }
+
+  SendPackets(/*rtcp=*/false, packets_, packets_options_, flags);
+  return true;
 }
 
 bool SrtpTransport::SendRtcpPacket(rtc::CopyOnWriteBuffer* packet,

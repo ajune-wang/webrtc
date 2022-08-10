@@ -164,6 +164,18 @@ class MediaChannel {
     enum SocketType { ST_RTP, ST_RTCP };
     virtual bool SendPacket(rtc::CopyOnWriteBuffer* packet,
                             const rtc::PacketOptions& options) = 0;
+
+    virtual bool SendPackets(
+        std::vector<rtc::CopyOnWriteBuffer*>& packets,
+        std::vector<const rtc::PacketOptions>& packets_options) {
+      size_t size = packets.size();
+      for (uint32_t i = 0; i < size; i++) {
+        SendPacket(packets[i], packets_options[i]);
+      }
+
+      return true;
+    }
+
     virtual bool SendRtcp(rtc::CopyOnWriteBuffer* packet,
                           const rtc::PacketOptions& options) = 0;
     virtual int SetOption(SocketType type,
@@ -256,6 +268,9 @@ class MediaChannel {
   bool SendPacket(rtc::CopyOnWriteBuffer* packet,
                   const rtc::PacketOptions& options);
 
+  bool SendPackets(std::vector<rtc::CopyOnWriteBuffer>& packet,
+                   std::vector<const rtc::PacketOptions>& options);
+
   bool SendRtcp(rtc::CopyOnWriteBuffer* packet,
                 const rtc::PacketOptions& options);
 
@@ -308,6 +323,10 @@ class MediaChannel {
 
   void SendRtcp(const uint8_t* data, size_t len);
 
+  void SendRtps(std::vector<const uint8_t*>& packets,
+                std::vector<size_t>& lengths,
+                std::vector<webrtc::PacketOptions>& options);
+
  private:
   // Apply the preferred DSCP setting to the underlying network interface RTP
   // and RTCP channels. If DSCP is disabled, then apply the default DSCP value.
@@ -323,8 +342,12 @@ class MediaChannel {
   webrtc::TaskQueueBase* const network_thread_;
   NetworkInterface* network_interface_ RTC_GUARDED_BY(network_thread_) =
       nullptr;
+#if 0
   rtc::DiffServCodePoint preferred_dscp_ RTC_GUARDED_BY(network_thread_) =
       rtc::DSCP_DEFAULT;
+#else
+  rtc::DiffServCodePoint preferred_dscp_ = rtc::DSCP_DEFAULT;
+#endif
   bool extmap_allow_mixed_ = false;
 };
 

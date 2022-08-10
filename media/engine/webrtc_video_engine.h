@@ -559,6 +559,11 @@ class WebRtcVideoChannel : public VideoMediaChannel,
   bool SendRtp(const uint8_t* data,
                size_t len,
                const webrtc::PacketOptions& options) override;
+
+  bool SendRtps(std::vector<const uint8_t*>& packets,
+                std::vector<size_t>& lengths,
+                std::vector<webrtc::PacketOptions>& options) override;
+
   bool SendRtcp(const uint8_t* data, size_t len) override;
 
   // Generate the list of codec parameters to pass down based on the negotiated

@@ -95,6 +95,19 @@ class PortInterface {
                      const rtc::PacketOptions& options,
                      bool payload) = 0;
 
+  virtual int SendsTo(std::vector<const void*> data,
+                      std::vector<size_t> size,
+                      const rtc::SocketAddress& addr,
+                      std::vector<rtc::PacketOptions>& options,
+                      bool payload) {
+    size_t p_size = data.size();
+    for (uint32_t i = 0; i < p_size; i++) {
+      SendTo(data[i], size[i], addr, options[i], payload);
+    }
+
+    return 0;
+  }
+
   // Indicates that we received a successful STUN binding request from an
   // address that doesn't correspond to any current connection.  To turn this
   // into a real connection, call CreateConnection.

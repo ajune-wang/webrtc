@@ -2056,6 +2056,13 @@ bool WebRtcVideoChannel::SendRtp(const uint8_t* data,
   return true;
 }
 
+bool WebRtcVideoChannel::SendRtps(std::vector<const uint8_t*>& packets,
+                                  std::vector<size_t>& lengths,
+                                  std::vector<webrtc::PacketOptions>& options) {
+  MediaChannel::SendRtps(packets, lengths, options);
+  return true;
+}
+
 bool WebRtcVideoChannel::SendRtcp(const uint8_t* data, size_t len) {
   MediaChannel::SendRtcp(data, len);
   return true;

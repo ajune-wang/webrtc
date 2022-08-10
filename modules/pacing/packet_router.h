@@ -55,6 +55,7 @@ class PacketRouter : public PacingController::PacketSender {
 
   void SendPacket(std::unique_ptr<RtpPacketToSend> packet,
                   const PacedPacketInfo& cluster_info) override;
+  void SendPackets(std::vector<PacedPacket>& paced_packets) override;
   std::vector<std::unique_ptr<RtpPacketToSend>> FetchFec() override;
   std::vector<std::unique_ptr<RtpPacketToSend>> GeneratePadding(
       DataSize size) override;

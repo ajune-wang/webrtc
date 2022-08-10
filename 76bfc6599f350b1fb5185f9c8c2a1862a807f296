@@ -37,6 +37,23 @@
     {
       "unresolved": false,
       "key": {
+        "uuid": "1a91efaf_46bb3f87",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2022-08-10T08:01:53Z",
+      "side": 1,
+      "message": "Test keys: can we keep them out of production?",
+      "revId": "76bfc6599f350b1fb5185f9c8c2a1862a807f296",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
         "uuid": "9851586a_b68a926d",
         "filename": "BUILD.gn",
         "patchSetId": 2
@@ -240,6 +257,41 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "d2e3f960_582fb249",
+        "filename": "tools_webrtc/experiments/field_trials.py",
+        "patchSetId": 2
+      },
+      "lineNbr": 46,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2022-08-10T08:01:53Z",
+      "side": 1,
+      "message": "Add a comment about doctest somewhere. It is the first time I\u0027ve encountered that beast. When is it run? If not at every checkin, this will drift-break.",
+      "parentUuid": "934b06ed_f0242a87",
+      "revId": "76bfc6599f350b1fb5185f9c8c2a1862a807f296",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "b76413a9_62990a28",
+        "filename": "tools_webrtc/experiments/field_trials.py",
+        "patchSetId": 2
+      },
+      "lineNbr": 70,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2022-08-10T08:01:53Z",
+      "side": 1,
+      "message": "I finally \"got\" what was bothering me with this (and the unittest that depends on it).\n\nTest keys shouldn\u0027t be in the registry. That means that for testing, we need the ability to insert valid keys from the test. Which means that it can\u0027t be only a constexpr array.\n\nA better (?) solution would be to have the IsFieldTrialRegistered() function have a non-static lookaside list with a corresponding function InsertFieldTrialNameForTesting. This only needs to be consulted in the failure branch of IsFieldTrialRegistered(), so will not be overhead in normal runtime (where IsFieldTrialRegistered() never fails).",
+      "revId": "76bfc6599f350b1fb5185f9c8c2a1862a807f296",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "b09dda6d_0d146ecd",
@@ -271,6 +323,24 @@
       "side": 1,
       "message": "Does that work with f-strings? AFIK the preferred way to wrap lines is this (verbose) syntax...",
       "parentUuid": "b09dda6d_0d146ecd",
+      "revId": "76bfc6599f350b1fb5185f9c8c2a1862a807f296",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "5268fead_e2739f51",
+        "filename": "tools_webrtc/experiments/field_trials.py",
+        "patchSetId": 2
+      },
+      "lineNbr": 73,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2022-08-10T08:01:53Z",
+      "side": 1,
+      "message": "yes, it does according to https://realpython.com/python-f-strings/#multiline-f-strings - just be aware that indentation is not eaten when using \"\"\"",
+      "parentUuid": "bb4b3f05_054ea6d9",
       "revId": "76bfc6599f350b1fb5185f9c8c2a1862a807f296",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },

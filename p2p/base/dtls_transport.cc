@@ -29,6 +29,7 @@
 #include "rtc_base/ssl_stream_adapter.h"
 #include "rtc_base/stream.h"
 #include "rtc_base/thread.h"
+#include "rtc_base/trace_event.h"
 
 namespace cricket {
 
@@ -395,7 +396,10 @@ int DtlsTransport::SendPacket(const char* data,
                               size_t size,
                               const rtc::PacketOptions& options,
                               int flags) {
+  TRACE_EVENT0("webrtc", "DtlsTransport::SendPacket");
+
   if (!dtls_active_) {
+    RTC_LOG(LS_ERROR) << "Not doing DTLS";
     // Not doing DTLS.
     return ice_transport_->SendPacket(data, size, options);
   }
@@ -420,6 +424,57 @@ int DtlsTransport::SendPacket(const char* data,
         return (dtls_->WriteAll(data, size, NULL, NULL) == rtc::SR_SUCCESS)
                    ? static_cast<int>(size)
                    : -1;
+      }
+    case webrtc::DtlsTransportState::kFailed:
+      // Can't send anything when we're failed.
+      RTC_LOG(LS_ERROR) << ToString()
+                        << ": Couldn't send packet due to "
+                           "webrtc::DtlsTransportState::kFailed.";
+      return -1;
+    case webrtc::DtlsTransportState::kClosed:
+      // Can't send anything when we're closed.
+      RTC_LOG(LS_ERROR) << ToString()
+                        << ": Couldn't send packet due to "
+                           "webrtc::DtlsTransportState::kClosed.";
+      return -1;
+    default:
+      RTC_DCHECK_NOTREACHED();
+      return -1;
+  }
+}
+
+int DtlsTransport::SendPackets(std::vector<const char*> data,
+                               std::vector<size_t> len,
+                               std::vector<const rtc::PacketOptions>& options,
+                               int flags) {
+  TRACE_EVENT0("webrtc", "DtlsTransport::SendPackets");
+
+  if (!dtls_active_) {
+    RTC_LOG(LS_ERROR) << "Not doing DTLS";
+    // Not doing DTLS.
+    return ice_transport_->SendPackets(data, len, options);
+  }
+
+  switch (dtls_state()) {
+    case webrtc::DtlsTransportState::kNew:
+      // Can't send data until the connection is active.
+      // TODO(ekr@rtfm.com): assert here if dtls_ is NULL?
+      return -1;
+    case webrtc::DtlsTransportState::kConnecting:
+      // Can't send data until the connection is active.
+      return -1;
+    case webrtc::DtlsTransportState::kConnected:
+      if (flags & PF_SRTP_BYPASS) {
+#if 0
+        RTC_DCHECK(!srtp_ciphers_.empty());
+        if (!IsRtpPacket(data, size)) {
+          return -1;
+        }
+#endif
+
+        return ice_transport_->SendPackets(data, len, options);
+      } else {
+        return -1;
       }
     case webrtc::DtlsTransportState::kFailed:
       // Can't send anything when we're failed.

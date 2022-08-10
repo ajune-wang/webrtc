@@ -87,6 +87,16 @@ class RTC_EXPORT AsyncPacketSocket : public sigslot::has_slots<> {
                      size_t cb,
                      const SocketAddress& addr,
                      const PacketOptions& options) = 0;
+  virtual int SendsTo(std::vector<const void*> pvs,
+                      std::vector<size_t> cbs,
+                      const SocketAddress& addr,
+                      std::vector<PacketOptions>& options) {
+    size_t size = pvs.size();
+    for (uint32_t i = 0; i < size; i++) {
+      SendTo(pvs[i], cbs[i], addr, options[i]);
+    }
+    return 0;
+  }
 
   // Close the socket.
   virtual int Close() = 0;

@@ -10,7 +10,7 @@ vars = {
   # chromium waterfalls. More info at: crbug.com/570091.
   'checkout_configuration': 'default',
   'checkout_instrumented_libraries': 'checkout_linux and checkout_configuration == "default"',
-  'chromium_revision': '788e0285b06366fe060643e3b06cde8a4b40d63d',
+  'chromium_revision': 'bb37c8e0a57f33f794fcd595d35f542604f6186c',
 
   # Keep the Chromium default of generating location tags.
   'generate_location_tags': True,
@@ -20,15 +20,15 @@ vars = {
 
   # By default, download the fuchsia sdk from the public sdk directory.
   'fuchsia_sdk_cipd_prefix': 'fuchsia/sdk/gn/',
-  'fuchsia_version': 'version:9.20220809.0.1',
+  'fuchsia_version': 'version:9.20220809.1.1',
 }
 
 deps = {
   # TODO(kjellander): Move this to be Android-only.
   'src/base':
-    'https://chromium.googlesource.com/chromium/src/base@58f95211183ca6a435a2f6c7bd97a56961f8224d',
+    'https://chromium.googlesource.com/chromium/src/base@8fcffd07858b1c3a9a27cfe9a8d4f71bcece64bf',
   'src/build':
-    'https://chromium.googlesource.com/chromium/src/build@5fa9c44a1de9c1cd43fc6691d88b7dea3e38ddb1',
+    'https://chromium.googlesource.com/chromium/src/build@93068bfb008a4305078ad756861d4f1ca3dc97be',
   'src/buildtools':
     'https://chromium.googlesource.com/chromium/src/buildtools@b11e87a879a3750109d9918e4020ee68512046c1',
   # Gradle 6.6.1. Used for testing Android Studio project generation for WebRTC.
@@ -41,9 +41,9 @@ deps = {
     'condition': 'checkout_ios',
   },
   'src/testing':
-    'https://chromium.googlesource.com/chromium/src/testing@0a0eb2bbe8dc0ffce841909258aac89fdf13c080',
+    'https://chromium.googlesource.com/chromium/src/testing@2988eb6ecfa535cba8189c8edcc3899286816a80',
   'src/third_party':
-    'https://chromium.googlesource.com/chromium/src/third_party@7e15d53b25f4709493a089d536cdd849719a84d2',
+    'https://chromium.googlesource.com/chromium/src/third_party@bc2bc961883606710508a9fed80d0a42abed567e',
 
   'src/buildtools/linux64': {
     'packages': [
@@ -266,7 +266,7 @@ deps = {
     'condition': 'checkout_android',
   },
   'src/tools':
-    'https://chromium.googlesource.com/chromium/src/tools@4973c48348f3a97c84a847703ac1e51872c61cd2',
+    'https://chromium.googlesource.com/chromium/src/tools@45b2e802d1b0b1134b613efb009fb0bb5e6ac331',
 
   'src/third_party/accessibility_test_framework': {
       'packages': [

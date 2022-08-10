@@ -817,12 +817,10 @@ VideoStreamEncoder::GetAdaptationResources() {
 void VideoStreamEncoder::SetSource(
     rtc::VideoSourceInterface<VideoFrame>* source,
     const DegradationPreference& degradation_preference) {
-  RTC_DCHECK_RUN_ON(worker_queue_);
-  video_source_sink_controller_.SetSource(source);
-  input_state_provider_.OnHasInputChanged(source);
-
-  // This may trigger reconfiguring the QualityScaler on the encoder queue.
-  encoder_queue_.PostTask([this, degradation_preference] {
+  // Do work on the encoder queue first, making sure it has started and
+  // potential reconfiguring the QualityScaler is done. Then post back the
+  // source setup to the worker thread.
+  encoder_queue_.PostTask([this, source, degradation_preference] {
     RTC_DCHECK_RUN_ON(&encoder_queue_);
     degradation_preference_manager_->SetDegradationPreference(
         degradation_preference);
@@ -833,6 +831,12 @@ void VideoStreamEncoder::SetSource(
       stream_resource_manager_.ConfigureBandwidthQualityScaler(
           encoder_->GetEncoderInfo());
     }
+
+    worker_queue_->PostTask([this, source] {
+      RTC_DCHECK_RUN_ON(worker_queue_);
+      video_source_sink_controller_.SetSource(source);
+      input_state_provider_.OnHasInputChanged(source);
+    });
   });
 }
 

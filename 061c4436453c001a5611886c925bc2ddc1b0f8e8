@@ -50,6 +50,23 @@
       "message": "Also adding terelius@ since this is about event logs.",
       "revId": "061c4436453c001a5611886c925bc2ddc1b0f8e8",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "31a33b15_384a4f82",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5150
+      },
+      "writtenOn": "2022-08-10T10:58:12Z",
+      "side": 1,
+      "message": "LGTM, but consider filing a bug for the issue.",
+      "revId": "061c4436453c001a5611886c925bc2ddc1b0f8e8",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

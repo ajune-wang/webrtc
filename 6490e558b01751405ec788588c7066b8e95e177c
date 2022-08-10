@@ -36,6 +36,23 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "60d8216a_39899d54",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2022-08-10T08:55:09Z",
+      "side": 1,
+      "message": "LGTM stands (modulo fixing the compile errors, of course).\n\n",
+      "revId": "6490e558b01751405ec788588c7066b8e95e177c",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "75dd9d24_f9caa0e1",
@@ -67,6 +84,24 @@
       "side": 1,
       "message": "If it had returned `const std::string\u0026` it would be a no-brainer to change to `string_view`. However, the field trial string should be owned by or outlive a concrete `FieldTrialsView` so I think it should be possible to change both to `string_view`. I could do that as a follow-up?",
       "parentUuid": "75dd9d24_f9caa0e1",
+      "revId": "6490e558b01751405ec788588c7066b8e95e177c",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "5272a660_8117df18",
+        "filename": "api/field_trials.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 93,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2022-08-10T08:55:09Z",
+      "side": 1,
+      "message": "Follow-up seems nice.",
+      "parentUuid": "68fb6b91_46c7a8ce",
       "revId": "6490e558b01751405ec788588c7066b8e95e177c",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }

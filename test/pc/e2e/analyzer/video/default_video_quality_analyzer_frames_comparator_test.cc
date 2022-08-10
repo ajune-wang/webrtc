@@ -13,9 +13,11 @@
 #include <map>
 #include <vector>
 
+#include "api/test/create_frame_generator.h"
 #include "api/units/timestamp.h"
 #include "rtc_base/strings/string_builder.h"
 #include "system_wrappers/include/clock.h"
+#include "system_wrappers/include/sleep.h"
 #include "test/gtest.h"
 #include "test/pc/e2e/analyzer/video/default_video_quality_analyzer_cpu_measurer.h"
 #include "test/pc/e2e/analyzer/video/default_video_quality_analyzer_shared_objects.h"
@@ -53,8 +55,7 @@ FrameStats FrameStatsWith10msDeltaBetweenPhasesAnd10x10Frame(
   frame_stats.encoded_time = captured_time + TimeDelta::Millis(20);
   frame_stats.received_time = captured_time + TimeDelta::Millis(30);
   frame_stats.decode_start_time = captured_time + TimeDelta::Millis(40);
-  // Decode time is in microseconds.
-  frame_stats.decode_end_time = captured_time + TimeDelta::Micros(40010);
+  frame_stats.decode_end_time = captured_time + TimeDelta::Millis(50);
   frame_stats.rendered_time = captured_time + TimeDelta::Millis(60);
   frame_stats.used_encoder = Vp8CodecForOneFrame(1, frame_stats.encoded_time);
   frame_stats.used_decoder =
@@ -124,7 +125,7 @@ TEST(DefaultVideoQualityAnalyzerFramesComparatorTest,
   EXPECT_DOUBLE_EQ(
       GetFirstOrDie(stats.at(stats_key).total_delay_incl_transport_ms), 60.0);
   EXPECT_DOUBLE_EQ(GetFirstOrDie(stats.at(stats_key).encode_time_ms), 10.0);
-  EXPECT_DOUBLE_EQ(GetFirstOrDie(stats.at(stats_key).decode_time_ms), 0.01);
+  EXPECT_DOUBLE_EQ(GetFirstOrDie(stats.at(stats_key).decode_time_ms), 10.0);
   EXPECT_DOUBLE_EQ(GetFirstOrDie(stats.at(stats_key).receive_to_render_time_ms),
                    30.0);
   EXPECT_DOUBLE_EQ(

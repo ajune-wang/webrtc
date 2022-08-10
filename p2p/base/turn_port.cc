@@ -248,7 +248,8 @@ TurnPort::TurnPort(rtc::Thread* thread,
       state_(STATE_CONNECTING),
       server_priority_(server_priority),
       allocate_mismatch_retries_(0),
-      turn_customizer_(customizer) {}
+      turn_customizer_(customizer),
+      field_trials_(field_trials) {}
 
 TurnPort::TurnPort(rtc::Thread* thread,
                    rtc::PacketSocketFactory* factory,
@@ -291,7 +292,8 @@ TurnPort::TurnPort(rtc::Thread* thread,
       state_(STATE_CONNECTING),
       server_priority_(server_priority),
       allocate_mismatch_retries_(0),
-      turn_customizer_(customizer) {}
+      turn_customizer_(customizer),
+      field_trials_(field_trials) {}
 
 TurnPort::~TurnPort() {
   // TODO(juberti): Should this even be necessary?
@@ -356,7 +358,7 @@ void TurnPort::PrepareAddress() {
     server_address_.address.SetPort(TURN_DEFAULT_PORT);
   }
 
-  if (!AllowedTurnPort(server_address_.address.port(), &field_trials())) {
+  if (!AllowedTurnPort(server_address_.address.port(), field_trials_)) {
     // This can only happen after a 300 ALTERNATE SERVER, since the port can't
     // be created with a disallowed port number.
     RTC_LOG(LS_ERROR) << "Attempt to start allocation with disallowed port# "
@@ -1251,7 +1253,8 @@ bool TurnPort::CreateOrRefreshEntry(const rtc::SocketAddress& addr,
       RTC_DCHECK(GetConnection(addr));
     }
 
-    if (field_trials().IsEnabled("WebRTC-TurnAddMultiMapping")) {
+    if (field_trials_ &&
+        field_trials_->IsEnabled("WebRTC-TurnAddMultiMapping")) {
       if (entry->get_remote_ufrag() != remote_ufrag) {
         RTC_LOG(LS_INFO) << ToString()
                          << ": remote ufrag updated."
@@ -1652,7 +1655,8 @@ TurnCreatePermissionRequest::TurnCreatePermissionRequest(
   RTC_DCHECK_EQ(message->type(), TURN_CREATE_PERMISSION_REQUEST);
   message->AddAttribute(std::make_unique<StunXorAddressAttribute>(
       STUN_ATTR_XOR_PEER_ADDRESS, ext_addr_));
-  if (port_->field_trials().IsEnabled("WebRTC-TurnAddMultiMapping")) {
+  if (port_->field_trials_ &&
+      port_->field_trials_->IsEnabled("WebRTC-TurnAddMultiMapping")) {
     message->AddAttribute(std::make_unique<cricket::StunByteStringAttribute>(
         STUN_ATTR_MULTI_MAPPING, remote_ufrag_));
   }

@@ -157,6 +157,28 @@ bool RtpTransport::SendPacket(bool rtcp,
   return true;
 }
 
+bool RtpTransport::SendPackets(
+    bool rtcp,
+    std::vector<rtc::CopyOnWriteBuffer*>& packets,
+    std::vector<const rtc::PacketOptions>& packets_options,
+    int flags) {
+  TRACE_EVENT0("webrtc", "RtpTransport::SendPackets");
+
+  std::vector<const char*> data;
+  std::vector<size_t> len;
+
+  uint32_t size = packets.size();
+  for (uint32_t i = 0; i < size; i++) {
+    data.push_back(packets[i]->cdata<char>());
+    len.push_back(packets[i]->size());
+  }
+
+  rtc::PacketTransportInternal* transport = rtp_packet_transport_;
+  transport->SendPackets(data, len, packets_options, flags);
+
+  return true;
+}
+
 void RtpTransport::UpdateRtpHeaderExtensionMap(
     const cricket::RtpHeaderExtensions& header_extensions) {
   header_extension_map_ = RtpHeaderExtensionMap(header_extensions);
@@ -223,6 +245,8 @@ void RtpTransport::OnWritableState(
 
 void RtpTransport::OnSentPacket(rtc::PacketTransportInternal* packet_transport,
                                 const rtc::SentPacket& sent_packet) {
+  TRACE_EVENT0("webrtc", "SignalSentPacket");
+
   RTC_DCHECK(packet_transport == rtp_packet_transport_ ||
              packet_transport == rtcp_packet_transport_);
   SignalSentPacket(sent_packet);

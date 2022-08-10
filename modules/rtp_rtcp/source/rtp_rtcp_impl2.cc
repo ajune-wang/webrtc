@@ -353,6 +353,43 @@ bool ModuleRtpRtcpImpl2::TrySendPacket(RtpPacketToSend* packet,
   return true;
 }
 
+bool ModuleRtpRtcpImpl2::TrySendPackets(
+    std::vector<RtpPacketToSend*>& packets,
+    std::vector<PacedPacketInfo>& pacing_infos) {
+  RTC_DCHECK(rtp_sender_);
+  RTC_DCHECK_RUN_ON(&rtp_sender_->sequencing_checker);
+  if (!rtp_sender_->packet_generator.SendingMedia()) {
+    return false;
+  }
+
+  std::vector<RtpPacketToSend*> send_packets;
+  std::vector<PacedPacketInfo> send_pacing_infos;
+  for (uint32_t i = 0; i < packets.size(); i++) {
+    auto& packet = packets[i];
+
+    if (packet->packet_type() == RtpPacketMediaType::kPadding &&
+        packet->Ssrc() == rtp_sender_->packet_generator.SSRC() &&
+        !rtp_sender_->sequencer.CanSendPaddingOnMediaSsrc()) {
+      // New media packet preempted this generated padding packet, discard it.
+      continue;
+    }
+    bool is_flexfec =
+        packet->packet_type() == RtpPacketMediaType::kForwardErrorCorrection &&
+        packet->Ssrc() == rtp_sender_->packet_generator.FlexfecSsrc();
+    if (!is_flexfec) {
+      rtp_sender_->sequencer.Sequence(*packet);
+    }
+
+    send_packets.push_back(packets[i]);
+    send_pacing_infos.push_back(pacing_infos[i]);
+  }
+
+  rtp_sender_->packet_sender.SendPackets(send_packets, send_pacing_infos);
+  FetchFecPackets();
+
+  return true;
+}
+
 void ModuleRtpRtcpImpl2::SetFecProtectionParams(
     const FecProtectionParams& delta_params,
     const FecProtectionParams& key_params) {

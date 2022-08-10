@@ -96,6 +96,11 @@ class RtpTransport : public RtpTransportInternal {
                   const rtc::PacketOptions& options,
                   int flags);
 
+  bool SendPackets(bool rtcp,
+                   std::vector<rtc::CopyOnWriteBuffer*>& packets,
+                   std::vector<const rtc::PacketOptions>& packets_options,
+                   int flags);
+
   // Overridden by SrtpTransport.
   virtual void OnNetworkRouteChanged(
       absl::optional<rtc::NetworkRoute> network_route);

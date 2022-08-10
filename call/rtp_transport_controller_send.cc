@@ -28,6 +28,7 @@
 #include "rtc_base/checks.h"
 #include "rtc_base/logging.h"
 #include "rtc_base/rate_limiter.h"
+#include "rtc_base/trace_event.h"
 
 namespace webrtc {
 namespace {
@@ -393,6 +394,7 @@ void RtpTransportControllerSend::EnablePeriodicAlrProbing(bool enable) {
 }
 void RtpTransportControllerSend::OnSentPacket(
     const rtc::SentPacket& sent_packet) {
+  TRACE_EVENT0("webrtc", "RtpTransportControllerSend::OnSentPacket");
   task_queue_.PostTask([this, sent_packet]() {
     RTC_DCHECK_RUN_ON(&task_queue_);
     absl::optional<SentPacket> packet_msg =
@@ -531,6 +533,7 @@ void RtpTransportControllerSend::OnReceivedRtcpReceiverReport(
 
 void RtpTransportControllerSend::OnAddPacket(
     const RtpPacketSendInfo& packet_info) {
+  TRACE_EVENT0("webrtc", "RtpTransportControllerSend::OnAddPacket");
   Timestamp creation_time = Timestamp::Millis(clock_->TimeInMilliseconds());
   task_queue_.PostTask([this, packet_info, creation_time]() {
     RTC_DCHECK_RUN_ON(&task_queue_);

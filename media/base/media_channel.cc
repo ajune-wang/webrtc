@@ -116,7 +116,7 @@ bool MediaChannel::DscpEnabled() const {
 // This is the DSCP value used for both RTP and RTCP channels if DSCP is
 // enabled. It can be changed at any time via `SetPreferredDscp`.
 rtc::DiffServCodePoint MediaChannel::PreferredDscp() const {
-  RTC_DCHECK_RUN_ON(network_thread_);
+  // RTC_DCHECK_RUN_ON(network_thread_);
   return preferred_dscp_;
 }
 
@@ -181,6 +181,62 @@ void MediaChannel::SendRtp(const uint8_t* data,
             included_in_allocation;
         SendPacket(&packet, rtc_options);
       };
+
+  // TODO(bugs.webrtc.org/11993): ModuleRtpRtcpImpl2 and related classes (e.g.
+  // RTCPSender) aren't aware of the network thread and may trigger calls to
+  // this function from different threads. Update those classes to keep
+  // network traffic on the network thread.
+  if (network_thread_->IsCurrent()) {
+    send();
+  } else {
+    network_thread_->PostTask(SafeTask(network_safety_, std::move(send)));
+  }
+}
+
+bool MediaChannel::SendPackets(
+    std::vector<rtc::CopyOnWriteBuffer>& packets,
+    std::vector<const rtc::PacketOptions>& packets_options) {
+  RTC_DCHECK_RUN_ON(network_thread_);
+  if (!network_interface_)
+    return false;
+
+  std::vector<rtc::CopyOnWriteBuffer*> _packets;
+  size_t size = packets.size();
+  for (uint32_t i = 0; i < size; i++) {
+    _packets.push_back(&packets[i]);
+  }
+
+  network_interface_->SendPackets(_packets, packets_options);
+  return true;
+}
+
+void MediaChannel::SendRtps(std::vector<const uint8_t*>& datas,
+                            std::vector<size_t>& lens,
+                            std::vector<webrtc::PacketOptions>& options) {
+  std::vector<rtc::CopyOnWriteBuffer> packets;
+  std::vector<const rtc::PacketOptions> packets_options;
+
+  uint32_t size = datas.size();
+  for (uint32_t i = 0; i < size; i++) {
+    packets.push_back(
+        rtc::CopyOnWriteBuffer(datas[i], lens[i], kMaxRtpPacketLen));
+
+    rtc::PacketOptions rtc_options;
+    rtc_options.packet_id = options[i].packet_id;
+    if (DscpEnabled()) {
+      rtc_options.dscp = PreferredDscp();
+    }
+    rtc_options.info_signaled_after_sent.included_in_feedback =
+        options[i].included_in_feedback;
+    rtc_options.info_signaled_after_sent.included_in_allocation =
+        options[i].included_in_allocation;
+
+    packets_options.push_back(rtc_options);
+  }
+
+  auto send = [this, packets, packets_options]() mutable {
+    SendPackets(packets, packets_options);
+  };
 
   // TODO(bugs.webrtc.org/11993): ModuleRtpRtcpImpl2 and related classes (e.g.
   // RTCPSender) aren't aware of the network thread and may trigger calls to

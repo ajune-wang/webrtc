@@ -160,6 +160,12 @@ class RTC_EXPORT P2PTransportChannel : public IceTransportInternal {
                  size_t len,
                  const rtc::PacketOptions& options,
                  int flags) override;
+
+  int SendPackets(std::vector<const char*> data,
+                  std::vector<size_t> len,
+                  std::vector<const rtc::PacketOptions>& options,
+                  int flags) override;
+
   int SetOption(rtc::Socket::Option opt, int value) override;
   bool GetOption(rtc::Socket::Option opt, int* value) override;
   int GetError() override;

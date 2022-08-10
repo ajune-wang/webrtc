@@ -1674,6 +1674,37 @@ int ProxyConnection::Send(const void* data,
   return sent;
 }
 
+int ProxyConnection::Sends(std::vector<const char*> data,
+                           std::vector<size_t> size,
+                           std::vector<rtc::PacketOptions>& options) {
+  if (!port_)
+    return SOCKET_ERROR;
+
+  RTC_DCHECK(data.size() > 0);
+  RTC_DCHECK(size.size() > 0);
+
+  std::vector<const void*> new_data;
+  for (auto d : data)
+    new_data.push_back(d);
+
+  stats_.sent_total_packets++;
+  port_->SendsTo(new_data, size, remote_candidate_.address(), options, true);
+  int64_t now = rtc::TimeMillis();
+#if 0
+  if (sent <= 0) {
+    RTC_DCHECK(sent < 0);
+    error_ = port_->GetError();
+    stats_.sent_discarded_packets++;
+    stats_.sent_discarded_bytes += size;
+  } else {
+    send_rate_tracker_.AddSamplesAtTime(now, sent);
+  }
+#endif
+
+  last_send_data_ = now;
+  return 0;
+}
+
 int ProxyConnection::GetError() {
   return error_;
 }

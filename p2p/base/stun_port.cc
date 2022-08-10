@@ -25,6 +25,7 @@
 #include "rtc_base/ip_address.h"
 #include "rtc_base/logging.h"
 #include "rtc_base/strings/string_builder.h"
+#include "rtc_base/trace_event.h"
 
 namespace cricket {
 
@@ -293,6 +294,8 @@ int UDPPort::SendTo(const void* data,
                     const rtc::SocketAddress& addr,
                     const rtc::PacketOptions& options,
                     bool payload) {
+  TRACE_EVENT0("webrtc", "UDPPort::SendTo");
+
   rtc::PacketOptions modified_options(options);
   CopyPortInformationToPacketInfo(&modified_options.info_signaled_after_sent);
   int sent = socket_->SendTo(data, size, addr, modified_options);
@@ -311,6 +314,21 @@ int UDPPort::SendTo(const void* data,
     send_error_count_ = 0;
   }
   return sent;
+}
+
+int UDPPort::SendsTo(std::vector<const void*> data,
+                     std::vector<size_t> size,
+                     const rtc::SocketAddress& addr,
+                     std::vector<rtc::PacketOptions>& options,
+                     bool payload) {
+  TRACE_EVENT0("webrtc", "UDPPort::SendsTo");
+
+  for (auto& option : options) {
+    CopyPortInformationToPacketInfo(&option.info_signaled_after_sent);
+  }
+
+  socket_->SendsTo(data, size, addr, options);
+  return 0;
 }
 
 void UDPPort::UpdateNetworkCost() {

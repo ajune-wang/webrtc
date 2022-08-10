@@ -59,6 +59,8 @@ void VideoReceiveStreamTimeoutTracker::SetWaitingForKeyframe() {
   RTC_DCHECK_RUN_ON(bookkeeping_queue_);
   waiting_for_keyframe_ = true;
   TimeDelta timeout_delay = TimeoutForNextFrame();
+  // If the timeout is too far in the future then restart to set a shorter
+  // delay.
   if (clock_->CurrentTime() + timeout_delay < timeout_) {
     Stop();
     Start(waiting_for_keyframe_);

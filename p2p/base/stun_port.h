@@ -145,6 +145,12 @@ class UDPPort : public Port {
              const rtc::PacketOptions& options,
              bool payload) override;
 
+  virtual int SendsTo(std::vector<const void*> data,
+                      std::vector<size_t> size,
+                      const rtc::SocketAddress& addr,
+                      std::vector<rtc::PacketOptions>& options,
+                      bool payload) override;
+
   void UpdateNetworkCost() override;
 
   rtc::DiffServCodePoint StunDscpValue() const override;

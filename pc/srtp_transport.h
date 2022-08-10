@@ -48,6 +48,13 @@ class SrtpTransport : public RtpTransport {
                      const rtc::PacketOptions& options,
                      int flags) override;
 
+  bool SendRtpPackets(std::vector<rtc::CopyOnWriteBuffer*> packets,
+                      std::vector<const rtc::PacketOptions>& packets_options,
+                      int flags) override;
+
+  std::vector<rtc::CopyOnWriteBuffer*> packets_;
+  std::vector<const rtc::PacketOptions> packets_options_;
+
   bool SendRtcpPacket(rtc::CopyOnWriteBuffer* packet,
                       const rtc::PacketOptions& options,
                       int flags) override;

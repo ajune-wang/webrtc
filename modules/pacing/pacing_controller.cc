@@ -377,6 +377,7 @@ Timestamp PacingController::NextSendTime() const {
 void PacingController::ProcessPackets() {
   const Timestamp now = CurrentTime();
   Timestamp target_send_time = now;
+  std::vector<PacketSender::PacedPacket> send_queue;
 
   if (ShouldSendKeepalive(now)) {
     DataSize keepalive_data_sent = DataSize::Zero();
@@ -388,16 +389,33 @@ void PacingController::ProcessPackets() {
       for (auto& packet : keepalive_packets) {
         keepalive_data_sent +=
             DataSize::Bytes(packet->payload_size() + packet->padding_size());
+
+        send_queue.push_back({std::move(packet), PacedPacketInfo()});
+#if 0
         packet_sender_->SendPacket(std::move(packet), PacedPacketInfo());
         for (auto& packet : packet_sender_->FetchFec()) {
           EnqueuePacket(std::move(packet));
         }
+#endif
       }
     }
     OnPacketSent(RtpPacketMediaType::kPadding, keepalive_data_sent, now);
   }
 
   if (paused_) {
+    if (!send_queue.empty()) {
+#if 0
+      for (auto& packet : send_queue) {
+        packet_sender_->SendPacket(std::move(packet.packet),
+                                   packet.cluster_info);
+      }
+#else
+      packet_sender_->SendPackets(send_queue);
+#endif
+      for (auto& fec_packet : packet_sender_->FetchFec()) {
+        EnqueuePacket(std::move(fec_packet));
+      }
+    }
     return;
   }
 
@@ -409,6 +427,20 @@ void PacingController::ProcessPackets() {
     // We are too early, but if queue is empty still allow draining some debt.
     // Probing is allowed to be sent up to kMinSleepTime early.
     UpdateBudgetWithElapsedTime(UpdateTimeAndGetElapsed(now));
+
+    if (!send_queue.empty()) {
+#if 0
+      for (auto& packet : send_queue) {
+        packet_sender_->SendPacket(std::move(packet.packet),
+                                   packet.cluster_info);
+      }
+#else
+      packet_sender_->SendPackets(send_queue);
+#endif
+      for (auto& fec_packet : packet_sender_->FetchFec()) {
+        EnqueuePacket(std::move(fec_packet));
+      }
+    }
     return;
   }
 
@@ -478,10 +510,13 @@ void PacingController::ProcessPackets() {
                        transport_overhead_per_packet_;
       }
 
+      send_queue.push_back({std::move(rtp_packet), pacing_info});
+#if 0
       packet_sender_->SendPacket(std::move(rtp_packet), pacing_info);
       for (auto& packet : packet_sender_->FetchFec()) {
         EnqueuePacket(std::move(packet));
       }
+#endif
       data_sent += packet_size;
       ++packets_sent;
 
@@ -508,6 +543,19 @@ void PacingController::ProcessPackets() {
         target_send_time = now;
       }
       UpdateBudgetWithElapsedTime(UpdateTimeAndGetElapsed(target_send_time));
+    }
+  }
+
+  if (!send_queue.empty()) {
+#if 0
+    for (auto& packet : send_queue) {
+      packet_sender_->SendPacket(std::move(packet.packet), packet.cluster_info);
+    }
+#else
+    packet_sender_->SendPackets(send_queue);
+#endif
+    for (auto& fec_packet : packet_sender_->FetchFec()) {
+      EnqueuePacket(std::move(fec_packet));
     }
   }
 

@@ -14,6 +14,8 @@
 #include <stddef.h>
 #include <stdint.h>
 
+#include <vector>
+
 #include "api/ref_counted_base.h"
 #include "api/scoped_refptr.h"
 
@@ -43,6 +45,16 @@ class Transport {
   virtual bool SendRtp(const uint8_t* packet,
                        size_t length,
                        const PacketOptions& options) = 0;
+  virtual bool SendRtps(std::vector<const uint8_t*>& packets,
+                        std::vector<size_t>& lengths,
+                        std::vector<PacketOptions>& options) {
+    size_t size = packets.size();
+    for (uint32_t i = 0; i < size; i++) {
+      SendRtp(packets[i], lengths[i], options[i]);
+    }
+    return true;
+  }
+
   virtual bool SendRtcp(const uint8_t* packet, size_t length) = 0;
 
  protected:

@@ -320,6 +320,16 @@ class RtpRtcpInterface : public RtcpFeedbackSenderInterface {
   virtual bool TrySendPacket(RtpPacketToSend* packet,
                              const PacedPacketInfo& pacing_info) = 0;
 
+  virtual bool TrySendPackets(std::vector<RtpPacketToSend*>& packets,
+                              std::vector<PacedPacketInfo>& pacing_infos) {
+    for (uint32_t i = 0; i < packets.size(); i++) {
+      if (!TrySendPacket(packets[i], pacing_infos[i]))
+        return false;
+      FetchFecPackets();
+    }
+    return true;
+  }
+
   // Update the FEC protection parameters to use for delta- and key-frames.
   // Only used when deferred FEC is active.
   virtual void SetFecProtectionParams(

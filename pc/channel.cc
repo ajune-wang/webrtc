@@ -290,6 +290,59 @@ bool BaseChannel::SendPacket(rtc::CopyOnWriteBuffer* packet,
   return SendPacket(false, packet, options);
 }
 
+bool BaseChannel::SendPackets(
+    std::vector<rtc::CopyOnWriteBuffer*>& packets,
+    std::vector<const rtc::PacketOptions>& packets_options) {
+  TRACE_EVENT0("webrtc", "BaseChannel::SendPackets");
+
+  RTC_DCHECK_RUN_ON(network_thread());
+  RTC_DCHECK(network_initialized());
+
+  bool rtcp = false;
+
+#if 0
+  // Until all the code is migrated to use RtpPacketType instead of bool.
+  RtpPacketType packet_type = rtcp ? RtpPacketType::kRtcp : RtpPacketType::kRtp;
+#endif
+
+  // Ensure we have a place to send this packet before doing anything. We might
+  // get RTCP packets that we don't intend to send. If we've negotiated RTCP
+  // mux, send RTCP over the RTP transport.
+  if (!rtp_transport_ || !rtp_transport_->IsWritable(rtcp)) {
+    return false;
+  }
+
+#if 0
+  // Protect ourselves against crazy data.
+  if (!IsValidRtpPacketSize(packet_type, packet->size())) {
+    RTC_LOG(LS_ERROR) << "Dropping outgoing " << ToString() << " "
+                      << RtpPacketTypeToString(packet_type)
+                      << " packet: wrong size=" << packet->size();
+    return false;
+  }
+
+  if (!srtp_active()) {
+    if (srtp_required_) {
+      // The audio/video engines may attempt to send RTCP packets as soon as the
+      // streams are created, so don't treat this as an error for RTCP.
+      // See: https://bugs.chromium.org/p/webrtc/issues/detail?id=6809
+      // However, there shouldn't be any RTP packets sent before SRTP is set
+      // up (and SetSend(true) is called).
+      RTC_DCHECK(rtcp) << "Can't send outgoing RTP packet for " << ToString()
+                       << " when SRTP is inactive and crypto is required";
+      return false;
+    }
+
+    RTC_DLOG(LS_WARNING) << "Sending an " << (rtcp ? "RTCP" : "RTP")
+                         << " packet without encryption for " << ToString()
+                         << ".";
+  }
+#endif
+
+  rtp_transport_->SendRtpPackets(packets, packets_options, PF_SRTP_BYPASS);
+  return true;
+}
+
 bool BaseChannel::SendRtcp(rtc::CopyOnWriteBuffer* packet,
                            const rtc::PacketOptions& options) {
   return SendPacket(true, packet, options);

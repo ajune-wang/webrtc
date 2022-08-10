@@ -63,6 +63,11 @@ class RtpSenderEgress {
 
   void SendPacket(RtpPacketToSend* packet, const PacedPacketInfo& pacing_info)
       RTC_LOCKS_EXCLUDED(lock_);
+
+  void SendPackets(std::vector<RtpPacketToSend*> packets,
+                   std::vector<PacedPacketInfo>& pacing_infos)
+      RTC_LOCKS_EXCLUDED(lock_);
+
   uint32_t Ssrc() const { return ssrc_; }
   absl::optional<uint32_t> RtxSsrc() const { return rtx_ssrc_; }
   absl::optional<uint32_t> FlexFecSsrc() const { return flexfec_ssrc_; }
@@ -114,6 +119,10 @@ class RtpSenderEgress {
   bool SendPacketToNetwork(const RtpPacketToSend& packet,
                            const PacketOptions& options,
                            const PacedPacketInfo& pacing_info);
+
+  bool SendPacketsToNetwork(std::vector<RtpPacketToSend>& packets,
+                            std::vector<PacketOptions>& options,
+                            std::vector<PacedPacketInfo>& pacing_infos);
 
   void UpdateRtpStats(int64_t now_ms,
                       uint32_t packet_ssrc,
@@ -177,6 +186,10 @@ class RtpSenderEgress {
       RTC_GUARDED_BY(worker_queue_);
   RepeatingTaskHandle update_task_ RTC_GUARDED_BY(worker_queue_);
   ScopedTaskSafety task_safety_;
+
+  std::vector<RtpPacketToSend> m_packet_to_sends;
+  std::vector<PacketOptions> m_packet_options;
+  std::vector<PacedPacketInfo> m_packet_infos;
 };
 
 }  // namespace webrtc

@@ -146,6 +146,11 @@ class DtlsTransport : public DtlsTransportInternal {
                  const rtc::PacketOptions& options,
                  int flags) override;
 
+  int SendPackets(std::vector<const char*> data,
+                  std::vector<size_t> len,
+                  std::vector<const rtc::PacketOptions>& options,
+                  int flags = 0) override;
+
   bool GetOption(rtc::Socket::Option opt, int* value) override;
 
   // Find out which TLS version was negotiated

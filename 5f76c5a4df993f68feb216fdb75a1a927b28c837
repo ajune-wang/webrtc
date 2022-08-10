@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "a9dea646_0dbe5f65",
+        "filename": "modules/pacing/packet_router.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 200,
+      "author": {
+        "id": 5524
+      },
+      "writtenOn": "2022-08-10T11:51:08Z",
+      "side": 1,
+      "message": "Suggest not assigning the transport seq# here. They need to be in the order we send on the network, and below the packets are sent one SSRC at a time.\nYou also want to be able to back the sequence number in case the an SSRC is unable to send, otherwise you may end up with gaps.",
+      "range": {
+        "startLine": 194,
+        "startChar": 0,
+        "endLine": 200,
+        "endChar": 5
+      },
+      "revId": "5f76c5a4df993f68feb216fdb75a1a927b28c837",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

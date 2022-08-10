@@ -148,6 +148,8 @@ class RtpVideoStreamReceiver2 : public LossNotificationSender,
                             bool decodability_flag,
                             bool buffering_allowed) override;
 
+  bool IsUlpfecEnabled() const;
+
   // Returns true if a decryptor is attached and frames can be decrypted.
   // Updated by OnDecryptionStatusChangeCallback. Note this refers to Frame
   // Decryption not SRTP.
@@ -288,6 +290,7 @@ class RtpVideoStreamReceiver2 : public LossNotificationSender,
       RTC_RUN_ON(packet_sequence_checker_);
   void NotifyReceiverOfEmptyPacket(uint16_t seq_num)
       RTC_RUN_ON(packet_sequence_checker_);
+  void UpdateHistograms();
   bool IsRedEnabled() const;
   void InsertSpsPpsIntoTracker(uint8_t payload_type)
       RTC_RUN_ON(packet_sequence_checker_);

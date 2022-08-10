@@ -25,23 +25,14 @@ namespace webrtc {
 namespace {
 
 using ::testing::NotNull;
-using ::webrtc::field_trial::InitFieldTrialsFromString;
 
-class FieldTrialsTest : public testing::Test {
- protected:
-  FieldTrialsTest() {
-    // Make sure global state is consistent between test runs.
-    InitFieldTrialsFromString(nullptr);
-  }
-};
-
-TEST_F(FieldTrialsTest, EmptyStringHasNoEffect) {
+TEST(FieldTrialsTest, EmptyStringHasNoEffect) {
   FieldTrials f("");
   EXPECT_FALSE(f.IsEnabled("MyCoolTrial"));
   EXPECT_FALSE(f.IsDisabled("MyCoolTrial"));
 }
 
-TEST_F(FieldTrialsTest, EnabledDisabledMustBeFirstInValue) {
+TEST(FieldTrialsTest, EnabledDisabledMustBeFirstInValue) {
   FieldTrials f(
       "MyCoolTrial/EnabledFoo/"
       "MyUncoolTrial/DisabledBar/"
@@ -51,23 +42,23 @@ TEST_F(FieldTrialsTest, EnabledDisabledMustBeFirstInValue) {
   EXPECT_FALSE(f.IsEnabled("AnotherTrial"));
 }
 
-TEST_F(FieldTrialsTest, FieldTrialsDoesNotReadGlobalString) {
+TEST(FieldTrialsTest, FieldTrialsDoesNotReadGlobalString) {
   static constexpr char s[] = "MyCoolTrial/Enabled/MyUncoolTrial/Disabled/";
-  InitFieldTrialsFromString(s);
+  webrtc::field_trial::InitFieldTrialsFromString(s);
   FieldTrials f("");
   EXPECT_FALSE(f.IsEnabled("MyCoolTrial"));
   EXPECT_FALSE(f.IsDisabled("MyUncoolTrial"));
 }
 
-TEST_F(FieldTrialsTest, FieldTrialsWritesGlobalString) {
+TEST(FieldTrialsTest, FieldTrialsWritesGlobalString) {
   FieldTrials f("MyCoolTrial/Enabled/MyUncoolTrial/Disabled/");
   EXPECT_TRUE(webrtc::field_trial::IsEnabled("MyCoolTrial"));
   EXPECT_TRUE(webrtc::field_trial::IsDisabled("MyUncoolTrial"));
 }
 
-TEST_F(FieldTrialsTest, FieldTrialsRestoresGlobalStringAfterDestruction) {
+TEST(FieldTrialsTest, FieldTrialsRestoresGlobalStringAfterDestruction) {
   static constexpr char s[] = "SomeString/Enabled/";
-  InitFieldTrialsFromString(s);
+  webrtc::field_trial::InitFieldTrialsFromString(s);
   {
     FieldTrials f("SomeOtherString/Enabled/");
     EXPECT_STREQ(webrtc::field_trial::GetFieldTrialString(),
@@ -77,19 +68,19 @@ TEST_F(FieldTrialsTest, FieldTrialsRestoresGlobalStringAfterDestruction) {
 }
 
 #if GTEST_HAS_DEATH_TEST && !defined(WEBRTC_ANDROID)
-TEST_F(FieldTrialsTest, FieldTrialsDoesNotSupportSimultaneousInstances) {
+TEST(FieldTrialsTest, FieldTrialsDoesNotSupportSimultaneousInstances) {
   FieldTrials f("SomeString/Enabled/");
   RTC_EXPECT_DEATH(FieldTrials("SomeOtherString/Enabled/").Lookup("Whatever"),
                    "Only one instance");
 }
 #endif  // GTEST_HAS_DEATH_TEST && !defined(WEBRTC_ANDROID)
 
-TEST_F(FieldTrialsTest, FieldTrialsSupportsSeparateInstances) {
+TEST(FieldTrialsTest, FieldTrialsSupportsSeparateInstances) {
   { FieldTrials f("SomeString/Enabled/"); }
   { FieldTrials f("SomeOtherString/Enabled/"); }
 }
 
-TEST_F(FieldTrialsTest, NonGlobalFieldTrialsInstanceDoesNotModifyGlobalString) {
+TEST(FieldTrialsTest, NonGlobalFieldTrialsInstanceDoesNotModifyGlobalString) {
   std::unique_ptr<FieldTrials> f =
       FieldTrials::CreateNoGlobal("SomeString/Enabled/");
   ASSERT_THAT(f, NotNull());
@@ -97,7 +88,7 @@ TEST_F(FieldTrialsTest, NonGlobalFieldTrialsInstanceDoesNotModifyGlobalString) {
   EXPECT_FALSE(webrtc::field_trial::IsEnabled("SomeString"));
 }
 
-TEST_F(FieldTrialsTest, NonGlobalFieldTrialsSupportSimultaneousInstances) {
+TEST(FieldTrialsTest, NonGlobalFieldTrialsSupportSimultaneousInstances) {
   std::unique_ptr<FieldTrials> f1 =
       FieldTrials::CreateNoGlobal("SomeString/Enabled/");
   std::unique_ptr<FieldTrials> f2 =
@@ -112,7 +103,7 @@ TEST_F(FieldTrialsTest, NonGlobalFieldTrialsSupportSimultaneousInstances) {
   EXPECT_TRUE(f2->IsEnabled("SomeOtherString"));
 }
 
-TEST_F(FieldTrialsTest, GlobalAndNonGlobalFieldTrialsAreDisjoint) {
+TEST(FieldTrialsTest, GlobalAndNonGlobalFieldTrialsAreDisjoint) {
   FieldTrials f1("SomeString/Enabled/");
   std::unique_ptr<FieldTrials> f2 =
       FieldTrials::CreateNoGlobal("SomeOtherString/Enabled/");
@@ -125,9 +116,9 @@ TEST_F(FieldTrialsTest, GlobalAndNonGlobalFieldTrialsAreDisjoint) {
   EXPECT_TRUE(f2->IsEnabled("SomeOtherString"));
 }
 
-TEST_F(FieldTrialsTest, FieldTrialBasedConfigReadsGlobalString) {
+TEST(FieldTrialsTest, FieldTrialBasedConfigReadsGlobalString) {
   static constexpr char s[] = "MyCoolTrial/Enabled/MyUncoolTrial/Disabled/";
-  InitFieldTrialsFromString(s);
+  webrtc::field_trial::InitFieldTrialsFromString(s);
   FieldTrialBasedConfig f;
   EXPECT_TRUE(f.IsEnabled("MyCoolTrial"));
   EXPECT_TRUE(f.IsDisabled("MyUncoolTrial"));

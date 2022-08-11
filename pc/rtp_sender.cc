@@ -550,6 +550,11 @@ rtc::scoped_refptr<DtmfSenderInterface> AudioRtpSender::GetDtmfSender() const {
   return dtmf_sender_proxy_;
 }
 
+void AudioRtpSender::GenerateKeyFrame() {
+  RTC_DCHECK_RUN_ON(signaling_thread_);
+  RTC_DLOG(LS_ERROR) << "Tried to get generate a key frame for audio.";
+}
+
 void AudioRtpSender::SetSend() {
   RTC_DCHECK_RUN_ON(signaling_thread_);
   RTC_DCHECK(!stopped_);
@@ -638,6 +643,18 @@ rtc::scoped_refptr<DtmfSenderInterface> VideoRtpSender::GetDtmfSender() const {
   RTC_DCHECK_RUN_ON(signaling_thread_);
   RTC_DLOG(LS_ERROR) << "Tried to get DTMF sender from video sender.";
   return nullptr;
+}
+
+void VideoRtpSender::GenerateKeyFrame() {
+  RTC_DCHECK_RUN_ON(signaling_thread_);
+  if (video_media_channel() && ssrc_ && !stopped_) {
+    worker_thread_->Invoke<void>(RTC_FROM_HERE, [&] {
+      video_media_channel()->GenerateSendKeyFrame(ssrc_);
+    });
+  } else {
+    RTC_LOG(LS_WARNING)
+        << "Tried to generate key frame for sender in a nonsensical situation.";
+  }
 }
 
 void VideoRtpSender::SetSend() {

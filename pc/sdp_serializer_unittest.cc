@@ -263,6 +263,7 @@ TEST_F(SimulcastSdpSerializerTest, Serialize_OnlyReceive) {
 }
 
 // Test a complex serialization with multiple streams, alternatives and states.
+// Note that the pause status is ignored.
 TEST_F(SimulcastSdpSerializerTest, Serialize_ComplexSerialization) {
   SimulcastDescription simulcast;
   simulcast.send_layers().AddLayerWithAlternatives(
@@ -276,7 +277,7 @@ TEST_F(SimulcastSdpSerializerTest, Serialize_ComplexSerialization) {
   simulcast.receive_layers().AddLayerWithAlternatives(
       {SimulcastLayer("9", false), SimulcastLayer("10", true),
        SimulcastLayer("11", false)});
-  TestSerialization(simulcast, "send 2,~1;4,3 recv 6,7;~8;9,~10,11");
+  TestSerialization(simulcast, "send 2,1;4,3 recv 6,7;8;9,10,11");
 }
 
 class RidDescriptionSdpSerializerTest : public TestWithParam<const char*> {

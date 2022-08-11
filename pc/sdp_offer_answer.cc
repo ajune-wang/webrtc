@@ -468,6 +468,7 @@ std::vector<RtpEncodingParameters> GetSendEncodingsFromRemoteDescription(
     const SimulcastLayer& layer = alternatives[0];
     RtpEncodingParameters parameters;
     parameters.rid = layer.rid;
+    // TODO(bugs.webrtc.org/12044): don't interpret ~ in the remote description.
     parameters.active = !layer.is_paused;
     result.push_back(parameters);
   }
@@ -494,8 +495,6 @@ RTCError UpdateSimulcastLayerStatusInSender(
       disabled_layers.push_back(encoding.rid);
       continue;
     }
-
-    encoding.active = !iter->is_paused;
   }
 
   RTCError result = sender->SetParametersInternal(parameters);

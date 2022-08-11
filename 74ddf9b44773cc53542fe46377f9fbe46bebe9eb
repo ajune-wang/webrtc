@@ -41,6 +41,30 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": true,
+      "key": {
+        "uuid": "aef35cd4_58cae4ee",
+        "filename": "modules/video_coding/timing/frame_delay_delta_kalman_filter.cc",
+        "patchSetId": 15
+      },
+      "lineNbr": 38,
+      "author": {
+        "id": 5023
+      },
+      "writtenOn": "2022-08-11T12:48:08Z",
+      "side": 1,
+      "message": "About the \"inter_frame\" prefix: I just remembered that my plan was to use the nomenclature from RFC3393 for naming these quantitites. But then I forgot about that, I guess. In that case, I think they would be called \"frame_delay_variation\" and \"frame_size_delta\". Wdyt?\nhttps://www.rfc-editor.org/rfc/rfc3393\n\n\nI\u0027m not sure of the \"_rtp_based\" suffix, though. It\u0027s not incorrect, it\u0027s just that I\u0027m not sure what it adds?",
+      "parentUuid": "eaad48f1_5eb94333",
+      "range": {
+        "startLine": 37,
+        "startChar": 0,
+        "endLine": 38,
+        "endChar": 34
+      },
+      "revId": "74ddf9b44773cc53542fe46377f9fbe46bebe9eb",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": false,
       "key": {
         "uuid": "3d682893_259761ee",
@@ -54,6 +78,30 @@
       "writtenOn": "2022-08-11T11:09:28Z",
       "side": 1,
       "message": "I think this description is very good overall, but would it make sense to be a bit more detailed?\n\nWDYT about:\n    The filter takes as input the frame delay delta, the difference between\n    the actual inter-frame arrival time and the expected inter-frame arrival \n    time (based on RTP timestamp), and frame size delta, the inter-frame\n    size delta.\n    \nOr maybe it\u0027s just harder to read...",
+      "range": {
+        "startLine": 29,
+        "startChar": 33,
+        "endLine": 29,
+        "endChar": 50
+      },
+      "revId": "74ddf9b44773cc53542fe46377f9fbe46bebe9eb",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "54f34f2f_173f99ef",
+        "filename": "modules/video_coding/timing/frame_delay_delta_kalman_filter.h",
+        "patchSetId": 15
+      },
+      "lineNbr": 29,
+      "author": {
+        "id": 5023
+      },
+      "writtenOn": "2022-08-11T12:48:08Z",
+      "side": 1,
+      "message": "I like it. Added.",
+      "parentUuid": "3d682893_259761ee",
       "range": {
         "startLine": 29,
         "startChar": 33,
@@ -87,6 +135,30 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "c6d45713_e01a4bc7",
+        "filename": "modules/video_coding/timing/frame_delay_delta_kalman_filter.h",
+        "patchSetId": 15
+      },
+      "lineNbr": 32,
+      "author": {
+        "id": 5023
+      },
+      "writtenOn": "2022-08-11T12:48:08Z",
+      "side": 1,
+      "message": "Correct. Done.",
+      "parentUuid": "c48d31a3_89015d2e",
+      "range": {
+        "startLine": 32,
+        "startChar": 36,
+        "endLine": 32,
+        "endChar": 49
+      },
+      "revId": "74ddf9b44773cc53542fe46377f9fbe46bebe9eb",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "1881f51e_b5ce3d7a",
@@ -100,6 +172,30 @@
       "writtenOn": "2022-08-11T11:09:28Z",
       "side": 1,
       "message": "I think we should also mention that delay caused by retransmissions are not handled or estimated by the model.",
+      "range": {
+        "startLine": 35,
+        "startChar": 39,
+        "endLine": 35,
+        "endChar": 40
+      },
+      "revId": "74ddf9b44773cc53542fe46377f9fbe46bebe9eb",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "664e9dfd_d0cfb742",
+        "filename": "modules/video_coding/timing/frame_delay_delta_kalman_filter.h",
+        "patchSetId": 15
+      },
+      "lineNbr": 35,
+      "author": {
+        "id": 5023
+      },
+      "writtenOn": "2022-08-11T12:48:08Z",
+      "side": 1,
+      "message": "True, but maybe that would belong in some system documentation somewhere? I don\u0027t see it as a property of the Kalman filter itself.",
+      "parentUuid": "1881f51e_b5ce3d7a",
       "range": {
         "startLine": 35,
         "startChar": 39,
@@ -133,6 +229,30 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "d5876189_4acffc27",
+        "filename": "modules/video_coding/timing/frame_delay_delta_kalman_filter.h",
+        "patchSetId": 15
+      },
+      "lineNbr": 40,
+      "author": {
+        "id": 5023
+      },
+      "writtenOn": "2022-08-11T12:48:08Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "f44628e9_aa328c09",
+      "range": {
+        "startLine": 40,
+        "startChar": 11,
+        "endLine": 40,
+        "endChar": 24
+      },
+      "revId": "74ddf9b44773cc53542fe46377f9fbe46bebe9eb",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "1a0c14ec_b8f983bd",
@@ -146,6 +266,30 @@
       "writtenOn": "2022-08-11T11:09:28Z",
       "side": 1,
       "message": "Again, maybe I\u0027m wrong but AFAICT theta_[1] is the rate at which the queue induced latency is changing in ms/ms",
+      "range": {
+        "startLine": 87,
+        "startChar": 60,
+        "endLine": 87,
+        "endChar": 66
+      },
+      "revId": "74ddf9b44773cc53542fe46377f9fbe46bebe9eb",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "5de58b3d_b0f7a281",
+        "filename": "modules/video_coding/timing/frame_delay_delta_kalman_filter.h",
+        "patchSetId": 15
+      },
+      "lineNbr": 87,
+      "author": {
+        "id": 5023
+      },
+      "writtenOn": "2022-08-11T12:48:08Z",
+      "side": 1,
+      "message": "The current patchset was uploaded before out discussion about this yesterday, but yes, I agree conceptually that theta_[1] is the current queue build-up. However, I think it\u0027s an \"integrated queue build-up\" over the measurement window defined by the frame delay delta, and not an instantaneous \"queue build-up rate\". And therefore unit should still be [ms]. Even though it can easily be converted to a rate, by normalizing with the frame delay delta.",
+      "parentUuid": "1a0c14ec_b8f983bd",
       "range": {
         "startLine": 87,
         "startChar": 60,

@@ -85,6 +85,24 @@
       "parentUuid": "d16e3169_8d0f5ed4",
       "revId": "7c0fce846a1a2dfef4c9d0dc01b80cc4d60ac55e",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "8c8614fe_a8ee7138",
+        "filename": "modules/desktop_capture/linux/wayland/screencast_portal.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 36,
+      "author": {
+        "id": 5508
+      },
+      "writtenOn": "2022-08-11T08:54:09Z",
+      "side": 1,
+      "message": "Sounds good. Yes, well, unless the enum is explicitly documented as working that way I would agree.",
+      "parentUuid": "68fa21ac_24bc8ea4",
+      "revId": "7c0fce846a1a2dfef4c9d0dc01b80cc4d60ac55e",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

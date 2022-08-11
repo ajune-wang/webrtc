@@ -70,6 +70,30 @@
       },
       "revId": "b546ccad0a2532aa50469efa03ae224ee0a1ad76",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "0e5a4a98_bc6cd843",
+        "filename": "modules/rtp_rtcp/source/ulpfec_receiver.cc",
+        "patchSetId": 6
+      },
+      "lineNbr": 55,
+      "author": {
+        "id": 5023
+      },
+      "writtenOn": "2022-08-11T06:02:45Z",
+      "side": 1,
+      "message": "Yes, sorry for the inclarity: I meant that we could look into conditionally instantiating the UlpfecReceiver, just like you do in that patch.\n\nWhen I wrote the comment, I didn\u0027t think about the RED de-encapsulation though, which makes it a bit trickier to know when we need the receiver object. In theory, I think at least the SDP could be configured to have: ulpfec, ulpfec+red, red, and none of these. I\u0027m not sure if all of these combinations are actually supported by the classes at this layer though.\n\nI always found it a bit weird that the UlpfecReceiver class does both ULPFEC decoding as well as RED de-encapsulation. I\u0027m not sure what your plans are, but perhaps it would be worthwhile to split these two functions into separate classes first?",
+      "parentUuid": "234bb044_1629d308",
+      "range": {
+        "startLine": 55,
+        "startChar": 10,
+        "endLine": 55,
+        "endChar": 36
+      },
+      "revId": "b546ccad0a2532aa50469efa03ae224ee0a1ad76",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ],
   "submitRequirementResults": [

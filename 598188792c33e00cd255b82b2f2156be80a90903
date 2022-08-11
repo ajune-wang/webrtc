@@ -16,6 +16,23 @@
       "message": "Hey Philip, this is ready for review now.",
       "revId": "598188792c33e00cd255b82b2f2156be80a90903",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "8c057cbd_34ac3fac",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 15
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5527
+      },
+      "writtenOn": "2022-08-11T12:57:12Z",
+      "side": 1,
+      "message": "From discussing this offline: lets not merge the proxy into the video receive stream, instead rename the frame buffer proxy to something else (VideoStreamDecoder [best name, but already taken]? VideoDecodePacer? VideoBufferLevelController?) and simply make other updates in that class as well.",
+      "revId": "598188792c33e00cd255b82b2f2156be80a90903",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

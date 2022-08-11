@@ -118,6 +118,30 @@
       },
       "revId": "b546ccad0a2532aa50469efa03ae224ee0a1ad76",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "ccc488fc_030c93eb",
+        "filename": "modules/rtp_rtcp/source/ulpfec_receiver.cc",
+        "patchSetId": 6
+      },
+      "lineNbr": 55,
+      "author": {
+        "id": 5023
+      },
+      "writtenOn": "2022-08-11T08:10:12Z",
+      "side": 1,
+      "message": "Love it! I\u0027m aware of several situations where those VRS recreations lead to short video freezes, due to the loss of packet and decoder state. So getting rid of the recreations should lead to better user experience.\n\nI\u0027d be happy to work on cleaning up the UlpfecReceiver, but won\u0027t be able to give it any priority right now. It\u0027s however slightly related to the receiver buffer level adaptation work that me and Philip are spinning up right now, so maybe... I filed this: https://bugs.chromium.org/p/webrtc/issues/detail?id\u003d14345",
+      "parentUuid": "8729cc14_ce16a198",
+      "range": {
+        "startLine": 55,
+        "startChar": 10,
+        "endLine": 55,
+        "endChar": 36
+      },
+      "revId": "b546ccad0a2532aa50469efa03ae224ee0a1ad76",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ],
   "submitRequirementResults": [

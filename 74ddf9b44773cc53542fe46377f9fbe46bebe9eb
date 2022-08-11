@@ -65,6 +65,30 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": true,
+      "key": {
+        "uuid": "074b70f4_e9cc2514",
+        "filename": "modules/video_coding/timing/frame_delay_delta_kalman_filter.cc",
+        "patchSetId": 15
+      },
+      "lineNbr": 38,
+      "author": {
+        "id": 5527
+      },
+      "writtenOn": "2022-08-11T14:18:24Z",
+      "side": 1,
+      "message": "I think using RFC terms is better.\n\nThe `rtp_based` suffix was to help separate the two different expected arrival timestamps, one based on the RTP clock and the other based on the frame size.",
+      "parentUuid": "aef35cd4_58cae4ee",
+      "range": {
+        "startLine": 37,
+        "startChar": 0,
+        "endLine": 38,
+        "endChar": 34
+      },
+      "revId": "74ddf9b44773cc53542fe46377f9fbe46bebe9eb",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": false,
       "key": {
         "uuid": "3d682893_259761ee",
@@ -290,6 +314,30 @@
       "side": 1,
       "message": "The current patchset was uploaded before out discussion about this yesterday, but yes, I agree conceptually that theta_[1] is the current queue build-up. However, I think it\u0027s an \"integrated queue build-up\" over the measurement window defined by the frame delay delta, and not an instantaneous \"queue build-up rate\". And therefore unit should still be [ms]. Even though it can easily be converted to a rate, by normalizing with the frame delay delta.",
       "parentUuid": "1a0c14ec_b8f983bd",
+      "range": {
+        "startLine": 87,
+        "startChar": 60,
+        "endLine": 87,
+        "endChar": 66
+      },
+      "revId": "74ddf9b44773cc53542fe46377f9fbe46bebe9eb",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "67014ade_b452f6d4",
+        "filename": "modules/video_coding/timing/frame_delay_delta_kalman_filter.h",
+        "patchSetId": 15
+      },
+      "lineNbr": 87,
+      "author": {
+        "id": 5527
+      },
+      "writtenOn": "2022-08-11T14:18:24Z",
+      "side": 1,
+      "message": "Ah, yes, I think you are right.",
+      "parentUuid": "5de58b3d_b0f7a281",
       "range": {
         "startLine": 87,
         "startChar": 60,

@@ -157,11 +157,11 @@ void PeerConnectionDelegateAdapter::OnRemoveStream(
 void PeerConnectionDelegateAdapter::OnTrack(
     rtc::scoped_refptr<RtpTransceiverInterface> nativeTransceiver) {
   RTC_OBJC_TYPE(RTCPeerConnection) *peer_connection = peer_connection_;
-  RTC_OBJC_TYPE(RTCRtpTransceiver) *transceiver =
-      [[RTC_OBJC_TYPE(RTCRtpTransceiver) alloc] initWithFactory:peer_connection.factory
-                                           nativeRtpTransceiver:nativeTransceiver];
   if ([peer_connection.delegate
           respondsToSelector:@selector(peerConnection:didStartReceivingOnTransceiver:)]) {
+    RTC_OBJC_TYPE(RTCRtpTransceiver) *transceiver =
+        [[RTC_OBJC_TYPE(RTCRtpTransceiver) alloc] initWithFactory:peer_connection.factory
+                                             nativeRtpTransceiver:nativeTransceiver];
     [peer_connection.delegate peerConnection:peer_connection
               didStartReceivingOnTransceiver:transceiver];
   }

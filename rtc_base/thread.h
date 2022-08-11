@@ -32,6 +32,7 @@
 #include "api/function_view.h"
 #include "api/task_queue/task_queue_base.h"
 #include "api/units/time_delta.h"
+#include "api/units/timestamp.h"
 #include "rtc_base/checks.h"
 #include "rtc_base/deprecated/recursive_critical_section.h"
 #include "rtc_base/location.h"
@@ -270,7 +271,7 @@ class RTC_LOCKABLE RTC_EXPORT Thread : public webrtc::TaskQueueBase {
 
   // Get() will process I/O until:
   //  1) A message is available (returns true)
-  //  2) cmsWait seconds have elapsed (returns false)
+  //  2) cmsWait milliseconds have elapsed (returns false)
   //  3) Stop() is called (returns false)
   virtual bool Get(Message* pmsg,
                    int cmsWait = kForever,
@@ -298,7 +299,13 @@ class RTC_LOCKABLE RTC_EXPORT Thread : public webrtc::TaskQueueBase {
   virtual void Dispatch(Message* pmsg);
 
   // Amount of time until the next message can be retrieved
-  virtual int GetDelay();
+  virtual webrtc::TimeDelta TimeUntilNextTask();
+  // TODO(danilchap): Remove this function when derived class stop overriding
+  // it. chromium overrides it just to ensure it is never called.
+  virtual int GetDelay() {
+    RTC_DCHECK_NOTREACHED();
+    return TimeUntilNextTask().ms_or(kForever);
+  }
 
   bool empty() const { return size() == 0u; }
   size_t size() const {
@@ -400,9 +407,13 @@ class RTC_LOCKABLE RTC_EXPORT Thread : public webrtc::TaskQueueBase {
                                     webrtc::TimeDelta delay) override;
 
   // ProcessMessages will process I/O and dispatch messages until:
-  //  1) cms milliseconds have elapsed (returns true)
+  //  1) `time` have elapsed (returns true)
   //  2) Stop() is called (returns false)
-  bool ProcessMessages(int cms);
+  bool ProcessMessages(webrtc::TimeDelta time);
+  bool ProcessMessages(int cms) {
+    return ProcessMessages(cms == kForever ? webrtc::TimeDelta::PlusInfinity()
+                                           : webrtc::TimeDelta::Millis(cms));
+  }
 
   // Returns true if this is a thread that we created using the standard
   // constructor, false if it was created by a call to
@@ -453,23 +464,15 @@ class RTC_LOCKABLE RTC_EXPORT Thread : public webrtc::TaskQueueBase {
   // with the same trigger time are processed in num_ (FIFO) order.
   class DelayedMessage {
    public:
-    DelayedMessage(int64_t delay,
-                   int64_t run_time_ms,
-                   uint32_t num,
-                   const Message& msg)
-        : delay_ms_(delay),
-          run_time_ms_(run_time_ms),
-          message_number_(num),
-          msg_(msg) {}
-
+    DelayedMessage(webrtc::Timestamp run_at, uint32_t num, const Message& msg)
+        : run_at_(run_at), message_number_(num), msg_(msg) {}
     bool operator<(const DelayedMessage& dmsg) const {
-      return (dmsg.run_time_ms_ < run_time_ms_) ||
-             ((dmsg.run_time_ms_ == run_time_ms_) &&
+      return (dmsg.run_at_ < run_at_) ||
+             ((dmsg.run_at_ == run_at_) &&
               (dmsg.message_number_ < message_number_));
     }
 
-    int64_t delay_ms_;  // for debugging
-    int64_t run_time_ms_;
+    webrtc::Timestamp run_at_;
     // Monotonicaly incrementing number used for ordering of messages
     // targeted to execute at the same time.
     uint32_t message_number_;
@@ -483,8 +486,7 @@ class RTC_LOCKABLE RTC_EXPORT Thread : public webrtc::TaskQueueBase {
   };
 
   void DoDelayPost(const Location& posted_from,
-                   int64_t cmsDelay,
-                   int64_t tstamp,
+                   webrtc::Timestamp run_at,
                    MessageHandler* phandler,
                    uint32_t id,
                    MessageData* pdata);
@@ -520,7 +522,8 @@ class RTC_LOCKABLE RTC_EXPORT Thread : public webrtc::TaskQueueBase {
   RecursiveCriticalSection* CritForTest() { return &crit_; }
 
  private:
-  static const int kSlowDispatchLoggingThreshold = 50;  // 50 ms
+  static constexpr webrtc::TimeDelta kSlowDispatchLoggingThreshold =
+      webrtc::TimeDelta::Millis(50);
 
   // Sets the per-thread allow-blocking-calls flag and returns the previous
   // value. Must be called on this thread.
@@ -601,7 +604,8 @@ class RTC_LOCKABLE RTC_EXPORT Thread : public webrtc::TaskQueueBase {
 
   friend class ThreadManager;
 
-  int dispatch_warning_ms_ RTC_GUARDED_BY(this) = kSlowDispatchLoggingThreshold;
+  webrtc::TimeDelta dispatch_warning_ RTC_GUARDED_BY(this) =
+      kSlowDispatchLoggingThreshold;
 };
 
 // AutoThread automatically installs itself at construction

@@ -94,6 +94,30 @@
       },
       "revId": "b546ccad0a2532aa50469efa03ae224ee0a1ad76",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "8729cc14_ce16a198",
+        "filename": "modules/rtp_rtcp/source/ulpfec_receiver.cc",
+        "patchSetId": 6
+      },
+      "lineNbr": 55,
+      "author": {
+        "id": 5508
+      },
+      "writtenOn": "2022-08-11T07:53:18Z",
+      "side": 1,
+      "message": "My main goal is to get rid of the \"recreate\" steps for the video receive streams. They complicate things between the network and worker thread as I\u0027m eventually going to change the code to stop sending network packets to the worker thread. There\u0027s also a performance cost to deleting and reconstructing the receive streams when the config changes and in some cases they change frequently (this includes decoder teardown etc).\n\nAs far as UlpfecReceiver goes, yes I agree that it\u0027s confusing how it\u0027s doing both. I don\u0027t think I\u0027m the right person for the job though - but I think you would be perfect! 😄 Are you up for it?",
+      "parentUuid": "0e5a4a98_bc6cd843",
+      "range": {
+        "startLine": 55,
+        "startChar": 10,
+        "endLine": 55,
+        "endChar": 36
+      },
+      "revId": "b546ccad0a2532aa50469efa03ae224ee0a1ad76",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ],
   "submitRequirementResults": [

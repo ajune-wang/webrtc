@@ -16,6 +16,23 @@
       "message": "Filed a bug and updated the description as per suggestion.",
       "revId": "129d6b112961fa2e603459c520ddf1d35fb70e08",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "d768d315_4e5d617d",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 3
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5150
+      },
+      "writtenOn": "2022-08-11T11:39:36Z",
+      "side": 1,
+      "message": "Since this CL seems ready, I\u0027ve taken the liberty to trigger the submit.",
+      "revId": "129d6b112961fa2e603459c520ddf1d35fb70e08",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

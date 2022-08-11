@@ -63,6 +63,7 @@ class MockRtpSenderInternal : public RtpSenderInternal {
               GetFrameEncryptor,
               (),
               (const, override));
+  MOCK_METHOD(void, GenerateKeyFrame, (), (override));
 
   // RtpSenderInternal methods.
   MOCK_METHOD1(SetMediaChannel, void(cricket::MediaChannel*));

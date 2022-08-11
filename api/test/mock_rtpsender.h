@@ -44,6 +44,7 @@ class MockRtpSender : public RtpSenderInterface {
               GetDtmfSender,
               (),
               (const, override));
+  MOCK_METHOD(void, GenerateKeyFrame, (), (override));
 };
 
 static_assert(!std::is_abstract_v<rtc::RefCountedObject<MockRtpSender>>, "");

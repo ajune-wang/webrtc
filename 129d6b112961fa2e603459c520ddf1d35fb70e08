@@ -33,6 +33,24 @@
       "message": "Since this CL seems ready, I\u0027ve taken the liberty to trigger the submit.",
       "revId": "129d6b112961fa2e603459c520ddf1d35fb70e08",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "b7ef3055_3555c522",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 3
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 19624
+      },
+      "writtenOn": "2022-08-11T12:22:37Z",
+      "side": 1,
+      "message": "Thank you! For future reference, is it generally preferred for change authors to wait for someone else to trigger the submit once the submit requirements have been met?",
+      "parentUuid": "d768d315_4e5d617d",
+      "revId": "129d6b112961fa2e603459c520ddf1d35fb70e08",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ],
   "submitRequirementResults": [

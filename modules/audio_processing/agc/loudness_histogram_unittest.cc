@@ -18,6 +18,7 @@
 #include <cmath>
 #include <memory>
 
+#include "absl/strings/string_view.h"
 #include "modules/audio_processing/agc/utility.h"
 #include "test/gtest.h"
 #include "test/testsupport/file_utils.h"
@@ -35,7 +36,7 @@ const double kRelativeErrTol = 1e-10;
 
 class LoudnessHistogramTest : public ::testing::Test {
  protected:
-  void RunTest(bool enable_circular_buff, const char* filename);
+  void RunTest(bool enable_circular_buff, absl::string_view filename);
 
  private:
   void TestClean();
@@ -49,8 +50,8 @@ void LoudnessHistogramTest::TestClean() {
 }
 
 void LoudnessHistogramTest::RunTest(bool enable_circular_buff,
-                                    const char* filename) {
-  FILE* in_file = fopen(filename, "rb");
+                                    absl::string_view filename) {
+  FILE* in_file = fopen(std::string(filename).c_str(), "rb");
   ASSERT_TRUE(in_file != NULL);
   if (enable_circular_buff) {
     int buffer_size;

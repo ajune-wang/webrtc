@@ -14,6 +14,7 @@
 #include <memory>
 #include <string>
 
+#include "absl/strings/string_view.h"
 #include "modules/audio_processing/test/conversational_speech/wavreader_abstract_factory.h"
 #include "modules/audio_processing/test/conversational_speech/wavreader_interface.h"
 
@@ -26,7 +27,7 @@ class WavReaderFactory : public WavReaderAbstractFactory {
   WavReaderFactory();
   ~WavReaderFactory() override;
   std::unique_ptr<WavReaderInterface> Create(
-      const std::string& filepath) const override;
+      absl::string_view filepath) const override;
 };
 
 }  // namespace conversational_speech

@@ -72,6 +72,9 @@ class ScopedAutoReleasePool {
 namespace rtc {
 namespace {
 
+using ::webrtc::TimeDelta;
+using ::webrtc::Timestamp;
+
 struct AnyInvocableMessage final : public MessageData {
   explicit AnyInvocableMessage(absl::AnyInvocable<void() &&> task)
       : task(std::move(task)) {}
@@ -112,6 +115,10 @@ class RTC_SCOPED_LOCKABLE MarkProcessingCritScope {
   const RecursiveCriticalSection* const cs_;
   size_t* processing_;
 };
+
+Timestamp Now() {
+  return Timestamp::Micros(TimeMicros());
+}
 
 }  // namespace
 
@@ -249,7 +256,7 @@ void ThreadManager::ProcessAllMessageQueuesInternal() {
   // to process messages as well.
   while (queues_not_done.load() > 0) {
     if (current) {
-      current->ProcessMessages(0);
+      current->ProcessMessages(TimeDelta::Zero());
     }
   }
 }
@@ -455,14 +462,16 @@ bool Thread::Peek(Message* pmsg, int cmsWait) {
     *pmsg = msgPeek_;
     return true;
   }
-  if (!Get(pmsg, cmsWait))
+  TimeDelta wait = cmsWait == kForever ? webrtc::TimeDelta::PlusInfinity()
+                                       : webrtc::TimeDelta::Millis(cmsWait);
+  if (!Get(pmsg, wait))
     return false;
   msgPeek_ = *pmsg;
   fPeekKeep_ = true;
   return true;
 }
 
-bool Thread::Get(Message* pmsg, int cmsWait, bool process_io) {
+bool Thread::Get(Message* pmsg, TimeDelta wait) {
   // Return and clear peek if present
   // Always return the peek if it exists so there is Peek/Get symmetry
 
@@ -472,15 +481,12 @@ bool Thread::Get(Message* pmsg, int cmsWait, bool process_io) {
     return true;
   }
 
-  // Get w/wait + timer scan / dispatch + socket / event multiplexer dispatch
-
-  int64_t cmsTotal = cmsWait;
-  int64_t cmsElapsed = 0;
-  int64_t msStart = TimeMillis();
-  int64_t msCurrent = msStart;
+  TimeDelta remaining = wait;
+  Timestamp current = Now();
+  const Timestamp deadline = current + wait;
   while (true) {
     // Check for posted events
-    int64_t cmsDelayNext = kForever;
+    TimeDelta delay_next = TimeDelta::PlusInfinity();
     bool first_pass = true;
     while (true) {
       // All queue operations need to be locked, but nothing else in this loop
@@ -493,9 +499,8 @@ bool Thread::Get(Message* pmsg, int cmsWait, bool process_io) {
         if (first_pass) {
           first_pass = false;
           while (!delayed_messages_.empty()) {
-            if (msCurrent < delayed_messages_.top().run_time_ms_) {
-              cmsDelayNext =
-                  TimeDiff(delayed_messages_.top().run_time_ms_, msCurrent);
+            if (current < delayed_messages_.top().run_at_) {
+              delay_next = delayed_messages_.top().run_at_ - current;
               break;
             }
             messages_.push_back(delayed_messages_.top().msg_);
@@ -524,31 +529,19 @@ bool Thread::Get(Message* pmsg, int cmsWait, bool process_io) {
     if (IsQuitting())
       break;
 
-    // Which is shorter, the delay wait or the asked wait?
-
-    int64_t cmsNext;
-    if (cmsWait == kForever) {
-      cmsNext = cmsDelayNext;
-    } else {
-      cmsNext = std::max<int64_t>(0, cmsTotal - cmsElapsed);
-      if ((cmsDelayNext != kForever) && (cmsDelayNext < cmsNext))
-        cmsNext = cmsDelayNext;
-    }
-
-    {
-      // Wait and multiplex in the meantime
-      if (!ss_->Wait(static_cast<int>(cmsNext), process_io))
-        return false;
-    }
+    TimeDelta wait_time = std::min(delay_next, remaining);
+    int wait_ms = wait_time == TimeDelta::PlusInfinity()
+                      ? kForever
+                      : wait_time.RoundUpTo(TimeDelta::Millis(1)).ms();
+    // Wait and multiplex in the meantime
+    if (!ss_->Wait(wait_ms, /*process_io=*/true))
+      return false;
 
     // If the specified timeout expired, return
-
-    msCurrent = TimeMillis();
-    cmsElapsed = TimeDiff(msCurrent, msStart);
-    if (cmsWait != kForever) {
-      if (cmsElapsed >= cmsWait)
-        return false;
-    }
+    current = Now();
+    remaining = deadline - current;
+    if (remaining <= TimeDelta::Zero())
+      return false;
   }
   return false;
 }
@@ -585,8 +578,8 @@ void Thread::PostDelayed(const Location& posted_from,
                          MessageHandler* phandler,
                          uint32_t id,
                          MessageData* pdata) {
-  return DoDelayPost(posted_from, delay_ms, TimeAfter(delay_ms), phandler, id,
-                     pdata);
+  DoDelayPost(posted_from, Now() + TimeDelta::Millis(delay_ms), phandler, id,
+              pdata);
 }
 
 void Thread::PostAt(const Location& posted_from,
@@ -594,13 +587,11 @@ void Thread::PostAt(const Location& posted_from,
                     MessageHandler* phandler,
                     uint32_t id,
                     MessageData* pdata) {
-  return DoDelayPost(posted_from, TimeUntil(run_at_ms), run_at_ms, phandler, id,
-                     pdata);
+  DoDelayPost(posted_from, Timestamp::Millis(run_at_ms), phandler, id, pdata);
 }
 
 void Thread::DoDelayPost(const Location& posted_from,
-                         int64_t delay_ms,
-                         int64_t run_at_ms,
+                         Timestamp run_at,
                          MessageHandler* phandler,
                          uint32_t id,
                          MessageData* pdata) {
@@ -620,8 +611,7 @@ void Thread::DoDelayPost(const Location& posted_from,
     msg.phandler = phandler;
     msg.message_id = id;
     msg.pdata = pdata;
-    DelayedMessage delayed(delay_ms, run_at_ms, delayed_next_num_, msg);
-    delayed_messages_.push(delayed);
+    delayed_messages_.emplace(run_at, delayed_next_num_, msg);
     // If this message queue processes 1 message every millisecond for 50 days,
     // we will wrap this number.  Even then, only messages with identical times
     // will be misordered, and then only briefly.  This is probably ok.
@@ -631,20 +621,16 @@ void Thread::DoDelayPost(const Location& posted_from,
   WakeUpSocketServer();
 }
 
-int Thread::GetDelay() {
+TimeDelta Thread::TimeUntilNextTask() {
   CritScope cs(&crit_);
 
   if (!messages_.empty())
-    return 0;
+    return TimeDelta::Zero();
 
-  if (!delayed_messages_.empty()) {
-    int delay = TimeUntil(delayed_messages_.top().run_time_ms_);
-    if (delay < 0)
-      delay = 0;
-    return delay;
-  }
+  if (!delayed_messages_.empty())
+    return std::max(TimeDelta::Zero(), delayed_messages_.top().run_at_ - Now());
 
-  return kForever;
+  return TimeDelta::PlusInfinity();
 }
 
 void Thread::ClearInternal(MessageHandler* phandler,
@@ -700,17 +686,17 @@ void Thread::Dispatch(Message* pmsg) {
                pmsg->posted_from.file_name(), "src_func",
                pmsg->posted_from.function_name());
   RTC_DCHECK_RUN_ON(this);
-  int64_t start_time = TimeMillis();
+  Timestamp start_time = Now();
   pmsg->phandler->OnMessage(pmsg);
-  int64_t end_time = TimeMillis();
-  int64_t diff = TimeDiff(end_time, start_time);
-  if (diff >= dispatch_warning_ms_) {
+  Timestamp end_time = Now();
+  TimeDelta diff = end_time - start_time;
+  if (diff >= dispatch_warning_) {
     RTC_LOG(LS_INFO) << "Message to " << name() << " took " << diff
-                     << "ms to dispatch. Posted from: "
+                     << " to dispatch. Posted from: "
                      << pmsg->posted_from.ToString();
     // To avoid log spew, move the warning limit to only give warning
     // for delays that are larger than the one observed.
-    dispatch_warning_ms_ = diff + 1;
+    dispatch_warning_ = diff + TimeDelta::Millis(1);
   }
 }
 
@@ -768,7 +754,7 @@ void Thread::SetDispatchWarningMs(int deadline) {
     return;
   }
   RTC_DCHECK_RUN_ON(this);
-  dispatch_warning_ms_ = deadline;
+  dispatch_warning_ = TimeDelta::Millis(deadline);
 }
 
 bool Thread::Start() {
@@ -890,7 +876,7 @@ void* Thread::PreRun(void* pv) {
 }  // namespace rtc
 
 void Thread::Run() {
-  ProcessMessages(kForever);
+  ProcessMessages(TimeDelta::PlusInfinity());
 }
 
 bool Thread::IsOwned() {
@@ -1114,27 +1100,29 @@ void Thread::Clear(MessageHandler* phandler,
   ClearInternal(phandler, id, removed);
 }
 
-bool Thread::ProcessMessages(int cmsLoop) {
+bool Thread::ProcessMessages(TimeDelta time) {
   // Using ProcessMessages with a custom clock for testing and a time greater
   // than 0 doesn't work, since it's not guaranteed to advance the custom
   // clock's time, and may get stuck in an infinite loop.
-  RTC_DCHECK(GetClockForTesting() == nullptr || cmsLoop == 0 ||
-             cmsLoop == kForever);
-  int64_t msEnd = (kForever == cmsLoop) ? 0 : TimeAfter(cmsLoop);
-  int cmsNext = cmsLoop;
+  RTC_DCHECK(GetClockForTesting() == nullptr || time == TimeDelta::Zero() ||
+             time == TimeDelta::PlusInfinity());
+  const Timestamp deadline = time == TimeDelta::PlusInfinity()
+                                 ? Timestamp::PlusInfinity()
+                                 : (Now() + time);
+  TimeDelta next = time;
 
   while (true) {
 #if defined(WEBRTC_MAC)
     ScopedAutoReleasePool pool;
 #endif
     Message msg;
-    if (!Get(&msg, cmsNext))
+    if (!Get(&msg, next))
       return !IsQuitting();
     Dispatch(&msg);
 
-    if (cmsLoop != kForever) {
-      cmsNext = static_cast<int>(TimeUntil(msEnd));
-      if (cmsNext < 0)
+    if (time != TimeDelta::PlusInfinity()) {
+      next = deadline - Now();
+      if (next < TimeDelta::Zero())
         return true;
     }
   }

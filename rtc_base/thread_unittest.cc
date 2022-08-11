@@ -26,6 +26,7 @@
 #include "rtc_base/socket_address.h"
 #include "rtc_base/synchronization/mutex.h"
 #include "rtc_base/third_party/sigslot/sigslot.h"
+#include "test/gmock.h"
 #include "test/testsupport/rtc_expect_death.h"
 
 #if defined(WEBRTC_WIN)
@@ -36,6 +37,7 @@
 namespace rtc {
 namespace {
 
+using ::testing::ElementsAre;
 using ::webrtc::TimeDelta;
 
 // Generates a sequence of numbers (collaboratively).
@@ -585,22 +587,29 @@ struct DeletedLockChecker {
 };
 
 static void DelayedPostsWithIdenticalTimesAreProcessedInFifoOrder(Thread* q) {
+  struct OrderTracker final : public MessageHandler {
+    void OnMessage(Message* msg) override {
+      order.push_back(msg->message_id);
+      if (order.size() == 5) {
+        got_5_messages.Set();
+      }
+    }
+    rtc::Event got_5_messages;
+    std::vector<int> order;
+  } order_tracker;
+
   EXPECT_TRUE(q != nullptr);
   int64_t now = TimeMillis();
-  q->PostAt(RTC_FROM_HERE, now, nullptr, 3);
-  q->PostAt(RTC_FROM_HERE, now - 2, nullptr, 0);
-  q->PostAt(RTC_FROM_HERE, now - 1, nullptr, 1);
-  q->PostAt(RTC_FROM_HERE, now, nullptr, 4);
-  q->PostAt(RTC_FROM_HERE, now - 1, nullptr, 2);
 
-  Message msg;
-  for (size_t i = 0; i < 5; ++i) {
-    memset(&msg, 0, sizeof(msg));
-    EXPECT_TRUE(q->Get(&msg, 0));
-    EXPECT_EQ(i, msg.message_id);
-  }
+  q->PostAt(RTC_FROM_HERE, now, &order_tracker, 3);
+  q->PostAt(RTC_FROM_HERE, now - 2, &order_tracker, 0);
+  q->PostAt(RTC_FROM_HERE, now - 1, &order_tracker, 1);
+  q->PostAt(RTC_FROM_HERE, now, &order_tracker, 4);
+  q->PostAt(RTC_FROM_HERE, now - 1, &order_tracker, 2);
+  q->Start();
 
-  EXPECT_FALSE(q->Get(&msg, 0));  // No more messages
+  EXPECT_TRUE(order_tracker.got_5_messages.Wait(/*give_up_after_ms=*/100));
+  EXPECT_THAT(order_tracker.order, ElementsAre(0, 1, 2, 3, 4));
 }
 
 TEST_F(ThreadQueueTest, DelayedPostsWithIdenticalTimesAreProcessedInFifoOrder) {
@@ -617,8 +626,7 @@ TEST_F(ThreadQueueTest, DisposeNotLocked) {
   bool deleted = false;
   DeletedLockChecker* d = new DeletedLockChecker(this, &was_locked, &deleted);
   Dispose(d);
-  Message msg;
-  EXPECT_FALSE(Get(&msg, 0));
+  ProcessMessages(TimeDelta::Zero());
   EXPECT_TRUE(deleted);
   EXPECT_FALSE(was_locked);
 }
@@ -640,8 +648,7 @@ TEST_F(ThreadQueueTest, DiposeHandlerWithPostedMessagePending) {
   Dispose(handler);
   // Now, post a message, which should *not* be returned by Get().
   Post(RTC_FROM_HERE, handler, 1);
-  Message msg;
-  EXPECT_FALSE(Get(&msg, 0));
+  ProcessMessages(TimeDelta::Zero());
   EXPECT_TRUE(deleted);
 }
 

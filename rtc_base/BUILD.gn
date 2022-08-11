@@ -965,6 +965,7 @@ rtc_library("threading") {
     "../api/task_queue",
     "../api/task_queue:pending_task_safety_flag",
     "../api/units:time_delta",
+    "../api/units:timestamp",
     "synchronization:mutex",
     "system:no_unique_address",
     "system:rtc_export",

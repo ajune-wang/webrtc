@@ -1,0 +1,159 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "fb544ada_0011f772",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 15
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5527
+      },
+      "writtenOn": "2022-08-11T11:09:28Z",
+      "side": 1,
+      "message": "LG",
+      "revId": "74ddf9b44773cc53542fe46377f9fbe46bebe9eb",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "eaad48f1_5eb94333",
+        "filename": "modules/video_coding/timing/frame_delay_delta_kalman_filter.cc",
+        "patchSetId": 15
+      },
+      "lineNbr": 38,
+      "author": {
+        "id": 5527
+      },
+      "writtenOn": "2022-08-11T11:09:28Z",
+      "side": 1,
+      "message": "WDYT about:\n    TimeDelta inter_frame_delay_rtp_based,\n    double inter_frame_size_delta_bytes\n?",
+      "range": {
+        "startLine": 37,
+        "startChar": 0,
+        "endLine": 38,
+        "endChar": 34
+      },
+      "revId": "74ddf9b44773cc53542fe46377f9fbe46bebe9eb",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "3d682893_259761ee",
+        "filename": "modules/video_coding/timing/frame_delay_delta_kalman_filter.h",
+        "patchSetId": 15
+      },
+      "lineNbr": 29,
+      "author": {
+        "id": 5527
+      },
+      "writtenOn": "2022-08-11T11:09:28Z",
+      "side": 1,
+      "message": "I think this description is very good overall, but would it make sense to be a bit more detailed?\n\nWDYT about:\n    The filter takes as input the frame delay delta, the difference between\n    the actual inter-frame arrival time and the expected inter-frame arrival \n    time (based on RTP timestamp), and frame size delta, the inter-frame\n    size delta.\n    \nOr maybe it\u0027s just harder to read...",
+      "range": {
+        "startLine": 29,
+        "startChar": 33,
+        "endLine": 29,
+        "endChar": 50
+      },
+      "revId": "74ddf9b44773cc53542fe46377f9fbe46bebe9eb",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "c48d31a3_89015d2e",
+        "filename": "modules/video_coding/timing/frame_delay_delta_kalman_filter.h",
+        "patchSetId": 15
+      },
+      "lineNbr": 32,
+      "author": {
+        "id": 5527
+      },
+      "writtenOn": "2022-08-11T11:09:28Z",
+      "side": 1,
+      "message": "This should be the \"queue delay delta\" or \"inter-frame queue delay delta\" (how much the link queuing delay changed since last measurement) right?",
+      "range": {
+        "startLine": 32,
+        "startChar": 36,
+        "endLine": 32,
+        "endChar": 49
+      },
+      "revId": "74ddf9b44773cc53542fe46377f9fbe46bebe9eb",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "1881f51e_b5ce3d7a",
+        "filename": "modules/video_coding/timing/frame_delay_delta_kalman_filter.h",
+        "patchSetId": 15
+      },
+      "lineNbr": 35,
+      "author": {
+        "id": 5527
+      },
+      "writtenOn": "2022-08-11T11:09:28Z",
+      "side": 1,
+      "message": "I think we should also mention that delay caused by retransmissions are not handled or estimated by the model.",
+      "range": {
+        "startLine": 35,
+        "startChar": 39,
+        "endLine": 35,
+        "endChar": 40
+      },
+      "revId": "74ddf9b44773cc53542fe46377f9fbe46bebe9eb",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "f44628e9_aa328c09",
+        "filename": "modules/video_coding/timing/frame_delay_delta_kalman_filter.h",
+        "patchSetId": 15
+      },
+      "lineNbr": 40,
+      "author": {
+        "id": 5527
+      },
+      "writtenOn": "2022-08-11T11:09:28Z",
+      "side": 1,
+      "message": "queuing delay delta",
+      "range": {
+        "startLine": 40,
+        "startChar": 11,
+        "endLine": 40,
+        "endChar": 24
+      },
+      "revId": "74ddf9b44773cc53542fe46377f9fbe46bebe9eb",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "1a0c14ec_b8f983bd",
+        "filename": "modules/video_coding/timing/frame_delay_delta_kalman_filter.h",
+        "patchSetId": 15
+      },
+      "lineNbr": 87,
+      "author": {
+        "id": 5527
+      },
+      "writtenOn": "2022-08-11T11:09:28Z",
+      "side": 1,
+      "message": "Again, maybe I\u0027m wrong but AFAICT theta_[1] is the rate at which the queue induced latency is changing in ms/ms",
+      "range": {
+        "startLine": 87,
+        "startChar": 60,
+        "endLine": 87,
+        "endChar": 66
+      },
+      "revId": "74ddf9b44773cc53542fe46377f9fbe46bebe9eb",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

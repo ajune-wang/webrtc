@@ -18,6 +18,24 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "e6339d1c_13f267e4",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 7
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 17854
+      },
+      "writtenOn": "2022-08-11T09:55:43Z",
+      "side": 1,
+      "message": "Thank you for the review! Made move explicit in all relevant cases I think.",
+      "parentUuid": "f8448328_812d099e",
+      "revId": "88a2f336d9f669feb8835ed11b24b0d0f14b94e2",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "30e0f929_29c1dfb6",
@@ -31,6 +49,24 @@
       "writtenOn": "2022-08-11T09:06:20Z",
       "side": 1,
       "message": "nit: std::move",
+      "revId": "88a2f336d9f669feb8835ed11b24b0d0f14b94e2",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "74361e58_79f3cf45",
+        "filename": "api/wrapping_async_dns_resolver.h",
+        "patchSetId": 7
+      },
+      "lineNbr": 71,
+      "author": {
+        "id": 17854
+      },
+      "writtenOn": "2022-08-11T09:55:43Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "30e0f929_29c1dfb6",
       "revId": "88a2f336d9f669feb8835ed11b24b0d0f14b94e2",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
@@ -52,6 +88,24 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "9c2d504e_da49ae9e",
+        "filename": "api/wrapping_async_dns_resolver.h",
+        "patchSetId": 7
+      },
+      "lineNbr": 79,
+      "author": {
+        "id": 17854
+      },
+      "writtenOn": "2022-08-11T09:55:43Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "9e426fe9_bec373d4",
+      "revId": "88a2f336d9f669feb8835ed11b24b0d0f14b94e2",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "b43376a6_2aa0da89",
@@ -69,6 +123,24 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "102de4d3_8f73c4ff",
+        "filename": "api/wrapping_async_dns_resolver.h",
+        "patchSetId": 7
+      },
+      "lineNbr": 103,
+      "author": {
+        "id": 17854
+      },
+      "writtenOn": "2022-08-11T09:55:43Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "b43376a6_2aa0da89",
+      "revId": "88a2f336d9f669feb8835ed11b24b0d0f14b94e2",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "52f2f5ee_6e23a8d3",
@@ -82,6 +154,24 @@
       "writtenOn": "2022-08-11T09:06:20Z",
       "side": 1,
       "message": "ditto (well, throughout the CL I guess)",
+      "revId": "88a2f336d9f669feb8835ed11b24b0d0f14b94e2",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "0eebf719_01042032",
+        "filename": "p2p/base/basic_async_resolver_factory.cc",
+        "patchSetId": 7
+      },
+      "lineNbr": 49,
+      "author": {
+        "id": 17854
+      },
+      "writtenOn": "2022-08-11T09:55:43Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "52f2f5ee_6e23a8d3",
       "revId": "88a2f336d9f669feb8835ed11b24b0d0f14b94e2",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }

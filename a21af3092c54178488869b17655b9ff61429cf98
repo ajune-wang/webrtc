@@ -16,6 +16,23 @@
       "message": "Tests passing locally:\n\n./out/Default/peerconnection_unittests\n...\n...\n[----------] Global test environment tear-down\n[\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d] 2307 tests from 88 test suites ran. (462371 ms total)\n[  PASSED  ] 2307 tests.",
       "revId": "a21af3092c54178488869b17655b9ff61429cf98",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "eb3da6fd_d058113d",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 18439
+      },
+      "writtenOn": "2022-08-11T14:57:51Z",
+      "side": 1,
+      "message": "Hello Harald, we are merging this fix to the LTS branches, could you review/submit it?\nThe tests are passing locally but we don\u0027t have permissions for reviewing and submitting webrtc CLs.",
+      "revId": "a21af3092c54178488869b17655b9ff61429cf98",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

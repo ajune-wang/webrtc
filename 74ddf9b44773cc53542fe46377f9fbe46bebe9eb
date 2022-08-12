@@ -115,6 +115,30 @@
     {
       "unresolved": false,
       "key": {
+        "uuid": "64ef6cd6_e481debd",
+        "filename": "modules/video_coding/timing/frame_delay_delta_kalman_filter.cc",
+        "patchSetId": 15
+      },
+      "lineNbr": 38,
+      "author": {
+        "id": 5527
+      },
+      "writtenOn": "2022-08-12T12:08:24Z",
+      "side": 1,
+      "message": "An RTP frame has two different expected arrival timestamps depending on how you see it. One is to expect it based on the RTP timestamp of the frame, the other is to expect it based it on the size of the frame.\n\nAFAICT the `frame_delay_delta` is not the equivalent of `ipdv` as the `ipdv` only look at the delta between inter packet arrival times, and `frame_delay_delta` only looks at the inter frame arrival time _relative_ to the inter frame RTP timestamp delta (that is, when this frame was expected by RTP timestamp).\n\nThis makes a difference when frames are dropped/not fully received, as the `ipdv` way of thinking about this would give a large delta, but the `frame_delay_delta` would not.",
+      "parentUuid": "c4a7c2cf_43d8294c",
+      "range": {
+        "startLine": 37,
+        "startChar": 0,
+        "endLine": 38,
+        "endChar": 34
+      },
+      "revId": "74ddf9b44773cc53542fe46377f9fbe46bebe9eb",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
         "uuid": "3d682893_259761ee",
         "filename": "modules/video_coding/timing/frame_delay_delta_kalman_filter.h",
         "patchSetId": 15

@@ -1449,7 +1449,7 @@ void ApmTest::ProcessDebugDump(const std::string& in_filename,
       // ProcessStream could have changed this for the output frame.
       frame_.num_channels = apm_->num_input_channels();
 
-      apm_->set_stream_analog_level(msg.level());
+      apm_->set_stream_analog_level(msg.stream_analog_level());
       EXPECT_NOERR(apm_->set_stream_delay_ms(msg.delay()));
       if (msg.has_keypress()) {
         apm_->set_stream_key_pressed(msg.keypress());

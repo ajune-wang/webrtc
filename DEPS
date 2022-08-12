@@ -10,7 +10,7 @@ vars = {
   # chromium waterfalls. More info at: crbug.com/570091.
   'checkout_configuration': 'default',
   'checkout_instrumented_libraries': 'checkout_linux and checkout_configuration == "default"',
-  'chromium_revision': '2edc75a4bd86061a695552cb93a8c6e0f91707d4',
+  'chromium_revision': '1a8ef93a93d529773feb0722dc92687654a4213d',
 
   # Keep the Chromium default of generating location tags.
   'generate_location_tags': True,
@@ -26,7 +26,7 @@ vars = {
 deps = {
   # TODO(kjellander): Move this to be Android-only.
   'src/base':
-    'https://chromium.googlesource.com/chromium/src/base@319b678221c5031a0364947819265f74e51a1cab',
+    'https://chromium.googlesource.com/chromium/src/base@d27b0295887c899ad84ac9816e562ed8f0063bcf',
   'src/build':
     'https://chromium.googlesource.com/chromium/src/build@36b3854b7eab55b64dd6dee681ca8ed99984d5d9',
   'src/buildtools':
@@ -37,13 +37,13 @@ deps = {
     'condition': 'checkout_android',
   },
   'src/ios': {
-    'url': 'https://chromium.googlesource.com/chromium/src/ios@e9f50739ee648b8b3d45380272c7b4b92690fa00',
+    'url': 'https://chromium.googlesource.com/chromium/src/ios@a05b99ddb009c8bd7b2b79b3d7e4626943b7217a',
     'condition': 'checkout_ios',
   },
   'src/testing':
-    'https://chromium.googlesource.com/chromium/src/testing@08ab20398487931a8b8bfa2ad9394ec78e175e2d',
+    'https://chromium.googlesource.com/chromium/src/testing@a1e87de7729e11cbfad224836669592463eae7d9',
   'src/third_party':
-    'https://chromium.googlesource.com/chromium/src/third_party@75ea04e77d2fffc52f4b8817d7856cce3d29d3b1',
+    'https://chromium.googlesource.com/chromium/src/third_party@2eb54324cd52269ca084ac532eaade9b92a40a92',
 
   'src/buildtools/linux64': {
     'packages': [
@@ -245,7 +245,7 @@ deps = {
       'packages': [
           {
               'package': 'chromium/third_party/r8',
-              'version': 'YywdNQUrAK_HHH829t_MPLvTyjmQW-dWAsB7k-8gpNkC',
+              'version': 'DZRgtLW0NflugdN9UMc7OsJqux69vI-6BxCNcTJaRTwC',
           },
       ],
       'condition': 'checkout_android',

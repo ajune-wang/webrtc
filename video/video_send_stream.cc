@@ -236,11 +236,19 @@ void VideoSendStream::UpdateActiveSimulcastLayers(
   RTC_LOG(LS_INFO) << "UpdateActiveSimulcastLayers: "
                    << active_layers_string.str();
 
+  const bool starting = !running_ && running;
   rtp_transport_queue_->PostTask(
-      SafeTask(transport_queue_safety_, [this, active_layers] {
+      SafeTask(transport_queue_safety_, [this, starting, active_layers] {
         send_stream_.UpdateActiveSimulcastLayers(active_layers);
+        if (starting)
+          thread_sync_event_.Set();
       }));
-
+  // It is expected that after VideoSendStream::Start has been called, incoming
+  // frames are not dropped in VideoStreamEncoder. To ensure this, Start has to
+  // be synchronized.
+  // TODO(tommi): ^^^ Validate if this still holds.
+  if (starting)
+    thread_sync_event_.Wait(rtc::Event::kForever);
   running_ = running;
 }
 

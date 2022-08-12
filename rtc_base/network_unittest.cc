@@ -1459,14 +1459,16 @@ TEST_F(NetworkTest, NetworkCostVpn_Default) {
   EXPECT_TRUE(IPFromString("2400:4030:1:2c00:be30:0:0:1", &ip1));
   webrtc::test::ScopedKeyValueConfig field_trials;
 
-  Network* net1 = new Network("em1", "em1", TruncateIP(ip1, 64), 64);
+  Network* net1 =
+      new Network("em1", "em1", TruncateIP(ip1, 64), 64, &field_trials);
   net1->set_type(ADAPTER_TYPE_VPN);
   net1->set_underlying_type_for_vpn(ADAPTER_TYPE_ETHERNET);
 
-  Network* net2 = new Network("em1", "em1", TruncateIP(ip1, 64), 64);
+  Network* net2 =
+      new Network("em1", "em1", TruncateIP(ip1, 64), 64, &field_trials);
   net2->set_type(ADAPTER_TYPE_ETHERNET);
 
-  EXPECT_EQ(net1->GetCost(field_trials), net2->GetCost(field_trials));
+  EXPECT_EQ(net1->GetCost(), net2->GetCost());
   delete net1;
   delete net2;
 }
@@ -1478,14 +1480,16 @@ TEST_F(NetworkTest, NetworkCostVpn_VpnMoreExpensive) {
   IPAddress ip1;
   EXPECT_TRUE(IPFromString("2400:4030:1:2c00:be30:0:0:1", &ip1));
 
-  Network* net1 = new Network("em1", "em1", TruncateIP(ip1, 64), 64);
+  Network* net1 =
+      new Network("em1", "em1", TruncateIP(ip1, 64), 64, &field_trials);
   net1->set_type(ADAPTER_TYPE_VPN);
   net1->set_underlying_type_for_vpn(ADAPTER_TYPE_ETHERNET);
 
-  Network* net2 = new Network("em1", "em1", TruncateIP(ip1, 64), 64);
+  Network* net2 =
+      new Network("em1", "em1", TruncateIP(ip1, 64), 64, &field_trials);
   net2->set_type(ADAPTER_TYPE_ETHERNET);
 
-  EXPECT_GT(net1->GetCost(field_trials), net2->GetCost(field_trials));
+  EXPECT_GT(net1->GetCost(), net2->GetCost());
   delete net1;
   delete net2;
 }
@@ -1501,10 +1505,9 @@ TEST_F(NetworkTest, GuessAdapterFromNetworkCost) {
   for (auto type : kAllAdapterTypes) {
     if (type == rtc::ADAPTER_TYPE_VPN)
       continue;
-    Network net1("em1", "em1", TruncateIP(ip1, 64), 64);
+    Network net1("em1", "em1", TruncateIP(ip1, 64), 64, &field_trials);
     net1.set_type(type);
-    auto [guess, vpn] =
-        Network::GuessAdapterFromNetworkCost(net1.GetCost(field_trials));
+    auto [guess, vpn] = Network::GuessAdapterFromNetworkCost(net1.GetCost());
     EXPECT_FALSE(vpn);
     if (type == rtc::ADAPTER_TYPE_LOOPBACK) {
       EXPECT_EQ(guess, rtc::ADAPTER_TYPE_ETHERNET);
@@ -1517,11 +1520,10 @@ TEST_F(NetworkTest, GuessAdapterFromNetworkCost) {
   for (auto type : kAllAdapterTypes) {
     if (type == rtc::ADAPTER_TYPE_VPN)
       continue;
-    Network net1("em1", "em1", TruncateIP(ip1, 64), 64);
+    Network net1("em1", "em1", TruncateIP(ip1, 64), 64, &field_trials);
     net1.set_type(rtc::ADAPTER_TYPE_VPN);
     net1.set_underlying_type_for_vpn(type);
-    auto [guess, vpn] =
-        Network::GuessAdapterFromNetworkCost(net1.GetCost(field_trials));
+    auto [guess, vpn] = Network::GuessAdapterFromNetworkCost(net1.GetCost());
     EXPECT_TRUE(vpn);
     if (type == rtc::ADAPTER_TYPE_LOOPBACK) {
       EXPECT_EQ(guess, rtc::ADAPTER_TYPE_ETHERNET);

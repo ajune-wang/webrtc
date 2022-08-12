@@ -139,6 +139,30 @@
     {
       "unresolved": false,
       "key": {
+        "uuid": "f3d872a7_cbf87d2f",
+        "filename": "modules/video_coding/timing/frame_delay_delta_kalman_filter.cc",
+        "patchSetId": 15
+      },
+      "lineNbr": 38,
+      "author": {
+        "id": 5527
+      },
+      "writtenOn": "2022-08-12T12:58:51Z",
+      "side": 1,
+      "message": "By having the RFC explained to me, I now agree that `ipdv` is the frame-equivalent of `frame_delay_delta` :D",
+      "parentUuid": "64ef6cd6_e481debd",
+      "range": {
+        "startLine": 37,
+        "startChar": 0,
+        "endLine": 38,
+        "endChar": 34
+      },
+      "revId": "74ddf9b44773cc53542fe46377f9fbe46bebe9eb",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
         "uuid": "3d682893_259761ee",
         "filename": "modules/video_coding/timing/frame_delay_delta_kalman_filter.h",
         "patchSetId": 15

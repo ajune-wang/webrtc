@@ -1,5 +1,23 @@
 {
-  "comments": [],
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "32448e30_6a1a9707",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 11
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5122
+      },
+      "writtenOn": "2022-08-12T12:37:35Z",
+      "side": 1,
+      "message": "Thanks for the comments Sam. I decided to abandon this change and split it for a more careful review.",
+      "revId": "eb761ee5caad2bdd15805b8a35371ee2caa78808",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ],
   "submitRequirementResults": [
     {
       "submitRequirement": {

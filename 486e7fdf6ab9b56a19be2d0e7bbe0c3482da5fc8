@@ -130,6 +130,30 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "753c7a1d_2dda77d0",
+        "filename": "modules/audio_processing/debug.proto",
+        "patchSetId": 9
+      },
+      "lineNbr": 38,
+      "author": {
+        "id": 5122
+      },
+      "writtenOn": "2022-08-12T12:37:35Z",
+      "side": 1,
+      "message": "Decided to rename the field. Change isolated in https://webrtc-review.googlesource.com/c/src/+/271342\n\nLet\u0027s continue the discussion in that CL.",
+      "parentUuid": "bac004ac_ecbea8ff",
+      "range": {
+        "startLine": 38,
+        "startChar": 2,
+        "endLine": 38,
+        "endChar": 12
+      },
+      "revId": "486e7fdf6ab9b56a19be2d0e7bbe0c3482da5fc8",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "005ab3e1_e35b504a",
@@ -167,6 +191,30 @@
       "side": 1,
       "message": "Exactly. This is related to the discussion in modules/audio_processing/debug.proto and the choice to delete/deprecate/rename the `level` field. Let\u0027s close that discussion first and then I\u0027ll fix this accordingly.",
       "parentUuid": "005ab3e1_e35b504a",
+      "range": {
+        "startLine": 176,
+        "startChar": 0,
+        "endLine": 179,
+        "endChar": 55
+      },
+      "revId": "486e7fdf6ab9b56a19be2d0e7bbe0c3482da5fc8",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "b1b65963_a2011e7d",
+        "filename": "modules/audio_processing/test/aec_dump_based_simulator.cc",
+        "patchSetId": 9
+      },
+      "lineNbr": 179,
+      "author": {
+        "id": 5122
+      },
+      "writtenOn": "2022-08-12T12:37:35Z",
+      "side": 1,
+      "message": "Existing field renamed in https://webrtc-review.googlesource.com/c/src/+/271342 so  that backward compatibility is not lost.",
+      "parentUuid": "a555f51a_6fcd6be9",
       "range": {
         "startLine": 176,
         "startChar": 0,

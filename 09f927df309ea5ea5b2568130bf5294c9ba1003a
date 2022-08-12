@@ -46,6 +46,30 @@
       },
       "revId": "09f927df309ea5ea5b2568130bf5294c9ba1003a",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "fc8eaf5a_509f305a",
+        "filename": "modules/audio_processing/audio_processing_impl.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 270,
+      "author": {
+        "id": 5122
+      },
+      "writtenOn": "2022-08-12T12:37:35Z",
+      "side": 1,
+      "message": "No need to go through this lengthy comment, which I\u0027m adding just for my own records. It\u0027s what I\u0027ve learned when I was checking if we could have left `last_recommended_analog_level_` uninitialized so that ASAN could spot any read before write ops (not doable BTW) and it can be useful to verify that there\u0027s no behavior change.\n\nBefore this change:\n```\nset_stream_analog_level(level)\n AgcManagerDirect::set_stream_analog_level()\n  MonoAgc::set_stream_analog_level()\n  AggregateChannelLevels();\n// AgcManagerDirect::stream_analog_level_ \u003d\u003d level\nProcessStream()\n  RecordUnprocessedCaptureStream()\n    RecordAudioProcessingState()\n  ProcessCaptureStreamLocked()\n    // Detect an analog gain change.\n    recommended_stream_analog_level_locked()\n     return AgcManagerDirect::stream_analog_level()\n    // `level` observed by `set_stream_analog_level()` is returned\n    // But `capture_.prev_analog_mic_level !\u003d -1;` with `prev_analog_mic_level`\n    // initialized to 1 makes it irrelevant which analog level is returned\n    // and a change is never detected the 1st time `ProcessCaptureStreamLocked()`\n    // gets called.\n  RecordProcessedCaptureStream()\nrecommended_stream_analog_level()\n // Returns AgcManagerDirect::stream_analog_level_\n```\n\nAfter this change:\n```\nset_stream_analog_level()\n AgcManagerDirect::set_stream_analog_level()\n  MonoAgc::set_stream_analog_level()\n  AggregateChannelLevels();\n// AgcManagerDirect::stream_analog_level_ \u003d\u003d level\n// i.e., same aas above up until here\nProcessStream()\n  RecordUnprocessedCaptureStream()\n    RecordAudioProcessingState()\n    // Detect an analog gain change.\n    // `last_recommended_analog_level_` is compared to\n    // `capture_.prev_analog_mic_level`, but due to\n    // `capture_.prev_analog_mic_level !\u003d -1;` with `prev_analog_mic_level`\n    // initialized to -1 the comparison is irrelevant and a change is never\n    // detected the 1st time `ProcessCaptureStreamLocked()` gets called.\n  ProcessCaptureStreamLocked()\n  UpdateRecommendedStreamAnalogLevelLocked()\n   last_recommended_analog_level_ \u003d AgcManagerDirect::recommended_analog_level()\n  RecordProcessedCaptureStream()\nrecommended_stream_analog_level()\n // AgcManagerDirect::recommended_analog_level_\n```",
+      "parentUuid": "b3fd1272_3ba1208f",
+      "range": {
+        "startLine": 270,
+        "startChar": 6,
+        "endLine": 270,
+        "endChar": 40
+      },
+      "revId": "09f927df309ea5ea5b2568130bf5294c9ba1003a",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

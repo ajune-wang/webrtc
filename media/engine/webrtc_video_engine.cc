@@ -2973,16 +2973,20 @@ bool WebRtcVideoChannel::WebRtcVideoReceiveStream::ReconfigureCodecs(
                           raw_payload_types, decoders);
 
   const auto& codec = recv_codecs.front();
-  if (config_.rtp.ulpfec_payload_type != codec.ulpfec.ulpfec_payload_type) {
-    config_.rtp.ulpfec_payload_type = codec.ulpfec.ulpfec_payload_type;
-    stream_->SetUlpfecPayloadType(config_.rtp.ulpfec_payload_type);
-  }
 
   bool recreate_needed = false;
 
   if (config_.rtp.red_payload_type != codec.ulpfec.red_payload_type) {
     config_.rtp.red_payload_type = codec.ulpfec.red_payload_type;
-    recreate_needed = true;
+    stream_->SetRedPayloadType(codec.ulpfec.red_payload_type);
+  }
+
+  // Cheeck and optionally set `ulpfec_payload_type` _after_ checking the
+  // `red_payload_type` due to encapsulation (see RtpVideoStreamReceiver2)
+  // for more details.
+  if (config_.rtp.ulpfec_payload_type != codec.ulpfec.ulpfec_payload_type) {
+    config_.rtp.ulpfec_payload_type = codec.ulpfec.ulpfec_payload_type;
+    stream_->SetUlpfecPayloadType(config_.rtp.ulpfec_payload_type);
   }
 
   const bool has_lntf = HasLntf(codec.codec);

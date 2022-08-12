@@ -91,6 +91,30 @@
     {
       "unresolved": false,
       "key": {
+        "uuid": "c4a7c2cf_43d8294c",
+        "filename": "modules/video_coding/timing/frame_delay_delta_kalman_filter.cc",
+        "patchSetId": 15
+      },
+      "lineNbr": 38,
+      "author": {
+        "id": 5023
+      },
+      "writtenOn": "2022-08-12T11:47:04Z",
+      "side": 1,
+      "message": "I\u0027ll change to the RFC versions.\n\nNot sure I follow your comment about the two arrival timestamps though? This class only ever get delay variations (in RFC3393 parlance), and no absolute timestamps. Sure, the delay variations are calculated using both wall clock timestamps and RTP timestamps, but this class is oblivious to that.",
+      "parentUuid": "074b70f4_e9cc2514",
+      "range": {
+        "startLine": 37,
+        "startChar": 0,
+        "endLine": 38,
+        "endChar": 34
+      },
+      "revId": "74ddf9b44773cc53542fe46377f9fbe46bebe9eb",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
         "uuid": "3d682893_259761ee",
         "filename": "modules/video_coding/timing/frame_delay_delta_kalman_filter.h",
         "patchSetId": 15

@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "385f128d_979ff8ed",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 18
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5023
+      },
+      "writtenOn": "2022-08-12T11:47:04Z",
+      "side": 1,
+      "message": "Thanks! I changed the variable naming to be more conformant with RFC3393.",
+      "revId": "1041a3d42357c4aaba44cd6b6f3510f81de4d3e9",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

@@ -2981,8 +2981,11 @@ bool WebRtcVideoChannel::WebRtcVideoReceiveStream::ReconfigureCodecs(
   bool recreate_needed = false;
 
   if (config_.rtp.red_payload_type != codec.ulpfec.red_payload_type) {
+    // RTC_DCHECK_EQ(config_.rtp.red_payload_type,
+    // codec.ulpfec.red_payload_type);
     config_.rtp.red_payload_type = codec.ulpfec.red_payload_type;
-    recreate_needed = true;
+    stream_->SetRedPayloadType(codec.ulpfec.red_payload_type);
+    // recreate_needed = true;
   }
 
   const bool has_lntf = HasLntf(codec.codec);

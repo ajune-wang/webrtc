@@ -254,6 +254,7 @@ RtpVideoStreamReceiver2::RtpVideoStreamReceiver2(
                                        config->rtp.extensions,
                                        this,
                                        clock_)),
+      red_payload_type_(config_.rtp.red_payload_type),
       packet_sink_(config->rtp.packet_sink_),
       receiving_(false),
       last_packet_log_ms_(-1),
@@ -654,7 +655,7 @@ void RtpVideoStreamReceiver2::OnRecoveredPacket(const uint8_t* rtp_packet,
   RtpPacketReceived packet;
   if (!packet.Parse(rtp_packet, rtp_packet_length))
     return;
-  if (packet.PayloadType() == config_.rtp.red_payload_type) {
+  if (packet.PayloadType() == red_payload_type_) {
     RTC_LOG(LS_WARNING) << "Discarding recovered packet with RED encapsulation";
     return;
   }
@@ -996,6 +997,18 @@ void RtpVideoStreamReceiver2::set_ulpfec_payload_type(int payload_type) {
                                    config_.rtp.extensions, this, clock_);
 }
 
+int RtpVideoStreamReceiver2::red_payload_type() const {
+  RTC_DCHECK_RUN_ON(&packet_sequence_checker_);
+  return red_payload_type_;
+}
+
+void RtpVideoStreamReceiver2::set_red_payload_type(int payload_type) {
+  RTC_DCHECK_RUN_ON(&packet_sequence_checker_);
+  RTC_DCHECK_GE(payload_type, -1);
+  RTC_DCHECK_LE(payload_type, 0x7f);
+  red_payload_type_ = payload_type;
+}
+
 absl::optional<int64_t> RtpVideoStreamReceiver2::LastReceivedPacketMs() const {
   RTC_DCHECK_RUN_ON(&packet_sequence_checker_);
   if (last_received_rtp_system_time_) {
@@ -1030,7 +1043,7 @@ void RtpVideoStreamReceiver2::ReceivePacket(const RtpPacketReceived& packet) {
     NotifyReceiverOfEmptyPacket(packet.SequenceNumber());
     return;
   }
-  if (packet.PayloadType() == config_.rtp.red_payload_type) {
+  if (packet.PayloadType() == red_payload_type_) {
     ParseAndHandleEncapsulatingHeader(packet);
     return;
   }
@@ -1053,7 +1066,7 @@ void RtpVideoStreamReceiver2::ReceivePacket(const RtpPacketReceived& packet) {
 void RtpVideoStreamReceiver2::ParseAndHandleEncapsulatingHeader(
     const RtpPacketReceived& packet) {
   RTC_DCHECK_RUN_ON(&packet_sequence_checker_);
-  RTC_DCHECK_EQ(packet.PayloadType(), config_.rtp.red_payload_type);
+  RTC_DCHECK_EQ(packet.PayloadType(), red_payload_type_);
 
   if (!ulpfec_receiver_ || packet.payload_size() == 0U)
     return;

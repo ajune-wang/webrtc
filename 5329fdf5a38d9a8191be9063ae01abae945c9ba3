@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "6f89076f_96a72a52",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5087
+      },
+      "writtenOn": "2022-08-12T07:01:39Z",
+      "side": 1,
+      "message": "It is possible that the linter complains because of wrong indentation. I will send a CL to fix that later.",
+      "revId": "5329fdf5a38d9a8191be9063ae01abae945c9ba3",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

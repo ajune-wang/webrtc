@@ -90,6 +90,30 @@ bool SortNetworks(const Network* a, const Network* b) {
   return a->key() < b->key();
 }
 
+bool SortNetworksDescendingNameOrder(const Network* a, const Network* b) {
+  // Network types will be preferred above everything else while sorting
+  // Networks.
+
+  // Networks are sorted first by type.
+  if (a->type() != b->type()) {
+    return a->type() < b->type();
+  }
+
+  IPAddress ip_a = a->GetBestIP();
+  IPAddress ip_b = b->GetBestIP();
+
+  // After type, networks are sorted by IP address precedence values
+  // from RFC 3484-bis
+  if (IPAddressPrecedence(ip_a) != IPAddressPrecedence(ip_b)) {
+    return IPAddressPrecedence(ip_a) > IPAddressPrecedence(ip_b);
+  }
+
+  // TODO(mallinath) - Add VPN and Link speed conditions while sorting.
+
+  // Networks are sorted in descending order by key.
+  return a->key() > b->key();
+}
+
 uint16_t ComputeNetworkCostByType(int type,
                                   bool is_vpn,
                                   bool use_differentiated_cellular_costs,
@@ -433,7 +457,15 @@ void NetworkManagerBase::MergeNetworkList(
       bool found = absl::c_linear_search(networks_, network.get());
       network->set_active(found);
     }
-    absl::c_sort(networks_, SortNetworks);
+    const bool descending_order_network_name =
+        field_trials_
+            ? field_trials_->IsEnabled("WebRTC-IPv6NetworkResolutionFixes")
+            : false;
+    if (descending_order_network_name) {
+      absl::c_sort(networks_, SortNetworksDescendingNameOrder);
+    } else {
+      absl::c_sort(networks_, SortNetworks);
+    }
     // Now network interfaces are sorted, we should set the preference value
     // for each of the interfaces we are planning to use.
     // Preference order of network interfaces might have changed from previous
@@ -1158,18 +1190,15 @@ webrtc::MdnsResponderInterface* Network::GetMdnsResponder() const {
   return mdns_responder_provider_->GetMdnsResponder();
 }
 
-uint16_t Network::GetCost(const webrtc::FieldTrialsView* field_trials) const {
-  return GetCost(
-      *webrtc::AlwaysValidPointer<const webrtc::FieldTrialsView,
-                                  webrtc::FieldTrialBasedConfig>(field_trials));
-}
-
-uint16_t Network::GetCost(const webrtc::FieldTrialsView& field_trials) const {
+uint16_t Network::GetCost() const {
   AdapterType type = IsVpn() ? underlying_type_for_vpn_ : type_;
   const bool use_differentiated_cellular_costs =
-      field_trials.IsEnabled("WebRTC-UseDifferentiatedCellularCosts");
+      field_trials_
+          ? field_trials_->IsEnabled("WebRTC-UseDifferentiatedCellularCosts")
+          : false;
   const bool add_network_cost_to_vpn =
-      field_trials.IsEnabled("WebRTC-AddNetworkCostToVpn");
+      field_trials_ ? field_trials_->IsEnabled("WebRTC-AddNetworkCostToVpn")
+                    : false;
   return ComputeNetworkCostByType(type, IsVpn(),
                                   use_differentiated_cellular_costs,
                                   add_network_cost_to_vpn);

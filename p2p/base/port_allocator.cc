@@ -97,6 +97,7 @@ PortAllocator::PortAllocator()
       min_port_(0),
       max_port_(0),
       max_ipv6_networks_(kDefaultMaxIPv6Networks),
+      ipv6_wifi_networks_(kDefaultIPv6WifiNetworks),
       step_delay_(kDefaultStepDelay),
       allow_tcp_listen_(true),
       candidate_filter_(CF_ALL) {

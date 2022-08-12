@@ -112,6 +112,8 @@ const uint32_t kMinimumStepDelay = 50;
 // set_max_ipv6_networks().
 constexpr int kDefaultMaxIPv6Networks = 5;
 
+constexpr int kDefaultIPv6WifiNetworks = 2;
+
 // CF = CANDIDATE FILTER
 enum : uint32_t {
   CF_NONE = 0x0,
@@ -523,6 +525,11 @@ class RTC_EXPORT PortAllocator : public sigslot::has_slots<> {
     return max_ipv6_networks_;
   }
 
+  int ipv6_wifi_networks() {
+    CheckRunOnValidThreadIfInitialized();
+    return ipv6_wifi_networks_;
+  }
+
   // Delay between different candidate gathering phases (UDP, TURN, TCP).
   // Defaults to 1 second, but PeerConnection sets it to 50ms.
   // TODO(deadbeef): Get rid of this. Its purpose is to avoid sending too many
@@ -635,6 +642,7 @@ class RTC_EXPORT PortAllocator : public sigslot::has_slots<> {
   int min_port_;
   int max_port_;
   int max_ipv6_networks_;
+  int ipv6_wifi_networks_;
   uint32_t step_delay_;
   bool allow_tcp_listen_;
   uint32_t candidate_filter_;

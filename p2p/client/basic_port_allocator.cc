@@ -163,9 +163,12 @@ BasicPortAllocator::BasicPortAllocator(
     rtc::NetworkManager* network_manager,
     rtc::PacketSocketFactory* socket_factory,
     webrtc::TurnCustomizer* customizer,
-    RelayPortFactoryInterface* relay_port_factory)
-    : network_manager_(network_manager), socket_factory_(socket_factory) {
-  Init(relay_port_factory, nullptr);
+    RelayPortFactoryInterface* relay_port_factory,
+    const webrtc::FieldTrialsView* field_trials)
+    : field_trials_(field_trials),
+      network_manager_(network_manager),
+      socket_factory_(socket_factory) {
+  Init(relay_port_factory);
   RTC_DCHECK(relay_port_factory_ != nullptr);
   RTC_DCHECK(network_manager_ != nullptr);
   RTC_CHECK(socket_factory_ != nullptr);
@@ -175,10 +178,12 @@ BasicPortAllocator::BasicPortAllocator(
 
 BasicPortAllocator::BasicPortAllocator(
     rtc::NetworkManager* network_manager,
-    std::unique_ptr<rtc::PacketSocketFactory> owned_socket_factory)
-    : network_manager_(network_manager),
+    std::unique_ptr<rtc::PacketSocketFactory> owned_socket_factory,
+    const webrtc::FieldTrialsView* field_trials)
+    : field_trials_(field_trials),
+      network_manager_(network_manager),
       socket_factory_(std::move(owned_socket_factory)) {
-  Init(nullptr, nullptr);
+  Init(nullptr);
   RTC_DCHECK(relay_port_factory_ != nullptr);
   RTC_DCHECK(network_manager_ != nullptr);
   RTC_CHECK(socket_factory_ != nullptr);
@@ -187,10 +192,12 @@ BasicPortAllocator::BasicPortAllocator(
 BasicPortAllocator::BasicPortAllocator(
     rtc::NetworkManager* network_manager,
     std::unique_ptr<rtc::PacketSocketFactory> owned_socket_factory,
-    const ServerAddresses& stun_servers)
-    : network_manager_(network_manager),
+    const ServerAddresses& stun_servers,
+    const webrtc::FieldTrialsView* field_trials)
+    : field_trials_(field_trials),
+      network_manager_(network_manager),
       socket_factory_(std::move(owned_socket_factory)) {
-  Init(nullptr, nullptr);
+  Init(nullptr);
   RTC_DCHECK(relay_port_factory_ != nullptr);
   RTC_DCHECK(network_manager_ != nullptr);
   RTC_CHECK(socket_factory_ != nullptr);
@@ -198,11 +205,15 @@ BasicPortAllocator::BasicPortAllocator(
                    webrtc::NO_PRUNE, nullptr);
 }
 
-BasicPortAllocator::BasicPortAllocator(rtc::NetworkManager* network_manager,
-                                       rtc::PacketSocketFactory* socket_factory,
-                                       const ServerAddresses& stun_servers)
-    : network_manager_(network_manager), socket_factory_(socket_factory) {
-  Init(nullptr, nullptr);
+BasicPortAllocator::BasicPortAllocator(
+    rtc::NetworkManager* network_manager,
+    rtc::PacketSocketFactory* socket_factory,
+    const ServerAddresses& stun_servers,
+    const webrtc::FieldTrialsView* field_trials)
+    : field_trials_(field_trials),
+      network_manager_(network_manager),
+      socket_factory_(socket_factory) {
+  Init(nullptr);
   RTC_DCHECK(relay_port_factory_ != nullptr);
   RTC_DCHECK(network_manager_ != nullptr);
   RTC_CHECK(socket_factory_ != nullptr);
@@ -264,7 +275,7 @@ PortAllocatorSession* BasicPortAllocator::CreateSessionInternal(
   CheckRunOnValidThreadAndInitialized();
   PortAllocatorSession* session = new BasicPortAllocatorSession(
       this, std::string(content_name), component, std::string(ice_ufrag),
-      std::string(ice_pwd));
+      std::string(ice_pwd), field_trials_.get());
   session->SignalIceRegathering.connect(this,
                                         &BasicPortAllocator::OnIceRegathering);
   return session;
@@ -278,20 +289,12 @@ void BasicPortAllocator::AddTurnServer(const RelayServerConfig& turn_server) {
                    turn_port_prune_policy(), turn_customizer());
 }
 
-void BasicPortAllocator::Init(RelayPortFactoryInterface* relay_port_factory,
-                              const webrtc::FieldTrialsView* field_trials) {
+void BasicPortAllocator::Init(RelayPortFactoryInterface* relay_port_factory) {
   if (relay_port_factory != nullptr) {
     relay_port_factory_ = relay_port_factory;
   } else {
     default_relay_port_factory_.reset(new TurnPortFactory());
     relay_port_factory_ = default_relay_port_factory_.get();
-  }
-
-  if (field_trials != nullptr) {
-    field_trials_ = field_trials;
-  } else {
-    owned_field_trials_ = std::make_unique<webrtc::FieldTrialBasedConfig>();
-    field_trials_ = owned_field_trials_.get();
   }
 }
 
@@ -301,12 +304,14 @@ BasicPortAllocatorSession::BasicPortAllocatorSession(
     absl::string_view content_name,
     int component,
     absl::string_view ice_ufrag,
-    absl::string_view ice_pwd)
+    absl::string_view ice_pwd,
+    const webrtc::FieldTrialsView* field_trials)
     : PortAllocatorSession(content_name,
                            component,
                            ice_ufrag,
                            ice_pwd,
                            allocator->flags()),
+      field_trials_(field_trials),
       allocator_(allocator),
       network_thread_(rtc::Thread::Current()),
       socket_factory_(allocator->socket_factory()),
@@ -775,13 +780,11 @@ std::vector<const rtc::Network*> BasicPortAllocatorSession::GetNetworks() {
       if (rtc::IPIsLinkLocal(network->GetBestIP())) {
         continue;
       }
-      lowest_cost = std::min<uint16_t>(
-          lowest_cost, network->GetCost(*allocator()->field_trials()));
+      lowest_cost = std::min<uint16_t>(lowest_cost, network->GetCost());
     }
     NetworkFilter costly_filter(
         [lowest_cost, this](const rtc::Network* network) {
-          return network->GetCost(*allocator()->field_trials()) >
-                 lowest_cost + rtc::kNetworkCostLow;
+          return network->GetCost() > lowest_cost + rtc::kNetworkCostLow;
         },
         "costly");
     FilterNetworks(&networks, costly_filter);
@@ -796,9 +799,16 @@ std::vector<const rtc::Network*> BasicPortAllocatorSession::GetNetworks() {
   // Alternatively, we could just focus on making our ICE pinging logic smarter
   // such that this filtering isn't necessary in the first place.
   int ipv6_networks = 0;
+  int ipv6_wifi_to_be_selected =
+      std::min(allocator_->ipv6_wifi_networks(), CountIPv6Wifi(networks));
   for (auto it = networks.begin(); it != networks.end();) {
     if ((*it)->prefix().family() == AF_INET6) {
-      if (ipv6_networks >= allocator_->max_ipv6_networks()) {
+      if ((*it)->type() == rtc::ADAPTER_TYPE_WIFI &&
+          ipv6_wifi_to_be_selected > 0) {
+        ipv6_networks++;
+        ipv6_wifi_to_be_selected--;
+      } else if (ipv6_networks >=
+                 allocator_->max_ipv6_networks() - ipv6_wifi_to_be_selected) {
         it = networks.erase(it);
         continue;
       } else {
@@ -808,6 +818,29 @@ std::vector<const rtc::Network*> BasicPortAllocatorSession::GetNetworks() {
     ++it;
   }
   return networks;
+}
+
+int BasicPortAllocatorSession::CountIPv6Wifi(
+    const std::vector<const rtc::Network*>& networks) const {
+  const webrtc::FieldTrialsView* field_trials = allocator_->field_trials();
+  const bool prefer_ipv6_wifi_networks =
+      field_trials
+          ? field_trials_->IsEnabled("WebRTC-IPv6NetworkResolutionFixes")
+          : false;
+  if (!prefer_ipv6_wifi_networks) {
+    return 0;
+  }
+
+  int ipv6_wifi_networks = 0;
+  for (auto it = networks.begin(); it != networks.end();) {
+    if ((*it)->prefix().family() == AF_INET6) {
+      if ((*it)->type() == rtc::ADAPTER_TYPE_WIFI) {
+        ipv6_wifi_networks++;
+      }
+    }
+    ++it;
+  }
+  return ipv6_wifi_networks;
 }
 
 // For each network, see if we have a sequence that covers it already.  If not,

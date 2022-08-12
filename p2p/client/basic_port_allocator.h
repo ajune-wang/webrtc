@@ -39,17 +39,21 @@ class RTC_EXPORT BasicPortAllocator : public PortAllocator {
   BasicPortAllocator(rtc::NetworkManager* network_manager,
                      rtc::PacketSocketFactory* socket_factory,
                      webrtc::TurnCustomizer* customizer = nullptr,
-                     RelayPortFactoryInterface* relay_port_factory = nullptr);
-  BasicPortAllocator(
-      rtc::NetworkManager* network_manager,
-      std::unique_ptr<rtc::PacketSocketFactory> owned_socket_factory);
+                     RelayPortFactoryInterface* relay_port_factory = nullptr,
+                     const webrtc::FieldTrialsView* field_trials = nullptr);
   BasicPortAllocator(
       rtc::NetworkManager* network_manager,
       std::unique_ptr<rtc::PacketSocketFactory> owned_socket_factory,
-      const ServerAddresses& stun_servers);
+      const webrtc::FieldTrialsView* field_trials = nullptr);
+  BasicPortAllocator(
+      rtc::NetworkManager* network_manager,
+      std::unique_ptr<rtc::PacketSocketFactory> owned_socket_factory,
+      const ServerAddresses& stun_servers,
+      const webrtc::FieldTrialsView* field_trials = nullptr);
   BasicPortAllocator(rtc::NetworkManager* network_manager,
                      rtc::PacketSocketFactory* socket_factory,
-                     const ServerAddresses& stun_servers);
+                     const ServerAddresses& stun_servers,
+                     const webrtc::FieldTrialsView* field_trials = nullptr);
   ~BasicPortAllocator() override;
 
   // Set to kDefaultNetworkIgnoreMask by default.
@@ -84,21 +88,22 @@ class RTC_EXPORT BasicPortAllocator : public PortAllocator {
 
   void SetVpnList(const std::vector<rtc::NetworkMask>& vpn_list) override;
 
-  const webrtc::FieldTrialsView* field_trials() const { return field_trials_; }
+  const webrtc::FieldTrialsView* field_trials() const {
+    return field_trials_.get();
+  }
 
  private:
   void OnIceRegathering(PortAllocatorSession* session,
                         IceRegatheringReason reason);
 
-  // This function makes sure that relay_port_factory_ and field_trials_ is set
-  // properly.
-  void Init(RelayPortFactoryInterface* relay_port_factory,
-            const webrtc::FieldTrialsView* field_trials);
+  // This function makes sure that relay_port_factory_ is set properly.
+  void Init(RelayPortFactoryInterface* relay_port_factory);
 
   bool MdnsObfuscationEnabled() const override;
 
-  const webrtc::FieldTrialsView* field_trials_;
-  std::unique_ptr<webrtc::FieldTrialsView> owned_field_trials_;
+  webrtc::AlwaysValidPointer<const webrtc::FieldTrialsView,
+                             webrtc::FieldTrialBasedConfig>
+      field_trials_;
   rtc::NetworkManager* network_manager_;
   const webrtc::AlwaysValidPointerNoDefault<rtc::PacketSocketFactory>
       socket_factory_;
@@ -126,11 +131,13 @@ enum class SessionState {
 // destroyed on the network thread.
 class RTC_EXPORT BasicPortAllocatorSession : public PortAllocatorSession {
  public:
-  BasicPortAllocatorSession(BasicPortAllocator* allocator,
-                            absl::string_view content_name,
-                            int component,
-                            absl::string_view ice_ufrag,
-                            absl::string_view ice_pwd);
+  BasicPortAllocatorSession(
+      BasicPortAllocator* allocator,
+      absl::string_view content_name,
+      int component,
+      absl::string_view ice_ufrag,
+      absl::string_view ice_pwd,
+      const webrtc::FieldTrialsView* field_trials = nullptr);
   ~BasicPortAllocatorSession() override;
 
   virtual BasicPortAllocator* allocator();
@@ -274,7 +281,11 @@ class RTC_EXPORT BasicPortAllocatorSession : public PortAllocatorSession {
   // Returns true if at least one TURN port is pruned.
   bool PruneTurnPorts(Port* newly_pairable_turn_port);
   bool PruneNewlyPairableTurnPort(PortData* newly_pairable_turn_port);
+  int CountIPv6Wifi(const std::vector<const rtc::Network*>& networks) const;
 
+  webrtc::AlwaysValidPointer<const webrtc::FieldTrialsView,
+                             webrtc::FieldTrialBasedConfig>
+      field_trials_;
   BasicPortAllocator* allocator_;
   rtc::Thread* network_thread_;
   rtc::PacketSocketFactory* socket_factory_;

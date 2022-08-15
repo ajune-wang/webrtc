@@ -26,6 +26,8 @@
 #include "api/rtc_error.h"
 #include "api/transport/field_trial_based_config.h"
 #include "api/transport/stun.h"
+#include "api/units/time_delta.h"
+#include "api/units/timestamp.h"
 #include "logging/rtc_event_log/events/rtc_event_ice_candidate_pair.h"
 #include "logging/rtc_event_log/events/rtc_event_ice_candidate_pair_config.h"
 #include "logging/rtc_event_log/ice_logger.h"
@@ -353,8 +355,11 @@ class Port : public PortInterface,
   uint16_t min_port() { return min_port_; }
   uint16_t max_port() { return max_port_; }
 
-  // Timeout shortening function to speed up unit tests.
-  void set_timeout_delay(int delay);
+  // Sets the delay before we begin checking if this port is useless.
+  void SetTimeout(webrtc::TimeDelta delay);
+  [[deprecated]] void set_timeout_delay(int delay) {
+    SetTimeout(webrtc::TimeDelta::Millis(delay));
+  }
 
   // This method will return local and remote username fragements from the
   // stun username attribute if present.
@@ -507,7 +512,7 @@ class Port : public PortInterface,
   std::string password_;
   std::vector<Candidate> candidates_ RTC_GUARDED_BY(thread_);
   AddressMap connections_;
-  int timeout_delay_;
+  webrtc::TimeDelta timeout_delay_;
   bool enable_port_packets_;
   IceRole ice_role_;
   uint64_t tiebreaker_;
@@ -521,7 +526,7 @@ class Port : public PortInterface,
   // comparing two connections.
   int16_t network_cost_;
   State state_ = State::INIT;
-  int64_t last_time_all_connections_removed_ = 0;
+  webrtc::Timestamp last_time_all_connections_are_empty_;
   MdnsNameRegistrationStatus mdns_name_registration_status_ =
       MdnsNameRegistrationStatus::kNotStarted;
 

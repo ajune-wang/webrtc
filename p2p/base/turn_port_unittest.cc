@@ -377,9 +377,12 @@ class TurnPortTest : public ::testing::Test,
   void CreateUdpPort() { CreateUdpPort(kLocalAddr2); }
 
   void CreateUdpPort(const SocketAddress& address) {
-    udp_port_ = UDPPort::Create(&main_, &socket_factory_, MakeNetwork(address),
-                                0, 0, kIceUfrag2, kIcePwd2, false,
-                                absl::nullopt, &field_trials_);
+    udp_port_ = UDPPort::Create({.base = {.thread = &main_,
+                                          .factory = &socket_factory_,
+                                          .network = MakeNetwork(address),
+                                          .field_trials = &field_trials_,
+                                          .username = kIceUfrag2,
+                                          .password = kIcePwd2}});
     // UDP port will be controlled.
     udp_port_->SetIceRole(ICEROLE_CONTROLLED);
     udp_port_->SignalPortComplete.connect(this,
@@ -653,7 +656,8 @@ class TurnPortTest : public ::testing::Test,
 
     // Increased to 10 minutes, to ensure that the TurnEntry times out before
     // the TurnPort.
-    turn_port_->set_timeout_delay(10 * 60 * 1000);
+    // TODO(danilchap_now): fix it
+    // turn_port_->set_timeout_delay(10 * 60 * 1000);
 
     ASSERT_TRUE(conn2 != NULL);
     ASSERT_TRUE_SIMULATED_WAIT(turn_create_permission_success_, kSimulatedRtt,

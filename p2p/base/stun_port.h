@@ -33,28 +33,23 @@ static const int HIGH_COST_PORT_KEEPALIVE_LIFETIME = 2 * 60 * 1000;
 // Communicates using the address on the outside of a NAT.
 class UDPPort : public Port {
  public:
-  static std::unique_ptr<UDPPort> Create(
-      rtc::Thread* thread,
-      rtc::PacketSocketFactory* factory,
-      const rtc::Network* network,
-      rtc::AsyncPacketSocket* socket,
-      absl::string_view username,
-      absl::string_view password,
-      bool emit_local_for_anyaddress,
-      absl::optional<int> stun_keepalive_interval,
-      const webrtc::FieldTrialsView* field_trials = nullptr) {
+  struct CreateUdpArgs {
+    Port::CreateArgs base;
+    rtc::AsyncPacketSocket* socket = nullptr;
+    bool emit_local_for_anyaddress = false;
+    webrtc::TimeDelta stun_keepalive_interval = webrtc::TimeDelta::Seconds(10);
+  };
+
+  static std::unique_ptr<UDPPort> Create(CreateUdpArgs args) {
     // Using `new` to access a non-public constructor.
-    auto port = absl::WrapUnique(
-        new UDPPort(thread, factory, network, socket, username, password,
-                    emit_local_for_anyaddress, field_trials));
-    port->set_stun_keepalive_delay(stun_keepalive_interval);
+    auto port = absl::WrapUnique(new UDPPort(args));
     if (!port->Init()) {
       return nullptr;
     }
     return port;
   }
 
-  static std::unique_ptr<UDPPort> Create(
+  [[deprecated]] static std::unique_ptr<UDPPort> Create(
       rtc::Thread* thread,
       rtc::PacketSocketFactory* factory,
       const rtc::Network* network,
@@ -65,15 +60,21 @@ class UDPPort : public Port {
       bool emit_local_for_anyaddress,
       absl::optional<int> stun_keepalive_interval,
       const webrtc::FieldTrialsView* field_trials = nullptr) {
-    // Using `new` to access a non-public constructor.
-    auto port = absl::WrapUnique(
-        new UDPPort(thread, factory, network, min_port, max_port, username,
-                    password, emit_local_for_anyaddress, field_trials));
-    port->set_stun_keepalive_delay(stun_keepalive_interval);
-    if (!port->Init()) {
-      return nullptr;
+    CreateUdpArgs args = {
+        .base = {.thread = thread,
+                 .factory = factory,
+                 .network = network,
+                 .field_trials = field_trials,
+                 .min_port = min_port,
+                 .max_port = max_port,
+                 .username = username,
+                 .password = password},
+        .emit_local_for_anyaddress = emit_local_for_anyaddress};
+    if (stun_keepalive_interval.has_value()) {
+      args.stun_keepalive_interval =
+          webrtc::TimeDelta::Millis(*stun_keepalive_interval);
     }
-    return port;
+    return Create(args);
   }
 
   ~UDPPort() override;
@@ -118,24 +119,7 @@ class UDPPort : public Port {
   StunRequestManager& request_manager() { return request_manager_; }
 
  protected:
-  UDPPort(rtc::Thread* thread,
-          rtc::PacketSocketFactory* factory,
-          const rtc::Network* network,
-          uint16_t min_port,
-          uint16_t max_port,
-          absl::string_view username,
-          absl::string_view password,
-          bool emit_local_for_anyaddress,
-          const webrtc::FieldTrialsView* field_trials);
-
-  UDPPort(rtc::Thread* thread,
-          rtc::PacketSocketFactory* factory,
-          const rtc::Network* network,
-          rtc::AsyncPacketSocket* socket,
-          absl::string_view username,
-          absl::string_view password,
-          bool emit_local_for_anyaddress,
-          const webrtc::FieldTrialsView* field_trials);
+  explicit UDPPort(CreateUdpArgs args);
 
   bool Init();
 

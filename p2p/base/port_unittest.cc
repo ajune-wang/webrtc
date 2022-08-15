@@ -79,6 +79,7 @@ using rtc::NATType;
 using rtc::PacketSocketFactory;
 using rtc::Socket;
 using rtc::SocketAddress;
+using ::webrtc::TimeDelta;
 
 namespace cricket {
 namespace {
@@ -136,23 +137,8 @@ bool WriteStunMessage(const StunMessage& msg, ByteBufferWriter* buf) {
 // Stub port class for testing STUN generation and processing.
 class TestPort : public Port {
  public:
-  TestPort(rtc::Thread* thread,
-           absl::string_view type,
-           rtc::PacketSocketFactory* factory,
-           const rtc::Network* network,
-           uint16_t min_port,
-           uint16_t max_port,
-           absl::string_view username_fragment,
-           absl::string_view password)
-      : Port(thread,
-             type,
-             factory,
-             network,
-             min_port,
-             max_port,
-             username_fragment,
-             password) {}
-  ~TestPort() {}
+  using Port::Port;
+  ~TestPort() override = default;
 
   // Expose GetStunMessage so that we can test it.
   using cricket::Port::GetStunMessage;
@@ -529,24 +515,38 @@ class PortTest : public ::testing::Test, public sigslot::has_slots<> {
   }
 
   // helpers for above functions
+  UDPPort::CreateUdpArgs DefaultUdpArgs() {
+    return {.base = {.thread = &main_,
+                     .factory = &socket_factory_,
+                     .field_trials = &field_trials_,
+                     .username = username_,
+                     .password = password_},
+            .emit_local_for_anyaddress = true};
+  }
+
   std::unique_ptr<UDPPort> CreateUdpPort(const SocketAddress& addr) {
-    return CreateUdpPort(addr, &socket_factory_);
+    UDPPort::CreateUdpArgs args = DefaultUdpArgs();
+    args.base.network = MakeNetwork(addr);
+    return UDPPort::Create(args);
   }
   std::unique_ptr<UDPPort> CreateUdpPort(const SocketAddress& addr,
                                          PacketSocketFactory* socket_factory) {
-    return UDPPort::Create(&main_, socket_factory, MakeNetwork(addr), 0, 0,
-                           username_, password_, true, absl::nullopt,
-                           &field_trials_);
+    UDPPort::CreateUdpArgs args = DefaultUdpArgs();
+    args.base.factory = socket_factory;
+    args.base.network = MakeNetwork(addr);
+    return UDPPort::Create(args);
   }
   std::unique_ptr<UDPPort> CreateUdpPortMultipleAddrs(
       const SocketAddress& global_addr,
       const SocketAddress& link_local_addr,
       PacketSocketFactory* socket_factory,
       const webrtc::test::ScopedKeyValueConfig& field_trials) {
-    return UDPPort::Create(
-        &main_, socket_factory,
-        MakeNetworkMultipleAddrs(global_addr, link_local_addr, &field_trials),
-        0, 0, username_, password_, true, absl::nullopt, &field_trials);
+    UDPPort::CreateUdpArgs args = DefaultUdpArgs();
+    args.base.factory = socket_factory;
+    args.base.network =
+        MakeNetworkMultipleAddrs(global_addr, link_local_addr, &field_trials);
+    args.base.field_trials = &field_trials;
+    return UDPPort::Create(args);
   }
   std::unique_ptr<TCPPort> CreateTcpPort(const SocketAddress& addr) {
     return CreateTcpPort(addr, &socket_factory_);
@@ -796,9 +796,13 @@ class PortTest : public ::testing::Test, public sigslot::has_slots<> {
   std::unique_ptr<TestPort> CreateTestPort(const rtc::SocketAddress& addr,
                                            absl::string_view username,
                                            absl::string_view password) {
-    auto port =
-        std::make_unique<TestPort>(&main_, "test", &socket_factory_,
-                                   MakeNetwork(addr), 0, 0, username, password);
+    auto port = std::make_unique<TestPort>(
+        Port::CreateArgs{.thread = &main_,
+                         .factory = &socket_factory_,
+                         .network = MakeNetwork(addr),
+                         .type = "test",
+                         .username = username,
+                         .password = password});
     port->SignalRoleConflict.connect(this, &PortTest::OnRoleConflict);
     return port;
   }
@@ -816,8 +820,13 @@ class PortTest : public ::testing::Test, public sigslot::has_slots<> {
   std::unique_ptr<TestPort> CreateTestPort(const rtc::Network* network,
                                            absl::string_view username,
                                            absl::string_view password) {
-    auto port = std::make_unique<TestPort>(&main_, "test", &socket_factory_,
-                                           network, 0, 0, username, password);
+    auto port =
+        std::make_unique<TestPort>(Port::CreateArgs{.thread = &main_,
+                                                    .factory = &socket_factory_,
+                                                    .network = network,
+                                                    .type = "test",
+                                                    .username = username,
+                                                    .password = password});
     port->SignalRoleConflict.connect(this, &PortTest::OnRoleConflict);
     return port;
   }
@@ -3498,16 +3507,17 @@ TEST_F(PortTest, TestErrorResponseMakesGoogPingFallBackToStunBinding) {
 // "keep alive until pruned."
 TEST_F(PortTest, TestPortTimeoutIfNotKeptAlive) {
   rtc::ScopedFakeClock clock;
-  int timeout_delay = 100;
-  auto port1 = CreateUdpPort(kLocalAddr1);
+  UDPPort::CreateUdpArgs create_args = DefaultUdpArgs();
+  create_args.base.network = MakeNetwork(kLocalAddr1);
+  create_args.base.timeout_delay = TimeDelta::Millis(100);
+  auto port1 = UDPPort::Create(create_args);
   ConnectToSignalDestroyed(port1.get());
-  port1->set_timeout_delay(timeout_delay);  // milliseconds
   port1->SetIceRole(cricket::ICEROLE_CONTROLLING);
   port1->SetIceTiebreaker(kTiebreaker1);
 
-  auto port2 = CreateUdpPort(kLocalAddr2);
+  create_args.base.network = MakeNetwork(kLocalAddr2);
+  auto port2 = UDPPort::Create(create_args);
   ConnectToSignalDestroyed(port2.get());
-  port2->set_timeout_delay(timeout_delay);  // milliseconds
   port2->SetIceRole(cricket::ICEROLE_CONTROLLED);
   port2->SetIceTiebreaker(kTiebreaker2);
 
@@ -3527,16 +3537,17 @@ TEST_F(PortTest, TestPortTimeoutIfNotKeptAlive) {
 // after the last set of connections are all destroyed.
 TEST_F(PortTest, TestPortTimeoutAfterNewConnectionCreatedAndDestroyed) {
   rtc::ScopedFakeClock clock;
-  int timeout_delay = 100;
-  auto port1 = CreateUdpPort(kLocalAddr1);
+  UDPPort::CreateUdpArgs create_args = DefaultUdpArgs();
+  create_args.base.network = MakeNetwork(kLocalAddr1);
+  create_args.base.timeout_delay = TimeDelta::Millis(100);
+  auto port1 = UDPPort::Create(create_args);
   ConnectToSignalDestroyed(port1.get());
-  port1->set_timeout_delay(timeout_delay);  // milliseconds
   port1->SetIceRole(cricket::ICEROLE_CONTROLLING);
   port1->SetIceTiebreaker(kTiebreaker1);
 
-  auto port2 = CreateUdpPort(kLocalAddr2);
+  create_args.base.network = MakeNetwork(kLocalAddr2);
+  auto port2 = UDPPort::Create(create_args);
   ConnectToSignalDestroyed(port2.get());
-  port2->set_timeout_delay(timeout_delay);  // milliseconds
 
   port2->SetIceRole(cricket::ICEROLE_CONTROLLED);
   port2->SetIceTiebreaker(kTiebreaker2);
@@ -3568,16 +3579,17 @@ TEST_F(PortTest, TestPortTimeoutAfterNewConnectionCreatedAndDestroyed) {
 // alive until pruned". They will time out after they are pruned.
 TEST_F(PortTest, TestPortNotTimeoutUntilPruned) {
   rtc::ScopedFakeClock clock;
-  int timeout_delay = 100;
-  auto port1 = CreateUdpPort(kLocalAddr1);
+  UDPPort::CreateUdpArgs create_args = DefaultUdpArgs();
+  create_args.base.network = MakeNetwork(kLocalAddr1);
+  create_args.base.timeout_delay = TimeDelta::Millis(100);
+  auto port1 = UDPPort::Create(create_args);
   ConnectToSignalDestroyed(port1.get());
-  port1->set_timeout_delay(timeout_delay);  // milliseconds
   port1->SetIceRole(cricket::ICEROLE_CONTROLLING);
   port1->SetIceTiebreaker(kTiebreaker1);
 
-  auto port2 = CreateUdpPort(kLocalAddr2);
+  create_args.base.network = MakeNetwork(kLocalAddr2);
+  auto port2 = UDPPort::Create(create_args);
   ConnectToSignalDestroyed(port2.get());
-  port2->set_timeout_delay(timeout_delay);  // milliseconds
   port2->SetIceRole(cricket::ICEROLE_CONTROLLED);
   port2->SetIceTiebreaker(kTiebreaker2);
   // The connection must not be destroyed before a connection is attempted.

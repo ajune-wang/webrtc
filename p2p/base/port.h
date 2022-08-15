@@ -26,6 +26,7 @@
 #include "api/rtc_error.h"
 #include "api/transport/field_trial_based_config.h"
 #include "api/transport/stun.h"
+#include "api/units/time_delta.h"
 #include "logging/rtc_event_log/events/rtc_event_ice_candidate_pair.h"
 #include "logging/rtc_event_log/events/rtc_event_ice_candidate_pair_config.h"
 #include "logging/rtc_event_log/ice_logger.h"
@@ -180,28 +181,29 @@ class Port : public PortInterface,
              public rtc::MessageHandler,
              public sigslot::has_slots<> {
  public:
+  struct CreateArgs {
+    rtc::Thread* thread = nullptr;
+    rtc::PacketSocketFactory* factory = nullptr;
+    const rtc::Network* network = nullptr;
+    const webrtc::FieldTrialsView* field_trials = nullptr;
+
+    uint16_t min_port = 0;
+    uint16_t max_port = 0;
+    absl::string_view type;
+    absl::string_view username;
+    absl::string_view password;
+
+    // The delay before we begin checking if this port is useless.
+    webrtc::TimeDelta timeout_delay =
+        webrtc::TimeDelta::Millis(cricket::STUN_TOTAL_TIMEOUT + 5000);
+  };
   // INIT: The state when a port is just created.
   // KEEP_ALIVE_UNTIL_PRUNED: A port should not be destroyed even if no
   // connection is using it.
   // PRUNED: It will be destroyed if no connection is using it for a period of
   // 30 seconds.
   enum class State { INIT, KEEP_ALIVE_UNTIL_PRUNED, PRUNED };
-  Port(rtc::Thread* thread,
-       absl::string_view type,
-       rtc::PacketSocketFactory* factory,
-       const rtc::Network* network,
-       absl::string_view username_fragment,
-       absl::string_view password,
-       const webrtc::FieldTrialsView* field_trials = nullptr);
-  Port(rtc::Thread* thread,
-       absl::string_view type,
-       rtc::PacketSocketFactory* factory,
-       const rtc::Network* network,
-       uint16_t min_port,
-       uint16_t max_port,
-       absl::string_view username_fragment,
-       absl::string_view password,
-       const webrtc::FieldTrialsView* field_trials = nullptr);
+  explicit Port(CreateArgs args);
   ~Port() override;
 
   // Note that the port type does NOT uniquely identify different subclasses of
@@ -354,7 +356,7 @@ class Port : public PortInterface,
   uint16_t max_port() { return max_port_; }
 
   // Timeout shortening function to speed up unit tests.
-  void set_timeout_delay(int delay);
+  [[deprecated]] void set_timeout_delay(int delay);
 
   // This method will return local and remote username fragements from the
   // stun username attribute if present.
@@ -397,6 +399,12 @@ class Port : public PortInterface,
 
  protected:
   enum { MSG_DESTROY_IF_DEAD = 0, MSG_FIRST_AVAILABLE };
+  [[deprecated]] Port(rtc::Thread* thread,
+                      absl::string_view type,
+                      rtc::PacketSocketFactory* factory,
+                      const rtc::Network* network,
+                      absl::string_view username_fragment,
+                      absl::string_view password);
 
   virtual void UpdateNetworkCost();
 
@@ -468,8 +476,6 @@ class Port : public PortInterface,
   const webrtc::FieldTrialsView& field_trials() const { return *field_trials_; }
 
  private:
-  void Construct();
-
   // Called internally when deleting a connection object.
   // Returns true if the connection object was removed from the `connections_`
   // list and the state updated accordingly. If the connection was not found

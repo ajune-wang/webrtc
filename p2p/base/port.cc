@@ -55,10 +55,6 @@ rtc::PacketInfoProtocolType ConvertProtocolTypeToPacketInfoProtocolType(
   }
 }
 
-// The delay before we begin checking if this port is useless. We set
-// it to a little higher than a total STUN timeout.
-const int kPortTimeoutDelay = cricket::STUN_TOTAL_TIMEOUT + 5000;
-
 }  // namespace
 
 namespace cricket {
@@ -110,62 +106,35 @@ Port::Port(rtc::Thread* thread,
            rtc::PacketSocketFactory* factory,
            const rtc::Network* network,
            absl::string_view username_fragment,
-           absl::string_view password,
-           const webrtc::FieldTrialsView* field_trials)
-    : thread_(thread),
-      factory_(factory),
-      type_(type),
-      send_retransmit_count_attribute_(false),
-      network_(network),
-      min_port_(0),
-      max_port_(0),
-      component_(ICE_CANDIDATE_COMPONENT_DEFAULT),
-      generation_(0),
-      ice_username_fragment_(username_fragment),
-      password_(password),
-      timeout_delay_(kPortTimeoutDelay),
-      enable_port_packets_(false),
-      ice_role_(ICEROLE_UNKNOWN),
-      tiebreaker_(0),
-      shared_socket_(true),
-      weak_factory_(this),
-      field_trials_(field_trials) {
-  RTC_DCHECK(factory_ != NULL);
-  Construct();
-}
+           absl::string_view password)
+    : Port({.thread = thread,
+            .factory = factory,
+            .network = network,
+            .type = type,
+            .username = username_fragment,
+            .password = password}) {}
 
-Port::Port(rtc::Thread* thread,
-           absl::string_view type,
-           rtc::PacketSocketFactory* factory,
-           const rtc::Network* network,
-           uint16_t min_port,
-           uint16_t max_port,
-           absl::string_view username_fragment,
-           absl::string_view password,
-           const webrtc::FieldTrialsView* field_trials)
-    : thread_(thread),
-      factory_(factory),
-      type_(type),
+Port::Port(CreateArgs args)
+    : thread_(args.thread),
+      factory_(args.factory),
+      type_(args.type),
       send_retransmit_count_attribute_(false),
-      network_(network),
-      min_port_(min_port),
-      max_port_(max_port),
+      network_(args.network),
+      min_port_(args.min_port),
+      max_port_(args.max_port),
       component_(ICE_CANDIDATE_COMPONENT_DEFAULT),
       generation_(0),
-      ice_username_fragment_(username_fragment),
-      password_(password),
-      timeout_delay_(kPortTimeoutDelay),
+      ice_username_fragment_(args.username),
+      password_(args.password),
+      timeout_delay_(args.timeout_delay.ms()),
       enable_port_packets_(false),
       ice_role_(ICEROLE_UNKNOWN),
       tiebreaker_(0),
       shared_socket_(false),
       weak_factory_(this),
-      field_trials_(field_trials) {
-  RTC_DCHECK(factory_ != NULL);
-  Construct();
-}
-
-void Port::Construct() {
+      field_trials_(args.field_trials) {
+  RTC_DCHECK(thread_ != nullptr);
+  RTC_DCHECK(factory_ != nullptr);
   // TODO(pthatcher): Remove this old behavior once we're sure no one
   // relies on it.  If the username_fragment and password are empty,
   // we should just create one.

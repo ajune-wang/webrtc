@@ -167,9 +167,13 @@ class StunPortTestBase : public ::testing::Test, public sigslot::has_slots<> {
     ASSERT_TRUE(socket_ != NULL);
     socket_->SignalReadPacket.connect(this, &StunPortTestBase::OnReadPacket);
     stun_port_ = cricket::UDPPort::Create(
-        rtc::Thread::Current(), socket_factory(), &network_, socket_.get(),
-        rtc::CreateRandomString(16), rtc::CreateRandomString(22), false,
-        absl::nullopt, field_trials);
+        {.base = {.thread = rtc::Thread::Current(),
+                  .factory = socket_factory(),
+                  .network = &network_,
+                  .field_trials = field_trials,
+                  .username = rtc::CreateRandomString(16),
+                  .password = rtc::CreateRandomString(22)},
+         .socket = socket_.get()});
     ASSERT_TRUE(stun_port_ != NULL);
     ServerAddresses stun_servers;
     stun_servers.insert(server_addr);

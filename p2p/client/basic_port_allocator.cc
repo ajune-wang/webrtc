@@ -1460,27 +1460,30 @@ void AllocationSequence::CreateUDPPorts() {
     return;
   }
 
+  //  B t = {{.field = 5}, .another_field = 6};
+
   // TODO(mallinath) - Remove UDPPort creating socket after shared socket
   // is enabled completely.
-  std::unique_ptr<UDPPort> port;
-  bool emit_local_candidate_for_anyaddress =
-      !IsFlagSet(PORTALLOCATOR_DISABLE_DEFAULT_LOCAL_CANDIDATE);
-  if (IsFlagSet(PORTALLOCATOR_ENABLE_SHARED_SOCKET) && udp_socket_) {
-    port = UDPPort::Create(
-        session_->network_thread(), session_->socket_factory(), network_,
-        udp_socket_.get(), session_->username(), session_->password(),
-        emit_local_candidate_for_anyaddress,
-        session_->allocator()->stun_candidate_keepalive_interval(),
-        session_->allocator()->field_trials());
-  } else {
-    port = UDPPort::Create(
-        session_->network_thread(), session_->socket_factory(), network_,
-        session_->allocator()->min_port(), session_->allocator()->max_port(),
-        session_->username(), session_->password(),
-        emit_local_candidate_for_anyaddress,
-        session_->allocator()->stun_candidate_keepalive_interval(),
-        session_->allocator()->field_trials());
+  UDPPort::CreateUdpArgs create_args = {
+      .base = {.thread = session_->network_thread(),
+               .factory = session_->socket_factory(),
+               .network = network_,
+               .field_trials = session_->allocator()->field_trials(),
+               .username = session_->username(),
+               .password = session_->password()},
+      .emit_local_for_anyaddress =
+          !IsFlagSet(PORTALLOCATOR_DISABLE_DEFAULT_LOCAL_CANDIDATE)};
+  if (absl::optional<int> keepalive =
+          session_->allocator()->stun_candidate_keepalive_interval()) {
+    create_args.stun_keepalive_interval = TimeDelta::Millis(*keepalive);
   }
+  if (IsFlagSet(PORTALLOCATOR_ENABLE_SHARED_SOCKET) && udp_socket_) {
+    create_args.socket = udp_socket_.get();
+  } else {
+    create_args.base.min_port = session_->allocator()->min_port();
+    create_args.base.max_port = session_->allocator()->max_port();
+  }
+  std::unique_ptr<UDPPort> port = UDPPort::Create(std::move(create_args));
 
   if (port) {
     // If shared socket is enabled, STUN candidate will be allocated by the

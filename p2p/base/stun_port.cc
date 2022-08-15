@@ -162,62 +162,22 @@ bool UDPPort::AddressResolver::GetResolvedAddress(
   return it->second->result().GetResolvedAddress(family, output);
 }
 
-UDPPort::UDPPort(rtc::Thread* thread,
-                 rtc::PacketSocketFactory* factory,
-                 const rtc::Network* network,
-                 rtc::AsyncPacketSocket* socket,
-                 absl::string_view username,
-                 absl::string_view password,
-                 bool emit_local_for_anyaddress,
-                 const webrtc::FieldTrialsView* field_trials)
-    : Port(thread,
-           LOCAL_PORT_TYPE,
-           factory,
-           network,
-           username,
-           password,
-           field_trials),
+UDPPort::UDPPort(CreateUdpArgs args)
+    : Port([&] {
+        args.base.type = LOCAL_PORT_TYPE;
+        return args.base;
+      }()),
       request_manager_(
-          thread,
+          args.base.thread,
           [this](const void* data, size_t size, StunRequest* request) {
             OnSendPacket(data, size, request);
           }),
-      socket_(socket),
+      socket_(args.socket),
       error_(0),
       ready_(false),
-      stun_keepalive_delay_(STUN_KEEPALIVE_INTERVAL),
+      stun_keepalive_delay_(args.stun_keepalive_interval.ms()),
       dscp_(rtc::DSCP_NO_CHANGE),
-      emit_local_for_anyaddress_(emit_local_for_anyaddress) {}
-
-UDPPort::UDPPort(rtc::Thread* thread,
-                 rtc::PacketSocketFactory* factory,
-                 const rtc::Network* network,
-                 uint16_t min_port,
-                 uint16_t max_port,
-                 absl::string_view username,
-                 absl::string_view password,
-                 bool emit_local_for_anyaddress,
-                 const webrtc::FieldTrialsView* field_trials)
-    : Port(thread,
-           LOCAL_PORT_TYPE,
-           factory,
-           network,
-           min_port,
-           max_port,
-           username,
-           password,
-           field_trials),
-      request_manager_(
-          thread,
-          [this](const void* data, size_t size, StunRequest* request) {
-            OnSendPacket(data, size, request);
-          }),
-      socket_(nullptr),
-      error_(0),
-      ready_(false),
-      stun_keepalive_delay_(STUN_KEEPALIVE_INTERVAL),
-      dscp_(rtc::DSCP_NO_CHANGE),
-      emit_local_for_anyaddress_(emit_local_for_anyaddress) {}
+      emit_local_for_anyaddress_(args.emit_local_for_anyaddress) {}
 
 bool UDPPort::Init() {
   stun_keepalive_lifetime_ = GetStunKeepaliveLifetime();
@@ -659,15 +619,14 @@ StunPort::StunPort(rtc::Thread* thread,
                    absl::string_view password,
                    const ServerAddresses& servers,
                    const webrtc::FieldTrialsView* field_trials)
-    : UDPPort(thread,
-              factory,
-              network,
-              min_port,
-              max_port,
-              username,
-              password,
-              false,
-              field_trials) {
+    : UDPPort({.base = {.thread = thread,
+                        .factory = factory,
+                        .network = network,
+                        .field_trials = field_trials,
+                        .min_port = min_port,
+                        .max_port = max_port,
+                        .username = username,
+                        .password = password}}) {
   // UDPPort will set these to local udp, updating these to STUN.
   set_type(STUN_PORT_TYPE);
   set_server_addresses(servers);

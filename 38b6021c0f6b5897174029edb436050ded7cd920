@@ -20,6 +20,24 @@
     {
       "unresolved": false,
       "key": {
+        "uuid": "f81908b0_72440770",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 7
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5023
+      },
+      "writtenOn": "2022-08-15T14:50:38Z",
+      "side": 1,
+      "message": "Thanks!",
+      "parentUuid": "b501752c_940c426f",
+      "revId": "38b6021c0f6b5897174029edb436050ded7cd920",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
         "uuid": "24f43037_a04c1f30",
         "filename": "modules/video_coding/timing/frame_delay_delta_kalman_filter.cc",
         "patchSetId": 7
@@ -31,6 +49,30 @@
       "writtenOn": "2022-08-15T13:44:14Z",
       "side": 1,
       "message": "I suspect this is here to prevent division by 0 on line 76. It should probably be a DCHECK though, but maybe weird unexaplainable things were happening in prod and this was added here to avoid craches.\n\nJust me guessing wildly though...",
+      "range": {
+        "startLine": 71,
+        "startChar": 6,
+        "endLine": 71,
+        "endChar": 20
+      },
+      "revId": "38b6021c0f6b5897174029edb436050ded7cd920",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "c5c43681_4f6f2066",
+        "filename": "modules/video_coding/timing/frame_delay_delta_kalman_filter.cc",
+        "patchSetId": 7
+      },
+      "lineNbr": 71,
+      "author": {
+        "id": 5023
+      },
+      "writtenOn": "2022-08-15T14:50:38Z",
+      "side": 1,
+      "message": "Yeah, that makes sense. I would have probably put it at the top though...\n\nI think I\u0027ll follow up with a functional change, where I move it to the top. The difference should be extremely marginal though.",
+      "parentUuid": "24f43037_a04c1f30",
       "range": {
         "startLine": 71,
         "startChar": 6,

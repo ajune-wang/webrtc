@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "ce1b62b5_f1c75666",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 7
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 19549
+      },
+      "writtenOn": "2022-08-15T19:13:54Z",
+      "side": 1,
+      "message": "fiddle: https://jsfiddle.net/fippo/r8nbmfp0/\ncrashes RTCDtlsTransport::ChangeState and RTCDtlsTransport::OnStateChange\nwith DCHECKs but that seems unrelated to this change",
+      "revId": "49e910902515d58772c8f8c3fbef63ae0bfed537",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

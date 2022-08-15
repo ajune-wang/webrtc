@@ -651,9 +651,8 @@ class TurnPortTest : public ::testing::Test,
     Connection* conn2 = turn_port_->CreateConnection(udp_port_->Candidates()[0],
                                                      Port::ORIGIN_MESSAGE);
 
-    // Increased to 10 minutes, to ensure that the TurnEntry times out before
-    // the TurnPort.
-    turn_port_->set_timeout_delay(10 * 60 * 1000);
+    // Ensure that the TurnEntry times out before the TurnPort.
+    turn_port_->SetTimeout(webrtc::TimeDelta::PlusInfinity());
 
     ASSERT_TRUE(conn2 != NULL);
     ASSERT_TRUE_SIMULATED_WAIT(turn_create_permission_success_, kSimulatedRtt,

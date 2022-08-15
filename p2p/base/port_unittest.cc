@@ -67,6 +67,9 @@
 #include "test/gtest.h"
 #include "test/scoped_key_value_config.h"
 
+namespace cricket {
+namespace {
+
 using rtc::AsyncListenSocket;
 using rtc::AsyncPacketSocket;
 using rtc::ByteBufferReader;
@@ -79,9 +82,7 @@ using rtc::NATType;
 using rtc::PacketSocketFactory;
 using rtc::Socket;
 using rtc::SocketAddress;
-
-namespace cricket {
-namespace {
+using ::webrtc::TimeDelta;
 
 constexpr int kDefaultTimeout = 3000;
 constexpr int kShortTimeout = 1000;
@@ -3498,16 +3499,15 @@ TEST_F(PortTest, TestErrorResponseMakesGoogPingFallBackToStunBinding) {
 // "keep alive until pruned."
 TEST_F(PortTest, TestPortTimeoutIfNotKeptAlive) {
   rtc::ScopedFakeClock clock;
-  int timeout_delay = 100;
   auto port1 = CreateUdpPort(kLocalAddr1);
   ConnectToSignalDestroyed(port1.get());
-  port1->set_timeout_delay(timeout_delay);  // milliseconds
+  port1->SetTimeout(TimeDelta::Millis(100));
   port1->SetIceRole(cricket::ICEROLE_CONTROLLING);
   port1->SetIceTiebreaker(kTiebreaker1);
 
   auto port2 = CreateUdpPort(kLocalAddr2);
   ConnectToSignalDestroyed(port2.get());
-  port2->set_timeout_delay(timeout_delay);  // milliseconds
+  port2->SetTimeout(TimeDelta::Millis(100));
   port2->SetIceRole(cricket::ICEROLE_CONTROLLED);
   port2->SetIceTiebreaker(kTiebreaker2);
 
@@ -3527,16 +3527,15 @@ TEST_F(PortTest, TestPortTimeoutIfNotKeptAlive) {
 // after the last set of connections are all destroyed.
 TEST_F(PortTest, TestPortTimeoutAfterNewConnectionCreatedAndDestroyed) {
   rtc::ScopedFakeClock clock;
-  int timeout_delay = 100;
   auto port1 = CreateUdpPort(kLocalAddr1);
   ConnectToSignalDestroyed(port1.get());
-  port1->set_timeout_delay(timeout_delay);  // milliseconds
+  port1->SetTimeout(TimeDelta::Millis(100));
   port1->SetIceRole(cricket::ICEROLE_CONTROLLING);
   port1->SetIceTiebreaker(kTiebreaker1);
 
   auto port2 = CreateUdpPort(kLocalAddr2);
   ConnectToSignalDestroyed(port2.get());
-  port2->set_timeout_delay(timeout_delay);  // milliseconds
+  port2->SetTimeout(TimeDelta::Millis(100));
 
   port2->SetIceRole(cricket::ICEROLE_CONTROLLED);
   port2->SetIceTiebreaker(kTiebreaker2);
@@ -3568,16 +3567,15 @@ TEST_F(PortTest, TestPortTimeoutAfterNewConnectionCreatedAndDestroyed) {
 // alive until pruned". They will time out after they are pruned.
 TEST_F(PortTest, TestPortNotTimeoutUntilPruned) {
   rtc::ScopedFakeClock clock;
-  int timeout_delay = 100;
   auto port1 = CreateUdpPort(kLocalAddr1);
   ConnectToSignalDestroyed(port1.get());
-  port1->set_timeout_delay(timeout_delay);  // milliseconds
+  port1->SetTimeout(TimeDelta::Millis(100));
   port1->SetIceRole(cricket::ICEROLE_CONTROLLING);
   port1->SetIceTiebreaker(kTiebreaker1);
 
   auto port2 = CreateUdpPort(kLocalAddr2);
   ConnectToSignalDestroyed(port2.get());
-  port2->set_timeout_delay(timeout_delay);  // milliseconds
+  port2->SetTimeout(TimeDelta::Millis(100));
   port2->SetIceRole(cricket::ICEROLE_CONTROLLED);
   port2->SetIceTiebreaker(kTiebreaker2);
   // The connection must not be destroyed before a connection is attempted.

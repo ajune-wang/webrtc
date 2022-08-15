@@ -1,0 +1,73 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "623de89b_4fac7f86",
+        "filename": "video/video_receive_stream2.cc",
+        "patchSetId": 9
+      },
+      "lineNbr": 576,
+      "author": {
+        "id": 5023
+      },
+      "writtenOn": "2022-08-15T13:21:44Z",
+      "side": 1,
+      "message": "Was that the case before this change as well? I\u0027m not an expert on SDP, but I believe it could be valid to change RTX SSRC mid-stream?",
+      "range": {
+        "startLine": 575,
+        "startChar": 66,
+        "endLine": 576,
+        "endChar": 43
+      },
+      "revId": "1cdce4d2cf298ad664f9db757e91cb578fc05053",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "f0ec4617_bc7e7cb0",
+        "filename": "video/video_receive_stream2.cc",
+        "patchSetId": 9
+      },
+      "lineNbr": 578,
+      "author": {
+        "id": 5023
+      },
+      "writtenOn": "2022-08-15T13:21:44Z",
+      "side": 1,
+      "message": "rtx_receive_stream_",
+      "range": {
+        "startLine": 578,
+        "startChar": 51,
+        "endLine": 578,
+        "endChar": 64
+      },
+      "revId": "1cdce4d2cf298ad664f9db757e91cb578fc05053",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "b7ad1d2c_e65effab",
+        "filename": "video/video_receive_stream2.cc",
+        "patchSetId": 9
+      },
+      "lineNbr": 582,
+      "author": {
+        "id": 5023
+      },
+      "writtenOn": "2022-08-15T13:21:44Z",
+      "side": 1,
+      "message": "Is this approach preferable, compared to checking if rtx_receive_stream_ !\u003d nullptr?\n\nIf it is preferable, maybe we should RTC_CHECK on the pointer below, to defend against future changes where the construction of the object changes, but not this member function?",
+      "range": {
+        "startLine": 581,
+        "startChar": 1,
+        "endLine": 582,
+        "endChar": 11
+      },
+      "revId": "1cdce4d2cf298ad664f9db757e91cb578fc05053",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

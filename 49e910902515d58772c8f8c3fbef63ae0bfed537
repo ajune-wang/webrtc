@@ -16,6 +16,40 @@
       "message": "fiddle: https://jsfiddle.net/fippo/r8nbmfp0/\ncrashes RTCDtlsTransport::ChangeState and RTCDtlsTransport::OnStateChange\nwith DCHECKs but that seems unrelated to this change",
       "revId": "49e910902515d58772c8f8c3fbef63ae0bfed537",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "33527fad_9c8721e3",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 7
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2022-08-15T21:38:05Z",
+      "side": 1,
+      "message": "Looks good, and consistent with JSEP according to my reading.\n(thought I\u0027d done something like that before, but that may have been only on initial offers)\n\nOne nit only.",
+      "revId": "49e910902515d58772c8f8c3fbef63ae0bfed537",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "eaf96a7b_e12b3b85",
+        "filename": "p2p/base/dtls_transport_internal.h",
+        "patchSetId": 7
+      },
+      "lineNbr": 93,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2022-08-15T21:38:05Z",
+      "side": 1,
+      "message": "SetRemoteFingerprint is now called only from SetRemoteParameters. Suggest making it private.",
+      "revId": "49e910902515d58772c8f8c3fbef63ae0bfed537",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

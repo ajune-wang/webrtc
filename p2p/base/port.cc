@@ -37,7 +37,13 @@
 #include "rtc_base/third_party/base64/base64.h"
 #include "rtc_base/trace_event.h"
 
+namespace cricket {
 namespace {
+
+using ::webrtc::RTCError;
+using ::webrtc::RTCErrorType;
+using ::webrtc::TimeDelta;
+using ::webrtc::Timestamp;
 
 rtc::PacketInfoProtocolType ConvertProtocolTypeToPacketInfoProtocolType(
     cricket::ProtocolType type) {
@@ -57,14 +63,14 @@ rtc::PacketInfoProtocolType ConvertProtocolTypeToPacketInfoProtocolType(
 
 // The delay before we begin checking if this port is useless. We set
 // it to a little higher than a total STUN timeout.
-const int kPortTimeoutDelay = cricket::STUN_TOTAL_TIMEOUT + 5000;
+constexpr TimeDelta kPortTimeoutDelay =
+    TimeDelta::Millis(cricket::STUN_TOTAL_TIMEOUT + 5000);
+
+Timestamp Now() {
+  return Timestamp::Millis(rtc::TimeMillis());
+}
 
 }  // namespace
-
-namespace cricket {
-
-using webrtc::RTCError;
-using webrtc::RTCErrorType;
 
 // TODO(ronghuawu): Use "local", "srflx", "prflx" and "relay". But this requires
 // the signaling part be updated correspondingly as well.
@@ -177,8 +183,10 @@ void Port::Construct() {
   network_->SignalTypeChanged.connect(this, &Port::OnNetworkTypeChanged);
   network_cost_ = network_->GetCost(field_trials());
 
-  thread_->PostDelayed(RTC_FROM_HERE, timeout_delay_, this,
-                       MSG_DESTROY_IF_DEAD);
+  if (timeout_delay_.IsFinite()) {
+    thread_->PostDelayed(RTC_FROM_HERE, timeout_delay_.ms(), this,
+                         MSG_DESTROY_IF_DEAD);
+  }
   RTC_LOG(LS_INFO) << ToString() << ": Port created with network cost "
                    << network_cost_;
 }
@@ -615,8 +623,9 @@ void Port::DestroyAllConnections() {
   connections_.clear();
 }
 
-void Port::set_timeout_delay(int delay) {
+void Port::SetTimeout(TimeDelta delay) {
   RTC_DCHECK_RUN_ON(thread_);
+  RTC_DCHECK_GE(delay, TimeDelta::Zero());
   // Although this method is meant to only be used by tests, some downstream
   // projects have started using it. Ideally we should update our tests to not
   // require to modify this state and instead use a testing harness that allows
@@ -835,10 +844,9 @@ void Port::CancelPendingTasks() {
 void Port::OnMessage(rtc::Message* pmsg) {
   RTC_DCHECK_RUN_ON(thread_);
   RTC_DCHECK(pmsg->message_id == MSG_DESTROY_IF_DEAD);
-  bool dead =
-      (state_ == State::INIT || state_ == State::PRUNED) &&
-      connections_.empty() &&
-      rtc::TimeMillis() - last_time_all_connections_removed_ >= timeout_delay_;
+  bool dead = (state_ == State::INIT || state_ == State::PRUNED) &&
+              connections_.empty() &&
+              Now() - last_time_all_connections_removed_ > timeout_delay_;
   if (dead) {
     Destroy();
   }
@@ -907,9 +915,11 @@ bool Port::OnConnectionDestroyed(Connection* conn) {
   // fails and is removed before kPortTimeoutDelay, then this message will
   // not cause the Port to be destroyed.
   if (connections_.empty()) {
-    last_time_all_connections_removed_ = rtc::TimeMillis();
-    thread_->PostDelayed(RTC_FROM_HERE, timeout_delay_, this,
-                         MSG_DESTROY_IF_DEAD);
+    last_time_all_connections_removed_ = Now();
+    if (timeout_delay_.IsFinite()) {
+      thread_->PostDelayed(RTC_FROM_HERE, timeout_delay_.ms(), this,
+                           MSG_DESTROY_IF_DEAD);
+    }
   }
 
   return true;

@@ -50,6 +50,23 @@
       "message": "Hi Harald, could you also submit it? We don\u0027t have permissions to do that",
       "revId": "4292ad153ba6576fa57edfa8ffa3639db9745545",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "f06b072c_5aba79d5",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2022-08-15T13:39:45Z",
+      "side": 1,
+      "message": "Does M96 merge require No-Try?\n",
+      "revId": "4292ad153ba6576fa57edfa8ffa3639db9745545",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

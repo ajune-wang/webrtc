@@ -653,7 +653,7 @@ class TurnPortTest : public ::testing::Test,
 
     // Increased to 10 minutes, to ensure that the TurnEntry times out before
     // the TurnPort.
-    turn_port_->set_timeout_delay(10 * 60 * 1000);
+    turn_port_->SetTimeout(webrtc::TimeDelta::Minutes(10));
 
     ASSERT_TRUE(conn2 != NULL);
     ASSERT_TRUE_SIMULATED_WAIT(turn_create_permission_success_, kSimulatedRtt,

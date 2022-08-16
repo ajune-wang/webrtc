@@ -95,6 +95,30 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "222b38fe_ec4c47f7",
+        "filename": "video/video_receive_stream2.cc",
+        "patchSetId": 9
+      },
+      "lineNbr": 578,
+      "author": {
+        "id": 5023
+      },
+      "writtenOn": "2022-08-16T08:51:21Z",
+      "side": 1,
+      "message": "Yeah, it makes sense to me now.",
+      "parentUuid": "1bbdab8c_c9c42e8f",
+      "range": {
+        "startLine": 578,
+        "startChar": 51,
+        "endLine": 578,
+        "endChar": 64
+      },
+      "revId": "1cdce4d2cf298ad664f9db757e91cb578fc05053",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "b7ad1d2c_e65effab",
@@ -132,6 +156,30 @@
       "side": 1,
       "message": "It\u0027s the same logic as is used on the constructor so my preference is to apply the same check/logic.\n\nThe way I reasoned about it is that checking the pointer avoids dereferencing nullptr if there\u0027s a bug in the logic but we won\u0027t know about it and it could leave the door open to subtle regressions. So I\u0027d rather make sure that the logic is correct and consistent and if it doesn\u0027t hold, we crash (null deref, so I don\u0027t think we need an additional RTC_CHECK).",
       "parentUuid": "b7ad1d2c_e65effab",
+      "range": {
+        "startLine": 581,
+        "startChar": 1,
+        "endLine": 582,
+        "endChar": 11
+      },
+      "revId": "1cdce4d2cf298ad664f9db757e91cb578fc05053",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "b8b0f015_aec8bbd2",
+        "filename": "video/video_receive_stream2.cc",
+        "patchSetId": 9
+      },
+      "lineNbr": 582,
+      "author": {
+        "id": 5023
+      },
+      "writtenOn": "2022-08-16T08:51:21Z",
+      "side": 1,
+      "message": "Sounds good. Thanks for explaining!",
+      "parentUuid": "adcf22d9_cb717dbe",
       "range": {
         "startLine": 581,
         "startChar": 1,

@@ -11,13 +11,14 @@
 #include "modules/video_coding/timing/jitter_estimator.h"
 
 #include <math.h>
-#include <string.h>
 
 #include <algorithm>
 #include <cstdint>
+#include <string>
 
 #include "absl/types/optional.h"
 #include "api/field_trials_view.h"
+#include "api/numerics/samples_stats_counter.h"
 #include "api/units/data_size.h"
 #include "api/units/frequency.h"
 #include "api/units/time_delta.h"
@@ -52,10 +53,19 @@ JitterEstimator::JitterEstimator(Clock* clock,
     : fps_counter_(30),  // TODO(sprang): Use an estimator with limit based on
                          // time, rather than number of samples.
       clock_(clock) {
+  if (field_trials.IsEnabled("WebRTC-JitterEstimator-StateTracking")) {
+    state_tracking_ = std::make_unique<StateTrackingForDevelopment>();
+  }
   Reset();
 }
 
-JitterEstimator::~JitterEstimator() = default;
+JitterEstimator::~JitterEstimator() {
+#if WEBRTC_ENABLE_PROTOBUF
+  if (state_tracking_) {
+    SaveStateTrackingAsTimeSeriesProto();
+  }
+#endif
+}
 
 // Resets the JitterEstimate.
 void JitterEstimator::Reset() {
@@ -86,6 +96,10 @@ void JitterEstimator::UpdateEstimate(TimeDelta frame_delay,
                                      DataSize frame_size) {
   if (frame_size.IsZero()) {
     return;
+  }
+  if (state_tracking_) {
+    state_tracking_->frame_delay_variation_ms.AddSample(frame_delay.ms());
+    state_tracking_->frame_size_variation_bytes.AddSample(frame_size.bytes());
   }
   // Can't use DataSize since this can be negative.
   double delta_frame_bytes =
@@ -311,4 +325,34 @@ Frequency JitterEstimator::GetFrameRate() const {
   RTC_DCHECK_GE(fps, Frequency::Zero());
   return std::min(fps, kMaxFramerateEstimate);
 }
+
+#if WEBRTC_ENABLE_PROTOBUF
+
+void JitterEstimator::SaveStateTrackingAsTimeSeriesProto() {
+  proto::TimeSeriesSet timeseries_set;
+  AddSamplesStatsCounter(state_tracking_->frame_delay_variation_ms,
+                         "frame_delay_variation", "ms",
+                         timeseries_set.add_timeseries());
+  AddSamplesStatsCounter(state_tracking_->frame_size_variation_bytes,
+                         "frame_size_variation", "bytes",
+                         timeseries_set.add_timeseries());
+  AddSamplesStatsCounter(state_tracking_->jitter_estimate_ms, "jitter_estimate",
+                         "ms", timeseries_set.add_timeseries());
+}
+
+void JitterEstimator::AddSamplesStatsCounter(const SamplesStatsCounter& counter,
+                                             absl::string_view name,
+                                             absl::string_view unit,
+                                             proto::TimeSeries* timeseries) {
+  *timeseries->mutable_name() = std::string(name);
+  *timeseries->mutable_unit() = std::string(unit);
+  const auto timed_samples = counter.GetTimedSamples();
+  for (const auto& sample : timed_samples) {
+    timeseries->add_timestamps_us(sample.time.us());
+    timeseries->add_values(sample.value);
+  }
+}
+
+#endif  // WEBRTC_ENABLE_PROTOBUF
+
 }  // namespace webrtc

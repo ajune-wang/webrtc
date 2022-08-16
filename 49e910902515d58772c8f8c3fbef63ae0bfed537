@@ -50,6 +50,24 @@
       "message": "SetRemoteFingerprint is now called only from SetRemoteParameters. Suggest making it private.",
       "revId": "49e910902515d58772c8f8c3fbef63ae0bfed537",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "098436b2_7c67a23d",
+        "filename": "p2p/base/dtls_transport_internal.h",
+        "patchSetId": 7
+      },
+      "lineNbr": 93,
+      "author": {
+        "id": 19549
+      },
+      "writtenOn": "2022-08-16T07:17:49Z",
+      "side": 1,
+      "message": "Done. I also considered moving digest+digest_len to a rtc::Buffer but that turned out to be a mess so keeping it separate",
+      "parentUuid": "eaf96a7b_e12b3b85",
+      "revId": "49e910902515d58772c8f8c3fbef63ae0bfed537",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

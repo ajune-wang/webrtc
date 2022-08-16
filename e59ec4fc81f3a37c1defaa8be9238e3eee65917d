@@ -56,6 +56,30 @@
       },
       "revId": "e59ec4fc81f3a37c1defaa8be9238e3eee65917d",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "a70f8231_7aa5fefd",
+        "filename": "sdk/objc/api/video_frame_buffer/RTCNativeI420Buffer.mm",
+        "patchSetId": 2
+      },
+      "lineNbr": 111,
+      "author": {
+        "id": 9405
+      },
+      "writtenOn": "2022-08-16T23:31:43Z",
+      "side": 1,
+      "message": "GetI420() returns const I420BufferInterface*, so it can\u0027t be used with rtc::scoped_refptr, which requires mutability.\n\nInstead of downcasting I could write code like this:\n\n```\nRTC_DCHECK_EQ(scaled_buffer-\u003etype(), webrtc::VideoFrameBuffer::Type::kI420);\n// Calling ToI420() doesn\u0027t do any conversions.\nrtc::scoped_refptr\u003cwebrtc::I420BufferInterface\u003e buffer \u003d scaled_buffer-\u003eToI420();\nRTC_OBJC_TYPE(RTCI420Buffer) *result \u003d\n    [[RTC_OBJC_TYPE(RTCI420Buffer) alloc] initWithFrameBuffer:buffer];\n```\n\nWhat do you think?",
+      "parentUuid": "6632a40a_9a632b17",
+      "range": {
+        "startLine": 111,
+        "startChar": 6,
+        "endLine": 111,
+        "endChar": 70
+      },
+      "revId": "e59ec4fc81f3a37c1defaa8be9238e3eee65917d",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

@@ -16,6 +16,46 @@
       "message": "Hi, Kári. This change is a small change for optimizing the ObjC video buffer. Please take a look. Thank you.",
       "revId": "e59ec4fc81f3a37c1defaa8be9238e3eee65917d",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "1f2e6e44_5e88b55a",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5520
+      },
+      "writtenOn": "2022-08-16T20:58:48Z",
+      "side": 1,
+      "message": "Nice, thanks!",
+      "revId": "e59ec4fc81f3a37c1defaa8be9238e3eee65917d",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "6632a40a_9a632b17",
+        "filename": "sdk/objc/api/video_frame_buffer/RTCNativeI420Buffer.mm",
+        "patchSetId": 2
+      },
+      "lineNbr": 111,
+      "author": {
+        "id": 5520
+      },
+      "writtenOn": "2022-08-16T20:58:48Z",
+      "side": 1,
+      "message": "Instead of this static_cast can we use GetI420()? Something like:\n\nrtc::scoped_refptr\u003cwebrtc::I420BufferInterface\u003e buffer \u003d scaled_buffer-\u003eGetI420();",
+      "range": {
+        "startLine": 111,
+        "startChar": 6,
+        "endLine": 111,
+        "endChar": 70
+      },
+      "revId": "e59ec4fc81f3a37c1defaa8be9238e3eee65917d",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

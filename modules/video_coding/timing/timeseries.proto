@@ -1,0 +1,14 @@
+syntax = "proto3";
+
+package webrtc.proto;
+
+message TimeSeries {
+  string name = 1;
+  string unit = 2;
+  repeated int64 timestamps_us = 3;
+  repeated double values = 4;
+}
+
+message TimeSeriesSet {
+  repeated TimeSeries timeseries = 1;
+}

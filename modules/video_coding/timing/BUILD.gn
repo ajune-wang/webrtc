@@ -8,6 +8,18 @@
 
 import("../../../webrtc.gni")
 
+if (rtc_enable_protobuf) {
+  import("//third_party/protobuf/proto_library.gni")
+
+  proto_library("timeseries_proto") {
+    visibility = [ "*" ]
+    sources = [ "timeseries.proto" ]
+
+    # Is this actually needed?
+    proto_out_dir = "modules/video_coding/timing"
+  }
+}
+
 rtc_library("codec_timer") {
   sources = [
     "codec_timer.cc",
@@ -54,6 +66,7 @@ rtc_library("jitter_estimator") {
     ":frame_delay_delta_kalman_filter",
     ":rtt_filter",
     "../../../api:field_trials_view",
+    "../../../api/numerics",
     "../../../api/units:data_size",
     "../../../api/units:frequency",
     "../../../api/units:time_delta",
@@ -62,6 +75,14 @@ rtc_library("jitter_estimator") {
     "../../../rtc_base:safe_conversions",
     "../../../system_wrappers",
   ]
+  if (rtc_enable_protobuf) {
+    deps += [
+      ":timeseries_proto",
+
+      # I think the dep below pulls in protobuf?
+      "../../../rtc_base:protobuf_utils",
+    ]
+  }
   absl_deps = [ "//third_party/abseil-cpp/absl/types:optional" ]
 }
 
@@ -120,6 +141,7 @@ rtc_library("timing_unittests") {
     "../../../api/units:time_delta",
     "../../../api/units:timestamp",
     "../../../rtc_base:histogram_percentile_counter",
+    "../../../rtc_base:protobuf_utils",
     "../../../rtc_base:stringutils",
     "../../../rtc_base:timeutils",
     "../../../system_wrappers:system_wrappers",

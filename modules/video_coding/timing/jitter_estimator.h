@@ -11,14 +11,20 @@
 #ifndef MODULES_VIDEO_CODING_TIMING_JITTER_ESTIMATOR_H_
 #define MODULES_VIDEO_CODING_TIMING_JITTER_ESTIMATOR_H_
 
+#include <memory>
+
 #include "absl/types/optional.h"
 #include "api/field_trials_view.h"
+#include "api/numerics/samples_stats_counter.h"
 #include "api/units/data_size.h"
 #include "api/units/frequency.h"
 #include "api/units/time_delta.h"
 #include "api/units/timestamp.h"
 #include "modules/video_coding/timing/frame_delay_delta_kalman_filter.h"
 #include "modules/video_coding/timing/rtt_filter.h"
+#if WEBRTC_ENABLE_PROTOBUF
+#include "modules/video_coding/timing/timeseries.pb.h"
+#endif
 #include "rtc_base/rolling_accumulator.h"
 
 namespace webrtc {
@@ -67,6 +73,16 @@ class JitterEstimator {
   static constexpr TimeDelta OPERATING_SYSTEM_JITTER = TimeDelta::Millis(10);
 
  private:
+  // A struct with state tracking used in development.
+  struct StateTrackingForDevelopment {
+    // Inputs.
+    SamplesStatsCounter frame_delay_variation_ms;
+    SamplesStatsCounter frame_size_variation_bytes;
+
+    // Outputs.
+    SamplesStatsCounter jitter_estimate_ms;
+  };
+
   double var_noise_;  // Variance of the time-deviation from the line
 
   // Updates the random jitter estimate, i.e. the variance of the time
@@ -87,6 +103,14 @@ class JitterEstimator {
   void PostProcessEstimate();
 
   Frequency GetFrameRate() const;
+
+#if WEBRTC_ENABLE_PROTOBUF
+  void SaveStateTrackingAsTimeSeriesProto();
+  void AddSamplesStatsCounter(const SamplesStatsCounter& counter,
+                              absl::string_view name,
+                              absl::string_view unit,
+                              proto::TimeSeries* timeseries);
+#endif
 
   // Filters the {frame_delay_delta, frame_size_delta} measurements through
   // a linear Kalman filter.
@@ -122,6 +146,9 @@ class JitterEstimator {
   // Tracks frame rates in microseconds.
   rtc::RollingAccumulator<uint64_t> fps_counter_;
   Clock* clock_;
+
+  // State tracking for debugging.
+  std::unique_ptr<StateTrackingForDevelopment> state_tracking_ = nullptr;
 };
 
 }  // namespace webrtc

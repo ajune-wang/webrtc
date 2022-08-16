@@ -51,6 +51,24 @@
       "parentUuid": "d768d315_4e5d617d",
       "revId": "129d6b112961fa2e603459c520ddf1d35fb70e08",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "71c3ab2c_fdd3439f",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 3
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5150
+      },
+      "writtenOn": "2022-08-16T09:12:14Z",
+      "side": 1,
+      "message": "Once the CL has LGTM from both code review and owners, and there are no open comments/requests, the change author generally submits the CL. However, since you are a new contributor(?), I suspect that you might not have commit permissions yet. (I.e. no Commit-Queue +1 or +2 option in your UI.) If so, you\u0027ll need someone else (typically the reviewer) to trigger the commit queue.",
+      "parentUuid": "b7ef3055_3555c522",
+      "revId": "129d6b112961fa2e603459c520ddf1d35fb70e08",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ],
   "submitRequirementResults": [

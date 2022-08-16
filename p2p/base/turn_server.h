@@ -21,6 +21,8 @@
 
 #include "absl/strings/string_view.h"
 #include "api/sequence_checker.h"
+#include "api/task_queue/pending_task_safety_flag.h"
+#include "api/units/time_delta.h"
 #include "p2p/base/port_interface.h"
 #include "rtc_base/async_packet_socket.h"
 #include "rtc_base/socket_address.h"
@@ -67,8 +69,7 @@ class TurnServerConnection {
 // handles TURN messages (via HandleTurnMessage) and channel data messages
 // (via HandleChannelData) for this allocation when received by the server.
 // The object self-deletes and informs the server if its lifetime timer expires.
-class TurnServerAllocation : public rtc::MessageHandlerAutoCleanup,
-                             public sigslot::has_slots<> {
+class TurnServerAllocation : public sigslot::has_slots<> {
  public:
   TurnServerAllocation(TurnServer* server_,
                        rtc::Thread* thread,
@@ -91,13 +92,13 @@ class TurnServerAllocation : public rtc::MessageHandlerAutoCleanup,
   void HandleTurnMessage(const TurnMessage* msg);
   void HandleChannelData(const char* data, size_t size);
 
-  sigslot::signal1<TurnServerAllocation*> SignalDestroyed;
-
  private:
   class Channel;
   class Permission;
   typedef std::list<Permission*> PermissionList;
   typedef std::list<Channel*> ChannelList;
+
+  void PostDeleteSelf(webrtc::TimeDelta delay);
 
   void HandleAllocateRequest(const TurnMessage* msg);
   void HandleRefreshRequest(const TurnMessage* msg);
@@ -111,7 +112,7 @@ class TurnServerAllocation : public rtc::MessageHandlerAutoCleanup,
                         const rtc::SocketAddress& addr,
                         const int64_t& packet_time_us);
 
-  static int ComputeLifetime(const TurnMessage& msg);
+  static webrtc::TimeDelta ComputeLifetime(const TurnMessage& msg);
   bool HasPermission(const rtc::IPAddress& addr);
   void AddPermission(const rtc::IPAddress& addr);
   Permission* FindPermission(const rtc::IPAddress& addr) const;
@@ -127,10 +128,6 @@ class TurnServerAllocation : public rtc::MessageHandlerAutoCleanup,
                     size_t size,
                     const rtc::SocketAddress& peer);
 
-  void OnPermissionDestroyed(Permission* perm);
-  void OnChannelDestroyed(Channel* channel);
-  void OnMessage(rtc::Message* msg) override;
-
   TurnServer* const server_;
   rtc::Thread* const thread_;
   TurnServerConnection conn_;
@@ -141,6 +138,7 @@ class TurnServerAllocation : public rtc::MessageHandlerAutoCleanup,
   std::string last_nonce_;
   PermissionList perms_;
   ChannelList channels_;
+  webrtc::ScopedTaskSafety safety_;
 };
 
 // An interface through which the MD5 credential hash can be retrieved.

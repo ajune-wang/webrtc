@@ -21,12 +21,14 @@
 
 #include "absl/strings/string_view.h"
 #include "api/sequence_checker.h"
+#include "api/task_queue/pending_task_safety_flag.h"
+#include "api/task_queue/task_queue_base.h"
+#include "api/units/time_delta.h"
 #include "p2p/base/port_interface.h"
 #include "rtc_base/async_packet_socket.h"
 #include "rtc_base/socket_address.h"
 #include "rtc_base/ssl_adapter.h"
 #include "rtc_base/third_party/sigslot/sigslot.h"
-#include "rtc_base/thread.h"
 
 namespace rtc {
 class ByteBufferWriter;
@@ -67,11 +69,10 @@ class TurnServerConnection {
 // handles TURN messages (via HandleTurnMessage) and channel data messages
 // (via HandleChannelData) for this allocation when received by the server.
 // The object self-deletes and informs the server if its lifetime timer expires.
-class TurnServerAllocation : public rtc::MessageHandlerAutoCleanup,
-                             public sigslot::has_slots<> {
+class TurnServerAllocation : public sigslot::has_slots<> {
  public:
   TurnServerAllocation(TurnServer* server_,
-                       rtc::Thread* thread,
+                       webrtc::TaskQueueBase* thread,
                        const TurnServerConnection& conn,
                        rtc::AsyncPacketSocket* server_socket,
                        absl::string_view key);
@@ -91,13 +92,13 @@ class TurnServerAllocation : public rtc::MessageHandlerAutoCleanup,
   void HandleTurnMessage(const TurnMessage* msg);
   void HandleChannelData(const char* data, size_t size);
 
-  sigslot::signal1<TurnServerAllocation*> SignalDestroyed;
-
  private:
   class Channel;
   class Permission;
   typedef std::list<Permission*> PermissionList;
   typedef std::list<Channel*> ChannelList;
+
+  void PostDeleteSelf(webrtc::TimeDelta delay);
 
   void HandleAllocateRequest(const TurnMessage* msg);
   void HandleRefreshRequest(const TurnMessage* msg);
@@ -111,7 +112,7 @@ class TurnServerAllocation : public rtc::MessageHandlerAutoCleanup,
                         const rtc::SocketAddress& addr,
                         const int64_t& packet_time_us);
 
-  static int ComputeLifetime(const TurnMessage& msg);
+  static webrtc::TimeDelta ComputeLifetime(const TurnMessage& msg);
   bool HasPermission(const rtc::IPAddress& addr);
   void AddPermission(const rtc::IPAddress& addr);
   Permission* FindPermission(const rtc::IPAddress& addr) const;
@@ -127,12 +128,8 @@ class TurnServerAllocation : public rtc::MessageHandlerAutoCleanup,
                     size_t size,
                     const rtc::SocketAddress& peer);
 
-  void OnPermissionDestroyed(Permission* perm);
-  void OnChannelDestroyed(Channel* channel);
-  void OnMessage(rtc::Message* msg) override;
-
   TurnServer* const server_;
-  rtc::Thread* const thread_;
+  webrtc::TaskQueueBase* const thread_;
   TurnServerConnection conn_;
   std::unique_ptr<rtc::AsyncPacketSocket> external_socket_;
   std::string key_;
@@ -141,6 +138,7 @@ class TurnServerAllocation : public rtc::MessageHandlerAutoCleanup,
   std::string last_nonce_;
   PermissionList perms_;
   ChannelList channels_;
+  webrtc::ScopedTaskSafety safety_;
 };
 
 // An interface through which the MD5 credential hash can be retrieved.
@@ -179,7 +177,7 @@ class TurnServer : public sigslot::has_slots<> {
   typedef std::map<TurnServerConnection, std::unique_ptr<TurnServerAllocation>>
       AllocationMap;
 
-  explicit TurnServer(rtc::Thread* thread);
+  explicit TurnServer(webrtc::TaskQueueBase* thread);
   ~TurnServer() override;
 
   // Gets/sets the realm value to use for the server.
@@ -332,7 +330,7 @@ class TurnServer : public sigslot::has_slots<> {
   };
   typedef std::map<rtc::Socket*, ServerSocketInfo> ServerSocketMap;
 
-  rtc::Thread* const thread_;
+  webrtc::TaskQueueBase* const thread_;
   const std::string nonce_key_;
   std::string realm_ RTC_GUARDED_BY(thread_);
   std::string software_ RTC_GUARDED_BY(thread_);

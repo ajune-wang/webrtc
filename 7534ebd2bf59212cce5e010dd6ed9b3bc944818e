@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "c357ff2c_6aafc11d",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5150
+      },
+      "writtenOn": "2022-08-16T09:45:02Z",
+      "side": 1,
+      "message": "It looks like downstream projects have been updated, so we could try to reland this. Yaowen, would you like to look into rebasing this CL?",
+      "revId": "7534ebd2bf59212cce5e010dd6ed9b3bc944818e",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

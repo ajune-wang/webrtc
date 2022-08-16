@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "543d0fc8_2be1b2b7",
+        "filename": "video/video_send_stream.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 251,
+      "author": {
+        "id": 5524
+      },
+      "writtenOn": "2022-08-16T13:17:12Z",
+      "side": 1,
+      "message": "This matches what we do in Start() below. UpdateActiveSimulcastLayers() is used as an implicit Start() method.",
+      "range": {
+        "startLine": 251,
+        "startChar": 23,
+        "endLine": 251,
+        "endChar": 27
+      },
+      "revId": "16e5fa5227fd40ab499b2f92ac79093c5b22671b",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "84d25f70_111fef4d",
+        "filename": "video/video_stream_encoder.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 838,
+      "author": {
+        "id": 5524
+      },
+      "writtenOn": "2022-08-16T13:17:12Z",
+      "side": 1,
+      "message": "I\u0027m not super fond of this. I tried posting back to worker queue from the encoder queue, but that had a lot of issues. This does seem to work, for now...\nIf you have a better idea let me know :)",
+      "range": {
+        "startLine": 838,
+        "startChar": 8,
+        "endLine": 838,
+        "endChar": 12
+      },
+      "revId": "16e5fa5227fd40ab499b2f92ac79093c5b22671b",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

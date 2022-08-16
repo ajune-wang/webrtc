@@ -8,6 +8,15 @@
 
 import("../../../webrtc.gni")
 
+if (rtc_enable_protobuf) {
+  import("//third_party/protobuf/proto_library.gni")
+
+  proto_library("timeseries_proto") {
+    visibility = [ "*" ]
+    sources = [ "timeseries.proto" ]
+  }
+}
+
 rtc_library("codec_timer") {
   sources = [
     "codec_timer.cc",
@@ -53,12 +62,15 @@ rtc_library("jitter_estimator") {
   deps = [
     ":frame_delay_delta_kalman_filter",
     ":rtt_filter",
+    ":timeseries_proto",
     "../../../api:field_trials_view",
+    "../../../api/numerics",
     "../../../api/units:data_size",
     "../../../api/units:frequency",
     "../../../api/units:time_delta",
     "../../../api/units:timestamp",
     "../../../rtc_base",
+    "../../../rtc_base:protobuf_utils",
     "../../../rtc_base:safe_conversions",
     "../../../system_wrappers",
   ]
@@ -120,6 +132,7 @@ rtc_library("timing_unittests") {
     "../../../api/units:time_delta",
     "../../../api/units:timestamp",
     "../../../rtc_base:histogram_percentile_counter",
+    "../../../rtc_base:protobuf_utils",
     "../../../rtc_base:stringutils",
     "../../../rtc_base:timeutils",
     "../../../system_wrappers:system_wrappers",

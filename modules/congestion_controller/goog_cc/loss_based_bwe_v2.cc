@@ -324,7 +324,10 @@ absl::optional<LossBasedBweV2::Config> LossBasedBweV2::CreateConfig(
   FieldTrialParameter<bool>
       not_increase_if_inherent_loss_less_than_average_loss(
           "NotIncreaseIfInherentLossLessThanAverageLoss", false);
-
+  FieldTrialParameter<double> high_loss_rate_threshold("HighLossRateThreshold",
+                                                       1.0);
+  FieldTrialParameter<DataRate> bandwidth_cap_at_high_loss_rate(
+      "BandwidthCapAtHighLossRate", DataRate::KilobitsPerSec(500.0));
   if (key_value_config) {
     ParseFieldTrial({&enabled,
                      &bandwidth_rampup_upper_bound_factor,
@@ -356,7 +359,9 @@ absl::optional<LossBasedBweV2::Config> LossBasedBweV2::CreateConfig(
                      &max_increase_factor,
                      &delayed_increase_window,
                      &use_acked_bitrate_only_when_overusing,
-                     &not_increase_if_inherent_loss_less_than_average_loss},
+                     &not_increase_if_inherent_loss_less_than_average_loss,
+                     &high_loss_rate_threshold,
+                     &bandwidth_cap_at_high_loss_rate},
                     key_value_config->Lookup("WebRTC-Bwe-LossBasedBweV2"));
   }
 
@@ -575,8 +580,8 @@ bool LossBasedBweV2::IsConfigValid() const {
         << config_->bandwidth_backoff_lower_bound_factor;
     valid = false;
   }
-  if (config_->trendline_observations_window_size < 2) {
-    RTC_LOG(LS_WARNING) << "The trendline window size must be at least 2: "
+  if (config_->trendline_observations_window_size < 1) {
+    RTC_LOG(LS_WARNING) << "The trendline window size must be at least 1: "
                         << config_->trendline_observations_window_size;
     valid = false;
   }
@@ -588,6 +593,12 @@ bool LossBasedBweV2::IsConfigValid() const {
   if (config_->delayed_increase_window <= TimeDelta::Zero()) {
     RTC_LOG(LS_WARNING) << "The delayed increase window must be positive: "
                         << config_->delayed_increase_window.ms();
+    valid = false;
+  }
+  if (config_->high_loss_rate_threshold <= 0.0 ||
+      config_->high_loss_rate_threshold > 1.0) {
+    RTC_LOG(LS_WARNING) << "The high loss rate threshold must be in (0, 1]: "
+                        << config_->high_loss_rate_threshold;
     valid = false;
   }
   return valid;
@@ -844,6 +855,22 @@ void LossBasedBweV2::CalculateInstantUpperBound() {
                     (average_reported_loss_ratio -
                      config_->instant_upper_bound_loss_offset);
   }
+
+  if (average_reported_loss_ratio >= config_->high_loss_rate_threshold) {
+    if (2 * config_->bandwidth_cap_at_high_loss_rate *
+            average_reported_loss_ratio <=
+        config_->bandwidth_cap_at_high_loss_rate) {
+      instant_limit = config_->bandwidth_cap_at_high_loss_rate -
+                      2 * config_->bandwidth_cap_at_high_loss_rate *
+                          average_reported_loss_ratio;
+    } else {
+      // If the loss rate is over 50%, set the limit to 0kbps, means to disable
+      // video. However, the min_bitrate_configured_ in
+      // send_side_bandwidth_estimation will overwrite this value anyway.
+      instant_limit = DataRate::KilobitsPerSec(0);
+    }
+  }
+
   cached_instant_upper_bound_ = instant_limit;
 }
 

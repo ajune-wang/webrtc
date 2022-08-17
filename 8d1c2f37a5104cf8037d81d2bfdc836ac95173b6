@@ -1,0 +1,90 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "b824a8dc_4b442037",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 3
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5524
+      },
+      "writtenOn": "2022-08-17T08:28:18Z",
+      "side": 1,
+      "message": "Looks good overall, but my brain is a bit foggy atm. Let me look again after my next meeting...",
+      "revId": "8d1c2f37a5104cf8037d81d2bfdc836ac95173b6",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "0b3ec509_b1e066a8",
+        "filename": "video/video_receive_stream2.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 845,
+      "author": {
+        "id": 5524
+      },
+      "writtenOn": "2022-08-17T08:28:18Z",
+      "side": 1,
+      "message": "nit: {}",
+      "range": {
+        "startLine": 844,
+        "startChar": 0,
+        "endLine": 845,
+        "endChar": 59
+      },
+      "revId": "8d1c2f37a5104cf8037d81d2bfdc836ac95173b6",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "40d23c05_a670713f",
+        "filename": "video/video_receive_stream2.h",
+        "patchSetId": 3
+      },
+      "lineNbr": 212,
+      "author": {
+        "id": 5524
+      },
+      "writtenOn": "2022-08-17T08:28:18Z",
+      "side": 1,
+      "message": "Maybe comment on what the two keyframe booleans mean.",
+      "range": {
+        "startLine": 212,
+        "startChar": 4,
+        "endLine": 212,
+        "endChar": 33
+      },
+      "revId": "8d1c2f37a5104cf8037d81d2bfdc836ac95173b6",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "5c2c1206_1066bf0a",
+        "filename": "video/video_receive_stream2.h",
+        "patchSetId": 3
+      },
+      "lineNbr": 220,
+      "author": {
+        "id": 5524
+      },
+      "writtenOn": "2022-08-17T08:28:18Z",
+      "side": 1,
+      "message": "And these too perhaps 😊",
+      "range": {
+        "startLine": 219,
+        "startChar": 6,
+        "endLine": 220,
+        "endChar": 28
+      },
+      "revId": "8d1c2f37a5104cf8037d81d2bfdc836ac95173b6",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

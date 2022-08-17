@@ -141,6 +141,8 @@ void VCMDecodedFrameCallback::Decoded(VideoFrame& decodedImage,
   const TimeDelta decode_time = decode_time_ms
                                     ? TimeDelta::Millis(*decode_time_ms)
                                     : now - *frame_info->decode_start;
+  RTC_LOG(LS_WARNING) << "GUANRU_LOG decode_time: " << decode_time;
+
   _timing->StopDecodeTimer(decode_time, now);
   decodedImage.set_processing_time(
       {*frame_info->decode_start, *frame_info->decode_start + decode_time});

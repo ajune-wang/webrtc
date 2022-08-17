@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "ffcaddcf_609c2e7c",
+        "filename": "rtc_base/buffer.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 111,
+      "author": {
+        "id": 5087
+      },
+      "writtenOn": "2022-08-17T08:54:07Z",
+      "side": 1,
+      "message": "Since we are here, as https://source.chromium.org/chromium/chromium/src/+/main:third_party/webrtc/rtc_base/buffer_unittest.cc;l\u003d49;drc\u003dfd6a4d6e2af3dae3d57bd21ad346281e5d8f62ce shows it is possible to get into UB here as well.\n\nBy not calling memcpy, we avoid UB but I am a bit concerned about the overall API of BufferT.\n\nFor example the ctor at line 91:\n\n```\nBufferT(size_t size, size_t capacity)\n      : size_(size),\n        capacity_(std::max(size, capacity)),\n        data_(capacity_ \u003e 0 ? new T[capacity_] : nullptr) {\n    RTC_DCHECK(IsConsistent());\n}\n```\n\ncan leave data_ equal to an array of non initialized values of a certain size (so begin() and end() will allow iteration on this memory). If we don\u0027t memcpy this might be worth a CHECK (but by looking at the ctor at line 91 it seems OK to have data_\u0027s values not initialized).\n\nTommi, WDYT?",
+      "range": {
+        "startLine": 109,
+        "startChar": 4,
+        "endLine": 111,
+        "endChar": 5
+      },
+      "revId": "e700db3a6c6c84f300dda314d1dd338fa4d064b7",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "34062a40_bd2410ee",
+        "filename": "rtc_base/buffer.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 272,
+      "author": {
+        "id": 5087
+      },
+      "writtenOn": "2022-08-17T08:54:07Z",
+      "side": 1,
+      "message": "A size\u003d0 is problematic because if size_ is also 0, then no buffer allocation happens and data_ will be nullptr at line 280.",
+      "range": {
+        "startLine": 272,
+        "startChar": 17,
+        "endLine": 272,
+        "endChar": 26
+      },
+      "revId": "e700db3a6c6c84f300dda314d1dd338fa4d064b7",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

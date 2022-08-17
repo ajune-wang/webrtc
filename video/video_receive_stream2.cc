@@ -729,6 +729,7 @@ void VideoReceiveStream2::RequestKeyFrame(Timestamp now) {
 }
 
 void VideoReceiveStream2::OnCompleteFrame(std::unique_ptr<EncodedFrame> frame) {
+  RTC_LOG(LS_WARNING) << "GUANRU_LOG OnCompleteFrame";
   RTC_DCHECK_RUN_ON(&worker_sequence_checker_);
 
   const VideoPlayoutDelay& playout_delay = frame->EncodedImage().playout_delay_;

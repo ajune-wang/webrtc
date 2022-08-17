@@ -247,6 +247,7 @@ int VideoStreamBufferController::Size() {
 void VideoStreamBufferController::OnFrameReady(
     absl::InlinedVector<std::unique_ptr<EncodedFrame>, 4> frames,
     Timestamp render_time) {
+  RTC_LOG(LS_WARNING) << "GUANRU_LOG OnFrameReady";
   RTC_DCHECK_RUN_ON(&worker_sequence_checker_);
   RTC_DCHECK(!frames.empty());
 

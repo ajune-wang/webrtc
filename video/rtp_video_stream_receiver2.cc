@@ -819,6 +819,7 @@ void RtpVideoStreamReceiver2::OnInsertedPacket(
 
 void RtpVideoStreamReceiver2::OnAssembledFrame(
     std::unique_ptr<RtpFrameObject> frame) {
+  RTC_LOG(LS_WARNING) << "GUANRU_LOG OnAssembledFrame";
   RTC_DCHECK_RUN_ON(&packet_sequence_checker_);
   RTC_DCHECK(frame);
 

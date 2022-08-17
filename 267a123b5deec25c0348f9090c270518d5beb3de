@@ -18,6 +18,24 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "477046ed_6bdebb3d",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2022-08-17T08:26:08Z",
+      "side": 1,
+      "message": "almost. Still using rtc::Thread::Current()\nas I\u0027m not sure that TaskQueueBase::Current() would work in tests.\nThat just isn\u0027t a main focus of this cleanup",
+      "parentUuid": "2124a19c_e7b1d90f",
+      "revId": "267a123b5deec25c0348f9090c270518d5beb3de",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "89d21848_9ad4217e",
@@ -31,6 +49,30 @@
       "writtenOn": "2022-08-17T08:15:07Z",
       "side": 1,
       "message": "nit: they are not handled?",
+      "range": {
+        "startLine": 149,
+        "startChar": 52,
+        "endLine": 149,
+        "endChar": 68
+      },
+      "revId": "267a123b5deec25c0348f9090c270518d5beb3de",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "6afef909_c330b9e8",
+        "filename": "media/base/fake_network_interface.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 149,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2022-08-17T08:26:08Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "89d21848_9ad4217e",
       "range": {
         "startLine": 149,
         "startChar": 52,

@@ -104,6 +104,30 @@
       },
       "revId": "e59ec4fc81f3a37c1defaa8be9238e3eee65917d",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "ba9b1bc6_fef185f0",
+        "filename": "sdk/objc/api/video_frame_buffer/RTCNativeI420Buffer.mm",
+        "patchSetId": 2
+      },
+      "lineNbr": 111,
+      "author": {
+        "id": 9405
+      },
+      "writtenOn": "2022-08-17T13:06:31Z",
+      "side": 1,
+      "message": "It doesn\u0027t seems to work.\n```\nrtc::scoped_refptr\u003cconst webrtc::I420BufferInterface\u003e buffer(scaled_buffer-\u003eGetI420());\nRTC_OBJC_TYPE(RTCI420Buffer) *result \u003d [[RTC_OBJC_TYPE(RTCI420Buffer) alloc]\n    initWithFrameBuffer:buffer];\n```\n\nand I got errors like this:\n\n```\nIn file included from /path/to/webrtc/src/sdk/objc/api/video_frame_buffer/RTCNativeI420Buffer+Private.h:13:\nIn file included from ../../api/video/i420_buffer.h:18:\n../../api/scoped_refptr.h:90:46: error: cannot initialize a member subobject of type \u0027webrtc::I420BufferInterface *\u0027 with an rvalue of type \u0027const webrtc::I420BufferInterface *\u0027\n  scoped_refptr(const scoped_refptr\u003cU\u003e\u0026 r) : ptr_(r.get()) {\n                                             ^    ~~~~~~~\n/path/to/webrtc/src/sdk/objc/api/video_frame_buffer/RTCNativeI420Buffer.mm:112:27: note: in instantiation of function template specialization \u0027rtc::scoped_refptr\u003cwebrtc::I420BufferInterface\u003e::scoped_refptr\u003cconst webrtc::I420BufferInterface\u003e\u0027 requested here\n      initWithFrameBuffer:buffer];\n                          ^\n```\n\nAccording to https://source.chromium.org/search?q\u003dscoped_refptr%3Cconst%5Cs%5CS*I420Buffer%5CS*%3E all usages of rtc::scoped_refptr\u003cconst webrtc::I420BufferInterface\u003e is not passed as argument to another function.",
+      "parentUuid": "91c5dbe6_0910d3fc",
+      "range": {
+        "startLine": 111,
+        "startChar": 6,
+        "endLine": 111,
+        "endChar": 70
+      },
+      "revId": "e59ec4fc81f3a37c1defaa8be9238e3eee65917d",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

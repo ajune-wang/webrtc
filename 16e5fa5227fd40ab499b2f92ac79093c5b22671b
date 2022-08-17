@@ -1,6 +1,52 @@
 {
   "comments": [
     {
+      "unresolved": true,
+      "key": {
+        "uuid": "20df8433_ec59444e",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 4
+      },
+      "lineNbr": 9,
+      "author": {
+        "id": 5578
+      },
+      "writtenOn": "2022-08-17T13:07:08Z",
+      "side": 1,
+      "message": "video source?",
+      "range": {
+        "startLine": 9,
+        "startChar": 47,
+        "endLine": 9,
+        "endChar": 51
+      },
+      "revId": "16e5fa5227fd40ab499b2f92ac79093c5b22671b",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "07bb305f_9a7fb741",
+        "filename": "video/video_send_stream.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 250,
+      "author": {
+        "id": 5578
+      },
+      "writtenOn": "2022-08-17T13:07:08Z",
+      "side": 1,
+      "message": "isnt this still a race since send_stream_.UpdateActiveSimulcastLayers enables/disables rtp modules depending on the active layers? \n\nIt would be good if rtp_transport_queue_ is the the worker queue. \nWhich it might actually be now? \n\nhttps://source.chromium.org/chromium/chromium/src/+/main:third_party/webrtc/video/video_send_stream.cc;drc\u003d03f8b8a241a36fbec22d9eaba8a7d5552ccdb78a;l\u003d152\n\nIs so, you can remove this post task all together and the ones below.",
+      "range": {
+        "startLine": 250,
+        "startChar": 6,
+        "endLine": 250,
+        "endChar": 14
+      },
+      "revId": "16e5fa5227fd40ab499b2f92ac79093c5b22671b",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": false,
       "key": {
         "uuid": "543d0fc8_2be1b2b7",
@@ -37,6 +83,30 @@
       "writtenOn": "2022-08-16T13:17:12Z",
       "side": 1,
       "message": "I\u0027m not super fond of this. I tried posting back to worker queue from the encoder queue, but that had a lot of issues. This does seem to work, for now...\nIf you have a better idea let me know :)",
+      "range": {
+        "startLine": 838,
+        "startChar": 8,
+        "endLine": 838,
+        "endChar": 12
+      },
+      "revId": "16e5fa5227fd40ab499b2f92ac79093c5b22671b",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "46f2c897_eeae67ad",
+        "filename": "video/video_stream_encoder.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 838,
+      "author": {
+        "id": 5578
+      },
+      "writtenOn": "2022-08-17T13:07:08Z",
+      "side": 1,
+      "message": "Well, if you are switching source, and are in the middle of encoding an HD frame, this will delay the worker thread for a bit of time which I guess is not that great.  \n\nIt looks like that is already happening in VideoStreamEncoder::GetAdaptationResources in tests. \n\nI have not understood why the degradation preference matter for the first frame? Can they somehow disable encoding video all together? Next encoded frame will have the correct degradation preference.\n\nIf you really have to wait, I would talk to tommi@ about this and see if he has a better alternative.",
+      "parentUuid": "84d25f70_111fef4d",
       "range": {
         "startLine": 838,
         "startChar": 8,

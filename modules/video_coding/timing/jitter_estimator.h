@@ -11,8 +11,11 @@
 #ifndef MODULES_VIDEO_CODING_TIMING_JITTER_ESTIMATOR_H_
 #define MODULES_VIDEO_CODING_TIMING_JITTER_ESTIMATOR_H_
 
+#include <memory>
+
 #include "absl/types/optional.h"
 #include "api/field_trials_view.h"
+#include "api/numerics/samples_stats_counter.h"
 #include "api/units/data_size.h"
 #include "api/units/frequency.h"
 #include "api/units/time_delta.h"
@@ -27,6 +30,20 @@ class Clock;
 
 class JitterEstimator {
  public:
+  // A struct with state tracking used in development.
+  struct StateTrackingForDevelopment {
+    // Inputs.
+    SamplesStatsCounter frame_delay_variation_ms;
+    SamplesStatsCounter frame_size_variation_bytes;
+
+    // States.
+    SamplesStatsCounter avg_frame_size_bytes;
+    SamplesStatsCounter max_frame_size_bytes;
+
+    // Outputs.
+    SamplesStatsCounter jitter_estimate_ms;
+  };
+
   explicit JitterEstimator(Clock* clock, const FieldTrialsView& field_trials);
   ~JitterEstimator();
   JitterEstimator(const JitterEstimator&) = delete;
@@ -122,6 +139,9 @@ class JitterEstimator {
   // Tracks frame rates in microseconds.
   rtc::RollingAccumulator<uint64_t> fps_counter_;
   Clock* clock_;
+
+  // State tracking for debugging.
+  std::unique_ptr<StateTrackingForDevelopment> state_tracking_ = nullptr;
 };
 
 }  // namespace webrtc

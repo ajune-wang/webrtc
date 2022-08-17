@@ -1,0 +1,16 @@
+syntax = "proto2";
+option optimize_for = LITE_RUNTIME;
+package webrtc.proto;
+
+// Convenient representation to export a time series.
+message TimeSeries {
+  optional string name = 1;
+  optional string unit = 2;
+  repeated int64 timestamps_us = 3;
+  repeated double values = 4;
+}
+
+// A set of time series.
+message TimeSeriesSet {
+  repeated TimeSeries timeseries = 1;
+}

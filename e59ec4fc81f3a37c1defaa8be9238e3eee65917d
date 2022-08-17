@@ -80,6 +80,30 @@
       },
       "revId": "e59ec4fc81f3a37c1defaa8be9238e3eee65917d",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "91c5dbe6_0910d3fc",
+        "filename": "sdk/objc/api/video_frame_buffer/RTCNativeI420Buffer.mm",
+        "patchSetId": 2
+      },
+      "lineNbr": 111,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2022-08-17T12:35:49Z",
+      "side": 1,
+      "message": "It\u0027s possible to write rtc::scoped_refptr\u003cconst webrtc::I420BufferInterface\u003e - this construction is used a lot of times in webrtc.\n\nNot sure how C++ makes that work out (the refcounts have to be mutable while the rest of the type isn\u0027t), but it compiles.",
+      "parentUuid": "a70f8231_7aa5fefd",
+      "range": {
+        "startLine": 111,
+        "startChar": 6,
+        "endLine": 111,
+        "endChar": 70
+      },
+      "revId": "e59ec4fc81f3a37c1defaa8be9238e3eee65917d",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

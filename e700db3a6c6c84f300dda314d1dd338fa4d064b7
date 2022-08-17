@@ -24,6 +24,30 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": true,
+      "key": {
+        "uuid": "bfc39a6f_ff6d293f",
+        "filename": "rtc_base/buffer.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 111,
+      "author": {
+        "id": 5508
+      },
+      "writtenOn": "2022-08-17T13:54:57Z",
+      "side": 1,
+      "message": "wdyt about changing the check so that we check `size` instead before calling memcpy?\n\nSame for the change that landed yesterday.",
+      "parentUuid": "ffcaddcf_609c2e7c",
+      "range": {
+        "startLine": 109,
+        "startChar": 4,
+        "endLine": 111,
+        "endChar": 5
+      },
+      "revId": "e700db3a6c6c84f300dda314d1dd338fa4d064b7",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": false,
       "key": {
         "uuid": "34062a40_bd2410ee",

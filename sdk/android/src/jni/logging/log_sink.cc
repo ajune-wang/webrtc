@@ -29,6 +29,10 @@ void JNILogSink::OnLogMessage(const std::string& msg,
   OnLogMessage(absl::string_view{msg}, severity, tag);
 }
 
+void JNILogSink::OnLogMessage(absl::string_view msg) {
+  RTC_DCHECK_NOTREACHED();
+}
+
 void JNILogSink::OnLogMessage(absl::string_view msg,
                               rtc::LoggingSeverity severity,
                               const char* tag) {

@@ -51,6 +51,8 @@ class CallbackWithSeverityLogSink final : public rtc::LogSink {
     OnLogMessage(absl::string_view(message), severity);
   }
 
+  void OnLogMessage(absl::string_view message) override { RTC_DCHECK_NOTREACHED(); }
+
   void OnLogMessage(absl::string_view message, rtc::LoggingSeverity severity) override {
     if (callback_handler_) {
       RTCLoggingSeverity loggingSeverity = NativeSeverityToObjcSeverity(severity);

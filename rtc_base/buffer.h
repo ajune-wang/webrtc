@@ -106,7 +106,10 @@ class BufferT {
                 internal::BufferCompat<T, U>::value>::type* = nullptr>
   BufferT(U* data, size_t size, size_t capacity) : BufferT(size, capacity) {
     static_assert(sizeof(T) == sizeof(U), "");
-    std::memcpy(data_.get(), data, size * sizeof(U));
+    if (size > 0) {
+      RTC_DCHECK(data);
+      std::memcpy(data_.get(), data, size * sizeof(U));
+    }
   }
 
   // Construct a buffer from the contents of an array.
@@ -267,7 +270,7 @@ class BufferT {
             typename std::enable_if<
                 internal::BufferCompat<T, U>::value>::type* = nullptr>
   void AppendData(const U* data, size_t size) {
-    if (!data) {
+    if (!data || size == 0) {
       RTC_CHECK_EQ(size, 0U);
       return;
     }

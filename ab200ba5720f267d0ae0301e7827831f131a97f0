@@ -1,0 +1,73 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "a1404931_984eb517",
+        "filename": "modules/congestion_controller/goog_cc/loss_based_bwe_v2.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 418,
+      "author": {
+        "id": 5578
+      },
+      "writtenOn": "2022-08-18T06:12:44Z",
+      "side": 1,
+      "message": "you are not setting the new config values from the field trial?",
+      "range": {
+        "startLine": 418,
+        "startChar": 10,
+        "endLine": 418,
+        "endChar": 62
+      },
+      "revId": "ab200ba5720f267d0ae0301e7827831f131a97f0",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "f07aca08_6f3bed88",
+        "filename": "modules/congestion_controller/goog_cc/loss_based_bwe_v2.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 860,
+      "author": {
+        "id": 5578
+      },
+      "writtenOn": "2022-08-18T06:12:44Z",
+      "side": 1,
+      "message": "sorry but I am having issues understanding the reasoning for picking these thresholds. Maybe discuss offline?",
+      "range": {
+        "startLine": 860,
+        "startChar": 21,
+        "endLine": 860,
+        "endChar": 52
+      },
+      "revId": "ab200ba5720f267d0ae0301e7827831f131a97f0",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "666eb9ba_4a8ec0ed",
+        "filename": "modules/congestion_controller/goog_cc/loss_based_bwe_v2.h",
+        "patchSetId": 3
+      },
+      "lineNbr": 95,
+      "author": {
+        "id": 5578
+      },
+      "writtenOn": "2022-08-18T06:12:44Z",
+      "side": 1,
+      "message": "wouldnt it be safer if this was 1.0 if no field trial is available?",
+      "range": {
+        "startLine": 95,
+        "startChar": 38,
+        "endLine": 95,
+        "endChar": 41
+      },
+      "revId": "ab200ba5720f267d0ae0301e7827831f131a97f0",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

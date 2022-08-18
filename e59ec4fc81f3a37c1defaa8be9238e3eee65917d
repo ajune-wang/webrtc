@@ -128,6 +128,30 @@
       },
       "revId": "e59ec4fc81f3a37c1defaa8be9238e3eee65917d",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "0da18eee_d45136c8",
+        "filename": "sdk/objc/api/video_frame_buffer/RTCNativeI420Buffer.mm",
+        "patchSetId": 2
+      },
+      "lineNbr": 111,
+      "author": {
+        "id": 5520
+      },
+      "writtenOn": "2022-08-18T16:41:20Z",
+      "side": 1,
+      "message": "I\u0027m ok with the suggestion of calling ToI420 to avoid the cast.",
+      "parentUuid": "ba9b1bc6_fef185f0",
+      "range": {
+        "startLine": 111,
+        "startChar": 6,
+        "endLine": 111,
+        "endChar": 70
+      },
+      "revId": "e59ec4fc81f3a37c1defaa8be9238e3eee65917d",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

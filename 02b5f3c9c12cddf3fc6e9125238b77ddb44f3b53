@@ -18,6 +18,24 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "77b7580b_009a3fbf",
+        "filename": "infra/specs/mixins.pyl",
+        "patchSetId": 4
+      },
+      "lineNbr": 130,
+      "author": {
+        "id": 12234
+      },
+      "writtenOn": "2022-08-18T14:34:35Z",
+      "side": 0,
+      "message": "Updated the description.",
+      "parentUuid": "2267c75c_6ac5bcb8",
+      "revId": "02b5f3c9c12cddf3fc6e9125238b77ddb44f3b53",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "ffd03ee4_5f7f6ca4",
@@ -31,6 +49,24 @@
       "writtenOn": "2022-08-18T14:28:45Z",
       "side": 0,
       "message": "No longer used?",
+      "revId": "02b5f3c9c12cddf3fc6e9125238b77ddb44f3b53",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "7c72a8f8_3c9a55e7",
+        "filename": "infra/specs/mixins_webrtc.pyl",
+        "patchSetId": 4
+      },
+      "lineNbr": 256,
+      "author": {
+        "id": 12234
+      },
+      "writtenOn": "2022-08-18T14:34:35Z",
+      "side": 0,
+      "message": "Yes",
+      "parentUuid": "ffd03ee4_5f7f6ca4",
       "revId": "02b5f3c9c12cddf3fc6e9125238b77ddb44f3b53",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }

@@ -152,6 +152,30 @@
       },
       "revId": "e59ec4fc81f3a37c1defaa8be9238e3eee65917d",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "fdd4eace_a8c9156e",
+        "filename": "sdk/objc/api/video_frame_buffer/RTCNativeI420Buffer.mm",
+        "patchSetId": 2
+      },
+      "lineNbr": 111,
+      "author": {
+        "id": 9405
+      },
+      "writtenOn": "2022-08-18T22:01:34Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "0da18eee_d45136c8",
+      "range": {
+        "startLine": 111,
+        "startChar": 6,
+        "endLine": 111,
+        "endChar": 70
+      },
+      "revId": "e59ec4fc81f3a37c1defaa8be9238e3eee65917d",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

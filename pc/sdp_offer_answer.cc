@@ -2283,7 +2283,7 @@ void SdpOfferAnswerHandler::DoCreateOffer(
 
   cricket::MediaSessionOptions session_options;
   GetOptionsForOffer(options, &session_options);
-  webrtc_session_desc_factory_->CreateOffer(observer.get(), options,
+  webrtc_session_desc_factory_->CreateOffer(std::move(observer), options,
                                             session_options);
 }
 
@@ -2369,7 +2369,8 @@ void SdpOfferAnswerHandler::DoCreateAnswer(
 
   cricket::MediaSessionOptions session_options;
   GetOptionsForAnswer(options, &session_options);
-  webrtc_session_desc_factory_->CreateAnswer(observer.get(), session_options);
+  webrtc_session_desc_factory_->CreateAnswer(std::move(observer),
+                                             session_options);
 }
 
 void SdpOfferAnswerHandler::DoSetRemoteDescription(

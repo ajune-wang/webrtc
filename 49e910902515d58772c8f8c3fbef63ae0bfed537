@@ -68,6 +68,24 @@
       "parentUuid": "eaf96a7b_e12b3b85",
       "revId": "49e910902515d58772c8f8c3fbef63ae0bfed537",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "72eea356_0a5ba34e",
+        "filename": "p2p/base/dtls_transport_internal.h",
+        "patchSetId": 7
+      },
+      "lineNbr": 93,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2022-08-18T10:51:35Z",
+      "side": 1,
+      "message": "an rtc::ArrayView might be equally appropriate - rtc::Buffer is really only for the case where you want to hae a growable buffer that you don\u0027t want to have to initialize.",
+      "parentUuid": "098436b2_7c67a23d",
+      "revId": "49e910902515d58772c8f8c3fbef63ae0bfed537",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

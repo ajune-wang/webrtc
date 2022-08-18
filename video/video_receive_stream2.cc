@@ -669,6 +669,7 @@ int VideoReceiveStream2::GetBaseMinimumPlayoutDelayMs() const {
 }
 
 void VideoReceiveStream2::OnFrame(const VideoFrame& video_frame) {
+  // RTC_LOG(LS_WARNING) << "GUANRU_LOG VideoReceiveStream2::OnFrame";
   VideoFrameMetaData frame_meta(video_frame, clock_->CurrentTime());
 
   // TODO(bugs.webrtc.org/10739): we should set local capture clock offset for
@@ -729,6 +730,7 @@ void VideoReceiveStream2::RequestKeyFrame(Timestamp now) {
 }
 
 void VideoReceiveStream2::OnCompleteFrame(std::unique_ptr<EncodedFrame> frame) {
+  // RTC_LOG(LS_WARNING) << "GUANRU_LOG OnCompleteFrame";
   RTC_DCHECK_RUN_ON(&worker_sequence_checker_);
 
   const VideoPlayoutDelay& playout_delay = frame->EncodedImage().playout_delay_;

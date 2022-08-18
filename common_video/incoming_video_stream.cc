@@ -18,6 +18,7 @@
 #include "common_video/video_render_frames.h"
 #include "rtc_base/checks.h"
 #include "rtc_base/trace_event.h"
+#include "rtc_base/logging.h"
 
 namespace webrtc {
 

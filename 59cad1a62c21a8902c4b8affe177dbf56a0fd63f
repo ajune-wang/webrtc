@@ -20,6 +20,24 @@
     {
       "unresolved": false,
       "key": {
+        "uuid": "26ed65ac_d3899646",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2022-08-18T10:02:45Z",
+      "side": 1,
+      "message": "Yep, ScopedTaskSafety is simpler.\nIt adds a bit of overhead( flag internally is always created, even when not used),\nbut I guess that overhead is negligible.",
+      "parentUuid": "32993b21_6c5ae1b4",
+      "revId": "59cad1a62c21a8902c4b8affe177dbf56a0fd63f",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
         "uuid": "de7e9e01_fe642e28",
         "filename": "rtc_base/openssl_adapter.cc",
         "patchSetId": 1

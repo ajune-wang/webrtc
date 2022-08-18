@@ -174,24 +174,5 @@ TEST(UnitConversionTest, DataRateAndDataSizeAndFrequency) {
   EXPECT_EQ((rate_b / size_c).hertz<int64_t>(), kBitsPerSecond / kBytes / 8);
   EXPECT_EQ((rate_b / freq_a).bytes(), kBitsPerSecond / kHertz / 8);
 }
-
-TEST(UnitConversionDeathTest, DivisionFailsOnLargeSize) {
-  // Note that the failure is expected since the current implementation  is
-  // implementated in a way that does not support division of large sizes. If
-  // the implementation is changed, this test can safely be removed.
-  const int64_t kJustSmallEnoughForDivision =
-      std::numeric_limits<int64_t>::max() / 8000000;
-  const DataSize large_size = DataSize::Bytes(kJustSmallEnoughForDivision);
-  const DataRate data_rate = DataRate::KilobitsPerSec(100);
-  const TimeDelta time_delta = TimeDelta::Millis(100);
-  EXPECT_TRUE((large_size / data_rate).IsFinite());
-  EXPECT_TRUE((large_size / time_delta).IsFinite());
-#if GTEST_HAS_DEATH_TEST && !defined(WEBRTC_ANDROID) && RTC_DCHECK_IS_ON
-  const int64_t kToolargeForDivision = kJustSmallEnoughForDivision + 1;
-  const DataSize too_large_size = DataSize::Bytes(kToolargeForDivision);
-  EXPECT_DEATH(too_large_size / data_rate, "");
-  EXPECT_DEATH(too_large_size / time_delta, "");
-#endif  // GTEST_HAS_DEATH_TEST && !!defined(WEBRTC_ANDROID) && RTC_DCHECK_IS_ON
-}
 }  // namespace test
 }  // namespace webrtc

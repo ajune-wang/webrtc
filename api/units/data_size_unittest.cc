@@ -18,36 +18,42 @@ namespace webrtc {
 namespace test {
 
 TEST(DataSizeTest, ConstExpr) {
-  constexpr int64_t kValue = 12345;
+  constexpr int64_t kBytes = 12345;
+  constexpr int64_t kBits = 8 * kBytes;
   constexpr DataSize kDataSizeZero = DataSize::Zero();
   constexpr DataSize kDataSizeInf = DataSize::Infinity();
   static_assert(kDataSizeZero.IsZero(), "");
   static_assert(kDataSizeInf.IsInfinite(), "");
   static_assert(kDataSizeInf.bytes_or(-1) == -1, "");
+  static_assert(kDataSizeInf.bits_or(-1) == -1, "");
   static_assert(kDataSizeInf > kDataSizeZero, "");
 
-  constexpr DataSize kDataSize = DataSize::Bytes(kValue);
-  static_assert(kDataSize.bytes_or(-1) == kValue, "");
-
-  EXPECT_EQ(kDataSize.bytes(), kValue);
+  constexpr DataSize kDataSizeFromBytes = DataSize::Bytes(kBytes);
+  constexpr DataSize kDataSizeFromBits = DataSize::Bits(kBits);
+  static_assert(kDataSizeFromBytes.bytes_or(-1) == kBytes, "");
+  static_assert(kDataSizeFromBytes.bytes() == kBytes, "");
+  static_assert(kDataSizeFromBits.bits_or(-1) == kBits, "");
+  static_assert(kDataSizeFromBits.bits() == kBits, "");
 }
 
 TEST(DataSizeTest, GetBackSameValues) {
-  const int64_t kValue = 123 * 8;
-  EXPECT_EQ(DataSize::Bytes(kValue).bytes(), kValue);
+  const int64_t kBytes = 123 * 8;
+  const int64_t kBits = kBytes * 8;
+  EXPECT_EQ(DataSize::Bytes(kBytes).bytes(), kBytes);
+  EXPECT_EQ(DataSize::Bits(kBits).bits(), kBits);
 }
 
 TEST(DataSizeTest, IdentityChecks) {
-  const int64_t kValue = 3000;
+  const int64_t kBytes = 3000;
   EXPECT_TRUE(DataSize::Zero().IsZero());
-  EXPECT_FALSE(DataSize::Bytes(kValue).IsZero());
+  EXPECT_FALSE(DataSize::Bytes(kBytes).IsZero());
 
   EXPECT_TRUE(DataSize::Infinity().IsInfinite());
   EXPECT_FALSE(DataSize::Zero().IsInfinite());
-  EXPECT_FALSE(DataSize::Bytes(kValue).IsInfinite());
+  EXPECT_FALSE(DataSize::Bytes(kBytes).IsInfinite());
 
   EXPECT_FALSE(DataSize::Infinity().IsFinite());
-  EXPECT_TRUE(DataSize::Bytes(kValue).IsFinite());
+  EXPECT_TRUE(DataSize::Bytes(kBytes).IsFinite());
   EXPECT_TRUE(DataSize::Zero().IsFinite());
 }
 
@@ -106,5 +112,24 @@ TEST(DataSizeTest, MathOperations) {
   mutable_size -= size_a;
   EXPECT_EQ(mutable_size.bytes(), kValueB);
 }
+
+TEST(DataSizeTest, BitsBytesConversion) {
+  const int64_t kBytes = 4711;
+  const int64_t kBits = kBytes * 8;
+
+  EXPECT_EQ(DataSize::Bytes(kBytes).bits(), kBits);
+  EXPECT_EQ(DataSize::Bits(kBits).bytes(), kBytes);
+}
+
+TEST(DataSizeTest, ExpectedGranularity) {
+  const DataSize kReference = DataSize::Bits(1);
+
+  EXPECT_NE(kReference * 0.999'999, kReference);
+  EXPECT_EQ(kReference * 0.999'999'9, kReference);
+
+  EXPECT_NE(kReference * 1.000'001, kReference);
+  EXPECT_EQ(kReference * 1.000'000'1, kReference);
+}
+
 }  // namespace test
 }  // namespace webrtc

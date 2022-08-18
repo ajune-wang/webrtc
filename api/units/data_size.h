@@ -21,25 +21,41 @@
 #include "rtc_base/units/unit_base.h"
 
 namespace webrtc {
-// DataSize is a class represeting a count of bytes.
+// DataSize is a class representing a count of micro-bits. The internal
+// representation of a millionth of a bit is used so that excessive rounding
+// does not occur when multiplication or division is performed.
 class DataSize final : public rtc_units_impl::RelativeUnit<DataSize> {
  public:
   template <typename T>
+  static constexpr DataSize Bits(T value) {
+    static_assert(std::is_arithmetic<T>::value, "");
+    return FromFraction(1'000'000, value);
+  }
+  template <typename T>
   static constexpr DataSize Bytes(T value) {
     static_assert(std::is_arithmetic<T>::value, "");
-    return FromValue(value);
+    return FromFraction(8'000'000, value);
   }
   static constexpr DataSize Infinity() { return PlusInfinity(); }
 
   DataSize() = delete;
 
   template <typename T = int64_t>
+  constexpr T bits() const {
+    return ToFraction<1'000'000, T>();
+  }
+
+  template <typename T = int64_t>
   constexpr T bytes() const {
-    return ToValue<T>();
+    return ToFraction<8'000'000, T>();
+  }
+
+  constexpr int64_t bits_or(int64_t fallback_value) const {
+    return ToFractionOr<1'000'000>(fallback_value);
   }
 
   constexpr int64_t bytes_or(int64_t fallback_value) const {
-    return ToValueOr(fallback_value);
+    return ToFractionOr<8'000'000>(fallback_value);
   }
 
  private:

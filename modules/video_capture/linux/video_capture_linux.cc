@@ -31,7 +31,7 @@
 namespace webrtc {
 namespace videocapturemodule {
 rtc::scoped_refptr<VideoCaptureModule> VideoCaptureImpl::Create(
-    const char* deviceUniqueId) {
+    absl::string_view deviceUniqueId) {
   auto implementation = rtc::make_ref_counted<VideoCaptureModuleV4L2>();
 
   if (implementation->Init(deviceUniqueId) != 0)

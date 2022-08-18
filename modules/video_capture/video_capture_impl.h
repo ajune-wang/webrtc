@@ -41,7 +41,7 @@ class VideoCaptureImpl : public VideoCaptureModule {
    * using GetDeviceName
    */
   static rtc::scoped_refptr<VideoCaptureModule> Create(
-      const char* deviceUniqueIdUTF8);
+      absl::string_view deviceUniqueIdUTF8);
 
   static DeviceInfo* CreateDeviceInfo();
 

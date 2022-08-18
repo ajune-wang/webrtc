@@ -43,7 +43,7 @@ VideoCaptureModuleV4L2::VideoCaptureModuleV4L2()
       _captureVideoType(VideoType::kI420),
       _pool(NULL) {}
 
-int32_t VideoCaptureModuleV4L2::Init(const char* deviceUniqueIdUTF8) {
+int32_t VideoCaptureModuleV4L2::Init(absl::string_view deviceUniqueIdUTF8) {
   int len = strlen((const char*)deviceUniqueIdUTF8);
   _deviceUniqueId = new (std::nothrow) char[len + 1];
   if (_deviceUniqueId) {

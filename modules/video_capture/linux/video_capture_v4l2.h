@@ -27,7 +27,7 @@ class VideoCaptureModuleV4L2 : public VideoCaptureImpl {
  public:
   VideoCaptureModuleV4L2();
   ~VideoCaptureModuleV4L2() override;
-  int32_t Init(const char* deviceUniqueId);
+  int32_t Init(absl::string_view deviceUniqueId);
   int32_t StartCapture(const VideoCaptureCapability& capability) override;
   int32_t StopCapture() override;
   bool CaptureStarted() override;

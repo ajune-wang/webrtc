@@ -27,7 +27,7 @@ class VideoCaptureFactory {
   // deviceUniqueIdUTF8 - name of the device.
   //                      Available names can be found by using GetDeviceName
   static rtc::scoped_refptr<VideoCaptureModule> Create(
-      const char* deviceUniqueIdUTF8);
+      absl::string_view deviceUniqueIdUTF8);
 
   static VideoCaptureModule::DeviceInfo* CreateDeviceInfo();
 

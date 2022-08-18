@@ -31,7 +31,8 @@ DeviceInfoImpl::~DeviceInfoImpl(void) {
   free(_lastUsedDeviceName);
 }
 
-int32_t DeviceInfoImpl::NumberOfCapabilities(const char* deviceUniqueIdUTF8) {
+int32_t DeviceInfoImpl::NumberOfCapabilities(
+    absl::string_view deviceUniqueIdUTF8) {
   if (!deviceUniqueIdUTF8)
     return -1;
 
@@ -48,7 +49,7 @@ int32_t DeviceInfoImpl::NumberOfCapabilities(const char* deviceUniqueIdUTF8) {
   return ret;
 }
 
-int32_t DeviceInfoImpl::GetCapability(const char* deviceUniqueIdUTF8,
+int32_t DeviceInfoImpl::GetCapability(absl::string_view deviceUniqueIdUTF8,
                                       const uint32_t deviceCapabilityNumber,
                                       VideoCaptureCapability& capability) {
   RTC_DCHECK(deviceUniqueIdUTF8);
@@ -76,7 +77,7 @@ int32_t DeviceInfoImpl::GetCapability(const char* deviceUniqueIdUTF8,
 }
 
 int32_t DeviceInfoImpl::GetBestMatchedCapability(
-    const char* deviceUniqueIdUTF8,
+    absl::string_view deviceUniqueIdUTF8,
     const VideoCaptureCapability& requested,
     VideoCaptureCapability& resulting) {
   if (!deviceUniqueIdUTF8)
@@ -201,7 +202,7 @@ int32_t DeviceInfoImpl::GetBestMatchedCapability(
 }
 
 // Default implementation. This should be overridden by Mobile implementations.
-int32_t DeviceInfoImpl::GetOrientation(const char* deviceUniqueIdUTF8,
+int32_t DeviceInfoImpl::GetOrientation(absl::string_view deviceUniqueIdUTF8,
                                        VideoRotation& orientation) {
   orientation = kVideoRotation_0;
   return -1;

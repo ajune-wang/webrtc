@@ -134,7 +134,8 @@ int32_t DeviceInfoV4l2::GetDeviceName(uint32_t deviceNumber,
   return 0;
 }
 
-int32_t DeviceInfoV4l2::CreateCapabilityMap(const char* deviceUniqueIdUTF8) {
+int32_t DeviceInfoV4l2::CreateCapabilityMap(
+    absl::string_view deviceUniqueIdUTF8) {
   int fd;
   char device[32];
   bool found = false;
@@ -205,16 +206,16 @@ int32_t DeviceInfoV4l2::CreateCapabilityMap(const char* deviceUniqueIdUTF8) {
 }
 
 int32_t DeviceInfoV4l2::DisplayCaptureSettingsDialogBox(
-    const char* /*deviceUniqueIdUTF8*/,
-    const char* /*dialogTitleUTF8*/,
+    absl::string_view /*deviceUniqueIdUTF8*/,
+    absl::string_view /*dialogTitleUTF8*/,
     void* /*parentWindow*/,
     uint32_t /*positionX*/,
     uint32_t /*positionY*/) {
   return -1;
 }
 
-bool DeviceInfoV4l2::IsDeviceNameMatches(const char* name,
-                                         const char* deviceUniqueIdUTF8) {
+bool DeviceInfoV4l2::IsDeviceNameMatches(absl::string_view name,
+                                         absl::string_view deviceUniqueIdUTF8) {
   if (strncmp(deviceUniqueIdUTF8, name, strlen(name)) == 0)
     return true;
   return false;

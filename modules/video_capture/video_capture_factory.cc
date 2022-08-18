@@ -15,7 +15,7 @@
 namespace webrtc {
 
 rtc::scoped_refptr<VideoCaptureModule> VideoCaptureFactory::Create(
-    const char* deviceUniqueIdUTF8) {
+    absl::string_view deviceUniqueIdUTF8) {
 #if defined(WEBRTC_ANDROID) || defined(WEBRTC_MAC)
   return nullptr;
 #else

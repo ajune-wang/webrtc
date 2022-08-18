@@ -33,18 +33,20 @@ class DeviceInfoV4l2 : public DeviceInfoImpl {
    * Fills the membervariable _captureCapabilities with capabilites for the
    * given device name.
    */
-  int32_t CreateCapabilityMap(const char* deviceUniqueIdUTF8) override
+  int32_t CreateCapabilityMap(absl::string_view deviceUniqueIdUTF8) override
       RTC_EXCLUSIVE_LOCKS_REQUIRED(_apiLock);
-  int32_t DisplayCaptureSettingsDialogBox(const char* /*deviceUniqueIdUTF8*/,
-                                          const char* /*dialogTitleUTF8*/,
-                                          void* /*parentWindow*/,
-                                          uint32_t /*positionX*/,
-                                          uint32_t /*positionY*/) override;
+  int32_t DisplayCaptureSettingsDialogBox(
+      absl::string_view /*deviceUniqueIdUTF8*/,
+      absl::string_view /*dialogTitleUTF8*/,
+      void* /*parentWindow*/,
+      uint32_t /*positionX*/,
+      uint32_t /*positionY*/) override;
   int32_t FillCapabilities(int fd) RTC_EXCLUSIVE_LOCKS_REQUIRED(_apiLock);
   int32_t Init() override;
 
  private:
-  bool IsDeviceNameMatches(const char* name, const char* deviceUniqueIdUTF8);
+  bool IsDeviceNameMatches(absl::string_view name,
+                           absl::string_view deviceUniqueIdUTF8);
 };
 }  // namespace videocapturemodule
 }  // namespace webrtc

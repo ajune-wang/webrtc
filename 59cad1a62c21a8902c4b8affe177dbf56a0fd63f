@@ -1,0 +1,55 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "32993b21_6c5ae1b4",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5508
+      },
+      "writtenOn": "2022-08-18T09:52:09Z",
+      "side": 1,
+      "message": "lgtm - I\u0027ll leave it up to you if you want to switch to ScopedTaskSafety instead",
+      "revId": "59cad1a62c21a8902c4b8affe177dbf56a0fd63f",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "de7e9e01_fe642e28",
+        "filename": "rtc_base/openssl_adapter.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 397,
+      "author": {
+        "id": 5508
+      },
+      "writtenOn": "2022-08-18T09:52:09Z",
+      "side": 1,
+      "message": "would `ScopedTaskSafety::reset()` work?",
+      "revId": "59cad1a62c21a8902c4b8affe177dbf56a0fd63f",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "b1983f37_c0aac6dd",
+        "filename": "rtc_base/openssl_adapter.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 187,
+      "author": {
+        "id": 5508
+      },
+      "writtenOn": "2022-08-18T09:52:09Z",
+      "side": 1,
+      "message": "ScopedTaskSafety might be a simpler option",
+      "revId": "59cad1a62c21a8902c4b8affe177dbf56a0fd63f",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

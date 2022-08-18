@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "d0284020_eafa1371",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5150
+      },
+      "writtenOn": "2022-08-18T12:19:06Z",
+      "side": 1,
+      "message": "To avoid further revert-reland iterations, I\u0027m currently manually importing this CL into downstream projects to make sure nothing breaks. I\u0027ll write an update once I\u0027m done.",
+      "revId": "cb1a3f6db3165f1ed480f5e69dbe2fd042fd00a0",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

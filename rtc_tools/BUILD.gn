@@ -45,6 +45,7 @@ group("rtc_tools") {
       ":audioproc_f",
       ":event_log_visualizer",
       ":unpack_aecdump",
+      "data_channel_stresstest",
     ]
   }
   if (!build_with_chromium && rtc_enable_grpc) {

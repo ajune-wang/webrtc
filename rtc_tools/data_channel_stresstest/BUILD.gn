@@ -1,0 +1,60 @@
+# Copyright 2021 The Chromium Authors. All rights reserved.
+# Use of this source code is governed by a BSD-style license that can be
+# found in the LICENSE file.
+
+import("//third_party/grpc/grpc_library.gni")
+import("../../webrtc.gni")
+
+rtc_executable("data_channel_stresstest") {
+  testonly = true
+  sources = [
+    "app.cpp",
+    "app.h",
+    "common.h",
+    "createsessiondescriptionobserver.cpp",
+    "createsessiondescriptionobserver.h",
+    "datachannel.cpp",
+    "datachannel.h",
+    "main.cpp",
+    "peerconnection.cpp",
+    "peerconnection.h",
+    "setsessiondescriptionobserver.cpp",
+    "setsessiondescriptionobserver.h",
+    "signaling/baseprotocol.cpp",
+    "signaling/baseprotocol.h",
+    "signaling/common.cpp",
+    "signaling/common.h",
+    "signaling/iobuffer.cpp",
+    "signaling/iobuffer.h",
+    "signaling/iohandler.cpp",
+    "signaling/iohandler.h",
+    "signaling/iohandlermanager.cpp",
+    "signaling/iohandlermanager.h",
+    "signaling/iohandlermanagertoken.h",
+    "signaling/iohandlertype.h",
+    "signaling/iotimer.cpp",
+    "signaling/iotimer.h",
+    "signaling/signaling.cpp",
+    "signaling/signaling.h",
+    "signaling/socketaddress.cpp",
+    "signaling/socketaddress.h",
+    "signaling/tcpacceptor.cpp",
+    "signaling/tcpacceptor.h",
+    "signaling/tcpcarrier.cpp",
+    "signaling/tcpcarrier.h",
+    "signaling/tcpconnector.h",
+    "signaling/tcpprotocol.cpp",
+    "signaling/tcpprotocol.h",
+  ]
+  deps = [
+    "../../api:create_peerconnection_factory",
+    "../../rtc_base",
+    "../../rtc_base:rtc_event",
+    "../../rtc_base:threading",
+    "../../system_wrappers:field_trial",
+    "//third_party/abseil-cpp/absl/cleanup",
+    "//third_party/abseil-cpp/absl/flags:flag",
+    "//third_party/abseil-cpp/absl/flags:parse",
+    "//third_party/jsoncpp",
+  ]
+}

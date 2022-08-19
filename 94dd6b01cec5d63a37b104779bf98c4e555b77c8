@@ -16,6 +16,29 @@
       "message": "Please take a look, sprang",
       "revId": "94dd6b01cec5d63a37b104779bf98c4e555b77c8",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "d7b51711_6b2646d6",
+        "filename": "modules/pacing/task_queue_paced_sender.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 84,
+      "author": {
+        "id": 5524
+      },
+      "writtenOn": "2022-08-19T12:05:43Z",
+      "side": 1,
+      "message": "I think you can simplify this to\n```\nabsl::optional\u003cTimeDelta\u003e burst \u003d bursty_pacer_flags_.burst.GetOptional();\n```",
+      "range": {
+        "startLine": 81,
+        "startChar": 33,
+        "endLine": 84,
+        "endChar": 3
+      },
+      "revId": "94dd6b01cec5d63a37b104779bf98c4e555b77c8",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

@@ -112,6 +112,20 @@ luci.project(
                 "chromium-tester@chops-service-accounts.iam.gserviceaccount.com",
             ],
         ),
+        luci.binding(
+            # TODO(b/243111574): Add roles/weetbix.limitedReader for groups all when ready.
+            # Also grants ResultDB read access.
+            roles = "role/buildbucket.reader",
+            groups = "googlers",
+        ),
+        luci.binding(
+            roles = "role/weetbix.queryUser",
+            groups = "googlers",
+        ),
+        luci.binding(
+            roles = "role/weetbix.editor",
+            groups = "googlers",
+        ),
     ],
 )
 

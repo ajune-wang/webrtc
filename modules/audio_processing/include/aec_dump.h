@@ -67,7 +67,7 @@ class AecDump {
   struct AudioProcessingState {
     int delay;
     int drift;
-    int level;
+    int stream_analog_level;
     bool keypress;
   };
 

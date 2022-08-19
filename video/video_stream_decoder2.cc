@@ -13,6 +13,7 @@
 #include "modules/video_coding/video_receiver2.h"
 #include "rtc_base/checks.h"
 #include "video/receive_statistics_proxy2.h"
+#include "rtc_base/logging.h"
 
 namespace webrtc {
 namespace internal {
@@ -46,6 +47,7 @@ int32_t VideoStreamDecoder::FrameToRender(VideoFrame& video_frame,
                                           absl::optional<uint8_t> qp,
                                           TimeDelta decode_time,
                                           VideoContentType content_type) {
+  RTC_LOG(LS_WARNING) << "GUANRU_LOG FrameToRender: " << decode_time;
   receive_stats_callback_->OnDecodedFrame(video_frame, qp, decode_time,
                                           content_type);
   incoming_video_stream_->OnFrame(video_frame);

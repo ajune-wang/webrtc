@@ -1,0 +1,136 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "022ae158_cb9405dd",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5023
+      },
+      "writtenOn": "2022-08-19T09:43:39Z",
+      "side": 1,
+      "message": "Nice!\n\nlgtm, but please consider moving the member initialization in the cc file.",
+      "revId": "90a0dcab23c4c4ab2b49056acf3f5266794a7a26",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "9d0e628b_b36ecdc1",
+        "filename": "modules/video_coding/timing/frame_delay_delta_kalman_filter_unittest.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 15,
+      "author": {
+        "id": 5023
+      },
+      "writtenOn": "2022-08-19T09:43:39Z",
+      "side": 1,
+      "message": "Can we remove some of these?",
+      "range": {
+        "startLine": 15,
+        "startChar": 0,
+        "endLine": 15,
+        "endChar": 33
+      },
+      "revId": "90a0dcab23c4c4ab2b49056acf3f5266794a7a26",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "9adb6acc_483cf093",
+        "filename": "modules/video_coding/timing/jitter_estimator.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 117,
+      "author": {
+        "id": 5023
+      },
+      "writtenOn": "2022-08-19T09:43:39Z",
+      "side": 1,
+      "message": "Is this preferable over a static_cast\u003cdouble\u003e for the 2nd argument?",
+      "range": {
+        "startLine": 117,
+        "startChar": 6,
+        "endLine": 117,
+        "endChar": 22
+      },
+      "revId": "90a0dcab23c4c4ab2b49056acf3f5266794a7a26",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "1e55e96e_975dbd42",
+        "filename": "modules/video_coding/timing/jitter_estimator.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 95,
+      "author": {
+        "id": 5023
+      },
+      "writtenOn": "2022-08-19T09:43:39Z",
+      "side": 1,
+      "message": "(With the change below.) Move into anon namespace in .cc.\n\nIIUC, the reason for having this constant be a static member is that it\u0027s not obvious that it is trivially destructible, and thus not allowed to be defined as a global.\nhttps://google.github.io/styleguide/cppguide.html#Static_and_Global_Variables",
+      "range": {
+        "startLine": 95,
+        "startChar": 2,
+        "endLine": 95,
+        "endChar": 59
+      },
+      "revId": "90a0dcab23c4c4ab2b49056acf3f5266794a7a26",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "be51d8cf_15f53ffa",
+        "filename": "modules/video_coding/timing/jitter_estimator.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 99,
+      "author": {
+        "id": 5023
+      },
+      "writtenOn": "2022-08-19T09:43:39Z",
+      "side": 1,
+      "message": "Remove and rely on init from ctor (through ::Reset)?\n\nIIUC, the reason for initializing these members here is that the default ctor for `DataSize` is explicitly deleted.",
+      "range": {
+        "startLine": 98,
+        "startChar": 30,
+        "endLine": 99,
+        "endChar": 56
+      },
+      "revId": "90a0dcab23c4c4ab2b49056acf3f5266794a7a26",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "b996ba5d_7e820b9a",
+        "filename": "modules/video_coding/timing/jitter_estimator.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 107,
+      "author": {
+        "id": 5023
+      },
+      "writtenOn": "2022-08-19T09:43:39Z",
+      "side": 1,
+      "message": "Same here.",
+      "range": {
+        "startLine": 102,
+        "startChar": 2,
+        "endLine": 107,
+        "endChar": 35
+      },
+      "revId": "90a0dcab23c4c4ab2b49056acf3f5266794a7a26",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

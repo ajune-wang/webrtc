@@ -112,6 +112,23 @@ luci.project(
                 "chromium-tester@chops-service-accounts.iam.gserviceaccount.com",
             ],
         ),
+        luci.binding(
+            # Also grants ResultDB read access.
+            roles = "role/buildbucket.reader",
+            # In prod, read access is granted to
+            # project-chromeos-buildbucket-readers, which is a superset of
+            # googlers. This group does not exist in LUCI Auth dev, so we
+            # just use googlers for now.
+            groups = "googlers",
+        ),
+        luci.binding(
+            roles = "role/weetbix.queryUser",
+            groups = "googlers",
+        ),
+        luci.binding(
+            roles = "role/weetbix.editor",
+            groups = "googlers",
+        ),
     ],
 )
 

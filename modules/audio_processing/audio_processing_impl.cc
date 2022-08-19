@@ -143,6 +143,10 @@ void PackRenderAudioBufferForEchoDetector(const AudioBuffer& audio,
                        audio.channels_const()[0] + audio.num_frames());
 }
 
+constexpr float kUnspecifiedGain = -1.0f;
+constexpr int kUnspecifiedVolume = -1;
+constexpr int kUnspecifiedAnalogLevel = -1;
+
 }  // namespace
 
 // Throughout webrtc, it's assumed that success is represented by zero.
@@ -1128,16 +1132,15 @@ int AudioProcessingImpl::ProcessCaptureStreamLocked() {
                                 levels.peak, 1, RmsLevel::kMinLevelDb, 64);
   }
 
-  // Detect an analog gain change.
-  int analog_mic_level = recommended_stream_analog_level_locked();
-  const bool analog_mic_level_changed =
-      capture_.prev_analog_mic_level != analog_mic_level &&
-      capture_.prev_analog_mic_level != -1;
-  capture_.prev_analog_mic_level = analog_mic_level;
-  analog_gain_stats_reporter_.UpdateStatistics(analog_mic_level);
+  if (capture_.stream_analog_level != kUnspecifiedAnalogLevel) {
+    // Log the stream analog level only when available.
+    analog_gain_stats_reporter_.UpdateStatistics(capture_.stream_analog_level);
+  }
 
   if (submodules_.echo_controller) {
-    capture_.echo_path_gain_change = analog_mic_level_changed;
+    // Determine if the echo path gain has changed by checking all the gains
+    // applied before AEC.
+    capture_.echo_path_gain_change = capture_.stream_analog_level_changed;
 
     // Detect and flag any change in the capture level adjustment pre-gain.
     if (submodules_.capture_levels_adjuster) {
@@ -1317,8 +1320,8 @@ int AudioProcessingImpl::ProcessCaptureStreamLocked() {
     }
 
     if (submodules_.gain_controller2) {
-      submodules_.gain_controller2->NotifyAnalogLevel(
-          recommended_stream_analog_level_locked());
+      submodules_.gain_controller2->NotifyStreamAnalogLevel(
+          capture_.stream_analog_level);
       submodules_.gain_controller2->Process(voice_probability, capture_buffer);
     }
 
@@ -1605,10 +1608,13 @@ void AudioProcessingImpl::set_stream_key_pressed(bool key_pressed) {
 void AudioProcessingImpl::set_stream_analog_level(int level) {
   MutexLock lock_capture(&mutex_capture_);
 
+  capture_.stream_analog_level_changed =
+      capture_.stream_analog_level != level &&
+      capture_.stream_analog_level >= 0;
+  capture_.stream_analog_level = level;
+
   if (config_.capture_level_adjustment.analog_mic_gain_emulation.enabled) {
-    // If the analog mic gain is emulated internally, simply cache the level for
-    // later reporting back as the recommended stream analog level to use.
-    capture_.cached_stream_analog_level_ = level;
+    // Do nothing since the analog mic gain is emulated internally.
     return;
   }
 
@@ -1624,10 +1630,6 @@ void AudioProcessingImpl::set_stream_analog_level(int level) {
     RTC_DCHECK_EQ(kNoError, error);
     return;
   }
-
-  // If no analog mic gain control functionality is in place, cache the level
-  // for later reporting back as the recommended stream analog level to use.
-  capture_.cached_stream_analog_level_ = level;
 }
 
 int AudioProcessingImpl::recommended_stream_analog_level() const {
@@ -1637,7 +1639,7 @@ int AudioProcessingImpl::recommended_stream_analog_level() const {
 
 int AudioProcessingImpl::recommended_stream_analog_level_locked() const {
   if (config_.capture_level_adjustment.analog_mic_gain_emulation.enabled) {
-    return capture_.cached_stream_analog_level_;
+    return capture_.stream_analog_level;
   }
 
   if (submodules_.agc_manager) {
@@ -1648,7 +1650,7 @@ int AudioProcessingImpl::recommended_stream_analog_level_locked() const {
     return submodules_.gain_control->stream_analog_level();
   }
 
-  return capture_.cached_stream_analog_level_;
+  return capture_.stream_analog_level;
 }
 
 bool AudioProcessingImpl::CreateAndAttachAecDump(absl::string_view file_name,
@@ -2148,10 +2150,7 @@ void AudioProcessingImpl::RecordAudioProcessingState() {
   AecDump::AudioProcessingState audio_proc_state;
   audio_proc_state.delay = capture_nonlocked_.stream_delay_ms;
   audio_proc_state.drift = 0;
-  // TODO(bugs.webrtc.org/7494): Refactor to clarify that `stream_analog_level`
-  // is in fact assigned to the stream level and not to the recommended one.
-  audio_proc_state.stream_analog_level =
-      recommended_stream_analog_level_locked();
+  audio_proc_state.stream_analog_level = capture_.stream_analog_level;
   audio_proc_state.keypress = capture_.key_pressed;
   aec_dump_->AddAudioProcessingState(audio_proc_state);
 }
@@ -2164,10 +2163,11 @@ AudioProcessingImpl::ApmCaptureState::ApmCaptureState()
       capture_processing_format(kSampleRate16kHz),
       split_rate(kSampleRate16kHz),
       echo_path_gain_change(false),
-      prev_analog_mic_level(-1),
-      prev_pre_adjustment_gain(-1.f),
-      playout_volume(-1),
-      prev_playout_volume(-1) {}
+      prev_pre_adjustment_gain(kUnspecifiedGain),
+      playout_volume(kUnspecifiedVolume),
+      prev_playout_volume(kUnspecifiedVolume),
+      stream_analog_level(kUnspecifiedAnalogLevel),
+      stream_analog_level_changed(false) {}
 
 AudioProcessingImpl::ApmCaptureState::~ApmCaptureState() = default;
 

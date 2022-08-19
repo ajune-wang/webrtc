@@ -1160,18 +1160,15 @@ webrtc::MdnsResponderInterface* Network::GetMdnsResponder() const {
   return mdns_responder_provider_->GetMdnsResponder();
 }
 
-uint16_t Network::GetCost(const webrtc::FieldTrialsView* field_trials) const {
-  return GetCost(
-      *webrtc::AlwaysValidPointer<const webrtc::FieldTrialsView,
-                                  webrtc::FieldTrialBasedConfig>(field_trials));
-}
-
-uint16_t Network::GetCost(const webrtc::FieldTrialsView& field_trials) const {
+uint16_t Network::GetCost() const {
   AdapterType type = IsVpn() ? underlying_type_for_vpn_ : type_;
   const bool use_differentiated_cellular_costs =
-      field_trials.IsEnabled("WebRTC-UseDifferentiatedCellularCosts");
+      field_trials_
+          ? field_trials_->IsEnabled("WebRTC-UseDifferentiatedCellularCosts")
+          : false;
   const bool add_network_cost_to_vpn =
-      field_trials.IsEnabled("WebRTC-AddNetworkCostToVpn");
+      field_trials_ ? field_trials_->IsEnabled("WebRTC-AddNetworkCostToVpn")
+                    : false;
   return ComputeNetworkCostByType(type, IsVpn(),
                                   use_differentiated_cellular_costs,
                                   add_network_cost_to_vpn);

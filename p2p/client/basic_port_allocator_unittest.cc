@@ -72,6 +72,12 @@ static const SocketAddress kClientIPv6Addr2(
 static const SocketAddress kClientIPv6Addr3(
     "2401:fa00:4:3000:be30:5bff:fee5:c3",
     0);
+static const SocketAddress kClientIPv6Addr4(
+    "2401:fa00:4:4000:be30:5bff:fee5:c3",
+    0);
+static const SocketAddress kClientIPv6Addr5(
+    "2401:fa00:4:5000:be30:5bff:fee5:c3",
+    0);
 static const SocketAddress kNatUdpAddr("77.77.77.77", rtc::NAT_SERVER_UDP_PORT);
 static const SocketAddress kNatTcpAddr("77.77.77.77", rtc::NAT_SERVER_TCP_PORT);
 static const SocketAddress kRemoteClientAddr("22.22.22.22", 0);
@@ -165,7 +171,7 @@ class BasicPortAllocatorTestBase : public ::testing::Test,
     allocator_ = std::make_unique<BasicPortAllocator>(
         &network_manager_,
         std::make_unique<rtc::BasicPacketSocketFactory>(fss_.get()),
-        stun_servers);
+        stun_servers, &field_trials_);
     allocator_->Initialize();
     allocator_->set_step_delay(kMinimumStepDelay);
     webrtc::metrics::Reset();
@@ -486,8 +492,9 @@ class BasicPortAllocatorTestBase : public ::testing::Test,
     if (!stun_server.IsNil()) {
       stun_servers.insert(stun_server);
     }
-    allocator_.reset(new BasicPortAllocator(
-        &network_manager_, nat_socket_factory_.get(), stun_servers));
+    allocator_.reset(new BasicPortAllocator(&network_manager_,
+                                            nat_socket_factory_.get(),
+                                            stun_servers, &field_trials_));
     allocator_->Initialize();
     allocator_->set_step_delay(kMinimumStepDelay);
   }
@@ -506,6 +513,7 @@ class BasicPortAllocatorTestBase : public ::testing::Test,
   std::vector<PortInterface*> ports_;
   std::vector<Candidate> candidates_;
   bool candidate_allocation_done_;
+  webrtc::test::ScopedKeyValueConfig field_trials_;
 };
 
 class BasicPortAllocatorTestWithRealClock : public BasicPortAllocatorTestBase {
@@ -959,6 +967,187 @@ TEST_F(BasicPortAllocatorTest,
   ASSERT_EQ(2U, ports_.size());
   EXPECT_EQ(ports_[0]->Network()->name(), "eth0");
   EXPECT_EQ(ports_[1]->Network()->name(), "eth0");
+}
+
+// Test that no more than allocator.max_ipv6_networks() IPv6 networks are used
+// to gather candidates.
+TEST_F(BasicPortAllocatorTest, TwoIPv6AreSelectedBecauseOfMaxIpv6Limit) {
+  webrtc::test::ScopedKeyValueConfig field_trials(
+      field_trials_, "WebRTC-IPv6NetworkResolutionFixes/Enabled/");
+  // Add three IPv6 network interfaces, but tell the allocator to only use two.
+  allocator().Initialize();
+  allocator().set_max_ipv6_networks(2);
+  AddInterface(kClientIPv6Addr, "wifi1", rtc::ADAPTER_TYPE_WIFI);
+  AddInterface(kClientIPv6Addr2, "ethe1", rtc::ADAPTER_TYPE_ETHERNET);
+  AddInterface(kClientIPv6Addr3, "wifi3", rtc::ADAPTER_TYPE_WIFI);
+
+  // To simplify the test, only gather UDP host candidates.
+  allocator().set_flags(PORTALLOCATOR_ENABLE_IPV6 | PORTALLOCATOR_DISABLE_TCP |
+                        PORTALLOCATOR_DISABLE_STUN |
+                        PORTALLOCATOR_DISABLE_RELAY |
+                        PORTALLOCATOR_ENABLE_IPV6_ON_WIFI);
+
+  ASSERT_TRUE(CreateSession(cricket::ICE_CANDIDATE_COMPONENT_RTP));
+  session_->StartGettingPorts();
+  EXPECT_TRUE_SIMULATED_WAIT(candidate_allocation_done_,
+                             kDefaultAllocationTimeout, fake_clock);
+  EXPECT_EQ(2U, candidates_.size());
+}
+
+// Test that if the number of available IPv6 networks is less than
+// allocator.max_ipv6_networks(), all IPv6 networks will be selected.
+TEST_F(BasicPortAllocatorTest, AllIPv6AreSelected) {
+  webrtc::test::ScopedKeyValueConfig field_trials(
+      field_trials_, "WebRTC-IPv6NetworkResolutionFixes/Enabled/");
+  // Add one IPv6 network interface, tell the allocator to use two.
+  allocator().Initialize();
+  allocator().set_max_ipv6_networks(3);
+  AddInterface(kClientIPv6Addr, "unknown", rtc::ADAPTER_TYPE_UNKNOWN);
+  AddInterface(kClientIPv6Addr2, "ether", rtc::ADAPTER_TYPE_ETHERNET);
+
+  // To simplify the test, only gather UDP host candidates.
+  allocator().set_flags(PORTALLOCATOR_ENABLE_IPV6 | PORTALLOCATOR_DISABLE_TCP |
+                        PORTALLOCATOR_DISABLE_STUN |
+                        PORTALLOCATOR_DISABLE_RELAY |
+                        PORTALLOCATOR_ENABLE_IPV6_ON_WIFI);
+
+  ASSERT_TRUE(CreateSession(cricket::ICE_CANDIDATE_COMPONENT_RTP));
+  session_->StartGettingPorts();
+  EXPECT_TRUE_SIMULATED_WAIT(candidate_allocation_done_,
+                             kDefaultAllocationTimeout, fake_clock);
+  EXPECT_EQ(2U, candidates_.size());
+}
+
+// If there are some IPv6 networks with different types and
+// IPv6NetworkResolutionFixes is enabled, diversify IPv6 networks.
+TEST_F(BasicPortAllocatorTest, TwoIPv6WifiAreSelectedIfThereAreTwo) {
+  webrtc::test::ScopedKeyValueConfig field_trials(
+      field_trials_, "WebRTC-IPv6NetworkResolutionFixes/Enabled/");
+  // Add 5 IPv6 network interfaces with different types, but tell the allocator
+  // to only use 4.
+  allocator().set_max_ipv6_networks(4);
+  AddInterface(kClientIPv6Addr, "wifi1", rtc::ADAPTER_TYPE_WIFI);
+  AddInterface(kClientIPv6Addr2, "ethe1", rtc::ADAPTER_TYPE_ETHERNET);
+  AddInterface(kClientIPv6Addr3, "ethe2", rtc::ADAPTER_TYPE_ETHERNET);
+  AddInterface(kClientIPv6Addr4, "unknown1", rtc::ADAPTER_TYPE_UNKNOWN);
+  AddInterface(kClientIPv6Addr5, "cell1", rtc::ADAPTER_TYPE_CELLULAR_4G);
+
+  // To simplify the test, only gather UDP host candidates.
+  allocator().set_flags(PORTALLOCATOR_ENABLE_IPV6 | PORTALLOCATOR_DISABLE_TCP |
+                        PORTALLOCATOR_DISABLE_STUN |
+                        PORTALLOCATOR_DISABLE_RELAY |
+                        PORTALLOCATOR_ENABLE_IPV6_ON_WIFI);
+
+  ASSERT_TRUE(CreateSession(cricket::ICE_CANDIDATE_COMPONENT_RTP));
+  session_->StartGettingPorts();
+  EXPECT_TRUE_SIMULATED_WAIT(candidate_allocation_done_,
+                             kDefaultAllocationTimeout, fake_clock);
+  EXPECT_EQ(4U, candidates_.size());
+  // Ensure the expected 4 interfaces (wifi1, ethe1, cell1, unknown1) were used.
+  EXPECT_TRUE(HasCandidate(candidates_, "local", "udp", kClientIPv6Addr));
+  EXPECT_TRUE(HasCandidate(candidates_, "local", "udp", kClientIPv6Addr2));
+  EXPECT_TRUE(HasCandidate(candidates_, "local", "udp", kClientIPv6Addr4));
+  EXPECT_TRUE(HasCandidate(candidates_, "local", "udp", kClientIPv6Addr5));
+}
+
+// If there are some IPv6 networks with the same type and
+// IPv6NetworkResolutionFixes is enabled, select them because there is no other
+// option.
+TEST_F(BasicPortAllocatorTest, IPv6WithSameTypeAreSelectedIfNoOtherOption) {
+  webrtc::test::ScopedKeyValueConfig field_trials(
+      field_trials_, "WebRTC-IPv6NetworkResolutionFixes/Enabled/");
+  // Add 5 IPv6 cellular network interfaces, but tell the allocator to only
+  // use 4.
+  allocator().set_max_ipv6_networks(4);
+  AddInterface(kClientIPv6Addr, "cell1", rtc::ADAPTER_TYPE_CELLULAR_2G);
+  AddInterface(kClientIPv6Addr2, "cell2", rtc::ADAPTER_TYPE_CELLULAR_3G);
+  AddInterface(kClientIPv6Addr3, "cell3", rtc::ADAPTER_TYPE_CELLULAR_4G);
+  AddInterface(kClientIPv6Addr4, "cell4", rtc::ADAPTER_TYPE_CELLULAR_5G);
+  AddInterface(kClientIPv6Addr5, "cell5", rtc::ADAPTER_TYPE_CELLULAR_3G);
+
+  // To simplify the test, only gather UDP host candidates.
+  allocator().set_flags(PORTALLOCATOR_ENABLE_IPV6 | PORTALLOCATOR_DISABLE_TCP |
+                        PORTALLOCATOR_DISABLE_STUN |
+                        PORTALLOCATOR_DISABLE_RELAY |
+                        PORTALLOCATOR_ENABLE_IPV6_ON_WIFI);
+
+  ASSERT_TRUE(CreateSession(cricket::ICE_CANDIDATE_COMPONENT_RTP));
+  session_->StartGettingPorts();
+  EXPECT_TRUE_SIMULATED_WAIT(candidate_allocation_done_,
+                             kDefaultAllocationTimeout, fake_clock);
+  EXPECT_EQ(4U, candidates_.size());
+}
+
+TEST_F(BasicPortAllocatorTest, IPv6EthernetHasHigherPriorityThanWifi) {
+  webrtc::test::ScopedKeyValueConfig field_trials(
+      field_trials_, "WebRTC-IPv6NetworkResolutionFixes/Enabled/");
+  // Add three IPv6 network interfaces, but tell the allocator to only use two.
+  allocator().set_max_ipv6_networks(1);
+  AddInterface(kClientIPv6Addr, "wifi1", rtc::ADAPTER_TYPE_WIFI);
+  AddInterface(kClientIPv6Addr2, "ethe1", rtc::ADAPTER_TYPE_ETHERNET);
+  AddInterface(kClientIPv6Addr3, "wifi2", rtc::ADAPTER_TYPE_WIFI);
+  // To simplify the test, only gather UDP host candidates.
+  allocator().set_flags(PORTALLOCATOR_ENABLE_IPV6 | PORTALLOCATOR_DISABLE_TCP |
+                        PORTALLOCATOR_DISABLE_STUN |
+                        PORTALLOCATOR_DISABLE_RELAY |
+                        PORTALLOCATOR_ENABLE_IPV6_ON_WIFI);
+
+  ASSERT_TRUE(CreateSession(cricket::ICE_CANDIDATE_COMPONENT_RTP));
+  session_->StartGettingPorts();
+  EXPECT_TRUE_SIMULATED_WAIT(candidate_allocation_done_,
+                             kDefaultAllocationTimeout, fake_clock);
+  EXPECT_EQ(1U, candidates_.size());
+  // Ensure ethe1 was selected.
+  EXPECT_TRUE(HasCandidate(candidates_, "local", "udp", kClientIPv6Addr2));
+}
+
+TEST_F(BasicPortAllocatorTest, IPv6EtherAndWifiHaveHigherPriorityThanOther) {
+  webrtc::test::ScopedKeyValueConfig field_trials(
+      field_trials_, "WebRTC-IPv6NetworkResolutionFixes/Enabled/");
+  // Add three IPv6 network interfaces, but tell the allocator to only use two.
+  allocator().set_max_ipv6_networks(2);
+  AddInterface(kClientIPv6Addr, "cell1", rtc::ADAPTER_TYPE_CELLULAR_3G);
+  AddInterface(kClientIPv6Addr2, "ethe1", rtc::ADAPTER_TYPE_ETHERNET);
+  AddInterface(kClientIPv6Addr3, "wifi1", rtc::ADAPTER_TYPE_WIFI);
+  AddInterface(kClientIPv6Addr4, "unknown", rtc::ADAPTER_TYPE_UNKNOWN);
+  AddInterface(kClientIPv6Addr5, "vpn1", rtc::ADAPTER_TYPE_VPN);
+  // To simplify the test, only gather UDP host candidates.
+  allocator().set_flags(PORTALLOCATOR_ENABLE_IPV6 | PORTALLOCATOR_DISABLE_TCP |
+                        PORTALLOCATOR_DISABLE_STUN |
+                        PORTALLOCATOR_DISABLE_RELAY |
+                        PORTALLOCATOR_ENABLE_IPV6_ON_WIFI);
+
+  ASSERT_TRUE(CreateSession(cricket::ICE_CANDIDATE_COMPONENT_RTP));
+  session_->StartGettingPorts();
+  EXPECT_TRUE_SIMULATED_WAIT(candidate_allocation_done_,
+                             kDefaultAllocationTimeout, fake_clock);
+  EXPECT_EQ(2U, candidates_.size());
+  // Ensure ethe1 and wifi1 were selected.
+  EXPECT_TRUE(HasCandidate(candidates_, "local", "udp", kClientIPv6Addr2));
+  EXPECT_TRUE(HasCandidate(candidates_, "local", "udp", kClientIPv6Addr3));
+}
+
+// Do not diversify IPv6 network types if IPv6NetworkResolutionFixes is
+// disabled.
+TEST_F(BasicPortAllocatorTest, NotDiversifyIPv6NetworkTypes) {
+  // Add three IPv6 network interfaces, but tell the allocator to only use two.
+  allocator().set_max_ipv6_networks(2);
+  AddInterface(kClientIPv6Addr, "ethe1", rtc::ADAPTER_TYPE_ETHERNET);
+  AddInterface(kClientIPv6Addr2, "ethe2", rtc::ADAPTER_TYPE_ETHERNET);
+  AddInterface(kClientIPv6Addr3, "wifi1", rtc::ADAPTER_TYPE_WIFI);
+  // To simplify the test, only gather UDP host candidates.
+  allocator().set_flags(PORTALLOCATOR_ENABLE_IPV6 | PORTALLOCATOR_DISABLE_TCP |
+                        PORTALLOCATOR_DISABLE_STUN |
+                        PORTALLOCATOR_DISABLE_RELAY |
+                        PORTALLOCATOR_ENABLE_IPV6_ON_WIFI);
+
+  ASSERT_TRUE(CreateSession(cricket::ICE_CANDIDATE_COMPONENT_RTP));
+  session_->StartGettingPorts();
+  EXPECT_TRUE_SIMULATED_WAIT(candidate_allocation_done_,
+                             kDefaultAllocationTimeout, fake_clock);
+  EXPECT_EQ(2U, candidates_.size());
+  // Wifi1 was not selected because it comes after ethe1 and ethe2.
+  EXPECT_FALSE(HasCandidate(candidates_, "local", "udp", kClientIPv6Addr3));
 }
 
 // Test that no more than allocator.max_ipv6_networks() IPv6 networks are used

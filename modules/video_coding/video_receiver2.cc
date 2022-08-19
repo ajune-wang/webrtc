@@ -54,26 +54,15 @@ int32_t VideoReceiver2::RegisterReceiveCallback(
   return VCM_OK;
 }
 
-// Register an externally defined decoder object. This may be called on either
-// the construction sequence or the decoder sequence to allow for lazy creation
-// of video decoders. If called on the decoder sequence `externalDecoder` cannot
-// be a nullptr. It's the responsibility of the caller to make sure that the
-// access from the two sequences are mutually exclusive.
 void VideoReceiver2::RegisterExternalDecoder(VideoDecoder* externalDecoder,
                                              uint8_t payloadType) {
-  if (IsDecoderThreadRunning()) {
-    RTC_DCHECK_RUN_ON(&decoder_sequence_checker_);
-    // Don't allow deregistering decoders on the decoder thread.
-    RTC_DCHECK(externalDecoder != nullptr);
-  } else {
-    RTC_DCHECK_RUN_ON(&construction_sequence_checker_);
-  }
+  RTC_DCHECK_RUN_ON(&decoder_sequence_checker_);
 
   if (externalDecoder == nullptr) {
     codecDataBase_.DeregisterExternalDecoder(payloadType);
-    return;
+  } else {
+    codecDataBase_.RegisterExternalDecoder(payloadType, externalDecoder);
   }
-  codecDataBase_.RegisterExternalDecoder(payloadType, externalDecoder);
 }
 
 bool VideoReceiver2::IsExternalDecoderRegistered(uint8_t payloadType) const {

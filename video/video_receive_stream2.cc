@@ -433,7 +433,13 @@ void VideoReceiveStream2::Stop() {
     rtc::Event done;
     decode_queue_.PostTask([this, &done] {
       RTC_DCHECK_RUN_ON(&decode_queue_);
+      // Set `decoder_stopped_` before deregistering all decoders. This means
+      // that any pending encoded frame will return early without trying to
+      // access the decoder database.
       decoder_stopped_ = true;
+      for (const Decoder& decoder : config_.decoders) {
+        video_receiver_.RegisterExternalDecoder(nullptr, decoder.payload_type);
+      }
       done.Set();
     });
     done.Wait(rtc::Event::kForever);
@@ -441,12 +447,6 @@ void VideoReceiveStream2::Stop() {
     decoder_running_ = false;
     video_receiver_.DecoderThreadStopped();
     stats_proxy_.DecoderThreadStopped();
-    // Deregister external decoders so they are no longer running during
-    // destruction. This effectively stops the VCM since the decoder thread is
-    // stopped, the VCM is deregistered and no asynchronous decoder threads are
-    // running.
-    for (const Decoder& decoder : config_.decoders)
-      video_receiver_.RegisterExternalDecoder(nullptr, decoder.payload_type);
 
     UpdateHistograms();
   }

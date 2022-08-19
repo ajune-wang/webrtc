@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "300bee8f_191dfeb5",
+        "filename": "modules/video_coding/video_receiver2.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 112,
+      "author": {
+        "id": 18444
+      },
+      "writtenOn": "2022-08-19T09:38:39Z",
+      "side": 1,
+      "message": "Can this and the DecodeThreadStarting/Stopped methods be removed now? Methods checking it shouldn\u0027t really care so much.",
+      "range": {
+        "startLine": 112,
+        "startChar": 21,
+        "endLine": 112,
+        "endChar": 43
+      },
+      "revId": "66f2c0d624e15bc601e2b562dd83fa32fbe2e918",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

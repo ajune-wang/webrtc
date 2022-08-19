@@ -1,0 +1,119 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "f4d7c83d_0a309036",
+        "filename": "modules/audio_processing/agc/agc_manager_direct.h",
+        "patchSetId": 15
+      },
+      "lineNbr": 152,
+      "author": {
+        "id": 5125
+      },
+      "writtenOn": "2022-08-19T14:16:10Z",
+      "side": 1,
+      "message": "Should the default value be 0, which is a valid level?\nOr should it be an optional or some non-valid level to distinguish this from that no level has been set?",
+      "range": {
+        "startLine": 152,
+        "startChar": 6,
+        "endLine": 152,
+        "endChar": 36
+      },
+      "revId": "0c788b51fa75a71ea1a950a4c089c5b2cab58eac",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "3c665582_0854a13c",
+        "filename": "modules/audio_processing/agc/agc_manager_direct.h",
+        "patchSetId": 15
+      },
+      "lineNbr": 191,
+      "author": {
+        "id": 5125
+      },
+      "writtenOn": "2022-08-19T14:16:10Z",
+      "side": 1,
+      "message": "Same comment as below",
+      "range": {
+        "startLine": 190,
+        "startChar": 47,
+        "endLine": 191,
+        "endChar": 40
+      },
+      "revId": "0c788b51fa75a71ea1a950a4c089c5b2cab58eac",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "2b532c8c_5d03dba6",
+        "filename": "modules/audio_processing/agc/agc_manager_direct.h",
+        "patchSetId": 15
+      },
+      "lineNbr": 195,
+      "author": {
+        "id": 5125
+      },
+      "writtenOn": "2022-08-19T14:16:10Z",
+      "side": 1,
+      "message": "typo",
+      "range": {
+        "startLine": 195,
+        "startChar": 5,
+        "endLine": 195,
+        "endChar": 14
+      },
+      "revId": "0c788b51fa75a71ea1a950a4c089c5b2cab58eac",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "9a8710af_996000e8",
+        "filename": "modules/audio_processing/agc/agc_manager_direct.h",
+        "patchSetId": 15
+      },
+      "lineNbr": 197,
+      "author": {
+        "id": 5125
+      },
+      "writtenOn": "2022-08-19T14:16:10Z",
+      "side": 1,
+      "message": "Is this specification really needed?\nI\u0027d guess it cannot give random behavior, right?\nSince there is no other specification in the header for how the processing is done, I think there is no needed to state that the behavior here is undefined.\n\nI\u0027d rather then state that HandleClipping should be called before Process.",
+      "range": {
+        "startLine": 196,
+        "startChar": 35,
+        "endLine": 197,
+        "endChar": 24
+      },
+      "revId": "0c788b51fa75a71ea1a950a4c089c5b2cab58eac",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "2522c1e0_5ebc7f0f",
+        "filename": "modules/audio_processing/agc/agc_manager_direct.h",
+        "patchSetId": 15
+      },
+      "lineNbr": 201,
+      "author": {
+        "id": 5125
+      },
+      "writtenOn": "2022-08-19T14:16:10Z",
+      "side": 1,
+      "message": "In what sense must this be undefined?",
+      "range": {
+        "startLine": 200,
+        "startChar": 43,
+        "endLine": 201,
+        "endChar": 17
+      },
+      "revId": "0c788b51fa75a71ea1a950a4c089c5b2cab58eac",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

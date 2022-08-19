@@ -501,6 +501,7 @@ void RtpVideoStreamReceiver2::OnReceivedPayloadData(
     rtc::CopyOnWriteBuffer codec_payload,
     const RtpPacketReceived& rtp_packet,
     const RTPVideoHeader& video) {
+  // RTC_LOG(LS_WARNING) << "GUANRU_LOG OnReceivedPayloadData";
   RTC_DCHECK_RUN_ON(&packet_sequence_checker_);
 
   auto packet =
@@ -687,6 +688,7 @@ void RtpVideoStreamReceiver2::OnRecoveredPacket(const uint8_t* rtp_packet,
 // This method handles both regular RTP packets and packets recovered
 // via FlexFEC.
 void RtpVideoStreamReceiver2::OnRtpPacket(const RtpPacketReceived& packet) {
+  // RTC_LOG(LS_WARNING) << "GUANRU_LOG OnRtpPacket";
   RTC_DCHECK_RUN_ON(&packet_sequence_checker_);
 
   if (!receiving_)
@@ -819,6 +821,7 @@ void RtpVideoStreamReceiver2::OnInsertedPacket(
 
 void RtpVideoStreamReceiver2::OnAssembledFrame(
     std::unique_ptr<RtpFrameObject> frame) {
+  // RTC_LOG(LS_WARNING) << "GUANRU_LOG OnAssembledFrame";
   RTC_DCHECK_RUN_ON(&packet_sequence_checker_);
   RTC_DCHECK(frame);
 

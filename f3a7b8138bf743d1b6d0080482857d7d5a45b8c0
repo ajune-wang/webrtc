@@ -16,6 +16,29 @@
       "message": "Not sure we can use the group googlers here for ACL for the admin roles (and read for now until we are ready to share)",
       "revId": "f3a7b8138bf743d1b6d0080482857d7d5a45b8c0",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "ce25b2d5_e3e9e6ed",
+        "filename": "infra/config/realms.cfg",
+        "patchSetId": 2
+      },
+      "lineNbr": 12,
+      "author": {
+        "id": 12234
+      },
+      "writtenOn": "2022-08-19T09:02:23Z",
+      "side": 1,
+      "message": "isn\u0027t this weird to have these 2 groups ?",
+      "range": {
+        "startLine": 11,
+        "startChar": 0,
+        "endLine": 12,
+        "endChar": 32
+      },
+      "revId": "f3a7b8138bf743d1b6d0080482857d7d5a45b8c0",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

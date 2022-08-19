@@ -523,14 +523,7 @@ class RTC_EXPORT Network {
     }
   }
 
-  // Note: This function is called "rarely".
-  // Twice per Network in BasicPortAllocator if
-  // PORTALLOCATOR_DISABLE_COSTLY_NETWORKS. Once in Port::Construct() (and when
-  // Port::OnNetworkTypeChanged is called).
-  ABSL_DEPRECATED(
-      "Use the version with field trials, see bugs.webrtc.org/webrtc:10335")
-  uint16_t GetCost(const webrtc::FieldTrialsView* field_trials = nullptr) const;
-  uint16_t GetCost(const webrtc::FieldTrialsView& field_trials) const;
+  uint16_t GetCost() const;
 
   // A unique id assigned by the network manager, which may be signaled
   // to the remote side in the candidate.

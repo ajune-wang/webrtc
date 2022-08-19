@@ -56,16 +56,26 @@ class AgcManagerDirect final {
   // `gain_control` is also used to avoid the side-effects of running two AGCs.
   void SetupDigitalGainControl(GainControl& gain_control) const;
 
+  // Sets the current input volume.
+  void set_stream_analog_level(int level);
+
   // Analyzes `audio` before `Process()` is called so that the analysis can be
   // performed before external digital processing operations take place (e.g.,
   // echo cancellation). The analysis consists of input clipping detection and
-  // prediction (if enabled).
+  // prediction (if enabled). Undefined behavior if called before
+  // `set_stream_analog_level()`.
   void AnalyzePreProcess(const AudioBuffer* audio);
 
-  // Processes `audio`. Chooses and applies a digital compression gain on each
-  // channel and chooses the new input volume to recommend. Undefined behavior
-  // if `AnalyzePreProcess()` is not called beforehand.
+  // Processes `audio`. Chooses a digital compression gain and the new input
+  // volume to recommend. Undefined behavior if called before
+  // `AnalyzePreProcess()`.
   void Process(const AudioBuffer* audio);
+
+  // Returns the recommended input volume. If the analog contoller is disabled,
+  // returns the level set via the latest `set_stream_analog_level()` call.
+  // Undefined behavior if called before `AnalyzePreProcess()` or before
+  // `Process()`.
+  int recommended_analog_level() const { return recommended_analog_level_; }
 
   // Call when the capture stream output has been flagged to be used/not-used.
   // If unused, the manager  disregards all incoming audio.
@@ -73,16 +83,10 @@ class AgcManagerDirect final {
 
   float voice_probability() const;
 
-  // Returns the recommended input volume.
-  int stream_analog_level() const { return stream_analog_level_; }
-
-  // Sets the current input volume.
-  void set_stream_analog_level(int level);
-
   int num_channels() const { return num_capture_channels_; }
 
   // If available, returns the latest digital compression gain that has been
-  // applied.
+  // chosen.
   absl::optional<int> GetDigitalComressionGain();
 
   // Returns true if clipping prediction is enabled.
@@ -129,6 +133,8 @@ class AgcManagerDirect final {
 
   void AggregateChannelLevels();
 
+  const bool analog_controller_enabled_;
+
   const absl::optional<int> min_mic_level_override_;
   std::unique_ptr<ApmDataDumper> data_dumper_;
   static std::atomic<int> instance_counter_;
@@ -137,7 +143,14 @@ class AgcManagerDirect final {
   const bool disable_digital_adaptive_;
 
   int frames_since_clipped_;
-  int stream_analog_level_ = 0;
+
+  // TODO(bugs.webrtc.org/7494): Create a separate member for the stream analog
+  // level. Recommended analog level. After `set_stream_analog_level()` is
+  // called it holds the observed stream analog level. Possibly updated by
+  // `AnalyzePreProcess()` and `Process()`; after these calls, holds the
+  // recommended analog level.
+  int recommended_analog_level_ = 0;
+
   bool capture_output_used_;
   int channel_controlling_gain_ = 0;
 
@@ -170,12 +183,24 @@ class MonoAgc {
   void Initialize();
   void HandleCaptureOutputUsedChange(bool capture_output_used);
 
+  // Sets the current input volume.
+  void set_stream_analog_level(int level) { recommended_analog_level_ = level; }
+
+  // Lowers the recommended analog level in response to clipping based on the
+  // suggested reduction `clipped_level_step`. Undefined behavior if called
+  // before `set_stream_analog_level()`.
   void HandleClipping(int clipped_level_step);
 
+  // Analyzes `audio`, updates the recommended analog level based on the
+  // estiamted speech level and, if enabled, updates the (digital) compression
+  // gain to be applied by `agc_`. Undefined behavior if called before
+  // `HandleClipping()`.
   void Process(rtc::ArrayView<const int16_t> audio);
 
-  void set_stream_analog_level(int level) { stream_analog_level_ = level; }
-  int stream_analog_level() const { return stream_analog_level_; }
+  // Returns the recommended input volume. Undefined behavior if called before
+  // `Process()`.
+  int recommended_analog_level() const { return recommended_analog_level_; }
+
   float voice_probability() const { return agc_->voice_probability(); }
   void ActivateLogging() { log_to_histograms_ = true; }
   absl::optional<int> new_compression() const {
@@ -215,7 +240,14 @@ class MonoAgc {
   bool startup_ = true;
   int startup_min_level_;
   int calls_since_last_gain_log_ = 0;
-  int stream_analog_level_ = 0;
+
+  // TODO(bugs.webrtc.org/7494): Create a separate member for the stream analog
+  // level. Recommended analog level. After `set_stream_analog_level()` is
+  // called it holds the observed stream analog level. Possibly updated by
+  // `HandleClipping()` and `Process()`; after these calls, holds the
+  // recommended analog level.
+  int recommended_analog_level_ = 0;
+
   absl::optional<int> new_compression_to_set_;
   bool log_to_histograms_ = false;
   const int clipped_level_min_;

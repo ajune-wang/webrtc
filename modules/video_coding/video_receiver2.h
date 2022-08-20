@@ -11,6 +11,9 @@
 #ifndef MODULES_VIDEO_CODING_VIDEO_RECEIVER2_H_
 #define MODULES_VIDEO_CODING_VIDEO_RECEIVER2_H_
 
+#include <memory>
+#include <vector>
+
 #include "api/field_trials_view.h"
 #include "api/sequence_checker.h"
 #include "api/video_codecs/video_decoder.h"
@@ -37,8 +40,12 @@ class VideoReceiver2 {
   void RegisterReceiveCodec(uint8_t payload_type,
                             const VideoDecoder::Settings& decoder_settings);
 
-  void RegisterExternalDecoder(VideoDecoder* externalDecoder,
-                               uint8_t payloadType);
+  // void RegisterExternalDecoder(VideoDecoder* externalDecoder,
+  //                              uint8_t payloadType);
+
+  void RegisterExternalDecoder(std::unique_ptr<VideoDecoder> decoder,
+                               uint8_t payload_type);
+
   bool IsExternalDecoderRegistered(uint8_t payloadType) const;
   int32_t RegisterReceiveCallback(VCMReceiveCallback* receiveCallback);
 
@@ -50,6 +57,9 @@ class VideoReceiver2 {
   Clock* const clock_;
   VCMTiming* timing_;
   VCMDecodedFrameCallback decodedFrameCallback_;
+  // Holds/owns the decoder instances that are registered via
+  // `RegisterExternalDecoder` and referenced by `codecDataBase_`.
+  std::vector<std::unique_ptr<VideoDecoder>> video_decoders_;
 
   // Callbacks are set before the decoder thread starts.
   // Once the decoder thread has been started, usage of `_codecDataBase` moves

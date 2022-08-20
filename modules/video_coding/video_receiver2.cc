@@ -13,8 +13,10 @@
 #include <stddef.h>
 
 #include <cstdint>
+#include <utility>
 #include <vector>
 
+#include "absl/algorithm/container.h"
 #include "api/video_codecs/video_codec.h"
 #include "api/video_codecs/video_decoder.h"
 #include "modules/video_coding/decoder_database.h"
@@ -53,21 +55,29 @@ int32_t VideoReceiver2::RegisterReceiveCallback(
   return VCM_OK;
 }
 
-void VideoReceiver2::RegisterExternalDecoder(VideoDecoder* externalDecoder,
-                                             uint8_t payloadType) {
+void VideoReceiver2::RegisterExternalDecoder(
+    std::unique_ptr<VideoDecoder> decoder,
+    uint8_t payload_type) {
   RTC_DCHECK_RUN_ON(&decoder_sequence_checker_);
   RTC_DCHECK(decodedFrameCallback_.UserReceiveCallback());
 
-  if (externalDecoder == nullptr) {
-    codecDataBase_.DeregisterExternalDecoder(payloadType);
+  if (!decoder) {
+    VideoDecoder* registered =
+        codecDataBase_.DeregisterExternalDecoder(payload_type);
+    RTC_DCHECK(registered);
+    video_decoders_.erase(absl::c_find_if(
+        video_decoders_,
+        [registered](const auto& d) { return d.get() == registered; }));
   } else {
-    codecDataBase_.RegisterExternalDecoder(payloadType, externalDecoder);
+    RTC_DCHECK(!codecDataBase_.IsExternalDecoderRegistered(payload_type));
+    codecDataBase_.RegisterExternalDecoder(payload_type, decoder.get());
+    video_decoders_.push_back(std::move(decoder));
   }
 }
 
-bool VideoReceiver2::IsExternalDecoderRegistered(uint8_t payloadType) const {
+bool VideoReceiver2::IsExternalDecoderRegistered(uint8_t payload_type) const {
   RTC_DCHECK_RUN_ON(&decoder_sequence_checker_);
-  return codecDataBase_.IsExternalDecoderRegistered(payloadType);
+  return codecDataBase_.IsExternalDecoderRegistered(payload_type);
 }
 
 // Must be called from inside the receive side critical section.

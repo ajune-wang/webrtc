@@ -369,6 +369,20 @@ void RtpVideoStreamReceiver2::AddReceiveCodec(
   pt_codec_params_.emplace(payload_type, codec_params);
 }
 
+void RtpVideoStreamReceiver2::RemoveReceiveCodec(uint8_t payload_type) {
+  RTC_DCHECK_RUN_ON(&packet_sequence_checker_);
+  auto codec_params_it = pt_codec_params_.find(payload_type);
+  if (codec_params_it == pt_codec_params_.end())
+    return;
+
+  if (codec_params_it->second.count(cricket::kH264FmtpSpsPpsIdrInKeyframe)) {
+    packet_buffer_.ResetSpsPpsIdrIsH264Keyframe();
+  }
+
+  pt_codec_params_.erase(codec_params_it);
+  payload_type_map_.erase(payload_type);
+}
+
 absl::optional<Syncable::Info> RtpVideoStreamReceiver2::GetSyncInfo() const {
   RTC_DCHECK_RUN_ON(&packet_sequence_checker_);
   Syncable::Info info;

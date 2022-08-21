@@ -428,6 +428,8 @@ void VideoReceiveStream2::Stop() {
 
   buffer_->Stop();
   call_stats_->DeregisterStatsObserver(this);
+
+  bool codec_settings_deregistered = false;
   if (decoder_running_) {
     rtc::Event done;
     decode_queue_.PostTask([this, &done] {
@@ -438,15 +440,25 @@ void VideoReceiveStream2::Stop() {
       decoder_stopped_ = true;
       for (const Decoder& decoder : config_.decoders) {
         video_receiver_.RegisterExternalDecoder(nullptr, decoder.payload_type);
+        video_receiver_.DeregisterReceiveCodec(decoder.payload_type);
       }
       done.Set();
     });
     done.Wait(rtc::Event::kForever);
 
+    codec_settings_deregistered = true;
     decoder_running_ = false;
     stats_proxy_.DecoderThreadStopped();
 
     UpdateHistograms();
+  }
+
+  for (const Decoder& decoder : config_.decoders) {
+    // TODO(bugs.webrtc.org/11993): Make this call on the network thread.
+    RTC_DCHECK_RUN_ON(&packet_sequence_checker_);
+    rtp_video_stream_receiver_.RemoveReceiveCodec(decoder.payload_type);
+    if (!codec_settings_deregistered)
+      video_receiver_.DeregisterReceiveCodec(decoder.payload_type);
   }
 
   video_stream_decoder_.reset();

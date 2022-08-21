@@ -2833,6 +2833,17 @@ void WebRtcVideoChannel::WebRtcVideoSendStream::RecreateWebRtcStream() {
   UpdateSendState();
 }
 
+void WebRtcVideoChannel::WebRtcVideoSendStream::GenerateKeyFrame() {
+  RTC_DCHECK_RUN_ON(&thread_checker_);
+  RTC_LOG(LS_ERROR) << "FIPPO WebRTCVideoSendStream::GenerateKeyFrame";
+  if (stream_ != NULL) {
+    stream_->GenerateKeyFrame();
+  } else {
+    RTC_LOG(LS_WARNING)
+        << "Absent send stream; ignoring request to generate keyframe.";
+  }
+}
+
 WebRtcVideoChannel::WebRtcVideoReceiveStream::WebRtcVideoReceiveStream(
     WebRtcVideoChannel* channel,
     webrtc::Call* call,
@@ -3553,14 +3564,26 @@ void WebRtcVideoChannel::ClearRecordableEncodedFrameCallback(uint32_t ssrc) {
   }
 }
 
-void WebRtcVideoChannel::GenerateKeyFrame(uint32_t ssrc) {
+void WebRtcVideoChannel::GenerateRecvKeyFrame(uint32_t ssrc) {
   RTC_DCHECK_RUN_ON(&thread_checker_);
   WebRtcVideoReceiveStream* stream = FindReceiveStream(ssrc);
   if (stream) {
-    stream->GenerateKeyFrame();
+    return stream->GenerateKeyFrame();
   } else {
     RTC_LOG(LS_ERROR)
         << "Absent receive stream; ignoring key frame generation for ssrc "
+        << ssrc;
+  }
+}
+
+void WebRtcVideoChannel::GenerateSendKeyFrame(uint32_t ssrc) {
+  RTC_DCHECK_RUN_ON(&thread_checker_);
+  auto it = send_streams_.find(ssrc);
+  if (it != send_streams_.end()) {
+    it->second->GenerateKeyFrame();
+  } else {
+    RTC_LOG(LS_ERROR)
+        << "Absent send stream; ignoring key frame generation for ssrc "
         << ssrc;
   }
 }

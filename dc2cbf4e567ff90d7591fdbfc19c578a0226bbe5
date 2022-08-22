@@ -18,6 +18,24 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "09127fca_8fde0ac4",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 3
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5077
+      },
+      "writtenOn": "2022-08-22T09:57:20Z",
+      "side": 1,
+      "message": "AFAICT it\u0027s all active. The DcSctpTransport was introduced last year and the main classes concerned are created by JsepTransport[Controller].",
+      "parentUuid": "4db3662c_421d1ba1",
+      "revId": "dc2cbf4e567ff90d7591fdbfc19c578a0226bbe5",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "00556284_8ba94e08",
@@ -31,6 +49,24 @@
       "writtenOn": "2022-08-05T13:02:04Z",
       "side": 1,
       "message": "hmm.. can we convert these `RTC_LOG(LS_VERBOSE)` statements to DLOG?",
+      "revId": "dc2cbf4e567ff90d7591fdbfc19c578a0226bbe5",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "8811463c_d871f083",
+        "filename": "media/sctp/dcsctp_transport.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 418,
+      "author": {
+        "id": 5077
+      },
+      "writtenOn": "2022-08-22T09:57:20Z",
+      "side": 1,
+      "message": "Converted all non-error-logging statements to DLOG",
+      "parentUuid": "00556284_8ba94e08",
       "revId": "dc2cbf4e567ff90d7591fdbfc19c578a0226bbe5",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
@@ -52,6 +88,24 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "cfbccde1_934f331b",
+        "filename": "media/sctp/dcsctp_transport.h",
+        "patchSetId": 3
+      },
+      "lineNbr": 133,
+      "author": {
+        "id": 5077
+      },
+      "writtenOn": "2022-08-22T09:57:20Z",
+      "side": 1,
+      "message": "Couldn\u0027t agree more, however we still need SetDataChannelSink() since that is used by DataChannelController (previously it was indirect via SctpDataChannelTransport).   Fixing that requires larger changes to ownership and object relationships.\n\nI think this CL now strikes a good balance between simplifying the structure while still primarily focusing on removing sigslots.",
+      "parentUuid": "aa01c8bf_126c8f96",
+      "revId": "dc2cbf4e567ff90d7591fdbfc19c578a0226bbe5",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "ea4c4698_4b541699",
@@ -65,6 +119,24 @@
       "writtenOn": "2022-08-05T13:02:04Z",
       "side": 1,
       "message": "Can you add thread annotation (presumably for the network thread)?\n\nAlso, could we make this a weak_ptr or something (even refcount?) in the future? Given some of the issues we\u0027ve had in the Connection classes, not having the lifetime/ownership relationship declared rings some alarm bells.",
+      "revId": "dc2cbf4e567ff90d7591fdbfc19c578a0226bbe5",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "30c99133_20f1579b",
+        "filename": "media/sctp/dcsctp_transport.h",
+        "patchSetId": 3
+      },
+      "lineNbr": 134,
+      "author": {
+        "id": 5077
+      },
+      "writtenOn": "2022-08-22T09:57:20Z",
+      "side": 1,
+      "message": "Added annotations and removed the SctpDataChannelTransport class, which was just acting as a proxy.",
+      "parentUuid": "ea4c4698_4b541699",
       "revId": "dc2cbf4e567ff90d7591fdbfc19c578a0226bbe5",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
@@ -86,6 +158,24 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "e45be6f0_6477af26",
+        "filename": "media/sctp/dcsctp_transport_unittest.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 63,
+      "author": {
+        "id": 5077
+      },
+      "writtenOn": "2022-08-22T09:57:20Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "a03c6aa7_3caad2bb",
+      "revId": "dc2cbf4e567ff90d7591fdbfc19c578a0226bbe5",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "c4a0bbc4_9d90ae9c",
@@ -103,6 +193,24 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "ab03e8c0_bc53dbcf",
+        "filename": "pc/sctp_transport.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 32,
+      "author": {
+        "id": 5077
+      },
+      "writtenOn": "2022-08-22T09:57:20Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "c4a0bbc4_9d90ae9c",
+      "revId": "dc2cbf4e567ff90d7591fdbfc19c578a0226bbe5",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "24f5dc63_22d48bca",
@@ -116,6 +224,24 @@
       "writtenOn": "2022-08-05T13:02:04Z",
       "side": 1,
       "message": "nit: `std::move`",
+      "revId": "dc2cbf4e567ff90d7591fdbfc19c578a0226bbe5",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "44af51f8_996aff5a",
+        "filename": "pc/sctp_transport_unittest.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 43,
+      "author": {
+        "id": 5077
+      },
+      "writtenOn": "2022-08-22T09:57:20Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "24f5dc63_22d48bca",
       "revId": "dc2cbf4e567ff90d7591fdbfc19c578a0226bbe5",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }

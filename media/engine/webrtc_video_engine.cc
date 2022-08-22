@@ -3196,6 +3196,7 @@ void WebRtcVideoChannel::WebRtcVideoReceiveStream::StartReceiveStream() {
 
 void WebRtcVideoChannel::WebRtcVideoReceiveStream::OnFrame(
     const webrtc::VideoFrame& frame) {
+  // RTC_LOG(LS_WARNING) << "GUANRU_LOG WebRtcVideoReceiveStream::OnFrame";
   webrtc::MutexLock lock(&sink_lock_);
 
   int64_t time_now_ms = rtc::TimeMillis();

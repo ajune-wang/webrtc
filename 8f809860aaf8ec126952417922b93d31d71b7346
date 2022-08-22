@@ -16,6 +16,24 @@
       "message": "why remove this include?\nVideoDecoder symbol is still used in this file.\n\n\nhttps://google.github.io/styleguide/cppguide.html#Include_What_You_Use\n\n“Do not rely on transitive inclusions. ... This also applies to related headers - foo.cc should include bar.h if it uses a symbol from it even if foo.h includes bar.h.”",
       "revId": "8f809860aaf8ec126952417922b93d31d71b7346",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "6a9c5db0_ba0038f5",
+        "filename": "modules/video_coding/video_receiver2.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 19,
+      "author": {
+        "id": 5508
+      },
+      "writtenOn": "2022-08-22T10:56:55Z",
+      "side": 0,
+      "message": "Restored now.\n\nI removed a couple of #includes here that are already in the header file. VideoDecoder is used as part of the VideoReceiver2 class declaration.\n\nHowever it\u0027s clearly been a while since I last reviewed this part of the guidelines. Wrt this part of the guidelines:\n```\nThis also applies to related headers - foo.cc should include bar.h if it uses a symbol from it even if foo.h includes bar.h.\n```\nI\u0027m pretty sure we don\u0027t follow that to a tee. Do you interpret it as an implementation of a previously declared function must also include the headers that must already have been included for the sake of the declaration?",
+      "parentUuid": "1970bd65_6c07ea01",
+      "revId": "8f809860aaf8ec126952417922b93d31d71b7346",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

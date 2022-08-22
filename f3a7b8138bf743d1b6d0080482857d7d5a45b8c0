@@ -104,6 +104,30 @@
       },
       "revId": "f3a7b8138bf743d1b6d0080482857d7d5a45b8c0",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "116beda9_f1530914",
+        "filename": "infra/config/realms.cfg",
+        "patchSetId": 2
+      },
+      "lineNbr": 12,
+      "author": {
+        "id": 6193
+      },
+      "writtenOn": "2022-08-22T06:20:48Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "6a1fdbba_868c70f3",
+      "range": {
+        "startLine": 11,
+        "startChar": 0,
+        "endLine": 12,
+        "endChar": 32
+      },
+      "revId": "f3a7b8138bf743d1b6d0080482857d7d5a45b8c0",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

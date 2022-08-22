@@ -16,6 +16,23 @@
       "message": "To avoid further revert-reland iterations, I\u0027m currently manually importing this CL into downstream projects to make sure nothing breaks. I\u0027ll write an update once I\u0027m done.",
       "revId": "cb1a3f6db3165f1ed480f5e69dbe2fd042fd00a0",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "aaceff8f_8b11b6a1",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5150
+      },
+      "writtenOn": "2022-08-22T09:33:51Z",
+      "side": 1,
+      "message": "Yaowen, it looks like this needs to be rebased again. (One of the removed files was modified on HEAD). Do you want me upload a patch, or do you want to do it?",
+      "revId": "cb1a3f6db3165f1ed480f5e69dbe2fd042fd00a0",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

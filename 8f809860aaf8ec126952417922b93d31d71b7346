@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "1970bd65_6c07ea01",
+        "filename": "modules/video_coding/video_receiver2.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 19,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2022-08-22T07:57:14Z",
+      "side": 0,
+      "message": "why remove this include?\nVideoDecoder symbol is still used in this file.\n\n\nhttps://google.github.io/styleguide/cppguide.html#Include_What_You_Use\n\n“Do not rely on transitive inclusions. ... This also applies to related headers - foo.cc should include bar.h if it uses a symbol from it even if foo.h includes bar.h.”",
+      "revId": "8f809860aaf8ec126952417922b93d31d71b7346",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

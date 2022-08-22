@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "6e4a3ab8_033d09ce",
+        "filename": "modules/video_coding/video_receiver2.h",
+        "patchSetId": 4
+      },
+      "lineNbr": 25,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2022-08-22T07:57:14Z",
+      "side": 1,
+      "message": "https://webrtc.googlesource.com/src/+/refs/heads/main/g3doc/style-guide.md#forward-declarations\n\n“avoid using forward declarations where possible; just #include the headers you need.”",
+      "revId": "eb88dc6f5b0f9aef64d2218828db8e463e36b33c",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

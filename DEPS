@@ -10,7 +10,7 @@ vars = {
   # chromium waterfalls. More info at: crbug.com/570091.
   'checkout_configuration': 'default',
   'checkout_instrumented_libraries': 'checkout_linux and checkout_configuration == "default"',
-  'chromium_revision': '7145bb0096117eea307c1c17ceba476449b0fd1e',
+  'chromium_revision': '6fc350be8ec51d0fe632399762618ff6bfe633cc',
 
   # Keep the Chromium default of generating location tags.
   'generate_location_tags': True,
@@ -20,13 +20,13 @@ vars = {
 
   # By default, download the fuchsia sdk from the public sdk directory.
   'fuchsia_sdk_cipd_prefix': 'fuchsia/sdk/gn/',
-  'fuchsia_version': 'version:9.20220821.0.1',
+  'fuchsia_version': 'version:9.20220821.3.1',
 }
 
 deps = {
   # TODO(kjellander): Move this to be Android-only.
   'src/base':
-    'https://chromium.googlesource.com/chromium/src/base@32c170885437d6a62e85509b2b770800e87cc7a6',
+    'https://chromium.googlesource.com/chromium/src/base@7b43cac5cb53ca19aa778c13dffaab88b9821af6',
   'src/build':
     'https://chromium.googlesource.com/chromium/src/build@facb2352412c58e2ed6c4dd9bc294a44b607b45d',
   'src/buildtools':
@@ -43,7 +43,7 @@ deps = {
   'src/testing':
     'https://chromium.googlesource.com/chromium/src/testing@a30c0d90b35c5126ba71fd6e00a00f6e3b36a8ee',
   'src/third_party':
-    'https://chromium.googlesource.com/chromium/src/third_party@e85c9430bf34b2a57d2f80552ac0ca35356e45bc',
+    'https://chromium.googlesource.com/chromium/src/third_party@4986ed4360a2f894c60cf1d65577e22ef37cf3a5',
 
   'src/buildtools/linux64': {
     'packages': [
@@ -266,7 +266,7 @@ deps = {
     'condition': 'checkout_android',
   },
   'src/tools':
-    'https://chromium.googlesource.com/chromium/src/tools@0c3c4070ca429ade60359a8ea05a85f9e877a953',
+    'https://chromium.googlesource.com/chromium/src/tools@5476e23873e80f4bc1995e413c087a949d2cdfd3',
 
   'src/third_party/accessibility_test_framework': {
       'packages': [

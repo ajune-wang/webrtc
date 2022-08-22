@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "9e8e531e_42be86bc",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 4
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2022-08-22T16:06:00Z",
+      "side": 1,
+      "message": "This looks good, and a lot more readable (traceable?) than the old version!\n",
+      "revId": "eb109b951fdd07329b429930fdf9ba4ecb223334",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

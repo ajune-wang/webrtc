@@ -18,6 +18,23 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "facc278a_7a8e35a8",
+        "filename": "infra/config/config.star",
+        "patchSetId": 2
+      },
+      "lineNbr": 86,
+      "author": {
+        "id": 19305
+      },
+      "writtenOn": "2022-08-22T01:42:15Z",
+      "side": 1,
+      "message": "See this line ^. This is probably already granting bb reader to all.",
+      "revId": "f3a7b8138bf743d1b6d0080482857d7d5a45b8c0",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "ce25b2d5_e3e9e6ed",
@@ -55,6 +72,30 @@
       "side": 1,
       "message": "Indeed, I guess it\u0027s inheriting from the root config. Will wait for Patrick\u0027s input before changing this.",
       "parentUuid": "ce25b2d5_e3e9e6ed",
+      "range": {
+        "startLine": 11,
+        "startChar": 0,
+        "endLine": 12,
+        "endChar": 32
+      },
+      "revId": "f3a7b8138bf743d1b6d0080482857d7d5a45b8c0",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "6a1fdbba_868c70f3",
+        "filename": "infra/config/realms.cfg",
+        "patchSetId": 2
+      },
+      "lineNbr": 12,
+      "author": {
+        "id": 19305
+      },
+      "writtenOn": "2022-08-22T01:42:15Z",
+      "side": 1,
+      "message": "There is probably no need to grant role/buildbucket.reader to googlers in your CL. It seems it is already granted to all. (see other comment.)",
+      "parentUuid": "f30a4164_a3fddc2f",
       "range": {
         "startLine": 11,
         "startChar": 0,

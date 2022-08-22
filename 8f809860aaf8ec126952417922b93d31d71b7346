@@ -34,6 +34,24 @@
       "parentUuid": "1970bd65_6c07ea01",
       "revId": "8f809860aaf8ec126952417922b93d31d71b7346",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "8287a17f_b72e934a",
+        "filename": "modules/video_coding/video_receiver2.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 19,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2022-08-22T11:06:23Z",
+      "side": 0,
+      "message": "yes, I watch what iwyu tools suggests and try to do the same.\n\npreviously style guide didn\u0027t require to include headers in foo.cc if they are already included in the foo.h, but few years ago the rule had changed.\nOne of the reasons - to make job of the iwyu tool simpler (it no longer need to guess what is a \u0027related header\u0027 and track those).\n\nNo, we do not follow that rule, we use transitive includes often, it is very hard to follow that rule manually.\nWhen I notice violation during review or own change - I do comment, but I do not worry much about this rule. It is annoying to fix transitive dependencies, and remove unused includes during a refactor, but with webrtc size it is less work than to carefully manually watch for this rule.",
+      "parentUuid": "6a9c5db0_ba0038f5",
+      "revId": "8f809860aaf8ec126952417922b93d31d71b7346",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

@@ -14,15 +14,15 @@
 
 #include <memory>
 #include <string>
+#include <utility>
 
 #include "absl/algorithm/container.h"
 #include "api/scoped_refptr.h"
 #include "api/sequence_checker.h"
+#include "api/task_queue/task_queue_base.h"
 #include "rtc_base/checks.h"
-#include "rtc_base/location.h"
 #include "rtc_base/logging.h"
 #include "rtc_base/strings/string_format.h"
-#include "rtc_base/thread.h"
 
 namespace webrtc {
 
@@ -51,9 +51,9 @@ class RemoteAudioSource::AudioDataProxy : public AudioSinkInterface {
 };
 
 RemoteAudioSource::RemoteAudioSource(
-    rtc::Thread* worker_thread,
+    TaskQueueBase* worker_thread,
     OnAudioChannelGoneAction on_audio_channel_gone_action)
-    : main_thread_(rtc::Thread::Current()),
+    : main_thread_(TaskQueueBase::Current()),
       worker_thread_(worker_thread),
       on_audio_channel_gone_action_(on_audio_channel_gone_action),
       state_(MediaSourceInterface::kInitializing) {
@@ -170,17 +170,11 @@ void RemoteAudioSource::OnAudioChannelGone() {
   // be processed (because the thread was destroyed shortly after this call),
   // but that is fine because the thread destructor will take care of destroying
   // the message data which will release the reference on RemoteAudioSource.
-  main_thread_->Post(RTC_FROM_HERE, this, 0,
-                     new rtc::ScopedRefMessageData<RemoteAudioSource>(this));
-}
-
-void RemoteAudioSource::OnMessage(rtc::Message* msg) {
-  RTC_DCHECK_RUN_ON(main_thread_);
-  sinks_.clear();
-  SetState(MediaSourceInterface::kEnded);
-  // Will possibly delete this RemoteAudioSource since it is reference counted
-  // in the message.
-  delete msg->pdata;
+  rtc::scoped_refptr<RemoteAudioSource> self(this);
+  main_thread_->PostTask([self = std::move(self)] {
+    self->sinks_.clear();
+    self->SetState(MediaSourceInterface::kEnded);
+  });
 }
 
 }  // namespace webrtc

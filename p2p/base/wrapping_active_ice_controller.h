@@ -64,6 +64,8 @@ class WrappingActiveIceController : public ActiveIceControllerInterface {
   void ProcessPingRequest(const PingRequest& ping_result) override;
   void ProcessSwitchRequest(const SwitchRequest& switch_request) override;
 
+  void SetIceControllerObserver(IceControllerObserver& observer) override;
+
   // Only for unit tests
   const Connection* FindNextPingableConnection() override;
 

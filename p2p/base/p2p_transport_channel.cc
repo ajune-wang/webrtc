@@ -2356,4 +2356,10 @@ void P2PTransportChannel::AckPruneRequest(PruneAcknowledgement ack) {
   OnConnectionsResorted();
 }
 
+void P2PTransportChannel::SetIceControllerObserver(
+    IceControllerObserver& observer) {
+  RTC_DCHECK_RUN_ON(network_thread_);
+  ice_controller_adapter_->SetIceControllerObserver(observer);
+}
+
 }  // namespace cricket

@@ -157,6 +157,12 @@ bool WrappingActiveIceController::OnImmediateSwitchRequest(
   return result.connection.has_value();
 }
 
+void WrappingActiveIceController::SetIceControllerObserver(
+    IceControllerObserver& observer) {
+  RTC_DCHECK_RUN_ON(network_thread_);
+  observer_ = &observer;
+}
+
 // Only for unit tests
 const Connection* WrappingActiveIceController::FindNextPingableConnection() {
   RTC_DCHECK_RUN_ON(network_thread_);

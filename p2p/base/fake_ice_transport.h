@@ -288,6 +288,8 @@ class FakeIceTransport : public IceTransportInternal {
   void AckSwitchRequest(SwitchAcknowledgement ack) override {}
   void AckPruneRequest(PruneAcknowledgement ack) override {}
 
+  void SetIceControllerObserver(IceControllerObserver& observer) override {}
+
   // Fake PacketTransportInternal implementation.
   bool writable() const override {
     RTC_DCHECK_RUN_ON(network_thread_);

@@ -73,6 +73,7 @@ class MockIceTransport : public IceTransportInternal {
   void AckPingRequest(PingAcknowledgement ack) override {}
   void AckSwitchRequest(SwitchAcknowledgement ack) override {}
   void AckPruneRequest(PruneAcknowledgement ack) override {}
+  void SetIceControllerObserver(IceControllerObserver& observer) override {}
   void MaybeStartGathering() override {}
   void AddRemoteCandidate(const Candidate& candidate) override {}
   void RemoveRemoteCandidate(const Candidate& candidate) override {}

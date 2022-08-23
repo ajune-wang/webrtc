@@ -61,6 +61,8 @@ class IceControllerAdapterInterface {
   virtual void ProcessPingRequest(const PingRequest& ping_request) = 0;
   virtual void ProcessSwitchRequest(const SwitchRequest& switch_request) = 0;
 
+  virtual void SetIceControllerObserver(IceControllerObserver& observer) {}
+
   // For unit tests only
   virtual rtc::ArrayView<const Connection*> Connections() const = 0;
   virtual const Connection* FindNextPingableConnection() = 0;

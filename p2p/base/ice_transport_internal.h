@@ -22,6 +22,7 @@
 #include "api/rtc_error.h"
 #include "api/transport/enums.h"
 #include "p2p/base/connection.h"
+#include "p2p/base/ice_controller_observer.h"
 #include "p2p/base/ice_recheck_event.h"
 #include "p2p/base/ice_switch_reason.h"
 #include "p2p/base/packet_transport_internal.h"
@@ -363,6 +364,9 @@ class RTC_EXPORT IceTransportInternal : public rtc::PacketTransportInternal {
 
   // Acknowledge a prune request.
   virtual void AckPruneRequest(PruneAcknowledgement ack) = 0;
+
+  // Sets the ICE controller observer.
+  virtual void SetIceControllerObserver(IceControllerObserver& observer) = 0;
 
   sigslot::signal1<IceTransportInternal*> SignalGatheringState;
 

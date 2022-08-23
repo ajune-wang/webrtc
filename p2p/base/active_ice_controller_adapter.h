@@ -59,6 +59,8 @@ class ActiveIceControllerAdapter : public IceControllerAdapterInterface,
   void ProcessPingRequest(const PingRequest& ping_request) override;
   void ProcessSwitchRequest(const SwitchRequest& switch_request) override;
 
+  void SetIceControllerObserver(IceControllerObserver& observer) override;
+
   // For unit tests only
   rtc::ArrayView<const Connection*> Connections() const override;
   const Connection* FindNextPingableConnection() override;

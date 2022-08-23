@@ -175,6 +175,7 @@ class P2PTransportChannel : public IceTransportInternal,
   void AckPingRequest(PingAcknowledgement ack) override;
   void AckSwitchRequest(SwitchAcknowledgement ack) override;
   void AckPruneRequest(PruneAcknowledgement ack) override;
+  void SetIceControllerObserver(IceControllerObserver& observer) override;
 
   // From IceAgentInterface
   void OnStartedPinging() override;

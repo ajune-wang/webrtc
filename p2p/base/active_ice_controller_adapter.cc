@@ -150,6 +150,12 @@ void ActiveIceControllerAdapter::ProcessSwitchRequest(
   return active_ice_controller_->ProcessSwitchRequest(switch_request);
 }
 
+void ActiveIceControllerAdapter::SetIceControllerObserver(
+    IceControllerObserver& observer) {
+  RTC_DCHECK_RUN_ON(network_thread_);
+  active_ice_controller_->SetIceControllerObserver(observer);
+}
+
 // This method is only for unit testing.
 const Connection* ActiveIceControllerAdapter::FindNextPingableConnection() {
   RTC_DCHECK_RUN_ON(network_thread_);

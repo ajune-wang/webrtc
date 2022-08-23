@@ -127,6 +127,7 @@ class Connection : public CandidatePairInterface {
   // Gets the `ConnectionInfo` stats, where `best_connection` has not been
   // populated (default value false).
   ConnectionInfo stats();
+  ConnectionInfo current_stats() const;
 
   sigslot::signal1<Connection*> SignalStateChange;
 

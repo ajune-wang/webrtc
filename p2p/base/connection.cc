@@ -1509,6 +1509,31 @@ ConnectionInfo Connection::stats() {
   return stats_;
 }
 
+ConnectionInfo Connection::current_stats() const {
+  RTC_DCHECK_RUN_ON(network_thread_);
+  ConnectionInfo stats{stats_};
+  stats.recv_bytes_second = round(recv_rate_tracker_.ComputeRate());
+  stats.recv_total_bytes = recv_rate_tracker_.TotalSampleCount();
+  stats.sent_bytes_second = round(send_rate_tracker_.ComputeRate());
+  stats.sent_total_bytes = send_rate_tracker_.TotalSampleCount();
+  stats.receiving = receiving_;
+  stats.writable = write_state_ == STATE_WRITABLE;
+  stats.timeout = write_state_ == STATE_WRITE_TIMEOUT;
+  stats.rtt = rtt_;
+  // TODO(samvi) hideous! and probably unnecessary
+  stats.key = reinterpret_cast<void*>(const_cast<Connection*>(this));
+  stats.state = state_;
+  if (port_) {
+    stats.priority = priority();
+    stats.local_candidate = local_candidate();
+  }
+  stats.nominated = nominated();
+  stats.total_round_trip_time_ms = total_round_trip_time_ms_;
+  stats.current_round_trip_time_ms = current_round_trip_time_ms_;
+  stats.remote_candidate = remote_candidate();
+  return stats;
+}
+
 void Connection::MaybeUpdateLocalCandidate(StunRequest* request,
                                            StunMessage* response) {
   if (!port_)

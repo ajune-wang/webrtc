@@ -16,6 +16,29 @@
       "message": "Please? ",
       "revId": "32bc6825328525d1106b88f0423c182cb85fd62d",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "db707be3_407c9954",
+        "filename": "modules/pacing/bitrate_prober.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 150,
+      "author": {
+        "id": 5524
+      },
+      "writtenOn": "2022-08-23T11:48:13Z",
+      "side": 1,
+      "message": "Comment is no longer correct.\n\nWhy do we even have this magical 2x factor..?",
+      "range": {
+        "startLine": 150,
+        "startChar": 16,
+        "endLine": 150,
+        "endChar": 21
+      },
+      "revId": "32bc6825328525d1106b88f0423c182cb85fd62d",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "8ac69659_1a9571fd",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 14
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5613
+      },
+      "writtenOn": "2022-08-23T10:18:50Z",
+      "side": 1,
+      "message": "Suggestion: make method static\nand add unit tests that only exercise that method (i.e are easy to read/understand)\notherwise LGTM\n",
+      "revId": "e7a656ce7e858b6a78dee315d62d8fa823a0ed0a",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

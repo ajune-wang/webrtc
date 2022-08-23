@@ -1,0 +1,67 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "444cd902_1bbb6f59",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 3
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5125
+      },
+      "writtenOn": "2022-08-23T06:09:56Z",
+      "side": 1,
+      "message": "Thanks for this CL!",
+      "revId": "13eb90a261892c117ca77867d03212f2c3ac51e1",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "c882f9e6_f1847b62",
+        "filename": "modules/audio_processing/audio_processing_impl.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 1348,
+      "author": {
+        "id": 5125
+      },
+      "writtenOn": "2022-08-23T06:09:56Z",
+      "side": 1,
+      "message": "-\u003e?",
+      "range": {
+        "startLine": 1348,
+        "startChar": 28,
+        "endLine": 1348,
+        "endChar": 38
+      },
+      "revId": "13eb90a261892c117ca77867d03212f2c3ac51e1",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "7a0dcfcd_dfed0c9b",
+        "filename": "modules/audio_processing/audio_processing_impl.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 1643,
+      "author": {
+        "id": 5125
+      },
+      "writtenOn": "2022-08-23T06:09:56Z",
+      "side": 1,
+      "message": "This is the best option I too can think of returning if there is no recommended value present.\nBut since I still think it is a bit unexpected/unintuitive I think it would be good to have a comment on this.",
+      "range": {
+        "startLine": 1643,
+        "startChar": 6,
+        "endLine": 1643,
+        "endChar": 34
+      },
+      "revId": "13eb90a261892c117ca77867d03212f2c3ac51e1",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

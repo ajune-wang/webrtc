@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "680cbbbc_20f9cf77",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 9405
+      },
+      "writtenOn": "2022-08-23T16:52:00Z",
+      "side": 1,
+      "message": "Patch set 1 was from the previous CL.\nOn patch set 2, I applied @optional.",
+      "revId": "d84fd7c55b1dc2c9585dbc4d6aacb7d8c3bd1c2c",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

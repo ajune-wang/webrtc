@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "8367d100_837c7156",
+        "filename": "modules/audio_processing/audio_processing_impl.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 1613,
+      "author": {
+        "id": 5125
+      },
+      "writtenOn": "2022-08-23T06:56:54Z",
+      "side": 1,
+      "message": "Maybe change this to\n\ncapture_.stream_analog_level !\u003d kUnspecifiedAnalogLevel\n?",
+      "range": {
+        "startLine": 1613,
+        "startChar": 6,
+        "endLine": 1613,
+        "endChar": 39
+      },
+      "revId": "6703e7e8de64e7957a13d494fdaa8c46efd76db1",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "cec072d2_566c8b4c",
+        "filename": "modules/audio_processing/gain_controller2.h",
+        "patchSetId": 5
+      },
+      "lineNbr": 52,
+      "author": {
+        "id": 5125
+      },
+      "writtenOn": "2022-08-23T06:56:54Z",
+      "side": 1,
+      "message": "Maybe specify the range for the values level could be a good thing to do in the comment?",
+      "range": {
+        "startLine": 52,
+        "startChar": 31,
+        "endLine": 52,
+        "endChar": 40
+      },
+      "revId": "6703e7e8de64e7957a13d494fdaa8c46efd76db1",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

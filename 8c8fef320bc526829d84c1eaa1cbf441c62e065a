@@ -1,0 +1,123 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "72b74180_f88c98f9",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 3
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2022-08-23T06:21:37Z",
+      "side": 1,
+      "message": "I am confused about the distinction between discarding messages and rejecting them.\nOtherwise, looks good.",
+      "revId": "8c8fef320bc526829d84c1eaa1cbf441c62e065a",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "1e180109_23f74b73",
+        "filename": "media/sctp/dcsctp_transport.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 277,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2022-08-23T06:21:37Z",
+      "side": 1,
+      "message": "The code seems to discard messages on non-open streams and closing streams, but not reject them (it returns true).\nPiease make the code and the comment consistent with each other.",
+      "revId": "8c8fef320bc526829d84c1eaa1cbf441c62e065a",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "2fbb1ed1_912f5114",
+        "filename": "media/sctp/dcsctp_transport.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 284,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2022-08-23T06:21:37Z",
+      "side": 1,
+      "message": "This seems like an error, which should return false according to the logic at the bottom of the function.",
+      "revId": "8c8fef320bc526829d84c1eaa1cbf441c62e065a",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "0f6b9856_b8883f38",
+        "filename": "media/sctp/dcsctp_transport.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 293,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2022-08-23T06:21:37Z",
+      "side": 1,
+      "message": "Not sure whether true or false is the right answer here.",
+      "revId": "8c8fef320bc526829d84c1eaa1cbf441c62e065a",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "c4d8b827_62be9b85",
+        "filename": "media/sctp/dcsctp_transport.h",
+        "patchSetId": 3
+      },
+      "lineNbr": 133,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2022-08-23T06:21:37Z",
+      "side": 1,
+      "message": "can you add an RTC_GUARDED_BY statement on this map?",
+      "revId": "8c8fef320bc526829d84c1eaa1cbf441c62e065a",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "90e0089d_4047c45a",
+        "filename": "media/sctp/dcsctp_transport_unittest.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 189,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2022-08-23T06:21:37Z",
+      "side": 1,
+      "message": "Check the result of SendData() here. It is either true or false, but needs to be self-consistent.",
+      "revId": "8c8fef320bc526829d84c1eaa1cbf441c62e065a",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "eae2882d_76fce99a",
+        "filename": "media/sctp/dcsctp_transport_unittest.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 190,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2022-08-23T06:21:37Z",
+      "side": 1,
+      "message": "Need a test that exercises the \"in the process of being closed\" branch too.",
+      "revId": "8c8fef320bc526829d84c1eaa1cbf441c62e065a",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

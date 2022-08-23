@@ -35,6 +35,24 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "71ca8b58_ac5ea5e9",
+        "filename": "media/sctp/dcsctp_transport.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 277,
+      "author": {
+        "id": 7036
+      },
+      "writtenOn": "2022-08-23T11:48:28Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "1e180109_23f74b73",
+      "revId": "8c8fef320bc526829d84c1eaa1cbf441c62e065a",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "2fbb1ed1_912f5114",
@@ -48,6 +66,24 @@
       "writtenOn": "2022-08-23T06:21:37Z",
       "side": 1,
       "message": "This seems like an error, which should return false according to the logic at the bottom of the function.",
+      "revId": "8c8fef320bc526829d84c1eaa1cbf441c62e065a",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "3152ae3d_1e97b579",
+        "filename": "media/sctp/dcsctp_transport.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 284,
+      "author": {
+        "id": 7036
+      },
+      "writtenOn": "2022-08-23T11:48:28Z",
+      "side": 1,
+      "message": "Sorry, leftover from trying to see what would happen if it returned true. And nothing breaks as nothing checks that value anyway.",
+      "parentUuid": "2fbb1ed1_912f5114",
       "revId": "8c8fef320bc526829d84c1eaa1cbf441c62e065a",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
@@ -69,6 +105,24 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "a7b80669_c5430d4e",
+        "filename": "media/sctp/dcsctp_transport.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 293,
+      "author": {
+        "id": 7036
+      },
+      "writtenOn": "2022-08-23T11:48:28Z",
+      "side": 1,
+      "message": "The only part that matters is the \"result\" and not the return value anyway.",
+      "parentUuid": "0f6b9856_b8883f38",
+      "revId": "8c8fef320bc526829d84c1eaa1cbf441c62e065a",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "c4d8b827_62be9b85",
@@ -82,6 +136,24 @@
       "writtenOn": "2022-08-23T06:21:37Z",
       "side": 1,
       "message": "can you add an RTC_GUARDED_BY statement on this map?",
+      "revId": "8c8fef320bc526829d84c1eaa1cbf441c62e065a",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "564a8919_5159101f",
+        "filename": "media/sctp/dcsctp_transport.h",
+        "patchSetId": 3
+      },
+      "lineNbr": 133,
+      "author": {
+        "id": 7036
+      },
+      "writtenOn": "2022-08-23T11:48:28Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "c4d8b827_62be9b85",
       "revId": "8c8fef320bc526829d84c1eaa1cbf441c62e065a",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
@@ -103,6 +175,24 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "c7ccdd5e_cf3284da",
+        "filename": "media/sctp/dcsctp_transport_unittest.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 189,
+      "author": {
+        "id": 7036
+      },
+      "writtenOn": "2022-08-23T11:48:28Z",
+      "side": 1,
+      "message": "The API isn\u0027t great anyway with 2 return values. The return value isn\u0027t even checked in the code: https://source.corp.google.com/piper///depot/google3/third_party/webrtc/files/stable/webrtc/pc/sctp_transport.cc;l\u003d85?q\u003dsctp_transport.cc\nNote the TODO to update the API too.\n\nWe\u0027ll need to clean that up later. In general, there\u0027s a weak contract for the APIs in the SCTP Transport Internal and callers don\u0027t really check much.",
+      "parentUuid": "90e0089d_4047c45a",
+      "revId": "8c8fef320bc526829d84c1eaa1cbf441c62e065a",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "eae2882d_76fce99a",
@@ -116,6 +206,24 @@
       "writtenOn": "2022-08-23T06:21:37Z",
       "side": 1,
       "message": "Need a test that exercises the \"in the process of being closed\" branch too.",
+      "revId": "8c8fef320bc526829d84c1eaa1cbf441c62e065a",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "3df49a25_ab45cbb2",
+        "filename": "media/sctp/dcsctp_transport_unittest.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 190,
+      "author": {
+        "id": 7036
+      },
+      "writtenOn": "2022-08-23T11:48:28Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "eae2882d_76fce99a",
       "revId": "8c8fef320bc526829d84c1eaa1cbf441c62e065a",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }

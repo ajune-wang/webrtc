@@ -16,6 +16,24 @@
       "message": "Can this error never happen now?",
       "revId": "65a9a515b51be1050bbb6fcb1edfbdff706434bf",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "3260c460_0fcb303b",
+        "filename": "media/sctp/dcsctp_transport.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 225,
+      "author": {
+        "id": 7036
+      },
+      "writtenOn": "2022-08-23T11:48:28Z",
+      "side": 0,
+      "message": "No one checks the return value of OpenStream anyway. And it can actually be called before the socket is created as it doesn\u0027t interact with the underlying SCTP implementation at all. See the other comment about bad APIs and weak contracts.\n\nWe had some integration tests failing because we were always taking that code path and the test would never create the StreamState object and reject all further messages.",
+      "parentUuid": "2e9a077f_77cb74ca",
+      "revId": "65a9a515b51be1050bbb6fcb1edfbdff706434bf",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

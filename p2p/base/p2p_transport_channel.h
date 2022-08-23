@@ -45,6 +45,7 @@
 #include "api/transport/stun.h"
 #include "logging/rtc_event_log/events/rtc_event_ice_candidate_pair_config.h"
 #include "logging/rtc_event_log/ice_logger.h"
+#include "p2p/base/active_ice_controller_factory_interface.h"
 #include "p2p/base/basic_async_resolver_factory.h"
 #include "p2p/base/candidate_pair_interface.h"
 #include "p2p/base/connection.h"
@@ -263,6 +264,7 @@ class P2PTransportChannel : public IceTransportInternal,
           owned_dns_resolver_factory,
       webrtc::RtcEventLog* event_log,
       IceControllerFactoryInterface* ice_controller_factory,
+      ActiveIceControllerFactoryInterface* active_ice_controller_factory,
       const webrtc::FieldTrialsView* field_trials);
 
   bool IsGettingPorts() {

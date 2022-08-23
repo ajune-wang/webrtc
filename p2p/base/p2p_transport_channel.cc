@@ -27,6 +27,7 @@
 #include "api/candidate.h"
 #include "api/field_trials_view.h"
 #include "logging/rtc_event_log/ice_logger.h"
+#include "p2p/base/active_ice_controller_adapter.h"
 #include "p2p/base/basic_async_resolver_factory.h"
 #include "p2p/base/connection.h"
 #include "p2p/base/connection_info.h"
@@ -119,12 +120,14 @@ std::unique_ptr<P2PTransportChannel> P2PTransportChannel::Create(
         transport_name, component, init.port_allocator(), nullptr,
         std::make_unique<webrtc::WrappingAsyncDnsResolverFactory>(
             init.async_resolver_factory()),
-        init.event_log(), init.ice_controller_factory(), init.field_trials()));
+        init.event_log(), init.ice_controller_factory(),
+        init.active_ice_controller_factory(), init.field_trials()));
   } else {
     return absl::WrapUnique(new P2PTransportChannel(
         transport_name, component, init.port_allocator(),
         init.async_dns_resolver_factory(), nullptr, init.event_log(),
-        init.ice_controller_factory(), init.field_trials()));
+        init.ice_controller_factory(), init.active_ice_controller_factory(),
+        init.field_trials()));
   }
 }
 
@@ -140,6 +143,7 @@ P2PTransportChannel::P2PTransportChannel(
                           /* owned_dns_resolver_factory= */ nullptr,
                           /* event_log= */ nullptr,
                           /* ice_controller_factory= */ nullptr,
+                          /* active_ice_controller_factory= */ nullptr,
                           field_trials) {}
 
 // Private constructor, called from Create()
@@ -152,6 +156,7 @@ P2PTransportChannel::P2PTransportChannel(
         owned_dns_resolver_factory,
     webrtc::RtcEventLog* event_log,
     IceControllerFactoryInterface* ice_controller_factory,
+    ActiveIceControllerFactoryInterface* active_ice_controller_factory,
     const webrtc::FieldTrialsView* field_trials)
     : transport_name_(transport_name),
       component_(component),
@@ -207,8 +212,15 @@ P2PTransportChannel::P2PTransportChannel(
        field_trials ? field_trials->Lookup("WebRTC-IceControllerFieldTrials")
                     : ""},
       /* ice_agent= */ this,
-      ice_controller_factory};
-  ice_controller_adapter_ = std::make_unique<LegacyIceControllerAdapter>(args);
+      ice_controller_factory,
+      active_ice_controller_factory};
+  if (active_ice_controller_factory != nullptr) {
+    ice_controller_adapter_ =
+        std::make_unique<ActiveIceControllerAdapter>(args);
+  } else {
+    ice_controller_adapter_ =
+        std::make_unique<LegacyIceControllerAdapter>(args);
+  }
 }
 
 P2PTransportChannel::~P2PTransportChannel() {

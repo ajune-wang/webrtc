@@ -175,23 +175,6 @@ class TurnPort : public Port {
   rtc::AsyncPacketSocket* socket() const { return socket_; }
   StunRequestManager& request_manager() { return request_manager_; }
 
-  // Signal with resolved server address.
-  // Parameters are port, server address and resolved server address.
-  // This signal will be sent only if server address is resolved successfully.
-  sigslot::
-      signal3<TurnPort*, const rtc::SocketAddress&, const rtc::SocketAddress&>
-          SignalResolvedServerAddress;
-
-  // Signal when TurnPort is closed,
-  // e.g remote socket closed (TCP)
-  //  or receiveing a REFRESH response with lifetime 0.
-  sigslot::signal1<TurnPort*> SignalTurnPortClosed;
-
-  // All public methods/signals below are for testing only.
-  sigslot::signal2<TurnPort*, int> SignalTurnRefreshResult;
-  sigslot::signal3<TurnPort*, const rtc::SocketAddress&, int>
-      SignalCreatePermissionResult;
-
   bool HasRequests() { return !request_manager_.empty(); }
   void set_credentials(const RelayCredentials& credentials) {
     credentials_ = credentials;

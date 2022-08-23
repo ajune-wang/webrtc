@@ -182,7 +182,6 @@ class TurnPortTest : public ::testing::Test, public sigslot::has_slots<> {
         turn_error_(false),
         turn_unknown_address_(false),
         turn_create_permission_success_(false),
-        turn_port_closed_(false),
         turn_port_destroyed_(false),
         udp_ready_(false),
         test_finish_(false) {
@@ -206,16 +205,16 @@ class TurnPortTest : public ::testing::Test, public sigslot::has_slots<> {
                             bool /*port_muxed*/) {
     turn_unknown_address_ = true;
   }
-  void OnTurnCreatePermissionResult(TurnPort* port,
-                                    const SocketAddress& addr,
-                                    int code) {
-    // Ignoring the address.
-    turn_create_permission_success_ = (code == 0);
-  }
+  // void OnTurnCreatePermissionResult(TurnPort* port,
+  //                                   const SocketAddress& addr,
+  //                                   int code) {
+  //   // Ignoring the address.
+  //   turn_create_permission_success_ = (code == 0);
+  // }
 
-  void OnTurnRefreshResult(TurnPort* port, int code) {
-    turn_refresh_success_ = (code == 0);
-  }
+  // void OnTurnRefreshResult(TurnPort* port, int code) {
+  //   turn_refresh_success_ = (code == 0);
+  // }
   void OnTurnReadPacket(Connection* conn,
                         const char* data,
                         size_t size,
@@ -237,7 +236,6 @@ class TurnPortTest : public ::testing::Test, public sigslot::has_slots<> {
     turn_port_->HandleIncomingPacket(socket, data, size, remote_addr,
                                      packet_time_us);
   }
-  void OnTurnPortClosed(TurnPort* port) { turn_port_closed_ = true; }
   void OnTurnPortDestroyed(PortInterface* port) { turn_port_destroyed_ = true; }
 
   rtc::Socket* CreateServerSocket(const SocketAddress addr) {
@@ -352,12 +350,11 @@ class TurnPortTest : public ::testing::Test, public sigslot::has_slots<> {
                                              &TurnPortTest::OnCandidateError);
     turn_port_->SignalUnknownAddress.connect(
         this, &TurnPortTest::OnTurnUnknownAddress);
-    turn_port_->SignalCreatePermissionResult.connect(
-        this, &TurnPortTest::OnTurnCreatePermissionResult);
-    turn_port_->SignalTurnRefreshResult.connect(
-        this, &TurnPortTest::OnTurnRefreshResult);
-    turn_port_->SignalTurnPortClosed.connect(this,
-                                             &TurnPortTest::OnTurnPortClosed);
+    // turn_port_->SignalCreatePermissionResult.connect(
+    //     this, &TurnPortTest::OnTurnCreatePermissionResult);
+    // turn_port_->SignalTurnRefreshResult.connect(
+    //     this, &TurnPortTest::OnTurnRefreshResult);
+
     turn_port_->SubscribePortDestroyed(
         [this](PortInterface* port) { OnTurnPortDestroyed(port); });
   }
@@ -758,8 +755,8 @@ class TurnPortTest : public ::testing::Test, public sigslot::has_slots<> {
     // This will send a REFRESH with lifetime 0 to server.
     turn_port_->Release();
 
-    // Wait for the TurnPort to signal closed.
-    ASSERT_TRUE_SIMULATED_WAIT(turn_port_closed_, kSimulatedRtt, fake_clock_);
+    // Wait for the TurnPort to signal destroyed.
+    ASSERT_TRUE_SIMULATED_WAIT(turn_port_destroyed_, kSimulatedRtt, fake_clock_);
 
     // But the data should have arrived first.
     ASSERT_EQ(1ul, turn_packets_.size());
@@ -787,7 +784,6 @@ class TurnPortTest : public ::testing::Test, public sigslot::has_slots<> {
   bool turn_error_;
   bool turn_unknown_address_;
   bool turn_create_permission_success_;
-  bool turn_port_closed_;
   bool turn_port_destroyed_;
   bool udp_ready_;
   bool test_finish_;

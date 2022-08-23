@@ -37,10 +37,13 @@ ActiveIceControllerAdapter::ActiveIceControllerAdapter(
   RTC_LOG(LS_INFO) << "Constructing an ActiveIceControllerAdapter";
   if (args.active_ice_controller_factory != nullptr) {
     ActiveIceControllerFactoryArgs active_args{args.ice_controller_factory_args,
-                                               args.ice_agent};
+                                               args.ice_agent, args.observer};
     active_ice_controller_ =
         args.active_ice_controller_factory->Create(active_args);
   } else {
+    RTC_LOG(LS_WARNING)
+        << "Constructing an ActiveIceControllerAdapter without an active ICE "
+           "controller factory, defaulting to a wrapped Basic ICE controller.";
     std::unique_ptr<IceControllerInterface> wrapped;
     if (args.legacy_ice_controller_factory != nullptr) {
       wrapped = args.legacy_ice_controller_factory->Create(

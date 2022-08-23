@@ -121,13 +121,14 @@ std::unique_ptr<P2PTransportChannel> P2PTransportChannel::Create(
         std::make_unique<webrtc::WrappingAsyncDnsResolverFactory>(
             init.async_resolver_factory()),
         init.event_log(), init.ice_controller_factory(),
-        init.active_ice_controller_factory(), init.field_trials()));
+        init.active_ice_controller_factory(), init.ice_observer(),
+        init.field_trials()));
   } else {
     return absl::WrapUnique(new P2PTransportChannel(
         transport_name, component, init.port_allocator(),
         init.async_dns_resolver_factory(), nullptr, init.event_log(),
         init.ice_controller_factory(), init.active_ice_controller_factory(),
-        init.field_trials()));
+        init.ice_observer(), init.field_trials()));
   }
 }
 
@@ -144,6 +145,7 @@ P2PTransportChannel::P2PTransportChannel(
                           /* event_log= */ nullptr,
                           /* ice_controller_factory= */ nullptr,
                           /* active_ice_controller_factory= */ nullptr,
+                          /* ice_observer= */ nullptr,
                           field_trials) {}
 
 // Private constructor, called from Create()
@@ -157,6 +159,7 @@ P2PTransportChannel::P2PTransportChannel(
     webrtc::RtcEventLog* event_log,
     IceControllerFactoryInterface* ice_controller_factory,
     ActiveIceControllerFactoryInterface* active_ice_controller_factory,
+    IceControllerObserver* ice_observer,
     const webrtc::FieldTrialsView* field_trials)
     : transport_name_(transport_name),
       component_(component),
@@ -213,7 +216,8 @@ P2PTransportChannel::P2PTransportChannel(
                     : ""},
       /* ice_agent= */ this,
       ice_controller_factory,
-      active_ice_controller_factory};
+      active_ice_controller_factory,
+      ice_observer};
   if (active_ice_controller_factory != nullptr) {
     ice_controller_adapter_ =
         std::make_unique<ActiveIceControllerAdapter>(args);

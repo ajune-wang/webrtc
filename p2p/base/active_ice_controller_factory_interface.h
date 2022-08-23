@@ -16,6 +16,7 @@
 #include "p2p/base/active_ice_controller_interface.h"
 #include "p2p/base/ice_agent_interface.h"
 #include "p2p/base/ice_controller_factory_interface.h"
+#include "p2p/base/ice_controller_observer.h"
 
 namespace cricket {
 
@@ -25,6 +26,7 @@ namespace cricket {
 struct ActiveIceControllerFactoryArgs {
   IceControllerFactoryArgs legacy_args;
   IceAgentInterface* ice_agent;
+  IceControllerObserver* observer;
 };
 
 class ActiveIceControllerFactoryInterface {

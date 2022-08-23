@@ -52,6 +52,7 @@
 #include "p2p/base/ice_agent_interface.h"
 #include "p2p/base/ice_controller_adapter_interface.h"
 #include "p2p/base/ice_controller_factory_interface.h"
+#include "p2p/base/ice_controller_observer.h"
 #include "p2p/base/ice_switch_reason.h"
 #include "p2p/base/ice_transport_internal.h"
 #include "p2p/base/p2p_constants.h"
@@ -265,6 +266,7 @@ class P2PTransportChannel : public IceTransportInternal,
       webrtc::RtcEventLog* event_log,
       IceControllerFactoryInterface* ice_controller_factory,
       ActiveIceControllerFactoryInterface* active_ice_controller_factory,
+      IceControllerObserver* ice_observer,
       const webrtc::FieldTrialsView* field_trials);
 
   bool IsGettingPorts() {

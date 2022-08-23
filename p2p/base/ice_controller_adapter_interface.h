@@ -12,9 +12,11 @@
 #define P2P_BASE_ICE_CONTROLLER_ADAPTER_INTERFACE_H_
 
 #include "p2p/base/active_ice_controller_factory_interface.h"
+#include "p2p/base/active_ice_controller_interface.h"
 #include "p2p/base/connection.h"
 #include "p2p/base/ice_agent_interface.h"
 #include "p2p/base/ice_controller_factory_interface.h"
+#include "p2p/base/ice_controller_observer.h"
 #include "p2p/base/ice_switch_reason.h"
 #include "p2p/base/ice_transport_internal.h"
 #include "p2p/base/transport_description.h"
@@ -26,6 +28,7 @@ struct IceControllerAdapterArgs {
   IceAgentInterface* ice_agent;
   IceControllerFactoryInterface* legacy_ice_controller_factory;
   ActiveIceControllerFactoryInterface* active_ice_controller_factory;
+  IceControllerObserver* observer;
 };
 
 // An IceControllerAdapter interacts with an IceController on behalf of the

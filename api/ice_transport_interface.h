@@ -25,6 +25,7 @@ class IceTransportInternal;
 class PortAllocator;
 class IceControllerFactoryInterface;
 class ActiveIceControllerFactoryInterface;
+class IceControllerObserver;
 }  // namespace cricket
 
 namespace webrtc {
@@ -95,6 +96,11 @@ struct IceTransportInit final {
     return active_ice_controller_factory_;
   }
 
+  cricket::IceControllerObserver* ice_observer() { return ice_observer_; }
+  void set_ice_observer(cricket::IceControllerObserver* observer) {
+    ice_observer_ = observer;
+  }
+
   const FieldTrialsView* field_trials() { return field_trials_; }
   void set_field_trials(const FieldTrialsView* field_trials) {
     field_trials_ = field_trials;
@@ -109,6 +115,7 @@ struct IceTransportInit final {
   cricket::IceControllerFactoryInterface* ice_controller_factory_ = nullptr;
   cricket::ActiveIceControllerFactoryInterface* active_ice_controller_factory_ =
       nullptr;
+  cricket::IceControllerObserver* ice_observer_ = nullptr;
   const FieldTrialsView* field_trials_ = nullptr;
   // TODO(https://crbug.com/webrtc/12657): Redesign to have const members.
 };

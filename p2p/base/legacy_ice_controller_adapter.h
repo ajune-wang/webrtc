@@ -56,6 +56,17 @@ class LegacyIceControllerAdapter : public IceControllerAdapterInterface {
   bool MaybeSwitchSelectedConnection(Connection* new_connection,
                                      IceSwitchReason reason) override;
 
+  void ProcessPingRequest(const PingRequest& unused) override {
+    // This action is only available with active controllers, and should never
+    // be invoked for a legacy ICE controller.
+    RTC_DCHECK_NOTREACHED();
+  }
+  void ProcessSwitchRequest(const SwitchRequest& unused) override {
+    // This action is only available with active controllers, and should never
+    // be invoked for a legacy ICE controller.
+    RTC_DCHECK_NOTREACHED();
+  }
+
   // For unit tests only
   rtc::ArrayView<const Connection*> Connections() const override;
   const Connection* FindNextPingableConnection() override;

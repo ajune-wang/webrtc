@@ -1473,6 +1473,19 @@ bool P2PTransportChannel::FindConnection(const Connection* connection) const {
   return absl::c_linear_search(connections(), connection);
 }
 
+Connection* P2PTransportChannel::FindConnection(uint32_t connection_id) const {
+  RTC_DCHECK_RUN_ON(network_thread_);
+  rtc::ArrayView<Connection*> conns = connections();
+  auto it = absl::c_find_if(conns, [connection_id](Connection* c) {
+    return c->id() == connection_id;
+  });
+  if (it != conns.end()) {
+    return *it;
+  } else {
+    return nullptr;
+  }
+}
+
 uint32_t P2PTransportChannel::GetRemoteCandidateGeneration(
     const Candidate& candidate) {
   RTC_DCHECK_RUN_ON(network_thread_);
@@ -2301,6 +2314,46 @@ void P2PTransportChannel::LogCandidatePairConfig(
   }
   ice_event_log_.LogCandidatePairConfig(type, conn->id(),
                                         conn->ToLogDescription());
+}
+
+void P2PTransportChannel::AckPingRequest(PingAcknowledgement ack) {
+  RTC_DCHECK_RUN_ON(network_thread_);
+  Connection* conn = FindConnection(ack.connection_id);
+  if (conn) {
+    PingRequest ping_request(conn, ack.recheck_delay_ms);
+    ice_controller_adapter_->ProcessPingRequest(ping_request);
+  }
+}
+
+void P2PTransportChannel::AckSwitchRequest(SwitchAcknowledgement ack) {
+  RTC_DCHECK_RUN_ON(network_thread_);
+  Connection* conn = FindConnection(ack.connection_id);
+  if (conn) {
+    std::vector<const Connection*> connections_to_forget_state_on;
+    for (const uint32_t conn_id : ack.connection_ids_to_forget_state_on) {
+      Connection* conn_to_forget = FindConnection(conn_id);
+      if (conn_to_forget) {
+        connections_to_forget_state_on.push_back(conn_to_forget);
+      }
+    }
+    SwitchRequest switch_request{
+        ack.reason, conn, ack.recheck_event, connections_to_forget_state_on,
+        /*cancelable=unused*/};
+    ice_controller_adapter_->ProcessSwitchRequest(switch_request);
+  }
+}
+
+void P2PTransportChannel::AckPruneRequest(PruneAcknowledgement ack) {
+  RTC_DCHECK_RUN_ON(network_thread_);
+  std::vector<const Connection*> connections_to_prune;
+  for (const uint32_t conn_id : ack.connection_ids_to_prune) {
+    Connection* conn_to_prune = FindConnection(conn_id);
+    if (conn_to_prune) {
+      connections_to_prune.push_back(conn_to_prune);
+    }
+  }
+  PruneConnections(connections_to_prune);
+  OnConnectionsResorted();
 }
 
 }  // namespace cricket

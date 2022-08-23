@@ -146,13 +146,14 @@ bool WrappingActiveIceController::OnImmediateSwitchRequest(
   RTC_DCHECK_RUN_ON(network_thread_);
   IceControllerInterface::SwitchResult result =
       wrapped_->ShouldSwitchConnection(reason, selected);
+  // TODO(samvi) remove once SwitchResult and SwitchRequest are converged.
+  SwitchRequest request{reason, result.connection, result.recheck_event,
+                        result.connections_to_forget_state_on,
+                        /*cancelable=*/false};
   if (observer_) {
-    SwitchRequest request{reason, result.connection, result.recheck_event,
-                          result.connections_to_forget_state_on,
-                          /*cancelable=*/false};
     observer_->OnSwitchRequest(request);
   }
-  HandleSwitchResult(reason, result);
+  ProcessSwitchRequest(request);
   return result.connection.has_value();
 }
 
@@ -168,24 +169,27 @@ void WrappingActiveIceController::PingBestConnection() {
 
   IceControllerInterface::PingResult result =
       wrapped_->SelectConnectionToPing(agent_.GetLastPingSentMs());
+  // TODO(samvi) remove once SwitchResult and SwitchRequest are converged.
+  PingRequest request(result.connection, result.recheck_delay_ms);
   if (observer_) {
-    PingRequest request(result.connection, result.recheck_delay_ms);
     observer_->OnPingRequest(request);
   }
-  HandlePingResult(result);
+  ProcessPingRequest(request);
 }
 
-void WrappingActiveIceController::HandlePingResult(
-    IceControllerInterface::PingResult result) {
+void WrappingActiveIceController::ProcessPingRequest(
+    const PingRequest& result) {
   RTC_DCHECK_RUN_ON(network_thread_);
 
   if (result.connection.value_or(nullptr)) {
     agent_.SendPingRequest(*result.connection);
   }
 
-  network_thread_->PostDelayedTask(
-      SafeTask(task_safety_.flag(), [this]() { PingBestConnection(); }),
-      TimeDelta::Millis(result.recheck_delay_ms));
+  if (result.recheck_delay_ms.has_value()) {
+    network_thread_->PostDelayedTask(
+        SafeTask(task_safety_.flag(), [this]() { PingBestConnection(); }),
+        TimeDelta::Millis(result.recheck_delay_ms.value()));
+  }
 }
 
 void WrappingActiveIceController::SwitchToBestConnectionAndPrune(
@@ -196,13 +200,14 @@ void WrappingActiveIceController::SwitchToBestConnectionAndPrune(
 
   IceControllerInterface::SwitchResult result =
       wrapped_->SortAndSwitchConnection(reason);
+  // TODO(samvi) remove once SwitchResult and SwitchRequest are converged.
+  SwitchRequest request{reason, result.connection, result.recheck_event,
+                        result.connections_to_forget_state_on,
+                        /*cancelable=*/true};
   if (observer_) {
-    SwitchRequest request{reason, result.connection, result.recheck_event,
-                          result.connections_to_forget_state_on,
-                          /*cancelable=*/true};
     observer_->OnSwitchRequest(request);
   }
-  HandleSwitchResult(reason, result);
+  ProcessSwitchRequest(request);
 
   if (agent_.ShouldPruneConnections()) {
     std::vector<const Connection*> conns_to_prune =
@@ -217,12 +222,11 @@ void WrappingActiveIceController::SwitchToBestConnectionAndPrune(
   agent_.OnConnectionsResorted();
 }
 
-void WrappingActiveIceController::HandleSwitchResult(
-    IceSwitchReason reason_for_switch,
-    IceControllerInterface::SwitchResult result) {
+void WrappingActiveIceController::ProcessSwitchRequest(
+    const SwitchRequest& result) {
   RTC_DCHECK_RUN_ON(network_thread_);
   if (result.connection.has_value()) {
-    agent_.SwitchSelectedConnection(*(result.connection), reason_for_switch);
+    agent_.SwitchSelectedConnection(*(result.connection), result.reason);
   }
   if (result.recheck_event.has_value()) {
     network_thread_->PostDelayedTask(

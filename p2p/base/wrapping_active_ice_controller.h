@@ -61,15 +61,15 @@ class WrappingActiveIceController : public ActiveIceControllerInterface {
   bool OnImmediateSwitchRequest(IceSwitchReason reason,
                                 const Connection* selected) override;
 
+  void ProcessPingRequest(const PingRequest& ping_result) override;
+  void ProcessSwitchRequest(const SwitchRequest& switch_request) override;
+
   // Only for unit tests
   const Connection* FindNextPingableConnection() override;
 
  private:
   void PingBestConnection();
-  void HandlePingResult(IceControllerInterface::PingResult result);
   void SwitchToBestConnectionAndPrune(IceSwitchReason reason);
-  void HandleSwitchResult(IceSwitchReason reason_for_switch,
-                          IceControllerInterface::SwitchResult result);
 
   rtc::Thread* const network_thread_;
   webrtc::ScopedTaskSafety task_safety_;

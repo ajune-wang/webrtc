@@ -171,6 +171,11 @@ class P2PTransportChannel : public IceTransportInternal,
   const Connection* selected_connection() const override;
   absl::optional<const CandidatePair> GetSelectedCandidatePair() const override;
 
+  // ICE controller actions
+  void AckPingRequest(PingAcknowledgement ack) override;
+  void AckSwitchRequest(SwitchAcknowledgement ack) override;
+  void AckPruneRequest(PruneAcknowledgement ack) override;
+
   // From IceAgentInterface
   void OnStartedPinging() override;
   void OnConnectionsResorted() override;
@@ -298,6 +303,8 @@ class P2PTransportChannel : public IceTransportInternal,
                         const Candidate& remote_candidate,
                         PortInterface* origin_port);
   bool FindConnection(const Connection* connection) const;
+  // Locates a connection from the connection ID, if it still exists.
+  Connection* FindConnection(uint32_t connection_id) const;
 
   uint32_t GetRemoteCandidateGeneration(const Candidate& candidate);
   bool IsDuplicateRemoteCandidate(const Candidate& candidate);

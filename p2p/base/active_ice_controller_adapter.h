@@ -18,6 +18,7 @@
 #include "p2p/base/active_ice_controller_interface.h"
 #include "p2p/base/connection.h"
 #include "p2p/base/ice_controller_adapter_interface.h"
+#include "p2p/base/ice_controller_request_types.h"
 #include "p2p/base/ice_switch_reason.h"
 #include "p2p/base/ice_transport_internal.h"
 #include "p2p/base/transport_description.h"
@@ -54,6 +55,9 @@ class ActiveIceControllerAdapter : public IceControllerAdapterInterface,
   void SortConnectionsAndUpdateState(IceSwitchReason reason_to_sort) override;
   bool MaybeSwitchSelectedConnection(Connection* new_connection,
                                      IceSwitchReason reason) override;
+
+  void ProcessPingRequest(const PingRequest& ping_request) override;
+  void ProcessSwitchRequest(const SwitchRequest& switch_request) override;
 
   // For unit tests only
   rtc::ArrayView<const Connection*> Connections() const override;

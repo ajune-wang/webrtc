@@ -15,7 +15,7 @@
 
 #include "absl/types/optional.h"
 #include "p2p/base/connection.h"
-#include "p2p/base/ice_controller_interface.h"
+#include "p2p/base/ice_recheck_event.h"
 #include "p2p/base/ice_switch_reason.h"
 
 namespace cricket {

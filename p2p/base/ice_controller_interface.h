@@ -17,22 +17,13 @@
 
 #include "absl/types/optional.h"
 #include "p2p/base/connection.h"
+#include "p2p/base/ice_recheck_event.h"
 #include "p2p/base/ice_switch_reason.h"
 #include "p2p/base/ice_transport_internal.h"
 
 namespace cricket {
 
 struct IceFieldTrials;  // Forward declaration to avoid circular dependency.
-
-struct IceRecheckEvent {
-  IceRecheckEvent(IceSwitchReason _reason, int _recheck_delay_ms)
-      : reason(_reason), recheck_delay_ms(_recheck_delay_ms) {}
-
-  std::string ToString() const;
-
-  IceSwitchReason reason;
-  int recheck_delay_ms;
-};
 
 // Defines the interface for a module that control
 // - which connection to ping

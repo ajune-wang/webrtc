@@ -14,6 +14,7 @@
 #include "absl/types/optional.h"
 #include "api/array_view.h"
 #include "p2p/base/connection.h"
+#include "p2p/base/ice_controller_request_types.h"
 #include "p2p/base/ice_switch_reason.h"
 #include "p2p/base/ice_transport_internal.h"
 #include "p2p/base/transport_description.h"
@@ -46,6 +47,9 @@ class ActiveIceControllerInterface {
   virtual void OnImmediateSortAndSwitchRequest(IceSwitchReason reason) = 0;
   virtual bool OnImmediateSwitchRequest(IceSwitchReason reason,
                                         const Connection* selected) = 0;
+
+  virtual void ProcessPingRequest(const PingRequest& ping_request) = 0;
+  virtual void ProcessSwitchRequest(const SwitchRequest& switch_request) = 0;
 
   // Only for unit tests
   virtual const Connection* FindNextPingableConnection() = 0;

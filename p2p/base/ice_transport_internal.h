@@ -22,6 +22,8 @@
 #include "api/rtc_error.h"
 #include "api/transport/enums.h"
 #include "p2p/base/connection.h"
+#include "p2p/base/ice_recheck_event.h"
+#include "p2p/base/ice_switch_reason.h"
 #include "p2p/base/packet_transport_internal.h"
 #include "p2p/base/port.h"
 #include "p2p/base/transport_description.h"
@@ -234,6 +236,53 @@ enum IceProtocolType {
   ICEPROTO_RFC5245  // Standard RFC 5245 version of ICE.
 };
 
+// An acknowledgement for a PingRequest.
+struct PingAcknowledgement {
+  PingAcknowledgement(uint32_t _connection_id, int _recheck_delay_ms)
+      : connection_id(_connection_id), recheck_delay_ms(_recheck_delay_ms) {}
+
+  // ID of the connection to ping.
+  const uint32_t connection_id;
+
+  // Optional delay before the next attempt to select and ping a connection.
+  const int recheck_delay_ms = 0;
+};
+
+// An acknowledgement for a SwitchRequest.
+struct SwitchAcknowledgement {
+  SwitchAcknowledgement(
+      IceSwitchReason _reason,
+      uint32_t _connection_id,
+      absl::optional<IceRecheckEvent> _recheck_event,
+      std::vector<const uint32_t>& _connection_ids_to_forget_state_on)
+      : reason(_reason),
+        connection_id(_connection_id),
+        recheck_event(_recheck_event),
+        connection_ids_to_forget_state_on(_connection_ids_to_forget_state_on) {}
+
+  // Reason for which the requested switch was initiated.
+  const IceSwitchReason reason;
+
+  // ID of the connection to switch to.
+  const uint32_t connection_id;
+
+  // An optional event describing the next switch recheck.
+  const absl::optional<IceRecheckEvent> recheck_event;
+
+  // A vector of IDs for connections to forget learned state for.
+  const std::vector<const uint32_t> connection_ids_to_forget_state_on;
+};
+
+// An acknowledgement for a PruneRequest.
+struct PruneAcknowledgement {
+  explicit PruneAcknowledgement(
+      std::vector<const uint32_t> _connection_ids_to_prune)
+      : connection_ids_to_prune(_connection_ids_to_prune) {}
+
+  // A vector of IDs for connections to prune.
+  const std::vector<const uint32_t> connection_ids_to_prune;
+};
+
 // IceTransportInternal is an internal abstract class that does ICE.
 // Once the public interface is supported,
 // (https://www.w3.org/TR/webrtc/#rtcicetransport)
@@ -302,6 +351,18 @@ class RTC_EXPORT IceTransportInternal : public rtc::PacketTransportInternal {
   // none.
   virtual absl::optional<const CandidatePair> GetSelectedCandidatePair()
       const = 0;
+
+  // ICE controller passthrough actions
+  // TODO(samvi) Do these actions belong in a separate interface?
+
+  // Acknowledge a ping request.
+  virtual void AckPingRequest(PingAcknowledgement ack) = 0;
+
+  // Acknowledge a switch request.
+  virtual void AckSwitchRequest(SwitchAcknowledgement ack) = 0;
+
+  // Acknowledge a prune request.
+  virtual void AckPruneRequest(PruneAcknowledgement ack) = 0;
 
   sigslot::signal1<IceTransportInternal*> SignalGatheringState;
 

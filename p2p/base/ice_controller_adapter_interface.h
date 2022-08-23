@@ -17,6 +17,7 @@
 #include "p2p/base/ice_agent_interface.h"
 #include "p2p/base/ice_controller_factory_interface.h"
 #include "p2p/base/ice_controller_observer.h"
+#include "p2p/base/ice_controller_request_types.h"
 #include "p2p/base/ice_switch_reason.h"
 #include "p2p/base/ice_transport_internal.h"
 #include "p2p/base/transport_description.h"
@@ -56,6 +57,9 @@ class IceControllerAdapterInterface {
       IceSwitchReason reason_to_sort) = 0;
   virtual bool MaybeSwitchSelectedConnection(Connection* new_connection,
                                              IceSwitchReason reason) = 0;
+
+  virtual void ProcessPingRequest(const PingRequest& ping_request) = 0;
+  virtual void ProcessSwitchRequest(const SwitchRequest& switch_request) = 0;
 
   // For unit tests only
   virtual rtc::ArrayView<const Connection*> Connections() const = 0;

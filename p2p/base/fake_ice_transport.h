@@ -284,6 +284,10 @@ class FakeIceTransport : public IceTransportInternal {
     return absl::nullopt;
   }
 
+  void AckPingRequest(PingAcknowledgement ack) override {}
+  void AckSwitchRequest(SwitchAcknowledgement ack) override {}
+  void AckPruneRequest(PruneAcknowledgement ack) override {}
+
   // Fake PacketTransportInternal implementation.
   bool writable() const override {
     RTC_DCHECK_RUN_ON(network_thread_);

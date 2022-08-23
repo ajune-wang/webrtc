@@ -138,6 +138,18 @@ bool ActiveIceControllerAdapter::MaybeSwitchSelectedConnection(
                                                           new_connection);
 }
 
+void ActiveIceControllerAdapter::ProcessPingRequest(
+    const PingRequest& ping_request) {
+  RTC_DCHECK_RUN_ON(network_thread_);
+  return active_ice_controller_->ProcessPingRequest(ping_request);
+}
+
+void ActiveIceControllerAdapter::ProcessSwitchRequest(
+    const SwitchRequest& switch_request) {
+  RTC_DCHECK_RUN_ON(network_thread_);
+  return active_ice_controller_->ProcessSwitchRequest(switch_request);
+}
+
 // This method is only for unit testing.
 const Connection* ActiveIceControllerAdapter::FindNextPingableConnection() {
   RTC_DCHECK_RUN_ON(network_thread_);

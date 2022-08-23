@@ -259,7 +259,7 @@ class ActiveIceControllerFactory
   std::unique_ptr<cricket::ActiveIceControllerInterface> Create(
       const cricket::ActiveIceControllerFactoryArgs& args) override {
     return std::make_unique<cricket::WrappingActiveIceController>(
-        args.ice_agent,
+        args.ice_agent, args.observer,
         std::make_unique<cricket::BasicIceController>(args.legacy_args));
   }
 };
@@ -280,7 +280,8 @@ class WrappingIceControllerFactory
       const cricket::ActiveIceControllerFactoryArgs& args) override {
     RTC_DCHECK(wrapped_factory_ != nullptr);
     return std::make_unique<cricket::WrappingActiveIceController>(
-        args.ice_agent, wrapped_factory_->Create(args.legacy_args));
+        args.ice_agent, args.observer,
+        wrapped_factory_->Create(args.legacy_args));
   }
 
  private:

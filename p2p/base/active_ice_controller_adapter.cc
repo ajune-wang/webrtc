@@ -53,7 +53,7 @@ ActiveIceControllerAdapter::ActiveIceControllerAdapter(
           args.ice_controller_factory_args);
     }
     active_ice_controller_ = std::make_unique<WrappingActiveIceController>(
-        args.ice_agent, std::move(wrapped));
+        args.ice_agent, args.observer, std::move(wrapped));
   }
   RTC_LOG(LS_INFO) << "Finished constructing an ActiveIceControllerAdapter";
 }

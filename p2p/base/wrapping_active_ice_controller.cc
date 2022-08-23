@@ -12,6 +12,7 @@
 
 #include <memory>
 #include <utility>
+#include <vector>
 
 #include "api/sequence_checker.h"
 #include "api/task_queue/pending_task_safety_flag.h"
@@ -19,6 +20,7 @@
 #include "p2p/base/connection.h"
 #include "p2p/base/ice_agent_interface.h"
 #include "p2p/base/ice_controller_interface.h"
+#include "p2p/base/ice_controller_observer.h"
 #include "p2p/base/ice_switch_reason.h"
 #include "p2p/base/ice_transport_internal.h"
 #include "p2p/base/transport_description.h"
@@ -35,10 +37,12 @@ namespace cricket {
 
 WrappingActiveIceController::WrappingActiveIceController(
     IceAgentInterface* ice_agent,
+    IceControllerObserver* observer,
     std::unique_ptr<IceControllerInterface> wrapped)
     : network_thread_(rtc::Thread::Current()),
       wrapped_(std::move(wrapped)),
-      agent_(*ice_agent) {
+      agent_(*ice_agent),
+      observer_(observer) {
   RTC_DCHECK(ice_agent != nullptr);
 }
 
@@ -67,6 +71,9 @@ void WrappingActiveIceController::OnConnectionAdded(
     const Connection* connection) {
   RTC_DCHECK_RUN_ON(network_thread_);
   wrapped_->AddConnection(connection);
+  if (observer_) {
+    observer_->OnConnectionAdded(connection);
+  }
 }
 
 void WrappingActiveIceController::OnConnectionPinged(
@@ -78,20 +85,28 @@ void WrappingActiveIceController::OnConnectionPinged(
 void WrappingActiveIceController::OnConnectionReport(
     const Connection* connection) {
   RTC_LOG(LS_VERBOSE) << "Connection report for " << connection->ToString();
-  // Do nothing. Native ICE controllers have direct access to Connection, so no
-  // need to update connection state separately.
+  RTC_DCHECK_RUN_ON(network_thread_);
+  if (observer_) {
+    observer_->OnConnectionReport(connection);
+  }
 }
 
 void WrappingActiveIceController::OnConnectionSwitched(
     const Connection* connection) {
   RTC_DCHECK_RUN_ON(network_thread_);
   wrapped_->SetSelectedConnection(connection);
+  if (observer_) {
+    observer_->OnConnectionSwitched(connection);
+  }
 }
 
 void WrappingActiveIceController::OnConnectionDestroyed(
     const Connection* connection) {
   RTC_DCHECK_RUN_ON(network_thread_);
   wrapped_->OnConnectionDestroyed(connection);
+  if (observer_) {
+    observer_->OnConnectionDestroyed(connection);
+  }
 }
 
 void WrappingActiveIceController::OnStartPingingRequest() {
@@ -131,6 +146,12 @@ bool WrappingActiveIceController::OnImmediateSwitchRequest(
   RTC_DCHECK_RUN_ON(network_thread_);
   IceControllerInterface::SwitchResult result =
       wrapped_->ShouldSwitchConnection(reason, selected);
+  if (observer_) {
+    SwitchRequest request{reason, result.connection, result.recheck_event,
+                          result.connections_to_forget_state_on,
+                          /*cancelable=*/false};
+    observer_->OnSwitchRequest(request);
+  }
   HandleSwitchResult(reason, result);
   return result.connection.has_value();
 }
@@ -147,6 +168,10 @@ void WrappingActiveIceController::PingBestConnection() {
 
   IceControllerInterface::PingResult result =
       wrapped_->SelectConnectionToPing(agent_.GetLastPingSentMs());
+  if (observer_) {
+    PingRequest request(result.connection, result.recheck_delay_ms);
+    observer_->OnPingRequest(request);
+  }
   HandlePingResult(result);
 }
 
@@ -171,10 +196,22 @@ void WrappingActiveIceController::SwitchToBestConnectionAndPrune(
 
   IceControllerInterface::SwitchResult result =
       wrapped_->SortAndSwitchConnection(reason);
+  if (observer_) {
+    SwitchRequest request{reason, result.connection, result.recheck_event,
+                          result.connections_to_forget_state_on,
+                          /*cancelable=*/true};
+    observer_->OnSwitchRequest(request);
+  }
   HandleSwitchResult(reason, result);
 
   if (agent_.ShouldPruneConnections()) {
-    agent_.PruneConnections(wrapped_->PruneConnections());
+    std::vector<const Connection*> conns_to_prune =
+        wrapped_->PruneConnections();
+    if (observer_) {
+      PruneRequest request{conns_to_prune};
+      observer_->OnPruneRequest(request);
+    }
+    agent_.PruneConnections(conns_to_prune);
   }
 
   agent_.OnConnectionsResorted();

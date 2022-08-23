@@ -19,6 +19,7 @@
 #include "p2p/base/connection.h"
 #include "p2p/base/ice_agent_interface.h"
 #include "p2p/base/ice_controller_interface.h"
+#include "p2p/base/ice_controller_observer.h"
 #include "p2p/base/ice_switch_reason.h"
 #include "p2p/base/ice_transport_internal.h"
 #include "p2p/base/transport_description.h"
@@ -37,6 +38,7 @@ class WrappingActiveIceController : public ActiveIceControllerInterface {
   // object that outlives the ICE controller.
   explicit WrappingActiveIceController(
       IceAgentInterface* ice_agent,
+      IceControllerObserver* observer,
       std::unique_ptr<IceControllerInterface> wrapped);
   virtual ~WrappingActiveIceController();
 
@@ -78,6 +80,7 @@ class WrappingActiveIceController : public ActiveIceControllerInterface {
   std::unique_ptr<IceControllerInterface> wrapped_
       RTC_GUARDED_BY(network_thread_);
   IceAgentInterface& agent_ RTC_GUARDED_BY(network_thread_);
+  IceControllerObserver* observer_ RTC_GUARDED_BY(network_thread_);
 };
 
 }  // namespace cricket

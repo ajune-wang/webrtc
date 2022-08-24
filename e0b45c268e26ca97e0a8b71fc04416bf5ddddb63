@@ -16,6 +16,24 @@
       "message": "Why are we not erasing captured_frames_in_flight_ anymore?\n\nPS: I haven\u0027t worked with this code for a while, so it\u0027s a bit hard to undestand such things.",
       "revId": "e0b45c268e26ca97e0a8b71fc04416bf5ddddb63",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "5b154354_9a636317",
+        "filename": "test/pc/e2e/analyzer/video/default_video_quality_analyzer.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 697,
+      "author": {
+        "id": 6337
+      },
+      "writtenOn": "2022-08-24T08:50:01Z",
+      "side": 0,
+      "message": "After reading this code my thinking is that in previous lines we don\u0027t change by whom frame is received, so this condition either was true (in such case this frame should be already removed) or false and it will stay unchanged.",
+      "parentUuid": "3908088a_92338140",
+      "revId": "e0b45c268e26ca97e0a8b71fc04416bf5ddddb63",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

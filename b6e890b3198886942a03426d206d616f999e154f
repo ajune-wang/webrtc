@@ -16,6 +16,23 @@
       "message": "Alex, WDYT about removing this workaround now?  I could see leaving the width/height checks in place since calling CopyPlane on a 0 sized rect is non-sensical but libyuv now returns early if the dimensions aren\u0027t valid so double-checking isn\u0027t useful either.\n\nLMK if you\u0027d prefer to keep the checks in place and I can remove the TODO instead : )",
       "revId": "b6e890b3198886942a03426d206d616f999e154f",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "488e8b13_19ef720b",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 13849
+      },
+      "writtenOn": "2022-08-24T21:44:14Z",
+      "side": 1,
+      "message": "Thanks!",
+      "revId": "b6e890b3198886942a03426d206d616f999e154f",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

@@ -19,6 +19,10 @@
 namespace webrtc {
 
 void FuzzOneInput(const uint8_t* data, size_t size) {
+  constexpr int kMaxSize = 256;
+  if (size > kMaxSize) {
+    return;
+  }
   auto raw = rtc::MakeArrayView(data, size);
 
   VideoLayersAllocation allocation1;
@@ -32,10 +36,10 @@ void FuzzOneInput(const uint8_t* data, size_t size) {
   // Check `writer` use minimal number of bytes to pack the extension by
   // checking it doesn't use more than reader consumed.
   RTC_CHECK_LE(value_size, raw.size());
-  uint8_t some_memory[256];
+  uint8_t some_memory[kMaxSize];
   // An extension may not be larger than 255 bytes since the extension lenght
   // field is only one byte.
-  RTC_CHECK_LT(value_size, 256);
+  RTC_CHECK_LE(value_size, kMaxSize);
   rtc::ArrayView<uint8_t> write_buffer(some_memory, value_size);
   RTC_CHECK(
       RtpVideoLayersAllocationExtension::Write(write_buffer, allocation1));

@@ -110,7 +110,7 @@ class VideoStreamEncoder : public VideoStreamEncoderInterface,
   // guaranteed that no encoded frames will be delivered to the sink.
   void Stop() override;
 
-  void SendKeyFrame() override;
+  void SendKeyFrame(const std::vector<VideoFrameType>& layers = {}) override;
 
   void OnLossNotification(
       const VideoEncoder::LossNotification& loss_notification) override;

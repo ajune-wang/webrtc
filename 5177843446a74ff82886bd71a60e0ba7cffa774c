@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "1dba254a_8419cdc4",
+        "filename": "infra/config/config.star",
+        "patchSetId": 3
+      },
+      "lineNbr": 752,
+      "author": {
+        "id": 15909
+      },
+      "writtenOn": "2022-08-25T10:56:22Z",
+      "side": 1,
+      "message": "Is there a way to avoid tree closing?",
+      "range": {
+        "startLine": 752,
+        "startChar": 15,
+        "endLine": 752,
+        "endChar": 42
+      },
+      "revId": "5177843446a74ff82886bd71a60e0ba7cffa774c",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

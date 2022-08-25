@@ -39,6 +39,30 @@
       },
       "revId": "32bc6825328525d1106b88f0423c182cb85fd62d",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "fd922aea_a8a5b824",
+        "filename": "modules/pacing/bitrate_prober.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 150,
+      "author": {
+        "id": 5578
+      },
+      "writtenOn": "2022-08-25T08:48:29Z",
+      "side": 1,
+      "message": "It does not make sense and it appears to be unset. \nBut this field trial can be set to ensure packets are sent back to back in larger bursts even when probing.",
+      "parentUuid": "db707be3_407c9954",
+      "range": {
+        "startLine": 150,
+        "startChar": 16,
+        "endLine": 150,
+        "endChar": 21
+      },
+      "revId": "32bc6825328525d1106b88f0423c182cb85fd62d",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

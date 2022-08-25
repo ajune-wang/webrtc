@@ -919,8 +919,12 @@ class VideoMediaChannel : public MediaChannel, public Delayable {
       std::function<void(const webrtc::RecordableEncodedFrame&)> callback) = 0;
   // Clear recordable encoded frame callback for `ssrc`
   virtual void ClearRecordableEncodedFrameCallback(uint32_t ssrc) = 0;
-  // Cause generation of a keyframe for `ssrc`
-  virtual void GenerateKeyFrame(uint32_t ssrc) = 0;
+  // Cause generation of a keyframe for `ssrc` on a receiving channel.
+  virtual void GenerateRecvKeyFrame(uint32_t ssrc) = 0;
+  // Cause generation of a keyframe for `ssrc` on a sending channel for a given
+  // vector of rids/layers.
+  virtual void GenerateSendKeyFrame(uint32_t ssrc,
+                                    const std::vector<std::string>& rids) = 0;
 
   virtual std::vector<webrtc::RtpSource> GetSources(uint32_t ssrc) const = 0;
 };

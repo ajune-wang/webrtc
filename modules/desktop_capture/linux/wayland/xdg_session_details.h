@@ -14,6 +14,9 @@
 #include <gio/gio.h>
 
 #include <string>
+#include <vector>
+
+#include "modules/desktop_capture/desktop_capture_types.h"
 
 namespace webrtc {
 namespace xdg_portal {
@@ -24,7 +27,9 @@ struct SessionDetails {
   GDBusProxy* proxy = nullptr;
   GCancellable* cancellable = nullptr;
   std::string session_handle;
-  uint32_t pipewire_stream_node_id = 0;
+  // Mapping from source id -> stream id.
+  SourceStreamInfo source_stream_infos;
+  PipeWireStreamInfo active_stream = {};
 };
 
 }  // namespace xdg_portal

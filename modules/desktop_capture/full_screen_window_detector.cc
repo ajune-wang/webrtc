@@ -21,8 +21,8 @@ FullScreenWindowDetector::FullScreenWindowDetector(
       previous_source_id_(0),
       no_handler_source_id_(0) {}
 
-DesktopCapturer::SourceId FullScreenWindowDetector::FindFullScreenWindow(
-    DesktopCapturer::SourceId original_source_id) {
+SourceId FullScreenWindowDetector::FindFullScreenWindow(
+    SourceId original_source_id) {
   if (app_handler_ == nullptr ||
       app_handler_->GetSourceId() != original_source_id) {
     return 0;
@@ -31,7 +31,7 @@ DesktopCapturer::SourceId FullScreenWindowDetector::FindFullScreenWindow(
 }
 
 void FullScreenWindowDetector::UpdateWindowListIfNeeded(
-    DesktopCapturer::SourceId original_source_id,
+    SourceId original_source_id,
     rtc::FunctionView<bool(DesktopCapturer::SourceList*)> get_sources) {
   const bool skip_update = previous_source_id_ != original_source_id;
   previous_source_id_ = original_source_id;
@@ -65,7 +65,7 @@ void FullScreenWindowDetector::UpdateWindowListIfNeeded(
 }
 
 void FullScreenWindowDetector::CreateApplicationHandlerIfNeeded(
-    DesktopCapturer::SourceId source_id) {
+    SourceId source_id) {
   if (no_handler_source_id_ == source_id) {
     return;
   }

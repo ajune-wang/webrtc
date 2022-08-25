@@ -13,17 +13,16 @@
 
 namespace webrtc {
 
-FullScreenApplicationHandler::FullScreenApplicationHandler(
-    DesktopCapturer::SourceId sourceId)
+FullScreenApplicationHandler::FullScreenApplicationHandler(SourceId sourceId)
     : source_id_(sourceId) {}
 
-DesktopCapturer::SourceId FullScreenApplicationHandler::FindFullScreenWindow(
+SourceId FullScreenApplicationHandler::FindFullScreenWindow(
     const DesktopCapturer::SourceList&,
     int64_t) const {
   return 0;
 }
 
-DesktopCapturer::SourceId FullScreenApplicationHandler::GetSourceId() const {
+SourceId FullScreenApplicationHandler::GetSourceId() const {
   return source_id_;
 }
 

@@ -25,7 +25,7 @@ DxgiFrame::DxgiFrame(SharedMemoryFactory* factory) : factory_(factory) {}
 
 DxgiFrame::~DxgiFrame() = default;
 
-bool DxgiFrame::Prepare(DesktopSize size, DesktopCapturer::SourceId source_id) {
+bool DxgiFrame::Prepare(DesktopSize size, SourceId source_id) {
   if (source_id != source_id_) {
     // Once the source has been changed, the entire source should be copied.
     source_id_ = source_id;

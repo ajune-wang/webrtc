@@ -29,20 +29,20 @@ class FullScreenApplicationHandler {
   FullScreenApplicationHandler& operator=(const FullScreenApplicationHandler&) =
       delete;
 
-  explicit FullScreenApplicationHandler(DesktopCapturer::SourceId sourceId);
+  explicit FullScreenApplicationHandler(SourceId sourceId);
 
   // Returns the full-screen window in place of the original window if all the
   // criteria are met, or 0 if no such window found.
-  virtual DesktopCapturer::SourceId FindFullScreenWindow(
+  virtual SourceId FindFullScreenWindow(
       const DesktopCapturer::SourceList& window_list,
       int64_t timestamp) const;
 
   // Returns source id of original window associated with
   // FullScreenApplicationHandler
-  DesktopCapturer::SourceId GetSourceId() const;
+  SourceId GetSourceId() const;
 
  private:
-  const DesktopCapturer::SourceId source_id_;
+  const SourceId source_id_;
 };
 
 }  // namespace webrtc

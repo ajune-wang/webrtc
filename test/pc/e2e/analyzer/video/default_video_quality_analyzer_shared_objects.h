@@ -62,6 +62,9 @@ struct FrameCounters {
   // Count of frames that were dropped in any point between capturing and
   // rendering.
   int64_t dropped = 0;
+  // Count of frames for which decoder returned error when they were sent for
+  // decoding.
+  int64_t failed_to_decode = 0;
 };
 
 // Contains information about the codec that was used for encoding or decoding
@@ -85,6 +88,7 @@ enum class FrameDropPhase : int {
   kBeforeEncoder,
   kByEncoder,
   kTransport,
+  kByDecoder,
   kAfterDecoder,
   // kLastValue must be the last value in this enumeration.
   kLastValue

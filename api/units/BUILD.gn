@@ -8,6 +8,11 @@
 
 import("../../webrtc.gni")
 
+rtc_source_set("quantities") {
+  visibility = [ "*" ]
+  sources = [ "quantities.h" ]
+}
+
 rtc_library("data_rate") {
   visibility = [ "*" ]
   sources = [
@@ -95,6 +100,7 @@ if (rtc_include_tests) {
       "data_rate_unittest.cc",
       "data_size_unittest.cc",
       "frequency_unittest.cc",
+      "quantities_unittest.cc",
       "time_delta_unittest.cc",
       "timestamp_unittest.cc",
     ]
@@ -102,6 +108,7 @@ if (rtc_include_tests) {
       ":data_rate",
       ":data_size",
       ":frequency",
+      ":quantities",
       ":time_delta",
       ":timestamp",
       "../../rtc_base:logging",

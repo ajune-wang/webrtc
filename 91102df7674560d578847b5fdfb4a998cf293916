@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "95545f1c_7b0d68f0",
+        "filename": "tools_webrtc/mb/mb_config.pyl",
+        "patchSetId": 3
+      },
+      "lineNbr": 296,
+      "author": {
+        "id": 5106
+      },
+      "writtenOn": "2022-08-25T01:52:45Z",
+      "side": 1,
+      "message": "this is redundant?",
+      "range": {
+        "startLine": 296,
+        "startChar": 48,
+        "endLine": 296,
+        "endChar": 59
+      },
+      "revId": "91102df7674560d578847b5fdfb4a998cf293916",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

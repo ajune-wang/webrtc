@@ -22,6 +22,30 @@
       },
       "revId": "5177843446a74ff82886bd71a60e0ba7cffa774c",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "0f20235e_f20eccd1",
+        "filename": "infra/config/config.star",
+        "patchSetId": 3
+      },
+      "lineNbr": 752,
+      "author": {
+        "id": 5087
+      },
+      "writtenOn": "2022-08-25T11:00:24Z",
+      "side": 1,
+      "message": "I think the regex excluder might be what we need here https://source.chromium.org/chromium/chromium/src/+/main:third_party/webrtc/infra/config/config.star;l\u003d391;drc\u003dcca4832042c663500c13d583991a5c56282a630e.\n\nI never used it but let\u0027s give it a try with \"reclient\".",
+      "parentUuid": "1dba254a_8419cdc4",
+      "range": {
+        "startLine": 752,
+        "startChar": 15,
+        "endLine": 752,
+        "endChar": 42
+      },
+      "revId": "5177843446a74ff82886bd71a60e0ba7cffa774c",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

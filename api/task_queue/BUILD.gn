@@ -114,6 +114,22 @@ rtc_library("pending_task_safety_flag") {
   absl_deps = [ "//third_party/abseil-cpp/absl/functional:any_invocable" ]
 }
 
+rtc_library("thread_safe_pending_task_safety_flag") {
+  visibility = [ "*" ]
+  sources = [
+    "thread_safe_pending_task_safety_flag.cc",
+    "thread_safe_pending_task_safety_flag.h",
+  ]
+  deps = [
+    "../../api:make_ref_counted",
+    "../../api:scoped_refptr",
+    "../../rtc_base:checks",
+    "../../rtc_base:refcount",
+    "../../rtc_base:rtc_event",
+  ]
+  absl_deps = [ "//third_party/abseil-cpp/absl/functional:any_invocable" ]
+}
+
 if (rtc_include_tests) {
   rtc_library("task_queue_default_factory_unittests") {
     testonly = true
@@ -127,14 +143,19 @@ if (rtc_include_tests) {
 
   rtc_library("pending_task_safety_flag_unittests") {
     testonly = true
-    sources = [ "pending_task_safety_flag_unittest.cc" ]
+    sources = [
+      "pending_task_safety_flag_unittest.cc",
+      "thread_safe_pending_task_safety_flag_unittest.cc",
+    ]
     deps = [
       ":pending_task_safety_flag",
+      ":thread_safe_pending_task_safety_flag",
       "../../rtc_base:logging",
       "../../rtc_base:rtc_event",
       "../../rtc_base:rtc_task_queue",
       "../../rtc_base:task_queue_for_test",
       "../../test:test_support",
+      "../units:time_delta",
     ]
   }
 }

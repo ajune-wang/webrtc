@@ -51,6 +51,8 @@ std::string ToString(FrameDropPhase phase) {
       return "kByEncoder";
     case FrameDropPhase::kTransport:
       return "kTransport";
+    case FrameDropPhase::kByDecoder:
+      return "kByDecoder";
     case FrameDropPhase::kAfterDecoder:
       return "kAfterDecoder";
     case FrameDropPhase::kLastValue:

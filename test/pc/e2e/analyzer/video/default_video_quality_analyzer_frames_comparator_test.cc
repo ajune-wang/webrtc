@@ -13,15 +13,20 @@
 #include <map>
 #include <vector>
 
+#include "api/test/create_frame_generator.h"
 #include "api/units/timestamp.h"
 #include "rtc_base/strings/string_builder.h"
 #include "system_wrappers/include/clock.h"
+#include "test/gmock.h"
 #include "test/gtest.h"
 #include "test/pc/e2e/analyzer/video/default_video_quality_analyzer_cpu_measurer.h"
 #include "test/pc/e2e/analyzer/video/default_video_quality_analyzer_shared_objects.h"
 
 namespace webrtc {
 namespace {
+
+using ::testing::Eq;
+using ::testing::IsEmpty;
 
 using StatsSample = ::webrtc::SamplesStatsCounter::StatsSample;
 
@@ -35,6 +40,20 @@ DefaultVideoQualityAnalyzerOptions AnalyzerOptionsForTest() {
   options.max_frames_in_flight_per_stream_count = kMaxFramesInFlightPerStream;
   return options;
 }
+
+// VideoFrame CreateFrame(int width, int height, Timestamp timestamp) {
+//   std::unique_ptr<test::FrameGeneratorInterface> frame_generator =
+//       test::CreateSquareFrameGenerator(width, height,
+//                                        /*type=*/absl::nullopt,
+//                                        num_squares=absl::nullopt);
+//   test::FrameGeneratorInterface::VideoFrameData frame_data =
+//       frame_generator->NextFrame();
+//   return VideoFrame::Builder()
+//       .set_video_frame_buffer(frame_data.buffer)
+//       .set_update_rect(frame_data.update_rect)
+//       .set_timestamp_us(timestamp.us())
+//       .build();
+// }
 
 StreamCodecInfo Vp8CodecForOneFrame(uint16_t frame_id, Timestamp time) {
   StreamCodecInfo info;
@@ -94,6 +113,16 @@ std::string ToString(const SamplesStatsCounter& counter) {
   return out.str();
 }
 
+void expectEmpty(const SamplesStatsCounter& counter) {
+  EXPECT_TRUE(counter.IsEmpty())
+      << "Expected empty counter, but got " << ToString(counter);
+}
+
+void expectEmpty(const SamplesRateCounter& counter) {
+  EXPECT_TRUE(counter.IsEmpty())
+      << "Expected empty counter, but got " << counter.GetEventsPerSecond();
+}
+
 TEST(DefaultVideoQualityAnalyzerFramesComparatorTest,
      StatsPresentedAfterAddingOneComparison) {
   DefaultVideoQualityAnalyzerCpuMeasurer cpu_measurer;
@@ -110,7 +139,7 @@ TEST(DefaultVideoQualityAnalyzerFramesComparatorTest,
   FrameStats frame_stats =
       FrameStatsWith10msDeltaBetweenPhasesAnd10x10Frame(stream_start_time);
 
-  comparator.Start(1);
+  comparator.Start(/*max_threads_count=*/1);
   comparator.EnsureStatsForStream(stream, sender, peers_count,
                                   stream_start_time, stream_start_time);
   comparator.AddComparison(stats_key,
@@ -150,7 +179,7 @@ TEST(DefaultVideoQualityAnalyzerFramesComparatorTest,
       stream_start_time + TimeDelta::Millis(15));
   frame_stats2.prev_frame_rendered_time = frame_stats1.rendered_time;
 
-  comparator.Start(1);
+  comparator.Start(/*max_threads_count=*/1);
   comparator.EnsureStatsForStream(stream, sender, peers_count,
                                   stream_start_time, stream_start_time);
   comparator.AddComparison(stats_key,
@@ -230,7 +259,7 @@ TEST(DefaultVideoQualityAnalyzerFramesComparatorTest,
   frame_stats.rendered_frame_height = 10;
   stats.push_back(frame_stats);
 
-  comparator.Start(1);
+  comparator.Start(/*max_threads_count=*/1);
   comparator.EnsureStatsForStream(stream, sender, peers_count,
                                   stream_start_time, stream_start_time);
   for (size_t i = 0; i < stats.size() - 1; ++i) {
@@ -277,6 +306,61 @@ TEST(DefaultVideoQualityAnalyzerFramesComparatorTest,
   EXPECT_DOUBLE_EQ(result_stats.encode_frame_rate.GetEventsPerSecond(),
                    4.0 / 45 * 1000)
       << "There should be 4 events with interval of 15 ms";
+}
+
+TEST(DefaultVideoQualityAnalyzerFramesComparatorTest,
+     CapturedOnlyInFlightFrameAccountedInStats) {
+  DefaultVideoQualityAnalyzerCpuMeasurer cpu_measurer;
+  DefaultVideoQualityAnalyzerFramesComparator comparator(
+      Clock::GetRealTimeClock(), cpu_measurer, AnalyzerOptionsForTest());
+
+  Timestamp captured_time = Clock::GetRealTimeClock()->CurrentTime();
+  size_t stream = 0;
+  size_t sender = 0;
+  size_t receiver = 1;
+  InternalStatsKey stats_key(stream, sender, receiver);
+
+  FrameStats frame_stats(captured_time);
+
+  comparator.Start(/*max_threads_count=*/1);
+  comparator.EnsureStatsForStream(stream, sender, /*peers_count=*/2,
+                                  captured_time, captured_time);
+  comparator.AddComparison(stats_key,
+                           /*captured=*/absl::nullopt,
+                           /*rendered=*/absl::nullopt,
+                           FrameComparisonType::kFrameInFlight, frame_stats);
+  comparator.Stop(/*last_rendered_frame_times=*/{});
+
+  EXPECT_EQ(comparator.stream_stats().size(), 1lu);
+  StreamStats stats = comparator.stream_stats().at(stats_key);
+  EXPECT_EQ(stats.stream_started_time, captured_time);
+  expectEmpty(stats.psnr);
+  expectEmpty(stats.ssim);
+  expectEmpty(stats.transport_time_ms);
+  expectEmpty(stats.total_delay_incl_transport_ms);
+  expectEmpty(stats.time_between_rendered_frames_ms);
+  expectEmpty(stats.encode_frame_rate);
+  expectEmpty(stats.encode_time_ms);
+  expectEmpty(stats.decode_time_ms);
+  expectEmpty(stats.receive_to_render_time_ms);
+  expectEmpty(stats.skipped_between_rendered);
+  expectEmpty(stats.freeze_time_ms);
+  expectEmpty(stats.time_between_freezes_ms);
+  expectEmpty(stats.resolution_of_rendered_frame);
+  expectEmpty(stats.target_encode_bitrate);
+  expectEmpty(stats.recv_key_frame_size_bytes);
+  expectEmpty(stats.recv_delta_frame_size_bytes);
+  EXPECT_EQ(stats.total_encoded_images_payload, 0);
+  EXPECT_EQ(stats.num_send_key_frames, 0);
+  EXPECT_EQ(stats.num_recv_key_frames, 0);
+  EXPECT_THAT(stats.dropped_by_phase, Eq(std::map<FrameDropPhase, int64_t>{
+                                          {FrameDropPhase::kBeforeEncoder, 0},
+                                          {FrameDropPhase::kByEncoder, 0},
+                                          {FrameDropPhase::kTransport, 0},
+                                          {FrameDropPhase::kByDecoder, 0},
+                                          {FrameDropPhase::kAfterDecoder, 0}}));
+  EXPECT_THAT(stats.encoders, IsEmpty());
+  EXPECT_THAT(stats.decoders, IsEmpty());
 }
 
 }  // namespace

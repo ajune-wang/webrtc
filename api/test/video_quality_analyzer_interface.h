@@ -134,6 +134,10 @@ class VideoQualityAnalyzerInterface
   virtual void OnDecoderError(absl::string_view peer_name,
                               uint16_t frame_id,
                               int32_t error_code) {}
+  virtual void OnDecoderError(absl::string_view peer_name,
+                              uint16_t frame_id,
+                              int32_t error_code,
+                              const DecoderStats& stats) {}
   // Will be called every time new stats reports are available for the
   // Peer Connection identified by `pc_label`.
   void OnStatsReports(

@@ -24,6 +24,30 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "fb951c37_4290a7c4",
+        "filename": "test/fuzzers/rtp_video_layers_allocation_fuzzer.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 22,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2022-08-26T08:24:00Z",
+      "side": 1,
+      "message": "expanded comment to explain that. ptal",
+      "parentUuid": "0f55f588_73b7df21",
+      "range": {
+        "startLine": 22,
+        "startChar": 16,
+        "endLine": 22,
+        "endChar": 25
+      },
+      "revId": "5fceb2e19d1866a7be2d2e0fa90f1139edbff222",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "7edc60d0_1f21b627",
@@ -37,6 +61,30 @@
       "writtenOn": "2022-08-25T19:30:55Z",
       "side": 1,
       "message": "This comment is confusing.",
+      "range": {
+        "startLine": 40,
+        "startChar": 41,
+        "endLine": 40,
+        "endChar": 45
+      },
+      "revId": "5fceb2e19d1866a7be2d2e0fa90f1139edbff222",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "5c218274_e4612ff5",
+        "filename": "test/fuzzers/rtp_video_layers_allocation_fuzzer.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 40,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2022-08-26T08:24:00Z",
+      "side": 1,
+      "message": "removed in favor of the new, more detailed comment near the kMaxSize constant",
+      "parentUuid": "7edc60d0_1f21b627",
       "range": {
         "startLine": 40,
         "startChar": 41,

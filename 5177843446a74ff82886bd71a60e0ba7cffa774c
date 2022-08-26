@@ -46,6 +46,30 @@
       },
       "revId": "5177843446a74ff82886bd71a60e0ba7cffa774c",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "8293b048_b48b8151",
+        "filename": "infra/config/config.star",
+        "patchSetId": 3
+      },
+      "lineNbr": 752,
+      "author": {
+        "id": 15909
+      },
+      "writtenOn": "2022-08-26T01:41:30Z",
+      "side": 1,
+      "message": "Thanks. will try that.",
+      "parentUuid": "0f20235e_f20eccd1",
+      "range": {
+        "startLine": 752,
+        "startChar": 15,
+        "endLine": 752,
+        "endChar": 42
+      },
+      "revId": "5177843446a74ff82886bd71a60e0ba7cffa774c",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

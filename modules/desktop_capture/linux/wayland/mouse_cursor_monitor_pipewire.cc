@@ -27,6 +27,15 @@ MouseCursorMonitorPipeWire::MouseCursorMonitorPipeWire(
 
 MouseCursorMonitorPipeWire::~MouseCursorMonitorPipeWire() {}
 
+// static
+MouseCursorMonitor* MouseCursorMonitorPipeWire::CreateForScreen(
+    const DesktopCaptureOptions& options,
+    ScreenId screen) {
+  if (!options.screencast_stream())
+    return nullptr;
+  return new MouseCursorMonitorPipeWire(options);
+}
+
 void MouseCursorMonitorPipeWire::Init(Callback* callback, Mode mode) {
   RTC_DCHECK_RUN_ON(&sequence_checker_);
   RTC_DCHECK(!callback_);

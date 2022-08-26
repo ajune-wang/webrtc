@@ -29,6 +29,10 @@ class MouseCursorMonitorPipeWire : public MouseCursorMonitor {
   explicit MouseCursorMonitorPipeWire(const DesktopCaptureOptions& options);
   ~MouseCursorMonitorPipeWire() override;
 
+  static MouseCursorMonitor* CreateForScreen(
+      const DesktopCaptureOptions& options,
+      ScreenId screen);
+
   // MouseCursorMonitor:
   void Init(Callback* callback, Mode mode) override;
   void Capture() override;

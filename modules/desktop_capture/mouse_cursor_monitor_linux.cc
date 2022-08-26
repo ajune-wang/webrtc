@@ -38,6 +38,12 @@ MouseCursorMonitor* MouseCursorMonitor::CreateForWindow(
 MouseCursorMonitor* MouseCursorMonitor::CreateForScreen(
     const DesktopCaptureOptions& options,
     ScreenId screen) {
+#if defined(WEBRTC_USE_PIPEWIRE)
+  if (options.allow_pipewire() && DesktopCapturer::IsRunningUnderWayland()) {
+    return MouseCursorMonitorPipeWire::CreateForScreen(options, screen);
+  }
+#endif  // defined(WEBRTC_USE_PIPEWIRE)
+
 #if defined(WEBRTC_USE_X11)
   return MouseCursorMonitorX11::CreateForScreen(options, screen);
 #else

@@ -1,0 +1,26 @@
+syntax = "proto2";
+option optimize_for = LITE_RUNTIME;
+package webrtc.proto;
+
+// Represents a single time series.
+message TimeSeries {
+  // Name of the time series.
+  optional string name = 1;
+
+  // Ordered list of timestamps containing the sample times (in microseconds)
+  // corresponding to the samples in `values`.
+  // TODO(brandtr): Consider replacing with `google.protobuf.Timestamp`.
+  repeated int64 timestamps_us = 2;
+
+  // List of values.
+  repeated double values = 3;
+}
+
+// Represents a set of time series.
+message TimeSeriesSet {
+  // Name of the set.
+  optional string name = 1;
+
+  // List of time series.
+  repeated TimeSeries timeseries = 2;
+}

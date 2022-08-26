@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "ef62e9d2_aee3cfb3",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 7
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 15909
+      },
+      "writtenOn": "2022-08-26T01:53:01Z",
+      "side": 1,
+      "message": "I\u0027m also allocating worker in http://cl/470133915.\nPlease submit it before landing this CL.",
+      "revId": "3038fc5644774a65d8e77f92d106453220856dd7",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

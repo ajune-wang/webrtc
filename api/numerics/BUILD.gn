@@ -25,6 +25,23 @@ rtc_library("numerics") {
   absl_deps = [ "//third_party/abseil-cpp/absl/algorithm:container" ]
 }
 
+rtc_library("time_series_set_exporter") {
+  sources = [ "time_series_set_exporter.h" ]
+  deps = [ "../units:timestamp" ]
+}
+
+rtc_library("time_series_set_exporter_create") {
+  sources = [
+    "time_series_set_exporter_create.cc",
+    "time_series_set_exporter_create.h",
+  ]
+  deps = [
+    ":time_series_set_exporter",
+    "../../rtc_base:time_series_set_exporter_impl",
+  ]
+  absl_deps = [ "//third_party/abseil-cpp/absl/strings" ]
+}
+
 if (rtc_include_tests) {
   rtc_library("numerics_unittests") {
     visibility = [ "*" ]

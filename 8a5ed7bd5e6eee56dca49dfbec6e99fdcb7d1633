@@ -1,0 +1,44 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "636a15d6_37b19ab7",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 18474
+      },
+      "writtenOn": "2022-08-26T23:15:46Z",
+      "side": 1,
+      "message": "LGTM, but let\u0027s consider simplifying.",
+      "revId": "8a5ed7bd5e6eee56dca49dfbec6e99fdcb7d1633",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "35ab5a58_7f6f69d7",
+        "filename": "modules/desktop_capture/mouse_cursor_monitor_linux.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 43,
+      "author": {
+        "id": 18474
+      },
+      "writtenOn": "2022-08-26T23:15:46Z",
+      "side": 1,
+      "message": "I don\u0027t think it\u0027s worth plumbing it down if it\u0027s unused. Maybe just make\nMouseCursorMonitorPipeWire::CreateForScreen take only a DesktopCaptureOptions ?",
+      "range": {
+        "startLine": 43,
+        "startChar": 64,
+        "endLine": 43,
+        "endChar": 70
+      },
+      "revId": "8a5ed7bd5e6eee56dca49dfbec6e99fdcb7d1633",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

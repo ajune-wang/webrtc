@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "1a346ee5_eb3dce6a",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 20
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5508
+      },
+      "writtenOn": "2022-08-28T20:14:03Z",
+      "side": 1,
+      "message": "I\u0027ve landed the parent CL now. Can you check if this one rebases without problem? If so, then we can land it and as well as the follow up CL.",
+      "revId": "47f3446b40a92ffe662be5a8e1368c8248553be9",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

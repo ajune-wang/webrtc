@@ -16,6 +16,23 @@
       "message": "friendly ping",
       "revId": "63b5439811ad7cfb793eedd466609c7ffac1bcd0",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "b6a67d3b_6e2cc3e6",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 6
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 6876
+      },
+      "writtenOn": "2022-08-29T11:41:13Z",
+      "side": 1,
+      "message": "Thanks for this CL, it looks great!",
+      "revId": "63b5439811ad7cfb793eedd466609c7ffac1bcd0",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

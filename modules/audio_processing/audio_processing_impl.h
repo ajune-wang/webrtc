@@ -464,12 +464,12 @@ class AudioProcessingImpl : public AudioProcessing {
     StreamConfig capture_processing_format;
     int split_rate;
     bool echo_path_gain_change;
-    int prev_analog_mic_level;
     float prev_pre_adjustment_gain;
     int playout_volume;
     int prev_playout_volume;
     AudioProcessingStats stats;
-    int cached_stream_analog_level_ = 0;
+    int applied_input_volume;
+    bool applied_input_volume_changed;
   } capture_ RTC_GUARDED_BY(mutex_capture_);
 
   struct ApmCaptureNonLockedState {
@@ -530,7 +530,7 @@ class AudioProcessingImpl : public AudioProcessing {
   RmsLevel capture_output_rms_ RTC_GUARDED_BY(mutex_capture_);
   int capture_rms_interval_counter_ RTC_GUARDED_BY(mutex_capture_) = 0;
 
-  AnalogGainStatsReporter analog_gain_stats_reporter_
+  AnalogGainStatsReporter input_volume_stats_reporter_
       RTC_GUARDED_BY(mutex_capture_);
 
   // Lock protection not needed.

@@ -31,6 +31,9 @@ namespace webrtc_pc_e2e {
 
 namespace {
 
+using EmulatedSFUConfigMap =
+    ::webrtc::webrtc_pc_e2e::QualityAnalyzingVideoEncoder::EmulatedSFUConfigMap;
+
 class VideoWriter final : public rtc::VideoSinkInterface<VideoFrame> {
  public:
   VideoWriter(test::VideoFrameWriter* video_writer, int sampling_modulo)
@@ -150,11 +153,11 @@ VideoQualityAnalyzerInjectionHelper::WrapVideoEncoderFactory(
     absl::string_view peer_name,
     std::unique_ptr<VideoEncoderFactory> delegate,
     double bitrate_multiplier,
-    std::map<std::string, absl::optional<int>> stream_required_spatial_index)
+    EmulatedSFUConfigMap stream_to_sfu_config)
     const {
   return std::make_unique<QualityAnalyzingVideoEncoderFactory>(
       peer_name, std::move(delegate), bitrate_multiplier,
-      std::move(stream_required_spatial_index), injector_, analyzer_.get());
+      std::move(stream_to_sfu_config), injector_, analyzer_.get());
 }
 
 std::unique_ptr<VideoDecoderFactory>

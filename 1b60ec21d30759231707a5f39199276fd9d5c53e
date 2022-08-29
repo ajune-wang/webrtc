@@ -1,6 +1,23 @@
 {
   "comments": [
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "b433e5e0_5201eb56",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 4
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5087
+      },
+      "writtenOn": "2022-08-29T13:04:06Z",
+      "side": 1,
+      "message": "LGTM % Takuto\u0027s comment.",
+      "revId": "1b60ec21d30759231707a5f39199276fd9d5c53e",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "13aba430_f26d0540",

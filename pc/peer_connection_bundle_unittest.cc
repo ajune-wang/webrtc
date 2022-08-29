@@ -795,8 +795,10 @@ TEST_P(PeerConnectionBundleTest, RejectDescriptionChangingBundleTag) {
 // This tests that removing contents from BUNDLE group and reject the whole
 // BUNDLE group could work. This is a regression test for
 // (https://bugs.chromium.org/p/chromium/issues/detail?id=827917)
-#ifdef HAVE_SCTP
 TEST_P(PeerConnectionBundleTest, RemovingContentAndRejectBundleGroup) {
+#ifndef WEBRTC_HAVE_SCTP
+  GTEST_SKIP() << "Skipping test, sctp not included";
+#else
   RTCConfiguration config;
   config.bundle_policy = BundlePolicy::kBundlePolicyMaxBundle;
   auto caller = CreatePeerConnectionWithAudioVideo(config);
@@ -821,8 +823,8 @@ TEST_P(PeerConnectionBundleTest, RemovingContentAndRejectBundleGroup) {
   re_offer->description()->AddGroup(new_bundle_group);
 
   EXPECT_TRUE(caller->SetLocalDescription(std::move(re_offer)));
-}
 #endif
+}
 
 // This tests that the BUNDLE group in answer should be a subset of the offered
 // group.

@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "a9895bb7_a449bc4a",
+        "filename": "pc/test/integration_test_helpers.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 244,
+      "author": {
+        "id": 9515
+      },
+      "writtenOn": "2022-08-29T15:42:14Z",
+      "side": 1,
+      "message": "This method would work if I would be guaranteed that TaskQueueBase::Delete or the Thread join will delete all pending closures on the TQ context. Right now we don\u0027t have that guarantee.",
+      "range": {
+        "startLine": 244,
+        "startChar": 0,
+        "endLine": 244,
+        "endChar": 3
+      },
+      "revId": "fc5d131432d705bd12887777504013883371778c",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

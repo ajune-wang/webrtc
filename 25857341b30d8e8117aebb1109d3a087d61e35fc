@@ -33,6 +33,24 @@
       "message": "Is there a risk that we retransmit unreasonably large amounts of data worth worrying about?\n\nLike a HD+ key frame not getting paced because it is being retransmitted. Should there be a check that we only skip pacing if we don\u0027t build up too large debts?",
       "revId": "25857341b30d8e8117aebb1109d3a087d61e35fc",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "45f5059e_d861ce30",
+        "filename": "modules/pacing/pacing_controller.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 586,
+      "author": {
+        "id": 5524
+      },
+      "writtenOn": "2022-08-29T10:56:29Z",
+      "side": 1,
+      "message": "There is a risk that we\u0027ll be overusing the link if there\u0027s e.g. a large bursty loss. But in those cases it\u0027s unclear what the fastest way to recover is. The current way would likely trickle out a large amount of retransmissions and any pending keyframe would be stuck behind. My thinking is that it might be better to recover fast. If the network can handle it, we\u0027ll be fine. If it does not we might get further loss but recover with a FIR instead.\n\nI can find special cases were either way is better. I\u0027d like to run a quick trial to see if there\u0027s clear benefits to either, or if there\u0027s an opportunity for further tuning that seems worth it (that could include your suggestion of bounded fast retransmission).",
+      "parentUuid": "92ed5cee_e4497588",
+      "revId": "25857341b30d8e8117aebb1109d3a087d61e35fc",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

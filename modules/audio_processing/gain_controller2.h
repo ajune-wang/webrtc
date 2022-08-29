@@ -47,14 +47,16 @@ class GainController2 {
   // Sets the fixed digital gain.
   void SetFixedGainDb(float gain_db);
 
+  // Observes the applied input volume, detects changes and handles them. When
+  // the applied input volume is known, should be called before `Process()`.
+  // `volume` must be a value in the [0, 255] range.
+  void NotifyAppliedInputVolume(int volume);
+
   // Applies fixed and adaptive digital gains to `audio` and runs a limiter.
   // If the internal VAD is used, `speech_probability` is ignored. Otherwise
   // `speech_probability` is used for digital adaptive gain if it's available
   // (limited to values [0.0, 1.0]).
   void Process(absl::optional<float> speech_probability, AudioBuffer* audio);
-
-  // Handles analog level changes.
-  void NotifyAnalogLevel(int level);
 
   static bool Validate(const AudioProcessing::Config::GainController2& config);
 
@@ -69,7 +71,7 @@ class GainController2 {
   std::unique_ptr<AdaptiveDigitalGainController> adaptive_digital_controller_;
   Limiter limiter_;
   int calls_since_last_limiter_log_;
-  int analog_level_;
+  int applied_input_volume_;
 };
 
 }  // namespace webrtc

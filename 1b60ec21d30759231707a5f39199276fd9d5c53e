@@ -39,6 +39,30 @@
       },
       "revId": "1b60ec21d30759231707a5f39199276fd9d5c53e",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "334a4240_0b6af4cd",
+        "filename": "infra/config/config.star",
+        "patchSetId": 4
+      },
+      "lineNbr": 562,
+      "author": {
+        "id": 15909
+      },
+      "writtenOn": "2022-08-29T13:05:36Z",
+      "side": 1,
+      "message": "I checked starlark document, and found \"dict\" to copy a dictionary.\nhttps://github.com/bazelbuild/starlark/blob/master/spec.md#dict\n\n\"import copy\" doesn\u0027t seem available in starlark.",
+      "parentUuid": "13aba430_f26d0540",
+      "range": {
+        "startLine": 562,
+        "startChar": 17,
+        "endLine": 562,
+        "endChar": 33
+      },
+      "revId": "1b60ec21d30759231707a5f39199276fd9d5c53e",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

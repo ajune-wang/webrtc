@@ -1,0 +1,44 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "29569bd6_be841ecb",
+        "filename": "infra/config/config.star",
+        "patchSetId": 3
+      },
+      "lineNbr": 564,
+      "author": {
+        "id": 5106
+      },
+      "writtenOn": "2022-08-29T12:25:59Z",
+      "side": 1,
+      "message": "Better to do this in L561?",
+      "revId": "e7fd613976fb1ff809f997926431c0d176ae37cd",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "5a939470_0f52d23d",
+        "filename": "infra/config/config.star",
+        "patchSetId": 3
+      },
+      "lineNbr": 712,
+      "author": {
+        "id": 5106
+      },
+      "writtenOn": "2022-08-29T12:25:59Z",
+      "side": 1,
+      "message": "space before \u0027(\u0027?",
+      "range": {
+        "startLine": 712,
+        "startChar": 37,
+        "endLine": 712,
+        "endChar": 39
+      },
+      "revId": "e7fd613976fb1ff809f997926431c0d176ae37cd",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

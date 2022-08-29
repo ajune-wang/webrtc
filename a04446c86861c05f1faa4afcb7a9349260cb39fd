@@ -24,6 +24,30 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "cd3829e9_bd8c8de1",
+        "filename": "api/test/video_quality_analyzer_interface.h",
+        "patchSetId": 5
+      },
+      "lineNbr": 136,
+      "author": {
+        "id": 6337
+      },
+      "writtenOn": "2022-08-29T09:48:10Z",
+      "side": 1,
+      "message": "It is the plan",
+      "parentUuid": "19f644ee_59fc442d",
+      "range": {
+        "startLine": 134,
+        "startChar": 2,
+        "endLine": 136,
+        "endChar": 52
+      },
+      "revId": "a04446c86861c05f1faa4afcb7a9349260cb39fd",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "3ff42a88_c3dcc443",
@@ -37,6 +61,30 @@
       "writtenOn": "2022-08-29T07:14:27Z",
       "side": 1,
       "message": "nit: frame?",
+      "range": {
+        "startLine": 563,
+        "startChar": 16,
+        "endLine": 563,
+        "endChar": 23
+      },
+      "revId": "a04446c86861c05f1faa4afcb7a9349260cb39fd",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "bf31bca3_08ee4c3d",
+        "filename": "test/pc/e2e/analyzer/video/default_video_quality_analyzer.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 563,
+      "author": {
+        "id": 6337
+      },
+      "writtenOn": "2022-08-29T09:48:10Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "3ff42a88_c3dcc443",
       "range": {
         "startLine": 563,
         "startChar": 16,
@@ -70,6 +118,30 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "525a5308_b3214043",
+        "filename": "test/pc/e2e/analyzer/video/default_video_quality_analyzer.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 578,
+      "author": {
+        "id": 6337
+      },
+      "writtenOn": "2022-08-29T09:48:10Z",
+      "side": 1,
+      "message": "In this code we consider that we see it first and last time. The upper code which has more context will remember things correctly.",
+      "parentUuid": "8a0afaa6_144fb9eb",
+      "range": {
+        "startLine": 577,
+        "startChar": 0,
+        "endLine": 578,
+        "endChar": 38
+      },
+      "revId": "a04446c86861c05f1faa4afcb7a9349260cb39fd",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "c741b1ae_48fc9a06",
@@ -83,6 +155,30 @@
       "writtenOn": "2022-08-29T07:14:27Z",
       "side": 1,
       "message": "SamplesStatsCounter (same below), better to be precise.",
+      "range": {
+        "startLine": 122,
+        "startChar": 25,
+        "endLine": 122,
+        "endChar": 32
+      },
+      "revId": "a04446c86861c05f1faa4afcb7a9349260cb39fd",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "b6c15dae_5eed5002",
+        "filename": "test/pc/e2e/analyzer/video/default_video_quality_analyzer_frames_comparator_test.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 122,
+      "author": {
+        "id": 6337
+      },
+      "writtenOn": "2022-08-29T09:48:10Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "c741b1ae_48fc9a06",
       "range": {
         "startLine": 122,
         "startChar": 25,
@@ -116,6 +212,30 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "7716bdac_3480bb2b",
+        "filename": "test/pc/e2e/analyzer/video/default_video_quality_analyzer_frames_comparator_test.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 722,
+      "author": {
+        "id": 6337
+      },
+      "writtenOn": "2022-08-29T09:48:10Z",
+      "side": 1,
+      "message": "Changed name, PTAL if now it\u0027s better",
+      "parentUuid": "1cb14b26_466efd80",
+      "range": {
+        "startLine": 722,
+        "startChar": 5,
+        "endLine": 722,
+        "endChar": 50
+      },
+      "revId": "a04446c86861c05f1faa4afcb7a9349260cb39fd",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "3c20f4d1_7df36d5c",
@@ -129,6 +249,30 @@
       "writtenOn": "2022-08-29T07:14:27Z",
       "side": 1,
       "message": "Hmm, should this be 1?",
+      "range": {
+        "startLine": 791,
+        "startChar": 71,
+        "endLine": 791,
+        "endChar": 72
+      },
+      "revId": "a04446c86861c05f1faa4afcb7a9349260cb39fd",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "a85d4792_aa23099f",
+        "filename": "test/pc/e2e/analyzer/video/default_video_quality_analyzer_frames_comparator_test.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 791,
+      "author": {
+        "id": 6337
+      },
+      "writtenOn": "2022-08-29T09:48:10Z",
+      "side": 1,
+      "message": "All frames in flight are not counted as dropped, because we still didn\u0027t recognise that it\u0027s dropped. Frames are recognised as dropped only when we receive first frame after.",
+      "parentUuid": "3c20f4d1_7df36d5c",
       "range": {
         "startLine": 791,
         "startChar": 71,

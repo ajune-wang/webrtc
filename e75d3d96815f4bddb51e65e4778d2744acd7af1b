@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "3dbe74e7_4c9b6315",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 3
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 19549
+      },
+      "writtenOn": "2022-08-29T17:50:19Z",
+      "side": 1,
+      "message": "I assume you can just add links yourself moving forward :-)",
+      "revId": "e75d3d96815f4bddb51e65e4778d2744acd7af1b",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

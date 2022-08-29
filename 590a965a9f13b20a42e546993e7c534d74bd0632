@@ -16,6 +16,24 @@
       "message": "Hello Andrey!\n\nCould you please provide more details on the reason to revert so I could resolve the problem? Currently it\u0027s hard to understand what went wrong, there is only several reasons came to my mind: binary size change failed upstream project checks, file name conflict with similar change in upstream project or API conflict with some upstream project?\n\nThanks a lot in advance,\nYury.",
       "revId": "590a965a9f13b20a42e546993e7c534d74bd0632",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "7d4216ec_9ec1c107",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5087
+      },
+      "writtenOn": "2022-08-29T14:26:22Z",
+      "side": 1,
+      "message": "Hi Yury, see my 2 comments above. I think these are only 2 problems. Overall just double check there are no types that should have RTC_OBJC_TYPE which are mentioned without it and things should be able to reland.",
+      "parentUuid": "211b1aa5_50761cfd",
+      "revId": "590a965a9f13b20a42e546993e7c534d74bd0632",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

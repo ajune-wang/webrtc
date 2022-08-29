@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "9ac4a2a0_28c1d98b",
+        "filename": "sdk/objc/native/src/objc_audio_device.mm",
+        "patchSetId": 2
+      },
+      "lineNbr": 24,
+      "author": {
+        "id": 5087
+      },
+      "writtenOn": "2022-08-29T14:26:22Z",
+      "side": 0,
+      "message": "Change this to:\n\nid\u003cRTC_OBJC_TYPE(RTCAudioDevice)\u003e",
+      "range": {
+        "startLine": 24,
+        "startChar": 41,
+        "endLine": 24,
+        "endChar": 59
+      },
+      "revId": "7d18a5a4c0608f5d27b39006039f655407e95b84",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "fade728c_816c3f7f",
+        "filename": "sdk/objc/native/src/objc_audio_device.mm",
+        "patchSetId": 2
+      },
+      "lineNbr": 32,
+      "author": {
+        "id": 5087
+      },
+      "writtenOn": "2022-08-29T14:26:22Z",
+      "side": 0,
+      "message": "Same here.",
+      "range": {
+        "startLine": 32,
+        "startChar": 42,
+        "endLine": 32,
+        "endChar": 60
+      },
+      "revId": "7d18a5a4c0608f5d27b39006039f655407e95b84",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

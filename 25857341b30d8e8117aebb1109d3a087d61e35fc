@@ -1,0 +1,38 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "cd680796_2486399c",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5142
+      },
+      "writtenOn": "2022-08-29T10:42:12Z",
+      "side": 1,
+      "message": "Not pacing RTX sounds good to me, but see question below.",
+      "revId": "25857341b30d8e8117aebb1109d3a087d61e35fc",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "92ed5cee_e4497588",
+        "filename": "modules/pacing/pacing_controller.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 586,
+      "author": {
+        "id": 5142
+      },
+      "writtenOn": "2022-08-29T10:42:12Z",
+      "side": 1,
+      "message": "Is there a risk that we retransmit unreasonably large amounts of data worth worrying about?\n\nLike a HD+ key frame not getting paced because it is being retransmitted. Should there be a check that we only skip pacing if we don\u0027t build up too large debts?",
+      "revId": "25857341b30d8e8117aebb1109d3a087d61e35fc",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "457e8f61_43bf2783",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 4
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 6192
+      },
+      "writtenOn": "2022-08-29T15:11:38Z",
+      "side": 1,
+      "message": "If you have suggestions for alternate ways of doing this cleanly please comment. The purpose of this CL is to get consensus of standard GTEST_SKIP pattern for webrtc to replace the current DISABLE and ifdef the entire test patterns.",
+      "revId": "14e52b07616aa5ccd2c4faad17fcc4eb45f2c58d",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

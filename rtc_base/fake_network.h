@@ -17,7 +17,9 @@
 #include <vector>
 
 #include "absl/memory/memory.h"
-#include "rtc_base/checks.h"
+#include "api/task_queue/pending_task_safety_flag.h"
+#include "api/task_queue/task_queue_base.h"
+#include "rtc_base/logging.h"
 #include "rtc_base/mdns_responder_interface.h"
 #include "rtc_base/message_handler.h"
 #include "rtc_base/network.h"
@@ -31,11 +33,8 @@ const int kFakeIPv4NetworkPrefixLength = 24;
 const int kFakeIPv6NetworkPrefixLength = 64;
 
 // Fake network manager that allows us to manually specify the IPs to use.
-class FakeNetworkManager : public NetworkManagerBase,
-                           public MessageHandlerAutoCleanup {
+class FakeNetworkManager : public NetworkManagerBase {
  public:
-  FakeNetworkManager() {}
-
   struct Iface {
     SocketAddress socket_address;
     AdapterType adapter_type;
@@ -77,27 +76,17 @@ class FakeNetworkManager : public NetworkManagerBase,
     ++start_count_;
     if (start_count_ == 1) {
       sent_first_update_ = false;
-      rtc::Thread::Current()->Post(RTC_FROM_HERE, this, kUpdateNetworksMessage);
+      webrtc::TaskQueueBase::Current()->PostTask(
+          webrtc::SafeTask(safety_.flag(), [this] { DoUpdateNetworks(); }));
     } else {
       if (sent_first_update_) {
-        rtc::Thread::Current()->Post(RTC_FROM_HERE, this,
-                                     kSignalNetworksMessage);
+        webrtc::TaskQueueBase::Current()->PostTask(webrtc::SafeTask(
+            safety_.flag(), [this] { SignalNetworksChanged(); }));
       }
     }
   }
 
   void StopUpdating() override { --start_count_; }
-
-  // MessageHandler interface.
-  void OnMessage(Message* msg) override {
-    if (msg->message_id == kUpdateNetworksMessage) {
-      DoUpdateNetworks();
-    } else if (msg->message_id == kSignalNetworksMessage) {
-      SignalNetworksChanged();
-    } else {
-      RTC_CHECK(false);
-    }
-  }
 
   using NetworkManagerBase::set_default_local_addresses;
   using NetworkManagerBase::set_enumeration_permission;
@@ -148,10 +137,8 @@ class FakeNetworkManager : public NetworkManagerBase,
   int start_count_ = 0;
   bool sent_first_update_ = false;
 
-  static constexpr uint32_t kUpdateNetworksMessage = 1;
-  static constexpr uint32_t kSignalNetworksMessage = 2;
-
   std::unique_ptr<webrtc::MdnsResponderInterface> mdns_responder_;
+  webrtc::ScopedTaskSafetyDetached safety_;
 };
 
 }  // namespace rtc

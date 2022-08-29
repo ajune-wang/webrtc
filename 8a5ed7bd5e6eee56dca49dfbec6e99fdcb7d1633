@@ -35,6 +35,24 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "7d9c916c_46ce98a7",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 19629
+      },
+      "writtenOn": "2022-08-29T21:11:51Z",
+      "side": 1,
+      "message": "Ack. Thank you.",
+      "parentUuid": "a45c8385_4ac30e48",
+      "revId": "8a5ed7bd5e6eee56dca49dfbec6e99fdcb7d1633",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "35ab5a58_7f6f69d7",
@@ -72,6 +90,30 @@
       "side": 1,
       "message": "I guess this might be used in the future by Salman\u0027s change implementing multiple-stream support. You can specify in the ScreenCast portal option to select multiple screens and depending on the portal implementation, you might get more streams. This will be probably used as an identificator which stream belongs/reports to this MouseCursorMonitor instance.",
       "parentUuid": "35ab5a58_7f6f69d7",
+      "range": {
+        "startLine": 43,
+        "startChar": 64,
+        "endLine": 43,
+        "endChar": 70
+      },
+      "revId": "8a5ed7bd5e6eee56dca49dfbec6e99fdcb7d1633",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "ad1f2647_9e0448b9",
+        "filename": "modules/desktop_capture/mouse_cursor_monitor_linux.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 43,
+      "author": {
+        "id": 19629
+      },
+      "writtenOn": "2022-08-29T21:11:51Z",
+      "side": 1,
+      "message": "Thanks for taking a look.\n\nI was double minded whether or not to plumb the screen id now. I kept it similar to how X11 was handling it. Given that we are not using the screen id, and that these methods are deprecated I will directly use the `Create` method at the call site now.",
+      "parentUuid": "61c5b1bc_5323431d",
       "range": {
         "startLine": 43,
         "startChar": 64,

@@ -18,6 +18,23 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "a45c8385_4ac30e48",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 8046
+      },
+      "writtenOn": "2022-08-29T05:16:08Z",
+      "side": 1,
+      "message": "FYI: Both CreateForScreen() and CreateForWindow() are deprecated.",
+      "revId": "8a5ed7bd5e6eee56dca49dfbec6e99fdcb7d1633",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "35ab5a58_7f6f69d7",

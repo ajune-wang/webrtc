@@ -28,7 +28,7 @@ namespace {
 
 using Agc2Config = AudioProcessing::Config::GainController2;
 
-constexpr int kUnspecifiedAnalogLevel = -1;
+constexpr int kUnspecifiedInputVolume = -1;
 constexpr int kLogLimiterStatsPeriodMs = 30'000;
 constexpr int kFrameLengthMs = 10;
 constexpr int kLogLimiterStatsPeriodNumFrames =
@@ -82,7 +82,7 @@ GainController2::GainController2(const Agc2Config& config,
                                           &data_dumper_)),
       limiter_(sample_rate_hz, &data_dumper_, /*histogram_name_prefix=*/"Agc2"),
       calls_since_last_limiter_log_(0),
-      analog_level_(kUnspecifiedAnalogLevel) {
+      applied_input_volume_(kUnspecifiedInputVolume) {
   RTC_DCHECK(Validate(config));
   data_dumper_.InitiateNewSetOfRecordings();
   const bool use_vad = config.adaptive_digital.enabled;
@@ -112,7 +112,7 @@ void GainController2::Initialize(int sample_rate_hz, int num_channels) {
   }
   data_dumper_.InitiateNewSetOfRecordings();
   calls_since_last_limiter_log_ = 0;
-  analog_level_ = kUnspecifiedAnalogLevel;
+  applied_input_volume_ = kUnspecifiedInputVolume;
 }
 
 void GainController2::SetFixedGainDb(float gain_db) {
@@ -127,7 +127,7 @@ void GainController2::SetFixedGainDb(float gain_db) {
 
 void GainController2::Process(absl::optional<float> speech_probability,
                               AudioBuffer* audio) {
-  data_dumper_.DumpRaw("agc2_notified_analog_level", analog_level_);
+  data_dumper_.DumpRaw("agc2_notified_analog_level", applied_input_volume_);
   AudioFrameView<float> float_frame(audio->channels(), audio->num_channels(),
                                     audio->num_frames());
   if (vad_) {
@@ -159,11 +159,13 @@ void GainController2::Process(absl::optional<float> speech_probability,
   }
 }
 
-void GainController2::NotifyAnalogLevel(int level) {
-  if (analog_level_ != level && adaptive_digital_controller_) {
+void GainController2::NotifyAppliedInputVolume(int volume) {
+  RTC_DCHECK_GE(volume, 0);
+  RTC_DCHECK_LE(volume, 255);
+  if (applied_input_volume_ != volume && adaptive_digital_controller_) {
     adaptive_digital_controller_->HandleInputGainChange();
   }
-  analog_level_ = level;
+  applied_input_volume_ = volume;
 }
 
 bool GainController2::Validate(

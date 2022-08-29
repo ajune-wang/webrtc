@@ -24,6 +24,30 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "5be73733_f67d7949",
+        "filename": "modules/audio_processing/agc/agc_manager_direct.h",
+        "patchSetId": 15
+      },
+      "lineNbr": 152,
+      "author": {
+        "id": 5122
+      },
+      "writtenOn": "2022-08-29T10:31:06Z",
+      "side": 1,
+      "message": "Thanks for the suggestion Per. I added a TODO; my recommendation is to fix this in a separate CL since this CL doesn\u0027t change the init value and because IMO it\u0027s safer to wait until the APM refactoring around the recommended input level getter is completed first.\n\nBTW, this property should be a non-optional int property left uninitialized since, by contract, `recommended_analog_level()` should never be called before `set_stream_analog_level()`, `AnalyzePreProcess()` and `Process()` are called in this order. That call sequence guarantees that the property is written and therefore we can leave the property uninitialized.",
+      "parentUuid": "f4d7c83d_0a309036",
+      "range": {
+        "startLine": 152,
+        "startChar": 6,
+        "endLine": 152,
+        "endChar": 36
+      },
+      "revId": "0c788b51fa75a71ea1a950a4c089c5b2cab58eac",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "3c665582_0854a13c",
@@ -37,6 +61,30 @@
       "writtenOn": "2022-08-19T14:16:10Z",
       "side": 1,
       "message": "Same comment as below",
+      "range": {
+        "startLine": 190,
+        "startChar": 47,
+        "endLine": 191,
+        "endChar": 40
+      },
+      "revId": "0c788b51fa75a71ea1a950a4c089c5b2cab58eac",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "9735a273_9907eef3",
+        "filename": "modules/audio_processing/agc/agc_manager_direct.h",
+        "patchSetId": 15
+      },
+      "lineNbr": 191,
+      "author": {
+        "id": 5122
+      },
+      "writtenOn": "2022-08-29T10:31:06Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "3c665582_0854a13c",
       "range": {
         "startLine": 190,
         "startChar": 47,
@@ -70,6 +118,30 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "3f14b79f_ae195420",
+        "filename": "modules/audio_processing/agc/agc_manager_direct.h",
+        "patchSetId": 15
+      },
+      "lineNbr": 195,
+      "author": {
+        "id": 5122
+      },
+      "writtenOn": "2022-08-29T10:31:06Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "2b532c8c_5d03dba6",
+      "range": {
+        "startLine": 195,
+        "startChar": 5,
+        "endLine": 195,
+        "endChar": 14
+      },
+      "revId": "0c788b51fa75a71ea1a950a4c089c5b2cab58eac",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "9a8710af_996000e8",
@@ -93,6 +165,30 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "537f4185_1b7b611e",
+        "filename": "modules/audio_processing/agc/agc_manager_direct.h",
+        "patchSetId": 15
+      },
+      "lineNbr": 197,
+      "author": {
+        "id": 5122
+      },
+      "writtenOn": "2022-08-29T10:31:06Z",
+      "side": 1,
+      "message": "\u003e I\u0027d guess it cannot give random behavior, right?\n\"undefined\" does not mean \"random\"; let me give an example using the C++ shift operators. https://en.cppreference.com/w/cpp/language/operator_arithmetic states: \"For negative a, the behavior of a \u003c\u003c b is undefined.\" But \"a \u003c\u003c b\" often behaves \"a * 2^b\" even for negative `a` - i.e., not random.\n\n\u003e I\u0027d rather then state that HandleClipping should be called before Process.\n\nIMO saying \"undefined behavior if called before\" or \"should be called after\" is exactly the same. Both formulations indicate that the class may not behave as intended if the API is not used as per contract.",
+      "parentUuid": "9a8710af_996000e8",
+      "range": {
+        "startLine": 196,
+        "startChar": 35,
+        "endLine": 197,
+        "endChar": 24
+      },
+      "revId": "0c788b51fa75a71ea1a950a4c089c5b2cab58eac",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "2522c1e0_5ebc7f0f",
@@ -106,6 +202,30 @@
       "writtenOn": "2022-08-19T14:16:10Z",
       "side": 1,
       "message": "In what sense must this be undefined?",
+      "range": {
+        "startLine": 200,
+        "startChar": 43,
+        "endLine": 201,
+        "endChar": 17
+      },
+      "revId": "0c788b51fa75a71ea1a950a4c089c5b2cab58eac",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "b90aaf22_2c6c85cd",
+        "filename": "modules/audio_processing/agc/agc_manager_direct.h",
+        "patchSetId": 15
+      },
+      "lineNbr": 201,
+      "author": {
+        "id": 5122
+      },
+      "writtenOn": "2022-08-29T10:31:06Z",
+      "side": 1,
+      "message": "See my answer to the previous comment.\n\nIn this specific case, as this is a getter, I see only one interpretation: the returned value makes no sense if `Process()` hasn\u0027t been called.",
+      "parentUuid": "2522c1e0_5ebc7f0f",
       "range": {
         "startLine": 200,
         "startChar": 43,

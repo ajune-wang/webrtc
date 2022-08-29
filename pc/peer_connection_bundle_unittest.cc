@@ -83,6 +83,7 @@ using ::testing::UnorderedElementsAre;
 using ::testing::Values;
 
 constexpr int kDefaultTimeout = 10000;
+bool have_sctp;
 
 // TODO(steveanton): These tests should be rewritten to use the standard
 // RtpSenderInterface/DtlsTransportInterface objects once they're available in
@@ -792,11 +793,16 @@ TEST_P(PeerConnectionBundleTest, RejectDescriptionChangingBundleTag) {
   EXPECT_FALSE(caller->SetLocalDescription(std::move(re_offer)));
 }
 
+#ifdef WEBRTC_HAVE_SCTP
+#define have_sctp !have_sctp
+#endif
 // This tests that removing contents from BUNDLE group and reject the whole
 // BUNDLE group could work. This is a regression test for
 // (https://bugs.chromium.org/p/chromium/issues/detail?id=827917)
-#ifdef HAVE_SCTP
 TEST_P(PeerConnectionBundleTest, RemovingContentAndRejectBundleGroup) {
+  if (!have_sctp) {
+    GTEST_SKIP() << "Skipping test, sctp not included";
+  }
   RTCConfiguration config;
   config.bundle_policy = BundlePolicy::kBundlePolicyMaxBundle;
   auto caller = CreatePeerConnectionWithAudioVideo(config);
@@ -822,7 +828,6 @@ TEST_P(PeerConnectionBundleTest, RemovingContentAndRejectBundleGroup) {
 
   EXPECT_TRUE(caller->SetLocalDescription(std::move(re_offer)));
 }
-#endif
 
 // This tests that the BUNDLE group in answer should be a subset of the offered
 // group.

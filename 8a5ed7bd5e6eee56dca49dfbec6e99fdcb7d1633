@@ -56,6 +56,30 @@
       },
       "revId": "8a5ed7bd5e6eee56dca49dfbec6e99fdcb7d1633",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "61c5b1bc_5323431d",
+        "filename": "modules/desktop_capture/mouse_cursor_monitor_linux.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 43,
+      "author": {
+        "id": 8046
+      },
+      "writtenOn": "2022-08-29T05:51:50Z",
+      "side": 1,
+      "message": "I guess this might be used in the future by Salman\u0027s change implementing multiple-stream support. You can specify in the ScreenCast portal option to select multiple screens and depending on the portal implementation, you might get more streams. This will be probably used as an identificator which stream belongs/reports to this MouseCursorMonitor instance.",
+      "parentUuid": "35ab5a58_7f6f69d7",
+      "range": {
+        "startLine": 43,
+        "startChar": 64,
+        "endLine": 43,
+        "endChar": 70
+      },
+      "revId": "8a5ed7bd5e6eee56dca49dfbec6e99fdcb7d1633",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

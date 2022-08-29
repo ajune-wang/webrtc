@@ -58,6 +58,30 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "2dfa1828_188b64ff",
+        "filename": "modules/audio_processing/audio_processing_impl.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 1348,
+      "author": {
+        "id": 5122
+      },
+      "writtenOn": "2022-08-29T13:44:53Z",
+      "side": 1,
+      "message": "`capture_` is not a pointer and `recommended_analog_level` is an optional\n\nthe expression above is the same as `capture_.recommended_analog_level.value()`",
+      "parentUuid": "c882f9e6_f1847b62",
+      "range": {
+        "startLine": 1348,
+        "startChar": 28,
+        "endLine": 1348,
+        "endChar": 38
+      },
+      "revId": "13eb90a261892c117ca77867d03212f2c3ac51e1",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "7a0dcfcd_dfed0c9b",
@@ -71,6 +95,30 @@
       "writtenOn": "2022-08-23T06:09:56Z",
       "side": 1,
       "message": "This is the best option I too can think of returning if there is no recommended value present.\nBut since I still think it is a bit unexpected/unintuitive I think it would be good to have a comment on this.",
+      "range": {
+        "startLine": 1643,
+        "startChar": 6,
+        "endLine": 1643,
+        "endChar": 34
+      },
+      "revId": "13eb90a261892c117ca77867d03212f2c3ac51e1",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "28270b3a_9ebfad2f",
+        "filename": "modules/audio_processing/audio_processing_impl.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 1643,
+      "author": {
+        "id": 5122
+      },
+      "writtenOn": "2022-08-29T13:44:53Z",
+      "side": 1,
+      "message": "Done. In the future, we should make the recommended input volume an optional value so that, an unspecified value, means nothing to recommend - i.e., the caller does nothing.\n\nWith the current solution instead the following could happen:\n- `set_stream_analog_level()` is called and `capture_.applied_input_volume` is set to e.g., 100\n- `ProcessCapture()` gets called; after that call, `capture_.recommended_analog_level` is unspecified\n- the user changes the input volume e.g., to 120\n- `recommended_stream_analog_level()` gets called, it returns 100\n- 100 !\u003d 120; hence, an input volume change may still be triggered",
+      "parentUuid": "7a0dcfcd_dfed0c9b",
       "range": {
         "startLine": 1643,
         "startChar": 6,

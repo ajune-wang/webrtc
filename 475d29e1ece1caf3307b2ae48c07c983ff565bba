@@ -1,0 +1,38 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "947dfede_78550c98",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 15
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 19549
+      },
+      "writtenOn": "2022-08-29T10:48:39Z",
+      "side": 1,
+      "message": "Still a bit WIP but you can see where I am going.\nhta: do you have opinion on the general API?\nsprang: same but for video\n\nMaybe this is easier to split up a bit by first landing\n  https://webrtc-review.googlesource.com/c/src/+/270562/1..9/\nwhich is GenerateKeyFrame, without rids?",
+      "revId": "475d29e1ece1caf3307b2ae48c07c983ff565bba",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "0069e618_b0745f5c",
+        "filename": "api/rtp_sender_interface.h",
+        "patchSetId": 15
+      },
+      "lineNbr": 107,
+      "author": {
+        "id": 19549
+      },
+      "writtenOn": "2022-08-29T10:48:39Z",
+      "side": 1,
+      "message": "should this return RTCError?",
+      "revId": "475d29e1ece1caf3307b2ae48c07c983ff565bba",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

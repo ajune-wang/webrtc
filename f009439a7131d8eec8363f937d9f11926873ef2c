@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "b65a1108_72116281",
+        "filename": "media/engine/simulcast_encoder_adapter.cc",
+        "patchSetId": 13
+      },
+      "lineNbr": 488,
+      "author": {
+        "id": 19549
+      },
+      "writtenOn": "2022-08-29T10:48:39Z",
+      "side": 1,
+      "message": "I would like to change this as well but not sure if it is safe to do since it will change the behavior (when ramping up and sending the first keyframe on the high resolution layer) even when not using the API.",
+      "revId": "f009439a7131d8eec8363f937d9f11926873ef2c",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

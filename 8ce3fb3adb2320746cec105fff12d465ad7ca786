@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "a2e3df03_26f4d086",
+        "filename": "media/engine/simulcast_encoder_adapter.cc",
+        "patchSetId": 11
+      },
+      "lineNbr": 466,
+      "author": {
+        "id": 19549
+      },
+      "writtenOn": "2022-08-29T10:48:39Z",
+      "side": 1,
+      "message": "This one is actually one of the key questions. I *think* all callers apart from the unit test behave that way.",
+      "revId": "8ce3fb3adb2320746cec105fff12d465ad7ca786",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

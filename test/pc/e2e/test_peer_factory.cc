@@ -73,29 +73,24 @@ void SetMandatoryEntities(InjectableComponents* components,
 
 // Returns mapping from stream label to optional spatial index.
 // If we have stream label "Foo" and mapping contains
-// 1. `absl::nullopt` means "Foo" isn't simulcast/SVC stream
-// 2. `kAnalyzeAnySpatialStream` means all simulcast/SVC streams are required
-// 3. Concrete value means that particular simulcast/SVC stream have to be
+// 1. `absl::nullopt` means all simulcast/SVC streams are required
+// 2. Concrete value means that particular simulcast/SVC stream have to be
 //    analyzed.
-std::map<std::string, absl::optional<int>>
+QualityAnalyzingVideoEncoder::EmulatedSFUConfigMap
 CalculateRequiredSpatialIndexPerStream(
     const std::vector<VideoConfig>& video_configs) {
-  std::map<std::string, absl::optional<int>> out;
+  QualityAnalyzingVideoEncoder::EmulatedSFUConfigMap result;
   for (auto& video_config : video_configs) {
     // Stream label should be set by fixture implementation here.
     RTC_DCHECK(video_config.stream_label);
-    absl::optional<int> spatial_index;
-    if (video_config.simulcast_config) {
-      spatial_index = video_config.simulcast_config->target_spatial_index;
-      if (!spatial_index) {
-        spatial_index = kAnalyzeAnySpatialStream;
-      }
-    }
-    bool res = out.insert({*video_config.stream_label, spatial_index}).second;
+    bool res = result
+                   .insert({*video_config.stream_label,
+                            video_config.emulated_sfu_config})
+                   .second;
     RTC_DCHECK(res) << "Duplicate video_config.stream_label="
                     << *video_config.stream_label;
   }
-  return out;
+  return result;
 }
 
 std::unique_ptr<TestAudioDeviceModule::Renderer> CreateAudioRenderer(
@@ -187,7 +182,7 @@ std::unique_ptr<cricket::MediaEngineInterface> CreateMediaEngine(
 void WrapVideoEncoderFactory(
     absl::string_view peer_name,
     double bitrate_multiplier,
-    std::map<std::string, absl::optional<int>> stream_required_spatial_index,
+    QualityAnalyzingVideoEncoder::EmulatedSFUConfigMap stream_to_sfu_config,
     PeerConnectionFactoryComponents* pcf_dependencies,
     VideoQualityAnalyzerInjectionHelper* video_analyzer_helper) {
   std::unique_ptr<VideoEncoderFactory> video_encoder_factory;
@@ -199,7 +194,7 @@ void WrapVideoEncoderFactory(
   pcf_dependencies->video_encoder_factory =
       video_analyzer_helper->WrapVideoEncoderFactory(
           peer_name, std::move(video_encoder_factory), bitrate_multiplier,
-          std::move(stream_required_spatial_index));
+          std::move(stream_to_sfu_config));
 }
 
 void WrapVideoDecoderFactory(

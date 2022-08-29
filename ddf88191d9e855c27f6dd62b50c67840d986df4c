@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "a2f6239b_303fa5e6",
+        "filename": "infra/config/config.star",
+        "patchSetId": 2
+      },
+      "lineNbr": 564,
+      "author": {
+        "id": 15909
+      },
+      "writtenOn": "2022-08-29T12:23:41Z",
+      "side": 1,
+      "message": "Without this workaround, iOS builders will have reclient properties like this.\nhttps://webrtc-review.googlesource.com/c/src/+/273125/1/infra/config/cr-buildbucket.cfg#1661\n\nThis is because ios_builder() internally passes a properties dict which is shared by other builders.\nhttps://webrtc-review.googlesource.com/c/src/+/273125/1/infra/config/config.star#696",
+      "revId": "ddf88191d9e855c27f6dd62b50c67840d986df4c",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

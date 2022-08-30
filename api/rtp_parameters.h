@@ -438,10 +438,6 @@ struct RTC_EXPORT RtpRtxParameters {
 };
 
 struct RTC_EXPORT RtpEncodingParameters {
-  RtpEncodingParameters();
-  RtpEncodingParameters(const RtpEncodingParameters&);
-  ~RtpEncodingParameters();
-
   // If unset, a value is chosen by the implementation.
   //
   // Note that the chosen value is NOT returned by GetParameters, because it

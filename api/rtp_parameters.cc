@@ -81,11 +81,6 @@ RtpRtxParameters::RtpRtxParameters(uint32_t ssrc) : ssrc(ssrc) {}
 RtpRtxParameters::RtpRtxParameters(const RtpRtxParameters& rhs) = default;
 RtpRtxParameters::~RtpRtxParameters() = default;
 
-RtpEncodingParameters::RtpEncodingParameters() = default;
-RtpEncodingParameters::RtpEncodingParameters(const RtpEncodingParameters& rhs) =
-    default;
-RtpEncodingParameters::~RtpEncodingParameters() = default;
-
 RtpCodecParameters::RtpCodecParameters() = default;
 RtpCodecParameters::RtpCodecParameters(const RtpCodecParameters& rhs) = default;
 RtpCodecParameters::~RtpCodecParameters() = default;

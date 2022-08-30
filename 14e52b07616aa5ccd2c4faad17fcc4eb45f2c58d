@@ -18,6 +18,23 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "aaff17d4_680ead16",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 4
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2022-08-30T07:40:57Z",
+      "side": 1,
+      "message": "Looking at other GTEST_SKIP usage...",
+      "revId": "14e52b07616aa5ccd2c4faad17fcc4eb45f2c58d",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "12e0ec88_25d18582",
@@ -79,6 +96,30 @@
       "side": 1,
       "message": "I think this warrants a bug report to the gtest maintainers.\nThere\u0027s a specific macro next to GTEST_SKIP_ that is intended to prevent the message, but it\u0027s not invoked by GTEST_SKIP_.\n\nhttps://source.chromium.org/chromium/chromium/src/+/main:third_party/googletest/src/googletest/include/gtest/internal/gtest-internal.h;drc\u003db007c54f2944e193ac44fba1bc997cb65826a0b9;l\u003d1361",
       "parentUuid": "c2fb81b7_6aa45986",
+      "range": {
+        "startLine": 801,
+        "startChar": 0,
+        "endLine": 801,
+        "endChar": 5
+      },
+      "revId": "14e52b07616aa5ccd2c4faad17fcc4eb45f2c58d",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "e2b9a0d4_af56c3b7",
+        "filename": "pc/peer_connection_bundle_unittest.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 801,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2022-08-30T07:40:57Z",
+      "side": 1,
+      "message": "Looking at other usages of GTEST_SKIP, it seems that this would work:\n\nbool HasSctp() {\n#ifdef WEBRTC_HAS_SCTP\n  return true;\n#else\n  return false;\n#endif\n}\n\nthen don\u0027t use #ifdef at calling site, but\n\n  if (!HasSctp()) {\n     GTEST_SKIP();\n  }\n\nWould it work?",
+      "parentUuid": "8a554402_85064b3d",
       "range": {
         "startLine": 801,
         "startChar": 0,

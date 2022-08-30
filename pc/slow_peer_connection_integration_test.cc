@@ -451,6 +451,7 @@ TEST_P(PeerConnectionIntegrationTest, CallTransferredForCallee) {
   MediaExpectations media_expectations;
   media_expectations.ExpectBidirectionalAudioAndVideo();
   ASSERT_TRUE(ExpectNewFrames(media_expectations));
+  original_peer->ClearFakeNetwork(network_thread());
 }
 
 // This test sets up a call that's transferred to a new callee with a different
@@ -481,6 +482,7 @@ TEST_P(PeerConnectionIntegrationTest, CallTransferredForCaller) {
   MediaExpectations media_expectations;
   media_expectations.ExpectBidirectionalAudioAndVideo();
   ASSERT_TRUE(ExpectNewFrames(media_expectations));
+  original_peer->ClearFakeNetwork(network_thread());
 }
 
 INSTANTIATE_TEST_SUITE_P(

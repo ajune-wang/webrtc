@@ -54,6 +54,7 @@
 #include "api/stats/rtcstats_objects.h"
 #include "api/task_queue/default_task_queue_factory.h"
 #include "api/task_queue/pending_task_safety_flag.h"
+#include "api/task_queue/task_queue_base.h"
 #include "api/task_queue/task_queue_factory.h"
 #include "api/transport/field_trial_based_config.h"
 #include "api/uma_metrics.h"
@@ -236,6 +237,12 @@ class MockRtpReceiverObserver : public webrtc::RtpReceiverObserverInterface {
 class PeerConnectionIntegrationWrapper : public webrtc::PeerConnectionObserver,
                                          public SignalingMessageReceiver {
  public:
+  void ClearFakeNetwork(TaskQueueBase* task_queue) {
+    auto fake_network_manager = std::move(fake_network_manager_);
+    task_queue->PostTask(
+        [fake_network_manager = std::move(fake_network_manager)] {});
+  }
+
   webrtc::PeerConnectionFactoryInterface* pc_factory() const {
     return peer_connection_factory_.get();
   }
@@ -1173,7 +1180,6 @@ class PeerConnectionIntegrationWrapper : public webrtc::PeerConnectionObserver,
 
   std::string debug_name_;
 
-  std::unique_ptr<rtc::FakeNetworkManager> fake_network_manager_;
   // Reference to the mDNS responder owned by `fake_network_manager_` after set.
   webrtc::FakeMdnsResponder* mdns_responder_ = nullptr;
 
@@ -1241,6 +1247,8 @@ class PeerConnectionIntegrationWrapper : public webrtc::PeerConnectionObserver,
   uint64_t audio_concealed_stat_ = 0;
   std::string rtp_stats_id_;
   std::string audio_track_stats_id_;
+
+  std::unique_ptr<rtc::FakeNetworkManager> fake_network_manager_;
 
   ScopedTaskSafety task_safety_;
 
@@ -1419,11 +1427,13 @@ class PeerConnectionIntegrationBaseTest : public ::testing::Test {
     if (caller_) {
       caller_->set_signaling_message_receiver(nullptr);
       caller_->pc()->Close();
+      caller_->ClearFakeNetwork(network_thread_.get());
       delete SetCallerPcWrapperAndReturnCurrent(nullptr);
     }
     if (callee_) {
       callee_->set_signaling_message_receiver(nullptr);
       callee_->pc()->Close();
+      callee_->ClearFakeNetwork(network_thread_.get());
       delete SetCalleePcWrapperAndReturnCurrent(nullptr);
     }
 
@@ -1720,9 +1730,11 @@ class PeerConnectionIntegrationBaseTest : public ::testing::Test {
   void DestroyPeerConnections() {
     if (caller_) {
       caller_->pc()->Close();
+      caller_->ClearFakeNetwork(network_thread_.get());
     }
     if (callee_) {
       callee_->pc()->Close();
+      callee_->ClearFakeNetwork(network_thread_.get());
     }
     caller_.reset();
     callee_.reset();

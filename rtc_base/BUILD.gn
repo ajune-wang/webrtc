@@ -1402,6 +1402,8 @@ rtc_library("rtc_base_tests_utils") {
     ":stringutils",
     ":threading",
     ":timeutils",
+    "../api/task_queue",
+    "../api/task_queue:pending_task_safety_flag",
     "../api/units:time_delta",
     "../api/units:timestamp",
     "../test:scoped_key_value_config",

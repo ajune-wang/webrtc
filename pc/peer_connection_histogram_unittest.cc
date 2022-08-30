@@ -384,10 +384,10 @@ class PeerConnectionUsageHistogramTest : public ::testing::Test {
     return kLocalAddrs[next_local_address_++];
   }
 
-  std::vector<std::unique_ptr<rtc::FakeNetworkManager>> fake_networks_;
   int next_local_address_ = 0;
   std::unique_ptr<rtc::VirtualSocketServer> vss_;
   rtc::AutoSocketServerThread main_;
+  std::vector<std::unique_ptr<rtc::FakeNetworkManager>> fake_networks_;
 };
 
 TEST_F(PeerConnectionUsageHistogramTest, UsageFingerprintHistogramFromTimeout) {

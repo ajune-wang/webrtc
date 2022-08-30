@@ -152,6 +152,30 @@
       },
       "revId": "14e52b07616aa5ccd2c4faad17fcc4eb45f2c58d",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "b2ab281b_d9feb4f9",
+        "filename": "pc/peer_connection_bundle_unittest.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 801,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2022-08-30T08:52:36Z",
+      "side": 1,
+      "message": "According to the code codesearch found for me, GTEST_SKIP expands into an unconditional return statement. So any code after GTEST_SKIP is unreachable.\nI suspect the example is never compiled with the right flags to detect unreachable code in the bots.",
+      "parentUuid": "e017dd55_ed9d048a",
+      "range": {
+        "startLine": 801,
+        "startChar": 0,
+        "endLine": 801,
+        "endChar": 5
+      },
+      "revId": "14e52b07616aa5ccd2c4faad17fcc4eb45f2c58d",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

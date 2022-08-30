@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "24e364ad_cff862e7",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 6305
+      },
+      "writtenOn": "2022-08-30T11:22:18Z",
+      "side": 1,
+      "message": "Hello Tomas, Henrik, Peter and Andrey.\n\nCould you please briefly review this CL which is reland of https://webrtc-review.googlesource.com/c/src/+/269006 with 2 missing `RTC_OBJC_TYPE` macro added?\n\nThanks a lot in advance, Yury.",
+      "revId": "3ea2801b818223899119782528c60b8d0319a96e",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

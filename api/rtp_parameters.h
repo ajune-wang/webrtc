@@ -438,10 +438,6 @@ struct RTC_EXPORT RtpRtxParameters {
 };
 
 struct RTC_EXPORT RtpEncodingParameters {
-  RtpEncodingParameters();
-  RtpEncodingParameters(const RtpEncodingParameters&);
-  ~RtpEncodingParameters();
-
   // If unset, a value is chosen by the implementation.
   //
   // Note that the chosen value is NOT returned by GetParameters, because it
@@ -535,10 +531,6 @@ struct RTC_EXPORT RtpEncodingParameters {
 };
 
 struct RTC_EXPORT RtpCodecParameters {
-  RtpCodecParameters();
-  RtpCodecParameters(const RtpCodecParameters&);
-  ~RtpCodecParameters();
-
   // Build MIME "type/subtype" string from `name` and `kind`.
   std::string mime_type() const { return MediaTypeToString(kind) + "/" + name; }
 
@@ -598,9 +590,6 @@ struct RTC_EXPORT RtpCodecParameters {
 // RtpCapabilities is used to represent the static capabilities of an endpoint.
 // An application can use these capabilities to construct an RtpParameters.
 struct RTC_EXPORT RtpCapabilities {
-  RtpCapabilities();
-  ~RtpCapabilities();
-
   // Supported codecs.
   std::vector<RtpCodecCapability> codecs;
 
@@ -620,10 +609,6 @@ struct RTC_EXPORT RtpCapabilities {
 };
 
 struct RtcpParameters final {
-  RtcpParameters();
-  RtcpParameters(const RtcpParameters&);
-  ~RtcpParameters();
-
   // The SSRC to be used in the "SSRC of packet sender" field. If not set, one
   // will be chosen by the implementation.
   // TODO(deadbeef): Not implemented.
@@ -655,10 +640,6 @@ struct RtcpParameters final {
 };
 
 struct RTC_EXPORT RtpParameters {
-  RtpParameters();
-  RtpParameters(const RtpParameters&);
-  ~RtpParameters();
-
   // Used when calling getParameters/setParameters with a PeerConnection
   // RtpSender, to ensure that outdated parameters are not unintentionally
   // applied successfully.

@@ -81,26 +81,6 @@ RtpRtxParameters::RtpRtxParameters(uint32_t ssrc) : ssrc(ssrc) {}
 RtpRtxParameters::RtpRtxParameters(const RtpRtxParameters& rhs) = default;
 RtpRtxParameters::~RtpRtxParameters() = default;
 
-RtpEncodingParameters::RtpEncodingParameters() = default;
-RtpEncodingParameters::RtpEncodingParameters(const RtpEncodingParameters& rhs) =
-    default;
-RtpEncodingParameters::~RtpEncodingParameters() = default;
-
-RtpCodecParameters::RtpCodecParameters() = default;
-RtpCodecParameters::RtpCodecParameters(const RtpCodecParameters& rhs) = default;
-RtpCodecParameters::~RtpCodecParameters() = default;
-
-RtpCapabilities::RtpCapabilities() = default;
-RtpCapabilities::~RtpCapabilities() = default;
-
-RtcpParameters::RtcpParameters() = default;
-RtcpParameters::RtcpParameters(const RtcpParameters& rhs) = default;
-RtcpParameters::~RtcpParameters() = default;
-
-RtpParameters::RtpParameters() = default;
-RtpParameters::RtpParameters(const RtpParameters& rhs) = default;
-RtpParameters::~RtpParameters() = default;
-
 std::string RtpExtension::ToString() const {
   char buf[256];
   rtc::SimpleStringBuilder sb(buf);

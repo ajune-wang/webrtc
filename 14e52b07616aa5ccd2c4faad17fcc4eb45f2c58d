@@ -39,6 +39,30 @@
       },
       "revId": "14e52b07616aa5ccd2c4faad17fcc4eb45f2c58d",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "c2fb81b7_6aa45986",
+        "filename": "pc/peer_connection_bundle_unittest.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 801,
+      "author": {
+        "id": 6193
+      },
+      "writtenOn": "2022-08-30T07:05:09Z",
+      "side": 1,
+      "message": "Nope, I get unreachable code error then from cplint.",
+      "parentUuid": "12e0ec88_25d18582",
+      "range": {
+        "startLine": 801,
+        "startChar": 0,
+        "endLine": 801,
+        "endChar": 5
+      },
+      "revId": "14e52b07616aa5ccd2c4faad17fcc4eb45f2c58d",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

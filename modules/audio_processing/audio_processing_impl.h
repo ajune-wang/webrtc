@@ -20,6 +20,7 @@
 #include <vector>
 
 #include "absl/strings/string_view.h"
+#include "absl/types/optional.h"
 #include "api/array_view.h"
 #include "api/function_view.h"
 #include "modules/audio_processing/aec3/echo_canceller3.h"
@@ -160,7 +161,7 @@ class AudioProcessingImpl : public AudioProcessing {
   FRIEND_TEST_ALL_PREFIXES(ApmWithSubmodulesExcludedTest,
                            BitexactWithDisabledModules);
 
-  int recommended_stream_analog_level_locked() const
+  void UpdateRecommendedAnalogLevelLocked()
       RTC_EXCLUSIVE_LOCKS_REQUIRED(mutex_capture_);
 
   void OverrideSubmoduleCreationForTesting(
@@ -470,6 +471,7 @@ class AudioProcessingImpl : public AudioProcessing {
     AudioProcessingStats stats;
     int applied_input_volume;
     bool applied_input_volume_changed;
+    absl::optional<int> recommended_input_volume;
   } capture_ RTC_GUARDED_BY(mutex_capture_);
 
   struct ApmCaptureNonLockedState {

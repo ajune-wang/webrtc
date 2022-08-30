@@ -39,6 +39,30 @@
       },
       "revId": "00b0fff5f9e050960d435f0287c9f758d42f8fbc",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "cd5359da_af313f3b",
+        "filename": "modules/desktop_capture/screen_capturer_linux.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 32,
+      "author": {
+        "id": 18474
+      },
+      "writtenOn": "2022-08-30T23:05:17Z",
+      "side": 1,
+      "message": "Hmm, I could also just land the Chrome change first which would cause \"Window\" and \"Screen\" to both just pop the same picker until this lands; which may be a better experience.",
+      "parentUuid": "d6c70d21_84074c63",
+      "range": {
+        "startLine": 32,
+        "startChar": 50,
+        "endLine": 32,
+        "endChar": 70
+      },
+      "revId": "00b0fff5f9e050960d435f0287c9f758d42f8fbc",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

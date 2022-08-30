@@ -128,6 +128,30 @@
       },
       "revId": "14e52b07616aa5ccd2c4faad17fcc4eb45f2c58d",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "e017dd55_ed9d048a",
+        "filename": "pc/peer_connection_bundle_unittest.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 801,
+      "author": {
+        "id": 12234
+      },
+      "writtenOn": "2022-08-30T08:50:05Z",
+      "side": 1,
+      "message": "I don\u0027t really understand what code is unreachable.\nIt feels weird to have to define another function.\nHere\u0027s an example I\u0027ve found:\nhttps://source.chromium.org/chromium/chromium/src/+/main:third_party/xnnpack/src/test/mutex.cc;l\u003d27",
+      "parentUuid": "e2b9a0d4_af56c3b7",
+      "range": {
+        "startLine": 801,
+        "startChar": 0,
+        "endLine": 801,
+        "endChar": 5
+      },
+      "revId": "14e52b07616aa5ccd2c4faad17fcc4eb45f2c58d",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

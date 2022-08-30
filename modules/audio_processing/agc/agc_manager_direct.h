@@ -68,12 +68,12 @@ class AgcManagerDirect final {
   // echo cancellation). The analysis consists of input clipping detection and
   // prediction (if enabled). Undefined behavior if called before
   // `set_stream_analog_level()`.
-  void AnalyzePreProcess(const AudioBuffer* audio);
+  void AnalyzePreProcess(const AudioBuffer& audio_buffer);
 
   // Processes `audio`. Chooses a digital compression gain and the new input
   // volume to recommend. Undefined behavior if called before
   // `AnalyzePreProcess()`.
-  void Process(const AudioBuffer* audio);
+  void Process(const AudioBuffer& audio_buffer);
 
   // TODO(bugs.webrtc.org/7494): Return recommended input volume and remove
   // `recommended_analog_level()`.
@@ -134,8 +134,6 @@ class AgcManagerDirect final {
       const AudioProcessing::Config::GainController1::AnalogGainController&
           analog_config,
       Agc* agc);
-
-  void AnalyzePreProcess(const float* const* audio, size_t samples_per_channel);
 
   void AggregateChannelLevels();
 

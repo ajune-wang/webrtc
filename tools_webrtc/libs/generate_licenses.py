@@ -103,6 +103,8 @@ LIB_REGEX_TO_LICENSES_DICT = {
 SCRIPT_DIR = os.path.dirname(os.path.realpath(__file__))
 WEBRTC_ROOT = os.path.abspath(os.path.join(SCRIPT_DIR, os.pardir, os.pardir))
 SRC_DIR = os.path.dirname(os.path.dirname(SCRIPT_DIR))
+if SRC_DIR.endswith(os.path.join('third_party', 'webrtc')):
+  SRC_DIR = os.path.abspath(os.path.join(SRC_DIR, os.pardir, os.pardir))
 sys.path.append(os.path.join(SRC_DIR, 'build'))
 import find_depot_tools
 

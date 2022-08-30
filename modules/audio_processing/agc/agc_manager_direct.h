@@ -150,13 +150,10 @@ class AgcManagerDirect final {
 
   // TODO(bugs.webrtc.org/7494): Create a separate member for the applied input
   // volume.
-  // TODO(bugs.webrtc.org/7494): Once
-  // `AudioProcessingImpl::recommended_stream_analog_level()` becomes a trivial
-  // getter, leave uninitialized.
   // Recommended input volume. After `set_stream_analog_level()` is called it
   // holds the observed input volume. Possibly updated by `AnalyzePreProcess()`
   // and `Process()`; after these calls, holds the recommended input volume.
-  int recommended_input_volume_ = 0;
+  int recommended_input_volume_;
 
   bool capture_output_used_;
   int channel_controlling_gain_ = 0;
@@ -256,7 +253,7 @@ class MonoAgc {
   // called, it holds the observed applied input volume. Possibly updated by
   // `HandleClipping()` and `Process()`; after these calls, holds the
   // recommended input volume.
-  int recommended_input_volume_ = 0;
+  int recommended_input_volume_;
 
   absl::optional<int> new_compression_to_set_;
   bool log_to_histograms_ = false;

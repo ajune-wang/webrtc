@@ -48,6 +48,30 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "15e0a653_6551981d",
+        "filename": "modules/audio_processing/agc/agc_manager_direct.h",
+        "patchSetId": 15
+      },
+      "lineNbr": 152,
+      "author": {
+        "id": 5122
+      },
+      "writtenOn": "2022-08-30T14:56:13Z",
+      "side": 1,
+      "message": "FYI, I created https://webrtc-review.googlesource.com/c/src/+/273347 to fix this member as well that in `MonoAgc` (I assigned the CL to you).\n\nNote that I had to add https://webrtc-review.googlesource.com/c/src/+/273490 first, since the AgcManagerDirect unit tests are not API contract compliant: removing the initialization in this CL breaks some tests.",
+      "parentUuid": "5be73733_f67d7949",
+      "range": {
+        "startLine": 152,
+        "startChar": 6,
+        "endLine": 152,
+        "endChar": 36
+      },
+      "revId": "0c788b51fa75a71ea1a950a4c089c5b2cab58eac",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "3c665582_0854a13c",

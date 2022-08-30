@@ -1,0 +1,44 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "07a0c14c_cac5a593",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 18474
+      },
+      "writtenOn": "2022-08-30T18:16:35Z",
+      "side": 1,
+      "message": "Mark PTAL",
+      "revId": "00b0fff5f9e050960d435f0287c9f758d42f8fbc",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "d6c70d21_84074c63",
+        "filename": "modules/desktop_capture/screen_capturer_linux.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 32,
+      "author": {
+        "id": 18474
+      },
+      "writtenOn": "2022-08-30T18:16:35Z",
+      "side": 1,
+      "message": "I guess technically this may introduce a regression until the corresponding chromium change lands (or if it gets reverted) that the user would only be able to share screens but not windows. I think the change is simple enough that there\u0027s not much risk of that and I can coordinate them to land within a couple of hours of each other; but if you\u0027d prefer I leave this alone and only change it after the Chromium change lands I can do that as well.",
+      "range": {
+        "startLine": 32,
+        "startChar": 50,
+        "endLine": 32,
+        "endChar": 70
+      },
+      "revId": "00b0fff5f9e050960d435f0287c9f758d42f8fbc",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

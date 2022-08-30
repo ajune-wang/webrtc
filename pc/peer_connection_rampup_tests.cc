@@ -164,6 +164,11 @@ class PeerConnectionRampUpTest : public ::testing::Test {
 
   virtual ~PeerConnectionRampUpTest() {
     SendTask(network_thread(), [this] { turn_servers_.clear(); });
+    caller_ = nullptr;
+    callee_ = nullptr;
+    auto fake_network_managers = std::move(fake_network_managers_);
+    network_thread()->PostTask(
+        [fake_network_managers = std::move(fake_network_managers)] {});
   }
 
   bool CreatePeerConnectionWrappers(const RTCConfiguration& caller_config,

@@ -34,6 +34,23 @@
       "parentUuid": "aa472808_f9bc5ce5",
       "revId": "c2cda8732b6d82fbf68b0b6e6daffb89e2589d8d",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "a1b0b4b6_931be56e",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5087
+      },
+      "writtenOn": "2022-08-31T12:34:02Z",
+      "side": 1,
+      "message": "(you still need LGTM from tommi@ or owners of sdk/)",
+      "revId": "c2cda8732b6d82fbf68b0b6e6daffb89e2589d8d",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

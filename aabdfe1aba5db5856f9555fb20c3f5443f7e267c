@@ -51,6 +51,29 @@
       "parentUuid": "b7959f07_eeaebf59",
       "revId": "aabdfe1aba5db5856f9555fb20c3f5443f7e267c",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "34cae6b0_b6626e5c",
+        "filename": "modules/congestion_controller/goog_cc/probe_controller.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 367,
+      "author": {
+        "id": 19004
+      },
+      "writtenOn": "2022-08-31T08:26:24Z",
+      "side": 1,
+      "message": "nit: I personally prefer do safety check in setters, e.g. checking if estimate.link_capacity_upper is valid before moving on. Then we might skip checking it to be not zero or infinite when we use it, and it feels safe.",
+      "range": {
+        "startLine": 359,
+        "startChar": 2,
+        "endLine": 367,
+        "endChar": 31
+      },
+      "revId": "aabdfe1aba5db5856f9555fb20c3f5443f7e267c",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

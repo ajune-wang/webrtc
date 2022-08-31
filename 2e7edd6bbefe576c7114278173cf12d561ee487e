@@ -16,6 +16,23 @@
       "message": "Hi again,\nI removed your past LGTMs since I had to reshape this CL quite a bit.\nCould you PTAL again?\nAlessio",
       "revId": "2e7edd6bbefe576c7114278173cf12d561ee487e",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "5897468b_eb4961e0",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 16
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 17719
+      },
+      "writtenOn": "2022-08-31T15:09:04Z",
+      "side": 1,
+      "message": "Thanks Alessio! LGTM",
+      "revId": "2e7edd6bbefe576c7114278173cf12d561ee487e",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

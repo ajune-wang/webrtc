@@ -18,6 +18,23 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "c64c9351_9e630cb7",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 18474
+      },
+      "writtenOn": "2022-08-31T22:35:31Z",
+      "side": 1,
+      "message": "+Salman for a question about kAny.\n\nI think it would be best to file a bug to do the enum consolidation and do that as a separate change; but Salman\u0027s answer influences if I leave kAny for the moment.",
+      "revId": "00b0fff5f9e050960d435f0287c9f758d42f8fbc",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "bc0714e2_c41f53e9",
@@ -37,6 +54,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "95e3d48b_5cf34b53",
+        "filename": "modules/desktop_capture/desktop_capture_types.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 18,
+      "author": {
+        "id": 18474
+      },
+      "writtenOn": "2022-08-31T22:35:31Z",
+      "side": 1,
+      "message": "See other comment; if I consolidate to one type, it looks like the CRD code wants any: https://source.chromium.org/chromium/chromium/src/+/main:remoting/host/linux/remote_desktop_portal.cc;drc\u003d5bc3e272b7b54831b428b6df9f3d708bd1ccaef3;l\u003d45\n\nSalman, is this true or would you actually only want kScreen?",
+      "parentUuid": "bc0714e2_c41f53e9",
+      "revId": "00b0fff5f9e050960d435f0287c9f758d42f8fbc",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "13efb9a8_d654c976",
         "filename": "modules/desktop_capture/linux/wayland/base_capturer_pipewire.cc",
         "patchSetId": 1
@@ -48,6 +83,24 @@
       "writtenOn": "2022-08-31T21:04:11Z",
       "side": 1,
       "message": "Why does ScreenCastPortal need its own capture type enum?  Can we consolidate into one enum here?",
+      "revId": "00b0fff5f9e050960d435f0287c9f758d42f8fbc",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "e3ddb1a2_06f0e38f",
+        "filename": "modules/desktop_capture/linux/wayland/base_capturer_pipewire.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 46,
+      "author": {
+        "id": 18474
+      },
+      "writtenOn": "2022-08-31T22:35:31Z",
+      "side": 1,
+      "message": "ScreenCastPortal\u0027s capture type enum is essentially flags that get passed directly into PipeWire via direct casts. It would probably be reasonable to convert this to an internal concept; however, I\u0027ll have to jump through a few extra hoops (Add a constructor in parallel and then remove it), since the CRD code uses the type as well: https://source.chromium.org/chromium/chromium/src/+/main:remoting/host/linux/remote_desktop_portal.cc;drc\u003d5bc3e272b7b54831b428b6df9f3d708bd1ccaef3;l\u003d45",
+      "parentUuid": "13efb9a8_d654c976",
       "revId": "00b0fff5f9e050960d435f0287c9f758d42f8fbc",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },

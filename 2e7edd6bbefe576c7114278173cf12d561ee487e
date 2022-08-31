@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "d4ab18f7_331ab34c",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 16
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5122
+      },
+      "writtenOn": "2022-08-31T14:33:43Z",
+      "side": 1,
+      "message": "Hi again,\nI removed your past LGTMs since I had to reshape this CL quite a bit.\nCould you PTAL again?\nAlessio",
+      "revId": "2e7edd6bbefe576c7114278173cf12d561ee487e",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

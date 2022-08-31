@@ -51,6 +51,23 @@
       "message": "(you still need LGTM from tommi@ or owners of sdk/)",
       "revId": "c2cda8732b6d82fbf68b0b6e6daffb89e2589d8d",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "abe9359a_1505edf1",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 6305
+      },
+      "writtenOn": "2022-08-31T13:08:57Z",
+      "side": 1,
+      "message": "Hello Henrik and Tommi!\n\nSorry for bothering you again about basically the same CL. Could you please approve it? It has fixes which broken upstream project.\n\nThanks a lot, Yury!",
+      "revId": "c2cda8732b6d82fbf68b0b6e6daffb89e2589d8d",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

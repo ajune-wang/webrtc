@@ -33,6 +33,24 @@
       "message": "Hello Mirko! \nSorry for bothering you again. I suspect build logs are not stored forever, could you please share details of a problem which lead to revert?\nThanks a lot in advance, Yury.",
       "revId": "bcc31826ab7518b90b9dbae8ed5b6fa803c353f5",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "e1d6c1b8_5435853d",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5087
+      },
+      "writtenOn": "2022-08-31T06:28:17Z",
+      "side": 1,
+      "message": "Hi Yury, sorry for the delay.\n\nI am looking into it now, I will be back with some insights soon (I am trying to see if there are more so we avoid another land/revert).",
+      "parentUuid": "c5090cf6_ed98f415",
+      "revId": "bcc31826ab7518b90b9dbae8ed5b6fa803c353f5",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

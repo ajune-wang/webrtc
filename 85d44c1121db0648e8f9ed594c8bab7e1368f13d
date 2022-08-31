@@ -39,6 +39,30 @@
       },
       "revId": "85d44c1121db0648e8f9ed594c8bab7e1368f13d",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "de849744_74e2575f",
+        "filename": "tools_webrtc/libs/generate_licenses.py",
+        "patchSetId": 1
+      },
+      "lineNbr": 107,
+      "author": {
+        "id": 18474
+      },
+      "writtenOn": "2022-08-31T17:57:49Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "cd1048ca_e242ace4",
+      "range": {
+        "startLine": 106,
+        "startChar": 0,
+        "endLine": 107,
+        "endChar": 72
+      },
+      "revId": "85d44c1121db0648e8f9ed594c8bab7e1368f13d",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

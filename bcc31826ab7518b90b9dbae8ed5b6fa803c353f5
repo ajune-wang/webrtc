@@ -16,6 +16,23 @@
       "message": "Hello Mirko, could you please share details of compilation problem?\nThanks a lot in advance, Yury.",
       "revId": "bcc31826ab7518b90b9dbae8ed5b6fa803c353f5",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "c5090cf6_ed98f415",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 6305
+      },
+      "writtenOn": "2022-08-31T05:08:37Z",
+      "side": 1,
+      "message": "Hello Mirko! \nSorry for bothering you again. I suspect build logs are not stored forever, could you please share details of a problem which lead to revert?\nThanks a lot in advance, Yury.",
+      "revId": "bcc31826ab7518b90b9dbae8ed5b6fa803c353f5",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

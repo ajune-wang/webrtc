@@ -16,6 +16,23 @@
       "message": "Please?",
       "revId": "aabdfe1aba5db5856f9555fb20c3f5443f7e267c",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "b7959f07_eeaebf59",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 18864
+      },
+      "writtenOn": "2022-08-31T08:15:49Z",
+      "side": 1,
+      "message": "FYI: I have seen link capacity changing quite often, and it might cause more probes because of the new flag fast_rampup_rate. But if network_state_interval is 5s, then I think it does not hurt anything.",
+      "revId": "aabdfe1aba5db5856f9555fb20c3f5443f7e267c",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

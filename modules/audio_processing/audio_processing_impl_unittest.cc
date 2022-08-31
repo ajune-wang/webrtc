@@ -268,6 +268,62 @@ TEST(AudioProcessingImplTest,
       << "Frame should be amplified.";
 }
 
+TEST(AudioProcessingImplTest,
+     CrashWhenRecommendedInputVolumeIsReadButAppliedInputLevelUnknown) {
+  rtc::scoped_refptr<AudioProcessing> apm =
+      AudioProcessingBuilderForTesting().Create();
+
+  constexpr int kSampleRateHz = 48000;
+  constexpr int16_t kAudioLevel = 10000;
+  constexpr size_t kNumChannels = 2;
+
+  std::array<int16_t, kNumChannels * kSampleRateHz / 100> frame;
+  StreamConfig config(kSampleRateHz, kNumChannels);
+  frame.fill(kAudioLevel);
+
+  apm->ProcessStream(frame.data(), config, config, frame.data());
+  EXPECT_DEATH(apm->recommended_stream_analog_level(), "");
+}
+
+TEST(AudioProcessingImplTest,
+     DoNotCrashWhenAppliedInputLevelUnknownAndRecommendedInputVolumeNeverRead) {
+  rtc::scoped_refptr<AudioProcessing> apm =
+      AudioProcessingBuilderForTesting().Create();
+
+  constexpr int kSampleRateHz = 48000;
+  constexpr int16_t kAudioLevel = 10000;
+  constexpr size_t kNumChannels = 2;
+
+  std::array<int16_t, kNumChannels * kSampleRateHz / 100> frame;
+  StreamConfig config(kSampleRateHz, kNumChannels);
+  frame.fill(kAudioLevel);
+
+  apm->ProcessStream(frame.data(), config, config, frame.data());
+  apm->ProcessStream(frame.data(), config, config, frame.data());
+}
+
+TEST(AudioProcessingImplTest,
+     DoNotCrashWhenAppliedInputLevelSetAndRecommendedInputVolumeRead) {
+  rtc::scoped_refptr<AudioProcessing> apm =
+      AudioProcessingBuilderForTesting().Create();
+
+  constexpr int kSampleRateHz = 48000;
+  constexpr int16_t kAudioLevel = 10000;
+  constexpr size_t kNumChannels = 2;
+
+  std::array<int16_t, kNumChannels * kSampleRateHz / 100> frame;
+  StreamConfig config(kSampleRateHz, kNumChannels);
+  frame.fill(kAudioLevel);
+
+  apm->set_stream_analog_level(/*level=*/123);
+  apm->ProcessStream(frame.data(), config, config, frame.data());
+  static_cast<void>(apm->recommended_stream_analog_level());
+
+  apm->set_stream_analog_level(/*level=*/210);
+  apm->ProcessStream(frame.data(), config, config, frame.data());
+  static_cast<void>(apm->recommended_stream_analog_level());
+}
+
 TEST(AudioProcessingImplTest, EchoControllerObservesSetCaptureUsageChange) {
   // Tests that the echo controller observes that the capture usage has been
   // updated.

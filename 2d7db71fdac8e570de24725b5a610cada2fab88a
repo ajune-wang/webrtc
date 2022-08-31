@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "50016621_1b8e1e4a",
+        "filename": "sdk/objc/native/src/objc_audio_device.mm",
+        "patchSetId": 2
+      },
+      "lineNbr": 81,
+      "author": {
+        "id": 5087
+      },
+      "writtenOn": "2022-08-31T06:38:46Z",
+      "side": 0,
+      "message": "The current error is here and it is about Class Template Argument Deduction and scoped_refptr:\n\n```\nerror: \u0027scoped_refptr\u0027 may not intend to support class template argument deduction [-Werror,-Wctad-maybe-unsupported]\n```\n\nIt looks like V8 also hit this and turned ON the compiler diagnostic (https://source.chromium.org/chromium/chromium/src/+/main:v8/BUILD.gn;l\u003d1348-1351;drc\u003d752408926404509f37a6ea8fa33f5ae2e8045d66).\n\nI can do the same for WebRTC while you work on a reland so it will be possible to catch the issue on CQ.\n\nAdd me as a reviewer on the reland so I can take a deeper look before you submit.",
+      "range": {
+        "startLine": 81,
+        "startChar": 69,
+        "endLine": 81,
+        "endChar": 93
+      },
+      "revId": "2d7db71fdac8e570de24725b5a610cada2fab88a",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

@@ -16,6 +16,24 @@
       "message": "Hi Mirko!\nI\u0027ve fixed the issue and verified iOS \u0026 Mac builds locally with changes from https://webrtc-review.googlesource.com/c/src/+/273660 and now they compile.\n",
       "revId": "c2cda8732b6d82fbf68b0b6e6daffb89e2589d8d",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "ea247bee_a3cb3a98",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5087
+      },
+      "writtenOn": "2022-08-31T12:33:44Z",
+      "side": 1,
+      "message": "Thanks!\n\nI looked into this and I think this can now land.",
+      "parentUuid": "aa472808_f9bc5ce5",
+      "revId": "c2cda8732b6d82fbf68b0b6e6daffb89e2589d8d",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

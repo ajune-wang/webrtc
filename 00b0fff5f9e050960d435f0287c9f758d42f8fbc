@@ -20,6 +20,40 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "bc0714e2_c41f53e9",
+        "filename": "modules/desktop_capture/desktop_capture_types.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 18,
+      "author": {
+        "id": 14134
+      },
+      "writtenOn": "2022-08-31T21:04:11Z",
+      "side": 1,
+      "message": "It looks like BaseCapturerPipewire is always created specifically for screen or window capture.  DO we need kAny?",
+      "revId": "00b0fff5f9e050960d435f0287c9f758d42f8fbc",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "13efb9a8_d654c976",
+        "filename": "modules/desktop_capture/linux/wayland/base_capturer_pipewire.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 46,
+      "author": {
+        "id": 14134
+      },
+      "writtenOn": "2022-08-31T21:04:11Z",
+      "side": 1,
+      "message": "Why does ScreenCastPortal need its own capture type enum?  Can we consolidate into one enum here?",
+      "revId": "00b0fff5f9e050960d435f0287c9f758d42f8fbc",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "d6c70d21_84074c63",
         "filename": "modules/desktop_capture/screen_capturer_linux.cc",
         "patchSetId": 1

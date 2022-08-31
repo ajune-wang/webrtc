@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "d8242203_45ea04ee",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 4
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 19549
+      },
+      "writtenOn": "2022-08-31T06:53:27Z",
+      "side": 1,
+      "message": "spec pointers courtesy of Bernard Aboba :-)\n\nI will send a PSA but asked around and most people were like \"we ignore BYE because it is broken\"",
+      "revId": "2120d162db651c16b4b3e8f0a03c71cb268a3fce",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

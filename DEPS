@@ -10,7 +10,7 @@ vars = {
   # chromium waterfalls. More info at: crbug.com/570091.
   'checkout_configuration': 'default',
   'checkout_instrumented_libraries': 'checkout_linux and checkout_configuration == "default"',
-  'chromium_revision': '5b158e7c3a15b5131bf66d89df6db3d22ed140f2',
+  'chromium_revision': 'c62b3cee349165f78d835cd6e9f536bf10636e37',
 
   # Keep the Chromium default of generating location tags.
   'generate_location_tags': True,
@@ -32,7 +32,7 @@ vars = {
 deps = {
   # TODO(kjellander): Move this to be Android-only.
   'src/base':
-    'https://chromium.googlesource.com/chromium/src/base@081cb423d75e986bd46352a1692d5627c07582d7',
+    'https://chromium.googlesource.com/chromium/src/base@d359729004f39144726c87a0ce365b2d66512df3',
   'src/build':
     'https://chromium.googlesource.com/chromium/src/build@d74c52459f8084fd66e5bb03bae8938e963f4ea1',
   'src/buildtools':
@@ -43,19 +43,19 @@ deps = {
     'condition': 'checkout_android',
   },
   'src/ios': {
-    'url': 'https://chromium.googlesource.com/chromium/src/ios@6bc72a05a8d719b8437e957d9e19f16ea79db8e3',
+    'url': 'https://chromium.googlesource.com/chromium/src/ios@3860291590a9a41bb62fbe10e11a9748927a9e05',
     'condition': 'checkout_ios',
   },
   'src/testing':
     'https://chromium.googlesource.com/chromium/src/testing@5689014c1ead5c8080675cc79e149400b7047f67',
   'src/third_party':
-    'https://chromium.googlesource.com/chromium/src/third_party@67f33db599a4e089ba108f5f686a92f21dbbf378',
+    'https://chromium.googlesource.com/chromium/src/third_party@a28a842f7af95c479b12c1d6d93fb25e415fe47b',
 
   'src/buildtools/linux64': {
     'packages': [
       {
         'package': 'gn/gn/linux-${{arch}}',
-        'version': 'git_revision:5705e56a0e5856621415cfdf444432554e72c9c9',
+        'version': 'git_revision:00b741b1568d56cf4e117dcb9f70cd42653b4c78',
       }
     ],
     'dep_type': 'cipd',
@@ -65,7 +65,7 @@ deps = {
     'packages': [
       {
         'package': 'gn/gn/mac-${{arch}}',
-        'version': 'git_revision:5705e56a0e5856621415cfdf444432554e72c9c9',
+        'version': 'git_revision:00b741b1568d56cf4e117dcb9f70cd42653b4c78',
       }
     ],
     'dep_type': 'cipd',
@@ -75,7 +75,7 @@ deps = {
     'packages': [
       {
         'package': 'gn/gn/windows-amd64',
-        'version': 'git_revision:5705e56a0e5856621415cfdf444432554e72c9c9',
+        'version': 'git_revision:00b741b1568d56cf4e117dcb9f70cd42653b4c78',
       }
     ],
     'dep_type': 'cipd',

@@ -463,24 +463,7 @@ int SimulcastEncoderAdapter::Encode(
 
   // All active streams should generate a key frame if
   // a key frame is requested by any stream.
-  bool is_keyframe_needed = false;
-  if (frame_types) {
-    for (const auto& frame_type : *frame_types) {
-      if (frame_type == VideoFrameType::kVideoFrameKey) {
-        is_keyframe_needed = true;
-        break;
-      }
-    }
-  }
-
-  if (!is_keyframe_needed) {
-    for (const auto& layer : stream_contexts_) {
-      if (layer.is_keyframe_needed()) {
-        is_keyframe_needed = true;
-        break;
-      }
-    }
-  }
+  // TODO: verify this assumption is now made by callers.
 
   // Temporary thay may hold the result of texture to i420 buffer conversion.
   rtc::scoped_refptr<VideoFrameBuffer> src_buffer;
@@ -502,9 +485,18 @@ int SimulcastEncoderAdapter::Encode(
     // Otherwise a single per-encoder frame type is passed.
     std::vector<VideoFrameType> stream_frame_types(
         bypass_mode_ ? total_streams_count_ : 1);
-    if (is_keyframe_needed) {
+    if (layer.is_keyframe_needed()) {
+      // This is legacy behavior, generating a keyframe on all layers
+      // when generating one for a new layer.
       std::fill(stream_frame_types.begin(), stream_frame_types.end(),
                 VideoFrameType::kVideoFrameKey);
+      layer.OnKeyframe(frame_timestamp);
+    } else if (frame_types && (*frame_types)[layer.stream_idx()] ==
+                                  VideoFrameType::kVideoFrameKey) {
+      std::fill(stream_frame_types.begin(), stream_frame_types.end(),
+                VideoFrameType::kVideoFrameDelta);
+      stream_frame_types[bypass_mode_ ? layer.stream_idx() : 0] =
+          VideoFrameType::kVideoFrameKey;
       layer.OnKeyframe(frame_timestamp);
     } else {
       if (layer.ShouldDropFrame(frame_timestamp)) {

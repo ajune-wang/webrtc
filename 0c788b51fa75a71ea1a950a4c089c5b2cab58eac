@@ -215,6 +215,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "c9cfb7e5_4609631a",
+        "filename": "modules/audio_processing/agc/agc_manager_direct.h",
+        "patchSetId": 15
+      },
+      "lineNbr": 197,
+      "author": {
+        "id": 5125
+      },
+      "writtenOn": "2022-09-01T12:03:53Z",
+      "side": 1,
+      "message": "Sorry for being picky here, but I don\u0027t think it is the same.\n\nThe behavior is very much defined by the code, but it clearly gives the unwanted result.\n\nIn contrast, taking the shifting a negative signed value in C++ is something that definitely is undefined.\n\nAnother way to see it is that I think it is better to tell users how to do things right, than how not to do things.",
+      "parentUuid": "537f4185_1b7b611e",
+      "range": {
+        "startLine": 196,
+        "startChar": 35,
+        "endLine": 197,
+        "endChar": 24
+      },
+      "revId": "0c788b51fa75a71ea1a950a4c089c5b2cab58eac",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "2522c1e0_5ebc7f0f",
         "filename": "modules/audio_processing/agc/agc_manager_direct.h",
         "patchSetId": 15

@@ -34,6 +34,24 @@
       "parentUuid": "e9eeed43_3c9b4516",
       "revId": "11355b7e04e6d24983b1c21160900b00829f4c7b",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "f1ec5685_afacdd0a",
+        "filename": "pc/sdp_offer_answer.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 1495,
+      "author": {
+        "id": 19549
+      },
+      "writtenOn": "2022-09-01T13:41:47Z",
+      "side": 1,
+      "message": "Thanks for checking my timing concern!",
+      "parentUuid": "3489eb42_50adee6d",
+      "revId": "11355b7e04e6d24983b1c21160900b00829f4c7b",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "e9eeed43_3c9b4516",
+        "filename": "pc/sdp_offer_answer.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 1495,
+      "author": {
+        "id": 19549
+      },
+      "writtenOn": "2022-09-01T12:15:11Z",
+      "side": 1,
+      "message": "should ClearStatsCache call legacy_stats()-\u003eInvalidateCache() and we can stop exposing legacy_stats()?",
+      "revId": "11355b7e04e6d24983b1c21160900b00829f4c7b",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

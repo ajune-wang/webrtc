@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "ba3c44d3_e47deca0",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 18
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5122
+      },
+      "writtenOn": "2022-09-01T13:08:43Z",
+      "side": 1,
+      "message": "And one more patch set! Hopefully no major changes will be added.",
+      "revId": "c180c46f3d24f6198b6ecf23a3d53ca37cbd807c",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

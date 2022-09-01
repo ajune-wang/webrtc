@@ -237,6 +237,30 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "d2674d4a_35868483",
+        "filename": "modules/audio_processing/agc/agc_manager_direct.h",
+        "patchSetId": 15
+      },
+      "lineNbr": 197,
+      "author": {
+        "id": 5122
+      },
+      "writtenOn": "2022-09-01T13:17:18Z",
+      "side": 1,
+      "message": "\u003e Another way to see it is that I think it is better to tell users how to do things right, than how not to do things.\n\nGood point. I\u0027ll then rephrase everywhere.",
+      "parentUuid": "c9cfb7e5_4609631a",
+      "range": {
+        "startLine": 196,
+        "startChar": 35,
+        "endLine": 197,
+        "endChar": 24
+      },
+      "revId": "0c788b51fa75a71ea1a950a4c089c5b2cab58eac",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "2522c1e0_5ebc7f0f",

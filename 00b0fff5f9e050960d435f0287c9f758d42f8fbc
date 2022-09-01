@@ -72,6 +72,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "4889dde3_664dcec7",
+        "filename": "modules/desktop_capture/desktop_capture_types.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 18,
+      "author": {
+        "id": 19629
+      },
+      "writtenOn": "2022-09-01T18:32:16Z",
+      "side": 1,
+      "message": "Right now kScreen would do but CRD can switch to use window capturer later if we have to capture just a window.",
+      "parentUuid": "95e3d48b_5cf34b53",
+      "revId": "00b0fff5f9e050960d435f0287c9f758d42f8fbc",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "13efb9a8_d654c976",
         "filename": "modules/desktop_capture/linux/wayland/base_capturer_pipewire.cc",
         "patchSetId": 1

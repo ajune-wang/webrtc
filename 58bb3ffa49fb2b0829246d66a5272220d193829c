@@ -54,6 +54,42 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "0f2cfb27_529699fe",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 16
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5023
+      },
+      "writtenOn": "2022-09-02T13:48:11Z",
+      "side": 1,
+      "message": "This class is meant as a general purpose time series exporter, which is not necessarily tied to perf test output. But if you were considering defining a general purpose time series proto that could be used outside perf tests, I\u0027d be happy to use that instead!",
+      "parentUuid": "269a23c1_69ed9ddc",
+      "revId": "58bb3ffa49fb2b0829246d66a5272220d193829c",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "ebffcc86_cde8e307",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 16
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5023
+      },
+      "writtenOn": "2022-09-02T13:48:11Z",
+      "side": 1,
+      "message": "It\u0027s meant to be used in local dev builds, but it\u0027s not meant to be used in checked in code.\n\nMarking it `testonly` would make sense conceptually, but it\u0027s not possible since the class could be used from any target, i.e. non-`testonly` targets too.\n\nI don\u0027t have any strong feelings about including the class in `api/` or not, but not doing it would mean that downstream code would have to reach directly into `rtc_base` to use this class. That might be ok? That is indeed the current situation for reading the .proto...",
+      "parentUuid": "baa1561f_6b77d490",
+      "revId": "58bb3ffa49fb2b0829246d66a5272220d193829c",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "2644c122_3985ab03",
         "filename": "api/numerics/time_series_set_exporter.h",
         "patchSetId": 16
@@ -65,6 +101,30 @@
       "writtenOn": "2022-09-02T13:26:57Z",
       "side": 1,
       "message": "Nit: alito@ is migrating WebRTC to absl::string_view, I am not sure this includes API as well but in such case these might be string_views?",
+      "range": {
+        "startLine": 30,
+        "startChar": 25,
+        "endLine": 30,
+        "endChar": 43
+      },
+      "revId": "58bb3ffa49fb2b0829246d66a5272220d193829c",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "b529be9f_5ae4fc8d",
+        "filename": "api/numerics/time_series_set_exporter.h",
+        "patchSetId": 16
+      },
+      "lineNbr": 30,
+      "author": {
+        "id": 5023
+      },
+      "writtenOn": "2022-09-02T13:48:11Z",
+      "side": 1,
+      "message": "I tried that first, but since this argument is used as a key in the `std::unordered_map`, I would then need to construct a temporary `std::string` for the `operator[]` call. It wasn\u0027t really clear to me whether or not that would go against https://abseil.io/tips/1, so I went with the const ref parameter.\n\nI have no problems changing to `absl::string_view`, if you think that would be better? It would certainly lead to a nicer looking interface.",
+      "parentUuid": "2644c122_3985ab03",
       "range": {
         "startLine": 30,
         "startChar": 25,

@@ -18,6 +18,24 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "c0167ed9_9573b5b5",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 3
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 18474
+      },
+      "writtenOn": "2022-09-02T20:37:40Z",
+      "side": 1,
+      "message": "https://crbug.com/1359411\n\nI\u0027d intended to just do this as a fast followup after the roll; but I need a bug to land in WebRTC anyway.",
+      "parentUuid": "100e1b5a_64b5ea82",
+      "revId": "5a271658198d453c8684e372d892e0ef9fb3e9fd",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "4f9ff831_eee1c480",
@@ -31,6 +49,24 @@
       "writtenOn": "2022-09-02T16:43:23Z",
       "side": 1,
       "message": "Do this class need two public constructors that differ only by CaptureType/CaptureSourceType?",
+      "revId": "5a271658198d453c8684e372d892e0ef9fb3e9fd",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "b71b1192_8211ac1d",
+        "filename": "modules/desktop_capture/linux/wayland/screencast_portal.h",
+        "patchSetId": 3
+      },
+      "lineNbr": 92,
+      "author": {
+        "id": 18474
+      },
+      "writtenOn": "2022-09-02T20:37:40Z",
+      "side": 1,
+      "message": "I\u0027ll move the TODO up here; but yes it needs both so I can migrate the Remote Desktop usage from the CaptureSourceType to the CaptureType one and then I can make CaptureSourceType an internal type.",
+      "parentUuid": "4f9ff831_eee1c480",
       "revId": "5a271658198d453c8684e372d892e0ef9fb3e9fd",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }

@@ -177,6 +177,24 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "4aca7f16_8005270e",
+        "filename": "modules/desktop_capture/linux/wayland/base_capturer_pipewire.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 46,
+      "author": {
+        "id": 18474
+      },
+      "writtenOn": "2022-09-02T20:37:40Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "f77ea3dd_7691e437",
+      "revId": "00b0fff5f9e050960d435f0287c9f758d42f8fbc",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "d6c70d21_84074c63",

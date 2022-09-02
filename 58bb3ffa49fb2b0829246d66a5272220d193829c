@@ -160,6 +160,24 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "02695e90_c32904fb",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 16
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5023
+      },
+      "writtenOn": "2022-09-02T14:40:13Z",
+      "side": 1,
+      "message": "Move it to test/. And yes, I removed the interface.",
+      "parentUuid": "ea146a89_caabde13",
+      "revId": "58bb3ffa49fb2b0829246d66a5272220d193829c",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "2644c122_3985ab03",

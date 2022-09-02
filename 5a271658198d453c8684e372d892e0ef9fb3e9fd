@@ -1,0 +1,38 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "100e1b5a_64b5ea82",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 3
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 14134
+      },
+      "writtenOn": "2022-09-02T16:43:23Z",
+      "side": 1,
+      "message": "Looks good, if you plan on cleaning up the constructors in a separate patch then leave a TODO(crbug.com/XXXX).",
+      "revId": "5a271658198d453c8684e372d892e0ef9fb3e9fd",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "4f9ff831_eee1c480",
+        "filename": "modules/desktop_capture/linux/wayland/screencast_portal.h",
+        "patchSetId": 3
+      },
+      "lineNbr": 92,
+      "author": {
+        "id": 14134
+      },
+      "writtenOn": "2022-09-02T16:43:23Z",
+      "side": 1,
+      "message": "Do this class need two public constructors that differ only by CaptureType/CaptureSourceType?",
+      "revId": "5a271658198d453c8684e372d892e0ef9fb3e9fd",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

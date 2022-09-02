@@ -19,6 +19,7 @@
 #include <utility>
 
 #include "absl/algorithm/container.h"
+#include "absl/strings/match.h"
 #include "api/dtls_transport_interface.h"
 #include "api/rtp_parameters.h"
 #include "api/sequence_checker.h"
@@ -668,6 +669,17 @@ RTCError JsepTransportController::ApplyDescription_n(
   return RTCError::OK();
 }
 
+bool CompareCodecParameters(const RtpCodecParameters& a,
+                            const RtpCodecParameters& b) {
+  if (a == b) {
+    return true;
+  } else if (a.kind != b.kind || !absl::EqualsIgnoreCase(a.name, b.name) ||
+             a.clock_rate != b.clock_rate) {
+    return false;
+  }
+  return a.parameters == b.parameters;
+}
+
 RTCError JsepTransportController::ValidateAndMaybeUpdateBundleGroups(
     bool local,
     SdpType type,
@@ -679,6 +691,7 @@ RTCError JsepTransportController::ValidateAndMaybeUpdateBundleGroups(
   // Verify `new_bundle_groups`.
   std::map<std::string, const cricket::ContentGroup*> new_bundle_groups_by_mid;
   for (const cricket::ContentGroup* new_bundle_group : new_bundle_groups) {
+    std::map<int, RtpCodecParameters> payload_to_codec_parameters;
     for (const std::string& content_name : new_bundle_group->content_names()) {
       // The BUNDLE group must not contain a MID that is a member of a different
       // BUNDLE group, or that contains the same MID multiple times.
@@ -691,10 +704,64 @@ RTCError JsepTransportController::ValidateAndMaybeUpdateBundleGroups(
       new_bundle_groups_by_mid.insert(
           std::make_pair(content_name, new_bundle_group));
       // The BUNDLE group must not contain a MID that no m= section has.
-      if (!description->GetContentByName(content_name)) {
+      const cricket::MediaContentDescription* media_description =
+          description->GetContentDescriptionByName(content_name);
+      if (!media_description) {
         return RTCError(RTCErrorType::INVALID_PARAMETER,
                         "A BUNDLE group contains a MID='" + content_name +
                             "' matching no m= section.");
+      }
+      // https://www.rfc-editor.org/rfc/rfc8843#name-payload-type-pt-value-reuse
+      // ... all codecs associated with the payload type number MUST share an
+      // identical codec configuration. This means that the codecs MUST share
+      // the same media type, encoding name, clock rate, and any parameter
+      // that can affect the codec configuration and packetization.
+      if (!media_description->has_codecs()) {
+        continue;
+      }
+      const auto type = media_description->type();
+      if (type == cricket::MEDIA_TYPE_AUDIO) {
+        const auto audio_description = media_description->as_audio();
+        RTC_DCHECK(audio_description);
+        for (const auto& codec : audio_description->codecs()) {
+          auto existing_codec_parameters =
+              payload_to_codec_parameters.find(codec.id);
+          if (existing_codec_parameters != payload_to_codec_parameters.end()) {
+            if (!CompareCodecParameters(codec.ToCodecParameters(),
+                                        existing_codec_parameters->second)) {
+              return RTCError(RTCErrorType::INVALID_PARAMETER,
+                              "A BUNDLE group contains a codec collision for "
+                              "payload_type='" +
+                                  rtc::ToString(codec.id) +
+                                  ". All codecs must share the same type, "
+                                  "encoding name, clock rate and parameters.");
+            }
+          } else {
+            payload_to_codec_parameters.insert(
+                std::make_pair(codec.id, codec.ToCodecParameters()));
+          }
+        }
+      } else if (type == cricket::MEDIA_TYPE_VIDEO) {
+        const auto video_description = media_description->as_video();
+        RTC_DCHECK(video_description);
+        for (const auto& codec : video_description->codecs()) {
+          auto existing_codec_parameters =
+              payload_to_codec_parameters.find(codec.id);
+          if (existing_codec_parameters != payload_to_codec_parameters.end()) {
+            if (!CompareCodecParameters(codec.ToCodecParameters(),
+                                        existing_codec_parameters->second)) {
+              return RTCError(RTCErrorType::INVALID_PARAMETER,
+                              "A BUNDLE group contains a codec collision for "
+                              "payload_type='" +
+                                  rtc::ToString(codec.id) +
+                                  ". All codecs must share the same type, "
+                                  "encoding name and clock rate.");
+            }
+          } else {
+            payload_to_codec_parameters.insert(
+                std::make_pair(codec.id, codec.ToCodecParameters()));
+          }
+        }
       }
     }
   }

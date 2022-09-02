@@ -302,6 +302,7 @@ rtc_source_set("jsep_transport_controller") {
   ]
   absl_deps = [
     "//third_party/abseil-cpp/absl/algorithm:container",
+    "//third_party/abseil-cpp/absl/strings",
     "//third_party/abseil-cpp/absl/types:optional",
   ]
 }
@@ -2060,6 +2061,7 @@ if (rtc_include_tests && !build_with_chromium) {
       ":srtp_transport",
       ":used_ids",
       ":video_rtp_receiver",
+      ":webrtc_sdp",
       "../api:array_view",
       "../api:audio_options_api",
       "../api:candidate",

@@ -640,6 +640,7 @@ if (rtc_include_tests && !build_with_chromium) {
       "../rtc_base:rtc_task_queue",
       "../rtc_base/synchronization:mutex",
       "../rtc_base/system:file_wrapper",
+      "numerics:test_numerics_unittests",
       "pc/e2e:e2e_unittests",
       "peer_scenario/tests",
       "scenario:scenario_unittests",

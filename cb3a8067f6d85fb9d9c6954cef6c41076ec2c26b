@@ -33,6 +33,24 @@
       "message": "+Elad - should we start removing code relating to lntf? (bugs.webrtc.org/10662)",
       "revId": "cb3a8067f6d85fb9d9c6954cef6c41076ec2c26b",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "45c75497_4d81a395",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 12
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5677
+      },
+      "writtenOn": "2022-09-02T20:50:31Z",
+      "side": 1,
+      "message": "Sorry for the late reply - this CL was hiding in my backlog after an extended vacation. I\u0027ll respond by email.",
+      "parentUuid": "50c52d22_666299d3",
+      "revId": "cb3a8067f6d85fb9d9c6954cef6c41076ec2c26b",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ],
   "submitRequirementResults": [

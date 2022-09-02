@@ -268,6 +268,92 @@ TEST(AudioProcessingImplTest,
       << "Frame should be amplified.";
 }
 
+#if GTEST_HAS_DEATH_TEST && !defined(WEBRTC_ANDROID)
+// Checks that APM crashes when the applied input volume is not set, but the
+// recommended input volume is read.
+TEST(AudioProcessingImplTest, CrashWhenInputVolumeUnsetButRead) {
+  rtc::scoped_refptr<AudioProcessing> apm =
+      AudioProcessingBuilderForTesting().Create();
+
+  constexpr int kSampleRateHz = 48000;
+  constexpr int16_t kAudioLevel = 10000;
+  constexpr size_t kNumChannels = 2;
+
+  std::array<int16_t, kNumChannels * kSampleRateHz / 100> frame;
+  StreamConfig config(kSampleRateHz, kNumChannels);
+  frame.fill(kAudioLevel);
+
+  apm->ProcessStream(frame.data(), config, config, frame.data());
+  EXPECT_DEATH(apm->recommended_stream_analog_level(),
+               "set_stream_analog_level has not been called");
+}
+
+// Checks that APM crashes when the applied input volume is never set, but the
+// recommended input volume is read.
+TEST(AudioProcessingImplTest, CrashWhenInputVolumeNeverSetButRead) {
+  rtc::scoped_refptr<AudioProcessing> apm =
+      AudioProcessingBuilderForTesting().Create();
+
+  constexpr int kSampleRateHz = 48000;
+  constexpr int16_t kAudioLevel = 10000;
+  constexpr size_t kNumChannels = 2;
+
+  std::array<int16_t, kNumChannels * kSampleRateHz / 100> frame;
+  StreamConfig config(kSampleRateHz, kNumChannels);
+  frame.fill(kAudioLevel);
+
+  // Differently from `CrashWhenInputVolumeUnsetButRead`, multiple
+  // `ProcessStream()` calls take place before the recommended input volume is
+  // retrieved.
+  apm->ProcessStream(frame.data(), config, config, frame.data());
+  apm->ProcessStream(frame.data(), config, config, frame.data());
+  apm->ProcessStream(frame.data(), config, config, frame.data());
+  EXPECT_DEATH(apm->recommended_stream_analog_level(),
+               "set_stream_analog_level has not been called");
+}
+#endif  //  GTEST_HAS_DEATH_TEST && !defined(WEBRTC_ANDROID)
+
+// Checks that APM does not crash when the applied input volume is not set and
+// the recommended input volume is never read.
+TEST(AudioProcessingImplTest, DoNotCrashWhenInputVolumeUnsetAndNeverRead) {
+  rtc::scoped_refptr<AudioProcessing> apm =
+      AudioProcessingBuilderForTesting().Create();
+
+  constexpr int kSampleRateHz = 48000;
+  constexpr int16_t kAudioLevel = 10000;
+  constexpr size_t kNumChannels = 2;
+
+  std::array<int16_t, kNumChannels * kSampleRateHz / 100> frame;
+  StreamConfig config(kSampleRateHz, kNumChannels);
+  frame.fill(kAudioLevel);
+
+  apm->ProcessStream(frame.data(), config, config, frame.data());
+  apm->ProcessStream(frame.data(), config, config, frame.data());
+}
+
+// Checks that APM does not crash when the applied input volume is set and the
+// recommended input volume is read.
+TEST(AudioProcessingImplTest, DoNotCrashWhenInputVolumeSetAndRead) {
+  rtc::scoped_refptr<AudioProcessing> apm =
+      AudioProcessingBuilderForTesting().Create();
+
+  constexpr int kSampleRateHz = 48000;
+  constexpr int16_t kAudioLevel = 10000;
+  constexpr size_t kNumChannels = 2;
+
+  std::array<int16_t, kNumChannels * kSampleRateHz / 100> frame;
+  StreamConfig config(kSampleRateHz, kNumChannels);
+  frame.fill(kAudioLevel);
+
+  apm->set_stream_analog_level(/*level=*/123);
+  apm->ProcessStream(frame.data(), config, config, frame.data());
+  static_cast<void>(apm->recommended_stream_analog_level());
+
+  apm->set_stream_analog_level(/*level=*/210);
+  apm->ProcessStream(frame.data(), config, config, frame.data());
+  static_cast<void>(apm->recommended_stream_analog_level());
+}
+
 TEST(AudioProcessingImplTest, EchoControllerObservesSetCaptureUsageChange) {
   // Tests that the echo controller observes that the capture usage has been
   // updated.

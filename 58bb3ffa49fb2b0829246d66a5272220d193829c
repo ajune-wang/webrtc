@@ -108,6 +108,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "c71d0bfa_caaad815",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 16
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5023
+      },
+      "writtenOn": "2022-09-02T14:03:21Z",
+      "side": 1,
+      "message": "Works for me. Is it ok to add it with \"visibility \u003d [*]\" there though?",
+      "parentUuid": "0d9913fb_8e50daba",
+      "revId": "58bb3ffa49fb2b0829246d66a5272220d193829c",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "2644c122_3985ab03",
         "filename": "api/numerics/time_series_set_exporter.h",
         "patchSetId": 16
@@ -176,6 +194,30 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "52ab121a_6fa47a50",
+        "filename": "rtc_base/numerics/time_series_set_exporter_impl.cc",
+        "patchSetId": 16
+      },
+      "lineNbr": 35,
+      "author": {
+        "id": 5023
+      },
+      "writtenOn": "2022-09-02T14:03:21Z",
+      "side": 1,
+      "message": "Good idea. Done.",
+      "parentUuid": "2bead63a_7f675fc8",
+      "range": {
+        "startLine": 33,
+        "startChar": 4,
+        "endLine": 35,
+        "endChar": 5
+      },
+      "revId": "58bb3ffa49fb2b0829246d66a5272220d193829c",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "d49efe8c_66d74d14",
@@ -189,6 +231,24 @@
       "writtenOn": "2022-09-02T13:26:57Z",
       "side": 1,
       "message": "Should we delete copy ctor and assignment?",
+      "revId": "58bb3ffa49fb2b0829246d66a5272220d193829c",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "4a9713ea_97bf1a9d",
+        "filename": "rtc_base/numerics/time_series_set_exporter_impl.h",
+        "patchSetId": 16
+      },
+      "lineNbr": 32,
+      "author": {
+        "id": 5023
+      },
+      "writtenOn": "2022-09-02T14:03:21Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "d49efe8c_66d74d14",
       "revId": "58bb3ffa49fb2b0829246d66a5272220d193829c",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }

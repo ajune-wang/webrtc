@@ -1,0 +1,78 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "84a9d72d_4248c420",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 3
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5053
+      },
+      "writtenOn": "2022-09-02T19:56:06Z",
+      "side": 1,
+      "message": "We may want to make this increment an UMA counter instead of blowing up, to see what the impact of this change would be.",
+      "revId": "8c093ea7f55e593f705c76a685e07610b6f97999",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "8e1ee9ea_ffccd004",
+        "filename": "pc/jsep_transport_controller.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 683,
+      "author": {
+        "id": 5053
+      },
+      "writtenOn": "2022-09-02T19:56:06Z",
+      "side": 1,
+      "message": "This method is mostly about making sure the new bundle group(s) agrees with the previous offer and/or answer. I think general SDP validation that only needs to take one description as input should go in \nSdpOfferAnswerHandler::ValidateSessionDescription. Though I\u0027m a bit shocked this kind of validation doesn\u0027t exist somewhere else already...",
+      "range": {
+        "startLine": 683,
+        "startChar": 34,
+        "endLine": 683,
+        "endChar": 68
+      },
+      "revId": "8c093ea7f55e593f705c76a685e07610b6f97999",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "fb647474_01e821cd",
+        "filename": "pc/jsep_transport_controller.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 758,
+      "author": {
+        "id": 5053
+      },
+      "writtenOn": "2022-09-02T19:56:06Z",
+      "side": 1,
+      "message": "and parameters?",
+      "revId": "8c093ea7f55e593f705c76a685e07610b6f97999",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "85511e50_cc22cf54",
+        "filename": "pc/jsep_transport_controller_unittest.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 2706,
+      "author": {
+        "id": 5053
+      },
+      "writtenOn": "2022-09-02T19:56:06Z",
+      "side": 1,
+      "message": "nit: \"BundleRejectsCodecCollisions\"?",
+      "revId": "8c093ea7f55e593f705c76a685e07610b6f97999",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

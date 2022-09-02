@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "b7462bbb_b9264111",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 19
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5527
+      },
+      "writtenOn": "2022-09-02T15:01:17Z",
+      "side": 1,
+      "message": "LGTM,\n\nOne more question for Mirko though: In the spirit of reducing number of build flags, could anything be done about the `WEBRTC_ENABLE_PROTOBUF` defines? Could the buildtarget be conditionally defined based on `rtc_enable_protobuf` instead, or will that not make a meaningful difference in removing this build flag?",
+      "revId": "1c6737332805302ff8a54f215835935e8ac2e5fe",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

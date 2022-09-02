@@ -190,6 +190,7 @@ class TurnEntry : public sigslot::has_slots<> {
   void OnChannelBindSuccess();
   void OnChannelBindError(StunMessage* response, int code);
   void OnChannelBindTimeout();
+  // TODO(solenberg): Replace with call list?
   // Signal sent when TurnEntry is destroyed.
   sigslot::signal1<TurnEntry*> SignalDestroyed;
 
@@ -843,10 +844,6 @@ void TurnPort::ResolveTurnAddress(const rtc::SocketAddress& address) {
                       "TURN host lookup received error.");
       return;
     }
-    // Signal needs both resolved and unresolved address. After signal is sent
-    // we can copy resolved address back into `server_address_`.
-    SignalResolvedServerAddress(this, server_address_.address,
-                                resolved_address);
     server_address_.address = resolved_address;
     PrepareAddress();
   });
@@ -947,8 +944,9 @@ void TurnPort::Close() {
   state_ = STATE_DISCONNECTED;
   // Delete all existing connections; stop sending data.
   DestroyAllConnections();
-
-  SignalTurnPortClosed(this);
+  if (test_callbacks_) {
+    test_callbacks_->OnTurnPortClosed();
+  }
 }
 
 rtc::DiffServCodePoint TurnPort::StunDscpValue() const {
@@ -1288,6 +1286,11 @@ void TurnPort::HandleConnectionDestroyed(Connection* conn) {
                             kTurnPermissionTimeout);
 }
 
+void TurnPort::SetTestCallbacks(TestCallbacks* callbacks) {
+  RTC_DCHECK(!test_callbacks_);
+  test_callbacks_ = callbacks;
+}
+
 bool TurnPort::SetEntryChannelId(const rtc::SocketAddress& address,
                                  int channel_id) {
   TurnEntry* entry = FindEntry(address);
@@ -1595,7 +1598,9 @@ void TurnRefreshRequest::OnResponse(StunMessage* response) {
         SafeTask(port->task_safety_.flag(), [port] { port->Close(); }));
   }
 
-  port_->SignalTurnRefreshResult(port_, TURN_SUCCESS_RESULT_CODE);
+  if (port_->test_callbacks_) {
+    port_->test_callbacks_->OnTurnRefreshResult(TURN_SUCCESS_RESULT_CODE);
+  }
 }
 
 void TurnRefreshRequest::OnErrorResponse(StunMessage* response) {
@@ -1612,7 +1617,9 @@ void TurnRefreshRequest::OnErrorResponse(StunMessage* response) {
                         << rtc::hex_encode(id()) << ", code=" << error_code
                         << ", rtt=" << Elapsed();
     port_->OnRefreshError();
-    port_->SignalTurnRefreshResult(port_, error_code);
+    if (port_->test_callbacks_) {
+      port_->test_callbacks_->OnTurnRefreshResult(error_code);
+    }
   }
 }
 
@@ -1834,8 +1841,10 @@ int TurnEntry::Send(const void* data,
 void TurnEntry::OnCreatePermissionSuccess() {
   RTC_LOG(LS_INFO) << port_->ToString() << ": Create permission for "
                    << ext_addr_.ToSensitiveString() << " succeeded";
-  port_->SignalCreatePermissionResult(port_, ext_addr_,
-                                      TURN_SUCCESS_RESULT_CODE);
+  if (port_->test_callbacks_) {
+    port_->test_callbacks_->OnTurnCreatePermissionResult(
+        TURN_SUCCESS_RESULT_CODE);
+  }
 
   // If `state_` is STATE_BOUND, the permission will be refreshed
   // by ChannelBindRequest.
@@ -1862,8 +1871,9 @@ void TurnEntry::OnCreatePermissionError(StunMessage* response, int code) {
                            "code="
                         << code << "; pruned connection.";
     }
-    // Send signal with error code.
-    port_->SignalCreatePermissionResult(port_, ext_addr_, code);
+  }
+  if (port_->test_callbacks_) {
+    port_->test_callbacks_->OnTurnCreatePermissionResult(code);
   }
 }
 

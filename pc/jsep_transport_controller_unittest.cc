@@ -15,6 +15,7 @@
 #include <utility>
 
 #include "api/dtls_transport_interface.h"
+#include "api/jsep_session_description.h"
 #include "api/transport/enums.h"
 #include "p2p/base/candidate_pair_interface.h"
 #include "p2p/base/dtls_transport_factory.h"
@@ -22,6 +23,7 @@
 #include "p2p/base/fake_ice_transport.h"
 #include "p2p/base/p2p_constants.h"
 #include "p2p/base/transport_info.h"
+#include "pc/webrtc_sdp.h"
 #include "rtc_base/fake_ssl_identity.h"
 #include "rtc_base/gunit.h"
 #include "rtc_base/logging.h"
@@ -2699,6 +2701,121 @@ TEST_F(JsepTransportControllerTest, RollbackAndAddToDifferentBundleGroup) {
   mid3_transport = transport_controller_->GetRtpTransport(kMid3Audio);
   EXPECT_NE(mid1_transport, mid2_transport);
   EXPECT_EQ(mid2_transport, mid3_transport);
+}
+
+TEST_F(JsepTransportControllerTest, BundleRejectsCollisionsAudioVideo) {
+  CreateJsepTransportController(JsepTransportController::Config());
+  std::string sdp =
+      "v=0\r\n"
+      "o=- 0 3 IN IP4 127.0.0.1\r\n"
+      "s=-\r\n"
+      "t=0 0\r\n"
+      "a=group:BUNDLE 0 1\r\n"
+      "a=fingerprint:sha-1 "
+      "4A:AD:B9:B1:3F:82:18:3B:54:02:12:DF:3E:5D:49:6B:19:E5:7C:AB\r\n"
+      "a=setup:actpass\r\n"
+      "a=ice-ufrag:ETEn\r\n"
+      "a=ice-pwd:OtSK0WpNtpUjkY4+86js7Z/l\r\n"
+      "m=audio 9 UDP/TLS/RTP/SAVPF 111\r\n"
+      "c=IN IP4 0.0.0.0\r\n"
+      "a=rtcp-mux\r\n"
+      "a=sendonly\r\n"
+      "a=mid:0\r\n"
+      "a=rtpmap:111 opus/48000/2\r\n"
+      "m=video 9 UDP/TLS/RTP/SAVPF 111\r\n"
+      "c=IN IP4 0.0.0.0\r\n"
+      "a=rtcp-mux\r\n"
+      "a=sendonly\r\n"
+      "a=mid:1\r\n"
+      "a=rtpmap:111 H264/90000\r\n"
+      "a=fmtp:111 "
+      "level-asymmetry-allowed=1;packetization-mode=0;profile-level-id="
+      "42e01f\r\n";
+
+  JsepSessionDescription jdesc(SdpType::kOffer);
+  ASSERT_TRUE(webrtc::SdpDeserialize(sdp, &jdesc, nullptr));
+  EXPECT_FALSE(transport_controller_
+                   ->SetRemoteDescription(SdpType::kOffer, jdesc.description())
+                   .ok());
+}
+
+TEST_F(JsepTransportControllerTest, BundleRejectsCollisionsVideoFmtp) {
+  CreateJsepTransportController(JsepTransportController::Config());
+  std::string sdp =
+      "v=0\r\n"
+      "o=- 0 3 IN IP4 127.0.0.1\r\n"
+      "s=-\r\n"
+      "t=0 0\r\n"
+      "a=group:BUNDLE 0 1\r\n"
+      "a=fingerprint:sha-1 "
+      "4A:AD:B9:B1:3F:82:18:3B:54:02:12:DF:3E:5D:49:6B:19:E5:7C:AB\r\n"
+      "a=setup:actpass\r\n"
+      "a=ice-ufrag:ETEn\r\n"
+      "a=ice-pwd:OtSK0WpNtpUjkY4+86js7Z/l\r\n"
+      "m=video 9 UDP/TLS/RTP/SAVPF 111\r\n"
+      "c=IN IP4 0.0.0.0\r\n"
+      "a=rtcp-mux\r\n"
+      "a=sendonly\r\n"
+      "a=mid:0\r\n"
+      "a=rtpmap:111 H264/90000\r\n"
+      "a=fmtp:111 "
+      "level-asymmetry-allowed=1;packetization-mode=0;profile-level-id="
+      "42e01f\r\n"
+      "m=video 9 UDP/TLS/RTP/SAVPF 111\r\n"
+      "c=IN IP4 0.0.0.0\r\n"
+      "a=rtcp-mux\r\n"
+      "a=sendonly\r\n"
+      "a=mid:1\r\n"
+      "a=rtpmap:111 H264/90000\r\n"
+      "a=fmtp:111 "
+      "level-asymmetry-allowed=1;packetization-mode=1;profile-level-id="
+      "42e01f\r\n";
+
+  JsepSessionDescription jdesc(SdpType::kOffer);
+  ASSERT_TRUE(webrtc::SdpDeserialize(sdp, &jdesc, nullptr));
+  EXPECT_FALSE(transport_controller_
+                   ->SetRemoteDescription(SdpType::kOffer, jdesc.description())
+                   .ok());
+}
+
+TEST_F(JsepTransportControllerTest, BundleCollisionInDifferentBundlesAllowed) {
+  CreateJsepTransportController(JsepTransportController::Config());
+  std::string sdp =
+      "v=0\r\n"
+      "o=- 0 3 IN IP4 127.0.0.1\r\n"
+      "s=-\r\n"
+      "t=0 0\r\n"
+      "a=group:BUNDLE 0\r\n"
+      "a=group:BUNDLE 1\r\n"
+      "a=fingerprint:sha-1 "
+      "4A:AD:B9:B1:3F:82:18:3B:54:02:12:DF:3E:5D:49:6B:19:E5:7C:AB\r\n"
+      "a=setup:actpass\r\n"
+      "a=ice-ufrag:ETEn\r\n"
+      "a=ice-pwd:OtSK0WpNtpUjkY4+86js7Z/l\r\n"
+      "m=video 9 UDP/TLS/RTP/SAVPF 111\r\n"
+      "c=IN IP4 0.0.0.0\r\n"
+      "a=rtcp-mux\r\n"
+      "a=sendonly\r\n"
+      "a=mid:0\r\n"
+      "a=rtpmap:111 H264/90000\r\n"
+      "a=fmtp:111 "
+      "level-asymmetry-allowed=1;packetization-mode=0;profile-level-id="
+      "42e01f\r\n"
+      "m=video 9 UDP/TLS/RTP/SAVPF 111\r\n"
+      "c=IN IP4 0.0.0.0\r\n"
+      "a=rtcp-mux\r\n"
+      "a=sendonly\r\n"
+      "a=mid:1\r\n"
+      "a=rtpmap:111 H264/90000\r\n"
+      "a=fmtp:111 "
+      "level-asymmetry-allowed=1;packetization-mode=1;profile-level-id="
+      "42e01f\r\n";
+
+  JsepSessionDescription jdesc(SdpType::kOffer);
+  ASSERT_TRUE(webrtc::SdpDeserialize(sdp, &jdesc, nullptr));
+  EXPECT_TRUE(transport_controller_
+                  ->SetRemoteDescription(SdpType::kOffer, jdesc.description())
+                  .ok());
 }
 
 }  // namespace webrtc

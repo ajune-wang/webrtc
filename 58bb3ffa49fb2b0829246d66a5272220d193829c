@@ -126,6 +126,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "553391e8_254c4dbe",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 16
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5087
+      },
+      "writtenOn": "2022-09-02T14:10:53Z",
+      "side": 1,
+      "message": "Yes, this was one thing I was wondering about as well.\n\nI think it is fine to remove from api/ and keep in test/ with \"*\" visibility.",
+      "parentUuid": "c71d0bfa_caaad815",
+      "revId": "58bb3ffa49fb2b0829246d66a5272220d193829c",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "2644c122_3985ab03",
         "filename": "api/numerics/time_series_set_exporter.h",
         "patchSetId": 16

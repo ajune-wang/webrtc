@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "3ffc7758_7d5e77d9",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 6
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2022-09-02T16:19:21Z",
+      "side": 1,
+      "message": "Is it ok not to be too safe in tests?\n\nI can also add a DCHECK about the assumption I\u0027m making here.\n(if assumption is wrong, then tsan and msan would catch it, but explicit DCHECK might provide better error message)",
+      "revId": "523e5a67664999c41a420df27b04767ff22282f7",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

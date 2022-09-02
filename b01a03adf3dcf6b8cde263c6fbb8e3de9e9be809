@@ -34,6 +34,24 @@
       "parentUuid": "668dac29_3637c89c",
       "revId": "b01a03adf3dcf6b8cde263c6fbb8e3de9e9be809",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "7e81bec6_3b5173ca",
+        "filename": "pc/jsep_transport_controller.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 680,
+      "author": {
+        "id": 19549
+      },
+      "writtenOn": "2022-09-02T14:23:34Z",
+      "side": 1,
+      "message": "Oh I forgot num_channels because it was not available on the base codec class but after converting to RtpParameters that can be added. Will fix, thank you.\n\nRFC 8843 says \"and any parameter that can affect the codec configuration and packetization\" which may be interpreted as things like packetization-mode and profile covered by IsSameCodecSpecific.\nRFC 8859 says all parameters must be identical...\n\nI don\u0027t think we can use the \u003d\u003d operator directly since that would include ptime and I am not sure about that one.",
+      "parentUuid": "4f404cfb_30846442",
+      "revId": "b01a03adf3dcf6b8cde263c6fbb8e3de9e9be809",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

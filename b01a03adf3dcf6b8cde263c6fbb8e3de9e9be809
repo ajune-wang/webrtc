@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "668dac29_3637c89c",
+        "filename": "pc/jsep_transport_controller.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 680,
+      "author": {
+        "id": 19549
+      },
+      "writtenOn": "2022-09-02T11:50:32Z",
+      "side": 1,
+      "message": "reason I left this a bit more complicated for now is that I think we need to look just at a subset of parameters, in particular the ones being looked at by https://source.chromium.org/chromium/chromium/src/+/main:third_party/webrtc/media/base/codec.cc;l\u003d43;bpv\u003d1;bpt\u003d1?q\u003dissamecodec",
+      "revId": "b01a03adf3dcf6b8cde263c6fbb8e3de9e9be809",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

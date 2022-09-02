@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "e528169a_f079e9ea",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 19549
+      },
+      "writtenOn": "2022-09-02T11:50:32Z",
+      "side": 1,
+      "message": "Taking bets on whether this will have to be reverted because someone does it wrong :-)",
+      "revId": "3f361676b1c4a358c2b8fa6859aba69368949fb4",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

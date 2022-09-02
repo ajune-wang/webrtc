@@ -16,6 +16,23 @@
       "message": "Taking bets on whether this will have to be reverted because someone does it wrong :-)",
       "revId": "3f361676b1c4a358c2b8fa6859aba69368949fb4",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "3fd89716_6e20cb8b",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5142
+      },
+      "writtenOn": "2022-09-02T13:49:31Z",
+      "side": 1,
+      "message": "Overall I like this, but I\u0027d like Taylor to have a look and I left a comment about codec comparison.\n\nHow about when we land this, we wait for it to reach stable (so we know if doesn\u0027t get reverted) before we simplify the RTCCodecStats code? Can set a next action date on a bug so we don\u0027t forget.",
+      "revId": "3f361676b1c4a358c2b8fa6859aba69368949fb4",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

@@ -1,0 +1,29 @@
+syntax = "proto3";
+option optimize_for = LITE_RUNTIME;
+package webrtc.proto;
+
+// Represents a single named time series.
+message TimeSeries {
+  // Name of the time series.
+  string name = 1;
+
+  // List of timestamps containing the sampling time (in microseconds) of the
+  // entries in `values` and `annotations`.
+  repeated int64 timestamps_us = 2;
+
+  // List of values, sampled at the corresponding time in `timestamps_us`.
+  repeated double values = 3;
+
+  // List of value annotations, corresponding to the value in `values`.
+  // This can be used to provide extra information about the sample.
+  repeated string annotations = 4;
+}
+
+// Represents a named set of time series.
+message TimeSeriesSet {
+  // Name of the set.
+  string name = 1;
+
+  // List of time series.
+  repeated TimeSeries timeseries = 2;
+}

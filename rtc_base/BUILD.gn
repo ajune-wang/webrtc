@@ -9,6 +9,10 @@
 import("//third_party/google_benchmark/buildconfig.gni")
 import("../webrtc.gni")
 
+if (rtc_enable_protobuf) {
+  import("//third_party/protobuf/proto_library.gni")
+}
+
 if (is_android) {
   import("//build/config/android/config.gni")
   import("//build/config/android/rules.gni")
@@ -773,6 +777,36 @@ rtc_library("rtc_numerics") {
     ":mod_ops",
   ]
   absl_deps = [ "//third_party/abseil-cpp/absl/types:optional" ]
+}
+
+if (rtc_enable_protobuf) {
+  proto_library("time_series_proto") {
+    visibility = [ "*" ]
+    sources = [ "numerics/time_series.proto" ]
+  }
+}
+
+rtc_library("time_series_set_exporter_impl") {
+  sources = [
+    "numerics/time_series_set_exporter_impl.cc",
+    "numerics/time_series_set_exporter_impl.h",
+  ]
+  deps = [
+    ":checks",
+    ":logging",
+    ":stringutils",
+    "../api/numerics",
+    "../api/numerics:time_series_set_exporter",
+    "../api/units:timestamp",
+    "system:file_wrapper",
+  ]
+  if (rtc_enable_protobuf) {
+    deps += [
+      ":protobuf_utils",
+      ":time_series_proto",
+    ]
+  }
+  absl_deps = [ "//third_party/abseil-cpp/absl/strings" ]
 }
 
 rtc_library("rtc_stats_counters") {
@@ -1689,12 +1723,23 @@ if (rtc_include_tests) {
         "numerics/percentile_filter_unittest.cc",
         "numerics/running_statistics_unittest.cc",
         "numerics/sequence_number_util_unittest.cc",
+        "numerics/time_series_set_exporter_unittest.cc",
       ]
       deps = [
         ":rtc_numerics",
+        "../api/numerics:time_series_set_exporter",
+        "../api/numerics:time_series_set_exporter_create",
+        "../test:fileutils",
         "../test:test_main",
         "../test:test_support",
+        "system:file_wrapper",
       ]
+      if (rtc_enable_protobuf) {
+        deps += [
+          ":protobuf_utils",
+          ":time_series_proto",
+        ]
+      }
       absl_deps = [ "//third_party/abseil-cpp/absl/algorithm:container" ]
     }
 

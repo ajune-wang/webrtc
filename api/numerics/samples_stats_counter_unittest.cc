@@ -16,6 +16,7 @@
 #include <vector>
 
 #include "absl/algorithm/container.h"
+#include "api/units/timestamp.h"
 #include "test/gtest.h"
 
 namespace webrtc {
@@ -212,6 +213,19 @@ TEST(SamplesStatsCounterTest, Divide) {
   EXPECT_DOUBLE_EQ(stats.GetMin(), 10.0);
   EXPECT_DOUBLE_EQ(stats.GetMax(), 100.0);
   EXPECT_DOUBLE_EQ(stats.GetAverage(), 55.0);
+}
+
+TEST(SamplesStatsCounterTest, TimedSampleWithAnnotation) {
+  SamplesStatsCounter stats;
+  stats.AddSample(
+      {.value = 1.0, .time = Timestamp::Millis(1), .annotation = "a"});
+
+  rtc::ArrayView<const SamplesStatsCounter::StatsSample> samples =
+      stats.GetTimedSamples();
+  ASSERT_EQ(samples.size(), 1u);
+  EXPECT_EQ(samples[0].value, 1.0);
+  EXPECT_EQ(samples[0].time, Timestamp::Millis(1));
+  EXPECT_EQ(samples[0].annotation, "a");
 }
 
 INSTANTIATE_TEST_SUITE_P(SamplesStatsCounterTests,

@@ -18,6 +18,24 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "f8eb5c6d_7d82a051",
+        "filename": "p2p/base/turn_port.h",
+        "patchSetId": 5
+      },
+      "lineNbr": 191,
+      "author": {
+        "id": 5077
+      },
+      "writtenOn": "2022-09-02T14:23:44Z",
+      "side": 1,
+      "message": "Makes sense, I\u0027ve seen that elsewhere. Fixed.",
+      "parentUuid": "fc6cf23e_1e2bc80f",
+      "revId": "8a9f74b923f7f18e729de36eb4d13dba6c6d5d07",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "9d3de815_9cfc8346",
@@ -31,6 +49,24 @@
       "writtenOn": "2022-09-02T14:11:48Z",
       "side": 1,
       "message": "if this can be const then that\u0027d be nice",
+      "revId": "8a9f74b923f7f18e729de36eb4d13dba6c6d5d07",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "1a6aa603_fd70ce71",
+        "filename": "p2p/base/turn_port.h",
+        "patchSetId": 5
+      },
+      "lineNbr": 367,
+      "author": {
+        "id": 5077
+      },
+      "writtenOn": "2022-09-02T14:23:44Z",
+      "side": 1,
+      "message": "It would, however I decided it\u0027s not worth to pollute the c-tor/Create methods for this, since ideally it should go away together with the test refactoring you mention in e.g. stun_request.h:54.",
+      "parentUuid": "9d3de815_9cfc8346",
       "revId": "8a9f74b923f7f18e729de36eb4d13dba6c6d5d07",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }

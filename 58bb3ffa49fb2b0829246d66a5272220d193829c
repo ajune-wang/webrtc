@@ -144,6 +144,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "ea146a89_caabde13",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 16
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5527
+      },
+      "writtenOn": "2022-09-02T14:23:33Z",
+      "side": 1,
+      "message": "In that case I would suggest removing the interface and simply having a single class.",
+      "parentUuid": "553391e8_254c4dbe",
+      "revId": "58bb3ffa49fb2b0829246d66a5272220d193829c",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "2644c122_3985ab03",
         "filename": "api/numerics/time_series_set_exporter.h",
         "patchSetId": 16

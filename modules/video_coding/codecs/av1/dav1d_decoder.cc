@@ -20,6 +20,7 @@
 #include "rtc_base/logging.h"
 #include "third_party/dav1d/libdav1d/include/dav1d/dav1d.h"
 #include "third_party/libyuv/include/libyuv/convert.h"
+#include "third_party/libyuv/include/libyuv/planar_functions.h"
 
 namespace webrtc {
 namespace {
@@ -69,6 +70,62 @@ class ScopedDav1dPicture {
 };
 
 constexpr char kDav1dName[] = "dav1d";
+
+rtc::scoped_refptr<VideoFrameBuffer> CopyI420FrameData(
+    VideoFrameBufferPool& buffer_pool,
+    const Dav1dPicture& dav1d_picture) {
+  rtc::scoped_refptr<I420Buffer> buffer =
+      buffer_pool.CreateI420Buffer(dav1d_picture.p.w, dav1d_picture.p.h);
+  if (!buffer.get()) {
+    RTC_LOG(LS_ERROR)
+        << "Dav1dDecoder::Decode failed to get frame from the buffer pool.";
+    return nullptr;
+  }
+
+  uint8_t* y_data = static_cast<uint8_t*>(dav1d_picture.data[0]);
+  uint8_t* u_data = static_cast<uint8_t*>(dav1d_picture.data[1]);
+  uint8_t* v_data = static_cast<uint8_t*>(dav1d_picture.data[2]);
+  int y_stride = dav1d_picture.stride[0];
+  int uv_stride = dav1d_picture.stride[1];
+  libyuv::I420Copy(y_data, y_stride,                           //
+                   u_data, uv_stride,                          //
+                   v_data, uv_stride,                          //
+                   buffer->MutableDataY(), buffer->StrideY(),  //
+                   buffer->MutableDataU(), buffer->StrideU(),  //
+                   buffer->MutableDataV(), buffer->StrideV(),  //
+                   dav1d_picture.p.w,                          //
+                   dav1d_picture.p.h);                         //
+
+  return buffer;
+}
+
+rtc::scoped_refptr<VideoFrameBuffer> CopyI444FrameData(
+    VideoFrameBufferPool& buffer_pool,
+    const Dav1dPicture& dav1d_picture) {
+  rtc::scoped_refptr<I444Buffer> buffer =
+      buffer_pool.CreateI444Buffer(dav1d_picture.p.w, dav1d_picture.p.h);
+  if (!buffer.get()) {
+    RTC_LOG(LS_ERROR)
+        << "Dav1dDecoder::Decode failed to get frame from the buffer pool.";
+    return nullptr;
+  }
+
+  uint8_t* y_data = static_cast<uint8_t*>(dav1d_picture.data[0]);
+  uint8_t* u_data = static_cast<uint8_t*>(dav1d_picture.data[1]);
+  uint8_t* v_data = static_cast<uint8_t*>(dav1d_picture.data[2]);
+  int y_stride = dav1d_picture.stride[0];
+  int uv_stride = dav1d_picture.stride[1];
+  libyuv::I444Copy(y_data, y_stride,                           //
+                   u_data, uv_stride,                          //
+                   v_data, uv_stride,                          //
+                   buffer->MutableDataY(), buffer->StrideY(),  //
+                   buffer->MutableDataU(), buffer->StrideU(),  //
+                   buffer->MutableDataV(), buffer->StrideV(),  //
+                   dav1d_picture.p.w,                          //
+                   dav1d_picture.p.h);                         //
+
+  return buffer;
+}
 
 // Calling `dav1d_data_wrap` requires a `free_callback` to be registered.
 void NullFreeCallback(const uint8_t* buffer, void* opaque) {}
@@ -147,33 +204,26 @@ int32_t Dav1dDecoder::Decode(const EncodedImage& encoded_image,
     return WEBRTC_VIDEO_CODEC_ERROR;
   }
 
-  // Only accept I420 pixel format and 8 bit depth.
-  if (dav1d_picture.p.layout != DAV1D_PIXEL_LAYOUT_I420 ||
-      dav1d_picture.p.bpc != 8) {
+  if (dav1d_picture.p.bpc != 8) {
+    // Only accept 8 bit depth.
     return WEBRTC_VIDEO_CODEC_ERROR;
   }
 
-  rtc::scoped_refptr<I420Buffer> buffer =
-      buffer_pool_.CreateI420Buffer(dav1d_picture.p.w, dav1d_picture.p.h);
-  if (!buffer.get()) {
-    RTC_LOG(LS_WARNING)
-        << "Dav1dDecoder::Decode failed to get frame from the buffer pool.";
+  rtc::scoped_refptr<VideoFrameBuffer> buffer;
+  if (dav1d_picture.p.layout == DAV1D_PIXEL_LAYOUT_I420) {
+    buffer = CopyI420FrameData(buffer_pool_, dav1d_picture);
+    if (!buffer.get()) {
+      return WEBRTC_VIDEO_CODEC_ERROR;
+    }
+  } else if (dav1d_picture.p.layout == DAV1D_PIXEL_LAYOUT_I444) {
+    buffer = CopyI444FrameData(buffer_pool_, dav1d_picture);
+    if (!buffer.get()) {
+      return WEBRTC_VIDEO_CODEC_ERROR;
+    }
+  } else {
+    // Only accept I420 or I444 pixel format.
     return WEBRTC_VIDEO_CODEC_ERROR;
   }
-
-  uint8_t* y_data = static_cast<uint8_t*>(dav1d_picture.data[0]);
-  uint8_t* u_data = static_cast<uint8_t*>(dav1d_picture.data[1]);
-  uint8_t* v_data = static_cast<uint8_t*>(dav1d_picture.data[2]);
-  int y_stride = dav1d_picture.stride[0];
-  int uv_stride = dav1d_picture.stride[1];
-  libyuv::I420Copy(y_data, y_stride,                           //
-                   u_data, uv_stride,                          //
-                   v_data, uv_stride,                          //
-                   buffer->MutableDataY(), buffer->StrideY(),  //
-                   buffer->MutableDataU(), buffer->StrideU(),  //
-                   buffer->MutableDataV(), buffer->StrideV(),  //
-                   dav1d_picture.p.w,                          //
-                   dav1d_picture.p.h);                         //
 
   VideoFrame decoded_frame = VideoFrame::Builder()
                                  .set_video_frame_buffer(buffer)

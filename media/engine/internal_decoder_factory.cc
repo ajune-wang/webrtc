@@ -11,6 +11,7 @@
 #include "media/engine/internal_decoder_factory.h"
 
 #include "absl/strings/match.h"
+#include "api/video_codecs/av1_profile.h"
 #include "api/video_codecs/sdp_video_format.h"
 #include "api/video_codecs/video_codec.h"
 #include "media/base/codec.h"
@@ -53,6 +54,13 @@ std::vector<SdpVideoFormat> InternalDecoderFactory::GetSupportedFormats()
   if (kIsLibaomAv1DecoderSupported ||
       (kDav1dIsIncluded && !field_trial::IsDisabled(kDav1dFieldTrial))) {
     formats.push_back(SdpVideoFormat(cricket::kAv1CodecName));
+  }
+
+  if (kDav1dIsIncluded && !field_trial::IsDisabled(kDav1dFieldTrial)) {
+    // THIS WILL ALLOW WEBRTC TO SUPPORT PROFILE-1.
+    // TODO: MOVE THIS TO A PROPER HELPER FUNCTION LIKE VP9 and H.264 HAVE.
+    formats.push_back(
+        SdpVideoFormat(cricket::kAv1CodecName, {{"profile", "1"}}));
   }
 
   return formats;

@@ -465,8 +465,7 @@ class RTC_LOCKABLE RTC_EXPORT Thread : public webrtc::TaskQueueBase {
     void reheap() { make_heap(c.begin(), c.end(), comp); }
   };
 
-  void DoDelayPost(const Location& posted_from,
-                   int64_t cmsDelay,
+  void DoDelayPost(int64_t cmsDelay,
                    int64_t tstamp,
                    MessageHandler* phandler,
                    uint32_t id,

@@ -34,6 +34,24 @@
       "parentUuid": "b7462bbb_b9264111",
       "revId": "1c6737332805302ff8a54f215835935e8ac2e5fe",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "bcffd0aa_1fe2f998",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 19
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5087
+      },
+      "writtenOn": "2022-09-05T06:35:20Z",
+      "side": 1,
+      "message": "I think it is possible to workaround WEBRTC_ENABLE_PROTOBUF but we still need rtc_enable_protobuf and it is possible that without the macro we will have to structure the code differently, for example include in the build files referring to protos only when rtc_enable_protobuf\u003dtrue, for tests, this sounds easy, we should try of non test code, there we might get into some troubles but with enough refactoring this should be doable.",
+      "parentUuid": "8b7cf624_97fef103",
+      "revId": "1c6737332805302ff8a54f215835935e8ac2e5fe",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

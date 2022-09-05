@@ -1,0 +1,63 @@
+# Copyright (c) 2022 The WebRTC project authors. All Rights Reserved.
+#
+# Use of this source code is governed by a BSD-style license
+# that can be found in the LICENSE file in the root of the source
+# tree. An additional intellectual property rights grant can be found
+# in the file PATENTS.  All contributing project authors may
+# be found in the AUTHORS file in the root of the source tree.
+
+import("../../webrtc.gni")
+
+if (rtc_enable_protobuf) {
+  import("//third_party/protobuf/proto_library.gni")
+}
+
+if (rtc_enable_protobuf) {
+  proto_library("time_series_proto") {
+    visibility = [ "*" ]
+    sources = [ "time_series.proto" ]
+  }
+}
+
+rtc_library("time_series_set_exporter") {
+  visibility = [ "*" ]
+  sources = [
+    "time_series_set_exporter.cc",
+    "time_series_set_exporter.h",
+  ]
+  deps = [
+    "../../api/numerics",
+    "../../api/units:timestamp",
+    "../../rtc_base:checks",
+    "../../rtc_base:logging",
+    "../../rtc_base:stringutils",
+    "../../rtc_base/system:file_wrapper",
+  ]
+  if (rtc_enable_protobuf) {
+    deps += [
+      ":time_series_proto",
+      "../../rtc_base:protobuf_utils",
+    ]
+  }
+  absl_deps = [ "//third_party/abseil-cpp/absl/strings" ]
+}
+
+rtc_library("test_numerics_unittests") {
+  testonly = true
+
+  sources = [ "time_series_set_exporter_unittest.cc" ]
+  deps = [
+    ":time_series_set_exporter",
+    "..:fileutils",
+    "..:test_main",
+    "..:test_support",
+    "../../rtc_base/system:file_wrapper",
+  ]
+  if (rtc_enable_protobuf) {
+    deps += [
+      ":time_series_proto",
+      "../../rtc_base:protobuf_utils",
+    ]
+  }
+  absl_deps = [ "//third_party/abseil-cpp/absl/algorithm:container" ]
+}

@@ -335,6 +335,7 @@ class AudioRtpSender : public DtmfProviderInterface, public RtpSenderBase {
   }
 
   rtc::scoped_refptr<DtmfSenderInterface> GetDtmfSender() const override;
+  void GenerateKeyFrame() override;
 
  protected:
   AudioRtpSender(rtc::Thread* worker_thread,
@@ -394,6 +395,7 @@ class VideoRtpSender : public RtpSenderBase {
   }
 
   rtc::scoped_refptr<DtmfSenderInterface> GetDtmfSender() const override;
+  void GenerateKeyFrame() override;
 
  protected:
   VideoRtpSender(rtc::Thread* worker_thread,

@@ -16,6 +16,23 @@
       "message": "ilya: can you take a high-level look? It seems the WG wants to change from rids to single-rid but I don\u0027t think that is a good idea",
       "revId": "3769063ab0b1c218ed1a0937b772b8dd11ce0806",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "b8f647c7_b442b726",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 17
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5117
+      },
+      "writtenOn": "2022-09-05T09:44:36Z",
+      "side": 1,
+      "message": "For safety, can we split this CL up? The first, uncontroversal one would implement the API but always trigger the keyframes at all the streams.\n\nThe second one would allow per-stream key-frames in some scenarios. It would be easy to revert later.\n\nI\u0027m not having a second thoughts about this whole idea. We also need to be very careful to not break the PLI and FIR processing, since some SFUs might rely on keyframes generated at all streams when they send a key-frame request on any of them.",
+      "revId": "3769063ab0b1c218ed1a0937b772b8dd11ce0806",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

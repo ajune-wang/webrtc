@@ -851,6 +851,22 @@ void Thread::Stop() {
   Join();
 }
 
+void Thread::Invoke(rtc::FunctionView<void()> functor) {
+  TRACE_EVENT0("webrtc", "Thread::Invoke");
+
+  class FunctorMessageHandler : public MessageHandler {
+   public:
+    explicit FunctorMessageHandler(rtc::FunctionView<void()> functor)
+        : functor_(functor) {}
+    void OnMessage(Message* msg) override { functor_(); }
+
+   private:
+    rtc::FunctionView<void()> functor_;
+  } handler(functor);
+
+  Send(/*posted_from=*/{}, &handler, /*id=*/0, /*pdata=*/nullptr);
+}
+
 void Thread::Send(const Location& posted_from,
                   MessageHandler* phandler,
                   uint32_t id,
@@ -939,24 +955,6 @@ void Thread::Send(const Location& posted_from,
   } else {
     done_event->Wait(rtc::Event::kForever);
   }
-}
-
-void Thread::InvokeInternal(const Location& posted_from,
-                            rtc::FunctionView<void()> functor) {
-  TRACE_EVENT2("webrtc", "Thread::Invoke", "src_file", posted_from.file_name(),
-               "src_func", posted_from.function_name());
-
-  class FunctorMessageHandler : public MessageHandler {
-   public:
-    explicit FunctorMessageHandler(rtc::FunctionView<void()> functor)
-        : functor_(functor) {}
-    void OnMessage(Message* msg) override { functor_(); }
-
-   private:
-    rtc::FunctionView<void()> functor_;
-  } handler(functor);
-
-  Send(posted_from, &handler);
 }
 
 // Called by the ThreadManager when being set as the current thread.

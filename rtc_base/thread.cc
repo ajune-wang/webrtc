@@ -530,7 +530,6 @@ void Thread::Post(const Location& posted_from,
   {
     CritScope cs(&crit_);
     Message msg;
-    msg.posted_from = posted_from;
     msg.phandler = phandler;
     msg.message_id = id;
     msg.pdata = pdata;
@@ -544,8 +543,7 @@ void Thread::PostDelayed(const Location& posted_from,
                          MessageHandler* phandler,
                          uint32_t id,
                          MessageData* pdata) {
-  return DoDelayPost(posted_from, delay_ms, TimeAfter(delay_ms), phandler, id,
-                     pdata);
+  return DoDelayPost(delay_ms, TimeAfter(delay_ms), phandler, id, pdata);
 }
 
 void Thread::PostAt(const Location& posted_from,
@@ -553,12 +551,10 @@ void Thread::PostAt(const Location& posted_from,
                     MessageHandler* phandler,
                     uint32_t id,
                     MessageData* pdata) {
-  return DoDelayPost(posted_from, TimeUntil(run_at_ms), run_at_ms, phandler, id,
-                     pdata);
+  return DoDelayPost(TimeUntil(run_at_ms), run_at_ms, phandler, id, pdata);
 }
 
-void Thread::DoDelayPost(const Location& posted_from,
-                         int64_t delay_ms,
+void Thread::DoDelayPost(int64_t delay_ms,
                          int64_t run_at_ms,
                          MessageHandler* phandler,
                          uint32_t id,
@@ -575,7 +571,6 @@ void Thread::DoDelayPost(const Location& posted_from,
   {
     CritScope cs(&crit_);
     Message msg;
-    msg.posted_from = posted_from;
     msg.phandler = phandler;
     msg.message_id = id;
     msg.pdata = pdata;
@@ -644,9 +639,7 @@ void Thread::ClearInternal(MessageHandler* phandler,
 }
 
 void Thread::Dispatch(Message* pmsg) {
-  TRACE_EVENT2("webrtc", "Thread::Dispatch", "src_file",
-               pmsg->posted_from.file_name(), "src_func",
-               pmsg->posted_from.function_name());
+  TRACE_EVENT0("webrtc", "Thread::Dispatch");
   RTC_DCHECK_RUN_ON(this);
   int64_t start_time = TimeMillis();
   pmsg->phandler->OnMessage(pmsg);
@@ -654,8 +647,7 @@ void Thread::Dispatch(Message* pmsg) {
   int64_t diff = TimeDiff(end_time, start_time);
   if (diff >= dispatch_warning_ms_) {
     RTC_LOG(LS_INFO) << "Message to " << name() << " took " << diff
-                     << "ms to dispatch. Posted from: "
-                     << pmsg->posted_from.ToString();
+                     << "ms to dispatch.";
     // To avoid log spew, move the warning limit to only give warning
     // for delays that are larger than the one observed.
     dispatch_warning_ms_ = diff + 1;
@@ -1032,7 +1024,7 @@ void Thread::Delete() {
 void Thread::PostTask(absl::AnyInvocable<void() &&> task) {
   // Though Post takes MessageData by raw pointer (last parameter), it still
   // takes it with ownership.
-  Post(RTC_FROM_HERE, GetAnyInvocableMessageHandler(),
+  Post(/*posted_from=*/{}, GetAnyInvocableMessageHandler(),
        /*id=*/0, new AnyInvocableMessage(std::move(task)));
 }
 
@@ -1047,7 +1039,7 @@ void Thread::PostDelayedHighPrecisionTask(absl::AnyInvocable<void() &&> task,
   int delay_ms = delay.RoundUpTo(webrtc::TimeDelta::Millis(1)).ms<int>();
   // Though PostDelayed takes MessageData by raw pointer (last parameter),
   // it still takes it with ownership.
-  PostDelayed(RTC_FROM_HERE, delay_ms, GetAnyInvocableMessageHandler(),
+  PostDelayed(/*posted_from=*/{}, delay_ms, GetAnyInvocableMessageHandler(),
               /*id=*/0, new AnyInvocableMessage(std::move(task)));
 }
 

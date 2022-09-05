@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "dd7e063e_594552f6",
+        "filename": "test/numerics/time_series.proto",
+        "patchSetId": 21
+      },
+      "lineNbr": 19,
+      "author": {
+        "id": 6337
+      },
+      "writtenOn": "2022-09-05T12:03:54Z",
+      "side": 1,
+      "message": "Maybe have some repeated map\u003cstring, string\u003e here to be able to add more granular annotations for values. I can envision being able to add frame_id for per-frames stats collected by DefaultVideoQualityAnalyzer",
+      "range": {
+        "startLine": 19,
+        "startChar": 2,
+        "endLine": 19,
+        "endChar": 29
+      },
+      "revId": "7f6d9198a88b208584998cc8410a7c50ec6a55b9",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

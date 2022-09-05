@@ -51,6 +51,24 @@
       "parentUuid": "e12198b2_2029af2d",
       "revId": "3769063ab0b1c218ed1a0937b772b8dd11ce0806",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "d3fcbe72_537dda46",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 17
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5524
+      },
+      "writtenOn": "2022-09-05T11:48:22Z",
+      "side": 1,
+      "message": "Ilya, what is your objection to per-stream keyframe requests? Complexity or something else?\nI can see the appeal of not needing to degrade all the streams based on something you have apriori knowledge will be useful on only one of them. I\u0027m not sure why we haven\u0027t moved in this direction for PLI/FIR already, assuming there is legacy baggage there. For a new API there should be no such concerns though?",
+      "parentUuid": "65ad0f12_680b5361",
+      "revId": "3769063ab0b1c218ed1a0937b772b8dd11ce0806",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

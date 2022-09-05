@@ -16,6 +16,7 @@
 #include <cmath>
 
 #include "api/array_view.h"
+#include "api/task_queue/pending_task_safety_flag.h"
 #include "helpers.h"
 #include "modules/audio_device/fine_audio_buffer.h"
 #include "rtc_base/checks.h"
@@ -59,15 +60,6 @@ namespace ios_adm {
 // Can most likely be removed.
 const UInt16 kFixedPlayoutDelayEstimate = 30;
 const UInt16 kFixedRecordDelayEstimate = 30;
-
-enum AudioDeviceMessageType : uint32_t {
-  kMessageTypeInterruptionBegin,
-  kMessageTypeInterruptionEnd,
-  kMessageTypeValidRouteChange,
-  kMessageTypeCanPlayOrRecordChange,
-  kMessageTypePlayoutGlitchDetected,
-  kMessageOutputVolumeChange,
-};
 
 using ios::CheckAndLogError;
 
@@ -124,7 +116,7 @@ AudioDeviceIOS::AudioDeviceIOS(bool bypass_voice_processing)
 AudioDeviceIOS::~AudioDeviceIOS() {
   RTC_DCHECK(thread_checker_.IsCurrent());
   LOGI() << "~dtor" << ios::GetCurrentThreadDescription();
-  thread_->Clear(this);
+  safety_->SetNotAlive();
   Terminate();
   audio_session_observer_ = nil;
 }
@@ -345,31 +337,29 @@ int AudioDeviceIOS::GetRecordAudioParameters(AudioParameters* params) const {
 void AudioDeviceIOS::OnInterruptionBegin() {
   RTC_DCHECK(thread_);
   LOGI() << "OnInterruptionBegin";
-  thread_->Post(RTC_FROM_HERE, this, kMessageTypeInterruptionBegin);
+  thread_->PostTask(SafeTask(safety_, [this] { HandleInterruptionBegin(); }));
 }
 
 void AudioDeviceIOS::OnInterruptionEnd() {
   RTC_DCHECK(thread_);
   LOGI() << "OnInterruptionEnd";
-  thread_->Post(RTC_FROM_HERE, this, kMessageTypeInterruptionEnd);
+  thread_->PostTask(SafeTask(safety_, [this] { HandleInterruptionEnd(); }));
 }
 
 void AudioDeviceIOS::OnValidRouteChange() {
   RTC_DCHECK(thread_);
-  thread_->Post(RTC_FROM_HERE, this, kMessageTypeValidRouteChange);
+  thread_->PostTask(SafeTask(safety_, [this] { HandleValidRouteChange(); }));
 }
 
 void AudioDeviceIOS::OnCanPlayOrRecordChange(bool can_play_or_record) {
   RTC_DCHECK(thread_);
-  thread_->Post(RTC_FROM_HERE,
-                this,
-                kMessageTypeCanPlayOrRecordChange,
-                new rtc::TypedMessageData<bool>(can_play_or_record));
+  thread_->PostTask(SafeTask(
+      safety_, [this, can_play_or_record] { HandleCanPlayOrRecordChange(can_play_or_record); }));
 }
 
 void AudioDeviceIOS::OnChangedOutputVolume() {
   RTC_DCHECK(thread_);
-  thread_->Post(RTC_FROM_HERE, this, kMessageOutputVolumeChange);
+  thread_->PostTask(SafeTask(safety_, [this] { HandleOutputVolumeChange(); }));
 }
 
 OSStatus AudioDeviceIOS::OnDeliverRecordedData(AudioUnitRenderActionFlags* flags,
@@ -464,7 +454,7 @@ OSStatus AudioDeviceIOS::OnGetPlayoutData(AudioUnitRenderActionFlags* flags,
       if (glitch_threshold < 120 && delta_time > 120) {
         RTCLog(@"Glitch warning is ignored. Probably caused by device switch.");
       } else {
-        thread_->Post(RTC_FROM_HERE, this, kMessageTypePlayoutGlitchDetected);
+        thread_->PostTask(SafeTask(safety_, [this] { HandlePlayoutGlitchDetected(); }));
       }
     }
   }
@@ -477,32 +467,6 @@ OSStatus AudioDeviceIOS::OnGetPlayoutData(AudioUnitRenderActionFlags* flags,
       rtc::ArrayView<int16_t>(static_cast<int16_t*>(audio_buffer->mData), num_frames),
       kFixedPlayoutDelayEstimate);
   return noErr;
-}
-
-void AudioDeviceIOS::OnMessage(rtc::Message* msg) {
-  switch (msg->message_id) {
-    case kMessageTypeInterruptionBegin:
-      HandleInterruptionBegin();
-      break;
-    case kMessageTypeInterruptionEnd:
-      HandleInterruptionEnd();
-      break;
-    case kMessageTypeValidRouteChange:
-      HandleValidRouteChange();
-      break;
-    case kMessageTypeCanPlayOrRecordChange: {
-      rtc::TypedMessageData<bool>* data = static_cast<rtc::TypedMessageData<bool>*>(msg->pdata);
-      HandleCanPlayOrRecordChange(data->data());
-      delete data;
-      break;
-    }
-    case kMessageTypePlayoutGlitchDetected:
-      HandlePlayoutGlitchDetected();
-      break;
-    case kMessageOutputVolumeChange:
-      HandleOutputVolumeChange();
-      break;
-  }
 }
 
 void AudioDeviceIOS::HandleInterruptionBegin() {

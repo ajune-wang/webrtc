@@ -14,7 +14,9 @@
 #include <atomic>
 #include <memory>
 
+#include "api/scoped_refptr.h"
 #include "api/sequence_checker.h"
+#include "api/task_queue/pending_task_safety_flag.h"
 #include "audio_session_observer.h"
 #include "modules/audio_device/audio_device_generic.h"
 #include "rtc_base/buffer.h"
@@ -46,8 +48,7 @@ namespace ios_adm {
 // same thread.
 class AudioDeviceIOS : public AudioDeviceGeneric,
                        public AudioSessionObserver,
-                       public VoiceProcessingAudioUnitObserver,
-                       public rtc::MessageHandler {
+                       public VoiceProcessingAudioUnitObserver {
  public:
   explicit AudioDeviceIOS(bool bypass_voice_processing);
   ~AudioDeviceIOS() override;
@@ -158,9 +159,6 @@ class AudioDeviceIOS : public AudioDeviceGeneric,
                             UInt32 bus_number,
                             UInt32 num_frames,
                             AudioBufferList* io_data) override;
-
-  // Handles messages from posts.
-  void OnMessage(rtc::Message* msg) override;
 
   bool IsInterrupted();
 
@@ -301,6 +299,10 @@ class AudioDeviceIOS : public AudioDeviceGeneric,
 
   // Contains the time for when the last output volume change was detected.
   int64_t last_output_volume_change_time_ RTC_GUARDED_BY(thread_checker_);
+
+  // Avoids running pending task after `this` is Terminated.
+  rtc::scoped_refptr<PendingTaskSafetyFlag> safety_ =
+      PendingTaskSafetyFlag::CreateDetached();
 };
 }  // namespace ios_adm
 }  // namespace webrtc

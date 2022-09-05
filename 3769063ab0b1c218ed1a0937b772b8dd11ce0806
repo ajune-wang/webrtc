@@ -69,6 +69,42 @@
       "parentUuid": "65ad0f12_680b5361",
       "revId": "3769063ab0b1c218ed1a0937b772b8dd11ce0806",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "ec257fa6_be342026",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 17
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 19549
+      },
+      "writtenOn": "2022-09-05T12:02:36Z",
+      "side": 1,
+      "message": "There is actually a quite valid use-case for per-layer keyframes in a multiparty scenario. If you have someone new joining that is only prepared to receive the lowest resolution or if you have a single participant switching from a low resolution to a mid resolution you don\u0027t need big keyframes on the high resolution stream.\nIn theory this lowers the number of keyframes and increases the utilization of the available bitrate. How big the effect is in practice is hard to quantify upfront.",
+      "parentUuid": "65ad0f12_680b5361",
+      "revId": "3769063ab0b1c218ed1a0937b772b8dd11ce0806",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "476ba49f_affcb5cb",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 17
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 19549
+      },
+      "writtenOn": "2022-09-05T12:02:36Z",
+      "side": 1,
+      "message": "Agree, we can\u0027t easily change the RTCP behavior. This API is opt-in, if you don\u0027t use it then the current behavior should remain the same.\n\nI want to break the RTCP behavior too but that requires creating an opt-in way in the SDP (probably via an optional argument to the VLA extension) - something to be discussed in webrtc:10615?\n\nWill split out PS 1..9 as a separate CL, that should increase readability quite a bit.",
+      "parentUuid": "b8f647c7_b442b726",
+      "revId": "3769063ab0b1c218ed1a0937b772b8dd11ce0806",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

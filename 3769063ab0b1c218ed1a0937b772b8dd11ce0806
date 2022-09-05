@@ -33,6 +33,24 @@
       "message": "For safety, can we split this CL up? The first, uncontroversal one would implement the API but always trigger the keyframes at all the streams.\n\nThe second one would allow per-stream key-frames in some scenarios. It would be easy to revert later.\n\nI\u0027m not having a second thoughts about this whole idea. We also need to be very careful to not break the PLI and FIR processing, since some SFUs might rely on keyframes generated at all streams when they send a key-frame request on any of them.",
       "revId": "3769063ab0b1c218ed1a0937b772b8dd11ce0806",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "65ad0f12_680b5361",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 17
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5117
+      },
+      "writtenOn": "2022-09-05T09:45:27Z",
+      "side": 1,
+      "message": "If it\u0027s possible to change the spec, I would drop the rids completely and always generate keyframes on all of them.",
+      "parentUuid": "e12198b2_2029af2d",
+      "revId": "3769063ab0b1c218ed1a0937b772b8dd11ce0806",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

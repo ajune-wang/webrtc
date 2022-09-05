@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "48d5f322_e0f7606a",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 19549
+      },
+      "writtenOn": "2022-09-05T08:23:53Z",
+      "side": 1,
+      "message": "I was pondering whether to mark the old variant as deprecated but that is probably better to do as a separate CL?",
+      "revId": "259cd921fa2b559ba8fe8c7e12a911a99d2c11b1",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

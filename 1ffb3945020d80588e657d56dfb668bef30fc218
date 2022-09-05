@@ -1,0 +1,38 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "d9172cc8_feb874f1",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2022-09-05T09:36:28Z",
+      "side": 1,
+      "message": "Though these are the last usages of the MessageHandlerAutoCleanup in webrtc,\ndon\u0027t think I can mark it deprecated because chromium still uses it (just for testing),\nand chromium has strict check against deprecated code.",
+      "revId": "1ffb3945020d80588e657d56dfb668bef30fc218",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "5f9a89ec_2cbc40ed",
+        "filename": "rtc_base/thread_unittest.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 657,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2022-09-05T09:36:28Z",
+      "side": 1,
+      "message": "here MessageHandlerAutoCleanup is de-facto reimplemented,\nremoving these helpers in favor of TaskQueue interface doesn\u0027t make sense because they are testing Thread::Clear function. These two helpers will be removed together with the `Clear` function.",
+      "revId": "1ffb3945020d80588e657d56dfb668bef30fc218",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

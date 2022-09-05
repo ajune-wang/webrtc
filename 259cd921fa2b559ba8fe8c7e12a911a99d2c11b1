@@ -35,6 +35,23 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "386d6f22_45a00d9a",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5142
+      },
+      "writtenOn": "2022-09-05T10:15:18Z",
+      "side": 1,
+      "message": "This is a pure refactoring, right? I.e. the values exposed to JavaScript are identical when building Chrome?",
+      "revId": "259cd921fa2b559ba8fe8c7e12a911a99d2c11b1",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "fee29427_17afbd48",
@@ -48,6 +65,23 @@
       "writtenOn": "2022-09-05T08:57:53Z",
       "side": 1,
       "message": "Mirko: while I mainly need you for the BUILD.gn file you probably know whether it is already safe to tag this as [[deprecated]] which led to local compile failures (and I don\u0027t have any special gn args wrt deprecations)",
+      "revId": "259cd921fa2b559ba8fe8c7e12a911a99d2c11b1",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "4afd4079_08c33bc3",
+        "filename": "api/stats/rtc_stats_report.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 73,
+      "author": {
+        "id": 5142
+      },
+      "writtenOn": "2022-09-05T10:15:18Z",
+      "side": 1,
+      "message": "Also TODO here to remove",
       "revId": "259cd921fa2b559ba8fe8c7e12a911a99d2c11b1",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }

@@ -47,8 +47,8 @@
 #endif
 
 #if RTC_DCHECK_IS_ON
-// Counts how many blocking Thread::Invoke or Thread::Send calls are made from
-// within a scope and logs the number of blocking calls at the end of the scope.
+// Counts how many blocking Thread::Invoke are made from within a scope and logs
+// the number of blocking calls at the end of the scope.
 #define RTC_LOG_THREAD_BLOCK_COUNT()                                        \
   rtc::Thread::ScopedCountBlockingCalls blocked_call_count_printer(         \
       [func = __func__](uint32_t actual_block, uint32_t could_block) {      \
@@ -328,35 +328,31 @@ class RTC_LOCKABLE RTC_EXPORT Thread : public webrtc::TaskQueueBase {
   // ProcessMessages occasionally.
   virtual void Run();
 
-  virtual void Send(const Location& posted_from,
-                    MessageHandler* phandler,
-                    uint32_t id = 0,
-                    MessageData* pdata = nullptr);
-
-  // Convenience method to invoke a functor on another thread.  Caller must
-  // provide the `ReturnT` template argument, which cannot (easily) be deduced.
-  // Uses Send() internally, which blocks the current thread until execution
-  // is complete.
-  // Ex: bool result = thread.Invoke<bool>(RTC_FROM_HERE,
-  // &MyFunctionReturningBool);
+  // Convenience method to invoke a functor on another thread.
+  // Blocks the current thread until execution is complete.
+  // Ex: thread.Invoke([&] { result = MyFunctionReturningBool(); });
   // NOTE: This function can only be called when synchronous calls are allowed.
   // See ScopedDisallowBlockingCalls for details.
   // NOTE: Blocking invokes are DISCOURAGED, consider if what you're doing can
   // be achieved with PostTask() and callbacks instead.
+  virtual void Invoke(FunctionView<void()> functor);
+
+  // Deprecated, use `Invoke` above without `posted_from` parameter instead.
   template <
       class ReturnT,
       typename = typename std::enable_if<!std::is_void<ReturnT>::value>::type>
   ReturnT Invoke(const Location& posted_from, FunctionView<ReturnT()> functor) {
     ReturnT result;
-    InvokeInternal(posted_from, [functor, &result] { result = functor(); });
+    Invoke([functor, &result] { result = functor(); });
     return result;
   }
 
+  // Deprecated, use `Invoke` above without `posted_from` parameter instead.
   template <
       class ReturnT,
       typename = typename std::enable_if<std::is_void<ReturnT>::value>::type>
   void Invoke(const Location& posted_from, FunctionView<void()> functor) {
-    InvokeInternal(posted_from, functor);
+    Invoke(functor);
   }
 
   // Allows invoke to specified `thread`. Thread never will be dereferenced and
@@ -503,12 +499,13 @@ class RTC_LOCKABLE RTC_EXPORT Thread : public webrtc::TaskQueueBase {
  private:
   static const int kSlowDispatchLoggingThreshold = 50;  // 50 ms
 
-  // TODO(bugs.webrtc.org/9702): Delete when chromium stops overriding it.
-  // chromium's ThreadWrapper overrides it just to check it is never called.
-  virtual bool Peek(Message* pmsg, int cms_wait) {
-    RTC_DCHECK_NOTREACHED();
-    return false;
-  }
+  // TODO(bugs.webrtc.org/9702): Delete when derived classes override
+  // BlockingCall instead.
+  virtual void Send(const Location& posted_from,
+                    MessageHandler* phandler,
+                    uint32_t id,
+                    MessageData* pdata);
+
   // Get() will process I/O until:
   //  1) A message is available (returns true)
   //  2) cmsWait seconds have elapsed (returns false)
@@ -538,9 +535,6 @@ class RTC_LOCKABLE RTC_EXPORT Thread : public webrtc::TaskQueueBase {
 
   // Return true if the thread is currently running.
   bool IsRunning();
-
-  void InvokeInternal(const Location& posted_from,
-                      rtc::FunctionView<void()> functor);
 
   // Called by the ThreadManager when being set as the current thread.
   void EnsureIsCurrentTaskQueue();

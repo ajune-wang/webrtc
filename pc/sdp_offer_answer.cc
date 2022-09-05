@@ -436,6 +436,90 @@ RTCError ValidateMids(const cricket::SessionDescription& description) {
   return RTCError::OK();
 }
 
+bool CompareCodecParameters(const RtpCodecParameters& a,
+                            const RtpCodecParameters& b) {
+  if (a == b) {
+    return true;
+  } else if (a.kind != b.kind || !absl::EqualsIgnoreCase(a.name, b.name) ||
+             a.clock_rate != b.clock_rate) {
+    return false;
+  }
+  return a.parameters == b.parameters;
+}
+
+RTCError ValidateBundledPayloadTypes(
+    const cricket::SessionDescription& description) {
+  // https://www.rfc-editor.org/rfc/rfc8843#name-payload-type-pt-value-reuse
+  // ... all codecs associated with the payload type number MUST share an
+  // identical codec configuration. This means that the codecs MUST share
+  // the same media type, encoding name, clock rate, and any parameter
+  // that can affect the codec configuration and packetization.
+  std::map<int, RtpCodecParameters> payload_to_codec_parameters;
+  std::vector<const cricket::ContentGroup*> bundle_groups =
+      description.GetGroupsByName(cricket::GROUP_TYPE_BUNDLE);
+  for (const cricket::ContentGroup* bundle_group : bundle_groups) {
+    std::map<int, RtpCodecParameters> payload_to_codec_parameters;
+    for (const std::string& content_name : bundle_group->content_names()) {
+      const cricket::MediaContentDescription* media_description =
+          description.GetContentDescriptionByName(content_name);
+      if (!media_description) {
+        return RTCError(RTCErrorType::INVALID_PARAMETER,
+                        "A BUNDLE group contains a MID='" + content_name +
+                            "' matching no m= section.");
+      }
+      if (!media_description->has_codecs()) {
+        continue;
+      }
+      const auto type = media_description->type();
+      if (type == cricket::MEDIA_TYPE_AUDIO) {
+        const auto audio_description = media_description->as_audio();
+        RTC_DCHECK(audio_description);
+        for (const auto& codec : audio_description->codecs()) {
+          auto existing_codec_parameters =
+              payload_to_codec_parameters.find(codec.id);
+          if (existing_codec_parameters != payload_to_codec_parameters.end()) {
+            if (!CompareCodecParameters(codec.ToCodecParameters(),
+                                        existing_codec_parameters->second)) {
+              return RTCError(RTCErrorType::INVALID_PARAMETER,
+                              "A BUNDLE group contains a codec collision for "
+                              "payload_type='" +
+                                  rtc::ToString(codec.id) +
+                                  ". All codecs must share the same type, "
+                                  "encoding name, clock rate and parameters.");
+            }
+          } else {
+            payload_to_codec_parameters.insert(
+                std::make_pair(codec.id, codec.ToCodecParameters()));
+          }
+        }
+      } else if (type == cricket::MEDIA_TYPE_VIDEO) {
+        const auto video_description = media_description->as_video();
+        RTC_DCHECK(video_description);
+        for (const auto& codec : video_description->codecs()) {
+          auto existing_codec_parameters =
+              payload_to_codec_parameters.find(codec.id);
+          if (existing_codec_parameters != payload_to_codec_parameters.end()) {
+            if (!CompareCodecParameters(codec.ToCodecParameters(),
+                                        existing_codec_parameters->second)) {
+              return RTCError(RTCErrorType::INVALID_PARAMETER,
+                              "A BUNDLE group contains a codec collision for "
+                              "payload_type='" +
+                                  rtc::ToString(codec.id) +
+                                  ". All codecs must share the same type, "
+                                  "encoding name and clock rate.");
+            }
+          } else {
+            payload_to_codec_parameters.insert(
+                std::make_pair(codec.id, codec.ToCodecParameters()));
+          }
+        }
+      }
+    }
+  }
+
+  return RTCError::OK();
+}
+
 bool IsValidOfferToReceiveMedia(int value) {
   typedef PeerConnectionInterface::RTCOfferAnswerOptions Options;
   return (value >= Options::kUndefined) &&
@@ -3320,6 +3404,12 @@ RTCError SdpOfferAnswerHandler::ValidateSessionDescription(
   // Verify ice-ufrag and ice-pwd.
   if (!VerifyIceUfragPwdPresent(sdesc->description(), bundle_groups_by_mid)) {
     return RTCError(RTCErrorType::INVALID_PARAMETER, kSdpWithoutIceUfragPwd);
+  }
+
+  // Validate bundle, payload types and that there are no collisions.
+  error = ValidateBundledPayloadTypes(*sdesc->description());
+  if (!error.ok()) {
+    return error;
   }
 
   if (!pc_->ValidateBundleSettings(sdesc->description(),

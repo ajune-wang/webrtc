@@ -105,6 +105,24 @@
       "parentUuid": "b8f647c7_b442b726",
       "revId": "3769063ab0b1c218ed1a0937b772b8dd11ce0806",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "85621724_3a1689b7",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 17
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5117
+      },
+      "writtenOn": "2022-09-05T12:47:54Z",
+      "side": 1,
+      "message": "Yes, complexity. It seems that the assumption of key-frame everywhere is running deep. I agree, ideally, key-frames should be per layer if possible. So I won\u0027t object this CL. I just want to do it extra carefully.",
+      "parentUuid": "ec257fa6_be342026",
+      "revId": "3769063ab0b1c218ed1a0937b772b8dd11ce0806",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

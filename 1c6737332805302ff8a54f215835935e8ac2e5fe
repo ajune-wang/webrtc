@@ -16,6 +16,24 @@
       "message": "LGTM,\n\nOne more question for Mirko though: In the spirit of reducing number of build flags, could anything be done about the `WEBRTC_ENABLE_PROTOBUF` defines? Could the buildtarget be conditionally defined based on `rtc_enable_protobuf` instead, or will that not make a meaningful difference in removing this build flag?",
       "revId": "1c6737332805302ff8a54f215835935e8ac2e5fe",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "8b7cf624_97fef103",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 19
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5023
+      },
+      "writtenOn": "2022-09-05T05:32:46Z",
+      "side": 1,
+      "message": "Is the goal to reduce the number of build flags, or to reduce the number of defines? We could get rid of the define using your proposal, but I\u0027m not sure how we could ever get rid of the build flag? Unless we make protobuf a mandatory dependency.",
+      "parentUuid": "b7462bbb_b9264111",
+      "revId": "1c6737332805302ff8a54f215835935e8ac2e5fe",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

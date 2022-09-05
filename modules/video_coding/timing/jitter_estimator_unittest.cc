@@ -17,6 +17,7 @@
 
 #include "absl/types/optional.h"
 #include "api/array_view.h"
+#include "api/field_trials.h"
 #include "api/units/data_size.h"
 #include "api/units/frequency.h"
 #include "api/units/time_delta.h"
@@ -29,9 +30,9 @@
 
 namespace webrtc {
 
-class TestJitterEstimator : public ::testing::Test {
+class JitterEstimatorTest : public ::testing::Test {
  protected:
-  TestJitterEstimator() : fake_clock_(0) {}
+  JitterEstimatorTest() : fake_clock_(0) {}
 
   virtual void SetUp() {
     estimator_ = std::make_unique<JitterEstimator>(&fake_clock_, field_trials_);
@@ -65,7 +66,7 @@ class ValueGenerator {
   int64_t counter_;
 };
 
-TEST_F(TestJitterEstimator, TestLowRate) {
+TEST_F(JitterEstimatorTest, TestLowRate) {
   ValueGenerator gen(10);
   // At 5 fps, we disable jitter delay altogether.
   TimeDelta time_delta = 1 / Frequency::Hertz(5);
@@ -79,7 +80,7 @@ TEST_F(TestJitterEstimator, TestLowRate) {
   }
 }
 
-TEST_F(TestJitterEstimator, RttMultAddCap) {
+TEST_F(JitterEstimatorTest, RttMultAddCap) {
   std::vector<std::pair<TimeDelta, rtc::HistogramPercentileCounter>>
       jitter_by_rtt_mult_cap;
   jitter_by_rtt_mult_cap.emplace_back(
@@ -108,6 +109,30 @@ TEST_F(TestJitterEstimator, RttMultAddCap) {
   // 200ms cap should result in at least 25% higher max compared to 10ms.
   EXPECT_GT(*jitter_by_rtt_mult_cap[1].second.GetPercentile(1.0),
             *jitter_by_rtt_mult_cap[0].second.GetPercentile(1.0) * 1.25);
+}
+
+TEST_F(JitterEstimatorTest, EmptyFieldTrialsParsesToUnsetConfig) {
+  std::unique_ptr<FieldTrials> field_trials = FieldTrials::CreateNoGlobal("");
+  JitterEstimator estimator(&fake_clock_, *field_trials);
+
+  JitterEstimator::Config config = estimator.GetConfigForTest();
+  EXPECT_FALSE(config.num_stddev_delay_outlier.has_value());
+  EXPECT_FALSE(config.num_stddev_size_outlier.has_value());
+  EXPECT_FALSE(config.congestion_rejection_factor.has_value());
+}
+
+TEST_F(JitterEstimatorTest, FieldTrialsParsesCorrectly) {
+  std::unique_ptr<FieldTrials> field_trials = FieldTrials::CreateNoGlobal(
+      "WebRTC-JitterEstimator/"
+      "num_stddev_delay_outlier:2,"
+      "num_stddev_size_outlier:3.1,"
+      "congestion_rejection_factor:-0.55/");
+  JitterEstimator estimator(&fake_clock_, *field_trials);
+
+  JitterEstimator::Config config = estimator.GetConfigForTest();
+  EXPECT_EQ(*config.num_stddev_delay_outlier, 2.0);
+  EXPECT_EQ(*config.num_stddev_size_outlier, 3.1);
+  EXPECT_EQ(*config.congestion_rejection_factor, -0.55);
 }
 
 }  // namespace webrtc

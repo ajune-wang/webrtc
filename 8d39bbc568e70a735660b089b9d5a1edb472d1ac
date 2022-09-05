@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "a6631555_f1870997",
+        "filename": "sdk/android/src/jni/audio_device/aaudio_player.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 92,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2022-09-05T09:19:48Z",
+      "side": 1,
+      "message": "this method was added some time ago to the base class as pure virtual.",
+      "revId": "8d39bbc568e70a735660b089b9d5a1edb472d1ac",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

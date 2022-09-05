@@ -83,6 +83,30 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "e4d45150_f3f03d98",
+        "filename": "pc/jsep_transport_controller.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 683,
+      "author": {
+        "id": 19549
+      },
+      "writtenOn": "2022-09-05T10:05:44Z",
+      "side": 1,
+      "message": "will do a rename and move of ValidateBundleSettings from peer_connection as follow-up.",
+      "parentUuid": "64c354d5_9cb7b2ac",
+      "range": {
+        "startLine": 683,
+        "startChar": 34,
+        "endLine": 683,
+        "endChar": 68
+      },
+      "revId": "8c093ea7f55e593f705c76a685e07610b6f97999",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "fb647474_01e821cd",
@@ -100,6 +124,24 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "ab47127e_dd7ee525",
+        "filename": "pc/jsep_transport_controller.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 758,
+      "author": {
+        "id": 19549
+      },
+      "writtenOn": "2022-09-05T10:05:44Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "fb647474_01e821cd",
+      "revId": "8c093ea7f55e593f705c76a685e07610b6f97999",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "85511e50_cc22cf54",
@@ -113,6 +155,24 @@
       "writtenOn": "2022-09-02T19:56:06Z",
       "side": 1,
       "message": "nit: \"BundleRejectsCodecCollisions\"?",
+      "revId": "8c093ea7f55e593f705c76a685e07610b6f97999",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "7690fdbb_5137fe28",
+        "filename": "pc/jsep_transport_controller_unittest.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 2706,
+      "author": {
+        "id": 19549
+      },
+      "writtenOn": "2022-09-05T10:05:44Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "85511e50_cc22cf54",
       "revId": "8c093ea7f55e593f705c76a685e07610b6f97999",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }

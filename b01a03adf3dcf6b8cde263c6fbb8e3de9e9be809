@@ -106,6 +106,24 @@
       "parentUuid": "97edbb75_e0cc264d",
       "revId": "b01a03adf3dcf6b8cde263c6fbb8e3de9e9be809",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "68b49982_0e0d35e8",
+        "filename": "pc/jsep_transport_controller.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 680,
+      "author": {
+        "id": 5142
+      },
+      "writtenOn": "2022-09-05T10:12:47Z",
+      "side": 1,
+      "message": "How about a method RtpCodecParameters::IsIdenticalPerPT() specifically about testing the IDENTICAL-PER-PT category and documenting these kinds of things (maybe an RFC link the comment)?\n\nI see a risk of custom comparison methods becoming outdated if placed elsewhere than rtp_parameters.h or questions around what does or does not qualify as identical without comments",
+      "parentUuid": "33cca768_b8cf9042",
+      "revId": "b01a03adf3dcf6b8cde263c6fbb8e3de9e9be809",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

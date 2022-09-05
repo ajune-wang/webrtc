@@ -116,6 +116,8 @@ TEST_F(JitterEstimatorTest, EmptyFieldTrialsParsesToUnsetConfig) {
   JitterEstimator estimator(&fake_clock_, *field_trials);
 
   JitterEstimator::Config config = estimator.GetConfigForTest();
+  EXPECT_FALSE(config.max_frame_size_percentile.has_value());
+  EXPECT_FALSE(config.max_frame_size_window.has_value());
   EXPECT_FALSE(config.num_stddev_delay_outlier.has_value());
   EXPECT_FALSE(config.num_stddev_size_outlier.has_value());
   EXPECT_FALSE(config.congestion_rejection_factor.has_value());
@@ -124,12 +126,16 @@ TEST_F(JitterEstimatorTest, EmptyFieldTrialsParsesToUnsetConfig) {
 TEST_F(JitterEstimatorTest, FieldTrialsParsesCorrectly) {
   std::unique_ptr<FieldTrials> field_trials = FieldTrials::CreateNoGlobal(
       "WebRTC-JitterEstimator/"
+      "max_frame_size_percentile:0.95,"
+      "max_frame_size_window:312,"
       "num_stddev_delay_outlier:2,"
       "num_stddev_size_outlier:3.1,"
       "congestion_rejection_factor:-0.55/");
   JitterEstimator estimator(&fake_clock_, *field_trials);
 
   JitterEstimator::Config config = estimator.GetConfigForTest();
+  EXPECT_EQ(*config.max_frame_size_percentile, 0.95);
+  EXPECT_EQ(*config.max_frame_size_window, 312);
   EXPECT_EQ(*config.num_stddev_delay_outlier, 2.0);
   EXPECT_EQ(*config.num_stddev_size_outlier, 3.1);
   EXPECT_EQ(*config.congestion_rejection_factor, -0.55);

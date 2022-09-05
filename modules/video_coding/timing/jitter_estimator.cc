@@ -80,8 +80,9 @@ constexpr Frequency kMaxFramerateEstimate = Frequency::Hertz(200);
 
 JitterEstimator::JitterEstimator(Clock* clock,
                                  const FieldTrialsView& field_trials)
-    : fps_counter_(30),  // TODO(sprang): Use an estimator with limit based on
-                         // time, rather than number of samples.
+    : config_(Config::Parse(field_trials.Lookup(Config::kFieldTrialsKey))),
+      fps_counter_(30),  // TODO(sprang): Use an estimator with limit based
+                         // on time, rather than number of samples.
       clock_(clock) {
   Reset();
 }
@@ -169,12 +170,13 @@ void JitterEstimator::UpdateEstimate(TimeDelta frame_delay,
   // line slope.
   // TODO(brandtr): Look into why there is no mean added to the RHS of the
   // `delay_is_not_outlier` calculation.
-  bool delay_is_not_outlier =
-      fabs(delay_deviation_ms) < kNumStdDevDelayOutlier * sqrt(var_noise_ms2_);
+  double num_stddev_delay_outlier = GetNumStddevDelayOutlier();
+  bool delay_is_not_outlier = fabs(delay_deviation_ms) <
+                              num_stddev_delay_outlier * sqrt(var_noise_ms2_);
   bool size_is_outlier =
       frame_size.bytes() >
       avg_frame_size_bytes_ +
-          kNumStdDevSizeOutlier * sqrt(var_frame_size_bytes2_);
+          GetNumStddevSizeOutlier() * sqrt(var_frame_size_bytes2_);
   if (delay_is_not_outlier || size_is_outlier) {
     // Update the variance of the deviation from the line given by the Kalman
     // filter.
@@ -186,14 +188,14 @@ void JitterEstimator::UpdateEstimate(TimeDelta frame_delay,
     // will be << 0. This removes all frame samples which arrives after a key
     // frame.
     if (delta_frame_bytes >
-        kCongestionRejectionFactor * max_frame_size_bytes_) {
+        GetCongestionRejectionFactor() * max_frame_size_bytes_) {
       // Update the Kalman filter with the new data
       kalman_filter_.PredictAndUpdate(frame_delay.ms(), delta_frame_bytes,
                                       max_frame_size_bytes_, var_noise_ms2_);
     }
   } else {
-    int nStdDev = (delay_deviation_ms >= 0) ? kNumStdDevDelayOutlier
-                                            : -kNumStdDevDelayOutlier;
+    int nStdDev = (delay_deviation_ms >= 0) ? num_stddev_delay_outlier
+                                            : -num_stddev_delay_outlier;
     EstimateRandomJitter(nStdDev * sqrt(var_noise_ms2_));
   }
   // Post process the total estimated jitter
@@ -210,6 +212,27 @@ void JitterEstimator::FrameNacked() {
     nack_count_++;
   }
   latest_nack_ = clock_->CurrentTime();
+}
+
+void JitterEstimator::UpdateRtt(TimeDelta rtt) {
+  rtt_filter_.Update(rtt);
+}
+
+JitterEstimator::Config JitterEstimator::GetConfigForTest() const {
+  return config_;
+}
+
+double JitterEstimator::GetNumStddevDelayOutlier() const {
+  return config_.num_stddev_delay_outlier.value_or(kNumStdDevDelayOutlier);
+}
+
+double JitterEstimator::GetNumStddevSizeOutlier() const {
+  return config_.num_stddev_size_outlier.value_or(kNumStdDevSizeOutlier);
+}
+
+double JitterEstimator::GetCongestionRejectionFactor() const {
+  return config_.congestion_rejection_factor.value_or(
+      kCongestionRejectionFactor);
 }
 
 // Estimates the random jitter by calculating the variance of the sample
@@ -292,10 +315,6 @@ TimeDelta JitterEstimator::CalculateEstimate() {
 
 void JitterEstimator::PostProcessEstimate() {
   filter_jitter_estimate_ = CalculateEstimate();
-}
-
-void JitterEstimator::UpdateRtt(TimeDelta rtt) {
-  rtt_filter_.Update(rtt);
 }
 
 // Returns the current filtered estimate if available,

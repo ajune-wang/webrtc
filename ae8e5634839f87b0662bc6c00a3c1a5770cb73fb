@@ -20,6 +20,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "c5732fd1_c8379205",
+        "filename": "api/stats/rtc_stats.h",
+        "patchSetId": 3
+      },
+      "lineNbr": 57,
+      "author": {
+        "id": 5142
+      },
+      "writtenOn": "2022-09-06T14:46:52Z",
+      "side": 1,
+      "message": "On second thought, alito@ is converting std::string uses to absl::string_view. Can we use that?",
+      "parentUuid": "5ce83639_9185747b",
+      "revId": "ae8e5634839f87b0662bc6c00a3c1a5770cb73fb",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "856ccf8a_1c45a48e",
         "filename": "pc/rtc_stats_collector.cc",
         "patchSetId": 3

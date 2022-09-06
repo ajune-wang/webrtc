@@ -20,6 +20,24 @@
     {
       "unresolved": false,
       "key": {
+        "uuid": "81ac36b7_0e9a5c5b",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 19,
+      "author": {
+        "id": 5053
+      },
+      "writtenOn": "2022-09-06T22:25:46Z",
+      "side": 1,
+      "message": "Yeah, legacy has this completely backwards.",
+      "parentUuid": "80964898_f357e147",
+      "revId": "e12cd7b86e4c67e0a3dfa49c535b724ce9e82995",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
         "uuid": "88682c74_e9b4b102",
         "filename": "/PATCHSET_LEVEL",
         "patchSetId": 1

@@ -192,7 +192,7 @@ class FunctorB {
 };
 struct FunctorC {
   int operator()() {
-    Thread::Current()->ProcessMessages(50);
+    Thread::Current()->ProcessMessages(TimeDelta::Millis(50));
     return 24;
   }
 };
@@ -242,12 +242,12 @@ TEST(ThreadTest, DISABLED_Main) {
   // Give the clients a little while to run.
   // Messages will be processed at 100, 300, 500, 700, 900.
   Thread* th_main = Thread::Current();
-  th_main->ProcessMessages(1000);
+  th_main->ProcessMessages(TimeDelta::Seconds(1));
 
   // Stop the sending client. Give the receiver a bit longer to run, in case
   // it is running on a machine that is under load (e.g. the build machine).
   th1->Stop();
-  th_main->ProcessMessages(200);
+  th_main->ProcessMessages(TimeDelta::Millis(200));
   th2->Stop();
 
   // Make sure the results were correct
@@ -374,7 +374,7 @@ TEST(ThreadTest, InvokeToThreadAllowedReturnsTrueWithoutPolicies) {
 
   thread1->PostTask(
       [&]() { EXPECT_TRUE(thread1->IsInvokeToThreadAllowed(thread2.get())); });
-  main_thread.ProcessMessages(100);
+  main_thread.ProcessMessages(TimeDelta::Millis(100));
 }
 
 TEST(ThreadTest, InvokeAllowedWhenThreadsAdded) {
@@ -393,7 +393,7 @@ TEST(ThreadTest, InvokeAllowedWhenThreadsAdded) {
     EXPECT_TRUE(thread1->IsInvokeToThreadAllowed(thread3.get()));
     EXPECT_FALSE(thread1->IsInvokeToThreadAllowed(thread4.get()));
   });
-  main_thread.ProcessMessages(100);
+  main_thread.ProcessMessages(TimeDelta::Millis(100));
 }
 
 TEST(ThreadTest, InvokesDisallowedWhenDisallowAllInvokes) {
@@ -406,7 +406,7 @@ TEST(ThreadTest, InvokesDisallowedWhenDisallowAllInvokes) {
 
   thread1->PostTask(
       [&]() { EXPECT_FALSE(thread1->IsInvokeToThreadAllowed(thread2.get())); });
-  main_thread.ProcessMessages(100);
+  main_thread.ProcessMessages(TimeDelta::Millis(100));
 }
 #endif  // (!defined(NDEBUG) || RTC_DCHECK_IS_ON)
 
@@ -418,7 +418,7 @@ TEST(ThreadTest, InvokesAllowedByDefault) {
 
   thread1->PostTask(
       [&]() { EXPECT_TRUE(thread1->IsInvokeToThreadAllowed(thread2.get())); });
-  main_thread.ProcessMessages(100);
+  main_thread.ProcessMessages(TimeDelta::Millis(100));
 }
 
 TEST(ThreadTest, Invoke) {

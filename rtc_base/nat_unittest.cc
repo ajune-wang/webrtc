@@ -42,6 +42,8 @@
 namespace rtc {
 namespace {
 
+using ::webrtc::TimeDelta;
+
 bool CheckReceive(TestClient* client,
                   bool should_receive,
                   const char* buf,
@@ -226,7 +228,7 @@ void TestPhysicalInternal(const SocketAddress& int_addr) {
   BasicNetworkManager network_manager(nullptr, &socket_server, &field_trials);
   network_manager.StartUpdating();
   // Process pending messages so the network list is updated.
-  Thread::Current()->ProcessMessages(0);
+  Thread::Current()->ProcessMessages(TimeDelta::Zero());
 
   std::vector<const Network*> networks = network_manager.GetNetworks();
   networks.erase(std::remove_if(networks.begin(), networks.end(),

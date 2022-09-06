@@ -51,13 +51,13 @@ SimulatedThread::~SimulatedThread() {
 
 void SimulatedThread::RunReady(Timestamp at_time) {
   CurrentThreadSetter set_current(this);
-  ProcessMessages(0);
-  int delay_ms = GetDelay();
+  ProcessMessages(TimeDelta::Zero());
+  TimeDelta delay = TimeUntilNextTask();
   MutexLock lock(&lock_);
-  if (delay_ms == kForever) {
+  if (delay == TimeDelta::PlusInfinity()) {
     next_run_time_ = Timestamp::PlusInfinity();
   } else {
-    next_run_time_ = at_time + TimeDelta::Millis(delay_ms);
+    next_run_time_ = at_time + delay;
   }
 }
 

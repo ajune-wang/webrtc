@@ -21,6 +21,8 @@
 
 namespace rtc {
 
+using ::webrtc::TimeDelta;
+
 // DESIGN: Each packet received is put it into a list of packets.
 //         Callers can retrieve received packets from any thread by calling
 //         NextPacket.
@@ -128,7 +130,7 @@ void TestClient::AdvanceTime(int ms) {
   if (fake_clock_) {
     SIMULATED_WAIT(false, ms, *fake_clock_);
   } else {
-    Thread::Current()->ProcessMessages(1);
+    Thread::Current()->ProcessMessages(TimeDelta::Millis(1));
   }
 }
 

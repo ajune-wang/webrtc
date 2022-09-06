@@ -131,7 +131,7 @@ class ResourceAdaptationProcessorTest : public ::testing::Test {
   }
 
   static void WaitUntilTaskQueueIdle() {
-    ASSERT_TRUE(rtc::Thread::Current()->ProcessMessages(0));
+    ASSERT_TRUE(rtc::Thread::Current()->ProcessMessages(TimeDelta::Zero()));
   }
 
  protected:

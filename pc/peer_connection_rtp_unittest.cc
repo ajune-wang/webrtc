@@ -924,7 +924,7 @@ TEST_P(PeerConnectionRtpTest,
   auto offer = caller->CreateOfferAndSetAsLocal();
   callee->pc()->SetRemoteDescription(observer.get(), offer.release());
   callee = nullptr;
-  rtc::Thread::Current()->ProcessMessages(0);
+  rtc::Thread::Current()->ProcessMessages(TimeDelta::Zero());
   EXPECT_FALSE(observer->called());
 }
 

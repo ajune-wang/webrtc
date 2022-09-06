@@ -37,12 +37,13 @@
 
 namespace rtc {
 
-using webrtc::testing::SSE_CLOSE;
-using webrtc::testing::SSE_ERROR;
-using webrtc::testing::SSE_OPEN;
-using webrtc::testing::SSE_READ;
-using webrtc::testing::SSE_WRITE;
-using webrtc::testing::StreamSink;
+using ::webrtc::TimeDelta;
+using ::webrtc::testing::SSE_CLOSE;
+using ::webrtc::testing::SSE_ERROR;
+using ::webrtc::testing::SSE_OPEN;
+using ::webrtc::testing::SSE_READ;
+using ::webrtc::testing::SSE_WRITE;
+using ::webrtc::testing::StreamSink;
 
 #define MAYBE_SKIP_IPV6                        \
   if (!HasIPv6Enabled()) {                     \
@@ -590,7 +591,7 @@ void SocketTest::ServerCloseInternal(const IPAddress& loopback) {
   EXPECT_TRUE(accepted->GetRemoteAddress().IsNil());
 
   // And the closee should only get a single signal.
-  Thread::Current()->ProcessMessages(0);
+  Thread::Current()->ProcessMessages(TimeDelta::Zero());
   EXPECT_FALSE(sink.Check(client.get(), SSE_CLOSE));
 
   // Close down the client and ensure all is good.
@@ -923,7 +924,7 @@ void SocketTest::SingleFlowControlCallbackInternal(const IPAddress& loopback) {
   int extras = 0;
   for (int i = 0; i < 100; ++i) {
     accepted->Send(&buf, arraysize(buf));
-    rtc::Thread::Current()->ProcessMessages(1);
+    rtc::Thread::Current()->ProcessMessages(TimeDelta::Millis(1));
     if (sink.Check(accepted.get(), SSE_WRITE)) {
       extras++;
     }

@@ -63,11 +63,11 @@ using ::testing::AtLeast;
 using ::testing::Invoke;
 using ::testing::StrictMock;
 using ::testing::Values;
-
-using webrtc::DataChannelInterface;
-using webrtc::MediaStreamInterface;
-using webrtc::PeerConnectionInterface;
-using webrtc::SdpSemantics;
+using ::webrtc::DataChannelInterface;
+using ::webrtc::MediaStreamInterface;
+using ::webrtc::PeerConnectionInterface;
+using ::webrtc::SdpSemantics;
+using ::webrtc::TimeDelta;
 
 namespace {
 
@@ -748,7 +748,7 @@ TEST_P(PeerConnectionEndToEndTest, CloseDataChannelRemotelyWhileNotReferenced) {
 
   // Wait for a bit longer so the remote data channel will receive the
   // close message and be destroyed.
-  rtc::Thread::Current()->ProcessMessages(100);
+  rtc::Thread::Current()->ProcessMessages(TimeDelta::Millis(100));
 }
 
 // Test behavior of creating too many datachannels.

@@ -160,9 +160,9 @@ ConnectionContext::ConnectionContext(
   // Since some of the threads may be the same, start with the least
   // restrictive limits and end with the least permissive ones.
   // This will give warnings for all cases.
-  signaling_thread_->SetDispatchWarningMs(100);
-  worker_thread_->SetDispatchWarningMs(30);
-  network_thread_->SetDispatchWarningMs(10);
+  signaling_thread_->SetDispatchWarning(TimeDelta::Millis(100));
+  worker_thread_->SetDispatchWarning(TimeDelta::Millis(30));
+  network_thread_->SetDispatchWarning(TimeDelta::Millis(10));
 
   if (media_engine_) {
     // TODO(tommi): Change VoiceEngine to do ctor time initialization so that

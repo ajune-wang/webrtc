@@ -245,7 +245,7 @@ void ThreadManager::ProcessAllMessageQueuesInternal() {
   // to process messages as well.
   while (queues_not_done.load() > 0) {
     if (current) {
-      current->ProcessMessages(0);
+      current->ProcessMessages(TimeDelta::Zero());
     }
   }
 }
@@ -590,20 +590,20 @@ void Thread::DoDelayPost(const Location& posted_from,
   WakeUpSocketServer();
 }
 
-int Thread::GetDelay() {
+TimeDelta Thread::TimeUntilNextTask() {
   CritScope cs(&crit_);
 
   if (!messages_.empty())
-    return 0;
+    return TimeDelta::Zero();
 
   if (!delayed_messages_.empty()) {
     int delay = TimeUntil(delayed_messages_.top().run_time_ms_);
     if (delay < 0)
       delay = 0;
-    return delay;
+    return TimeDelta::Millis(delay);
   }
 
-  return kForever;
+  return TimeDelta::PlusInfinity();
 }
 
 void Thread::ClearInternal(MessageHandler* phandler,
@@ -675,8 +675,9 @@ std::unique_ptr<Thread> Thread::Create() {
       new Thread(std::unique_ptr<SocketServer>(new NullSocketServer())));
 }
 
-bool Thread::SleepMs(int milliseconds) {
+bool Thread::Sleep(TimeDelta wait) {
   AssertBlockingIsAllowedOnCurrentThread();
+  int milliseconds = wait.RoundUpTo(TimeDelta::Millis(1)).ms();
 
 #if defined(WEBRTC_WIN)
   ::Sleep(milliseconds);
@@ -710,13 +711,13 @@ bool Thread::SetName(absl::string_view name, const void* obj) {
   return true;
 }
 
-void Thread::SetDispatchWarningMs(int deadline) {
+void Thread::SetDispatchWarning(webrtc::TimeDelta warn_after) {
   if (!IsCurrent()) {
-    PostTask([this, deadline]() { SetDispatchWarningMs(deadline); });
+    PostTask([this, warn_after]() { SetDispatchWarning(warn_after); });
     return;
   }
   RTC_DCHECK_RUN_ON(this);
-  dispatch_warning_ms_ = deadline;
+  dispatch_warning_ms_ = warn_after.ms();
 }
 
 bool Thread::Start() {
@@ -838,7 +839,7 @@ void* Thread::PreRun(void* pv) {
 }  // namespace rtc
 
 void Thread::Run() {
-  ProcessMessages(kForever);
+  ProcessMessages(TimeDelta::PlusInfinity());
 }
 
 bool Thread::IsOwned() {
@@ -1062,27 +1063,32 @@ void Thread::Clear(MessageHandler* phandler,
   ClearInternal(phandler, id, removed);
 }
 
-bool Thread::ProcessMessages(int cmsLoop) {
+bool Thread::ProcessMessages(TimeDelta loop) {
   // Using ProcessMessages with a custom clock for testing and a time greater
   // than 0 doesn't work, since it's not guaranteed to advance the custom
   // clock's time, and may get stuck in an infinite loop.
-  RTC_DCHECK(GetClockForTesting() == nullptr || cmsLoop == 0 ||
-             cmsLoop == kForever);
-  int64_t msEnd = (kForever == cmsLoop) ? 0 : TimeAfter(cmsLoop);
-  int cmsNext = cmsLoop;
+  int64_t end_ms;
+  int64_t next_ms;
+  if (loop == TimeDelta::PlusInfinity()) {
+    next_ms = kForever;
+    end_ms = 0;
+  } else {
+    next_ms = loop.ms();
+    end_ms = TimeAfter(next_ms);
+  }
 
   while (true) {
 #if defined(WEBRTC_MAC)
     ScopedAutoReleasePool pool;
 #endif
     Message msg;
-    if (!Get(&msg, cmsNext))
+    if (!Get(&msg, next_ms))
       return !IsQuitting();
     Dispatch(&msg);
 
-    if (cmsLoop != kForever) {
-      cmsNext = static_cast<int>(TimeUntil(msEnd));
-      if (cmsNext < 0)
+    if (next_ms != kForever) {
+      next_ms = TimeUntil(end_ms);
+      if (next_ms < 0)
         return true;
     }
   }

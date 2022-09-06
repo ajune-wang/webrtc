@@ -42,6 +42,7 @@ using ::testing::Contains;
 using ::testing::Not;
 using ::testing::UnorderedElementsAre;
 using ::testing::UnorderedElementsAreArray;
+using ::webrtc::TimeDelta;
 
 namespace rtc {
 
@@ -416,14 +417,14 @@ TEST_F(NetworkTest, TestUpdateNetworks) {
   EXPECT_EQ(NetworkManager::ENUMERATION_ALLOWED,
             manager.enumeration_permission());
   manager.StartUpdating();
-  Thread::Current()->ProcessMessages(0);
+  Thread::Current()->ProcessMessages(TimeDelta::Zero());
   EXPECT_TRUE(callback_called_);
   callback_called_ = false;
   // Callback should be triggered immediately when StartUpdating
   // is called, after network update signal is already sent.
   manager.StartUpdating();
   EXPECT_TRUE(manager.started());
-  Thread::Current()->ProcessMessages(0);
+  Thread::Current()->ProcessMessages(TimeDelta::Zero());
   EXPECT_TRUE(callback_called_);
   manager.StopUpdating();
   EXPECT_TRUE(manager.started());
@@ -437,7 +438,7 @@ TEST_F(NetworkTest, TestUpdateNetworks) {
   // Callback should be triggered immediately after StartUpdating is called
   // when start_count_ is reset to 0.
   manager.StartUpdating();
-  Thread::Current()->ProcessMessages(0);
+  Thread::Current()->ProcessMessages(TimeDelta::Zero());
   EXPECT_TRUE(callback_called_);
 }
 

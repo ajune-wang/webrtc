@@ -288,8 +288,7 @@ class RTC_LOCKABLE RTC_EXPORT Thread : public webrtc::TaskQueueBase {
                      uint32_t id = MQID_ANY,
                      MessageList* removed = nullptr);
 
-  // Amount of time until the next message can be retrieved
-  virtual int GetDelay();
+  virtual webrtc::TimeDelta TimeUntilNextTask();
 
   bool empty() const { return size() == 0u; }
   size_t size() const {
@@ -302,7 +301,10 @@ class RTC_LOCKABLE RTC_EXPORT Thread : public webrtc::TaskQueueBase {
   // Sleeps the calling thread for the specified number of milliseconds, during
   // which time no processing is performed. Returns false if sleeping was
   // interrupted by a signal (POSIX only).
-  static bool SleepMs(int millis);
+  static bool SleepMs(int millis) {
+    return Sleep(webrtc::TimeDelta::Millis(millis));
+  }
+  static bool Sleep(webrtc::TimeDelta wait);
 
   // Sets the thread's name, for debugging. Must be called before Start().
   // If `obj` is non-null, its value is appended to `name`.
@@ -310,9 +312,9 @@ class RTC_LOCKABLE RTC_EXPORT Thread : public webrtc::TaskQueueBase {
   bool SetName(absl::string_view name, const void* obj);
 
   // Sets the expected processing time in ms. The thread will write
-  // log messages when Invoke() takes more time than this.
+  // log messages when Dispatch() takes more time than this.
   // Default is 50 ms.
-  void SetDispatchWarningMs(int deadline);
+  void SetDispatchWarning(webrtc::TimeDelta warn_after);
 
   // Starts the execution of the thread.
   bool Start();
@@ -383,9 +385,13 @@ class RTC_LOCKABLE RTC_EXPORT Thread : public webrtc::TaskQueueBase {
                                     webrtc::TimeDelta delay) override;
 
   // ProcessMessages will process I/O and dispatch messages until:
-  //  1) cms milliseconds have elapsed (returns true)
+  //  1) `loop` time have elapsed (returns true)
   //  2) Stop() is called (returns false)
-  bool ProcessMessages(int cms);
+  [[deprecated]] bool ProcessMessages(int cms) {
+    return ProcessMessages(cms == kForever ? webrtc::TimeDelta::PlusInfinity()
+                                           : webrtc::TimeDelta::Millis(cms));
+  }
+  bool ProcessMessages(webrtc::TimeDelta loop);
 
   // Returns true if this is a thread that we created using the standard
   // constructor, false if it was created by a call to
@@ -505,10 +511,11 @@ class RTC_LOCKABLE RTC_EXPORT Thread : public webrtc::TaskQueueBase {
 
   // TODO(bugs.webrtc.org/9702): Delete when chromium stops overriding it.
   // chromium's ThreadWrapper overrides it just to check it is never called.
-  virtual bool Peek(Message* pmsg, int cms_wait) {
+  virtual int GetDelay() {
     RTC_DCHECK_NOTREACHED();
-    return false;
+    return 0;
   }
+
   // Get() will process I/O until:
   //  1) A message is available (returns true)
   //  2) cmsWait seconds have elapsed (returns false)

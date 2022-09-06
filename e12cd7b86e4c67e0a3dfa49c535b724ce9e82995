@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "88682c74_e9b4b102",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5142
+      },
+      "writtenOn": "2022-09-06T09:18:22Z",
+      "side": 1,
+      "message": "Please take a look, Taylor and Harald",
+      "revId": "e12cd7b86e4c67e0a3dfa49c535b724ce9e82995",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

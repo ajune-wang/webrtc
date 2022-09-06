@@ -825,7 +825,7 @@ void ProduceCertificateStatsFromSSLCertificateStats(
       break;
     }
     RTCCertificateStats* certificate_stats =
-        new RTCCertificateStats(certificate_stats_id, timestamp_us);
+        new RTCCertificateStats(std::move(certificate_stats_id), timestamp_us);
     certificate_stats->fingerprint = s->fingerprint;
     certificate_stats->fingerprint_algorithm = s->fingerprint_algorithm;
     certificate_stats->base64_certificate = s->base64_certificate;
@@ -841,14 +841,16 @@ const std::string& ProduceIceCandidateStats(int64_t timestamp_us,
                                             bool is_local,
                                             const std::string& transport_id,
                                             RTCStatsReport* report) {
-  const std::string& id = "I" + candidate.id();
+  std::string id = "I" + candidate.id();
   const RTCStats* stats = report->Get(id);
   if (!stats) {
     std::unique_ptr<RTCIceCandidateStats> candidate_stats;
     if (is_local)
-      candidate_stats.reset(new RTCLocalIceCandidateStats(id, timestamp_us));
+      candidate_stats.reset(
+          new RTCLocalIceCandidateStats(std::move(id), timestamp_us));
     else
-      candidate_stats.reset(new RTCRemoteIceCandidateStats(id, timestamp_us));
+      candidate_stats.reset(
+          new RTCRemoteIceCandidateStats(std::move(id), timestamp_us));
     candidate_stats->transport_id = transport_id;
     if (is_local) {
       candidate_stats->network_type =

@@ -42,6 +42,9 @@ constexpr double kInitialAvgAndMaxFrameSizeBytes = 500.0;
 constexpr double kPhi = 0.97;
 // Time constant for max frame size filter.
 constexpr double kPsi = 0.9999;
+// Percentile for percentile frame size filter.
+constexpr double kMaxFrameSizePercentile = 0.95;
+constexpr int kMaxFrameSizeWindow = 30 * 60;
 
 // Outlier rejection constants.
 constexpr double kDefaultMaxTimestampDeviationInSigmas = 3.5;
@@ -81,6 +84,10 @@ constexpr Frequency kMaxFramerateEstimate = Frequency::Hertz(200);
 JitterEstimator::JitterEstimator(Clock* clock,
                                  const FieldTrialsView& field_trials)
     : config_(Config::Parse(field_trials.Lookup(Config::kFieldTrialsKey))),
+      max_frame_size_percentile_bytes_(
+          config_.max_frame_size_percentile.value_or(kMaxFrameSizePercentile)),
+      frame_sizes_in_percentile_filter_(
+          config_.max_frame_size_window.value_or(kMaxFrameSizeWindow)),
       fps_counter_(30),  // TODO(sprang): Use an estimator with limit based
                          // on time, rather than number of samples.
       clock_(clock) {
@@ -94,6 +101,8 @@ void JitterEstimator::Reset() {
   avg_frame_size_bytes_ = kInitialAvgAndMaxFrameSizeBytes;
   max_frame_size_bytes_ = kInitialAvgAndMaxFrameSizeBytes;
   var_frame_size_bytes2_ = 100;
+  max_frame_size_percentile_bytes_.Reset();
+  frame_sizes_in_percentile_filter_.clear();
   last_update_time_ = absl::nullopt;
   prev_estimate_ = absl::nullopt;
   prev_frame_size_ = absl::nullopt;
@@ -144,9 +153,22 @@ void JitterEstimator::UpdateEstimate(TimeDelta frame_delay,
       kPhi * var_frame_size_bytes2_ + (1 - kPhi) * (delta_bytes * delta_bytes),
       1.0);
 
-  // Update max_frame_size_bytes_ estimate.
+  // Update non-linear IIR estimate of max frame size.
   max_frame_size_bytes_ =
       std::max<double>(kPsi * max_frame_size_bytes_, frame_size.bytes());
+
+  // Maybe update percentile estimate of max frame size.
+  if (config_.MaxFrameSizePercentileEnabled()) {
+    frame_sizes_in_percentile_filter_.push_back(frame_size.bytes());
+    if (frame_sizes_in_percentile_filter_.size() >
+        static_cast<size_t>(
+            config_.max_frame_size_window.value_or(kMaxFrameSizeWindow))) {
+      max_frame_size_percentile_bytes_.Erase(
+          frame_sizes_in_percentile_filter_.front());
+      frame_sizes_in_percentile_filter_.pop_front();
+    }
+    max_frame_size_percentile_bytes_.Insert(frame_size.bytes());
+  }
 
   if (!prev_frame_size_) {
     prev_frame_size_ = frame_size;
@@ -191,7 +213,8 @@ void JitterEstimator::UpdateEstimate(TimeDelta frame_delay,
         GetCongestionRejectionFactor() * max_frame_size_bytes_) {
       // Update the Kalman filter with the new data
       kalman_filter_.PredictAndUpdate(frame_delay.ms(), delta_frame_bytes,
-                                      max_frame_size_bytes_, var_noise_ms2_);
+                                      GetMaxFrameSizeEstimateBytes(),
+                                      var_noise_ms2_);
     }
   } else {
     double num_stddev = (delay_deviation_ms >= 0) ? num_stddev_delay_outlier
@@ -220,6 +243,16 @@ void JitterEstimator::UpdateRtt(TimeDelta rtt) {
 
 JitterEstimator::Config JitterEstimator::GetConfigForTest() const {
   return config_;
+}
+
+double JitterEstimator::GetMaxFrameSizeEstimateBytes() const {
+  if (config_.MaxFrameSizePercentileEnabled()) {
+    RTC_DCHECK_GT(frame_sizes_in_percentile_filter_.size(), 1u);
+    RTC_DCHECK_LE(frame_sizes_in_percentile_filter_.size(),
+                  config_.max_frame_size_window.value_or(kMaxFrameSizeWindow));
+    return max_frame_size_percentile_bytes_.GetPercentileValue();
+  }
+  return max_frame_size_bytes_;
 }
 
 double JitterEstimator::GetNumStddevDelayOutlier() const {
@@ -295,8 +328,10 @@ double JitterEstimator::NoiseThreshold() const {
 
 // Calculates the current jitter estimate from the filtered estimates.
 TimeDelta JitterEstimator::CalculateEstimate() {
+  double frame_size_deviation_bytes =
+      GetMaxFrameSizeEstimateBytes() - avg_frame_size_bytes_;
   double ret_ms = kalman_filter_.GetFrameDelayVariationEstimateSizeBased(
-                      max_frame_size_bytes_ - avg_frame_size_bytes_) +
+                      frame_size_deviation_bytes) +
                   NoiseThreshold();
   TimeDelta ret = TimeDelta::Millis(ret_ms);
 

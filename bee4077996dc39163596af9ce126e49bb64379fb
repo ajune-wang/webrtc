@@ -33,6 +33,24 @@
       "message": "Mirko, can I get an owner approval for the sdk/BUILD.gn",
       "revId": "bee4077996dc39163596af9ce126e49bb64379fb",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "f1bbb12f_ef0068b3",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 6
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5087
+      },
+      "writtenOn": "2022-09-06T11:31:45Z",
+      "side": 1,
+      "message": "Yep, LGTM.",
+      "parentUuid": "8ce818b0_2d6d3302",
+      "revId": "bee4077996dc39163596af9ce126e49bb64379fb",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

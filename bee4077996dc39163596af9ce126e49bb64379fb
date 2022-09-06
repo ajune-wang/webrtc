@@ -16,6 +16,23 @@
       "message": "Owners-Override+1 (ignore owners check)\nis not the same as \nCode-Review+1 (code is reviewed and can be submitted as long as owner checks pass)\n\nDid you mean to put review +1?\n",
       "revId": "bee4077996dc39163596af9ce126e49bb64379fb",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "8ce818b0_2d6d3302",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 6
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2022-09-06T11:27:31Z",
+      "side": 1,
+      "message": "Mirko, can I get an owner approval for the sdk/BUILD.gn",
+      "revId": "bee4077996dc39163596af9ce126e49bb64379fb",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

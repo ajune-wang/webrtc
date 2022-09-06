@@ -1172,7 +1172,7 @@ int AudioProcessingImpl::ProcessCaptureStreamLocked() {
   }
 
   if (submodules_.agc_manager) {
-    submodules_.agc_manager->AnalyzePreProcess(capture_buffer);
+    submodules_.agc_manager->AnalyzePreProcess(*capture_buffer);
   }
 
   if (submodule_states_.CaptureMultiBandSubModulesActive() &&
@@ -1245,7 +1245,7 @@ int AudioProcessingImpl::ProcessCaptureStreamLocked() {
   }
 
   if (submodules_.agc_manager) {
-    submodules_.agc_manager->Process(capture_buffer);
+    submodules_.agc_manager->Process(*capture_buffer);
 
     absl::optional<int> new_digital_gain =
         submodules_.agc_manager->GetDigitalComressionGain();

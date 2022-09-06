@@ -33,6 +33,24 @@
       "message": "This forces a copy. Can we do this instead?\n\n```\n  RTCStats(std::string id, int64_t timestamp_us)\n      : id_(std::move(id)), timestamp_us_(timestamp_us) {}\n```",
       "revId": "ce8ecf2368eb5162935f5e9207ebef8d6b7dbc6f",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "a909f5a5_43d91a6e",
+        "filename": "api/stats/rtc_stats.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 58,
+      "author": {
+        "id": 5142
+      },
+      "writtenOn": "2022-09-06T11:04:09Z",
+      "side": 1,
+      "message": "My thinking is that the calling places should move the id into the constructor. There may be a few places in rtc_stats_collector.cc\n\nLooks like only one test outside of webrtc uses the constructor AFAIK and it\u0027s a chromium unit test that would continue to compile even if we changed the signature from const\u0026 to value:\nhttps://source.chromium.org/chromium/chromium/src/+/main:third_party/blink/renderer/platform/peerconnection/rtc_stats_test.cc;l\u003d77;drc\u003db9be6b1f2c961debcffa012b514c88444ccb8fcc",
+      "parentUuid": "1370edde_d69c83d5",
+      "revId": "ce8ecf2368eb5162935f5e9207ebef8d6b7dbc6f",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

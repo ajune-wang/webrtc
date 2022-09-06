@@ -11,6 +11,7 @@
 #ifndef MODULES_VIDEO_CAPTURE_VIDEO_CAPTURE_H_
 #define MODULES_VIDEO_CAPTURE_VIDEO_CAPTURE_H_
 
+#include "absl/strings/string_view.h"
 #include "api/video/video_rotation.h"
 #include "api/video/video_sink_interface.h"
 #include "modules/video_capture/video_capture_defines.h"
@@ -40,30 +41,31 @@ class VideoCaptureModule : public rtc::RefCountInterface {
                                   uint32_t productUniqueIdUTF8Length = 0) = 0;
 
     // Returns the number of capabilities this device.
-    virtual int32_t NumberOfCapabilities(const char* deviceUniqueIdUTF8) = 0;
+    virtual int32_t NumberOfCapabilities(
+        absl::string_view deviceUniqueIdUTF8) = 0;
 
     // Gets the capabilities of the named device.
-    virtual int32_t GetCapability(const char* deviceUniqueIdUTF8,
+    virtual int32_t GetCapability(absl::string_view deviceUniqueIdUTF8,
                                   uint32_t deviceCapabilityNumber,
                                   VideoCaptureCapability& capability) = 0;
 
     // Gets clockwise angle the captured frames should be rotated in order
     // to be displayed correctly on a normally rotated display.
-    virtual int32_t GetOrientation(const char* deviceUniqueIdUTF8,
+    virtual int32_t GetOrientation(absl::string_view deviceUniqueIdUTF8,
                                    VideoRotation& orientation) = 0;
 
     // Gets the capability that best matches the requested width, height and
     // frame rate.
     // Returns the deviceCapabilityNumber on success.
     virtual int32_t GetBestMatchedCapability(
-        const char* deviceUniqueIdUTF8,
+        absl::string_view deviceUniqueIdUTF8,
         const VideoCaptureCapability& requested,
         VideoCaptureCapability& resulting) = 0;
 
     // Display OS /capture device specific settings dialog
     virtual int32_t DisplayCaptureSettingsDialogBox(
-        const char* deviceUniqueIdUTF8,
-        const char* dialogTitleUTF8,
+        absl::string_view deviceUniqueIdUTF8,
+        absl::string_view dialogTitleUTF8,
         void* parentWindow,
         uint32_t positionX,
         uint32_t positionY) = 0;

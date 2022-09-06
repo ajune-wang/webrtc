@@ -18,6 +18,7 @@
 #include <stddef.h>
 #include <stdint.h>
 
+#include "absl/strings/string_view.h"
 #include "api/scoped_refptr.h"
 #include "api/video/video_frame.h"
 #include "api/video/video_rotation.h"
@@ -41,7 +42,7 @@ class VideoCaptureImpl : public VideoCaptureModule {
    * using GetDeviceName
    */
   static rtc::scoped_refptr<VideoCaptureModule> Create(
-      const char* deviceUniqueIdUTF8);
+      absl::string_view deviceUniqueIdUTF8);
 
   static DeviceInfo* CreateDeviceInfo();
 

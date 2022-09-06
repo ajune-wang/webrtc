@@ -16,6 +16,7 @@
 
 #include <memory>
 
+#include "absl/strings/string_view.h"
 #include "modules/video_capture/video_capture_defines.h"
 #include "modules/video_capture/video_capture_impl.h"
 #include "rtc_base/platform_thread.h"
@@ -27,7 +28,7 @@ class VideoCaptureModuleV4L2 : public VideoCaptureImpl {
  public:
   VideoCaptureModuleV4L2();
   ~VideoCaptureModuleV4L2() override;
-  int32_t Init(const char* deviceUniqueId);
+  int32_t Init(absl::string_view deviceUniqueId);
   int32_t StartCapture(const VideoCaptureCapability& capability) override;
   int32_t StopCapture() override;
   bool CaptureStarted() override;

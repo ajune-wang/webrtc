@@ -24,6 +24,7 @@
 #include <new>
 #include <string>
 
+#include "absl/strings/string_view.h"
 #include "api/scoped_refptr.h"
 #include "media/base/video_common.h"
 #include "modules/video_capture/video_capture.h"
@@ -43,11 +44,12 @@ VideoCaptureModuleV4L2::VideoCaptureModuleV4L2()
       _captureVideoType(VideoType::kI420),
       _pool(NULL) {}
 
-int32_t VideoCaptureModuleV4L2::Init(const char* deviceUniqueIdUTF8) {
-  int len = strlen((const char*)deviceUniqueIdUTF8);
+int32_t VideoCaptureModuleV4L2::Init(absl::string_view deviceUniqueIdUTF8) {
+  int len = deviceUniqueIdUTF8.length();
   _deviceUniqueId = new (std::nothrow) char[len + 1];
   if (_deviceUniqueId) {
-    memcpy(_deviceUniqueId, deviceUniqueIdUTF8, len + 1);
+    memcpy(_deviceUniqueId, deviceUniqueIdUTF8.data(), len);
+    _deviceUniqueId[len] = '\0';
   }
 
   int fd;
@@ -63,9 +65,8 @@ int32_t VideoCaptureModuleV4L2::Init(const char* deviceUniqueIdUTF8) {
       struct v4l2_capability cap;
       if (ioctl(fd, VIDIOC_QUERYCAP, &cap) == 0) {
         if (cap.bus_info[0] != 0) {
-          if (strncmp((const char*)cap.bus_info,
-                      (const char*)deviceUniqueIdUTF8,
-                      strlen((const char*)deviceUniqueIdUTF8)) ==
+          if (strncmp((const char*)cap.bus_info, deviceUniqueIdUTF8.data(),
+                      deviceUniqueIdUTF8.length()) ==
               0) {  // match with device id
             close(fd);
             found = true;

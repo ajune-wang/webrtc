@@ -13,6 +13,7 @@
 
 #include <dshow.h>
 
+#include "absl/strings/string_view.h"
 #include "modules/video_capture/device_info_impl.h"
 #include "modules/video_capture/video_capture_impl.h"
 
@@ -52,8 +53,8 @@ class DeviceInfoDS : public DeviceInfoImpl {
   /*
    * Display OS /capture device specific settings dialog
    */
-  int32_t DisplayCaptureSettingsDialogBox(const char* deviceUniqueIdUTF8,
-                                          const char* dialogTitleUTF8,
+  int32_t DisplayCaptureSettingsDialogBox(absl::string_view deviceUniqueIdUTF8,
+                                          absl::string_view dialogTitleUTF8,
                                           void* parentWindow,
                                           uint32_t positionX,
                                           uint32_t positionY) override;
@@ -64,7 +65,7 @@ class DeviceInfoDS : public DeviceInfoImpl {
    The user of this API is responsible for releasing the filter when it not
    needed.
    */
-  IBaseFilter* GetDeviceFilter(const char* deviceUniqueIdUTF8,
+  IBaseFilter* GetDeviceFilter(absl::string_view deviceUniqueIdUTF8,
                                char* productUniqueIdUTF8 = NULL,
                                uint32_t productUniqueIdUTF8Length = 0);
 
@@ -72,7 +73,7 @@ class DeviceInfoDS : public DeviceInfoImpl {
       int32_t capabilityIndex,
       VideoCaptureCapabilityWindows& windowsCapability);
 
-  static void GetProductId(const char* devicePath,
+  static void GetProductId(absl::string_view devicePath,
                            char* productUniqueIdUTF8,
                            uint32_t productUniqueIdUTF8Length);
 
@@ -85,7 +86,7 @@ class DeviceInfoDS : public DeviceInfoImpl {
                         char* productUniqueIdUTF8,
                         uint32_t productUniqueIdUTF8Length);
 
-  int32_t CreateCapabilityMap(const char* deviceUniqueIdUTF8) override
+  int32_t CreateCapabilityMap(absl::string_view deviceUniqueIdUTF8) override
       RTC_EXCLUSIVE_LOCKS_REQUIRED(_apiLock);
 
  private:

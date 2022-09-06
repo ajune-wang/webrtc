@@ -8,6 +8,7 @@
  *  be found in the AUTHORS file in the root of the source tree.
  */
 
+#include "absl/strings/string_view.h"
 #include "api/scoped_refptr.h"
 #include "modules/video_capture/windows/video_capture_ds.h"
 
@@ -21,10 +22,7 @@ VideoCaptureModule::DeviceInfo* VideoCaptureImpl::CreateDeviceInfo() {
 }
 
 rtc::scoped_refptr<VideoCaptureModule> VideoCaptureImpl::Create(
-    const char* device_id) {
-  if (device_id == nullptr)
-    return nullptr;
-
+    absl::string_view device_id) {
   // TODO(tommi): Use Media Foundation implementation for Vista and up.
   auto capture = rtc::make_ref_counted<VideoCaptureDS>();
   if (capture->Init(device_id) != 0) {

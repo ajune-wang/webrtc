@@ -12,6 +12,7 @@
 
 #include <dvdmedia.h>  // VIDEOINFOHEADER2
 
+#include "absl/strings/string_view.h"
 #include "modules/video_capture/video_capture_config.h"
 #include "modules/video_capture/windows/help_functions_ds.h"
 #include "modules/video_capture/windows/sink_filter_ds.h"
@@ -55,14 +56,15 @@ VideoCaptureDS::~VideoCaptureDS() {
   RELEASE_AND_CLEAR(_graphBuilder);
 }
 
-int32_t VideoCaptureDS::Init(const char* deviceUniqueIdUTF8) {
-  const int32_t nameLength = (int32_t)strlen((char*)deviceUniqueIdUTF8);
+int32_t VideoCaptureDS::Init(absl::string_view deviceUniqueIdUTF8) {
+  const int32_t nameLength = (int32_t)deviceUniqueIdUTF8.size();
   if (nameLength >= kVideoCaptureUniqueNameLength)
     return -1;
 
   // Store the device name
   _deviceUniqueId = new (std::nothrow) char[nameLength + 1];
-  memcpy(_deviceUniqueId, deviceUniqueIdUTF8, nameLength + 1);
+  memcpy(_deviceUniqueId, deviceUniqueIdUTF8.data(), nameLength);
+  _deviceUniqueId[nameLength] = '\0';
 
   if (_dsInfo.Init() != 0)
     return -1;

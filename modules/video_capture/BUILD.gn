@@ -61,6 +61,7 @@ if (!build_with_chromium) {
       "../../rtc_base/synchronization:mutex",
       "../../system_wrappers",
     ]
+    absl_deps = [ "//third_party/abseil-cpp/absl/strings" ]
 
     if (is_linux || is_chromeos) {
       sources = [

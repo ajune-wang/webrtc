@@ -22,6 +22,7 @@
 #include <new>
 #include <string>
 
+#include "absl/strings/string_view.h"
 #include "api/scoped_refptr.h"
 #include "media/base/video_common.h"
 #include "modules/video_capture/linux/video_capture_v4l2.h"
@@ -31,7 +32,7 @@
 namespace webrtc {
 namespace videocapturemodule {
 rtc::scoped_refptr<VideoCaptureModule> VideoCaptureImpl::Create(
-    const char* deviceUniqueId) {
+    absl::string_view deviceUniqueId) {
   auto implementation = rtc::make_ref_counted<VideoCaptureModuleV4L2>();
 
   if (implementation->Init(deviceUniqueId) != 0)

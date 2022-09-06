@@ -11,6 +11,7 @@
 #ifndef MODULES_VIDEO_CAPTURE_MAIN_SOURCE_WINDOWS_VIDEO_CAPTURE_DS_H_
 #define MODULES_VIDEO_CAPTURE_MAIN_SOURCE_WINDOWS_VIDEO_CAPTURE_DS_H_
 
+#include "absl/strings/string_view.h"
 #include "api/scoped_refptr.h"
 #include "modules/video_capture/video_capture_impl.h"
 #include "modules/video_capture/windows/device_info_ds.h"
@@ -27,7 +28,7 @@ class VideoCaptureDS : public VideoCaptureImpl {
  public:
   VideoCaptureDS();
 
-  virtual int32_t Init(const char* deviceUniqueIdUTF8);
+  virtual int32_t Init(absl::string_view deviceUniqueIdUTF8);
 
   /*************************************************************************
    *

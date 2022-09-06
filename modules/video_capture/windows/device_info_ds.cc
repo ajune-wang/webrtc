@@ -12,6 +12,7 @@
 
 #include <dvdmedia.h>
 
+#include "absl/strings/string_view.h"
 #include "modules/video_capture/video_capture_config.h"
 #include "modules/video_capture/windows/help_functions_ds.h"
 #include "rtc_base/logging.h"
@@ -207,11 +208,10 @@ int32_t DeviceInfoDS::GetDeviceInfo(uint32_t deviceNumber,
   return index;
 }
 
-IBaseFilter* DeviceInfoDS::GetDeviceFilter(const char* deviceUniqueIdUTF8,
+IBaseFilter* DeviceInfoDS::GetDeviceFilter(absl::string_view deviceUniqueIdUTF8,
                                            char* productUniqueIdUTF8,
                                            uint32_t productUniqueIdUTF8Length) {
-  const int32_t deviceUniqueIdUTF8Length = (int32_t)strlen(
-      (char*)deviceUniqueIdUTF8);  // UTF8 is also NULL terminated
+  const int32_t deviceUniqueIdUTF8Length = (int32_t)deviceUniqueIdUTF8.length();
   if (deviceUniqueIdUTF8Length >= kVideoCaptureUniqueNameLength) {
     RTC_LOG(LS_INFO) << "Device name too long";
     return NULL;
@@ -253,7 +253,7 @@ IBaseFilter* DeviceInfoDS::GetDeviceFilter(const char* deviceUniqueIdUTF8,
           WideCharToMultiByte(CP_UTF8, 0, varName.bstrVal, -1,
                               tempDevicePathUTF8, sizeof(tempDevicePathUTF8),
                               NULL, NULL);
-          if (strncmp(tempDevicePathUTF8, (const char*)deviceUniqueIdUTF8,
+          if (strncmp(tempDevicePathUTF8, deviceUniqueIdUTF8.data(),
                       deviceUniqueIdUTF8Length) == 0) {
             // We have found the requested device
             deviceFound = true;
@@ -297,14 +297,12 @@ int32_t DeviceInfoDS::GetWindowsCapability(
   return 0;
 }
 
-int32_t DeviceInfoDS::CreateCapabilityMap(const char* deviceUniqueIdUTF8)
-
-{
+int32_t DeviceInfoDS::CreateCapabilityMap(
+    absl::string_view deviceUniqueIdUTF8) {
   // Reset old capability list
   _captureCapabilities.clear();
 
-  const int32_t deviceUniqueIdUTF8Length =
-      (int32_t)strlen((char*)deviceUniqueIdUTF8);
+  const int32_t deviceUniqueIdUTF8Length = (int32_t)deviceUniqueIdUTF8.length();
   if (deviceUniqueIdUTF8Length >= kVideoCaptureUniqueNameLength) {
     RTC_LOG(LS_INFO) << "Device name too long";
     return -1;
@@ -536,8 +534,10 @@ int32_t DeviceInfoDS::CreateCapabilityMap(const char* deviceUniqueIdUTF8)
   _lastUsedDeviceNameLength = deviceUniqueIdUTF8Length;
   _lastUsedDeviceName =
       (char*)realloc(_lastUsedDeviceName, _lastUsedDeviceNameLength + 1);
-  memcpy(_lastUsedDeviceName, deviceUniqueIdUTF8,
-         _lastUsedDeviceNameLength + 1);
+  memcpy(_lastUsedDeviceName, deviceUniqueIdUTF8.data(),
+         _lastUsedDeviceNameLength);
+  _lastUsedDeviceName[_lastUsedDeviceNameLength] = '\0';
+
   RTC_LOG(LS_INFO) << "CreateCapabilityMap " << _captureCapabilities.size();
 
   return static_cast<int32_t>(_captureCapabilities.size());
@@ -549,40 +549,43 @@ int32_t DeviceInfoDS::CreateCapabilityMap(const char* deviceUniqueIdUTF8)
 // Example of device path:
 // "\\?\usb#vid_0408&pid_2010&mi_00#7&258e7aaf&0&0000#{65e8773d-8f56-11d0-a3b9-00a0c9223196}\global"
 // "\\?\avc#sony&dv-vcr&camcorder&dv#65b2d50301460008#{65e8773d-8f56-11d0-a3b9-00a0c9223196}\global"
-void DeviceInfoDS::GetProductId(const char* devicePath,
+void DeviceInfoDS::GetProductId(absl::string_view devicePath,
                                 char* productUniqueIdUTF8,
                                 uint32_t productUniqueIdUTF8Length) {
-  *productUniqueIdUTF8 = '\0';
-  char* startPos = strstr((char*)devicePath, "\\\\?\\");
-  if (!startPos) {
-    strncpy_s((char*)productUniqueIdUTF8, productUniqueIdUTF8Length, "", 1);
-    RTC_LOG(LS_INFO) << "Failed to get the product Id";
-    return;
-  }
-  startPos += 4;
+  RTC_DCHECK(productUniqueIdUTF8);
+  RTC_DCHECK(productUniqueIdUTF8Length > 0);
 
-  char* pos = strchr(startPos, '&');
-  if (!pos || pos >= (char*)devicePath + strlen((char*)devicePath)) {
-    strncpy_s((char*)productUniqueIdUTF8, productUniqueIdUTF8Length, "", 1);
+  *productUniqueIdUTF8 = '\0';
+  size_t startPos = devicePath.find("\\\\?\\");
+  if (startPos == absl::string_view::npos) {
     RTC_LOG(LS_INFO) << "Failed to get the product Id";
     return;
   }
-  // Find the second occurrence.
-  pos = strchr(pos + 1, '&');
-  uint32_t bytesToCopy = (uint32_t)(pos - startPos);
-  if (pos && (bytesToCopy < productUniqueIdUTF8Length) &&
-      bytesToCopy <= kVideoCaptureProductIdLength) {
-    strncpy_s((char*)productUniqueIdUTF8, productUniqueIdUTF8Length,
-              (char*)startPos, bytesToCopy);
-  } else {
-    strncpy_s((char*)productUniqueIdUTF8, productUniqueIdUTF8Length, "", 1);
+
+  startPos += 4;
+  size_t idPos = devicePath.find('&', startPos);
+  if (idPos == absl::string_view::npos) {
     RTC_LOG(LS_INFO) << "Failed to get the product Id";
+    return;
   }
+
+  // Find the second occurrence.
+  size_t idEndPos = devicePath.find('&', idPos + 1);
+  uint32_t bytesToCopy = (uint32_t)(idEndPos - startPos);
+  if (idEndPos == absl::string_view::npos ||
+      bytesToCopy >= productUniqueIdUTF8Length ||
+      bytesToCopy > kVideoCaptureProductIdLength) {
+    RTC_LOG(LS_INFO) << "Failed to get the product Id";
+    return;
+  }
+
+  strncpy_s(productUniqueIdUTF8, productUniqueIdUTF8Length,
+            devicePath.data() + startPos, bytesToCopy);
 }
 
 int32_t DeviceInfoDS::DisplayCaptureSettingsDialogBox(
-    const char* deviceUniqueIdUTF8,
-    const char* dialogTitleUTF8,
+    absl::string_view deviceUniqueIdUTF8,
+    absl::string_view dialogTitleUTF8,
     void* parentWindow,
     uint32_t positionX,
     uint32_t positionY) {
@@ -608,13 +611,13 @@ int32_t DeviceInfoDS::DisplayCaptureSettingsDialogBox(
     return -1;
   }
 
-  WCHAR tempDialogTitleWide[256];
-  tempDialogTitleWide[0] = 0;
   int size = 255;
+  WCHAR tempDialogTitleWide[size + 1];
+  tempDialogTitleWide[0] = 0;
 
   // UTF-8 to wide char
-  MultiByteToWideChar(CP_UTF8, 0, (char*)dialogTitleUTF8, -1,
-                      tempDialogTitleWide, size);
+  MultiByteToWideChar(CP_UTF8, 0, dialogTitleUTF8.data(),
+                      dialogTitleUTF8.size(), tempDialogTitleWide, size);
 
   // Invoke a dialog box to display.
 

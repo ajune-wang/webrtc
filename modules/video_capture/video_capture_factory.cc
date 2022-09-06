@@ -10,12 +10,13 @@
 
 #include "modules/video_capture/video_capture_factory.h"
 
+#include "absl/strings/string_view.h"
 #include "modules/video_capture/video_capture_impl.h"
 
 namespace webrtc {
 
 rtc::scoped_refptr<VideoCaptureModule> VideoCaptureFactory::Create(
-    const char* deviceUniqueIdUTF8) {
+    absl::string_view deviceUniqueIdUTF8) {
 #if defined(WEBRTC_ANDROID) || defined(WEBRTC_MAC)
   return nullptr;
 #else

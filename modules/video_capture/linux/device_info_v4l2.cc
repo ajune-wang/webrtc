@@ -17,9 +17,12 @@
 #include <string.h>
 #include <sys/ioctl.h>
 #include <unistd.h>
+
+#include "absl/strings/string_view.h"
 // v4l includes
 #include <linux/videodev2.h>
 
+#include <algorithm>
 #include <vector>
 
 #include "modules/video_capture/video_capture.h"
@@ -134,12 +137,13 @@ int32_t DeviceInfoV4l2::GetDeviceName(uint32_t deviceNumber,
   return 0;
 }
 
-int32_t DeviceInfoV4l2::CreateCapabilityMap(const char* deviceUniqueIdUTF8) {
+int32_t DeviceInfoV4l2::CreateCapabilityMap(
+    absl::string_view deviceUniqueIdUTF8) {
   int fd;
   char device[32];
   bool found = false;
 
-  const int32_t deviceUniqueIdUTF8Length = strlen(deviceUniqueIdUTF8);
+  const int32_t deviceUniqueIdUTF8Length = deviceUniqueIdUTF8.length();
   if (deviceUniqueIdUTF8Length >= kVideoCaptureUniqueNameLength) {
     RTC_LOG(LS_INFO) << "Device name too long";
     return -1;
@@ -164,8 +168,9 @@ int32_t DeviceInfoV4l2::CreateCapabilityMap(const char* deviceUniqueIdUTF8) {
 
       if (cap.bus_info[0] != 0) {
         if (strncmp(reinterpret_cast<const char*>(cap.bus_info),
-                    deviceUniqueIdUTF8,
-                    strlen(deviceUniqueIdUTF8)) == 0) {  // match with device id
+                    deviceUniqueIdUTF8.data(),
+                    deviceUniqueIdUTF8.length()) ==
+            0) {  // match with device id
           found = true;
           break;  // fd matches with device unique id supplied
         }
@@ -196,8 +201,9 @@ int32_t DeviceInfoV4l2::CreateCapabilityMap(const char* deviceUniqueIdUTF8) {
   _lastUsedDeviceNameLength = deviceUniqueIdUTF8Length;
   _lastUsedDeviceName = reinterpret_cast<char*>(
       realloc(_lastUsedDeviceName, _lastUsedDeviceNameLength + 1));
-  memcpy(_lastUsedDeviceName, deviceUniqueIdUTF8,
-         _lastUsedDeviceNameLength + 1);
+  memcpy(_lastUsedDeviceName, deviceUniqueIdUTF8.data(),
+         deviceUniqueIdUTF8Length);
+  _lastUsedDeviceName[deviceUniqueIdUTF8Length] = '\0';
 
   RTC_LOG(LS_INFO) << "CreateCapabilityMap " << _captureCapabilities.size();
 
@@ -205,17 +211,18 @@ int32_t DeviceInfoV4l2::CreateCapabilityMap(const char* deviceUniqueIdUTF8) {
 }
 
 int32_t DeviceInfoV4l2::DisplayCaptureSettingsDialogBox(
-    const char* /*deviceUniqueIdUTF8*/,
-    const char* /*dialogTitleUTF8*/,
+    absl::string_view /*deviceUniqueIdUTF8*/,
+    absl::string_view /*dialogTitleUTF8*/,
     void* /*parentWindow*/,
     uint32_t /*positionX*/,
     uint32_t /*positionY*/) {
   return -1;
 }
 
-bool DeviceInfoV4l2::IsDeviceNameMatches(const char* name,
-                                         const char* deviceUniqueIdUTF8) {
-  if (strncmp(deviceUniqueIdUTF8, name, strlen(name)) == 0)
+bool DeviceInfoV4l2::IsDeviceNameMatches(absl::string_view name,
+                                         absl::string_view deviceUniqueIdUTF8) {
+  if (strncmp(deviceUniqueIdUTF8.data(), name.data(),
+              std::min(deviceUniqueIdUTF8.length(), name.length())) == 0)
     return true;
   return false;
 }

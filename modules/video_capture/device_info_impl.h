@@ -15,6 +15,7 @@
 
 #include <vector>
 
+#include "absl/strings/string_view.h"
 #include "api/video/video_rotation.h"
 #include "modules/video_capture/video_capture.h"
 #include "modules/video_capture/video_capture_defines.h"
@@ -27,15 +28,15 @@ class DeviceInfoImpl : public VideoCaptureModule::DeviceInfo {
  public:
   DeviceInfoImpl();
   ~DeviceInfoImpl(void) override;
-  int32_t NumberOfCapabilities(const char* deviceUniqueIdUTF8) override;
-  int32_t GetCapability(const char* deviceUniqueIdUTF8,
+  int32_t NumberOfCapabilities(absl::string_view deviceUniqueIdUTF8) override;
+  int32_t GetCapability(absl::string_view deviceUniqueIdUTF8,
                         uint32_t deviceCapabilityNumber,
                         VideoCaptureCapability& capability) override;
 
-  int32_t GetBestMatchedCapability(const char* deviceUniqueIdUTF8,
+  int32_t GetBestMatchedCapability(absl::string_view deviceUniqueIdUTF8,
                                    const VideoCaptureCapability& requested,
                                    VideoCaptureCapability& resulting) override;
-  int32_t GetOrientation(const char* deviceUniqueIdUTF8,
+  int32_t GetOrientation(absl::string_view deviceUniqueIdUTF8,
                          VideoRotation& orientation) override;
 
  protected:
@@ -46,7 +47,7 @@ class DeviceInfoImpl : public VideoCaptureModule::DeviceInfo {
    * Fills the member variable _captureCapabilities with capabilities for the
    * given device name.
    */
-  virtual int32_t CreateCapabilityMap(const char* deviceUniqueIdUTF8)
+  virtual int32_t CreateCapabilityMap(absl::string_view deviceUniqueIdUTF8)
       RTC_EXCLUSIVE_LOCKS_REQUIRED(_apiLock) = 0;
 
  protected:

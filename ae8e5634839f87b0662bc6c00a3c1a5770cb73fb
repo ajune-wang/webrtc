@@ -20,6 +20,40 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "856ccf8a_1c45a48e",
+        "filename": "pc/rtc_stats_collector.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 828,
+      "author": {
+        "id": 5142
+      },
+      "writtenOn": "2022-09-06T14:43:50Z",
+      "side": 1,
+      "message": "You can still std::move() even if the argument takes std::string. The string will be created implicitly and passed without copy",
+      "revId": "ae8e5634839f87b0662bc6c00a3c1a5770cb73fb",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "974fb6af_df6750a5",
+        "filename": "pc/rtc_stats_collector_unittest.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 1740,
+      "author": {
+        "id": 5142
+      },
+      "writtenOn": "2022-09-06T14:43:50Z",
+      "side": 1,
+      "message": "With std::string as the constructor argument, you don\u0027t need to wrap this in std::string... it will be copied implicitly.",
+      "revId": "ae8e5634839f87b0662bc6c00a3c1a5770cb73fb",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "7cbb0850_aeea6f0b",
         "filename": "stats/rtcstats_objects.cc",
         "patchSetId": 3

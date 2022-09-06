@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "7cbb0850_aeea6f0b",
+        "filename": "stats/rtcstats_objects.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 101,
+      "author": {
+        "id": 19549
+      },
+      "writtenOn": "2022-09-06T14:19:04Z",
+      "side": 1,
+      "message": "this copies but is rare, correct?",
+      "revId": "ae8e5634839f87b0662bc6c00a3c1a5770cb73fb",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

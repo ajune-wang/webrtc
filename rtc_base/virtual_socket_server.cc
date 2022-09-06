@@ -29,6 +29,8 @@
 #include "rtc_base/time_utils.h"
 
 namespace rtc {
+
+using ::webrtc::TimeDelta;
 #if defined(WEBRTC_WIN)
 const in_addr kInitialNextIPv4 = {{{0x01, 0, 0, 0}}};
 #else
@@ -647,7 +649,7 @@ bool VirtualSocketServer::ProcessMessagesUntilIdle() {
       fake_clock_->AdvanceTime(webrtc::TimeDelta::Millis(1));
     } else {
       // Otherwise, run a normal message loop.
-      msg_queue_->ProcessMessages(Thread::kForever);
+      msg_queue_->ProcessMessages(TimeDelta::PlusInfinity());
     }
   }
   stop_on_idle_ = false;

@@ -51,7 +51,7 @@ Java_com_google_media_networktester_NetworkTester_TestControllerRun(
     jclass,
     jlong native_pointer) {
   // 100 ms arbitrary chosen, but it works well.
-  rtc::Thread::Current()->ProcessMessages(/*cms=*/100);
+  rtc::Thread::Current()->ProcessMessages(webrtc::TimeDelta::Millis(100));
 }
 
 extern "C" JNIEXPORT void JNICALL

@@ -48,7 +48,8 @@ using ::testing::SaveArg;
 using ::testing::StrictMock;
 
 namespace {
-using webrtc::BitrateConstraints;
+using ::webrtc::BitrateConstraints;
+using ::webrtc::TimeDelta;
 
 constexpr uint32_t kMaxUnsignaledRecvStreams = 4;
 
@@ -273,7 +274,7 @@ class WebRtcVoiceEngineTestFake : public ::testing::TestWithParam<bool> {
   void DeliverPacket(const void* data, int len) {
     rtc::CopyOnWriteBuffer packet(reinterpret_cast<const uint8_t*>(data), len);
     channel_->OnPacketReceived(packet, /* packet_time_us */ -1);
-    rtc::Thread::Current()->ProcessMessages(0);
+    rtc::Thread::Current()->ProcessMessages(TimeDelta::Zero());
   }
 
   void TearDown() override { delete channel_; }
@@ -3434,7 +3435,7 @@ TEST_P(WebRtcVoiceEngineTestFake, DeliverAudioPacket_Call) {
       call_.GetAudioReceiveStream(kAudioSsrc);
   EXPECT_EQ(0, s->received_packets());
   channel_->OnPacketReceived(kPcmuPacket, /* packet_time_us */ -1);
-  rtc::Thread::Current()->ProcessMessages(0);
+  rtc::Thread::Current()->ProcessMessages(TimeDelta::Zero());
 
   EXPECT_EQ(1, s->received_packets());
 }

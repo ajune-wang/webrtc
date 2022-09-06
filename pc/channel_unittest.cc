@@ -48,13 +48,14 @@
 #include "test/gtest.h"
 #include "test/scoped_key_value_config.h"
 
-using cricket::DtlsTransportInternal;
-using cricket::FakeVoiceMediaChannel;
-using cricket::RidDescription;
-using cricket::RidDirection;
-using cricket::StreamParams;
-using webrtc::RtpTransceiverDirection;
-using webrtc::SdpType;
+using ::cricket::DtlsTransportInternal;
+using ::cricket::FakeVoiceMediaChannel;
+using ::cricket::RidDescription;
+using ::cricket::RidDirection;
+using ::cricket::StreamParams;
+using ::webrtc::RtpTransceiverDirection;
+using ::webrtc::SdpType;
+using ::webrtc::TimeDelta;
 
 namespace {
 const cricket::AudioCodec kPcmuCodec(0, "PCMU", 64000, 8000, 1);
@@ -1376,11 +1377,11 @@ class ChannelTest : public ::testing::Test, public sigslot::has_slots<> {
   static void ProcessThreadQueue(rtc::Thread* thread) {
     RTC_DCHECK(thread->IsCurrent());
     while (!thread->empty()) {
-      thread->ProcessMessages(0);
+      thread->ProcessMessages(TimeDelta::Zero());
     }
   }
   static void FlushCurrentThread() {
-    rtc::Thread::Current()->ProcessMessages(0);
+    rtc::Thread::Current()->ProcessMessages(TimeDelta::Zero());
   }
   void WaitForThreads(rtc::ArrayView<rtc::Thread*> threads) {
     // `threads` and current thread post packets to network thread.

@@ -79,6 +79,7 @@ using rtc::NATType;
 using rtc::PacketSocketFactory;
 using rtc::Socket;
 using rtc::SocketAddress;
+using ::webrtc::TimeDelta;
 
 namespace cricket {
 namespace {
@@ -422,7 +423,7 @@ class PortTest : public ::testing::Test, public sigslot::has_slots<> {
     // Workaround for tests that trigger async destruction of objects that we
     // need to give an opportunity here to run, before proceeding with other
     // teardown.
-    rtc::Thread::Current()->ProcessMessages(0);
+    rtc::Thread::Current()->ProcessMessages(TimeDelta::Zero());
   }
 
  protected:
@@ -1343,12 +1344,12 @@ TEST_F(PortTest, TestConnectionDead) {
   ASSERT_NE(conn, nullptr);
   // It is not dead if it is after MIN_CONNECTION_LIFETIME but not pruned.
   conn->UpdateState(after_created + MIN_CONNECTION_LIFETIME + 1);
-  rtc::Thread::Current()->ProcessMessages(0);
+  rtc::Thread::Current()->ProcessMessages(TimeDelta::Zero());
   EXPECT_TRUE(ch1.conn() != nullptr);
   // It is not dead if it is before MIN_CONNECTION_LIFETIME and pruned.
   conn->UpdateState(before_created + MIN_CONNECTION_LIFETIME - 1);
   conn->Prune();
-  rtc::Thread::Current()->ProcessMessages(0);
+  rtc::Thread::Current()->ProcessMessages(TimeDelta::Zero());
   EXPECT_TRUE(ch1.conn() != nullptr);
   // It will be dead after MIN_CONNECTION_LIFETIME and pruned.
   conn->UpdateState(after_created + MIN_CONNECTION_LIFETIME + 1);
@@ -1365,7 +1366,7 @@ TEST_F(PortTest, TestConnectionDead) {
   // The connection will be dead after DEAD_CONNECTION_RECEIVE_TIMEOUT
   conn->UpdateState(before_last_receiving + DEAD_CONNECTION_RECEIVE_TIMEOUT -
                     1);
-  rtc::Thread::Current()->ProcessMessages(100);
+  rtc::Thread::Current()->ProcessMessages(TimeDelta::Millis(100));
   EXPECT_TRUE(ch1.conn() != nullptr);
   conn->UpdateState(after_last_receiving + DEAD_CONNECTION_RECEIVE_TIMEOUT + 1);
   EXPECT_TRUE_WAIT(ch1.conn() == nullptr, kDefaultTimeout);
@@ -1396,7 +1397,7 @@ TEST_F(PortTest, TestConnectionDeadWithDeadConnectionTimeout) {
   int64_t after_last_receiving = rtc::TimeMillis();
   // The connection will be dead after 90s
   conn->UpdateState(before_last_receiving + 90000 - 1);
-  rtc::Thread::Current()->ProcessMessages(100);
+  rtc::Thread::Current()->ProcessMessages(TimeDelta::Millis(100));
   EXPECT_TRUE(ch1.conn() != nullptr);
   conn->UpdateState(after_last_receiving + 90000 + 1);
   EXPECT_TRUE_WAIT(ch1.conn() == nullptr, kDefaultTimeout);
@@ -1436,7 +1437,7 @@ TEST_F(PortTest, TestConnectionDeadOutstandingPing) {
 
   // The connection will be dead 30s after the ping was sent.
   conn->UpdateState(send_ping_timestamp + DEAD_CONNECTION_RECEIVE_TIMEOUT - 1);
-  rtc::Thread::Current()->ProcessMessages(100);
+  rtc::Thread::Current()->ProcessMessages(TimeDelta::Millis(100));
   EXPECT_TRUE(ch1.conn() != nullptr);
   conn->UpdateState(send_ping_timestamp + DEAD_CONNECTION_RECEIVE_TIMEOUT + 1);
   EXPECT_TRUE_WAIT(ch1.conn() == nullptr, kDefaultTimeout);
@@ -2577,7 +2578,7 @@ TEST_F(PortTest, TestHandleStunBindingIndication) {
   int64_t last_ping_received1 = lconn->last_ping_received();
 
   // Adding a delay of 100ms.
-  rtc::Thread::Current()->ProcessMessages(100);
+  rtc::Thread::Current()->ProcessMessages(TimeDelta::Millis(100));
   // Pinging lconn using stun indication message.
   lconn->OnReadPacket(buf->Data(), buf->Length(), /* packet_time_us */ -1);
   int64_t last_ping_received2 = lconn->last_ping_received();
@@ -3664,7 +3665,7 @@ TEST_F(PortTest, TestAddConnectionWithSameAddress) {
   EXPECT_EQ(2u, conn_in_use->remote_candidate().generation());
 
   // Make sure the new connection was not deleted.
-  rtc::Thread::Current()->ProcessMessages(300);
+  rtc::Thread::Current()->ProcessMessages(TimeDelta::Millis(300));
   EXPECT_TRUE(port->GetConnection(address) != nullptr);
 }
 

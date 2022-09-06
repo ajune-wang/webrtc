@@ -17,7 +17,7 @@ int main(int /*argn*/, char* /*argv*/[]) {
                                 "server_packet_log.dat");
   while (!server.IsTestDone()) {
     // 100 ms is arbitrary chosen.
-    main_thread.ProcessMessages(/*cms=*/100);
+    main_thread.ProcessMessages(webrtc::TimeDelta::Millis(100));
   }
   return 0;
 }

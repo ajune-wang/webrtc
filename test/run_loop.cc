@@ -27,7 +27,7 @@ TaskQueueBase* RunLoop::task_queue() {
 }
 
 void RunLoop::Run() {
-  worker_thread_.ProcessMessages(WorkerThread::kForever);
+  worker_thread_.ProcessMessages(TimeDelta::PlusInfinity());
 }
 
 void RunLoop::Quit() {
@@ -40,8 +40,8 @@ void RunLoop::Flush() {
   // thread will loop forever since time never increases. Since the clock is
   // simulated, 0ms can be used as the loop delay, which will process all
   // messages ready for execution.
-  int cms = rtc::GetClockForTesting() ? 0 : 1000;
-  worker_thread_.ProcessMessages(cms);
+  worker_thread_.ProcessMessages(
+      rtc::GetClockForTesting() ? TimeDelta::Zero() : TimeDelta::Seconds(1));
 }
 
 RunLoop::FakeSocketServer::FakeSocketServer() = default;

@@ -64,6 +64,7 @@ using ::testing::SetArgPointee;
 using ::testing::SizeIs;
 using ::webrtc::PendingTaskSafetyFlag;
 using ::webrtc::SafeTask;
+using ::webrtc::TimeDelta;
 
 // Default timeout for tests in this file.
 // Should be large enough for slow buildbots to run the tests reliably.
@@ -489,7 +490,7 @@ class P2PTransportChannelTestBase : public ::testing::Test,
     ep2_.cd2_.ch_.reset();
     // Process pending tasks that need to run for cleanup purposes such as
     // pending deletion of Connection objects (see Connection::Destroy).
-    rtc::Thread::Current()->ProcessMessages(0);
+    rtc::Thread::Current()->ProcessMessages(TimeDelta::Zero());
   }
   P2PTransportChannel* ep1_ch1() { return ep1_.cd1_.ch_.get(); }
   P2PTransportChannel* ep1_ch2() { return ep1_.cd2_.ch_.get(); }
@@ -3862,7 +3863,7 @@ TEST_F(P2PTransportChannelPingTest, TestAddRemoteCandidateWithVariousUfrags) {
   // Add a candidate with an old ufrag. No connection will be created.
   ch.AddRemoteCandidate(
       CreateUdpCandidate(LOCAL_PORT_TYPE, "2.2.2.2", 2, 2, kIceUfrag[1]));
-  rtc::Thread::Current()->ProcessMessages(500);
+  rtc::Thread::Current()->ProcessMessages(TimeDelta::Millis(500));
   EXPECT_TRUE(GetConnectionTo(&ch, "2.2.2.2", 2) == nullptr);
 
   // Add a candidate with the current ufrag, its pwd and generation will be

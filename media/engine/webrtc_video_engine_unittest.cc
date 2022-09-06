@@ -85,6 +85,7 @@ using ::testing::Values;
 using ::webrtc::BitrateConstraints;
 using ::webrtc::RtpExtension;
 using ::webrtc::RtpPacket;
+using ::webrtc::TimeDelta;
 
 namespace {
 static const int kDefaultQpMax = 56;
@@ -1673,8 +1674,8 @@ class WebRtcVideoChannelBaseTest : public ::testing::Test {
     }
     frame_forwarder_->IncomingCapturedFrame(frame_source_->GetFrame());
   }
-  bool WaitAndSendFrame(int wait_ms) {
-    bool ret = rtc::Thread::Current()->ProcessMessages(wait_ms);
+  bool WaitAndSendFrame(TimeDelta wait) {
+    bool ret = rtc::Thread::Current()->ProcessMessages(wait);
     SendFrame();
     return ret;
   }
@@ -1716,7 +1717,7 @@ class WebRtcVideoChannelBaseTest : public ::testing::Test {
     EXPECT_EQ(0, renderer_.num_rendered_frames());
     for (int i = 0; i < duration_sec; ++i) {
       for (int frame = 1; frame <= fps; ++frame) {
-        EXPECT_TRUE(WaitAndSendFrame(1000 / fps));
+        EXPECT_TRUE(WaitAndSendFrame(TimeDelta::Seconds(1) / fps));
         EXPECT_FRAME_WAIT(frame + i * fps, kVideoWidth, kVideoHeight, kTimeout);
       }
     }
@@ -1961,7 +1962,7 @@ TEST_F(WebRtcVideoChannelBaseTest, GetStatsMultipleSendStreams) {
   // check stats before it has been updated.
   cricket::VideoMediaInfo info;
   for (uint32_t i = 0; i < kTimeout; ++i) {
-    rtc::Thread::Current()->ProcessMessages(1);
+    rtc::Thread::Current()->ProcessMessages(TimeDelta::Millis(1));
     EXPECT_TRUE(channel_->GetStats(&info));
     ASSERT_EQ(2U, info.senders.size());
     if (info.senders[0].packets_sent + info.senders[1].packets_sent ==
@@ -2024,7 +2025,7 @@ TEST_F(WebRtcVideoChannelBaseTest, SetSendSsrcAfterSetCodecs) {
       channel_->AddSendStream(cricket::StreamParams::CreateLegacy(999)));
   EXPECT_TRUE(channel_->SetVideoSend(999u, nullptr, frame_forwarder_.get()));
   EXPECT_TRUE(SetSend(true));
-  EXPECT_TRUE(WaitAndSendFrame(0));
+  EXPECT_TRUE(WaitAndSendFrame(TimeDelta::Zero()));
   EXPECT_TRUE_WAIT(NumRtpPackets() > 0, kTimeout);
   RtpPacket header;
   EXPECT_TRUE(header.Parse(GetRtpPacket(0)));
@@ -2075,7 +2076,7 @@ TEST_F(WebRtcVideoChannelBaseTest, AddRemoveSendStreams) {
   EXPECT_TRUE(channel_->SetVideoSend(789u, nullptr, frame_forwarder_.get()));
   EXPECT_EQ(rtp_packets, NumRtpPackets());
   // Wait 30ms to guarantee the engine does not drop the frame.
-  EXPECT_TRUE(WaitAndSendFrame(30));
+  EXPECT_TRUE(WaitAndSendFrame(TimeDelta::Millis(30)));
   EXPECT_TRUE_WAIT(NumRtpPackets() > rtp_packets, kTimeout);
 
   last_packet = NumRtpPackets() - 1;
@@ -2125,7 +2126,8 @@ TEST_F(WebRtcVideoChannelBaseTest, DISABLED_AddRemoveCapturer) {
   using cricket::VideoOptions;
 
   VideoCodec codec = DefaultCodec();
-  const int time_between_send_ms = VideoFormat::FpsToInterval(kFramerate);
+  const TimeDelta time_between_send =
+      TimeDelta::Millis(VideoFormat::FpsToInterval(kFramerate));
   EXPECT_TRUE(SetOneCodec(codec));
   EXPECT_TRUE(SetSend(true));
   channel_->SetDefaultSink(&renderer_);
@@ -2147,7 +2149,7 @@ TEST_F(WebRtcVideoChannelBaseTest, DISABLED_AddRemoveCapturer) {
   int captured_frames = 1;
   for (int iterations = 0; iterations < 2; ++iterations) {
     EXPECT_TRUE(channel_->SetVideoSend(kSsrc, nullptr, &frame_forwarder));
-    rtc::Thread::Current()->ProcessMessages(time_between_send_ms);
+    rtc::Thread::Current()->ProcessMessages(time_between_send);
     frame_forwarder.IncomingCapturedFrame(frame_source.GetFrame());
 
     ++captured_frames;
@@ -2194,13 +2196,13 @@ TEST_F(WebRtcVideoChannelBaseTest, RemoveCapturerWithoutAdd) {
   EXPECT_FRAME_WAIT(1, kVideoWidth, kVideoHeight, kTimeout);
   // Wait for one frame so they don't get dropped because we send frames too
   // tightly.
-  rtc::Thread::Current()->ProcessMessages(30);
+  rtc::Thread::Current()->ProcessMessages(TimeDelta::Millis(30));
   // Remove the capturer.
   EXPECT_TRUE(channel_->SetVideoSend(kSsrc, nullptr, nullptr));
 
   // No capturer was added, so this SetVideoSend shouldn't do anything.
   EXPECT_TRUE(channel_->SetVideoSend(kSsrc, nullptr, nullptr));
-  rtc::Thread::Current()->ProcessMessages(300);
+  rtc::Thread::Current()->ProcessMessages(TimeDelta::Millis(300));
   // Verify no more frames were sent.
   EXPECT_EQ(1, renderer_.num_rendered_frames());
 }
@@ -2333,13 +2335,13 @@ TEST_F(WebRtcVideoChannelBaseTest, RequestEncoderFallback) {
   // RequestEncoderFallback will post a task to the worker thread (which is also
   // the current thread), hence the ProcessMessages call.
   channel_->RequestEncoderFallback();
-  rtc::Thread::Current()->ProcessMessages(30);
+  rtc::Thread::Current()->ProcessMessages(TimeDelta::Millis(30));
   ASSERT_TRUE(channel_->GetSendCodec(&codec));
   EXPECT_EQ("VP8", codec.name);
 
   // No other codec to fall back to, keep using VP8.
   channel_->RequestEncoderFallback();
-  rtc::Thread::Current()->ProcessMessages(30);
+  rtc::Thread::Current()->ProcessMessages(TimeDelta::Millis(30));
   ASSERT_TRUE(channel_->GetSendCodec(&codec));
   EXPECT_EQ("VP8", codec.name);
 }
@@ -2358,7 +2360,7 @@ TEST_F(WebRtcVideoChannelBaseTest, RequestEncoderSwitchDefaultFallback) {
   // the current thread), hence the ProcessMessages call.
   channel_->RequestEncoderSwitch(webrtc::SdpVideoFormat("UnavailableCodec"),
                                  /*allow_default_fallback=*/true);
-  rtc::Thread::Current()->ProcessMessages(30);
+  rtc::Thread::Current()->ProcessMessages(TimeDelta::Millis(30));
 
   // Requested encoder is not available. Default fallback is allowed. Switch to
   // the next negotiated codec, VP8.
@@ -2382,7 +2384,7 @@ TEST_F(WebRtcVideoChannelBaseTest, RequestEncoderSwitchStrictPreference) {
   channel_->RequestEncoderSwitch(
       webrtc::SdpVideoFormat("VP9", {{"profile-id", "1"}}),
       /*allow_default_fallback=*/false);
-  rtc::Thread::Current()->ProcessMessages(30);
+  rtc::Thread::Current()->ProcessMessages(TimeDelta::Millis(30));
 
   // VP9 profile_id=1 is not available. Default fallback is not allowed. Switch
   // is not performed.
@@ -2392,7 +2394,7 @@ TEST_F(WebRtcVideoChannelBaseTest, RequestEncoderSwitchStrictPreference) {
   channel_->RequestEncoderSwitch(
       webrtc::SdpVideoFormat("VP9", {{"profile-id", "0"}}),
       /*allow_default_fallback=*/false);
-  rtc::Thread::Current()->ProcessMessages(30);
+  rtc::Thread::Current()->ProcessMessages(TimeDelta::Millis(30));
 
   // VP9 profile_id=0 is available. Switch encoder.
   ASSERT_TRUE(channel_->GetSendCodec(&codec));
@@ -2413,7 +2415,7 @@ TEST_F(WebRtcVideoChannelBaseTest, SendCodecIsMovedToFrontInRtpParameters) {
   // RequestEncoderFallback will post a task to the worker thread (which is also
   // the current thread), hence the ProcessMessages call.
   channel_->RequestEncoderFallback();
-  rtc::Thread::Current()->ProcessMessages(30);
+  rtc::Thread::Current()->ProcessMessages(TimeDelta::Millis(30));
 
   send_codecs = channel_->GetRtpSendParameters(kSsrc).codecs;
   ASSERT_EQ(send_codecs.size(), 2u);
@@ -2475,7 +2477,7 @@ class WebRtcVideoChannelTest : public WebRtcVideoEngineTest {
   void ReceivePacketAndAdvanceTime(rtc::CopyOnWriteBuffer packet,
                                    int64_t packet_time_us) {
     channel_->OnPacketReceived(packet, packet_time_us);
-    rtc::Thread::Current()->ProcessMessages(0);
+    rtc::Thread::Current()->ProcessMessages(TimeDelta::Zero());
     time_controller_.AdvanceTime(
         webrtc::TimeDelta::Millis(kUnsignalledReceiveStreamCooldownMs));
   }
@@ -6474,7 +6476,7 @@ TEST_F(WebRtcVideoChannelTest, RecvUnsignaledSsrcWithSignaledStreamId) {
   ASSERT_TRUE(channel_->AddRecvStream(unsignaled_stream));
   channel_->OnDemuxerCriteriaUpdatePending();
   channel_->OnDemuxerCriteriaUpdateComplete();
-  rtc::Thread::Current()->ProcessMessages(0);
+  rtc::Thread::Current()->ProcessMessages(TimeDelta::Zero());
   // The stream shouldn't have been created at this point because it doesn't
   // have any SSRCs.
   EXPECT_EQ(0u, fake_call_->GetVideoReceiveStreams().size());
@@ -6547,7 +6549,7 @@ TEST_F(WebRtcVideoChannelTest,
   EXPECT_TRUE(channel_->AddRecvStream(StreamParams::CreateLegacy(kSsrc1)));
   channel_->OnDemuxerCriteriaUpdatePending();
   channel_->OnDemuxerCriteriaUpdateComplete();
-  rtc::Thread::Current()->ProcessMessages(0);
+  rtc::Thread::Current()->ProcessMessages(TimeDelta::Zero());
   EXPECT_EQ(fake_call_->GetVideoReceiveStreams().size(), 1u);
 
   // If this is the only m= section the demuxer might be configure to forward
@@ -6584,7 +6586,7 @@ TEST_F(WebRtcVideoChannelTest,
   // pending demuxer updates, receiving unknown ssrcs (kSsrc2) should again
   // result in unsignalled receive streams being created.
   channel_->OnDemuxerCriteriaUpdateComplete();
-  rtc::Thread::Current()->ProcessMessages(0);
+  rtc::Thread::Current()->ProcessMessages(TimeDelta::Zero());
 
   // Receive packets for kSsrc1 and kSsrc2 again.
   {
@@ -6617,7 +6619,7 @@ TEST_F(WebRtcVideoChannelTest,
   EXPECT_TRUE(channel_->AddRecvStream(StreamParams::CreateLegacy(kSsrc2)));
   channel_->OnDemuxerCriteriaUpdatePending();
   channel_->OnDemuxerCriteriaUpdateComplete();
-  rtc::Thread::Current()->ProcessMessages(0);
+  rtc::Thread::Current()->ProcessMessages(TimeDelta::Zero());
   EXPECT_EQ(fake_call_->GetVideoReceiveStreams().size(), 2u);
   EXPECT_EQ(fake_call_->GetDeliveredPacketsForSsrc(kSsrc1), 0u);
   EXPECT_EQ(fake_call_->GetDeliveredPacketsForSsrc(kSsrc2), 0u);
@@ -6654,7 +6656,7 @@ TEST_F(WebRtcVideoChannelTest,
   // Signal that the demuxer update is complete. This means we should stop
   // ignorning kSsrc1.
   channel_->OnDemuxerCriteriaUpdateComplete();
-  rtc::Thread::Current()->ProcessMessages(0);
+  rtc::Thread::Current()->ProcessMessages(TimeDelta::Zero());
 
   // Receive packets for kSsrc1 and kSsrc2 again.
   {
@@ -6684,7 +6686,7 @@ TEST_F(WebRtcVideoChannelTest, MultiplePendingDemuxerCriteriaUpdates) {
   EXPECT_TRUE(channel_->AddRecvStream(StreamParams::CreateLegacy(kSsrc)));
   channel_->OnDemuxerCriteriaUpdatePending();
   channel_->OnDemuxerCriteriaUpdateComplete();
-  rtc::Thread::Current()->ProcessMessages(0);
+  rtc::Thread::Current()->ProcessMessages(TimeDelta::Zero());
   ASSERT_EQ(fake_call_->GetVideoReceiveStreams().size(), 1u);
 
   // Remove kSsrc...
@@ -6708,7 +6710,7 @@ TEST_F(WebRtcVideoChannelTest, MultiplePendingDemuxerCriteriaUpdates) {
 
   // Signal that the demuxer knows about the first update: the removal.
   channel_->OnDemuxerCriteriaUpdateComplete();
-  rtc::Thread::Current()->ProcessMessages(0);
+  rtc::Thread::Current()->ProcessMessages(TimeDelta::Zero());
 
   // This still should not prevent in-flight packets from arriving because we
   // have a receive stream for it.
@@ -6736,7 +6738,7 @@ TEST_F(WebRtcVideoChannelTest, MultiplePendingDemuxerCriteriaUpdates) {
 
   // Signal that the demuxer knows about the second update: adding it back.
   channel_->OnDemuxerCriteriaUpdateComplete();
-  rtc::Thread::Current()->ProcessMessages(0);
+  rtc::Thread::Current()->ProcessMessages(TimeDelta::Zero());
 
   // The packets should continue to be dropped because removal happened after
   // the most recently completed demuxer update.
@@ -6750,7 +6752,7 @@ TEST_F(WebRtcVideoChannelTest, MultiplePendingDemuxerCriteriaUpdates) {
 
   // Signal that the demuxer knows about the last update: the second removal.
   channel_->OnDemuxerCriteriaUpdateComplete();
-  rtc::Thread::Current()->ProcessMessages(0);
+  rtc::Thread::Current()->ProcessMessages(TimeDelta::Zero());
 
   // If packets still arrive after the demuxer knows about the latest removal we
   // should finally create an unsignalled receive stream.
@@ -6774,7 +6776,7 @@ TEST_F(WebRtcVideoChannelTest, UnsignalledSsrcHasACooldown) {
     packet.SetSsrc(kSsrc1);
     channel_->OnPacketReceived(packet.Buffer(), /* packet_time_us */ -1);
   }
-  rtc::Thread::Current()->ProcessMessages(0);
+  rtc::Thread::Current()->ProcessMessages(TimeDelta::Zero());
   time_controller_.AdvanceTime(
       webrtc::TimeDelta::Millis(kUnsignalledReceiveStreamCooldownMs - 1));
 
@@ -6789,7 +6791,7 @@ TEST_F(WebRtcVideoChannelTest, UnsignalledSsrcHasACooldown) {
     packet.SetSsrc(kSsrc2);
     channel_->OnPacketReceived(packet.Buffer(), /* packet_time_us */ -1);
   }
-  rtc::Thread::Current()->ProcessMessages(0);
+  rtc::Thread::Current()->ProcessMessages(TimeDelta::Zero());
 
   // Not enough time has passed to replace the unsignalled receive stream, so
   // the kSsrc2 should be ignored.
@@ -6806,7 +6808,7 @@ TEST_F(WebRtcVideoChannelTest, UnsignalledSsrcHasACooldown) {
     packet.SetSsrc(kSsrc2);
     channel_->OnPacketReceived(packet.Buffer(), /* packet_time_us */ -1);
   }
-  rtc::Thread::Current()->ProcessMessages(0);
+  rtc::Thread::Current()->ProcessMessages(TimeDelta::Zero());
 
   // The old unsignalled receive stream was destroyed and replaced, so we still
   // only have one unsignalled receive stream. But tha packet counter for kSsrc2
@@ -9038,7 +9040,7 @@ TEST_F(WebRtcVideoChannelBaseTest, EncoderSelectorSwitchCodec) {
 
   channel_->SetEncoderSelector(kSsrc, &encoder_selector);
 
-  rtc::Thread::Current()->ProcessMessages(30);
+  rtc::Thread::Current()->ProcessMessages(TimeDelta::Millis(30));
 
   ASSERT_TRUE(channel_->GetSendCodec(&codec));
   EXPECT_EQ("VP9", codec.name);

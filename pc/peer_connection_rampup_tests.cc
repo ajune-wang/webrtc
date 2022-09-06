@@ -59,9 +59,9 @@
 namespace webrtc {
 
 namespace {
-static const int kDefaultTestTimeMs = 15000;
-static const int kRampUpTimeMs = 5000;
-static const int kPollIntervalTimeMs = 50;
+constexpr TimeDelta kDefaultTestTime = TimeDelta::Seconds(15);
+constexpr TimeDelta kRampUpTime = TimeDelta::Seconds(5);
+constexpr TimeDelta kPollIntervalTime = TimeDelta::Millis(50);
 static const int kDefaultTimeoutMs = 10000;
 static const rtc::SocketAddress kDefaultLocalAddress("1.1.1.1", 0);
 static const char kTurnInternalAddress[] = "88.88.88.0";
@@ -250,21 +250,20 @@ class PeerConnectionRampUpTest : public ::testing::Test {
 
   // First runs the call for kRampUpTimeMs to ramp up the bandwidth estimate.
   // Then runs the test for the remaining test time, grabbing the bandwidth
-  // estimation stat, every kPollIntervalTimeMs. When finished, averages the
+  // estimation stat, every kPollIntervalTime. When finished, averages the
   // bandwidth estimations and prints the bandwidth estimation result as a perf
   // metric.
   void RunTest(const std::string& test_string) {
-    rtc::Thread::Current()->ProcessMessages(kRampUpTimeMs);
-    int number_of_polls =
-        (kDefaultTestTimeMs - kRampUpTimeMs) / kPollIntervalTimeMs;
+    rtc::Thread::Current()->ProcessMessages(kRampUpTime);
+    int number_of_polls = (kDefaultTestTime - kRampUpTime) / kPollIntervalTime;
     int total_bwe = 0;
     for (int i = 0; i < number_of_polls; ++i) {
-      rtc::Thread::Current()->ProcessMessages(kPollIntervalTimeMs);
+      rtc::Thread::Current()->ProcessMessages(kPollIntervalTime);
       total_bwe += static_cast<int>(GetCallerAvailableBitrateEstimate());
     }
     double average_bandwidth_estimate = total_bwe / number_of_polls;
     std::string value_description =
-        "bwe_after_" + std::to_string(kDefaultTestTimeMs / 1000) + "_seconds";
+        "bwe_after_" + std::to_string(kDefaultTestTime.seconds()) + "_seconds";
     test::PrintResult("peerconnection_ramp_up_", test_string, value_description,
                       average_bandwidth_estimate, "bwe", false);
   }

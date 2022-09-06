@@ -461,7 +461,7 @@ TEST_P(PeerConnectionIceTest, NoIceCandidatesBeforeSetLocalDescription) {
   caller->network()->AddInterface(kLocalAddress);
 
   // Pump for 1 second and verify that no candidates are generated.
-  rtc::Thread::Current()->ProcessMessages(1000);
+  rtc::Thread::Current()->ProcessMessages(TimeDelta::Seconds(1));
 
   EXPECT_EQ(0u, caller->observer()->candidates_.size());
 }
@@ -479,7 +479,7 @@ TEST_P(PeerConnectionIceTest,
   ASSERT_TRUE(callee->SetRemoteDescription(std::move(offer)));
 
   // Pump for 1 second and verify that no candidates are generated.
-  rtc::Thread::Current()->ProcessMessages(1000);
+  rtc::Thread::Current()->ProcessMessages(TimeDelta::Seconds(1));
 
   EXPECT_EQ(0u, callee->observer()->candidates_.size());
 }
@@ -947,7 +947,7 @@ TEST_P(PeerConnectionIceTest,
   caller->network()->RemoveInterface(kLocalAddress);
 
   // Verify that the local candidates are not removed;
-  rtc::Thread::Current()->ProcessMessages(1000);
+  rtc::Thread::Current()->ProcessMessages(TimeDelta::Seconds(1));
   EXPECT_EQ(0, caller->observer()->num_candidates_removed_);
 }
 

@@ -69,6 +69,24 @@
       "parentUuid": "a909f5a5_43d91a6e",
       "revId": "ce8ecf2368eb5162935f5e9207ebef8d6b7dbc6f",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "a338be9d_4edc5cb6",
+        "filename": "api/stats/rtc_stats.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 58,
+      "author": {
+        "id": 5142
+      },
+      "writtenOn": "2022-09-06T11:57:04Z",
+      "side": 1,
+      "message": "Most places would implicitly move by passing R-values, but some places do have local std::string variables so maybe those would be updated to std::move",
+      "parentUuid": "7b8429d8_edd121c5",
+      "revId": "ce8ecf2368eb5162935f5e9207ebef8d6b7dbc6f",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

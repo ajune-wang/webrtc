@@ -56,6 +56,30 @@
       },
       "revId": "c03fadb7f4a3fa0829921b8643dae59f696b200c",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "3dd0bb73_2f40c9ed",
+        "filename": "modules/video_coding/codecs/av1/dav1d_decoder.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 102,
+      "author": {
+        "id": 13849
+      },
+      "writtenOn": "2022-09-06T14:28:11Z",
+      "side": 1,
+      "message": "Done.  The reason I split these out originally was because the MutableData{Y|U|V} functions are defined on the I420 and I444 buffer interfaces instead of at a higher level.\n\nUsing a common interface requires a const_cast let me know if there are any concerns with going this route.",
+      "parentUuid": "e3d603a1_623bdc93",
+      "range": {
+        "startLine": 102,
+        "startChar": 37,
+        "endLine": 102,
+        "endChar": 54
+      },
+      "revId": "c03fadb7f4a3fa0829921b8643dae59f696b200c",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

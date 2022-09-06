@@ -1,6 +1,23 @@
 {
   "comments": [
     {
+      "unresolved": true,
+      "key": {
+        "uuid": "80964898_f357e147",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 19,
+      "author": {
+        "id": 5142
+      },
+      "writtenOn": "2022-09-06T09:23:55Z",
+      "side": 1,
+      "message": "Different issue:\nWhile looking at this, I also discovered a discrepancy between legacy and modern\u0027s implementation of consentRequestsSent.\n\nModern implements this as `info.sent_ping_requests_total - info.sent_ping_requests_before_first_response` but legacy implements this as just `info.sent_ping_requests_before_first_response`.\n\nIf consent pings refer to the keep alive pings then I believe modern getStats is correct and legacy is wrong?",
+      "revId": "e12cd7b86e4c67e0a3dfa49c535b724ce9e82995",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": false,
       "key": {
         "uuid": "88682c74_e9b4b102",

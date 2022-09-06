@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "22df9d7d_fe006308",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 19549
+      },
+      "writtenOn": "2022-09-06T09:42:06Z",
+      "side": 1,
+      "message": "can you try the magic internal bot that I can\u0027t see?",
+      "revId": "ce8ecf2368eb5162935f5e9207ebef8d6b7dbc6f",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

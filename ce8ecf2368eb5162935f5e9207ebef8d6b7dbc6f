@@ -16,6 +16,23 @@
       "message": "can you try the magic internal bot that I can\u0027t see?",
       "revId": "ce8ecf2368eb5162935f5e9207ebef8d6b7dbc6f",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "1370edde_d69c83d5",
+        "filename": "api/stats/rtc_stats.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 58,
+      "author": {
+        "id": 5142
+      },
+      "writtenOn": "2022-09-06T11:00:24Z",
+      "side": 1,
+      "message": "This forces a copy. Can we do this instead?\n\n```\n  RTCStats(std::string id, int64_t timestamp_us)\n      : id_(std::move(id)), timestamp_us_(timestamp_us) {}\n```",
+      "revId": "ce8ecf2368eb5162935f5e9207ebef8d6b7dbc6f",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

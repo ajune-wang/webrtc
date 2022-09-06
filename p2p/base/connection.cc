@@ -1554,6 +1554,12 @@ void Connection::MaybeUpdateLocalCandidate(StunRequest* request,
                            "stun response message";
     return;
   }
+
+  // Don't allow 'downgrade' RELAY to PRFLX.
+  if (local_candidate_.type() == RELAY_PORT_TYPE) {
+    return;
+  }
+
   const uint32_t priority = priority_attr->value();
   std::string id = rtc::CreateRandomString(8);
 

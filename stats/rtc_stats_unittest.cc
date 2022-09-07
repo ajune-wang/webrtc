@@ -43,8 +43,8 @@ class RTCChildStats : public RTCStats {
  public:
   WEBRTC_RTCSTATS_DECL();
 
-  RTCChildStats(const std::string& id, int64_t timestamp_us)
-      : RTCStats(id, timestamp_us), child_int("childInt") {}
+  RTCChildStats(std::string&& id, int64_t timestamp_us)
+      : RTCStats(std::move(id), timestamp_us), child_int("childInt") {}
 
   RTCStatsMember<int32_t> child_int;
 };
@@ -55,8 +55,9 @@ class RTCGrandChildStats : public RTCChildStats {
  public:
   WEBRTC_RTCSTATS_DECL();
 
-  RTCGrandChildStats(const std::string& id, int64_t timestamp_us)
-      : RTCChildStats(id, timestamp_us), grandchild_int("grandchildInt") {}
+  RTCGrandChildStats(std::string&& id, int64_t timestamp_us)
+      : RTCChildStats(std::move(id), timestamp_us),
+        grandchild_int("grandchildInt") {}
 
   RTCStatsMember<int32_t> grandchild_int;
 };
@@ -254,7 +255,7 @@ TEST(RTCStatsTest, RTCStatsPrintsValidJson) {
   std::map<std::string, double> map_string_double{
       {"three", 123.4567890123456499}, {"thirteen", 123.4567890123456499}};
 
-  RTCTestStats stats(id, timestamp);
+  RTCTestStats stats(std::string(id), timestamp);
   stats.m_bool = m_bool;
   stats.m_int32 = m_int32;
   stats.m_int64 = m_int64;

@@ -123,6 +123,24 @@
       "parentUuid": "ec257fa6_be342026",
       "revId": "3769063ab0b1c218ed1a0937b772b8dd11ce0806",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "76308ea4_a064198d",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 17
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 19549
+      },
+      "writtenOn": "2022-09-07T12:27:38Z",
+      "side": 1,
+      "message": "Agreed, I\u0027ll try to come up with a test for the existing behavior while waiting for the spec discussion to come to a conclusion (after TPAC next week)",
+      "parentUuid": "85621724_3a1689b7",
+      "revId": "3769063ab0b1c218ed1a0937b772b8dd11ce0806",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

@@ -56,6 +56,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "cbe4c101_69fadb9a",
+        "filename": "api/stats/rtc_stats.h",
+        "patchSetId": 3
+      },
+      "lineNbr": 57,
+      "author": {
+        "id": 19549
+      },
+      "writtenOn": "2022-09-07T13:33:11Z",
+      "side": 1,
+      "message": "this is mostly about not loosing the existing performance (and I think we need it). Removing the const string\u0026 constructor which was only used it tests makes this more explicit\n\n(quite some back and forth between the patchsets... latest one removes the const again since that was indeed a style issue)",
+      "parentUuid": "12885d68_3b6529ad",
+      "revId": "ae8e5634839f87b0662bc6c00a3c1a5770cb73fb",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "856ccf8a_1c45a48e",
         "filename": "pc/rtc_stats_collector.cc",
         "patchSetId": 3

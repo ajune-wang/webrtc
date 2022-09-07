@@ -141,6 +141,23 @@
       "parentUuid": "85621724_3a1689b7",
       "revId": "3769063ab0b1c218ed1a0937b772b8dd11ce0806",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "8cf89ae2_c34ea3ae",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 17
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2022-09-07T14:22:35Z",
+      "side": 1,
+      "message": "PLI and FIR (the RTCP packets) don\u0027t know anything about layers. In simulcast, this doesn\u0027t matter; the PLI and FIR are linked to the SSRC, not to the transceiver.\n\nThe RID is only used with simulcast, so there\u0027s no inter-stream dependencies involved on the packet level - SVC is sent on a single SSRC, so if you want per-layer keyframes with SVC, that\u0027s an SVC extension, not this extension.\n\nAgree with implementing the API first and the selection second, for easy rollback if (when?) weird SFU behavior is found. But this should go forward eventually.\n\nPlease voice the concerns about requesting a keyframe one rid at a time vs requesting multiple rids at once to the WG - I don\u0027t think this has been adequately discussed by people who understand it.\n\n",
+      "revId": "3769063ab0b1c218ed1a0937b772b8dd11ce0806",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

@@ -158,6 +158,24 @@
       "message": "PLI and FIR (the RTCP packets) don\u0027t know anything about layers. In simulcast, this doesn\u0027t matter; the PLI and FIR are linked to the SSRC, not to the transceiver.\n\nThe RID is only used with simulcast, so there\u0027s no inter-stream dependencies involved on the packet level - SVC is sent on a single SSRC, so if you want per-layer keyframes with SVC, that\u0027s an SVC extension, not this extension.\n\nAgree with implementing the API first and the selection second, for easy rollback if (when?) weird SFU behavior is found. But this should go forward eventually.\n\nPlease voice the concerns about requesting a keyframe one rid at a time vs requesting multiple rids at once to the WG - I don\u0027t think this has been adequately discussed by people who understand it.\n\n",
       "revId": "3769063ab0b1c218ed1a0937b772b8dd11ce0806",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "5a2e618d_861ef848",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 17
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 19549
+      },
+      "writtenOn": "2022-09-07T17:43:17Z",
+      "side": 1,
+      "message": "My rationale for being able to request multiple rids is as follows:\n1/ not making any assumptions about how the encoder is implemented\n2/ avoiding multiple calls from the blink layer to the encoder thread, potentially setting the \"need keyframe\" flag on different layers for different pictures which removes the ability of the encoder to at least do a partial optimization as described in https://bugs.chromium.org/p/webrtc/issues/detail?id\u003d10107#c4\nAnything I missed?\n\nNote that PLI and FIR might still need to request a single SSRC at a time - unless we decide that a compound RTCP packet with multiple BYEs should first collect the SSRCs and then request keyframes for all of them. But that will be a different API (and I suspect it will be convoluted because in addition to the ssrc in the packet it will involve the ssrc of the sender associated with it...)",
+      "parentUuid": "8cf89ae2_c34ea3ae",
+      "revId": "3769063ab0b1c218ed1a0937b772b8dd11ce0806",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

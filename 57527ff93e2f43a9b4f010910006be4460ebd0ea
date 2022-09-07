@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "d7e2bac1_183b0835",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 9405
+      },
+      "writtenOn": "2022-09-07T00:38:38Z",
+      "side": 1,
+      "message": "Hi. I found that kTemporalStructureMode4 isn\u0027t used for the WebRTC codebase, so I\u0027m suggesting removing it. Please take a look.",
+      "revId": "57527ff93e2f43a9b4f010910006be4460ebd0ea",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

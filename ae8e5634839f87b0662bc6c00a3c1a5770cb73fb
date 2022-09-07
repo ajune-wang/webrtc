@@ -38,6 +38,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "12885d68_3b6529ad",
+        "filename": "api/stats/rtc_stats.h",
+        "patchSetId": 3
+      },
+      "lineNbr": 57,
+      "author": {
+        "id": 10107
+      },
+      "writtenOn": "2022-09-07T09:42:16Z",
+      "side": 1,
+      "message": "yes, webrtc is slowly adopting absl::string_view in the entire codebase. See webrtc:13579.\n\nHowever, I don\u0027t think we\u0027ve made a decision yet about whether to migrate code under api/ to absl::string_view. Since this is under the api/ directory, I suggest simply using std::string or const std::string\u0026 for now (unless there is a big performance gain from forcing moves with std::string\u0026\u0026, in which case we should have data points to verify that).",
+      "parentUuid": "c5732fd1_c8379205",
+      "revId": "ae8e5634839f87b0662bc6c00a3c1a5770cb73fb",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "856ccf8a_1c45a48e",
         "filename": "pc/rtc_stats_collector.cc",
         "patchSetId": 3

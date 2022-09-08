@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "bd7c8f62_2752df54",
+        "filename": "rtc_base/thread.h",
+        "patchSetId": 4
+      },
+      "lineNbr": 338,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2022-09-08T07:37:42Z",
+      "side": 1,
+      "message": "I wonder if it would be helpful to rename this function on the way\ne.g. BlockingInvoke or BlockingCall or SynchronousCall\ni.e. use name to note this function is discouraged.",
+      "range": {
+        "startLine": 338,
+        "startChar": 15,
+        "endLine": 338,
+        "endChar": 21
+      },
+      "revId": "442766b4b496bd7b92e468296fe901e3b77cce71",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

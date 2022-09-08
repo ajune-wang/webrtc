@@ -16,6 +16,52 @@
       "message": "ptal.",
       "revId": "ac8098b1a77a965982a2167c6390edee1d6c1efb",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "086de490_dbd7d2ab",
+        "filename": "modules/video_coding/timing/jitter_estimator.cc",
+        "patchSetId": 10
+      },
+      "lineNbr": 177,
+      "author": {
+        "id": 5527
+      },
+      "writtenOn": "2022-09-08T13:00:54Z",
+      "side": 1,
+      "message": "`GetNumStddevSizeOutlier()`",
+      "range": {
+        "startLine": 177,
+        "startChar": 10,
+        "endLine": 177,
+        "endChar": 31
+      },
+      "revId": "ac8098b1a77a965982a2167c6390edee1d6c1efb",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "8e926aca_ccf57870",
+        "filename": "modules/video_coding/timing/jitter_estimator.h",
+        "patchSetId": 10
+      },
+      "lineNbr": 37,
+      "author": {
+        "id": 5527
+      },
+      "writtenOn": "2022-09-08T13:00:54Z",
+      "side": 1,
+      "message": "nit: This is a very generic name, maybe be a bit more specific, WDYT about `JitterEstimatorFilterConfig`? If you change the name please also update `Config` to `FilterConfig` or something like that.\n\nnot super important...",
+      "range": {
+        "startLine": 37,
+        "startChar": 54,
+        "endLine": 37,
+        "endChar": 69
+      },
+      "revId": "ac8098b1a77a965982a2167c6390edee1d6c1efb",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

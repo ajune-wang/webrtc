@@ -11,6 +11,7 @@
 #ifndef MODULES_VIDEO_CODING_TIMING_JITTER_ESTIMATOR_H_
 #define MODULES_VIDEO_CODING_TIMING_JITTER_ESTIMATOR_H_
 
+#include <deque>
 #include <memory>
 
 #include "absl/strings/string_view.h"
@@ -23,6 +24,7 @@
 #include "modules/video_coding/timing/frame_delay_variation_kalman_filter.h"
 #include "modules/video_coding/timing/rtt_filter.h"
 #include "rtc_base/experiments/struct_parameters_parser.h"
+#include "rtc_base/numerics/percentile_filter.h"
 #include "rtc_base/rolling_accumulator.h"
 
 namespace webrtc {
@@ -42,10 +44,26 @@ class JitterEstimator {
 
     std::unique_ptr<StructParametersParser> Parser() {
       return StructParametersParser::Create(
+          "max_frame_size_percentile", &max_frame_size_percentile,
+          "max_frame_size_window", &max_frame_size_window,
           "num_stddev_delay_outlier", &num_stddev_delay_outlier,
           "num_stddev_size_outlier", &num_stddev_size_outlier,
           "congestion_rejection_factor", &congestion_rejection_factor);
     }
+
+    // If true, the JitterEstimator will use a rolling percentile window to
+    // determine how large frames to be ready for.
+    bool MaxFrameSizePercentileEnabled() const {
+      return max_frame_size_percentile.has_value();
+    }
+
+    // What percentile to consider a large frame.
+    // If set to 0, the legacy kPsi filter is used.
+    absl::optional<double> max_frame_size_percentile;
+
+    // TODO(brandtr): Figure out what window length corresponds to existing
+    // kPsi.
+    absl::optional<int> max_frame_size_window;
 
     // Number of standard deviations for considering a deviation.
     absl::optional<double> num_stddev_delay_outlier;
@@ -98,6 +116,7 @@ class JitterEstimator {
  private:
   // The following functions return values that could be overriden through
   // the config.
+  double GetMaxFrameSizeEstimateBytes() const;
   double GetNumStddevDelayOutlier() const;
   double GetNumStddevSizeOutlier() const;
   double GetCongestionRejectionFactor() const;
@@ -133,10 +152,14 @@ class JitterEstimator {
   // when api/units have sufficient precision.
   double avg_frame_size_bytes_;  // Average frame size
   double var_frame_size_bytes2_;  // Frame size variance. Unit is bytes^2.
-  // Largest frame size received (descending with a factor kPsi)
+  // Largest frame size received (descending with a factor kPsi).
+  // This is used by default.
   // TODO(bugs.webrtc.org/14381): Update `max_frame_size_bytes_` to DataSize
   // when api/units have sufficient precision.
   double max_frame_size_bytes_;
+  // Percentil frame sized received (over a window). This is used if configured.
+  PercentileFilter<int64_t> max_frame_size_percentile_bytes_;
+  std::deque<int64_t> frame_sizes_in_percentile_filter_;
   // TODO(bugs.webrtc.org/14381): Update `startup_frame_size_sum_bytes_` to
   // DataSize when api/units have sufficient precision.
   double startup_frame_size_sum_bytes_;

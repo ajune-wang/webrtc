@@ -43,6 +43,30 @@
     {
       "unresolved": false,
       "key": {
+        "uuid": "e02707c8_88b19795",
+        "filename": "modules/video_coding/timing/jitter_estimator.cc",
+        "patchSetId": 10
+      },
+      "lineNbr": 177,
+      "author": {
+        "id": 5023
+      },
+      "writtenOn": "2022-09-08T13:39:53Z",
+      "side": 1,
+      "message": "Oj, wow, good catch! Fixed.\n\nIn my downstream simulation runs, I have always changed both outlier constants together... Hence I didn\u0027t catch that the size outlier override had no effect.",
+      "parentUuid": "086de490_dbd7d2ab",
+      "range": {
+        "startLine": 177,
+        "startChar": 10,
+        "endLine": 177,
+        "endChar": 31
+      },
+      "revId": "ac8098b1a77a965982a2167c6390edee1d6c1efb",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
         "uuid": "8e926aca_ccf57870",
         "filename": "modules/video_coding/timing/jitter_estimator.h",
         "patchSetId": 10
@@ -54,6 +78,30 @@
       "writtenOn": "2022-09-08T13:00:54Z",
       "side": 1,
       "message": "nit: This is a very generic name, maybe be a bit more specific, WDYT about `JitterEstimatorFilterConfig`? If you change the name please also update `Config` to `FilterConfig` or something like that.\n\nnot super important...",
+      "range": {
+        "startLine": 37,
+        "startChar": 54,
+        "endLine": 37,
+        "endChar": 69
+      },
+      "revId": "ac8098b1a77a965982a2167c6390edee1d6c1efb",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "c34689f2_c02fdcfe",
+        "filename": "modules/video_coding/timing/jitter_estimator.h",
+        "patchSetId": 10
+      },
+      "lineNbr": 37,
+      "author": {
+        "id": 5023
+      },
+      "writtenOn": "2022-09-08T13:39:53Z",
+      "side": 1,
+      "message": "There are more things coming to the field trial, so I think it\u0027s good that the name is somewhat generic. However, I agree it could be a little bit more specific, so I changed it to \"JitterEstimatorConfig\". I think \"filter\" is a bit redundant, because the JitterEstimator is basically a big, complicated, filter.\n\nI kept the type name, however, for the same reason.",
+      "parentUuid": "8e926aca_ccf57870",
       "range": {
         "startLine": 37,
         "startChar": 54,

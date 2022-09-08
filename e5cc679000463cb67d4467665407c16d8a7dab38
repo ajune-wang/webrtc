@@ -16,6 +16,46 @@
       "message": "Hi Danil,\nCould you PTAL?\nAlessio",
       "revId": "e5cc679000463cb67d4467665407c16d8a7dab38",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "ca7c7ea1_fb05547c",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2022-09-08T13:32:23Z",
+      "side": 1,
+      "message": "This should increase number of scenarios where rtt would be available to the audio/channel_receiver:\n\nRtpRtcp::RTT first search thourh report blocks (like ReceiveChannel) but if there is not report block to calculate RTT block, it may also use DLRR [i.e. when there is no audio sender], and if that fails, use RTT from other SSRCs that still should be accurate enough, better than no rtt",
+      "revId": "e5cc679000463cb67d4467665407c16d8a7dab38",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "f7cf4af9_caba5508",
+        "filename": "audio/channel_receive.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 728,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2022-09-08T13:32:23Z",
+      "side": 1,
+      "message": "nullptr\n\nhttp://bugs.webrtc.org/7147",
+      "range": {
+        "startLine": 728,
+        "startChar": 49,
+        "endLine": 728,
+        "endChar": 53
+      },
+      "revId": "e5cc679000463cb67d4467665407c16d8a7dab38",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

@@ -22,6 +22,30 @@
       },
       "revId": "442766b4b496bd7b92e468296fe901e3b77cce71",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "16743acd_9d1d9835",
+        "filename": "rtc_base/thread.h",
+        "patchSetId": 4
+      },
+      "lineNbr": 338,
+      "author": {
+        "id": 5508
+      },
+      "writtenOn": "2022-09-08T10:58:08Z",
+      "side": 1,
+      "message": "I think that\u0027s a good idea. Is it possible in this CL or address in a separate one?",
+      "parentUuid": "bd7c8f62_2752df54",
+      "range": {
+        "startLine": 338,
+        "startChar": 15,
+        "endLine": 338,
+        "endChar": 21
+      },
+      "revId": "442766b4b496bd7b92e468296fe901e3b77cce71",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

@@ -46,6 +46,30 @@
       },
       "revId": "442766b4b496bd7b92e468296fe901e3b77cce71",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "1b65d91f_d21ef2b2",
+        "filename": "rtc_base/thread.h",
+        "patchSetId": 4
+      },
+      "lineNbr": 338,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2022-09-08T11:16:28Z",
+      "side": 1,
+      "message": "I think it is better in this one, since this CL introduces this new name (and new signature)\n\npicked `BlockingCall` name because such term is already used in one of the functions (rtc::Thread::DisallowBlockingCalls)",
+      "parentUuid": "16743acd_9d1d9835",
+      "range": {
+        "startLine": 338,
+        "startChar": 15,
+        "endLine": 338,
+        "endChar": 21
+      },
+      "revId": "442766b4b496bd7b92e468296fe901e3b77cce71",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

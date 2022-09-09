@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "719cb2ca_27b4c235",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 10
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5122
+      },
+      "writtenOn": "2022-09-09T12:57:59Z",
+      "side": 1,
+      "message": "Hi Mirko,\nI need LGTM for rtc_tools/unpack_aecdump.\nFor some reason we don\u0027t have owners from our team in that folder (I\u0027ll fix that).\nCould you PTAL?\nAlessio",
+      "revId": "8f471b8ea8ab80d73cc74c2a0e54cee124a2bca7",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

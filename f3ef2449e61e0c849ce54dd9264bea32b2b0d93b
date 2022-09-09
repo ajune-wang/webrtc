@@ -46,6 +46,30 @@
       },
       "revId": "f3ef2449e61e0c849ce54dd9264bea32b2b0d93b",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "2b8b1c66_57ed573d",
+        "filename": "modules/video_coding/timing/jitter_estimator.cc",
+        "patchSetId": 8
+      },
+      "lineNbr": 49,
+      "author": {
+        "id": 5023
+      },
+      "writtenOn": "2022-09-09T11:35:00Z",
+      "side": 1,
+      "message": "Discussed offline: reducing this value a bit.",
+      "parentUuid": "148d849f_f270f3ce",
+      "range": {
+        "startLine": 49,
+        "startChar": 43,
+        "endLine": 49,
+        "endChar": 50
+      },
+      "revId": "f3ef2449e61e0c849ce54dd9264bea32b2b0d93b",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

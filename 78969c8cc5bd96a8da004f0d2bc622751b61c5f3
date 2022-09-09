@@ -16,6 +16,52 @@
       "message": "Thank you for the feedback and discussion!",
       "revId": "78969c8cc5bd96a8da004f0d2bc622751b61c5f3",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "8d8b643a_2b97c7a3",
+        "filename": "p2p/base/ice_agent_interface.h",
+        "patchSetId": 6
+      },
+      "lineNbr": 43,
+      "author": {
+        "id": 5613
+      },
+      "writtenOn": "2022-09-09T08:34:19Z",
+      "side": 1,
+      "message": "why/how is this different from UpdateConnectionStates ?",
+      "range": {
+        "startLine": 43,
+        "startChar": 15,
+        "endLine": 43,
+        "endChar": 39
+      },
+      "revId": "78969c8cc5bd96a8da004f0d2bc622751b61c5f3",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "4e2a253b_542e7dc6",
+        "filename": "p2p/base/ice_agent_interface.h",
+        "patchSetId": 6
+      },
+      "lineNbr": 49,
+      "author": {
+        "id": 5613
+      },
+      "writtenOn": "2022-09-09T08:34:19Z",
+      "side": 1,
+      "message": "when is that not done after an UpdateConnectionState ?",
+      "range": {
+        "startLine": 49,
+        "startChar": 15,
+        "endLine": 49,
+        "endChar": 35
+      },
+      "revId": "78969c8cc5bd96a8da004f0d2bc622751b61c5f3",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

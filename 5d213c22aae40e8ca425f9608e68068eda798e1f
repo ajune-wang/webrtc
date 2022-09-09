@@ -1,0 +1,44 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "254db0ab_18e705ce",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 6
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5613
+      },
+      "writtenOn": "2022-09-09T08:31:40Z",
+      "side": 1,
+      "message": "one comment...",
+      "revId": "5d213c22aae40e8ca425f9608e68068eda798e1f",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "d85375e0_2cdef83b",
+        "filename": "p2p/base/active_ice_controller_interface.h",
+        "patchSetId": 6
+      },
+      "lineNbr": 61,
+      "author": {
+        "id": 5613
+      },
+      "writtenOn": "2022-09-09T08:31:40Z",
+      "side": 1,
+      "message": "why ?\n(i know that the existing code is sort of like that...but it\u0027s pretty weird isn\u0027t it ?)",
+      "range": {
+        "startLine": 61,
+        "startChar": 19,
+        "endLine": 61,
+        "endChar": 30
+      },
+      "revId": "5d213c22aae40e8ca425f9608e68068eda798e1f",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

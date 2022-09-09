@@ -41,6 +41,30 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "1b5b40d2_770ef599",
+        "filename": "p2p/base/ice_agent_interface.h",
+        "patchSetId": 6
+      },
+      "lineNbr": 43,
+      "author": {
+        "id": 17854
+      },
+      "writtenOn": "2022-09-09T14:04:52Z",
+      "side": 1,
+      "message": "not needed separately, removed.",
+      "parentUuid": "8d8b643a_2b97c7a3",
+      "range": {
+        "startLine": 43,
+        "startChar": 15,
+        "endLine": 43,
+        "endChar": 39
+      },
+      "revId": "78969c8cc5bd96a8da004f0d2bc622751b61c5f3",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "4e2a253b_542e7dc6",
@@ -54,6 +78,30 @@
       "writtenOn": "2022-09-09T08:34:19Z",
       "side": 1,
       "message": "when is that not done after an UpdateConnectionState ?",
+      "range": {
+        "startLine": 49,
+        "startChar": 15,
+        "endLine": 49,
+        "endChar": 35
+      },
+      "revId": "78969c8cc5bd96a8da004f0d2bc622751b61c5f3",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "419ae063_5195e906",
+        "filename": "p2p/base/ice_agent_interface.h",
+        "patchSetId": 6
+      },
+      "lineNbr": 49,
+      "author": {
+        "id": 17854
+      },
+      "writtenOn": "2022-09-09T14:04:52Z",
+      "side": 1,
+      "message": "So the best answer I have is that this is a batching + ordering mechanism. The active ICE controller may perform a sequence of mutating operations (which need to happen in a specific order, eg. sort and pick best connection, switch to the connection, then prune connections). While P2PTransportChannel may update its internal state after each of those mutations, that will be expensive and trigger lots of events. So this allows the ICE controller to batch state updates at the end of a series of mutations.\n\nThis also serves to respect the warning that P2PTransportChannel::UpdateState() should not be called too often: https://webrtc.googlesource.com/src/+/6e7c2685e3f2a17774481b042e04b38f68cd8fba/p2p/base/p2p_transport_channel.cc#1933\n\nUpdated the doc to package this as something more sensible. WDYT?",
+      "parentUuid": "4e2a253b_542e7dc6",
       "range": {
         "startLine": 49,
         "startChar": 15,

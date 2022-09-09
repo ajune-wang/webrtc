@@ -22,6 +22,30 @@
       },
       "revId": "f3ef2449e61e0c849ce54dd9264bea32b2b0d93b",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "148d849f_f270f3ce",
+        "filename": "modules/video_coding/timing/jitter_estimator.cc",
+        "patchSetId": 8
+      },
+      "lineNbr": 49,
+      "author": {
+        "id": 5023
+      },
+      "writtenOn": "2022-09-09T11:04:43Z",
+      "side": 1,
+      "message": "I\u0027m not sure that it\u0027s huge: the current filter has a halving time of `1/ log2(0.9999) / (30 * 60) \u003d 3.8 min`. Having said that, I don\u0027t know what a reasonable/tuned window length would be here. Let\u0027s discuss off-review.",
+      "parentUuid": "680888a0_b0138351",
+      "range": {
+        "startLine": 49,
+        "startChar": 43,
+        "endLine": 49,
+        "endChar": 50
+      },
+      "revId": "f3ef2449e61e0c849ce54dd9264bea32b2b0d93b",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

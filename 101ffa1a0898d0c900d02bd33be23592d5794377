@@ -16,6 +16,23 @@
       "message": "Mark PTAL",
       "revId": "101ffa1a0898d0c900d02bd33be23592d5794377",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "09c6272e_2ebd6e4b",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 14134
+      },
+      "writtenOn": "2022-09-09T16:37:34Z",
+      "side": 1,
+      "message": "This would be a good patch to invite a \"shadow reviewer\" to get up to speed on the WebRTC capture code.  I can RS once their review is complete.",
+      "revId": "101ffa1a0898d0c900d02bd33be23592d5794377",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

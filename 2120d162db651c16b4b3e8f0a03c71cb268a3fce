@@ -16,6 +16,23 @@
       "message": "spec pointers courtesy of Bernard Aboba :-)\n\nI will send a PSA but asked around and most people were like \"we ignore BYE because it is broken\"",
       "revId": "2120d162db651c16b4b3e8f0a03c71cb268a3fce",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "8e4c70de_f792a99b",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 4
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2022-09-11T17:02:40Z",
+      "side": 1,
+      "message": "Makes life simpler AND more conformant.... win/win!",
+      "revId": "2120d162db651c16b4b3e8f0a03c71cb268a3fce",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

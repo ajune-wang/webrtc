@@ -1,0 +1,73 @@
+# Copyright (c) 2022 The WebRTC project authors. All Rights Reserved.
+#
+# Use of this source code is governed by a BSD-style license
+# that can be found in the LICENSE file in the root of the source
+# tree. An additional intellectual property rights grant can be found
+# in the file PATENTS.  All contributing project authors may
+# be found in the AUTHORS file in the root of the source tree.
+
+import("../../../webrtc.gni")
+
+if (!build_with_chromium) {
+  group("metrics") {
+    deps = [
+      ":metric",
+      ":metrics_exporter",
+      ":stdout_metrics_exporter",
+    ]
+  }
+
+  if (rtc_include_tests) {
+    group("metrics_unittests") {
+      testonly = true
+
+      deps = [ ":stdout_metrics_exporter_test" ]
+    }
+  }
+}
+
+rtc_library("metric") {
+  visibility = [ "*" ]
+  sources = [
+    "metric.cc",
+    "metric.h",
+  ]
+  absl_deps = [ "//third_party/abseil-cpp/absl/types:optional" ]
+  deps = [ "../../../api/units:timestamp" ]
+}
+
+rtc_library("metrics_exporter") {
+  visibility = [ "*" ]
+  sources = [ "metrics_exporter.h" ]
+  deps = [
+    ":metric",
+    "../../../api:array_view",
+  ]
+}
+
+rtc_library("stdout_metrics_exporter") {
+  visibility = [ "*" ]
+  sources = [
+    "stdout_metrics_exporter.cc",
+    "stdout_metrics_exporter.h",
+  ]
+  deps = [
+    ":metric",
+    ":metrics_exporter",
+    "../../../api:array_view",
+  ]
+  absl_deps = [ "//third_party/abseil-cpp/absl/types:optional" ]
+}
+
+if (rtc_include_tests) {
+  rtc_library("stdout_metrics_exporter_test") {
+    testonly = true
+    sources = [ "stdout_metrics_exporter_test.cc" ]
+    deps = [
+      ":metric",
+      ":stdout_metrics_exporter",
+      "../..:test_support",
+      "../../../api/units:timestamp",
+    ]
+  }
+}

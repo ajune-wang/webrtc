@@ -147,6 +147,28 @@ TEST_P(TaskQueueTest, PostDelayedAfterDestruct) {
   EXPECT_FALSE(run.Wait(TimeDelta::Zero()));  // and should not run.
 }
 
+TEST_P(TaskQueueTest, PostedClosureDestroyedOnTaskQueue) {
+  std::unique_ptr<webrtc::TaskQueueFactory> factory = GetParam()(nullptr);
+  auto queue = CreateTaskQueue(factory, "PostedClosureDestroyedOnTaskQueue");
+  TaskQueueBase* queue_ptr = queue.get();
+  // queue->PostTask([] {
+  //   rtc::Event waiter;
+  //   waiter.Wait(TimeDelta::Millis(100));
+  // });
+  bool failed = false;
+  for (int i = 0; i != 1000; ++i) {
+    queue->PostTask([cleanup = absl::Cleanup([queue_ptr, &failed] {
+                       if (queue_ptr != TaskQueueBase::Current()) {
+                         if (failed)
+                           return;
+                         failed = true;
+                       }
+                       ASSERT_EQ(queue_ptr, TaskQueueBase::Current());
+                     })] {});
+  }
+  queue.release()->Delete();
+}
+
 TEST_P(TaskQueueTest, PostAndReuse) {
   std::unique_ptr<webrtc::TaskQueueFactory> factory = GetParam()(nullptr);
   rtc::Event event;

@@ -515,8 +515,8 @@ void AgcManagerDirect::Initialize() {
     channel_agcs_[ch]->Initialize();
   }
   capture_output_used_ = true;
+  channel_controlling_gain_ = 0;
 
-  AggregateChannelLevels();
   clipping_predictor_evaluator_.Reset();
   clipping_predictor_log_counter_ = 0;
   clipping_rate_log_ = 0.0f;

@@ -462,6 +462,53 @@ if (rtc_include_tests) {
       ]
     }
 
+    rtc_executable("rtc_event_log_to_text") {
+      testonly = true
+      sources = [
+        "rtc_event_log_to_text/converter.cc",
+        "rtc_event_log_to_text/converter.h",
+        "rtc_event_log_to_text/main.cc",
+      ]
+      deps = [
+        "../api:rtc_event_log_output_file",
+        "../api:rtp_headers",
+        "../api:rtp_parameters",
+        "../api/rtc_event_log",
+        "../api/rtc_event_log",
+        "../api/rtc_event_log:rtc_event_log_factory",
+        "../api/task_queue:default_task_queue_factory",
+        "../api/transport:network_control",
+        "../logging:ice_log",
+        "../logging:rtc_event_audio",
+        "../logging:rtc_event_bwe",
+        "../logging:rtc_event_frame_events",
+        "../logging:rtc_event_generic_packet_events",
+        "../logging:rtc_event_log2_proto",
+        "../logging:rtc_event_log_impl_encoder",
+        "../logging:rtc_event_log_parser",
+        "../logging:rtc_event_log_parser",
+        "../logging:rtc_event_log_proto",
+        "../logging:rtc_event_pacing",
+        "../logging:rtc_event_rtp_rtcp",
+        "../logging:rtc_event_video",
+        "../logging:rtc_stream_config",
+        "../modules/remote_bitrate_estimator",
+        "../modules/rtp_rtcp:rtp_rtcp_format",
+        "../rtc_base:checks",
+        "../rtc_base:checks",
+        "../rtc_base:logging",
+        "../rtc_base:protobuf_utils",
+        "../rtc_base:protobuf_utils",
+        "../rtc_base:rtc_base",
+        "../rtc_base:rtc_base_tests_utils",
+        "//rtc_base:threading",
+        "//third_party/abseil-cpp/absl/flags:config",
+        "//third_party/abseil-cpp/absl/flags:flag",
+        "//third_party/abseil-cpp/absl/flags:parse",
+        "//third_party/abseil-cpp/absl/flags:usage",
+      ]
+    }
+
     if (rtc_enable_protobuf) {
       rtc_executable("event_log_visualizer") {
         # TODO(bugs.webrtc.org/14248): Remove once usage of std::tmpnam

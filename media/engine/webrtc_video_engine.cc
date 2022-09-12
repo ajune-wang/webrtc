@@ -3022,6 +3022,49 @@ bool WebRtcVideoChannel::WebRtcVideoReceiveStream::ReconfigureCodecs(
     rtx_associated_payload_types.swap(config_.rtp.rtx_associated_payload_types);
   }
 
+#if 1
+  if (decoders != config_.decoders ||
+      raw_payload_types != config_.rtp.raw_payload_types) {
+    // Remove decoders that shouldn't be there.
+    for (auto& a : config_.decoders) {
+      bool found = false;
+      for (auto& b : decoders) {
+        if (a == b) {
+          found = true;
+          break;
+        }
+      }
+      if (!found) {
+        RTC_LOG(LS_ERROR) << "**** need to remove=" << a.video_format.name;
+      }
+    }
+
+    // Add new decoders and update existing ones.
+    std::vector<std::string> exist, missing;
+    for (auto& a : decoders) {
+      bool found = false;
+      for (auto& b : config_.decoders) {
+        if (a == b) {
+          found = true;
+          break;
+        }
+      }
+
+      // const bool raw_payload = raw_payload_types.count(a.payload_type) > 0;
+
+      if (found) {
+        exist.push_back(a.video_format.name);
+        RTC_LOG(LS_ERROR) << "**** exist=" << a.video_format.name;
+      } else {
+        missing.push_back(a.video_format.name);
+        RTC_LOG(LS_ERROR) << "**** missing=" << a.video_format.name;
+      }
+    }
+
+    RTC_DCHECK_NOTREACHED();
+  }
+#endif
+
   bool recreate_needed = false;
 
   if (raw_payload_types != config_.rtp.raw_payload_types) {

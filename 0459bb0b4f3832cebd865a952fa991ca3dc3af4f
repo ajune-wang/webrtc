@@ -1,0 +1,44 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "c9d25457_305413bb",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5087
+      },
+      "writtenOn": "2022-09-12T07:09:05Z",
+      "side": 1,
+      "message": "LGTM % comment.",
+      "revId": "0459bb0b4f3832cebd865a952fa991ca3dc3af4f",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "ff171e5c_6092964d",
+        "filename": "api/numerics/samples_stats_counter.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 32,
+      "author": {
+        "id": 5087
+      },
+      "writtenOn": "2022-09-12T07:09:05Z",
+      "side": 1,
+      "message": "nit: Point vs Sample (it looks like we call it sample this these objects).",
+      "range": {
+        "startLine": 32,
+        "startChar": 7,
+        "endLine": 32,
+        "endChar": 12
+      },
+      "revId": "0459bb0b4f3832cebd865a952fa991ca3dc3af4f",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

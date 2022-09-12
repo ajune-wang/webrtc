@@ -89,6 +89,7 @@ constexpr char JitterEstimator::Config::kFieldTrialsKey[];
 JitterEstimator::JitterEstimator(Clock* clock,
                                  const FieldTrialsView& field_trials)
     : config_(Config::Parse(field_trials.Lookup(Config::kFieldTrialsKey))),
+      kalman_filter_(config_.kalman_observation_noise_remodel),
       max_frame_size_bytes_percentile_(
           config_.max_frame_size_percentile.value_or(
               kDefaultMaxFrameSizePercentile)),
@@ -124,7 +125,8 @@ void JitterEstimator::Reset() {
   rtt_filter_.Reset();
   fps_counter_.Reset();
 
-  kalman_filter_ = FrameDelayVariationKalmanFilter();
+  kalman_filter_ =
+      FrameDelayVariationKalmanFilter(config_.kalman_observation_noise_remodel);
 }
 
 // Updates the estimates with the new measurements.

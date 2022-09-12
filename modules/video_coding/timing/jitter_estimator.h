@@ -51,7 +51,8 @@ class JitterEstimator {
           &frame_size_window, "num_stddev_delay_outlier",
           &num_stddev_delay_outlier, "num_stddev_size_outlier",
           &num_stddev_size_outlier, "congestion_rejection_factor",
-          &congestion_rejection_factor);
+          &congestion_rejection_factor, "kalman_observation_noise_remodel",
+          &kalman_observation_noise_remodel);
     }
 
     bool MaxFrameSizePercentileEnabled() const {
@@ -87,6 +88,9 @@ class JitterEstimator {
     //
     // Decreasing this value rejects fewer samples.
     absl::optional<double> congestion_rejection_factor;
+
+    // TODO(brandtr): Redesign?
+    bool kalman_observation_noise_remodel = false;
   };
 
   JitterEstimator(Clock* clock, const FieldTrialsView& field_trials);

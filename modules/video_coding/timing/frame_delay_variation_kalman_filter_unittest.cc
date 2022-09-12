@@ -20,7 +20,7 @@ namespace {
 // propagate.
 TEST(FrameDelayVariationKalmanFilterTest,
      InitializedFilterWithZeroSizeFrameTakesNoTimeToPropagate) {
-  FrameDelayVariationKalmanFilter filter;
+  FrameDelayVariationKalmanFilter filter(false);
 
   // A zero-sized frame...
   double frame_size_variation_bytes = 0.0;
@@ -40,7 +40,7 @@ TEST(FrameDelayVariationKalmanFilterTest,
 // unreasonable to have an initial link bandwidth of 512 _mega_bits per second?
 TEST(FrameDelayVariationKalmanFilterTest,
      InitializedFilterWithSmallSizeFrameTakesFixedTimeToPropagate) {
-  FrameDelayVariationKalmanFilter filter;
+  FrameDelayVariationKalmanFilter filter(false);
 
   // A 1000-byte frame...
   double frame_size_variation_bytes = 1000.0;
@@ -57,7 +57,7 @@ TEST(FrameDelayVariationKalmanFilterTest,
 
 TEST(FrameDelayVariationKalmanFilterTest,
      NegativeNoiseVarianceDoesNotUpdateFilter) {
-  FrameDelayVariationKalmanFilter filter;
+  FrameDelayVariationKalmanFilter filter(false);
 
   // Negative variance...
   double var_noise = -0.1;
@@ -84,7 +84,7 @@ TEST(FrameDelayVariationKalmanFilterTest,
 
 TEST(FrameDelayVariationKalmanFilterTest,
      VerifyConvergenceWithAlternatingDeviations) {
-  FrameDelayVariationKalmanFilter filter;
+  FrameDelayVariationKalmanFilter filter(false);
 
   // One frame every 33 ms.
   int framerate_fps = 30;

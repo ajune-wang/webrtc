@@ -110,6 +110,30 @@
       },
       "revId": "78969c8cc5bd96a8da004f0d2bc622751b61c5f3",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "bd951b84_3d55dcb3",
+        "filename": "p2p/base/ice_agent_interface.h",
+        "patchSetId": 6
+      },
+      "lineNbr": 49,
+      "author": {
+        "id": 5613
+      },
+      "writtenOn": "2022-09-12T06:42:41Z",
+      "side": 1,
+      "message": "I think interface-wise it would be better to have p2p-transport-channel\nkeep it\u0027s own state...and I don\u0027t see why it has to be expensive (just because it is now)\nalso, a real batching interface would have a \"stop-updating-state()\" and a \"resume-updating-state()\"\n\nbut let\u0027s keep it like this for now with a TODO ?",
+      "parentUuid": "419ae063_5195e906",
+      "range": {
+        "startLine": 49,
+        "startChar": 15,
+        "endLine": 49,
+        "endChar": 35
+      },
+      "revId": "78969c8cc5bd96a8da004f0d2bc622751b61c5f3",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

@@ -39,6 +39,7 @@ class VideoReceiver2 {
 
   void RegisterReceiveCodec(uint8_t payload_type,
                             const VideoDecoder::Settings& decoder_settings);
+  void DeregisterReceiveCodec(uint8_t payload_type);
 
   void RegisterExternalDecoder(std::unique_ptr<VideoDecoder> decoder,
                                uint8_t payload_type);

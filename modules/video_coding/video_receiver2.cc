@@ -102,4 +102,9 @@ void VideoReceiver2::RegisterReceiveCodec(
   codec_database_.RegisterReceiveCodec(payload_type, settings);
 }
 
+void VideoReceiver2::DeregisterReceiveCodec(uint8_t payload_type) {
+  RTC_DCHECK_RUN_ON(&construction_sequence_checker_);
+  codec_database_.DeregisterReceiveCodec(payload_type);
+}
+
 }  // namespace webrtc

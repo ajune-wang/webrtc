@@ -27,6 +27,9 @@ vars = {
 
   # reclient CIPD package version
   'reclient_version': 're_client_version:0.77.2.9cc22cf-gomaip',
+
+  # ninja CIPD package version.
+  'ninja_version': 'version:2@1.8.2.chromium.3',
 }
 
 deps = {
@@ -56,6 +59,10 @@ deps = {
       {
         'package': 'gn/gn/linux-${{arch}}',
         'version': 'git_revision:00b741b1568d56cf4e117dcb9f70cd42653b4c78',
+      },
+      {
+        'package': 'infra/3pp/tools/ninja/linux-${{arch}}',
+        'version': Var('ninja_version'),
       }
     ],
     'dep_type': 'cipd',
@@ -66,6 +73,10 @@ deps = {
       {
         'package': 'gn/gn/mac-${{arch}}',
         'version': 'git_revision:00b741b1568d56cf4e117dcb9f70cd42653b4c78',
+      },
+      {
+        'package': 'infra/3pp/tools/ninja/mac-${{arch}}',
+        'version': Var('ninja_version'),
       }
     ],
     'dep_type': 'cipd',
@@ -76,6 +87,10 @@ deps = {
       {
         'package': 'gn/gn/windows-amd64',
         'version': 'git_revision:00b741b1568d56cf4e117dcb9f70cd42653b4c78',
+      },
+      {
+        'package': 'infra/3pp/tools/ninja/windows-amd64',
+        'version': Var('ninja_version'),
       }
     ],
     'dep_type': 'cipd',

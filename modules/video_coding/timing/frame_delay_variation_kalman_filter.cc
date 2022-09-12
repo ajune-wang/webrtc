@@ -20,7 +20,9 @@ namespace {
 constexpr double kMaxBandwidth = 0.000001;  // Unit: [1 / bytes per ms].
 }  // namespace
 
-FrameDelayVariationKalmanFilter::FrameDelayVariationKalmanFilter() {
+FrameDelayVariationKalmanFilter::FrameDelayVariationKalmanFilter(
+    bool observation_noise_remodel)
+    : observation_noise_remodel_(observation_noise_remodel) {
   // TODO(brandtr): Is there a factor 1000 missing here?
   estimate_[0] = 1 / (512e3 / 8);  // Unit: [1 / bytes per ms]
   estimate_[1] = 0;                // Unit: [ms]
@@ -79,6 +81,13 @@ void FrameDelayVariationKalmanFilter::PredictAndUpdate(
                    (1e0 * max_frame_size_bytes)) +
        1) *
       sqrt(var_noise);
+  if (observation_noise_remodel_) {
+    observation_noise_stddev =
+        (3.0 * exp(-2.0 * fabs(frame_size_variation_bytes) /
+                   (1e0 * max_frame_size_bytes)) +
+         1) *
+        var_noise;
+  }
   if (observation_noise_stddev < 1.0) {
     observation_noise_stddev = 1.0;
   }

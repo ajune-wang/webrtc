@@ -1,0 +1,113 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "3ed72527_e808d9fc",
+        "filename": "test/testsupport/metrics/BUILD.gn",
+        "patchSetId": 1
+      },
+      "lineNbr": 30,
+      "author": {
+        "id": 5087
+      },
+      "writtenOn": "2022-09-12T07:24:24Z",
+      "side": 1,
+      "message": "Should we add these to api/test/?\n\n(we told Rasmus to move public visible things to api/test/, I wonder if we should do it here as well).",
+      "range": {
+        "startLine": 30,
+        "startChar": 2,
+        "endLine": 30,
+        "endChar": 22
+      },
+      "revId": "d1757d1fe256847466b1ce3eaa1657f3e35d7c87",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "c848a5ee_cf2fcf6d",
+        "filename": "test/testsupport/metrics/metrics_exporter.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 26,
+      "author": {
+        "id": 5087
+      },
+      "writtenOn": "2022-09-12T07:24:24Z",
+      "side": 1,
+      "message": "in a format that depends on the implementation.",
+      "range": {
+        "startLine": 25,
+        "startChar": 31,
+        "endLine": 26,
+        "endChar": 21
+      },
+      "revId": "d1757d1fe256847466b1ce3eaa1657f3e35d7c87",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "b710cee2_b772fd4d",
+        "filename": "test/testsupport/metrics/stdout_metrics_exporter.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 21,
+      "author": {
+        "id": 5087
+      },
+      "writtenOn": "2022-09-12T07:24:24Z",
+      "side": 1,
+      "message": "to",
+      "range": {
+        "startLine": 21,
+        "startChar": 33,
+        "endLine": 21,
+        "endChar": 37
+      },
+      "revId": "d1757d1fe256847466b1ce3eaa1657f3e35d7c87",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "d94a323f_3e482bc9",
+        "filename": "test/testsupport/metrics/stdout_metrics_exporter.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 26,
+      "author": {
+        "id": 5087
+      },
+      "writtenOn": "2022-09-12T07:24:24Z",
+      "side": 1,
+      "message": "Should we delete copy ctor and assignment?",
+      "revId": "d1757d1fe256847466b1ce3eaa1657f3e35d7c87",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "c7efc09f_e2ee52d8",
+        "filename": "test/testsupport/metrics/stdout_metrics_exporter_test.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 39,
+      "author": {
+        "id": 5087
+      },
+      "writtenOn": "2022-09-12T07:24:24Z",
+      "side": 1,
+      "message": "Let\u0027s add a comment about why this fails on iOS.",
+      "range": {
+        "startLine": 35,
+        "startChar": 0,
+        "endLine": 39,
+        "endChar": 6
+      },
+      "revId": "d1757d1fe256847466b1ce3eaa1657f3e35d7c87",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

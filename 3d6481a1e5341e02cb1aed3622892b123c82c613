@@ -16,6 +16,138 @@
       "message": "Hi Danil and Tommi,\nCould you PTAL?\nAlessio",
       "revId": "3d6481a1e5341e02cb1aed3622892b123c82c613",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "e861e406_df5453cd",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2022-09-13T08:37:31Z",
+      "side": 1,
+      "message": "Why are you doing this?\nThe change is linked to an issue that is marked `fixed`, should it be reopend with comments what is missing, or is it a new project that builds on top of the absolute capture time?",
+      "revId": "3d6481a1e5341e02cb1aed3622892b123c82c613",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "1898eb90_2f51fe56",
+        "filename": "api/rtp_packet_info.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 115,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2022-09-13T08:37:31Z",
+      "side": 1,
+      "message": "can you please also document units (ms? us? 2^(-32) seconds?)\nor, use TimeDelta type.",
+      "range": {
+        "startLine": 115,
+        "startChar": 17,
+        "endLine": 115,
+        "endChar": 24
+      },
+      "revId": "3d6481a1e5341e02cb1aed3622892b123c82c613",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "8621e97c_9983076d",
+        "filename": "api/transport/rtp/rtp_source.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 38,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2022-09-13T08:37:31Z",
+      "side": 1,
+      "message": "how this comment relates to the `absolute_capture_time` field?",
+      "range": {
+        "startLine": 34,
+        "startChar": 7,
+        "endLine": 38,
+        "endChar": 44
+      },
+      "revId": "3d6481a1e5341e02cb1aed3622892b123c82c613",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "b078c187_de9ffc6a",
+        "filename": "api/transport/rtp/rtp_source.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 41,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2022-09-13T08:37:31Z",
+      "side": 1,
+      "message": "is it\noffset \u003d capture_clock-\u003etime() - local_clock()-\u003etime\nor\noffset \u003d local_clock()-\u003etime - capture_clock-\u003etime()",
+      "range": {
+        "startLine": 41,
+        "startChar": 7,
+        "endLine": 41,
+        "endChar": 68
+      },
+      "revId": "3d6481a1e5341e02cb1aed3622892b123c82c613",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "34f6e7cc_516e58c5",
+        "filename": "api/transport/rtp/rtp_source.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 60,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2022-09-13T08:37:31Z",
+      "side": 1,
+      "message": "may be write it as\n{.audio_level \u003d audio_level}\n\ni.e. use designated initializer to be sure `audio_level` field is initialized with the `audio_level` variable,\nand leave two other fields to be initialized with default values (absl::nullopt in this case)",
+      "range": {
+        "startLine": 60,
+        "startChar": 18,
+        "endLine": 60,
+        "endChar": 61
+      },
+      "revId": "3d6481a1e5341e02cb1aed3622892b123c82c613",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "07069f88_51475d5e",
+        "filename": "modules/rtp_rtcp/source/source_tracker.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 71,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2022-09-13T08:37:31Z",
+      "side": 1,
+      "message": "I would recommend designated initializes here to be safe (in case someone decide to add a new member to the RtpSource::Extensions struct in the middle, or reorder fields, or add a new member to the end, then few month later delete an old member in the middle)",
+      "range": {
+        "startLine": 70,
+        "startChar": 30,
+        "endLine": 71,
+        "endChar": 62
+      },
+      "revId": "3d6481a1e5341e02cb1aed3622892b123c82c613",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

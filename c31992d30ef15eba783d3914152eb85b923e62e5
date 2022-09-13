@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "46093266_2e172003",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 9515
+      },
+      "writtenOn": "2022-09-13T17:28:35Z",
+      "side": 1,
+      "message": "Hi Ilya and Erik, if we assume a zoo of VP8 encoders we can either SetAtTargetQuality in each and every one of them (but they\u0027d need access to a place in WebRTC which exposes the info), or we can do it in the VSE if we can just store the quality threshold constant in a place where libvpx_vp8_encoder and the VSE can access it. What is your preference, and where would that central location be in your opinion?",
+      "revId": "c31992d30ef15eba783d3914152eb85b923e62e5",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

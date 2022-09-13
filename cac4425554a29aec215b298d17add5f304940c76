@@ -1,0 +1,55 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "7f0d844b_2f90d21a",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 5
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2022-09-13T13:32:09Z",
+      "side": 1,
+      "message": "Looks good, some suggestions that you may or may not want to follow.\n",
+      "revId": "cac4425554a29aec215b298d17add5f304940c76",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "55bb7b4a_7f9b482b",
+        "filename": "pc/sdp_offer_answer.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 450,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2022-09-13T13:32:09Z",
+      "side": 1,
+      "message": "I took a stab a while ago at moving bundle logic into BundleManager, defined in jsep_transport_collection.h.\n\nWonder if it\u0027s reasonable to add this method there rather than here.\n\nMight not be right to move it - I see that the verification functions elsewhere weren\u0027t moved into BundleManager at the time.",
+      "revId": "cac4425554a29aec215b298d17add5f304940c76",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "4ebed828_7f2aee56",
+        "filename": "pc/sdp_offer_answer.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 477,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2022-09-13T13:32:09Z",
+      "side": 1,
+      "message": "This code is duplicated because of the type difference between as_audio and as_video. Is it possible to make it a template function, or make it a helper function that takes the return value of codecs() as parameter?",
+      "revId": "cac4425554a29aec215b298d17add5f304940c76",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

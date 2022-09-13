@@ -16,6 +16,24 @@
       "message": "is there some use of the metadata field somewhere?",
       "revId": "8869a5d2052b434be26862dd4d628785c387518a",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "39a1ac0d_3c664f51",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 6337
+      },
+      "writtenOn": "2022-09-13T10:32:43Z",
+      "side": 1,
+      "message": "We plan to export it in new perf mertics logging sub-system. Usage will be landed in follow up CLs.",
+      "parentUuid": "4fe1c019_1ad54acc",
+      "revId": "8869a5d2052b434be26862dd4d628785c387518a",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

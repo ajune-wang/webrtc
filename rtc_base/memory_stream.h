@@ -13,6 +13,7 @@
 
 #include <stddef.h>
 
+#include "rtc_base/buffer.h"
 #include "rtc_base/stream.h"
 
 namespace rtc {
@@ -41,18 +42,14 @@ class MemoryStream final : public StreamInterface {
   bool GetPosition(size_t* position) const;
   void Rewind();
 
-  char* GetBuffer() { return buffer_; }
-  const char* GetBuffer() const { return buffer_; }
+  char* GetBuffer() { return buffer_.data(); }
+  const char* GetBuffer() const { return buffer_.data(); }
 
   void SetData(const void* data, size_t length);
 
  private:
-  StreamResult DoReserve(size_t size, int* error);
-
-  // Invariant: 0 <= seek_position <= data_length_ <= buffer_length_
-  char* buffer_ = nullptr;
-  size_t buffer_length_ = 0;
-  size_t data_length_ = 0;
+  // Invariant: 0 <= seek_position <= buffer_.size()
+  BufferT<char> buffer_;
   size_t seek_position_ = 0;
 };
 

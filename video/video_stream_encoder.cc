@@ -34,6 +34,7 @@
 #include "api/video_codecs/video_encoder.h"
 #include "call/adaptation/resource_adaptation_processor.h"
 #include "call/adaptation/video_stream_adapter.h"
+#include "modules/video_coding/codecs/vp8/libvpx_vp8_encoder.h"
 #include "modules/video_coding/include/video_codec_initializer.h"
 #include "modules/video_coding/svc/svc_rate_allocator.h"
 #include "rtc_base/arraysize.h"
@@ -1977,6 +1978,9 @@ EncodedImageCallback::Result VideoStreamEncoder::OnEncodedImage(
                                 image_copy.size())
                          .value_or(-1);
   }
+  const bool at_target_quality =
+      codec_specific_info->codecType == kVideoCodecVP8 &&
+      image_copy.qp_ <= LibvpxVp8Encoder::kSteadyStateQpThreshold;
   RTC_LOG(LS_VERBOSE) << __func__ << " spatial_idx " << spatial_idx << " qp "
                       << image_copy.qp_;
 
@@ -2001,8 +2005,7 @@ EncodedImageCallback::Result VideoStreamEncoder::OnEncodedImage(
   unsigned int image_width = image_copy._encodedWidth;
   unsigned int image_height = image_copy._encodedHeight;
   encoder_queue_.PostTask([this, codec_type, image_width, image_height,
-                           spatial_idx,
-                           at_target_quality = image_copy.IsAtTargetQuality()] {
+                           spatial_idx, at_target_quality] {
     RTC_DCHECK_RUN_ON(&encoder_queue_);
 
     // Let the frame cadence adapter know about quality convergence.

@@ -35,6 +35,9 @@ namespace webrtc {
 
 class LibvpxVp8Encoder : public VideoEncoder {
  public:
+  // This qp or below is considered a steady state.
+  static constexpr int kSteadyStateQpThreshold = 15;
+
   LibvpxVp8Encoder(std::unique_ptr<LibvpxInterface> interface,
                    VP8Encoder::Settings settings);
   ~LibvpxVp8Encoder() override;
@@ -137,8 +140,7 @@ class LibvpxVp8Encoder : public VideoEncoder {
     bool enabled = false;
     // Framerate is limited to this value in steady state.
     float framerate_limit = 5.0;
-    // This qp or below is considered a steady state.
-    int steady_state_qp = 15;
+    int steady_state_qp = kSteadyStateQpThreshold;
     // Frames of at least this percentage below ideal for configured bitrate are
     // considered in a steady state.
     int steady_state_undershoot_percentage = 30;

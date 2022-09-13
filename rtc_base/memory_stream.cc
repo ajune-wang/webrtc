@@ -27,10 +27,10 @@ StreamResult MemoryStream::Read(void* buffer,
                                 size_t bytes,
                                 size_t* bytes_read,
                                 int* error) {
-  if (seek_position_ >= data_length_) {
+  if (seek_position_ >= buffer_.size()) {
     return SR_EOS;
   }
-  size_t available = data_length_ - seek_position_;
+  size_t available = buffer_.size() - seek_position_;
   if (bytes > available) {
     // Read partial buffer
     bytes = available;
@@ -47,19 +47,16 @@ StreamResult MemoryStream::Write(const void* buffer,
                                  size_t bytes,
                                  size_t* bytes_written,
                                  int* error) {
-  size_t available = buffer_length_ - seek_position_;
+  size_t available = buffer_.size() - seek_position_;
   if (0 == available) {
     // Increase buffer size to the larger of:
     // a) new position rounded up to next 256 bytes
     // b) double the previous length
     size_t new_buffer_length =
-        std::max(((seek_position_ + bytes) | 0xFF) + 1, buffer_length_ * 2);
-    StreamResult result = DoReserve(new_buffer_length, error);
-    if (SR_SUCCESS != result) {
-      return result;
-    }
-    RTC_DCHECK(buffer_length_ >= new_buffer_length);
-    available = buffer_length_ - seek_position_;
+        std::max(((seek_position_ + bytes) | 0xFF) + 1, buffer_.size() * 2);
+    RTC_DCHECK(ReserveSize(new_buffer_length));
+    RTC_DCHECK(buffer_.size() >= new_buffer_length);
+    available = buffer_.size() - seek_position_;
   }
 
   if (bytes > available) {
@@ -67,9 +64,6 @@ StreamResult MemoryStream::Write(const void* buffer,
   }
   memcpy(&buffer_[seek_position_], buffer, bytes);
   seek_position_ += bytes;
-  if (data_length_ < seek_position_) {
-    data_length_ = seek_position_;
-  }
   if (bytes_written) {
     *bytes_written = bytes;
   }
@@ -81,7 +75,7 @@ void MemoryStream::Close() {
 }
 
 bool MemoryStream::SetPosition(size_t position) {
-  if (position > data_length_)
+  if (position > buffer_.size())
     return false;
   seek_position_ = position;
   return true;
@@ -99,46 +93,27 @@ void MemoryStream::Rewind() {
 
 bool MemoryStream::GetSize(size_t* size) const {
   if (size)
-    *size = data_length_;
+    *size = buffer_.size();
   return true;
 }
 
 bool MemoryStream::ReserveSize(size_t size) {
-  return (SR_SUCCESS == DoReserve(size, nullptr));
+  buffer_.SetSize(size);
+  return true;
 }
 
 ///////////////////////////////////////////////////////////////////////////////
 
-MemoryStream::MemoryStream() {}
+MemoryStream::MemoryStream() = default;
 
-MemoryStream::~MemoryStream() {
-  delete[] buffer_;
-}
+MemoryStream::~MemoryStream() = default;
 
 void MemoryStream::SetData(const void* data, size_t length) {
-  data_length_ = buffer_length_ = length;
-  delete[] buffer_;
-  buffer_ = new char[buffer_length_];
-  memcpy(buffer_, data, data_length_);
+  buffer_.SetSize(length);
+  if (data != nullptr && length > 0) {
+    memcpy(buffer_.data(), data, length);
+  }
   seek_position_ = 0;
-}
-
-StreamResult MemoryStream::DoReserve(size_t size, int* error) {
-  if (buffer_length_ >= size)
-    return SR_SUCCESS;
-
-  if (char* new_buffer = new char[size]) {
-    memcpy(new_buffer, buffer_, data_length_);
-    delete[] buffer_;
-    buffer_ = new_buffer;
-    buffer_length_ = size;
-    return SR_SUCCESS;
-  }
-
-  if (error) {
-    *error = ENOMEM;
-  }
-  return SR_ERROR;
 }
 
 }  // namespace rtc

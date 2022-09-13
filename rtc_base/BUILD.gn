@@ -1385,6 +1385,7 @@ rtc_library("rtc_base_tests_utils") {
   ]
   deps = [
     ":async_socket",
+    ":buffer",
     ":byte_buffer",
     ":checks",
     ":ip_address",

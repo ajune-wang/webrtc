@@ -16,6 +16,24 @@
       "message": "I suggest splitting this CL in two, one for the direct fixes and a separate one for the Buffer usage.\n\nLooking at code search, rtc::MemoryStream appears to only be used by two unit tests. I would prefer to remove this class entirely and refactor the unit to use something like rtc::Buffer instead.\n\nwdyt?",
       "revId": "b4a2aa58c6b1fa793fcd209004a513c6f36c1aa2",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "b9305ca7_16043b24",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 9405
+      },
+      "writtenOn": "2022-09-13T08:56:15Z",
+      "side": 1,
+      "message": "Okay. I\u0027ll fix the UBsan issues first, and upload the refactoring later.",
+      "parentUuid": "146af317_02b0ccb4",
+      "revId": "b4a2aa58c6b1fa793fcd209004a513c6f36c1aa2",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "68e101e9_61be4d35",
+        "filename": "p2p/base/p2p_transport_channel.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 2199,
+      "author": {
+        "id": 5613
+      },
+      "writtenOn": "2022-09-13T12:17:19Z",
+      "side": 1,
+      "message": "RTC_(D)CHECK that it actually exists ?",
+      "revId": "84b14a4b928488cf4fbff18a1e9065c6936ef413",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

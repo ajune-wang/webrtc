@@ -75,12 +75,13 @@ class RTC_EXPORT RtpPacketInfo {
     absolute_capture_time_ = value;
   }
 
-  const absl::optional<int64_t>& local_capture_clock_offset() const {
-    return local_capture_clock_offset_;
+  const absl::optional<int64_t>& local_capture_clock_offset_q32x32() const {
+    return local_capture_clock_offset_q32x32_;
   }
 
-  void set_local_capture_clock_offset(const absl::optional<int64_t>& value) {
-    local_capture_clock_offset_ = value;
+  void set_local_capture_clock_offset_q32x32(
+      const absl::optional<int64_t>& value) {
+    local_capture_clock_offset_q32x32_ = value;
   }
 
   Timestamp receive_time() const { return receive_time_; }
@@ -102,16 +103,15 @@ class RTC_EXPORT RtpPacketInfo {
 
   // Fields from the Absolute Capture Time header extension:
   // http://www.webrtc.org/experiments/rtp-hdrext/abs-capture-time
-  // To not be confused with `local_capture_clock_offset_`, the
-  // `estimated_capture_clock_offset` in `absolute_capture_time_` should
-  // represent the clock offset between a remote sender and the capturer, and
-  // thus equals to the corresponding values in the received RTP packets,
-  // subjected to possible interpolations.
   absl::optional<AbsoluteCaptureTime> absolute_capture_time_;
 
-  // Clock offset against capturer's clock. Should be derived from the estimated
-  // capture clock offset defined in the Absolute Capture Time header extension.
-  absl::optional<int64_t> local_capture_clock_offset_;
+  // Clock offset between the local clock and the capturer's clock.
+  // Do not confuse with `AbsoluteCaptureTime::estimated_capture_clock_offset`
+  // which instead represents the clock offset between a remote sender and the
+  // capturer. The following holds:
+  //   Capture's NTP Clock = Local NTP Clock + Local-Capture Clock Offset
+  // The value must be in Q32.32-formatted fixed-point seconds.
+  absl::optional<int64_t> local_capture_clock_offset_q32x32_;
 
   // Local `webrtc::Clock`-based timestamp of when the packet was received.
   Timestamp receive_time_;

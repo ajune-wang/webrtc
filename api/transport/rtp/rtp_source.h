@@ -28,7 +28,18 @@ class RtpSource {
  public:
   struct Extensions {
     absl::optional<uint8_t> audio_level;
+
+    // Fields from the Absolute Capture Time header extension:
+    // http://www.webrtc.org/experiments/rtp-hdrext/abs-capture-time
     absl::optional<AbsoluteCaptureTime> absolute_capture_time;
+
+    // Clock offset between the local clock and the capturer's clock.
+    // Do not confuse with `AbsoluteCaptureTime::estimated_capture_clock_offset`
+    // which instead represents the clock offset between a remote sender and the
+    // capturer. The following holds:
+    //   Capture's NTP Clock = Local NTP Clock + Local-Capture Clock Offset
+    // The value must be in Q32.32-formatted fixed-point seconds.
+    absl::optional<int64_t> local_capture_clock_offset_q32x32;
   };
 
   RtpSource() = delete;
@@ -44,7 +55,7 @@ class RtpSource {
                   source_id,
                   source_type,
                   rtp_timestamp,
-                  {audio_level, absl::nullopt}) {}
+                  /*extensions=*/{.audio_level = audio_level}) {}
 
   RtpSource(int64_t timestamp_ms,
             uint32_t source_id,
@@ -85,6 +96,10 @@ class RtpSource {
 
   absl::optional<AbsoluteCaptureTime> absolute_capture_time() const {
     return extensions_.absolute_capture_time;
+  }
+
+  absl::optional<int64_t> local_capture_clock_offset_q32x32() const {
+    return extensions_.local_capture_clock_offset_q32x32;
   }
 
   bool operator==(const RtpSource& o) const {

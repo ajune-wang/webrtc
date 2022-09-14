@@ -95,6 +95,14 @@ class SourceTracker {
     // https://webrtc.org/experiments/rtp-hdrext/abs-capture-time/
     absl::optional<AbsoluteCaptureTime> absolute_capture_time;
 
+    // Clock offset between the local clock and the capturer's clock.
+    // Do not confuse with `AbsoluteCaptureTime::estimated_capture_clock_offset`
+    // which instead represents the clock offset between a remote sender and the
+    // capturer. The following holds:
+    //   Capture's NTP Clock = Local NTP Clock + Local-Capture Clock Offset
+    // The value must be in Q32.32-formatted fixed-point seconds.
+    absl::optional<int64_t> local_capture_clock_offset_q32x32;
+
     // RTP timestamp of the most recent packet used to assemble the frame
     // associated with `timestamp_ms`.
     uint32_t rtp_timestamp;

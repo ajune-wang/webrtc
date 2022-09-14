@@ -11,6 +11,7 @@
 #ifndef MODULES_VIDEO_CODING_TIMING_JITTER_ESTIMATOR_H_
 #define MODULES_VIDEO_CODING_TIMING_JITTER_ESTIMATOR_H_
 
+#include <algorithm>
 #include <memory>
 #include <queue>
 
@@ -42,6 +43,29 @@ class JitterEstimator {
     static Config Parse(absl::string_view field_trial) {
       Config config;
       config.Parser()->Parse(field_trial);
+
+      // The `MovingPercentileFilter` RTC_CHECKs that the `percentile` value is
+      // within the [0.0, 1.0] interval. We should therefore clamp the
+      // percentile values from the field trials, to ensure that we dont have
+      // CHECK crashes in prod based on a misconfigured experiment.
+      if (config.max_frame_size_percentile) {
+        config.max_frame_size_percentile =
+            std::min(std::max(0.0, *config.max_frame_size_percentile), 1.0);
+      }
+
+      // General sanity checks.
+      if (config.frame_size_window) {
+        config.frame_size_window = std::max(1, *config.frame_size_window);
+      }
+      if (config.num_stddev_delay_outlier) {
+        config.num_stddev_delay_outlier =
+            std::max(0.0, *config.num_stddev_delay_outlier);
+      }
+      if (config.num_stddev_size_outlier) {
+        config.num_stddev_size_outlier =
+            std::max(0.0, *config.num_stddev_size_outlier);
+      }
+
       return config;
     }
 

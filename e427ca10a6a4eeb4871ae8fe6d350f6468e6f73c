@@ -38,6 +38,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "e7c1454f_ed19e588",
+        "filename": "test/testsupport/metrics/BUILD.gn",
+        "patchSetId": 1
+      },
+      "lineNbr": 11,
+      "author": {
+        "id": 5087
+      },
+      "writtenOn": "2022-09-14T08:48:05Z",
+      "side": 1,
+      "message": "In theory, rtc_include_test is enough (https://source.chromium.org/chromium/chromium/src/+/main:third_party/webrtc/webrtc.gni;l\u003d281;drc\u003dcf7802d3f4c4e69bf6e6536b8b421efd4ee7371f) but IIRC we tried to run with it \u003d true in Chromium but stopped that idea.\n\nI suggest we just do:\n\n```\ngroup(\"metrics\") {\n  deps \u003d [ \":metric\" ]\n}\n\nif (rtc_include_tests) {\n  group(\"metrics_unittests\") {\n    testonly \u003d true\n\n    deps \u003d []\n  }\n}\n```",
+      "parentUuid": "f0fd0824_bd379bbb",
+      "revId": "e427ca10a6a4eeb4871ae8fe6d350f6468e6f73c",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "ab6ad4a7_169066d5",
         "filename": "test/testsupport/metrics/metric.h",
         "patchSetId": 1

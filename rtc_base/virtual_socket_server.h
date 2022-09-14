@@ -15,10 +15,14 @@
 #include <map>
 #include <vector>
 
+#include "absl/types/optional.h"
+#include "api/make_ref_counted.h"
+#include "api/ref_counted_base.h"
+#include "api/scoped_refptr.h"
+#include "api/task_queue/task_queue_base.h"
 #include "rtc_base/checks.h"
 #include "rtc_base/event.h"
 #include "rtc_base/fake_clock.h"
-#include "rtc_base/message_handler.h"
 #include "rtc_base/socket_server.h"
 #include "rtc_base/synchronization/mutex.h"
 
@@ -28,11 +32,9 @@ class Packet;
 class VirtualSocketServer;
 class SocketAddressPair;
 
-// Implements the socket interface using the virtual network.  Packets are
-// passed as messages using the message queue of the socket server.
-class VirtualSocket : public Socket,
-                      public MessageHandler,
-                      public sigslot::has_slots<> {
+// Implements the socket interface using the virtual network. Packets are
+// passed in tasks using the thread of the socket server.
+class VirtualSocket : public Socket, public sigslot::has_slots<> {
  public:
   VirtualSocket(VirtualSocketServer* server, int family, int type);
   ~VirtualSocket() override;
@@ -58,7 +60,6 @@ class VirtualSocket : public Socket,
   ConnState GetState() const override;
   int GetOption(Option opt, int* value) override;
   int SetOption(Option opt, int value) override;
-  void OnMessage(Message* pmsg) override;
 
   size_t recv_buffer_size() const { return recv_buffer_size_; }
   size_t send_buffer_size() const { return send_buffer_.size(); }
@@ -85,16 +86,60 @@ class VirtualSocket : public Socket,
   // Removes stale packets from the network. Returns current size.
   size_t PurgeNetworkPackets(int64_t cur_time);
 
+  void PostPacket(webrtc::TaskQueueBase* queue,
+                  webrtc::TimeDelta delay,
+                  std::unique_ptr<Packet> packet);
+  void PostConnect(webrtc::TaskQueueBase* queue,
+                   webrtc::TimeDelta delay,
+                   const SocketAddress& remote_addr);
+  void PostDisconnect(webrtc::TaskQueueBase* queue, webrtc::TimeDelta delay);
+
  private:
+  // Struct shared with pending tasks that may outlive VirtualSocket.
+  struct SafetyBlock : public RefCountedNonVirtual<SafetyBlock> {
+    ~SafetyBlock() {
+      // Ensure `SetNotAlive` was called and there is nothing left to cleanup.
+      RTC_DCHECK(!alive);
+      RTC_DCHECK(posted_connects.empty());
+      RTC_DCHECK(recv_buffer.empty());
+      RTC_DCHECK(!listen_queue.has_value());
+    }
+
+    // Prohibits posted delayed task to access owning VirtualSocket and
+    // cleanups members protected by the `mutex`.
+    void SetNotAlive(VirtualSocketServer* server,
+                     const SocketAddress& local_addr);
+
+    webrtc::Mutex mutex;
+    bool alive RTC_GUARDED_BY(mutex) = true;
+    // Flag indicating if async Task to signal SignalReadEvent is posted.
+    // To avoid posting multiple such tasks.
+    bool pending_read_signal_event RTC_GUARDED_BY(mutex) = false;
+
+    // Members below do not need to outlive VirtualSocket, but are used by the
+    // posted tasks. Keeping them in the VirtualSocket confuses thread
+    // annotations because they can't detect that locked mutex is the same mutex
+    // this members are guarded by.
+
+    // Addresses of the sockets for potential connect. For each address there
+    // is a posted task that should finilze the connect.
+    std::list<SocketAddress> posted_connects RTC_GUARDED_BY(mutex);
+
+    // Data which has been received from the network
+    std::list<Packet*> recv_buffer RTC_GUARDED_BY(mutex);
+
+    // Pending sockets which can be Accepted
+    absl::optional<std::deque<SocketAddress>> listen_queue
+        RTC_GUARDED_BY(mutex);
+  };
+
   struct NetworkEntry {
     size_t size;
     int64_t done_time;
   };
 
-  typedef std::deque<SocketAddress> ListenQueue;
   typedef std::deque<NetworkEntry> NetworkQueue;
   typedef std::vector<char> SendBuffer;
-  typedef std::list<Packet*> RecvBuffer;
   typedef std::map<Option, int> OptionsMap;
 
   int InitiateConnect(const SocketAddress& addr, bool use_delay);
@@ -103,6 +148,7 @@ class VirtualSocket : public Socket,
   int SendTcp(const void* pv, size_t cb);
 
   void OnSocketServerReadyToSend();
+  void PostSignalReadEvent() RTC_EXCLUSIVE_LOCKS_REQUIRED(safety_->mutex);
 
   VirtualSocketServer* const server_;
   const int type_;
@@ -111,18 +157,13 @@ class VirtualSocket : public Socket,
   SocketAddress local_addr_;
   SocketAddress remote_addr_;
 
-  // Pending sockets which can be Accepted
-  std::unique_ptr<ListenQueue> listen_queue_ RTC_GUARDED_BY(mutex_)
-      RTC_PT_GUARDED_BY(mutex_);
+  const scoped_refptr<SafetyBlock> safety_ = make_ref_counted<SafetyBlock>();
 
   // Data which tcp has buffered for sending
   SendBuffer send_buffer_;
   // Set to false if the last attempt to send resulted in EWOULDBLOCK.
   // Set back to true when the socket can send again.
   bool ready_to_send_ = true;
-
-  // Mutex to protect the recv_buffer and listen_queue_
-  webrtc::Mutex mutex_;
 
   // Network model that enforces bandwidth and capacity constraints
   NetworkQueue network_;
@@ -131,8 +172,6 @@ class VirtualSocket : public Socket,
   // It is used to ensure ordered delivery of packets sent on this socket.
   int64_t last_delivery_time_ = 0;
 
-  // Data which has been received from the network
-  RecvBuffer recv_buffer_ RTC_GUARDED_BY(mutex_);
   // The amount of data which is in flight or in recv_buffer_
   size_t recv_buffer_size_;
 
@@ -308,14 +347,6 @@ class VirtualSocketServer : public SocketServer {
   // Computes the number of milliseconds required to send a packet of this size.
   uint32_t SendDelay(uint32_t size) RTC_LOCKS_EXCLUDED(mutex_);
 
-  // Cancel attempts to connect to a socket that is being closed.
-  void CancelConnects(VirtualSocket* socket);
-
-  // Clear incoming messages for a socket that is being closed.
-  void Clear(VirtualSocket* socket);
-
-  void PostSignalReadEvent(VirtualSocket* socket);
-
   // Sending was previously blocked, but now isn't.
   sigslot::signal0<> SignalReadyToSend;
 
@@ -327,6 +358,7 @@ class VirtualSocketServer : public SocketServer {
   VirtualSocket* LookupBinding(const SocketAddress& addr);
 
  private:
+  friend VirtualSocket;
   uint16_t GetNextPort();
 
   // Find the socket pair corresponding to this server address.

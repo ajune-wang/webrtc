@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "bbc76202_f074dc5f",
+        "filename": "pc/sdp_offer_answer.cc",
+        "patchSetId": 7
+      },
+      "lineNbr": 485,
+      "author": {
+        "id": 5686
+      },
+      "writtenOn": "2022-09-14T21:53:07Z",
+      "side": 1,
+      "message": "It doesn\u0027t look like ToCodecParameters copies everything, could you compare the AudioCodecs/VideoCodecs themselves?",
+      "revId": "b039b7cc27bf57fcd43361c8bdea147e69e3ec46",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

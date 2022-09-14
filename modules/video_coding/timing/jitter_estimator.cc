@@ -87,7 +87,8 @@ constexpr char JitterEstimator::Config::kFieldTrialsKey[];
 
 JitterEstimator::JitterEstimator(Clock* clock,
                                  const FieldTrialsView& field_trials)
-    : config_(Config::Parse(field_trials.Lookup(Config::kFieldTrialsKey))),
+    : config_(Config::ParseAndValidate(
+          field_trials.Lookup(Config::kFieldTrialsKey))),
       avg_frame_size_median_bytes_(static_cast<size_t>(
           config_.frame_size_window.value_or(kDefaultFrameSizeWindow))),
       max_frame_size_bytes_percentile_(

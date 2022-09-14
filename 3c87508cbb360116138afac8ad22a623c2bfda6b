@@ -16,6 +16,24 @@
       "message": "Since this is the API and the names is not self explanatory - can you add a comment when to explain when  set_ice_controller_factory and set_active_ice_controller_factory should be used?",
       "revId": "3c87508cbb360116138afac8ad22a623c2bfda6b",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "dc020132_38f40f41",
+        "filename": "api/ice_transport_interface.h",
+        "patchSetId": 8
+      },
+      "lineNbr": 87,
+      "author": {
+        "id": 17854
+      },
+      "writtenOn": "2022-09-14T09:55:12Z",
+      "side": 1,
+      "message": "Added some docs to start off with, and more docs added in follow-up CLs where the new factory is actually used.",
+      "parentUuid": "fcbcc80f_0204d1db",
+      "revId": "3c87508cbb360116138afac8ad22a623c2bfda6b",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

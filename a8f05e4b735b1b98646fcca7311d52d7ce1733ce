@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "3d4f5bdb_20200e3f",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5524
+      },
+      "writtenOn": "2022-09-14T08:30:16Z",
+      "side": 1,
+      "message": "Maybe we could create a file in modules/video_coding/utility/ to track this type of constants?\nThat would be the minimum-effort fix to unblock steady state on hw encoders.\nI\u0027d really like to see smarter steady-state logic going forward though.",
+      "revId": "a8f05e4b735b1b98646fcca7311d52d7ce1733ce",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

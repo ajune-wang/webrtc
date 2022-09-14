@@ -35,6 +35,24 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "51ebf0b7_00023a80",
+        "filename": "pc/sdp_offer_answer.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 450,
+      "author": {
+        "id": 19549
+      },
+      "writtenOn": "2022-09-14T09:46:10Z",
+      "side": 1,
+      "message": "I tried but did not get anywhere",
+      "parentUuid": "55bb7b4a_7f9b482b",
+      "revId": "cac4425554a29aec215b298d17add5f304940c76",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "4ebed828_7f2aee56",
@@ -48,6 +66,24 @@
       "writtenOn": "2022-09-13T13:32:09Z",
       "side": 1,
       "message": "This code is duplicated because of the type difference between as_audio and as_video. Is it possible to make it a template function, or make it a helper function that takes the return value of codecs() as parameter?",
+      "revId": "cac4425554a29aec215b298d17add5f304940c76",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "afc05eed_9577c21c",
+        "filename": "pc/sdp_offer_answer.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 477,
+      "author": {
+        "id": 19549
+      },
+      "writtenOn": "2022-09-14T09:46:10Z",
+      "side": 1,
+      "message": "Simplified a bit but codec is a template which makes this difficult. Maybe MediaSessionDescription should have a helper function that returns a vector of codec parameters?",
+      "parentUuid": "4ebed828_7f2aee56",
       "revId": "cac4425554a29aec215b298d17add5f304940c76",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }

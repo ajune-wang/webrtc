@@ -16,6 +16,24 @@
       "message": "Hi,\nsorry for late reply 😞\n\nI\u0027m honestly not at all happy about this cl,\nIt is almost only warnings (which are very useful if something is wrong!)\nand rare things anyway.\n\n\u003d\u003e I prefer not to do this, are do much less.\n",
       "revId": "b0f2e24551ebd84768dff7b4bae53f6adc1f5ee9",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "03b04ca7_cbc9008f",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 3
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5077
+      },
+      "writtenOn": "2022-09-14T15:28:26Z",
+      "side": 1,
+      "message": "Thanks for the feedback! This is exactly why I looped you in.\n\nI noticed there were quite a lot of log statements in this code and they all increase the binary size, so I just did a blanket search+replace RTC_LOG-\u003eRTC_DLOG for anything that\u0027s LS_INFO or LS_WARNING. So this is about binary size, not performance.\n\nIf you\u0027re absolutely against this then I\u0027m happy reverting, but but it looks to me as if there\u0027s a log statement in almost every function, when really there should just be for the unexpected/rare circumstances (we do know the code works after all).\n\nYour call!",
+      "parentUuid": "e96e860f_408f7604",
+      "revId": "b0f2e24551ebd84768dff7b4bae53f6adc1f5ee9",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

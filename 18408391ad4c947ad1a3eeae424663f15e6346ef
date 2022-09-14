@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "3c412f73_419249a6",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 5
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 19549
+      },
+      "writtenOn": "2022-09-14T14:14:01Z",
+      "side": 1,
+      "message": "folks, you are tagging a *very* old and unrelated issue 1413 in some of those CLs ;-)",
+      "revId": "18408391ad4c947ad1a3eeae424663f15e6346ef",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

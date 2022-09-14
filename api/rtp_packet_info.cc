@@ -72,8 +72,8 @@ bool operator==(const RtpPacketInfo& lhs, const RtpPacketInfo& rhs) {
          (lhs.audio_level() == rhs.audio_level()) &&
          (lhs.absolute_capture_time() == rhs.absolute_capture_time()) &&
          (lhs.receive_time() == rhs.receive_time() &&
-          (lhs.local_capture_clock_offset() ==
-           rhs.local_capture_clock_offset()));
+          (lhs.local_capture_clock_offset_q32x32() ==
+           rhs.local_capture_clock_offset_q32x32()));
 }
 
 }  // namespace webrtc

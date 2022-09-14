@@ -157,8 +157,8 @@ TEST(RtpPacketInfoTest, LocalCaptureClockOffset) {
   EXPECT_FALSE(lhs != rhs);
 
   const absl::optional<int64_t> value = 10;
-  rhs.set_local_capture_clock_offset(value);
-  EXPECT_EQ(rhs.local_capture_clock_offset(), value);
+  rhs.set_local_capture_clock_offset_q32x32(value);
+  EXPECT_EQ(rhs.local_capture_clock_offset_q32x32(), value);
 
   EXPECT_FALSE(lhs == rhs);
   EXPECT_TRUE(lhs != rhs);
@@ -170,12 +170,12 @@ TEST(RtpPacketInfoTest, LocalCaptureClockOffset) {
 
   // Default local capture clock offset is null.
   rhs = RtpPacketInfo();
-  EXPECT_EQ(rhs.local_capture_clock_offset(), absl::nullopt);
+  EXPECT_EQ(rhs.local_capture_clock_offset_q32x32(), absl::nullopt);
 
   // Default local capture clock offset is null.
   rhs = RtpPacketInfo({}, {}, {}, {}, AbsoluteCaptureTime{12, 34},
                       Timestamp::Zero());
-  EXPECT_EQ(rhs.local_capture_clock_offset(), absl::nullopt);
+  EXPECT_EQ(rhs.local_capture_clock_offset_q32x32(), absl::nullopt);
 }
 
 TEST(RtpPacketInfoTest, ReceiveTimeMs) {

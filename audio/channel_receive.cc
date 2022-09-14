@@ -464,15 +464,16 @@ AudioMixer::Source::AudioFrameInfo ChannelReceive::GetAudioFrameWithInfo(
   // Fill in local capture clock offset in `audio_frame->packet_infos_`.
   RtpPacketInfos::vector_type packet_infos;
   for (auto& packet_info : audio_frame->packet_infos_) {
-    absl::optional<int64_t> local_capture_clock_offset;
+    absl::optional<int64_t> local_capture_clock_offset_q32x32;
     if (packet_info.absolute_capture_time().has_value()) {
-      local_capture_clock_offset =
+      local_capture_clock_offset_q32x32 =
           capture_clock_offset_updater_.AdjustEstimatedCaptureClockOffset(
               packet_info.absolute_capture_time()
                   ->estimated_capture_clock_offset);
     }
     RtpPacketInfo new_packet_info(packet_info);
-    new_packet_info.set_local_capture_clock_offset(local_capture_clock_offset);
+    new_packet_info.set_local_capture_clock_offset_q32x32(
+        local_capture_clock_offset_q32x32);
     packet_infos.push_back(std::move(new_packet_info));
   }
   audio_frame->packet_infos_ = RtpPacketInfos(packet_infos);

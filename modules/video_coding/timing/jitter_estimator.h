@@ -51,7 +51,8 @@ class JitterEstimator {
           "frame_size_window", &frame_size_window,
           "num_stddev_delay_outlier", &num_stddev_delay_outlier,
           "num_stddev_size_outlier", &num_stddev_size_outlier,
-          "congestion_rejection_factor", &congestion_rejection_factor);
+          "congestion_rejection_factor", &congestion_rejection_factor,
+          "kalman_observation_noise_factor", &kalman_observation_noise_factor);
       // clang-format on
     }
 
@@ -90,6 +91,12 @@ class JitterEstimator {
     //
     // Decreasing this value rejects fewer samples.
     absl::optional<double> congestion_rejection_factor = absl::nullopt;
+
+    // The frame size-dependent part of the Kalman filter noise is multiplied
+    // by this value. A larger value means increasing the noise variance for
+    // frames with small frame size variance, and vice versa.
+    // If this value is set, the process noise covariance is also retuned.
+    absl::optional<double> kalman_observation_noise_factor = absl::nullopt;
   };
 
   JitterEstimator(Clock* clock, const FieldTrialsView& field_trials);

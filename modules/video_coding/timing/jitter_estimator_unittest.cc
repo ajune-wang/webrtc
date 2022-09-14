@@ -169,6 +169,7 @@ TEST_F(JitterEstimatorTest, EmptyFieldTrialsParsesToUnsetConfig) {
   EXPECT_FALSE(config.num_stddev_delay_outlier.has_value());
   EXPECT_FALSE(config.num_stddev_size_outlier.has_value());
   EXPECT_FALSE(config.congestion_rejection_factor.has_value());
+  EXPECT_FALSE(config.kalman_observation_noise_factor.has_value());
 }
 
 class FieldTrialsOverriddenJitterEstimatorTest : public JitterEstimatorTest {
@@ -181,7 +182,8 @@ class FieldTrialsOverriddenJitterEstimatorTest : public JitterEstimatorTest {
             "frame_size_window:30,"
             "num_stddev_delay_outlier:2,"
             "num_stddev_size_outlier:3.1,"
-            "congestion_rejection_factor:-1.55/") {}
+            "congestion_rejection_factor:-1.55,"
+            "kalman_observation_noise_factor:2.3/") {}
   ~FieldTrialsOverriddenJitterEstimatorTest() {}
 };
 
@@ -193,6 +195,7 @@ TEST_F(FieldTrialsOverriddenJitterEstimatorTest, FieldTrialsParsesCorrectly) {
   EXPECT_EQ(*config.num_stddev_delay_outlier, 2.0);
   EXPECT_EQ(*config.num_stddev_size_outlier, 3.1);
   EXPECT_EQ(*config.congestion_rejection_factor, -1.55);
+  EXPECT_EQ(*config.kalman_observation_noise_factor, 2.3);
 }
 
 TEST_F(FieldTrialsOverriddenJitterEstimatorTest,
@@ -244,7 +247,8 @@ class MisconfiguredFieldTrialsJitterEstimatorTest : public JitterEstimatorTest {
             "max_frame_size_percentile:-0.9,"
             "frame_size_window:-1,"
             "num_stddev_delay_outlier:-2,"
-            "num_stddev_size_outlier:-23.1/") {}
+            "num_stddev_size_outlier:-23.1,"
+            "kalman_observation_noise_factor:-2.3/") {}
   ~MisconfiguredFieldTrialsJitterEstimatorTest() {}
 };
 
@@ -254,6 +258,7 @@ TEST_F(MisconfiguredFieldTrialsJitterEstimatorTest, FieldTrialsAreValidated) {
   EXPECT_EQ(*config.frame_size_window, 1);
   EXPECT_EQ(*config.num_stddev_delay_outlier, 0.0);
   EXPECT_EQ(*config.num_stddev_size_outlier, 0.0);
+  EXPECT_EQ(*config.kalman_observation_noise_factor, 0.0);
 }
 
 }  // namespace

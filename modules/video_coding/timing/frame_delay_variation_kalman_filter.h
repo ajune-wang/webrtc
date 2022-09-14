@@ -11,6 +11,7 @@
 #ifndef MODULES_VIDEO_CODING_TIMING_FRAME_DELAY_VARIATION_KALMAN_FILTER_H_
 #define MODULES_VIDEO_CODING_TIMING_FRAME_DELAY_VARIATION_KALMAN_FILTER_H_
 
+#include "absl/types/optional.h"
 #include "api/units/data_size.h"
 #include "api/units/time_delta.h"
 
@@ -53,7 +54,8 @@ namespace webrtc {
 //    determined externally to this class.
 class FrameDelayVariationKalmanFilter {
  public:
-  FrameDelayVariationKalmanFilter();
+  explicit FrameDelayVariationKalmanFilter(
+      absl::optional<double> observation_noise_factor);
   ~FrameDelayVariationKalmanFilter() = default;
 
   // Predicts and updates the filter, given a new pair of frame delay variation
@@ -99,6 +101,9 @@ class FrameDelayVariationKalmanFilter {
   // Process noise covariance. This is a diagonal matrix, so we only store the
   // diagonal entries.
   double process_noise_cov_diag_[2];
+
+  // TODO(brandtr): Docs.
+  absl::optional<double> observation_noise_factor_;
 };
 
 }  // namespace webrtc

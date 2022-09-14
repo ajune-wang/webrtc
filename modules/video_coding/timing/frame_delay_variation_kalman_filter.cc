@@ -20,7 +20,9 @@ namespace {
 constexpr double kMaxBandwidth = 0.000001;  // Unit: [1 / bytes per ms].
 }  // namespace
 
-FrameDelayVariationKalmanFilter::FrameDelayVariationKalmanFilter() {
+FrameDelayVariationKalmanFilter::FrameDelayVariationKalmanFilter(
+    absl::optional<double> observation_noise_factor)
+    : observation_noise_factor_(observation_noise_factor) {
   // TODO(brandtr): Is there a factor 1000 missing here?
   estimate_[0] = 1 / (512e3 / 8);  // Unit: [1 / bytes per ms]
   estimate_[1] = 0;                // Unit: [ms]
@@ -33,6 +35,13 @@ FrameDelayVariationKalmanFilter::FrameDelayVariationKalmanFilter() {
   // Process noise covariance.
   process_noise_cov_diag_[0] = 2.5e-10;  // Unit: [(1 / bytes per ms)^2]
   process_noise_cov_diag_[1] = 1e-10;    // Unit: [ms^2]
+
+  // Bug fixes are shipped as part of this field trial.
+  if (observation_noise_factor_) {
+    estimate_[0] = 8.0 / 2500.0;
+    process_noise_cov_diag_[0] = 8.0e-5 * 8.0e-5;
+    process_noise_cov_diag_[1] = 0.01 * 0.01;
+  }
 }
 
 void FrameDelayVariationKalmanFilter::PredictAndUpdate(
@@ -74,18 +83,25 @@ void FrameDelayVariationKalmanFilter::PredictAndUpdate(
       estimate_cov_[0][0] * frame_size_variation_bytes + estimate_cov_[0][1];
   estim_cov_times_obs[1] =
       estimate_cov_[1][0] * frame_size_variation_bytes + estimate_cov_[1][1];
-  double observation_noise_stddev =
-      (300.0 * exp(-fabs(frame_size_variation_bytes) /
-                   (1e0 * max_frame_size_bytes)) +
-       1) *
-      sqrt(var_noise);
-  if (observation_noise_stddev < 1.0) {
-    observation_noise_stddev = 1.0;
+  double observation_noise;
+  if (observation_noise_factor_) {
+    // Note that we ship the variance bug fix as part of this.
+    observation_noise =
+        (*observation_noise_factor_ *
+             exp(-fabs(frame_size_variation_bytes) / max_frame_size_bytes) +
+         1.0) *
+        var_noise;
+  } else {
+    observation_noise =
+        (300.0 * exp(-fabs(frame_size_variation_bytes) / max_frame_size_bytes) +
+         1.0) *
+        sqrt(var_noise);
   }
-  // TODO(brandtr): Shouldn't we add observation_noise_stddev^2 here? Otherwise,
-  // the dimensional analysis fails.
+  if (observation_noise < 1.0) {
+    observation_noise = 1.0;
+  }
   double innovation_var = frame_size_variation_bytes * estim_cov_times_obs[0] +
-                          estim_cov_times_obs[1] + observation_noise_stddev;
+                          estim_cov_times_obs[1] + observation_noise;
   if ((innovation_var < 1e-9 && innovation_var >= 0) ||
       (innovation_var > -1e-9 && innovation_var <= 0)) {
     RTC_DCHECK_NOTREACHED();

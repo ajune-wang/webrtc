@@ -20,6 +20,23 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "e3cd13fc_5e16136f",
+        "filename": "api/rtp_packet_info.h",
+        "patchSetId": 3
+      },
+      "lineNbr": 78,
+      "author": {
+        "id": 5508
+      },
+      "writtenOn": "2022-09-14T09:52:59Z",
+      "side": 1,
+      "message": "just double checking before landing since this is introducing a new API surface - could/should we use TimeDelta here even though there are underlying reasons for using int64_t?\n\nI\u0027m just thinking if we could be introducing tech debt whereby someone will need to go chase down dependencies later on. I see a reference below to bugs.webrtc.org/12722 for example.",
+      "revId": "cbc666fdc914ea01c7f40d72d7864d2acd9dde93",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "a511334d_5f615f90",
         "filename": "api/rtp_packet_info.h",
         "patchSetId": 3

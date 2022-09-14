@@ -1,6 +1,23 @@
 {
   "comments": [
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "183fc78a_f8710f0f",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5087
+      },
+      "writtenOn": "2022-09-14T13:12:53Z",
+      "side": 1,
+      "message": "It is fine to skip the presubmit about stream usage since this is ",
+      "revId": "d1757d1fe256847466b1ce3eaa1657f3e35d7c87",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "3ed72527_e808d9fc",
@@ -42,6 +59,29 @@
         "startChar": 31,
         "endLine": 26,
         "endChar": 21
+      },
+      "revId": "d1757d1fe256847466b1ce3eaa1657f3e35d7c87",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "29a413d2_ca8dc6e4",
+        "filename": "test/testsupport/metrics/stdout_metrics_exporter.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 34,
+      "author": {
+        "id": 5087
+      },
+      "writtenOn": "2022-09-14T13:12:53Z",
+      "side": 1,
+      "message": "In theory, we can add an exception to presubmit since this is a non prod (test) utility.\n\nBut I wonder if we can just use the StringBuilder here, do we really need the ostringstream?",
+      "range": {
+        "startLine": 34,
+        "startChar": 2,
+        "endLine": 34,
+        "endChar": 20
       },
       "revId": "d1757d1fe256847466b1ce3eaa1657f3e35d7c87",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"

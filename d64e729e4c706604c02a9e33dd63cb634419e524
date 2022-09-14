@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "37d2c4ae_fa4389a1",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5122
+      },
+      "writtenOn": "2022-09-14T15:06:35Z",
+      "side": 1,
+      "message": "Note to the reviewers: a change to clean-up downstream is ready, but it hasn\u0027t landed yet - that\u0027s why internal_compile_lite fails",
+      "revId": "d64e729e4c706604c02a9e33dd63cb634419e524",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

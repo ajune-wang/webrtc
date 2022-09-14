@@ -22,6 +22,30 @@
       },
       "revId": "68da7e884dcc29cb95cc6d84f6fff23c8fd3ef0c",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "0070028d_9a199079",
+        "filename": "api/test/metrics/metric.h",
+        "patchSetId": 3
+      },
+      "lineNbr": 57,
+      "author": {
+        "id": 6337
+      },
+      "writtenOn": "2022-09-14T09:07:05Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "0ea8dc25_ef63f247",
+      "range": {
+        "startLine": 57,
+        "startChar": 24,
+        "endLine": 57,
+        "endChar": 30
+      },
+      "revId": "68da7e884dcc29cb95cc6d84f6fff23c8fd3ef0c",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

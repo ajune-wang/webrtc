@@ -110,6 +110,10 @@ JitterEstimator::Config JitterEstimator::Config::ParseAndValidate(
     config.num_stddev_size_outlier =
         std::max(0.0, *config.num_stddev_size_outlier);
   }
+  if (config.kalman_observation_noise_factor) {
+    config.kalman_observation_noise_factor =
+        std::max(0.0, *config.kalman_observation_noise_factor);
+  }
 
   return config;
 }
@@ -118,6 +122,7 @@ JitterEstimator::JitterEstimator(Clock* clock,
                                  const FieldTrialsView& field_trials)
     : config_(Config::ParseAndValidate(
           field_trials.Lookup(Config::kFieldTrialsKey))),
+      kalman_filter_(config_.kalman_observation_noise_factor),
       avg_frame_size_median_bytes_(static_cast<size_t>(
           config_.frame_size_window.value_or(kDefaultFrameSizeWindow))),
       max_frame_size_bytes_percentile_(
@@ -155,7 +160,8 @@ void JitterEstimator::Reset() {
   rtt_filter_.Reset();
   fps_counter_.Reset();
 
-  kalman_filter_ = FrameDelayVariationKalmanFilter();
+  kalman_filter_ =
+      FrameDelayVariationKalmanFilter(config_.kalman_observation_noise_factor);
 }
 
 // Updates the estimates with the new measurements.

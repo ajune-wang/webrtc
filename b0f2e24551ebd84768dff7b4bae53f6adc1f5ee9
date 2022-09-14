@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "e96e860f_408f7604",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 3
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5613
+      },
+      "writtenOn": "2022-09-14T12:32:56Z",
+      "side": 1,
+      "message": "Hi,\nsorry for late reply 😞\n\nI\u0027m honestly not at all happy about this cl,\nIt is almost only warnings (which are very useful if something is wrong!)\nand rare things anyway.\n\n\u003d\u003e I prefer not to do this, are do much less.\n",
+      "revId": "b0f2e24551ebd84768dff7b4bae53f6adc1f5ee9",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

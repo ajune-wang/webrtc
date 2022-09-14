@@ -11,6 +11,7 @@
 #ifndef MODULES_VIDEO_CODING_TIMING_JITTER_ESTIMATOR_H_
 #define MODULES_VIDEO_CODING_TIMING_JITTER_ESTIMATOR_H_
 
+#include <algorithm>
 #include <memory>
 #include <queue>
 
@@ -39,9 +40,31 @@ class JitterEstimator {
   struct Config {
     static constexpr char kFieldTrialsKey[] = "WebRTC-JitterEstimatorConfig";
 
-    static Config Parse(absl::string_view field_trial) {
+    static Config ParseAndValidate(absl::string_view field_trial) {
       Config config;
       config.Parser()->Parse(field_trial);
+
+      // The `MovingPercentileFilter` RTC_CHECKs on the validity of the
+      // percentile and window length, so we'd better validate the field trial
+      // provided values here.
+      if (config.max_frame_size_percentile) {
+        config.max_frame_size_percentile =
+            std::min(std::max(0.0, *config.max_frame_size_percentile), 1.0);
+      }
+      if (config.frame_size_window) {
+        config.frame_size_window = std::max(1, *config.frame_size_window);
+      }
+
+      // General sanity checks.
+      if (config.num_stddev_delay_outlier) {
+        config.num_stddev_delay_outlier =
+            std::max(0.0, *config.num_stddev_delay_outlier);
+      }
+      if (config.num_stddev_size_outlier) {
+        config.num_stddev_size_outlier =
+            std::max(0.0, *config.num_stddev_size_outlier);
+      }
+
       return config;
     }
 

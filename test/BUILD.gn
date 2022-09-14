@@ -24,6 +24,7 @@ if (!build_with_chromium) {
       ":test_renderer",
       ":test_support",
       ":video_test_common",
+      "testsupport/metrics",
     ]
 
     if (rtc_include_tests) {
@@ -643,6 +644,7 @@ if (rtc_include_tests && !build_with_chromium) {
       "pc/e2e:e2e_unittests",
       "peer_scenario/tests",
       "scenario:scenario_unittests",
+      "testsupport/metrics:metrics_unittests",
       "time_controller:time_controller",
       "time_controller:time_controller_unittests",
     ]

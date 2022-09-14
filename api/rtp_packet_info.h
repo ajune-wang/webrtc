@@ -17,6 +17,7 @@
 
 #include "absl/types/optional.h"
 #include "api/rtp_headers.h"
+#include "api/units/time_delta.h"
 #include "api/units/timestamp.h"
 #include "rtc_base/system/rtc_export.h"
 
@@ -31,11 +32,21 @@ class RTC_EXPORT RtpPacketInfo {
  public:
   RtpPacketInfo();
 
+  // TODO(bugs.webrtc.org/10739): Remove this constructor once all clients
+  // migrate to the version with local capture clock offset.
   RtpPacketInfo(uint32_t ssrc,
                 std::vector<uint32_t> csrcs,
                 uint32_t rtp_timestamp,
                 absl::optional<uint8_t> audio_level,
                 absl::optional<AbsoluteCaptureTime> absolute_capture_time,
+                Timestamp receive_time);
+
+  RtpPacketInfo(uint32_t ssrc,
+                std::vector<uint32_t> csrcs,
+                uint32_t rtp_timestamp,
+                absl::optional<uint8_t> audio_level,
+                absl::optional<AbsoluteCaptureTime> absolute_capture_time,
+                absl::optional<TimeDelta> local_capture_clock_offset,
                 Timestamp receive_time);
 
   RtpPacketInfo(const RTPHeader& rtp_header, Timestamp receive_time);
@@ -75,11 +86,11 @@ class RTC_EXPORT RtpPacketInfo {
     absolute_capture_time_ = value;
   }
 
-  const absl::optional<int64_t>& local_capture_clock_offset() const {
+  const absl::optional<TimeDelta>& local_capture_clock_offset() const {
     return local_capture_clock_offset_;
   }
 
-  void set_local_capture_clock_offset(const absl::optional<int64_t>& value) {
+  void set_local_capture_clock_offset(const absl::optional<TimeDelta>& value) {
     local_capture_clock_offset_ = value;
   }
 
@@ -102,16 +113,14 @@ class RTC_EXPORT RtpPacketInfo {
 
   // Fields from the Absolute Capture Time header extension:
   // http://www.webrtc.org/experiments/rtp-hdrext/abs-capture-time
-  // To not be confused with `local_capture_clock_offset_`, the
-  // `estimated_capture_clock_offset` in `absolute_capture_time_` should
-  // represent the clock offset between a remote sender and the capturer, and
-  // thus equals to the corresponding values in the received RTP packets,
-  // subjected to possible interpolations.
   absl::optional<AbsoluteCaptureTime> absolute_capture_time_;
 
-  // Clock offset against capturer's clock. Should be derived from the estimated
-  // capture clock offset defined in the Absolute Capture Time header extension.
-  absl::optional<int64_t> local_capture_clock_offset_;
+  // Clock offset between the local clock and the capturer's clock.
+  // Do not confuse with `AbsoluteCaptureTime::estimated_capture_clock_offset`
+  // which instead represents the clock offset between a remote sender and the
+  // capturer. The following holds:
+  //   Capture's NTP Clock = Local NTP Clock + Local-Capture Clock Offset
+  absl::optional<TimeDelta> local_capture_clock_offset_;
 
   // Local `webrtc::Clock`-based timestamp of when the packet was received.
   Timestamp receive_time_;

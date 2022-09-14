@@ -9,6 +9,7 @@
  */
 
 #include "api/rtp_packet_infos.h"
+#include "api/units/time_delta.h"
 #include "test/gmock.h"
 #include "test/gtest.h"
 
@@ -156,9 +157,9 @@ TEST(RtpPacketInfoTest, LocalCaptureClockOffset) {
   EXPECT_TRUE(lhs == rhs);
   EXPECT_FALSE(lhs != rhs);
 
-  const absl::optional<int64_t> value = 10;
-  rhs.set_local_capture_clock_offset(value);
-  EXPECT_EQ(rhs.local_capture_clock_offset(), value);
+  constexpr absl::optional<TimeDelta> kValue = TimeDelta::Millis(10);
+  rhs.set_local_capture_clock_offset(kValue);
+  EXPECT_EQ(rhs.local_capture_clock_offset(), kValue);
 
   EXPECT_FALSE(lhs == rhs);
   EXPECT_TRUE(lhs != rhs);

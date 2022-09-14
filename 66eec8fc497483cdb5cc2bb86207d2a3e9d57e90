@@ -16,6 +16,24 @@
       "message": "still pondering whether to land as-is after M107 has been cut or to add UMA without throwing to M107...",
       "revId": "66eec8fc497483cdb5cc2bb86207d2a3e9d57e90",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "530a2b0a_aaec02fa",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 6
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5686
+      },
+      "writtenOn": "2022-09-14T21:59:57Z",
+      "side": 1,
+      "message": "If it were me, I would start with the UMA either way. Seems like something that could easily go wrong with offer/answer asymmetry (one m\u003d section added by one side and one by the other)",
+      "parentUuid": "407d8091_be8838e6",
+      "revId": "66eec8fc497483cdb5cc2bb86207d2a3e9d57e90",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

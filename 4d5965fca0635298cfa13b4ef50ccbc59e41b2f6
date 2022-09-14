@@ -16,6 +16,52 @@
       "message": "Let me reset the cache on win bots so we can look at a full dry-run before submitting.",
       "revId": "4d5965fca0635298cfa13b4ef50ccbc59e41b2f6",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "0fdc7688_d49fc253",
+        "filename": "modules/rtp_rtcp/source/rtcp_packet/app.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 81,
+      "author": {
+        "id": 5087
+      },
+      "writtenOn": "2022-09-14T07:22:40Z",
+      "side": 1,
+      "message": "For completeness, I wonder if an RTC_DCHECK at the beginning of the function is needed (to signal this function never expect it to be nullptr).",
+      "range": {
+        "startLine": 81,
+        "startChar": 26,
+        "endLine": 81,
+        "endChar": 32
+      },
+      "revId": "4d5965fca0635298cfa13b4ef50ccbc59e41b2f6",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "7ccb7055_988f1525",
+        "filename": "modules/rtp_rtcp/source/rtp_packetizer_av1.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 366,
+      "author": {
+        "id": 5087
+      },
+      "writtenOn": "2022-09-14T07:22:40Z",
+      "side": 1,
+      "message": "Since fixing this method, is it OK to assume rtp_payload is never nullptr (see https://source.chromium.org/chromium/chromium/src/+/main:third_party/webrtc/modules/rtp_rtcp/source/rtp_packet.cc;l\u003d401;drc\u003de761c3e7f3bcfba70135c6a61a9a749412453265)?",
+      "range": {
+        "startLine": 365,
+        "startChar": 0,
+        "endLine": 366,
+        "endChar": 80
+      },
+      "revId": "4d5965fca0635298cfa13b4ef50ccbc59e41b2f6",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

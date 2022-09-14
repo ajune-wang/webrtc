@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "c08cae70_5c90fe80",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 4
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5087
+      },
+      "writtenOn": "2022-09-14T06:48:39Z",
+      "side": 1,
+      "message": "Let me reset the cache on win bots so we can look at a full dry-run before submitting.",
+      "revId": "4d5965fca0635298cfa13b4ef50ccbc59e41b2f6",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

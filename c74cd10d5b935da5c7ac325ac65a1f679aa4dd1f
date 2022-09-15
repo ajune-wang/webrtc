@@ -1,0 +1,44 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "33875b49_58e3f318",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 6
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5527
+      },
+      "writtenOn": "2022-09-15T09:57:50Z",
+      "side": 1,
+      "message": "LGTM % comment",
+      "revId": "c74cd10d5b935da5c7ac325ac65a1f679aa4dd1f",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "79cd7b74_c5666082",
+        "filename": "modules/video_coding/timing/jitter_estimator.cc",
+        "patchSetId": 6
+      },
+      "lineNbr": 112,
+      "author": {
+        "id": 5527
+      },
+      "writtenOn": "2022-09-15T09:57:50Z",
+      "side": 1,
+      "message": "If any of the values change after validation, log an error.",
+      "range": {
+        "startLine": 96,
+        "startChar": 0,
+        "endLine": 112,
+        "endChar": 3
+      },
+      "revId": "c74cd10d5b935da5c7ac325ac65a1f679aa4dd1f",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

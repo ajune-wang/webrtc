@@ -1,0 +1,153 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "3c0496c9_337bbea6",
+        "filename": "api/rtp_packet_info.h",
+        "patchSetId": 8
+      },
+      "lineNbr": 36,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2022-09-15T15:54:38Z",
+      "side": 1,
+      "message": "changing constructor each time an optional member is added or removed feels like a noticeable amount of work.\n\nMay be keep existent constructor (or even deprecated it and have a constructor with all non optional fields) and expect users of this class to manually set all optional members.\n\n(class named as media type agnostic, yet it require audio-specific fields in the constructor, that doesn\u0027t feel right)",
+      "range": {
+        "startLine": 35,
+        "startChar": 2,
+        "endLine": 36,
+        "endChar": 60
+      },
+      "revId": "38cfa9e9745b9609885577badf309ca973370235",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "24caaf6a_741ed740",
+        "filename": "api/rtp_packet_info.h",
+        "patchSetId": 8
+      },
+      "lineNbr": 89,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2022-09-15T15:54:38Z",
+      "side": 1,
+      "message": "for class in the api it might be safer for future updates to follow https://abseil.io/tips/163\ni.e. return and accept const TimeDelta*,\nand convert to absl::optional internally.\n\nbut if you\u0027re sure it would always be stored as absl::optional, keep it.\n\nactually... it might be even better to take and return absl::optional\u003cTimeDelta\u003e by value instead of by reference - TimeDelta is a small type.",
+      "range": {
+        "startLine": 89,
+        "startChar": 2,
+        "endLine": 89,
+        "endChar": 34
+      },
+      "revId": "38cfa9e9745b9609885577badf309ca973370235",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "b09afd53_2b91def5",
+        "filename": "api/rtp_packet_info_unittest.cc",
+        "patchSetId": 8
+      },
+      "lineNbr": 41,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2022-09-15T15:54:38Z",
+      "side": 1,
+      "message": "RtpPacketInfo has a default constructor, so may be\n\nrhs \u003d RtpPacketInfo();  // or even rhs \u003d {};\nrhs.set_ssrc(value);\n\nthat should make it more robust and easier to see which values are set.",
+      "revId": "38cfa9e9745b9609885577badf309ca973370235",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "d66e0efb_d5349ef8",
+        "filename": "api/rtp_packet_info_unittest.cc",
+        "patchSetId": 8
+      },
+      "lineNbr": 169,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2022-09-15T15:54:38Z",
+      "side": 1,
+      "message": "or\nconstexpr TimeDelta kValue \u003d TimeDelta::Millis(10);\n\ncode below should implicitly convert to optional\u003cTimeDelta\u003e both when value is set and checked for equality.\n\nhowever keeping optional\u003cTimeDelta\u003e has its benefits - make it clear set_local_capture_clock_offset expects optional\u003cTimeDelta\u003e, not TimeDelta.",
+      "revId": "38cfa9e9745b9609885577badf309ca973370235",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "9de07bd4_52ab7040",
+        "filename": "audio/channel_receive.cc",
+        "patchSetId": 8
+      },
+      "lineNbr": 480,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2022-09-15T15:54:38Z",
+      "side": 1,
+      "message": "drop webrtc:: prefix - this code is already in the webrtc namespace",
+      "range": {
+        "startLine": 480,
+        "startChar": 10,
+        "endLine": 480,
+        "endChar": 19
+      },
+      "revId": "38cfa9e9745b9609885577badf309ca973370235",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "bffe622b_a1856290",
+        "filename": "audio/channel_receive.cc",
+        "patchSetId": 8
+      },
+      "lineNbr": 482,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2022-09-15T15:54:38Z",
+      "side": 1,
+      "message": "you may omit local_capture_clock_offset local variable:\n\n    if (local_capture_clock_offset_q32x32.has_value()) {\n       new_packet_info.set_local_capture_clock_offset(TimeDelta::Millis(\n           UQ32x32ToInt64Ms(*local_capture_clock_offset_q32x32)));\n    }",
+      "range": {
+        "startLine": 477,
+        "startChar": 4,
+        "endLine": 482,
+        "endChar": 79
+      },
+      "revId": "38cfa9e9745b9609885577badf309ca973370235",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "8101d18d_1c7c17a1",
+        "filename": "modules/rtp_rtcp/source/source_tracker_unittest.cc",
+        "patchSetId": 8
+      },
+      "lineNbr": 276,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2022-09-15T15:54:38Z",
+      "side": 1,
+      "message": "may be /*local_capture_clock_offset\u003d*/absl::nullopt instead of introducing named constant for the absl::nullopt",
+      "range": {
+        "startLine": 276,
+        "startChar": 36,
+        "endLine": 276,
+        "endChar": 60
+      },
+      "revId": "38cfa9e9745b9609885577badf309ca973370235",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

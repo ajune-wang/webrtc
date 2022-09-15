@@ -34,6 +34,24 @@
       "parentUuid": "e96e860f_408f7604",
       "revId": "b0f2e24551ebd84768dff7b4bae53f6adc1f5ee9",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "bf0e7309_ccccc2e7",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 3
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5613
+      },
+      "writtenOn": "2022-09-15T05:47:57Z",
+      "side": 1,
+      "message": "the problem is that the logs statements are useful in the scenarios\nwhere unexpected network events happen...and they do definitely happen.\n\nscanned through the patch a second time...\nthere are things to do to decrease the printouts,\nbut they require more code...(e.g some things are only interesting the first time)\n\nI suggest revert unless you want to spend much more time...",
+      "parentUuid": "03b04ca7_cbc9008f",
+      "revId": "b0f2e24551ebd84768dff7b4bae53f6adc1f5ee9",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

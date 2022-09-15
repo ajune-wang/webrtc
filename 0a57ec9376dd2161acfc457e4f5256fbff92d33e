@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "175587e5_861b9656",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 5
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2022-09-15T12:45:25Z",
+      "side": 1,
+      "message": "Last usage of rtc::MessageHandler in webrtc,\n",
+      "revId": "0a57ec9376dd2161acfc457e4f5256fbff92d33e",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

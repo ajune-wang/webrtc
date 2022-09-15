@@ -16,6 +16,23 @@
       "message": "I didn\u0027t manage to reproduce races on tsan for the disabled tests, but I got a race\nfor the remaining StunServerTest.TestBad (late packet vs socket destruction), tsan just fails to detect it.\nstopping network thread before deleting StunServer fixes that race.\n\n(context why I\u0027m doing this:\ndiscovered while refactoring VirtualSocketServer away from rtc::MessageHandler and thus away from rtc::Thread::Clear - new design doesn\u0027t use rtc::Thread::Clear, but inserting an noop call to that function hides the tsan race\nhttps://webrtc-review.googlesource.com/c/src/+/274460)",
       "revId": "f8178cda88c093909ffbccd543c2a0966fc54dfe",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "43bb2664_05c225aa",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5508
+      },
+      "writtenOn": "2022-09-15T08:00:34Z",
+      "side": 1,
+      "message": "nice - well, that seemed pretty simple 😊",
+      "revId": "f8178cda88c093909ffbccd543c2a0966fc54dfe",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

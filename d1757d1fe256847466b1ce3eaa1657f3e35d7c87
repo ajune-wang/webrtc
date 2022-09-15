@@ -41,6 +41,30 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "2e391b7d_630f3d84",
+        "filename": "test/testsupport/metrics/BUILD.gn",
+        "patchSetId": 1
+      },
+      "lineNbr": 30,
+      "author": {
+        "id": 6337
+      },
+      "writtenOn": "2022-09-15T15:00:44Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "3ed72527_e808d9fc",
+      "range": {
+        "startLine": 30,
+        "startChar": 2,
+        "endLine": 30,
+        "endChar": 22
+      },
+      "revId": "d1757d1fe256847466b1ce3eaa1657f3e35d7c87",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "c848a5ee_cf2fcf6d",
@@ -54,6 +78,30 @@
       "writtenOn": "2022-09-12T07:24:24Z",
       "side": 1,
       "message": "in a format that depends on the implementation.",
+      "range": {
+        "startLine": 25,
+        "startChar": 31,
+        "endLine": 26,
+        "endChar": 21
+      },
+      "revId": "d1757d1fe256847466b1ce3eaa1657f3e35d7c87",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "b63bec40_28360784",
+        "filename": "test/testsupport/metrics/metrics_exporter.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 26,
+      "author": {
+        "id": 6337
+      },
+      "writtenOn": "2022-09-15T15:00:44Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "c848a5ee_cf2fcf6d",
       "range": {
         "startLine": 25,
         "startChar": 31,
@@ -87,6 +135,30 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "b778570c_6abce3ce",
+        "filename": "test/testsupport/metrics/stdout_metrics_exporter.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 34,
+      "author": {
+        "id": 6337
+      },
+      "writtenOn": "2022-09-15T15:00:44Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "29a413d2_ca8dc6e4",
+      "range": {
+        "startLine": 34,
+        "startChar": 2,
+        "endLine": 34,
+        "endChar": 20
+      },
+      "revId": "d1757d1fe256847466b1ce3eaa1657f3e35d7c87",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "b710cee2_b772fd4d",
@@ -100,6 +172,30 @@
       "writtenOn": "2022-09-12T07:24:24Z",
       "side": 1,
       "message": "to",
+      "range": {
+        "startLine": 21,
+        "startChar": 33,
+        "endLine": 21,
+        "endChar": 37
+      },
+      "revId": "d1757d1fe256847466b1ce3eaa1657f3e35d7c87",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "71886412_33a36322",
+        "filename": "test/testsupport/metrics/stdout_metrics_exporter.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 21,
+      "author": {
+        "id": 6337
+      },
+      "writtenOn": "2022-09-15T15:00:44Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "b710cee2_b772fd4d",
       "range": {
         "startLine": 21,
         "startChar": 33,
@@ -127,6 +223,24 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "9beb3a66_19936f63",
+        "filename": "test/testsupport/metrics/stdout_metrics_exporter.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 26,
+      "author": {
+        "id": 6337
+      },
+      "writtenOn": "2022-09-15T15:00:44Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "d94a323f_3e482bc9",
+      "revId": "d1757d1fe256847466b1ce3eaa1657f3e35d7c87",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "c7efc09f_e2ee52d8",
@@ -140,6 +254,30 @@
       "writtenOn": "2022-09-12T07:24:24Z",
       "side": 1,
       "message": "Let\u0027s add a comment about why this fails on iOS.",
+      "range": {
+        "startLine": 35,
+        "startChar": 0,
+        "endLine": 39,
+        "endChar": 6
+      },
+      "revId": "d1757d1fe256847466b1ce3eaa1657f3e35d7c87",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "9e2426a0_38149588",
+        "filename": "test/testsupport/metrics/stdout_metrics_exporter_test.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 39,
+      "author": {
+        "id": 6337
+      },
+      "writtenOn": "2022-09-15T15:00:44Z",
+      "side": 1,
+      "message": "Let\u0027s see if it will pass or not.",
+      "parentUuid": "c7efc09f_e2ee52d8",
       "range": {
         "startLine": 35,
         "startChar": 0,

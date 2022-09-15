@@ -286,6 +286,30 @@
       },
       "revId": "d1757d1fe256847466b1ce3eaa1657f3e35d7c87",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "c9e1ab2a_b151330c",
+        "filename": "test/testsupport/metrics/stdout_metrics_exporter_test.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 39,
+      "author": {
+        "id": 6337
+      },
+      "writtenOn": "2022-09-15T16:22:45Z",
+      "side": 1,
+      "message": "Test passed, so removed #if",
+      "parentUuid": "9e2426a0_38149588",
+      "range": {
+        "startLine": 35,
+        "startChar": 0,
+        "endLine": 39,
+        "endChar": 6
+      },
+      "revId": "d1757d1fe256847466b1ce3eaa1657f3e35d7c87",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

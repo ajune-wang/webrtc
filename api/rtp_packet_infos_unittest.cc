@@ -10,6 +10,8 @@
 
 #include "api/rtp_packet_infos.h"
 
+#include "api/units/time_delta.h"
+#include "api/units/timestamp.h"
 #include "test/gmock.h"
 #include "test/gtest.h"
 
@@ -27,12 +29,18 @@ RtpPacketInfos::vector_type ToVector(Iterator begin, Iterator end) {
 }  // namespace
 
 TEST(RtpPacketInfosTest, BasicFunctionality) {
-  RtpPacketInfo p0(123, {1, 2}, 89, 5, AbsoluteCaptureTime{45, 78},
-                   Timestamp::Millis(7));
-  RtpPacketInfo p1(456, {3, 4}, 89, 4, AbsoluteCaptureTime{13, 21},
-                   Timestamp::Millis(1));
-  RtpPacketInfo p2(789, {5, 6}, 88, 1, AbsoluteCaptureTime{99, 78},
-                   Timestamp::Millis(7));
+  RtpPacketInfo p0(/*ssrc=*/123, /*csrcs=*/{1, 2}, /*rtp_timestamp=*/89,
+                   /*audio_level=*/5, AbsoluteCaptureTime{45, 78},
+                   /*local_capture_clock_offset=*/TimeDelta::Millis(10),
+                   /*receive_time=*/Timestamp::Millis(7));
+  RtpPacketInfo p1(/*ssrc=*/456, /*csrcs=*/{3, 4}, /*rtp_timestamp=*/89,
+                   /*audio_level=*/4, AbsoluteCaptureTime{13, 21},
+                   /*local_capture_clock_offset=*/TimeDelta::Millis(8),
+                   /*receive_time=*/Timestamp::Millis(1));
+  RtpPacketInfo p2(/*ssrc=*/789, /*csrcs=*/{5, 6}, /*rtp_timestamp=*/88,
+                   /*audio_level=*/1, AbsoluteCaptureTime{99, 78},
+                   /*local_capture_clock_offset=*/TimeDelta::Millis(10),
+                   /*receive_time=*/Timestamp::Millis(7));
 
   RtpPacketInfos x({p0, p1, p2});
 
@@ -55,12 +63,18 @@ TEST(RtpPacketInfosTest, BasicFunctionality) {
 }
 
 TEST(RtpPacketInfosTest, CopyShareData) {
-  RtpPacketInfo p0(123, {1, 2}, 89, 5, AbsoluteCaptureTime{45, 78},
-                   Timestamp::Millis(7));
-  RtpPacketInfo p1(456, {3, 4}, 89, 4, AbsoluteCaptureTime{13, 21},
-                   Timestamp::Millis(1));
-  RtpPacketInfo p2(789, {5, 6}, 88, 1, AbsoluteCaptureTime{99, 78},
-                   Timestamp::Millis(7));
+  RtpPacketInfo p0(/*ssrc=*/123, /*csrcs=*/{1, 2}, /*rtp_timestamp=*/89,
+                   /*audio_level=*/5, AbsoluteCaptureTime{45, 78},
+                   /*local_capture_clock_offset=*/TimeDelta::Millis(10),
+                   /*receive_time=*/Timestamp::Millis(7));
+  RtpPacketInfo p1(/*ssrc=*/456, /*csrcs=*/{3, 4}, /*rtp_timestamp=*/89,
+                   /*audio_level=*/4, AbsoluteCaptureTime{13, 21},
+                   /*local_capture_clock_offset=*/TimeDelta::Millis(8),
+                   /*receive_time=*/Timestamp::Millis(1));
+  RtpPacketInfo p2(/*ssrc=*/789, /*csrcs=*/{5, 6}, /*rtp_timestamp=*/88,
+                   /*audio_level=*/1, AbsoluteCaptureTime{99, 78},
+                   /*local_capture_clock_offset=*/TimeDelta::Millis(10),
+                   /*receive_time=*/Timestamp::Millis(7));
 
   RtpPacketInfos lhs({p0, p1, p2});
   RtpPacketInfos rhs = lhs;

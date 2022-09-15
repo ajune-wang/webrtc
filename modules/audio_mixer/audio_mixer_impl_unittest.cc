@@ -665,12 +665,18 @@ TEST(AudioMixer, ShouldIncludeRtpPacketInfoFromAllMixedSources) {
   const Timestamp kReceiveTime0 = Timestamp::Millis(10);
   const Timestamp kReceiveTime1 = Timestamp::Millis(20);
 
-  const RtpPacketInfo kPacketInfo0(kSsrc0, {kCsrc0, kCsrc1}, kRtpTimestamp0,
-                                   kAudioLevel0, absl::nullopt, kReceiveTime0);
-  const RtpPacketInfo kPacketInfo1(kSsrc1, {kCsrc2}, kRtpTimestamp1,
-                                   kAudioLevel1, absl::nullopt, kReceiveTime1);
-  const RtpPacketInfo kPacketInfo2(kSsrc2, {kCsrc3}, kRtpTimestamp1,
-                                   kAudioLevel2, absl::nullopt, kReceiveTime1);
+  const RtpPacketInfo kPacketInfo0(
+      kSsrc0, {kCsrc0, kCsrc1}, kRtpTimestamp0, kAudioLevel0,
+      /*absolute_capture_time=*/absl::nullopt,
+      /*local_capture_clock_offset=*/absl::nullopt, kReceiveTime0);
+  const RtpPacketInfo kPacketInfo1(
+      kSsrc1, {kCsrc2}, kRtpTimestamp1, kAudioLevel1,
+      /*absolute_capture_time=*/absl::nullopt,
+      /*local_capture_clock_offset=*/absl::nullopt, kReceiveTime1);
+  const RtpPacketInfo kPacketInfo2(
+      kSsrc2, {kCsrc3}, kRtpTimestamp1, kAudioLevel2,
+      /*absolute_capture_time=*/absl::nullopt,
+      /*local_capture_clock_offset=*/absl::nullopt, kReceiveTime1);
 
   const auto mixer = AudioMixerImpl::Create();
 
@@ -706,14 +712,18 @@ TEST(AudioMixer, MixerShouldIncludeRtpPacketInfoFromMixedSourcesOnly) {
   const Timestamp kReceiveTime0 = Timestamp::Millis(10);
   const Timestamp kReceiveTime1 = Timestamp::Millis(20);
 
-  const RtpPacketInfo kPacketInfo0(kSsrc0, {kCsrc0, kCsrc1}, kRtpTimestamp0,
-                                   kAudioLevel0, absl::nullopt, kReceiveTime0);
-  const RtpPacketInfo kPacketInfo1(kSsrc1, {kCsrc2}, kRtpTimestamp1,
-                                   kAudioLevelMissing, absl::nullopt,
-                                   kReceiveTime1);
-  const RtpPacketInfo kPacketInfo2(kSsrc2, {kCsrc3}, kRtpTimestamp1,
-                                   kAudioLevelMissing, absl::nullopt,
-                                   kReceiveTime1);
+  const RtpPacketInfo kPacketInfo0(
+      kSsrc0, {kCsrc0, kCsrc1}, kRtpTimestamp0, kAudioLevel0,
+      /*absolute_capture_time=*/absl::nullopt,
+      /*local_capture_clock_offset=*/absl::nullopt, kReceiveTime0);
+  const RtpPacketInfo kPacketInfo1(
+      kSsrc1, {kCsrc2}, kRtpTimestamp1, kAudioLevelMissing,
+      /*absolute_capture_time=*/absl::nullopt,
+      /*local_capture_clock_offset=*/absl::nullopt, kReceiveTime1);
+  const RtpPacketInfo kPacketInfo2(
+      kSsrc2, {kCsrc3}, kRtpTimestamp1, kAudioLevelMissing,
+      /*absolute_capture_time=*/absl::nullopt,
+      /*local_capture_clock_offset=*/absl::nullopt, kReceiveTime1);
 
   const auto mixer = AudioMixerImpl::Create(/*max_sources_to_mix=*/2);
 

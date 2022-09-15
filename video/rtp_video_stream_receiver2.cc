@@ -515,6 +515,7 @@ void RtpVideoStreamReceiver2::OnReceivedPayloadData(
                   rtp_packet.Ssrc(), rtp_packet.Csrcs(), rtp_packet.Timestamp(),
                   /*audio_level=*/absl::nullopt,
                   rtp_packet.GetExtension<AbsoluteCaptureTimeExtension>(),
+                  /*local_capture_clock_offset=*/absl::nullopt,
                   /*receive_time_ms=*/clock_->CurrentTime()))
           .first->second;
 

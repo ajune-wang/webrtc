@@ -32,15 +32,6 @@ class RTC_EXPORT RtpPacketInfo {
  public:
   RtpPacketInfo();
 
-  // TODO(bugs.webrtc.org/10739): Remove this constructor once all clients
-  // migrate to the version with local capture clock offset.
-  RtpPacketInfo(uint32_t ssrc,
-                std::vector<uint32_t> csrcs,
-                uint32_t rtp_timestamp,
-                absl::optional<uint8_t> audio_level,
-                absl::optional<AbsoluteCaptureTime> absolute_capture_time,
-                Timestamp receive_time);
-
   RtpPacketInfo(uint32_t ssrc,
                 std::vector<uint32_t> csrcs,
                 uint32_t rtp_timestamp,
@@ -50,16 +41,6 @@ class RTC_EXPORT RtpPacketInfo {
                 Timestamp receive_time);
 
   RtpPacketInfo(const RTPHeader& rtp_header, Timestamp receive_time);
-
-  // TODO(bugs.webrtc.org/12722): Deprecated, remove once downstream projects
-  // are updated.
-  RtpPacketInfo(uint32_t ssrc,
-                std::vector<uint32_t> csrcs,
-                uint32_t rtp_timestamp,
-                absl::optional<uint8_t> audio_level,
-                absl::optional<AbsoluteCaptureTime> absolute_capture_time,
-                int64_t receive_time_ms);
-  RtpPacketInfo(const RTPHeader& rtp_header, int64_t receive_time_ms);
 
   RtpPacketInfo(const RtpPacketInfo& other) = default;
   RtpPacketInfo(RtpPacketInfo&& other) = default;

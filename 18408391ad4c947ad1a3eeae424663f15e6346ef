@@ -16,6 +16,24 @@
       "message": "folks, you are tagging a *very* old and unrelated issue 1413 in some of those CLs ;-)",
       "revId": "18408391ad4c947ad1a3eeae424663f15e6346ef",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "d6cef92e_9a4e97f3",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 5
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 17854
+      },
+      "writtenOn": "2022-09-15T10:16:09Z",
+      "side": 1,
+      "message": "Yes, I noticed this in a commit email. Somehow git cl upload cropped the last digit off of the commit description (or human error). Will fix in all pending CLs.",
+      "parentUuid": "3c412f73_419249a6",
+      "revId": "18408391ad4c947ad1a3eeae424663f15e6346ef",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

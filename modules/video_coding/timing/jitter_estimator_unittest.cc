@@ -170,6 +170,7 @@ TEST_F(JitterEstimatorTest, EmptyFieldTrialsParsesToUnsetConfig) {
   EXPECT_FALSE(config.num_stddev_delay_outlier.has_value());
   EXPECT_FALSE(config.num_stddev_size_outlier.has_value());
   EXPECT_FALSE(config.congestion_rejection_factor.has_value());
+  EXPECT_TRUE(config.estimate_noise_when_congested);
 }
 
 class FieldTrialsOverriddenJitterEstimatorTest : public JitterEstimatorTest {
@@ -183,7 +184,8 @@ class FieldTrialsOverriddenJitterEstimatorTest : public JitterEstimatorTest {
             "num_stddev_delay_clamp:1.1,"
             "num_stddev_delay_outlier:2,"
             "num_stddev_size_outlier:3.1,"
-            "congestion_rejection_factor:-1.55/") {}
+            "congestion_rejection_factor:-1.55,"
+            "estimate_noise_when_congested:false/") {}
   ~FieldTrialsOverriddenJitterEstimatorTest() {}
 };
 
@@ -196,6 +198,7 @@ TEST_F(FieldTrialsOverriddenJitterEstimatorTest, FieldTrialsParsesCorrectly) {
   EXPECT_EQ(*config.num_stddev_delay_outlier, 2.0);
   EXPECT_EQ(*config.num_stddev_size_outlier, 3.1);
   EXPECT_EQ(*config.congestion_rejection_factor, -1.55);
+  EXPECT_FALSE(config.estimate_noise_when_congested);
 }
 
 TEST_F(FieldTrialsOverriddenJitterEstimatorTest,

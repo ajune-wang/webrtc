@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "d11f8b0a_8fb914cc",
+        "filename": "api/test/metrics/stdout_metrics_exporter.h",
+        "patchSetId": 5
+      },
+      "lineNbr": 35,
+      "author": {
+        "id": 5508
+      },
+      "writtenOn": "2022-09-16T14:04:05Z",
+      "side": 1,
+      "message": "nit: `FILE* const output_`? (since this value doesn\u0027t seem to change)",
+      "revId": "9b883366ffd374f00709706adec23f2625e6ba50",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

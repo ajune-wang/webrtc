@@ -1,0 +1,72 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "f64cc7f3_8d71c71f",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 3
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2022-09-16T14:25:41Z",
+      "side": 1,
+      "message": "I think this solves the problem, but it is convoluted and hard to read.\nI think it can be done better.\n",
+      "revId": "df91391954ad36aee339396a381213ecdf92afca",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "9ecf355e_512d6369",
+        "filename": "pc/rtc_stats_collector.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 2020,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2022-09-16T14:25:41Z",
+      "side": 1,
+      "message": "This pattern (pointer to a moved object) is not a good thing. It is hard to read and leads to dangling pointers (as remarked below).\n\nI\u0027d rather have TryAddStats return a pointer when successful (\"your moved value is now here, and this is a non-owning pointer to it\").\n\nOr even move the CreateRemoteOutboundAudioStreamStats into a lambda called from TryAddStats - from the code, it is not at all clear where TryAddStats moves its argument to.",
+      "revId": "df91391954ad36aee339396a381213ecdf92afca",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "8edb116d_76af8450",
+        "filename": "pc/rtc_stats_collector.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 2167,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2022-09-16T14:25:41Z",
+      "side": 1,
+      "message": "If you construct the pair in a temporary variable before doing TryAddStats, you have no need for outbound_video_ptr, and you can make the code much simpler.",
+      "revId": "df91391954ad36aee339396a381213ecdf92afca",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "b6840ebc_2c6711a7",
+        "filename": "stats/rtc_stats_report.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 74,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2022-09-16T14:25:41Z",
+      "side": 1,
+      "message": "This is ugly. You first declare TryAddStats [[nodiscard]], ad then you make a major usage of it ignore the result in non-DCHECK.",
+      "revId": "df91391954ad36aee339396a381213ecdf92afca",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

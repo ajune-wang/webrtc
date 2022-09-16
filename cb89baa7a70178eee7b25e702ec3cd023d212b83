@@ -1,0 +1,38 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "3f2bd452_56ca10a1",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 2
+      },
+      "lineNbr": 10,
+      "author": {
+        "id": 5142
+      },
+      "writtenOn": "2022-09-16T09:17:20Z",
+      "side": 1,
+      "message": "Can we merge this PR?",
+      "revId": "cb89baa7a70178eee7b25e702ec3cd023d212b83",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "3f6ad704_426e9683",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5142
+      },
+      "writtenOn": "2022-09-16T09:17:20Z",
+      "side": 1,
+      "message": "Please take a look, Harald",
+      "revId": "cb89baa7a70178eee7b25e702ec3cd023d212b83",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

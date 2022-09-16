@@ -16,6 +16,24 @@
       "message": "nit: `FILE* const output_`? (since this value doesn\u0027t seem to change)",
       "revId": "9b883366ffd374f00709706adec23f2625e6ba50",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "ca5e736b_83d410e1",
+        "filename": "api/test/metrics/stdout_metrics_exporter.h",
+        "patchSetId": 5
+      },
+      "lineNbr": 35,
+      "author": {
+        "id": 6337
+      },
+      "writtenOn": "2022-09-16T22:12:28Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "d11f8b0a_8fb914cc",
+      "revId": "9b883366ffd374f00709706adec23f2625e6ba50",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

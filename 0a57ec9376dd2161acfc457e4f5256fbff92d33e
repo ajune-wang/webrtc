@@ -35,6 +35,24 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "e1ad3c8a_a3a79363",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 5
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2022-09-16T11:04:37Z",
+      "side": 1,
+      "message": "Yes, I tried to keep existent behaviour.\nIn particular Signals are still fired in unsafe way.\nBecause it is a test-only code, I\u0027m relying mostly on tests to check nothing is broken.",
+      "parentUuid": "42f5ce73_5eca3f07",
+      "revId": "0a57ec9376dd2161acfc457e4f5256fbff92d33e",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "ca9bd2f6_3e631fd1",
@@ -48,6 +66,24 @@
       "writtenOn": "2022-09-16T07:46:32Z",
       "side": 1,
       "message": "nit: Should we introduce something like this?\n\n```\nbool SafetyBlock::AddReceivedPacket(std::unique_ptr\u003cPacket\u003e packet) {\n  MutexLock lock(\u0026mutex);\n  if (alive) {\n    recv_buffer.push_back(packet.release());\n  }\n  return alive;\n}\n```",
+      "revId": "0a57ec9376dd2161acfc457e4f5256fbff92d33e",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "be31eea6_2225a01b",
+        "filename": "rtc_base/virtual_socket_server.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 354,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2022-09-16T11:04:37Z",
+      "side": 1,
+      "message": "Added, together with lots of other helpers",
+      "parentUuid": "ca9bd2f6_3e631fd1",
       "revId": "0a57ec9376dd2161acfc457e4f5256fbff92d33e",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
@@ -71,6 +107,24 @@
     {
       "unresolved": false,
       "key": {
+        "uuid": "c1c56b3c_4af55223",
+        "filename": "rtc_base/virtual_socket_server.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 377,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2022-09-16T11:04:37Z",
+      "side": 1,
+      "message": "Done. moved the logic into SafetyBlock.\n\nprevious code rely on rtc::Thread::Clear that returns all pending Messages.\nWithout MessageHandler that is not available, thus I\u0027ve introduce a new container to clear all such pending requests.\nI\u0027ve added a comment why passing iterator should be safe [now].\ntype of the container specifically chosen so that iterators are never invalided [while element is still in the container]. Added comments about that too.\n\nposting SocketAddress would require to do a linear lookup through the container. posting iterator avoids such overhead.",
+      "parentUuid": "07f3da79_2c422de1",
+      "revId": "0a57ec9376dd2161acfc457e4f5256fbff92d33e",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
         "uuid": "a415afe8_ce60f072",
         "filename": "rtc_base/virtual_socket_server.h",
         "patchSetId": 5
@@ -82,6 +136,24 @@
       "writtenOn": "2022-09-16T07:46:32Z",
       "side": 1,
       "message": "Since this struct has state that is complex to maintain and has restriction wrt locking, I think we\u0027ll be going into the direction of making it a class and moving some of the operations into member methods. It\u0027s nice to have that state factored into a separate construct btw.",
+      "revId": "0a57ec9376dd2161acfc457e4f5256fbff92d33e",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "5076a799_01d5ddc8",
+        "filename": "rtc_base/virtual_socket_server.h",
+        "patchSetId": 5
+      },
+      "lineNbr": 99,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2022-09-16T11:04:37Z",
+      "side": 1,
+      "message": "turned this into a class and split existent methods into several (one in VirtualSocket, one or two in SafetyBlock), moved most logic into SafetyBlock.\n\nHowever now that mutex is private, I removed few place where it was taken before, but no protected members were accessed. run tests through tsan - no tests seems to mind.",
+      "parentUuid": "a415afe8_ce60f072",
       "revId": "0a57ec9376dd2161acfc457e4f5256fbff92d33e",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }

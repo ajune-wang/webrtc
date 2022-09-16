@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "11f4b4dc_f63d8c3b",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 6193
+      },
+      "writtenOn": "2022-09-16T12:18:37Z",
+      "side": 1,
+      "message": "Will hopefully solve https://chromium-swarm.appspot.com/task?id\u003d5d5e994d70bfee10",
+      "revId": "03ee54d11fc5332405aa02c932767ff89ccb0e53",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

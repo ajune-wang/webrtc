@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "6ef4260c_cdd3b61e",
+        "filename": "api/test/metrics/stdout_metrics_exporter.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 42,
+      "author": {
+        "id": 5087
+      },
+      "writtenOn": "2022-09-16T06:49:13Z",
+      "side": 1,
+      "message": "I would keep this on the same paragraph with the previous comment and write:\n\n```\nDuring the conversion to string (when appending to the rtc::StringBuilder), this leading digit will be removed.\n```",
+      "range": {
+        "startLine": 42,
+        "startChar": 5,
+        "endLine": 42,
+        "endChar": 70
+      },
+      "revId": "d50205c474d6855a65f08b1ce4bbb6c5e45e80cc",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "8a834f86_a8dc69f6",
+        "filename": "api/test/metrics/stdout_metrics_exporter.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 45,
+      "author": {
+        "id": 5087
+      },
+      "writtenOn": "2022-09-16T06:49:13Z",
+      "side": 1,
+      "message": "digits_after_comma",
+      "range": {
+        "startLine": 45,
+        "startChar": 15,
+        "endLine": 45,
+        "endChar": 24
+      },
+      "revId": "d50205c474d6855a65f08b1ce4bbb6c5e45e80cc",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

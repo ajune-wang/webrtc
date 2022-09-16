@@ -16,6 +16,74 @@
       "message": "Last usage of rtc::MessageHandler in webrtc,\n",
       "revId": "0a57ec9376dd2161acfc457e4f5256fbff92d33e",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "42f5ce73_5eca3f07",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 5
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5508
+      },
+      "writtenOn": "2022-09-16T07:46:32Z",
+      "side": 1,
+      "message": "great to see that dependency go away. There are a few places in the code where things feel like they could somewhat easily go wrong (in the UAF sense). Is the updated implementation largely following how things used to work?",
+      "revId": "0a57ec9376dd2161acfc457e4f5256fbff92d33e",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "ca9bd2f6_3e631fd1",
+        "filename": "rtc_base/virtual_socket_server.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 354,
+      "author": {
+        "id": 5508
+      },
+      "writtenOn": "2022-09-16T07:46:32Z",
+      "side": 1,
+      "message": "nit: Should we introduce something like this?\n\n```\nbool SafetyBlock::AddReceivedPacket(std::unique_ptr\u003cPacket\u003e packet) {\n  MutexLock lock(\u0026mutex);\n  if (alive) {\n    recv_buffer.push_back(packet.release());\n  }\n  return alive;\n}\n```",
+      "revId": "0a57ec9376dd2161acfc457e4f5256fbff92d33e",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "07f3da79_2c422de1",
+        "filename": "rtc_base/virtual_socket_server.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 377,
+      "author": {
+        "id": 5508
+      },
+      "writtenOn": "2022-09-16T07:46:32Z",
+      "side": 1,
+      "message": "my preference would be to move this logic into SafetyBlock since that\u0027s where the ownership of the state is.\n\nIt doesn\u0027t feel quite safe against regressions to post the iterator after the insert() operation, into the async task and assume that it\u0027s still valid. Is that how the code worked previously?  I guess the invariant that must be maintained is that either it\u0027s valid or that `alive` has been set to `false` when the `posted_connects` container was modified. Would it make sense to post the SocketAddress instead?",
+      "revId": "0a57ec9376dd2161acfc457e4f5256fbff92d33e",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "a415afe8_ce60f072",
+        "filename": "rtc_base/virtual_socket_server.h",
+        "patchSetId": 5
+      },
+      "lineNbr": 99,
+      "author": {
+        "id": 5508
+      },
+      "writtenOn": "2022-09-16T07:46:32Z",
+      "side": 1,
+      "message": "Since this struct has state that is complex to maintain and has restriction wrt locking, I think we\u0027ll be going into the direction of making it a class and moving some of the operations into member methods. It\u0027s nice to have that state factored into a separate construct btw.",
+      "revId": "0a57ec9376dd2161acfc457e4f5256fbff92d33e",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

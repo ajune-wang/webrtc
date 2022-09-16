@@ -48,6 +48,30 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": true,
+      "key": {
+        "uuid": "d2229d8c_ddecf2c2",
+        "filename": "api/rtp_packet_info.h",
+        "patchSetId": 8
+      },
+      "lineNbr": 36,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2022-09-16T09:41:37Z",
+      "side": 1,
+      "message": "media specific fields is secondary argument, my main concern is introducing a new constructor each time an _optional_ field is added (or removed)\n\naudio_level and absolute_capture_time come from an rtp header extentsion that can be absent (or updated to a different rtp header extension in the future),\nother optional fields may be added in the future (other extensions).\n\nSo if you want to add a new constructor, I would suggest to have something more stable, e.g.\nRtpPacketInfo(ssrc, csrcs, rtp_timestamp, receive_time);\n[1st 3 fields are from the base rtp header, thus always should be present,\nlast one also should naturally exists ]\n\nI wouldn\u0027t worry about that if this struct wouldn\u0027t be in api and would have  limited usage, but for a class in api it better to have something more stable.",
+      "parentUuid": "92babcbc_57ec5a1f",
+      "range": {
+        "startLine": 35,
+        "startChar": 2,
+        "endLine": 36,
+        "endChar": 60
+      },
+      "revId": "38cfa9e9745b9609885577badf309ca973370235",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": false,
       "key": {
         "uuid": "24caaf6a_741ed740",
@@ -102,6 +126,24 @@
       "side": 1,
       "message": "My understanding is that all the tests in this file were added because `RtpPacketInfo` is not a struct and therefore the tests should check what each getter returns when a member is assigned (i) via a ctor arg and (ii) via a setter.\n\nIf you agree on that, I can complete all the tests to cover both ctors and setters.",
       "parentUuid": "b09afd53_2b91def5",
+      "revId": "38cfa9e9745b9609885577badf309ca973370235",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "7ac0f928_4c4eb167",
+        "filename": "api/rtp_packet_info_unittest.cc",
+        "patchSetId": 8
+      },
+      "lineNbr": 41,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2022-09-16T09:41:37Z",
+      "side": 1,
+      "message": "If that is the case, then yes,\nbut that doesn\u0027t smell good. I think it is recommended not to have multiple ways to do the same thing (thus my suggestion to set less in constructor: either nothing, or minimum fields)",
+      "parentUuid": "e6818ec7_da5d27e2",
       "revId": "38cfa9e9745b9609885577badf309ca973370235",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },

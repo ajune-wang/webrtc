@@ -16,6 +16,24 @@
       "message": "btw, if you think there is too many changes here, I can split this refactoring into several steps (e.g. first introduce SafetyBlock subclass and move all protected members there, but keep MessageHandler way of cleaning things. Then swap MessageHandler way of cancelling task into Safety flag, may be even one by one)",
       "revId": "94c565283559696a7d3e2f0d2b5009ce6888554e",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "5d58fd6e_68d4c3b0",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 6
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5508
+      },
+      "writtenOn": "2022-09-16T13:41:39Z",
+      "side": 1,
+      "message": "no need to split things up. I just needed a bit more time to grok all the changes.",
+      "parentUuid": "5ab714fa_75e980e8",
+      "revId": "94c565283559696a7d3e2f0d2b5009ce6888554e",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

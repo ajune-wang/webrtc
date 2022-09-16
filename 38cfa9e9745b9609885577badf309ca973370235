@@ -24,6 +24,30 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": true,
+      "key": {
+        "uuid": "92babcbc_57ec5a1f",
+        "filename": "api/rtp_packet_info.h",
+        "patchSetId": 8
+      },
+      "lineNbr": 36,
+      "author": {
+        "id": 5122
+      },
+      "writtenOn": "2022-09-16T07:55:36Z",
+      "side": 1,
+      "message": "Good point.\n\n`audio_level` is the only media-specific field. But I\u0027d do this: as a new ctor is anyway added in this CL, we can move `receive_time` after `rtp_timestamp` and add a default value for `audio_level`, `absolute_capture_time` and `local_capture_clock_offset`.\n\nWDYT?",
+      "parentUuid": "3c0496c9_337bbea6",
+      "range": {
+        "startLine": 35,
+        "startChar": 2,
+        "endLine": 36,
+        "endChar": 60
+      },
+      "revId": "38cfa9e9745b9609885577badf309ca973370235",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": false,
       "key": {
         "uuid": "24caaf6a_741ed740",
@@ -60,6 +84,24 @@
       "writtenOn": "2022-09-15T15:54:38Z",
       "side": 1,
       "message": "RtpPacketInfo has a default constructor, so may be\n\nrhs \u003d RtpPacketInfo();  // or even rhs \u003d {};\nrhs.set_ssrc(value);\n\nthat should make it more robust and easier to see which values are set.",
+      "revId": "38cfa9e9745b9609885577badf309ca973370235",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "e6818ec7_da5d27e2",
+        "filename": "api/rtp_packet_info_unittest.cc",
+        "patchSetId": 8
+      },
+      "lineNbr": 41,
+      "author": {
+        "id": 5122
+      },
+      "writtenOn": "2022-09-16T07:55:36Z",
+      "side": 1,
+      "message": "My understanding is that all the tests in this file were added because `RtpPacketInfo` is not a struct and therefore the tests should check what each getter returns when a member is assigned (i) via a ctor arg and (ii) via a setter.\n\nIf you agree on that, I can complete all the tests to cover both ctors and setters.",
+      "parentUuid": "b09afd53_2b91def5",
       "revId": "38cfa9e9745b9609885577badf309ca973370235",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },

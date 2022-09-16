@@ -1250,10 +1250,20 @@ TEST_F(AcmSenderBitExactnessNewApi, OpusFromFormat_stereo_20ms_voip) {
       AudioEncoderOpus::MakeAudioEncoder(*config, 120), 120));
   const std::string audio_maybe_sse =
       "1010e60ad34cee73c939edaf563d0593"
+<<<<<<< PATCH SET (04e6f0 Keep old checksums for older version of opus)
+      "|ca54661b220cc35239c6864ab858d29a"
+      "|c05b4523d4c3fad2bab96d2a56baa2d0";
+=======
       "|ca54661b220cc35239c6864ab858d29a";
+>>>>>>> BASE      (4cdc9e Revert "Update checksums for some Opus bit-exactness tests.")
   const std::string payload_maybe_sse =
       "ea48d94e43217793af9b7e15ece94e54"
+<<<<<<< PATCH SET (04e6f0 Keep old checksums for older version of opus)
+      "|eb0752ce1b6f2436fefc2e19bd084fb5"
+      "|bd93c492087093daf662cdd968f6cdda";
+=======
       "|eb0752ce1b6f2436fefc2e19bd084fb5";
+>>>>>>> BASE      (4cdc9e Revert "Update checksums for some Opus bit-exactness tests.")
   Run(audio_maybe_sse, payload_maybe_sse, /*expected_packets=*/50,
       /*expected_channels=*/test::AcmReceiveTestOldApi::kStereoOutput);
 }

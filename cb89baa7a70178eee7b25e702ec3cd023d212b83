@@ -33,6 +33,23 @@
       "message": "Please take a look, Harald",
       "revId": "cb89baa7a70178eee7b25e702ec3cd023d212b83",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "ed600fea_37ea5ea6",
+        "filename": "pc/rtc_stats_collector_unittest.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 1216,
+      "author": {
+        "id": 5142
+      },
+      "writtenOn": "2022-09-16T12:56:52Z",
+      "side": 1,
+      "message": "If https://webrtc-review.googlesource.com/c/src/+/275769 lands we can resolve this TODO.",
+      "revId": "cb89baa7a70178eee7b25e702ec3cd023d212b83",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

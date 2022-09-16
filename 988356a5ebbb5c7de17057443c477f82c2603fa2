@@ -1,0 +1,67 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "b9af6b19_2ce04c1d",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 5
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5100
+      },
+      "writtenOn": "2022-09-16T12:23:23Z",
+      "side": 1,
+      "message": "LGTM with comments addressed. Thank you!",
+      "revId": "988356a5ebbb5c7de17057443c477f82c2603fa2",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "1dd80955_42475fa6",
+        "filename": "modules/audio_coding/neteq/neteq_unittest.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 80,
+      "author": {
+        "id": 5100
+      },
+      "writtenOn": "2022-09-16T12:23:23Z",
+      "side": 1,
+      "message": "The comment is outdated now, since it refers to only two parts.",
+      "range": {
+        "startLine": 79,
+        "startChar": 5,
+        "endLine": 80,
+        "endChar": 14
+      },
+      "revId": "988356a5ebbb5c7de17057443c477f82c2603fa2",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "3f893255_d9de1790",
+        "filename": "modules/audio_coding/neteq/neteq_unittest.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 105,
+      "author": {
+        "id": 5100
+      },
+      "writtenOn": "2022-09-16T12:23:23Z",
+      "side": 1,
+      "message": "Same here.",
+      "range": {
+        "startLine": 104,
+        "startChar": 5,
+        "endLine": 105,
+        "endChar": 14
+      },
+      "revId": "988356a5ebbb5c7de17057443c477f82c2603fa2",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

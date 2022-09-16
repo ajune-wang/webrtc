@@ -51,7 +51,9 @@ class JitterEstimator {
           "num_stddev_delay_clamp", &num_stddev_delay_clamp,
           "num_stddev_delay_outlier", &num_stddev_delay_outlier,
           "num_stddev_size_outlier", &num_stddev_size_outlier,
-          "congestion_rejection_factor", &congestion_rejection_factor);
+          "congestion_rejection_factor", &congestion_rejection_factor,
+          "congestion_rejection_after_outlier_rejection",
+            &congestion_rejection_after_outlier_rejection);
       // clang-format on
     }
 
@@ -59,7 +61,7 @@ class JitterEstimator {
       return max_frame_size_percentile.has_value();
     }
 
-    // If set, the "avg" frame size is calculated as the median over a window
+    // If true, the "avg" frame size is calculated as the median over a window
     // of recent frame sizes.
     bool avg_frame_size_median = false;
 
@@ -96,6 +98,10 @@ class JitterEstimator {
     //
     // Decreasing this value rejects fewer samples.
     absl::optional<double> congestion_rejection_factor = absl::nullopt;
+
+    // If true, the congestion rejection is performed after the outlier
+    // rejection. This also impacts the noise estimation. TODO(brandtr): Expand.
+    bool congestion_rejection_after_outlier_rejection = true;
   };
 
   JitterEstimator(Clock* clock, const FieldTrialsView& field_trials);

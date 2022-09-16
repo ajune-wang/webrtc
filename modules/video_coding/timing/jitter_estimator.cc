@@ -258,36 +258,42 @@ void JitterEstimator::UpdateEstimate(TimeDelta frame_delay,
       avg_frame_size_bytes_ +
           GetNumStddevSizeOutlier() * sqrt(var_frame_size_bytes2_);
 
-  // Only update the Kalman filter if the sample is not considered an extreme
-  // outlier. Even if it is an extreme outlier from a delay point of view, if
-  // the frame size also is large the deviation is probably due to an incorrect
-  // line slope.
-  if (abs_delay_is_not_outlier || size_is_positive_outlier) {
-    // Update the variance of the deviation from the line given by the Kalman
-    // filter.
-    EstimateRandomJitter(delay_deviation_ms);
-    // Prevent updating with frames which have been congested by a large frame,
-    // and therefore arrives almost at the same time as that frame.
-    // This can occur when we receive a large frame (key frame) which has been
-    // delayed. The next frame is of normal size (delta frame), and thus deltaFS
-    // will be << 0. This removes all frame samples which arrives after a key
-    // frame.
-    double filtered_max_frame_size_bytes =
-        config_.MaxFrameSizePercentileEnabled()
-            ? max_frame_size_bytes_percentile_.GetFilteredValue()
-            : max_frame_size_bytes_;
-    if (delta_frame_bytes >
-        GetCongestionRejectionFactor() * filtered_max_frame_size_bytes) {
-      // Update the Kalman filter with the new data
-      kalman_filter_.PredictAndUpdate(frame_delay.ms(), delta_frame_bytes,
-                                      filtered_max_frame_size_bytes,
-                                      var_noise_ms2_);
+  // Prevent updating with frames which have been congested by a large frame,
+  // and therefore arrives almost at the same time as that frame.
+  // This can occur when we receive a large frame (key frame) which has been
+  // delayed. The next frame is of normal size (delta frame), and thus deltaFS
+  // will be << 0. This removes all frame samples which arrives after a key
+  // frame.
+  double filtered_max_frame_size_bytes =
+      config_.MaxFrameSizePercentileEnabled()
+          ? max_frame_size_bytes_percentile_.GetFilteredValue()
+          : max_frame_size_bytes_;
+  bool is_not_congested = delta_frame_bytes > GetCongestionRejectionFactor() *
+                                                  filtered_max_frame_size_bytes;
+
+  if (is_not_congested ||
+      config_.congestion_rejection_after_outlier_rejection) {
+    // Only update the Kalman filter if the sample is not considered an extreme
+    // outlier. Even if it is an extreme outlier from a delay point of view, if
+    // the frame size also is large the deviation is probably due to an
+    // incorrect line slope.
+    if (abs_delay_is_not_outlier || size_is_positive_outlier) {
+      // Update the variance of the deviation from the line given by the Kalman
+      // filter.
+      EstimateRandomJitter(delay_deviation_ms);
+      if (is_not_congested) {
+        // Update the Kalman filter with the new data
+        kalman_filter_.PredictAndUpdate(frame_delay.ms(), delta_frame_bytes,
+                                        filtered_max_frame_size_bytes,
+                                        var_noise_ms2_);
+      }
+    } else {
+      double num_stddev = (delay_deviation_ms >= 0) ? num_stddev_delay_outlier
+                                                    : -num_stddev_delay_outlier;
+      EstimateRandomJitter(num_stddev * sqrt(var_noise_ms2_));
     }
-  } else {
-    double num_stddev = (delay_deviation_ms >= 0) ? num_stddev_delay_outlier
-                                                  : -num_stddev_delay_outlier;
-    EstimateRandomJitter(num_stddev * sqrt(var_noise_ms2_));
   }
+
   // Post process the total estimated jitter
   if (startup_count_ >= kFrameProcessingStartupCount) {
     PostProcessEstimate();

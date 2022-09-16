@@ -170,6 +170,7 @@ TEST_F(JitterEstimatorTest, EmptyFieldTrialsParsesToUnsetConfig) {
   EXPECT_FALSE(config.num_stddev_delay_outlier.has_value());
   EXPECT_FALSE(config.num_stddev_size_outlier.has_value());
   EXPECT_FALSE(config.congestion_rejection_factor.has_value());
+  EXPECT_TRUE(config.congestion_rejection_after_outlier_rejection);
 }
 
 class FieldTrialsOverriddenJitterEstimatorTest : public JitterEstimatorTest {

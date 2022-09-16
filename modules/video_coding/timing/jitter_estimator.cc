@@ -263,9 +263,6 @@ void JitterEstimator::UpdateEstimate(TimeDelta frame_delay,
   // the frame size also is large the deviation is probably due to an incorrect
   // line slope.
   if (abs_delay_is_not_outlier || size_is_positive_outlier) {
-    // Update the variance of the deviation from the line given by the Kalman
-    // filter.
-    EstimateRandomJitter(delay_deviation_ms);
     // Prevent updating with frames which have been congested by a large frame,
     // and therefore arrives almost at the same time as that frame.
     // This can occur when we receive a large frame (key frame) which has been
@@ -276,8 +273,16 @@ void JitterEstimator::UpdateEstimate(TimeDelta frame_delay,
         config_.MaxFrameSizePercentileEnabled()
             ? max_frame_size_bytes_percentile_.GetFilteredValue()
             : max_frame_size_bytes_;
-    if (delta_frame_bytes >
-        GetCongestionRejectionFactor() * filtered_max_frame_size_bytes) {
+    bool is_not_congested =
+        delta_frame_bytes >
+        GetCongestionRejectionFactor() * filtered_max_frame_size_bytes;
+
+    // Update the variance of the deviation from the line given by the Kalman
+    // filter.
+    if (is_not_congested || config_.estimate_noise_when_congested) {
+      EstimateRandomJitter(delay_deviation_ms);
+    }
+    if (is_not_congested) {
       // Update the Kalman filter with the new data
       kalman_filter_.PredictAndUpdate(frame_delay.ms(), delta_frame_bytes,
                                       filtered_max_frame_size_bytes,

@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "3a964e4d_375cabb7",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2022-09-17T02:15:52Z",
+      "side": 1,
+      "message": "This patch is clean. Approving.\nNote: it doesn\u0027t really handle SSRC collisions within a single transport (which can happen if a SSRC is terminated by BYE and then resurrected) - it just keeps on tracking the SSRC using the same identifier. That\u0027s OK.",
+      "revId": "b4d847d2e9ed280ed42b0d05334a04d2d5960fd3",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

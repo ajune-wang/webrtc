@@ -18,6 +18,7 @@
 #include "rtc_base/event.h"
 #include "rtc_base/ref_counter.h"
 #include "rtc_base/time_utils.h"
+#include "system_wrappers/include/sleep.h"
 
 namespace webrtc {
 namespace {
@@ -145,6 +146,31 @@ TEST_P(TaskQueueTest, PostDelayedAfterDestruct) {
   // Task might outlive the TaskQueue, but still should be deleted.
   EXPECT_TRUE(deleted.Wait(TimeDelta::Seconds(1)));
   EXPECT_FALSE(run.Wait(TimeDelta::Zero()));  // and should not run.
+}
+
+TEST_P(TaskQueueTest, PostedClosureDestroyedOnTaskQueue) {
+  std::unique_ptr<webrtc::TaskQueueFactory> factory = GetParam()(nullptr);
+  auto queue = CreateTaskQueue(factory, "PostedClosureDestroyedOnTaskQueue");
+  TaskQueueBase* queue_ptr = queue.get();
+  queue->PostTask([] { SleepMs(100); });
+  SleepMs(10);
+  queue->PostTask([cleanup = absl::Cleanup([queue_ptr] {
+                     ASSERT_EQ(queue_ptr, TaskQueueBase::Current());
+                     SleepMs(100);
+                   })] {});
+  queue = nullptr;
+}
+
+TEST_P(TaskQueueTest, PostedDelayedClosureDestroyedOnTaskQueue) {
+  std::unique_ptr<webrtc::TaskQueueFactory> factory = GetParam()(nullptr);
+  auto queue =
+      CreateTaskQueue(factory, "PostedDelayedClosureDestroyedOnTaskQueue");
+  TaskQueueBase* queue_ptr = queue.get();
+  queue->PostDelayedTask([cleanup = absl::Cleanup([queue_ptr] {
+                            ASSERT_EQ(queue_ptr, TaskQueueBase::Current());
+                          })] {},
+                         TimeDelta::Millis(100));
+  queue = nullptr;
 }
 
 TEST_P(TaskQueueTest, PostAndReuse) {

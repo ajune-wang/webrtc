@@ -257,6 +257,7 @@ if (!is_component_build) {
       "../rtc_base:stringutils",
       "../rtc_base:timeutils",
       "../system_wrappers",
+      "../system_wrappers:sleep",
       "../test:call_config_utils",
       "../test:encoder_settings",
       "../test:fake_video_codecs",

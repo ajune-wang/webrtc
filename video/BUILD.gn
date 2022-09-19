@@ -876,6 +876,7 @@ if (rtc_include_tests) {
       "../system_wrappers",
       "../system_wrappers:field_trial",
       "../system_wrappers:metrics",
+      "../system_wrappers:sleep",
       "../test:direct_transport",
       "../test:encoder_settings",
       "../test:fake_encoded_frame",

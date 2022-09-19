@@ -210,6 +210,7 @@ rtc_library("audio_device_impl") {
     "../../system_wrappers",
     "../../system_wrappers:field_trial",
     "../../system_wrappers:metrics",
+    "../../system_wrappers:sleep",
     "../utility",
   ]
   absl_deps = [

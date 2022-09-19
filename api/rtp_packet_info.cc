@@ -40,7 +40,6 @@ RtpPacketInfo::RtpPacketInfo(const RTPHeader& rtp_header,
   if (extension.hasAudioLevel) {
     audio_level_ = extension.audioLevel;
   }
-
   absolute_capture_time_ = extension.absolute_capture_time;
 }
 

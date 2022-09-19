@@ -16,6 +16,75 @@
       "message": "Hi Danil, could you PTAL? Alessio",
       "revId": "6a3b78533a55d87491321957e7f4e08063430a3b",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "96ea47dd_52e44544",
+        "filename": "api/rtp_packet_info.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 39,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2022-09-19T15:26:43Z",
+      "side": 1,
+      "message": "this bug doesn\u0027t look relevant as reason for deprecating this constructor",
+      "range": {
+        "startLine": 39,
+        "startChar": 10,
+        "endLine": 39,
+        "endChar": 31
+      },
+      "revId": "6a3b78533a55d87491321957e7f4e08063430a3b",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "01f3057e_5c4a707f",
+        "filename": "modules/rtp_rtcp/source/source_tracker_unittest.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 270,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2022-09-19T15:26:43Z",
+      "side": 1,
+      "message": "std::move is sure more efficient, but for test code it likely doesn\u0027t matter, passing by copy might be easier to read:\ntracker.OnFrameDelivered(RtpPacketInfos({p0, p1}))",
+      "range": {
+        "startLine": 270,
+        "startChar": 45,
+        "endLine": 270,
+        "endChar": 73
+      },
+      "revId": "6a3b78533a55d87491321957e7f4e08063430a3b",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "28a71551_75ca5527",
+        "filename": "modules/rtp_rtcp/source/source_tracker_unittest.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 271,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2022-09-19T15:26:43Z",
+      "side": 1,
+      "message": "to have less boilerplate in this code, it is possible to change setters to retern reference to this:\n\nclass RtpPacketInfo {\n public:\n  RtpPacketInfo\u0026 set_audio_level(level) { level_ \u003d level; return *this; }\n  \n...\n\ntracker.InFrameDelivered(RtpPacketInfos({\n  RtpPacketInfo(kSsrcs1, {kCsrcs1}, kRtpTimestamp, kReceivetime).set_audio_level( kAudioLevel).set_absolute_capture_time(kAbsCapTime),\n  RtpPacketInfo(kSsrcs2, {kCsrcs2}, kRtpTimestamp, kReceivetime).set_audio_level( kAudioLevel).set_absolute_capture_time(kAbsCapTime)}));",
+      "range": {
+        "startLine": 263,
+        "startChar": 0,
+        "endLine": 271,
+        "endChar": 3
+      },
+      "revId": "6a3b78533a55d87491321957e7f4e08063430a3b",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

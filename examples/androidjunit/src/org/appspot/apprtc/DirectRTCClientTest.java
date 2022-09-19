@@ -18,7 +18,7 @@ import static org.mockito.ArgumentMatchers.isNotNull;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.timeout;
 import static org.mockito.Mockito.verify;
-import static org.mockito.Mockito.verifyNoMoreInteractions;
+import static org.mockito.Mockito.verifyNoInteractions;
 
 import org.chromium.testing.local.LocalRobolectricTestRunner;
 import org.junit.Before;
@@ -149,7 +149,7 @@ public class DirectRTCClientTest {
     verify(clientEvents, timeout(NETWORK_TIMEOUT)).onChannelClose();
     verify(serverEvents, timeout(NETWORK_TIMEOUT)).onChannelClose();
 
-    verifyNoMoreInteractions(clientEvents);
-    verifyNoMoreInteractions(serverEvents);
+    verifyNoInteractions(clientEvents);
+    verifyNoInteractions(serverEvents);
   }
 }

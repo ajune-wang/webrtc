@@ -14,7 +14,7 @@ import static org.junit.Assert.assertEquals;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.times;
 import static org.mockito.Mockito.verify;
-import static org.mockito.Mockito.verifyNoMoreInteractions;
+import static org.mockito.Mockito.verifyNoInteractions;
 
 import androidx.test.runner.AndroidJUnit4;
 import org.junit.After;
@@ -66,7 +66,7 @@ public class GlGenericDrawerTest {
 
   @After
   public void tearDown() {
-    verifyNoMoreInteractions(mockedCallbacks);
+    verifyNoInteractions(mockedCallbacks);
   }
 
   @Test

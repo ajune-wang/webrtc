@@ -13,8 +13,11 @@ package org.appspot.apprtc;
 import static org.junit.Assert.fail;
 import static org.mockito.Mockito.timeout;
 import static org.mockito.Mockito.verify;
-import static org.mockito.Mockito.verifyNoMoreInteractions;
+import static org.mockito.Mockito.verifyNoInteractions;
 
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
+import java.util.concurrent.TimeUnit;
 import org.chromium.testing.local.LocalRobolectricTestRunner;
 import org.junit.After;
 import org.junit.Before;
@@ -24,10 +27,6 @@ import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
 import org.robolectric.annotation.Config;
 import org.robolectric.shadows.ShadowLog;
-
-import java.util.concurrent.ExecutorService;
-import java.util.concurrent.Executors;
-import java.util.concurrent.TimeUnit;
 
 @RunWith(LocalRobolectricTestRunner.class)
 @Config(manifest = Config.NONE)
@@ -182,8 +181,8 @@ public class TCPChannelClientTest {
    * Verifies no more server or client events have been issued
    */
   private void verifyNoMoreEvents() {
-    verifyNoMoreInteractions(serverEvents);
-    verifyNoMoreInteractions(clientEvents);
+    verifyNoInteractions(serverEvents);
+    verifyNoInteractions(clientEvents);
   }
 
   /**

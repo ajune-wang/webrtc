@@ -74,6 +74,30 @@
     {
       "unresolved": false,
       "key": {
+        "uuid": "2bf15e5b_a3a93e0b",
+        "filename": "api/rtp_packet_info.h",
+        "patchSetId": 8
+      },
+      "lineNbr": 36,
+      "author": {
+        "id": 5122
+      },
+      "writtenOn": "2022-09-19T15:36:45Z",
+      "side": 1,
+      "message": "\u003e So if you want to add a new constructor, I would suggest to have something more stable, e.g.\n\u003e RtpPacketInfo(ssrc, csrcs, rtp_timestamp, receive_time);\n\u003e [1st 3 fields are from the base rtp header, thus always should be present,\n\u003e last one also should naturally exists ]\n\nDone in https://webrtc-review.googlesource.com/c/src/+/275941",
+      "parentUuid": "d2229d8c_ddecf2c2",
+      "range": {
+        "startLine": 35,
+        "startChar": 2,
+        "endLine": 36,
+        "endChar": 60
+      },
+      "revId": "38cfa9e9745b9609885577badf309ca973370235",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
         "uuid": "24caaf6a_741ed740",
         "filename": "api/rtp_packet_info.h",
         "patchSetId": 8
@@ -178,6 +202,30 @@
       "writtenOn": "2022-09-15T15:54:38Z",
       "side": 1,
       "message": "drop webrtc:: prefix - this code is already in the webrtc namespace",
+      "range": {
+        "startLine": 480,
+        "startChar": 10,
+        "endLine": 480,
+        "endChar": 19
+      },
+      "revId": "38cfa9e9745b9609885577badf309ca973370235",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "18b22006_c4f8e77a",
+        "filename": "audio/channel_receive.cc",
+        "patchSetId": 8
+      },
+      "lineNbr": 480,
+      "author": {
+        "id": 5122
+      },
+      "writtenOn": "2022-09-19T15:36:45Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "9de07bd4_52ab7040",
       "range": {
         "startLine": 480,
         "startChar": 10,

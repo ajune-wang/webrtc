@@ -148,6 +148,7 @@ if (!build_with_chromium) {
         "../../rtc_base:timeutils",
         "../../rtc_base/synchronization:mutex",
         "../../system_wrappers",
+        "../../system_wrappers:sleep",
         "../../test:frame_utils",
         "../../test:test_main",
         "../../test:test_support",

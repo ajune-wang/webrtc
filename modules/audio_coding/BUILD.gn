@@ -2127,6 +2127,7 @@ if (rtc_include_tests) {
         "../../rtc_base/synchronization:mutex",
         "../../rtc_base/system:arch",
         "../../system_wrappers",
+        "../../system_wrappers:sleep",
         "../../test:audio_codec_mocks",
         "../../test:audio_test_common",
         "../../test:field_trial",

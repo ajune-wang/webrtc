@@ -12,6 +12,25 @@ if (is_android) {
 }
 import("../webrtc.gni")
 
+rtc_library("sleep") {
+  sources = [
+    "include/sleep.h",
+    "source/sleep.cc",
+  ]
+  if (build_with_chromium) {
+    visibility = []
+    visibility = webrtc_default_visibility
+    visibility += [
+      # This is the only Chromium target that can depend on this. The reason
+      # behind this is the fact that this is a 'testonly' target and as such
+      # it cannot be part of the WebRTC component.
+      "//third_party/blink/renderer/platform:blink_platform_unittests_sources",
+    ]
+  } else {
+    visibility = [ "*" ]
+  }
+}
+
 rtc_library("system_wrappers") {
   visibility = [ "*" ]
   sources = [
@@ -20,18 +39,17 @@ rtc_library("system_wrappers") {
     "include/cpu_info.h",
     "include/ntp_time.h",
     "include/rtp_to_ntp_estimator.h",
-    "include/sleep.h",
     "source/clock.cc",
     "source/cpu_features.cc",
     "source/cpu_info.cc",
     "source/rtp_to_ntp_estimator.cc",
-    "source/sleep.cc",
   ]
 
   defines = []
   libs = []
   deps = [
     ":field_trial",
+    ":sleep",
     "../api:array_view",
     "../api/units:timestamp",
     "../modules:module_api_public",

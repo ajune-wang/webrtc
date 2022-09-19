@@ -68,6 +68,7 @@ rtc_library("task_queue_test") {
       "../../rtc_base:refcount",
       "../../rtc_base:rtc_event",
       "../../rtc_base:timeutils",
+      "../../system_wrappers:sleep",
       "../../test:test_support",
     ]
     absl_deps = [

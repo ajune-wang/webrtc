@@ -1937,18 +1937,36 @@ void RTCStatsCollector::ProduceAudioRTPStreamStats_n(
                              .value());
       inbound_audio->track_identifier = audio_track->id();
     }
+<<<<<<< HEAD   (17f085 [106] Schedule all video decodes with high precision)
     inbound_audio->transport_id = transport_id;
+=======
+    auto* inbound_audio_ptr = report->TryAddStats(std::move(inbound_audio));
+    if (!inbound_audio_ptr) {
+      RTC_LOG(LS_ERROR)
+          << "Unable to add audio 'inbound-rtp' to report, ID is not unique.";
+      continue;
+    }
+>>>>>>> CHANGE (da6297 [Stats] Avoid DCHECK crashing if SSRCs are not unique.)
     // Remote-outbound.
     auto remote_outbound_audio = CreateRemoteOutboundAudioStreamStats(
+<<<<<<< HEAD   (17f085 [106] Schedule all video decodes with high precision)
         voice_receiver_info, mid, inbound_audio->id(), transport_id);
+=======
+        voice_receiver_info, mid, *inbound_audio_ptr, transport_id);
+>>>>>>> CHANGE (da6297 [Stats] Avoid DCHECK crashing if SSRCs are not unique.)
     // Add stats.
     if (remote_outbound_audio) {
       // When the remote outbound stats are available, the remote ID for the
       // local inbound stats is set.
-      inbound_audio->remote_id = remote_outbound_audio->id();
-      report->AddStats(std::move(remote_outbound_audio));
+      auto* remote_outbound_audio_ptr =
+          report->TryAddStats(std::move(remote_outbound_audio));
+      if (remote_outbound_audio_ptr) {
+        inbound_audio_ptr->remote_id = remote_outbound_audio_ptr->id();
+      } else {
+        RTC_LOG(LS_ERROR) << "Unable to add audio 'remote-outbound-rtp' to "
+                          << "report, ID is not unique.";
+      }
     }
-    report->AddStats(std::move(inbound_audio));
   }
   // Outbound.
   std::map<std::string, RTCOutboundRTPStreamStats*> audio_outbound_rtps;
@@ -1975,10 +1993,21 @@ void RTCStatsCollector::ProduceAudioRTPStreamStats_n(
           RTCMediaSourceStatsIDFromKindAndAttachment(cricket::MEDIA_TYPE_AUDIO,
                                                      attachment_id);
     }
+<<<<<<< HEAD   (17f085 [106] Schedule all video decodes with high precision)
     outbound_audio->transport_id = transport_id;
     audio_outbound_rtps.insert(
         std::make_pair(outbound_audio->id(), outbound_audio.get()));
     report->AddStats(std::move(outbound_audio));
+=======
+    auto audio_outbound_pair =
+        std::make_pair(outbound_audio->id(), outbound_audio.get());
+    if (report->TryAddStats(std::move(outbound_audio))) {
+      audio_outbound_rtps.insert(std::move(audio_outbound_pair));
+    } else {
+      RTC_LOG(LS_ERROR)
+          << "Unable to add audio 'outbound-rtp' to report, ID is not unique.";
+    }
+>>>>>>> CHANGE (da6297 [Stats] Avoid DCHECK crashing if SSRCs are not unique.)
   }
   // Remote-inbound.
   // These are Report Block-based, information sent from the remote endpoint,
@@ -2030,8 +2059,15 @@ void RTCStatsCollector::ProduceVideoRTPStreamStats_n(
                              .value());
       inbound_video->track_identifier = video_track->id();
     }
+<<<<<<< HEAD   (17f085 [106] Schedule all video decodes with high precision)
     inbound_video->transport_id = transport_id;
     report->AddStats(std::move(inbound_video));
+=======
+    if (!report->TryAddStats(std::move(inbound_video))) {
+      RTC_LOG(LS_ERROR)
+          << "Unable to add video 'inbound-rtp' to report, ID is not unique.";
+    }
+>>>>>>> CHANGE (da6297 [Stats] Avoid DCHECK crashing if SSRCs are not unique.)
   }
   // Outbound
   std::map<std::string, RTCOutboundRTPStreamStats*> video_outbound_rtps;
@@ -2058,10 +2094,21 @@ void RTCStatsCollector::ProduceVideoRTPStreamStats_n(
           RTCMediaSourceStatsIDFromKindAndAttachment(cricket::MEDIA_TYPE_VIDEO,
                                                      attachment_id);
     }
+<<<<<<< HEAD   (17f085 [106] Schedule all video decodes with high precision)
     outbound_video->transport_id = transport_id;
     video_outbound_rtps.insert(
         std::make_pair(outbound_video->id(), outbound_video.get()));
     report->AddStats(std::move(outbound_video));
+=======
+    auto video_outbound_pair =
+        std::make_pair(outbound_video->id(), outbound_video.get());
+    if (report->TryAddStats(std::move(outbound_video))) {
+      video_outbound_rtps.insert(std::move(video_outbound_pair));
+    } else {
+      RTC_LOG(LS_ERROR)
+          << "Unable to add video 'outbound-rtp' to report, ID is not unique.";
+    }
+>>>>>>> CHANGE (da6297 [Stats] Avoid DCHECK crashing if SSRCs are not unique.)
   }
   // Remote-inbound
   // These are Report Block-based, information sent from the remote endpoint,

@@ -825,6 +825,13 @@ void* Thread::PreRun(void* pv) {
 
 void Thread::Run() {
   ProcessMessages(kForever);
+  MessageList list;
+  {
+    CritScope cs(&crit_);
+    ClearInternal(nullptr, MQID_ANY, &list);
+  }
+  for (const auto& message : list)
+    delete message.pdata;
 }
 
 bool Thread::IsOwned() {

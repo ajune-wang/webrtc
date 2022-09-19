@@ -30,7 +30,7 @@ TEST(ScalabilityModeUtil, RejectsUnknownString) {
 
 // Check roundtrip conversion of all enum values.
 TEST(ScalabilityModeUtil, ConvertsAllToAndFromString) {
-  const ScalabilityMode kLastEnum = ScalabilityMode::kS3T3;
+  const ScalabilityMode kLastEnum = ScalabilityMode::kS3T3h;
   for (int numerical_enum = 0; numerical_enum <= static_cast<int>(kLastEnum);
        numerical_enum++) {
     ScalabilityMode scalability_mode =
@@ -40,6 +40,57 @@ TEST(ScalabilityModeUtil, ConvertsAllToAndFromString) {
     EXPECT_FALSE(scalability_mode_string.empty());
     EXPECT_EQ(ScalabilityModeFromString(scalability_mode_string),
               scalability_mode);
+  }
+}
+
+TEST(ScalabilityModeUtil, ScalabilityModeNotChangedForMaxThreeSpatialLayers) {
+  const int kMaxSpatialLayers = 3;
+  const ScalabilityMode kLastEnum = ScalabilityMode::kS3T3h;
+  for (int numerical_enum = 0; numerical_enum <= static_cast<int>(kLastEnum);
+       numerical_enum++) {
+    ScalabilityMode scalability_mode =
+        static_cast<ScalabilityMode>(numerical_enum);
+    ScalabilityMode limited_scalability_mode =
+        LimitNumSpatialLayers(scalability_mode, kMaxSpatialLayers);
+    EXPECT_EQ(limited_scalability_mode, scalability_mode);
+  }
+}
+
+TEST(ScalabilityModeUtil, VerifyScalabilityModeForMaxTwoSpatialLayers) {
+  const int kMaxSpatialLayers = 2;
+  const ScalabilityMode kLastEnum = ScalabilityMode::kS3T3h;
+  for (int numerical_enum = 0; numerical_enum <= static_cast<int>(kLastEnum);
+       numerical_enum++) {
+    ScalabilityMode mode = static_cast<ScalabilityMode>(numerical_enum);
+    int num_sl = ScalabilityModeToNumSpatialLayers(mode);
+    int num_tl = ScalabilityModeToNumTemporalLayers(mode);
+    ScalabilityMode limited_mode =
+        LimitNumSpatialLayers(mode, kMaxSpatialLayers);
+    int limited_num_sl = ScalabilityModeToNumSpatialLayers(limited_mode);
+    int limited_num_tl = ScalabilityModeToNumTemporalLayers(limited_mode);
+    EXPECT_LE(limited_num_sl, kMaxSpatialLayers);
+    if (num_sl > kMaxSpatialLayers) {
+      EXPECT_EQ(limited_num_sl, num_sl - 1);
+    } else {
+      EXPECT_EQ(limited_mode, mode) << "Scalability mode not changed";
+    }
+    EXPECT_EQ(limited_num_tl, num_tl) << "Num temporal layers not changed";
+  }
+}
+
+TEST(ScalabilityModeUtil, VerifyScalabilityModeForMaxOneSpatialLayer) {
+  const int kMaxSpatialLayers = 1;
+  const ScalabilityMode kLastEnum = ScalabilityMode::kS3T3h;
+  for (int numerical_enum = 0; numerical_enum <= static_cast<int>(kLastEnum);
+       numerical_enum++) {
+    ScalabilityMode mode = static_cast<ScalabilityMode>(numerical_enum);
+    int num_tl = ScalabilityModeToNumTemporalLayers(mode);
+    ScalabilityMode limited_mode =
+        LimitNumSpatialLayers(mode, kMaxSpatialLayers);
+    int limited_num_sl = ScalabilityModeToNumSpatialLayers(limited_mode);
+    int limited_num_tl = ScalabilityModeToNumTemporalLayers(limited_mode);
+    EXPECT_EQ(limited_num_sl, kMaxSpatialLayers);
+    EXPECT_EQ(limited_num_tl, num_tl) << "Num temporal layers not changed";
   }
 }
 

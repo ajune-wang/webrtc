@@ -74,6 +74,10 @@ struct ProbeControllerConfig {
   // Max limit the target rate of a probe to current estimate if BWE is loss
   // limited.
   FieldTrialParameter<bool> limit_probe_target_rate_to_loss_bwe;
+  // Dont send a probe if the current set estimate is larger than this
+  // fraction of the set max bitrate and the network state estimate is either
+  // not set or is larger than this fraction of the max set bitrate.
+  FieldTrialParameter<double> skip_if_estimate_larger_than_fraction_of_max;
 };
 
 // This class controls initiation of probing to estimate initial channel

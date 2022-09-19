@@ -20,6 +20,29 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "24bf85cd_87422d4f",
+        "filename": "api/test/metrics/metrics_set_proto_file_exporter.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 23,
+      "author": {
+        "id": 5087
+      },
+      "writtenOn": "2022-09-19T16:47:05Z",
+      "side": 1,
+      "message": "I think this is safe to move out of `#if WEBRTC_ENABLE_PROTOBUF`.",
+      "range": {
+        "startLine": 23,
+        "startChar": 0,
+        "endLine": 23,
+        "endChar": 36
+      },
+      "revId": "3a79648fedf3e2e4c21fb5ea181f5396a2a4825b",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "d176940b_7087dac0",
         "filename": "api/test/metrics/proto/metric.proto",
         "patchSetId": 4

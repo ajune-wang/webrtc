@@ -16,6 +16,23 @@
       "message": "Thanks Danil!",
       "revId": "2255aed192fcd178ad43d0bf9363947a5bad1c80",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "25913d2b_6b16f445",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 3
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5122
+      },
+      "writtenOn": "2022-09-19T15:54:24Z",
+      "side": 1,
+      "message": "Hi everyone, could you PTAL? Alessio",
+      "revId": "2255aed192fcd178ad43d0bf9363947a5bad1c80",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

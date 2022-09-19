@@ -21,6 +21,7 @@
 #include "api/task_queue/default_task_queue_factory.h"
 #include "api/test/video/function_video_decoder_factory.h"
 #include "api/transport/field_trial_based_config.h"
+#include "api/field_trials.h"
 #include "api/video/video_codec_type.h"
 #include "api/video_codecs/video_decoder.h"
 #include "call/call.h"
@@ -33,7 +34,7 @@
 #include "rtc_base/strings/json.h"
 #include "rtc_base/time_utils.h"
 #include "system_wrappers/include/clock.h"
-#include "system_wrappers/include/sleep.h"
+// #include "system_wrappers/include/sleep.h"
 #include "test/call_config_utils.h"
 #include "test/call_test.h"
 #include "test/encoder_settings.h"
@@ -45,6 +46,7 @@
 #include "test/run_test.h"
 #include "test/test_video_capturer.h"
 #include "test/testsupport/frame_writer.h"
+#include "test/time_controller/simulated_time_controller.h"
 #include "test/video_renderer.h"
 
 // Flag for payload type.
@@ -360,17 +362,18 @@ class RtpReplayer final {
     Call::Config call_config(&event_log);
     call_config.trials = new FieldTrialBasedConfig();
 
-    std::unique_ptr<webrtc::TaskQueueFactory> task_queue_factory =
-        webrtc::CreateDefaultTaskQueueFactory(call_config.trials);
+    // TODO: Why does 1 << 30 work and not other values?
+    GlobalSimulatedTimeController time_sim(Timestamp::Millis(1LL << 30));
+    webrtc::TaskQueueFactory* task_queue_factory =
+        time_sim.GetTaskQueueFactory();
     auto worker_thread = task_queue_factory->CreateTaskQueue(
         "worker_thread", TaskQueueFactory::Priority::NORMAL);
     rtc::Event sync_event(/*manual_reset=*/false,
                           /*initially_signalled=*/false);
-    call_config.task_queue_factory = task_queue_factory.get();
+
     call_config.trials =
         new FieldTrials(absl::GetFlag(FLAGS_force_fieldtrials));
-    std::unique_ptr<Call> call;
-    std::unique_ptr<StreamState> stream_state;
+    call_config.task_queue_factory = task_queue_factory;
 
     // Creation of the streams must happen inside a task queue because it is
     // resued as a worker thread.
@@ -409,7 +412,7 @@ class RtpReplayer final {
       return;
     }
 
-    ReplayPackets(call.get(), rtp_reader.get(), worker_thread.get());
+    ReplayPackets(call.get(), rtp_reader.get(), worker_thread.get(), &time_sim);
 
     // Destruction of streams and the call must happen on the same thread as
     // their creation.
@@ -597,15 +600,17 @@ class RtpReplayer final {
 
   static void ReplayPackets(Call* call,
                             test::RtpFileReader* rtp_reader,
-                            TaskQueueBase* worker_thread) {
+                            TaskQueueBase* worker_thread,
+                            GlobalSimulatedTimeController* time_sim) {
     int64_t replay_start_ms = -1;
     int num_packets = 0;
     std::map<uint32_t, int> unknown_packets;
     rtc::Event event(/*manual_reset=*/false, /*initially_signalled=*/false);
     uint32_t start_timestamp = absl::GetFlag(FLAGS_start_timestamp);
     uint32_t stop_timestamp = absl::GetFlag(FLAGS_stop_timestamp);
+    Clock* clock = time_sim->GetClock();
     while (true) {
-      int64_t now_ms = rtc::TimeMillis();
+      int64_t now_ms = clock->TimeInMilliseconds();
       if (replay_start_ms == -1) {
         replay_start_ms = now_ms;
       }
@@ -623,9 +628,7 @@ class RtpReplayer final {
       }
 
       int64_t deliver_in_ms = replay_start_ms + packet.time_ms - now_ms;
-      if (deliver_in_ms > 0) {
-        SleepMs(deliver_in_ms);
-      }
+      time_sim->AdvanceTime(TimeDelta::Millis(deliver_in_ms));
 
       ++num_packets;
       PacketReceiver::DeliveryStatus result = PacketReceiver::DELIVERY_OK;
@@ -635,6 +638,7 @@ class RtpReplayer final {
                                                  /* packet_time_us */ -1);
         event.Set();
       });
+      time_sim->AdvanceTime(TimeDelta::Zero());
       event.Wait(/*give_up_after=*/TimeDelta::Seconds(10));
       switch (result) {
         case PacketReceiver::DELIVERY_OK:

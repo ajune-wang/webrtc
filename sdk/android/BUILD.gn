@@ -1664,6 +1664,7 @@ if (is_android) {
       "../../rtc_base/synchronization:mutex",
       "../../rtc_base/system:inline",
       "../../system_wrappers",
+      "../../system_wrappers:sleep",
       "../../test:fileutils",
       "../../test:scoped_key_value_config",
       "../../test:test_support",

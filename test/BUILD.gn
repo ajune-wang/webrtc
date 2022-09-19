@@ -893,6 +893,7 @@ rtc_library("fake_video_codecs") {
     "../rtc_base:timeutils",
     "../rtc_base/synchronization:mutex",
     "../system_wrappers",
+    "../system_wrappers:sleep",
   ]
   absl_deps = [ "//third_party/abseil-cpp/absl/types:optional" ]
 }

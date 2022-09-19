@@ -16,6 +16,7 @@
 
 #include "absl/flags/flag.h"
 #include "absl/flags/parse.h"
+#include "api/field_trials.h"
 #include "api/rtc_event_log/rtc_event_log.h"
 #include "api/task_queue/default_task_queue_factory.h"
 #include "api/test/video/function_video_decoder_factory.h"
@@ -141,8 +142,18 @@ ABSL_FLAG(uint32_t,
 ABSL_FLAG(uint32_t, render_width, 640, "Width of render window");
 ABSL_FLAG(uint32_t, render_height, 480, "Height of render window");
 
-namespace {
+ABSL_FLAG(
+    std::string,
+    force_fieldtrials,
+    "",
+    "Field trials control experimental feature code which can be forced. "
+    "E.g. running with --force_fieldtrials=WebRTC-FooFeature/Enabled/"
+    " will assign the group Enable to field trial WebRTC-FooFeature. Multiple "
+    "trials are separated by \"/\"");
 
+ABSL_FLAG(bool, disable_preview, false, "Disables video from being displayed.");
+
+namespace {
 static bool ValidatePayloadType(int32_t payload_type) {
   return payload_type > 0 && payload_type <= 127;
 }
@@ -240,6 +251,11 @@ static uint32_t RenderHeight() {
 namespace webrtc {
 
 static const uint32_t kReceiverLocalSsrc = 0x123456;
+
+class NullRenderer : public rtc::VideoSinkInterface<VideoFrame> {
+ public:
+  void OnFrame(const VideoFrame& frame) override {}
+};
 
 class FileRenderPassthrough : public rtc::VideoSinkInterface<VideoFrame> {
  public:
@@ -351,6 +367,10 @@ class RtpReplayer final {
     rtc::Event sync_event(/*manual_reset=*/false,
                           /*initially_signalled=*/false);
     call_config.task_queue_factory = task_queue_factory.get();
+    call_config.trials =
+        new FieldTrials(absl::GetFlag(FLAGS_force_fieldtrials));
+    std::unique_ptr<Call> call;
+    std::unique_ptr<StreamState> stream_state;
 
     // Creation of the streams must happen inside a task queue because it is
     // resued as a worker thread.
@@ -473,9 +493,11 @@ class RtpReplayer final {
     // them from deallocating.
     std::stringstream window_title;
     window_title << "Playback Video (" << rtp_dump_path << ")";
-    std::unique_ptr<test::VideoRenderer> playback_video(
-        test::VideoRenderer::Create(window_title.str().c_str(), RenderWidth(),
-                                    RenderHeight()));
+    std::unique_ptr<test::VideoRenderer> playback_video;
+    if (!absl::GetFlag(FLAGS_disable_preview)) {
+      playback_video.reset(test::VideoRenderer::Create(
+          window_title.str().c_str(), RenderWidth(), RenderHeight()));
+    }
     auto file_passthrough = std::make_unique<FileRenderPassthrough>(
         OutBase(), playback_video.get());
     stream_state->sinks.push_back(std::move(playback_video));

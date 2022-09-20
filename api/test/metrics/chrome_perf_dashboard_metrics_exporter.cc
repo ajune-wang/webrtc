@@ -125,8 +125,10 @@ bool ChromePerfDashboardMetricsExporter::Export(
           ToChromePerfDashboardImproveDirection(metric.improvement_direction));
     } else {
       writer->LogResultMeanAndError(
-          metric.name, metric.test_case, *metric.stats.mean,
-          *metric.stats.stddev, ToChromePerfDashboardUnit(metric.unit),
+          metric.name, metric.test_case,
+          ToChromePerfDashboardValue(*metric.stats.mean, metric.unit),
+          ToChromePerfDashboardValue(*metric.stats.stddev, metric.unit),
+          ToChromePerfDashboardUnit(metric.unit),
           /*important=*/false,
           ToChromePerfDashboardImproveDirection(metric.improvement_direction));
     }

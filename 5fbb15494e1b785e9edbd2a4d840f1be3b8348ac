@@ -16,6 +16,23 @@
       "message": "Looks good in general, but I\u0027m a little sketchy on how this would be used in practice.\nssilin@ you know this area better than I, can you have a look and then I can rubber stamp?",
       "revId": "5fbb15494e1b785e9edbd2a4d840f1be3b8348ac",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "29124e51_e0271694",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5825
+      },
+      "writtenOn": "2022-09-20T12:59:47Z",
+      "side": 1,
+      "message": "LGTM",
+      "revId": "5fbb15494e1b785e9edbd2a4d840f1be3b8348ac",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

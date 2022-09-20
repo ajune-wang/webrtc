@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "bf62359f_e6ffcbcc",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 7036
+      },
+      "writtenOn": "2022-09-20T10:24:47Z",
+      "side": 1,
+      "message": "I don\u0027t think this feature is compliant with the WebRTC specification.\n\nIf an application wants to have fewer layers with smaller frames, then they should watch for the frame size and update the scalabilityMode manually, not rely on some internal behavior in WebRTC to change it for them.\nAdaptation that happens for CPU or bandwidth reasons could disable the top layers, but the scalabilityMode should not be changed as it will also modify the frame sizes on each layer.",
+      "revId": "21bd3fa43a2fd3660ed74a4ef99c2b50521c126f",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

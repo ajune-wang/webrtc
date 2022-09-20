@@ -1,0 +1,72 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "f73e81c2_aa14c2d2",
+        "filename": "call/degraded_call.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 28,
+      "author": {
+        "id": 5508
+      },
+      "writtenOn": "2022-09-20T10:39:50Z",
+      "side": 1,
+      "message": "std::move",
+      "revId": "8f61b6096968da49ba3d16df2c9b8296560f83b6",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "53b43679_ff2fca89",
+        "filename": "call/degraded_call.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 148,
+      "author": {
+        "id": 5508
+      },
+      "writtenOn": "2022-09-20T10:39:50Z",
+      "side": 1,
+      "message": "should we keep this consistent with call.cc?\nCurrently the state is that for RTCP, we should already be on the network thread (no IsCurrent or PostTask call should be needed) and otherwise the expectation is that we\u0027re on the worker thread. This is something that will change in the future and in both cases we\u0027ll be on the network thread. Would be nice to then update this implementation at the same time and avoid having a PostTask to the worker.",
+      "revId": "8f61b6096968da49ba3d16df2c9b8296560f83b6",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "f6639269_b12595aa",
+        "filename": "call/degraded_call.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 162,
+      "author": {
+        "id": 5508
+      },
+      "writtenOn": "2022-09-20T10:39:50Z",
+      "side": 1,
+      "message": "can all these pointers be `const`?\nAs in\n```\nwebrtc::TaskQueueBase* const worker_thread_;\nwebrtc::TaskQueueBase* const network_thread_;\nwebrtc::PacketReceiver* const receiver_;\n```",
+      "revId": "8f61b6096968da49ba3d16df2c9b8296560f83b6",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "11aecfc1_d02b95b3",
+        "filename": "pc/peer_connection_field_trial_tests.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 47,
+      "author": {
+        "id": 5508
+      },
+      "writtenOn": "2022-09-20T10:39:50Z",
+      "side": 1,
+      "message": "`return false` or do we want to continue iterating (and still eventually return false)?",
+      "revId": "8f61b6096968da49ba3d16df2c9b8296560f83b6",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

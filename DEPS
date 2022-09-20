@@ -10,7 +10,7 @@ vars = {
   # chromium waterfalls. More info at: crbug.com/570091.
   'checkout_configuration': 'default',
   'checkout_instrumented_libraries': 'checkout_linux and checkout_configuration == "default"',
-  'chromium_revision': '67615457cd1c9d5956dd37e6d0b77041d1368511',
+  'chromium_revision': '90d3f15892957e793e9f4dd74872e100f5965f51',
 
   # Keep the Chromium default of generating location tags.
   'generate_location_tags': True,
@@ -32,7 +32,7 @@ vars = {
 deps = {
   # TODO(kjellander): Move this to be Android-only.
   'src/base':
-    'https://chromium.googlesource.com/chromium/src/base@eb60d06a1c6e22bfda4db59a9600e8a79bf55778',
+    'https://chromium.googlesource.com/chromium/src/base@19c790ed225fe5dc3d56dbb7fe541b58b7a08295',
   'src/build':
     'https://chromium.googlesource.com/chromium/src/build@29d79901a5310fb7172f1d63d656d4128c5af560',
   'src/buildtools':
@@ -43,13 +43,13 @@ deps = {
     'condition': 'checkout_android',
   },
   'src/ios': {
-    'url': 'https://chromium.googlesource.com/chromium/src/ios@492b2d9a6c559144b9b0387730de7abcd7e1ada9',
+    'url': 'https://chromium.googlesource.com/chromium/src/ios@fc547d7b9da6e55e2546b778e3f6ae08d7b2b54a',
     'condition': 'checkout_ios',
   },
   'src/testing':
     'https://chromium.googlesource.com/chromium/src/testing@b1e005415395a5663c8c727831d8088bf48718e8',
   'src/third_party':
-    'https://chromium.googlesource.com/chromium/src/third_party@ed98dfc1db29fb8c49998f7b64f762f4b0e7c50a',
+    'https://chromium.googlesource.com/chromium/src/third_party@f8da0fa4a1ffb68a5a950a20ab7bb1c9cd835a91',
 
   'src/buildtools/linux64': {
     'packages': [
@@ -236,7 +236,7 @@ deps = {
       'condition': 'checkout_android',
   },
   'src/third_party/perfetto':
-    'https://android.googlesource.com/platform/external/perfetto.git@c47b09bb32e6126d4022348268830e74b682cf0d',
+    'https://android.googlesource.com/platform/external/perfetto.git@fb24424ca970fa27cf04a8db10f87c362a76d288',
   'src/third_party/libvpx/source/libvpx':
     'https://chromium.googlesource.com/webm/libvpx.git@9d6d0624d7943a09cc0be9df1a7402522989ac1a',
   'src/third_party/libyuv':
@@ -274,7 +274,7 @@ deps = {
       'packages': [
           {
               'package': 'chromium/third_party/r8',
-              'version': '9D5mlKXcvEeq8EeDZf3NXnhO5BuGy0eDy5q1hLou4WwC',
+              'version': 'vKZR8R88hGbFuOFG9Z_QBBK7TqYCAub34XjJ2TAwhW4C',
           },
       ],
       'condition': 'checkout_android',

@@ -24,6 +24,30 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "d4fe3d71_3add59c3",
+        "filename": "api/test/metrics/metrics_set_proto_file_exporter_test.cc",
+        "patchSetId": 6
+      },
+      "lineNbr": 71,
+      "author": {
+        "id": 6337
+      },
+      "writtenOn": "2022-09-20T08:28:19Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "e3225165_b1270f41",
+      "range": {
+        "startLine": 71,
+        "startChar": 29,
+        "endLine": 71,
+        "endChar": 35
+      },
+      "revId": "c146d978d9bfb4906c1fcfaa777715ede926a9d6",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "fad6c3d8_82d4e0a3",
@@ -37,6 +61,30 @@
       "writtenOn": "2022-09-20T06:59:50Z",
       "side": 1,
       "message": "Last comment, I promise. 😊\n\nWDYT about just BYTES?",
+      "range": {
+        "startLine": 29,
+        "startChar": 2,
+        "endLine": 29,
+        "endChar": 15
+      },
+      "revId": "c146d978d9bfb4906c1fcfaa777715ede926a9d6",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "db4c6512_6630333e",
+        "filename": "api/test/metrics/proto/metric.proto",
+        "patchSetId": 6
+      },
+      "lineNbr": 29,
+      "author": {
+        "id": 6337
+      },
+      "writtenOn": "2022-09-20T08:28:19Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "fad6c3d8_82d4e0a3",
       "range": {
         "startLine": 29,
         "startChar": 2,

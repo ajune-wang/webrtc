@@ -1,6 +1,23 @@
 {
   "comments": [
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "69324dad_81c2938b",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 4
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5122
+      },
+      "writtenOn": "2022-09-20T08:02:03Z",
+      "side": 1,
+      "message": "Thanks for taking a look Tommi.",
+      "revId": "4b01f6d93aaf241c76f395ff69b5f8ec86504ce7",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "602df369_faaa2e36",
@@ -14,6 +31,24 @@
       "writtenOn": "2022-09-19T16:15:17Z",
       "side": 1,
       "message": "any reason for moving this code block?",
+      "revId": "4b01f6d93aaf241c76f395ff69b5f8ec86504ce7",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "62f60631_3e600df1",
+        "filename": "api/rtp_packet_info.h",
+        "patchSetId": 4
+      },
+      "lineNbr": 80,
+      "author": {
+        "id": 5122
+      },
+      "writtenOn": "2022-09-20T08:02:03Z",
+      "side": 1,
+      "message": "I moved to reflect the order of the ctor arguments (IMO, less error-prone).",
+      "parentUuid": "602df369_faaa2e36",
       "revId": "4b01f6d93aaf241c76f395ff69b5f8ec86504ce7",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
@@ -35,6 +70,24 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "8f526f7d_57ed3cd1",
+        "filename": "api/rtp_packet_info.h",
+        "patchSetId": 4
+      },
+      "lineNbr": 81,
+      "author": {
+        "id": 5122
+      },
+      "writtenOn": "2022-09-20T08:02:03Z",
+      "side": 1,
+      "message": "Proposed by Danil in one of his comments.\n\nReason: Danil and I agreed offline on having a new ctor that is more \"stable\" than the existing ones where stable means that, when new fields are added, there is no need for any downstream-upstream dance. We therefore chose to remove optional and/or media-specific fields from the ctor, which must then be set via a setter. To reduce clutter at construction time, especially when `RtpPacketInfos` is used, Danil proposed to return the reference.",
+      "parentUuid": "6b811b97_07efb4c5",
+      "revId": "4b01f6d93aaf241c76f395ff69b5f8ec86504ce7",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "abff75d5_ae2ea081",
@@ -48,6 +101,24 @@
       "writtenOn": "2022-09-19T16:15:17Z",
       "side": 1,
       "message": "is there a change that moving this has?",
+      "revId": "4b01f6d93aaf241c76f395ff69b5f8ec86504ce7",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "d8e44934_099c3f1f",
+        "filename": "api/rtp_packet_info.h",
+        "patchSetId": 4
+      },
+      "lineNbr": 112,
+      "author": {
+        "id": 5122
+      },
+      "writtenOn": "2022-09-20T08:02:03Z",
+      "side": 1,
+      "message": "I moved to reflect the order of the ctor arguments (IMO, less error-prone).",
+      "parentUuid": "abff75d5_ae2ea081",
       "revId": "4b01f6d93aaf241c76f395ff69b5f8ec86504ce7",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }

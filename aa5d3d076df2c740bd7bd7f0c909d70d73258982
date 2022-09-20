@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "e1847021_e8b18662",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 9405
+      },
+      "writtenOn": "2022-09-20T09:08:50Z",
+      "side": 1,
+      "message": "Hi, Tommi. I\u0027m trying to use degraded network emulation, but it didn\u0027t work for me. I fixed it to make it work, and this code looks relevant to https://bugs.webrtc.org/11993. Could you take a look? Thanks.",
+      "revId": "aa5d3d076df2c740bd7bd7f0c909d70d73258982",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

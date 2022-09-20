@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "b5985174_06ea5998",
+        "filename": "p2p/base/stun_port.cc",
+        "patchSetId": 6
+      },
+      "lineNbr": 432,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2022-09-20T10:46:35Z",
+      "side": 1,
+      "message": "It might be safer to make a copy of the SocketAddress the iterator points to, rather than copy of the iterator (pointer) to that SocketAddress:\n\nIf iterator can be invalidated while SendStunBindingRequest is running, then value iterator points to will be invalidated too, i.e. reference to SocketAddress  might become invalid during execution of the SendStunBindingRequest.",
+      "revId": "1e688612ccd86cfe42d129118d90ae567502bdd3",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

@@ -345,13 +345,6 @@ class RTC_LOCKABLE RTC_EXPORT Thread : public webrtc::TaskQueueBase {
     return result;
   }
 
-  // Deprecated, use `BlockingCall` instead.
-  template <typename ReturnT>
-  [[deprecated]] ReturnT Invoke(const Location& /*posted_from*/,
-                                FunctionView<ReturnT()> functor) {
-    return BlockingCall(functor);
-  }
-
   // Allows BlockingCall to specified `thread`. Thread never will be
   // dereferenced and will be used only for reference-based comparison, so
   // instance can be safely deleted. If NDEBUG is defined and RTC_DCHECK_IS_ON

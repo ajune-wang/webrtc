@@ -25,7 +25,11 @@ enum class SequentialDesktopCapturerId {
   kWindowCapturerWinGdi = 3,
   kScreenCapturerWinGdi = 4,
   kScreenCapturerWinDirectx = 5,
-  kMaxValue = kScreenCapturerWinDirectx
+  kScreenCapturerLinuxX11 = 6,
+  kWindowCapturerLinuxX11 = 7,
+  kScreenCapturerLinuxWayland = 8,
+  kMaxWinValue = kScreenCapturerWinDirectx,
+  kMaxValue = kScreenCapturerLinuxWayland
 };
 }  // namespace
 
@@ -47,6 +51,15 @@ void RecordCapturerImpl(uint32_t capturer_id) {
     case DesktopCapturerId::kScreenCapturerWinDirectx:
       sequential_id = SequentialDesktopCapturerId::kScreenCapturerWinDirectx;
       break;
+    case DesktopCapturerId::kScreenCapturerLinuxX11:
+      sequential_id = SequentialDesktopCapturerId::kScreenCapturerLinuxX11;
+      break;
+    case DesktopCapturerId::kWindowCapturerLinuxX11:
+      sequential_id = SequentialDesktopCapturerId::kWindowCapturerLinuxX11;
+      break;
+    case DesktopCapturerId::kScreenCapturerLinuxWayland:
+      sequential_id = SequentialDesktopCapturerId::kScreenCapturerLinuxWayland;
+      break;
     case DesktopCapturerId::kUnknown:
     default:
       sequential_id = SequentialDesktopCapturerId::kUnknown;
@@ -54,7 +67,7 @@ void RecordCapturerImpl(uint32_t capturer_id) {
   RTC_HISTOGRAM_ENUMERATION(
       "WebRTC.DesktopCapture.Win.DesktopCapturerImpl",
       static_cast<int>(sequential_id),
-      static_cast<int>(SequentialDesktopCapturerId::kMaxValue));
+      static_cast<int>(SequentialDesktopCapturerId::kMaxWinValue));
 }
 
 }  // namespace webrtc

@@ -16,6 +16,57 @@
       "message": "Sorry for the noise. For packet processing in the correct thread, `PostTask` is required. This is because `FakeNetworkPipe` queues the packets. WDTY?",
       "revId": "72c2e59e2c7cb253c6499036991db8edc99dae81",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "33f5392e_04650a45",
+        "filename": "call/degraded_call.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 137,
+      "author": {
+        "id": 5508
+      },
+      "writtenOn": "2022-09-21T14:08:30Z",
+      "side": 1,
+      "message": "`alive_flag_` is not going to be set to \u0027not alive\u0027 in the destructor (since we\u0027re no longer using the `Scoped` class). I\u0027m not sure that\u0027s means that how PostTask+SafeTask is used in this class, is actually safe. It looks unsafe to me actually, see below.",
+      "revId": "72c2e59e2c7cb253c6499036991db8edc99dae81",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "eda6ddea_402435ae",
+        "filename": "call/degraded_call.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 150,
+      "author": {
+        "id": 5508
+      },
+      "writtenOn": "2022-09-21T14:08:30Z",
+      "side": 1,
+      "message": "since this check doesn\u0027t match exactly with the above comment, explaining this special case is probably justified.",
+      "revId": "72c2e59e2c7cb253c6499036991db8edc99dae81",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "af9e752b_78b5700e",
+        "filename": "call/degraded_call.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 154,
+      "author": {
+        "id": 5508
+      },
+      "writtenOn": "2022-09-21T14:08:30Z",
+      "side": 1,
+      "message": "is this safe usage of `receiver`? Since the `alive_flag_` state is not changed when the ThreadedPacketReceiver instance goes out of scope, how can we be sure that this task gets cancelled before the object pointed to here, is deleted?",
+      "revId": "72c2e59e2c7cb253c6499036991db8edc99dae81",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

@@ -43,15 +43,21 @@ TEST_F(FieldTrialsTest, EmptyStringHasNoEffect) {
   static constexpr absl::string_view kKeys[] = {"MyCoolTrial"};
   RegisterFieldTrialsForTesting(kKeys);
   FieldTrials f("");
+  f.RegisterKeysForTesting(kKeys);
+
   EXPECT_FALSE(f.IsEnabled("MyCoolTrial"));
   EXPECT_FALSE(f.IsDisabled("MyCoolTrial"));
 }
 
 TEST_F(FieldTrialsTest, EnabledDisabledMustBeFirstInValue) {
+  static constexpr absl::string_view kKeys[] = {"MyCoolTrial", "MyUncoolTrial",
+                                                "AnotherTrial"};
   FieldTrials f(
       "MyCoolTrial/EnabledFoo/"
       "MyUncoolTrial/DisabledBar/"
       "AnotherTrial/BazEnabled/");
+  f.RegisterKeysForTesting(kKeys);
+
   EXPECT_TRUE(f.IsEnabled("MyCoolTrial"));
   EXPECT_TRUE(f.IsDisabled("MyUncoolTrial"));
   EXPECT_FALSE(f.IsEnabled("AnotherTrial"));
@@ -63,6 +69,8 @@ TEST_F(FieldTrialsTest, FieldTrialsDoesNotReadGlobalString) {
   static constexpr char s[] = "MyCoolTrial/Enabled/MyUncoolTrial/Disabled/";
   InitFieldTrialsFromString(s);
   FieldTrials f("");
+  f.RegisterKeysForTesting(kKeys);
+
   EXPECT_FALSE(f.IsEnabled("MyCoolTrial"));
   EXPECT_FALSE(f.IsDisabled("MyUncoolTrial"));
 }
@@ -105,17 +113,23 @@ TEST_F(FieldTrialsTest, NonGlobalFieldTrialsInstanceDoesNotModifyGlobalString) {
   std::unique_ptr<FieldTrials> f =
       FieldTrials::CreateNoGlobal("SomeString/Enabled/");
   ASSERT_THAT(f, NotNull());
+  f->RegisterKeysForTesting(kKeys);
+
   EXPECT_TRUE(f->IsEnabled("SomeString"));
   EXPECT_FALSE(webrtc::field_trial::IsEnabled("SomeString"));
 }
 
 TEST_F(FieldTrialsTest, NonGlobalFieldTrialsSupportSimultaneousInstances) {
+  static constexpr absl::string_view kKeys[] = {"SomeString",
+                                                "SomeOtherString"};
   std::unique_ptr<FieldTrials> f1 =
       FieldTrials::CreateNoGlobal("SomeString/Enabled/");
   std::unique_ptr<FieldTrials> f2 =
       FieldTrials::CreateNoGlobal("SomeOtherString/Enabled/");
   ASSERT_THAT(f1, NotNull());
   ASSERT_THAT(f2, NotNull());
+  f1->RegisterKeysForTesting(kKeys);
+  f2->RegisterKeysForTesting(kKeys);
 
   EXPECT_TRUE(f1->IsEnabled("SomeString"));
   EXPECT_FALSE(f1->IsEnabled("SomeOtherString"));
@@ -132,6 +146,8 @@ TEST_F(FieldTrialsTest, GlobalAndNonGlobalFieldTrialsAreDisjoint) {
   std::unique_ptr<FieldTrials> f2 =
       FieldTrials::CreateNoGlobal("SomeOtherString/Enabled/");
   ASSERT_THAT(f2, NotNull());
+  f1.RegisterKeysForTesting(kKeys);
+  f2->RegisterKeysForTesting(kKeys);
 
   EXPECT_TRUE(f1.IsEnabled("SomeString"));
   EXPECT_FALSE(f1.IsEnabled("SomeOtherString"));
@@ -146,6 +162,8 @@ TEST_F(FieldTrialsTest, FieldTrialBasedConfigReadsGlobalString) {
   static constexpr char s[] = "MyCoolTrial/Enabled/MyUncoolTrial/Disabled/";
   InitFieldTrialsFromString(s);
   FieldTrialBasedConfig f;
+  f.RegisterKeysForTesting(kKeys);
+
   EXPECT_TRUE(f.IsEnabled("MyCoolTrial"));
   EXPECT_TRUE(f.IsDisabled("MyUncoolTrial"));
 }

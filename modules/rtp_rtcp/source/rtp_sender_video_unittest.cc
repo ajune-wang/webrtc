@@ -16,6 +16,7 @@
 #include <vector>
 
 #include "absl/memory/memory.h"
+#include "api/field_trials_registry.h"
 #include "api/rtp_headers.h"
 #include "api/test/mock_frame_encryptor.h"
 #include "api/transport/field_trial_based_config.h"
@@ -147,7 +148,7 @@ class TestRtpSenderVideo : public RTPSenderVideo {
   }
 };
 
-class FieldTrials : public FieldTrialsView {
+class FieldTrials : public FieldTrialsRegistry {
  public:
   explicit FieldTrials(bool use_send_side_bwe_with_overhead)
       : use_send_side_bwe_with_overhead_(use_send_side_bwe_with_overhead),
@@ -157,7 +158,8 @@ class FieldTrials : public FieldTrialsView {
     include_capture_clock_offset_ = include_capture_clock_offset;
   }
 
-  std::string Lookup(absl::string_view key) const override {
+ private:
+  std::string GetValue(absl::string_view key) const override {
     if (key == "WebRTC-SendSideBwe-WithOverhead") {
       return use_send_side_bwe_with_overhead_ ? "Enabled" : "";
     } else if (key == "WebRTC-IncludeCaptureClockOffset") {
@@ -166,7 +168,6 @@ class FieldTrials : public FieldTrialsView {
     return "";
   }
 
- private:
   bool use_send_side_bwe_with_overhead_;
   bool include_capture_clock_offset_;
 };

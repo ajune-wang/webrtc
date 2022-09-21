@@ -71,6 +71,24 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "927c8e6c_bdbe70ca",
+        "filename": "call/degraded_call.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 148,
+      "author": {
+        "id": 9405
+      },
+      "writtenOn": "2022-09-21T01:18:22Z",
+      "side": 1,
+      "message": "I checked the code again, and there was absolutely no need for a PostTask on the worker/network thread to send the packet.\nThe related code has been removed, so this patch is left with only the TaskSafetyFlag related fixes.",
+      "parentUuid": "0e7cbfb6_845628bf",
+      "revId": "8f61b6096968da49ba3d16df2c9b8296560f83b6",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "f6639269_b12595aa",

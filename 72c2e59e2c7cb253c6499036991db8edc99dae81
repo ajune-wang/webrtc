@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "e6cc96fe_9f2eacb0",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 5
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 9405
+      },
+      "writtenOn": "2022-09-21T08:36:05Z",
+      "side": 1,
+      "message": "Sorry for the noise. For packet processing in the correct thread, `PostTask` is required. This is because `FakeNetworkPipe` queues the packets. WDTY?",
+      "revId": "72c2e59e2c7cb253c6499036991db8edc99dae81",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

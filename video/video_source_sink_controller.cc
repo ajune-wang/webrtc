@@ -36,7 +36,13 @@ std::string WantsToString(const rtc::VideoSinkWants& wants) {
       ss << ",";
     ss << wants.resolutions[i].width << "x" << wants.resolutions[i].height;
   }
-  ss << "}";
+  ss << "}, active= " << wants.is_active << " requested_resolution: ";
+  if (wants.requested_resolution) {
+    ss << wants.requested_resolution->width << "x"
+       << wants.requested_resolution->height;
+  } else {
+    ss << "NO";
+  }
 
   return ss.Release();
 }
@@ -86,7 +92,7 @@ void VideoSourceSinkController::PushSourceSinkSettings() {
   if (!source_)
     return;
   rtc::VideoSinkWants wants = CurrentSettingsToSinkWants();
-  RTC_LOG(LS_INFO) << "Pushing SourceSink restrictions: "
+  RTC_LOG(LS_INFO) << "KESO Pushing SourceSink restrictions: "
                    << WantsToString(wants);
   source_->AddOrUpdateSink(sink_, wants);
 }
@@ -124,6 +130,17 @@ VideoSourceSinkController::resolutions() const {
   return resolutions_;
 }
 
+bool VideoSourceSinkController::active() const {
+  RTC_DCHECK_RUN_ON(&sequence_checker_);
+  return active_;
+}
+
+absl::optional<rtc::VideoSinkWants::FrameSize>
+VideoSourceSinkController::requested_resolution() const {
+  RTC_DCHECK_RUN_ON(&sequence_checker_);
+  return requested_resolution_;
+}
+
 void VideoSourceSinkController::SetRestrictions(
     VideoSourceRestrictions restrictions) {
   RTC_DCHECK_RUN_ON(&sequence_checker_);
@@ -159,6 +176,17 @@ void VideoSourceSinkController::SetResolutions(
   resolutions_ = std::move(resolutions);
 }
 
+void VideoSourceSinkController::SetActive(bool active) {
+  RTC_DCHECK_RUN_ON(&sequence_checker_);
+  active_ = active;
+}
+
+void VideoSourceSinkController::SetRequestedResolution(
+    absl::optional<rtc::VideoSinkWants::FrameSize> requested_resolution) {
+  RTC_DCHECK_RUN_ON(&sequence_checker_);
+  requested_resolution_ = std::move(requested_resolution);
+}
+
 // RTC_EXCLUSIVE_LOCKS_REQUIRED(sequence_checker_)
 rtc::VideoSinkWants VideoSourceSinkController::CurrentSettingsToSinkWants()
     const {
@@ -188,6 +216,8 @@ rtc::VideoSinkWants VideoSourceSinkController::CurrentSettingsToSinkWants()
                    ? static_cast<int>(frame_rate_upper_limit_.value())
                    : std::numeric_limits<int>::max());
   wants.resolutions = resolutions_;
+  wants.is_active = active_;
+  wants.requested_resolution = requested_resolution_;
   return wants;
 }
 

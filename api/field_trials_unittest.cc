@@ -12,6 +12,7 @@
 
 #include <memory>
 
+#include "absl/strings/string_view.h"
 #include "api/transport/field_trial_based_config.h"
 #include "system_wrappers/include/field_trial.h"
 #include "test/gmock.h"
@@ -26,16 +27,21 @@ namespace {
 
 using ::testing::NotNull;
 using ::webrtc::field_trial::InitFieldTrialsFromString;
+using ::webrtc::field_trial::RegisterFieldTrialsForTesting;
+using ::webrtc::field_trial::UnregisterAllFieldTrialsForTesting;
 
 class FieldTrialsTest : public testing::Test {
  protected:
   FieldTrialsTest() {
     // Make sure global state is consistent between test runs.
     InitFieldTrialsFromString(nullptr);
+    UnregisterAllFieldTrialsForTesting();
   }
 };
 
 TEST_F(FieldTrialsTest, EmptyStringHasNoEffect) {
+  static constexpr absl::string_view kKeys[] = {"MyCoolTrial"};
+  RegisterFieldTrialsForTesting(kKeys);
   FieldTrials f("");
   EXPECT_FALSE(f.IsEnabled("MyCoolTrial"));
   EXPECT_FALSE(f.IsDisabled("MyCoolTrial"));
@@ -52,6 +58,8 @@ TEST_F(FieldTrialsTest, EnabledDisabledMustBeFirstInValue) {
 }
 
 TEST_F(FieldTrialsTest, FieldTrialsDoesNotReadGlobalString) {
+  static constexpr absl::string_view kKeys[] = {"MyCoolTrial", "MyUncoolTrial"};
+  RegisterFieldTrialsForTesting(kKeys);
   static constexpr char s[] = "MyCoolTrial/Enabled/MyUncoolTrial/Disabled/";
   InitFieldTrialsFromString(s);
   FieldTrials f("");
@@ -60,6 +68,8 @@ TEST_F(FieldTrialsTest, FieldTrialsDoesNotReadGlobalString) {
 }
 
 TEST_F(FieldTrialsTest, FieldTrialsWritesGlobalString) {
+  static constexpr absl::string_view kKeys[] = {"MyCoolTrial", "MyUncoolTrial"};
+  RegisterFieldTrialsForTesting(kKeys);
   FieldTrials f("MyCoolTrial/Enabled/MyUncoolTrial/Disabled/");
   EXPECT_TRUE(webrtc::field_trial::IsEnabled("MyCoolTrial"));
   EXPECT_TRUE(webrtc::field_trial::IsDisabled("MyUncoolTrial"));
@@ -90,6 +100,8 @@ TEST_F(FieldTrialsTest, FieldTrialsSupportsSeparateInstances) {
 }
 
 TEST_F(FieldTrialsTest, NonGlobalFieldTrialsInstanceDoesNotModifyGlobalString) {
+  static constexpr absl::string_view kKeys[] = {"SomeString"};
+  RegisterFieldTrialsForTesting(kKeys);
   std::unique_ptr<FieldTrials> f =
       FieldTrials::CreateNoGlobal("SomeString/Enabled/");
   ASSERT_THAT(f, NotNull());
@@ -113,6 +125,9 @@ TEST_F(FieldTrialsTest, NonGlobalFieldTrialsSupportSimultaneousInstances) {
 }
 
 TEST_F(FieldTrialsTest, GlobalAndNonGlobalFieldTrialsAreDisjoint) {
+  static constexpr absl::string_view kKeys[] = {"SomeString",
+                                                "SomeOtherString"};
+  RegisterFieldTrialsForTesting(kKeys);
   FieldTrials f1("SomeString/Enabled/");
   std::unique_ptr<FieldTrials> f2 =
       FieldTrials::CreateNoGlobal("SomeOtherString/Enabled/");
@@ -126,6 +141,8 @@ TEST_F(FieldTrialsTest, GlobalAndNonGlobalFieldTrialsAreDisjoint) {
 }
 
 TEST_F(FieldTrialsTest, FieldTrialBasedConfigReadsGlobalString) {
+  static constexpr absl::string_view kKeys[] = {"MyCoolTrial", "MyUncoolTrial"};
+  RegisterFieldTrialsForTesting(kKeys);
   static constexpr char s[] = "MyCoolTrial/Enabled/MyUncoolTrial/Disabled/";
   InitFieldTrialsFromString(s);
   FieldTrialBasedConfig f;

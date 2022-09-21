@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "d7864079_ebf0809a",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5142
+      },
+      "writtenOn": "2022-09-21T12:40:51Z",
+      "side": 1,
+      "message": "Philipp Hancke\u0027s revert has been approved to be backmerged to M107, can you +1?",
+      "revId": "7695238c3352a100e9166003299d2e43a55809ac",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

@@ -16,6 +16,23 @@
       "message": "Hi, Florent. Could you please take a look?",
       "revId": "2a4613806ae6b727b2e044f57f6009df402624d2",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "11bbbd37_e20abe18",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 4
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5527
+      },
+      "writtenOn": "2022-09-21T10:43:39Z",
+      "side": 1,
+      "message": "Sorry for the late review. LGTM",
+      "revId": "2a4613806ae6b727b2e044f57f6009df402624d2",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

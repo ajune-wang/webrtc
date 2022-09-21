@@ -109,6 +109,11 @@ enum class UseDependencyDescriptor {
   Disabled,
 };
 
+enum class UseGenericFrameDescriptor {
+  Enabled,
+  Disabled,
+};
+
 struct SvcTestParameters {
   static SvcTestParameters Create(const std::string& codec_name,
                                   const std::string& scalability_mode_str) {
@@ -121,7 +126,6 @@ struct SvcTestParameters {
         ScalabilityModeToNumSpatialLayers(*scalability_mode);
     int num_temporal_layers =
         ScalabilityModeToNumTemporalLayers(*scalability_mode);
-
     return SvcTestParameters{codec_name, scalability_mode_str,
                              num_spatial_layers, num_temporal_layers};
   }
@@ -132,8 +136,10 @@ struct SvcTestParameters {
   int expected_temporal_layers;
 };
 
-class SvcTest : public testing::TestWithParam<
-                    std::tuple<SvcTestParameters, UseDependencyDescriptor>> {
+class SvcTest
+    : public testing::TestWithParam<std::tuple<SvcTestParameters,
+                                               UseDependencyDescriptor,
+                                               UseGenericFrameDescriptor>> {
  public:
   SvcTest()
       : video_codec_config(ToVideoCodecConfig(SvcTestParameters().codec_name)) {
@@ -157,6 +163,10 @@ class SvcTest : public testing::TestWithParam<
     return std::get<1>(GetParam()) == UseDependencyDescriptor::Enabled;
   }
 
+  bool UseGenericFrameDescriptor() const {
+    return std::get<2>(GetParam()) == UseGenericFrameDescriptor::Enabled;
+  }
+
  protected:
   VideoCodecConfig video_codec_config;
 };
@@ -165,7 +175,9 @@ std::string SvcTestNameGenerator(
     const testing::TestParamInfo<SvcTest::ParamType>& info) {
   return std::get<0>(info.param).scalability_mode +
          (std::get<1>(info.param) == UseDependencyDescriptor::Enabled ? "_DD"
-                                                                      : "");
+                                                                      : "") +
+         (std::get<2>(info.param) == UseGenericFrameDescriptor::Enabled ? "_GFD"
+                                                                        : "");
 }
 
 }  // namespace
@@ -265,6 +277,8 @@ TEST_P(SvcTest, ScalabilityModeSupported) {
   std::string trials;
   if (UseDependencyDescriptor()) {
     trials += "WebRTC-DependencyDescriptorAdvertised/Enabled/";
+  } else if (UseGenericFrameDescriptor()) {
+    trials += "WebRTC-GenericDescriptorAdvertised/Enabled/";
   }
   webrtc::test::ScopedFieldTrials override_trials(AppendFieldTrials(trials));
   std::unique_ptr<NetworkEmulationManager> network_emulation_manager =
@@ -326,7 +340,8 @@ INSTANTIATE_TEST_SUITE_P(
                    SvcTestParameters::Create(kVp8CodecName, "L1T2"),
                    SvcTestParameters::Create(kVp8CodecName, "L1T3")),
             Values(UseDependencyDescriptor::Disabled,
-                   UseDependencyDescriptor::Enabled)),
+                   UseDependencyDescriptor::Enabled),
+            Values(UseGenericFrameDescriptor::Disabled)),
     SvcTestNameGenerator);
 
 #if defined(WEBRTC_USE_H264)
@@ -335,11 +350,11 @@ INSTANTIATE_TEST_SUITE_P(
     SvcTest,
     Combine(ValuesIn({
                 SvcTestParameters::Create(kH264CodecName, "L1T1"),
-                // SSvcTestParameters::Create(kH264CodecName, "L1T2"),
-                // SSvcTestParameters::Create(kH264CodecName, "L1T3"),
+                SvcTestParameters::Create(kH264CodecName, "L1T2"),
+                SvcTestParameters::Create(kH264CodecName, "L1T3"),
             }),
-            Values(UseDependencyDescriptor::Disabled,
-                   UseDependencyDescriptor::Enabled)),
+            Values(UseDependencyDescriptor::Disabled),
+            Values(UseGenericFrameDescriptor::Enabled)),
     SvcTestNameGenerator);
 #endif
 
@@ -389,7 +404,8 @@ INSTANTIATE_TEST_SUITE_P(
             // SvcTestParameters::Create(kVp9CodecName, "S3T3h"),
         }),
         Values(UseDependencyDescriptor::Disabled,
-               UseDependencyDescriptor::Enabled)),
+               UseDependencyDescriptor::Enabled),
+        Values(UseGenericFrameDescriptor::Disabled)),
     SvcTestNameGenerator);
 
 INSTANTIATE_TEST_SUITE_P(
@@ -434,7 +450,8 @@ INSTANTIATE_TEST_SUITE_P(
                 // SvcTestParameters::Create(kAv1CodecName, "S3T3"),
                 // SvcTestParameters::Create(kAv1CodecName, "S3T3h"),
             }),
-            Values(UseDependencyDescriptor::Enabled)),
+            Values(UseDependencyDescriptor::Enabled),
+            Values(UseGenericFrameDescriptor::Disabled)),
     SvcTestNameGenerator);
 
 #endif

@@ -54,6 +54,23 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "ef676820_bc58ac1d",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 19549
+      },
+      "writtenOn": "2022-09-21T18:16:52Z",
+      "side": 1,
+      "message": "ping (and now added as reviewer)",
+      "revId": "259cd921fa2b559ba8fe8c7e12a911a99d2c11b1",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "fee29427_17afbd48",
         "filename": "api/stats/rtc_stats_report.h",
         "patchSetId": 2

@@ -18,7 +18,8 @@
 
 namespace webrtc {
 namespace {
-const char kDummyExperiment[] = "WebRTC-DummyExperiment";
+
+constexpr char kDummyExperiment[] = "WebRTC-DummyExperiment";
 
 struct DummyExperiment {
   FieldTrialFlag enabled = FieldTrialFlag("Enabled");
@@ -34,10 +35,13 @@ struct DummyExperiment {
                     field_trial);
   }
   DummyExperiment() {
+    static constexpr absl::string_view kKeys[] = {kDummyExperiment};
+    field_trial::RegisterFieldTrialsForTesting(kKeys);
     std::string trial_string = field_trial::FindFullName(kDummyExperiment);
     ParseFieldTrial({&enabled, &factor, &retries, &size, &ping, &hash},
                     trial_string);
   }
+  ~DummyExperiment() { field_trial::UnregisterAllFieldTrialsForTesting(); }
 };
 
 enum class CustomEnum {

@@ -122,7 +122,7 @@ class DegradedCall : public Call, private PacketReceiver {
    public:
     FakeNetworkPipeOnTaskQueue(
         TaskQueueBase* task_queue,
-        const ScopedTaskSafety& task_safety,
+        rtc::scoped_refptr<PendingTaskSafetyFlag> alive_flag,
         Clock* clock,
         std::unique_ptr<NetworkBehaviorInterface> network_behavior);
 
@@ -142,7 +142,7 @@ class DegradedCall : public Call, private PacketReceiver {
 
     Clock* const clock_;
     TaskQueueBase* const task_queue_;
-    const ScopedTaskSafety& task_safety_;
+    rtc::scoped_refptr<PendingTaskSafetyFlag> alive_flag_;
     FakeNetworkPipe pipe_;
     absl::optional<int64_t> next_process_ms_ RTC_GUARDED_BY(&task_queue_);
   };
@@ -178,7 +178,7 @@ class DegradedCall : public Call, private PacketReceiver {
 
   Clock* const clock_;
   const std::unique_ptr<Call> call_;
-  ScopedTaskSafety task_safety_;
+  rtc::scoped_refptr<PendingTaskSafetyFlag> alive_flag_;
   size_t send_config_index_;
   const std::vector<TimeScopedNetworkConfig> send_configs_;
   SimulatedNetwork* send_simulated_network_;

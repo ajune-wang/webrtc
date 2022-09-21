@@ -104,9 +104,10 @@ std::string AppendFieldTrials(std::string new_trial_string) {
   return std::string(field_trial::GetFieldTrialString()) + new_trial_string;
 }
 
-enum class UseDependencyDescriptor {
-  Enabled,
+enum class DescriptorExtension {
   Disabled,
+  DependencyDescriptor,
+  GenericFrameDescriptor,
 };
 
 struct SvcTestParameters {
@@ -121,7 +122,6 @@ struct SvcTestParameters {
         ScalabilityModeToNumSpatialLayers(*scalability_mode);
     int num_temporal_layers =
         ScalabilityModeToNumTemporalLayers(*scalability_mode);
-
     return SvcTestParameters{codec_name, scalability_mode_str,
                              num_spatial_layers, num_temporal_layers};
   }
@@ -133,7 +133,7 @@ struct SvcTestParameters {
 };
 
 class SvcTest : public testing::TestWithParam<
-                    std::tuple<SvcTestParameters, UseDependencyDescriptor>> {
+                    std::tuple<SvcTestParameters, DescriptorExtension>> {
  public:
   SvcTest()
       : video_codec_config(ToVideoCodecConfig(SvcTestParameters().codec_name)) {
@@ -154,7 +154,12 @@ class SvcTest : public testing::TestWithParam<
   }
 
   bool UseDependencyDescriptor() const {
-    return std::get<1>(GetParam()) == UseDependencyDescriptor::Enabled;
+    return std::get<1>(GetParam()) == DescriptorExtension::DependencyDescriptor;
+  }
+
+  bool UseGenericFrameDescriptor() const {
+    return std::get<1>(GetParam()) ==
+           DescriptorExtension::GenericFrameDescriptor;
   }
 
  protected:
@@ -164,8 +169,12 @@ class SvcTest : public testing::TestWithParam<
 std::string SvcTestNameGenerator(
     const testing::TestParamInfo<SvcTest::ParamType>& info) {
   return std::get<0>(info.param).scalability_mode +
-         (std::get<1>(info.param) == UseDependencyDescriptor::Enabled ? "_DD"
-                                                                      : "");
+         (std::get<1>(info.param) == DescriptorExtension::DependencyDescriptor
+              ? "_DD"
+              : (std::get<1>(info.param) ==
+                         DescriptorExtension::GenericFrameDescriptor
+                     ? "_GFD"
+                     : ""));
 }
 
 }  // namespace
@@ -265,6 +274,8 @@ TEST_P(SvcTest, ScalabilityModeSupported) {
   std::string trials;
   if (UseDependencyDescriptor()) {
     trials += "WebRTC-DependencyDescriptorAdvertised/Enabled/";
+  } else if (UseGenericFrameDescriptor()) {
+    trials += "WebRTC-GenericDescriptorAdvertised/Enabled/";
   }
   webrtc::test::ScopedFieldTrials override_trials(AppendFieldTrials(trials));
   std::unique_ptr<NetworkEmulationManager> network_emulation_manager =
@@ -325,11 +336,15 @@ INSTANTIATE_TEST_SUITE_P(
     Combine(Values(SvcTestParameters::Create(kVp8CodecName, "L1T1"),
                    SvcTestParameters::Create(kVp8CodecName, "L1T2"),
                    SvcTestParameters::Create(kVp8CodecName, "L1T3")),
-            Values(UseDependencyDescriptor::Disabled,
-                   UseDependencyDescriptor::Enabled)),
+            Values(DescriptorExtension::Disabled,
+                   DescriptorExtension::DependencyDescriptor,
+                   DescriptorExtension::GenericFrameDescriptor)),
+
     SvcTestNameGenerator);
 
 #if defined(WEBRTC_USE_H264)
+// Like AV1, H.264 RTP format does not include SVC related
+// information, so use either Dependency Descriptor or GFD.
 INSTANTIATE_TEST_SUITE_P(
     SvcTestH264,
     SvcTest,
@@ -338,10 +353,22 @@ INSTANTIATE_TEST_SUITE_P(
                 SvcTestParameters::Create(kH264CodecName, "L1T2"),
                 SvcTestParameters::Create(kH264CodecName, "L1T3"),
             }),
-            // Like AV1, H.264 RTP format does not include SVC related
-            // information, so always use Dependency Descriptor.
-            Values(UseDependencyDescriptor::Enabled)),
+            Values(DescriptorExtension::DependencyDescriptor,
+                   DescriptorExtension::GenericFrameDescriptor)),
     SvcTestNameGenerator);
+/*
+INSTANTIATE_TEST_SUITE_P(
+    SvcTestH264,
+    SvcTest,
+    Combine(ValuesIn({
+                SvcTestParameters::Create(kH264CodecName, "L1T1"),
+                SvcTestParameters::Create(kH264CodecName, "L1T2"),
+                SvcTestParameters::Create(kH264CodecName, "L1T3"),
+            }),
+            Values(DescriptorExtension::DependencyDescriptor,
+                   DescriptorExtension::GenericFrameDescriptor)),
+    SvcTestNameGenerator);
+*/
 #endif
 
 #if defined(RTC_ENABLE_VP9)
@@ -389,8 +416,9 @@ INSTANTIATE_TEST_SUITE_P(
             // SvcTestParameters::Create(kVp9CodecName, "S3T3"),
             // SvcTestParameters::Create(kVp9CodecName, "S3T3h"),
         }),
-        Values(UseDependencyDescriptor::Disabled,
-               UseDependencyDescriptor::Enabled)),
+        Values(DescriptorExtension::Disabled,
+               DescriptorExtension::DependencyDescriptor,
+               DescriptorExtension::GenericFrameDescriptor)),
     SvcTestNameGenerator);
 
 INSTANTIATE_TEST_SUITE_P(
@@ -435,7 +463,8 @@ INSTANTIATE_TEST_SUITE_P(
                 // SvcTestParameters::Create(kAv1CodecName, "S3T3"),
                 // SvcTestParameters::Create(kAv1CodecName, "S3T3h"),
             }),
-            Values(UseDependencyDescriptor::Enabled)),
+            Values(DescriptorExtension::DependencyDescriptor,
+                   DescriptorExtension::GenericFrameDescriptor)),
     SvcTestNameGenerator);
 
 #endif

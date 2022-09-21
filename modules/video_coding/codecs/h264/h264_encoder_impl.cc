@@ -519,6 +519,7 @@ int32_t H264EncoderImpl::Encode(
     encoded_images_[i].SetColorSpace(input_frame.color_space());
     encoded_images_[i]._frameType = ConvertToVideoFrameType(info.eFrameType);
     encoded_images_[i].SetSpatialIndex(configurations_[i].simulcast_idx);
+    // Temporal index is set below.
 
     // Split encoded image up into fragments. This also updates
     // `encoded_image_`.
@@ -543,6 +544,7 @@ int32_t H264EncoderImpl::Encode(
       codec_specific.codecSpecific.H264.base_layer_sync = false;
       if (configurations_[i].num_temporal_layers > 1) {
         const uint8_t tid = info.sLayerInfo[0].uiTemporalId;
+
         codec_specific.codecSpecific.H264.temporal_idx = tid;
         codec_specific.codecSpecific.H264.base_layer_sync =
             tid > 0 && tid < tl0sync_limit_[i];

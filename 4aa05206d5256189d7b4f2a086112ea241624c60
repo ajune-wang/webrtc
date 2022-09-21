@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "7f38e7e5_74bf9a82",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 17854
+      },
+      "writtenOn": "2022-09-21T10:18:07Z",
+      "side": 1,
+      "message": "Fixed failing unit test by setting up an AutoThread at bootstrap. No other changes. PTAL thanks!",
+      "revId": "4aa05206d5256189d7b4f2a086112ea241624c60",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

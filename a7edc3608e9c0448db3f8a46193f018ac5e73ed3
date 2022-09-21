@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "8df5de74_d892af16",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 4
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 9405
+      },
+      "writtenOn": "2022-09-21T06:47:45Z",
+      "side": 1,
+      "message": "Hmm, according to the test result on linux_rel https://chromium-swarm.appspot.com/task?id\u003d5d7796145423fc11, this code needs a PostTask. That\u0027s weird.\n\n#\n# Fatal error in: ../../call/call.cc, line 1507\n# last system error: 0\n# Check failed: (network_thread_)-\u003eIsCurrent()\n# *** SIGABRT received at time\u003d1663742499 on cpu 1 ***\nPC: @     0x7fa23dddfe87  (unknown)  raise\n    @     0x564034bfdea7        208  absl::WriteFailureInfo()\n    @     0x564034bfdbc8         64  absl::AbslFailureSignalHandler()\n    @     0x7fa23ea92980       2096  (unknown)\n    @     0x564034c7ef6b        352  rtc::webrtc_checks_impl::FatalLog()\n    @     0x5640352b4d49        144  webrtc::internal::Call::DeliverPacket()\n    @     0x5640352c90ae        144  webrtc::FakeNetworkPipe::DeliverNetworkPacket()\n    @     0x5640352c8e9b        304  webrtc::FakeNetworkPipe::Process()\n    @     0x5640352bf399         80  webrtc::DegradedCall::DeliverPacket()\n    @     0x564034cbe525        144  absl::internal_any_invocable::RemoteInvoker\u003c\u003e()\n    @     0x564034c91c14         32  rtc::(anonymous namespace)::AnyInvocableMessageHandler::OnMessage()\n    @     0x564034c8fbc8        144  rtc::Thread::Dispatch()\n    @     0x564034c9043f        112  rtc::Thread::Run()\n    @     0x564034c900bc         32  rtc::Thread::PreRun()\n    @     0x7fa23ea876db  (unknown)  start_thread\n[235/593] PeerConnectionFieldTrialTest.ApplyFakeNetworkConfig returned with exit code -6 (2227 ms)",
+      "revId": "a7edc3608e9c0448db3f8a46193f018ac5e73ed3",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

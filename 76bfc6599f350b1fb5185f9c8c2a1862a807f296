@@ -54,6 +54,23 @@
     {
       "unresolved": false,
       "key": {
+        "uuid": "e3be5524_f6354ffd",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 13704
+      },
+      "writtenOn": "2022-09-21T13:51:34Z",
+      "side": 1,
+      "message": "I took your feedback and rewrote everything as new CLs (because of the\nsubstantial changes):\n\nhttps://webrtc-review.googlesource.com/c/src/+/276268\nhttps://webrtc-review.googlesource.com/c/src/+/276269\nhttps://webrtc-review.googlesource.com/c/src/+/276270\n\nLet\u0027s continue the review there. I\u0027ll abandon this chain.",
+      "revId": "76bfc6599f350b1fb5185f9c8c2a1862a807f296",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
         "uuid": "9851586a_b68a926d",
         "filename": "BUILD.gn",
         "patchSetId": 2
@@ -134,6 +151,24 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "870dfd72_7eba2dd6",
+        "filename": "api/DEPS",
+        "patchSetId": 2
+      },
+      "lineNbr": 311,
+      "author": {
+        "id": 13704
+      },
+      "writtenOn": "2022-09-21T13:51:34Z",
+      "side": 1,
+      "message": "This now lives in the top level //experiment, see https://webrtc-review.googlesource.com/c/src/+/276268",
+      "parentUuid": "40042b9d_5da8891d",
+      "revId": "76bfc6599f350b1fb5185f9c8c2a1862a807f296",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "cb799ed8_5bd37753",
@@ -183,6 +218,24 @@
       "side": 1,
       "message": "I would be in favour of a top level folder //experiments or //field_trials, this should fix the problem, right?",
       "parentUuid": "31859d72_8e075ea9",
+      "revId": "76bfc6599f350b1fb5185f9c8c2a1862a807f296",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "58c4b463_0653a731",
+        "filename": "tools_webrtc/experiments/field_trials.py",
+        "patchSetId": 2
+      },
+      "lineNbr": 3,
+      "author": {
+        "id": 13704
+      },
+      "writtenOn": "2022-09-21T13:51:34Z",
+      "side": 1,
+      "message": "I created a top level //experiments, see https://webrtc-review.googlesource.com/c/src/+/276268",
+      "parentUuid": "b632d469_de745b23",
       "revId": "76bfc6599f350b1fb5185f9c8c2a1862a807f296",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
@@ -275,6 +328,24 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "73fbb6b7_c5b5a799",
+        "filename": "tools_webrtc/experiments/field_trials.py",
+        "patchSetId": 2
+      },
+      "lineNbr": 46,
+      "author": {
+        "id": 13704
+      },
+      "writtenOn": "2022-09-21T13:51:34Z",
+      "side": 1,
+      "message": "I don\u0027t think that\u0027s necessary. It\u0027s just a small \"in-line\" test. If we want to test this for real we should probably use pytest or similar.\n\npython3 -m doctest \u003cpy-file\u003e",
+      "parentUuid": "d2e3f960_582fb249",
+      "revId": "76bfc6599f350b1fb5185f9c8c2a1862a807f296",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "b76413a9_62990a28",
@@ -288,6 +359,24 @@
       "writtenOn": "2022-08-10T08:01:53Z",
       "side": 1,
       "message": "I finally \"got\" what was bothering me with this (and the unittest that depends on it).\n\nTest keys shouldn\u0027t be in the registry. That means that for testing, we need the ability to insert valid keys from the test. Which means that it can\u0027t be only a constexpr array.\n\nA better (?) solution would be to have the IsFieldTrialRegistered() function have a non-static lookaside list with a corresponding function InsertFieldTrialNameForTesting. This only needs to be consulted in the failure branch of IsFieldTrialRegistered(), so will not be overhead in normal runtime (where IsFieldTrialRegistered() never fails).",
+      "revId": "76bfc6599f350b1fb5185f9c8c2a1862a807f296",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "21591925_a5f3d790",
+        "filename": "tools_webrtc/experiments/field_trials.py",
+        "patchSetId": 2
+      },
+      "lineNbr": 70,
+      "author": {
+        "id": 13704
+      },
+      "writtenOn": "2022-09-21T13:51:34Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "b76413a9_62990a28",
       "revId": "76bfc6599f350b1fb5185f9c8c2a1862a807f296",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
@@ -341,6 +430,24 @@
       "side": 1,
       "message": "yes, it does according to https://realpython.com/python-f-strings/#multiline-f-strings - just be aware that indentation is not eaten when using \"\"\"",
       "parentUuid": "bb4b3f05_054ea6d9",
+      "revId": "76bfc6599f350b1fb5185f9c8c2a1862a807f296",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "41cf4767_1bccf390",
+        "filename": "tools_webrtc/experiments/field_trials.py",
+        "patchSetId": 2
+      },
+      "lineNbr": 73,
+      "author": {
+        "id": 13704
+      },
+      "writtenOn": "2022-09-21T13:51:34Z",
+      "side": 1,
+      "message": "I want want any whitespace surprises from \"\"\" so I\u0027ll go with this more verbose variant.",
+      "parentUuid": "5268fead_e2739f51",
       "revId": "76bfc6599f350b1fb5185f9c8c2a1862a807f296",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
@@ -429,6 +536,30 @@
       "writtenOn": "2022-08-09T14:47:59Z",
       "side": 1,
       "message": "I think we can turn this ON on CQ/CI by changing https://source.chromium.org/chromium/chromium/src/+/main:third_party/webrtc/tools_webrtc/mb/mb_config.pyl;l\u003d380;drc\u003d35fc144e01cbff6a5d56cda53d09ca841d7334f2 to:\n\n```\n\u0027debug_bot\u0027: {\n  \u0027mixins\u0027: [\u0027debug\u0027, \u0027goma\u0027, \u0027strict_field_trials\u0027],\n},\n```\n\nAnd here https://source.chromium.org/chromium/chromium/src/+/main:third_party/webrtc/tools_webrtc/mb/mb_config.pyl;l\u003d391;drc\u003d35fc144e01cbff6a5d56cda53d09ca841d7334f2:\n\n```\n\u0027strict_field_trials\u0027: {\n  \u0027gn_args\u0027: \u0027rtc_strict_field_trials\u003dtrue\u0027,\n},\n```",
+      "range": {
+        "startLine": 233,
+        "startChar": 0,
+        "endLine": 233,
+        "endChar": 33
+      },
+      "revId": "76bfc6599f350b1fb5185f9c8c2a1862a807f296",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "c428c0b2_9971e6cb",
+        "filename": "webrtc.gni",
+        "patchSetId": 2
+      },
+      "lineNbr": 233,
+      "author": {
+        "id": 13704
+      },
+      "writtenOn": "2022-09-21T13:51:34Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "42cb76ae_852aa26c",
       "range": {
         "startLine": 233,
         "startChar": 0,

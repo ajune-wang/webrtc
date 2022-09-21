@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "ecaafe65_379ad512",
+        "filename": "test/pc/e2e/peer_connection_quality_test_metric_names_test.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 50,
+      "author": {
+        "id": 5087
+      },
+      "writtenOn": "2022-09-21T13:32:07Z",
+      "side": 1,
+      "message": "Since there is no randomization in the function, I think it is better to rename to AddDefaultAudioVideoPeer.\n\nAnd mention:\n```\n// Adds a peer with some audio and video (the client should not care about details\n// about audio and video configs).\n```",
+      "range": {
+        "startLine": 50,
+        "startChar": 8,
+        "endLine": 50,
+        "endChar": 14
+      },
+      "revId": "f4708b9fd629a0043574a40ec79acd5bcf4fc18e",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

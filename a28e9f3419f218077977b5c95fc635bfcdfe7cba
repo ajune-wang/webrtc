@@ -16,6 +16,24 @@
       "message": "would it make more sense for FakeNetworkPipeOnTaskQueue to have a dedicated safety flag? (as in, scoped).",
       "revId": "a28e9f3419f218077977b5c95fc635bfcdfe7cba",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "c3983fd7_7d8d40b4",
+        "filename": "call/degraded_call.cc",
+        "patchSetId": 6
+      },
+      "lineNbr": 29,
+      "author": {
+        "id": 9405
+      },
+      "writtenOn": "2022-09-22T08:42:28Z",
+      "side": 1,
+      "message": "Can you tell me why you think so?\nDegradedCall\u0027s destructor cleans up both safety flags and FakeNetworkPipeOnTaskQueue, so I don\u0027t think there\u0027s a problem.",
+      "parentUuid": "7410d166_09a27a2d",
+      "revId": "a28e9f3419f218077977b5c95fc635bfcdfe7cba",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

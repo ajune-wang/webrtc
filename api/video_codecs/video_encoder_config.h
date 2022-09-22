@@ -18,6 +18,7 @@
 
 #include "absl/types/optional.h"
 #include "api/scoped_refptr.h"
+#include "api/video/resolution.h"
 #include "api/video_codecs/scalability_mode.h"
 #include "api/video_codecs/sdp_video_format.h"
 #include "api/video_codecs/video_codec.h"
@@ -69,6 +70,12 @@ struct VideoStream {
 
   // If this stream is enabled by the user, or not.
   bool active;
+
+  // An optional user supplied max_frame_resolution
+  // than can be set independently of (adapted) VideoSource.
+  // This value is set from RtpEncodingParameters::requested_resolution
+  // (i.e. used for signaling app-level settings).
+  absl::optional<Resolution> requested_resolution;
 };
 
 class VideoEncoderConfig {

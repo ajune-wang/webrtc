@@ -167,6 +167,23 @@ TEST(PendingTaskSafetyFlagTest, PendingTaskNotAliveInitialized) {
   EXPECT_TRUE(task_2_ran);
 }
 
+TEST(PendingTaskSafetyFlagTest, SharedPendingTaskBasic) {
+  TaskQueueForTest tq1("TaskQueue");
+  rtc::scoped_refptr<SharedPendingTaskSafetyFlag> safety_flag =
+      SharedPendingTaskSafetyFlag::Create();
+  EXPECT_TRUE(safety_flag->alive());
+
+  rtc::Event blocker;
+  tq1.PostTask([&blocker, &safety_flag]() {
+    safety_flag->SetNotAlive();
+    blocker.Set();
+  });
+  blocker.Wait(rtc::Event::kForever);
+  EXPECT_FALSE(safety_flag->alive());
+  safety_flag->SetAlive();
+  EXPECT_TRUE(safety_flag->alive());
+}
+
 TEST(PendingTaskSafetyFlagTest, SafeTask) {
   rtc::scoped_refptr<PendingTaskSafetyFlag> flag =
       PendingTaskSafetyFlag::Create();

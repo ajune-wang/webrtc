@@ -15,13 +15,12 @@
 
 #include "absl/strings/string_view.h"
 #include "modules/rtp_rtcp/source/rtp_util.h"
-#include "rtc_base/event.h"
 
 namespace webrtc {
 
 DegradedCall::FakeNetworkPipeOnTaskQueue::FakeNetworkPipeOnTaskQueue(
     TaskQueueBase* task_queue,
-    rtc::scoped_refptr<PendingTaskSafetyFlag> alive_flag,
+    rtc::scoped_refptr<SharedPendingTaskSafetyFlag> alive_flag,
     Clock* clock,
     std::unique_ptr<NetworkBehaviorInterface> network_behavior)
     : clock_(clock),
@@ -131,7 +130,7 @@ bool DegradedCall::FakeNetworkPipeTransportAdapter::SendRtcp(
 DegradedCall::ThreadedPacketReceiver::ThreadedPacketReceiver(
     webrtc::TaskQueueBase* worker_thread,
     webrtc::TaskQueueBase* network_thread,
-    rtc::scoped_refptr<PendingTaskSafetyFlag> alive_flag,
+    rtc::scoped_refptr<SharedPendingTaskSafetyFlag> alive_flag,
     webrtc::PacketReceiver* receiver)
     : worker_thread_(worker_thread),
       network_thread_(network_thread),
@@ -182,7 +181,7 @@ DegradedCall::DegradedCall(
     const std::vector<TimeScopedNetworkConfig>& receive_configs)
     : clock_(Clock::GetRealTimeClock()),
       call_(std::move(call)),
-      alive_flag_(PendingTaskSafetyFlag::CreateDetached()),
+      alive_flag_(SharedPendingTaskSafetyFlag::Create()),
       send_config_index_(0),
       send_configs_(send_configs),
       send_simulated_network_(nullptr),
@@ -218,17 +217,7 @@ DegradedCall::DegradedCall(
 
 DegradedCall::~DegradedCall() {
   RTC_DCHECK_RUN_ON(call_->worker_thread());
-  // Thread synchronization is required to call `SetNotAlive`.
-  // Otherwise, when the `DegradedCall` object is destroyed but
-  // `SetNotAlive` has not yet been called,
-  // another Closure guarded by `alive_flag_` may be called.
-  rtc::Event event;
-  call_->network_thread()->PostTask(
-      [flag = std::move(alive_flag_), &event]() mutable {
-        flag->SetNotAlive();
-        event.Set();
-      });
-  event.Wait(rtc::Event::kForever);
+  alive_flag_->SetNotAlive();
 }
 
 AudioSendStream* DegradedCall::CreateAudioSendStream(

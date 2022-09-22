@@ -122,7 +122,7 @@ class DegradedCall : public Call, private PacketReceiver {
    public:
     FakeNetworkPipeOnTaskQueue(
         TaskQueueBase* task_queue,
-        rtc::scoped_refptr<PendingTaskSafetyFlag> alive_flag,
+        rtc::scoped_refptr<SharedPendingTaskSafetyFlag> alive_flag,
         Clock* clock,
         std::unique_ptr<NetworkBehaviorInterface> network_behavior);
 
@@ -142,17 +142,18 @@ class DegradedCall : public Call, private PacketReceiver {
 
     Clock* const clock_;
     TaskQueueBase* const task_queue_;
-    rtc::scoped_refptr<PendingTaskSafetyFlag> alive_flag_;
+    rtc::scoped_refptr<SharedPendingTaskSafetyFlag> alive_flag_;
     FakeNetworkPipe pipe_;
     absl::optional<int64_t> next_process_ms_ RTC_GUARDED_BY(&task_queue_);
   };
 
   class ThreadedPacketReceiver : public PacketReceiver {
    public:
-    ThreadedPacketReceiver(webrtc::TaskQueueBase* worker_thread,
-                           webrtc::TaskQueueBase* network_thread,
-                           rtc::scoped_refptr<PendingTaskSafetyFlag> alive_flag,
-                           PacketReceiver* receiver);
+    ThreadedPacketReceiver(
+        webrtc::TaskQueueBase* worker_thread,
+        webrtc::TaskQueueBase* network_thread,
+        rtc::scoped_refptr<SharedPendingTaskSafetyFlag> alive_flag,
+        PacketReceiver* receiver);
     ~ThreadedPacketReceiver() override;
 
     DeliveryStatus DeliverPacket(MediaType media_type,
@@ -162,7 +163,7 @@ class DegradedCall : public Call, private PacketReceiver {
    private:
     webrtc::TaskQueueBase* const worker_thread_;
     webrtc::TaskQueueBase* const network_thread_;
-    rtc::scoped_refptr<PendingTaskSafetyFlag> alive_flag_;
+    rtc::scoped_refptr<SharedPendingTaskSafetyFlag> alive_flag_;
     webrtc::PacketReceiver* const receiver_;
   };
 
@@ -197,7 +198,7 @@ class DegradedCall : public Call, private PacketReceiver {
 
   Clock* const clock_;
   const std::unique_ptr<Call> call_;
-  rtc::scoped_refptr<PendingTaskSafetyFlag> alive_flag_;
+  rtc::scoped_refptr<SharedPendingTaskSafetyFlag> alive_flag_;
   size_t send_config_index_;
   const std::vector<TimeScopedNetworkConfig> send_configs_;
   SimulatedNetwork* send_simulated_network_;

@@ -1,0 +1,89 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "13c3cf16_19e7aca5",
+        "filename": "api/rtp_parameters.h",
+        "patchSetId": 3
+      },
+      "lineNbr": 511,
+      "author": {
+        "id": 5142
+      },
+      "writtenOn": "2022-09-22T09:23:23Z",
+      "side": 1,
+      "message": "Question for my own understanding, what if anything is the difference between the OnOutputFormatRequest signal and the signal that reaches the source? Different paths or two APIs for the same thing?",
+      "revId": "3dd374e8274529bd5adae9931d9c7fd42f32920d",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "8943ac8b_8629f113",
+        "filename": "api/rtp_parameters.h",
+        "patchSetId": 3
+      },
+      "lineNbr": 513,
+      "author": {
+        "id": 5142
+      },
+      "writtenOn": "2022-09-22T09:23:23Z",
+      "side": 1,
+      "message": "\"Not necessary since it will be propagated to the source?\"\nIIUC that isn\u0027t the main reason this is not to be necessary? There\u0027s an important distinction here that needs to be documented IMO.\n\nEven if the source didn\u0027t do anything, the VideoStreamEncoder and/or encoders would call CropAndScale(), so downscaling by the source - while it can be a good idea - is entirely optional, correct?\n\nHow about this instead?\n\n// When setting `requested_resolution` it is not necessary to adapt the\n// video source using `OnOutputFormatRequest`, since the `VideoStreamEncoder`\n// will apply downscaling if necessary. `requested_resolution` will also be\n// propagated to the video source, this allows downscaling earlier in the\n// pipeline which can be beneficial if the source is consumed by multiple\n// encoders, but is not strictly necessary.",
+      "revId": "3dd374e8274529bd5adae9931d9c7fd42f32920d",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "bc441a1f_9827c7a6",
+        "filename": "api/rtp_parameters.h",
+        "patchSetId": 3
+      },
+      "lineNbr": 518,
+      "author": {
+        "id": 5142
+      },
+      "writtenOn": "2022-09-22T09:23:23Z",
+      "side": 1,
+      "message": "nit: `.",
+      "revId": "3dd374e8274529bd5adae9931d9c7fd42f32920d",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "a9e23c7f_12da0e48",
+        "filename": "api/video_codecs/video_encoder_config.h",
+        "patchSetId": 3
+      },
+      "lineNbr": 78,
+      "author": {
+        "id": 5142
+      },
+      "writtenOn": "2022-09-22T09:23:23Z",
+      "side": 1,
+      "message": "Sounds like this is the requested resolution *before* adaptation. How would you be able to tell what the *actual* resolution should be (after adaptation)?\n\nHow does this compare to the existing `width` and `height` fields, are those before or after adaptation?",
+      "revId": "3dd374e8274529bd5adae9931d9c7fd42f32920d",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "78992d60_2668084b",
+        "filename": "video/video_stream_encoder.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 1151,
+      "author": {
+        "id": 5142
+      },
+      "writtenOn": "2022-09-22T09:23:23Z",
+      "side": 1,
+      "message": "The resolution we surface upward is always the highest resolution, even if the top layer is currently disabled? It probably makes sense just checking.",
+      "revId": "3dd374e8274529bd5adae9931d9c7fd42f32920d",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

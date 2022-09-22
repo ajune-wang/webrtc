@@ -3,6 +3,23 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "d7b05f36_ccccf597",
+        "filename": "api/field_trials_unittest.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 38,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2022-09-22T09:08:18Z",
+      "side": 1,
+      "message": "it looks weird to cleanup in constructor. move it to destructor?\nbetter yet, instead of two functions \nRegisterFieldTrialsForTesting/UnregisterAllFieldTrialsForTesting\nmay be add a RAII type:\n\nclass ScopedFieldTrialsForTesting {\n public: \n  ScopedFieldTrialsForTesting(... fields) { Register(fields); }\n  ~ScopedFieldTrialsForTesting() { Unregister(); }\n}",
+      "revId": "2fc40911e8c47d4cbc80b4129e9b06ad97652afb",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "72b6f3bb_76fe5b94",
         "filename": "system_wrappers/include/field_trial.h",
         "patchSetId": 3
@@ -43,6 +60,92 @@
         "startChar": 0,
         "endLine": 107,
         "endChar": 42
+      },
+      "revId": "2fc40911e8c47d4cbc80b4129e9b06ad97652afb",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "fa1c9555_a0d7a78c",
+        "filename": "system_wrappers/source/field_trial.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 81,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2022-09-22T09:08:18Z",
+      "side": 1,
+      "message": "please avoid unrelated formatting changes.\n(afaik there is no rule that say there should be an empty line before closing namespace)",
+      "revId": "2fc40911e8c47d4cbc80b4129e9b06ad97652afb",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "74183a5a_4d5efaa3",
+        "filename": "system_wrappers/source/field_trial.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 121,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2022-09-22T09:08:18Z",
+      "side": 1,
+      "message": "may be\nabsl::c_linear_serach(kRegistedFieldTrials, name)",
+      "range": {
+        "startLine": 120,
+        "startChar": 13,
+        "endLine": 121,
+        "endChar": 75
+      },
+      "revId": "2fc40911e8c47d4cbc80b4129e9b06ad97652afb",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "bf876717_13276f94",
+        "filename": "system_wrappers/source/field_trial.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 174,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2022-09-22T09:08:18Z",
+      "side": 1,
+      "message": "\"const T\u0026\" or \"T\"\n(string_view is a small type, so I would iterate by value)",
+      "range": {
+        "startLine": 174,
+        "startChar": 7,
+        "endLine": 174,
+        "endChar": 30
+      },
+      "revId": "2fc40911e8c47d4cbc80b4129e9b06ad97652afb",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "2ab593b5_3ee74577",
+        "filename": "system_wrappers/source/field_trial.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 175,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2022-09-22T09:08:18Z",
+      "side": 1,
+      "message": "or\n.emplace(key)\n\n(I guess .insert(key) doesn\u0027t work because there is no implicit conversion absl::string_view -\u003e std::string, but probably would work for std::string_view -\u003e std::string)",
+      "range": {
+        "startLine": 175,
+        "startChar": 15,
+        "endLine": 175,
+        "endChar": 40
       },
       "revId": "2fc40911e8c47d4cbc80b4129e9b06ad97652afb",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"

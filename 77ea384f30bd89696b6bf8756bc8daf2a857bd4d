@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "f6731799_622d7373",
+        "filename": "api/video_codecs/video_encoder_config.h",
+        "patchSetId": 5
+      },
+      "lineNbr": 38,
+      "author": {
+        "id": 5142
+      },
+      "writtenOn": "2022-09-22T11:42:51Z",
+      "side": 1,
+      "message": "nit: Add:\n\nThe width/height can be less than `requested_resolution` due to adaptation or due to the source providing smaller frames than requested.",
+      "revId": "77ea384f30bd89696b6bf8756bc8daf2a857bd4d",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

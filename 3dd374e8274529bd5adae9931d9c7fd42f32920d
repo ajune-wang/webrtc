@@ -72,6 +72,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "c46bcbd8_d56dee4b",
+        "filename": "api/rtp_parameters.h",
+        "patchSetId": 3
+      },
+      "lineNbr": 511,
+      "author": {
+        "id": 5142
+      },
+      "writtenOn": "2022-09-22T11:42:51Z",
+      "side": 1,
+      "message": "The source provides frames, and we have a feedback to the source saying what resolutions we want. I think I get that part, it matches well with the APIs/spec.\n\nBut then there is OnOutputFormatRequest, which apparently is something else. Where does this one lead, if not to the source of the frames?\n\nI think I am still confused because I don\u0027t know where the different feedback callbacks lead. In my head the world should be simple: \"source -\u003e VideoStreamEncoder -\u003e transport\"\n\nI can ask in person instead if that\u0027s easier",
+      "parentUuid": "9a0f62dd_809c84f3",
+      "revId": "3dd374e8274529bd5adae9931d9c7fd42f32920d",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "8943ac8b_8629f113",
         "filename": "api/rtp_parameters.h",
         "patchSetId": 3
@@ -371,6 +389,30 @@
       "side": 1,
       "message": "not sure, I think hbos@ added it...but never implemented it...\ni\u0027m innocent!",
       "parentUuid": "7fc0ed12_a412b98e",
+      "range": {
+        "startLine": 82,
+        "startChar": 2,
+        "endLine": 82,
+        "endChar": 37
+      },
+      "revId": "3dd374e8274529bd5adae9931d9c7fd42f32920d",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "2a5fa344_c4f30bbb",
+        "filename": "api/video/video_source_interface.h",
+        "patchSetId": 3
+      },
+      "lineNbr": 82,
+      "author": {
+        "id": 5142
+      },
+      "writtenOn": "2022-09-22T11:42:51Z",
+      "side": 1,
+      "message": "I filed https://crbug.com/webrtc/14455, can you add a \"TODO(https://crbug.com/webrtc/14455)\" comment for this?\n\nI think we can probably delete it but just want to make sure we don\u0027t want it, I think it was only used for in-cap scaling.",
+      "parentUuid": "087aa52a_97a94db5",
       "range": {
         "startLine": 82,
         "startChar": 2,

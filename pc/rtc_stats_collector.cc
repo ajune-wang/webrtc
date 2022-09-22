@@ -689,6 +689,7 @@ void SetOutboundRTPStreamStatsFromVideoSenderInfo(
       static_cast<uint32_t>(video_sender_info.plis_rcvd);
   if (video_sender_info.qp_sum)
     outbound_video->qp_sum = *video_sender_info.qp_sum;
+  outbound_video->target_bitrate = video_sender_info.target_bitrate;
   outbound_video->frames_encoded = video_sender_info.frames_encoded;
   outbound_video->key_frames_encoded = video_sender_info.key_frames_encoded;
   outbound_video->total_encode_time =

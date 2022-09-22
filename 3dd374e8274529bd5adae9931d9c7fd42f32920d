@@ -108,6 +108,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "8f602231_cbef1188",
+        "filename": "api/rtp_parameters.h",
+        "patchSetId": 3
+      },
+      "lineNbr": 511,
+      "author": {
+        "id": 5142
+      },
+      "writtenOn": "2022-09-22T13:05:39Z",
+      "side": 1,
+      "message": "Thank you now it makes sense!\n\nI think we should deprecate it, and I \"only\" see 10 references to it outside of webrtc based on a quick code search. If those pieces of code can get the same info from an API in the api/ folder they have no excuse but to migrate",
+      "parentUuid": "f6ff6948_36d3bd03",
+      "revId": "3dd374e8274529bd5adae9931d9c7fd42f32920d",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "8943ac8b_8629f113",
         "filename": "api/rtp_parameters.h",
         "patchSetId": 3

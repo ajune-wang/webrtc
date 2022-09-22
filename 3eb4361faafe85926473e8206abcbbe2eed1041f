@@ -16,6 +16,24 @@
       "message": "It seems that voice_sender_info.target_bitrate is sometimes negative. Audio preserves this comparison, but video doesn\u0027t seem to require this.\n\n(I also have a question: what value should MediaStreamTrack come up with when it stops? 0? undefined?)",
       "revId": "3eb4361faafe85926473e8206abcbbe2eed1041f",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "f3056eec_52276123",
+        "filename": "pc/rtc_stats_collector.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 650,
+      "author": {
+        "id": 9405
+      },
+      "writtenOn": "2022-09-22T10:15:43Z",
+      "side": 1,
+      "message": "Audio preserves -\u003e Audio needs to preserve",
+      "parentUuid": "3bb0d6eb_1058bba0",
+      "revId": "3eb4361faafe85926473e8206abcbbe2eed1041f",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

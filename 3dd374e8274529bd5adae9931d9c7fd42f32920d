@@ -37,6 +37,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "0e5a464e_9869994a",
+        "filename": "api/rtp_parameters.h",
+        "patchSetId": 3
+      },
+      "lineNbr": 513,
+      "author": {
+        "id": 5142
+      },
+      "writtenOn": "2022-09-22T09:24:53Z",
+      "side": 1,
+      "message": "(By \"apply downscaling\" I refer to calling CropAndScale on the frame, I realize the actual downscale code is inside the video frame class)",
+      "parentUuid": "8943ac8b_8629f113",
+      "revId": "3dd374e8274529bd5adae9931d9c7fd42f32920d",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "bc441a1f_9827c7a6",
         "filename": "api/rtp_parameters.h",
         "patchSetId": 3

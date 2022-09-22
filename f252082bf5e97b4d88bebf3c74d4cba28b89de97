@@ -1,0 +1,38 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "c82253f4_9b86fa2c",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 3
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5142
+      },
+      "writtenOn": "2022-09-22T10:46:12Z",
+      "side": 1,
+      "message": "Awesome!",
+      "revId": "f252082bf5e97b4d88bebf3c74d4cba28b89de97",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "06801ac3_e3116a34",
+        "filename": "pc/rtc_stats_integrationtest.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 1017,
+      "author": {
+        "id": 5142
+      },
+      "writtenOn": "2022-09-22T10:46:12Z",
+      "side": 1,
+      "message": "Because you now assert the same thing regardless if the outbound_stream is audio or video you can move the two lines up to before the if-statement and just have a single TestMemberIsNonNegative line",
+      "revId": "f252082bf5e97b4d88bebf3c74d4cba28b89de97",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

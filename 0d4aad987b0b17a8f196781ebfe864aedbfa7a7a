@@ -1,0 +1,211 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "1f6b688e_580597b9",
+        "filename": "api/test/peerconnection_quality_test_fixture.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 156,
+      "author": {
+        "id": 6337
+      },
+      "writtenOn": "2022-09-22T09:01:28Z",
+      "side": 1,
+      "message": "Do we envision possible expansion of this struct or should we think on inlining simulcast_streams_count directly into VideoConfig?",
+      "range": {
+        "startLine": 147,
+        "startChar": 2,
+        "endLine": 156,
+        "endChar": 4
+      },
+      "revId": "0d4aad987b0b17a8f196781ebfe864aedbfa7a7a",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "ad8b513f_b0c7fbbf",
+        "filename": "api/test/peerconnection_quality_test_fixture.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 199,
+      "author": {
+        "id": 6337
+      },
+      "writtenOn": "2022-09-22T09:01:28Z",
+      "side": 1,
+      "message": "Will setting only of this field enable simulated SFU, or the fact that `VideoConifg` contains `emulated_sfu_config` will enable emulated SFU?",
+      "range": {
+        "startLine": 199,
+        "startChar": 24,
+        "endLine": 199,
+        "endChar": 42
+      },
+      "revId": "0d4aad987b0b17a8f196781ebfe864aedbfa7a7a",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "59aea20e_8d7b5bf6",
+        "filename": "api/test/peerconnection_quality_test_fixture.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 345,
+      "author": {
+        "id": 6337
+      },
+      "writtenOn": "2022-09-22T09:01:28Z",
+      "side": 1,
+      "message": "Let\u0027s put it after `simulcast_config` as `emulated_sfu_config` is expected to be used with it.",
+      "range": {
+        "startLine": 344,
+        "startChar": 4,
+        "endLine": 345,
+        "endChar": 58
+      },
+      "revId": "0d4aad987b0b17a8f196781ebfe864aedbfa7a7a",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "733e858d_bbdd861d",
+        "filename": "pc/test/svc_e2e_tests.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 284,
+      "author": {
+        "id": 6337
+      },
+      "writtenOn": "2022-09-22T09:01:28Z",
+      "side": 1,
+      "message": "Can we use real type here, otherwise it\u0027s really hard to understand what it can be? Same below",
+      "range": {
+        "startLine": 284,
+        "startChar": 13,
+        "endLine": 284,
+        "endChar": 17
+      },
+      "revId": "0d4aad987b0b17a8f196781ebfe864aedbfa7a7a",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "23dd448a_b7e6df8a",
+        "filename": "test/pc/e2e/analyzer/video/quality_analyzing_video_encoder.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 141,
+      "author": {
+        "id": 6337
+      },
+      "writtenOn": "2022-09-22T09:01:28Z",
+      "side": 1,
+      "message": "\" or stream isn\u0027t simulcast/SVC\"?",
+      "range": {
+        "startLine": 141,
+        "startChar": 67,
+        "endLine": 141,
+        "endChar": 68
+      },
+      "revId": "0d4aad987b0b17a8f196781ebfe864aedbfa7a7a",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "ff6f5389_4f229eee",
+        "filename": "test/pc/e2e/peer_configurer.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 149,
+      "author": {
+        "id": 6337
+      },
+      "writtenOn": "2022-09-22T09:01:28Z",
+      "side": 1,
+      "message": "This one can be nullopt.",
+      "range": {
+        "startLine": 149,
+        "startChar": 56,
+        "endLine": 149,
+        "endChar": 74
+      },
+      "revId": "0d4aad987b0b17a8f196781ebfe864aedbfa7a7a",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "5de51696_235e351a",
+        "filename": "test/pc/e2e/peer_configurer.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 169,
+      "author": {
+        "id": 6337
+      },
+      "writtenOn": "2022-09-22T09:01:28Z",
+      "side": 1,
+      "message": "Maybe also print some input values that triggered the issue to simplify debugging?",
+      "range": {
+        "startLine": 169,
+        "startChar": 18,
+        "endLine": 169,
+        "endChar": 27
+      },
+      "revId": "0d4aad987b0b17a8f196781ebfe864aedbfa7a7a",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "2d816609_eb199b46",
+        "filename": "test/pc/e2e/peer_configurer.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 170,
+      "author": {
+        "id": 6337
+      },
+      "writtenOn": "2022-09-22T09:01:28Z",
+      "side": 1,
+      "message": "It can be nullopt",
+      "range": {
+        "startLine": 170,
+        "startChar": 58,
+        "endLine": 170,
+        "endChar": 76
+      },
+      "revId": "0d4aad987b0b17a8f196781ebfe864aedbfa7a7a",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "8f4bcc33_e2e61fd6",
+        "filename": "test/pc/e2e/peer_configurer.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 174,
+      "author": {
+        "id": 6337
+      },
+      "writtenOn": "2022-09-22T09:01:28Z",
+      "side": 1,
+      "message": "It can be nullopt",
+      "range": {
+        "startLine": 174,
+        "startChar": 58,
+        "endLine": 174,
+        "endChar": 76
+      },
+      "revId": "0d4aad987b0b17a8f196781ebfe864aedbfa7a7a",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

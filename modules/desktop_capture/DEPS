@@ -17,3 +17,17 @@ specific_include_rules = {
     "+sdk/objc",
   ],
 }
+
+deps = {
+  'src/third_party/pipewire': {
+    'packages': [
+      {
+        'package': 'chromium/third_party/pipewire',
+        'version': 'BaVKmAmwpjdS6O0pnjSaMNSKhO1nmk5mRnyPVAJ2-HEC',
+      },
+    ],
+
+    'condition': 'checkout_linux',
+    'dep_type': 'cipd',
+  },
+}

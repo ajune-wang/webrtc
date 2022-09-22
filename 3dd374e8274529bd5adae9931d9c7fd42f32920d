@@ -538,6 +538,24 @@
       "parentUuid": "78992d60_2668084b",
       "revId": "3dd374e8274529bd5adae9931d9c7fd42f32920d",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "d06150a3_93c6baaf",
+        "filename": "video/video_stream_encoder.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 1151,
+      "author": {
+        "id": 5023
+      },
+      "writtenOn": "2022-09-22T11:47:31Z",
+      "side": 1,
+      "message": "Not sure I understand the question for me?\n\nMy question for you: Do we need to signal the highest resolution (regardless of its `active` state), to avoid issues when going `active\u003dfalse` -\u003e `active\u003dtrue` for that particular layer?",
+      "parentUuid": "d1682253_4d7028cb",
+      "revId": "3dd374e8274529bd5adae9931d9c7fd42f32920d",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

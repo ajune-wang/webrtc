@@ -3,6 +3,52 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "a701000d_25b88eaa",
+        "filename": "api/video/resolution.h",
+        "patchSetId": 5
+      },
+      "lineNbr": 16,
+      "author": {
+        "id": 5023
+      },
+      "writtenOn": "2022-09-22T11:47:31Z",
+      "side": 1,
+      "message": "A",
+      "range": {
+        "startLine": 16,
+        "startChar": 3,
+        "endLine": 16,
+        "endChar": 5
+      },
+      "revId": "77ea384f30bd89696b6bf8756bc8daf2a857bd4d",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "bcee6e16_a9b253c4",
+        "filename": "api/video/video_source_interface.h",
+        "patchSetId": 5
+      },
+      "lineNbr": 87,
+      "author": {
+        "id": 5023
+      },
+      "writtenOn": "2022-09-22T11:47:31Z",
+      "side": 1,
+      "message": "Why plural? Can this `VideoSinkWants` represent more than one sink? (Outside of `aggregates` that is.)",
+      "range": {
+        "startLine": 87,
+        "startChar": 43,
+        "endLine": 87,
+        "endChar": 46
+      },
+      "revId": "77ea384f30bd89696b6bf8756bc8daf2a857bd4d",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "f6731799_622d7373",
         "filename": "api/video_codecs/video_encoder_config.h",
         "patchSetId": 5
@@ -14,6 +60,52 @@
       "writtenOn": "2022-09-22T11:42:51Z",
       "side": 1,
       "message": "nit: Add:\n\nThe width/height can be less than `requested_resolution` due to adaptation or due to the source providing smaller frames than requested.",
+      "revId": "77ea384f30bd89696b6bf8756bc8daf2a857bd4d",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "2779af13_1b2449f3",
+        "filename": "video/video_stream_encoder.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 1133,
+      "author": {
+        "id": 5023
+      },
+      "writtenOn": "2022-09-22T11:47:31Z",
+      "side": 1,
+      "message": "and resolution",
+      "range": {
+        "startLine": 1133,
+        "startChar": 40,
+        "endLine": 1133,
+        "endChar": 49
+      },
+      "revId": "77ea384f30bd89696b6bf8756bc8daf2a857bd4d",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "2cbc362b_0122eff7",
+        "filename": "video/video_stream_encoder.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 1153,
+      "author": {
+        "id": 5023
+      },
+      "writtenOn": "2022-09-22T11:47:31Z",
+      "side": 1,
+      "message": "This might change the aspect ratio to one that none of the layers is requesting. Is that intentional?\n\nWould it not be more robust to look at pixel count instead?",
+      "range": {
+        "startLine": 1150,
+        "startChar": 12,
+        "endLine": 1153,
+        "endChar": 52
+      },
       "revId": "77ea384f30bd89696b6bf8756bc8daf2a857bd4d",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }

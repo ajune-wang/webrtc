@@ -1,6 +1,23 @@
 {
   "comments": [
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "1ec2609f_869f6609",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 3
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5023
+      },
+      "writtenOn": "2022-09-22T09:45:25Z",
+      "side": 1,
+      "message": "A partial first pass, will look more in the afternoon.",
+      "revId": "3dd374e8274529bd5adae9931d9c7fd42f32920d",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "13c3cf16_19e7aca5",
@@ -66,6 +83,138 @@
       "writtenOn": "2022-09-22T09:23:23Z",
       "side": 1,
       "message": "nit: `.",
+      "revId": "3dd374e8274529bd5adae9931d9c7fd42f32920d",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "48b1bb21_8754f419",
+        "filename": "api/video/resolution.h",
+        "patchSetId": 3
+      },
+      "lineNbr": 2,
+      "author": {
+        "id": 5023
+      },
+      "writtenOn": "2022-09-22T09:45:25Z",
+      "side": 1,
+      "message": "2022",
+      "range": {
+        "startLine": 2,
+        "startChar": 18,
+        "endLine": 2,
+        "endChar": 22
+      },
+      "revId": "3dd374e8274529bd5adae9931d9c7fd42f32920d",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "dbce6fa9_20c8cdcf",
+        "filename": "api/video/resolution.h",
+        "patchSetId": 3
+      },
+      "lineNbr": 16,
+      "author": {
+        "id": 5023
+      },
+      "writtenOn": "2022-09-22T09:45:25Z",
+      "side": 1,
+      "message": "video resolution",
+      "revId": "3dd374e8274529bd5adae9931d9c7fd42f32920d",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "5e0af34d_8a43b0db",
+        "filename": "api/video/resolution.h",
+        "patchSetId": 3
+      },
+      "lineNbr": 16,
+      "author": {
+        "id": 5023
+      },
+      "writtenOn": "2022-09-22T09:45:25Z",
+      "side": 1,
+      "message": "An -\u003e a\n\nclass -\u003e struct (maybe?)",
+      "range": {
+        "startLine": 16,
+        "startChar": 3,
+        "endLine": 16,
+        "endChar": 11
+      },
+      "revId": "3dd374e8274529bd5adae9931d9c7fd42f32920d",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "da45ceaa_aea65888",
+        "filename": "api/video/resolution.h",
+        "patchSetId": 3
+      },
+      "lineNbr": 18,
+      "author": {
+        "id": 5023
+      },
+      "writtenOn": "2022-09-22T09:45:25Z",
+      "side": 1,
+      "message": "Specify unit somewhere: I would probably name this `width_px` (and `height_px`), but I guess it would be more consistent with the rest of WebRTC to keep these names and just add the unit in a comment.\n\nAnd, yes, the unit is \"always\" pixels, but I still think it should be explicitly spelled out.",
+      "range": {
+        "startLine": 18,
+        "startChar": 6,
+        "endLine": 18,
+        "endChar": 11
+      },
+      "revId": "3dd374e8274529bd5adae9931d9c7fd42f32920d",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "7fc0ed12_a412b98e",
+        "filename": "api/video/video_source_interface.h",
+        "patchSetId": 3
+      },
+      "lineNbr": 82,
+      "author": {
+        "id": 5023
+      },
+      "writtenOn": "2022-09-22T09:45:25Z",
+      "side": 1,
+      "message": "Will this ever be used? If not, can we follow up with a CL removing it? It should just be a about 4 lines of code + comments.",
+      "range": {
+        "startLine": 82,
+        "startChar": 2,
+        "endLine": 82,
+        "endChar": 37
+      },
+      "revId": "3dd374e8274529bd5adae9931d9c7fd42f32920d",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "37d273f2_5260cd68",
+        "filename": "api/video_codecs/video_encoder_config.h",
+        "patchSetId": 3
+      },
+      "lineNbr": 39,
+      "author": {
+        "id": 5023
+      },
+      "writtenOn": "2022-09-22T09:45:25Z",
+      "side": 1,
+      "message": "Can you expand these comments a bit, given that a reader might be confused by the difference between these and the `requested_resolution`.\n\nSomething along the lines of: \"actual width and height used to configure encoder\". (Very related to hbos comment below.)",
+      "range": {
+        "startLine": 36,
+        "startChar": 2,
+        "endLine": 39,
+        "endChar": 22
+      },
       "revId": "3dd374e8274529bd5adae9931d9c7fd42f32920d",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },

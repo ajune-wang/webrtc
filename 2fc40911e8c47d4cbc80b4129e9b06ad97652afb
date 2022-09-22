@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "72b6f3bb_76fe5b94",
+        "filename": "system_wrappers/include/field_trial.h",
+        "patchSetId": 3
+      },
+      "lineNbr": 107,
+      "author": {
+        "id": 5087
+      },
+      "writtenOn": "2022-09-22T07:18:19Z",
+      "side": 1,
+      "message": "Having these ForTesting() functions in a production header is potentially dangerous, is it possible to create them in https://source.chromium.org/chromium/chromium/src/+/main:third_party/webrtc/test/field_trial.h and https://source.chromium.org/chromium/chromium/src/+/main:third_party/webrtc/test/field_trial.cc?\n\nThis way they will be marked testonly.",
+      "range": {
+        "startLine": 101,
+        "startChar": 0,
+        "endLine": 107,
+        "endChar": 42
+      },
+      "revId": "2fc40911e8c47d4cbc80b4129e9b06ad97652afb",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "8137f777_cf3e69b7",
+        "filename": "webrtc.gni",
+        "patchSetId": 3
+      },
+      "lineNbr": 231,
+      "author": {
+        "id": 5087
+      },
+      "writtenOn": "2022-09-22T07:18:19Z",
+      "side": 1,
+      "message": "since it is a DCHECK, let\u0027s mention this only affects builds with DCHECKs (debug build or builds with dcheck_always_on\u003dtrue)?",
+      "range": {
+        "startLine": 231,
+        "startChar": 33,
+        "endLine": 231,
+        "endChar": 38
+      },
+      "revId": "2fc40911e8c47d4cbc80b4129e9b06ad97652afb",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

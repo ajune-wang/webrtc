@@ -1,0 +1,38 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "195205ba_4ddf785c",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5142
+      },
+      "writtenOn": "2022-09-22T09:50:16Z",
+      "side": 1,
+      "message": "Thanks for your stats contributions as always! Much appreciated",
+      "revId": "4760dc0c6b96c00de0a738efb076162a4b064cd1",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "9aff1449_4f4555ca",
+        "filename": "pc/rtc_stats_collector.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 692,
+      "author": {
+        "id": 5142
+      },
+      "writtenOn": "2022-09-22T09:50:16Z",
+      "side": 1,
+      "message": "Please update cricket::VideoSenderInfo::target_bitrate from double to absl::optional\u003cdouble\u003e, I don\u0027t know whether or not it is set correctly and right now it has a default value of 0.0.\n\nTangent: This bit us in the past for another metric, where we accidentally unshipped totalEncodedBytesTarget in simulcast after some refactoring, which questioned whether this metric should even exist. I argue that we should fix the bug, but see spec question here: https://github.com/w3c/webrtc-stats/issues/653\n\nTo avoid similar issues with targetBitrate, please use optional :)",
+      "revId": "4760dc0c6b96c00de0a738efb076162a4b064cd1",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

@@ -49,6 +49,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "bf3e4350_e78fba81",
+        "filename": "api/video/video_source_interface.h",
+        "patchSetId": 5
+      },
+      "lineNbr": 87,
+      "author": {
+        "id": 5142
+      },
+      "writtenOn": "2022-09-22T11:50:34Z",
+      "side": 1,
+      "message": "My understanding is that the \"wants\" that are pushed up from the VSE is just one, but upper layers can aggregate multiple \"wants\" so that the \"wants\" that ends up at the source contains aggregate information (hence the Aggregate struct).",
+      "parentUuid": "bcee6e16_a9b253c4",
+      "range": {
+        "startLine": 87,
+        "startChar": 43,
+        "endLine": 87,
+        "endChar": 46
+      },
+      "revId": "77ea384f30bd89696b6bf8756bc8daf2a857bd4d",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "f6731799_622d7373",
         "filename": "api/video_codecs/video_encoder_config.h",
         "patchSetId": 5

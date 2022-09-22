@@ -124,6 +124,24 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "d05d5219_394318cc",
+        "filename": "api/rtp_parameters.h",
+        "patchSetId": 3
+      },
+      "lineNbr": 511,
+      "author": {
+        "id": 5613
+      },
+      "writtenOn": "2022-09-22T13:21:18Z",
+      "side": 1,
+      "message": "re 10 places: SGTM",
+      "parentUuid": "8f602231_cbef1188",
+      "revId": "3dd374e8274529bd5adae9931d9c7fd42f32920d",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "8943ac8b_8629f113",

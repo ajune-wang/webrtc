@@ -24,6 +24,30 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "f5195073_397b443e",
+        "filename": "api/test/peerconnection_quality_test_fixture.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 156,
+      "author": {
+        "id": 7036
+      },
+      "writtenOn": "2022-09-22T16:48:18Z",
+      "side": 1,
+      "message": "We should remove it in favor of a helper functions that create an adequate encoding_params struct. But one thing at a time.",
+      "parentUuid": "1f6b688e_580597b9",
+      "range": {
+        "startLine": 147,
+        "startChar": 2,
+        "endLine": 156,
+        "endChar": 4
+      },
+      "revId": "0d4aad987b0b17a8f196781ebfe864aedbfa7a7a",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "ad8b513f_b0c7fbbf",
@@ -37,6 +61,30 @@
       "writtenOn": "2022-09-22T09:01:28Z",
       "side": 1,
       "message": "Will setting only of this field enable simulated SFU, or the fact that `VideoConifg` contains `emulated_sfu_config` will enable emulated SFU?",
+      "range": {
+        "startLine": 199,
+        "startChar": 24,
+        "endLine": 199,
+        "endChar": 42
+      },
+      "revId": "0d4aad987b0b17a8f196781ebfe864aedbfa7a7a",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "0b9c3c15_f24a682d",
+        "filename": "api/test/peerconnection_quality_test_fixture.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 199,
+      "author": {
+        "id": 7036
+      },
+      "writtenOn": "2022-09-22T16:48:18Z",
+      "side": 1,
+      "message": "Technically, the SFU code is always present, but will only discard anything if one of those parameters is set. Adjusted the second comment to reflect that.\nOtherwise, it\u0027s a no-op and invisible to the users.",
+      "parentUuid": "ad8b513f_b0c7fbbf",
       "range": {
         "startLine": 199,
         "startChar": 24,
@@ -70,6 +118,30 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "7af9c07e_edb5da5a",
+        "filename": "api/test/peerconnection_quality_test_fixture.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 345,
+      "author": {
+        "id": 7036
+      },
+      "writtenOn": "2022-09-22T16:48:18Z",
+      "side": 1,
+      "message": "simulcast_config isn\u0027t really expected to be used now that there is the superior `encoding_params` though!",
+      "parentUuid": "59aea20e_8d7b5bf6",
+      "range": {
+        "startLine": 344,
+        "startChar": 4,
+        "endLine": 345,
+        "endChar": 58
+      },
+      "revId": "0d4aad987b0b17a8f196781ebfe864aedbfa7a7a",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "733e858d_bbdd861d",
@@ -83,6 +155,30 @@
       "writtenOn": "2022-09-22T09:01:28Z",
       "side": 1,
       "message": "Can we use real type here, otherwise it\u0027s really hard to understand what it can be? Same below",
+      "range": {
+        "startLine": 284,
+        "startChar": 13,
+        "endLine": 284,
+        "endChar": 17
+      },
+      "revId": "0d4aad987b0b17a8f196781ebfe864aedbfa7a7a",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "12c21f37_d21dea91",
+        "filename": "pc/test/svc_e2e_tests.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 284,
+      "author": {
+        "id": 7036
+      },
+      "writtenOn": "2022-09-22T16:48:18Z",
+      "side": 1,
+      "message": "Changed that to a structured bindings with better naming, which is the recommended way to make the code clearer (or the templates will obfuscate the code).",
+      "parentUuid": "733e858d_bbdd861d",
       "range": {
         "startLine": 284,
         "startChar": 13,
@@ -116,6 +212,30 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "4d863973_7916870a",
+        "filename": "test/pc/e2e/analyzer/video/quality_analyzing_video_encoder.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 141,
+      "author": {
+        "id": 7036
+      },
+      "writtenOn": "2022-09-22T16:48:18Z",
+      "side": 1,
+      "message": "A single layer is just a special case about simulcast / SVC. Adjusted the comment not to mention that for clarity.",
+      "parentUuid": "23dd448a_b7e6df8a",
+      "range": {
+        "startLine": 141,
+        "startChar": 67,
+        "endLine": 141,
+        "endChar": 68
+      },
+      "revId": "0d4aad987b0b17a8f196781ebfe864aedbfa7a7a",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "ff6f5389_4f229eee",
@@ -129,6 +249,30 @@
       "writtenOn": "2022-09-22T09:01:28Z",
       "side": 1,
       "message": "This one can be nullopt.",
+      "range": {
+        "startLine": 149,
+        "startChar": 56,
+        "endLine": 149,
+        "endChar": 74
+      },
+      "revId": "0d4aad987b0b17a8f196781ebfe864aedbfa7a7a",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "e4429c9e_cd4dca47",
+        "filename": "test/pc/e2e/peer_configurer.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 149,
+      "author": {
+        "id": 7036
+      },
+      "writtenOn": "2022-09-22T16:48:18Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "ff6f5389_4f229eee",
       "range": {
         "startLine": 149,
         "startChar": 56,
@@ -162,6 +306,30 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "13718997_1730c6b2",
+        "filename": "test/pc/e2e/peer_configurer.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 169,
+      "author": {
+        "id": 7036
+      },
+      "writtenOn": "2022-09-22T16:48:18Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "5de51696_235e351a",
+      "range": {
+        "startLine": 169,
+        "startChar": 18,
+        "endLine": 169,
+        "endChar": 27
+      },
+      "revId": "0d4aad987b0b17a8f196781ebfe864aedbfa7a7a",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "2d816609_eb199b46",
@@ -185,6 +353,30 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "839397ad_66af90b5",
+        "filename": "test/pc/e2e/peer_configurer.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 170,
+      "author": {
+        "id": 7036
+      },
+      "writtenOn": "2022-09-22T16:48:18Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "2d816609_eb199b46",
+      "range": {
+        "startLine": 170,
+        "startChar": 58,
+        "endLine": 170,
+        "endChar": 76
+      },
+      "revId": "0d4aad987b0b17a8f196781ebfe864aedbfa7a7a",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "8f4bcc33_e2e61fd6",
@@ -198,6 +390,30 @@
       "writtenOn": "2022-09-22T09:01:28Z",
       "side": 1,
       "message": "It can be nullopt",
+      "range": {
+        "startLine": 174,
+        "startChar": 58,
+        "endLine": 174,
+        "endChar": 76
+      },
+      "revId": "0d4aad987b0b17a8f196781ebfe864aedbfa7a7a",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "95c71acd_d7e81609",
+        "filename": "test/pc/e2e/peer_configurer.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 174,
+      "author": {
+        "id": 7036
+      },
+      "writtenOn": "2022-09-22T16:48:18Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "8f4bcc33_e2e61fd6",
       "range": {
         "startLine": 174,
         "startChar": 58,

@@ -184,6 +184,30 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "35acd369_ca82abd2",
+        "filename": "api/video/video_source_interface.h",
+        "patchSetId": 5
+      },
+      "lineNbr": 87,
+      "author": {
+        "id": 5023
+      },
+      "writtenOn": "2022-09-22T12:35:03Z",
+      "side": 1,
+      "message": "`that one has easy defined meaning also in aggregate,\nso it\u0027s used for both 1 and aggregated case.` \u003c- ok, that explains it. Feels a bit messy to have a mix of \"not aggregated\", \"maybe aggregated\" and \"definitely aggregated\" fields, but I guess we have to since the struct is used differently before and after the broadcaster.",
+      "parentUuid": "47b6cb1d_a8a4296a",
+      "range": {
+        "startLine": 87,
+        "startChar": 43,
+        "endLine": 87,
+        "endChar": 46
+      },
+      "revId": "77ea384f30bd89696b6bf8756bc8daf2a857bd4d",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "f6731799_622d7373",

@@ -26,6 +26,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "59be70f7_ff461f7b",
+        "filename": "system_wrappers/include/field_trial.h",
+        "patchSetId": 3
+      },
+      "lineNbr": 107,
+      "author": {
+        "id": 13704
+      },
+      "writtenOn": "2022-09-22T08:19:42Z",
+      "side": 1,
+      "message": "Yes, since they are global they don\u0027t have to live here. I still see an argument for keeping them close since they should be removed once the global string is removed.",
+      "parentUuid": "72b6f3bb_76fe5b94",
+      "range": {
+        "startLine": 101,
+        "startChar": 0,
+        "endLine": 107,
+        "endChar": 42
+      },
+      "revId": "2fc40911e8c47d4cbc80b4129e9b06ad97652afb",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "8137f777_cf3e69b7",
         "filename": "webrtc.gni",
         "patchSetId": 3

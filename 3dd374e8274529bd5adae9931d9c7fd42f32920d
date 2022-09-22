@@ -18,6 +18,23 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "4152c1e6_06ea3133",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 3
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5613
+      },
+      "writtenOn": "2022-09-22T10:15:12Z",
+      "side": 1,
+      "message": "thanks and PTAL",
+      "revId": "3dd374e8274529bd5adae9931d9c7fd42f32920d",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "13c3cf16_19e7aca5",
@@ -31,6 +48,24 @@
       "writtenOn": "2022-09-22T09:23:23Z",
       "side": 1,
       "message": "Question for my own understanding, what if anything is the difference between the OnOutputFormatRequest signal and the signal that reaches the source? Different paths or two APIs for the same thing?",
+      "revId": "3dd374e8274529bd5adae9931d9c7fd42f32920d",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "9a0f62dd_809c84f3",
+        "filename": "api/rtp_parameters.h",
+        "patchSetId": 3
+      },
+      "lineNbr": 511,
+      "author": {
+        "id": 5613
+      },
+      "writtenOn": "2022-09-22T10:15:12Z",
+      "side": 1,
+      "message": "not sure about the alternatives 😊\nMy thinking is that the 2 APIs provide identical functionality\n(e.g a way to specify encode resolution).\n\nThe actual implementation is obviously different, and using the new\none can maybe avoid key-frames or reinit if they are not needed.\n\nDoes that answer the question ?",
+      "parentUuid": "13c3cf16_19e7aca5",
       "revId": "3dd374e8274529bd5adae9931d9c7fd42f32920d",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
@@ -70,6 +105,24 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "a5501bab_d766107f",
+        "filename": "api/rtp_parameters.h",
+        "patchSetId": 3
+      },
+      "lineNbr": 513,
+      "author": {
+        "id": 5613
+      },
+      "writtenOn": "2022-09-22T10:15:12Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "0e5a464e_9869994a",
+      "revId": "3dd374e8274529bd5adae9931d9c7fd42f32920d",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "bc441a1f_9827c7a6",
@@ -83,6 +136,24 @@
       "writtenOn": "2022-09-22T09:23:23Z",
       "side": 1,
       "message": "nit: `.",
+      "revId": "3dd374e8274529bd5adae9931d9c7fd42f32920d",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "fd546221_1ce444d6",
+        "filename": "api/rtp_parameters.h",
+        "patchSetId": 3
+      },
+      "lineNbr": 518,
+      "author": {
+        "id": 5613
+      },
+      "writtenOn": "2022-09-22T10:15:12Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "bc441a1f_9827c7a6",
       "revId": "3dd374e8274529bd5adae9931d9c7fd42f32920d",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
@@ -236,6 +307,24 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "ef3d947c_f088cb14",
+        "filename": "api/video_codecs/video_encoder_config.h",
+        "patchSetId": 3
+      },
+      "lineNbr": 78,
+      "author": {
+        "id": 5613
+      },
+      "writtenOn": "2022-09-22T10:15:12Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "a9e23c7f_12da0e48",
+      "revId": "3dd374e8274529bd5adae9931d9c7fd42f32920d",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "78992d60_2668084b",
@@ -249,6 +338,24 @@
       "writtenOn": "2022-09-22T09:23:23Z",
       "side": 1,
       "message": "The resolution we surface upward is always the highest resolution, even if the top layer is currently disabled? It probably makes sense just checking.",
+      "revId": "3dd374e8274529bd5adae9931d9c7fd42f32920d",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "d1682253_4d7028cb",
+        "filename": "video/video_stream_encoder.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 1151,
+      "author": {
+        "id": 5613
+      },
+      "writtenOn": "2022-09-22T10:15:12Z",
+      "side": 1,
+      "message": "I added note.\nBut, it is actually either way...(but singlecast should be the same)\n\n@brandtr WDYT ?",
+      "parentUuid": "78992d60_2668084b",
       "revId": "3dd374e8274529bd5adae9931d9c7fd42f32920d",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }

@@ -194,6 +194,30 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "f82269b6_e5bf6ef0",
+        "filename": "media/base/video_broadcaster.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 168,
+      "author": {
+        "id": 5117
+      },
+      "writtenOn": "2022-09-22T08:36:41Z",
+      "side": 1,
+      "message": "Makes sense.\nI don\u0027t like this approach exactly, but I can\u0027t think of anything better.\n\nIdeally SinkWants should be \"aggregable\". e.g. if some sink wants alignment 1, and another one wants 2, when it can be viewed as a single sink with alignment requirement of 2. The same for max framerate request: we can take a min of all them.\n\nHowever, this logic doesn\u0027t apply as neatly in this case.\n\nAlso, Please add a TODO to split this struct eventually. I agree, it\u0027s a good idea.",
+      "parentUuid": "72f04afe_615c671a",
+      "range": {
+        "startLine": 168,
+        "startChar": 12,
+        "endLine": 168,
+        "endChar": 22
+      },
+      "revId": "9a0c75a10b2d6fa82393152e4d7d8d2efd116120",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "297047b5_ffc4c338",
@@ -272,6 +296,24 @@
       "side": 1,
       "message": "that was deliberate....",
       "parentUuid": "f4a5eb1f_a16eda25",
+      "revId": "9a0c75a10b2d6fa82393152e4d7d8d2efd116120",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "4f10137a_051c60b6",
+        "filename": "video/video_stream_encoder.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 1166,
+      "author": {
+        "id": 5117
+      },
+      "writtenOn": "2022-09-22T08:36:41Z",
+      "side": 1,
+      "message": "Ok, it just looked like an accidental change.",
+      "parentUuid": "ab955eb4_8b451460",
       "revId": "9a0c75a10b2d6fa82393152e4d7d8d2efd116120",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }

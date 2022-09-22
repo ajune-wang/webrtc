@@ -158,6 +158,8 @@ if (rtc_include_tests) {
     }
 
     if (rtc_desktop_capture_supported) {
+      public_configs = [ ":x11_config" ]
+
       sources += [
         "screen_capturer_helper_unittest.cc",
         "screen_capturer_unittest.cc",
@@ -165,6 +167,32 @@ if (rtc_include_tests) {
       ]
       if (is_mac) {
         sources += [ "screen_capturer_mac_unittest.cc" ]
+      }
+      if (is_linux && rtc_use_pipewire) {
+        sources += [
+          "linux/wayland/shared_screencast_stream_unittest.cc",
+          "linux/wayland/test_support/fake_screencast_stream.cc",
+          "linux/wayland/test_support/fake_screencast_stream.h",
+        ]
+
+        configs += [
+          ":pipewire",
+          ":gbm",
+          ":egl",
+          ":epoxy",
+          ":libdrm",
+        ]
+
+        if (!rtc_link_pipewire) {
+          deps += [ ":pipewire_stubs" ]
+        }
+
+        deps += [
+          "//api/units:time_delta",
+          "//rtc_base:rtc_event",
+        ]
+
+        public_configs += [ ":pipewire_config" ]
       }
       if (rtc_enable_win_wgc) {
         sources += [
@@ -176,7 +204,6 @@ if (rtc_include_tests) {
         ":desktop_capture_mock",
         "../../system_wrappers:metrics",
       ]
-      public_configs = [ ":x11_config" ]
     }
   }
 

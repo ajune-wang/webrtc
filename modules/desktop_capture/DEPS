@@ -1,6 +1,9 @@
 include_rules = [
   "+system_wrappers",
+  "+third_party/libdrm",
   "+third_party/libyuv",
+  "+third_party/pipewire",
+  "+third_party/pipewire-media-session",
 ]
 
 specific_include_rules = {

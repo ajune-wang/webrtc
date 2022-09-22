@@ -52,6 +52,24 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "7f480ffd_b33061cd",
+        "filename": "call/degraded_call.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 150,
+      "author": {
+        "id": 9405
+      },
+      "writtenOn": "2022-09-22T07:15:28Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "eda6ddea_402435ae",
+      "revId": "72c2e59e2c7cb253c6499036991db8edc99dae81",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "af9e752b_78b5700e",
@@ -65,6 +83,24 @@
       "writtenOn": "2022-09-21T14:08:30Z",
       "side": 1,
       "message": "is this safe usage of `receiver`? Since the `alive_flag_` state is not changed when the ThreadedPacketReceiver instance goes out of scope, how can we be sure that this task gets cancelled before the object pointed to here, is deleted?",
+      "revId": "72c2e59e2c7cb253c6499036991db8edc99dae81",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "9387d051_de6d9947",
+        "filename": "call/degraded_call.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 154,
+      "author": {
+        "id": 9405
+      },
+      "writtenOn": "2022-09-22T07:15:28Z",
+      "side": 1,
+      "message": "You\u0027re right. It isn\u0027t safe. I had to use synchronous calls to do things right.\n\nLike many others, I don\u0027t like synchronous calls. So, I added a separate CL for removing synchronous calls.",
+      "parentUuid": "af9e752b_78b5700e",
       "revId": "72c2e59e2c7cb253c6499036991db8edc99dae81",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }

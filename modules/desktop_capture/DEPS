@@ -17,3 +17,19 @@ specific_include_rules = {
     "+sdk/objc",
   ],
 }
+
+deps = {
+  'src/third_party/pipewire': {
+
+    'packages': [
+      {
+        'package': 'chromium/third_party/pipewire',
+        'version': '0.3.55',
+      },
+    ],
+
+    # As with git-based DEPS entries, 'condition' is optional.
+    'condition': 'checkout_linux',
+    'dep_type': 'cipd',
+  },
+}

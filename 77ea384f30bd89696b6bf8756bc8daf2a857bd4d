@@ -1,6 +1,23 @@
 {
   "comments": [
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "71a98763_20ca82f5",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 5
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5613
+      },
+      "writtenOn": "2022-09-22T12:28:32Z",
+      "side": 1,
+      "message": "thanks, new version again!",
+      "revId": "77ea384f30bd89696b6bf8756bc8daf2a857bd4d",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "a701000d_25b88eaa",
@@ -14,6 +31,30 @@
       "writtenOn": "2022-09-22T11:47:31Z",
       "side": 1,
       "message": "A",
+      "range": {
+        "startLine": 16,
+        "startChar": 3,
+        "endLine": 16,
+        "endChar": 5
+      },
+      "revId": "77ea384f30bd89696b6bf8756bc8daf2a857bd4d",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "2c46fb89_eb2dcf84",
+        "filename": "api/video/resolution.h",
+        "patchSetId": 5
+      },
+      "lineNbr": 16,
+      "author": {
+        "id": 5613
+      },
+      "writtenOn": "2022-09-22T12:28:32Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "a701000d_25b88eaa",
       "range": {
         "startLine": 16,
         "startChar": 3,
@@ -71,6 +112,30 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "7b14fceb_19b655c6",
+        "filename": "api/video/video_source_interface.h",
+        "patchSetId": 5
+      },
+      "lineNbr": 87,
+      "author": {
+        "id": 5613
+      },
+      "writtenOn": "2022-09-22T12:28:32Z",
+      "side": 1,
+      "message": "that one has easy defined meaning also in aggregate,\nso it\u0027s used for both 1 and aggregated case.",
+      "parentUuid": "bf3e4350_e78fba81",
+      "range": {
+        "startLine": 87,
+        "startChar": 43,
+        "endLine": 87,
+        "endChar": 46
+      },
+      "revId": "77ea384f30bd89696b6bf8756bc8daf2a857bd4d",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "f6731799_622d7373",
@@ -84,6 +149,24 @@
       "writtenOn": "2022-09-22T11:42:51Z",
       "side": 1,
       "message": "nit: Add:\n\nThe width/height can be less than `requested_resolution` due to adaptation or due to the source providing smaller frames than requested.",
+      "revId": "77ea384f30bd89696b6bf8756bc8daf2a857bd4d",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "571d67c9_2793ee0a",
+        "filename": "api/video_codecs/video_encoder_config.h",
+        "patchSetId": 5
+      },
+      "lineNbr": 38,
+      "author": {
+        "id": 5613
+      },
+      "writtenOn": "2022-09-22T12:28:32Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "f6731799_622d7373",
       "revId": "77ea384f30bd89696b6bf8756bc8daf2a857bd4d",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
@@ -111,6 +194,30 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "8d362b11_5e4bcd3a",
+        "filename": "video/video_stream_encoder.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 1133,
+      "author": {
+        "id": 5613
+      },
+      "writtenOn": "2022-09-22T12:28:32Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "2779af13_1b2449f3",
+      "range": {
+        "startLine": 1133,
+        "startChar": 40,
+        "endLine": 1133,
+        "endChar": 49
+      },
+      "revId": "77ea384f30bd89696b6bf8756bc8daf2a857bd4d",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "2cbc362b_0122eff7",
@@ -124,6 +231,30 @@
       "writtenOn": "2022-09-22T11:47:31Z",
       "side": 1,
       "message": "This might change the aspect ratio to one that none of the layers is requesting. Is that intentional?\n\nWould it not be more robust to look at pixel count instead?",
+      "range": {
+        "startLine": 1150,
+        "startChar": 12,
+        "endLine": 1153,
+        "endChar": 52
+      },
+      "revId": "77ea384f30bd89696b6bf8756bc8daf2a857bd4d",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "fb14baa7_f7816247",
+        "filename": "video/video_stream_encoder.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 1153,
+      "author": {
+        "id": 5613
+      },
+      "writtenOn": "2022-09-22T12:28:32Z",
+      "side": 1,
+      "message": "discussed offline.\nlet\u0027s keep it like this, and we can change later if needed.",
+      "parentUuid": "2cbc362b_0122eff7",
       "range": {
         "startLine": 1150,
         "startChar": 12,

@@ -90,6 +90,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "f6ff6948_36d3bd03",
+        "filename": "api/rtp_parameters.h",
+        "patchSetId": 3
+      },
+      "lineNbr": 511,
+      "author": {
+        "id": 5613
+      },
+      "writtenOn": "2022-09-22T12:28:32Z",
+      "side": 1,
+      "message": "OnOutputFormatRequest is an alternative way of telling the source what resolution we want. It is before this patch the only way (but it is not in the api/-folder!)\n\nI think we should deprecate OnOutputFormatRequest once this API is complete.\nBut...since \"everyone\" is using it...since it is the only way...it will \"never\"\ngo away anyway.\n\nMake sense ?",
+      "parentUuid": "c46bcbd8_d56dee4b",
+      "revId": "3dd374e8274529bd5adae9931d9c7fd42f32920d",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "8943ac8b_8629f113",
         "filename": "api/rtp_parameters.h",
         "patchSetId": 3
@@ -423,6 +441,30 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "e9a8b0bc_506340dc",
+        "filename": "api/video/video_source_interface.h",
+        "patchSetId": 3
+      },
+      "lineNbr": 82,
+      "author": {
+        "id": 5613
+      },
+      "writtenOn": "2022-09-22T12:28:32Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "2a5fa344_c4f30bbb",
+      "range": {
+        "startLine": 82,
+        "startChar": 2,
+        "endLine": 82,
+        "endChar": 37
+      },
+      "revId": "3dd374e8274529bd5adae9931d9c7fd42f32920d",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "37d273f2_5260cd68",
@@ -554,6 +596,24 @@
       "side": 1,
       "message": "Not sure I understand the question for me?\n\nMy question for you: Do we need to signal the highest resolution (regardless of its `active` state), to avoid issues when going `active\u003dfalse` -\u003e `active\u003dtrue` for that particular layer?",
       "parentUuid": "d1682253_4d7028cb",
+      "revId": "3dd374e8274529bd5adae9931d9c7fd42f32920d",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "fb769837_47d87da1",
+        "filename": "video/video_stream_encoder.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 1151,
+      "author": {
+        "id": 5613
+      },
+      "writtenOn": "2022-09-22T12:28:32Z",
+      "side": 1,
+      "message": "that was my question for you 😊\nI added a note.",
+      "parentUuid": "d06150a3_93c6baaf",
       "revId": "3dd374e8274529bd5adae9931d9c7fd42f32920d",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }

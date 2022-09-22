@@ -1,6 +1,23 @@
 {
   "comments": [
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "e09fcbcd_d11df420",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5613
+      },
+      "writtenOn": "2022-09-22T07:54:02Z",
+      "side": 1,
+      "message": "thanks and PTAL",
+      "revId": "9a0c75a10b2d6fa82393152e4d7d8d2efd116120",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "3f24ea60_0677e9a5",
@@ -14,6 +31,30 @@
       "writtenOn": "2022-09-21T13:00:43Z",
       "side": 1,
       "message": "Why is it RenderResolution? \n\nIt\u0027s not rendered. If anything, that would be encoded resolution.\nI understand, that this is the already existing \"resolution\" type, but we also have EncodedResolution [1]\n\nThere\u0027s also FrameSize [2]\n\nBut I think the best way forward would be to actually create a new class, named Resolution and replace both EncodedResolution and RenderResolution.\n\n[1] https://source.chromium.org/chromium/chromium/src/+/main:third_party/webrtc/api/video/recordable_encoded_frame.h;l\u003d27;drc\u003d7c8c4db8ea600e87fae0867b031552a5a8967876\n\n[2] https://source.chromium.org/chromium/chromium/src/+/main:third_party/webrtc/api/video/video_source_interface.h;l\u003d26;drc\u003d2e2a3f0e7c0fe84ee0220cabc5ce1a690e48cd70",
+      "range": {
+        "startLine": 519,
+        "startChar": 17,
+        "endLine": 519,
+        "endChar": 33
+      },
+      "revId": "9a0c75a10b2d6fa82393152e4d7d8d2efd116120",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "eeda6ced_fe91a10e",
+        "filename": "api/rtp_parameters.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 519,
+      "author": {
+        "id": 5613
+      },
+      "writtenOn": "2022-09-22T07:54:02Z",
+      "side": 1,
+      "message": "Done partially,\ncreated Resolution class and filed https://bugs.chromium.org/p/webrtc/issues/detail?id\u003d14454",
+      "parentUuid": "3f24ea60_0677e9a5",
       "range": {
         "startLine": 519,
         "startChar": 17,
@@ -49,6 +90,30 @@
     {
       "unresolved": false,
       "key": {
+        "uuid": "4ea37e50_813e79a9",
+        "filename": "api/video_codecs/video_encoder_config.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 78,
+      "author": {
+        "id": 5613
+      },
+      "writtenOn": "2022-09-22T07:54:02Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "5163adef_ca12253e",
+      "range": {
+        "startLine": 78,
+        "startChar": 17,
+        "endLine": 78,
+        "endChar": 33
+      },
+      "revId": "9a0c75a10b2d6fa82393152e4d7d8d2efd116120",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
         "uuid": "5d8cc436_d0b58227",
         "filename": "media/base/video_broadcaster.cc",
         "patchSetId": 2
@@ -60,6 +125,24 @@
       "writtenOn": "2022-09-21T13:00:43Z",
       "side": 1,
       "message": "nit: extra new line.",
+      "revId": "9a0c75a10b2d6fa82393152e4d7d8d2efd116120",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "232a91de_870584f8",
+        "filename": "media/base/video_broadcaster.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 127,
+      "author": {
+        "id": 5613
+      },
+      "writtenOn": "2022-09-22T07:54:02Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "5d8cc436_d0b58227",
       "revId": "9a0c75a10b2d6fa82393152e4d7d8d2efd116120",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
@@ -77,6 +160,30 @@
       "writtenOn": "2022-09-21T13:00:43Z",
       "side": 1,
       "message": "What is this aggregates? It\u0027s something recent, and I don\u0027t see it CS or in this CL. Where was it added?\n\nDon\u0027t understand either why is it updated only if there\u0027s no |requested_resolution|.",
+      "range": {
+        "startLine": 168,
+        "startChar": 12,
+        "endLine": 168,
+        "endChar": 22
+      },
+      "revId": "9a0c75a10b2d6fa82393152e4d7d8d2efd116120",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "72f04afe_615c671a",
+        "filename": "media/base/video_broadcaster.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 168,
+      "author": {
+        "id": 5613
+      },
+      "writtenOn": "2022-09-22T07:54:02Z",
+      "side": 1,
+      "message": "it is in this cl/\n\nthe VideoSinkWants is currently sent from \na) the encoder to the broadcaster\nb) the broadcaster to the video source\n\nin a) it represents 1 wants\nin b) it is an aggregate of potentially several\n\nI added the inlined struct Aggregates for b)\nand it is only set with value in that case.\n\n(I discussed this with hbos)\n\nPersonally I think it would be better to have different structs \nin a) and b)...but that is a huge change.\n\nWDYT",
+      "parentUuid": "bb23b56d_5e5fa78e",
       "range": {
         "startLine": 168,
         "startChar": 12,
@@ -112,6 +219,30 @@
     {
       "unresolved": false,
       "key": {
+        "uuid": "5ca3461c_ac59abc8",
+        "filename": "video/video_source_sink_controller.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 95,
+      "author": {
+        "id": 5613
+      },
+      "writtenOn": "2022-09-22T07:54:02Z",
+      "side": 1,
+      "message": "thanks!\nkeso is cottage cheese.",
+      "parentUuid": "297047b5_ffc4c338",
+      "range": {
+        "startLine": 95,
+        "startChar": 23,
+        "endLine": 95,
+        "endChar": 27
+      },
+      "revId": "9a0c75a10b2d6fa82393152e4d7d8d2efd116120",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
         "uuid": "f4a5eb1f_a16eda25",
         "filename": "video/video_stream_encoder.cc",
         "patchSetId": 2
@@ -123,6 +254,24 @@
       "writtenOn": "2022-09-21T13:00:43Z",
       "side": 1,
       "message": "nit: extra new line.",
+      "revId": "9a0c75a10b2d6fa82393152e4d7d8d2efd116120",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "ab955eb4_8b451460",
+        "filename": "video/video_stream_encoder.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 1166,
+      "author": {
+        "id": 5613
+      },
+      "writtenOn": "2022-09-22T07:54:02Z",
+      "side": 1,
+      "message": "that was deliberate....",
+      "parentUuid": "f4a5eb1f_a16eda25",
       "revId": "9a0c75a10b2d6fa82393152e4d7d8d2efd116120",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }

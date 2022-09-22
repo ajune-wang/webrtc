@@ -1,6 +1,52 @@
 {
   "comments": [
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "f393a31e_09b427a5",
+        "filename": "api/field_trials_registry.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 38,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2022-09-22T09:23:07Z",
+      "side": 1,
+      "message": "or\nRegisterKeysForTesting(flat_map\u003cstd::string\u003e test_keys) {\n  test_keys_ \u003d std::move(test_keys);\n}\n\nthen test code might be able to write\n\nregistry_.RegisterKeysForTesting({\"test_key1\", \"test_key2\"});",
+      "range": {
+        "startLine": 33,
+        "startChar": 26,
+        "endLine": 38,
+        "endChar": 1
+      },
+      "revId": "41f4c513c8d6aed3dac86f6e97aa4aa48060380f",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "81c25aec_92c3c718",
+        "filename": "api/field_trials_registry.h",
+        "patchSetId": 3
+      },
+      "lineNbr": 25,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2022-09-22T09:23:07Z",
+      "side": 1,
+      "message": "what is the plan for \nFieldTrialsRegistry vs FieldTrialsView ?\nwill they coexist or is there plan to merge them?",
+      "range": {
+        "startLine": 25,
+        "startChar": 17,
+        "endLine": 25,
+        "endChar": 61
+      },
+      "revId": "41f4c513c8d6aed3dac86f6e97aa4aa48060380f",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "9fc6b170_ac2173fe",

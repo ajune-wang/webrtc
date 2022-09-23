@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "d1d31800_7dcaf056",
+        "filename": "test/test_main_lib.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 147,
+      "author": {
+        "id": 12234
+      },
+      "writtenOn": "2022-09-23T10:03:31Z",
+      "side": 1,
+      "message": "Maybe I\u0027m paranoid but I would move it all the way in the #else.\nIn this state some code is executed before the global metric is instantiated for iOS and after the global metric is instantiated for other os.",
+      "range": {
+        "startLine": 133,
+        "startChar": 0,
+        "endLine": 147,
+        "endChar": 6
+      },
+      "revId": "c7498267d8ec122437cc0d8b891d2ebca4ce694f",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

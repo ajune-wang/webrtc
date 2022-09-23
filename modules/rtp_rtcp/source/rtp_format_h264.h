@@ -26,6 +26,16 @@
 
 namespace webrtc {
 
+// Bit masks for FU (A and B) indicators.
+enum class NalDefs : uint8_t {
+  kFBit = 0x80,
+  kNriMask = 0x60,
+  kTypeMask = 0x1F
+};
+
+// Bit masks for FU (A and B) headers.
+enum class FuDefs : uint8_t { kSBit = 0x80, kEBit = 0x40, kRBit = 0x20 };
+
 class RtpPacketizerH264 : public RtpPacketizer {
  public:
   // Initialize with payload from encoder.

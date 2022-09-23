@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "e50cd6db_1a6dd5d2",
+        "filename": "test/ios/test_support.mm",
+        "patchSetId": 2
+      },
+      "lineNbr": 99,
+      "author": {
+        "id": 5087
+      },
+      "writtenOn": "2022-09-23T08:50:27Z",
+      "side": 1,
+      "message": "If we use the new API, we are not going to write the perftest-output.pb but I am not sure who is going to read this.\n\nIIUC the new exporter are not going to write such file, and I am concerned this will break something in the perf tests.\n\nMaybe involve jleconte@ here?",
+      "range": {
+        "startLine": 99,
+        "startChar": 2,
+        "endLine": 99,
+        "endChar": 39
+      },
+      "revId": "da33fc163583caf823bf6265194db015880e0559",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

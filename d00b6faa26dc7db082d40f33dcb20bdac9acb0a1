@@ -24,6 +24,30 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "7350f024_0c6b91d3",
+        "filename": "test/test_main_lib.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 114,
+      "author": {
+        "id": 6337
+      },
+      "writtenOn": "2022-09-23T09:59:24Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "9faa6dfa_924544aa",
+      "range": {
+        "startLine": 114,
+        "startChar": 0,
+        "endLine": 114,
+        "endChar": 18
+      },
+      "revId": "d00b6faa26dc7db082d40f33dcb20bdac9acb0a1",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "34cdb4fb_393df51f",
@@ -37,6 +61,30 @@
       "writtenOn": "2022-09-23T09:37:39Z",
       "side": 1,
       "message": "Can we move this in the \u0027Run\u0027 function to be coherent with the iOS code ?",
+      "range": {
+        "startLine": 114,
+        "startChar": 0,
+        "endLine": 128,
+        "endChar": 6
+      },
+      "revId": "d00b6faa26dc7db082d40f33dcb20bdac9acb0a1",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "cad6767b_5455b7e0",
+        "filename": "test/test_main_lib.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 128,
+      "author": {
+        "id": 6337
+      },
+      "writtenOn": "2022-09-23T09:59:24Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "34cdb4fb_393df51f",
       "range": {
         "startLine": 114,
         "startChar": 0,

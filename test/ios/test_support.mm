@@ -10,6 +10,11 @@
 
 #import <UIKit/UIKit.h>
 
+#include "api/test/metrics/chrome_perf_dashboard_metrics_exporter.h"
+#include "api/test/metrics/global_metrics_logger_and_exporter.h"
+#include "api/test/metrics/metrics_exporter.h"
+#include "api/test/metrics/print_result_proxy_metrics_exporter.h"
+#include "api/test/metrics/stdout_metrics_exporter.h"
 #include "test/ios/coverage_util_ios.h"
 #include "test/ios/google_test_runner_delegate.h"
 #include "test/ios/test_support.h"
@@ -38,6 +43,7 @@ static int (*g_test_suite)(void) = NULL;
 static int g_argc;
 static char **g_argv;
 static bool g_write_perf_output;
+static bool g_export_perf_results_new_api;
 static absl::optional<bool> g_is_xctest;
 static absl::optional<std::vector<std::string>> g_metrics_to_plot;
 
@@ -89,21 +95,24 @@ static absl::optional<std::vector<std::string>> g_metrics_to_plot;
 
   int exitStatus = g_test_suite();
 
-  if (g_write_perf_output) {
-    // Stores data into a proto file under the app's document directory.
-    NSString *fileName = @"perftest-output.pb";
-    NSArray<NSString *> *outputDirectories =
-        NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);
-    if ([outputDirectories count] != 0) {
-      NSString *outputPath = [outputDirectories[0] stringByAppendingPathComponent:fileName];
+  webrtc::test::ExportAndDestroyGlobalMetricsLoggerAndExporter();
+  if (!g_export_perf_results_new_api) {
+    if (g_write_perf_output) {
+      // Stores data into a proto file under the app's document directory.
+      NSString *fileName = @"perftest-output.pb";
+      NSArray<NSString *> *outputDirectories =
+          NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);
+      if ([outputDirectories count] != 0) {
+        NSString *outputPath = [outputDirectories[0] stringByAppendingPathComponent:fileName];
 
-      if (!webrtc::test::WritePerfResults([NSString stdStringForString:outputPath])) {
-        return 1;
+        if (!webrtc::test::WritePerfResults([NSString stdStringForString:outputPath])) {
+          return 1;
+        }
       }
     }
-  }
-  if (g_metrics_to_plot) {
-    webrtc::test::PrintPlottableResults(*g_metrics_to_plot);
+    if (g_metrics_to_plot) {
+      webrtc::test::PrintPlottableResults(*g_metrics_to_plot);
+    }
   }
 
   return exitStatus;
@@ -139,11 +148,13 @@ void InitTestSuite(int (*test_suite)(void),
                    int argc,
                    char *argv[],
                    bool write_perf_output,
+                   bool export_perf_results_new_api,
                    absl::optional<std::vector<std::string>> metrics_to_plot) {
   g_test_suite = test_suite;
   g_argc = argc;
   g_argv = argv;
   g_write_perf_output = write_perf_output;
+  g_export_perf_results_new_api = export_perf_results_new_api;
   g_metrics_to_plot = std::move(metrics_to_plot);
 }
 

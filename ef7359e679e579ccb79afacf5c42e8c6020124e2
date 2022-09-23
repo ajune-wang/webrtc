@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "fdb6ab9c_3c116708",
+        "filename": "pc/webrtc_sdp.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 1943,
+      "author": {
+        "id": 5508
+      },
+      "writtenOn": "2022-09-23T07:14:12Z",
+      "side": 0,
+      "message": "nit: can you change this to `RTC_DCHECK_GE(min_maxptime, max_minptime)`?",
+      "revId": "ef7359e679e579ccb79afacf5c42e8c6020124e2",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

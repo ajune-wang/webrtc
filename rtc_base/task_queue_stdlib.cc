@@ -249,6 +249,15 @@ void TaskQueueStdlib::ProcessTasks() {
 
     flag_notify_.Wait(task.sleep_time);
   }
+
+  // Ensures pending & delayed tasks are destroyed in the task queue context.
+  std::queue<std::pair<OrderId, absl::AnyInvocable<void() &&>>> pending_queue;
+  std::map<DelayedEntryTimeout, absl::AnyInvocable<void() &&>> delayed_queue;
+  {
+    MutexLock lock(&pending_lock_);
+    pending_queue_.swap(pending_queue);
+    delayed_queue_.swap(delayed_queue);
+  }
 }
 
 void TaskQueueStdlib::NotifyWake() {

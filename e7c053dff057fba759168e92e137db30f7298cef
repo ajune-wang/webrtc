@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "96bdf809_eaee11ab",
+        "filename": "test/test_main_lib.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 127,
+      "author": {
+        "id": 5087
+      },
+      "writtenOn": "2022-09-23T06:15:34Z",
+      "side": 1,
+      "message": "It looks like this code is run on all platforms, iOS included and on iOS this calls SetupGlobalMetricsLoggerAndExporter twice and the second time we get (correctly):\n\n```\n[04:58:12:INFO] #\n[04:58:12:INFO] # Fatal error in: ../../api/test/metrics/global_metrics_logger_and_exporter.cc, line 35\n[04:58:12:INFO] # last system error: 2\n[04:58:12:INFO] # Check failed: global_metrics_logger_and_exporter \u003d\u003d nullptr\n[04:58:12:INFO] # *** SIGABRT received at time\u003d1663891092 ***\n[04:58:12:INFO] PC: @        0x11723900e  (unknown)  __pthread_kill\n```",
+      "range": {
+        "startLine": 115,
+        "startChar": 4,
+        "endLine": 127,
+        "endChar": 68
+      },
+      "revId": "e7c053dff057fba759168e92e137db30f7298cef",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

@@ -1,0 +1,113 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "c1afbb7d_0199a186",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 3
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5524
+      },
+      "writtenOn": "2022-09-23T08:46:09Z",
+      "side": 1,
+      "message": "lgtm % nits, but I don\u0027t know this code super well, will let Artem be the main reviewer",
+      "revId": "99ad494ae8ee8d6a40e2635f10e911f4c46463a0",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "ee3e59be_1da0a909",
+        "filename": "api/test/peerconnection_quality_test_fixture.h",
+        "patchSetId": 3
+      },
+      "lineNbr": 180,
+      "author": {
+        "id": 5524
+      },
+      "writtenOn": "2022-09-23T08:46:09Z",
+      "side": 1,
+      "message": "nit: we only check if target_layer_index !\u003d 0 ..?\nMight be cleaner with \n`RTC_CHECK_GE(target_temporal_index.value_or(0), 0);`",
+      "range": {
+        "startLine": 180,
+        "startChar": 32,
+        "endLine": 180,
+        "endChar": 51
+      },
+      "revId": "99ad494ae8ee8d6a40e2635f10e911f4c46463a0",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "b87cc762_c361d088",
+        "filename": "pc/test/svc_e2e_tests.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 163,
+      "author": {
+        "id": 5524
+      },
+      "writtenOn": "2022-09-23T08:46:09Z",
+      "side": 1,
+      "message": "nit: are we guaranteed that scalability_mode is always set?",
+      "range": {
+        "startLine": 163,
+        "startChar": 47,
+        "endLine": 163,
+        "endChar": 50
+      },
+      "revId": "99ad494ae8ee8d6a40e2635f10e911f4c46463a0",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "975f3a28_5285d9d2",
+        "filename": "pc/test/svc_e2e_tests.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 255,
+      "author": {
+        "id": 5524
+      },
+      "writtenOn": "2022-09-23T08:46:09Z",
+      "side": 1,
+      "message": "nit: driveby fix this c-style cast?\n(one below too)",
+      "range": {
+        "startLine": 255,
+        "startChar": 34,
+        "endLine": 255,
+        "endChar": 42
+      },
+      "revId": "99ad494ae8ee8d6a40e2635f10e911f4c46463a0",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "82264f19_00697e2f",
+        "filename": "test/pc/e2e/analyzer/video/quality_analyzing_video_encoder.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 357,
+      "author": {
+        "id": 5524
+      },
+      "writtenOn": "2022-09-23T08:46:09Z",
+      "side": 1,
+      "message": "nit: RTC_NOTREACHED() ?",
+      "range": {
+        "startLine": 357,
+        "startChar": 8,
+        "endLine": 357,
+        "endChar": 24
+      },
+      "revId": "99ad494ae8ee8d6a40e2635f10e911f4c46463a0",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

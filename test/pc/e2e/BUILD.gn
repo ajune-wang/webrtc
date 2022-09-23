@@ -35,11 +35,13 @@ if (!build_with_chromium) {
 
       deps = [
         ":default_video_quality_analyzer_frames_comparator_test",
+        ":default_video_quality_analyzer_metric_names_test",
         ":default_video_quality_analyzer_stream_state_test",
         ":default_video_quality_analyzer_test",
         ":multi_reader_queue_test",
         ":names_collection_test",
         ":peer_connection_e2e_smoke_test",
+        ":peer_connection_quality_test_metric_names_test",
         ":single_process_encoded_image_data_injector_unittest",
         ":stats_poller_test",
         ":video_frame_tracking_id_injector_unittest",
@@ -406,6 +408,8 @@ if (!build_with_chromium) {
         "../../../api:video_quality_analyzer_api",
         "../../../api/rtc_event_log",
         "../../../api/task_queue",
+        "../../../api/test/metrics:metric",
+        "../../../api/test/metrics:metrics_logger_and_exporter",
         "../../../api/units:time_delta",
         "../../../api/units:timestamp",
         "../../../pc:pc_test_utils",
@@ -483,6 +487,7 @@ if (!build_with_chromium) {
         "../../../api:simulated_network_api",
         "../../../api/audio_codecs:builtin_audio_decoder_factory",
         "../../../api/audio_codecs:builtin_audio_encoder_factory",
+        "../../../api/test/metrics:global_metrics_logger_and_exporter",
         "../../../api/video_codecs:builtin_video_decoder_factory",
         "../../../api/video_codecs:builtin_video_encoder_factory",
         "../../../call:simulated_network",
@@ -507,6 +512,23 @@ if (!build_with_chromium) {
       if (is_ios) {
         deps += [ ":peer_connection_e2e_smoke_test_resources_bundle_data" ]
       }
+    }
+
+    rtc_library("peer_connection_quality_test_metric_names_test") {
+      testonly = true
+      sources = [ "peer_connection_quality_test_metric_names_test.cc" ]
+      deps = [
+        ":peerconnection_quality_test",
+        ":stats_based_network_quality_metrics_reporter",
+        "../..:test_support",
+        "../../../api:create_network_emulation_manager",
+        "../../../api:create_peer_connection_quality_test_frame_generator",
+        "../../../api:network_emulation_manager_api",
+        "../../../api:peer_connection_quality_test_fixture_api",
+        "../../../api/test/metrics:metrics_logger_and_exporter",
+        "../../../api/test/metrics:stdout_metrics_exporter",
+        "../../../api/units:time_delta",
+      ]
     }
 
     rtc_library("stats_provider") {
@@ -558,6 +580,29 @@ if (!build_with_chromium) {
         "../../../api/video:video_frame",
         "../../../common_video",
         "../../../modules/rtp_rtcp:rtp_rtcp_format",
+        "../../../rtc_base:stringutils",
+        "../../../rtc_tools:video_quality_analysis",
+        "../../../system_wrappers",
+      ]
+    }
+
+    rtc_library("default_video_quality_analyzer_metric_names_test") {
+      testonly = true
+      sources = [
+        "analyzer/video/default_video_quality_analyzer_metric_names_test.cc",
+      ]
+      deps = [
+        ":default_video_quality_analyzer",
+        ":default_video_quality_analyzer_shared",
+        "../..:test_support",
+        "../../../api:create_frame_generator",
+        "../../../api:rtp_packet_info",
+        "../../../api/test/metrics:metric",
+        "../../../api/test/metrics:metrics_logger_and_exporter",
+        "../../../api/test/metrics:stdout_metrics_exporter",
+        "../../../api/video:encoded_image",
+        "../../../api/video:video_frame",
+        "../../../common_video",
         "../../../rtc_base:stringutils",
         "../../../rtc_tools:video_quality_analysis",
         "../../../system_wrappers",
@@ -644,6 +689,8 @@ if (!build_with_chromium) {
       "../../../api:stats_observer_interface",
       "../../../api:track_id_stream_info_map",
       "../../../api/numerics",
+      "../../../api/test/metrics:metric",
+      "../../../api/test/metrics:metrics_logger_and_exporter",
       "../../../api/units:time_delta",
       "../../../api/units:timestamp",
       "../../../rtc_base:criticalsection",
@@ -688,6 +735,8 @@ if (!build_with_chromium) {
       "../../../api:rtc_stats_api",
       "../../../api:track_id_stream_info_map",
       "../../../api/numerics",
+      "../../../api/test/metrics:metric",
+      "../../../api/test/metrics:metrics_logger_and_exporter",
       "../../../api/units:data_rate",
       "../../../api/units:data_size",
       "../../../api/units:time_delta",
@@ -715,6 +764,8 @@ if (!build_with_chromium) {
       "../../../api:array_view",
       "../../../api:video_quality_analyzer_api",
       "../../../api/numerics",
+      "../../../api/test/metrics:metric",
+      "../../../api/test/metrics:metrics_logger_and_exporter",
       "../../../api/units:data_size",
       "../../../api/units:time_delta",
       "../../../api/units:timestamp",
@@ -823,6 +874,8 @@ if (!build_with_chromium) {
       "../../../api:peer_connection_quality_test_fixture_api",
       "../../../api:rtc_stats_api",
       "../../../api:track_id_stream_info_map",
+      "../../../api/test/metrics:metric",
+      "../../../api/test/metrics:metrics_logger_and_exporter",
       "../../../api/units:data_size",
       "../../../rtc_base:criticalsection",
       "../../../rtc_base:rtc_event",
@@ -847,6 +900,8 @@ if (!build_with_chromium) {
       "../../../api:rtc_stats_api",
       "../../../api:scoped_refptr",
       "../../../api/numerics",
+      "../../../api/test/metrics:metric",
+      "../../../api/test/metrics:metrics_logger_and_exporter",
       "../../../api/test/network_emulation",
       "../../../api/units:data_rate",
       "../../../api/units:data_size",
@@ -875,6 +930,8 @@ if (!build_with_chromium) {
       "../../../api:rtc_stats_api",
       "../../../api:track_id_stream_info_map",
       "../../../api/numerics",
+      "../../../api/test/metrics:metric",
+      "../../../api/test/metrics:metrics_logger_and_exporter",
       "../../../api/units:timestamp",
       "../../../rtc_base:criticalsection",
       "../../../rtc_base:rtc_event",

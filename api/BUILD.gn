@@ -94,6 +94,7 @@ rtc_library("rtp_packet_info") {
     ":rtp_headers",
     ":scoped_refptr",
     "../rtc_base/system:rtc_export",
+    "units:time_delta",
     "units:timestamp",
   ]
   absl_deps = [ "//third_party/abseil-cpp/absl/types:optional" ]
@@ -621,6 +622,7 @@ if (rtc_include_tests) {
         ":time_controller",
         ":video_quality_analyzer_api",
         "../test/pc/e2e:peerconnection_quality_test",
+        "test/metrics:global_metrics_logger_and_exporter",
       ]
     }
   }

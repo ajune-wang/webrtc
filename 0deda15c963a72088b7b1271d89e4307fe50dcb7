@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "088a4035_caef7822",
+        "filename": "media/engine/webrtc_video_engine.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 3712,
+      "author": {
+        "id": 5117
+      },
+      "writtenOn": "2022-09-23T11:57:48Z",
+      "side": 1,
+      "message": "is sending if any layer is active.",
+      "range": {
+        "startLine": 3712,
+        "startChar": 15,
+        "endLine": 3712,
+        "endChar": 62
+      },
+      "revId": "0deda15c963a72088b7b1271d89e4307fe50dcb7",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

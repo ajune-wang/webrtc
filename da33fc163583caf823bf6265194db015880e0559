@@ -24,6 +24,30 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "2baa8a23_2abd129c",
+        "filename": "test/ios/test_support.mm",
+        "patchSetId": 2
+      },
+      "lineNbr": 99,
+      "author": {
+        "id": 6337
+      },
+      "writtenOn": "2022-09-23T09:32:56Z",
+      "side": 1,
+      "message": "Right. fixed",
+      "parentUuid": "e50cd6db_1a6dd5d2",
+      "range": {
+        "startLine": 99,
+        "startChar": 2,
+        "endLine": 99,
+        "endChar": 39
+      },
+      "revId": "da33fc163583caf823bf6265194db015880e0559",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "b410c870_4dd8c74e",
@@ -37,6 +61,30 @@
       "writtenOn": "2022-09-23T09:16:37Z",
       "side": 1,
       "message": "I think it\u0027s related to Mirko comment:\nFLAGS_isolated_script_test_perf_output is true an iOS run but the ChromePerfDashboardMetricsExporter will not be correct.",
+      "range": {
+        "startLine": 118,
+        "startChar": 0,
+        "endLine": 122,
+        "endChar": 7
+      },
+      "revId": "da33fc163583caf823bf6265194db015880e0559",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "2a94667f_b1d6b8e7",
+        "filename": "test/test_main_lib.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 122,
+      "author": {
+        "id": 6337
+      },
+      "writtenOn": "2022-09-23T09:32:56Z",
+      "side": 1,
+      "message": "Right, good point.",
+      "parentUuid": "b410c870_4dd8c74e",
       "range": {
         "startLine": 118,
         "startChar": 0,

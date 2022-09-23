@@ -290,6 +290,13 @@ void TaskQueueWin::RunThreadMain() {
       RunPendingTasks();
     }
   }
+  std::priority_queue<DelayedTaskInfo, std::vector<DelayedTaskInfo>,
+                      std::greater<DelayedTaskInfo>>
+      timer_tasks;
+  {
+    MutexLock lock(&pending_lock_);
+    timer_tasks.swap(timer_tasks_);
+  }
 }
 
 bool TaskQueueWin::ProcessQueuedMessages() {

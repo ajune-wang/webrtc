@@ -34,6 +34,41 @@
       "parentUuid": "7410d166_09a27a2d",
       "revId": "a28e9f3419f218077977b5c95fc635bfcdfe7cba",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "198423a7_4b8f8af5",
+        "filename": "call/degraded_call.cc",
+        "patchSetId": 6
+      },
+      "lineNbr": 29,
+      "author": {
+        "id": 5508
+      },
+      "writtenOn": "2022-09-23T07:36:38Z",
+      "side": 1,
+      "message": "What I\u0027m thinking is partially from the code readability pov but the design does also tie together the behavior of a few classes and makes the child classes depend on behavior of the parent class to avoid the problems. I.e. the that are posted aren\u0027t really safe in the way the safety flag is used because the tasks that are posted, touch state that is not aligned with the state of the flag. That way, the safety flag, as used, is misleading. Basically\n\n* the name of the flag is `alive_flag_`, which could be understood to match the scope of the class that has that flag as a member variable. In actuality, the flag\u0027s state will not be affected by the state of the owning class.\n\n* It\u0027s not clear just from reading the implementation of `FakeNetworkPipeOnTaskQueue` what state the `alive_flag_` variable provides safety for.\n\nSee other comment for a different potential way of approaching teardown.",
+      "parentUuid": "c3983fd7_7d8d40b4",
+      "revId": "a28e9f3419f218077977b5c95fc635bfcdfe7cba",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "2af0abc2_bb85aee2",
+        "filename": "call/degraded_call.cc",
+        "patchSetId": 6
+      },
+      "lineNbr": 224,
+      "author": {
+        "id": 5508
+      },
+      "writtenOn": "2022-09-23T07:36:38Z",
+      "side": 1,
+      "message": "Instead of this approach, can the objects that have these pending tasks (use the flag) simply be deleted on on the network thread?",
+      "revId": "a28e9f3419f218077977b5c95fc635bfcdfe7cba",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

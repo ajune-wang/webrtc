@@ -22,6 +22,30 @@
       },
       "revId": "e7c053dff057fba759168e92e137db30f7298cef",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "382dafe1_844eecf7",
+        "filename": "test/test_main_lib.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 127,
+      "author": {
+        "id": 6337
+      },
+      "writtenOn": "2022-09-23T08:37:33Z",
+      "side": 1,
+      "message": "Deleted it from .mm file, checking. Thank you",
+      "parentUuid": "96bdf809_eaee11ab",
+      "range": {
+        "startLine": 115,
+        "startChar": 4,
+        "endLine": 127,
+        "endChar": 68
+      },
+      "revId": "e7c053dff057fba759168e92e137db30f7298cef",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

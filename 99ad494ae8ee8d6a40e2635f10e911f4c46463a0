@@ -41,6 +41,30 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "446402df_aa4e7fcf",
+        "filename": "api/test/peerconnection_quality_test_fixture.h",
+        "patchSetId": 3
+      },
+      "lineNbr": 176,
+      "author": {
+        "id": 7036
+      },
+      "writtenOn": "2022-09-23T10:25:56Z",
+      "side": 1,
+      "message": "If you do not want to have any filtering on the target_layer but on the temporal layers only for example.\nYou could achieve this by setting the target_layer_index mode to the number of layers, but it doesn\u0027t convey the same intent.",
+      "parentUuid": "06e0b1d4_fb53ab18",
+      "range": {
+        "startLine": 176,
+        "startChar": 22,
+        "endLine": 176,
+        "endChar": 60
+      },
+      "revId": "99ad494ae8ee8d6a40e2635f10e911f4c46463a0",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "ee3e59be_1da0a909",
@@ -54,6 +78,30 @@
       "writtenOn": "2022-09-23T08:46:09Z",
       "side": 1,
       "message": "nit: we only check if target_layer_index !\u003d 0 ..?\nMight be cleaner with \n`RTC_CHECK_GE(target_temporal_index.value_or(0), 0);`",
+      "range": {
+        "startLine": 180,
+        "startChar": 32,
+        "endLine": 180,
+        "endChar": 51
+      },
+      "revId": "99ad494ae8ee8d6a40e2635f10e911f4c46463a0",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "4ed20f20_ec4d1dc9",
+        "filename": "api/test/peerconnection_quality_test_fixture.h",
+        "patchSetId": 3
+      },
+      "lineNbr": 180,
+      "author": {
+        "id": 7036
+      },
+      "writtenOn": "2022-09-23T10:25:56Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "ee3e59be_1da0a909",
       "range": {
         "startLine": 180,
         "startChar": 32,
@@ -87,6 +135,30 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "3a633d69_456ff34f",
+        "filename": "pc/test/svc_e2e_tests.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 163,
+      "author": {
+        "id": 7036
+      },
+      "writtenOn": "2022-09-23T10:25:56Z",
+      "side": 1,
+      "message": "We are in those tests.",
+      "parentUuid": "b87cc762_c361d088",
+      "range": {
+        "startLine": 163,
+        "startChar": 47,
+        "endLine": 163,
+        "endChar": 50
+      },
+      "revId": "99ad494ae8ee8d6a40e2635f10e911f4c46463a0",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "975f3a28_5285d9d2",
@@ -100,6 +172,30 @@
       "writtenOn": "2022-09-23T08:46:09Z",
       "side": 1,
       "message": "nit: driveby fix this c-style cast?\n(one below too)",
+      "range": {
+        "startLine": 255,
+        "startChar": 34,
+        "endLine": 255,
+        "endChar": 42
+      },
+      "revId": "99ad494ae8ee8d6a40e2635f10e911f4c46463a0",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "0a7a4d16_5c374559",
+        "filename": "pc/test/svc_e2e_tests.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 255,
+      "author": {
+        "id": 7036
+      },
+      "writtenOn": "2022-09-23T10:25:56Z",
+      "side": 1,
+      "message": "Done, and the one above too!",
+      "parentUuid": "975f3a28_5285d9d2",
       "range": {
         "startLine": 255,
         "startChar": 34,
@@ -146,6 +242,30 @@
       "writtenOn": "2022-09-23T10:15:40Z",
       "side": 1,
       "message": "IIRC RTC_NOTREACHED is implemented as DCHECK inside",
+      "parentUuid": "82264f19_00697e2f",
+      "range": {
+        "startLine": 357,
+        "startChar": 8,
+        "endLine": 357,
+        "endChar": 24
+      },
+      "revId": "99ad494ae8ee8d6a40e2635f10e911f4c46463a0",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "2f726a5b_b0045658",
+        "filename": "test/pc/e2e/analyzer/video/quality_analyzing_video_encoder.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 357,
+      "author": {
+        "id": 7036
+      },
+      "writtenOn": "2022-09-23T10:25:56Z",
+      "side": 1,
+      "message": "RTC_CHECK_NOT_REACHED() doesn\u0027t allow a logging string. RTC_DCHECK_NOT_REACHED() is only in debug mode. RTC_CHECK(false) is the only way to get a check in release mode. Should be enough to check in debug in this case.",
       "parentUuid": "82264f19_00697e2f",
       "range": {
         "startLine": 357,

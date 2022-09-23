@@ -20,6 +20,29 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "06e0b1d4_fb53ab18",
+        "filename": "api/test/peerconnection_quality_test_fixture.h",
+        "patchSetId": 3
+      },
+      "lineNbr": 176,
+      "author": {
+        "id": 6337
+      },
+      "writtenOn": "2022-09-23T10:15:40Z",
+      "side": 1,
+      "message": "In which cases target_layer_index equal to nullopt is a valid use case?",
+      "range": {
+        "startLine": 176,
+        "startChar": 22,
+        "endLine": 176,
+        "endChar": 60
+      },
+      "revId": "99ad494ae8ee8d6a40e2635f10e911f4c46463a0",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "ee3e59be_1da0a909",
         "filename": "api/test/peerconnection_quality_test_fixture.h",
         "patchSetId": 3
@@ -100,6 +123,30 @@
       "writtenOn": "2022-09-23T08:46:09Z",
       "side": 1,
       "message": "nit: RTC_NOTREACHED() ?",
+      "range": {
+        "startLine": 357,
+        "startChar": 8,
+        "endLine": 357,
+        "endChar": 24
+      },
+      "revId": "99ad494ae8ee8d6a40e2635f10e911f4c46463a0",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "4e88df04_00789bef",
+        "filename": "test/pc/e2e/analyzer/video/quality_analyzing_video_encoder.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 357,
+      "author": {
+        "id": 6337
+      },
+      "writtenOn": "2022-09-23T10:15:40Z",
+      "side": 1,
+      "message": "IIRC RTC_NOTREACHED is implemented as DCHECK inside",
+      "parentUuid": "82264f19_00697e2f",
       "range": {
         "startLine": 357,
         "startChar": 8,

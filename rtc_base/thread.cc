@@ -11,6 +11,7 @@
 #include "rtc_base/thread.h"
 
 #include "absl/strings/string_view.h"
+#include "api/task_queue/task_queue_base.h"
 #include "api/units/time_delta.h"
 #include "rtc_base/socket_server.h"
 
@@ -391,6 +392,7 @@ void Thread::DoDestroy() {
   }
   ThreadManager::Remove(this);
   // Clear.
+  TaskQueueBase::CurrentTaskQueueSetter set_current(this);
   messages_ = {};
   delayed_messages_ = {};
 }
@@ -830,6 +832,7 @@ void Thread::BlockingCall(rtc::FunctionView<void()> functor) {
 
 // Called by the ThreadManager when being set as the current thread.
 void Thread::EnsureIsCurrentTaskQueue() {
+  RTC_DCHECK(!task_queue_registration_);
   task_queue_registration_ =
       std::make_unique<TaskQueueBase::CurrentTaskQueueSetter>(this);
 }

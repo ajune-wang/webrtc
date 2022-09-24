@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "6bbfe53a_f2d3cde7",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 2
+      },
+      "lineNbr": 10,
+      "author": {
+        "id": 18474
+      },
+      "writtenOn": "2022-09-24T00:20:02Z",
+      "side": 1,
+      "message": "We should probably try to resolve this... I don\u0027t recall why it lived on the Options except that it did perhaps mirror what X11 was already doing.",
+      "range": {
+        "startLine": 10,
+        "startChar": 0,
+        "endLine": 10,
+        "endChar": 34
+      },
+      "revId": "f53dad5b96294d1936ac88308a58dbe0c1214240",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

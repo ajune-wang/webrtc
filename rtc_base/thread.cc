@@ -391,6 +391,7 @@ void Thread::DoDestroy() {
   }
   ThreadManager::Remove(this);
   // Clear.
+  EnsureIsCurrentTaskQueue();
   messages_ = {};
   delayed_messages_ = {};
 }

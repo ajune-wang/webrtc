@@ -162,12 +162,9 @@ TaskQueueLibevent::TaskQueueLibevent(absl::string_view queue_name,
   event_add(&wakeup_event_, 0);
   thread_ = rtc::PlatformThread::SpawnJoinable(
       [this] {
-        {
-          CurrentTaskQueueSetter set_current(this);
-          while (is_active_)
-            event_base_loop(event_base_, 0);
-        }
-
+        CurrentTaskQueueSetter set_current(this);
+        while (is_active_)
+          event_base_loop(event_base_, 0);
         for (TimerEvent* timer : pending_timers_)
           delete timer;
       },

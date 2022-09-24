@@ -22,6 +22,30 @@
       },
       "revId": "f53dad5b96294d1936ac88308a58dbe0c1214240",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "da29d65d_418844e1",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 2
+      },
+      "lineNbr": 10,
+      "author": {
+        "id": 19629
+      },
+      "writtenOn": "2022-09-24T11:55:27Z",
+      "side": 1,
+      "message": "You are right, X11 also follows the same pattern. I think it is not bound to the desktop capturer because it is also needed by the mouse cursor capturer. If we could give mouse cursor capturer a handle to the desktop capturer then we can probably keep this instance within the desktop capturer. Note that any changes here would need to be propagated downstream to chromoting code which makes use of the stream from desktop capture options.\n\nI have filed this bug nonetheless: https://bugs.chromium.org/p/webrtc/issues/detail?id\u003d14464",
+      "parentUuid": "6bbfe53a_f2d3cde7",
+      "range": {
+        "startLine": 10,
+        "startChar": 0,
+        "endLine": 10,
+        "endChar": 34
+      },
+      "revId": "f53dad5b96294d1936ac88308a58dbe0c1214240",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

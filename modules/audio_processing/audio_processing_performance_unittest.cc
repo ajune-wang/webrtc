@@ -16,6 +16,9 @@
 
 #include "absl/strings/string_view.h"
 #include "api/array_view.h"
+#include "api/numerics/samples_stats_counter.h"
+#include "api/test/metrics/global_metrics_logger_and_exporter.h"
+#include "api/test/metrics/metric.h"
 #include "modules/audio_processing/audio_processing_impl.h"
 #include "modules/audio_processing/test/audio_processing_builder_for_testing.h"
 #include "modules/audio_processing/test/test_utils.h"
@@ -25,11 +28,14 @@
 #include "rtc_base/random.h"
 #include "system_wrappers/include/clock.h"
 #include "test/gtest.h"
-#include "test/testsupport/perf_test.h"
 
 namespace webrtc {
-
 namespace {
+
+using ::webrtc::test::GetGlobalMetricsLogger;
+using ::webrtc::test::ImprovementDirection;
+using ::webrtc::test::Metric;
+using ::webrtc::test::Unit;
 
 static const bool kPrintAllDurations = false;
 
@@ -205,9 +211,7 @@ class TimedThreadApiProcessor {
         num_durations_to_store_(num_durations_to_store),
         input_level_(input_level),
         processor_type_(processor_type),
-        num_channels_(num_channels) {
-    api_call_durations_.reserve(num_durations_to_store_);
-  }
+        num_channels_(num_channels) {}
 
   // Implements the callback functionality for the threads.
   bool Process();
@@ -219,20 +223,24 @@ class TimedThreadApiProcessor {
     const std::string sample_rate_name =
         "_" + std::to_string(simulation_config_->sample_rate_hz) + "Hz";
 
-    webrtc::test::PrintResultMeanAndError(
-        "apm_timing", sample_rate_name, processor_name, GetDurationAverage(),
-        GetDurationStandardDeviation(), "us", false);
+    GetGlobalMetricsLogger()->LogMetric(
+        "apm_timing" + sample_rate_name, processor_name,
+        Metric::Stats{.mean = GetDurationAverage() / 1000.0,
+                      .stddev = GetDurationStandardDeviation() / 1000.0},
+        Unit::kMilliseconds, ImprovementDirection::kNeitherIsBetter);
 
     if (kPrintAllDurations) {
-      webrtc::test::PrintResultList("apm_call_durations", sample_rate_name,
-                                    processor_name, api_call_durations_, "us",
-                                    false);
+      GetGlobalMetricsLogger()->LogMetric(
+          "apm_call_durations" + sample_rate_name, processor_name,
+          api_call_durations_ / 1000.0, Unit::kMilliseconds,
+          ImprovementDirection::kNeitherIsBetter);
     }
   }
 
   void AddDuration(int64_t duration) {
-    if (api_call_durations_.size() < num_durations_to_store_) {
-      api_call_durations_.push_back(duration);
+    if (static_cast<size_t>(api_call_durations_.NumSamples()) <
+        num_durations_to_store_) {
+      api_call_durations_.AddSample(duration);
     }
   }
 
@@ -244,13 +252,13 @@ class TimedThreadApiProcessor {
   int64_t GetDurationStandardDeviation() const {
     double variance = 0;
     const int64_t average_duration = GetDurationAverage();
-    for (size_t k = kNumInitializationFrames; k < api_call_durations_.size();
-         k++) {
-      int64_t tmp = api_call_durations_[k] - average_duration;
+    std::vector<double> durations = api_call_durations_.GetSamples();
+    for (size_t k = kNumInitializationFrames; k < durations.size(); k++) {
+      int64_t tmp = durations[k] - average_duration;
       variance += static_cast<double>(tmp * tmp);
     }
-    const int denominator = rtc::checked_cast<int>(api_call_durations_.size()) -
-                            kNumInitializationFrames;
+    const int denominator =
+        rtc::checked_cast<int>(durations.size()) - kNumInitializationFrames;
     return (denominator > 0
                 ? rtc::checked_cast<int64_t>(sqrt(variance / denominator))
                 : -1);
@@ -258,12 +266,12 @@ class TimedThreadApiProcessor {
 
   int64_t GetDurationAverage() const {
     int64_t average_duration = 0;
-    for (size_t k = kNumInitializationFrames; k < api_call_durations_.size();
-         k++) {
-      average_duration += api_call_durations_[k];
+    std::vector<double> durations = api_call_durations_.GetSamples();
+    for (size_t k = kNumInitializationFrames; k < durations.size(); k++) {
+      average_duration += durations[k];
     }
-    const int denominator = rtc::checked_cast<int>(api_call_durations_.size()) -
-                            kNumInitializationFrames;
+    const int denominator =
+        rtc::checked_cast<int>(durations.size()) - kNumInitializationFrames;
     return (denominator > 0 ? average_duration / denominator : -1);
   }
 
@@ -382,7 +390,7 @@ class TimedThreadApiProcessor {
   AudioFrameData frame_data_;
   webrtc::Clock* clock_;
   const size_t num_durations_to_store_;
-  std::vector<double> api_call_durations_;
+  SamplesStatsCounter api_call_durations_;
   const float input_level_;
   bool first_process_call_ = true;
   const ProcessorType processor_type_;

@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "fe5721bc_1631fb12",
+        "filename": "rtc_tools/frame_analyzer/video_quality_analysis.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 126,
+      "author": {
+        "id": 5087
+      },
+      "writtenOn": "2022-09-25T08:26:08Z",
+      "side": 1,
+      "message": "I wonder if this is kCount (it didn\u0027t exist before so maybe we should start using). \n\nOn the other hand, kCount maybe it is not a good unit of measure and for counters we should just use kUnitless.\n\nWDYT?",
+      "range": {
+        "startLine": 126,
+        "startChar": 62,
+        "endLine": 126,
+        "endChar": 71
+      },
+      "revId": "390d2a45f0e528aae52be6c233e3a12ebac41b40",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "9b29668a_a17295dd",
+        "filename": "rtc_tools/frame_analyzer/video_quality_analysis.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 156,
+      "author": {
+        "id": 5087
+      },
+      "writtenOn": "2022-09-25T08:26:08Z",
+      "side": 1,
+      "message": "These are also counters, but as mentioned before, I suspect kUnitless is better.\n\nMaybe we cal talk on Monday.",
+      "range": {
+        "startLine": 145,
+        "startChar": 0,
+        "endLine": 156,
+        "endChar": 70
+      },
+      "revId": "390d2a45f0e528aae52be6c233e3a12ebac41b40",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

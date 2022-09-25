@@ -1,6 +1,23 @@
 {
   "comments": [
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "04ac5b39_629c8b4c",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5087
+      },
+      "writtenOn": "2022-09-25T09:36:28Z",
+      "side": 1,
+      "message": "LGTM, let\u0027s talk tomorrow about kCount (I start having doubts on that so better to keep as is).",
+      "revId": "390d2a45f0e528aae52be6c233e3a12ebac41b40",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "fe5721bc_1631fb12",

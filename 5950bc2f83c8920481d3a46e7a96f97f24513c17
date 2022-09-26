@@ -22,6 +22,30 @@
       },
       "revId": "5950bc2f83c8920481d3a46e7a96f97f24513c17",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "9c509666_7cb71691",
+        "filename": "api/test/metrics/print_result_proxy_metrics_exporter.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 94,
+      "author": {
+        "id": 6337
+      },
+      "writtenOn": "2022-09-26T11:53:57Z",
+      "side": 1,
+      "message": "LogSingleValueMetric creates time series of single value",
+      "parentUuid": "c5144091_518230ab",
+      "range": {
+        "startLine": 85,
+        "startChar": 0,
+        "endLine": 94,
+        "endChar": 5
+      },
+      "revId": "5950bc2f83c8920481d3a46e7a96f97f24513c17",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

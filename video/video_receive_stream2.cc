@@ -574,6 +574,61 @@ void VideoReceiveStream2::SetAssociatedPayloadTypes(
       std::move(associated_payload_types));
 }
 
+void VideoReceiveStream2::RemoveDecoder(const Decoder& decoder) {
+  RTC_DCHECK_RUN_ON(&packet_sequence_checker_);
+
+  auto it = absl::c_find(config_.decoders, decoder);
+  RTC_DCHECK(it != config_.decoders.end());
+
+  // TODO(tommi): Be consistent with how Start/Stop works.
+  /*
+    if (decoder_running_) {
+      RTC_DCHECK_RUN_ON(&decode_queue_);
+    } else {
+      RTC_DCHECK_RUN_ON(&packet_sequence_checker_);
+    }*/
+  // TODO(tommi): Need to call DeregisterReceiveCodec() on the decoder
+  // thread.
+
+  // TODO(tommi): If decoding is running, then this needs to happen on the
+  // decoder queue and
+  video_receiver_.RegisterExternalDecoder(nullptr, decoder.payload_type);
+  const_cast<std::vector<Decoder>&>(config_.decoders).erase(it);
+}
+
+void VideoReceiveStream2::AddOrUpdateDecoder(const Decoder& decoder,
+                                             bool raw_payload) {
+  RTC_DCHECK_RUN_ON(&packet_sequence_checker_);
+
+  auto it = absl::c_find(config_.decoders, decoder);
+
+  if (it == config_.decoders.end()) {
+    const_cast<std::vector<Decoder>&>(config_.decoders).push_back(decoder);
+    VideoDecoder::Settings settings;
+    settings.set_codec_type(
+        PayloadStringToCodecType(decoder.video_format.name));
+    settings.set_max_render_resolution(
+        InitialDecoderResolution(call_->trials()));
+    settings.set_number_of_cores(num_cpu_cores_);
+
+    rtp_video_stream_receiver_.AddReceiveCodec(
+        decoder.payload_type, settings.codec_type(),
+        decoder.video_format.parameters, raw_payload);
+
+    // TODO(tommi): Be consistent with how Start/Stop works.
+    /*
+      if (decoder_running_) {
+        RTC_DCHECK_RUN_ON(&decode_queue_);
+      } else {
+        RTC_DCHECK_RUN_ON(&packet_sequence_checker_);
+      }*/
+    video_receiver_.RegisterReceiveCodec(decoder.payload_type, settings);
+  } else {
+    rtp_video_stream_receiver_.SetPacketizerForCodec(decoder.payload_type,
+                                                     raw_payload);
+  }
+}
+
 void VideoReceiveStream2::CreateAndRegisterExternalDecoder(
     const Decoder& decoder) {
   TRACE_EVENT0("webrtc",

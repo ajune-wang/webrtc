@@ -20,6 +20,24 @@
     {
       "unresolved": false,
       "key": {
+        "uuid": "067fab82_3792916c",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 2
+      },
+      "lineNbr": 10,
+      "author": {
+        "id": 5142
+      },
+      "writtenOn": "2022-09-26T10:40:27Z",
+      "side": 1,
+      "message": "This PR was merged, there is nothing blocking this CL.",
+      "parentUuid": "3f2bd452_56ca10a1",
+      "revId": "cb89baa7a70178eee7b25e702ec3cd023d212b83",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
         "uuid": "3f6ad704_426e9683",
         "filename": "/PATCHSET_LEVEL",
         "patchSetId": 2

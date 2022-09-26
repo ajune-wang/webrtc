@@ -33,6 +33,24 @@
       "message": "why is one better than the other?\n(personally I find both of them equally acceptable)",
       "revId": "17517fa87b0a849c59ae27a248d16ba8226c28af",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "69b7e4b2_940d519c",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5122
+      },
+      "writtenOn": "2022-09-26T12:44:08Z",
+      "side": 1,
+      "message": "Right, no style guide recommendation/preference here.\n\nI was convinced that the recommendation was to use `has_value()` - which I personally find easier to read and, as it exists, I wonder why one should use another way.\n\nBut as it\u0027s just personal taste, I\u0027m ok with abandoning this change.",
+      "parentUuid": "761c489e_256adf4b",
+      "revId": "17517fa87b0a849c59ae27a248d16ba8226c28af",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

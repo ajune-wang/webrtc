@@ -938,7 +938,10 @@ void VideoStreamEncoder::ReconfigureEncoder() {
 
   std::vector<VideoStream> streams =
       encoder_config_.video_stream_factory->CreateEncoderStreams(
-          last_frame_info_->width, last_frame_info_->height, encoder_config_);
+          {.frame_width = last_frame_info_->width,
+           .frame_height = last_frame_info_->height,
+           .encoder_config = encoder_config_,
+           .encoder_info = encoder_->GetEncoderInfo()});
 
   // Get alignment when actual number of layers are known.
   int alignment = AlignmentAdjuster::GetAlignmentAndMaybeAdjustScaleFactors(

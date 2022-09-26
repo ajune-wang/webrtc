@@ -35,6 +35,24 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "893b79ea_b62e8f6e",
+        "filename": "rtc_tools/frame_analyzer/video_quality_analysis.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 124,
+      "author": {
+        "id": 6337
+      },
+      "writtenOn": "2022-09-26T08:29:31Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "57a06414_45a55f45",
+      "revId": "390d2a45f0e528aae52be6c233e3a12ebac41b40",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "fe5721bc_1631fb12",
@@ -122,6 +140,24 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "55d222ce_9588dd04",
+        "filename": "rtc_tools/frame_analyzer/video_quality_analysis.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 75,
+      "author": {
+        "id": 6337
+      },
+      "writtenOn": "2022-09-26T08:29:31Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "19fa1e16_4cb300fc",
+      "revId": "390d2a45f0e528aae52be6c233e3a12ebac41b40",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "a1b77b9f_353d6a0b",
@@ -135,6 +171,24 @@
       "writtenOn": "2022-09-26T06:49:25Z",
       "side": 1,
       "message": "accidentally or intentionally moving all the tests into an anonymous namespace?",
+      "revId": "390d2a45f0e528aae52be6c233e3a12ebac41b40",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "d7dee778_407e4a0d",
+        "filename": "rtc_tools/frame_analyzer/video_quality_analysis_unittest.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 247,
+      "author": {
+        "id": 6337
+      },
+      "writtenOn": "2022-09-26T08:29:31Z",
+      "side": 1,
+      "message": "Yep, wrapping test-only entities in an anonymous namespace nested inside the namespace containing the code under test prevents name collisions and ODR violations with other compilation units.",
+      "parentUuid": "a1b77b9f_353d6a0b",
       "revId": "390d2a45f0e528aae52be6c233e3a12ebac41b40",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }

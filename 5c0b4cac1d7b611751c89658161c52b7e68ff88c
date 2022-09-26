@@ -1,6 +1,46 @@
 {
   "comments": [
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "05ece4d7_e0581a16",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2022-09-26T08:24:03Z",
+      "side": 1,
+      "message": "rs lgtm",
+      "revId": "5c0b4cac1d7b611751c89658161c52b7e68ff88c",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "f6928681_b1416733",
+        "filename": "call/call_perf_tests.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 147,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2022-09-26T08:24:03Z",
+      "side": 1,
+      "message": "this one is likely smaller is better",
+      "range": {
+        "startLine": 147,
+        "startChar": 34,
+        "endLine": 147,
+        "endChar": 50
+      },
+      "revId": "5c0b4cac1d7b611751c89658161c52b7e68ff88c",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "c98cd774_b8ca9c0e",
@@ -48,6 +88,30 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "60bcb239_26fe1a86",
+        "filename": "call/call_perf_tests.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 165,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2022-09-26T08:24:03Z",
+      "side": 1,
+      "message": "it is \u0027closer to zero is better\u0027. I guess we do not have such direction, so neither is better is the right choice.\n\noffset can be both positive and negative (audio ahead or video ahead).\nlarge negative values are as bad as large positive values.",
+      "parentUuid": "44eb6054_4128b1a3",
+      "range": {
+        "startLine": 165,
+        "startChar": 51,
+        "endLine": 165,
+        "endChar": 67
+      },
+      "revId": "5c0b4cac1d7b611751c89658161c52b7e68ff88c",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "6dfd3bf0_cae41f3c",
@@ -85,6 +149,30 @@
       "side": 1,
       "message": "I don\u0027t know. Preserved the one which was used before.\n\nDanil?",
       "parentUuid": "6dfd3bf0_cae41f3c",
+      "range": {
+        "startLine": 510,
+        "startChar": 53,
+        "endLine": 510,
+        "endChar": 69
+      },
+      "revId": "5c0b4cac1d7b611751c89658161c52b7e68ff88c",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "2d79b749_66dd3794",
+        "filename": "call/call_perf_tests.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 510,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2022-09-26T08:24:03Z",
+      "side": 1,
+      "message": "Once again, \u0027closer to zero is better\u0027, but here I\u0027m unsure if this value can be negative.\nProbably leave as \u0027neither is better\u0027 because this change is mostly about api conversion.",
+      "parentUuid": "4110266b_54c30ac3",
       "range": {
         "startLine": 510,
         "startChar": 53,

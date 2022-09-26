@@ -88,6 +88,24 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "7c37908e_0b0fa70d",
+        "filename": "common_audio/vad/vad_core.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 20,
+      "author": {
+        "id": 9405
+      },
+      "writtenOn": "2022-09-26T16:44:41Z",
+      "side": 1,
+      "message": "I created a issue: https://bugs.webrtc.org/14476",
+      "parentUuid": "961b86a4_383d637a",
+      "revId": "0106221d25db49a3183b7e18a151031dbd05e1c1",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "7397dc0b_1044eba0",
@@ -189,6 +207,24 @@
       "side": 1,
       "message": "If exposing a name globally, I like having H264 as part of the name, so that would suit me.",
       "parentUuid": "58260d76_4cb7c34e",
+      "revId": "0106221d25db49a3183b7e18a151031dbd05e1c1",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "0f580087_da09fc7b",
+        "filename": "modules/rtp_rtcp/source/rtp_format_h264.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 37,
+      "author": {
+        "id": 9405
+      },
+      "writtenOn": "2022-09-26T16:44:41Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "c6375271_f77d2e39",
       "revId": "0106221d25db49a3183b7e18a151031dbd05e1c1",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }

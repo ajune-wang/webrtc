@@ -16,6 +16,23 @@
       "message": "Hi Danil, could you PTAL? Alessio",
       "revId": "17517fa87b0a849c59ae27a248d16ba8226c28af",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "761c489e_256adf4b",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2022-09-26T12:31:57Z",
+      "side": 1,
+      "message": "why is one better than the other?\n(personally I find both of them equally acceptable)",
+      "revId": "17517fa87b0a849c59ae27a248d16ba8226c28af",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

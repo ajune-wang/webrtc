@@ -24,6 +24,30 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "b5c11b5c_2ab8e25a",
+        "filename": "api/test/metrics/metrics_accumulator.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 116,
+      "author": {
+        "id": 6337
+      },
+      "writtenOn": "2022-09-26T11:38:13Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "2de7df35_cc84ab4d",
+      "range": {
+        "startLine": 116,
+        "startChar": 4,
+        "endLine": 116,
+        "endChar": 23
+      },
+      "revId": "59d554b7abb3df80dd155ccdbbb25bb0d5337a64",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "47fa5ae1_0a5e1d83",
@@ -37,6 +61,24 @@
       "writtenOn": "2022-09-26T11:11:45Z",
       "side": 1,
       "message": "Before returning we need to set created to true.",
+      "revId": "59d554b7abb3df80dd155ccdbbb25bb0d5337a64",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "b1a7aad8_70e9ea01",
+        "filename": "api/test/metrics/metrics_accumulator.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 125,
+      "author": {
+        "id": 6337
+      },
+      "writtenOn": "2022-09-26T11:38:13Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "47fa5ae1_0a5e1d83",
       "revId": "59d554b7abb3df80dd155ccdbbb25bb0d5337a64",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
@@ -64,6 +106,30 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "ec00c542_eafabd51",
+        "filename": "api/test/metrics/metrics_accumulator.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 54,
+      "author": {
+        "id": 6337
+      },
+      "writtenOn": "2022-09-26T11:38:13Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "d2065385_1deaf8f5",
+      "range": {
+        "startLine": 54,
+        "startChar": 5,
+        "endLine": 54,
+        "endChar": 32
+      },
+      "revId": "59d554b7abb3df80dd155ccdbbb25bb0d5337a64",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "1339aedf_bb2ab4f1",
@@ -77,6 +143,30 @@
       "writtenOn": "2022-09-26T11:11:45Z",
       "side": 1,
       "message": "Here and in other places, let\u0027s EXPECT the result (created new one vs not).",
+      "range": {
+        "startLine": 95,
+        "startChar": 2,
+        "endLine": 95,
+        "endChar": 32
+      },
+      "revId": "59d554b7abb3df80dd155ccdbbb25bb0d5337a64",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "708cbeb5_d21b93fd",
+        "filename": "api/test/metrics/metrics_accumulator_test.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 95,
+      "author": {
+        "id": 6337
+      },
+      "writtenOn": "2022-09-26T11:38:13Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "1339aedf_bb2ab4f1",
       "range": {
         "startLine": 95,
         "startChar": 2,

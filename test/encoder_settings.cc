@@ -106,10 +106,9 @@ std::vector<VideoStream> CreateVideoStreams(
 DefaultVideoStreamFactory::DefaultVideoStreamFactory() {}
 
 std::vector<VideoStream> DefaultVideoStreamFactory::CreateEncoderStreams(
-    int width,
-    int height,
-    const webrtc::VideoEncoderConfig& encoder_config) {
-  return CreateVideoStreams(width, height, encoder_config);
+    const VideoStreamFactoryInterface::Args& args) {
+  return CreateVideoStreams(args.frame_width, args.frame_height,
+                            args.encoder_config);
 }
 
 void FillEncoderConfiguration(VideoCodecType codec_type,

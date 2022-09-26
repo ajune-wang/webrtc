@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "c5144091_518230ab",
+        "filename": "api/test/metrics/print_result_proxy_metrics_exporter.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 94,
+      "author": {
+        "id": 5087
+      },
+      "writtenOn": "2022-09-26T11:18:30Z",
+      "side": 1,
+      "message": "LGTM, but please double check we are not entering here (I might have been wrong this morning).\n\nAre we sure the metric is not expressed directly as Mean/Error (without time series)?",
+      "range": {
+        "startLine": 85,
+        "startChar": 0,
+        "endLine": 94,
+        "endChar": 5
+      },
+      "revId": "5950bc2f83c8920481d3a46e7a96f97f24513c17",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

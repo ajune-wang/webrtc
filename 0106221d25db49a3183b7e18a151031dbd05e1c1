@@ -18,6 +18,23 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "cf49d354_d65c36bf",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2022-09-26T16:14:41Z",
+      "side": 1,
+      "message": "I\u0027m being told that we actually have a current problem on this, so approving.\nLet\u0027s iterate over the naming and the C -\u003e C++ conversion.",
+      "revId": "0106221d25db49a3183b7e18a151031dbd05e1c1",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "40402a4a_5d70464d",
@@ -49,6 +66,24 @@
       "side": 1,
       "message": "Some files in common_audio/vad, including vad_core.{h,c}, are pure C code. I think converting to C++ would be best, but since this CL is for unblocking Chromium rolls, I want to reduce the amount of modifications.",
       "parentUuid": "40402a4a_5d70464d",
+      "revId": "0106221d25db49a3183b7e18a151031dbd05e1c1",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "961b86a4_383d637a",
+        "filename": "common_audio/vad/vad_core.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 20,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2022-09-26T16:14:41Z",
+      "side": 1,
+      "message": "I think a bug should be filed on converting these to C++, but agree that it\u0027s a different project.",
+      "parentUuid": "1517ba4f_d1d20360",
       "revId": "0106221d25db49a3183b7e18a151031dbd05e1c1",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
@@ -136,6 +171,24 @@
       "side": 1,
       "message": "The names of enums, such as `kSBit`, are already used in other parts of the WebRTC codebase, and I think it is necessary to distinguish them because they were different from the values used in H.264. That\u0027s why I used the C++11 enum class.\n\nUsing constexpr with a specific prefix like `kH264SBit` might solve this problem, what do you think?",
       "parentUuid": "6422d620_1f19de21",
+      "revId": "0106221d25db49a3183b7e18a151031dbd05e1c1",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "c6375271_f77d2e39",
+        "filename": "modules/rtp_rtcp/source/rtp_format_h264.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 37,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2022-09-26T16:14:41Z",
+      "side": 1,
+      "message": "If exposing a name globally, I like having H264 as part of the name, so that would suit me.",
+      "parentUuid": "58260d76_4cb7c34e",
       "revId": "0106221d25db49a3183b7e18a151031dbd05e1c1",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }

@@ -1,0 +1,89 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "0d69eff2_c5439146",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2022-09-26T12:08:00Z",
+      "side": 1,
+      "message": "I think it would be simpler to just go with uint8_t constexpr definitions for all those names. The old \"enum\" tag seems to add no value in readability.",
+      "revId": "0106221d25db49a3183b7e18a151031dbd05e1c1",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "40402a4a_5d70464d",
+        "filename": "common_audio/vad/vad_core.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 20,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2022-09-26T12:08:00Z",
+      "side": 1,
+      "message": "Do we have any compilations that don\u0027t define __cplusplus?\nie when will the second one come into effect?",
+      "revId": "0106221d25db49a3183b7e18a151031dbd05e1c1",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "7397dc0b_1044eba0",
+        "filename": "common_audio/vad/vad_core.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 31,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2022-09-26T12:08:00Z",
+      "side": 1,
+      "message": "If we\u0027re converting, let\u0027s convert and make them all constexpr not enum.",
+      "revId": "0106221d25db49a3183b7e18a151031dbd05e1c1",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "367ba74a_c2b61859",
+        "filename": "modules/rtp_rtcp/source/rtp_format_h264.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 29,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2022-09-26T12:08:00Z",
+      "side": 1,
+      "message": "Comment does not fit code. Copy/paste error?",
+      "revId": "0106221d25db49a3183b7e18a151031dbd05e1c1",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "6422d620_1f19de21",
+        "filename": "modules/rtp_rtcp/source/rtp_format_h264.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 37,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2022-09-26T12:08:00Z",
+      "side": 1,
+      "message": "It would be a smaller change to just make the values into uint8_t constexprs. The only place the FuDefs:: form is used is in some ElementsAre calls; I don\u0027t see why they are needed there either.\n\nI heartily applaud the merge of the definitions.",
+      "revId": "0106221d25db49a3183b7e18a151031dbd05e1c1",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

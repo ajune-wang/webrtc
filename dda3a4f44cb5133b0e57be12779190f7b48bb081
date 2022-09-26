@@ -69,6 +69,23 @@
       "parentUuid": "f8e7f153_c43e992d",
       "revId": "dda3a4f44cb5133b0e57be12779190f7b48bb081",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "40760909_ae8b0228",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2022-09-26T13:39:23Z",
+      "side": 1,
+      "message": "I\u0027d still like some test code somewhere that calls ExpectationToString() on a subclass of SequenceCheckerImpl that returns a non-null string, and checks that it actually returns a non-null string.\n\nBut if it\u0027s truly obvious that this works, then I\u0027ll let it pass.",
+      "revId": "dda3a4f44cb5133b0e57be12779190f7b48bb081",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

@@ -16,6 +16,24 @@
       "message": "For reference, I have uploaded several CLs for the same purpose.\nhttps://webrtc-review.googlesource.com/c/src/+/276561\nhttps://webrtc-review.googlesource.com/c/src/+/276560",
       "revId": "e21640c86a0356807f85a46c78da9181c0fb3943",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "1a3ab0e3_b846e62b",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 3
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 6337
+      },
+      "writtenOn": "2022-09-26T13:05:24Z",
+      "side": 1,
+      "message": "Thank you for update. Will wait then when your changes will be landed",
+      "parentUuid": "1026d477_19cf045f",
+      "revId": "e21640c86a0356807f85a46c78da9181c0fb3943",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

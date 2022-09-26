@@ -119,7 +119,7 @@ bool AbsoluteCaptureTimeExtension::Parse(rtc::ArrayView<const uint8_t> data,
 
 size_t AbsoluteCaptureTimeExtension::ValueSize(
     const AbsoluteCaptureTime& extension) {
-  if (extension.estimated_capture_clock_offset != absl::nullopt) {
+  if (extension.estimated_capture_clock_offset.has_value()) {
     return kValueSizeBytes;
   } else {
     return kValueSizeBytesWithoutEstimatedCaptureClockOffset;

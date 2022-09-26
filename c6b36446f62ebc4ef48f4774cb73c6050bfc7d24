@@ -1,6 +1,23 @@
 {
   "comments": [
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "af8713c0_57cff87a",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 3
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5613
+      },
+      "writtenOn": "2022-09-26T19:26:34Z",
+      "side": 1,
+      "message": "thanks for feedback!\ni replied to the \"discussion invitation\" 😊",
+      "revId": "c6b36446f62ebc4ef48f4774cb73c6050bfc7d24",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "85079427_da778a8d",
@@ -26,6 +43,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "ec62cb15_9b28dcd3",
+        "filename": "api/video_codecs/video_encoder_config.h",
+        "patchSetId": 3
+      },
+      "lineNbr": 138,
+      "author": {
+        "id": 5613
+      },
+      "writtenOn": "2022-09-26T19:26:34Z",
+      "side": 1,
+      "message": "1) encoder info vs. alignment only\ni think it makes total sense to have encoder_config (aka what is to create the encoder) and encoder_ifo (aka info about the actually created encoder) as arguments. I would even argue that passing one without the other in weird (\nsince the encoder_config is incomplete information by definition).\n\n2) my next cl adds a 5th\nyou or someone else will add number 6.\nI think structs as argument for factories...is \"the right thing\"",
+      "parentUuid": "85079427_da778a8d",
+      "range": {
+        "startLine": 138,
+        "startChar": 5,
+        "endLine": 138,
+        "endChar": 51
+      },
+      "revId": "c6b36446f62ebc4ef48f4774cb73c6050bfc7d24",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "97631916_4edacc5e",
         "filename": "video/video_stream_encoder.cc",
         "patchSetId": 3
@@ -37,6 +78,30 @@
       "writtenOn": "2022-09-26T16:33:14Z",
       "side": 1,
       "message": "I suggest to move this call inside CreateEncoderStreams, since now it will know about the alignment.\n\nOr maybe make a new function which would adjust encoder_config_ based on GetEncoderInfo(). Then VideoStreamFactory stays unchanged.",
+      "range": {
+        "startLine": 936,
+        "startChar": 2,
+        "endLine": 937,
+        "endChar": 67
+      },
+      "revId": "c6b36446f62ebc4ef48f4774cb73c6050bfc7d24",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "40bf42d3_63e51792",
+        "filename": "video/video_stream_encoder.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 937,
+      "author": {
+        "id": 5613
+      },
+      "writtenOn": "2022-09-26T19:26:34Z",
+      "side": 1,
+      "message": "will take a stub tomorrow!",
+      "parentUuid": "97631916_4edacc5e",
       "range": {
         "startLine": 936,
         "startChar": 2,

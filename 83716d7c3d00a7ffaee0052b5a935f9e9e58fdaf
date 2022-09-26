@@ -1,0 +1,38 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "7bc78255_d7716794",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 5
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2022-09-26T09:24:40Z",
+      "side": 1,
+      "message": "Approving. Missed the ping when it was updated, sorry about that.",
+      "revId": "83716d7c3d00a7ffaee0052b5a935f9e9e58fdaf",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "1355dad2_4dca9ba2",
+        "filename": "stats/rtc_stats_report.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 82,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2022-09-26T09:24:40Z",
+      "side": 1,
+      "message": "I wouldn\u0027t call this one exactly pretty either!",
+      "revId": "83716d7c3d00a7ffaee0052b5a935f9e9e58fdaf",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

@@ -2966,7 +2966,7 @@ WebRtcVideoChannel::WebRtcVideoReceiveStream::GetRtpParameters() const {
   return rtp_parameters;
 }
 
-bool WebRtcVideoChannel::WebRtcVideoReceiveStream::ReconfigureCodecs(
+void WebRtcVideoChannel::WebRtcVideoReceiveStream::ReconfigureCodecs(
     const std::vector<VideoCodecSettings>& recv_codecs) {
   RTC_DCHECK(stream_);
   RTC_DCHECK(!recv_codecs.empty());
@@ -3027,19 +3027,30 @@ bool WebRtcVideoChannel::WebRtcVideoReceiveStream::ReconfigureCodecs(
     rtx_associated_payload_types.swap(config_.rtp.rtx_associated_payload_types);
   }
 
-  bool recreate_needed = false;
-
-  if (raw_payload_types != config_.rtp.raw_payload_types) {
-    raw_payload_types.swap(config_.rtp.raw_payload_types);
-    recreate_needed = true;
+  // Remove decoders that shouldn't be there.
+  for (auto& existing : config_.decoders) {
+    bool found = false;
+    for (auto& updated : decoders) {
+      if (existing == updated) {
+        found = true;
+        break;
+      }
+    }
+    if (!found) {
+      RTC_LOG(LS_ERROR) << "**** need to remove=" << existing.video_format.name;
+      stream_->RemoveDecoder(existing);
+    }
   }
 
-  if (decoders != config_.decoders) {
-    decoders.swap(config_.decoders);
-    recreate_needed = true;
+  // Add new decoders and update existing ones.
+  for (auto& updated : decoders) {
+    const bool raw_payload = raw_payload_types.count(updated.payload_type) > 0;
+    stream_->AddOrUpdateDecoder(updated, raw_payload);
   }
 
-  return recreate_needed;
+  // Update config fields.
+  raw_payload_types.swap(config_.rtp.raw_payload_types);
+  decoders.swap(config_.decoders);
 }
 
 void WebRtcVideoChannel::WebRtcVideoReceiveStream::SetFeedbackParameters(
@@ -3116,9 +3127,8 @@ void WebRtcVideoChannel::WebRtcVideoReceiveStream::SetFlexFecPayload(
 void WebRtcVideoChannel::WebRtcVideoReceiveStream::SetRecvParameters(
     const ChangedRecvParameters& params) {
   RTC_DCHECK(stream_);
-  bool video_needs_recreation = false;
   if (params.codec_settings) {
-    video_needs_recreation = ReconfigureCodecs(*params.codec_settings);
+    ReconfigureCodecs(*params.codec_settings);
   }
 
   if (params.rtp_header_extensions) {
@@ -3137,45 +3147,6 @@ void WebRtcVideoChannel::WebRtcVideoReceiveStream::SetRecvParameters(
 
   if (params.flexfec_payload_type)
     SetFlexFecPayload(*params.flexfec_payload_type);
-
-  if (video_needs_recreation) {
-    RecreateReceiveStream();
-  } else {
-    RTC_DLOG_F(LS_INFO) << "No receive stream recreate needed.";
-  }
-}
-
-void WebRtcVideoChannel::WebRtcVideoReceiveStream::RecreateReceiveStream() {
-  RTC_DCHECK(stream_);
-  absl::optional<int> base_minimum_playout_delay_ms;
-  absl::optional<webrtc::VideoReceiveStreamInterface::RecordingState>
-      recording_state;
-  if (stream_) {
-    base_minimum_playout_delay_ms = stream_->GetBaseMinimumPlayoutDelayMs();
-    recording_state = stream_->SetAndGetRecordingState(
-        webrtc::VideoReceiveStreamInterface::RecordingState(),
-        /*generate_key_frame=*/false);
-    call_->DestroyVideoReceiveStream(stream_);
-    stream_ = nullptr;
-  }
-
-  if (flexfec_stream_) {
-    call_->DestroyFlexfecReceiveStream(flexfec_stream_);
-    flexfec_stream_ = nullptr;
-  }
-
-  CreateReceiveStream();
-
-  if (base_minimum_playout_delay_ms) {
-    stream_->SetBaseMinimumPlayoutDelayMs(
-        base_minimum_playout_delay_ms.value());
-  }
-  if (recording_state) {
-    stream_->SetAndGetRecordingState(std::move(*recording_state),
-                                     /*generate_key_frame=*/false);
-  }
-
-  StartReceiveStream();
 }
 
 void WebRtcVideoChannel::WebRtcVideoReceiveStream::CreateReceiveStream() {

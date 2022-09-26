@@ -104,6 +104,7 @@ class RtpVideoStreamReceiver2 : public LossNotificationSender,
                        VideoCodecType video_codec,
                        const std::map<std::string, std::string>& codec_params,
                        bool raw_payload);
+  void SetPacketizerForCodec(uint8_t payload_type, bool raw_payload);
 
   void StartReceive();
   void StopReceive();
@@ -386,8 +387,22 @@ class RtpVideoStreamReceiver2 : public LossNotificationSender,
   video_coding::H264SpsPpsTracker tracker_
       RTC_GUARDED_BY(packet_sequence_checker_);
 
+  class Depacketizer {
+   public:
+    Depacketizer(bool raw_payload, VideoCodecType codec_type);
+
+    VideoRtpDepacketizer* depacketizer() { return depacketizer_.get(); }
+
+    void SetRawPayload(bool raw_payload);
+
+   private:
+    std::unique_ptr<VideoRtpDepacketizer> depacketizer_;
+    const VideoCodecType codec_type_;
+    bool raw_payload_;
+  };
+
   // Maps payload id to the depacketizer.
-  std::map<uint8_t, std::unique_ptr<VideoRtpDepacketizer>> payload_type_map_
+  std::map<uint8_t, Depacketizer> payload_type_map_
       RTC_GUARDED_BY(packet_sequence_checker_);
 
   // TODO(johan): Remove pt_codec_params_ once

@@ -51,6 +51,24 @@
       "parentUuid": "761c489e_256adf4b",
       "revId": "17517fa87b0a849c59ae27a248d16ba8226c28af",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "d2478f62_28480bfb",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2022-09-26T12:53:35Z",
+      "side": 1,
+      "message": "Would prefer to abandon this change.\n\nBecause there is no official preference, in new code in reviews I comment about it only for local consistency, and for existence code push against any change to avoid changing personal preference back and forth depending on who touched this code last.\n\nPersonally I find another one a bit easier to read: clearer it is a check that anything other than that one specific value is ok,\nwhile .has_value() is method call that in theory is more flexible, may mean more things, and thus personally I find a bit harder to parse.\nThere is also 3rd option that I also find acceptable - contextual conversion to bool:\nif (extension.estimated_capture_clock_offset) { ... }",
+      "parentUuid": "69b7e4b2_940d519c",
+      "revId": "17517fa87b0a849c59ae27a248d16ba8226c28af",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

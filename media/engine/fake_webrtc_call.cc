@@ -241,8 +241,12 @@ void FakeVideoSendStream::OnFrame(const webrtc::VideoFrame& frame) {
   if (!last_frame_ || frame.width() != last_frame_->width() ||
       frame.height() != last_frame_->height() ||
       frame.rotation() != last_frame_->rotation()) {
+    webrtc::VideoEncoder::EncoderInfo encoder_info;
     video_streams_ = encoder_config_.video_stream_factory->CreateEncoderStreams(
-        frame.width(), frame.height(), encoder_config_);
+        {.frame_width = frame.width(),
+         .frame_height = frame.height(),
+         .encoder_config = encoder_config_,
+         .encoder_info = encoder_info});
   }
   last_frame_ = frame;
 }
@@ -265,8 +269,12 @@ void FakeVideoSendStream::ReconfigureVideoEncoder(
   } else {
     width = height = 0;
   }
-  video_streams_ =
-      config.video_stream_factory->CreateEncoderStreams(width, height, config);
+  webrtc::VideoEncoder::EncoderInfo encoder_info;
+  video_streams_ = config.video_stream_factory->CreateEncoderStreams(
+      {.frame_width = width,
+       .frame_height = height,
+       .encoder_config = config,
+       .encoder_info = encoder_info});
   if (config.encoder_specific_settings != nullptr) {
     const unsigned char num_temporal_layers = static_cast<unsigned char>(
         video_streams_.back().num_temporal_layers.value_or(1));

@@ -1,0 +1,90 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "0bb4508c_c2c5fc8a",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 6
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2022-09-26T16:25:57Z",
+      "side": 1,
+      "message": "why do you need to clearer Receiver on Stop()?\n\ncan it be restarted with a different set of decoders (may be in such case it would be simpler to recreate it rather than trying to restore the freshly created state?)",
+      "revId": "4ea5c11d01355da982e3e6a52adb272bc69e5d3a",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "bfcb2997_f66f610a",
+        "filename": "video/rtp_video_stream_receiver2.cc",
+        "patchSetId": 6
+      },
+      "lineNbr": 378,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2022-09-26T16:25:57Z",
+      "side": 1,
+      "message": "count returns size_t, so may be avoid implicit conversion to bool:\nif (...count(...) \u003e 0) {",
+      "range": {
+        "startLine": 378,
+        "startChar": 30,
+        "endLine": 378,
+        "endChar": 35
+      },
+      "revId": "4ea5c11d01355da982e3e6a52adb272bc69e5d3a",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "c9ca31a2_5036d899",
+        "filename": "video/rtp_video_stream_receiver2.cc",
+        "patchSetId": 6
+      },
+      "lineNbr": 379,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2022-09-26T16:25:57Z",
+      "side": 1,
+      "message": "technically this is not symmetric:\nsps_pps_idr_is_h264 is forced if for some payload type there is related parameter\ne.g. removing vp9 receive codec shouldn\u0027t reset this flag (even though parameters for vp9 wouldn\u0027t contain h264 specfic setting)",
+      "range": {
+        "startLine": 379,
+        "startChar": 4,
+        "endLine": 379,
+        "endChar": 50
+      },
+      "revId": "4ea5c11d01355da982e3e6a52adb272bc69e5d3a",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "057d5724_def08465",
+        "filename": "video/video_receive_stream2.cc",
+        "patchSetId": 6
+      },
+      "lineNbr": 462,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2022-09-26T16:25:57Z",
+      "side": 1,
+      "message": "rather than iterating over all registered payload types it might be faster and simpler to remove all of them with single call:\nrtp_video_stream_receiver_.RemoveReeciveCodecs();\nvideo_receiver_.DeregisterReceiveCodecs();\n\n...\nvoid RtpVideoStreamReceiver2::RemoveReceiveCodecs() {\n  packet_buffer_.ResetSpsPpsIdrIsH264Keyframe();\n  pt_codec_params_.clear();\n  payload_type_map_.clear();\n}\n\n(though better to doublecheck those maps have same set of keys as config_.decoders)",
+      "range": {
+        "startLine": 457,
+        "startChar": 0,
+        "endLine": 462,
+        "endChar": 3
+      },
+      "revId": "4ea5c11d01355da982e3e6a52adb272bc69e5d3a",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

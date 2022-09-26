@@ -3029,15 +3029,46 @@ bool WebRtcVideoChannel::WebRtcVideoReceiveStream::ReconfigureCodecs(
 
   bool recreate_needed = false;
 
+#if 0
   if (raw_payload_types != config_.rtp.raw_payload_types) {
     raw_payload_types.swap(config_.rtp.raw_payload_types);
     recreate_needed = true;
   }
+#endif
 
+#if 1
+  // Remove decoders that shouldn't be there.
+  for (auto& existing : config_.decoders) {
+    bool found = false;
+    for (auto& updated : decoders) {
+      if (existing == updated) {
+        found = true;
+        break;
+      }
+    }
+    if (!found) {
+      RTC_LOG(LS_ERROR) << "**** need to remove=" << existing.video_format.name;
+      stream_->RemoveDecoder(existing);
+    }
+  }
+
+  // Add new decoders and update existing ones.
+  for (auto& updated : decoders) {
+    const bool raw_payload = raw_payload_types.count(updated.payload_type) > 0;
+    stream_->AddOrUpdateDecoder(updated, raw_payload);
+  }
+
+  // Update config fields.
+  raw_payload_types.swap(config_.rtp.raw_payload_types);
+  decoders.swap(config_.decoders);
+#endif
+
+#if 0
   if (decoders != config_.decoders) {
     decoders.swap(config_.decoders);
     recreate_needed = true;
   }
+#endif
 
   return recreate_needed;
 }

@@ -20,6 +20,23 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "57a06414_45a55f45",
+        "filename": "rtc_tools/frame_analyzer/video_quality_analysis.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 124,
+      "author": {
+        "id": 5508
+      },
+      "writtenOn": "2022-09-26T06:49:25Z",
+      "side": 1,
+      "message": "looks like `results` is not optional, so I suggest passing `results` and `logger` the same way for consistency.",
+      "revId": "390d2a45f0e528aae52be6c233e3a12ebac41b40",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "fe5721bc_1631fb12",
         "filename": "rtc_tools/frame_analyzer/video_quality_analysis.cc",
         "patchSetId": 1
@@ -84,6 +101,40 @@
         "endLine": 156,
         "endChar": 70
       },
+      "revId": "390d2a45f0e528aae52be6c233e3a12ebac41b40",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "19fa1e16_4cb300fc",
+        "filename": "rtc_tools/frame_analyzer/video_quality_analysis.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 75,
+      "author": {
+        "id": 5508
+      },
+      "writtenOn": "2022-09-26T06:49:25Z",
+      "side": 1,
+      "message": "Is the `ResultsContainer` pointer optionally nullptr? If not, should it be passed by reference like `logger` is?",
+      "revId": "390d2a45f0e528aae52be6c233e3a12ebac41b40",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "a1b77b9f_353d6a0b",
+        "filename": "rtc_tools/frame_analyzer/video_quality_analysis_unittest.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 247,
+      "author": {
+        "id": 5508
+      },
+      "writtenOn": "2022-09-26T06:49:25Z",
+      "side": 1,
+      "message": "accidentally or intentionally moving all the tests into an anonymous namespace?",
       "revId": "390d2a45f0e528aae52be6c233e3a12ebac41b40",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }

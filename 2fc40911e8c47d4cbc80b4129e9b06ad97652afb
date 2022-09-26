@@ -20,6 +20,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "ed087c67_898619e6",
+        "filename": "api/field_trials_unittest.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 38,
+      "author": {
+        "id": 13704
+      },
+      "writtenOn": "2022-09-26T14:55:46Z",
+      "side": 1,
+      "message": "We actually have a RAII type for this in test/scoped_key_value_config.h. Do you think it would be better to use is instead? I\u0027m afraid it could test the wrong thing. An added benefit with this though is that the \"registration\" could happen locally and remove the need for adding the global RegisterFieldTrialsForTesting etc. functions.\n\nIf not I\u0027ll change this fixture to a RAII-type instead, agree that\u0027s much cleaner.",
+      "parentUuid": "d7b05f36_ccccf597",
+      "revId": "2fc40911e8c47d4cbc80b4129e9b06ad97652afb",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "72b6f3bb_76fe5b94",
         "filename": "system_wrappers/include/field_trial.h",
         "patchSetId": 3

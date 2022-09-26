@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "5d822cc0_67c3d2c2",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2022-09-26T11:06:36Z",
+      "side": 1,
+      "message": "Looks straightforward, will wait for someone with Java/Android experience to sign off.",
+      "revId": "d78e5e2ef8d8ebb6481394f2989d68454660a64d",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

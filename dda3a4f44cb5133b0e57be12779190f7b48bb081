@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "0579e041_33ceff50",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2022-09-26T11:10:55Z",
+      "side": 1,
+      "message": "I find it a bit strange that this is needed; wouldn\u0027t ExpectationToString accept a pointer to any derived class of SequenceCheckerImpl anyway?\n\nCan you add a test that exercises the code for the base class and a subclass?\n(I suppose this would be a \"compile-only test\", but running the code is never a wrong thing to do)",
+      "revId": "dda3a4f44cb5133b0e57be12779190f7b48bb081",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

@@ -68,6 +68,24 @@
       "message": "If https://webrtc-review.googlesource.com/c/src/+/275769 lands we can resolve this TODO.",
       "revId": "cb89baa7a70178eee7b25e702ec3cd023d212b83",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "e59fde7d_61011914",
+        "filename": "pc/rtc_stats_collector_unittest.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 1216,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2022-09-26T10:51:24Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "ed600fea_37ea5ea6",
+      "revId": "cb89baa7a70178eee7b25e702ec3cd023d212b83",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

@@ -1,6 +1,23 @@
 {
   "comments": [
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "687f0306_b2eee1ec",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 6
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5508
+      },
+      "writtenOn": "2022-09-26T09:01:35Z",
+      "side": 1,
+      "message": "lgtm % the name change",
+      "revId": "a28e9f3419f218077977b5c95fc635bfcdfe7cba",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "7410d166_09a27a2d",
@@ -68,6 +85,24 @@
       "side": 1,
       "message": "`alive_flag_` is for sharing between `DegradedCall`, `FakeNetworkPipeOnTaskQueue` and `ThreadedPacketReceiver`. These objects are created and destroyed on the worker thread, and any closures posted from the worker thread to the network thread must be protected. So I shared and used the scoped_refptr of one `PendingTaskSafetyFlag`.\n\nIf you think splitting this flag into 3 different flags will increase readability, I will. However, these three classes do not exist independently and they have the same lifecycle, for now.",
       "parentUuid": "198423a7_4b8f8af5",
+      "revId": "a28e9f3419f218077977b5c95fc635bfcdfe7cba",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "6f5b2b85_6aff84cf",
+        "filename": "call/degraded_call.cc",
+        "patchSetId": 6
+      },
+      "lineNbr": 29,
+      "author": {
+        "id": 5508
+      },
+      "writtenOn": "2022-09-26T09:01:35Z",
+      "side": 1,
+      "message": "Yes - how about just renaming the `alive_flag_` to something like `call_alive_` then since the flag itself doesn\u0027t represent the scope of the class that holds on to the reference, but rather the scope of the surrogate DegradedCall instance?",
+      "parentUuid": "7cc26801_af76a483",
       "revId": "a28e9f3419f218077977b5c95fc635bfcdfe7cba",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },

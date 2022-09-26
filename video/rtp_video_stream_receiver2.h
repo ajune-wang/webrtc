@@ -104,6 +104,7 @@ class RtpVideoStreamReceiver2 : public LossNotificationSender,
                        VideoCodecType video_codec,
                        const std::map<std::string, std::string>& codec_params,
                        bool raw_payload);
+  void RemoveReceiveCodec(uint8_t payload_type);
 
   void StartReceive();
   void StopReceive();

@@ -16,6 +16,24 @@
       "message": "stamping but need",
       "revId": "d7e9811f235fd8733d142795125c4739fd6094eb",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "a707a08d_9d07558d",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5508
+      },
+      "writtenOn": "2022-09-26T06:55:02Z",
+      "side": 1,
+      "message": "eh, ignore this comment - it was a draft from a couple of days ago",
+      "parentUuid": "c72e5367_69008861",
+      "revId": "d7e9811f235fd8733d142795125c4739fd6094eb",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

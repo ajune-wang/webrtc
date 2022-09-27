@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "1e234b3b_9481230e",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 3
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2022-09-27T05:27:10Z",
+      "side": 1,
+      "message": "Good to see all those static_casts disappear!",
+      "revId": "c9d645ceb87ad8e777282cf46c5b74f2f60f9097",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

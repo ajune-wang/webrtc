@@ -923,6 +923,7 @@ class WebRtcVoiceMediaChannel::WebRtcAudioSendStream
               size_t number_of_channels,
               size_t number_of_frames,
               absl::optional<int64_t> absolute_capture_timestamp_ms) override {
+    TRACE_EVENT0("webrtc", "WebRtcAudioSendStream::OnData");
     RTC_DCHECK_EQ(16, bits_per_sample);
     RTC_CHECK_RUNS_SERIALIZED(&audio_capture_race_checker_);
     RTC_DCHECK(stream_);

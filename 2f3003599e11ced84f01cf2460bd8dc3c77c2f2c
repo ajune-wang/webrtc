@@ -16,6 +16,57 @@
       "message": "Still a bit worried about checking this in empty and with no tests.\nBut let\u0027s try it - once we start to do #include on the output file, failures should be apparent soon enough.",
       "revId": "2f3003599e11ced84f01cf2460bd8dc3c77c2f2c",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "fda581e3_4765bed2",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 3
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2022-09-27T21:39:45Z",
+      "side": 1,
+      "message": "Noting that the importer doesn\u0027t quite like this....",
+      "revId": "2f3003599e11ced84f01cf2460bd8dc3c77c2f2c",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "ee16a4cb_f6d0315e",
+        "filename": "experiments/BUILD.gn",
+        "patchSetId": 3
+      },
+      "lineNbr": 20,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2022-09-27T21:39:45Z",
+      "side": 1,
+      "message": "This action has to be run for internal builds too (using blaze not gn). I suspect that tweaking is needed in the importer scripts to achieve that.",
+      "revId": "2f3003599e11ced84f01cf2460bd8dc3c77c2f2c",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "52dc675e_38ff5345",
+        "filename": "experiments/BUILD.gn",
+        "patchSetId": 3
+      },
+      "lineNbr": 27,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2022-09-27T21:39:45Z",
+      "side": 1,
+      "message": "do I understand correctly that the generated file will never be checked into the repo, so its history is not recorded?",
+      "revId": "2f3003599e11ced84f01cf2460bd8dc3c77c2f2c",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

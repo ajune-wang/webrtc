@@ -33,6 +33,24 @@
       "message": "Looks good to me as far as the stats code goes.\nWe have a tradition of not adding tests that the stats collected are actually right, so no integration tests for these, right?\n\nDo you have CLs ready to go to ensure that the roll into Chromium works?",
       "revId": "b4ac7f50cb7e5e3559ce8d9e1f1a7c0f89c00655",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "8865591f_3f89521a",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 4
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 19549
+      },
+      "writtenOn": "2022-09-27T08:09:35Z",
+      "side": 1,
+      "message": "no integration tests other than the virtual one. Which does not cover that while tcpType should not be present for host candidates it should be present for srflx and relay :-(\n\n(speaking of coverage, any change we can get coverage metrics like we do for Chromium?)",
+      "parentUuid": "108d760a_1cf3be5e",
+      "revId": "b4ac7f50cb7e5e3559ce8d9e1f1a7c0f89c00655",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

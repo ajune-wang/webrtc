@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "f8236aa2_6de8ef6b",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 5
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 19549
+      },
+      "writtenOn": "2022-09-27T08:09:35Z",
+      "side": 1,
+      "message": "https://chromium-review.googlesource.com/c/chromium/src/+/3921234 -- chromium CL.\nI plan to wait for the spec change to be merged, then merge the Chromium change, then merge this, then deal with WPT roll into chromium break supported stats.\n\nWhile I do that I should actually add conceptual documentation\" so I do not need to search for old changes to remember the process ;-)",
+      "revId": "7b3074712d711c627ec6a168dc0612d80cf85e10",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "2e017489_e1b9d6ab",
+        "filename": "modules/desktop_capture/DEPS",
+        "patchSetId": 9
+      },
+      "lineNbr": 21,
+      "author": {
+        "id": 18474
+      },
+      "writtenOn": "2022-09-27T16:17:53Z",
+      "side": 1,
+      "message": "Most of the CIPD code I see is in the top-level DEPS files. Maybe try placing it in the root DEPS?\n\nAlternatively, I wonder if defining the \"Build\" step as empty resulted in the default behavior being overwritten and that while they are maybe getting downloaded; the install script is never running? \nhttps://chromium.googlesource.com/chromium/src/+/HEAD/docs/cipd_and_3pp.md#2_1-the-file-required",
+      "range": {
+        "startLine": 21,
+        "startChar": 0,
+        "endLine": 21,
+        "endChar": 4
+      },
+      "revId": "bc2d108635cda782f9adef6a4fadd6b7899d3813",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

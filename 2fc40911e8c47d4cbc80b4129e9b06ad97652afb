@@ -38,6 +38,47 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "90bab609_98d384ae",
+        "filename": "api/field_trials_unittest.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 38,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2022-09-27T07:48:44Z",
+      "side": 1,
+      "message": "I noticed that line above also clears global state (and that what comment states also). From that comment they way you\u0027re adding is consistent, but I do not think it is a good way to add/clear temporary state for tests.\nRAII type in test/scoped_key_value_config.h may be address existent `InitFieldTrialsFromString`, may be not. That is imho out of scope. It doesn\u0027t address the new global state you\u0027re adding.\n\nI was suggesting to add new RAII type just to manage allowed test keys, instead of introducing RegisterFieldTrialsForTesting function.\nOr at least UnregesterFieldTrialsForTesting in destructor, at the end of each test rather than at the beginning.\ni.e. address just the functionality you\u0027re adding.",
+      "parentUuid": "ed087c67_898619e6",
+      "revId": "2fc40911e8c47d4cbc80b4129e9b06ad97652afb",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "389badaa_ad79b54b",
+        "filename": "api/field_trials_unittest.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 43,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2022-09-27T07:48:44Z",
+      "side": 1,
+      "message": "may be kTestKeys",
+      "range": {
+        "startLine": 43,
+        "startChar": 37,
+        "endLine": 43,
+        "endChar": 42
+      },
+      "revId": "2fc40911e8c47d4cbc80b4129e9b06ad97652afb",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "72b6f3bb_76fe5b94",
         "filename": "system_wrappers/include/field_trial.h",
         "patchSetId": 3
@@ -73,6 +114,30 @@
       "side": 1,
       "message": "Yes, since they are global they don\u0027t have to live here. I still see an argument for keeping them close since they should be removed once the global string is removed.",
       "parentUuid": "72b6f3bb_76fe5b94",
+      "range": {
+        "startLine": 101,
+        "startChar": 0,
+        "endLine": 107,
+        "endChar": 42
+      },
+      "revId": "2fc40911e8c47d4cbc80b4129e9b06ad97652afb",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "4e97e811_b7f82b3a",
+        "filename": "system_wrappers/include/field_trial.h",
+        "patchSetId": 3
+      },
+      "lineNbr": 107,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2022-09-27T07:48:44Z",
+      "side": 1,
+      "message": "\"ForTesting\" is the recommended suffix for functions that are too hard to move into test-only target:  https://abseil.io/tips/135\n(These functions are bound to production `FindFullName` function, so imho the fall into such category)",
+      "parentUuid": "59be70f7_ff461f7b",
       "range": {
         "startLine": 101,
         "startChar": 0,

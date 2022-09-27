@@ -432,6 +432,7 @@ void VideoReceiveStream2::Stop() {
 
   buffer_->Stop();
   call_stats_->DeregisterStatsObserver(this);
+
   if (decoder_running_) {
     rtc::Event done;
     decode_queue_.PostTask([this, &done] {
@@ -451,6 +452,12 @@ void VideoReceiveStream2::Stop() {
     stats_proxy_.DecoderThreadStopped();
 
     UpdateHistograms();
+  }
+
+  {
+    // TODO(bugs.webrtc.org/11993): Make these calls on the network thread.
+    rtp_video_stream_receiver_.RemoveReceiveCodecs();
+    video_receiver_.DeregisterReceiveCodecs();
   }
 
   video_stream_decoder_.reset();

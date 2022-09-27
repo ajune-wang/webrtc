@@ -176,6 +176,24 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "624018ad_34b52fdc",
+        "filename": "modules/rtp_rtcp/source/rtp_format_h264.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 29,
+      "author": {
+        "id": 9405
+      },
+      "writtenOn": "2022-09-27T05:38:03Z",
+      "side": 1,
+      "message": "I\u0027m not an expert in H.264 coding, so I planned to keep this comment as is. (This comment first appeared 8 years ago: https://webrtc.googlesource.com/src/+/2ec560606be6519dc4e32a1e6855b0f362ca498d `webrtc/modules/rtp_rtcp/source/rtp_format_h264.cc`)\n\nBut, I\u0027ve edited this comment as you said.",
+      "parentUuid": "169e7f83_c2d28b98",
+      "revId": "0106221d25db49a3183b7e18a151031dbd05e1c1",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "6422d620_1f19de21",

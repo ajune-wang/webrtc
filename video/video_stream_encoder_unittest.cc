@@ -1,3 +1,4 @@
+
 /*
  *  Copyright (c) 2016 The WebRTC project authors. All Rights Reserved.
  *
@@ -70,6 +71,7 @@
 #include "test/time_controller/simulated_time_controller.h"
 #include "test/video_encoder_nullable_proxy_factory.h"
 #include "test/video_encoder_proxy_factory.h"
+#include "video/config/encoder_stream_factory.h"
 #include "video/frame_cadence_adapter.h"
 #include "video/send_statistics_proxy.h"
 

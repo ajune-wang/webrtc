@@ -102,6 +102,23 @@
       "message": "Mark or Mirko can you stamp? I\u0027d like to make sure this makes tomorrow\u0027s roll so that I can run the CQ on the change where I start consuming this.",
       "revId": "dab4475bde820ff247f087f9307d92a633058a61",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "d672c85e_7aa46e33",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 14134
+      },
+      "writtenOn": "2022-09-27T01:46:44Z",
+      "side": 1,
+      "message": "As I think we\u0027ve discussed previously, using the Source to stash data that is not used by any WebRTC capturer is definitely not a good design as it couples the capturer API closely to implementation details of Chrome (or, in this case, lacros).\n\nLong-term, if you want to downstream the capturers into Chromium then maybe this is a moot point though.\n\nIf you\u0027re not doing that, then I would be more comfortable LGTMing this if there was a plan to untangle some of this down the road, maybe by not using Source in Chromium for lacros window capture.",
+      "revId": "dab4475bde820ff247f087f9307d92a633058a61",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

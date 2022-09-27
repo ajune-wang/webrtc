@@ -18,6 +18,23 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "cc96ec9f_2c43cded",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 4
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5613
+      },
+      "writtenOn": "2022-09-27T12:39:59Z",
+      "side": 1,
+      "message": "thanks and PTAL",
+      "revId": "9a745003e8b6a431663570638ae92d51dd4cc01b",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "9943c65b_b6fcd66a",
@@ -31,6 +48,30 @@
       "writtenOn": "2022-09-27T12:25:31Z",
       "side": 1,
       "message": "Is there a strong reason for having a mega target in the folder, as opposed to calling this `streams_config` and then add another target for `VideoEncoderConfig` later? If not, can we keep this target granular and then add more later?",
+      "range": {
+        "startLine": 11,
+        "startChar": 13,
+        "endLine": 11,
+        "endChar": 27
+      },
+      "revId": "9a745003e8b6a431663570638ae92d51dd4cc01b",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "4bee5389_48fff7dd",
+        "filename": "video/config/BUILD.gn",
+        "patchSetId": 4
+      },
+      "lineNbr": 11,
+      "author": {
+        "id": 5613
+      },
+      "writtenOn": "2022-09-27T12:39:59Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "9943c65b_b6fcd66a",
       "range": {
         "startLine": 11,
         "startChar": 13,
@@ -64,6 +105,30 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "2cc1c256_346acc2a",
+        "filename": "video/config/BUILD.gn",
+        "patchSetId": 4
+      },
+      "lineNbr": 44,
+      "author": {
+        "id": 5613
+      },
+      "writtenOn": "2022-09-27T12:39:59Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "a6e18aad_5832f160",
+      "range": {
+        "startLine": 44,
+        "startChar": 2,
+        "endLine": 44,
+        "endChar": 34
+      },
+      "revId": "9a745003e8b6a431663570638ae92d51dd4cc01b",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "bee31b7d_3a7ac6b0",
@@ -77,6 +142,30 @@
       "writtenOn": "2022-09-27T12:25:31Z",
       "side": 1,
       "message": "Remove newline",
+      "range": {
+        "startLine": 1,
+        "startChar": 0,
+        "endLine": 2,
+        "endChar": 2
+      },
+      "revId": "9a745003e8b6a431663570638ae92d51dd4cc01b",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "23a0376b_1fe733b9",
+        "filename": "video/video_stream_encoder_unittest.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 2,
+      "author": {
+        "id": 5613
+      },
+      "writtenOn": "2022-09-27T12:39:59Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "bee31b7d_3a7ac6b0",
       "range": {
         "startLine": 1,
         "startChar": 0,

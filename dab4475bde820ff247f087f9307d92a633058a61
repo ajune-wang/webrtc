@@ -137,6 +137,24 @@
       "parentUuid": "d672c85e_7aa46e33",
       "revId": "dab4475bde820ff247f087f9307d92a633058a61",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "35a3d47b_12b727f4",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 18474
+      },
+      "writtenOn": "2022-09-27T15:40:21Z",
+      "side": 1,
+      "message": "I recall discussing that it was perhaps not the best design, but that it was the best of the options I\u0027d been able to come up with: https://docs.google.com/document/d/1OwI8AzvXiR5eixXjPae5k_K8WbtT4VnGDf2M9mwZt-c/edit?resourcekey\u003d0-sH483S-RqvWajUbWmQ_CvQ#heading\u003dh.xgjl2srtytjt, which is why I had moved forward with the implementation of this and the Chromium CL.\n\nI believe we\u0027d discussed that it was a mitigation that this flag was only available on ChromeOS and that the longer-term plan would be to look at changing the SourceID type per platform. (Unfortunately, LaCrOS still exposes itself over the DesktopCapturer Interface, but Ash already deviates from using the NativeDesktopMediaList and Elad and I have also discussed how the NativeDesktopMediaList is getting quite a lot of scenario-specific code added to it that it may be worth investigating a further split).\n\nI believe the opposite is true, that longer-term we\u0027d want to upstream more items to be behind DesktopCapturer (or DesktopCapturerV2).\n\nLMK if you\u0027d like to sync further offline.",
+      "parentUuid": "38664d86_bf335b8a",
+      "revId": "dab4475bde820ff247f087f9307d92a633058a61",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

@@ -155,6 +155,24 @@
       "parentUuid": "38664d86_bf335b8a",
       "revId": "dab4475bde820ff247f087f9307d92a633058a61",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "3521203e_22e608cc",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 14134
+      },
+      "writtenOn": "2022-09-27T18:02:02Z",
+      "side": 1,
+      "message": "It looks like this is \"Option 1\" in the doc?  I recall discussing these options but didn\u0027t see a plan in the document for retiring the technical debt introduced.",
+      "parentUuid": "35a3d47b_12b727f4",
+      "revId": "dab4475bde820ff247f087f9307d92a633058a61",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

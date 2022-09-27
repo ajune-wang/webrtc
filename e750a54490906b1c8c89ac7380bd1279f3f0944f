@@ -1,6 +1,46 @@
 {
   "comments": [
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "5b92d52a_dfccb206",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5117
+      },
+      "writtenOn": "2022-09-27T09:06:26Z",
+      "side": 1,
+      "message": "I wonder if video/ is the correct place for this.\n\nThis will a",
+      "revId": "e750a54490906b1c8c89ac7380bd1279f3f0944f",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "5754f0fa_5b838d61",
+        "filename": "media/DEPS",
+        "patchSetId": 1
+      },
+      "lineNbr": 19,
+      "author": {
+        "id": 5117
+      },
+      "writtenOn": "2022-09-27T09:06:26Z",
+      "side": 1,
+      "message": "This will introduce circular dependencies potentially, as a lot of things in video/ depend on media/\n\nThus, I believe video/ is not the best place for EncoderStreamFactory. It better stay in media/engine/\n\nAlso please run \ngn gen out/Default --check\n\nI think it might be already broken in a way that\u0027s not preventing cl upload, but would break bots.",
+      "range": {
+        "startLine": 19,
+        "startChar": 2,
+        "endLine": 19,
+        "endChar": 11
+      },
+      "revId": "e750a54490906b1c8c89ac7380bd1279f3f0944f",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "2a024a2f_f946fd0a",

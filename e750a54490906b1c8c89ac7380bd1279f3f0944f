@@ -41,6 +41,30 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "de9bae7e_0efd7fc8",
+        "filename": "media/DEPS",
+        "patchSetId": 1
+      },
+      "lineNbr": 19,
+      "author": {
+        "id": 5613
+      },
+      "writtenOn": "2022-09-27T11:49:41Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "5754f0fa_5b838d61",
+      "range": {
+        "startLine": 19,
+        "startChar": 2,
+        "endLine": 19,
+        "endChar": 11
+      },
+      "revId": "e750a54490906b1c8c89ac7380bd1279f3f0944f",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "2a024a2f_f946fd0a",
@@ -54,6 +78,30 @@
       "writtenOn": "2022-09-27T09:03:03Z",
       "side": 1,
       "message": "remove and run `gn gen --check`",
+      "range": {
+        "startLine": 69,
+        "startChar": 4,
+        "endLine": 69,
+        "endChar": 31
+      },
+      "revId": "e750a54490906b1c8c89ac7380bd1279f3f0944f",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "19879431_1bbc3241",
+        "filename": "video/BUILD.gn",
+        "patchSetId": 1
+      },
+      "lineNbr": 69,
+      "author": {
+        "id": 5613
+      },
+      "writtenOn": "2022-09-27T11:49:41Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "2a024a2f_f946fd0a",
       "range": {
         "startLine": 69,
         "startChar": 4,

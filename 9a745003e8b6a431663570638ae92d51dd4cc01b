@@ -75,6 +75,30 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "810dd537_e26dc7e1",
+        "filename": "media/DEPS",
+        "patchSetId": 4
+      },
+      "lineNbr": 19,
+      "author": {
+        "id": 5613
+      },
+      "writtenOn": "2022-09-27T14:54:29Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "04ee18c8_afa95537",
+      "range": {
+        "startLine": 19,
+        "startChar": 2,
+        "endLine": 19,
+        "endChar": 18
+      },
+      "revId": "9a745003e8b6a431663570638ae92d51dd4cc01b",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "9943c65b_b6fcd66a",

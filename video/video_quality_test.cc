@@ -54,6 +54,7 @@
 #ifdef WEBRTC_WIN
 #include "modules/audio_device/include/audio_device_factory.h"
 #endif
+#include "video/encoder_stream_factory.h"
 
 namespace webrtc {
 

@@ -27,6 +27,7 @@
 #include "test/fake_encoder.h"
 #include "test/scenario/hardware_codecs.h"
 #include "test/testsupport/file_utils.h"
+#include "video/encoder_stream_factory.h"
 
 namespace webrtc {
 namespace test {

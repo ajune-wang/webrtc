@@ -16,6 +16,23 @@
       "message": "thanks and PTAL",
       "revId": "764f988dc6fd57c312f608ca9ece305cfd3dd334",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "ac5c2e3e_892a8a1b",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 6
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 6337
+      },
+      "writtenOn": "2022-09-27T16:47:19Z",
+      "side": 1,
+      "message": "LGMT for changes in /test",
+      "revId": "764f988dc6fd57c312f608ca9ece305cfd3dd334",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

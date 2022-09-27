@@ -91,6 +91,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "3ba11a5f_27f8441e",
+        "filename": "api/video_codecs/video_encoder_config.h",
+        "patchSetId": 3
+      },
+      "lineNbr": 138,
+      "author": {
+        "id": 5117
+      },
+      "writtenOn": "2022-09-27T08:22:34Z",
+      "side": 1,
+      "message": "If more arguments are incoming, I\u0027m fine with the struct then.\n\nThen, this class has an unfortunate and a little confusing name. It takes some information about user requested video configuration (VideoEncoderConfig) and produces a more detailed encoder configuration (VideoStream is a config struct). It doesn\u0027t create any actual streams or encoders.\n\nSo, I would argue that this factory shouldn\u0027t know about encoder info. It\u0027s kind-of backwards.\n\nWDYT if we create a new method AdjustEncoderConfig(EncoderInfo), which would contain that hack with adjusting scaling factors based on encoder alignment and also would contain your logic to adjust requested streams resolutions based on the same alignment? It can even be not in this factory, but rather a static function in that case.\n\nI believe it would be clearer. This class will still have the same single purpose: convert VideoEncoderConfig to VideoStream configs.\n\nThen adjusting user requested configurations based on the encoder capabilities would be a separate routine.",
+      "parentUuid": "7fd0367a_524632f2",
+      "range": {
+        "startLine": 138,
+        "startChar": 5,
+        "endLine": 138,
+        "endChar": 51
+      },
+      "revId": "c6b36446f62ebc4ef48f4774cb73c6050bfc7d24",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "97631916_4edacc5e",
         "filename": "video/video_stream_encoder.cc",
         "patchSetId": 3
@@ -126,6 +150,30 @@
       "side": 1,
       "message": "will take a stub tomorrow!",
       "parentUuid": "97631916_4edacc5e",
+      "range": {
+        "startLine": 936,
+        "startChar": 2,
+        "endLine": 937,
+        "endChar": 67
+      },
+      "revId": "c6b36446f62ebc4ef48f4774cb73c6050bfc7d24",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "89d633c9_0b2feee8",
+        "filename": "video/video_stream_encoder.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 937,
+      "author": {
+        "id": 5117
+      },
+      "writtenOn": "2022-09-27T08:22:34Z",
+      "side": 1,
+      "message": "Based on my feedback above, please wait before doing this. Maybe it\u0027s better to move this into the new method instead.",
+      "parentUuid": "40bf42d3_63e51792",
       "range": {
         "startLine": 936,
         "startChar": 2,

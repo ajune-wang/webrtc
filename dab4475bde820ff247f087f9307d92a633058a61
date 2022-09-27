@@ -173,6 +173,24 @@
       "parentUuid": "35a3d47b_12b727f4",
       "revId": "dab4475bde820ff247f087f9307d92a633058a61",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "e83de5f6_f8c7f608",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 18474
+      },
+      "writtenOn": "2022-09-27T18:43:24Z",
+      "side": 1,
+      "message": "Yes, this is Option #1; I don\u0027t think I noted down the results of our discussions including the plan for retiring the technical debt; I *think* the longer-term plan we\u0027d discussed was to try to make the entire SourceID struct platform specific to meet the needs of the various capturers (akin to how AcceleratedWidget is used internally to Chrome), and that this was then a step in that direction, since it *was* scoped to the platform.\n\nI did ask Scott based on some of his feedback on the Chromium side if there was a mechanism where we could potentially do \"Option 2\" and keep everything abstracted to the crosapi layer/in DesktopCapturerLacros.\n\nIt *does* look like we already do some notion of collecting the in-process windows on the UI thread for Windows specifically (using system APIs) that I could look into some kind of extension/abstraction of that logic as well which would also help clean up some Windows-specific code; but I am not sure how to communicate the threading requirements cross-repo/over the DesktopCapturer interface.",
+      "parentUuid": "3521203e_22e608cc",
+      "revId": "dab4475bde820ff247f087f9307d92a633058a61",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

@@ -16,6 +16,7 @@ include_rules = [
   "+sound",
   "+system_wrappers",
   "+third_party/libyuv",
+  "+video",
 ]
 
 specific_include_rules = {

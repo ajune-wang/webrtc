@@ -35,6 +35,46 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "9c47ba2e_e6864f1f",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 4
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5117
+      },
+      "writtenOn": "2022-09-27T12:49:54Z",
+      "side": 1,
+      "message": "Looks good.",
+      "revId": "9a745003e8b6a431663570638ae92d51dd4cc01b",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "04ee18c8_afa95537",
+        "filename": "media/DEPS",
+        "patchSetId": 4
+      },
+      "lineNbr": 19,
+      "author": {
+        "id": 5117
+      },
+      "writtenOn": "2022-09-27T12:49:54Z",
+      "side": 1,
+      "message": "I believe, now the only thing that requires simulcast.h is the webrtc_video_engine_unittest.cc\n\nAnd that test is ridiculous: it\u0027s executing parts of the tested code (simulcast.h) directly to get the expected result. I doubt it even provides any value. Maybe it could be removed or rewritten in the future.\n\nCould you please add \"+video/config\" as an file specific rule instead?",
+      "range": {
+        "startLine": 19,
+        "startChar": 2,
+        "endLine": 19,
+        "endChar": 18
+      },
+      "revId": "9a745003e8b6a431663570638ae92d51dd4cc01b",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "9943c65b_b6fcd66a",

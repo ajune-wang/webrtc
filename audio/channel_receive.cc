@@ -48,6 +48,7 @@
 #include "rtc_base/synchronization/mutex.h"
 #include "rtc_base/system/no_unique_address.h"
 #include "rtc_base/time_utils.h"
+#include "rtc_base/trace_event.h"
 #include "system_wrappers/include/metrics.h"
 #include "system_wrappers/include/ntp_time.h"
 
@@ -375,6 +376,7 @@ void ChannelReceive::InitFrameTransformerDelegate(
 AudioMixer::Source::AudioFrameInfo ChannelReceive::GetAudioFrameWithInfo(
     int sample_rate_hz,
     AudioFrame* audio_frame) {
+  TRACE_EVENT0("webrtc", "ChannelReceive::GetAudioFrameWithInfo");
   RTC_DCHECK_RUNS_SERIALIZED(&audio_thread_race_checker_);
   audio_frame->sample_rate_hz_ = sample_rate_hz;
 

@@ -119,6 +119,24 @@
       "message": "As I think we\u0027ve discussed previously, using the Source to stash data that is not used by any WebRTC capturer is definitely not a good design as it couples the capturer API closely to implementation details of Chrome (or, in this case, lacros).\n\nLong-term, if you want to downstream the capturers into Chromium then maybe this is a moot point though.\n\nIf you\u0027re not doing that, then I would be more comfortable LGTMing this if there was a plan to untangle some of this down the road, maybe by not using Source in Chromium for lacros window capture.",
       "revId": "dab4475bde820ff247f087f9307d92a633058a61",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "38664d86_bf335b8a",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5087
+      },
+      "writtenOn": "2022-09-27T06:57:13Z",
+      "side": 1,
+      "message": "I leave this to Mark, since there is a comment about design that needs to be addressed.",
+      "parentUuid": "d672c85e_7aa46e33",
+      "revId": "dab4475bde820ff247f087f9307d92a633058a61",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

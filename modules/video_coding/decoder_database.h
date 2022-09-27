@@ -23,12 +23,12 @@
 
 namespace webrtc {
 
-class VCMDecoderDataBase {
+class DecoderDataBase {
  public:
-  VCMDecoderDataBase();
-  VCMDecoderDataBase(const VCMDecoderDataBase&) = delete;
-  VCMDecoderDataBase& operator=(const VCMDecoderDataBase&) = delete;
-  ~VCMDecoderDataBase() = default;
+  DecoderDataBase();
+  DecoderDataBase(const DecoderDataBase&) = delete;
+  DecoderDataBase& operator=(const DecoderDataBase&) = delete;
+  ~DecoderDataBase() = default;
 
   // Returns a pointer to the previously registered decoder or nullptr if none
   // was registered for the `payload_type`.

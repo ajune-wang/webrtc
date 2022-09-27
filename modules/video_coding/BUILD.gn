@@ -1122,6 +1122,7 @@ if (rtc_include_tests) {
       "codecs/vp8/libvpx_vp8_simulcast_test.cc",
       "codecs/vp8/screenshare_layers_unittest.cc",
       "codecs/vp9/svc_config_unittest.cc",
+      "decoder_database_unittest.cc",
       "decoding_state_unittest.cc",
       "fec_controller_unittest.cc",
       "frame_buffer2_unittest.cc",

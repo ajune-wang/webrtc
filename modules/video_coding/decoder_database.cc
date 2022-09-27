@@ -47,7 +47,9 @@ void VCMDecoderDataBase::RegisterExternalDecoder(
   RTC_DCHECK_RUN_ON(&decoder_sequence_checker_);
   // If payload value already exists, erase old and insert new.
   DeregisterExternalDecoder(payload_type);
-  decoders_[payload_type] = external_decoder;
+  if (external_decoder) {
+    decoders_[payload_type] = external_decoder;
+  }
 }
 
 bool VCMDecoderDataBase::IsExternalDecoderRegistered(
@@ -76,6 +78,11 @@ bool VCMDecoderDataBase::DeregisterReceiveCodec(uint8_t payload_type) {
     current_payload_type_ = absl::nullopt;
   }
   return true;
+}
+
+void VCMDecoderDataBase::DeregisterReceiveCodecs() {
+  current_payload_type_ = absl::nullopt;
+  decoder_settings_.clear();
 }
 
 VCMGenericDecoder* VCMDecoderDataBase::GetDecoder(

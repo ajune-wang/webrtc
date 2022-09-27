@@ -67,6 +67,41 @@
       "message": "LGTM, although I don\u0027t have COMMITTER in this repository.",
       "revId": "dab4475bde820ff247f087f9307d92a633058a61",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "99bf85b6_a1e66af0",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 18474
+      },
+      "writtenOn": "2022-09-27T00:00:29Z",
+      "side": 1,
+      "message": "Thanks! Mark or Mirko can you Stamp?",
+      "parentUuid": "2db448a3_cefafc0d",
+      "revId": "dab4475bde820ff247f087f9307d92a633058a61",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "f640aa25_4b7178ec",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 18474
+      },
+      "writtenOn": "2022-09-27T00:00:29Z",
+      "side": 1,
+      "message": "Mark or Mirko can you stamp? I\u0027d like to make sure this makes tomorrow\u0027s roll so that I can run the CQ on the change where I start consuming this.",
+      "revId": "dab4475bde820ff247f087f9307d92a633058a61",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

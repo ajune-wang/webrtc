@@ -69,6 +69,24 @@
       "parentUuid": "3cc257fa_a9c8d829",
       "revId": "0df337ce943728eef522c223b8d5de627b6928bd",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "06222ec3_f5f80a92",
+        "filename": "video/video_receive_stream2.cc",
+        "patchSetId": 8
+      },
+      "lineNbr": 457,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2022-09-28T14:18:19Z",
+      "side": 1,
+      "message": "yes, there can be two RTC_DCHECK_RUN_ON in the same scope now (that didn\u0027t compile before)",
+      "parentUuid": "5afc238e_348b7b01",
+      "revId": "0df337ce943728eef522c223b8d5de627b6928bd",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

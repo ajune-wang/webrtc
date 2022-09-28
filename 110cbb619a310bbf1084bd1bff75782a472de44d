@@ -1,0 +1,245 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "9e2a5dad_abe9b999",
+        "filename": "api/test/mock_video_decoder.h",
+        "patchSetId": 14
+      },
+      "lineNbr": 14,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2022-09-28T14:18:19Z",
+      "side": 1,
+      "message": "if you prefer to catch destructor event with an std::function, include \u003cfunctional\u003e\nYou may also consider to use absl::AnyInvocable\u003cvoid() \u0026\u0026\u003e instead,\n\nmy preferences - mock way, as written in the comment below.",
+      "revId": "110cbb619a310bbf1084bd1bff75782a472de44d",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "c19a2c98_2b96b91e",
+        "filename": "api/test/mock_video_decoder.h",
+        "patchSetId": 14
+      },
+      "lineNbr": 72,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2022-09-28T14:18:19Z",
+      "side": 1,
+      "message": "may be better to do it mock way:\n\n~MockVideoDecoder() override {\n  Destruct();\n}\n...\nMOCK_METHOD(void, Destruct, (), ());\n\nthen there is no need for custom constructor and test may put expectation same way as any other function",
+      "range": {
+        "startLine": 72,
+        "startChar": 0,
+        "endLine": 72,
+        "endChar": 43
+      },
+      "revId": "110cbb619a310bbf1084bd1bff75782a472de44d",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "afa0a798_b9ab0cdf",
+        "filename": "modules/video_coding/decoder_database_unittest.cc",
+        "patchSetId": 14
+      },
+      "lineNbr": 23,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2022-09-28T14:18:19Z",
+      "side": 1,
+      "message": "it is common to add Test suffix:\nTEST(VCMDecoderDataBaseTest, RegisterExternalDecoder) {",
+      "range": {
+        "startLine": 23,
+        "startChar": 5,
+        "endLine": 23,
+        "endChar": 23
+      },
+      "revId": "110cbb619a310bbf1084bd1bff75782a472de44d",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "77e658b2_1056f139",
+        "filename": "modules/video_coding/decoder_database_unittest.cc",
+        "patchSetId": 14
+      },
+      "lineNbr": 28,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2022-09-28T14:18:19Z",
+      "side": 1,
+      "message": "prefer to alias symbols from testing namespace:\n\nnamespace {\n\nusing ::testing::StrictMock;\n...\nTEST(...) {\n  ...\n  StrictMock\u003cMockVideoDecoder\u003e decoder;\n  db.RegisterExternalDecoder(kPayloadType, \u0026decoder);\n}\n\nbtw, why make this particular mock strict?",
+      "range": {
+        "startLine": 28,
+        "startChar": 34,
+        "endLine": 28,
+        "endChar": 53
+      },
+      "revId": "110cbb619a310bbf1084bd1bff75782a472de44d",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "18d3e42b_da9245e1",
+        "filename": "modules/video_coding/decoder_database_unittest.cc",
+        "patchSetId": 14
+      },
+      "lineNbr": 28,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2022-09-28T14:18:19Z",
+      "side": 1,
+      "message": "It seems unique_ptr is not needed here, you may create the MockVideoDecoder on the stack\n\nhttps://abseil.io/tips/187",
+      "range": {
+        "startLine": 28,
+        "startChar": 17,
+        "endLine": 28,
+        "endChar": 33
+      },
+      "revId": "110cbb619a310bbf1084bd1bff75782a472de44d",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "bdd4f3a2_89b1f460",
+        "filename": "modules/video_coding/decoder_database_unittest.cc",
+        "patchSetId": 14
+      },
+      "lineNbr": 31,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2022-09-28T14:18:19Z",
+      "side": 1,
+      "message": "as I understand `DeregisterExternalDecoder` is the function under test there, where decoder pointer is the constant to test with. \nSwap the parameters in the EXPECT_EQ:\nEXPECT_EQ(db.DeregisterExternalDecoder(kPayloadType), \u0026decoder);\n\nhttp://go/c-readability-advice#avoid-yoda-style-comparisons\n“More generally, put the \"most variable\" operand on the left”\n\"Note that this also applies to GoogleTest EXPECT_EQ and ASSERT_EQ statements\"",
+      "range": {
+        "startLine": 31,
+        "startChar": 2,
+        "endLine": 31,
+        "endChar": 71
+      },
+      "revId": "110cbb619a310bbf1084bd1bff75782a472de44d",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "600a16fa_6b41b6c9",
+        "filename": "modules/video_coding/decoder_database_unittest.cc",
+        "patchSetId": 14
+      },
+      "lineNbr": 51,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2022-09-28T14:18:19Z",
+      "side": 1,
+      "message": "it is not common to have two variables declared on the same line [though there is no rule that forbids it], may be use two lines.",
+      "range": {
+        "startLine": 51,
+        "startChar": 2,
+        "endLine": 51,
+        "endChar": 53
+      },
+      "revId": "110cbb619a310bbf1084bd1bff75782a472de44d",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "194095c4_f3601f01",
+        "filename": "modules/video_coding/video_receiver2_unittest.cc",
+        "patchSetId": 14
+      },
+      "lineNbr": 37,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2022-09-28T14:18:19Z",
+      "side": 1,
+      "message": "use \u003d default both for constructor or destructor ( https://abseil.io/tips/131 )\nor do not declare them at all (I think it is ok for mocks of an interface)",
+      "range": {
+        "startLine": 36,
+        "startChar": 0,
+        "endLine": 37,
+        "endChar": 39
+      },
+      "revId": "110cbb619a310bbf1084bd1bff75782a472de44d",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "6b1d6ee7_4eafd6f9",
+        "filename": "modules/video_coding/video_receiver2_unittest.cc",
+        "patchSetId": 14
+      },
+      "lineNbr": 59,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2022-09-28T14:18:19Z",
+      "side": 1,
+      "message": "may be add units (ReceiveTimeMs()) or use strict type (webrtc::Timestamp)",
+      "range": {
+        "startLine": 59,
+        "startChar": 10,
+        "endLine": 59,
+        "endChar": 22
+      },
+      "revId": "110cbb619a310bbf1084bd1bff75782a472de44d",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "489865c7_e471e68e",
+        "filename": "modules/video_coding/video_receiver2_unittest.cc",
+        "patchSetId": 14
+      },
+      "lineNbr": 110,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2022-09-28T14:18:19Z",
+      "side": 1,
+      "message": "prefer to swap parameters (code under test first, constant - second)",
+      "revId": "110cbb619a310bbf1084bd1bff75782a472de44d",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "3d85e595_c42e344b",
+        "filename": "modules/video_coding/video_receiver2_unittest.cc",
+        "patchSetId": 14
+      },
+      "lineNbr": 116,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2022-09-28T14:18:19Z",
+      "side": 1,
+      "message": ".get() is redundant:\nEXPECT_CALL(*decoder, Configure)...",
+      "range": {
+        "startLine": 116,
+        "startChar": 14,
+        "endLine": 116,
+        "endChar": 28
+      },
+      "revId": "110cbb619a310bbf1084bd1bff75782a472de44d",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

@@ -21,6 +21,7 @@
 #include "modules/video_coding/encoded_frame.h"
 #include "modules/video_coding/generic_decoder.h"
 #include "modules/video_coding/timing/timing.h"
+#include "rtc_base/system/no_unique_address.h"
 #include "system_wrappers/include/clock.h"
 
 namespace webrtc {
@@ -51,8 +52,8 @@ class VideoReceiver2 {
   int32_t Decode(const VCMEncodedFrame* frame);
 
  private:
-  SequenceChecker construction_sequence_checker_;
-  SequenceChecker decoder_sequence_checker_;
+  RTC_NO_UNIQUE_ADDRESS SequenceChecker construction_sequence_checker_;
+  RTC_NO_UNIQUE_ADDRESS SequenceChecker decoder_sequence_checker_;
   Clock* const clock_;
   VCMDecodedFrameCallback decoded_frame_callback_;
   // Holds/owns the decoder instances that are registered via

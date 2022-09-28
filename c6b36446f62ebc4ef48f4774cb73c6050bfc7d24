@@ -115,6 +115,115 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "a651e4ac_a5d57f7d",
+        "filename": "api/video_codecs/video_encoder_config.h",
+        "patchSetId": 3
+      },
+      "lineNbr": 138,
+      "author": {
+        "id": 5142
+      },
+      "writtenOn": "2022-09-28T11:36:10Z",
+      "side": 1,
+      "message": "A pure refactor CL for the arg would have been nice, but I understand if you want to do everything in one CL.",
+      "parentUuid": "3ba11a5f_27f8441e",
+      "range": {
+        "startLine": 138,
+        "startChar": 5,
+        "endLine": 138,
+        "endChar": 51
+      },
+      "revId": "c6b36446f62ebc4ef48f4774cb73c6050bfc7d24",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "8123e78a_0a5ce64f",
+        "filename": "media/engine/webrtc_video_engine.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 3687,
+      "author": {
+        "id": 5142
+      },
+      "writtenOn": "2022-09-28T11:36:10Z",
+      "side": 1,
+      "message": "nit: webrtc::Resolution could have a PixelCount() helper method instead.",
+      "revId": "c6b36446f62ebc4ef48f4774cb73c6050bfc7d24",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "4b0431dc_11580a73",
+        "filename": "media/engine/webrtc_video_engine.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 3688,
+      "author": {
+        "id": 5142
+      },
+      "writtenOn": "2022-09-28T11:36:10Z",
+      "side": 1,
+      "message": "nit: webrtc::Resolution could have a ToPair() helper method instead",
+      "revId": "c6b36446f62ebc4ef48f4774cb73c6050bfc7d24",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "81a4555d_fb08954f",
+        "filename": "media/engine/webrtc_video_engine.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 3741,
+      "author": {
+        "id": 5142
+      },
+      "writtenOn": "2022-09-28T11:36:10Z",
+      "side": 1,
+      "message": "Not introduced by your CL, just curious, do you know why we only look at the 0th layer here?",
+      "revId": "c6b36446f62ebc4ef48f4774cb73c6050bfc7d24",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "527d790b_7a22de30",
+        "filename": "media/engine/webrtc_video_engine.h",
+        "patchSetId": 3
+      },
+      "lineNbr": 725,
+      "author": {
+        "id": 5142
+      },
+      "writtenOn": "2022-09-28T11:36:10Z",
+      "side": 1,
+      "message": "Should this be a static or global method? Looks like a helper not depending on any instance members.",
+      "revId": "c6b36446f62ebc4ef48f4774cb73c6050bfc7d24",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "8a82f0d6_6192d903",
+        "filename": "media/engine/webrtc_video_engine.h",
+        "patchSetId": 3
+      },
+      "lineNbr": 728,
+      "author": {
+        "id": 5142
+      },
+      "writtenOn": "2022-09-28T11:36:10Z",
+      "side": 1,
+      "message": "We have:\n- layer.width/height\n- width/height\n- requested_resolution.width/height\n\nWhat resolution refers to what concept/layer here? That should be clarified.\n\n`layer` being an out-parameter I think it should be placed last in the argument list and you could rename it `out_layer`. But this method does not really do anything other than calculating a with and height, so I think we should have a webrtc::Resolution return value instead of depending on webrtc::VideoStream.\n- Probably a separate work item, but webrtc::VideoStream::width/height should be replaced by webrtc::Resolution in my opinion, so that you could do \"layer.res \u003d \u003creturn value of this method\u003e\".\n\nShould `width`/`height` be renamed `in_width`/`in_height`, this being the input frame size that we are adapting?\n\nIs the idea that any time the input frame size changes we would call this method again to ensure the layers are correct? And as long as the aspect ratio or alignment hasn\u0027t changed, this method would calculate the same resolution every time?",
+      "revId": "c6b36446f62ebc4ef48f4774cb73c6050bfc7d24",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "97631916_4edacc5e",
         "filename": "video/video_stream_encoder.cc",
         "patchSetId": 3

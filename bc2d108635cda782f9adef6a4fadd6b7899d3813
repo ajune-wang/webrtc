@@ -22,6 +22,30 @@
       },
       "revId": "bc2d108635cda782f9adef6a4fadd6b7899d3813",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "557c596f_12154079",
+        "filename": "modules/desktop_capture/DEPS",
+        "patchSetId": 9
+      },
+      "lineNbr": 21,
+      "author": {
+        "id": 5087
+      },
+      "writtenOn": "2022-09-28T07:06:07Z",
+      "side": 1,
+      "message": "Yes, I suggest to try to move this in the \"deps\" of the root //DEPS file and then locally try to run \"gclient sync\" and see if this downloads the package.\n\nFrom there you should be able to use it.",
+      "parentUuid": "2e017489_e1b9d6ab",
+      "range": {
+        "startLine": 21,
+        "startChar": 0,
+        "endLine": 21,
+        "endChar": 4
+      },
+      "revId": "bc2d108635cda782f9adef6a4fadd6b7899d3813",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

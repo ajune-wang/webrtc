@@ -224,6 +224,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "bccd2632_416475f8",
+        "filename": "media/engine/webrtc_video_engine.h",
+        "patchSetId": 3
+      },
+      "lineNbr": 728,
+      "author": {
+        "id": 5142
+      },
+      "writtenOn": "2022-09-28T11:39:14Z",
+      "side": 1,
+      "message": "E.g.\n\n720p input frame with requested resolution 360p calculates 360p.\nThen later, 360p input frame is received so this path is triggered again, but we still calculate the same 360p resolution since the aspect ratio is the same on the input frame.\n\nCorrect?",
+      "parentUuid": "8a82f0d6_6192d903",
+      "revId": "c6b36446f62ebc4ef48f4774cb73c6050bfc7d24",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "97631916_4edacc5e",
         "filename": "video/video_stream_encoder.cc",
         "patchSetId": 3

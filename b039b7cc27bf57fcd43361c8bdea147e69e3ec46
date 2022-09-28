@@ -16,6 +16,24 @@
       "message": "It doesn\u0027t look like ToCodecParameters copies everything, could you compare the AudioCodecs/VideoCodecs themselves?",
       "revId": "b039b7cc27bf57fcd43361c8bdea147e69e3ec46",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "0895faa6_e91226e4",
+        "filename": "pc/sdp_offer_answer.cc",
+        "patchSetId": 7
+      },
+      "lineNbr": 485,
+      "author": {
+        "id": 19549
+      },
+      "writtenOn": "2022-09-28T14:09:47Z",
+      "side": 1,
+      "message": "oh that is surprising indeed:\nhttps://source.chromium.org/chromium/chromium/src/+/main:third_party/webrtc/media/base/codec.cc;l\u003d217?q\u003dToCodecParameters\nI\u0027d expect this to copy channels, rtcp-fb is missing too...\n\nComparing codecs directly does not work due to the weird specialization of AudioCodec and VideoCodec.",
+      "parentUuid": "bbc76202_f074dc5f",
+      "revId": "b039b7cc27bf57fcd43361c8bdea147e69e3ec46",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

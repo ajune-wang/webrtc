@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "32934766_3538ed2b",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 9
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 19549
+      },
+      "writtenOn": "2022-09-28T14:09:47Z",
+      "side": 1,
+      "message": "Turning into UMA was surprisingly easy and kept the code + test intact!\nWill ask kron@ to take a look when reviewing the metric addition before landing.",
+      "revId": "5810da4660f4aebe88bd03dcf30c0b49d604acaa",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

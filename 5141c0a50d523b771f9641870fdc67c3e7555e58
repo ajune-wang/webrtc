@@ -1,6 +1,23 @@
 {
   "comments": [
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "bfdb9cf8_190a001b",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 18474
+      },
+      "writtenOn": "2022-09-28T20:55:36Z",
+      "side": 1,
+      "message": "Thanks!",
+      "revId": "5141c0a50d523b771f9641870fdc67c3e7555e58",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "14485226_ecbd2acc",
@@ -14,6 +31,24 @@
       "writtenOn": "2022-09-28T20:50:18Z",
       "side": 1,
       "message": "Super nit: I usually drop the https://",
+      "revId": "5141c0a50d523b771f9641870fdc67c3e7555e58",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "11caa834_c560ce2a",
+        "filename": "modules/desktop_capture/desktop_capturer.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 86,
+      "author": {
+        "id": 18474
+      },
+      "writtenOn": "2022-09-28T20:55:36Z",
+      "side": 1,
+      "message": "I actually used to as well; but including it actually makes a clickable link in VSCode (and I think maybe another text editor that Piotr uses because I was discussing this with him), so now I strongly prefer including it.",
+      "parentUuid": "14485226_ecbd2acc",
       "revId": "5141c0a50d523b771f9641870fdc67c3e7555e58",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }

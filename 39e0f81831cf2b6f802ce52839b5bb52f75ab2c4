@@ -1,0 +1,107 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "fe0424d1_bbf93709",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 5
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5023
+      },
+      "writtenOn": "2022-09-28T14:16:42Z",
+      "side": 1,
+      "message": "lgtm, but please update comments.",
+      "revId": "39e0f81831cf2b6f802ce52839b5bb52f75ab2c4",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "ab4ce5d3_d74c8bdd",
+        "filename": "api/video_codecs/video_encoder_config.h",
+        "patchSetId": 5
+      },
+      "lineNbr": 161,
+      "author": {
+        "id": 5023
+      },
+      "writtenOn": "2022-09-28T14:16:42Z",
+      "side": 1,
+      "message": "Capitalize.",
+      "range": {
+        "startLine": 161,
+        "startChar": 5,
+        "endLine": 161,
+        "endChar": 9
+      },
+      "revId": "39e0f81831cf2b6f802ce52839b5bb52f75ab2c4",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "22146f9f_56735459",
+        "filename": "api/video_codecs/video_encoder_config.h",
+        "patchSetId": 5
+      },
+      "lineNbr": 161,
+      "author": {
+        "id": 5023
+      },
+      "writtenOn": "2022-09-28T14:16:42Z",
+      "side": 1,
+      "message": "I think you mean VideoStreamEncoder?",
+      "range": {
+        "startLine": 161,
+        "startChar": 42,
+        "endLine": 161,
+        "endChar": 57
+      },
+      "revId": "39e0f81831cf2b6f802ce52839b5bb52f75ab2c4",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "769f390f_8eef356d",
+        "filename": "api/video_codecs/video_encoder_config.h",
+        "patchSetId": 5
+      },
+      "lineNbr": 162,
+      "author": {
+        "id": 5023
+      },
+      "writtenOn": "2022-09-28T14:16:42Z",
+      "side": 1,
+      "message": "\"will then use\"",
+      "revId": "39e0f81831cf2b6f802ce52839b5bb52f75ab2c4",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "8092bf0f_6bb63cae",
+        "filename": "api/video_codecs/video_encoder_config.h",
+        "patchSetId": 5
+      },
+      "lineNbr": 195,
+      "author": {
+        "id": 5023
+      },
+      "writtenOn": "2022-09-28T14:16:42Z",
+      "side": 1,
+      "message": "Expand comment with info how this is used. Is it applied to all simulcast layers/spatial layers? (I think so)",
+      "range": {
+        "startLine": 195,
+        "startChar": 2,
+        "endLine": 195,
+        "endChar": 36
+      },
+      "revId": "39e0f81831cf2b6f802ce52839b5bb52f75ab2c4",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

@@ -1,0 +1,44 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "fbabc74c_85c2bbf4",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 6
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5116
+      },
+      "writtenOn": "2022-09-28T08:05:44Z",
+      "side": 1,
+      "message": "Thanks! LGTM, but please check the comment below before submitting.",
+      "revId": "2d0ba28e2521ab1ff907b98f6bb12272b4346823",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "03abd42e_2cca8c09",
+        "filename": "media/engine/webrtc_voice_engine.cc",
+        "patchSetId": 6
+      },
+      "lineNbr": 927,
+      "author": {
+        "id": 5116
+      },
+      "writtenOn": "2022-09-28T08:05:44Z",
+      "side": 1,
+      "message": "Why are sample_rate and number_of_frames on BEGIN, while number_of_channels in on END?",
+      "range": {
+        "startLine": 925,
+        "startChar": 79,
+        "endLine": 927,
+        "endChar": 74
+      },
+      "revId": "2d0ba28e2521ab1ff907b98f6bb12272b4346823",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

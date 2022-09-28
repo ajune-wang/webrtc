@@ -11,6 +11,8 @@
 #ifndef API_TEST_MOCK_VIDEO_DECODER_H_
 #define API_TEST_MOCK_VIDEO_DECODER_H_
 
+#include <utility>
+
 #include "api/video_codecs/video_decoder.h"
 #include "test/gmock.h"
 
@@ -37,10 +39,20 @@ class MockDecodedImageCallback : public DecodedImageCallback {
 
 class MockVideoDecoder : public VideoDecoder {
  public:
-  MockVideoDecoder() {
+  MockVideoDecoder() : MockVideoDecoder(nullptr) {}
+
+  // Constructor that allows a test to monitor/verify when destruction of the
+  // decoder instance occurs.
+  explicit MockVideoDecoder(std::function<void()> destruct_callback)
+      : on_destruct_(std::move(destruct_callback)) {
     // Make `Configure` succeed by default, so that individual tests that
     // verify other methods wouldn't need to stub `Configure`.
     ON_CALL(*this, Configure).WillByDefault(testing::Return(true));
+  }
+
+  ~MockVideoDecoder() override {
+    if (on_destruct_)
+      on_destruct_();
   }
 
   MOCK_METHOD(bool, Configure, (const Settings& settings), (override));
@@ -55,6 +67,9 @@ class MockVideoDecoder : public VideoDecoder {
               (DecodedImageCallback * callback),
               (override));
   MOCK_METHOD(int32_t, Release, (), (override));
+
+ private:
+  const std::function<void()> on_destruct_;
 };
 
 }  // namespace webrtc

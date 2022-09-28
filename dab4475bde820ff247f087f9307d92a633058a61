@@ -209,6 +209,24 @@
       "parentUuid": "e83de5f6_f8c7f608",
       "revId": "dab4475bde820ff247f087f9307d92a633058a61",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "33ed64d1_b347fa11",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 18474
+      },
+      "writtenOn": "2022-09-28T16:45:38Z",
+      "side": 1,
+      "message": "Done, I think the most reasonable will be to try to add an indirection layer to NativeDesktopMediaList, which will allow me to better create the merged list.",
+      "parentUuid": "e2121b9e_9b038042",
+      "revId": "dab4475bde820ff247f087f9307d92a633058a61",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

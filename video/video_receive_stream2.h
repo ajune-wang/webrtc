@@ -156,6 +156,9 @@ class VideoReceiveStream2
   void SetAssociatedPayloadTypes(
       std::map<int, int> associated_payload_types) override;
 
+  void RemoveDecoder(const Decoder& decoder) override;
+  void AddOrUpdateDecoder(const Decoder& decoder, bool raw_payload) override;
+
   webrtc::VideoReceiveStreamInterface::Stats GetStats() const override;
 
   // SetBaseMinimumPlayoutDelayMs and GetBaseMinimumPlayoutDelayMs are called

@@ -144,6 +144,13 @@ std::unique_ptr<UlpfecReceiver> MaybeConstructUlpfecReceiver(
                                           callback, extensions, clock);
 }
 
+std::unique_ptr<VideoRtpDepacketizer> ConstructDepacketizer(
+    bool raw_payload,
+    VideoCodecType codec_type) {
+  return raw_payload ? std::make_unique<VideoRtpDepacketizerRaw>()
+                     : CreateVideoRtpDepacketizer(codec_type);
+}
+
 static const int kPacketLogIntervalMs = 10000;
 
 }  // namespace
@@ -230,6 +237,20 @@ void RtpVideoStreamReceiver2::RtcpFeedbackBuffer::SendBufferedRtcpFeedback() {
 void RtpVideoStreamReceiver2::RtcpFeedbackBuffer::ClearLossNotificationState() {
   RTC_DCHECK_RUN_ON(&packet_sequence_checker_);
   lntf_state_.reset();
+}
+
+RtpVideoStreamReceiver2::Depacketizer::Depacketizer(bool raw_payload,
+                                                    VideoCodecType codec_type)
+    : depacketizer_(ConstructDepacketizer(raw_payload, codec_type)),
+      codec_type_(codec_type),
+      raw_payload_(raw_payload) {}
+
+void RtpVideoStreamReceiver2::Depacketizer::SetRawPayload(bool raw_payload) {
+  if (raw_payload == raw_payload_)
+    return;
+
+  raw_payload_ = raw_payload;
+  depacketizer_ = ConstructDepacketizer(raw_payload, codec_type_);
 }
 
 RtpVideoStreamReceiver2::RtpVideoStreamReceiver2(
@@ -363,9 +384,8 @@ void RtpVideoStreamReceiver2::AddReceiveCodec(
       field_trials_.IsEnabled("WebRTC-SpsPpsIdrIsH264Keyframe")) {
     packet_buffer_.ForceSpsPpsIdrIsH264Keyframe();
   }
-  payload_type_map_.emplace(
-      payload_type, raw_payload ? std::make_unique<VideoRtpDepacketizerRaw>()
-                                : CreateVideoRtpDepacketizer(video_codec));
+  payload_type_map_.emplace(payload_type,
+                            Depacketizer(raw_payload, video_codec));
   pt_codec_params_.emplace(payload_type, codec_params);
 }
 
@@ -402,6 +422,15 @@ void RtpVideoStreamReceiver2::RemoveReceiveCodecs() {
   pt_codec_params_.clear();
   payload_type_map_.clear();
   packet_buffer_.ResetSpsPpsIdrIsH264Keyframe();
+}
+
+void RtpVideoStreamReceiver2::SetPacketizerForCodec(uint8_t payload_type,
+                                                    bool raw_payload) {
+  RTC_DCHECK_RUN_ON(&packet_sequence_checker_);
+  auto it = payload_type_map_.find(payload_type);
+  RTC_DCHECK(it != payload_type_map_.end());
+
+  it->second.SetRawPayload(raw_payload);
 }
 
 absl::optional<Syncable::Info> RtpVideoStreamReceiver2::GetSyncInfo() const {
@@ -811,7 +840,7 @@ void RtpVideoStreamReceiver2::OnInsertedPacket(
       RTC_CHECK(depacketizer_it != payload_type_map_.end());
 
       rtc::scoped_refptr<EncodedImageBuffer> bitstream =
-          depacketizer_it->second->AssembleFrame(payloads);
+          depacketizer_it->second.depacketizer()->AssembleFrame(payloads);
       if (!bitstream) {
         // Failed to assemble a frame. Discard and continue.
         continue;
@@ -1096,7 +1125,7 @@ void RtpVideoStreamReceiver2::ReceivePacket(const RtpPacketReceived& packet) {
     return;
   }
   absl::optional<VideoRtpDepacketizer::ParsedRtpPayload> parsed_payload =
-      type_it->second->Parse(packet.PayloadBuffer());
+      type_it->second.depacketizer()->Parse(packet.PayloadBuffer());
   if (parsed_payload == absl::nullopt) {
     RTC_LOG(LS_WARNING) << "Failed parsing payload.";
     return;

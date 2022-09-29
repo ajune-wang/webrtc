@@ -137,6 +137,30 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "ca3255cb_1dc6b887",
+        "filename": "api/video_codecs/video_encoder_config.h",
+        "patchSetId": 3
+      },
+      "lineNbr": 138,
+      "author": {
+        "id": 5613
+      },
+      "writtenOn": "2022-09-29T08:22:19Z",
+      "side": 1,
+      "message": "new version...",
+      "parentUuid": "a651e4ac_a5d57f7d",
+      "range": {
+        "startLine": 138,
+        "startChar": 5,
+        "endLine": 138,
+        "endChar": 51
+      },
+      "revId": "c6b36446f62ebc4ef48f4774cb73c6050bfc7d24",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "8123e78a_0a5ce64f",
@@ -150,6 +174,24 @@
       "writtenOn": "2022-09-28T11:36:10Z",
       "side": 1,
       "message": "nit: webrtc::Resolution could have a PixelCount() helper method instead.",
+      "revId": "c6b36446f62ebc4ef48f4774cb73c6050bfc7d24",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "d50de8eb_843ddcbb",
+        "filename": "media/engine/webrtc_video_engine.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 3687,
+      "author": {
+        "id": 5613
+      },
+      "writtenOn": "2022-09-29T08:22:19Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "8123e78a_0a5ce64f",
       "revId": "c6b36446f62ebc4ef48f4774cb73c6050bfc7d24",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
@@ -171,6 +213,24 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "cbe5a0c2_f36d1b7b",
+        "filename": "media/engine/webrtc_video_engine.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 3688,
+      "author": {
+        "id": 5613
+      },
+      "writtenOn": "2022-09-29T08:22:19Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "4b0431dc_11580a73",
+      "revId": "c6b36446f62ebc4ef48f4774cb73c6050bfc7d24",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "81a4555d_fb08954f",
@@ -188,6 +248,24 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "3db8d5c5_d09d5550",
+        "filename": "media/engine/webrtc_video_engine.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 3741,
+      "author": {
+        "id": 5613
+      },
+      "writtenOn": "2022-09-29T08:22:19Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "81a4555d_fb08954f",
+      "revId": "c6b36446f62ebc4ef48f4774cb73c6050bfc7d24",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "527d790b_7a22de30",
@@ -201,6 +279,24 @@
       "writtenOn": "2022-09-28T11:36:10Z",
       "side": 1,
       "message": "Should this be a static or global method? Looks like a helper not depending on any instance members.",
+      "revId": "c6b36446f62ebc4ef48f4774cb73c6050bfc7d24",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "dd39c46b_861869ec",
+        "filename": "media/engine/webrtc_video_engine.h",
+        "patchSetId": 3
+      },
+      "lineNbr": 725,
+      "author": {
+        "id": 5613
+      },
+      "writtenOn": "2022-09-29T08:22:19Z",
+      "side": 1,
+      "message": "will use member variables (in next version).",
+      "parentUuid": "527d790b_7a22de30",
       "revId": "c6b36446f62ebc4ef48f4774cb73c6050bfc7d24",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
@@ -236,6 +332,24 @@
       "side": 1,
       "message": "E.g.\n\n720p input frame with requested resolution 360p calculates 360p.\nThen later, 360p input frame is received so this path is triggered again, but we still calculate the same 360p resolution since the aspect ratio is the same on the input frame.\n\nCorrect?",
       "parentUuid": "8a82f0d6_6192d903",
+      "revId": "c6b36446f62ebc4ef48f4774cb73c6050bfc7d24",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "e0335ed5_a3ceaef9",
+        "filename": "media/engine/webrtc_video_engine.h",
+        "patchSetId": 3
+      },
+      "lineNbr": 728,
+      "author": {
+        "id": 5613
+      },
+      "writtenOn": "2022-09-29T08:22:19Z",
+      "side": 1,
+      "message": "Correct and Done.",
+      "parentUuid": "bccd2632_416475f8",
       "revId": "c6b36446f62ebc4ef48f4774cb73c6050bfc7d24",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
@@ -301,6 +415,30 @@
       "side": 1,
       "message": "Based on my feedback above, please wait before doing this. Maybe it\u0027s better to move this into the new method instead.",
       "parentUuid": "40bf42d3_63e51792",
+      "range": {
+        "startLine": 936,
+        "startChar": 2,
+        "endLine": 937,
+        "endChar": 67
+      },
+      "revId": "c6b36446f62ebc4ef48f4774cb73c6050bfc7d24",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "25f29a66_ec97054c",
+        "filename": "video/video_stream_encoder.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 937,
+      "author": {
+        "id": 5613
+      },
+      "writtenOn": "2022-09-29T08:22:19Z",
+      "side": 1,
+      "message": "is it ok if this is deferred to a future fix ?",
+      "parentUuid": "89d633c9_0b2feee8",
       "range": {
         "startLine": 936,
         "startChar": 2,

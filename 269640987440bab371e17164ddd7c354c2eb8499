@@ -16,6 +16,74 @@
       "message": "+hta for review. I am not familiar with insertable streams, is there some Chrome test that tests this?",
       "revId": "269640987440bab371e17164ddd7c354c2eb8499",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "f5cc4050_a44575e0",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 3
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2022-09-29T09:02:15Z",
+      "side": 1,
+      "message": "If I understand this rightly, it\u0027s not adding any more thread jumps, right?\n\nAsking a few questions, but offhand, it looks good to me.",
+      "revId": "269640987440bab371e17164ddd7c354c2eb8499",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "6d37bc28_bac8466e",
+        "filename": "modules/rtp_rtcp/source/rtp_sender_video_frame_transformer_delegate.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 122,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2022-09-29T09:02:15Z",
+      "side": 1,
+      "message": "This means that the transformer delegate will lock onto the encoder thread it is first called from (if any; if none, it will create one).\n\nAre we guaranteed that TransformFrame() is always called with the same Current() (either a specific task queue or no queue)?",
+      "revId": "269640987440bab371e17164ddd7c354c2eb8499",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "fe9a410c_9b8be6ab",
+        "filename": "modules/rtp_rtcp/source/rtp_sender_video_frame_transformer_delegate.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 126,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2022-09-29T09:02:15Z",
+      "side": 1,
+      "message": "Please update this comment to reflect the new reality.",
+      "revId": "269640987440bab371e17164ddd7c354c2eb8499",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "7d88181a_23f5d1ba",
+        "filename": "modules/rtp_rtcp/source/rtp_sender_video_frame_transformer_delegate.h",
+        "patchSetId": 3
+      },
+      "lineNbr": 85,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2022-09-29T09:02:15Z",
+      "side": 1,
+      "message": "Is this a place where AlwaysValidPointer should be used?\n\n(AlwaysValidPointer\u003c\u003e encoder_queue_ - has to be initialized when the first frame arrives, which may not fit with AlwaysValidPointer semantics, so maybe not).\n\nI think you should name this owned_encoder_queue_ instead, to make the point that the only purpose of the variable is to keep ownership of the queue pointed to by encoder_queue_.",
+      "revId": "269640987440bab371e17164ddd7c354c2eb8499",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

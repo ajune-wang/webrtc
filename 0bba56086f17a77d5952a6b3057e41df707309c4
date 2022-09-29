@@ -16,6 +16,46 @@
       "message": "wdyt ?",
       "revId": "0bba56086f17a77d5952a6b3057e41df707309c4",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "362e570c_518aeda5",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 7
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 6337
+      },
+      "writtenOn": "2022-09-29T09:27:40Z",
+      "side": 1,
+      "message": "LGTM for /test",
+      "revId": "0bba56086f17a77d5952a6b3057e41df707309c4",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "233688eb_f42e7118",
+        "filename": "test/scenario/video_stream.cc",
+        "patchSetId": 7
+      },
+      "lineNbr": 227,
+      "author": {
+        "id": 6337
+      },
+      "writtenOn": "2022-09-29T09:27:40Z",
+      "side": 1,
+      "message": "Just double checking that it\u0027s expected that this variable has only default values set.",
+      "range": {
+        "startLine": 227,
+        "startChar": 36,
+        "endLine": 227,
+        "endChar": 48
+      },
+      "revId": "0bba56086f17a77d5952a6b3057e41df707309c4",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

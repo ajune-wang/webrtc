@@ -16,6 +16,29 @@
       "message": "hi guys,\nbrand new shiny version (still not merged with https://webrtc-review.googlesource.com/c/src/+/277002 though!)\nPTAL",
       "revId": "0a1a1329de2b3605c7db17f0ee42b6724e6271fd",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "90924165_d7687446",
+        "filename": "video/video_stream_encoder.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 959,
+      "author": {
+        "id": 5117
+      },
+      "writtenOn": "2022-09-29T09:17:44Z",
+      "side": 1,
+      "message": "How about moving this into the EncoderStreamFactory?",
+      "range": {
+        "startLine": 958,
+        "startChar": 2,
+        "endLine": 959,
+        "endChar": 66
+      },
+      "revId": "0a1a1329de2b3605c7db17f0ee42b6724e6271fd",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

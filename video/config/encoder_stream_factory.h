@@ -40,14 +40,13 @@ class EncoderStreamFactory
 
  private:
   std::vector<webrtc::VideoStream> CreateEncoderStreams(
-      int width,
-      int height,
-      const webrtc::VideoEncoderConfig& encoder_config) override;
+      const Args& args) override;
 
   std::vector<webrtc::VideoStream> CreateDefaultVideoStreams(
       int width,
       int height,
       const webrtc::VideoEncoderConfig& encoder_config,
+      const webrtc::VideoEncoder::EncoderInfo& encoder_info,
       const absl::optional<webrtc::DataRate>& experimental_min_bitrate) const;
 
   std::vector<webrtc::VideoStream>
@@ -55,7 +54,15 @@ class EncoderStreamFactory
       int width,
       int height,
       const webrtc::VideoEncoderConfig& encoder_config,
+      const webrtc::VideoEncoder::EncoderInfo& encoder_info,
       const absl::optional<webrtc::DataRate>& experimental_min_bitrate) const;
+
+  void SetLayerResolutionFromRequestedResolution(
+      webrtc::VideoStream& layer,
+      int width,
+      int height,
+      webrtc::Resolution requested_resolution,
+      const webrtc::VideoEncoder::EncoderInfo& encoder_info) const;
 
   const std::string codec_name_;
   const int max_qp_;

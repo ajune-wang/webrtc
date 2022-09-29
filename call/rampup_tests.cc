@@ -146,12 +146,10 @@ class RampUpTester::VideoStreamFactory
 
  private:
   std::vector<VideoStream> CreateEncoderStreams(
-      int width,
-      int height,
-      const VideoEncoderConfig& encoder_config) override {
-    std::vector<VideoStream> streams =
-        test::CreateVideoStreams(width, height, encoder_config);
-    if (encoder_config.number_of_streams == 1) {
+      const VideoStreamFactoryInterface::Args& args) override {
+    std::vector<VideoStream> streams = test::CreateVideoStreams(
+        args.frame_width, args.frame_height, args.encoder_config);
+    if (args.encoder_config.number_of_streams == 1) {
       streams[0].target_bitrate_bps = streams[0].max_bitrate_bps = 2000000;
     }
     return streams;

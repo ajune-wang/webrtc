@@ -941,7 +941,10 @@ void VideoStreamEncoder::ReconfigureEncoder() {
   if (encoder_config_.video_stream_factory) {
     // Note: only tests set their own EncoderStreamFactory...
     streams = encoder_config_.video_stream_factory->CreateEncoderStreams(
-        last_frame_info_->width, last_frame_info_->height, encoder_config_);
+        {.frame_width = last_frame_info_->width,
+         .frame_height = last_frame_info_->height,
+         .encoder_config = encoder_config_,
+         .encoder_info = encoder_->GetEncoderInfo()});
   } else {
     rtc::scoped_refptr<VideoEncoderConfig::VideoStreamFactoryInterface>
         factory = rtc::make_ref_counted<cricket::EncoderStreamFactory>(
@@ -951,7 +954,10 @@ void VideoStreamEncoder::ReconfigureEncoder() {
             encoder_config_.legacy_conference_mode);
 
     streams = factory->CreateEncoderStreams(
-        last_frame_info_->width, last_frame_info_->height, encoder_config_);
+        {.frame_width = last_frame_info_->width,
+         .frame_height = last_frame_info_->height,
+         .encoder_config = encoder_config_,
+         .encoder_info = encoder_->GetEncoderInfo()});
   }
 
   // Get alignment when actual number of layers are known.

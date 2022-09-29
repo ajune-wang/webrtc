@@ -18,9 +18,11 @@
 #include "absl/strings/match.h"
 #include "api/video/video_codec_constants.h"
 #include "media/base/media_constants.h"
+#include "media/base/video_adapter.h"
 #include "modules/video_coding/codecs/vp9/svc_config.h"
 #include "rtc_base/experiments/min_video_bitrate_experiment.h"
 #include "rtc_base/experiments/normalize_simulcast_size_experiment.h"
+#include "rtc_base/logging.h"
 #include "video/config/simulcast.h"
 
 namespace cricket {
@@ -110,25 +112,25 @@ EncoderStreamFactory::EncoderStreamFactory(
       trials_(trials ? *trials : fallback_trials_) {}
 
 std::vector<webrtc::VideoStream> EncoderStreamFactory::CreateEncoderStreams(
-    int width,
-    int height,
-    const webrtc::VideoEncoderConfig& encoder_config) {
-  RTC_DCHECK_GT(encoder_config.number_of_streams, 0);
-  RTC_DCHECK_GE(encoder_config.simulcast_layers.size(),
-                encoder_config.number_of_streams);
+    const Args& args) {
+  RTC_DCHECK_GT(args.encoder_config.number_of_streams, 0);
+  RTC_DCHECK_GE(args.encoder_config.simulcast_layers.size(),
+                args.encoder_config.number_of_streams);
 
   const absl::optional<webrtc::DataRate> experimental_min_bitrate =
-      GetExperimentalMinVideoBitrate(encoder_config.codec_type);
+      GetExperimentalMinVideoBitrate(args.encoder_config.codec_type);
 
-  if (encoder_config.number_of_streams > 1 ||
+  if (args.encoder_config.number_of_streams > 1 ||
       ((absl::EqualsIgnoreCase(codec_name_, kVp8CodecName) ||
         absl::EqualsIgnoreCase(codec_name_, kH264CodecName)) &&
        is_screenshare_ && conference_mode_)) {
     return CreateSimulcastOrConferenceModeScreenshareStreams(
-        width, height, encoder_config, experimental_min_bitrate);
+        args.frame_width, args.frame_height, args.encoder_config,
+        args.encoder_info, experimental_min_bitrate);
   }
 
-  return CreateDefaultVideoStreams(width, height, encoder_config,
+  return CreateDefaultVideoStreams(args.frame_width, args.frame_height,
+                                   args.encoder_config, args.encoder_info,
                                    experimental_min_bitrate);
 }
 
@@ -137,6 +139,7 @@ EncoderStreamFactory::CreateDefaultVideoStreams(
     int width,
     int height,
     const webrtc::VideoEncoderConfig& encoder_config,
+    const webrtc::VideoEncoder::EncoderInfo& encoder_info,
     const absl::optional<webrtc::DataRate>& experimental_min_bitrate) const {
   std::vector<webrtc::VideoStream> layers;
 
@@ -172,7 +175,11 @@ EncoderStreamFactory::CreateDefaultVideoStreams(
   layer.active = absl::c_any_of(encoder_config.simulcast_layers,
                                 [](const auto& layer) { return layer.active; });
 
-  if (encoder_config.simulcast_layers[0].scale_resolution_down_by > 1.) {
+  if (encoder_config.simulcast_layers[0].requested_resolution) {
+    SetLayerResolutionFromRequestedResolution(
+        layer, width, height,
+        *encoder_config.simulcast_layers[0].requested_resolution, encoder_info);
+  } else if (encoder_config.simulcast_layers[0].scale_resolution_down_by > 1.) {
     layer.width = ScaleDownResolution(
         layer.width,
         encoder_config.simulcast_layers[0].scale_resolution_down_by,
@@ -251,6 +258,7 @@ EncoderStreamFactory::CreateSimulcastOrConferenceModeScreenshareStreams(
     int width,
     int height,
     const webrtc::VideoEncoderConfig& encoder_config,
+    const webrtc::VideoEncoder::EncoderInfo& encoder_info,
     const absl::optional<webrtc::DataRate>& experimental_min_bitrate) const {
   std::vector<webrtc::VideoStream> layers;
 
@@ -307,7 +315,12 @@ EncoderStreamFactory::CreateSimulcastOrConferenceModeScreenshareStreams(
       layers[i].max_framerate =
           encoder_config.simulcast_layers[i].max_framerate;
     }
-    if (has_scale_resolution_down_by) {
+    if (encoder_config.simulcast_layers[i].requested_resolution.has_value()) {
+      SetLayerResolutionFromRequestedResolution(
+          layers[i], normalized_width, normalized_height,
+          *encoder_config.simulcast_layers[i].requested_resolution,
+          encoder_info);
+    } else if (has_scale_resolution_down_by) {
       const double scale_resolution_down_by = std::max(
           encoder_config.simulcast_layers[i].scale_resolution_down_by, 1.0);
       layers[i].width = ScaleDownResolution(
@@ -396,6 +409,28 @@ EncoderStreamFactory::CreateSimulcastOrConferenceModeScreenshareStreams(
   }
 
   return layers;
+}
+
+void EncoderStreamFactory::SetLayerResolutionFromRequestedResolution(
+    webrtc::VideoStream& layer,
+    int width,
+    int height,
+    webrtc::Resolution requested_resolution,
+    const webrtc::VideoEncoder::EncoderInfo& encoder_info) const {
+  VideoAdapter adapter(encoder_info.requested_resolution_alignment);
+  std::pair<int, int> res =
+      std::make_pair(requested_resolution.width, requested_resolution.height);
+
+  const int max_pixel_count = res.first * res.second;
+  adapter.OnOutputFormatRequest(res, max_pixel_count, absl::nullopt);
+  int cropped_width, cropped_height;
+  int out_width = 0, out_height = 0;
+  if (!adapter.AdaptFrameResolution(width, height, 0, &cropped_width,
+                                    &cropped_height, &out_width, &out_height)) {
+    RTC_LOG(LS_ERROR) << "AdaptFrameResolution returned false!";
+  }
+  layer.width = out_width;
+  layer.height = out_height;
 }
 
 }  // namespace cricket

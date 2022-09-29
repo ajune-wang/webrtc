@@ -2625,11 +2625,9 @@ TEST_F(VideoSendStreamTest, TranslatesTwoLayerScreencastToTargetBitrate) {
 
    private:
     std::vector<VideoStream> CreateEncoderStreams(
-        int width,
-        int height,
-        const VideoEncoderConfig& encoder_config) override {
-      std::vector<VideoStream> streams =
-          test::CreateVideoStreams(width, height, encoder_config);
+        const VideoStreamFactoryInterface::Args& args) override {
+      std::vector<VideoStream> streams = test::CreateVideoStreams(
+          args.frame_width, args.frame_height, args.encoder_config);
       RTC_CHECK_GT(streams[0].max_bitrate_bps,
                    kScreencastMaxTargetBitrateDeltaKbps);
       streams[0].target_bitrate_bps =

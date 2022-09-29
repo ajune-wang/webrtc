@@ -500,11 +500,10 @@ class CroppingVideoStreamFactory
 
  private:
   std::vector<VideoStream> CreateEncoderStreams(
-      int width,
-      int height,
-      const VideoEncoderConfig& encoder_config) override {
+      const VideoStreamFactoryInterface::Args& args) override {
     std::vector<VideoStream> streams = test::CreateVideoStreams(
-        width - width % 4, height - height % 4, encoder_config);
+        args.frame_width - args.frame_width % 4,
+        args.frame_height - args.frame_height % 4, args.encoder_config);
     return streams;
   }
 };

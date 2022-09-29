@@ -35,9 +35,7 @@ class DefaultVideoStreamFactory
 
  private:
   std::vector<VideoStream> CreateEncoderStreams(
-      int width,
-      int height,
-      const VideoEncoderConfig& encoder_config) override;
+      const VideoEncoderConfig::VideoStreamFactoryInterface::Args&) override;
 };
 
 // Creates `encoder_config.number_of_streams` VideoStreams where index

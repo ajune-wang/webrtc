@@ -108,15 +108,14 @@ class VideoStreamFactory
 
  private:
   std::vector<VideoStream> CreateEncoderStreams(
-      int width,
-      int height,
-      const VideoEncoderConfig& encoder_config) override {
+      const VideoEncoderConfig::VideoStreamFactoryInterface::Args& args)
+      override {
     // The highest layer must match the incoming resolution.
     std::vector<VideoStream> streams = streams_;
-    streams[streams_.size() - 1].height = height;
-    streams[streams_.size() - 1].width = width;
+    streams[streams_.size() - 1].height = args.frame_height;
+    streams[streams_.size() - 1].width = args.frame_width;
 
-    streams[0].bitrate_priority = encoder_config.bitrate_priority;
+    streams[0].bitrate_priority = args.encoder_config.bitrate_priority;
     return streams;
   }
 
@@ -611,6 +610,7 @@ void VideoQualityTest::FillScalabilitySettings(
     int selected_sl,
     InterLayerPredMode inter_layer_pred,
     const std::vector<std::string>& sl_descriptors) {
+  webrtc::VideoEncoder::EncoderInfo encoder_info;
   if (params->ss[video_idx].streams.empty() &&
       params->ss[video_idx].infer_streams) {
     webrtc::VideoEncoderConfig encoder_config;
@@ -632,8 +632,10 @@ void VideoQualityTest::FillScalabilitySettings(
             params->screenshare[video_idx].enabled, true);
     params->ss[video_idx].streams =
         encoder_config.video_stream_factory->CreateEncoderStreams(
-            static_cast<int>(params->video[video_idx].width),
-            static_cast<int>(params->video[video_idx].height), encoder_config);
+            {.frame_width = static_cast<int>(params->video[video_idx].width),
+             .frame_height = static_cast<int>(params->video[video_idx].height),
+             .encoder_config = encoder_config,
+             .encoder_info = encoder_info});
   } else {
     // Read VideoStream and SpatialLayer elements from a list of comma separated
     // lists. To use a default value for an element, use -1 or leave empty.

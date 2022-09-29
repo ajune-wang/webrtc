@@ -22,6 +22,7 @@
 #include "api/video_codecs/scalability_mode.h"
 #include "api/video_codecs/sdp_video_format.h"
 #include "api/video_codecs/video_codec.h"
+#include "api/video_codecs/video_encoder.h"
 #include "rtc_base/ref_count.h"
 
 namespace webrtc {
@@ -130,14 +131,17 @@ class VideoEncoderConfig {
 
   class VideoStreamFactoryInterface : public rtc::RefCountInterface {
    public:
+    struct Args {
+      const int frame_width;
+      const int frame_height;
+      const VideoEncoderConfig& encoder_config;
+      const VideoEncoder::EncoderInfo& encoder_info;
+    };
     // An implementation should return a std::vector<VideoStream> with the
     // wanted VideoStream settings for the given video resolution.
     // The size of the vector may not be larger than
     // `encoder_config.number_of_streams`.
-    virtual std::vector<VideoStream> CreateEncoderStreams(
-        int width,
-        int height,
-        const VideoEncoderConfig& encoder_config) = 0;
+    virtual std::vector<VideoStream> CreateEncoderStreams(const Args& args) = 0;
 
    protected:
     ~VideoStreamFactoryInterface() override {}

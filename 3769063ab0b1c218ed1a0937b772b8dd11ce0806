@@ -193,6 +193,40 @@
       "message": "Awaiting resolution of https://github.com/w3c/webrtc-encoded-transform/issues/143\n",
       "revId": "3769063ab0b1c218ed1a0937b772b8dd11ce0806",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "7e4666ab_805ffc69",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 17
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 19549
+      },
+      "writtenOn": "2022-09-29T13:10:33Z",
+      "side": 1,
+      "message": "still waiting for a resolution I can agree with ;-)",
+      "revId": "3769063ab0b1c218ed1a0937b772b8dd11ce0806",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "003f3410_ecde9035",
+        "filename": "media/engine/simulcast_encoder_adapter.cc",
+        "patchSetId": 17
+      },
+      "lineNbr": 502,
+      "author": {
+        "id": 19549
+      },
+      "writtenOn": "2022-09-29T13:10:33Z",
+      "side": 1,
+      "message": "it turns out this does not work for the OpenH264 \"native\" simulcast encoder that is used for CBP (but not for the other profiles... surprise!)\n\nhttps://source.chromium.org/chromium/chromium/src/+/main:third_party/webrtc/modules/video_coding/codecs/h264/h264_encoder_impl.cc;l\u003d433?q\u003dopenh264encode\nand \nhttps://source.chromium.org/chromium/chromium/src/+/main:third_party/webrtc/modules/video_coding/codecs/h264/h264_encoder_impl.cc;l\u003d489?q\u003dopenh264encode\nthen cause a keyframe on all layers. Possible to fix but now I wonder if the vp8 behavior is really in libvpx as I thought or also in libwebrtc",
+      "revId": "3769063ab0b1c218ed1a0937b772b8dd11ce0806",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

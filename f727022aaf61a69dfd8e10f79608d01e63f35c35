@@ -18,6 +18,23 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "eb9b2c5e_398a079f",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 8
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5613
+      },
+      "writtenOn": "2022-09-29T11:20:11Z",
+      "side": 1,
+      "message": "thanks @hbos@webrtc.org !\nnow only @brandtr@webrtc.org remaining!",
+      "revId": "f727022aaf61a69dfd8e10f79608d01e63f35c35",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "4af083d4_a35186f7",
@@ -31,6 +48,24 @@
       "writtenOn": "2022-09-29T09:42:19Z",
       "side": 1,
       "message": "Is this of the input frame or of the encoded frame? Clarify either by explanatory variable names or by a comment.",
+      "revId": "f727022aaf61a69dfd8e10f79608d01e63f35c35",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "deed4228_88e8ca3d",
+        "filename": "api/video_codecs/video_encoder_config.h",
+        "patchSetId": 8
+      },
+      "lineNbr": 140,
+      "author": {
+        "id": 5613
+      },
+      "writtenOn": "2022-09-29T11:20:11Z",
+      "side": 1,
+      "message": "called it: in_frame_width\nand merged!",
+      "parentUuid": "4af083d4_a35186f7",
       "revId": "f727022aaf61a69dfd8e10f79608d01e63f35c35",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
@@ -52,6 +87,24 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "e578266b_64fe7aaf",
+        "filename": "media/engine/webrtc_video_engine_unittest.cc",
+        "patchSetId": 8
+      },
+      "lineNbr": 9010,
+      "author": {
+        "id": 5613
+      },
+      "writtenOn": "2022-09-29T11:20:11Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "6f578791_506753bb",
+      "revId": "f727022aaf61a69dfd8e10f79608d01e63f35c35",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "66315211_69580563",
@@ -69,6 +122,24 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "92888fd2_b61d6fe2",
+        "filename": "video/config/encoder_stream_factory.h",
+        "patchSetId": 8
+      },
+      "lineNbr": 25,
+      "author": {
+        "id": 5613
+      },
+      "writtenOn": "2022-09-29T11:20:11Z",
+      "side": 1,
+      "message": "maybe ? the downstream test should not be using this class at all infact,\nthat would be better...I have asked/poked relevant people about this.",
+      "parentUuid": "66315211_69580563",
+      "revId": "f727022aaf61a69dfd8e10f79608d01e63f35c35",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "03df0117_9dc36e58",
@@ -82,6 +153,24 @@
       "writtenOn": "2022-09-29T09:42:19Z",
       "side": 1,
       "message": "\"Set\" sounds like it is modifying \"this\", which it isn\u0027t doing, and I don\u0027t like out params.\n\nI still prefer this to be\n```\nwebrtc::Resolution GetLayerResolutionFromRequestedResolution(\n    int frame_width, int frame_height,\n    webrtc::Resolution requested_resolution) const;\n```\n\nAnd it could be global or static since it does not touch \"this\"\n\nI realize you\u0027d need to do layer.width/height \u003d ret.width/height but I think that is a lesser problem than having a dependency on webrtc::VideoStream and using out parameters. You can always add a layer.SetResolution() if you want to avoid extra lines of code at the calling place.",
+      "revId": "f727022aaf61a69dfd8e10f79608d01e63f35c35",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "c1ecbf1f_22a24fe0",
+        "filename": "video/config/encoder_stream_factory.h",
+        "patchSetId": 8
+      },
+      "lineNbr": 61,
+      "author": {
+        "id": 5613
+      },
+      "writtenOn": "2022-09-29T11:20:11Z",
+      "side": 1,
+      "message": "changed to Get returrning a Resolution.\nIt can not be static since it uses member variables.\nDone.",
+      "parentUuid": "03df0117_9dc36e58",
       "revId": "f727022aaf61a69dfd8e10f79608d01e63f35c35",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }

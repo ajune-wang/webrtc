@@ -948,7 +948,7 @@ void VideoStreamEncoder::ReconfigureEncoder() {
             encoder_config_.video_format.name, encoder_config_.max_qp,
             encoder_config_.content_type ==
                 webrtc::VideoEncoderConfig::ContentType::kScreen,
-            encoder_config_.legacy_conference_mode);
+            encoder_config_.legacy_conference_mode, encoder_->GetEncoderInfo());
 
     streams = factory->CreateEncoderStreams(
         last_frame_info_->width, last_frame_info_->height, encoder_config_);

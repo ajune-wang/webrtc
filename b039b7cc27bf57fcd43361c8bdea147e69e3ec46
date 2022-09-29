@@ -34,6 +34,24 @@
       "parentUuid": "bbc76202_f074dc5f",
       "revId": "b039b7cc27bf57fcd43361c8bdea147e69e3ec46",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "23364d96_999315c5",
+        "filename": "pc/sdp_offer_answer.cc",
+        "patchSetId": 7
+      },
+      "lineNbr": 485,
+      "author": {
+        "id": 5686
+      },
+      "writtenOn": "2022-09-29T00:37:03Z",
+      "side": 1,
+      "message": "It kind of makes sense, since ToCodecParameters exists to get the stuff that needs to be returned by RTCRtpSender.getParameters, which doesn\u0027t include RTCP mechanisms.\n\nCan\u0027t you just keep separate AudioCodec/VideoCodec lists (or lists of pointers?) and make FindDuplicateCodecParameters templated?",
+      "parentUuid": "0895faa6_e91226e4",
+      "revId": "b039b7cc27bf57fcd43361c8bdea147e69e3ec46",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

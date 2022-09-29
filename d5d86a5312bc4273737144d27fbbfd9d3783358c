@@ -16,6 +16,23 @@
       "message": "Hi Per, PTAL!",
       "revId": "d5d86a5312bc4273737144d27fbbfd9d3783358c",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "b8b1898e_98b473d0",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5125
+      },
+      "writtenOn": "2022-09-29T08:44:17Z",
+      "side": 1,
+      "message": "lgtm\nNice catch!!! Thanks for fixing this!",
+      "revId": "d5d86a5312bc4273737144d27fbbfd9d3783358c",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

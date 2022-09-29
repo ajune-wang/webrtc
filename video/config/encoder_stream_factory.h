@@ -22,21 +22,18 @@ namespace cricket {
 class EncoderStreamFactory
     : public webrtc::VideoEncoderConfig::VideoStreamFactoryInterface {
  public:
+  // Note: this constructor is used by testcase in downstream.
   EncoderStreamFactory(std::string codec_name,
                        int max_qp,
                        bool is_screenshare,
-                       bool conference_mode)
-      : EncoderStreamFactory(codec_name,
-                             max_qp,
-                             is_screenshare,
-                             conference_mode,
-                             nullptr) {}
+                       bool conference_mode);
 
   EncoderStreamFactory(std::string codec_name,
                        int max_qp,
                        bool is_screenshare,
                        bool conference_mode,
-                       const webrtc::FieldTrialsView* trials);
+                       const webrtc::VideoEncoder::EncoderInfo& encoder_info,
+                       const webrtc::FieldTrialsView* trials = nullptr);
 
  private:
   std::vector<webrtc::VideoStream> CreateEncoderStreams(
@@ -57,6 +54,12 @@ class EncoderStreamFactory
       const webrtc::VideoEncoderConfig& encoder_config,
       const absl::optional<webrtc::DataRate>& experimental_min_bitrate) const;
 
+  void SetLayerResolutionFromRequestedResolution(
+      int frame_width,
+      int frame_height,
+      webrtc::Resolution requested_resolution,
+      webrtc::VideoStream& out_layer) const;
+
   const std::string codec_name_;
   const int max_qp_;
   const bool is_screenshare_;
@@ -65,6 +68,7 @@ class EncoderStreamFactory
   const bool conference_mode_;
   const webrtc::FieldTrialBasedConfig fallback_trials_;
   const webrtc::FieldTrialsView& trials_;
+  const int encoder_info_requested_resolution_alignment_;
 };
 
 }  // namespace cricket

@@ -52,6 +52,24 @@
       "parentUuid": "0895faa6_e91226e4",
       "revId": "b039b7cc27bf57fcd43361c8bdea147e69e3ec46",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "438a9ee0_eb10d9bf",
+        "filename": "pc/sdp_offer_answer.cc",
+        "patchSetId": 7
+      },
+      "lineNbr": 485,
+      "author": {
+        "id": 19549
+      },
+      "writtenOn": "2022-09-29T12:58:54Z",
+      "side": 1,
+      "message": "that doesn\u0027t work because we want to avoid collisions between audio and video too :-(",
+      "parentUuid": "23364d96_999315c5",
+      "revId": "b039b7cc27bf57fcd43361c8bdea147e69e3ec46",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

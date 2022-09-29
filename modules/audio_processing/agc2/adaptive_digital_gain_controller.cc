@@ -105,4 +105,15 @@ void AdaptiveDigitalGainController::HandleInputGainChange() {
   saturation_protector_->Reset();
 }
 
+absl::optional<float>
+AdaptiveDigitalGainController::GetSpeechLevelDbfsIfConfident() const {
+  absl::optional<float> speech_level_dbfs = absl::nullopt;
+
+  if (speech_level_estimator_.IsConfident()) {
+    speech_level_dbfs = speech_level_estimator_.level_dbfs();
+  }
+
+  return speech_level_dbfs;
+}
+
 }  // namespace webrtc

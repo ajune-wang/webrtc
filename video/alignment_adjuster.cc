@@ -97,7 +97,7 @@ int AlignmentAdjuster::GetAlignmentAndMaybeAdjustScaleFactors(
   // Adjust `scale_resolution_down_by` to a common multiple to limit the
   // alignment value (to avoid largely cropped frames and possibly with an
   // aspect ratio far from the original).
-  const int kMaxAlignment = 16;
+  const int kMaxAlignment = encoder_info.max_alignment;
 
   for (auto& layer : config->simulcast_layers) {
     layer.scale_resolution_down_by =

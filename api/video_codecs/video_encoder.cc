@@ -11,6 +11,7 @@
 #include "api/video_codecs/video_encoder.h"
 
 #include <string.h>
+
 #include <algorithm>
 
 #include "rtc_base/checks.h"
@@ -92,6 +93,7 @@ VideoEncoder::EncoderInfo::EncoderInfo()
     : scaling_settings(VideoEncoder::ScalingSettings::kOff),
       requested_resolution_alignment(1),
       apply_alignment_to_all_simulcast_layers(false),
+      max_alignment(16),
       supports_native_handle(false),
       implementation_name("unknown"),
       has_trusted_rate_controller(false),
@@ -123,6 +125,7 @@ std::string VideoEncoder::EncoderInfo::ToString() const {
   oss << ", requested_resolution_alignment = " << requested_resolution_alignment
       << ", apply_alignment_to_all_simulcast_layers = "
       << apply_alignment_to_all_simulcast_layers
+      << ", max_alignment = " << max_alignment
       << ", supports_native_handle = " << supports_native_handle
       << ", implementation_name = '" << implementation_name
       << "'"

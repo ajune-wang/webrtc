@@ -117,6 +117,7 @@ void VideoEncoderWrapper::UpdateEncoderInfo(JNIEnv* jni) {
       info.requested_resolution_alignment;
   encoder_info_.apply_alignment_to_all_simulcast_layers =
       info.apply_alignment_to_all_simulcast_layers;
+  encoder_info_.max_alignment = info.max_alignment;
 }
 
 int32_t VideoEncoderWrapper::RegisterEncodeCompleteCallback(
@@ -246,10 +247,13 @@ VideoEncoder::EncoderInfo VideoEncoderWrapper::GetEncoderInfoInternal(
       Java_EncoderInfo_getApplyAlignmentToAllSimulcastLayers(jni,
                                                              j_encoder_info);
 
+  jint max_alignment = Java_EncoderInfo_getMaxAlignment(jni, j_encoder_info);
+
   VideoEncoder::EncoderInfo info;
   info.requested_resolution_alignment = requested_resolution_alignment;
   info.apply_alignment_to_all_simulcast_layers =
       apply_alignment_to_all_simulcast_layers;
+  info.max_alignment = max_alignment;
 
   return info;
 }

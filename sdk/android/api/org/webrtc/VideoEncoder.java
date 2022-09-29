@@ -274,10 +274,25 @@ public interface VideoEncoder {
      */
     public final boolean applyAlignmentToAllSimulcastLayers;
 
+    /**
+     * The max alignment value, also the amount of pixels that may be cropped from
+     * the incoming video frames in order to make them divisible by
+     * |requested_resolution_alignment|.
+     */
+    public final int maxAlignment;
+
     public EncoderInfo(
         int requestedResolutionAlignment, boolean applyAlignmentToAllSimulcastLayers) {
       this.requestedResolutionAlignment = requestedResolutionAlignment;
       this.applyAlignmentToAllSimulcastLayers = applyAlignmentToAllSimulcastLayers;
+      this.maxAlignment = 16;
+    }
+
+    public EncoderInfo(int requestedResolutionAlignment, boolean applyAlignmentToAllSimulcastLayers,
+        int maxAlignment) {
+      this.requestedResolutionAlignment = requestedResolutionAlignment;
+      this.applyAlignmentToAllSimulcastLayers = applyAlignmentToAllSimulcastLayers;
+      this.maxAlignment = maxAlignment;
     }
 
     @CalledByNative("EncoderInfo")
@@ -288,6 +303,11 @@ public interface VideoEncoder {
     @CalledByNative("EncoderInfo")
     public boolean getApplyAlignmentToAllSimulcastLayers() {
       return applyAlignmentToAllSimulcastLayers;
+    }
+
+    @CalledByNative("EncoderInfo")
+    public int getMaxAlignment() {
+      return maxAlignment;
     }
   }
 

@@ -875,6 +875,8 @@ VideoEncoder::EncoderInfo SimulcastEncoderAdapter::GetEncoderInfo() const {
       encoder_info.apply_alignment_to_all_simulcast_layers = true;
     }
 
+    encoder_info.max_alignment = primary_info.max_alignment;
+
     cached_encoder_contexts_.emplace_back(std::move(encoder_context));
 
     OverrideFromFieldTrial(&encoder_info);
@@ -898,6 +900,7 @@ VideoEncoder::EncoderInfo SimulcastEncoderAdapter::GetEncoderInfo() const {
       encoder_info.is_hardware_accelerated =
           encoder_impl_info.is_hardware_accelerated;
       encoder_info.is_qp_trusted = encoder_impl_info.is_qp_trusted;
+      encoder_info.max_alignment = encoder_impl_info.max_alignment;
     } else {
       encoder_info.implementation_name += ", ";
       encoder_info.implementation_name += encoder_impl_info.implementation_name;

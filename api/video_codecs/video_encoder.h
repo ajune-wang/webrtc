@@ -185,6 +185,11 @@ class RTC_EXPORT VideoEncoder {
     // considerably, especially if `requested_resolution_alignment` is large.
     bool apply_alignment_to_all_simulcast_layers;
 
+    // The max alignment value, also the amount of pixels that may be cropped
+    // from the incoming video frames in order to make them divisible by
+    // `requested_resolution_alignment`.
+    int max_alignment;
+
     // If true, encoder supports working with a native handle (e.g. texture
     // handle for hw codecs) rather than requiring a raw I420 buffer.
     bool supports_native_handle;

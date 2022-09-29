@@ -18,9 +18,11 @@
 #include "absl/strings/match.h"
 #include "api/video/video_codec_constants.h"
 #include "media/base/media_constants.h"
+#include "media/base/video_adapter.h"
 #include "modules/video_coding/codecs/vp9/svc_config.h"
 #include "rtc_base/experiments/min_video_bitrate_experiment.h"
 #include "rtc_base/experiments/normalize_simulcast_size_experiment.h"
+#include "rtc_base/logging.h"
 #include "video/config/simulcast.h"
 
 namespace cricket {
@@ -101,17 +103,20 @@ EncoderStreamFactory::EncoderStreamFactory(
     int max_qp,
     bool is_screenshare,
     bool conference_mode,
-    const webrtc::FieldTrialsView* trials)
+    const webrtc::FieldTrialsView* trials,
+    const webrtc::VideoEncoder::EncoderInfo& encoder_info)
 
     : codec_name_(codec_name),
       max_qp_(max_qp),
       is_screenshare_(is_screenshare),
       conference_mode_(conference_mode),
-      trials_(trials ? *trials : fallback_trials_) {}
+      trials_(trials ? *trials : fallback_trials_),
+      encoder_info_requested_resolution_alignment_(
+          encoder_info.requested_resolution_alignment) {}
 
 std::vector<webrtc::VideoStream> EncoderStreamFactory::CreateEncoderStreams(
-    int width,
-    int height,
+    int frame_width,
+    int frame_height,
     const webrtc::VideoEncoderConfig& encoder_config) {
   RTC_DCHECK_GT(encoder_config.number_of_streams, 0);
   RTC_DCHECK_GE(encoder_config.simulcast_layers.size(),
@@ -125,10 +130,10 @@ std::vector<webrtc::VideoStream> EncoderStreamFactory::CreateEncoderStreams(
         absl::EqualsIgnoreCase(codec_name_, kH264CodecName)) &&
        is_screenshare_ && conference_mode_)) {
     return CreateSimulcastOrConferenceModeScreenshareStreams(
-        width, height, encoder_config, experimental_min_bitrate);
+        frame_width, frame_height, encoder_config, experimental_min_bitrate);
   }
 
-  return CreateDefaultVideoStreams(width, height, encoder_config,
+  return CreateDefaultVideoStreams(frame_width, frame_height, encoder_config,
                                    experimental_min_bitrate);
 }
 
@@ -172,7 +177,11 @@ EncoderStreamFactory::CreateDefaultVideoStreams(
   layer.active = absl::c_any_of(encoder_config.simulcast_layers,
                                 [](const auto& layer) { return layer.active; });
 
-  if (encoder_config.simulcast_layers[0].scale_resolution_down_by > 1.) {
+  if (encoder_config.simulcast_layers[0].requested_resolution) {
+    SetLayerResolutionFromRequestedResolution(
+        width, height, *encoder_config.simulcast_layers[0].requested_resolution,
+        layer);
+  } else if (encoder_config.simulcast_layers[0].scale_resolution_down_by > 1.) {
     layer.width = ScaleDownResolution(
         layer.width,
         encoder_config.simulcast_layers[0].scale_resolution_down_by,
@@ -307,7 +316,11 @@ EncoderStreamFactory::CreateSimulcastOrConferenceModeScreenshareStreams(
       layers[i].max_framerate =
           encoder_config.simulcast_layers[i].max_framerate;
     }
-    if (has_scale_resolution_down_by) {
+    if (encoder_config.simulcast_layers[i].requested_resolution.has_value()) {
+      SetLayerResolutionFromRequestedResolution(
+          normalized_width, normalized_height,
+          *encoder_config.simulcast_layers[i].requested_resolution, layers[i]);
+    } else if (has_scale_resolution_down_by) {
       const double scale_resolution_down_by = std::max(
           encoder_config.simulcast_layers[i].scale_resolution_down_by, 1.0);
       layers[i].width = ScaleDownResolution(
@@ -396,6 +409,26 @@ EncoderStreamFactory::CreateSimulcastOrConferenceModeScreenshareStreams(
   }
 
   return layers;
+}
+
+void EncoderStreamFactory::SetLayerResolutionFromRequestedResolution(
+    int frame_width,
+    int frame_height,
+    webrtc::Resolution requested_resolution,
+    webrtc::VideoStream& out_layer) const {
+  VideoAdapter adapter(encoder_info_requested_resolution_alignment_);
+  adapter.OnOutputFormatRequest(requested_resolution.ToPair(),
+                                requested_resolution.PixelCount(),
+                                absl::nullopt);
+  int cropped_width, cropped_height;
+  int out_width = 0, out_height = 0;
+  if (!adapter.AdaptFrameResolution(frame_width, frame_height, 0,
+                                    &cropped_width, &cropped_height, &out_width,
+                                    &out_height)) {
+    RTC_LOG(LS_ERROR) << "AdaptFrameResolution returned false!";
+  }
+  out_layer.width = out_width;
+  out_layer.height = out_height;
 }
 
 }  // namespace cricket

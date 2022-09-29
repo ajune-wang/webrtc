@@ -22,6 +22,7 @@
 #include "api/video_codecs/scalability_mode.h"
 #include "api/video_codecs/sdp_video_format.h"
 #include "api/video_codecs/video_codec.h"
+#include "api/video_codecs/video_encoder.h"
 #include "rtc_base/ref_count.h"
 
 namespace webrtc {
@@ -135,8 +136,8 @@ class VideoEncoderConfig {
     // The size of the vector may not be larger than
     // `encoder_config.number_of_streams`.
     virtual std::vector<VideoStream> CreateEncoderStreams(
-        int width,
-        int height,
+        int frame_width,
+        int frame_height,
         const VideoEncoderConfig& encoder_config) = 0;
 
    protected:

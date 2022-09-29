@@ -52,6 +52,24 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "9ba2a11e_159c181f",
+        "filename": "experiments/BUILD.gn",
+        "patchSetId": 3
+      },
+      "lineNbr": 20,
+      "author": {
+        "id": 13704
+      },
+      "writtenOn": "2022-09-29T09:01:34Z",
+      "side": 1,
+      "message": "I\u0027m aware, already spoke with Mirko about it. I have a fix in progress.",
+      "parentUuid": "ee16a4cb_f6d0315e",
+      "revId": "2f3003599e11ced84f01cf2460bd8dc3c77c2f2c",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "52dc675e_38ff5345",
@@ -65,6 +83,24 @@
       "writtenOn": "2022-09-27T21:39:45Z",
       "side": 1,
       "message": "do I understand correctly that the generated file will never be checked into the repo, so its history is not recorded?",
+      "revId": "2f3003599e11ced84f01cf2460bd8dc3c77c2f2c",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "030970fd_7229b70f",
+        "filename": "experiments/BUILD.gn",
+        "patchSetId": 3
+      },
+      "lineNbr": 27,
+      "author": {
+        "id": 13704
+      },
+      "writtenOn": "2022-09-29T09:01:34Z",
+      "side": 1,
+      "message": "Correct, but the history of experiments/field_trials.py will be checked in and consequently it\u0027s history will be preserved. Since the generation is idempotent I don\u0027t think that\u0027s a big issue.",
+      "parentUuid": "52dc675e_38ff5345",
       "revId": "2f3003599e11ced84f01cf2460bd8dc3c77c2f2c",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }

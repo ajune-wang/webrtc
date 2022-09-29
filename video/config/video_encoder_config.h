@@ -135,8 +135,8 @@ class VideoEncoderConfig {
     // The size of the vector may not be larger than
     // `encoder_config.number_of_streams`.
     virtual std::vector<VideoStream> CreateEncoderStreams(
-        int width,
-        int height,
+        int in_frame_width,
+        int in_frame_height,
         const VideoEncoderConfig& encoder_config) = 0;
 
    protected:

@@ -20,6 +20,24 @@
     {
       "unresolved": false,
       "key": {
+        "uuid": "e936ee30_66f4f1d1",
+        "filename": "api/test/mock_video_decoder.h",
+        "patchSetId": 14
+      },
+      "lineNbr": 14,
+      "author": {
+        "id": 5508
+      },
+      "writtenOn": "2022-09-29T06:47:32Z",
+      "side": 1,
+      "message": "switched to using a mock method",
+      "parentUuid": "9e2a5dad_abe9b999",
+      "revId": "110cbb619a310bbf1084bd1bff75782a472de44d",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
         "uuid": "c19a2c98_2b96b91e",
         "filename": "api/test/mock_video_decoder.h",
         "patchSetId": 14
@@ -54,6 +72,30 @@
       "writtenOn": "2022-09-28T14:18:19Z",
       "side": 1,
       "message": "it is common to add Test suffix:\nTEST(VCMDecoderDataBaseTest, RegisterExternalDecoder) {",
+      "range": {
+        "startLine": 23,
+        "startChar": 5,
+        "endLine": 23,
+        "endChar": 23
+      },
+      "revId": "110cbb619a310bbf1084bd1bff75782a472de44d",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "49a79dde_924d13ed",
+        "filename": "modules/video_coding/decoder_database_unittest.cc",
+        "patchSetId": 14
+      },
+      "lineNbr": 23,
+      "author": {
+        "id": 5508
+      },
+      "writtenOn": "2022-09-29T06:47:32Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "afa0a798_b9ab0cdf",
       "range": {
         "startLine": 23,
         "startChar": 5,
@@ -110,6 +152,54 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "1addd680_95145dda",
+        "filename": "modules/video_coding/decoder_database_unittest.cc",
+        "patchSetId": 14
+      },
+      "lineNbr": 28,
+      "author": {
+        "id": 5508
+      },
+      "writtenOn": "2022-09-29T06:47:32Z",
+      "side": 1,
+      "message": "Done. I plan to switch to unique_ptr later and have the instance owned by the database (and avoid using raw pointers between classes) so will update this again then.",
+      "parentUuid": "18d3e42b_da9245e1",
+      "range": {
+        "startLine": 28,
+        "startChar": 17,
+        "endLine": 28,
+        "endChar": 33
+      },
+      "revId": "110cbb619a310bbf1084bd1bff75782a472de44d",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "964782fc_fed0db13",
+        "filename": "modules/video_coding/decoder_database_unittest.cc",
+        "patchSetId": 14
+      },
+      "lineNbr": 28,
+      "author": {
+        "id": 5508
+      },
+      "writtenOn": "2022-09-29T06:47:32Z",
+      "side": 1,
+      "message": "Done. Switched to NiceMock as there was no particular reason for using StrictMock.",
+      "parentUuid": "77e658b2_1056f139",
+      "range": {
+        "startLine": 28,
+        "startChar": 34,
+        "endLine": 28,
+        "endChar": 53
+      },
+      "revId": "110cbb619a310bbf1084bd1bff75782a472de44d",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "bdd4f3a2_89b1f460",
@@ -123,6 +213,30 @@
       "writtenOn": "2022-09-28T14:18:19Z",
       "side": 1,
       "message": "as I understand `DeregisterExternalDecoder` is the function under test there, where decoder pointer is the constant to test with. \nSwap the parameters in the EXPECT_EQ:\nEXPECT_EQ(db.DeregisterExternalDecoder(kPayloadType), \u0026decoder);\n\nhttp://go/c-readability-advice#avoid-yoda-style-comparisons\n“More generally, put the \"most variable\" operand on the left”\n\"Note that this also applies to GoogleTest EXPECT_EQ and ASSERT_EQ statements\"",
+      "range": {
+        "startLine": 31,
+        "startChar": 2,
+        "endLine": 31,
+        "endChar": 71
+      },
+      "revId": "110cbb619a310bbf1084bd1bff75782a472de44d",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "d724aa8b_30befe02",
+        "filename": "modules/video_coding/decoder_database_unittest.cc",
+        "patchSetId": 14
+      },
+      "lineNbr": 31,
+      "author": {
+        "id": 5508
+      },
+      "writtenOn": "2022-09-29T06:47:32Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "bdd4f3a2_89b1f460",
       "range": {
         "startLine": 31,
         "startChar": 2,
@@ -156,6 +270,30 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "5929b7d6_671f78a2",
+        "filename": "modules/video_coding/decoder_database_unittest.cc",
+        "patchSetId": 14
+      },
+      "lineNbr": 51,
+      "author": {
+        "id": 5508
+      },
+      "writtenOn": "2022-09-29T06:47:32Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "600a16fa_6b41b6c9",
+      "range": {
+        "startLine": 51,
+        "startChar": 2,
+        "endLine": 51,
+        "endChar": 53
+      },
+      "revId": "110cbb619a310bbf1084bd1bff75782a472de44d",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "194095c4_f3601f01",
@@ -169,6 +307,30 @@
       "writtenOn": "2022-09-28T14:18:19Z",
       "side": 1,
       "message": "use \u003d default both for constructor or destructor ( https://abseil.io/tips/131 )\nor do not declare them at all (I think it is ok for mocks of an interface)",
+      "range": {
+        "startLine": 36,
+        "startChar": 0,
+        "endLine": 37,
+        "endChar": 39
+      },
+      "revId": "110cbb619a310bbf1084bd1bff75782a472de44d",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "57f280cb_e1bd3a84",
+        "filename": "modules/video_coding/video_receiver2_unittest.cc",
+        "patchSetId": 14
+      },
+      "lineNbr": 37,
+      "author": {
+        "id": 5508
+      },
+      "writtenOn": "2022-09-29T06:47:32Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "194095c4_f3601f01",
       "range": {
         "startLine": 36,
         "startChar": 0,
@@ -202,6 +364,30 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "65aedc1c_144a5dd8",
+        "filename": "modules/video_coding/video_receiver2_unittest.cc",
+        "patchSetId": 14
+      },
+      "lineNbr": 59,
+      "author": {
+        "id": 5508
+      },
+      "writtenOn": "2022-09-29T06:47:32Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "6b1d6ee7_4eafd6f9",
+      "range": {
+        "startLine": 59,
+        "startChar": 10,
+        "endLine": 59,
+        "endChar": 22
+      },
+      "revId": "110cbb619a310bbf1084bd1bff75782a472de44d",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "489865c7_e471e68e",
@@ -219,6 +405,24 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "7e856cad_2139934f",
+        "filename": "modules/video_coding/video_receiver2_unittest.cc",
+        "patchSetId": 14
+      },
+      "lineNbr": 110,
+      "author": {
+        "id": 5508
+      },
+      "writtenOn": "2022-09-29T06:47:32Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "489865c7_e471e68e",
+      "revId": "110cbb619a310bbf1084bd1bff75782a472de44d",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "3d85e595_c42e344b",
@@ -232,6 +436,30 @@
       "writtenOn": "2022-09-28T14:18:19Z",
       "side": 1,
       "message": ".get() is redundant:\nEXPECT_CALL(*decoder, Configure)...",
+      "range": {
+        "startLine": 116,
+        "startChar": 14,
+        "endLine": 116,
+        "endChar": 28
+      },
+      "revId": "110cbb619a310bbf1084bd1bff75782a472de44d",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "7f5aea4a_501241c8",
+        "filename": "modules/video_coding/video_receiver2_unittest.cc",
+        "patchSetId": 14
+      },
+      "lineNbr": 116,
+      "author": {
+        "id": 5508
+      },
+      "writtenOn": "2022-09-29T06:47:32Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "3d85e595_c42e344b",
       "range": {
         "startLine": 116,
         "startChar": 14,

@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "4a7133e6_84e79c6b",
+        "filename": "test/test_flags.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 41,
+      "author": {
+        "id": 5087
+      },
+      "writtenOn": "2022-09-30T11:54:19Z",
+      "side": 1,
+      "message": "I am tempted to suggest `webrtc_test_metrics_output_path` (so prefix and remove proto but mentioned it is an output path).",
+      "range": {
+        "startLine": 41,
+        "startChar": 10,
+        "endLine": 41,
+        "endChar": 33
+      },
+      "revId": "e9aab0eaeafbedab57d6269e6c76c03d0fa9c712",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

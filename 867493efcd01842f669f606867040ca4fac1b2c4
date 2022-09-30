@@ -16,6 +16,23 @@
       "message": "Adding someone who I think knows iOS better..",
       "revId": "867493efcd01842f669f606867040ca4fac1b2c4",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "5ea00bde_3c264708",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5520
+      },
+      "writtenOn": "2022-09-30T12:52:47Z",
+      "side": 1,
+      "message": "Wait, does this CL actually change anything? I may be missing something but it seems that in order to use monotonic clocks we\u0027re requiring both `USE_CLOCK_GETTIME` \u0026\u0026 `USE_PTHREAD_CONDATTR_SETCLOCK`, while the latter is set to 0 on iOS/mac?\n\nIdeally I think we\u0027d use Mach time for this on iOS/Mac but that\u0027s a bigger project.",
+      "revId": "867493efcd01842f669f606867040ca4fac1b2c4",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

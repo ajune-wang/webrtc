@@ -70,6 +70,24 @@
       "parentUuid": "23364d96_999315c5",
       "revId": "b039b7cc27bf57fcd43361c8bdea147e69e3ec46",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "c6a01447_546077d2",
+        "filename": "pc/sdp_offer_answer.cc",
+        "patchSetId": 7
+      },
+      "lineNbr": 485,
+      "author": {
+        "id": 5686
+      },
+      "writtenOn": "2022-09-30T00:47:09Z",
+      "side": 1,
+      "message": "You don\u0027t need to compare the parameters between audio and video, though; it would be enough to check whether a codec for the inverse media type has been seen at all, since the same payload type can\u0027t be used for an audio codec and a video codec. At least I don\u0027t think it can; is there something funky like RED that can be shared between audio and video?",
+      "parentUuid": "438a9ee0_eb10d9bf",
+      "revId": "b039b7cc27bf57fcd43361c8bdea147e69e3ec46",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

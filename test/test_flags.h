@@ -18,5 +18,6 @@
 ABSL_DECLARE_FLAG(std::string, force_fieldtrials);
 ABSL_DECLARE_FLAG(std::vector<std::string>, plot);
 ABSL_DECLARE_FLAG(std::string, isolated_script_test_perf_output);
+ABSL_DECLARE_FLAG(std::string, test_metrics_proto_path);
 
 #endif  // TEST_TEST_FLAGS_H_

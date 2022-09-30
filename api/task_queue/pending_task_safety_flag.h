@@ -102,6 +102,31 @@ class PendingTaskSafetyFlag final
   RTC_NO_UNIQUE_ADDRESS SequenceChecker main_sequence_;
 };
 
+// This is similar to PendingTaskSafetyFlag, but there is no restriction on the
+// calling thread of public methods. Since atomic variables are used internally,
+// it is recommended to use PendingTaskSafetyFlag if there is no need to be
+// called by multiple threads.
+class SharedPendingTaskSafetyFlag final
+    : public rtc::RefCountedNonVirtual<SharedPendingTaskSafetyFlag> {
+ public:
+  static rtc::scoped_refptr<SharedPendingTaskSafetyFlag> Create();
+
+  ~SharedPendingTaskSafetyFlag() = default;
+
+  void SetNotAlive();
+  void SetAlive();
+  bool alive() const;
+
+ protected:
+  explicit SharedPendingTaskSafetyFlag(bool alive) : alive_(alive) {}
+
+ private:
+  static rtc::scoped_refptr<SharedPendingTaskSafetyFlag> CreateInternal(
+      bool alive);
+
+  std::atomic<bool> alive_{true};
+};
+
 // The ScopedTaskSafety makes using PendingTaskSafetyFlag very simple.
 // It does automatic PTSF creation and signalling of destruction when the
 // ScopedTaskSafety instance goes out of scope.
@@ -155,6 +180,16 @@ class ScopedTaskSafetyDetached final {
 
 inline absl::AnyInvocable<void() &&> SafeTask(
     rtc::scoped_refptr<PendingTaskSafetyFlag> flag,
+    absl::AnyInvocable<void() &&> task) {
+  return [flag = std::move(flag), task = std::move(task)]() mutable {
+    if (flag->alive()) {
+      std::move(task)();
+    }
+  };
+}
+
+inline absl::AnyInvocable<void() &&> SafeTask(
+    rtc::scoped_refptr<SharedPendingTaskSafetyFlag> flag,
     absl::AnyInvocable<void() &&> task) {
   return [flag = std::move(flag), task = std::move(task)]() mutable {
     if (flag->alive()) {

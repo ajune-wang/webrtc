@@ -54,4 +54,30 @@ bool PendingTaskSafetyFlag::alive() const {
   return alive_;
 }
 
+rtc::scoped_refptr<SharedPendingTaskSafetyFlag>
+SharedPendingTaskSafetyFlag::CreateInternal(bool alive) {
+  // Explicit new, to access private constructor.
+  return rtc::scoped_refptr<SharedPendingTaskSafetyFlag>(
+      new SharedPendingTaskSafetyFlag(alive));
+}
+
+rtc::scoped_refptr<SharedPendingTaskSafetyFlag>
+SharedPendingTaskSafetyFlag::Create() {
+  rtc::scoped_refptr<SharedPendingTaskSafetyFlag> safety_flag =
+      CreateInternal(true);
+  return safety_flag;
+}
+
+void SharedPendingTaskSafetyFlag::SetNotAlive() {
+  alive_.store(false, std::memory_order_release);
+}
+
+void SharedPendingTaskSafetyFlag::SetAlive() {
+  alive_.store(true, std::memory_order_release);
+}
+
+bool SharedPendingTaskSafetyFlag::alive() const {
+  return alive_.load(std::memory_order_acquire);
+}
+
 }  // namespace webrtc

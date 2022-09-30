@@ -122,7 +122,7 @@ class DegradedCall : public Call, private PacketReceiver {
    public:
     FakeNetworkPipeOnTaskQueue(
         TaskQueueBase* task_queue,
-        rtc::scoped_refptr<PendingTaskSafetyFlag> call_alive,
+        rtc::scoped_refptr<SharedPendingTaskSafetyFlag> call_alive,
         Clock* clock,
         std::unique_ptr<NetworkBehaviorInterface> network_behavior);
 
@@ -142,17 +142,18 @@ class DegradedCall : public Call, private PacketReceiver {
 
     Clock* const clock_;
     TaskQueueBase* const task_queue_;
-    rtc::scoped_refptr<PendingTaskSafetyFlag> call_alive_;
+    rtc::scoped_refptr<SharedPendingTaskSafetyFlag> call_alive_;
     FakeNetworkPipe pipe_;
     absl::optional<int64_t> next_process_ms_ RTC_GUARDED_BY(&task_queue_);
   };
 
   class ThreadedPacketReceiver : public PacketReceiver {
    public:
-    ThreadedPacketReceiver(webrtc::TaskQueueBase* worker_thread,
-                           webrtc::TaskQueueBase* network_thread,
-                           rtc::scoped_refptr<PendingTaskSafetyFlag> call_alive,
-                           PacketReceiver* receiver);
+    ThreadedPacketReceiver(
+        webrtc::TaskQueueBase* worker_thread,
+        webrtc::TaskQueueBase* network_thread,
+        rtc::scoped_refptr<SharedPendingTaskSafetyFlag> call_alive,
+        PacketReceiver* receiver);
     ~ThreadedPacketReceiver() override;
 
     DeliveryStatus DeliverPacket(MediaType media_type,
@@ -162,7 +163,7 @@ class DegradedCall : public Call, private PacketReceiver {
    private:
     webrtc::TaskQueueBase* const worker_thread_;
     webrtc::TaskQueueBase* const network_thread_;
-    rtc::scoped_refptr<PendingTaskSafetyFlag> call_alive_;
+    rtc::scoped_refptr<SharedPendingTaskSafetyFlag> call_alive_;
     webrtc::PacketReceiver* const receiver_;
   };
 
@@ -198,7 +199,7 @@ class DegradedCall : public Call, private PacketReceiver {
   Clock* const clock_;
   const std::unique_ptr<Call> call_;
   // For cancelling tasks on the network thread when DegradedCall is destroyed
-  rtc::scoped_refptr<PendingTaskSafetyFlag> call_alive_;
+  rtc::scoped_refptr<SharedPendingTaskSafetyFlag> call_alive_;
   size_t send_config_index_;
   const std::vector<TimeScopedNetworkConfig> send_configs_;
   SimulatedNetwork* send_simulated_network_;

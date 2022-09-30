@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "8c27b7e9_e0248508",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 3
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5578
+      },
+      "writtenOn": "2022-09-30T11:48:50Z",
+      "side": 1,
+      "message": "mbonadei - would you mind reviewing BUILD file changes?",
+      "revId": "45b5db02c36c36366e7113d4544a244333f4dd6b",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

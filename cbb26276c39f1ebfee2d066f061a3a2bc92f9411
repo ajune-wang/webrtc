@@ -16,6 +16,167 @@
       "message": "Please?",
       "revId": "cbb26276c39f1ebfee2d066f061a3a2bc92f9411",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "1f165b3e_d3e8baf1",
+        "filename": "modules/utility/maybe_worker_thread.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 28,
+      "author": {
+        "id": 18444
+      },
+      "writtenOn": "2022-09-30T09:15:20Z",
+      "side": 1,
+      "message": "Perhaps we can shorten this to \"SendPacketsOnWorkerThread\" or something to that effect. You can link to the bug which can give readers more details of the background.",
+      "range": {
+        "startLine": 28,
+        "startChar": 22,
+        "endLine": 28,
+        "endChar": 71
+      },
+      "revId": "cbb26276c39f1ebfee2d066f061a3a2bc92f9411",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "ded0e6c8_15256f0c",
+        "filename": "modules/utility/maybe_worker_thread.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 35,
+      "author": {
+        "id": 18444
+      },
+      "writtenOn": "2022-09-30T09:15:20Z",
+      "side": 1,
+      "message": "WebRTC- twice",
+      "range": {
+        "startLine": 35,
+        "startChar": 10,
+        "endLine": 35,
+        "endChar": 16
+      },
+      "revId": "cbb26276c39f1ebfee2d066f061a3a2bc92f9411",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "cd58ba55_0a724a83",
+        "filename": "modules/utility/maybe_worker_thread.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 37,
+      "author": {
+        "id": 18444
+      },
+      "writtenOn": "2022-09-30T09:15:20Z",
+      "side": 1,
+      "message": "Add a link to the bug so readers can track the progress and get an in-depth explaination.",
+      "range": {
+        "startLine": 37,
+        "startChar": 0,
+        "endLine": 37,
+        "endChar": 5
+      },
+      "revId": "cbb26276c39f1ebfee2d066f061a3a2bc92f9411",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "76184225_9ccfd634",
+        "filename": "modules/utility/maybe_worker_thread.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 60,
+      "author": {
+        "id": 18444
+      },
+      "writtenOn": "2022-09-30T09:15:20Z",
+      "side": 1,
+      "message": "nit: Call it a workaround rather than a hack.",
+      "range": {
+        "startLine": 60,
+        "startChar": 5,
+        "endLine": 60,
+        "endChar": 9
+      },
+      "revId": "cbb26276c39f1ebfee2d066f061a3a2bc92f9411",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "161ea05f_71d9bd60",
+        "filename": "modules/utility/maybe_worker_thread.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 61,
+      "author": {
+        "id": 18444
+      },
+      "writtenOn": "2022-09-30T09:15:20Z",
+      "side": 1,
+      "message": "posted",
+      "range": {
+        "startLine": 61,
+        "startChar": 74,
+        "endLine": 61,
+        "endChar": 78
+      },
+      "revId": "cbb26276c39f1ebfee2d066f061a3a2bc92f9411",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "89d2fd96_6f0a8a49",
+        "filename": "modules/utility/maybe_worker_thread.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 62,
+      "author": {
+        "id": 18444
+      },
+      "writtenOn": "2022-09-30T09:15:20Z",
+      "side": 1,
+      "message": "the caller",
+      "range": {
+        "startLine": 62,
+        "startChar": 64,
+        "endLine": 62,
+        "endChar": 70
+      },
+      "revId": "cbb26276c39f1ebfee2d066f061a3a2bc92f9411",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "3171511e_4afce652",
+        "filename": "modules/utility/maybe_worker_thread_unittests.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 31,
+      "author": {
+        "id": 18444
+      },
+      "writtenOn": "2022-09-30T09:15:20Z",
+      "side": 1,
+      "message": "Why RealTimeController and not SimulatedTimeController?\n\nSimulatedTimeController should work here as the current thread should be set as time_controller_.GetMainThread(), which can represent the worker thread. This would avoid having tests need to use event.Wait but rather use time_controller_.AdvanceTime()",
+      "range": {
+        "startLine": 31,
+        "startChar": 2,
+        "endLine": 31,
+        "endChar": 20
+      },
+      "revId": "cbb26276c39f1ebfee2d066f061a3a2bc92f9411",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

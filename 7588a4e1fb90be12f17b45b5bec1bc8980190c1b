@@ -16,6 +16,24 @@
       "message": "Compiling on my MacBook complains that this should be %lld",
       "revId": "7588a4e1fb90be12f17b45b5bec1bc8980190c1b",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "849fa068_0fcd85e1",
+        "filename": "rtc_tools/rtc_event_log_to_text/converter.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 85,
+      "author": {
+        "id": 5150
+      },
+      "writtenOn": "2022-09-30T21:34:49Z",
+      "side": 1,
+      "message": "Sorry about that. Should be fixed now.",
+      "parentUuid": "550c57dc_2c4efca9",
+      "revId": "7588a4e1fb90be12f17b45b5bec1bc8980190c1b",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

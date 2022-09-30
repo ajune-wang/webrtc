@@ -33,6 +33,24 @@
       "message": "should this return RTCError?",
       "revId": "475d29e1ece1caf3307b2ae48c07c983ff565bba",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "2ec06641_e8a343bb",
+        "filename": "api/rtp_sender_interface.h",
+        "patchSetId": 15
+      },
+      "lineNbr": 107,
+      "author": {
+        "id": 5117
+      },
+      "writtenOn": "2022-09-30T08:33:29Z",
+      "side": 1,
+      "message": "In which scenario would this fail? Maybe if the RID is wrong? Or the associated stream is inactive?\n\nI don\u0027t think it\u0027s very important to return error here. This isn\u0027t actually generating a frame, but rather just promises to send one soon. It\u0027s kind-of \"best effort\" action already. Checking for all the cases where GenerateKeyFrame wouldn\u0027t actually generate key frame seems like it might be too complicated for the amount of value it would add.",
+      "parentUuid": "0069e618_b0745f5c",
+      "revId": "475d29e1ece1caf3307b2ae48c07c983ff565bba",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

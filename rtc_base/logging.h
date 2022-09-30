@@ -21,6 +21,8 @@
 // RTC_LOG(sev) logs the given stream at severity "sev", which must be a
 //     compile-time constant of the LoggingSeverity type, without the namespace
 //     prefix.
+// RTC_LOG_IF(sev, condition) logs the given stream at severitye "sev" if
+//     "condition" is true.
 // RTC_LOG_V(sev) Like RTC_LOG(), but sev is a run-time variable of the
 //     LoggingSeverity type (basically, it just doesn't prepend the namespace).
 // RTC_LOG_F(sev) Like RTC_LOG(), but includes the name of the current function.
@@ -647,6 +649,8 @@ class LogMessage {
   !rtc::LogMessage::IsNoop<::rtc::sev>() && \
       RTC_LOG_FILE_LINE(::rtc::sev, __FILE__, __LINE__)
 
+#define RTC_LOG_IF(sev, condition) RTC_LOG(sev) && (condition)
+
 // The _V version is for when a variable is passed in.
 #define RTC_LOG_V(sev) \
   !rtc::LogMessage::IsNoop(sev) && RTC_LOG_FILE_LINE(sev, __FILE__, __LINE__)
@@ -725,6 +729,7 @@ inline const char* AdaptString(const std::string& str) {
 // they only generate code in debug builds.
 #if RTC_DLOG_IS_ON
 #define RTC_DLOG(sev) RTC_LOG(sev)
+#define RTC_DLOG_IF(sev, condition) RTC_LOG_IF(sev, condition)
 #define RTC_DLOG_V(sev) RTC_LOG_V(sev)
 #define RTC_DLOG_F(sev) RTC_LOG_F(sev)
 #else
@@ -733,6 +738,7 @@ inline const char* AdaptString(const std::string& str) {
   ::rtc::webrtc_logging_impl::LogMessageVoidify() & \
       (::rtc::webrtc_logging_impl::LogStreamer<>())
 #define RTC_DLOG(sev) RTC_DLOG_EAT_STREAM_PARAMS()
+#define RTC_DLOG_IF(sev, condition) RTC_DLOG_EAT_STREAM_PARAMS()
 #define RTC_DLOG_V(sev) RTC_DLOG_EAT_STREAM_PARAMS()
 #define RTC_DLOG_F(sev) RTC_DLOG_EAT_STREAM_PARAMS()
 #endif

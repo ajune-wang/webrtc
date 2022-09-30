@@ -163,6 +163,9 @@ TEST(LogTest, LogIfDontLogIfConditionIsFalse) {
   RTC_LOG_IF(LS_INFO, false) << "Hello";
   EXPECT_EQ(std::string::npos, str.find("Hello"));
 
+  RTC_DLOG_IF_F(LS_INFO, true) << "Hello";
+  RTC_DLOG_IF_F(LS_WARNING, true) << "Hello";
+
   LogMessage::RemoveLogToStream(&stream);
 }
 

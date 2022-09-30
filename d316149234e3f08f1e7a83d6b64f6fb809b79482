@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "81cb82c2_dc6c4fde",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 3
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5023
+      },
+      "writtenOn": "2022-09-30T12:47:20Z",
+      "side": 1,
+      "message": "As discussed in VQ team chat.",
+      "revId": "d316149234e3f08f1e7a83d6b64f6fb809b79482",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

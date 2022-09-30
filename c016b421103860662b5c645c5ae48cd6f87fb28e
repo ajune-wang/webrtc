@@ -16,6 +16,92 @@
       "message": "Hi Alessio! Could you please take a look?",
       "revId": "c016b421103860662b5c645c5ae48cd6f87fb28e",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "bfdb0e51_89251ea5",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5122
+      },
+      "writtenOn": "2022-09-30T14:55:29Z",
+      "side": 1,
+      "message": "Hi Hanna,\nThanks for the CL!\nI added a few comments.\nAlessio",
+      "revId": "c016b421103860662b5c645c5ae48cd6f87fb28e",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "91829089_4b5da036",
+        "filename": "modules/audio_processing/agc/agc_manager_direct.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 63,
+      "author": {
+        "id": 5122
+      },
+      "writtenOn": "2022-09-30T14:55:29Z",
+      "side": 1,
+      "message": "0 or 100? if 0 is correct, what\u0027s the reason?\n\nBTW it looks like `kOverrideWaitFrames` was added to mirror `kNumAnalysisFrames` in\nhttps://source.chromium.org/chromiumos/chromiumos/codesearch/+/main:src/third_party/webrtc-apm/modules/audio_processing/agc/agc.cc;l\u003d25;drc\u003d8136191a962e1a62c28a12bc0392d7db94adb1d2, right?",
+      "range": {
+        "startLine": 63,
+        "startChar": 36,
+        "endLine": 63,
+        "endChar": 37
+      },
+      "revId": "c016b421103860662b5c645c5ae48cd6f87fb28e",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "43a1fff9_f5ed4ce4",
+        "filename": "modules/audio_processing/agc/agc_manager_direct.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 234,
+      "author": {
+        "id": 5122
+      },
+      "writtenOn": "2022-09-30T14:55:29Z",
+      "side": 1,
+      "message": "question, how/when is -1 used?\nif it\u0027s used to represent an uninitialized value, then switch to absl::optional\u003cint\u003e",
+      "range": {
+        "startLine": 234,
+        "startChar": 30,
+        "endLine": 234,
+        "endChar": 32
+      },
+      "revId": "c016b421103860662b5c645c5ae48cd6f87fb28e",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "de908796_05ab8a36",
+        "filename": "modules/audio_processing/agc/agc_manager_direct.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 265,
+      "author": {
+        "id": 5122
+      },
+      "writtenOn": "2022-09-30T14:55:29Z",
+      "side": 1,
+      "message": "TL;DR IIUC, one change in this CL is that the `agc_-\u003eGetRmsErrorDb(\u0026rms_error)` call has been moved outside of `UpdateGain()`. I would consider the option of isolating this change in a parent CL to simplify the review process and for safety. More details below.\n\n---\n\nIf I\u0027m not mistaken, the following holds:\n\nCase 1: `rms_error_override` is unspecified\n\nIn this case, the existing behavior should be used and the highlighted code block above maps to:\n```\nint rms_error \u003d 0;\nif (agc_-\u003eGetRmsErrorDb(\u0026rms_error)) {\n  UpdateGain(rms_error);\n}\n```\n\nCase 2. `rms_error_override` is specified\n\nIn this case, the rms error comes from `rms_error_override` and hence there\u0027s no need to call `agc_-\u003eGetRmsErrorDb()` - I might be wrong here, maybe we need to call `GetRmsErrorDb()` regardless of whether `rms_error_override` is specified. If I\u0027m correct, then the highlighted code block above maps to:\n```\n  if (frames_since_update_gain_ \u003e\u003d kOverrideWaitFrames) {\n    UpdateGain(*rms_error_override);\n  }\n```\n\nIf what is stated above is correct, I would then recommend the following:\n- add a parent CL with a small `MonoAgc` refactoring that replaces `UpdateGain()` with `UpdateGain(int rms_error_db)`\n- after rebasing, rewrite the code above so that we have two clear code paths (existing behavior, alternative path); example:\n\n```\nif (rms_error_override.has_value()) {\n  if (frames_since_update_gain_ \u003e\u003d kOverrideWaitFrames) {\n    UpdateGain(*rms_error_override);\n  }\n} else {\n  int rms_error \u003d 0;\n  if (agc_-\u003eGetRmsErrorDb(\u0026rms_error)) {\n    UpdateGain(rms_error);\n  }\n}\n```\n\nWDYT?",
+      "range": {
+        "startLine": 250,
+        "startChar": 0,
+        "endLine": 265,
+        "endChar": 3
+      },
+      "revId": "c016b421103860662b5c645c5ae48cd6f87fb28e",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

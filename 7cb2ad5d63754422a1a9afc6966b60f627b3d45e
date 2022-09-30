@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "9771d858_b9a06ca8",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 3
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5508
+      },
+      "writtenOn": "2022-09-30T08:55:19Z",
+      "side": 1,
+      "message": "I don\u0027t think we want to introduce something like this to the general code base. It goes against the principles behind the safety flag, which is to avoid synchronization and it also appears that the problem that you\u0027re hitting is specific to one test class, not all of webrtc.\n\nI think there\u0027s rather a design issue for us to consider for DegradedCall",
+      "revId": "7cb2ad5d63754422a1a9afc6966b60f627b3d45e",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

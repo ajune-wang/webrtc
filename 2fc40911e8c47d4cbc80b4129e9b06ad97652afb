@@ -74,6 +74,24 @@
     {
       "unresolved": false,
       "key": {
+        "uuid": "404d669d_574817c6",
+        "filename": "api/field_trials_unittest.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 38,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2022-10-03T14:10:02Z",
+      "side": 1,
+      "message": "is there any test that needs more advance usage than as RAII type\n(in this change I see two usages. one uses the RAII helper, another could use it too)\n\ni.e. \nfield_trial.h\n\nclass ScopedFieldTrialsForTesting {\n public:\n  explicit ScopedFieldTrialsForTesting(flat_set\u003cstd::string\u003e keys);\n  ~ScopedFieldTrialsForTesting();\n};\n\nfield_trial.cc\n\nScopedFieldTrialsForTesting::ScopedFieldTrialsForTesting(flat_set\u003cstd::string\u003e keys) {\n  TestKeys() \u003d std::move(keys);\n}\n\nvoid ScopedFieldTrialsForTesting::~ScopedFieldTrialsForTesting() {\n  TestKeys().clear();\n}\n\n...\nstruct DummyExperiment {\n ...\n field_trial::ScopedFieldTrialsForTesting test_keys({kDummyExperiment});\n};",
+      "parentUuid": "378909fc_c9365018",
+      "revId": "2fc40911e8c47d4cbc80b4129e9b06ad97652afb",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
         "uuid": "389badaa_ad79b54b",
         "filename": "api/field_trials_unittest.cc",
         "patchSetId": 3
@@ -197,6 +215,24 @@
       "side": 1,
       "message": "I don\u0027t think it\u0027s unrelated since I\u0027m adding things to the anonymous namespace.\n\n\"Blank lines immediately inside a declaration of a namespace or block of namespaces may help readability by visually separating the load-bearing content from the (largely non-semantic) organizational wrapper.\"\n\nhttps://google.github.io/styleguide/cppguide.html#Vertical_Whitespace",
       "parentUuid": "fa1c9555_a0d7a78c",
+      "revId": "2fc40911e8c47d4cbc80b4129e9b06ad97652afb",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "73cd676b_7eaa011c",
+        "filename": "system_wrappers/source/field_trial.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 81,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2022-10-03T14:10:02Z",
+      "side": 1,
+      "message": "Ack.",
+      "parentUuid": "3bc964da_6dbbbc45",
       "revId": "2fc40911e8c47d4cbc80b4129e9b06ad97652afb",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },

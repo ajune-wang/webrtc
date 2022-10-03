@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "f81cbf40_86a83b87",
+        "filename": "api/field_trials_unittest.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 98,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2022-10-03T14:10:02Z",
+      "side": 1,
+      "message": "this test (and few above) no longer `InitFieldTrialsFromString(nullptr);` at the start\ncould that be an issue (e.g. could that make test be an order dependent test?)",
+      "revId": "d264f328d0f7fbb19273f1ee8e80d6cdc5f25967",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

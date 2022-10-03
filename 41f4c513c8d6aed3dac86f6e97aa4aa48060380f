@@ -143,6 +143,30 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "d8b04552_e6d1f32d",
+        "filename": "api/field_trials_registry.h",
+        "patchSetId": 3
+      },
+      "lineNbr": 25,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2022-10-03T14:18:19Z",
+      "side": 1,
+      "message": "That mean there will be two classes with similar api that do almost the same.\nIt would be confusing.\nWould it be possible to use wrong class in code and then have non-validated checks for the field trials?",
+      "parentUuid": "59954516_0f9ce0ab",
+      "range": {
+        "startLine": 25,
+        "startChar": 17,
+        "endLine": 25,
+        "endChar": 61
+      },
+      "revId": "41f4c513c8d6aed3dac86f6e97aa4aa48060380f",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "9fc6b170_ac2173fe",

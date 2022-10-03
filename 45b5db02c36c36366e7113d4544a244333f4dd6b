@@ -16,6 +16,29 @@
       "message": "mbonadei - would you mind reviewing BUILD file changes?",
       "revId": "45b5db02c36c36366e7113d4544a244333f4dd6b",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "c1d49000_63552248",
+        "filename": "modules/utility/BUILD.gn",
+        "patchSetId": 3
+      },
+      "lineNbr": 12,
+      "author": {
+        "id": 5087
+      },
+      "writtenOn": "2022-10-03T09:00:21Z",
+      "side": 1,
+      "message": "Does it need to be used outside of WebRTC?\n\nIf not, just remove this line and we will be able to use it everywhere in the WebRTC codebase but not from the outside.",
+      "range": {
+        "startLine": 12,
+        "startChar": 2,
+        "endLine": 12,
+        "endChar": 22
+      },
+      "revId": "45b5db02c36c36366e7113d4544a244333f4dd6b",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

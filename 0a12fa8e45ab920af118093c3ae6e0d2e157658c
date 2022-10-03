@@ -1,0 +1,38 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "45b515c9_b0338d46",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 3
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 7036
+      },
+      "writtenOn": "2022-10-03T16:15:22Z",
+      "side": 1,
+      "message": "Looking good in general.\nIdeally, we should have tests too in dcsctp_transport_unittest.cc for those scenarios submitted at the same time, though I may be able to add them later too.",
+      "revId": "0a12fa8e45ab920af118093c3ae6e0d2e157658c",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "fc36dde6_db1e24a1",
+        "filename": "AUTHORS",
+        "patchSetId": 3
+      },
+      "lineNbr": 131,
+      "author": {
+        "id": 7036
+      },
+      "writtenOn": "2022-10-03T16:15:22Z",
+      "side": 1,
+      "message": "Please keep the list sorted, even though the last value isn\u0027t (I\u0027ll fix that later).",
+      "revId": "0a12fa8e45ab920af118093c3ae6e0d2e157658c",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "c5bfff9c_6bd3b295",
+        "filename": "media/sctp/dcsctp_transport.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 562,
+      "author": {
+        "id": 7036
+      },
+      "writtenOn": "2022-10-03T16:15:22Z",
+      "side": 1,
+      "message": "I am having a difficult time understanding in which circumstances this could happen, but I don\u0027t see how it could be an issue either.\nAre you sure this is required to fix the last few issues you\u0027ve had in your repro case?\nThe return-\u003econtinue fixes are obviously correct, but this one seems redundant on a first look.",
+      "revId": "d4c0ee4344aefbbbe04439087d2304673b292f8b",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "adb83a48_708288bc",
+        "filename": "rtc_tools/video_replay.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 492,
+      "author": {
+        "id": 5087
+      },
+      "writtenOn": "2022-10-03T10:56:35Z",
+      "side": 1,
+      "message": "Is it OK to return here or a CHECK is better?",
+      "range": {
+        "startLine": 484,
+        "startChar": 4,
+        "endLine": 492,
+        "endChar": 5
+      },
+      "revId": "6c0d36d06fbb84180b9b067b3842eac985ad9157",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

@@ -39,6 +39,30 @@
       },
       "revId": "45b5db02c36c36366e7113d4544a244333f4dd6b",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "56005fbb_0d38011a",
+        "filename": "modules/utility/BUILD.gn",
+        "patchSetId": 3
+      },
+      "lineNbr": 12,
+      "author": {
+        "id": 5578
+      },
+      "writtenOn": "2022-10-03T09:51:44Z",
+      "side": 1,
+      "message": "JNI layers seems to be used by upstream projects on Android.",
+      "parentUuid": "c1d49000_63552248",
+      "range": {
+        "startLine": 12,
+        "startChar": 2,
+        "endLine": 12,
+        "endChar": 22
+      },
+      "revId": "45b5db02c36c36366e7113d4544a244333f4dd6b",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

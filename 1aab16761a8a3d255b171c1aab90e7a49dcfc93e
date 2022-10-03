@@ -16,6 +16,24 @@
       "message": "Nice! Are there more tests we should move to EncoderStreamFactory, as part of this?",
       "revId": "1aab16761a8a3d255b171c1aab90e7a49dcfc93e",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "bb9ea086_14990181",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 4
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5492
+      },
+      "writtenOn": "2022-10-03T08:50:00Z",
+      "side": 1,
+      "message": "I think these are the tests that would mainly catch this case.",
+      "parentUuid": "1668467f_174fb323",
+      "revId": "1aab16761a8a3d255b171c1aab90e7a49dcfc93e",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

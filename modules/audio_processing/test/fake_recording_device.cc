@@ -14,7 +14,7 @@
 #include <memory>
 
 #include "absl/types/optional.h"
-#include "modules/audio_processing/agc/gain_map_internal.h"
+#include "modules/audio_processing/agc2/gain_map_internal.h"
 #include "rtc_base/logging.h"
 #include "rtc_base/numerics/safe_conversions.h"
 #include "rtc_base/numerics/safe_minmax.h"

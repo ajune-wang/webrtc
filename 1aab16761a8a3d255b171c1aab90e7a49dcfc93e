@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "1668467f_174fb323",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 4
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5023
+      },
+      "writtenOn": "2022-10-03T07:41:20Z",
+      "side": 1,
+      "message": "Nice! Are there more tests we should move to EncoderStreamFactory, as part of this?",
+      "revId": "1aab16761a8a3d255b171c1aab90e7a49dcfc93e",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

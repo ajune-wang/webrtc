@@ -16,6 +16,46 @@
       "message": "Hi Alessio! Could you please take a look?",
       "revId": "ed486a4fbeb003b30637d62f710c48a422c6144b",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "053b9927_95f630e0",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5122
+      },
+      "writtenOn": "2022-10-03T09:12:52Z",
+      "side": 1,
+      "message": "Thanks for this change! LGTM",
+      "revId": "ed486a4fbeb003b30637d62f710c48a422c6144b",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "113ae3aa_2b02cd6e",
+        "filename": "modules/audio_processing/agc2/adaptive_digital_gain_controller.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 116,
+      "author": {
+        "id": 5122
+      },
+      "writtenOn": "2022-10-03T09:12:52Z",
+      "side": 1,
+      "message": "```\nreturn speech_level_estimator_.IsConfident() ?\n    absl::optional\u003cfloat\u003e(speech_level_estimator_.level_dbfs()) :\n    absl::nullopt;\n```",
+      "range": {
+        "startLine": 110,
+        "startChar": 0,
+        "endLine": 116,
+        "endChar": 27
+      },
+      "revId": "ed486a4fbeb003b30637d62f710c48a422c6144b",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

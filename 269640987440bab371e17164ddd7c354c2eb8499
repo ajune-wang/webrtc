@@ -72,6 +72,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "2e6af3ad_69f4de3c",
+        "filename": "modules/rtp_rtcp/source/rtp_sender_video_frame_transformer_delegate.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 122,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2022-10-03T14:41:24Z",
+      "side": 1,
+      "message": "We could add a DCHECK(!current | current \u003d\u003d encoder_queue_) to show that we have this assumption. I think a new task queue is a larger functional change.",
+      "parentUuid": "55cf490a_a2429f7b",
+      "revId": "269640987440bab371e17164ddd7c354c2eb8499",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "fe9a410c_9b8be6ab",
         "filename": "modules/rtp_rtcp/source/rtp_sender_video_frame_transformer_delegate.cc",
         "patchSetId": 3

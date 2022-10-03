@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "5be8b9d9_ad6044d4",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 5
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5087
+      },
+      "writtenOn": "2022-10-03T09:59:16Z",
+      "side": 1,
+      "message": "LGTM (but see my comment, I suspect we need to move \u0027visibility\u0027 out of the \"if\" (but let\u0027s see if bots are happy).",
+      "revId": "626e3e46bf19daafbfe1f135d28bea03ba785d1e",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

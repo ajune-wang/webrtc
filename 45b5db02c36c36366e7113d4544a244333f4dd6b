@@ -63,6 +63,30 @@
       },
       "revId": "45b5db02c36c36366e7113d4544a244333f4dd6b",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "ff9145ea_870039a1",
+        "filename": "modules/utility/BUILD.gn",
+        "patchSetId": 3
+      },
+      "lineNbr": 12,
+      "author": {
+        "id": 5087
+      },
+      "writtenOn": "2022-10-03T09:59:16Z",
+      "side": 1,
+      "message": "Ok, in such case it is better to keep it public for all platforms and add a comment that this is about JNI usage.",
+      "parentUuid": "56005fbb_0d38011a",
+      "range": {
+        "startLine": 12,
+        "startChar": 2,
+        "endLine": 12,
+        "endChar": 22
+      },
+      "revId": "45b5db02c36c36366e7113d4544a244333f4dd6b",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

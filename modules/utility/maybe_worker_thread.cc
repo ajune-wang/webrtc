@@ -36,6 +36,14 @@ MaybeWorkerThread::MaybeWorkerThread(const FieldTrialsView& field_trials,
 
 MaybeWorkerThread::~MaybeWorkerThread() {
   RTC_DCHECK_RUN_ON(&sequence_checker_);
+
+  if (owned_task_queue_) {
+    // owned_task_queue_ must be a valid pointer when the taskqueue is destroyed
+    // since there may be tasks that use an instance of this class posted to
+    // the task queue.
+    owned_task_queue_->Delete();
+    owned_task_queue_.release();
+  }
 }
 
 void MaybeWorkerThread::RunSynchronous(absl::AnyInvocable<void() &&> task) {

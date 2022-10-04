@@ -16,6 +16,24 @@
       "message": "I haven\u0027t tested this yet, but don\u0027t we need to return a frame in case there is a cursor position change and the FrameAndCursorComposer or how it\u0027s called combines a final frame from both?",
       "revId": "7dabe2ba73629fac7f04987ee4aa388d78c3f4e9",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "44765e94_3167958f",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 18474
+      },
+      "writtenOn": "2022-10-04T18:06:57Z",
+      "side": 1,
+      "message": "I think this is right...\n(e.g. that we need the update if the cursor is updated)\n\nShare() also isn\u0027t that expensive: https://source.chromium.org/chromium/chromium/src/+/main:third_party/webrtc/modules/desktop_capture/desktop_frame.cc;drc\u003db9539659f98e35ba63b84c1adf299a7a2590e07e;l\u003d129\n\nIn fact; we explicitly have logic to do the opposite of this in the Windows DirectX Capturer (which I\u0027d assume is also used by CRD); because I think the intention with CaptureFrame is that if you\u0027ve asked for a frame we will *always* give you a frame.\n\nWhat I think you *really* want is either:\n1) Damage Regions - Jan had discussed with me that I think this is on his list of things to work on? (Though right now we need to prioritize getting the tests out so we can ship the capturer)\nor\n2) An event-based API surface for DesktopCapturer - This is something I want to do and I\u0027m trying to figure out how to fit it into my roadmap.",
+      "parentUuid": "da2aebcc_5ee9afba",
+      "revId": "7dabe2ba73629fac7f04987ee4aa388d78c3f4e9",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

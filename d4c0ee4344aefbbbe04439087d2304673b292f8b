@@ -16,6 +16,24 @@
       "message": "I am having a difficult time understanding in which circumstances this could happen, but I don\u0027t see how it could be an issue either.\nAre you sure this is required to fix the last few issues you\u0027ve had in your repro case?\nThe return-\u003econtinue fixes are obviously correct, but this one seems redundant on a first look.",
       "revId": "d4c0ee4344aefbbbe04439087d2304673b292f8b",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "3a83c822_e74b0dd2",
+        "filename": "media/sctp/dcsctp_transport.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 562,
+      "author": {
+        "id": 19814
+      },
+      "writtenOn": "2022-10-04T06:57:29Z",
+      "side": 1,
+      "message": "In my tests, when datachannel is closed by remote side, \n\n1) OnIncomingStreamsReset() is called on local side first. \nThis causes datachannel on local side to be immediately closed and SID released.\n\n2) OnStreamsResetPerformed() is called some milliseconds later - I guess it depends on network connection speed. (thats why its not easy to reproduce with simple test app if both sides are on local workstation)\n\nSo, I have observed that there is a chance for remote party to open new datachannel between events 1) and 2) with reused (same) SID as the datachannel that is in the middle of closing procedure.\n\nAs the result setting unconditionally \n\"stream_state.outgoing_reset_done \u003d true;\"\neffectively closes the new datachannel instead of old one.\n\nWith this check \n\n    if (stream_state.closure_initiated)\n      stream_state.outgoing_reset_done \u003d true;\n\nit wont happen.\n\nAlternative solution could be - to release SID only after both 1) and 2) are completed.",
+      "parentUuid": "c5bfff9c_6bd3b295",
+      "revId": "d4c0ee4344aefbbbe04439087d2304673b292f8b",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

@@ -52,6 +52,24 @@
       "parentUuid": "44765e94_3167958f",
       "revId": "7dabe2ba73629fac7f04987ee4aa388d78c3f4e9",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "76392d2b_782babe3",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 18474
+      },
+      "writtenOn": "2022-10-04T18:52:34Z",
+      "side": 1,
+      "message": "If I\u0027m remembering correctly, Jan would you be willing to discuss a bit on Thursday (assuming you\u0027re also free Salman)?\n\nThere might be some way that you could leverage this: https://source.chromium.org/chromium/chromium/src/+/main:third_party/webrtc/modules/desktop_capture/shared_desktop_frame.cc;drc\u003db9539659f98e35ba63b84c1adf299a7a2590e07e;l\u003d36\n\nThough there may be a slight risk of the frame getting overwritten if you\u0027re holding a reference to it; so we could look at some strategy if it would overwrite a shared frame.\n(I think there\u0027s enough info that we at least currently log if we\u0027re manipulating a currently shared frame, and I think by-and-large we copy before CaptureFrame returns so that the capturer can re-use it).\n\nThere may also be another/better spot to plumb out that the frame is unchanged from the previous call as an intermediate step to reaching either of those two approaches.\n\nI think it would be too much of a breaking change to add an \"UNCHANGED\" state to the Result enum.",
+      "parentUuid": "336a4947_2be7734a",
+      "revId": "7dabe2ba73629fac7f04987ee4aa388d78c3f4e9",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

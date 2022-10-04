@@ -75,6 +75,30 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "b10ad1b6_3b8514dc",
+        "filename": "modules/audio_processing/agc2/BUILD.gn",
+        "patchSetId": 1
+      },
+      "lineNbr": 72,
+      "author": {
+        "id": 17719
+      },
+      "writtenOn": "2022-10-04T14:07:17Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "a4debb1d_ac592493",
+      "range": {
+        "startLine": 72,
+        "startChar": 0,
+        "endLine": 72,
+        "endChar": 11
+      },
+      "revId": "88962e927f64d27438756c1330027d527a30cafd",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "fef1a305_398bb4fc",
@@ -98,6 +122,30 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "853412b6_23364e0c",
+        "filename": "modules/audio_processing/test/fake_recording_device.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 97,
+      "author": {
+        "id": 17719
+      },
+      "writtenOn": "2022-10-04T14:07:17Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "fef1a305_398bb4fc",
+      "range": {
+        "startLine": 97,
+        "startChar": 13,
+        "endLine": 97,
+        "endChar": 17
+      },
+      "revId": "88962e927f64d27438756c1330027d527a30cafd",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "545e535c_a14e95d2",
@@ -111,6 +159,30 @@
       "writtenOn": "2022-10-03T14:55:49Z",
       "side": 1,
       "message": "ditto",
+      "range": {
+        "startLine": 108,
+        "startChar": 25,
+        "endLine": 108,
+        "endChar": 29
+      },
+      "revId": "88962e927f64d27438756c1330027d527a30cafd",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "c68fddae_2d853885",
+        "filename": "modules/audio_processing/test/fake_recording_device.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 108,
+      "author": {
+        "id": 17719
+      },
+      "writtenOn": "2022-10-04T14:07:17Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "545e535c_a14e95d2",
       "range": {
         "startLine": 108,
         "startChar": 25,

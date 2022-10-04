@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "da2aebcc_5ee9afba",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 8046
+      },
+      "writtenOn": "2022-10-04T15:50:00Z",
+      "side": 1,
+      "message": "I haven\u0027t tested this yet, but don\u0027t we need to return a frame in case there is a cursor position change and the FrameAndCursorComposer or how it\u0027s called combines a final frame from both?",
+      "revId": "7dabe2ba73629fac7f04987ee4aa388d78c3f4e9",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

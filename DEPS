@@ -10,7 +10,7 @@ vars = {
   # chromium waterfalls. More info at: crbug.com/570091.
   'checkout_configuration': 'default',
   'checkout_instrumented_libraries': 'checkout_linux and checkout_configuration == "default"',
-  'chromium_revision': '9721fb30fcd03dfc5b115ae203a42f888d9cbf01',
+  'chromium_revision': '2f5c1f0c626cfb90a8251b87606bda97b3c2daa8',
 
   # Keep the Chromium default of generating location tags.
   'generate_location_tags': True,
@@ -55,9 +55,9 @@ deps = {
     'condition': 'checkout_ios',
   },
   'src/testing':
-    'https://chromium.googlesource.com/chromium/src/testing@acc448c7dd92f331baa2948ecf377488dcae9595',
+    'https://chromium.googlesource.com/chromium/src/testing@94fa5cf507f9481a89fedd02578d295645e15a5d',
   'src/third_party':
-    'https://chromium.googlesource.com/chromium/src/third_party@1a55ace5f5e0ade29441bc32cf21eb2b2370a9e1',
+    'https://chromium.googlesource.com/chromium/src/third_party@c926245e81d6cb5b236f35dd2dbbac27bf8c3369',
 
   'src/buildtools/linux64': {
     'packages': [
@@ -166,7 +166,7 @@ deps = {
   'src/third_party/breakpad/breakpad':
     'https://chromium.googlesource.com/breakpad/breakpad.git@e085b3b50bde862d0cf3ce4594e3f391bcf5faec',
   'src/third_party/catapult':
-    'https://chromium.googlesource.com/catapult.git@16eb7278843e4955064c980c5887668d6cba1035',
+    'https://chromium.googlesource.com/catapult.git@ff03621a71c01a6f2b0f3bf2677cf815291a9e85',
   'src/third_party/ced/src': {
     'url': 'https://chromium.googlesource.com/external/github.com/google/compact_enc_det.git@ba412eaaacd3186085babcd901679a48863c7dd5',
   },
@@ -187,7 +187,7 @@ deps = {
       'condition': 'checkout_linux',
   },
   'src/third_party/freetype/src':
-    'https://chromium.googlesource.com/chromium/src/third_party/freetype2.git@b93f20ab7ad610c986497243ca963ca79013411c',
+    'https://chromium.googlesource.com/chromium/src/third_party/freetype2.git@8faf57dd17088c37fa947fd565870648bbdbad18',
   'src/third_party/harfbuzz-ng/src':
     'https://chromium.googlesource.com/external/github.com/harfbuzz/harfbuzz.git@56c467093598ec559a7148b61e112e9de52b7076',
   'src/third_party/google_benchmark/src': {
@@ -292,7 +292,7 @@ deps = {
     'condition': 'checkout_android',
   },
   'src/tools':
-    'https://chromium.googlesource.com/chromium/src/tools@81b9c13646e99e03a34a2da12af4eec9fceaa85c',
+    'https://chromium.googlesource.com/chromium/src/tools@0bd5f639faa63901480b0bf983b64f77126feb17',
 
   'src/third_party/accessibility_test_framework': {
       'packages': [
@@ -369,7 +369,7 @@ deps = {
     'packages': [
       {
           'package': 'chromium/third_party/androidx',
-          'version': 'eKem4aR0h5tF6CwsZ5EAMu3gmdNf1T1b6oQSQTEi21gC',
+          'version': 'tlL4NXCU9VloHEQBuJdPXXhRoEmQlCqfefFTxshooSUC',
       },
     ],
     'condition': 'checkout_android',

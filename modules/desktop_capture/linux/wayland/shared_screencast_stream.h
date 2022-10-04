@@ -33,7 +33,8 @@ class RTC_EXPORT SharedScreenCastStream
   bool StartScreenCastStream(uint32_t stream_node_id,
                              int fd,
                              uint32_t width = 0,
-                             uint32_t height = 0);
+                             uint32_t height = 0,
+                             bool unique_frames = false);
   void UpdateScreenCastStreamResolution(uint32_t width, uint32_t height);
   void StopScreenCastStream();
 

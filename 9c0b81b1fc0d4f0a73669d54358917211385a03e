@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "90844fad_7c8a0f66",
+        "filename": "api/video_codecs/video_encoder.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 188,
+      "author": {
+        "id": 5492
+      },
+      "writtenOn": "2022-10-04T15:09:16Z",
+      "side": 1,
+      "message": "Note that this amount will be multiplied by the scale factor denominator for incoming frames (e.g. up to 16) based on the requested frame size (e.g. frames could be downgraded in resolution due to overuse):\nhttps://source.chromium.org/chromium/_/webrtc/src.git/+/ef51274188d7cf4611bb869ca1304e2f85c3d943:media/base/video_adapter.cc;l\u003d226;drc\u003ddb0d5861726e5cb1d753a72963bb1c76c35c1506;bpv\u003d1;bpt\u003d0 \n\nWould it be possible to for example use a different configuration, e.g. disable apply_alignment_to_all_simulcast_layers?",
+      "range": {
+        "startLine": 188,
+        "startChar": 41,
+        "endLine": 188,
+        "endChar": 77
+      },
+      "revId": "9c0b81b1fc0d4f0a73669d54358917211385a03e",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

@@ -194,6 +194,9 @@ class RTC_EXPORT DesktopCaptureOptions {
 
   void set_height(uint32_t height) { height_ = height; }
   uint32_t get_height() const { return height_; }
+
+  void set_unique_frames(bool unique_frames) { unique_frames_ = unique_frames; }
+  bool get_unique_frames() { return unique_frames_; }
 #endif
 
  private:
@@ -234,6 +237,8 @@ class RTC_EXPORT DesktopCaptureOptions {
   bool allow_pipewire_ = false;
   uint32_t width_ = 0;
   uint32_t height_ = 0;
+  // When set, capturer will only return unique / updated frames.
+  bool unique_frames_ = false;
 #endif
 };
 

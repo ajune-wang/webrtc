@@ -90,7 +90,8 @@ class SharedScreenCastStreamPrivate {
   bool StartScreenCastStream(uint32_t stream_node_id,
                              int fd,
                              uint32_t width = 0,
-                             uint32_t height = 0);
+                             uint32_t height = 0,
+                             bool unique_frames = false);
   void UpdateScreenCastStreamResolution(uint32_t width, uint32_t height);
   void StopScreenCastStream();
   std::unique_ptr<DesktopFrame> CaptureFrame();
@@ -100,6 +101,10 @@ class SharedScreenCastStreamPrivate {
  private:
   // Stops the streams and cleans up any in-use elements.
   void StopAndCleanupStream();
+
+  // Indicates whether the current frame has been updated (during stream's
+  // OnStreamProcess callback) since the last time frame was captured.
+  bool frame_updated_since_last_grab_ = false;
 
   uint32_t pw_stream_node_id_ = 0;
 
@@ -126,6 +131,8 @@ class SharedScreenCastStreamPrivate {
 
   spa_hook spa_core_listener_;
   spa_hook spa_stream_listener_;
+
+  bool unique_frames_ = false;
 
   // A number used to verify all previous methods and the resulting
   // events have been handled.
@@ -374,9 +381,11 @@ bool SharedScreenCastStreamPrivate::StartScreenCastStream(
     uint32_t stream_node_id,
     int fd,
     uint32_t width,
-    uint32_t height) {
+    uint32_t height,
+    bool unique_frames) {
   width_ = width;
   height_ = height;
+  unique_frames_ = unique_frames;
 #if defined(WEBRTC_DLOPEN_PIPEWIRE)
   StubPathMap paths;
 
@@ -582,9 +591,12 @@ void SharedScreenCastStreamPrivate::StopAndCleanupStream() {
 std::unique_ptr<DesktopFrame> SharedScreenCastStreamPrivate::CaptureFrame() {
   webrtc::MutexLock lock(&queue_lock_);
 
-  if (!pw_stream_ || !queue_.current_frame()) {
+  if ((unique_frames_ && !frame_updated_since_last_grab_) || !pw_stream_ ||
+      !queue_.current_frame()) {
     return std::unique_ptr<DesktopFrame>{};
   }
+
+  frame_updated_since_last_grab_ = false;
 
   std::unique_ptr<SharedDesktopFrame> frame = queue_.current_frame()->Share();
   return std::move(frame);
@@ -806,6 +818,8 @@ void SharedScreenCastStreamPrivate::ProcessBuffer(pw_buffer* buffer) {
     }
   }
 
+  frame_updated_since_last_grab_ = true;
+
   if (!queue_.current_frame() ||
       !queue_.current_frame()->size().equals(frame_size_)) {
     std::unique_ptr<DesktopFrame> frame(new BasicDesktopFrame(
@@ -861,8 +875,10 @@ bool SharedScreenCastStream::StartScreenCastStream(uint32_t stream_node_id) {
 bool SharedScreenCastStream::StartScreenCastStream(uint32_t stream_node_id,
                                                    int fd,
                                                    uint32_t width,
-                                                   uint32_t height) {
-  return private_->StartScreenCastStream(stream_node_id, fd, width, height);
+                                                   uint32_t height,
+                                                   bool unique_frames) {
+  return private_->StartScreenCastStream(stream_node_id, fd, width, height,
+                                         unique_frames);
 }
 
 void SharedScreenCastStream::UpdateScreenCastStreamResolution(uint32_t width,

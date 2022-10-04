@@ -34,6 +34,24 @@
       "parentUuid": "da2aebcc_5ee9afba",
       "revId": "7dabe2ba73629fac7f04987ee4aa388d78c3f4e9",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "336a4947_2be7734a",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 19629
+      },
+      "writtenOn": "2022-10-04T18:40:29Z",
+      "side": 1,
+      "message": "Thanks for bringing it up. PS1 would have likely broken the composition with cursor. I have now added a desktop capture option which by default retains the original behavior.\n\n\u003e if you\u0027ve asked for a frame we will always give you a frame.\n\nIs there an efficient mechanism to determine if the newly captured frame is any different than the one that was captured last time?\n\n\u003e 1) Damage Regions - Jan had discussed with me that I think this is on his list of things to work on\n\u003e 2) An event-based API surface for DesktopCapturer \n\nBoth options sound great. First one can be somewhat imitated by the diff capturer wrapper but running the diff between frames adds few milliseconds latency (for 4k screens) that we can avoid here if we know for sure that the frame hasn\u0027t changed since the last captured frame.\n\nI will still be curious to learn what is the plan for figuring out damage regions (possibly without a pixel to pixel comparison) 😊",
+      "parentUuid": "44765e94_3167958f",
+      "revId": "7dabe2ba73629fac7f04987ee4aa388d78c3f4e9",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

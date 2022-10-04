@@ -101,6 +101,10 @@ class SharedScreenCastStreamPrivate {
   // Stops the streams and cleans up any in-use elements.
   void StopAndCleanupStream();
 
+  // Indicates whether the current frame has been updated (during stream's
+  // OnStreamProcess callback) since the last time frame was captured.
+  bool frame_updated_since_last_grab_ = false;
+
   uint32_t pw_stream_node_id_ = 0;
 
   DesktopSize stream_size_ = {};
@@ -582,9 +586,12 @@ void SharedScreenCastStreamPrivate::StopAndCleanupStream() {
 std::unique_ptr<DesktopFrame> SharedScreenCastStreamPrivate::CaptureFrame() {
   webrtc::MutexLock lock(&queue_lock_);
 
-  if (!pw_stream_ || !queue_.current_frame()) {
+  if (!frame_updated_since_last_grab_ || !pw_stream_ ||
+      !queue_.current_frame()) {
     return std::unique_ptr<DesktopFrame>{};
   }
+
+  frame_updated_since_last_grab_ = false;
 
   std::unique_ptr<SharedDesktopFrame> frame = queue_.current_frame()->Share();
   return std::move(frame);
@@ -805,6 +812,8 @@ void SharedScreenCastStreamPrivate::ProcessBuffer(pw_buffer* buffer) {
       return;
     }
   }
+
+  frame_updated_since_last_grab_ = true;
 
   if (!queue_.current_frame() ||
       !queue_.current_frame()->size().equals(frame_size_)) {

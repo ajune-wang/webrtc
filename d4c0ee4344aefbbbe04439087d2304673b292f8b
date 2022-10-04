@@ -34,6 +34,24 @@
       "parentUuid": "c5bfff9c_6bd3b295",
       "revId": "d4c0ee4344aefbbbe04439087d2304673b292f8b",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "0d918d45_8ac8efbd",
+        "filename": "media/sctp/dcsctp_transport.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 562,
+      "author": {
+        "id": 7036
+      },
+      "writtenOn": "2022-10-04T09:16:55Z",
+      "side": 1,
+      "message": "1) OnIncomingStreamsReset() does not close the data channel, it only marks it as closing. Full close should be when both directions are closed, and only then the SID is released, if it\u0027s released earlier, then it\u0027s another issue to address.\nIf the channel is fully closed, then there was a close on the local channel already or an old channel leftover from previously and some sort of race, which I can see happen with \"return\" instead of \"continue\".\n\nAre you sure the issue is not just fixed with the \"continue\" fix?",
+      "parentUuid": "3a83c822_e74b0dd2",
+      "revId": "d4c0ee4344aefbbbe04439087d2304673b292f8b",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

@@ -1,0 +1,67 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "24f94780_2c76f85f",
+        "filename": "call/adaptation/video_source_restrictions.h",
+        "patchSetId": 3
+      },
+      "lineNbr": 63,
+      "author": {
+        "id": 5117
+      },
+      "writtenOn": "2022-10-05T13:46:20Z",
+      "side": 1,
+      "message": "nit: add \u0027.\u0027 at the end.",
+      "range": {
+        "startLine": 63,
+        "startChar": 43,
+        "endLine": 63,
+        "endChar": 44
+      },
+      "revId": "520b542b3c2c0e151ede3d1122f6abbb952e4ba8",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "88b65582_31e44061",
+        "filename": "call/adaptation/video_source_restrictions_unittest.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 137,
+      "author": {
+        "id": 5117
+      },
+      "writtenOn": "2022-10-05T13:46:20Z",
+      "side": 1,
+      "message": "Please also test that kLow.Update(kHigh) \u003d\u003d kLow. Maybe do it first or add a new set of VideoSrouceRestrictions in this test or even add a second test.\n\nOr just switch some values around so that kHigh would have some min restrictions in some fields (rename it also).\n\nCurrent test would also pass if UpdateMin() was actually an operator\u003d.\nI\u0027d prefer this test to be more reliable.",
+      "revId": "520b542b3c2c0e151ede3d1122f6abbb952e4ba8",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "95f2ec0a_6bb6255f",
+        "filename": "video/video_stream_encoder.h",
+        "patchSetId": 3
+      },
+      "lineNbr": 463,
+      "author": {
+        "id": 5117
+      },
+      "writtenOn": "2022-10-05T13:46:20Z",
+      "side": 1,
+      "message": "if",
+      "range": {
+        "startLine": 463,
+        "startChar": 53,
+        "endLine": 463,
+        "endChar": 55
+      },
+      "revId": "520b542b3c2c0e151ede3d1122f6abbb952e4ba8",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

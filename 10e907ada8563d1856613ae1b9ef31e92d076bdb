@@ -24,6 +24,30 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "52727d31_cfe7c57c",
+        "filename": "rtc_tools/rtc_event_log_to_text/converter.cc",
+        "patchSetId": 7
+      },
+      "lineNbr": 69,
+      "author": {
+        "id": 5150
+      },
+      "writtenOn": "2022-10-05T13:02:11Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "0b4fbb69_6f4aa54f",
+      "range": {
+        "startLine": 69,
+        "startChar": 33,
+        "endLine": 69,
+        "endChar": 54
+      },
+      "revId": "10e907ada8563d1856613ae1b9ef31e92d076bdb",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "c3dff166_aed4bdb1",
@@ -47,6 +71,30 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "b9e26ac7_48844a6f",
+        "filename": "rtc_tools/rtc_event_log_to_text/converter.h",
+        "patchSetId": 7
+      },
+      "lineNbr": 22,
+      "author": {
+        "id": 5150
+      },
+      "writtenOn": "2022-10-05T13:02:11Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "c3dff166_aed4bdb1",
+      "range": {
+        "startLine": 22,
+        "startChar": 0,
+        "endLine": 22,
+        "endChar": 4
+      },
+      "revId": "10e907ada8563d1856613ae1b9ef31e92d076bdb",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "24c6b13a_8fc7827b",
@@ -60,6 +108,30 @@
       "writtenOn": "2022-10-05T08:23:16Z",
       "side": 1,
       "message": "Let\u0027s add some documentation for this function (e.g. at first sight it is not clear to me what `unconfigured_extensions` does and I would need to read the implementation).",
+      "range": {
+        "startLine": 21,
+        "startChar": 0,
+        "endLine": 27,
+        "endChar": 22
+      },
+      "revId": "10e907ada8563d1856613ae1b9ef31e92d076bdb",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "1831083f_37bcc3e4",
+        "filename": "rtc_tools/rtc_event_log_to_text/converter.h",
+        "patchSetId": 7
+      },
+      "lineNbr": 27,
+      "author": {
+        "id": 5150
+      },
+      "writtenOn": "2022-10-05T13:02:11Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "24c6b13a_8fc7827b",
       "range": {
         "startLine": 21,
         "startChar": 0,

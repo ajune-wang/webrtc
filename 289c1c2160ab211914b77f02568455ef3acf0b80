@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "1dda864c_8a428f2d",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5142
+      },
+      "writtenOn": "2022-10-05T08:24:59Z",
+      "side": 1,
+      "message": "Please take a look Harald (owner), and Sergey+Mirta please advice - can I land this CL? There may be dependencies on the non-standard location",
+      "revId": "289c1c2160ab211914b77f02568455ef3acf0b80",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

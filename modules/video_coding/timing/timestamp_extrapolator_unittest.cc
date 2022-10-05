@@ -59,6 +59,26 @@ TEST(TimestampExtrapolatorTest, ExtrapolationOccursAfter2Packets) {
               Optional(clock.CurrentTime() + TimeDelta::Seconds(1)));
 }
 
+TEST(TimestampExtrapolatorTest, DuplicateRtpTimestampsDoesNotUpdateFilter) {
+  SimulatedClock clock(Timestamp::Millis(1337));
+  TimestampExtrapolator ts_extrapolator_single(clock.CurrentTime());
+  TimestampExtrapolator ts_extrapolator_multiple(clock.CurrentTime());
+
+  uint32_t rtp = 90000;
+  for (int i = 0; i < 10; ++i) {
+    Timestamp now = clock.CurrentTime();
+    ts_extrapolator_single.Update(now, rtp);
+    ts_extrapolator_multiple.Update(now, rtp);
+    ts_extrapolator_multiple.Update(now + TimeDelta::Millis(33), rtp);
+    ts_extrapolator_multiple.Update(now + TimeDelta::Millis(67), rtp);
+    rtp += 100 * 90;
+    clock.AdvanceTime(TimeDelta::Millis(100));
+  }
+
+  EXPECT_EQ(ts_extrapolator_single.ExtrapolateLocalTime(rtp),
+            ts_extrapolator_multiple.ExtrapolateLocalTime(rtp));
+}
+
 TEST(TimestampExtrapolatorTest, ResetsAfter10SecondPause) {
   SimulatedClock clock(Timestamp::Millis(1337));
   TimestampExtrapolator ts_extrapolator(clock.CurrentTime());

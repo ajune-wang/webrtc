@@ -88,6 +88,24 @@
       "parentUuid": "76392d2b_782babe3",
       "revId": "7dabe2ba73629fac7f04987ee4aa388d78c3f4e9",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "4c27e2f3_efb1608c",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 18474
+      },
+      "writtenOn": "2022-10-05T16:23:52Z",
+      "side": 1,
+      "message": "ISTM that tracking the bool Salman has added and using it to determine whether or not to reset that rect would likely give us what we want?\n\nI hesitate to directly clear it after sharing the frame as I believe it\u0027s shared; but I *think* it should be safe to say that we can at least modify the damage rect if a new frame is being asked for.",
+      "parentUuid": "3af4e2fa_3943213b",
+      "revId": "7dabe2ba73629fac7f04987ee4aa388d78c3f4e9",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

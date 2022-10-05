@@ -630,14 +630,6 @@ class RTCStatsReportVerifier {
           media_stream_track.inserted_samples_for_deceleration);
       verifier.TestMemberIsUndefined(
           media_stream_track.removed_samples_for_acceleration);
-      verifier.TestMemberIsUndefined(media_stream_track.jitter_buffer_flushes);
-      verifier.TestMemberIsUndefined(
-          media_stream_track.delayed_packet_outage_samples);
-      verifier.TestMemberIsUndefined(
-          media_stream_track.relative_packet_arrival_delay);
-      verifier.TestMemberIsUndefined(media_stream_track.interruption_count);
-      verifier.TestMemberIsUndefined(
-          media_stream_track.total_interruption_duration);
     } else {
       RTC_DCHECK_EQ(*media_stream_track.kind, RTCMediaStreamTrackKind::kAudio);
       // The type of the referenced media source depends on kind.
@@ -665,16 +657,6 @@ class RTCStatsReportVerifier {
             media_stream_track.inserted_samples_for_deceleration);
         verifier.TestMemberIsNonNegative<uint64_t>(
             media_stream_track.removed_samples_for_acceleration);
-        verifier.TestMemberIsNonNegative<uint64_t>(
-            media_stream_track.jitter_buffer_flushes);
-        verifier.TestMemberIsNonNegative<uint64_t>(
-            media_stream_track.delayed_packet_outage_samples);
-        verifier.TestMemberIsNonNegative<double>(
-            media_stream_track.relative_packet_arrival_delay);
-        verifier.TestMemberIsNonNegative<uint32_t>(
-            media_stream_track.interruption_count);
-        verifier.TestMemberIsNonNegative<double>(
-            media_stream_track.total_interruption_duration);
       } else {
         verifier.TestMemberIsIDReference(media_stream_track.media_source_id,
                                          RTCAudioSourceStats::kType);
@@ -696,15 +678,6 @@ class RTCStatsReportVerifier {
             media_stream_track.inserted_samples_for_deceleration);
         verifier.TestMemberIsUndefined(
             media_stream_track.removed_samples_for_acceleration);
-        verifier.TestMemberIsUndefined(
-            media_stream_track.jitter_buffer_flushes);
-        verifier.TestMemberIsUndefined(
-            media_stream_track.delayed_packet_outage_samples);
-        verifier.TestMemberIsUndefined(
-            media_stream_track.relative_packet_arrival_delay);
-        verifier.TestMemberIsUndefined(media_stream_track.interruption_count);
-        verifier.TestMemberIsUndefined(
-            media_stream_track.total_interruption_duration);
       }
       // Video-only members should be undefined
       verifier.TestMemberIsUndefined(media_stream_track.frame_width);
@@ -884,6 +857,14 @@ class RTCStatsReportVerifier {
       // The integration test is not set up to test screen share; don't require
       // this to be present.
       verifier.MarkMemberTested(inbound_stream.content_type, true);
+      verifier.TestMemberIsUndefined(inbound_stream.jitter_buffer_flushes);
+      verifier.TestMemberIsUndefined(
+          inbound_stream.delayed_packet_outage_samples);
+      verifier.TestMemberIsUndefined(
+          inbound_stream.relative_packet_arrival_delay);
+      verifier.TestMemberIsUndefined(inbound_stream.interruption_count);
+      verifier.TestMemberIsUndefined(
+          inbound_stream.total_interruption_duration);
       verifier.TestMemberIsNonNegative<double>(
           inbound_stream.min_playout_delay);
     } else {
@@ -903,6 +884,16 @@ class RTCStatsReportVerifier {
       verifier.TestMemberIsUndefined(inbound_stream.freeze_count);
       verifier.TestMemberIsUndefined(inbound_stream.total_freezes_duration);
       verifier.TestMemberIsUndefined(inbound_stream.content_type);
+      verifier.TestMemberIsNonNegative<uint64_t>(
+          inbound_stream.jitter_buffer_flushes);
+      verifier.TestMemberIsNonNegative<uint64_t>(
+          inbound_stream.delayed_packet_outage_samples);
+      verifier.TestMemberIsNonNegative<double>(
+          inbound_stream.relative_packet_arrival_delay);
+      verifier.TestMemberIsNonNegative<uint32_t>(
+          inbound_stream.interruption_count);
+      verifier.TestMemberIsNonNegative<double>(
+          inbound_stream.total_interruption_duration);
       verifier.TestMemberIsUndefined(inbound_stream.min_playout_delay);
     }
     return verifier.ExpectAllMembersSuccessfullyTested();

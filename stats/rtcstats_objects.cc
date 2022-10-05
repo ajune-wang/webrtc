@@ -424,12 +424,7 @@ WEBRTC_RTCSTATS_IMPL(RTCMediaStreamTrackStats, RTCStats, "track",
                      &silent_concealed_samples,
                      &concealment_events,
                      &inserted_samples_for_deceleration,
-                     &removed_samples_for_acceleration,
-                     &jitter_buffer_flushes,
-                     &delayed_packet_outage_samples,
-                     &relative_packet_arrival_delay,
-                     &interruption_count,
-                     &total_interruption_duration)
+                     &removed_samples_for_acceleration)
 // clang-format on
 
 RTCMediaStreamTrackStats::RTCMediaStreamTrackStats(const std::string& id,
@@ -466,19 +461,7 @@ RTCMediaStreamTrackStats::RTCMediaStreamTrackStats(std::string&& id,
       silent_concealed_samples("silentConcealedSamples"),
       concealment_events("concealmentEvents"),
       inserted_samples_for_deceleration("insertedSamplesForDeceleration"),
-      removed_samples_for_acceleration("removedSamplesForAcceleration"),
-      jitter_buffer_flushes(
-          "jitterBufferFlushes",
-          {NonStandardGroupId::kRtcAudioJitterBufferMaxPackets}),
-      delayed_packet_outage_samples(
-          "delayedPacketOutageSamples",
-          {NonStandardGroupId::kRtcAudioJitterBufferMaxPackets,
-           NonStandardGroupId::kRtcStatsRelativePacketArrivalDelay}),
-      relative_packet_arrival_delay(
-          "relativePacketArrivalDelay",
-          {NonStandardGroupId::kRtcStatsRelativePacketArrivalDelay}),
-      interruption_count("interruptionCount"),
-      total_interruption_duration("totalInterruptionDuration") {
+      removed_samples_for_acceleration("removedSamplesForAcceleration") {
   RTC_DCHECK(kind == RTCMediaStreamTrackKind::kAudio ||
              kind == RTCMediaStreamTrackKind::kVideo);
 }
@@ -512,12 +495,8 @@ RTCMediaStreamTrackStats::RTCMediaStreamTrackStats(
       concealment_events(other.concealment_events),
       inserted_samples_for_deceleration(
           other.inserted_samples_for_deceleration),
-      removed_samples_for_acceleration(other.removed_samples_for_acceleration),
-      jitter_buffer_flushes(other.jitter_buffer_flushes),
-      delayed_packet_outage_samples(other.delayed_packet_outage_samples),
-      relative_packet_arrival_delay(other.relative_packet_arrival_delay),
-      interruption_count(other.interruption_count),
-      total_interruption_duration(other.total_interruption_duration) {}
+      removed_samples_for_acceleration(other.removed_samples_for_acceleration) {
+}
 
 RTCMediaStreamTrackStats::~RTCMediaStreamTrackStats() {}
 
@@ -680,7 +659,12 @@ WEBRTC_RTCSTATS_IMPL(
     &pli_count,
     &nack_count,
     &qp_sum,
-    &min_playout_delay)
+    &min_playout_delay,
+    &jitter_buffer_flushes,
+    &delayed_packet_outage_samples,
+    &relative_packet_arrival_delay,
+    &interruption_count,
+    &total_interruption_duration)
 // clang-format on
 
 RTCInboundRTPStreamStats::RTCInboundRTPStreamStats(const std::string& id,
@@ -737,7 +721,19 @@ RTCInboundRTPStreamStats::RTCInboundRTPStreamStats(std::string&& id,
       pli_count("pliCount"),
       nack_count("nackCount"),
       qp_sum("qpSum"),
-      min_playout_delay("minPlayoutDelay") {}
+      min_playout_delay("minPlayoutDelay"),
+      jitter_buffer_flushes(
+          "jitterBufferFlushes",
+          {NonStandardGroupId::kRtcAudioJitterBufferMaxPackets}),
+      delayed_packet_outage_samples(
+          "delayedPacketOutageSamples",
+          {NonStandardGroupId::kRtcAudioJitterBufferMaxPackets,
+           NonStandardGroupId::kRtcStatsRelativePacketArrivalDelay}),
+      relative_packet_arrival_delay(
+          "relativePacketArrivalDelay",
+          {NonStandardGroupId::kRtcStatsRelativePacketArrivalDelay}),
+      interruption_count("interruptionCount"),
+      total_interruption_duration("totalInterruptionDuration") {}
 
 RTCInboundRTPStreamStats::RTCInboundRTPStreamStats(
     const RTCInboundRTPStreamStats& other)
@@ -790,7 +786,12 @@ RTCInboundRTPStreamStats::RTCInboundRTPStreamStats(
       pli_count(other.pli_count),
       nack_count(other.nack_count),
       qp_sum(other.qp_sum),
-      min_playout_delay(other.min_playout_delay) {}
+      min_playout_delay(other.min_playout_delay),
+      jitter_buffer_flushes(other.jitter_buffer_flushes),
+      delayed_packet_outage_samples(other.delayed_packet_outage_samples),
+      relative_packet_arrival_delay(other.relative_packet_arrival_delay),
+      interruption_count(other.interruption_count),
+      total_interruption_duration(other.total_interruption_duration) {}
 
 RTCInboundRTPStreamStats::~RTCInboundRTPStreamStats() {}
 

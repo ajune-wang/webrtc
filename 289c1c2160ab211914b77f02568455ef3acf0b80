@@ -16,6 +16,23 @@
       "message": "Please take a look Harald (owner), and Sergey+Mirta please advice - can I land this CL? There may be dependencies on the non-standard location",
       "revId": "289c1c2160ab211914b77f02568455ef3acf0b80",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "17fac14d_c33b821e",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2022-10-05T08:29:25Z",
+      "side": 1,
+      "message": "I\u0027m assuming that nothing has committed to depending on finding it at the old location.",
+      "revId": "289c1c2160ab211914b77f02568455ef3acf0b80",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

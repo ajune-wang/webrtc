@@ -70,6 +70,24 @@
       "parentUuid": "336a4947_2be7734a",
       "revId": "7dabe2ba73629fac7f04987ee4aa388d78c3f4e9",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "3af4e2fa_3943213b",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 8046
+      },
+      "writtenOn": "2022-10-05T06:27:42Z",
+      "side": 1,
+      "message": "Sure, we can discuss this tomorrow. I think we should have both 1) and 2) in the future for the best performance.\n\nRegarding this change. We set updated region here https://source.chromium.org/chromium/chromium/src/+/main:third_party/webrtc/modules/desktop_capture/linux/wayland/shared_screencast_stream.cc;l\u003d831. Can we maybe reset the updated region in case the frame has been consumed already and we would just return the same one? Would that make a difference?",
+      "parentUuid": "76392d2b_782babe3",
+      "revId": "7dabe2ba73629fac7f04987ee4aa388d78c3f4e9",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

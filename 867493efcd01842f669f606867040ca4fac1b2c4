@@ -51,6 +51,23 @@
       "parentUuid": "5ea00bde_3c264708",
       "revId": "867493efcd01842f669f606867040ca4fac1b2c4",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "612a644b_86504232",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 9405
+      },
+      "writtenOn": "2022-10-05T09:39:42Z",
+      "side": 1,
+      "message": "After reading the documentation and the Apple libc/libpthread code, I found there was no reason to go ahead with this CL.\n\nUsing `gettimeofday` is perfectly justified, and the current code is correct because `pthread_cond_timedwait` expects a wall clock.\n\nhttps://github.com/apple-opensource/libpthread/blob/e9b4bbf00b7a94f4eba9c74771ad1e659e8cc568/src/pthread_cond.c#L770\n\nSorry for the noise!",
+      "revId": "867493efcd01842f669f606867040ca4fac1b2c4",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

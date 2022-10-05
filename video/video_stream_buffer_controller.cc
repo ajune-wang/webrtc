@@ -143,10 +143,12 @@ absl::optional<int64_t> VideoStreamBufferController::InsertFrame(
   int complete_units = buffer_->GetTotalNumberOfContinuousTemporalUnits();
   if (buffer_->InsertFrame(std::move(frame))) {
     RTC_DCHECK(metadata.receive_time) << "Frame receive time must be set!";
-    if (!metadata.delayed_by_retransmission && metadata.receive_time)
-      timing_->IncomingTimestamp(metadata.rtp_timestamp,
-                                 *metadata.receive_time);
     if (complete_units < buffer_->GetTotalNumberOfContinuousTemporalUnits()) {
+      if (!metadata.delayed_by_retransmission && metadata.receive_time) {
+        timing_->IncomingTimestamp(metadata.rtp_timestamp,
+                                   *metadata.receive_time);
+      }
+
       stats_proxy_->OnCompleteFrame(metadata.is_keyframe, metadata.size,
                                     metadata.contentType);
       MaybeScheduleFrameForRelease();

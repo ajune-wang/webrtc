@@ -555,11 +555,13 @@ void DcSctpTransport::OnStreamsResetPerformed(
     auto it = stream_states_.find(stream_id);
     if (it == stream_states_.end()) {
       // Ignoring an outgoing stream reset for a closed stream
-      return;
+      continue;
     }
 
     StreamState& stream_state = it->second;
-    stream_state.outgoing_reset_done = true;
+    if (stream_state.closure_initiated) {
+      stream_state.outgoing_reset_done = true;
+    }
 
     if (stream_state.incoming_reset_done) {
       //  When the close was not initiated locally, we can signal the end of the
@@ -582,7 +584,7 @@ void DcSctpTransport::OnIncomingStreamsReset(
 
     auto it = stream_states_.find(stream_id);
     if (it == stream_states_.end())
-      return;
+      continue;
 
     StreamState& stream_state = it->second;
     stream_state.incoming_reset_done = true;

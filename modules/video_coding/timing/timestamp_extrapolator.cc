@@ -88,7 +88,7 @@ void TimestampExtrapolator::Update(Timestamp now, uint32_t ts90khz) {
   }
 
   if (prev_unwrapped_timestamp_ &&
-      unwrapped_ts90khz < prev_unwrapped_timestamp_) {
+      unwrapped_ts90khz <= prev_unwrapped_timestamp_) {
     // Drop reordered frames.
     return;
   }

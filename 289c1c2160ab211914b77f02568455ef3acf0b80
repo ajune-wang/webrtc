@@ -33,6 +33,24 @@
       "message": "I\u0027m assuming that nothing has committed to depending on finding it at the old location.",
       "revId": "289c1c2160ab211914b77f02568455ef3acf0b80",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "a96de967_b70ee8ef",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 19744
+      },
+      "writtenOn": "2022-10-05T11:28:59Z",
+      "side": 1,
+      "message": "We can\u0027t land this until we remove the dependecy on \"track\" in downstream projects. Would it make sense to temporarily duplicate these stats on both \"track\" and \"inbound-rtp\" until we remove the dependency on \"track\"?",
+      "parentUuid": "1dda864c_8a428f2d",
+      "revId": "289c1c2160ab211914b77f02568455ef3acf0b80",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

@@ -16,6 +16,92 @@
       "message": "Thank you Alessio! I\u0027ve done a few changes, can you please take a look?",
       "revId": "cb5cd68c539d50c1e1f5afb0da8b2778a54ef506",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "998cb4b7_2950a75b",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5122
+      },
+      "writtenOn": "2022-10-05T12:41:48Z",
+      "side": 1,
+      "message": "Thanks for the new patch set Hanna.",
+      "revId": "cb5cd68c539d50c1e1f5afb0da8b2778a54ef506",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "4f34c51e_ac19a106",
+        "filename": "modules/audio_processing/agc/agc_manager_direct.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 203,
+      "author": {
+        "id": 5122
+      },
+      "writtenOn": "2022-10-05T12:41:48Z",
+      "side": 1,
+      "message": "you can remove +0.5 and use std::round instead of floor, right?",
+      "range": {
+        "startLine": 203,
+        "startChar": 66,
+        "endLine": 203,
+        "endChar": 71
+      },
+      "revId": "cb5cd68c539d50c1e1f5afb0da8b2778a54ef506",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "4df9fbda_74a74bb0",
+        "filename": "modules/audio_processing/agc/agc_manager_direct.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 264,
+      "author": {
+        "id": 5122
+      },
+      "writtenOn": "2022-10-05T12:41:48Z",
+      "side": 1,
+      "message": "what if\n- `GetRmsErrorDb()` in line 251 returns true\n- `frames_since_update_gain_.has_value()` is false - i.e., first frame\n\nthen `UpdateGain()` gets called\n\nbut in another comment you wrote that the logic must disallow updates in the first frame after startup",
+      "range": {
+        "startLine": 264,
+        "startChar": 4,
+        "endLine": 264,
+        "endChar": 14
+      },
+      "revId": "cb5cd68c539d50c1e1f5afb0da8b2778a54ef506",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "f3514800_ce51e123",
+        "filename": "modules/audio_processing/agc/agc_manager_direct.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 278,
+      "author": {
+        "id": 5122
+      },
+      "writtenOn": "2022-10-05T12:41:48Z",
+      "side": 1,
+      "message": "Thanks for the clarification about -1.\n\nWhat about being explicit and adding a bool member named `first_frame_` instead of using an optional type? It\u0027ll be clearer for the reader. Sorry for not proposing this in my first comment; I missed the semantic of -1.",
+      "range": {
+        "startLine": 278,
+        "startChar": 2,
+        "endLine": 278,
+        "endChar": 64
+      },
+      "revId": "cb5cd68c539d50c1e1f5afb0da8b2778a54ef506",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

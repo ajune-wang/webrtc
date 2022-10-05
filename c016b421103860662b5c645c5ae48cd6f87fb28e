@@ -82,6 +82,30 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "f6d74854_2ffc901b",
+        "filename": "modules/audio_processing/agc/agc_manager_direct.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 63,
+      "author": {
+        "id": 5122
+      },
+      "writtenOn": "2022-10-05T12:41:48Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "d4c45e15_0b087445",
+      "range": {
+        "startLine": 63,
+        "startChar": 36,
+        "endLine": 63,
+        "endChar": 37
+      },
+      "revId": "c016b421103860662b5c645c5ae48cd6f87fb28e",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "43a1fff9_f5ed4ce4",
@@ -129,6 +153,30 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "41bf4e88_97a739f5",
+        "filename": "modules/audio_processing/agc/agc_manager_direct.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 234,
+      "author": {
+        "id": 5122
+      },
+      "writtenOn": "2022-10-05T12:41:48Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "b253034b_b6dc6403",
+      "range": {
+        "startLine": 234,
+        "startChar": 30,
+        "endLine": 234,
+        "endChar": 32
+      },
+      "revId": "c016b421103860662b5c645c5ae48cd6f87fb28e",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "de908796_05ab8a36",
@@ -166,6 +214,30 @@
       "side": 1,
       "message": "UpdateGain refactoring is now done in https://webrtc-review.googlesource.com/c/src/+/277625.\n\nI\u0027d keep the extra agc_-\u003eGetRmsErrorDb() for now as discussed offline. There is a TODO so we remember to remove it later.",
       "parentUuid": "de908796_05ab8a36",
+      "range": {
+        "startLine": 250,
+        "startChar": 0,
+        "endLine": 265,
+        "endChar": 3
+      },
+      "revId": "c016b421103860662b5c645c5ae48cd6f87fb28e",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "83330a7c_a918f52c",
+        "filename": "modules/audio_processing/agc/agc_manager_direct.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 265,
+      "author": {
+        "id": 5122
+      },
+      "writtenOn": "2022-10-05T12:41:48Z",
+      "side": 1,
+      "message": "Ack.",
+      "parentUuid": "6cf30e2b_efe702b5",
       "range": {
         "startLine": 250,
         "startChar": 0,

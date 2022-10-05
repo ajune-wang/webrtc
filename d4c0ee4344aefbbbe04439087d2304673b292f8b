@@ -70,6 +70,24 @@
       "parentUuid": "0d918d45_8ac8efbd",
       "revId": "d4c0ee4344aefbbbe04439087d2304673b292f8b",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "93ba4c62_ff9ab21e",
+        "filename": "media/sctp/dcsctp_transport.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 562,
+      "author": {
+        "id": 19814
+      },
+      "writtenOn": "2022-10-05T16:03:00Z",
+      "side": 1,
+      "message": "@orphis@webrtc.org I have tested that issue is not fixed with the \"continue\" fix. Indeed this \"if (stream_state.closure_initiated)\" condition is required.",
+      "parentUuid": "d3f517db_c1a7954e",
+      "revId": "d4c0ee4344aefbbbe04439087d2304673b292f8b",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

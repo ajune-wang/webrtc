@@ -22,6 +22,30 @@
       },
       "revId": "9c0b81b1fc0d4f0a73669d54358917211385a03e",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "3d2c1743_3fffec6a",
+        "filename": "api/video_codecs/video_encoder.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 188,
+      "author": {
+        "id": 19809
+      },
+      "writtenOn": "2022-10-05T10:02:36Z",
+      "side": 1,
+      "message": "Thanks for pointing that out, I didn’t notice it. You’re right, after multiplying it we can get quite different frame size and it could be an issue.\n\nDisabling apply_alignment_to_all_simulcast_layers sounds good to us. There are some problems though:\n- there is an issue that on some devices 16x16 alignment is required (https://bugs.chromium.org/p/chromium/issues/detail?id\u003d1084702) (that’s why apply_alignment_to_all_simulcast_layers was introduced). From what I’ve read in the thread, the issue affects just Pixel 3 and 3a with Android \u003c 12, so eventually we can enable alignment just on those two models. On my device (Xperia 10 III) disabling apply_alignment_to_all_simulcast_layers solved all problems.\n- Our sdk is written in java and uses android sdk to use webrtc.  We can set applyAlignmentToAllSimulcastLayers by overriding getEncoderInfo (something like here: https://github.com/livekit/client-sdk-android/blob/288c770297f776b5f8ac9091914f1f276b8e7360/livekit-android-sdk/src/main/java/io/livekit/android/webrtc/SimulcastVideoEncoderFactoryWrapper.kt ) but it seems like it’s overwritten on the cpp side anyway (in couple of places, for example here: https://source.chromium.org/chromium/chromium/src/+/main:third_party/webrtc/media/engine/simulcast_encoder_adapter.cc;l\u003d937;drc\u003ddb0d5861726e5cb1d753a72963bb1c76c35c1506;bpv\u003d0;bpt\u003d0). So we don’t have control over that on java side. Also there are checks in HardwareVideoEncoder.java that will break the video if every layer is not aligned. Should I make it configurable on java side or just remove apply_alignment_to_all_simulcast_layers completely?",
+      "parentUuid": "90844fad_7c8a0f66",
+      "range": {
+        "startLine": 188,
+        "startChar": 41,
+        "endLine": 188,
+        "endChar": 77
+      },
+      "revId": "9c0b81b1fc0d4f0a73669d54358917211385a03e",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

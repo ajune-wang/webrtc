@@ -110,6 +110,30 @@
       },
       "revId": "b1aef1808773021611e1a73c01477fafde7ad13b",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "417536f0_771d5ad8",
+        "filename": "modules/video_coding/timing/timestamp_extrapolator.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 91,
+      "author": {
+        "id": 5023
+      },
+      "writtenOn": "2022-10-06T08:42:48Z",
+      "side": 1,
+      "message": "Right, the marker bit can be used in this case! Your proposed change looks much better than my buffering idea. Let\u0027s do it! Should we do the same change in FrameBuffer2 too?",
+      "parentUuid": "3eda02c6_4904a13d",
+      "range": {
+        "startLine": 91,
+        "startChar": 24,
+        "endLine": 91,
+        "endChar": 26
+      },
+      "revId": "b1aef1808773021611e1a73c01477fafde7ad13b",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

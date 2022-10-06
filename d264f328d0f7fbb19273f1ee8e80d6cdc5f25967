@@ -16,6 +16,24 @@
       "message": "this test (and few above) no longer `InitFieldTrialsFromString(nullptr);` at the start\ncould that be an issue (e.g. could that make test be an order dependent test?)",
       "revId": "d264f328d0f7fbb19273f1ee8e80d6cdc5f25967",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "102c995c_72bafa98",
+        "filename": "api/field_trials_unittest.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 98,
+      "author": {
+        "id": 13704
+      },
+      "writtenOn": "2022-10-06T12:50:28Z",
+      "side": 1,
+      "message": "No, these doesn\u0027t use the global string att all. [1] will register these separately.\n\n[1] https://webrtc-review.googlesource.com/c/src/+/276270",
+      "parentUuid": "f81cbf40_86a83b87",
+      "revId": "d264f328d0f7fbb19273f1ee8e80d6cdc5f25967",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

@@ -92,6 +92,24 @@
     {
       "unresolved": false,
       "key": {
+        "uuid": "7ccc5fa3_09ea4c2c",
+        "filename": "api/field_trials_unittest.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 38,
+      "author": {
+        "id": 13704
+      },
+      "writtenOn": "2022-10-06T12:50:28Z",
+      "side": 1,
+      "message": "Sure, I moved the RAII type to field_trial.{h,cc} and reused it in both tests",
+      "parentUuid": "404d669d_574817c6",
+      "revId": "2fc40911e8c47d4cbc80b4129e9b06ad97652afb",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
         "uuid": "389badaa_ad79b54b",
         "filename": "api/field_trials_unittest.cc",
         "patchSetId": 3

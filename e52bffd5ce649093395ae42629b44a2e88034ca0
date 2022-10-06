@@ -16,6 +16,24 @@
       "message": "Please also add a test to ensure changes are as expected",
       "revId": "e52bffd5ce649093395ae42629b44a2e88034ca0",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "c3cc1ba4_a40bee78",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5150
+      },
+      "writtenOn": "2022-10-06T17:11:51Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "e0a9edb6_b758dfa8",
+      "revId": "e52bffd5ce649093395ae42629b44a2e88034ca0",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

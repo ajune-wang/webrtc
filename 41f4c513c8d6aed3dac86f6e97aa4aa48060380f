@@ -167,6 +167,30 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "9fce63c0_aa27fb36",
+        "filename": "api/field_trials_registry.h",
+        "patchSetId": 3
+      },
+      "lineNbr": 25,
+      "author": {
+        "id": 13704
+      },
+      "writtenOn": "2022-10-06T12:50:36Z",
+      "side": 1,
+      "message": "Yes, but I don\u0027t think that\u0027s a high risk. For now that would be the aforementioned fuzzer.\n\nAlso, since FieldTrialView is public we must be careful to not break existing code outside WebRTC that might use it.",
+      "parentUuid": "d8b04552_e6d1f32d",
+      "range": {
+        "startLine": 25,
+        "startChar": 17,
+        "endLine": 25,
+        "endChar": 61
+      },
+      "revId": "41f4c513c8d6aed3dac86f6e97aa4aa48060380f",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "9fc6b170_ac2173fe",

@@ -70,6 +70,30 @@
       },
       "revId": "9c0b81b1fc0d4f0a73669d54358917211385a03e",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "cf35c974_d33d410d",
+        "filename": "api/video_codecs/video_encoder.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 188,
+      "author": {
+        "id": 19809
+      },
+      "writtenOn": "2022-10-06T12:46:09Z",
+      "side": 1,
+      "message": "Nice, but it still doesn\u0027t solve our problem completely.\n\nThere is still this line: https://source.chromium.org/chromium/chromium/src/+/main:third_party/webrtc/media/engine/simulcast_encoder_adapter.cc;l\u003d876?q\u003dsimulcast_encoder_adapter that on my device sets it anyway even if apply_alignment_to_all_simulcast_layers\u003dfalse for all encoders. For h264 hw encoder on my device (\u0027OMX.qcom.video.encoder.avc\u0027) supports_simulcast\u003dfalse.\n\nAlso there are still those checks in HardwareVideoEncoder.java: https://source.chromium.org/chromium/chromium/src/+/main:third_party/webrtc/sdk/android/src/java/org/webrtc/HardwareVideoEncoder.java;l\u003d216?q\u003dhardwarevideo and https://source.chromium.org/chromium/chromium/src/+/main:third_party/webrtc/sdk/android/src/java/org/webrtc/HardwareVideoEncoder.java;l\u003d531?q\u003dhardwarevideo that will break encoding completely if frames are not aligned.",
+      "parentUuid": "5e4e17a2_2e39d42a",
+      "range": {
+        "startLine": 188,
+        "startChar": 41,
+        "endLine": 188,
+        "endChar": 77
+      },
+      "revId": "9c0b81b1fc0d4f0a73669d54358917211385a03e",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

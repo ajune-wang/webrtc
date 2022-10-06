@@ -1,0 +1,211 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "f2aae452_6542e98c",
+        "filename": "api/test/simulated_network.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 86,
+      "author": {
+        "id": 5578
+      },
+      "writtenOn": "2022-10-06T09:35:21Z",
+      "side": 1,
+      "message": "If its not way to much work- why do we have two ways of expressing that a packet is dropped? This returning false and PacketDeliveryInfo returning PacketDeliveryInfo::kNotReceived ? Can we at least document what happens if this return false- Is the packet also included  the return value of DequeueDeliverablePackets ?",
+      "range": {
+        "startLine": 86,
+        "startChar": 10,
+        "endLine": 86,
+        "endChar": 15
+      },
+      "revId": "323b86708ef2b517dc258ce010ba4701bc29e11c",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "be6f7bcd_7d06189a",
+        "filename": "api/test/simulated_network.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 88,
+      "author": {
+        "id": 5578
+      },
+      "writtenOn": "2022-10-06T09:35:21Z",
+      "side": 1,
+      "message": "Suggest to split in two sentences instead of ,",
+      "range": {
+        "startLine": 88,
+        "startChar": 66,
+        "endLine": 88,
+        "endChar": 75
+      },
+      "revId": "323b86708ef2b517dc258ce010ba4701bc29e11c",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "a5a27f4f_8dd9259c",
+        "filename": "api/test/simulated_network.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 90,
+      "author": {
+        "id": 5578
+      },
+      "writtenOn": "2022-10-06T09:35:21Z",
+      "side": 1,
+      "message": "and here",
+      "range": {
+        "startLine": 90,
+        "startChar": 43,
+        "endLine": 90,
+        "endChar": 45
+      },
+      "revId": "323b86708ef2b517dc258ce010ba4701bc29e11c",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "f636917e_a9ebd063",
+        "filename": "api/test/simulated_network.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 99,
+      "author": {
+        "id": 5578
+      },
+      "writtenOn": "2022-10-06T09:35:21Z",
+      "side": 1,
+      "message": "suggest \"updated estimated delivery time\"",
+      "range": {
+        "startLine": 99,
+        "startChar": 17,
+        "endLine": 99,
+        "endChar": 26
+      },
+      "revId": "323b86708ef2b517dc258ce010ba4701bc29e11c",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "114e8806_54373f9d",
+        "filename": "api/test/simulated_network.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 109,
+      "author": {
+        "id": 5578
+      },
+      "writtenOn": "2022-10-06T09:35:21Z",
+      "side": 1,
+      "message": "Are there any rules about what happens with packets in flight that should be documented?",
+      "range": {
+        "startLine": 109,
+        "startChar": 16,
+        "endLine": 109,
+        "endChar": 29
+      },
+      "revId": "323b86708ef2b517dc258ce010ba4701bc29e11c",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "4f792d90_2231a79a",
+        "filename": "api/test/simulated_network.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 113,
+      "author": {
+        "id": 5578
+      },
+      "writtenOn": "2022-10-06T09:35:21Z",
+      "side": 1,
+      "message": "replace , with .",
+      "range": {
+        "startLine": 113,
+        "startChar": 40,
+        "endLine": 113,
+        "endChar": 42
+      },
+      "revId": "323b86708ef2b517dc258ce010ba4701bc29e11c",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "92db68ed_aaba4186",
+        "filename": "call/simulated_network.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 29,
+      "author": {
+        "id": 5578
+      },
+      "writtenOn": "2022-10-06T09:35:21Z",
+      "side": 1,
+      "message": "It would be nice to move the implementation of this out of call/. ... A follow up if time permits?",
+      "range": {
+        "startLine": 29,
+        "startChar": 10,
+        "endLine": 29,
+        "endChar": 17
+      },
+      "revId": "323b86708ef2b517dc258ce010ba4701bc29e11c",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "484f93a9_f01e72a1",
+        "filename": "call/simulated_network.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 47,
+      "author": {
+        "id": 5578
+      },
+      "writtenOn": "2022-10-06T09:35:21Z",
+      "side": 1,
+      "message": "line 47 to 61 is about how to use the interface and should be the same regardless o f this implementation. Would it make sense to move that to the interface header? Otherwise I suggest to delete it.",
+      "range": {
+        "startLine": 47,
+        "startChar": 6,
+        "endLine": 47,
+        "endChar": 14
+      },
+      "revId": "323b86708ef2b517dc258ce010ba4701bc29e11c",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "4e53c9e6_40890d8d",
+        "filename": "call/simulated_network.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 70,
+      "author": {
+        "id": 5578
+      },
+      "writtenOn": "2022-10-06T09:35:21Z",
+      "side": 1,
+      "message": "This should also be documented in SimulatedNetworkInterface",
+      "range": {
+        "startLine": 70,
+        "startChar": 37,
+        "endLine": 70,
+        "endChar": 41
+      },
+      "revId": "323b86708ef2b517dc258ce010ba4701bc29e11c",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

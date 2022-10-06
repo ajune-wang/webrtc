@@ -131,6 +131,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "0f4bf98d_00259d07",
+        "filename": "modules/audio_processing/agc/agc_manager_direct.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 264,
+      "author": {
+        "id": 17719
+      },
+      "writtenOn": "2022-10-06T15:01:05Z",
+      "side": 1,
+      "message": "I also changed the logic so that if the override has a value and it is the first frame, `update_gain` is set false. Previously `update_gain` wasn\u0027t modified in that case.",
+      "parentUuid": "5e7ed789_1d798d66",
+      "range": {
+        "startLine": 264,
+        "startChar": 4,
+        "endLine": 264,
+        "endChar": 14
+      },
+      "revId": "cb5cd68c539d50c1e1f5afb0da8b2778a54ef506",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "f3514800_ce51e123",
         "filename": "modules/audio_processing/agc/agc_manager_direct.h",
         "patchSetId": 2

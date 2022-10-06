@@ -1,0 +1,38 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "4ec38cac_c3e4b2fe",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 7,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2022-10-06T07:42:56Z",
+      "side": 1,
+      "message": "use a subject line that corresponds with the description?\n\n\"Document the Network simulator interface and add tests\"?",
+      "revId": "e415b8e28f026f68d0ec10ce9de5175a38f5cb5b",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "eb10d33c_d0d86467",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2022-10-06T07:42:56Z",
+      "side": 1,
+      "message": "Drive-by; I heartily approve of this CL!",
+      "revId": "e415b8e28f026f68d0ec10ce9de5175a38f5cb5b",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

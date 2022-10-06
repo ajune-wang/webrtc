@@ -46,6 +46,30 @@
       },
       "revId": "9c0b81b1fc0d4f0a73669d54358917211385a03e",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "5e4e17a2_2e39d42a",
+        "filename": "api/video_codecs/video_encoder.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 188,
+      "author": {
+        "id": 5492
+      },
+      "writtenOn": "2022-10-06T11:09:10Z",
+      "side": 1,
+      "message": "Note that apply_alignment_to_all_simulcast_layers is now only set if it is set by any encoder: https://webrtc-review.googlesource.com/c/src/+/278044",
+      "parentUuid": "3d2c1743_3fffec6a",
+      "range": {
+        "startLine": 188,
+        "startChar": 41,
+        "endLine": 188,
+        "endChar": 77
+      },
+      "revId": "9c0b81b1fc0d4f0a73669d54358917211385a03e",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

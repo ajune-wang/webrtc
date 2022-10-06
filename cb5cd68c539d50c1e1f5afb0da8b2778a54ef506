@@ -58,6 +58,30 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "afc39cba_fb9cf17c",
+        "filename": "modules/audio_processing/agc/agc_manager_direct.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 203,
+      "author": {
+        "id": 17719
+      },
+      "writtenOn": "2022-10-06T14:31:20Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "4f34c51e_ac19a106",
+      "range": {
+        "startLine": 203,
+        "startChar": 66,
+        "endLine": 203,
+        "endChar": 71
+      },
+      "revId": "cb5cd68c539d50c1e1f5afb0da8b2778a54ef506",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "4df9fbda_74a74bb0",
@@ -83,6 +107,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "5e7ed789_1d798d66",
+        "filename": "modules/audio_processing/agc/agc_manager_direct.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 264,
+      "author": {
+        "id": 17719
+      },
+      "writtenOn": "2022-10-06T14:31:20Z",
+      "side": 1,
+      "message": "I\u0027ve revised the comments in this section (always run `agc_-\u003eProcess()` and `agc_-\u003eGetRmsErrorDb()` and the TODO about changing the current behavior.",
+      "parentUuid": "4df9fbda_74a74bb0",
+      "range": {
+        "startLine": 264,
+        "startChar": 4,
+        "endLine": 264,
+        "endChar": 14
+      },
+      "revId": "cb5cd68c539d50c1e1f5afb0da8b2778a54ef506",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "f3514800_ce51e123",
         "filename": "modules/audio_processing/agc/agc_manager_direct.h",
         "patchSetId": 2
@@ -94,6 +142,30 @@
       "writtenOn": "2022-10-05T12:41:48Z",
       "side": 1,
       "message": "Thanks for the clarification about -1.\n\nWhat about being explicit and adding a bool member named `first_frame_` instead of using an optional type? It\u0027ll be clearer for the reader. Sorry for not proposing this in my first comment; I missed the semantic of -1.",
+      "range": {
+        "startLine": 278,
+        "startChar": 2,
+        "endLine": 278,
+        "endChar": 64
+      },
+      "revId": "cb5cd68c539d50c1e1f5afb0da8b2778a54ef506",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "531b11e5_458578a0",
+        "filename": "modules/audio_processing/agc/agc_manager_direct.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 278,
+      "author": {
+        "id": 17719
+      },
+      "writtenOn": "2022-10-06T14:31:20Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "f3514800_ce51e123",
       "range": {
         "startLine": 278,
         "startChar": 2,

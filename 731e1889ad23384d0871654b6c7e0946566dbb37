@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "e7e3cb02_fc3fac61",
+        "filename": "system_wrappers/include/field_trial.h",
+        "patchSetId": 5
+      },
+      "lineNbr": 101,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2022-10-06T14:50:12Z",
+      "side": 1,
+      "message": "may be this comment (or comment next to the constructor) should describe that this class registers field trials keys as allowed to be used.\n\nCurrently that is not obvious nor from this comment, nor from the class name.",
+      "revId": "731e1889ad23384d0871654b6c7e0946566dbb37",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

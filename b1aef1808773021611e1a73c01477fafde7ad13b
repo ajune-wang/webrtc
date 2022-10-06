@@ -26,6 +26,30 @@
     {
       "unresolved": false,
       "key": {
+        "uuid": "9c9ad482_13e5a4c7",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 3
+      },
+      "lineNbr": 9,
+      "author": {
+        "id": 5527
+      },
+      "writtenOn": "2022-10-06T08:32:29Z",
+      "side": 1,
+      "message": "Created a bug",
+      "parentUuid": "610f7bb5_62e120b6",
+      "range": {
+        "startLine": 9,
+        "startChar": 5,
+        "endLine": 9,
+        "endChar": 9
+      },
+      "revId": "b1aef1808773021611e1a73c01477fafde7ad13b",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
         "uuid": "36456ffc_9e4902e6",
         "filename": "/PATCHSET_LEVEL",
         "patchSetId": 3
@@ -54,6 +78,30 @@
       "writtenOn": "2022-10-06T08:05:40Z",
       "side": 1,
       "message": "IIUC, we currently overestimate the transmission delay when there\u0027s multiple `Update()` calls with the same `rtp_timestamp` and increasing `now`s. With this change, is there a risk that we underestimate it instead? I\u0027m thinking for inter-layer predicted frames that arrive in increasing order of resolution and thus frame size? (Is that ordering guaranteed?)\n\nInstead, would it be practical to buffer the incoming `{rtp_timestamp, now}` pairs in this class, so that we only perform a filter update when we know that we have received the last pair (in the `now` sense) for a given `rtp_timestamp`? That would add a 1-frame latency to the estimation, but that might be worth it to get rid of the estimation bias?\n\nFor k-SVC the impact might be negligible, but other scalability modes it might be different.",
+      "range": {
+        "startLine": 91,
+        "startChar": 24,
+        "endLine": 91,
+        "endChar": 26
+      },
+      "revId": "b1aef1808773021611e1a73c01477fafde7ad13b",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "3eda02c6_4904a13d",
+        "filename": "modules/video_coding/timing/timestamp_extrapolator.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 91,
+      "author": {
+        "id": 5527
+      },
+      "writtenOn": "2022-10-06T08:32:29Z",
+      "side": 1,
+      "message": "Good catch about biasing it the other way!\n\nWDYT about simply updating this (https://source.chromium.org/chromium/chromium/src/+/main:third_party/webrtc/video/video_stream_buffer_controller.cc;l\u003d146;drc\u003da006ba152fb20cbf04da78bd4dbac7ffd3a16b65) from:\n\n    if (!metadata.delayed_by_retransmission \u0026\u0026 metadata.receive_time)\n      timing_-\u003eIncomingTimestamp(metadata.rtp_timestamp,\n                                 *metadata.receive_time);                 \nto:\n\n    if (!metadata.delayed_by_retransmission \u0026\u0026 metadata.receive_time \u0026\u0026\n        metadata.is_last_spatial_layer)  // \u003c-- Only update when marker bit is set.\n      timing_-\u003eIncomingTimestamp(metadata.rtp_timestamp,\n                                 *metadata.receive_time);\n\n\n?",
+      "parentUuid": "29f9a0bb_38ba4ae1",
       "range": {
         "startLine": 91,
         "startChar": 24,

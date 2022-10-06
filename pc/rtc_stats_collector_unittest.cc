@@ -2234,11 +2234,6 @@ TEST_F(RTCStatsCollectorTest,
   voice_receiver_info.silent_concealed_samples = 765;
   voice_receiver_info.jitter_buffer_delay_seconds = 3.456;
   voice_receiver_info.jitter_buffer_emitted_count = 13;
-  voice_receiver_info.jitter_buffer_flushes = 7;
-  voice_receiver_info.delayed_packet_outage_samples = 15;
-  voice_receiver_info.relative_packet_arrival_delay_seconds = 16;
-  voice_receiver_info.interruption_count = 7788;
-  voice_receiver_info.total_interruption_duration_ms = 778899;
 
   stats_->CreateMockRtpSendersReceiversAndChannels(
       {}, {std::make_pair(remote_audio_track.get(), voice_receiver_info)}, {},
@@ -2278,11 +2273,6 @@ TEST_F(RTCStatsCollectorTest,
   expected_remote_audio_track.silent_concealed_samples = 765;
   expected_remote_audio_track.jitter_buffer_delay = 3.456;
   expected_remote_audio_track.jitter_buffer_emitted_count = 13;
-  expected_remote_audio_track.jitter_buffer_flushes = 7;
-  expected_remote_audio_track.delayed_packet_outage_samples = 15;
-  expected_remote_audio_track.relative_packet_arrival_delay = 16;
-  expected_remote_audio_track.interruption_count = 7788;
-  expected_remote_audio_track.total_interruption_duration = 778.899;
   ASSERT_TRUE(report->Get(expected_remote_audio_track.id()));
   EXPECT_EQ(expected_remote_audio_track,
             report->Get(expected_remote_audio_track.id())
@@ -2467,6 +2457,11 @@ TEST_F(RTCStatsCollectorTest, CollectRTCInboundRTPStreamStats_Audio) {
   voice_media_info.receivers[0].audio_level = 14442;  // [0,32767]
   voice_media_info.receivers[0].total_output_energy = 10.0;
   voice_media_info.receivers[0].total_output_duration = 11.0;
+  voice_media_info.receivers[0].jitter_buffer_flushes = 7;
+  voice_media_info.receivers[0].delayed_packet_outage_samples = 15;
+  voice_media_info.receivers[0].relative_packet_arrival_delay_seconds = 16;
+  voice_media_info.receivers[0].interruption_count = 7788;
+  voice_media_info.receivers[0].total_interruption_duration_ms = 778899;
 
   voice_media_info.receivers[0].last_packet_received_timestamp_ms =
       absl::nullopt;
@@ -2522,6 +2517,11 @@ TEST_F(RTCStatsCollectorTest, CollectRTCInboundRTPStreamStats_Audio) {
   expected_audio.audio_level = 14442.0 / 32767.0;  // [0,1]
   expected_audio.total_audio_energy = 10.0;
   expected_audio.total_samples_duration = 11.0;
+  expected_audio.jitter_buffer_flushes = 7;
+  expected_audio.delayed_packet_outage_samples = 15;
+  expected_audio.relative_packet_arrival_delay = 16;
+  expected_audio.interruption_count = 7788;
+  expected_audio.total_interruption_duration = 778.899;
 
   ASSERT_TRUE(report->Get(expected_audio.id()));
   EXPECT_EQ(

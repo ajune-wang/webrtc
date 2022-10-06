@@ -1,0 +1,67 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "610f7bb5_62e120b6",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 3
+      },
+      "lineNbr": 9,
+      "author": {
+        "id": 5023
+      },
+      "writtenOn": "2022-10-06T08:05:40Z",
+      "side": 1,
+      "message": "Please add a tracking bug, if we need to reference this in the future.",
+      "range": {
+        "startLine": 9,
+        "startChar": 5,
+        "endLine": 9,
+        "endChar": 9
+      },
+      "revId": "b1aef1808773021611e1a73c01477fafde7ad13b",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "36456ffc_9e4902e6",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 3
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5023
+      },
+      "writtenOn": "2022-10-06T08:05:40Z",
+      "side": 1,
+      "message": "I think this changes makes a lot of sense for the \"clock drift\" part of the filter (`psi` in the notation of the 2011 design doc or `w[0]` in the code), but I\u0027m wondering if we can also reduce the bias in the \"transmission delay + clock offset\" part (`delta(n)` in the 2011 DD and `w[1]` in the code). See question below.\n\nAlso +kron, to ensure his use case is OK with this change.",
+      "revId": "b1aef1808773021611e1a73c01477fafde7ad13b",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "29f9a0bb_38ba4ae1",
+        "filename": "modules/video_coding/timing/timestamp_extrapolator.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 91,
+      "author": {
+        "id": 5023
+      },
+      "writtenOn": "2022-10-06T08:05:40Z",
+      "side": 1,
+      "message": "IIUC, we currently overestimate the transmission delay when there\u0027s multiple `Update()` calls with the same `rtp_timestamp` and increasing `now`s. With this change, is there a risk that we underestimate it instead? I\u0027m thinking for inter-layer predicted frames that arrive in increasing order of resolution and thus frame size? (Is that ordering guaranteed?)\n\nInstead, would it be practical to buffer the incoming `{rtp_timestamp, now}` pairs in this class, so that we only perform a filter update when we know that we have received the last pair (in the `now` sense) for a given `rtp_timestamp`? That would add a 1-frame latency to the estimation, but that might be worth it to get rid of the estimation bias?\n\nFor k-SVC the impact might be negligible, but other scalability modes it might be different.",
+      "range": {
+        "startLine": 91,
+        "startChar": 24,
+        "endLine": 91,
+        "endChar": 26
+      },
+      "revId": "b1aef1808773021611e1a73c01477fafde7ad13b",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "9cfa839f_196d0d6d",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 19779
+      },
+      "writtenOn": "2022-10-07T08:55:17Z",
+      "side": 1,
+      "message": "Thanks for the review Sergey!\nJust uploaded a new commit addressing your comments.",
+      "revId": "abab8d465910a5bd553f8440fa7745b0ab9968f4",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

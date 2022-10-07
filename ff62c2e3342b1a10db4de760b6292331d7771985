@@ -18,6 +18,24 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "6fd5bc5e_3b5c187d",
+        "filename": "media/base/video_adapter.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 323,
+      "author": {
+        "id": 5613
+      },
+      "writtenOn": "2022-10-07T13:38:42Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "b57a608a_954671a0",
+      "revId": "ff62c2e3342b1a10db4de760b6292331d7771985",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "faef5e11_25fc9029",
@@ -35,6 +53,24 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "0a2c36b9_6fad8f67",
+        "filename": "media/base/video_adapter.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 362,
+      "author": {
+        "id": 5613
+      },
+      "writtenOn": "2022-10-07T13:38:42Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "faef5e11_25fc9029",
+      "revId": "ff62c2e3342b1a10db4de760b6292331d7771985",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "0073c40e_61f05f5b",
@@ -48,6 +84,24 @@
       "writtenOn": "2022-10-07T13:30:39Z",
       "side": 1,
       "message": "add a comment like: \nThe active output format request is about to be rewritten by request_resolution. We need to save it for later use in case the encoder which doesn\u0027t use request_resolution logic become active in the future.",
+      "revId": "ff62c2e3342b1a10db4de760b6292331d7771985",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "f254a6f8_12e3abc2",
+        "filename": "media/base/video_adapter.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 376,
+      "author": {
+        "id": 5613
+      },
+      "writtenOn": "2022-10-07T13:38:42Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "0073c40e_61f05f5b",
       "revId": "ff62c2e3342b1a10db4de760b6292331d7771985",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },

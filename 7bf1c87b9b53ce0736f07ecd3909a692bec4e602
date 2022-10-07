@@ -1,6 +1,23 @@
 {
   "comments": [
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "be945b29_23da759e",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2022-10-07T06:23:31Z",
+      "side": 1,
+      "message": "If I understood the original message correctly, it was attempting to assign a Chromium component, which kind of confused me. Not sure howit is going to be used when there\u0027s Chromium infra attempting to use DIR_METADATA files from //third_party.\n\nIdeally, stuff would end up in the webrtc bugtracker automatically, but I don\u0027t know if that works.\n\nThe important thing is that 1) automatic bug generation succeeds, and 2) the bug ends up somewhere where it\u0027s eventually looked at.",
+      "revId": "7bf1c87b9b53ce0736f07ecd3909a692bec4e602",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "8949dd78_6f4bf5d5",

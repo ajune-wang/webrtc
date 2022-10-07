@@ -217,6 +217,30 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "b3dc3c41_b9e42769",
+        "filename": "media/base/video_adapter.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 153,
+      "author": {
+        "id": 5613
+      },
+      "writtenOn": "2022-10-07T12:48:48Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "2e7ebd5a_787bfd03",
+      "range": {
+        "startLine": 153,
+        "startChar": 38,
+        "endLine": 153,
+        "endChar": 68
+      },
+      "revId": "59ccf9fd970173e8858369888f6af85a47617533",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "8eeca41e_7e896f6c",
@@ -278,6 +302,30 @@
       "side": 1,
       "message": "This is hard to comprehend.\n\nI suggest to nuke this |const bool ignore_inactive_encoders_new_api| and simplify the condition.\n\nMaybe even further: ignore inactive encoders, which use the new API. Regardless of if there\u0027s an active encoder of a new type or not.",
       "parentUuid": "1ac56595_ca71cfb3",
+      "range": {
+        "startLine": 147,
+        "startChar": 4,
+        "endLine": 155,
+        "endChar": 5
+      },
+      "revId": "59ccf9fd970173e8858369888f6af85a47617533",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "9fbd7da3_0fa6ba36",
+        "filename": "media/base/video_broadcaster.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 155,
+      "author": {
+        "id": 5613
+      },
+      "writtenOn": "2022-10-07T12:48:48Z",
+      "side": 1,
+      "message": "New attempt, hopefully more easily consumed!",
+      "parentUuid": "ba1e115c_c920df04",
       "range": {
         "startLine": 147,
         "startChar": 4,

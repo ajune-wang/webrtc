@@ -35,6 +35,23 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "18f9a2a1_68363d2e",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5613
+      },
+      "writtenOn": "2022-10-07T12:42:12Z",
+      "side": 1,
+      "message": "thanks!",
+      "revId": "59ccf9fd970173e8858369888f6af85a47617533",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "047dbce1_f50f17f0",
@@ -106,6 +123,30 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "79b374a6_2402a6dd",
+        "filename": "media/base/video_adapter.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 342,
+      "author": {
+        "id": 5613
+      },
+      "writtenOn": "2022-10-07T12:42:12Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "697277c4_56ad82fe",
+      "range": {
+        "startLine": 342,
+        "startChar": 26,
+        "endLine": 342,
+        "endChar": 57
+      },
+      "revId": "59ccf9fd970173e8858369888f6af85a47617533",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "0f7e09e1_6abac1a7",
@@ -119,6 +160,30 @@
       "writtenOn": "2022-10-07T11:12:46Z",
       "side": 1,
       "message": "Can this be written as: `all encoders are using requested_resolution` ?",
+      "range": {
+        "startLine": 151,
+        "startChar": 33,
+        "endLine": 151,
+        "endChar": 61
+      },
+      "revId": "59ccf9fd970173e8858369888f6af85a47617533",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "2d786c33_c61da8a3",
+        "filename": "media/base/video_adapter.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 151,
+      "author": {
+        "id": 5613
+      },
+      "writtenOn": "2022-10-07T12:42:12Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "0f7e09e1_6abac1a7",
       "range": {
         "startLine": 151,
         "startChar": 33,

@@ -24,6 +24,30 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "ce489ba2_7900c348",
+        "filename": "api/test/simulated_network.h",
+        "patchSetId": 3
+      },
+      "lineNbr": 109,
+      "author": {
+        "id": 5087
+      },
+      "writtenOn": "2022-10-07T14:21:28Z",
+      "side": 1,
+      "message": "Yes, this sentinel value is not the best API. Let\u0027s keep iterating on this.",
+      "parentUuid": "23d83058_2df82ac5",
+      "range": {
+        "startLine": 108,
+        "startChar": 5,
+        "endLine": 109,
+        "endChar": 12
+      },
+      "revId": "acd81fde696fed12602624432dbd28fb866a130a",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "8bc8f0b9_0f77954a",
@@ -49,6 +73,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "a24e6d88_2ff002ef",
+        "filename": "api/test/simulated_network.h",
+        "patchSetId": 3
+      },
+      "lineNbr": 133,
+      "author": {
+        "id": 5087
+      },
+      "writtenOn": "2022-10-07T14:21:28Z",
+      "side": 1,
+      "message": "Done.\n\nYes, on both ends. You can keep enqueueing until the queue is full (if there is a limit, if there isn\u0027t you can keep adding packets).\n\nThey will not flow because to avoid breaking the capacity link property (when A and B are queued, B starts using the medium after A has finished), if the network is paused, A will leave it at the end of the pause, so B will wait.",
+      "parentUuid": "8bc8f0b9_0f77954a",
+      "range": {
+        "startLine": 133,
+        "startChar": 17,
+        "endLine": 133,
+        "endChar": 20
+      },
+      "revId": "acd81fde696fed12602624432dbd28fb866a130a",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "d4c74144_55d77e6c",
         "filename": "call/simulated_network_unittest.cc",
         "patchSetId": 3
@@ -60,6 +108,30 @@
       "writtenOn": "2022-10-07T09:31:32Z",
       "side": 1,
       "message": "Maybe have a helper method PacketWithSize(size)? or something similar\n\nIn cases when sent_time and packet_id are important, keep using ctor.",
+      "range": {
+        "startLine": 50,
+        "startChar": 6,
+        "endLine": 50,
+        "endChar": 75
+      },
+      "revId": "acd81fde696fed12602624432dbd28fb866a130a",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "09449c02_1cc50b55",
+        "filename": "call/simulated_network_unittest.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 50,
+      "author": {
+        "id": 5087
+      },
+      "writtenOn": "2022-10-07T14:21:28Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "d4c74144_55d77e6c",
       "range": {
         "startLine": 50,
         "startChar": 6,
@@ -95,6 +167,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "9d5b820e_8a90ec36",
+        "filename": "call/simulated_network_unittest.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 62,
+      "author": {
+        "id": 5087
+      },
+      "writtenOn": "2022-10-07T14:21:28Z",
+      "side": 1,
+      "message": "Do you mean:\n\n```\nusing ::webrtc::TimeDelta::Seconds;\n```\n?\n\nI don\u0027t see this pattern in the code base, we always have TimeDelta::Seconds.",
+      "parentUuid": "db785f64_d99193b0",
+      "range": {
+        "startLine": 62,
+        "startChar": 42,
+        "endLine": 62,
+        "endChar": 60
+      },
+      "revId": "acd81fde696fed12602624432dbd28fb866a130a",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "d470c5a0_559f9c62",
         "filename": "call/simulated_network_unittest.cc",
         "patchSetId": 3
@@ -106,6 +202,30 @@
       "writtenOn": "2022-10-07T09:31:32Z",
       "side": 1,
       "message": "Let\u0027s make the random seed explicit here",
+      "range": {
+        "startLine": 319,
+        "startChar": 2,
+        "endLine": 319,
+        "endChar": 18
+      },
+      "revId": "acd81fde696fed12602624432dbd28fb866a130a",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "6bc9d0f7_ad55f02e",
+        "filename": "call/simulated_network_unittest.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 319,
+      "author": {
+        "id": 5087
+      },
+      "writtenOn": "2022-10-07T14:21:28Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "d470c5a0_559f9c62",
       "range": {
         "startLine": 319,
         "startChar": 2,
@@ -141,6 +261,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "fb6cdc10_748e0b80",
+        "filename": "call/simulated_network_unittest.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 408,
+      "author": {
+        "id": 5087
+      },
+      "writtenOn": "2022-10-07T14:21:28Z",
+      "side": 1,
+      "message": "Done, PTAL.",
+      "parentUuid": "53061cae_ea8a57fd",
+      "range": {
+        "startLine": 399,
+        "startChar": 2,
+        "endLine": 408,
+        "endChar": 3
+      },
+      "revId": "acd81fde696fed12602624432dbd28fb866a130a",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "81a2003e_e0022fb4",
         "filename": "call/simulated_network_unittest.cc",
         "patchSetId": 3
@@ -152,6 +296,30 @@
       "writtenOn": "2022-10-07T13:12:45Z",
       "side": 1,
       "message": "add expectations on NextDeliveryTime ?",
+      "range": {
+        "startLine": 431,
+        "startChar": 34,
+        "endLine": 431,
+        "endChar": 35
+      },
+      "revId": "acd81fde696fed12602624432dbd28fb866a130a",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "3915c138_75907f61",
+        "filename": "call/simulated_network_unittest.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 431,
+      "author": {
+        "id": 5087
+      },
+      "writtenOn": "2022-10-07T14:21:28Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "81a2003e_e0022fb4",
       "range": {
         "startLine": 431,
         "startChar": 34,
@@ -175,6 +343,30 @@
       "writtenOn": "2022-10-07T13:12:45Z",
       "side": 1,
       "message": "what should the delivery time be? can you add expectations?",
+      "range": {
+        "startLine": 489,
+        "startChar": 33,
+        "endLine": 489,
+        "endChar": 42
+      },
+      "revId": "acd81fde696fed12602624432dbd28fb866a130a",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "d875a140_c53bf88b",
+        "filename": "call/simulated_network_unittest.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 489,
+      "author": {
+        "id": 5087
+      },
+      "writtenOn": "2022-10-07T14:21:28Z",
+      "side": 1,
+      "message": "Done.\n\n2 seconds for the first packet (1000 kbps, sending 1000 bytes starting from 1 second) and 3 seconds for the second packet (1000 kbps, sending 1000 bytes starting from 0,999 second but since there is no reordering, this packet is sent after the previous one, hence it exists after 3 seconds).",
+      "parentUuid": "118e08d8_dc3318af",
       "range": {
         "startLine": 489,
         "startChar": 33,

@@ -112,6 +112,30 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "3852be41_05ba84db",
+        "filename": "modules/audio_processing/agc/agc_manager_direct.cc",
+        "patchSetId": 6
+      },
+      "lineNbr": 716,
+      "author": {
+        "id": 5122
+      },
+      "writtenOn": "2022-10-07T11:13:42Z",
+      "side": 1,
+      "message": "marking as solved as the suggested change is not critical\n\n---\n\nfrom the implementation it\u0027s obvious that \"without override\" \u003d\u003d \"passing nullopt in the last 2 arguments\" since the existing method now calls the newly added overloaded version\n\nso, IMO it is safe to keep one method and no code change is required in the test code",
+      "parentUuid": "dfd5249b_1af0dfc7",
+      "range": {
+        "startLine": 709,
+        "startChar": 0,
+        "endLine": 716,
+        "endChar": 73
+      },
+      "revId": "3c23ab887025ee3a6cc122106c5d5712dfa217cc",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "22a1799e_f7d0cf3a",
@@ -196,6 +220,30 @@
       "side": 1,
       "message": "See the comment on `Process()` above. Same requirement here.",
       "parentUuid": "689996d9_e3c678bd",
+      "range": {
+        "startLine": 259,
+        "startChar": 0,
+        "endLine": 292,
+        "endChar": 3
+      },
+      "revId": "3c23ab887025ee3a6cc122106c5d5712dfa217cc",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "8af358b4_ef7b6ed3",
+        "filename": "modules/audio_processing/agc/agc_manager_direct_unittest.cc",
+        "patchSetId": 6
+      },
+      "lineNbr": 292,
+      "author": {
+        "id": 5122
+      },
+      "writtenOn": "2022-10-07T11:13:42Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "6b75b6c4_0eda8344",
       "range": {
         "startLine": 259,
         "startChar": 0,

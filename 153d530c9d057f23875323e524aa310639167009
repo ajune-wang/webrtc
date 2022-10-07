@@ -50,6 +50,41 @@
       "message": "LGTM",
       "revId": "153d530c9d057f23875323e524aa310639167009",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "4988c734_29c7afed",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 17719
+      },
+      "writtenOn": "2022-10-07T13:23:56Z",
+      "side": 1,
+      "message": "Thanks Alessio!",
+      "revId": "153d530c9d057f23875323e524aa310639167009",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "8011bdaa_ccf592cb",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 17719
+      },
+      "writtenOn": "2022-10-07T13:23:56Z",
+      "side": 1,
+      "message": "This will be done in https://chromium-review.googlesource.com/c/chromium/src/+/3939464.",
+      "parentUuid": "507d6312_2ee77e6d",
+      "revId": "153d530c9d057f23875323e524aa310639167009",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

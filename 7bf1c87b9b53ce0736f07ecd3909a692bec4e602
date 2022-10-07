@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "8949dd78_6f4bf5d5",
+        "filename": "DIR_METADATA",
+        "patchSetId": 1
+      },
+      "lineNbr": 3,
+      "author": {
+        "id": 5087
+      },
+      "writtenOn": "2022-10-07T06:14:13Z",
+      "side": 1,
+      "message": "hta@, jansson@: This is a placeholder, but I wonder if we should have a \"General\" (to triage) component here.\n\nThe alternative is 1 DIR_METADATA per folder/area in the code but that would be more difficult to maintain.",
+      "range": {
+        "startLine": 3,
+        "startChar": 13,
+        "endLine": 3,
+        "endChar": 20
+      },
+      "revId": "7bf1c87b9b53ce0736f07ecd3909a692bec4e602",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "b9439995_0c9386c3",
+        "filename": "DIR_METADATA",
+        "patchSetId": 1
+      },
+      "lineNbr": 5,
+      "author": {
+        "id": 5087
+      },
+      "writtenOn": "2022-10-07T06:14:13Z",
+      "side": 1,
+      "message": "Which email should we use here?",
+      "range": {
+        "startLine": 5,
+        "startChar": 12,
+        "endLine": 5,
+        "endChar": 14
+      },
+      "revId": "7bf1c87b9b53ce0736f07ecd3909a692bec4e602",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

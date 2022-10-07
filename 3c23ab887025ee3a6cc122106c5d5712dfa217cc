@@ -41,6 +41,30 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "b38d60ce_83d6d797",
+        "filename": "modules/audio_processing/agc/agc_manager_direct.cc",
+        "patchSetId": 6
+      },
+      "lineNbr": 63,
+      "author": {
+        "id": 17719
+      },
+      "writtenOn": "2022-10-07T10:55:07Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "16403f56_69dd87a6",
+      "range": {
+        "startLine": 63,
+        "startChar": 14,
+        "endLine": 63,
+        "endChar": 33
+      },
+      "revId": "3c23ab887025ee3a6cc122106c5d5712dfa217cc",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "cbac8193_ed011984",
@@ -54,6 +78,30 @@
       "writtenOn": "2022-10-07T09:26:32Z",
       "side": 1,
       "message": "would it be possible to keep only the second version of Process() by adding absl::nullopt as default value for the optional arguments?",
+      "range": {
+        "startLine": 709,
+        "startChar": 0,
+        "endLine": 716,
+        "endChar": 73
+      },
+      "revId": "3c23ab887025ee3a6cc122106c5d5712dfa217cc",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "dfd5249b_1af0dfc7",
+        "filename": "modules/audio_processing/agc/agc_manager_direct.cc",
+        "patchSetId": 6
+      },
+      "lineNbr": 716,
+      "author": {
+        "id": 17719
+      },
+      "writtenOn": "2022-10-07T10:55:07Z",
+      "side": 1,
+      "message": "We need both versions in order to test `AgcManagerDirect::Process()` with and without override input arguments in the tests `EmptyRmsErrorOverrideHasNoEffect` and `NonEmptyRmsErrorOverrideHasEffect`. The rest of the tests use the version with overrides so we need to make sure the behaviour is identical.",
+      "parentUuid": "cbac8193_ed011984",
       "range": {
         "startLine": 709,
         "startChar": 0,
@@ -87,6 +135,30 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "2848570c_e00a5d35",
+        "filename": "modules/audio_processing/agc/agc_manager_direct_unittest.cc",
+        "patchSetId": 6
+      },
+      "lineNbr": 46,
+      "author": {
+        "id": 17719
+      },
+      "writtenOn": "2022-10-07T10:55:07Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "22a1799e_f7d0cf3a",
+      "range": {
+        "startLine": 46,
+        "startChar": 0,
+        "endLine": 46,
+        "endChar": 42
+      },
+      "revId": "3c23ab887025ee3a6cc122106c5d5712dfa217cc",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "689996d9_e3c678bd",
@@ -100,6 +172,30 @@
       "writtenOn": "2022-10-07T09:26:32Z",
       "side": 1,
       "message": "would it be possible to keep only this version of `Feed()` by moving the optional arguments to the end with absl::nullopt as default value?",
+      "range": {
+        "startLine": 259,
+        "startChar": 0,
+        "endLine": 292,
+        "endChar": 3
+      },
+      "revId": "3c23ab887025ee3a6cc122106c5d5712dfa217cc",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "6b75b6c4_0eda8344",
+        "filename": "modules/audio_processing/agc/agc_manager_direct_unittest.cc",
+        "patchSetId": 6
+      },
+      "lineNbr": 292,
+      "author": {
+        "id": 17719
+      },
+      "writtenOn": "2022-10-07T10:55:07Z",
+      "side": 1,
+      "message": "See the comment on `Process()` above. Same requirement here.",
+      "parentUuid": "689996d9_e3c678bd",
       "range": {
         "startLine": 259,
         "startChar": 0,
@@ -156,6 +252,30 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "4f2a4bd0_216bcb39",
+        "filename": "modules/audio_processing/agc/agc_manager_direct_unittest.cc",
+        "patchSetId": 6
+      },
+      "lineNbr": 708,
+      "author": {
+        "id": 17719
+      },
+      "writtenOn": "2022-10-07T10:55:07Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "80d175c3_35575cf4",
+      "range": {
+        "startLine": 708,
+        "startChar": 2,
+        "endLine": 708,
+        "endChar": 58
+      },
+      "revId": "3c23ab887025ee3a6cc122106c5d5712dfa217cc",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "02b1cb02_41683641",
@@ -169,6 +289,30 @@
       "writtenOn": "2022-10-07T09:26:32Z",
       "side": 1,
       "message": "not needed, same below",
+      "range": {
+        "startLine": 1596,
+        "startChar": 38,
+        "endLine": 1596,
+        "endChar": 59
+      },
+      "revId": "3c23ab887025ee3a6cc122106c5d5712dfa217cc",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "09a019cd_b0b91edd",
+        "filename": "modules/audio_processing/agc/agc_manager_direct_unittest.cc",
+        "patchSetId": 6
+      },
+      "lineNbr": 1596,
+      "author": {
+        "id": 17719
+      },
+      "writtenOn": "2022-10-07T10:55:07Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "02b1cb02_41683641",
       "range": {
         "startLine": 1596,
         "startChar": 38,

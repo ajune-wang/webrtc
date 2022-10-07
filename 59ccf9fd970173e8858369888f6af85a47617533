@@ -84,6 +84,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "26a9323e_034597dd",
+        "filename": "media/base/video_adapter.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 342,
+      "author": {
+        "id": 5117
+      },
+      "writtenOn": "2022-10-07T12:38:10Z",
+      "side": 1,
+      "message": "I agree, this const bool should be removed.",
+      "parentUuid": "697277c4_56ad82fe",
+      "range": {
+        "startLine": 342,
+        "startChar": 26,
+        "endLine": 342,
+        "endChar": 57
+      },
+      "revId": "59ccf9fd970173e8858369888f6af85a47617533",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "0f7e09e1_6abac1a7",
         "filename": "media/base/video_adapter.h",
         "patchSetId": 2
@@ -100,6 +124,29 @@
         "startChar": 33,
         "endLine": 151,
         "endChar": 61
+      },
+      "revId": "59ccf9fd970173e8858369888f6af85a47617533",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "2e7ebd5a_787bfd03",
+        "filename": "media/base/video_adapter.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 153,
+      "author": {
+        "id": 5117
+      },
+      "writtenOn": "2022-10-07T12:38:10Z",
+      "side": 1,
+      "message": "I don\u0027t quite follow the logic around this stashed request. Please elaborate.",
+      "range": {
+        "startLine": 153,
+        "startChar": 38,
+        "endLine": 153,
+        "endChar": 68
       },
       "revId": "59ccf9fd970173e8858369888f6af85a47617533",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
@@ -142,6 +189,30 @@
       "side": 1,
       "message": "Misread the code.",
       "parentUuid": "8eeca41e_7e896f6c",
+      "range": {
+        "startLine": 147,
+        "startChar": 4,
+        "endLine": 155,
+        "endChar": 5
+      },
+      "revId": "59ccf9fd970173e8858369888f6af85a47617533",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "ba1e115c_c920df04",
+        "filename": "media/base/video_broadcaster.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 155,
+      "author": {
+        "id": 5117
+      },
+      "writtenOn": "2022-10-07T12:38:10Z",
+      "side": 1,
+      "message": "This is hard to comprehend.\n\nI suggest to nuke this |const bool ignore_inactive_encoders_new_api| and simplify the condition.\n\nMaybe even further: ignore inactive encoders, which use the new API. Regardless of if there\u0027s an active encoder of a new type or not.",
+      "parentUuid": "1ac56595_ca71cfb3",
       "range": {
         "startLine": 147,
         "startChar": 4,

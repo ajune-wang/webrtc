@@ -33,6 +33,24 @@
       "message": "I have fixed the DCHECK condition. Ready for review.",
       "revId": "61292412f8353227fd8ec9f51f2a288114e08538",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "129a1bdb_0de90b96",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 7
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 18444
+      },
+      "writtenOn": "2022-10-07T13:21:44Z",
+      "side": 1,
+      "message": "I have also added tests that hit all branches of that DCHECK.",
+      "parentUuid": "b23b9bbd_48e4e532",
+      "revId": "61292412f8353227fd8ec9f51f2a288114e08538",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

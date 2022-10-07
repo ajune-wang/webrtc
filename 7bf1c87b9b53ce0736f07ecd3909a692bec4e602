@@ -85,6 +85,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "65987365_b22ccc99",
+        "filename": "DIR_METADATA",
+        "patchSetId": 1
+      },
+      "lineNbr": 3,
+      "author": {
+        "id": 5087
+      },
+      "writtenOn": "2022-10-07T07:01:14Z",
+      "side": 1,
+      "message": "The idea of opening a component for triaging is something I don\u0027t like though.\n\nWe triage already bugs without components and with the appropriate state.\n\nI wonder why this is not enough. Let me follow-up.",
+      "parentUuid": "11a3d6d4_6ba66171",
+      "range": {
+        "startLine": 3,
+        "startChar": 13,
+        "endLine": 3,
+        "endChar": 20
+      },
+      "revId": "7bf1c87b9b53ce0736f07ecd3909a692bec4e602",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "b9439995_0c9386c3",
         "filename": "DIR_METADATA",
         "patchSetId": 1

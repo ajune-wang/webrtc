@@ -125,7 +125,34 @@ void VideoBroadcaster::UpdateWants() {
   wants.rotation_applied = false;
   wants.resolution_alignment = 1;
   wants.aggregates.emplace(VideoSinkWants::Aggregates());
+  wants.is_active = false;
+
+  // TODO(webrtc:14451) : I think it makes sense to always
+  // "ignore" encoders that are not active. But that would
+  // probably require a controlled roll out with a field trials?
+  // To play it safe, only ignore inactive encoders is there is an
+  // active encoder using the new api (requested_resolution),
+  // this means that there is only a behavioural change when using new
+  // api.
+  bool ignore_inactive_encoders_old_api = false;
+  const bool ignore_inactive_encoders_new_api = true;
   for (auto& sink : sink_pairs()) {
+    if (sink.wants.is_active && sink.wants.requested_resolution.has_value()) {
+      ignore_inactive_encoders_old_api = true;
+      break;
+    }
+  }
+
+  for (auto& sink : sink_pairs()) {
+    if (!sink.wants.is_active) {
+      if (!sink.wants.requested_resolution &&
+          ignore_inactive_encoders_old_api) {
+        continue;
+      } else if (sink.wants.requested_resolution &&
+                 ignore_inactive_encoders_new_api) {
+        continue;
+      }
+    }
     // wants.rotation_applied == ANY(sink.wants.rotation_applied)
     if (sink.wants.rotation_applied) {
       wants.rotation_applied = true;

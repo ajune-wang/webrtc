@@ -142,6 +142,24 @@
       "parentUuid": "aa7a9ce0_903d7859",
       "revId": "7dabe2ba73629fac7f04987ee4aa388d78c3f4e9",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "dd03dd33_fab3df29",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 8046
+      },
+      "writtenOn": "2022-10-07T19:17:23Z",
+      "side": 1,
+      "message": "I know, I was rather worried about consuming a frame with a certain damage region and consuming it again with a different (none) damage region, if it\u0027s something safe to do and if it doesn\u0027t result into unexpected behavior.",
+      "parentUuid": "f3069625_995de2ff",
+      "revId": "7dabe2ba73629fac7f04987ee4aa388d78c3f4e9",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

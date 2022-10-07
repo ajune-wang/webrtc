@@ -88,6 +88,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "238b09c7_22356b6b",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 8882
+      },
+      "writtenOn": "2022-10-07T19:19:37Z",
+      "side": 1,
+      "message": "I wouldn\u0027t know where to start testing this because it seems like it would require an integration test (for the two components - audio receive pipeline ending up in the frame transformer with \"unsignaled\" streams) which is outside of my comfort zone, considering this isn\u0027t a code base I work on daily (or even monthly).\n\nMoreover, this bug is quite obscure to me and, as Sergio found out correctly, I just copy \u0026 pasted the solution that was in the video receive pipeline. And I couldn\u0027t identify any tests that I\u0027d associate with this bug in the video pipeline either. Perhaps I\u0027ve missed them.\n\nIn any case, if tests are required, I\u0027ll need guidance to what exactly should be tested and where.",
+      "parentUuid": "f63b8ea3_f5530866",
+      "revId": "2c954ae101c0dccdaf30861985138599f44a0982",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "b52cb24e_1b00a55d",
         "filename": "media/engine/webrtc_voice_engine.cc",
         "patchSetId": 2

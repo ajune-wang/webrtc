@@ -106,6 +106,24 @@
       "parentUuid": "3af4e2fa_3943213b",
       "revId": "7dabe2ba73629fac7f04987ee4aa388d78c3f4e9",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "aa7a9ce0_903d7859",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 8046
+      },
+      "writtenOn": "2022-10-07T08:34:19Z",
+      "side": 1,
+      "message": "I think it might be safer not to touch damaged rect, but I\u0027m unsure about this form of this patch, specifically I don\u0027t like passing yet another parameter to StartScreenCastStream() method that is specific to a particular use-case of a capturer. Can we move the logic to the capturer itself and have ScreenCastStream to expose frame_updated_since_last_grab variable so you can use it in the BaseCapturerPipeWire::CaptureFrame() instead?",
+      "parentUuid": "4c27e2f3_efb1608c",
+      "revId": "7dabe2ba73629fac7f04987ee4aa388d78c3f4e9",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

@@ -33,6 +33,23 @@
       "message": "Thanks Hanna! LGTM % 1 comment",
       "revId": "f1577f973ba11e6a39e4f2b91e07a2a7ecf553df",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "e57a28db_338832bc",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 17719
+      },
+      "writtenOn": "2022-10-07T12:00:25Z",
+      "side": 1,
+      "message": "Thank you Alessio!",
+      "revId": "f1577f973ba11e6a39e4f2b91e07a2a7ecf553df",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

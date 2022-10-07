@@ -22,6 +22,30 @@
       },
       "revId": "153d530c9d057f23875323e524aa310639167009",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "ea4d3511_f2f39529",
+        "filename": "modules/audio_processing/agc/BUILD.gn",
+        "patchSetId": 1
+      },
+      "lineNbr": 38,
+      "author": {
+        "id": 17719
+      },
+      "writtenOn": "2022-10-07T12:00:25Z",
+      "side": 0,
+      "message": "The code will be removed in https://webrtc-review.googlesource.com/c/src/+/278403",
+      "parentUuid": "12ffd339_a0e68c66",
+      "range": {
+        "startLine": 38,
+        "startChar": 13,
+        "endLine": 38,
+        "endChar": 41
+      },
+      "revId": "153d530c9d057f23875323e524aa310639167009",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

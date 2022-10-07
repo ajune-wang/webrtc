@@ -26,6 +26,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "bc253208_85f6d7a1",
+        "filename": "api/test/simulated_network.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 86,
+      "author": {
+        "id": 5087
+      },
+      "writtenOn": "2022-10-07T08:11:27Z",
+      "side": 1,
+      "message": "Added clarification about packets that fail to be enqueued are not returned by later calls to DequeueDeliverablePackets.\n\nI agree this is another part of the API that can create confusion.\n\nI am not going to address this in the short term, but with terelius@ we have an idea (which also has challenges) to propose a new API here (push instead of pull for example).\n\nLet me know if the clarification in the comment is OK.",
+      "parentUuid": "f2aae452_6542e98c",
+      "range": {
+        "startLine": 86,
+        "startChar": 10,
+        "endLine": 86,
+        "endChar": 15
+      },
+      "revId": "323b86708ef2b517dc258ce010ba4701bc29e11c",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "be6f7bcd_7d06189a",
         "filename": "api/test/simulated_network.h",
         "patchSetId": 2
@@ -37,6 +61,30 @@
       "writtenOn": "2022-10-06T09:35:21Z",
       "side": 1,
       "message": "Suggest to split in two sentences instead of ,",
+      "range": {
+        "startLine": 88,
+        "startChar": 66,
+        "endLine": 88,
+        "endChar": 75
+      },
+      "revId": "323b86708ef2b517dc258ce010ba4701bc29e11c",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "a64ed308_1377eb00",
+        "filename": "api/test/simulated_network.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 88,
+      "author": {
+        "id": 5087
+      },
+      "writtenOn": "2022-10-07T08:11:27Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "be6f7bcd_7d06189a",
       "range": {
         "startLine": 88,
         "startChar": 66,
@@ -70,6 +118,30 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "e9ef2323_ccd97717",
+        "filename": "api/test/simulated_network.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 90,
+      "author": {
+        "id": 5087
+      },
+      "writtenOn": "2022-10-07T08:11:27Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "a5a27f4f_8dd9259c",
+      "range": {
+        "startLine": 90,
+        "startChar": 43,
+        "endLine": 90,
+        "endChar": 45
+      },
+      "revId": "323b86708ef2b517dc258ce010ba4701bc29e11c",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "f636917e_a9ebd063",
@@ -83,6 +155,30 @@
       "writtenOn": "2022-10-06T09:35:21Z",
       "side": 1,
       "message": "suggest \"updated estimated delivery time\"",
+      "range": {
+        "startLine": 99,
+        "startChar": 17,
+        "endLine": 99,
+        "endChar": 26
+      },
+      "revId": "323b86708ef2b517dc258ce010ba4701bc29e11c",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "9e7e881e_4407b331",
+        "filename": "api/test/simulated_network.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 99,
+      "author": {
+        "id": 5087
+      },
+      "writtenOn": "2022-10-07T08:11:27Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "f636917e_a9ebd063",
       "range": {
         "startLine": 99,
         "startChar": 17,
@@ -118,6 +214,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "0233952a_e42a1e0a",
+        "filename": "api/test/simulated_network.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 109,
+      "author": {
+        "id": 5087
+      },
+      "writtenOn": "2022-10-07T08:11:27Z",
+      "side": 1,
+      "message": "There should be but this topic is under discussion (see TODO in the implementation).\n\nOnce we decide there, I would like to raise this at the interface level (implementations should provide such level of guarantee) but since the current status is unclear (and fixing how we want to fix it requires more changes, I am going to send another CL).",
+      "parentUuid": "114e8806_54373f9d",
+      "range": {
+        "startLine": 109,
+        "startChar": 16,
+        "endLine": 109,
+        "endChar": 29
+      },
+      "revId": "323b86708ef2b517dc258ce010ba4701bc29e11c",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "4f792d90_2231a79a",
         "filename": "api/test/simulated_network.h",
         "patchSetId": 2
@@ -129,6 +249,30 @@
       "writtenOn": "2022-10-06T09:35:21Z",
       "side": 1,
       "message": "replace , with .",
+      "range": {
+        "startLine": 113,
+        "startChar": 40,
+        "endLine": 113,
+        "endChar": 42
+      },
+      "revId": "323b86708ef2b517dc258ce010ba4701bc29e11c",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "9c4c83fe_6171d802",
+        "filename": "api/test/simulated_network.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 113,
+      "author": {
+        "id": 5087
+      },
+      "writtenOn": "2022-10-07T08:11:27Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "4f792d90_2231a79a",
       "range": {
         "startLine": 113,
         "startChar": 40,
@@ -164,6 +308,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "941cbcb5_4a770b94",
+        "filename": "call/simulated_network.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 29,
+      "author": {
+        "id": 5087
+      },
+      "writtenOn": "2022-10-07T08:11:27Z",
+      "side": 1,
+      "message": "Yes, I am happy to do this.\n\nI suggest https://source.chromium.org/chromium/chromium/src/+/main:third_party/webrtc/test/network/, WDYT?",
+      "parentUuid": "92db68ed_aaba4186",
+      "range": {
+        "startLine": 29,
+        "startChar": 10,
+        "endLine": 29,
+        "endChar": 17
+      },
+      "revId": "323b86708ef2b517dc258ce010ba4701bc29e11c",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "484f93a9_f01e72a1",
         "filename": "call/simulated_network.h",
         "patchSetId": 2
@@ -175,6 +343,30 @@
       "writtenOn": "2022-10-06T09:35:21Z",
       "side": 1,
       "message": "line 47 to 61 is about how to use the interface and should be the same regardless o f this implementation. Would it make sense to move that to the interface header? Otherwise I suggest to delete it.",
+      "range": {
+        "startLine": 47,
+        "startChar": 6,
+        "endLine": 47,
+        "endChar": 14
+      },
+      "revId": "323b86708ef2b517dc258ce010ba4701bc29e11c",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "42f8c3e0_2402fd0b",
+        "filename": "call/simulated_network.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 47,
+      "author": {
+        "id": 5087
+      },
+      "writtenOn": "2022-10-07T08:11:27Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "484f93a9_f01e72a1",
       "range": {
         "startLine": 47,
         "startChar": 6,
@@ -198,6 +390,30 @@
       "writtenOn": "2022-10-06T09:35:21Z",
       "side": 1,
       "message": "This should also be documented in SimulatedNetworkInterface",
+      "range": {
+        "startLine": 70,
+        "startChar": 37,
+        "endLine": 70,
+        "endChar": 41
+      },
+      "revId": "323b86708ef2b517dc258ce010ba4701bc29e11c",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "f61b02c3_5ecc2566",
+        "filename": "call/simulated_network.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 70,
+      "author": {
+        "id": 5087
+      },
+      "writtenOn": "2022-10-07T08:11:27Z",
+      "side": 1,
+      "message": "Yes, see my previous comment.\n\nOn SetConfig, there will be some work in a future CL, once we clear our mind there, I will move the API part to the interface.\n\nIs that OK?",
+      "parentUuid": "4e53c9e6_40890d8d",
       "range": {
         "startLine": 70,
         "startChar": 37,

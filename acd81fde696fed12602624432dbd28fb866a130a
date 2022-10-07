@@ -1,0 +1,142 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "23d83058_2df82ac5",
+        "filename": "api/test/simulated_network.h",
+        "patchSetId": 3
+      },
+      "lineNbr": 109,
+      "author": {
+        "id": 6337
+      },
+      "writtenOn": "2022-10-07T09:31:32Z",
+      "side": 1,
+      "message": "As a follow up, I\u0027m thinking maybe having a separate field with status will be a cleaner design.",
+      "range": {
+        "startLine": 108,
+        "startChar": 5,
+        "endLine": 109,
+        "endChar": 12
+      },
+      "revId": "acd81fde696fed12602624432dbd28fb866a130a",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "8bc8f0b9_0f77954a",
+        "filename": "api/test/simulated_network.h",
+        "patchSetId": 3
+      },
+      "lineNbr": 133,
+      "author": {
+        "id": 6337
+      },
+      "writtenOn": "2022-10-07T09:31:32Z",
+      "side": 1,
+      "message": "they? Also not flowing - does it mean that they are paused on the sender side or on the receiver side?",
+      "range": {
+        "startLine": 133,
+        "startChar": 17,
+        "endLine": 133,
+        "endChar": 20
+      },
+      "revId": "acd81fde696fed12602624432dbd28fb866a130a",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "d4c74144_55d77e6c",
+        "filename": "call/simulated_network_unittest.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 50,
+      "author": {
+        "id": 6337
+      },
+      "writtenOn": "2022-10-07T09:31:32Z",
+      "side": 1,
+      "message": "Maybe have a helper method PacketWithSize(size)? or something similar\n\nIn cases when sent_time and packet_id are important, keep using ctor.",
+      "range": {
+        "startLine": 50,
+        "startChar": 6,
+        "endLine": 50,
+        "endChar": 75
+      },
+      "revId": "acd81fde696fed12602624432dbd28fb866a130a",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "db785f64_d99193b0",
+        "filename": "call/simulated_network_unittest.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 62,
+      "author": {
+        "id": 6337
+      },
+      "writtenOn": "2022-10-07T09:31:32Z",
+      "side": 1,
+      "message": "nit: Maybe it will be more clean if you will add using declaration for this function.",
+      "range": {
+        "startLine": 62,
+        "startChar": 42,
+        "endLine": 62,
+        "endChar": 60
+      },
+      "revId": "acd81fde696fed12602624432dbd28fb866a130a",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "d470c5a0_559f9c62",
+        "filename": "call/simulated_network_unittest.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 319,
+      "author": {
+        "id": 6337
+      },
+      "writtenOn": "2022-10-07T09:31:32Z",
+      "side": 1,
+      "message": "Let\u0027s make the random seed explicit here",
+      "range": {
+        "startLine": 319,
+        "startChar": 2,
+        "endLine": 319,
+        "endChar": 18
+      },
+      "revId": "acd81fde696fed12602624432dbd28fb866a130a",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "53061cae_ea8a57fd",
+        "filename": "call/simulated_network_unittest.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 408,
+      "author": {
+        "id": 6337
+      },
+      "writtenOn": "2022-10-07T09:31:32Z",
+      "side": 1,
+      "message": "Let\u0027s think how simplify it. Having logic in test code is not good and here it\u0027s not obvious what is the expected behaviour",
+      "range": {
+        "startLine": 399,
+        "startChar": 2,
+        "endLine": 408,
+        "endChar": 3
+      },
+      "revId": "acd81fde696fed12602624432dbd28fb866a130a",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

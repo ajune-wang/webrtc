@@ -50,6 +50,40 @@
       "message": "+1 Also, just to point out that the same solution is already applied to video:\n\nhttps://source.chromium.org/chromium/chromium/src/+/main:third_party/webrtc/media/engine/webrtc_video_engine.cc;l\u003d3555",
       "revId": "2c954ae101c0dccdaf30861985138599f44a0982",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "e2f127fe_9ea4ca82",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2022-10-07T13:45:57Z",
+      "side": 1,
+      "message": "I wonder about this. WebRtcVoiceMediaChannel is a subclass of cricket::MediaChannel, which is 1:1 mapped to an RtpTransceiver.\n\nWith the death of Plan B, having mulitple streams in a VoiceMediaChannel should be impossible - but there\u0027s lots of legacy code that assumes we can have more than one still.\n\nI\u0027ll make a quick hack to see if we ever have more than one; if there is only one, getting the right transformer should be a no-brainer - there is only one.",
+      "revId": "2c954ae101c0dccdaf30861985138599f44a0982",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "b52cb24e_1b00a55d",
+        "filename": "media/engine/webrtc_voice_engine.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 2480,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2022-10-07T13:45:57Z",
+      "side": 1,
+      "message": "Are we really passing ssrc zero?\nThis is a Bad Thing, because ssrc zero is a possible value, and we have an open bug to get rid of the use of zero to mean \"not used\".",
+      "revId": "2c954ae101c0dccdaf30861985138599f44a0982",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

@@ -146,8 +146,8 @@ VideoAdapter::~VideoAdapter() {}
 
 bool VideoAdapter::DropFrame(int64_t in_timestamp_ns) {
   int max_fps = max_framerate_request_;
-  if (max_fps_)
-    max_fps = std::min(max_fps, *max_fps_);
+  if (output_format_request_.max_fps)
+    max_fps = std::min(max_fps, *output_format_request_.max_fps);
 
   framerate_controller_.SetMaxFramerate(max_fps);
   return framerate_controller_.ShouldDropFrame(in_timestamp_ns);
@@ -171,13 +171,15 @@ bool VideoAdapter::AdaptFrameResolution(int in_width,
   // orientation.
   absl::optional<std::pair<int, int>> target_aspect_ratio;
   if (in_width > in_height) {
-    target_aspect_ratio = target_landscape_aspect_ratio_;
-    if (max_landscape_pixel_count_)
-      max_pixel_count = std::min(max_pixel_count, *max_landscape_pixel_count_);
+    target_aspect_ratio = output_format_request_.target_landscape_aspect_ratio;
+    if (output_format_request_.max_landscape_pixel_count)
+      max_pixel_count = std::min(
+          max_pixel_count, *output_format_request_.max_landscape_pixel_count);
   } else {
-    target_aspect_ratio = target_portrait_aspect_ratio_;
-    if (max_portrait_pixel_count_)
-      max_pixel_count = std::min(max_pixel_count, *max_portrait_pixel_count_);
+    target_aspect_ratio = output_format_request_.target_portrait_aspect_ratio;
+    if (output_format_request_.max_portrait_pixel_count)
+      max_pixel_count = std::min(
+          max_pixel_count, *output_format_request_.max_portrait_pixel_count);
   }
 
   int target_pixel_count =
@@ -195,7 +197,7 @@ bool VideoAdapter::AdaptFrameResolution(int in_width,
                        << " Input: " << in_width << "x" << in_height
                        << " timestamp: " << in_timestamp_ns
                        << " Output fps: " << max_framerate_request_ << "/"
-                       << max_fps_.value_or(-1)
+                       << output_format_request_.max_fps.value_or(-1)
                        << " alignment: " << resolution_alignment_;
     }
 
@@ -249,7 +251,7 @@ bool VideoAdapter::AdaptFrameResolution(int in_width,
                      << " Scale: " << scale.numerator << "/"
                      << scale.denominator << " Output: " << *out_width << "x"
                      << *out_height << " fps: " << max_framerate_request_ << "/"
-                     << max_fps_.value_or(-1)
+                     << output_format_request_.max_fps.value_or(-1)
                      << " alignment: " << resolution_alignment_;
   }
 
@@ -300,11 +302,20 @@ void VideoAdapter::OnOutputFormatRequest(
     const absl::optional<int>& max_portrait_pixel_count,
     const absl::optional<int>& max_fps) {
   webrtc::MutexLock lock(&mutex_);
-  target_landscape_aspect_ratio_ = target_landscape_aspect_ratio;
-  max_landscape_pixel_count_ = max_landscape_pixel_count;
-  target_portrait_aspect_ratio_ = target_portrait_aspect_ratio;
-  max_portrait_pixel_count_ = max_portrait_pixel_count;
-  max_fps_ = max_fps;
+
+  OutputFormatRequest request = {
+      .target_landscape_aspect_ratio = target_landscape_aspect_ratio,
+      .max_landscape_pixel_count = max_landscape_pixel_count,
+      .target_portrait_aspect_ratio = target_portrait_aspect_ratio,
+      .max_portrait_pixel_count = max_portrait_pixel_count,
+      .max_fps = max_fps};
+
+  if (stashed_output_format_request_) {
+    stashed_output_format_request_ = request;
+  } else {
+    output_format_request_ = request;
+  }
+
   framerate_controller_.Reset();
 }
 
@@ -317,6 +328,50 @@ void VideoAdapter::OnSinkWants(const rtc::VideoSinkWants& sink_wants) {
   max_framerate_request_ = sink_wants.max_framerate_fps;
   resolution_alignment_ = cricket::LeastCommonMultiple(
       source_resolution_alignment_, sink_wants.resolution_alignment);
+
+  if (!sink_wants.aggregates) {
+    RTC_LOG(LS_WARNING)
+        << "These should always be created by VideoBroadcaster!";
+    return;
+  }
+
+  // If requested_resolution is used, and there are no active encoders
+  // that are NOT using requested_resolution (aka newapi), then override
+  // calls to OnOutputFormatRequest and use values from requested_resolution
+  // instead (combined with qualityscaling based on pixel counts above).
+  // TODO(webrtc:14451) : Should this be a field trial ?? It is only
+  // relevant when using requested_resolution...
+  const bool requested_resolution_override_output_format_request = true;
+
+  if (!requested_resolution_override_output_format_request) {
+    return;
+  }
+
+  if (!sink_wants.requested_resolution) {
+    if (stashed_output_format_request_) {
+      output_format_request_ = *stashed_output_format_request_;
+      stashed_output_format_request_.reset();
+    }
+    return;
+  }
+
+  if (sink_wants.aggregates->any_active_without_requested_resolution) {
+    return;
+  }
+
+  if (!stashed_output_format_request_) {
+    stashed_output_format_request_ = output_format_request_;
+  }
+
+  auto res = *sink_wants.requested_resolution;
+  auto pixel_count = res.width * res.height;
+  output_format_request_.target_landscape_aspect_ratio =
+      std::make_pair(res.width, res.height);
+  output_format_request_.max_landscape_pixel_count = pixel_count;
+  output_format_request_.target_portrait_aspect_ratio =
+      std::make_pair(res.height, res.width);
+  output_format_request_.max_portrait_pixel_count = pixel_count;
+  output_format_request_.max_fps = max_framerate_request_;
 }
 
 int VideoAdapter::GetTargetPixels() const {
@@ -326,10 +381,11 @@ int VideoAdapter::GetTargetPixels() const {
 
 float VideoAdapter::GetMaxFramerate() const {
   webrtc::MutexLock lock(&mutex_);
-  // Minimum of `max_fps_` and `max_framerate_request_` is used to throttle
-  // frame-rate.
-  int framerate = std::min(max_framerate_request_,
-                           max_fps_.value_or(max_framerate_request_));
+  // Minimum of `output_format_request_.max_fps` and `max_framerate_request_` is
+  // used to throttle frame-rate.
+  int framerate =
+      std::min(max_framerate_request_,
+               output_format_request_.max_fps.value_or(max_framerate_request_));
   if (framerate == std::numeric_limits<int>::max()) {
     return std::numeric_limits<float>::infinity();
   } else {

@@ -101,6 +101,24 @@
       "message": "Are we really passing ssrc zero?\nThis is a Bad Thing, because ssrc zero is a possible value, and we have an open bug to get rid of the use of zero to mean \"not used\".",
       "revId": "2c954ae101c0dccdaf30861985138599f44a0982",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "bc2a141b_7d11ae4c",
+        "filename": "media/engine/webrtc_voice_engine.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 2480,
+      "author": {
+        "id": 5508
+      },
+      "writtenOn": "2022-10-07T16:23:59Z",
+      "side": 1,
+      "message": "Apparently we do:\nhttps://source.chromium.org/chromium/chromium/src/+/main:third_party/webrtc/pc/audio_rtp_receiver.cc;l\u003d277\n\nI think we need to change this method to use optional.",
+      "parentUuid": "b52cb24e_1b00a55d",
+      "revId": "2c954ae101c0dccdaf30861985138599f44a0982",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

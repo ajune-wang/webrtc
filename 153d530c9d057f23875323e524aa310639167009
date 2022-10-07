@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "12ffd339_a0e68c66",
+        "filename": "modules/audio_processing/agc/BUILD.gn",
+        "patchSetId": 1
+      },
+      "lineNbr": 38,
+      "author": {
+        "id": 5122
+      },
+      "writtenOn": "2022-10-07T11:17:31Z",
+      "side": 0,
+      "message": "we can also remove the evaluator code now",
+      "range": {
+        "startLine": 38,
+        "startChar": 13,
+        "endLine": 38,
+        "endChar": 41
+      },
+      "revId": "153d530c9d057f23875323e524aa310639167009",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

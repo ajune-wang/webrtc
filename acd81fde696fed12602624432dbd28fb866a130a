@@ -137,6 +137,52 @@
       },
       "revId": "acd81fde696fed12602624432dbd28fb866a130a",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "81a2003e_e0022fb4",
+        "filename": "call/simulated_network_unittest.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 431,
+      "author": {
+        "id": 5578
+      },
+      "writtenOn": "2022-10-07T13:12:45Z",
+      "side": 1,
+      "message": "add expectations on NextDeliveryTime ?",
+      "range": {
+        "startLine": 431,
+        "startChar": 34,
+        "endLine": 431,
+        "endChar": 35
+      },
+      "revId": "acd81fde696fed12602624432dbd28fb866a130a",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "118e08d8_dc3318af",
+        "filename": "call/simulated_network_unittest.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 489,
+      "author": {
+        "id": 5578
+      },
+      "writtenOn": "2022-10-07T13:12:45Z",
+      "side": 1,
+      "message": "what should the delivery time be? can you add expectations?",
+      "range": {
+        "startLine": 489,
+        "startChar": 33,
+        "endLine": 489,
+        "endChar": 42
+      },
+      "revId": "acd81fde696fed12602624432dbd28fb866a130a",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

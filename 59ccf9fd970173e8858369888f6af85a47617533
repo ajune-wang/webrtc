@@ -1,0 +1,90 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "31a119b4_2d7c0930",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5023
+      },
+      "writtenOn": "2022-10-07T11:12:46Z",
+      "side": 1,
+      "message": "First set, will take another look.",
+      "revId": "59ccf9fd970173e8858369888f6af85a47617533",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "047dbce1_f50f17f0",
+        "filename": "media/base/video_adapter.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 342,
+      "author": {
+        "id": 5023
+      },
+      "writtenOn": "2022-10-07T11:12:46Z",
+      "side": 1,
+      "message": "Make it a kill switch, if you are concerned?",
+      "range": {
+        "startLine": 342,
+        "startChar": 26,
+        "endLine": 342,
+        "endChar": 57
+      },
+      "revId": "59ccf9fd970173e8858369888f6af85a47617533",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "0f7e09e1_6abac1a7",
+        "filename": "media/base/video_adapter.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 151,
+      "author": {
+        "id": 5023
+      },
+      "writtenOn": "2022-10-07T11:12:46Z",
+      "side": 1,
+      "message": "Can this be written as: `all encoders are using requested_resolution` ?",
+      "range": {
+        "startLine": 151,
+        "startChar": 33,
+        "endLine": 151,
+        "endChar": 61
+      },
+      "revId": "59ccf9fd970173e8858369888f6af85a47617533",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "8eeca41e_7e896f6c",
+        "filename": "media/base/video_broadcaster.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 155,
+      "author": {
+        "id": 5023
+      },
+      "writtenOn": "2022-10-07T11:12:46Z",
+      "side": 1,
+      "message": "Maybe I\u0027m missing something, but can this not be rewritten as:\n```\nif (!sink.wants.is_active \u0026\u0026 ignore_inactive_encoders_old_api) {\n  continue;\n}\n```",
+      "range": {
+        "startLine": 147,
+        "startChar": 4,
+        "endLine": 155,
+        "endChar": 5
+      },
+      "revId": "59ccf9fd970173e8858369888f6af85a47617533",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

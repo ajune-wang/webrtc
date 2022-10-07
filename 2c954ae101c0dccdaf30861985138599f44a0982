@@ -69,6 +69,23 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "f63b8ea3_f5530866",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2022-10-07T13:58:34Z",
+      "side": 1,
+      "message": "I have now checked, and we do have tests that add multiple streams to the WebRtcVoiceMediaChannel. So that will have to wait a bit.\nIt probably makes sense for the simulcast case, anyway.\n\nBut I forgot to add my usual question .... \"where\u0027s the test?\"",
+      "revId": "2c954ae101c0dccdaf30861985138599f44a0982",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "b52cb24e_1b00a55d",

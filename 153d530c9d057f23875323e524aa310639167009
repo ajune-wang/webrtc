@@ -33,6 +33,23 @@
       "message": "Thanks for the clean-up Hanna!\nCould you also clean-up tools/metrics/histograms/metadata/web_rtc/histograms.xml (a separate chromium CL is needed)?",
       "revId": "153d530c9d057f23875323e524aa310639167009",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "314802fa_27150f5e",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5122
+      },
+      "writtenOn": "2022-10-07T11:17:11Z",
+      "side": 1,
+      "message": "LGTM",
+      "revId": "153d530c9d057f23875323e524aa310639167009",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

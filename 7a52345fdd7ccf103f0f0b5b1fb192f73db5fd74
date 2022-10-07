@@ -1,0 +1,55 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "558be170_ebdfb2f3",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2022-10-07T08:39:52Z",
+      "side": 1,
+      "message": "I like this, apart from removing the logging entirely.",
+      "revId": "7a52345fdd7ccf103f0f0b5b1fb192f73db5fd74",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "d0137d16_4b142350",
+        "filename": "pc/peer_connection.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 602,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2022-10-07T08:39:52Z",
+      "side": 1,
+      "message": "Since you\u0027ve taken out all the RTC_LOG(LS_WARNING) from the generating places, perhaps you should add one here for backwards log-spew compatibility?",
+      "revId": "7a52345fdd7ccf103f0f0b5b1fb192f73db5fd74",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "17ec321a_65d13e13",
+        "filename": "pc/peer_connection.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 1528,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2022-10-07T08:39:52Z",
+      "side": 1,
+      "message": "and here?",
+      "revId": "7a52345fdd7ccf103f0f0b5b1fb192f73db5fd74",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

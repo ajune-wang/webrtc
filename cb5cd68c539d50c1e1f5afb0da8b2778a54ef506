@@ -153,6 +153,30 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "ef6695db_6cc7146a",
+        "filename": "modules/audio_processing/agc/agc_manager_direct.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 264,
+      "author": {
+        "id": 5122
+      },
+      "writtenOn": "2022-10-07T09:26:32Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "0f4bf98d_00259d07",
+      "range": {
+        "startLine": 264,
+        "startChar": 4,
+        "endLine": 264,
+        "endChar": 14
+      },
+      "revId": "cb5cd68c539d50c1e1f5afb0da8b2778a54ef506",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "f3514800_ce51e123",

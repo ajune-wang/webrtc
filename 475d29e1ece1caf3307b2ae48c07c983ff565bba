@@ -51,6 +51,24 @@
       "parentUuid": "0069e618_b0745f5c",
       "revId": "475d29e1ece1caf3307b2ae48c07c983ff565bba",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "235cc96b_3a6bd72d",
+        "filename": "api/rtp_sender_interface.h",
+        "patchSetId": 15
+      },
+      "lineNbr": 107,
+      "author": {
+        "id": 19549
+      },
+      "writtenOn": "2022-10-07T08:52:43Z",
+      "side": 1,
+      "message": "mainly aiming for \"you specified a rid that is wrong\". I *think* this is also the easiest way to throw an error for audio.\n\nThe weakness of the promise to send a keyframe at some point in the future (maybe) was what triggered the decision to not return a Promise anymore which is good. Returning a failure because you are currently not able (due to bandwidth constraints or such) would not have been very useful.",
+      "parentUuid": "2ec06641_e8a343bb",
+      "revId": "475d29e1ece1caf3307b2ae48c07c983ff565bba",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

@@ -124,6 +124,24 @@
       "parentUuid": "4c27e2f3_efb1608c",
       "revId": "7dabe2ba73629fac7f04987ee4aa388d78c3f4e9",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "f3069625_995de2ff",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 18474
+      },
+      "writtenOn": "2022-10-07T16:12:31Z",
+      "side": 1,
+      "message": "Ah; sorry, by \"tracking the bool Salman has added\" I meant `frame_updated_since_last_grab_` and using that to clear the damaged rect; I hadn\u0027t looked over the change to DesktopCaptureOptions.\n\nAlternatively, if seeing if the underlying frame is the same could be doable; though there is the risk that the frame is being re-used by the queue.",
+      "parentUuid": "aa7a9ce0_903d7859",
+      "revId": "7dabe2ba73629fac7f04987ee4aa388d78c3f4e9",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

@@ -10,7 +10,7 @@ vars = {
   # chromium waterfalls. More info at: crbug.com/570091.
   'checkout_configuration': 'default',
   'checkout_instrumented_libraries': 'checkout_linux and checkout_configuration == "default"',
-  'chromium_revision': 'f8d62f3cb78e2561e03012256719cfc98a35ab55',
+  'chromium_revision': 'f731ab7f0d5b146b957bc881c605be637dcc3d83',
 
   # Keep the Chromium default of generating location tags.
   'generate_location_tags': True,
@@ -40,9 +40,9 @@ vars = {
 deps = {
   # TODO(kjellander): Move this to be Android-only.
   'src/base':
-    'https://chromium.googlesource.com/chromium/src/base@2f866990a583f51bb0b9a3549eaae9f7a54f1574',
+    'https://chromium.googlesource.com/chromium/src/base@52f41620b9ce32fcd56845847be16f362039a23f',
   'src/build':
-    'https://chromium.googlesource.com/chromium/src/build@917ace59aa44579682a0e7ca35a6b0d9e6b01b54',
+    'https://chromium.googlesource.com/chromium/src/build@ffbaf8b09f0c117eaea0d3e82a61fbf1918b0eed',
   'src/buildtools':
     'https://chromium.googlesource.com/chromium/src/buildtools@b47f3d62c4643b07f4254c57dd1956d66f265589',
   # Gradle 6.6.1. Used for testing Android Studio project generation for WebRTC.
@@ -51,13 +51,13 @@ deps = {
     'condition': 'checkout_android',
   },
   'src/ios': {
-    'url': 'https://chromium.googlesource.com/chromium/src/ios@39784d13204a4c40e7cf543adcc954ed6eaa25c4',
+    'url': 'https://chromium.googlesource.com/chromium/src/ios@2443285b680822478509acbc9672b5e38781d37f',
     'condition': 'checkout_ios',
   },
   'src/testing':
-    'https://chromium.googlesource.com/chromium/src/testing@58d91b67d9eabb62b22b20cede3556aafbbed441',
+    'https://chromium.googlesource.com/chromium/src/testing@cdb43fc0b8c4982483626aa76654d5ca59fd9290',
   'src/third_party':
-    'https://chromium.googlesource.com/chromium/src/third_party@cd30703e732f3436f72f63c13f16ebb19803ddd6',
+    'https://chromium.googlesource.com/chromium/src/third_party@408f039180078926344a1b7ce7e1ca777ff4040d',
 
   'src/buildtools/linux64': {
     'packages': [
@@ -175,7 +175,7 @@ deps = {
   'src/third_party/crc32c/src':
     'https://chromium.googlesource.com/external/github.com/google/crc32c.git@fa5ade41ee480003d9c5af6f43567ba22e4e17e6',
   'src/third_party/depot_tools':
-    'https://chromium.googlesource.com/chromium/tools/depot_tools.git@99c8282eb5b28dc33a352b3f17755d1891bfeec2',
+    'https://chromium.googlesource.com/chromium/tools/depot_tools.git@51a6576d1b249084b32b69a22ac9c2b6ae76c93c',
   'src/third_party/ffmpeg':
     'https://chromium.googlesource.com/chromium/third_party/ffmpeg.git@b9f01c3c54576330b2cf8918c54d5ee5be8faefe',
   'src/third_party/grpc/src': {
@@ -292,7 +292,7 @@ deps = {
     'condition': 'checkout_android',
   },
   'src/tools':
-    'https://chromium.googlesource.com/chromium/src/tools@4f6aa8b180cedc1d1801448991f030674e283da5',
+    'https://chromium.googlesource.com/chromium/src/tools@8399bd5144fd178a7be0c370086352d3a559efc1',
 
   'src/third_party/accessibility_test_framework': {
       'packages': [
@@ -369,7 +369,7 @@ deps = {
     'packages': [
       {
           'package': 'chromium/third_party/androidx',
-          'version': '0yLHxVsHQ9H_tPonOZy5XMCLMOvQ1j-pcw7UypcoL8MC',
+          'version': 'atg_0ThGWvR5eLea-pNZ9TXpiJFZXXui8vMSiVekrroC',
       },
     ],
     'condition': 'checkout_android',
@@ -380,7 +380,7 @@ deps = {
       'packages': [
           {
                'package': 'chromium/third_party/android_build_tools/manifest_merger',
-               'version': '0cYQOUjN8K9fAtfcm6Vwi30XcO6mPJU_5v4-pUkBg0sC',
+               'version': 'bUREd_PkCqlp2ww6zmyOLGf0jhqgbnf6GT4V1xkAZ10C',
           },
       ],
       'condition': 'checkout_android',
@@ -481,11 +481,11 @@ deps = {
       'packages': [
         {
           'package': 'infra/tools/luci/isolate/${{platform}}',
-          'version': 'git_revision:9b6501cd8b61afbb92c76207dfd2594606a4b4d1',
+          'version': 'git_revision:c893d7a542f324fe7c1a63c83e57ccea23631ffe',
         },
         {
           'package': 'infra/tools/luci/swarming/${{platform}}',
-          'version': 'git_revision:9b6501cd8b61afbb92c76207dfd2594606a4b4d1',
+          'version': 'git_revision:c893d7a542f324fe7c1a63c83e57ccea23631ffe',
         },
       ],
       'dep_type': 'cipd',

@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "8dd04a03_26d9fd89",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 3
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 19549
+      },
+      "writtenOn": "2022-10-07T08:48:36Z",
+      "side": 1,
+      "message": "Re-added logging. I was surprised we don\u0027t have a RTCError::ToString() which also prints the error code nicely.",
+      "revId": "f663c9a258ce39d823f821a6844d45ddd748a02c",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

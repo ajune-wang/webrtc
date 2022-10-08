@@ -1,6 +1,23 @@
 {
   "comments": [
     {
+      "unresolved": true,
+      "key": {
+        "uuid": "85536ac9_4395655f",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 2
+      },
+      "lineNbr": 9,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2022-10-08T09:14:46Z",
+      "side": 1,
+      "message": "The bug number must be written as chromium:134813",
+      "revId": "2c954ae101c0dccdaf30861985138599f44a0982",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": false,
       "key": {
         "uuid": "79d60cb1_06c76e78",
@@ -135,6 +152,23 @@
       "side": 1,
       "message": "The usual way when you copy a solution like this is to look at the blamelist for the old solution (the video one), and see if that CL included test changes. If it did, see if you can apply the test changes.\n\nIf the old CL didn\u0027t have any test changes either, just add a note on this CL saying \"Tested with the repro steps for the bug\".  We don\u0027t want to slow down fixes.",
       "parentUuid": "238b09c7_22356b6b",
+      "revId": "2c954ae101c0dccdaf30861985138599f44a0982",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "b19bd4cc_c8088827",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2022-10-08T09:14:46Z",
+      "side": 1,
+      "message": "Why presubmit fails...",
       "revId": "2c954ae101c0dccdaf30861985138599f44a0982",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },

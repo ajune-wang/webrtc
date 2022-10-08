@@ -173,6 +173,24 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "dacfa3b9_c2f25aa1",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 8882
+      },
+      "writtenOn": "2022-10-08T09:39:32Z",
+      "side": 1,
+      "message": "That\u0027s good advice. Had a look and the corresponding commit for the video pipeline is https://source.chromium.org/chromium/_/webrtc/src.git/+/adc4da30f420b1f50815ef3890bb4c95fb867d35\nIt has tests but they test something unrelated to this specific problem. There are 19 other commits linked in 1065838 that I haven\u0027t specifically looked into.\n\nAnd, to be transparent, I have not tested it with the linked repro because building Chromium would be a first for me. However, I have tested it with a native build of libwebrtc for Android which previously ran into the exact same problem. I\u0027ll update the CL description.",
+      "parentUuid": "abbfbe3b_56ac86e1",
+      "revId": "2c954ae101c0dccdaf30861985138599f44a0982",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "b52cb24e_1b00a55d",

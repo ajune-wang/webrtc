@@ -524,33 +524,37 @@ DefaultUnsignalledSsrcHandler::DefaultUnsignalledSsrcHandler()
 
 UnsignalledSsrcHandler::Action DefaultUnsignalledSsrcHandler::OnUnsignalledSsrc(
     WebRtcVideoChannel* channel,
-    uint32_t ssrc) {
+    std::vector<uint32_t> ssrcs) {
+  RTC_DCHECK_NE(ssrcs.size(), 0);
+
   absl::optional<uint32_t> default_recv_ssrc =
       channel->GetDefaultReceiveStreamSsrc();
+  const int unsignaled_ssrc = *ssrcs.begin();
 
   if (default_recv_ssrc) {
     RTC_LOG(LS_INFO) << "Destroying old default receive stream for SSRC="
-                     << ssrc << ".";
+                     << unsignaled_ssrc << ".";
     channel->RemoveRecvStream(*default_recv_ssrc);
   }
 
   StreamParams sp = channel->unsignaled_stream_params();
-  sp.ssrcs.push_back(ssrc);
-
-  RTC_LOG(LS_INFO) << "Creating default receive stream for SSRC=" << ssrc
-                   << ".";
+  sp.ssrcs = ssrcs;
+  if (ssrcs.size() == 2) {
+    sp.ssrc_groups.push_back(cricket::SsrcGroup(kFidSsrcGroupSemantics, ssrcs));
+  }
+  RTC_LOG(LS_INFO) << "Creating default receive stream for SSRC="
+                   << unsignaled_ssrc << ".";
   if (!channel->AddRecvStream(sp, /*default_stream=*/true)) {
     RTC_LOG(LS_WARNING) << "Could not create default receive stream.";
   }
 
   // SSRC 0 returns default_recv_base_minimum_delay_ms.
-  const int unsignaled_ssrc = 0;
   int default_recv_base_minimum_delay_ms =
       channel->GetBaseMinimumPlayoutDelayMs(unsignaled_ssrc).value_or(0);
   // Set base minimum delay if it was set before for the default receive stream.
-  channel->SetBaseMinimumPlayoutDelayMs(ssrc,
+  channel->SetBaseMinimumPlayoutDelayMs(unsignaled_ssrc,
                                         default_recv_base_minimum_delay_ms);
-  channel->SetSink(ssrc, default_sink_);
+  channel->SetSink(unsignaled_ssrc, default_sink_);
   return kDeliverPacket;
 }
 
@@ -1693,7 +1697,7 @@ void WebRtcVideoChannel::OnPacketReceived(rtc::CopyOnWriteBuffer packet,
         }
 
         uint32_t ssrc = ParseRtpSsrc(packet);
-
+        std::vector ssrcs = {ssrc};
         if (unknown_ssrc_packet_buffer_) {
           unknown_ssrc_packet_buffer_->AddPacket(ssrc, packet_time_us, packet);
           return;
@@ -1711,10 +1715,17 @@ void WebRtcVideoChannel::OnPacketReceived(rtc::CopyOnWriteBuffer packet,
         // know what stream it associates with, and we shouldn't ever create an
         // implicit channel for these.
         for (auto& codec : recv_codecs_) {
-          if (payload_type == codec.rtx_payload_type ||
-              payload_type == codec.ulpfec.red_rtx_payload_type ||
+          if (payload_type == codec.ulpfec.red_rtx_payload_type ||
               payload_type == codec.ulpfec.ulpfec_payload_type) {
             return;
+          }
+          if (payload_type == codec.rtx_payload_type) {
+            auto default_ssrc = GetDefaultReceiveStreamSsrc();
+            if (!default_ssrc)
+              return;
+            ssrcs.insert(ssrcs.begin(), *default_ssrc);
+            last_unsignalled_ssrc_creation_time_ms_.reset();
+            break;
           }
         }
         if (payload_type == recv_flexfec_payload_type_) {
@@ -1745,7 +1756,7 @@ void WebRtcVideoChannel::OnPacketReceived(rtc::CopyOnWriteBuffer packet,
           }
         }
         // Let the unsignalled ssrc handler decide whether to drop or deliver.
-        switch (unsignalled_ssrc_handler_->OnUnsignalledSsrc(this, ssrc)) {
+        switch (unsignalled_ssrc_handler_->OnUnsignalledSsrc(this, ssrcs)) {
           case UnsignalledSsrcHandler::kDropPacket:
             return;
           case UnsignalledSsrcHandler::kDeliverPacket:

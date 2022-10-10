@@ -67,7 +67,7 @@ class UnsignalledSsrcHandler {
     kDeliverPacket,
   };
   virtual Action OnUnsignalledSsrc(WebRtcVideoChannel* channel,
-                                   uint32_t ssrc) = 0;
+                                   std::vector<uint32_t> ssrcs) = 0;
   virtual ~UnsignalledSsrcHandler() = default;
 };
 
@@ -75,7 +75,8 @@ class UnsignalledSsrcHandler {
 class DefaultUnsignalledSsrcHandler : public UnsignalledSsrcHandler {
  public:
   DefaultUnsignalledSsrcHandler();
-  Action OnUnsignalledSsrc(WebRtcVideoChannel* channel, uint32_t ssrc) override;
+  Action OnUnsignalledSsrc(WebRtcVideoChannel* channel,
+                           std::vector<uint32_t> ssrcs) override;
 
   rtc::VideoSinkInterface<webrtc::VideoFrame>* GetDefaultSink() const;
   void SetDefaultSink(WebRtcVideoChannel* channel,

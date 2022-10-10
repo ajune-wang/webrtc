@@ -160,6 +160,24 @@
       "parentUuid": "f3069625_995de2ff",
       "revId": "7dabe2ba73629fac7f04987ee4aa388d78c3f4e9",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "cc9c012d_b7d111f8",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 19629
+      },
+      "writtenOn": "2022-10-10T17:44:24Z",
+      "side": 1,
+      "message": "I see X11 overwriting the complete (shared) frame at times, so I assume it is safe to clear the damaged region? At any rate, this change will not be needed anyway once we have the video damage reporting coming from compositors. We can keep this change on hold till then if you would like.",
+      "parentUuid": "dd03dd33_fab3df29",
+      "revId": "7dabe2ba73629fac7f04987ee4aa388d78c3f4e9",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

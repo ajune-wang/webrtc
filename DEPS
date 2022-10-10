@@ -10,7 +10,7 @@ vars = {
   # chromium waterfalls. More info at: crbug.com/570091.
   'checkout_configuration': 'default',
   'checkout_instrumented_libraries': 'checkout_linux and checkout_configuration == "default"',
-  'chromium_revision': 'ae6101e0fbb15b63386143ba80ebefb60cf14d1e',
+  'chromium_revision': '595b0de1e4402c2e9e27c81478a080f93b98e65a',
 
   # Keep the Chromium default of generating location tags.
   'generate_location_tags': True,
@@ -51,13 +51,13 @@ deps = {
     'condition': 'checkout_android',
   },
   'src/ios': {
-    'url': 'https://chromium.googlesource.com/chromium/src/ios@7cfdf062e93485a692b15a5c226c9ad2709399c0',
+    'url': 'https://chromium.googlesource.com/chromium/src/ios@28e2773bc1f79930bb916302975e8a0dbeb43ebe',
     'condition': 'checkout_ios',
   },
   'src/testing':
-    'https://chromium.googlesource.com/chromium/src/testing@dea4acc9e193927be7ae6fbe7cb8342a0f5693e5',
+    'https://chromium.googlesource.com/chromium/src/testing@aeb0063db5fc46691dc902dee5c662393bf0d16d',
   'src/third_party':
-    'https://chromium.googlesource.com/chromium/src/third_party@d5b33e0895a667008cbf4f75b866ada2936d49b0',
+    'https://chromium.googlesource.com/chromium/src/third_party@e22a78a5e71212071f6789059f00721e000d3251',
 
   'src/buildtools/linux64': {
     'packages': [
@@ -175,7 +175,7 @@ deps = {
   'src/third_party/crc32c/src':
     'https://chromium.googlesource.com/external/github.com/google/crc32c.git@fa5ade41ee480003d9c5af6f43567ba22e4e17e6',
   'src/third_party/depot_tools':
-    'https://chromium.googlesource.com/chromium/tools/depot_tools.git@17b26efb65199176f999fc4193a2350be03afc53',
+    'https://chromium.googlesource.com/chromium/tools/depot_tools.git@8ae226ec3bb1e518d4ceab54768a4f6d7b12d63c',
   'src/third_party/ffmpeg':
     'https://chromium.googlesource.com/chromium/third_party/ffmpeg.git@b9f01c3c54576330b2cf8918c54d5ee5be8faefe',
   'src/third_party/grpc/src': {
@@ -187,7 +187,7 @@ deps = {
       'condition': 'checkout_linux',
   },
   'src/third_party/freetype/src':
-    'https://chromium.googlesource.com/chromium/src/third_party/freetype2.git@141d979af74e09bd01f6956b5cc8dfa73047c779',
+    'https://chromium.googlesource.com/chromium/src/third_party/freetype2.git@0d66abca4b0df394c1e423040bcb1bedcca878b9',
   'src/third_party/harfbuzz-ng/src':
     'https://chromium.googlesource.com/external/github.com/harfbuzz/harfbuzz.git@56c467093598ec559a7148b61e112e9de52b7076',
   'src/third_party/google_benchmark/src': {
@@ -292,7 +292,7 @@ deps = {
     'condition': 'checkout_android',
   },
   'src/tools':
-    'https://chromium.googlesource.com/chromium/src/tools@0b1b80ca6322b9048d5404dea117b278ac11f385',
+    'https://chromium.googlesource.com/chromium/src/tools@b6be93140bc54eb4e924f1f11ea7730e99542262',
 
   'src/third_party/accessibility_test_framework': {
       'packages': [

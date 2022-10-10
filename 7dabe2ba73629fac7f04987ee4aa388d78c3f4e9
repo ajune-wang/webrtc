@@ -178,6 +178,24 @@
       "parentUuid": "dd03dd33_fab3df29",
       "revId": "7dabe2ba73629fac7f04987ee4aa388d78c3f4e9",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "cfa4da9d_9031c4a9",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 8046
+      },
+      "writtenOn": "2022-10-10T18:47:38Z",
+      "side": 1,
+      "message": "If it\u0027s fine to wait a bit I think I can look into implementing damage regions soon as I believe I\u0027m close to have the basic tests done. I \u0027m using KDE where this is implemented so I have a way to test it and hopefully it will convince Jonas to implement it in GNOME.",
+      "parentUuid": "cc9c012d_b7d111f8",
+      "revId": "7dabe2ba73629fac7f04987ee4aa388d78c3f4e9",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

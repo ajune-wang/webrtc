@@ -311,6 +311,9 @@ class VideoReceiveStreamInterface : public MediaReceiveStreamInterface {
   virtual void SetAssociatedPayloadTypes(
       std::map<int, int> associated_payload_types) = 0;
 
+  virtual void RemoveDecoder(const Decoder& decoder) {}
+  virtual void AddOrUpdateDecoder(const Decoder& decoder, bool raw_payload) {}
+
  protected:
   virtual ~VideoReceiveStreamInterface() {}
 };

@@ -91,17 +91,17 @@ int32_t VideoReceiver2::Decode(const VCMEncodedFrame* frame) {
 void VideoReceiver2::RegisterReceiveCodec(
     uint8_t payload_type,
     const VideoDecoder::Settings& settings) {
-  RTC_DCHECK_RUN_ON(&construction_sequence_checker_);
+  RTC_DCHECK_RUN_ON(&decoder_sequence_checker_);
   codec_database_.RegisterReceiveCodec(payload_type, settings);
 }
 
 void VideoReceiver2::DeregisterReceiveCodec(uint8_t payload_type) {
-  RTC_DCHECK_RUN_ON(&construction_sequence_checker_);
+  RTC_DCHECK_RUN_ON(&decoder_sequence_checker_);
   codec_database_.DeregisterReceiveCodec(payload_type);
 }
 
 void VideoReceiver2::DeregisterReceiveCodecs() {
-  RTC_DCHECK_RUN_ON(&construction_sequence_checker_);
+  RTC_DCHECK_RUN_ON(&decoder_sequence_checker_);
   codec_database_.DeregisterReceiveCodecs();
 }
 

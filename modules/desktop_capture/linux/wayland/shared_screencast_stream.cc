@@ -101,6 +101,10 @@ class SharedScreenCastStreamPrivate {
   // Stops the streams and cleans up any in-use elements.
   void StopAndCleanupStream();
 
+  // Indicates whether the current frame has been updated (during stream's
+  // OnStreamProcess callback) since the last time frame was captured.
+  bool frame_updated_since_last_grab_ = false;
+
   uint32_t pw_stream_node_id_ = 0;
 
   DesktopSize stream_size_ = {};
@@ -587,6 +591,9 @@ std::unique_ptr<DesktopFrame> SharedScreenCastStreamPrivate::CaptureFrame() {
   }
 
   std::unique_ptr<SharedDesktopFrame> frame = queue_.current_frame()->Share();
+  if (!frame_updated_since_last_grab_)
+    frame->mutable_updated_region()->Clear();
+  frame_updated_since_last_grab_ = false;
   return std::move(frame);
 }
 
@@ -830,6 +837,7 @@ void SharedScreenCastStreamPrivate::ProcessBuffer(pw_buffer* buffer) {
 
   queue_.current_frame()->mutable_updated_region()->SetRect(
       DesktopRect::MakeSize(queue_.current_frame()->size()));
+  frame_updated_since_last_grab_ = true;
 }
 
 void SharedScreenCastStreamPrivate::ConvertRGBxToBGRx(uint8_t* frame,

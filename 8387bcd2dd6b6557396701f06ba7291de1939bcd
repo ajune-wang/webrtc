@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "a7c38069_71f4584d",
+        "filename": "modules/desktop_capture/linux/wayland/shared_screencast_stream.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 595,
+      "author": {
+        "id": 18474
+      },
+      "writtenOn": "2022-10-10T18:15:59Z",
+      "side": 1,
+      "message": "Can you maybe add an IsShared check/log warning here?\n\nWhile we do (in hopefully rare cases) overwrite a shared frame, this is obviously a little different because we don\u0027t \"move on\", so we\u0027re overwriting state of the latest frame we sent.\n\nI\u0027d like at least a spot check of that before merging (or if we think it\u0027s worth doing a proper copy to the next frame in the queue maybe we do that); but if that looks okay then this seems fine with me until we get the compositor signal.",
+      "range": {
+        "startLine": 594,
+        "startChar": 0,
+        "endLine": 595,
+        "endChar": 45
+      },
+      "revId": "8387bcd2dd6b6557396701f06ba7291de1939bcd",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

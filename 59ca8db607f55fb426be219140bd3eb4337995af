@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "a50e1cbd_8b004805",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5087
+      },
+      "writtenOn": "2022-10-10T15:49:30Z",
+      "side": 1,
+      "message": "No-Try: True since this is a safe change (just adding missing deps).",
+      "revId": "59ca8db607f55fb426be219140bd3eb4337995af",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

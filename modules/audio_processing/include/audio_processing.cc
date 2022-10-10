@@ -97,10 +97,25 @@ bool Agc2Config::AdaptiveDigital::operator==(
          max_output_noise_level_dbfs == rhs.max_output_noise_level_dbfs;
 }
 
+bool Agc2Config::InputVolumeController::operator==(
+    const Agc2Config::InputVolumeController& rhs) const {
+  return enabled == rhs.enabled &&
+         startup_min_volume == rhs.startup_min_volume &&
+         clipped_level_min == rhs.clipped_level_min &&
+         clipped_level_step == rhs.clipped_level_step &&
+         clipped_ratio_threshold == rhs.clipped_ratio_threshold &&
+         clipped_wait_frames == rhs.clipped_wait_frames &&
+         enable_digital_adaptive == rhs.enable_digital_adaptive &&
+         enable_clipping_predictor == rhs.enable_clipping_predictor &&
+         max_digital_gain_db == rhs.max_digital_gain_db &&
+         min_digital_gain_db == rhs.min_digital_gain_db;
+}
+
 bool Agc2Config::operator==(const Agc2Config& rhs) const {
   return enabled == rhs.enabled &&
          fixed_digital.gain_db == rhs.fixed_digital.gain_db &&
-         adaptive_digital == rhs.adaptive_digital;
+         adaptive_digital == rhs.adaptive_digital &&
+         input_volume_controller == rhs.input_volume_controller;
 }
 
 bool AudioProcessing::Config::CaptureLevelAdjustment::operator==(
@@ -204,6 +219,26 @@ std::string AudioProcessing::Config::ToString() const {
           << gain_controller2.adaptive_digital.max_gain_change_db_per_second
           << ", max_output_noise_level_dbfs: "
           << gain_controller2.adaptive_digital.max_output_noise_level_dbfs
+          << " }, input_volume_control : { enabled "
+          << gain_controller2.input_volume_controller.enabled
+          << ", startup_min_volume: "
+          << gain_controller2.input_volume_controller.startup_min_volume
+          << ", clipped_level_min: "
+          << gain_controller2.input_volume_controller.clipped_level_min
+          << ", enable_digital_adaptive: "
+          << gain_controller2.input_volume_controller.enable_digital_adaptive
+          << ", clipped_level_step: "
+          << gain_controller2.input_volume_controller.clipped_level_step
+          << ", clipped_ratio_threshold: "
+          << gain_controller2.input_volume_controller.clipped_ratio_threshold
+          << ", clipped_wait_frames: "
+          << gain_controller2.input_volume_controller.clipped_wait_frames
+          << ", enable_clipping_predictor: "
+          << gain_controller2.input_volume_controller.enable_clipping_predictor
+          << ", target_input_volume_dbfs: "
+          << gain_controller2.input_volume_controller.max_digital_gain_db
+          << ", min_digital_gain_db: "
+          << gain_controller2.input_volume_controller.min_digital_gain_db
           << "}}";
   return builder.str();
 }

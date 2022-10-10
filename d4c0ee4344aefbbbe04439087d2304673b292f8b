@@ -88,6 +88,24 @@
       "parentUuid": "d3f517db_c1a7954e",
       "revId": "d4c0ee4344aefbbbe04439087d2304673b292f8b",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "755001d1_87ddd039",
+        "filename": "media/sctp/dcsctp_transport.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 562,
+      "author": {
+        "id": 19814
+      },
+      "writtenOn": "2022-10-10T05:49:22Z",
+      "side": 1,
+      "message": "@orphis@webrtc.org Do you think this change makes sense ? \nI can walk you through what happens without this change - which leads to abrupt closure of datachannel on one side of webrtc connection only.\nbtw - is there parser available which can parse SCTP messages from verbose webrtc log?",
+      "parentUuid": "93ba4c62_ff9ab21e",
+      "revId": "d4c0ee4344aefbbbe04439087d2304673b292f8b",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

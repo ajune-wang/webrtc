@@ -10,7 +10,7 @@ vars = {
   # chromium waterfalls. More info at: crbug.com/570091.
   'checkout_configuration': 'default',
   'checkout_instrumented_libraries': 'checkout_linux and checkout_configuration == "default"',
-  'chromium_revision': '6f2f5c63ae445ed7ec9f19e4ed0f27a6d25f9990',
+  'chromium_revision': '008ba5696d3162be1797002c563fbf3e3519b0bf',
 
   # Keep the Chromium default of generating location tags.
   'generate_location_tags': True,
@@ -51,13 +51,13 @@ deps = {
     'condition': 'checkout_android',
   },
   'src/ios': {
-    'url': 'https://chromium.googlesource.com/chromium/src/ios@9f3b16c0b0f23a4adb57ea12129862dfac917e4e',
+    'url': 'https://chromium.googlesource.com/chromium/src/ios@3ef475407b574a76f91fb3619ef0012cf2727b21',
     'condition': 'checkout_ios',
   },
   'src/testing':
     'https://chromium.googlesource.com/chromium/src/testing@dea4acc9e193927be7ae6fbe7cb8342a0f5693e5',
   'src/third_party':
-    'https://chromium.googlesource.com/chromium/src/third_party@064c7579b2fe63fba44670bff13d1c2fc51bbe6a',
+    'https://chromium.googlesource.com/chromium/src/third_party@d4fe64f57b8702560d4cee89bdc61702ad3a4116',
 
   'src/buildtools/linux64': {
     'packages': [
@@ -187,7 +187,7 @@ deps = {
       'condition': 'checkout_linux',
   },
   'src/third_party/freetype/src':
-    'https://chromium.googlesource.com/chromium/src/third_party/freetype2.git@15f687349528fb0d7cba1ee7a8becf0af29116ec',
+    'https://chromium.googlesource.com/chromium/src/third_party/freetype2.git@141d979af74e09bd01f6956b5cc8dfa73047c779',
   'src/third_party/harfbuzz-ng/src':
     'https://chromium.googlesource.com/external/github.com/harfbuzz/harfbuzz.git@56c467093598ec559a7148b61e112e9de52b7076',
   'src/third_party/google_benchmark/src': {
@@ -243,7 +243,7 @@ deps = {
       'condition': 'checkout_android',
   },
   'src/third_party/perfetto':
-    'https://android.googlesource.com/platform/external/perfetto.git@9e3155013cd72ac43b4e07e47823e6d00cef48e9',
+    'https://android.googlesource.com/platform/external/perfetto.git@5b62a0322d701997f2ccaefb0725c95595c84b9f',
   'src/third_party/libvpx/source/libvpx':
     'https://chromium.googlesource.com/webm/libvpx.git@9d6d0624d7943a09cc0be9df1a7402522989ac1a',
   'src/third_party/libyuv':
@@ -281,7 +281,7 @@ deps = {
       'packages': [
           {
               'package': 'chromium/third_party/r8',
-              'version': 'eY1JQSP1ngqJAq0m54TQZX2a2XY51h0EsqqZJZwmn-MC',
+              'version': 'PxudYa-trdKc3TlOeEnF0JqsErmHQN-v8sAhJTxahZcC',
           },
       ],
       'condition': 'checkout_android',
@@ -292,7 +292,7 @@ deps = {
     'condition': 'checkout_android',
   },
   'src/tools':
-    'https://chromium.googlesource.com/chromium/src/tools@14e3517c422cd452ef9a6213a6168897eea92391',
+    'https://chromium.googlesource.com/chromium/src/tools@9627b2d42dacb1a18f0dbf84cdf3b99382154b7f',
 
   'src/third_party/accessibility_test_framework': {
       'packages': [

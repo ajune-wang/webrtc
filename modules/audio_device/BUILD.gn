@@ -464,6 +464,7 @@ if (rtc_include_tests && !build_with_chromium) {
       ]
       deps += [
         "../../sdk/android:internal_jni",
+        "../../sdk/android:jni_generator_helper",
         "../../sdk/android:libjingle_peerconnection_java",
         "../../sdk/android:native_api_jni",
         "../../sdk/android:native_test_jni_onload",

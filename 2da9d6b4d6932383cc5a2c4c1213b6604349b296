@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "b2f4b95d_ba30ad94",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 5
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 19549
+      },
+      "writtenOn": "2022-10-11T13:42:10Z",
+      "side": 1,
+      "message": "the chrome dependency on this has been disabled for the time being, fingers crossed the is no hidden internal dependency",
+      "revId": "2da9d6b4d6932383cc5a2c4c1213b6604349b296",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

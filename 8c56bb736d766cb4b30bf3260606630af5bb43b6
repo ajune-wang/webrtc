@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "f2ea27fd_fdf7668f",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2022-10-11T09:44:59Z",
+      "side": 1,
+      "message": "the spec reason was that AddTrack was supposed to be able to glom onto an existing transceiver, which might have a previous set of SendEncodings, which might or might not be compatible with the SendEncodings that were requested.\n\nRather than having this be non-deterministic seen from the user, we decided to say \"if you want to be fancy with encodings, manage your own transceivers\".",
+      "revId": "8c56bb736d766cb4b30bf3260606630af5bb43b6",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

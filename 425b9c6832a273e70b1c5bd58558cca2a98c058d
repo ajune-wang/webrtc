@@ -1,0 +1,44 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "70dbd07b_eda21aa0",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5100
+      },
+      "writtenOn": "2022-10-11T12:38:14Z",
+      "side": 1,
+      "message": "LGTM with one question.",
+      "revId": "425b9c6832a273e70b1c5bd58558cca2a98c058d",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "a314f6fd_3e2c3da3",
+        "filename": "modules/audio_coding/neteq/tools/neteq_quality_test.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 44,
+      "author": {
+        "id": 5100
+      },
+      "writtenOn": "2022-10-11T12:38:14Z",
+      "side": 1,
+      "message": "Can we actually print the result of OutputPath() here in this help string? Or is the string built before the result can be resolved?",
+      "range": {
+        "startLine": 44,
+        "startChar": 23,
+        "endLine": 44,
+        "endChar": 51
+      },
+      "revId": "425b9c6832a273e70b1c5bd58558cca2a98c058d",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

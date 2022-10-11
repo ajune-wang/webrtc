@@ -870,6 +870,7 @@ if (is_win || is_android) {
     if (is_android) {
       deps += [
         "../modules/utility",
+        "../sdk/android:jni_generator_helper",
         "../sdk/android:libjingle_peerconnection_jni",
         "../sdk/android:native_api_jni",
       ]

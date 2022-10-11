@@ -69,6 +69,7 @@ if (is_android) {
       "//api/voip:voip_engine_factory",
       "//rtc_base",
       "//rtc_base/third_party/sigslot:sigslot",
+      "//sdk/android:jni_generator_helper",
       "//sdk/android:native_api_audio_device_module",
       "//sdk/android:native_api_base",
       "//sdk/android:native_api_jni",

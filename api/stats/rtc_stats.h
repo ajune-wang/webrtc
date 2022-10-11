@@ -14,13 +14,18 @@
 #include <stddef.h>
 #include <stdint.h>
 
+#include <cstdint>
 #include <map>
 #include <memory>
 #include <string>
+#include <type_traits>
 #include <utility>
 #include <vector>
 
+#include "rtc_base/arraysize.h"
 #include "rtc_base/checks.h"
+#include "rtc_base/string_encode.h"
+#include "rtc_base/strings/string_builder.h"
 #include "rtc_base/system/rtc_export.h"
 #include "rtc_base/system/rtc_export_template.h"
 
@@ -288,11 +293,349 @@ class RTCStatsMemberInterface {
   bool is_defined_;
 };
 
+namespace rtc_stats_internal {
+
+typedef std::map<std::string, uint64_t> MapStringUint64;
+typedef std::map<std::string, double> MapStringDouble;
+
+// Produces "[a,b,c]". Works for non-vector `RTCStatsMemberInterface::Type`
+// types.
+template <typename T>
+std::string VectorToString(const std::vector<T>& vector) {
+  rtc::StringBuilder sb;
+  sb << "[";
+  const char* separator = "";
+  for (const T& element : vector) {
+    sb << separator << rtc::ToString(element);
+    separator = ",";
+  }
+  sb << "]";
+  return sb.Release();
+}
+
+// This overload is required because std::vector<bool> range loops don't
+// return references but objects, causing -Wrange-loop-analysis diagnostics.
+std::string VectorToString(const std::vector<bool>& vector);
+
+// Produces "[\"a\",\"b\",\"c\"]". Works for vectors of both const char* and
+// std::string element types.
+template <typename T>
+std::string VectorOfStringsToString(const std::vector<T>& strings) {
+  rtc::StringBuilder sb;
+  sb << "[";
+  const char* separator = "";
+  for (const T& element : strings) {
+    sb << separator << "\"" << rtc::ToString(element) << "\"";
+    separator = ",";
+  }
+  sb << "]";
+  return sb.Release();
+}
+
+template <typename T>
+std::string MapToString(const std::map<std::string, T>& map) {
+  rtc::StringBuilder sb;
+  sb << "{";
+  const char* separator = "";
+  for (const auto& element : map) {
+    sb << separator << rtc::ToString(element.first) << ":"
+       << rtc::ToString(element.second);
+    separator = ",";
+  }
+  sb << "}";
+  return sb.Release();
+}
+
+template <typename T>
+std::string ToStringAsDouble(const T value) {
+  // JSON represents numbers as floating point numbers with about 15 decimal
+  // digits of precision.
+  char buf[32];
+  const int len = std::snprintf(&buf[0], arraysize(buf), "%.16g",
+                                static_cast<double>(value));
+  RTC_DCHECK_LE(len, arraysize(buf));
+  return std::string(&buf[0], len);
+}
+
+template <typename T>
+std::string VectorToStringAsDouble(const std::vector<T>& vector) {
+  rtc::StringBuilder sb;
+  sb << "[";
+  const char* separator = "";
+  for (const T& element : vector) {
+    sb << separator << ToStringAsDouble<T>(element);
+    separator = ",";
+  }
+  sb << "]";
+  return sb.Release();
+}
+
+template <typename T>
+std::string MapToStringAsDouble(const std::map<std::string, T>& map) {
+  rtc::StringBuilder sb;
+  sb << "{";
+  const char* separator = "";
+  for (const auto& element : map) {
+    sb << separator << "\"" << rtc::ToString(element.first)
+       << "\":" << ToStringAsDouble(element.second);
+    separator = ",";
+  }
+  sb << "}";
+  return sb.Release();
+}
+
+// TODO(eshr): Replace the ValueToString and ValueToJson values by templated
+// to string functions that can be called directly.
+template <typename T>
+struct stat_type_t {};
+
+template <>
+struct stat_type_t<bool> {
+  static constexpr RTCStatsMemberInterface::Type type =
+      RTCStatsMemberInterface::kBool;
+  static std::string ValueToString(bool value) { return rtc::ToString(value); }
+  static std::string ValueToJson(bool value) { return rtc::ToString(value); }
+};
+template <>
+struct stat_type_t<int32_t> {
+  static constexpr RTCStatsMemberInterface::Type type =
+      RTCStatsMemberInterface::kInt32;
+  static std::string ValueToString(int32_t value) {
+    return rtc::ToString(value);
+  }
+  static std::string ValueToJson(int32_t value) { return rtc::ToString(value); }
+};
+template <>
+struct stat_type_t<uint32_t> {
+  static constexpr RTCStatsMemberInterface::Type type =
+      RTCStatsMemberInterface::kUint32;
+  static std::string ValueToString(uint32_t value) {
+    return rtc::ToString(value);
+  }
+  static std::string ValueToJson(uint32_t value) {
+    return rtc::ToString(value);
+  }
+};
+template <>
+struct stat_type_t<int64_t> {
+  static constexpr RTCStatsMemberInterface::Type type =
+      RTCStatsMemberInterface::kInt64;
+  static std::string ValueToString(int64_t value) {
+    return rtc::ToString(value);
+  }
+  static std::string ValueToJson(int64_t value) {
+    return ToStringAsDouble(value);
+  }
+};
+
+template <>
+struct stat_type_t<uint64_t> {
+  static constexpr RTCStatsMemberInterface::Type type =
+      RTCStatsMemberInterface::kUint64;
+  static std::string ValueToString(int64_t value) {
+    return rtc::ToString(value);
+  }
+  static std::string ValueToJson(int64_t value) {
+    return ToStringAsDouble(value);
+  }
+};
+template <>
+struct stat_type_t<double> {
+  static constexpr RTCStatsMemberInterface::Type type =
+      RTCStatsMemberInterface::kDouble;
+  static std::string ValueToString(double value) {
+    return rtc::ToString(value);
+  }
+  static std::string ValueToJson(double value) {
+    return ToStringAsDouble(value);
+  }
+};
+template <>
+struct stat_type_t<std::string> {
+  static constexpr RTCStatsMemberInterface::Type type =
+      RTCStatsMemberInterface::kString;
+  static std::string ValueToString(std::string value) { return value; }
+  static std::string ValueToJson(std::string value) { return value; }
+};
+template <>
+struct stat_type_t<std::vector<bool>> {
+  static constexpr RTCStatsMemberInterface::Type type =
+      RTCStatsMemberInterface::kSequenceBool;
+  static std::string ValueToString(const std::vector<bool>& value) {
+    return VectorToString(value);
+  }
+  static std::string ValueToJson(const std::vector<bool>& value) {
+    return VectorToString(value);
+  }
+};
+template <>
+struct stat_type_t<std::vector<int32_t>> {
+  static constexpr RTCStatsMemberInterface::Type type =
+      RTCStatsMemberInterface::kSequenceInt32;
+  static std::string ValueToString(const std::vector<int32_t>& value) {
+    return VectorToString(value);
+  }
+  static std::string ValueToJson(const std::vector<int32_t>& value) {
+    return VectorToString(value);
+  }
+};
+template <>
+struct stat_type_t<std::vector<uint32_t>> {
+  static constexpr RTCStatsMemberInterface::Type type =
+      RTCStatsMemberInterface::kSequenceUint32;
+  static std::string ValueToString(const std::vector<uint32_t>& value) {
+    return VectorToString(value);
+  }
+  static std::string ValueToJson(const std::vector<uint32_t>& value) {
+    return VectorToString(value);
+  }
+};
+template <>
+struct stat_type_t<std::vector<int64_t>> {
+  static constexpr RTCStatsMemberInterface::Type type =
+      RTCStatsMemberInterface::kSequenceInt64;
+  static std::string ValueToString(const std::vector<int64_t>& value) {
+    return VectorToString(value);
+  }
+  static std::string ValueToJson(const std::vector<int64_t>& value) {
+    return VectorToStringAsDouble(value);
+  }
+};
+template <>
+struct stat_type_t<std::vector<uint64_t>> {
+  static constexpr RTCStatsMemberInterface::Type type =
+      RTCStatsMemberInterface::kSequenceUint64;
+  static std::string ValueToString(const std::vector<uint64_t>& value) {
+    return VectorToString(value);
+  }
+  static std::string ValueToJson(const std::vector<uint64_t>& value) {
+    return VectorToStringAsDouble(value);
+  }
+};
+template <>
+struct stat_type_t<std::vector<double>> {
+  static constexpr RTCStatsMemberInterface::Type type =
+      RTCStatsMemberInterface::kSequenceDouble;
+  static std::string ValueToString(const std::vector<double>& value) {
+    return VectorToString(value);
+  }
+  static std::string ValueToJson(const std::vector<double>& value) {
+    return VectorToStringAsDouble(value);
+  }
+};
+template <>
+struct stat_type_t<std::vector<std::string>> {
+  static constexpr RTCStatsMemberInterface::Type type =
+      RTCStatsMemberInterface::kSequenceString;
+  static std::string ValueToString(const std::vector<std::string>& value) {
+    return VectorOfStringsToString(value);
+  }
+  static std::string ValueToJson(const std::vector<std::string>& value) {
+    return VectorOfStringsToString(value);
+  }
+};
+template <>
+struct stat_type_t<MapStringUint64> {
+  static constexpr RTCStatsMemberInterface::Type type =
+      RTCStatsMemberInterface::kMapStringUint64;
+  static std::string ValueToString(const MapStringUint64& value) {
+    return MapToString(value);
+  }
+  static std::string ValueToJson(const MapStringUint64& value) {
+    return MapToStringAsDouble(value);
+  }
+};
+template <>
+struct stat_type_t<MapStringDouble> {
+  static constexpr RTCStatsMemberInterface::Type type =
+      RTCStatsMemberInterface::kMapStringDouble;
+  static std::string ValueToString(const MapStringDouble& value) {
+    return MapToString(value);
+  }
+  static std::string ValueToJson(const MapStringDouble& value) {
+    return MapToStringAsDouble(value);
+  }
+};
+
+template <typename T>
+struct is_string_t : std::false_type {};
+template <>
+struct is_string_t<std::string> : std::true_type {};
+
+template <typename T>
+struct is_sequence_t : std::false_type {};
+template <typename T>
+struct is_sequence_t<std::vector<T>> : std::true_type {};
+
+// template <typename T>
+// inline std::string ValueToString(T t) {
+//   return rtc::ToString(t);
+// }
+// template <typename T>
+// inline std::string ValueToString(const std::vector<T>& v) {
+//   return VectorToString(v);
+// }
+// template <>
+// inline std::string ValueToString(const std::vector<std::string>& v) {
+//   return VectorOfStringsToString(v);
+// }
+// template <typename T>
+// inline std::string ValueToString(const std::map<std::string, T>& m) {
+//   return MapToString(m);
+// }
+// template <>
+// inline std::string ValueToString(std::string s) {
+//   return s;
+// }
+
+// template <typename T>
+// struct needs_to_string_as_double : std::false_type {};
+// template <>
+// struct needs_to_string_as_double<double> : std::true_type {};
+// template <>
+// struct needs_to_string_as_double<int64_t> : std::true_type {};
+// template <>
+// struct needs_to_string_as_double<uint64_t> : std::true_type {};
+
+// template <typename T, typename = void>
+// inline std::string PrimitiveValueToJson(T t) {
+//   return rtc::ToString(t);
+// }
+// template <typename T,
+//           std::enable_if_t<needs_to_string_as_double<T>::value> = true>
+// inline std::string PrimitiveValueToJson(T t) {
+//   return ToStringAsDouble(t);
+// }
+
+// template <typename T>
+// inline std::string ValueToJson(T t) {
+//   return PrimitiveValueToJson(t);
+// }
+// template <typename T, typename = void>
+// inline std::string ValueToJson(const std::vector<T>& v) {
+//   return ValueToString(v);
+// }
+// template <typename T, std::enable_if_t<needs_to_string_as_double<T>::value>>
+// inline std::string ValueToJson(const std::vector<T>& v) {
+//   return VectorToStringAsDouble(v);
+// }
+// template <typename T>
+// inline std::string ValueToJson(const std::map<std::string, T>& m) {
+//   return MapToStringAsDouble(m);
+// }
+// template <>
+// inline std::string ValueToJson(std::string s) {
+//   return s;
+// }
+
+}  // namespace rtc_stats_internal
+
 // Template implementation of `RTCStatsMemberInterface`.
 // The supported types are the ones described by
 // `RTCStatsMemberInterface::Type`.
 template <typename T>
-class RTCStatsMember : public RTCStatsMemberInterface {
+class RTC_EXPORT_TEMPLATE_DECLARE(RTC_EXPORT) RTCStatsMember
+    : public RTCStatsMemberInterface {
  public:
   explicit RTCStatsMember(const char* name)
       : RTCStatsMemberInterface(name, /*is_defined=*/false), value_() {}
@@ -301,20 +644,30 @@ class RTCStatsMember : public RTCStatsMemberInterface {
   RTCStatsMember(const char* name, T&& value)
       : RTCStatsMemberInterface(name, /*is_defined=*/true),
         value_(std::move(value)) {}
-  explicit RTCStatsMember(const RTCStatsMember<T>& other)
+  RTCStatsMember(const RTCStatsMember<T>& other)
       : RTCStatsMemberInterface(other.name_, other.is_defined_),
         value_(other.value_) {}
-  explicit RTCStatsMember(RTCStatsMember<T>&& other)
+  RTCStatsMember(RTCStatsMember<T>&& other)
       : RTCStatsMemberInterface(other.name_, other.is_defined_),
         value_(std::move(other.value_)) {}
 
-  static Type StaticType();
-  Type type() const override { return StaticType(); }
-  bool is_sequence() const override;
-  bool is_string() const override;
+  static Type StaticType() { return stat_type::type; }
+  RTC_EXPORT Type type() const override { return StaticType(); }
+  RTC_EXPORT bool is_sequence() const override {
+    return rtc_stats_internal::is_sequence_t<T>::value;
+  }
+  RTC_EXPORT bool is_string() const override {
+    return rtc_stats_internal::is_string_t<T>::value;
+  }
   bool is_standardized() const override { return true; }
-  std::string ValueToString() const override;
-  std::string ValueToJson() const override;
+  RTC_EXPORT std::string ValueToString() const override {
+    return stat_type::ValueToString(value_);
+    // return rtc_stats_internal::ValueToString(value_);
+  }
+  RTC_EXPORT std::string ValueToJson() const override {
+    return stat_type::ValueToJson(value_);
+    // return rtc_stats_internal::ValueToJson(value_);
+  }
 
   template <typename U>
   inline T ValueOrDefault(U default_value) const {
@@ -370,46 +723,9 @@ class RTCStatsMember : public RTCStatsMemberInterface {
   }
 
  private:
+  using stat_type = rtc_stats_internal::stat_type_t<T>;
   T value_;
 };
-
-namespace rtc_stats_internal {
-
-typedef std::map<std::string, uint64_t> MapStringUint64;
-typedef std::map<std::string, double> MapStringDouble;
-
-}  // namespace rtc_stats_internal
-
-#define WEBRTC_DECLARE_RTCSTATSMEMBER(T)                                    \
-  template <>                                                               \
-  RTC_EXPORT RTCStatsMemberInterface::Type RTCStatsMember<T>::StaticType(); \
-  template <>                                                               \
-  RTC_EXPORT bool RTCStatsMember<T>::is_sequence() const;                   \
-  template <>                                                               \
-  RTC_EXPORT bool RTCStatsMember<T>::is_string() const;                     \
-  template <>                                                               \
-  RTC_EXPORT std::string RTCStatsMember<T>::ValueToString() const;          \
-  template <>                                                               \
-  RTC_EXPORT std::string RTCStatsMember<T>::ValueToJson() const;            \
-  extern template class RTC_EXPORT_TEMPLATE_DECLARE(RTC_EXPORT)             \
-      RTCStatsMember<T>
-
-WEBRTC_DECLARE_RTCSTATSMEMBER(bool);
-WEBRTC_DECLARE_RTCSTATSMEMBER(int32_t);
-WEBRTC_DECLARE_RTCSTATSMEMBER(uint32_t);
-WEBRTC_DECLARE_RTCSTATSMEMBER(int64_t);
-WEBRTC_DECLARE_RTCSTATSMEMBER(uint64_t);
-WEBRTC_DECLARE_RTCSTATSMEMBER(double);
-WEBRTC_DECLARE_RTCSTATSMEMBER(std::string);
-WEBRTC_DECLARE_RTCSTATSMEMBER(std::vector<bool>);
-WEBRTC_DECLARE_RTCSTATSMEMBER(std::vector<int32_t>);
-WEBRTC_DECLARE_RTCSTATSMEMBER(std::vector<uint32_t>);
-WEBRTC_DECLARE_RTCSTATSMEMBER(std::vector<int64_t>);
-WEBRTC_DECLARE_RTCSTATSMEMBER(std::vector<uint64_t>);
-WEBRTC_DECLARE_RTCSTATSMEMBER(std::vector<double>);
-WEBRTC_DECLARE_RTCSTATSMEMBER(std::vector<std::string>);
-WEBRTC_DECLARE_RTCSTATSMEMBER(rtc_stats_internal::MapStringUint64);
-WEBRTC_DECLARE_RTCSTATSMEMBER(rtc_stats_internal::MapStringDouble);
 
 // Using inheritance just so that it's obvious from the member's declaration
 // whether it's standardized or not.
@@ -425,9 +741,9 @@ class RTCNonStandardStatsMember : public RTCStatsMember<T> {
       : RTCStatsMember<T>(name, value) {}
   RTCNonStandardStatsMember(const char* name, T&& value)
       : RTCStatsMember<T>(name, std::move(value)) {}
-  explicit RTCNonStandardStatsMember(const RTCNonStandardStatsMember<T>& other)
+  RTCNonStandardStatsMember(const RTCNonStandardStatsMember<T>& other)
       : RTCStatsMember<T>(other), group_ids_(other.group_ids_) {}
-  explicit RTCNonStandardStatsMember(RTCNonStandardStatsMember<T>&& other)
+  RTCNonStandardStatsMember(RTCNonStandardStatsMember<T>&& other)
       : RTCStatsMember<T>(std::move(other)),
         group_ids_(std::move(other.group_ids_)) {}
 

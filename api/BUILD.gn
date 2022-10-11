@@ -702,7 +702,10 @@ rtc_source_set("rtc_stats_api") {
     ":scoped_refptr",
     "../api:refcountedbase",
     "../rtc_base:checks",
+    "../rtc_base:logging",
+    "../rtc_base:macromagic",
     "../rtc_base:refcount",
+    "../rtc_base:stringutils",
     "../rtc_base/system:rtc_export",
   ]
 }

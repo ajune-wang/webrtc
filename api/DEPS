@@ -226,6 +226,13 @@ specific_include_rules = {
     "+rtc_base/ref_count.h",
   ],
 
+  "rtc_stats\.h": [
+    "+rtc_base/arraysize.h",
+    "+rtc_base/string_encode.h",
+    "+rtc_base/strings/string_builder.h",
+  ],
+
+
   "audioproc_float\.h": [
     "+modules/audio_processing/include/audio_processing.h",
   ],

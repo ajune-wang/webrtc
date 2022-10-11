@@ -31,9 +31,9 @@ bool FrameHasBadRenderTiming(Timestamp render_time,
   if (frame_delay > kMaxVideoDelay) {
     RTC_LOG(LS_WARNING)
         << "A frame about to be decoded is out of the configured "
-           "delay bounds ("
-        << frame_delay.ms() << " > " << kMaxVideoDelay.ms()
-        << "). Resetting the video jitter buffer.";
+           "delay bounds (frame_delay_ms="
+        << frame_delay.ms() << " > kMaxVideoDelay_ms=" << kMaxVideoDelay.ms()
+        << "). Requesting reset of jitter estimator and timing module.";
     return true;
   }
   if (target_video_delay > kMaxVideoDelay) {

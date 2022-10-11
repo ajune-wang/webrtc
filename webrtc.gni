@@ -532,6 +532,12 @@ template("rtc_test") {
       }
       data += [ "${root_out_dir}/${target_name}.app" ]
     }
+    if (is_fuchsia) {
+      if (!defined(deps)) {
+        deps = []
+      }
+      deps += [ "//third_party/fuchsia-sdk/sdk/pkg/sync" ]
+    }
   }
 }
 
@@ -635,6 +641,12 @@ template("rtc_source_set") {
       } else {
         deps += absl_deps
       }
+    }
+    if (is_fuchsia) {
+      if (!defined(deps)) {
+        deps = []
+      }
+      deps += [ "//third_party/fuchsia-sdk/sdk/pkg/sync" ]
     }
   }
 }
@@ -864,6 +876,12 @@ template("rtc_library") {
         deps += absl_deps
       }
     }
+    if (is_fuchsia) {
+      if (!defined(deps)) {
+        deps = []
+      }
+      deps += [ "//third_party/fuchsia-sdk/sdk/pkg/sync" ]
+    }
   }
 }
 
@@ -903,6 +921,12 @@ template("rtc_executable") {
         # Give executables the default manifest on Windows (a no-op elsewhere).
         "//build/win:default_exe_manifest",
       ]
+    }
+    if (is_fuchsia) {
+      if (!defined(deps)) {
+        deps = []
+      }
+      deps += [ "//third_party/fuchsia-sdk/sdk/pkg/sync" ]
     }
   }
 }
@@ -973,6 +997,12 @@ template("rtc_shared_library") {
     }
     if (defined(invoker.public_configs)) {
       public_configs += invoker.public_configs
+    }
+    if (is_fuchsia) {
+      if (!defined(deps)) {
+        deps = []
+      }
+      deps += [ "//third_party/fuchsia-sdk/sdk/pkg/sync" ]
     }
   }
 }

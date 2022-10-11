@@ -16,6 +16,23 @@
       "message": "This patch is a bit dirty, but I would like to use it for discussion.\n\nSeems that the rtx packets are correctly demuxed to the appropiate transceiver, but then it is rejected because the receive stream was already created without the rtx ssrc.\n\nAs there is no way to update the rtx ssrc on the receive stream, I am recreating the stream with both the media and rtx ssrcs and it seems to work.",
       "revId": "96f343941ed22c4636af54476b2c365112c54ec1",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "a2c686cd_0d4c77f4",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2022-10-11T05:37:12Z",
+      "side": 1,
+      "message": "Is there a way to test this in a webrtc-level test?",
+      "revId": "96f343941ed22c4636af54476b2c365112c54ec1",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

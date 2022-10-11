@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "20d7dc28_5db26229",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 6337
+      },
+      "writtenOn": "2022-10-11T08:25:58Z",
+      "side": 1,
+      "message": "For now it will break metric in Chrome Perf Dashboard. We need to find a migration way if we want to land this CL. Also in such case I suggest renaming to just `cpu_usage` and changing unit to `Percent`: https://source.chromium.org/chromium/chromium/src/+/main:third_party/catapult/tracing/tracing/proto/histogram.proto;l\u003d19;drc\u003d9d178021d3b79885cf320df73dccfcafa4845411",
+      "revId": "0daec99963f49d929685be1d154ad4e7c2c9c71b",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

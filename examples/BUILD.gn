@@ -863,6 +863,7 @@ if (is_win || is_android) {
       "../pc:libjingle_peerconnection",
       "../pc:video_track_source",
       "../rtc_base",
+      "../sdk/android:class_loader",
       "../test:platform_video_capturer",
       "../test:video_test_common",
       "//third_party/abseil-cpp/absl/memory",
@@ -870,6 +871,7 @@ if (is_win || is_android) {
     if (is_android) {
       deps += [
         "../modules/utility",
+        "../sdk/android:jni_generator_helper",
         "../sdk/android:libjingle_peerconnection_jni",
         "../sdk/android:native_api_jni",
       ]

@@ -33,6 +33,42 @@
       "message": "Description says extract into separate target, but no new target added",
       "revId": "e4c766e59c5371c7611dcf80bf2e7f9b7923b871",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "080df29b_447abc1b",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 4
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5087
+      },
+      "writtenOn": "2022-10-11T08:55:35Z",
+      "side": 1,
+      "message": "Done, thanks.",
+      "parentUuid": "b10e31d3_d5f9af26",
+      "revId": "e4c766e59c5371c7611dcf80bf2e7f9b7923b871",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "63b94443_1fd431de",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 4
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5087
+      },
+      "writtenOn": "2022-10-11T08:55:35Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "407de9e4_7fbe2b0f",
+      "revId": "e4c766e59c5371c7611dcf80bf2e7f9b7923b871",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

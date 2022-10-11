@@ -1,0 +1,38 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "b10e31d3_d5f9af26",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 4
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 6337
+      },
+      "writtenOn": "2022-10-11T08:54:21Z",
+      "side": 1,
+      "message": "Description says extract into separate target, but no new target added",
+      "revId": "e4c766e59c5371c7611dcf80bf2e7f9b7923b871",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "407de9e4_7fbe2b0f",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 4
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 6337
+      },
+      "writtenOn": "2022-10-11T08:54:21Z",
+      "side": 1,
+      "message": "Description says extract into separate target, but no new target added",
+      "revId": "e4c766e59c5371c7611dcf80bf2e7f9b7923b871",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

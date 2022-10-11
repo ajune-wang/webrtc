@@ -16,6 +16,29 @@
       "message": "ptal",
       "revId": "feb74e151c91619691fe7ee696b37adf8da8df7f",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "00fabd82_4be7ed3e",
+        "filename": "modules/video_coding/frame_helpers.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 36,
+      "author": {
+        "id": 5527
+      },
+      "writtenOn": "2022-10-11T09:01:02Z",
+      "side": 1,
+      "message": "Two options:\n1) Omit the part about requesting reset of jitter estimator and timing module.\n2) Move this message to where FrameHasBadRenderTiming is called. This function only answers whether the render timing is \"bad\", not how we react to it.\n\nPersonally I prefer 2), but 1) is also ok.",
+      "range": {
+        "startLine": 32,
+        "startChar": 4,
+        "endLine": 36,
+        "endChar": 72
+      },
+      "revId": "feb74e151c91619691fe7ee696b37adf8da8df7f",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

@@ -153,7 +153,6 @@ class AgcManagerDirect final {
   const absl::optional<int> min_mic_level_override_;
   std::unique_ptr<ApmDataDumper> data_dumper_;
   static std::atomic<int> instance_counter_;
-  const bool use_min_channel_level_;
   const int num_capture_channels_;
   const bool disable_digital_adaptive_;
 
@@ -190,7 +189,6 @@ class AgcManagerDirect final {
 class MonoAgc {
  public:
   MonoAgc(ApmDataDumper* data_dumper,
-          int startup_min_level,
           int clipped_level_min,
           bool disable_digital_adaptive,
           int min_mic_level);
@@ -229,7 +227,6 @@ class MonoAgc {
   // Only used for testing.
   void set_agc(Agc* agc) { agc_.reset(agc); }
   int min_mic_level() const { return min_mic_level_; }
-  int startup_min_level() const { return startup_min_level_; }
 
  private:
   // Sets a new input volume, after first checking that it hasn't been updated
@@ -257,7 +254,6 @@ class MonoAgc {
   bool capture_output_used_ = true;
   bool check_volume_on_next_process_ = true;
   bool startup_ = true;
-  int startup_min_level_;
   int calls_since_last_gain_log_ = 0;
 
   // TODO(bugs.webrtc.org/7494): Create a separate member for the applied

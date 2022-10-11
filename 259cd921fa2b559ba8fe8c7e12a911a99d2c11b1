@@ -69,6 +69,24 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "22dcb819_06e66d31",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5087
+      },
+      "writtenOn": "2022-10-11T15:34:14Z",
+      "side": 1,
+      "message": "Sorry for the delay. I missed the email, feel free to ping me if this happen again.",
+      "parentUuid": "ef676820_bc58ac1d",
+      "revId": "259cd921fa2b559ba8fe8c7e12a911a99d2c11b1",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "fee29427_17afbd48",
@@ -82,6 +100,24 @@
       "writtenOn": "2022-09-05T08:57:53Z",
       "side": 1,
       "message": "Mirko: while I mainly need you for the BUILD.gn file you probably know whether it is already safe to tag this as [[deprecated]] which led to local compile failures (and I don\u0027t have any special gn args wrt deprecations)",
+      "revId": "259cd921fa2b559ba8fe8c7e12a911a99d2c11b1",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "b9454b20_ebd7f94b",
+        "filename": "api/stats/rtc_stats_report.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 63,
+      "author": {
+        "id": 5087
+      },
+      "writtenOn": "2022-10-11T15:34:14Z",
+      "side": 1,
+      "message": "Yes, sounds good to add [[deprecated]].",
+      "parentUuid": "fee29427_17afbd48",
       "revId": "259cd921fa2b559ba8fe8c7e12a911a99d2c11b1",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },

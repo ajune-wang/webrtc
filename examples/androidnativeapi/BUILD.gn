@@ -59,6 +59,7 @@ if (is_android) {
       "//modules/utility",
       "//pc:libjingle_peerconnection",
       "//rtc_base",
+      "//sdk/android:jni_generator_helper",
       "//sdk/android:native_api_base",
       "//sdk/android:native_api_jni",
       "//sdk/android:native_api_video",

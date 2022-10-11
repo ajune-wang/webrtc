@@ -63,6 +63,8 @@ if (is_android) {
   # The native API is currently experimental and may change without notice.
   group("native_api") {
     deps = [
+      ":java_types",
+      ":jni_generator_helper",
       ":native_api_audio_device_module",
       ":native_api_base",
       ":native_api_codecs",
@@ -135,6 +137,8 @@ if (is_android) {
     ]
 
     deps = [
+      ":java_types",
+      ":jni_generator_helper",
       ":libjingle_peerconnection_jni",
       ":libjingle_peerconnection_metrics_default_jni",
       ":native_api_jni",
@@ -564,6 +568,8 @@ if (current_os == "linux" || is_android) {
     deps = [
       ":generated_base_jni",
       ":internal_jni",
+      ":java_types",
+      ":jni_generator_helper",
       ":native_api_jni",
       "../../api:field_trials_view",
       "../../api:libjingle_peerconnection_api",
@@ -610,6 +616,8 @@ if (current_os == "linux" || is_android) {
     deps = [
       ":base_jni",
       ":generated_builtin_audio_codecs_jni",
+      ":java_types",
+      ":jni_generator_helper",
       ":native_api_jni",
       "../../api/audio_codecs:builtin_audio_decoder_factory",
       "../../api/audio_codecs:builtin_audio_encoder_factory",
@@ -655,6 +663,8 @@ if (current_os == "linux" || is_android) {
     deps = [
       ":base_jni",
       ":generated_video_jni",
+      ":java_types",
+      ":jni_generator_helper",
       ":native_api_jni",
       ":videoframe_jni",
       "../../api:libjingle_peerconnection_api",
@@ -697,6 +707,8 @@ if (current_os == "linux" || is_android) {
     sources = [ "src/jni/egl_base_10_impl.cc" ]
     deps = [
       ":generated_video_egl_jni",
+      ":java_types",
+      ":jni_generator_helper",
       ":native_api_jni",
     ]
   }
@@ -761,6 +773,8 @@ if (current_os == "linux" || is_android) {
       ":base_jni",
       ":generated_external_classes_jni",
       ":generated_peerconnection_jni",
+      ":java_types",
+      ":jni_generator_helper",
       ":logging_jni",
       ":native_api_jni",
       ":native_api_stacktrace",
@@ -818,6 +832,8 @@ if (current_os == "linux" || is_android) {
     deps = [
       ":base_jni",
       ":generated_metrics_jni",
+      ":java_types",
+      ":jni_generator_helper",
       ":native_api_jni",
       ":peerconnection_jni",
       "../../pc:peerconnection",
@@ -898,21 +914,46 @@ if (current_os == "linux" || is_android) {
 
   # Core targets.
 
+  rtc_library("jni_generator_helper") {
+    visibility = [ "*" ]
+    sources = [
+      "src/jni/jni_generator_helper.cc",
+      "src/jni/jni_generator_helper.h",
+    ]
+    deps = [
+      ":java_types",
+      ":native_api_jni",
+      "../../rtc_base:checks",
+    ]
+  }
+
+  rtc_library("java_types") {
+    visibility = [ "*" ]
+    sources = [ "native_api/jni/java_types.cc" ]
+
+    public = [ "native_api/jni/java_types.h" ]
+    deps = [
+      ":generated_external_classes_jni",
+      ":generated_native_api_jni",
+      ":native_api_jni",
+      "../../api:array_view",
+      "../../api:sequence_checker",
+      "../../rtc_base:checks",
+    ]
+    absl_deps = [ "//third_party/abseil-cpp/absl/types:optional" ]
+  }
+
   # JNI helpers that are also needed from internal JNI code. Cannot depend on any
   # other JNI targets than internal_jni.
   rtc_library("native_api_jni") {
     visibility = [ "*" ]
     sources = [
       "native_api/jni/class_loader.cc",
-      "native_api/jni/java_types.cc",
       "native_api/jni/jvm.cc",
-      "src/jni/jni_generator_helper.cc",
-      "src/jni/jni_generator_helper.h",
     ]
 
     public = [
       "native_api/jni/class_loader.h",
-      "native_api/jni/java_types.h",
       "native_api/jni/jni_int_wrapper.h",
       "native_api/jni/jvm.h",
       "native_api/jni/scoped_java_ref.h",
@@ -938,6 +979,8 @@ if (current_os == "linux" || is_android) {
 
     deps = [
       ":base_jni",
+      ":java_types",
+      ":jni_generator_helper",
       ":native_api_jni",
       "//rtc_base",
       "//rtc_base:checks",
@@ -983,6 +1026,8 @@ if (current_os == "linux" || is_android) {
 
     deps = [
       ":base_jni",
+      ":java_types",
+      ":jni_generator_helper",
       ":native_api_jni",
       ":video_jni",
       "//api/video_codecs:video_codecs_api",
@@ -1050,6 +1095,8 @@ if (current_os == "linux" || is_android) {
       "native_api/video/wrapper.h",
     ]
     deps = [
+      ":java_types",
+      ":jni_generator_helper",
       ":native_api_jni",
       ":video_jni",
       ":videoframe_jni",
@@ -1099,6 +1146,8 @@ if (current_os == "linux" || is_android) {
     deps = [
       ":base_jni",
       ":generated_video_jni",
+      ":java_types",
+      ":jni_generator_helper",
       ":native_api_jni",
       "../../api:scoped_refptr",
       "../../api/video:video_frame",
@@ -1121,6 +1170,8 @@ if (current_os == "linux" || is_android) {
     deps = [
       ":base_jni",
       ":generated_logging_jni",
+      ":java_types",
+      ":jni_generator_helper",
       ":native_api_jni",
       "../../rtc_base",
       "../../rtc_base:logging",
@@ -1141,6 +1192,8 @@ if (current_os == "linux" || is_android) {
     deps = [
       ":base_jni",
       ":generated_audio_device_module_base_jni",
+      ":java_types",
+      ":jni_generator_helper",
       ":native_api_jni",
       "../../api:make_ref_counted",
       "../../api:sequence_checker",
@@ -1529,6 +1582,8 @@ if (is_android) {
 
     deps = [
       ":instrumentationtests_jni",
+      ":java_types",
+      ":jni_generator_helper",
       ":libjingle_peerconnection_jni",
       ":libjingle_peerconnection_metrics_default_jni",
       ":native_api_jni",
@@ -1547,6 +1602,8 @@ if (is_android) {
 
     deps = [
       ":base_jni",
+      ":java_types",
+      ":jni_generator_helper",
       ":native_api_jni",
       ":videoframe_jni",
       "../../api/video:video_frame",
@@ -1562,6 +1619,8 @@ if (is_android) {
     deps = [
       ":base_jni",
       ":internal_jni",
+      ":java_types",
+      ":jni_generator_helper",
       ":native_api_base",
       ":native_api_jni",
       "../../rtc_base:checks",
@@ -1593,6 +1652,8 @@ if (is_android) {
       ":audio_jni",
       ":base_jni",
       ":generated_native_unittests_jni",
+      ":java_types",
+      ":jni_generator_helper",
       ":native_api_audio_device_module",
       ":native_api_base",
       ":native_api_codecs",

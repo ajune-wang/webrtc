@@ -95,7 +95,8 @@ class RtpTransmissionManager : public RtpSenderBase::SetStreamsObserver {
   // Add a new track, creating transceiver if required.
   RTCErrorOr<rtc::scoped_refptr<RtpSenderInterface>> AddTrack(
       rtc::scoped_refptr<MediaStreamTrackInterface> track,
-      const std::vector<std::string>& stream_ids);
+      const std::vector<std::string>& stream_ids,
+      const std::vector<RtpEncodingParameters>& init_send_encodings);
 
   // Create a new RTP sender. Does not associate with a transceiver.
   rtc::scoped_refptr<RtpSenderProxyWithInternal<RtpSenderInternal>>
@@ -220,11 +221,13 @@ class RtpTransmissionManager : public RtpSenderBase::SetStreamsObserver {
   // AddTrack implementation when Unified Plan is specified.
   RTCErrorOr<rtc::scoped_refptr<RtpSenderInterface>> AddTrackUnifiedPlan(
       rtc::scoped_refptr<MediaStreamTrackInterface> track,
-      const std::vector<std::string>& stream_ids);
+      const std::vector<std::string>& stream_ids,
+      const std::vector<RtpEncodingParameters>& init_send_encodings);
   // AddTrack implementation when Plan B is specified.
   RTCErrorOr<rtc::scoped_refptr<RtpSenderInterface>> AddTrackPlanB(
       rtc::scoped_refptr<MediaStreamTrackInterface> track,
-      const std::vector<std::string>& stream_ids);
+      const std::vector<std::string>& stream_ids,
+      const std::vector<RtpEncodingParameters>& init_send_encodings);
 
   // Create an RtpReceiver that sources an audio track.
   void CreateAudioReceiver(MediaStreamInterface* stream,

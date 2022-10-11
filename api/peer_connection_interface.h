@@ -802,7 +802,8 @@ class RTC_EXPORT PeerConnectionInterface : public rtc::RefCountInterface {
   // - INVALID_STATE: The PeerConnection is closed.
   virtual RTCErrorOr<rtc::scoped_refptr<RtpSenderInterface>> AddTrack(
       rtc::scoped_refptr<MediaStreamTrackInterface> track,
-      const std::vector<std::string>& stream_ids) = 0;
+      const std::vector<std::string>& stream_ids,
+      const std::vector<RtpEncodingParameters>& init_send_encodings = {}) = 0;
 
   // Removes the connection between a MediaStreamTrack and the PeerConnection.
   // Stops sending on the RtpSender and marks the

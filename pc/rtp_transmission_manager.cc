@@ -99,17 +99,20 @@ cricket::VideoMediaChannel* RtpTransmissionManager::video_media_channel()
 RTCErrorOr<rtc::scoped_refptr<RtpSenderInterface>>
 RtpTransmissionManager::AddTrack(
     rtc::scoped_refptr<MediaStreamTrackInterface> track,
-    const std::vector<std::string>& stream_ids) {
+    const std::vector<std::string>& stream_ids,
+    const std::vector<RtpEncodingParameters>& init_send_encodings) {
   RTC_DCHECK_RUN_ON(signaling_thread());
 
-  return (IsUnifiedPlan() ? AddTrackUnifiedPlan(track, stream_ids)
-                          : AddTrackPlanB(track, stream_ids));
+  return (IsUnifiedPlan()
+              ? AddTrackUnifiedPlan(track, stream_ids, init_send_encodings)
+              : AddTrackPlanB(track, stream_ids, init_send_encodings));
 }
 
 RTCErrorOr<rtc::scoped_refptr<RtpSenderInterface>>
 RtpTransmissionManager::AddTrackPlanB(
     rtc::scoped_refptr<MediaStreamTrackInterface> track,
-    const std::vector<std::string>& stream_ids) {
+    const std::vector<std::string>& stream_ids,
+    const std::vector<RtpEncodingParameters>& init_send_encodings) {
   RTC_DCHECK_RUN_ON(signaling_thread());
   if (stream_ids.size() > 1u) {
     LOG_AND_RETURN_ERROR(RTCErrorType::UNSUPPORTED_OPERATION,
@@ -124,8 +127,8 @@ RtpTransmissionManager::AddTrackPlanB(
       (track->kind() == MediaStreamTrackInterface::kAudioKind
            ? cricket::MEDIA_TYPE_AUDIO
            : cricket::MEDIA_TYPE_VIDEO);
-  auto new_sender =
-      CreateSender(media_type, track->id(), track, adjusted_stream_ids, {});
+  auto new_sender = CreateSender(media_type, track->id(), track,
+                                 adjusted_stream_ids, init_send_encodings);
   if (track->kind() == MediaStreamTrackInterface::kAudioKind) {
     new_sender->internal()->SetMediaChannel(voice_media_channel());
     GetAudioTransceiver()->internal()->AddSender(new_sender);
@@ -152,7 +155,8 @@ RtpTransmissionManager::AddTrackPlanB(
 RTCErrorOr<rtc::scoped_refptr<RtpSenderInterface>>
 RtpTransmissionManager::AddTrackUnifiedPlan(
     rtc::scoped_refptr<MediaStreamTrackInterface> track,
-    const std::vector<std::string>& stream_ids) {
+    const std::vector<std::string>& stream_ids,
+    const std::vector<RtpEncodingParameters>& init_send_encodings) {
   auto transceiver = FindFirstTransceiverForAddedTrack(track);
   if (transceiver) {
     RTC_LOG(LS_INFO) << "Reusing an existing "
@@ -187,7 +191,8 @@ RtpTransmissionManager::AddTrackUnifiedPlan(
     if (FindSenderById(sender_id)) {
       sender_id = rtc::CreateRandomUuid();
     }
-    auto sender = CreateSender(media_type, sender_id, track, stream_ids, {});
+    auto sender = CreateSender(media_type, sender_id, track, stream_ids,
+                               init_send_encodings);
     auto receiver = CreateReceiver(media_type, rtc::CreateRandomUuid());
     transceiver = CreateAndAddTransceiver(sender, receiver);
     transceiver->internal()->set_created_by_addtrack(true);

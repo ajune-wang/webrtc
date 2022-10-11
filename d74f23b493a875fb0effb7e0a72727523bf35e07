@@ -37,6 +37,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "9b06815e_622752d3",
+        "filename": "media/engine/webrtc_video_engine.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 528,
+      "author": {
+        "id": 5963
+      },
+      "writtenOn": "2022-10-11T13:23:07Z",
+      "side": 1,
+      "message": "Orders of ssrcs specify which is the media ssrc and which is the rtx one, so I would have to reverse the order in a couple of other places which I think is going to be messy.\n\nIdeally, we would like to be able to modify a receive stream and just add the rtx stream without having to recreate it, but until them I think this is the cleanest patch.",
+      "parentUuid": "b0591633_0dd70140",
+      "revId": "d74f23b493a875fb0effb7e0a72727523bf35e07",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "de290e82_ca8bc81e",
         "filename": "media/engine/webrtc_video_engine.cc",
         "patchSetId": 3
@@ -48,6 +66,24 @@
       "writtenOn": "2022-10-11T12:49:19Z",
       "side": 1,
       "message": "This name seems odd. Is RTX really controlled by a FID SSRC-group?",
+      "revId": "d74f23b493a875fb0effb7e0a72727523bf35e07",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "543a1f85_2b417eac",
+        "filename": "media/engine/webrtc_video_engine.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 541,
+      "author": {
+        "id": 5963
+      },
+      "writtenOn": "2022-10-11T13:23:07Z",
+      "side": 1,
+      "message": "Yes, RTX ssrc is associated to the media ssrc via a FID group on the SDP, for example:\n\na\u003dssrc-group:FID 574858880 861850929\na\u003dssrc:574858880 cname:gCh76NDn5hKp5pLj\na\u003dssrc:574858880 msid:a4696acf-6ffd-44b9-86cc-b03ef6edaaf4 416ee40e-9190-4a70-b755-f02fa1b6b5e0\na\u003dssrc:861850929 cname:gCh76NDn5hKp5pLj\na\u003dssrc:861850929 msid:a4696acf-6ffd-44b9-86cc-b03ef6edaaf4 416ee40e-9190-4a70-b755-f02fa1b6b5e0",
+      "parentUuid": "de290e82_ca8bc81e",
       "revId": "d74f23b493a875fb0effb7e0a72727523bf35e07",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }

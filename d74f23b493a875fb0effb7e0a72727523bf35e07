@@ -1,0 +1,55 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "2674ec9d_50f4fe00",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 3
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2022-10-11T12:49:19Z",
+      "side": 1,
+      "message": "Looks good. Fiddling with details...",
+      "revId": "d74f23b493a875fb0effb7e0a72727523bf35e07",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "b0591633_0dd70140",
+        "filename": "media/engine/webrtc_video_engine.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 528,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2022-10-11T12:49:19Z",
+      "side": 1,
+      "message": "I wonder a bit about the way arguments are passed to OnUnsignalledSsrc - if the ssrc turns out to be auxillary, the main ssrc goes into the first argument, not the original ssrc.\n\nWould it be cleaner to have ssrc of the packet always stay in the first argument, and the third argument be \"associated_ssrc\"?\n\nOnly change to the code would seem to be to swap the arguments to AddFidSsrc.",
+      "revId": "d74f23b493a875fb0effb7e0a72727523bf35e07",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "de290e82_ca8bc81e",
+        "filename": "media/engine/webrtc_video_engine.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 541,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2022-10-11T12:49:19Z",
+      "side": 1,
+      "message": "This name seems odd. Is RTX really controlled by a FID SSRC-group?",
+      "revId": "d74f23b493a875fb0effb7e0a72727523bf35e07",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

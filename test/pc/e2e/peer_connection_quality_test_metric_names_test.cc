@@ -588,7 +588,7 @@ TEST(PeerConnectionE2EQualityTestMetricNamesTest,
                            {MetricMetadataKey::kReceiverMetadataKey, "alice"}}},
           MetricValidationInfo{
               .test_case = "test_case",
-              .name = "cpu_usage_%",
+              .name = "cpu_usage_percent",
               .unit = Unit::kUnitless,
               .improvement_direction = ImprovementDirection::kSmallerIsBetter,
               .metadata = {}},

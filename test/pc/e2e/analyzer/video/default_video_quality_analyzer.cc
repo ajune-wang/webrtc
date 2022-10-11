@@ -899,7 +899,7 @@ void DefaultVideoQualityAnalyzer::ReportResults() {
     ReportResults(item.first, item.second,
                   stream_frame_counters_.at(item.first));
   }
-  metrics_logger_->LogSingleValueMetric("cpu_usage_%", test_label_,
+  metrics_logger_->LogSingleValueMetric("cpu_usage_percent", test_label_,
                                         GetCpuUsagePercent(), Unit::kUnitless,
                                         ImprovementDirection::kSmallerIsBetter);
   LogFrameCounters("Global", frame_counters_);

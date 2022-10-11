@@ -724,7 +724,7 @@ void VideoAnalyzer::PrintResults() {
       "dropped_frames", test_label_, dropped_frames_, Unit::kCount,
       ImprovementDirection::kSmallerIsBetter);
   GetGlobalMetricsLogger()->LogSingleValueMetric(
-      "cpu_usage_%", test_label_, GetCpuUsagePercent(), Unit::kUnitless,
+      "cpu_usage_percent", test_label_, GetCpuUsagePercent(), Unit::kUnitless,
       ImprovementDirection::kSmallerIsBetter);
 
 #if defined(WEBRTC_WIN)

@@ -16,6 +16,24 @@
       "message": "the spec reason was that AddTrack was supposed to be able to glom onto an existing transceiver, which might have a previous set of SendEncodings, which might or might not be compatible with the SendEncodings that were requested.\n\nRather than having this be non-deterministic seen from the user, we decided to say \"if you want to be fancy with encodings, manage your own transceivers\".",
       "revId": "8c56bb736d766cb4b30bf3260606630af5bb43b6",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "f65589b6_a2ea9f4e",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5613
+      },
+      "writtenOn": "2022-10-11T09:55:17Z",
+      "side": 1,
+      "message": "got it,\n\nnote: that problem already exist for stream_ids, which could \"override\"\nvalues previously set.\n\nhow about this:\n1) make init_send_encodings absl::optional\n\nEither\na) return an error if init_send_encodings is specified and the AddTrack finds an existing transceiver\nb) document that if init_send_encodings is specified, it will override previously\nset value on a transceiver if using an existing transciever.",
+      "parentUuid": "f2ea27fd_fdf7668f",
+      "revId": "8c56bb736d766cb4b30bf3260606630af5bb43b6",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

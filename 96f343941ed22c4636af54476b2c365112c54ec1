@@ -33,6 +33,24 @@
       "message": "Is there a way to test this in a webrtc-level test?",
       "revId": "96f343941ed22c4636af54476b2c365112c54ec1",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "da895c93_e4004729",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5963
+      },
+      "writtenOn": "2022-10-11T06:22:19Z",
+      "side": 1,
+      "message": "I have been testing this with a custom server locally, but not really sure hot to translate it to unit test. I will add some tests for checking the behavior of the WebRtcVideoChannel.",
+      "parentUuid": "a2c686cd_0d4c77f4",
+      "revId": "96f343941ed22c4636af54476b2c365112c54ec1",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

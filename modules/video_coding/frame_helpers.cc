@@ -27,13 +27,13 @@ bool FrameHasBadRenderTiming(Timestamp render_time,
     return true;
   }
   constexpr TimeDelta kMaxVideoDelay = TimeDelta::Millis(10000);
-  TimeDelta frame_delay = (render_time - now).Abs();
-  if (frame_delay > kMaxVideoDelay) {
+  TimeDelta frame_delay = render_time - now;
+  if (frame_delay.Abs() > kMaxVideoDelay) {
     RTC_LOG(LS_WARNING)
         << "A frame about to be decoded is out of the configured "
-           "delay bounds ("
-        << frame_delay.ms() << " > " << kMaxVideoDelay.ms()
-        << "). Resetting the video jitter buffer.";
+           "delay bounds (frame_delay_ms="
+        << frame_delay.ms() << ", kMaxVideoDelay_ms=" << kMaxVideoDelay.ms()
+        << "). Requesting reset of jitter estimator and timing module.";
     return true;
   }
   if (target_video_delay > kMaxVideoDelay) {

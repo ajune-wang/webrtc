@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "8be15f43_f2cfeef2",
+        "filename": "pc/ice_server_parsing.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 30,
+      "author": {
+        "id": 5087
+      },
+      "writtenOn": "2022-10-12T06:52:35Z",
+      "side": 1,
+      "message": "Let\u0027s keep this as backwards compatible wrapper of the new one returning RTCError.",
+      "range": {
+        "startLine": 30,
+        "startChar": 0,
+        "endLine": 30,
+        "endChar": 23
+      },
+      "revId": "7c03d357945553ed0329b585de169f37033eb2e4",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

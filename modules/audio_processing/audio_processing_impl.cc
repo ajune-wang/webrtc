@@ -1764,9 +1764,10 @@ void AudioProcessingImpl::InitializeTransientSuppressor() {
 
 void AudioProcessingImpl::InitializeHighPassFilter(bool forced_reset) {
   bool high_pass_filter_needed_by_aec =
-      config_.echo_canceller.enabled &&
-      config_.echo_canceller.enforce_high_pass_filtering &&
-      !config_.echo_canceller.mobile_mode;
+      capture_nonlocked_.echo_controller_enabled ||
+      (config_.echo_canceller.enabled &&
+       config_.echo_canceller.enforce_high_pass_filtering &&
+       !config_.echo_canceller.mobile_mode);
   if (submodule_states_.HighPassFilteringRequired() ||
       high_pass_filter_needed_by_aec) {
     bool use_full_band = config_.high_pass_filter.apply_in_full_band &&

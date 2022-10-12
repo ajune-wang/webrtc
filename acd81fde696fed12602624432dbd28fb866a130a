@@ -142,6 +142,30 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "072390fa_53c67c17",
+        "filename": "call/simulated_network.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 37,
+      "author": {
+        "id": 5087
+      },
+      "writtenOn": "2022-10-12T08:53:47Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "0c48a172_a7be9182",
+      "range": {
+        "startLine": 36,
+        "startChar": 44,
+        "endLine": 37,
+        "endChar": 22
+      },
+      "revId": "acd81fde696fed12602624432dbd28fb866a130a",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "2e6abcbc_d87da3c7",
@@ -155,6 +179,30 @@
       "writtenOn": "2022-10-10T17:56:39Z",
       "side": 1,
       "message": "This isn\u0027t thread safe. Check that it\u0027s only accessed from one thread/sequence?",
+      "range": {
+        "startLine": 123,
+        "startChar": 9,
+        "endLine": 123,
+        "endChar": 16
+      },
+      "revId": "acd81fde696fed12602624432dbd28fb866a130a",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "3e3d22d5_c3062ec7",
+        "filename": "call/simulated_network.h",
+        "patchSetId": 3
+      },
+      "lineNbr": 123,
+      "author": {
+        "id": 5087
+      },
+      "writtenOn": "2022-10-12T08:53:47Z",
+      "side": 1,
+      "message": "Thanks!",
+      "parentUuid": "2e6abcbc_d87da3c7",
       "range": {
         "startLine": 123,
         "startChar": 9,
@@ -259,6 +307,30 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "468c994c_08faa7a1",
+        "filename": "call/simulated_network_unittest.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 62,
+      "author": {
+        "id": 5087
+      },
+      "writtenOn": "2022-10-12T08:53:47Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "9d5b820e_8a90ec36",
+      "range": {
+        "startLine": 62,
+        "startChar": 42,
+        "endLine": 62,
+        "endChar": 60
+      },
+      "revId": "acd81fde696fed12602624432dbd28fb866a130a",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "d470c5a0_559f9c62",
@@ -343,6 +415,30 @@
       "side": 1,
       "message": "Done, PTAL.",
       "parentUuid": "53061cae_ea8a57fd",
+      "range": {
+        "startLine": 399,
+        "startChar": 2,
+        "endLine": 408,
+        "endChar": 3
+      },
+      "revId": "acd81fde696fed12602624432dbd28fb866a130a",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "541779cd_56679306",
+        "filename": "call/simulated_network_unittest.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 408,
+      "author": {
+        "id": 5087
+      },
+      "writtenOn": "2022-10-12T08:53:47Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "fb6cdc10_748e0b80",
       "range": {
         "startLine": 399,
         "startChar": 2,

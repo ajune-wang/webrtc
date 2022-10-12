@@ -1,6 +1,23 @@
 {
   "comments": [
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "680e3807_8b9bf682",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 4
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5087
+      },
+      "writtenOn": "2022-10-12T08:53:47Z",
+      "side": 1,
+      "message": "Addressed some comments, now looking into `last_capacity_link_exit_time_us_` in a new patch set.",
+      "revId": "0a55066efd1af56d034c3422561197c254ff3b15",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "ec3e8392_acafd660",
@@ -26,6 +43,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "77439281_1a5ac294",
+        "filename": "call/simulated_network.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 110,
+      "author": {
+        "id": 5087
+      },
+      "writtenOn": "2022-10-12T08:53:47Z",
+      "side": 1,
+      "message": "I agree.\n\nThe expectation is that \"for a correct usage of the network\" this should not happen.\n\nIf we move packets to the delay_link_ here (while not pulled from the client), we are creating extra capacity, hiding a SimulatedNetwork usage problem.\n\nI am not sure what is the way to handle this, but I would like to avoid to \"evolve the network state\" at input time, because this creates an even more complex machine to test.",
+      "parentUuid": "ec3e8392_acafd660",
+      "range": {
+        "startLine": 110,
+        "startChar": 0,
+        "endLine": 110,
+        "endChar": 67
+      },
+      "revId": "0a55066efd1af56d034c3422561197c254ff3b15",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "ee0976a7_f6392bbe",
         "filename": "call/simulated_network.cc",
         "patchSetId": 4
@@ -37,6 +78,30 @@
       "writtenOn": "2022-10-10T17:56:39Z",
       "side": 1,
       "message": "nit: previous",
+      "range": {
+        "startLine": 117,
+        "startChar": 39,
+        "endLine": 117,
+        "endChar": 48
+      },
+      "revId": "0a55066efd1af56d034c3422561197c254ff3b15",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "33c05ec6_9e1e80bf",
+        "filename": "call/simulated_network.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 117,
+      "author": {
+        "id": 5087
+      },
+      "writtenOn": "2022-10-12T08:53:47Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "ee0976a7_f6392bbe",
       "range": {
         "startLine": 117,
         "startChar": 39,
@@ -204,6 +269,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "ea2a3b3c_0ace571e",
+        "filename": "call/simulated_network.h",
+        "patchSetId": 4
+      },
+      "lineNbr": 45,
+      "author": {
+        "id": 5087
+      },
+      "writtenOn": "2022-10-12T08:53:47Z",
+      "side": 1,
+      "message": "I am not sure this is a behaviour change compared to now (e.g. https://source.chromium.org/chromium/chromium/src/+/main:third_party/webrtc/call/simulated_network.cc;l\u003d72-82;drc\u003d399a2b5ef6cb08d763a15cba06feb84f3caedea5 also affects packets on the send side, if we reduce capacity and reduce the max queue length).",
+      "parentUuid": "2cb97b7e_b6f64eca",
+      "range": {
+        "startLine": 45,
+        "startChar": 0,
+        "endLine": 45,
+        "endChar": 78
+      },
+      "revId": "0a55066efd1af56d034c3422561197c254ff3b15",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "78975560_400afb30",
         "filename": "call/simulated_network_unittest.cc",
         "patchSetId": 4
@@ -215,6 +304,30 @@
       "writtenOn": "2022-10-10T17:56:39Z",
       "side": 1,
       "message": "Maybe QueueLength, since capacity often refers to the link capacity in the implementation?",
+      "range": {
+        "startLine": 80,
+        "startChar": 27,
+        "endLine": 80,
+        "endChar": 37
+      },
+      "revId": "0a55066efd1af56d034c3422561197c254ff3b15",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "59b4b0de_5c7386dd",
+        "filename": "call/simulated_network_unittest.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 80,
+      "author": {
+        "id": 5087
+      },
+      "writtenOn": "2022-10-12T08:53:47Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "78975560_400afb30",
       "range": {
         "startLine": 80,
         "startChar": 27,
@@ -238,6 +351,30 @@
       "writtenOn": "2022-10-10T17:56:39Z",
       "side": 1,
       "message": "Should we check the NextDeliveryTime() here?",
+      "range": {
+        "startLine": 259,
+        "startChar": 0,
+        "endLine": 259,
+        "endChar": 0
+      },
+      "revId": "0a55066efd1af56d034c3422561197c254ff3b15",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "56e47101_81412e7a",
+        "filename": "call/simulated_network_unittest.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 259,
+      "author": {
+        "id": 5087
+      },
+      "writtenOn": "2022-10-12T08:53:47Z",
+      "side": 1,
+      "message": "In a previous comment it was asked to remove redundant expectations on NextDeliveryTime() to avoid repeating ourselves for things checked in previous tests.",
+      "parentUuid": "63060eb7_d276dd53",
       "range": {
         "startLine": 259,
         "startChar": 0,
@@ -309,6 +446,30 @@
       "side": 1,
       "message": "Same issue exists in one more place",
       "parentUuid": "0f07d52c_3ceced16",
+      "range": {
+        "startLine": 270,
+        "startChar": 61,
+        "endLine": 270,
+        "endChar": 64
+      },
+      "revId": "0a55066efd1af56d034c3422561197c254ff3b15",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "d9428e50_ea0fe7f4",
+        "filename": "call/simulated_network_unittest.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 270,
+      "author": {
+        "id": 5087
+      },
+      "writtenOn": "2022-10-12T08:53:47Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "b46b0808_42a26174",
       "range": {
         "startLine": 270,
         "startChar": 61,

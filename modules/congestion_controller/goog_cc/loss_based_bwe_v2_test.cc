@@ -1075,6 +1075,8 @@ TEST_P(LossBasedBweV2Test, UseProbeResultWhenRecoveringFromLoss) {
   EXPECT_EQ(result_after_recovery.bandwidth_estimate, probe_estimate);
 }
 
+<<<<<<< PATCH SET (df493f Probe when network is loss limited.)
+=======
 TEST_P(LossBasedBweV2Test, UseProbeResultWhenNoNewFeedbackIsGiven) {
   ExplicitKeyValueConfig key_value_config(
       "WebRTC-Bwe-LossBasedBweV2/"
@@ -1109,6 +1111,7 @@ TEST_P(LossBasedBweV2Test, UseProbeResultWhenNoNewFeedbackIsGiven) {
   EXPECT_EQ(result_after_recovery.bandwidth_estimate, probe_estimate);
 }
 
+>>>>>>> BASE      (a3abf1 Probing integration in loss based bwe 2.)
 TEST_P(LossBasedBweV2Test,
        StricterBoundUsingHighLossRateThresholdAt10pLossRate) {
   ExplicitKeyValueConfig key_value_config(

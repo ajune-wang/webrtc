@@ -321,8 +321,13 @@ DataRate SendSideBandwidthEstimation::target_rate() const {
   return std::max(min_bitrate_configured_, target);
 }
 
+<<<<<<< PATCH SET (df493f Probe when network is loss limited.)
+LossBasedBweV2::Result SendSideBandwidthEstimation::loss_based_result() const {
+  return loss_based_result_;
+=======
 LossBasedState SendSideBandwidthEstimation::loss_based_state() const {
   return loss_based_state_;
+>>>>>>> BASE      (a3abf1 Probing integration in loss based bwe 2.)
 }
 
 DataRate SendSideBandwidthEstimation::delay_based_limit() const {
@@ -526,11 +531,17 @@ void SendSideBandwidthEstimation::UpdateEstimate(Timestamp at_time) {
   }
 
   if (LossBasedBandwidthEstimatorV2ReadyForUse()) {
+<<<<<<< PATCH SET (df493f Probe when network is loss limited.)
+    loss_based_result_ = loss_based_bandwidth_estimator_v2_.GetLossBasedResult(
+        delay_based_limit_);
+    UpdateTargetBitrate(loss_based_result_.bandwidth_estimate, at_time);
+=======
     LossBasedBweV2::Result result =
         loss_based_bandwidth_estimator_v2_.GetLossBasedResult(
             delay_based_limit_);
     loss_based_state_ = result.state;
     UpdateTargetBitrate(result.bandwidth_estimate, at_time);
+>>>>>>> BASE      (a3abf1 Probing integration in loss based bwe 2.)
     return;
   }
 

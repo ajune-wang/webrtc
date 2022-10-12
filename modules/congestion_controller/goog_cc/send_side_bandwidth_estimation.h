@@ -85,7 +85,11 @@ class SendSideBandwidthEstimation {
   void OnRouteChange();
 
   DataRate target_rate() const;
+<<<<<<< PATCH SET (df493f Probe when network is loss limited.)
+  LossBasedBweV2::Result loss_based_result() const;
+=======
   LossBasedState loss_based_state() const;
+>>>>>>> BASE      (a3abf1 Probing integration in loss based bwe 2.)
   DataRate delay_based_limit() const;
   uint8_t fraction_loss() const { return last_fraction_loss_; }
   TimeDelta round_trip_time() const { return last_round_trip_time_; }
@@ -203,7 +207,11 @@ class SendSideBandwidthEstimation {
   DataRate bitrate_threshold_;
   LossBasedBandwidthEstimation loss_based_bandwidth_estimator_v1_;
   LossBasedBweV2 loss_based_bandwidth_estimator_v2_;
+<<<<<<< PATCH SET (df493f Probe when network is loss limited.)
+  LossBasedBweV2::Result loss_based_result_;
+=======
   LossBasedState loss_based_state_;
+>>>>>>> BASE      (a3abf1 Probing integration in loss based bwe 2.)
   FieldTrialFlag disable_receiver_limit_caps_only_;
 };
 }  // namespace webrtc

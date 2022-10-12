@@ -24,6 +24,7 @@
 #include "api/transport/network_types.h"
 #include "api/units/data_rate.h"
 #include "api/units/timestamp.h"
+#include "modules/congestion_controller/goog_cc/loss_based_bwe_v2.h"
 #include "rtc_base/experiments/field_trial_parser.h"
 
 namespace webrtc {
@@ -108,7 +109,7 @@ class ProbeController {
 
   ABSL_MUST_USE_RESULT std::vector<ProbeClusterConfig> SetEstimatedBitrate(
       DataRate bitrate,
-      bool bwe_limited_due_to_packet_loss,
+      LossBasedBweV2::Result loss_based_result,
       Timestamp at_time);
 
   void EnablePeriodicAlrProbing(bool enable);
@@ -150,7 +151,6 @@ class ProbeController {
   bool TimeForNetworkStateProbe(Timestamp at_time) const;
 
   bool network_available_;
-  bool bwe_limited_due_to_packet_loss_;
   State state_;
   DataRate min_bitrate_to_probe_further_ = DataRate::PlusInfinity();
   Timestamp time_last_probing_initiated_ = Timestamp::MinusInfinity();
@@ -175,7 +175,7 @@ class ProbeController {
   RtcEventLog* event_log_;
 
   int32_t next_probe_cluster_id_ = 1;
-
+  LossBasedState loss_based_state_ = LossBasedState::kDelayBasedEstimate;
   ProbeControllerConfig config_;
 };
 

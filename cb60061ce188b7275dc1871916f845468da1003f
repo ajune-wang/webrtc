@@ -43,6 +43,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "138f6bc5_7c86e620",
+        "filename": "video/pc_full_stack_tests.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 123,
+      "author": {
+        "id": 5578
+      },
+      "writtenOn": "2022-10-12T11:59:39Z",
+      "side": 1,
+      "message": "No, the return \"Default\" is a char* not std::string.",
+      "parentUuid": "d45abcfc_2ec0d3e0",
+      "range": {
+        "startLine": 123,
+        "startChar": 46,
+        "endLine": 123,
+        "endChar": 54
+      },
+      "revId": "cb60061ce188b7275dc1871916f845468da1003f",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "2f4285c3_4f0457f9",
         "filename": "video/pc_full_stack_tests.cc",
         "patchSetId": 4
@@ -54,6 +78,30 @@
       "writtenOn": "2022-10-12T11:51:17Z",
       "side": 1,
       "message": "Should we do the same for alice?",
+      "range": {
+        "startLine": 758,
+        "startChar": 8,
+        "endLine": 760,
+        "endChar": 9
+      },
+      "revId": "cb60061ce188b7275dc1871916f845468da1003f",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "0d96f802_e47663c6",
+        "filename": "video/pc_full_stack_tests.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 760,
+      "author": {
+        "id": 5578
+      },
+      "writtenOn": "2022-10-12T11:59:39Z",
+      "side": 1,
+      "message": "good catch.",
+      "parentUuid": "2f4285c3_4f0457f9",
       "range": {
         "startLine": 758,
         "startChar": 8,

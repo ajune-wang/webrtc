@@ -16,6 +16,24 @@
       "message": "Thanks for keeping the builds healthy!\n\nFYI: Created a revert and verified locally that it should address the failure: https://webrtc-review.googlesource.com/c/src/+/279046",
       "revId": "b2b627701c06a695575b2cd3bb409ad2a167299e",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "130cbeea_e20f6f34",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5119
+      },
+      "writtenOn": "2022-10-12T15:17:51Z",
+      "side": 1,
+      "message": "Created a *reland* [...]",
+      "parentUuid": "3beda766_79b82688",
+      "revId": "b2b627701c06a695575b2cd3bb409ad2a167299e",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

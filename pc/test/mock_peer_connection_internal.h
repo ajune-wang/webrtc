@@ -40,7 +40,8 @@ class MockPeerConnectionInternal : public PeerConnectionInternal {
   MOCK_METHOD(RTCErrorOr<rtc::scoped_refptr<RtpSenderInterface>>,
               AddTrack,
               (rtc::scoped_refptr<MediaStreamTrackInterface>,
-               const std::vector<std::string>&),
+               const std::vector<std::string>&,
+               const std::vector<RtpEncodingParameters>*),
               (override));
   MOCK_METHOD(RTCError,
               RemoveTrackOrError,

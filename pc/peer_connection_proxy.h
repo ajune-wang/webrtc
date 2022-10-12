@@ -31,10 +31,11 @@ PROXY_METHOD0(rtc::scoped_refptr<StreamCollectionInterface>, local_streams)
 PROXY_METHOD0(rtc::scoped_refptr<StreamCollectionInterface>, remote_streams)
 PROXY_METHOD1(bool, AddStream, MediaStreamInterface*)
 PROXY_METHOD1(void, RemoveStream, MediaStreamInterface*)
-PROXY_METHOD2(RTCErrorOr<rtc::scoped_refptr<RtpSenderInterface>>,
+PROXY_METHOD3(RTCErrorOr<rtc::scoped_refptr<RtpSenderInterface>>,
               AddTrack,
               rtc::scoped_refptr<MediaStreamTrackInterface>,
-              const std::vector<std::string>&)
+              const std::vector<std::string>&,
+              const std::vector<RtpEncodingParameters>*)
 PROXY_METHOD1(RTCError,
               RemoveTrackOrError,
               rtc::scoped_refptr<RtpSenderInterface>)

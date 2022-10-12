@@ -796,13 +796,20 @@ class RTC_EXPORT PeerConnectionInterface : public rtc::RefCountInterface {
   // the newly created RtpSender. The RtpSender will be associated with the
   // streams specified in the `stream_ids` list.
   //
+  // `init_send_encodings` : initial RtpEncodingParameters for RtpSender,
+  // similar to init_send_encodings in RtpTransceiverInit.
+  // Note that a new transceiver will always be created if `init_send_encodings`
+  // is specified.
+  //
   // Errors:
   // - INVALID_PARAMETER: `track` is null, has a kind other than audio or video,
   //       or a sender already exists for the track.
   // - INVALID_STATE: The PeerConnection is closed.
   virtual RTCErrorOr<rtc::scoped_refptr<RtpSenderInterface>> AddTrack(
       rtc::scoped_refptr<MediaStreamTrackInterface> track,
-      const std::vector<std::string>& stream_ids) = 0;
+      const std::vector<std::string>& stream_ids,
+      const std::vector<RtpEncodingParameters>* init_send_encodings =
+          nullptr) = 0;
 
   // Removes the connection between a MediaStreamTrack and the PeerConnection.
   // Stops sending on the RtpSender and marks the

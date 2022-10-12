@@ -291,51 +291,46 @@ WEBRTC_DEFINE_RTCSTATSMEMBER(rtc_stats_internal::MapStringDouble,
 
 // Restricted members that should only be exposed
 template class RTC_EXPORT_TEMPLATE_DECLARE(RTC_EXPORT)
-    RTCRestrictedStatsMember<bool, StatExposureCriteria::kHardwareCapability>;
+    RTCRestrictedStatsMember<bool, StatExposureCriteria::kHardware>;
 template class RTC_EXPORT_TEMPLATE_DECLARE(RTC_EXPORT)
-    RTCRestrictedStatsMember<int32_t,
-                             StatExposureCriteria::kHardwareCapability>;
+    RTCRestrictedStatsMember<int32_t, StatExposureCriteria::kHardware>;
 template class RTC_EXPORT_TEMPLATE_DECLARE(RTC_EXPORT)
-    RTCRestrictedStatsMember<uint32_t,
-                             StatExposureCriteria::kHardwareCapability>;
+    RTCRestrictedStatsMember<uint32_t, StatExposureCriteria::kHardware>;
 template class RTC_EXPORT_TEMPLATE_DECLARE(RTC_EXPORT)
-    RTCRestrictedStatsMember<int64_t,
-                             StatExposureCriteria::kHardwareCapability>;
+    RTCRestrictedStatsMember<int64_t, StatExposureCriteria::kHardware>;
 template class RTC_EXPORT_TEMPLATE_DECLARE(RTC_EXPORT)
-    RTCRestrictedStatsMember<uint64_t,
-                             StatExposureCriteria::kHardwareCapability>;
+    RTCRestrictedStatsMember<uint64_t, StatExposureCriteria::kHardware>;
 template class RTC_EXPORT_TEMPLATE_DECLARE(RTC_EXPORT)
-    RTCRestrictedStatsMember<double, StatExposureCriteria::kHardwareCapability>;
+    RTCRestrictedStatsMember<double, StatExposureCriteria::kHardware>;
 template class RTC_EXPORT_TEMPLATE_DECLARE(RTC_EXPORT)
-    RTCRestrictedStatsMember<std::string,
-                             StatExposureCriteria::kHardwareCapability>;
+    RTCRestrictedStatsMember<std::string, StatExposureCriteria::kHardware>;
 template class RTC_EXPORT_TEMPLATE_DECLARE(RTC_EXPORT)
     RTCRestrictedStatsMember<std::vector<bool>,
-                             StatExposureCriteria::kHardwareCapability>;
+                             StatExposureCriteria::kHardware>;
 template class RTC_EXPORT_TEMPLATE_DECLARE(RTC_EXPORT)
     RTCRestrictedStatsMember<std::vector<int32_t>,
-                             StatExposureCriteria::kHardwareCapability>;
+                             StatExposureCriteria::kHardware>;
 template class RTC_EXPORT_TEMPLATE_DECLARE(RTC_EXPORT)
     RTCRestrictedStatsMember<std::vector<uint32_t>,
-                             StatExposureCriteria::kHardwareCapability>;
+                             StatExposureCriteria::kHardware>;
 template class RTC_EXPORT_TEMPLATE_DECLARE(RTC_EXPORT)
     RTCRestrictedStatsMember<std::vector<int64_t>,
-                             StatExposureCriteria::kHardwareCapability>;
+                             StatExposureCriteria::kHardware>;
 template class RTC_EXPORT_TEMPLATE_DECLARE(RTC_EXPORT)
     RTCRestrictedStatsMember<std::vector<uint64_t>,
-                             StatExposureCriteria::kHardwareCapability>;
+                             StatExposureCriteria::kHardware>;
 template class RTC_EXPORT_TEMPLATE_DECLARE(RTC_EXPORT)
     RTCRestrictedStatsMember<std::vector<double>,
-                             StatExposureCriteria::kHardwareCapability>;
+                             StatExposureCriteria::kHardware>;
 template class RTC_EXPORT_TEMPLATE_DECLARE(RTC_EXPORT)
     RTCRestrictedStatsMember<std::vector<std::string>,
-                             StatExposureCriteria::kHardwareCapability>;
+                             StatExposureCriteria::kHardware>;
 template class RTC_EXPORT_TEMPLATE_DECLARE(RTC_EXPORT)
     RTCRestrictedStatsMember<std::map<std::string, uint64_t>,
-                             StatExposureCriteria::kHardwareCapability>;
+                             StatExposureCriteria::kHardware>;
 template class RTC_EXPORT_TEMPLATE_DECLARE(RTC_EXPORT)
     RTCRestrictedStatsMember<std::map<std::string, double>,
-                             StatExposureCriteria::kHardwareCapability>;
+                             StatExposureCriteria::kHardware>;
 
 template class RTC_EXPORT_TEMPLATE_DEFINE(RTC_EXPORT)
     RTCNonStandardStatsMember<bool>;

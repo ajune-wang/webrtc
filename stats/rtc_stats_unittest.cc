@@ -506,15 +506,9 @@ TEST(RTCStatsTest, ValueToString) {
 TEST(RTCStatsTest, RestrictedStatsTest) {
   RTCStatsMember<bool> unrestricted("unrestricted");
   EXPECT_EQ(unrestricted.exposure_criteria(), StatExposureCriteria::kAlways);
-  RTCRestrictedStatsMember<bool, StatExposureCriteria::kHardwareCapability>
-      restricted("restricted");
-  EXPECT_EQ(restricted.exposure_criteria(),
-            StatExposureCriteria::kHardwareCapability);
-
-  unrestricted = true;
-  restricted = true;
-  EXPECT_NE(unrestricted, restricted)
-      << "These can not be equal as they have different exposure criteria.";
+  RTCRestrictedStatsMember<bool, StatExposureCriteria::kHardware> restricted(
+      "restricted");
+  EXPECT_EQ(restricted.exposure_criteria(), StatExposureCriteria::kHardware);
 }
 
 TEST(RTCStatsTest, NonStandardGroupId) {

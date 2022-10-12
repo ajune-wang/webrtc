@@ -16,6 +16,23 @@
       "message": "Hi Gustaf,\nCould you PTAL?\nAlessio",
       "revId": "c5c2d1a8d4a276483dc1a3de2b4b5db9c910c013",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "ef356b81_ee290d7b",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5122
+      },
+      "writtenOn": "2022-10-12T11:52:01Z",
+      "side": 1,
+      "message": "Hi Jesús,\nCould you PTAL?\nAlessio",
+      "revId": "c5c2d1a8d4a276483dc1a3de2b4b5db9c910c013",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

@@ -224,6 +224,8 @@ enum class StatExposureCriteria : uint8_t {
   // to JavaScript. The requirements for exposure are written in the spec at
   // https://w3c.github.io/webrtc-stats/#limiting-exposure-of-hardware-capabilities.
   kHardwareCapability,
+  // The stat is non-standard so user agents should filter these.
+  kNonStandard,
 };
 
 // Interface for `RTCStats` members, which have a name and a value of a type
@@ -263,7 +265,9 @@ class RTCStatsMemberInterface {
   bool is_defined() const { return is_defined_; }
   // Is this part of the stats spec? Used so that chromium can easily filter
   // out anything unstandardized.
-  virtual bool is_standardized() const = 0;
+  bool is_standardized() const {
+    return exposure_criteria() != StatExposureCriteria::kNonStandard;
+  }
   // Non-standard stats members can have group IDs in order to be exposed in
   // JavaScript through experiments. Standardized stats have no group IDs.
   virtual std::vector<NonStandardGroupId> group_ids() const { return {}; }
@@ -334,7 +338,6 @@ class RTCStatsMember : public RTCStatsMemberInterface {
   Type type() const override { return StaticType(); }
   bool is_sequence() const override;
   bool is_string() const override;
-  bool is_standardized() const override { return true; }
   std::string ValueToString() const override;
   std::string ValueToJson() const override;
 
@@ -513,35 +516,40 @@ extern template class RTC_EXPORT_TEMPLATE_DECLARE(RTC_EXPORT)
 // Using inheritance just so that it's obvious from the member's declaration
 // whether it's standardized or not.
 template <typename T>
-class RTCNonStandardStatsMember : public RTCStatsMember<T> {
+class RTCNonStandardStatsMember
+    : public RTCRestrictedStatsMember<T, StatExposureCriteria::kNonStandard> {
  public:
   explicit RTCNonStandardStatsMember(const char* name)
-      : RTCStatsMember<T>(name) {}
+      : RTCRestrictedStatsBase(name) {}
   RTCNonStandardStatsMember(const char* name,
                             std::initializer_list<NonStandardGroupId> group_ids)
-      : RTCStatsMember<T>(name), group_ids_(group_ids) {}
+      : RTCRestrictedStatsBase(name), group_ids_(group_ids) {}
   RTCNonStandardStatsMember(const char* name, const T& value)
-      : RTCStatsMember<T>(name, value) {}
+      : RTCRestrictedStatsBase(name, value) {}
   RTCNonStandardStatsMember(const char* name, T&& value)
-      : RTCStatsMember<T>(name, std::move(value)) {}
-  explicit RTCNonStandardStatsMember(const RTCNonStandardStatsMember<T>& other)
-      : RTCStatsMember<T>(other), group_ids_(other.group_ids_) {}
-  explicit RTCNonStandardStatsMember(RTCNonStandardStatsMember<T>&& other)
-      : RTCStatsMember<T>(std::move(other)),
+      : RTCRestrictedStatsBase(name, std::move(value)) {}
+  RTCNonStandardStatsMember(const RTCNonStandardStatsMember<T>& other)
+      : RTCRestrictedStatsBase(other), group_ids_(other.group_ids_) {}
+  RTCNonStandardStatsMember(RTCNonStandardStatsMember<T>&& other)
+      : RTCRestrictedStatsBase(std::move(other)),
         group_ids_(std::move(other.group_ids_)) {}
-
-  bool is_standardized() const override { return false; }
 
   std::vector<NonStandardGroupId> group_ids() const override {
     return group_ids_;
   }
 
-  T& operator=(const T& value) { return RTCStatsMember<T>::operator=(value); }
+  T& operator=(const T& value) {
+    return RTCRestrictedStatsMember<
+        T, StatExposureCriteria::kNonStandard>::operator=(value);
+  }
   T& operator=(const T&& value) {
-    return RTCStatsMember<T>::operator=(std::move(value));
+    return RTCRestrictedStatsMember<
+        T, StatExposureCriteria::kNonStandard>::operator=(std::move(value));
   }
 
  private:
+  using RTCRestrictedStatsBase =
+      RTCRestrictedStatsMember<T, StatExposureCriteria::kNonStandard>;
   std::vector<NonStandardGroupId> group_ids_;
 };
 

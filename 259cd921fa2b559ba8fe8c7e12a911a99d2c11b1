@@ -122,6 +122,24 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "5879b31a_c7f68d3e",
+        "filename": "api/stats/rtc_stats_report.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 63,
+      "author": {
+        "id": 19549
+      },
+      "writtenOn": "2022-10-12T10:07:11Z",
+      "side": 1,
+      "message": "actually easier as a separate step since not deprecating it yet allows the unit tests to assert that there is no change in behavior.",
+      "parentUuid": "b9454b20_ebd7f94b",
+      "revId": "259cd921fa2b559ba8fe8c7e12a911a99d2c11b1",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "4afd4079_08c33bc3",

@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "06cae6b7_08dd837f",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 6
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 19549
+      },
+      "writtenOn": "2022-10-12T05:55:51Z",
+      "side": 1,
+      "message": "currently blocks the chromium roll, i\u0027ll disable the WPT that has too specific expectations",
+      "revId": "c4b0bde7f2daabc4e0667fb73d096d1cf0819226",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

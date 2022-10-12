@@ -500,6 +500,7 @@ class RTC_EXPORT RTCInboundRTPStreamStats final
   RTCStatsMember<uint32_t> pli_count;
   RTCStatsMember<uint32_t> nack_count;
   RTCStatsMember<uint64_t> qp_sum;
+  RTCStatsMember<bool, StatExposureCriteria::kHardware> power_efficient_decoder;
   // Non-standard audio metrics.
   RTCNonStandardStatsMember<uint64_t> jitter_buffer_flushes;
   RTCNonStandardStatsMember<uint64_t> delayed_packet_outage_samples;
@@ -559,6 +560,7 @@ class RTC_EXPORT RTCOutboundRTPStreamStats final : public RTCRTPStreamStats {
   RTCStatsMember<uint32_t> nack_count;
   RTCStatsMember<uint64_t> qp_sum;
   RTCStatsMember<bool> active;
+  RTCStatsMember<bool, StatExposureCriteria::kHardware> power_efficient_encoder;
 };
 
 // https://w3c.github.io/webrtc-stats/#remoteinboundrtpstats-dict*

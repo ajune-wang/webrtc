@@ -696,6 +696,7 @@ WEBRTC_RTCSTATS_IMPL(
     &pli_count,
     &nack_count,
     &qp_sum,
+    &power_efficient_decoder,
     &jitter_buffer_flushes,
     &delayed_packet_outage_samples,
     &relative_packet_arrival_delay,
@@ -759,6 +760,7 @@ RTCInboundRTPStreamStats::RTCInboundRTPStreamStats(std::string&& id,
       pli_count("pliCount"),
       nack_count("nackCount"),
       qp_sum("qpSum"),
+      power_efficient_decoder("powerEfficientDecoder"),
       jitter_buffer_flushes(
           "jitterBufferFlushes",
           {NonStandardGroupId::kRtcAudioJitterBufferMaxPackets}),
@@ -825,6 +827,7 @@ RTCInboundRTPStreamStats::RTCInboundRTPStreamStats(
       pli_count(other.pli_count),
       nack_count(other.nack_count),
       qp_sum(other.qp_sum),
+      power_efficient_decoder(other.power_efficient_decoder),
       jitter_buffer_flushes(other.jitter_buffer_flushes),
       delayed_packet_outage_samples(other.delayed_packet_outage_samples),
       relative_packet_arrival_delay(other.relative_packet_arrival_delay),
@@ -866,7 +869,8 @@ WEBRTC_RTCSTATS_IMPL(
     &pli_count,
     &nack_count,
     &qp_sum,
-    &active)
+    &active,
+    &power_efficient_encoder)
 // clang-format on
 
 RTCOutboundRTPStreamStats::RTCOutboundRTPStreamStats(const std::string& id,
@@ -906,7 +910,8 @@ RTCOutboundRTPStreamStats::RTCOutboundRTPStreamStats(std::string&& id,
       pli_count("pliCount"),
       nack_count("nackCount"),
       qp_sum("qpSum"),
-      active("active") {}
+      active("active"),
+      power_efficient_encoder("powerEfficientEncoder") {}
 
 RTCOutboundRTPStreamStats::RTCOutboundRTPStreamStats(
     const RTCOutboundRTPStreamStats& other)
@@ -941,7 +946,8 @@ RTCOutboundRTPStreamStats::RTCOutboundRTPStreamStats(
       pli_count(other.pli_count),
       nack_count(other.nack_count),
       qp_sum(other.qp_sum),
-      active(other.active) {}
+      active(other.active),
+      power_efficient_encoder(other.power_efficient_encoder) {}
 
 RTCOutboundRTPStreamStats::~RTCOutboundRTPStreamStats() {}
 

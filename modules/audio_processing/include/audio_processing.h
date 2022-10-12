@@ -218,6 +218,16 @@ class RTC_EXPORT AudioProcessing : public rtc::RefCountInterface {
       bool enabled = false;
     } transient_suppression;
 
+    // Implementation agnostic parameters for the Automatic Gain Control (AGC)
+    // functionality.
+    struct RTC_EXPORT GainController {
+      struct InputVolumeController {
+        // When true, APM always recommends the applied input volume regardless
+        // of whether the input volume controller is active or not.
+        bool ignore_recommended_input_volume = false;
+      } input_volume_controller;
+    } gain_controller;
+
     // Enables automatic gain control (AGC) functionality.
     // The automatic gain control (AGC) component brings the signal to an
     // appropriate range. This is done by applying a digital gain directly and,

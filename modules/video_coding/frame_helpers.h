@@ -18,9 +18,11 @@
 
 namespace webrtc {
 
-bool FrameHasBadRenderTiming(Timestamp render_time,
-                             Timestamp now,
-                             TimeDelta target_video_delay);
+// Returns true if the `render_time` is deemed bad.
+bool FrameHasBadRenderTiming(Timestamp render_time, Timestamp now);
+
+// Returns true if `target_video_delay` is deemed too large.
+bool TargetVideoDelayIsTooLarge(TimeDelta target_video_delay);
 
 std::unique_ptr<EncodedFrame> CombineAndDeleteFrames(
     absl::InlinedVector<std::unique_ptr<EncodedFrame>, 4> frames);

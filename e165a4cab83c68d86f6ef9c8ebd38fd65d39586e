@@ -1,0 +1,67 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "9ffdcc7a_64af8b2e",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 6
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5527
+      },
+      "writtenOn": "2022-10-12T11:53:28Z",
+      "side": 1,
+      "message": "Nice with added unittests!",
+      "revId": "e165a4cab83c68d86f6ef9c8ebd38fd65d39586e",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "365e005e_b7c5803c",
+        "filename": "modules/video_coding/frame_helpers.h",
+        "patchSetId": 6
+      },
+      "lineNbr": 21,
+      "author": {
+        "id": 5527
+      },
+      "writtenOn": "2022-10-12T11:53:28Z",
+      "side": 1,
+      "message": "Nit: I don\u0027t think comments like this helps to clarify, the name is clear enough.",
+      "range": {
+        "startLine": 20,
+        "startChar": 0,
+        "endLine": 21,
+        "endChar": 51
+      },
+      "revId": "e165a4cab83c68d86f6ef9c8ebd38fd65d39586e",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "9609aedd_6835ab5f",
+        "filename": "modules/video_coding/frame_helpers.h",
+        "patchSetId": 6
+      },
+      "lineNbr": 24,
+      "author": {
+        "id": 5527
+      },
+      "writtenOn": "2022-10-12T11:53:28Z",
+      "side": 1,
+      "message": "ditto",
+      "range": {
+        "startLine": 24,
+        "startChar": 0,
+        "endLine": 24,
+        "endChar": 60
+      },
+      "revId": "e165a4cab83c68d86f6ef9c8ebd38fd65d39586e",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

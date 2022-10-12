@@ -16,6 +16,23 @@
       "message": "Can you please click CQ if you approve?",
       "revId": "1b50103c2e46fdfb667cc05faf87e6e7fd6d2b47",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "e278e3d7_b04f0616",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 5
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5117
+      },
+      "writtenOn": "2022-10-12T12:37:00Z",
+      "side": 1,
+      "message": "LGTM % nit.",
+      "revId": "1b50103c2e46fdfb667cc05faf87e6e7fd6d2b47",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

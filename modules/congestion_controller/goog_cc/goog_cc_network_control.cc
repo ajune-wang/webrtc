@@ -549,8 +549,8 @@ NetworkControlUpdate GoogCcNetworkController::OnTransportPacketsFeedback(
     bandwidth_estimation_->UpdateDelayBasedEstimate(report.feedback_time,
                                                     result.target_bitrate);
   }
-  bandwidth_estimation_->UpdateLossBasedEstimator(report,
-                                                  result.delay_detector_state);
+  bandwidth_estimation_->UpdateLossBasedEstimator(
+      report, result.delay_detector_state, probe_bitrate);
   if (result.updated) {
     // Update the estimate in the ProbeController, in case we want to probe.
     MaybeTriggerOnNetworkChanged(&update, report.feedback_time);
@@ -614,10 +614,6 @@ void GoogCcNetworkController::MaybeTriggerOnNetworkChanged(
   uint8_t fraction_loss = bandwidth_estimation_->fraction_loss();
   TimeDelta round_trip_time = bandwidth_estimation_->round_trip_time();
   DataRate loss_based_target_rate = bandwidth_estimation_->target_rate();
-  bool bwe_limited_due_to_packet_loss =
-      loss_based_target_rate.IsFinite() &&
-      bandwidth_estimation_->delay_based_limit().IsFinite() &&
-      loss_based_target_rate < bandwidth_estimation_->delay_based_limit();
   DataRate pushback_target_rate = loss_based_target_rate;
 
   BWE_TEST_LOGGING_PLOT(1, "fraction_loss_%", at_time.ms(),
@@ -680,7 +676,8 @@ void GoogCcNetworkController::MaybeTriggerOnNetworkChanged(
     update->target_rate = target_rate_msg;
 
     auto probes = probe_controller_->SetEstimatedBitrate(
-        loss_based_target_rate, bwe_limited_due_to_packet_loss, at_time);
+        loss_based_target_rate, bandwidth_estimation_->loss_based_result(),
+        at_time);
     update->probe_cluster_configs.insert(update->probe_cluster_configs.end(),
                                          probes.begin(), probes.end());
     update->pacer_config = GetPacingRates(at_time);

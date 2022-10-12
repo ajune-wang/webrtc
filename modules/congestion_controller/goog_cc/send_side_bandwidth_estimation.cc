@@ -320,6 +320,10 @@ DataRate SendSideBandwidthEstimation::target_rate() const {
   return std::max(min_bitrate_configured_, target);
 }
 
+LossBasedBweV2::Result SendSideBandwidthEstimation::loss_based_result() const {
+  return loss_based_result_;
+}
+
 DataRate SendSideBandwidthEstimation::delay_based_limit() const {
   return delay_based_limit_;
 }
@@ -364,14 +368,16 @@ void SendSideBandwidthEstimation::SetAcknowledgedRate(
 
 void SendSideBandwidthEstimation::UpdateLossBasedEstimator(
     const TransportPacketsFeedback& report,
-    BandwidthUsage delay_detector_state) {
+    BandwidthUsage delay_detector_state,
+    absl::optional<DataRate> probe_bitrate) {
   if (LossBasedBandwidthEstimatorV1Enabled()) {
     loss_based_bandwidth_estimator_v1_.UpdateLossStatistics(
         report.packet_feedbacks, report.feedback_time);
   }
   if (LossBasedBandwidthEstimatorV2Enabled()) {
     loss_based_bandwidth_estimator_v2_.UpdateBandwidthEstimate(
-        report.packet_feedbacks, delay_based_limit_, delay_detector_state);
+        report.packet_feedbacks, delay_based_limit_, delay_detector_state,
+        probe_bitrate);
     UpdateEstimate(report.feedback_time);
   }
 }
@@ -519,10 +525,9 @@ void SendSideBandwidthEstimation::UpdateEstimate(Timestamp at_time) {
   }
 
   if (LossBasedBandwidthEstimatorV2ReadyForUse()) {
-    DataRate new_bitrate =
-        loss_based_bandwidth_estimator_v2_.GetBandwidthEstimate(
-            delay_based_limit_);
-    UpdateTargetBitrate(new_bitrate, at_time);
+    loss_based_result_ = loss_based_bandwidth_estimator_v2_.GetLossBasedResult(
+        delay_based_limit_);
+    UpdateTargetBitrate(loss_based_result_.bandwidth_estimate, at_time);
     return;
   }
 

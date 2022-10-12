@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "db81071f_79d0b34a",
+        "filename": "modules/congestion_controller/goog_cc/probe_controller.cc",
+        "patchSetId": 10
+      },
+      "lineNbr": 275,
+      "author": {
+        "id": 19004
+      },
+      "writtenOn": "2022-10-12T14:33:55Z",
+      "side": 1,
+      "message": "It might feel redundant to pass the whole Result object at the moment because we only need loss_based_result.state. However, later ProbeController needs average loss rate to decide if it should trigger a probe. Average loss will comes from LossBasedBweV2::Result.",
+      "range": {
+        "startLine": 275,
+        "startChar": 4,
+        "endLine": 275,
+        "endChar": 52
+      },
+      "revId": "62b2efe57542d23c3869c2d401680f8ed8a8d1c8",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

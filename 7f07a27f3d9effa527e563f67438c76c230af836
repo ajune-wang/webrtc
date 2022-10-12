@@ -16,6 +16,23 @@
       "message": "Alessio, could you please take a look?",
       "revId": "7f07a27f3d9effa527e563f67438c76c230af836",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "120fedf7_d6029a6b",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5122
+      },
+      "writtenOn": "2022-10-12T12:19:45Z",
+      "side": 1,
+      "message": "Hi Gustaf, this CL can now be abandoned; see https://chromium-review.googlesource.com/c/chromium/src/+/3942258 (which will land soon).\nAlessio",
+      "revId": "7f07a27f3d9effa527e563f67438c76c230af836",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

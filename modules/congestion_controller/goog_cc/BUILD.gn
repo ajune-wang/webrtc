@@ -258,6 +258,7 @@ rtc_library("probe_controller") {
   ]
 
   deps = [
+    ":loss_based_bwe_v2",
     "../../../api:field_trials_view",
     "../../../api/rtc_event_log",
     "../../../api/transport:network_control",

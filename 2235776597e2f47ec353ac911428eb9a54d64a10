@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "c4450072_f275e7d6",
+        "filename": "api/stats/rtc_stats_report.h",
+        "patchSetId": 3
+      },
+      "lineNbr": 64,
+      "author": {
+        "id": 5087
+      },
+      "writtenOn": "2022-10-12T14:21:41Z",
+      "side": 1,
+      "message": "Sorry for not catching this earlier but this should be:\n\n```\nint64_t timestamp_us \u003d 0\n```",
+      "range": {
+        "startLine": 64,
+        "startChar": 51,
+        "endLine": 64,
+        "endChar": 71
+      },
+      "revId": "2235776597e2f47ec353ac911428eb9a54d64a10",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

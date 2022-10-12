@@ -22,6 +22,7 @@
 #include "api/units/time_delta.h"
 #include "api/units/timestamp.h"
 #include "logging/rtc_event_log/events/rtc_event_probe_cluster_created.h"
+#include "modules/congestion_controller/goog_cc/loss_based_bwe_v2.h"
 #include "rtc_base/checks.h"
 #include "rtc_base/logging.h"
 #include "system_wrappers/include/metrics.h"
@@ -271,13 +272,13 @@ std::vector<ProbeClusterConfig> ProbeController::InitiateExponentialProbing(
 
 std::vector<ProbeClusterConfig> ProbeController::SetEstimatedBitrate(
     DataRate bitrate,
-    bool bwe_limited_due_to_packet_loss,
+    LossBasedBweV2::Result loss_based_result,
     Timestamp at_time) {
-  if (bwe_limited_due_to_packet_loss != bwe_limited_due_to_packet_loss_ &&
+  loss_based_state_ = loss_based_result.state;
+  if (loss_based_state_ == LossBasedState::kDecreasing &&
       config_.limit_probe_target_rate_to_loss_bwe) {
     state_ = State::kProbingComplete;
   }
-  bwe_limited_due_to_packet_loss_ = bwe_limited_due_to_packet_loss;
   if (bitrate < kBitrateDropThreshold * estimated_bitrate_) {
     time_of_last_large_drop_ = at_time;
     bitrate_before_last_large_drop_ = estimated_bitrate_;
@@ -378,7 +379,7 @@ void ProbeController::SetNetworkStateEstimate(
   if (config_.network_state_estimate_drop_down_rate > 0 && network_estimate_ &&
       !estimate.link_capacity_upper.IsZero() &&
       (estimated_bitrate_ > estimate.link_capacity_upper ||
-       bwe_limited_due_to_packet_loss_) &&
+       loss_based_state_ == LossBasedState::kDecreasing) &&
       estimate.link_capacity_upper <=
           config_.network_state_estimate_drop_down_rate *
               network_estimate_->link_capacity_upper) {
@@ -390,7 +391,6 @@ void ProbeController::SetNetworkStateEstimate(
 
 void ProbeController::Reset(Timestamp at_time) {
   network_available_ = true;
-  bwe_limited_due_to_packet_loss_ = false;
   state_ = State::kInit;
   min_bitrate_to_probe_further_ = DataRate::PlusInfinity();
   time_last_probing_initiated_ = Timestamp::Zero();
@@ -406,6 +406,7 @@ void ProbeController::Reset(Timestamp at_time) {
   bitrate_before_last_large_drop_ = DataRate::Zero();
   max_total_allocated_bitrate_ = DataRate::Zero();
   send_probe_on_next_process_interval_ = false;
+  loss_based_state_ = LossBasedState::kDelayBasedEstimate;
 }
 
 bool ProbeController::TimeForAlrProbe(Timestamp at_time) const {
@@ -445,8 +446,11 @@ std::vector<ProbeClusterConfig> ProbeController::Process(Timestamp at_time) {
   }
   if (send_probe_on_next_process_interval_ || TimeForAlrProbe(at_time) ||
       TimeForNetworkStateProbe(at_time)) {
-    return InitiateProbing(
-        at_time, {estimated_bitrate_ * config_.alr_probe_scale}, true);
+    DataRate suggested_probe = estimated_bitrate_ * config_.alr_probe_scale;
+    if (loss_based_state_ != LossBasedState::kDelayBasedEstimate) {
+      suggested_probe = estimated_bitrate_;
+    }
+    return InitiateProbing(at_time, {suggested_probe}, true);
   }
   return std::vector<ProbeClusterConfig>();
 }
@@ -466,7 +470,7 @@ std::vector<ProbeClusterConfig> ProbeController::InitiateProbing(
   }
 
   DataRate max_probe_bitrate = max_bitrate_;
-  if (bwe_limited_due_to_packet_loss_ &&
+  if (loss_based_state_ == LossBasedState::kDecreasing &&
       config_.limit_probe_target_rate_to_loss_bwe) {
     max_probe_bitrate = std::min(estimated_bitrate_, max_bitrate_);
   }

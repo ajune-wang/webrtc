@@ -129,6 +129,24 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "dbdf5809_07a8350e",
+        "filename": "call/simulated_network.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 124,
+      "author": {
+        "id": 5087
+      },
+      "writtenOn": "2022-10-12T09:14:44Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "7efaf1dc_fdd4769d",
+      "revId": "0a55066efd1af56d034c3422561197c254ff3b15",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "1aff293b_391c8ebc",
@@ -142,6 +160,30 @@
       "writtenOn": "2022-10-10T17:56:39Z",
       "side": 1,
       "message": "I assume this should be set if and only if there is a packet in the queue?",
+      "range": {
+        "startLine": 131,
+        "startChar": 7,
+        "endLine": 131,
+        "endChar": 28
+      },
+      "revId": "0a55066efd1af56d034c3422561197c254ff3b15",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "dfb6a3f9_ef0e6564",
+        "filename": "call/simulated_network.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 131,
+      "author": {
+        "id": 5087
+      },
+      "writtenOn": "2022-10-12T09:14:44Z",
+      "side": 1,
+      "message": "Like this?\n\n```\nif (capacity_link_.size() \u003d\u003d 1) {\n  next_process_time_us_ \u003d capacity_link_.front().arrival_time_us;\n}\n```",
+      "parentUuid": "1aff293b_391c8ebc",
       "range": {
         "startLine": 131,
         "startChar": 7,
@@ -175,6 +217,30 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "285c9d00_d2eeef83",
+        "filename": "call/simulated_network.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 144,
+      "author": {
+        "id": 5087
+      },
+      "writtenOn": "2022-10-12T09:14:44Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "1b6eb3d0_3ff9b739",
+      "range": {
+        "startLine": 144,
+        "startChar": 23,
+        "endLine": 144,
+        "endChar": 42
+      },
+      "revId": "0a55066efd1af56d034c3422561197c254ff3b15",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "851cb48d_5760f177",
@@ -188,6 +254,30 @@
       "writtenOn": "2022-10-10T17:56:39Z",
       "side": 1,
       "message": "Maybe std::max(capacity_link_.front().packet.send_time, last_capacity_link_exit_time_) if we don\u0027t have actual transmission time?",
+      "range": {
+        "startLine": 151,
+        "startChar": 31,
+        "endLine": 151,
+        "endChar": 58
+      },
+      "revId": "0a55066efd1af56d034c3422561197c254ff3b15",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "d11578e9_a1ecf3cb",
+        "filename": "call/simulated_network.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 151,
+      "author": {
+        "id": 5087
+      },
+      "writtenOn": "2022-10-12T09:14:44Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "851cb48d_5760f177",
       "range": {
         "startLine": 151,
         "startChar": 31,
@@ -221,6 +311,30 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "f578c576_826eae3e",
+        "filename": "call/simulated_network.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 178,
+      "author": {
+        "id": 5087
+      },
+      "writtenOn": "2022-10-12T09:14:44Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "46a1cfe6_28802294",
+      "range": {
+        "startLine": 178,
+        "startChar": 0,
+        "endLine": 178,
+        "endChar": 66
+      },
+      "revId": "0a55066efd1af56d034c3422561197c254ff3b15",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "a8d363a8_6e56ad61",
@@ -234,6 +348,30 @@
       "writtenOn": "2022-10-10T17:56:39Z",
       "side": 1,
       "message": "This is already taking the max, so maybe just a renaming: std::max(last_capacity_link_exit_time_, ...)",
+      "range": {
+        "startLine": 220,
+        "startChar": 12,
+        "endLine": 220,
+        "endChar": 22
+      },
+      "revId": "0a55066efd1af56d034c3422561197c254ff3b15",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "61d6cf5d_eb43bd9c",
+        "filename": "call/simulated_network.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 220,
+      "author": {
+        "id": 5087
+      },
+      "writtenOn": "2022-10-12T09:14:44Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "a8d363a8_6e56ad61",
       "range": {
         "startLine": 220,
         "startChar": 12,

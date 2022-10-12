@@ -67,6 +67,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "19803d1f_65abea4f",
+        "filename": "call/simulated_network.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 110,
+      "author": {
+        "id": 5150
+      },
+      "writtenOn": "2022-10-12T15:11:55Z",
+      "side": 1,
+      "message": "Yeah, this seems tricky. I think it can matter for \"correct usage\" too though.\nSuppose the buffer is full with packets that are scheduled to be delivered in the future (because the link capacity is low). Then the network gets a new config with unlimited capacity (so all packets should be delivered immediately). Then another packet is inserted, but since we don\u0027t have a mechanism to reschedule packet delivery, the buffer is still full.",
+      "parentUuid": "77439281_1a5ac294",
+      "range": {
+        "startLine": 110,
+        "startChar": 0,
+        "endLine": 110,
+        "endChar": 67
+      },
+      "revId": "0a55066efd1af56d034c3422561197c254ff3b15",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "ee0976a7_f6392bbe",
         "filename": "call/simulated_network.cc",
         "patchSetId": 4
@@ -184,6 +208,30 @@
       "side": 1,
       "message": "Like this?\n\n```\nif (capacity_link_.size() \u003d\u003d 1) {\n  next_process_time_us_ \u003d capacity_link_.front().arrival_time_us;\n}\n```",
       "parentUuid": "1aff293b_391c8ebc",
+      "range": {
+        "startLine": 131,
+        "startChar": 7,
+        "endLine": 131,
+        "endChar": 28
+      },
+      "revId": "0a55066efd1af56d034c3422561197c254ff3b15",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "21668a80_65e22eb0",
+        "filename": "call/simulated_network.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 131,
+      "author": {
+        "id": 5150
+      },
+      "writtenOn": "2022-10-12T15:11:55Z",
+      "side": 1,
+      "message": "I don\u0027t think you need to change the code. Wondering if something like `DCHECK(next_process_time_.has_value() \u003d\u003d !capacity_link_.empty())` is an expected invariant.",
+      "parentUuid": "dfb6a3f9_ef0e6564",
       "range": {
         "startLine": 131,
         "startChar": 7,
@@ -431,6 +479,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "e96ed9f0_de5f53a2",
+        "filename": "call/simulated_network.h",
+        "patchSetId": 4
+      },
+      "lineNbr": 45,
+      "author": {
+        "id": 5150
+      },
+      "writtenOn": "2022-10-12T15:11:55Z",
+      "side": 1,
+      "message": "So it\u0027s the old documentation (\"won\u0027t affect packets already in the pipe\") that\u0027s incorrect/incomplete?",
+      "parentUuid": "ea2a3b3c_0ace571e",
+      "range": {
+        "startLine": 45,
+        "startChar": 0,
+        "endLine": 45,
+        "endChar": 78
+      },
+      "revId": "0a55066efd1af56d034c3422561197c254ff3b15",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "78975560_400afb30",
         "filename": "call/simulated_network_unittest.cc",
         "patchSetId": 4
@@ -513,6 +585,30 @@
       "side": 1,
       "message": "In a previous comment it was asked to remove redundant expectations on NextDeliveryTime() to avoid repeating ourselves for things checked in previous tests.",
       "parentUuid": "63060eb7_d276dd53",
+      "range": {
+        "startLine": 259,
+        "startChar": 0,
+        "endLine": 259,
+        "endChar": 0
+      },
+      "revId": "0a55066efd1af56d034c3422561197c254ff3b15",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "61074015_724d08c9",
+        "filename": "call/simulated_network_unittest.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 259,
+      "author": {
+        "id": 5150
+      },
+      "writtenOn": "2022-10-12T15:11:55Z",
+      "side": 1,
+      "message": "This one feels different to me, since it also sets a queue delay. Intuitively, I\u0027d expect the NextDeliveryTime() to be 1.1s. Explicitly checking it makes it more clear that this is not the case, and that the DequeueDeliverablePackets call is expected to update the NextDeliveryTime.",
+      "parentUuid": "56e47101_81412e7a",
       "range": {
         "startLine": 259,
         "startChar": 0,

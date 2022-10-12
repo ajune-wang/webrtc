@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "9baf699e_f5794553",
+        "filename": "api/stats/rtc_stats.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 519,
+      "author": {
+        "id": 5142
+      },
+      "writtenOn": "2022-10-12T15:26:32Z",
+      "side": 1,
+      "message": "I don\u0027t think RTCNonStandardStatsMember\u003c\u003e is referenced anywhere outside of WebRTC, it\u0027s only an \"implementation detail\" that turns is_standardized() to false.\n\nI suggest deleting RTCNonStandardStatsMember and replacing the few instances of it in rtcstats_objects.h with RTCRestrictedStatsMember\u003cT, StatExposureCriteria::kNonStandard\u003e.\n\nI only see one reference outside of webrtc and that is in a unittest:\nhttps://source.chromium.org/chromium/chromium/src/+/main:third_party/blink/renderer/platform/peerconnection/rtc_stats_test.cc;l\u003d67?q\u003dRTCNonStandardStatsMember\n\nWe could avoid chromium importer breaking either by temporarily commenitng out that test or having a temporary typedef for webrtc::RTCNonStandardStatsMember\u003cint32_t\u003e here that we delete after updating chromium",
+      "revId": "3a47400329263c50fec6ba8836190e453840fae2",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

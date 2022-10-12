@@ -11,6 +11,7 @@
 #include "modules/audio_processing/audio_processing_impl.h"
 
 #include <array>
+#include <fstream>
 #include <memory>
 #include <tuple>
 
@@ -24,11 +25,13 @@
 #include "modules/audio_processing/test/echo_control_mock.h"
 #include "modules/audio_processing/test/test_utils.h"
 #include "rtc_base/checks.h"
+#include "rtc_base/numerics/safe_minmax.h"
 #include "rtc_base/random.h"
 #include "rtc_base/strings/string_builder.h"
 #include "test/field_trial.h"
 #include "test/gmock.h"
 #include "test/gtest.h"
+#include "test/testsupport/file_utils.h"
 
 namespace webrtc {
 namespace {
@@ -146,9 +149,7 @@ rtc::scoped_refptr<AudioProcessing> CreateApmForInputVolumeTest(
   config.gain_controller2.enabled = true;
   config.gain_controller2.adaptive_digital.enabled = true;
 
-  auto apm(AudioProcessingBuilder().Create());
-  apm->ApplyConfig(config);
-  return apm;
+  return AudioProcessingBuilder().SetConfig(config).Create();
 }
 
 // Runs `apm` input processing for volume adjustments for `num_frames` random
@@ -1047,5 +1048,119 @@ INSTANTIATE_TEST_SUITE_P(AudioProcessingImplTest,
                          ::testing::Combine(::testing::Values(0, 5, 15),
                                             ::testing::Values(absl::nullopt,
                                                               20)));
+
+class InputVolumeControllerParametrizedTest
+    : public ::testing::TestWithParam<AudioProcessing::Config> {
+ private:
+  // PCM input file properties.
+  static constexpr int kBufferSize = 480;
+  static constexpr int kNumChannels = 2;
+
+ public:
+  InputVolumeControllerParametrizedTest()
+      : is_(test::ResourcePath("near48_stereo", "pcm"), std::ios::binary),
+        buffer_(kBufferSize * kNumChannels) {
+    RTC_CHECK(is_);
+  }
+
+ protected:
+  rtc::scoped_refptr<AudioProcessing> BuildApm(
+      bool ignore_recommended_input_volume) const {
+    AudioProcessing::Config config = GetParam();
+    config.gain_controller.input_volume_controller
+        .ignore_recommended_input_volume = ignore_recommended_input_volume;
+    return AudioProcessingBuilder().SetConfig(config).Create();
+  }
+
+  // Reads the first channel from the next frame of the opened PCM file, applies
+  // `gain` and writes the mono frame into `buffer`. Returns true if the frame
+  // was read, false if EOF reached.
+  bool ReadFrame(rtc::ArrayView<float> buffer, float gain = 1.0f) {
+    RTC_DCHECK_EQ(buffer.size(), kBufferSize);
+
+    constexpr int kPcmBytesPerSamples = sizeof(int16_t);
+    constexpr int kBytesToRead =
+        kBufferSize * kNumChannels * kPcmBytesPerSamples;
+    is_.read(reinterpret_cast<char*>(buffer_.data()), kBytesToRead);
+    if (is_.gcount() < kBytesToRead) {
+      // EOF reached. Stop.
+      return false;
+    }
+    // Read the 1st channel and apply `gain`.
+    constexpr float kMinSample = std::numeric_limits<int16_t>::min();
+    constexpr float kMaxSample = std::numeric_limits<int16_t>::max();
+    for (size_t i = 0; i < buffer.size(); ++i) {
+      buffer[i] = rtc::SafeClamp(static_cast<float>(buffer_[2 * i]) * gain,
+                                 kMinSample, kMaxSample);
+    }
+    return true;
+  }
+
+ private:
+  std::ifstream is_;
+  std::vector<float> buffer_;
+};
+
+TEST_P(InputVolumeControllerParametrizedTest, IgnoreRecommendedInputVolume) {
+  // Create an APM instance that recommends the input volume to apply.
+  auto apm1 = BuildApm(/*ignore_recommended_input_volume=*/false);
+  // Create an APM instance that does not recommend the input volume to apply.
+  auto apm2 = BuildApm(/*ignore_recommended_input_volume=*/true);
+
+  constexpr int kSampleRateHz = 48000;
+  constexpr int kNumChannels = 1;
+  std::array<float, kSampleRateHz / 100> buffer;
+  float* channel_pointers[] = {buffer.data()};
+  StreamConfig stream_config(/*sample_rate_hz=*/kSampleRateHz,
+                             /*num_channels=*/kNumChannels);
+
+  // Simulate APM on a number of input audio frames with random applied input
+  // volume and return the number of frames for which the applied and the
+  // recommended volumes differ.
+  const auto& simulate_process = [&](AudioProcessing& apm) -> int {
+    int count_recommended_applied_differences = 0;
+    Random random_generator(2341U);
+    for (int i = 0; ReadFrame(buffer) && i < 30; ++i) {
+      int applied_input_volume = random_generator.Rand(/*low=*/0, /*high=*/255);
+      apm.set_stream_analog_level(applied_input_volume);
+      apm.ProcessStream(channel_pointers, stream_config, stream_config,
+                        channel_pointers);
+      if (applied_input_volume != apm.recommended_stream_analog_level()) {
+        ++count_recommended_applied_differences;
+      }
+    }
+    return count_recommended_applied_differences;
+  };
+
+  // Make sure that `simulate_process()` triggers at least one input volume
+  // adaptation when APM recommends the input volume to apply.
+  int count_recommended_applied_differences1 = simulate_process(*apm1);
+  ASSERT_GT(count_recommended_applied_differences1, 0);
+
+  // Check that, when the recommendations are ignored, APM always recommends the
+  // applied input volume.
+  int count_recommended_applied_differences2 = simulate_process(*apm2);
+  EXPECT_EQ(count_recommended_applied_differences2, 0);
+}
+
+INSTANTIATE_TEST_SUITE_P(
+    AudioProcessingTest,
+    InputVolumeControllerParametrizedTest,
+    ::testing::ValuesIn({
+        // AGC1 with `AgcManagerDirect`.
+        AudioProcessing::Config{
+            .gain_controller1 = {.enabled = true,
+                                 .mode = AudioProcessing::Config::
+                                     GainController1::Mode::kAdaptiveAnalog,
+                                 .analog_gain_controller = {.enabled = true}}},
+        // AGC1 without `AgcManagerDirect`.
+        AudioProcessing::Config{
+            .gain_controller1 = {.enabled = true,
+                                 .mode = AudioProcessing::Config::
+                                     GainController1::Mode::kAdaptiveAnalog,
+                                 .analog_gain_controller = {.enabled = false}}}
+        // TODO(bugs.webrtc.org/7494): Add AGC2 once its input volume controller
+        // is added.
+    }));
 
 }  // namespace webrtc

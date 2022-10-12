@@ -304,6 +304,9 @@ AudioProcessingImpl::AudioProcessingImpl(
   RTC_LOG(LS_INFO) << "Denormal disabler: "
                    << (DenormalDisabler::IsSupported() ? "supported"
                                                        : "unsupported");
+  RTC_LOG(LS_INFO) << "Ignore recommended input volume: "
+                   << config_.gain_controller.input_volume_controller
+                          .ignore_recommended_input_volume;
 
   // Mark Echo Controller enabled if a factory is injected.
   capture_nonlocked_.echo_controller_enabled =
@@ -1640,8 +1643,17 @@ int AudioProcessingImpl::recommended_stream_analog_level() const {
   if (!capture_.applied_input_volume.has_value()) {
     RTC_LOG(LS_ERROR) << "set_stream_analog_level has not been called";
   }
+
   // Input volume to recommend when `set_stream_analog_level()` is not called.
   constexpr int kFallBackInputVolume = 255;
+
+  if (config_.gain_controller.input_volume_controller
+          .ignore_recommended_input_volume) {
+    // When the computed recommended input volume is ignored, return the last
+    // applied input volume (or the fall-back value if unspecified).
+    return capture_.applied_input_volume.value_or(kFallBackInputVolume);
+  }
+
   // When APM has no input volume to recommend, return the latest applied input
   // volume that has been observed in order to possibly produce no input volume
   // change. If no applied input volume has been observed, return a fall-back

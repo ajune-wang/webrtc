@@ -106,6 +106,24 @@
       "parentUuid": "93ba4c62_ff9ab21e",
       "revId": "d4c0ee4344aefbbbe04439087d2304673b292f8b",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "fc259a7b_850d847c",
+        "filename": "media/sctp/dcsctp_transport.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 562,
+      "author": {
+        "id": 7036
+      },
+      "writtenOn": "2022-10-12T09:46:31Z",
+      "side": 1,
+      "message": "The best place for a write up would be the commit message I believe.\nAs for parsing SCTP message, you can convert extract and convert those for Wireshark\u0027s consumption. See this comment with instructions: https://chromium.googlesource.com/external/webrtc/+/branch-heads/70/media/sctp/sctptransport.cc#133",
+      "parentUuid": "755001d1_87ddd039",
+      "revId": "d4c0ee4344aefbbbe04439087d2304673b292f8b",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

@@ -89,6 +89,30 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "a6062950_ed58e5f2",
+        "filename": "video/pc_full_stack_tests.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 123,
+      "author": {
+        "id": 5578
+      },
+      "writtenOn": "2022-10-13T08:22:16Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "26438da0_ba1f0dc4",
+      "range": {
+        "startLine": 123,
+        "startChar": 46,
+        "endLine": 123,
+        "endChar": 54
+      },
+      "revId": "cb60061ce188b7275dc1871916f845468da1003f",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "2f4285c3_4f0457f9",
@@ -126,6 +150,30 @@
       "side": 1,
       "message": "good catch.",
       "parentUuid": "2f4285c3_4f0457f9",
+      "range": {
+        "startLine": 758,
+        "startChar": 8,
+        "endLine": 760,
+        "endChar": 9
+      },
+      "revId": "cb60061ce188b7275dc1871916f845468da1003f",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "0017c196_8a3d28be",
+        "filename": "video/pc_full_stack_tests.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 760,
+      "author": {
+        "id": 5578
+      },
+      "writtenOn": "2022-10-13T08:22:16Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "0d96f802_e47663c6",
       "range": {
         "startLine": 758,
         "startChar": 8,

@@ -16,6 +16,23 @@
       "message": "Thanks for the review Sergey!\nJust uploaded a new commit addressing your comments.",
       "revId": "abab8d465910a5bd553f8440fa7745b0ab9968f4",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "450c12ac_cf55e294",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 14994
+      },
+      "writtenOn": "2022-10-13T11:53:52Z",
+      "side": 1,
+      "message": "Can you fix the presubmit issue about the missing bug number?",
+      "revId": "abab8d465910a5bd553f8440fa7745b0ab9968f4",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

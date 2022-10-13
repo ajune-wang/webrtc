@@ -1,0 +1,147 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "ef699443_cc97301e",
+        "filename": "modules/congestion_controller/goog_cc/goog_cc_network_control.cc",
+        "patchSetId": 17
+      },
+      "lineNbr": 719,
+      "author": {
+        "id": 5578
+      },
+      "writtenOn": "2022-10-13T13:48:39Z",
+      "side": 1,
+      "message": "no need to be part of GoogCcNetworkController. Just use a free funtion in the anonymouse name space at the top of this file.",
+      "range": {
+        "startLine": 719,
+        "startChar": 23,
+        "endLine": 719,
+        "endChar": 46
+      },
+      "revId": "3930481e277748d22ad5ed73823608b0b2e78590",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "50bd6b21_0fef79c7",
+        "filename": "modules/congestion_controller/goog_cc/probe_controller.cc",
+        "patchSetId": 17
+      },
+      "lineNbr": 449,
+      "author": {
+        "id": 5578
+      },
+      "writtenOn": "2022-10-13T13:48:39Z",
+      "side": 1,
+      "message": "config_.limit_probe_target_rate_to_loss_bwe \u0026\u0026",
+      "range": {
+        "startLine": 449,
+        "startChar": 8,
+        "endLine": 449,
+        "endChar": 33
+      },
+      "revId": "3930481e277748d22ad5ed73823608b0b2e78590",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "e92af47e_95d32729",
+        "filename": "modules/congestion_controller/goog_cc/probe_controller.h",
+        "patchSetId": 17
+      },
+      "lineNbr": 88,
+      "author": {
+        "id": 5578
+      },
+      "writtenOn": "2022-10-13T13:48:39Z",
+      "side": 1,
+      "message": "How about naming this to easier understand what is limiting the BWE? Would that make sense? If so- also update the comment above\n\nenum class BandWidthLimitedBy {\nkLossLimitedLossDecreasing- or kLossLimitedLossBweIncreasing ? \nkLossLimitedLossIncreasing\nkDelayBasedLimited\n}",
+      "range": {
+        "startLine": 88,
+        "startChar": 2,
+        "endLine": 88,
+        "endChar": 21
+      },
+      "revId": "3930481e277748d22ad5ed73823608b0b2e78590",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "f0385044_eb22761d",
+        "filename": "modules/congestion_controller/goog_cc/probe_controller_unittest.cc",
+        "patchSetId": 17
+      },
+      "lineNbr": 179,
+      "author": {
+        "id": 5578
+      },
+      "writtenOn": "2022-10-13T13:48:39Z",
+      "side": 1,
+      "message": "Can you move these tests below to the old tests? ProbeFurtherWhenLossBasedIncreases\nIsnt one of the tests duplicated?",
+      "revId": "3930481e277748d22ad5ed73823608b0b2e78590",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "082ee708_ee775d38",
+        "filename": "modules/congestion_controller/goog_cc/probe_controller_unittest.cc",
+        "patchSetId": 17
+      },
+      "lineNbr": 182,
+      "author": {
+        "id": 5578
+      },
+      "writtenOn": "2022-10-13T13:48:39Z",
+      "side": 1,
+      "message": "This should require the experiment.   config_.limit_probe_target_rate_to_loss_bwe \nSee comment in probe_controller.cc",
+      "revId": "3930481e277748d22ad5ed73823608b0b2e78590",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "b23c8353_ade19fd2",
+        "filename": "modules/congestion_controller/goog_cc/probe_controller_unittest.cc",
+        "patchSetId": 17
+      },
+      "lineNbr": 207,
+      "author": {
+        "id": 5578
+      },
+      "writtenOn": "2022-10-13T13:48:39Z",
+      "side": 1,
+      "message": "This too",
+      "range": {
+        "startLine": 207,
+        "startChar": 0,
+        "endLine": 207,
+        "endChar": 2
+      },
+      "revId": "3930481e277748d22ad5ed73823608b0b2e78590",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "d2b4150e_8bd52d49",
+        "filename": "modules/congestion_controller/goog_cc/probe_controller_unittest.cc",
+        "patchSetId": 17
+      },
+      "lineNbr": 268,
+      "author": {
+        "id": 5578
+      },
+      "writtenOn": "2022-10-13T13:48:39Z",
+      "side": 1,
+      "message": "Also requires experiment ?",
+      "revId": "3930481e277748d22ad5ed73823608b0b2e78590",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

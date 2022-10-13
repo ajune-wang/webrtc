@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "64b8c957_d2929a2a",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 3
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 19779
+      },
+      "writtenOn": "2022-10-13T13:00:30Z",
+      "side": 1,
+      "message": "Bug link added in the description",
+      "revId": "695d013cfa63feb30d55c76ebdb176803e3c4c06",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

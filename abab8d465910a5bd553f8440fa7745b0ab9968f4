@@ -33,6 +33,24 @@
       "message": "Can you fix the presubmit issue about the missing bug number?",
       "revId": "abab8d465910a5bd553f8440fa7745b0ab9968f4",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "29f5b7f1_07ac310e",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 19779
+      },
+      "writtenOn": "2022-10-13T13:00:30Z",
+      "side": 1,
+      "message": "Oh yes, sorry, I wasn\u0027t sure what was the issue.\nJust added the link to the bug in the message above.",
+      "parentUuid": "450c12ac_cf55e294",
+      "revId": "abab8d465910a5bd553f8440fa7745b0ab9968f4",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

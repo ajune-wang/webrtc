@@ -2096,7 +2096,7 @@ TEST_P(AgcManagerDirectParametrizedTest, NonEmptyRmsErrorOverrideHasEffect) {
   manager_1.Initialize();
   manager_2.Initialize();
 
-  constexpr int kInputVolume = 128;
+  constexpr int kInputVolume = 50;
   manager_1.set_stream_analog_level(kInputVolume);
   manager_2.set_stream_analog_level(kInputVolume);
 

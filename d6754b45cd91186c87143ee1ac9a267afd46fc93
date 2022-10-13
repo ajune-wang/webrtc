@@ -16,6 +16,138 @@
       "message": "Adding brandtr@ for call/ LGTM.",
       "revId": "d6754b45cd91186c87143ee1ac9a267afd46fc93",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "7e0c516a_1760f680",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 7
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5023
+      },
+      "writtenOn": "2022-10-13T12:05:36Z",
+      "side": 1,
+      "message": "Nice! call/ lgtm",
+      "revId": "d6754b45cd91186c87143ee1ac9a267afd46fc93",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "7ce91150_a3b889d8",
+        "filename": "api/test/simulated_network.h",
+        "patchSetId": 7
+      },
+      "lineNbr": 31,
+      "author": {
+        "id": 5023
+      },
+      "writtenOn": "2022-10-13T12:05:36Z",
+      "side": 1,
+      "message": "Future nit: consider adding the unit to the variable name here. `size_bytes` ?",
+      "range": {
+        "startLine": 31,
+        "startChar": 9,
+        "endLine": 31,
+        "endChar": 13
+      },
+      "revId": "d6754b45cd91186c87143ee1ac9a267afd46fc93",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "678267e8_daaf6dd2",
+        "filename": "api/test/simulated_network.h",
+        "patchSetId": 7
+      },
+      "lineNbr": 81,
+      "author": {
+        "id": 5023
+      },
+      "writtenOn": "2022-10-13T12:05:36Z",
+      "side": 1,
+      "message": "See nit comment above.",
+      "range": {
+        "startLine": 81,
+        "startChar": 28,
+        "endLine": 81,
+        "endChar": 32
+      },
+      "revId": "d6754b45cd91186c87143ee1ac9a267afd46fc93",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "9c476701_4ec7892f",
+        "filename": "call/simulated_network.cc",
+        "patchSetId": 7
+      },
+      "lineNbr": 26,
+      "author": {
+        "id": 5023
+      },
+      "writtenOn": "2022-10-13T12:05:36Z",
+      "side": 1,
+      "message": "I\u0027m not super familiar with the nomenclature in simulated networks, but would it be clearer to call this a `timestamp` rather than a `time`?",
+      "range": {
+        "startLine": 26,
+        "startChar": 17,
+        "endLine": 26,
+        "endChar": 21
+      },
+      "revId": "d6754b45cd91186c87143ee1ac9a267afd46fc93",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "5ecd6d4a_8d17f42c",
+        "filename": "call/simulated_network.cc",
+        "patchSetId": 7
+      },
+      "lineNbr": 39,
+      "author": {
+        "id": 5023
+      },
+      "writtenOn": "2022-10-13T12:05:36Z",
+      "side": 1,
+      "message": "Maybe add some nuance here: the factor 1000 comes from `10^6 / 10^3`, where `10^6` is due to the time unit being `us` and `10^3` is due to the rate unit being `kbps`.",
+      "range": {
+        "startLine": 38,
+        "startChar": 58,
+        "endLine": 39,
+        "endChar": 41
+      },
+      "revId": "d6754b45cd91186c87143ee1ac9a267afd46fc93",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "044ea6d5_61fee7d7",
+        "filename": "call/simulated_network_unittest.cc",
+        "patchSetId": 7
+      },
+      "lineNbr": 40,
+      "author": {
+        "id": 5023
+      },
+      "writtenOn": "2022-10-13T12:05:36Z",
+      "side": 1,
+      "message": "nit: kB",
+      "range": {
+        "startLine": 40,
+        "startChar": 19,
+        "endLine": 40,
+        "endChar": 21
+      },
+      "revId": "d6754b45cd91186c87143ee1ac9a267afd46fc93",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

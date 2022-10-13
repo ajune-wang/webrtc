@@ -16,6 +16,23 @@
       "message": "Thanks for this CL!\n\nI\u0027m not convinced the approach taken here is the best one though.\n\nIMO, the recommended input volume is very much tied to/related to the AGC functionality and not something that should go into the pipeline.\n\nAlso, since the effect when the recommended input volume is ignored is the same as turning off the analog AGC, can\u0027t that be done instead?\n\nMy suggestion instead of adding this configuration parameter would be to use an approach where the analog AGC is turned off.\n\nAn alternative, which I\u0027m not sure is a good one, is to make passing the recommended input volume non-mandatory.\nI.e., instead of having the caller passing the input volume to APM and at the same time telling APM to ignore it, have the caller refrain from sending the input volume (to me that is a setup that is easier for the caller to understand)",
       "revId": "bbdea0890e0da47251d1c95b50ce9a27fbbd2fbe",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "2f222344_f0a5ea4b",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 5
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5122
+      },
+      "writtenOn": "2022-10-13T11:41:26Z",
+      "side": 1,
+      "message": "Thanks for your comment Per. I decided to abandon this change and implement the toggle downstream.",
+      "revId": "bbdea0890e0da47251d1c95b50ce9a27fbbd2fbe",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

@@ -39,6 +39,24 @@
       "message": "Add (feel free to change the name):\n\n```\n    group(\"pipewire_shared_screencast_stream_test\") {\n      testonly \u003d true\n\n      deps \u003d [\n        \":shared_screencast_stream_test\",\n      ]\n\n      data \u003d [\n        \"linux/wayland/shared_screencast_stream_test.py\",\n        \"${root_out_dir}/shared_screencast_stream_test\",\n      ]\n    }\n  }\n```\n\nThen do something like https://source.chromium.org/chromium/chromium/src/+/main:third_party/webrtc/infra/specs/gn_isolate_map.pyl;l\u003d66-70;drc\u003d90b74389a2b4210036960f2e6af75c86518ac198 in https://source.chromium.org/chromium/chromium/src/+/main:third_party/webrtc/infra/specs/gn_isolate_map.pyl.\n\nThis should bring us one step closer.",
       "revId": "1f66a71db0fef29ceb5c5eab4f92766251ebf01f",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "25594b5b_df87d445",
+        "filename": "modules/desktop_capture/BUILD.gn",
+        "patchSetId": 13
+      },
+      "lineNbr": 145,
+      "author": {
+        "id": 18474
+      },
+      "writtenOn": "2022-10-13T16:58:27Z",
+      "side": 1,
+      "message": "Will this new group need to be added to a bot recipe or other build somewhere?",
+      "parentUuid": "ea622eb9_04547e30",
+      "revId": "1f66a71db0fef29ceb5c5eab4f92766251ebf01f",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

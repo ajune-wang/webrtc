@@ -10,7 +10,7 @@ vars = {
   # chromium waterfalls. More info at: crbug.com/570091.
   'checkout_configuration': 'default',
   'checkout_instrumented_libraries': 'checkout_linux and checkout_configuration == "default"',
-  'chromium_revision': 'ee3b65303a7498c453063b9e82782bc01bfb94ea',
+  'chromium_revision': '0806f2fe6c442b84795bd86dba5fff9ed3042152',
 
   # Keep the Chromium default of generating location tags.
   'generate_location_tags': True,
@@ -40,7 +40,7 @@ vars = {
 deps = {
   # TODO(kjellander): Move this to be Android-only.
   'src/base':
-    'https://chromium.googlesource.com/chromium/src/base@4e3ce9b2d899b63ca229ed970cceac9dd53c9354',
+    'https://chromium.googlesource.com/chromium/src/base@a12999d37f51f50f7bd7023c5b5d7196b545f81c',
   'src/build':
     'https://chromium.googlesource.com/chromium/src/build@71f6ab44d38e59c8b3c3217ac0bea12beb6358c9',
   'src/buildtools':
@@ -51,13 +51,13 @@ deps = {
     'condition': 'checkout_android',
   },
   'src/ios': {
-    'url': 'https://chromium.googlesource.com/chromium/src/ios@8e83ca2a23fef6cd7f4e4ec475bd774ae878449f',
+    'url': 'https://chromium.googlesource.com/chromium/src/ios@6ff65461372bda385c71092081847f1b04c8cf4e',
     'condition': 'checkout_ios',
   },
   'src/testing':
     'https://chromium.googlesource.com/chromium/src/testing@a8516131a7661a28912ba2a109254cdf84db9f19',
   'src/third_party':
-    'https://chromium.googlesource.com/chromium/src/third_party@13b499e659974900ac67122c6c185383c73bdcb2',
+    'https://chromium.googlesource.com/chromium/src/third_party@612147f82c37b3d3ee9fcfa78fcc484e35484e43',
 
   'src/buildtools/linux64': {
     'packages': [
@@ -292,7 +292,7 @@ deps = {
     'condition': 'checkout_android',
   },
   'src/tools':
-    'https://chromium.googlesource.com/chromium/src/tools@8785500eefc069d03013f02ff41e2f6ecc4021b9',
+    'https://chromium.googlesource.com/chromium/src/tools@87be8337c7d700cd69ad8b63e9f531625a889c72',
 
   'src/third_party/accessibility_test_framework': {
       'packages': [
@@ -369,7 +369,7 @@ deps = {
     'packages': [
       {
           'package': 'chromium/third_party/androidx',
-          'version': 'h7h2tZ_Dqu-O57Bk14oz6B7AaJLu1naK5jGnsQ5vaJQC',
+          'version': 'H4XoDJ7V7LZUIhvV2qwFHWYJoIY4MJkGQK-Q2vv-dq4C',
       },
     ],
     'condition': 'checkout_android',

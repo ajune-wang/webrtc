@@ -82,6 +82,8 @@ class GoogCcNetworkController : public NetworkControllerInterface {
                                     Timestamp at_time);
   void UpdateCongestionWindowSize();
   PacerConfig GetPacingRates(Timestamp at_time) const;
+  BandwidthEstimateState GetBandwidthEstimateState(
+      LossBasedState loss_based_state) const;
   const FieldTrialBasedConfig trial_based_config_;
 
   const FieldTrialsView* const key_value_config_;

@@ -27,6 +27,7 @@
 #include "api/units/timestamp.h"
 #include "logging/rtc_event_log/events/rtc_event_remote_estimate.h"
 #include "modules/congestion_controller/goog_cc/alr_detector.h"
+#include "modules/congestion_controller/goog_cc/loss_based_bwe_v2.h"
 #include "modules/congestion_controller/goog_cc/probe_controller.h"
 #include "modules/remote_bitrate_estimator/include/bwe_defines.h"
 #include "modules/remote_bitrate_estimator/test/bwe_test_logging.h"
@@ -614,10 +615,6 @@ void GoogCcNetworkController::MaybeTriggerOnNetworkChanged(
   uint8_t fraction_loss = bandwidth_estimation_->fraction_loss();
   TimeDelta round_trip_time = bandwidth_estimation_->round_trip_time();
   DataRate loss_based_target_rate = bandwidth_estimation_->target_rate();
-  bool bwe_limited_due_to_packet_loss =
-      loss_based_target_rate.IsFinite() &&
-      bandwidth_estimation_->delay_based_limit().IsFinite() &&
-      loss_based_target_rate < bandwidth_estimation_->delay_based_limit();
   DataRate pushback_target_rate = loss_based_target_rate;
 
   BWE_TEST_LOGGING_PLOT(1, "fraction_loss_%", at_time.ms(),
@@ -680,7 +677,9 @@ void GoogCcNetworkController::MaybeTriggerOnNetworkChanged(
     update->target_rate = target_rate_msg;
 
     auto probes = probe_controller_->SetEstimatedBitrate(
-        loss_based_target_rate, bwe_limited_due_to_packet_loss, at_time);
+        loss_based_target_rate,
+        GetBandwidthEstimateState(bandwidth_estimation_->loss_based_state()),
+        at_time);
     update->probe_cluster_configs.insert(update->probe_cluster_configs.end(),
                                          probes.begin(), probes.end());
     update->pacer_config = GetPacingRates(at_time);
@@ -715,6 +714,18 @@ PacerConfig GoogCcNetworkController::GetPacingRates(Timestamp at_time) const {
   msg.data_window = pacing_rate * msg.time_window;
   msg.pad_window = padding_rate * msg.time_window;
   return msg;
+}
+
+BandwidthEstimateState GoogCcNetworkController::GetBandwidthEstimateState(
+    LossBasedState loss_based_state) const {
+  switch (loss_based_state) {
+    case LossBasedState::kDecreasing:
+      return BandwidthEstimateState::kDecreasing;
+    case LossBasedState::kIncreasing:
+      return BandwidthEstimateState::kIncreasing;
+    default:
+      return BandwidthEstimateState::kDelayBasedEstimate;
+  }
 }
 
 }  // namespace webrtc

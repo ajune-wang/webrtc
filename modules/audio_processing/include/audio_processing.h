@@ -166,8 +166,11 @@ class RTC_EXPORT AudioProcessing : public rtc::RefCountInterface {
       // Allow multi-channel processing of render audio.
       bool multi_channel_render = false;
       // Allow multi-channel processing of capture audio when AEC3 is active
-      // or a custom AEC is injected..
+      // or a custom AEC is injected.
       bool multi_channel_capture = false;
+      // When true, APM always recommends the applied input volume regardless
+      // of whether the input volume controller is active or not.
+      bool ignore_recommended_input_volume = false;
     } pipeline;
 
     // Enabled the pre-amplifier. It amplifies the capture signal

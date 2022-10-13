@@ -16,7 +16,10 @@
 #include "modules/desktop_capture/linux/wayland/xdg_desktop_portal_utils.h"
 #include "rtc_base/checks.h"
 #include "rtc_base/logging.h"
-#include "screencast_portal.h"
+
+#if defined(WEBRTC_DLOPEN_PIPEWIRE)
+#include "modules/desktop_capture/linux/wayland/screencast_stream_utils.h"
+#endif  // defined(WEBRTC_DLOPEN_PIPEWIRE)
 
 namespace webrtc {
 
@@ -27,6 +30,18 @@ using xdg_portal::ScreenCapturePortalInterface;
 using xdg_portal::SessionDetails;
 
 }  // namespace
+
+// static
+bool BaseCapturerPipeWire::IsSupported() {
+#if defined(WEBRTC_DLOPEN_PIPEWIRE)
+  // Try to open pipewire to determine if we can support it on this system.
+  return OpenPipeWire() && DesktopCapturer::IsRunningUnderWayland();
+#else
+  // If we aren't dlopen'ing PipeWire, it's either linked in or guranteed to be
+  // on the system.
+  return DesktopCapturer::IsRunningUnderWayland();
+#endif  // defined(WEBRTC_DLOPEN_PIPEWIRE)
+}
 
 BaseCapturerPipeWire::BaseCapturerPipeWire(const DesktopCaptureOptions& options,
                                            CaptureType type)

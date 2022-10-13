@@ -57,6 +57,10 @@ spa_pod* BuildFormat(spa_pod_builder* builder,
                      const std::vector<uint64_t>& modifiers,
                      const struct spa_rectangle* resolution);
 
+#if defined(WEBRTC_DLOPEN_PIPEWIRE)
+bool OpenPipeWire();
+#endif
+
 }  // namespace webrtc
 
 #endif  // MODULES_DESKTOP_CAPTURE_LINUX_WAYLAND_SCREENCAST_STREAM_UTILS_H_

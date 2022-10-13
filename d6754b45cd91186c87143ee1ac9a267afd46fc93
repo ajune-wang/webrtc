@@ -104,6 +104,30 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "45ba8d13_349ef82c",
+        "filename": "call/simulated_network.cc",
+        "patchSetId": 7
+      },
+      "lineNbr": 26,
+      "author": {
+        "id": 5087
+      },
+      "writtenOn": "2022-10-13T13:06:14Z",
+      "side": 1,
+      "message": "I agree `timestamp` is better. At the moment the codebase uses `time` in the relevant places (e.g. in the API `NextDeliveryTimeUs`). Let\u0027s keep `time` for now but this code is under active rewrite so this might change.",
+      "parentUuid": "9c476701_4ec7892f",
+      "range": {
+        "startLine": 26,
+        "startChar": 17,
+        "endLine": 26,
+        "endChar": 21
+      },
+      "revId": "d6754b45cd91186c87143ee1ac9a267afd46fc93",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "5ecd6d4a_8d17f42c",
@@ -127,6 +151,30 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "49f2d77e_f0631fab",
+        "filename": "call/simulated_network.cc",
+        "patchSetId": 7
+      },
+      "lineNbr": 39,
+      "author": {
+        "id": 5087
+      },
+      "writtenOn": "2022-10-13T13:06:14Z",
+      "side": 1,
+      "message": "Done, thanks a lot!",
+      "parentUuid": "5ecd6d4a_8d17f42c",
+      "range": {
+        "startLine": 38,
+        "startChar": 58,
+        "endLine": 39,
+        "endChar": 41
+      },
+      "revId": "d6754b45cd91186c87143ee1ac9a267afd46fc93",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "044ea6d5_61fee7d7",
@@ -140,6 +188,30 @@
       "writtenOn": "2022-10-13T12:05:36Z",
       "side": 1,
       "message": "nit: kB",
+      "range": {
+        "startLine": 40,
+        "startChar": 19,
+        "endLine": 40,
+        "endChar": 21
+      },
+      "revId": "d6754b45cd91186c87143ee1ac9a267afd46fc93",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "1762c113_ee2cc863",
+        "filename": "call/simulated_network_unittest.cc",
+        "patchSetId": 7
+      },
+      "lineNbr": 40,
+      "author": {
+        "id": 5087
+      },
+      "writtenOn": "2022-10-13T13:06:14Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "044ea6d5_61fee7d7",
       "range": {
         "startLine": 40,
         "startChar": 19,

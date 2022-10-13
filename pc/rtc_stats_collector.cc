@@ -377,7 +377,7 @@ std::string GetCodecIdAndMaybeCreateCodecStats(
   }
   // Create the `RTCCodecStats` that we want to reference.
   std::unique_ptr<RTCCodecStats> codec_stats(
-      std::make_unique<RTCCodecStats>(codec_id, timestamp_us));
+      std::make_unique<RTCCodecStats>(std::move(codec_id), timestamp_us));
   codec_stats->payload_type = payload_type;
   codec_stats->mime_type = codec_params.mime_type();
   if (codec_params.clock_rate) {

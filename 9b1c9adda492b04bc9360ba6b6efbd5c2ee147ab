@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "cd6ff41a_5f8058ea",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 19549
+      },
+      "writtenOn": "2022-10-13T15:02:53Z",
+      "side": 1,
+      "message": "covering the pool before the leaves start falling even more ;-)",
+      "revId": "9b1c9adda492b04bc9360ba6b6efbd5c2ee147ab",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

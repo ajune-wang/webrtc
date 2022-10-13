@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "e7e9c9ba_f170c587",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 18474
+      },
+      "writtenOn": "2022-10-13T21:18:09Z",
+      "side": 1,
+      "message": "Mark PTAL; but LMK if you\u0027d prefer to have Jordan review and just stamp for him.",
+      "revId": "eff8ca913d0bb52022fc2e9837a68887f5662b54",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

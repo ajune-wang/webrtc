@@ -22,6 +22,7 @@
 #include "modules/video_coding/codecs/vp8/include/vp8_globals.h"
 #include "modules/video_coding/codecs/vp9/include/vp9_globals.h"
 #include "rtc_base/checks.h"
+#include "rtc_base/logging.h"
 
 namespace webrtc {
 
@@ -35,8 +36,10 @@ std::unique_ptr<RtpPacketizer> RtpPacketizer::Create(
     // Use raw packetizer.
     return std::make_unique<RtpPacketizerGeneric>(payload, limits);
   }
+  // RTC_LOG(LS_ERROR) << "FIPPO TYPE " << *type << " hdrtype " <<
+  // rtp_video_header.codec;
 
-  switch (*type) {
+  switch (rtp_video_header.codec) {
     case kVideoCodecH264: {
       const auto& h264 =
           absl::get<RTPVideoHeaderH264>(rtp_video_header.video_type_header);

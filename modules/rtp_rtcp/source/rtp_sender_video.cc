@@ -488,6 +488,12 @@ bool RTPSenderVideo::SendVideo(
     return false;
   }
 
+  if (video_header.codec == VideoCodecType::kVideoCodecH264) {
+    payload_type = 102;
+  } else if (video_header.codec == VideoCodecType::kVideoCodecAV1) {
+    payload_type = 45;
+  }
+
   int32_t retransmission_settings = retransmission_settings_;
   if (codec_type == VideoCodecType::kVideoCodecH264) {
     // Backward compatibility for older receivers without temporal layer logic.
@@ -641,7 +647,7 @@ bool RTPSenderVideo::SendVideo(
   }
 
   std::unique_ptr<RtpPacketizer> packetizer =
-      RtpPacketizer::Create(codec_type, payload, limits, video_header);
+      RtpPacketizer::Create(video_header.codec, payload, limits, video_header);
 
   // TODO(bugs.webrtc.org/10714): retransmission_settings_ should generally be
   // replaced by expected_retransmission_time_ms.has_value(). For now, though,

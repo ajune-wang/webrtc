@@ -356,6 +356,9 @@ int SimulcastEncoderAdapter::InitEncode(
   bool separate_encoders_needed =
       !encoder_context->encoder().GetEncoderInfo().supports_simulcast ||
       active_streams_count == 1;
+  RTC_LOG(LS_ERROR) << "SIMULCAST ENCODER ADAPTER NEEDS SEPARATE ENCODERS? "
+                    << separate_encoders_needed;
+  separate_encoders_needed = true;
   // Singlecast or simulcast with simulcast-capable underlaying encoder.
   if (total_streams_count_ == 1 || !separate_encoders_needed) {
     int ret = encoder_context->encoder().InitEncode(&codec_, settings);
@@ -387,10 +390,10 @@ int SimulcastEncoderAdapter::InitEncode(
       continue;
     }
 
-    if (encoder_context == nullptr) {
-      encoder_context = FetchOrCreateEncoderContext(
-          /*is_lowest_quality_stream=*/stream_idx == lowest_quality_stream_idx);
-    }
+    // if (encoder_context == nullptr) {
+    encoder_context = FetchOrCreateEncoderContext(
+        /*is_lowest_quality_stream=*/stream_idx == lowest_quality_stream_idx);
+    //}
     if (encoder_context == nullptr) {
       Release();
       return WEBRTC_VIDEO_CODEC_MEMORY;
@@ -696,25 +699,33 @@ SimulcastEncoderAdapter::FetchOrCreateEncoderContext(
   // Toggling of `prefer_temporal_support` requires encoder recreation. Find
   // and reuse encoder with desired `prefer_temporal_support`. Otherwise, if
   // there is no such encoder in the cache, create a new instance.
+  /*
   auto encoder_context_iter =
       std::find_if(cached_encoder_contexts_.begin(),
                    cached_encoder_contexts_.end(), [&](auto& encoder_context) {
                      return encoder_context->prefer_temporal_support() ==
                             prefer_temporal_support;
                    });
+  */
 
   std::unique_ptr<SimulcastEncoderAdapter::EncoderContext> encoder_context;
-  if (encoder_context_iter != cached_encoder_contexts_.end()) {
+  if (0) { /*encoder_context_iter != cached_encoder_contexts_.end()) {
     encoder_context = std::move(*encoder_context_iter);
     cached_encoder_contexts_.erase(encoder_context_iter);
+    */
   } else {
+    SdpVideoFormat format(video_format_);
+    if (is_lowest_quality_stream) {
+      format.name = "AV1";
+    } else {
+      format.name = "H264";
+    }
     std::unique_ptr<VideoEncoder> primary_encoder =
-        primary_encoder_factory_->CreateVideoEncoder(video_format_);
+        primary_encoder_factory_->CreateVideoEncoder(format);
 
     std::unique_ptr<VideoEncoder> fallback_encoder;
     if (fallback_encoder_factory_ != nullptr) {
-      fallback_encoder =
-          fallback_encoder_factory_->CreateVideoEncoder(video_format_);
+      fallback_encoder = fallback_encoder_factory_->CreateVideoEncoder(format);
     }
 
     std::unique_ptr<VideoEncoder> encoder;
@@ -760,7 +771,13 @@ webrtc::VideoCodec SimulcastEncoderAdapter::MakeStreamCodec(
     uint32_t start_bitrate_kbps,
     bool is_lowest_quality_stream,
     bool is_highest_quality_stream) {
-  webrtc::VideoCodec codec_params = codec;
+  webrtc::VideoCodec codec_params;
+  if (is_lowest_quality_stream) {
+    codec_params.codecType = kVideoCodecVP8;
+  } else {
+    codec_params.codecType = kVideoCodecH264;
+  }
+  codec_params.numberOfSimulcastStreams = 1;
   const SimulcastStream& stream_params = codec.simulcastStream[stream_idx];
 
   codec_params.numberOfSimulcastStreams = 0;
@@ -783,7 +800,8 @@ webrtc::VideoCodec SimulcastEncoderAdapter::MakeStreamCodec(
       codec_params.qpMax = kLowestResMaxQp;
     }
   }
-  if (codec.codecType == webrtc::kVideoCodecVP8) {
+  /*
+  if (is_lowest_quality_stream || codec.codecType == webrtc::kVideoCodecVP8) {
     codec_params.VP8()->numberOfTemporalLayers =
         stream_params.numberOfTemporalLayers;
     if (!is_highest_quality_stream) {
@@ -801,6 +819,7 @@ webrtc::VideoCodec SimulcastEncoderAdapter::MakeStreamCodec(
     codec_params.H264()->numberOfTemporalLayers =
         stream_params.numberOfTemporalLayers;
   }
+  */
 
   // Cap start bitrate to the min bitrate in order to avoid strange codec
   // behavior.

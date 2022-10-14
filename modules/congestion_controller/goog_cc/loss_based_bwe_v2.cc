@@ -142,6 +142,7 @@ LossBasedBweV2::Result LossBasedBweV2::GetLossBasedResult(
     DataRate delay_based_limit) const {
   Result result;
   result.state = current_state_;
+  result.average_loss_rate = GetAverageReportedLossRatio();
   if (!IsReady()) {
     if (!IsEnabled()) {
       RTC_LOG(LS_WARNING)

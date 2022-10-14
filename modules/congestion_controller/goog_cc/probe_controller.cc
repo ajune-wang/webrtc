@@ -104,7 +104,8 @@ ProbeControllerConfig::ProbeControllerConfig(
                                           false),
       skip_if_estimate_larger_than_fraction_of_max(
           "skip_if_est_larger_than_fraction_of_max",
-          0.0) {
+          0.0),
+      average_loss_threshold("average_loss_threshold", 1.0) {
   ParseFieldTrial(
       {&first_exponential_probe_scale, &second_exponential_probe_scale,
        &further_exponential_probe_scale, &further_probe_threshold,
@@ -115,7 +116,7 @@ ProbeControllerConfig::ProbeControllerConfig(
        &network_state_estimate_drop_down_rate, &network_state_probe_scale,
        &network_state_probe_duration, &min_probe_packets_sent,
        &limit_probe_target_rate_to_loss_bwe,
-       &skip_if_estimate_larger_than_fraction_of_max},
+       &skip_if_estimate_larger_than_fraction_of_max, &average_loss_threshold},
       key_value_config->Lookup("WebRTC-Bwe-ProbingConfiguration"));
 
   // Specialized keys overriding subsets of WebRTC-Bwe-ProbingConfiguration
@@ -269,11 +270,13 @@ std::vector<ProbeClusterConfig> ProbeController::InitiateExponentialProbing(
   return InitiateProbing(at_time, probes, true);
 }
 
-std::vector<ProbeClusterConfig> ProbeController::SetEstimatedBitrate(
+std::vector<ProbeClusterConfig> ProbeController::UpdateNetworkChanges(
     DataRate bitrate,
     BandwidthLimitedCause bandwidth_limited_cause,
+    double average_loss_rate,
     Timestamp at_time) {
   bandwidth_limited_cause_ = bandwidth_limited_cause;
+  average_loss_rate_ = average_loss_rate;
   if (bandwidth_limited_cause_ ==
           BandwidthLimitedCause::kLossLimitedBweDecreasing &&
       config_.limit_probe_target_rate_to_loss_bwe) {
@@ -469,6 +472,10 @@ std::vector<ProbeClusterConfig> ProbeController::InitiateProbing(
         config_.skip_if_estimate_larger_than_fraction_of_max * max_bitrate_) {
       return {};
     }
+  }
+
+  if (config_.average_loss_threshold < average_loss_rate_) {
+    return {};
   }
 
   DataRate max_probe_bitrate = max_bitrate_;

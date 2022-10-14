@@ -72,22 +72,27 @@ typedef void* SockOptArg;
 
 #endif  // WEBRTC_POSIX
 
-#if defined(WEBRTC_POSIX) && !defined(WEBRTC_MAC) && !defined(__native_client__)
+#if defined(WEBRTC_POSIX) && !defined(__native_client__)
 
-int64_t GetSocketRecvTimestamp(int socket) {
-  struct timeval tv_ioctl;
-  int ret = ioctl(socket, SIOCGSTAMP, &tv_ioctl);
-  if (ret != 0)
-    return -1;
-  int64_t timestamp =
-      rtc::kNumMicrosecsPerSec * static_cast<int64_t>(tv_ioctl.tv_sec) +
-      static_cast<int64_t>(tv_ioctl.tv_usec);
+int64_t GetSocketRecvTimestamp(struct msghdr& msg) {
+  struct cmsghdr* cmsg;
+  int64_t timestamp = -1;
+  for (cmsg = CMSG_FIRSTHDR(&msg); cmsg; cmsg = CMSG_NXTHDR(&msg, cmsg)) {
+    if (cmsg->cmsg_level != SOL_SOCKET)
+      continue;
+    if (cmsg->cmsg_type == SO_TIMESTAMP) {
+      timeval* ts = reinterpret_cast<timeval*>(CMSG_DATA(cmsg));
+      return timestamp =
+                 rtc::kNumMicrosecsPerSec * static_cast<int64_t>(ts->tv_sec) +
+                 static_cast<int64_t>(ts->tv_usec);
+    }
+  }
   return timestamp;
 }
 
 #else
 
-int64_t GetSocketRecvTimestamp(int socket) {
+int64_t GetSocketRecvTimestamp(struct msghdr& msg) {
   return -1;
 }
 #endif
@@ -394,8 +399,19 @@ int PhysicalSocket::SendTo(const void* buffer,
 }
 
 int PhysicalSocket::Recv(void* buffer, size_t length, int64_t* timestamp) {
-  int received =
-      ::recv(s_, static_cast<char*>(buffer), static_cast<int>(length), 0);
+  msghdr msg;
+  iovec iov;
+  memset(&msg, 0, sizeof(msg));
+  iov.iov_len = length;
+  iov.iov_base = buffer;
+  msg.msg_iov = &iov;
+  msg.msg_iovlen = 1;
+  char control[128];
+  if (timestamp) {
+    msg.msg_control = &control;
+    msg.msg_controllen = sizeof(control);
+  }
+  int received = ::recvmsg(s_, &msg, 0);
   if ((received == 0) && (length != 0)) {
     // Note: on graceful shutdown, recv can return 0.  In this case, we
     // pretend it is blocking, and then signal close, so that simplifying
@@ -408,7 +424,14 @@ int PhysicalSocket::Recv(void* buffer, size_t length, int64_t* timestamp) {
     return SOCKET_ERROR;
   }
   if (timestamp) {
-    *timestamp = GetSocketRecvTimestamp(s_);
+    int64_t socket_ts = GetSocketRecvTimestamp(msg);
+    if (socket_ts == -1) {
+      return -1;
+    }
+    if (!timestamp_offset_) {
+      timestamp_offset_ = rtc::TimeMicros() - socket_ts;
+    }
+    *timestamp = *timestamp_offset_ + socket_ts;
   }
   UpdateLastError();
   int error = GetError();
@@ -429,10 +452,31 @@ int PhysicalSocket::RecvFrom(void* buffer,
   sockaddr_storage addr_storage;
   socklen_t addr_len = sizeof(addr_storage);
   sockaddr* addr = reinterpret_cast<sockaddr*>(&addr_storage);
-  int received = ::recvfrom(s_, static_cast<char*>(buffer),
-                            static_cast<int>(length), 0, addr, &addr_len);
+
+  msghdr msg;
+  iovec iov;
+  memset(&msg, 0, sizeof(msg));
+  iov.iov_len = length;
+  iov.iov_base = buffer;
+  msg.msg_iov = &iov;
+  msg.msg_iovlen = 1;
+  msg.msg_name = addr;
+  msg.msg_namelen = addr_len;
+  char control[128];
   if (timestamp) {
-    *timestamp = GetSocketRecvTimestamp(s_);
+    msg.msg_control = &control;
+    msg.msg_controllen = sizeof(control);
+  }
+  int received = ::recvmsg(s_, &msg, 0);
+  if (timestamp) {
+    int64_t socket_ts = GetSocketRecvTimestamp(msg);
+    if (socket_ts == -1) {
+      return -1;
+    }
+    if (!timestamp_offset_) {
+      timestamp_offset_ = rtc::TimeMicros() - socket_ts;
+    }
+    *timestamp = *timestamp_offset_ + socket_ts;
   }
   UpdateLastError();
   if ((received >= 0) && (out_addr != nullptr))
@@ -643,6 +687,10 @@ bool SocketDispatcher::Initialize() {
   ioctlsocket(s_, FIONBIO, &argp);
 #elif defined(WEBRTC_POSIX)
   fcntl(s_, F_SETFL, fcntl(s_, F_GETFL, 0) | O_NONBLOCK);
+  int value = 1;
+  if (::setsockopt(s_, SOL_SOCKET, SO_TIMESTAMP, &value, sizeof(value)) != 0) {
+    RTC_LOG(LS_ERROR) << "::setsockopt failed. errno" << LAST_SYSTEM_ERROR;
+  }
 #endif
 #if defined(WEBRTC_IOS)
   // iOS may kill sockets when the app is moved to the background

@@ -153,6 +153,24 @@
       "parentUuid": "00e23921_55b8154e",
       "revId": "1f66a71db0fef29ceb5c5eab4f92766251ebf01f",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "57235ac4_8b1bba7b",
+        "filename": "modules/desktop_capture/BUILD.gn",
+        "patchSetId": 13
+      },
+      "lineNbr": 145,
+      "author": {
+        "id": 8046
+      },
+      "writtenOn": "2022-10-14T08:58:13Z",
+      "side": 1,
+      "message": "Running `generate_buildbot_json.py` doesn\u0027t work for me even without modifying test_suites.pyl. I will check the documentation, hopefully I will find out what I\u0027m missing. Thank you.",
+      "parentUuid": "a956caa4_fdd658c6",
+      "revId": "1f66a71db0fef29ceb5c5eab4f92766251ebf01f",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

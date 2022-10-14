@@ -67,6 +67,7 @@
 #include "api/scoped_refptr.h"
 #include "api/task_queue/task_queue_base.h"
 #include "rtc_base/event.h"
+#include "rtc_base/logging.h"
 #include "rtc_base/string_utils.h"
 #include "rtc_base/system/rtc_export.h"
 #include "rtc_base/thread.h"
@@ -125,13 +126,32 @@ class MethodCall {
 
   R Marshal(rtc::Thread* t) {
     if (t->IsCurrent()) {
+      RTC_LOG(LS_WARNING) << "Thread " << t->name()
+                          << " is current. Direct invoke.";
       Invoke(std::index_sequence_for<Args...>());
     } else {
+      RTC_LOG(LS_WARNING) << "Thread " << t->name()
+                          << " is not current, current thread is "
+                          << (rtc::Thread::Current()
+                                  ? rtc::Thread::Current()->name()
+                                  : "nullptr")
+                          << ". Block invoking.";
       t->PostTask([this] {
         Invoke(std::index_sequence_for<Args...>());
         event_.Set();
       });
-      event_.Wait(rtc::Event::kForever);
+      if (rtc::Thread::Current() &&
+          rtc::Thread::Current()->IsInvokeToThreadAllowed(t)) {
+        RTC_LOG(LS_WARNING) << "Block invoked allowed to thread " << t->name()
+                            << " from thread "
+                            << (rtc::Thread::Current()
+                                    ? rtc::Thread::Current()->name()
+                                    : "nullptr");
+        rtc::ScopedAllowBaseSyncPrimitivesForTesting scoped_allow;
+        event_.Wait(rtc::Event::kForever);
+      } else {
+        event_.Wait(rtc::Event::kForever);
+      }
     }
     return r_.moved_result();
   }
@@ -160,13 +180,32 @@ class ConstMethodCall {
 
   R Marshal(rtc::Thread* t) {
     if (t->IsCurrent()) {
+      RTC_LOG(LS_WARNING) << "Thread " << t->name()
+                          << " is current. Direct invoke.";
       Invoke(std::index_sequence_for<Args...>());
     } else {
+      RTC_LOG(LS_WARNING) << "Thread " << t->name()
+                          << " is not current, current thread is "
+                          << (rtc::Thread::Current()
+                                  ? rtc::Thread::Current()->name()
+                                  : "nullptr")
+                          << ". Block invoking.";
       t->PostTask([this] {
         Invoke(std::index_sequence_for<Args...>());
         event_.Set();
       });
-      event_.Wait(rtc::Event::kForever);
+      if (rtc::Thread::Current() &&
+          rtc::Thread::Current()->IsInvokeToThreadAllowed(t)) {
+        RTC_LOG(LS_WARNING) << "Block invoked allowed to thread " << t->name()
+                            << " from thread "
+                            << (rtc::Thread::Current()
+                                    ? rtc::Thread::Current()->name()
+                                    : "nullptr");
+        rtc::ScopedAllowBaseSyncPrimitivesForTesting scoped_allow;
+        event_.Wait(rtc::Event::kForever);
+      } else {
+        event_.Wait(rtc::Event::kForever);
+      }
     }
     return r_.moved_result();
   }
@@ -200,8 +239,12 @@ class ConstMethodCall {
     typedef class_name##Interface C;                                   \
                                                                        \
    public:                                                             \
-    const INTERNAL_CLASS* internal() const { return c(); }             \
-    INTERNAL_CLASS* internal() { return c(); }
+    const INTERNAL_CLASS* internal() const {                           \
+      return c();                                                      \
+    }                                                                  \
+    INTERNAL_CLASS* internal() {                                       \
+      return c();                                                      \
+    }
 
 // clang-format off
 // clang-format would put the semicolon alone,
@@ -216,22 +259,29 @@ class ConstMethodCall {
  protected:                                                           \
   class_name##ProxyWithInternal(rtc::Thread* primary_thread,          \
                                 rtc::scoped_refptr<INTERNAL_CLASS> c) \
-      : primary_thread_(primary_thread), c_(std::move(c)) {}          \
+      : primary_thread_(primary_thread), c_(std::move(c)) {           \
+    RTC_LOG(LS_WARNING) << "Creating proxy " << proxy_name_ << " on " \
+                        << primary_thread_->name();                   \
+  }                                                                   \
                                                                       \
  private:                                                             \
   mutable rtc::Thread* primary_thread_;
 
-#define SECONDARY_PROXY_MAP_BOILERPLATE(class_name)                   \
- protected:                                                           \
-  class_name##ProxyWithInternal(rtc::Thread* primary_thread,          \
-                                rtc::Thread* secondary_thread,        \
-                                rtc::scoped_refptr<INTERNAL_CLASS> c) \
-      : primary_thread_(primary_thread),                              \
-        secondary_thread_(secondary_thread),                          \
-        c_(std::move(c)) {}                                           \
-                                                                      \
- private:                                                             \
-  mutable rtc::Thread* primary_thread_;                               \
+#define SECONDARY_PROXY_MAP_BOILERPLATE(class_name)                    \
+ protected:                                                            \
+  class_name##ProxyWithInternal(rtc::Thread* primary_thread,           \
+                                rtc::Thread* secondary_thread,         \
+                                rtc::scoped_refptr<INTERNAL_CLASS> c)  \
+      : primary_thread_(primary_thread),                               \
+        secondary_thread_(secondary_thread),                           \
+        c_(std::move(c)) {                                             \
+    RTC_LOG(LS_WARNING) << "Creating proxy " << proxy_name_            \
+                        << " primary=" << primary_thread_->name()      \
+                        << " secondary=" << secondary_thread_->name(); \
+  }                                                                    \
+                                                                       \
+ private:                                                              \
+  mutable rtc::Thread* primary_thread_;                                \
   mutable rtc::Thread* secondary_thread_;
 
 // Note that the destructor is protected so that the proxy can only be
@@ -245,9 +295,15 @@ class ConstMethodCall {
   }                                                             \
                                                                 \
  private:                                                       \
-  const INTERNAL_CLASS* c() const { return c_.get(); }          \
-  INTERNAL_CLASS* c() { return c_.get(); }                      \
-  void DestroyInternal() { c_ = nullptr; }                      \
+  const INTERNAL_CLASS* c() const {                             \
+    return c_.get();                                            \
+  }                                                             \
+  INTERNAL_CLASS* c() {                                         \
+    return c_.get();                                            \
+  }                                                             \
+  void DestroyInternal() {                                      \
+    c_ = nullptr;                                               \
+  }                                                             \
   rtc::scoped_refptr<INTERNAL_CLASS> c_;
 
 // Note: This doesn't use a unique_ptr, because it intends to handle a corner
@@ -264,9 +320,15 @@ class ConstMethodCall {
   }                                                             \
                                                                 \
  private:                                                       \
-  const INTERNAL_CLASS* c() const { return c_; }                \
-  INTERNAL_CLASS* c() { return c_; }                            \
-  void DestroyInternal() { delete c_; }                         \
+  const INTERNAL_CLASS* c() const {                             \
+    return c_;                                                  \
+  }                                                             \
+  INTERNAL_CLASS* c() {                                         \
+    return c_;                                                  \
+  }                                                             \
+  void DestroyInternal() {                                      \
+    delete c_;                                                  \
+  }                                                             \
   INTERNAL_CLASS* c_;
 
 #define BEGIN_PRIMARY_PROXY_MAP(class_name)                                \
@@ -292,16 +354,20 @@ class ConstMethodCall {
         primary_thread, secondary_thread, std::move(c));           \
   }
 
-#define PROXY_PRIMARY_THREAD_DESTRUCTOR()                            \
- private:                                                            \
-  rtc::Thread* destructor_thread() const { return primary_thread_; } \
-                                                                     \
+#define PROXY_PRIMARY_THREAD_DESTRUCTOR()  \
+ private:                                  \
+  rtc::Thread* destructor_thread() const { \
+    return primary_thread_;                \
+  }                                        \
+                                           \
  public:  // NOLINTNEXTLINE
 
-#define PROXY_SECONDARY_THREAD_DESTRUCTOR()                            \
- private:                                                              \
-  rtc::Thread* destructor_thread() const { return secondary_thread_; } \
-                                                                       \
+#define PROXY_SECONDARY_THREAD_DESTRUCTOR() \
+ private:                                   \
+  rtc::Thread* destructor_thread() const {  \
+    return secondary_thread_;               \
+  }                                         \
+                                            \
  public:  // NOLINTNEXTLINE
 
 #if defined(RTC_DISABLE_PROXY_TRACE_EVENTS)

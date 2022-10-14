@@ -54,6 +54,7 @@ void MaybeWorkerThread::RunSynchronous(absl::AnyInvocable<void() &&> task) {
       thread_sync_event.Set();
     };
     owned_task_queue_->PostTask(std::move(closure));
+    rtc::ScopedAllowBaseSyncPrimitivesForTesting scoped_allow;
     thread_sync_event.Wait(rtc::Event::kForever);
   } else {
     RTC_DCHECK_RUN_ON(&sequence_checker_);

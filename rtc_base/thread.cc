@@ -593,7 +593,7 @@ bool Thread::SleepMs(int milliseconds) {
 }
 
 bool Thread::SetName(absl::string_view name, const void* obj) {
-  RTC_DCHECK(!IsRunning());
+  // RTC_DCHECK(!IsRunning());
 
   name_ = std::string(name);
   if (obj) {

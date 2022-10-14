@@ -554,6 +554,7 @@ void ChannelSend::StopSend() {
     encoder_queue_is_active_ = false;
     flush.Set();
   });
+  rtc::ScopedAllowBaseSyncPrimitivesForTesting allow;
   flush.Wait(rtc::Event::kForever);
 
   // Reset sending SSRC and sequence number and triggers direct transmission

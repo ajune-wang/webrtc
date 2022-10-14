@@ -445,6 +445,7 @@ void VideoReceiveStream2::Stop() {
       }
       done.Set();
     });
+    rtc::ScopedAllowBaseSyncPrimitivesForTesting allowed;
     done.Wait(rtc::Event::kForever);
 
     decoder_running_ = false;
@@ -1115,6 +1116,7 @@ VideoReceiveStream2::SetAndGetRecordingState(RecordingState state,
     }
   }
 
+  rtc::ScopedAllowBaseSyncPrimitivesForTesting scoped_allow;
   event.Wait(rtc::Event::kForever);
   return old_state;
 }

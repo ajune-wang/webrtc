@@ -481,7 +481,10 @@ class RTC_LOCKABLE RTC_EXPORT Thread : public webrtc::TaskQueueBase {
 #if RTC_DCHECK_IS_ON
   uint32_t blocking_call_count_ RTC_GUARDED_BY(this) = 0;
   uint32_t could_be_blocking_call_count_ RTC_GUARDED_BY(this) = 0;
+ protected:
   std::vector<Thread*> allowed_threads_ RTC_GUARDED_BY(this);
+
+ private:
   bool invoke_policy_enabled_ RTC_GUARDED_BY(this) = false;
 #endif
   mutable webrtc::Mutex mutex_;

@@ -781,6 +781,7 @@ void VideoStreamEncoder::Stop() {
         encoder_ = nullptr;
         frame_cadence_adapter_ = nullptr;
       });
+  rtc::ScopedAllowBaseSyncPrimitivesForTesting scoped_allow;
   shutdown_event.Wait(rtc::Event::kForever);
 }
 
@@ -828,6 +829,7 @@ VideoStreamEncoder::GetAdaptationResources() {
     resources = resource_adaptation_processor_->GetResources();
     event.Set();
   });
+  rtc::ScopedAllowBaseSyncPrimitivesForTesting scoped_allow;
   event.Wait(rtc::Event::kForever);
   return resources;
 }
@@ -2525,6 +2527,7 @@ void VideoStreamEncoder::InjectAdaptationConstraint(
     video_stream_adapter_->AddAdaptationConstraint(adaptation_constraint);
     event.Set();
   });
+  rtc::ScopedAllowBaseSyncPrimitivesForTesting scoped_allow;
   event.Wait(rtc::Event::kForever);
 }
 
@@ -2537,6 +2540,7 @@ void VideoStreamEncoder::AddRestrictionsListenerForTesting(
     video_stream_adapter_->AddRestrictionsListener(restrictions_listener);
     event.Set();
   });
+  rtc::ScopedAllowBaseSyncPrimitivesForTesting scoped_allow;
   event.Wait(rtc::Event::kForever);
 }
 
@@ -2549,6 +2553,7 @@ void VideoStreamEncoder::RemoveRestrictionsListenerForTesting(
     video_stream_adapter_->RemoveRestrictionsListener(restrictions_listener);
     event.Set();
   });
+  rtc::ScopedAllowBaseSyncPrimitivesForTesting scoped_allow;
   event.Wait(rtc::Event::kForever);
 }
 

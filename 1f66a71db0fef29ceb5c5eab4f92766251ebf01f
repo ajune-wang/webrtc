@@ -57,6 +57,24 @@
       "parentUuid": "ea622eb9_04547e30",
       "revId": "1f66a71db0fef29ceb5c5eab4f92766251ebf01f",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "eaef181c_7bccd35a",
+        "filename": "modules/desktop_capture/BUILD.gn",
+        "patchSetId": 13
+      },
+      "lineNbr": 145,
+      "author": {
+        "id": 12234
+      },
+      "writtenOn": "2022-10-14T07:51:54Z",
+      "side": 1,
+      "message": "Indeed, for the test to run on CQ/CI it will need to be added to the bot config in this file:\nhttps://source.chromium.org/chromium/chromium/src/+/main:third_party/webrtc/infra/specs/test_suites.pyl\n\nHere\u0027s a doc with more details:\nhttp://g3doc/third_party/webrtc/g3doc/testing/oss-tests/adding-new-tests",
+      "parentUuid": "25594b5b_df87d445",
+      "revId": "1f66a71db0fef29ceb5c5eab4f92766251ebf01f",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

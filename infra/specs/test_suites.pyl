@@ -97,6 +97,10 @@
       'peerconnection_unittests': {
         'mixins': ['shards-4'],
       },
+      'pipewire_shared_screencast_stream_test': {
+        'args': ['.'],
+        'mixins': ['resultdb-gtest-json-format'],
+      },
       'rtc_media_unittests': {},
       'rtc_pc_unittests': {},
       'rtc_stats_unittests': {},

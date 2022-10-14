@@ -394,6 +394,7 @@ int PhysicalSocket::SendTo(const void* buffer,
 }
 
 int PhysicalSocket::Recv(void* buffer, size_t length, int64_t* timestamp) {
+  RTC_CHECK(false);
   int received =
       ::recv(s_, static_cast<char*>(buffer), static_cast<int>(length), 0);
   if ((received == 0) && (length != 0)) {
@@ -443,7 +444,9 @@ int PhysicalSocket::RecvFrom(void* buffer,
     EnableEvents(DE_READ);
   }
   if (!success) {
-    RTC_LOG_F(LS_VERBOSE) << "Error = " << error;
+    RTC_LOG_F(LS_INFO) << "Error = " << error;
+  } else {
+    RTC_LOG_F(LS_INFO) << "Success recvfrom";
   }
   return received;
 }

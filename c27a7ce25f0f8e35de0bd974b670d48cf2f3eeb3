@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "5eb8dd4c_5a2153ec",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 15079
+      },
+      "writtenOn": "2022-10-14T09:23:30Z",
+      "side": 1,
+      "message": "Hey folks, I ran into a runtime crash due to the JNI bits for AV1 not being included in the Android SDK build. Please take a look when you get a chance!",
+      "revId": "c27a7ce25f0f8e35de0bd974b670d48cf2f3eeb3",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

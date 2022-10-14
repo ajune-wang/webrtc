@@ -10,9 +10,11 @@
 
 #include "modules/rtp_rtcp/include/receive_statistics.h"
 
+#include <cstdint>
 #include <memory>
 #include <vector>
 
+#include "api/units/time_delta.h"
 #include "modules/rtp_rtcp/source/rtp_packet_received.h"
 #include "rtc_base/random.h"
 #include "system_wrappers/include/clock.h"
@@ -576,6 +578,26 @@ TEST_P(ReceiveStatisticsTest, LastPacketReceivedTimestamp) {
   counters = receive_statistics_->GetStatistician(kSsrc1)
                  ->GetReceiveStreamDataCounters();
   EXPECT_EQ(45, counters.last_packet_received_timestamp_ms);
+}
+
+TEST_P(ReceiveStatisticsTest, SimpleJitterComputation) {
+  // 20 ms packets with 48 kHz frequency.
+  packet1_.set_payload_type_frequency(48000);
+  packet1_.SetSequenceNumber(1);
+  packet1_.SetTimestamp(0);
+  receive_statistics_->OnRtpPacket(packet1_);
+  packet1_.SetSequenceNumber(2);
+  packet1_.SetTimestamp(960);
+  // Arrives 100 ms late.
+  clock_.AdvanceTimeMilliseconds(120);
+  receive_statistics_->OnRtpPacket(packet1_);
+
+  StreamStatistician* statistician =
+      receive_statistics_->GetStatistician(kSsrc1);
+  uint32_t expected_jitter = (480 * 10) / 16;
+  EXPECT_EQ(expected_jitter, statistician->GetStats().jitter);
+  EXPECT_EQ(webrtc::TimeDelta::Seconds(expected_jitter / 48000),
+            statistician->GetStats().jitter_duration);
 }
 
 }  // namespace

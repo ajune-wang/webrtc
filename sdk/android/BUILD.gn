@@ -887,6 +887,8 @@ if (current_os == "linux" || is_android) {
     visibility = [ "*" ]
     allow_poison = [ "software_video_codecs" ]
     deps = [
+      ":dav1d_av1_jni",
+      ":libaom_av1_encoder_jni",
       ":libvpx_vp8_jni",
       ":libvpx_vp9_jni",
     ]

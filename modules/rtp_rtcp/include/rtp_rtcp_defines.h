@@ -25,6 +25,7 @@
 #include "api/audio_codecs/audio_format.h"
 #include "api/rtp_headers.h"
 #include "api/transport/network_types.h"
+#include "api/units/time_delta.h"
 #include "modules/rtp_rtcp/source/rtcp_packet/remote_estimate.h"
 #include "system_wrappers/include/clock.h"
 
@@ -442,7 +443,10 @@ struct RtpReceiveStats {
   // RTCReceivedRtpStreamStats dictionary, see
   // https://w3c.github.io/webrtc-stats/#receivedrtpstats-dict*
   int32_t packets_lost = 0;
+  // Jitter in samples.
   uint32_t jitter = 0;
+  // Jitter in time.
+  webrtc::TimeDelta jitter_duration = webrtc::TimeDelta::Zero();
 
   // Timestamp and counters exposed in RTCInboundRtpStreamStats, see
   // https://w3c.github.io/webrtc-stats/#inboundrtpstats-dict*

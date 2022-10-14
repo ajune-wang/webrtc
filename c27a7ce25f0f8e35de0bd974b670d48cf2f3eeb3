@@ -39,6 +39,30 @@
       },
       "revId": "c27a7ce25f0f8e35de0bd974b670d48cf2f3eeb3",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "13d65831_bcdaaac6",
+        "filename": "sdk/android/BUILD.gn",
+        "patchSetId": 1
+      },
+      "lineNbr": 891,
+      "author": {
+        "id": 15079
+      },
+      "writtenOn": "2022-10-14T10:52:40Z",
+      "side": 1,
+      "message": "The Java layer assumes they are there yes. And the Java layer is built by default.\n\nThe current situation is very weird:\n\niOS:\n\n- rtc_libvpx_build_vp9: only on iOS, on Android it\u0027s always built\n- rtc_include_dav1d_in_internal_decoder_factory: controls if the dav1d AV1 decoder is built, true by default affects media and the iOS SDK, but Android ignores it\n- enable_libaom: controls if the libaom av1 encoder is built, true by default and used by media and the iOS SDK, Android ignores it (also, has a weird non-compliant name, doesn\u0027t start with rtc_)\n\nAndroid:\n\n- The swcodecs_java target includes all codecs, the Java part\n- The swcodecs_jni is missing the AV1 jni wrappers\n- LibaomAv1Encoder.java and Dav1dDecoder.java don\u0027t check if the JNI parts have been built\n\nSo far my conclusion is that more work is necessary to make any or all codecs optional, but as it stands AV1 is broken, since there is no way to toggle building the JNI parts.\n\nLanding this now would make AV1 work, and once codecs can be made optional, for real, we can use GN built time flags.\n\nMy 2 cents!",
+      "parentUuid": "850f2c95_e20574eb",
+      "range": {
+        "startLine": 890,
+        "startChar": 0,
+        "endLine": 891,
+        "endChar": 32
+      },
+      "revId": "c27a7ce25f0f8e35de0bd974b670d48cf2f3eeb3",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

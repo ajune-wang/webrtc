@@ -41,6 +41,7 @@ class LossBasedBweV2 {
     ~Result() = default;
     DataRate bandwidth_estimate = DataRate::Zero();
     LossBasedState state = LossBasedState::kDelayBasedEstimate;
+    double average_loss_rate = 0;
   };
   // Creates a disabled `LossBasedBweV2` if the
   // `key_value_config` is not valid.

@@ -689,10 +689,10 @@ void GoogCcNetworkController::MaybeTriggerOnNetworkChanged(
 
     update->target_rate = target_rate_msg;
 
-    auto probes = probe_controller_->SetEstimatedBitrate(
+    auto probes = probe_controller_->UpdateNetworkChanges(
         loss_based_target_rate,
         GetBandwidthLimitedCause(bandwidth_estimation_->loss_based_state()),
-        at_time);
+        bandwidth_estimation_->average_loss_rate(), at_time);
     update->probe_cluster_configs.insert(update->probe_cluster_configs.end(),
                                          probes.begin(), probes.end());
     update->pacer_config = GetPacingRates(at_time);

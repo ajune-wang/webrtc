@@ -230,6 +230,7 @@ SendSideBandwidthEstimation::SendSideBandwidthEstimation(
       loss_based_bandwidth_estimator_v1_(key_value_config),
       loss_based_bandwidth_estimator_v2_(key_value_config),
       loss_based_state_(LossBasedState::kDelayBasedEstimate),
+      average_loss_rate_(0),
       disable_receiver_limit_caps_only_("Disabled") {
   RTC_DCHECK(event_log);
   if (BweLossExperimentIsEnabled()) {
@@ -319,14 +320,6 @@ DataRate SendSideBandwidthEstimation::target_rate() const {
   if (!disable_receiver_limit_caps_only_)
     target = std::min(target, receiver_limit_);
   return std::max(min_bitrate_configured_, target);
-}
-
-LossBasedState SendSideBandwidthEstimation::loss_based_state() const {
-  return loss_based_state_;
-}
-
-DataRate SendSideBandwidthEstimation::delay_based_limit() const {
-  return delay_based_limit_;
 }
 
 DataRate SendSideBandwidthEstimation::GetEstimatedLinkCapacity() const {
@@ -530,6 +523,7 @@ void SendSideBandwidthEstimation::UpdateEstimate(Timestamp at_time) {
         loss_based_bandwidth_estimator_v2_.GetLossBasedResult(
             delay_based_limit_);
     loss_based_state_ = result.state;
+    average_loss_rate_ = result.average_loss_rate;
     UpdateTargetBitrate(result.bandwidth_estimate, at_time);
     return;
   }

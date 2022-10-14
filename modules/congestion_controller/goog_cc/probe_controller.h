@@ -77,6 +77,8 @@ struct ProbeControllerConfig {
   // Dont send a probe if min(estimate, network state estimate) is larger than
   // this fraction of the set max bitrate.
   FieldTrialParameter<double> skip_if_estimate_larger_than_fraction_of_max;
+  // Dont send a probe if the average packet loss is higher than a threshold.
+  FieldTrialParameter<double> average_loss_threshold;
 };
 
 // Reason that bandwidth estimate is limited. Bandwidth estimate can be limited
@@ -115,9 +117,10 @@ class ProbeController {
   ABSL_MUST_USE_RESULT std::vector<ProbeClusterConfig> OnNetworkAvailability(
       NetworkAvailability msg);
 
-  ABSL_MUST_USE_RESULT std::vector<ProbeClusterConfig> SetEstimatedBitrate(
+  ABSL_MUST_USE_RESULT std::vector<ProbeClusterConfig> UpdateNetworkChanges(
       DataRate bitrate,
       BandwidthLimitedCause bandwidth_limited_cause,
+      double average_loss_rate,
       Timestamp at_time);
 
   void EnablePeriodicAlrProbing(bool enable);
@@ -185,6 +188,7 @@ class ProbeController {
   int32_t next_probe_cluster_id_ = 1;
   BandwidthLimitedCause bandwidth_limited_cause_ =
       BandwidthLimitedCause::kDelayBasedLimited;
+  double average_loss_rate_ = 0.0;
   ProbeControllerConfig config_;
 };
 

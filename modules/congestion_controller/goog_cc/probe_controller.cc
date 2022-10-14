@@ -104,7 +104,8 @@ ProbeControllerConfig::ProbeControllerConfig(
                                           false),
       skip_if_estimate_larger_than_fraction_of_max(
           "skip_if_est_larger_than_fraction_of_max",
-          0.0) {
+          0.0),
+      average_loss_threshold("average_loss_threshold", 1.0) {
   ParseFieldTrial(
       {&first_exponential_probe_scale, &second_exponential_probe_scale,
        &further_exponential_probe_scale, &further_probe_threshold,
@@ -115,7 +116,7 @@ ProbeControllerConfig::ProbeControllerConfig(
        &network_state_estimate_drop_down_rate, &network_state_probe_scale,
        &network_state_probe_duration, &min_probe_packets_sent,
        &limit_probe_target_rate_to_loss_bwe,
-       &skip_if_estimate_larger_than_fraction_of_max},
+       &skip_if_estimate_larger_than_fraction_of_max, &average_loss_threshold},
       key_value_config->Lookup("WebRTC-Bwe-ProbingConfiguration"));
 
   // Specialized keys overriding subsets of WebRTC-Bwe-ProbingConfiguration
@@ -269,15 +270,18 @@ std::vector<ProbeClusterConfig> ProbeController::InitiateExponentialProbing(
   return InitiateProbing(at_time, probes, true);
 }
 
-std::vector<ProbeClusterConfig> ProbeController::SetEstimatedBitrate(
+std::vector<ProbeClusterConfig> ProbeController::UpdateNetworkChanges(
     DataRate bitrate,
-    bool bwe_limited_due_to_packet_loss,
+    BandwidthLimitedCause bandwidth_limited_cause,
+    double average_loss_rate,
     Timestamp at_time) {
-  if (bwe_limited_due_to_packet_loss != bwe_limited_due_to_packet_loss_ &&
+  bandwidth_limited_cause_ = bandwidth_limited_cause;
+  average_loss_rate_ = average_loss_rate;
+  if (bandwidth_limited_cause_ ==
+          BandwidthLimitedCause::kLossLimitedBweDecreasing &&
       config_.limit_probe_target_rate_to_loss_bwe) {
     state_ = State::kProbingComplete;
   }
-  bwe_limited_due_to_packet_loss_ = bwe_limited_due_to_packet_loss;
   if (bitrate < kBitrateDropThreshold * estimated_bitrate_) {
     time_of_last_large_drop_ = at_time;
     bitrate_before_last_large_drop_ = estimated_bitrate_;
@@ -378,7 +382,8 @@ void ProbeController::SetNetworkStateEstimate(
   if (config_.network_state_estimate_drop_down_rate > 0 && network_estimate_ &&
       !estimate.link_capacity_upper.IsZero() &&
       (estimated_bitrate_ > estimate.link_capacity_upper ||
-       bwe_limited_due_to_packet_loss_) &&
+       bandwidth_limited_cause_ ==
+           BandwidthLimitedCause::kLossLimitedBweDecreasing) &&
       estimate.link_capacity_upper <=
           config_.network_state_estimate_drop_down_rate *
               network_estimate_->link_capacity_upper) {
@@ -390,7 +395,6 @@ void ProbeController::SetNetworkStateEstimate(
 
 void ProbeController::Reset(Timestamp at_time) {
   network_available_ = true;
-  bwe_limited_due_to_packet_loss_ = false;
   state_ = State::kInit;
   min_bitrate_to_probe_further_ = DataRate::PlusInfinity();
   time_last_probing_initiated_ = Timestamp::Zero();
@@ -406,6 +410,7 @@ void ProbeController::Reset(Timestamp at_time) {
   bitrate_before_last_large_drop_ = DataRate::Zero();
   max_total_allocated_bitrate_ = DataRate::Zero();
   send_probe_on_next_process_interval_ = false;
+  bandwidth_limited_cause_ = BandwidthLimitedCause::kDelayBasedLimited;
 }
 
 bool ProbeController::TimeForAlrProbe(Timestamp at_time) const {
@@ -445,8 +450,12 @@ std::vector<ProbeClusterConfig> ProbeController::Process(Timestamp at_time) {
   }
   if (send_probe_on_next_process_interval_ || TimeForAlrProbe(at_time) ||
       TimeForNetworkStateProbe(at_time)) {
-    return InitiateProbing(
-        at_time, {estimated_bitrate_ * config_.alr_probe_scale}, true);
+    DataRate suggested_probe = estimated_bitrate_ * config_.alr_probe_scale;
+    if (config_.limit_probe_target_rate_to_loss_bwe &&
+        bandwidth_limited_cause_ != BandwidthLimitedCause::kDelayBasedLimited) {
+      suggested_probe = estimated_bitrate_;
+    }
+    return InitiateProbing(at_time, {suggested_probe}, true);
   }
   return std::vector<ProbeClusterConfig>();
 }
@@ -465,8 +474,13 @@ std::vector<ProbeClusterConfig> ProbeController::InitiateProbing(
     }
   }
 
+  if (config_.average_loss_threshold < average_loss_rate_) {
+    return {};
+  }
+
   DataRate max_probe_bitrate = max_bitrate_;
-  if (bwe_limited_due_to_packet_loss_ &&
+  if (bandwidth_limited_cause_ ==
+          BandwidthLimitedCause::kLossLimitedBweDecreasing &&
       config_.limit_probe_target_rate_to_loss_bwe) {
     max_probe_bitrate = std::min(estimated_bitrate_, max_bitrate_);
   }

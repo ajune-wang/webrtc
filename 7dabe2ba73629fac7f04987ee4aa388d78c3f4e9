@@ -214,6 +214,24 @@
       "parentUuid": "cfa4da9d_9031c4a9",
       "revId": "7dabe2ba73629fac7f04987ee4aa388d78c3f4e9",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "1064e567_e2651807",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 8046
+      },
+      "writtenOn": "2022-10-14T07:46:02Z",
+      "side": 1,
+      "message": "Salman, I hope you don\u0027t mind I took the concept of \"frame_updated_since_last_grab\" into the change with damage regions 😊.",
+      "parentUuid": "36188d14_edb7c237",
+      "revId": "7dabe2ba73629fac7f04987ee4aa388d78c3f4e9",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

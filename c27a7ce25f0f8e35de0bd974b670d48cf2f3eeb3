@@ -16,6 +16,29 @@
       "message": "Hey folks, I ran into a runtime crash due to the JNI bits for AV1 not being included in the Android SDK build. Please take a look when you get a chance!",
       "revId": "c27a7ce25f0f8e35de0bd974b670d48cf2f3eeb3",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "850f2c95_e20574eb",
+        "filename": "sdk/android/BUILD.gn",
+        "patchSetId": 1
+      },
+      "lineNbr": 891,
+      "author": {
+        "id": 5087
+      },
+      "writtenOn": "2022-10-14T09:54:31Z",
+      "side": 1,
+      "message": "The idea is to not include these by default to avoid to increase binary size.\n\nIs the JNI layer assuming they are always there?",
+      "range": {
+        "startLine": 890,
+        "startChar": 0,
+        "endLine": 891,
+        "endChar": 32
+      },
+      "revId": "c27a7ce25f0f8e35de0bd974b670d48cf2f3eeb3",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

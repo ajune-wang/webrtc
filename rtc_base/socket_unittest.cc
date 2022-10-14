@@ -1080,7 +1080,10 @@ void SocketTest::SocketRecvTimestamp(const IPAddress& loopback) {
   int64_t recv_timestamp_1;
   char buffer[3];
   socket->RecvFrom(buffer, 3, nullptr, &recv_timestamp_1);
-  EXPECT_GT(recv_timestamp_1, -1);
+  // Ensure receive timestamp has the same epoc as TimeMicros to ensure
+  // there are is huge time diffs between to recived packets if the connection
+  // type change between TCP and UDP.
+  EXPECT_NEAR(recv_timestamp_1, TimeMicros(), 10000);
 
   const int64_t kTimeBetweenPacketsMs = 100;
   Thread::SleepMs(kTimeBetweenPacketsMs);

@@ -11,6 +11,7 @@
 #ifndef RTC_BASE_PHYSICAL_SOCKET_SERVER_H_
 #define RTC_BASE_PHYSICAL_SOCKET_SERVER_H_
 
+#include "absl/types/optional.h"
 #include "api/units/time_delta.h"
 #if defined(WEBRTC_POSIX) && defined(WEBRTC_LINUX)
 #include <sys/epoll.h>
@@ -217,6 +218,7 @@ class PhysicalSocket : public Socket, public sigslot::has_slots<> {
 
  private:
   uint8_t enabled_events_ = 0;
+  absl::optional<int64_t> timestamp_offset_;
 };
 
 class SocketDispatcher : public Dispatcher, public PhysicalSocket {

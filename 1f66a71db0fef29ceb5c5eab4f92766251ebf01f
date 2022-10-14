@@ -24,6 +24,30 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "2ef5a1f6_dee2c28d",
+        "filename": "modules/desktop_capture/BUILD.gn",
+        "patchSetId": 13
+      },
+      "lineNbr": 117,
+      "author": {
+        "id": 8046
+      },
+      "writtenOn": "2022-10-14T08:47:20Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "f55757d9_8dabb29d",
+      "range": {
+        "startLine": 117,
+        "startChar": 6,
+        "endLine": 117,
+        "endChar": 65
+      },
+      "revId": "1f66a71db0fef29ceb5c5eab4f92766251ebf01f",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "ea622eb9_04547e30",
@@ -73,6 +97,24 @@
       "side": 1,
       "message": "Indeed, for the test to run on CQ/CI it will need to be added to the bot config in this file:\nhttps://source.chromium.org/chromium/chromium/src/+/main:third_party/webrtc/infra/specs/test_suites.pyl\n\nHere\u0027s a doc with more details:\nhttp://g3doc/third_party/webrtc/g3doc/testing/oss-tests/adding-new-tests",
       "parentUuid": "25594b5b_df87d445",
+      "revId": "1f66a71db0fef29ceb5c5eab4f92766251ebf01f",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "2704fa8e_0fa69cbd",
+        "filename": "modules/desktop_capture/BUILD.gn",
+        "patchSetId": 13
+      },
+      "lineNbr": 145,
+      "author": {
+        "id": 8046
+      },
+      "writtenOn": "2022-10-14T08:47:20Z",
+      "side": 1,
+      "message": "I managed to update the change after all, but I had to skip the change I added to test_suites.pyl. As the link is not working, looking at other tests I tried to add following into desktop_tests group, but it failed on the check I sent you over the email:\n```    \n\u0027pipewire_shared_screencast_stream_test\u0027: {\n  \u0027args\u0027: [\u0027.\u0027],\n},\n```",
+      "parentUuid": "eaef181c_7bccd35a",
       "revId": "1f66a71db0fef29ceb5c5eab4f92766251ebf01f",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }

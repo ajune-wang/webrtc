@@ -1,0 +1,73 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "7f816691_adf5cbe5",
+        "filename": "infra/specs/test_suites.pyl",
+        "patchSetId": 20
+      },
+      "lineNbr": 100,
+      "author": {
+        "id": 12234
+      },
+      "writtenOn": "2022-10-14T12:19:17Z",
+      "side": 1,
+      "message": "In order to get an \"output.json\", I think you need to add the mixins: \u0027resultdb-gtest-json-format\u0027.",
+      "range": {
+        "startLine": 100,
+        "startChar": 7,
+        "endLine": 100,
+        "endChar": 45
+      },
+      "revId": "4770a803484c9a831cea5d5142e64daa65b19b64",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "a9fd9489_70af5df4",
+        "filename": "infra/specs/test_suites.pyl",
+        "patchSetId": 20
+      },
+      "lineNbr": 101,
+      "author": {
+        "id": 12234
+      },
+      "writtenOn": "2022-10-14T12:19:17Z",
+      "side": 1,
+      "message": "Just to be sure, the \u0027.\u0027 is expected at the end of the command line ?",
+      "range": {
+        "startLine": 101,
+        "startChar": 8,
+        "endLine": 101,
+        "endChar": 21
+      },
+      "revId": "4770a803484c9a831cea5d5142e64daa65b19b64",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "2fc20f5b_ccf3ba3f",
+        "filename": "modules/desktop_capture/linux/wayland/shared_screencast_stream_test.py",
+        "patchSetId": 20
+      },
+      "lineNbr": 32,
+      "author": {
+        "id": 12234
+      },
+      "writtenOn": "2022-10-14T12:19:17Z",
+      "side": 1,
+      "message": "Think it would be better and easier to maintain if the arguments that are not used in this script are simply leaked to the test.\nHere is an example:\nhttps://source.chromium.org/chromium/chromium/src/+/main:third_party/webrtc/tools_webrtc/flags_compatibility.py",
+      "range": {
+        "startLine": 30,
+        "startChar": 0,
+        "endLine": 32,
+        "endChar": 67
+      },
+      "revId": "4770a803484c9a831cea5d5142e64daa65b19b64",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

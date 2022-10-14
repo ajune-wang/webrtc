@@ -232,6 +232,24 @@
       "parentUuid": "36188d14_edb7c237",
       "revId": "7dabe2ba73629fac7f04987ee4aa388d78c3f4e9",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "9910bf83_74a46a96",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 19629
+      },
+      "writtenOn": "2022-10-14T13:40:48Z",
+      "side": 1,
+      "message": "\u003e At any rate, this change will not be needed anyway once we have the video damage reporting coming from compositors.\n\nOn a second thought, this is not necessarily true. This optimization will be unnecessary once we have notification based frame handling. Otherwise, capturer will still keep on asking for frames and might end up getting the same frame more than once and will process it (unless damaged regions are cleared on the subsequent capture calls).\n\n\u003e Salman, I hope you don\u0027t mind I took the concept of \"frame_updated_since_last_grab\" into the change with damage regions 😊.\n\nHeh, no problem at all 😄",
+      "parentUuid": "cfa4da9d_9031c4a9",
+      "revId": "7dabe2ba73629fac7f04987ee4aa388d78c3f4e9",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

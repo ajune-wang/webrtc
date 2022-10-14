@@ -1267,10 +1267,14 @@ void TurnPort::DestroyEntryIfNotCancelled(TurnEntry* entry, int64_t timestamp) {
 
 void TurnPort::HandleConnectionDestroyed(Connection* conn) {
   // Schedule an event to destroy TurnEntry for the connection, which is
-  // already destroyed.
+  // being destroyed.
   const rtc::SocketAddress& remote_address = conn->remote_candidate().address();
   TurnEntry* entry = FindEntry(remote_address);
-  RTC_DCHECK(entry != NULL);
+  if (!entry) {
+    RTC_DLOG_F(LS_INFO) << "Entry already removed.";
+    return;
+  }
+
   RTC_DCHECK(!entry->destruction_timestamp().has_value());
   int64_t timestamp = rtc::TimeMillis();
   entry->set_destruction_timestamp(timestamp);

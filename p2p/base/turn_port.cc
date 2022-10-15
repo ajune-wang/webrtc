@@ -653,7 +653,12 @@ int TurnPort::SendTo(const void* data,
   if (!entry) {
     RTC_LOG(LS_ERROR) << "Did not find the TurnEntry for address "
                       << addr.ToSensitiveString();
-    return 0;
+    // Although this could be a logic error or a result of not being able to
+    // establish a connection, we pick an error code that makes some semantic
+    // sense to make debugging easier.
+    error_ = EADDRNOTAVAIL;
+    RTC_DCHECK_NOTREACHED();
+    return SOCKET_ERROR;
   }
 
   if (!ready()) {
@@ -1267,10 +1272,15 @@ void TurnPort::DestroyEntryIfNotCancelled(TurnEntry* entry, int64_t timestamp) {
 
 void TurnPort::HandleConnectionDestroyed(Connection* conn) {
   // Schedule an event to destroy TurnEntry for the connection, which is
-  // already destroyed.
+  // being destroyed.
   const rtc::SocketAddress& remote_address = conn->remote_candidate().address();
   TurnEntry* entry = FindEntry(remote_address);
-  RTC_DCHECK(entry != NULL);
+  if (!entry) {
+    RTC_DLOG_F(LS_INFO) << "Entry already removed.";
+    RTC_DCHECK_NOTREACHED();
+    return;
+  }
+
   RTC_DCHECK(!entry->destruction_timestamp().has_value());
   int64_t timestamp = rtc::TimeMillis();
   entry->set_destruction_timestamp(timestamp);

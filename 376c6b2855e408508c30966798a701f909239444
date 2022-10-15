@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "58cc0444_1aecba49",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 6
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5578
+      },
+      "writtenOn": "2022-10-15T06:42:36Z",
+      "side": 1,
+      "message": "I would much prefer if the probe controller was informed about that no probe should be sent via a GetBandWidthLimitedCause. Maybe we can rephrase it and dont let it be a BandwidthLimitedCause but rather a request for limiting probes. \n\nMaybe change BandwidthLimitedCause to something like\nenum class ProbeLimit {\nkNoLimit\nkLimitToTargetRate\nkDisableProbes)\n}",
+      "revId": "376c6b2855e408508c30966798a701f909239444",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

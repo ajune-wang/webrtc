@@ -147,10 +147,7 @@ class TurnChannelBindRequest : public StunRequest {
 class TurnEntry : public sigslot::has_slots<> {
  public:
   enum BindState { STATE_UNBOUND, STATE_BINDING, STATE_BOUND };
-  TurnEntry(TurnPort* port,
-            int channel_id,
-            const rtc::SocketAddress& ext_addr,
-            absl::string_view remote_ufrag);
+  TurnEntry(TurnPort* port, Connection* conn, int channel_id);
 
   TurnPort* port() { return port_; }
 
@@ -170,6 +167,17 @@ class TurnEntry : public sigslot::has_slots<> {
     destruction_timestamp_.emplace(destruction_timestamp);
   }
   void reset_destruction_timestamp() { destruction_timestamp_.reset(); }
+
+  void AddAssociatedConnection(Connection* conn) {
+    RTC_DCHECK(absl::c_find(connections_, conn) == connections_.end());
+    connections_.push_back(conn);
+  }
+
+  void DisassociatedConnection(Connection* conn) {
+    connections_.erase(absl::c_find(connections_, conn));
+  }
+
+  bool has_connections() const { return !connections_.empty(); }
 
   // Helper methods to send permission and channel bind requests.
   void SendCreatePermissionRequest(int delay);
@@ -205,6 +213,10 @@ class TurnEntry : public sigslot::has_slots<> {
   // actually fires, the TurnEntry will be destroyed only if the timestamp here
   // matches the one in the firing event.
   absl::optional<int64_t> destruction_timestamp_;
+  // List of associated connection instances to keep track of how many and
+  // which connections are associated with this entry. Once this is empty,
+  // the entry can be deleted.
+  std::vector<Connection*> connections_;
 
   std::string remote_ufrag_;
 };
@@ -587,15 +599,11 @@ Connection* TurnPort::CreateConnection(const Candidate& remote_candidate,
     if (local_candidate.type() == RELAY_PORT_TYPE &&
         local_candidate.address().family() ==
             remote_candidate.address().family()) {
-      // Create an entry, if needed, so we can get our permissions set up
-      // correctly.
-      if (CreateOrRefreshEntry(remote_candidate.address(), next_channel_number_,
-                               remote_candidate.username())) {
-        // An entry was created.
-        next_channel_number_++;
-      }
       ProxyConnection* conn =
           new ProxyConnection(NewWeakPtr(), index, remote_candidate);
+      // Create an entry, if needed, so we can get our permissions set up
+      // correctly.
+      CreateOrRefreshEntry(conn);
       AddOrReplaceConnection(conn);
       return conn;
     }
@@ -653,7 +661,12 @@ int TurnPort::SendTo(const void* data,
   if (!entry) {
     RTC_LOG(LS_ERROR) << "Did not find the TurnEntry for address "
                       << addr.ToSensitiveString();
-    return 0;
+    // Although this could be a logic error or a result of not being able to
+    // establish a connection, we pick an error code that makes some semantic
+    // sense to make debugging easier.
+    error_ = EADDRNOTAVAIL;
+    RTC_DCHECK_NOTREACHED();
+    return SOCKET_ERROR;
   }
 
   if (!ready()) {
@@ -1201,46 +1214,44 @@ bool TurnPort::EntryExists(TurnEntry* e) {
   return absl::c_linear_search(entries_, e);
 }
 
-bool TurnPort::CreateOrRefreshEntry(const rtc::SocketAddress& addr,
-                                    int channel_number) {
-  return CreateOrRefreshEntry(addr, channel_number, "");
-}
+bool TurnPort::CreateOrRefreshEntry(Connection* conn) {
+  const Candidate& remote_candidate = conn->remote_candidate();
+  TurnEntry* entry = FindEntry(remote_candidate.address());
 
-bool TurnPort::CreateOrRefreshEntry(const rtc::SocketAddress& addr,
-                                    int channel_number,
-                                    absl::string_view remote_ufrag) {
-  TurnEntry* entry = FindEntry(addr);
   if (entry == nullptr) {
-    entry = new TurnEntry(this, channel_number, addr, remote_ufrag);
+    entry = new TurnEntry(this, conn, next_channel_number_++);
     entries_.push_back(entry);
     return true;
-  } else {
-    if (entry->destruction_timestamp()) {
-      // Destruction should have only been scheduled (indicated by
-      // destruction_timestamp being set) if there were no connections using
-      // this address.
-      RTC_DCHECK(!GetConnection(addr));
-      // Resetting the destruction timestamp will ensure that any queued
-      // destruction tasks, when executed, will see that the timestamp doesn't
-      // match and do nothing. We do this because (currently) there's not a
-      // convenient way to cancel queued tasks.
-      entry->reset_destruction_timestamp();
-    } else {
-      // The only valid reason for destruction not being scheduled is that
-      // there's still one connection.
-      RTC_DCHECK(GetConnection(addr));
-    }
+  }
 
-    if (field_trials().IsEnabled("WebRTC-TurnAddMultiMapping")) {
-      if (entry->get_remote_ufrag() != remote_ufrag) {
-        RTC_LOG(LS_INFO) << ToString()
-                         << ": remote ufrag updated."
-                            " Sending new permission request";
-        entry->set_remote_ufrag(remote_ufrag);
-        entry->SendCreatePermissionRequest(0);
-      }
+  entry->AddAssociatedConnection(conn);
+
+  if (entry->destruction_timestamp()) {
+    // Destruction should have only been scheduled (indicated by
+    // destruction_timestamp being set) if there were no connections using
+    // this address.
+    RTC_DCHECK(!GetConnection(remote_candidate.address()));
+    // Resetting the destruction timestamp will ensure that any queued
+    // destruction tasks, when executed, will see that the timestamp doesn't
+    // match and do nothing. We do this because (currently) there's not a
+    // convenient way to cancel queued tasks.
+    entry->reset_destruction_timestamp();
+  } else {
+    // The only valid reason for destruction not being scheduled is that
+    // there's still one connection.
+    RTC_DCHECK(GetConnection(remote_candidate.address()));
+  }
+
+  if (field_trials().IsEnabled("WebRTC-TurnAddMultiMapping")) {
+    if (entry->get_remote_ufrag() != conn->remote_candidate().username()) {
+      RTC_LOG(LS_INFO) << ToString()
+                       << ": remote ufrag updated."
+                          " Sending new permission request";
+      entry->set_remote_ufrag(conn->remote_candidate().username());
+      entry->SendCreatePermissionRequest(0);
     }
   }
+
   return false;
 }
 
@@ -1260,17 +1271,25 @@ void TurnPort::DestroyEntryIfNotCancelled(TurnEntry* entry, int64_t timestamp) {
   // task. Note that CreateOrRefreshEntry will unset the timestamp, canceling
   // destruction.
   if (entry->destruction_timestamp() &&
-      timestamp == *entry->destruction_timestamp()) {
+      timestamp == *entry->destruction_timestamp() &&
+      !entry->has_connections()) {
     DestroyEntry(entry);
   }
 }
 
 void TurnPort::HandleConnectionDestroyed(Connection* conn) {
   // Schedule an event to destroy TurnEntry for the connection, which is
-  // already destroyed.
+  // being destroyed.
   const rtc::SocketAddress& remote_address = conn->remote_candidate().address();
   TurnEntry* entry = FindEntry(remote_address);
-  RTC_DCHECK(entry != NULL);
+  if (!entry) {
+    RTC_DLOG_F(LS_INFO) << "Entry already removed.";
+    RTC_DCHECK_NOTREACHED();
+    return;
+  }
+
+  entry->DisassociatedConnection(conn);
+
   RTC_DCHECK(!entry->destruction_timestamp().has_value());
   int64_t timestamp = rtc::TimeMillis();
   entry->set_destruction_timestamp(timestamp);
@@ -1781,15 +1800,13 @@ void TurnChannelBindRequest::OnTimeout() {
   }
 }
 
-TurnEntry::TurnEntry(TurnPort* port,
-                     int channel_id,
-                     const rtc::SocketAddress& ext_addr,
-                     absl::string_view remote_ufrag)
+TurnEntry::TurnEntry(TurnPort* port, Connection* conn, int channel_id)
     : port_(port),
       channel_id_(channel_id),
-      ext_addr_(ext_addr),
+      ext_addr_(conn->remote_candidate().address()),
       state_(STATE_UNBOUND),
-      remote_ufrag_(remote_ufrag) {
+      connections_({conn}),
+      remote_ufrag_(conn->remote_candidate().username()) {
   // Creating permission for `ext_addr_`.
   SendCreatePermissionRequest(0);
 }

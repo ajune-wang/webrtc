@@ -1270,7 +1270,11 @@ void TurnPort::HandleConnectionDestroyed(Connection* conn) {
   // already destroyed.
   const rtc::SocketAddress& remote_address = conn->remote_candidate().address();
   TurnEntry* entry = FindEntry(remote_address);
-  RTC_DCHECK(entry != NULL);
+  if (!entry) {
+    RTC_DLOG_F(LS_WARNING) << "Entry has been removed.";
+    return;
+  }
+
   RTC_DCHECK(!entry->destruction_timestamp().has_value());
   int64_t timestamp = rtc::TimeMillis();
   entry->set_destruction_timestamp(timestamp);

@@ -1,0 +1,38 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "6b418b2e_6032fbce",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2022-10-16T20:11:11Z",
+      "side": 1,
+      "message": "Makes sense, except that it relaxes an invariant (that proved to not be an invariant, I guess) (I think).",
+      "revId": "ab5a19f17e054da26be2bdc82fea116d2d26e8eb",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "d851ccc2_c628ff4d",
+        "filename": "p2p/base/turn_port.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 1274,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2022-10-16T20:11:11Z",
+      "side": 1,
+      "message": "Should this be \"Entry has already been removed\"?\nShould there be a TODO(bug) attached to this?",
+      "revId": "ab5a19f17e054da26be2bdc82fea116d2d26e8eb",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

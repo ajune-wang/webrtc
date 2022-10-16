@@ -233,9 +233,7 @@ class TurnPort : public Port {
   // return true if entry was created (i.e channel_number consumed).
   bool CreateOrRefreshEntry(const rtc::SocketAddress& addr, int channel_number);
 
-  bool CreateOrRefreshEntry(const rtc::SocketAddress& addr,
-                            int channel_number,
-                            absl::string_view remote_ufrag);
+  bool CreateOrRefreshEntry(Connection* conn);
 
   rtc::DiffServCodePoint StunDscpValue() const override;
 
@@ -304,7 +302,7 @@ class TurnPort : public Port {
   void DestroyEntry(TurnEntry* entry);
   // Destroys the entry only if `timestamp` matches the destruction timestamp
   // in `entry`.
-  void DestroyEntryIfNotCancelled(TurnEntry* entry, int64_t timestamp);
+  void DestroyEntryIfNotCancelled(TurnEntry* entry);
 
   // Marks the connection with remote address `address` failed and
   // pruned (a.k.a. write-timed-out). Returns true if a connection is found.

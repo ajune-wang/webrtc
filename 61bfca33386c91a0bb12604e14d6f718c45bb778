@@ -26,6 +26,29 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "c4f28397_80021e16",
+        "filename": "infra/specs/waterfalls.pyl",
+        "patchSetId": 39
+      },
+      "lineNbr": 104,
+      "author": {
+        "id": 12234
+      },
+      "writtenOn": "2022-10-17T18:58:42Z",
+      "side": 1,
+      "message": "Could you split this line to stay below 80 char.",
+      "range": {
+        "startLine": 104,
+        "startChar": 10,
+        "endLine": 104,
+        "endChar": 118
+      },
+      "revId": "61bfca33386c91a0bb12604e14d6f718c45bb778",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "b49b05a5_227ab5e3",
         "filename": "modules/desktop_capture/linux/wayland/shared_screencast_stream.cc",
         "patchSetId": 39
@@ -129,6 +152,30 @@
       "writtenOn": "2022-10-17T17:22:19Z",
       "side": 1,
       "message": "Why? Presumably they were passed to the tests before? Or were they similarly handled by a different wrapper?\n\nActually, it looks like we *do* use --isolated-script-test-output, so should probably move that parser up.",
+      "range": {
+        "startLine": 31,
+        "startChar": 2,
+        "endLine": 31,
+        "endChar": 51
+      },
+      "revId": "61bfca33386c91a0bb12604e14d6f718c45bb778",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "3afe8e19_c7bdcb18",
+        "filename": "modules/desktop_capture/linux/wayland/shared_screencast_stream_test.py",
+        "patchSetId": 39
+      },
+      "lineNbr": 31,
+      "author": {
+        "id": 12234
+      },
+      "writtenOn": "2022-10-17T18:58:42Z",
+      "side": 1,
+      "message": "These flags cannot be just passed to the .cc tests because abseil flags don\u0027t handle hyphens. Either the hyphens must be replaced by underscore in this script or another script can be invoked like  https://crsrc.org/c/third_party/webrtc/tools_webrtc/flags_compatibility.py.",
+      "parentUuid": "c63c1400_ea4bb8f3",
       "range": {
         "startLine": 31,
         "startChar": 2,

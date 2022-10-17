@@ -70,11 +70,10 @@ public class DefaultVideoEncoderFactoryTest {
     assertEquals(5, videoCodecs.length);
     assertEquals("VP8", videoCodecs[0].name);
     assertEquals("VP9", videoCodecs[1].name);
-    assertEquals("AV1", videoCodecs[2].name);
+    assertEquals("H264", videoCodecs[2].name);
+    assertEquals("42e01f", videoCodecs[2].params.get("profile-level-id"));
     assertEquals("H264", videoCodecs[3].name);
-    assertEquals("42e01f", videoCodecs[3].params.get("profile-level-id"));
-    assertEquals("H264", videoCodecs[4].name);
-    assertEquals("640c1f", videoCodecs[4].params.get("profile-level-id"));
+    assertEquals("640c1f", videoCodecs[3].params.get("profile-level-id"));
   }
 
   @SmallTest
@@ -86,9 +85,8 @@ public class DefaultVideoEncoderFactoryTest {
     assertEquals(4, videoCodecs.length);
     assertEquals("VP8", videoCodecs[0].name);
     assertEquals("VP9", videoCodecs[1].name);
-    assertEquals("AV1", videoCodecs[2].name);
-    assertEquals("H264", videoCodecs[3].name);
-    assertEquals("42e01f", videoCodecs[3].params.get("profile-level-id"));
+    assertEquals("H264", videoCodecs[2].name);
+    assertEquals("42e01f", videoCodecs[2].params.get("profile-level-id"));
   }
 
   @SmallTest
@@ -100,10 +98,9 @@ public class DefaultVideoEncoderFactoryTest {
     assertEquals(5, videoCodecs.length);
     assertEquals("VP8", videoCodecs[0].name);
     assertEquals("VP9", videoCodecs[1].name);
-    assertEquals("AV1", videoCodecs[2].name);
+    assertEquals("H264", videoCodecs[2].name);
+    assertEquals("42e01f", videoCodecs[2].params.get("profile-level-id"));
     assertEquals("H264", videoCodecs[3].name);
-    assertEquals("42e01f", videoCodecs[3].params.get("profile-level-id"));
-    assertEquals("H264", videoCodecs[4].name);
-    assertEquals("640c1f", videoCodecs[4].params.get("profile-level-id"));
+    assertEquals("640c1f", videoCodecs[3].params.get("profile-level-id"));
   }
 }

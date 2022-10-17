@@ -16,6 +16,23 @@
       "message": "Bug link added in the description",
       "revId": "695d013cfa63feb30d55c76ebdb176803e3c4c06",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "dae45b78_06e415a1",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 3
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 19779
+      },
+      "writtenOn": "2022-10-17T09:47:47Z",
+      "side": 1,
+      "message": "Hi @ssilkin@webrtc.org !\nI saw there was an issue with the Try Bots.\nShould I do something to unblock it?\n\nThanks!",
+      "revId": "695d013cfa63feb30d55c76ebdb176803e3c4c06",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

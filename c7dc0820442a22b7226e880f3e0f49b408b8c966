@@ -1,0 +1,96 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "5f3385ca_c16d283d",
+        "filename": "modules/rtp_rtcp/source/receive_statistics_impl.cc",
+        "patchSetId": 6
+      },
+      "lineNbr": 185,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2022-10-17T12:18:56Z",
+      "side": 1,
+      "message": "typo: fractional",
+      "range": {
+        "startLine": 185,
+        "startChar": 7,
+        "endLine": 185,
+        "endChar": 18
+      },
+      "revId": "c7dc0820442a22b7226e880f3e0f49b408b8c966",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "817c3860_7979e982",
+        "filename": "modules/rtp_rtcp/source/receive_statistics_unittest.cc",
+        "patchSetId": 6
+      },
+      "lineNbr": 597,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2022-10-17T12:18:56Z",
+      "side": 1,
+      "message": "why this is the expected jitter?\n(where do values 480, 10 and 16 are come from?)\nI can only guess the value 16: rfc3550 describe averaging algorithm where jitter is calculated as (15 * old_value + new_value)/16,\nbut that one still needs a comment (e.g. link to the RFC with the example).",
+      "range": {
+        "startLine": 597,
+        "startChar": 24,
+        "endLine": 597,
+        "endChar": 40
+      },
+      "revId": "c7dc0820442a22b7226e880f3e0f49b408b8c966",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "02f88b20_4d3a08d8",
+        "filename": "modules/rtp_rtcp/source/receive_statistics_unittest.cc",
+        "patchSetId": 6
+      },
+      "lineNbr": 599,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2022-10-17T12:18:56Z",
+      "side": 1,
+      "message": "48\u0027000 here too.",
+      "range": {
+        "startLine": 599,
+        "startChar": 52,
+        "endLine": 599,
+        "endChar": 57
+      },
+      "revId": "c7dc0820442a22b7226e880f3e0f49b408b8c966",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "68db2492_1721c078",
+        "filename": "modules/rtp_rtcp/source/receive_statistics_unittest.cc",
+        "patchSetId": 6
+      },
+      "lineNbr": 601,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2022-10-17T12:18:56Z",
+      "side": 1,
+      "message": "http://go/c-readability-advice#single-use-vars\n\n“Don\u0027t define a local variable just to use it, once, in a test assertion.”",
+      "range": {
+        "startLine": 601,
+        "startChar": 12,
+        "endLine": 601,
+        "endChar": 35
+      },
+      "revId": "c7dc0820442a22b7226e880f3e0f49b408b8c966",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

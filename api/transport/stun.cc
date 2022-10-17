@@ -239,6 +239,8 @@ const StunUInt16ListAttribute* StunMessage::GetUnknownAttributes() const {
 
 StunMessage::IntegrityStatus StunMessage::ValidateMessageIntegrity(
     const std::string& password) {
+  RTC_LOG(LS_ERROR) << "DEBUG: ValidateMessageIntegrity with password "
+                    << password;
   RTC_DCHECK(integrity_ == IntegrityStatus::kNotSet)
       << "Usage error: Verification should only be done once";
   password_ = password;
@@ -265,6 +267,7 @@ StunMessage::IntegrityStatus StunMessage::ValidateMessageIntegrity(
   // Convert args to integer for the benefit of the macros.
   int bucket_count = static_cast<int>(IntegrityStatus::kMaxValue) + 1;
   int integrity = static_cast<int>(integrity_);
+  RTC_LOG(LS_ERROR) << "DEBUG: ValidateMessageIntegrity result " << integrity;
   if (IsStunRequestType(type_)) {
     RTC_HISTOGRAM_ENUMERATION("WebRTC.Stun.Integrity.Request", integrity,
                               bucket_count);
@@ -333,6 +336,7 @@ StunMessage::IntegrityStatus StunMessage::RevalidateMessageIntegrity(
     const std::string& password) {
   RTC_LOG(LS_INFO) << "Message revalidation, old status was "
                    << static_cast<int>(integrity_);
+  RTC_DCHECK_NOTREACHED();  // DEBUG break
   integrity_ = IntegrityStatus::kNotSet;
   return ValidateMessageIntegrity(password);
 }

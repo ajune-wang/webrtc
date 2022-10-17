@@ -934,6 +934,7 @@ rtc_library("threading") {
     "//third_party/abseil-cpp/absl/functional:any_invocable",
     "//third_party/abseil-cpp/absl/memory",
     "//third_party/abseil-cpp/absl/strings",
+    "//third_party/abseil-cpp/absl/types:optional",
   ]
   deps = [
     ":async_resolver_interface",

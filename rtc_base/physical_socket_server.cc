@@ -9,7 +9,12 @@
  */
 #include "rtc_base/physical_socket_server.h"
 
+#include <sys/_types/_socklen_t.h>
+#include <sys/socket.h>
+
 #include <cstdint>
+
+#include "rtc_base/string_utils.h"
 
 #if defined(_MSC_VER) && _MSC_VER < 1300
 #pragma warning(disable : 4786)
@@ -72,22 +77,43 @@ typedef void* SockOptArg;
 
 #endif  // WEBRTC_POSIX
 
-#if defined(WEBRTC_POSIX) && !defined(WEBRTC_MAC) && !defined(__native_client__)
+#if defined(WEBRTC_POSIX) && !defined(__native_client__)
 
-int64_t GetSocketRecvTimestamp(int socket) {
-  struct timeval tv_ioctl;
-  int ret = ioctl(socket, SIOCGSTAMP, &tv_ioctl);
-  if (ret != 0)
-    return -1;
-  int64_t timestamp =
-      rtc::kNumMicrosecsPerSec * static_cast<int64_t>(tv_ioctl.tv_sec) +
-      static_cast<int64_t>(tv_ioctl.tv_usec);
+int64_t GetSocketRecvTimestamp(struct msghdr& msg) {
+  if (msg.msg_flags != 0) {
+    RTC_LOG(LS_WARNING) << "msg flag: " << msg.msg_flags;
+  }
+  struct cmsghdr* cmsg;
+  int64_t timestamp = -1;
+  for (cmsg = CMSG_FIRSTHDR(&msg); cmsg != nullptr;
+       cmsg = CMSG_NXTHDR(&msg, cmsg)) {
+    RTC_LOG_F(LS_WARNING) << "cmsg=" << cmsg
+                          << " level=" << rtc::ToHex(cmsg->cmsg_level)
+                          << " type=" << rtc::ToHex(cmsg->cmsg_type);
+    if (cmsg->cmsg_level != SOL_SOCKET)
+      continue;
+    if (cmsg->cmsg_type == SCM_TIMESTAMP) {
+      timeval* ts = reinterpret_cast<timeval*>(CMSG_DATA(cmsg));
+      timestamp =
+                 rtc::kNumMicrosecsPerSec * static_cast<int64_t>(ts->tv_sec) +
+                 static_cast<int64_t>(ts->tv_usec);
+      break;
+    }
+    if (cmsg->cmsg_type == SCM_TIMESTAMP_MONOTONIC) {
+      uint64_t* ts = reinterpret_cast<uint64_t*>(CMSG_DATA(cmsg));
+      timestamp = *ts;
+    }
+  }
+  if (timestamp == -1)
+    RTC_LOG(LS_WARNING) << "GetSocketRecvTimestamp failed";
+  else
+    RTC_LOG(LS_WARNING) << "Got timestamp=" << timestamp;
   return timestamp;
 }
 
 #else
 
-int64_t GetSocketRecvTimestamp(int socket) {
+int64_t GetSocketRecvTimestamp(struct msghdr& msg) {
   return -1;
 }
 #endif
@@ -313,6 +339,7 @@ int PhysicalSocket::GetOption(Option opt, int* value) {
 }
 
 int PhysicalSocket::SetOption(Option opt, int value) {
+  RTC_LOG_F(LS_WARNING) << "opt=" << opt << " val=" << value;
   int slevel;
   int sopt;
   if (TranslateOption(opt, &slevel, &sopt) == -1)
@@ -394,8 +421,19 @@ int PhysicalSocket::SendTo(const void* buffer,
 }
 
 int PhysicalSocket::Recv(void* buffer, size_t length, int64_t* timestamp) {
-  int received =
-      ::recv(s_, static_cast<char*>(buffer), static_cast<int>(length), 0);
+  msghdr msg;
+  iovec iov;
+  memset(&msg, 0, sizeof(msg));
+  iov.iov_len = length;
+  iov.iov_base = buffer;
+  msg.msg_iov = &iov;
+  msg.msg_iovlen = 1;
+  char control[CMSG_SPACE(sizeof(struct timeval))];
+  if (timestamp) {
+    msg.msg_control = control;
+    msg.msg_controllen = sizeof(control);
+  }
+  int received = ::recvmsg(s_, &msg, 0);
   if ((received == 0) && (length != 0)) {
     // Note: on graceful shutdown, recv can return 0.  In this case, we
     // pretend it is blocking, and then signal close, so that simplifying
@@ -408,7 +446,15 @@ int PhysicalSocket::Recv(void* buffer, size_t length, int64_t* timestamp) {
     return SOCKET_ERROR;
   }
   if (timestamp) {
-    *timestamp = GetSocketRecvTimestamp(s_);
+    int64_t socket_ts = GetSocketRecvTimestamp(msg);
+    *timestamp = socket_ts;
+    // if (socket_ts == -1) {
+    //   socket_ts = TimeMicros();
+    // }
+    // if (!timestamp_offset_) {
+    //   timestamp_offset_ = rtc::TimeMicros() - socket_ts;
+    // }
+    // *timestamp = *timestamp_offset_ + socket_ts;
   }
   UpdateLastError();
   int error = GetError();
@@ -429,23 +475,55 @@ int PhysicalSocket::RecvFrom(void* buffer,
   sockaddr_storage addr_storage;
   socklen_t addr_len = sizeof(addr_storage);
   sockaddr* addr = reinterpret_cast<sockaddr*>(&addr_storage);
-  int received = ::recvfrom(s_, static_cast<char*>(buffer),
-                            static_cast<int>(length), 0, addr, &addr_len);
+
+  msghdr msg;
+  iovec iov;
+  memset(&msg, 0, sizeof(msg));
+  iov.iov_len = length;
+  iov.iov_base = buffer;
+  msg.msg_iov = &iov;
+  msg.msg_iovlen = 1;
+  msg.msg_name = addr;
+  msg.msg_namelen = addr_len;
+  msg.msg_flags = 0;
+  char control[CMSG_SPACE(sizeof(struct timeval))];
+  // char control[CMSG_SPACE(sizeof(uint64_t))];
   if (timestamp) {
-    *timestamp = GetSocketRecvTimestamp(s_);
+    msg.msg_control = control;
+    msg.msg_controllen = sizeof(control);
   }
+  int bytes_read = ::recvmsg(s_, &msg, 0);
   UpdateLastError();
-  if ((received >= 0) && (out_addr != nullptr))
+  if ((bytes_read >= 0) && (out_addr != nullptr))
     SocketAddressFromSockAddrStorage(addr_storage, out_addr);
   int error = GetError();
-  bool success = (received >= 0) || IsBlockingError(error);
+  bool success = (bytes_read >= 0) || IsBlockingError(error);
   if (udp_ || success) {
     EnableEvents(DE_READ);
   }
   if (!success) {
-    RTC_LOG_F(LS_VERBOSE) << "Error = " << error;
+    RTC_LOG_F(LS_ERROR) << "Error = " << error;
+  } else {
+    RTC_LOG_F(LS_INFO) << "success = " << bytes_read
+                       << " bytes read. Error=" << error;
   }
-  return received;
+  if (bytes_read > 0 && success && timestamp) {
+    int64_t socket_ts = GetSocketRecvTimestamp(msg);
+    RTC_CHECK_GT(socket_ts, -1);
+    // *timestamp = socket_ts;
+    // if (socket_ts == -1) {
+    //   socket_ts = TimeMicros();
+    // }
+    if (!timestamp_offset_) {
+      timestamp_offset_ =
+          (rtc::TimeNanos() - socket_ts) / rtc::kNumNanosecsPerMicrosec;
+      RTC_LOG(LS_WARNING) << "Setting offset. Now=" << rtc::TimeNanos()
+                          << " socket=" << socket_ts
+                          << " offset=" << *timestamp_offset_;
+    }
+    *timestamp = *timestamp_offset_ + socket_ts;
+  }
+  return bytes_read;
 }
 
 int PhysicalSocket::Listen(int backlog) {
@@ -642,7 +720,17 @@ bool SocketDispatcher::Initialize() {
   u_long argp = 1;
   ioctlsocket(s_, FIONBIO, &argp);
 #elif defined(WEBRTC_POSIX)
-  fcntl(s_, F_SETFL, fcntl(s_, F_GETFL, 0) | O_NONBLOCK);
+  if (fcntl(s_, F_SETFL, fcntl(s_, F_GETFL, 0) | O_NONBLOCK) != 0) {
+    RTC_LOG(LS_ERROR) << "fcntl failed";
+    return false;
+  }
+  auto opt = SO_TIMESTAMP;
+  RTC_LOG(LS_WARNING) << "Setting socket option " << rtc::ToHex(opt);
+  const int value = 1;
+  if (::setsockopt(s_, SOL_SOCKET, opt, &value, sizeof(value)) != 0) {
+    RTC_LOG_ERR(LS_ERROR) << "::setsockopt failed. errno" << LAST_SYSTEM_ERROR;
+    return false;
+  }
 #endif
 #if defined(WEBRTC_IOS)
   // iOS may kill sockets when the app is moved to the background

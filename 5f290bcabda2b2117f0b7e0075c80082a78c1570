@@ -117,6 +117,30 @@
       },
       "revId": "5f290bcabda2b2117f0b7e0075c80082a78c1570",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "7310485f_a7813834",
+        "filename": "infra/specs/test_suites.pyl",
+        "patchSetId": 33
+      },
+      "lineNbr": 231,
+      "author": {
+        "id": 12234
+      },
+      "writtenOn": "2022-10-17T11:55:06Z",
+      "side": 1,
+      "message": "It looks good, the problem is coming from the BUILD files",
+      "parentUuid": "ba330601_d0de5fb5",
+      "range": {
+        "startLine": 223,
+        "startChar": 0,
+        "endLine": 231,
+        "endChar": 6
+      },
+      "revId": "5f290bcabda2b2117f0b7e0075c80082a78c1570",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

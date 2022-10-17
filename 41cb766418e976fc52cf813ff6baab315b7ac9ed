@@ -71,6 +71,30 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "9c3e1e37_3b0e89f1",
+        "filename": "infra/specs/waterfalls.pyl",
+        "patchSetId": 34
+      },
+      "lineNbr": 140,
+      "author": {
+        "id": 8046
+      },
+      "writtenOn": "2022-10-17T12:32:03Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "abece874_22762d2e",
+      "range": {
+        "startLine": 82,
+        "startChar": 0,
+        "endLine": 140,
+        "endChar": 8
+      },
+      "revId": "41cb766418e976fc52cf813ff6baab315b7ac9ed",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "bc242f38_1670301e",
@@ -107,6 +131,30 @@
       "writtenOn": "2022-10-17T12:01:15Z",
       "side": 1,
       "message": "forgot this one ?",
+      "range": {
+        "startLine": 550,
+        "startChar": 31,
+        "endLine": 550,
+        "endChar": 44
+      },
+      "revId": "41cb766418e976fc52cf813ff6baab315b7ac9ed",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "8bf10193_5a7ef3ad",
+        "filename": "infra/specs/waterfalls.pyl",
+        "patchSetId": 34
+      },
+      "lineNbr": 550,
+      "author": {
+        "id": 8046
+      },
+      "writtenOn": "2022-10-17T12:32:03Z",
+      "side": 1,
+      "message": "That one doesn\u0027t seem to be 64-bit build and fails with `wrong ELF class: ELFCLASS64`",
+      "parentUuid": "77cfdbef_1b49ba88",
       "range": {
         "startLine": 550,
         "startChar": 31,

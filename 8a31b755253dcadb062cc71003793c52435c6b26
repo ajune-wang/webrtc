@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "2c9c37ef_29a5435b",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 2
+      },
+      "lineNbr": 9,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2022-10-17T10:44:42Z",
+      "side": 1,
+      "message": "this is not a good way to write \"none\"....",
+      "revId": "8a31b755253dcadb062cc71003793c52435c6b26",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

@@ -18,6 +18,11 @@
 
 #include "rtc_base/string_to_number.h"
 
+#if defined(WEBRTC_DLOPEN_PIPEWIRE)
+#include "modules/desktop_capture/linux/wayland/pipewire_stubs.h"
+#include "rtc_base/sanitizer.h"
+#endif  // defined(WEBRTC_DLOPEN_PIPEWIRE)
+
 #if !PW_CHECK_VERSION(0, 3, 29)
 #define SPA_POD_PROP_FLAG_MANDATORY (1u << 3)
 #endif
@@ -128,5 +133,24 @@ spa_pod* BuildFormat(spa_pod_builder* builder,
 
   return static_cast<spa_pod*>(spa_pod_builder_pop(builder, &frames[0]));
 }
+
+#if defined(WEBRTC_DLOPEN_PIPEWIRE)
+RTC_NO_SANITIZE("cfi-icall")
+bool OpenPipeWire() {
+  static constexpr char kPipeWireLib[] = "libpipewire-0.3.so.0";
+
+  using modules_desktop_capture_linux_wayland::InitializeStubs;
+  using modules_desktop_capture_linux_wayland::kModulePipewire;
+
+  modules_desktop_capture_linux_wayland::StubPathMap paths;
+
+  // Check if the PipeWire library is available.
+  paths[kModulePipewire].push_back(kPipeWireLib);
+
+  static bool result = InitializeStubs(paths);
+
+  return result;
+}
+#endif  // defined(WEBRTC_DLOPEN_PIPEWIRE)
 
 }  // namespace webrtc

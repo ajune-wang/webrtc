@@ -3,6 +3,23 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "6e828f15_fde60f9f",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 3
+      },
+      "lineNbr": 11,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2022-10-17T10:02:02Z",
+      "side": 1,
+      "message": "may be webrtc:13756\nor one of it is derived bugs",
+      "revId": "f29843f330339d4fd49e616bd0bdb1548905f7ad",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "83bd0006_6ee429f0",
         "filename": "modules/rtp_rtcp/include/rtp_rtcp_defines.h",
         "patchSetId": 3
@@ -14,6 +31,133 @@
       "writtenOn": "2022-10-14T15:35:52Z",
       "side": 1,
       "message": "Is \"jitter_time_delta\" or just \"jitter_time\", a better name for this?",
+      "revId": "f29843f330339d4fd49e616bd0bdb1548905f7ad",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "ab026cf7_cd8f64e9",
+        "filename": "modules/rtp_rtcp/include/rtp_rtcp_defines.h",
+        "patchSetId": 3
+      },
+      "lineNbr": 449,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2022-10-17T10:02:02Z",
+      "side": 1,
+      "message": "I would prefer not to include type in the name at all,\nbut it might be helpful to clarify what this jitter is about.\ne.g. interarrival_jitter (i.e. by its full name in the rfc3550)",
+      "parentUuid": "83bd0006_6ee429f0",
+      "revId": "f29843f330339d4fd49e616bd0bdb1548905f7ad",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "c4484be3_2a95608e",
+        "filename": "modules/rtp_rtcp/source/receive_statistics_impl.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 185,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2022-10-17T10:02:02Z",
+      "side": 1,
+      "message": "I wonder if because of the\nhttps://webrtc-review.googlesource.com/c/src/+/279222\nit would be better to calculate jitter in TimeDelta units, and in GetStats convert it back to rtp timestamp units (though, is it need to be exposed in rtp timestamp units? probably just for the report block in the rtcp receiver report)",
+      "revId": "f29843f330339d4fd49e616bd0bdb1548905f7ad",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "dba101b9_ab57896f",
+        "filename": "modules/rtp_rtcp/source/receive_statistics_impl.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 185,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2022-10-17T10:02:02Z",
+      "side": 1,
+      "message": "because division is integer, the result of this expression would always return nonfractional seconds.\nMay be do other way around:\nTimeDelta::Seconds(stats.jitter) / last_payload_type_frequency;\n(and comment why you swap conversion and division operator).\nThere might be already a helper that does the same.",
+      "range": {
+        "startLine": 185,
+        "startChar": 8,
+        "endLine": 185,
+        "endChar": 79
+      },
+      "revId": "f29843f330339d4fd49e616bd0bdb1548905f7ad",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "096a6f97_1c8c78e4",
+        "filename": "modules/rtp_rtcp/source/receive_statistics_impl.h",
+        "patchSetId": 3
+      },
+      "lineNbr": 113,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2022-10-17T10:02:02Z",
+      "side": 1,
+      "message": "I would prefer `int` type to represent payload type frequency, (e.g. RtpPacketReceived::payload_type_frequency is already int)\n\nhttps://google.github.io/styleguide/cppguide.html#Integer_Types\n“Keep in mind that even if your value won\u0027t ever be too large for an int, it may be used in intermediate calculations which may require a larger type.”\n“We use int very often, for integers we know are not going to be too big, e.g., loop counters. Use plain old int for such things.”",
+      "range": {
+        "startLine": 113,
+        "startChar": 2,
+        "endLine": 113,
+        "endChar": 9
+      },
+      "revId": "f29843f330339d4fd49e616bd0bdb1548905f7ad",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "a2f78dd2_a6ecd5d9",
+        "filename": "modules/rtp_rtcp/source/receive_statistics_unittest.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 585,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2022-10-17T10:02:02Z",
+      "side": 1,
+      "message": "would recommend thousand separator: 48\u0027000",
+      "range": {
+        "startLine": 585,
+        "startChar": 38,
+        "endLine": 585,
+        "endChar": 43
+      },
+      "revId": "f29843f330339d4fd49e616bd0bdb1548905f7ad",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "94d3c3fa_3e528440",
+        "filename": "modules/rtp_rtcp/source/receive_statistics_unittest.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 599,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2022-10-17T10:02:02Z",
+      "side": 1,
+      "message": "avoid logic in tests, it might hide bugs, like here.\nexpected_jitter \u003d 4800 / 16 \u003d 300\nif you use integer division by 48\u0027000, you\u0027ll get zero,\nso this expectation is equivalent to \nEXPECT_EQ(...jitter_duration, TimeDelta::Zero());\n\nbut I suspect that is not what it should be.\nI guess you meant to check\nEXPECT_EQ(...jitter_duration, TimeDelta::Microseconds(6\u0027250));",
+      "range": {
+        "startLine": 599,
+        "startChar": 12,
+        "endLine": 599,
+        "endChar": 63
+      },
       "revId": "f29843f330339d4fd49e616bd0bdb1548905f7ad",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }

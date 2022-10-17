@@ -1,0 +1,72 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "141e4b4f_89f06e03",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 14134
+      },
+      "writtenOn": "2022-10-17T17:25:36Z",
+      "side": 1,
+      "message": "Looks good overall, a couple of minor things.",
+      "revId": "d7371c0ac6f59fef8f7d14d93200e2718933c6d6",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "5e28ad25_5430f290",
+        "filename": "modules/desktop_capture/linux/wayland/screencast_stream_utils.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 33,
+      "author": {
+        "id": 14134
+      },
+      "writtenOn": "2022-10-17T17:25:36Z",
+      "side": 1,
+      "message": "These declarations are only used in OpenPipeWire, so they could be moved inside that function, to reduce the number of #ifdefs and improve code co-location.",
+      "revId": "d7371c0ac6f59fef8f7d14d93200e2718933c6d6",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "c792acf1_6e7d72a4",
+        "filename": "modules/desktop_capture/linux/wayland/screencast_stream_utils.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 34,
+      "author": {
+        "id": 14134
+      },
+      "writtenOn": "2022-10-17T17:25:36Z",
+      "side": 1,
+      "message": "I guess this will need to be updated when there is a new major release of libpipewire?",
+      "revId": "d7371c0ac6f59fef8f7d14d93200e2718933c6d6",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "2c86540e_086094ca",
+        "filename": "modules/desktop_capture/linux/wayland/screencast_stream_utils.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 60,
+      "author": {
+        "id": 14134
+      },
+      "writtenOn": "2022-10-17T17:25:36Z",
+      "side": 1,
+      "message": "Can this go into base_capturer_pipewire.h or maybe its own file?\n\nI am concerned about this file growing into a grab-bag of unrelated functionality; and it should only be needed by the capturer construction code, unlike the other functions which are used as part of the capturer implementation.",
+      "revId": "d7371c0ac6f59fef8f7d14d93200e2718933c6d6",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

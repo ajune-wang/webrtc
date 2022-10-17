@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "a9e6b55e_e3fe5fc7",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 5
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5508
+      },
+      "writtenOn": "2022-10-17T08:39:42Z",
+      "side": 1,
+      "message": "All dependent updates have now landed so this change should be good to go.",
+      "revId": "a1ccc18307d4fb550297f6e5406f0e97a0cb6006",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

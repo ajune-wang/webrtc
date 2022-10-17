@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "c3aa78ae_78df8c38",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 6
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5613
+      },
+      "writtenOn": "2022-10-17T14:48:13Z",
+      "side": 1,
+      "message": "Hi, here is a functional variant...\nAll of downstream is fixed and I verified that it fixes my original problem.\nPTAL",
+      "revId": "957b036b089093d4e06d96ab5426daa13ba04648",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

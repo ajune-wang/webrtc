@@ -1,0 +1,510 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "b86bcf03_50913dc2",
+        "filename": "DEPS",
+        "patchSetId": 39
+      },
+      "lineNbr": 496,
+      "author": {
+        "id": 18474
+      },
+      "writtenOn": "2022-10-17T17:22:19Z",
+      "side": 1,
+      "message": "I think we\u0027d also added DBUS and ALSA to chromium, are they not actually needed then? If not, we should consider removing them.",
+      "range": {
+        "startLine": 496,
+        "startChar": 41,
+        "endLine": 496,
+        "endChar": 49
+      },
+      "revId": "61bfca33386c91a0bb12604e14d6f718c45bb778",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "b49b05a5_227ab5e3",
+        "filename": "modules/desktop_capture/linux/wayland/shared_screencast_stream.cc",
+        "patchSetId": 39
+      },
+      "lineNbr": 721,
+      "author": {
+        "id": 18474
+      },
+      "writtenOn": "2022-10-17T17:22:19Z",
+      "side": 1,
+      "message": "I think you can remove all the \"// For testing purpose\" comments above notifier_ calls. If we do publicly expose it in the future they\u0027d be false and IMO they don\u0027t really add anything now (a comment over the constructor/setter is fine).",
+      "range": {
+        "startLine": 721,
+        "startChar": 4,
+        "endLine": 721,
+        "endChar": 26
+      },
+      "revId": "61bfca33386c91a0bb12604e14d6f718c45bb778",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "be7b4100_b9386847",
+        "filename": "modules/desktop_capture/linux/wayland/shared_screencast_stream.h",
+        "patchSetId": 39
+      },
+      "lineNbr": 85,
+      "author": {
+        "id": 18474
+      },
+      "writtenOn": "2022-10-17T17:22:19Z",
+      "side": 1,
+      "message": "You can remove this line, or change it to comment something like \"Allow tests to hook in an observer\" (though whether it\u0027s something that would be useful to be public is worth considering, I think right now we just log some of this data downstream; and capture isn\u0027t driven by any of the other changes, but some of them could be useful in the future).",
+      "range": {
+        "startLine": 85,
+        "startChar": 5,
+        "endLine": 85,
+        "endChar": 10
+      },
+      "revId": "61bfca33386c91a0bb12604e14d6f718c45bb778",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "54e34643_ebccb291",
+        "filename": "modules/desktop_capture/linux/wayland/shared_screencast_stream.h",
+        "patchSetId": 39
+      },
+      "lineNbr": 86,
+      "author": {
+        "id": 18474
+      },
+      "writtenOn": "2022-10-17T17:22:19Z",
+      "side": 1,
+      "message": "Could this be a SetStreamNotifier call instead? Or does construction kick off things we need to observe without other input? If the latter, we should make a comment about that.",
+      "range": {
+        "startLine": 86,
+        "startChar": 2,
+        "endLine": 86,
+        "endChar": 60
+      },
+      "revId": "61bfca33386c91a0bb12604e14d6f718c45bb778",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "8ae54844_bc0d33b9",
+        "filename": "modules/desktop_capture/linux/wayland/shared_screencast_stream_test.py",
+        "patchSetId": 39
+      },
+      "lineNbr": 20,
+      "author": {
+        "id": 18474
+      },
+      "writtenOn": "2022-10-17T17:22:19Z",
+      "side": 1,
+      "message": "Let\u0027s move this under a wayland/test dir (see comment to rename the directory for \"fake\" as well). Presumably that\u0027ll mean adding another os.pardir below.",
+      "range": {
+        "startLine": 20,
+        "startChar": 44,
+        "endLine": 20,
+        "endChar": 51
+      },
+      "revId": "61bfca33386c91a0bb12604e14d6f718c45bb778",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "c63c1400_ea4bb8f3",
+        "filename": "modules/desktop_capture/linux/wayland/shared_screencast_stream_test.py",
+        "patchSetId": 39
+      },
+      "lineNbr": 31,
+      "author": {
+        "id": 18474
+      },
+      "writtenOn": "2022-10-17T17:22:19Z",
+      "side": 1,
+      "message": "Why? Presumably they were passed to the tests before? Or were they similarly handled by a different wrapper?\n\nActually, it looks like we *do* use --isolated-script-test-output, so should probably move that parser up.",
+      "range": {
+        "startLine": 31,
+        "startChar": 2,
+        "endLine": 31,
+        "endChar": 51
+      },
+      "revId": "61bfca33386c91a0bb12604e14d6f718c45bb778",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "ace6d75b_39189616",
+        "filename": "modules/desktop_capture/linux/wayland/shared_screencast_stream_test.py",
+        "patchSetId": 39
+      },
+      "lineNbr": 99,
+      "author": {
+        "id": 18474
+      },
+      "writtenOn": "2022-10-17T17:22:19Z",
+      "side": 1,
+      "message": "NIT: Why 3? Is that because of the 0.3 hardcoded above for PipeWire\u0027s version?",
+      "range": {
+        "startLine": 99,
+        "startChar": 28,
+        "endLine": 99,
+        "endChar": 29
+      },
+      "revId": "61bfca33386c91a0bb12604e14d6f718c45bb778",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "b6e9e199_3b58ed0b",
+        "filename": "modules/desktop_capture/linux/wayland/shared_screencast_stream_unittest.cc",
+        "patchSetId": 39
+      },
+      "lineNbr": 40,
+      "author": {
+        "id": 18474
+      },
+      "writtenOn": "2022-10-17T17:22:19Z",
+      "side": 1,
+      "message": "NIT: Maybe change both of these to simply Observer ?",
+      "range": {
+        "startLine": 40,
+        "startChar": 27,
+        "endLine": 40,
+        "endChar": 41
+      },
+      "revId": "61bfca33386c91a0bb12604e14d6f718c45bb778",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "b63e1192_7b892d20",
+        "filename": "modules/desktop_capture/linux/wayland/shared_screencast_stream_unittest.cc",
+        "patchSetId": 39
+      },
+      "lineNbr": 59,
+      "author": {
+        "id": 18474
+      },
+      "writtenOn": "2022-10-17T17:22:19Z",
+      "side": 1,
+      "message": "So I was initially a bit confused at the naming here and why we had both. Maybe something like \"FakeScreen\" or \"FakeWindow\" to help indicate that it\u0027s *supplying* frames to the PipeWire server? (Open to better suggestions as well)",
+      "range": {
+        "startLine": 59,
+        "startChar": 18,
+        "endLine": 59,
+        "endChar": 38
+      },
+      "revId": "61bfca33386c91a0bb12604e14d6f718c45bb778",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "ed6f49da_22847a19",
+        "filename": "modules/desktop_capture/linux/wayland/shared_screencast_stream_unittest.cc",
+        "patchSetId": 39
+      },
+      "lineNbr": 69,
+      "author": {
+        "id": 18474
+      },
+      "writtenOn": "2022-10-17T17:22:19Z",
+      "side": 1,
+      "message": "NIT: Newline",
+      "range": {
+        "startLine": 69,
+        "startChar": 0,
+        "endLine": 69,
+        "endChar": 1
+      },
+      "revId": "61bfca33386c91a0bb12604e14d6f718c45bb778",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "9d8593c1_ea411efd",
+        "filename": "modules/desktop_capture/linux/wayland/shared_screencast_stream_unittest.cc",
+        "patchSetId": 39
+      },
+      "lineNbr": 72,
+      "author": {
+        "id": 18474
+      },
+      "writtenOn": "2022-10-17T17:22:19Z",
+      "side": 1,
+      "message": "I would be okay with these being defined in the class definition, since it\u0027s local to the .cc file.",
+      "range": {
+        "startLine": 63,
+        "startChar": 0,
+        "endLine": 72,
+        "endChar": 1
+      },
+      "revId": "61bfca33386c91a0bb12604e14d6f718c45bb778",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "ad117af3_31100a01",
+        "filename": "modules/desktop_capture/linux/wayland/shared_screencast_stream_unittest.cc",
+        "patchSetId": 39
+      },
+      "lineNbr": 74,
+      "author": {
+        "id": 18474
+      },
+      "writtenOn": "2022-10-17T17:22:19Z",
+      "side": 1,
+      "message": "Would it be possible/feasible to break this into multiple tests?\n\nE.g. a connect/disconnect test and then a single frame and frame queue test?\n\nWe could abstract out helpers to connect/disconnect the stream in Setup/TearDown for the latter two. (Though perhaps as a subclass).",
+      "range": {
+        "startLine": 74,
+        "startChar": 27,
+        "endLine": 74,
+        "endChar": 39
+      },
+      "revId": "61bfca33386c91a0bb12604e14d6f718c45bb778",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "ecb6e351_dc2692fd",
+        "filename": "modules/desktop_capture/linux/wayland/shared_screencast_stream_unittest.cc",
+        "patchSetId": 39
+      },
+      "lineNbr": 75,
+      "author": {
+        "id": 18474
+      },
+      "writtenOn": "2022-10-17T17:22:19Z",
+      "side": 1,
+      "message": "NIT: Consider removing \"Step 1)\", \"Step 2)\", etc. I think it just introduces a need to renumber if we need to either change the order or add more steps.",
+      "range": {
+        "startLine": 75,
+        "startChar": 5,
+        "endLine": 75,
+        "endChar": 12
+      },
+      "revId": "61bfca33386c91a0bb12604e14d6f718c45bb778",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "1d795eae_0f83e93a",
+        "filename": "modules/desktop_capture/linux/wayland/shared_screencast_stream_unittest.cc",
+        "patchSetId": 39
+      },
+      "lineNbr": 86,
+      "author": {
+        "id": 18474
+      },
+      "writtenOn": "2022-10-17T17:22:19Z",
+      "side": 1,
+      "message": "Consider defining as a constant in an anonymous namespace e.g.\n\n```\nnamespace {\nconstexpr TimeDelta kShortWait \u003d TimeDelta::Seconds(5);\nconstexpr TimeDelta kLongWait \u003d TimeDelta::Seconds(10);\n} // namespace\n```\n\n(Not sure if TimeDelta can be constexpr or if needs to be const).",
+      "range": {
+        "startLine": 86,
+        "startChar": 24,
+        "endLine": 86,
+        "endChar": 45
+      },
+      "revId": "61bfca33386c91a0bb12604e14d6f718c45bb778",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "bae4c141_20e32c87",
+        "filename": "modules/desktop_capture/linux/wayland/shared_screencast_stream_unittest.cc",
+        "patchSetId": 39
+      },
+      "lineNbr": 136,
+      "author": {
+        "id": 18474
+      },
+      "writtenOn": "2022-10-17T17:22:19Z",
+      "side": 1,
+      "message": "Where do 800/640 come from? I don\u0027t think I saw them get set.",
+      "range": {
+        "startLine": 135,
+        "startChar": 35,
+        "endLine": 136,
+        "endChar": 40
+      },
+      "revId": "61bfca33386c91a0bb12604e14d6f718c45bb778",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "afe60a67_f5fb3d61",
+        "filename": "modules/desktop_capture/linux/wayland/shared_screencast_stream_unittest.cc",
+        "patchSetId": 39
+      },
+      "lineNbr": 137,
+      "author": {
+        "id": 18474
+      },
+      "writtenOn": "2022-10-17T17:22:19Z",
+      "side": 1,
+      "message": "Should probably comment the 4",
+      "range": {
+        "startLine": 137,
+        "startChar": 53,
+        "endLine": 137,
+        "endChar": 54
+      },
+      "revId": "61bfca33386c91a0bb12604e14d6f718c45bb778",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "ca8fd373_4ae70743",
+        "filename": "modules/desktop_capture/linux/wayland/shared_screencast_stream_unittest.cc",
+        "patchSetId": 39
+      },
+      "lineNbr": 161,
+      "author": {
+        "id": 18474
+      },
+      "writtenOn": "2022-10-17T17:22:19Z",
+      "side": 1,
+      "message": "I think we changed this recently?",
+      "range": {
+        "startLine": 161,
+        "startChar": 2,
+        "endLine": 161,
+        "endChar": 67
+      },
+      "revId": "61bfca33386c91a0bb12604e14d6f718c45bb778",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "a96516ae_e5e36d29",
+        "filename": "modules/desktop_capture/linux/wayland/test_support/fake_screencast_stream.cc",
+        "patchSetId": 39
+      },
+      "lineNbr": 36,
+      "author": {
+        "id": 18474
+      },
+      "writtenOn": "2022-10-17T17:22:19Z",
+      "side": 1,
+      "message": "I don\u0027t want to block your CL; but rather than duplicate the Opening code; it may be good to steal the helper method I made in: https://webrtc-review.googlesource.com/c/src/+/279163",
+      "range": {
+        "startLine": 36,
+        "startChar": 0,
+        "endLine": 36,
+        "endChar": 51
+      },
+      "revId": "61bfca33386c91a0bb12604e14d6f718c45bb778",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "ae8c584a_148bc95c",
+        "filename": "modules/desktop_capture/linux/wayland/test_support/fake_screencast_stream.cc",
+        "patchSetId": 39
+      },
+      "lineNbr": 41,
+      "author": {
+        "id": 18474
+      },
+      "writtenOn": "2022-10-17T17:22:19Z",
+      "side": 1,
+      "message": "Since these values are validated in the test it may be good to expose them as statics or globals so the test can consume those.\n\n(Or better yet maybe allow tests to set them?)",
+      "range": {
+        "startLine": 39,
+        "startChar": 0,
+        "endLine": 41,
+        "endChar": 28
+      },
+      "revId": "61bfca33386c91a0bb12604e14d6f718c45bb778",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "be58a87a_0e57f2b6",
+        "filename": "modules/desktop_capture/linux/wayland/test_support/fake_screencast_stream.cc",
+        "patchSetId": 39
+      },
+      "lineNbr": 127,
+      "author": {
+        "id": 18474
+      },
+      "writtenOn": "2022-10-17T17:22:19Z",
+      "side": 1,
+      "message": "NIT: Consider removing.",
+      "range": {
+        "startLine": 127,
+        "startChar": 2,
+        "endLine": 127,
+        "endChar": 64
+      },
+      "revId": "61bfca33386c91a0bb12604e14d6f718c45bb778",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "5dab4807_e5a31022",
+        "filename": "modules/desktop_capture/linux/wayland/test_support/fake_screencast_stream.cc",
+        "patchSetId": 39
+      },
+      "lineNbr": 187,
+      "author": {
+        "id": 18474
+      },
+      "writtenOn": "2022-10-17T17:22:19Z",
+      "side": 1,
+      "message": "Another option could be to cycle through a predefined set of colors that we can validate the order of in the test.\n\n(Perhaps a future change though to add a test about frame ordering)",
+      "range": {
+        "startLine": 186,
+        "startChar": 0,
+        "endLine": 187,
+        "endChar": 52
+      },
+      "revId": "61bfca33386c91a0bb12604e14d6f718c45bb778",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "c8ad4786_10788f98",
+        "filename": "modules/desktop_capture/linux/wayland/test_support/fake_screencast_stream.h",
+        "patchSetId": 39
+      },
+      "lineNbr": 11,
+      "author": {
+        "id": 18474
+      },
+      "writtenOn": "2022-10-17T17:22:19Z",
+      "side": 1,
+      "message": "Let\u0027s rename \"test_support\" directory to just \"test\"",
+      "range": {
+        "startLine": 11,
+        "startChar": 46,
+        "endLine": 11,
+        "endChar": 58
+      },
+      "revId": "61bfca33386c91a0bb12604e14d6f718c45bb778",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

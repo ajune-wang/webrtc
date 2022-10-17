@@ -24,6 +24,30 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "d421a92a_a98e038a",
+        "filename": "infra/specs/test_suites.pyl",
+        "patchSetId": 33
+      },
+      "lineNbr": 103,
+      "author": {
+        "id": 8046
+      },
+      "writtenOn": "2022-10-17T11:32:07Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "7672a754_0773ba40",
+      "range": {
+        "startLine": 100,
+        "startChar": 0,
+        "endLine": 103,
+        "endChar": 8
+      },
+      "revId": "5f290bcabda2b2117f0b7e0075c80082a78c1570",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "26388540_0c226dbf",
@@ -37,6 +61,30 @@
       "writtenOn": "2022-10-17T10:05:55Z",
       "side": 1,
       "message": "We are probably going to need a linux_tests_tryserver and a linux_tests_with_video_capture that are a copy paste of these with the addition of  \u0027linux_specific_tests\u0027. Also a linux_tests that contains desktop_tests and linux_specific_tests.\nThen in waterfalls.pyl, the linux bots test_suites can be updated to use the new suites.\nIf the test doesn\u0027t work on some sanitizer bot maybe you can keep the old suite and add a comment.",
+      "range": {
+        "startLine": 223,
+        "startChar": 0,
+        "endLine": 231,
+        "endChar": 6
+      },
+      "revId": "5f290bcabda2b2117f0b7e0075c80082a78c1570",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "a6e71e52_7095e00b",
+        "filename": "infra/specs/test_suites.pyl",
+        "patchSetId": 33
+      },
+      "lineNbr": 231,
+      "author": {
+        "id": 8046
+      },
+      "writtenOn": "2022-10-17T11:32:07Z",
+      "side": 1,
+      "message": "Done. I hope I did it correctly.",
+      "parentUuid": "26388540_0c226dbf",
       "range": {
         "startLine": 223,
         "startChar": 0,

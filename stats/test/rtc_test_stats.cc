@@ -10,6 +10,8 @@
 
 #include "stats/test/rtc_test_stats.h"
 
+#include <utility>
+
 #include "rtc_base/checks.h"
 
 namespace webrtc {
@@ -34,8 +36,8 @@ WEBRTC_RTCSTATS_IMPL(RTCTestStats,
                      &m_map_string_uint64,
                      &m_map_string_double)
 
-RTCTestStats::RTCTestStats(const std::string& id, int64_t timestamp_us)
-    : RTCStats(id, timestamp_us),
+RTCTestStats::RTCTestStats(std::string&& id, int64_t timestamp_us)
+    : RTCStats(std::move(id), timestamp_us),
       m_bool("mBool"),
       m_int32("mInt32"),
       m_uint32("mUint32"),
@@ -54,7 +56,7 @@ RTCTestStats::RTCTestStats(const std::string& id, int64_t timestamp_us)
       m_map_string_double("mMapStringDouble") {}
 
 RTCTestStats::RTCTestStats(const RTCTestStats& other)
-    : RTCStats(other.id(), other.timestamp_us()),
+    : RTCStats(std::string(other.id()), other.timestamp_us()),
       m_bool(other.m_bool),
       m_int32(other.m_int32),
       m_uint32(other.m_uint32),

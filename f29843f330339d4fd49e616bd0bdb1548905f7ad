@@ -18,6 +18,24 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "13854c66_2e3ced27",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 3
+      },
+      "lineNbr": 11,
+      "author": {
+        "id": 19929
+      },
+      "writtenOn": "2022-10-17T11:33:18Z",
+      "side": 1,
+      "message": "Sure. Glad if this helps with that. I do itend to modify the code that reads these jitter values as a follwo up.",
+      "parentUuid": "6e828f15_fde60f9f",
+      "revId": "f29843f330339d4fd49e616bd0bdb1548905f7ad",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "83bd0006_6ee429f0",
@@ -49,6 +67,24 @@
       "side": 1,
       "message": "I would prefer not to include type in the name at all,\nbut it might be helpful to clarify what this jitter is about.\ne.g. interarrival_jitter (i.e. by its full name in the rfc3550)",
       "parentUuid": "83bd0006_6ee429f0",
+      "revId": "f29843f330339d4fd49e616bd0bdb1548905f7ad",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "18d19719_c9dbd26e",
+        "filename": "modules/rtp_rtcp/include/rtp_rtcp_defines.h",
+        "patchSetId": 3
+      },
+      "lineNbr": 449,
+      "author": {
+        "id": 19929
+      },
+      "writtenOn": "2022-10-17T11:33:18Z",
+      "side": 1,
+      "message": "The problem here is that this is a variant on the other variable that is called just \"jitter\". But I guess that that doesn\u0027t motivate to also use a poor name for the new variable.",
+      "parentUuid": "ab026cf7_cd8f64e9",
       "revId": "f29843f330339d4fd49e616bd0bdb1548905f7ad",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
@@ -95,6 +131,48 @@
     {
       "unresolved": false,
       "key": {
+        "uuid": "33c83652_9291f85e",
+        "filename": "modules/rtp_rtcp/source/receive_statistics_impl.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 185,
+      "author": {
+        "id": 19929
+      },
+      "writtenOn": "2022-10-17T11:33:18Z",
+      "side": 1,
+      "message": "Right, I\u0027m dividing an int by an int here. I rather want to divide fractional seconds by the frequency, to get fractional seconds (the jitter is generally exposed in ms). I can\u0027t find a helper in WebRTC and your suggestions rather seems to be how to do this.",
+      "parentUuid": "dba101b9_ab57896f",
+      "range": {
+        "startLine": 185,
+        "startChar": 8,
+        "endLine": 185,
+        "endChar": 79
+      },
+      "revId": "f29843f330339d4fd49e616bd0bdb1548905f7ad",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "f51348c3_62b99b06",
+        "filename": "modules/rtp_rtcp/source/receive_statistics_impl.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 185,
+      "author": {
+        "id": 19929
+      },
+      "writtenOn": "2022-10-17T11:33:18Z",
+      "side": 1,
+      "message": "I see your point. We do rely on the receive time when calculating jitter already.",
+      "parentUuid": "c4484be3_2a95608e",
+      "revId": "f29843f330339d4fd49e616bd0bdb1548905f7ad",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
         "uuid": "096a6f97_1c8c78e4",
         "filename": "modules/rtp_rtcp/source/receive_statistics_impl.h",
         "patchSetId": 3
@@ -106,6 +184,30 @@
       "writtenOn": "2022-10-17T10:02:02Z",
       "side": 1,
       "message": "I would prefer `int` type to represent payload type frequency, (e.g. RtpPacketReceived::payload_type_frequency is already int)\n\nhttps://google.github.io/styleguide/cppguide.html#Integer_Types\n“Keep in mind that even if your value won\u0027t ever be too large for an int, it may be used in intermediate calculations which may require a larger type.”\n“We use int very often, for integers we know are not going to be too big, e.g., loop counters. Use plain old int for such things.”",
+      "range": {
+        "startLine": 113,
+        "startChar": 2,
+        "endLine": 113,
+        "endChar": 9
+      },
+      "revId": "f29843f330339d4fd49e616bd0bdb1548905f7ad",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "699f18dc_923444f5",
+        "filename": "modules/rtp_rtcp/source/receive_statistics_impl.h",
+        "patchSetId": 3
+      },
+      "lineNbr": 113,
+      "author": {
+        "id": 19929
+      },
+      "writtenOn": "2022-10-17T11:33:18Z",
+      "side": 1,
+      "message": "Right. I\u0027ll keep in mind to only use anything else than int if it must be somehting else than int. This can be plain int.",
+      "parentUuid": "096a6f97_1c8c78e4",
       "range": {
         "startLine": 113,
         "startChar": 2,
@@ -139,6 +241,30 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "a41bcbed_7d65b82a",
+        "filename": "modules/rtp_rtcp/source/receive_statistics_unittest.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 585,
+      "author": {
+        "id": 19929
+      },
+      "writtenOn": "2022-10-17T11:33:18Z",
+      "side": 1,
+      "message": "That\u0027s nice. Done.",
+      "parentUuid": "a2f78dd2_a6ecd5d9",
+      "range": {
+        "startLine": 585,
+        "startChar": 38,
+        "endLine": 585,
+        "endChar": 43
+      },
+      "revId": "f29843f330339d4fd49e616bd0bdb1548905f7ad",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "94d3c3fa_3e528440",
@@ -152,6 +278,30 @@
       "writtenOn": "2022-10-17T10:02:02Z",
       "side": 1,
       "message": "avoid logic in tests, it might hide bugs, like here.\nexpected_jitter \u003d 4800 / 16 \u003d 300\nif you use integer division by 48\u0027000, you\u0027ll get zero,\nso this expectation is equivalent to \nEXPECT_EQ(...jitter_duration, TimeDelta::Zero());\n\nbut I suspect that is not what it should be.\nI guess you meant to check\nEXPECT_EQ(...jitter_duration, TimeDelta::Microseconds(6\u0027250));",
+      "range": {
+        "startLine": 599,
+        "startChar": 12,
+        "endLine": 599,
+        "endChar": 63
+      },
+      "revId": "f29843f330339d4fd49e616bd0bdb1548905f7ad",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "647e6d59_eb2fbd78",
+        "filename": "modules/rtp_rtcp/source/receive_statistics_unittest.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 599,
+      "author": {
+        "id": 19929
+      },
+      "writtenOn": "2022-10-17T11:33:18Z",
+      "side": 1,
+      "message": "Yeah, I calculated the TimeDelta in the wrong way here too.",
+      "parentUuid": "94d3c3fa_3e528440",
       "range": {
         "startLine": 599,
         "startChar": 12,

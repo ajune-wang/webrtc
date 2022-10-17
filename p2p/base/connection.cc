@@ -474,19 +474,23 @@ void Connection::OnReadPacket(const char* data,
     rtc::LoggingSeverity sev = (!writable() ? rtc::LS_INFO : rtc::LS_VERBOSE);
     switch (msg->integrity()) {
       case StunMessage::IntegrityStatus::kNotSet:
-        // Late computation of integrity status, but not an error.
+        // This packet did not come through Port processing?
+        RTC_LOG(LS_ERROR) << "DEBUG: Late validation";
         msg->ValidateMessageIntegrity(remote_candidate().password());
+        RTC_LOG(LS_ERROR) << "DEBUG: Result of late validation is "
+                          << static_cast<int>(msg->integrity());
         break;
       case StunMessage::IntegrityStatus::kIntegrityOk:
         if (remote_candidate().password() != msg->password()) {
-          // Password has changed. Recheck message.
-          // TODO(crbug.com/1177125): Redesign logic to check only once.
-          msg->RevalidateMessageIntegrity(remote_candidate().password());
+          RTC_LOG(LS_ERROR)
+              << "DEBUG: ERROR - Different passwords, old = " << msg->password()
+              << ", new " << remote_candidate().password();
         }
         break;
       case StunMessage::IntegrityStatus::kIntegrityBad:
         // Possibly we have a new password to try.
         // TODO(crbug.com/1177125): Redesign logic to check only once.
+        RTC_LOG(LS_ERROR) << "DEBUG: Revalidate on BAD status";
         msg->RevalidateMessageIntegrity(remote_candidate().password());
         break;
       default:

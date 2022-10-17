@@ -35,6 +35,24 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "f58b73da_1fb67221",
+        "filename": "modules/desktop_capture/linux/wayland/screencast_stream_utils.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 33,
+      "author": {
+        "id": 18474
+      },
+      "writtenOn": "2022-10-17T19:53:55Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "5e28ad25_5430f290",
+      "revId": "d7371c0ac6f59fef8f7d14d93200e2718933c6d6",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "c792acf1_6e7d72a4",
@@ -52,6 +70,24 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "966fcc3b_2a7fc61e",
+        "filename": "modules/desktop_capture/linux/wayland/screencast_stream_utils.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 34,
+      "author": {
+        "id": 18474
+      },
+      "writtenOn": "2022-10-17T19:53:55Z",
+      "side": 1,
+      "message": "Yeah; I think so. But this is existing anyways.",
+      "parentUuid": "c792acf1_6e7d72a4",
+      "revId": "d7371c0ac6f59fef8f7d14d93200e2718933c6d6",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "2c86540e_086094ca",
@@ -65,6 +101,24 @@
       "writtenOn": "2022-10-17T17:25:36Z",
       "side": 1,
       "message": "Can this go into base_capturer_pipewire.h or maybe its own file?\n\nI am concerned about this file growing into a grab-bag of unrelated functionality; and it should only be needed by the capturer construction code, unlike the other functions which are used as part of the capturer implementation.",
+      "revId": "d7371c0ac6f59fef8f7d14d93200e2718933c6d6",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "d1c48b18_ef88d9f0",
+        "filename": "modules/desktop_capture/linux/wayland/screencast_stream_utils.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 60,
+      "author": {
+        "id": 18474
+      },
+      "writtenOn": "2022-10-17T19:53:55Z",
+      "side": 1,
+      "message": "Hmm, I\u0027d placed it here because it was previously used by the shared_screencast_stream and so felt this would be an appropriate place to put it and now I wanted to expose it in base_capturer_pipewire as well (which owns the shared_screencast_stream). It looks like Jan\u0027s change to make a fake_screencast_stream will also need this. Given the usage in SharedScreencastStream (and only the static usage in base_capturer_pipewire), I\u0027d prefer to keep it here or in a new file; though the new file would likely potentially become more of the grab-bag of unrelated functionality; the best name I can think of right now would just be a generic \"pipewire_utils\" file.\n\nThoughts?",
+      "parentUuid": "2c86540e_086094ca",
       "revId": "d7371c0ac6f59fef8f7d14d93200e2718933c6d6",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }

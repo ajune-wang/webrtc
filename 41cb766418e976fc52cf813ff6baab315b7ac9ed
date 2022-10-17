@@ -118,6 +118,30 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "6ac6fac4_26b156a1",
+        "filename": "infra/specs/waterfalls.pyl",
+        "patchSetId": 34
+      },
+      "lineNbr": 505,
+      "author": {
+        "id": 8046
+      },
+      "writtenOn": "2022-10-17T12:32:48Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "bc242f38_1670301e",
+      "range": {
+        "startLine": 505,
+        "startChar": 10,
+        "endLine": 505,
+        "endChar": 36
+      },
+      "revId": "41cb766418e976fc52cf813ff6baab315b7ac9ed",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "77cfdbef_1b49ba88",

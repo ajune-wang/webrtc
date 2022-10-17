@@ -188,6 +188,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "0f6f0d48_1c54c16d",
+        "filename": "modules/desktop_capture/linux/wayland/shared_screencast_stream_test.py",
+        "patchSetId": 39
+      },
+      "lineNbr": 31,
+      "author": {
+        "id": 18474
+      },
+      "writtenOn": "2022-10-17T19:57:31Z",
+      "side": 1,
+      "message": "Ah, so this implies that the tests previously had another wrapper which handled this then; which is fine, I just wanted to make sure I understood.",
+      "parentUuid": "3afe8e19_c7bdcb18",
+      "range": {
+        "startLine": 31,
+        "startChar": 2,
+        "endLine": 31,
+        "endChar": 51
+      },
+      "revId": "61bfca33386c91a0bb12604e14d6f718c45bb778",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "ace6d75b_39189616",
         "filename": "modules/desktop_capture/linux/wayland/shared_screencast_stream_test.py",
         "patchSetId": 39

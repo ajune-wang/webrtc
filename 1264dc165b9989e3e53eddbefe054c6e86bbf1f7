@@ -16,6 +16,24 @@
       "message": "@alcooper@google.com I didn\u0027t intend to merge it. I hit the wrong button :-/. Should I revert this change or submit another change fixing your remaining suggestions?",
       "revId": "1264dc165b9989e3e53eddbefe054c6e86bbf1f7",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "5d4cb76f_7f5fec62",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 43
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 6193
+      },
+      "writtenOn": "2022-10-18T13:19:00Z",
+      "side": 1,
+      "message": "I think you can do a fast followup CL.",
+      "parentUuid": "d1f79ba8_9f8f36e9",
+      "revId": "1264dc165b9989e3e53eddbefe054c6e86bbf1f7",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

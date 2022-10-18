@@ -12,11 +12,11 @@
 
 #include "modules/desktop_capture/desktop_capture_options.h"
 #include "modules/desktop_capture/desktop_capturer.h"
+#include "modules/desktop_capture/linux/wayland/pipewire_utils.h"
 #include "modules/desktop_capture/linux/wayland/restore_token_manager.h"
 #include "modules/desktop_capture/linux/wayland/xdg_desktop_portal_utils.h"
 #include "rtc_base/checks.h"
 #include "rtc_base/logging.h"
-#include "screencast_portal.h"
 
 namespace webrtc {
 
@@ -27,6 +27,14 @@ using xdg_portal::ScreenCapturePortalInterface;
 using xdg_portal::SessionDetails;
 
 }  // namespace
+
+// static
+bool BaseCapturerPipeWire::IsSupported() {
+  // This capturer is only supported on Wayland, and then only if PipeWire is
+  // available. Unfortunately, the best way we have to check if PipeWire is
+  // available is to try to initialize it.
+  return DesktopCapturer::IsRunningUnderWayland() && InitializePipeWire();
+}
 
 BaseCapturerPipeWire::BaseCapturerPipeWire(const DesktopCaptureOptions& options,
                                            CaptureType type)

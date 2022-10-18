@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "e6246592_5eeaab74",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 5
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2022-10-18T13:59:59Z",
+      "side": 1,
+      "message": "I still have to fix the underlying problem that the classes are confused about what the right password is, but this should take care of the 50% BAD verifications in UMA.",
+      "revId": "ce7e86d1bb9bfcf6ea4b1e9317c893dc28e01578",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

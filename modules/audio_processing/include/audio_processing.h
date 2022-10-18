@@ -357,6 +357,37 @@ class RTC_EXPORT AudioProcessing : public rtc::RefCountInterface {
         float max_gain_change_db_per_second = 3.0f;
         float max_output_noise_level_dbfs = -50.0f;
       } adaptive_digital;
+
+      // Enables input volume control in AGC2.
+      struct InputVolumeController {
+        bool operator==(const InputVolumeController& rhs) const;
+        bool operator!=(const InputVolumeController& rhs) const {
+          return !(*this == rhs);
+        }
+        bool enabled = false;
+        // TODO(bugs.webrtc.org/1275566): Describe `startup_min_volume`.
+        int startup_min_volume = 0;
+        // Lowest analog microphone level that will be applied in response to
+        // clipping.
+        int clipped_level_min = 70;
+        // If true, an adaptive digital gain is applied.
+        bool enable_digital_adaptive = true;
+        // Amount the microphone level is lowered with every clipping event.
+        // Limited to (0, 255].
+        int clipped_level_step = 15;
+        // Proportion of clipped samples required to declare a clipping event.
+        // Limited to (0.f, 1.f).
+        float clipped_ratio_threshold = 0.1f;
+        // Time in frames to wait after a clipping event before checking again.
+        // Limited to values higher than 0.
+        int clipped_wait_frames = 300;
+        // Enables clipping prediction functionality.
+        bool enable_clipping_predictor = false;
+        // Minimum and maximum digital gain used before input volume is
+        // adjusted. Limited to [0, 30].
+        int max_digital_gain_db = 12;
+        int min_digital_gain_db = 2;
+      } input_volume_controller;
     } gain_controller2;
 
     std::string ToString() const;

@@ -24,6 +24,7 @@ namespace webrtc {
 // Owns the frame payload data.
 class TransformableFrameInterface {
  public:
+
   virtual ~TransformableFrameInterface() = default;
 
   // Returns the frame payload data. The data is valid until the next non-const
@@ -50,6 +51,9 @@ class TransformableFrameInterface {
 
 class TransformableVideoFrameInterface : public TransformableFrameInterface {
  public:
+  RTC_EXPORT static std::unique_ptr<TransformableVideoFrameInterface> Create(
+    int payload_type, uint32_t rtp_timestamp, uint32_t ssrc, bool is_keyframe, const TransformableVideoFrameInterface& original);
+
   virtual ~TransformableVideoFrameInterface() = default;
   virtual bool IsKeyFrame() const = 0;
 

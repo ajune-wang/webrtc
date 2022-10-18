@@ -121,6 +121,24 @@
       "parentUuid": "2c86540e_086094ca",
       "revId": "d7371c0ac6f59fef8f7d14d93200e2718933c6d6",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "8aaf1647_36412994",
+        "filename": "modules/desktop_capture/linux/wayland/screencast_stream_utils.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 60,
+      "author": {
+        "id": 14134
+      },
+      "writtenOn": "2022-10-18T20:05:07Z",
+      "side": 1,
+      "message": "This functionality would still be accessible to shared_screencast_stream (as well as fake_screencast_stream) if it were moved to a different file.  Can you explain in more detail if there are  other constraints keeping it in this specific file?",
+      "parentUuid": "d1c48b18_ef88d9f0",
+      "revId": "d7371c0ac6f59fef8f7d14d93200e2718933c6d6",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

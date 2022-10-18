@@ -11,6 +11,7 @@
 #ifndef RTC_BASE_PHYSICAL_SOCKET_SERVER_H_
 #define RTC_BASE_PHYSICAL_SOCKET_SERVER_H_
 
+#include "absl/types/optional.h"
 #include "api/units/time_delta.h"
 #if defined(WEBRTC_POSIX) && defined(WEBRTC_LINUX)
 #include <sys/epoll.h>
@@ -189,6 +190,11 @@ class PhysicalSocket : public Socket, public sigslot::has_slots<> {
                        int flags,
                        const struct sockaddr* dest_addr,
                        socklen_t addrlen);
+
+  int DoReadFromSocket(void* buffer,
+                       size_t length,
+                       SocketAddress* out_addr,
+                       int64_t* timestamp);
 
   void OnResolveResult(AsyncResolverInterface* resolver);
 

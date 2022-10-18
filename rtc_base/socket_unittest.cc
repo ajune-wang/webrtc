@@ -1079,8 +1079,7 @@ void SocketTest::SocketRecvTimestamp(const IPAddress& loopback) {
   socket->SendTo("foo", 3, address);
   int64_t recv_timestamp_1;
   char buffer[3];
-  socket->RecvFrom(buffer, 3, nullptr, &recv_timestamp_1);
-  EXPECT_GT(recv_timestamp_1, -1);
+  ASSERT_GT(socket->RecvFrom(buffer, 3, nullptr, &recv_timestamp_1), 0);
 
   const int64_t kTimeBetweenPacketsMs = 100;
   Thread::SleepMs(kTimeBetweenPacketsMs);
@@ -1088,7 +1087,7 @@ void SocketTest::SocketRecvTimestamp(const IPAddress& loopback) {
   int64_t send_time_2 = TimeMicros();
   socket->SendTo("bar", 3, address);
   int64_t recv_timestamp_2;
-  socket->RecvFrom(buffer, 3, nullptr, &recv_timestamp_2);
+  ASSERT_GT(socket->RecvFrom(buffer, 3, nullptr, &recv_timestamp_2), 0);
 
   int64_t system_time_diff = send_time_2 - send_time_1;
   int64_t recv_timestamp_diff = recv_timestamp_2 - recv_timestamp_1;

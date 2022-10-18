@@ -460,8 +460,6 @@ TEST_F(PhysicalSocketTest, TestGetSetOptionsIPv6) {
 
 #if defined(WEBRTC_POSIX)
 
-// We don't get recv timestamps on Mac.
-#if !defined(WEBRTC_MAC)
 TEST_F(PhysicalSocketTest, TestSocketRecvTimestampIPv4) {
   MAYBE_SKIP_IPV4;
   SocketTest::TestSocketRecvTimestampIPv4();
@@ -470,7 +468,6 @@ TEST_F(PhysicalSocketTest, TestSocketRecvTimestampIPv4) {
 TEST_F(PhysicalSocketTest, TestSocketRecvTimestampIPv6) {
   SocketTest::TestSocketRecvTimestampIPv6();
 }
-#endif
 
 // Verify that if the socket was unable to be bound to a real network interface
 // (not loopback), Bind will return an error.

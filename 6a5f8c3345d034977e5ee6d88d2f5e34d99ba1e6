@@ -1,6 +1,23 @@
 {
   "comments": [
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "7bc168fa_a4e62b21",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2022-10-18T14:12:52Z",
+      "side": 1,
+      "message": "Yes, let\u0027s do this (with a warning log).",
+      "revId": "6a5f8c3345d034977e5ee6d88d2f5e34d99ba1e6",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "885fc926_0a2d8f96",
@@ -50,6 +67,24 @@
       "side": 1,
       "message": "I see, then maybe this CL does make sense. But I\u0027d still add an RTC_LOG(LS_WARNING) about it, since it\u0027s only something you\u0027d do in a loopback.\n\n+Harald do you agree?",
       "parentUuid": "0cfad8b8_ee7fa4af",
+      "revId": "6a5f8c3345d034977e5ee6d88d2f5e34d99ba1e6",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "158d69da_bc7c3624",
+        "filename": "pc/peer_connection.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 2628,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2022-10-18T14:12:52Z",
+      "side": 1,
+      "message": "I would make it an RTC_DLOG(LS_WARNING) \u003c\u003c \"Using candidate with adapter type set - this should only happen in test\".\nRTC_DLOG because it doesn\u0027t really matter in production code.\n\nThe other alternative is to add a helper called MakeCandidatesRemote() that does the clearing, and use that all over the test code - but that\u0027s not workable for the CreateOfferAndSetAsLocal() case either.\n\nI think this CL (+ a warning) is the simple way to do it.",
+      "parentUuid": "c5a3809c_c90b40da",
       "revId": "6a5f8c3345d034977e5ee6d88d2f5e34d99ba1e6",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }

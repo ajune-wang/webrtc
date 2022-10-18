@@ -34,6 +34,116 @@
       "parentUuid": "d1f79ba8_9f8f36e9",
       "revId": "1264dc165b9989e3e53eddbefe054c6e86bbf1f7",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "0aeb7f95_c2e3f3d6",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 43
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 18474
+      },
+      "writtenOn": "2022-10-18T18:33:11Z",
+      "side": 1,
+      "message": "Yeah; a fast followup CL is fine, especially given that this messes with the build configuration and it\u0027d be good to have that land/stick and most of my feedback is relatively minor.",
+      "parentUuid": "5d4cb76f_7f5fec62",
+      "revId": "1264dc165b9989e3e53eddbefe054c6e86bbf1f7",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "bdcc8e84_44ec810e",
+        "filename": "modules/desktop_capture/linux/wayland/shared_screencast_stream.h",
+        "patchSetId": 43
+      },
+      "lineNbr": 84,
+      "author": {
+        "id": 18474
+      },
+      "writtenOn": "2022-10-18T18:33:11Z",
+      "side": 1,
+      "message": "If SetObserver is public is this needed?",
+      "range": {
+        "startLine": 82,
+        "startChar": 0,
+        "endLine": 84,
+        "endChar": 34
+      },
+      "revId": "1264dc165b9989e3e53eddbefe054c6e86bbf1f7",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "7d51e28d_10f37d42",
+        "filename": "modules/desktop_capture/linux/wayland/shared_screencast_stream_unittest.cc",
+        "patchSetId": 43
+      },
+      "lineNbr": 98,
+      "author": {
+        "id": 18474
+      },
+      "writtenOn": "2022-10-18T18:33:11Z",
+      "side": 1,
+      "message": "Why the double wait for frameRetrieved here? I don\u0027t think I saw us sending two frames?\n\nI think the logic with a frameRecorded previously was okay if you want to revert to that.",
+      "range": {
+        "startLine": 95,
+        "startChar": 0,
+        "endLine": 98,
+        "endChar": 39
+      },
+      "revId": "1264dc165b9989e3e53eddbefe054c6e86bbf1f7",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "3b7e0268_64514550",
+        "filename": "modules/desktop_capture/linux/wayland/shared_screencast_stream_unittest.cc",
+        "patchSetId": 43
+      },
+      "lineNbr": 108,
+      "author": {
+        "id": 18474
+      },
+      "writtenOn": "2022-10-18T18:33:11Z",
+      "side": 1,
+      "message": "Apparently despite being called \"RgbaColor\" it stores in BGRA, which matches what we expect to see in data. (I\u0027ve not noticed any color inversions so presumably PipeWire builds this properly). So we should probably rename \"red_color\", \"green_color\" etc. accordingly, or perhaps just to \"frame1_color\", \"frame2_color\", etc.\n\nI think this static_cast from the UInt32 here ends up in only checking the \"Blue\" bits, and not the bits you expect (because I think the cast truncates all but the last uint8_t\u0027s worth of bits). However, I think a better check would be to construct an RgbaColor and compare those, e.g.\n```\nEXPECT_EQ(RgbaColor(frame-\u003edata()),frame1_color);\n```\n\nThe constructor that takes a uint8_t* just grabs the first four bits to build it, so this is just a shorthand over grabbing it explicitly ourselves.\n\nSimilar comments for the other checks.",
+      "range": {
+        "startLine": 108,
+        "startChar": 30,
+        "endLine": 108,
+        "endChar": 72
+      },
+      "revId": "1264dc165b9989e3e53eddbefe054c6e86bbf1f7",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "b6211c97_ea4d9e46",
+        "filename": "modules/desktop_capture/linux/wayland/shared_screencast_stream_unittest.cc",
+        "patchSetId": 43
+      },
+      "lineNbr": 128,
+      "author": {
+        "id": 18474
+      },
+      "writtenOn": "2022-10-18T18:33:11Z",
+      "side": 1,
+      "message": "Should we check that frame1 gets overwritten values?",
+      "range": {
+        "startLine": 128,
+        "startChar": 2,
+        "endLine": 128,
+        "endChar": 55
+      },
+      "revId": "1264dc165b9989e3e53eddbefe054c6e86bbf1f7",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

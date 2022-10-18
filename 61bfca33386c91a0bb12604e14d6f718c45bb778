@@ -65,6 +65,30 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "6ff812bb_f9df34ac",
+        "filename": "DEPS",
+        "patchSetId": 39
+      },
+      "lineNbr": 496,
+      "author": {
+        "id": 18474
+      },
+      "writtenOn": "2022-10-18T18:33:11Z",
+      "side": 1,
+      "message": "Hmm, can you provide me pointers to where they\u0027re used to build then? Mainly just so I can be aware for maintenance purposes, I didn\u0027t look too much in depth at the build files, and I\u0027d assume they\u0027d be needed in the DEPS here if they were used.",
+      "parentUuid": "91967c50_4feb026a",
+      "range": {
+        "startLine": 496,
+        "startChar": 41,
+        "endLine": 496,
+        "endChar": 49
+      },
+      "revId": "61bfca33386c91a0bb12604e14d6f718c45bb778",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "c4f28397_80021e16",
@@ -161,6 +185,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "e53c0539_cdd394a7",
+        "filename": "modules/desktop_capture/linux/wayland/shared_screencast_stream.cc",
+        "patchSetId": 39
+      },
+      "lineNbr": 721,
+      "author": {
+        "id": 18474
+      },
+      "writtenOn": "2022-10-18T18:33:11Z",
+      "side": 1,
+      "message": "Still here in a couple places.",
+      "parentUuid": "cfe7ddbc_7e1a4063",
+      "range": {
+        "startLine": 721,
+        "startChar": 4,
+        "endLine": 721,
+        "endChar": 26
+      },
+      "revId": "61bfca33386c91a0bb12604e14d6f718c45bb778",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "be7b4100_b9386847",
         "filename": "modules/desktop_capture/linux/wayland/shared_screencast_stream.h",
         "patchSetId": 39
@@ -208,6 +256,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "5c3640de_f86cab6d",
+        "filename": "modules/desktop_capture/linux/wayland/shared_screencast_stream.h",
+        "patchSetId": 39
+      },
+      "lineNbr": 85,
+      "author": {
+        "id": 18474
+      },
+      "writtenOn": "2022-10-18T18:33:11Z",
+      "side": 1,
+      "message": "Still here",
+      "parentUuid": "54c6e126_2d04eba8",
+      "range": {
+        "startLine": 85,
+        "startChar": 5,
+        "endLine": 85,
+        "endChar": 10
+      },
+      "revId": "61bfca33386c91a0bb12604e14d6f718c45bb778",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "54e34643_ebccb291",
         "filename": "modules/desktop_capture/linux/wayland/shared_screencast_stream.h",
         "patchSetId": 39
@@ -243,6 +315,30 @@
       "side": 1,
       "message": "Done",
       "parentUuid": "54e34643_ebccb291",
+      "range": {
+        "startLine": 86,
+        "startChar": 2,
+        "endLine": 86,
+        "endChar": 60
+      },
+      "revId": "61bfca33386c91a0bb12604e14d6f718c45bb778",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "fca98701_87bb6845",
+        "filename": "modules/desktop_capture/linux/wayland/shared_screencast_stream.h",
+        "patchSetId": 39
+      },
+      "lineNbr": 86,
+      "author": {
+        "id": 18474
+      },
+      "writtenOn": "2022-10-18T18:33:11Z",
+      "side": 1,
+      "message": "Still here?",
+      "parentUuid": "36683ea0_aeae64ef",
       "range": {
         "startLine": 86,
         "startChar": 2,
@@ -397,6 +493,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "69116d9e_77c8f4b9",
+        "filename": "modules/desktop_capture/linux/wayland/shared_screencast_stream_test.py",
+        "patchSetId": 39
+      },
+      "lineNbr": 31,
+      "author": {
+        "id": 18474
+      },
+      "writtenOn": "2022-10-18T18:33:11Z",
+      "side": 1,
+      "message": "Can you move --isolated-script-test-output up since it is used? Unless I\u0027m misreading.",
+      "parentUuid": "4e7be0d2_a0cbaabc",
+      "range": {
+        "startLine": 31,
+        "startChar": 2,
+        "endLine": 31,
+        "endChar": 51
+      },
+      "revId": "61bfca33386c91a0bb12604e14d6f718c45bb778",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "ace6d75b_39189616",
         "filename": "modules/desktop_capture/linux/wayland/shared_screencast_stream_test.py",
         "patchSetId": 39
@@ -538,6 +658,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "70f2111c_9ae87b59",
+        "filename": "modules/desktop_capture/linux/wayland/shared_screencast_stream_unittest.cc",
+        "patchSetId": 39
+      },
+      "lineNbr": 59,
+      "author": {
+        "id": 18474
+      },
+      "writtenOn": "2022-10-18T18:33:11Z",
+      "side": 1,
+      "message": "I think my confusion was predominantly with it having \"ScreenCastStream\" in the name; \"TestScreenCastStreamProvider\" maybe?",
+      "parentUuid": "3155dd67_8d06177d",
+      "range": {
+        "startLine": 59,
+        "startChar": 18,
+        "endLine": 59,
+        "endChar": 38
+      },
+      "revId": "61bfca33386c91a0bb12604e14d6f718c45bb778",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "ed6f49da_22847a19",
         "filename": "modules/desktop_capture/linux/wayland/shared_screencast_stream_unittest.cc",
         "patchSetId": 39
@@ -667,6 +811,30 @@
       "side": 1,
       "message": "I\u0027m not sure, the problem is that each TEST_F() creates a new PipeWireStreamTest object and as such, it has to be always started, which means to do first steps where we wait for the stream to be ready and then we wait for it to be connected. That means that if I split it, I would have to repeat some steps over and over.",
       "parentUuid": "ad117af3_31100a01",
+      "range": {
+        "startLine": 74,
+        "startChar": 27,
+        "endLine": 74,
+        "endChar": 39
+      },
+      "revId": "61bfca33386c91a0bb12604e14d6f718c45bb778",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "2c67f758_48e22a0d",
+        "filename": "modules/desktop_capture/linux/wayland/shared_screencast_stream_unittest.cc",
+        "patchSetId": 39
+      },
+      "lineNbr": 74,
+      "author": {
+        "id": 18474
+      },
+      "writtenOn": "2022-10-18T18:33:11Z",
+      "side": 1,
+      "message": "Yeah, we\u0027d split that into a helper or into a subclass that had a SetUp/TearDown method. I\u0027m okay paying the little bit of extra tax if we can get a bit more high level granularity on what breaks. (e.g. if they all break it\u0027s setting up or tearing down pipewire, if it\u0027s just one of the frame tests or a later mouse test then we know that as well).\n\nThere *may* be some one-time gtest setup stuff that can be done if the stream state is hermetic enough or if we can do something like generate a single frame and then run a bunch of different validation tests on that; but I think the one-time-setup structure would be a separate investigation.",
+      "parentUuid": "237fb178_d9769cdd",
       "range": {
         "startLine": 74,
         "startChar": 27,
@@ -949,6 +1117,30 @@
       "side": 1,
       "message": "That change is not merged yet. I can do a followup change once it\u0027s merged or I guess it\u0027s fine to wait.",
       "parentUuid": "a96516ae_e5e36d29",
+      "range": {
+        "startLine": 36,
+        "startChar": 0,
+        "endLine": 36,
+        "endChar": 51
+      },
+      "revId": "61bfca33386c91a0bb12604e14d6f718c45bb778",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "3ffc33e6_9b43d55d",
+        "filename": "modules/desktop_capture/linux/wayland/test_support/fake_screencast_stream.cc",
+        "patchSetId": 39
+      },
+      "lineNbr": 36,
+      "author": {
+        "id": 18474
+      },
+      "writtenOn": "2022-10-18T18:33:11Z",
+      "side": 1,
+      "message": "Oh, I was saying you could create the helper method; but there\u0027s some discussion I\u0027m having with Mark about where it should live. I\u0027ll make the adjustment.",
+      "parentUuid": "f6c51bd4_677ee320",
       "range": {
         "startLine": 36,
         "startChar": 0,

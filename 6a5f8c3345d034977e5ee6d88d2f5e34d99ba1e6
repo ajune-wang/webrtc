@@ -16,6 +16,24 @@
       "message": "If the fields \"do not make sense as remote candidates\", shouldn\u0027t we ignore the candidate and RTC_LOG(LS_WARNING) about it? And then fix the test from passing invalid parameters to passing valid parameters.",
       "revId": "6a5f8c3345d034977e5ee6d88d2f5e34d99ba1e6",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "0cfad8b8_ee7fa4af",
+        "filename": "pc/peer_connection.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 2628,
+      "author": {
+        "id": 9405
+      },
+      "writtenOn": "2022-10-18T13:27:55Z",
+      "side": 1,
+      "message": "Those are valid candidates, but I just don\u0027t want some fields. So I don\u0027t think these candidates should be ignored.\n\nThere are a lot of test codes that uses a pattern like this:\n`Caller-\u003eSetRemoteDescription(Caller-\u003eCreateOfferAndSetAsLocal())`\n`callee_-\u003eAddIceCandidates(caller_-\u003eobserver()-\u003eGetAllCandidates())`\n\nBoth codes pass candidates as C++ objects, so all fields, including network_type, are passed as-is.\n\nDo you think it makes sense to fix all the code like this?\n\nInstead, I would suggest clearing some fields and using remote candidates.",
+      "parentUuid": "885fc926_0a2d8f96",
+      "revId": "6a5f8c3345d034977e5ee6d88d2f5e34d99ba1e6",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

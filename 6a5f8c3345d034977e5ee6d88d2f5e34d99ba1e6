@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "885fc926_0a2d8f96",
+        "filename": "pc/peer_connection.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 2628,
+      "author": {
+        "id": 5142
+      },
+      "writtenOn": "2022-10-18T13:07:48Z",
+      "side": 1,
+      "message": "If the fields \"do not make sense as remote candidates\", shouldn\u0027t we ignore the candidate and RTC_LOG(LS_WARNING) about it? And then fix the test from passing invalid parameters to passing valid parameters.",
+      "revId": "6a5f8c3345d034977e5ee6d88d2f5e34d99ba1e6",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

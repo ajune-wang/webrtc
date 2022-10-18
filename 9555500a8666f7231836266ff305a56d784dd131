@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "263d14a2_3301f5bc",
+        "filename": "p2p/base/turn_port.cc",
+        "patchSetId": 19
+      },
+      "lineNbr": 1230,
+      "author": {
+        "id": 5613
+      },
+      "writtenOn": "2022-10-18T07:02:41Z",
+      "side": 1,
+      "message": "this is the bug you are trying to solve, right ?\na testcase that exercises this code (that should be removed) would be nice!",
+      "range": {
+        "startLine": 1230,
+        "startChar": 12,
+        "endLine": 1230,
+        "endChar": 20
+      },
+      "revId": "9555500a8666f7231836266ff305a56d784dd131",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

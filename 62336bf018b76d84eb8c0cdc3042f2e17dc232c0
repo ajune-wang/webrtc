@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "38131ec1_9e8ef22b",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 4
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5122
+      },
+      "writtenOn": "2022-10-18T12:12:24Z",
+      "side": 1,
+      "message": "Great work Hanna! I verified patchset 1 via md5 checksum and added the results in the CL description. I also reviewed the changes between patchset #1 and patchset #4.",
+      "revId": "62336bf018b76d84eb8c0cdc3042f2e17dc232c0",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

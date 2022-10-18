@@ -22,6 +22,30 @@
       },
       "revId": "9555500a8666f7231836266ff305a56d784dd131",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "c3aee66c_26683756",
+        "filename": "p2p/base/turn_port.cc",
+        "patchSetId": 19
+      },
+      "lineNbr": 1230,
+      "author": {
+        "id": 5508
+      },
+      "writtenOn": "2022-10-18T10:32:52Z",
+      "side": 1,
+      "message": "Yes - this `if` statement will be removed in the next CL:\nhttps://webrtc-review.googlesource.com/c/src/+/279521/\n\nSame goes for a similar one in SendTo that I suspect was added because of this bug (which is probably over a decade old by now)",
+      "parentUuid": "263d14a2_3301f5bc",
+      "range": {
+        "startLine": 1230,
+        "startChar": 12,
+        "endLine": 1230,
+        "endChar": 20
+      },
+      "revId": "9555500a8666f7231836266ff305a56d784dd131",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

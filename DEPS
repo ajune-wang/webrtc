@@ -10,7 +10,7 @@ vars = {
   # chromium waterfalls. More info at: crbug.com/570091.
   'checkout_configuration': 'default',
   'checkout_instrumented_libraries': 'checkout_linux and checkout_configuration == "default"',
-  'chromium_revision': 'a1d4dce2db31d73ee1215d886a14af0019e3c2eb',
+  'chromium_revision': '58bc8334ddcfe3e2447cfab3a0aff1fc24bbf568',
 
   # Keep the Chromium default of generating location tags.
   'generate_location_tags': True,
@@ -40,7 +40,7 @@ vars = {
 deps = {
   # TODO(kjellander): Move this to be Android-only.
   'src/base':
-    'https://chromium.googlesource.com/chromium/src/base@14c0da4c008a3fde1dca2387b445f7e977723d22',
+    'https://chromium.googlesource.com/chromium/src/base@1cbb338b1c607de3019251d026012c150edf1467',
   'src/build':
     'https://chromium.googlesource.com/chromium/src/build@2cf254f018ff21ecffb42da96ea818eff3afb980',
   'src/buildtools':
@@ -55,9 +55,9 @@ deps = {
     'condition': 'checkout_ios',
   },
   'src/testing':
-    'https://chromium.googlesource.com/chromium/src/testing@d3c9e2716cab2e5b8a85b3a460241d2c39acd0a7',
+    'https://chromium.googlesource.com/chromium/src/testing@63ba9bd34f59344c066cf15def9ed23e6a1830b4',
   'src/third_party':
-    'https://chromium.googlesource.com/chromium/src/third_party@6d66db961ea902dc5fbdb2593dc52d369e866de6',
+    'https://chromium.googlesource.com/chromium/src/third_party@6c63121ae99c155cf99d2ba20e9c9369cbbac943',
 
   'src/buildtools/linux64': {
     'packages': [
@@ -259,7 +259,7 @@ deps = {
 
   # Used by boringssl.
   'src/third_party/nasm': {
-      'url': 'https://chromium.googlesource.com/chromium/deps/nasm.git@9215e8e1d0fe474ffd3e16c1a07a0f97089e6224'
+      'url': 'https://chromium.googlesource.com/chromium/deps/nasm.git@5fd9246276814b5ebb7e56b821cedeecab9b674d'
   },
 
   'src/third_party/openh264/src':
@@ -292,7 +292,7 @@ deps = {
     'condition': 'checkout_android',
   },
   'src/tools':
-    'https://chromium.googlesource.com/chromium/src/tools@51ab63cbfc2cd5160f467237f980d4b814a1e117',
+    'https://chromium.googlesource.com/chromium/src/tools@b0687a95b9958dae74e0ec7eb14e2260accb70f6',
 
   'src/third_party/accessibility_test_framework': {
       'packages': [

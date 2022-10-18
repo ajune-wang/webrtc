@@ -18,6 +18,24 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "4b4d4404_64af370a",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5527
+      },
+      "writtenOn": "2022-10-18T07:54:14Z",
+      "side": 1,
+      "message": "I believe it should be 0, please see my explanation in the other comment.",
+      "parentUuid": "b6169d2f_0443fa4c",
+      "revId": "700d1932db4f555cb3473c2b317e4f72805ff16a",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "b3622596_9feb0939",
@@ -31,6 +49,24 @@
       "writtenOn": "2022-10-18T07:15:31Z",
       "side": 1,
       "message": "Given the problem encountered in webrtc:14103, is 0 really the appropriate default value?\n\nI also question the name - should it be --wait_after_last_read_rtp_packet, to show what it is actually doing?\n\nChecking my understanding of where this is - is this a tool that reads RTP packets from file, so that it knows which packet is the last one?",
+      "revId": "700d1932db4f555cb3473c2b317e4f72805ff16a",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "221d0097_e210f9a1",
+        "filename": "rtc_tools/video_replay.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 164,
+      "author": {
+        "id": 5527
+      },
+      "writtenOn": "2022-10-18T07:54:14Z",
+      "side": 1,
+      "message": "\u003e Checking my understanding of where this is - is this a tool that reads RTP packets from file, so that it knows which packet is the last one?\n\nYes, it reads and RTP dump from file, and after the last packet has been delivered to the client the replay is done.\n\n\u003e Given the problem encountered in webrtc:14103, is 0 really the appropriate default value?\n\nYes, this tool is used to run a receiving client with the RTP dump as input, and not a tool to extract frames from an RTP dump. Typically you are not interested in the very end of the RTP dump, you are interesting in how the receiving client behaves over a period of time. Even if we wanted to we couldn\u0027t really wait for the last frame to be decoded since we don\u0027t know what the client decided to do (did it drop the frame?), all we can do is to give the client some more time to see what it would have done.\n\n\u003e I also question the name - should it be --wait_after_last_read_rtp_packet, to show what it is actually doing?\n\nI think `extend_run_time_duration` is clearer, since we are actually continuing to run the receiving client.",
+      "parentUuid": "b3622596_9feb0939",
       "revId": "700d1932db4f555cb3473c2b317e4f72805ff16a",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }

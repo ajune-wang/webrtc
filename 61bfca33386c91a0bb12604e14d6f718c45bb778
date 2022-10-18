@@ -1,6 +1,23 @@
 {
   "comments": [
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "3cda5c9d_f1ad8744",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 39
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2022-10-18T07:09:51Z",
+      "side": 1,
+      "message": "Approval for /BUILD.gn (the details of wayland are not my area of expertise).",
+      "revId": "61bfca33386c91a0bb12604e14d6f718c45bb778",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "b86bcf03_50913dc2",

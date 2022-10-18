@@ -391,8 +391,11 @@ void VideoReceiveStream2::Start() {
 
   // Start decoding on task queue.
   stats_proxy_.DecoderThreadStarting();
+  video_receiver_.DecoderStarting();
+
   decode_queue_.PostTask([this] {
     RTC_DCHECK_RUN_ON(&decode_queue_);
+
     // Create up to maximum_pre_stream_decoders_ up front, wait the the other
     // decoders until they are requested (i.e., we receive the corresponding
     // payload).
@@ -401,6 +404,8 @@ void VideoReceiveStream2::Start() {
       if (decoders_count >= maximum_pre_stream_decoders_) {
         break;
       }
+      RTC_LOG_F(LS_ERROR) << "Adding (from decode queue): "
+                          << decoder.ToString();
       CreateAndRegisterExternalDecoder(decoder);
       ++decoders_count;
     }
@@ -443,6 +448,8 @@ void VideoReceiveStream2::Stop() {
       for (const Decoder& decoder : config_.decoders) {
         video_receiver_.RegisterExternalDecoder(nullptr, decoder.payload_type);
       }
+      video_receiver_.DeregisterReceiveCodecs();
+      video_receiver_.DecoderStopped();
       done.Set();
     });
     done.Wait(rtc::Event::kForever);
@@ -456,7 +463,6 @@ void VideoReceiveStream2::Stop() {
   // TODO(bugs.webrtc.org/11993): Make these calls on the network thread.
   RTC_DCHECK_RUN_ON(&packet_sequence_checker_);
   rtp_video_stream_receiver_.RemoveReceiveCodecs();
-  video_receiver_.DeregisterReceiveCodecs();
 
   video_stream_decoder_.reset();
   incoming_video_stream_.reset();
@@ -579,8 +585,68 @@ void VideoReceiveStream2::SetAssociatedPayloadTypes(
       std::move(associated_payload_types));
 }
 
+void VideoReceiveStream2::RemoveDecoder(const Decoder& decoder) {
+  RTC_DCHECK_RUN_ON(&worker_sequence_checker_);
+
+  RTC_LOG_F(LS_ERROR) << "Removing: " << decoder.ToString();
+
+  const int payload_type = decoder.payload_type;
+
+  auto it = absl::c_find(config_.decoders, decoder);
+  RTC_DCHECK(it != config_.decoders.end());
+  const_cast<std::vector<Decoder>&>(config_.decoders).erase(it);
+
+  if (decoder_running_) {
+    decode_queue_.PostTask([this, payload_type]() {
+      RTC_DCHECK_RUN_ON(&decode_queue_);
+      video_receiver_.RegisterExternalDecoder(nullptr, payload_type);
+    });
+  } else {
+    RTC_DCHECK_RUN_ON(&packet_sequence_checker_);
+    video_receiver_.RegisterExternalDecoder(nullptr, payload_type);
+  }
+}
+
+void VideoReceiveStream2::AddOrUpdateDecoder(const Decoder& decoder,
+                                             bool raw_payload) {
+  RTC_DCHECK_RUN_ON(&worker_sequence_checker_);
+
+  auto it = absl::c_find(config_.decoders, decoder);
+
+  if (it == config_.decoders.end()) {
+    const_cast<std::vector<Decoder>&>(config_.decoders).push_back(decoder);
+    VideoDecoder::Settings settings;
+    settings.set_codec_type(
+        PayloadStringToCodecType(decoder.video_format.name));
+    settings.set_max_render_resolution(
+        InitialDecoderResolution(call_->trials()));
+    settings.set_number_of_cores(num_cpu_cores_);
+
+    rtp_video_stream_receiver_.AddReceiveCodec(
+        decoder.payload_type, settings.codec_type(),
+        decoder.video_format.parameters, raw_payload);
+
+    // TODO(tommi): Be consistent with how Start/Stop works.
+    if (decoder_running_) {
+      decode_queue_.PostTask(
+          [this, payload_type = decoder.payload_type, settings = settings]() {
+            RTC_DCHECK_RUN_ON(&decode_queue_);
+            video_receiver_.RegisterReceiveCodec(payload_type, settings);
+          });
+    } else {
+      RTC_DCHECK_RUN_ON(&packet_sequence_checker_);
+      video_receiver_.RegisterReceiveCodec(decoder.payload_type, settings);
+    }
+  } else {
+    RTC_DCHECK_RUN_ON(&packet_sequence_checker_);
+    rtp_video_stream_receiver_.SetPacketizerForCodec(decoder.payload_type,
+                                                     raw_payload);
+  }
+}
+
 void VideoReceiveStream2::CreateAndRegisterExternalDecoder(
     const Decoder& decoder) {
+  RTC_DCHECK_RUN_ON(&decode_queue_);
   TRACE_EVENT0("webrtc",
                "VideoReceiveStream2::CreateAndRegisterExternalDecoder");
   std::unique_ptr<VideoDecoder> video_decoder =
@@ -610,6 +676,8 @@ void VideoReceiveStream2::CreateAndRegisterExternalDecoder(
     video_decoder = CreateFrameDumpingDecoderWrapper(
         std::move(video_decoder), FileWrapper::OpenWriteOnly(ssb.str()));
   }
+
+  RTC_LOG_F(LS_ERROR) << "Adding: " << decoder.ToString();
 
   video_receiver_.RegisterExternalDecoder(std::move(video_decoder),
                                           decoder.payload_type);
@@ -893,6 +961,8 @@ VideoReceiveStream2::HandleEncodedFrameOnDecodeQueue(
     // Look for the decoder with this payload type.
     for (const Decoder& decoder : config_.decoders) {
       if (decoder.payload_type == frame->PayloadType()) {
+        RTC_LOG_F(LS_ERROR)
+            << "Adding (from decode queue): " << decoder.ToString();
         CreateAndRegisterExternalDecoder(decoder);
         break;
       }

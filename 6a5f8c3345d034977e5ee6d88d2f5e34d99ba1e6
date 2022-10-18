@@ -34,6 +34,24 @@
       "parentUuid": "885fc926_0a2d8f96",
       "revId": "6a5f8c3345d034977e5ee6d88d2f5e34d99ba1e6",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "c5a3809c_c90b40da",
+        "filename": "pc/peer_connection.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 2628,
+      "author": {
+        "id": 5142
+      },
+      "writtenOn": "2022-10-18T14:04:39Z",
+      "side": 1,
+      "message": "I see, then maybe this CL does make sense. But I\u0027d still add an RTC_LOG(LS_WARNING) about it, since it\u0027s only something you\u0027d do in a loopback.\n\n+Harald do you agree?",
+      "parentUuid": "0cfad8b8_ee7fa4af",
+      "revId": "6a5f8c3345d034977e5ee6d88d2f5e34d99ba1e6",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

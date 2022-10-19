@@ -72,6 +72,23 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "2c2e5ae1_e62316ad",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 43
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 8046
+      },
+      "writtenOn": "2022-10-19T07:19:26Z",
+      "side": 1,
+      "message": "Follow up change: https://webrtc-review.googlesource.com/c/src/+/279740",
+      "revId": "1264dc165b9989e3e53eddbefe054c6e86bbf1f7",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "bdcc8e84_44ec810e",

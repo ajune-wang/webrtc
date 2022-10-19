@@ -34,6 +34,52 @@
       "parentUuid": "bf62359f_e6ffcbcc",
       "revId": "21bd3fa43a2fd3660ed74a4ef99c2b50521c126f",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "a5d99cc4_d9984b44",
+        "filename": "modules/video_coding/svc/scalability_mode_util.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 295,
+      "author": {
+        "id": 5825
+      },
+      "writtenOn": "2022-10-19T11:51:40Z",
+      "side": 1,
+      "message": "Maybe have a global early return for the case when (max_spatial_layers \u003e\u003d current num_spatial_layers), i.e., no changes needed, and simplify logic in the switch? Something like this:\n\nnum_spatial_layers \u003d ScalabilityModeToNumSpatialLayers(scalability_mode);\nif (max_spatial_layers \u003e\u003d num_spatial_layers) {\n  return scalability_mode;\n}\n\nswitch (scalability_mode) {\n case ScalabilityMode::kL2T1:\n   return ScalabilityMode::kL1T1;\n ...\n case ScalabilityMode::kL3T1:\n   return max_spatial_layers \u003d\u003d 2 ? ScalabilityMode::kL2T1\n                                     : ScalabilityMode::kL1T1;\n}",
+      "range": {
+        "startLine": 295,
+        "startChar": 16,
+        "endLine": 295,
+        "endChar": 37
+      },
+      "revId": "21bd3fa43a2fd3660ed74a4ef99c2b50521c126f",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "468b61dd_41d8ff56",
+        "filename": "modules/video_coding/svc/scalability_mode_util_unittest.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 95,
+      "author": {
+        "id": 5825
+      },
+      "writtenOn": "2022-10-19T11:51:40Z",
+      "side": 1,
+      "message": "Maybe have 1 parameterised test instead of these 3. Test params:\n1. scalability_mode\n2. max_num_spatial_layers\n3. expected_scalablity_mode",
+      "range": {
+        "startLine": 46,
+        "startChar": 0,
+        "endLine": 95,
+        "endChar": 1
+      },
+      "revId": "21bd3fa43a2fd3660ed74a4ef99c2b50521c126f",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

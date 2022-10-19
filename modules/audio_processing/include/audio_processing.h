@@ -543,6 +543,28 @@ class RTC_EXPORT AudioProcessing : public rtc::RefCountInterface {
                             const StreamConfig& output_config,
                             float* const* dest) = 0;
 
+  // Accepts deinterleaved float audio with the range [-1, 1]. Each element of
+  // `src` points to a channel buffer, arranged according to `input_stream`. At
+  // output, the channels will be arranged according to `output_stream` in
+  // `dest`.
+  //
+  // The output must have one channel or as many channels as the input. `src`
+  // and `dest` may use the same memory, if desired.
+  //
+  // Reads `applied_input_volume`, which is the known input volume used when the
+  // audio content in `src` was acquired.
+  // Computes a recommended input volume and writes `recommended_input_volume`.
+  // If input volume adjustment is disabled, recommends `applied_input_volume`.
+  // Takes into account whether one or more key press events occurred while the
+  // audio content in `src` was acquired.
+  virtual int ProcessStream(const float* const* src,
+                            const StreamConfig& input_config,
+                            const StreamConfig& output_config,
+                            float* const* dest,
+                            int applied_input_volume,
+                            int& recommended_input_volume,
+                            bool key_pressed) = 0;
+
   // Accepts and produces a ~10 ms frame of interleaved 16 bit integer audio for
   // the reverse direction audio stream as specified in `input_config` and
   // `output_config`. `src` and `dest` may use the same memory, if desired.
@@ -574,12 +596,16 @@ class RTC_EXPORT AudioProcessing : public rtc::RefCountInterface {
   // This must be called prior to ProcessStream() if and only if adaptive analog
   // gain control is enabled, to pass the current analog level from the audio
   // HAL. Must be within the range [0, 255].
+  // TODO(bugs.webrtc.org/14581): Deprecated. Use `ProcessStream()` overload
+  // with the applied input volume argument.
   virtual void set_stream_analog_level(int level) = 0;
 
   // When an analog mode is set, this should be called after
   // `set_stream_analog_level()` and `ProcessStream()` to obtain the recommended
   // new analog level for the audio HAL. It is the user's responsibility to
   // apply this level.
+  // TODO(bugs.webrtc.org/14581): Deprecated. Use `ProcessStream()` overload
+  // with the recommended input volume argument.
   virtual int recommended_stream_analog_level() const = 0;
 
   // This must be called if and only if echo processing is enabled.
@@ -600,6 +626,8 @@ class RTC_EXPORT AudioProcessing : public rtc::RefCountInterface {
 
   // Call to signal that a key press occurred (true) or did not occur (false)
   // with this chunk of audio.
+  // TODO(bugs.webrtc.org/14581): Deprecated. Use `ProcessStream()` overload
+  // with the key pressed argument.
   virtual void set_stream_key_pressed(bool key_pressed) = 0;
 
   // Creates and attaches an webrtc::AecDump for recording debugging

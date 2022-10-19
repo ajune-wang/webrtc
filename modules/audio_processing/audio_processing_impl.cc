@@ -784,6 +784,62 @@ int AudioProcessingImpl::ProcessStream(const float* const* src,
   return kNoError;
 }
 
+int AudioProcessingImpl::ProcessStream(const float* const* src,
+                                       const StreamConfig& input_config,
+                                       const StreamConfig& output_config,
+                                       float* const* dest,
+                                       int applied_input_volume,
+                                       int& recommended_input_volume,
+                                       bool key_pressed) {
+  TRACE_EVENT0("webrtc", "AudioProcessing::ProcessStream_StreamConfig");
+  if (!src || !dest) {
+    return kNullPointerError;
+  }
+
+  RETURN_ON_ERR(MaybeInitializeCapture(input_config, output_config));
+
+  MutexLock lock_capture(&mutex_capture_);
+  DenormalDisabler denormal_disabler(use_denormal_disabler_);
+
+  // Check that input volume emulation is disabled since, when enabled, there is
+  // no externally applied input volume to notify to APM.
+  RTC_DCHECK(
+      !submodules_.capture_levels_adjuster ||
+      !config_.capture_level_adjustment.analog_mic_gain_emulation.enabled);
+  set_stream_analog_level_locked(applied_input_volume);
+  capture_.key_pressed = key_pressed;
+
+  if (aec_dump_) {
+    RecordUnprocessedCaptureStream(src);
+  }
+
+  capture_.capture_audio->CopyFrom(src, formats_.api_format.input_stream());
+  if (capture_.capture_fullband_audio) {
+    capture_.capture_fullband_audio->CopyFrom(
+        src, formats_.api_format.input_stream());
+  }
+  RETURN_ON_ERR(ProcessCaptureStreamLocked());
+  if (capture_.capture_fullband_audio) {
+    capture_.capture_fullband_audio->CopyTo(formats_.api_format.output_stream(),
+                                            dest);
+  } else {
+    capture_.capture_audio->CopyTo(formats_.api_format.output_stream(), dest);
+  }
+
+  // Write the recommended input volume.
+  // When APM has no input volume to recommend, return the latest applied input
+  // volume that has been observed in order to possibly produce no input volume
+  // change.
+  RTC_DCHECK(capture_.applied_input_volume.has_value());
+  recommended_input_volume = capture_.recommended_input_volume.value_or(
+      *capture_.applied_input_volume);
+
+  if (aec_dump_) {
+    RecordProcessedCaptureStream(dest);
+  }
+  return kNoError;
+}
+
 void AudioProcessingImpl::HandleCaptureRuntimeSettings() {
   RuntimeSetting setting;
   int num_settings_processed = 0;
@@ -1623,11 +1679,12 @@ void AudioProcessingImpl::set_stream_analog_level_locked(int level) {
   // `ProcessStream()`.
   capture_.recommended_input_volume = absl::nullopt;
 
+  // TODO(bugs.webrtc.org/14581): Pass `capture_.applied_input_volume` to the
+  // active AGC (if any) instead of setting the applied input volume.
   if (submodules_.agc_manager) {
     submodules_.agc_manager->set_stream_analog_level(level);
     return;
   }
-
   if (submodules_.gain_control) {
     int error = submodules_.gain_control->set_stream_analog_level(level);
     RTC_DCHECK_EQ(kNoError, error);
@@ -1658,6 +1715,9 @@ void AudioProcessingImpl::UpdateRecommendedInputVolumeLocked() {
     return;
   }
 
+  // TODO(bugs.webrtc.org/14581): Set `capture_.recommended_input_volume` by
+  // reading the recommended volume from the active AGC (if any) instead of
+  // calling a getter.
   if (submodules_.agc_manager) {
     capture_.recommended_input_volume =
         submodules_.agc_manager->recommended_analog_level();

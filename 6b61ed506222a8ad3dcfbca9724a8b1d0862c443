@@ -16,6 +16,138 @@
       "message": "Hi, could you PTAL? Alessio",
       "revId": "6b61ed506222a8ad3dcfbca9724a8b1d0862c443",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "1899881c_89d59752",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5125
+      },
+      "writtenOn": "2022-10-19T10:50:05Z",
+      "side": 1,
+      "message": "Thanks for this CL!",
+      "revId": "6b61ed506222a8ad3dcfbca9724a8b1d0862c443",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "dd2507f3_f69f239b",
+        "filename": "modules/audio_processing/audio_processing_impl.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 794,
+      "author": {
+        "id": 5125
+      },
+      "writtenOn": "2022-10-19T10:50:05Z",
+      "side": 1,
+      "message": "Do we want the same trace event here, as is used on line 754?",
+      "range": {
+        "startLine": 794,
+        "startChar": 2,
+        "endLine": 794,
+        "endChar": 72
+      },
+      "revId": "6b61ed506222a8ad3dcfbca9724a8b1d0862c443",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "2932a111_b729d392",
+        "filename": "modules/audio_processing/audio_processing_impl.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 808,
+      "author": {
+        "id": 5125
+      },
+      "writtenOn": "2022-10-19T10:50:05Z",
+      "side": 1,
+      "message": "This basically prohibits that the input volume adaptation is used whenever this call is made.\n\nWhile it kind of makes sense as it is not designed to be used on such platforms, it comes with a fair amount of implications in terms of testing.\n\nFor instance,\n-The capture levels adjustment will only be able to be evaluated offline on aecdump recordings that are made without the analog gain API (at least, kind of, but I realize that can be discussed)\n-The audioproc_f test tool would need to be rewritten so as that this ProcessStream call is not used if submodules_.capture_levels_adjuster is activated. In practice, that is quite tricky to achieve in a good way.\n\nI\u0027d therefore suggest not to introduce this limitation, i.e., that instead the input volume emulation is allowed also with this API call and that the surrounding code is written to handle that.",
+      "range": {
+        "startLine": 806,
+        "startChar": 2,
+        "endLine": 808,
+        "endChar": 75
+      },
+      "revId": "6b61ed506222a8ad3dcfbca9724a8b1d0862c443",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "5fe5acf0_c76fc283",
+        "filename": "modules/audio_processing/audio_processing_impl.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 839,
+      "author": {
+        "id": 5125
+      },
+      "writtenOn": "2022-10-19T10:50:05Z",
+      "side": 1,
+      "message": "This is very close to a duplication of the code in lines 763-784. To simplify the code and the testing I would prefer that the design is such that as much as possible the same code is used for both API calls.",
+      "range": {
+        "startLine": 811,
+        "startChar": 0,
+        "endLine": 839,
+        "endChar": 3
+      },
+      "revId": "6b61ed506222a8ad3dcfbca9724a8b1d0862c443",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "777d799c_725acfb0",
+        "filename": "modules/audio_processing/include/audio_processing.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 566,
+      "author": {
+        "id": 5125
+      },
+      "writtenOn": "2022-10-19T10:50:05Z",
+      "side": 1,
+      "message": "Testing for this needs to be added in  audio_processing_impl_unittest.cc, audio_processing_unittest.cc, and audio_processing_impl_locking_unittest.cc",
+      "range": {
+        "startLine": 546,
+        "startChar": 1,
+        "endLine": 566,
+        "endChar": 50
+      },
+      "revId": "6b61ed506222a8ad3dcfbca9724a8b1d0862c443",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "1b366c64_786f976e",
+        "filename": "modules/audio_processing/include/audio_processing.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 601,
+      "author": {
+        "id": 5125
+      },
+      "writtenOn": "2022-10-19T10:50:05Z",
+      "side": 1,
+      "message": "Here and below.\nWhat happens if the new ProcessStream API is called but also the setters (e.g., set_stream_analog_level) are called separately. Is that safe?",
+      "range": {
+        "startLine": 599,
+        "startChar": 2,
+        "endLine": 601,
+        "endChar": 54
+      },
+      "revId": "6b61ed506222a8ad3dcfbca9724a8b1d0862c443",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

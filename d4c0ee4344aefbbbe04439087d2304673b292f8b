@@ -124,6 +124,24 @@
       "parentUuid": "755001d1_87ddd039",
       "revId": "d4c0ee4344aefbbbe04439087d2304673b292f8b",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "3be2126b_d1bbdd6f",
+        "filename": "media/sctp/dcsctp_transport.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 562,
+      "author": {
+        "id": 19814
+      },
+      "writtenOn": "2022-10-19T13:43:11Z",
+      "side": 1,
+      "message": "@orphis@webrtc.org I have added detailed description of the issue to\nhttps://bugs.chromium.org/p/webrtc/issues/detail?id\u003d14457",
+      "parentUuid": "fc259a7b_850d847c",
+      "revId": "d4c0ee4344aefbbbe04439087d2304673b292f8b",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

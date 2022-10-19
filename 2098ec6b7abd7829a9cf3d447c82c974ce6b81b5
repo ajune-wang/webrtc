@@ -1,0 +1,55 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "94f66a22_ab017582",
+        "filename": "modules/desktop_capture/linux/wayland/base_capturer_pipewire.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 32,
+      "author": {
+        "id": 14134
+      },
+      "writtenOn": "2022-10-19T16:48:50Z",
+      "side": 1,
+      "message": "Is it worth it to cache this result in a static local variable?",
+      "revId": "2098ec6b7abd7829a9cf3d447c82c974ce6b81b5",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "8355d22d_e9474912",
+        "filename": "modules/desktop_capture/linux/wayland/base_capturer_pipewire.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 36,
+      "author": {
+        "id": 14134
+      },
+      "writtenOn": "2022-10-19T16:48:50Z",
+      "side": 1,
+      "message": "ISTM that this could also go into pipewire_utils since it\u0027s not in the anonymous namespace and internal to this file.   I don\u0027t feel strongly though.",
+      "revId": "2098ec6b7abd7829a9cf3d447c82c974ce6b81b5",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "86b395ba_0926e110",
+        "filename": "modules/desktop_capture/linux/wayland/pipewire_utils.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 34,
+      "author": {
+        "id": 14134
+      },
+      "writtenOn": "2022-10-19T16:48:50Z",
+      "side": 1,
+      "message": "dlopen for pipewire only make sense when running under Wayland, so checking DesktopCapturer::IsRunningUnderWayland() here would prevent accidental initialization under X11.",
+      "revId": "2098ec6b7abd7829a9cf3d447c82c974ce6b81b5",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

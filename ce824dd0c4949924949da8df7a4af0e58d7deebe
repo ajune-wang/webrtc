@@ -64,6 +64,30 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "7c426b40_7598e3d7",
+        "filename": "modules/audio_processing/agc2/input_volume_controller.cc",
+        "patchSetId": 6
+      },
+      "lineNbr": 433,
+      "author": {
+        "id": 17719
+      },
+      "writtenOn": "2022-10-19T11:06:31Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "87165037_85e57d4d",
+      "range": {
+        "startLine": 433,
+        "startChar": 2,
+        "endLine": 433,
+        "endChar": 62
+      },
+      "revId": "ce824dd0c4949924949da8df7a4af0e58d7deebe",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "c1aa232a_d3f13395",
@@ -77,6 +101,30 @@
       "writtenOn": "2022-10-19T09:26:23Z",
       "side": 1,
       "message": "Nit: what about a for-each loop?\n\nfor (auto\u0026 estimator: estimators_) {\n  estimator-\u003eInitialize();\n}",
+      "range": {
+        "startLine": 453,
+        "startChar": 1,
+        "endLine": 455,
+        "endChar": 3
+      },
+      "revId": "ce824dd0c4949924949da8df7a4af0e58d7deebe",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "80674a52_efde6c70",
+        "filename": "modules/audio_processing/agc2/input_volume_controller.cc",
+        "patchSetId": 6
+      },
+      "lineNbr": 455,
+      "author": {
+        "id": 17719
+      },
+      "writtenOn": "2022-10-19T11:06:31Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "c1aa232a_d3f13395",
       "range": {
         "startLine": 453,
         "startChar": 1,
@@ -110,6 +158,30 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "7e3b7fad_b3017fb8",
+        "filename": "modules/audio_processing/agc2/input_volume_controller.cc",
+        "patchSetId": 6
+      },
+      "lineNbr": 570,
+      "author": {
+        "id": 17719
+      },
+      "writtenOn": "2022-10-19T11:06:31Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "b2e535d7_ad94104d",
+      "range": {
+        "startLine": 570,
+        "startChar": 1,
+        "endLine": 570,
+        "endChar": 62
+      },
+      "revId": "ce824dd0c4949924949da8df7a4af0e58d7deebe",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "4626d3fa_4c5be441",
@@ -133,6 +205,30 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "5bf9db35_259be336",
+        "filename": "modules/audio_processing/agc2/input_volume_controller.cc",
+        "patchSetId": 6
+      },
+      "lineNbr": 581,
+      "author": {
+        "id": 17719
+      },
+      "writtenOn": "2022-10-19T11:06:31Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "4626d3fa_4c5be441",
+      "range": {
+        "startLine": 581,
+        "startChar": 0,
+        "endLine": 581,
+        "endChar": 62
+      },
+      "revId": "ce824dd0c4949924949da8df7a4af0e58d7deebe",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "d4efa7f6_1bdb0546",
@@ -146,6 +242,30 @@
       "writtenOn": "2022-10-19T09:26:23Z",
       "side": 1,
       "message": "These are a lot of parameters values. What is the purpose of placing them in the config struct? Are these expected to be used for experimentation via Chrome?\n\nIf not, I\u0027d suggest to not put them into the config struct. E.g., an alternative option would be to use a field-trial inside of WebRTC that adjusts these as part of an experiment.",
+      "range": {
+        "startLine": 367,
+        "startChar": 6,
+        "endLine": 389,
+        "endChar": 36
+      },
+      "revId": "ce824dd0c4949924949da8df7a4af0e58d7deebe",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "eb900147_dcb59aa0",
+        "filename": "modules/audio_processing/include/audio_processing.h",
+        "patchSetId": 6
+      },
+      "lineNbr": 389,
+      "author": {
+        "id": 17719
+      },
+      "writtenOn": "2022-10-19T11:06:31Z",
+      "side": 1,
+      "message": "In this CL I want to introduce a minimum set of changes compared to the existing AgcManagerDirect -- especially in the unit tests. It\u0027s not a pure refactoring CL but we want to make sure the relevant tests still pass after the new changes.\n\nThe added config mimics the existing AnalogGainController config and not adding the parameters requires refactoring of the unit tests (which I want to avoid in this CL).\n\nOne option would be passing the existing AnalogGainController config to InputVolumeController in this CL and hardcoding the newly introduced parameters. Then in another CL, hardcode the AnalogGainController config parameters that are not needed and create an InputVolumeController config for the remaining ones?\n\nWDYT?",
+      "parentUuid": "d4efa7f6_1bdb0546",
       "range": {
         "startLine": 367,
         "startChar": 6,

@@ -18,6 +18,23 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "13fe9551_a198c71b",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5122
+      },
+      "writtenOn": "2022-10-19T15:20:56Z",
+      "side": 1,
+      "message": "Thanks Sam!",
+      "revId": "c56b82418a83cbff8bb4afe0ea7249ce7bc55635",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "321a9d41_d4f634ac",
@@ -31,6 +48,30 @@
       "writtenOn": "2022-10-19T15:13:45Z",
       "side": 1,
       "message": "What is a client supposed to do if they want transient suppression but not analog AGC, or vice versa? And if they need to support analog AGC disable and enabled, do they have to if-switch between which interface to call?\n\nThe proposal we discussed over email made the new parameters optional.",
+      "range": {
+        "startLine": 569,
+        "startChar": 0,
+        "endLine": 575,
+        "endChar": 50
+      },
+      "revId": "c56b82418a83cbff8bb4afe0ea7249ce7bc55635",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "c7ffc845_4bdd7466",
+        "filename": "modules/audio_processing/include/audio_processing.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 575,
+      "author": {
+        "id": 5122
+      },
+      "writtenOn": "2022-10-19T15:20:56Z",
+      "side": 1,
+      "message": "\u003e What is a client supposed to do if they want transient suppression but not analog AGC\n\nThen just use the existing `ProcessStream()` overload.\n\n\u003e, or vice versa?\n\nThen just use the newly added `ProcessStream()` overload.\n\n\u003e And if they need to support analog AGC disable and enabled, do they have to if-switch between which interface to call?\n\nNo. When the input volume controller is disabled, the recommended volume equals the applied one. See line 566:\n\n```\n// If input volume adjustment is disabled, recommends `applied_input_volume`.\n```\n\n\u003e \n\u003e The proposal we discussed over email made the new parameters optional.\n\nNot the last version; see https://bugs.chromium.org/p/webrtc/issues/detail?id\u003d14581, the description mentions what we agreed on offline (unless I\u0027m wrong).",
+      "parentUuid": "321a9d41_d4f634ac",
       "range": {
         "startLine": 569,
         "startChar": 0,

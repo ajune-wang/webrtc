@@ -18,6 +18,23 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "f9ce516c_5ce456d4",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 5
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2022-10-19T06:15:23Z",
+      "side": 1,
+      "message": "Thanks! Quick replies to comments (marking as resolved since no code changes were requested).\nWill submit in an hour or so (after checking that nobody objects to the abseil change).",
+      "revId": "ce7e86d1bb9bfcf6ea4b1e9317c893dc28e01578",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "f2806368_cacf9cb8",
@@ -41,6 +58,30 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "450d2ecf_297346f2",
+        "filename": "p2p/base/connection.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 478,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2022-10-19T06:15:23Z",
+      "side": 1,
+      "message": "Entirely possible. All I know is that it hasn\u0027t been verified; I delayed tracing back the source of the messages until the next CL.",
+      "parentUuid": "f2806368_cacf9cb8",
+      "range": {
+        "startLine": 478,
+        "startChar": 59,
+        "endLine": 478,
+        "endChar": 60
+      },
+      "revId": "ce7e86d1bb9bfcf6ea4b1e9317c893dc28e01578",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "ce07efc8_016f1a60",
@@ -54,6 +95,30 @@
       "writtenOn": "2022-10-19T06:09:32Z",
       "side": 1,
       "message": "this looks really weird, can you get that in test (or e.g chrome) ?",
+      "range": {
+        "startLine": 483,
+        "startChar": 12,
+        "endLine": 483,
+        "endChar": 28
+      },
+      "revId": "ce7e86d1bb9bfcf6ea4b1e9317c893dc28e01578",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "d5291cff_351a8051",
+        "filename": "p2p/base/connection.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 483,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2022-10-19T06:15:23Z",
+      "side": 1,
+      "message": "There are webrtc tests that hit this branch. I haven\u0027t tried to hit it in Chrome-level tests yet. It\u0027s possible that the tests were written with a misunderstanding of how STUN passwords work.",
+      "parentUuid": "ce07efc8_016f1a60",
       "range": {
         "startLine": 483,
         "startChar": 12,

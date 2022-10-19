@@ -322,6 +322,30 @@
       },
       "revId": "ce824dd0c4949924949da8df7a4af0e58d7deebe",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "cc1d8613_506afa66",
+        "filename": "modules/audio_processing/include/audio_processing.h",
+        "patchSetId": 6
+      },
+      "lineNbr": 389,
+      "author": {
+        "id": 17719
+      },
+      "writtenOn": "2022-10-19T15:18:20Z",
+      "side": 1,
+      "message": "We can do that for some of the parameters but it\u0027ll require refactoring of unit tests if we want to hardcode all AnalogGainController parameters.",
+      "parentUuid": "32badcbe_7e04716d",
+      "range": {
+        "startLine": 367,
+        "startChar": 6,
+        "endLine": 389,
+        "endChar": 36
+      },
+      "revId": "ce824dd0c4949924949da8df7a4af0e58d7deebe",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

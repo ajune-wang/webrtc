@@ -648,6 +648,7 @@ RTCInboundRTPStreamStats::RTCInboundRTPStreamStats(std::string&& id,
       pli_count("pliCount"),
       nack_count("nackCount"),
       qp_sum("qpSum"),
+      goog_timing_frame_info("googTimingFrameInfo"),
       jitter_buffer_flushes(
           "jitterBufferFlushes",
           {NonStandardGroupId::kRtcAudioJitterBufferMaxPackets}),

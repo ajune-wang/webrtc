@@ -36,6 +36,23 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "9962edc6_4c98e1ac",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2022-10-19T06:06:43Z",
+      "side": 1,
+      "message": "Thanks for the explanation. I\u0027m still a bit uncomfortable with the name, but I\u0027ll accept your opinion here (\"not a big thing\").",
+      "revId": "700d1932db4f555cb3473c2b317e4f72805ff16a",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "b3622596_9feb0939",
@@ -67,6 +84,24 @@
       "side": 1,
       "message": "\u003e Checking my understanding of where this is - is this a tool that reads RTP packets from file, so that it knows which packet is the last one?\n\nYes, it reads and RTP dump from file, and after the last packet has been delivered to the client the replay is done.\n\n\u003e Given the problem encountered in webrtc:14103, is 0 really the appropriate default value?\n\nYes, this tool is used to run a receiving client with the RTP dump as input, and not a tool to extract frames from an RTP dump. Typically you are not interested in the very end of the RTP dump, you are interesting in how the receiving client behaves over a period of time. Even if we wanted to we couldn\u0027t really wait for the last frame to be decoded since we don\u0027t know what the client decided to do (did it drop the frame?), all we can do is to give the client some more time to see what it would have done.\n\n\u003e I also question the name - should it be --wait_after_last_read_rtp_packet, to show what it is actually doing?\n\nI think `extend_run_time_duration` is clearer, since we are actually continuing to run the receiving client.",
       "parentUuid": "b3622596_9feb0939",
+      "revId": "700d1932db4f555cb3473c2b317e4f72805ff16a",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "8af5a8ea_3164e1cb",
+        "filename": "rtc_tools/video_replay.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 164,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2022-10-19T06:06:43Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "221d0097_e210f9a1",
       "revId": "700d1932db4f555cb3473c2b317e4f72805ff16a",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }

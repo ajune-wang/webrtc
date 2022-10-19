@@ -58,6 +58,30 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "b73d2616_e8b40338",
+        "filename": "modules/audio_processing/audio_processing_impl.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 794,
+      "author": {
+        "id": 5122
+      },
+      "writtenOn": "2022-10-19T13:06:26Z",
+      "side": 1,
+      "message": "Yes, in this way we can perform A/B comparison.",
+      "parentUuid": "dd2507f3_f69f239b",
+      "range": {
+        "startLine": 794,
+        "startChar": 2,
+        "endLine": 794,
+        "endChar": 72
+      },
+      "revId": "6b61ed506222a8ad3dcfbca9724a8b1d0862c443",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "2932a111_b729d392",
@@ -71,6 +95,30 @@
       "writtenOn": "2022-10-19T10:50:05Z",
       "side": 1,
       "message": "This basically prohibits that the input volume adaptation is used whenever this call is made.\n\nWhile it kind of makes sense as it is not designed to be used on such platforms, it comes with a fair amount of implications in terms of testing.\n\nFor instance,\n-The capture levels adjustment will only be able to be evaluated offline on aecdump recordings that are made without the analog gain API (at least, kind of, but I realize that can be discussed)\n-The audioproc_f test tool would need to be rewritten so as that this ProcessStream call is not used if submodules_.capture_levels_adjuster is activated. In practice, that is quite tricky to achieve in a good way.\n\nI\u0027d therefore suggest not to introduce this limitation, i.e., that instead the input volume emulation is allowed also with this API call and that the surrounding code is written to handle that.",
+      "range": {
+        "startLine": 806,
+        "startChar": 2,
+        "endLine": 808,
+        "endChar": 75
+      },
+      "revId": "6b61ed506222a8ad3dcfbca9724a8b1d0862c443",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "b3967dcd_1237c66f",
+        "filename": "modules/audio_processing/audio_processing_impl.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 808,
+      "author": {
+        "id": 5122
+      },
+      "writtenOn": "2022-10-19T13:06:26Z",
+      "side": 1,
+      "message": "Good point.\n\nTL;DR this is safe to keep and audioproc_f won\u0027t need any complex changes when it\u0027ll switch to the newly added API.\n\n---\n\nNote that this is the existing behavior: the same DCHECK is already part of `AudioProcessingImpl::set_stream_analog_level()` (see https://source.chromium.org/chromium/chromium/src/+/main:third_party/webrtc/modules/audio_processing/audio_processing_impl.cc;l\u003d1608-1610;drc\u003d488f6697246f6095c1c766b0505e51ee9c019fd9).\n\naudioproc_f has already been modified to deal with setups where there is no input volume; namely, it stores the applied input volume in an AEC dump only when `set_stream_analog_level()` is called (see https://source.chromium.org/chromium/chromium/src/+/main:third_party/webrtc/modules/audio_processing/aec_dump/capture_stream_info.cc;l\u003d56-58;drc\u003dfcf1af304971b360630b7909661830ee58981286).\n\nThen, at simulation time, the recommended input volume is read only if the applied input volume is known (see https://source.chromium.org/search?q\u003dapplied_input_volume_set%20file:third_party%2Fwebrtc%2Fmodules%2Faudio_processing%2Ftest%2Faudio_processing_simulator.cc\u0026ss\u003dchromium%2Fchromium%2Fsrc).\n\nWith capture level adjustment, there is no \"external\" input volume: the input volume is chosen and applied internally in APM - so, `set_stream_analog_level()` and `recommended_stream_analog_level()` must not be called.\n\nAlso note that we don\u0027t want to support capture level adjustment together with an \"external\" input volume. So, good to crash if `submodules_.capture_levels_adjuster` is used and the applied input volume is passed to APM.",
+      "parentUuid": "2932a111_b729d392",
       "range": {
         "startLine": 806,
         "startChar": 2,
@@ -106,6 +154,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "1603e59c_0df42407",
+        "filename": "modules/audio_processing/audio_processing_impl.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 839,
+      "author": {
+        "id": 5122
+      },
+      "writtenOn": "2022-10-19T13:06:26Z",
+      "side": 1,
+      "message": "Done. Once we agree on the impl, I will split this CL to first of all isolate the duplicated code.",
+      "parentUuid": "5fe5acf0_c76fc283",
+      "range": {
+        "startLine": 811,
+        "startChar": 0,
+        "endLine": 839,
+        "endChar": 3
+      },
+      "revId": "6b61ed506222a8ad3dcfbca9724a8b1d0862c443",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "777d799c_725acfb0",
         "filename": "modules/audio_processing/include/audio_processing.h",
         "patchSetId": 1
@@ -129,6 +201,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "df6272f0_356a7e97",
+        "filename": "modules/audio_processing/include/audio_processing.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 566,
+      "author": {
+        "id": 5122
+      },
+      "writtenOn": "2022-10-19T13:06:26Z",
+      "side": 1,
+      "message": "Absolutely! I wanted to get feedback on the API first; if you\u0027re ok with that, I will add the tests in the next patchset.",
+      "parentUuid": "777d799c_725acfb0",
+      "range": {
+        "startLine": 546,
+        "startChar": 1,
+        "endLine": 566,
+        "endChar": 50
+      },
+      "revId": "6b61ed506222a8ad3dcfbca9724a8b1d0862c443",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "1b366c64_786f976e",
         "filename": "modules/audio_processing/include/audio_processing.h",
         "patchSetId": 1
@@ -140,6 +236,30 @@
       "writtenOn": "2022-10-19T10:50:05Z",
       "side": 1,
       "message": "Here and below.\nWhat happens if the new ProcessStream API is called but also the setters (e.g., set_stream_analog_level) are called separately. Is that safe?",
+      "range": {
+        "startLine": 599,
+        "startChar": 2,
+        "endLine": 601,
+        "endChar": 54
+      },
+      "revId": "6b61ed506222a8ad3dcfbca9724a8b1d0862c443",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "e82b2e8b_640f85dc",
+        "filename": "modules/audio_processing/include/audio_processing.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 601,
+      "author": {
+        "id": 5122
+      },
+      "writtenOn": "2022-10-19T13:06:26Z",
+      "side": 1,
+      "message": "Good point. The result doesn\u0027t change, but I will clarify in the class docstring that the newly added ProcessStream() overload is not supposed to be called with set_stream_key_pressed(), set_stream_analog_level() and recommended_stream_analog_level().",
+      "parentUuid": "1b366c64_786f976e",
       "range": {
         "startLine": 599,
         "startChar": 2,

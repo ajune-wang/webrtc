@@ -8,7 +8,7 @@
  *  be found in the AUTHORS file in the root of the source tree.
  */
 
-#include "modules/audio_processing/agc/analog_gain_stats_reporter.h"
+#include "modules/audio_processing/agc2/input_volume_stats_reporter.h"
 
 #include <cmath>
 
@@ -37,11 +37,11 @@ float ComputeAverageUpdate(int sum_updates, int num_updates) {
 }
 }  // namespace
 
-AnalogGainStatsReporter::AnalogGainStatsReporter() = default;
+InputVolumeStatsReporter::InputVolumeStatsReporter() = default;
 
-AnalogGainStatsReporter::~AnalogGainStatsReporter() = default;
+InputVolumeStatsReporter::~InputVolumeStatsReporter() = default;
 
-void AnalogGainStatsReporter::UpdateStatistics(int analog_mic_level) {
+void InputVolumeStatsReporter::UpdateStatistics(int analog_mic_level) {
   RTC_DCHECK_GE(analog_mic_level, kMinGain);
   RTC_DCHECK_LE(analog_mic_level, kMaxGain);
   if (previous_analog_mic_level_.has_value() &&
@@ -65,7 +65,7 @@ void AnalogGainStatsReporter::UpdateStatistics(int analog_mic_level) {
   previous_analog_mic_level_ = analog_mic_level;
 }
 
-void AnalogGainStatsReporter::LogLevelUpdateStats() const {
+void InputVolumeStatsReporter::LogLevelUpdateStats() const {
   const float average_decrease = ComputeAverageUpdate(
       level_update_stats_.sum_decreases, level_update_stats_.num_decreases);
   const float average_increase = ComputeAverageUpdate(

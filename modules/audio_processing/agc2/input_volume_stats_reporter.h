@@ -8,8 +8,8 @@
  *  be found in the AUTHORS file in the root of the source tree.
  */
 
-#ifndef MODULES_AUDIO_PROCESSING_AGC_ANALOG_GAIN_STATS_REPORTER_H_
-#define MODULES_AUDIO_PROCESSING_AGC_ANALOG_GAIN_STATS_REPORTER_H_
+#ifndef MODULES_AUDIO_PROCESSING_AGC2_INPUT_VOLUME_STATS_REPORTER_H_
+#define MODULES_AUDIO_PROCESSING_AGC2_INPUT_VOLUME_STATS_REPORTER_H_
 
 #include "absl/types/optional.h"
 #include "rtc_base/gtest_prod_util.h"
@@ -19,27 +19,27 @@ namespace webrtc {
 // Analog gain statistics calculator. Computes aggregate stats based on the
 // framewise mic levels processed in `UpdateStatistics()`. Periodically logs the
 // statistics into a histogram.
-class AnalogGainStatsReporter {
+class InputVolumeStatsReporter {
  public:
-  AnalogGainStatsReporter();
-  AnalogGainStatsReporter(const AnalogGainStatsReporter&) = delete;
-  AnalogGainStatsReporter operator=(const AnalogGainStatsReporter&) = delete;
-  ~AnalogGainStatsReporter();
+  InputVolumeStatsReporter();
+  InputVolumeStatsReporter(const InputVolumeStatsReporter&) = delete;
+  InputVolumeStatsReporter operator=(const InputVolumeStatsReporter&) = delete;
+  ~InputVolumeStatsReporter();
 
   // Updates the stats based on the `analog_mic_level`. Periodically logs the
   // stats into a histogram.
   void UpdateStatistics(int analog_mic_level);
 
  private:
-  FRIEND_TEST_ALL_PREFIXES(AnalogGainStatsReporterTest,
+  FRIEND_TEST_ALL_PREFIXES(InputVolumeStatsReporterTest,
                            CheckLevelUpdateStatsForEmptyStats);
-  FRIEND_TEST_ALL_PREFIXES(AnalogGainStatsReporterTest,
+  FRIEND_TEST_ALL_PREFIXES(InputVolumeStatsReporterTest,
                            CheckLevelUpdateStatsAfterNoGainChange);
-  FRIEND_TEST_ALL_PREFIXES(AnalogGainStatsReporterTest,
+  FRIEND_TEST_ALL_PREFIXES(InputVolumeStatsReporterTest,
                            CheckLevelUpdateStatsAfterGainIncrease);
-  FRIEND_TEST_ALL_PREFIXES(AnalogGainStatsReporterTest,
+  FRIEND_TEST_ALL_PREFIXES(InputVolumeStatsReporterTest,
                            CheckLevelUpdateStatsAfterGainDecrease);
-  FRIEND_TEST_ALL_PREFIXES(AnalogGainStatsReporterTest,
+  FRIEND_TEST_ALL_PREFIXES(InputVolumeStatsReporterTest,
                            CheckLevelUpdateStatsAfterReset);
 
   // Stores analog gain update stats to enable calculation of update rate and
@@ -64,4 +64,4 @@ class AnalogGainStatsReporter {
 };
 }  // namespace webrtc
 
-#endif  // MODULES_AUDIO_PROCESSING_AGC_ANALOG_GAIN_STATS_REPORTER_H_
+#endif  // MODULES_AUDIO_PROCESSING_AGC2_INPUT_VOLUME_STATS_REPORTER_H_

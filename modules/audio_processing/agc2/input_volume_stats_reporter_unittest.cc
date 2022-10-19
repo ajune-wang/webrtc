@@ -8,7 +8,7 @@
  *  be found in the AUTHORS file in the root of the source tree.
  */
 
-#include "modules/audio_processing/agc/analog_gain_stats_reporter.h"
+#include "modules/audio_processing/agc2/input_volume_stats_reporter.h"
 
 #include "system_wrappers/include/metrics.h"
 #include "test/gmock.h"
@@ -18,16 +18,16 @@ namespace {
 
 constexpr int kFramesIn60Seconds = 6000;
 
-class AnalogGainStatsReporterTest : public ::testing::Test {
+class InputVolumeStatsReporterTest : public ::testing::Test {
  public:
-  AnalogGainStatsReporterTest() {}
+  InputVolumeStatsReporterTest() {}
 
  protected:
   void SetUp() override { metrics::Reset(); }
 };
 
-TEST_F(AnalogGainStatsReporterTest, CheckLogLevelUpdateStatsEmpty) {
-  AnalogGainStatsReporter stats_reporter;
+TEST_F(InputVolumeStatsReporterTest, CheckLogLevelUpdateStatsEmpty) {
+  InputVolumeStatsReporter stats_reporter;
   constexpr int kMicLevel = 10;
   stats_reporter.UpdateStatistics(kMicLevel);
   // Update almost until the periodic logging and reset.
@@ -52,8 +52,8 @@ TEST_F(AnalogGainStatsReporterTest, CheckLogLevelUpdateStatsEmpty) {
       ::testing::ElementsAre());
 }
 
-TEST_F(AnalogGainStatsReporterTest, CheckLogLevelUpdateStatsNotEmpty) {
-  AnalogGainStatsReporter stats_reporter;
+TEST_F(InputVolumeStatsReporterTest, CheckLogLevelUpdateStatsNotEmpty) {
+  InputVolumeStatsReporter stats_reporter;
   constexpr int kMicLevel = 10;
   stats_reporter.UpdateStatistics(kMicLevel);
   // Update until periodic logging.
@@ -89,8 +89,8 @@ TEST_F(AnalogGainStatsReporterTest, CheckLogLevelUpdateStatsNotEmpty) {
 }
 }  // namespace
 
-TEST_F(AnalogGainStatsReporterTest, CheckLevelUpdateStatsForEmptyStats) {
-  AnalogGainStatsReporter stats_reporter;
+TEST_F(InputVolumeStatsReporterTest, CheckLevelUpdateStatsForEmptyStats) {
+  InputVolumeStatsReporter stats_reporter;
   const auto& update_stats = stats_reporter.level_update_stats();
   EXPECT_EQ(update_stats.num_decreases, 0);
   EXPECT_EQ(update_stats.sum_decreases, 0);
@@ -98,9 +98,9 @@ TEST_F(AnalogGainStatsReporterTest, CheckLevelUpdateStatsForEmptyStats) {
   EXPECT_EQ(update_stats.sum_increases, 0);
 }
 
-TEST_F(AnalogGainStatsReporterTest, CheckLevelUpdateStatsAfterNoGainChange) {
+TEST_F(InputVolumeStatsReporterTest, CheckLevelUpdateStatsAfterNoGainChange) {
   constexpr int kMicLevel = 10;
-  AnalogGainStatsReporter stats_reporter;
+  InputVolumeStatsReporter stats_reporter;
   stats_reporter.UpdateStatistics(kMicLevel);
   stats_reporter.UpdateStatistics(kMicLevel);
   stats_reporter.UpdateStatistics(kMicLevel);
@@ -111,9 +111,9 @@ TEST_F(AnalogGainStatsReporterTest, CheckLevelUpdateStatsAfterNoGainChange) {
   EXPECT_EQ(update_stats.sum_increases, 0);
 }
 
-TEST_F(AnalogGainStatsReporterTest, CheckLevelUpdateStatsAfterGainIncrease) {
+TEST_F(InputVolumeStatsReporterTest, CheckLevelUpdateStatsAfterGainIncrease) {
   constexpr int kMicLevel = 10;
-  AnalogGainStatsReporter stats_reporter;
+  InputVolumeStatsReporter stats_reporter;
   stats_reporter.UpdateStatistics(kMicLevel);
   stats_reporter.UpdateStatistics(kMicLevel + 4);
   stats_reporter.UpdateStatistics(kMicLevel + 5);
@@ -124,9 +124,9 @@ TEST_F(AnalogGainStatsReporterTest, CheckLevelUpdateStatsAfterGainIncrease) {
   EXPECT_EQ(update_stats.sum_increases, 5);
 }
 
-TEST_F(AnalogGainStatsReporterTest, CheckLevelUpdateStatsAfterGainDecrease) {
+TEST_F(InputVolumeStatsReporterTest, CheckLevelUpdateStatsAfterGainDecrease) {
   constexpr int kMicLevel = 10;
-  AnalogGainStatsReporter stats_reporter;
+  InputVolumeStatsReporter stats_reporter;
   stats_reporter.UpdateStatistics(kMicLevel);
   stats_reporter.UpdateStatistics(kMicLevel - 4);
   stats_reporter.UpdateStatistics(kMicLevel - 5);
@@ -137,8 +137,8 @@ TEST_F(AnalogGainStatsReporterTest, CheckLevelUpdateStatsAfterGainDecrease) {
   EXPECT_EQ(stats_update.sum_increases, 0);
 }
 
-TEST_F(AnalogGainStatsReporterTest, CheckLevelUpdateStatsAfterReset) {
-  AnalogGainStatsReporter stats_reporter;
+TEST_F(InputVolumeStatsReporterTest, CheckLevelUpdateStatsAfterReset) {
+  InputVolumeStatsReporter stats_reporter;
   constexpr int kMicLevel = 10;
   stats_reporter.UpdateStatistics(kMicLevel);
   // Update until the periodic reset.

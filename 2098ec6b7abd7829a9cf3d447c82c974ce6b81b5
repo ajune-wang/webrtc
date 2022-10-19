@@ -73,6 +73,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "0bd6d20d_2c5fdc27",
+        "filename": "modules/desktop_capture/linux/wayland/base_capturer_pipewire.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 36,
+      "author": {
+        "id": 14134
+      },
+      "writtenOn": "2022-10-19T17:08:51Z",
+      "side": 1,
+      "message": "Sorry if I was not clear.  It\u0027s not internal to this file, so it can be moved out of it into pipewire_utils.h",
+      "parentUuid": "8325f85d_461dee3e",
+      "revId": "2098ec6b7abd7829a9cf3d447c82c974ce6b81b5",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "86b395ba_0926e110",
         "filename": "modules/desktop_capture/linux/wayland/pipewire_utils.cc",
         "patchSetId": 4
@@ -102,6 +120,24 @@
       "side": 1,
       "message": "IIUC, PipeWire *can* be used on X11, we just don\u0027t have any use cases for it there at the moment, so I\u0027d prefer not to add that check to this generic function.",
       "parentUuid": "86b395ba_0926e110",
+      "revId": "2098ec6b7abd7829a9cf3d447c82c974ce6b81b5",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "0c4240ef_26d318ea",
+        "filename": "modules/desktop_capture/linux/wayland/pipewire_utils.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 34,
+      "author": {
+        "id": 14134
+      },
+      "writtenOn": "2022-10-19T17:08:51Z",
+      "side": 1,
+      "message": "I didn\u0027t quite follow.  Is dlopening pipewire under X11 a bug or a feature?\n\nISTM from Chrome\u0027s point of view it\u0027s the former; and it would be helpful for enforce that behavior to prevent future changes from accidentally regressing.",
+      "parentUuid": "61851e4b_86d9473d",
       "revId": "2098ec6b7abd7829a9cf3d447c82c974ce6b81b5",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }

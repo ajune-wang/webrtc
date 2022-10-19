@@ -18,6 +18,24 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "a04b271d_573ff5bb",
+        "filename": "modules/desktop_capture/linux/wayland/base_capturer_pipewire.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 32,
+      "author": {
+        "id": 18474
+      },
+      "writtenOn": "2022-10-19T16:59:07Z",
+      "side": 1,
+      "message": "Current implemenetation is such that it\u0027s essentially querying at least one cached variable; but that could change and we don\u0027t really expect support to change without a restart so sure.",
+      "parentUuid": "94f66a22_ab017582",
+      "revId": "2098ec6b7abd7829a9cf3d447c82c974ce6b81b5",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "8355d22d_e9474912",
@@ -37,6 +55,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "8325f85d_461dee3e",
+        "filename": "modules/desktop_capture/linux/wayland/base_capturer_pipewire.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 36,
+      "author": {
+        "id": 18474
+      },
+      "writtenOn": "2022-10-19T16:59:07Z",
+      "side": 1,
+      "message": "It\u0027s used outside of this file? (screen_capturer_linux, window_capturer_linux). Or am I not understanding your statement about it being internal to this file?",
+      "parentUuid": "8355d22d_e9474912",
+      "revId": "2098ec6b7abd7829a9cf3d447c82c974ce6b81b5",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "86b395ba_0926e110",
         "filename": "modules/desktop_capture/linux/wayland/pipewire_utils.cc",
         "patchSetId": 4
@@ -48,6 +84,24 @@
       "writtenOn": "2022-10-19T16:48:50Z",
       "side": 1,
       "message": "dlopen for pipewire only make sense when running under Wayland, so checking DesktopCapturer::IsRunningUnderWayland() here would prevent accidental initialization under X11.",
+      "revId": "2098ec6b7abd7829a9cf3d447c82c974ce6b81b5",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "61851e4b_86d9473d",
+        "filename": "modules/desktop_capture/linux/wayland/pipewire_utils.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 34,
+      "author": {
+        "id": 18474
+      },
+      "writtenOn": "2022-10-19T16:59:07Z",
+      "side": 1,
+      "message": "IIUC, PipeWire *can* be used on X11, we just don\u0027t have any use cases for it there at the moment, so I\u0027d prefer not to add that check to this generic function.",
+      "parentUuid": "86b395ba_0926e110",
       "revId": "2098ec6b7abd7829a9cf3d447c82c974ce6b81b5",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }

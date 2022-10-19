@@ -16,6 +16,230 @@
       "message": "Thank you Per!",
       "revId": "57b7c1aee4823994fde95aa9b361f4791fa36cf3",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "a83cc8f0_c92066aa",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 7
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5122
+      },
+      "writtenOn": "2022-10-19T14:08:28Z",
+      "side": 1,
+      "message": "Thanks Hanna!",
+      "revId": "57b7c1aee4823994fde95aa9b361f4791fa36cf3",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "bd8a8981_08908d18",
+        "filename": "modules/audio_processing/agc2/input_volume_controller.cc",
+        "patchSetId": 7
+      },
+      "lineNbr": 389,
+      "author": {
+        "id": 5122
+      },
+      "writtenOn": "2022-10-19T14:08:28Z",
+      "side": 1,
+      "message": "nit: this can be removed since I\u0027m about to complete the AGC implementation agnostic metrics to use for experimentation",
+      "range": {
+        "startLine": 388,
+        "startChar": 0,
+        "endLine": 389,
+        "endChar": 50
+      },
+      "revId": "57b7c1aee4823994fde95aa9b361f4791fa36cf3",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "df6d9c96_584fbe03",
+        "filename": "modules/audio_processing/agc2/input_volume_controller.h",
+        "patchSetId": 7
+      },
+      "lineNbr": 53,
+      "author": {
+        "id": 5122
+      },
+      "writtenOn": "2022-10-19T14:08:28Z",
+      "side": 1,
+      "message": "remove (see my next comment); feel free to do that in a separate CL",
+      "range": {
+        "startLine": 52,
+        "startChar": 0,
+        "endLine": 53,
+        "endChar": 42
+      },
+      "revId": "57b7c1aee4823994fde95aa9b361f4791fa36cf3",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "fa76453e_3469327c",
+        "filename": "modules/audio_processing/agc2/input_volume_controller.h",
+        "patchSetId": 7
+      },
+      "lineNbr": 61,
+      "author": {
+        "id": 5122
+      },
+      "writtenOn": "2022-10-19T14:08:28Z",
+      "side": 1,
+      "message": "also pass the applied input volume, in this way we remove set_stream_analog_level() and we make this class ready for the changes I\u0027m adding in https://webrtc-review.googlesource.com/c/src/+/279780",
+      "range": {
+        "startLine": 61,
+        "startChar": 2,
+        "endLine": 61,
+        "endChar": 58
+      },
+      "revId": "57b7c1aee4823994fde95aa9b361f4791fa36cf3",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "45bc7897_3da6b11e",
+        "filename": "modules/audio_processing/agc2/input_volume_controller.h",
+        "patchSetId": 7
+      },
+      "lineNbr": 67,
+      "author": {
+        "id": 5122
+      },
+      "writtenOn": "2022-10-19T14:08:28Z",
+      "side": 1,
+      "message": "return the recommended input volume, in this way we remove recommended_analog_level() and we make this class ready for the changes I\u0027m adding in https://webrtc-review.googlesource.com/c/src/+/279780",
+      "range": {
+        "startLine": 67,
+        "startChar": 2,
+        "endLine": 67,
+        "endChar": 6
+      },
+      "revId": "57b7c1aee4823994fde95aa9b361f4791fa36cf3",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "026beb73_e1614b9c",
+        "filename": "modules/audio_processing/agc2/input_volume_controller.h",
+        "patchSetId": 7
+      },
+      "lineNbr": 77,
+      "author": {
+        "id": 5122
+      },
+      "writtenOn": "2022-10-19T14:08:28Z",
+      "side": 1,
+      "message": "remove (see my previous comment); feel free to do that in a separate CL",
+      "range": {
+        "startLine": 71,
+        "startChar": 0,
+        "endLine": 77,
+        "endChar": 76
+      },
+      "revId": "57b7c1aee4823994fde95aa9b361f4791fa36cf3",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "62bee95b_825ede15",
+        "filename": "modules/audio_processing/agc2/input_volume_controller.h",
+        "patchSetId": 7
+      },
+      "lineNbr": 172,
+      "author": {
+        "id": 5122
+      },
+      "writtenOn": "2022-10-19T14:08:28Z",
+      "side": 1,
+      "message": "what about\n- renaming to MonoInputVolumeController\n- moving to a separate target with its unit tests",
+      "range": {
+        "startLine": 172,
+        "startChar": 6,
+        "endLine": 172,
+        "endChar": 37
+      },
+      "revId": "57b7c1aee4823994fde95aa9b361f4791fa36cf3",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "3b9cd281_3e79db5f",
+        "filename": "modules/audio_processing/agc2/input_volume_controller.h",
+        "patchSetId": 7
+      },
+      "lineNbr": 179,
+      "author": {
+        "id": 5122
+      },
+      "writtenOn": "2022-10-19T14:08:28Z",
+      "side": 1,
+      "message": "One alternative approach we discussed offline is to set a target level (for the input volume controller) instead of passing min/max digital gain that can be applied.\n\nGainController2 will then set the input controller target level taking into account whether the adaptive digital controller is used.\n\nI would tell that setting a target level is easier when it comes to writing the unit tests and better clarifies how the different collaborate by only reading the GainController2 implementation. Also, if we keep the current option, then I\u0027d guess that the unit tests must know the target level hardcoded in input_volume_controller.cc and compute the expected target level based on the min/max digital gain that is passed.\n\nWDYT?",
+      "range": {
+        "startLine": 178,
+        "startChar": 33,
+        "endLine": 179,
+        "endChar": 59
+      },
+      "revId": "57b7c1aee4823994fde95aa9b361f4791fa36cf3",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "9e66c721_44437288",
+        "filename": "modules/audio_processing/agc2/input_volume_controller.h",
+        "patchSetId": 7
+      },
+      "lineNbr": 191,
+      "author": {
+        "id": 5122
+      },
+      "writtenOn": "2022-10-19T14:08:28Z",
+      "side": 1,
+      "message": "good if this can be removed (see my comment on `InputVolumeController::set_stream_analog_level`), but feel free to do that in a separate CL",
+      "range": {
+        "startLine": 188,
+        "startChar": 0,
+        "endLine": 191,
+        "endChar": 0
+      },
+      "revId": "57b7c1aee4823994fde95aa9b361f4791fa36cf3",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "738000ad_79ce6df9",
+        "filename": "modules/audio_processing/agc2/input_volume_controller.h",
+        "patchSetId": 7
+      },
+      "lineNbr": 203,
+      "author": {
+        "id": 5122
+      },
+      "writtenOn": "2022-10-19T14:08:28Z",
+      "side": 1,
+      "message": "good if this can be removed (see my comment on `InputVolumeController::recommended_analog_level`), but feel free to do that in a separate CL",
+      "range": {
+        "startLine": 202,
+        "startChar": 0,
+        "endLine": 203,
+        "endChar": 76
+      },
+      "revId": "57b7c1aee4823994fde95aa9b361f4791fa36cf3",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

@@ -54,6 +54,24 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "9d1a4080_8cc63989",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 43
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 8046
+      },
+      "writtenOn": "2022-10-19T07:17:48Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "0aeb7f95_c2e3f3d6",
+      "revId": "1264dc165b9989e3e53eddbefe054c6e86bbf1f7",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "bdcc8e84_44ec810e",
@@ -67,6 +85,30 @@
       "writtenOn": "2022-10-18T18:33:11Z",
       "side": 1,
       "message": "If SetObserver is public is this needed?",
+      "range": {
+        "startLine": 82,
+        "startChar": 0,
+        "endLine": 84,
+        "endChar": 34
+      },
+      "revId": "1264dc165b9989e3e53eddbefe054c6e86bbf1f7",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "4e6cbff0_c075b11d",
+        "filename": "modules/desktop_capture/linux/wayland/shared_screencast_stream.h",
+        "patchSetId": 43
+      },
+      "lineNbr": 84,
+      "author": {
+        "id": 8046
+      },
+      "writtenOn": "2022-10-19T07:17:48Z",
+      "side": 1,
+      "message": "Done. We can use SharedScreenCastStream::CreateDefault() instead.",
+      "parentUuid": "bdcc8e84_44ec810e",
       "range": {
         "startLine": 82,
         "startChar": 0,
@@ -100,6 +142,30 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "629fe5a0_c63e7044",
+        "filename": "modules/desktop_capture/linux/wayland/shared_screencast_stream_unittest.cc",
+        "patchSetId": 43
+      },
+      "lineNbr": 98,
+      "author": {
+        "id": 8046
+      },
+      "writtenOn": "2022-10-19T07:17:48Z",
+      "side": 1,
+      "message": "This was not supposed to be there. We don\u0027t need to wait for the frame to be recorded, but we need to give it some time to be received.",
+      "parentUuid": "7d51e28d_10f37d42",
+      "range": {
+        "startLine": 95,
+        "startChar": 0,
+        "endLine": 98,
+        "endChar": 39
+      },
+      "revId": "1264dc165b9989e3e53eddbefe054c6e86bbf1f7",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "3b7e0268_64514550",
@@ -123,6 +189,30 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "b3ad7e3a_49c32ed9",
+        "filename": "modules/desktop_capture/linux/wayland/shared_screencast_stream_unittest.cc",
+        "patchSetId": 43
+      },
+      "lineNbr": 108,
+      "author": {
+        "id": 8046
+      },
+      "writtenOn": "2022-10-19T07:17:48Z",
+      "side": 1,
+      "message": "You are absolutely right.",
+      "parentUuid": "3b7e0268_64514550",
+      "range": {
+        "startLine": 108,
+        "startChar": 30,
+        "endLine": 108,
+        "endChar": 72
+      },
+      "revId": "1264dc165b9989e3e53eddbefe054c6e86bbf1f7",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "b6211c97_ea4d9e46",
@@ -136,6 +226,30 @@
       "writtenOn": "2022-10-18T18:33:11Z",
       "side": 1,
       "message": "Should we check that frame1 gets overwritten values?",
+      "range": {
+        "startLine": 128,
+        "startChar": 2,
+        "endLine": 128,
+        "endChar": 55
+      },
+      "revId": "1264dc165b9989e3e53eddbefe054c6e86bbf1f7",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "5cd8eae9_f3abdb19",
+        "filename": "modules/desktop_capture/linux/wayland/shared_screencast_stream_unittest.cc",
+        "patchSetId": 43
+      },
+      "lineNbr": 128,
+      "author": {
+        "id": 8046
+      },
+      "writtenOn": "2022-10-19T07:17:48Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "b6211c97_ea4d9e46",
       "range": {
         "startLine": 128,
         "startChar": 2,

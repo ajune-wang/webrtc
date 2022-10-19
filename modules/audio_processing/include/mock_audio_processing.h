@@ -125,6 +125,16 @@ class MockAudioProcessing : public AudioProcessing {
                float* const* dest),
               (override));
   MOCK_METHOD(int,
+              ProcessStream,
+              (const float* const* src,
+               const StreamConfig& input_config,
+               const StreamConfig& output_config,
+               float* const* dest,
+               int applied_input_volume,
+               int& recommended_input_volume,
+               bool key_pressed),
+              (override));
+  MOCK_METHOD(int,
               ProcessReverseStream,
               (const int16_t* const src,
                const StreamConfig& input_config,

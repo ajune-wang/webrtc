@@ -94,6 +94,14 @@ class AudioProcessingImpl : public AudioProcessing {
                     const StreamConfig& input_config,
                     const StreamConfig& output_config,
                     float* const* dest) override;
+  int ProcessStream(const float* const* src,
+                    const StreamConfig& input_config,
+                    const StreamConfig& output_config,
+                    float* const* dest,
+                    int applied_input_volume,
+                    int& recommended_input_volume,
+                    bool key_pressed) override;
+
   bool GetLinearAecOutput(
       rtc::ArrayView<std::array<float, 160>> linear_output) const override;
   void set_output_will_be_muted(bool muted) override;
@@ -161,6 +169,7 @@ class AudioProcessingImpl : public AudioProcessing {
   FRIEND_TEST_ALL_PREFIXES(ApmWithSubmodulesExcludedTest,
                            BitexactWithDisabledModules);
 
+  // TODO(bugs.webrtc.org/14581): Rename to `set_applied_input_volume_locked()`.
   void set_stream_analog_level_locked(int level)
       RTC_EXCLUSIVE_LOCKS_REQUIRED(mutex_capture_);
   void UpdateRecommendedInputVolumeLocked()
@@ -317,6 +326,8 @@ class AudioProcessingImpl : public AudioProcessing {
 
   // Capture-side exclusive methods possibly running APM in a multi-threaded
   // manner that are called with the render lock already acquired.
+  int ProcessStreamLocked(const float* const* src, float* const* dest)
+      RTC_EXCLUSIVE_LOCKS_REQUIRED(mutex_capture_);
   int ProcessCaptureStreamLocked() RTC_EXCLUSIVE_LOCKS_REQUIRED(mutex_capture_);
 
   // Render-side exclusive methods possibly running APM in a multi-threaded

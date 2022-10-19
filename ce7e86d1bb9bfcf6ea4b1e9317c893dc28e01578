@@ -16,6 +16,52 @@
       "message": "I still have to fix the underlying problem that the classes are confused about what the right password is, but this should take care of the 50% BAD verifications in UMA.",
       "revId": "ce7e86d1bb9bfcf6ea4b1e9317c893dc28e01578",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "f2806368_cacf9cb8",
+        "filename": "p2p/base/connection.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 478,
+      "author": {
+        "id": 5613
+      },
+      "writtenOn": "2022-10-19T06:09:32Z",
+      "side": 1,
+      "message": "could this be coming via TURN ?",
+      "range": {
+        "startLine": 478,
+        "startChar": 59,
+        "endLine": 478,
+        "endChar": 60
+      },
+      "revId": "ce7e86d1bb9bfcf6ea4b1e9317c893dc28e01578",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "ce07efc8_016f1a60",
+        "filename": "p2p/base/connection.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 483,
+      "author": {
+        "id": 5613
+      },
+      "writtenOn": "2022-10-19T06:09:32Z",
+      "side": 1,
+      "message": "this looks really weird, can you get that in test (or e.g chrome) ?",
+      "range": {
+        "startLine": 483,
+        "startChar": 12,
+        "endLine": 483,
+        "endChar": 28
+      },
+      "revId": "ce7e86d1bb9bfcf6ea4b1e9317c893dc28e01578",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

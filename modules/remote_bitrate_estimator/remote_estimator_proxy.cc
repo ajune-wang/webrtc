@@ -291,11 +291,11 @@ RemoteEstimatorProxy::MaybeBuildFeedbackPacket(
   int64_t next_sequence_number = begin_sequence_number_inclusive;
 
   for (int64_t seq = start_seq; seq < end_seq; ++seq) {
-    Timestamp arrival_time = packet_arrival_times_.get(seq);
-    if (arrival_time < Timestamp::Zero()) {
-      // Packet not received.
-      continue;
+    Timestamp arrival_time = packet_arrival_times_.GetNextReceived(seq);
+    if (seq >= end_seq) {
+      break;
     }
+    RTC_DCHECK_GE(arrival_time, Timestamp::Zero());
 
     if (feedback_packet == nullptr) {
       feedback_packet =

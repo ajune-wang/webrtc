@@ -63,6 +63,22 @@ class PacketArrivalTimeMap {
     return arrival_times_[Index(sequence_number)];
   }
 
+  // Returns timestamp of the received packet with sequence number equal or
+  // larger than `sequence_number`. `sequence_number` must be in range
+  // [begin_sequence_number, end_sequence_number).
+  // Updates `sequence_number` to the seqeunce number of that received packet.
+  Timestamp GetNextReceived(int64_t& sequence_number) const {
+    RTC_DCHECK_GE(sequence_number, begin_sequence_number());
+    RTC_DCHECK_LT(sequence_number, end_sequence_number());
+    while (true) {
+      Timestamp t = arrival_times_[Index(sequence_number)];
+      if (t >= Timestamp::Zero()) {
+        return t;
+      }
+      ++sequence_number;
+    }
+  }
+
   // Clamps `sequence_number` between [begin_sequence_number,
   // end_sequence_number].
   int64_t clamp(int64_t sequence_number) const {

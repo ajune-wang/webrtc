@@ -18,6 +18,69 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "9b1a6cf8_ca555d99",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 10
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5613
+      },
+      "writtenOn": "2022-10-20T08:32:20Z",
+      "side": 1,
+      "message": "great! mostly nits\n/Jonas",
+      "revId": "72b45204116f3d40a07b515b828a8025240b4de1",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "f926da58_732cb68a",
+        "filename": "rtc_base/physical_socket_server.cc",
+        "patchSetId": 10
+      },
+      "lineNbr": 449,
+      "author": {
+        "id": 5613
+      },
+      "writtenOn": "2022-10-20T08:32:20Z",
+      "side": 1,
+      "message": "maybe init timestamp to -1 also in this case ?\nand same for out_addr ?",
+      "range": {
+        "startLine": 449,
+        "startChar": 11,
+        "endLine": 449,
+        "endChar": 19
+      },
+      "revId": "72b45204116f3d40a07b515b828a8025240b4de1",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "5c8272d0_93930bd3",
+        "filename": "rtc_base/physical_socket_server.cc",
+        "patchSetId": 10
+      },
+      "lineNbr": 461,
+      "author": {
+        "id": 5613
+      },
+      "writtenOn": "2022-10-20T08:32:20Z",
+      "side": 1,
+      "message": "break ?",
+      "range": {
+        "startLine": 461,
+        "startChar": 24,
+        "endLine": 461,
+        "endChar": 31
+      },
+      "revId": "72b45204116f3d40a07b515b828a8025240b4de1",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "f97d9316_3163689c",
@@ -31,6 +94,30 @@
       "writtenOn": "2022-10-20T08:00:14Z",
       "side": 1,
       "message": "My only concern overall is that this setting is documented as not gaurenteeing the use of a monotonic clock. \n\n  * SO_TIMESTAMP\n  Generates a timestamp for each incoming packet in (not necessarily\n  monotonic) system time.\n  \nIs this a concern worth looking more into? I know BSD does have SO_TIMESTAMP_MONOTONIC, perhaps there is an equivalent in linux?",
+      "range": {
+        "startLine": 678,
+        "startChar": 35,
+        "endLine": 678,
+        "endChar": 47
+      },
+      "revId": "72b45204116f3d40a07b515b828a8025240b4de1",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "4a181470_38ba27bf",
+        "filename": "rtc_base/physical_socket_server.cc",
+        "patchSetId": 10
+      },
+      "lineNbr": 678,
+      "author": {
+        "id": 5613
+      },
+      "writtenOn": "2022-10-20T08:32:20Z",
+      "side": 1,
+      "message": "1) I could not find any equivalent to SO_TIMESTAMP_MONOTONIC on linux,\nbut I think we should use it if present.\nI.e\n#ifdef SO_TIMESTAMP_MONOTONIC\n#define USE_SO_TIMESTAMP SO_TIMESTAMP_MONOTONIC\n#else\n#define USE_SO_TIMESTAMP SO_TIMESTAMP\n#endif\n\n2) I read the linux man-page, and as I read it,\nSO_TIMESTAMP and SIOCGSTAMP reads the same value.\nI.e it read clock-realtime before this patch too.\nI.e no behavior change in that regard.",
+      "parentUuid": "f97d9316_3163689c",
       "range": {
         "startLine": 678,
         "startChar": 35,

@@ -80,6 +80,30 @@
       },
       "revId": "c56b82418a83cbff8bb4afe0ea7249ce7bc55635",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "c795d829_b91b56d3",
+        "filename": "modules/audio_processing/include/audio_processing.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 575,
+      "author": {
+        "id": 6280
+      },
+      "writtenOn": "2022-10-20T15:55:45Z",
+      "side": 1,
+      "message": "\u003e \u003e What is a client supposed to do if they want transient suppression but not analog AGC\n\u003e Then just use the existing ProcessStream() overload.\n\nHmm, I don\u0027t follow. The existing overload doesn\u0027t support key_press signaling, right?",
+      "parentUuid": "c7ffc845_4bdd7466",
+      "range": {
+        "startLine": 569,
+        "startChar": 0,
+        "endLine": 575,
+        "endChar": 50
+      },
+      "revId": "c56b82418a83cbff8bb4afe0ea7249ce7bc55635",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

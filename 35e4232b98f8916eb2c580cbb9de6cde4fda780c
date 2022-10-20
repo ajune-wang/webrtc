@@ -70,6 +70,24 @@
       "parentUuid": "d4035381_2c9a8d45",
       "revId": "35e4232b98f8916eb2c580cbb9de6cde4fda780c",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "70360a30_95c902a2",
+        "filename": "api/stats/rtc_stats.h",
+        "patchSetId": 3
+      },
+      "lineNbr": 229,
+      "author": {
+        "id": 5142
+      },
+      "writtenOn": "2022-10-20T13:00:18Z",
+      "side": 1,
+      "message": "The combination of RTC_EXPORT and template specialization means every possible combination of stat types and exposure criterias would need to be listed explicitly. IIUC it doesn\u0027t seem worth it since combining exposure criteria will be rare enough that if it happens we can add a new enum value",
+      "parentUuid": "71d70aae_232ee3d2",
+      "revId": "35e4232b98f8916eb2c580cbb9de6cde4fda780c",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

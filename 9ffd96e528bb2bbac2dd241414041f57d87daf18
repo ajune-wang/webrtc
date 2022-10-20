@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "4e9a8203_6eff3ec7",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2022-10-20T14:53:36Z",
+      "side": 1,
+      "message": "Local test shows 87s -\u003e 30s improvement for the linked test case.\n(instead of spending ~99% of time skipping over large sets of not received packets new code spends only ~96% for skipping over not received packets)",
+      "revId": "9ffd96e528bb2bbac2dd241414041f57d87daf18",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

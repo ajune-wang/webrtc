@@ -58,6 +58,30 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "4dc1edf3_d94f7ecd",
+        "filename": "rtc_base/physical_socket_server.cc",
+        "patchSetId": 10
+      },
+      "lineNbr": 449,
+      "author": {
+        "id": 5578
+      },
+      "writtenOn": "2022-10-20T09:32:47Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "f926da58_732cb68a",
+      "range": {
+        "startLine": 449,
+        "startChar": 11,
+        "endLine": 449,
+        "endChar": 19
+      },
+      "revId": "72b45204116f3d40a07b515b828a8025240b4de1",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "5c8272d0_93930bd3",
@@ -71,6 +95,30 @@
       "writtenOn": "2022-10-20T08:32:20Z",
       "side": 1,
       "message": "break ?",
+      "range": {
+        "startLine": 461,
+        "startChar": 24,
+        "endLine": 461,
+        "endChar": 31
+      },
+      "revId": "72b45204116f3d40a07b515b828a8025240b4de1",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "6ba857f6_fc242fb0",
+        "filename": "rtc_base/physical_socket_server.cc",
+        "patchSetId": 10
+      },
+      "lineNbr": 461,
+      "author": {
+        "id": 5578
+      },
+      "writtenOn": "2022-10-20T09:32:47Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "5c8272d0_93930bd3",
       "range": {
         "startLine": 461,
         "startChar": 24,
@@ -142,6 +190,30 @@
       "side": 1,
       "message": "The difference between SO_TIMESTAMP_MONOTONIC and SO_TIMESTAMP is the value in the cmsg. For FreeBSD it is a \"timespec\" instead of a timeval. For MacOS it is a uint64\n\n #define SCM_TIMESTAMP_MONOTONIC         0x04    /* timestamp (uint64_t) */",
       "parentUuid": "4a181470_38ba27bf",
+      "range": {
+        "startLine": 678,
+        "startChar": 35,
+        "endLine": 678,
+        "endChar": 47
+      },
+      "revId": "72b45204116f3d40a07b515b828a8025240b4de1",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "38d8588e_a92c7cf4",
+        "filename": "rtc_base/physical_socket_server.cc",
+        "patchSetId": 10
+      },
+      "lineNbr": 678,
+      "author": {
+        "id": 5578
+      },
+      "writtenOn": "2022-10-20T09:32:47Z",
+      "side": 1,
+      "message": "Good idea Jonas. But since they work differently I would prefer to use  SCM_TIMESTAMP on both platforms.",
+      "parentUuid": "166a3823_30497423",
       "range": {
         "startLine": 678,
         "startChar": 35,

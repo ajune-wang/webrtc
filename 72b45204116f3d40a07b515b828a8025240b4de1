@@ -126,6 +126,30 @@
       },
       "revId": "72b45204116f3d40a07b515b828a8025240b4de1",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "166a3823_30497423",
+        "filename": "rtc_base/physical_socket_server.cc",
+        "patchSetId": 10
+      },
+      "lineNbr": 678,
+      "author": {
+        "id": 18444
+      },
+      "writtenOn": "2022-10-20T08:39:34Z",
+      "side": 1,
+      "message": "The difference between SO_TIMESTAMP_MONOTONIC and SO_TIMESTAMP is the value in the cmsg. For FreeBSD it is a \"timespec\" instead of a timeval. For MacOS it is a uint64\n\n #define SCM_TIMESTAMP_MONOTONIC         0x04    /* timestamp (uint64_t) */",
+      "parentUuid": "4a181470_38ba27bf",
+      "range": {
+        "startLine": 678,
+        "startChar": 35,
+        "endLine": 678,
+        "endChar": 47
+      },
+      "revId": "72b45204116f3d40a07b515b828a8025240b4de1",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

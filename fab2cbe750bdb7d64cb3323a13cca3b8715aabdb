@@ -74,6 +74,30 @@
       },
       "revId": "fab2cbe750bdb7d64cb3323a13cca3b8715aabdb",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "6de1c983_4ed49f0f",
+        "filename": "modules/desktop_capture/linux/wayland/shared_screencast_stream_unittest.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 43,
+      "author": {
+        "id": 8046
+      },
+      "writtenOn": "2022-10-20T18:01:20Z",
+      "side": 1,
+      "message": "Good catch. Fixed.",
+      "parentUuid": "8612144e_211d8627",
+      "range": {
+        "startLine": 43,
+        "startChar": 8,
+        "endLine": 43,
+        "endChar": 31
+      },
+      "revId": "fab2cbe750bdb7d64cb3323a13cca3b8715aabdb",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

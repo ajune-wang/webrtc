@@ -52,6 +52,24 @@
       "parentUuid": "260db173_9ad20f32",
       "revId": "35e4232b98f8916eb2c580cbb9de6cde4fda780c",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "71d70aae_232ee3d2",
+        "filename": "api/stats/rtc_stats.h",
+        "patchSetId": 3
+      },
+      "lineNbr": 229,
+      "author": {
+        "id": 18444
+      },
+      "writtenOn": "2022-10-20T12:31:10Z",
+      "side": 1,
+      "message": "Revisiting this seems a bit risky as all the combinations of masks would need to be exposed in the template parameter. This means switching to using a field to describe the type. I am avoiding a field if possible as it will increase the size of every stat which will increase the copy size. \n\nI propose leaving them as stats and in the case there is some special stat that is a combination it can be handled as a new enum. Wdyt @hta@webrtc.org?",
+      "parentUuid": "d4035381_2c9a8d45",
+      "revId": "35e4232b98f8916eb2c580cbb9de6cde4fda780c",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

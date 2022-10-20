@@ -16,6 +16,23 @@
       "message": "PTAL",
       "revId": "80e9a9fcfa1348b06126737c56dbf2a94e2630c1",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "e60dc8c4_b64ab30a",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 11
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5613
+      },
+      "writtenOn": "2022-10-20T11:26:44Z",
+      "side": 1,
+      "message": "LGTM\nbut another thing that a forgot about last comment:\n\nWDYT about a field trial for safe rollout of this ? (on mobile, I guess it\u0027s not used in chrome)",
+      "revId": "80e9a9fcfa1348b06126737c56dbf2a94e2630c1",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

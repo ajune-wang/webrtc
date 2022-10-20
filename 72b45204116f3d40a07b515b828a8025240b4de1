@@ -1,0 +1,44 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "55cce60d_ac958d20",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 10
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 18444
+      },
+      "writtenOn": "2022-10-20T08:00:14Z",
+      "side": 1,
+      "message": "Overall +1 but just have questions about clock",
+      "revId": "72b45204116f3d40a07b515b828a8025240b4de1",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "f97d9316_3163689c",
+        "filename": "rtc_base/physical_socket_server.cc",
+        "patchSetId": 10
+      },
+      "lineNbr": 678,
+      "author": {
+        "id": 18444
+      },
+      "writtenOn": "2022-10-20T08:00:14Z",
+      "side": 1,
+      "message": "My only concern overall is that this setting is documented as not gaurenteeing the use of a monotonic clock. \n\n  * SO_TIMESTAMP\n  Generates a timestamp for each incoming packet in (not necessarily\n  monotonic) system time.\n  \nIs this a concern worth looking more into? I know BSD does have SO_TIMESTAMP_MONOTONIC, perhaps there is an equivalent in linux?",
+      "range": {
+        "startLine": 678,
+        "startChar": 35,
+        "endLine": 678,
+        "endChar": 47
+      },
+      "revId": "72b45204116f3d40a07b515b828a8025240b4de1",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

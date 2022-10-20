@@ -65,6 +65,23 @@ TEST(PacketArrivalMapTest, InsertsWithGaps) {
   EXPECT_EQ(map.clamp(100), 46);
 }
 
+TEST(PacketArrivalMapTest, GetNextReceivedWithGaps) {
+  PacketArrivalTimeMap map;
+
+  map.AddPacket(42, Timestamp::Zero());
+  map.AddPacket(45, Timestamp::Millis(11));
+  EXPECT_EQ(map.begin_sequence_number(), 42);
+  EXPECT_EQ(map.end_sequence_number(), 46);
+
+  int64_t sequence_number = 42;
+  EXPECT_EQ(map.GetNextReceived(sequence_number), Timestamp::Zero());
+  EXPECT_EQ(sequence_number, 42);
+
+  sequence_number = 43;
+  EXPECT_EQ(map.GetNextReceived(sequence_number), Timestamp::Millis(1));
+  EXPECT_EQ(sequence_number, 45);
+}
+
 TEST(PacketArrivalMapTest, InsertsWithinBuffer) {
   PacketArrivalTimeMap map;
 

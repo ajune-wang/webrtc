@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "3449717a_f56358d1",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 4
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 8046
+      },
+      "writtenOn": "2022-10-20T16:09:14Z",
+      "side": 1,
+      "message": "FYI: the presubmit check seems to be failing also in other merge requests so it\u0027s not related to my change.",
+      "revId": "fab2cbe750bdb7d64cb3323a13cca3b8715aabdb",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

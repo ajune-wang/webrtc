@@ -16,6 +16,24 @@
       "message": "This was the part that was ensuring the global string was set right for each test, as described in the CL description. Why is it right to not do it now?",
       "revId": "4dc6e05ac96b25ea38b5bad7d76c44bd550b0dba",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "27499b16_7e01ec25",
+        "filename": "api/field_trials_unittest.cc",
+        "patchSetId": 7
+      },
+      "lineNbr": 34,
+      "author": {
+        "id": 13704
+      },
+      "writtenOn": "2022-10-20T08:08:49Z",
+      "side": 0,
+      "message": "See my other comment, it\u0027s now handled by ScopedGlobalFieldTrialsForTesting.",
+      "parentUuid": "42133748_037e9ea5",
+      "revId": "4dc6e05ac96b25ea38b5bad7d76c44bd550b0dba",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

@@ -18,6 +18,24 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "7d74a837_4bf53c8e",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 7
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 13704
+      },
+      "writtenOn": "2022-10-20T08:08:49Z",
+      "side": 1,
+      "message": "The new RAII ScopedGlobalFieldTrialsForTesting helper does essentially the same thing as the fixture did before. But now the helper is only used in tests that actually needs it (instead of all tests in the fixture).",
+      "parentUuid": "621b8794_ef430d51",
+      "revId": "f14fe785fdc0cfe0594211927d22b649bccf3111",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "438c7791_3b411a33",
@@ -31,6 +49,24 @@
       "writtenOn": "2022-10-20T07:28:54Z",
       "side": 1,
       "message": "Don\u0027t quite see how one can remove this include even after the global string is gone...",
+      "revId": "f14fe785fdc0cfe0594211927d22b649bccf3111",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "bc220dba_a05e5194",
+        "filename": "system_wrappers/source/DEPS",
+        "patchSetId": 7
+      },
+      "lineNbr": 2,
+      "author": {
+        "id": 13704
+      },
+      "writtenOn": "2022-10-20T08:08:49Z",
+      "side": 1,
+      "message": "IIUC in the future we will exclusively use FieldTrialsRegistry [1] (or FieldTrialsView) and not any of the functions from system_wrappers directly. If that\u0027s not the case I\u0027ll remove the TODO.\n\n[1] https://webrtc-review.googlesource.com/c/src/+/276270",
+      "parentUuid": "438c7791_3b411a33",
       "revId": "f14fe785fdc0cfe0594211927d22b649bccf3111",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }

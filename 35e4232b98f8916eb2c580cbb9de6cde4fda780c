@@ -34,6 +34,24 @@
       "parentUuid": "52c57621_7d5c0c9d",
       "revId": "35e4232b98f8916eb2c580cbb9de6cde4fda780c",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "d4035381_2c9a8d45",
+        "filename": "api/stats/rtc_stats.h",
+        "patchSetId": 3
+      },
+      "lineNbr": 229,
+      "author": {
+        "id": 5142
+      },
+      "writtenOn": "2022-10-20T10:29:23Z",
+      "side": 1,
+      "message": "Sure! Seems like a good idea, just give each enum a value and update the comparisons to do bitwise operations.\n\n(This would allow us to say that googTimingFrameInfo is both kNonStandard and kAlways exposed, which is the only non-standard metric that we\u0027re currently exposing.)",
+      "parentUuid": "260db173_9ad20f32",
+      "revId": "35e4232b98f8916eb2c580cbb9de6cde4fda780c",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

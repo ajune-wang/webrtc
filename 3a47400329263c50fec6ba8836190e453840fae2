@@ -52,6 +52,24 @@
       "parentUuid": "6b0002c9_e74669fe",
       "revId": "3a47400329263c50fec6ba8836190e453840fae2",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "da35248e_729bdf3c",
+        "filename": "api/stats/rtc_stats.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 519,
+      "author": {
+        "id": 5142
+      },
+      "writtenOn": "2022-10-20T10:29:23Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "fd69deab_6ff3a009",
+      "revId": "3a47400329263c50fec6ba8836190e453840fae2",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "42133748_037e9ea5",
+        "filename": "api/field_trials_unittest.cc",
+        "patchSetId": 7
+      },
+      "lineNbr": 34,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2022-10-20T07:28:54Z",
+      "side": 0,
+      "message": "This was the part that was ensuring the global string was set right for each test, as described in the CL description. Why is it right to not do it now?",
+      "revId": "4dc6e05ac96b25ea38b5bad7d76c44bd550b0dba",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

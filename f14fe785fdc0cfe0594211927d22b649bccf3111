@@ -1,0 +1,38 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "621b8794_ef430d51",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 7
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2022-10-20T07:28:54Z",
+      "side": 1,
+      "message": "The changes to field_trial_unittest (going from fixture to no fixture) seems strange to me. Why is it the right move?",
+      "revId": "f14fe785fdc0cfe0594211927d22b649bccf3111",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "438c7791_3b411a33",
+        "filename": "system_wrappers/source/DEPS",
+        "patchSetId": 7
+      },
+      "lineNbr": 2,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2022-10-20T07:28:54Z",
+      "side": 1,
+      "message": "Don\u0027t quite see how one can remove this include even after the global string is gone...",
+      "revId": "f14fe785fdc0cfe0594211927d22b649bccf3111",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

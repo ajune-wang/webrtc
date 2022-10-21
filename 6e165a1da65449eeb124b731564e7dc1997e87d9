@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "3ce66cd7_d2a85d11",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 9
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2022-10-21T07:32:34Z",
+      "side": 1,
+      "message": "This CL illustrates that we have a lot of very similar classes in tests that subclass FieldTrialsRegistry. This is a sign that there may be some opportunity for simplification. But that\u0027s another CL - it\u0027s just very visible while reviewing this one.",
+      "revId": "6e165a1da65449eeb124b731564e7dc1997e87d9",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

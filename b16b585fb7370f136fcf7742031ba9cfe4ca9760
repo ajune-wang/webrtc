@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "56b01860_8b8797cd",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 4
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2022-10-21T07:21:26Z",
+      "side": 1,
+      "message": "OK, the RTC_EXPORT argument is compelling on its own. If we need combos we\u0027ll define them.",
+      "revId": "b16b585fb7370f136fcf7742031ba9cfe4ca9760",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

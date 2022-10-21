@@ -179,6 +179,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "2caa5788_d0c104f9",
+        "filename": "modules/audio_processing/audio_processing_impl.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 808,
+      "author": {
+        "id": 5125
+      },
+      "writtenOn": "2022-10-21T09:40:30Z",
+      "side": 1,
+      "message": "Yes, that sounds like a good option.",
+      "parentUuid": "6a3b27b5_1cb76793",
+      "range": {
+        "startLine": 806,
+        "startChar": 2,
+        "endLine": 808,
+        "endChar": 75
+      },
+      "revId": "6b61ed506222a8ad3dcfbca9724a8b1d0862c443",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "5fe5acf0_c76fc283",
         "filename": "modules/audio_processing/audio_processing_impl.cc",
         "patchSetId": 1
@@ -261,6 +285,30 @@
       "side": 1,
       "message": "Absolutely! I wanted to get feedback on the API first; if you\u0027re ok with that, I will add the tests in the next patchset.",
       "parentUuid": "777d799c_725acfb0",
+      "range": {
+        "startLine": 546,
+        "startChar": 1,
+        "endLine": 566,
+        "endChar": 50
+      },
+      "revId": "6b61ed506222a8ad3dcfbca9724a8b1d0862c443",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "813c746b_971f5c8e",
+        "filename": "modules/audio_processing/include/audio_processing.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 566,
+      "author": {
+        "id": 5125
+      },
+      "writtenOn": "2022-10-21T09:40:30Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "df6272f0_356a7e97",
       "range": {
         "startLine": 546,
         "startChar": 1,

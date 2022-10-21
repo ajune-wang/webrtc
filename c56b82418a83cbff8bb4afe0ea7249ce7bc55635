@@ -145,6 +145,30 @@
       },
       "revId": "c56b82418a83cbff8bb4afe0ea7249ce7bc55635",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "0a0157db_44b896fa",
+        "filename": "modules/audio_processing/include/audio_processing.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 575,
+      "author": {
+        "id": 5125
+      },
+      "writtenOn": "2022-10-21T09:40:30Z",
+      "side": 1,
+      "message": "What I like with the above suggestion, using optional values, is that it only requires one ProcessStream API.\n\nWhat I don\u0027t like about it is that I think it becomes confusing and harder to use for the users, and more difficult to maintain for APM.\n\nSome aspects for that are\n-Users of non-chrome platforms would have to know/understand the extra arguments. I.e., they\u0027d have to know that they shouldn\u0027t specify the extra parameters.\n\n-The interaction between the configs and the parameters becomes (IMO) a bit unintuitive in that both provide optional  optional parameters that needs to together be properly specified to get the right effect.\n\n-The API opens up for non-allowed parameter combinations, and parameter combinations that never are used in practice. Somehow that would, however, have to be maintained in the code. E.g.\n--The API allows for key_pressed to be specified, but not applied_input_volume, which is something that never occurs in practice.\n--The API allows for applied_input_volume to be specified, but recommended_input_volume to be nullptr, which does not at all work.\n--The API allows for recommended_input_volume to !\u003d nullptr, while applied_input_volume is nullopt, which does not work.\n\n\nTo conclude, I think it is much easier and clearer to have two separate ProcessStream APIs, both for the users, as well for the APM code implementing those.",
+      "parentUuid": "335b1827_7edb6c06",
+      "range": {
+        "startLine": 569,
+        "startChar": 0,
+        "endLine": 575,
+        "endChar": 50
+      },
+      "revId": "c56b82418a83cbff8bb4afe0ea7249ce7bc55635",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

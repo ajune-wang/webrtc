@@ -346,6 +346,30 @@
       },
       "revId": "ce824dd0c4949924949da8df7a4af0e58d7deebe",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "e7bedbba_b5447234",
+        "filename": "modules/audio_processing/include/audio_processing.h",
+        "patchSetId": 6
+      },
+      "lineNbr": 389,
+      "author": {
+        "id": 5125
+      },
+      "writtenOn": "2022-10-21T06:58:27Z",
+      "side": 1,
+      "message": "If the goal is to not have these parameters in the config, I think it is fine to keep it as it is now in this CL, and then remove them in an upcoming CL.\n\nHowever, I don\u0027t see any reason for why this CL should add any new parameters in the config, i.e., beyond what was used for AgcManagerDirect.\n\nThese parameters are part of the API surface and there is no need to put anything here that we don\u0027t have any immediate plan to let users adjust.\nAlso, anything that is put here needs to be properly maintained so adding things here comes at a maintainance cost.",
+      "parentUuid": "cc1d8613_506afa66",
+      "range": {
+        "startLine": 367,
+        "startChar": 6,
+        "endLine": 389,
+        "endChar": 36
+      },
+      "revId": "ce824dd0c4949924949da8df7a4af0e58d7deebe",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

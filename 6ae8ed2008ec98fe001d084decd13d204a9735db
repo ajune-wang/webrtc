@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "251916e3_66f02daa",
+        "filename": "api/test/mock_session_description_interface.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 46,
+      "author": {
+        "id": 7036
+      },
+      "writtenOn": "2022-10-21T12:27:50Z",
+      "side": 1,
+      "message": "Please add after the class: `static_assert(!std::is_abstract_v\u003cMockSessionDescriptionInterface\u003e);`",
+      "revId": "6ae8ed2008ec98fe001d084decd13d204a9735db",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "aa7b2197_aa05f7a5",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 7
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 19549
+      },
+      "writtenOn": "2022-10-21T09:39:25Z",
+      "side": 1,
+      "message": "should we still do it? Mostly trying to avoid yet another constructor to duplicate when moving from the int64 timestamp to a Timestamp one.\n\nI do wonder if we could move this constructor inside the macro which would hide it...",
+      "revId": "2efd1c9f0eca78fe1f7323e5c3d43f1a9d3f9d4d",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

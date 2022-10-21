@@ -234,6 +234,18 @@ TEST_F(PortAllocatorTest,
   EXPECT_EQ(0, GetAllPooledSessionsReturnCount());
 }
 
+TEST_F(PortAllocatorTest, SetConfigurationAssignsTurnServerPriorities) {
+  cricket::ServerAddresses stun_servers_1 = {stun_server_1};
+  std::vector<cricket::RelayServerConfig> turn_servers = {turn_server_1,
+                                                          turn_server_2};
+  EXPECT_TRUE(
+      allocator_->SetConfiguration({}, turn_servers, 0, webrtc::NO_PRUNE));
+  const auto servers = allocator_->turn_servers();
+  ASSERT_EQ(servers.size(), 2u);
+  EXPECT_EQ(servers[0].priority, 1);
+  EXPECT_EQ(servers[1].priority, 0);
+}
+
 TEST_F(PortAllocatorTest, GetPooledSessionReturnsNextSession) {
   SetConfigurationWithPoolSize(2);
   auto peeked_session_1 = GetPooledSession();

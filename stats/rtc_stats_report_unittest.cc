@@ -20,8 +20,8 @@ class RTCTestStats1 : public RTCStats {
  public:
   WEBRTC_RTCSTATS_DECL();
 
-  RTCTestStats1(const std::string& id, int64_t timestamp_us)
-      : RTCStats(id, timestamp_us), integer("integer") {}
+  RTCTestStats1(std::string&& id, int64_t timestamp_us)
+      : RTCStats(std::move(id), timestamp_us), integer("integer") {}
 
   RTCStatsMember<int32_t> integer;
 };
@@ -32,8 +32,8 @@ class RTCTestStats2 : public RTCStats {
  public:
   WEBRTC_RTCSTATS_DECL();
 
-  RTCTestStats2(const std::string& id, int64_t timestamp_us)
-      : RTCStats(id, timestamp_us), number("number") {}
+  RTCTestStats2(std::string&& id, int64_t timestamp_us)
+      : RTCStats(std::move(id), timestamp_us), number("number") {}
 
   RTCStatsMember<double> number;
 };
@@ -44,8 +44,8 @@ class RTCTestStats3 : public RTCStats {
  public:
   WEBRTC_RTCSTATS_DECL();
 
-  RTCTestStats3(const std::string& id, int64_t timestamp_us)
-      : RTCStats(id, timestamp_us), string("string") {}
+  RTCTestStats3(std::string&& id, int64_t timestamp_us)
+      : RTCStats(std::move(id), timestamp_us), string("string") {}
 
   RTCStatsMember<std::string> string;
 };

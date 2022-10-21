@@ -2042,7 +2042,7 @@ TEST_F(RTCStatsCollectorTest, CollectRTCIceCandidatePairStats) {
   EXPECT_TRUE(report->Get(*expected_pair.transport_id));
 
   RTCLocalIceCandidateStats expected_local_candidate(
-      *expected_pair.local_candidate_id, report->timestamp_us());
+      std::string(*expected_pair.local_candidate_id), report->timestamp_us());
   expected_local_candidate.transport_id = *expected_pair.transport_id;
   expected_local_candidate.network_type = "wifi";
   expected_local_candidate.ip = "42.42.42.42";
@@ -2061,7 +2061,7 @@ TEST_F(RTCStatsCollectorTest, CollectRTCIceCandidatePairStats) {
                 ->cast_to<RTCLocalIceCandidateStats>());
 
   RTCRemoteIceCandidateStats expected_remote_candidate(
-      *expected_pair.remote_candidate_id, report->timestamp_us());
+      std::string(*expected_pair.remote_candidate_id), report->timestamp_us());
   expected_remote_candidate.transport_id = *expected_pair.transport_id;
   expected_remote_candidate.ip = "42.42.42.42";
   expected_remote_candidate.address = "42.42.42.42";
@@ -2336,7 +2336,7 @@ TEST_F(RTCStatsCollectorTest,
       << "Wrong number of tracks in " << report->ToJson();
 
   DEPRECATED_RTCMediaStreamStats expected_local_stream(
-      stats_of_my_type[0]->id(), report->timestamp_us());
+      std::string(stats_of_my_type[0]->id()), report->timestamp_us());
   expected_local_stream.stream_identifier = local_stream->id();
   expected_local_stream.track_ids =
       std::vector<std::string>({stats_of_track_type[0]->id()});
@@ -2346,7 +2346,7 @@ TEST_F(RTCStatsCollectorTest,
                 ->cast_to<DEPRECATED_RTCMediaStreamStats>());
 
   DEPRECATED_RTCMediaStreamTrackStats expected_local_video_track_ssrc1(
-      stats_of_track_type[0]->id(), report->timestamp_us(),
+      std::string(stats_of_track_type[0]->id()), report->timestamp_us(),
       RTCMediaStreamTrackKind::kVideo);
   expected_local_video_track_ssrc1.track_identifier = local_video_track->id();
   expected_local_video_track_ssrc1.media_source_id =
@@ -2415,7 +2415,7 @@ TEST_F(RTCStatsCollectorTest,
   ASSERT_TRUE(*(stats_of_track_type[0]->remote_source));
 
   DEPRECATED_RTCMediaStreamStats expected_remote_stream(
-      stats_of_my_type[0]->id(), report->timestamp_us());
+      std::string(stats_of_my_type[0]->id()), report->timestamp_us());
   expected_remote_stream.stream_identifier = remote_stream->id();
   expected_remote_stream.track_ids =
       std::vector<std::string>({stats_of_track_type[0]->id()});
@@ -2425,7 +2425,7 @@ TEST_F(RTCStatsCollectorTest,
                 ->cast_to<DEPRECATED_RTCMediaStreamStats>());
 
   DEPRECATED_RTCMediaStreamTrackStats expected_remote_video_track_ssrc3(
-      stats_of_track_type[0]->id(), report->timestamp_us(),
+      std::string(stats_of_track_type[0]->id()), report->timestamp_us(),
       RTCMediaStreamTrackKind::kVideo);
   expected_remote_video_track_ssrc3.track_identifier =
       remote_video_track_ssrc3->id();
@@ -2874,8 +2874,8 @@ TEST_F(RTCStatsCollectorTest, CollectRTCOutboundRTPStreamStats_Video) {
       report->GetStatsOfType<DEPRECATED_RTCMediaStreamTrackStats>();
   ASSERT_EQ(1U, stats_of_track_type.size());
 
-  RTCOutboundRTPStreamStats expected_video(stats_of_my_type[0]->id(),
-                                           report->timestamp_us());
+  RTCOutboundRTPStreamStats expected_video(
+      std::string(stats_of_my_type[0]->id()), report->timestamp_us());
   expected_video.media_source_id = "SV50";
   // `expected_video.remote_id` should be undefined.
   expected_video.mid = "VideoMid";
@@ -3942,8 +3942,8 @@ class RTCTestStats : public RTCStats {
  public:
   WEBRTC_RTCSTATS_DECL();
 
-  RTCTestStats(const std::string& id, int64_t timestamp_us)
-      : RTCStats(id, timestamp_us), dummy_stat("dummyStat") {}
+  RTCTestStats(std::string&& id, int64_t timestamp_us)
+      : RTCStats(std::move(id), timestamp_us), dummy_stat("dummyStat") {}
 
   RTCStatsMember<int32_t> dummy_stat;
 };

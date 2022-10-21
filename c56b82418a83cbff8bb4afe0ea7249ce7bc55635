@@ -35,6 +35,23 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "3347b4b5_18a47d96",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5122
+      },
+      "writtenOn": "2022-10-21T08:51:47Z",
+      "side": 1,
+      "message": "Thanks for your comments. Two follow-up questions; Per could you also check the thread started by Sam on the ProcessStream() alternative with optional arguments for key_press and applied/recommended input volume?",
+      "revId": "c56b82418a83cbff8bb4afe0ea7249ce7bc55635",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "321a9d41_d4f634ac",
@@ -96,6 +113,30 @@
       "side": 1,
       "message": "\u003e \u003e What is a client supposed to do if they want transient suppression but not analog AGC\n\u003e Then just use the existing ProcessStream() overload.\n\nHmm, I don\u0027t follow. The existing overload doesn\u0027t support key_press signaling, right?",
       "parentUuid": "c7ffc845_4bdd7466",
+      "range": {
+        "startLine": 569,
+        "startChar": 0,
+        "endLine": 575,
+        "endChar": 50
+      },
+      "revId": "c56b82418a83cbff8bb4afe0ea7249ce7bc55635",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "335b1827_7edb6c06",
+        "filename": "modules/audio_processing/include/audio_processing.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 575,
+      "author": {
+        "id": 5122
+      },
+      "writtenOn": "2022-10-21T08:51:47Z",
+      "side": 1,
+      "message": "My bad. I now see what you mean.\n\nGood point on thinking what would happen for a setup with no input volume, but with keyboard. Having one single ProcessStream() method with optionals for key_pressed and applied input volume is what I initially proposed to have one single method and avoid combinatorial explosion (namely, {int, float} x {keyboard, no keyboard} x {input volume, no input volume}).\n\nPer noted that in practice (i) input volume and keyboard activity detection are either both available or unavailable and (ii) input volume is only available on platforms where we use the float processing. For this reason, it makes sense to restrict the API to the setups we support. I therefore designed the current option, with two overloads of `ProcessStream()`:\n- One for platforms with neither input volume nor keyboard\n- Another one for platforms with both\nOne advantage of this solution is that the API clearly indicates what setups are supported, but on the other hand, as your comment hints, we restrict the possibility to open up to other setups. For example, to support keyboard activity-informed TS without input volume, we would need to change the API again (undesired).\n\nI am absolutely open to deprecate the existing `ProcessStream()` methods (both int and float) and add optional arguments, namely:\n\n```\nint ProcessStream(const T* const* src,\n                  const StreamConfig\u0026 input_config,\n                  const StreamConfig\u0026 output_config,\n                  T* const* dest,\n                  absl::optional\u003cbool\u003e key_pressed \u003d absl::nullopt,\n                  absl::optional\u003cint\u003e applied_input_volume \u003d absl::nullopt,\n                  int* recommended_input_volume \u003d nullptr);\n```\n\nThis is for sure a more flexible option that eliminates the combinatorial explosion problem and thanks to which the API doesn\u0027t limit the supported APM config (better decoupling).\n\nI would lean towards the option with optional arguments as I believe the API shouldn\u0027t be used to add config constraints that might change in the future. Maybe Per can add more details on his proposals.",
+      "parentUuid": "c795d829_b91b56d3",
       "range": {
         "startLine": 569,
         "startChar": 0,

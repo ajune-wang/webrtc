@@ -155,6 +155,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "6a3b27b5_1cb76793",
+        "filename": "modules/audio_processing/audio_processing_impl.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 808,
+      "author": {
+        "id": 5122
+      },
+      "writtenOn": "2022-10-21T08:51:47Z",
+      "side": 1,
+      "message": "What about ignoring any applied input volume and recommending the (externally) applied input volume when `submodules_.capture_levels_adjuster \u0026\u0026 config_.capture_level_adjustment.analog_mic_gain_emulation.enabled`?\n\nIn this way, the input volume controller only acts on the \"internal\" input volume and leaves the \"external\" one unchanged.\n\nWDYT?",
+      "parentUuid": "d4509b6d_4c5f58eb",
+      "range": {
+        "startLine": 806,
+        "startChar": 2,
+        "endLine": 808,
+        "endChar": 75
+      },
+      "revId": "6b61ed506222a8ad3dcfbca9724a8b1d0862c443",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "5fe5acf0_c76fc283",
         "filename": "modules/audio_processing/audio_processing_impl.cc",
         "patchSetId": 1

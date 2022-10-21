@@ -74,6 +74,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "f8080004_758df563",
+        "filename": "api/stats/rtc_stats.h",
+        "patchSetId": 3
+      },
+      "lineNbr": 57,
+      "author": {
+        "id": 5142
+      },
+      "writtenOn": "2022-10-21T09:44:05Z",
+      "side": 1,
+      "message": "I still think that the correct constructor should be \"RTCStats(std::string id, ...)\" and to do \"id_(std::move(id))\".\n\nThis is not only in accordance with the style guide and consistent with how we do things in other places, but it also allows the caller to decide whether to call-by-copy or call-by-rvalue. I see no downsides of that.",
+      "parentUuid": "cbe4c101_69fadb9a",
+      "revId": "ae8e5634839f87b0662bc6c00a3c1a5770cb73fb",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "856ccf8a_1c45a48e",
         "filename": "pc/rtc_stats_collector.cc",
         "patchSetId": 3

@@ -1,0 +1,38 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "49a619fd_8b66ab35",
+        "filename": "p2p/base/port_allocator.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 148,
+      "author": {
+        "id": 19549
+      },
+      "writtenOn": "2022-10-21T18:13:05Z",
+      "side": 1,
+      "message": "turn servers are compared here which means the comparison operator gets used (and needed to change). Hard to catch, I don\u0027t think we have any integration test?",
+      "revId": "b2d6a37672754864143be32cc527f637f0f1f2ec",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "5a8388f3_971585aa",
+        "filename": "p2p/base/port_allocator.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 174,
+      "author": {
+        "id": 19549
+      },
+      "writtenOn": "2022-10-21T18:13:05Z",
+      "side": 1,
+      "message": "this is required because we compare the new servers to the old servers below but the new servers don\u0027t have the priority set.\n\nAFAIK this operator isn\u0027t used much externally, only in remoting/protocol/ice_config_unittest.cc\nwhich looks very much like it is using the old apprtc json format?!",
+      "revId": "b2d6a37672754864143be32cc527f637f0f1f2ec",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

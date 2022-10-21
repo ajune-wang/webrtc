@@ -131,6 +131,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "d4509b6d_4c5f58eb",
+        "filename": "modules/audio_processing/audio_processing_impl.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 808,
+      "author": {
+        "id": 5125
+      },
+      "writtenOn": "2022-10-21T07:33:36Z",
+      "side": 1,
+      "message": "I don\u0027t agree.\n\n---\n\"Also note that we don\u0027t want to support capture level adjustment together with an \"external\" input volume. So, good to crash if submodules_.capture_levels_adjuster is used and the applied input volume is passed to APM.\"\nIt is never good to crash, if one could get a good behavior regardless. Crashing should be a last resort.\nAlso, here a DCHECK is used, which both is, and isn\u0027t a crash and we\u0027ll get different behaviors in debug and release builds which is error-prone.\n\n--\n\u0027Note that this is the existing behavior: the same DCHECK is already part of AudioProcessingImpl::set_stream_analog_level()\u0027\n\nTrue, but I\u0027d claim that too is not a construct for the same reasons as above. If we change things, let\u0027s not keep that if it is not needed.\n\n---\n\n\"audioproc_f has already been modified to deal with setups where there is no input volume; namely, it stores the applied input volume in an AEC dump only when ...\"\nGood point! However, this will enforce that audioproc_f can only be run with certain configurations on certain types of aecdump recordings. I.e., on some variants of recordings it will crash if the right parameters are not used, and some other recordings will cause it not to crash.\n\nWe should avoid that (which I think we can) since it is a very unintuitive behavior and does not really add any value for audioproc_f users. Rather it limits what audioproc_f can be used for.\n\n---\n\nAnother aspect that these types of DCHECKS causes problems for are fuzzers. Since DCHECKS like this introduces a non-allowed behavior which cannot be enforced to be safe at configuration time, the fuzzers needs to be tailored to avoid that.\nI think there are few, if any, other such limitations in the APM API/configs so I think it would be good to avoid it here as well.",
+      "parentUuid": "b3967dcd_1237c66f",
+      "range": {
+        "startLine": 806,
+        "startChar": 2,
+        "endLine": 808,
+        "endChar": 75
+      },
+      "revId": "6b61ed506222a8ad3dcfbca9724a8b1d0862c443",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "5fe5acf0_c76fc283",
         "filename": "modules/audio_processing/audio_processing_impl.cc",
         "patchSetId": 1

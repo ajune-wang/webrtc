@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "a60f627f_3a5b6799",
+        "filename": "modules/video_coding/svc/scalability_mode_util.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 296,
+      "author": {
+        "id": 5825
+      },
+      "writtenOn": "2022-10-21T07:50:10Z",
+      "side": 1,
+      "message": "Do we need to handle max_spatial_layers\u003d0 case?",
+      "range": {
+        "startLine": 296,
+        "startChar": 42,
+        "endLine": 296,
+        "endChar": 60
+      },
+      "revId": "08082228e4138ffcac4c1ff511c5819a7cbce9aa",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

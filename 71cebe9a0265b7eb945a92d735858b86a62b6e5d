@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "bf5f672f_9840bc94",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 8
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5122
+      },
+      "writtenOn": "2022-10-21T14:07:32Z",
+      "side": 1,
+      "message": "Thanks Hanna! Ok to leave some proposed changes for a follow-up CL. There is one aspect however which I\u0027d prefer to address here around how the controller is parametrized.",
+      "revId": "71cebe9a0265b7eb945a92d735858b86a62b6e5d",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

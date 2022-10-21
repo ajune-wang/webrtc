@@ -54,6 +54,52 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "fbe0545d_055d50f3",
+        "filename": "modules/audio_processing/agc2/input_volume_controller.cc",
+        "patchSetId": 7
+      },
+      "lineNbr": 183,
+      "author": {
+        "id": 5122
+      },
+      "writtenOn": "2022-10-21T14:07:32Z",
+      "side": 1,
+      "message": "IIUC this is not removed even if `RecommendedInputVolumeEstimator::agc_` and `RecommendedInputVolumeEstimator::UpdateCompressor()` are removed in this CL because we now want the input volume controller to know if a digital adaptive gain is applied. When not applied, then `max_digital_gain_db` and `min_digital_gain_db` are ignored. Right?\n\nIf so, I would rename `disable_digital_adaptive` to e.g., `digital_adaptive_follows` since (i) in `UpdateGain()` we currently have `if (!disable_digital_adaptive_) {` (so, no need to negate) and (ii) the name better reflects the new meaning this param has.",
+      "range": {
+        "startLine": 183,
+        "startChar": 6,
+        "endLine": 183,
+        "endChar": 58
+      },
+      "revId": "57b7c1aee4823994fde95aa9b361f4791fa36cf3",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "11344adb_3a0278d1",
+        "filename": "modules/audio_processing/agc2/input_volume_controller.cc",
+        "patchSetId": 7
+      },
+      "lineNbr": 192,
+      "author": {
+        "id": 5122
+      },
+      "writtenOn": "2022-10-21T14:07:32Z",
+      "side": 1,
+      "message": "We shouldn\u0027t use 30, but a larger value, 90 is fine.\n\nThat\u0027s because it\u0027s better to decouple input volume controller and digital adaptive controller settings. I would expect that with the new input volume controller, it\u0027ll be possible to increase the max digital adaptive gain to 50 (to possibly reduce the number of adaptations); so, no need to add any constraints here.",
+      "range": {
+        "startLine": 190,
+        "startChar": 0,
+        "endLine": 192,
+        "endChar": 41
+      },
+      "revId": "57b7c1aee4823994fde95aa9b361f4791fa36cf3",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "bd8a8981_08908d18",
         "filename": "modules/audio_processing/agc2/input_volume_controller.cc",
         "patchSetId": 7
@@ -122,6 +168,30 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "f365d6f3_21c9feed",
+        "filename": "modules/audio_processing/agc2/input_volume_controller.h",
+        "patchSetId": 7
+      },
+      "lineNbr": 53,
+      "author": {
+        "id": 5122
+      },
+      "writtenOn": "2022-10-21T14:07:32Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "cf726993_c15bf850",
+      "range": {
+        "startLine": 52,
+        "startChar": 0,
+        "endLine": 53,
+        "endChar": 42
+      },
+      "revId": "57b7c1aee4823994fde95aa9b361f4791fa36cf3",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "fa76453e_3469327c",
@@ -159,6 +229,30 @@
       "side": 1,
       "message": "ditto",
       "parentUuid": "fa76453e_3469327c",
+      "range": {
+        "startLine": 61,
+        "startChar": 2,
+        "endLine": 61,
+        "endChar": 58
+      },
+      "revId": "57b7c1aee4823994fde95aa9b361f4791fa36cf3",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "f6018546_aac90042",
+        "filename": "modules/audio_processing/agc2/input_volume_controller.h",
+        "patchSetId": 7
+      },
+      "lineNbr": 61,
+      "author": {
+        "id": 5122
+      },
+      "writtenOn": "2022-10-21T14:07:32Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "a8434bf1_48a44027",
       "range": {
         "startLine": 61,
         "startChar": 2,
@@ -216,6 +310,30 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "9768e5fc_bb679ffc",
+        "filename": "modules/audio_processing/agc2/input_volume_controller.h",
+        "patchSetId": 7
+      },
+      "lineNbr": 67,
+      "author": {
+        "id": 5122
+      },
+      "writtenOn": "2022-10-21T14:07:32Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "d8cf4a40_6a5c5536",
+      "range": {
+        "startLine": 67,
+        "startChar": 2,
+        "endLine": 67,
+        "endChar": 6
+      },
+      "revId": "57b7c1aee4823994fde95aa9b361f4791fa36cf3",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "026beb73_e1614b9c",
@@ -253,6 +371,30 @@
       "side": 1,
       "message": "ditto",
       "parentUuid": "026beb73_e1614b9c",
+      "range": {
+        "startLine": 71,
+        "startChar": 0,
+        "endLine": 77,
+        "endChar": 76
+      },
+      "revId": "57b7c1aee4823994fde95aa9b361f4791fa36cf3",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "a62fd59e_113fc131",
+        "filename": "modules/audio_processing/agc2/input_volume_controller.h",
+        "patchSetId": 7
+      },
+      "lineNbr": 77,
+      "author": {
+        "id": 5122
+      },
+      "writtenOn": "2022-10-21T14:07:32Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "7be312ed_0163366a",
       "range": {
         "startLine": 71,
         "startChar": 0,
@@ -310,6 +452,30 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "c8c3d258_4bb13297",
+        "filename": "modules/audio_processing/agc2/input_volume_controller.h",
+        "patchSetId": 7
+      },
+      "lineNbr": 172,
+      "author": {
+        "id": 5122
+      },
+      "writtenOn": "2022-10-21T14:07:32Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "ec6eb1ac_0f9805d3",
+      "range": {
+        "startLine": 172,
+        "startChar": 6,
+        "endLine": 172,
+        "endChar": 37
+      },
+      "revId": "57b7c1aee4823994fde95aa9b361f4791fa36cf3",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "3b9cd281_3e79db5f",
@@ -347,6 +513,30 @@
       "side": 1,
       "message": "Using a target level differs from using min/max digital gain. Here the min/max are used to define a slack range in the RMS error: if the error is within this range, no input volume adjustments are done. If we pass a target, we need to take care of calculating that range elsewhere and pass a zero-error speech level to Process and UpdateGain.\n\nAgain, for the same reason as above :) I\u0027d suggest we implement this with minimum refactoring of the unit tests and revisit later if needed.",
       "parentUuid": "3b9cd281_3e79db5f",
+      "range": {
+        "startLine": 178,
+        "startChar": 33,
+        "endLine": 179,
+        "endChar": 59
+      },
+      "revId": "57b7c1aee4823994fde95aa9b361f4791fa36cf3",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "fa732e1c_3d8f1683",
+        "filename": "modules/audio_processing/agc2/input_volume_controller.h",
+        "patchSetId": 7
+      },
+      "lineNbr": 179,
+      "author": {
+        "id": 5122
+      },
+      "writtenOn": "2022-10-21T14:07:32Z",
+      "side": 1,
+      "message": "Good point on the need of a slack, which is essential to avoid too many input volume changes. Still, I wonder what formulation / parametrization makes it easier to test the input volume controller and decouple it from the digital adaptive one. As this CL removes the digital adaptive part inherited from `AgcManagerDirect`, I recommend that we discuss this aspect now and address it in this CL. Let me kick it off 😊\n\nEssentially, the behavior we want is that the input volume controller doesn\u0027t change the volume if the estimated speech level (L) falls in the range [T - M, T] where T is the input volume controller targer level (-18 dBFS) and M the maximum digital adaptive gain (30 dBFS), right? In this way, there\u0027s no need for stepping back if the current input volume produces levels above T-M, because we know that the adaptive digital controller will reduce its gain if needed.\n\nIn summary:\n\nCase 1: L \u003c T-M \u003d\u003e increase input volume\nCase 2: T-M \u003c\u003d L \u003c\u003d T \u003d\u003e do not change the input volume\nCase 3: L \u003e T \u003d\u003e reduce the input volume\n\nIf that\u0027s correct, I would parametrize the input volume controller with a range [A, B] and let `GainController2` \"coordinate\" all the controllers by setting A\u003dT-M and B\u003dT. Advantages:\n- no hard-coded target level in input_volume_controller.cc\n- easier to test the behavior: for example, one could write a test that verifies that fewer adaptations take place when the range is wider\n- `GainController2` is responsible for the coupling between input volume controller and adaptive digital controller (separation of concerns)\n\nWDYT?",
+      "parentUuid": "d315d53d_10387d39",
       "range": {
         "startLine": 178,
         "startChar": 33,

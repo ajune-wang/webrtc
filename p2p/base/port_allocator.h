@@ -171,13 +171,15 @@ struct RTC_EXPORT RelayServerConfig {
   ~RelayServerConfig();
 
   bool operator==(const RelayServerConfig& o) const {
-    return ports == o.ports && credentials == o.credentials &&
-           priority == o.priority;
+    return ports == o.ports && credentials == o.credentials;
   }
   bool operator!=(const RelayServerConfig& o) const { return !(*this == o); }
 
   PortList ports;
   RelayCredentials credentials;
+  // Relative priority of candidates from this TURN server in relation
+  // to the candidates from other servers. Required because ICE priorities
+  // need to be unique.
   int priority = 0;
   TlsCertPolicy tls_cert_policy = TlsCertPolicy::TLS_CERT_POLICY_SECURE;
   std::vector<std::string> tls_alpn_protocols;

@@ -147,8 +147,18 @@ bool PortAllocator::SetConfiguration(
   bool ice_servers_changed =
       (stun_servers != stun_servers_ || turn_servers != turn_servers_);
   stun_servers_ = stun_servers;
+
   turn_servers_ = turn_servers;
   turn_port_prune_policy_ = turn_port_prune_policy;
+  // Relay candidates gathered from different TURN servers must have unique
+  // priorities, so that connectivity checks are performed in a well-defined
+  // order:
+  // https://www.rfc-editor.org/rfc/rfc5245#section-4.1.2
+  // First TURN server in the list gets highest priority.
+  int priority = static_cast<int>(turn_servers_.size() - 1);
+  for (auto& turn_server : turn_servers_) {
+    turn_server.priority = priority--;
+  }
 
   if (candidate_pool_frozen_) {
     if (candidate_pool_size != candidate_pool_size_) {

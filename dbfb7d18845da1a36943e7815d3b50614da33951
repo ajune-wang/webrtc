@@ -1,0 +1,44 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "c8d3b522_8d9fbe2b",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 3
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 17719
+      },
+      "writtenOn": "2022-10-24T14:38:49Z",
+      "side": 1,
+      "message": "Thanks Alessio!",
+      "revId": "dbfb7d18845da1a36943e7815d3b50614da33951",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "46d9c189_9485e8d7",
+        "filename": "modules/audio_processing/agc2/input_volume_stats_reporter.h",
+        "patchSetId": 3
+      },
+      "lineNbr": 65,
+      "author": {
+        "id": 17719
+      },
+      "writtenOn": "2022-10-24T14:38:49Z",
+      "side": 1,
+      "message": "This shows up as an added file rather than a renamed file (and the original one as deleted). Can you please use `git mv` for this file as well?",
+      "range": {
+        "startLine": 1,
+        "startChar": 0,
+        "endLine": 65,
+        "endChar": 71
+      },
+      "revId": "dbfb7d18845da1a36943e7815d3b50614da33951",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

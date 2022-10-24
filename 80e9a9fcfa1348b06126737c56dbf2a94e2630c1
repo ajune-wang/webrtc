@@ -33,6 +33,23 @@
       "message": "LGTM\nbut another thing that a forgot about last comment:\n\nWDYT about a field trial for safe rollout of this ? (on mobile, I guess it\u0027s not used in chrome)",
       "revId": "80e9a9fcfa1348b06126737c56dbf2a94e2630c1",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "8f289848_f3c5be2b",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 11
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5613
+      },
+      "writtenOn": "2022-10-24T09:02:39Z",
+      "side": 1,
+      "message": "with agreement on kill-switch field trial (using global variable)",
+      "revId": "80e9a9fcfa1348b06126737c56dbf2a94e2630c1",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

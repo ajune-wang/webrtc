@@ -35,6 +35,29 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "20cc1b21_7d70fa40",
+        "filename": "media/base/media_channel.h",
+        "patchSetId": 5
+      },
+      "lineNbr": 925,
+      "author": {
+        "id": 5117
+      },
+      "writtenOn": "2022-10-24T10:35:20Z",
+      "side": 1,
+      "message": "nit:\nThis is a little confusing now.\n\nMay I suggest to rename this to |RequestKeyFrame|?\nHere and in WebRtcVideoReceiveStream?\n\nOf course, if it seems that too many dominoes pieces would fall due to that change, I won\u0027t insist.",
+      "range": {
+        "startLine": 925,
+        "startChar": 15,
+        "endLine": 925,
+        "endChar": 35
+      },
+      "revId": "866b10b61bb99df369c0af966d914cd24e933dc6",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "fe0f8318_ea68fb63",

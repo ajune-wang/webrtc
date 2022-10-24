@@ -18,6 +18,11 @@
 
 #include "rtc_base/string_to_number.h"
 
+#if defined(WEBRTC_DLOPEN_PIPEWIRE)
+#include "modules/desktop_capture/linux/wayland/pipewire_stubs.h"
+#include "rtc_base/sanitizer.h"
+#endif  // defined(WEBRTC_DLOPEN_PIPEWIRE)
+
 #if !PW_CHECK_VERSION(0, 3, 29)
 #define SPA_POD_PROP_FLAG_MANDATORY (1u << 3)
 #endif

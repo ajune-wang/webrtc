@@ -39,6 +39,30 @@
       },
       "revId": "dbfb7d18845da1a36943e7815d3b50614da33951",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "eeadfc4e_2f10d524",
+        "filename": "modules/audio_processing/agc2/input_volume_stats_reporter.h",
+        "patchSetId": 3
+      },
+      "lineNbr": 65,
+      "author": {
+        "id": 17719
+      },
+      "writtenOn": "2022-10-24T15:19:12Z",
+      "side": 1,
+      "message": "Actually, maybe the diff is so large that renaming needs to be done in a separate CL?",
+      "parentUuid": "46d9c189_9485e8d7",
+      "range": {
+        "startLine": 1,
+        "startChar": 0,
+        "endLine": 65,
+        "endChar": 71
+      },
+      "revId": "dbfb7d18845da1a36943e7815d3b50614da33951",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

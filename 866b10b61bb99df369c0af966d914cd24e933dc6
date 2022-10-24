@@ -16,6 +16,40 @@
       "message": "split from the other CL and hopefully easier to review. Adding rids will require changes to the signature but that can happen very quickly after this lands so no backward compat issues.",
       "revId": "866b10b61bb99df369c0af966d914cd24e933dc6",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "94fc0777_1db98ca8",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 5
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2022-10-24T06:38:04Z",
+      "side": 1,
+      "message": "Seems good (for the non-rid case), but can we not use BlockingCall?",
+      "revId": "866b10b61bb99df369c0af966d914cd24e933dc6",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "fe0f8318_ea68fb63",
+        "filename": "pc/rtp_sender.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 697,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2022-10-24T06:38:04Z",
+      "side": 1,
+      "message": "Since this is a void-returning function, can we use PostTask instead of BlockingCall?\n\nOffhand, I don\u0027t see a reason to block the signaling thread while waiting for this to be processed.",
+      "revId": "866b10b61bb99df369c0af966d914cd24e933dc6",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

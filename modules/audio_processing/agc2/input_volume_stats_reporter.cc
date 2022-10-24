@@ -8,7 +8,7 @@
  *  be found in the AUTHORS file in the root of the source tree.
  */
 
-#include "modules/audio_processing/agc/analog_gain_stats_reporter.h"
+#include "modules/audio_processing/agc2/input_volume_stats_reporter.h"
 
 #include <cmath>
 
@@ -20,9 +20,9 @@ namespace webrtc {
 namespace {
 
 constexpr int kFramesIn60Seconds = 6000;
-constexpr int kMinGain = 0;
-constexpr int kMaxGain = 255;
-constexpr int kMaxUpdate = kMaxGain - kMinGain;
+constexpr int kMinInputVolume = 0;
+constexpr int kMaxInputVolume = 255;
+constexpr int kMaxUpdate = kMaxInputVolume - kMinInputVolume;
 
 float ComputeAverageUpdate(int sum_updates, int num_updates) {
   RTC_DCHECK_GE(sum_updates, 0);
@@ -37,17 +37,16 @@ float ComputeAverageUpdate(int sum_updates, int num_updates) {
 }
 }  // namespace
 
-AnalogGainStatsReporter::AnalogGainStatsReporter() = default;
+InputVolumeStatsReporter::InputVolumeStatsReporter() = default;
 
-AnalogGainStatsReporter::~AnalogGainStatsReporter() = default;
+InputVolumeStatsReporter::~InputVolumeStatsReporter() = default;
 
-void AnalogGainStatsReporter::UpdateStatistics(int analog_mic_level) {
-  RTC_DCHECK_GE(analog_mic_level, kMinGain);
-  RTC_DCHECK_LE(analog_mic_level, kMaxGain);
-  if (previous_analog_mic_level_.has_value() &&
-      analog_mic_level != previous_analog_mic_level_.value()) {
-    const int level_change =
-        analog_mic_level - previous_analog_mic_level_.value();
+void InputVolumeStatsReporter::UpdateStatistics(int input_volume) {
+  RTC_DCHECK_GE(input_volume, kMinInputVolume);
+  RTC_DCHECK_LE(input_volume, kMaxInputVolume);
+  if (previous_input_volume_.has_value() &&
+      input_volume != previous_input_volume_.value()) {
+    const int level_change = input_volume - previous_input_volume_.value();
     if (level_change < 0) {
       ++level_update_stats_.num_decreases;
       level_update_stats_.sum_decreases -= level_change;
@@ -56,16 +55,16 @@ void AnalogGainStatsReporter::UpdateStatistics(int analog_mic_level) {
       level_update_stats_.sum_increases += level_change;
     }
   }
-  // Periodically log analog gain change metrics.
+  // Periodically log input volume change metrics.
   if (++log_level_update_stats_counter_ >= kFramesIn60Seconds) {
     LogLevelUpdateStats();
     level_update_stats_ = {};
     log_level_update_stats_counter_ = 0;
   }
-  previous_analog_mic_level_ = analog_mic_level;
+  previous_input_volume_ = input_volume;
 }
 
-void AnalogGainStatsReporter::LogLevelUpdateStats() const {
+void InputVolumeStatsReporter::LogLevelUpdateStats() const {
   const float average_decrease = ComputeAverageUpdate(
       level_update_stats_.sum_decreases, level_update_stats_.num_decreases);
   const float average_increase = ComputeAverageUpdate(

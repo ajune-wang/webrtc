@@ -1,0 +1,72 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "6cf67dd8_9eb91a94",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 6
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 14134
+      },
+      "writtenOn": "2022-10-24T21:21:28Z",
+      "side": 1,
+      "message": "Getting closer.  Having one and only one initialization code-path would make the capturer code easier to reason about.",
+      "revId": "ab213cf3c4c5247d95530dc103adcf987ecdb1b6",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "5395d5ad_e73fd77e",
+        "filename": "modules/desktop_capture/linux/wayland/base_capturer_pipewire.cc",
+        "patchSetId": 6
+      },
+      "lineNbr": 33,
+      "author": {
+        "id": 14134
+      },
+      "writtenOn": "2022-10-24T21:21:28Z",
+      "side": 1,
+      "message": "A shorter version of this comment should go in the .h, explaining that a side  effect is to initialize PipeWire, which may involve loading the DSO.",
+      "revId": "ab213cf3c4c5247d95530dc103adcf987ecdb1b6",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "d688a5c7_34e94c65",
+        "filename": "modules/desktop_capture/linux/wayland/shared_screencast_stream.cc",
+        "patchSetId": 6
+      },
+      "lineNbr": 382,
+      "author": {
+        "id": 14134
+      },
+      "writtenOn": "2022-10-24T21:21:28Z",
+      "side": 1,
+      "message": "It seems like this must already have happened because you are calling IsSupported() when creating the capturer.  Maybe this should be `DCHECK(IsSupported())`?",
+      "revId": "ab213cf3c4c5247d95530dc103adcf987ecdb1b6",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "20973354_01f3f3a8",
+        "filename": "modules/desktop_capture/linux/wayland/test/test_screencast_stream_provider.cc",
+        "patchSetId": 6
+      },
+      "lineNbr": 34,
+      "author": {
+        "id": 14134
+      },
+      "writtenOn": "2022-10-24T21:21:28Z",
+      "side": 1,
+      "message": "Same comment here.",
+      "revId": "ab213cf3c4c5247d95530dc103adcf987ecdb1b6",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

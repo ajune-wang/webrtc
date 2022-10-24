@@ -38,6 +38,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "9fb67dee_8b5eeab2",
+        "filename": "modules/desktop_capture/linux/wayland/base_capturer_pipewire.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 32,
+      "author": {
+        "id": 14134
+      },
+      "writtenOn": "2022-10-24T21:21:28Z",
+      "side": 1,
+      "message": "If IsSupported() is used in a DCHECK I would recommend caching the result to guarantee that there aren\u0027t side effects after the first call.",
+      "parentUuid": "a04b271d_573ff5bb",
+      "revId": "2098ec6b7abd7829a9cf3d447c82c974ce6b81b5",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "8355d22d_e9474912",
         "filename": "modules/desktop_capture/linux/wayland/base_capturer_pipewire.cc",
         "patchSetId": 4
@@ -174,6 +192,24 @@
       "side": 1,
       "message": "Michael\u0027s code sounds like it will move this to a modules/PipeWire folder. While we for Video Capture do not use PipeWire on X11, I think there are situations where you could do so; and thus I think it\u0027s wrong to arbitarily restrict a fairly generic method.",
       "parentUuid": "0c4240ef_26d318ea",
+      "revId": "2098ec6b7abd7829a9cf3d447c82c974ce6b81b5",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "17c009cf_3e7c029b",
+        "filename": "modules/desktop_capture/linux/wayland/pipewire_utils.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 34,
+      "author": {
+        "id": 14134
+      },
+      "writtenOn": "2022-10-24T21:21:28Z",
+      "side": 1,
+      "message": "Ok, I assumed PipeWire was Wayland-only, but maybe that is only for the portal integration bits.  Looks like I need to educate myself some more about it.",
+      "parentUuid": "b6ea3ee9_d3341fe4",
       "revId": "2098ec6b7abd7829a9cf3d447c82c974ce6b81b5",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }

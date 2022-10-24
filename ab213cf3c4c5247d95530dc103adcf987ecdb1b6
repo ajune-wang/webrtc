@@ -18,6 +18,24 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "0ca94abd_b23efb50",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 6
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 18474
+      },
+      "writtenOn": "2022-10-24T21:48:44Z",
+      "side": 1,
+      "message": "FWIW, the InitializePipeWire code is essentially the same code (actually already a bit cleaner) than what\u0027s being pulled out into modules/portal in: https://webrtc-review.googlesource.com/c/src/+/263721 \n\nwhich is just waiting to be merged in. The combination of that extraction and further checks to create the \"BaseCapturerPipeWire::IsSupported\" method makes the experience for users that don\u0027t have PipeWire loads better (both with and without the flag enabled); and I\u0027d really like to get this in before Feature Freeze. (Even if it does mean that I may end up needing to do a quick cleanup to reconcile the two versions of the code).\n\nI don\u0027t think the existing usages allow for reconciling a single initialization code path like you\u0027ve discussed; nor do I necessarily agree that relying on \"BaseCapturerPipeWire::IsSupported\" is the right path to ensure that initialization has happened, as it relies on a side effect that I\u0027d rather we didn\u0027t have if it was avoidable.",
+      "parentUuid": "6cf67dd8_9eb91a94",
+      "revId": "ab213cf3c4c5247d95530dc103adcf987ecdb1b6",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "5395d5ad_e73fd77e",
@@ -31,6 +49,24 @@
       "writtenOn": "2022-10-24T21:21:28Z",
       "side": 1,
       "message": "A shorter version of this comment should go in the .h, explaining that a side  effect is to initialize PipeWire, which may involve loading the DSO.",
+      "revId": "ab213cf3c4c5247d95530dc103adcf987ecdb1b6",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "df1470f3_4e2339f2",
+        "filename": "modules/desktop_capture/linux/wayland/base_capturer_pipewire.cc",
+        "patchSetId": 6
+      },
+      "lineNbr": 33,
+      "author": {
+        "id": 18474
+      },
+      "writtenOn": "2022-10-24T21:48:44Z",
+      "side": 1,
+      "message": "I don\u0027t particularly love exposing implementation details at such a distance, but I think it\u0027s fair to note such a large potential side effect. Done.",
+      "parentUuid": "5395d5ad_e73fd77e",
       "revId": "ab213cf3c4c5247d95530dc103adcf987ecdb1b6",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
@@ -52,6 +88,24 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "634e6ba1_44c21bb9",
+        "filename": "modules/desktop_capture/linux/wayland/shared_screencast_stream.cc",
+        "patchSetId": 6
+      },
+      "lineNbr": 382,
+      "author": {
+        "id": 18474
+      },
+      "writtenOn": "2022-10-24T21:48:44Z",
+      "side": 1,
+      "message": "The Chrome Remote Desktop code also leverages this and doesn\u0027t necessarily have to go through the initial \"IsSupported\" check, and nothing blocks just creating a BaseCapturerPipeWire without doing so. I also don\u0027t really *love* that IsSupported has to try to initialize, and would prefer to keep the initialization logic in place where it is now, so that we don\u0027t have to change it all if we ever *are* able to feature detect without loading the library.\n\nPlus I feel that this is a cleaner pattern of explicitly ensuring that it\u0027s opened before we need to use any methods.\n\nAlso worth noting that \"IsSupported\" is actually implemented as a static for a different class; which also makes it not feel right.",
+      "parentUuid": "d688a5c7_34e94c65",
+      "revId": "ab213cf3c4c5247d95530dc103adcf987ecdb1b6",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "20973354_01f3f3a8",
@@ -65,6 +119,24 @@
       "writtenOn": "2022-10-24T21:21:28Z",
       "side": 1,
       "message": "Same comment here.",
+      "revId": "ab213cf3c4c5247d95530dc103adcf987ecdb1b6",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "9049aa0f_6bf0761f",
+        "filename": "modules/desktop_capture/linux/wayland/test/test_screencast_stream_provider.cc",
+        "patchSetId": 6
+      },
+      "lineNbr": 34,
+      "author": {
+        "id": 18474
+      },
+      "writtenOn": "2022-10-24T21:48:44Z",
+      "side": 1,
+      "message": "This is test code; so I\u0027d prefer to just try to initialize it rather than DCHECK; especially since the current configuration is such that we only include this on builders that should be supported so we just create it.",
+      "parentUuid": "20973354_01f3f3a8",
       "revId": "ab213cf3c4c5247d95530dc103adcf987ecdb1b6",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }

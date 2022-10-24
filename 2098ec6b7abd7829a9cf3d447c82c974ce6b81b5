@@ -54,6 +54,24 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "6f0a669c_49cfc914",
+        "filename": "modules/desktop_capture/linux/wayland/base_capturer_pipewire.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 32,
+      "author": {
+        "id": 18474
+      },
+      "writtenOn": "2022-10-24T21:48:44Z",
+      "side": 1,
+      "message": "It is now being cached?\n\nRegardless, the Initialize call *also* caches, since that\u0027s the bit that would actually introduce the side effects.",
+      "parentUuid": "9fb67dee_8b5eeab2",
+      "revId": "2098ec6b7abd7829a9cf3d447c82c974ce6b81b5",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "8355d22d_e9474912",

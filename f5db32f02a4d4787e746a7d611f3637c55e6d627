@@ -20,6 +20,24 @@
     {
       "unresolved": false,
       "key": {
+        "uuid": "992529d5_6c5a9226",
+        "filename": "p2p/base/port_allocator.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 181,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2022-10-25T11:27:27Z",
+      "side": 0,
+      "message": "Internal codesearch did not turn up any non-webrtc usages either. We may get away with it.",
+      "parentUuid": "acd7e890_e9d1e6d4",
+      "revId": "f5db32f02a4d4787e746a7d611f3637c55e6d627",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
         "uuid": "342288ec_14998355",
         "filename": "p2p/client/basic_port_allocator.h",
         "patchSetId": 2
@@ -48,6 +66,24 @@
       "writtenOn": "2022-10-25T09:47:09Z",
       "side": 0,
       "message": "Was the comment here to indicate that it is protected for testing? Then it should come back.",
+      "revId": "f5db32f02a4d4787e746a7d611f3637c55e6d627",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "bad759ab_b2d75975",
+        "filename": "p2p/client/basic_port_allocator.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 390,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2022-10-25T11:27:27Z",
+      "side": 0,
+      "message": "Move it to private and see if anything happens?\n\nI like naming functions xxForTesting better than making them protected with ambiguous comments.",
+      "parentUuid": "43585786_e1ea9a75",
       "revId": "f5db32f02a4d4787e746a7d611f3637c55e6d627",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }

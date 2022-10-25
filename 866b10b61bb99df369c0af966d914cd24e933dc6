@@ -37,6 +37,23 @@
     {
       "unresolved": false,
       "key": {
+        "uuid": "023fd635_90408217",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 5
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2022-10-25T07:06:54Z",
+      "side": 1,
+      "message": "I think we can improve slightly.",
+      "revId": "866b10b61bb99df369c0af966d914cd24e933dc6",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
         "uuid": "20cc1b21_7d70fa40",
         "filename": "media/base/media_channel.h",
         "patchSetId": 5
@@ -84,6 +101,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "d3ef96e4_c8aa592c",
+        "filename": "media/base/media_channel.h",
+        "patchSetId": 5
+      },
+      "lineNbr": 925,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2022-10-25T07:06:54Z",
+      "side": 1,
+      "message": "Calling the new method RequestRecvKeyFrame rather than GenerateRecvKeyFrame shouldn\u0027t be too disruptive, and keeps the distinction clear.",
+      "parentUuid": "f050e0eb_ab053865",
+      "range": {
+        "startLine": 925,
+        "startChar": 15,
+        "endLine": 925,
+        "endChar": 35
+      },
+      "revId": "866b10b61bb99df369c0af966d914cd24e933dc6",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "fe0f8318_ea68fb63",
         "filename": "pc/rtp_sender.cc",
         "patchSetId": 5
@@ -113,6 +154,24 @@
       "side": 1,
       "message": "In the long run this would depend on the return value of VideoSendStream::GenerateKeyFrame which will return an error on unknown rids.\nCan we cheat and specify \"silently ignore unknown rids\" which would save *a ton* of effort?",
       "parentUuid": "fe0f8318_ea68fb63",
+      "revId": "866b10b61bb99df369c0af966d914cd24e933dc6",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "57337c06_e1dd2614",
+        "filename": "pc/rtp_sender.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 697,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2022-10-25T07:06:54Z",
+      "side": 1,
+      "message": "In the long run, returning a sync error might not be the right thing anyway.\n\nThe JS API is async, which means that it reports errors via a callback. We haven\u0027t yet started the work of incorporating that at the C++ level.\n\nSuggest ignoring the possibility of an error for now - checking on unknown RIDs should be done further up the stack anyway.",
+      "parentUuid": "68a46d7d_bb252eeb",
       "revId": "866b10b61bb99df369c0af966d914cd24e933dc6",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }

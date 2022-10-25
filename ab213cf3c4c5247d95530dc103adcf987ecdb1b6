@@ -56,6 +56,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "086802d4_1428064f",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 6
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 18474
+      },
+      "writtenOn": "2022-10-25T17:19:44Z",
+      "side": 1,
+      "message": "Via the function local static `result` My current `InitializePipeWire` essentially fulfills the role of the first two. Due to the requirements of needing to load to ensure we\u0027re supported, then `IsSupported` has to call `Initialize`, rather than your suggested `IsInitialized` to return an accurate answer. I think it\u0027s a much cleaner pattern in general to have to check `IsSupported` before trying to `Initialize` anything; but also to *not* know/rely on `IsSupported` calling any `Initialize` code.\n\nI then think that it\u0027s cleaner for the classes that actually interface with PipeWire (shared_screencast_stream, test_screencast_stream, the webcam code) to ensure that PipeWire is initialized rather than their callers (I think by \u0027clients\u0027 you mean \u0027places that construct objects that use PipeWire\u0027)?",
+      "parentUuid": "4dd77b13_ac657ad0",
+      "revId": "ab213cf3c4c5247d95530dc103adcf987ecdb1b6",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "5395d5ad_e73fd77e",
         "filename": "modules/desktop_capture/linux/wayland/base_capturer_pipewire.cc",
         "patchSetId": 6
@@ -138,6 +156,24 @@
       "side": 1,
       "message": "It seems that the point of disagreement is that I want the client to have already initialized PipeWire before the code reaches this point, while you\u0027re landing various code-paths that do lazy-initialization.\n\nEven if there is nothing we can do to recover from a failed initialization, having one codepath makes it easier to collect metrics, report errors consistently, and means that crashes end up with fewer distinct stack traces.\n\nIt sounds like the requirements driving the solution in this patch come from remote desktop.  If this lands, we should work with remote desktop to land an eager initialization path and go back to remove this.  WDYT?",
       "parentUuid": "634e6ba1_44c21bb9",
+      "revId": "ab213cf3c4c5247d95530dc103adcf987ecdb1b6",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "6ae2118f_09019130",
+        "filename": "modules/desktop_capture/linux/wayland/shared_screencast_stream.cc",
+        "patchSetId": 6
+      },
+      "lineNbr": 382,
+      "author": {
+        "id": 18474
+      },
+      "writtenOn": "2022-10-25T17:19:44Z",
+      "side": 1,
+      "message": "I disagree that the client (which I assume you mean \"places that create BaseCapturerPipeWire\") should be the one responsible for Initializing PipeWire and I think that would actually spread out the places that need to call Initialize and make it \"riskier\" to use PipeWire (since you then have to know \"I need to call this helper method before creating this object\"), I think it should be the responsibility of the class that actually uses the connection to PipeWire to ensure that it can connect; even if that means exposing an \"Initialize\" method on itself. \n\nAdding an \"Initialize\" method as this CL does currently gives us a single place to collect metrics or report errors. There are currently only two places that call \"Initialize\":\n\n1) SharedScreencastStream (Which is actually created by DesktopCaptureOptions::CreateDefault, which I don\u0027t like now that I know that)\n2) *Test*SharedScreencastStreamProvider -\u003e Which the test creates neither a DesktopCaptureOptions nor a BaseCapturerPipeWire and creates this object in the constructor for the test class.\n\nMichael\u0027s CL adds a third place which is for the Webcam code and would thus not go through BaseCapturerPipeWire anyways. I think \"InitializePipeWire\" *is* the one place to initialize that will allow us to collect metrics and consistently report errors.\n\nI don\u0027t see it actually as landing various code paths that do lazy-initialization at all, given that there is only one product initialization path and the other is test-only.",
+      "parentUuid": "1830ff19_550b64d4",
       "revId": "ab213cf3c4c5247d95530dc103adcf987ecdb1b6",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },

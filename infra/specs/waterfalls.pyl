@@ -431,7 +431,8 @@
       'android_compile_x86_rel': {},
       'fuchsia_rel': {
         'os_type': 'linux',
-        'mixins': ['linux-bionic', 'x86-64', 'resultdb-json-format'],
+        'mixins':
+        ['linux-bionic', 'x86-64', 'resultdb-json-format', 'fuchsia'],
         'test_suties': {
           'isolateds_scripts': 'desktop_tests',
         },

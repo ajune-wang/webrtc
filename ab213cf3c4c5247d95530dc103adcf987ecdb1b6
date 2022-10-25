@@ -214,6 +214,24 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "77822d79_34101e57",
+        "filename": "modules/desktop_capture/linux/wayland/shared_screencast_stream.cc",
+        "patchSetId": 6
+      },
+      "lineNbr": 382,
+      "author": {
+        "id": 18474
+      },
+      "writtenOn": "2022-10-25T18:44:06Z",
+      "side": 1,
+      "message": "I *think* the crash tool should be smart enough to see the common \"InitializePipeWire\" on the stack and cluster it via the magic signature; especially since it\u0027s not in an anonymous namespace and InitializeStubs should add a couple of extra layers onto it.\n\nAlso, given that the InitializePipeWire call for SharedScreencastStream is in \"StartScreenCastStream\" both Desktop Capture and Remoting host should share that portion of the stack as well.",
+      "parentUuid": "76aafab7_fae7288f",
+      "revId": "ab213cf3c4c5247d95530dc103adcf987ecdb1b6",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "20973354_01f3f3a8",

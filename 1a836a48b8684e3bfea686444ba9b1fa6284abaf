@@ -1,0 +1,55 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "863fc77f_8682ded3",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 7
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2022-10-25T13:00:56Z",
+      "side": 1,
+      "message": "I\u0027m doing +1 on this now, but I still have some comments :-)",
+      "revId": "1a836a48b8684e3bfea686444ba9b1fa6284abaf",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "f3fb69b2_100c0cbb",
+        "filename": "pc/rtp_sender.cc",
+        "patchSetId": 7
+      },
+      "lineNbr": 703,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2022-10-25T13:00:56Z",
+      "side": 1,
+      "message": "For this case, we may want an error return.\nPreferred form is probably early return: \"if (!video_media_channel() || !ssrc_ || !stopped_) {\n  return RTCError(blablabla)\n}",
+      "revId": "1a836a48b8684e3bfea686444ba9b1fa6284abaf",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "2077941e_b9e73a93",
+        "filename": "pc/video_rtp_receiver_unittest.cc",
+        "patchSetId": 7
+      },
+      "lineNbr": 119,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2022-10-25T13:00:56Z",
+      "side": 1,
+      "message": "This test is odd. If I call GenerateKeyFrame on the source, I get a call to RequestRecvKeyFrame on the sink?\n\nBut I suspect it is not a change.",
+      "revId": "1a836a48b8684e3bfea686444ba9b1fa6284abaf",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

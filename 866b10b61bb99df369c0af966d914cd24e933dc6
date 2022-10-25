@@ -216,6 +216,24 @@
       "parentUuid": "57337c06_e1dd2614",
       "revId": "866b10b61bb99df369c0af966d914cd24e933dc6",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "edb2be35_4df65aa8",
+        "filename": "pc/rtp_sender.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 697,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2022-10-25T13:00:56Z",
+      "side": 1,
+      "message": "The rids are also known to the session description, which will have been accessible in some structure (likely on the signalling thread) before we get this far. I think.\n\nLooks good for now.",
+      "parentUuid": "d324e030_7a8565f2",
+      "revId": "866b10b61bb99df369c0af966d914cd24e933dc6",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

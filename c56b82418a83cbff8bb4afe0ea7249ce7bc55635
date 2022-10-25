@@ -169,6 +169,30 @@
       },
       "revId": "c56b82418a83cbff8bb4afe0ea7249ce7bc55635",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "4729a7cb_19e5087b",
+        "filename": "modules/audio_processing/include/audio_processing.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 575,
+      "author": {
+        "id": 6280
+      },
+      "writtenOn": "2022-10-25T12:31:55Z",
+      "side": 1,
+      "message": "I don\u0027t have a strong opinion about which of the APIs we choose, so let\u0027s go with the current function definition (but clarify the docstring).\n\nI have an opinion that we should know and document what the API is. Neither proposal does this. The current proposal implicitly:\n- stops supporting transient suppression without analog AGC, or\n- promises not to use the keypress or input volume if the correponding module is disabled, or\n- has magic values for these parameters that should be used when the corresponding module is disabled.\n\nIf the docstring is updated to tell the user what to do with `key_pressed` and `applied_input_volume` if the corresponding submodule is disabled, or that they cannot use the API if either is disabled, then I\u0027m happy. Example:\n\n```\n  // Accepts deinterleaved float audio with the range [-1, 1]. Each element of\n  // `src` points to a channel buffer, arranged according to `input_stream`. At\n  // output, the channels will be arranged according to `output_stream` in\n  // `dest`.\n  //\n  // The output must have one channel or as many channels as the input. `src`\n  // and `dest` may use the same memory, if desired.\n  //\n  // `applied_input_volume` is the known input volume used when the\n  // audio content in `src` was acquired should be provided.\n  // `recommended_input_volume` will be populated with a recommended new input\n  // volume.\n  // If input volume adjustment is disabled, `applied_input_volume` has no effect\n  // and is copied into `recommended_input_volume`.\n  //\n  // `key_pressed` specifies whether one or more key press events occurred while\n  // the audio content in `src` was acquired. If transient suppression is disabled,\n  // this value is ignored.\n```\n\n\n\n```\n-Users of non-chrome platforms would have to know/understand the extra arguments. I.e., they\u0027d have to know that they shouldn\u0027t specify the extra parameters.\n```\nOptional parameters define multiple overloaded versions of the function, and it a common pattern that params with default values are safe to ignore unless you want something special. Not specifying default values is the same as using the current ProcessStream API.\n\nOne may just as well argue that the users need to understand the parameters with any of our API proposals. \"Who doesn\u0027t want an input volume on their audio? My application for sure doesn\u0027t want zero volume, I\u0027d better use this API.\" etc.\n\n```\n-The API opens up for non-allowed parameter combinations, and parameter combinations that never are used in practice. \n```\nSo does the current API, until we clearly state how key_pressed and applied_input_volume do and when they are safe to ignore.\n\n\nI don\u0027t mind either API, as long as it is possible to understand for a user without reading audio_processing_impl.cc.",
+      "parentUuid": "0a0157db_44b896fa",
+      "range": {
+        "startLine": 569,
+        "startChar": 0,
+        "endLine": 575,
+        "endChar": 50
+      },
+      "revId": "c56b82418a83cbff8bb4afe0ea7249ce7bc55635",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

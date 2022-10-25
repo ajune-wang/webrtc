@@ -86,6 +86,24 @@
       "parentUuid": "43585786_e1ea9a75",
       "revId": "f5db32f02a4d4787e746a7d611f3637c55e6d627",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "7de4193e_1e269c32",
+        "filename": "p2p/client/basic_port_allocator.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 390,
+      "author": {
+        "id": 19549
+      },
+      "writtenOn": "2022-10-25T13:22:10Z",
+      "side": 0,
+      "message": "This isn\u0027t used for testing but may have been made protected for testing (but then the tests are typically not friends with the tests?).\nMade private which seems to work, if you could run the downstream-compile bot that would be great.",
+      "parentUuid": "bad759ab_b2d75975",
+      "revId": "f5db32f02a4d4787e746a7d611f3637c55e6d627",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

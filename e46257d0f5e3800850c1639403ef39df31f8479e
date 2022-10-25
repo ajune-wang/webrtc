@@ -68,6 +68,24 @@
       "parentUuid": "60738ada_50f5b048",
       "revId": "e46257d0f5e3800850c1639403ef39df31f8479e",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "2b15129f_014c285f",
+        "filename": "p2p/base/port_allocator.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 178,
+      "author": {
+        "id": 19549
+      },
+      "writtenOn": "2022-10-25T13:22:10Z",
+      "side": 1,
+      "message": "will do and also nag someone from the Kirkland area to explain!",
+      "parentUuid": "528b91c3_0e601692",
+      "revId": "e46257d0f5e3800850c1639403ef39df31f8479e",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

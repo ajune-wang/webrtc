@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "846e7d91_f4e19639",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2022-10-25T13:40:36Z",
+      "side": 1,
+      "message": "Agree that atomics would be cleaner - but this is scarily core.\nSuppressing warning for now.",
+      "revId": "5b2ec8ba737032c0057d4c2d024d1e655215b360",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

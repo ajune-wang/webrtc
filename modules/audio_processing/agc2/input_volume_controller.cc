@@ -166,12 +166,12 @@ int GetSpeechLevelErrorDb(float speech_level_dbfs, float speech_probability) {
 MonoInputVolumeController::MonoInputVolumeController(
     int startup_min_level,
     int clipped_level_min,
-    bool disable_digital_adaptive,
+    bool digital_adaptive_follows,
     int min_mic_level,
     int max_digital_gain_db,
     int min_digital_gain_db)
     : min_mic_level_(min_mic_level),
-      disable_digital_adaptive_(disable_digital_adaptive),
+      digital_adaptive_follows_(digital_adaptive_follows),
       max_digital_gain_db_(max_digital_gain_db),
       min_digital_gain_db_(min_digital_gain_db),
       max_level_(kMaxMicLevel),
@@ -349,7 +349,7 @@ void MonoInputVolumeController::UpdateGain(int rms_error_db) {
   frames_since_update_gain_ = 0;
 
   int raw_digital_gain = 0;
-  if (!disable_digital_adaptive_) {
+  if (digital_adaptive_follows_) {
     rms_error += min_digital_gain_db_;
 
     raw_digital_gain =
@@ -383,7 +383,6 @@ InputVolumeController::InputVolumeController(int num_capture_channels,
       min_mic_level_override_(GetMinMicLevelOverride()),
       use_min_channel_level_(!UseMaxAnalogChannelLevel()),
       num_capture_channels_(num_capture_channels),
-      disable_digital_adaptive_(!config.digital_adaptive_follows),
       frames_since_clipped_(config.clipped_wait_frames),
       capture_output_used_(true),
       clipped_level_step_(config.clipped_level_step),
@@ -411,8 +410,8 @@ InputVolumeController::InputVolumeController(int num_capture_channels,
   for (auto& estimator : channel_estimators_) {
     estimator = std::make_unique<MonoInputVolumeController>(
         config.startup_min_volume, config.clipped_level_min,
-        disable_digital_adaptive_, min_mic_level, config.max_digital_gain_db,
-        config.min_digital_gain_db);
+        config.digital_adaptive_follows, min_mic_level,
+        config.max_digital_gain_db, config.min_digital_gain_db);
   }
 
   RTC_DCHECK(!channel_estimators_.empty());

@@ -8,7 +8,7 @@
  *  be found in the AUTHORS file in the root of the source tree.
  */
 
-#include "modules/audio_processing/agc2/adaptive_mode_level_estimator.h"
+#include "modules/audio_processing/agc2/speech_level_estimator.h"
 
 #include <memory>
 

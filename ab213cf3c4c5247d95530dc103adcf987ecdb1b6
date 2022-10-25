@@ -38,6 +38,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "4dd77b13_ac657ad0",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 6
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 14134
+      },
+      "writtenOn": "2022-10-25T16:47:27Z",
+      "side": 1,
+      "message": "Let me be more explicit about what I see as the best solution:\n\n\n- Have an explicit Initialize() method that only loads the library, returns success and sets a static boolean.  (Only has side effects on first call.)\n- Have IsInitialized() return that boolean.  (No side effects.)\n- Have IsSupported() use IsInitialized().\n- Have all clients call Initialize() before doing anything that requires PipeWire.",
+      "parentUuid": "0ca94abd_b23efb50",
+      "revId": "ab213cf3c4c5247d95530dc103adcf987ecdb1b6",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "5395d5ad_e73fd77e",
         "filename": "modules/desktop_capture/linux/wayland/base_capturer_pipewire.cc",
         "patchSetId": 6
@@ -102,6 +120,24 @@
       "side": 1,
       "message": "The Chrome Remote Desktop code also leverages this and doesn\u0027t necessarily have to go through the initial \"IsSupported\" check, and nothing blocks just creating a BaseCapturerPipeWire without doing so. I also don\u0027t really *love* that IsSupported has to try to initialize, and would prefer to keep the initialization logic in place where it is now, so that we don\u0027t have to change it all if we ever *are* able to feature detect without loading the library.\n\nPlus I feel that this is a cleaner pattern of explicitly ensuring that it\u0027s opened before we need to use any methods.\n\nAlso worth noting that \"IsSupported\" is actually implemented as a static for a different class; which also makes it not feel right.",
       "parentUuid": "d688a5c7_34e94c65",
+      "revId": "ab213cf3c4c5247d95530dc103adcf987ecdb1b6",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "1830ff19_550b64d4",
+        "filename": "modules/desktop_capture/linux/wayland/shared_screencast_stream.cc",
+        "patchSetId": 6
+      },
+      "lineNbr": 382,
+      "author": {
+        "id": 14134
+      },
+      "writtenOn": "2022-10-25T16:47:27Z",
+      "side": 1,
+      "message": "It seems that the point of disagreement is that I want the client to have already initialized PipeWire before the code reaches this point, while you\u0027re landing various code-paths that do lazy-initialization.\n\nEven if there is nothing we can do to recover from a failed initialization, having one codepath makes it easier to collect metrics, report errors consistently, and means that crashes end up with fewer distinct stack traces.\n\nIt sounds like the requirements driving the solution in this patch come from remote desktop.  If this lands, we should work with remote desktop to land an eager initialization path and go back to remove this.  WDYT?",
+      "parentUuid": "634e6ba1_44c21bb9",
       "revId": "ab213cf3c4c5247d95530dc103adcf987ecdb1b6",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },

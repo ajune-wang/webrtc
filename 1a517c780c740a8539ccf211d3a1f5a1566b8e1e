@@ -35,6 +35,23 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "03e85b90_f86cf0af",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 4
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2022-10-25T12:51:09Z",
+      "side": 1,
+      "message": "Looks good, one point where I wonder where text was lost.",
+      "revId": "1a517c780c740a8539ccf211d3a1f5a1566b8e1e",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "d026b1da_f046d32b",
@@ -66,6 +83,24 @@
       "side": 1,
       "message": "sure- thanks",
       "parentUuid": "d026b1da_f046d32b",
+      "revId": "1a517c780c740a8539ccf211d3a1f5a1566b8e1e",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "6261c9de_c499aba8",
+        "filename": "docs/native-code/rtp-hdrext/video-layers-allocation00/README.md",
+        "patchSetId": 4
+      },
+      "lineNbr": 35,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2022-10-25T12:51:09Z",
+      "side": 1,
+      "message": "the text \"per spatial layer\" got lost. Intentional?",
+      "parentUuid": "183d58de_035f8208",
       "revId": "1a517c780c740a8539ccf211d3a1f5a1566b8e1e",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }

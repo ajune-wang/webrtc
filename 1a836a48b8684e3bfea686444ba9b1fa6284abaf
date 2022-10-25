@@ -37,6 +37,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "95389027_94aab510",
+        "filename": "pc/rtp_sender.cc",
+        "patchSetId": 7
+      },
+      "lineNbr": 703,
+      "author": {
+        "id": 19549
+      },
+      "writtenOn": "2022-10-25T13:19:46Z",
+      "side": 1,
+      "message": "I am not sure that can happen in practice - maybe if the sender is stopped? See similar code for the receiver.\n\nNot a meaningful action for the caller to act upon so OK() seems right.",
+      "parentUuid": "f3fb69b2_100c0cbb",
+      "revId": "1a836a48b8684e3bfea686444ba9b1fa6284abaf",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "2077941e_b9e73a93",
         "filename": "pc/video_rtp_receiver_unittest.cc",
         "patchSetId": 7
@@ -48,6 +66,24 @@
       "writtenOn": "2022-10-25T13:00:56Z",
       "side": 1,
       "message": "This test is odd. If I call GenerateKeyFrame on the source, I get a call to RequestRecvKeyFrame on the sink?\n\nBut I suspect it is not a change.",
+      "revId": "1a836a48b8684e3bfea686444ba9b1fa6284abaf",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "701d9a99_80a3b7f1",
+        "filename": "pc/video_rtp_receiver_unittest.cc",
+        "patchSetId": 7
+      },
+      "lineNbr": 119,
+      "author": {
+        "id": 19549
+      },
+      "writtenOn": "2022-10-25T13:19:46Z",
+      "side": 1,
+      "message": "the terminology here is confusing :-(",
+      "parentUuid": "2077941e_b9e73a93",
       "revId": "1a836a48b8684e3bfea686444ba9b1fa6284abaf",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }

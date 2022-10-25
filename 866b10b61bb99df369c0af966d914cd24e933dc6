@@ -234,6 +234,24 @@
       "parentUuid": "d324e030_7a8565f2",
       "revId": "866b10b61bb99df369c0af966d914cd24e933dc6",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "78a8d574_48db7971",
+        "filename": "pc/rtp_sender.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 697,
+      "author": {
+        "id": 19549
+      },
+      "writtenOn": "2022-10-25T13:19:46Z",
+      "side": 1,
+      "message": "orphis pointed out that one can get the configured rids via getParameters so I\u0027ll do that in the followup-CL",
+      "parentUuid": "edb2be35_4df65aa8",
+      "revId": "866b10b61bb99df369c0af966d914cd24e933dc6",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

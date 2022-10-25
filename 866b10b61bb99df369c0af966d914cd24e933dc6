@@ -60,6 +60,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "f050e0eb_ab053865",
+        "filename": "media/base/media_channel.h",
+        "patchSetId": 5
+      },
+      "lineNbr": 925,
+      "author": {
+        "id": 19549
+      },
+      "writtenOn": "2022-10-25T06:48:15Z",
+      "side": 1,
+      "message": "This captures the semantics (requesting via rtcp vs directly asking the encoder) better. But then the other method name would simplify to GenerateKeyFrame which is the name of the old method but with new semantics...\n\nCan update but this is probably safer to do this a few weeks apart (ideally with a change in method signature too)",
+      "parentUuid": "20cc1b21_7d70fa40",
+      "range": {
+        "startLine": 925,
+        "startChar": 15,
+        "endLine": 925,
+        "endChar": 35
+      },
+      "revId": "866b10b61bb99df369c0af966d914cd24e933dc6",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "fe0f8318_ea68fb63",
         "filename": "pc/rtp_sender.cc",
         "patchSetId": 5
@@ -71,6 +95,24 @@
       "writtenOn": "2022-10-24T06:38:04Z",
       "side": 1,
       "message": "Since this is a void-returning function, can we use PostTask instead of BlockingCall?\n\nOffhand, I don\u0027t see a reason to block the signaling thread while waiting for this to be processed.",
+      "revId": "866b10b61bb99df369c0af966d914cd24e933dc6",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "68a46d7d_bb252eeb",
+        "filename": "pc/rtp_sender.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 697,
+      "author": {
+        "id": 19549
+      },
+      "writtenOn": "2022-10-25T06:48:15Z",
+      "side": 1,
+      "message": "In the long run this would depend on the return value of VideoSendStream::GenerateKeyFrame which will return an error on unknown rids.\nCan we cheat and specify \"silently ignore unknown rids\" which would save *a ton* of effort?",
+      "parentUuid": "fe0f8318_ea68fb63",
       "revId": "866b10b61bb99df369c0af966d914cd24e933dc6",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }

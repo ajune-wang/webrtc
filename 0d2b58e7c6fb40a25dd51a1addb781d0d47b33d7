@@ -16,6 +16,108 @@
       "message": "@jonasolsson@webrtc.org please take another look.",
       "revId": "0d2b58e7c6fb40a25dd51a1addb781d0d47b33d7",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "3ade539b_373c2c14",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 15
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5508
+      },
+      "writtenOn": "2022-10-25T15:32:02Z",
+      "side": 1,
+      "message": "stamping and adding a couple of minor things",
+      "revId": "0d2b58e7c6fb40a25dd51a1addb781d0d47b33d7",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "2640a130_bd126bec",
+        "filename": "rtc_base/physical_socket_server.cc",
+        "patchSetId": 15
+      },
+      "lineNbr": 460,
+      "author": {
+        "id": 5508
+      },
+      "writtenOn": "2022-10-25T15:32:02Z",
+      "side": 1,
+      "message": "you could initialize `iov` members here:\n\n```\niovec iov \u003d {.iov_len \u003d length, ...```",
+      "revId": "0d2b58e7c6fb40a25dd51a1addb781d0d47b33d7",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "3d3f8100_940ff814",
+        "filename": "rtc_base/physical_socket_server.cc",
+        "patchSetId": 15
+      },
+      "lineNbr": 461,
+      "author": {
+        "id": 5508
+      },
+      "writtenOn": "2022-10-25T15:32:02Z",
+      "side": 1,
+      "message": "`msghdr msg \u003d {}` initializes to 0, but you could also initialize `msg` using the same method.",
+      "revId": "0d2b58e7c6fb40a25dd51a1addb781d0d47b33d7",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "44bc895d_74183d2b",
+        "filename": "rtc_base/physical_socket_server.cc",
+        "patchSetId": 15
+      },
+      "lineNbr": 472,
+      "author": {
+        "id": 5508
+      },
+      "writtenOn": "2022-10-25T15:32:02Z",
+      "side": 1,
+      "message": "use `\u003d {}`",
+      "revId": "0d2b58e7c6fb40a25dd51a1addb781d0d47b33d7",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "744fac68_3e1ce209",
+        "filename": "rtc_base/physical_socket_server.cc",
+        "patchSetId": 15
+      },
+      "lineNbr": 732,
+      "author": {
+        "id": 5508
+      },
+      "writtenOn": "2022-10-25T15:32:02Z",
+      "side": 1,
+      "message": "nit: might want to add an empty space after `errno`. Btw, are these logs valuable? (should they be RTC_DLOG?)",
+      "revId": "0d2b58e7c6fb40a25dd51a1addb781d0d47b33d7",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "dd50569a_83c9bb48",
+        "filename": "rtc_base/physical_socket_server.cc",
+        "patchSetId": 15
+      },
+      "lineNbr": 745,
+      "author": {
+        "id": 5508
+      },
+      "writtenOn": "2022-10-25T15:32:02Z",
+      "side": 1,
+      "message": "here too",
+      "revId": "0d2b58e7c6fb40a25dd51a1addb781d0d47b33d7",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

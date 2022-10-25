@@ -2674,7 +2674,13 @@ WebRtcVideoChannel::WebRtcVideoSendStream::GetPerLayerVideoSenderInfos(
         stream_stats.rtp_stats.transmitted.header_bytes +
         stream_stats.rtp_stats.transmitted.padding_bytes;
     info.packets_sent = stream_stats.rtp_stats.transmitted.packets;
-    info.total_packet_send_delay_ms += stream_stats.total_packet_send_delay_ms;
+    // info.total_packet_send_delay_ms +=
+    //     stream_stats.total_packet_send_delay_ms;
+    // TODO(hbos): Use TimeDelta all the way...
+    info.total_packet_send_delay_ms +=
+        stream_stats.rtp_stats.transmitted.total_packet_delay.ms();
+    RTC_LOG(LS_ERROR) << "new = " << info.total_packet_send_delay_ms << ",\n"
+                      << "old = " << stream_stats.total_packet_send_delay_ms;
     info.send_frame_width = stream_stats.width;
     info.send_frame_height = stream_stats.height;
     info.key_frames_encoded = stream_stats.frame_counts.key_frames;

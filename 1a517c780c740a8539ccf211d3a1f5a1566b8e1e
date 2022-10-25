@@ -18,6 +18,23 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "434c449c_fc0710bd",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 4
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 19549
+      },
+      "writtenOn": "2022-10-25T11:37:23Z",
+      "side": 1,
+      "message": "hta: does bureacracy require two +1s for doc changes too? But hey, you like documentation ;-)",
+      "revId": "1a517c780c740a8539ccf211d3a1f5a1566b8e1e",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "d026b1da_f046d32b",

@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "8ec7438d_a074cbba",
+        "filename": "docs/native-code/rtp-hdrext/video-layers-allocation00/README.md",
+        "patchSetId": 5
+      },
+      "lineNbr": 36,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2022-10-25T13:55:56Z",
+      "side": 1,
+      "message": "... spatial layer; temporal per temporal doesn\u0027t work ...",
+      "revId": "840bcbce5ddcc9bf0e9dae4ed01cb18564736892",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

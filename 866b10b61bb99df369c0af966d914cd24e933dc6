@@ -123,6 +123,30 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "281f0f12_e89d2f46",
+        "filename": "media/base/media_channel.h",
+        "patchSetId": 5
+      },
+      "lineNbr": 925,
+      "author": {
+        "id": 19549
+      },
+      "writtenOn": "2022-10-25T08:44:12Z",
+      "side": 1,
+      "message": "done in PS 6..7",
+      "parentUuid": "d3ef96e4_c8aa592c",
+      "range": {
+        "startLine": 925,
+        "startChar": 15,
+        "endLine": 925,
+        "endChar": 35
+      },
+      "revId": "866b10b61bb99df369c0af966d914cd24e933dc6",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "fe0f8318_ea68fb63",
@@ -172,6 +196,24 @@
       "side": 1,
       "message": "In the long run, returning a sync error might not be the right thing anyway.\n\nThe JS API is async, which means that it reports errors via a callback. We haven\u0027t yet started the work of incorporating that at the C++ level.\n\nSuggest ignoring the possibility of an error for now - checking on unknown RIDs should be done further up the stack anyway.",
       "parentUuid": "68a46d7d_bb252eeb",
+      "revId": "866b10b61bb99df369c0af966d914cd24e933dc6",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "d324e030_7a8565f2",
+        "filename": "pc/rtp_sender.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 697,
+      "author": {
+        "id": 19549
+      },
+      "writtenOn": "2022-10-25T08:44:12Z",
+      "side": 1,
+      "message": "but the rids are only known to VideoSendStream which is downstream.\nLets ignore for now.",
+      "parentUuid": "57337c06_e1dd2614",
       "revId": "866b10b61bb99df369c0af966d914cd24e933dc6",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }

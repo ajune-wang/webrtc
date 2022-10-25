@@ -16,6 +16,24 @@
       "message": "see https://webrtc-review.googlesource.com/c/src/+/270562/comment/0069e618_b0745f5c/\nfor the API design question whether this should return RTCError or void.",
       "revId": "9a8f5cc2c5c0eb71961f2e2fc294ae9f3ff8fa43",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "e1f7bbe0_eafcab12",
+        "filename": "api/rtp_sender_interface.h",
+        "patchSetId": 4
+      },
+      "lineNbr": 108,
+      "author": {
+        "id": 19549
+      },
+      "writtenOn": "2022-10-25T08:44:12Z",
+      "side": 1,
+      "message": "returning RTCError in PS 5..6. Mainly because I really want to avoid the OrError dance ;-)",
+      "parentUuid": "9a677786_bef478ae",
+      "revId": "9a8f5cc2c5c0eb71961f2e2fc294ae9f3ff8fa43",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

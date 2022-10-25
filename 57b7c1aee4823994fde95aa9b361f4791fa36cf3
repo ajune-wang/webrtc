@@ -77,6 +77,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "60b14c1c_15835cab",
+        "filename": "modules/audio_processing/agc2/input_volume_controller.cc",
+        "patchSetId": 7
+      },
+      "lineNbr": 183,
+      "author": {
+        "id": 17719
+      },
+      "writtenOn": "2022-10-25T13:14:16Z",
+      "side": 1,
+      "message": "I\u0027ve renamed the config parameter but kept the class members for now. Let\u0027s change the negation in a separate CL (I\u0027ve added TODOs in both classes).",
+      "parentUuid": "fbe0545d_055d50f3",
+      "range": {
+        "startLine": 183,
+        "startChar": 6,
+        "endLine": 183,
+        "endChar": 58
+      },
+      "revId": "57b7c1aee4823994fde95aa9b361f4791fa36cf3",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "11344adb_3a0278d1",
         "filename": "modules/audio_processing/agc2/input_volume_controller.cc",
         "patchSetId": 7
@@ -100,6 +124,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "7c24781e_a16b23c3",
+        "filename": "modules/audio_processing/agc2/input_volume_controller.cc",
+        "patchSetId": 7
+      },
+      "lineNbr": 192,
+      "author": {
+        "id": 17719
+      },
+      "writtenOn": "2022-10-25T13:14:16Z",
+      "side": 1,
+      "message": "I\u0027ve removed the checks for min/max.",
+      "parentUuid": "11344adb_3a0278d1",
+      "range": {
+        "startLine": 190,
+        "startChar": 0,
+        "endLine": 192,
+        "endChar": 41
+      },
+      "revId": "57b7c1aee4823994fde95aa9b361f4791fa36cf3",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "bd8a8981_08908d18",
         "filename": "modules/audio_processing/agc2/input_volume_controller.cc",
         "patchSetId": 7
@@ -111,6 +159,30 @@
       "writtenOn": "2022-10-19T14:08:28Z",
       "side": 1,
       "message": "nit: this can be removed since I\u0027m about to complete the AGC implementation agnostic metrics to use for experimentation",
+      "range": {
+        "startLine": 388,
+        "startChar": 0,
+        "endLine": 389,
+        "endChar": 50
+      },
+      "revId": "57b7c1aee4823994fde95aa9b361f4791fa36cf3",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "3efa2d7f_b90d7478",
+        "filename": "modules/audio_processing/agc2/input_volume_controller.cc",
+        "patchSetId": 7
+      },
+      "lineNbr": 389,
+      "author": {
+        "id": 17719
+      },
+      "writtenOn": "2022-10-25T13:14:16Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "bd8a8981_08908d18",
       "range": {
         "startLine": 388,
         "startChar": 0,
@@ -537,6 +609,30 @@
       "side": 1,
       "message": "Good point on the need of a slack, which is essential to avoid too many input volume changes. Still, I wonder what formulation / parametrization makes it easier to test the input volume controller and decouple it from the digital adaptive one. As this CL removes the digital adaptive part inherited from `AgcManagerDirect`, I recommend that we discuss this aspect now and address it in this CL. Let me kick it off 😊\n\nEssentially, the behavior we want is that the input volume controller doesn\u0027t change the volume if the estimated speech level (L) falls in the range [T - M, T] where T is the input volume controller targer level (-18 dBFS) and M the maximum digital adaptive gain (30 dBFS), right? In this way, there\u0027s no need for stepping back if the current input volume produces levels above T-M, because we know that the adaptive digital controller will reduce its gain if needed.\n\nIn summary:\n\nCase 1: L \u003c T-M \u003d\u003e increase input volume\nCase 2: T-M \u003c\u003d L \u003c\u003d T \u003d\u003e do not change the input volume\nCase 3: L \u003e T \u003d\u003e reduce the input volume\n\nIf that\u0027s correct, I would parametrize the input volume controller with a range [A, B] and let `GainController2` \"coordinate\" all the controllers by setting A\u003dT-M and B\u003dT. Advantages:\n- no hard-coded target level in input_volume_controller.cc\n- easier to test the behavior: for example, one could write a test that verifies that fewer adaptations take place when the range is wider\n- `GainController2` is responsible for the coupling between input volume controller and adaptive digital controller (separation of concerns)\n\nWDYT?",
       "parentUuid": "d315d53d_10387d39",
+      "range": {
+        "startLine": 178,
+        "startChar": 33,
+        "endLine": 179,
+        "endChar": 59
+      },
+      "revId": "57b7c1aee4823994fde95aa9b361f4791fa36cf3",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "baca44d7_4e1a2016",
+        "filename": "modules/audio_processing/agc2/input_volume_controller.h",
+        "patchSetId": 7
+      },
+      "lineNbr": 179,
+      "author": {
+        "id": 17719
+      },
+      "writtenOn": "2022-10-25T13:14:16Z",
+      "side": 1,
+      "message": "This looks like a pure refactoring change. I suggest we revisit this in a later CL.",
+      "parentUuid": "fa732e1c_3d8f1683",
       "range": {
         "startLine": 178,
         "startChar": 33,

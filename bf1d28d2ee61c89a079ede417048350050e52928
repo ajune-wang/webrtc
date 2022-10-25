@@ -1,0 +1,38 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "f0c98397_55a6fbc3",
+        "filename": "modules/desktop_capture/linux/wayland/base_capturer_pipewire.cc",
+        "patchSetId": 8
+      },
+      "lineNbr": 35,
+      "author": {
+        "id": 14134
+      },
+      "writtenOn": "2022-10-25T18:14:07Z",
+      "side": 1,
+      "message": "The comment from here above duplicates what is in the .h",
+      "revId": "bf1d28d2ee61c89a079ede417048350050e52928",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "cfc72e22_a35c47ca",
+        "filename": "modules/desktop_capture/linux/wayland/pipewire_utils.h",
+        "patchSetId": 8
+      },
+      "lineNbr": 17,
+      "author": {
+        "id": 14134
+      },
+      "writtenOn": "2022-10-25T18:14:07Z",
+      "side": 1,
+      "message": "There\u0027s no initialization other than dlopen, so the sentence that begins \"If there is other...\" doesn\u0027t really apply.  Remove it?",
+      "revId": "bf1d28d2ee61c89a079ede417048350050e52928",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

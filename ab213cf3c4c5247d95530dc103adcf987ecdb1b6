@@ -72,6 +72,24 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "4e7a8f53_aba49845",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 6
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 14134
+      },
+      "writtenOn": "2022-10-25T18:14:07Z",
+      "side": 1,
+      "message": "Ok.  I guess this is a chicken and egg problem.  If you take the initialization out of IsSupported(), and call it before initialization, it would have to return \"unknown\" since it doesn\u0027t know whether dlopen will succeed or not.\n\nAdding an unknown return value would be accurate and keep side effects out ... but be more complicated for calling code.",
+      "parentUuid": "086802d4_1428064f",
+      "revId": "ab213cf3c4c5247d95530dc103adcf987ecdb1b6",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "5395d5ad_e73fd77e",
@@ -174,6 +192,24 @@
       "side": 1,
       "message": "I disagree that the client (which I assume you mean \"places that create BaseCapturerPipeWire\") should be the one responsible for Initializing PipeWire and I think that would actually spread out the places that need to call Initialize and make it \"riskier\" to use PipeWire (since you then have to know \"I need to call this helper method before creating this object\"), I think it should be the responsibility of the class that actually uses the connection to PipeWire to ensure that it can connect; even if that means exposing an \"Initialize\" method on itself. \n\nAdding an \"Initialize\" method as this CL does currently gives us a single place to collect metrics or report errors. There are currently only two places that call \"Initialize\":\n\n1) SharedScreencastStream (Which is actually created by DesktopCaptureOptions::CreateDefault, which I don\u0027t like now that I know that)\n2) *Test*SharedScreencastStreamProvider -\u003e Which the test creates neither a DesktopCaptureOptions nor a BaseCapturerPipeWire and creates this object in the constructor for the test class.\n\nMichael\u0027s CL adds a third place which is for the Webcam code and would thus not go through BaseCapturerPipeWire anyways. I think \"InitializePipeWire\" *is* the one place to initialize that will allow us to collect metrics and consistently report errors.\n\nI don\u0027t see it actually as landing various code paths that do lazy-initialization at all, given that there is only one product initialization path and the other is test-only.",
       "parentUuid": "1830ff19_550b64d4",
+      "revId": "ab213cf3c4c5247d95530dc103adcf987ecdb1b6",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "76aafab7_fae7288f",
+        "filename": "modules/desktop_capture/linux/wayland/shared_screencast_stream.cc",
+        "patchSetId": 6
+      },
+      "lineNbr": 382,
+      "author": {
+        "id": 14134
+      },
+      "writtenOn": "2022-10-25T18:14:07Z",
+      "side": 1,
+      "message": "OK, you\u0027ve convinced me that the current InitializePipewire is sufficient as a single point of initialization.  I guess we will end up with three paths in production:\n\n- Desktop capture\n- Remoting host (albeit, separate from Chrome usage) \n- Webcam usage\n\nHowever imagine a scenario where a crash occurs in Chrome when dlopening pipewire.  The crash will manifest with different repro steps and stack traces according to whether Chrome is using a webcam first or doing desktop capture first.  Unless someone already knows that they share a common implementation (pipewire) and/or the crash server knows to cluster the stack traces, then you\u0027ll end up chasing them as separate issues.\n\nIt\u0027s not the end of the world, certainly not the only place where shared code crashes, but doing risky static initialization in one place tends to make issues easier to track down. (Wearing my stability sheriff hat.)",
+      "parentUuid": "6ae2118f_09019130",
       "revId": "ab213cf3c4c5247d95530dc103adcf987ecdb1b6",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },

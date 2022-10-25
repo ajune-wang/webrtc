@@ -1,0 +1,38 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "2cba85ae_1353cea0",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 19549
+      },
+      "writtenOn": "2022-10-25T09:47:09Z",
+      "side": 1,
+      "message": "better approach (but more questions!), please take a look.",
+      "revId": "e46257d0f5e3800850c1639403ef39df31f8479e",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "60738ada_50f5b048",
+        "filename": "p2p/base/port_allocator.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 178,
+      "author": {
+        "id": 19549
+      },
+      "writtenOn": "2022-10-25T09:47:09Z",
+      "side": 1,
+      "message": "it scares me that a TURN server can have a portlist and there is quite some test coverage for that but in ParseIceServers we iterate over urls and create separate RelayServerConfig.\nAnd I don\u0027t think that the port list enforces the unique priorities. Which might not be necessary if it enforces that there can be only one of a particular type (udp, tcp, tls) but I don\u0027t see that either.",
+      "revId": "e46257d0f5e3800850c1639403ef39df31f8479e",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

@@ -1,0 +1,55 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "acd7e890_e9d1e6d4",
+        "filename": "p2p/base/port_allocator.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 181,
+      "author": {
+        "id": 19549
+      },
+      "writtenOn": "2022-10-25T09:47:09Z",
+      "side": 0,
+      "message": "From codesearch we remove without deprecating first.",
+      "revId": "f5db32f02a4d4787e746a7d611f3637c55e6d627",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "342288ec_14998355",
+        "filename": "p2p/client/basic_port_allocator.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 82,
+      "author": {
+        "id": 19549
+      },
+      "writtenOn": "2022-10-25T09:47:09Z",
+      "side": 0,
+      "message": "Same for this simple rename.",
+      "revId": "f5db32f02a4d4787e746a7d611f3637c55e6d627",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "43585786_e1ea9a75",
+        "filename": "p2p/client/basic_port_allocator.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 390,
+      "author": {
+        "id": 19549
+      },
+      "writtenOn": "2022-10-25T09:47:09Z",
+      "side": 0,
+      "message": "Was the comment here to indicate that it is protected for testing? Then it should come back.",
+      "revId": "f5db32f02a4d4787e746a7d611f3637c55e6d627",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

@@ -123,6 +123,30 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "642cda7d_21917b27",
+        "filename": "modules/audio_processing/agc2/input_volume_controller.cc",
+        "patchSetId": 7
+      },
+      "lineNbr": 183,
+      "author": {
+        "id": 5122
+      },
+      "writtenOn": "2022-10-26T11:06:40Z",
+      "side": 1,
+      "message": "as agreed offline, this will be done in a separate CL",
+      "parentUuid": "db3665cd_01028d2e",
+      "range": {
+        "startLine": 183,
+        "startChar": 6,
+        "endLine": 183,
+        "endChar": 58
+      },
+      "revId": "57b7c1aee4823994fde95aa9b361f4791fa36cf3",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "11344adb_3a0278d1",
@@ -705,6 +729,30 @@
       "side": 1,
       "message": "We agreed offline on adding this change in this CL since (i) the digital adaptive part inherited from `AgcManagerDirect` is being removed here and (ii) this CL does introduce a new logic around the target level for the input volume controller.\n\nMy recommendation is to replace `Config::max_digital_gain_db`, `Config::min_digital_gain_db` and `kOverrideTargetSpeechLevelDbfs` with two parameters named `min_target_speech_level_dbfs` and `max_target_speech_level_dbfs`. As clarified offline, it\u0027s just a different formulation of the same adaptation problem which will make it easier to test `InputVolumeController`.",
       "parentUuid": "baca44d7_4e1a2016",
+      "range": {
+        "startLine": 178,
+        "startChar": 33,
+        "endLine": 179,
+        "endChar": 59
+      },
+      "revId": "57b7c1aee4823994fde95aa9b361f4791fa36cf3",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "249847ae_7696812b",
+        "filename": "modules/audio_processing/agc2/input_volume_controller.h",
+        "patchSetId": 7
+      },
+      "lineNbr": 179,
+      "author": {
+        "id": 5122
+      },
+      "writtenOn": "2022-10-26T11:06:40Z",
+      "side": 1,
+      "message": "as agreed offline, this will be done in a separate CL",
+      "parentUuid": "dbb59d30_06c955c6",
       "range": {
         "startLine": 178,
         "startChar": 33,

@@ -35,6 +35,23 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "a380cd47_315bb61d",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 11
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5122
+      },
+      "writtenOn": "2022-10-26T11:06:40Z",
+      "side": 1,
+      "message": "Hi again Hanna, thanks for the offline clarification around the need of having min/max digital gain in this CL: as you explained, that\u0027s needed since the parametrization I recommended (namey, min/max target level) would require the unit tests to change too much. So, we agreed on changing parametrization in a separate CL. There are still a few remaining comments, I\u0027ll take another look once closed/addressed.",
+      "revId": "b565b715270d5c63b6be3ddbb45defb0f8f6b334",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "f455768e_57767db6",
@@ -58,6 +75,30 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "ea06c5b9_fb430ebc",
+        "filename": "modules/audio_processing/agc2/input_volume_controller.cc",
+        "patchSetId": 11
+      },
+      "lineNbr": 44,
+      "author": {
+        "id": 5122
+      },
+      "writtenOn": "2022-10-26T11:06:40Z",
+      "side": 1,
+      "message": "as agreed offline, this will be done in a separate CL",
+      "parentUuid": "f455768e_57767db6",
+      "range": {
+        "startLine": 44,
+        "startChar": 0,
+        "endLine": 44,
+        "endChar": 56
+      },
+      "revId": "b565b715270d5c63b6be3ddbb45defb0f8f6b334",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "503210d4_9bc265f7",
@@ -71,6 +112,30 @@
       "writtenOn": "2022-10-26T10:42:47Z",
       "side": 1,
       "message": "Replace with `min_target_speech_level_dbfs` and `max_target_speech_level_dbfs` or remove and add these two new parameters as ctor arguments of `InputVolumeController`.",
+      "range": {
+        "startLine": 59,
+        "startChar": 0,
+        "endLine": 62,
+        "endChar": 32
+      },
+      "revId": "b565b715270d5c63b6be3ddbb45defb0f8f6b334",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "eccec9e8_63804044",
+        "filename": "modules/audio_processing/agc2/input_volume_controller.h",
+        "patchSetId": 11
+      },
+      "lineNbr": 62,
+      "author": {
+        "id": 5122
+      },
+      "writtenOn": "2022-10-26T11:06:40Z",
+      "side": 1,
+      "message": "as agreed offline, this will be done in a separate CL",
+      "parentUuid": "503210d4_9bc265f7",
       "range": {
         "startLine": 59,
         "startChar": 0,
@@ -163,6 +228,30 @@
       "writtenOn": "2022-10-26T10:42:47Z",
       "side": 1,
       "message": "replace with `min_target_speech_level_dbfs` and `max_target_speech_level_dbfs`",
+      "range": {
+        "startLine": 201,
+        "startChar": 28,
+        "endLine": 202,
+        "endChar": 51
+      },
+      "revId": "b565b715270d5c63b6be3ddbb45defb0f8f6b334",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "4b2013a2_79c67e10",
+        "filename": "modules/audio_processing/agc2/input_volume_controller.h",
+        "patchSetId": 11
+      },
+      "lineNbr": 202,
+      "author": {
+        "id": 5122
+      },
+      "writtenOn": "2022-10-26T11:06:40Z",
+      "side": 1,
+      "message": "as agreed offline, this will be done in a separate CL",
+      "parentUuid": "69906802_d3ba5bf9",
       "range": {
         "startLine": 201,
         "startChar": 28,

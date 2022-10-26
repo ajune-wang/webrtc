@@ -16,6 +16,23 @@
       "message": "Looks good.",
       "revId": "4bcca830e0fb2769384be9e61c02ba50351392a3",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "4ee4ecc7_f5847c59",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2022-10-26T12:33:02Z",
+      "side": 1,
+      "message": "It works. But it seems that I need to update the mappings.imp file again - got a few suggested replacements that are not appropriate:\n\n-#include \u003calgorithm\u003e\n+#include \u003c__algorithm/equal.h\u003e\n+#include \u003c__type_traits/remove_reference.h\u003e\n\n(from processing pc/channel.cc)",
+      "revId": "4bcca830e0fb2769384be9e61c02ba50351392a3",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

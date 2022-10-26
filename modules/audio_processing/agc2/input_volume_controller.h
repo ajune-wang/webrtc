@@ -160,9 +160,6 @@ class InputVolumeController final {
   const bool use_min_channel_level_;
   const int num_capture_channels_;
 
-  // TODO(webrtc:7494): Replace with `digital_adaptive_follows_`.
-  const bool disable_digital_adaptive_;
-
   int frames_since_clipped_;
 
   // TODO(bugs.webrtc.org/7494): Create a separate member for the applied input
@@ -196,7 +193,7 @@ class MonoInputVolumeController {
  public:
   MonoInputVolumeController(int startup_min_level,
                             int clipped_level_min,
-                            bool disable_digital_adaptive,
+                            bool digital_adaptive_follows,
                             int min_mic_level,
                             int max_digital_gain_db,
                             int min_digital_gain_db);
@@ -244,8 +241,7 @@ class MonoInputVolumeController {
 
   const int min_mic_level_;
 
-  // TODO(webrtc:7494): Replace with `digital_adaptive_follows_`.
-  const bool disable_digital_adaptive_;
+  const bool digital_adaptive_follows_;
   const int max_digital_gain_db_;
   const int min_digital_gain_db_;
 

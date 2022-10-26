@@ -16,6 +16,23 @@
       "message": "Very nice catch Jesus.",
       "revId": "4929810407cf1b5cdc8bc2678310f3868c4091cc",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "cf2bd9f0_fd4b85d8",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5252
+      },
+      "writtenOn": "2022-10-26T10:30:12Z",
+      "side": 1,
+      "message": "Thanks for this CL!",
+      "revId": "4929810407cf1b5cdc8bc2678310f3868c4091cc",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

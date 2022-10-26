@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "f667f0e3_5d914045",
+        "filename": "modules/audio_processing/agc2/adaptive_digital_gain_controller.h",
+        "patchSetId": 4
+      },
+      "lineNbr": 56,
+      "author": {
+        "id": 17719
+      },
+      "writtenOn": "2022-10-26T12:55:05Z",
+      "side": 0,
+      "message": "Removing this will block https://webrtc-review.googlesource.com/c/src/+/279822. Can we land that one first and then take it into account in this CL?",
+      "range": {
+        "startLine": 56,
+        "startChar": 2,
+        "endLine": 56,
+        "endChar": 55
+      },
+      "revId": "d89dff767c29bd6530c2ee13a0281c250eccd2f1",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

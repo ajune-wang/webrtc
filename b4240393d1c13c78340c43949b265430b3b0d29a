@@ -1,0 +1,67 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "ac622394_c39b6d6b",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 15
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5524
+      },
+      "writtenOn": "2022-10-26T14:28:52Z",
+      "side": 1,
+      "message": "nice!",
+      "revId": "b4240393d1c13c78340c43949b265430b3b0d29a",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "d419db2f_dea72fae",
+        "filename": "modules/rtp_rtcp/include/rtp_rtcp_defines.cc",
+        "patchSetId": 15
+      },
+      "lineNbr": 74,
+      "author": {
+        "id": 5524
+      },
+      "writtenOn": "2022-10-26T14:28:52Z",
+      "side": 1,
+      "message": "nit: or `total_packet_delay +\u003d packet_to_send.time_in_send_queue().value_or(TimeDelta::Zero());`",
+      "range": {
+        "startLine": 72,
+        "startChar": 0,
+        "endLine": 74,
+        "endChar": 3
+      },
+      "revId": "b4240393d1c13c78340c43949b265430b3b0d29a",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "31cc357c_3b8ae0eb",
+        "filename": "video/send_statistics_proxy.cc",
+        "patchSetId": 15
+      },
+      "lineNbr": 1394,
+      "author": {
+        "id": 5524
+      },
+      "writtenOn": "2022-10-26T14:28:52Z",
+      "side": 1,
+      "message": "nit: refer to a bug if you want to keep this comment around?",
+      "range": {
+        "startLine": 1394,
+        "startChar": 10,
+        "endLine": 1394,
+        "endChar": 14
+      },
+      "revId": "b4240393d1c13c78340c43949b265430b3b0d29a",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

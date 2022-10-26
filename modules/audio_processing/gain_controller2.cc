@@ -48,17 +48,22 @@ AvailableCpuFeatures GetAllowedCpuFeatures() {
   return features;
 }
 
-// Creates an adaptive digital gain controller if enabled.
-std::unique_ptr<AdaptiveDigitalGainController> CreateAdaptiveDigitalController(
-    const Agc2Config::AdaptiveDigital& config,
-    int sample_rate_hz,
-    int num_channels,
-    ApmDataDumper* data_dumper) {
-  if (config.enabled) {
-    return std::make_unique<AdaptiveDigitalGainController>(
-        data_dumper, config, sample_rate_hz, num_channels);
+// Peak and RMS audio levels in dBFS.
+struct AudioLevels {
+  float peak_dbfs;
+  float rms_dbfs;
+};
+
+// Computes the audio levels for the first channel in `frame`.
+AudioLevels ComputeAudioLevels(AudioFrameView<float> frame) {
+  float peak = 0.0f;
+  float rms = 0.0f;
+  for (const auto& x : frame.channel(0)) {
+    peak = std::max(std::fabs(x), peak);
+    rms += x * x;
   }
-  return nullptr;
+  return {FloatS16ToDbfs(peak),
+          FloatS16ToDbfs(std::sqrt(rms / frame.samples_per_channel()))};
 }
 
 }  // namespace
@@ -74,15 +79,12 @@ GainController2::GainController2(const Agc2Config& config,
       fixed_gain_applier_(
           /*hard_clip_samples=*/false,
           /*initial_gain_factor=*/DbToRatio(config.fixed_digital.gain_db)),
-      adaptive_digital_controller_(
-          CreateAdaptiveDigitalController(config.adaptive_digital,
-                                          sample_rate_hz,
-                                          num_channels,
-                                          &data_dumper_)),
       limiter_(sample_rate_hz, &data_dumper_, /*histogram_name_prefix=*/"Agc2"),
       calls_since_last_limiter_log_(0) {
   RTC_DCHECK(Validate(config));
   data_dumper_.InitiateNewSetOfRecordings();
+
+  // TODO(bugs.webrtc.org/7494): Remove once VAD in APM launched.
   const bool use_vad = config.adaptive_digital.enabled;
   if (use_vad && use_internal_vad) {
     // TODO(bugs.webrtc.org/7494): Move `vad_reset_period_ms` from adaptive
@@ -90,6 +92,19 @@ GainController2::GainController2(const Agc2Config& config,
     vad_ = std::make_unique<VoiceActivityDetectorWrapper>(
         config.adaptive_digital.vad_reset_period_ms, cpu_features_,
         sample_rate_hz);
+  }
+
+  if (config.adaptive_digital.enabled) {
+    // Create adaptive digital controller-only components.
+    noise_level_estimator_ = CreateNoiseFloorEstimator(&data_dumper_);
+    speech_level_estimator_ = std::make_unique<SpeechLevelEstimator>(
+        &data_dumper_, config.adaptive_digital);
+    saturation_protector_ = CreateSaturationProtector(
+        kSaturationProtectorInitialHeadroomDb,
+        config.adaptive_digital.adjacent_speech_frames_threshold,
+        &data_dumper_);
+    adaptive_digital_controller_ = std::make_unique<AdaptiveDigitalGainApplier>(
+        &data_dumper_, config.adaptive_digital, sample_rate_hz, num_channels);
   }
 }
 
@@ -110,27 +125,80 @@ void GainController2::Process(absl::optional<float> speech_probability,
                               AudioBuffer* audio) {
   data_dumper_.DumpRaw("agc2_applied_input_volume_changed",
                        input_volume_changed);
-  if (input_volume_changed && !!adaptive_digital_controller_) {
-    adaptive_digital_controller_->HandleInputGainChange();
+  if (input_volume_changed) {
+    // Handle input volume changes.
+    if (speech_level_estimator_)
+      speech_level_estimator_->Reset();
+    if (saturation_protector_)
+      saturation_protector_->Reset();
   }
 
   AudioFrameView<float> float_frame(audio->channels(), audio->num_channels(),
                                     audio->num_frames());
+
+  // Compute speech probability.
   if (vad_) {
     speech_probability = vad_->Analyze(float_frame);
   } else if (speech_probability.has_value()) {
-    RTC_DCHECK_GE(speech_probability.value(), 0.0f);
-    RTC_DCHECK_LE(speech_probability.value(), 1.0f);
+    RTC_DCHECK_GE(*speech_probability, 0.0f);
+    RTC_DCHECK_LE(*speech_probability, 1.0f);
   }
   if (speech_probability.has_value()) {
-    data_dumper_.DumpRaw("agc2_speech_probability", speech_probability.value());
+    data_dumper_.DumpRaw("agc2_speech_probability", *speech_probability);
   }
+
+  // Apply fixed digital gain.
   fixed_gain_applier_.ApplyGain(float_frame);
-  if (adaptive_digital_controller_) {
-    RTC_DCHECK(speech_probability.has_value());
-    adaptive_digital_controller_->Process(
-        float_frame, speech_probability.value(), limiter_.LastAudioLevel());
+
+  // Compute/update audio, noise and speech levels.
+  AudioLevels audio_levels = ComputeAudioLevels(float_frame);
+  absl::optional<float> noise_rms_dbfs;
+  if (noise_level_estimator_) {
+    // TODO(bugs.webrtc.org/7494): Pass `audio_levels` to remove duplicated
+    // computation in `noise_level_estimator_`.
+    noise_rms_dbfs = noise_level_estimator_->Analyze(float_frame);
+    data_dumper_.DumpRaw("agc2_noise_rms_dbfs", *noise_rms_dbfs);
   }
+  absl::optional<float> speech_rms_dbfs;
+  absl::optional<bool> speech_level_reliable;
+  if (speech_level_estimator_) {
+    RTC_DCHECK(speech_probability.has_value());
+    speech_level_estimator_->Update(
+        audio_levels.rms_dbfs, audio_levels.peak_dbfs, *speech_probability);
+    speech_rms_dbfs = speech_level_estimator_->level_dbfs();
+    speech_level_reliable = speech_level_estimator_->IsConfident();
+    data_dumper_.DumpRaw("agc2_input_rms_dbfs", audio_levels.rms_dbfs);
+    data_dumper_.DumpRaw("agc2_input_peak_dbfs", audio_levels.peak_dbfs);
+    data_dumper_.DumpRaw("agc2_speech_level_dbfs", *speech_rms_dbfs);
+    data_dumper_.DumpRaw("agc2_speech_level_reliable", *speech_level_reliable);
+  }
+
+  // Update and apply adaptive digital gain.
+  if (adaptive_digital_controller_) {
+    RTC_DCHECK(saturation_protector_);
+    RTC_DCHECK(speech_probability.has_value());
+    RTC_DCHECK(speech_rms_dbfs.has_value());
+    saturation_protector_->Analyze(*speech_probability, audio_levels.peak_dbfs,
+                                   *speech_rms_dbfs);
+    float headroom_db = saturation_protector_->HeadroomDb();
+    data_dumper_.DumpRaw("agc2_headroom_db", headroom_db);
+    float limiter_envelope_dbfs = FloatS16ToDbfs(limiter_.LastAudioLevel());
+    data_dumper_.DumpRaw("agc2_limiter_envelope_dbfs", limiter_envelope_dbfs);
+    RTC_DCHECK(speech_level_reliable.has_value());
+    RTC_DCHECK(noise_rms_dbfs.has_value());
+    adaptive_digital_controller_->Process(
+        /*info=*/{.speech_probability = *speech_probability,
+                  .speech_level_dbfs = *speech_rms_dbfs,
+                  .speech_level_reliable = *speech_level_reliable,
+                  .noise_rms_dbfs = *noise_rms_dbfs,
+                  .headroom_db = headroom_db,
+                  .limiter_envelope_dbfs = limiter_envelope_dbfs},
+        float_frame);
+  }
+
+  // Use the limiter to protect from clipping.
+  // TODO(bugs.webrtc.org/7494): Pass `audio_levels` to remove duplicated
+  // computation in `limiter_`.
   limiter_.Process(float_frame);
 
   // Periodically log limiter stats.

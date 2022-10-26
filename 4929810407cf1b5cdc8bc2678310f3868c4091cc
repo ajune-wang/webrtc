@@ -58,6 +58,30 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "166cb796_256281a4",
+        "filename": "modules/audio_processing/aec3/matched_filter_lag_aggregator.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 132,
+      "author": {
+        "id": 8580
+      },
+      "writtenOn": "2022-10-26T13:09:56Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "a35b0cf2_e1481d40",
+      "range": {
+        "startLine": 132,
+        "startChar": 23,
+        "endLine": 132,
+        "endChar": 25
+      },
+      "revId": "4929810407cf1b5cdc8bc2678310f3868c4091cc",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "5c1172e3_b9862ea6",
@@ -71,6 +95,30 @@
       "writtenOn": "2022-10-26T12:08:38Z",
       "side": 1,
       "message": "Would it be possible to add a comment what is being checked here?\n\nAt least I don\u0027t really see the importance of including histogram_data_[histogram_data_index_] !\u003d -1 in the check.",
+      "range": {
+        "startLine": 144,
+        "startChar": 2,
+        "endLine": 147,
+        "endChar": 3
+      },
+      "revId": "4929810407cf1b5cdc8bc2678310f3868c4091cc",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "61ca3675_01b3c345",
+        "filename": "modules/audio_processing/aec3/matched_filter_lag_aggregator.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 147,
+      "author": {
+        "id": 8580
+      },
+      "writtenOn": "2022-10-26T13:09:56Z",
+      "side": 1,
+      "message": "I added a comment and I change the condition as they were now redundant. Please have a look.",
+      "parentUuid": "5c1172e3_b9862ea6",
       "range": {
         "startLine": 144,
         "startChar": 2,

@@ -87,7 +87,7 @@ class InputVolumeController final {
   // Processes `audio_buffer`. Chooses a digital compression gain and the new
   // input volume to recommend. Must be called after `AnalyzePreProcess()`. If
   // `speech_probability` (range [0.0f, 1.0f]) and `speech_level_dbfs` (range
-  // [-90.f, 30.0f]) are given, uses them to override the estimated RMS error.
+  // [-90.f, 30.0f]) are given, uses them to estimate the RMS error.
   void Process(const AudioBuffer& audio_buffer,
                absl::optional<float> speech_probability,
                absl::optional<float> speech_level_dbfs);
@@ -146,7 +146,7 @@ class InputVolumeController final {
   FRIEND_TEST_ALL_PREFIXES(InputVolumeControllerParametrizedTest,
                            UnusedClippingPredictionsProduceEqualAnalogLevels);
   FRIEND_TEST_ALL_PREFIXES(InputVolumeControllerParametrizedTest,
-                           EmptyRmsErrorOverrideHasNoEffect);
+                           EmptyRmsErrorHasNoEffect);
 
   // Ctor that creates a single channel input volume controller.
   InputVolumeController(const Config& config);
@@ -214,9 +214,9 @@ class MonoInputVolumeController {
   void HandleClipping(int clipped_level_step);
 
   // Analyzes `audio`, updates the recommended input volume based on the
-  // estimated speech level.  Must be called after `HandleClipping()`.
+  // estimated speech level. Must be called after `HandleClipping()`.
   void Process(rtc::ArrayView<const int16_t> audio,
-               absl::optional<int> rms_error_override);
+               absl::optional<int> rms_error);
 
   // Returns the recommended input volume. Must be called after `Process()`.
   int recommended_analog_level() const { return recommended_input_volume_; }

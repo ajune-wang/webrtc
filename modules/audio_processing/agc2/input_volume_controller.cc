@@ -40,10 +40,10 @@ constexpr int kMaxResidualGainChange = 15;
 // Target speech level (dBFs) and speech probability threshold used to compute
 // the RMS error in `GetSpeechLevelErrorDb()`.
 // TODO(webrtc:7494): Move these to a config and pass in the ctor with
-// kOverrideWaitFrames = 100.
-constexpr float kOverrideTargetSpeechLevelDbfs = -18.0f;
-constexpr float kOverrideSpeechProbabilitySilenceThreshold = 0.5f;
-constexpr int kOverrideWaitFrames = 0;
+// kUpdateInputVolumeWaitFrames = 100.
+constexpr float kTargetSpeechLevelDbfs = -18.0f;
+constexpr float kSpeechProbabilitySilenceThreshold = 0.5f;
+constexpr int kUpdateInputVolumeWaitFrames = 0;
 
 using Agc1ClippingPredictorConfig = AudioProcessing::Config::GainController1::
     AnalogGainController::ClippingPredictor;
@@ -151,14 +151,14 @@ int GetSpeechLevelErrorDb(float speech_level_dbfs, float speech_probability) {
   RTC_DCHECK_GE(speech_probability, 0.0f);
   RTC_DCHECK_LE(speech_probability, 1.0f);
 
-  if (speech_probability < kOverrideSpeechProbabilitySilenceThreshold) {
+  if (speech_probability < kSpeechProbabilitySilenceThreshold) {
     return 0;
   }
 
   const float speech_level = rtc::SafeClamp<float>(
       speech_level_dbfs, kMinSpeechLevelDbfs, kMaxSpeechLevelDbfs);
 
-  return std::round(kOverrideTargetSpeechLevelDbfs - speech_level);
+  return std::round(kTargetSpeechLevelDbfs - speech_level);
 }
 
 }  // namespace
@@ -188,9 +188,8 @@ void MonoInputVolumeController::Initialize() {
   is_first_frame_ = true;
 }
 
-void MonoInputVolumeController::Process(
-    rtc::ArrayView<const int16_t> audio,
-    absl::optional<int> rms_error_override) {
+void MonoInputVolumeController::Process(rtc::ArrayView<const int16_t> audio,
+                                        absl::optional<int> rms_error) {
   if (check_volume_on_next_process_) {
     check_volume_on_next_process_ = false;
     // We have to wait until the first process call to check the volume,
@@ -198,13 +197,13 @@ void MonoInputVolumeController::Process(
     CheckVolumeAndReset();
   }
 
-  if (rms_error_override.has_value() && !is_first_frame_ &&
-      frames_since_update_gain_ >= kOverrideWaitFrames) {
-    UpdateGain(*rms_error_override);
+  if (rms_error.has_value() && !is_first_frame_ &&
+      frames_since_update_gain_ >= kUpdateInputVolumeWaitFrames) {
+    UpdateGain(*rms_error);
   }
 
   is_first_frame_ = false;
-  if (frames_since_update_gain_ < kOverrideWaitFrames) {
+  if (frames_since_update_gain_ < kUpdateInputVolumeWaitFrames) {
     ++frames_since_update_gain_;
   }
 }
@@ -515,18 +514,18 @@ void InputVolumeController::Process(const AudioBuffer& audio_buffer,
   }
 
   const size_t num_frames_per_band = audio_buffer.num_frames_per_band();
-  absl::optional<int> rms_error_override = absl::nullopt;
+  absl::optional<int> rms_error = absl::nullopt;
   if (speech_probability.has_value() && speech_level_dbfs.has_value()) {
-    rms_error_override =
-        GetSpeechLevelErrorDb(*speech_level_dbfs, *speech_probability);
+    rms_error = GetSpeechLevelErrorDb(*speech_level_dbfs, *speech_probability);
   }
+
   for (size_t ch = 0; ch < channel_estimators_.size(); ++ch) {
     std::array<int16_t, AudioBuffer::kMaxSampleRate / 100> audio_data;
     int16_t* audio_use = audio_data.data();
     FloatS16ToS16(audio_buffer.split_bands_const_f(ch)[0], num_frames_per_band,
                   audio_use);
     channel_estimators_[ch]->Process({audio_use, num_frames_per_band},
-                                     rms_error_override);
+                                     rms_error);
   }
 
   AggregateChannelLevels();

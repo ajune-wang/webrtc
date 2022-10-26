@@ -101,6 +101,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "db3665cd_01028d2e",
+        "filename": "modules/audio_processing/agc2/input_volume_controller.cc",
+        "patchSetId": 7
+      },
+      "lineNbr": 183,
+      "author": {
+        "id": 5122
+      },
+      "writtenOn": "2022-10-26T10:42:47Z",
+      "side": 1,
+      "message": "as discussed offline, `disable_digital_adaptive_` is not needed anymore if we change parametrization of the input volume controller",
+      "parentUuid": "60b14c1c_15835cab",
+      "range": {
+        "startLine": 183,
+        "startChar": 6,
+        "endLine": 183,
+        "endChar": 58
+      },
+      "revId": "57b7c1aee4823994fde95aa9b361f4791fa36cf3",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "11344adb_3a0278d1",
         "filename": "modules/audio_processing/agc2/input_volume_controller.cc",
         "patchSetId": 7
@@ -136,6 +160,30 @@
       "side": 1,
       "message": "I\u0027ve removed the checks for min/max.",
       "parentUuid": "11344adb_3a0278d1",
+      "range": {
+        "startLine": 190,
+        "startChar": 0,
+        "endLine": 192,
+        "endChar": 41
+      },
+      "revId": "57b7c1aee4823994fde95aa9b361f4791fa36cf3",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "21825984_8b6bbf20",
+        "filename": "modules/audio_processing/agc2/input_volume_controller.cc",
+        "patchSetId": 7
+      },
+      "lineNbr": 192,
+      "author": {
+        "id": 5122
+      },
+      "writtenOn": "2022-10-26T10:42:47Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "7c24781e_a16b23c3",
       "range": {
         "startLine": 190,
         "startChar": 0,
@@ -633,6 +681,30 @@
       "side": 1,
       "message": "This looks like a pure refactoring change. I suggest we revisit this in a later CL.",
       "parentUuid": "fa732e1c_3d8f1683",
+      "range": {
+        "startLine": 178,
+        "startChar": 33,
+        "endLine": 179,
+        "endChar": 59
+      },
+      "revId": "57b7c1aee4823994fde95aa9b361f4791fa36cf3",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "dbb59d30_06c955c6",
+        "filename": "modules/audio_processing/agc2/input_volume_controller.h",
+        "patchSetId": 7
+      },
+      "lineNbr": 179,
+      "author": {
+        "id": 5122
+      },
+      "writtenOn": "2022-10-26T10:42:47Z",
+      "side": 1,
+      "message": "We agreed offline on adding this change in this CL since (i) the digital adaptive part inherited from `AgcManagerDirect` is being removed here and (ii) this CL does introduce a new logic around the target level for the input volume controller.\n\nMy recommendation is to replace `Config::max_digital_gain_db`, `Config::min_digital_gain_db` and `kOverrideTargetSpeechLevelDbfs` with two parameters named `min_target_speech_level_dbfs` and `max_target_speech_level_dbfs`. As clarified offline, it\u0027s just a different formulation of the same adaptation problem which will make it easier to test `InputVolumeController`.",
+      "parentUuid": "baca44d7_4e1a2016",
       "range": {
         "startLine": 178,
         "startChar": 33,

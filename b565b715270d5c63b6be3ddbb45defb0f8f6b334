@@ -16,6 +16,161 @@
       "message": "Thank you for the comments Alessio and Per!",
       "revId": "b565b715270d5c63b6be3ddbb45defb0f8f6b334",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "30d25aef_bf17d341",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 11
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5122
+      },
+      "writtenOn": "2022-10-26T10:42:47Z",
+      "side": 1,
+      "message": "Thanks Hanna! I closed the comments you addressed and added a few ones on the alternative parameterization of InputVolumeController that we discussed offline",
+      "revId": "b565b715270d5c63b6be3ddbb45defb0f8f6b334",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "f455768e_57767db6",
+        "filename": "modules/audio_processing/agc2/input_volume_controller.cc",
+        "patchSetId": 11
+      },
+      "lineNbr": 44,
+      "author": {
+        "id": 5122
+      },
+      "writtenOn": "2022-10-26T10:42:47Z",
+      "side": 1,
+      "message": "remove (see my comment on changing parametrization of the input volume controller)",
+      "range": {
+        "startLine": 44,
+        "startChar": 0,
+        "endLine": 44,
+        "endChar": 56
+      },
+      "revId": "b565b715270d5c63b6be3ddbb45defb0f8f6b334",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "503210d4_9bc265f7",
+        "filename": "modules/audio_processing/agc2/input_volume_controller.h",
+        "patchSetId": 11
+      },
+      "lineNbr": 62,
+      "author": {
+        "id": 5122
+      },
+      "writtenOn": "2022-10-26T10:42:47Z",
+      "side": 1,
+      "message": "Replace with `min_target_speech_level_dbfs` and `max_target_speech_level_dbfs` or remove and add these two new parameters as ctor arguments of `InputVolumeController`.",
+      "range": {
+        "startLine": 59,
+        "startChar": 0,
+        "endLine": 62,
+        "endChar": 32
+      },
+      "revId": "b565b715270d5c63b6be3ddbb45defb0f8f6b334",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "5a5532f3_13173557",
+        "filename": "modules/audio_processing/agc2/input_volume_controller.h",
+        "patchSetId": 11
+      },
+      "lineNbr": 152,
+      "author": {
+        "id": 5122
+      },
+      "writtenOn": "2022-10-26T10:42:47Z",
+      "side": 1,
+      "message": "let\u0027s remove this, the tests can use the ctor in line 68 and explicitly set `num_channels` to 1",
+      "range": {
+        "startLine": 150,
+        "startChar": 0,
+        "endLine": 152,
+        "endChar": 46
+      },
+      "revId": "b565b715270d5c63b6be3ddbb45defb0f8f6b334",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "57f3b116_ff3e2e9d",
+        "filename": "modules/audio_processing/agc2/input_volume_controller.h",
+        "patchSetId": 11
+      },
+      "lineNbr": 185,
+      "author": {
+        "id": 5122
+      },
+      "writtenOn": "2022-10-26T10:42:47Z",
+      "side": 1,
+      "message": "controllers",
+      "range": {
+        "startLine": 185,
+        "startChar": 66,
+        "endLine": 185,
+        "endChar": 76
+      },
+      "revId": "b565b715270d5c63b6be3ddbb45defb0f8f6b334",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "24295096_d2eddd6c",
+        "filename": "modules/audio_processing/agc2/input_volume_controller.h",
+        "patchSetId": 11
+      },
+      "lineNbr": 199,
+      "author": {
+        "id": 5122
+      },
+      "writtenOn": "2022-10-26T10:42:47Z",
+      "side": 1,
+      "message": "remove",
+      "range": {
+        "startLine": 199,
+        "startChar": 28,
+        "endLine": 199,
+        "endChar": 58
+      },
+      "revId": "b565b715270d5c63b6be3ddbb45defb0f8f6b334",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "69906802_d3ba5bf9",
+        "filename": "modules/audio_processing/agc2/input_volume_controller.h",
+        "patchSetId": 11
+      },
+      "lineNbr": 202,
+      "author": {
+        "id": 5122
+      },
+      "writtenOn": "2022-10-26T10:42:47Z",
+      "side": 1,
+      "message": "replace with `min_target_speech_level_dbfs` and `max_target_speech_level_dbfs`",
+      "range": {
+        "startLine": 201,
+        "startChar": 28,
+        "endLine": 202,
+        "endChar": 51
+      },
+      "revId": "b565b715270d5c63b6be3ddbb45defb0f8f6b334",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

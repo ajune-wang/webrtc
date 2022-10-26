@@ -2777,7 +2777,7 @@
       },
       {
         "args": [
-          "--quick"
+          "-- --quick"
         ],
         "isolate_name": "low_bandwidth_audio_test",
         "merge": {
@@ -3236,7 +3236,7 @@
       },
       {
         "args": [
-          "--quick"
+          "-- --quick"
         ],
         "isolate_name": "low_bandwidth_audio_test",
         "merge": {
@@ -3695,7 +3695,7 @@
       },
       {
         "args": [
-          "--quick"
+          "-- --quick"
         ],
         "isolate_name": "low_bandwidth_audio_test",
         "merge": {
@@ -4128,7 +4128,7 @@
       },
       {
         "args": [
-          "--quick"
+          "-- --quick"
         ],
         "isolate_name": "low_bandwidth_audio_test",
         "merge": {
@@ -4561,7 +4561,7 @@
       },
       {
         "args": [
-          "--quick"
+          "-- --quick"
         ],
         "isolate_name": "low_bandwidth_audio_test",
         "merge": {
@@ -5020,7 +5020,7 @@
       },
       {
         "args": [
-          "--quick"
+          "-- --quick"
         ],
         "isolate_name": "low_bandwidth_audio_test",
         "merge": {
@@ -5479,7 +5479,7 @@
       },
       {
         "args": [
-          "--quick"
+          "-- --quick"
         ],
         "isolate_name": "low_bandwidth_audio_test",
         "merge": {
@@ -5913,7 +5913,7 @@
       },
       {
         "args": [
-          "--quick"
+          "-- --quick"
         ],
         "isolate_name": "low_bandwidth_audio_test",
         "merge": {
@@ -6348,7 +6348,7 @@
       },
       {
         "args": [
-          "--quick"
+          "-- --quick"
         ],
         "isolate_name": "low_bandwidth_audio_test",
         "merge": {
@@ -6808,7 +6808,7 @@
       },
       {
         "args": [
-          "--quick"
+          "-- --quick"
         ],
         "isolate_name": "low_bandwidth_audio_test",
         "merge": {
@@ -7295,7 +7295,7 @@
       },
       {
         "args": [
-          "--quick"
+          "-- --quick"
         ],
         "isolate_name": "low_bandwidth_audio_test",
         "merge": {
@@ -7749,7 +7749,7 @@
       },
       {
         "args": [
-          "--quick"
+          "-- --quick"
         ],
         "isolate_name": "low_bandwidth_audio_test",
         "merge": {
@@ -8198,7 +8198,7 @@
       },
       {
         "args": [
-          "--quick"
+          "-- --quick"
         ],
         "isolate_name": "low_bandwidth_audio_test",
         "merge": {
@@ -8653,7 +8653,7 @@
       },
       {
         "args": [
-          "--quick"
+          "-- --quick"
         ],
         "isolate_name": "low_bandwidth_audio_test",
         "merge": {
@@ -9115,7 +9115,7 @@
       },
       {
         "args": [
-          "--quick"
+          "-- --quick"
         ],
         "isolate_name": "low_bandwidth_audio_test",
         "merge": {
@@ -9570,7 +9570,7 @@
       },
       {
         "args": [
-          "--quick"
+          "-- --quick"
         ],
         "isolate_name": "low_bandwidth_audio_test",
         "merge": {

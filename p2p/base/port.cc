@@ -207,6 +207,7 @@ void Port::SetIceRole(IceRole role) {
 void Port::SetIceTiebreaker(uint64_t tiebreaker) {
   tiebreaker_ = tiebreaker;
 }
+
 uint64_t Port::IceTiebreaker() const {
   return tiebreaker_;
 }

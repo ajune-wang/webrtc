@@ -207,6 +207,7 @@ void Port::SetIceRole(IceRole role) {
 void Port::SetIceTiebreaker(uint64_t tiebreaker) {
   tiebreaker_ = tiebreaker;
 }
+
 uint64_t Port::IceTiebreaker() const {
   return tiebreaker_;
 }
@@ -262,7 +263,6 @@ void Port::AddAddress(const rtc::SocketAddress& address,
   if (protocol == TCP_PROTOCOL_NAME && type == LOCAL_PORT_TYPE) {
     RTC_DCHECK(!tcptype.empty());
   }
-
   std::string foundation =
       ComputeFoundation(type, protocol, relay_protocol, base_address);
   Candidate c(component_, protocol, address, 0U, username_fragment(), password_,

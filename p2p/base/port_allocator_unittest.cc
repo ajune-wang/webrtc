@@ -25,6 +25,7 @@ static const char kIceUfrag[] = "UF00";
 static const char kIcePwd[] = "TESTICEPWD00000000000000";
 static const char kTurnUsername[] = "test";
 static const char kTurnPassword[] = "test";
+constexpr uint64_t kTiebreakerDefault = 44444;
 
 class PortAllocatorTest : public ::testing::Test, public sigslot::has_slots<> {
  public:
@@ -35,7 +36,9 @@ class PortAllocatorTest : public ::testing::Test, public sigslot::has_slots<> {
             std::make_unique<rtc::BasicPacketSocketFactory>(vss_.get())),
         allocator_(std::make_unique<cricket::FakePortAllocator>(
             rtc::Thread::Current(),
-            packet_socket_factory_.get())) {}
+            packet_socket_factory_.get())) {
+    allocator_->SetIceTiebreaker(kTiebreakerDefault);
+  }
 
  protected:
   void SetConfigurationWithPoolSize(int candidate_pool_size) {
@@ -135,6 +138,7 @@ TEST_F(PortAllocatorTest, SetConfigurationUpdatesIceServers) {
 
 TEST_F(PortAllocatorTest, SetConfigurationUpdatesCandidatePoolSize) {
   SetConfigurationWithPoolSize(2);
+  RTC_LOG(LS_ERROR) << "YO";
   EXPECT_EQ(2, allocator_->candidate_pool_size());
   SetConfigurationWithPoolSize(3);
   EXPECT_EQ(3, allocator_->candidate_pool_size());

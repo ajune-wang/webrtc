@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "663c4808_7c35b226",
+        "filename": "p2p/base/fake_port_allocator.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 112,
+      "author": {
+        "id": 19549
+      },
+      "writtenOn": "2022-10-27T09:28:34Z",
+      "side": 1,
+      "message": "since this is a header file, declaring it (even in an anonymous namespace) leaks into other files :-(",
+      "revId": "481c92823e4b1a399e8a8e7b0713d6ccc0afb75c",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

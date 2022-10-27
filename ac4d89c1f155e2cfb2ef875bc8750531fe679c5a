@@ -33,6 +33,24 @@
       "message": "this actually needs the DCHECK added, I\u0027ve run them with that locally.\nIt is not clear if we can enforce that however if there are \"downstream users\".",
       "revId": "ac4d89c1f155e2cfb2ef875bc8750531fe679c5a",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "f4359858_ab261126",
+        "filename": "p2p/base/port.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 104,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2022-10-27T10:33:40Z",
+      "side": 1,
+      "message": "Let\u0027s add the DCHECK as a separate CL. That way, \"downstream\" only needs that little CL rolled back until it\u0027s fixed (if it fails).",
+      "parentUuid": "1002790a_ca2c23ee",
+      "revId": "ac4d89c1f155e2cfb2ef875bc8750531fe679c5a",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

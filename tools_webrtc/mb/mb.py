@@ -86,7 +86,12 @@ class WebRTCMetaBuildWrapper(mb.MetaBuildWrapper):
           '--logcat-output-file', '${ISOLATED_OUTDIR}/logcats',
           '--store-tombstones'
       ]
-    elif is_ios or is_fuchsia:
+    elif is_fuchsia:
+      cmdline += [
+          vpython_exe, '../../tools_webrtc/flags_compatibility.py',
+          'bin/run_%s' % target
+      ]
+    elif is_ios:
       cmdline += [
           vpython_exe, '../../tools_webrtc/flags_compatibility.py',
           'bin/run_%s' % target

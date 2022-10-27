@@ -1067,7 +1067,7 @@ TEST_F(AcmSenderBitExactnessOldApi, Pcm16_8000khz_10ms) {
 
 TEST_F(AcmSenderBitExactnessOldApi, Pcm16_16000khz_10ms) {
   ASSERT_NO_FATAL_FAILURE(SetUpTest("L16", 16000, 1, 108, 160, 160));
-  Run(/*audio_checksum_ref=*/"bc6ab94d12a464921763d7544fdbd07e",
+  Run(/*audio_checksum_ref=*/"f95c87bdd33f631bcf80f4b19445bbd2",
       /*payload_checksum_ref=*/"ad786526383178b08d80d6eee06e9bad",
       /*expected_packets=*/100,
       /*expected_channels=*/test::AcmReceiveTestOldApi::kMonoOutput);
@@ -1151,7 +1151,7 @@ TEST_F(AcmSenderBitExactnessOldApi, Ilbc_30ms) {
 #if defined(WEBRTC_LINUX) && defined(WEBRTC_ARCH_X86_64)
 TEST_F(AcmSenderBitExactnessOldApi, G722_20ms) {
   ASSERT_NO_FATAL_FAILURE(SetUpTest("G722", 16000, 1, 9, 320, 160));
-  Run(/*audio_checksum_ref=*/"a87a91ec0124510a64967f5d768554ff",
+  Run(/*audio_checksum_ref=*/"f5264affff25cf2cbd2e1e8a5217f9a3",
       /*payload_checksum_ref=*/"fc68a87e1380614e658087cb35d5ca10",
       /*expected_packets=*/50,
       /*expected_channels=*/test::AcmReceiveTestOldApi::kMonoOutput);

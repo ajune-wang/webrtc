@@ -16,6 +16,24 @@
       "message": "I wanted to make this ABSL_DEPRECATED() but not sure you can do that with public bool parameters?",
       "revId": "57770158c084f02f21ef4020db587ee3efb56609",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "c5983584_cbde0d18",
+        "filename": "api/peer_connection_interface.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 431,
+      "author": {
+        "id": 5142
+      },
+      "writtenOn": "2022-10-27T11:38:46Z",
+      "side": 1,
+      "message": "Tried to do \"using\" but it didn\u0027t work. I think this is fine though since there is almost no usage of this in C++",
+      "parentUuid": "0b08ab94_98b801c7",
+      "revId": "57770158c084f02f21ef4020db587ee3efb56609",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

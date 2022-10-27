@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "fd8ce973_fcd26432",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 7036
+      },
+      "writtenOn": "2022-10-27T19:45:47Z",
+      "side": 1,
+      "message": "Hopefully, this could remove the need to have special mappings for libc++.\nCould you test this on your side and tell me if there are more adjustments to make?",
+      "revId": "94831ee9a8fe3cec4ff3107f16c0097a94ce9e64",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

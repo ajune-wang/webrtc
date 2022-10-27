@@ -21,6 +21,7 @@ def main():
   args, unrecognized_args = parser.parse_known_args()
 
   test_command = _ForcePythonInterpreter(unrecognized_args)
+  test_command += ['-- ']
   if args.isolated_script_test_output:
     test_command += [
         '--isolated_script_test_output', args.isolated_script_test_output

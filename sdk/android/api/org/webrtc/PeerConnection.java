@@ -524,7 +524,6 @@ public class PeerConnection {
 
     // These values will be overridden by MediaStream constraints if deprecated constraints-based
     // create peerconnection interface is used.
-    public boolean disableIpv6;
     public boolean enableDscp;
     public boolean enableCpuOveruseDetection;
     public boolean suspendBelowMinBitrate;
@@ -767,11 +766,6 @@ public class PeerConnection {
     @CalledByNative("RTCConfiguration")
     TurnCustomizer getTurnCustomizer() {
       return turnCustomizer;
-    }
-
-    @CalledByNative("RTCConfiguration")
-    boolean getDisableIpv6() {
-      return disableIpv6;
     }
 
     @CalledByNative("RTCConfiguration")

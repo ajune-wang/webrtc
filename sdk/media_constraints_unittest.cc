@@ -36,18 +36,6 @@ TEST(MediaConstraints, CopyConstraintsIntoRtcConfiguration) {
   CopyConstraintsIntoRtcConfiguration(&constraints_empty, &configuration);
   EXPECT_TRUE(Matches(old_configuration, configuration));
 
-  const MediaConstraints constraits_enable_ipv6(
-      {MediaConstraints::Constraint(MediaConstraints::kEnableIPv6, "true")},
-      {});
-  CopyConstraintsIntoRtcConfiguration(&constraits_enable_ipv6, &configuration);
-  EXPECT_FALSE(configuration.disable_ipv6);
-  const MediaConstraints constraints_disable_ipv6(
-      {MediaConstraints::Constraint(MediaConstraints::kEnableIPv6, "false")},
-      {});
-  CopyConstraintsIntoRtcConfiguration(&constraints_disable_ipv6,
-                                      &configuration);
-  EXPECT_TRUE(configuration.disable_ipv6);
-
   const MediaConstraints constraints_screencast(
       {MediaConstraints::Constraint(MediaConstraints::kScreencastMinBitrate,
                                     "27")},

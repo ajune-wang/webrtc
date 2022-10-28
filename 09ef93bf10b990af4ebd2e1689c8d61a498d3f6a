@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "e08cac9b_7af8e58a",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 12
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 17719
+      },
+      "writtenOn": "2022-10-28T12:20:52Z",
+      "side": 1,
+      "message": "Thank you Alessio! I\u0027ve addressed your comments, can you please take a look?",
+      "revId": "09ef93bf10b990af4ebd2e1689c8d61a498d3f6a",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

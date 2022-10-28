@@ -169,6 +169,30 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "e61b968e_fc9e960c",
+        "filename": "modules/audio_processing/agc2/input_volume_controller.h",
+        "patchSetId": 11
+      },
+      "lineNbr": 152,
+      "author": {
+        "id": 17719
+      },
+      "writtenOn": "2022-10-28T12:20:52Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "5a5532f3_13173557",
+      "range": {
+        "startLine": 150,
+        "startChar": 0,
+        "endLine": 152,
+        "endChar": 46
+      },
+      "revId": "b565b715270d5c63b6be3ddbb45defb0f8f6b334",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "57f3b116_ff3e2e9d",
@@ -192,6 +216,30 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "766e6dd4_dec03200",
+        "filename": "modules/audio_processing/agc2/input_volume_controller.h",
+        "patchSetId": 11
+      },
+      "lineNbr": 185,
+      "author": {
+        "id": 17719
+      },
+      "writtenOn": "2022-10-28T12:20:52Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "57f3b116_ff3e2e9d",
+      "range": {
+        "startLine": 185,
+        "startChar": 66,
+        "endLine": 185,
+        "endChar": 76
+      },
+      "revId": "b565b715270d5c63b6be3ddbb45defb0f8f6b334",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "24295096_d2eddd6c",
@@ -205,6 +253,30 @@
       "writtenOn": "2022-10-26T10:42:47Z",
       "side": 1,
       "message": "remove",
+      "range": {
+        "startLine": 199,
+        "startChar": 28,
+        "endLine": 199,
+        "endChar": 58
+      },
+      "revId": "b565b715270d5c63b6be3ddbb45defb0f8f6b334",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "4d26b97a_e7831b0b",
+        "filename": "modules/audio_processing/agc2/input_volume_controller.h",
+        "patchSetId": 11
+      },
+      "lineNbr": 199,
+      "author": {
+        "id": 17719
+      },
+      "writtenOn": "2022-10-28T12:20:52Z",
+      "side": 1,
+      "message": "This will be done in https://webrtc-review.googlesource.com/c/src/+/280962",
+      "parentUuid": "24295096_d2eddd6c",
       "range": {
         "startLine": 199,
         "startChar": 28,

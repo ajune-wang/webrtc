@@ -16,6 +16,138 @@
       "message": "Thank you Alessio! I\u0027ve addressed your comments, can you please take a look?",
       "revId": "09ef93bf10b990af4ebd2e1689c8d61a498d3f6a",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "20f29f2f_c061bd20",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 12
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5122
+      },
+      "writtenOn": "2022-10-28T13:03:34Z",
+      "side": 1,
+      "message": "Awesome work Hanna! I added my last comments. In particular, there is one simplification that can be done at this stage, it saves CPU and doesn\u0027t require any uint test changes.",
+      "revId": "09ef93bf10b990af4ebd2e1689c8d61a498d3f6a",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "c75491fb_f649c4c3",
+        "filename": "modules/audio_processing/agc2/input_volume_controller.cc",
+        "patchSetId": 12
+      },
+      "lineNbr": 203,
+      "author": {
+        "id": 5122
+      },
+      "writtenOn": "2022-10-28T13:03:34Z",
+      "side": 1,
+      "message": "No need to answer if the following is correct.\n\nI checked the unit tests, `rms_error_override` is always specified. But as you clarified, we want that this CL is an intermediate step so that the unit test changes are limited and that gives us confidence that no bug is added in the porting process.\n\nThe necessary simplifications around `rms_error_override` are done in a follow-up CL (namely, https://webrtc-review.googlesource.com/c/src/+/280481).",
+      "range": {
+        "startLine": 202,
+        "startChar": 2,
+        "endLine": 203,
+        "endChar": 39
+      },
+      "revId": "09ef93bf10b990af4ebd2e1689c8d61a498d3f6a",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "5d485a66_21d8bf39",
+        "filename": "modules/audio_processing/agc2/input_volume_controller.cc",
+        "patchSetId": 12
+      },
+      "lineNbr": 524,
+      "author": {
+        "id": 5122
+      },
+      "writtenOn": "2022-10-28T13:03:34Z",
+      "side": 1,
+      "message": "not needed",
+      "range": {
+        "startLine": 524,
+        "startChar": 40,
+        "endLine": 524,
+        "endChar": 56
+      },
+      "revId": "09ef93bf10b990af4ebd2e1689c8d61a498d3f6a",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "ecf05621_9123df09",
+        "filename": "modules/audio_processing/agc2/input_volume_controller.cc",
+        "patchSetId": 12
+      },
+      "lineNbr": 536,
+      "author": {
+        "id": 5122
+      },
+      "writtenOn": "2022-10-28T13:03:34Z",
+      "side": 1,
+      "message": "This can be simplified and the existing tests will pass:\n- Just call `channel_controllers_[ch]-\u003eProcess(rms_error_override)`\n- No need to use the split-band filter\n\nThat\u0027s because `MonoInputVolumeController::Process()` doesn\u0027t use its first argument (namely, `audio`).\n\nIn this way, AGC2 will work in full-band and we will finally eliminate the extra cost of working in the split-band domain.",
+      "range": {
+        "startLine": 529,
+        "startChar": 0,
+        "endLine": 536,
+        "endChar": 3
+      },
+      "revId": "09ef93bf10b990af4ebd2e1689c8d61a498d3f6a",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "8f7566af_47a4073c",
+        "filename": "modules/audio_processing/agc2/input_volume_controller_unittest.cc",
+        "patchSetId": 12
+      },
+      "lineNbr": 61,
+      "author": {
+        "id": 5122
+      },
+      "writtenOn": "2022-10-28T13:03:34Z",
+      "side": 1,
+      "message": "address TODO",
+      "range": {
+        "startLine": 58,
+        "startChar": 0,
+        "endLine": 61,
+        "endChar": 68
+      },
+      "revId": "09ef93bf10b990af4ebd2e1689c8d61a498d3f6a",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "583d4d0f_03cbcf88",
+        "filename": "modules/audio_processing/agc2/input_volume_controller_unittest.cc",
+        "patchSetId": 12
+      },
+      "lineNbr": 1508,
+      "author": {
+        "id": 5122
+      },
+      "writtenOn": "2022-10-28T13:03:34Z",
+      "side": 1,
+      "message": "kInputVolume\n\nWhen possible, especially when new code is added, let\u0027s use the new naming convention.",
+      "range": {
+        "startLine": 1508,
+        "startChar": 16,
+        "endLine": 1508,
+        "endChar": 28
+      },
+      "revId": "09ef93bf10b990af4ebd2e1689c8d61a498d3f6a",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

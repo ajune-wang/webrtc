@@ -276,7 +276,6 @@ class HardwareVideoEncoder implements VideoEncoder {
         textureEglBase = EglBase.createEgl14(sharedContext, EglBase.CONFIG_RECORDABLE);
         textureInputSurface = codec.createInputSurface();
         textureEglBase.createSurface(textureInputSurface);
-        textureEglBase.makeCurrent();
       }
 
       MediaFormat inputFormat = codec.getInputFormat();
@@ -320,6 +319,9 @@ class HardwareVideoEncoder implements VideoEncoder {
       }
     }
 
+    if (useSurfaceMode && textureEglBase != null) {
+      textureEglBase.makeCurrent();
+    }
     textureDrawer.release();
     videoFrameDrawer.release();
     if (textureEglBase != null) {
@@ -351,12 +353,10 @@ class HardwareVideoEncoder implements VideoEncoder {
     final VideoFrame.Buffer videoFrameBuffer = videoFrame.getBuffer();
     final boolean isTextureBuffer = videoFrameBuffer instanceof VideoFrame.TextureBuffer;
 
-    // If input resolution changed, restart the codec with the new resolution.
-    final int frameWidth = videoFrame.getBuffer().getWidth();
-    final int frameHeight = videoFrame.getBuffer().getHeight();
+    // If useSurfaceMode changed, restart the codec with the new resolution.
     final boolean shouldUseSurfaceMode = canUseSurface() && isTextureBuffer;
-    if (frameWidth != width || frameHeight != height || shouldUseSurfaceMode != useSurfaceMode) {
-      VideoCodecStatus status = resetCodec(frameWidth, frameHeight, shouldUseSurfaceMode);
+    if (shouldUseSurfaceMode != useSurfaceMode) {
+      VideoCodecStatus status = resetCodec(width, height, shouldUseSurfaceMode);
       if (status != VideoCodecStatus.OK) {
         return status;
       }
@@ -396,8 +396,10 @@ class HardwareVideoEncoder implements VideoEncoder {
     nextPresentationTimestampUs += frameDurationUs;
 
     final VideoCodecStatus returnValue;
-    if (useSurfaceMode) {
+    if (useSurfaceMode && textureEglBase != null) {
+      textureEglBase.makeCurrent();
       returnValue = encodeTextureBuffer(videoFrame, presentationTimestampUs);
+      textureEglBase.detachCurrent();
     } else {
       returnValue =
           encodeByteBuffer(videoFrame, presentationTimestampUs, videoFrameBuffer, bufferSize);
@@ -422,7 +424,8 @@ class HardwareVideoEncoder implements VideoEncoder {
       // It is not necessary to release this frame because it doesn't own the buffer.
       VideoFrame derotatedFrame =
           new VideoFrame(videoFrame.getBuffer(), 0 /* rotation */, videoFrame.getTimestampNs());
-      videoFrameDrawer.drawFrame(derotatedFrame, textureDrawer, null /* additionalRenderMatrix */);
+      videoFrameDrawer.drawFrame(
+          derotatedFrame, textureDrawer, null /* additionalRenderMatrix */, 0, 0, width, height);
       textureEglBase.swapBuffers(TimeUnit.MICROSECONDS.toNanos(presentationTimestampUs));
     } catch (RuntimeException e) {
       Logging.e(TAG, "encodeTexture failed", e);

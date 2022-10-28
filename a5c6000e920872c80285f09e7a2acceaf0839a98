@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "bec4fcc2_08004caa",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 2
+      },
+      "lineNbr": 11,
+      "author": {
+        "id": 18474
+      },
+      "writtenOn": "2022-10-28T18:37:34Z",
+      "side": 1,
+      "message": "Can you link to the broken builder/are you sure about the line number?\n\nmodules/portal/BUILD.gn was new; and only looks to be included when rtc_use_pipewire is true. However, almost all of the includes seem to be \"is_linux || is_chromeos\" rather than just Linux, so I\u0027d suspect that to be the assert that was giving an issue.",
+      "range": {
+        "startLine": 11,
+        "startChar": 19,
+        "endLine": 11,
+        "endChar": 131
+      },
+      "revId": "a5c6000e920872c80285f09e7a2acceaf0839a98",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

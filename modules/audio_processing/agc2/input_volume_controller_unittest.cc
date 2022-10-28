@@ -45,7 +45,7 @@ constexpr int kClippedWaitFrames = 300;
 constexpr float kHighSpeechProbability = 0.7f;
 constexpr float kSpeechLevel = -25.0f;
 constexpr int kMaxDigitalGainDb = 12;
-constexpr int kMinDigitalGainDb = 2;
+constexpr int kMinDigitalGainDb = 0;
 
 constexpr float kMinSample = std::numeric_limits<int16_t>::min();
 constexpr float kMaxSample = std::numeric_limits<int16_t>::max();
@@ -521,11 +521,11 @@ TEST_P(InputVolumeControllerParametrizedTest, MicVolumeResponseToRmsError) {
   // Above the digital gain's  window; volume should be increased.
   helper.CallProcess(/*num_calls=*/1, speech_probability,
                      GetValueOrEmpty(-29.0f));
-  EXPECT_EQ(130, helper.manager.recommended_analog_level());
+  EXPECT_EQ(128, helper.manager.recommended_analog_level());
 
   helper.CallProcess(/*num_calls=*/1, speech_probability,
                      GetValueOrEmpty(-38.0f));
-  EXPECT_EQ(168, helper.manager.recommended_analog_level());
+  EXPECT_EQ(156, helper.manager.recommended_analog_level());
 
   // Inside the digital gain's window; no change of volume.
   helper.CallProcess(/*num_calls=*/1, speech_probability,
@@ -536,15 +536,15 @@ TEST_P(InputVolumeControllerParametrizedTest, MicVolumeResponseToRmsError) {
   // Below the digial gain's window; volume should be decreased.
   helper.CallProcess(/*num_calls=*/1, speech_probability,
                      GetValueOrEmpty(-17.0f));
-  EXPECT_EQ(167, helper.manager.recommended_analog_level());
+  EXPECT_EQ(155, helper.manager.recommended_analog_level());
 
   helper.CallProcess(/*num_calls=*/1, speech_probability,
                      GetValueOrEmpty(-17.0f));
-  EXPECT_EQ(163, helper.manager.recommended_analog_level());
+  EXPECT_EQ(151, helper.manager.recommended_analog_level());
 
   helper.CallProcess(/*num_calls=*/1, speech_probability,
                      GetValueOrEmpty(-9.0f));
-  EXPECT_EQ(129, helper.manager.recommended_analog_level());
+  EXPECT_EQ(119, helper.manager.recommended_analog_level());
 }
 
 TEST_P(InputVolumeControllerParametrizedTest, MicVolumeIsLimited) {
@@ -711,14 +711,14 @@ TEST_P(InputVolumeControllerParametrizedTest,
   helper.CallProcess(/*num_calls=*/1, speech_probability,
                      GetValueOrEmpty(-38.0f));
 
-  EXPECT_EQ(69, helper.manager.recommended_analog_level());
+  EXPECT_EQ(65, helper.manager.recommended_analog_level());
 }
 
 // Checks that, when the min mic level override is not specified, AGC ramps up
 // towards the minimum mic level after the mic level is manually set below the
 // minimum gain to enforce.
 TEST_P(InputVolumeControllerParametrizedTest,
-       RecoveryAfterManualLevelChangeBelowMinWithoutMiMicLevelnOverride) {
+       RecoveryAfterManualLevelChangeBelowMinWithoutMinMicLevelOverride) {
   if (IsMinMicLevelOverridden()) {
     GTEST_SKIP() << "Skipped. Min mic level overridden.";
   }
@@ -739,15 +739,15 @@ TEST_P(InputVolumeControllerParametrizedTest,
   // Continues working as usual afterwards.
   helper.CallProcess(/*num_calls=*/1, speech_probability,
                      GetValueOrEmpty(-29.0f));
-  EXPECT_EQ(2, helper.manager.recommended_analog_level());
+  EXPECT_EQ(1, helper.manager.recommended_analog_level());
 
   helper.CallProcess(/*num_calls=*/1, speech_probability,
                      GetValueOrEmpty(-48.0f));
-  EXPECT_EQ(11, helper.manager.recommended_analog_level());
+  EXPECT_EQ(10, helper.manager.recommended_analog_level());
 
   helper.CallProcess(/*num_calls=*/1, speech_probability,
                      GetValueOrEmpty(-38.0f));
-  EXPECT_EQ(18, helper.manager.recommended_analog_level());
+  EXPECT_EQ(16, helper.manager.recommended_analog_level());
 }
 
 // Checks that, when the min mic level override is specified, AGC immediately

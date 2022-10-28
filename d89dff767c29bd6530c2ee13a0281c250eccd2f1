@@ -22,6 +22,30 @@
       },
       "revId": "d89dff767c29bd6530c2ee13a0281c250eccd2f1",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "db714395_70491446",
+        "filename": "modules/audio_processing/agc2/adaptive_digital_gain_controller.h",
+        "patchSetId": 4
+      },
+      "lineNbr": 56,
+      "author": {
+        "id": 5122
+      },
+      "writtenOn": "2022-10-28T08:31:35Z",
+      "side": 0,
+      "message": "Sure!",
+      "parentUuid": "f667f0e3_5d914045",
+      "range": {
+        "startLine": 56,
+        "startChar": 2,
+        "endLine": 56,
+        "endChar": 55
+      },
+      "revId": "d89dff767c29bd6530c2ee13a0281c250eccd2f1",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

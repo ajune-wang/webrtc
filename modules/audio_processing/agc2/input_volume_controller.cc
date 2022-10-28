@@ -41,7 +41,6 @@ constexpr int kMaxResidualGainChange = 15;
 // the RMS error in `GetSpeechLevelErrorDb()`.
 // TODO(webrtc:7494): Move these to a config and pass in the ctor with
 // kUpdateInputVolumeWaitFrames = 100.
-constexpr float kTargetSpeechLevelDbfs = -18.0f;
 constexpr float kSpeechProbabilitySilenceThreshold = 0.5f;
 constexpr int kUpdateInputVolumeWaitFrames = 0;
 
@@ -140,10 +139,13 @@ void LogClippingMetrics(int clipping_rate) {
                               /*bucket_count=*/50);
 }
 
-// Computes the speech level error in dB. `speech_level_dbfs` is required to be
-// in the range [-90.0f, 30.0f] and `speech_probability` in the range
-// [0.0f, 1.0f].
-int GetSpeechLevelErrorDb(float speech_level_dbfs, float speech_probability) {
+// Computes the speech level error in dB. The value of `speech_level_dbfs` is
+// required to be in the range [-90.0f, 30.0f] and `speech_probability` in the
+// range [0.0f, 1.0f].
+int GetSpeechLevelErrorDb(float speech_level_dbfs,
+                          float speech_probability,
+                          int target_range_min_dbfs,
+                          int target_range_max_dbfs) {
   constexpr float kMinSpeechLevelDbfs = -90.0f;
   constexpr float kMaxSpeechLevelDbfs = 30.0f;
   RTC_DCHECK_GE(speech_level_dbfs, kMinSpeechLevelDbfs);
@@ -151,24 +153,33 @@ int GetSpeechLevelErrorDb(float speech_level_dbfs, float speech_probability) {
   RTC_DCHECK_GE(speech_probability, 0.0f);
   RTC_DCHECK_LE(speech_probability, 1.0f);
 
+  // TODO(webrtc:7494): Replace with the use of `SpeechProbabilityBuffer`.
   if (speech_probability < kSpeechProbabilitySilenceThreshold) {
     return 0;
   }
 
+  // Ensure the speech level is in the range [-90.0f, 30.0f].
   const float speech_level = rtc::SafeClamp<float>(
       speech_level_dbfs, kMinSpeechLevelDbfs, kMaxSpeechLevelDbfs);
 
-  return std::round(kTargetSpeechLevelDbfs - speech_level);
+  // Compute the speech level distance to the target range
+  // [`target_range_min_dbfs`, `target_range_max_dbfs`].
+  int rms_error = 0;
+  if (speech_level > target_range_max_dbfs) {
+    rms_error = std::round(target_range_max_dbfs - speech_level);
+  } else if (speech_level < target_range_min_dbfs) {
+    rms_error = std::round(target_range_min_dbfs - speech_level);
+  }
+
+  return rms_error;
 }
 
 }  // namespace
 
 MonoInputVolumeController::MonoInputVolumeController(int startup_min_level,
                                                      int clipped_level_min,
-                                                     int min_mic_level,
-                                                     int max_digital_gain_db)
+                                                     int min_mic_level)
     : min_mic_level_(min_mic_level),
-      max_digital_gain_db_(max_digital_gain_db),
       max_level_(kMaxMicLevel),
       startup_min_level_(ClampLevel(startup_min_level, min_mic_level_)),
       clipped_level_min_(clipped_level_min) {}
@@ -194,7 +205,7 @@ void MonoInputVolumeController::Process(rtc::ArrayView<const int16_t> audio,
 
   if (rms_error.has_value() && !is_first_frame_ &&
       frames_since_update_gain_ >= kUpdateInputVolumeWaitFrames) {
-    UpdateGain(*rms_error);
+    UpdateInputVolume(*rms_error);
   }
 
   is_first_frame_ = false;
@@ -319,25 +330,16 @@ int MonoInputVolumeController::CheckVolumeAndReset() {
   return 0;
 }
 
-// Distributes the required gain change between the digital compression stage
-// and volume slider. We use the compressor first, providing a slack region
-// around the current slider position to reduce movement.
-//
-// If the slider needs to be moved, we check first if the user has adjusted
-// it, in which case we take no action and cache the updated level.
-void MonoInputVolumeController::UpdateGain(int rms_error_db) {
-  int rms_error = rms_error_db;
-
+// Updates the recommended input volume. If the volume slider needs to be moved,
+// we check first if the user has adjusted it, in which case we take no action
+// and cache the updated level.
+void MonoInputVolumeController::UpdateInputVolume(int rms_error) {
   // Always reset the counter regardless of whether the gain is changed
   // or not.
   frames_since_update_gain_ = 0;
 
-  int raw_digital_gain = 0;
-  raw_digital_gain = rtc::SafeClamp(rms_error, 0, max_digital_gain_db_);
-
-  const int residual_gain =
-      rtc::SafeClamp(rms_error - raw_digital_gain, -kMaxResidualGainChange,
-                     kMaxResidualGainChange);
+  const int residual_gain = rtc::SafeClamp(rms_error, -kMaxResidualGainChange,
+                                           kMaxResidualGainChange);
 
   RTC_DLOG(LS_INFO) << "[agc] rms_error=" << rms_error
                     << ", residual_gain=" << residual_gain;
@@ -376,7 +378,9 @@ InputVolumeController::InputVolumeController(int num_capture_channels,
           CreateClippingPredictorConfig(config.enable_clipping_predictor)
               .use_predicted_step),
       clipping_rate_log_(0.0f),
-      clipping_rate_log_counter_(0) {
+      clipping_rate_log_counter_(0),
+      target_range_max_dbfs_(config.target_range_max_dbfs),
+      target_range_min_dbfs_(config.target_range_min_dbfs) {
   RTC_LOG(LS_INFO) << "[agc] analog controller enabled: "
                    << (analog_controller_enabled_ ? "yes" : "no");
   const int min_mic_level = min_mic_level_override_.value_or(kMinMicLevel);
@@ -388,8 +392,7 @@ InputVolumeController::InputVolumeController(int num_capture_channels,
 
   for (auto& estimator : channel_estimators_) {
     estimator = std::make_unique<MonoInputVolumeController>(
-        config.startup_min_volume, config.clipped_level_min, min_mic_level,
-        config.max_digital_gain_db);
+        config.startup_min_volume, config.clipped_level_min, min_mic_level);
   }
 
   RTC_DCHECK(!channel_estimators_.empty());
@@ -505,7 +508,9 @@ void InputVolumeController::Process(const AudioBuffer& audio_buffer,
   const size_t num_frames_per_band = audio_buffer.num_frames_per_band();
   absl::optional<int> rms_error = absl::nullopt;
   if (speech_probability.has_value() && speech_level_dbfs.has_value()) {
-    rms_error = GetSpeechLevelErrorDb(*speech_level_dbfs, *speech_probability);
+    rms_error =
+        GetSpeechLevelErrorDb(*speech_level_dbfs, *speech_probability,
+                              target_range_min_dbfs_, target_range_max_dbfs_);
   }
 
   for (size_t ch = 0; ch < channel_estimators_.size(); ++ch) {

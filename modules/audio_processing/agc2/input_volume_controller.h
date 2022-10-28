@@ -54,8 +54,16 @@ class InputVolumeController final {
     int clipped_wait_frames = 300;
     // Enables clipping prediction functionality.
     bool enable_clipping_predictor = false;
-    // Maximum digital gain used before input volume is adjusted.
-    int max_digital_gain_db = 30;
+    // Speech level target range (dBFs). If the speech level is in the range
+    // [`target_range_min_dbfs`, `target_range_max_dbfs`], no input volume
+    // adjustments are done. For speech levels below and above the range,
+    // the targets `target_range_min_dbfs` and `target_range_max_dbfs` are used,
+    // respectively. The example values `target_range_max_dbfs` -18 and
+    // `target_range_min_dbfs` -48 refer to a configuration with a
+    // zero-digital-gain target -18 dBFs and the digital gain controller
+    // compensating for the speech level RMS error up to -30 dB.
+    int target_range_max_dbfs = -18;
+    int target_range_min_dbfs = -48;
   };
 
   // Ctor. `num_capture_channels` specifies the number of channels for the audio
@@ -181,6 +189,13 @@ class InputVolumeController final {
   const bool use_clipping_predictor_step_;
   float clipping_rate_log_;
   int clipping_rate_log_counter_;
+
+  // Target range minimum and maximum. If the seech level is in the range
+  // [`target_range_min_dbfs`, `target_range_max_dbfs`], no volume adjustments
+  // take place. Instead, the digital gain controller is assumed to adapt to
+  // compensate for the speech level RMS error.
+  const int target_range_max_dbfs_;
+  const int target_range_min_dbfs_;
 };
 
 // TODO(bugs.webrtc.org/7494): Use applied/recommended input volume naming
@@ -189,8 +204,7 @@ class MonoInputVolumeController {
  public:
   MonoInputVolumeController(int startup_min_level,
                             int clipped_level_min,
-                            int min_mic_level,
-                            int max_digital_gain_db);
+                            int min_mic_level);
   ~MonoInputVolumeController();
   MonoInputVolumeController(const MonoInputVolumeController&) = delete;
   MonoInputVolumeController& operator=(const MonoInputVolumeController&) =
@@ -231,11 +245,9 @@ class MonoInputVolumeController {
   void SetMaxLevel(int level);
 
   int CheckVolumeAndReset();
-  void UpdateGain(int rms_error_db);
+  void UpdateInputVolume(int rms_error);
 
   const int min_mic_level_;
-
-  const int max_digital_gain_db_;
 
   int level_ = 0;
   int max_level_;

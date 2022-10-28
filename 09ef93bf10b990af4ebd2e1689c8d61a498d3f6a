@@ -81,6 +81,30 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "b5cbf5bd_e7b0c810",
+        "filename": "modules/audio_processing/agc2/input_volume_controller.cc",
+        "patchSetId": 12
+      },
+      "lineNbr": 524,
+      "author": {
+        "id": 17719
+      },
+      "writtenOn": "2022-10-28T13:37:36Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "5d485a66_21d8bf39",
+      "range": {
+        "startLine": 524,
+        "startChar": 40,
+        "endLine": 524,
+        "endChar": 56
+      },
+      "revId": "09ef93bf10b990af4ebd2e1689c8d61a498d3f6a",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "ecf05621_9123df09",
@@ -94,6 +118,30 @@
       "writtenOn": "2022-10-28T13:03:34Z",
       "side": 1,
       "message": "This can be simplified and the existing tests will pass:\n- Just call `channel_controllers_[ch]-\u003eProcess(rms_error_override)`\n- No need to use the split-band filter\n\nThat\u0027s because `MonoInputVolumeController::Process()` doesn\u0027t use its first argument (namely, `audio`).\n\nIn this way, AGC2 will work in full-band and we will finally eliminate the extra cost of working in the split-band domain.",
+      "range": {
+        "startLine": 529,
+        "startChar": 0,
+        "endLine": 536,
+        "endChar": 3
+      },
+      "revId": "09ef93bf10b990af4ebd2e1689c8d61a498d3f6a",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "d39165d8_912f7578",
+        "filename": "modules/audio_processing/agc2/input_volume_controller.cc",
+        "patchSetId": 12
+      },
+      "lineNbr": 536,
+      "author": {
+        "id": 17719
+      },
+      "writtenOn": "2022-10-28T13:37:36Z",
+      "side": 1,
+      "message": "Thank you, this was a great find! I\u0027ve changed the signature also for InputVolumeController::Process() accordingly.",
+      "parentUuid": "ecf05621_9123df09",
       "range": {
         "startLine": 529,
         "startChar": 0,
@@ -127,6 +175,30 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "d8b18e7d_b13673ce",
+        "filename": "modules/audio_processing/agc2/input_volume_controller_unittest.cc",
+        "patchSetId": 12
+      },
+      "lineNbr": 61,
+      "author": {
+        "id": 17719
+      },
+      "writtenOn": "2022-10-28T13:37:36Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "8f7566af_47a4073c",
+      "range": {
+        "startLine": 58,
+        "startChar": 0,
+        "endLine": 61,
+        "endChar": 68
+      },
+      "revId": "09ef93bf10b990af4ebd2e1689c8d61a498d3f6a",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "583d4d0f_03cbcf88",
@@ -140,6 +212,30 @@
       "writtenOn": "2022-10-28T13:03:34Z",
       "side": 1,
       "message": "kInputVolume\n\nWhen possible, especially when new code is added, let\u0027s use the new naming convention.",
+      "range": {
+        "startLine": 1508,
+        "startChar": 16,
+        "endLine": 1508,
+        "endChar": 28
+      },
+      "revId": "09ef93bf10b990af4ebd2e1689c8d61a498d3f6a",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "04cdf9d9_2105ff23",
+        "filename": "modules/audio_processing/agc2/input_volume_controller_unittest.cc",
+        "patchSetId": 12
+      },
+      "lineNbr": 1508,
+      "author": {
+        "id": 17719
+      },
+      "writtenOn": "2022-10-28T13:37:36Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "583d4d0f_03cbcf88",
       "range": {
         "startLine": 1508,
         "startChar": 16,

@@ -435,7 +435,8 @@ INSTANTIATE_TEST_SUITE_P(
         Values(UseDependencyDescriptor::Disabled,
                UseDependencyDescriptor::Enabled)),
     SvcTestNameGenerator);
-
+#if not defined(WEBRTC_IOS)
+// TODO(webrtc:14612): Renable on IOS. Currentl flaky.
 INSTANTIATE_TEST_SUITE_P(
     SvcTestAV1,
     SvcTest,
@@ -480,7 +481,7 @@ INSTANTIATE_TEST_SUITE_P(
             }),
             Values(UseDependencyDescriptor::Enabled)),
     SvcTestNameGenerator);
-
+#endif
 #endif
 
 }  // namespace webrtc

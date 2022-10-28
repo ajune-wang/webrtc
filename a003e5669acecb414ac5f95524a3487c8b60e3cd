@@ -16,6 +16,24 @@
       "message": "Generally LGTM\n\nBut I\u0027m not 100% understand why did we move resolution from rendering to decoding stage.",
       "revId": "a003e5669acecb414ac5f95524a3487c8b60e3cd",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "ea48b473_27c49215",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 6337
+      },
+      "writtenOn": "2022-10-28T18:39:26Z",
+      "side": 1,
+      "message": "The idea is next:\nWhen we scale frame before passing it to the analyzer we always make its resolution equal to requested one. So if we will use rendered_width and rendered_height it always will be equal to the specified one, but for purpose of the metric we are interested in the resolution which came from decoder before rescaling. Because of that the computation of the metric was moved from render to decoded",
+      "parentUuid": "daeb27d2_f5c95a03",
+      "revId": "a003e5669acecb414ac5f95524a3487c8b60e3cd",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

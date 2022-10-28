@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "daeb27d2_f5c95a03",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 12419
+      },
+      "writtenOn": "2022-10-28T12:09:45Z",
+      "side": 1,
+      "message": "Generally LGTM\n\nBut I\u0027m not 100% understand why did we move resolution from rendering to decoding stage.",
+      "revId": "a003e5669acecb414ac5f95524a3487c8b60e3cd",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

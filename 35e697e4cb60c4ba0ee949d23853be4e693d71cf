@@ -34,6 +34,24 @@
       "parentUuid": "234305ff_41335e5c",
       "revId": "35e697e4cb60c4ba0ee949d23853be4e693d71cf",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "b9a1e332_8ffb3aae",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5142
+      },
+      "writtenOn": "2022-10-31T11:13:21Z",
+      "side": 1,
+      "message": "Now I remember. Ship it!",
+      "parentUuid": "2344d53d_215f593a",
+      "revId": "35e697e4cb60c4ba0ee949d23853be4e693d71cf",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

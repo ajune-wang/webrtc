@@ -16,6 +16,24 @@
       "message": "It seems a bit weird to have so many files \"export\"ing unit_base.h, but whatever works....",
       "revId": "972866d7a4646c6030507d1ff5853b6a9a60b6c7",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "77350a03_c4cbe124",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 3
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2022-10-31T13:29:15Z",
+      "side": 1,
+      "message": "Why is it weird?\nexport pragma tells that any symbol from unit_base used through e.g. timestamp.h shouldn\u0027t trigger an extra import of the unit_base.h\nThat seems reasonable to me because no symbols in unit_base make sense to use directly.\n\nhttps://github.com/include-what-you-use/include-what-you-use/blob/master/docs/IWYUPragmas.md#iwyu-pragma-export\n\nThat is not the same as private/public concept/pair of annotations.",
+      "parentUuid": "2bcd63a1_6afb18b9",
+      "revId": "972866d7a4646c6030507d1ff5853b6a9a60b6c7",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

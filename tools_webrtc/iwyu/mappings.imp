@@ -11,9 +11,6 @@
 { include: ['"gmock/gmock.h"', "private", '"test/gmock.h"', "public"] },
 { include: ['"gtest/gtest.h"', "private", '"test/gtest.h"', "public"] },
 
-# rtc_base/containers internal defs
-{ include: ['"rtc_base/containers/flat_tree.h"', "private", '"rtc_base/containers/flat_set.h"', "public"] },
-
 # Revectoring of JSON
 { include: ['"json/reader.h"', "private", '"rtc_base/strings/json.h"', "public"] },
 { include: ['"json/value.h"', "private", '"rtc_base/strings/json.h"', "public"] },
@@ -25,6 +22,15 @@
 # pthread internals
 { include: ['<bits/pthread_types.h>', "private", '<pthread.h>', "public"] },
 
+# libc++
+{ include: ["@<__algorithm/.*>", "private", '<algorithm>', "public"] },
+{ include: ["@<__functional/.*>", "private", '<functional>', "public"] },
+{ include: ["@<__iterator/.*>", "private", '<iterator>', "public"] },
+{ include: ["@<__memory/.*>", "private", '<memory>', "public"] },
+{ include: ["@<__string/.*>", "private", '<string>', "public"] },
+{ include: ["@<__type_traits/.*>", "private", '<type_traits>', "public"] },
+{ include: ["@<__utility/.*>", "private", '<utility>', "public"] },
+
 # Needed to agree with presubmit tests for includes (and not include <iosfwd>)
 { symbol: ["std::string", "public", "<string>", "public"] },
 { symbol: ["std::move", "public", "<utility>", "public"] },
@@ -32,11 +38,5 @@
 { symbol: ["std::unique_ptr", "public", "<memory>", "public"] },
 # Needed to avoid <iosfwd>
 { symbol: ["std::ostringstream", "public", "<sstream>", "public"] },
-# Needed for unknown reasons
-{ include: ['<__algorithm/equal.h>', "private", '<algorithm>', "public"] },
-{ include: ['<__algorithm/unique.h>', "private", '<algorithm>', "public"] },
-{ include: ['<__type_traits/remove_reference.h>', "private", '<type_traits>', "public"] },
-{ include: ['<__functional/function.h>', "private", '<functional>', "public"] },
-{ include: ['<__utility/pair.h>', "private", '<utility>', "public"] },
 ]
 
